@@ -1,0 +1,574 @@
+"""Huygens-elliptical cellular automaton wildfire spread simulator.
+
+Combines the Rothermel (1972) point spread model — implemented in
+:mod:`wildfireguardian.spread_model.rothermel` — with a Huygens elliptical
+wavelet expansion (Finney 1998 style) so that each burning cell propagates
+heat to its eight neighbours at a *direction-dependent* rate. The resulting
+fire perimeter is an ensemble of overlapping ellipses, the canonical FARSITE
+approach.
+
+Architecture
+------------
+
+- :class:`FireGrid` owns the state arrays (cell state, accumulated heat,
+  burn-start time) and the cell-level metadata (fuel model id, fuel
+  moisture, slope, aspect, elevation).
+- :class:`WindField` provides a wind speed and direction at any (i, j).
+  The default implementation is spatially uniform; a subclass can extend it
+  to handle KMA-station-interpolated fields.
+- :func:`FireGrid.step` advances the simulation by ``dt`` minutes, dropping
+  heat into neighbours' accumulators using the elliptical wavelet kernel,
+  igniting any neighbour whose accumulated heat crosses 1.0, and burning out
+  any cell whose residence time has elapsed.
+- :func:`FireGrid.run` is the high-level loop; it returns a list of
+  ``(time_min, perimeter_polygon)`` tuples.
+- :class:`MonteCarloEnsemble` repeats :func:`run` with Gaussian-perturbed
+  wind / moisture inputs and returns a per-cell burn-probability raster.
+
+Coordinate / convention notes
+-----------------------------
+
+- Array convention: ``state[i, j]`` where ``i`` is the row (0 at the top,
+  increasing southward) and ``j`` is the column (0 at the left, increasing
+  eastward).
+- Compass bearings: 0° = North, 90° = East, etc.
+- Wind direction is stored as **"blowing toward"** (i.e. the direction the
+  fire will preferentially spread). Use :meth:`WindField.from_meteo` to
+  convert from the standard meteorological "from" convention.
+
+Citations
+---------
+
+- Finney, M.A. (1998). *FARSITE: Fire Area Simulator — model development
+  and evaluation.* USDA Forest Service Research Paper RMRS-RP-4. 47 pp.
+- Anderson, H.E. (1983). *Predicting wind-driven wild land fire size and
+  shape.* USDA Forest Service Research Paper INT-305. 26 pp.
+- Sullivan, A.L. (2009). Wildland surface fire spread modelling, 1990–2007.
+  *International Journal of Wildland Fire* 18(4), 369–386.
+
+저자 주: 본 CA 시뮬레이터는 Rothermel 점 모델을 커널로 사용하며,
+Huygens 타원파 방식 (Finney 1998) 으로 8 방향 이웃 셀에 대한 방향
+의존 확산 속도를 계산합니다. 풍속·풍향·연료 수분 섭동에 대한
+Monte Carlo 앙상블도 포함되어 있습니다.
+"""
+
+from __future__ import annotations
+
+import math
+from dataclasses import dataclass, field
+from enum import IntEnum
+from typing import Iterable
+
+import numpy as np
+
+from ..utils import units as U
+from .rothermel import FUEL_MODELS, FuelModel, compute_spread_rate
+
+
+# ---------------------------------------------------------------------------
+# Cell state enum
+# ---------------------------------------------------------------------------
+
+
+class CellState(IntEnum):
+    """States a single grid cell can be in."""
+
+    UNBURNED = 0
+    BURNING = 1
+    BURNED = 2
+
+
+#: 8-connected neighbour offsets, as (di, dj) pairs.
+_NEIGHBOURS: tuple[tuple[int, int], ...] = (
+    (-1, -1), (-1, 0), (-1, 1),
+    ( 0, -1),          ( 0, 1),
+    ( 1, -1), ( 1, 0), ( 1, 1),
+)
+
+
+def _bearing_to_neighbour(di: int, dj: int) -> float:
+    """Compass bearing (deg, 0=N) from a cell to its (di, dj) neighbour.
+
+    With ``di`` increasing southward and ``dj`` increasing eastward,
+    bearing = atan2(dj, -di) in degrees, normalised to [0, 360).
+    """
+    return (math.degrees(math.atan2(dj, -di)) + 360.0) % 360.0
+
+
+# ---------------------------------------------------------------------------
+# Wind
+# ---------------------------------------------------------------------------
+
+
+@dataclass
+class WindField:
+    """Spatially uniform wind. Subclass / replace for spatially varying fields.
+
+    Attributes
+    ----------
+    speed_ms : float
+        Midflame wind speed, m/s. Note this is **midflame**, not 10-m WMO.
+    direction_to_deg : float
+        Direction the wind is blowing **toward**, compass degrees (0=N, 90=E).
+    """
+
+    speed_ms: float
+    direction_to_deg: float
+
+    @classmethod
+    def from_meteo(cls, speed_ms: float, from_deg: float) -> "WindField":
+        """Build from the standard meteorological 'wind FROM' convention.
+
+        E.g. ``from_meteo(15.0, 270.0)`` = "15 m/s from the west", i.e.
+        blowing toward the east.
+        """
+        return cls(speed_ms=speed_ms, direction_to_deg=(from_deg + 180.0) % 360.0)
+
+    def at(self, i: int, j: int) -> tuple[float, float]:
+        """Return (speed_ms, direction_to_deg) at cell (i, j)."""
+        del i, j
+        return self.speed_ms, self.direction_to_deg
+
+
+# ---------------------------------------------------------------------------
+# Anderson 1983 length-to-breadth ratio
+# ---------------------------------------------------------------------------
+
+
+#: FARSITE-style cap on the Anderson 1983 length-to-breadth ratio.
+#: The raw correlation grows exponentially with wind and becomes unphysical
+#: above ~5 mph. Operational fire models (FARSITE, BehavePlus) clamp LB at
+#: a value in the 6–10 range; Alexander (1985) recommends ~3–4 for
+#: temperate surface fires. We use 3.0 — clear wind asymmetry while
+#: keeping lateral spread resolvable on a cellular grid (flank ≈ 6 % of
+#: head, vs ≈ 0.8 % at LB = 8).
+LB_MAX: float = 3.0
+
+
+def length_to_breadth_ratio(midflame_wind_ms: float) -> float:
+    """Anderson (1983) wind-driven length-to-breadth ratio of a fire ellipse.
+
+    .. math::
+       LB = 0.936 \\, e^{0.2566 U} + 0.461 \\, e^{-0.1548 U} - 0.397
+
+    where U is the midflame wind in **mph**. LB ≥ 1, with LB = 1 at U = 0
+    (circular spread). Capped at :data:`LB_MAX` because the raw correlation
+    diverges for higher winds.
+
+    Reference: Anderson 1983 eq. (1); Finney 1998 §2.2.2.
+    """
+    if midflame_wind_ms <= 0.0:
+        return 1.0
+    U_mph = midflame_wind_ms * U.MPH_PER_MS
+    lb = (0.936 * math.exp(0.2566 * U_mph)
+          + 0.461 * math.exp(-0.1548 * U_mph)
+          - 0.397)
+    return float(np.clip(lb, 1.0, LB_MAX))
+
+
+def eccentricity_from_lb(lb: float) -> float:
+    """Eccentricity of an ellipse given its length-to-breadth ratio a/b."""
+    if lb <= 1.0:
+        return 0.0
+    return math.sqrt(1.0 - 1.0 / (lb * lb))
+
+
+def directional_spread_rate(
+    R_max: float, eccentricity: float, angle_from_wind_deg: float,
+) -> float:
+    """Direction-dependent rate of spread (Finney 1998 §2.2.3).
+
+    Polar form of an ellipse with the burning cell at one focus and the
+    head fire (downwind) along the major axis. ``R_max`` is the head-fire
+    rate of spread (the Rothermel R with current wind / slope), and the
+    formula reduces to the back-fire rate for ``angle = 180°``.
+
+    .. math::
+       R(\\theta) = R_{max} \\frac{1 - e}{1 - e \\cos\\theta}
+
+    where θ is the angle between the neighbour direction and the
+    wind / spread direction (rad).
+    """
+    if eccentricity <= 0.0:
+        return R_max
+    theta = math.radians(angle_from_wind_deg)
+    return R_max * (1.0 - eccentricity) / (1.0 - eccentricity * math.cos(theta))
+
+
+# ---------------------------------------------------------------------------
+# FireGrid
+# ---------------------------------------------------------------------------
+
+
+@dataclass
+class FireGrid:
+    """A 2-D wildfire spread simulator.
+
+    The grid is built around fixed-size square cells. Each cell holds a
+    state in :class:`CellState`, an accumulated-heat scalar, and the
+    metadata (fuel model id, fuel moisture, slope, aspect, elevation)
+    needed to compute its own Rothermel spread rate.
+
+    Parameters
+    ----------
+    nrows, ncols : int
+        Grid shape.
+    cell_size_m : float, default 30.0
+        Side length of one cell, in metres.
+    residence_time_min : float, default 30.0
+        How long a cell stays in the BURNING state before transitioning to
+        BURNED. Surface fires typically burn out in 20–60 minutes; 30 min
+        is a reasonable default for the Rothermel surface-fire regime.
+    ignition_threshold : float, default 1.0
+        Accumulated dimensionless heat at which an UNBURNED neighbour
+        transitions to BURNING. ``R · dt / d`` accumulates such that under
+        steady R the time to ignite at distance d is d / R; threshold of 1
+        recovers exactly that geometry.
+    """
+
+    nrows: int
+    ncols: int
+    cell_size_m: float = 30.0
+    residence_time_min: float = 30.0
+    ignition_threshold: float = 1.0
+
+    # ----- mutable state arrays initialised in __post_init__ -----
+    state: np.ndarray = field(default=None, repr=False)  # type: ignore[assignment]
+    heat: np.ndarray = field(default=None, repr=False)   # type: ignore[assignment]
+    burn_start_time_min: np.ndarray = field(default=None, repr=False)  # type: ignore[assignment]
+
+    # ----- metadata layers -----
+    fuel_model_id: np.ndarray = field(default=None, repr=False)  # type: ignore[assignment]
+    fuel_moisture: np.ndarray = field(default=None, repr=False)  # type: ignore[assignment]
+    slope_degrees: np.ndarray = field(default=None, repr=False)  # type: ignore[assignment]
+    aspect_degrees: np.ndarray = field(default=None, repr=False)  # type: ignore[assignment]
+    elevation_m: np.ndarray = field(default=None, repr=False)    # type: ignore[assignment]
+
+    # Internal: cached R_max per burning cell, per step.
+    _R_cache: dict[tuple[int, int], tuple[float, float, float]] = field(
+        default_factory=dict, repr=False,
+    )
+
+    def __post_init__(self) -> None:
+        shape = (self.nrows, self.ncols)
+        if self.state is None:
+            self.state = np.zeros(shape, dtype=np.uint8)
+        if self.heat is None:
+            self.heat = np.zeros(shape, dtype=np.float32)
+        if self.burn_start_time_min is None:
+            # NaN until ignited.
+            self.burn_start_time_min = np.full(shape, np.nan, dtype=np.float32)
+        if self.fuel_model_id is None:
+            self.fuel_model_id = np.full(shape, "FM10", dtype=object)
+        if self.fuel_moisture is None:
+            self.fuel_moisture = np.full(shape, 0.08, dtype=np.float32)
+        if self.slope_degrees is None:
+            self.slope_degrees = np.zeros(shape, dtype=np.float32)
+        if self.aspect_degrees is None:
+            self.aspect_degrees = np.zeros(shape, dtype=np.float32)
+        if self.elevation_m is None:
+            self.elevation_m = np.zeros(shape, dtype=np.float32)
+
+    # ------------------------------------------------------------------
+    # Ignition initialisation
+    # ------------------------------------------------------------------
+
+    def ignite_point(self, i: int, j: int, time_min: float = 0.0) -> None:
+        """Ignite a single cell."""
+        self._ignite(i, j, time_min)
+
+    def ignite_polygon(
+        self,
+        cells: Iterable[tuple[int, int]],
+        time_min: float = 0.0,
+    ) -> None:
+        """Ignite a set of cells representing an ignition polygon."""
+        for i, j in cells:
+            self._ignite(i, j, time_min)
+
+    def _ignite(self, i: int, j: int, time_min: float) -> None:
+        if not (0 <= i < self.nrows and 0 <= j < self.ncols):
+            raise IndexError(f"ignition cell ({i},{j}) is outside the grid")
+        self.state[i, j] = CellState.BURNING
+        self.burn_start_time_min[i, j] = time_min
+
+    # ------------------------------------------------------------------
+    # Step
+    # ------------------------------------------------------------------
+
+    def step(self, dt_min: float, wind: WindField, current_time_min: float) -> int:
+        """Advance the simulation by ``dt_min`` minutes.
+
+        Returns
+        -------
+        int
+            Number of cells newly ignited this step.
+        """
+        if dt_min <= 0.0:
+            raise ValueError("dt_min must be > 0")
+
+        # Snapshot the indices of currently burning cells so newly ignited
+        # cells in this step don't immediately spread within the same step.
+        burning = np.argwhere(self.state == CellState.BURNING)
+
+        for i, j in burning:
+            self._spread_from(int(i), int(j), dt_min, wind)
+
+        # Promote unburned cells whose heat crossed threshold.
+        new_ig_mask = (
+            (self.state == CellState.UNBURNED)
+            & (self.heat >= self.ignition_threshold)
+        )
+        new_count = int(new_ig_mask.sum())
+        if new_count > 0:
+            self.state[new_ig_mask] = CellState.BURNING
+            self.burn_start_time_min[new_ig_mask] = current_time_min + dt_min
+
+        # Burnout: BURNING → BURNED after residence time elapsed.
+        elapsed = current_time_min + dt_min - self.burn_start_time_min
+        burnout_mask = (
+            (self.state == CellState.BURNING)
+            & (elapsed >= self.residence_time_min)
+        )
+        if burnout_mask.any():
+            self.state[burnout_mask] = CellState.BURNED
+
+        return new_count
+
+    def _spread_from(self, i: int, j: int, dt_min: float, wind: WindField) -> None:
+        """Deposit heat into the 8 neighbours of burning cell (i, j)."""
+        # ----- local environment -----
+        fm_id = self.fuel_model_id[i, j]
+        fm: FuelModel = FUEL_MODELS[fm_id] if isinstance(fm_id, str) else fm_id
+        m_f = float(self.fuel_moisture[i, j])
+        slope_deg = float(self.slope_degrees[i, j])
+        wind_speed_ms, wind_dir_to_deg = wind.at(i, j)
+
+        # ----- head-fire rate via Rothermel; cache per-cell -----
+        key = (i, j)
+        cached = self._R_cache.get(key)
+        if cached is None:
+            R = compute_spread_rate(
+                fm, fuel_moisture=m_f,
+                wind_speed_ms=wind_speed_ms, slope_degrees=slope_deg,
+            )
+            R_max = R.rate_m_min
+            lb = length_to_breadth_ratio(wind_speed_ms)
+            ecc = eccentricity_from_lb(lb)
+            self._R_cache[key] = (R_max, ecc, wind_dir_to_deg)
+        else:
+            R_max, ecc, wind_dir_to_deg = cached
+
+        if R_max <= 0.0:
+            return  # no spread
+
+        # ----- deposit heat into neighbours -----
+        for di, dj in _NEIGHBOURS:
+            ni, nj = i + di, j + dj
+            if not (0 <= ni < self.nrows and 0 <= nj < self.ncols):
+                continue
+            if self.state[ni, nj] != CellState.UNBURNED:
+                continue
+
+            bearing = _bearing_to_neighbour(di, dj)
+            # angle between neighbour direction and wind-to direction
+            angle_diff = ((bearing - wind_dir_to_deg + 540.0) % 360.0) - 180.0
+            R_theta = directional_spread_rate(R_max, ecc, angle_diff)
+            d_m = self.cell_size_m * math.hypot(di, dj)
+            self.heat[ni, nj] += float(R_theta * dt_min / d_m)
+
+    # ------------------------------------------------------------------
+    # High-level run
+    # ------------------------------------------------------------------
+
+    def run(
+        self,
+        duration_minutes: float,
+        dt_minutes: float,
+        wind: WindField,
+        snapshot_every_min: float | None = None,
+        return_perimeters: bool = True,
+    ) -> list[tuple[float, "Polygon | None"]]:
+        """Run the simulation and return (time, perimeter) snapshots.
+
+        Parameters
+        ----------
+        duration_minutes : float
+            Total time to simulate.
+        dt_minutes : float
+            Step size. Must divide ``duration_minutes`` cleanly enough that
+            the simulation reaches end of horizon.
+        wind : WindField
+            Wind field. Currently expected to be spatially uniform; the
+            framework supports spatially varying fields by subclassing.
+        snapshot_every_min : float | None
+            How often to snapshot the perimeter. Default = ``dt_minutes``.
+        return_perimeters : bool
+            If True, compute the union polygon at each snapshot. Disable for
+            speed when only the final raster matters.
+
+        Returns
+        -------
+        list of (time_min, perimeter_polygon_or_None)
+        """
+        if snapshot_every_min is None:
+            snapshot_every_min = dt_minutes
+        snapshots: list[tuple[float, object]] = []
+        t = 0.0
+        next_snapshot = 0.0
+        while t < duration_minutes - 1e-9:
+            if t >= next_snapshot - 1e-9:
+                snapshots.append(
+                    (t, self.perimeter() if return_perimeters else None)
+                )
+                next_snapshot += snapshot_every_min
+            self.step(dt_minutes, wind, current_time_min=t)
+            t += dt_minutes
+        # Final snapshot
+        snapshots.append(
+            (t, self.perimeter() if return_perimeters else None)
+        )
+        return snapshots
+
+    # ------------------------------------------------------------------
+    # Diagnostics
+    # ------------------------------------------------------------------
+
+    def burned_area_m2(self) -> float:
+        """Total burning + burned area, in m²."""
+        mask = self.state >= CellState.BURNING
+        return float(mask.sum()) * (self.cell_size_m ** 2)
+
+    def burned_mask(self) -> np.ndarray:
+        """Boolean array True where state ∈ {BURNING, BURNED}."""
+        return self.state >= CellState.BURNING
+
+    def perimeter(self):
+        """Return a shapely (Multi)Polygon of all burning + burned cells.
+
+        Returns ``None`` if no cell has been touched yet.
+
+        Coordinates are in **metres**, with origin at the south-west corner
+        of the grid; x increases east, y increases north.
+        """
+        from shapely.geometry import box
+        from shapely.ops import unary_union
+
+        mask = self.burned_mask()
+        if not mask.any():
+            return None
+        ii, jj = np.where(mask)
+        cs = self.cell_size_m
+        # i increases southward in the array; flip to a north-up CRS.
+        y0 = (self.nrows - 1 - ii) * cs
+        x0 = jj * cs
+        polys = [box(x, y, x + cs, y + cs) for x, y in zip(x0, y0)]
+        return unary_union(polys)
+
+
+# ---------------------------------------------------------------------------
+# Monte Carlo ensemble
+# ---------------------------------------------------------------------------
+
+
+@dataclass
+class EnsembleConfig:
+    """Perturbation parameters for the Monte Carlo ensemble."""
+
+    n_members: int = 20
+    wind_speed_sigma_ms: float = 2.0
+    wind_dir_sigma_deg: float = 15.0
+    fuel_moisture_sigma: float = 0.05  # fraction, e.g. 0.05 = 5 %
+    random_seed: int | None = 0
+
+
+class MonteCarloEnsemble:
+    """Run a :class:`FireGrid` configuration N times with perturbed inputs.
+
+    The base ``grid_factory`` callable is expected to return a *fresh*
+    :class:`FireGrid` (with metadata and ignition pre-applied) on each call.
+    A ``wind_factory`` callable returns a :class:`WindField`. Both factories
+    accept a numpy ``Generator`` so they can introduce member-specific
+    perturbations consistently.
+
+    Output: per-cell burn probability after the requested duration.
+
+    Notes
+    -----
+    The ensemble is **embarrassingly parallel** but the current implementation
+    is serial. Vectorising or multiprocessing it is a documented future
+    improvement.
+    """
+
+    def __init__(self, config: EnsembleConfig | None = None) -> None:
+        self.config = config or EnsembleConfig()
+
+    def run(
+        self,
+        grid_factory,
+        wind_factory,
+        duration_minutes: float,
+        dt_minutes: float,
+    ) -> np.ndarray:
+        """Run N members and return per-cell burn probability ∈ [0, 1]."""
+        rng = np.random.default_rng(self.config.random_seed)
+        burn_count: np.ndarray | None = None
+
+        for member in range(self.config.n_members):
+            member_rng = np.random.default_rng(
+                rng.integers(0, 2**32 - 1, dtype=np.uint32)
+            )
+            grid = grid_factory(member_rng)
+            wind = wind_factory(member_rng)
+
+            # Inject perturbations into the fuel-moisture layer.
+            dm = member_rng.normal(0.0, self.config.fuel_moisture_sigma,
+                                   size=grid.fuel_moisture.shape)
+            grid.fuel_moisture = np.clip(
+                grid.fuel_moisture + dm, 0.01, 5.00,
+            ).astype(np.float32)
+
+            grid.run(
+                duration_minutes=duration_minutes,
+                dt_minutes=dt_minutes,
+                wind=wind,
+                return_perimeters=False,
+            )
+            mask = grid.burned_mask().astype(np.uint16)
+            if burn_count is None:
+                burn_count = mask.copy()
+            else:
+                burn_count += mask
+
+        if burn_count is None:  # n_members == 0
+            raise ValueError("ensemble had zero members")
+        return burn_count.astype(np.float32) / float(self.config.n_members)
+
+
+def perturb_wind(
+    base_wind: WindField,
+    rng: np.random.Generator,
+    speed_sigma_ms: float = 2.0,
+    dir_sigma_deg: float = 15.0,
+) -> WindField:
+    """Convenience: return a copy of ``base_wind`` with Gaussian perturbations.
+
+    ``speed`` is clipped to ≥ 0.
+    """
+    return WindField(
+        speed_ms=max(0.0, base_wind.speed_ms + rng.normal(0.0, speed_sigma_ms)),
+        direction_to_deg=(base_wind.direction_to_deg + rng.normal(0.0, dir_sigma_deg)) % 360.0,
+    )
+
+
+__all__ = [
+    "CellState",
+    "WindField",
+    "FireGrid",
+    "EnsembleConfig",
+    "MonteCarloEnsemble",
+    "length_to_breadth_ratio",
+    "eccentricity_from_lb",
+    "directional_spread_rate",
+    "perturb_wind",
+]

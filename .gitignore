@@ -1,0 +1,99 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# --- Virtual envs ---
+.venv/
+venv/
+env/
+ENV/
+
+# --- Test / type-check caches ---
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.tox/
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# --- Editors ---
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+
+# --- Secrets ---
+.env
+.env.local
+*.pem
+*.key
+
+# --- WildfireGuardian data exclusions ---
+# Raw and cached geospatial data are NEVER committed; they are
+# downloaded from public sources (NASA FIRMS, Copernicus, KMA) at
+# pipeline run time. Processed outputs live under data/processed/
+# and are tracked selectively.
+data/raw/**
+!data/raw/.gitkeep
+data/cache/**
+!data/cache/.gitkeep
+data/processed/**
+!data/processed/.gitkeep
+
+# Geospatial / scientific binary formats are excluded by extension
+# anywhere in the tree so an accidental drop into src/ or notebooks/
+# still gets caught.
+*.tif
+*.tiff
+*.nc
+*.nc4
+*.hdf
+*.hdf5
+*.h5
+*.zip
+*.tar
+*.tar.gz
+*.grib
+*.grib2
+*.bil
+*.bin
+
+# Large rasters / shapefiles
+*.shp
+*.shx
+*.dbf
+*.prj
+*.cpg
+
+# Generated animation/video outputs that are too large for git
+*.mp4
+*.mov
+*.avi
+
+# Allow small reference figures
+!docs/figures/*.png
+!docs/figures/*.svg
