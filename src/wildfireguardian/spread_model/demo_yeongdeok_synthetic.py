@@ -42,6 +42,7 @@ from pathlib import Path
 
 import numpy as np
 
+from ..utils.regions import YEONGDEOK_2025
 from .cellular_automaton import (
     CellState,
     EnsembleConfig,
@@ -49,19 +50,23 @@ from .cellular_automaton import (
     MonteCarloEnsemble,
     WindField,
 )
-from .rothermel import FuelModel
+from .rothermel import KOREAN_PINUS, MultiClassFuelModel
 
 # ---------------------------------------------------------------------------
 # Scenario parameters
 # ---------------------------------------------------------------------------
+#
+# Session 2: the demo uses the YEONGDEOK_2025 RegionConfig to anchor the
+# grid in EPSG:5179, so the emitted GeoJSON has correct CRS metadata.
+# The synthetic terrain layer is still synthesised at runtime; real DEM
+# ingestion is Session 3.
 
-GRID_ROWS: int = 100
-GRID_COLS: int = 100
-CELL_SIZE_M: float = 50.0           # 5 km × 5 km landscape
-
-IGNITION_RC: tuple[int, int] = (50, 30)   # offset west of centre so fire has room
+REGION = YEONGDEOK_2025
+# 50 m cells; full Yeongdeok bbox ≈ 552 × 676 = 373 k cells. Sparse fire
+# state keeps stepping fast (most cells stay UNBURNED with heat = 0).
+CELL_SIZE_M: float = 50.0
 DURATION_MIN: float = 360.0          # 6 hours
-DT_MIN: float = 2.0
+DT_MIN: float = 1.0
 SNAPSHOT_EVERY_MIN: float = 20.0
 
 # Yeongdeok-like fuel and weather.
@@ -69,6 +74,7 @@ SNAPSHOT_EVERY_MIN: float = 20.0
 # steep-slope sections give midflame factors ~ 0.3–0.5 (Andrews 2012), so a
 # midflame of ~ 5 m/s is a defensible scenario value.
 LFMC: float = 0.40                   # 40 % live fuel moisture
+DEAD_MOISTURE: float = 0.08          # 8 % dead 1-h moisture (drought-ish spring)
 WIND_MIDFLAME_MS: float = 5.0        # midflame wind, m/s
 WIND_FROM_DEG: float = 270.0         # from west (blowing east)
 
@@ -76,21 +82,9 @@ WIND_FROM_DEG: float = 270.0         # from west (blowing east)
 SLOPE_MAX_DEG: float = 20.0          # peak slope on the synthetic ridge
 
 
-def yeongdeok_pinus_fuel() -> FuelModel:
-    """Korean Pinus densiflora analogue, single-class.
-
-    See ``demo_sensitivity.py`` for the parameter rationale. Cloned here so
-    that the two demos are independent.
-    """
-    return FuelModel(
-        code="KP_PINE",
-        name="Korean Pinus densiflora analogue (illustrative)",
-        w_o=0.15,
-        delta=0.5,
-        sigma=2200.0,
-        m_x=1.20,
-        description="Custom: not part of Anderson 13. For demo only.",
-    )
+def yeongdeok_pinus_fuel() -> MultiClassFuelModel:
+    """Korean Pinus densiflora analog (multi-class) — shared with sensitivity demo."""
+    return KOREAN_PINUS
 
 
 # ---------------------------------------------------------------------------
@@ -108,55 +102,43 @@ def build_grid(rng: np.random.Generator | None = None) -> FireGrid:
         ensemble member sees a slightly different fuel state. If None, the
         fuel moisture is uniform.
     """
-    grid = FireGrid(
-        nrows=GRID_ROWS, ncols=GRID_COLS, cell_size_m=CELL_SIZE_M,
-        residence_time_min=30.0,
-    )
+    grid = FireGrid.from_region(REGION, cell_size_m=CELL_SIZE_M, residence_time_min=30.0)
 
     # ----- fuel -----
     fm = yeongdeok_pinus_fuel()
-    # Object array; each cell holds a reference to the same FuelModel
-    # instance (FuelModel is frozen so sharing is safe).
-    grid.fuel_model_id[:] = fm
-    grid.fuel_moisture[:] = LFMC
+    grid.fuel_model_id[:] = fm        # share frozen instance across cells
+    grid.fuel_moisture[:] = LFMC      # cell-level moisture; live moisture
     if rng is not None:
-        # ±2 % moisture noise.
         grid.fuel_moisture[:] = np.clip(
             grid.fuel_moisture + rng.normal(0.0, 0.02, size=grid.fuel_moisture.shape),
             0.05, 2.00,
         ).astype(np.float32)
 
-    # ----- terrain -----
-    # A gentle east-rising ridge: elevation grows ~linearly with column j,
-    # with a sinusoidal undulation along rows.
+    # ----- synthetic terrain -----
+    # An east-rising ridge with sinusoidal N-S undulation; real DEM
+    # ingestion is Session 3 (data_io.raster.load_dem).
     ii, jj = np.meshgrid(
-        np.arange(GRID_ROWS, dtype=np.float32),
-        np.arange(GRID_COLS, dtype=np.float32),
+        np.arange(grid.nrows, dtype=np.float32),
+        np.arange(grid.ncols, dtype=np.float32),
         indexing="ij",
     )
     elev = (
         300.0
-        + jj * 5.0                                 # ~500 m gain across 100 cells
-        + 30.0 * np.sin(2.0 * np.pi * ii / 50.0)   # gentle N-S undulation
+        + jj * (500.0 / max(1, grid.ncols))         # ≈ 500 m E-W gain over the region
+        + 30.0 * np.sin(2.0 * np.pi * ii / 50.0)
     )
     grid.elevation_m[:] = elev.astype(np.float32)
 
-    # Slope and aspect from elevation gradient.
     dz_di, dz_dj = np.gradient(elev, CELL_SIZE_M, CELL_SIZE_M)
-    # In array coords, di > 0 is south, dj > 0 is east. The slope magnitude
-    # is atan(|grad|) and the aspect (compass bearing of downslope dir) is
-    # atan2(dj, -di) of the gradient vector (downslope is the direction of
-    # steepest descent = -grad).
     slope_rad = np.arctan(np.hypot(dz_di, dz_dj))
     grid.slope_degrees[:] = np.degrees(slope_rad).astype(np.float32)
     grid.aspect_degrees[:] = (
         (np.degrees(np.arctan2(dz_dj, -dz_di)) + 180.0) % 360.0
     ).astype(np.float32)
-    # Cap slope at SLOPE_MAX_DEG just to keep numerics tame.
     np.minimum(grid.slope_degrees, SLOPE_MAX_DEG, out=grid.slope_degrees)
 
-    # ----- ignition -----
-    grid.ignite_point(*IGNITION_RC, time_min=0.0)
+    # ----- ignition (centre of grid for the demo) -----
+    grid.ignite_point(grid.nrows // 2, grid.ncols // 3, time_min=0.0)
     return grid
 
 
@@ -172,47 +154,49 @@ def build_wind() -> WindField:
 def _render_frame(grid: FireGrid, t_min: float) -> "PIL.Image.Image":
     """Render one CA snapshot as a PIL Image."""
     import matplotlib.pyplot as plt
-    from matplotlib.colors import ListedColormap
     from PIL import Image
+
+    nrows, ncols = grid.nrows, grid.ncols
+    width_km = ncols * grid.cell_size_m / 1000.0
+    height_km = nrows * grid.cell_size_m / 1000.0
 
     fig, ax = plt.subplots(figsize=(6.5, 6.0), dpi=100)
 
-    # Show elevation as a faint hillshade-like background.
-    ax.imshow(grid.elevation_m, cmap="terrain", alpha=0.45,
-              origin="upper", extent=(0, GRID_COLS * CELL_SIZE_M / 1000.0,
-                                       0, GRID_ROWS * CELL_SIZE_M / 1000.0))
+    # Elevation hillshade background.
+    ax.imshow(
+        grid.elevation_m, cmap="terrain", alpha=0.45,
+        origin="upper", extent=(0, width_km, 0, height_km),
+    )
 
-    # State overlay: transparent on UNBURNED, orange on BURNING, charcoal on BURNED.
+    # State overlay.
     state = grid.state.astype(np.int32)
     overlay = np.full((*state.shape, 4), 0.0, dtype=np.float32)
     burning = state == CellState.BURNING
     burned = state == CellState.BURNED
-    overlay[burning] = [0.95, 0.40, 0.10, 0.92]   # orange
-    overlay[burned] = [0.18, 0.18, 0.18, 0.88]    # charcoal
-    ax.imshow(overlay, origin="upper",
-              extent=(0, GRID_COLS * CELL_SIZE_M / 1000.0,
-                      0, GRID_ROWS * CELL_SIZE_M / 1000.0))
+    overlay[burning] = [0.95, 0.40, 0.10, 0.92]
+    overlay[burned] = [0.18, 0.18, 0.18, 0.88]
+    ax.imshow(overlay, origin="upper", extent=(0, width_km, 0, height_km))
 
-    # Wind arrow.
+    # Wind arrow in top-right.
     ax.annotate(
-        "", xy=(GRID_COLS * CELL_SIZE_M / 1000.0 * 0.85,
-                GRID_ROWS * CELL_SIZE_M / 1000.0 * 0.92),
-        xytext=(GRID_COLS * CELL_SIZE_M / 1000.0 * 0.70,
-                GRID_ROWS * CELL_SIZE_M / 1000.0 * 0.92),
+        "", xy=(width_km * 0.85, height_km * 0.92),
+        xytext=(width_km * 0.70, height_km * 0.92),
         arrowprops=dict(arrowstyle="-|>", color="#2c3e50", lw=2.0),
     )
-    ax.text(GRID_COLS * CELL_SIZE_M / 1000.0 * 0.70,
-            GRID_ROWS * CELL_SIZE_M / 1000.0 * 0.96,
-            f"wind {WIND_MIDFLAME_MS:.1f} m/s midflame", fontsize=8.5,
-            color="#2c3e50")
+    ax.text(
+        width_km * 0.70, height_km * 0.96,
+        f"wind {WIND_MIDFLAME_MS:.1f} m/s midflame", fontsize=8.5,
+        color="#2c3e50",
+    )
 
-    ax.set_xlabel("East (km)")
-    ax.set_ylabel("North (km)")
+    ax.set_xlabel("East (km, local)")
+    ax.set_ylabel("North (km, local)")
     n_burning = int(burning.sum())
     n_burned = int(burned.sum())
-    burned_ha = (n_burning + n_burned) * (CELL_SIZE_M ** 2) / 10_000.0
+    burned_ha = (n_burning + n_burned) * (grid.cell_size_m ** 2) / 10_000.0
+    region_tag = grid.region.name if grid.region else "synthetic"
     ax.set_title(
-        f"Yeongdeok-synthetic CA  ·  t = {t_min:5.1f} min  "
+        f"{region_tag} CA  ·  t = {t_min:5.1f} min  "
         f"({t_min/60:.2f} h)\n"
         f"burning={n_burning}, burned={n_burned}, area = {burned_ha:.1f} ha",
         fontsize=10.5,
@@ -244,8 +228,29 @@ def write_gif(frames: list, out_path: Path, duration_ms: int = 350) -> None:
 # ---------------------------------------------------------------------------
 
 
+def _record_perimeter(grid: FireGrid, t: float) -> dict:
+    """Build one GeoJSON Feature in WGS84 (lon/lat) coords for a perimeter."""
+    # Use the WGS84-reprojected perimeter so the GeoJSON is true lon/lat.
+    wgs = grid.to_wgs84_perimeter()
+    if wgs is None or wgs.empty:
+        geom = None
+    else:
+        # GeoDataFrame -> shapely union -> __geo_interface__.
+        geom = wgs.geometry.iloc[0].__geo_interface__
+    return {
+        "type": "Feature",
+        "properties": {
+            "time_min": float(t),
+            "n_burning": int((grid.state == CellState.BURNING).sum()),
+            "n_burned": int((grid.state == CellState.BURNED).sum()),
+            "area_m2": grid.burned_area_m2(),
+        },
+        "geometry": geom,
+    }
+
+
 def run_demo(out_dir_docs: Path, out_dir_data: Path) -> dict:
-    """Run the synthetic scenario and write GIF + GeoJSON artefacts.
+    """Run the synthetic Yeongdeok scenario and write GIF + GeoJSON artefacts.
 
     Returns
     -------
@@ -255,7 +260,6 @@ def run_demo(out_dir_docs: Path, out_dir_data: Path) -> dict:
     grid = build_grid()
     wind = build_wind()
 
-    # We step manually so we can render at each snapshot interval.
     frames: list = []
     perimeter_features: list[dict] = []
 
@@ -264,59 +268,47 @@ def run_demo(out_dir_docs: Path, out_dir_data: Path) -> dict:
     while t < DURATION_MIN - 1e-9:
         if t >= next_snap - 1e-9:
             frames.append(_render_frame(grid, t))
-            peri = grid.perimeter()
-            perimeter_features.append({
-                "type": "Feature",
-                "properties": {
-                    "time_min": float(t),
-                    "n_burning": int((grid.state == CellState.BURNING).sum()),
-                    "n_burned": int((grid.state == CellState.BURNED).sum()),
-                    "area_m2": grid.burned_area_m2(),
-                },
-                "geometry": peri.__geo_interface__ if peri is not None else None,
-            })
+            perimeter_features.append(_record_perimeter(grid, t))
             next_snap += SNAPSHOT_EVERY_MIN
         grid.step(DT_MIN, wind, current_time_min=t)
         t += DT_MIN
 
-    # Final snapshot.
     frames.append(_render_frame(grid, t))
-    peri = grid.perimeter()
-    perimeter_features.append({
-        "type": "Feature",
-        "properties": {
-            "time_min": float(t),
-            "n_burning": int((grid.state == CellState.BURNING).sum()),
-            "n_burned": int((grid.state == CellState.BURNED).sum()),
-            "area_m2": grid.burned_area_m2(),
-        },
-        "geometry": peri.__geo_interface__ if peri is not None else None,
-    })
+    perimeter_features.append(_record_perimeter(grid, t))
 
     # Write GIF.
     gif_path = out_dir_docs / "cellular_automaton_demo.gif"
     write_gif(frames, gif_path, duration_ms=350)
 
-    # Write GeoJSON.
+    # Write GeoJSON — coords are WGS84 lon/lat (per RFC 7946).
     geojson_path = out_dir_data / "synthetic_demo_perimeters.geojson"
     geojson_path.parent.mkdir(parents=True, exist_ok=True)
     geojson_doc = {
         "type": "FeatureCollection",
         "name": "wildfireguardian_synthetic_yeongdeok_perimeters",
+        "crs": {
+            "type": "name",
+            "properties": {"name": "urn:ogc:def:crs:OGC::CRS84"},
+        },
         "metadata": {
-            "synthetic": True,
-            "fuel_model": "KP_PINE (custom, not Anderson 13)",
+            "region": REGION.name,
+            "region_name_kr": REGION.name_kr,
+            "synthetic_terrain": True,
+            "fuel_model": "KP_PINE (Korean Pinus densiflora analog, multi-class)",
             "lfmc": LFMC,
+            "dead_moisture_1h": DEAD_MOISTURE,
             "wind_midflame_ms": WIND_MIDFLAME_MS,
             "wind_from_deg": WIND_FROM_DEG,
             "cell_size_m": CELL_SIZE_M,
-            "grid_shape": [GRID_ROWS, GRID_COLS],
+            "grid_shape": [grid.nrows, grid.ncols],
             "duration_min": DURATION_MIN,
             "dt_min": DT_MIN,
-            "ignition_rc": list(IGNITION_RC),
+            "bbox_wgs84": list(REGION.bbox_wgs84),
             "note": (
-                "Coordinates are in metres in a synthetic local frame "
-                "anchored at the SW corner of the grid. Not georeferenced."
+                "Coordinates are lon/lat WGS84 (EPSG:4326). The grid was "
+                "computed in EPSG:5179 and reprojected to WGS84 for GeoJSON "
+                "export per RFC 7946. The terrain is synthetic; real DEM "
+                "ingestion is Session 3."
             ),
         },
         "features": perimeter_features,

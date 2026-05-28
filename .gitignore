@@ -63,6 +63,9 @@ data/cache/**
 !data/cache/.gitkeep
 data/processed/**
 !data/processed/.gitkeep
+# Validation-case manifest JSON files ARE committed (they're stubs, not
+# bulk data).
+!data/validation_cases/**
 
 # Geospatial / scientific binary formats are excluded by extension
 # anywhere in the tree so an accidental drop into src/ or notebooks/

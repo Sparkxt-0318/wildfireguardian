@@ -1,0 +1,27 @@
+{
+  "case_id": "yeongdeok_2025",
+  "region": "yeongdeok_2025",
+  "notes": "March 22-28, 2025 wildfire event in 영덕군 (Yeongdeok-gun), Gyeongsangbuk-do. ~3,800 ha burned per KFS preliminary report. Multiple casualties. All values below are APPROXIMATE — reconstructed from public news reports and KFS preliminary statements. Real KFS perimeter shapefile is not yet ingested; flagged in docs/BLOCKERS.md as a Session 3 task.",
+  "data_provenance": {
+    "ignition_point": "approximate, from news coverage (영해면 ~129.37 E, 36.50 N)",
+    "official_warnings": "approximate, from KFS public statements and 재난문자 issuance times",
+    "total_burn_area_ha": "KFS preliminary report ~ 3,800 ha (final figure may differ once KFS issues post-event report)",
+    "perimeter_shapefile": "NOT YET INGESTED — see docs/BLOCKERS.md"
+  },
+  "observed_perimeters_path": null,
+  "observed_ignition_point_wgs84": [129.37, 36.50],
+  "observed_total_burn_area_ha": 3800.0,
+  "observed_official_warnings": [
+    {
+      "issued_at_iso": "2025-03-22T15:30:00",
+      "burned_area_m2_when_issued": 500000.0,
+      "note": "approximate — KFS preliminary report"
+    },
+    {
+      "issued_at_iso": "2025-03-23T09:00:00",
+      "burned_area_m2_when_issued": 20000000.0,
+      "note": "approximate — full-scale evacuation order"
+    }
+  ],
+  "session2_status": "stub manifest with approximate public-source values; the validation pipeline runs end-to-end with these but the numbers will be re-validated in Session 3 against KFS post-event shapefile"
+}

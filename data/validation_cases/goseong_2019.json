@@ -1,0 +1,27 @@
+{
+  "case_id": "goseong_2019",
+  "region": "goseong_2019",
+  "notes": "April 4-6, 2019 wildfire event in Goseong-gun → Sokcho-si, Gangwon-do. ~2,800 ha burned, 2 fatalities. Wind-driven night fire. All numbers approximate.",
+  "data_provenance": {
+    "ignition_point": "approximate — 고성군 토성면 (~128.55 E, 38.32 N)",
+    "official_warnings": "approximate — KFS / MOIS",
+    "total_burn_area_ha": "KFS final report ~ 2,800 ha",
+    "perimeter_shapefile": "NOT YET INGESTED — see docs/BLOCKERS.md"
+  },
+  "observed_perimeters_path": null,
+  "observed_ignition_point_wgs84": [128.55, 38.32],
+  "observed_total_burn_area_ha": 2800.0,
+  "observed_official_warnings": [
+    {
+      "issued_at_iso": "2019-04-04T19:30:00",
+      "burned_area_m2_when_issued": 200000.0,
+      "note": "approximate — KFS initial detection"
+    },
+    {
+      "issued_at_iso": "2019-04-04T22:00:00",
+      "burned_area_m2_when_issued": 5000000.0,
+      "note": "approximate — full evacuation"
+    }
+  ],
+  "session2_status": "stub manifest, not exercised end-to-end in Session 2 (Yeongdeok is the dry-run case); Session 3 task"
+}

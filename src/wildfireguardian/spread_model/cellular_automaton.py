@@ -57,12 +57,22 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass, field
 from enum import IntEnum
-from typing import Iterable
+from typing import TYPE_CHECKING, Iterable
 
 import numpy as np
 
 from ..utils import units as U
-from .rothermel import FUEL_MODELS, FuelModel, compute_spread_rate
+from .rothermel import (
+    ANDERSON_13,
+    FUEL_MODELS,
+    KOREAN_PINUS,
+    FuelModel,
+    MultiClassFuelModel,
+    compute_spread_rate,
+)
+
+if TYPE_CHECKING:
+    from ..utils.regions import RegionConfig
 
 
 # ---------------------------------------------------------------------------
@@ -244,6 +254,12 @@ class FireGrid:
     aspect_degrees: np.ndarray = field(default=None, repr=False)  # type: ignore[assignment]
     elevation_m: np.ndarray = field(default=None, repr=False)    # type: ignore[assignment]
 
+    # ----- geographic anchor (Session 2: CRS-aware FireGrid) -----
+    # If `region` is set, the grid is georeferenced. If None (Session 1
+    # default), the grid is a local Cartesian frame with origin at SW
+    # corner; export methods will refuse to attach CRS metadata.
+    region: "RegionConfig | None" = None
+
     # Internal: cached R_max per burning cell, per step.
     _R_cache: dict[tuple[int, int], tuple[float, float, float]] = field(
         default_factory=dict, repr=False,
@@ -268,6 +284,67 @@ class FireGrid:
             self.aspect_degrees = np.zeros(shape, dtype=np.float32)
         if self.elevation_m is None:
             self.elevation_m = np.zeros(shape, dtype=np.float32)
+
+    # ------------------------------------------------------------------
+    # Geographic factories (Session 2 — CRS-aware FireGrid)
+    # ------------------------------------------------------------------
+
+    @classmethod
+    def from_region(
+        cls,
+        region: "RegionConfig",
+        cell_size_m: float = 30.0,
+        residence_time_min: float = 30.0,
+        ignition_threshold: float = 1.0,
+    ) -> "FireGrid":
+        """Construct a FireGrid sized to a :class:`RegionConfig`'s EPSG:5179 bbox.
+
+        The grid is georeferenced: ``self.region`` is set, and
+        :meth:`perimeter_geodataframe`, :meth:`to_geotiff`, and
+        :meth:`to_wgs84` will emit CRS metadata.
+        """
+        nrows, ncols = region.grid_dims(cell_size_m)
+        grid = cls(
+            nrows=nrows, ncols=ncols, cell_size_m=cell_size_m,
+            residence_time_min=residence_time_min,
+            ignition_threshold=ignition_threshold,
+            region=region,
+        )
+        return grid
+
+    @property
+    def is_georeferenced(self) -> bool:
+        return self.region is not None and not self.region.is_synthetic
+
+    @property
+    def crs(self) -> str | None:
+        """The EPSG code attached to the grid, or None if non-geographic."""
+        from ..utils.regions import KOREA_2000_UNIFIED
+        return KOREA_2000_UNIFIED if self.is_georeferenced else None
+
+    @property
+    def affine(self) -> tuple[float, float, float, float, float, float] | None:
+        """Rasterio-style affine transform (a, b, c, d, e, f), or None."""
+        if not self.is_georeferenced:
+            return None
+        assert self.region is not None
+        return self.region.affine_transform(self.cell_size_m)
+
+    def cell_to_epsg5179(self, i: int, j: int) -> tuple[float, float]:
+        """Map grid cell centre (i, j) → EPSG:5179 (x, y) in metres.
+
+        Raises if the grid is not georeferenced.
+        """
+        if not self.is_georeferenced:
+            raise RuntimeError(
+                "FireGrid has no geographic CRS attached; "
+                "construct via FireGrid.from_region(...) first"
+            )
+        a, _b, c, _d, e, f = self.affine  # type: ignore[misc]
+        # Cell centre: add 0.5 to the index.
+        x = c + a * (j + 0.5)
+        y = f + e * (i + 0.5)
+        return x, y
 
     # ------------------------------------------------------------------
     # Ignition initialisation
@@ -339,7 +416,14 @@ class FireGrid:
         """Deposit heat into the 8 neighbours of burning cell (i, j)."""
         # ----- local environment -----
         fm_id = self.fuel_model_id[i, j]
-        fm: FuelModel = FUEL_MODELS[fm_id] if isinstance(fm_id, str) else fm_id
+        if isinstance(fm_id, str):
+            # String code: resolve via the legacy single-class registry
+            # (multi-class lookups by string must use ANDERSON_13 explicitly).
+            fm = FUEL_MODELS[fm_id]
+        else:
+            # Either FuelModel or MultiClassFuelModel instance; compute_spread_rate
+            # dispatches on type.
+            fm = fm_id
         m_f = float(self.fuel_moisture[i, j])
         slope_deg = float(self.slope_degrees[i, j])
         wind_speed_ms, wind_dir_to_deg = wind.at(i, j)
@@ -348,10 +432,19 @@ class FireGrid:
         key = (i, j)
         cached = self._R_cache.get(key)
         if cached is None:
-            R = compute_spread_rate(
-                fm, fuel_moisture=m_f,
-                wind_speed_ms=wind_speed_ms, slope_degrees=slope_deg,
-            )
+            if isinstance(fm, MultiClassFuelModel):
+                # Treat the cell-level fuel_moisture as LFMC (live moisture);
+                # use a typical Korean spring dead 1-h moisture of 10 % unless
+                # the user has overridden it via a separate metadata field.
+                R = compute_spread_rate(
+                    fm, dead_moisture=0.10, live_moisture=m_f,
+                    wind_speed_ms=wind_speed_ms, slope_degrees=slope_deg,
+                )
+            else:
+                R = compute_spread_rate(
+                    fm, fuel_moisture=m_f,
+                    wind_speed_ms=wind_speed_ms, slope_degrees=slope_deg,
+                )
             R_max = R.rate_m_min
             lb = length_to_breadth_ratio(wind_speed_ms)
             ecc = eccentricity_from_lb(lb)
@@ -448,8 +541,12 @@ class FireGrid:
 
         Returns ``None`` if no cell has been touched yet.
 
-        Coordinates are in **metres**, with origin at the south-west corner
-        of the grid; x increases east, y increases north.
+        Coordinates are in the grid's projected frame:
+
+        - If :attr:`is_georeferenced`, coordinates are in EPSG:5179 metres.
+        - Otherwise (Session 1 / synthetic grids), coordinates are in
+          metres with the SW corner of the grid as the origin (x east,
+          y north).
         """
         from shapely.geometry import box
         from shapely.ops import unary_union
@@ -459,11 +556,80 @@ class FireGrid:
             return None
         ii, jj = np.where(mask)
         cs = self.cell_size_m
-        # i increases southward in the array; flip to a north-up CRS.
-        y0 = (self.nrows - 1 - ii) * cs
-        x0 = jj * cs
-        polys = [box(x, y, x + cs, y + cs) for x, y in zip(x0, y0)]
+
+        if self.is_georeferenced:
+            assert self.region is not None
+            minx, _miny, _maxx, maxy = self.region.bbox_epsg5179
+            # i goes south (top → bottom), so y = maxy - (i+1)*cs is the
+            # SW corner y of the cell.
+            x_sw = minx + jj * cs
+            y_sw = maxy - (ii + 1) * cs
+            polys = [box(x, y, x + cs, y + cs) for x, y in zip(x_sw, y_sw)]
+        else:
+            # Local Cartesian with SW corner at origin (Session 1 behaviour).
+            y0 = (self.nrows - 1 - ii) * cs
+            x0 = jj * cs
+            polys = [box(x, y, x + cs, y + cs) for x, y in zip(x0, y0)]
         return unary_union(polys)
+
+    # ------------------------------------------------------------------
+    # Geographic export (Session 2)
+    # ------------------------------------------------------------------
+
+    def perimeter_geodataframe(self):
+        """Return the perimeter as a :class:`geopandas.GeoDataFrame` with CRS.
+
+        Returns ``None`` if no cells have been touched.
+        """
+        if not self.is_georeferenced:
+            raise RuntimeError(
+                "FireGrid is not georeferenced; use .perimeter() for a "
+                "non-georeferenced shapely polygon, or construct the grid "
+                "via FireGrid.from_region(...)"
+            )
+        import geopandas as gpd
+        peri = self.perimeter()
+        if peri is None:
+            return None
+        return gpd.GeoDataFrame(
+            {
+                "n_cells": [int(self.burned_mask().sum())],
+                "area_m2": [self.burned_area_m2()],
+            },
+            geometry=[peri],
+            crs=self.crs,
+        )
+
+    def to_wgs84_perimeter(self):
+        """Return the perimeter polygon reprojected to EPSG:4326 (WGS84)."""
+        if not self.is_georeferenced:
+            raise RuntimeError("grid has no CRS")
+        gdf = self.perimeter_geodataframe()
+        if gdf is None:
+            return None
+        return gdf.to_crs("EPSG:4326")
+
+    def to_geotiff(self, path) -> None:
+        """Write the cell-state raster to a GeoTIFF in EPSG:5179.
+
+        Values: 0 = UNBURNED, 1 = BURNING, 2 = BURNED.
+        """
+        if not self.is_georeferenced:
+            raise RuntimeError("grid has no CRS")
+        import rasterio
+        from rasterio.transform import Affine
+        a, b, c, d, e, f = self.affine  # type: ignore[misc]
+        transform = Affine(a, b, c, d, e, f)
+        with rasterio.open(
+            path, "w",
+            driver="GTiff",
+            height=self.nrows, width=self.ncols,
+            count=1, dtype="uint8",
+            crs=self.crs, transform=transform,
+            compress="lzw", nodata=255,
+        ) as dst:
+            dst.write(self.state.astype(np.uint8), 1)
+            dst.set_band_description(1, "fire_state: 0=unburned, 1=burning, 2=burned")
 
 
 # ---------------------------------------------------------------------------

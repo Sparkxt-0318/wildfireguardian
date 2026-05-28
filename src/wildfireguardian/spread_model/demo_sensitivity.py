@@ -9,31 +9,26 @@ This writes ``docs/figures/lfmc_sensitivity.png``.
 Scientific intent
 -----------------
 
-The figure should make one point: **the rate of spread is highly sensitive to
-fuel moisture, and the March 2025 Yeongdeok event was deep inside the
-fast-spread regime for the fuel types that dominated the affected stands.**
+The figure makes one point for forestry reviewers and competition judges:
 
-Two fuel-model archetypes are plotted:
+  **The rate of spread of Korean Pinus densiflora surface fire is highly
+  sensitive to live fuel moisture content (LFMC), and the March 2025
+  Yeongdeok event happened inside the fast-spread regime.**
 
-1. **FM8 closed-timber litter** (dead-fuel dominated). Anderson 1982 reports
-   moisture of extinction = 0.30, so the curve falls to zero at 30 % fuel
-   moisture. This is appropriate for cured ground-litter beds where the
-   "fuel moisture" axis means dead 1-h moisture (a few % to ~30 %).
+Two curves are plotted, both using the multi-class :class:`KoreanPinusFuelModel`
+(Andrews 2018 §3 weighting) at 2 m/s midflame wind, no slope:
 
-2. **Korean Pinus densiflora analogue.** A custom single-class fuel
-   representing Korean red-pine forest surface fuel (litter + understory).
-   The live moisture of extinction follows Burgan & Rothermel (1984) and is
-   set to 1.20, so the curve covers the full operational LFMC range
-   (~ 50 % – 150 %). Fuel load is calibrated to give *physical* surface
-   spread rates (< 50 m/min) under the chosen wind condition.
+1. Dead 1-h moisture at **6 %** — extreme drought conditions.
+2. Dead 1-h moisture at **12 %** — typical Korean spring conditions.
 
-A logarithmic y-axis is used so both the slow-spread regime (FM8 closed
-litter, ~ 0.1 m/min) and the fast-spread regime (Korean pine analogue at
-low LFMC, ~ 10 m/min) are visible simultaneously.
+The X-axis sweeps LFMC from 30 % to 200 % and a vertical marker
+highlights the ~40 % LFMC estimated for the affected pine stands during
+the March 22–28, 2025 Yeongdeok event.
 
-The vertical reference line at 40 % marks the regional LFMC estimated by
-KFS for the affected pine stands during the March 22–28, 2025 Yeongdeok
-event.
+The multi-class engine computes a dynamic live moisture of extinction
+m_x_live via Burgan (1979). Under dry dead conditions m_x_live is high
+(spread continues at LFMC ~ 200 %), while under wet dead conditions
+m_x_live collapses toward m_x_dead and the live fuel acts as a heat sink.
 
 Implementation note
 -------------------
@@ -47,12 +42,11 @@ when :func:`make_figure` is called explicitly, so importing
 
 from __future__ import annotations
 
-from dataclasses import replace
 from pathlib import Path
 
 import numpy as np
 
-from .rothermel import FUEL_MODELS, FuelModel, compute_spread_rate
+from .rothermel import KOREAN_PINUS, compute_spread_rate
 
 # March 25, 2025: KFS post-event LFMC estimate for Yeongdeok-affected stands.
 # Cited as a rough field estimate; not a measured value.
@@ -67,45 +61,22 @@ MARCH_2025_LFMC: float = 0.40
 WIND_SPEED_MS: float = 2.0      # midflame, m/s
 SLOPE_DEGREES: float = 0.0
 
-
-def _korean_pinus_fuel_model() -> FuelModel:
-    """Korean Pinus densiflora analogue, single-class.
-
-    Parameters chosen to represent the dominant surface fuel in the
-    affected 영덕군 stands during the March 2025 event:
-
-    - Modest litter + understory load (cured needles and grass).
-    - Fine-fuel SAV typical of conifer needles.
-    - High live moisture of extinction following Burgan & Rothermel 1984
-      for live-dominated stands. This is **deliberately different** from the
-      Anderson 13 FM10 ``m_x = 25 %`` (which is dead-fuel m_x) — we are
-      using m_x here as the *characteristic* extinction for the live-foliage
-      dominated regime that LFMC actually measures.
-
-    This model is intentionally illustrative; production work in the
-    validation module will derive site-specific parameters from the
-    KFS 임상도 / fuel-classification rasters.
-    """
-    return FuelModel(
-        code="KP_PINE",
-        name="Korean Pinus densiflora analogue (illustrative)",
-        w_o=0.15,        # lb/ft² ~ 0.73 kg/m²: modest needle litter + understory
-        delta=0.5,       # ft  ~ 15 cm
-        sigma=2200.0,    # 1/ft, characteristic fine-needle SAV
-        m_x=1.20,        # 120 % live moisture of extinction
-        description="Custom: not part of Anderson 13. For demo only.",
-    )
+# Two dead-fuel-moisture scenarios.
+DEAD_DROUGHT: float = 0.06      # 6 % — extreme drought / late-summer Korea
+DEAD_SPRING: float = 0.12       # 12 % — typical late-March / April Korea
 
 
-def sweep_rate(fuel_model: FuelModel, moistures: np.ndarray) -> np.ndarray:
-    """Compute rate of spread (m/min) across a vector of fuel moisture values."""
+def sweep_lfmc(dead_moisture: float, lfmcs: np.ndarray) -> np.ndarray:
+    """Spread rate (m/min) for Korean Pinus at varying LFMC, fixed dead moisture."""
     return np.array([
         compute_spread_rate(
-            fuel_model, fuel_moisture=float(m),
+            KOREAN_PINUS,
+            dead_moisture=dead_moisture,
+            live_moisture=float(m),
             wind_speed_ms=WIND_SPEED_MS,
             slope_degrees=SLOPE_DEGREES,
         ).rate_m_min
-        for m in moistures
+        for m in lfmcs
     ])
 
 
@@ -115,97 +86,130 @@ def make_figure(out_path: Path) -> dict:
     Parameters
     ----------
     out_path : Path
-        Where to write the PNG. Parent directory is created if missing.
+        Where to write the PNG.
 
     Returns
     -------
     dict
-        Summary statistics (min / max R for each curve), useful for the
-        overnight report.
+        Spread rate at key LFMC values for both dead-moisture scenarios.
     """
-    import matplotlib.pyplot as plt  # local import — see module docstring
+    import matplotlib
+    import matplotlib.pyplot as plt
+    from matplotlib.font_manager import findfont, FontProperties
 
-    moistures = np.linspace(0.05, 2.00, 200)  # 5 % .. 200 %
+    # Pick a CJK-capable font for the Korean labels if one is available.
+    for cjk_candidate in ("Noto Sans CJK KR", "Nanum Gothic", "WenQuanYi Zen Hei", "Unifont"):
+        try:
+            font_path = findfont(FontProperties(family=cjk_candidate), fallback_to_default=False)
+            if font_path:
+                matplotlib.rcParams["font.sans-serif"] = [cjk_candidate, "DejaVu Sans"]
+                matplotlib.rcParams["axes.unicode_minus"] = False
+                break
+        except Exception:
+            continue
 
-    fm8 = FUEL_MODELS["FM8"]
-    kp_pine = _korean_pinus_fuel_model()
+    lfmcs = np.linspace(0.30, 2.00, 200)   # 30 % – 200 %
 
-    R_fm8 = sweep_rate(fm8, moistures)
-    R_kp = sweep_rate(kp_pine, moistures)
+    R_drought = sweep_lfmc(DEAD_DROUGHT, lfmcs)
+    R_spring = sweep_lfmc(DEAD_SPRING, lfmcs)
 
-    fig, ax = plt.subplots(figsize=(9, 5.5), dpi=120)
+    fig, ax = plt.subplots(figsize=(9.5, 5.8), dpi=120)
 
-    # Plot with a small floor so log-scale doesn't crash on zeros; we
-    # mask the floor to keep the visual clean.
-    floor = 1e-3  # m/min, well below any physically interesting rate
-    ax.plot(moistures * 100.0, np.maximum(R_kp, floor),
-            label="Korean Pinus analogue ($m_x = 120\\%$)",
-            color="#c0392b", linewidth=2.2)
-    ax.plot(moistures * 100.0, np.maximum(R_fm8, floor),
-            label="FM8 closed-timber litter ($m_x = 30\\%$)",
-            color="#27ae60", linewidth=2.2)
-
-    ax.set_yscale("log")
-    ax.set_ylim(1e-3, max(R_kp.max(), R_fm8.max()) * 1.5)
-
-    # March 2025 LFMC marker.
-    ax.axvline(MARCH_2025_LFMC * 100.0, color="#34495e", linestyle="--",
-               linewidth=1.4, alpha=0.85)
-    R_kp_at_event = compute_spread_rate(
-        kp_pine, fuel_moisture=MARCH_2025_LFMC, wind_speed_ms=WIND_SPEED_MS,
-    ).rate_m_min
-    ax.plot([MARCH_2025_LFMC * 100.0], [R_kp_at_event], "o",
-            color="#34495e", markersize=7, zorder=5)
-    ax.annotate(
-        f"2025-03 Yeongdeok\nLFMC ≈ 40 %\n→ R ≈ {R_kp_at_event:.1f} m/min",
-        xy=(MARCH_2025_LFMC * 100.0, R_kp_at_event),
-        xytext=(60, R_kp_at_event * 1.8),
-        fontsize=9, color="#34495e",
-        arrowprops=dict(arrowstyle="->", color="#34495e", lw=0.8),
-        bbox=dict(boxstyle="round,pad=0.3", fc="#ecf0f1", ec="#34495e",
-                  lw=0.6, alpha=0.9),
+    floor = 1e-3  # m/min — log-scale floor
+    ax.plot(
+        lfmcs * 100.0, np.maximum(R_drought, floor),
+        label=f"Dead 1-h = {DEAD_DROUGHT*100:.0f} % (drought)",
+        color="#c0392b", linewidth=2.4,
+    )
+    ax.plot(
+        lfmcs * 100.0, np.maximum(R_spring, floor),
+        label=f"Dead 1-h = {DEAD_SPRING*100:.0f} % (typical spring)",
+        color="#e67e22", linewidth=2.4, linestyle="--",
     )
 
-    # m_x markers as faint vertical lines.
-    ax.axvline(30.0, color="#27ae60", linestyle=":", linewidth=0.9, alpha=0.5)
-    ax.axvline(120.0, color="#c0392b", linestyle=":", linewidth=0.9, alpha=0.5)
+    ax.set_yscale("log")
+    ymax = max(R_drought.max(), R_spring.max()) * 1.5
+    ax.set_ylim(0.05, ymax)
+    ax.set_xlim(30, 200)
 
-    ax.set_xlabel("Fuel moisture content (% of dry mass)", fontsize=11)
-    ax.set_ylabel("Rate of spread $R$ (m·min$^{-1}$, log scale)\n"
-                  f"midflame wind = {WIND_SPEED_MS:.0f} m/s, "
-                  f"slope = {SLOPE_DEGREES:.0f}°", fontsize=11)
-    ax.set_title("LFMC sensitivity of Rothermel surface fire spread",
-                 fontsize=13, fontweight="bold")
-    ax.legend(loc="lower left", framealpha=0.95)
+    # March 2025 event marker.
+    ax.axvline(
+        MARCH_2025_LFMC * 100.0, color="#34495e", linestyle="--",
+        linewidth=1.5, alpha=0.85, zorder=1,
+    )
+    R_drought_event = compute_spread_rate(
+        KOREAN_PINUS,
+        dead_moisture=DEAD_DROUGHT, live_moisture=MARCH_2025_LFMC,
+        wind_speed_ms=WIND_SPEED_MS,
+    ).rate_m_min
+    R_spring_event = compute_spread_rate(
+        KOREAN_PINUS,
+        dead_moisture=DEAD_SPRING, live_moisture=MARCH_2025_LFMC,
+        wind_speed_ms=WIND_SPEED_MS,
+    ).rate_m_min
+    ax.plot(
+        [MARCH_2025_LFMC * 100.0], [R_drought_event],
+        "o", color="#c0392b", markersize=8, zorder=5,
+    )
+    ax.plot(
+        [MARCH_2025_LFMC * 100.0], [R_spring_event],
+        "o", color="#e67e22", markersize=8, zorder=5,
+    )
+
+    ax.annotate(
+        "2025-03 Yeongdeok\n"
+        "영덕 산불 / LFMC ≈ 40 %\n"
+        f"→ drought-dry: R ≈ {R_drought_event:.1f} m/min\n"
+        f"→ spring-typical: R ≈ {R_spring_event:.1f} m/min",
+        xy=(MARCH_2025_LFMC * 100.0, R_drought_event),
+        xytext=(80, R_drought_event * 0.55),
+        fontsize=9.5, color="#34495e",
+        arrowprops=dict(arrowstyle="->", color="#34495e", lw=0.9),
+        bbox=dict(boxstyle="round,pad=0.35", fc="#ecf0f1", ec="#34495e",
+                  lw=0.7, alpha=0.95),
+    )
+
+    ax.set_xlabel(
+        "Live fuel moisture content (LFMC, % of dry mass)\n"
+        "산림 살아있는 연료의 수분 함량",
+        fontsize=11,
+    )
+    ax.set_ylabel(
+        "Rate of spread $R$  (m·min$^{-1}$, log scale)\n"
+        "확산 속도",
+        fontsize=11,
+    )
+    ax.set_title(
+        "LFMC sensitivity — Korean Pinus densiflora (multi-class Rothermel)\n"
+        "한국 소나무림 LFMC 민감도 분석 (다중 연료층 Rothermel)",
+        fontsize=13, fontweight="bold",
+    )
+    ax.legend(loc="upper right", framealpha=0.95, fontsize=10)
     ax.grid(True, which="both", alpha=0.3)
-    ax.set_xlim(0, 200)
 
-    # Caption text below the plot.
     fig.text(
-        0.5, -0.04,
-        "Single-class Rothermel (1972) implementation. The Korean Pinus "
-        "analogue uses $m_x = 120\\%$ following Burgan & Rothermel (1984) "
-        "for live-fuel-dominated stands.\nFM8 follows the Anderson 1982 dead "
-        "$m_x = 30\\%$. Absolute spread rates are single-class estimates; "
-        "operational forecasts must use multi-class fuel weighting.",
-        ha="center", fontsize=8.5, style="italic", color="#555",
+        0.5, -0.05,
+        f"Multi-class Rothermel (Andrews 2018 §3) with the Korean Pinus densiflora "
+        f"analog fuel model. Midflame wind = {WIND_SPEED_MS:.0f} m/s, slope = 0°. "
+        f"Live moisture of extinction is computed dynamically via Burgan (1979).",
+        ha="center", fontsize=8.8, style="italic", color="#555",
     )
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(out_path, bbox_inches="tight", dpi=120)
     plt.close(fig)
 
-    return {
-        "FM8 R min m/min": float(R_fm8.min()),
-        "FM8 R max m/min": float(R_fm8.max()),
-        "KP-pine R min m/min": float(R_kp.min()),
-        "KP-pine R max m/min": float(R_kp.max()),
-        "KP-pine R at 40% LFMC m/min": R_kp_at_event,
-        "FM8 R at 10% moisture m/min": float(
-            compute_spread_rate(fm8, fuel_moisture=0.10,
-                                wind_speed_ms=WIND_SPEED_MS).rate_m_min
-        ),
-    }
+    # Spot values for the report.
+    spot = {}
+    for dead, name in [(DEAD_DROUGHT, "drought_6%"), (DEAD_SPRING, "spring_12%")]:
+        for lfmc in (0.40, 0.60, 0.80, 1.00, 1.50):
+            r = compute_spread_rate(
+                KOREAN_PINUS,
+                dead_moisture=dead, live_moisture=lfmc,
+                wind_speed_ms=WIND_SPEED_MS,
+            ).rate_m_min
+            spot[f"R [{name}, LFMC={lfmc*100:.0f}%]  m/min"] = r
+    return spot
 
 
 def main() -> None:  # pragma: no cover - CLI entry
@@ -217,13 +221,13 @@ def main() -> None:  # pragma: no cover - CLI entry
     out = repo_root / "docs" / "figures" / "lfmc_sensitivity.png"
 
     console = Console()
-    console.rule("[bold]LFMC sensitivity demo")
+    console.rule("[bold]LFMC sensitivity demo  (Session 2 — multi-class)")
     console.print(f"writing → {out}")
     stats = make_figure(out)
 
-    table = Table(title="Sweep statistics")
-    table.add_column("metric", style="bold")
-    table.add_column("value m/min", justify="right")
+    table = Table(title="Spread-rate spot values")
+    table.add_column("scenario", style="bold")
+    table.add_column("R (m/min)", justify="right")
     for k, v in stats.items():
         table.add_row(k, f"{v:.3f}")
     console.print(table)

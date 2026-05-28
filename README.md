@@ -37,12 +37,17 @@
 🟧 **연구 프로토타입 (alpha)**. 본 저장소는 다음을 제공합니다:
 
 - ✅ 저장소 골격 및 모듈 구조
-- ✅ Rothermel 표면 화재 확산 모델 (단일 연료층, Anderson 13 표준 연료) — `src/wildfireguardian/spread_model/rothermel.py`
-- ✅ Huygens 타원 wavelet 기반 셀룰러 오토마타 확산 시뮬레이터 — `src/wildfireguardian/spread_model/cellular_automaton.py`
-- ⏳ LFMC 회귀 모델 — 다음 세션
-- ⏳ 위성 발화점 탐지 — 다음 세션
-- ⏳ 대피 경로 그래프 — 다음 세션
-- ⏳ 영덕 산불 검증 — 다음 세션
+- ✅ Rothermel 표면 화재 확산 모델 — **단일 연료층 + 다중 연료층 (Andrews 2018 §3)** — `src/wildfireguardian/spread_model/rothermel/`
+- ✅ 한국 소나무 (Pinus densiflora) 다중 연료층 모델 (`KOREAN_PINUS`)
+- ✅ Huygens 타원 wavelet 기반 CRS-aware 셀룰러 오토마타 (EPSG:5179 안착) — `src/wildfireguardian/spread_model/cellular_automaton.py`
+- ✅ 지역 설정 (`RegionConfig`) — 영덕 2025, 울진/삼척 2022, 고성 2019 등 — `src/wildfireguardian/utils/regions.py`
+- ✅ 농촌-고령 산불 취약도 점수 (placeholder) — `src/wildfireguardian/utils/vulnerability.py`
+- ✅ 래스터 데이터 인제스션 골격 (DEM, 임상도, 토지피복) — `src/wildfireguardian/data_io/raster.py`
+- ✅ 검증 하네스 (IoU, Sørensen-Dice, Brier, lead-time gain) — `src/wildfireguardian/validation/`
+- ⏳ 실 KFS 산불 perimeter shapefile 인제스션 — Session 3
+- ⏳ LFMC 회귀 모델 (Sentinel-2 + XGBoost) — Session 3
+- ⏳ 위성 발화점 탐지 (FIRMS) — Session 3
+- ⏳ 대피 경로 그래프 (OSM + 시간의존 Dijkstra) — Session 4
 
 ### 데이터 출처
 
@@ -137,17 +142,33 @@ See `docs/architecture.md` for the long form.
 
 ### Current status
 
-🟧 **Research prototype (alpha).** This repository currently provides:
+🟧 **Research prototype (alpha) — Session 2 complete.** This repository provides:
 
-- ✅ Repository scaffold and module structure (this document)
-- ✅ Rothermel surface fire spread model with the Anderson 13 standard fuel
-  models (`src/wildfireguardian/spread_model/rothermel.py`)
-- ✅ Cellular-automaton spread simulator with Huygens elliptical wavelets and
-  Monte Carlo ensembling (`src/wildfireguardian/spread_model/cellular_automaton.py`)
-- ⏳ LFMC regression — *not yet implemented*
-- ⏳ Satellite ignition ingestion — *not yet implemented*
-- ⏳ Evacuation routing graph — *not yet implemented*
-- ⏳ Retrospective Yeongdeok validation — *not yet implemented*
+- ✅ Repository scaffold and module structure
+- ✅ Rothermel surface fire spread model — **single-class + multi-class**
+  (Andrews 2018 §3 weighting), with Anderson 13 + Korean Pinus densiflora
+  analog in `src/wildfireguardian/spread_model/rothermel/`
+- ✅ Dynamic live moisture of extinction via Burgan (1979)
+- ✅ Huygens-elliptical cellular automaton with **CRS-aware FireGrid**
+  anchored to EPSG:5179, GeoTIFF + WGS84 GeoJSON export
+  (`src/wildfireguardian/spread_model/cellular_automaton.py`)
+- ✅ Monte Carlo ensembling (wind/moisture perturbations)
+- ✅ **RegionConfig** system (`src/wildfireguardian/utils/regions.py`)
+  with Yeongdeok 2025, Uljin/Samcheok 2022, Goseong 2019 as primary
+  validation cases, plus the East Coast Pine Belt deployment region
+- ✅ **Vulnerability scoring framework** (placeholders; real KOSIS/KFS/MOIS
+  data is Session 3)
+- ✅ **Raster ingestion scaffolding** (DEM, fuel-type, landcover) with
+  synthetic fallback so the whole pipeline runs without external data
+- ✅ **Validation harness** with IoU, Sørensen-Dice, Brier score,
+  lead-time gain, temporal-area RMSE (`src/wildfireguardian/validation/`)
+- ⏳ Real KFS perimeter shapefile + NGII DEM + KFS 임상도 ingestion (Session 3)
+- ⏳ LFMC regression (Sentinel-2 + XGBoost) — Session 3
+- ⏳ Satellite ignition ingestion (FIRMS) — Session 3
+- ⏳ Smoke dispersion module (Gaussian plume) — Session 3
+- ⏳ Evacuation routing graph (OSM + time-dependent Dijkstra) — Session 4
+
+**Test status**: 143 / 143 passing (39 Session 1 + 104 Session 2).
 
 This is **not** production software. It has not been validated against a real
 fire event yet, and it must never be used as the sole input to a public

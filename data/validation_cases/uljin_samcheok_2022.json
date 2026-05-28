@@ -1,0 +1,27 @@
+{
+  "case_id": "uljin_samcheok_2022",
+  "region": "uljin_samcheok_2022",
+  "notes": "March 4-13, 2022 wildfire event spanning Uljin-gun (Gyeongbuk) and Samcheok-si (Gangwon). The single largest South Korean wildfire on record. KFS final report: ~16,000 ha. All numbers below are approximate / reconstructed; real KFS perimeter shapefile not yet ingested.",
+  "data_provenance": {
+    "ignition_point": "approximate — 울진군 북면 (~129.32 E, 37.00 N)",
+    "official_warnings": "approximate — KFS / MOIS public statements",
+    "total_burn_area_ha": "KFS final report ~ 16,000 ha",
+    "perimeter_shapefile": "NOT YET INGESTED — see docs/BLOCKERS.md"
+  },
+  "observed_perimeters_path": null,
+  "observed_ignition_point_wgs84": [129.32, 37.00],
+  "observed_total_burn_area_ha": 16000.0,
+  "observed_official_warnings": [
+    {
+      "issued_at_iso": "2022-03-04T11:00:00",
+      "burned_area_m2_when_issued": 100000.0,
+      "note": "approximate — KFS initial detection"
+    },
+    {
+      "issued_at_iso": "2022-03-05T07:00:00",
+      "burned_area_m2_when_issued": 50000000.0,
+      "note": "approximate — full evacuation"
+    }
+  ],
+  "session2_status": "stub manifest, not exercised end-to-end in Session 2 (Yeongdeok is the dry-run case); Session 3 task"
+}
