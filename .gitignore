@@ -63,6 +63,9 @@ data/cache/**
 !data/cache/.gitkeep
 data/processed/**
 !data/processed/.gitkeep
+# The small validation-results summary IS committed (5 KB of metrics, a
+# key deliverable; regenerable via scripts/run_yeongdeok_validation.py).
+!data/processed/yeongdeok_2025_validation_results.json
 # Validation-case manifest JSON files ARE committed (they're stubs, not
 # bulk data).
 !data/validation_cases/**

@@ -18,13 +18,22 @@ PACKAGE_TREE: list[str] = [
     "wildfireguardian.spread_model.rothermel",
     "wildfireguardian.spread_model.cellular_automaton",
     "wildfireguardian.lfmc_model",
+    "wildfireguardian.lfmc_model.retrieval",
     "wildfireguardian.smoke_dispersion",
+    "wildfireguardian.smoke_dispersion.gaussian_plume",
     "wildfireguardian.routing",
     "wildfireguardian.delivery",
     "wildfireguardian.validation",
+    "wildfireguardian.validation.metrics",
+    "wildfireguardian.validation.harness",
+    "wildfireguardian.validation.baselines",
     "wildfireguardian.data_io",
+    "wildfireguardian.data_io.raster",
+    "wildfireguardian.data_io.weather",
     "wildfireguardian.utils",
     "wildfireguardian.utils.units",
+    "wildfireguardian.utils.regions",
+    "wildfireguardian.utils.vulnerability",
 ]
 
 

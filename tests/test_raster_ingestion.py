@@ -116,7 +116,7 @@ def test_cache_clear_removes_files() -> None:
 
 
 @pytest.mark.parametrize("loader,source", [
-    (load_dem, "srtm"),
+    # Session 3: load_dem SRTM is now implemented (covered by tests/test_srtm_dem.py).
     (load_dem, "ngii"),
     (load_fuel_type, "kfs_impsangdo"),
     (load_landcover, "me_korea"),
@@ -126,11 +126,19 @@ def test_real_data_sources_raise_not_implemented(loader, source: str) -> None:
         loader(YEONGDEOK_2025, source=source, cell_size_m=300.0, use_cache=False)
 
 
-def test_auto_source_falls_back_to_synthetic() -> None:
-    """source='auto' should silently fall back to synthetic when real
-    sources are not implemented."""
+def test_auto_dem_prefers_srtm_when_tile_available_else_synthetic() -> None:
+    """source='auto' returns SRTM if the Yeongdeok tile is cached, else synthetic.
+
+    Either outcome is acceptable; this test just confirms the fallback chain
+    does not crash and produces a tagged DataArray.
+    """
     arr = load_dem(YEONGDEOK_2025, source="auto", cell_size_m=300.0, use_cache=False)
-    assert arr.attrs.get("synthetic") is True
+    # Should be either real SRTM or labelled synthetic, both have valid attrs.
+    assert arr.attrs.get("source") in {"srtm", "synthetic"}
+    if arr.attrs.get("source") == "synthetic":
+        assert arr.attrs.get("synthetic") is True
+    else:
+        assert "SRTMGL1" in arr.attrs.get("citation", "")
 
 
 # ---------------------------------------------------------------------------

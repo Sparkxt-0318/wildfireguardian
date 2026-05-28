@@ -8,7 +8,8 @@
     "total_burn_area_ha": "KFS preliminary report ~ 3,800 ha (final figure may differ once KFS issues post-event report)",
     "perimeter_shapefile": "NOT YET INGESTED — see docs/BLOCKERS.md"
   },
-  "observed_perimeters_path": null,
+  "observed_perimeters_path": "data/validation_cases/yeongdeok_2025_perimeter_approx.geojson",
+  "observed_perimeter_provenance": "approximate, reconstructed from public reporting (Session 3); replace with KFS shapefile in Round 2",
   "observed_ignition_point_wgs84": [129.37, 36.50],
   "observed_total_burn_area_ha": 3800.0,
   "observed_official_warnings": [

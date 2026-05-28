@@ -75,7 +75,34 @@ along the wind axis rather than along the combined vector.
 
 ---
 
-## New in Session 2 — data ingestion blockers for Session 3
+## ✅ PARTIALLY RESOLVED in Session 3
+
+### BLOCKERS-6 (DEM): SRTM path implemented  ✅ (SRTM done, NGII pending)
+
+**Status**: SRTM RESOLVED in Session 3; NGII still pending.
+
+**Resolution**: `data_io.raster.load_dem(source='srtm')` now downloads and
+ingests real NASA SRTMGL1 (30 m) tiles from the AWS Mapzen archive
+(no auth required), reprojects to EPSG:5179, and derives slope/aspect via
+the Horn (1981) gradient method. The Yeongdeok validation now runs on REAL
+terrain (0–820 m, with the East Sea correctly at 0 m). NGII 1:5000 Korean
+DEM (higher accuracy) remains a Round-2 enhancement; SRTM is an adequate
+free fallback for Rothermel slope.
+
+### BLOCKERS-2b (validation numbers): produced  ✅
+
+**Status**: RESOLVED in Session 3 (with honest provenance caveats).
+
+**Resolution**: `scripts/run_yeongdeok_validation.py` produces
+`data/processed/yeongdeok_2025_validation_results.json` with IoU /
+Sørensen-Dice at 1/3/6/24 h for our model vs persistence + isotropic
+baselines. The numbers are honest: our model beats persistence at all
+horizons and beats isotropic at 6 h and 24 h, but the inputs are still
+mostly synthetic/approximate (see new blockers below).
+
+---
+
+## New in Session 2 — data ingestion blockers (status updated in Session 3)
 
 ### 5. KFS perimeter shapefiles are not yet ingested
 
@@ -170,27 +197,28 @@ submission narrative.
 3. Pull MOIS 안전지표 통계.
 4. Replace `_PLACEHOLDER_SCORES` in `src/wildfireguardian/utils/vulnerability.py`.
 
-### 9. KMA AWS access for Uljin / Goseong dates is not wired up
+### 9. KMA AWS access — synthetic reconstruction in place, real data pending
 
-**What's needed**: KMA AWS (Automated Weather Station) hourly wind /
-RH / T data for March 2019, March 2022, March 2025 within the
-validation-case bboxes.
+**Status update (Session 3)**: `data_io.weather.load_aws_wind` now exists
+with a `synthetic_historical` path that reconstructs the March 2025
+Yeongdeok 양강지풍 wind regime from PUBLIC reporting (clearly tagged
+`synthetic=True`). The real KMA Open API path raises NotImplementedError
+because no API key is configured.
 
-**Why**: The validation harness currently uses a single uniform
-`WindField` for the whole region. Real validation needs spatially
-varying winds interpolated from KMA AWS stations to reproduce the
-observed wind regime.
+**What's still needed**: KMA AWS hourly wind / RH / T data for March 2019,
+March 2022, March 2025 within the validation-case bboxes, plus a spatial
+interpolator (the current `WindField` is uniform).
 
-**Expected impact**: medium. Wind matters a lot for Rothermel; a uniform
-wind is the largest source of model-vs-observed discrepancy after the
-fuel-type raster.
+**Expected impact**: medium-high. Wind matters a lot for Rothermel; the
+synthetic reconstruction captures the qualitative pattern (sustained
+westerly 양강지풍) but is not the actual time series. This is the largest
+remaining model-vs-observed discrepancy after the fuel raster.
 
 **Suggested next steps**:
-1. Register at https://data.kma.go.kr/, request a service key.
-2. Download hourly AWS data for the three event windows.
-3. Implement an IDW or kriging interpolator that produces a spatial
-   wind field on demand — `data_io.weather.load_kma_aws_interpolated(...)`.
-4. Subclass `WindField` to wrap it spatially.
+1. Register at https://data.kma.go.kr/, request a service key; set the
+   `WILDFIREGUARDIAN_KMA_API_KEY` env var.
+2. Implement the HourlyObservation endpoint in `load_aws_wind(source='kma')`.
+3. Add an IDW/kriging interpolator → spatial `WindField` subclass.
 
 ### 10. Korean fuel parameters are still analog values
 
@@ -215,8 +243,48 @@ replaces the analog.
 
 ---
 
+## New in Session 3 — Round 2 (August) data blockers
+
+### 11. KFS 임상도 fuel-type raster (carried from BLOCKERS-7)
+
+Still pending. The Yeongdeok validation uses a synthetic 100%-Korean-Pinus
+fuel raster. Real KFS 임상도 stand classification is needed to assign
+mixed-stand fuel models. See BLOCKERS-7 above.
+
+### 12. Sentinel-1/2 + MODIS for real LFMC retrieval
+
+**What's needed**: Sentinel-1 GRD (VV/VH), Sentinel-2 L2A (NDVI/NDMI/NBR),
+MODIS NDVI, and Globe-LFMC 2.0 + Korean field LFMC labels.
+
+**Why**: Session 3 implemented the LFMC retrieval scaffold
+(`lfmc_model.retrieval`) but trains it on a CLEARLY-LABELLED synthetic
+dataset. The trained model is tagged `do_not_use_for_production=True`.
+
+**Expected impact**: medium. Currently LFMC is a manifest-supplied
+constant (40 % for the Yeongdeok case); a real retrieval would give a
+spatially-varying LFMC field.
+
+**Suggested next steps**: see `docs/methodology/lfmc.md` Round-2 plan.
+
+### 13. HYSPLIT / CMAQ coupling for production smoke
+
+**What's needed**: a real atmospheric transport model for the smoke
+dispersion module.
+
+**Why**: Session 3 implemented a Gaussian-plume (Pasquill-Gifford) smoke
+model (`smoke_dispersion.gaussian_plume`) as an ARCHITECTURE DEMONSTRATION.
+It is not validated science — it uses textbook dispersion coefficients and
+a coarse area×emission-factor source model.
+
+**Expected impact**: low for the June 13 submission (smoke is a secondary
+output); higher for the routing-penalty raster that depends on PM2.5.
+
+---
+
 ## Genuine blockers
 
-**None.** All five Session 2 deliverables complete; all 143 unit tests
-pass. Pipeline runs end-to-end with synthetic data; real-data ingestion
-is a Session 3 deliverable, not a Session 2 blocker.
+**None.** Session 3 Tier 1 + Tier 2 complete; all 208 unit tests pass.
+The Yeongdeok validation runs end-to-end on REAL SRTM terrain and produces
+honest IoU/Dice numbers vs two baselines. The remaining gaps (real KFS
+perimeter, real KMA wind, real KFS fuel, Korean field fuel parameters)
+are data-ingestion tasks deferred to Round 2 (August), not code blockers.

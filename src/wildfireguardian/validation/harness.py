@@ -6,15 +6,24 @@ model under retrospective inputs, builds predicted perimeters at the
 configured time horizons, and computes every metric from
 :mod:`wildfireguardian.validation.metrics` against the observed data.
 
-For Session 2, observed data may be stub / synthetic placeholders; real
-KFS shapefile ingestion comes in Session 3. The pipeline is structured
-so that swapping in real observed shapes does NOT change any call site.
+Session 3 additions:
+
+- :func:`run_validation_with_baselines` runs OUR model + two baselines
+  (persistence and isotropic) and compares all three to a
+  time-indexed observed perimeter series.
+- The harness now respects time-indexed observed perimeters (one
+  polygon per snapshot time), so IoU / Dice can be computed at the
+  same horizons (1 h, 3 h, 6 h, 24 h) for prediction vs observation.
+- All metric outputs carry data-provenance tags from upstream rasters,
+  so the report cannot accidentally claim "Yeongdeok IoU 0.6" without
+  flagging the SRTM-DEM / synthetic-wind / approximate-observed
+  qualifications.
 
 The harness uses :class:`xarray.DataArray` rasters (from
 :mod:`wildfireguardian.data_io.raster`) for DEM and fuel inputs, and a
 single uniform :class:`wildfireguardian.spread_model.cellular_automaton.WindField`
-for now. Spatially varying winds from KMA AWS interpolation come in
-Session 3.
+for the cellular automaton. Spatially-varying winds from KMA AWS
+interpolation come in Round 2.
 """
 
 from __future__ import annotations
@@ -25,6 +34,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Sequence
 
+import numpy as np
+from pyproj import Transformer
 from shapely.geometry import shape
 from shapely.geometry.base import BaseGeometry
 
@@ -34,8 +45,13 @@ from ..spread_model.cellular_automaton import (
     FireGrid,
     WindField,
 )
-from ..spread_model.rothermel import KOREAN_PINUS
-from ..utils.regions import RegionConfig
+from ..spread_model.rothermel import KOREAN_PINUS, compute_spread_rate
+from ..utils.regions import KOREA_2000_UNIFIED, RegionConfig
+from .baselines import (
+    BaselineConfig,
+    run_isotropic_baseline,
+    run_persistence_baseline,
+)
 from .metrics import (
     PerimeterAtTime,
     brier_score,
@@ -348,10 +364,296 @@ def run_validation(case: ValidationCase, config: ModelConfig | None = None) -> V
     return res
 
 
+# ---------------------------------------------------------------------------
+# Session 3: full retrospective with baselines + time-indexed observed
+# ---------------------------------------------------------------------------
+
+
+def load_observed_perimeter_series(case: ValidationCase) -> list[PerimeterAtTime]:
+    """Load the case's observed perimeter time series in EPSG:5179.
+
+    Reads a GeoJSON file that follows the schema of
+    ``data/validation_cases/yeongdeok_2025_perimeter_approx.geojson``:
+    each feature has properties ``time_min_since_ignition`` and
+    ``area_m2``, plus the wind-aligned ellipse geometry in WGS84.
+
+    The geometries are reprojected to EPSG:5179 so that they can be
+    compared apples-to-apples with our model's perimeters (which live in
+    EPSG:5179 metres).
+
+    Returns an empty list if the perimeter file is missing.
+    """
+    if case.observed_perimeters_path is None:
+        return []
+    path = Path(case.observed_perimeters_path)
+    if not path.is_absolute():
+        # interpret relative paths as relative to the project root
+        repo_root = Path(__file__).resolve().parents[3]
+        path = repo_root / path
+    if not path.exists():
+        return []
+    if path.suffix.lower() != ".geojson":
+        raise NotImplementedError(
+            f"observed perimeter format {path.suffix!r} not yet supported"
+        )
+
+    data = json.loads(path.read_text())
+    to_5179 = Transformer.from_crs("EPSG:4326", KOREA_2000_UNIFIED, always_xy=True)
+
+    from shapely.geometry import Polygon as _Polygon
+    from shapely.ops import transform as _shp_transform
+
+    series: list[PerimeterAtTime] = []
+    for feat in data.get("features", []):
+        props = feat.get("properties", {})
+        if feat.get("geometry") is None:
+            continue
+        t_min = float(props.get("time_min_since_ignition", 0.0))
+        area_m2 = float(props.get("area_m2", 0.0))
+        geom_wgs = shape(feat["geometry"])
+        geom_5179 = _shp_transform(lambda x, y, z=None: to_5179.transform(x, y), geom_wgs)
+        series.append(PerimeterAtTime(time_min=t_min, polygon=geom_5179, area_m2=area_m2))
+    series.sort(key=lambda p: p.time_min)
+    return series
+
+
+def _nearest_in_series(series: list[PerimeterAtTime], t_min: float) -> PerimeterAtTime | None:
+    if not series:
+        return None
+    return min(series, key=lambda p: abs(p.time_min - t_min))
+
+
+@dataclass
+class HorizonMetrics:
+    """Per-horizon spatial agreement between one predicted series and observed."""
+
+    horizon_min: float
+    predicted_area_ha: float
+    observed_area_ha: float
+    iou: float | None
+    sorensen_dice: float | None
+    symmetric_difference_km2: float | None
+
+    def as_dict(self) -> dict:
+        return {
+            "horizon_min": self.horizon_min,
+            "predicted_area_ha": self.predicted_area_ha,
+            "observed_area_ha": self.observed_area_ha,
+            "iou": self.iou,
+            "sorensen_dice": self.sorensen_dice,
+            "symmetric_difference_km2": self.symmetric_difference_km2,
+        }
+
+
+def compute_horizon_metrics(
+    predicted: list[PerimeterAtTime],
+    observed: list[PerimeterAtTime],
+    horizons_min: Sequence[float],
+) -> list[HorizonMetrics]:
+    """Spatial agreement at each requested time horizon."""
+    out: list[HorizonMetrics] = []
+    for h in horizons_min:
+        p = _nearest_in_series(predicted, h)
+        o = _nearest_in_series(observed, h)
+        if p is None or o is None:
+            out.append(HorizonMetrics(
+                horizon_min=h,
+                predicted_area_ha=(p.area_m2 / 1e4) if p else 0.0,
+                observed_area_ha=(o.area_m2 / 1e4) if o else 0.0,
+                iou=None, sorensen_dice=None, symmetric_difference_km2=None,
+            ))
+            continue
+        iou = perimeter_iou(p.polygon, o.polygon)
+        dice = perimeter_sorensen_dice(p.polygon, o.polygon)
+        symd = perimeter_symmetric_difference_area_km2(p.polygon, o.polygon)
+        out.append(HorizonMetrics(
+            horizon_min=h,
+            predicted_area_ha=p.area_m2 / 1e4,
+            observed_area_ha=o.area_m2 / 1e4,
+            iou=iou, sorensen_dice=dice, symmetric_difference_km2=symd,
+        ))
+    return out
+
+
+@dataclass
+class ValidationRunWithBaselines:
+    """Full validation outputs: our model + persistence + isotropic."""
+
+    case: ValidationCase
+    config: "ModelConfig"
+    horizons_min: tuple[float, ...]
+    predicted_model: list[PerimeterAtTime]
+    predicted_persistence: list[PerimeterAtTime]
+    predicted_isotropic: list[PerimeterAtTime]
+    observed: list[PerimeterAtTime]
+    metrics_model: list[HorizonMetrics]
+    metrics_persistence: list[HorizonMetrics]
+    metrics_isotropic: list[HorizonMetrics]
+    mean_head_rate_m_min: float
+    data_provenance: dict
+    notes: list[str] = field(default_factory=list)
+
+    def as_dict(self) -> dict:
+        return {
+            "region": self.case.region.name,
+            "config": self.config.__dict__,
+            "horizons_min": list(self.horizons_min),
+            "data_provenance": self.data_provenance,
+            "mean_head_rate_m_min": self.mean_head_rate_m_min,
+            "metrics": {
+                "our_model": [m.as_dict() for m in self.metrics_model],
+                "persistence_baseline": [m.as_dict() for m in self.metrics_persistence],
+                "isotropic_baseline": [m.as_dict() for m in self.metrics_isotropic],
+            },
+            "predicted_model_areas_ha": [p.area_m2 / 1e4 for p in self.predicted_model],
+            "predicted_model_times_min": [p.time_min for p in self.predicted_model],
+            "observed_areas_ha": [o.area_m2 / 1e4 for o in self.observed],
+            "observed_times_min": [o.time_min for o in self.observed],
+            "notes": self.notes,
+        }
+
+
+def run_validation_with_baselines(
+    case: ValidationCase,
+    config: ModelConfig | None = None,
+    horizons_min: Sequence[float] = (60.0, 180.0, 360.0, 1440.0),
+) -> ValidationRunWithBaselines:
+    """Run our model + persistence + isotropic baselines, compare to observed.
+
+    The cellular automaton uses the case's observed ignition point (lon,
+    lat) ignited at t=0, with DEM + fuel + uniform wind per
+    :class:`ModelConfig`. Both baselines start from the same ignition.
+
+    The mean head-fire rate (used to size the isotropic baseline) is
+    computed by running Rothermel once at the case's nominal conditions
+    (cfg.dead_moisture_1h, cfg.live_moisture_lfmc, cfg.wind_speed_midflame_ms,
+    a representative slope of 0°) on KOREAN_PINUS — this is intentionally
+    NOT the realised mean head rate over the grid; it's a deliberately
+    weak baseline that ignores all spatial heterogeneity.
+
+    Returns a :class:`ValidationRunWithBaselines` ready for JSON dump.
+    """
+    cfg = config or ModelConfig()
+    notes: list[str] = []
+    provenance: dict = {}
+
+    # ----- raster ingestion -----
+    dem = load_dem(case.region, source=cfg.dem_source, cell_size_m=cfg.cell_size_m)
+    fuel = load_fuel_type(case.region, source=cfg.fuel_source, cell_size_m=cfg.cell_size_m)
+    provenance["dem_source"] = dem.attrs.get("source", "unknown")
+    provenance["dem_synthetic"] = bool(dem.attrs.get("synthetic"))
+    provenance["dem_provenance"] = dem.attrs.get("provenance", "")
+    provenance["fuel_source"] = fuel.attrs.get("source", "unknown")
+    provenance["fuel_synthetic"] = bool(fuel.attrs.get("synthetic"))
+    provenance["fuel_provenance"] = fuel.attrs.get("provenance", "")
+    if dem.attrs.get("synthetic"):
+        notes.append("DEM is SYNTHETIC; not real elevation data.")
+    if fuel.attrs.get("synthetic"):
+        notes.append("fuel-type is SYNTHETIC (100% KP_PINE fill).")
+
+    # ----- model grid + ignition -----
+    grid = FireGrid.from_region(
+        case.region, cell_size_m=cfg.cell_size_m,
+        residence_time_min=cfg.residence_time_min,
+    )
+    populate_firegrid(grid, dem, fuel_type=fuel, fuel_code_to_model={1: KOREAN_PINUS})
+    grid.fuel_moisture[:] = cfg.live_moisture_lfmc
+
+    if case.observed_ignition_point_wgs84 is None:
+        raise ValueError(
+            "run_validation_with_baselines requires observed_ignition_point_wgs84"
+        )
+    lon, lat = case.observed_ignition_point_wgs84
+    _ignite_at_wgs84(grid, lon, lat)
+
+    # Get ignition cell in EPSG:5179 for the baselines.
+    to_5179 = Transformer.from_crs("EPSG:4326", KOREA_2000_UNIFIED, always_xy=True)
+    ign_x, ign_y = to_5179.transform(lon, lat)
+
+    # ----- step OUR model -----
+    wind = WindField.from_meteo(cfg.wind_speed_midflame_ms, cfg.wind_from_deg)
+    predicted_model: list[PerimeterAtTime] = []
+    t = 0.0
+    next_snap = 0.0
+    while t < cfg.duration_min - 1e-9:
+        if t >= next_snap - 1e-9:
+            poly = grid.perimeter()
+            predicted_model.append(PerimeterAtTime(
+                time_min=t, polygon=poly, area_m2=grid.burned_area_m2(),
+            ))
+            next_snap += cfg.snapshot_every_min
+        grid.step(cfg.dt_min, wind, current_time_min=t)
+        t += cfg.dt_min
+    predicted_model.append(PerimeterAtTime(
+        time_min=t, polygon=grid.perimeter(), area_m2=grid.burned_area_m2(),
+    ))
+
+    # ----- baselines -----
+    # Mean head rate via a single Rothermel evaluation under case conditions.
+    # This is the deliberately-weak isotropic baseline.
+    r = compute_spread_rate(
+        KOREAN_PINUS,
+        dead_moisture=cfg.dead_moisture_1h,
+        live_moisture=cfg.live_moisture_lfmc,
+        wind_speed_ms=cfg.wind_speed_midflame_ms,
+        slope_degrees=0.0,
+    )
+    mean_head_rate = r.rate_m_min
+
+    bcfg = BaselineConfig(
+        ignition_xy_5179=(ign_x, ign_y),
+        duration_min=cfg.duration_min,
+        snapshot_every_min=cfg.snapshot_every_min,
+        cell_size_m=cfg.cell_size_m,
+    )
+    predicted_persistence = run_persistence_baseline(bcfg)
+    predicted_isotropic = run_isotropic_baseline(bcfg, head_fire_rate_m_min=mean_head_rate)
+
+    # ----- observed time series -----
+    observed = load_observed_perimeter_series(case)
+    if not observed:
+        notes.append(
+            "no observed perimeter time series found; metrics will be NaN/None"
+        )
+        provenance["observed_perimeter_source"] = "none"
+    else:
+        provenance["observed_perimeter_source"] = str(case.observed_perimeters_path)
+        provenance["observed_perimeter_provenance"] = (
+            "APPROXIMATE, reconstructed from public reporting "
+            "(see file metadata.provenance)"
+        )
+
+    # ----- horizon metrics for all three -----
+    horizons_t = tuple(float(h) for h in horizons_min)
+    metrics_model = compute_horizon_metrics(predicted_model, observed, horizons_t)
+    metrics_persistence = compute_horizon_metrics(predicted_persistence, observed, horizons_t)
+    metrics_isotropic = compute_horizon_metrics(predicted_isotropic, observed, horizons_t)
+
+    return ValidationRunWithBaselines(
+        case=case, config=cfg, horizons_min=horizons_t,
+        predicted_model=predicted_model,
+        predicted_persistence=predicted_persistence,
+        predicted_isotropic=predicted_isotropic,
+        observed=observed,
+        metrics_model=metrics_model,
+        metrics_persistence=metrics_persistence,
+        metrics_isotropic=metrics_isotropic,
+        mean_head_rate_m_min=mean_head_rate,
+        data_provenance=provenance,
+        notes=notes,
+    )
+
+
 __all__ = [
     "ValidationCase",
     "ModelConfig",
     "ValidationResults",
     "load_case",
     "run_validation",
+    # Session 3
+    "HorizonMetrics",
+    "ValidationRunWithBaselines",
+    "load_observed_perimeter_series",
+    "compute_horizon_metrics",
+    "run_validation_with_baselines",
 ]

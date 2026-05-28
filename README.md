@@ -76,8 +76,17 @@ pytest -v
 # Rothermel LFMC 민감도 차트 생성
 python -m wildfireguardian.spread_model.demo_sensitivity
 
+# LFMC × 풍속 2D 결합 민감도 히트맵 (Session 3 핵심 그림)
+python -m wildfireguardian.spread_model.demo_lfmc_wind_heatmap
+
 # 영덕-유사 합성 시나리오 (셀룰러 오토마타)
 python -m wildfireguardian.spread_model.demo_yeongdeok_synthetic
+
+# 영덕 2025 후향적 검증 (실제 SRTM 지형 + 베이스라인 비교)
+python scripts/run_yeongdeok_validation.py
+
+# 연기 확산 시연 (가우시안 플룸)
+python -m wildfireguardian.smoke_dispersion.demo_yeongdeok_plume
 ```
 
 ### 인용
@@ -142,7 +151,28 @@ See `docs/architecture.md` for the long form.
 
 ### Current status
 
-🟧 **Research prototype (alpha) — Session 2 complete.** This repository provides:
+🟧 **Research prototype (alpha) — Session 3 complete.**
+
+**Session 3 headline results** (honest, with provenance caveats):
+
+- **Real terrain**: Yeongdeok validation runs on real NASA SRTM 30 m DEM
+  (0–820 m elevation, East Sea correctly at 0 m).
+- **Validation numbers** (vs an *approximate* observed perimeter): at 24 h
+  our model predicts ~4,400 ha vs ~3,800 ha reported; IoU ≈ 0.14,
+  Dice ≈ 0.25. Our model beats the persistence baseline by 100× at all
+  horizons and beats the isotropic baseline at the 24 h horizon (it loses
+  to isotropic at 1–6 h — a documented slow-initial-spread limitation).
+- **LFMC × wind coupling** (the writeup centerpiece): rate of spread is
+  **18× higher** under drought-Foehn (LFMC 40 %, midflame 12 m/s) than
+  typical-summer-quiet (LFMC 80 %, midflame 2 m/s) — same fuel, same dead
+  moisture. See `docs/figures/lfmc_wind_sensitivity_heatmap.png`.
+
+⚠️ **Honesty note**: the fuel raster, wind series, and observed perimeter
+used in the Yeongdeok validation are still SYNTHETIC / APPROXIMATE
+(reconstructed from public reporting). Only the DEM is real. Korean fuel
+parameters are analog values. Real KFS / KMA / Sentinel ingestion is Round 2.
+
+This repository provides:
 
 - ✅ Repository scaffold and module structure
 - ✅ Rothermel surface fire spread model — **single-class + multi-class**

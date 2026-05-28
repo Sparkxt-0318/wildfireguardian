@@ -19,12 +19,22 @@ Quickstart::
 
 from __future__ import annotations
 
+from .baselines import (
+    BaselineConfig,
+    run_isotropic_baseline,
+    run_persistence_baseline,
+)
 from .harness import (
+    HorizonMetrics,
     ModelConfig,
     ValidationCase,
     ValidationResults,
+    ValidationRunWithBaselines,
+    compute_horizon_metrics,
     load_case,
+    load_observed_perimeter_series,
     run_validation,
+    run_validation_with_baselines,
 )
 from .metrics import (
     PerimeterAtTime,
@@ -44,6 +54,15 @@ __all__ = [
     "ValidationResults",
     "load_case",
     "run_validation",
+    # Session 3 — with baselines + time-indexed observed
+    "HorizonMetrics",
+    "ValidationRunWithBaselines",
+    "compute_horizon_metrics",
+    "load_observed_perimeter_series",
+    "run_validation_with_baselines",
+    "BaselineConfig",
+    "run_persistence_baseline",
+    "run_isotropic_baseline",
     # metrics
     "PerimeterAtTime",
     "perimeter_iou",

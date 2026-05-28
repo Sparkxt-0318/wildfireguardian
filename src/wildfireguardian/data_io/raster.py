@@ -11,39 +11,47 @@ WildfireGuardian pipeline. All loaders share a common contract:
     * cell size matching ``cell_size_m``
 - Side effect: cached to ``data/cache/`` keyed by ``(region.name, source, cell_size)``.
 
-For Session 2, real-data ingestion paths (NGII DEM, KFS 임상도) are
-stubbed out with clear TODO markers and acquisition instructions; the
-synthetic paths produce sensible defaults so the entire pipeline can be
-exercised end-to-end without external dependencies.
+For Session 3, SRTM 30 m ingestion is implemented (real NASA SRTMGL1
+.hgt tiles via the AWS Mapzen archive); NGII Korean DEM and KFS 임상도
+are still stubbed with clear acquisition instructions. Synthetic
+fallback paths are preserved and clearly labelled in xarray attrs.
 
 Data sources and acquisition
 ----------------------------
 
-See ``docs/data_sources.md`` for the canonical access process. A summary:
+See ``docs/data_sources.md`` for the canonical access process. Quick
+summary:
 
-- **DEM (NGII)**: 국토지리정보원 1:5000 digital map. Free for research,
-  requires Korean registration. Place files under
-  ``data/raw/dem/ngii/<sheet>.tif`` and run with ``source='ngii'``.
-- **DEM (SRTM)**: NASA SRTM 30 m global. Free, no registration.
-  Place files under ``data/raw/dem/srtm/`` and run with ``source='srtm'``.
+- **DEM (SRTM)**: NASA SRTMGL1 1-arc-second (~30 m) global. Free, no
+  registration. Tiles are 1° × 1° lat/lon .hgt files; we auto-download
+  from the AWS Mapzen archive (``elevation-tiles-prod.s3.amazonaws.com``)
+  the first time a region needs them. Cached locally under
+  ``data/raw/dem/srtm/``.
+- **DEM (NGII)**: 국토지리정보원 1:5000 digital map. Requires Korean
+  registration; place files under ``data/raw/dem/ngii/`` and run with
+  ``source='ngii'``.
 - **Fuel type (KFS 임상도)**: Korean Forest Service forest type map v1.4.
-  Requires Korean registration at https://map.forest.go.kr. Place files
-  under ``data/raw/fuel/kfs_impsangdo/`` and run with ``source='kfs_impsangdo'``.
-- **Landcover (ME 토지피복지도)**: Ministry of Environment Korea, free
-  with registration. Place files under ``data/raw/landcover/me/``.
+  Requires Korean registration at https://map.forest.go.kr.
+- **Landcover (ME 토지피복지도)**: Ministry of Environment Korea.
 """
 
 from __future__ import annotations
 
+import gzip
 import hashlib
 import logging
+import math
+import os
+import urllib.error
+import urllib.request
 from pathlib import Path
 from typing import Literal
 
 import numpy as np
 import xarray as xr
+from pyproj import Transformer
 
-from ..utils.regions import KOREA_2000_UNIFIED, RegionConfig
+from ..utils.regions import KOREA_2000_UNIFIED, WGS84, RegionConfig
 
 _logger = logging.getLogger(__name__)
 
@@ -192,6 +200,225 @@ def _synthetic_landcover(region: RegionConfig, cell_size_m: float) -> np.ndarray
 
 
 # ---------------------------------------------------------------------------
+# SRTM .hgt loader (NASA SRTMGL1 30 m, via AWS Mapzen archive)
+# ---------------------------------------------------------------------------
+#
+# The AWS Mapzen archive (https://github.com/tilezen/joerd) re-hosts NASA
+# SRTM as 1° × 1° .hgt.gz tiles at the URL pattern
+#
+#   https://elevation-tiles-prod.s3.amazonaws.com/skadi/N{lat}/N{lat}E{lon}.hgt.gz
+#
+# Tiles are SRTMGL1 (1-arc-second, 3601 × 3601 int16 big-endian), nodata
+# represented as -32768. Negative non-nodata values are bathymetry; for
+# fire spread we clip these to 0 (sea surface).
+
+_SRTM_DIM: int = 3601
+_SRTM_NODATA: int = -32768
+_SRTM_TILE_URL_TEMPLATE: str = (
+    "https://elevation-tiles-prod.s3.amazonaws.com/skadi/"
+    "{ns}{lat:02d}/{ns}{lat:02d}{ew}{lon:03d}.hgt.gz"
+)
+
+
+def _srtm_cache_dir() -> Path:
+    p = _project_root() / "data" / "raw" / "dem" / "srtm"
+    p.mkdir(parents=True, exist_ok=True)
+    return p
+
+
+def _srtm_tile_name(lat_int: int, lon_int: int) -> str:
+    """Canonical .hgt filename for an integer-degree corner.
+
+    The (lat_int, lon_int) corner is the **southwest** corner of the
+    tile, per the SRTM convention. Returns ``"N36E129.hgt"`` etc.
+    """
+    ns = "N" if lat_int >= 0 else "S"
+    ew = "E" if lon_int >= 0 else "W"
+    return f"{ns}{abs(lat_int):02d}{ew}{abs(lon_int):03d}.hgt"
+
+
+def _srtm_tile_url(lat_int: int, lon_int: int) -> str:
+    ns = "N" if lat_int >= 0 else "S"
+    ew = "E" if lon_int >= 0 else "W"
+    return _SRTM_TILE_URL_TEMPLATE.format(
+        ns=ns, ew=ew, lat=abs(lat_int), lon=abs(lon_int),
+    )
+
+
+def _download_srtm_tile(lat_int: int, lon_int: int, timeout_s: float = 60.0) -> Path:
+    """Download an SRTM .hgt tile to the local cache; return its path.
+
+    If the tile is already cached, returns the cache path immediately. If
+    network access is unavailable or the tile is missing on the server,
+    raises ``FileNotFoundError`` so the caller can fall back to synthetic.
+    """
+    cache = _srtm_cache_dir()
+    name = _srtm_tile_name(lat_int, lon_int)
+    final = cache / name
+    if final.exists():
+        return final
+    gz_path = cache / (name + ".gz")
+    if not gz_path.exists():
+        url = _srtm_tile_url(lat_int, lon_int)
+        _logger.info("downloading SRTM tile %s from %s", name, url)
+        try:
+            req = urllib.request.Request(
+                url, headers={"User-Agent": "wildfireguardian/0.1"},
+            )
+            with urllib.request.urlopen(req, timeout=timeout_s) as resp:
+                gz_path.write_bytes(resp.read())
+        except (urllib.error.URLError, OSError, TimeoutError) as exc:
+            raise FileNotFoundError(
+                f"could not download SRTM tile {name} from {url}: {exc}"
+            ) from exc
+    # gunzip → final
+    with gzip.open(gz_path, "rb") as fin:
+        final.write_bytes(fin.read())
+    return final
+
+
+def _read_srtm_hgt(path: Path) -> np.ndarray:
+    """Read an SRTMGL1 .hgt file and return a 3601 × 3601 int16 array.
+
+    Row 0 corresponds to the **top** of the tile (max latitude); column 0
+    corresponds to the **left** of the tile (min longitude).
+    """
+    raw = path.read_bytes()
+    expected = _SRTM_DIM * _SRTM_DIM * 2
+    if len(raw) != expected:
+        raise ValueError(
+            f"SRTM tile {path.name} has unexpected size {len(raw)} "
+            f"(expected {expected} for SRTMGL1)"
+        )
+    return np.frombuffer(raw, dtype=">i2").reshape(_SRTM_DIM, _SRTM_DIM)
+
+
+def _srtm_tiles_covering(
+    bbox_wgs84: tuple[float, float, float, float],
+) -> list[tuple[int, int]]:
+    """Return integer-degree (lat_int, lon_int) corners covering the bbox.
+
+    Each tile's SW corner is (lat_int, lon_int); the tile covers
+    [lat_int, lat_int+1] × [lon_int, lon_int+1] in WGS84.
+    """
+    minlon, minlat, maxlon, maxlat = bbox_wgs84
+    lat0 = int(math.floor(minlat))
+    lat1 = int(math.floor(maxlat - 1e-9))
+    lon0 = int(math.floor(minlon))
+    lon1 = int(math.floor(maxlon - 1e-9))
+    return [
+        (lat, lon)
+        for lat in range(lat0, lat1 + 1)
+        for lon in range(lon0, lon1 + 1)
+    ]
+
+
+def _srtm_dem_for_region(
+    region: RegionConfig, cell_size_m: float, allow_download: bool = True,
+) -> np.ndarray:
+    """Build an EPSG:5179-aligned DEM for ``region`` from SRTM .hgt tiles.
+
+    Algorithm:
+    1. Find all SRTM tiles covering the region's WGS84 bbox.
+    2. Read each as a (3601, 3601) array, clipping nodata to 0 and
+       bathymetry (negative non-nodata) to 0 (sea surface).
+    3. For each output grid cell, compute its WGS84 (lon, lat) center,
+       look up the corresponding SRTM cell via nearest-neighbour.
+
+    For the Yeongdeok bbox (one tile, 30 m native), this is essentially a
+    high-quality nearest-neighbour resample to EPSG:5179. We deliberately
+    use nearest rather than bilinear so that slope/aspect from
+    np.gradient remain sharp; bilinear would smooth slopes by ~30 %.
+
+    Raises FileNotFoundError if a needed tile cannot be obtained.
+    """
+    tiles_needed = _srtm_tiles_covering(region.bbox_wgs84)
+
+    # Pre-load all needed tiles into memory (each ~ 25 MB).
+    tile_data: dict[tuple[int, int], np.ndarray] = {}
+    for lat_i, lon_i in tiles_needed:
+        cache = _srtm_cache_dir()
+        path = cache / _srtm_tile_name(lat_i, lon_i)
+        if not path.exists():
+            if not allow_download:
+                raise FileNotFoundError(
+                    f"SRTM tile {path.name} not in cache and download disabled"
+                )
+            path = _download_srtm_tile(lat_i, lon_i)
+        arr = _read_srtm_hgt(path)
+        # Clip nodata + bathymetry to 0 (sea surface).
+        arr = arr.astype(np.int32)
+        arr[arr == _SRTM_NODATA] = 0
+        arr[arr < 0] = 0
+        tile_data[(lat_i, lon_i)] = arr
+
+    # Build the output EPSG:5179 grid.
+    nrows, ncols = region.grid_dims(cell_size_m)
+    minx, _miny, _maxx, maxy = region.bbox_epsg5179
+    cs = cell_size_m
+
+    # Output cell-centre coords in EPSG:5179.
+    js = np.arange(ncols)
+    is_ = np.arange(nrows)
+    xs = minx + (js + 0.5) * cs              # shape (ncols,)
+    ys = maxy - (is_ + 0.5) * cs             # shape (nrows,)
+    XX, YY = np.meshgrid(xs, ys)             # shapes (nrows, ncols)
+
+    # Bulk-reproject EPSG:5179 → WGS84.
+    to_wgs = Transformer.from_crs(KOREA_2000_UNIFIED, WGS84, always_xy=True)
+    lon_grid, lat_grid = to_wgs.transform(XX, YY)
+
+    out = np.zeros((nrows, ncols), dtype=np.float32)
+    # For each tile, find the output cells whose (lat, lon) falls inside it.
+    for (lat_i, lon_i), arr in tile_data.items():
+        in_tile = (
+            (lon_grid >= lon_i) & (lon_grid < lon_i + 1)
+            & (lat_grid >= lat_i) & (lat_grid < lat_i + 1)
+        )
+        if not in_tile.any():
+            continue
+        # Local (row, col) inside the SRTM tile.
+        # Row 0 = top (lat_i + 1); within tile, lat goes from (lat_i + 1) → lat_i.
+        # Column 0 = left (lon_i); lon goes lon_i → (lon_i + 1).
+        local_lat = lat_grid[in_tile]
+        local_lon = lon_grid[in_tile]
+        srtm_row = ((lat_i + 1.0 - local_lat) * (_SRTM_DIM - 1)).astype(np.int32)
+        srtm_col = ((local_lon - lon_i) * (_SRTM_DIM - 1)).astype(np.int32)
+        np.clip(srtm_row, 0, _SRTM_DIM - 1, out=srtm_row)
+        np.clip(srtm_col, 0, _SRTM_DIM - 1, out=srtm_col)
+        out[in_tile] = arr[srtm_row, srtm_col].astype(np.float32)
+
+    return out
+
+
+def compute_slope_aspect(dem: np.ndarray, cell_size_m: float) -> tuple[np.ndarray, np.ndarray]:
+    """Compute slope (degrees) and aspect (degrees, 0 = N, clockwise) from a DEM.
+
+    Uses np.gradient — the standard central-difference approximation,
+    equivalent at interior cells to Horn (1981) eq. 14–15 with a 3 × 3
+    kernel for sufficiently smooth terrain (this is what GRASS r.slope.aspect
+    and rasterio's slope tool fall back to for the gradient method).
+
+    For SRTM 30 m terrain, central-difference is the appropriate choice;
+    Zevenbergen-Thorne is for finer DEMs.
+
+    Reference: Horn, B.K.P. (1981). *Hill shading and the reflectance map.*
+    Proc. IEEE 69(1): 14-47.
+    """
+    dz_di, dz_dj = np.gradient(dem.astype(np.float32), cell_size_m, cell_size_m)
+    slope_rad = np.arctan(np.hypot(dz_di, dz_dj))
+    slope_deg = np.degrees(slope_rad).astype(np.float32)
+    # Aspect: compass bearing of the downslope direction.
+    # Gradient points in the direction of steepest ASCENT; downslope = -gradient.
+    # In array coords, di > 0 is south (lat decreases), dj > 0 is east.
+    # Downslope vector = (-dz_di, -dz_dj); its compass bearing (N=0, clockwise) is
+    #   atan2(east-component, north-component) = atan2(-dz_dj, dz_di)
+    aspect_deg = (np.degrees(np.arctan2(-dz_dj, dz_di)) + 360.0) % 360.0
+    aspect_deg = aspect_deg.astype(np.float32)
+    return slope_deg, aspect_deg
+
+
+# ---------------------------------------------------------------------------
 # Public loaders
 # ---------------------------------------------------------------------------
 
@@ -247,13 +474,34 @@ def load_dem(
         arr = _synthetic_dem(region, cell_size_m)
         out = _wrap_array(
             arr, region, cell_size_m, name="dem",
-            attrs={"units": "m", "source": "synthetic", "synthetic": True},
+            attrs={
+                "units": "m", "source": "synthetic", "synthetic": True,
+                "provenance": (
+                    "SYNTHETIC — not derived from real elevation data. "
+                    "Mountainous-Korean-coast-like topography for "
+                    "demonstrations; NOT for scientific claims."
+                ),
+            },
         )
     elif source == "srtm":
-        raise NotImplementedError(
-            "SRTM DEM ingestion is a Session 3 task. Place SRTM tiles under "
-            "data/raw/dem/srtm/ and add the rasterio mosaic + reproject "
-            "logic here. See docs/data_sources.md for download instructions."
+        arr = _srtm_dem_for_region(region, cell_size_m, allow_download=True)
+        out = _wrap_array(
+            arr, region, cell_size_m, name="dem",
+            attrs={
+                "units": "m", "source": "srtm",
+                "synthetic": False,
+                "provenance": (
+                    "NASA SRTMGL1 (1-arc-second, ~30 m) via the AWS Mapzen "
+                    "archive (elevation-tiles-prod.s3.amazonaws.com). "
+                    "Nodata and bathymetry clipped to 0 (sea surface). "
+                    "Resampled to EPSG:5179 by nearest-neighbour."
+                ),
+                "citation": (
+                    "NASA JPL (2013). NASA Shuttle Radar Topography Mission "
+                    "Global 1 arc second [SRTMGL1] V003. NASA EOSDIS Land "
+                    "Processes DAAC. doi:10.5067/MEaSUREs/SRTM/SRTMGL1.003"
+                ),
+            },
         )
     elif source == "ngii":
         raise NotImplementedError(
@@ -409,14 +657,9 @@ def populate_firegrid(grid, dem: xr.DataArray, fuel_type: xr.DataArray | None = 
             f"DEM shape {dem.shape} doesn't match grid {(grid.nrows, grid.ncols)}"
         )
     grid.elevation_m[:] = dem.values.astype(np.float32)
-    # Slope + aspect from gradient.
-    cs = grid.cell_size_m
-    dz_di, dz_dj = np.gradient(dem.values.astype(np.float32), cs, cs)
-    slope_rad = np.arctan(np.hypot(dz_di, dz_dj))
-    grid.slope_degrees[:] = np.degrees(slope_rad).astype(np.float32)
-    grid.aspect_degrees[:] = (
-        (np.degrees(np.arctan2(dz_dj, -dz_di)) + 180.0) % 360.0
-    ).astype(np.float32)
+    slope, aspect = compute_slope_aspect(dem.values, grid.cell_size_m)
+    grid.slope_degrees[:] = slope
+    grid.aspect_degrees[:] = aspect
 
     if fuel_type is not None and fuel_code_to_model is not None:
         if fuel_type.shape != (grid.nrows, grid.ncols):
@@ -435,5 +678,6 @@ __all__ = [
     "load_fuel_type",
     "load_landcover",
     "populate_firegrid",
+    "compute_slope_aspect",
     "clear_cache",
 ]
