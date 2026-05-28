@@ -1,5 +1,15 @@
 # Overnight build session 4 — report
 
+> ⚠️ **PARTIALLY RETRACTED by Session 5 (mentor review).** Two headline
+> claims below are invalid and are corrected in
+> `docs/OVERNIGHT_REPORT_SESSION5.md`:
+> (1) the "multiplicative coupling / interaction ratio = 1.000" is a
+> tautology (Rothermel is separable) — retracted;
+> (2) the "24 h burned area +25 %" was two errors cancelling (inflated
+> no-WAF wind + disc-ignition injection), not validation — with correct
+> midflame wind the surface model under-predicts by ~90 %.
+> This report is retained unedited for provenance.
+
 Date completed: 2026-05-28.
 
 ## 0. API keys present

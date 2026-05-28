@@ -7,6 +7,44 @@ needed to close it out.
 
 ---
 
+## Session 5 (mentor refocus) — resolved, corrected, and newly-exposed
+
+### ✅ RESOLVED: missing Wind Adjustment Factor (the root wind bug)
+Rothermel needs **midflame** wind; the code fed raw 10-m / station wind into
+φ_w, inflating the wind factor to ~115×. `spread_model/wind.py` now applies
+the Andrews 2012 WAF (closed Korean pine canopy WAF ≈ 0.10), giving a
+corrected wind factor ~5×. All wind now routes through this conversion.
+
+### ✅ CORRECTED (retracted): tautological "multiplicative coupling"
+The Session-4 "interaction ratio = 1.000" was a tautology (Rothermel is
+separable). Replaced by the dimensional cross-partial ∂²R/∂M∂U and the
+marginal wind effect ∂R/∂U (`spread_model/interaction.py`,
+`docs/methodology/interaction.md`).
+
+### ⚠️ NEWLY EXPOSED (genuine, unresolved): surface model under-predicts ~90%
+With physically-correct midflame wind, the Rothermel **surface** model
+under-predicts the Yeongdeok front by ~90 % at every horizon. The real run
+was crown/spotting-driven. **Fix needed**: a crown-fire / spotting ignition
+module on top of the surface model. This is the #1 scientific gap. Until
+then the spread model is insufficient to predict this event, and the
+routing spine must be fed a better front than the surface model produces.
+
+### ⚠️ PROVISIONAL: Korean surface fuel bed (not measured)
+Live moisture (119 %) and canopy structure are measured (Lee et al. 2018);
+the Rothermel surface bed (litter load 0.7 kg/m², depth 0.08 m, SAV
+6000 m⁻¹, dead m_x 0.30) is a flagged best-estimate. **Fix needed**: Korean
+surface-litter field data (KFRI/NIFoS ground-fuel surveys).
+
+### Carried forward (need data access / a later session)
+- Real KFS perimeter shapefile (validation ground truth still approximate).
+- Real KMA AWS wind (still synthetic-historical reconstruction; no key).
+- Real Sentinel-1/2 + Korean LFMC labels for the retrieval model.
+- Real OSM pedestrian network for routing (synthetic grid used offline).
+- Real fire+weather data for the empirical super-multiplicativity test
+  (`empirical_interaction.py` is a synthetic-data scaffold only).
+
+---
+
 ## ✅ RESOLVED in Session 2
 
 ### BLOCKERS-1: Single-class Rothermel vs. multi-class BehavePlus  ✅ RESOLVED

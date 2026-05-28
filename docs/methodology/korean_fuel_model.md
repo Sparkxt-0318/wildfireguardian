@@ -1,5 +1,52 @@
 # Korean Pinus densiflora fuel model — methodology
 
+## Session 5 update — literature-anchored parameters (read first)
+
+The fuel model was rebuilt from published Korean values. Where a quantity
+is **measured**, it is cited; where the Rothermel *surface* model needs a
+quantity the Korean papers do not provide, a **provisional** best-estimate
+is used and flagged. Nothing provisional is presented as measured.
+
+### MEASURED (cited)
+
+| Quantity | Value | Source |
+|----------|-------|--------|
+| Foliar (live) moisture | **119 %** (avg crown moisture 105.3 %) | *Allometric Equations of Crown Fuel Biomass for Pinus densiflora* |
+| Crown bulk density (Gyeongbuk) | 0.47 (Youngju/Bonghwa), 0.29 (Daegu) kg/m³ | Lee, S.J. et al. (2018), *J. Korean Soc. Forest Sci.* 107(4):412–421 |
+| Crown bulk density, needles+twigs <1 cm | 0.13–0.27 kg/m³ | Lee et al. (2018) |
+| Crown base height | 3.6–5.2 m | Lee et al. (2018) |
+| Crown/total fuel ratio; needles+twigs <1 cm = 50.3 % of crown | 30 % | Lee et al. (2018) |
+| Stand-level loading basis | NIFoS model, 1,434 NFI plots (Weibull+mortality) | *Forests* 2022, 13(9):1372 |
+
+→ `live_moisture_default = 1.19`. The crown structure feeds the **canopy
+WAF** (`spread_model/wind.py::korean_pine_waf`: crown base 3.6–5.2 m means a
+surface fire is strongly *sheltered* — WAF ≈ 0.10), **not** the surface bed.
+
+### PROVISIONAL surface fuel bed (NOT measured — flagged)
+
+The Rothermel **surface** model needs the ground litter bed (load, depth,
+SAV, dead moisture of extinction). The Korean papers above characterise
+**crown** fuel, so these are documented best-estimates pending Korean
+surface-litter field literature (see `docs/BLOCKERS.md`):
+
+| Quantity | Provisional value | Plausible range |
+|----------|-------------------|-----------------|
+| Needle-litter (1-h dead) load | 0.7 kg/m² | 0.5–0.9 |
+| Fuel-bed depth | 0.08 m | 0.05–0.10 |
+| Needle SAV | 6000 m⁻¹ (≈1829 ft⁻¹) | 5500–6500 |
+| Dead moisture of extinction | 0.30 | 0.25–0.30 |
+
+These are tagged `PROVISIONAL` in
+`spread_model/rothermel/fuel_model.py::_make_korean_pinus_fuel` and must not
+be cited as measured. **Consequence**: with the corrected (small) canopy
+WAF, the surface model spreads slowly and *under-predicts* the real,
+crown/spotting-driven Yeongdeok front — see
+`docs/methodology/validation_limitations.md`.
+
+---
+
+## (Earlier framing — superseded by the section above)
+
 ## Why a custom fuel model
 
 Korean wildfires are dominated by surface fires through Pinus densiflora

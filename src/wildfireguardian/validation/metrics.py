@@ -104,6 +104,69 @@ def perimeter_symmetric_difference_area_km2(
     return float(predicted.symmetric_difference(observed).area / 1_000_000.0)
 
 
+def fraction_of_observed_captured(
+    predicted: BaseGeometry | None, observed: BaseGeometry | None,
+) -> float:
+    """Fraction of the observed burned area that the prediction covers.
+
+    ``area(predicted ∩ observed) / area(observed)`` ∈ [0, 1]. This is the
+    "how much of the real fire did we capture" number — the honest
+    per-horizon counterpart to the IoU. Returns NaN if observed is empty.
+    """
+    if observed is None or observed.is_empty or observed.area <= 0.0:
+        return float("nan")
+    if predicted is None or predicted.is_empty:
+        return 0.0
+    return float(predicted.intersection(observed).area / observed.area)
+
+
+def front_position_error_m(
+    predicted: BaseGeometry | None, observed: BaseGeometry | None,
+) -> dict[str, float]:
+    """Distance between the predicted and observed fire FRONTS (boundaries).
+
+    Returns a dict with:
+
+    - ``hausdorff_m``: the (symmetric) Hausdorff distance between the two
+      boundaries — the worst-case front-position error (m).
+    - ``mean_boundary_m``: the mean of the two directed mean nearest-point
+      distances between the boundaries — a typical front-position error (m).
+
+    Both operate on the polygon *boundaries* (the fire front lines), in
+    EPSG:5179 metres. Returns NaN entries when either geometry is missing.
+
+    This is the metric the mentor asked for: per-horizon front-position
+    error, not just area overlap. A model can get the area right while the
+    front is in the wrong place; this catches that.
+    """
+    nan = {"hausdorff_m": float("nan"), "mean_boundary_m": float("nan")}
+    if predicted is None or observed is None:
+        return nan
+    if predicted.is_empty or observed.is_empty:
+        return nan
+    pb = predicted.boundary
+    ob = observed.boundary
+    if pb.is_empty or ob.is_empty:
+        return nan
+    hausdorff = float(pb.hausdorff_distance(ob))
+
+    # Mean directed distance: sample points on each boundary, average the
+    # nearest-point distance to the other boundary, then symmetrise.
+    def _mean_directed(a, b) -> float:
+        length = a.length
+        if length <= 0.0:
+            return float("nan")
+        n = 64
+        dists = []
+        for k in range(n):
+            pt = a.interpolate(length * k / n)
+            dists.append(pt.distance(b))
+        return float(sum(dists) / len(dists))
+
+    md = 0.5 * (_mean_directed(pb, ob) + _mean_directed(ob, pb))
+    return {"hausdorff_m": hausdorff, "mean_boundary_m": md}
+
+
 # ---------------------------------------------------------------------------
 # Probabilistic skill
 # ---------------------------------------------------------------------------
@@ -241,6 +304,8 @@ __all__ = [
     "perimeter_iou",
     "perimeter_sorensen_dice",
     "perimeter_symmetric_difference_area_km2",
+    "fraction_of_observed_captured",
+    "front_position_error_m",
     "brier_score",
     "brier_skill_score",
     "lead_time_gain",

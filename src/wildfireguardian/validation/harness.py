@@ -56,6 +56,8 @@ from .metrics import (
     PerimeterAtTime,
     brier_score,
     brier_skill_score,
+    fraction_of_observed_captured,
+    front_position_error_m,
     lead_time_gain,
     perimeter_iou,
     perimeter_sorensen_dice,
@@ -442,7 +444,12 @@ def _nearest_in_series(series: list[PerimeterAtTime], t_min: float) -> Perimeter
 
 @dataclass
 class HorizonMetrics:
-    """Per-horizon spatial agreement between one predicted series and observed."""
+    """Per-horizon agreement between one predicted series and observed.
+
+    Session 5: adds front-position error (Hausdorff + mean boundary
+    distance) and the fraction of observed area captured, so the report is
+    about FRONT ACCURACY per horizon, not just the 24 h area total.
+    """
 
     horizon_min: float
     predicted_area_ha: float
@@ -450,6 +457,10 @@ class HorizonMetrics:
     iou: float | None
     sorensen_dice: float | None
     symmetric_difference_km2: float | None
+    fraction_observed_captured: float | None = None
+    area_error_frac: float | None = None          # (pred - obs) / obs
+    front_hausdorff_m: float | None = None
+    front_mean_boundary_m: float | None = None
 
     def as_dict(self) -> dict:
         return {
@@ -459,6 +470,10 @@ class HorizonMetrics:
             "iou": self.iou,
             "sorensen_dice": self.sorensen_dice,
             "symmetric_difference_km2": self.symmetric_difference_km2,
+            "fraction_observed_captured": self.fraction_observed_captured,
+            "area_error_frac": self.area_error_frac,
+            "front_hausdorff_m": self.front_hausdorff_m,
+            "front_mean_boundary_m": self.front_mean_boundary_m,
         }
 
 
@@ -467,7 +482,7 @@ def compute_horizon_metrics(
     observed: list[PerimeterAtTime],
     horizons_min: Sequence[float],
 ) -> list[HorizonMetrics]:
-    """Spatial agreement at each requested time horizon."""
+    """Per-horizon agreement incl. front-position error (Session 5)."""
     out: list[HorizonMetrics] = []
     for h in horizons_min:
         p = _nearest_in_series(predicted, h)
@@ -483,11 +498,20 @@ def compute_horizon_metrics(
         iou = perimeter_iou(p.polygon, o.polygon)
         dice = perimeter_sorensen_dice(p.polygon, o.polygon)
         symd = perimeter_symmetric_difference_area_km2(p.polygon, o.polygon)
+        captured = fraction_of_observed_captured(p.polygon, o.polygon)
+        front = front_position_error_m(p.polygon, o.polygon)
+        area_err = (
+            (p.area_m2 - o.area_m2) / o.area_m2 if o.area_m2 > 0 else None
+        )
         out.append(HorizonMetrics(
             horizon_min=h,
             predicted_area_ha=p.area_m2 / 1e4,
             observed_area_ha=o.area_m2 / 1e4,
             iou=iou, sorensen_dice=dice, symmetric_difference_km2=symd,
+            fraction_observed_captured=captured,
+            area_error_frac=area_err,
+            front_hausdorff_m=front["hausdorff_m"],
+            front_mean_boundary_m=front["mean_boundary_m"],
         ))
     return out
 

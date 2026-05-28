@@ -151,25 +151,32 @@ See `docs/architecture.md` for the long form.
 
 ### Current status
 
-🟧 **Research prototype (alpha) — Session 4 complete (science locked).**
+🟧 **Research prototype (alpha) — Session 5 (mentor refocus: fix physics, build the spine).**
 
-**Locked headline results** (honest, with provenance caveats):
+**Honest headline results** (Session 5 corrects two invalid Session-4 claims):
 
-- **Real terrain**: Yeongdeok validation runs on real NASA SRTM 30 m DEM
-  (0–820 m elevation, East Sea correctly at 0 m).
-- **LFMC × wind coupling (rock-solid centerpiece)**: rate of spread is
-  **18.3× higher** under drought-Föhn (LFMC 40 %, midflame 12 m/s) than
-  benign conditions (LFMC 80 %, 2 m/s). Decomposed: drought alone ×1.44,
-  wind alone ×12.76, combined ×18.31 — **perfectly multiplicative
-  (interaction ratio 1.000)**, a structural property of the Rothermel
-  equation. See `docs/figures/lfmc_wind_decomposition.png`.
-- **Validation** (vs an *approximate* observed perimeter): the Session-4
-  disc-ignition warm-up fix raised 1 h IoU from 0.160 to **0.477**. The
-  model beats the persistence baseline at all horizons and the isotropic
-  baseline at 1 h and 24 h (loses 3–6 h: documented missing spotting/crown
-  physics). 24 h burned area +25 % of reported (~4,750 vs ~3,800 ha).
-- **Robustness**: the 24 h metric is stable under ±20 % / ±500 m perimeter
-  perturbation; the 1 h IoU is fragile (reported honestly).
+- **Wind fixed (root-cause bug)**: Rothermel needs the **midflame** wind. We
+  now convert 10-m → midflame via the Andrews 2012 Wind Adjustment Factor
+  (closed Korean pine canopy WAF ≈ 0.10). The old code fed raw 10-m wind to
+  Rothermel, inflating the wind factor to ~115×; corrected it is ~5×.
+- **Moisture × wind interaction (corrected)**: the Session-4 "multiplicative
+  coupling, ratio = 1.000" was **tautological** (Rothermel is separable) and
+  is **retracted**. The honest, dimensional measure is ∂R/∂U: each m/s of
+  midflame wind adds **~1.0 m/min of spread on dry fuel vs ~0.6 on moist**
+  (∂²R/∂M∂U < 0). See `docs/figures/interaction_fanning.png`.
+- **Validation (honest)**: with physically-correct wind the surface model
+  **under-predicts the Yeongdeok front by ~90 %** at every horizon — it
+  cannot capture the crown/spotting-driven run. The Session-4 "24 h +25 %"
+  was an inflated-wind + disc-injection cancellation, now exposed. The
+  prediction does not work yet; we say so plainly.
+- **The spine (new core contribution)**: future-front-aware evacuation
+  routing. The naive nearest-shelter route walks an evacuee **into** the
+  advancing front; the time-dependent router detours to a shelter the fire
+  never reaches in time, with a reported clearance margin and latest-safe-
+  departure. See `docs/figures/route_away_from_front.png`.
+- **Korean fuel**: live moisture is the **measured** 119 % foliar value; the
+  Rothermel surface bed is **provisional** (flagged) pending Korean
+  surface-litter literature.
 
 ⚠️ **Honesty note**: only the DEM is real. Wind, fuel raster, observed
 perimeter, and Korean fuel parameters are SYNTHETIC / APPROXIMATE / ANALOG

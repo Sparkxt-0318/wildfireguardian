@@ -171,6 +171,10 @@ class MultiClassFuelModel:
     name_kr: str = ""
     description: str = ""
     dynamic_load_transfer: bool = False
+    #: Representative live-fuel moisture (fraction) for this stand, where a
+    #: measured value exists (e.g. Korean Pinus foliar moisture 1.19).
+    #: ``None`` means "no canonical default — caller must supply LFMC".
+    live_moisture_default: float | None = None
 
     # Convenience -----
 
@@ -452,75 +456,111 @@ ANDERSON_13: Final[dict[str, MultiClassFuelModel]] = _make_anderson13()
 
 
 # ---------------------------------------------------------------------------
-# Korean Pinus densiflora fuel model
+# Korean Pinus densiflora fuel model  (Session 5: literature-anchored)
 # ---------------------------------------------------------------------------
 #
-# A defensible analog representation of typical Korean red-pine (Pinus
-# densiflora 소나무) stand surface fuel. Real published Korean fuel-class
-# loadings are sparse in the international literature; values below are
-# adapted from the closest North American analog (FM10 timber/understory)
-# with adjustments for the lighter understory and denser litter typical of
-# Korean Pinus densiflora forests under Korean spring climate.
+# Live-fuel moisture and the stand context are anchored to MEASURED Korean
+# values; the Rothermel SURFACE fuel bed (needle-litter load, depth, SAV,
+# dead m_x) is a PROVISIONAL best-estimate, because the available Korean
+# papers characterise CROWN fuel, not the ground litter bed the Rothermel
+# surface model needs. Every provisional number is flagged here and in
+# docs/methodology/korean_fuel_model.md + docs/BLOCKERS.md.
 #
-# This is flagged in docs/methodology/korean_fuel_model.md and
-# docs/BLOCKERS.md for refinement once Korean field-fuel-load data is
-# secured (Lee et al. 2002 etc.). The structure is multi-class so that
-# refinements are drop-in.
+# MEASURED (cited):
+#   - Foliar (live) moisture 119 %, average crown moisture 105.3 %.
+#     "Allometric Equations of Crown Fuel Biomass for Pinus densiflora."
+#     → live_moisture_default = 1.19.
+#   - Crown structure (crown base height 3.6-5.2 m; crown bulk density
+#     0.29-0.47 kg/m³; needles+twigs <1 cm = 50.3 % of crown fuel).
+#     Lee, S.J. et al. (2018), J. Korean Soc. Forest Sci. 107(4):412-421.
+#     → used for the canopy WAF (spread_model/wind.py), not the surface bed.
+#   - Stand-level loading magnitude justified by the NIFoS P. densiflora
+#     wildfire fuel-load model from 1,434 NFI plots, Forests 2022, 13(9):1372.
+#
+# PROVISIONAL surface-bed estimates (NOT measured — flagged):
+#   - needle-litter (1-h dead) load 0.7 kg/m²  (range 0.5-0.9)
+#   - fuel-bed depth 0.08 m                     (range 0.05-0.10)
+#   - needle SAV 6000 1/m ≈ 1829 1/ft           (range 5500-6500 1/m)
+#   - dead moisture of extinction 0.30          (range 0.25-0.30)
+# These await Korean surface-litter field literature (see BLOCKERS).
+
+# --- provisional surface-bed values in SI, converted to imperial below ---
+_KP_LITTER_LOAD_KGM2: Final[float] = 0.7        # PROVISIONAL
+_KP_FINE_TWIG_LOAD_KGM2: Final[float] = 0.2     # PROVISIONAL (downed twigs <1 cm)
+_KP_UNDERSTORY_LOAD_KGM2: Final[float] = 0.15   # PROVISIONAL (sparse low live understory)
+_KP_BED_DEPTH_M: Final[float] = 0.08            # PROVISIONAL
+_KP_NEEDLE_SAV_PER_M: Final[float] = 6000.0     # PROVISIONAL
+_KP_UNDERSTORY_SAV_PER_M: Final[float] = 5000.0 # PROVISIONAL
+_KP_M_X_DEAD: Final[float] = 0.30               # PROVISIONAL (lit. range 0.25-0.30)
+_KP_FOLIAR_MOISTURE: Final[float] = 1.19        # MEASURED (foliar live moisture 119 %)
+
+
+def _kgm2_to_lbft2(x: float) -> float:
+    """kg/m² → lb/ft² using the project unit table."""
+    from ...utils import units as _U
+    return x * _U.LBFT2_PER_KGM2
+
+
+def _per_m_to_per_ft(sigma_per_m: float) -> float:
+    """SAV 1/m → 1/ft (σ[1/ft] = σ[1/m] × 0.3048)."""
+    from ...utils import units as _U
+    return sigma_per_m * _U.M_PER_FT
+
+
+def _m_to_ft(x: float) -> float:
+    from ...utils import units as _U
+    return x * _U.FT_PER_M
 
 
 def _make_korean_pinus_fuel() -> MultiClassFuelModel:
     """Construct the Korean Pinus densiflora multi-class fuel model.
 
-    Per-class parameters (adapted from Lee et al. 2002 KFRI surveys of
-    소나무 stand fuel loadings, where possible; otherwise FM10 analog):
-
-    - 1-h dead (needle litter + fine twigs <6 mm):
-      w = 0.10 lb/ft² (≈ 0.49 kg/m², somewhat less than FM10's 0.138 because
-      Korean Pinus stands have shorter, less voluminous needles than
-      US Western timber); σ = 2100 1/ft, characteristic of Pinus densiflora
-      needles (~ 1 mm thick, 8 cm long).
-    - 10-h dead (twigs 6-25 mm): w = 0.06 lb/ft²; σ = 109 1/ft (Andrews 2018
-      universal).
-    - 100-h dead (downed wood 25-76 mm): w = 0.10 lb/ft²; σ = 30 1/ft.
-    - Live foliage (needles still on the tree, lower canopy reachable by
-      surface fire): w = 0.06 lb/ft²; σ = 1800 1/ft.
-    - Live understory (sub-canopy shrubs — typical undergrowth is sparse
-      in Korean Pinus stands due to dense needle litter): w = 0.03 lb/ft²;
-      σ = 1500 1/ft.
-    - Bed depth δ = 0.5 ft (≈ 15 cm — Korean Pinus litter beds are compact).
-    - Dead moisture of extinction m_x_dead = 0.25 (Anderson 1982 FM10
-      value; defensible for closed timber-litter beds).
-    - Heat content h = 8000 Btu/lb (≈ 18.6 MJ/kg, standard wildland value).
-
-    The structure follows Andrews 2018 multi-class so the same spread.py
-    code path serves Anderson 13 and Korean Pinus alike.
+    Live moisture is the MEASURED Korean foliar value (119 %); the surface
+    fuel bed is a PROVISIONAL estimate (see the module comment above and
+    docs/methodology/korean_fuel_model.md). The structure follows
+    Andrews 2018 multi-class so the same spread.py code path serves
+    Anderson 13 and Korean Pinus alike.
     """
     return MultiClassFuelModel(
         code="KP_PINE",
-        name="Korean Pinus densiflora (analog)",
-        name_kr="한국 소나무 (분석용)",
-        delta=0.5,
-        m_x_dead=0.25,
+        name="Korean Pinus densiflora (Gyeongbuk; surface bed provisional)",
+        name_kr="한국 소나무 (경북; 지표연료 잠정)",
+        delta=_m_to_ft(_KP_BED_DEPTH_M),
+        m_x_dead=_KP_M_X_DEAD,
+        live_moisture_default=_KP_FOLIAR_MOISTURE,
         particles=(
-            FuelClass(FuelClassKind.DEAD_1H,    w_o=0.10, sigma=2100.0),
-            FuelClass(FuelClassKind.DEAD_10H,   w_o=0.06, sigma=109.0),
-            FuelClass(FuelClassKind.DEAD_100H,  w_o=0.10, sigma=30.0),
-            FuelClass(FuelClassKind.LIVE_WOODY, w_o=0.06, sigma=1800.0),
-            FuelClass(FuelClassKind.LIVE_HERB,  w_o=0.03, sigma=1500.0),
+            # 1-h dead needle litter — PROVISIONAL load/SAV.
+            FuelClass(
+                FuelClassKind.DEAD_1H,
+                w_o=_kgm2_to_lbft2(_KP_LITTER_LOAD_KGM2),
+                sigma=_per_m_to_per_ft(_KP_NEEDLE_SAV_PER_M),
+            ),
+            # 10-h dead downed twigs <1 cm — PROVISIONAL load; SAV Andrews universal.
+            FuelClass(
+                FuelClassKind.DEAD_10H,
+                w_o=_kgm2_to_lbft2(_KP_FINE_TWIG_LOAD_KGM2),
+                sigma=109.0,
+            ),
+            # Live low understory — PROVISIONAL load; moisture = measured foliar 119 %.
+            FuelClass(
+                FuelClassKind.LIVE_WOODY,
+                w_o=_kgm2_to_lbft2(_KP_UNDERSTORY_LOAD_KGM2),
+                sigma=_per_m_to_per_ft(_KP_UNDERSTORY_SAV_PER_M),
+            ),
         ),
         description=(
-            "Korean Pinus densiflora forest surface fuel — analog model "
-            "adapted from Anderson FM10 with parameter refinements for "
-            "Pinus densiflora needle morphology and litter depth typical of "
-            "Korean red-pine stands. Live moisture of extinction is computed "
-            "dynamically per Burgan 1979 from runtime fuel-moisture inputs. "
-            "See docs/methodology/korean_fuel_model.md and docs/BLOCKERS.md "
-            "for the parameter-refinement roadmap."
+            "Korean Pinus densiflora (Gyeongbuk) surface fuel. LIVE moisture "
+            "and stand/canopy structure are MEASURED (Lee et al. 2018; foliar "
+            "moisture 119 %); the Rothermel SURFACE bed (litter load 0.7 kg/m², "
+            "depth 0.08 m, needle SAV 6000 1/m, dead m_x 0.30) is PROVISIONAL "
+            "pending Korean surface-litter literature. Live moisture of "
+            "extinction is computed dynamically per Burgan 1979. See "
+            "docs/methodology/korean_fuel_model.md and docs/BLOCKERS.md."
         ),
     )
 
 
-#: Korean Pinus densiflora analog fuel model (multi-class).
+#: Korean Pinus densiflora fuel model (multi-class; live measured, surface provisional).
 KOREAN_PINUS: Final[MultiClassFuelModel] = _make_korean_pinus_fuel()
 
 

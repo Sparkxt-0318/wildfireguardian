@@ -1,221 +1,626 @@
 {
-  "region": "yeongdeok_2025",
-  "config": {
-    "cell_size_m": 100.0,
-    "wind_speed_midflame_ms": 4.17069512300735,
-    "wind_from_deg": 282.3921587312073,
-    "dead_moisture_1h": 0.08,
-    "live_moisture_lfmc": 0.4,
-    "residence_time_min": 60.0,
-    "duration_min": 1440.0,
-    "dt_min": 1.0,
-    "snapshot_every_min": 60.0,
-    "dem_source": "srtm",
-    "fuel_source": "synthetic",
-    "ignition_radius_m": 155.2251019645219
+  "wind": {
+    "u_10m_ms": 13.902317076691167,
+    "waf": 0.1,
+    "u_midflame_ms": 1.3902317076691169,
+    "wind_factor_midflame": 5.25810096645608,
+    "wind_factor_raw_10m_OLD_BUG": 115.18491336045872
   },
-  "horizons_min": [
-    60.0,
-    180.0,
-    360.0,
-    1440.0
-  ],
-  "data_provenance": {
-    "dem_source": "srtm",
-    "dem_synthetic": false,
-    "dem_provenance": "NASA SRTMGL1 (1-arc-second, ~30 m) via the AWS Mapzen archive (elevation-tiles-prod.s3.amazonaws.com). Nodata and bathymetry clipped to 0 (sea surface). Resampled to EPSG:5179 by nearest-neighbour.",
-    "fuel_source": "synthetic",
-    "fuel_synthetic": true,
-    "fuel_provenance": "",
-    "observed_perimeter_source": "data/validation_cases/yeongdeok_2025_perimeter_approx.geojson",
-    "observed_perimeter_provenance": "APPROXIMATE, reconstructed from public reporting (see file metadata.provenance)"
-  },
-  "mean_head_rate_m_min": 10.348340130968127,
-  "metrics": {
-    "our_model": [
-      {
-        "horizon_min": 60.0,
-        "predicted_area_ha": 29.0,
-        "observed_area_ha": 50.0,
-        "iou": 0.476862103104827,
-        "sorensen_dice": 0.6457774251263048,
-        "symmetric_difference_km2": 0.279709413144587
-      },
-      {
-        "horizon_min": 180.0,
-        "predicted_area_ha": 123.0,
-        "observed_area_ha": 600.0,
-        "iou": 0.2051464323288537,
-        "sorensen_dice": 0.3404506320985802,
-        "symmetric_difference_km2": 4.765717234937267
-      },
-      {
-        "horizon_min": 360.0,
-        "predicted_area_ha": 385.0,
-        "observed_area_ha": 1500.0,
-        "iou": 0.22801094790444143,
-        "sorensen_dice": 0.37135002467776707,
-        "symmetric_difference_km2": 11.84332113444807
-      },
-      {
-        "horizon_min": 1440.0,
-        "predicted_area_ha": 4747.0,
-        "observed_area_ha": 3800.0,
-        "iou": 0.14741899232283046,
-        "sorensen_dice": 0.25695756007035586,
-        "symmetric_difference_km2": 63.487682924843135
-      }
+  "disc_ignition": {
+    "region": "yeongdeok_2025",
+    "config": {
+      "cell_size_m": 50.0,
+      "wind_speed_midflame_ms": 1.3902317076691169,
+      "wind_from_deg": 282.3921587312073,
+      "dead_moisture_1h": 0.08,
+      "live_moisture_lfmc": 0.4,
+      "residence_time_min": 60.0,
+      "duration_min": 1440.0,
+      "dt_min": 1.0,
+      "snapshot_every_min": 60.0,
+      "dem_source": "srtm",
+      "fuel_source": "synthetic",
+      "ignition_radius_m": 21.591307074743867
+    },
+    "horizons_min": [
+      60.0,
+      180.0,
+      360.0,
+      720.0,
+      1440.0
     ],
-    "persistence_baseline": [
-      {
-        "horizon_min": 60.0,
-        "predicted_area_ha": 7.5696148080000185,
-        "observed_area_ha": 50.0,
-        "iou": 0.1514396017661581,
-        "sorensen_dice": 0.26304393479930605,
-        "symmetric_difference_km2": 0.4239773503814248
-      },
-      {
-        "horizon_min": 180.0,
-        "predicted_area_ha": 7.5696148080000185,
-        "observed_area_ha": 600.0,
-        "iou": 0.012619966813849534,
-        "sorensen_dice": 0.02492537620714219,
-        "symmetric_difference_km2": 5.920051482407133
-      },
-      {
-        "horizon_min": 360.0,
-        "predicted_area_ha": 7.5696148080000185,
-        "observed_area_ha": 1500.0,
-        "iou": 0.005047986725539024,
-        "sorensen_dice": 0.01004526508626804,
-        "symmetric_difference_km2": 14.91362733481538
-      },
-      {
-        "horizon_min": 1440.0,
-        "predicted_area_ha": 7.5696148080000185,
-        "observed_area_ha": 3800.0,
-        "iou": 0.001992626339028763,
-        "sorensen_dice": 0.003977327350819349,
-        "symmetric_difference_km2": 37.89721006874134
-      }
+    "data_provenance": {
+      "dem_source": "srtm",
+      "dem_synthetic": false,
+      "dem_provenance": "NASA SRTMGL1 (1-arc-second, ~30 m) via the AWS Mapzen archive (elevation-tiles-prod.s3.amazonaws.com). Nodata and bathymetry clipped to 0 (sea surface). Resampled to EPSG:5179 by nearest-neighbour.",
+      "fuel_source": "synthetic",
+      "fuel_synthetic": true,
+      "fuel_provenance": "",
+      "observed_perimeter_source": "data/validation_cases/yeongdeok_2025_perimeter_approx.geojson",
+      "observed_perimeter_provenance": "APPROXIMATE, reconstructed from public reporting (see file metadata.provenance)"
+    },
+    "mean_head_rate_m_min": 1.439420471649591,
+    "metrics": {
+      "our_model": [
+        {
+          "horizon_min": 60.0,
+          "predicted_area_ha": 0.5,
+          "observed_area_ha": 50.0,
+          "iou": 0.010007143040429487,
+          "sorensen_dice": 0.019815984687603174,
+          "symmetric_difference_km2": 0.49464310291155883,
+          "fraction_observed_captured": 0.01000714304042949,
+          "area_error_frac": -0.99,
+          "front_hausdorff_m": 623.299785798803,
+          "front_mean_boundary_m": 302.56732540602053
+        },
+        {
+          "horizon_min": 180.0,
+          "predicted_area_ha": 3.5,
+          "observed_area_ha": 600.0,
+          "iou": 0.005837500106918601,
+          "sorensen_dice": 0.011607242931980722,
+          "symmetric_difference_km2": 5.960717234937268,
+          "fraction_observed_captured": 0.005837500106918595,
+          "area_error_frac": -0.9941666666666666,
+          "front_hausdorff_m": 2177.352076910979,
+          "front_mean_boundary_m": 1079.1655101761585
+        },
+        {
+          "horizon_min": 360.0,
+          "predicted_area_ha": 13.75,
+          "observed_area_ha": 1500.0,
+          "iou": 0.009173214453727796,
+          "sorensen_dice": 0.01817966296042313,
+          "symmetric_difference_km2": 14.851793087345515,
+          "fraction_observed_captured": 0.00917321445372779,
+          "area_error_frac": -0.9908333333333333,
+          "front_hausdorff_m": 3447.1580981581947,
+          "front_mean_boundary_m": 1666.818971977009
+        },
+        {
+          "horizon_min": 720.0,
+          "predicted_area_ha": 67.75,
+          "observed_area_ha": 2800.0,
+          "iou": 0.024213712178183668,
+          "sorensen_dice": 0.047282538576228675,
+          "symmetric_difference_km2": 27.302513763045443,
+          "fraction_observed_captured": 0.02421371217818367,
+          "area_error_frac": -0.9758035714285714,
+          "front_hausdorff_m": 4712.547545244533,
+          "front_mean_boundary_m": 2128.8352845614672
+        },
+        {
+          "horizon_min": 1440.0,
+          "predicted_area_ha": 325.5,
+          "observed_area_ha": 3800.0,
+          "iou": 0.0857190805173789,
+          "sorensen_dice": 0.1579028720330331,
+          "symmetric_difference_km2": 34.71787582127147,
+          "fraction_observed_captured": 0.08571908051737903,
+          "area_error_frac": -0.9143421052631578,
+          "front_hausdorff_m": 5491.231800660179,
+          "front_mean_boundary_m": 2073.4048453413275
+        }
+      ],
+      "persistence_baseline": [
+        {
+          "horizon_min": 60.0,
+          "predicted_area_ha": 0.1464561929838119,
+          "observed_area_ha": 50.0,
+          "iou": 0.002930039124084632,
+          "sorensen_dice": 0.00584295815218298,
+          "symmetric_difference_km2": 0.49817912907194895,
+          "fraction_observed_captured": 0.002930039124084633,
+          "area_error_frac": -0.9970708761403239,
+          "front_hausdorff_m": 609.1921559586493,
+          "front_mean_boundary_m": 321.0853777152413
+        },
+        {
+          "horizon_min": 180.0,
+          "predicted_area_ha": 0.1464561929838119,
+          "observed_area_ha": 600.0,
+          "iou": 0.00024416992700711124,
+          "sorensen_dice": 0.00048822064521491647,
+          "symmetric_difference_km2": 5.994253261097658,
+          "fraction_observed_captured": 0.00024416992700711097,
+          "area_error_frac": -0.999755906345027,
+          "front_hausdorff_m": 2163.5058784608977,
+          "front_mean_boundary_m": 1156.0331003964984
+        },
+        {
+          "horizon_min": 360.0,
+          "predicted_area_ha": 0.1464561929838119,
+          "observed_area_ha": 1500.0,
+          "iou": 9.766797080282921e-05,
+          "sorensen_dice": 0.00019531686540375076,
+          "symmetric_difference_km2": 14.987829113505903,
+          "fraction_observed_captured": 9.766797080282917e-05,
+          "area_error_frac": -0.9999023625380108,
+          "front_hausdorff_m": 3433.350510804239,
+          "front_mean_boundary_m": 1838.169473569961
+        },
+        {
+          "horizon_min": 720.0,
+          "predicted_area_ha": 0.1464561929838119,
+          "observed_area_ha": 2800.0,
+          "iou": 5.232212721580047e-05,
+          "sorensen_dice": 0.00010463877950806782,
+          "symmetric_difference_km2": 27.97854978920583,
+          "fraction_observed_captured": 5.2322127215800473e-05,
+          "area_error_frac": -0.9999476942167915,
+          "front_hausdorff_m": 4698.757734959939,
+          "front_mean_boundary_m": 2517.922158726937
+        },
+        {
+          "horizon_min": 1440.0,
+          "predicted_area_ha": 0.1464561929838119,
+          "observed_area_ha": 3800.0,
+          "iou": 3.855314636954174e-05,
+          "sorensen_dice": 7.710332016349574e-05,
+          "symmetric_difference_km2": 37.97141184743186,
+          "fraction_observed_captured": 3.8553146369541794e-05,
+          "area_error_frac": -0.9999614588965833,
+          "front_hausdorff_m": 5477.448857660499,
+          "front_mean_boundary_m": 2936.2202150789317
+        }
+      ],
+      "isotropic_baseline": [
+        {
+          "horizon_min": 60.0,
+          "predicted_area_ha": 3.6614048245952975,
+          "observed_area_ha": 50.0,
+          "iou": 0.07325097810206348,
+          "sorensen_dice": 0.13650297944587106,
+          "symmetric_difference_km2": 0.46304375692133715,
+          "fraction_observed_captured": 0.07325097810206349,
+          "area_error_frac": -0.926771903508094,
+          "front_hausdorff_m": 522.8285324197308,
+          "front_mean_boundary_m": 249.39341414594645
+        },
+        {
+          "horizon_min": 180.0,
+          "predicted_area_ha": 24.751096614264217,
+          "observed_area_ha": 600.0,
+          "iou": 0.04126471766415076,
+          "sorensen_dice": 0.0792588416070009,
+          "symmetric_difference_km2": 5.748305656043499,
+          "fraction_observed_captured": 0.04126471766415071,
+          "area_error_frac": -0.9587481723095597,
+          "front_hausdorff_m": 1904.4146594359631,
+          "front_mean_boundary_m": 941.8588796027371
+        },
+        {
+          "horizon_min": 360.0,
+          "predicted_area_ha": 91.53512061488246,
+          "observed_area_ha": 1500.0,
+          "iou": 0.06104248175169823,
+          "sorensen_dice": 0.115061334115335,
+          "symmetric_difference_km2": 14.07430943759037,
+          "fraction_observed_captured": 0.0610424817516982,
+          "area_error_frac": -0.938976586256745,
+          "front_hausdorff_m": 2915.1683330995083,
+          "front_mean_boundary_m": 1409.0797548567875
+        },
+        {
+          "horizon_min": 720.0,
+          "predicted_area_ha": 351.64131935413235,
+          "observed_area_ha": 2800.0,
+          "iou": 0.1256254274449878,
+          "sorensen_dice": 0.22321000286949796,
+          "symmetric_difference_km2": 24.465012574146215,
+          "fraction_observed_captured": 0.1256254274449878,
+          "area_error_frac": -0.8744138145163813,
+          "front_hausdorff_m": 3662.394954659542,
+          "front_mean_boundary_m": 1655.959821920434
+        },
+        {
+          "horizon_min": 1440.0,
+          "predicted_area_ha": 1378.0063197846862,
+          "observed_area_ha": 3800.0,
+          "iou": 0.362746554190562,
+          "sorensen_dice": 0.5323756689387116,
+          "symmetric_difference_km2": 24.198345964399138,
+          "fraction_observed_captured": 0.3627465541905625,
+          "area_error_frac": -0.6373667579513984,
+          "front_hausdorff_m": 3404.7333692040906,
+          "front_mean_boundary_m": 1194.2886949305787
+        }
+      ]
+    },
+    "predicted_model_areas_ha": [
+      0.25,
+      0.5,
+      1.75,
+      3.5,
+      6.0,
+      8.5,
+      13.75,
+      20.25,
+      27.75,
+      37.0,
+      47.0,
+      57.0,
+      67.75,
+      80.0,
+      92.25,
+      108.25,
+      123.5,
+      140.25,
+      161.5,
+      184.75,
+      209.0,
+      234.75,
+      263.0,
+      295.5,
+      325.5
     ],
-    "isotropic_baseline": [
-      {
-        "horizon_min": 60.0,
-        "predicted_area_ha": 189.24037020000043,
-        "observed_area_ha": 50.0,
-        "iou": 0.2641317035537029,
-        "sorensen_dice": 0.4178863686610832,
-        "symmetric_difference_km2": 1.3920007103422787
-      },
-      {
-        "horizon_min": 180.0,
-        "predicted_area_ha": 1279.2649025520032,
-        "observed_area_ha": 600.0,
-        "iou": 0.45023702833800316,
-        "sorensen_dice": 0.620915091175106,
-        "symmetric_difference_km2": 7.12043880928746
-      },
-      {
-        "horizon_min": 360.0,
-        "predicted_area_ha": 4731.009255000012,
-        "observed_area_ha": 1500.0,
-        "iou": 0.31695804426440044,
-        "sorensen_dice": 0.48134873490436875,
-        "symmetric_difference_km2": 32.3018022440029
-      },
-      {
-        "horizon_min": 1440.0,
-        "predicted_area_ha": 71222.50572847218,
-        "observed_area_ha": 3800.0,
-        "iou": 0.053337255473686625,
-        "sorensen_dice": 0.10127289279196877,
-        "symmetric_difference_km2": 673.9661897349793
-      }
+    "predicted_model_times_min": [
+      0.0,
+      60.0,
+      120.0,
+      180.0,
+      240.0,
+      300.0,
+      360.0,
+      420.0,
+      480.0,
+      540.0,
+      600.0,
+      660.0,
+      720.0,
+      780.0,
+      840.0,
+      900.0,
+      960.0,
+      1020.0,
+      1080.0,
+      1140.0,
+      1200.0,
+      1260.0,
+      1320.0,
+      1380.0,
+      1440.0
+    ],
+    "observed_areas_ha": [
+      0.5,
+      50.0,
+      250.0,
+      600.0,
+      900.0,
+      1500.0,
+      2200.0,
+      2800.0,
+      3400.0,
+      3800.0,
+      3800.0
+    ],
+    "observed_times_min": [
+      0.0,
+      60.0,
+      120.0,
+      180.0,
+      240.0,
+      360.0,
+      540.0,
+      720.0,
+      1080.0,
+      1440.0,
+      2880.0
+    ],
+    "notes": [
+      "fuel-type is SYNTHETIC (100% KP_PINE fill)."
     ]
   },
-  "predicted_model_areas_ha": [
-    9.0,
-    29.0,
-    68.0,
-    123.0,
-    186.0,
-    280.0,
-    385.0,
-    503.0,
-    634.0,
-    786.0,
-    952.0,
-    1131.0,
-    1320.0,
-    1535.0,
-    1757.0,
-    1992.0,
-    2238.0,
-    2505.0,
-    2788.0,
-    3081.0,
-    3374.0,
-    3705.0,
-    4047.0,
-    4397.0,
-    4747.0
-  ],
-  "predicted_model_times_min": [
-    0.0,
-    60.0,
-    120.0,
-    180.0,
-    240.0,
-    300.0,
-    360.0,
-    420.0,
-    480.0,
-    540.0,
-    600.0,
-    660.0,
-    720.0,
-    780.0,
-    840.0,
-    900.0,
-    960.0,
-    1020.0,
-    1080.0,
-    1140.0,
-    1200.0,
-    1260.0,
-    1320.0,
-    1380.0,
-    1440.0
-  ],
-  "observed_areas_ha": [
-    0.5,
-    50.0,
-    250.0,
-    600.0,
-    900.0,
-    1500.0,
-    2200.0,
-    2800.0,
-    3400.0,
-    3800.0,
-    3800.0
-  ],
-  "observed_times_min": [
-    0.0,
-    60.0,
-    120.0,
-    180.0,
-    240.0,
-    360.0,
-    540.0,
-    720.0,
-    1080.0,
-    1440.0,
-    2880.0
-  ],
-  "notes": [
-    "fuel-type is SYNTHETIC (100% KP_PINE fill)."
-  ]
+  "single_cell": {
+    "region": "yeongdeok_2025",
+    "config": {
+      "cell_size_m": 50.0,
+      "wind_speed_midflame_ms": 1.3902317076691169,
+      "wind_from_deg": 282.3921587312073,
+      "dead_moisture_1h": 0.08,
+      "live_moisture_lfmc": 0.4,
+      "residence_time_min": 60.0,
+      "duration_min": 1440.0,
+      "dt_min": 1.0,
+      "snapshot_every_min": 60.0,
+      "dem_source": "srtm",
+      "fuel_source": "synthetic",
+      "ignition_radius_m": 0.0
+    },
+    "horizons_min": [
+      60.0,
+      180.0,
+      360.0,
+      720.0,
+      1440.0
+    ],
+    "data_provenance": {
+      "dem_source": "srtm",
+      "dem_synthetic": false,
+      "dem_provenance": "NASA SRTMGL1 (1-arc-second, ~30 m) via the AWS Mapzen archive (elevation-tiles-prod.s3.amazonaws.com). Nodata and bathymetry clipped to 0 (sea surface). Resampled to EPSG:5179 by nearest-neighbour.",
+      "fuel_source": "synthetic",
+      "fuel_synthetic": true,
+      "fuel_provenance": "",
+      "observed_perimeter_source": "data/validation_cases/yeongdeok_2025_perimeter_approx.geojson",
+      "observed_perimeter_provenance": "APPROXIMATE, reconstructed from public reporting (see file metadata.provenance)"
+    },
+    "mean_head_rate_m_min": 1.439420471649591,
+    "metrics": {
+      "our_model": [
+        {
+          "horizon_min": 60.0,
+          "predicted_area_ha": 0.5,
+          "observed_area_ha": 50.0,
+          "iou": 0.010007143040429487,
+          "sorensen_dice": 0.019815984687603174,
+          "symmetric_difference_km2": 0.49464310291155883,
+          "fraction_observed_captured": 0.01000714304042949,
+          "area_error_frac": -0.99,
+          "front_hausdorff_m": 623.299785798803,
+          "front_mean_boundary_m": 302.56732540602053
+        },
+        {
+          "horizon_min": 180.0,
+          "predicted_area_ha": 3.5,
+          "observed_area_ha": 600.0,
+          "iou": 0.005837500106918601,
+          "sorensen_dice": 0.011607242931980722,
+          "symmetric_difference_km2": 5.960717234937268,
+          "fraction_observed_captured": 0.005837500106918595,
+          "area_error_frac": -0.9941666666666666,
+          "front_hausdorff_m": 2177.352076910979,
+          "front_mean_boundary_m": 1079.1655101761585
+        },
+        {
+          "horizon_min": 360.0,
+          "predicted_area_ha": 13.75,
+          "observed_area_ha": 1500.0,
+          "iou": 0.009173214453727796,
+          "sorensen_dice": 0.01817966296042313,
+          "symmetric_difference_km2": 14.851793087345515,
+          "fraction_observed_captured": 0.00917321445372779,
+          "area_error_frac": -0.9908333333333333,
+          "front_hausdorff_m": 3447.1580981581947,
+          "front_mean_boundary_m": 1666.818971977009
+        },
+        {
+          "horizon_min": 720.0,
+          "predicted_area_ha": 67.75,
+          "observed_area_ha": 2800.0,
+          "iou": 0.024213712178183668,
+          "sorensen_dice": 0.047282538576228675,
+          "symmetric_difference_km2": 27.302513763045443,
+          "fraction_observed_captured": 0.02421371217818367,
+          "area_error_frac": -0.9758035714285714,
+          "front_hausdorff_m": 4712.547545244533,
+          "front_mean_boundary_m": 2128.8352845614672
+        },
+        {
+          "horizon_min": 1440.0,
+          "predicted_area_ha": 325.5,
+          "observed_area_ha": 3800.0,
+          "iou": 0.0857190805173789,
+          "sorensen_dice": 0.1579028720330331,
+          "symmetric_difference_km2": 34.71787582127147,
+          "fraction_observed_captured": 0.08571908051737903,
+          "area_error_frac": -0.9143421052631578,
+          "front_hausdorff_m": 5491.231800660179,
+          "front_mean_boundary_m": 2073.4048453413275
+        }
+      ],
+      "persistence_baseline": [
+        {
+          "horizon_min": 60.0,
+          "predicted_area_ha": 0.25,
+          "observed_area_ha": 50.0,
+          "iou": 0.005003571520214744,
+          "sorensen_dice": 0.009957320873290255,
+          "symmetric_difference_km2": 0.49714310291155883,
+          "fraction_observed_captured": 0.005003571520214745,
+          "area_error_frac": -0.995,
+          "front_hausdorff_m": 598.9267219304148,
+          "front_mean_boundary_m": 313.78337104218497
+        },
+        {
+          "horizon_min": 180.0,
+          "predicted_area_ha": 0.25,
+          "observed_area_ha": 600.0,
+          "iou": 0.00041696429335132866,
+          "sorensen_dice": 0.0008335810131845429,
+          "symmetric_difference_km2": 5.993217234937267,
+          "fraction_observed_captured": 0.00041696429335132823,
+          "area_error_frac": -0.9995833333333334,
+          "front_hausdorff_m": 2153.105888215755,
+          "front_mean_boundary_m": 1148.6318174860696
+        },
+        {
+          "horizon_min": 360.0,
+          "predicted_area_ha": 0.25,
+          "observed_area_ha": 1500.0,
+          "iou": 0.00016678571734050538,
+          "sorensen_dice": 0.00033351580900756086,
+          "symmetric_difference_km2": 14.986793087345514,
+          "fraction_observed_captured": 0.0001667857173405053,
+          "area_error_frac": -0.9998333333333334,
+          "front_hausdorff_m": 3422.931287835204,
+          "front_mean_boundary_m": 1830.7539672574476
+        },
+        {
+          "horizon_min": 720.0,
+          "predicted_area_ha": 0.25,
+          "observed_area_ha": 2800.0,
+          "iou": 8.934949143241206e-05,
+          "sorensen_dice": 0.00017868301762807146,
+          "symmetric_difference_km2": 27.97751376304544,
+          "fraction_observed_captured": 8.934949143241206e-05,
+          "area_error_frac": -0.9999107142857143,
+          "front_hausdorff_m": 4688.329710315587,
+          "front_mean_boundary_m": 2510.5001725223406
+        },
+        {
+          "horizon_min": 1440.0,
+          "predicted_area_ha": 0.25,
+          "observed_area_ha": 3800.0,
+          "iou": 6.583646737125876e-05,
+          "sorensen_dice": 0.00013166426643233678,
+          "symmetric_difference_km2": 37.970375821271475,
+          "fraction_observed_captured": 6.583646737125885e-05,
+          "area_error_frac": -0.9999342105263158,
+          "front_hausdorff_m": 5467.017441864145,
+          "front_mean_boundary_m": 2928.7957368822827
+        }
+      ],
+      "isotropic_baseline": [
+        {
+          "horizon_min": 60.0,
+          "predicted_area_ha": 2.3432990877409905,
+          "observed_area_ha": 50.0,
+          "iou": 0.04688062598531449,
+          "sorensen_dice": 0.0895625056413493,
+          "symmetric_difference_km2": 0.47621952147782,
+          "fraction_observed_captured": 0.0468806259853145,
+          "area_error_frac": -0.9531340182451802,
+          "front_hausdorff_m": 544.4193905722783,
+          "front_mean_boundary_m": 267.438662067309
+        },
+        {
+          "horizon_min": 180.0,
+          "predicted_area_ha": 21.08969178966892,
+          "observed_area_ha": 600.0,
+          "iou": 0.03516046948898631,
+          "sorensen_dice": 0.06793240376797517,
+          "symmetric_difference_km2": 5.784905002033666,
+          "fraction_observed_captured": 0.035160469488986275,
+          "area_error_frac": -0.9648505136838852,
+          "front_hausdorff_m": 1926.005548462732,
+          "front_mean_boundary_m": 959.849928576926
+        },
+        {
+          "horizon_min": 360.0,
+          "predicted_area_ha": 84.35876715867568,
+          "observed_area_ha": 1500.0,
+          "iou": 0.05625675118235502,
+          "sorensen_dice": 0.10652097819849612,
+          "symmetric_difference_km2": 14.146044155731325,
+          "fraction_observed_captured": 0.05625675118235499,
+          "area_error_frac": -0.9437608218942162,
+          "front_hausdorff_m": 2936.7591924060152,
+          "front_mean_boundary_m": 1427.1178302858996
+        },
+        {
+          "horizon_min": 720.0,
+          "predicted_area_ha": 337.4350686347027,
+          "observed_area_ha": 2800.0,
+          "iou": 0.12055018110505256,
+          "sorensen_dice": 0.21516248560358026,
+          "symmetric_difference_km2": 24.60701803658845,
+          "fraction_observed_captured": 0.12055018110505257,
+          "area_error_frac": -0.8794874754876062,
+          "front_hausdorff_m": 3683.985731375599,
+          "front_mean_boundary_m": 1674.1713076821934
+        },
+        {
+          "horizon_min": 1440.0,
+          "predicted_area_ha": 1349.7402745388108,
+          "observed_area_ha": 3800.0,
+          "iou": 0.3553057969412593,
+          "sorensen_dice": 0.5243182722941737,
+          "symmetric_difference_km2": 24.48089291544314,
+          "fraction_observed_captured": 0.3553057969412598,
+          "area_error_frac": -0.6448051909108393,
+          "front_hausdorff_m": 3426.3238438060494,
+          "front_mean_boundary_m": 1212.8935936861722
+        }
+      ]
+    },
+    "predicted_model_areas_ha": [
+      0.25,
+      0.5,
+      1.75,
+      3.5,
+      6.0,
+      8.5,
+      13.75,
+      20.25,
+      27.75,
+      37.0,
+      47.0,
+      57.0,
+      67.75,
+      80.0,
+      92.25,
+      108.25,
+      123.5,
+      140.25,
+      161.5,
+      184.75,
+      209.0,
+      234.75,
+      263.0,
+      295.5,
+      325.5
+    ],
+    "predicted_model_times_min": [
+      0.0,
+      60.0,
+      120.0,
+      180.0,
+      240.0,
+      300.0,
+      360.0,
+      420.0,
+      480.0,
+      540.0,
+      600.0,
+      660.0,
+      720.0,
+      780.0,
+      840.0,
+      900.0,
+      960.0,
+      1020.0,
+      1080.0,
+      1140.0,
+      1200.0,
+      1260.0,
+      1320.0,
+      1380.0,
+      1440.0
+    ],
+    "observed_areas_ha": [
+      0.5,
+      50.0,
+      250.0,
+      600.0,
+      900.0,
+      1500.0,
+      2200.0,
+      2800.0,
+      3400.0,
+      3800.0,
+      3800.0
+    ],
+    "observed_times_min": [
+      0.0,
+      60.0,
+      120.0,
+      180.0,
+      240.0,
+      360.0,
+      540.0,
+      720.0,
+      1080.0,
+      1440.0,
+      2880.0
+    ],
+    "notes": [
+      "fuel-type is SYNTHETIC (100% KP_PINE fill)."
+    ]
+  },
+  "cancellation_check": {
+    "obs_24h_ha": 3800.0,
+    "pred_24h_ha_with_disc": 325.5,
+    "pred_24h_ha_single_cell": 325.5
+  }
 }

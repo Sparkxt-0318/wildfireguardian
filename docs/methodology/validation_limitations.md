@@ -1,5 +1,36 @@
 # Validation limitations and reviewer defense
 
+> ## ⚠️ Session 5 correction (supersedes the Session-4 framing below)
+>
+> A mentor review invalidated two Session-4 claims. Both are corrected here
+> and the stale text further down is kept only for provenance:
+>
+> 1. **The "multiplicative coupling, interaction ratio = 1.000" was
+>    TAUTOLOGICAL** and is **retracted**. Rothermel R is separable in
+>    moisture and wind, so that ratio is identically 1 for any separable
+>    model — it carries no physical information. The honest measure is the
+>    dimensional cross-partial ∂²R/∂M∂U; see
+>    `docs/methodology/interaction.md`.
+> 2. **The Session-4 "24 h burned area +25 %" was two errors cancelling**,
+>    not validation. It used an *inflated* wind (10-m wind fed to Rothermel
+>    without a Wind Adjustment Factor) plus disc-ignition area injection.
+>    With the corrected midflame WAF (Andrews 2012) the surface model
+>    **under-predicts the front by ~90 %** at every horizon (it cannot
+>    capture the crown/spotting-driven run). The real target is **per-horizon
+>    front accuracy**, reported honestly in
+>    `docs/OVERNIGHT_REPORT_SESSION5.md` — the surface model, alone, does
+>    not predict this event.
+>
+> Net honest status after Session 5: real terrain (SRTM); physically-correct
+> midflame wind; literature-anchored Korean live fuel (surface bed
+> provisional); and a spread model that is demonstrably **insufficient**
+> for the Yeongdeok front without crown/spotting physics. The project's
+> defensible contribution is the **future-front-aware routing spine**
+> (`docs/figures/route_away_from_front.png`), which is correct *given* a
+> front prediction, plus the corrected, honest physics.
+
+---
+
 This document is the frank, pre-emptive limitations section for the
 writeup. It lists every challenge a forestry or CS reviewer could raise
 about the Yeongdeok 2025 validation, and our honest response to each.
@@ -161,11 +192,22 @@ auto-downloaded from a public archive.
   reference values (tested).
 - The real SRTM terrain is correct (East Sea at 0 m, Taebaek foothills to
   ~820 m, slopes to 43°).
-- The LFMC×wind multiplicative coupling (interaction ratio 1.000) is a
-  structural property of the Rothermel equation, not a fitted result.
-- The model beats both naive baselines where the physics it captures
-  (wind elongation at 24 h) dominates.
-- Every synthetic/approximate input is labelled in code and docs.
+- The wind is now physically correct: 10-m → midflame via the Andrews 2012
+  Wind Adjustment Factor (closed Korean pine canopy WAF ≈ 0.10).
+- The moisture–wind interaction is reported honestly as the dimensional
+  ∂R/∂U (m/min per m/s), dry vs moist — NOT the retracted tautological
+  ratio.
+- The future-front-aware routing spine is correct given a front prediction
+  (tested: it never enters the front when a safe route exists; returns "no
+  safe route" when none does).
+- Every synthetic / provisional / approximate input is labelled in code and docs.
+
+## What is NOT solid (the honest headline)
+
+- The **surface spread model under-predicts the Yeongdeok front by ~90 %**
+  at every horizon once the wind is physically correct. It cannot, alone,
+  predict this event — the real run was crown/spotting-driven. The
+  prediction does not work yet; we say so plainly.
 
 ## What needs Round 2 before any operational claim
 
