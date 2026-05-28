@@ -141,6 +141,12 @@ class ModelConfig:
     snapshot_every_min: float = 60.0      # snapshot every hour
     dem_source: str = "synthetic"
     fuel_source: str = "synthetic"
+    # Session 4: initialise the fire from a finite established front (a disc)
+    # rather than a single cell, to skip the discretisation warm-up transient
+    # (see docs/methodology/spread_warmup.md). 0.0 = single-cell (legacy).
+    # This radius is a PRINCIPLED initialisation choice, NOT tuned to the
+    # observed perimeter.
+    ignition_radius_m: float = 0.0
 
 
 # ---------------------------------------------------------------------------
@@ -187,25 +193,32 @@ class ValidationResults:
 # ---------------------------------------------------------------------------
 
 
-def _ignite_at_wgs84(grid: FireGrid, lon: float, lat: float) -> tuple[int, int]:
+def _ignite_at_wgs84(
+    grid: FireGrid, lon: float, lat: float, radius_m: float = 0.0,
+) -> tuple[int, int]:
     """Convert a WGS84 (lon, lat) into a grid cell and ignite it.
 
-    Falls back to the grid centre if the point is outside the grid bbox.
+    If ``radius_m > 0`` the fire is initialised as a disc of that radius
+    (skipping the single-cell discretisation warm-up; see
+    ``docs/methodology/spread_warmup.md``). Falls back to the grid centre
+    if the point is outside the grid bbox.
     """
     if not grid.is_georeferenced:
         # Fall back to grid centre for non-georeferenced grids.
         i, j = grid.nrows // 2, grid.ncols // 2
+    else:
+        from pyproj import Transformer
+        t = Transformer.from_crs("EPSG:4326", grid.crs, always_xy=True)
+        x, y = t.transform(lon, lat)
+        a, _b, c, _d, e, f = grid.affine  # type: ignore[misc]
+        j = int((x - c) / a)
+        i = int((y - f) / e)
+        if not (0 <= i < grid.nrows and 0 <= j < grid.ncols):
+            i, j = grid.nrows // 2, grid.ncols // 2
+    if radius_m > 0.0:
+        grid.ignite_disc(i, j, radius_m=radius_m)
+    else:
         grid.ignite_point(i, j)
-        return i, j
-    from pyproj import Transformer
-    t = Transformer.from_crs("EPSG:4326", grid.crs, always_xy=True)
-    x, y = t.transform(lon, lat)
-    a, _b, c, _d, e, f = grid.affine  # type: ignore[misc]
-    j = int((x - c) / a)
-    i = int((y - f) / e)
-    if not (0 <= i < grid.nrows and 0 <= j < grid.ncols):
-        i, j = grid.nrows // 2, grid.ncols // 2
-    grid.ignite_point(i, j)
     return i, j
 
 
@@ -273,9 +286,13 @@ def run_validation(case: ValidationCase, config: ModelConfig | None = None) -> V
     # 3. Ignite.
     if case.observed_ignition_point_wgs84:
         lon, lat = case.observed_ignition_point_wgs84
-        _ignite_at_wgs84(grid, lon, lat)
+        _ignite_at_wgs84(grid, lon, lat, radius_m=cfg.ignition_radius_m)
     else:
-        grid.ignite_point(grid.nrows // 2, grid.ncols // 3, time_min=0.0)
+        if cfg.ignition_radius_m > 0.0:
+            grid.ignite_disc(grid.nrows // 2, grid.ncols // 3,
+                             radius_m=cfg.ignition_radius_m, time_min=0.0)
+        else:
+            grid.ignite_point(grid.nrows // 2, grid.ncols // 3, time_min=0.0)
         notes.append("ignition point not specified; defaulted to (nrows/2, ncols/3).")
 
     # 4. Step + snapshot.
@@ -564,7 +581,7 @@ def run_validation_with_baselines(
             "run_validation_with_baselines requires observed_ignition_point_wgs84"
         )
     lon, lat = case.observed_ignition_point_wgs84
-    _ignite_at_wgs84(grid, lon, lat)
+    _ignite_at_wgs84(grid, lon, lat, radius_m=cfg.ignition_radius_m)
 
     # Get ignition cell in EPSG:5179 for the baselines.
     to_5179 = Transformer.from_crs("EPSG:4326", KOREA_2000_UNIFIED, always_xy=True)
@@ -605,6 +622,7 @@ def run_validation_with_baselines(
         duration_min=cfg.duration_min,
         snapshot_every_min=cfg.snapshot_every_min,
         cell_size_m=cfg.cell_size_m,
+        initial_radius_m=cfg.ignition_radius_m,
     )
     predicted_persistence = run_persistence_baseline(bcfg)
     predicted_isotropic = run_isotropic_baseline(bcfg, head_fire_rate_m_min=mean_head_rate)

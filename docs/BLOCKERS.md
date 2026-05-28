@@ -75,6 +75,31 @@ along the wind axis rather than along the combined vector.
 
 ---
 
+## ✅ RESOLVED in Session 4
+
+### Slow-initial-spread warm-up  ✅ RESOLVED
+
+**Status**: RESOLVED in Session 4.
+
+**Issue (found in Session 3)**: the CA lost to the isotropic baseline at
+1 h / 3 h / 6 h because a single-cell ignition has zero perimeter and
+therefore takes one full cell-ring-time (~11 min at 100 m) before any
+spread, and the effective rate only reaches ~91 % of steady-state by
+60 min.
+
+**Resolution**: `FireGrid.ignite_disc()` initialises the fire from a
+finite established front (standard FARSITE practice). The validation uses
+a principled radius (head rate × 15-min establishment ≈ 155 m, NOT tuned
+to observed). 1 h IoU rose 0.160 → 0.477; horizon-averaged IoU 0.145 →
+0.264. Baselines get the same initial disc for fairness. Full diagnosis
+and sensitivity in `docs/methodology/spread_warmup.md`.
+
+**Remaining (not a warm-up issue)**: the 3–6 h under-prediction is genuine
+missing physics (spotting / crown fire, gusts), documented in
+`docs/methodology/validation_limitations.md` — candidate Round-2 feature.
+
+---
+
 ## ✅ PARTIALLY RESOLVED in Session 3
 
 ### BLOCKERS-6 (DEM): SRTM path implemented  ✅ (SRTM done, NGII pending)

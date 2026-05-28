@@ -363,6 +363,38 @@ class FireGrid:
         for i, j in cells:
             self._ignite(i, j, time_min)
 
+    def ignite_disc(
+        self, i: int, j: int, radius_m: float, time_min: float = 0.0,
+    ) -> int:
+        """Ignite all cells within ``radius_m`` of cell (i, j).
+
+        Returns the number of cells ignited. Used to initialise the fire
+        from a finite established perimeter rather than a single cell —
+        see ``docs/methodology/spread_warmup.md`` for why this is the
+        physically-correct initialisation for a spread model (a point has
+        zero perimeter and therefore zero spread "supply"; real fires are
+        modelled from an established front, as in FARSITE).
+
+        ``radius_m`` is interpreted in grid-distance metres. A radius below
+        half a cell still ignites the centre cell.
+        """
+        r_cells = radius_m / self.cell_size_m
+        r_ceil = int(math.ceil(r_cells))
+        n = 0
+        for di in range(-r_ceil, r_ceil + 1):
+            for dj in range(-r_ceil, r_ceil + 1):
+                if math.hypot(di, dj) > r_cells:
+                    continue
+                ni, nj = i + di, j + dj
+                if 0 <= ni < self.nrows and 0 <= nj < self.ncols:
+                    self._ignite(ni, nj, time_min)
+                    n += 1
+        if n == 0:
+            # radius too small to capture any cell; at least light the centre.
+            self._ignite(i, j, time_min)
+            n = 1
+        return n
+
     def _ignite(self, i: int, j: int, time_min: float) -> None:
         if not (0 <= i < self.nrows and 0 <= j < self.ncols):
             raise IndexError(f"ignition cell ({i},{j}) is outside the grid")

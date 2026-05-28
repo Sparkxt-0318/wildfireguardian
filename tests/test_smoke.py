@@ -27,6 +27,7 @@ PACKAGE_TREE: list[str] = [
     "wildfireguardian.validation.metrics",
     "wildfireguardian.validation.harness",
     "wildfireguardian.validation.baselines",
+    "wildfireguardian.validation.robustness",
     "wildfireguardian.data_io",
     "wildfireguardian.data_io.raster",
     "wildfireguardian.data_io.weather",

@@ -36,19 +36,27 @@ class BaselineConfig:
     duration_min: float
     snapshot_every_min: float
     cell_size_m: float
+    # Session 4: the model may be initialised from a finite disc; for a fair
+    # comparison the baselines start from the same initial radius.
+    initial_radius_m: float = 0.0
 
 
 def run_persistence_baseline(cfg: BaselineConfig) -> list[PerimeterAtTime]:
     """Build the persistence-baseline perimeter series.
 
-    The "perimeter" is a single cell-sized square at the ignition point,
-    identical at every snapshot time. Burned area = cell_size^2 forever.
+    The fire never grows beyond its initial state. If
+    ``cfg.initial_radius_m > 0`` the frozen state is that initial disc (to
+    match a disc-initialised model); otherwise it is a single cell.
     """
     x, y = cfg.ignition_xy_5179
     cs = cfg.cell_size_m
-    from shapely.geometry import box
-    poly = box(x - cs / 2.0, y - cs / 2.0, x + cs / 2.0, y + cs / 2.0)
-    area_m2 = cs * cs
+    if cfg.initial_radius_m > 0.0:
+        poly: BaseGeometry = Point(x, y).buffer(cfg.initial_radius_m, quad_segs=32)
+        area_m2 = math.pi * cfg.initial_radius_m ** 2
+    else:
+        from shapely.geometry import box
+        poly = box(x - cs / 2.0, y - cs / 2.0, x + cs / 2.0, y + cs / 2.0)
+        area_m2 = cs * cs
     series: list[PerimeterAtTime] = []
     t = 0.0
     while t <= cfg.duration_min + 1e-9:
@@ -62,14 +70,16 @@ def run_isotropic_baseline(
 ) -> list[PerimeterAtTime]:
     """Build the isotropic (circular) baseline perimeter series.
 
-    Radius grows linearly: r(t) = R * t. Wind direction is ignored.
-    Area at time t = π · (R · t)².
+    Radius grows linearly from the initial radius: r(t) = R0 + R · t.
+    Wind direction is ignored. Area at time t = π · r(t)². Using the same
+    initial radius R0 as the model keeps the comparison fair.
     """
     x, y = cfg.ignition_xy_5179
+    r0 = cfg.initial_radius_m
     series: list[PerimeterAtTime] = []
     t = 0.0
     while t <= cfg.duration_min + 1e-9:
-        radius_m = head_fire_rate_m_min * t
+        radius_m = r0 + head_fire_rate_m_min * t
         if radius_m <= 0.0:
             poly: BaseGeometry | None = None
             area_m2 = 0.0

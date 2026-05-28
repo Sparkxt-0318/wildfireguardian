@@ -11,7 +11,8 @@
     "dt_min": 1.0,
     "snapshot_every_min": 60.0,
     "dem_source": "srtm",
-    "fuel_source": "synthetic"
+    "fuel_source": "synthetic",
+    "ignition_radius_m": 155.2251019645219
   },
   "horizons_min": [
     60.0,
@@ -34,132 +35,132 @@
     "our_model": [
       {
         "horizon_min": 60.0,
-        "predicted_area_ha": 8.0,
+        "predicted_area_ha": 29.0,
         "observed_area_ha": 50.0,
-        "iou": 0.1601142886468718,
-        "sorensen_dice": 0.2760319223955514,
-        "symmetric_difference_km2": 0.4196431029115588
+        "iou": 0.476862103104827,
+        "sorensen_dice": 0.6457774251263048,
+        "symmetric_difference_km2": 0.279709413144587
       },
       {
         "horizon_min": 180.0,
-        "predicted_area_ha": 61.0,
+        "predicted_area_ha": 123.0,
         "observed_area_ha": 600.0,
-        "iou": 0.1017392875777242,
-        "sorensen_dice": 0.1846884988578511,
-        "symmetric_difference_km2": 5.3857172349372675
+        "iou": 0.2051464323288537,
+        "sorensen_dice": 0.3404506320985802,
+        "symmetric_difference_km2": 4.765717234937267
       },
       {
         "horizon_min": 360.0,
-        "predicted_area_ha": 271.0,
+        "predicted_area_ha": 385.0,
         "observed_area_ha": 1500.0,
-        "iou": 0.17497934493049028,
-        "sorensen_dice": 0.2978424185675225,
-        "symmetric_difference_km2": 12.427692827275093
+        "iou": 0.22801094790444143,
+        "sorensen_dice": 0.37135002467776707,
+        "symmetric_difference_km2": 11.84332113444807
       },
       {
         "horizon_min": 1440.0,
-        "predicted_area_ha": 4447.0,
+        "predicted_area_ha": 4747.0,
         "observed_area_ha": 3800.0,
-        "iou": 0.14444495741913754,
-        "sorensen_dice": 0.25242796778078086,
-        "symmetric_difference_km2": 61.631988219704645
+        "iou": 0.14741899232283046,
+        "sorensen_dice": 0.25695756007035586,
+        "symmetric_difference_km2": 63.487682924843135
       }
     ],
     "persistence_baseline": [
       {
         "horizon_min": 60.0,
-        "predicted_area_ha": 1.0,
+        "predicted_area_ha": 7.5696148080000185,
         "observed_area_ha": 50.0,
-        "iou": 0.020014286080858975,
-        "sorensen_dice": 0.03924314855972988,
-        "symmetric_difference_km2": 0.4896431029115588
+        "iou": 0.1514396017661581,
+        "sorensen_dice": 0.26304393479930605,
+        "symmetric_difference_km2": 0.4239773503814248
       },
       {
         "horizon_min": 180.0,
-        "predicted_area_ha": 1.0,
+        "predicted_area_ha": 7.5696148080000185,
         "observed_area_ha": 600.0,
-        "iou": 0.0016678571734053147,
-        "sorensen_dice": 0.0033301601153736117,
-        "symmetric_difference_km2": 5.985717234937267
+        "iou": 0.012619966813849534,
+        "sorensen_dice": 0.02492537620714219,
+        "symmetric_difference_km2": 5.920051482407133
       },
       {
         "horizon_min": 360.0,
-        "predicted_area_ha": 1.0,
+        "predicted_area_ha": 7.5696148080000185,
         "observed_area_ha": 1500.0,
-        "iou": 0.0006671428693620215,
-        "sorensen_dice": 0.0013333961729752072,
-        "symmetric_difference_km2": 14.979293087345514
+        "iou": 0.005047986725539024,
+        "sorensen_dice": 0.01004526508626804,
+        "symmetric_difference_km2": 14.91362733481538
       },
       {
         "horizon_min": 1440.0,
-        "predicted_area_ha": 1.0,
+        "predicted_area_ha": 7.5696148080000185,
         "observed_area_ha": 3800.0,
-        "iou": 0.00026334586948503503,
-        "sorensen_dice": 0.0005265530733931281,
-        "symmetric_difference_km2": 37.962875821271474
+        "iou": 0.001992626339028763,
+        "sorensen_dice": 0.003977327350819349,
+        "symmetric_difference_km2": 37.89721006874134
       }
     ],
     "isotropic_baseline": [
       {
         "horizon_min": 60.0,
-        "predicted_area_ha": 121.1138369280003,
+        "predicted_area_ha": 189.24037020000043,
         "observed_area_ha": 50.0,
-        "iou": 0.41123423219892563,
-        "sorensen_dice": 0.5828008176334531,
-        "symmetric_difference_km2": 0.7135337354294944
+        "iou": 0.2641317035537029,
+        "sorensen_dice": 0.4178863686610832,
+        "symmetric_difference_km2": 1.3920007103422787
       },
       {
         "horizon_min": 180.0,
-        "predicted_area_ha": 1090.0245323520028,
+        "predicted_area_ha": 1279.2649025520032,
         "observed_area_ha": 600.0,
-        "iou": 0.4904353651550338,
-        "sorensen_dice": 0.6581102094340306,
-        "symmetric_difference_km2": 5.775060662864917
+        "iou": 0.45023702833800316,
+        "sorensen_dice": 0.620915091175106,
+        "symmetric_difference_km2": 7.12043880928746
       },
       {
         "horizon_min": 360.0,
-        "predicted_area_ha": 4360.098129408011,
+        "predicted_area_ha": 4731.009255000012,
         "observed_area_ha": 1500.0,
-        "iou": 0.34392148900217534,
-        "sorensen_dice": 0.5118178283725896,
-        "symmetric_difference_km2": 28.594180370024585
+        "iou": 0.31695804426440044,
+        "sorensen_dice": 0.48134873490436875,
+        "symmetric_difference_km2": 32.3018022440029
       },
       {
         "horizon_min": 1440.0,
-        "predicted_area_ha": 69761.57007052818,
+        "predicted_area_ha": 71222.50572847218,
         "observed_area_ha": 3800.0,
-        "iou": 0.05445423575867152,
-        "sorensen_dice": 0.10328420885803948,
-        "symmetric_difference_km2": 659.3626994966598
+        "iou": 0.053337255473686625,
+        "sorensen_dice": 0.10127289279196877,
+        "symmetric_difference_km2": 673.9661897349793
       }
     ]
   },
   "predicted_model_areas_ha": [
-    1.0,
-    8.0,
+    9.0,
     29.0,
-    61.0,
-    114.0,
+    68.0,
+    123.0,
     186.0,
-    271.0,
-    378.0,
-    504.0,
-    645.0,
-    795.0,
-    965.0,
-    1151.0,
-    1355.0,
-    1561.0,
-    1782.0,
-    2024.0,
-    2281.0,
-    2549.0,
-    2822.0,
-    3125.0,
-    3439.0,
-    3763.0,
-    4087.0,
-    4447.0
+    280.0,
+    385.0,
+    503.0,
+    634.0,
+    786.0,
+    952.0,
+    1131.0,
+    1320.0,
+    1535.0,
+    1757.0,
+    1992.0,
+    2238.0,
+    2505.0,
+    2788.0,
+    3081.0,
+    3374.0,
+    3705.0,
+    4047.0,
+    4397.0,
+    4747.0
   ],
   "predicted_model_times_min": [
     0.0,

@@ -151,26 +151,32 @@ See `docs/architecture.md` for the long form.
 
 ### Current status
 
-🟧 **Research prototype (alpha) — Session 3 complete.**
+🟧 **Research prototype (alpha) — Session 4 complete (science locked).**
 
-**Session 3 headline results** (honest, with provenance caveats):
+**Locked headline results** (honest, with provenance caveats):
 
 - **Real terrain**: Yeongdeok validation runs on real NASA SRTM 30 m DEM
   (0–820 m elevation, East Sea correctly at 0 m).
-- **Validation numbers** (vs an *approximate* observed perimeter): at 24 h
-  our model predicts ~4,400 ha vs ~3,800 ha reported; IoU ≈ 0.14,
-  Dice ≈ 0.25. Our model beats the persistence baseline by 100× at all
-  horizons and beats the isotropic baseline at the 24 h horizon (it loses
-  to isotropic at 1–6 h — a documented slow-initial-spread limitation).
-- **LFMC × wind coupling** (the writeup centerpiece): rate of spread is
-  **18× higher** under drought-Foehn (LFMC 40 %, midflame 12 m/s) than
-  typical-summer-quiet (LFMC 80 %, midflame 2 m/s) — same fuel, same dead
-  moisture. See `docs/figures/lfmc_wind_sensitivity_heatmap.png`.
+- **LFMC × wind coupling (rock-solid centerpiece)**: rate of spread is
+  **18.3× higher** under drought-Föhn (LFMC 40 %, midflame 12 m/s) than
+  benign conditions (LFMC 80 %, 2 m/s). Decomposed: drought alone ×1.44,
+  wind alone ×12.76, combined ×18.31 — **perfectly multiplicative
+  (interaction ratio 1.000)**, a structural property of the Rothermel
+  equation. See `docs/figures/lfmc_wind_decomposition.png`.
+- **Validation** (vs an *approximate* observed perimeter): the Session-4
+  disc-ignition warm-up fix raised 1 h IoU from 0.160 to **0.477**. The
+  model beats the persistence baseline at all horizons and the isotropic
+  baseline at 1 h and 24 h (loses 3–6 h: documented missing spotting/crown
+  physics). 24 h burned area +25 % of reported (~4,750 vs ~3,800 ha).
+- **Robustness**: the 24 h metric is stable under ±20 % / ±500 m perimeter
+  perturbation; the 1 h IoU is fragile (reported honestly).
 
-⚠️ **Honesty note**: the fuel raster, wind series, and observed perimeter
-used in the Yeongdeok validation are still SYNTHETIC / APPROXIMATE
-(reconstructed from public reporting). Only the DEM is real. Korean fuel
-parameters are analog values. Real KFS / KMA / Sentinel ingestion is Round 2.
+⚠️ **Honesty note**: only the DEM is real. Wind, fuel raster, observed
+perimeter, and Korean fuel parameters are SYNTHETIC / APPROXIMATE / ANALOG
+(no FIRMS or KMA API keys this session). The LFMC×wind decomposition is
+exact and independent of these. Real KFS / KMA / Sentinel ingestion is
+Round 2. See `docs/methodology/validation_limitations.md` for the full
+reviewer-defense.
 
 This repository provides:
 

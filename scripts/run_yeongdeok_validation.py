@@ -65,6 +65,21 @@ def main() -> None:
     print(f"mean midflame wind Mar 22 12-24 KST (synthetic-historical): "
           f"{mf_speed:.2f} m/s from {mf_dir:.1f}°")
 
+    # Session 4: principled disc-ignition radius = steady head rate × 15-min
+    # sub-grid establishment phase (see docs/methodology/spread_warmup.md).
+    # NOT tuned to the observed perimeter.
+    from wildfireguardian.spread_model.rothermel import (
+        KOREAN_PINUS, compute_spread_rate,
+    )
+    r_steady = compute_spread_rate(
+        KOREAN_PINUS, dead_moisture=0.08, live_moisture=0.40,
+        wind_speed_ms=mf_speed,
+    ).rate_m_min
+    ignition_radius_m = r_steady * 15.0
+    print(f"principled ignition disc radius = R({r_steady:.1f} m/min) × 15 min "
+          f"= {ignition_radius_m:.0f} m  "
+          f"({3.14159 * ignition_radius_m**2 / 1e4:.1f} ha initial)")
+
     cfg = ModelConfig(
         cell_size_m=100.0,
         wind_speed_midflame_ms=mf_speed,
@@ -77,6 +92,7 @@ def main() -> None:
         snapshot_every_min=60.0,
         dem_source="srtm",
         fuel_source="synthetic",
+        ignition_radius_m=ignition_radius_m,
     )
 
     print("running validation with baselines (~30s)...")
