@@ -139,6 +139,62 @@ class WindField:
         del i, j
         return self.speed_ms, self.direction_to_deg
 
+    def at_10m(self, i: int, j: int) -> float:
+        """Return the 10-m open wind speed at (i, j), m/s.
+
+        The base :class:`WindField` carries midflame wind; crown-fire and
+        spotting physics need the 10-m wind, so callers divide back out an
+        assumed WAF. A :class:`GriddedWindField` overrides this with a real
+        per-cell 10-m field.
+        """
+        return self.speed_ms / max(_DEFAULT_WAF_FOR_10M, 1e-6)
+
+
+#: Fallback WAF used only to back out a 10-m wind from a uniform midflame
+#: :class:`WindField` when no explicit 10-m field is supplied. Closed Korean
+#: pine canopy value (Andrews 2012; see spread_model/wind.py).
+_DEFAULT_WAF_FOR_10M: float = 0.10
+
+
+@dataclass
+class GriddedWindField(WindField):
+    """Spatially-varying wind: per-cell midflame field + per-cell 10-m field.
+
+    ``speed_field`` / ``direction_to_field`` are the **midflame** wind the
+    surface Rothermel kernel consumes (``.at``). ``u10m_field`` is the
+    **10-m** open wind that crown-fire and spotting physics consume
+    (``.at_10m``). Build with :meth:`from_topographic`.
+    """
+
+    speed_field: np.ndarray = field(default=None, repr=False)        # type: ignore[assignment]
+    direction_to_field: np.ndarray = field(default=None, repr=False)  # type: ignore[assignment]
+    u10m_field: np.ndarray | None = field(default=None, repr=False)
+
+    def at(self, i: int, j: int) -> tuple[float, float]:
+        return float(self.speed_field[i, j]), float(self.direction_to_field[i, j])
+
+    def at_10m(self, i: int, j: int) -> float:
+        if self.u10m_field is not None:
+            return float(self.u10m_field[i, j])
+        return float(self.speed_field[i, j]) / max(_DEFAULT_WAF_FOR_10M, 1e-6)
+
+    @classmethod
+    def from_topographic(
+        cls,
+        u10m_field: np.ndarray,
+        direction_to_field: np.ndarray,
+        waf: float,
+    ) -> "GriddedWindField":
+        """Build from a 10-m field + WAF; midflame field = waf · u10m_field."""
+        mid = (np.asarray(u10m_field, dtype=np.float32) * waf).astype(np.float32)
+        return cls(
+            speed_ms=float(np.mean(mid)),
+            direction_to_deg=float(np.mean(direction_to_field)),
+            speed_field=mid,
+            direction_to_field=np.asarray(direction_to_field, dtype=np.float32),
+            u10m_field=np.asarray(u10m_field, dtype=np.float32),
+        )
+
 
 # ---------------------------------------------------------------------------
 # Anderson 1983 length-to-breadth ratio
@@ -260,13 +316,25 @@ class FireGrid:
     # corner; export methods will refuse to attach CRS metadata.
     region: "RegionConfig | None" = None
 
+    # ----- Session 6 fire-type physics (default OFF: surface-only) -----
+    enable_crown_fire: bool = False
+    enable_spotting: bool = False
+    spotting_seed: int = 0
+    spot_probability_per_min: float = 0.02   # per active-crown cell per minute
+    #: Per-cell regime: 0=SURFACE, 1=PASSIVE_CROWN, 2=ACTIVE_CROWN.
+    regime: np.ndarray = field(default=None, repr=False)  # type: ignore[assignment]
+    n_spot_ignitions: int = 0
+
     # Internal: cached R_max per burning cell, per step.
     _R_cache: dict[tuple[int, int], tuple[float, float, float]] = field(
         default_factory=dict, repr=False,
     )
+    _spot_rng: "np.random.Generator | None" = field(default=None, repr=False)
 
     def __post_init__(self) -> None:
         shape = (self.nrows, self.ncols)
+        if self.regime is None:
+            self.regime = np.zeros(shape, dtype=np.uint8)
         if self.state is None:
             self.state = np.zeros(shape, dtype=np.uint8)
         if self.heat is None:
@@ -442,7 +510,55 @@ class FireGrid:
         if burnout_mask.any():
             self.state[burnout_mask] = CellState.BURNED
 
+        # ----- Session 6: spotting (stochastic ember jumps) -----
+        if self.enable_spotting:
+            self._spot_step(dt_min, wind, current_time_min)
+
         return new_count
+
+    def _spot_step(self, dt_min: float, wind: WindField, current_time_min: float) -> None:
+        """Launch igniting embers from active-crown cells (Albini spotting)."""
+        from .crown_fire import CrownRegime, byram_intensity
+        from .spotting import (
+            flame_length_m,
+            landing_cell,
+            max_spot_distance,
+            sample_spot_landing,
+        )
+
+        if self._spot_rng is None:
+            self._spot_rng = np.random.default_rng(self.spotting_seed)
+        rng = self._spot_rng
+        p = self.spot_probability_per_min * dt_min
+
+        active = np.argwhere(
+            (self.state == CellState.BURNING)
+            & (self.regime == int(CrownRegime.ACTIVE_CROWN))
+        )
+        for i, j in active:
+            if rng.random() >= p:
+                continue
+            i, j = int(i), int(j)
+            cached = self._R_cache.get((i, j))
+            if cached is None:
+                continue
+            R_eff, _ecc, wind_to_deg = cached
+            fm_id = self.fuel_model_id[i, j]
+            fm = FUEL_MODELS[fm_id] if isinstance(fm_id, str) else fm_id
+            fine = getattr(fm, "fine_fuel_load_kg_m2", 0.5)
+            i_b = byram_intensity(R_eff, fine)
+            fl = flame_length_m(i_b)
+            u10 = wind.at_10m(i, j)
+            d_max = max_spot_distance(fl, u10)
+            if d_max <= self.cell_size_m:
+                continue
+            d, bearing = sample_spot_landing(rng, d_max, wind_to_deg)
+            ni, nj = landing_cell(i, j, d, bearing, self.cell_size_m)
+            if (0 <= ni < self.nrows and 0 <= nj < self.ncols
+                    and self.state[ni, nj] == CellState.UNBURNED):
+                self.state[ni, nj] = CellState.BURNING
+                self.burn_start_time_min[ni, nj] = current_time_min + dt_min
+                self.n_spot_ignitions += 1
 
     def _spread_from(self, i: int, j: int, dt_min: float, wind: WindField) -> None:
         """Deposit heat into the 8 neighbours of burning cell (i, j)."""
@@ -478,7 +594,27 @@ class FireGrid:
                     wind_speed_ms=wind_speed_ms, slope_degrees=slope_deg,
                 )
             R_max = R.rate_m_min
-            lb = length_to_breadth_ratio(wind_speed_ms)
+            lb_wind = wind_speed_ms   # midflame drives surface elongation
+
+            # ----- Session 6: crown-fire regime switch -----
+            if (self.enable_crown_fire
+                    and isinstance(fm, MultiClassFuelModel) and fm.can_crown):
+                from .crown_fire import CrownRegime, classify_crown_regime
+                u10 = wind.at_10m(i, j)
+                regime, R_eff = classify_crown_regime(
+                    r_surface_m_min=R_max,
+                    fine_load_kg_m2=fm.fine_fuel_load_kg_m2,
+                    u_10m_ms=u10,
+                    canopy_base_height_m=fm.canopy_base_height_m,
+                    canopy_bulk_density_kg_m3=fm.canopy_bulk_density_kg_m3,
+                    foliar_moisture_pct=m_f * 100.0,
+                )
+                self.regime[i, j] = int(regime)
+                if regime == CrownRegime.ACTIVE_CROWN:
+                    R_max = R_eff
+                    lb_wind = u10   # crown runs are 10-m-wind-driven, more elongated
+
+            lb = length_to_breadth_ratio(lb_wind)
             ecc = eccentricity_from_lb(lb)
             self._R_cache[key] = (R_max, ecc, wind_dir_to_deg)
         else:
@@ -762,6 +898,7 @@ def perturb_wind(
 __all__ = [
     "CellState",
     "WindField",
+    "GriddedWindField",
     "FireGrid",
     "EnsembleConfig",
     "MonteCarloEnsemble",

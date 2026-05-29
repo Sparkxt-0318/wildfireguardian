@@ -151,9 +151,30 @@ See `docs/architecture.md` for the long form.
 
 ### Current status
 
-🟧 **Research prototype (alpha) — Session 5 (mentor refocus: fix physics, build the spine).**
+🟧 **Research prototype (alpha) — Session 6 (fire-type physics: crown, spotting, topo wind).**
 
-**Honest headline results** (Session 5 corrects two invalid Session-4 claims):
+**Honest headline (Session 6):** adding the physics surface-Rothermel omits
+raises 24-hour Yeongdeok area **capture from 9 % → 54 %** and **IoU from
+0.086 → 0.295**. Attributed by ablation:
+
+- **Topographic wind** (Föhn slope/channel/lee heuristic): on its own
+  recovers **~nothing** (8 % vs 9 %) — foundational but inert until crown
+  fire can convert strong channel winds into fast spread. Honest negative.
+- **Crown fire** (Van Wagner 1977 transition + Cruz/Alexander 2005 ROS):
+  **the breakthrough** — 9 % → 54 % capture, 32 % of cells reach active
+  crown. This is why surface-only Rothermel failed.
+- **Spotting** (Albini ember transport): mixed — capture 54 % → 59 % and a
+  much faster mid-game front, but over-predicts total area and lowers IoU
+  (no containment model). Reported, not hidden.
+- **Regime classifier**: rule-based (FARSITE-style, no ML) selector tested
+  to agree with the underlying crown criteria.
+
+⚠️ **This is a real improvement, NOT a working forecast.** The model still
+misses the first 3 h almost entirely, over-predicts total area, and peaks at
+IoU ~0.30 against an *approximate* perimeter. See
+`docs/OVERNIGHT_REPORT_SESSION6.md`.
+
+<details><summary>Earlier: Session 5 (mentor refocus: fix physics, build the spine)</summary>
 
 - **Wind fixed (root-cause bug)**: Rothermel needs the **midflame** wind. We
   now convert 10-m → midflame via the Andrews 2012 Wind Adjustment Factor
@@ -177,6 +198,8 @@ See `docs/architecture.md` for the long form.
 - **Korean fuel**: live moisture is the **measured** 119 % foliar value; the
   Rothermel surface bed is **provisional** (flagged) pending Korean
   surface-litter literature.
+
+</details>
 
 ⚠️ **Honesty note**: only the DEM is real. Wind, fuel raster, observed
 perimeter, and Korean fuel parameters are SYNTHETIC / APPROXIMATE / ANALOG

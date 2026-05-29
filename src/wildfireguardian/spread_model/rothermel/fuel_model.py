@@ -175,6 +175,10 @@ class MultiClassFuelModel:
     #: measured value exists (e.g. Korean Pinus foliar moisture 1.19).
     #: ``None`` means "no canonical default — caller must supply LFMC".
     live_moisture_default: float | None = None
+    #: Canopy structure for crown-fire physics (Session 6). ``None`` ⇒ the
+    #: cell cannot crown (surface-only). Set for forested fuels only.
+    canopy_base_height_m: float | None = None
+    canopy_bulk_density_kg_m3: float | None = None
 
     # Convenience -----
 
@@ -197,6 +201,25 @@ class MultiClassFuelModel:
     def total_loading_lb_ft2(self) -> float:
         """Σ_ij w_o_ij (lb/ft²)."""
         return sum(p.w_o for p in self.particles)
+
+    @property
+    def fine_fuel_load_kg_m2(self) -> float:
+        """Available fine-fuel load for Byram intensity (kg/m²).
+
+        The 1-h dead + all live particles — the fuel consumed in the flaming
+        front. Used by the crown-fire transition check.
+        """
+        from ...utils import units as _U
+        fine = sum(
+            p.w_o for p in self.particles
+            if p.kind is FuelClassKind.DEAD_1H or p.category is FuelCategory.LIVE
+        )
+        return fine * _U.KGM2_PER_LBFT2
+
+    @property
+    def can_crown(self) -> bool:
+        return (self.canopy_base_height_m is not None
+                and self.canopy_bulk_density_kg_m3 is not None)
 
     @property
     def bulk_density_lb_ft3(self) -> float:
@@ -528,6 +551,9 @@ def _make_korean_pinus_fuel() -> MultiClassFuelModel:
         delta=_m_to_ft(_KP_BED_DEPTH_M),
         m_x_dead=_KP_M_X_DEAD,
         live_moisture_default=_KP_FOLIAR_MOISTURE,
+        # Canopy structure (MEASURED, Lee et al. 2018) for crown-fire physics.
+        canopy_base_height_m=4.0,            # Gyeongbuk default (range 3.6–5.2)
+        canopy_bulk_density_kg_m3=0.47,      # dense Gyeongbuk stand
         particles=(
             # 1-h dead needle litter — PROVISIONAL load/SAV.
             FuelClass(

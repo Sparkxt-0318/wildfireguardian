@@ -7,6 +7,36 @@ needed to close it out.
 
 ---
 
+## Session 6 (fire-type physics) — progress and remaining gaps
+
+### ✅ ADDRESSED: surface-only model missed ~90 % (the S5 #1 gap)
+Added crown fire (Van Wagner 1977 + Cruz/Alexander 2005), spotting (Albini
+1979), topographic wind (Föhn heuristic), and a rule-based regime
+classifier. 24 h area capture 9 % → **54 %** (crown) / 59 % (spotting), IoU
+0.086 → **0.295**. Crown fire is the dominant recovery (32 % of cells reach
+active crown). See `docs/OVERNIGHT_REPORT_SESSION6.md`.
+
+### ⚠️ STILL OPEN — early-front under-prediction (1–3 h)
+Capture stays ≤ 1 % in the first 3 h across all configs. The CA needs time
+to develop crowning and the real fire's early explosive run isn't captured.
+**Fix:** faster crown onset + real gusty wind time series.
+
+### ⚠️ STILL OPEN — over-prediction / no containment
+Crown over-predicts 24 h area by +38 %; spotting by +104 %. There is no
+suppression / fuel-break / containment model, so spotting runs away.
+**Fix:** a containment model or a Monte-Carlo burn-probability framing to
+restore precision (IoU peaked at ~0.30).
+
+### Heuristic / provisional pieces added this session (flagged)
+- Topographic-wind coefficients (k_slope, channel gain, lee factor) are
+  cited heuristics, not calibrated to Korean obs.
+- Albini spotting constants (loft ratio, drift coeff) are calibrated to
+  magnitude, not validated.
+- Korean canopy CBH/CBD/FMC are measured (Lee et al. 2018); the Rothermel
+  *surface* bed remains provisional (carried from S5).
+
+---
+
 ## Session 5 (mentor refocus) — resolved, corrected, and newly-exposed
 
 ### ✅ RESOLVED: missing Wind Adjustment Factor (the root wind bug)

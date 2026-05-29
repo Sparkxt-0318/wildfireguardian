@@ -43,6 +43,7 @@ from ..data_io.raster import load_dem, load_fuel_type, populate_firegrid
 from ..spread_model.cellular_automaton import (
     CellState,
     FireGrid,
+    GriddedWindField,
     WindField,
 )
 from ..spread_model.rothermel import KOREAN_PINUS, compute_spread_rate
@@ -149,6 +150,14 @@ class ModelConfig:
     # This radius is a PRINCIPLED initialisation choice, NOT tuned to the
     # observed perimeter.
     ignition_radius_m: float = 0.0
+    # Session 6 fire-type physics (each gated for ablation; default OFF so the
+    # Session-5 surface-only baseline is reproduced exactly).
+    use_topographic_wind: bool = False
+    wind_10m_ms: float | None = None     # ambient 10-m wind for topo field
+    waf: float = 0.10                    # 10-m → midflame (Andrews 2012 Korean pine)
+    use_crown_fire: bool = False
+    use_spotting: bool = False
+    spotting_seed: int = 0
 
 
 # ---------------------------------------------------------------------------
@@ -600,6 +609,15 @@ def run_validation_with_baselines(
     populate_firegrid(grid, dem, fuel_type=fuel, fuel_code_to_model={1: KOREAN_PINUS})
     grid.fuel_moisture[:] = cfg.live_moisture_lfmc
 
+    # Session 6: enable fire-type physics on the grid per the ablation flags.
+    grid.enable_crown_fire = cfg.use_crown_fire
+    grid.enable_spotting = cfg.use_spotting
+    grid.spotting_seed = cfg.spotting_seed
+    if cfg.use_crown_fire:
+        provenance["crown_fire"] = "ON (Van Wagner 1977 + Cruz/Alexander 2005)"
+    if cfg.use_spotting:
+        provenance["spotting"] = "ON (Albini 1979 max spot distance)"
+
     if case.observed_ignition_point_wgs84 is None:
         raise ValueError(
             "run_validation_with_baselines requires observed_ignition_point_wgs84"
@@ -611,8 +629,19 @@ def run_validation_with_baselines(
     to_5179 = Transformer.from_crs("EPSG:4326", KOREA_2000_UNIFIED, always_xy=True)
     ign_x, ign_y = to_5179.transform(lon, lat)
 
-    # ----- step OUR model -----
-    wind = WindField.from_meteo(cfg.wind_speed_midflame_ms, cfg.wind_from_deg)
+    # ----- wind (uniform or topographic) -----
+    if cfg.use_topographic_wind:
+        from ..spread_model.topo_wind import topographic_wind_field
+        u10 = cfg.wind_10m_ms if cfg.wind_10m_ms is not None \
+            else cfg.wind_speed_midflame_ms / max(cfg.waf, 1e-6)
+        u10_field, theta_field = topographic_wind_field(
+            u10, (cfg.wind_from_deg + 180.0) % 360.0,  # blowing-toward
+            grid.elevation_m, grid.cell_size_m,
+        )
+        wind = GriddedWindField.from_topographic(u10_field, theta_field, cfg.waf)
+        provenance["topographic_wind"] = "ON (heuristic; Föhn slope/channel/lee)"
+    else:
+        wind = WindField.from_meteo(cfg.wind_speed_midflame_ms, cfg.wind_from_deg)
     predicted_model: list[PerimeterAtTime] = []
     t = 0.0
     next_snap = 0.0
@@ -628,6 +657,16 @@ def run_validation_with_baselines(
     predicted_model.append(PerimeterAtTime(
         time_min=t, polygon=grid.perimeter(), area_m2=grid.burned_area_m2(),
     ))
+
+    # ----- Session 6: regime fractions among burned cells (diagnostic) -----
+    if cfg.use_crown_fire:
+        burned = grid.state >= CellState.BURNING
+        nb = int(burned.sum())
+        if nb > 0:
+            reg = grid.regime[burned]
+            provenance["crown_active_frac"] = float((reg == 2).sum()) / nb
+            provenance["crown_passive_frac"] = float((reg == 1).sum()) / nb
+            provenance["surface_frac"] = float((reg == 0).sum()) / nb
 
     # ----- baselines -----
     # Mean head rate via a single Rothermel evaluation under case conditions.
