@@ -55,6 +55,8 @@ geospatial = [
 ml = [
     "scikit-learn>=1.3",
     "xgboost>=2.0",
+    "shap>=0.44",
+    "pyarrow>=14.0",
 ]
 routing = [
     "networkx>=3.0",

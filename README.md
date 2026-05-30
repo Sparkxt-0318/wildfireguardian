@@ -151,6 +151,31 @@ See `docs/architecture.md` for the long form.
 
 ### Current status
 
+🟩 **Session 8 — data-driven spread model (pivot away from mechanistic spread).**
+
+The mechanistic Rothermel path (Sessions 5–7) plateaued at ~9 % area capture
+because Korean spring pine fires are crown- and spotting-driven. Session 8
+pivots to a **data-driven per-cell ignition-probability model** that learns
+spread directly from real multi-fire satellite data (NASA FIRMS + SRTM + ESA
+WorldCover), sidestepping the crown/spotting physics bottleneck.
+
+- **Honest headline: leave-one-fire-out mean ROC-AUC 0.748 ± 0.033** across four
+  well-observed Korean fires; the model retains AUC ≈ 0.74 even in the far
+  (>1.5 km) distance band where a distance-only baseline falls to ≈ 0.60
+  (≈ 0.48–0.53 on the biggest fires) — i.e. **real skill beyond proximity.**
+- **Top predictor is observed VIIRS FRP (fire intensity)** — the crown/spotting
+  signal the surface model could not represent — then distance, then a
+  data-derived (not weather) spread-direction proxy. Terrain ranks low.
+- **Data-audit finding:** the WorldCover fuel rasters for `yeongdeok_2025` and
+  `gangneung_donghae_2022` are clipped at the 129°E tile boundary (only 9 %/5 %
+  of detections inside coverage); both are handled "fuel-blind" and reported
+  separately. `gangneung_2023` is dropped (2 overpasses); `goseong_2019` yields
+  no transitions (single 100-min window).
+- New package `wildfireguardian.ignition_model`; full write-up in
+  **`docs/SPREAD_MODEL_REPORT.md`**; figures in `docs/figures/ignition_model/`.
+
+<details><summary>Earlier: Session 7 (DIAGNOSTIC: the crown result was a bug)</summary>
+
 🟧 **Research prototype (alpha) — Session 7 (DIAGNOSTIC: the crown result was a bug).**
 
 **Headline verdict: the Session-6 "54 %" was an ARTIFACT and is retracted.**
@@ -178,6 +203,8 @@ bug pre-writeup and turned it into a finding) but weakens the
 under-prediction; the apparent fix was a parameter artifact. The
 future-front routing spine (Session 5) is unaffected and remains the core
 contribution. See `docs/OVERNIGHT_REPORT_SESSION7.md`.
+
+</details>
 
 <details><summary>Earlier: Session 6 (fire-type physics — crown/spotting/topo wind, since corrected)</summary>
 
@@ -270,6 +297,13 @@ pip install -r requirements.txt
 pip install -e .
 
 pytest -v
+
+# --- Session 8: data-driven ignition-probability model ---
+# Unzip the FIRMS multi-fire dataset to data/raw/firms_data/ first, then:
+python scripts/run_ignition_audit.py       # Deliverable 0 — data audit
+python scripts/run_ignition_pipeline.py    # Deliverables 1–6 — train, CV, figures
+# Outputs: data/processed/ignition_model/results.json,
+#          docs/figures/ignition_model/*.png, docs/SPREAD_MODEL_REPORT.md
 
 # Generate the LFMC sensitivity figure
 python -m wildfireguardian.spread_model.demo_sensitivity

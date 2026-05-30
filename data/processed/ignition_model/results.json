@@ -1,0 +1,927 @@
+{
+  "provenance": "NASA FIRMS (VIIRS+MODIS) / SRTM DEM / ESA WorldCover 2021 -- all real",
+  "config": {
+    "cell_size_m": 375.0,
+    "overpass_gap_minutes": 60.0,
+    "candidate_radius_m": 2000.0,
+    "random_seed": 20260530,
+    "headline_fires": [
+      "uljin_samcheok_2022",
+      "uiseong_andong_2025",
+      "hongseong_2023",
+      "miryang_2022"
+    ],
+    "fuel_broken_fires": [
+      "yeongdeok_2025",
+      "gangneung_donghae_2022"
+    ],
+    "dropped_fires": [
+      "gangneung_2023"
+    ]
+  },
+  "dataset": {
+    "fires": {
+      "yeongdeok_2025": {
+        "n_overpasses": 9,
+        "n_transitions_with_samples": 8,
+        "n_candidates": 35322,
+        "n_positive": 1110,
+        "positive_rate": 0.03142517411245117,
+        "mean_capture_rate": 0.9916300609174921,
+        "fuel_blind": true
+      },
+      "uiseong_andong_2025": {
+        "n_overpasses": 26,
+        "n_transitions_with_samples": 25,
+        "n_candidates": 95089,
+        "n_positive": 1956,
+        "positive_rate": 0.020570202652252102,
+        "mean_capture_rate": 0.903030123995111,
+        "fuel_blind": false
+      },
+      "uljin_samcheok_2022": {
+        "n_overpasses": 29,
+        "n_transitions_with_samples": 28,
+        "n_candidates": 30166,
+        "n_positive": 921,
+        "positive_rate": 0.030531061459921766,
+        "mean_capture_rate": 0.9709940788579147,
+        "fuel_blind": false
+      },
+      "gangneung_donghae_2022": {
+        "n_overpasses": 16,
+        "n_transitions_with_samples": 15,
+        "n_candidates": 12687,
+        "n_positive": 274,
+        "positive_rate": 0.021596910223062978,
+        "mean_capture_rate": 0.881323877068558,
+        "fuel_blind": true
+      },
+      "goseong_2019": {
+        "n_overpasses": 1,
+        "n_transitions_with_samples": 0,
+        "n_candidates": 0,
+        "n_positive": 0,
+        "positive_rate": null,
+        "mean_capture_rate": null,
+        "fuel_blind": false
+      },
+      "hongseong_2023": {
+        "n_overpasses": 7,
+        "n_transitions_with_samples": 6,
+        "n_candidates": 2003,
+        "n_positive": 77,
+        "positive_rate": 0.038442336495257114,
+        "mean_capture_rate": 0.7623626373626373,
+        "fuel_blind": false
+      },
+      "miryang_2022": {
+        "n_overpasses": 5,
+        "n_transitions_with_samples": 4,
+        "n_candidates": 1043,
+        "n_positive": 31,
+        "positive_rate": 0.029721955896452542,
+        "mean_capture_rate": 1.0,
+        "fuel_blind": false
+      }
+    },
+    "area": {
+      "yeongdeok_2025": {
+        "fire_id": "yeongdeok_2025",
+        "n_burned_cells": 1390,
+        "observed_ha": 19546.9,
+        "reported_ha": 3800.0,
+        "ratio_obs_over_reported": 5.14,
+        "cumulative_cells_per_overpass": [
+          249,
+          658,
+          1251,
+          1263,
+          1330,
+          1331,
+          1385,
+          1386,
+          1390
+        ],
+        "monotone_nondecreasing": true
+      },
+      "uiseong_andong_2025": {
+        "fire_id": "uiseong_andong_2025",
+        "n_burned_cells": 2267,
+        "observed_ha": 31879.7,
+        "reported_ha": 45000.0,
+        "ratio_obs_over_reported": 0.71,
+        "cumulative_cells_per_overpass": [
+          64,
+          94,
+          356,
+          357,
+          406,
+          406,
+          411,
+          412,
+          526,
+          578,
+          687,
+          846,
+          855,
+          894,
+          1035,
+          1171,
+          1429,
+          2058,
+          2061,
+          2083,
+          2164,
+          2170,
+          2261,
+          2262,
+          2266,
+          2267
+        ],
+        "monotone_nondecreasing": true
+      },
+      "uljin_samcheok_2022": {
+        "fire_id": "uljin_samcheok_2022",
+        "n_burned_cells": 1168,
+        "observed_ha": 16425.0,
+        "reported_ha": 16302.0,
+        "ratio_obs_over_reported": 1.01,
+        "cumulative_cells_per_overpass": [
+          146,
+          158,
+          445,
+          451,
+          590,
+          593,
+          721,
+          731,
+          794,
+          802,
+          868,
+          891,
+          894,
+          1004,
+          1004,
+          1028,
+          1057,
+          1059,
+          1074,
+          1081,
+          1095,
+          1096,
+          1141,
+          1142,
+          1145,
+          1145,
+          1166,
+          1168,
+          1168
+        ],
+        "monotone_nondecreasing": true
+      },
+      "gangneung_donghae_2022": {
+        "fire_id": "gangneung_donghae_2022",
+        "n_burned_cells": 327,
+        "observed_ha": 4598.4,
+        "reported_ha": 4000.0,
+        "ratio_obs_over_reported": 1.15,
+        "cumulative_cells_per_overpass": [
+          1,
+          48,
+          63,
+          221,
+          223,
+          284,
+          290,
+          308,
+          316,
+          317,
+          321,
+          322,
+          327,
+          327,
+          327,
+          327
+        ],
+        "monotone_nondecreasing": true
+      },
+      "goseong_2019": {
+        "fire_id": "goseong_2019",
+        "n_burned_cells": 81,
+        "observed_ha": 1139.1,
+        "reported_ha": 700.0,
+        "ratio_obs_over_reported": 1.63,
+        "cumulative_cells_per_overpass": [
+          81
+        ],
+        "monotone_nondecreasing": true
+      },
+      "hongseong_2023": {
+        "fire_id": "hongseong_2023",
+        "n_burned_cells": 115,
+        "observed_ha": 1617.2,
+        "reported_ha": 1454.0,
+        "ratio_obs_over_reported": 1.11,
+        "cumulative_cells_per_overpass": [
+          2,
+          67,
+          70,
+          92,
+          96,
+          108,
+          115
+        ],
+        "monotone_nondecreasing": true
+      },
+      "miryang_2022": {
+        "fire_id": "miryang_2022",
+        "n_burned_cells": 50,
+        "observed_ha": 703.1,
+        "reported_ha": 763.0,
+        "ratio_obs_over_reported": 0.92,
+        "cumulative_cells_per_overpass": [
+          19,
+          23,
+          24,
+          48,
+          50
+        ],
+        "monotone_nondecreasing": true
+      }
+    },
+    "class_balance": {},
+    "total_candidates": 176310,
+    "total_positive": 4369,
+    "overall_positive_rate": 0.02478021666383075
+  },
+  "lofo": {
+    "per_fire": {
+      "gangneung_donghae_2022": {
+        "n": 12687,
+        "n_pos": 274,
+        "pos_rate": 0.021596910223062978,
+        "roc_auc": 0.7716101144255992,
+        "pr_auc": 0.04625661216264499,
+        "brier": 0.021295083686709404,
+        "conditional_auc": {
+          "<=375m": {
+            "n": 2631,
+            "n_pos": 107,
+            "auc": 0.5968089518195416
+          },
+          "375-750m": {
+            "n": 1964,
+            "n_pos": 79,
+            "auc": 0.5934929322096498
+          },
+          "750-1500m": {
+            "n": 4565,
+            "n_pos": 77,
+            "auc": 0.8008918443410422
+          },
+          ">1500m": {
+            "n": 3527,
+            "n_pos": 11,
+            "auc": 0.7638328679284311
+          }
+        },
+        "operating_point": {
+          "threshold": 0.11603096127510071,
+          "iou": 0.01858736059479554,
+          "recall": 0.0364963503649635,
+          "precision": 0.0364963503649635,
+          "k": 274,
+          "recall_at_2k": 0.06569343065693431,
+          "recall_at_3k": 0.10218978102189781
+        },
+        "fuel_blind": true,
+        "sparse": false
+      },
+      "hongseong_2023": {
+        "n": 2003,
+        "n_pos": 77,
+        "pos_rate": 0.038442336495257114,
+        "roc_auc": 0.7112513654569729,
+        "pr_auc": 0.07696042398627088,
+        "brier": 0.03687357157468796,
+        "conditional_auc": {
+          "<=375m": {
+            "n": 350,
+            "n_pos": 24,
+            "auc": 0.6472392638036809
+          },
+          "375-750m": {
+            "n": 307,
+            "n_pos": 23,
+            "auc": 0.6013472137170851
+          },
+          "750-1500m": {
+            "n": 738,
+            "n_pos": 19,
+            "auc": 0.685235341483054
+          },
+          ">1500m": {
+            "n": 608,
+            "n_pos": 11,
+            "auc": 0.7274250038069134
+          }
+        },
+        "operating_point": {
+          "threshold": 0.08988923579454422,
+          "iou": 0.06206896551724138,
+          "recall": 0.11688311688311688,
+          "precision": 0.11688311688311688,
+          "k": 77,
+          "recall_at_2k": 0.18181818181818182,
+          "recall_at_3k": 0.23376623376623376
+        },
+        "fuel_blind": false,
+        "sparse": false
+      },
+      "miryang_2022": {
+        "n": 1043,
+        "n_pos": 31,
+        "pos_rate": 0.029721955896452542,
+        "roc_auc": 0.718475073313783,
+        "pr_auc": 0.05917496819444162,
+        "brier": 0.029166067019104958,
+        "conditional_auc": {
+          "<=375m": {
+            "n": 165,
+            "n_pos": 11,
+            "auc": 0.578512396694215
+          },
+          "375-750m": {
+            "n": 159,
+            "n_pos": 11,
+            "auc": 0.6142506142506143
+          },
+          "750-1500m": {
+            "n": 400,
+            "n_pos": 7,
+            "auc": 0.6328607778989459
+          },
+          ">1500m": {
+            "n": 319,
+            "n_pos": 2,
+            "auc": 0.7129337539432177
+          }
+        },
+        "operating_point": {
+          "threshold": 0.12345422804355621,
+          "iou": 0.01639344262295082,
+          "recall": 0.03225806451612903,
+          "precision": 0.03225806451612903,
+          "k": 31,
+          "recall_at_2k": 0.03225806451612903,
+          "recall_at_3k": 0.1935483870967742
+        },
+        "fuel_blind": false,
+        "sparse": false
+      },
+      "uiseong_andong_2025": {
+        "n": 95089,
+        "n_pos": 1956,
+        "pos_rate": 0.020570202652252102,
+        "roc_auc": 0.7868395659377292,
+        "pr_auc": 0.06923794043167351,
+        "brier": 0.020048033446073532,
+        "conditional_auc": {
+          "<=375m": {
+            "n": 25263,
+            "n_pos": 1004,
+            "auc": 0.7076724636143583
+          },
+          "375-750m": {
+            "n": 18014,
+            "n_pos": 519,
+            "auc": 0.6944980701890604
+          },
+          "750-1500m": {
+            "n": 32341,
+            "n_pos": 368,
+            "auc": 0.7556050179567272
+          },
+          ">1500m": {
+            "n": 19471,
+            "n_pos": 65,
+            "auc": 0.7694983312060504
+          }
+        },
+        "operating_point": {
+          "threshold": 0.16196942329406738,
+          "iou": 0.059875372527770254,
+          "recall": 0.11298568507157464,
+          "precision": 0.11298568507157464,
+          "k": 1956,
+          "recall_at_2k": 0.19376278118609408,
+          "recall_at_3k": 0.26789366053169733
+        },
+        "fuel_blind": false,
+        "sparse": false
+      },
+      "uljin_samcheok_2022": {
+        "n": 30166,
+        "n_pos": 921,
+        "pos_rate": 0.030531061459921766,
+        "roc_auc": 0.7743489101118652,
+        "pr_auc": 0.07225991909506513,
+        "brier": 0.03320692107081413,
+        "conditional_auc": {
+          "<=375m": {
+            "n": 9352,
+            "n_pos": 451,
+            "auc": 0.7548703389414628
+          },
+          "375-750m": {
+            "n": 5488,
+            "n_pos": 242,
+            "auc": 0.7426689520232652
+          },
+          "750-1500m": {
+            "n": 9560,
+            "n_pos": 178,
+            "auc": 0.7331583428942345
+          },
+          ">1500m": {
+            "n": 5766,
+            "n_pos": 50,
+            "auc": 0.7395818754373688
+          }
+        },
+        "operating_point": {
+          "threshold": 0.22879116237163544,
+          "iou": 0.020487264673311186,
+          "recall": 0.04017372421281216,
+          "precision": 0.04013015184381779,
+          "k": 921,
+          "recall_at_2k": 0.1281216069489685,
+          "recall_at_3k": 0.23452768729641693
+        },
+        "fuel_blind": false,
+        "sparse": false
+      },
+      "yeongdeok_2025": {
+        "n": 35322,
+        "n_pos": 1110,
+        "pos_rate": 0.03142517411245117,
+        "roc_auc": 0.7788876565095435,
+        "pr_auc": 0.0791615192906362,
+        "brier": 0.030992846935987473,
+        "conditional_auc": {
+          "<=375m": {
+            "n": 10671,
+            "n_pos": 658,
+            "auc": 0.6484655054811723
+          },
+          "375-750m": {
+            "n": 7383,
+            "n_pos": 305,
+            "auc": 0.6763536518142107
+          },
+          "750-1500m": {
+            "n": 10922,
+            "n_pos": 121,
+            "auc": 0.7852559565574353
+          },
+          ">1500m": {
+            "n": 6346,
+            "n_pos": 26,
+            "auc": 0.755069376825706
+          }
+        },
+        "operating_point": {
+          "threshold": 0.18665146827697754,
+          "iou": 0.04176442984514313,
+          "recall": 0.08018018018018018,
+          "precision": 0.08018018018018018,
+          "k": 1110,
+          "recall_at_2k": 0.1783783783783784,
+          "recall_at_3k": 0.28378378378378377
+        },
+        "fuel_blind": true,
+        "sparse": false
+      }
+    },
+    "summary": {
+      "headline_fires": [
+        "uljin_samcheok_2022",
+        "uiseong_andong_2025",
+        "hongseong_2023",
+        "miryang_2022"
+      ],
+      "headline_mean_auc": 0.7477287287050876,
+      "headline_std_auc": 0.033259081581036055,
+      "headline_mean_pr_auc": 0.0694083129268628,
+      "headline_mean_auc_far_band": 0.7373597410983876
+    }
+  },
+  "baseline_distance_only": {
+    "per_fire": {
+      "gangneung_donghae_2022": {
+        "roc_auc": 0.7158337356468172,
+        "pr_auc": 0.03909143143641369,
+        "conditional_auc": {
+          "<=375m": {
+            "n": 2631,
+            "n_pos": 107,
+            "auc": 0.5
+          },
+          "375-750m": {
+            "n": 1964,
+            "n_pos": 79,
+            "auc": 0.5318705301682167
+          },
+          "750-1500m": {
+            "n": 4565,
+            "n_pos": 77,
+            "auc": 0.6654831354029216
+          },
+          ">1500m": {
+            "n": 3527,
+            "n_pos": 11,
+            "auc": 0.7571362085013962
+          }
+        }
+      },
+      "hongseong_2023": {
+        "roc_auc": 0.6713901363434074,
+        "pr_auc": 0.06498072812489404,
+        "conditional_auc": {
+          "<=375m": {
+            "n": 350,
+            "n_pos": 24,
+            "auc": 0.5
+          },
+          "375-750m": {
+            "n": 307,
+            "n_pos": 23,
+            "auc": 0.6072412737293325
+          },
+          "750-1500m": {
+            "n": 738,
+            "n_pos": 19,
+            "auc": 0.6178537442354146
+          },
+          ">1500m": {
+            "n": 608,
+            "n_pos": 11,
+            "auc": 0.4931475559616263
+          }
+        }
+      },
+      "miryang_2022": {
+        "roc_auc": 0.7675474945811551,
+        "pr_auc": 0.06561655129733512,
+        "conditional_auc": {
+          "<=375m": {
+            "n": 165,
+            "n_pos": 11,
+            "auc": 0.5
+          },
+          "375-750m": {
+            "n": 159,
+            "n_pos": 11,
+            "auc": 0.542997542997543
+          },
+          "750-1500m": {
+            "n": 400,
+            "n_pos": 7,
+            "auc": 0.8558705925118139
+          },
+          ">1500m": {
+            "n": 319,
+            "n_pos": 2,
+            "auc": 0.8312302839116719
+          }
+        }
+      },
+      "uiseong_andong_2025": {
+        "roc_auc": 0.7050432713407178,
+        "pr_auc": 0.036829277249100865,
+        "conditional_auc": {
+          "<=375m": {
+            "n": 25263,
+            "n_pos": 1004,
+            "auc": 0.5
+          },
+          "375-750m": {
+            "n": 18014,
+            "n_pos": 519,
+            "auc": 0.5724707472159676
+          },
+          "750-1500m": {
+            "n": 32341,
+            "n_pos": 368,
+            "auc": 0.6319559795017263
+          },
+          ">1500m": {
+            "n": 19471,
+            "n_pos": 65,
+            "auc": 0.5297247480953551
+          }
+        }
+      },
+      "uljin_samcheok_2022": {
+        "roc_auc": 0.6598039996443242,
+        "pr_auc": 0.04619601829565613,
+        "conditional_auc": {
+          "<=375m": {
+            "n": 9352,
+            "n_pos": 451,
+            "auc": 0.5
+          },
+          "375-750m": {
+            "n": 5488,
+            "n_pos": 242,
+            "auc": 0.553780448228166
+          },
+          "750-1500m": {
+            "n": 9560,
+            "n_pos": 178,
+            "auc": 0.6355640971595142
+          },
+          ">1500m": {
+            "n": 5766,
+            "n_pos": 50,
+            "auc": 0.5376889433170049
+          }
+        }
+      },
+      "yeongdeok_2025": {
+        "roc_auc": 0.7217142080698727,
+        "pr_auc": 0.05823526733155762,
+        "conditional_auc": {
+          "<=375m": {
+            "n": 10671,
+            "n_pos": 658,
+            "auc": 0.5
+          },
+          "375-750m": {
+            "n": 7383,
+            "n_pos": 305,
+            "auc": 0.5955769204044858
+          },
+          "750-1500m": {
+            "n": 10922,
+            "n_pos": 121,
+            "auc": 0.6406554030427242
+          },
+          ">1500m": {
+            "n": 6346,
+            "n_pos": 26,
+            "auc": 0.48973040408958135
+          }
+        }
+      }
+    }
+  },
+  "baseline_logistic_distslope": {
+    "per_fire": {
+      "gangneung_donghae_2022": {
+        "roc_auc": 0.7168726452900509,
+        "pr_auc": 0.045092655001563356,
+        "conditional_auc": {
+          "<=375m": {
+            "n": 2631,
+            "n_pos": 107,
+            "auc": 0.5129671045810684
+          },
+          "375-750m": {
+            "n": 1964,
+            "n_pos": 79,
+            "auc": 0.52918107645301
+          },
+          "750-1500m": {
+            "n": 4565,
+            "n_pos": 77,
+            "auc": 0.6601963099289302
+          },
+          ">1500m": {
+            "n": 3527,
+            "n_pos": 11,
+            "auc": 0.7999793153376771
+          }
+        }
+      },
+      "hongseong_2023": {
+        "roc_auc": 0.6997983843778236,
+        "pr_auc": 0.0923648705009039,
+        "conditional_auc": {
+          "<=375m": {
+            "n": 350,
+            "n_pos": 24,
+            "auc": 0.6986196319018405
+          },
+          "375-750m": {
+            "n": 307,
+            "n_pos": 23,
+            "auc": 0.7023882424984691
+          },
+          "750-1500m": {
+            "n": 738,
+            "n_pos": 19,
+            "auc": 0.652917063172535
+          },
+          ">1500m": {
+            "n": 608,
+            "n_pos": 11,
+            "auc": 0.5654027714329222
+          }
+        }
+      },
+      "miryang_2022": {
+        "roc_auc": 0.832525819201836,
+        "pr_auc": 0.11979374564651411,
+        "conditional_auc": {
+          "<=375m": {
+            "n": 165,
+            "n_pos": 11,
+            "auc": 0.7511806375442739
+          },
+          "375-750m": {
+            "n": 159,
+            "n_pos": 11,
+            "auc": 0.7383292383292384
+          },
+          "750-1500m": {
+            "n": 400,
+            "n_pos": 7,
+            "auc": 0.9031261359505635
+          },
+          ">1500m": {
+            "n": 319,
+            "n_pos": 2,
+            "auc": 0.6987381703470033
+          }
+        }
+      },
+      "uiseong_andong_2025": {
+        "roc_auc": 0.7266302119951288,
+        "pr_auc": 0.04739567296201628,
+        "conditional_auc": {
+          "<=375m": {
+            "n": 25263,
+            "n_pos": 1004,
+            "auc": 0.607472948389467
+          },
+          "375-750m": {
+            "n": 18014,
+            "n_pos": 519,
+            "auc": 0.6154310535187317
+          },
+          "750-1500m": {
+            "n": 32341,
+            "n_pos": 368,
+            "auc": 0.649701250987586
+          },
+          ">1500m": {
+            "n": 19471,
+            "n_pos": 65,
+            "auc": 0.5571496523676263
+          }
+        }
+      },
+      "uljin_samcheok_2022": {
+        "roc_auc": 0.6978655185542635,
+        "pr_auc": 0.0747868725231827,
+        "conditional_auc": {
+          "<=375m": {
+            "n": 9352,
+            "n_pos": 451,
+            "auc": 0.6585988619330996
+          },
+          "375-750m": {
+            "n": 5488,
+            "n_pos": 242,
+            "auc": 0.623065822681114
+          },
+          "750-1500m": {
+            "n": 9560,
+            "n_pos": 178,
+            "auc": 0.6352491263452128
+          },
+          ">1500m": {
+            "n": 5766,
+            "n_pos": 50,
+            "auc": 0.49111091672498247
+          }
+        }
+      },
+      "yeongdeok_2025": {
+        "roc_auc": 0.705557714852699,
+        "pr_auc": 0.05652211588507293,
+        "conditional_auc": {
+          "<=375m": {
+            "n": 10671,
+            "n_pos": 658,
+            "auc": 0.5048619165904992
+          },
+          "375-750m": {
+            "n": 7383,
+            "n_pos": 305,
+            "auc": 0.5524372449381366
+          },
+          "750-1500m": {
+            "n": 10922,
+            "n_pos": 121,
+            "auc": 0.5795518627369214
+          },
+          ">1500m": {
+            "n": 6346,
+            "n_pos": 26,
+            "auc": 0.4083100048685492
+          }
+        }
+      }
+    }
+  },
+  "feature_importance": {
+    "gain": {
+      "dist_to_nearest_burning_m": 33.739620208740234,
+      "n_burning_within_500m": 17.790952682495117,
+      "n_burning_within_1000m": 30.468101501464844,
+      "frp_sum_1000m": 69.31460571289062,
+      "frp_max_1000m": 20.81877326965332,
+      "nearest_burning_frp": 22.500473022460938,
+      "slope_deg": 10.236967086791992,
+      "slope_alignment": 7.993601322174072,
+      "elevation_rel_m": 8.196483612060547,
+      "burnable_frac_nbhd_1000m": 24.12813949584961,
+      "fuel_tree": 19.763580322265625,
+      "fuel_shrub": 12.787335395812988,
+      "fuel_grass": 21.36337661743164,
+      "fuel_crop": 12.037789344787598,
+      "directional_alignment": 31.136199951171875
+    },
+    "gain_normalised": {
+      "dist_to_nearest_burning_m": 0.09857430919342268,
+      "n_burning_within_500m": 0.05197838208372965,
+      "n_burning_within_1000m": 0.08901617858650225,
+      "frp_sum_1000m": 0.2025108561652591,
+      "frp_max_1000m": 0.060824519677875596,
+      "nearest_burning_frp": 0.06573780531589286,
+      "slope_deg": 0.02990851564342499,
+      "slope_alignment": 0.02335425601787947,
+      "elevation_rel_m": 0.023947000733125497,
+      "burnable_frac_nbhd_1000m": 0.07049322630815463,
+      "fuel_tree": 0.057741648109938724,
+      "fuel_shrub": 0.03735971967877501,
+      "fuel_grass": 0.06241564306514379,
+      "fuel_crop": 0.03516983183382097,
+      "directional_alignment": 0.09096810758705476
+    },
+    "ranking": [
+      "frp_sum_1000m",
+      "dist_to_nearest_burning_m",
+      "directional_alignment",
+      "n_burning_within_1000m",
+      "burnable_frac_nbhd_1000m",
+      "nearest_burning_frp",
+      "fuel_grass",
+      "frp_max_1000m",
+      "fuel_tree",
+      "n_burning_within_500m",
+      "fuel_shrub",
+      "fuel_crop",
+      "slope_deg",
+      "elevation_rel_m",
+      "slope_alignment"
+    ],
+    "shap_mean_abs": {
+      "dist_to_nearest_burning_m": 0.5747249722480774,
+      "n_burning_within_500m": 0.07617125660181046,
+      "n_burning_within_1000m": 0.32926875352859497,
+      "frp_sum_1000m": 0.5952618718147278,
+      "frp_max_1000m": 0.12751933932304382,
+      "nearest_burning_frp": 0.4658947288990021,
+      "slope_deg": 0.05962660536170006,
+      "slope_alignment": 0.05762344226241112,
+      "elevation_rel_m": 0.09088592231273651,
+      "burnable_frac_nbhd_1000m": 0.1905776411294937,
+      "fuel_tree": 0.06877276301383972,
+      "fuel_shrub": 0.002910536713898182,
+      "fuel_grass": 0.008551963604986668,
+      "fuel_crop": 0.05717774108052254,
+      "directional_alignment": 0.3151562213897705
+    },
+    "shap_ranking": [
+      "frp_sum_1000m",
+      "dist_to_nearest_burning_m",
+      "nearest_burning_frp",
+      "n_burning_within_1000m",
+      "directional_alignment",
+      "burnable_frac_nbhd_1000m",
+      "frp_max_1000m",
+      "elevation_rel_m",
+      "n_burning_within_500m",
+      "fuel_tree",
+      "slope_deg",
+      "slope_alignment",
+      "fuel_crop",
+      "fuel_grass",
+      "fuel_shrub"
+    ]
+  }
+}

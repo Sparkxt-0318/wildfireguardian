@@ -1,0 +1,626 @@
+{
+  "provenance": "NASA FIRMS (VIIRS+MODIS) / SRTM DEM / ESA WorldCover 2021",
+  "worldcover_burnable_map": {
+    "10": 1,
+    "20": 1,
+    "30": 1,
+    "40": 1,
+    "50": 0,
+    "60": 0,
+    "70": 0,
+    "80": 0,
+    "90": 1,
+    "95": 1,
+    "100": 1
+  },
+  "fires": [
+    {
+      "fire_id": "yeongdeok_2025",
+      "name": "2025 \uc601\ub0a8(\uc601\ub355) \uc0b0\ubd88",
+      "bbox": [
+        128.95,
+        36.2,
+        129.6,
+        36.75
+      ],
+      "reported_ha": 3800.0,
+      "n_detections_manifest": 2290,
+      "n_detections_csv": 2290,
+      "overpass_hours_manifest": 10,
+      "first_detection": "2025-03-25 12:25:00+00:00",
+      "last_detection": "2025-03-27 04:28:00+00:00",
+      "time_span_hours": 40.05,
+      "n_overpasses_clustered": 6,
+      "detections_per_overpass": [
+        249,
+        1686,
+        243,
+        2,
+        105,
+        5
+      ],
+      "timestamps_parseable": true,
+      "timestamps_ordered_ok": true,
+      "dem": {
+        "shape": [
+          1980,
+          2340
+        ],
+        "crs": "EPSG:4326",
+        "bounds": [
+          128.95,
+          36.2,
+          129.6,
+          36.75
+        ],
+        "res": [
+          0.0002777777777777778,
+          0.0002777777777777778
+        ],
+        "nodata": NaN
+      },
+      "fuel": {
+        "shape": [
+          6600,
+          600
+        ],
+        "crs": "EPSG:4326",
+        "bounds": [
+          128.95,
+          36.2,
+          129.0,
+          36.75
+        ],
+        "res": [
+          8.333333333333333e-05,
+          8.333333333333333e-05
+        ],
+        "nodata": 0.0
+      },
+      "burnable_frac_manifest": 0.975,
+      "frac_detections_in_fuel": 0.0926,
+      "fuel_decision": "FLAG_FUEL_BLIND",
+      "fuel_reason": "Only 9.3% of detections fall inside the fuel raster (clipped at the WorldCover 129E tile boundary). Fuel features set to NaN per-cell; is_burnable hard-gate disabled; predicted fuel-blind; excluded from the headline mean.",
+      "instruments": {
+        "VIIRS": 1999,
+        "MODIS": 291
+      }
+    },
+    {
+      "fire_id": "uiseong_andong_2025",
+      "name": "2025 \uc758\uc131-\uc548\ub3d9 \uc0b0\ubd88",
+      "bbox": [
+        128.4,
+        36.2,
+        129.1,
+        36.75
+      ],
+      "reported_ha": 45000.0,
+      "n_detections_manifest": 4021,
+      "n_detections_csv": 4021,
+      "overpass_hours_manifest": 32,
+      "first_detection": "2025-03-22 04:22:00+00:00",
+      "last_detection": "2025-03-28 16:53:00+00:00",
+      "time_span_hours": 156.52,
+      "n_overpasses_clustered": 19,
+      "detections_per_overpass": [
+        78,
+        30,
+        431,
+        7,
+        168,
+        2,
+        7,
+        1,
+        261,
+        400,
+        20,
+        403,
+        141,
+        1531,
+        354,
+        12,
+        170,
+        4,
+        1
+      ],
+      "timestamps_parseable": true,
+      "timestamps_ordered_ok": true,
+      "dem": {
+        "shape": [
+          1980,
+          2520
+        ],
+        "crs": "EPSG:4326",
+        "bounds": [
+          128.4,
+          36.2,
+          129.1,
+          36.75
+        ],
+        "res": [
+          0.0002777777777777778,
+          0.0002777777777777778
+        ],
+        "nodata": NaN
+      },
+      "fuel": {
+        "shape": [
+          6600,
+          7200
+        ],
+        "crs": "EPSG:4326",
+        "bounds": [
+          128.4,
+          36.2,
+          129.0,
+          36.75
+        ],
+        "res": [
+          8.333333333333333e-05,
+          8.333333333333333e-05
+        ],
+        "nodata": 0.0
+      },
+      "burnable_frac_manifest": 0.942,
+      "frac_detections_in_fuel": 0.8858,
+      "fuel_decision": "KEEP",
+      "fuel_reason": "88.6% of detections inside fuel coverage -- adequate.",
+      "instruments": {
+        "VIIRS": 3648,
+        "MODIS": 373
+      }
+    },
+    {
+      "fire_id": "uljin_samcheok_2022",
+      "name": "2022 \uc6b8\uc9c4-\uc0bc\ucc99 \uc0b0\ubd88",
+      "bbox": [
+        129.1,
+        36.85,
+        129.6,
+        37.45
+      ],
+      "reported_ha": 16302.0,
+      "n_detections_manifest": 2372,
+      "n_detections_csv": 2372,
+      "overpass_hours_manifest": 55,
+      "first_detection": "2022-03-04 03:19:00+00:00",
+      "last_detection": "2022-03-14 17:32:00+00:00",
+      "time_span_hours": 254.22,
+      "n_overpasses_clustered": 27,
+      "detections_per_overpass": [
+        203,
+        13,
+        589,
+        253,
+        4,
+        280,
+        15,
+        152,
+        8,
+        150,
+        50,
+        5,
+        233,
+        3,
+        70,
+        71,
+        41,
+        17,
+        30,
+        1,
+        110,
+        7,
+        13,
+        2,
+        43,
+        6,
+        3
+      ],
+      "timestamps_parseable": true,
+      "timestamps_ordered_ok": true,
+      "dem": {
+        "shape": [
+          2160,
+          1800
+        ],
+        "crs": "EPSG:4326",
+        "bounds": [
+          129.1,
+          36.85,
+          129.6,
+          37.45
+        ],
+        "res": [
+          0.0002777777777777778,
+          0.0002777777777777778
+        ],
+        "nodata": NaN
+      },
+      "fuel": {
+        "shape": [
+          7200,
+          6000
+        ],
+        "crs": "EPSG:4326",
+        "bounds": [
+          129.1,
+          36.85,
+          129.6,
+          37.45
+        ],
+        "res": [
+          8.333333333333333e-05,
+          8.333333333333333e-05
+        ],
+        "nodata": 0.0
+      },
+      "burnable_frac_manifest": 0.482,
+      "frac_detections_in_fuel": 1.0,
+      "fuel_decision": "KEEP",
+      "fuel_reason": "100.0% of detections inside fuel coverage -- adequate.",
+      "instruments": {
+        "VIIRS": 2177,
+        "MODIS": 195
+      }
+    },
+    {
+      "fire_id": "gangneung_donghae_2022",
+      "name": "2022 \uac15\ub989-\ub3d9\ud574 \uc0b0\ubd88",
+      "bbox": [
+        128.75,
+        37.4,
+        129.15,
+        37.85
+      ],
+      "reported_ha": 4000.0,
+      "n_detections_manifest": 637,
+      "n_detections_csv": 637,
+      "overpass_hours_manifest": 29,
+      "first_detection": "2022-03-04 04:09:00+00:00",
+      "last_detection": "2022-03-09 17:26:00+00:00",
+      "time_span_hours": 133.28,
+      "n_overpasses_clustered": 15,
+      "detections_per_overpass": [
+        1,
+        93,
+        300,
+        3,
+        104,
+        9,
+        61,
+        30,
+        3,
+        14,
+        2,
+        10,
+        1,
+        1,
+        5
+      ],
+      "timestamps_parseable": true,
+      "timestamps_ordered_ok": true,
+      "dem": {
+        "shape": [
+          1620,
+          1440
+        ],
+        "crs": "EPSG:4326",
+        "bounds": [
+          128.75,
+          37.4,
+          129.15,
+          37.85
+        ],
+        "res": [
+          0.0002777777777777778,
+          0.0002777777777777778
+        ],
+        "nodata": NaN
+      },
+      "fuel": {
+        "shape": [
+          5400,
+          3000
+        ],
+        "crs": "EPSG:4326",
+        "bounds": [
+          128.75,
+          37.4,
+          129.0,
+          37.85
+        ],
+        "res": [
+          8.333333333333333e-05,
+          8.333333333333333e-05
+        ],
+        "nodata": 0.0
+      },
+      "burnable_frac_manifest": 0.878,
+      "frac_detections_in_fuel": 0.0502,
+      "fuel_decision": "FLAG_FUEL_BLIND",
+      "fuel_reason": "Only 5.0% of detections fall inside the fuel raster (clipped at the WorldCover 129E tile boundary). Fuel features set to NaN per-cell; is_burnable hard-gate disabled; predicted fuel-blind; excluded from the headline mean.",
+      "instruments": {
+        "VIIRS": 575,
+        "MODIS": 62
+      }
+    },
+    {
+      "fire_id": "goseong_2019",
+      "name": "2019 \uace0\uc131-\uc18d\ucd08 \uc0b0\ubd88",
+      "bbox": [
+        128.35,
+        38.15,
+        128.75,
+        38.55
+      ],
+      "reported_ha": 700.0,
+      "n_detections_manifest": 114,
+      "n_detections_csv": 114,
+      "overpass_hours_manifest": 3,
+      "first_detection": "2019-04-04 16:48:00+00:00",
+      "last_detection": "2019-04-04 18:28:00+00:00",
+      "time_span_hours": 1.67,
+      "n_overpasses_clustered": 1,
+      "detections_per_overpass": [
+        114
+      ],
+      "timestamps_parseable": true,
+      "timestamps_ordered_ok": true,
+      "dem": {
+        "shape": [
+          1440,
+          1440
+        ],
+        "crs": "EPSG:4326",
+        "bounds": [
+          128.35,
+          38.15,
+          128.75,
+          38.55
+        ],
+        "res": [
+          0.0002777777777777778,
+          0.0002777777777777778
+        ],
+        "nodata": NaN
+      },
+      "fuel": {
+        "shape": [
+          4800,
+          4800
+        ],
+        "crs": "EPSG:4326",
+        "bounds": [
+          128.35,
+          38.15,
+          128.75,
+          38.55
+        ],
+        "res": [
+          8.333333333333333e-05,
+          8.333333333333333e-05
+        ],
+        "nodata": 0.0
+      },
+      "burnable_frac_manifest": 0.381,
+      "frac_detections_in_fuel": 1.0,
+      "fuel_decision": "KEEP_SPARSE",
+      "fuel_reason": "Temporally sparse; train-pool only, held-out reported separately.",
+      "instruments": {
+        "VIIRS": 112,
+        "MODIS": 2
+      }
+    },
+    {
+      "fire_id": "gangneung_2023",
+      "name": "2023 \uac15\ub989(\uacbd\ud3ec) \uc0b0\ubd88",
+      "bbox": [
+        128.75,
+        37.7,
+        129.05,
+        37.95
+      ],
+      "reported_ha": 530.0,
+      "n_detections_manifest": 17,
+      "n_detections_csv": 17,
+      "overpass_hours_manifest": 2,
+      "first_detection": "2023-04-11 01:53:00+00:00",
+      "last_detection": "2023-04-11 04:04:00+00:00",
+      "time_span_hours": 2.18,
+      "n_overpasses_clustered": 2,
+      "detections_per_overpass": [
+        6,
+        11
+      ],
+      "timestamps_parseable": true,
+      "timestamps_ordered_ok": true,
+      "dem": {
+        "shape": [
+          900,
+          1080
+        ],
+        "crs": "EPSG:4326",
+        "bounds": [
+          128.75,
+          37.7,
+          129.05,
+          37.95
+        ],
+        "res": [
+          0.0002777777777777778,
+          0.0002777777777777778
+        ],
+        "nodata": NaN
+      },
+      "fuel": {
+        "shape": [
+          3000,
+          3000
+        ],
+        "crs": "EPSG:4326",
+        "bounds": [
+          128.75,
+          37.7,
+          129.0,
+          37.95
+        ],
+        "res": [
+          8.333333333333333e-05,
+          8.333333333333333e-05
+        ],
+        "nodata": 0.0
+      },
+      "burnable_frac_manifest": 0.495,
+      "frac_detections_in_fuel": 1.0,
+      "fuel_decision": "DROP",
+      "fuel_reason": "Too few overpasses to observe spread.",
+      "instruments": {
+        "VIIRS": 11,
+        "MODIS": 6
+      }
+    },
+    {
+      "fire_id": "hongseong_2023",
+      "name": "2023 \ud64d\uc131 \uc0b0\ubd88",
+      "bbox": [
+        126.45,
+        36.5,
+        126.85,
+        36.9
+      ],
+      "reported_ha": 1454.0,
+      "n_detections_manifest": 196,
+      "n_detections_csv": 196,
+      "overpass_hours_manifest": 11,
+      "first_detection": "2023-04-02 02:17:00+00:00",
+      "last_detection": "2023-04-03 17:14:00+00:00",
+      "time_span_hours": 38.95,
+      "n_overpasses_clustered": 5,
+      "detections_per_overpass": [
+        109,
+        3,
+        47,
+        30,
+        7
+      ],
+      "timestamps_parseable": true,
+      "timestamps_ordered_ok": true,
+      "dem": {
+        "shape": [
+          1440,
+          1440
+        ],
+        "crs": "EPSG:4326",
+        "bounds": [
+          126.45,
+          36.5,
+          126.85000000000001,
+          36.9
+        ],
+        "res": [
+          0.0002777777777777778,
+          0.0002777777777777778
+        ],
+        "nodata": NaN
+      },
+      "fuel": {
+        "shape": [
+          4800,
+          4800
+        ],
+        "crs": "EPSG:4326",
+        "bounds": [
+          126.45,
+          36.5,
+          126.85000000000001,
+          36.9
+        ],
+        "res": [
+          8.333333333333333e-05,
+          8.333333333333333e-05
+        ],
+        "nodata": 0.0
+      },
+      "burnable_frac_manifest": 0.858,
+      "frac_detections_in_fuel": 1.0,
+      "fuel_decision": "KEEP",
+      "fuel_reason": "100.0% of detections inside fuel coverage -- adequate.",
+      "instruments": {
+        "VIIRS": 174,
+        "MODIS": 22
+      }
+    },
+    {
+      "fire_id": "miryang_2022",
+      "name": "2022 \ubc00\uc591 \uc0b0\ubd88",
+      "bbox": [
+        128.65,
+        35.4,
+        129.05,
+        35.75
+      ],
+      "reported_ha": 763.0,
+      "n_detections_manifest": 74,
+      "n_detections_csv": 74,
+      "overpass_hours_manifest": 10,
+      "first_detection": "2022-05-31 02:48:00+00:00",
+      "last_detection": "2022-06-02 17:33:00+00:00",
+      "time_span_hours": 62.75,
+      "n_overpasses_clustered": 5,
+      "detections_per_overpass": [
+        28,
+        6,
+        1,
+        37,
+        2
+      ],
+      "timestamps_parseable": true,
+      "timestamps_ordered_ok": true,
+      "dem": {
+        "shape": [
+          1260,
+          1440
+        ],
+        "crs": "EPSG:4326",
+        "bounds": [
+          128.65,
+          35.4,
+          129.05,
+          35.75
+        ],
+        "res": [
+          0.0002777777777777778,
+          0.0002777777777777778
+        ],
+        "nodata": NaN
+      },
+      "fuel": {
+        "shape": [
+          4200,
+          4200
+        ],
+        "crs": "EPSG:4326",
+        "bounds": [
+          128.65,
+          35.4,
+          129.0,
+          35.75
+        ],
+        "res": [
+          8.333333333333333e-05,
+          8.333333333333333e-05
+        ],
+        "nodata": 0.0
+      },
+      "burnable_frac_manifest": 0.939,
+      "frac_detections_in_fuel": 1.0,
+      "fuel_decision": "KEEP",
+      "fuel_reason": "100.0% of detections inside fuel coverage -- adequate.",
+      "instruments": {
+        "VIIRS": 68,
+        "MODIS": 6
+      }
+    }
+  ]
+}

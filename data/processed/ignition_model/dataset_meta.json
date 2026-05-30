@@ -1,0 +1,236 @@
+{
+  "fires": {
+    "yeongdeok_2025": {
+      "n_overpasses": 9,
+      "n_transitions_with_samples": 8,
+      "n_candidates": 35322,
+      "n_positive": 1110,
+      "positive_rate": 0.03142517411245117,
+      "mean_capture_rate": 0.9916300609174921,
+      "fuel_blind": true
+    },
+    "uiseong_andong_2025": {
+      "n_overpasses": 26,
+      "n_transitions_with_samples": 25,
+      "n_candidates": 95089,
+      "n_positive": 1956,
+      "positive_rate": 0.020570202652252102,
+      "mean_capture_rate": 0.903030123995111,
+      "fuel_blind": false
+    },
+    "uljin_samcheok_2022": {
+      "n_overpasses": 29,
+      "n_transitions_with_samples": 28,
+      "n_candidates": 30166,
+      "n_positive": 921,
+      "positive_rate": 0.030531061459921766,
+      "mean_capture_rate": 0.9709940788579147,
+      "fuel_blind": false
+    },
+    "gangneung_donghae_2022": {
+      "n_overpasses": 16,
+      "n_transitions_with_samples": 15,
+      "n_candidates": 12687,
+      "n_positive": 274,
+      "positive_rate": 0.021596910223062978,
+      "mean_capture_rate": 0.881323877068558,
+      "fuel_blind": true
+    },
+    "goseong_2019": {
+      "n_overpasses": 1,
+      "n_transitions_with_samples": 0,
+      "n_candidates": 0,
+      "n_positive": 0,
+      "positive_rate": null,
+      "mean_capture_rate": null,
+      "fuel_blind": false
+    },
+    "hongseong_2023": {
+      "n_overpasses": 7,
+      "n_transitions_with_samples": 6,
+      "n_candidates": 2003,
+      "n_positive": 77,
+      "positive_rate": 0.038442336495257114,
+      "mean_capture_rate": 0.7623626373626373,
+      "fuel_blind": false
+    },
+    "miryang_2022": {
+      "n_overpasses": 5,
+      "n_transitions_with_samples": 4,
+      "n_candidates": 1043,
+      "n_positive": 31,
+      "positive_rate": 0.029721955896452542,
+      "mean_capture_rate": 1.0,
+      "fuel_blind": false
+    }
+  },
+  "area": {
+    "yeongdeok_2025": {
+      "fire_id": "yeongdeok_2025",
+      "n_burned_cells": 1390,
+      "observed_ha": 19546.9,
+      "reported_ha": 3800.0,
+      "ratio_obs_over_reported": 5.14,
+      "cumulative_cells_per_overpass": [
+        249,
+        658,
+        1251,
+        1263,
+        1330,
+        1331,
+        1385,
+        1386,
+        1390
+      ],
+      "monotone_nondecreasing": true
+    },
+    "uiseong_andong_2025": {
+      "fire_id": "uiseong_andong_2025",
+      "n_burned_cells": 2267,
+      "observed_ha": 31879.7,
+      "reported_ha": 45000.0,
+      "ratio_obs_over_reported": 0.71,
+      "cumulative_cells_per_overpass": [
+        64,
+        94,
+        356,
+        357,
+        406,
+        406,
+        411,
+        412,
+        526,
+        578,
+        687,
+        846,
+        855,
+        894,
+        1035,
+        1171,
+        1429,
+        2058,
+        2061,
+        2083,
+        2164,
+        2170,
+        2261,
+        2262,
+        2266,
+        2267
+      ],
+      "monotone_nondecreasing": true
+    },
+    "uljin_samcheok_2022": {
+      "fire_id": "uljin_samcheok_2022",
+      "n_burned_cells": 1168,
+      "observed_ha": 16425.0,
+      "reported_ha": 16302.0,
+      "ratio_obs_over_reported": 1.01,
+      "cumulative_cells_per_overpass": [
+        146,
+        158,
+        445,
+        451,
+        590,
+        593,
+        721,
+        731,
+        794,
+        802,
+        868,
+        891,
+        894,
+        1004,
+        1004,
+        1028,
+        1057,
+        1059,
+        1074,
+        1081,
+        1095,
+        1096,
+        1141,
+        1142,
+        1145,
+        1145,
+        1166,
+        1168,
+        1168
+      ],
+      "monotone_nondecreasing": true
+    },
+    "gangneung_donghae_2022": {
+      "fire_id": "gangneung_donghae_2022",
+      "n_burned_cells": 327,
+      "observed_ha": 4598.4,
+      "reported_ha": 4000.0,
+      "ratio_obs_over_reported": 1.15,
+      "cumulative_cells_per_overpass": [
+        1,
+        48,
+        63,
+        221,
+        223,
+        284,
+        290,
+        308,
+        316,
+        317,
+        321,
+        322,
+        327,
+        327,
+        327,
+        327
+      ],
+      "monotone_nondecreasing": true
+    },
+    "goseong_2019": {
+      "fire_id": "goseong_2019",
+      "n_burned_cells": 81,
+      "observed_ha": 1139.1,
+      "reported_ha": 700.0,
+      "ratio_obs_over_reported": 1.63,
+      "cumulative_cells_per_overpass": [
+        81
+      ],
+      "monotone_nondecreasing": true
+    },
+    "hongseong_2023": {
+      "fire_id": "hongseong_2023",
+      "n_burned_cells": 115,
+      "observed_ha": 1617.2,
+      "reported_ha": 1454.0,
+      "ratio_obs_over_reported": 1.11,
+      "cumulative_cells_per_overpass": [
+        2,
+        67,
+        70,
+        92,
+        96,
+        108,
+        115
+      ],
+      "monotone_nondecreasing": true
+    },
+    "miryang_2022": {
+      "fire_id": "miryang_2022",
+      "n_burned_cells": 50,
+      "observed_ha": 703.1,
+      "reported_ha": 763.0,
+      "ratio_obs_over_reported": 0.92,
+      "cumulative_cells_per_overpass": [
+        19,
+        23,
+        24,
+        48,
+        50
+      ],
+      "monotone_nondecreasing": true
+    }
+  },
+  "class_balance": {},
+  "total_candidates": 176310,
+  "total_positive": 4369,
+  "overall_positive_rate": 0.02478021666383075
+}

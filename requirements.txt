@@ -20,6 +20,8 @@ osmnx>=1.6
 # --- Machine learning (LFMC retrieval, ignition probability) ---
 scikit-learn>=1.3
 xgboost>=2.0
+shap>=0.44          # feature-importance attribution for the ignition model
+pyarrow>=14.0       # parquet caching of the ignition-model feature table
 
 # --- Visualization ---
 matplotlib>=3.7

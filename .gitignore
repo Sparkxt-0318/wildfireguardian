@@ -68,6 +68,13 @@ data/processed/**
 !data/processed/yeongdeok_2025_validation_results.json
 # Session-6 ablation table (41 KB; regenerable via scripts/run_ablation.py).
 !data/processed/yeongdeok_2025_ablation.json
+# Data-driven ignition-model metrics ARE committed (small JSON, a key
+# deliverable; regenerable via scripts/run_ignition_pipeline.py). The bulk
+# caches (feature table, OOF predictions, per-fire sequence npz) stay ignored.
+!data/processed/ignition_model/
+!data/processed/ignition_model/*.json
+data/processed/ignition_model/*.parquet
+data/processed/ignition_model/seq_cache/
 # Validation-case manifest JSON files ARE committed (they're stubs, not
 # bulk data).
 !data/validation_cases/**
