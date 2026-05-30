@@ -158,6 +158,13 @@ class ModelConfig:
     use_crown_fire: bool = False
     use_spotting: bool = False
     spotting_seed: int = 0
+    # Session 7: tree-crown foliar moisture (%) for the Van Wagner check.
+    # ``None`` reproduces the Session-6 BUG (reuse the surface LFMC, which is
+    # the drought-cured understory moisture, ~40% — physically wrong for live
+    # tree crowns). The corrected value is the MEASURED Korean foliar moisture
+    # (119%); a drought-stressed value is ~80-90%. Decoupling this from the
+    # surface LFMC is the Session-7 bug fix.
+    crown_foliar_moisture_pct: float | None = None
 
 
 # ---------------------------------------------------------------------------
@@ -611,6 +618,7 @@ def run_validation_with_baselines(
 
     # Session 6: enable fire-type physics on the grid per the ablation flags.
     grid.enable_crown_fire = cfg.use_crown_fire
+    grid.crown_foliar_moisture_pct = cfg.crown_foliar_moisture_pct
     grid.enable_spotting = cfg.use_spotting
     grid.spotting_seed = cfg.spotting_seed
     if cfg.use_crown_fire:

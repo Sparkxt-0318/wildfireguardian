@@ -324,6 +324,19 @@ class FireGrid:
     #: Per-cell regime: 0=SURFACE, 1=PASSIVE_CROWN, 2=ACTIVE_CROWN.
     regime: np.ndarray = field(default=None, repr=False)  # type: ignore[assignment]
     n_spot_ignitions: int = 0
+    #: Session 7: tree-crown foliar moisture (%) for the Van Wagner check.
+    #: ``None`` reproduces the Session-6 behaviour (reuse the surface live-fuel
+    #: moisture ``m_f``, which conflates two physically distinct quantities);
+    #: a value DECOUPLES the crown foliar moisture from the surface LFMC.
+    crown_foliar_moisture_pct: float | None = None
+    #: Diagnostic: if a list, transition records are appended (Session 7).
+    _crown_log: "list | None" = field(default=None, repr=False)
+
+    def _crown_foliar_moisture_pct(self, m_f: float) -> float:
+        """Foliar moisture (%) for the crown check: decoupled value or LFMC."""
+        if self.crown_foliar_moisture_pct is not None:
+            return self.crown_foliar_moisture_pct
+        return m_f * 100.0
 
     # Internal: cached R_max per burning cell, per step.
     _R_cache: dict[tuple[int, int], tuple[float, float, float]] = field(
@@ -594,6 +607,7 @@ class FireGrid:
                     wind_speed_ms=wind_speed_ms, slope_degrees=slope_deg,
                 )
             R_max = R.rate_m_min
+            R_surf = R_max            # surface rate before any crown override
             lb_wind = wind_speed_ms   # midflame drives surface elongation
 
             # ----- Session 6: crown-fire regime switch -----
@@ -607,12 +621,31 @@ class FireGrid:
                     u_10m_ms=u10,
                     canopy_base_height_m=fm.canopy_base_height_m,
                     canopy_bulk_density_kg_m3=fm.canopy_bulk_density_kg_m3,
-                    foliar_moisture_pct=m_f * 100.0,
+                    foliar_moisture_pct=self._crown_foliar_moisture_pct(m_f),
                 )
                 self.regime[i, j] = int(regime)
                 if regime == CrownRegime.ACTIVE_CROWN:
                     R_max = R_eff
                     lb_wind = u10   # crown runs are 10-m-wind-driven, more elongated
+
+                # ----- Session 7 diagnostic hook -----
+                if self._crown_log is not None:
+                    from .crown_fire import (
+                        byram_intensity,
+                        critical_surface_intensity,
+                    )
+                    fmc = self._crown_foliar_moisture_pct(m_f)
+                    self._crown_log.append({
+                        "R_surf": R_surf, "midflame_ms": wind_speed_ms,
+                        "u10_ms": u10,
+                        "I_B": byram_intensity(R_surf, fm.fine_fuel_load_kg_m2),
+                        "I_o": critical_surface_intensity(
+                            fm.canopy_base_height_m, fmc),
+                        "cbh_m": fm.canopy_base_height_m,
+                        "fine_load": fm.fine_fuel_load_kg_m2,
+                        "slope_deg": slope_deg, "fmc_pct": fmc,
+                        "regime": int(regime),
+                    })
 
             lb = length_to_breadth_ratio(lb_wind)
             ecc = eccentricity_from_lb(lb)

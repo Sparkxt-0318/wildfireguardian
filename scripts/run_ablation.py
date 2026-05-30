@@ -31,11 +31,20 @@ def _ambient_10m() -> tuple[float, float]:
     return float(np.mean([x.speed_10m_ms for x in smp])), float(np.mean([x.direction_from_deg for x in smp]))
 
 
+# Session 7: crown_foliar_moisture_pct=119 is the MEASURED Korean value
+# (Lee et al. 2018) — the physically-correct tree-crown moisture. Session 6
+# used None (= the surface drought-LFMC 40%), which was the conflation bug
+# that produced the artifact 54% capture. With the corrected 119%, crown
+# fire barely triggers (capture ~9%). Set CROWN_FMC=None below to reproduce
+# the Session-6 (buggy) numbers for provenance.
+CROWN_FMC = 119.0
 CONFIGS = {
     "a_uniform_surface": dict(use_topographic_wind=False),
     "b_topo_surface": dict(use_topographic_wind=True),
-    "c_topo_crown": dict(use_topographic_wind=True, use_crown_fire=True),
-    "d_topo_crown_spot": dict(use_topographic_wind=True, use_crown_fire=True, use_spotting=True),
+    "c_topo_crown": dict(use_topographic_wind=True, use_crown_fire=True,
+                         crown_foliar_moisture_pct=CROWN_FMC),
+    "d_topo_crown_spot": dict(use_topographic_wind=True, use_crown_fire=True,
+                              use_spotting=True, crown_foliar_moisture_pct=CROWN_FMC),
 }
 
 

@@ -41,18 +41,25 @@ report is the **marginal wind effect** $\partial R/\partial U$ (m/min of
 spread per m/s of wind) at different moisture levels.
 
 Using the literature-anchored Korean Pinus fuel (live moisture 119 %,
-surface bed provisional) at a representative **midflame** wind of 1.5 m/s:
+surface bed provisional), evaluated at the **wind the Yeongdeok surface
+fire actually experiences** — the WAF-corrected midflame wind of
+**1.39 m/s** (10-m 13.9 m/s × Korean-pine WAF 0.10), *not* an
+unrepresentative 4 m/s (Session-7 correction, Concern 3):
 
-| Fuel state | $\partial R/\partial U$ (m/min per m/s) |
-|------------|----------------------------------------:|
-| dry (dead 1-h = 6 %) | **1.01** |
-| moist (dead 1-h = 20 %) | **0.61** |
+| Fuel state | $\partial R/\partial U$ at 1.39 m/s (m/min per m/s) |
+|------------|---------------------------------------------------:|
+| dry (dead 1-h = 6 %) | **0.97** |
+| moist (dead 1-h = 20 %) | **0.59** |
 
-So **each additional m/s of midflame wind adds ~1.0 m/min of spread on dry
-fuel but only ~0.6 m/min on moist fuel** — wind and dryness reinforce each
-other. The mixed partial is $\partial^2 R/\partial M\,\partial U \approx
--2.0$ (m/min per m/s per unit dead-moisture fraction); the negative sign
-means *drier fuel makes wind more dangerous*.
+So at the realistic wind, **each additional m/s of midflame wind adds
+~1.0 m/min of spread on dry fuel but only ~0.6 m/min on moist** — wind and
+dryness reinforce each other, but the *absolute* marginal effects are
+modest because the WAF-corrected wind is low. The mixed partial is
+$\partial^2 R/\partial M\,\partial U < 0$ (drier fuel makes wind more
+dangerous). The dry/moist **ratio is 1.64, constant across all $U$**
+(Rothermel is separable; Session 5) — so reporting at 4 m/s would inflate
+the absolute numbers (dry 1.53, moist 0.93) while leaving the ratio
+unchanged; we anchor to 1.39 m/s. See `docs/figures/dRdU_vs_wind.png`.
 
 ![interaction fanning](../figures/interaction_fanning.png)
 

@@ -45,7 +45,11 @@ MOIST_DEAD: float = 0.20
 DEFAULT_LIVE: float = KOREAN_PINUS.live_moisture_default or 1.19
 
 #: Representative midflame wind for reporting the marginal effect (m/s).
-REPRESENTATIVE_MIDFLAME_U: float = 1.5
+#: Session 7: anchored to the ACTUAL WAF-corrected Yeongdeok midflame wind
+#: (10-m 13.9 m/s × Korean-pine WAF 0.10 ≈ 1.39 m/s) — the wind the surface
+#: fire truly experiences — NOT an unrepresentative 4 m/s.
+YEONGDEOK_MIDFLAME_U: float = 1.39
+REPRESENTATIVE_MIDFLAME_U: float = YEONGDEOK_MIDFLAME_U
 
 
 def spread_rate(

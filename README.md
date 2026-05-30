@@ -151,28 +151,43 @@ See `docs/architecture.md` for the long form.
 
 ### Current status
 
-🟧 **Research prototype (alpha) — Session 6 (fire-type physics: crown, spotting, topo wind).**
+🟧 **Research prototype (alpha) — Session 7 (DIAGNOSTIC: the crown result was a bug).**
 
-**Honest headline (Session 6):** adding the physics surface-Rothermel omits
-raises 24-hour Yeongdeok area **capture from 9 % → 54 %** and **IoU from
-0.086 → 0.295**. Attributed by ablation:
+**Headline verdict: the Session-6 "54 %" was an ARTIFACT and is retracted.**
+A forensic audit found the crown-transition (Van Wagner) check was fed the
+*surface* drought-LFMC (40 %) as the *tree-crown foliar moisture* — but live
+conifer crowns stay ~119 % (measured). Fixing this conflation collapses crown
+initiation from 32 % of cells to **0 %**, and 24-h area-capture from 54 % back
+to **~9 %** (the surface-only baseline). Reported honestly; nothing was tuned
+to preserve the number.
 
-- **Topographic wind** (Föhn slope/channel/lee heuristic): on its own
-  recovers **~nothing** (8 % vs 9 %) — foundational but inert until crown
-  fire can convert strong channel winds into fast spread. Honest negative.
-- **Crown fire** (Van Wagner 1977 transition + Cruz/Alexander 2005 ROS):
-  **the breakthrough** — 9 % → 54 % capture, 32 % of cells reach active
-  crown. This is why surface-only Rothermel failed.
-- **Spotting** (Albini ember transport): mixed — capture 54 % → 59 % and a
-  much faster mid-game front, but over-predicts total area and lowers IoU
-  (no containment model). Reported, not hidden.
-- **Regime classifier**: rule-based (FARSITE-style, no ML) selector tested
-  to agree with the underlying crown criteria.
+- **Concern 2 (bug):** found and fixed. Crown foliar moisture is now decoupled
+  from surface LFMC (`crown_foliar_moisture_pct`). The winds were *not* buggy
+  (both paths WAF-consistent); the inconsistency was the moisture input.
+- **Concern 1 (fragility):** at the measured CBH range (3.6–5.2 m) capture is a
+  stable ~9 %; it reaches ~27 % only if CBH drops to ~2 m. **Crown initiation
+  is acutely CBH-sensitive** — a real finding (stand structure, raisable by
+  thinning, governs catastrophe potential). See
+  `docs/methodology/crown_initiation_sensitivity.md`.
+- **Concern 3:** the ∂R/∂U numbers are now anchored to the realistic 1.39 m/s
+  midflame wind (dry 0.97, moist 0.59; ratio 1.64 constant).
 
-⚠️ **This is a real improvement, NOT a working forecast.** The model still
-misses the first 3 h almost entirely, over-predicts total area, and peaks at
-IoU ~0.30 against an *approximate* perimeter. See
-`docs/OVERNIGHT_REPORT_SESSION6.md`.
+**Net:** the diagnostic strengthens credibility (we caught our own headline
+bug pre-writeup and turned it into a finding) but weakens the
+"prediction-works" claim — crown fire did **not** actually solve Session 5's
+under-prediction; the apparent fix was a parameter artifact. The
+future-front routing spine (Session 5) is unaffected and remains the core
+contribution. See `docs/OVERNIGHT_REPORT_SESSION7.md`.
+
+<details><summary>Earlier: Session 6 (fire-type physics — crown/spotting/topo wind, since corrected)</summary>
+
+Session 6 *reported* crown fire lifting capture 9 % → 54 %; Session 7 showed
+that 54 % was the foliar-moisture artifact above. The physics modules
+(topographic wind, Van Wagner + Cruz/Alexander crown, Albini spotting,
+rule-based regime classifier) are sound and retained; only the headline
+number was wrong. `docs/OVERNIGHT_REPORT_SESSION6.md`.
+
+</details>
 
 <details><summary>Earlier: Session 5 (mentor refocus: fix physics, build the spine)</summary>
 

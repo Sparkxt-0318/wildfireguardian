@@ -7,6 +7,31 @@ needed to close it out.
 
 ---
 
+## Session 7 (diagnostic) — the crown result was a bug
+
+### ✅ FIXED: crown foliar-moisture conflation (the "54 %" artifact)
+The Session-6 crown trigger fed the surface drought-LFMC (40 %) into the
+Van Wagner tree-crown check; live crowns are ~119 % (measured). Fixed by
+decoupling `crown_foliar_moisture_pct`. **Corrected result: crown
+initiation ~0 %, 24-h capture ~9 %** (was the artifact 54 %). See
+`docs/OVERNIGHT_REPORT_SESSION7.md`.
+
+### ⚠️ RE-OPENED (the real bottleneck): surface fire too weak to crown
+With realistic foliar moisture, the WAF-corrected surface intensity
+(I_B ≲ 1500 kW/m) never reaches the Van Wagner critical intensity (1686
+kW/m at CBH 4 m). So the surface→crown trigger alone cannot reproduce the
+(real, crown-driven) 2025 event. **The limiting factor is the surface
+intensity, not the crown threshold** — re-attack via real gusty KMA wind
+and a re-examination of the WAF / provisional surface fuel. This is the #1
+scientific gap, restored from Session 5.
+
+### Finding (not a blocker): crown initiation is CBH-sensitive
+Capture ~9 % at measured CBH (3.6–5.2 m), ~27 % at CBH 2 m. Stand structure
+governs crown potential — documented as a contribution, with an uncertainty
+band replacing the point estimate.
+
+---
+
 ## Session 6 (fire-type physics) — progress and remaining gaps
 
 ### ✅ ADDRESSED: surface-only model missed ~90 % (the S5 #1 gap)
