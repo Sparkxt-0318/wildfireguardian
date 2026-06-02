@@ -148,3 +148,89 @@ def test_disk_kernel_radius():
     assert k[0, 0] == 0.0           # corner (dist √8 > 2) excluded
     assert k[0, 2] == 1.0           # straight-up dist 2 included
     assert disk_kernel(0.3).shape == (1, 1)
+
+
+def test_distance_band_edges():
+    from wildfireguardian.spread_v2.features import distance_band
+    got = distance_band(np.array([0.0, 375.0, 376.0, 750.0, 1500.0, 3000.0]))
+    assert got.tolist() == ["0-375", "0-375", "375-750", "375-750", "750-1500", ">1500"]
+
+
+def test_feature_lists_have_no_leakage_columns():
+    from wildfireguardian.spread_v2.features import (
+        ALL_FEATURES, META_COLUMNS, NO_WEATHER_FEATURES, WEATHER,
+    )
+    # dt_hours / fire_id / row / col / label must never be features (leakage).
+    for leak in ("dt_hours", "fire_id", "row", "col", "label", "k"):
+        assert leak not in ALL_FEATURES
+        assert leak in META_COLUMNS or leak == "k"
+    assert len(ALL_FEATURES) == len(set(ALL_FEATURES)) == 19
+    # no-weather is exactly all-features minus the 7 ERA5 weather features
+    assert set(NO_WEATHER_FEATURES) == set(ALL_FEATURES) - set(WEATHER)
+
+
+def test_observed_sequence_monotone_and_candidate_labels():
+    """Monotone masks + correct positive labelling, without any raster I/O."""
+    from dataclasses import replace
+
+    from wildfireguardian.spread_v2.candidates import iter_transitions
+    from wildfireguardian.spread_v2.detections import build_observed_sequence
+    from wildfireguardian.spread_v2.grid import Grid
+    from wildfireguardian.spread_v2.layers import StaticLayers
+    from wildfireguardian.utils.regions import RegionConfig
+
+    region = RegionConfig.from_wgs84_bbox("t", (129.0, 37.0, 129.12, 37.12))
+    grid = Grid(region)
+    # Two overpasses 12 h apart; the second burns a cell ~1 km north (a new cell).
+    df = pd.DataFrame({
+        "latitude": [37.05, 37.06],
+        "longitude": [129.05, 129.05],
+        "frp": [10.0, 20.0],
+        "timestamp": ["2022-03-04 03:00:00+00:00", "2022-03-04 15:00:00+00:00"],
+    })
+    df["time"] = pd.to_datetime(df["timestamp"], utc=True)
+    seq = build_observed_sequence("t", df, grid)
+    assert seq.n_overpasses == 2
+    # monotone: burned set only grows
+    assert seq.cumulative[1].sum() >= seq.cumulative[0].sum() == 1
+
+    # Build an all-burnable static layer stub (no fuel raster needed).
+    ones = np.ones(grid.shape, bool)
+    z = np.zeros(grid.shape)
+    static = StaticLayers(
+        grid=grid, fuel_class=z.astype(np.int64), burnable_frac_cell=np.ones(grid.shape),
+        burnable_frac_nearby=np.ones(grid.shape), burnable_gate=ones, in_fuel_bounds=ones,
+        elevation=z, slope_deg=z, aspect_deg=z, elevation_rel=z,
+    )
+    trs = iter_transitions(seq, static)
+    assert len(trs) == 1
+    t = trs[0]
+    # exactly one positive: the newly-burned cell, within 2 km of the seed
+    assert int(t.labels.sum()) == 1
+    # the seed cell itself is excluded from candidates (already burned)
+    seed_rc = np.argwhere(seq.cumulative[0])[0]
+    assert not np.any((t.rows == seed_rc[0]) & (t.cols == seed_rc[1]))
+
+
+def test_lofo_holds_out_whole_fire():
+    """lofo_predict must train without the held-out fire and cover every row once."""
+    from wildfireguardian.spread_v2.model import lofo_predict
+
+    rng = np.random.default_rng(0)
+    parts = []
+    for fid, mu in [("A", 0.0), ("B", 0.5), ("C", -0.3)]:
+        n = 400
+        x = rng.normal(mu, 1, n)
+        y = (rng.random(n) < 1 / (1 + np.exp(-(x - 1.0)))).astype(int)
+        parts.append(pd.DataFrame({
+            "fire_id": fid, "label": y, "dist_to_nearest_burning": rng.uniform(375, 2000, n),
+            "row": rng.integers(0, 50, n), "col": rng.integers(0, 50, n),
+            "k": rng.integers(0, 5, n),
+            "f1": x, "f2": rng.normal(0, 1, n),
+        }))
+    df = pd.concat(parts, ignore_index=True)
+    oof, models = lofo_predict(df, ["f1", "f2", "dist_to_nearest_burning"], seed=1)
+    assert len(oof) == len(df)                       # every row predicted once
+    assert set(models) == {"A", "B", "C"}            # one model per held-out fire
+    assert oof["oof_pred"].between(0, 1).all()
+    assert set(oof["band"].unique()) <= {"0-375", "375-750", "750-1500", ">1500"}
