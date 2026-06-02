@@ -68,6 +68,10 @@ data/processed/**
 !data/processed/yeongdeok_2025_validation_results.json
 # Session-6 ablation table (41 KB; regenerable via scripts/run_ablation.py).
 !data/processed/yeongdeok_2025_ablation.json
+# v2 spread-model result summaries (audit + CV metrics + importances; small
+# JSON, key deliverables, regenerable via scripts/spread_v2/*.py).
+!data/processed/spread_v2/
+!data/processed/spread_v2/*.json
 # Validation-case manifest JSON files ARE committed (they're stubs, not
 # bulk data).
 !data/validation_cases/**

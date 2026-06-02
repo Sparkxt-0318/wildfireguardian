@@ -1,0 +1,377 @@
+{
+  "seed": 42,
+  "fires": [
+    {
+      "fire_id": "yeongdeok_2025",
+      "name_kr": "2025 \uc601\ub0a8(\uc601\ub355) \uc0b0\ubd88",
+      "bbox_wgs84": [
+        128.95,
+        36.2,
+        129.6,
+        36.75
+      ],
+      "dates": [
+        "2025-03-22",
+        "2025-03-28"
+      ],
+      "grid_shape": [
+        166,
+        158
+      ],
+      "n_cells": 26228,
+      "detections_csv": 2290,
+      "detections_in_grid": 2290,
+      "n_overpasses_60min": 9,
+      "manifest_overpass_hours": 10,
+      "fuel_coverage_frac": 0.9639,
+      "fuel_raster_valid_frac": 1.0,
+      "burnable_gate_cells": 18060,
+      "burnable_gate_frac": 0.7144,
+      "mean_burnable_frac": 0.7008,
+      "manifest_burnable_frac": 0.701,
+      "observed_area_ha": 19546.9,
+      "reported_ha": 3800.0,
+      "observed_vs_reported": 5.144,
+      "n_transitions": 8,
+      "total_candidates": 33432,
+      "total_positives": 1097,
+      "prevalence": 0.0328,
+      "spread_cells_total": 1141,
+      "spread_cells_captured_as_candidates": 1097,
+      "capture_frac": 0.961,
+      "era5": {
+        "present": true,
+        "n_timesteps": 56,
+        "time_start": "2025-03-22T00",
+        "time_end": "2025-03-28T21",
+        "n_lat": 3,
+        "n_lon": 3
+      }
+    },
+    {
+      "fire_id": "uiseong_andong_2025",
+      "name_kr": "2025 \uc758\uc131-\uc548\ub3d9 \uc0b0\ubd88",
+      "bbox_wgs84": [
+        128.4,
+        36.2,
+        129.1,
+        36.75
+      ],
+      "dates": [
+        "2025-03-22",
+        "2025-03-28"
+      ],
+      "grid_shape": [
+        165,
+        169
+      ],
+      "n_cells": 27885,
+      "detections_csv": 4021,
+      "detections_in_grid": 4021,
+      "n_overpasses_60min": 26,
+      "manifest_overpass_hours": 32,
+      "fuel_coverage_frac": 0.9765,
+      "fuel_raster_valid_frac": 1.0,
+      "burnable_gate_cells": 26485,
+      "burnable_gate_frac": 0.9726,
+      "mean_burnable_frac": 0.9461,
+      "manifest_burnable_frac": 0.946,
+      "observed_area_ha": 31556.2,
+      "reported_ha": 45000.0,
+      "observed_vs_reported": 0.701,
+      "n_transitions": 25,
+      "total_candidates": 95532,
+      "total_positives": 1931,
+      "prevalence": 0.0202,
+      "spread_cells_total": 2181,
+      "spread_cells_captured_as_candidates": 1931,
+      "capture_frac": 0.885,
+      "era5": {
+        "present": true,
+        "n_timesteps": 56,
+        "time_start": "2025-03-22T00",
+        "time_end": "2025-03-28T21",
+        "n_lat": 3,
+        "n_lon": 3
+      }
+    },
+    {
+      "fire_id": "uljin_samcheok_2022",
+      "name_kr": "2022 \uc6b8\uc9c4-\uc0bc\ucc99 \uc0b0\ubd88",
+      "bbox_wgs84": [
+        129.1,
+        36.85,
+        129.6,
+        37.45
+      ],
+      "dates": [
+        "2022-03-04",
+        "2022-03-14"
+      ],
+      "grid_shape": [
+        180,
+        122
+      ],
+      "n_cells": 21960,
+      "detections_csv": 2372,
+      "detections_in_grid": 2372,
+      "n_overpasses_60min": 29,
+      "manifest_overpass_hours": 55,
+      "fuel_coverage_frac": 0.9562,
+      "fuel_raster_valid_frac": 0.9981,
+      "burnable_gate_cells": 10285,
+      "burnable_gate_frac": 0.4898,
+      "mean_burnable_frac": 0.4829,
+      "manifest_burnable_frac": 0.482,
+      "observed_area_ha": 16312.5,
+      "reported_ha": 16302.0,
+      "observed_vs_reported": 1.001,
+      "n_transitions": 28,
+      "total_candidates": 30326,
+      "total_positives": 915,
+      "prevalence": 0.0302,
+      "spread_cells_total": 1017,
+      "spread_cells_captured_as_candidates": 915,
+      "capture_frac": 0.9,
+      "era5": {
+        "present": true,
+        "n_timesteps": 88,
+        "time_start": "2022-03-04T00",
+        "time_end": "2022-03-14T21",
+        "n_lat": 2,
+        "n_lon": 2
+      }
+    },
+    {
+      "fire_id": "gangneung_donghae_2022",
+      "name_kr": "2022 \uac15\ub989-\ub3d9\ud574 \uc0b0\ubd88",
+      "bbox_wgs84": [
+        128.75,
+        37.4,
+        129.15,
+        37.85
+      ],
+      "dates": [
+        "2022-03-04",
+        "2022-03-09"
+      ],
+      "grid_shape": [
+        135,
+        96
+      ],
+      "n_cells": 12960,
+      "detections_csv": 637,
+      "detections_in_grid": 637,
+      "n_overpasses_60min": 16,
+      "manifest_overpass_hours": 29,
+      "fuel_coverage_frac": 0.9677,
+      "fuel_raster_valid_frac": 1.0,
+      "burnable_gate_cells": 9074,
+      "burnable_gate_frac": 0.7235,
+      "mean_burnable_frac": 0.7086,
+      "manifest_burnable_frac": 0.708,
+      "observed_area_ha": 4640.6,
+      "reported_ha": 4000.0,
+      "observed_vs_reported": 1.16,
+      "n_transitions": 15,
+      "total_candidates": 10895,
+      "total_positives": 264,
+      "prevalence": 0.0242,
+      "spread_cells_total": 329,
+      "spread_cells_captured_as_candidates": 264,
+      "capture_frac": 0.802,
+      "era5": {
+        "present": false,
+        "note": "0-byte / missing \u2014 weather handled as NaN downstream"
+      }
+    },
+    {
+      "fire_id": "goseong_2019",
+      "name_kr": "2019 \uace0\uc131-\uc18d\ucd08 \uc0b0\ubd88",
+      "bbox_wgs84": [
+        128.35,
+        38.15,
+        128.75,
+        38.55
+      ],
+      "dates": [
+        "2019-04-04",
+        "2019-04-07"
+      ],
+      "grid_shape": [
+        119,
+        95
+      ],
+      "n_cells": 11305,
+      "detections_csv": 114,
+      "detections_in_grid": 114,
+      "n_overpasses_60min": 1,
+      "manifest_overpass_hours": 3,
+      "fuel_coverage_frac": 0.975,
+      "fuel_raster_valid_frac": 1.0,
+      "burnable_gate_cells": 4319,
+      "burnable_gate_frac": 0.3919,
+      "mean_burnable_frac": 0.3806,
+      "manifest_burnable_frac": 0.381,
+      "observed_area_ha": 1096.9,
+      "reported_ha": 700.0,
+      "observed_vs_reported": 1.567,
+      "n_transitions": 0,
+      "total_candidates": 0,
+      "total_positives": 0,
+      "prevalence": 0.0,
+      "spread_cells_total": 0,
+      "spread_cells_captured_as_candidates": 0,
+      "capture_frac": 0.0,
+      "era5": {
+        "present": true,
+        "n_timesteps": 32,
+        "time_start": "2019-04-04T00",
+        "time_end": "2019-04-07T21",
+        "n_lat": 2,
+        "n_lon": 2
+      }
+    },
+    {
+      "fire_id": "gangneung_2023",
+      "name_kr": "2023 \uac15\ub989(\uacbd\ud3ec) \uc0b0\ubd88",
+      "bbox_wgs84": [
+        128.75,
+        37.7,
+        129.05,
+        37.95
+      ],
+      "dates": [
+        "2023-04-11",
+        "2023-04-13"
+      ],
+      "grid_shape": [
+        75,
+        72
+      ],
+      "n_cells": 5400,
+      "detections_csv": 17,
+      "detections_in_grid": 17,
+      "n_overpasses_60min": 2,
+      "manifest_overpass_hours": 2,
+      "fuel_coverage_frac": 0.8044,
+      "fuel_raster_valid_frac": 1.0,
+      "burnable_gate_cells": 2266,
+      "burnable_gate_frac": 0.5216,
+      "mean_burnable_frac": 0.4951,
+      "manifest_burnable_frac": 0.495,
+      "observed_area_ha": 196.9,
+      "reported_ha": 530.0,
+      "observed_vs_reported": 0.371,
+      "n_transitions": 1,
+      "total_candidates": 128,
+      "total_positives": 8,
+      "prevalence": 0.0625,
+      "spread_cells_total": 8,
+      "spread_cells_captured_as_candidates": 8,
+      "capture_frac": 1.0,
+      "era5": {
+        "present": true,
+        "n_timesteps": 24,
+        "time_start": "2023-04-11T00",
+        "time_end": "2023-04-13T21",
+        "n_lat": 1,
+        "n_lon": 2
+      }
+    },
+    {
+      "fire_id": "hongseong_2023",
+      "name_kr": "2023 \ud64d\uc131 \uc0b0\ubd88",
+      "bbox_wgs84": [
+        126.45,
+        36.5,
+        126.85,
+        36.9
+      ],
+      "dates": [
+        "2023-04-02",
+        "2023-04-05"
+      ],
+      "grid_shape": [
+        119,
+        96
+      ],
+      "n_cells": 11424,
+      "detections_csv": 196,
+      "detections_in_grid": 196,
+      "n_overpasses_60min": 7,
+      "manifest_overpass_hours": 11,
+      "fuel_coverage_frac": 0.9884,
+      "fuel_raster_valid_frac": 1.0,
+      "burnable_gate_cells": 10424,
+      "burnable_gate_frac": 0.9232,
+      "mean_burnable_frac": 0.8577,
+      "manifest_burnable_frac": 0.858,
+      "observed_area_ha": 1687.5,
+      "reported_ha": 1454.0,
+      "observed_vs_reported": 1.161,
+      "n_transitions": 6,
+      "total_candidates": 2038,
+      "total_positives": 82,
+      "prevalence": 0.0402,
+      "spread_cells_total": 118,
+      "spread_cells_captured_as_candidates": 82,
+      "capture_frac": 0.695,
+      "era5": {
+        "present": true,
+        "n_timesteps": 32,
+        "time_start": "2023-04-02T00",
+        "time_end": "2023-04-05T21",
+        "n_lat": 2,
+        "n_lon": 2
+      }
+    },
+    {
+      "fire_id": "miryang_2022",
+      "name_kr": "2022 \ubc00\uc591 \uc0b0\ubd88",
+      "bbox_wgs84": [
+        128.65,
+        35.4,
+        129.05,
+        35.75
+      ],
+      "dates": [
+        "2022-05-31",
+        "2022-06-05"
+      ],
+      "grid_shape": [
+        105,
+        98
+      ],
+      "n_cells": 10290,
+      "detections_csv": 74,
+      "detections_in_grid": 74,
+      "n_overpasses_60min": 5,
+      "manifest_overpass_hours": 10,
+      "fuel_coverage_frac": 0.8523,
+      "fuel_raster_valid_frac": 1.0,
+      "burnable_gate_cells": 8551,
+      "burnable_gate_frac": 0.975,
+      "mean_burnable_frac": 0.9387,
+      "manifest_burnable_frac": 0.939,
+      "observed_area_ha": 745.3,
+      "reported_ha": 763.0,
+      "observed_vs_reported": 0.977,
+      "n_transitions": 4,
+      "total_candidates": 1101,
+      "total_positives": 31,
+      "prevalence": 0.0282,
+      "spread_cells_total": 31,
+      "spread_cells_captured_as_candidates": 31,
+      "capture_frac": 1.0,
+      "era5": {
+        "present": true,
+        "n_timesteps": 48,
+        "time_start": "2022-05-31T00",
+        "time_end": "2022-06-05T21",
+        "n_lat": 2,
+        "n_lon": 2
+      }
+    }
+  ]
+}
