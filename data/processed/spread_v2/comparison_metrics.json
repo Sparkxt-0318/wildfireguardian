@@ -1,0 +1,103 @@
+{
+  "seed": 42,
+  "fire_set_A_full": [
+    "gangneung_donghae_2022",
+    "hongseong_2023",
+    "miryang_2022",
+    "uiseong_andong_2025",
+    "uljin_samcheok_2022",
+    "yeongdeok_2025"
+  ],
+  "fire_set_B_weather_complete": [
+    "hongseong_2023",
+    "miryang_2022",
+    "uiseong_andong_2025",
+    "uljin_samcheok_2022",
+    "yeongdeok_2025"
+  ],
+  "results": {
+    "A_full_usable": {
+      "distance_only": {
+        "overall_pooled_roc_auc": 0.6827549090444496,
+        "overall_pooled_pr_auc": 0.0404613239213214,
+        "mean_fire_roc_auc": 0.7131335782221292,
+        "std_fire_roc_auc": 0.047724441326014125,
+        "band_auc": {
+          "0-375": 0.450995211528493,
+          "375-750": 0.5269248936371211,
+          "750-1500": 0.6076259360987862,
+          ">1500": 0.4697397353397683
+        }
+      },
+      "no_weather": {
+        "overall_pooled_roc_auc": 0.7846532047071864,
+        "overall_pooled_pr_auc": 0.10717290698997453,
+        "mean_fire_roc_auc": 0.7836706281642997,
+        "std_fire_roc_auc": 0.03194506657266803,
+        "band_auc": {
+          "0-375": 0.753706654115412,
+          "375-750": 0.7568589411343842,
+          "750-1500": 0.6566103598844989,
+          ">1500": 0.5001781287879181
+        }
+      },
+      "with_weather": {
+        "overall_pooled_roc_auc": 0.8337376582200116,
+        "overall_pooled_pr_auc": 0.18644158993315496,
+        "mean_fire_roc_auc": 0.8309277691695344,
+        "std_fire_roc_auc": 0.07389135574877,
+        "band_auc": {
+          "0-375": 0.8081298522782716,
+          "375-750": 0.7917016386847968,
+          "750-1500": 0.7753732657229382,
+          ">1500": 0.7980002563338504
+        }
+      }
+    },
+    "B_weather_complete": {
+      "distance_only": {
+        "overall_pooled_roc_auc": 0.6813498427071109,
+        "overall_pooled_pr_auc": 0.04046838932920901,
+        "mean_fire_roc_auc": 0.7119609718418805,
+        "std_fire_roc_auc": 0.05212636301439161,
+        "band_auc": {
+          "0-375": 0.4496429832488676,
+          "375-750": 0.5310460919341065,
+          "750-1500": 0.6008575879982838,
+          ">1500": 0.4445663042235021
+        }
+      },
+      "no_weather": {
+        "overall_pooled_roc_auc": 0.7766123238810891,
+        "overall_pooled_pr_auc": 0.09828441852459231,
+        "mean_fire_roc_auc": 0.7717862411680996,
+        "std_fire_roc_auc": 0.028607222861655898,
+        "band_auc": {
+          "0-375": 0.7460310818256898,
+          "375-750": 0.747731507915985,
+          "750-1500": 0.6432796972186468,
+          ">1500": 0.5189072262746492
+        }
+      },
+      "with_weather": {
+        "overall_pooled_roc_auc": 0.8565555535504521,
+        "overall_pooled_pr_auc": 0.1915979156221714,
+        "mean_fire_roc_auc": 0.8402667510146233,
+        "std_fire_roc_auc": 0.07552483182449646,
+        "band_auc": {
+          "0-375": 0.8238356087705572,
+          "375-750": 0.820626048849559,
+          "750-1500": 0.8215834433841507,
+          ">1500": 0.8347204235349872
+        }
+      }
+    }
+  },
+  "prior_run_reference": {
+    "overall_roc_auc": 0.781,
+    "far_band_roc_auc": [
+      0.63,
+      0.66
+    ]
+  }
+}
