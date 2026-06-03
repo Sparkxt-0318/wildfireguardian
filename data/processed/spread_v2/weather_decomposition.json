@@ -1,0 +1,58 @@
+{
+  "seed": 42,
+  "severity_features": [
+    "wind_speed",
+    "wind_direction",
+    "temperature",
+    "relative_humidity",
+    "days_since_rain"
+  ],
+  "direction_features": [
+    "wind_alignment",
+    "downwind_distance_proj"
+  ],
+  "results": {
+    "no_weather": {
+      "overall_pooled_roc_auc": 0.7846532047071864,
+      "band_auc": {
+        "0-375": 0.753706654115412,
+        "375-750": 0.7568589411343842,
+        "750-1500": 0.6566103598844989,
+        ">1500": 0.5001781287879181
+      }
+    },
+    "no_wx_plus_severity": {
+      "overall_pooled_roc_auc": 0.8359252653290258,
+      "band_auc": {
+        "0-375": 0.8107940859888608,
+        "375-750": 0.7902207286832394,
+        "750-1500": 0.7847701363945818,
+        ">1500": 0.7992257073178667
+      }
+    },
+    "no_wx_plus_direction": {
+      "overall_pooled_roc_auc": 0.7943404336474176,
+      "band_auc": {
+        "0-375": 0.7784683853039189,
+        "375-750": 0.7628681991091533,
+        "750-1500": 0.6769862666384956,
+        ">1500": 0.585260499722305
+      }
+    },
+    "with_weather_all": {
+      "overall_pooled_roc_auc": 0.8337376582200116,
+      "band_auc": {
+        "0-375": 0.8081298522782716,
+        "375-750": 0.7917016386847968,
+        "750-1500": 0.7753732657229382,
+        ">1500": 0.7980002563338504
+      }
+    }
+  },
+  "far_band_decomposition": {
+    "no_weather": 0.5001781287879181,
+    "severity_gain": 0.29904757852994857,
+    "direction_gain": 0.08508237093438686,
+    "verdict": "far-band weather benefit is dominated by fire-weather SEVERITY (dryness/heat/wind speed), not spatial wind DIRECTION"
+  }
+}

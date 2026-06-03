@@ -1,0 +1,218 @@
+{
+  "seed": 42,
+  "gain_importance": [
+    {
+      "feature": "frp_sum_nearby",
+      "gain": 119.78546142578125,
+      "gain_frac": 0.19919938613730634
+    },
+    {
+      "feature": "frp_max_nearby",
+      "gain": 113.66375732421875,
+      "gain_frac": 0.1890191882682933
+    },
+    {
+      "feature": "days_since_rain",
+      "gain": 76.5266342163086,
+      "gain_frac": 0.12726134188236218
+    },
+    {
+      "feature": "dist_to_nearest_burning",
+      "gain": 37.581661224365234,
+      "gain_frac": 0.06249709903694965
+    },
+    {
+      "feature": "n_burning_within_1km",
+      "gain": 35.33595275878906,
+      "gain_frac": 0.058762557779091756
+    },
+    {
+      "feature": "wind_direction",
+      "gain": 27.15345001220703,
+      "gain_frac": 0.04515531776193929
+    },
+    {
+      "feature": "relative_humidity",
+      "gain": 23.93158531188965,
+      "gain_frac": 0.039797459947797695
+    },
+    {
+      "feature": "wind_speed",
+      "gain": 23.002504348754883,
+      "gain_frac": 0.03825242806057678
+    },
+    {
+      "feature": "n_burning_within_500m",
+      "gain": 22.27878189086914,
+      "gain_frac": 0.03704890079083423
+    },
+    {
+      "feature": "temperature",
+      "gain": 20.974681854248047,
+      "gain_frac": 0.03488022419465551
+    },
+    {
+      "feature": "burnable_frac_nearby",
+      "gain": 17.315353393554688,
+      "gain_frac": 0.028794878157093695
+    },
+    {
+      "feature": "fuel_class",
+      "gain": 14.94393253326416,
+      "gain_frac": 0.024851281212853807
+    },
+    {
+      "feature": "wind_alignment",
+      "gain": 13.90027141571045,
+      "gain_frac": 0.023115706198344334
+    },
+    {
+      "feature": "v1_alignment",
+      "gain": 13.178740501403809,
+      "gain_frac": 0.021915823395388098
+    },
+    {
+      "feature": "downwind_distance_proj",
+      "gain": 11.158896446228027,
+      "gain_frac": 0.01855688741855923
+    },
+    {
+      "feature": "elevation_rel",
+      "gain": 7.8789825439453125,
+      "gain_frac": 0.013102495640615863
+    },
+    {
+      "feature": "slope_alignment",
+      "gain": 7.6609039306640625,
+      "gain_frac": 0.01273983789085033
+    },
+    {
+      "feature": "aspect",
+      "gain": 7.654784202575684,
+      "gain_frac": 0.012729660979027958
+    },
+    {
+      "feature": "slope",
+      "gain": 7.40815544128418,
+      "gain_frac": 0.012319525247459969
+    }
+  ],
+  "permutation_importance": [
+    {
+      "feature": "days_since_rain",
+      "auc_drop_mean": 0.06469238058248909,
+      "auc_drop_std": 0.0020392111245748712
+    },
+    {
+      "feature": "dist_to_nearest_burning",
+      "auc_drop_mean": 0.027695258226410658,
+      "auc_drop_std": 0.0009291789206123065
+    },
+    {
+      "feature": "frp_sum_nearby",
+      "auc_drop_mean": 0.02637617236431844,
+      "auc_drop_std": 0.00036580086519425955
+    },
+    {
+      "feature": "relative_humidity",
+      "auc_drop_mean": 0.02231875401590333,
+      "auc_drop_std": 0.0009121636979339744
+    },
+    {
+      "feature": "frp_max_nearby",
+      "auc_drop_mean": 0.01978521437581584,
+      "auc_drop_std": 0.0003205434579939594
+    },
+    {
+      "feature": "n_burning_within_1km",
+      "auc_drop_mean": 0.01670899951853002,
+      "auc_drop_std": 0.00023260182235507708
+    },
+    {
+      "feature": "wind_speed",
+      "auc_drop_mean": 0.009002926431940806,
+      "auc_drop_std": 0.00026744467583385235
+    },
+    {
+      "feature": "burnable_frac_nearby",
+      "auc_drop_mean": 0.008423399824198863,
+      "auc_drop_std": 0.0006028452197085158
+    },
+    {
+      "feature": "elevation_rel",
+      "auc_drop_mean": 0.001596025121474365,
+      "auc_drop_std": 0.0002146878681343887
+    },
+    {
+      "feature": "slope_alignment",
+      "auc_drop_mean": 0.0012607922604506827,
+      "auc_drop_std": 0.0001395117832810336
+    },
+    {
+      "feature": "slope",
+      "auc_drop_mean": 0.0009045131629583425,
+      "auc_drop_std": 0.00011878893639642478
+    },
+    {
+      "feature": "wind_alignment",
+      "auc_drop_mean": 0.0006556249600054631,
+      "auc_drop_std": 0.00010013842616304764
+    },
+    {
+      "feature": "wind_direction",
+      "auc_drop_mean": 0.0005442273391294883,
+      "auc_drop_std": 0.0010064608333265287
+    },
+    {
+      "feature": "fuel_class",
+      "auc_drop_mean": 0.00045979228959749376,
+      "auc_drop_std": 8.505658048646226e-05
+    },
+    {
+      "feature": "downwind_distance_proj",
+      "auc_drop_mean": 0.0004081197234430567,
+      "auc_drop_std": 0.00018725867642754222
+    },
+    {
+      "feature": "aspect",
+      "auc_drop_mean": 0.0003441260594754025,
+      "auc_drop_std": 0.0001344677212498441
+    },
+    {
+      "feature": "n_burning_within_500m",
+      "auc_drop_mean": 0.000282561386888136,
+      "auc_drop_std": 4.531008949861155e-05
+    },
+    {
+      "feature": "temperature",
+      "auc_drop_mean": -3.419653885019525e-05,
+      "auc_drop_std": 0.0005267079797603584
+    },
+    {
+      "feature": "v1_alignment",
+      "auc_drop_mean": -0.001959040992455008,
+      "auc_drop_std": 0.0003178550459012248
+    }
+  ],
+  "grouped_permutation_importance": {
+    "weather": 0.09758783651406104,
+    "intensity/proximity": 0.09084820587196309,
+    "fuel": 0.008883192113796358,
+    "terrain": 0.0041054566043587926,
+    "v1_proxy": -0.001959040992455008
+  },
+  "wind_vs_v1_proxy": {
+    "wind_alignment_perm": 0.0006556249600054631,
+    "v1_alignment_perm": -0.001959040992455008,
+    "wind_alignment_gain_frac": 0.023115706198344334,
+    "v1_alignment_gain_frac": 0.021915823395388098
+  },
+  "uljin_attribution": {
+    "uljin_positives_fixed": 915,
+    "uljin_positives_bugged": 615,
+    "overall_auc_fixed": 0.8337376582200116,
+    "overall_auc_bugged": 0.8469194941012084,
+    "far_band_auc_fixed": 0.7980002563338504,
+    "far_band_auc_bugged": 0.7927260381559889
+  }
+}

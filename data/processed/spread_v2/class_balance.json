@@ -1,0 +1,113 @@
+{
+  "seed": 42,
+  "feature_table": "features.csv.gz",
+  "n_features": 19,
+  "feature_names": [
+    "dist_to_nearest_burning",
+    "n_burning_within_500m",
+    "n_burning_within_1km",
+    "frp_sum_nearby",
+    "frp_max_nearby",
+    "slope",
+    "aspect",
+    "slope_alignment",
+    "elevation_rel",
+    "fuel_class",
+    "burnable_frac_nearby",
+    "wind_speed",
+    "wind_direction",
+    "wind_alignment",
+    "downwind_distance_proj",
+    "temperature",
+    "relative_humidity",
+    "days_since_rain",
+    "v1_alignment"
+  ],
+  "weather_features": [
+    "wind_speed",
+    "wind_direction",
+    "wind_alignment",
+    "downwind_distance_proj",
+    "temperature",
+    "relative_humidity",
+    "days_since_rain"
+  ],
+  "usable_fires": [
+    "yeongdeok_2025",
+    "uiseong_andong_2025",
+    "uljin_samcheok_2022",
+    "gangneung_donghae_2022",
+    "hongseong_2023",
+    "miryang_2022"
+  ],
+  "weather_complete_fires": [
+    "yeongdeok_2025",
+    "uiseong_andong_2025",
+    "uljin_samcheok_2022",
+    "hongseong_2023",
+    "miryang_2022"
+  ],
+  "skipped_fires": [
+    {
+      "fire_id": "goseong_2019",
+      "n_transitions": 0,
+      "n_positives": 0,
+      "reason": "too few transitions/positives for a LOFO fold"
+    },
+    {
+      "fire_id": "gangneung_2023",
+      "n_transitions": 1,
+      "n_positives": 8,
+      "reason": "too few transitions/positives for a LOFO fold"
+    }
+  ],
+  "overall": {
+    "candidates": 173324,
+    "positives": 4320,
+    "prevalence": 0.0249
+  },
+  "per_fire": [
+    {
+      "fire_id": "yeongdeok_2025",
+      "candidates": 33432,
+      "positives": 1097,
+      "prevalence": 0.0328,
+      "has_era5": true
+    },
+    {
+      "fire_id": "uiseong_andong_2025",
+      "candidates": 95532,
+      "positives": 1931,
+      "prevalence": 0.0202,
+      "has_era5": true
+    },
+    {
+      "fire_id": "uljin_samcheok_2022",
+      "candidates": 30326,
+      "positives": 915,
+      "prevalence": 0.0302,
+      "has_era5": true
+    },
+    {
+      "fire_id": "gangneung_donghae_2022",
+      "candidates": 10895,
+      "positives": 264,
+      "prevalence": 0.0242,
+      "has_era5": false
+    },
+    {
+      "fire_id": "hongseong_2023",
+      "candidates": 2038,
+      "positives": 82,
+      "prevalence": 0.0402,
+      "has_era5": true
+    },
+    {
+      "fire_id": "miryang_2022",
+      "candidates": 1101,
+      "positives": 31,
+      "prevalence": 0.0282,
+      "has_era5": true
+    }
+  ]
+}

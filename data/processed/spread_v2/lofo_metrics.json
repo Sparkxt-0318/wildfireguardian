@@ -1,0 +1,147 @@
+{
+  "seed": 42,
+  "model": "with-weather (all 18 features)",
+  "fires": [
+    "gangneung_donghae_2022",
+    "hongseong_2023",
+    "miryang_2022",
+    "uiseong_andong_2025",
+    "uljin_samcheok_2022",
+    "yeongdeok_2025"
+  ],
+  "summary": {
+    "overall_pooled_roc_auc": 0.8337376582200116,
+    "overall_pooled_pr_auc": 0.18644158993315496,
+    "overall_pooled_brier": 0.022110186517238617,
+    "mean_fire_roc_auc": 0.8309277691695344,
+    "std_fire_roc_auc": 0.07389135574877,
+    "mean_fire_pr_auc": 0.19847869354459993,
+    "std_fire_pr_auc": 0.08618336439425416,
+    "mean_fire_brier": 0.026711737116177876,
+    "band_auc": {
+      "0-375": {
+        "roc_auc": 0.8081298522782716,
+        "n": 48141,
+        "positives": 2294
+      },
+      "375-750": {
+        "roc_auc": 0.7917016386847968,
+        "n": 32729,
+        "positives": 1115
+      },
+      "750-1500": {
+        "roc_auc": 0.7753732657229382,
+        "n": 57546,
+        "positives": 750
+      },
+      ">1500": {
+        "roc_auc": 0.7980002563338504,
+        "n": 34908,
+        "positives": 161
+      }
+    },
+    "per_fire": [
+      {
+        "fire_id": "gangneung_donghae_2022",
+        "n": 10895,
+        "positives": 264,
+        "roc_auc": 0.8118442205898702,
+        "pr_auc": 0.1624927678753175,
+        "brier": 0.024109113961458206,
+        "prevalence": 0.024231298760899495
+      },
+      {
+        "fire_id": "hongseong_2023",
+        "n": 2038,
+        "positives": 82,
+        "roc_auc": 0.7090690308743578,
+        "pr_auc": 0.11731468534336706,
+        "brier": 0.03820265829563141,
+        "prevalence": 0.040235525024533855
+      },
+      {
+        "fire_id": "miryang_2022",
+        "n": 1101,
+        "positives": 31,
+        "roc_auc": 0.8956285800422068,
+        "pr_auc": 0.30522958338577744,
+        "brier": 0.025676583871245384,
+        "prevalence": 0.02815622161671208
+      },
+      {
+        "fire_id": "uiseong_andong_2025",
+        "n": 95532,
+        "positives": 1931,
+        "roc_auc": 0.8745384336881191,
+        "pr_auc": 0.15691288905348127,
+        "brier": 0.018279490992426872,
+        "prevalence": 0.020213122304568103
+      },
+      {
+        "fire_id": "uljin_samcheok_2022",
+        "n": 30326,
+        "positives": 915,
+        "roc_auc": 0.7733331252404914,
+        "pr_auc": 0.11908272962547306,
+        "brier": 0.028416065499186516,
+        "prevalence": 0.03017212952581943
+      },
+      {
+        "fire_id": "yeongdeok_2025",
+        "n": 33432,
+        "positives": 1097,
+        "roc_auc": 0.9211532245821609,
+        "pr_auc": 0.32983950598418343,
+        "brier": 0.025586510077118874,
+        "prevalence": 0.032812873893275904
+      }
+    ]
+  },
+  "footprint": [
+    {
+      "fire_id": "gangneung_donghae_2022",
+      "n_pred_ignitions": 264,
+      "observed_cells": 330,
+      "iou": 0.2474,
+      "capture": 0.3576
+    },
+    {
+      "fire_id": "hongseong_2023",
+      "n_pred_ignitions": 82,
+      "observed_cells": 120,
+      "iou": 0.193,
+      "capture": 0.275
+    },
+    {
+      "fire_id": "miryang_2022",
+      "n_pred_ignitions": 31,
+      "observed_cells": 53,
+      "iou": 0.493,
+      "capture": 0.6604
+    },
+    {
+      "fire_id": "uiseong_andong_2025",
+      "n_pred_ignitions": 1931,
+      "observed_cells": 2244,
+      "iou": 0.2501,
+      "capture": 0.3779
+    },
+    {
+      "fire_id": "uljin_samcheok_2022",
+      "n_pred_ignitions": 915,
+      "observed_cells": 1160,
+      "iou": 0.3845,
+      "capture": 0.531
+    },
+    {
+      "fire_id": "yeongdeok_2025",
+      "n_pred_ignitions": 1097,
+      "observed_cells": 1390,
+      "iou": 0.3639,
+      "capture": 0.5252
+    }
+  ],
+  "footprint_mean_iou": 0.322,
+  "footprint_mean_capture": 0.4545,
+  "mechanistic_baseline_iou": 0.09
+}
