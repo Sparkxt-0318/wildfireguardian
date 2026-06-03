@@ -4,7 +4,7 @@ These are the time-invariant fields the feature pipeline reads: the burnable
 gate + burnable fraction (from the WorldCover fuel raster) and elevation +
 slope + aspect (from the DEM). Critically, **every layer is produced by
 sampling the source raster at each 375 m grid cell's centre through one
-:class:`~wildfireguardian.spread_v2.grid.RasterSampler`** — so the burnable
+:class:`~wildfireguardian.spread_v2_xgb.grid.RasterSampler`** — so the burnable
 gate shares the exact orientation of the feature layers. There is no second,
 differently-oriented mask to AND against (the prior uljin bug).
 """

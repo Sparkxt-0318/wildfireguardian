@@ -17,13 +17,13 @@ from affine import Affine
 from pyproj import Transformer
 from rasterio.crs import CRS
 
-from wildfireguardian.spread_v2.candidates_kernels import disk_kernel
-from wildfireguardian.spread_v2.detections import cluster_overpasses
-from wildfireguardian.spread_v2.era5 import (
+from wildfireguardian.spread_v2_xgb.candidates_kernels import disk_kernel
+from wildfireguardian.spread_v2_xgb.detections import cluster_overpasses
+from wildfireguardian.spread_v2_xgb.era5 import (
     _days_since_rain,
     _relative_humidity,
 )
-from wildfireguardian.spread_v2.grid import RasterSampler
+from wildfireguardian.spread_v2_xgb.grid import RasterSampler
 
 _TO_5179 = Transformer.from_crs("EPSG:4326", "EPSG:5179", always_xy=True)
 
@@ -151,13 +151,13 @@ def test_disk_kernel_radius():
 
 
 def test_distance_band_edges():
-    from wildfireguardian.spread_v2.features import distance_band
+    from wildfireguardian.spread_v2_xgb.features import distance_band
     got = distance_band(np.array([0.0, 375.0, 376.0, 750.0, 1500.0, 3000.0]))
     assert got.tolist() == ["0-375", "0-375", "375-750", "375-750", "750-1500", ">1500"]
 
 
 def test_feature_lists_have_no_leakage_columns():
-    from wildfireguardian.spread_v2.features import (
+    from wildfireguardian.spread_v2_xgb.features import (
         ALL_FEATURES, META_COLUMNS, NO_WEATHER_FEATURES, WEATHER,
     )
     # dt_hours / fire_id / row / col / label must never be features (leakage).
@@ -173,10 +173,10 @@ def test_observed_sequence_monotone_and_candidate_labels():
     """Monotone masks + correct positive labelling, without any raster I/O."""
     from dataclasses import replace
 
-    from wildfireguardian.spread_v2.candidates import iter_transitions
-    from wildfireguardian.spread_v2.detections import build_observed_sequence
-    from wildfireguardian.spread_v2.grid import Grid
-    from wildfireguardian.spread_v2.layers import StaticLayers
+    from wildfireguardian.spread_v2_xgb.candidates import iter_transitions
+    from wildfireguardian.spread_v2_xgb.detections import build_observed_sequence
+    from wildfireguardian.spread_v2_xgb.grid import Grid
+    from wildfireguardian.spread_v2_xgb.layers import StaticLayers
     from wildfireguardian.utils.regions import RegionConfig
 
     region = RegionConfig.from_wgs84_bbox("t", (129.0, 37.0, 129.12, 37.12))
@@ -214,7 +214,7 @@ def test_observed_sequence_monotone_and_candidate_labels():
 
 def test_lofo_holds_out_whole_fire():
     """lofo_predict must train without the held-out fire and cover every row once."""
-    from wildfireguardian.spread_v2.model import lofo_predict
+    from wildfireguardian.spread_v2_xgb.model import lofo_predict
 
     rng = np.random.default_rng(0)
     parts = []

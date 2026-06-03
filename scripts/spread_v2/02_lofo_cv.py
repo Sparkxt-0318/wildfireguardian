@@ -22,14 +22,14 @@ import pandas as pd
 warnings.filterwarnings("ignore")
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
 
-from wildfireguardian.spread_v2 import SEED  # noqa: E402
-from wildfireguardian.spread_v2.dataset import get_fire  # noqa: E402
-from wildfireguardian.spread_v2.detections import (  # noqa: E402
+from wildfireguardian.spread_v2_xgb import SEED  # noqa: E402
+from wildfireguardian.spread_v2_xgb.dataset import get_fire  # noqa: E402
+from wildfireguardian.spread_v2_xgb.detections import (  # noqa: E402
     build_observed_sequence, load_detections,
 )
-from wildfireguardian.spread_v2.features import ALL_FEATURES  # noqa: E402
-from wildfireguardian.spread_v2.grid import Grid, build_region  # noqa: E402
-from wildfireguardian.spread_v2.model import (  # noqa: E402
+from wildfireguardian.spread_v2_xgb.features import ALL_FEATURES  # noqa: E402
+from wildfireguardian.spread_v2_xgb.grid import Grid, build_region  # noqa: E402
+from wildfireguardian.spread_v2_xgb.model import (  # noqa: E402
     footprint_metrics, lofo_predict, summary_metrics,
 )
 

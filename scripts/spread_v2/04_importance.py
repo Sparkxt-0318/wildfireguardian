@@ -28,19 +28,19 @@ import pandas as pd
 warnings.filterwarnings("ignore")
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
 
-from wildfireguardian.spread_v2 import SEED  # noqa: E402
-from wildfireguardian.spread_v2.candidates import iter_transitions  # noqa: E402
-from wildfireguardian.spread_v2.dataset import get_fire  # noqa: E402
-from wildfireguardian.spread_v2.detections import (  # noqa: E402
+from wildfireguardian.spread_v2_xgb import SEED  # noqa: E402
+from wildfireguardian.spread_v2_xgb.candidates import iter_transitions  # noqa: E402
+from wildfireguardian.spread_v2_xgb.dataset import get_fire  # noqa: E402
+from wildfireguardian.spread_v2_xgb.detections import (  # noqa: E402
     build_observed_sequence, load_detections,
 )
-from wildfireguardian.spread_v2.era5 import WeatherSeries  # noqa: E402
-from wildfireguardian.spread_v2.features import (  # noqa: E402
+from wildfireguardian.spread_v2_xgb.era5 import WeatherSeries  # noqa: E402
+from wildfireguardian.spread_v2_xgb.features import (  # noqa: E402
     ALL_FEATURES, build_feature_table,
 )
-from wildfireguardian.spread_v2.grid import Grid, build_region  # noqa: E402
-from wildfireguardian.spread_v2.layers import build_static_layers  # noqa: E402
-from wildfireguardian.spread_v2.model import (  # noqa: E402
+from wildfireguardian.spread_v2_xgb.grid import Grid, build_region  # noqa: E402
+from wildfireguardian.spread_v2_xgb.layers import build_static_layers  # noqa: E402
+from wildfireguardian.spread_v2_xgb.model import (  # noqa: E402
     feature_group, lofo_predict, make_model, permutation_importance_lofo,
     summary_metrics,
 )

@@ -7,7 +7,7 @@ leave-one-fire-out cross-validation. See ``docs/SPREAD_MODEL_REPORT_V2_FINAL.md`
 
 This is the v2 *re-train* on corrected data (uljin fuel-orientation + ERA5
 fix; gangneung_donghae fuel re-fetch). Methodology is unchanged from v2; the
-orientation-safe :class:`~wildfireguardian.spread_v2.grid.RasterSampler` is the
+orientation-safe :class:`~wildfireguardian.spread_v2_xgb.grid.RasterSampler` is the
 structural guarantee that the prior orientation bug cannot recur.
 """
 

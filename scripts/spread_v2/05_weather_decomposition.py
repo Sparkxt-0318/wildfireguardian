@@ -27,9 +27,9 @@ import pandas as pd
 warnings.filterwarnings("ignore")
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
 
-from wildfireguardian.spread_v2 import SEED  # noqa: E402
-from wildfireguardian.spread_v2.features import ALL_FEATURES, NO_WEATHER_FEATURES  # noqa: E402
-from wildfireguardian.spread_v2.model import BANDS, lofo_predict, summary_metrics  # noqa: E402
+from wildfireguardian.spread_v2_xgb import SEED  # noqa: E402
+from wildfireguardian.spread_v2_xgb.features import ALL_FEATURES, NO_WEATHER_FEATURES  # noqa: E402
+from wildfireguardian.spread_v2_xgb.model import BANDS, lofo_predict, summary_metrics  # noqa: E402
 
 OUTDIR = Path(__file__).resolve().parents[2] / "data" / "processed" / "spread_v2"
 

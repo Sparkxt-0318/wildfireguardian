@@ -9,7 +9,7 @@ satellite fire-detection overpasses. We:
    merges the SNPP + NOAA-20 multi-satellite passes that arrive within minutes
    of each other into one observation epoch.
 3. Snap detections to the 375 m EPSG:5179 grid (orientation-safe, via
-   :class:`~wildfireguardian.spread_v2.grid.Grid`).
+   :class:`~wildfireguardian.spread_v2_xgb.grid.Grid`).
 4. Build the **monotone** cumulative burned mask per overpass — once a cell is
    detected, it stays burned. This is the label source for the classifier and
    the observed footprint for the IoU/capture metrics.
