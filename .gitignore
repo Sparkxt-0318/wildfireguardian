@@ -68,6 +68,11 @@ data/processed/**
 !data/processed/yeongdeok_2025_validation_results.json
 # Session-6 ablation table (41 KB; regenerable via scripts/run_ablation.py).
 !data/processed/yeongdeok_2025_ablation.json
+# Routing-spine summaries (small JSON metrics; regenerable via
+# scripts/run_routing_integration.py). The bulk .npz figure data stays ignored.
+!data/processed/spread_v2_lofo.json
+!data/processed/yeongdeok_forward_sim.json
+!data/processed/routing_demo.json
 # Validation-case manifest JSON files ARE committed (they're stubs, not
 # bulk data).
 !data/validation_cases/**
