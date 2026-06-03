@@ -271,6 +271,10 @@ def footprint_iou_lofo(
             obs_next = snaps[k + 1].cumulative_mask
             if not active.any() or active.all():
                 continue
+            # Skip trivial no-growth transitions (obs_next == active): they
+            # are predicted by definition and would inflate the mean IoU.
+            if not (obs_next & ~active).any():
+                continue
             frame = build_transition_frame(ev, g, static, snaps[k:k + 2], ws, buffer_m=buffer_m)
             if frame.empty:
                 continue
