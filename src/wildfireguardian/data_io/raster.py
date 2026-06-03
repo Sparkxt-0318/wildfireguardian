@@ -97,10 +97,29 @@ def _cache_get(key: str) -> xr.DataArray | None:
         return None
 
 
+def _netcdf_safe_attrs(attrs: dict) -> dict:
+    """Coerce attribute values into NetCDF-writable types.
+
+    Newer ``netCDF4`` releases reject Python/NumPy ``bool`` attributes
+    (the ``b1`` dtype), so booleans like ``synthetic=True`` are stored as
+    ``int`` (0/1). The round-trip readers in this module already treat the
+    flag truthily, so this is loss-free for our usage.
+    """
+    safe: dict = {}
+    for k, v in attrs.items():
+        if isinstance(v, (bool, np.bool_)):
+            safe[k] = int(v)
+        else:
+            safe[k] = v
+    return safe
+
+
 def _cache_put(arr: xr.DataArray, key: str) -> None:
     """Persist a DataArray to cache."""
     path = _cache_dir() / key
-    arr.to_dataset(name=arr.name or "data").to_netcdf(path)
+    out = arr.copy()
+    out.attrs = _netcdf_safe_attrs(out.attrs)
+    out.to_dataset(name=out.name or "data").to_netcdf(path)
 
 
 def clear_cache() -> int:
