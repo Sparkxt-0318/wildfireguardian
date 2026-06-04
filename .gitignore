@@ -77,6 +77,9 @@ data/processed/**
 !data/processed/spread_v2_lofo.json
 !data/processed/yeongdeok_forward_sim.json
 !data/processed/routing_demo.json
+# Rescue-aware routing summary (small JSON; regenerable via
+# scripts/run_rescue_routing.py). The bulk rescue_routing.npz stays ignored.
+!data/processed/rescue_routing.json
 # Validation-case manifest JSON files ARE committed (they're stubs, not
 # bulk data).
 !data/validation_cases/**
