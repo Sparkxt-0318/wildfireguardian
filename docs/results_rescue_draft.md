@@ -27,8 +27,10 @@ anchor casualty event (average victim age 84 `[src: docs/ROUTING_INTEGRATION_REP
 30+ deaths, mostly residents in their 60s–80s in rural villages
 `[src: README.md]`). The router consumes the project's data-driven spread hazard as a
 time-sliced per-cell ignition-probability surface — the foundation this builds on
-(leave-one-fire-out pooled AUC **0.905**, far-band AUC **0.877**
-`[src: data/processed/spread_v2_lofo.json]`; forward-simulated footprint IoU **~0.40**
+(leave-one-fire-out **mean-of-folds ROC-AUC 0.89 ± 0.11**, range 0.68–0.97; pooled
+0.905, far-band 0.877 pooled
+`[src: data/processed/spread_v2_lofo.json; docs/MODEL_CARD.md]`; forward-simulated
+footprint IoU **~0.40**
 `[src: docs/ROUTING_INTEGRATION_REPORT.md]`). N = **452** candidate elderly-home
 origins are scanned on an OSM-style **walk** network; responders use a separate
 **drive** network; shelters (대피소) and responder depots (119안전센터) have real-source
@@ -138,7 +140,9 @@ unreachable set; it does not eliminate it.
 - **(c) Single-fire (영덕) proof-of-concept** — not multi-fire validated, not
   operational.
 - **(d) The spread hazard is a risk *ranking*, not a perimeter forecast.** Report AUC
-  (0.905) and footprint IoU (~0.40) together: the model ranks at-risk cells well but
+  (mean-of-folds 0.89 ± 0.11; pooled 0.905) and footprint IoU (~0.40 forward-sim;
+  the 0.874 single-step IoU is "next overpass given the current burn", not a
+  from-scratch footprint) together: the model ranks at-risk cells well but
   does not pinpoint the exact perimeter `[src: data/processed/spread_v2_lofo.json;
   docs/ROUTING_INTEGRATION_REPORT.md]`.
 - **(e) Overpass-scale time resolution (hours, not minutes)** — rules out tactical use

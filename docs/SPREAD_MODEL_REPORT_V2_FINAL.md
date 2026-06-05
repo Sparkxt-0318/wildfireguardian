@@ -4,6 +4,15 @@
 **Date:** 2026-06-02 · **Grid:** 375 m / EPSG:5179 · **Seed:** 42 ·
 **Model:** XGBoost per-cell P(ignites by next overpass) · **Eval:** leave-one-fire-out
 
+> **Historical record of "Build A"** (seed 42, 19 features, fire set incl.
+> `gangneung_donghae_2022`). This is **not** the canonical reported model and is
+> **not** a like-for-like comparison to it: all downstream routing/rescue results
+> were produced by a different build ("Build B" — seed 20250603, 16 features, fire
+> set incl. `gangneung_2023`). Build B is canonical **by consistency** (it produced
+> the results), not by being "better" — see **[`docs/MODEL_CARD.md`](MODEL_CARD.md)**
+> for the canonical numbers (mean-of-folds ROC-AUC 0.89 ± 0.11; footprint IoU ~0.40).
+> Both builds independently corroborate the central finding (severity ≫ wind direction).
+
 ---
 
 ## 0. TL;DR / 한눈에 보기

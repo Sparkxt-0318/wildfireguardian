@@ -43,15 +43,23 @@ refers to). The real data (`firms_data.zip`) is now available, so **this session
 spread_v2 from it** and reports the metrics we actually measure — not the brief's
 aspirational figures.
 
-How our measured numbers compare to the brief's stated ones (all **leave-one-fire-out**,
-genuinely out of sample):
+> **Canonical numbers: [`docs/MODEL_CARD.md`](MODEL_CARD.md).** The table below is
+> **not** a like-for-like comparison — the "brief" column is a *different build*
+> (Build A: different fire set incl. `gangneung_donghae_2022`, 19 features, seed 42;
+> `docs/SPREAD_MODEL_REPORT_V2_FINAL.md`). No "better than A" claim is made; the
+> headline generalization figure is the **mean-of-folds ROC-AUC 0.89 ± 0.11**
+> (range 0.68–0.97), not the pooled 0.905.
 
-| Quantity | brief states | **we measure** | note |
+How this build's numbers relate to the brief's stated ones (all **leave-one-fire-out**;
+**different builds — see the banner above**):
+
+| Quantity | brief / Build A | this build (Build B) | note |
 |---|---|---|---|
-| Pooled AUC | ~0.83 | **0.905** | better |
-| Far-band (>3 km) AUC | ~0.80 | **0.877** | better |
-| Footprint IoU | 0.32 | **~0.40** forward-sim (≈0.32 region); 0.87 single-step cumulative | metric-dependent, see §3 |
-| `wind_alignment` importance | ≈ 0 | **0.0023** (44× below severity) | **confirmed** |
+| Mean-of-folds AUC | ~0.83 | **0.89 ± 0.11** (0.68–0.97) | generalization figure |
+| Pooled AUC | ~0.83 | **0.905** (pooled) | different build; not like-for-like |
+| Far-band (>3 km) AUC | ~0.80 | **0.877** (pooled) | different build; not like-for-like |
+| Footprint IoU | 0.32 | **~0.40** forward-sim (3–12 h) | 0.874 single-step IoU is report-blocked (next-overpass *given* current burn) |
+| `wind_alignment` importance | ≈ 0 | **0.0023** (44× below severity) | **both builds corroborate severity ≫ direction** |
 
 `src/wildfireguardian/spread_v2/` is the new package (`data, grid, weather, features,
 model, forward_sim`); see its README for the pipeline and provenance.
@@ -67,7 +75,10 @@ which has a single overpass). 151,904 candidate-cell rows, 2,989 positives (~2%)
 
 **Leave-one-fire-out results** (`data/processed/spread_v2_lofo.json`):
 
-- Pooled out-of-fold **AUC 0.905**; mid-band (1–3 km) 0.870; **far-band (>3 km) 0.877**.
+- **Generalization: mean-of-folds AUC 0.89 ± 0.11** (range 0.68–0.97). Pooled
+  out-of-fold AUC 0.905; mid-band (1–3 km) 0.870; far-band (>3 km) 0.877 — these
+  three are **pooled** (concatenated held-out predictions), not the mean-of-folds
+  (see `docs/MODEL_CARD.md`).
 - Per held-out fire: miryang 0.97, hongseong 0.94, yeongdeok **0.94**, uljin 0.92,
   uiseong 0.88, gangneung_2023 0.68 (a tiny 17-detection fire — noisy, flagged).
 
