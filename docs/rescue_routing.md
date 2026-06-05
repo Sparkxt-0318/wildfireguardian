@@ -5,6 +5,10 @@ input comes from. Companion to `src/wildfireguardian/routing/rescue.py` and
 `rescue_demo.py`; regenerate results with `python scripts/run_rescue_routing.py &&
 python scripts/make_rescue_figures.py`.*
 
+> **Results draft:** see `docs/results_rescue_draft.md` for the honestly-hedged
+> results section (claims ledger + the assumption-light walk-failure rate `w` ≈ 40 %,
+> derived from the committed fc sweep via `scripts/derive_walk_failure.py`).
+
 ---
 
 ## 1. What

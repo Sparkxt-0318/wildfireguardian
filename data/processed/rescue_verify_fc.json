@@ -133,5 +133,110 @@
     "verdict": "directional"
   },
   "rescue_reachable_subset_safe_all_walkcuts": true,
-  "reconciled_block": "=== RECONCILED RESULTS \u2014 assumption sweep (single baseline) ===\nBaseline (f=0.3, walk_cutoff=0.5, dispatch=30, vehicle_cutoff=0.7, N=452):\n  four-way: already_safe / saved / no_walk_rescuer / unreachable = 154 / 34 / 244 / 20   [== headline: True]\n  derived : self_evacuable = 188 ; needs_rescuer = 264 (58%)\n  resident  (pedestrian, prob\u00b7min)  naive / fa-any / fa-rescuable : 24.064 / 3.550 / 3.472\n     paired b vs c (same 185 origins)                       : 3.421 / 3.472\n  responder (vehicle,    prob\u00b7min)  shortest-path / survival-aware: 0.172 / 0.079  (dispatch 244, unreachable 20)\n\nCategory definitions (from code):\n  already_safe    : MOBILE origin; fire-blind nearest-refuge walk is safe\n  saved           : MOBILE; naive unsafe; future-aware walk to a RESCUE-REACHABLE refuge is safe (was 34 across the vehicle\u00d7delay grid because those origins use coastal refuges that stay rescue-reachable)\n  no_walk_rescuer : cannot self-evacuate (immobile OR walk route cut) AND a survival-aware responder route reaches the home\n  unreachable     : cannot self-evacuate AND no responder route survives in budget\n  immobile_fraction enters at _immobile_homes: a RANDOM f\u00b7N origins are forced onto the rescuer path REGARDLESS of walkability (yes) \u2014 they skip the walk checks\n\n=== f x c SWEEP (immobile_fraction \u00d7 walk_cutoff), full N=452 ===\ncell = (safe, saved, no_walk, unreach | self_evac, needs_rescuer)\nf \\ walk_cut | 0.40 | 0.50 | 0.60\n  0.15      | (179, 47, 202, 24) | 226,226 | (196, 45, 191, 20) | 241,211 | (206, 50, 178, 18) | 256,196\n  0.30      | (143, 37, 250, 22) | 180,272 | (154, 34, 244, 20) | 188,264 | (162, 41, 232, 17) | 203,249\n  0.45      | (106, 31, 286, 29) | 137,315 | (121, 25, 280, 26) | 146,306 | (128, 32, 269, 23) | 160,292\nalready_safe/saved invariant to f? : NO -> partition assumption BREAKS (immobile relabels a random f of walk-capable origins)\nmonotonicity: self_evac \u2191 with walk_cutoff? Y; needs_rescuer \u2191 with f? Y; needs_rescuer \u2191 as walk_cutoff \u2193? Y\nheatmap: /home/user/wildfireguardian/docs/figures/rescue_sweep_fc.png\n\n=== VERDICT ===\n  needs_rescuer 58% (264/452) : directional; grid range 196-315; f=0.15 vs 0.45 @ c=0.50: 211 vs 306 (47% vs 68%)\n  no_walk_rescuer 244 : re-classified directional w.r.t. the ASSUMPTION knobs (grid 178-286, rel-spread 0.46); the earlier 'robust' held only vs the vehicle knobs\n  saved 34 : rescue-meaningful (a pedestrian route to a rescue-REACHABLE refuge \u2014 the resident-side win of the feature), NOT a mislabel; it moves with f (over the mobile pool), so it is not f-invariant\n  defensible headline today : \"Under walk cutoff 0.5 and 30% assumed immobile, 264/452 (58%) cannot self-evacuate on foot; at 15% assumed immobile this falls to 211/452 (47%). The split is driven by the assumed immobile fraction + the slow-elder pedestrian regime, not vehicle knobs.\"\n  unchanged keeper : dispatch-delay trend (vehicle sweep) remains a robust direction"
+  "reconciled_block": "=== RECONCILED RESULTS \u2014 assumption sweep (single baseline) ===\nBaseline (f=0.3, walk_cutoff=0.5, dispatch=30, vehicle_cutoff=0.7, N=452):\n  four-way: already_safe / saved / no_walk_rescuer / unreachable = 154 / 34 / 244 / 20   [== headline: True]\n  derived : self_evacuable = 188 ; needs_rescuer = 264 (58%)\n  resident  (pedestrian, prob\u00b7min)  naive / fa-any / fa-rescuable : 24.064 / 3.550 / 3.472\n     paired b vs c (same 185 origins)                       : 3.421 / 3.472\n  responder (vehicle,    prob\u00b7min)  shortest-path / survival-aware: 0.172 / 0.079  (dispatch 244, unreachable 20)\n\nCategory definitions (from code):\n  already_safe    : MOBILE origin; fire-blind nearest-refuge walk is safe\n  saved           : MOBILE; naive unsafe; future-aware walk to a RESCUE-REACHABLE refuge is safe (was 34 across the vehicle\u00d7delay grid because those origins use coastal refuges that stay rescue-reachable)\n  no_walk_rescuer : cannot self-evacuate (immobile OR walk route cut) AND a survival-aware responder route reaches the home\n  unreachable     : cannot self-evacuate AND no responder route survives in budget\n  immobile_fraction enters at _immobile_homes: a RANDOM f\u00b7N origins are forced onto the rescuer path REGARDLESS of walkability (yes) \u2014 they skip the walk checks\n\n=== f x c SWEEP (immobile_fraction \u00d7 walk_cutoff), full N=452 ===\ncell = (safe, saved, no_walk, unreach | self_evac, needs_rescuer)\nf \\ walk_cut | 0.40 | 0.50 | 0.60\n  0.15      | (179, 47, 202, 24) | 226,226 | (196, 45, 191, 20) | 241,211 | (206, 50, 178, 18) | 256,196\n  0.30      | (143, 37, 250, 22) | 180,272 | (154, 34, 244, 20) | 188,264 | (162, 41, 232, 17) | 203,249\n  0.45      | (106, 31, 286, 29) | 137,315 | (121, 25, 280, 26) | 146,306 | (128, 32, 269, 23) | 160,292\nalready_safe/saved invariant to f? : NO -> partition assumption BREAKS (immobile relabels a random f of walk-capable origins)\nmonotonicity: self_evac \u2191 with walk_cutoff? Y; needs_rescuer \u2191 with f? Y; needs_rescuer \u2191 as walk_cutoff \u2193? Y\nheatmap: /home/user/wildfireguardian/docs/figures/rescue_sweep_fc.png\n\n=== VERDICT ===\n  needs_rescuer 58% (264/452) : directional; grid range 196-315; f=0.15 vs 0.45 @ c=0.50: 211 vs 306 (47% vs 68%)\n  no_walk_rescuer 244 : re-classified directional w.r.t. the ASSUMPTION knobs (grid 178-286, rel-spread 0.46); the earlier 'robust' held only vs the vehicle knobs\n  saved 34 : rescue-meaningful (a pedestrian route to a rescue-REACHABLE refuge \u2014 the resident-side win of the feature), NOT a mislabel; it moves with f (over the mobile pool), so it is not f-invariant\n  defensible headline today : \"Under walk cutoff 0.5 and 30% assumed immobile, 264/452 (58%) cannot self-evacuate on foot; at 15% assumed immobile this falls to 211/452 (47%). The split is driven by the assumed immobile fraction + the slow-elder pedestrian regime, not vehicle knobs.\"\n  unchanged keeper : dispatch-delay trend (vehicle sweep) remains a robust direction",
+  "walk_failure": {
+    "per_cell": [
+      {
+        "immobile_fraction": 0.15,
+        "walk_cutoff": 0.4,
+        "n_mobile": 384,
+        "walk_failures_mobile": 158,
+        "w": 0.4115,
+        "needs_rescuer": 226,
+        "needs_rescuer_identity_f_plus_1mf_w": 225.9
+      },
+      {
+        "immobile_fraction": 0.15,
+        "walk_cutoff": 0.5,
+        "n_mobile": 384,
+        "walk_failures_mobile": 143,
+        "w": 0.3724,
+        "needs_rescuer": 211,
+        "needs_rescuer_identity_f_plus_1mf_w": 210.9
+      },
+      {
+        "immobile_fraction": 0.15,
+        "walk_cutoff": 0.6,
+        "n_mobile": 384,
+        "walk_failures_mobile": 128,
+        "w": 0.3333,
+        "needs_rescuer": 196,
+        "needs_rescuer_identity_f_plus_1mf_w": 195.9
+      },
+      {
+        "immobile_fraction": 0.3,
+        "walk_cutoff": 0.4,
+        "n_mobile": 316,
+        "walk_failures_mobile": 136,
+        "w": 0.4304,
+        "needs_rescuer": 272,
+        "needs_rescuer_identity_f_plus_1mf_w": 271.8
+      },
+      {
+        "immobile_fraction": 0.3,
+        "walk_cutoff": 0.5,
+        "n_mobile": 316,
+        "walk_failures_mobile": 128,
+        "w": 0.4051,
+        "needs_rescuer": 264,
+        "needs_rescuer_identity_f_plus_1mf_w": 263.8
+      },
+      {
+        "immobile_fraction": 0.3,
+        "walk_cutoff": 0.6,
+        "n_mobile": 316,
+        "walk_failures_mobile": 113,
+        "w": 0.3576,
+        "needs_rescuer": 249,
+        "needs_rescuer_identity_f_plus_1mf_w": 248.7
+      },
+      {
+        "immobile_fraction": 0.45,
+        "walk_cutoff": 0.4,
+        "n_mobile": 249,
+        "walk_failures_mobile": 112,
+        "w": 0.4498,
+        "needs_rescuer": 315,
+        "needs_rescuer_identity_f_plus_1mf_w": 315.2
+      },
+      {
+        "immobile_fraction": 0.45,
+        "walk_cutoff": 0.5,
+        "n_mobile": 249,
+        "walk_failures_mobile": 103,
+        "w": 0.4137,
+        "needs_rescuer": 306,
+        "needs_rescuer_identity_f_plus_1mf_w": 306.2
+      },
+      {
+        "immobile_fraction": 0.45,
+        "walk_cutoff": 0.6,
+        "n_mobile": 249,
+        "walk_failures_mobile": 89,
+        "w": 0.3574,
+        "needs_rescuer": 292,
+        "needs_rescuer_identity_f_plus_1mf_w": 292.3
+      }
+    ],
+    "summary": {
+      "w_grid_min": 0.3333,
+      "w_grid_max": 0.4498,
+      "w_by_walk_cutoff_minmax": {
+        "0.40": [
+          0.4115,
+          0.4498
+        ],
+        "0.50": [
+          0.3724,
+          0.4137
+        ],
+        "0.60": [
+          0.3333,
+          0.3576
+        ]
+      },
+      "w_max_spread_across_f_fixed_cutoff": 0.0413,
+      "w_approx_flat_across_f": true
+    }
+  }
 }

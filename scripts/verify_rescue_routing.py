@@ -145,6 +145,51 @@ def _cell(grid, r, c, key):
     return cc[key]
 
 
+def walk_failure_table(grid, N):
+    """Assumption-LIGHT decomposition of the rescue burden, from four-way counts only.
+
+    `immobile_fraction` adds immobile origins to ``needs_rescuer`` wholesale, so
+    ``needs_rescuer = round(f·N) + walk_failures_mobile``. The part the model earns
+    *independently of the immobility guess* is ``w`` = the fraction of MOBILE origins
+    that cannot walk to safety:
+
+        n_mobile            = N - round(f·N)
+        walk_failures_mobile = n_mobile - already_safe - saved
+        w                    = walk_failures_mobile / n_mobile
+
+    Identity (exact up to f·N rounding): ``needs_rescuer ≈ f·N + (1-f)·w·N``.
+    ``w`` should be ~flat across f at fixed walk cutoff (immobility is a random draw
+    uncorrelated with walkability). Computed from already-committed counts — no
+    pipeline re-run.
+    """
+    rows = []
+    for (f, c), counts in sorted(grid.items()):
+        n_mob = N - round(f * N)
+        wf = n_mob - counts["already_safe"] - counts["saved_by_rescue_reachable_refuge"]
+        w = wf / n_mob if n_mob else 0.0
+        needs = counts["no_safe_pedestrian_route"] + counts["no_surviving_vehicle_ingress"]
+        assert needs == round(f * N) + wf, "walk-failure decomposition off-by-one"
+        rows.append({"immobile_fraction": f, "walk_cutoff": c, "n_mobile": n_mob,
+                     "walk_failures_mobile": wf, "w": round(w, 4), "needs_rescuer": needs,
+                     "needs_rescuer_identity_f_plus_1mf_w": round(f * N + (1 - f) * w * N, 1)})
+    return rows
+
+
+def walk_failure_summary(rows):
+    """Range of w across walk cutoff, and its (near-)flatness across f at fixed cutoff."""
+    cutoffs = sorted({r["walk_cutoff"] for r in rows})
+    by_cut = {c: sorted(r["w"] for r in rows if r["walk_cutoff"] == c) for c in cutoffs}
+    w_all = [r["w"] for r in rows]
+    # flatness: max spread of w across f, at any fixed cutoff
+    max_spread_across_f = max(max(v) - min(v) for v in by_cut.values())
+    return {
+        "w_grid_min": min(w_all), "w_grid_max": max(w_all),
+        "w_by_walk_cutoff_minmax": {f"{c:.2f}": [min(by_cut[c]), max(by_cut[c])] for c in cutoffs},
+        "w_max_spread_across_f_fixed_cutoff": round(max_spread_across_f, 4),
+        "w_approx_flat_across_f": max_spread_across_f < 0.06,
+    }
+
+
 def _build_baseline():
     baseline = RescueConfig(responder_dispatch_delay_min=BASELINE_DELAY,
                             vehicle_cutoff=BASELINE_CUTOFF,
@@ -358,6 +403,12 @@ def run_fc(baseline, scenario, N, headline):
                              "f0.15_c0.5": nr_f015, "f0.45_c0.5": nr_f045, "verdict": nr_verdict},
            "rescue_reachable_subset_safe_all_walkcuts": subset_ok,
            "reconciled_block": text}
+    wf_rows = walk_failure_table(grid, N)
+    out["walk_failure"] = {"per_cell": wf_rows, "summary": walk_failure_summary(wf_rows)}
+    wfs = out["walk_failure"]["summary"]
+    print(f"  assumption-light walk-failure w: grid {wfs['w_grid_min']:.3f}-{wfs['w_grid_max']:.3f}; "
+          f"flat across f? {wfs['w_approx_flat_across_f']} "
+          f"(max spread {wfs['w_max_spread_across_f_fixed_cutoff']:.3f})")
     (PROC / "rescue_verify_fc.json").write_text(json.dumps(out, indent=2, default=str))
     _heatmap(grid, IMMOBILES, WALKCUTS, "거동불가 비율 / immobile fraction",
              "보행 통행불가 기준 / walk cutoff", base_rc,
