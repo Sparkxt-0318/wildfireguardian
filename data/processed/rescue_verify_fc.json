@@ -1,0 +1,137 @@
+{
+  "baseline_config": {
+    "region_name": "yeongdeok_2025",
+    "crs": "EPSG:5179",
+    "hazard_cell_m": 375.0,
+    "route_cell_m": 750.0,
+    "assumed": {
+      "elderly_walk_speed_ms": 0.7,
+      "vehicle_speed_kmh": 40.0,
+      "walk_cutoff": 0.5,
+      "vehicle_cutoff": 0.7,
+      "responder_dispatch_delay_min": 30.0,
+      "responder_safety_margin_min": 12.0,
+      "responder_time_budget_min": 75.0,
+      "resident_time_budget_min": 600.0,
+      "ingress_sample_spacing_m": 150.0,
+      "immobile_fraction": 0.3
+    },
+    "synthetic_when_no_real_source": {
+      "shelters": "coastal assembly nodes + inland open-space POIs (seeded)",
+      "depots": "seeded near-town nodes (proxy 119\uc548\uc804\uc13c\ud130)",
+      "road_network": "8-connected lattice on the real/synthetic extent",
+      "hazard": "growing severity-scaled envelope (no FIRMS bundle present)",
+      "n_synthetic_shelters": 12,
+      "n_synthetic_inland_shelters": 8,
+      "n_synthetic_depots": 2,
+      "syn_ignition_frac": [
+        0.46,
+        0.5
+      ],
+      "syn_fire_base_reach_m": 2200.0,
+      "syn_fire_reach_rate_m_per_min": 52.0,
+      "syn_fire_edge_width_m": 1100.0,
+      "syn_inland_flank_radius_m": 5000.0
+    },
+    "seed": 20250603
+  },
+  "n_origins": 452,
+  "headline_four_way": {
+    "saved_by_rescue_reachable_refuge": 34,
+    "already_safe": 154,
+    "no_safe_pedestrian_route": 244,
+    "no_surviving_vehicle_ingress": 20
+  },
+  "baseline_cell_equals_headline": true,
+  "grid": {
+    "0.15|0.40": {
+      "saved_by_rescue_reachable_refuge": 47,
+      "already_safe": 179,
+      "no_safe_pedestrian_route": 202,
+      "no_surviving_vehicle_ingress": 24,
+      "self_evacuable": 226,
+      "needs_rescuer": 226
+    },
+    "0.15|0.50": {
+      "saved_by_rescue_reachable_refuge": 45,
+      "already_safe": 196,
+      "no_safe_pedestrian_route": 191,
+      "no_surviving_vehicle_ingress": 20,
+      "self_evacuable": 241,
+      "needs_rescuer": 211
+    },
+    "0.15|0.60": {
+      "saved_by_rescue_reachable_refuge": 50,
+      "already_safe": 206,
+      "no_safe_pedestrian_route": 178,
+      "no_surviving_vehicle_ingress": 18,
+      "self_evacuable": 256,
+      "needs_rescuer": 196
+    },
+    "0.30|0.40": {
+      "saved_by_rescue_reachable_refuge": 37,
+      "already_safe": 143,
+      "no_safe_pedestrian_route": 250,
+      "no_surviving_vehicle_ingress": 22,
+      "self_evacuable": 180,
+      "needs_rescuer": 272
+    },
+    "0.30|0.50": {
+      "saved_by_rescue_reachable_refuge": 34,
+      "already_safe": 154,
+      "no_safe_pedestrian_route": 244,
+      "no_surviving_vehicle_ingress": 20,
+      "self_evacuable": 188,
+      "needs_rescuer": 264
+    },
+    "0.30|0.60": {
+      "saved_by_rescue_reachable_refuge": 41,
+      "already_safe": 162,
+      "no_safe_pedestrian_route": 232,
+      "no_surviving_vehicle_ingress": 17,
+      "self_evacuable": 203,
+      "needs_rescuer": 249
+    },
+    "0.45|0.40": {
+      "saved_by_rescue_reachable_refuge": 31,
+      "already_safe": 106,
+      "no_safe_pedestrian_route": 286,
+      "no_surviving_vehicle_ingress": 29,
+      "self_evacuable": 137,
+      "needs_rescuer": 315
+    },
+    "0.45|0.50": {
+      "saved_by_rescue_reachable_refuge": 25,
+      "already_safe": 121,
+      "no_safe_pedestrian_route": 280,
+      "no_surviving_vehicle_ingress": 26,
+      "self_evacuable": 146,
+      "needs_rescuer": 306
+    },
+    "0.45|0.60": {
+      "saved_by_rescue_reachable_refuge": 32,
+      "already_safe": 128,
+      "no_safe_pedestrian_route": 269,
+      "no_surviving_vehicle_ingress": 23,
+      "self_evacuable": 160,
+      "needs_rescuer": 292
+    }
+  },
+  "partition_already_safe_saved_invariant_to_f": false,
+  "monotonicity": {
+    "self_evac_up_with_walk_cutoff": true,
+    "needs_rescuer_up_with_f": true,
+    "needs_rescuer_up_as_walk_cutoff_falls": true
+  },
+  "needs_rescuer": {
+    "baseline": 264,
+    "baseline_pct": 58.4,
+    "grid_min": 196,
+    "grid_max": 315,
+    "f0.15_c0.5": 211,
+    "f0.45_c0.5": 306,
+    "verdict": "directional"
+  },
+  "rescue_reachable_subset_safe_all_walkcuts": true,
+  "reconciled_block": "=== RECONCILED RESULTS \u2014 assumption sweep (single baseline) ===\nBaseline (f=0.3, walk_cutoff=0.5, dispatch=30, vehicle_cutoff=0.7, N=452):\n  four-way: already_safe / saved / no_walk_rescuer / unreachable = 154 / 34 / 244 / 20   [== headline: True]\n  derived : self_evacuable = 188 ; needs_rescuer = 264 (58%)\n  resident  (pedestrian, prob\u00b7min)  naive / fa-any / fa-rescuable : 24.064 / 3.550 / 3.472\n     paired b vs c (same 185 origins)                       : 3.421 / 3.472\n  responder (vehicle,    prob\u00b7min)  shortest-path / survival-aware: 0.172 / 0.079  (dispatch 244, unreachable 20)\n\nCategory definitions (from code):\n  already_safe    : MOBILE origin; fire-blind nearest-refuge walk is safe\n  saved           : MOBILE; naive unsafe; future-aware walk to a RESCUE-REACHABLE refuge is safe (was 34 across the vehicle\u00d7delay grid because those origins use coastal refuges that stay rescue-reachable)\n  no_walk_rescuer : cannot self-evacuate (immobile OR walk route cut) AND a survival-aware responder route reaches the home\n  unreachable     : cannot self-evacuate AND no responder route survives in budget\n  immobile_fraction enters at _immobile_homes: a RANDOM f\u00b7N origins are forced onto the rescuer path REGARDLESS of walkability (yes) \u2014 they skip the walk checks\n\n=== f x c SWEEP (immobile_fraction \u00d7 walk_cutoff), full N=452 ===\ncell = (safe, saved, no_walk, unreach | self_evac, needs_rescuer)\nf \\ walk_cut | 0.40 | 0.50 | 0.60\n  0.15      | (179, 47, 202, 24) | 226,226 | (196, 45, 191, 20) | 241,211 | (206, 50, 178, 18) | 256,196\n  0.30      | (143, 37, 250, 22) | 180,272 | (154, 34, 244, 20) | 188,264 | (162, 41, 232, 17) | 203,249\n  0.45      | (106, 31, 286, 29) | 137,315 | (121, 25, 280, 26) | 146,306 | (128, 32, 269, 23) | 160,292\nalready_safe/saved invariant to f? : NO -> partition assumption BREAKS (immobile relabels a random f of walk-capable origins)\nmonotonicity: self_evac \u2191 with walk_cutoff? Y; needs_rescuer \u2191 with f? Y; needs_rescuer \u2191 as walk_cutoff \u2193? Y\nheatmap: /home/user/wildfireguardian/docs/figures/rescue_sweep_fc.png\n\n=== VERDICT ===\n  needs_rescuer 58% (264/452) : directional; grid range 196-315; f=0.15 vs 0.45 @ c=0.50: 211 vs 306 (47% vs 68%)\n  no_walk_rescuer 244 : re-classified directional w.r.t. the ASSUMPTION knobs (grid 178-286, rel-spread 0.46); the earlier 'robust' held only vs the vehicle knobs\n  saved 34 : rescue-meaningful (a pedestrian route to a rescue-REACHABLE refuge \u2014 the resident-side win of the feature), NOT a mislabel; it moves with f (over the mobile pool), so it is not f-invariant\n  defensible headline today : \"Under walk cutoff 0.5 and 30% assumed immobile, 264/452 (58%) cannot self-evacuate on foot; at 15% assumed immobile this falls to 211/452 (47%). The split is driven by the assumed immobile fraction + the slow-elder pedestrian regime, not vehicle knobs.\"\n  unchanged keeper : dispatch-delay trend (vehicle sweep) remains a robust direction"
+}

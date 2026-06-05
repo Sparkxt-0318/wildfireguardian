@@ -152,6 +152,54 @@ unreachable is 20 and the dispatch 0→60 bracket at cutoff 0.7 is **6 → 34**.
 `rescue_reachable ⊆ safe` holds at every cutoff. The headline four-way and the
 sweep's baseline cell are identical.
 
+## 4b. The rescue burden is assumption-driven (immobile_fraction × walk_cutoff)
+
+The vehicle×delay sweep (§4a) only *splits* a **fixed** needs-rescuer pool into
+`no_walk_rescuer` vs `unreachable`; it never moved the pool's size. The two knobs
+that set that size are `immobile_fraction` and `walk_cutoff`. Decompose the
+partition: `self_evacuable = already_safe + saved`, `needs_rescuer =
+no_walk_rescuer + unreachable`; the headline "58% need a rescuer" is `264/452`.
+
+**How `immobile_fraction` routes origins (from the code):** `_immobile_homes`
+draws a **random `f·N`** origins (`rng.choice(..., replace=False)`) and the loop
+does `if n in immobile: needs_rescue; continue` — they **skip the walk checks
+regardless of whether they could have walked out**. So `already_safe`/`saved` are
+computed only over the mobile `(1−f)` pool and **fall as `f` rises** — they are
+**not** invariant to `f` (the pass-1 "constant 154/34" was true only for the
+vehicle×delay grid, where `f` was fixed).
+
+**f × c sweep, full N = 452** (`scripts/verify_rescue_routing.py --sweep fc`,
+`rescue_verify_fc.json`; baseline cell f=0.30, c=0.50 == headline, asserted):
+
+`needs_rescuer` (= can't self-evacuate on foot):
+
+| immobile `f` \ walk cutoff | 0.40 | **0.50** | 0.60 |
+|---|---|---|---|
+| 0.15 | 226 (50%) | 211 (47%) | 196 (43%) |
+| **0.30** | 272 (60%) | **264 (58%)** | 249 (55%) |
+| 0.45 | 315 (70%) | 306 (68%) | 292 (65%) |
+
+`self_evacuable` (= already_safe + saved): 0.15→{226, 241, 256}; 0.30→{180, 188,
+203}; 0.45→{137, 146, 160} across walk cutoff {0.40, 0.50, 0.60}. Monotone as
+expected: `self_evacuable` rises with a more permissive walk cutoff; `needs_rescuer`
+rises with `f` and as the walk cutoff falls. See `docs/figures/rescue_sweep_fc.png`.
+
+**Revised verdict on the burden numbers:**
+
+| quantity | verdict | basis |
+|---|---|---|
+| `needs_rescuer` = **58 %** (264/452) | **directional, not a number** | grid 196–315 (43–70 %); **halving the assumed immobile fraction (0.30→0.15) drops it 58 %→47 %** (264→211 @ c=0.5) |
+| `no_walk_rescuer` = **244** | **re-classified directional** w.r.t. the assumption knobs (grid 178–286, rel-spread 0.46); the §4a "robust" held *only* against the vehicle knobs | moves with both `f` and `walk_cutoff` |
+| `saved` = **34** | **rescue-meaningful, not a mislabel** — a pedestrian route to a *rescue-reachable* refuge (the resident-side win); it moves with `f` (over the mobile pool), so not f-invariant | — |
+
+**Defensible headline today:** *"Under walk cutoff 0.5 and 30 % assumed immobile,
+264/452 (58 %) cannot self-evacuate on foot; at 15 % assumed immobile this falls to
+211/452 (47 %). The share is driven by the assumed immobile fraction plus the
+slow-elder pedestrian regime — not by the vehicle-side knobs."* Even at the most
+optimistic swept assumptions a **large minority (≥43 %)** still cannot self-evacuate
+— that direction is robust; the exact percentage is not. **Unchanged keeper:** the
+§4a dispatch-delay → unreachable trend remains a robust direction.
+
 ## 5. Honest limitations
 
 - **Single-fire (영덕) proof-of-concept.** Not multi-fire validated; not an

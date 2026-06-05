@@ -1,34 +1,36 @@
 #!/usr/bin/env python
-"""Verification / reconciliation pass for the rescue-routing results (PR #4).
+"""Verification / reconciliation passes for the rescue-routing results (PR #4).
 
-This is an AUDIT, not a feature change — it imports the existing routing/spread
-logic unchanged and only re-runs it under one explicit baseline so every headline
-number and the sensitivity sweep sit on the SAME origin set.
+AUDIT only — imports the existing routing/spread logic unchanged and re-runs it
+under one explicit baseline so every headline number and the sweeps sit on the
+SAME origin set (full N=452). Two sweeps share one machinery (``_split_counts``
++ a generalised heatmap):
 
-It resolves the reported contradictions:
-  * headline four-way split (154/34/244/20, N=452) vs the sweep endpoints
-    (unreachable 2->13). Root cause: the convenience ``sensitivity_sweep`` SUB-
-    SAMPLES origins to ``sweep_max_origins`` (=> N≈151), while ``run_pipeline``
-    uses all N=452. Here the 2-D sweep runs on the FULL N=452 set, so the baseline
-    cell EQUALS the headline (asserted).
-  * N 407->452: the rescue origin scan uses ``scan_stride=3`` + a fire-reach
-    latitude band on the walk-network land nodes, vs the old 407-origin
-    stride-4 scan.
-  * metric scale: resident exposure is over PEDESTRIAN routes, responder over
-    VEHICLE routes — both prob·min, labelled distinctly.
+  --sweep vehicle  (pass 1): dispatch delay x vehicle cutoff. Shows the vehicle
+                   knobs only SPLIT the fixed needs-rescuer pool into
+                   no_walk_rescuer vs unreachable. Robust finding: unreachable
+                   rises with dispatch delay.
+  --sweep fc       (pass 2): immobile_fraction x walk_cutoff — the two knobs that
+                   set the SIZE of the not-walk-safe population. Decides whether
+                   "244 / 58% need a rescuer" is a number, a direction, or an
+                   artifact of the assumed immobile_fraction=0.3.
 
-Outputs:
-  data/processed/rescue_verify.json     baseline + full-N 2-D sweep + verdict.
-  docs/figures/rescue_sweep_2d.png      2-D heatmaps over (dispatch delay x
-                                        vehicle cutoff).
+Resolved contradictions (pass 1): headline 20 vs sweep 2->13 was the convenience
+``sensitivity_sweep`` sub-sampling to N≈151; here everything is full N. N 407->452
+is the stride-3 + reach-band origin scan. Resident exposure is over PEDESTRIAN
+routes, responder over VEHICLE routes (both prob·min), labelled distinctly.
 
-Run:  python scripts/verify_rescue_routing.py
-Deterministic (fixed seed, config-driven); runs end-to-end on the synthetic
-fallback. Does NOT modify any routing/spread logic.
+Outputs (small JSON committed; figures in docs/figures):
+  data/processed/rescue_verify.json / rescue_verify_fc.json
+  docs/figures/rescue_sweep_2d.png  / rescue_sweep_fc.png
+
+Run:  python scripts/verify_rescue_routing.py [--sweep vehicle|fc]
+Deterministic; runs end-to-end on the synthetic fallback; no logic changed.
 """
 
 from __future__ import annotations
 
+import argparse
 import json
 import os
 import sys
@@ -51,245 +53,50 @@ from wildfireguardian.routing.rescue_demo import (  # noqa: E402
 PROC = REPO / "data" / "processed"
 FIG = REPO / "docs" / "figures"
 
-# 2-D grid. Vehicle cutoff spans the probability semantics in [0,1]: 0.5 is the
-# pedestrian cutoff itself (no extra risk tolerance for vehicles); 0.9 is a
-# vehicle pushing through near-certain-burning roads (permissive upper bound).
-DELAYS = [0.0, 15.0, 30.0, 45.0, 60.0]
-CUTOFFS = [0.5, 0.6, 0.7, 0.8, 0.9]
 BASELINE_DELAY = 30.0
 BASELINE_CUTOFF = 0.7
+BASELINE_IMMOBILE = 0.30
+BASELINE_WALKCUT = 0.50
+
+# pass-1 grid (vehicle): dispatch delay x vehicle cutoff
+DELAYS = [0.0, 15.0, 30.0, 45.0, 60.0]
+CUTOFFS = [0.5, 0.6, 0.7, 0.8, 0.9]
+# pass-2 grid (assumption): immobile_fraction x walk_cutoff
+IMMOBILES = [0.15, 0.30, 0.45]
+WALKCUTS = [0.40, 0.50, 0.60]
+
 KEYS = ["already_safe", "saved_by_rescue_reachable_refuge",
         "no_safe_pedestrian_route", "no_surviving_vehicle_ingress"]
 SHORT = {"already_safe": "safe", "saved_by_rescue_reachable_refuge": "saved",
          "no_safe_pedestrian_route": "no_walk", "no_surviving_vehicle_ingress": "unreach"}
 
 
-def _rel_spread(vals: list[float]) -> float:
-    vals = [v for v in vals]
+def _rel_spread(vals):
     m = float(np.mean(vals)) if vals else 0.0
     return (max(vals) - min(vals)) / m if m > 0 else 0.0
 
 
-def _monotone_nondecreasing(vals: list[float]) -> bool:
+def _monotone_nondecreasing(vals):
     return all(b >= a - 1e-9 for a, b in zip(vals, vals[1:]))
 
 
-def main() -> int:
-    PROC.mkdir(parents=True, exist_ok=True)
-    FIG.mkdir(parents=True, exist_ok=True)
-
-    baseline = RescueConfig(responder_dispatch_delay_min=BASELINE_DELAY,
-                            vehicle_cutoff=BASELINE_CUTOFF)
-    print("Building baseline synthetic 영덕 scenario (full origin set) ...")
-    scenario = build_synthetic_demo(baseline)
-    N = len(scenario.origins)
-
-    print(f"Re-deriving headline from baseline (N={N}) ...")
-    headline = run_pipeline(scenario, baseline)
-    hc = headline.four_way_counts
-
-    print(f"Running 2-D sweep on the FULL N={N} set "
-          f"({len(DELAYS)}x{len(CUTOFFS)} cells; this is the slow part) ...")
-    grid: dict[tuple[float, float], dict] = {}
-    subset_ok = True
-    safe_total = {}
-    for vc in CUTOFFS:
-        # rescue_reachable ⊆ safe check, per cutoff (delay-independent set check
-        # at the baseline delay is sufficient for the subset invariant).
-        assessments, _all, _rr = _refuge_node_sets(
-            scenario, replace(baseline, vehicle_cutoff=vc))
-        safe_total[vc] = sum(1 for a in assessments if a.rescue_reachable)
-        for a in assessments:
-            if a.rescue_reachable and not a.safe:
-                subset_ok = False
-        for d in DELAYS:
-            cfg = replace(baseline, responder_dispatch_delay_min=d, vehicle_cutoff=vc)
+def _sweep_grid(scenario, base_cfg, row_param, rows, col_param, cols, N):
+    """Full-N 2-D grid of four-way counts via the shared _split_counts; asserts sums."""
+    grid = {}
+    for r in rows:
+        for c in cols:
+            cfg = replace(base_cfg, **{row_param: r, col_param: c})
             rec = _split_counts(scenario, cfg)
             assert rec["n_origins"] == N, "sweep cell used a different origin set"
             assert sum(rec["counts"].values()) == N, "cell four-way did not sum to N"
-            grid[(d, vc)] = rec
-            print(f"  delay={d:>4.0f} cutoff={vc:.2f} -> "
+            grid[(r, c)] = rec["counts"]
+            print(f"  {row_param}={r:<5} {col_param}={c:<5} -> "
                   + " ".join(f"{SHORT[k]}={rec['counts'][k]}" for k in KEYS))
-
-    # ---- reconciliation: baseline cell MUST equal the headline ----
-    base_cell = grid[(BASELINE_DELAY, BASELINE_CUTOFF)]["counts"]
-    reconciled = (base_cell == hc)
-
-    # ---- robustness verdict ----
-    def cell(d, vc, key):
-        return grid[(d, vc)]["counts"][key]
-
-    unreach_delay_row = [cell(d, BASELINE_CUTOFF, "no_surviving_vehicle_ingress")
-                         for d in DELAYS]
-    # dispatch-delay trend monotone non-decreasing for EVERY cutoff?
-    unreach_delay_monotone_all = all(
-        _monotone_nondecreasing([cell(d, vc, "no_surviving_vehicle_ingress")
-                                 for d in DELAYS]) for vc in CUTOFFS)
-    # harsher (lower) cutoff => unreachable non-decreasing, for every delay?
-    unreach_cutoff_monotone_all = all(
-        _monotone_nondecreasing([cell(d, vc, "no_surviving_vehicle_ingress")
-                                 for vc in sorted(CUTOFFS, reverse=True)])
-        for d in DELAYS)
-    # ordering: does "rescuer reaches" exceed "saved" in every cell?
-    order_rescuer_gt_saved = all(
-        cell(d, vc, "no_safe_pedestrian_route") > cell(d, vc, "saved_by_rescue_reachable_refuge")
-        for d in DELAYS for vc in CUTOFFS)
-
-    central = [(d, vc) for d in (15.0, 30.0, 45.0) for vc in (0.6, 0.7, 0.8)]
-
-    def classify(key):
-        cvals = [cell(d, vc, key) for (d, vc) in central]
-        allvals = [cell(d, vc, key) for d in DELAYS for vc in CUTOFFS]
-        rel = _rel_spread(cvals)
-        # ordering proxy: each bucket should keep its sign of dependence; we treat
-        # "ordering stable" as: rescuer>saved everywhere (no bucket-flip) for the
-        # rescue/unreachable buckets.
-        ordering_stable = order_rescuer_gt_saved
-        if rel < 0.15:
-            verdict = "robust"
-        elif ordering_stable:
-            verdict = "directional"
-        else:
-            verdict = "fragile"
-        return {"baseline": cell(BASELINE_DELAY, BASELINE_CUTOFF, key),
-                "central_min": min(cvals), "central_max": max(cvals),
-                "grid_min": min(allvals), "grid_max": max(allvals),
-                "central_rel_spread": round(rel, 3), "verdict": verdict}
-
-    verdict = {
-        "no_safe_pedestrian_route_(244)": classify("no_safe_pedestrian_route"),
-        "no_surviving_vehicle_ingress_(20)": classify("no_surviving_vehicle_ingress"),
-        "dispatch_delay_trend": {
-            "unreachable_at_baseline_cutoff_delay_0_to_60": unreach_delay_row,
-            "monotone_nondecreasing_all_cutoffs": bool(unreach_delay_monotone_all),
-            "verdict": "robust direction" if unreach_delay_monotone_all else "fragile",
-        },
-        "ordering_rescuer_reaches_gt_saved_everywhere": bool(order_rescuer_gt_saved),
-        "unreachable_increases_with_harsher_cutoff_all_delays":
-            bool(unreach_cutoff_monotone_all),
-    }
-
-    # ---- print the single reconciled results block ----
-    rex, pe = headline.resident_exposure, headline.responder_exposure
-
-    def m(d):
-        v = d.get("mean") if isinstance(d, dict) else None
-        return "n/a" if v is None else f"{v:.3f}"
-
-    block = []
-    block.append("=== RECONCILED RESULTS (single baseline) ===")
-    block.append("Baseline config:")
-    block.append(f"  origins N            = {N}        # stride-3 + reach-band scan on the "
-                 f"walk net (vs old 407 stride-4 scan)")
-    block.append(f"  walk speed           = {baseline.elderly_walk_speed_ms} m/s (Tobler)")
-    block.append(f"  vehicle speed        = {baseline.vehicle_speed_kmh} km/h")
-    block.append(f"  pedestrian cutoff    = {baseline.walk_cutoff}")
-    block.append(f"  vehicle cutoff       = {baseline.vehicle_cutoff}        # baseline value")
-    block.append(f"  dispatch delay       = {baseline.responder_dispatch_delay_min:.0f} min")
-    block.append(f"  safety margin        = {baseline.responder_safety_margin_min:.0f} min")
-    block.append(f"  time budget          = resident {baseline.resident_time_budget_min:.0f} / "
-                 f"responder {baseline.responder_time_budget_min:.0f} min")
-    block.append(f"  data                 = shelters:{scenario.shelters_source}, "
-                 f"depots:{scenario.depots_source}, roads:{'OSM' if baseline.use_osm else 'synthetic-lattice'}, "
-                 f"hazard:{scenario.hazard_source}")
-    block.append("")
-    block.append(f"Four-way origin split (sums to N={N}):")
-    block.append(f"  already safe (walk)         : {hc['already_safe']}")
-    block.append(f"  saved by rescue-reachable   : {hc['saved_by_rescue_reachable_refuge']}")
-    block.append(f"  no walk, rescuer reaches    : {hc['no_safe_pedestrian_route']}")
-    block.append(f"  unreachable (reported)      : {hc['no_surviving_vehicle_ingress']}")
-    block.append(f"  sums to N                   : {sum(hc.values()) == N}")
-    block.append("")
-    block.append("Exposure contrasts (distinct metrics):")
-    block.append(f"  resident  (pedestrian, prob·min)  naive / fa-any / fa-rescuable : "
-                 f"{m(rex['naive'])} / {m(rex['future_aware_any'])} / {m(rex['future_aware_rescue'])}")
-    pb = rex['paired_b_vs_c']
-    block.append(f"     paired b vs c (same {pb['n']} origins)                       : "
-                 f"{pb['mean_future_aware_any']:.3f} / {pb['mean_future_aware_rescue']:.3f}  "
-                 f"(c re-routed {rex['policy_c_changed_refuge_count']} off a cut-off refuge)")
-    block.append(f"  responder (vehicle,    prob·min)  shortest-path / survival-aware: "
-                 f"{m(pe['shortest_path'])} / {m(pe['survival_aware'])}  "
-                 f"(dispatch {pe['n_dispatch']}, unreachable {pe['n_unreachable']})")
-    block.append("")
-    block.append(f"=== 2-D SWEEP (dispatch_delay x vehicle_cutoff), full N={N} ===")
-    block.append("cell = (safe, saved, no_walk, unreach); each sums to N")
-    header = "delay\\cut | " + " | ".join(f"{vc:.2f}" for vc in CUTOFFS)
-    block.append(header)
-    for d in DELAYS:
-        row = [f"{tuple(cell(d, vc, k) for k in KEYS)}" for vc in CUTOFFS]
-        block.append(f"  {d:>4.0f}    | " + " | ".join(row))
-    block.append(f"baseline cell ({BASELINE_DELAY:.0f},{BASELINE_CUTOFF}) == headline : {reconciled}")
-    block.append(f"heatmap: {FIG / 'rescue_sweep_2d.png'}")
-    block.append("")
-    block.append("=== ROBUSTNESS VERDICT ===")
-    uv = verdict["dispatch_delay_trend"]
-    block.append(f"  unreachable @ dispatch 0->60 (cutoff {BASELINE_CUTOFF}) : "
-                 f"{uv['unreachable_at_baseline_cutoff_delay_0_to_60'][0]} -> "
-                 f"{uv['unreachable_at_baseline_cutoff_delay_0_to_60'][-1]}   "
-                 f"[{uv['verdict']}; monotone all cutoffs={uv['monotone_nondecreasing_all_cutoffs']}]")
-    nw = verdict["no_safe_pedestrian_route_(244)"]
-    block.append(f"  'no walk, rescuer reaches' (244 baseline) : {nw['verdict']}  "
-                 f"(baseline {nw['baseline']}, grid {nw['grid_min']}-{nw['grid_max']}, "
-                 f"central rel-spread {nw['central_rel_spread']})")
-    ur = verdict["no_surviving_vehicle_ingress_(20)"]
-    block.append(f"  'unreachable' (20 baseline)               : {ur['verdict']}  "
-                 f"(baseline {ur['baseline']}, grid {ur['grid_min']}-{ur['grid_max']}, "
-                 f"central rel-spread {ur['central_rel_spread']})")
-    block.append(f"  ordering rescuer-reaches > saved everywhere: {order_rescuer_gt_saved}")
-    block.append(f"  unreachable up as cutoff harsher (all delays): {unreach_cutoff_monotone_all}")
-    block.append(f"  rescue_reachable ⊆ safe (all cutoffs)      : {subset_ok}")
-    reportable_numbers = [k for k, v in (("unreachable", ur), ("no_walk_rescuer", nw))
-                          if v["verdict"] == "robust"]
-    reportable_direction = ["unreachable rises with dispatch delay (the finding)"]
-    if ur["verdict"] == "directional":
-        reportable_direction.append("unreachable magnitude (directional only)")
-    if nw["verdict"] == "directional":
-        reportable_direction.append("no-walk-rescuer magnitude (directional only)")
-    do_not_report = [k for k, v in (("unreachable", ur), ("no_walk_rescuer", nw))
-                     if v["verdict"] == "fragile"]
-    block.append(f"  reportable as numbers     : {reportable_numbers or ['(direction-only this grid)']}")
-    block.append(f"  reportable as direction   : {reportable_direction}")
-    block.append(f"  do NOT report             : {do_not_report or ['(none fragile)']}")
-    text = "\n".join(block)
-    print("\n" + text)
-
-    # ---- persist ----
-    out = {
-        "baseline_config": baseline.provenance(),
-        "n_origins": N,
-        "headline_four_way": hc,
-        "headline_sums_to_n": sum(hc.values()) == N,
-        "resident_exposure": rex,
-        "responder_exposure": pe,
-        "grid": {f"{d:.0f}|{vc:.2f}": grid[(d, vc)]["counts"] for d in DELAYS for vc in CUTOFFS},
-        "baseline_cell_equals_headline": reconciled,
-        "rescue_reachable_subset_safe_all_cutoffs": subset_ok,
-        "robustness_verdict": verdict,
-        "n_refuges_rescue_reachable_by_cutoff": {f"{k:.2f}": v for k, v in safe_total.items()},
-        "reconciled_block": text,
-        "notes": {
-            "n_explanation": "452 = stride-3 + reach-band origin scan on the walk network; "
-                             "the old routing-spine used a stride-4, 14 km-band scan giving 407.",
-            "headline_vs_sweep_cause": "the convenience sensitivity_sweep sub-samples to "
-                                       "sweep_max_origins (N≈151); this verify sweep uses the full "
-                                       "N=452, so the baseline cell equals the headline.",
-            "metric_labels": "resident exposure = pedestrian routes; responder = vehicle routes; "
-                             "both prob·min, never compared across scales.",
-        },
-    }
-    (PROC / "rescue_verify.json").write_text(json.dumps(out, indent=2, default=str))
-    _heatmap(grid)
-    print(f"\nwrote {PROC / 'rescue_verify.json'}")
-    if not reconciled:
-        print("ERROR: baseline cell != headline — NOT reconciled.", file=sys.stderr)
-        return 1
-    if not subset_ok:
-        print("ERROR: rescue_reachable ⊄ safe somewhere.", file=sys.stderr)
-        return 1
-    return 0
+    return grid
 
 
-def _heatmap(grid):
+def _heatmap(grid, rows, cols, row_label, col_label, baseline_rc, panels, outpath, suptitle):
+    """Generalised 2-D heatmap, reused by both sweeps. ``panels`` = [(key,title,cmap)]."""
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -303,33 +110,279 @@ def _heatmap(grid):
             break
     plt.rcParams["axes.unicode_minus"] = False
 
-    panels = [("no_surviving_vehicle_ingress", "구조 불가 / UNREACHABLE", "Reds"),
-              ("no_safe_pedestrian_route", "도보 불가·구조대 가능 / no walk, rescuer reaches", "Oranges"),
-              ("saved_by_rescue_reachable_refuge", "대피소로 구조 / saved", "Greens")]
-    fig, axes = plt.subplots(1, 3, figsize=(18, 5.0), constrained_layout=True)
+    fig, axes = plt.subplots(1, len(panels), figsize=(6 * len(panels), 5.0),
+                             constrained_layout=True)
+    if len(panels) == 1:
+        axes = [axes]
     for ax, (key, title, cmap) in zip(axes, panels):
-        M = np.array([[grid[(d, vc)]["counts"][key] for vc in CUTOFFS] for d in DELAYS], float)
+        M = np.array([[_cell(grid, r, c, key) for c in cols] for r in rows], float)
         im = ax.imshow(M, cmap=cmap, aspect="auto", origin="lower")
-        ax.set_xticks(range(len(CUTOFFS)), [f"{c:.2f}" for c in CUTOFFS])
-        ax.set_yticks(range(len(DELAYS)), [f"{d:.0f}" for d in DELAYS])
-        ax.set_xlabel("차량 통행불가 기준 / vehicle cutoff")
-        ax.set_ylabel("출동 지연 (분) / dispatch delay (min)")
+        ax.set_xticks(range(len(cols)), [f"{c:g}" for c in cols])
+        ax.set_yticks(range(len(rows)), [f"{r:g}" for r in rows])
+        ax.set_xlabel(col_label)
+        ax.set_ylabel(row_label)
         ax.set_title(title, fontsize=10)
-        for i in range(len(DELAYS)):
-            for j in range(len(CUTOFFS)):
-                ax.text(j, i, f"{int(M[i, j])}", ha="center", va="center", fontsize=9,
-                        color="black")
-        # mark the baseline cell
-        bi, bj = DELAYS.index(BASELINE_DELAY), CUTOFFS.index(BASELINE_CUTOFF)
+        for i in range(len(rows)):
+            for j in range(len(cols)):
+                ax.text(j, i, f"{int(M[i, j])}", ha="center", va="center", fontsize=9)
+        bi, bj = rows.index(baseline_rc[0]), cols.index(baseline_rc[1])
         ax.add_patch(plt.Rectangle((bj - 0.5, bi - 0.5), 1, 1, fill=False,
                                    edgecolor="#2563eb", lw=2.5))
         fig.colorbar(im, ax=ax, fraction=0.046, pad=0.02)
-    fig.suptitle("2-D 민감도: 출동지연 × 차량 통행불가 기준 (전체 N, 파란칸=기준)  /  "
-                 "2-D sensitivity: dispatch delay × vehicle cutoff (full N; blue box = baseline)",
-                 fontsize=12)
-    fig.savefig(FIG / "rescue_sweep_2d.png", dpi=135, bbox_inches="tight")
+    fig.suptitle(suptitle, fontsize=12)
+    fig.savefig(outpath, dpi=135, bbox_inches="tight")
     plt.close(fig)
-    print("wrote", FIG / "rescue_sweep_2d.png")
+    print("wrote", outpath)
+
+
+def _cell(grid, r, c, key):
+    """Cell value; ``key`` may be a real bucket or a derived total."""
+    cc = grid[(r, c)]
+    if key == "self_evacuable":
+        return cc["already_safe"] + cc["saved_by_rescue_reachable_refuge"]
+    if key == "needs_rescuer":
+        return cc["no_safe_pedestrian_route"] + cc["no_surviving_vehicle_ingress"]
+    return cc[key]
+
+
+def _build_baseline():
+    baseline = RescueConfig(responder_dispatch_delay_min=BASELINE_DELAY,
+                            vehicle_cutoff=BASELINE_CUTOFF,
+                            immobile_fraction=BASELINE_IMMOBILE,
+                            walk_cutoff=BASELINE_WALKCUT)
+    print("Building baseline synthetic 영덕 scenario (full origin set) ...")
+    scenario = build_synthetic_demo(baseline)
+    N = len(scenario.origins)
+    print(f"Re-deriving headline from baseline (N={N}) ...")
+    headline = run_pipeline(scenario, baseline)
+    return baseline, scenario, N, headline
+
+
+def _exposure_lines(headline):
+    rex, pe = headline.resident_exposure, headline.responder_exposure
+
+    def m(d):
+        v = d.get("mean") if isinstance(d, dict) else None
+        return "n/a" if v is None else f"{v:.3f}"
+    pb = rex["paired_b_vs_c"]
+    return [
+        f"  resident  (pedestrian, prob·min)  naive / fa-any / fa-rescuable : "
+        f"{m(rex['naive'])} / {m(rex['future_aware_any'])} / {m(rex['future_aware_rescue'])}",
+        f"     paired b vs c (same {pb['n']} origins)                       : "
+        f"{pb['mean_future_aware_any']:.3f} / {pb['mean_future_aware_rescue']:.3f}",
+        f"  responder (vehicle,    prob·min)  shortest-path / survival-aware: "
+        f"{m(pe['shortest_path'])} / {m(pe['survival_aware'])}  "
+        f"(dispatch {pe['n_dispatch']}, unreachable {pe['n_unreachable']})",
+    ]
+
+
+# ---------------------------------------------------------------------------
+# pass 1 — vehicle cutoff x dispatch delay
+# ---------------------------------------------------------------------------
+
+
+def run_vehicle(baseline, scenario, N, headline):
+    hc = headline.four_way_counts
+    print(f"2-D sweep (full N={N}): dispatch delay x vehicle cutoff ...")
+    grid = _sweep_grid(scenario, baseline, "responder_dispatch_delay_min", DELAYS,
+                       "vehicle_cutoff", CUTOFFS, N)
+    reconciled = (grid[(BASELINE_DELAY, BASELINE_CUTOFF)] == hc)
+
+    subset_ok = True
+    for vc in CUTOFFS:
+        assessments, _a, _r = _refuge_node_sets(scenario, replace(baseline, vehicle_cutoff=vc))
+        if any(a.rescue_reachable and not a.safe for a in assessments):
+            subset_ok = False
+    unreach_row = [_cell(grid, d, BASELINE_CUTOFF, "no_surviving_vehicle_ingress") for d in DELAYS]
+    monotone_all = all(_monotone_nondecreasing(
+        [_cell(grid, d, vc, "no_surviving_vehicle_ingress") for d in DELAYS]) for vc in CUTOFFS)
+
+    block = ["=== RECONCILED RESULTS (vehicle sweep, single baseline) ===",
+             f"Baseline (delay {BASELINE_DELAY:.0f}, vehicle cutoff {BASELINE_CUTOFF}, N={N}):",
+             "  four-way: " + " / ".join(str(hc[k]) for k in KEYS)
+             + f"   [== headline: {reconciled}]"]
+    block += _exposure_lines(headline)
+    block.append(f"\n=== VEHICLE SWEEP (delay x vehicle cutoff), full N={N} ===")
+    block.append("cell = (safe, saved, no_walk, unreach)")
+    block.append("delay\\cut | " + " | ".join(f"{vc:.2f}" for vc in CUTOFFS))
+    for d in DELAYS:
+        block.append(f"  {d:>4.0f}    | "
+                     + " | ".join(str(tuple(_cell(grid, d, vc, k) for k in KEYS)) for vc in CUTOFFS))
+    block.append(f"unreachable @ dispatch 0->60 (cutoff {BASELINE_CUTOFF}): "
+                 f"{unreach_row[0]} -> {unreach_row[-1]}  "
+                 f"[robust direction; monotone all cutoffs={monotone_all}]")
+    block.append(f"rescue_reachable ⊆ safe (all cutoffs): {subset_ok}")
+    text = "\n".join(block)
+    print("\n" + text)
+
+    out = {"baseline_config": baseline.provenance(), "n_origins": N,
+           "headline_four_way": hc, "baseline_cell_equals_headline": reconciled,
+           "grid": {f"{d:.0f}|{vc:.2f}": grid[(d, vc)] for d in DELAYS for vc in CUTOFFS},
+           "rescue_reachable_subset_safe_all_cutoffs": subset_ok,
+           "unreachable_delay_row_cutoff_0p7": unreach_row, "reconciled_block": text}
+    (PROC / "rescue_verify.json").write_text(json.dumps(out, indent=2, default=str))
+    _heatmap(grid, DELAYS, CUTOFFS, "출동 지연 (분) / dispatch delay (min)",
+             "차량 통행불가 기준 / vehicle cutoff", (BASELINE_DELAY, BASELINE_CUTOFF),
+             [("no_surviving_vehicle_ingress", "구조 불가 / UNREACHABLE", "Reds"),
+              ("no_safe_pedestrian_route", "도보 불가·구조대 가능 / no walk, rescuer reaches", "Oranges"),
+              ("saved_by_rescue_reachable_refuge", "대피소로 구조 / saved", "Greens")],
+             FIG / "rescue_sweep_2d.png",
+             "2-D 민감도: 출동지연 × 차량 통행불가 기준 (전체 N, 파란칸=기준)  /  "
+             "dispatch delay × vehicle cutoff (full N; blue box = baseline)")
+    return 0 if (reconciled and subset_ok) else 1
+
+
+# ---------------------------------------------------------------------------
+# pass 2 — immobile_fraction x walk_cutoff (the assumption sweep)
+# ---------------------------------------------------------------------------
+
+
+def run_fc(baseline, scenario, N, headline):
+    hc = headline.four_way_counts
+    print(f"2-D sweep (full N={N}): immobile_fraction x walk_cutoff ...")
+    grid = _sweep_grid(scenario, baseline, "immobile_fraction", IMMOBILES,
+                       "walk_cutoff", WALKCUTS, N)
+    base_rc = (BASELINE_IMMOBILE, BASELINE_WALKCUT)
+    reconciled = (grid[base_rc] == hc)
+
+    # derived totals + subset check
+    subset_ok = True
+    for f in IMMOBILES:
+        for c in WALKCUTS:
+            assert (_cell(grid, f, c, "self_evacuable")
+                    + _cell(grid, f, c, "needs_rescuer")) == N
+    for c in WALKCUTS:
+        assessments, _a, _r = _refuge_node_sets(scenario, replace(baseline, walk_cutoff=c))
+        if any(a.rescue_reachable and not a.safe for a in assessments):
+            subset_ok = False
+
+    # partition assumption: do already_safe / saved move with f at fixed c?
+    def col(key, c):
+        return [_cell(grid, f, c, key) for f in IMMOBILES]
+    safe_moves = any(len(set(col("already_safe", c))) > 1 for c in WALKCUTS)
+    saved_moves = any(len(set(col("saved_by_rescue_reachable_refuge", c))) > 1 for c in WALKCUTS)
+    partition_holds = not (safe_moves or saved_moves)
+
+    # monotonicity
+    self_evac_up_with_cut = all(
+        _monotone_nondecreasing([_cell(grid, f, c, "self_evacuable") for c in sorted(WALKCUTS)])
+        for f in IMMOBILES)
+    needs_up_with_f = all(
+        _monotone_nondecreasing([_cell(grid, f, c, "needs_rescuer") for f in sorted(IMMOBILES)])
+        for c in WALKCUTS)
+    needs_up_as_cut_falls = all(
+        _monotone_nondecreasing([_cell(grid, f, c, "needs_rescuer")
+                                 for c in sorted(WALKCUTS, reverse=True)])
+        for f in IMMOBILES)
+
+    # verdict numbers
+    nr_baseline = _cell(grid, *base_rc, "needs_rescuer")
+    nr_grid = [_cell(grid, f, c, "needs_rescuer") for f in IMMOBILES for c in WALKCUTS]
+    nr_f015 = _cell(grid, 0.15, BASELINE_WALKCUT, "needs_rescuer")
+    nr_f045 = _cell(grid, 0.45, BASELINE_WALKCUT, "needs_rescuer")
+    nw_baseline = _cell(grid, *base_rc, "no_safe_pedestrian_route")
+    nw_grid = [_cell(grid, f, c, "no_safe_pedestrian_route") for f in IMMOBILES for c in WALKCUTS]
+    nw_central_rel = _rel_spread([_cell(grid, f, c, "no_safe_pedestrian_route")
+                                  for f in IMMOBILES for c in WALKCUTS])
+    nr_verdict = "directional" if (needs_up_with_f and needs_up_as_cut_falls) else "fragile"
+
+    block = ["=== RECONCILED RESULTS — assumption sweep (single baseline) ===",
+             f"Baseline (f={BASELINE_IMMOBILE}, walk_cutoff={BASELINE_WALKCUT}, "
+             f"dispatch={BASELINE_DELAY:.0f}, vehicle_cutoff={BASELINE_CUTOFF}, N={N}):",
+             "  four-way: already_safe / saved / no_walk_rescuer / unreachable = "
+             + " / ".join(str(hc[k]) for k in KEYS) + f"   [== headline: {reconciled}]",
+             f"  derived : self_evacuable = {hc['already_safe'] + hc['saved_by_rescue_reachable_refuge']} ; "
+             f"needs_rescuer = {nr_baseline} ({100*nr_baseline/N:.0f}%)"]
+    block += _exposure_lines(headline)
+    block.append("")
+    block.append("Category definitions (from code):")
+    block.append("  already_safe    : MOBILE origin; fire-blind nearest-refuge walk is safe")
+    block.append("  saved           : MOBILE; naive unsafe; future-aware walk to a RESCUE-REACHABLE "
+                 "refuge is safe (was 34 across the vehicle×delay grid because those origins use "
+                 "coastal refuges that stay rescue-reachable)")
+    block.append("  no_walk_rescuer : cannot self-evacuate (immobile OR walk route cut) AND a "
+                 "survival-aware responder route reaches the home")
+    block.append("  unreachable     : cannot self-evacuate AND no responder route survives in budget")
+    block.append("  immobile_fraction enters at _immobile_homes: a RANDOM f·N origins are forced onto "
+                 "the rescuer path REGARDLESS of walkability (yes) — they skip the walk checks")
+    block.append("")
+    block.append(f"=== f x c SWEEP (immobile_fraction × walk_cutoff), full N={N} ===")
+    block.append("cell = (safe, saved, no_walk, unreach | self_evac, needs_rescuer)")
+    block.append("f \\ walk_cut | " + " | ".join(f"{c:.2f}" for c in WALKCUTS))
+    for f in IMMOBILES:
+        cells = []
+        for c in WALKCUTS:
+            t = tuple(_cell(grid, f, c, k) for k in KEYS)
+            cells.append(f"{t} | {_cell(grid, f, c, 'self_evacuable')},{_cell(grid, f, c, 'needs_rescuer')}")
+        block.append(f"  {f:.2f}      | " + " | ".join(cells))
+    block.append(f"already_safe/saved invariant to f? : {'YES' if partition_holds else 'NO'} "
+                 f"-> partition assumption {'HOLDS' if partition_holds else 'BREAKS'} "
+                 f"(immobile relabels a random f of walk-capable origins)")
+    block.append(f"monotonicity: self_evac ↑ with walk_cutoff? {'Y' if self_evac_up_with_cut else 'N'}; "
+                 f"needs_rescuer ↑ with f? {'Y' if needs_up_with_f else 'N'}; "
+                 f"needs_rescuer ↑ as walk_cutoff ↓? {'Y' if needs_up_as_cut_falls else 'N'}")
+    block.append(f"heatmap: {FIG / 'rescue_sweep_fc.png'}")
+    block.append("")
+    block.append("=== VERDICT ===")
+    block.append(f"  needs_rescuer {100*nr_baseline/N:.0f}% ({nr_baseline}/{N}) : {nr_verdict}; "
+                 f"grid range {min(nr_grid)}-{max(nr_grid)}; "
+                 f"f=0.15 vs 0.45 @ c=0.50: {nr_f015} vs {nr_f045} "
+                 f"({100*nr_f015/N:.0f}% vs {100*nr_f045/N:.0f}%)")
+    block.append(f"  no_walk_rescuer {nw_baseline} : re-classified directional w.r.t. the ASSUMPTION "
+                 f"knobs (grid {min(nw_grid)}-{max(nw_grid)}, rel-spread {nw_central_rel:.2f}); the "
+                 f"earlier 'robust' held only vs the vehicle knobs")
+    block.append("  saved 34 : rescue-meaningful (a pedestrian route to a rescue-REACHABLE refuge — "
+                 "the resident-side win of the feature), NOT a mislabel; it moves with f (over the "
+                 "mobile pool), so it is not f-invariant")
+    floor = _cell(grid, 0.15, BASELINE_WALKCUT, "needs_rescuer")
+    block.append(f"  defensible headline today : \"Under walk cutoff 0.5 and 30% assumed immobile, "
+                 f"{nr_baseline}/{N} ({100*nr_baseline/N:.0f}%) cannot self-evacuate on foot; at 15% "
+                 f"assumed immobile this falls to {floor}/{N} ({100*floor/N:.0f}%). The split is driven "
+                 f"by the assumed immobile fraction + the slow-elder pedestrian regime, not vehicle knobs.\"")
+    block.append("  unchanged keeper : dispatch-delay trend (vehicle sweep) remains a robust direction")
+    text = "\n".join(block)
+    print("\n" + text)
+
+    out = {"baseline_config": baseline.provenance(), "n_origins": N,
+           "headline_four_way": hc, "baseline_cell_equals_headline": reconciled,
+           "grid": {f"{f:.2f}|{c:.2f}": {**grid[(f, c)],
+                                         "self_evacuable": _cell(grid, f, c, "self_evacuable"),
+                                         "needs_rescuer": _cell(grid, f, c, "needs_rescuer")}
+                    for f in IMMOBILES for c in WALKCUTS},
+           "partition_already_safe_saved_invariant_to_f": partition_holds,
+           "monotonicity": {"self_evac_up_with_walk_cutoff": self_evac_up_with_cut,
+                            "needs_rescuer_up_with_f": needs_up_with_f,
+                            "needs_rescuer_up_as_walk_cutoff_falls": needs_up_as_cut_falls},
+           "needs_rescuer": {"baseline": nr_baseline, "baseline_pct": round(100*nr_baseline/N, 1),
+                             "grid_min": min(nr_grid), "grid_max": max(nr_grid),
+                             "f0.15_c0.5": nr_f015, "f0.45_c0.5": nr_f045, "verdict": nr_verdict},
+           "rescue_reachable_subset_safe_all_walkcuts": subset_ok,
+           "reconciled_block": text}
+    (PROC / "rescue_verify_fc.json").write_text(json.dumps(out, indent=2, default=str))
+    _heatmap(grid, IMMOBILES, WALKCUTS, "거동불가 비율 / immobile fraction",
+             "보행 통행불가 기준 / walk cutoff", base_rc,
+             [("needs_rescuer", "구조대 필요 (계) / needs rescuer", "Purples"),
+              ("no_safe_pedestrian_route", "도보 불가·구조대 가능 / no walk, rescuer reaches", "Oranges"),
+              ("self_evacuable", "자력 대피 가능 / self-evacuable", "Greens")],
+             FIG / "rescue_sweep_fc.png",
+             "2-D 가정 민감도: 거동불가 비율 × 보행 통행불가 기준 (전체 N, 파란칸=기준)  /  "
+             "assumption sweep: immobile fraction × walk cutoff (full N; blue box = baseline)")
+    ok = reconciled and subset_ok
+    if not ok:
+        print("ERROR: reconciliation/subset invariant failed.", file=sys.stderr)
+    return 0 if ok else 1
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--sweep", choices=["vehicle", "fc"], default="vehicle")
+    args = ap.parse_args()
+    PROC.mkdir(parents=True, exist_ok=True)
+    FIG.mkdir(parents=True, exist_ok=True)
+    baseline, scenario, N, headline = _build_baseline()
+    if args.sweep == "vehicle":
+        return run_vehicle(baseline, scenario, N, headline)
+    return run_fc(baseline, scenario, N, headline)
 
 
 if __name__ == "__main__":

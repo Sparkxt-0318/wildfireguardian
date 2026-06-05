@@ -329,11 +329,22 @@ exact. The quick `run_rescue_routing.py` sweep is sub-sampled (N ≈ 151) for sp
 `verify_rescue_routing.py` is the authoritative full-N reconciliation
 (`docs/rescue_routing.md §4a`).
 
+A second sweep over the two assumption knobs that set the burden's *size*
+(`immobile_fraction × walk_cutoff`, `--sweep fc`, §4b) shows the **"58 % need a
+rescuer" is assumption-driven, not a fixed number**: it ranges 43–70 % across
+plausible values and falls to **47 %** if the assumed immobile fraction is halved
+(0.30→0.15). `immobile_fraction` forces a random share of origins onto the rescuer
+path regardless of walkability, so `already_safe`/`saved` are over the mobile pool
+and are *not* invariant to it. The robust claim is the **direction** (a large
+minority — ≥43 % even at optimistic assumptions — cannot self-evacuate; unreachable
+rises with dispatch delay), not the exact percentage.
+
 ```bash
-python scripts/run_rescue_routing.py      # four-way split + exposure + sensitivity
-python scripts/make_rescue_figures.py     # docs/figures/rescue_*.png
-python scripts/verify_rescue_routing.py   # reconciled baseline + full-N 2-D sweep
-pytest tests/test_rescue_routing.py -q    # incl. the orientation regression test
+python scripts/run_rescue_routing.py            # four-way split + exposure + sensitivity
+python scripts/make_rescue_figures.py           # docs/figures/rescue_*.png
+python scripts/verify_rescue_routing.py             # reconciled baseline + vehicle×delay sweep
+python scripts/verify_rescue_routing.py --sweep fc  # immobile×walk-cutoff assumption sweep
+pytest tests/test_rescue_routing.py -q          # incl. the orientation regression test
 ```
 
 ![rescue map](docs/figures/rescue_map.png)
@@ -341,6 +352,8 @@ pytest tests/test_rescue_routing.py -q    # incl. the orientation regression tes
 ![rescue four-way split](docs/figures/rescue_four_way.png)
 
 ![rescue 2-D sensitivity](docs/figures/rescue_sweep_2d.png)
+
+![rescue assumption sweep](docs/figures/rescue_sweep_fc.png)
 
 ### Data sources
 

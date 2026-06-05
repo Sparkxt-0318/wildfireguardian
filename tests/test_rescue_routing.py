@@ -379,3 +379,42 @@ def test_exposure_metrics_have_distinct_labels(fast_scenario):
     assert results.resident_exposure["route_type"] == "pedestrian"
     assert results.responder_exposure["route_type"] == "vehicle"
     assert results.resident_exposure["units"] == results.responder_exposure["units"] == "prob_min"
+
+
+def test_immobile_fraction_relabels_walk_capable_origins(fast_scenario):
+    """immobile_fraction forces a random f onto the rescuer path regardless of walkability.
+
+    Locks the partition SEMANTICS: self-evacuable (already_safe + saved) is computed
+    only over the mobile (1-f) pool, so it FALLS as immobile_fraction rises, and the
+    needs-rescuer total rises — i.e. already_safe/saved are NOT invariant to f.
+    """
+    scenario, _results = fast_scenario
+    n = len(scenario.origins)
+    lo = _split_counts(scenario, replace(scenario.cfg, immobile_fraction=0.15,
+                                         walk_cutoff=0.50))["counts"]
+    hi = _split_counts(scenario, replace(scenario.cfg, immobile_fraction=0.45,
+                                         walk_cutoff=0.50))["counts"]
+
+    def self_evac(c):
+        return c["already_safe"] + c["saved_by_rescue_reachable_refuge"]
+
+    def needs_rescuer(c):
+        return c["no_safe_pedestrian_route"] + c["no_surviving_vehicle_ingress"]
+
+    assert self_evac(hi) <= self_evac(lo)        # more immobile ⇒ fewer self-evacuable
+    assert needs_rescuer(hi) >= needs_rescuer(lo)
+    # decomposition is exact and exhaustive
+    assert self_evac(lo) + needs_rescuer(lo) == n
+    assert self_evac(hi) + needs_rescuer(hi) == n
+
+
+def test_self_evacuable_rises_with_walk_cutoff(fast_scenario):
+    """A more permissive pedestrian cutoff lets more residents walk out (monotone)."""
+    scenario, _results = fast_scenario
+    cfg = scenario.cfg
+
+    def self_evac(c):
+        rec = _split_counts(scenario, replace(cfg, walk_cutoff=c, immobile_fraction=0.30))["counts"]
+        return rec["already_safe"] + rec["saved_by_rescue_reachable_refuge"]
+
+    assert self_evac(0.40) <= self_evac(0.50) <= self_evac(0.60)
