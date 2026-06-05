@@ -77,6 +77,13 @@ data/processed/**
 !data/processed/spread_v2_lofo.json
 !data/processed/yeongdeok_forward_sim.json
 !data/processed/routing_demo.json
+# Rescue-aware routing summary (small JSON; regenerable via
+# scripts/run_rescue_routing.py). The bulk rescue_routing.npz stays ignored.
+!data/processed/rescue_routing.json
+# Rescue verification/reconciliation (single-baseline + full-N 2-D sweeps;
+# regenerable via scripts/verify_rescue_routing.py [--sweep vehicle|fc]).
+!data/processed/rescue_verify.json
+!data/processed/rescue_verify_fc.json
 # Validation-case manifest JSON files ARE committed (they're stubs, not
 # bulk data).
 !data/validation_cases/**

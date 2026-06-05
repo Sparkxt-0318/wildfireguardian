@@ -49,6 +49,26 @@
 - ⏳ 위성 발화점 탐지 (FIRMS) — Session 3
 - ⏳ 대피 경로 그래프 (OSM + 시간의존 Dijkstra) — Session 4
 
+### 구조-인지 대피 라우팅 (신규 기능)
+
+`wildfireguardian.routing.rescue` 는 기존 미래-인지 라우터 위에 **구조 가능성**
+제약을 더합니다: 고령자를 **차량 접근로가 예측 화재에서 살아남는** 대피소로만
+안내하고, 스스로 대피할 수 없는 주민에게는 **구조대 차량의 진입 경로**를
+계산하며, **누가 도달 불가능한지 정직하게** 보고합니다(추정·날조 없음).
+
+- `ingress_survival_time` = 대피소·가옥으로의 차량 접근로 중 어느 구간이라도
+  **차량 통행불가 기준**(보행자보다 높은 별도 기준)을 처음 넘는 예측 시각.
+  `구조가능 ⟺ 잔여시간 ≥ 구조대 도착예정(출동지연 포함) + 안전여유`,
+  그리고 `구조가능 ⊆ 안전`.
+- 합성 영덕 PoC 4-구분(합 = N = 452): 원래 안전 154 · 구조가능 대피소로
+  구조 34 · 도보 불가(구조대 출동) 244 · **차량 접근 불가(도달 불가) 20**.
+- 대조(강건한 결과): 미래-인지 주민 경로는 노출을 순진한 경로 대비 **~85% 감소**,
+  생존-인지 구조대 진입은 최단경로 대비 노출을 **약 절반**으로 감소.
+
+실데이터 로더(OSM 도보/차량 도로망, 공공데이터포털 대피소, 119안전센터)와
+**명시적으로 표기된 합성 대체 데이터**를 모두 제공하여 오프라인에서도 전체
+파이프라인이 동작합니다. 자세한 방법론은 `docs/rescue_routing.md` 참고.
+
 ### 데이터 출처
 
 본 시스템은 다음의 공개 데이터에 의존하며, **사용자 환경에서 직접 다운로드** 받습니다 (저장소에는 포함되지 않습니다).
@@ -254,6 +274,86 @@ This repository provides:
 This is **not** production software. It has not been validated against a real
 fire event yet, and it must never be used as the sole input to a public
 evacuation order without expert review.
+
+### Rescue-aware evacuation routing (new feature)
+
+On top of the future-aware router, `wildfireguardian.routing.rescue` adds a
+tightly-scoped **rescue-awareness** layer: it routes the vulnerable elderly only
+to refuges whose **vehicle access road survives the predicted fire**, and — when a
+resident cannot self-evacuate — computes the **responder's** ingress route
+instead, always reporting honestly who cannot be reached.
+
+- **Ingress-corridor survival.** For each refuge (and each home, on the rescuer
+  side) the vehicle access route from the nearest depot is sampled onto the hazard
+  grid; `ingress_survival_time` is the earliest forecast slice any segment exceeds
+  a *separate, higher* **vehicle** impassability cutoff. A destination is
+  `rescue_reachable` iff `survival ≥ responder_ETA + safety_margin`, where the ETA
+  includes a realistic dispatch delay (a delayed responder is a documented cause
+  of death for the immobile). By construction `rescue_reachable ⊆ safe`.
+- **Resident policies (same refuge set, only the policy differs):** (a) naive
+  fire-blind nearest refuge; (b) future-aware → any safe refuge (current method);
+  (c) future-aware → nearest **rescue-reachable** refuge (new method).
+- **Rescuer side:** a prioritized **dispatch list** (homes with a surviving
+  ingress, ranked by closing window) and an explicitly-reported **unreachable
+  set** — never imputed.
+
+**Honest four-way origin split on the synthetic 영덕 PoC (sums to N = 452):**
+
+| outcome | count |
+|---|---:|
+| already safe (naive walk works) | 154 |
+| saved by routing to a rescue-reachable refuge | 34 |
+| no safe pedestrian route — but a responder can reach (dispatched) | 244 |
+| **no surviving vehicle ingress — UNREACHABLE (reported, not imputed)** | **20** |
+
+Contrasts (the robust result; absolute magnitudes are illustrative on a
+single-fire PoC + synthetic auxiliary inputs): the future-aware resident route
+cuts predicted-hazard exposure **~85 %** vs naive (24.1 → 3.5 prob·min), and the
+survival-aware responder ingress roughly **halves** exposure vs a fire-blind
+shortest path (0.08 vs 0.17). The surviving-ingress layer *reduces* — does **not**
+eliminate — the unreachable set. See `docs/rescue_routing.md` for the full methods
+note and data provenance (real-source loaders for OSM walk/drive networks,
+공공데이터포털 대피소, and 119안전센터 depots, each with a clearly-labelled synthetic
+fallback so the pipeline runs end-to-end offline).
+
+All headline numbers above sit on **one baseline** (vehicle cutoff 0.7, dispatch
+delay 30 min) at the **same N = 452**; the resident (pedestrian) and responder
+(vehicle) exposures are distinct metrics and never compared across scales. A
+verification pass (`scripts/verify_rescue_routing.py`) re-derives the four-way
+split and runs a **full-N 2-D sweep** (dispatch delay × vehicle cutoff) whose
+baseline cell equals the headline (asserted). Robust finding: **unreachable rises
+monotonically with dispatch delay** (6 → 34 across 0 → 60 min at cutoff 0.7) and
+with a harsher cutoff — the computational echo of a fire reaching the towns before
+responders can. The point estimates (e.g. 20 unreachable) are directional, not
+exact. The quick `run_rescue_routing.py` sweep is sub-sampled (N ≈ 151) for speed;
+`verify_rescue_routing.py` is the authoritative full-N reconciliation
+(`docs/rescue_routing.md §4a`).
+
+A second sweep over the two assumption knobs that set the burden's *size*
+(`immobile_fraction × walk_cutoff`, `--sweep fc`, §4b) shows the **"58 % need a
+rescuer" is assumption-driven, not a fixed number**: it ranges 43–70 % across
+plausible values and falls to **47 %** if the assumed immobile fraction is halved
+(0.30→0.15). `immobile_fraction` forces a random share of origins onto the rescuer
+path regardless of walkability, so `already_safe`/`saved` are over the mobile pool
+and are *not* invariant to it. The robust claim is the **direction** (a large
+minority — ≥43 % even at optimistic assumptions — cannot self-evacuate; unreachable
+rises with dispatch delay), not the exact percentage.
+
+```bash
+python scripts/run_rescue_routing.py            # four-way split + exposure + sensitivity
+python scripts/make_rescue_figures.py           # docs/figures/rescue_*.png
+python scripts/verify_rescue_routing.py             # reconciled baseline + vehicle×delay sweep
+python scripts/verify_rescue_routing.py --sweep fc  # immobile×walk-cutoff assumption sweep
+pytest tests/test_rescue_routing.py -q          # incl. the orientation regression test
+```
+
+![rescue map](docs/figures/rescue_map.png)
+
+![rescue four-way split](docs/figures/rescue_four_way.png)
+
+![rescue 2-D sensitivity](docs/figures/rescue_sweep_2d.png)
+
+![rescue assumption sweep](docs/figures/rescue_sweep_fc.png)
 
 ### Data sources
 

@@ -1,0 +1,980 @@
+{
+  "provenance": {
+    "region_name": "yeongdeok_2025",
+    "crs": "EPSG:5179",
+    "hazard_cell_m": 375.0,
+    "route_cell_m": 750.0,
+    "assumed": {
+      "elderly_walk_speed_ms": 0.7,
+      "vehicle_speed_kmh": 40.0,
+      "walk_cutoff": 0.5,
+      "vehicle_cutoff": 0.7,
+      "responder_dispatch_delay_min": 30.0,
+      "responder_safety_margin_min": 12.0,
+      "responder_time_budget_min": 75.0,
+      "resident_time_budget_min": 600.0,
+      "ingress_sample_spacing_m": 150.0,
+      "immobile_fraction": 0.3
+    },
+    "synthetic_when_no_real_source": {
+      "shelters": "coastal assembly nodes + inland open-space POIs (seeded)",
+      "depots": "seeded near-town nodes (proxy 119\uc548\uc804\uc13c\ud130)",
+      "road_network": "8-connected lattice on the real/synthetic extent",
+      "hazard": "growing severity-scaled envelope (no FIRMS bundle present)",
+      "n_synthetic_shelters": 12,
+      "n_synthetic_inland_shelters": 8,
+      "n_synthetic_depots": 2,
+      "syn_ignition_frac": [
+        0.46,
+        0.5
+      ],
+      "syn_fire_base_reach_m": 2200.0,
+      "syn_fire_reach_rate_m_per_min": 52.0,
+      "syn_fire_edge_width_m": 1100.0,
+      "syn_inland_flank_radius_m": 5000.0
+    },
+    "seed": 20250603,
+    "sources": {
+      "shelters": "synthetic",
+      "depots": "synthetic",
+      "hazard": "synthetic",
+      "road_network": "synthetic"
+    },
+    "honesty": "Single-fire (\uc601\ub355) PoC on synthetic fallback inputs. Contrasts are the robust result; absolute magnitudes are illustrative. 'No safe route' / 'rescuer can't reach' are valid outputs and are reported, never imputed."
+  },
+  "n_origins": 452,
+  "four_way_counts": {
+    "saved_by_rescue_reachable_refuge": 34,
+    "already_safe": 154,
+    "no_safe_pedestrian_route": 244,
+    "no_surviving_vehicle_ingress": 20
+  },
+  "four_way_sums_to_n": true,
+  "n_refuges": 20,
+  "n_refuges_rescue_reachable": 19,
+  "destinations": [
+    {
+      "name": "synthetic_refuge_0",
+      "node": 1697,
+      "x": 1180902.0480374359,
+      "y": 1812516.825906918,
+      "source": "synthetic",
+      "is_shelter": true,
+      "vehicle_accessible": true,
+      "ingress_survival_time_min": 420.0,
+      "responder_eta_min": 36.75,
+      "rescue_reachable": true,
+      "safe": true
+    },
+    {
+      "name": "synthetic_refuge_1",
+      "node": 1549,
+      "x": 1180902.0480374359,
+      "y": 1815516.825906918,
+      "source": "synthetic",
+      "is_shelter": true,
+      "vehicle_accessible": true,
+      "ingress_survival_time_min": 420.0,
+      "responder_eta_min": 38.61,
+      "rescue_reachable": true,
+      "safe": true
+    },
+    {
+      "name": "synthetic_refuge_2",
+      "node": 1401,
+      "x": 1180902.0480374359,
+      "y": 1818516.825906918,
+      "source": "synthetic",
+      "is_shelter": true,
+      "vehicle_accessible": true,
+      "ingress_survival_time_min": 300.0,
+      "responder_eta_min": 41.8,
+      "rescue_reachable": true,
+      "safe": true
+    },
+    {
+      "name": "synthetic_refuge_3",
+      "node": 1253,
+      "x": 1180902.0480374359,
+      "y": 1821516.825906918,
+      "source": "synthetic",
+      "is_shelter": true,
+      "vehicle_accessible": true,
+      "ingress_survival_time_min": 300.0,
+      "responder_eta_min": 46.3,
+      "rescue_reachable": true,
+      "safe": true
+    },
+    {
+      "name": "synthetic_refuge_4",
+      "node": 1105,
+      "x": 1180902.0480374359,
+      "y": 1824516.825906918,
+      "source": "synthetic",
+      "is_shelter": true,
+      "vehicle_accessible": true,
+      "ingress_survival_time_min": 240.0,
+      "responder_eta_min": 50.8,
+      "rescue_reachable": true,
+      "safe": true
+    },
+    {
+      "name": "synthetic_refuge_5",
+      "node": 957,
+      "x": 1180902.0480374359,
+      "y": 1827516.825906918,
+      "source": "synthetic",
+      "is_shelter": true,
+      "vehicle_accessible": true,
+      "ingress_survival_time_min": 180.0,
+      "responder_eta_min": 55.3,
+      "rescue_reachable": true,
+      "safe": true
+    },
+    {
+      "name": "synthetic_refuge_6",
+      "node": 772,
+      "x": 1180902.0480374359,
+      "y": 1831266.825906918,
+      "source": "synthetic",
+      "is_shelter": true,
+      "vehicle_accessible": true,
+      "ingress_survival_time_min": null,
+      "responder_eta_min": 52.5,
+      "rescue_reachable": true,
+      "safe": true
+    },
+    {
+      "name": "synthetic_refuge_7",
+      "node": 624,
+      "x": 1180902.0480374359,
+      "y": 1834266.825906918,
+      "source": "synthetic",
+      "is_shelter": true,
+      "vehicle_accessible": true,
+      "ingress_survival_time_min": null,
+      "responder_eta_min": 48.0,
+      "rescue_reachable": true,
+      "safe": true
+    },
+    {
+      "name": "synthetic_refuge_8",
+      "node": 476,
+      "x": 1180902.0480374359,
+      "y": 1837266.825906918,
+      "source": "synthetic",
+      "is_shelter": true,
+      "vehicle_accessible": true,
+      "ingress_survival_time_min": null,
+      "responder_eta_min": 43.5,
+      "rescue_reachable": true,
+      "safe": true
+    },
+    {
+      "name": "synthetic_refuge_9",
+      "node": 328,
+      "x": 1180902.0480374359,
+      "y": 1840266.825906918,
+      "source": "synthetic",
+      "is_shelter": true,
+      "vehicle_accessible": true,
+      "ingress_survival_time_min": null,
+      "responder_eta_min": 39.0,
+      "rescue_reachable": true,
+      "safe": true
+    },
+    {
+      "name": "synthetic_refuge_10",
+      "node": 180,
+      "x": 1180902.0480374359,
+      "y": 1843266.825906918,
+      "source": "synthetic",
+      "is_shelter": true,
+      "vehicle_accessible": true,
+      "ingress_survival_time_min": null,
+      "responder_eta_min": 34.5,
+      "rescue_reachable": true,
+      "safe": true
+    },
+    {
+      "name": "synthetic_refuge_11",
+      "node": 32,
+      "x": 1180902.0480374359,
+      "y": 1846266.825906918,
+      "source": "synthetic",
+      "is_shelter": true,
+      "vehicle_accessible": true,
+      "ingress_survival_time_min": null,
+      "responder_eta_min": 30.0,
+      "rescue_reachable": true,
+      "safe": true
+    },
+    {
+      "name": "synthetic_inland_refuge_0",
+      "node": 609,
+      "x": 1169652.0480374359,
+      "y": 1834266.825906918,
+      "source": "synthetic",
+      "is_shelter": true,
+      "vehicle_accessible": true,
+      "ingress_survival_time_min": 75.0,
+      "responder_eta_min": 54.99,
+      "rescue_reachable": true,
+      "safe": true
+    },
+    {
+      "name": "synthetic_inland_refuge_1",
+      "node": 530,
+      "x": 1165902.0480374359,
+      "y": 1835766.825906918,
+      "source": "synthetic",
+      "is_shelter": true,
+      "vehicle_accessible": true,
+      "ingress_survival_time_min": 120.0,
+      "responder_eta_min": 59.02,
+      "rescue_reachable": true,
+      "safe": true
+    },
+    {
+      "name": "synthetic_inland_refuge_2",
+      "node": 677,
+      "x": 1165152.0480374359,
+      "y": 1832766.825906918,
+      "source": "synthetic",
+      "is_shelter": true,
+      "vehicle_accessible": true,
+      "ingress_survival_time_min": 90.0,
+      "responder_eta_min": 62.01,
+      "rescue_reachable": true,
+      "safe": true
+    },
+    {
+      "name": "synthetic_inland_refuge_3",
+      "node": 747,
+      "x": 1162152.0480374359,
+      "y": 1831266.825906918,
+      "source": "synthetic",
+      "is_shelter": true,
+      "vehicle_accessible": true,
+      "ingress_survival_time_min": 120.0,
+      "responder_eta_min": 67.44,
+      "rescue_reachable": true,
+      "safe": true
+    },
+    {
+      "name": "synthetic_inland_refuge_4",
+      "node": 898,
+      "x": 1164402.0480374359,
+      "y": 1828266.825906918,
+      "source": "synthetic",
+      "is_shelter": true,
+      "vehicle_accessible": true,
+      "ingress_survival_time_min": 60.0,
+      "responder_eta_min": 61.08,
+      "rescue_reachable": false,
+      "safe": true
+    },
+    {
+      "name": "synthetic_inland_refuge_5",
+      "node": 1082,
+      "x": 1163652.0480374359,
+      "y": 1824516.825906918,
+      "source": "synthetic",
+      "is_shelter": true,
+      "vehicle_accessible": true,
+      "ingress_survival_time_min": 120.0,
+      "responder_eta_min": 56.58,
+      "rescue_reachable": true,
+      "safe": true
+    },
+    {
+      "name": "synthetic_inland_refuge_6",
+      "node": 1087,
+      "x": 1167402.0480374359,
+      "y": 1824516.825906918,
+      "source": "synthetic",
+      "is_shelter": true,
+      "vehicle_accessible": true,
+      "ingress_survival_time_min": 90.0,
+      "responder_eta_min": 53.59,
+      "rescue_reachable": true,
+      "safe": true
+    },
+    {
+      "name": "synthetic_inland_refuge_7",
+      "node": 1201,
+      "x": 1169652.0480374359,
+      "y": 1822266.825906918,
+      "source": "synthetic",
+      "is_shelter": true,
+      "vehicle_accessible": true,
+      "ingress_survival_time_min": 120.0,
+      "responder_eta_min": 48.82,
+      "rescue_reachable": true,
+      "safe": true
+    }
+  ],
+  "resident_exposure": {
+    "naive": {
+      "mean": 24.06362272467445,
+      "median": 10.911848769217354,
+      "n": 316
+    },
+    "future_aware_any": {
+      "mean": 3.549647573675919,
+      "median": 1.0051779411482673,
+      "n": 188
+    },
+    "future_aware_rescue": {
+      "mean": 3.472388328824323,
+      "median": 0.9434596924439854,
+      "n": 185
+    },
+    "policy_c_changed_refuge_count": 2,
+    "policy_c_avoided_cutoff_refuge_count": 2,
+    "paired_b_vs_c": {
+      "mean_future_aware_any": 3.4212695534828153,
+      "mean_future_aware_rescue": 3.472388328824323,
+      "n": 185
+    }
+  },
+  "responder_exposure": {
+    "survival_aware": {
+      "mean": 0.07938328766555577,
+      "n": 244
+    },
+    "shortest_path": {
+      "mean": 0.17240622157702937,
+      "n": 244
+    },
+    "shortest_path_enters_hazard_count": 0,
+    "n_dispatch": 244,
+    "n_unreachable": 20,
+    "n_need_rescue": 264,
+    "n_need_rescue_immobile": 136,
+    "n_need_rescue_walk_cut": 128
+  },
+  "dispatch_top20": [
+    {
+      "home_node": 786,
+      "x": 1163652.0480374359,
+      "y": 1830516.825906918,
+      "depot_index": 1,
+      "responder_eta_min": 65.661,
+      "ingress_survival_time_min": 75.0,
+      "closing_window_min": 9.339,
+      "survival_aware_exposure": 2.823,
+      "shortest_path_exposure": 5.915,
+      "shortest_path_enters_hazard": false
+    },
+    {
+      "home_node": 897,
+      "x": 1163652.0480374359,
+      "y": 1828266.825906918,
+      "depot_index": 0,
+      "responder_eta_min": 61.547,
+      "ingress_survival_time_min": 75.0,
+      "closing_window_min": 13.453,
+      "survival_aware_exposure": 1.283,
+      "shortest_path_exposure": 5.365,
+      "shortest_path_enters_hazard": false
+    },
+    {
+      "home_node": 687,
+      "x": 1172652.0480374359,
+      "y": 1832766.825906918,
+      "depot_index": 1,
+      "responder_eta_min": 55.376,
+      "ingress_survival_time_min": 75.0,
+      "closing_window_min": 19.624,
+      "survival_aware_exposure": 0.904,
+      "shortest_path_exposure": 0.908,
+      "shortest_path_enters_hazard": false
+    },
+    {
+      "home_node": 1020,
+      "x": 1172652.0480374359,
+      "y": 1826016.825906918,
+      "depot_index": 0,
+      "responder_eta_min": 52.58,
+      "ingress_survival_time_min": 75.0,
+      "closing_window_min": 22.42,
+      "survival_aware_exposure": 0.952,
+      "shortest_path_exposure": 0.891,
+      "shortest_path_enters_hazard": false
+    },
+    {
+      "home_node": 801,
+      "x": 1174902.0480374359,
+      "y": 1830516.825906918,
+      "depot_index": 1,
+      "responder_eta_min": 57.353,
+      "ingress_survival_time_min": 90.0,
+      "closing_window_min": 32.647,
+      "survival_aware_exposure": 0.674,
+      "shortest_path_exposure": 0.705,
+      "shortest_path_enters_hazard": false
+    },
+    {
+      "home_node": 764,
+      "x": 1174902.0480374359,
+      "y": 1831266.825906918,
+      "depot_index": 1,
+      "responder_eta_min": 56.228,
+      "ingress_survival_time_min": 90.0,
+      "closing_window_min": 33.772,
+      "survival_aware_exposure": 0.564,
+      "shortest_path_exposure": 0.524,
+      "shortest_path_enters_hazard": false
+    },
+    {
+      "home_node": 1048,
+      "x": 1165902.0480374359,
+      "y": 1825266.825906918,
+      "depot_index": 0,
+      "responder_eta_min": 55.649,
+      "ingress_survival_time_min": 90.0,
+      "closing_window_min": 34.351,
+      "survival_aware_exposure": 1.134,
+      "shortest_path_exposure": 1.707,
+      "shortest_path_enters_hazard": false
+    },
+    {
+      "home_node": 912,
+      "x": 1174902.0480374359,
+      "y": 1828266.825906918,
+      "depot_index": 0,
+      "responder_eta_min": 54.557,
+      "ingress_survival_time_min": 90.0,
+      "closing_window_min": 35.443,
+      "survival_aware_exposure": 0.676,
+      "shortest_path_exposure": 1.198,
+      "shortest_path_enters_hazard": false
+    },
+    {
+      "home_node": 1085,
+      "x": 1165902.0480374359,
+      "y": 1824516.825906918,
+      "depot_index": 0,
+      "responder_eta_min": 54.524,
+      "ingress_survival_time_min": 90.0,
+      "closing_window_min": 35.476,
+      "survival_aware_exposure": 0.685,
+      "shortest_path_exposure": 0.996,
+      "shortest_path_enters_hazard": false
+    },
+    {
+      "home_node": 650,
+      "x": 1172652.0480374359,
+      "y": 1833516.825906918,
+      "depot_index": 1,
+      "responder_eta_min": 54.251,
+      "ingress_survival_time_min": 90.0,
+      "closing_window_min": 35.749,
+      "survival_aware_exposure": 0.635,
+      "shortest_path_exposure": 0.585,
+      "shortest_path_enters_hazard": false
+    },
+    {
+      "home_node": 573,
+      "x": 1170402.0480374359,
+      "y": 1835016.825906918,
+      "depot_index": 1,
+      "responder_eta_min": 53.399,
+      "ingress_survival_time_min": 90.0,
+      "closing_window_min": 36.601,
+      "survival_aware_exposure": 0.656,
+      "shortest_path_exposure": 0.486,
+      "shortest_path_enters_hazard": false
+    },
+    {
+      "home_node": 613,
+      "x": 1172652.0480374359,
+      "y": 1834266.825906918,
+      "depot_index": 1,
+      "responder_eta_min": 53.126,
+      "ingress_survival_time_min": 90.0,
+      "closing_window_min": 36.874,
+      "survival_aware_exposure": 0.375,
+      "shortest_path_exposure": 0.353,
+      "shortest_path_enters_hazard": false
+    },
+    {
+      "home_node": 1057,
+      "x": 1172652.0480374359,
+      "y": 1825266.825906918,
+      "depot_index": 0,
+      "responder_eta_min": 51.455,
+      "ingress_survival_time_min": 90.0,
+      "closing_window_min": 38.545,
+      "survival_aware_exposure": 0.57,
+      "shortest_path_exposure": 0.558,
+      "shortest_path_enters_hazard": false
+    },
+    {
+      "home_node": 1094,
+      "x": 1172652.0480374359,
+      "y": 1824516.825906918,
+      "depot_index": 0,
+      "responder_eta_min": 50.33,
+      "ingress_survival_time_min": 90.0,
+      "closing_window_min": 39.67,
+      "survival_aware_exposure": 0.312,
+      "shortest_path_exposure": 0.328,
+      "shortest_path_enters_hazard": false
+    },
+    {
+      "home_node": 817,
+      "x": 1159152.0480374359,
+      "y": 1829766.825906918,
+      "depot_index": 0,
+      "responder_eta_min": 66.593,
+      "ingress_survival_time_min": 120.0,
+      "closing_window_min": 53.407,
+      "survival_aware_exposure": 0.071,
+      "shortest_path_exposure": 1.906,
+      "shortest_path_enters_hazard": false
+    },
+    {
+      "home_node": 854,
+      "x": 1159152.0480374359,
+      "y": 1829016.825906918,
+      "depot_index": 0,
+      "responder_eta_min": 66.127,
+      "ingress_survival_time_min": 120.0,
+      "closing_window_min": 53.873,
+      "survival_aware_exposure": 0.063,
+      "shortest_path_exposure": 1.279,
+      "shortest_path_enters_hazard": false
+    },
+    {
+      "home_node": 894,
+      "x": 1161402.0480374359,
+      "y": 1828266.825906918,
+      "depot_index": 0,
+      "responder_eta_min": 62.945,
+      "ingress_survival_time_min": 120.0,
+      "closing_window_min": 57.055,
+      "survival_aware_exposure": 0.35,
+      "shortest_path_exposure": 2.523,
+      "shortest_path_enters_hazard": false
+    },
+    {
+      "home_node": 931,
+      "x": 1161402.0480374359,
+      "y": 1827516.825906918,
+      "depot_index": 0,
+      "responder_eta_min": 61.82,
+      "ingress_survival_time_min": 120.0,
+      "closing_window_min": 58.18,
+      "survival_aware_exposure": 0.307,
+      "shortest_path_exposure": 1.639,
+      "shortest_path_enters_hazard": false
+    },
+    {
+      "home_node": 530,
+      "x": 1165902.0480374359,
+      "y": 1835766.825906918,
+      "depot_index": 1,
+      "responder_eta_min": 59.024,
+      "ingress_survival_time_min": 120.0,
+      "closing_window_min": 60.976,
+      "survival_aware_exposure": 0.29,
+      "shortest_path_exposure": 0.381,
+      "shortest_path_enters_hazard": false
+    },
+    {
+      "home_node": 1008,
+      "x": 1163652.0480374359,
+      "y": 1826016.825906918,
+      "depot_index": 0,
+      "responder_eta_min": 58.172,
+      "ingress_survival_time_min": 120.0,
+      "closing_window_min": 61.828,
+      "survival_aware_exposure": 0.623,
+      "shortest_path_exposure": 1.625,
+      "shortest_path_enters_hazard": false
+    }
+  ],
+  "unreachable_homes": [
+    {
+      "home_node": 644,
+      "x": 1168152.0480374359,
+      "y": 1833516.825906918,
+      "nearest_depot_index": 1,
+      "best_closing_window_min": 2.95,
+      "reason": "no surviving vehicle ingress (even with detours) in budget"
+    },
+    {
+      "home_node": 681,
+      "x": 1168152.0480374359,
+      "y": 1832766.825906918,
+      "nearest_depot_index": 1,
+      "best_closing_window_min": -13.17,
+      "reason": "no surviving vehicle ingress (even with detours) in budget"
+    },
+    {
+      "home_node": 684,
+      "x": 1170402.0480374359,
+      "y": 1832766.825906918,
+      "nearest_depot_index": 1,
+      "best_closing_window_min": -11.77,
+      "reason": "no surviving vehicle ingress (even with detours) in budget"
+    },
+    {
+      "home_node": 718,
+      "x": 1168152.0480374359,
+      "y": 1832016.825906918,
+      "nearest_depot_index": 1,
+      "best_closing_window_min": -14.3,
+      "reason": "no surviving vehicle ingress (even with detours) in budget"
+    },
+    {
+      "home_node": 721,
+      "x": 1170402.0480374359,
+      "y": 1832016.825906918,
+      "nearest_depot_index": 1,
+      "best_closing_window_min": -12.9,
+      "reason": "no surviving vehicle ingress (even with detours) in budget"
+    },
+    {
+      "home_node": 724,
+      "x": 1172652.0480374359,
+      "y": 1832016.825906918,
+      "nearest_depot_index": 1,
+      "best_closing_window_min": 3.5,
+      "reason": "no surviving vehicle ingress (even with detours) in budget"
+    },
+    {
+      "home_node": 755,
+      "x": 1168152.0480374359,
+      "y": 1831266.825906918,
+      "nearest_depot_index": 1,
+      "best_closing_window_min": -30.42,
+      "reason": "no surviving vehicle ingress (even with detours) in budget"
+    },
+    {
+      "home_node": 761,
+      "x": 1172652.0480374359,
+      "y": 1831266.825906918,
+      "nearest_depot_index": 1,
+      "best_closing_window_min": 2.37,
+      "reason": "no surviving vehicle ingress (even with detours) in budget"
+    },
+    {
+      "home_node": 789,
+      "x": 1165902.0480374359,
+      "y": 1830516.825906918,
+      "nearest_depot_index": 1,
+      "best_closing_window_min": -17.94,
+      "reason": "no surviving vehicle ingress (even with detours) in budget"
+    },
+    {
+      "home_node": 798,
+      "x": 1172652.0480374359,
+      "y": 1830516.825906918,
+      "nearest_depot_index": 1,
+      "best_closing_window_min": -13.75,
+      "reason": "no surviving vehicle ingress (even with detours) in budget"
+    },
+    {
+      "home_node": 826,
+      "x": 1165902.0480374359,
+      "y": 1829766.825906918,
+      "nearest_depot_index": 0,
+      "best_closing_window_min": -32.4,
+      "reason": "no surviving vehicle ingress (even with detours) in budget"
+    },
+    {
+      "home_node": 835,
+      "x": 1172652.0480374359,
+      "y": 1829766.825906918,
+      "nearest_depot_index": 0,
+      "best_closing_window_min": -13.2,
+      "reason": "no surviving vehicle ingress (even with detours) in budget"
+    },
+    {
+      "home_node": 872,
+      "x": 1172652.0480374359,
+      "y": 1829016.825906918,
+      "nearest_depot_index": 0,
+      "best_closing_window_min": -12.08,
+      "reason": "no surviving vehicle ingress (even with detours) in budget"
+    },
+    {
+      "home_node": 909,
+      "x": 1172652.0480374359,
+      "y": 1828266.825906918,
+      "nearest_depot_index": 0,
+      "best_closing_window_min": -10.95,
+      "reason": "no surviving vehicle ingress (even with detours) in budget"
+    },
+    {
+      "home_node": 940,
+      "x": 1168152.0480374359,
+      "y": 1827516.825906918,
+      "nearest_depot_index": 0,
+      "best_closing_window_min": -27.63,
+      "reason": "no surviving vehicle ingress (even with detours) in budget"
+    },
+    {
+      "home_node": 946,
+      "x": 1172652.0480374359,
+      "y": 1827516.825906918,
+      "nearest_depot_index": 0,
+      "best_closing_window_min": 5.17,
+      "reason": "no surviving vehicle ingress (even with detours) in budget"
+    },
+    {
+      "home_node": 977,
+      "x": 1168152.0480374359,
+      "y": 1826766.825906918,
+      "nearest_depot_index": 0,
+      "best_closing_window_min": -11.5,
+      "reason": "no surviving vehicle ingress (even with detours) in budget"
+    },
+    {
+      "home_node": 980,
+      "x": 1170402.0480374359,
+      "y": 1826766.825906918,
+      "nearest_depot_index": 0,
+      "best_closing_window_min": -10.1,
+      "reason": "no surviving vehicle ingress (even with detours) in budget"
+    },
+    {
+      "home_node": 983,
+      "x": 1172652.0480374359,
+      "y": 1826766.825906918,
+      "nearest_depot_index": 0,
+      "best_closing_window_min": 6.3,
+      "reason": "no surviving vehicle ingress (even with detours) in budget"
+    },
+    {
+      "home_node": 1017,
+      "x": 1170402.0480374359,
+      "y": 1826016.825906918,
+      "nearest_depot_index": 0,
+      "best_closing_window_min": -8.98,
+      "reason": "no surviving vehicle ingress (even with detours) in budget"
+    }
+  ],
+  "sensitivity_sweep": {
+    "baseline": {
+      "counts": {
+        "saved_by_rescue_reachable_refuge": 16,
+        "already_safe": 51,
+        "no_safe_pedestrian_route": 74,
+        "no_surviving_vehicle_ingress": 10
+      },
+      "n_origins": 151,
+      "n_refuges_rescue_reachable": 19,
+      "n_refuges": 20
+    },
+    "vehicle_cutoff": {
+      "0.40": {
+        "counts": {
+          "saved_by_rescue_reachable_refuge": 14,
+          "already_safe": 51,
+          "no_safe_pedestrian_route": 74,
+          "no_surviving_vehicle_ingress": 12
+        },
+        "n_origins": 151,
+        "n_refuges_rescue_reachable": 15,
+        "n_refuges": 20
+      },
+      "0.50": {
+        "counts": {
+          "saved_by_rescue_reachable_refuge": 16,
+          "already_safe": 51,
+          "no_safe_pedestrian_route": 73,
+          "no_surviving_vehicle_ingress": 11
+        },
+        "n_origins": 151,
+        "n_refuges_rescue_reachable": 16,
+        "n_refuges": 20
+      },
+      "0.60": {
+        "counts": {
+          "saved_by_rescue_reachable_refuge": 16,
+          "already_safe": 51,
+          "no_safe_pedestrian_route": 73,
+          "no_surviving_vehicle_ingress": 11
+        },
+        "n_origins": 151,
+        "n_refuges_rescue_reachable": 19,
+        "n_refuges": 20
+      },
+      "0.70": {
+        "counts": {
+          "saved_by_rescue_reachable_refuge": 16,
+          "already_safe": 51,
+          "no_safe_pedestrian_route": 74,
+          "no_surviving_vehicle_ingress": 10
+        },
+        "n_origins": 151,
+        "n_refuges_rescue_reachable": 19,
+        "n_refuges": 20
+      },
+      "0.80": {
+        "counts": {
+          "saved_by_rescue_reachable_refuge": 16,
+          "already_safe": 51,
+          "no_safe_pedestrian_route": 78,
+          "no_surviving_vehicle_ingress": 6
+        },
+        "n_origins": 151,
+        "n_refuges_rescue_reachable": 20,
+        "n_refuges": 20
+      }
+    },
+    "vehicle_speed_kmh": {
+      "20": {
+        "counts": {
+          "saved_by_rescue_reachable_refuge": 16,
+          "already_safe": 51,
+          "no_safe_pedestrian_route": 74,
+          "no_surviving_vehicle_ingress": 10
+        },
+        "n_origins": 151,
+        "n_refuges_rescue_reachable": 19,
+        "n_refuges": 20
+      },
+      "30": {
+        "counts": {
+          "saved_by_rescue_reachable_refuge": 16,
+          "already_safe": 51,
+          "no_safe_pedestrian_route": 74,
+          "no_surviving_vehicle_ingress": 10
+        },
+        "n_origins": 151,
+        "n_refuges_rescue_reachable": 19,
+        "n_refuges": 20
+      },
+      "40": {
+        "counts": {
+          "saved_by_rescue_reachable_refuge": 16,
+          "already_safe": 51,
+          "no_safe_pedestrian_route": 74,
+          "no_surviving_vehicle_ingress": 10
+        },
+        "n_origins": 151,
+        "n_refuges_rescue_reachable": 19,
+        "n_refuges": 20
+      },
+      "60": {
+        "counts": {
+          "saved_by_rescue_reachable_refuge": 16,
+          "already_safe": 51,
+          "no_safe_pedestrian_route": 74,
+          "no_surviving_vehicle_ingress": 10
+        },
+        "n_origins": 151,
+        "n_refuges_rescue_reachable": 19,
+        "n_refuges": 20
+      }
+    },
+    "responder_dispatch_delay_min": {
+      "0": {
+        "counts": {
+          "saved_by_rescue_reachable_refuge": 16,
+          "already_safe": 51,
+          "no_safe_pedestrian_route": 82,
+          "no_surviving_vehicle_ingress": 2
+        },
+        "n_origins": 151,
+        "n_refuges_rescue_reachable": 20,
+        "n_refuges": 20
+      },
+      "15": {
+        "counts": {
+          "saved_by_rescue_reachable_refuge": 16,
+          "already_safe": 51,
+          "no_safe_pedestrian_route": 78,
+          "no_surviving_vehicle_ingress": 6
+        },
+        "n_origins": 151,
+        "n_refuges_rescue_reachable": 20,
+        "n_refuges": 20
+      },
+      "30": {
+        "counts": {
+          "saved_by_rescue_reachable_refuge": 16,
+          "already_safe": 51,
+          "no_safe_pedestrian_route": 74,
+          "no_surviving_vehicle_ingress": 10
+        },
+        "n_origins": 151,
+        "n_refuges_rescue_reachable": 19,
+        "n_refuges": 20
+      },
+      "45": {
+        "counts": {
+          "saved_by_rescue_reachable_refuge": 16,
+          "already_safe": 51,
+          "no_safe_pedestrian_route": 73,
+          "no_surviving_vehicle_ingress": 11
+        },
+        "n_origins": 151,
+        "n_refuges_rescue_reachable": 18,
+        "n_refuges": 20
+      },
+      "60": {
+        "counts": {
+          "saved_by_rescue_reachable_refuge": 16,
+          "already_safe": 51,
+          "no_safe_pedestrian_route": 71,
+          "no_surviving_vehicle_ingress": 13
+        },
+        "n_origins": 151,
+        "n_refuges_rescue_reachable": 16,
+        "n_refuges": 20
+      }
+    },
+    "responder_time_budget_min": {
+      "45": {
+        "counts": {
+          "saved_by_rescue_reachable_refuge": 16,
+          "already_safe": 51,
+          "no_safe_pedestrian_route": 66,
+          "no_surviving_vehicle_ingress": 18
+        },
+        "n_origins": 151,
+        "n_refuges_rescue_reachable": 19,
+        "n_refuges": 20
+      },
+      "60": {
+        "counts": {
+          "saved_by_rescue_reachable_refuge": 16,
+          "already_safe": 51,
+          "no_safe_pedestrian_route": 74,
+          "no_surviving_vehicle_ingress": 10
+        },
+        "n_origins": 151,
+        "n_refuges_rescue_reachable": 19,
+        "n_refuges": 20
+      },
+      "75": {
+        "counts": {
+          "saved_by_rescue_reachable_refuge": 16,
+          "already_safe": 51,
+          "no_safe_pedestrian_route": 74,
+          "no_surviving_vehicle_ingress": 10
+        },
+        "n_origins": 151,
+        "n_refuges_rescue_reachable": 19,
+        "n_refuges": 20
+      },
+      "90": {
+        "counts": {
+          "saved_by_rescue_reachable_refuge": 16,
+          "already_safe": 51,
+          "no_safe_pedestrian_route": 74,
+          "no_surviving_vehicle_ingress": 10
+        },
+        "n_origins": 151,
+        "n_refuges_rescue_reachable": 19,
+        "n_refuges": 20
+      }
+    }
+  }
+}

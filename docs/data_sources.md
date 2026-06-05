@@ -89,6 +89,28 @@ clear instructions until Session 3.
 | KOSIS 시군구별 65세 이상 독거노인 | KOSIS | Solitary-elderly density | https://kosis.kr/ |
 | SK Telecom Floating Population (sample) | KOSIS | Diurnal exposure adjustment | https://kosis.kr/ |
 
+## Rescue-aware routing inputs (walk/drive networks, refuges, depots)
+
+The rescue-aware evacuation router (`wildfireguardian.routing.rescue`) needs a
+**drive** network (responders) in addition to the **walk** network (residents),
+plus candidate refuges and responder depots. Each has a real-source loader **and**
+a clearly-labelled synthetic fallback so the pipeline runs end-to-end offline; the
+loader tags every record `source = "real" | "synthetic"`.
+
+| Dataset | Provider | Use | Access | Real-source loader |
+|---------|----------|-----|--------|--------------------|
+| OSM `walk` + `drive` networks | OpenStreetMap (via OSMnx) | Pedestrian + vehicle routing graphs (reprojected to EPSG:5179, disk-cached) | https://www.openstreetmap.org/ | `rescue.load_drive_network(..., use_osm=True)` |
+| 대피소·긴급대피장소 (전국 대피소 표준데이터) | 행정안전부 / 공공데이터포털 | Candidate refuges (shelter-in-refuge destinations) | https://www.data.go.kr/ | `rescue.load_shelters` (GeoJSON/CSV at `cfg.shelters_path`) |
+| 119안전센터 현황 / OSM `amenity=fire_station` | 소방청 / 공공데이터포털 / OSM | Responder depots | https://www.data.go.kr/ | `rescue.load_depots` (GeoJSON/CSV at `cfg.depots_path`) |
+
+When no `shelters_path`/`depots_path` is configured and `use_osm=False` (the
+default, offline), the demo (`routing.rescue_demo`) substitutes **synthetic**
+coastal assembly nodes + inland open-space refuges, synthetic near-town depots, a
+synthetic growing hazard envelope, and an 8-connected lattice on the real 영덕
+extent — all tagged synthetic and listed in `rescue_routing.json::provenance`.
+KOGL (Korea Open Government License) attribution applies to the Korean open data
+exactly as for the other datasets above.
+
 ## Wildfire validation — KFS perimeter shapefiles
 
 | Event | Dataset | Provider | Access |
