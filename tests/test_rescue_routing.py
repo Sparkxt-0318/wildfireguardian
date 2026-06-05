@@ -16,6 +16,7 @@ end-to-end offline. The four required tests from the brief are:
 from __future__ import annotations
 
 import math
+from dataclasses import replace
 
 import networkx as nx
 import numpy as np
@@ -35,6 +36,8 @@ from wildfireguardian.routing.rescue import (
     sample_corridor_points,
 )
 from wildfireguardian.routing.rescue_demo import (
+    _refuge_node_sets,
+    _split_counts,
     build_synthetic_demo,
     run_pipeline,
     sensitivity_sweep,
@@ -329,3 +332,50 @@ def test_sweep_more_risk_tolerant_vehicle_cutoff_helps_or_neutral(fast_scenario)
     high = vc["0.80"]["counts"]["no_surviving_vehicle_ingress"]
     # A more risk-tolerant vehicle cutoff cuts fewer corridors ⇒ fewer unreachable.
     assert high <= low
+
+
+# ---------------------------------------------------------------------------
+# Verification-pass invariants (single baseline; same origin set everywhere)
+# ---------------------------------------------------------------------------
+
+
+def test_split_counts_equals_run_pipeline_four_way(fast_scenario):
+    """The sweep's per-cell four-way (_split_counts) reconciles with run_pipeline.
+
+    This is the invariant that lets the 2-D sweep's baseline cell equal the
+    headline: both use the SAME origin set and the SAME immobile-forced logic.
+    """
+    scenario, results = fast_scenario
+    rec = _split_counts(scenario, scenario.cfg)
+    assert rec["n_origins"] == results.n_origins == len(scenario.origins)
+    assert rec["counts"] == results.four_way_counts
+
+
+def test_sweep_cells_sum_to_n_on_full_origin_set(fast_scenario):
+    """Every sweep cell (full origin set) sums to N — across ≥2 (delay,cutoff) cells."""
+    scenario, _results = fast_scenario
+    n = len(scenario.origins)
+    for delay, cut in ((0.0, 0.5), (60.0, 0.9)):
+        rec = _split_counts(scenario, replace(scenario.cfg,
+                                              responder_dispatch_delay_min=delay,
+                                              vehicle_cutoff=cut))
+        assert rec["n_origins"] == n
+        assert sum(rec["counts"].values()) == n
+
+
+def test_rescue_reachable_subset_safe_at_second_cutoff(fast_scenario):
+    """rescue_reachable ⊆ safe holds at a different vehicle cutoff too."""
+    scenario, _results = fast_scenario
+    assessments, _all, _rr = _refuge_node_sets(scenario, replace(scenario.cfg,
+                                                                 vehicle_cutoff=0.9))
+    for a in assessments:
+        if a.rescue_reachable:
+            assert a.safe
+
+
+def test_exposure_metrics_have_distinct_labels(fast_scenario):
+    """Resident (pedestrian) and responder (vehicle) exposures are labelled distinctly."""
+    _scenario, results = fast_scenario
+    assert results.resident_exposure["route_type"] == "pedestrian"
+    assert results.responder_exposure["route_type"] == "vehicle"
+    assert results.resident_exposure["units"] == results.responder_exposure["units"] == "prob_min"

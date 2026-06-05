@@ -382,6 +382,9 @@ def run_pipeline(scenario: RescueScenario, cfg: RescueConfig | None = None) -> R
             "median": (float(np.median(v)) if v else None), "n": len(v)}
         for p, v in expo.items()
     }
+    # Label the metric distinctly so it is never read against the responder scale.
+    resident_exposure["units"] = "prob_min"
+    resident_exposure["route_type"] = "pedestrian"
     resident_exposure["policy_c_changed_refuge_count"] = n_c_differs
     resident_exposure["policy_c_avoided_cutoff_refuge_count"] = n_c_safer
     # Honest PAIRED b-vs-c contrast (same origins, where both reached) — unlike the
@@ -416,6 +419,8 @@ def run_pipeline(scenario: RescueScenario, cfg: RescueConfig | None = None) -> R
         "n_need_rescue": len(needs_rescue),
         "n_need_rescue_immobile": needs_rescue_immobile,
         "n_need_rescue_walk_cut": len(needs_rescue) - needs_rescue_immobile,
+        "units": "prob_min",
+        "route_type": "vehicle",
     }
 
     examples = _figure_examples(scenario, cfg, depot_nodes, all_walk, rr_walk,
