@@ -1,5 +1,12 @@
 # AUC / IoU reconciliation (read-only fact-find)
 
+> **Resolution → [`docs/MODEL_CARD.md`](MODEL_CARD.md).** Build B is canonical
+> (it produced every downstream result); the two builds are **not like-for-like**
+> (different fire set, 16 vs 19 features, seed 42 vs 20250603, different eval code),
+> so no "B better than A" claim is made. Headline = LOFO **mean-of-folds ROC-AUC
+> 0.89 ± 0.11** (range 0.68–0.97); pooled 0.905 is labeled-as-pooled; footprint
+> IoU **~0.40** (the 0.874 single-step IoU is report-blocked).
+
 > **Diagnostic only.** This document recomputes statistics from already-committed
 > artifacts to explain why two AUCs are cited (repo `0.905`, project doc `0.83`). It
 > **changes no reported number** and makes **no reporting decision** — that is the

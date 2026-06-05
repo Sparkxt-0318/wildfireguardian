@@ -8,6 +8,10 @@ python scripts/make_rescue_figures.py`.*
 > **Results draft:** see `docs/results_rescue_draft.md` for the honestly-hedged
 > results section (claims ledger + the assumption-light walk-failure rate `w` ≈ 40 %,
 > derived from the committed fc sweep via `scripts/derive_walk_failure.py`).
+>
+> **Spread-model numbers:** the canonical foundation model (Build B) is documented in
+> `docs/MODEL_CARD.md` — headline LOFO **mean-of-folds ROC-AUC 0.89 ± 0.11** (pooled
+> 0.905), forward-sim footprint IoU **~0.40**.
 
 ---
 
