@@ -316,15 +316,31 @@ note and data provenance (real-source loaders for OSM walk/drive networks,
 공공데이터포털 대피소, and 119안전센터 depots, each with a clearly-labelled synthetic
 fallback so the pipeline runs end-to-end offline).
 
+All headline numbers above sit on **one baseline** (vehicle cutoff 0.7, dispatch
+delay 30 min) at the **same N = 452**; the resident (pedestrian) and responder
+(vehicle) exposures are distinct metrics and never compared across scales. A
+verification pass (`scripts/verify_rescue_routing.py`) re-derives the four-way
+split and runs a **full-N 2-D sweep** (dispatch delay × vehicle cutoff) whose
+baseline cell equals the headline (asserted). Robust finding: **unreachable rises
+monotonically with dispatch delay** (6 → 34 across 0 → 60 min at cutoff 0.7) and
+with a harsher cutoff — the computational echo of a fire reaching the towns before
+responders can. The point estimates (e.g. 20 unreachable) are directional, not
+exact. The quick `run_rescue_routing.py` sweep is sub-sampled (N ≈ 151) for speed;
+`verify_rescue_routing.py` is the authoritative full-N reconciliation
+(`docs/rescue_routing.md §4a`).
+
 ```bash
 python scripts/run_rescue_routing.py      # four-way split + exposure + sensitivity
 python scripts/make_rescue_figures.py     # docs/figures/rescue_*.png
+python scripts/verify_rescue_routing.py   # reconciled baseline + full-N 2-D sweep
 pytest tests/test_rescue_routing.py -q    # incl. the orientation regression test
 ```
 
 ![rescue map](docs/figures/rescue_map.png)
 
 ![rescue four-way split](docs/figures/rescue_four_way.png)
+
+![rescue 2-D sensitivity](docs/figures/rescue_sweep_2d.png)
 
 ### Data sources
 

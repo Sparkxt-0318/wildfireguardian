@@ -96,6 +96,62 @@ Each origin (an elderly home) lands in exactly one class:
 The surviving-ingress layer *reduces* (moves homes into the dispatchable class) but
 does **not eliminate** (the last class remains) the unreachable set.
 
+## 4a. Reconciled results & robustness (verification pass)
+
+All headline numbers below are on **one explicit baseline**, on the **same origin
+set N = 452**, regenerable with `python scripts/verify_rescue_routing.py`
+(`data/processed/rescue_verify.json`). The verify sweep runs at full N, so its
+**baseline cell equals the headline** (asserted in code and by a test). Treat
+absolute counts as illustrative (single-fire PoC + synthetic inputs); the robust
+claim is the **direction/contrast**.
+
+**Baseline:** walk 0.7 m/s · vehicle 40 km/h · pedestrian cutoff 0.5 · vehicle
+cutoff 0.7 · dispatch delay 30 min · safety margin 12 min · resident/responder
+budget 600/75 min · seed 20250603 · all inputs synthetic (tagged).
+
+**Two metrics, never compared across scales** (labelled `route_type` in the
+output): resident exposure is over **pedestrian** routes; responder over
+**vehicle** routes; both in `prob·min`.
+
+**Why N = 452 (not the old 407):** the rescue origin scan uses `scan_stride=3`
+plus a fire-reach latitude band on the walk-network land nodes; the older
+routing-spine used a `scan_stride=4`, 14 km-band scan giving 407.
+
+**Four-way split @ baseline (sums to 452):** already-safe **154** · saved-by-
+rescue-reachable-refuge **34** · no-walk-rescuer-reaches **244** · unreachable
+**20**. Resident exposure (pedestrian, prob·min) naive/​b/​c = **24.06 / 3.55 /
+3.47** (paired b vs c over the same 185 origins = 3.42 / 3.47; c re-routed 2 off a
+cut-off refuge). Responder ingress (vehicle, prob·min) shortest-path/​survival-
+aware = **0.172 / 0.079** (dispatch 244, unreachable 20).
+
+**2-D sweep — unreachable count (dispatch delay × vehicle cutoff), full N = 452:**
+
+| delay \ cutoff | 0.50 | 0.60 | 0.70 | 0.80 | 0.90 |
+|---|---|---|---|---|---|
+| 0 min | 15 | 9 | **6** | 2 | 1 |
+| 15 | 21 | 18 | 15 | 8 | 2 |
+| 30 (baseline) | 25 | 25 | **20** | 15 | 8 |
+| 45 | 37 | 31 | 25 | 20 | 15 |
+| 60 | 40 | 38 | **34** | 27 | 20 |
+
+(`already_safe`=154 and `saved`=34 are constant across the grid; `no_walk` = 264 −
+unreachable. See `docs/figures/rescue_sweep_2d.png`.) This resolves the earlier
+20-vs-2/13 confusion: the old sweep was **sub-sampled to N≈151** (the convenience
+`sensitivity_sweep` caps origins at `sweep_max_origins`); at full N the baseline
+unreachable is 20 and the dispatch 0→60 bracket at cutoff 0.7 is **6 → 34**.
+
+**Robustness verdict:**
+
+| quantity | verdict | basis |
+|---|---|---|
+| unreachable rises with dispatch delay (0→60: **6→34** at cutoff 0.7) | **robust direction** | monotone non-decreasing for *every* cutoff |
+| unreachable rises as the vehicle cutoff gets harsher | **robust direction** | monotone for *every* delay |
+| `no_walk_rescuer` ≈ 244 (majority need a rescuer) | **robust to the vehicle knobs** (grid 224–263, central rel-spread 0.09) — but its *level* is set by the assumed immobile fraction (0.3) + the slow-elder-vs-fast-fire pedestrian regime, **not** by the vehicle cutoff/speed | complement of unreachable within the constant 264-home needs-rescue pool |
+| `unreachable` point estimate (20) | **directional only** (grid 1–40) — report the direction + range, not the point value | central rel-spread 1.17 |
+
+`rescue_reachable ⊆ safe` holds at every cutoff. The headline four-way and the
+sweep's baseline cell are identical.
+
 ## 5. Honest limitations
 
 - **Single-fire (영덕) proof-of-concept.** Not multi-fire validated; not an
