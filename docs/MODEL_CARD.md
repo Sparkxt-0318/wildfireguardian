@@ -98,6 +98,15 @@ Permutation importance: `days_since_rain` 0.077 is the top predictor; summed
 fire-weather **severity** importance 0.102 vs `wind_alignment` 0.0023 — a **44×**
 ratio. `[src: spread_v2_lofo.json/permutation_importance]`
 
+**Standard ML baselines** (logistic regression, random forest) on the identical
+16 features/folds/seed are provided as controlled comparators via
+`scripts/ml_baselines.py` (`validation/ml_baselines.py`, unit-tested) — to answer
+"you only beat a bad physics model" honestly. Not run for this card (FIRMS bundle
+absent; STOPs cleanly rather than fabricate). If the GBM only marginally beats
+random forest, the technical-excellence claim is the **calibrated probabilities +
+speed + severity≫direction interpretability**, not a large accuracy win. Method:
+`docs/baselines.md`.
+
 ## Provenance — two builds exist; why they are NOT directly comparable
 
 The project's 작품설명서 / brief cites **0.834 / 0.80 / 0.32** from an earlier,
