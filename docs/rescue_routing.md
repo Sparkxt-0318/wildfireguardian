@@ -276,6 +276,27 @@ result is the **shape** of the curve (sharp unmet demand at realistic unit
 counts); the absolute % moves with the PoC `service`/`W` and is not a measured
 capability.
 
+## 4d. Operator-facing output (illustrative, from the real PoC)
+
+The delivery layer is **people** (가족·복지사·지자체), so the operator's concrete
+artifact is rendered from the **actual** rescue PoC output
+(`scripts/operator_output_demo.py` → `docs/figures/operator_output.png` +
+`docs/operator_output_sample.txt`), not hand-faked:
+
+- a **prioritized dispatch table** (operator/responder view): home id, outcome
+  class (`rescued_in_time` / `capacity_deferred` / `geometry_unreachable`, from
+  §4c), assigned unit/집결지, recommended road direction, responder ETA, and
+  urgency (closing window);
+- a **per-resident SMS** (Korean, short, imperative) auto-filled from the route —
+  a self-evacuating resident ("지금 [방향]쪽 [집결지]로 대피하세요 …"), a rescued
+  immobile resident ("구조대가 약 N분 뒤 도착 …"), and, honestly, a
+  capacity-deferred resident (no false ETA; mutual-aid + shelter-in-place).
+
+> **Illustrative output of the research pipeline on synthetic-and-tagged
+> geometry — NOT a deployed product/UI, NOT real residents.** Names are
+> placeholders (○○○), filled from the operator's resident registry in a
+> deployment.
+
 ## 5. Honest limitations
 
 - **Single-fire (영덕) proof-of-concept.** Not multi-fire validated; not an
