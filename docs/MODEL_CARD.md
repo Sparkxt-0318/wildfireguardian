@@ -31,11 +31,15 @@ wind_alignment` `[src: features.py/FEATURE_COLUMNS]`.
 > **LOFO ROC-AUC = 0.89 (range 0.68–0.97 across 6 fires; the 0.68 fold,
 > `gangneung_2023`, has only ~17 detections).**
 
-- Mean-of-folds ROC-AUC = **0.890 ± 0.107** (sample sd; range 0.682–0.974, N=6)
-  — *recomputed from* `spread_v2_lofo.json/per_fire_auc`. This is the
-  generalization figure.
-- Excluding the tiny `gangneung_2023` fold, the other five fires average **0.931**
-  (0.878–0.974) — recomputed from the same file.
+- Mean-of-folds ROC-AUC = **0.890 ± 0.107** (sample sd; range 0.682–0.974, N=6),
+  **95 % t-CI [0.778, 1.000]** — *recomputed from* `spread_v2_lofo.json/per_fire_auc`
+  via `validation/auc_stats.mean_of_folds_interval`. This is the generalization
+  figure. **The CI is wide because n=6 is a small sample** (and the 0.68
+  `gangneung_2023` fold inflates the SD); treat it as a small-sample bound, not a
+  tight one — the **per-fold DeLong CIs** (each fold = thousands of cells) are the
+  stronger evidence (see below).
+- Excluding the tiny `gangneung_2023` fold, the other five fires average **0.931 ±
+  0.036**, 95 % t-CI [0.887, 0.976] (n=5) — recomputed from the same file.
 
 ### Per-fire ROC-AUC
 
@@ -50,6 +54,17 @@ wind_alignment` `[src: features.py/FEATURE_COLUMNS]`.
 
 `[src: spread_v2_lofo.json/per_fire_auc]`
 
+**Per-fire DeLong 95 % CIs + a significance test vs AUC = 0.5 (the test H1 needs)**
+require the per-fold prediction arrays, which are **not** stored — so they need a
+LOFO re-run. `scripts/auc_intervals.py` does this: it re-runs the canonical model
+(seed 20250603, same 16 features/folds), **gates** against pooled 0.905 /
+mean-of-folds 0.890 / the per-fire AUCs, persists the out-of-fold predictions, and
+emits the per-fire `AUC [95 % CI]` table + p-values. **It was not run for this
+card** because the FIRMS/ERA5/DEM bundle is git-ignored and absent in a fresh
+clone (it STOPs cleanly rather than fabricate); run it where the data is present.
+Method + the computable-now mean-of-folds interval: `docs/auc_intervals.md`;
+statistics unit-tested in `tests/test_auc_stats.py`.
+
 ### Pooled and far-band (labeled — NOT the generalization figure)
 
 - **Pooled** out-of-fold ROC-AUC = **0.905** — one ROC over *all* held-out folds'
@@ -59,7 +74,9 @@ wind_alignment` `[src: features.py/FEATURE_COLUMNS]`.
 - **Pooled far-band (>3 km)** ROC-AUC = **0.877**; mid-band (1–3 km) 0.870.
   **Per-fire far-band AUC is not stored**, so a mean-of-folds far-band cannot be
   computed without re-running LOFO — report this number **as pooled**, with that
-  limitation. `[src: spread_v2_lofo.json/far_band_auc, mid_band_auc]`
+  limitation. The far-band **mean-of-folds** (the deferred gap) is produced by the
+  same gated `scripts/auc_intervals.py` re-run (not run here — data absent).
+  `[src: spread_v2_lofo.json/far_band_auc, mid_band_auc]`
 
 ## Footprint IoU — honest figure
 
