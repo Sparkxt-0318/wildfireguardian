@@ -42,7 +42,12 @@ import numpy as np
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "src"))
 
-from wildfireguardian.routing.rescue import RescueConfig  # noqa: E402
+from wildfireguardian.routing.rescue import (  # noqa: E402
+    RescueCapacityConfig,
+    RescueConfig,
+    build_dispatch_list,
+    capacity_triage,
+)
 from wildfireguardian.routing.rescue_demo import (  # noqa: E402
     _refuge_node_sets,
     _split_counts,
@@ -64,6 +69,11 @@ CUTOFFS = [0.5, 0.6, 0.7, 0.8, 0.9]
 # pass-2 grid (assumption): immobile_fraction x walk_cutoff
 IMMOBILES = [0.15, 0.30, 0.45]
 WALKCUTS = [0.40, 0.50, 0.60]
+# pass-3 grid (capacity): rescue units (primary) x dispatch delay (secondary)
+CAP_UNITS = [1, 2, 3, 4, 6, 8]
+CAP_DELAYS = [0.0, 30.0, 60.0]
+CAP_SERVICE_MIN = 25.0          # PoC fixed per-rescue cycle occupancy (NOT measured)
+CAP_BASELINE_UNITS = 3          # blue-box baseline on the figures
 
 KEYS = ["already_safe", "saved_by_rescue_reachable_refuge",
         "no_safe_pedestrian_route", "no_surviving_vehicle_ingress"]
@@ -424,16 +434,233 @@ def run_fc(baseline, scenario, N, headline):
     return 0 if ok else 1
 
 
+# ---------------------------------------------------------------------------
+# pass 3 — rescue CAPACITY / triage (the demand–supply gap)
+# ---------------------------------------------------------------------------
+
+
+def _capacity_figure(rows, grid, geo_by_delay, needs, outpath):
+    """Capacity figure: (a) stacked outcome bar + %-met curve across units;
+    (b) %-demand-met heatmap across dispatch delay × units. Reuses the style."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from matplotlib import font_manager as fm
+
+    for p in ("/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc",
+              "/usr/share/fonts/truetype/nanum/NanumGothic.ttf"):
+        if os.path.exists(p):
+            fm.fontManager.addfont(p)
+            plt.rcParams["font.family"] = fm.FontProperties(fname=p).get_name()
+            break
+    plt.rcParams["axes.unicode_minus"] = False
+
+    fig, axes = plt.subplots(1, 2, figsize=(15.5, 5.6), constrained_layout=True)
+
+    # (a) stacked outcome bar across units (baseline dispatch delay) + %-met line.
+    units = [r["n_rescue_units"] for r in rows]
+    rescued = [r["three_way"]["rescued_in_time"] for r in rows]
+    deferred = [r["three_way"]["capacity_deferred"] for r in rows]
+    geom = [r["three_way"]["geometry_unreachable"] for r in rows]
+    pct = [r["pct_demand_met"] for r in rows]
+    x = np.arange(len(units))
+    ax = axes[0]
+    ax.bar(x, rescued, color="#10b981", label="제때 구조 / rescued_in_time")
+    ax.bar(x, deferred, bottom=rescued, color="#f59e0b",
+           label="용량 초과 보류 / capacity_deferred")
+    ax.bar(x, geom, bottom=[a + b for a, b in zip(rescued, deferred)],
+           color="#dc2626", label="접근로 차단(기하) / geometry_unreachable")
+    ax.set_xticks(x, [str(u) for u in units])
+    ax.set_xlabel("구조 차량 수 / number of rescue units")
+    ax.set_ylabel(f"구조 필요 가옥 수 (계 = {needs}) / needs-rescuer homes")
+    ax.set_title("용량별 3-구분 결과 (합 = 구조필요 수) / "
+                 "capacity → three-way outcome (sums to needs-rescuer)", fontsize=10)
+    for xi, (rv, dv) in enumerate(zip(rescued, deferred)):
+        if rv:
+            ax.text(xi, rv / 2, str(rv), ha="center", va="center", fontsize=8, color="white")
+    ax.legend(fontsize=8, loc="upper left")
+    ax2 = ax.twinx()
+    ax2.plot(x, pct, "-o", color="#1d4ed8", lw=2.0, label="수요 충족률 / % demand met")
+    ax2.set_ylabel("수요 충족률 % / % of demand met", color="#1d4ed8")
+    ax2.tick_params(axis="y", labelcolor="#1d4ed8")
+    ax2.set_ylim(0, max(100.0, max(pct) * 1.3 if pct else 100.0))
+    for xi, pv in zip(x, pct):
+        ax2.text(xi, pv, f"{pv:.0f}%", ha="center", va="bottom", fontsize=8, color="#1d4ed8")
+
+    # (b) %-demand-met heatmap: dispatch delay (rows) × units (cols).
+    M = np.array([[grid[(d, u)]["pct_demand_met"] for u in CAP_UNITS] for d in CAP_DELAYS], float)
+    axb = axes[1]
+    im = axb.imshow(M, cmap="Greens", aspect="auto", origin="lower", vmin=0.0)
+    axb.set_xticks(range(len(CAP_UNITS)), [str(u) for u in CAP_UNITS])
+    axb.set_yticks(range(len(CAP_DELAYS)), [f"{d:g}" for d in CAP_DELAYS])
+    axb.set_xlabel("구조 차량 수 / rescue units")
+    axb.set_ylabel("출동 지연(분) / dispatch delay (min)")
+    axb.set_title("수요 충족률 % (출동지연 × 차량 수) / "
+                  "% demand met (delay × units)", fontsize=10)
+    for i in range(len(CAP_DELAYS)):
+        for j in range(len(CAP_UNITS)):
+            axb.text(j, i, f"{M[i, j]:.0f}", ha="center", va="center", fontsize=9)
+    if CAP_BASELINE_UNITS in CAP_UNITS and 30.0 in CAP_DELAYS:
+        bj, bi = CAP_UNITS.index(CAP_BASELINE_UNITS), CAP_DELAYS.index(30.0)
+        axb.add_patch(plt.Rectangle((bj - 0.5, bi - 0.5), 1, 1, fill=False,
+                                    edgecolor="#2563eb", lw=2.5))
+    fig.colorbar(im, ax=axb, fraction=0.046, pad=0.02)
+
+    fig.suptitle("영덕 구조 용량–수요 격차 (합성 PoC; 용량은 측정값 아님)  /  Yeongdeok rescue "
+                 "demand–supply gap (synthetic PoC; capacity is NOT a measured value)\n"
+                 f"서비스시간 {CAP_SERVICE_MIN:.0f}분/건, 창 W={75:.0f}분, 파란칸=기준 / "
+                 f"service {CAP_SERVICE_MIN:.0f} min·rescue, window W=75 min, blue box = baseline",
+                 fontsize=11.5)
+    fig.savefig(outpath, dpi=135, bbox_inches="tight")
+    plt.close(fig)
+    print("wrote", outpath)
+
+
+def run_capacity(baseline, scenario, N, headline):
+    """Capacity sweep: split the needs-rescuer pool into rescued / capacity_deferred /
+    geometry_unreachable as a function of rescue-unit supply (the demand–supply gap)."""
+    dispatch = headline.dispatch
+    n_geo = len(headline.unreachable_homes)
+    needs = len(dispatch) + n_geo
+    # needs-rescuer drive nodes (delay-invariant set): dispatchable + geometry homes.
+    needs_nodes = ([e.home_node for e in dispatch]
+                   + [u["home_node"] for u in headline.unreachable_homes])
+    depot_nodes = [scenario.drive.nearest_node(d.x, d.y) for d in scenario.depots]
+    print(f"Capacity triage on the needs-rescuer pool (needs={needs} = "
+          f"dispatch {len(dispatch)} + geometry-unreachable {n_geo}; N={N}) ...")
+
+    # ---- primary 1-D sweep: rescue units at the baseline dispatch list ----
+    rows = []
+    for u in CAP_UNITS:
+        cap = RescueCapacityConfig(n_rescue_units=u, rescue_service_time_min=CAP_SERVICE_MIN)
+        tri = capacity_triage(dispatch, baseline, cap)
+        s = tri.summary(n_geo)
+        assert sum(s["three_way"].values()) == needs, "three-way did not sum to needs"
+        assert tri.n_rescued_in_time + tri.n_capacity_deferred == len(dispatch)
+        rows.append(s)
+        print(f"  units={u:<2} -> rescued={s['three_way']['rescued_in_time']:<4} "
+              f"deferred={s['three_way']['capacity_deferred']:<4} "
+              f"geometry={s['three_way']['geometry_unreachable']:<3} "
+              f"| %demand_met={s['pct_demand_met']}")
+
+    # ---- invariant: unlimited capacity recovers the geometry-only unreachable set ----
+    tri_inf = capacity_triage(
+        dispatch, baseline,
+        RescueCapacityConfig(n_rescue_units=10 ** 6, rescue_service_time_min=CAP_SERVICE_MIN))
+    unlimited_ok = (tri_inf.n_capacity_deferred == 0
+                    and tri_inf.n_rescued_in_time == len(dispatch)
+                    and tri_inf.three_way(n_geo)["geometry_unreachable"]
+                    == headline.four_way_counts["no_surviving_vehicle_ingress"])
+    rescued_seq = [r["three_way"]["rescued_in_time"] for r in rows]
+    monotone = all(b >= a for a, b in zip(rescued_seq, rescued_seq[1:]))
+    capacity_binds = rows[0]["three_way"]["capacity_deferred"] > 0  # 1 unit leaves demand unmet
+
+    # ---- secondary 2-D: dispatch delay × units (dispatch list rebuilt per delay) ----
+    print(f"2-D capacity sweep (dispatch delay × units), needs-set fixed = {needs} ...")
+    grid = {}
+    geo_by_delay = {}
+    for d in CAP_DELAYS:
+        cfgd = replace(baseline, responder_dispatch_delay_min=d)
+        disp_d, unreach_d = build_dispatch_list(
+            needs_nodes, scenario.drive, depot_nodes, scenario.depots, scenario.hazard, cfgd)
+        geo_by_delay[d] = len(unreach_d)
+        assert len(disp_d) + len(unreach_d) == needs, "needs-set not delay-invariant"
+        for u in CAP_UNITS:
+            cap = RescueCapacityConfig(n_rescue_units=u, rescue_service_time_min=CAP_SERVICE_MIN)
+            s = capacity_triage(disp_d, cfgd, cap).summary(len(unreach_d))
+            assert sum(s["three_way"].values()) == needs
+            grid[(d, u)] = s
+        print(f"  delay={d:<4.0f} reachable={len(disp_d):<4} geometry={len(unreach_d):<3} "
+              + " ".join(f"u{u}={grid[(d, u)]['three_way']['rescued_in_time']}" for u in CAP_UNITS))
+
+    # baseline cell (delay 30, units 3) reconciles with the 1-D sweep + run_pipeline split.
+    base_row = next(r for r in rows if r["n_rescue_units"] == CAP_BASELINE_UNITS)
+    reconciled = (30.0 in CAP_DELAYS
+                  and grid[(30.0, CAP_BASELINE_UNITS)]["three_way"] == base_row["three_way"]
+                  and geo_by_delay.get(30.0) == n_geo)
+
+    block = ["=== RESCUE CAPACITY / TRIAGE (demand–supply gap, single baseline) ===",
+             f"Baseline (delay {BASELINE_DELAY:.0f}, vehicle cutoff {BASELINE_CUTOFF}, "
+             f"f={BASELINE_IMMOBILE}, walk_cut {BASELINE_WALKCUT}, N={N}):",
+             f"  needs-rescuer = {needs}  =  dispatch-reachable {len(dispatch)} "
+             f"+ geometry_unreachable {n_geo}",
+             f"  capacity model: PoC — {CAP_SERVICE_MIN:.0f} min per rescue cycle, window "
+             f"W={baseline.responder_time_budget_min:.0f} min, units mobilised at the "
+             f"{baseline.responder_dispatch_delay_min:.0f}-min dispatch delay.",
+             "  *** capacity is a PoC parameter, NOT measured 영덕 fire-service capacity ***",
+             "",
+             f"=== CAPACITY SWEEP (units ∈ {CAP_UNITS}), full N={N} ===",
+             "units | rescued | deferred | geometry | % demand met | % of reachable met"]
+    for r in rows:
+        tw = r["three_way"]
+        block.append(f"  {r['n_rescue_units']:<3} | {tw['rescued_in_time']:>7} | "
+                     f"{tw['capacity_deferred']:>8} | {tw['geometry_unreachable']:>8} | "
+                     f"{r['pct_demand_met']:>11}% | {r['pct_reachable_demand_met']:>16}%")
+    block.append("")
+    block.append("=== INVARIANTS ===")
+    block.append(f"  three-way sums to needs-rescuer in every cell           : True")
+    block.append(f"  unlimited units → deferred=0, recovers geometry-only set: {unlimited_ok} "
+                 f"(rescued {tri_inf.n_rescued_in_time}=dispatch {len(dispatch)}, "
+                 f"geometry {n_geo})")
+    block.append(f"  rescued_in_time monotone increasing with units          : {monotone} "
+                 f"({' -> '.join(str(v) for v in rescued_seq)})")
+    block.append(f"  capacity binds (1 unit leaves demand unmet)             : {capacity_binds}")
+    block.append(f"  2-D baseline cell reconciles with 1-D + run_pipeline    : {reconciled}")
+    block.append("")
+    block.append("=== READING ===")
+    geo_ceiling = round(100.0 * len(dispatch) / needs, 1)
+    block.append(f"  Geometry alone caps timely rescue at {geo_ceiling}% of demand "
+                 f"({len(dispatch)}/{needs}); the rest ({n_geo}) have no surviving corridor.")
+    block.append(f"  At the baseline {CAP_BASELINE_UNITS} units only "
+                 f"{base_row['pct_demand_met']}% of demand is met in the window — the gap is the "
+                 f"quantitative case for pre-positioning + triage, not a 'lives saved' figure.")
+    block.append("  Robust result = the SHAPE of the curve (sharp unmet demand at realistic unit "
+                 "counts); the absolute % moves with the PoC service time / window.")
+    text = "\n".join(block)
+    print("\n" + text)
+
+    out = {
+        "baseline_config": baseline.provenance(),
+        "capacity_config_PoC": RescueCapacityConfig(
+            n_rescue_units=CAP_BASELINE_UNITS,
+            rescue_service_time_min=CAP_SERVICE_MIN).provenance(),
+        "n_origins": N, "n_needs_rescuer": needs,
+        "n_dispatch_reachable": len(dispatch), "n_geometry_unreachable": n_geo,
+        "units_swept": CAP_UNITS, "sweep_units_baseline_delay": rows,
+        "grid_delay_x_units": {f"{d:.0f}|{u}": grid[(d, u)] for d in CAP_DELAYS for u in CAP_UNITS},
+        "geometry_unreachable_by_delay": {f"{d:.0f}": geo_by_delay[d] for d in CAP_DELAYS},
+        "invariants": {
+            "three_way_sums_to_needs": True,
+            "unlimited_recovers_geometry_only": bool(unlimited_ok),
+            "rescued_monotone_in_units": bool(monotone),
+            "capacity_binds_at_one_unit": bool(capacity_binds),
+            "baseline_cell_reconciles": bool(reconciled),
+        },
+        "geometry_ceiling_pct": geo_ceiling,
+        "reconciled_block": text,
+    }
+    (PROC / "rescue_capacity.json").write_text(json.dumps(out, indent=2, default=str))
+    print("wrote", PROC / "rescue_capacity.json")
+    _capacity_figure(rows, grid, geo_by_delay, needs, FIG / "rescue_capacity.png")
+
+    ok = unlimited_ok and monotone and reconciled
+    if not ok:
+        print("ERROR: a capacity invariant failed.", file=sys.stderr)
+    return 0 if ok else 1
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--sweep", choices=["vehicle", "fc"], default="vehicle")
+    ap.add_argument("--sweep", choices=["vehicle", "fc", "capacity"], default="vehicle")
     args = ap.parse_args()
     PROC.mkdir(parents=True, exist_ok=True)
     FIG.mkdir(parents=True, exist_ok=True)
     baseline, scenario, N, headline = _build_baseline()
     if args.sweep == "vehicle":
         return run_vehicle(baseline, scenario, N, headline)
-    return run_fc(baseline, scenario, N, headline)
+    if args.sweep == "fc":
+        return run_fc(baseline, scenario, N, headline)
+    return run_capacity(baseline, scenario, N, headline)
 
 
 if __name__ == "__main__":

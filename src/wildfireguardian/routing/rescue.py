@@ -40,6 +40,7 @@ illustrative given a single-fire PoC and any synthetic inputs.
 
 from __future__ import annotations
 
+import heapq
 import math
 from dataclasses import asdict, dataclass, field
 
@@ -860,6 +861,207 @@ def classify_origin(
     return "no_surviving_vehicle_ingress"
 
 
+# ---------------------------------------------------------------------------
+# Rescue CAPACITY / supply-side triage  (additive layer on top of dispatch)
+# ---------------------------------------------------------------------------
+#
+# The pipeline above computes the *demand*: which homes need a rescuer and, of
+# those, which have a surviving vehicle corridor (the prioritized dispatch list)
+# vs none (geometry_unreachable). It never asked whether the fire service can
+# *supply* that many rescues in the operational window. This layer closes that
+# gap WITHOUT touching the spread model or the routing logic: it takes the
+# already-built, already-prioritized dispatch list and the already-computed
+# per-home responder ETA / ingress-survival, adds a parameterized number of
+# rescue units + a per-rescue service time, and runs a transparent capacity-
+# limited assignment over the EXISTING priority order. The framing is the
+# demand–supply gap (the quantitative case for pre-positioning + triage), not a
+# single "X saved" — capacity numbers are PoC parameters, not measured 영덕
+# fire-service capacity.
+
+
+@dataclass(frozen=True)
+class RescueCapacityConfig:
+    """PoC supply-side parameters for the capacity/triage layer (new, additive).
+
+    These are **PoC parameters, NOT measured 영덕 fire-service capacity** — the
+    deliverable is the demand–supply *curve* across unit counts, never a single
+    "X rescued". The operational window ``W`` and the per-home responder ETA /
+    ingress-survival come unchanged from :class:`RescueConfig`; this only adds the
+    *supply* side. Anything here is flagged in :meth:`provenance`.
+    """
+
+    n_rescue_units: int = 3                  # PoC: simultaneous rescue teams from depot(s)
+    rescue_service_time_min: float = 25.0    # PoC fixed per-rescue cycle occupancy; ASSUMED
+
+    def provenance(self) -> dict:
+        return {
+            "n_rescue_units": self.n_rescue_units,
+            "rescue_service_time_min": self.rescue_service_time_min,
+            "PoC_not_measured": (
+                "Capacity (unit count + service time) is a PoC parameter, NOT "
+                "measured 영덕 fire-service capacity. The result is the demand–"
+                "supply curve; absolute 'rescued' counts are illustrative."
+            ),
+        }
+
+
+#: The two capacity-triage outcomes for the DISPATCHABLE (reachable) homes. Together
+#: with the unchanged ``no_surviving_vehicle_ingress`` (geometry) set they form the
+#: three-way partition of the needs-rescuer pool.
+TRIAGE_CLASSES: tuple[str, ...] = ("rescued_in_time", "capacity_deferred")
+
+
+@dataclass
+class TriageOutcome:
+    """Capacity-triage result for one dispatchable (reachable) home."""
+
+    home_node: int
+    x: float
+    y: float
+    outcome: str                     # "rescued_in_time" | "capacity_deferred"
+    priority_rank: int               # 0 = most urgent (closing window ascending)
+    depot_index: int | None
+    responder_eta_min: float
+    ingress_survival_time_min: float
+    closing_window_min: float
+    deadline_min: float              # min(ingress_survival, dispatch_delay + W)
+    assigned_unit: int | None        # serving unit id (None if deferred)
+    depart_min: float | None         # when the serving unit left the depot
+    arrival_min: float | None        # earliest-available unit's arrival at the home
+    #  (== the actual arrival when rescued; the best a unit could have done when
+    #   deferred — recorded so the priority/feasibility invariant is auditable)
+
+    def as_dict(self) -> dict:
+        d = asdict(self)
+        for k in ("responder_eta_min", "ingress_survival_time_min",
+                  "closing_window_min", "deadline_min", "depart_min", "arrival_min"):
+            v = d[k]
+            d[k] = (None if (v is None or math.isinf(v)) else round(v, 2))
+        return d
+
+
+@dataclass
+class CapacityTriageResult:
+    """Outcome of one capacity-limited triage over a fixed dispatch list."""
+
+    n_rescue_units: int
+    rescue_service_time_min: float
+    window_min: float
+    dispatch_delay_min: float
+    n_dispatch: int
+    n_rescued_in_time: int
+    n_capacity_deferred: int
+    outcomes: list[TriageOutcome] = field(default_factory=list)
+
+    @property
+    def counts(self) -> dict[str, int]:
+        return {"rescued_in_time": self.n_rescued_in_time,
+                "capacity_deferred": self.n_capacity_deferred}
+
+    def three_way(self, n_geometry_unreachable: int) -> dict[str, int]:
+        """The three-way partition of the needs-rescuer pool (sums to its size)."""
+        return {"rescued_in_time": self.n_rescued_in_time,
+                "capacity_deferred": self.n_capacity_deferred,
+                "geometry_unreachable": int(n_geometry_unreachable)}
+
+    def summary(self, n_geometry_unreachable: int) -> dict:
+        tw = self.three_way(n_geometry_unreachable)
+        needs = sum(tw.values())
+        return {
+            "n_rescue_units": self.n_rescue_units,
+            "rescue_service_time_min": self.rescue_service_time_min,
+            "window_min": self.window_min,
+            "dispatch_delay_min": self.dispatch_delay_min,
+            "n_needs_rescuer": needs,
+            "n_dispatch_reachable": self.n_dispatch,
+            "three_way": tw,
+            "pct_demand_met": (round(100.0 * tw["rescued_in_time"] / needs, 1)
+                               if needs else 0.0),
+            "pct_reachable_demand_met": (round(100.0 * self.n_rescued_in_time
+                                               / self.n_dispatch, 1)
+                                         if self.n_dispatch else 0.0),
+        }
+
+
+def capacity_triage(
+    dispatch: list[DispatchEntry], cfg: RescueConfig, cap: RescueCapacityConfig,
+) -> CapacityTriageResult:
+    """Capacity-limited triage over the EXISTING priority order (greedy discrete-event).
+
+    ``dispatch`` is the prioritized dispatch list from :func:`build_dispatch_list`
+    — the homes whose vehicle corridor survives long enough for a responder to reach
+    them (the *demand* a rescuer can in principle serve), already ranked by urgency =
+    ``ingress_survival − responder_ETA`` ascending (smallest closing window = most
+    urgent first). This layer adds the *supply* constraint: only ``cap.n_rescue_units``
+    teams operate, each occupied ``cap.rescue_service_time_min`` per rescue.
+
+    Assignment rule (transparent, auditable — the existing priority IS the triage):
+
+    1. Every unit is available to depart the depot at ``responder_dispatch_delay_min``
+       (mobilised once after the initial detection + mobilisation lag).
+    2. Walk the dispatch list **most-urgent first**. Assign each home to the unit that
+       becomes free earliest; that unit departs at its ``free_at`` and ARRIVES at the
+       home at ``free_at + (responder_ETA − dispatch_delay)`` — i.e. it drives the
+       already-computed responder corridor (the dispatch-delay part of the ETA is the
+       one-time mobilisation, already in ``free_at``).
+    3. The home is ``rescued_in_time`` iff that arrival is no later than its
+       ``deadline = min(ingress_survival_time, dispatch_delay + W)`` — the access
+       corridor is still open AND the responder is within the operational window. The
+       serving unit is then busy for ``rescue_service_time_min`` (one rescue cycle)
+       before it can take another home.
+    4. Otherwise the home is ``capacity_deferred`` — a *supply* failure: a surviving
+       route exists, but no unit reaches it in time given the unit count + window.
+
+    Because units only ever become free *later*, the earliest-available unit gives the
+    earliest achievable arrival for the current home; if even it misses the deadline,
+    no unit can — so deferral respects priority (a lower-priority home is never served
+    while a higher-priority, still-open, reachable home could have been served by a
+    free unit). At ``n_rescue_units ≥ len(dispatch)`` every dispatchable home is
+    rescued, so ``capacity_deferred → 0`` and the layer is a strict refinement that
+    recovers the original geometry-only unreachable set. ``geometry_unreachable`` homes
+    are not in ``dispatch`` and never enter here.
+    """
+    delay = float(cfg.responder_dispatch_delay_min)
+    window = float(cfg.responder_time_budget_min)
+    service = float(cap.rescue_service_time_min)
+    n_units = max(0, int(cap.n_rescue_units))
+
+    # Min-heap of (free_at, unit_id); every unit mobilised at the dispatch delay.
+    free: list[tuple[float, int]] = [(delay, u) for u in range(n_units)]
+    heapq.heapify(free)
+
+    outcomes: list[TriageOutcome] = []
+    n_rescued = 0
+    for rank, e in enumerate(dispatch):           # dispatch is priority-ordered
+        travel_in = max(0.0, e.responder_eta_min - delay)
+        deadline = min(e.ingress_survival_time_min, delay + window)
+        unit = depart = arrival = None
+        served = False
+        if free:
+            t, uid = free[0]                      # earliest-available unit
+            arr = t + travel_in
+            arrival = arr
+            if arr <= deadline + 1e-9:
+                heapq.heapreplace(free, (t + service, uid))
+                served, unit, depart = True, uid, t
+        if served:
+            n_rescued += 1
+        outcomes.append(TriageOutcome(
+            home_node=e.home_node, x=e.x, y=e.y,
+            outcome="rescued_in_time" if served else "capacity_deferred",
+            priority_rank=rank, depot_index=e.depot_index,
+            responder_eta_min=e.responder_eta_min,
+            ingress_survival_time_min=e.ingress_survival_time_min,
+            closing_window_min=e.closing_window_min, deadline_min=deadline,
+            assigned_unit=unit, depart_min=depart, arrival_min=arrival))
+
+    return CapacityTriageResult(
+        n_rescue_units=n_units, rescue_service_time_min=service, window_min=window,
+        dispatch_delay_min=delay, n_dispatch=len(dispatch),
+        n_rescued_in_time=n_rescued, n_capacity_deferred=len(dispatch) - n_rescued,
+        outcomes=outcomes)
+
+
 __all__ = [
     "DEFAULT_VEHICLE_SPEED_KMH",
     "DEFAULT_WALK_CUTOFF",
@@ -886,4 +1088,9 @@ __all__ = [
     "build_dispatch_list",
     "FOUR_WAY_CLASSES",
     "classify_origin",
+    "RescueCapacityConfig",
+    "TRIAGE_CLASSES",
+    "TriageOutcome",
+    "CapacityTriageResult",
+    "capacity_triage",
 ]

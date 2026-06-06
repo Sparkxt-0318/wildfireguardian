@@ -110,9 +110,36 @@ across-the-board "improvement" of B over A is claimed here; B is canonical purel
 **by consistency** — it is the model that produced every downstream result, and it
 is strong (0.88–0.97 ROC-AUC) on the five fires shared with Build A.
 
+## Downstream: rescue capacity / triage (PoC)
+
+The rescue-routing layer that consumes this model's hazard surfaces now reports a
+**demand–supply** split, not just demand. Of N = 452 영덕 origins, **264 need a
+rescuer** = **244 dispatch-reachable** + **20 geometry-unreachable** (no surviving
+ingress). A parameterized capacity model (`RescueCapacityConfig`,
+`rescue.py::capacity_triage`, `--sweep capacity`) partitions the 264 into
+**rescued_in_time / capacity_deferred / geometry_unreachable** using the existing
+priority order (closing window) as the triage rule:
+
+| rescue units | rescued_in_time | capacity_deferred | geometry_unreachable | % demand met |
+|---:|---:|---:|---:|---:|
+| 1 | 3 | 241 | 20 | 1.1 % |
+| 3 (baseline) | 9 | 235 | 20 | 3.4 % |
+| 8 | 24 | 220 | 20 | 9.1 % |
+
+Timely-rescue supply ≈ `units × ⌊W/service⌋` (3 per unit at W = 75 min, service =
+25 min) is far below the 244 reachable demand — the quantitative case for
+pre-positioning + triage. **Capacity here is a PoC parameter, NOT measured 영덕
+fire-service capacity**; report the curve, not a single "X rescued"/"lives saved".
+At unlimited units `capacity_deferred → 0` and the honest geometry-unreachable set
+(20) is recovered (asserted). Detail + figure: `docs/rescue_routing.md` §4c,
+`docs/figures/rescue_capacity.png`, `data/processed/rescue_capacity.json`.
+
 ## Caveats
 
 - Single-fire (영덕) downstream PoC; synthetic-and-tagged auxiliary routing data.
+- Rescue **capacity** (unit count + service time) is a PoC parameter, **not**
+  measured 영덕 fire-service capacity — the demand–supply result is a curve and a
+  direction, never a single "X rescued" or "lives saved" figure (§ Downstream).
 - The `gangneung_2023` fold (~17 detections) is too small for a stable AUC —
   report mean-of-folds **with** the range and this caveat.
 - Per-fire far-band AUC and per-fold prediction arrays are **not** committed; only
