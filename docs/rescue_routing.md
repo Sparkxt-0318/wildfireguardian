@@ -208,10 +208,104 @@ optimistic swept assumptions a **large minority (≥43 %)** still cannot self-ev
 — that direction is robust; the exact percentage is not. **Unchanged keeper:** the
 §4a dispatch-delay → unreachable trend remains a robust direction.
 
+## 4c. Rescue capacity / triage — the demand–supply gap (PoC)
+
+§4a–4b size the **demand**: of N = 452 origins, **264 need a rescuer** = **244
+dispatch-reachable** (a vehicle corridor survives long enough to reach them) +
+**20 geometry-unreachable** (no surviving ingress). They never asked whether the
+fire service can **supply** that many rescues in the window. This layer
+(`rescue.py::capacity_triage`, `--sweep capacity`,
+`data/processed/rescue_capacity.json`, `docs/figures/rescue_capacity.png`) closes
+that gap as an **additive refinement** — no change to the spread model or the
+routing logic. The existing **prioritized dispatch list (ranked by closing window
+= `ingress_survival − responder_ETA`, most-urgent first) IS the triage rule.**
+
+**Supply model (PoC).** `n_rescue_units` teams operate from the depot(s); each is
+busy `rescue_service_time_min` per rescue cycle. Every unit is mobilised at the
+`responder_dispatch_delay` and drives the already-computed responder corridor; a
+home is **`rescued_in_time`** iff a unit ARRIVES no later than its
+`deadline = min(ingress_survival_time, dispatch_delay + W)` (corridor still open
+*and* within the operational window `W = responder_time_budget_min = 75 min`),
+else **`capacity_deferred`** (a *supply* failure — a surviving route exists but no
+unit reaches it in time). `geometry_unreachable` (the 20) is unchanged. The three
+outcomes **partition the 264-home needs-rescuer pool**.
+
+> **These capacity numbers are PoC parameters, NOT measured 영덕 fire-service
+> capacity.** The deliverable is the demand–supply **curve**, never a single
+> "X rescued" or any "lives saved" figure.
+
+**Capacity sweep @ baseline (PoC: `service = 25 min/rescue`, `W = 75 min`,
+units mobilised at the 30-min dispatch delay), full N = 452:**
+
+| rescue units | rescued_in_time | capacity_deferred | geometry_unreachable | % of demand met |
+|---:|---:|---:|---:|---:|
+| 1 | 3 | 241 | 20 | 1.1 % |
+| 2 | 6 | 238 | 20 | 2.3 % |
+| 3 | 9 | 235 | 20 | 3.4 % |
+| 4 | 12 | 232 | 20 | 4.5 % |
+| 6 | 18 | 226 | 20 | 6.8 % |
+| 8 | 24 | 220 | 20 | 9.1 % |
+
+The numbers are governed by a transparent identity: timely-rescue **supply ≈
+`n_units × ⌊W / service⌋`** (here **3 rescues per unit** in a 75-min window at 25
+min/rescue), which is **far below the 244 reachable demand** — so even 8 units
+meet < 10 % of demand. *This gap is the quantitative case for pre-positioning
+resources and for triage, not a deficiency to hide.*
+
+**Secondary axis — dispatch delay × units** (`CAP_DELAYS = {0, 30, 60}`; the
+needs-rescuer pool is delay-invariant, so its 264 split moves between reachable
+and geometry as the delay rises): geometry-unreachable goes **6 → 20 → 34** at
+delay 0/30/60 (matching the §4a finding), while the supply-limited
+`rescued_in_time` per unit is **delay-invariant** (the window span `W` is the same
+regardless of when it starts) — i.e. **supply, not the dispatch delay, is the
+binding constraint** on timely rescue here.
+
+**Invariants (asserted in code + `tests/test_rescue_capacity.py`):**
+
+| invariant | result |
+|---|---|
+| three outcomes sum to the 264 needs-rescuer count in every cell | ✓ |
+| unlimited units → `capacity_deferred = 0`, recovers the geometry-only set (20) — the layer is a strict refinement | ✓ |
+| `rescued_in_time` monotone non-decreasing in unit count | ✓ (3→6→9→12→18→24) |
+| capacity binds (1 unit leaves demand unmet) | ✓ |
+| 2-D baseline cell (delay 30, units 3) reconciles with the 1-D sweep + `run_pipeline` | ✓ |
+
+**Reading.** Geometry alone caps timely rescue at **92.4 %** of demand (244/264);
+the residual 20 have no surviving corridor and are never imputed. The robust
+result is the **shape** of the curve (sharp unmet demand at realistic unit
+counts); the absolute % moves with the PoC `service`/`W` and is not a measured
+capability.
+
+## 4d. Operator-facing output (illustrative, from the real PoC)
+
+The delivery layer is **people** (가족·복지사·지자체), so the operator's concrete
+artifact is rendered from the **actual** rescue PoC output
+(`scripts/operator_output_demo.py` → `docs/figures/operator_output.png` +
+`docs/operator_output_sample.txt`), not hand-faked:
+
+- a **prioritized dispatch table** (operator/responder view): home id, outcome
+  class (`rescued_in_time` / `capacity_deferred` / `geometry_unreachable`, from
+  §4c), assigned unit/집결지, recommended road direction, responder ETA, and
+  urgency (closing window);
+- a **per-resident SMS** (Korean, short, imperative) auto-filled from the route —
+  a self-evacuating resident ("지금 [방향]쪽 [집결지]로 대피하세요 …"), a rescued
+  immobile resident ("구조대가 약 N분 뒤 도착 …"), and, honestly, a
+  capacity-deferred resident (no false ETA; mutual-aid + shelter-in-place).
+
+> **Illustrative output of the research pipeline on synthetic-and-tagged
+> geometry — NOT a deployed product/UI, NOT real residents.** Names are
+> placeholders (○○○), filled from the operator's resident registry in a
+> deployment.
+
 ## 5. Honest limitations
 
 - **Single-fire (영덕) proof-of-concept.** Not multi-fire validated; not an
   operational system.
+- **Rescue capacity is a PoC parameter, not a measured 영덕 fire-service value**
+  (§4c). The `n_rescue_units` × `service_time` supply model is illustrative; the
+  result is the demand–supply **curve** and the **direction** (supply far below
+  reachable demand), never a single "X rescued" or "lives saved." Geometry-
+  unreachable stays separate and reported.
 - **The surviving-ingress layer reduces, not solves, unreachability.** The
   unreachable set is an expected, reported output.
 - **Contrasts are the robust result; absolute magnitudes are illustrative**,
@@ -243,10 +337,21 @@ walk 0.7 m/s; vehicle 40 km/h; walk cutoff 0.5; vehicle cutoff 0.7; responder
 dispatch delay 30 min; safety margin 12 min; responder time budget 75 min;
 corridor sample spacing 150 m; immobile fraction 0.3; seed 20250603.
 
+**Rescue-capacity PoC inputs (§4c — `RescueCapacityConfig`, NOT measured 영덕
+fire-service capacity):** `n_rescue_units` (swept {1,2,3,4,6,8}); per-rescue
+service time 25 min; window `W` reuses `responder_time_budget_min` (75 min). These
+are flagged `PoC_not_measured` in `RescueCapacityConfig.provenance()`.
+
 ## 7. Reproducibility
 
 Deterministic (fixed seed, config-driven, no hidden globals). Synthetic-fallback
-runs need no network or API key. Tests: `tests/test_rescue_routing.py`
-(ingress-survival at a known slice; rescuer prefers a longer surviving corridor;
-road→cell sampling orientation regression; 영덕 four-way sums to N and
-`rescue_reachable ⊆ safe`).
+runs need no network or API key. Regenerate the four-way + sweeps with
+`python scripts/run_rescue_routing.py && python scripts/make_rescue_figures.py`;
+the reconciled baseline + 2-D sweeps with `python scripts/verify_rescue_routing.py
+[--sweep vehicle|fc|capacity]` (the **capacity** sweep writes
+`data/processed/rescue_capacity.json` + `docs/figures/rescue_capacity.png`).
+Tests: `tests/test_rescue_routing.py` (ingress-survival at a known slice; rescuer
+prefers a longer surviving corridor; road→cell sampling orientation regression;
+영덕 four-way sums to N and `rescue_reachable ⊆ safe`) and
+`tests/test_rescue_capacity.py` (three-way partition; unlimited-capacity recovers
+the geometry-only set; priority respected; monotone in units).

@@ -31,11 +31,15 @@ wind_alignment` `[src: features.py/FEATURE_COLUMNS]`.
 > **LOFO ROC-AUC = 0.89 (range 0.68–0.97 across 6 fires; the 0.68 fold,
 > `gangneung_2023`, has only ~17 detections).**
 
-- Mean-of-folds ROC-AUC = **0.890 ± 0.107** (sample sd; range 0.682–0.974, N=6)
-  — *recomputed from* `spread_v2_lofo.json/per_fire_auc`. This is the
-  generalization figure.
-- Excluding the tiny `gangneung_2023` fold, the other five fires average **0.931**
-  (0.878–0.974) — recomputed from the same file.
+- Mean-of-folds ROC-AUC = **0.890 ± 0.107** (sample sd; range 0.682–0.974, N=6),
+  **95 % t-CI [0.778, 1.000]** — *recomputed from* `spread_v2_lofo.json/per_fire_auc`
+  via `validation/auc_stats.mean_of_folds_interval`. This is the generalization
+  figure. **The CI is wide because n=6 is a small sample** (and the 0.68
+  `gangneung_2023` fold inflates the SD); treat it as a small-sample bound, not a
+  tight one — the **per-fold DeLong CIs** (each fold = thousands of cells) are the
+  stronger evidence (see below).
+- Excluding the tiny `gangneung_2023` fold, the other five fires average **0.931 ±
+  0.036**, 95 % t-CI [0.887, 0.976] (n=5) — recomputed from the same file.
 
 ### Per-fire ROC-AUC
 
@@ -50,6 +54,17 @@ wind_alignment` `[src: features.py/FEATURE_COLUMNS]`.
 
 `[src: spread_v2_lofo.json/per_fire_auc]`
 
+**Per-fire DeLong 95 % CIs + a significance test vs AUC = 0.5 (the test H1 needs)**
+require the per-fold prediction arrays, which are **not** stored — so they need a
+LOFO re-run. `scripts/auc_intervals.py` does this: it re-runs the canonical model
+(seed 20250603, same 16 features/folds), **gates** against pooled 0.905 /
+mean-of-folds 0.890 / the per-fire AUCs, persists the out-of-fold predictions, and
+emits the per-fire `AUC [95 % CI]` table + p-values. **It was not run for this
+card** because the FIRMS/ERA5/DEM bundle is git-ignored and absent in a fresh
+clone (it STOPs cleanly rather than fabricate); run it where the data is present.
+Method + the computable-now mean-of-folds interval: `docs/auc_intervals.md`;
+statistics unit-tested in `tests/test_auc_stats.py`.
+
 ### Pooled and far-band (labeled — NOT the generalization figure)
 
 - **Pooled** out-of-fold ROC-AUC = **0.905** — one ROC over *all* held-out folds'
@@ -59,7 +74,9 @@ wind_alignment` `[src: features.py/FEATURE_COLUMNS]`.
 - **Pooled far-band (>3 km)** ROC-AUC = **0.877**; mid-band (1–3 km) 0.870.
   **Per-fire far-band AUC is not stored**, so a mean-of-folds far-band cannot be
   computed without re-running LOFO — report this number **as pooled**, with that
-  limitation. `[src: spread_v2_lofo.json/far_band_auc, mid_band_auc]`
+  limitation. The far-band **mean-of-folds** (the deferred gap) is produced by the
+  same gated `scripts/auc_intervals.py` re-run (not run here — data absent).
+  `[src: spread_v2_lofo.json/far_band_auc, mid_band_auc]`
 
 ## Footprint IoU — honest figure
 
@@ -80,6 +97,15 @@ information), but it measures an easier task; the honest figure is **~0.40**.
 Permutation importance: `days_since_rain` 0.077 is the top predictor; summed
 fire-weather **severity** importance 0.102 vs `wind_alignment` 0.0023 — a **44×**
 ratio. `[src: spread_v2_lofo.json/permutation_importance]`
+
+**Standard ML baselines** (logistic regression, random forest) on the identical
+16 features/folds/seed are provided as controlled comparators via
+`scripts/ml_baselines.py` (`validation/ml_baselines.py`, unit-tested) — to answer
+"you only beat a bad physics model" honestly. Not run for this card (FIRMS bundle
+absent; STOPs cleanly rather than fabricate). If the GBM only marginally beats
+random forest, the technical-excellence claim is the **calibrated probabilities +
+speed + severity≫direction interpretability**, not a large accuracy win. Method:
+`docs/baselines.md`.
 
 ## Provenance — two builds exist; why they are NOT directly comparable
 
@@ -110,9 +136,36 @@ across-the-board "improvement" of B over A is claimed here; B is canonical purel
 **by consistency** — it is the model that produced every downstream result, and it
 is strong (0.88–0.97 ROC-AUC) on the five fires shared with Build A.
 
+## Downstream: rescue capacity / triage (PoC)
+
+The rescue-routing layer that consumes this model's hazard surfaces now reports a
+**demand–supply** split, not just demand. Of N = 452 영덕 origins, **264 need a
+rescuer** = **244 dispatch-reachable** + **20 geometry-unreachable** (no surviving
+ingress). A parameterized capacity model (`RescueCapacityConfig`,
+`rescue.py::capacity_triage`, `--sweep capacity`) partitions the 264 into
+**rescued_in_time / capacity_deferred / geometry_unreachable** using the existing
+priority order (closing window) as the triage rule:
+
+| rescue units | rescued_in_time | capacity_deferred | geometry_unreachable | % demand met |
+|---:|---:|---:|---:|---:|
+| 1 | 3 | 241 | 20 | 1.1 % |
+| 3 (baseline) | 9 | 235 | 20 | 3.4 % |
+| 8 | 24 | 220 | 20 | 9.1 % |
+
+Timely-rescue supply ≈ `units × ⌊W/service⌋` (3 per unit at W = 75 min, service =
+25 min) is far below the 244 reachable demand — the quantitative case for
+pre-positioning + triage. **Capacity here is a PoC parameter, NOT measured 영덕
+fire-service capacity**; report the curve, not a single "X rescued"/"lives saved".
+At unlimited units `capacity_deferred → 0` and the honest geometry-unreachable set
+(20) is recovered (asserted). Detail + figure: `docs/rescue_routing.md` §4c,
+`docs/figures/rescue_capacity.png`, `data/processed/rescue_capacity.json`.
+
 ## Caveats
 
 - Single-fire (영덕) downstream PoC; synthetic-and-tagged auxiliary routing data.
+- Rescue **capacity** (unit count + service time) is a PoC parameter, **not**
+  measured 영덕 fire-service capacity — the demand–supply result is a curve and a
+  direction, never a single "X rescued" or "lives saved" figure (§ Downstream).
 - The `gangneung_2023` fold (~17 detections) is too small for a stable AUC —
   report mean-of-folds **with** the range and this caveat.
 - Per-fire far-band AUC and per-fold prediction arrays are **not** committed; only

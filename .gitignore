@@ -81,9 +81,12 @@ data/processed/**
 # scripts/run_rescue_routing.py). The bulk rescue_routing.npz stays ignored.
 !data/processed/rescue_routing.json
 # Rescue verification/reconciliation (single-baseline + full-N 2-D sweeps;
-# regenerable via scripts/verify_rescue_routing.py [--sweep vehicle|fc]).
+# regenerable via scripts/verify_rescue_routing.py [--sweep vehicle|fc|capacity]).
 !data/processed/rescue_verify.json
 !data/processed/rescue_verify_fc.json
+# Rescue capacity / triage demand–supply sweep (small JSON; PoC capacity params;
+# regenerable via scripts/verify_rescue_routing.py --sweep capacity).
+!data/processed/rescue_capacity.json
 # Validation-case manifest JSON files ARE committed (they're stubs, not
 # bulk data).
 !data/validation_cases/**
