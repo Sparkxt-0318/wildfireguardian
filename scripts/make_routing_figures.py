@@ -7,8 +7,9 @@ Reads the arrays/metrics produced by ``run_routing_integration.py`` and writes:
                                              with naive (into hazard) vs
                                              future-aware (detour) routes.
   docs/figures/routing_exposure_comparison.png  exposure / hazard-along-route.
-  docs/figures/spread_v2_findings.png        permutation importance (severity
-                                             vs wind direction), drift, growth.
+  docs/figures/spread_v2_findings.png        headline single-panel chart:
+                                             fire-weather severity vs wind
+                                             direction (~44x importance ratio).
 
 Run after the integration script:  python scripts/make_routing_figures.py
 """
@@ -40,14 +41,22 @@ _TO_4326 = Transformer.from_crs("EPSG:5179", "EPSG:4326", always_xy=True)
 
 
 def _setup_font() -> bool:
+    plt.rcParams["axes.unicode_minus"] = False
+    # Preferred: Nanum TTFs if present (original authoring environment).
     for p in ("/usr/share/fonts/truetype/nanum/NanumGothic.ttf",
               "/usr/share/fonts/truetype/nanum/NanumBarunGothic.ttf"):
         if os.path.exists(p):
             fm.fontManager.addfont(p)
             plt.rcParams["font.family"] = fm.FontProperties(fname=p).get_name()
-            plt.rcParams["axes.unicode_minus"] = False
             return True
-    plt.rcParams["axes.unicode_minus"] = False
+    # Fallback: any installed CJK family that covers Hangul, so the figures
+    # still render Korean on hosts without the Nanum fonts.
+    available = {f.name for f in fm.fontManager.ttflist}
+    for name in ("Noto Sans CJK KR", "NanumGothic", "Malgun Gothic",
+                 "AppleGothic", "WenQuanYi Zen Hei", "WenQuanYi Zen Hei Sharp"):
+        if name in available:
+            plt.rcParams["font.family"] = name
+            return True
     return False
 
 
@@ -174,57 +183,76 @@ def exposure_figure(npz, demo):
     print("wrote", FIG / "routing_exposure_comparison.png")
 
 
-def findings_figure(lofo, fwd):
+def findings_figure(lofo, fwd=None):
+    """Headline single-panel chart: fire-weather *severity* ≫ wind *direction*.
+
+    Three permutation-importance bars — the top dryness predictor
+    (``days_since_rain``), the summed fire-weather SEVERITY group, and the lone
+    wind-DIRECTION feature (``wind_alignment``) — with a red ``≈ NN×`` arrow
+    whose head lands on the (tiny) grey ``wind_alignment`` bar to mark the
+    severity-vs-direction ratio. ``fwd`` is unused, kept for call compatibility.
+    """
     imp = lofo["permutation_importance"]
-    fig, axes = plt.subplots(1, 3, figsize=(17, 5.4), constrained_layout=True)
+    days = imp["days_since_rain"]
+    severity = sum(imp[f] for f in SEVERITY_FEATURES)   # canonical group sum
+    wind = imp["wind_alignment"]
+    ratio = round(severity / wind)
 
-    # (a) permutation importance, severity vs direction colour-coded.
-    names = list(imp.keys())
-    vals = [imp[n] for n in names]
-    colors = []
-    for n in names:
-        if n in SEVERITY_FEATURES:
-            colors.append("#dc2626")            # severity = red
-        elif n == "wind_alignment":
-            colors.append("#2563eb")            # wind DIRECTION = blue
-        else:
-            colors.append("#9ca3af")            # geometry/terrain = grey
-    order = np.argsort(vals)
-    axes[0].barh([names[i] for i in order], [vals[i] for i in order],
-                 color=[colors[i] for i in order])
-    axes[0].set_title("순열 중요도 (LOFO) / Permutation importance\n"
-                      "빨강=기상 강도, 파랑=풍향 / red=severity, blue=wind direction", fontsize=10.5)
-    axes[0].set_xlabel("AUC 하락 / AUC drop when permuted")
+    # seaborn "deep" palette; grey for the near-zero wind-direction bar.
+    orange, blue, grey = "#dd8452", "#4c72b0", "#cdd2d9"
+    red, navy = "#c0392b", "#2c3e6b"
 
-    # (b) drift vs observed (IoU + captured) over time.
-    steps = [d["minutes"] / 60.0 for d in fwd["drift"]]
-    iou = [d["iou"] for d in fwd["drift"]]
-    cap = [d["captured_frac"] for d in fwd["drift"]]
-    axes[1].plot(steps, iou, "-o", color="#dc2626", label="IoU (vs 관측/observed)")
-    axes[1].plot(steps, cap, "-s", color="#16a34a", label="포착률 captured frac")
-    axes[1].set_ylim(0, 1.02)
-    axes[1].set_xlabel("순방향 모의 시간 (시간) / Forward-sim hours")
-    axes[1].set_title("복합 오차: 예측 위험의 관측 대비 표류\n"
-                      "Compounding error: drift vs observed", fontsize=10.5)
-    axes[1].legend(fontsize=9)
+    labels = [
+        "강우 후 경과일\ndays_since_rain\n(최상위 예측변수)",
+        "기상 심각도 합\nfire-weather severity",
+        "풍향 정렬\nwind_alignment\n(바람 '방향')",
+    ]
+    vals = [days, severity, wind]
 
-    # (c) envelope area + breadth growth.
-    area = fwd["envelope_area_ha"]
-    breadth = fwd["envelope_breadth_deg"]
-    ax3 = axes[2]
-    ax3.plot(steps, area, "-o", color="#b45309", label="위험 면적 ha / hazard area")
-    ax3.set_xlabel("순방향 모의 시간 (시간) / Forward-sim hours")
-    ax3.set_ylabel("위험 영역 면적 (ha) / envelope area")
-    ax3b = ax3.twinx()
-    ax3b.plot(steps, breadth, "-^", color="#7c3aed", label="각폭 deg / breadth")
-    ax3b.set_ylabel("도달 영역 각폭 (도) / envelope breadth (deg)")
-    ax3.set_title("넓고 성장하는 도달 영역 / Broad, growing reach", fontsize=10.5)
-    lines = ax3.get_lines() + ax3b.get_lines()
-    ax3.legend(lines, [ln.get_label() for ln in lines], fontsize=8, loc="lower right")
+    fig, ax = plt.subplots(figsize=(9.2, 5.0))
+    bars = ax.bar(range(3), vals, width=0.62, color=[orange, blue, grey],
+                  edgecolor="#b8bdc6", linewidth=0.6, zorder=3)
 
-    fig.suptitle("spread_v2: 원거리 예측력은 풍향이 아닌 화재기상 강도에서 나온다  /  "
-                 "far-field skill comes from fire-weather severity, not wind direction",
-                 fontsize=12.5)
+    # Value labels above each bar (4 dp on the tiny wind bar, else 3 dp).
+    for b, val, f in zip(bars, vals, ("{:.3f}", "{:.3f}", "{:.4f}")):
+        ax.text(b.get_x() + b.get_width() / 2, val + 0.0035, f.format(val),
+                ha="center", va="bottom", fontsize=12, fontweight="bold",
+                color=navy, zorder=4)
+
+    ax.set_ylim(0, 0.12)
+    ax.set_yticks([0.00, 0.02, 0.04, 0.06, 0.08, 0.10, 0.12])
+    ax.set_xticks(range(3))
+    ax.set_xticklabels(labels, fontsize=10.5, color="#2b2b2b")
+    ax.set_ylabel("순열 중요도 / permutation importance", fontsize=11.5,
+                  color="#2b2b2b")
+    ax.tick_params(axis="y", labelsize=10)
+    for side in ("top", "right"):
+        ax.spines[side].set_visible(False)
+    ax.spines["left"].set_color("#888888")
+    ax.spines["bottom"].set_color("#888888")
+    ax.margins(x=0.06)
+
+    # The fix: red "≈ NN×" arrow whose head LANDS on the top of the grey bar
+    # (shrinkB=0 so the tip touches the bar instead of floating beside it).
+    ax.annotate(
+        f"≈ {ratio}×",
+        xy=(2.0, wind), xytext=(2.16, 0.052),
+        xycoords="data", textcoords="data",
+        fontsize=15, fontweight="bold", color=red, ha="left", va="center",
+        arrowprops=dict(arrowstyle="-|>", color=red, lw=2.2, shrinkA=6,
+                        shrinkB=0, mutation_scale=18,
+                        connectionstyle="arc3,rad=0.18"),
+        zorder=5,
+    )
+
+    ax.set_title(
+        "핵심 발견 — 화재기상 '심각도' ≫ 바람 '방향'\n"
+        "Severity governs far-field spread, not wind direction",
+        fontsize=13, color=navy, fontweight="bold", linespacing=1.35, pad=14,
+    )
+
+    fig.tight_layout()
+    FIG.mkdir(parents=True, exist_ok=True)
     fig.savefig(FIG / "spread_v2_findings.png", dpi=135, bbox_inches="tight")
     plt.close(fig)
     print("wrote", FIG / "spread_v2_findings.png")
@@ -237,7 +265,8 @@ def main() -> int:
               file=sys.stderr)
         return 2
     ok = _setup_font()
-    print("Korean font:", "NanumGothic" if ok else "NOT FOUND (labels may not render Hangul)")
+    print("Korean font:", plt.rcParams["font.family"] if ok
+          else "NOT FOUND (labels may not render Hangul)")
     npz = np.load(npz_path)
     demo = json.loads((PROC / "routing_demo.json").read_text())
     lofo = json.loads((PROC / "spread_v2_lofo.json").read_text())
