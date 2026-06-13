@@ -77,6 +77,16 @@ data/processed/**
 !data/processed/spread_v2_lofo.json
 !data/processed/yeongdeok_forward_sim.json
 !data/processed/routing_demo.json
+# AUC-interval + ML-baseline analysis outputs (per-fire DeLong CIs / significance;
+# logistic/RF vs GBM comparison; persisted LOFO out-of-fold predictions). These are
+# the result artifacts of scripts/auc_intervals.py and scripts/ml_baselines.py;
+# they require the (git-ignored) FIRMS/ERA5/DEM bundle to regenerate, so they are
+# absent in a fresh clone. The exceptions ensure that once produced locally they are
+# git-trackable rather than silently swallowed by the data/processed/** rule.
+!data/processed/auc_intervals.json
+!data/processed/ml_baselines.json
+!data/processed/spread_v2_lofo_oof.parquet
+!data/processed/spread_v2_lofo_oof.csv.gz
 # Rescue-aware routing summary (small JSON; regenerable via
 # scripts/run_rescue_routing.py). The bulk rescue_routing.npz stays ignored.
 !data/processed/rescue_routing.json
