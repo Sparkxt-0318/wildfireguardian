@@ -1,259 +1,94 @@
 #!/usr/bin/env python
-"""Operator-facing output mockup from the real 영덕 PoC dispatch (priority 5).
+"""Operator-facing output mockup — illustrative operator / welfare-worker view.
 
-Answers "복지사는 노트북으로 뭘 보나요? 엑셀이 나오나요, 대시보드인가요?": the system's
-delivery layer is people (가족·복지사·지자체), but its operator-facing **output had no
-visible form** in the docs. This renders the concrete artifact an operator
-receives, generated from the **actual rescue PoC pipeline** (not hand-faked):
+Renders the concrete artifact an operator (복지사·지자체) would see during a
+wildfire evacuation: a clean, prioritized **dispatch & delivery table**, one
+auto-generated resident **SMS**, and a colour **legend** for the 4-way triage
+classes (적시 구조 / 자력 대피 / 용량 지연 / 도달 불가, mirroring the capacity layer).
 
-  1. a **prioritized dispatch table** (operator/responder view): home id, outcome
-     class (rescued_in_time / capacity_deferred / geometry_unreachable — from the
-     Task-1 capacity layer), assigned 집결지/대피처, recommended road direction,
-     responder ETA, and urgency (closing window);
-  2. a **per-resident SMS** (Korean, short, imperative — not 합니다체), auto-filled
-     from the actual route: a self-evacuating resident, a rescued immobile
-     resident, and (honestly) a capacity-deferred one.
+This is an **illustrative mockup** in the style of the rescue-PoC output —
+representative rows on synthetic-and-tagged geometry, NOT a deployed product/UI
+and NOT real residents (names are placeholders, ○○○, filled from the operator's
+resident registry in a deployment).
 
 Outputs: docs/figures/operator_output.png  +  docs/operator_output_sample.txt
-
-*** Illustrative output of the research pipeline on synthetic-and-tagged geometry
-— NOT a deployed product/UI, NOT real residents. *** Names are placeholders
-(○○○); a deployment fills them from the operator's resident registry.
 
 Run:  python scripts/operator_output_demo.py
 """
 
 from __future__ import annotations
 
-import math
 import os
-import sys
 from pathlib import Path
 
-import numpy as np
+import matplotlib
+
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt  # noqa: E402
+from matplotlib.patches import FancyBboxPatch, Rectangle  # noqa: E402
 
 REPO = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(REPO / "src"))
-
-from wildfireguardian.routing.rescue import (  # noqa: E402
-    RescueCapacityConfig,
-    RescueConfig,
-    capacity_triage,
-)
-from wildfireguardian.routing.rescue_demo import build_synthetic_demo, run_pipeline  # noqa: E402
-
 FIG = REPO / "docs" / "figures"
 TXT = REPO / "docs" / "operator_output_sample.txt"
 
-_COMPASS_KR = ["북", "북동", "동", "남동", "남", "남서", "서", "북서"]
-_COMPASS_EN = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]
+# ---- palette (the 4-class colours double as the legend) ----
+NAVY, INK, MUTED, TINT, RED_NOTE = "#26395a", "#2b2b2b", "#5b6675", "#eef2f7", "#c0392b"
+CLASS_COLOR = {
+    "self_evac": "#2f5ea4",          # blue  — 자력 대피 가능
+    "rescue_in_time": "#2f8b57",     # green — 구조 필요·적시 구조
+    "capacity_deferred": "#d4a32e",  # gold  — 구조 필요·용량 지연
+    "unreachable": "#b23f39",        # red   — 도달 불가
+}
+
+# ---- illustrative dispatch rows (representative; ○○○ = registry placeholder) ----
+# (rank, household, class label, assembly/action, surviving road, ETA, class key)
+ROWS = [
+    (1, "H-118", "구조 필요·적시 구조", "구조대 출동 → 남정 집결지", "군도 12 (생존)", "18분", "rescue_in_time"),
+    (2, "H-204", "자력 대피 가능", "도보 안내 SMS 발송", "해안로 (생존)", "—", "self_evac"),
+    (3, "H-077", "구조 필요·용량 지연", "대기열(부대 부족)", "임도 3 (생존)", "지연", "capacity_deferred"),
+    (4, "H-251", "도달 불가(도로 소실)", "대체 경로 없음 → 별도 대응", "(전 구간 소실)", "—", "unreachable"),
+]
+HEADERS = ["우선순위", "가구", "분류", "집결지/조치", "생존 도로", "ETA"]
+COLX = [40, 170, 330, 620, 1010, 1290, 1460]   # column left edges + right edge (x: 0..1500)
+
+LEGEND = [
+    ("self_evac", "자력 대피 가능"),
+    ("rescue_in_time", "구조 필요·적시 구조"),
+    ("capacity_deferred", "구조 필요·용량 지연"),
+    ("unreachable", "도달 불가"),
+]
+
+SMS_TITLE = "자동 생성 SMS (H-204 · 자력 대피)"
+SMS_BODY = ("[산불 대피 안내] ○○○님, 지금 바로 집을 나와 해안로를 따라 '남정 대피소'로 "
+            "이동하세요. 산 쪽·내륙 도로는 위험합니다. 도움이 필요하면 119.")
+DISCLAIMER = ("※ 예시(illustrative) 출력 — 합성·태깅된 PoC 데이터 기반이며 "
+              "실제 배포 제품/대시보드가 아닙니다.")
 
 
 def _setup_font():
     from matplotlib import font_manager as fm
-    import matplotlib.pyplot as plt
+    plt.rcParams["axes.unicode_minus"] = False
     for p in ("/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc",
               "/usr/share/fonts/truetype/nanum/NanumGothic.ttf"):
         if os.path.exists(p):
             fm.fontManager.addfont(p)
             plt.rcParams["font.family"] = fm.FontProperties(fname=p).get_name()
-            break
-    plt.rcParams["axes.unicode_minus"] = False
+            return
+    # Fallback to any installed Hangul-capable family (e.g. WenQuanYi).
+    available = {f.name for f in fm.fontManager.ttflist}
+    for name in ("Noto Sans CJK KR", "NanumGothic", "Malgun Gothic",
+                 "AppleGothic", "WenQuanYi Zen Hei", "WenQuanYi Zen Hei Sharp"):
+        if name in available:
+            plt.rcParams["font.family"] = name
+            return
 
 
-def _bearing(x0, y0, x1, y1) -> tuple[str, str]:
-    """Korean + English 8-point compass direction from (x0,y0) toward (x1,y1)."""
-    ang = math.degrees(math.atan2(x1 - x0, y1 - y0)) % 360.0   # 0=N, 90=E (planar 5179)
-    k = int((ang + 22.5) // 45) % 8
-    return _COMPASS_KR[k], _COMPASS_EN[k]
-
-
-def _nearest_dest_name(scenario, x, y) -> tuple[str, str]:
-    """Friendly bilingual label for the refuge nearest (x, y)."""
-    best, bd = None, math.inf
-    for d in scenario.destinations:
-        dd = (d.x - x) ** 2 + (d.y - y) ** 2
-        if dd < bd:
-            best, bd = d, dd
-    if best is None:
-        return "집결지 / refuge", "shelter"
-    kind_kr = "해안 집결지" if best.kind == "shelter" else "내륙 대피처"
-    kind_en = "coastal refuge" if best.kind == "shelter" else "inland refuge"
-    idx = "".join(ch for ch in best.name if ch.isdigit()) or "?"
-    return f"{kind_kr} {idx} / {kind_en} {idx} (합성/synthetic)", best.kind
-
-
-# ---------------------------------------------------------------------------
-# Build representative cases from the REAL pipeline output
-# ---------------------------------------------------------------------------
-
-
-def build_cases(scenario, results, triage):
-    """Two-three representative operator/resident cases from the actual run."""
-    depots = scenario.depots
-    by_node = {o.home_node: o for o in triage.outcomes}
-
-    # (1) a self-evacuating resident routed to a rescue-reachable refuge (saved).
-    saved = None
-    ex = results.examples
-    if ex.get("resident_origin_xy") and ex.get("resident_rescue_xy"):
-        ox, oy = ex["resident_origin_xy"]
-        route = ex["resident_rescue_xy"]
-        rx, ry = route[-1]
-        dkr, den = _bearing(ox, oy, rx, ry)
-        ref_kr, _ = _nearest_dest_name(scenario, rx, ry)
-        dist_m = sum(math.dist(route[i], route[i + 1]) for i in range(len(route) - 1))
-        walk_min = (dist_m / scenario.cfg.elderly_walk_speed_ms) / 60.0
-        saved = {"kind": "self_evac", "outcome": "saved_by_rescue_reachable_refuge",
-                 "dir_kr": dkr, "dir_en": den, "refuge": ref_kr,
-                 "dist_m": dist_m, "walk_min": walk_min,
-                 "exposure": ex.get("resident_rescue_exposure")}
-
-    # (2) the most-urgent rescued_in_time dispatch home (immobile, rescuer en route).
-    rescued = None
-    for o in triage.outcomes:
-        if o.outcome == "rescued_in_time":
-            depot = depots[o.depot_index] if o.depot_index is not None else None
-            dkr, den = (_bearing(o.x, o.y, depot.x, depot.y) if depot else ("동", "E"))
-            rescued = {"kind": "rescued", "outcome": o.outcome, "home_node": o.home_node,
-                       "eta": o.responder_eta_min, "arrival": o.arrival_min,
-                       "window": o.closing_window_min, "unit": o.assigned_unit,
-                       "dir_kr": dkr, "dir_en": den}
-            break
-
-    # (3) a capacity-deferred home (honest — a surviving route exists but no unit in time).
-    deferred = None
-    for o in triage.outcomes:
-        if o.outcome == "capacity_deferred":
-            depot = depots[o.depot_index] if o.depot_index is not None else None
-            dkr, den = (_bearing(o.x, o.y, depot.x, depot.y) if depot else ("동", "E"))
-            deferred = {"kind": "deferred", "outcome": o.outcome, "home_node": o.home_node,
-                        "eta": o.responder_eta_min, "window": o.closing_window_min,
-                        "dir_kr": dkr, "dir_en": den}
-            break
-
-    return saved, rescued, deferred
-
-
-def sms_for(case) -> str:
-    """A short, imperative Korean SMS (not 합니다체), auto-filled from the route."""
-    if case is None:
-        return ""
-    if case["kind"] == "self_evac":
-        return (f"○○○님, 지금 바로 {case['dir_kr']}쪽 {case['refuge'].split(' / ')[0]}(으)로 "
-                f"대피하세요. 도보 약 {case['walk_min']:.0f}분. 길 안내: 집 앞 큰길을 따라 "
-                f"{case['dir_kr']}쪽으로 이동. 산불 접근 중, 지체 말고 출발하세요.")
-    if case["kind"] == "rescued":
-        return (f"○○○님, 구조대가 약 {case['eta']:.0f}분 뒤 도착 예정입니다. 문 닫고 집 안에서 "
-                f"대기하세요. 움직일 수 있으면 {case['dir_kr']}쪽 도로변으로 나와 기다리세요. "
-                f"전화 받을 수 있게 해 두세요.")
-    # deferred — honest, no false ETA
-    return (f"○○○님, 구조 요청이 접수됐습니다. 지금은 구조대가 부족해 대기 중입니다. 가능하면 "
-            f"이웃·가족과 함께 {case['dir_kr']}쪽으로 대피를 시도하고, 어려우면 집에서 가장 "
-            f"안전한 곳에 머무르며 연락을 유지하세요.")
-
-
-# ---------------------------------------------------------------------------
-# Render
-# ---------------------------------------------------------------------------
-
-_OUTCOME_KR = {"rescued_in_time": "제때 구조", "capacity_deferred": "용량 초과 보류",
-               "geometry_unreachable": "접근로 차단"}
-_OUTCOME_COLOR = {"rescued_in_time": "#10b981", "capacity_deferred": "#f59e0b",
-                  "geometry_unreachable": "#dc2626",
-                  "saved_by_rescue_reachable_refuge": "#2563eb"}
-
-
-def dispatch_rows(scenario, results, triage, n=7):
-    """Operator/responder dispatch-table rows from the real triage outcomes."""
-    rows = []
-    depots = scenario.depots
-    for o in triage.outcomes[:n]:
-        depot = depots[o.depot_index] if o.depot_index is not None else None
-        dkr, den = (_bearing(o.x, o.y, depot.x, depot.y) if depot else ("-", "-"))
-        rows.append([
-            f"#{o.home_node}",
-            f"{_OUTCOME_KR[o.outcome]}\n{o.outcome}",
-            (f"구조대 {o.assigned_unit}호 → 자택\nunit {o.assigned_unit} → home"
-             if o.outcome == "rescued_in_time" else "추가 자원 필요\nneeds more units"),
-            f"{dkr} / {den}",
-            f"{o.responder_eta_min:.0f}",
-            f"{o.closing_window_min:.0f}",
-        ])
-    # one honest geometry-unreachable row (no surviving corridor)
-    if results.unreachable_homes:
-        u = results.unreachable_homes[0]
-        rows.append([f"#{u['home_node']}",
-                     f"{_OUTCOME_KR['geometry_unreachable']}\ngeometry_unreachable",
-                     "광역/항공 지원 요청\nescalate (air/region)", "-", "-",
-                     (f"{u['best_closing_window_min']:.0f}"
-                      if u.get("best_closing_window_min") is not None else "-")])
-    return rows
-
-
-def render(scenario, results, triage, cases):
-    import matplotlib
-    matplotlib.use("Agg")
-    import matplotlib.pyplot as plt
-    _setup_font()
-
-    fig = plt.figure(figsize=(16, 8.5), constrained_layout=True)
-    gs = fig.add_gridspec(1, 2, width_ratios=[1.35, 1.0])
-
-    # ---- left: operator dispatch table ----
-    axL = fig.add_subplot(gs[0, 0]); axL.axis("off")
-    cap = triage
-    axL.set_title(
-        f"구조 우선순위 출동표 (운영자/복지사 화면)  /  Prioritized dispatch table (operator view)\n"
-        f"구조 필요 {cap.n_dispatch + len(results.unreachable_homes)}가구 · 차량 {cap.n_rescue_units}대 · "
-        f"제때구조 {cap.n_rescued_in_time} / 보류 {cap.n_capacity_deferred} / 접근불가 "
-        f"{len(results.unreachable_homes)}",
-        fontsize=10.5, loc="left")
-    headers = ["가옥\nhome", "분류\noutcome", "배정·집결지\nassignment",
-               "방향\ndir", "ETA\n(분)", "잔여창\nclose(분)"]
-    rows = dispatch_rows(scenario, results, triage)
-    tbl = axL.table(cellText=rows, colLabels=headers, loc="center", cellLoc="left",
-                    colWidths=[0.13, 0.24, 0.30, 0.12, 0.10, 0.11])
-    tbl.auto_set_font_size(False); tbl.set_fontsize(8.2); tbl.scale(1, 2.4)
-    for j in range(len(headers)):
-        c = tbl[0, j]; c.set_facecolor("#1f2937"); c.set_text_props(color="white", fontweight="bold")
-    for i, o in enumerate(list(triage.outcomes[:7]) + ([1] if results.unreachable_homes else []), start=1):
-        oc = (o.outcome if hasattr(o, "outcome") else "geometry_unreachable")
-        tbl[i, 1].set_facecolor(_OUTCOME_COLOR[oc]); tbl[i, 1].set_text_props(color="white")
-
-    # ---- right: SMS cards ----
-    axR = fig.add_subplot(gs[0, 1]); axR.axis("off")
-    axR.set_title("자동 생성 주민 안내 문자 (예시)  /  Auto-generated resident SMS (examples)",
-                  fontsize=10.5, loc="left")
-    cards = [(c, t) for c, t in zip(cases, ("자력 대피 / self-evacuate",
-                                            "구조대 출동 / rescuer dispatched",
-                                            "용량 초과 보류 / capacity-deferred")) if c]
-    y = 0.94
-    for case, tag in cards:
-        col = _OUTCOME_COLOR[case["outcome"]]
-        axR.add_patch(plt.Rectangle((0.02, y - 0.27), 0.96, 0.25, transform=axR.transAxes,
-                                    facecolor="#f8fafc", edgecolor=col, lw=2.0, zorder=1))
-        axR.text(0.05, y - 0.03, f"▌{tag}", transform=axR.transAxes, fontsize=9.5,
-                 color=col, fontweight="bold", va="top")
-        axR.text(0.05, y - 0.085, _wrap(sms_for(case), 34), transform=axR.transAxes,
-                 fontsize=9.0, va="top", family=plt.rcParams["font.family"])
-        y -= 0.30
-
-    fig.suptitle("영덕 PoC 운영자 출력 예시 (연구 파이프라인 산출물 · 합성/태깅 지형 · 실제 제품 아님)  /  "
-                 "Yeongdeok PoC operator output — illustrative pipeline output on "
-                 "synthetic-and-tagged geometry, NOT a deployed product",
-                 fontsize=11.5)
-    FIG.mkdir(parents=True, exist_ok=True)
-    fig.savefig(FIG / "operator_output.png", dpi=135, bbox_inches="tight")
-    plt.close(fig)
-    print("wrote", FIG / "operator_output.png")
-
-
-def _wrap(s, width):
+def _wrap(s: str, width: int) -> str:
     out, line = [], ""
     for tok in s.split(" "):
-        if len(line) + len(tok) + 1 > width:
-            out.append(line); line = tok
+        if line and len(line) + len(tok) + 1 > width:
+            out.append(line)
+            line = tok
         else:
             line = (line + " " + tok).strip()
     if line:
@@ -261,56 +96,110 @@ def _wrap(s, width):
     return "\n".join(out)
 
 
-def write_text(scenario, results, triage, cases):
+def render():
+    _setup_font()
+    # data coords 1500x750 over a 15x7.5in canvas → 1:1 scale, so squares are square.
+    fig = plt.figure(figsize=(15, 7.5), dpi=130)
+    ax = fig.add_axes((0, 0, 1, 1))
+    ax.set_xlim(0, 1500)
+    ax.set_ylim(750, 0)             # invert y so layout reads top-to-bottom
+    ax.axis("off")
+
+    # ---- title ----
+    ax.text(40, 34, "운영자(복지사·지자체) 화면 예시 — 우선 출동·전달 목록",
+            fontsize=19, fontweight="bold", color=NAVY, va="center")
+    ax.text(40, 74, "Operator (welfare worker / local gov) view — "
+            "prioritized dispatch & delivery list",
+            fontsize=12.5, color=MUTED, va="center")
+
+    # ---- header bar ----
+    hy0, hy1 = 120, 168
+    ax.add_patch(Rectangle((COLX[0], hy0), COLX[-1] - COLX[0], hy1 - hy0,
+                           facecolor=NAVY, edgecolor="none"))
+    for j, h in enumerate(HEADERS):
+        ax.text(COLX[j] + 18, (hy0 + hy1) / 2, h, fontsize=13, color="white",
+                fontweight="bold", va="center", ha="left")
+
+    # ---- data rows ----
+    row_h = 90
+    for i, (rank, hh, cls, act, road, eta, key) in enumerate(ROWS):
+        y0 = hy1 + i * row_h
+        yc = y0 + row_h / 2
+        if i % 2 == 0:
+            ax.add_patch(Rectangle((COLX[0], y0), COLX[-1] - COLX[0], row_h,
+                                   facecolor=TINT, edgecolor="none"))
+        # priority square with the rank centred inside it (ha/va='center')
+        s = 46
+        cx = (COLX[0] + COLX[1]) / 2
+        ax.add_patch(Rectangle((cx - s / 2, yc - s / 2), s, s,
+                               facecolor=CLASS_COLOR[key], edgecolor="none"))
+        ax.text(cx, yc, str(rank), fontsize=17, fontweight="bold",
+                color="white", ha="center", va="center")
+        # remaining cells: left-aligned, vertically centred
+        for j, val in ((1, hh), (2, cls), (3, act), (4, road), (5, eta)):
+            ax.text(COLX[j] + 18, yc, val, fontsize=12.5, color=INK,
+                    ha="left", va="center")
+    ty1 = hy1 + len(ROWS) * row_h
+    ax.plot([COLX[0], COLX[-1]], [ty1, ty1], color="#d6dbe3", lw=1.0)
+
+    # ---- bottom-left: auto-generated SMS card (green) ----
+    bx, by, bw, bh = 40, 560, 660, 150
+    ax.add_patch(FancyBboxPatch((bx, by), bw, bh,
+                 boxstyle="round,pad=0,rounding_size=14",
+                 facecolor="#f5faf6", edgecolor=CLASS_COLOR["rescue_in_time"], lw=2.0))
+    ax.text(bx + 24, by + 30, SMS_TITLE, fontsize=13, fontweight="bold",
+            color=CLASS_COLOR["rescue_in_time"], va="center")
+    ax.text(bx + 24, by + 58, _wrap(SMS_BODY, 30), fontsize=11.5, color=INK,
+            va="top", linespacing=1.5)
+
+    # ---- bottom-right: colour legend (orange) ----
+    lx, ly, lw_, lh = 760, 560, 700, 150
+    ax.add_patch(FancyBboxPatch((lx, ly), lw_, lh,
+                 boxstyle="round,pad=0,rounding_size=14",
+                 facecolor="#fffaf2", edgecolor="#e08a2e", lw=2.0))
+    ax.text(lx + 24, ly + 28, "색상 = 4분류 결과", fontsize=13, fontweight="bold",
+            color=NAVY, va="center")
+    for k, (key, label) in enumerate(LEGEND):
+        sy = ly + 58 + k * 23
+        ax.add_patch(Rectangle((lx + 26, sy - 9), 18, 18,
+                               facecolor=CLASS_COLOR[key], edgecolor="none"))
+        ax.text(lx + 54, sy, label, fontsize=12, color=INK, va="center")
+
+    # ---- disclaimer ----
+    ax.text(750, 735, DISCLAIMER, fontsize=11, color=RED_NOTE, ha="center", va="center")
+
+    FIG.mkdir(parents=True, exist_ok=True)
+    out = FIG / "operator_output.png"
+    fig.savefig(out, facecolor="white")
+    plt.close(fig)
+    print("wrote", out)
+
+
+def write_text():
     lines = [
-        "영덕 구조 PoC — 운영자 출력 예시 / Yeongdeok rescue PoC — operator output sample",
-        "*** 연구 파이프라인의 예시 산출물입니다. 합성·태깅 지형, 실제 주민 아님, 배포 제품 아님. ***",
-        "*** Illustrative output of the research pipeline on synthetic-and-tagged geometry;",
-        "    not real residents, not a deployed product. Names shown as ○○○ (filled from",
-        "    the operator's resident registry in a deployment). ***",
+        "운영자(복지사·지자체) 화면 예시 — 우선 출동·전달 목록",
+        "Operator (welfare worker / local gov) view — prioritized dispatch & delivery list",
+        "*** 예시(illustrative) 출력 — 합성·태깅된 PoC 데이터 기반, 실제 주민/배포 제품 아님. ***",
         "",
-        f"capacity (PoC, not measured): {triage.n_rescue_units} units, "
-        f"{triage.rescue_service_time_min:.0f} min/rescue, window {triage.window_min:.0f} min",
-        f"needs-rescuer {triage.n_dispatch + len(results.unreachable_homes)} = "
-        f"rescued_in_time {triage.n_rescued_in_time} + capacity_deferred "
-        f"{triage.n_capacity_deferred} + geometry_unreachable {len(results.unreachable_homes)}",
-        "",
-        "=== PRIORITIZED DISPATCH TABLE (operator/responder view) ===",
-        f"{'home':>10} | {'outcome':<22} | {'dir':<4} | {'ETA':>4} | {'close':>5} | assignment",
+        f"{'우선':<4} | {'가구':<6} | {'분류':<20} | {'집결지/조치':<26} | {'생존 도로':<14} | ETA",
+        "-" * 96,
     ]
-    depots = scenario.depots
-    for o in triage.outcomes[:10]:
-        depot = depots[o.depot_index] if o.depot_index is not None else None
-        _, den = (_bearing(o.x, o.y, depot.x, depot.y) if depot else ("-", "-"))
-        assign = (f"unit {o.assigned_unit} -> home" if o.outcome == "rescued_in_time"
-                  else "needs more units")
-        lines.append(f"{('#'+str(o.home_node)):>10} | {o.outcome:<22} | {den:<4} | "
-                     f"{o.responder_eta_min:>4.0f} | {o.closing_window_min:>5.0f} | {assign}")
-    if results.unreachable_homes:
-        u = results.unreachable_homes[0]
-        lines.append(f"{('#'+str(u['home_node'])):>10} | {'geometry_unreachable':<22} | "
-                     f"{'-':<4} | {'-':>4} | {'-':>5} | escalate (air/region support)")
-    lines += ["", "=== AUTO-GENERATED RESIDENT SMS (examples) ==="]
-    for case, tag in zip(cases, ("self-evacuate", "rescuer dispatched", "capacity-deferred")):
-        if case:
-            lines += [f"[{tag} | {case['outcome']}]", sms_for(case), ""]
-    TXT.write_text("\n".join(lines), encoding="utf-8")
+    for rank, hh, cls, act, road, eta, _key in ROWS:
+        lines.append(f"{rank:<4} | {hh:<6} | {cls:<20} | {act:<26} | {road:<14} | {eta}")
+    lines += [
+        "",
+        f"[자동 생성 SMS · {ROWS[1][1]} · 자력 대피]",
+        SMS_BODY,
+        "",
+        "색상 = 4분류 결과: 자력 대피(파랑) · 적시 구조(초록) · 용량 지연(노랑) · 도달 불가(빨강)",
+    ]
+    TXT.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print("wrote", TXT)
 
 
 def main() -> int:
-    print("Building 영덕 rescue PoC (baseline, full origin set) ...")
-    cfg = RescueConfig()
-    scenario = build_synthetic_demo(cfg)
-    results = run_pipeline(scenario, cfg)
-    triage = capacity_triage(results.dispatch, cfg,
-                             RescueCapacityConfig(n_rescue_units=3, rescue_service_time_min=25.0))
-    print(f"  dispatch {triage.n_dispatch}: rescued {triage.n_rescued_in_time} / "
-          f"deferred {triage.n_capacity_deferred}; geometry-unreachable "
-          f"{len(results.unreachable_homes)}")
-    cases = build_cases(scenario, results, triage)
-    render(scenario, results, triage, cases)
-    write_text(scenario, results, triage, cases)
+    render()
+    write_text()
     return 0
 
 

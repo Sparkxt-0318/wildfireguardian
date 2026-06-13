@@ -276,21 +276,22 @@ result is the **shape** of the curve (sharp unmet demand at realistic unit
 counts); the absolute % moves with the PoC `service`/`W` and is not a measured
 capability.
 
-## 4d. Operator-facing output (illustrative, from the real PoC)
+## 4d. Operator-facing output (illustrative mockup)
 
 The delivery layer is **people** (가족·복지사·지자체), so the operator's concrete
-artifact is rendered from the **actual** rescue PoC output
-(`scripts/operator_output_demo.py` → `docs/figures/operator_output.png` +
-`docs/operator_output_sample.txt`), not hand-faked:
+artifact is an **illustrative operator-view mockup** in the style of the rescue
+PoC output (`scripts/operator_output_demo.py` → `docs/figures/operator_output.png`
++ `docs/operator_output_sample.txt`) — representative rows on synthetic-and-tagged
+geometry, not a deployed product:
 
-- a **prioritized dispatch table** (operator/responder view): home id, outcome
-  class (`rescued_in_time` / `capacity_deferred` / `geometry_unreachable`, from
-  §4c), assigned unit/집결지, recommended road direction, responder ETA, and
-  urgency (closing window);
-- a **per-resident SMS** (Korean, short, imperative) auto-filled from the route —
-  a self-evacuating resident ("지금 [방향]쪽 [집결지]로 대피하세요 …"), a rescued
-  immobile resident ("구조대가 약 N분 뒤 도착 …"), and, honestly, a
-  capacity-deferred resident (no false ETA; mutual-aid + shelter-in-place).
+- a **prioritized dispatch table** (operator/responder view): priority rank,
+  household id, 4-class triage (적시 구조 / 자력 대피 / 용량 지연 / 도달 불가, from
+  §4c), assembly point & action (집결지/조치), surviving road (생존 도로), and
+  responder ETA;
+- an **auto-generated resident SMS** (Korean, short, imperative) — the figure
+  shows the self-evacuation example ("지금 바로 … 해안로를 따라 … 대피하세요"); the
+  system likewise composes a rescued-immobile message ("구조대가 약 N분 뒤 도착 …")
+  and, honestly, a capacity-deferred one (no false ETA; mutual-aid + shelter-in-place).
 
 > **Illustrative output of the research pipeline on synthetic-and-tagged
 > geometry — NOT a deployed product/UI, NOT real residents.** Names are

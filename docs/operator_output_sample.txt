@@ -1,32 +1,15 @@
-영덕 구조 PoC — 운영자 출력 예시 / Yeongdeok rescue PoC — operator output sample
-*** 연구 파이프라인의 예시 산출물입니다. 합성·태깅 지형, 실제 주민 아님, 배포 제품 아님. ***
-*** Illustrative output of the research pipeline on synthetic-and-tagged geometry;
-    not real residents, not a deployed product. Names shown as ○○○ (filled from
-    the operator's resident registry in a deployment). ***
+운영자(복지사·지자체) 화면 예시 — 우선 출동·전달 목록
+Operator (welfare worker / local gov) view — prioritized dispatch & delivery list
+*** 예시(illustrative) 출력 — 합성·태깅된 PoC 데이터 기반, 실제 주민/배포 제품 아님. ***
 
-capacity (PoC, not measured): 3 units, 25 min/rescue, window 75 min
-needs-rescuer 264 = rescued_in_time 9 + capacity_deferred 235 + geometry_unreachable 20
+우선   | 가구     | 분류                   | 집결지/조치                     | 생존 도로          | ETA
+------------------------------------------------------------------------------------------------
+1    | H-118  | 구조 필요·적시 구조          | 구조대 출동 → 남정 집결지            | 군도 12 (생존)     | 18분
+2    | H-204  | 자력 대피 가능             | 도보 안내 SMS 발송               | 해안로 (생존)       | —
+3    | H-077  | 구조 필요·용량 지연          | 대기열(부대 부족)                 | 임도 3 (생존)      | 지연
+4    | H-251  | 도달 불가(도로 소실)         | 대체 경로 없음 → 별도 대응           | (전 구간 소실)      | —
 
-=== PRIORITIZED DISPATCH TABLE (operator/responder view) ===
-      home | outcome                | dir  |  ETA | close | assignment
-      #786 | rescued_in_time        | NE   |   66 |     9 | unit 0 -> home
-      #897 | rescued_in_time        | SE   |   62 |    13 | unit 1 -> home
-      #687 | rescued_in_time        | NE   |   55 |    20 | unit 2 -> home
-     #1020 | capacity_deferred      | S    |   53 |    22 | needs more units
-      #801 | rescued_in_time        | N    |   57 |    33 | unit 0 -> home
-      #764 | rescued_in_time        | N    |   56 |    34 | unit 1 -> home
-     #1048 | rescued_in_time        | SE   |   56 |    34 | unit 2 -> home
-      #912 | capacity_deferred      | S    |   55 |    35 | needs more units
-     #1085 | capacity_deferred      | SE   |   55 |    35 | needs more units
-      #650 | capacity_deferred      | NE   |   54 |    36 | needs more units
-      #644 | geometry_unreachable   | -    |    - |     - | escalate (air/region support)
+[자동 생성 SMS · H-204 · 자력 대피]
+[산불 대피 안내] ○○○님, 지금 바로 집을 나와 해안로를 따라 '남정 대피소'로 이동하세요. 산 쪽·내륙 도로는 위험합니다. 도움이 필요하면 119.
 
-=== AUTO-GENERATED RESIDENT SMS (examples) ===
-[self-evacuate | saved_by_rescue_reachable_refuge]
-○○○님, 지금 바로 서쪽 내륙 대피처 1(으)로 대피하세요. 도보 약 54분. 길 안내: 집 앞 큰길을 따라 서쪽으로 이동. 산불 접근 중, 지체 말고 출발하세요.
-
-[rescuer dispatched | rescued_in_time]
-○○○님, 구조대가 약 66분 뒤 도착 예정입니다. 문 닫고 집 안에서 대기하세요. 움직일 수 있으면 북동쪽 도로변으로 나와 기다리세요. 전화 받을 수 있게 해 두세요.
-
-[capacity-deferred | capacity_deferred]
-○○○님, 구조 요청이 접수됐습니다. 지금은 구조대가 부족해 대기 중입니다. 가능하면 이웃·가족과 함께 남쪽으로 대피를 시도하고, 어려우면 집에서 가장 안전한 곳에 머무르며 연락을 유지하세요.
+색상 = 4분류 결과: 자력 대피(파랑) · 적시 구조(초록) · 용량 지연(노랑) · 도달 불가(빨강)
