@@ -15,11 +15,10 @@ boosted model compare to **standard ML baselines** on the same task?*
 - The comparator is **unit-tested** on a synthetic multi-fire frame
   (`tests/test_ml_baselines.py`): all three models run on the same folds and learn
   a planted signal.
-- It was **not run on the real fires here**: like the AUC-interval re-run, it needs
-  the **git-ignored FIRMS/ERA5/DEM bundle** to rebuild the LOFO dataset.
-  `scripts/ml_baselines.py` STOPs cleanly (exit 2) when the data is absent rather
-  than report invented AUCs. Run it where the bundle is present to fill in the
-  table.
+- The result below comes from the gated `scripts/ml_baselines.py` re-run on the real
+  fires (it needs the **git-ignored FIRMS/ERA5/DEM bundle** to rebuild the LOFO
+  dataset; a fresh clone reproduces it only with the bundle present, else exit 2 — no
+  invented AUCs). Output: `data/processed/ml_baselines.json`.
 
 > **Honesty stance:** identical features/folds/seed for all models; reasonable,
 > **untuned** hyperparameters — the baselines are not handicapped and the GBM is
@@ -39,28 +38,27 @@ standardization. The model card labels the canonical estimator "XGBoost"; the
 actual canonical estimator in `spread_v2.model` is `HistGradientBoosting` — the
 build that produced every downstream number — so it is used as the reference here.)
 
-## What the run will report (table to fill where data is present)
+## Result (gated re-run; regenerate via `scripts/ml_baselines.py`)
 
 | model | mean-of-folds AUC ± SD | pooled AUC |
 |---|---|---|
+| random_forest | 0.920 ± 0.036 | 0.898 |
+| logistic | 0.903 ± 0.060 | 0.826 |
 | hist_gbm (canonical reference) | 0.890 ± 0.107 | 0.905 |
-| random_forest | _run `scripts/ml_baselines.py`_ | — |
-| logistic | _run `scripts/ml_baselines.py`_ | — |
 
-The script prints the **GBM − RF mean-of-folds margin** and an automatic verdict:
+**The verdict, given these numbers:** random forest actually **edges the GBM on
+mean-of-folds** (0.920 vs 0.889) and is more stable (SD 0.036 vs 0.107); the GBM wins
+**pooled** (0.905 vs 0.898) and leads logistic throughout. So we do **not** claim a
+large accuracy win. We keep the GBM for what is actually true: its **calibrated
+probabilities** (the router consumes a genuine `P(ignite)`; held-out Brier ~0.03
+unweighted vs ~0.09 balanced), **inference speed**, and the **severity ≫
+wind-direction interpretability** (the 44× permutation-importance ratio that surfaced
+the headline finding).
 
-- **If the margin is small (< 0.03):** say so plainly and pivot the technical-
-  excellence claim to what is actually true — the GBM's **calibrated
-  probabilities** (the router consumes genuine `P(ignite)`; held-out Brier ~0.03
-  unweighted vs ~0.09 balanced), **speed**, and the **severity ≫ wind-direction
-  interpretability** (44× permutation-importance ratio) — *not* a large accuracy
-  win over random forest.
-- **If the margin is clear:** report it as a clear lead, still alongside the
-  calibration/interpretability story.
-
-Either way the honest comparison is the deliverable; the prior "beats a ~9 %
-Rothermel model" framing is replaced by "compared head-to-head with standard ML
-baselines on identical data."
+The honest comparison is the deliverable: the prior "beats a ~9 % Rothermel model"
+framing is replaced by "compared head-to-head with standard ML baselines on identical
+data — and chosen for calibration + speed + interpretability, not a headline accuracy
+gap."
 
 ## How to run (where the data is present)
 

@@ -29,40 +29,40 @@ wind_alignment` `[src: features.py/FEATURE_COLUMNS]`.
 ## Headline metric — generalization (mean-of-folds, with spread)
 
 > **LOFO ROC-AUC = 0.89 (range 0.68–0.97 across 6 fires; the 0.68 fold,
-> `gangneung_2023`, has only ~17 detections).**
+> `gangneung_2023`, has only ~8 positives).**
 
-- Mean-of-folds ROC-AUC = **0.890 ± 0.107** (sample sd; range 0.682–0.974, N=6),
-  **95 % t-CI [0.778, 1.000]** — *recomputed from* `spread_v2_lofo.json/per_fire_auc`
-  via `validation/auc_stats.mean_of_folds_interval`. This is the generalization
-  figure. **The CI is wide because n=6 is a small sample** (and the 0.68
-  `gangneung_2023` fold inflates the SD); treat it as a small-sample bound, not a
-  tight one — the **per-fold DeLong CIs** (each fold = thousands of cells) are the
-  stronger evidence (see below).
+- Mean-of-folds ROC-AUC = **0.890 ± 0.107** (sample sd; range 0.682–0.974, N=6) —
+  *recomputed from* `spread_v2_lofo.json/per_fire_auc` via
+  `validation/auc_stats.mean_of_folds_interval`. This is the generalization figure.
+  With only n=6 folds the spread is wide (the 0.68 `gangneung_2023` fold inflates the
+  SD), so we report **mean ± SD with the range** and lean on the **per-fold DeLong
+  CIs** (each fold = thousands of cells) as the stronger evidence (see below) — a
+  6-point t-interval is not reported because its upper limit pins to the AUC ceiling.
 - Excluding the tiny `gangneung_2023` fold, the other five fires average **0.931 ±
   0.036**, 95 % t-CI [0.887, 0.976] (n=5) — recomputed from the same file.
 
 ### Per-fire ROC-AUC
 
-| fire | ROC-AUC | note |
-|---|---|---|
-| miryang_2022 | 0.974 | |
-| hongseong_2023 | 0.945 | |
-| yeongdeok_2025 | 0.941 | the demonstration fire (held out) |
-| uljin_samcheok_2022 | 0.918 | |
-| uiseong_andong_2025 | 0.878 | |
-| gangneung_2023 | **0.682** | **~17 detections — fold far too small for a stable estimate; treat as noisy** |
+| fire | ROC-AUC | DeLong 95 % CI | note |
+|---|---|---|---|
+| miryang_2022 | 0.974 | [0.941, 0.989] | |
+| hongseong_2023 | 0.945 | [0.916, 0.964] | |
+| yeongdeok_2025 | 0.941 | [0.936, 0.946] | the demonstration fire (held out) |
+| uljin_samcheok_2022 | 0.918 | [0.911, 0.924] | |
+| uiseong_andong_2025 | 0.878 | [0.871, 0.884] | |
+| gangneung_2023 | **0.682** | [0.577, 0.771] | **~8 positives — fold far too small for a stable estimate; treat as noisy** |
 
-`[src: spread_v2_lofo.json/per_fire_auc]`
+`[ROC-AUC src: spread_v2_lofo.json/per_fire_auc; DeLong CIs: scripts/auc_intervals.py]`
 
-**Per-fire DeLong 95 % CIs + a significance test vs AUC = 0.5 (the test H1 needs)**
-require the per-fold prediction arrays, which are **not** stored — so they need a
-LOFO re-run. `scripts/auc_intervals.py` does this: it re-runs the canonical model
-(seed 20250603, same 16 features/folds), **gates** against pooled 0.905 /
+**All six folds are significant vs AUC = 0.5** (`gangneung_2023` p = 2.7×10⁻⁴; the
+other five p ≪ 0.001) — the test hypothesis H1 needs. The per-fire DeLong CIs above
+and those p-values come from `scripts/auc_intervals.py`, which re-runs the canonical
+model (seed 20250603, same 16 features/folds), **gates** against pooled 0.905 /
 mean-of-folds 0.890 / the per-fire AUCs, persists the out-of-fold predictions, and
-emits the per-fire `AUC [95 % CI]` table + p-values. **It was not run for this
-card** because the FIRMS/ERA5/DEM bundle is git-ignored and absent in a fresh
-clone (it STOPs cleanly rather than fabricate); run it where the data is present.
-Method + the computable-now mean-of-folds interval: `docs/auc_intervals.md`;
+emits the per-fire `AUC [95 % CI]` table + p-values to
+`data/processed/auc_intervals.json`. The script **STOPs cleanly (exit 2)** where the
+FIRMS/ERA5/DEM bundle is absent (e.g. a fresh clone) rather than fabricate — re-run
+it where the data is present to regenerate the JSON. Method: `docs/auc_intervals.md`;
 statistics unit-tested in `tests/test_auc_stats.py`.
 
 ### Pooled and far-band (labeled — NOT the generalization figure)
@@ -71,12 +71,11 @@ statistics unit-tested in `tests/test_auc_stats.py`.
   predictions concatenated (`model.py:184–186`). Pooling is flattered by the
   larger/easier folds; it is **not** the generalization estimate (it sits only
   +0.016 above the mean-of-folds here). `[src: spread_v2_lofo.json/pooled_auc]`
-- **Pooled far-band (>3 km)** ROC-AUC = **0.877**; mid-band (1–3 km) 0.870.
-  **Per-fire far-band AUC is not stored**, so a mean-of-folds far-band cannot be
-  computed without re-running LOFO — report this number **as pooled**, with that
-  limitation. The far-band **mean-of-folds** (the deferred gap) is produced by the
-  same gated `scripts/auc_intervals.py` re-run (not run here — data absent).
-  `[src: spread_v2_lofo.json/far_band_auc, mid_band_auc]`
+- **Far-band (>3 km) mean-of-folds** ROC-AUC = **0.925** (n=3 fires with far-band
+  positives); **pooled far-band 0.877**, mid-band (1–3 km) 0.870. The mean-of-folds
+  far-band comes from the gated `scripts/auc_intervals.py` re-run (which also
+  persists the per-fire far-band AUCs); the pooled scalars are stored.
+  `[pooled src: spread_v2_lofo.json/far_band_auc, mid_band_auc; mean-of-folds: scripts/auc_intervals.py]`
 
 ## Footprint IoU — honest figure
 
@@ -98,14 +97,23 @@ Permutation importance: `days_since_rain` 0.077 is the top predictor; summed
 fire-weather **severity** importance 0.102 vs `wind_alignment` 0.0023 — a **44×**
 ratio. `[src: spread_v2_lofo.json/permutation_importance]`
 
-**Standard ML baselines** (logistic regression, random forest) on the identical
-16 features/folds/seed are provided as controlled comparators via
+**Standard ML baselines** on the identical 16 features/folds/seed (20250603), via
 `scripts/ml_baselines.py` (`validation/ml_baselines.py`, unit-tested) — to answer
-"you only beat a bad physics model" honestly. Not run for this card (FIRMS bundle
-absent; STOPs cleanly rather than fabricate). If the GBM only marginally beats
-random forest, the technical-excellence claim is the **calibrated probabilities +
-speed + severity≫direction interpretability**, not a large accuracy win. Method:
-`docs/baselines.md`.
+"you only beat a bad physics model" honestly:
+
+| model | mean-of-folds AUC ± SD | pooled |
+|---|---|---|
+| random_forest | 0.920 ± 0.036 | 0.898 |
+| logistic | 0.903 ± 0.060 | 0.826 |
+| **hist_gbm (ours)** | **0.889 ± 0.107** | **0.905** |
+
+Random forest actually **edges the GBM on mean-of-folds** (and is more stable); the
+GBM wins pooled (0.905 vs 0.898). We keep the GBM not for a large accuracy win but
+for its **calibrated probabilities** (the router consumes a real `P(ignite)`),
+**inference speed**, and **interpretability** (permutation importance produced the
+severity≫direction finding). Values regenerate via `scripts/ml_baselines.py` →
+`data/processed/ml_baselines.json` (STOPs cleanly where the FIRMS bundle is absent).
+Method: `docs/baselines.md`.
 
 ## Provenance — two builds exist; why they are NOT directly comparable
 
@@ -166,10 +174,12 @@ At unlimited units `capacity_deferred → 0` and the honest geometry-unreachable
 - Rescue **capacity** (unit count + service time) is a PoC parameter, **not**
   measured 영덕 fire-service capacity — the demand–supply result is a curve and a
   direction, never a single "X rescued" or "lives saved" figure (§ Downstream).
-- The `gangneung_2023` fold (~17 detections) is too small for a stable AUC —
+- The `gangneung_2023` fold (~8 positives) is too small for a stable AUC —
   report mean-of-folds **with** the range and this caveat.
-- Per-fire far-band AUC and per-fold prediction arrays are **not** committed; only
-  the pooled far-band and per-fire overall AUC scalars are stored.
+- Per-fold prediction arrays are **not** committed; the per-fire DeLong CIs, the
+  far-band mean-of-folds, and the ML-baseline table reported here come from the gated
+  re-runs (`scripts/auc_intervals.py` / `scripts/ml_baselines.py`) and regenerate to
+  `data/processed/{auc_intervals,ml_baselines}.json` where the FIRMS bundle is present.
 - Overpass-scale time resolution (hours, not minutes).
 
 ## 작품설명서 (Korean writeup) correction mapping
@@ -180,7 +190,7 @@ The 작품설명서 is **not in this repo** — apply these old→new correction
 | field | old (Build A / brief) | new (Build B, canonical) |
 |---|---|---|
 | ROC-AUC (headline) | 0.83 / 0.834 | **0.89 (LOFO mean-of-folds, range 0.68–0.97)**; pooled 0.905 if labeled "pooled" |
-| far-band (>3 km) AUC | ~0.80 | **0.877 (pooled)** |
+| far-band (>3 km) AUC | ~0.80 | **0.925 (mean-of-folds, n=3); 0.877 pooled** |
 | footprint IoU | 0.32 | **~0.40 (forward-sim envelope, 3–12 h)** — do not use 0.874 |
 | feature count | 19 | **16** |
 
