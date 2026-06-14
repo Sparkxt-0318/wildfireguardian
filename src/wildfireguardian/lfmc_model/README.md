@@ -1,6 +1,7 @@
 # `lfmc_model` — Live Fuel Moisture Content retrieval
 
-**Status**: scaffold only.
+**Status**: scaffold only — it fed the **superseded** Rothermel physics track, **not**
+the canonical data-driven `spread_v2` pipeline (see the README research log).
 
 **Purpose**: estimate per-pixel live fuel moisture content (LFMC, % of dry
 mass) from Sentinel-2 surface reflectance, for use as the fuel-moisture

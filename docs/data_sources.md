@@ -6,21 +6,29 @@ runtime using the ingestion helpers in `wildfireguardian.data_io`. None
 of the runtime calls in this repository connect to remote sources without
 explicit user opt-in.
 
+The **canonical data-driven pipeline (`spread_v2`) uses four inputs**: NASA FIRMS
+(VIIRS S-NPP/NOAA-20 + MODIS active fire), SRTM ~30 m DEM, ESA WorldCover 2021 (10 m
+land cover → fuel burnability), and ECMWF ERA5 (reanalysis weather); the rescue
+router adds OpenStreetMap walk/drive networks and 공공데이터포털 shelters/119 depots.
+The **Sentinel-2 LFMC, KFS 임상도 fuel-model, and KMA-wind-field-for-CA entries below
+belong to the earlier physics track** and are retained for reference, **not** as
+current `spread_v2` inputs.
+
 ## Satellite
 
 | Dataset | Provider | Use | Access | Auth |
 |---------|----------|-----|--------|------|
 | VIIRS S-NPP / NOAA-20 375 m active fire | NASA FIRMS | Real-time ignition detection | https://firms.modaps.eosdis.nasa.gov/api/ | MAP_KEY |
 | MODIS Aqua/Terra MCD14ML | NASA FIRMS | Cross-check & historic ignitions | Same | MAP_KEY |
-| Sentinel-2 L2A surface reflectance | Copernicus | LFMC retrieval | https://browser.dataspace.copernicus.eu/ | CDS account |
+| Sentinel-2 L2A surface reflectance | Copernicus | LFMC retrieval (superseded physics track) | https://browser.dataspace.copernicus.eu/ | CDS account |
 | Sentinel-3 SLSTR L2 FRP | Copernicus | Fire radiative power | Same | CDS account |
 
 ## Meteorology
 
 | Dataset | Provider | Use | Access | Auth |
 |---------|----------|-----|--------|------|
-| KMA AWS hourly wind, RH, T | KMA | Spatial wind field for CA | https://data.kma.go.kr/ | service key |
-| ERA5 single levels (10 m winds, 2 m T/q) | Copernicus C3S | Reanalysis fallback | CDS API | CDS account |
+| KMA AWS hourly wind, RH, T | KMA | Spatial wind field for CA (superseded physics track) | https://data.kma.go.kr/ | service key |
+| ERA5 single levels (10 m winds, 2 m T/q) | Copernicus C3S | **Canonical weather source for `spread_v2`** | CDS API | CDS account |
 | GDAPS / KIM regional NWP | KMA | Short-range forecast wind | https://data.kma.go.kr/ | service key |
 
 ## Terrain — DEM
@@ -37,7 +45,7 @@ explicit user opt-in.
   redistribution as derived products with attribution.
 - **What to do if blocked**: fall back to SRTM 30 m or COPDEM 30 m (below).
   Both are free and global; the loss of accuracy vs NGII is ~3-5 m
-  vertical RMSE, acceptable for Rothermel slope calculations.
+  vertical RMSE, acceptable for the model's slope / terrain features.
 - **Where to put it**: ``data/raw/dem/ngii/<sheet>.tif`` (gridded GeoTIFF
   in EPSG:5179) or .shp for vector contours.
 
@@ -56,6 +64,11 @@ synthetic path; the SRTM and NGII paths raise NotImplementedError with
 clear instructions until Session 3.
 
 ## Fuel type — KFS 임상도
+
+> *Superseded physics track.* The canonical `spread_v2` model derives fuel
+> burnability from **ESA WorldCover** (see Landcover, below), not from KFS
+> fuel-model codes. The 임상도 → fuel-model path below was for the Rothermel engine
+> and is kept for reference.
 
 - **Dataset**: 임상도 v1.4 (Korean Forest Service forest-stand-type map).
   Polygon shapefile with stand-level attributes: dominant species,

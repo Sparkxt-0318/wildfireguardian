@@ -1,6 +1,7 @@
 # `smoke_dispersion` — PM2.5 / smoke exposure
 
-**Status**: scaffold only.
+**Status**: scaffold only — a research scaffold, **not** part of the canonical
+`spread_v2` pipeline and **not** a current deliverable (see `docs/architecture.md`).
 
 **Purpose**: estimate downwind smoke concentration (PM2.5 µg/m³) from an
 active fire perimeter, on the same time grid as the spread forecast, so the
