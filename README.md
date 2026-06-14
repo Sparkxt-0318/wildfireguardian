@@ -1,4 +1,4 @@
-# WildfireGuardian — 산불 골든타임
+# WildfireGuardian
 
 > Multi-scale wildfire forecasting and personalized evacuation system, focused on
 > protecting rural elderly Koreans.
