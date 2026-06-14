@@ -5,7 +5,7 @@
 >
 > 농촌 고령층 보호를 위한 다중규모 산불 예측·개인화 대피 안내 시스템.
 
-![status](https://img.shields.io/badge/status-research%20prototype-orange)
+![status](https://img.shields.io/badge/status-research%20PoC-orange)
 ![python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![license](https://img.shields.io/badge/license-MIT-green)
 
@@ -42,8 +42,11 @@
 탐지·데이터 기반 화재 확산 예측·개인 맞춤형 대피 경로 안내를 통합 제공하는 연구용
 시스템입니다.
 
-**보호 대상**: 한국 농촌의 고령층(60–80대). 2025년 3월 22–28일 영남권 산불
-(사망자 30명 이상, 대부분 60–80대 고령자) 의 재발 방지·대응 개선을 동기로 삼습니다.
+**보호 대상**: 한국 농촌의 고령층(60–80대). 2025년 3월 경북 **의성**에서 발화해
+**의성→안동→청송→영양→영덕**으로 번진 산불(사망자 **27명**, 그중 **영덕 8명**, 대부분
+60–80대 고령자; 약 **116,000 ha** 소실, 주택 **4,000여 채** 파손)의 재발 방지·대응
+개선을 동기로 삼습니다. 〔출처: 한겨레·세계일보·서울환경연합〕 ("30명 이상"은 2025년
+*전국* 산불 전체 사망자 합계로, 범위가 다른 수치입니다.)
 
 **대회**: 2026 대한민국 학생 SW공모전(Korea Code Fair) → ISEF (Systems Software)
 출전을 목표로 합니다.
@@ -58,34 +61,53 @@
 - **평가 — 한 산불씩 제외 교차검증 (LOFO; 각 산불을 그룹으로 묶어 통째로 제외하는
   leave-one-group-out / LOGO-CV)**: 6개 실제 산불(gangneung_2023, hongseong_2023,
   miryang_2022, uiseong_andong_2025, uljin_samcheok_2022, yeongdeok_2025).
-- **폴드 평균 ROC-AUC = 0.89** (범위 0.68–0.97; 전체 보류예측 통합 pooled = 0.905).
-  0.68 폴드(`gangneung_2023`)는 탐지 약 17건뿐인 소규모·잡음 폴드이며, 나머지 다섯
-  산불 평균은 약 0.93 입니다. **일반화 지표로는 폴드 평균을 보고**하며, pooled는
-  "pooled"로 명시해서만 사용합니다.
+- **폴드 평균 ROC-AUC = 0.89** (범위 0.68–0.97). `gangneung_2023` 폴드(0.68)는 양성
+  약 8건(탐지 약 17건)뿐인 소규모·잡음 폴드이며, 이를 제외한 다섯 산불 평균은 약
+  0.93 입니다. **일반화 지표로는 폴드 평균을 보고**합니다. 전체 보류예측 통합
+  **pooled = 0.905** (부트스트랩 95 % CI [0.901, 0.909])는 *pooled* 로 명시해서만
+  사용하며, 일반화 지표가 아닙니다.
 - **핵심 발견 — 세기(severity) ≫ 풍향(direction)**: 순열 중요도에서 화재기상
   **세기**(`days_since_rain`, `vpd_kpa`, `rh_pct`, `temp_c`, `precip_24h_mm`,
   풍속 `wind_speed_ms`) 합 0.102 vs 풍향 정렬 `wind_alignment` 0.0023 → **약 44배**.
   단일 최강 특징은 **`days_since_rain`** (0.077) 입니다.
 - **규모**: 16개 특징, 151,904행 / 양성 2,989(약 1.97 %), 시드 20250603,
   좌표계 EPSG:5179.
-- **원거리(>3 km) 통합 AUC = 0.877** (화선의 *도달* 예측력). 순방향 모의 화선
-  **footprint IoU ≈ 0.40** (영덕, 3–12시간).
+- **원거리(>3 km) 폴드 평균 AUC = 0.925** (n=3; 화선의 *도달* 예측력), 통합 pooled
+  0.877. 순방향 모의 화선 **footprint IoU ≈ 0.40** (영덕, 3–12시간) — 물리(Rothermel)
+  표면 모델 **~0.09** 대비 약 **4배**로, 표면물리가 놓치는 수관화·비화(crown/spotting)
+  영역을 포착합니다.
 
-| 산불 (held-out) | ROC-AUC |
-|---|---|
-| miryang_2022 | 0.974 |
-| hongseong_2023 | 0.945 |
-| yeongdeok_2025 (시연 산불) | 0.941 |
-| uljin_samcheok_2022 | 0.918 |
-| uiseong_andong_2025 | 0.878 |
-| gangneung_2023 (탐지 약 17건 — 잡음) | 0.682 |
+| 산불 (held-out) | ROC-AUC | DeLong 95 % CI |
+|---|---|---|
+| miryang_2022 | 0.974 | [0.941, 0.989] |
+| hongseong_2023 | 0.945 | [0.916, 0.964] |
+| yeongdeok_2025 (시연 산불) | 0.941 | [0.936, 0.946] |
+| uljin_samcheok_2022 | 0.918 | [0.911, 0.924] |
+| uiseong_andong_2025 | 0.878 | [0.871, 0.884] |
+| gangneung_2023 (양성 약 8건 — 잡음) | 0.682 | [0.577, 0.771] |
 
-> 폴드별 **DeLong 95 % 신뢰구간**과 **AUC=0.5 대비 유의성 검정**은 폴드별 예측
-> 배열이 필요하여(현재 미저장) `scripts/auc_intervals.py` 재실행으로 산출합니다.
-> 이 스크립트는 정식 수치(pooled 0.905 / 폴드평균 0.890)에 대해 **일치성 게이트**를
-> 통과한 뒤에만 보고하며, FIRMS/ERA5/DEM 번들이 없으면 **수치를 날조하지 않고 깨끗이
-> 중단(STOP)** 합니다. 통계 도구는 단위 테스트로 검증되어 있습니다
-> (`tests/test_auc_stats.py`). 자세한 내용·한계는 [`docs/auc_intervals.md`](docs/auc_intervals.md).
+> **6개 폴드 모두 AUC = 0.5 대비 통계적으로 유의**합니다(`gangneung_2023`
+> p = 2.7×10⁻⁴, 나머지 다섯 p ≪ 0.001). 위 폴드별 **DeLong 95 % 신뢰구간**과 유의성
+> 검정은 `scripts/auc_intervals.py`(정식 수치 pooled 0.905 / 폴드평균 0.890에 대한
+> **일치성 게이트** 통과 후 산출, FIRMS/ERA5/DEM 번들 필요)로 재현합니다. 번들이
+> 없으면 **수치를 날조하지 않고 깨끗이 중단(STOP, exit 2)** 합니다. 통계 도구는 단위
+> 테스트로 검증되어 있습니다(`tests/test_auc_stats.py`). 자세한 내용·한계:
+> [`docs/auc_intervals.md`](docs/auc_intervals.md).
+>
+> **표준 ML 베이스라인**(동일 16특징·폴드·시드 20250603) — "나쁜 물리모델만 이긴 것
+> 아니냐"에 답하는 통제 비교:
+>
+> | 모델 | 폴드 평균 AUC ± SD | pooled |
+> |---|---|---|
+> | 랜덤포레스트 | 0.920 ± 0.036 | 0.898 |
+> | 로지스틱 회귀 | 0.903 ± 0.060 | 0.826 |
+> | **XGBoost/GBM (본 모델)** | **0.889 ± 0.107** | **0.905** |
+>
+> 폴드 평균에서는 랜덤포레스트가 근소 우위이나, **보정된 확률**(라우터가 실제
+> `P(ignite)` 를 소비) · **추론 속도** · **해석가능성**(순열 중요도가 "세기 ≫ 풍향"
+> 발견을 제공)을 근거로 GBM을 정식 모델로 채택했습니다. 베이스라인 수치는 동일
+> 게이트형 재실행(`scripts/ml_baselines.py`)으로 재현합니다. 방법론:
+> [`docs/baselines.md`](docs/baselines.md).
 
 ### 시스템 구성
 
@@ -118,7 +140,8 @@
 
 ### 현재 상태
 
-🟧 **연구 프로토타입 (alpha).** 본 저장소가 제공하는 것:
+🟧 **연구 PoC(개념검증).** 알파 수준의 "미완성"이 아니라, 6개 실제 산불로 검증된
+데이터 기반 모델과 그 위의 라우팅까지 동작하는 개념검증입니다. 본 저장소가 제공하는 것:
 
 - ✅ **데이터 기반 격자 발화확률 모델 (`spread_v2`, Build B)** — 6개 실제 산불에
   대한 LOFO 검증(폴드평균 ROC-AUC 0.89), 보정된 확률, 순열 중요도 기반 "세기≫풍향"
@@ -146,7 +169,7 @@
 
 - **NASA FIRMS** (VIIRS S-NPP/NOAA-20 + MODIS 활성 화재 탐지): <https://firms.modaps.eosdis.nasa.gov/>
 - **SRTM** (NASA, ~30 m DEM/지형): <https://earthexplorer.usgs.gov/>
-- **ESA WorldCover** (10 m 토지피복 → 연료 가연성): <https://esa-worldcover.org/>
+- **ESA WorldCover 2021** (10 m 토지피복 → 연료 가연성): <https://esa-worldcover.org/>
 - **ECMWF ERA5** (재분석 기상: 10 m 바람, 2 m 기온/이슬점, 강수): Copernicus C3S / CDS
 - 라우팅 계층: **OpenStreetMap**(도보·차량 도로망, OSMnx), **공공데이터포털**
   전국 대피소 표준데이터(행정안전부), **119안전센터**(소방청) — 각각 실데이터
@@ -190,10 +213,13 @@ pytest -q                             # 단위 테스트 (실데이터 불필요
 **누가 도달 불가능한지 정직하게** 보고합니다(추정·날조 없음).
 
 합성 영덕 PoC 4-구분(합 = N = 452): 원래 안전 154 · 구조가능 대피소로 구조 34 ·
-도보 불가(구조대 출동) 244 · **차량 접근 불가(도달 불가) 20**. 미래-인지 주민 경로는
-순진한 경로 대비 노출 **~85 % 감소**, 생존-인지 구조대 진입은 최단경로 대비 노출
-**약 절반**. 점추정치는 방향성 지표이며, 단일 산불 PoC + 합성 보조 데이터 위의
-값입니다. 자세한 방법론·데이터 출처는 [`docs/rescue_routing.md`](docs/rescue_routing.md).
+도보 불가(구조대 출동) 244 · **차량 접근 불가(도달 불가) 20**. 도보 자력대피 실패율
+**w ≈ 40 %**(임계값에 따라 33–45 %)는 10시간 보행 예산에서도 거동불능 가정과 무관하게
+유지됩니다. 출동 지연 **0→60분**이면 도달 불가 출발지가 **6→34**로 늘어납니다.
+미래-인지 주민 경로는 순진한 경로 대비 노출 **~85 % 감소**(24.06→3.55 prob·min),
+생존-인지 구조대 진입은 최단경로 대비 노출 **~54 % 감소**(0.172→0.079 prob·min).
+점추정치는 방향성 지표이며, 단일 산불 PoC + 합성 보조 데이터 위의 값입니다. 자세한
+방법론·데이터 출처는 [`docs/rescue_routing.md`](docs/rescue_routing.md).
 
 ```bash
 python scripts/run_rescue_routing.py            # 4-구분 + 노출 + 민감도
@@ -227,10 +253,14 @@ prediction**, and personalised evacuation routing — with the explicit goal of
 protecting rural elderly Koreans during the "golden time" between ignition and safe
 evacuation.
 
-**Motivating event**: the Yeongnam wildfires of 22–28 March 2025 killed **30+**
-people in South Korea, the majority in their 60s–80s living in rural villages
-(영덕군 in particular). Two of those events — `uiseong_andong_2025` and
-`yeongdeok_2025` — are among the six fires the current model is validated on.
+**Motivating event**: the March 2025 wildfire that ignited in 의성 (Uiseong),
+Gyeongbuk and ran 의성→안동→청송→영양→영덕
+(Uiseong→Andong→Cheongsong→Yeongyang→Yeongdeok) killed **27** people — **8 in 영덕
+(Yeongdeok) alone** — the majority in their 60s–80s living in rural villages, burning
+**~116,000 ha** and destroying **4,000+ homes** (sources: 한겨레 / 세계일보 /
+서울환경연합). Two stages of that fire — `uiseong_andong_2025` and `yeongdeok_2025` —
+are among the six fires the current model is validated on. (The widely-quoted "30+"
+figure is the *nationwide* 2025 all-fires death toll — a broader, different scope.)
 
 **Target venue**: 2026 Korea Code Fair SW공모전 (Korean student SW competition),
 with the stretch goal of qualifying for ISEF in the Systems Software category.
@@ -246,10 +276,11 @@ probability `P(ignites by the next satellite overpass)`.
   leave-one-group-out / LOGO-CV)** over **six real Korean fires**: gangneung_2023,
   hongseong_2023, miryang_2022, uiseong_andong_2025, uljin_samcheok_2022,
   yeongdeok_2025.
-- **Mean-of-folds ROC-AUC = 0.89** (range **0.68–0.97**; pooled out-of-fold
-  **0.905**). The 0.68 fold (`gangneung_2023`, ~17 detections) is a tiny, noisy
-  fold; the other five average ≈ 0.93. **Mean-of-folds is the generalization
-  figure**; pooled is reported only when labelled "pooled".
+- **Mean-of-folds ROC-AUC = 0.89** (range **0.68–0.97**). The 0.68 fold
+  (`gangneung_2023`, ~8 positives) is a tiny, noisy fold; excluding it, the other
+  five average ≈ 0.93. **Mean-of-folds is the generalization figure.** The pooled
+  out-of-fold AUC **0.905** (bootstrap 95 % CI [0.901, 0.909]) is reported only when
+  labelled "pooled" and is **not** the generalization metric.
 - **Headline finding — severity ≫ wind direction**: summed fire-weather
   **severity** permutation importance **0.102** vs `wind_alignment` (direction)
   **0.0023** → a **~44×** ratio. The **single strongest feature is
@@ -257,35 +288,44 @@ probability `P(ignites by the next satellite overpass)`.
   (`wind_speed_ms`); the *control* it dominates is wind *direction*.
 - **Scale**: 16 features, 151,904 rows / 2,989 positives (~1.97 %), seed 20250603,
   EPSG:5179.
-- **Far-band (>3 km) pooled AUC = 0.877** (the "can it predict *reach*?" question).
-  Forward-simulated **footprint IoU ≈ 0.40** (Yeongdeok, 3–12 h).
+- **Far-band (>3 km) mean-of-folds AUC = 0.925** (n=3; the "can it predict *reach*?"
+  question), pooled 0.877. Forward-simulated **footprint IoU ≈ 0.40** (Yeongdeok,
+  3–12 h) — roughly **4×** the Rothermel surface model's **~0.09**, i.e. it captures
+  the crown-fire / spotting regime that surface physics misses.
 
-| held-out fire | ROC-AUC |
-|---|---|
-| miryang_2022 | 0.974 |
-| hongseong_2023 | 0.945 |
-| yeongdeok_2025 (the demonstration fire) | 0.941 |
-| uljin_samcheok_2022 | 0.918 |
-| uiseong_andong_2025 | 0.878 |
-| gangneung_2023 (~17 detections — noisy) | 0.682 |
+| held-out fire | ROC-AUC | DeLong 95 % CI |
+|---|---|---|
+| miryang_2022 | 0.974 | [0.941, 0.989] |
+| hongseong_2023 | 0.945 | [0.916, 0.964] |
+| yeongdeok_2025 (the demonstration fire) | 0.941 | [0.936, 0.946] |
+| uljin_samcheok_2022 | 0.918 | [0.911, 0.924] |
+| uiseong_andong_2025 | 0.878 | [0.871, 0.884] |
+| gangneung_2023 (~8 positives — noisy) | 0.682 | [0.577, 0.771] |
 
-`[src: data/processed/spread_v2_lofo.json; see docs/MODEL_CARD.md]`
+`[ROC-AUC src: data/processed/spread_v2_lofo.json; DeLong CIs: scripts/auc_intervals.py; see docs/MODEL_CARD.md]`
 
-> **Per-fire DeLong 95 % CIs and a significance test vs AUC = 0.5** need the
-> per-fold prediction arrays (not currently stored), so they are produced by a
-> gated re-run, `scripts/auc_intervals.py`: it reproduces pooled 0.905 /
-> mean-of-folds 0.890 **before** reporting and **STOPs cleanly (exit 2)** if the
-> FIRMS/ERA5/DEM bundle is absent rather than fabricate numbers. On per-fold sizes
-> of hundreds–thousands of cells, the five weather-complete folds are expected to
-> be strongly significant; `gangneung_2023` (~17 detections) may not reach
-> significance on its own — the honest finding, not a failure. The statistics are
-> unit-tested (`tests/test_auc_stats.py`). Method + limitations:
-> [`docs/auc_intervals.md`](docs/auc_intervals.md).
+> **All six folds are statistically significant vs AUC = 0.5** (`gangneung_2023`
+> p = 2.7×10⁻⁴; the other five p ≪ 0.001). The per-fire DeLong CIs above and those
+> significance tests come from the gated re-run `scripts/auc_intervals.py`, which
+> reproduces pooled 0.905 / mean-of-folds 0.890 **before** reporting and **STOPs
+> cleanly (exit 2)** if the FIRMS/ERA5/DEM bundle is absent rather than fabricate
+> numbers. The statistics are unit-tested (`tests/test_auc_stats.py`). Method +
+> limitations: [`docs/auc_intervals.md`](docs/auc_intervals.md).
 >
-> **Standard ML baselines** (logistic regression, random forest) on the identical
-> 16 features / folds / seed are provided as controlled comparators
-> (`scripts/ml_baselines.py`, [`docs/baselines.md`](docs/baselines.md)) — to answer
-> "you only beat a bad physics model" honestly.
+> **Standard ML baselines** on the identical 16 features / folds / seed (20250603) —
+> to answer "you only beat a bad physics model" honestly:
+>
+> | model | mean-of-folds AUC ± SD | pooled |
+> |---|---|---|
+> | random forest | 0.920 ± 0.036 | 0.898 |
+> | logistic regression | 0.903 ± 0.060 | 0.826 |
+> | **XGBoost/GBM (ours)** | **0.889 ± 0.107** | **0.905** |
+>
+> Random forest edges us on mean-of-folds; we keep the GBM for its **calibrated
+> probabilities** (the router consumes a real `P(ignite)`), **inference speed**, and
+> **interpretability** (permutation importance is what surfaced "severity ≫
+> direction"). Values reproduce via `scripts/ml_baselines.py`
+> ([`docs/baselines.md`](docs/baselines.md)).
 
 ### System architecture (high level)
 
@@ -319,7 +359,9 @@ See [`docs/architecture.md`](docs/architecture.md) for the long form.
 
 ### Current status
 
-🟧 **Research prototype (alpha).** This repository provides:
+🟧 **Research PoC (proof-of-concept).** Not an unfinished "alpha": a data-driven
+model validated on six real fires, with downstream routing working on top of it.
+This repository provides:
 
 - ✅ **Data-driven per-cell ignition model (`spread_v2`, Build B)** — LOFO-validated
   on six real fires (mean-of-folds ROC-AUC 0.89), calibrated probabilities, the
@@ -355,7 +397,7 @@ repository distributes none of them; users download into `data/raw/` at run time
 
 - **NASA FIRMS** (VIIRS S-NPP/NOAA-20 + MODIS active-fire detections): <https://firms.modaps.eosdis.nasa.gov/>
 - **SRTM** (NASA, ~30 m DEM / terrain): <https://earthexplorer.usgs.gov/>
-- **ESA WorldCover** (10 m land cover → fuel burnability): <https://esa-worldcover.org/>
+- **ESA WorldCover 2021** (10 m land cover → fuel burnability): <https://esa-worldcover.org/>
 - **ECMWF ERA5** (reanalysis weather: 10 m winds, 2 m temp/dewpoint, precip), Copernicus C3S / CDS.
 - Routing layer: **OpenStreetMap** (walk/drive networks via OSMnx),
   **공공데이터포털** national shelter standard data (행정안전부),
@@ -414,16 +456,18 @@ always reporting honestly who cannot be reached.
 | **no surviving vehicle ingress — UNREACHABLE (reported, not imputed)** | **20** |
 
 Contrasts (the robust result; absolute magnitudes are illustrative on a single-fire
-PoC + synthetic auxiliary inputs): the future-aware resident route cuts
-predicted-hazard exposure **~85 %** vs naive (24.1 → 3.5 prob·min), and the
-survival-aware responder ingress roughly **halves** exposure vs a fire-blind
-shortest path (0.08 vs 0.17). A verification pass
+PoC + synthetic auxiliary inputs): the on-foot self-evacuation **failure rate
+w ≈ 40 %** (33–45 % across thresholds) holds even with a 10-hour walking budget and
+independent of the immobility assumption; the future-aware resident route cuts
+predicted-hazard exposure **~85 %** vs naive (24.06 → 3.55 prob·min), and the
+survival-aware responder ingress cuts exposure **~54 %** vs a fire-blind shortest
+path (0.172 → 0.079 prob·min). A verification pass
 (`scripts/verify_rescue_routing.py`) re-derives the split and runs a full-N 2-D
-sweep whose baseline cell equals the headline (asserted); the robust finding is
-that **unreachable rises monotonically with dispatch delay**. The downstream
-capacity/triage is a **PoC parameter, not measured 영덕 fire-service capacity** —
-report the curve, not a single "X rescued". Full methods + data provenance:
-[`docs/rescue_routing.md`](docs/rescue_routing.md).
+sweep whose baseline cell equals the headline (asserted); the robust finding is that
+**unreachable starts rise monotonically with dispatch delay** (6 → 34 as delay goes
+0 → 60 min). The downstream capacity/triage is a **PoC parameter, not measured 영덕
+fire-service capacity** — report the curve, not a single "X rescued". Full methods +
+data provenance: [`docs/rescue_routing.md`](docs/rescue_routing.md).
 
 ```bash
 python scripts/run_rescue_routing.py            # four-way split + exposure + sensitivity
@@ -498,6 +542,11 @@ motivated the move to the data-driven, LOFO-validated `spread_v2` model.
   correction, multi-class Rothermel weighting); only the *headline capture claim*
   was wrong, and it was caught and reported pre-writeup rather than tuned to
   survive.
+- **Data-integrity bugs were found and fixed, not buried.** A raster-orientation
+  bug had silently deleted **~85 % of `uljin_samcheok_2022`'s ignition points**; it
+  was traced, fixed for good with an orientation-safe sampler
+  (`src/wildfireguardian/spread_v2_xgb/grid.py`), and locked down with a regression
+  test (`tests/test_rescue_routing.py::test_sampling_orientation_matches_raster_convention`).
 - **Crown initiation is acutely sensitive to canopy base height (CBH)** — a real,
   reportable finding (stand structure governs catastrophe potential and is
   raisable by thinning). See
