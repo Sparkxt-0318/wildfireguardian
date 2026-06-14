@@ -24,8 +24,8 @@
 
 We evaluate rescue-aware evacuation on the 2025 영덕(Yeongdeok) wildfire extent — the
 anchor casualty event (average victim age 84 `[src: docs/ROUTING_INTEGRATION_REPORT.md]`;
-30+ deaths, mostly residents in their 60s–80s in rural villages
-`[src: README.md]`). The router consumes the project's data-driven spread hazard as a
+27 deaths in the 의성-started fire — 8 in 영덕 — mostly residents in their 60s–80s in
+rural villages `[src: README.md]`). The router consumes the project's data-driven spread hazard as a
 time-sliced per-cell ignition-probability surface — the foundation this builds on
 (leave-one-fire-out **mean-of-folds ROC-AUC 0.89 ± 0.11**, range 0.68–0.97; pooled
 0.905, far-band 0.877 pooled

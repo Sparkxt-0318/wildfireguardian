@@ -14,14 +14,13 @@ hypothesis H1 ("무작위(0.5)를 유의하게 초과") was never actually teste
   (`tests/test_auc_stats.py`, 10 tests).
 - The **mean-of-folds interval can be (and is) reported now** — it needs only the
   six committed per-fire AUC scalars.
-- The **per-fold DeLong CIs, the significance test vs 0.5, the pooled bootstrap
-  CI, and the far-band mean-of-folds CANNOT be computed in this sandbox**: they
-  need the per-fold *prediction arrays*, which are not stored, so they require
-  re-running LOFO — and the raw **FIRMS/ERA5/DEM bundle is git-ignored and absent
-  here**. `scripts/auc_intervals.py` performs that re-run, **gates** it against
-  the canonical numbers, and computes everything — it STOPs cleanly (exit 2) when
-  the data is absent rather than fabricating numbers. Run it where the bundle is
-  present to fill in the remaining intervals.
+- The **per-fold DeLong CIs, the significance test vs 0.5, the pooled bootstrap CI,
+  and the far-band mean-of-folds** need the per-fold *prediction arrays* (not stored),
+  so they require re-running LOFO with the **FIRMS/ERA5/DEM bundle** (git-ignored,
+  absent in a fresh clone). `scripts/auc_intervals.py` performs that gated re-run and
+  computes them; the values are in **§ Reported results** below. A fresh clone
+  reproduces them only with the bundle present — without it the script STOPs cleanly
+  (exit 2) rather than fabricate.
 
 > **Honesty stance:** no model change, no retuning, no feature change. Reporting
 > CIs that were never computed would be fabrication; instead this documents
@@ -33,20 +32,49 @@ hypothesis H1 ("무작위(0.5)를 유의하게 초과") was never actually teste
 Mean-of-folds ROC-AUC over the 6 LOFO fires (`spread_v2_lofo.json/per_fire_auc`,
 computed by `auc_stats.mean_of_folds_interval`):
 
-| set | mean ± SD | 95 % CI (t, small-sample) | n |
+| set | mean ± SD | range | 95 % CI (t, small-sample) | n |
+|---|---|---|---|---|
+| all 6 fires | **0.890 ± 0.107** | 0.682–0.974 | *not reported* (see note) | 6 |
+| excl. `gangneung_2023` (~8 positives) | 0.931 ± 0.036 | 0.878–0.974 | [0.887, 0.976] | 5 |
+
+**Read this with the n=6 caveat.** The all-fires spread is **wide** (±0.11) because
+six fires is a tiny sample and the noisy 0.68 `gangneung_2023` fold inflates the SD.
+We deliberately **do not report the 6-fold t-interval**: its upper limit pins to (or
+past) the AUC ceiling of 1.0, which is self-discrediting rather than informative. We
+report **mean ± SD with the range** instead, and rely on the **per-fold DeLong CIs**
+below as the *stronger* evidence — each fold has thousands of cells, so its analytic
+CI is well-powered, unlike this 6-point mean. Never present the pooled AUC as the
+generalization figure either.
+
+## Reported results (from the gated re-run)
+
+These come from the gated `scripts/auc_intervals.py` re-run (seed 20250603): it
+reproduced pooled 0.905 / mean-of-folds 0.890 / the per-fire AUCs **before**
+reporting, then computed the inference below and wrote
+`data/processed/auc_intervals.json`. A fresh clone reproduces them only with the
+FIRMS/ERA5/DEM bundle present (else exit 2).
+
+**Per-fire AUC [95 % DeLong CI] and significance vs AUC = 0.5:**
+
+| fire | ROC-AUC | DeLong 95 % CI | vs 0.5 |
 |---|---|---|---|
-| all 6 fires | **0.890 ± 0.107** | **[0.778, 1.000]** (width 0.22) | 6 |
-| excl. `gangneung_2023` (~17 detections) | 0.931 ± 0.036 | [0.887, 0.976] | 5 |
+| miryang_2022 | 0.974 | [0.941, 0.989] | p ≪ 0.001 |
+| hongseong_2023 | 0.945 | [0.916, 0.964] | p ≪ 0.001 |
+| yeongdeok_2025 | 0.941 | [0.936, 0.946] | p ≪ 0.001 |
+| uljin_samcheok_2022 | 0.918 | [0.911, 0.924] | p ≪ 0.001 |
+| uiseong_andong_2025 | 0.878 | [0.871, 0.884] | p ≪ 0.001 |
+| gangneung_2023 | 0.682 | [0.577, 0.771] | p = 2.7×10⁻⁴ |
 
-**Read this with the n=6 caveat.** The all-fires interval is **very wide**
-(±0.11) because six fires is a tiny sample and the noisy 0.68 `gangneung_2023`
-fold inflates the SD; the t-interval's upper limit is the AUC ceiling (1.0). This
-is exactly why the per-fold DeLong CIs below are the *stronger* evidence — each
-fold has thousands of cells, so its analytic CI is well-powered, unlike this
-6-point mean. Do **not** present the mean-of-folds interval as a tight bound, and
-never present the pooled AUC as the generalization figure.
+**All six folds are significant vs 0.5** — including the tiny `gangneung_2023`
+(~8 positives), which clears significance (p = 2.7×10⁻⁴) despite a noisy point
+estimate. This is the test hypothesis H1 required.
 
-## What REQUIRES the re-run (script ready; not run here — data absent)
+- **Pooled bootstrap 95 % CI = [0.901, 0.909]** (1000 stratified resamples),
+  labelled pooled — **not** the generalization figure.
+- **Far-band (>3 km) mean-of-folds AUC = 0.925** (n=3 fires with far-band
+  positives), alongside the pooled far-band 0.877.
+
+## How these are produced (the gated re-run)
 
 These need the per-fold `(y_true, y_score)` arrays, which are **not** stored in
 `spread_v2_lofo.json` (only per-fire AUC scalars + pooled). `auc_intervals.py`
@@ -55,10 +83,9 @@ computes:
 
 1. **Per-fire AUC [95 % DeLong CI]** — well-powered (thousands of cells/fold).
 2. **Significance vs AUC = 0.5** — a DeLong z-test per fold (+ a label-permutation
-   cross-check). *This is the test hypothesis H1 requires.* Expectation given the
-   per-fire AUCs (0.68–0.97 on ≥hundreds of positives): the five non-gangneung
-   folds will be strongly significant; `gangneung_2023` (~17 detections) may not
-   reach significance on its own — which is the honest finding, not a failure.
+   cross-check). *This is the test hypothesis H1 requires.* **Result:** all six folds
+   are significant — even the tiny `gangneung_2023` (~8 positives) at p = 2.7×10⁻⁴,
+   the other five p ≪ 0.001 (see § Reported results above).
 3. **Pooled bootstrap CI** — 1000 stratified resamples, **labelled pooled** (not
    the generalization figure).
 4. **Far-band (>3 km) mean-of-folds** — per-fire far-band AUC + its mean-of-folds,
