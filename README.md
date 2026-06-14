@@ -138,23 +138,23 @@
 
 ### 현재 상태
 
-🟧 **연구 PoC(개념검증).** 알파 수준의 "미완성"이 아니라, 6개 실제 산불로 검증된
+**연구 PoC(개념검증).** 알파 수준의 "미완성"이 아니라, 6개 실제 산불로 검증된
 데이터 기반 모델과 그 위의 라우팅까지 동작하는 개념검증입니다. 본 저장소가 제공하는 것:
 
-- ✅ **데이터 기반 격자 발화확률 모델 (`spread_v2`, Build B)** — 6개 실제 산불에
+- **데이터 기반 격자 발화확률 모델 (`spread_v2`, Build B)** — 6개 실제 산불에
   대한 LOFO 검증(폴드평균 ROC-AUC 0.89), 보정된 확률, 순열 중요도 기반 "세기≫풍향"
   발견. `src/wildfireguardian/spread_v2/`
-- ✅ **실데이터 인제스션** — NASA FIRMS 발화점 + SRTM DEM + ESA WorldCover 연료 +
+- **실데이터 인제스션** — NASA FIRMS 발화점 + SRTM DEM + ESA WorldCover 연료 +
   ERA5 기상(`spread_v2/data.py`). FIRMS 번들은 git-ignore 되어 별도 다운로드합니다.
-- ✅ **검증 통계 도구** — DeLong CI/유의성, 부트스트랩, 순열검정, 폴드평균 t-구간
+- **검증 통계 도구** — DeLong CI/유의성, 부트스트랩, 순열검정, 폴드평균 t-구간
   (`validation/auc_stats.py`, 단위 테스트). 게이트형 재실행: `scripts/auc_intervals.py`.
-- ✅ **표준 ML 베이스라인 비교** — 동일 16특징/폴드/시드의 로지스틱·랜덤포레스트
+- **표준 ML 베이스라인 비교** — 동일 16특징/폴드/시드의 로지스틱·랜덤포레스트
   비교(`scripts/ml_baselines.py`, `docs/baselines.md`).
-- ✅ **구조-인지 대피 라우팅** — 미래-화선 인지 + 차량 진입로 생존성
+- **구조-인지 대피 라우팅** — 미래-화선 인지 + 차량 진입로 생존성
   (`wildfireguardian.routing.rescue`).
-- ✅ **지역 설정·취약도 골격** — 영덕 2025, 울진/삼척 2022, 고성 2019 등
+- **지역 설정·취약도 골격** — 영덕 2025, 울진/삼척 2022, 고성 2019 등
   (`utils/regions.py`, `utils/vulnerability.py`).
-- ✅ **물리(Rothermel) 화재 확산 모델** — 초기 접근으로 보존(아래 *연구 로그* 참조).
+- **물리(Rothermel) 화재 확산 모델** — 초기 접근으로 보존(아래 *연구 로그* 참조).
 
 본 시스템은 **운영용 소프트웨어가 아닙니다.** 단일 산불(영덕) 후속 PoC이며, 라우팅
 보조 데이터의 일부는 합성·근사값입니다(명시 표기). 전문가 검토 없이 공식 대피 명령의
@@ -241,8 +241,6 @@ pytest tests/test_rescue_routing.py -q
 ```
 
 ---
-
-## 🇺🇸 English
 
 ### Project overview
 
@@ -357,27 +355,27 @@ See [`docs/architecture.md`](docs/architecture.md) for the long form.
 
 ### Current status
 
-🟧 **Research PoC (proof-of-concept).** Not an unfinished "alpha": a data-driven
+**Research PoC (proof-of-concept).** Not an unfinished "alpha": a data-driven
 model validated on six real fires, with downstream routing working on top of it.
 This repository provides:
 
-- ✅ **Data-driven per-cell ignition model (`spread_v2`, Build B)** — LOFO-validated
+- **Data-driven per-cell ignition model (`spread_v2`, Build B)** — LOFO-validated
   on six real fires (mean-of-folds ROC-AUC 0.89), calibrated probabilities, the
   "severity ≫ direction" permutation-importance finding.
   `src/wildfireguardian/spread_v2/`
-- ✅ **Real-data ingestion** — NASA FIRMS detections + SRTM DEM + ESA WorldCover
+- **Real-data ingestion** — NASA FIRMS detections + SRTM DEM + ESA WorldCover
   fuel + ERA5 weather (`spread_v2/data.py`). The FIRMS bundle is git-ignored and
   downloaded separately.
-- ✅ **Validation statistics** — DeLong CI / significance, bootstrap, permutation
+- **Validation statistics** — DeLong CI / significance, bootstrap, permutation
   test, mean-of-folds t-interval (`validation/auc_stats.py`, unit-tested);
   gated re-run `scripts/auc_intervals.py`.
-- ✅ **Standard ML baseline comparison** — logistic / random forest on identical
+- **Standard ML baseline comparison** — logistic / random forest on identical
   features/folds/seed (`scripts/ml_baselines.py`, `docs/baselines.md`).
-- ✅ **Rescue-aware evacuation routing** — future-front aware + vehicle-ingress
+- **Rescue-aware evacuation routing** — future-front aware + vehicle-ingress
   survival (`wildfireguardian.routing.rescue`).
-- ✅ **RegionConfig + vulnerability scaffolding** — Yeongdeok 2025, Uljin/Samcheok
+- **RegionConfig + vulnerability scaffolding** — Yeongdeok 2025, Uljin/Samcheok
   2022, Goseong 2019 (`utils/regions.py`, `utils/vulnerability.py`).
-- ✅ **Rothermel physics fire-spread model** — preserved as the *initial* approach
+- **Rothermel physics fire-spread model** — preserved as the *initial* approach
   (see [Research log](#research-log--superseded-approaches-physics-model)).
 
 **Unit tests**: the full suite passes — **377 passed, 2 skipped** in a run with the
