@@ -118,8 +118,8 @@ def hazard_sequence_figure(npz, fwd):
     cbar.set_label("예측 발화 확률 P / Predicted ignition probability")
 
     legend_handles = [
-        Line2D([0], [0], color="#1d4ed8", lw=2.6, label="순진한 경로 (최근접) / Naive (nearest)"),
-        Line2D([0], [0], color="#06e0ff", lw=2.6, label="미래-인지 경로 / Future-aware"),
+        Line2D([0], [0], color="#1d4ed8", lw=2.6, label="예측 없음 경로 / No-prediction route"),
+        Line2D([0], [0], color="#06e0ff", lw=2.6, label="예측 기반 경로 / Fire-aware route"),
         Line2D([0], [0], ls="--", color="black", lw=1.2, label="실제 관측 화선 / Observed FIRMS footprint"),
         Line2D([0], [0], marker="*", color="black", lw=0, markersize=12, label="발화점 / Ignition"),
         Line2D([0], [0], marker="o", color="white", markeredgecolor="black", lw=0, label="대피 출발지(고령자) / Origin (elderly)"),
@@ -145,7 +145,7 @@ def exposure_figure(npz, demo):
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4.8), constrained_layout=True)
 
     # Left: exposure + max-hazard bars.
-    labels = ["순진한\nNaive", "미래-인지\nFuture-aware"]
+    labels = ["예측 없음\nNo prediction", "예측 기반\nFire-aware"]
     expo = [nv["exposure"], fa["exposure"]]
     bars = ax1.bar(labels, expo, color=["#1d4ed8", "#06b6d4"])
     ax1.set_ylim(0, max(expo) * 1.28)
@@ -166,9 +166,9 @@ def exposure_figure(npz, demo):
 
     # Right: hazard along each route vs clock time.
     ax2.plot(npz["naive_arrivals"] / 60.0, npz["naive_node_haz"], "-o", ms=3,
-             color="#1f4ed8", label="순진한 / Naive")
+             color="#1f4ed8", label="예측 없음 / No prediction")
     ax2.plot(npz["fa_arrivals"] / 60.0, npz["fa_node_haz"], "-o", ms=3,
-             color="#06b6d4", label="미래-인지 / Future-aware")
+             color="#06b6d4", label="예측 기반 / Fire-aware")
     ax2.axhline(0.5, ls="--", color="red", lw=1, label="통행 불가 기준 p_cut=0.5 / impassable cutoff")
     ax2.set_xlabel("출발 후 경과 시간 (시간) / Hours since departure")
     ax2.set_ylabel("그 지점·시각의 발화 확률 / Ignition prob. at node on arrival")
@@ -176,7 +176,7 @@ def exposure_figure(npz, demo):
     ax2.legend(fontsize=9)
     ax2.set_ylim(-0.02, 1.02)
 
-    fig.suptitle("순진한 vs 미래-인지 대피 경로 노출 비교 / Naive vs future-aware exposure",
+    fig.suptitle("예측 없음 vs 예측 기반 대피 경로 노출 비교 / No-prediction vs fire-aware exposure",
                  fontsize=13)
     fig.savefig(FIG / "routing_exposure_comparison.png", dpi=135, bbox_inches="tight")
     plt.close(fig)

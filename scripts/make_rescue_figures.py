@@ -125,16 +125,16 @@ def rescue_map(npz, summary):
     res_r = _ll(npz["resident_rescue_xy"])
     if len(res_n):
         ax.plot(res_n[:, 0], res_n[:, 1], "--", color="#1d4ed8", lw=2.0, zorder=7,
-                label="주민 순진한 도보 / resident naive walk")
+                label="주민 대피 경로(화재 예측 없음) / Resident Evacuation Route (No Fire Prediction)")
     if len(res_r):
         ax.plot(res_r[:, 0], res_r[:, 1], "-", color="#c026d3", lw=2.4, zorder=7,
-                label="주민 미래-인지 도보(구조가능 대피소) / resident → rescue-reachable")
+                label="주민 대피 경로(화재 예측 기반·구조가능) / Resident Evacuation Route (Fire-Aware, Rescue-Reachable)")
 
     # Unreachable homes — highlighted (the honesty core).
     if len(unreach):
         ax.scatter(unreach[:, 0], unreach[:, 1], s=160, marker="o",
                    facecolors="none", edgecolors="#dc2626", linewidths=2.2, zorder=8,
-                   label="구조 불가 가옥 / UNREACHABLE homes")
+                   label="구조 사각지대 가옥 / Homes Beyond Rescue Reach")
 
     ax.set_xlabel("경도 / Longitude")
     ax.set_ylabel("위도 / Latitude")
@@ -146,8 +146,8 @@ def rescue_map(npz, summary):
         f"영덕 구조-인지 대피 라우팅 (합성 PoC, t+{times[k]/60:.0f}h)  /  Yeongdeok rescue-aware "
         f"evacuation routing (synthetic PoC)\n"
         f"구조가능 대피소 {summary['n_refuges_rescue_reachable']}/{summary['n_refuges']}, "
-        f"구조 불가 가옥 {c['no_surviving_vehicle_ingress']}호 / unreachable homes "
-        f"(reported, not imputed)",
+        f"구조 사각지대 가옥 {c['no_surviving_vehicle_ingress']}호 / homes beyond rescue "
+        f"reach (reported, not imputed)",
         fontsize=11)
     FIG.mkdir(parents=True, exist_ok=True)
     fig.savefig(FIG / "rescue_map.png", dpi=135, bbox_inches="tight")
@@ -168,7 +168,7 @@ def four_way_figure(summary):
     labels = ["구조가능\n대피소로 구조\nsaved (→RR refuge)",
               "원래 안전\nalready safe",
               "도보 불가·\n구조대 가능\nno walk, rescuer can",
-              "차량 접근 불가\nUNREACHABLE"]
+              "구조 사각지대\nBeyond reach"]
     keys = ["saved_by_rescue_reachable_refuge", "already_safe",
             "no_safe_pedestrian_route", "no_surviving_vehicle_ingress"]
     vals = [c[k] for k in keys]
@@ -184,7 +184,7 @@ def four_way_figure(summary):
 
     # (b) resident exposure a/b/c.
     rex = summary["resident_exposure"]
-    rlabels = ["순진한\nnaive (a)", "미래-인지\n→any safe (b)", "미래-인지\n→RR refuge (c)"]
+    rlabels = ["예측 없음\nNo prediction (a)", "예측 기반\n→any safe (b)", "예측 기반\n→RR refuge (c)"]
     rvals = [_mean(rex["naive"]), _mean(rex["future_aware_any"]),
              _mean(rex["future_aware_rescue"])]
     rb = axes[1].bar(rlabels, rvals, color=["#1d4ed8", "#06b6d4", "#c026d3"])
@@ -208,8 +208,8 @@ def four_way_figure(summary):
                      color=["#06b6d4", "#1d4ed8"])
     axes[2].set_ylabel("평균 노출 ∫P·dt / mean exposure (prob·min)")
     axes[2].set_title(f"구조대 차량 경로 노출 / responder ingress exposure\n"
-                      f"(출동 {pe['n_dispatch']}건, 구조불가 {pe['n_unreachable']}건 / "
-                      f"dispatch {pe['n_dispatch']}, unreachable {pe['n_unreachable']})",
+                      f"(출동 {pe['n_dispatch']}건, 구조 사각지대 {pe['n_unreachable']}건 / "
+                      f"dispatch {pe['n_dispatch']}, beyond reach {pe['n_unreachable']})",
                       fontsize=11)
     for b, v in zip(pb, pvals):
         if v is not None:
@@ -246,7 +246,7 @@ def sensitivity_figure(summary):
         saved = [pts[labels[i]]["counts"]["saved_by_rescue_reachable_refuge"] for i in range(len(xs))]
         nowalk = [pts[labels[i]]["counts"]["no_safe_pedestrian_route"] for i in range(len(xs))]
         noing = [pts[labels[i]]["counts"]["no_surviving_vehicle_ingress"] for i in range(len(xs))]
-        ax.plot(xs, noing, "-o", color="#dc2626", label="구조불가 / unreachable")
+        ax.plot(xs, noing, "-o", color="#dc2626", label="구조 사각지대 / Beyond reach")
         ax.plot(xs, nowalk, "-s", color="#f59e0b", label="구조대 필요 / needs rescuer")
         ax.plot(xs, saved, "-^", color="#10b981", label="대피소로 구조 / saved")
         ax.set_title(title, fontsize=10)

@@ -278,7 +278,7 @@ def run_vehicle(baseline, scenario, N, headline):
     (PROC / "rescue_verify.json").write_text(json.dumps(out, indent=2, default=str))
     _heatmap(grid, DELAYS, CUTOFFS, "출동 지연 (분) / dispatch delay (min)",
              "차량 통행불가 기준 / vehicle cutoff", (BASELINE_DELAY, BASELINE_CUTOFF),
-             [("no_surviving_vehicle_ingress", "구조 불가 / UNREACHABLE", "Reds"),
+             [("no_surviving_vehicle_ingress", "구조 사각지대 / Beyond reach", "Reds"),
               ("no_safe_pedestrian_route", "도보 불가·구조대 가능 / no walk, rescuer reaches", "Oranges"),
               ("saved_by_rescue_reachable_refuge", "대피소로 구조 / saved", "Greens")],
              FIG / "rescue_sweep_2d.png",
