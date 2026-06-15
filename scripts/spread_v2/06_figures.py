@@ -120,9 +120,18 @@ def fig_lofo(oof):
     for i, a in enumerate(aucs):
         ax[0].text(a - 0.02, i, f"{a:.3f}", va="center", ha="right",
                    color="white", fontsize=8, fontweight="bold")
-    ax[0].axvline(lofo["summary"]["overall_pooled_roc_auc"], ls="--", c="k")
-    ax[0].text(lofo["summary"]["overall_pooled_roc_auc"] + 0.005, 0.2,
-               f"pooled {lofo['summary']['overall_pooled_roc_auc']:.3f}", fontsize=8)
+    # Pooled + fold-mean reference lines shown via a legend rather than inline
+    # ax.text() labels: the inline labels otherwise collide with each other, the
+    # x-axis "0.9" tick and the title. Legend sits inside the axes (lower-right,
+    # an empty region given the ascending sort) so nothing is drawn over the title.
+    fold_mean = float(np.mean(aucs))
+    pooled = lofo["summary"]["overall_pooled_roc_auc"]
+    l1 = ax[0].axvline(fold_mean, ls="--", c="k", lw=1.3,
+                       label=f"폴드 평균  {fold_mean:.3f}")
+    l2 = ax[0].axvline(pooled, ls=":", c="0.45", lw=1.3,
+                       label=f"pooled  {pooled:.3f}")
+    ax[0].legend(handles=[l1, l2], loc="lower right", fontsize=8,
+                 frameon=True, framealpha=0.92, borderpad=0.5)
     ax[0].set_xlim(0.5, 1.0)
     ax[0].set_xlabel("ROC-AUC (LOFO)")
     ax[0].set_title("화재별 LOFO ROC-AUC\nPer-fire leave-one-fire-out AUC")
