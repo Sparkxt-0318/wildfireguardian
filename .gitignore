@@ -61,6 +61,8 @@ data/raw/**
 !data/raw/.gitkeep
 data/cache/**
 !data/cache/.gitkeep
+# OSMnx's default HTTP response cache (./cache) — transient, never committed.
+/cache/
 data/processed/**
 !data/processed/.gitkeep
 # The small validation-results summary IS committed (5 KB of metrics, a
@@ -97,6 +99,11 @@ data/processed/**
 # Rescue capacity / triage demand–supply sweep (small JSON; PoC capacity params;
 # regenerable via scripts/verify_rescue_routing.py --sweep capacity).
 !data/processed/rescue_capacity.json
+# Pre-flip SYNTHETIC baseline snapshot of the four rescue JSONs, kept in-tree so
+# the Round-2 report's OLD(synthetic) column is verifiable alongside the NEW(real)
+# outputs in one commit. Regenerable with the scripts' --synthetic flag.
+!data/processed/rescue_baseline_synthetic/
+!data/processed/rescue_baseline_synthetic/*.json
 # Validation-case manifest JSON files ARE committed (they're stubs, not
 # bulk data).
 !data/validation_cases/**

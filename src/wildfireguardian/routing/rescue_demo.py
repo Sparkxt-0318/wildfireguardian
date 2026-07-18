@@ -45,13 +45,25 @@ from .rescue import (
     build_dispatch_list,
     build_drive_network,
     load_depots,
+    load_drive_network,
     load_shelters,
+    load_walk_network,
     rescuer_reachable,
     rescuer_route,
     resident_policies,
 )
 
 _TO_5179 = Transformer.from_crs("EPSG:4326", "EPSG:5179", always_xy=True)
+
+#: Origin-scan stride for the REAL OSM walk graph. The OSM ``walk`` network for the
+#: 영덕 extent is ~6x denser (≈8.4k nodes) than the synthetic route lattice (≈1.4k),
+#: so the synthetic-default stride of 3 would sample ≈2.6k origins and make the
+#: full-N verification sweeps intractable (~60 s per split × dozens of cells).
+#: Raising the stride to 18 holds the sampled-candidate count near the synthetic
+#: scale (≈439, vs the synthetic 452), keeping the two runs directly comparable.
+#: The *procedure* is unchanged — this is only its stride knob, adapted to the
+#: denser graph (recorded in the report / provenance).
+REAL_OSM_SCAN_STRIDE: int = 18
 
 
 # ---------------------------------------------------------------------------
@@ -78,6 +90,10 @@ class RescueScenario:
     depots_source: str
     hazard_source: str
     ignition_xy: tuple[float, float]
+    walk_source: str = "synthetic"
+    drive_source: str = "synthetic"
+    terrain_source: str = "synthetic"
+    origins_source: str = "sampled candidates"
 
 
 # ---------------------------------------------------------------------------
@@ -270,6 +286,92 @@ def build_synthetic_demo(cfg: RescueConfig | None = None) -> RescueScenario:
         walk=walk, drive=drive, destinations=dests, depots=depots, origins=origins,
         shelters_source=shelters_source, depots_source=depots_source,
         hazard_source=hazard_source, ignition_xy=(ix, iy),
+        walk_source="synthetic", drive_source="synthetic", terrain_source="synthetic",
+        origins_source="sampled candidates",
+    )
+
+
+def build_real_demo(cfg: RescueConfig | None = None) -> RescueScenario:
+    """Build the 영덕 scenario on REAL OpenStreetMap inputs (partial real flip).
+
+    Real / OSM (``source="osm"``):
+      - walk + drive road networks (OSMnx, reprojected EPSG:5179, disk-cached),
+      - refuges (OSM ``amenity=shelter`` / ``community_centre`` / ``leisure=park``),
+      - responder depots (OSM ``amenity=fire_station`` — the actual 소방서/119안전센터).
+
+    Still SYNTHETIC (``source="synthetic"``), clearly labelled, pending the
+    git-ignored FIRMS fire-data bundle:
+      - the fire **hazard** surface (severity-scaled envelope stand-in for the
+        spread_v2 forward-sim), and
+      - the **terrain** / land–sea mask the hazard sea-clip and ignition use.
+
+    Origins remain **sampled candidates** (real per-household elderly locations are
+    private). If OSM is unavailable (no cache / no network) each real loader falls
+    back to its labelled synthetic layer, so this still runs end-to-end — the
+    provenance then reports exactly which inputs degraded, never silently.
+
+    Data-source honesty: the road/refuge/depot GEOMETRY is now real; the fire that
+    drives every survival / reachability number is still a synthetic envelope on a
+    synthetic coastline. Contrasts remain the robust result; absolute magnitudes
+    stay illustrative until the real hazard is flipped in.
+    """
+    from dataclasses import replace
+
+    cfg = cfg or RescueConfig(use_osm=True)
+    updates: dict = {}
+    if not cfg.use_osm:
+        updates["use_osm"] = True          # the real demo forces the OSM path on
+    if cfg.scan_stride == RescueConfig.scan_stride:  # caller left the synthetic default
+        updates["scan_stride"] = REAL_OSM_SCAN_STRIDE  # adapt to the denser OSM graph
+    if updates:
+        cfg = replace(cfg, **updates)
+    region = regions.lookup(cfg.region_name)
+    bbox = region.bbox_wgs84
+    route_grid = gridmod.build_grid(bbox, cell_size_m=cfg.route_cell_m)
+    hazard_grid = gridmod.build_grid(bbox, cell_size_m=cfg.hazard_cell_m)
+
+    # Synthetic terrain (labelled) still drives the hazard sea-mask + is the
+    # fallback for the network builders if OSM is unreachable. Terrain is NOT
+    # real here — it waits on the DEM in the FIRMS bundle.
+    elevation, burnable = _synthetic_terrain(route_grid)
+    _, burnable_h = _synthetic_terrain(hazard_grid)
+
+    # Synthetic hazard (labelled) on the real extent — same HazardSequence shape
+    # the router consumes; swapped for forward_simulate output once FIRMS lands.
+    fx, fy = cfg.syn_ignition_frac
+    ix = route_grid.minx + fx * (route_grid.maxx - route_grid.minx)
+    iy = route_grid.miny + fy * (route_grid.maxy - route_grid.miny)
+    hazard = _synthetic_hazard(hazard_grid, burnable_h, (ix, iy), cfg)
+    hazard_source = "synthetic"
+
+    # Real OSM networks (fall back to labelled synthetic lattice if unreachable).
+    walk, walk_source = load_walk_network(cfg, route_grid, elevation, burnable, bbox)
+    drive, drive_source = load_drive_network(cfg, route_grid, elevation, burnable, bbox)
+
+    # Real OSM refuges + depots (fall back to labelled synthetic if unreachable).
+    dests, shelters_source = load_shelters(cfg, bbox, to_5179=_TO_5179)
+    if not dests:
+        dests = synthetic_shelters(walk, cfg.n_synthetic_shelters, seed=cfg.seed)
+        dests += synthetic_inland_shelters(
+            walk, route_grid, cfg.n_synthetic_inland_shelters, (ix, iy),
+            seed=cfg.seed, flank_radius_m=cfg.syn_inland_flank_radius_m)
+        shelters_source = "synthetic"
+
+    depots, depots_source = load_depots(cfg, bbox, to_5179=_TO_5179)
+    if not depots:
+        depots = synthetic_depots(drive, route_grid, cfg.n_synthetic_depots)
+        depots_source = "synthetic"
+
+    origins = _scan_origins(walk, hazard, route_grid, (ix, iy), cfg)
+
+    return RescueScenario(
+        cfg=cfg, route_grid=route_grid, hazard_grid=hazard_grid,
+        elevation=elevation, burnable_frac=burnable, hazard=hazard,
+        walk=walk, drive=drive, destinations=dests, depots=depots, origins=origins,
+        shelters_source=shelters_source, depots_source=depots_source,
+        hazard_source=hazard_source, ignition_xy=(ix, iy),
+        walk_source=walk_source, drive_source=drive_source, terrain_source="synthetic",
+        origins_source="sampled candidates",
     )
 
 
@@ -428,16 +530,46 @@ def run_pipeline(scenario: RescueScenario, cfg: RescueConfig | None = None) -> R
 
     prov = cfg.provenance()
     prov["sources"] = {
+        "walk_network": scenario.walk_source,
+        "drive_network": scenario.drive_source,
         "shelters": scenario.shelters_source,
         "depots": scenario.depots_source,
         "hazard": scenario.hazard_source,
-        "road_network": "synthetic" if not cfg.use_osm else "real-or-synthetic",
+        "terrain": scenario.terrain_source,
+        "origins": scenario.origins_source,
     }
-    prov["honesty"] = (
-        "Single-fire (영덕) PoC on synthetic fallback inputs. Contrasts are the "
-        "robust result; absolute magnitudes are illustrative. 'No safe route' / "
-        "'rescuer can't reach' are valid outputs and are reported, never imputed."
-    )
+    # Tag semantics: "osm" = OpenStreetMap (real-world geometry); "real" = an
+    # authoritative government file (e.g. data.go.kr); "synthetic" = a labelled
+    # stand-in; "assumed" = a literature/PoC constant (see provenance()["assumed"]).
+    prov["source_legend"] = {
+        "osm": "OpenStreetMap via OSMnx (real-world roads / POIs)",
+        "real": "authoritative government dataset file (e.g. data.go.kr)",
+        "synthetic": "labelled synthetic stand-in (not real data)",
+        "assumed": "literature / PoC constant",
+        "sampled candidates": "seeded candidate origins; real elderly-home "
+        "locations are private",
+    }
+    partial_real = any(s in ("osm", "real")
+                       for s in (scenario.walk_source, scenario.drive_source,
+                                 scenario.shelters_source, scenario.depots_source))
+    if partial_real and scenario.hazard_source == "synthetic":
+        prov["honesty"] = (
+            "PARTIAL REAL FLIP (영덕). Road networks / refuges / depots are REAL "
+            "OpenStreetMap geometry (source='osm'); the fire HAZARD and the TERRAIN "
+            "(land–sea mask) remain SYNTHETIC, pending the git-ignored FIRMS "
+            "fire-data bundle that the spread_v2 forward-sim needs. Every survival / "
+            "reachability number is therefore still driven by a synthetic fire on a "
+            "synthetic coastline — contrasts are the robust result; absolute "
+            "magnitudes stay illustrative until the real hazard is flipped in. "
+            "'No safe route' / 'rescuer can't reach' are valid outputs, reported, "
+            "never imputed."
+        )
+    else:
+        prov["honesty"] = (
+            "Single-fire (영덕) PoC on synthetic fallback inputs. Contrasts are the "
+            "robust result; absolute magnitudes are illustrative. 'No safe route' / "
+            "'rescuer can't reach' are valid outputs and are reported, never imputed."
+        )
 
     return RescueResults(
         n_origins=len(scenario.origins), four_way_counts=counts,
@@ -584,6 +716,7 @@ __all__ = [
     "RescueScenario",
     "RescueResults",
     "build_synthetic_demo",
+    "build_real_demo",
     "synthetic_shelters",
     "synthetic_depots",
     "run_pipeline",

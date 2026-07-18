@@ -1,5 +1,13 @@
 # Rescue-aware evacuation routing — results (DRAFT)
 
+> **Round 2 · Phase 1 — real-data flip (2026-07).** The `[src: rescue_*.json]`
+> citations below now resolve to **real-OSM** outputs (road/refuge/depot geometry
+> flipped from synthetic; fire hazard + terrain still synthetic pending FIRMS). The
+> synthetic values quoted in this draft (N = 452; four-way 154/34/244/20; `w` ≈ 40 %;
+> 264/58 % needs-rescuer; etc.) are the **pre-flip** baseline, preserved at
+> `data/processed/rescue_baseline_synthetic/`. For the current real numbers and the
+> OLD-vs-NEW table see `docs/REPORT_ROUND2_P1.md`.
+
 > **DRAFT for the author to edit.** Every quantitative claim is tagged with its
 > committed source as `[src: file / key]`. Citations not yet in the repo
 > bibliography are flagged `[CITE: …]` (not fabricated); unsourced numbers would be
@@ -23,9 +31,9 @@
 ## 1. Setup
 
 We evaluate rescue-aware evacuation on the 2025 영덕(Yeongdeok) wildfire extent — the
-anchor casualty event (average victim age 84 `[src: docs/ROUTING_INTEGRATION_REPORT.md]`;
-27 deaths in the 의성-started fire — 8 in 영덕 — mostly residents in their 60s–80s in
-rural villages `[src: README.md]`). The router consumes the project's data-driven spread hazard as a
+anchor casualty event (part of the 2025 의성–안동 wildfire complex: ~27 deaths total — 8 in
+영덕 — victims predominantly residents in their 60s–80s in rural villages
+`[src: 서울환경연합 2026 회고(23명은 2025-03-26 시점); 세계일보·한겨레 2025-03-26; README.md]`). The router consumes the project's data-driven spread hazard as a
 time-sliced per-cell ignition-probability surface — the foundation this builds on
 (leave-one-fire-out **mean-of-folds ROC-AUC 0.89 ± 0.11**, range 0.68–0.97; pooled
 0.905, far-band 0.877 pooled

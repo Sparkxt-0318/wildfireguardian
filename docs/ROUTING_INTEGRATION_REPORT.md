@@ -1,7 +1,9 @@
 # Routing Spine Integration — coupling the spread_v2 hazard to elderly evacuation routing
 
 **Demonstration fire: 2025 영덕(영남) 산불 / Yeongdeok 2025** — the anchor casualty
-event (avg victim age 84). Real roads geometry, real terrain, real fire data.
+event (part of the 2025 의성–안동 wildfire complex: ~27 deaths total — 8 in 영덕 —
+victims predominantly in their 60s–80s). Real roads geometry, real terrain, real fire data.
+〔출처: 서울환경연합 2026 회고(23명은 2025-03-26 시점); 세계일보·한겨레 2025-03-26〕
 
 ---
 
@@ -267,8 +269,8 @@ origins** are in this category. The spine does not invent safety that isn't ther
 2. **Validated multi-fire hazard** — more fires, true burn-scar perimeters (not detections),
    proper calibration and reliability across regions/seasons.
 3. **Real shelter & road data** — designated assembly points and the actual OSM/road network,
-   with vehicle as well as pedestrian modes (16–20 km on foot is not survivable for an
-   84-year-old in a fast fire).
+   with vehicle as well as pedestrian modes (16–20 km on foot is not survivable for a rural
+   elderly resident — the victims were predominantly in their 60s–80s — in a fast fire).
 4. **Live data feeds** — real-time detections, KMA wind/RH, and per-resident mobility
    profiles; dynamic re-routing as the forecast updates.
 5. **Human-in-the-loop** — the model is a risk surface; decisions need an operator and a

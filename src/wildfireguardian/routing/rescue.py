@@ -235,10 +235,10 @@ def load_shelters(cfg: RescueConfig, bbox_wgs84: tuple[float, float, float, floa
         try:  # pragma: no cover - needs network
             dests = _osm_points(bbox_wgs84, {"amenity": ["shelter", "community_centre"],
                                              "leisure": ["park"]},
-                                to_5179, kind="shelter", source="real",
+                                to_5179, kind="shelter", source="osm",
                                 cache_dir=cfg.osm_cache_dir, tagname="shelters")
             if dests:
-                return dests, "real"
+                return dests, "osm"
         except Exception as exc:  # pragma: no cover
             return [], f"osm-error: {exc}"
     return [], "unavailable"
@@ -264,11 +264,11 @@ def load_depots(cfg: RescueConfig, bbox_wgs84: tuple[float, float, float, float]
     if cfg.use_osm:
         try:  # pragma: no cover - needs network
             pts = _osm_points(bbox_wgs84, {"amenity": "fire_station"}, to_5179,
-                              kind="depot", source="real",
+                              kind="depot", source="osm",
                               cache_dir=cfg.osm_cache_dir, tagname="depots")
-            depots = [Depot(p.name, p.x, p.y, source="real") for p in pts]
+            depots = [Depot(p.name, p.x, p.y, source="osm") for p in pts]
             if depots:
-                return depots, "real"
+                return depots, "osm"
         except Exception as exc:  # pragma: no cover
             return [], f"osm-error: {exc}"
     return [], "unavailable"
@@ -353,16 +353,78 @@ def load_drive_network(cfg: RescueConfig, grid: CoarseGrid, elevation, burnable_
     The synthetic fallback is an 8-connected lattice on the real/synthetic extent
     with **constant vehicle speed** edge times (clearly labelled). The real path
     downloads an OSM drive network, reprojects to EPSG:5179, and attaches
-    ``time_min`` per edge from ``cfg.vehicle_speed_kmh``.
+    ``time_min`` per edge from ``cfg.vehicle_speed_kmh``. The OSM path returns the
+    tag ``"osm"`` (OpenStreetMap road geometry — a real-world source, distinct from
+    an authoritative government road file).
     """
     if cfg.use_osm and bbox_wgs84 is not None:
         try:  # pragma: no cover - needs network
             net = _osm_drive_network(cfg, bbox_wgs84)
-            return net, "real"
+            return net, "osm"
         except Exception:  # pragma: no cover
             pass
     return build_drive_network(grid, elevation, burnable_frac,
                                vehicle_speed_kmh=cfg.vehicle_speed_kmh), "synthetic"
+
+
+def load_walk_network(cfg: RescueConfig, grid: CoarseGrid, elevation, burnable_frac,
+                      bbox_wgs84=None) -> tuple[RoadNetwork, str]:
+    """Pedestrian (resident) network. Real OSM ``walk`` graph first, else synthetic.
+
+    This fills the walk-network gap that mirrored :func:`load_drive_network` on
+    the vehicle side. The synthetic fallback is the slope-aware elderly-walk
+    lattice built by
+    :func:`~wildfireguardian.routing.evacuation.build_evacuation_network` (node
+    positions / elevations / coast are real when the extent is real; only the
+    street topology is synthetic). The real path downloads an OSM ``walk`` graph,
+    reprojects to EPSG:5179, and attaches ``time_min`` per edge from a **flat**
+    elderly walk speed (``cfg.elderly_walk_speed_ms``) — the OSM path carries no
+    per-node elevation here, so no synthetic slope is invented; terrain-aware
+    walk timing waits on the DEM in the FIRMS bundle. Returns tag ``"osm"``.
+    """
+    from .evacuation import build_evacuation_network
+
+    if cfg.use_osm and bbox_wgs84 is not None:
+        try:  # pragma: no cover - needs network
+            net = _osm_walk_network(cfg, bbox_wgs84)
+            return net, "osm"
+        except Exception:  # pragma: no cover
+            pass
+    return build_evacuation_network(grid, elevation, burnable_frac,
+                                    flat_speed_ms=cfg.elderly_walk_speed_ms), "synthetic"
+
+
+def _osm_walk_network(cfg, bbox_wgs84):  # pragma: no cover - needs network
+    """Download + reproject an OSM ``walk`` graph into our :class:`RoadNetwork`.
+
+    Edge ``time_min`` uses the flat elderly walk speed (no DEM => no synthetic
+    slope). Cached to ``walk.graphml`` so re-runs are offline. ``shelters`` is left
+    empty; the caller attaches the snapped shelter-POI nodes as targets.
+    """
+    import os
+
+    import osmnx as ox
+
+    os.makedirs(cfg.osm_cache_dir, exist_ok=True)
+    cache = os.path.join(cfg.osm_cache_dir, "walk.graphml")
+    if os.path.exists(cache):
+        G = ox.load_graphml(cache)
+    else:
+        minlon, minlat, maxlon, maxlat = bbox_wgs84
+        G = ox.graph_from_bbox(bbox=(minlon, minlat, maxlon, maxlat),
+                               network_type="walk")
+        ox.save_graphml(G, cache)
+    G = ox.project_graph(G, to_crs="EPSG:5179")
+    g = nx.Graph()
+    speed_ms = cfg.elderly_walk_speed_ms
+    for n, d in G.nodes(data=True):
+        g.add_node(n, x=float(d["x"]), y=float(d["y"]))
+    for u, v, d in G.edges(data=True):
+        length = float(d.get("length", 0.0)) or 1.0
+        if g.has_edge(u, v):
+            continue
+        g.add_edge(u, v, length_m=length, time_min=(length / speed_ms) / 60.0)
+    return RoadNetwork(graph=g, shelters=set())
 
 
 def _osm_drive_network(cfg, bbox_wgs84):  # pragma: no cover - needs network
@@ -1072,6 +1134,7 @@ __all__ = [
     "load_shelters",
     "load_depots",
     "load_drive_network",
+    "load_walk_network",
     "build_drive_network",
     "sample_corridor_points",
     "corridor_survival_time",
