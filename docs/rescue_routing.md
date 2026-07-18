@@ -1,5 +1,14 @@
 # Rescue-aware evacuation routing — methods note
 
+> **Round 2 · Phase 1 — real-data flip (2026-07).** The committed
+> `data/processed/rescue_*.json` have since been flipped from synthetic fallbacks to
+> **real OpenStreetMap** road/refuge/depot geometry (fire **hazard** + **terrain**
+> remain synthetic, pending the FIRMS bundle). The synthetic **numbers** quoted in
+> this methods note (e.g. N = 452, the four-way split, `w` ≈ 40 %) describe the
+> **pre-flip** baseline, preserved at `data/processed/rescue_baseline_synthetic/`;
+> the current real values and an OLD-vs-NEW comparison are in
+> `docs/REPORT_ROUND2_P1.md`. The **method** described here is unchanged.
+
 *What it is, why it is built this way, what it does **not** claim, and where every
 input comes from. Companion to `src/wildfireguardian/routing/rescue.py` and
 `rescue_demo.py`; regenerate results with `python scripts/run_rescue_routing.py &&

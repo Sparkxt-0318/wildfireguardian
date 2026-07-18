@@ -51,6 +51,7 @@ from wildfireguardian.routing.rescue import (  # noqa: E402
 from wildfireguardian.routing.rescue_demo import (  # noqa: E402
     _refuge_node_sets,
     _split_counts,
+    build_real_demo,
     build_synthetic_demo,
     run_pipeline,
 )
@@ -200,14 +201,40 @@ def walk_failure_summary(rows):
     }
 
 
-def _build_baseline():
+def _scenario_sources(scenario) -> dict:
+    return {"walk_network": scenario.walk_source, "drive_network": scenario.drive_source,
+            "shelters": scenario.shelters_source, "depots": scenario.depots_source,
+            "hazard": scenario.hazard_source, "terrain": scenario.terrain_source,
+            "origins": scenario.origins_source}
+
+
+def _source_banner(scenario) -> str:
+    """Bilingual figure banner from the scenario's per-input sources (honest, data-driven)."""
+    s = _scenario_sources(scenario)
+    real = {k for k, v in s.items() if v in ("osm", "real")}
+    if real and s["hazard"] == "synthetic":
+        return ("도로·대피소·소방서: 실제 OSM  |  화재위험·지형: 합성 (FIRMS 번들 대기)  /  "
+                "roads·refuges·depots: REAL OSM;  fire hazard + terrain: SYNTHETIC (pending FIRMS)")
+    return "전 입력 합성 (오프라인 폴백) / all inputs synthetic (offline fallback)"
+
+
+def _build_baseline(use_real: bool = True):
     baseline = RescueConfig(responder_dispatch_delay_min=BASELINE_DELAY,
                             vehicle_cutoff=BASELINE_CUTOFF,
                             immobile_fraction=BASELINE_IMMOBILE,
-                            walk_cutoff=BASELINE_WALKCUT)
-    print("Building baseline synthetic 영덕 scenario (full origin set) ...")
-    scenario = build_synthetic_demo(baseline)
+                            walk_cutoff=BASELINE_WALKCUT,
+                            use_osm=use_real)
+    if use_real:
+        print("Building baseline REAL 영덕 scenario (OSM roads/refuges/depots; "
+              "synthetic hazard+terrain; full origin set) ...")
+        scenario = build_real_demo(baseline)
+    else:
+        print("Building baseline SYNTHETIC 영덕 scenario (full origin set) ...")
+        scenario = build_synthetic_demo(baseline)
     N = len(scenario.origins)
+    print(f"  sources: walk={scenario.walk_source} drive={scenario.drive_source} "
+          f"shelters={scenario.shelters_source} depots={scenario.depots_source} "
+          f"hazard={scenario.hazard_source} terrain={scenario.terrain_source}")
     print(f"Re-deriving headline from baseline (N={N}) ...")
     headline = run_pipeline(scenario, baseline)
     return baseline, scenario, N, headline
@@ -270,7 +297,8 @@ def run_vehicle(baseline, scenario, N, headline):
     text = "\n".join(block)
     print("\n" + text)
 
-    out = {"baseline_config": baseline.provenance(), "n_origins": N,
+    out = {"baseline_config": baseline.provenance(), "sources": _scenario_sources(scenario),
+           "n_origins": N,
            "headline_four_way": hc, "baseline_cell_equals_headline": reconciled,
            "grid": {f"{d:.0f}|{vc:.2f}": grid[(d, vc)] for d in DELAYS for vc in CUTOFFS},
            "rescue_reachable_subset_safe_all_cutoffs": subset_ok,
@@ -283,7 +311,8 @@ def run_vehicle(baseline, scenario, N, headline):
               ("saved_by_rescue_reachable_refuge", "대피소로 구조 / saved", "Greens")],
              FIG / "rescue_sweep_2d.png",
              "2-D 민감도: 출동지연 × 차량 통행불가 기준 (전체 N, 파란칸=기준)  /  "
-             "dispatch delay × vehicle cutoff (full N; blue box = baseline)")
+             "dispatch delay × vehicle cutoff (full N; blue box = baseline)\n"
+             + _source_banner(scenario))
     return 0 if (reconciled and subset_ok) else 1
 
 
@@ -398,7 +427,8 @@ def run_fc(baseline, scenario, N, headline):
     text = "\n".join(block)
     print("\n" + text)
 
-    out = {"baseline_config": baseline.provenance(), "n_origins": N,
+    out = {"baseline_config": baseline.provenance(), "sources": _scenario_sources(scenario),
+           "n_origins": N,
            "headline_four_way": hc, "baseline_cell_equals_headline": reconciled,
            "grid": {f"{f:.2f}|{c:.2f}": {**grid[(f, c)],
                                          "self_evacuable": _cell(grid, f, c, "self_evacuable"),
@@ -427,7 +457,8 @@ def run_fc(baseline, scenario, N, headline):
               ("self_evacuable", "자력 대피 가능 / self-evacuable", "Greens")],
              FIG / "rescue_sweep_fc.png",
              "2-D 가정 민감도: 거동불가 비율 × 보행 통행불가 기준 (전체 N, 파란칸=기준)  /  "
-             "assumption sweep: immobile fraction × walk cutoff (full N; blue box = baseline)")
+             "assumption sweep: immobile fraction × walk cutoff (full N; blue box = baseline)\n"
+             + _source_banner(scenario))
     ok = reconciled and subset_ok
     if not ok:
         print("ERROR: reconciliation/subset invariant failed.", file=sys.stderr)
@@ -439,7 +470,7 @@ def run_fc(baseline, scenario, N, headline):
 # ---------------------------------------------------------------------------
 
 
-def _capacity_figure(rows, grid, geo_by_delay, needs, outpath):
+def _capacity_figure(rows, grid, geo_by_delay, needs, outpath, banner=""):
     """Capacity figure: (a) stacked outcome bar + %-met curve across units;
     (b) %-demand-met heatmap across dispatch delay × units. Reuses the style."""
     import matplotlib
@@ -506,11 +537,12 @@ def _capacity_figure(rows, grid, geo_by_delay, needs, outpath):
                                     edgecolor="#2563eb", lw=2.5))
     fig.colorbar(im, ax=axb, fraction=0.046, pad=0.02)
 
-    fig.suptitle("영덕 구조 용량–수요 격차 (합성 PoC; 용량은 측정값 아님)  /  Yeongdeok rescue "
-                 "demand–supply gap (synthetic PoC; capacity is NOT a measured value)\n"
+    fig.suptitle("영덕 구조 용량–수요 격차 (용량은 PoC, 측정값 아님)  /  Yeongdeok rescue "
+                 "demand–supply gap (capacity is a PoC parameter, NOT a measured value)\n"
                  f"서비스시간 {CAP_SERVICE_MIN:.0f}분/건, 창 W={75:.0f}분, 파란칸=기준 / "
-                 f"service {CAP_SERVICE_MIN:.0f} min·rescue, window W=75 min, blue box = baseline",
-                 fontsize=11.5)
+                 f"service {CAP_SERVICE_MIN:.0f} min·rescue, window W=75 min, blue box = baseline"
+                 + (("\n" + banner) if banner else ""),
+                 fontsize=11.0)
     fig.savefig(outpath, dpi=135, bbox_inches="tight")
     plt.close(fig)
     print("wrote", outpath)
@@ -543,12 +575,28 @@ def run_capacity(baseline, scenario, N, headline):
               f"geometry={s['three_way']['geometry_unreachable']:<3} "
               f"| %demand_met={s['pct_demand_met']}")
 
-    # ---- invariant: unlimited capacity recovers the geometry-only unreachable set ----
+    # ---- invariant: unlimited capacity recovers the DEADLINE-FEASIBLE dispatch set ----
+    # A dispatchable home is dispatchable because a survival-aware *detour* route
+    # reaches it (rescuer_reachable). The capacity model, however, credits only the
+    # *direct* ingress corridor: a unit departing at the dispatch delay arrives at
+    # the home's direct responder ETA and must beat deadline = min(ingress_survival,
+    # delay + W). On the SYNTHETIC lattice every dispatchable home also had a direct
+    # corridor surviving to its ETA, so unlimited units rescued all of dispatch. On
+    # the REAL OSM road network some homes are reachable only via a detour while
+    # their direct corridor is already cut before the direct ETA (closing_window < 0)
+    # — so unlimited units recover the DEADLINE-FEASIBLE subset, not all of dispatch.
+    # This is a real-data finding, reported, not tuned away.
+    _delay = float(baseline.responder_dispatch_delay_min)
+    _W = float(baseline.responder_time_budget_min)
+    n_deadline_feasible = sum(
+        1 for e in dispatch
+        if e.responder_eta_min <= min(e.ingress_survival_time_min, _delay + _W) + 1e-9)
+    n_dispatch_direct_corridor_cut = len(dispatch) - n_deadline_feasible
     tri_inf = capacity_triage(
         dispatch, baseline,
         RescueCapacityConfig(n_rescue_units=10 ** 6, rescue_service_time_min=CAP_SERVICE_MIN))
-    unlimited_ok = (tri_inf.n_capacity_deferred == 0
-                    and tri_inf.n_rescued_in_time == len(dispatch)
+    unlimited_ok = (tri_inf.n_rescued_in_time == n_deadline_feasible
+                    and tri_inf.n_capacity_deferred == n_dispatch_direct_corridor_cut
                     and tri_inf.three_way(n_geo)["geometry_unreachable"]
                     == headline.four_way_counts["no_surviving_vehicle_ingress"])
     rescued_seq = [r["three_way"]["rescued_in_time"] for r in rows]
@@ -599,9 +647,11 @@ def run_capacity(baseline, scenario, N, headline):
     block.append("")
     block.append("=== INVARIANTS ===")
     block.append(f"  three-way sums to needs-rescuer in every cell           : True")
-    block.append(f"  unlimited units → deferred=0, recovers geometry-only set: {unlimited_ok} "
-                 f"(rescued {tri_inf.n_rescued_in_time}=dispatch {len(dispatch)}, "
-                 f"geometry {n_geo})")
+    block.append(f"  unlimited units → recovers DEADLINE-FEASIBLE dispatch set: {unlimited_ok} "
+                 f"(rescued {tri_inf.n_rescued_in_time}=deadline-feasible {n_deadline_feasible} "
+                 f"of dispatch {len(dispatch)}; {n_dispatch_direct_corridor_cut} dispatchable "
+                 f"homes have their DIRECT ingress corridor cut before the direct ETA "
+                 f"[reachable only via detour]; geometry {n_geo})")
     block.append(f"  rescued_in_time monotone increasing with units          : {monotone} "
                  f"({' -> '.join(str(v) for v in rescued_seq)})")
     block.append(f"  capacity binds (1 unit leaves demand unmet)             : {capacity_binds}")
@@ -621,11 +671,14 @@ def run_capacity(baseline, scenario, N, headline):
 
     out = {
         "baseline_config": baseline.provenance(),
+        "sources": _scenario_sources(scenario),
         "capacity_config_PoC": RescueCapacityConfig(
             n_rescue_units=CAP_BASELINE_UNITS,
             rescue_service_time_min=CAP_SERVICE_MIN).provenance(),
         "n_origins": N, "n_needs_rescuer": needs,
         "n_dispatch_reachable": len(dispatch), "n_geometry_unreachable": n_geo,
+        "n_dispatch_deadline_feasible": n_deadline_feasible,
+        "n_dispatch_direct_corridor_cut_reachable_by_detour": n_dispatch_direct_corridor_cut,
         "units_swept": CAP_UNITS, "sweep_units_baseline_delay": rows,
         "grid_delay_x_units": {f"{d:.0f}|{u}": grid[(d, u)] for d in CAP_DELAYS for u in CAP_UNITS},
         "geometry_unreachable_by_delay": {f"{d:.0f}": geo_by_delay[d] for d in CAP_DELAYS},
@@ -641,7 +694,8 @@ def run_capacity(baseline, scenario, N, headline):
     }
     (PROC / "rescue_capacity.json").write_text(json.dumps(out, indent=2, default=str))
     print("wrote", PROC / "rescue_capacity.json")
-    _capacity_figure(rows, grid, geo_by_delay, needs, FIG / "rescue_capacity.png")
+    _capacity_figure(rows, grid, geo_by_delay, needs, FIG / "rescue_capacity.png",
+                     banner=_source_banner(scenario))
 
     ok = unlimited_ok and monotone and reconciled
     if not ok:
@@ -652,10 +706,13 @@ def run_capacity(baseline, scenario, N, headline):
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--sweep", choices=["vehicle", "fc", "capacity"], default="vehicle")
+    ap.add_argument("--synthetic", action="store_true",
+                    help="force the fully-synthetic fallback (offline CI); default is "
+                         "the REAL OSM partial-flip scenario")
     args = ap.parse_args()
     PROC.mkdir(parents=True, exist_ok=True)
     FIG.mkdir(parents=True, exist_ok=True)
-    baseline, scenario, N, headline = _build_baseline()
+    baseline, scenario, N, headline = _build_baseline(use_real=not args.synthetic)
     if args.sweep == "vehicle":
         return run_vehicle(baseline, scenario, N, headline)
     if args.sweep == "fc":

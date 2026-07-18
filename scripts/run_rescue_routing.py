@@ -31,6 +31,7 @@ sys.path.insert(0, str(REPO / "src"))
 
 from wildfireguardian.routing.rescue import RescueConfig  # noqa: E402
 from wildfireguardian.routing.rescue_demo import (  # noqa: E402
+    build_real_demo,
     build_synthetic_demo,
     run_pipeline,
     sensitivity_sweep,
@@ -54,6 +55,9 @@ def main() -> int:
     ap.add_argument("--vehicle-cutoff", type=float, default=None)
     ap.add_argument("--vehicle-speed-kmh", type=float, default=None)
     ap.add_argument("--seed", type=int, default=None)
+    ap.add_argument("--synthetic", action="store_true",
+                    help="force the fully-synthetic fallback (offline CI); default "
+                         "is the REAL OSM partial-flip scenario")
     ap.add_argument("--out", default=str(REPO / "data" / "processed"))
     args = ap.parse_args()
 
@@ -62,16 +66,26 @@ def main() -> int:
         "vehicle_cutoff": args.vehicle_cutoff, "vehicle_speed_kmh": args.vehicle_speed_kmh,
         "seed": args.seed,
     }.items() if v is not None}
+    if not args.synthetic:
+        overrides["use_osm"] = True
     cfg = RescueConfig(**overrides)
 
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
 
-    print("[1/4] building synthetic 영덕 scenario (labelled fallback) ...")
-    scenario = build_synthetic_demo(cfg)
+    if args.synthetic:
+        print("[1/4] building SYNTHETIC 영덕 scenario (labelled fallback) ...")
+        scenario = build_synthetic_demo(cfg)
+    else:
+        print("[1/4] building REAL 영덕 scenario (OSM roads/refuges/depots; "
+              "synthetic hazard+terrain) ...")
+        scenario = build_real_demo(cfg)
+    print(f"      sources: walk={scenario.walk_source} drive={scenario.drive_source} "
+          f"shelters={scenario.shelters_source} depots={scenario.depots_source} "
+          f"hazard={scenario.hazard_source} terrain={scenario.terrain_source}")
     print(f"      walk nodes={scenario.walk.graph.number_of_nodes()}, "
           f"drive nodes={scenario.drive.graph.number_of_nodes()}, "
-          f"refuges={len(scenario.destinations)} (coastal+inland), "
+          f"refuges={len(scenario.destinations)}, "
           f"depots={len(scenario.depots)}, origins={len(scenario.origins)}")
 
     print("[2/4] running resident + rescuer evaluation ...")

@@ -35,256 +35,182 @@
     },
     "seed": 20250603
   },
-  "n_origins": 452,
+  "sources": {
+    "walk_network": "osm",
+    "drive_network": "osm",
+    "shelters": "osm",
+    "depots": "osm",
+    "hazard": "synthetic",
+    "terrain": "synthetic",
+    "origins": "sampled candidates"
+  },
+  "n_origins": 439,
   "headline_four_way": {
-    "saved_by_rescue_reachable_refuge": 34,
-    "already_safe": 154,
-    "no_safe_pedestrian_route": 244,
-    "no_surviving_vehicle_ingress": 20
+    "saved_by_rescue_reachable_refuge": 10,
+    "already_safe": 262,
+    "no_safe_pedestrian_route": 143,
+    "no_surviving_vehicle_ingress": 24
   },
-  "headline_sums_to_n": true,
-  "resident_exposure": {
-    "naive": {
-      "mean": 24.06362272467445,
-      "median": 10.911848769217354,
-      "n": 316
-    },
-    "future_aware_any": {
-      "mean": 3.549647573675919,
-      "median": 1.0051779411482673,
-      "n": 188
-    },
-    "future_aware_rescue": {
-      "mean": 3.472388328824323,
-      "median": 0.9434596924439854,
-      "n": 185
-    },
-    "units": "prob_min",
-    "route_type": "pedestrian",
-    "policy_c_changed_refuge_count": 2,
-    "policy_c_avoided_cutoff_refuge_count": 2,
-    "paired_b_vs_c": {
-      "mean_future_aware_any": 3.4212695534828153,
-      "mean_future_aware_rescue": 3.472388328824323,
-      "n": 185
-    }
-  },
-  "responder_exposure": {
-    "survival_aware": {
-      "mean": 0.07938328766555577,
-      "n": 244
-    },
-    "shortest_path": {
-      "mean": 0.17240622157702937,
-      "n": 244
-    },
-    "shortest_path_enters_hazard_count": 0,
-    "n_dispatch": 244,
-    "n_unreachable": 20,
-    "n_need_rescue": 264,
-    "n_need_rescue_immobile": 136,
-    "n_need_rescue_walk_cut": 128,
-    "units": "prob_min",
-    "route_type": "vehicle"
-  },
+  "baseline_cell_equals_headline": true,
   "grid": {
     "0|0.50": {
-      "saved_by_rescue_reachable_refuge": 34,
-      "already_safe": 154,
-      "no_safe_pedestrian_route": 249,
-      "no_surviving_vehicle_ingress": 15
+      "saved_by_rescue_reachable_refuge": 10,
+      "already_safe": 262,
+      "no_safe_pedestrian_route": 154,
+      "no_surviving_vehicle_ingress": 13
     },
     "0|0.60": {
-      "saved_by_rescue_reachable_refuge": 34,
-      "already_safe": 154,
-      "no_safe_pedestrian_route": 255,
-      "no_surviving_vehicle_ingress": 9
+      "saved_by_rescue_reachable_refuge": 10,
+      "already_safe": 262,
+      "no_safe_pedestrian_route": 160,
+      "no_surviving_vehicle_ingress": 7
     },
     "0|0.70": {
-      "saved_by_rescue_reachable_refuge": 34,
-      "already_safe": 154,
-      "no_safe_pedestrian_route": 258,
+      "saved_by_rescue_reachable_refuge": 10,
+      "already_safe": 262,
+      "no_safe_pedestrian_route": 161,
       "no_surviving_vehicle_ingress": 6
     },
     "0|0.80": {
-      "saved_by_rescue_reachable_refuge": 34,
-      "already_safe": 154,
-      "no_safe_pedestrian_route": 262,
-      "no_surviving_vehicle_ingress": 2
+      "saved_by_rescue_reachable_refuge": 10,
+      "already_safe": 262,
+      "no_safe_pedestrian_route": 163,
+      "no_surviving_vehicle_ingress": 4
     },
     "0|0.90": {
-      "saved_by_rescue_reachable_refuge": 34,
-      "already_safe": 154,
-      "no_safe_pedestrian_route": 263,
-      "no_surviving_vehicle_ingress": 1
+      "saved_by_rescue_reachable_refuge": 10,
+      "already_safe": 262,
+      "no_safe_pedestrian_route": 167,
+      "no_surviving_vehicle_ingress": 0
     },
     "15|0.50": {
-      "saved_by_rescue_reachable_refuge": 34,
-      "already_safe": 154,
-      "no_safe_pedestrian_route": 243,
-      "no_surviving_vehicle_ingress": 21
-    },
-    "15|0.60": {
-      "saved_by_rescue_reachable_refuge": 34,
-      "already_safe": 154,
-      "no_safe_pedestrian_route": 246,
-      "no_surviving_vehicle_ingress": 18
-    },
-    "15|0.70": {
-      "saved_by_rescue_reachable_refuge": 34,
-      "already_safe": 154,
-      "no_safe_pedestrian_route": 249,
-      "no_surviving_vehicle_ingress": 15
-    },
-    "15|0.80": {
-      "saved_by_rescue_reachable_refuge": 34,
-      "already_safe": 154,
-      "no_safe_pedestrian_route": 256,
-      "no_surviving_vehicle_ingress": 8
-    },
-    "15|0.90": {
-      "saved_by_rescue_reachable_refuge": 34,
-      "already_safe": 154,
-      "no_safe_pedestrian_route": 262,
-      "no_surviving_vehicle_ingress": 2
-    },
-    "30|0.50": {
-      "saved_by_rescue_reachable_refuge": 34,
-      "already_safe": 154,
-      "no_safe_pedestrian_route": 239,
-      "no_surviving_vehicle_ingress": 25
-    },
-    "30|0.60": {
-      "saved_by_rescue_reachable_refuge": 34,
-      "already_safe": 154,
-      "no_safe_pedestrian_route": 239,
-      "no_surviving_vehicle_ingress": 25
-    },
-    "30|0.70": {
-      "saved_by_rescue_reachable_refuge": 34,
-      "already_safe": 154,
-      "no_safe_pedestrian_route": 244,
-      "no_surviving_vehicle_ingress": 20
-    },
-    "30|0.80": {
-      "saved_by_rescue_reachable_refuge": 34,
-      "already_safe": 154,
-      "no_safe_pedestrian_route": 249,
-      "no_surviving_vehicle_ingress": 15
-    },
-    "30|0.90": {
-      "saved_by_rescue_reachable_refuge": 34,
-      "already_safe": 154,
-      "no_safe_pedestrian_route": 256,
-      "no_surviving_vehicle_ingress": 8
-    },
-    "45|0.50": {
-      "saved_by_rescue_reachable_refuge": 34,
-      "already_safe": 154,
-      "no_safe_pedestrian_route": 227,
-      "no_surviving_vehicle_ingress": 37
-    },
-    "45|0.60": {
-      "saved_by_rescue_reachable_refuge": 34,
-      "already_safe": 154,
-      "no_safe_pedestrian_route": 233,
-      "no_surviving_vehicle_ingress": 31
-    },
-    "45|0.70": {
-      "saved_by_rescue_reachable_refuge": 34,
-      "already_safe": 154,
-      "no_safe_pedestrian_route": 239,
-      "no_surviving_vehicle_ingress": 25
-    },
-    "45|0.80": {
-      "saved_by_rescue_reachable_refuge": 34,
-      "already_safe": 154,
-      "no_safe_pedestrian_route": 244,
-      "no_surviving_vehicle_ingress": 20
-    },
-    "45|0.90": {
-      "saved_by_rescue_reachable_refuge": 34,
-      "already_safe": 154,
-      "no_safe_pedestrian_route": 249,
-      "no_surviving_vehicle_ingress": 15
-    },
-    "60|0.50": {
-      "saved_by_rescue_reachable_refuge": 34,
-      "already_safe": 154,
-      "no_safe_pedestrian_route": 224,
-      "no_surviving_vehicle_ingress": 40
-    },
-    "60|0.60": {
-      "saved_by_rescue_reachable_refuge": 34,
-      "already_safe": 154,
-      "no_safe_pedestrian_route": 226,
+      "saved_by_rescue_reachable_refuge": 10,
+      "already_safe": 262,
+      "no_safe_pedestrian_route": 129,
       "no_surviving_vehicle_ingress": 38
     },
+    "15|0.60": {
+      "saved_by_rescue_reachable_refuge": 10,
+      "already_safe": 262,
+      "no_safe_pedestrian_route": 147,
+      "no_surviving_vehicle_ingress": 20
+    },
+    "15|0.70": {
+      "saved_by_rescue_reachable_refuge": 10,
+      "already_safe": 262,
+      "no_safe_pedestrian_route": 156,
+      "no_surviving_vehicle_ingress": 11
+    },
+    "15|0.80": {
+      "saved_by_rescue_reachable_refuge": 10,
+      "already_safe": 262,
+      "no_safe_pedestrian_route": 160,
+      "no_surviving_vehicle_ingress": 7
+    },
+    "15|0.90": {
+      "saved_by_rescue_reachable_refuge": 10,
+      "already_safe": 262,
+      "no_safe_pedestrian_route": 164,
+      "no_surviving_vehicle_ingress": 3
+    },
+    "30|0.50": {
+      "saved_by_rescue_reachable_refuge": 10,
+      "already_safe": 262,
+      "no_safe_pedestrian_route": 107,
+      "no_surviving_vehicle_ingress": 60
+    },
+    "30|0.60": {
+      "saved_by_rescue_reachable_refuge": 10,
+      "already_safe": 262,
+      "no_safe_pedestrian_route": 126,
+      "no_surviving_vehicle_ingress": 41
+    },
+    "30|0.70": {
+      "saved_by_rescue_reachable_refuge": 10,
+      "already_safe": 262,
+      "no_safe_pedestrian_route": 143,
+      "no_surviving_vehicle_ingress": 24
+    },
+    "30|0.80": {
+      "saved_by_rescue_reachable_refuge": 10,
+      "already_safe": 262,
+      "no_safe_pedestrian_route": 154,
+      "no_surviving_vehicle_ingress": 13
+    },
+    "30|0.90": {
+      "saved_by_rescue_reachable_refuge": 10,
+      "already_safe": 262,
+      "no_safe_pedestrian_route": 160,
+      "no_surviving_vehicle_ingress": 7
+    },
+    "45|0.50": {
+      "saved_by_rescue_reachable_refuge": 10,
+      "already_safe": 262,
+      "no_safe_pedestrian_route": 97,
+      "no_surviving_vehicle_ingress": 70
+    },
+    "45|0.60": {
+      "saved_by_rescue_reachable_refuge": 10,
+      "already_safe": 262,
+      "no_safe_pedestrian_route": 105,
+      "no_surviving_vehicle_ingress": 62
+    },
+    "45|0.70": {
+      "saved_by_rescue_reachable_refuge": 10,
+      "already_safe": 262,
+      "no_safe_pedestrian_route": 116,
+      "no_surviving_vehicle_ingress": 51
+    },
+    "45|0.80": {
+      "saved_by_rescue_reachable_refuge": 10,
+      "already_safe": 262,
+      "no_safe_pedestrian_route": 129,
+      "no_surviving_vehicle_ingress": 38
+    },
+    "45|0.90": {
+      "saved_by_rescue_reachable_refuge": 10,
+      "already_safe": 262,
+      "no_safe_pedestrian_route": 156,
+      "no_surviving_vehicle_ingress": 11
+    },
+    "60|0.50": {
+      "saved_by_rescue_reachable_refuge": 10,
+      "already_safe": 262,
+      "no_safe_pedestrian_route": 95,
+      "no_surviving_vehicle_ingress": 72
+    },
+    "60|0.60": {
+      "saved_by_rescue_reachable_refuge": 10,
+      "already_safe": 262,
+      "no_safe_pedestrian_route": 96,
+      "no_surviving_vehicle_ingress": 71
+    },
     "60|0.70": {
-      "saved_by_rescue_reachable_refuge": 34,
-      "already_safe": 154,
-      "no_safe_pedestrian_route": 230,
-      "no_surviving_vehicle_ingress": 34
+      "saved_by_rescue_reachable_refuge": 10,
+      "already_safe": 262,
+      "no_safe_pedestrian_route": 101,
+      "no_surviving_vehicle_ingress": 66
     },
     "60|0.80": {
-      "saved_by_rescue_reachable_refuge": 34,
-      "already_safe": 154,
-      "no_safe_pedestrian_route": 237,
-      "no_surviving_vehicle_ingress": 27
+      "saved_by_rescue_reachable_refuge": 10,
+      "already_safe": 262,
+      "no_safe_pedestrian_route": 107,
+      "no_surviving_vehicle_ingress": 60
     },
     "60|0.90": {
-      "saved_by_rescue_reachable_refuge": 34,
-      "already_safe": 154,
-      "no_safe_pedestrian_route": 244,
-      "no_surviving_vehicle_ingress": 20
+      "saved_by_rescue_reachable_refuge": 10,
+      "already_safe": 262,
+      "no_safe_pedestrian_route": 143,
+      "no_surviving_vehicle_ingress": 24
     }
   },
-  "baseline_cell_equals_headline": true,
   "rescue_reachable_subset_safe_all_cutoffs": true,
-  "robustness_verdict": {
-    "no_safe_pedestrian_route_(244)": {
-      "baseline": 244,
-      "central_min": 233,
-      "central_max": 256,
-      "grid_min": 224,
-      "grid_max": 263,
-      "central_rel_spread": 0.094,
-      "verdict": "robust"
-    },
-    "no_surviving_vehicle_ingress_(20)": {
-      "baseline": 20,
-      "central_min": 8,
-      "central_max": 31,
-      "grid_min": 1,
-      "grid_max": 40,
-      "central_rel_spread": 1.169,
-      "verdict": "directional"
-    },
-    "dispatch_delay_trend": {
-      "unreachable_at_baseline_cutoff_delay_0_to_60": [
-        6,
-        15,
-        20,
-        25,
-        34
-      ],
-      "monotone_nondecreasing_all_cutoffs": true,
-      "verdict": "robust direction"
-    },
-    "ordering_rescuer_reaches_gt_saved_everywhere": true,
-    "unreachable_increases_with_harsher_cutoff_all_delays": true
-  },
-  "n_refuges_rescue_reachable_by_cutoff": {
-    "0.50": 16,
-    "0.60": 19,
-    "0.70": 19,
-    "0.80": 20,
-    "0.90": 20
-  },
-  "reconciled_block": "=== RECONCILED RESULTS (single baseline) ===\nBaseline config:\n  origins N            = 452        # stride-3 + reach-band scan on the walk net (vs old 407 stride-4 scan)\n  walk speed           = 0.7 m/s (Tobler)\n  vehicle speed        = 40.0 km/h\n  pedestrian cutoff    = 0.5\n  vehicle cutoff       = 0.7        # baseline value\n  dispatch delay       = 30 min\n  safety margin        = 12 min\n  time budget          = resident 600 / responder 75 min\n  data                 = shelters:synthetic, depots:synthetic, roads:synthetic-lattice, hazard:synthetic\n\nFour-way origin split (sums to N=452):\n  already safe (walk)         : 154\n  saved by rescue-reachable   : 34\n  no walk, rescuer reaches    : 244\n  unreachable (reported)      : 20\n  sums to N                   : True\n\nExposure contrasts (distinct metrics):\n  resident  (pedestrian, prob\u00b7min)  naive / fa-any / fa-rescuable : 24.064 / 3.550 / 3.472\n     paired b vs c (same 185 origins)                       : 3.421 / 3.472  (c re-routed 2 off a cut-off refuge)\n  responder (vehicle,    prob\u00b7min)  shortest-path / survival-aware: 0.172 / 0.079  (dispatch 244, unreachable 20)\n\n=== 2-D SWEEP (dispatch_delay x vehicle_cutoff), full N=452 ===\ncell = (safe, saved, no_walk, unreach); each sums to N\ndelay\\cut | 0.50 | 0.60 | 0.70 | 0.80 | 0.90\n     0    | (154, 34, 249, 15) | (154, 34, 255, 9) | (154, 34, 258, 6) | (154, 34, 262, 2) | (154, 34, 263, 1)\n    15    | (154, 34, 243, 21) | (154, 34, 246, 18) | (154, 34, 249, 15) | (154, 34, 256, 8) | (154, 34, 262, 2)\n    30    | (154, 34, 239, 25) | (154, 34, 239, 25) | (154, 34, 244, 20) | (154, 34, 249, 15) | (154, 34, 256, 8)\n    45    | (154, 34, 227, 37) | (154, 34, 233, 31) | (154, 34, 239, 25) | (154, 34, 244, 20) | (154, 34, 249, 15)\n    60    | (154, 34, 224, 40) | (154, 34, 226, 38) | (154, 34, 230, 34) | (154, 34, 237, 27) | (154, 34, 244, 20)\nbaseline cell (30,0.7) == headline : True\nheatmap: /home/user/wildfireguardian/docs/figures/rescue_sweep_2d.png\n\n=== ROBUSTNESS VERDICT ===\n  unreachable @ dispatch 0->60 (cutoff 0.7) : 6 -> 34   [robust direction; monotone all cutoffs=True]\n  'no walk, rescuer reaches' (244 baseline) : robust  (baseline 244, grid 224-263, central rel-spread 0.094)\n  'unreachable' (20 baseline)               : directional  (baseline 20, grid 1-40, central rel-spread 1.169)\n  ordering rescuer-reaches > saved everywhere: True\n  unreachable up as cutoff harsher (all delays): True\n  rescue_reachable \u2286 safe (all cutoffs)      : True\n  reportable as numbers     : ['no_walk_rescuer']\n  reportable as direction   : ['unreachable rises with dispatch delay (the finding)', 'unreachable magnitude (directional only)']\n  do NOT report             : ['(none fragile)']",
-  "notes": {
-    "n_explanation": "452 = stride-3 + reach-band origin scan on the walk network; the old routing-spine used a stride-4, 14 km-band scan giving 407.",
-    "headline_vs_sweep_cause": "the convenience sensitivity_sweep sub-samples to sweep_max_origins (N\u2248151); this verify sweep uses the full N=452, so the baseline cell equals the headline.",
-    "metric_labels": "resident exposure = pedestrian routes; responder = vehicle routes; both prob\u00b7min, never compared across scales."
-  }
+  "unreachable_delay_row_cutoff_0p7": [
+    6,
+    11,
+    24,
+    51,
+    66
+  ],
+  "reconciled_block": "=== RECONCILED RESULTS (vehicle sweep, single baseline) ===\nBaseline (delay 30, vehicle cutoff 0.7, N=439):\n  four-way: 262 / 10 / 143 / 24   [== headline: True]\n  resident  (pedestrian, prob\u00b7min)  naive / fa-any / fa-rescuable : 9.158 / 1.586 / 2.215\n     paired b vs c (same 155 origins)                       : 2.215 / 2.215\n  responder (vehicle,    prob\u00b7min)  shortest-path / survival-aware: 6.117 / 1.711  (dispatch 143, unreachable 24)\n\n=== VEHICLE SWEEP (delay x vehicle cutoff), full N=439 ===\ncell = (safe, saved, no_walk, unreach)\ndelay\\cut | 0.50 | 0.60 | 0.70 | 0.80 | 0.90\n     0    | (262, 10, 154, 13) | (262, 10, 160, 7) | (262, 10, 161, 6) | (262, 10, 163, 4) | (262, 10, 167, 0)\n    15    | (262, 10, 129, 38) | (262, 10, 147, 20) | (262, 10, 156, 11) | (262, 10, 160, 7) | (262, 10, 164, 3)\n    30    | (262, 10, 107, 60) | (262, 10, 126, 41) | (262, 10, 143, 24) | (262, 10, 154, 13) | (262, 10, 160, 7)\n    45    | (262, 10, 97, 70) | (262, 10, 105, 62) | (262, 10, 116, 51) | (262, 10, 129, 38) | (262, 10, 156, 11)\n    60    | (262, 10, 95, 72) | (262, 10, 96, 71) | (262, 10, 101, 66) | (262, 10, 107, 60) | (262, 10, 143, 24)\nunreachable @ dispatch 0->60 (cutoff 0.7): 6 -> 66  [robust direction; monotone all cutoffs=True]\nrescue_reachable \u2286 safe (all cutoffs): True"
 }

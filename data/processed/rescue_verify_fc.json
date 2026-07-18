@@ -35,86 +35,95 @@
     },
     "seed": 20250603
   },
-  "n_origins": 452,
+  "sources": {
+    "walk_network": "osm",
+    "drive_network": "osm",
+    "shelters": "osm",
+    "depots": "osm",
+    "hazard": "synthetic",
+    "terrain": "synthetic",
+    "origins": "sampled candidates"
+  },
+  "n_origins": 439,
   "headline_four_way": {
-    "saved_by_rescue_reachable_refuge": 34,
-    "already_safe": 154,
-    "no_safe_pedestrian_route": 244,
-    "no_surviving_vehicle_ingress": 20
+    "saved_by_rescue_reachable_refuge": 10,
+    "already_safe": 262,
+    "no_safe_pedestrian_route": 143,
+    "no_surviving_vehicle_ingress": 24
   },
   "baseline_cell_equals_headline": true,
   "grid": {
     "0.15|0.40": {
-      "saved_by_rescue_reachable_refuge": 47,
-      "already_safe": 179,
-      "no_safe_pedestrian_route": 202,
-      "no_surviving_vehicle_ingress": 24,
-      "self_evacuable": 226,
-      "needs_rescuer": 226
+      "saved_by_rescue_reachable_refuge": 6,
+      "already_safe": 315,
+      "no_safe_pedestrian_route": 90,
+      "no_surviving_vehicle_ingress": 28,
+      "self_evacuable": 321,
+      "needs_rescuer": 118
     },
     "0.15|0.50": {
-      "saved_by_rescue_reachable_refuge": 45,
-      "already_safe": 196,
-      "no_safe_pedestrian_route": 191,
-      "no_surviving_vehicle_ingress": 20,
-      "self_evacuable": 241,
-      "needs_rescuer": 211
+      "saved_by_rescue_reachable_refuge": 9,
+      "already_safe": 322,
+      "no_safe_pedestrian_route": 83,
+      "no_surviving_vehicle_ingress": 25,
+      "self_evacuable": 331,
+      "needs_rescuer": 108
     },
     "0.15|0.60": {
-      "saved_by_rescue_reachable_refuge": 50,
-      "already_safe": 206,
-      "no_safe_pedestrian_route": 178,
-      "no_surviving_vehicle_ingress": 18,
-      "self_evacuable": 256,
-      "needs_rescuer": 196
+      "saved_by_rescue_reachable_refuge": 9,
+      "already_safe": 330,
+      "no_safe_pedestrian_route": 76,
+      "no_surviving_vehicle_ingress": 24,
+      "self_evacuable": 339,
+      "needs_rescuer": 100
     },
     "0.30|0.40": {
-      "saved_by_rescue_reachable_refuge": 37,
-      "already_safe": 143,
-      "no_safe_pedestrian_route": 250,
-      "no_surviving_vehicle_ingress": 22,
-      "self_evacuable": 180,
-      "needs_rescuer": 272
+      "saved_by_rescue_reachable_refuge": 5,
+      "already_safe": 257,
+      "no_safe_pedestrian_route": 150,
+      "no_surviving_vehicle_ingress": 27,
+      "self_evacuable": 262,
+      "needs_rescuer": 177
     },
     "0.30|0.50": {
-      "saved_by_rescue_reachable_refuge": 34,
-      "already_safe": 154,
-      "no_safe_pedestrian_route": 244,
-      "no_surviving_vehicle_ingress": 20,
-      "self_evacuable": 188,
-      "needs_rescuer": 264
+      "saved_by_rescue_reachable_refuge": 10,
+      "already_safe": 262,
+      "no_safe_pedestrian_route": 143,
+      "no_surviving_vehicle_ingress": 24,
+      "self_evacuable": 272,
+      "needs_rescuer": 167
     },
     "0.30|0.60": {
-      "saved_by_rescue_reachable_refuge": 41,
-      "already_safe": 162,
-      "no_safe_pedestrian_route": 232,
-      "no_surviving_vehicle_ingress": 17,
-      "self_evacuable": 203,
-      "needs_rescuer": 249
+      "saved_by_rescue_reachable_refuge": 9,
+      "already_safe": 268,
+      "no_safe_pedestrian_route": 138,
+      "no_surviving_vehicle_ingress": 24,
+      "self_evacuable": 277,
+      "needs_rescuer": 162
     },
     "0.45|0.40": {
-      "saved_by_rescue_reachable_refuge": 31,
-      "already_safe": 106,
-      "no_safe_pedestrian_route": 286,
-      "no_surviving_vehicle_ingress": 29,
-      "self_evacuable": 137,
-      "needs_rescuer": 315
+      "saved_by_rescue_reachable_refuge": 3,
+      "already_safe": 196,
+      "no_safe_pedestrian_route": 204,
+      "no_surviving_vehicle_ingress": 36,
+      "self_evacuable": 199,
+      "needs_rescuer": 240
     },
     "0.45|0.50": {
-      "saved_by_rescue_reachable_refuge": 25,
-      "already_safe": 121,
-      "no_safe_pedestrian_route": 280,
-      "no_surviving_vehicle_ingress": 26,
-      "self_evacuable": 146,
-      "needs_rescuer": 306
+      "saved_by_rescue_reachable_refuge": 6,
+      "already_safe": 201,
+      "no_safe_pedestrian_route": 199,
+      "no_surviving_vehicle_ingress": 33,
+      "self_evacuable": 207,
+      "needs_rescuer": 232
     },
     "0.45|0.60": {
-      "saved_by_rescue_reachable_refuge": 32,
-      "already_safe": 128,
-      "no_safe_pedestrian_route": 269,
-      "no_surviving_vehicle_ingress": 23,
-      "self_evacuable": 160,
-      "needs_rescuer": 292
+      "saved_by_rescue_reachable_refuge": 5,
+      "already_safe": 208,
+      "no_safe_pedestrian_route": 194,
+      "no_surviving_vehicle_ingress": 32,
+      "self_evacuable": 213,
+      "needs_rescuer": 226
     }
   },
   "partition_already_safe_saved_invariant_to_f": false,
@@ -124,118 +133,118 @@
     "needs_rescuer_up_as_walk_cutoff_falls": true
   },
   "needs_rescuer": {
-    "baseline": 264,
-    "baseline_pct": 58.4,
-    "grid_min": 196,
-    "grid_max": 315,
-    "f0.15_c0.5": 211,
-    "f0.45_c0.5": 306,
+    "baseline": 167,
+    "baseline_pct": 38.0,
+    "grid_min": 100,
+    "grid_max": 240,
+    "f0.15_c0.5": 108,
+    "f0.45_c0.5": 232,
     "verdict": "directional"
   },
   "rescue_reachable_subset_safe_all_walkcuts": true,
-  "reconciled_block": "=== RECONCILED RESULTS \u2014 assumption sweep (single baseline) ===\nBaseline (f=0.3, walk_cutoff=0.5, dispatch=30, vehicle_cutoff=0.7, N=452):\n  four-way: already_safe / saved / no_walk_rescuer / unreachable = 154 / 34 / 244 / 20   [== headline: True]\n  derived : self_evacuable = 188 ; needs_rescuer = 264 (58%)\n  resident  (pedestrian, prob\u00b7min)  naive / fa-any / fa-rescuable : 24.064 / 3.550 / 3.472\n     paired b vs c (same 185 origins)                       : 3.421 / 3.472\n  responder (vehicle,    prob\u00b7min)  shortest-path / survival-aware: 0.172 / 0.079  (dispatch 244, unreachable 20)\n\nCategory definitions (from code):\n  already_safe    : MOBILE origin; fire-blind nearest-refuge walk is safe\n  saved           : MOBILE; naive unsafe; future-aware walk to a RESCUE-REACHABLE refuge is safe (was 34 across the vehicle\u00d7delay grid because those origins use coastal refuges that stay rescue-reachable)\n  no_walk_rescuer : cannot self-evacuate (immobile OR walk route cut) AND a survival-aware responder route reaches the home\n  unreachable     : cannot self-evacuate AND no responder route survives in budget\n  immobile_fraction enters at _immobile_homes: a RANDOM f\u00b7N origins are forced onto the rescuer path REGARDLESS of walkability (yes) \u2014 they skip the walk checks\n\n=== f x c SWEEP (immobile_fraction \u00d7 walk_cutoff), full N=452 ===\ncell = (safe, saved, no_walk, unreach | self_evac, needs_rescuer)\nf \\ walk_cut | 0.40 | 0.50 | 0.60\n  0.15      | (179, 47, 202, 24) | 226,226 | (196, 45, 191, 20) | 241,211 | (206, 50, 178, 18) | 256,196\n  0.30      | (143, 37, 250, 22) | 180,272 | (154, 34, 244, 20) | 188,264 | (162, 41, 232, 17) | 203,249\n  0.45      | (106, 31, 286, 29) | 137,315 | (121, 25, 280, 26) | 146,306 | (128, 32, 269, 23) | 160,292\nalready_safe/saved invariant to f? : NO -> partition assumption BREAKS (immobile relabels a random f of walk-capable origins)\nmonotonicity: self_evac \u2191 with walk_cutoff? Y; needs_rescuer \u2191 with f? Y; needs_rescuer \u2191 as walk_cutoff \u2193? Y\nheatmap: /home/user/wildfireguardian/docs/figures/rescue_sweep_fc.png\n\n=== VERDICT ===\n  needs_rescuer 58% (264/452) : directional; grid range 196-315; f=0.15 vs 0.45 @ c=0.50: 211 vs 306 (47% vs 68%)\n  no_walk_rescuer 244 : re-classified directional w.r.t. the ASSUMPTION knobs (grid 178-286, rel-spread 0.46); the earlier 'robust' held only vs the vehicle knobs\n  saved 34 : rescue-meaningful (a pedestrian route to a rescue-REACHABLE refuge \u2014 the resident-side win of the feature), NOT a mislabel; it moves with f (over the mobile pool), so it is not f-invariant\n  defensible headline today : \"Under walk cutoff 0.5 and 30% assumed immobile, 264/452 (58%) cannot self-evacuate on foot; at 15% assumed immobile this falls to 211/452 (47%). The split is driven by the assumed immobile fraction + the slow-elder pedestrian regime, not vehicle knobs.\"\n  unchanged keeper : dispatch-delay trend (vehicle sweep) remains a robust direction",
+  "reconciled_block": "=== RECONCILED RESULTS \u2014 assumption sweep (single baseline) ===\nBaseline (f=0.3, walk_cutoff=0.5, dispatch=30, vehicle_cutoff=0.7, N=439):\n  four-way: already_safe / saved / no_walk_rescuer / unreachable = 262 / 10 / 143 / 24   [== headline: True]\n  derived : self_evacuable = 272 ; needs_rescuer = 167 (38%)\n  resident  (pedestrian, prob\u00b7min)  naive / fa-any / fa-rescuable : 9.158 / 1.586 / 2.215\n     paired b vs c (same 155 origins)                       : 2.215 / 2.215\n  responder (vehicle,    prob\u00b7min)  shortest-path / survival-aware: 6.117 / 1.711  (dispatch 143, unreachable 24)\n\nCategory definitions (from code):\n  already_safe    : MOBILE origin; fire-blind nearest-refuge walk is safe\n  saved           : MOBILE; naive unsafe; future-aware walk to a RESCUE-REACHABLE refuge is safe (was 34 across the vehicle\u00d7delay grid because those origins use coastal refuges that stay rescue-reachable)\n  no_walk_rescuer : cannot self-evacuate (immobile OR walk route cut) AND a survival-aware responder route reaches the home\n  unreachable     : cannot self-evacuate AND no responder route survives in budget\n  immobile_fraction enters at _immobile_homes: a RANDOM f\u00b7N origins are forced onto the rescuer path REGARDLESS of walkability (yes) \u2014 they skip the walk checks\n\n=== f x c SWEEP (immobile_fraction \u00d7 walk_cutoff), full N=439 ===\ncell = (safe, saved, no_walk, unreach | self_evac, needs_rescuer)\nf \\ walk_cut | 0.40 | 0.50 | 0.60\n  0.15      | (315, 6, 90, 28) | 321,118 | (322, 9, 83, 25) | 331,108 | (330, 9, 76, 24) | 339,100\n  0.30      | (257, 5, 150, 27) | 262,177 | (262, 10, 143, 24) | 272,167 | (268, 9, 138, 24) | 277,162\n  0.45      | (196, 3, 204, 36) | 199,240 | (201, 6, 199, 33) | 207,232 | (208, 5, 194, 32) | 213,226\nalready_safe/saved invariant to f? : NO -> partition assumption BREAKS (immobile relabels a random f of walk-capable origins)\nmonotonicity: self_evac \u2191 with walk_cutoff? Y; needs_rescuer \u2191 with f? Y; needs_rescuer \u2191 as walk_cutoff \u2193? Y\nheatmap: /home/user/wildfireguardian/docs/figures/rescue_sweep_fc.png\n\n=== VERDICT ===\n  needs_rescuer 38% (167/439) : directional; grid range 100-240; f=0.15 vs 0.45 @ c=0.50: 108 vs 232 (25% vs 53%)\n  no_walk_rescuer 143 : re-classified directional w.r.t. the ASSUMPTION knobs (grid 76-204, rel-spread 0.90); the earlier 'robust' held only vs the vehicle knobs\n  saved 34 : rescue-meaningful (a pedestrian route to a rescue-REACHABLE refuge \u2014 the resident-side win of the feature), NOT a mislabel; it moves with f (over the mobile pool), so it is not f-invariant\n  defensible headline today : \"Under walk cutoff 0.5 and 30% assumed immobile, 167/439 (38%) cannot self-evacuate on foot; at 15% assumed immobile this falls to 108/439 (25%). The split is driven by the assumed immobile fraction + the slow-elder pedestrian regime, not vehicle knobs.\"\n  unchanged keeper : dispatch-delay trend (vehicle sweep) remains a robust direction",
   "walk_failure": {
     "per_cell": [
       {
         "immobile_fraction": 0.15,
         "walk_cutoff": 0.4,
-        "n_mobile": 384,
-        "walk_failures_mobile": 158,
-        "w": 0.4115,
+        "n_mobile": 373,
+        "walk_failures_mobile": 52,
+        "w": 0.1394,
+        "needs_rescuer": 118,
+        "needs_rescuer_identity_f_plus_1mf_w": 117.9
+      },
+      {
+        "immobile_fraction": 0.15,
+        "walk_cutoff": 0.5,
+        "n_mobile": 373,
+        "walk_failures_mobile": 42,
+        "w": 0.1126,
+        "needs_rescuer": 108,
+        "needs_rescuer_identity_f_plus_1mf_w": 107.9
+      },
+      {
+        "immobile_fraction": 0.15,
+        "walk_cutoff": 0.6,
+        "n_mobile": 373,
+        "walk_failures_mobile": 34,
+        "w": 0.0912,
+        "needs_rescuer": 100,
+        "needs_rescuer_identity_f_plus_1mf_w": 99.9
+      },
+      {
+        "immobile_fraction": 0.3,
+        "walk_cutoff": 0.4,
+        "n_mobile": 307,
+        "walk_failures_mobile": 45,
+        "w": 0.1466,
+        "needs_rescuer": 177,
+        "needs_rescuer_identity_f_plus_1mf_w": 176.7
+      },
+      {
+        "immobile_fraction": 0.3,
+        "walk_cutoff": 0.5,
+        "n_mobile": 307,
+        "walk_failures_mobile": 35,
+        "w": 0.114,
+        "needs_rescuer": 167,
+        "needs_rescuer_identity_f_plus_1mf_w": 166.7
+      },
+      {
+        "immobile_fraction": 0.3,
+        "walk_cutoff": 0.6,
+        "n_mobile": 307,
+        "walk_failures_mobile": 30,
+        "w": 0.0977,
+        "needs_rescuer": 162,
+        "needs_rescuer_identity_f_plus_1mf_w": 161.7
+      },
+      {
+        "immobile_fraction": 0.45,
+        "walk_cutoff": 0.4,
+        "n_mobile": 241,
+        "walk_failures_mobile": 42,
+        "w": 0.1743,
+        "needs_rescuer": 240,
+        "needs_rescuer_identity_f_plus_1mf_w": 239.6
+      },
+      {
+        "immobile_fraction": 0.45,
+        "walk_cutoff": 0.5,
+        "n_mobile": 241,
+        "walk_failures_mobile": 34,
+        "w": 0.1411,
+        "needs_rescuer": 232,
+        "needs_rescuer_identity_f_plus_1mf_w": 231.6
+      },
+      {
+        "immobile_fraction": 0.45,
+        "walk_cutoff": 0.6,
+        "n_mobile": 241,
+        "walk_failures_mobile": 28,
+        "w": 0.1162,
         "needs_rescuer": 226,
-        "needs_rescuer_identity_f_plus_1mf_w": 225.9
-      },
-      {
-        "immobile_fraction": 0.15,
-        "walk_cutoff": 0.5,
-        "n_mobile": 384,
-        "walk_failures_mobile": 143,
-        "w": 0.3724,
-        "needs_rescuer": 211,
-        "needs_rescuer_identity_f_plus_1mf_w": 210.9
-      },
-      {
-        "immobile_fraction": 0.15,
-        "walk_cutoff": 0.6,
-        "n_mobile": 384,
-        "walk_failures_mobile": 128,
-        "w": 0.3333,
-        "needs_rescuer": 196,
-        "needs_rescuer_identity_f_plus_1mf_w": 195.9
-      },
-      {
-        "immobile_fraction": 0.3,
-        "walk_cutoff": 0.4,
-        "n_mobile": 316,
-        "walk_failures_mobile": 136,
-        "w": 0.4304,
-        "needs_rescuer": 272,
-        "needs_rescuer_identity_f_plus_1mf_w": 271.8
-      },
-      {
-        "immobile_fraction": 0.3,
-        "walk_cutoff": 0.5,
-        "n_mobile": 316,
-        "walk_failures_mobile": 128,
-        "w": 0.4051,
-        "needs_rescuer": 264,
-        "needs_rescuer_identity_f_plus_1mf_w": 263.8
-      },
-      {
-        "immobile_fraction": 0.3,
-        "walk_cutoff": 0.6,
-        "n_mobile": 316,
-        "walk_failures_mobile": 113,
-        "w": 0.3576,
-        "needs_rescuer": 249,
-        "needs_rescuer_identity_f_plus_1mf_w": 248.7
-      },
-      {
-        "immobile_fraction": 0.45,
-        "walk_cutoff": 0.4,
-        "n_mobile": 249,
-        "walk_failures_mobile": 112,
-        "w": 0.4498,
-        "needs_rescuer": 315,
-        "needs_rescuer_identity_f_plus_1mf_w": 315.2
-      },
-      {
-        "immobile_fraction": 0.45,
-        "walk_cutoff": 0.5,
-        "n_mobile": 249,
-        "walk_failures_mobile": 103,
-        "w": 0.4137,
-        "needs_rescuer": 306,
-        "needs_rescuer_identity_f_plus_1mf_w": 306.2
-      },
-      {
-        "immobile_fraction": 0.45,
-        "walk_cutoff": 0.6,
-        "n_mobile": 249,
-        "walk_failures_mobile": 89,
-        "w": 0.3574,
-        "needs_rescuer": 292,
-        "needs_rescuer_identity_f_plus_1mf_w": 292.3
+        "needs_rescuer_identity_f_plus_1mf_w": 225.6
       }
     ],
     "summary": {
-      "w_grid_min": 0.3333,
-      "w_grid_max": 0.4498,
+      "w_grid_min": 0.0912,
+      "w_grid_max": 0.1743,
       "w_by_walk_cutoff_minmax": {
         "0.40": [
-          0.4115,
-          0.4498
+          0.1394,
+          0.1743
         ],
         "0.50": [
-          0.3724,
-          0.4137
+          0.1126,
+          0.1411
         ],
         "0.60": [
-          0.3333,
-          0.3576
+          0.0912,
+          0.1162
         ]
       },
-      "w_max_spread_across_f_fixed_cutoff": 0.0413,
+      "w_max_spread_across_f_fixed_cutoff": 0.0349,
       "w_approx_flat_across_f": true
     }
   }

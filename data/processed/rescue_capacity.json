@@ -35,15 +35,26 @@
     },
     "seed": 20250603
   },
+  "sources": {
+    "walk_network": "osm",
+    "drive_network": "osm",
+    "shelters": "osm",
+    "depots": "osm",
+    "hazard": "synthetic",
+    "terrain": "synthetic",
+    "origins": "sampled candidates"
+  },
   "capacity_config_PoC": {
     "n_rescue_units": 3,
     "rescue_service_time_min": 25.0,
     "PoC_not_measured": "Capacity (unit count + service time) is a PoC parameter, NOT measured \uc601\ub355 fire-service capacity. The result is the demand\u2013supply curve; absolute 'rescued' counts are illustrative."
   },
-  "n_origins": 452,
-  "n_needs_rescuer": 264,
-  "n_dispatch_reachable": 244,
-  "n_geometry_unreachable": 20,
+  "n_origins": 439,
+  "n_needs_rescuer": 167,
+  "n_dispatch_reachable": 143,
+  "n_geometry_unreachable": 24,
+  "n_dispatch_deadline_feasible": 80,
+  "n_dispatch_direct_corridor_cut_reachable_by_detour": 63,
   "units_swept": [
     1,
     2,
@@ -58,90 +69,90 @@
       "rescue_service_time_min": 25.0,
       "window_min": 75.0,
       "dispatch_delay_min": 30.0,
-      "n_needs_rescuer": 264,
-      "n_dispatch_reachable": 244,
+      "n_needs_rescuer": 167,
+      "n_dispatch_reachable": 143,
       "three_way": {
         "rescued_in_time": 3,
-        "capacity_deferred": 241,
-        "geometry_unreachable": 20
+        "capacity_deferred": 140,
+        "geometry_unreachable": 24
       },
-      "pct_demand_met": 1.1,
-      "pct_reachable_demand_met": 1.2
+      "pct_demand_met": 1.8,
+      "pct_reachable_demand_met": 2.1
     },
     {
       "n_rescue_units": 2,
       "rescue_service_time_min": 25.0,
       "window_min": 75.0,
       "dispatch_delay_min": 30.0,
-      "n_needs_rescuer": 264,
-      "n_dispatch_reachable": 244,
+      "n_needs_rescuer": 167,
+      "n_dispatch_reachable": 143,
       "three_way": {
         "rescued_in_time": 6,
-        "capacity_deferred": 238,
-        "geometry_unreachable": 20
+        "capacity_deferred": 137,
+        "geometry_unreachable": 24
       },
-      "pct_demand_met": 2.3,
-      "pct_reachable_demand_met": 2.5
+      "pct_demand_met": 3.6,
+      "pct_reachable_demand_met": 4.2
     },
     {
       "n_rescue_units": 3,
       "rescue_service_time_min": 25.0,
       "window_min": 75.0,
       "dispatch_delay_min": 30.0,
-      "n_needs_rescuer": 264,
-      "n_dispatch_reachable": 244,
+      "n_needs_rescuer": 167,
+      "n_dispatch_reachable": 143,
       "three_way": {
         "rescued_in_time": 9,
-        "capacity_deferred": 235,
-        "geometry_unreachable": 20
+        "capacity_deferred": 134,
+        "geometry_unreachable": 24
       },
-      "pct_demand_met": 3.4,
-      "pct_reachable_demand_met": 3.7
+      "pct_demand_met": 5.4,
+      "pct_reachable_demand_met": 6.3
     },
     {
       "n_rescue_units": 4,
       "rescue_service_time_min": 25.0,
       "window_min": 75.0,
       "dispatch_delay_min": 30.0,
-      "n_needs_rescuer": 264,
-      "n_dispatch_reachable": 244,
+      "n_needs_rescuer": 167,
+      "n_dispatch_reachable": 143,
       "three_way": {
         "rescued_in_time": 12,
-        "capacity_deferred": 232,
-        "geometry_unreachable": 20
+        "capacity_deferred": 131,
+        "geometry_unreachable": 24
       },
-      "pct_demand_met": 4.5,
-      "pct_reachable_demand_met": 4.9
+      "pct_demand_met": 7.2,
+      "pct_reachable_demand_met": 8.4
     },
     {
       "n_rescue_units": 6,
       "rescue_service_time_min": 25.0,
       "window_min": 75.0,
       "dispatch_delay_min": 30.0,
-      "n_needs_rescuer": 264,
-      "n_dispatch_reachable": 244,
+      "n_needs_rescuer": 167,
+      "n_dispatch_reachable": 143,
       "three_way": {
         "rescued_in_time": 18,
-        "capacity_deferred": 226,
-        "geometry_unreachable": 20
+        "capacity_deferred": 125,
+        "geometry_unreachable": 24
       },
-      "pct_demand_met": 6.8,
-      "pct_reachable_demand_met": 7.4
+      "pct_demand_met": 10.8,
+      "pct_reachable_demand_met": 12.6
     },
     {
       "n_rescue_units": 8,
       "rescue_service_time_min": 25.0,
       "window_min": 75.0,
       "dispatch_delay_min": 30.0,
-      "n_needs_rescuer": 264,
-      "n_dispatch_reachable": 244,
+      "n_needs_rescuer": 167,
+      "n_dispatch_reachable": 143,
       "three_way": {
         "rescued_in_time": 24,
-        "capacity_deferred": 220,
-        "geometry_unreachable": 20
+        "capacity_deferred": 119,
+        "geometry_unreachable": 24
       },
-      "pct_demand_met": 9.1,
-      "pct_reachable_demand_met": 9.8
+      "pct_demand_met": 14.4,
+      "pct_reachable_demand_met": 16.8
     }
   ],
   "grid_delay_x_units": {
@@ -150,276 +161,276 @@
       "rescue_service_time_min": 25.0,
       "window_min": 75.0,
       "dispatch_delay_min": 0.0,
-      "n_needs_rescuer": 264,
-      "n_dispatch_reachable": 258,
+      "n_needs_rescuer": 167,
+      "n_dispatch_reachable": 161,
       "three_way": {
         "rescued_in_time": 3,
-        "capacity_deferred": 255,
+        "capacity_deferred": 158,
         "geometry_unreachable": 6
       },
-      "pct_demand_met": 1.1,
-      "pct_reachable_demand_met": 1.2
+      "pct_demand_met": 1.8,
+      "pct_reachable_demand_met": 1.9
     },
     "0|2": {
       "n_rescue_units": 2,
       "rescue_service_time_min": 25.0,
       "window_min": 75.0,
       "dispatch_delay_min": 0.0,
-      "n_needs_rescuer": 264,
-      "n_dispatch_reachable": 258,
+      "n_needs_rescuer": 167,
+      "n_dispatch_reachable": 161,
       "three_way": {
         "rescued_in_time": 6,
-        "capacity_deferred": 252,
+        "capacity_deferred": 155,
         "geometry_unreachable": 6
       },
-      "pct_demand_met": 2.3,
-      "pct_reachable_demand_met": 2.3
+      "pct_demand_met": 3.6,
+      "pct_reachable_demand_met": 3.7
     },
     "0|3": {
       "n_rescue_units": 3,
       "rescue_service_time_min": 25.0,
       "window_min": 75.0,
       "dispatch_delay_min": 0.0,
-      "n_needs_rescuer": 264,
-      "n_dispatch_reachable": 258,
+      "n_needs_rescuer": 167,
+      "n_dispatch_reachable": 161,
       "three_way": {
         "rescued_in_time": 9,
-        "capacity_deferred": 249,
+        "capacity_deferred": 152,
         "geometry_unreachable": 6
       },
-      "pct_demand_met": 3.4,
-      "pct_reachable_demand_met": 3.5
+      "pct_demand_met": 5.4,
+      "pct_reachable_demand_met": 5.6
     },
     "0|4": {
       "n_rescue_units": 4,
       "rescue_service_time_min": 25.0,
       "window_min": 75.0,
       "dispatch_delay_min": 0.0,
-      "n_needs_rescuer": 264,
-      "n_dispatch_reachable": 258,
+      "n_needs_rescuer": 167,
+      "n_dispatch_reachable": 161,
       "three_way": {
         "rescued_in_time": 12,
-        "capacity_deferred": 246,
+        "capacity_deferred": 149,
         "geometry_unreachable": 6
       },
-      "pct_demand_met": 4.5,
-      "pct_reachable_demand_met": 4.7
+      "pct_demand_met": 7.2,
+      "pct_reachable_demand_met": 7.5
     },
     "0|6": {
       "n_rescue_units": 6,
       "rescue_service_time_min": 25.0,
       "window_min": 75.0,
       "dispatch_delay_min": 0.0,
-      "n_needs_rescuer": 264,
-      "n_dispatch_reachable": 258,
+      "n_needs_rescuer": 167,
+      "n_dispatch_reachable": 161,
       "three_way": {
         "rescued_in_time": 18,
-        "capacity_deferred": 240,
+        "capacity_deferred": 143,
         "geometry_unreachable": 6
       },
-      "pct_demand_met": 6.8,
-      "pct_reachable_demand_met": 7.0
+      "pct_demand_met": 10.8,
+      "pct_reachable_demand_met": 11.2
     },
     "0|8": {
       "n_rescue_units": 8,
       "rescue_service_time_min": 25.0,
       "window_min": 75.0,
       "dispatch_delay_min": 0.0,
-      "n_needs_rescuer": 264,
-      "n_dispatch_reachable": 258,
+      "n_needs_rescuer": 167,
+      "n_dispatch_reachable": 161,
       "three_way": {
         "rescued_in_time": 24,
-        "capacity_deferred": 234,
+        "capacity_deferred": 137,
         "geometry_unreachable": 6
       },
-      "pct_demand_met": 9.1,
-      "pct_reachable_demand_met": 9.3
+      "pct_demand_met": 14.4,
+      "pct_reachable_demand_met": 14.9
     },
     "30|1": {
       "n_rescue_units": 1,
       "rescue_service_time_min": 25.0,
       "window_min": 75.0,
       "dispatch_delay_min": 30.0,
-      "n_needs_rescuer": 264,
-      "n_dispatch_reachable": 244,
+      "n_needs_rescuer": 167,
+      "n_dispatch_reachable": 143,
       "three_way": {
         "rescued_in_time": 3,
-        "capacity_deferred": 241,
-        "geometry_unreachable": 20
+        "capacity_deferred": 140,
+        "geometry_unreachable": 24
       },
-      "pct_demand_met": 1.1,
-      "pct_reachable_demand_met": 1.2
+      "pct_demand_met": 1.8,
+      "pct_reachable_demand_met": 2.1
     },
     "30|2": {
       "n_rescue_units": 2,
       "rescue_service_time_min": 25.0,
       "window_min": 75.0,
       "dispatch_delay_min": 30.0,
-      "n_needs_rescuer": 264,
-      "n_dispatch_reachable": 244,
+      "n_needs_rescuer": 167,
+      "n_dispatch_reachable": 143,
       "three_way": {
         "rescued_in_time": 6,
-        "capacity_deferred": 238,
-        "geometry_unreachable": 20
+        "capacity_deferred": 137,
+        "geometry_unreachable": 24
       },
-      "pct_demand_met": 2.3,
-      "pct_reachable_demand_met": 2.5
+      "pct_demand_met": 3.6,
+      "pct_reachable_demand_met": 4.2
     },
     "30|3": {
       "n_rescue_units": 3,
       "rescue_service_time_min": 25.0,
       "window_min": 75.0,
       "dispatch_delay_min": 30.0,
-      "n_needs_rescuer": 264,
-      "n_dispatch_reachable": 244,
+      "n_needs_rescuer": 167,
+      "n_dispatch_reachable": 143,
       "three_way": {
         "rescued_in_time": 9,
-        "capacity_deferred": 235,
-        "geometry_unreachable": 20
+        "capacity_deferred": 134,
+        "geometry_unreachable": 24
       },
-      "pct_demand_met": 3.4,
-      "pct_reachable_demand_met": 3.7
+      "pct_demand_met": 5.4,
+      "pct_reachable_demand_met": 6.3
     },
     "30|4": {
       "n_rescue_units": 4,
       "rescue_service_time_min": 25.0,
       "window_min": 75.0,
       "dispatch_delay_min": 30.0,
-      "n_needs_rescuer": 264,
-      "n_dispatch_reachable": 244,
+      "n_needs_rescuer": 167,
+      "n_dispatch_reachable": 143,
       "three_way": {
         "rescued_in_time": 12,
-        "capacity_deferred": 232,
-        "geometry_unreachable": 20
+        "capacity_deferred": 131,
+        "geometry_unreachable": 24
       },
-      "pct_demand_met": 4.5,
-      "pct_reachable_demand_met": 4.9
+      "pct_demand_met": 7.2,
+      "pct_reachable_demand_met": 8.4
     },
     "30|6": {
       "n_rescue_units": 6,
       "rescue_service_time_min": 25.0,
       "window_min": 75.0,
       "dispatch_delay_min": 30.0,
-      "n_needs_rescuer": 264,
-      "n_dispatch_reachable": 244,
+      "n_needs_rescuer": 167,
+      "n_dispatch_reachable": 143,
       "three_way": {
         "rescued_in_time": 18,
-        "capacity_deferred": 226,
-        "geometry_unreachable": 20
+        "capacity_deferred": 125,
+        "geometry_unreachable": 24
       },
-      "pct_demand_met": 6.8,
-      "pct_reachable_demand_met": 7.4
+      "pct_demand_met": 10.8,
+      "pct_reachable_demand_met": 12.6
     },
     "30|8": {
       "n_rescue_units": 8,
       "rescue_service_time_min": 25.0,
       "window_min": 75.0,
       "dispatch_delay_min": 30.0,
-      "n_needs_rescuer": 264,
-      "n_dispatch_reachable": 244,
+      "n_needs_rescuer": 167,
+      "n_dispatch_reachable": 143,
       "three_way": {
         "rescued_in_time": 24,
-        "capacity_deferred": 220,
-        "geometry_unreachable": 20
+        "capacity_deferred": 119,
+        "geometry_unreachable": 24
       },
-      "pct_demand_met": 9.1,
-      "pct_reachable_demand_met": 9.8
+      "pct_demand_met": 14.4,
+      "pct_reachable_demand_met": 16.8
     },
     "60|1": {
       "n_rescue_units": 1,
       "rescue_service_time_min": 25.0,
       "window_min": 75.0,
       "dispatch_delay_min": 60.0,
-      "n_needs_rescuer": 264,
-      "n_dispatch_reachable": 230,
+      "n_needs_rescuer": 167,
+      "n_dispatch_reachable": 101,
       "three_way": {
         "rescued_in_time": 3,
-        "capacity_deferred": 227,
-        "geometry_unreachable": 34
+        "capacity_deferred": 98,
+        "geometry_unreachable": 66
       },
-      "pct_demand_met": 1.1,
-      "pct_reachable_demand_met": 1.3
+      "pct_demand_met": 1.8,
+      "pct_reachable_demand_met": 3.0
     },
     "60|2": {
       "n_rescue_units": 2,
       "rescue_service_time_min": 25.0,
       "window_min": 75.0,
       "dispatch_delay_min": 60.0,
-      "n_needs_rescuer": 264,
-      "n_dispatch_reachable": 230,
+      "n_needs_rescuer": 167,
+      "n_dispatch_reachable": 101,
       "three_way": {
         "rescued_in_time": 6,
-        "capacity_deferred": 224,
-        "geometry_unreachable": 34
+        "capacity_deferred": 95,
+        "geometry_unreachable": 66
       },
-      "pct_demand_met": 2.3,
-      "pct_reachable_demand_met": 2.6
+      "pct_demand_met": 3.6,
+      "pct_reachable_demand_met": 5.9
     },
     "60|3": {
       "n_rescue_units": 3,
       "rescue_service_time_min": 25.0,
       "window_min": 75.0,
       "dispatch_delay_min": 60.0,
-      "n_needs_rescuer": 264,
-      "n_dispatch_reachable": 230,
+      "n_needs_rescuer": 167,
+      "n_dispatch_reachable": 101,
       "three_way": {
         "rescued_in_time": 9,
-        "capacity_deferred": 221,
-        "geometry_unreachable": 34
+        "capacity_deferred": 92,
+        "geometry_unreachable": 66
       },
-      "pct_demand_met": 3.4,
-      "pct_reachable_demand_met": 3.9
+      "pct_demand_met": 5.4,
+      "pct_reachable_demand_met": 8.9
     },
     "60|4": {
       "n_rescue_units": 4,
       "rescue_service_time_min": 25.0,
       "window_min": 75.0,
       "dispatch_delay_min": 60.0,
-      "n_needs_rescuer": 264,
-      "n_dispatch_reachable": 230,
+      "n_needs_rescuer": 167,
+      "n_dispatch_reachable": 101,
       "three_way": {
         "rescued_in_time": 12,
-        "capacity_deferred": 218,
-        "geometry_unreachable": 34
+        "capacity_deferred": 89,
+        "geometry_unreachable": 66
       },
-      "pct_demand_met": 4.5,
-      "pct_reachable_demand_met": 5.2
+      "pct_demand_met": 7.2,
+      "pct_reachable_demand_met": 11.9
     },
     "60|6": {
       "n_rescue_units": 6,
       "rescue_service_time_min": 25.0,
       "window_min": 75.0,
       "dispatch_delay_min": 60.0,
-      "n_needs_rescuer": 264,
-      "n_dispatch_reachable": 230,
+      "n_needs_rescuer": 167,
+      "n_dispatch_reachable": 101,
       "three_way": {
         "rescued_in_time": 18,
-        "capacity_deferred": 212,
-        "geometry_unreachable": 34
+        "capacity_deferred": 83,
+        "geometry_unreachable": 66
       },
-      "pct_demand_met": 6.8,
-      "pct_reachable_demand_met": 7.8
+      "pct_demand_met": 10.8,
+      "pct_reachable_demand_met": 17.8
     },
     "60|8": {
       "n_rescue_units": 8,
       "rescue_service_time_min": 25.0,
       "window_min": 75.0,
       "dispatch_delay_min": 60.0,
-      "n_needs_rescuer": 264,
-      "n_dispatch_reachable": 230,
+      "n_needs_rescuer": 167,
+      "n_dispatch_reachable": 101,
       "three_way": {
         "rescued_in_time": 24,
-        "capacity_deferred": 206,
-        "geometry_unreachable": 34
+        "capacity_deferred": 77,
+        "geometry_unreachable": 66
       },
-      "pct_demand_met": 9.1,
-      "pct_reachable_demand_met": 10.4
+      "pct_demand_met": 14.4,
+      "pct_reachable_demand_met": 23.8
     }
   },
   "geometry_unreachable_by_delay": {
     "0": 6,
-    "30": 20,
-    "60": 34
+    "30": 24,
+    "60": 66
   },
   "invariants": {
     "three_way_sums_to_needs": true,
@@ -428,6 +439,6 @@
     "capacity_binds_at_one_unit": true,
     "baseline_cell_reconciles": true
   },
-  "geometry_ceiling_pct": 92.4,
-  "reconciled_block": "=== RESCUE CAPACITY / TRIAGE (demand\u2013supply gap, single baseline) ===\nBaseline (delay 30, vehicle cutoff 0.7, f=0.3, walk_cut 0.5, N=452):\n  needs-rescuer = 264  =  dispatch-reachable 244 + geometry_unreachable 20\n  capacity model: PoC \u2014 25 min per rescue cycle, window W=75 min, units mobilised at the 30-min dispatch delay.\n  *** capacity is a PoC parameter, NOT measured \uc601\ub355 fire-service capacity ***\n\n=== CAPACITY SWEEP (units \u2208 [1, 2, 3, 4, 6, 8]), full N=452 ===\nunits | rescued | deferred | geometry | % demand met | % of reachable met\n  1   |       3 |      241 |       20 |         1.1% |              1.2%\n  2   |       6 |      238 |       20 |         2.3% |              2.5%\n  3   |       9 |      235 |       20 |         3.4% |              3.7%\n  4   |      12 |      232 |       20 |         4.5% |              4.9%\n  6   |      18 |      226 |       20 |         6.8% |              7.4%\n  8   |      24 |      220 |       20 |         9.1% |              9.8%\n\n=== INVARIANTS ===\n  three-way sums to needs-rescuer in every cell           : True\n  unlimited units \u2192 deferred=0, recovers geometry-only set: True (rescued 244=dispatch 244, geometry 20)\n  rescued_in_time monotone increasing with units          : True (3 -> 6 -> 9 -> 12 -> 18 -> 24)\n  capacity binds (1 unit leaves demand unmet)             : True\n  2-D baseline cell reconciles with 1-D + run_pipeline    : True\n\n=== READING ===\n  Geometry alone caps timely rescue at 92.4% of demand (244/264); the rest (20) have no surviving corridor.\n  At the baseline 3 units only 3.4% of demand is met in the window \u2014 the gap is the quantitative case for pre-positioning + triage, not a 'lives saved' figure.\n  Robust result = the SHAPE of the curve (sharp unmet demand at realistic unit counts); the absolute % moves with the PoC service time / window."
+  "geometry_ceiling_pct": 85.6,
+  "reconciled_block": "=== RESCUE CAPACITY / TRIAGE (demand\u2013supply gap, single baseline) ===\nBaseline (delay 30, vehicle cutoff 0.7, f=0.3, walk_cut 0.5, N=439):\n  needs-rescuer = 167  =  dispatch-reachable 143 + geometry_unreachable 24\n  capacity model: PoC \u2014 25 min per rescue cycle, window W=75 min, units mobilised at the 30-min dispatch delay.\n  *** capacity is a PoC parameter, NOT measured \uc601\ub355 fire-service capacity ***\n\n=== CAPACITY SWEEP (units \u2208 [1, 2, 3, 4, 6, 8]), full N=439 ===\nunits | rescued | deferred | geometry | % demand met | % of reachable met\n  1   |       3 |      140 |       24 |         1.8% |              2.1%\n  2   |       6 |      137 |       24 |         3.6% |              4.2%\n  3   |       9 |      134 |       24 |         5.4% |              6.3%\n  4   |      12 |      131 |       24 |         7.2% |              8.4%\n  6   |      18 |      125 |       24 |        10.8% |             12.6%\n  8   |      24 |      119 |       24 |        14.4% |             16.8%\n\n=== INVARIANTS ===\n  three-way sums to needs-rescuer in every cell           : True\n  unlimited units \u2192 recovers DEADLINE-FEASIBLE dispatch set: True (rescued 80=deadline-feasible 80 of dispatch 143; 63 dispatchable homes have their DIRECT ingress corridor cut before the direct ETA [reachable only via detour]; geometry 24)\n  rescued_in_time monotone increasing with units          : True (3 -> 6 -> 9 -> 12 -> 18 -> 24)\n  capacity binds (1 unit leaves demand unmet)             : True\n  2-D baseline cell reconciles with 1-D + run_pipeline    : True\n\n=== READING ===\n  Geometry alone caps timely rescue at 85.6% of demand (143/167); the rest (24) have no surviving corridor.\n  At the baseline 3 units only 5.4% of demand is met in the window \u2014 the gap is the quantitative case for pre-positioning + triage, not a 'lives saved' figure.\n  Robust result = the SHAPE of the curve (sharp unmet demand at realistic unit counts); the absolute % moves with the PoC service time / window."
 }

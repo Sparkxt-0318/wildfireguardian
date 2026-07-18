@@ -71,6 +71,27 @@ def _ll(xy):
     return np.column_stack([lon, lat])
 
 
+def _sources(summary):
+    return (summary.get("provenance", {}) or {}).get("sources", {}) or {}
+
+
+def _real_or_syn(summary):
+    """(is_real_flip, bilingual banner) describing which inputs are real vs synthetic.
+
+    Honest, data-driven caption: reads the committed provenance ``sources`` block so
+    the figure text can never overclaim. When roads/refuges/depots are OSM while the
+    hazard is synthetic, it says so explicitly (both languages)."""
+    s = _sources(summary)
+    real = {k for k, v in s.items() if v in ("osm", "real")}
+    if real and s.get("hazard") == "synthetic":
+        return True, ("도로·대피소·소방서: 실제 OSM  |  화재위험·지형: 합성 (FIRMS 번들 대기)  /  "
+                      "roads·refuges·fire-stations: REAL OSM;  fire hazard + terrain: "
+                      "SYNTHETIC (pending FIRMS bundle)")
+    if not real:
+        return False, ("전 입력 합성 (오프라인 폴백)  /  all inputs synthetic (offline fallback)")
+    return True, ("입력별 출처는 provenance 참조  /  see provenance for per-input source")
+
+
 # ---------------------------------------------------------------------------
 # Figure 1 — the rescue map
 # ---------------------------------------------------------------------------
@@ -110,10 +131,13 @@ def rescue_map(npz, summary):
     ax.scatter(dest[~rr, 0], dest[~rr, 1], s=120, marker="X", c="#b91c1c",
                edgecolors="black", zorder=5, label="접근로 차단 대피소 / NOT rescue-reachable")
     # Depots, ignition.
+    depot_src = _sources(summary).get("depots", "synthetic")
+    depot_tag = {"osm": "OSM", "real": "실제/real"}.get(depot_src, "합성/synthetic")
     ax.scatter(depot[:, 0], depot[:, 1], s=200, marker="P", c="#2563eb",
-               edgecolors="white", zorder=6, label="소방서·119안전센터(합성) / depot")
+               edgecolors="white", zorder=6,
+               label=f"소방서·119안전센터({depot_tag}) / fire station ({depot_tag})")
     ax.scatter([ign[0]], [ign[1]], s=240, marker="*", c="black", zorder=6,
-               label="발화점 / ignition")
+               label="발화점(합성) / ignition (synthetic)")
 
     # Example responder route (cyan) and resident routes (naive blue / rescue magenta).
     rr_route = _ll(npz["responder_route_xy"])
@@ -142,13 +166,21 @@ def rescue_map(npz, summary):
     ax.set_ylim(lat.min(), lat.max())
     ax.legend(loc="upper left", fontsize=8, framealpha=0.9)
     c = summary["four_way_counts"]
+    is_real, banner = _real_or_syn(summary)
+    head = ("영덕 구조-인지 대피 라우팅 (실제 OSM 도로·대피소·소방서 + 합성 화재)  /  Yeongdeok "
+            "rescue-aware evacuation routing (REAL OSM roads/refuges/depots + SYNTHETIC fire)"
+            if is_real else
+            "영덕 구조-인지 대피 라우팅 (합성 PoC)  /  Yeongdeok rescue-aware evacuation "
+            "routing (synthetic PoC)")
     ax.set_title(
-        f"영덕 구조-인지 대피 라우팅 (합성 PoC, t+{times[k]/60:.0f}h)  /  Yeongdeok rescue-aware "
-        f"evacuation routing (synthetic PoC)\n"
+        f"{head}, t+{times[k]/60:.0f}h\n"
         f"구조가능 대피소 {summary['n_refuges_rescue_reachable']}/{summary['n_refuges']}, "
         f"구조 사각지대 가옥 {c['no_surviving_vehicle_ingress']}호 / homes beyond rescue "
         f"reach (reported, not imputed)",
-        fontsize=11)
+        fontsize=10.5)
+    # Honest per-input source banner (from committed provenance).
+    ax.text(0.5, -0.06, banner, transform=ax.transAxes, ha="center", va="top",
+            fontsize=8, color="#374151")
     FIG.mkdir(parents=True, exist_ok=True)
     fig.savefig(FIG / "rescue_map.png", dpi=135, bbox_inches="tight")
     plt.close(fig)
@@ -216,9 +248,10 @@ def four_way_figure(summary):
             axes[2].text(b.get_x() + b.get_width() / 2, v, f"{v:.2f}",
                          ha="center", va="bottom", fontsize=10)
 
+    _is_real, banner = _real_or_syn(summary)
     fig.suptitle("구조-인지 대피 라우팅: 4-구분 결과와 노출 대조  /  Rescue-aware routing: "
-                 "four-way outcome split and exposure contrasts (synthetic 영덕 PoC)",
-                 fontsize=12.5)
+                 "four-way outcome split and exposure contrasts (영덕)\n" + banner,
+                 fontsize=11.5)
     fig.savefig(FIG / "rescue_four_way.png", dpi=135, bbox_inches="tight")
     plt.close(fig)
     print("wrote", FIG / "rescue_four_way.png")
@@ -255,10 +288,11 @@ def sensitivity_figure(summary):
     axes[0].set_ylabel("출발지 수 / number of origins")
     axes[0].legend(fontsize=8, loc="upper right")
     n_sweep = sw["baseline"]["n_origins"]
+    _is_real, banner = _real_or_syn(summary)
     fig.suptitle("민감도 분석: 매개변수에 따른 구조가능/불가 구분의 이동 (이것이 강건한 결과)  /  "
                  f"Sensitivity: how the reachable/unreachable split moves (N={n_sweep} sampled). "
-                 "This robustness is the result.",
-                 fontsize=12)
+                 "This robustness is the result.\n" + banner,
+                 fontsize=11)
     fig.savefig(FIG / "rescue_sensitivity.png", dpi=135, bbox_inches="tight")
     plt.close(fig)
     print("wrote", FIG / "rescue_sensitivity.png")
