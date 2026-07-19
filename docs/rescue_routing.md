@@ -1,13 +1,15 @@
 # Rescue-aware evacuation routing — methods note
 
 > **Round 2 · Phase 1 — real-data flip (2026-07).** The committed
-> `data/processed/rescue_*.json` have since been flipped from synthetic fallbacks to
+> `data/processed/rescue_*.json` have been flipped from synthetic fallbacks to
 > **real OpenStreetMap** road/refuge/depot geometry (fire **hazard** + **terrain**
-> remain synthetic, pending the FIRMS bundle). The synthetic **numbers** quoted in
-> this methods note (e.g. N = 452, the four-way split, `w` ≈ 40 %) describe the
-> **pre-flip** baseline, preserved at `data/processed/rescue_baseline_synthetic/`;
-> the current real values and an OLD-vs-NEW comparison are in
-> `docs/REPORT_ROUND2_P1.md`. The **method** described here is unchanged.
+> remain synthetic, pending the FIRMS bundle). The numbers throughout this methods
+> note (§4a/§4b/§4c below) are the **current real-OSM results** (N = 439). The
+> pre-flip synthetic baseline is preserved at
+> `data/processed/rescue_baseline_synthetic/` and in the OLD column of
+> `docs/REPORT_ROUND2_P1.md`, which also has the full OLD-vs-NEW comparison and the
+> new real-road finding (§3 there: 63 of 143 dispatchable homes reachable only via a
+> survival-aware detour). The **method** described here is unchanged.
 
 *What it is, why it is built this way, what it does **not** claim, and where every
 input comes from. Companion to `src/wildfireguardian/routing/rescue.py` and
@@ -15,8 +17,8 @@ input comes from. Companion to `src/wildfireguardian/routing/rescue.py` and
 python scripts/make_rescue_figures.py`.*
 
 > **Results draft:** see `docs/results_rescue_draft.md` for the honestly-hedged
-> results section (claims ledger + the assumption-light walk-failure rate `w` ≈ 40 %,
-> derived from the committed fc sweep via `scripts/derive_walk_failure.py`).
+> results section (claims ledger + the assumption-light walk-failure rate `w` ≈
+> 9–17 %, derived from the committed fc sweep via `scripts/derive_walk_failure.py`).
 >
 > **Spread-model numbers:** the canonical foundation model (Build B) is documented in
 > `docs/MODEL_CARD.md` — headline LOFO **mean-of-folds ROC-AUC 0.89 ± 0.11** (pooled
@@ -116,58 +118,81 @@ does **not eliminate** (the last class remains) the unreachable set.
 ## 4a. Reconciled results & robustness (verification pass)
 
 All headline numbers below are on **one explicit baseline**, on the **same origin
-set N = 452**, regenerable with `python scripts/verify_rescue_routing.py`
+set N = 439**, regenerable with `python scripts/verify_rescue_routing.py`
 (`data/processed/rescue_verify.json`). The verify sweep runs at full N, so its
-**baseline cell equals the headline** (asserted in code and by a test). Treat
-absolute counts as illustrative (single-fire PoC + synthetic inputs); the robust
-claim is the **direction/contrast**.
+**baseline cell equals the headline** (asserted in code and by a test). Roads,
+refuges, and depots are **real OpenStreetMap** geometry; the fire hazard and
+terrain remain synthetic. Treat absolute counts as illustrative (single-fire PoC +
+synthetic hazard/terrain); the robust claim is the **direction/contrast**.
 
 **Baseline:** walk 0.7 m/s · vehicle 40 km/h · pedestrian cutoff 0.5 · vehicle
 cutoff 0.7 · dispatch delay 30 min · safety margin 12 min · resident/responder
-budget 600/75 min · seed 20250603 · all inputs synthetic (tagged).
+budget 600/75 min · seed 20250603 · roads/refuges/depots real OSM, hazard/terrain
+synthetic (tagged).
 
 **Two metrics, never compared across scales** (labelled `route_type` in the
 output): resident exposure is over **pedestrian** routes; responder over
 **vehicle** routes; both in `prob·min`.
 
-**Why N = 452 (not the old 407):** the rescue origin scan uses `scan_stride=3`
-plus a fire-reach latitude band on the walk-network land nodes; the older
-routing-spine used a `scan_stride=4`, 14 km-band scan giving 407.
+**Why N = 439 (not the synthetic 452):** the real OSM `walk` graph is ~6× denser
+than the synthetic lattice (8 439 vs ~1 400 nodes); the origin-scan *procedure* is
+unchanged, only its stride knob is adapted (`REAL_OSM_SCAN_STRIDE = 18`, up from the
+synthetic default 3) so the sampled-candidate count stays near the synthetic scale
+and the full-N verification sweeps stay tractable. (An earlier synthetic-era change,
+`scan_stride=3` + a fire-reach latitude band, had taken the origin count from 407 to
+452; the real-OSM flip is a second, independent change to the same knob.)
 
-**Four-way split @ baseline (sums to 452):** already-safe **154** · saved-by-
-rescue-reachable-refuge **34** · no-walk-rescuer-reaches **244** · unreachable
-**20**. Resident exposure (pedestrian, prob·min) naive/​b/​c = **24.06 / 3.55 /
-3.47** (paired b vs c over the same 185 origins = 3.42 / 3.47; c re-routed 2 off a
-cut-off refuge). Responder ingress (vehicle, prob·min) shortest-path/​survival-
-aware = **0.172 / 0.079** (dispatch 244, unreachable 20).
+**Four-way split @ baseline (sums to 439):** already-safe **262** · saved-by-
+rescue-reachable-refuge **10** · no-walk-rescuer-reaches **143** · unreachable
+**24**. Self-evacuable (already-safe + saved) **272 (62 %)**; needs-rescuer
+(no-walk-rescuer + unreachable) **167 (38 %)**. Resident exposure (pedestrian,
+prob·min) naive/​b/​c = **9.16 / 1.59 / 2.22** (paired b vs c over the same 155
+origins = 2.22 / 2.22; c re-routed 0 off a cut-off refuge, down from 2 on the
+synthetic lattice — with 50 real refuges most safe walks already land on a
+rescue-reachable one). Responder ingress (vehicle, prob·min) shortest-path/​
+survival-aware = **6.12 / 1.71** (dispatch 143, unreachable 24) — survival-aware
+routing is still ≈3.6× (≈72 %) lower exposure than shortest-path, even though both
+absolute numbers are ~20× larger than on the synthetic lattice (real vehicle
+corridors traverse more hazard cells).
 
-**2-D sweep — unreachable count (dispatch delay × vehicle cutoff), full N = 452:**
+**2-D sweep — unreachable count (dispatch delay × vehicle cutoff), full N = 439:**
 
 | delay \ cutoff | 0.50 | 0.60 | 0.70 | 0.80 | 0.90 |
 |---|---|---|---|---|---|
-| 0 min | 15 | 9 | **6** | 2 | 1 |
-| 15 | 21 | 18 | 15 | 8 | 2 |
-| 30 (baseline) | 25 | 25 | **20** | 15 | 8 |
-| 45 | 37 | 31 | 25 | 20 | 15 |
-| 60 | 40 | 38 | **34** | 27 | 20 |
+| 0 min | 13 | 7 | **6** | 4 | 0 |
+| 15 | 38 | 20 | 11 | 7 | 3 |
+| 30 (baseline) | 60 | 41 | **24** | 13 | 7 |
+| 45 | 70 | 62 | 51 | 38 | 11 |
+| 60 | 72 | 71 | **66** | 60 | 24 |
 
-(`already_safe`=154 and `saved`=34 are constant across the grid; `no_walk` = 264 −
-unreachable. See `docs/figures/rescue_sweep_2d.png`.) This resolves the earlier
-20-vs-2/13 confusion: the old sweep was **sub-sampled to N≈151** (the convenience
-`sensitivity_sweep` caps origins at `sweep_max_origins`); at full N the baseline
-unreachable is 20 and the dispatch 0→60 bracket at cutoff 0.7 is **6 → 34**.
+(`already_safe`=262 and `saved`=10 are constant across the grid; `no_walk` = 167 −
+unreachable, since the needs-rescuer pool (167) doesn't move with the vehicle
+knobs. See `docs/figures/rescue_sweep_2d.png`.) On the pre-flip synthetic lattice
+the same table topped out at unreachable=34 (delay 60, cutoff 0.7); at full N on
+**real roads the baseline unreachable is 24 and the dispatch 0→60 bracket at
+cutoff 0.7 is 6 → 66** — a much sharper penalty than the synthetic 6 → 34, because
+real corridors have less redundancy against a delayed responder than the forgiving
+synthetic lattice did.
 
 **Robustness verdict:**
 
 | quantity | verdict | basis |
 |---|---|---|
-| unreachable rises with dispatch delay (0→60: **6→34** at cutoff 0.7) | **robust direction** | monotone non-decreasing for *every* cutoff |
+| unreachable rises with dispatch delay (0→60: **6→66** at cutoff 0.7) | **robust direction** | monotone non-decreasing for *every* cutoff |
 | unreachable rises as the vehicle cutoff gets harsher | **robust direction** | monotone for *every* delay |
-| `no_walk_rescuer` ≈ 244 (majority need a rescuer) | **robust to the vehicle knobs** (grid 224–263, central rel-spread 0.09) — but its *level* is set by the assumed immobile fraction (0.3) + the slow-elder-vs-fast-fire pedestrian regime, **not** by the vehicle cutoff/speed | complement of unreachable within the constant 264-home needs-rescue pool |
-| `unreachable` point estimate (20) | **directional only** (grid 1–40) — report the direction + range, not the point value | central rel-spread 1.17 |
+| `no_walk_rescuer` (ranges 95–167 across the vehicle knobs, mean 136) | **complement of unreachable within the constant 167-home needs-rescue pool** — rel-spread 0.53, *wider* than the synthetic lattice's 0.09 (i.e. real roads make the dispatch/unreachable split noticeably more vehicle-knob-sensitive); its *level* is still set primarily by the assumed immobile fraction (0.3) + walk cutoff (§4b), not vehicle cutoff/speed directly | grid 95–167 |
+| `unreachable` point estimate (24) | **directional only** (grid 0–72) — report the direction + range, not the point value | central rel-spread 2.31 (wider than the synthetic 1.17) |
 
 `rescue_reachable ⊆ safe` holds at every cutoff. The headline four-way and the
 sweep's baseline cell are identical.
+
+**New real-road finding (§3 of `docs/REPORT_ROUND2_P1.md`):** of the 143
+dispatch-reachable homes, **63 are reachable only via a survival-aware detour** —
+their **direct** ingress corridor is already cut before the responder's direct ETA.
+On the synthetic lattice every dispatchable home also had a surviving *direct*
+corridor, so unlimited rescue units recovered all of dispatch; on real roads
+unlimited units instead recover only the **deadline-feasible** subset (80 of 143).
+See §4c.
 
 ## 4b. The rescue burden is assumption-driven (immobile_fraction × walk_cutoff)
 
@@ -175,29 +200,29 @@ The vehicle×delay sweep (§4a) only *splits* a **fixed** needs-rescuer pool int
 `no_walk_rescuer` vs `unreachable`; it never moved the pool's size. The two knobs
 that set that size are `immobile_fraction` and `walk_cutoff`. Decompose the
 partition: `self_evacuable = already_safe + saved`, `needs_rescuer =
-no_walk_rescuer + unreachable`; the headline "58% need a rescuer" is `264/452`.
+no_walk_rescuer + unreachable`; the headline "38% need a rescuer" is `167/439`.
 
 **How `immobile_fraction` routes origins (from the code):** `_immobile_homes`
 draws a **random `f·N`** origins (`rng.choice(..., replace=False)`) and the loop
 does `if n in immobile: needs_rescue; continue` — they **skip the walk checks
 regardless of whether they could have walked out**. So `already_safe`/`saved` are
 computed only over the mobile `(1−f)` pool and **fall as `f` rises** — they are
-**not** invariant to `f` (the pass-1 "constant 154/34" was true only for the
+**not** invariant to `f` (the §4a "constant 262/10" was true only for the
 vehicle×delay grid, where `f` was fixed).
 
-**f × c sweep, full N = 452** (`scripts/verify_rescue_routing.py --sweep fc`,
+**f × c sweep, full N = 439** (`scripts/verify_rescue_routing.py --sweep fc`,
 `rescue_verify_fc.json`; baseline cell f=0.30, c=0.50 == headline, asserted):
 
 `needs_rescuer` (= can't self-evacuate on foot):
 
 | immobile `f` \ walk cutoff | 0.40 | **0.50** | 0.60 |
 |---|---|---|---|
-| 0.15 | 226 (50%) | 211 (47%) | 196 (43%) |
-| **0.30** | 272 (60%) | **264 (58%)** | 249 (55%) |
-| 0.45 | 315 (70%) | 306 (68%) | 292 (65%) |
+| 0.15 | 118 (27%) | 108 (25%) | 100 (23%) |
+| **0.30** | 177 (40%) | **167 (38%)** | 162 (37%) |
+| 0.45 | 240 (55%) | 232 (53%) | 226 (51%) |
 
-`self_evacuable` (= already_safe + saved): 0.15→{226, 241, 256}; 0.30→{180, 188,
-203}; 0.45→{137, 146, 160} across walk cutoff {0.40, 0.50, 0.60}. Monotone as
+`self_evacuable` (= already_safe + saved): 0.15→{321, 331, 339}; 0.30→{262, 272,
+277}; 0.45→{199, 207, 213} across walk cutoff {0.40, 0.50, 0.60}. Monotone as
 expected: `self_evacuable` rises with a more permissive walk cutoff; `needs_rescuer`
 rises with `f` and as the walk cutoff falls. See `docs/figures/rescue_sweep_fc.png`.
 
@@ -205,23 +230,24 @@ rises with `f` and as the walk cutoff falls. See `docs/figures/rescue_sweep_fc.p
 
 | quantity | verdict | basis |
 |---|---|---|
-| `needs_rescuer` = **58 %** (264/452) | **directional, not a number** | grid 196–315 (43–70 %); **halving the assumed immobile fraction (0.30→0.15) drops it 58 %→47 %** (264→211 @ c=0.5) |
-| `no_walk_rescuer` = **244** | **re-classified directional** w.r.t. the assumption knobs (grid 178–286, rel-spread 0.46); the §4a "robust" held *only* against the vehicle knobs | moves with both `f` and `walk_cutoff` |
-| `saved` = **34** | **rescue-meaningful, not a mislabel** — a pedestrian route to a *rescue-reachable* refuge (the resident-side win); it moves with `f` (over the mobile pool), so not f-invariant | — |
+| `needs_rescuer` = **38 %** (167/439) | **directional, not a number** | grid 100–240 (23–55 %); **halving the assumed immobile fraction (0.30→0.15) drops it 38 %→25 %** (167→108 @ c=0.5) |
+| `no_walk_rescuer` = **143** | **re-classified directional** w.r.t. the assumption knobs (grid 76–204, rel-spread 0.90 — wider than the synthetic lattice's 0.46); the §4a "robust" held *only* against the vehicle knobs | moves with both `f` and `walk_cutoff` |
+| `saved` = **10** | **rescue-meaningful, not a mislabel** — a pedestrian route to a *rescue-reachable* refuge (the resident-side win); down from 34 on the synthetic lattice because with 50 real refuges most naive-unsafe walks already land on a rescue-reachable one; it moves with `f` (over the mobile pool), so not f-invariant | — |
 
 **Defensible headline today:** *"Under walk cutoff 0.5 and 30 % assumed immobile,
-264/452 (58 %) cannot self-evacuate on foot; at 15 % assumed immobile this falls to
-211/452 (47 %). The share is driven by the assumed immobile fraction plus the
+167/439 (38 %) cannot self-evacuate on foot; at 15 % assumed immobile this falls to
+108/439 (25 %). The share is driven by the assumed immobile fraction plus the
 slow-elder pedestrian regime — not by the vehicle-side knobs."* Even at the most
-optimistic swept assumptions a **large minority (≥43 %)** still cannot self-evacuate
-— that direction is robust; the exact percentage is not. **Unchanged keeper:** the
-§4a dispatch-delay → unreachable trend remains a robust direction.
+optimistic swept assumptions **more than a fifth (≥23 %)** still cannot
+self-evacuate — that direction is robust; the exact percentage is not. **Unchanged
+keeper:** the §4a dispatch-delay → unreachable trend remains a robust direction,
+and is now sharper on real roads (6 → 66 vs the synthetic 6 → 34).
 
 ## 4c. Rescue capacity / triage — the demand–supply gap (PoC)
 
-§4a–4b size the **demand**: of N = 452 origins, **264 need a rescuer** = **244
+§4a–4b size the **demand**: of N = 439 origins, **167 need a rescuer** = **143
 dispatch-reachable** (a vehicle corridor survives long enough to reach them) +
-**20 geometry-unreachable** (no surviving ingress). They never asked whether the
+**24 geometry-unreachable** (no surviving ingress). They never asked whether the
 fire service can **supply** that many rescues in the window. This layer
 (`rescue.py::capacity_triage`, `--sweep capacity`,
 `data/processed/rescue_capacity.json`, `docs/figures/rescue_capacity.png`) closes
@@ -236,54 +262,70 @@ home is **`rescued_in_time`** iff a unit ARRIVES no later than its
 `deadline = min(ingress_survival_time, dispatch_delay + W)` (corridor still open
 *and* within the operational window `W = responder_time_budget_min = 75 min`),
 else **`capacity_deferred`** (a *supply* failure — a surviving route exists but no
-unit reaches it in time). `geometry_unreachable` (the 20) is unchanged. The three
-outcomes **partition the 264-home needs-rescuer pool**.
+unit reaches it in time). `geometry_unreachable` (the 24) is unchanged. The three
+outcomes **partition the 167-home needs-rescuer pool**.
 
 > **These capacity numbers are PoC parameters, NOT measured 영덕 fire-service
 > capacity.** The deliverable is the demand–supply **curve**, never a single
 > "X rescued" or any "lives saved" figure.
 
 **Capacity sweep @ baseline (PoC: `service = 25 min/rescue`, `W = 75 min`,
-units mobilised at the 30-min dispatch delay), full N = 452:**
+units mobilised at the 30-min dispatch delay), full N = 439:**
 
-| rescue units | rescued_in_time | capacity_deferred | geometry_unreachable | % of demand met |
-|---:|---:|---:|---:|---:|
-| 1 | 3 | 241 | 20 | 1.1 % |
-| 2 | 6 | 238 | 20 | 2.3 % |
-| 3 | 9 | 235 | 20 | 3.4 % |
-| 4 | 12 | 232 | 20 | 4.5 % |
-| 6 | 18 | 226 | 20 | 6.8 % |
-| 8 | 24 | 220 | 20 | 9.1 % |
+| rescue units | rescued_in_time | capacity_deferred | geometry_unreachable | % of demand met | % of reachable demand met |
+|---:|---:|---:|---:|---:|---:|
+| 1 | 3 | 140 | 24 | 1.8 % | 2.1 % |
+| 2 | 6 | 137 | 24 | 3.6 % | 4.2 % |
+| 3 | 9 | 134 | 24 | 5.4 % | 6.3 % |
+| 4 | 12 | 131 | 24 | 7.2 % | 8.4 % |
+| 6 | 18 | 125 | 24 | 10.8 % | 12.6 % |
+| 8 | 24 | 119 | 24 | 14.4 % | 16.8 % |
 
 The numbers are governed by a transparent identity: timely-rescue **supply ≈
 `n_units × ⌊W / service⌋`** (here **3 rescues per unit** in a 75-min window at 25
-min/rescue), which is **far below the 244 reachable demand** — so even 8 units
-meet < 10 % of demand. *This gap is the quantitative case for pre-positioning
+min/rescue), which is **far below the 143 reachable demand** — so even 8 units
+meet < 15 % of demand. *This gap is the quantitative case for pre-positioning
 resources and for triage, not a deficiency to hide.*
 
+**New real-road finding — dispatchable ≠ direct-corridor-open.** On the synthetic
+lattice, unlimited rescue units rescued *all* of dispatch (every dispatchable home
+also had a surviving *direct* corridor). On **real roads this invariant breaks**:
+**63 of the 143** dispatchable homes are reachable **only via a survival-aware
+detour**, with their **direct** corridor already cut before the responder's direct
+ETA (`closing_window < 0`). The capacity model credits only the direct corridor, so
+those 63 homes stay `capacity_deferred` even at unlimited units — unlimited units
+instead recover the **deadline-feasible** subset, **80 of 143** (rescued
+80 = deadline-feasible 80). This is a genuine consequence of real road topology
+(alternate routes the synthetic lattice didn't have) and is reported, not tuned
+away; the verify script's invariant was corrected accordingly (`n_dispatch_reachable`
+now also reports `n_dispatch_deadline_feasible` = 80 and
+`n_dispatch_direct_corridor_cut_reachable_by_detour` = 63).
+
 **Secondary axis — dispatch delay × units** (`CAP_DELAYS = {0, 30, 60}`; the
-needs-rescuer pool is delay-invariant, so its 264 split moves between reachable
-and geometry as the delay rises): geometry-unreachable goes **6 → 20 → 34** at
-delay 0/30/60 (matching the §4a finding), while the supply-limited
-`rescued_in_time` per unit is **delay-invariant** (the window span `W` is the same
-regardless of when it starts) — i.e. **supply, not the dispatch delay, is the
-binding constraint** on timely rescue here.
+needs-rescuer pool is delay-invariant, so its 167 split moves between reachable
+and geometry as the delay rises): geometry-unreachable goes **6 → 24 → 66** at
+delay 0/30/60 (matching the §4a finding — sharper than the synthetic lattice's
+6 → 20 → 34), while the supply-limited `rescued_in_time` per unit is
+**delay-invariant** (the window span `W` is the same regardless of when it starts)
+— i.e. **supply, not the dispatch delay, is the binding constraint** on timely
+rescue here.
 
 **Invariants (asserted in code + `tests/test_rescue_capacity.py`):**
 
 | invariant | result |
 |---|---|
-| three outcomes sum to the 264 needs-rescuer count in every cell | ✓ |
-| unlimited units → `capacity_deferred = 0`, recovers the geometry-only set (20) — the layer is a strict refinement | ✓ |
+| three outcomes sum to the 167 needs-rescuer count in every cell | ✓ |
+| unlimited units → recovers the **deadline-feasible** dispatch subset (80 of 143; not `capacity_deferred = 0`, see the detour finding above) | ✓ |
 | `rescued_in_time` monotone non-decreasing in unit count | ✓ (3→6→9→12→18→24) |
 | capacity binds (1 unit leaves demand unmet) | ✓ |
 | 2-D baseline cell (delay 30, units 3) reconciles with the 1-D sweep + `run_pipeline` | ✓ |
 
-**Reading.** Geometry alone caps timely rescue at **92.4 %** of demand (244/264);
-the residual 20 have no surviving corridor and are never imputed. The robust
-result is the **shape** of the curve (sharp unmet demand at realistic unit
-counts); the absolute % moves with the PoC `service`/`W` and is not a measured
-capability.
+**Reading.** Geometry alone caps timely rescue at **85.6 %** of demand (143/167);
+the residual 24 have no surviving corridor and are never imputed. Of that
+geometry-reachable 85.6 %, a further 63/143 need a detour rather than the direct
+corridor (above). The robust result is the **shape** of the curve (sharp unmet
+demand at realistic unit counts); the absolute % moves with the PoC `service`/`W`
+and is not a measured capability.
 
 ## 4d. Operator-facing output (illustrative mockup)
 
@@ -319,7 +361,8 @@ geometry, not a deployed product:
 - **The surviving-ingress layer reduces, not solves, unreachability.** The
   unreachable set is an expected, reported output.
 - **Contrasts are the robust result; absolute magnitudes are illustrative**,
-  given a single-fire PoC and synthetic auxiliary inputs.
+  given a single-fire PoC and a synthetic fire hazard + terrain (roads, refuges,
+  and depots are real OSM geometry as of Round 2 · Phase 1).
 - **In this regime, vehicles are ~15–20× faster than the fire's spread on a
   well-connected lattice**, so the resident-side `b → c` exposure cost is small
   (most *safe* refuges are also rescue-reachable). The rescue-reachability
@@ -332,15 +375,19 @@ geometry, not a deployed product:
 
 ## 6. Data provenance (real vs synthetic)
 
-| input | real source (loader implemented) | fallback used here |
-|---|---|---|
-| Hazard `P(ignite)` per cell/time | `spread_v2.forward_sim` on FIRMS+ERA5+DEM (git-ignored) | **SYNTHETIC** growing severity-scaled envelope on the real 영덕 extent |
-| Walk + drive networks | OSMnx `walk`/`drive`, reprojected to EPSG:5179, disk-cached | **SYNTHETIC** 8-connected lattice on the extent (real algorithm) |
-| Refuges (대피소·긴급대피장소) | 행정안전부 / 공공데이터포털 (data.go.kr) GeoJSON/CSV at `cfg.shelters_path`, or OSM POIs | **SYNTHETIC** coastal assembly nodes + inland open-space POIs |
-| Depots (119안전센터) | 소방청 공공데이터포털 / OSM `amenity=fire_station` at `cfg.depots_path` | **SYNTHETIC** near-town nodes |
+**As of Round 2 · Phase 1, roads/refuges/depots use the real source below; only
+hazard + terrain still use the synthetic fallback** (pending the FIRMS bundle):
 
-Every synthetic/assumed input is tagged `source = "synthetic"` (or `assumed`) in
-the outputs (`rescue_routing.json::provenance`) and in `RescueConfig.provenance()`.
+| input | real source (loader implemented) | used in this run | synthetic fallback (offline / no OSM cache) |
+|---|---|---|---|
+| Hazard `P(ignite)` per cell/time | `spread_v2.forward_sim` on FIRMS+ERA5+DEM (git-ignored) | **SYNTHETIC** (still) | growing severity-scaled envelope on the real 영덕 extent |
+| Walk + drive networks | OSMnx `walk`/`drive`, reprojected to EPSG:5179, disk-cached | **REAL OSM** ✓ | 8-connected lattice on the extent (real algorithm) |
+| Refuges (대피소·긴급대피장소) | 행정안전부 / 공공데이터포털 (data.go.kr) GeoJSON/CSV at `cfg.shelters_path`, or OSM POIs | **REAL OSM** ✓ (50 refuges) | coastal assembly nodes + inland open-space POIs |
+| Depots (119안전센터) | 소방청 공공데이터포털 / OSM `amenity=fire_station` at `cfg.depots_path` | **REAL OSM** ✓ (4 depots) | near-town nodes |
+
+Every input is tagged with its actual `source` (`osm` / `synthetic` / `assumed` /
+`sampled candidates`) in the outputs (`rescue_routing.json::provenance`) and in
+`RescueConfig.provenance()` — nothing above is asserted without that tag.
 
 **Assumed numeric inputs (all config-driven, all swept where relevant):** elderly
 walk 0.7 m/s; vehicle 40 km/h; walk cutoff 0.5; vehicle cutoff 0.7; responder
