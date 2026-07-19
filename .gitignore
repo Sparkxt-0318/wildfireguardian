@@ -89,6 +89,14 @@ data/processed/**
 !data/processed/ml_baselines.json
 !data/processed/spread_v2_lofo_oof.parquet
 !data/processed/spread_v2_lofo_oof.csv.gz
+# Round-2 P2 calibration measurement: pooled/per-fold Brier + ECE (15 equal-count
+# bins) + reliability data for the canonical GBM vs random-forest/logistic on the
+# same LOFO OOF, plus the per-model baseline OOF frames. Result artifacts of
+# scripts/calibration_metrics.py; require the FIRMS/ERA5/DEM bundle to regenerate,
+# so absent in a fresh clone but git-trackable once produced.
+!data/processed/calibration_metrics.json
+!data/processed/lofo_oof_random_forest.csv.gz
+!data/processed/lofo_oof_logistic.csv.gz
 # Rescue-aware routing summary (small JSON; regenerable via
 # scripts/run_rescue_routing.py). The bulk rescue_routing.npz stays ignored.
 !data/processed/rescue_routing.json

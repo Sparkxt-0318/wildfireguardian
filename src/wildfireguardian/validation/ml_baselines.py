@@ -127,4 +127,63 @@ def lofo_compare(
     return out
 
 
-__all__ = ["default_models", "BaselineResult", "lofo_compare"]
+#: Columns carried on every out-of-fold prediction frame (shared schema with
+#: :attr:`spread_v2.model.LofoResult.oof`, so GBM/RF/logistic OOF are stackable).
+OOF_COLUMNS: tuple[str, ...] = ("fire_id", "label", "dist_band", "dist_to_fire_m", "prob")
+
+
+def lofo_oof_predictions(
+    ds: pd.DataFrame, *, models: dict | None = None, seed: int = DEFAULT_SEED,
+    feature_columns: tuple[str, ...] = FEATURE_COLUMNS,
+) -> dict[str, pd.DataFrame]:
+    """Leave-one-fire-out **out-of-fold predictions** for each estimator.
+
+    Same holdout loop, folds, features and seed as :func:`lofo_compare` (each
+    fire is scored by a model that never saw it), but instead of collapsing to
+    AUC summaries this returns the raw per-row OOF probabilities so downstream
+    code can measure calibration (Brier / ECE / reliability) on them. The
+    returned frame for ``hist_gbm`` is row-for-row equivalent to
+    :attr:`spread_v2.model.LofoResult.oof` (identical estimator config, folds
+    and seed) — verified by the calibration pipeline's consistency check.
+
+    Returns ``{model_name: DataFrame[OOF_COLUMNS]}``; folds with a single
+    training class (or an empty held-out fire) are skipped exactly as in
+    :func:`lofo_compare`.
+    """
+    from sklearn.base import clone
+
+    models = models or default_models(seed)
+    fires = sorted(ds["fire_id"].unique())
+    cols = list(feature_columns)
+    # dist_band / dist_to_fire_m are non-features carried for stratified
+    # reporting; fall back to NaN/"" if a caller's frame lacks them.
+    have_band = "dist_band" in ds.columns
+    have_dist = "dist_to_fire_m" in ds.columns
+    out: dict[str, pd.DataFrame] = {}
+    for name, est in models.items():
+        parts: list[pd.DataFrame] = []
+        for held in fires:
+            train = ds[ds["fire_id"] != held]
+            test = ds[ds["fire_id"] == held]
+            if train["label"].nunique() < 2 or len(test) == 0:
+                continue
+            clf = clone(est)
+            clf.fit(train[cols].to_numpy("float64"), train["label"].to_numpy("int64"))
+            p = clf.predict_proba(test[cols].to_numpy("float64"))[:, 1]
+            part = pd.DataFrame({
+                "fire_id": test["fire_id"].to_numpy(),
+                "label": test["label"].to_numpy().astype(int),
+                "dist_band": (test["dist_band"].to_numpy() if have_band
+                              else np.full(len(test), "", dtype=object)),
+                "dist_to_fire_m": (test["dist_to_fire_m"].to_numpy() if have_dist
+                                   else np.full(len(test), np.nan)),
+                "prob": p,
+            })
+            parts.append(part)
+        out[name] = (pd.concat(parts, ignore_index=True) if parts
+                     else pd.DataFrame(columns=list(OOF_COLUMNS)))
+    return out
+
+
+__all__ = ["default_models", "BaselineResult", "lofo_compare",
+           "lofo_oof_predictions", "OOF_COLUMNS"]
