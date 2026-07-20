@@ -210,14 +210,23 @@ pytest -q                             # 단위 테스트 (실데이터 불필요
 안내하고, 스스로 대피할 수 없는 주민에게는 **구조대 차량의 진입 경로**를 계산하며,
 **누가 도달 불가능한지 정직하게** 보고합니다(추정·날조 없음).
 
-합성 영덕 PoC 4-구분(합 = N = 452): 원래 안전 154 · 구조가능 대피소로 구조 34 ·
-도보 불가(구조대 출동) 244 · **차량 접근 불가(도달 불가) 20**. 도보 자력대피 실패율
-**w ≈ 40 %**(임계값에 따라 33–45 %)는 10시간 보행 예산에서도 거동불능 가정과 무관하게
-유지됩니다. 출동 지연 **0→60분**이면 도달 불가 출발지가 **6→34**로 늘어납니다.
-예측 기반 주민 경로는 예측 없음 경로 대비 노출 **~85 % 감소**(24.06→3.55 prob·min),
-생존-인지 구조대 진입은 최단경로 대비 노출 **~54 % 감소**(0.172→0.079 prob·min).
-점추정치는 방향성 지표이며, 단일 산불 PoC + 합성 보조 데이터 위의 값입니다. 자세한
-방법론·데이터 출처는 [`docs/rescue_routing.md`](docs/rescue_routing.md).
+**영덕 4-구분, 실도로망(OSM) 기반**(Round 2·Phase 1; 화재 위험·지형은 FIRMS 번들
+대기로 아직 합성; 합 = N = 439): 원래 안전 262 · 구조가능 대피소로 구조 10 · 도보
+불가(구조대 출동) 143 · **차량 접근 불가(도달 불가) 24**. **실도로에서는 자력대피
+가능(원래 안전+구조) 인구가 272명(62 %)으로 늘었지만, 구조대가 필요한 인구도 여전히
+167명(38 %)** 입니다 — 대다수 고령자는 걸어서 대피할 수 있지만, 5명 중 2명은 여전히
+구조가 필요합니다. 도보 자력대피 실패율은 **w ≈ 9–17 %**(합성 격자의 33–45 %보다
+크게 낮음)로 실제 보행 연결성이 훨씬 좋음을 보여주지만, 출동 지연에는 오히려 더
+취약해져 지연 **0→60분**에 도달 불가 출발지가 **6→66**으로 급증합니다(합성
+격자에서는 6→34에 그쳤습니다). **새 발견**: 구조대 출동 가능 143명 중 **63명은
+직접 진입로가 이미 끊겨 생존-인지 우회로로만 도달 가능**해, 무제한 구조 인력을
+투입해도 이 63명은 즉시 구조되지 않습니다(직접 진입로가 살아있는 80명만 즉시
+구조). 예측 기반 주민 경로는 예측 없음 경로 대비 노출 **~83 % 감소**(9.16→1.59
+prob·min), 생존-인지 구조대 진입은 최단경로 대비 노출 **~72 % 감소**(6.12→1.71
+prob·min, 실도로 진입로가 길어져 절대값은 커졌지만 상대적 이점은 오히려 더
+큽니다). 점추정치는 방향성 지표이며, 실도로망 + 합성 화재·지형 위의 값입니다.
+자세한 방법론은 [`docs/rescue_routing.md`](docs/rescue_routing.md), 전체
+OLD-vs-NEW 비교는 [`docs/REPORT_ROUND2_P1.md`](docs/REPORT_ROUND2_P1.md).
 
 ```bash
 python scripts/run_rescue_routing.py            # 4-구분 + 노출 + 민감도
@@ -442,28 +451,34 @@ refuges whose **vehicle access road survives the predicted fire**, and — when 
 resident cannot self-evacuate — computes the **responder's** ingress route instead,
 always reporting honestly who cannot be reached.
 
-**Honest four-way origin split on the synthetic 영덕 PoC (sums to N = 452):**
+**Four-way origin split, real-OSM roads** (Round 2 · Phase 1; fire hazard + terrain
+still synthetic pending the FIRMS bundle; sums to N = 439):
 
 | outcome | count |
 |---|---:|
-| already safe (naive walk works) | 154 |
-| saved by routing to a rescue-reachable refuge | 34 |
-| no safe pedestrian route — but a responder can reach (dispatched) | 244 |
-| **no surviving vehicle ingress — UNREACHABLE (reported, not imputed)** | **20** |
+| already safe (naive walk works) | 262 |
+| saved by routing to a rescue-reachable refuge | 10 |
+| no safe pedestrian route — but a responder can reach (dispatched) | 143 |
+| **no surviving vehicle ingress — UNREACHABLE (reported, not imputed)** | **24** |
 
-Contrasts (the robust result; absolute magnitudes are illustrative on a single-fire
-PoC + synthetic auxiliary inputs): the on-foot self-evacuation **failure rate
-w ≈ 40 %** (33–45 % across thresholds) holds even with a 10-hour walking budget and
-independent of the immobility assumption; the future-aware resident route cuts
-predicted-hazard exposure **~85 %** vs naive (24.06 → 3.55 prob·min), and the
-survival-aware responder ingress cuts exposure **~54 %** vs a fire-blind shortest
-path (0.172 → 0.079 prob·min). A verification pass
-(`scripts/verify_rescue_routing.py`) re-derives the split and runs a full-N 2-D
-sweep whose baseline cell equals the headline (asserted); the robust finding is that
-**unreachable starts rise monotonically with dispatch delay** (6 → 34 as delay goes
-0 → 60 min). The downstream capacity/triage is a **PoC parameter, not measured 영덕
-fire-service capacity** — report the curve, not a single "X rescued". Full methods +
-data provenance: [`docs/rescue_routing.md`](docs/rescue_routing.md).
+**On real roads, most elders can now walk to safety — self-evacuable rises to
+272/439 (62 %) — but 167/439 (38 %) still need a rescuer.** The on-foot
+self-evacuation failure rate **w ≈ 9–17 %** (down sharply from the synthetic
+lattice's 33–45 %) reflects genuinely better real pedestrian connectivity — but real
+vehicle corridors are far more brittle to a delayed responder: the dispatch-delay
+penalty is **sharper on real roads**, with unreachable rising **6 → 66** as delay
+goes 0 → 60 min (vs 6 → 34 on the synthetic lattice). **New finding:** of the 143
+dispatchable homes, **63 are reachable only via a survival-aware detour** — their
+**direct** ingress corridor is already cut before the responder's direct ETA, so
+even unlimited rescue units cannot get to them immediately (only the 80 with a
+surviving direct corridor are). The future-aware resident route still cuts
+predicted-hazard exposure **~83 %** vs naive (9.16 → 1.59 prob·min), and the
+survival-aware responder ingress cuts exposure **~72 %** vs a fire-blind shortest
+path (6.12 → 1.71 prob·min) — real corridors are longer in absolute terms, but the
+survival-aware routing advantage is, if anything, larger. Contrasts are the robust
+result; absolute magnitudes stay illustrative until the real hazard is flipped in
+(Phase 2). Full methods: [`docs/rescue_routing.md`](docs/rescue_routing.md); full
+OLD-vs-NEW comparison: [`docs/REPORT_ROUND2_P1.md`](docs/REPORT_ROUND2_P1.md).
 
 ```bash
 python scripts/run_rescue_routing.py            # four-way split + exposure + sensitivity
