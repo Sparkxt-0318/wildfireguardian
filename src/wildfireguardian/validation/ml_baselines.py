@@ -32,7 +32,7 @@ def default_models(seed: int = DEFAULT_SEED) -> dict:
     - ``logistic``       : median-impute → standardize → L2 logistic regression.
     - ``random_forest``  : median-impute → 300-tree RF (min_samples_leaf=20).
     - ``hist_gbm``       : the canonical gradient-boosted model (native NaN) — the
-      reference row (model card mean-of-folds 0.89 / pooled 0.905).
+      reference row (model card mean-of-folds 0.90 / pooled 0.867).
     """
     from sklearn.ensemble import HistGradientBoostingClassifier, RandomForestClassifier
     from sklearn.impute import SimpleImputer

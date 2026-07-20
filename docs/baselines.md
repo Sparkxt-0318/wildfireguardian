@@ -31,7 +31,7 @@ boosted model compare to **standard ML baselines** on the same task?*
 |---|---|
 | `logistic` | median-impute → standardize → L2 logistic regression (`C=1.0`, `max_iter=2000`) |
 | `random_forest` | median-impute → `RandomForestClassifier(n_estimators=300, min_samples_leaf=20)` |
-| `hist_gbm` (reference) | the canonical `HistGradientBoosting` (log-loss, `lr=0.08`, `max_iter=300`, `max_leaf_nodes=31`, `min_samples_leaf=40`, `l2=1.0`) — produced the model card's **mean-of-folds 0.89 / pooled 0.905** |
+| `hist_gbm` (reference) | the canonical `HistGradientBoosting` (log-loss, `lr=0.08`, `max_iter=300`, `max_leaf_nodes=31`, `min_samples_leaf=40`, `l2=1.0`) — produced the model card's **mean-of-folds 0.90 / pooled 0.867** |
 
 (The GBM/RF use the tree models' native or imputed NaN handling; LR adds
 standardization. The model card labels the canonical estimator "XGBoost"; the
@@ -42,18 +42,18 @@ build that produced every downstream number — so it is used as the reference h
 
 | model | mean-of-folds AUC ± SD | pooled AUC |
 |---|---|---|
-| random_forest | 0.920 ± 0.036 | 0.898 |
-| logistic | 0.903 ± 0.060 | 0.826 |
-| hist_gbm (canonical reference) | 0.890 ± 0.107 | 0.905 |
+| random_forest | regen pending | regen pending |
+| logistic | regen pending | regen pending |
+| hist_gbm (canonical reference) | 0.901 ± 0.072 | 0.867 |
 
-**The verdict, given these numbers:** random forest actually **edges the GBM on
-mean-of-folds** (0.920 vs 0.889) and is more stable (SD 0.036 vs 0.107); the GBM wins
-**pooled** (0.905 vs 0.898) and leads logistic throughout. So we do **not** claim a
-large accuracy win. We keep the GBM for what is actually true: its **calibrated
-probabilities** (the router consumes a genuine `P(ignite)`; held-out Brier ~0.03
-unweighted vs ~0.09 balanced), **inference speed**, and the **severity ≫
-wind-direction interpretability** (the 44× permutation-importance ratio that surfaced
-the headline finding).
+**The verdict:** the GBM row (mean-of-folds 0.901 = the six `per_fire_auc` values;
+pooled 0.867) is read from `spread_v2_lofo.json`; the random_forest / logistic rows
+**regenerate for this six-fire run** via `scripts/ml_baselines.py` and are not carried
+over from the prior assembly, so no head-to-head accuracy claim is restated here. We
+keep the GBM for what is actually true: its **calibrated probabilities** (the router
+consumes a genuine `P(ignite)`), **inference speed**, and the **severity ≫
+wind-direction interpretability** (the ~9.3× permutation-importance ratio that
+surfaced the headline finding).
 
 The honest comparison is the deliverable: the prior "beats a ~9 % Rothermel model"
 framing is replaced by "compared head-to-head with standard ML baselines on identical

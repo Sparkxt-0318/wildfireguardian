@@ -35,8 +35,8 @@ anchor casualty event (part of the 2025 의성–안동 wildfire complex: ~27 de
 영덕 — victims predominantly residents in their 60s–80s in rural villages
 `[src: 서울환경연합 2026 회고(23명은 2025-03-26 시점); 세계일보·한겨레 2025-03-26; README.md]`). The router consumes the project's data-driven spread hazard as a
 time-sliced per-cell ignition-probability surface — the foundation this builds on
-(leave-one-fire-out **mean-of-folds ROC-AUC 0.89 ± 0.11**, range 0.68–0.97; pooled
-0.905, far-band 0.877 pooled
+(leave-one-fire-out **mean-of-folds ROC-AUC 0.90 ± 0.07**, range 0.78–0.98; pooled
+0.867, far-band 0.821 pooled
 `[src: data/processed/spread_v2_lofo.json; docs/MODEL_CARD.md]`; forward-simulated
 footprint IoU **~0.40**
 `[src: docs/ROUTING_INTEGRATION_REPORT.md]`). N = **452** candidate elderly-home
@@ -148,8 +148,8 @@ unreachable set; it does not eliminate it.
 - **(c) Single-fire (영덕) proof-of-concept** — not multi-fire validated, not
   operational.
 - **(d) The spread hazard is a risk *ranking*, not a perimeter forecast.** Report AUC
-  (mean-of-folds 0.89 ± 0.11; pooled 0.905) and footprint IoU (~0.40 forward-sim;
-  the 0.874 single-step IoU is "next overpass given the current burn", not a
+  (mean-of-folds 0.90 ± 0.07; pooled 0.867) and footprint IoU (~0.40 forward-sim;
+  the 0.866 single-step IoU is "next overpass given the current burn", not a
   from-scratch footprint) together: the model ranks at-risk cells well but
   does not pinpoint the exact perimeter `[src: data/processed/spread_v2_lofo.json;
   docs/ROUTING_INTEGRATION_REPORT.md]`.

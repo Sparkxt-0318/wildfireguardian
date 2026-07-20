@@ -82,7 +82,7 @@ All three models share one holdout loop (hold out a whole fire, train on the
 rest), so the comparison is controlled — no per-model feature/fold/seed
 differences, no tuning. Internal consistency is guarded two ways: the
 regenerated GBM pooled AUC is checked against the committed reference
-(`0.9053277489374548`, `data/processed/spread_v2_lofo.json`), and the isotonic
+(`0.8666547831321919`, `data/processed/spread_v2_lofo.json`), and the isotonic
 step's raw branch is verified row-for-row against that same canonical OOF.
 
 ---

@@ -16,10 +16,11 @@
 - **Current model (Build B — `spread_v2`)**: a data-driven, per-cell wildfire
   ignition-probability model (gradient-boosted trees) validated by
   **leave-one-fire-out** cross-validation on **six real Korean wildfires**.
-  **Mean-of-folds ROC-AUC = 0.89** (range 0.68–0.97; pooled out-of-fold 0.905).
+  **Mean-of-folds ROC-AUC = 0.90** (range 0.78–0.98; pooled out-of-fold 0.867).
 - **Headline finding**: fire-weather **severity** (the weather feature group,
-  incl. wind speed) dominates wind **direction** by **~44×** in permutation
-  importance; **`days_since_rain` is the single strongest feature**.
+  incl. wind speed) dominates wind **direction** by **~9.3×** in permutation
+  importance; **`dist_to_fire_m` is the single strongest predictor**, and within
+  the weather group **`wind_speed_ms` and `days_since_rain` lead**.
 - The calibrated `P(ignite)` surface is coupled into **elderly-aware and
   rescue-aware evacuation routing** (the project's core systems contribution).
 - **Intellectual-honesty record**: an earlier Rothermel-based *physics* model
@@ -59,53 +60,60 @@
 - **평가 — 한 산불씩 제외 교차검증 (LOFO; 각 산불을 그룹으로 묶어 통째로 제외하는
   leave-one-group-out / LOGO-CV)**: 6개 실제 산불(gangneung_2023, hongseong_2023,
   miryang_2022, uiseong_andong_2025, uljin_samcheok_2022, yeongdeok_2025).
-- **폴드 평균 ROC-AUC = 0.89** (범위 0.68–0.97). `gangneung_2023` 폴드(0.68)는 양성
-  약 8건(탐지 약 17건)뿐인 소규모·잡음 폴드이며, 이를 제외한 다섯 산불 평균은 약
-  0.93 입니다. **일반화 지표로는 폴드 평균을 보고**합니다. 전체 보류예측 통합
-  **pooled = 0.905** (부트스트랩 95 % CI [0.901, 0.909])는 *pooled* 로 명시해서만
-  사용하며, 일반화 지표가 아닙니다.
+- **폴드 평균 ROC-AUC = 0.90** (범위 0.78–0.98). 가장 어려운 폴드는 시연·라우팅
+  대상 산불인 `yeongdeok_2025`(0.783)이며, 나머지 다섯 산불은 0.86–0.98 범위입니다.
+  **일반화 지표로는 폴드 평균을 보고**합니다. 전체 보류예측 통합 **pooled = 0.867**
+  은 *pooled* 로 명시해서만 사용하며(이번 실행에서는 폴드 평균보다 오히려 낮음 — 큰 두
+  폴드 uiseong·yeongdeok가 지배), 일반화 지표가 아닙니다. (폴드별 신뢰구간·유의성은
+  이번 실행에 대해 `scripts/auc_intervals.py` 재실행으로 재산출합니다.)
 - **핵심 발견 — 세기(severity) ≫ 풍향(direction)**: 순열 중요도에서 화재기상
-  **세기**(`days_since_rain`, `vpd_kpa`, `rh_pct`, `temp_c`, `precip_24h_mm`,
-  풍속 `wind_speed_ms`) 합 0.102 vs 풍향 정렬 `wind_alignment` 0.0023 → **약 44배**.
-  단일 최강 특징은 **`days_since_rain`** (0.077) 입니다.
-- **규모**: 16개 특징, 151,904행 / 양성 2,989(약 1.97 %), 시드 20250603,
+  **세기**(풍속 `wind_speed_ms`, `days_since_rain`, `vpd_kpa`, `rh_pct`, `temp_c`,
+  `precip_24h_mm`) 합 0.057 vs 풍향 정렬 `wind_alignment` 0.0062 → **약 9.3배**.
+  단일 최강 예측변수는 **`dist_to_fire_m`**(0.072)이며, 화재기상 특징 중에서는
+  풍속 `wind_speed_ms`(0.028)와 `days_since_rain`(0.025)가 풍향을 압도합니다.
+- **규모**: 16개 특징, 138,619행 / 양성 2,731(약 1.97 %), 시드 20250603,
   좌표계 EPSG:5179.
-- **원거리(>3 km) 폴드 평균 AUC = 0.925** (n=3; 화선의 *도달* 예측력), 통합 pooled
-  0.877. 순방향 모의 화선 **footprint IoU ≈ 0.40** (영덕, 3–12시간) — 물리(Rothermel)
+- **원거리(>3 km) 통합(pooled) AUC = 0.821**, 중거리(1–3 km) 통합 AUC = 0.786
+  (화선의 *도달* 예측력; `spread_v2_lofo.json`의 `far_band_auc`/`mid_band_auc`).
+  순방향 모의 화선 **footprint IoU ≈ 0.40** (영덕, 3–12시간) — 물리(Rothermel)
   표면 모델 **~0.09** 대비 약 **4배**로, 표면물리가 놓치는 수관화·비화(crown/spotting)
   영역을 포착합니다.
 
-| 산불 (held-out) | ROC-AUC | DeLong 95 % CI |
-|---|---|---|
-| miryang_2022 | 0.974 | [0.941, 0.989] |
-| hongseong_2023 | 0.945 | [0.916, 0.964] |
-| yeongdeok_2025 (시연 산불) | 0.941 | [0.936, 0.946] |
-| uljin_samcheok_2022 | 0.918 | [0.911, 0.924] |
-| uiseong_andong_2025 | 0.878 | [0.871, 0.884] |
-| gangneung_2023 (양성 약 8건 — 잡음) | 0.682 | [0.577, 0.771] |
+| 산불 (held-out) | ROC-AUC |
+|---|---|
+| miryang_2022 | 0.981 |
+| hongseong_2023 | 0.956 |
+| gangneung_2023 | 0.933 |
+| uljin_samcheok_2022 | 0.895 |
+| uiseong_andong_2025 | 0.859 |
+| yeongdeok_2025 (시연 산불 — 최난 폴드) | 0.783 |
 
-> **6개 폴드 모두 AUC = 0.5 대비 통계적으로 유의**합니다(`gangneung_2023`
-> p = 2.7×10⁻⁴, 나머지 다섯 p ≪ 0.001). 위 폴드별 **DeLong 95 % 신뢰구간**과 유의성
-> 검정은 `scripts/auc_intervals.py`(정식 수치 pooled 0.905 / 폴드평균 0.890에 대한
-> **일치성 게이트** 통과 후 산출, FIRMS/ERA5/DEM 번들 필요)로 재현합니다. 번들이
+`[ROC-AUC 출처: data/processed/spread_v2_lofo.json/per_fire_auc]`
+
+> 폴드별 **DeLong 95 % 신뢰구간**·유의성 검정과 아래 표준 ML 베이스라인은 이번 6개
+> 산불 실행에 대해 `scripts/auc_intervals.py` / `scripts/ml_baselines.py`(FIRMS/ERA5/
+> DEM 번들 필요, 시드 20250603)로 **재산출**합니다 — 이전 실행의 신뢰구간·베이스라인
+> 수치는 새 점추정치(예: `yeongdeok_2025` 0.783) 옆에 그대로 두지 않았습니다. 번들이
 > 없으면 **수치를 날조하지 않고 깨끗이 중단(STOP, exit 2)** 합니다. 통계 도구는 단위
 > 테스트로 검증되어 있습니다(`tests/test_auc_stats.py`). 자세한 내용·한계:
 > [`docs/auc_intervals.md`](docs/auc_intervals.md).
 >
 > **표준 ML 베이스라인**(동일 16특징·폴드·시드 20250603) — "나쁜 물리모델만 이긴 것
-> 아니냐"에 답하는 통제 비교:
+> 아니냐"에 답하는 통제 비교. 이번 6개 산불 실행 기준 GBM 수치는
+> `spread_v2_lofo.json`에서 읽었고(폴드평균은 `per_fire_auc` 6개 평균), 랜덤포레스트·
+> 로지스틱 행은 `scripts/ml_baselines.py` 재실행으로 **재산출 예정**입니다(이전 실행
+> 값은 병기하지 않음):
 >
 > | 모델 | 폴드 평균 AUC ± SD | pooled |
 > |---|---|---|
-> | 랜덤포레스트 | 0.920 ± 0.036 | 0.898 |
-> | 로지스틱 회귀 | 0.903 ± 0.060 | 0.826 |
-> | **XGBoost/GBM (본 모델)** | **0.889 ± 0.107** | **0.905** |
+> | 랜덤포레스트 | 재산출 예정 | 재산출 예정 |
+> | 로지스틱 회귀 | 재산출 예정 | 재산출 예정 |
+> | **XGBoost/GBM (본 모델)** | **0.901 ± 0.072** | **0.867** |
 >
-> 폴드 평균에서는 랜덤포레스트가 근소 우위이나, **보정된 확률**(라우터가 실제
-> `P(ignite)` 를 소비) · **추론 속도** · **해석가능성**(순열 중요도가 "세기 ≫ 풍향"
-> 발견을 제공)을 근거로 GBM을 정식 모델로 채택했습니다. 베이스라인 수치는 동일
-> 게이트형 재실행(`scripts/ml_baselines.py`)으로 재현합니다. 방법론:
-> [`docs/baselines.md`](docs/baselines.md).
+> GBM을 정식 모델로 채택한 근거는 **보정된 확률**(라우터가 실제 `P(ignite)` 를 소비)
+> · **추론 속도** · **해석가능성**(순열 중요도가 "세기 ≫ 풍향" 발견을 제공)입니다.
+> 베이스라인 수치는 게이트형 재실행(`scripts/ml_baselines.py`)으로 재현합니다.
+> 방법론: [`docs/baselines.md`](docs/baselines.md).
 
 ### 시스템 구성
 
@@ -142,7 +150,7 @@
 데이터 기반 모델과 그 위의 라우팅까지 동작하는 개념검증입니다. 본 저장소가 제공하는 것:
 
 - **데이터 기반 격자 발화확률 모델 (`spread_v2`, Build B)** — 6개 실제 산불에
-  대한 LOFO 검증(폴드평균 ROC-AUC 0.89), 보정된 확률, 순열 중요도 기반 "세기≫풍향"
+  대한 LOFO 검증(폴드평균 ROC-AUC 0.90), 보정된 확률, 순열 중요도 기반 "세기≫풍향"
   발견. `src/wildfireguardian/spread_v2/`
 - **실데이터 인제스션** — NASA FIRMS 발화점 + SRTM DEM + ESA WorldCover 연료 +
   ERA5 기상(`spread_v2/data.py`). FIRMS 번들은 git-ignore 되어 별도 다운로드합니다.
@@ -191,7 +199,7 @@ pip install h5netcdf h5py             # ERA5 NetCDF 리더 (extras·requirements
 # 데이터 번들 배치 (저장소에 없음 — git-ignore):
 unzip firms_data.zip -d data/raw/     # 또는: export WFG_FIRMS_DIR=/path/to/firms
 
-# 정식 LOFO 재실행 → 일치성 게이트가 pooled 0.905 / 폴드평균 0.890 재현
+# 정식 LOFO 재실행 → 일치성 게이트가 pooled 0.867 / 폴드평균 0.90 재현
 python scripts/auc_intervals.py       # per-fire DeLong CI + 0.5 대비 유의성
 python scripts/ml_baselines.py        # 로지스틱/랜덤포레스트 vs GBM (동일 특징/폴드/시드)
 
@@ -272,56 +280,62 @@ probability `P(ignites by the next satellite overpass)`.
   leave-one-group-out / LOGO-CV)** over **six real Korean fires**: gangneung_2023,
   hongseong_2023, miryang_2022, uiseong_andong_2025, uljin_samcheok_2022,
   yeongdeok_2025.
-- **Mean-of-folds ROC-AUC = 0.89** (range **0.68–0.97**). The 0.68 fold
-  (`gangneung_2023`, ~8 positives) is a tiny, noisy fold; excluding it, the other
-  five average ≈ 0.93. **Mean-of-folds is the generalization figure.** The pooled
-  out-of-fold AUC **0.905** (bootstrap 95 % CI [0.901, 0.909]) is reported only when
-  labelled "pooled" and is **not** the generalization metric.
+- **Mean-of-folds ROC-AUC = 0.90** (range **0.78–0.98**). The hardest fold is
+  `yeongdeok_2025` (0.783) — the held-out demonstration / routing-demo fire; the
+  other five fires span 0.86–0.98. **Mean-of-folds is the generalization figure.**
+  The pooled out-of-fold AUC **0.867** is reported only when labelled "pooled" and
+  is **not** the generalization metric; here it sits slightly *below* mean-of-folds
+  (the two large folds, uiseong and yeongdeok, dominate the concatenated pool).
 - **Headline finding — severity ≫ wind direction**: summed fire-weather
-  **severity** permutation importance **0.102** vs `wind_alignment` (direction)
-  **0.0023** → a **~44×** ratio. The **single strongest feature is
-  `days_since_rain`** (0.077). The weather/severity group includes wind *speed*
+  **severity** permutation importance **0.057** vs `wind_alignment` (direction)
+  **0.0062** → a **~9.3×** ratio. The **single strongest predictor is
+  `dist_to_fire_m`** (0.072); within the weather group **`wind_speed_ms` (0.028)
+  and `days_since_rain` (0.025)** lead. The severity group includes wind *speed*
   (`wind_speed_ms`); the *control* it dominates is wind *direction*.
-- **Scale**: 16 features, 151,904 rows / 2,989 positives (~1.97 %), seed 20250603,
+- **Scale**: 16 features, 138,619 rows / 2,731 positives (~1.97 %), seed 20250603,
   EPSG:5179.
-- **Far-band (>3 km) mean-of-folds AUC = 0.925** (n=3; the "can it predict *reach*?"
-  question), pooled 0.877. Forward-simulated **footprint IoU ≈ 0.40** (Yeongdeok,
-  3–12 h) — roughly **4×** the Rothermel surface model's **~0.09**, i.e. it captures
-  the crown-fire / spotting regime that surface physics misses.
+- **Far-band (>3 km) pooled AUC = 0.821**, mid-band (1–3 km) pooled AUC = 0.786
+  (the "can it predict *reach*?" question; `spread_v2_lofo.json/far_band_auc,
+  mid_band_auc`). Forward-simulated **footprint IoU ≈ 0.40** (Yeongdeok, 3–12 h) —
+  roughly **4×** the Rothermel surface model's **~0.09**, i.e. it captures the
+  crown-fire / spotting regime that surface physics misses.
 
-| held-out fire | ROC-AUC | DeLong 95 % CI |
-|---|---|---|
-| miryang_2022 | 0.974 | [0.941, 0.989] |
-| hongseong_2023 | 0.945 | [0.916, 0.964] |
-| yeongdeok_2025 (the demonstration fire) | 0.941 | [0.936, 0.946] |
-| uljin_samcheok_2022 | 0.918 | [0.911, 0.924] |
-| uiseong_andong_2025 | 0.878 | [0.871, 0.884] |
-| gangneung_2023 (~8 positives — noisy) | 0.682 | [0.577, 0.771] |
+| held-out fire | ROC-AUC |
+|---|---|
+| miryang_2022 | 0.981 |
+| hongseong_2023 | 0.956 |
+| gangneung_2023 | 0.933 |
+| uljin_samcheok_2022 | 0.895 |
+| uiseong_andong_2025 | 0.859 |
+| yeongdeok_2025 (the demonstration fire — hardest fold) | 0.783 |
 
-`[ROC-AUC src: data/processed/spread_v2_lofo.json; DeLong CIs: scripts/auc_intervals.py; see docs/MODEL_CARD.md]`
+`[ROC-AUC src: data/processed/spread_v2_lofo.json/per_fire_auc; see docs/MODEL_CARD.md]`
 
-> **All six folds are statistically significant vs AUC = 0.5** (`gangneung_2023`
-> p = 2.7×10⁻⁴; the other five p ≪ 0.001). The per-fire DeLong CIs above and those
-> significance tests come from the gated re-run `scripts/auc_intervals.py`, which
-> reproduces pooled 0.905 / mean-of-folds 0.890 **before** reporting and **STOPs
-> cleanly (exit 2)** if the FIRMS/ERA5/DEM bundle is absent rather than fabricate
-> numbers. The statistics are unit-tested (`tests/test_auc_stats.py`). Method +
-> limitations: [`docs/auc_intervals.md`](docs/auc_intervals.md).
+> Per-fire **DeLong 95 % CIs**, significance-vs-0.5 tests, and the ML baselines
+> below regenerate for this six-fire run via the gated `scripts/auc_intervals.py` /
+> `scripts/ml_baselines.py` (FIRMS/ERA5/DEM bundle required, seed 20250603) — the
+> pre-run CIs/baselines are **not** restated next to the new point estimates (e.g.
+> `yeongdeok_2025` 0.783). Both scripts **STOP cleanly (exit 2)** without the bundle
+> rather than fabricate numbers. The statistics are unit-tested
+> (`tests/test_auc_stats.py`). Method + limitations:
+> [`docs/auc_intervals.md`](docs/auc_intervals.md).
 >
 > **Standard ML baselines** on the identical 16 features / folds / seed (20250603) —
 > to answer "you only beat a bad physics model" honestly:
 >
 > | model | mean-of-folds AUC ± SD | pooled |
 > |---|---|---|
-> | random forest | 0.920 ± 0.036 | 0.898 |
-> | logistic regression | 0.903 ± 0.060 | 0.826 |
-> | **XGBoost/GBM (ours)** | **0.889 ± 0.107** | **0.905** |
+> | random forest | regen pending | regen pending |
+> | logistic regression | regen pending | regen pending |
+> | **XGBoost/GBM (ours)** | **0.901 ± 0.072** | **0.867** |
 >
-> Random forest edges us on mean-of-folds; we keep the GBM for its **calibrated
-> probabilities** (the router consumes a real `P(ignite)`), **inference speed**, and
+> The GBM row is read from `spread_v2_lofo.json` (mean-of-folds = the six
+> `per_fire_auc` values; pooled = `pooled_auc`); the random-forest / logistic rows
+> regenerate for this six-fire run via `scripts/ml_baselines.py` and are not carried
+> over from the prior assembly. We keep the GBM for its **calibrated probabilities**
+> (the router consumes a real `P(ignite)`), **inference speed**, and
 > **interpretability** (permutation importance is what surfaced "severity ≫
-> direction"). Values reproduce via `scripts/ml_baselines.py`
-> ([`docs/baselines.md`](docs/baselines.md)).
+> direction"). ([`docs/baselines.md`](docs/baselines.md)).
 
 ### System architecture (high level)
 
@@ -360,7 +374,7 @@ model validated on six real fires, with downstream routing working on top of it.
 This repository provides:
 
 - **Data-driven per-cell ignition model (`spread_v2`, Build B)** — LOFO-validated
-  on six real fires (mean-of-folds ROC-AUC 0.89), calibrated probabilities, the
+  on six real fires (mean-of-folds ROC-AUC 0.90), calibrated probabilities, the
   "severity ≫ direction" permutation-importance finding.
   `src/wildfireguardian/spread_v2/`
 - **Real-data ingestion** — NASA FIRMS detections + SRTM DEM + ESA WorldCover
@@ -421,7 +435,7 @@ pip install h5netcdf h5py             # ERA5 NetCDF readers (the missing pieces)
 unzip firms_data.zip -d data/raw/     # or: export WFG_FIRMS_DIR=/path/to/firms
 
 # Re-run the canonical LOFO; the consistency gate reproduces
-# pooled 0.905 / mean-of-folds 0.890 before any interval is reported:
+# pooled 0.867 / mean-of-folds 0.90 before any interval is reported:
 python scripts/auc_intervals.py       # per-fire DeLong CIs + significance vs 0.5
 python scripts/ml_baselines.py        # logistic / random_forest vs GBM (same features/folds/seed)
 
@@ -564,7 +578,7 @@ motivated the move to the data-driven, LOFO-validated `spread_v2` model.
 An earlier project brief cited **0.834 / 0.80 / 0.32** (ROC-AUC / far-band /
 footprint IoU) from a **different reconstruction** ("Build A": different fire set,
 19 features, seed 42). Build A and the canonical Build B are **two independent
-reconstructions and are not a like-for-like comparison** — the 0.834-vs-0.905 gap
+reconstructions and are not a like-for-like comparison** — the 0.834-vs-0.867 gap
 must **not** be read as "B is better". Both nonetheless corroborate the central
 finding (fire-weather *severity* ≫ wind *direction*). The full old→new correction
 mapping is in [`docs/MODEL_CARD.md`](docs/MODEL_CARD.md).
