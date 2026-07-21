@@ -1,0 +1,39 @@
+{
+  "_what_this_is": "Task-3 surrogate. NOT a re-run. The requested per-cell distance-to-fire distribution of gangneung's sampled NEGATIVES requires the git-ignored raw FIRMS/DEM bundle (absent), so the quantile dump cannot be produced. Committed-data facts + the code-level sampling rule reported instead.",
+  "provenance": {
+    "raw_data_status": "UNAVAILABLE \u2014 data/raw/ holds only .gitkeep; .gitignore excludes data/raw/** (FIRMS/ERA5/DEM downloaded at run time). $WFG_FIRMS_DIR unset; no firms_data.zip on disk. Live LOFO re-run is therefore IMPOSSIBLE. All numbers below are read from committed git blobs.",
+    "run_A_0905": {
+      "source": "2283cfd:data/processed/spread_v2_lofo.json (parent of 01099bf; superseded)"
+    },
+    "run_B_0867": {
+      "source": "01099bf:data/processed/spread_v2_lofo.json == current 70170f0:data/processed/spread_v2_lofo.json (committed artifact)"
+    }
+  },
+  "blocked_live_dump": {
+    "requested": "quantiles of dist_to_fire_m over gangneung_2023 label==0 rows in the canonical spread_v2 LOFO dataset",
+    "status": "BLOCKED \u2014 raw data absent; the canonical pipeline persists only aggregate n_rows/n_positives to spread_v2_lofo.json, no per-fire or per-cell frame is committed."
+  },
+  "negative_sampling_rule_from_code": {
+    "file": "src/wildfireguardian/spread_v2/features.py",
+    "build_candidate_frame_L149_151": "cand = (~active) & (dist_m <= buffer_m); if require_burnable: cand = cand & (static.burnable_frac > 0.05)",
+    "buffer_m": "6000.0 (fixed; run_routing_integration.py:106 build_dataset(..., buffer_m=6000.0), unchanged across both runs)",
+    "label_L217": "newly = nxt.cumulative_mask & ~active  # positives = ignite by next overpass",
+    "key_property": "Negatives are ALL burnable, not-yet-active cells within the SAME fixed 6 km buffer of the CURRENT active footprint that do NOT ignite by the next overpass. There is NO random negative subsampling and NO distance-conditioned negative selection: positives and negatives are drawn from an identical, distance-symmetric candidate set. The hypothesised mechanism ('samples negatives farther from the fire') has no code path."
+  },
+  "committed_gangneung_facts": {
+    "run_A_0905_per_fire_auc": 0.6820231958762887,
+    "run_B_0867_per_fire_auc": 0.9329710144927537,
+    "shift": "0.6820 -> 0.9330 (gangneung is the smallest/most volatile fold; a data change swings it most). Note pooled AUC moved the OTHER way (0.9053 -> 0.8667) and far/mid-band AUC DROPPED (far 0.877->0.821, mid 0.870->0.786) \u2014 inconsistent with a global distance-leakage story, which would inflate far-band and pooled AUC, not depress them.",
+    "aggregate_only": {
+      "run_A": {
+        "n_rows": 151904,
+        "n_positives": 2989
+      },
+      "run_B": {
+        "n_rows": 138619,
+        "n_positives": 2731
+      },
+      "caveat": "these are pooled across all 6 fires; per-fire gangneung counts are not committed for the canonical run."
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "_what_this_is": "Task-2 surrogate. NOT a re-run. The literal decisive test (retrain canonical spread_v2 with dist_to_fire_m removed) requires the git-ignored raw FIRMS/ERA5/DEM bundle, which is absent, so it cannot be executed. Committed-data natural experiment reported instead.",
+  "provenance": {
+    "raw_data_status": "UNAVAILABLE \u2014 data/raw/ holds only .gitkeep; .gitignore excludes data/raw/** (FIRMS/ERA5/DEM downloaded at run time). $WFG_FIRMS_DIR unset; no firms_data.zip on disk. Live LOFO re-run is therefore IMPOSSIBLE. All numbers below are read from committed git blobs.",
+    "run_A_0905": {
+      "source": "2283cfd:data/processed/spread_v2_lofo.json (parent of 01099bf; superseded)"
+    },
+    "run_B_0867": {
+      "source": "01099bf:data/processed/spread_v2_lofo.json == current 70170f0:data/processed/spread_v2_lofo.json (committed artifact)"
+    }
+  },
+  "blocked_live_test": {
+    "requested": "retrain HistGradientBoostingClassifier (seed 20250603) on the LOFO folds with dist_to_fire_m dropped from FEATURE_COLUMNS, recompute permutation importance + pooled/per-fire AUC",
+    "status": "BLOCKED \u2014 raw data absent (see provenance.raw_data_status)"
+  },
+  "committed_natural_experiment": {
+    "note": "dist_to_fire_m is present in BOTH committed runs; it is a top-2 permutation feature in each, i.e. NOT an artifact unique to Run B.",
+    "run_A_0905": {
+      "dist_to_fire_m": {
+        "importance": 0.06004802689991257,
+        "rank": 2
+      },
+      "days_since_rain": {
+        "importance": 0.07725724263769516,
+        "rank": 1
+      },
+      "severity_importance_sum": 0.10176383214791254,
+      "wind_alignment_importance": 0.002329176371633542,
+      "severity_over_direction_ratio": 43.69090867796396
+    },
+    "run_B_0867": {
+      "dist_to_fire_m": {
+        "importance": 0.07166707870451958,
+        "rank": 1
+      },
+      "days_since_rain": {
+        "importance": 0.024877805608716098,
+        "rank": 3
+      },
+      "severity_importance_sum": 0.05715050338068084,
+      "wind_alignment_importance": 0.006162351602525299,
+      "severity_over_direction_ratio": 9.27413868388504
+    }
+  },
+  "interpretation": {
+    "dist_carries_model_in_both": "dist_to_fire_m rank #2 (0.0600) in Run A and #1 (0.0717) in Run B \u2014 sizeable, legitimate spread-physics signal in both; it is computed from the CURRENT active mask (features.py geometry_layers on active=cur.cumulative_mask), so no future-label leakage.",
+    "44x_finding_is_severity_vs_direction_not_dist": "severity_over_direction_ratio measures SEVERITY_FEATURES sum / wind_alignment. dist_to_fire_m is neither. The ratio's drop 43.69x -> 9.27x is driven by severity_sum HALVING (0.1018 -> 0.0572) and wind_alignment RISING (0.00233 -> 0.00616), a DATA-driven shift, not the presence of dist.",
+    "qualitative_finding_survives_both": "severity dominates direction by ~44x (Run A) and ~9.3x (Run B) \u2014 an order of magnitude in BOTH; the headline 'severity, not wind direction' claim is directionally robust, only its magnitude changed with the data.",
+    "cannot_run_removal": "Whether days_since_rain returns to strict #1 with dist dropped is not decidable from committed data alone; the retrain is blocked."
+  }
+}

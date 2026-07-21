@@ -1,0 +1,74 @@
+{
+  "_what_this_is": "Task-0/Task-4 provenance. Both runs are consecutive committed versions of data/processed/spread_v2_lofo.json in this branch's own ancestry. Commit 01099bf is NOT on a deleted branch \u2014 it is an ancestor of HEAD.",
+  "head": {
+    "commit": "70170f0830de878fd015bce1f1dedd814297cbab",
+    "branch": "claude/spread-auc-discrepancy-diagnosis-qdvpve"
+  },
+  "run_A_0905": {
+    "commit": "2283cfd (parent of 01099bf)",
+    "pooled_auc": 0.9053277489374548,
+    "n_rows": 151904,
+    "n_positives": 2989,
+    "per_fire_auc": {
+      "gangneung_2023": 0.6820231958762887,
+      "hongseong_2023": 0.9448983570529749,
+      "miryang_2022": 0.973692264885921,
+      "uiseong_andong_2025": 0.8776874123436931,
+      "uljin_samcheok_2022": 0.9180778687255129,
+      "yeongdeok_2025": 0.9407755935389225
+    },
+    "mean_of_folds": {
+      "mean_of_folds": 0.889526,
+      "sd": 0.106573,
+      "n": 6
+    },
+    "top_feature": "days_since_rain",
+    "severity_over_direction_ratio": 43.69090867796396,
+    "far_band_auc": 0.8765583120330634,
+    "mid_band_auc": 0.8698153315452233,
+    "footprint_iou_model": 0.8741651819581638
+  },
+  "run_B_0867_CURRENT": {
+    "commit": "01099bf == current 70170f0",
+    "pooled_auc": 0.8666547831321919,
+    "n_rows": 138619,
+    "n_positives": 2731,
+    "per_fire_auc": {
+      "gangneung_2023": 0.9329710144927537,
+      "hongseong_2023": 0.9556098964326812,
+      "miryang_2022": 0.9814412850010852,
+      "uiseong_andong_2025": 0.8594557270306507,
+      "uljin_samcheok_2022": 0.8946649818524703,
+      "yeongdeok_2025": 0.7827540499481829
+    },
+    "mean_of_folds": {
+      "mean_of_folds": 0.901149,
+      "sd": 0.07242,
+      "n": 6
+    },
+    "top_feature": "dist_to_fire_m",
+    "severity_over_direction_ratio": 9.27413868388504,
+    "far_band_auc": 0.8205213474141444,
+    "mid_band_auc": 0.7855149825202645,
+    "footprint_iou_model": 0.8661856169909132
+  },
+  "what_changed_at_flip_commit_01099bf": {
+    "generating_code_diff_c96bff0_to_01099bf": "EMPTY for src/wildfireguardian/spread_v2/{features,model,grid,data,weather}.py AND for the build_dataset invocation in run_routing_integration.py. The only code added between the two artifacts is the LEGACY spread_v2_xgb/ track, which does not feed spread_v2_lofo.json.",
+    "current_code_vs_01099bf": "EMPTY (git diff 01099bf..HEAD on the five pipeline modules) \u2014 current committed code == the 0.8667 generator.",
+    "conclusion": "Identical code, identical seed (20250603), identical params (cell_size_m=500, buffer_m=6000) produced 151904 rows on 2026-06-03 and 138619 rows on 2026-07-20. build_dataset has NO RNG in candidate/negative selection, so n_rows/n_positives are deterministic given inputs. The 151904->138619 and 2989->2731 drop can ONLY come from a change in the git-ignored raw FIRMS/ERA5/DEM bundle between the two runs \u2014 NOT from a fire-set, grid/crop, negative-sampling-rule, feature-list, or seed change (fires_used and feature set are identical in both)."
+  },
+  "internal_inconsistency_map": {
+    "executable_gates_pin_RUN_B_0867": [
+      "data/processed/spread_v2_lofo.json (pooled 0.8666547831321919)",
+      "scripts/auc_intervals.py:43 CANON_POOLED = 0.8666547831321919",
+      "scripts/calibration_metrics.py:48 REFERENCE_POOLED_AUC = 0.8666547831321919 (gates at 1e-4, L184)",
+      "scripts/ml_baselines.py:34 CANON_REFERENCE pooled 0.8666547831321919, mean_of_folds 0.901 (Run B's mean)",
+      "README.md / docs/MODEL_CARD.md / docs/auc_reconciliation.md report 0.867"
+    ],
+    "stale_relics_still_pin_RUN_A_0905": [
+      "docs/REPRODUCE.md:9-20 asserts pooled 0.9053277489374548 is 'the value committed in spread_v2_lofo.json' and that calibration_metrics.py gates against it \u2014 BOTH false vs the committed file/script.",
+      "tests/test_auc_stats.py:27 CANONICAL_PER_FIRE = [0.682,0.945,0.974,0.878,0.918,0.941] (Run A's per-fire), labelled 'Build-B ... from spread_v2_lofo.json'; asserts mean-of-folds 0.890 +/- 0.107 (Run A), whereas the committed artifact is 0.9011 +/- 0.072."
+    ],
+    "note_on_task_framing": "The task called 0.867/138619/2731 'contamination from a deleted branch'. Committed evidence inverts this: 0.867/138619/2731 IS the current canonical artifact and what all executable gates check; the 'stray' values are 0.905/0.890 lingering in REPRODUCE.md + test_auc_stats.py. 01099bf is a normal ancestor of HEAD, not deleted."
+  }
+}
