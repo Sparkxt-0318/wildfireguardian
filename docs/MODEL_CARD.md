@@ -147,39 +147,30 @@ is strong (0.88–0.97 ROC-AUC) on the five fires shared with Build A.
 ## Downstream: rescue capacity / triage (PoC)
 
 The rescue-routing layer that consumes this model's hazard surfaces now reports a
-**demand–supply** split, not just demand. Of N = 439 영덕 origins (real OSM roads/
-refuges/depots; fire hazard + terrain still synthetic), **167 need a
-rescuer** = **143 dispatch-reachable** + **24 geometry-unreachable** (no surviving
+**demand–supply** split, not just demand. Of N = 452 영덕 origins, **264 need a
+rescuer** = **244 dispatch-reachable** + **20 geometry-unreachable** (no surviving
 ingress). A parameterized capacity model (`RescueCapacityConfig`,
-`rescue.py::capacity_triage`, `--sweep capacity`) partitions the 167 into
+`rescue.py::capacity_triage`, `--sweep capacity`) partitions the 264 into
 **rescued_in_time / capacity_deferred / geometry_unreachable** using the existing
 priority order (closing window) as the triage rule:
 
 | rescue units | rescued_in_time | capacity_deferred | geometry_unreachable | % demand met |
 |---:|---:|---:|---:|---:|
-| 1 | 3 | 140 | 24 | 1.8 % |
-| 3 (baseline) | 9 | 134 | 24 | 5.4 % |
-| 8 | 24 | 119 | 24 | 14.4 % |
+| 1 | 3 | 241 | 20 | 1.1 % |
+| 3 (baseline) | 9 | 235 | 20 | 3.4 % |
+| 8 | 24 | 220 | 20 | 9.1 % |
 
 Timely-rescue supply ≈ `units × ⌊W/service⌋` (3 per unit at W = 75 min, service =
-25 min) is far below the 143 reachable demand — the quantitative case for
+25 min) is far below the 244 reachable demand — the quantitative case for
 pre-positioning + triage. **Capacity here is a PoC parameter, NOT measured 영덕
 fire-service capacity**; report the curve, not a single "X rescued"/"lives saved".
-**New real-road finding:** at unlimited units, `rescued_in_time` recovers only the
-**deadline-feasible** dispatch subset (**80 of 143**) — not all of dispatch, because
-**63 of the 143** dispatchable homes are reachable only via a survival-aware
-**detour** whose **direct** corridor is already cut before the direct ETA; those
-homes stay `capacity_deferred` even at unlimited units. The honest
-geometry-unreachable set (**24**) is unaffected and still recovered exactly
-(asserted). Detail + figure: `docs/rescue_routing.md` §4c,
+At unlimited units `capacity_deferred → 0` and the honest geometry-unreachable set
+(20) is recovered (asserted). Detail + figure: `docs/rescue_routing.md` §4c,
 `docs/figures/rescue_capacity.png`, `data/processed/rescue_capacity.json`.
 
 ## Caveats
 
-- Single-fire (영덕) downstream PoC; road/refuge/depot geometry is real OpenStreetMap
-  data, but the fire **hazard** and **terrain** remain synthetic-and-tagged
-  (pending the FIRMS bundle) — contrasts are robust, absolute magnitudes stay
-  illustrative until the real hazard is flipped in.
+- Single-fire (영덕) downstream PoC; synthetic-and-tagged auxiliary routing data.
 - Rescue **capacity** (unit count + service time) is a PoC parameter, **not**
   measured 영덕 fire-service capacity — the demand–supply result is a curve and a
   direction, never a single "X rescued" or "lives saved" figure (§ Downstream).

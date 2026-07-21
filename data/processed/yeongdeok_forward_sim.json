@@ -9,8 +9,8 @@
     {
       "step": 0,
       "minutes": 0.0,
-      "pred_area_ha": 6025.0,
-      "obs_area_ha": 6025.0,
+      "pred_area_ha": 6225.0,
+      "obs_area_ha": 6225.0,
       "iou": 1.0,
       "captured_frac": 1.0,
       "nearest_obs_op": 0
@@ -18,52 +18,52 @@
     {
       "step": 1,
       "minutes": 180.0,
-      "pred_area_ha": 6025.0,
-      "obs_area_ha": 22300.0,
-      "iou": 0.2701793721973094,
-      "captured_frac": 0.2701793721973094,
+      "pred_area_ha": 18225.0,
+      "obs_area_ha": 23250.0,
+      "iou": 0.3676834295136026,
+      "captured_frac": 0.47956989247311826,
       "nearest_obs_op": 1
     },
     {
       "step": 2,
       "minutes": 360.0,
-      "pred_area_ha": 6025.0,
-      "obs_area_ha": 22300.0,
-      "iou": 0.2701793721973094,
-      "captured_frac": 0.2701793721973094,
+      "pred_area_ha": 25500.0,
+      "obs_area_ha": 23250.0,
+      "iou": 0.3978494623655914,
+      "captured_frac": 0.5967741935483871,
       "nearest_obs_op": 1
     },
     {
       "step": 3,
       "minutes": 540.0,
-      "pred_area_ha": 6050.0,
-      "obs_area_ha": 22300.0,
-      "iou": 0.2698768197088466,
-      "captured_frac": 0.2701793721973094,
+      "pred_area_ha": 27050.0,
+      "obs_area_ha": 23250.0,
+      "iou": 0.3923875432525952,
+      "captured_frac": 0.6096774193548387,
       "nearest_obs_op": 1
     },
     {
       "step": 4,
       "minutes": 720.0,
-      "pred_area_ha": 6100.0,
-      "obs_area_ha": 23425.0,
-      "iou": 0.25906183368869934,
-      "captured_frac": 0.25933831376734257,
+      "pred_area_ha": 27900.0,
+      "obs_area_ha": 24425.0,
+      "iou": 0.3981295925183701,
+      "captured_frac": 0.6100307062436029,
       "nearest_obs_op": 2
     }
   ],
   "envelope_breadth_deg": [
-    44.225194923460606,
-    44.225194923460606,
-    44.225194923460606,
-    43.703620804469196,
-    42.49522327226105
+    48.33591468093444,
+    52.66805629571367,
+    55.49940474028457,
+    55.75654674793767,
+    55.46878104544169
   ],
   "envelope_area_ha": [
-    6025.0,
-    6025.0,
-    6025.0,
-    6050.0,
-    6100.0
+    6225.0,
+    18225.0,
+    25500.0,
+    27050.0,
+    27900.0
   ]
 }
