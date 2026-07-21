@@ -583,3 +583,25 @@ reconstructions and are not a like-for-like comparison** — the 0.834-vs-0.905 
 must **not** be read as "B is better". Both nonetheless corroborate the central
 finding (fire-weather *severity* ≫ wind *direction*). The full old→new correction
 mapping is in [`docs/MODEL_CARD.md`](docs/MODEL_CARD.md).
+
+### spread_v2_xgb — superseded XGBoost re-train (legacy)
+
+The **canonical** data-driven spread model is the `spread_v2` package
+(`src/wildfireguardian/spread_v2/`) — the build that produces every live result
+(pooled LOFO AUC **0.905**, seed `20250603`), driven end-to-end by
+[`scripts/run_routing_integration.py`](scripts/run_routing_integration.py) and
+[`scripts/calibration_metrics.py`](scripts/calibration_metrics.py). See
+[`docs/REPRODUCE.md`](docs/REPRODUCE.md) to reproduce it from a fresh clone.
+
+An **earlier** XGBoost re-train build lives at
+`src/wildfireguardian/spread_v2_xgb/`. It is **superseded and not part of the live
+pipeline** — no runtime/pipeline module imports it. Its "Deliverable 0–6" driver
+scripts, `scripts/spread_v2/00_audit.py … 06_figures.py`, still `import
+wildfireguardian.spread_v2_xgb`; each now carries a **`LEGACY / SUPERSEDED`
+header banner** and is kept for **provenance only** — do not run them as part of
+reproduction. They produced the research-history summaries under
+`data/processed/spread_v2/*.json` (audit, LOFO/comparison/importance metrics),
+which remain committed as evidence of the re-train. The only other reference is
+`tests/test_spread_v2_xgb.py`, a pinned regression test that freezes the old
+build's behaviour. **Canonical package = `spread_v2`; never substitute
+`spread_v2_xgb`.**

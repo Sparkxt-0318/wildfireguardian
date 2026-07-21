@@ -1,4 +1,15 @@
 #!/usr/bin/env python3
+# =============================================================================
+# LEGACY / SUPERSEDED — research history, NOT part of the live pipeline.
+#
+# This "Deliverable 0-6" script belongs to the abandoned `spread_v2_xgb`
+# (XGBoost) re-train track and imports `wildfireguardian.spread_v2_xgb`. The
+# CANONICAL data-driven spread model is the `spread_v2` package
+# (src/wildfireguardian/spread_v2/), exercised end-to-end by
+# scripts/run_routing_integration.py and scripts/calibration_metrics.py. Kept
+# for provenance only — do NOT run it as part of reproduction. See the README
+# research log: "spread_v2_xgb — superseded XGBoost re-train (legacy)".
+# =============================================================================
 """Deliverable 6 — bilingual (한국어/English) figures for the v2 re-train.
 
 Generates into docs/figures/:

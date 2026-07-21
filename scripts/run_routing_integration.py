@@ -58,6 +58,19 @@ def _route_xy(net, route):
     return np.array([[net.graph.nodes[n]["x"], net.graph.nodes[n]["y"]] for n in route], float)
 
 
+def _fmt(value, spec: str, *, none: str = "n/a") -> str:
+    """Format ``value`` with ``spec``, or ``none`` when ``value`` is ``None``.
+
+    Guards the summary prints below. ``pooled_auc`` / ``far_band_auc`` come back
+    ``None`` when a band or fold holds a single class, and
+    ``severity_over_direction_ratio`` is ``None`` when the wind-alignment
+    importance is <= 0 — formatting ``None`` with ``:.3f`` would raise
+    ``unsupported format string passed to NoneType.__format__`` and abort a run
+    that otherwise wrote its JSON fine.
+    """
+    return format(value, spec) if value is not None else none
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--fire", default="yeongdeok_2025")
@@ -115,8 +128,9 @@ def main() -> int:
         },
     }
     (out / "spread_v2_lofo.json").write_text(json.dumps(lofo_summary, indent=2))
-    print(f"      pooled AUC={lofo.pooled_auc:.3f}  far-band AUC={lofo.far_band_auc:.3f}  "
-          f"severity/direction={lofo_summary['severity_over_direction_ratio']:.1f}x")
+    print(f"      pooled AUC={_fmt(lofo.pooled_auc, '.3f')}  "
+          f"far-band AUC={_fmt(lofo.far_band_auc, '.3f')}  "
+          f"severity/direction={_fmt(lofo_summary['severity_over_direction_ratio'], '.1f')}x")
 
     # ---- 2. forward-simulate the held-out fire's hazard --------------------
     print(f"[2/4] forward-simulating {args.fire} hazard (out-of-sample) ...")
