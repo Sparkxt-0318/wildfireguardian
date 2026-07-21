@@ -115,6 +115,13 @@ data/processed/**
 # Validation-case manifest JSON files ARE committed (they're stubs, not
 # bulk data).
 !data/validation_cases/**
+# CodeFair demo bundle: standalone data (metrics + geometry) inlined by the
+# offline demo, plus the cached 영덕 OSM walk graph so scripts/build_demo_routes.py
+# regenerates the route geometry OFFLINE (reproducibility). Regenerable via
+# scripts/build_demo_routes.py && scripts/export_demo_data.py.
+!data/processed/demo_data.json
+!data/processed/demo_geometry.json
+!data/processed/demo_yeongdeok_walk.graphml
 
 # Geospatial / scientific binary formats are excluded by extension
 # anywhere in the tree so an accidental drop into src/ or notebooks/

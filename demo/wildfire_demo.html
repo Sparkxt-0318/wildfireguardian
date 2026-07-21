@@ -1,0 +1,5557 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WildfireGuardian · 산불 골든타임 — 시연</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --base0:#0B0F14; --base1:#121A22; --hair:#1E2A36; --struct:#2A3540;
+    --fire-cool:#F2C14E; --fire-mid:#E8752B; --fire-hot:#C1361E;
+    --naive:#E6A23C; --ash:#6B6257;
+    --fa:#33C4B5; --rescue:#E5507E; --safe:#4C9A6A;
+    --ink:#E8EDF2; --ink2:#8A97A6;
+    --sans:"IBM Plex Sans KR", system-ui, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ height:100%; }
+  body{
+    font-family:var(--sans); color:var(--ink);
+    background:linear-gradient(180deg,#0B0F14 0%,#121A22 100%);
+    overflow:hidden; -webkit-font-smoothing:antialiased;
+  }
+  /* ---- stage ---- */
+  #stage{ position:fixed; inset:0; display:flex; flex-direction:column; }
+  #frame{ position:relative; flex:1 1 auto; min-height:0; }
+  svg#map{ position:absolute; inset:0; width:100%; height:100%; display:block; }
+
+  /* ---- wordmark ---- */
+  #wordmark{ position:absolute; top:26px; left:34px; z-index:5; letter-spacing:.02em; }
+  #wordmark .wm-name{ font-size:15px; font-weight:600; color:var(--ink); }
+  #wordmark .wm-sub{ font-family:var(--mono); font-size:11px; color:var(--ink2); margin-top:3px; letter-spacing:.06em; }
+
+  /* ---- data rail (left, thin, monospace) ---- */
+  #rail{
+    position:absolute; left:34px; bottom:34px; z-index:5; width:322px;
+    font-family:var(--mono); font-size:12.5px; line-height:1.85; color:var(--ink2);
+    border-left:1px solid var(--struct); padding-left:14px;
+  }
+  #rail .rail-model{ color:var(--ink2); font-size:11px; letter-spacing:.02em; margin-bottom:10px; max-width:308px; }
+  #rail .r-row{ display:flex; justify-content:space-between; gap:12px; opacity:0; transition:opacity .5s ease; }
+  #rail .r-row.on{ opacity:1; }
+  #rail .r-k{ color:var(--ink2); }
+  #rail .r-v{ color:var(--ink); font-weight:500; }
+  #rail .r-v.accent{ color:var(--fa); }
+  #rail .r-v.warn{ color:var(--rescue); }
+
+  /* ---- scene overlays: fast-out / delayed-in so only one is ever visible ---- */
+  .overlay{ position:absolute; z-index:6; opacity:0; transition:opacity .26s ease; pointer-events:none; }
+  .overlay.on{ opacity:1; transition:opacity .5s ease .2s; }
+
+  #thesis{ top:50%; left:50%; transform:translate(-50%,-50%); text-align:center; width:min(1180px,88%); }
+  #thesis .t-line{ font-size:clamp(30px,4.1vw,58px); font-weight:600; line-height:1.28; letter-spacing:-.01em; text-shadow:0 2px 30px rgba(0,0,0,.55); }
+  #thesis .t-sub{ font-family:var(--mono); font-size:14px; color:var(--ink2); margin-top:22px; letter-spacing:.08em; }
+
+  .callout{ max-width:520px; text-shadow:0 1px 18px rgba(4,7,10,.9), 0 0 3px rgba(4,7,10,.7); }
+  #s4{ text-shadow:0 1px 18px rgba(4,7,10,.92), 0 0 4px rgba(4,7,10,.8); }
+  .callout .c-kicker{ font-family:var(--mono); font-size:11px; letter-spacing:.14em; color:var(--ink2); text-transform:uppercase; margin-bottom:9px; }
+  .callout .c-title{ font-size:21px; font-weight:600; line-height:1.4; }
+  .callout .c-body{ font-size:14px; color:var(--ink2); margin-top:9px; line-height:1.6; }
+  .callout .c-data{ font-family:var(--mono); font-size:13px; margin-top:12px; color:var(--ink); }
+  .callout .c-data b{ font-weight:600; }
+  .callout .c-data .hl{ color:var(--fire-cool); }
+  .callout .c-cav{ font-family:var(--mono); font-size:10.5px; color:var(--ink2); margin-top:10px; line-height:1.5; opacity:.85; }
+
+  #s1{ top:70px; right:40px; text-align:right; }
+  #s1 .c-title .hl{ color:var(--fire-mid); }
+  #s2{ top:70px; left:40px; }
+  #s3{ top:70px; left:40px; }
+  #s4{ top:64px; left:50%; transform:translateX(-50%); text-align:center; max-width:760px; }
+  #s4 .big{ font-size:30px; font-weight:600; }
+  #s4 .big .pct{ color:var(--rescue); }
+
+  /* metrics panel (S5) */
+  #s5{ top:50%; left:50%; transform:translate(-50%,-50%); width:min(1120px,90%); }
+  #panel{ background:rgba(9,12,17,.94); border:1px solid var(--struct); box-shadow:0 8px 60px rgba(0,0,0,.5); }
+  #panel .p-head{ display:flex; justify-content:space-between; align-items:baseline; padding:18px 26px 14px; border-bottom:1px solid var(--struct); }
+  #panel .p-head h2{ font-size:20px; font-weight:600; }
+  #panel .p-head .p-model{ font-family:var(--mono); font-size:11.5px; color:var(--ink2); }
+  #panel .p-grid{ display:grid; grid-template-columns:repeat(4,1fr); }
+  #panel .metric{ padding:18px 26px; border-right:1px solid var(--struct); border-bottom:1px solid var(--struct); }
+  #panel .metric:nth-child(4n){ border-right:none; }
+  #panel .metric .m-val{ font-family:var(--mono); font-size:30px; font-weight:600; letter-spacing:-.01em; }
+  #panel .metric .m-val.small{ font-size:22px; }
+  #panel .metric .m-lab{ font-size:12.5px; color:var(--ink2); margin-top:6px; line-height:1.45; }
+  #panel .metric .m-src{ font-family:var(--mono); font-size:9.5px; color:var(--ink2); margin-top:7px; opacity:.7; letter-spacing:.01em; }
+  #panel .metric .m-val.teal{ color:var(--fa); } #panel .metric .m-val.rose{ color:var(--rescue); } #panel .metric .m-val.fire{ color:var(--fire-mid); }
+  #panel .p-foot{ padding:15px 26px; font-family:var(--mono); font-size:11.5px; color:var(--ink2); line-height:1.7; }
+  #panel .p-foot .repro{ color:var(--ink); }
+
+  /* ---- transport bar ---- */
+  #transport{ flex:0 0 auto; background:rgba(11,15,20,.9); border-top:1px solid var(--struct); padding:11px 22px 13px;
+              display:flex; align-items:center; gap:18px; z-index:10; }
+  .btn{ background:transparent; border:1px solid var(--struct); color:var(--ink); font-family:var(--mono); font-size:12px;
+        padding:7px 11px; cursor:pointer; border-radius:2px; transition:border-color .15s, background .15s; }
+  .btn:hover{ border-color:var(--ink2); }
+  .btn:focus-visible{ outline:2px solid var(--fa); outline-offset:2px; }
+  #play{ min-width:80px; }
+  .stepgrp{ display:flex; gap:6px; align-items:center; }
+  #scenelab{ font-family:var(--mono); font-size:12px; color:var(--ink2); min-width:196px; }
+  #scenelab b{ color:var(--ink); font-weight:600; }
+  #scrubwrap{ flex:1 1 auto; display:flex; flex-direction:column; gap:6px; }
+  #scrub{ -webkit-appearance:none; appearance:none; width:100%; height:4px; background:var(--struct); border-radius:2px; cursor:pointer; }
+  #scrub::-webkit-slider-thumb{ -webkit-appearance:none; width:14px; height:14px; border-radius:50%; background:var(--ink); border:2px solid var(--base0); cursor:pointer; }
+  #scrub::-moz-range-thumb{ width:14px; height:14px; border-radius:50%; background:var(--ink); border:2px solid var(--base0); cursor:pointer; }
+  #scrub:focus-visible{ outline:2px solid var(--fa); outline-offset:4px; }
+  #ticks{ display:flex; justify-content:space-between; font-family:var(--mono); font-size:9.5px; color:var(--ink2); letter-spacing:.02em; }
+  #ticks span{ flex:1; text-align:left; } #ticks span.active{ color:var(--ink); }
+  #ticks span:last-child{ text-align:right; flex:0; }
+
+  /* ---- legend ---- */
+  #legend{ display:flex; gap:16px; align-items:center; font-family:var(--mono); font-size:11px; color:var(--ink2); flex-wrap:wrap; max-width:430px; }
+  #legend .lg{ display:flex; gap:6px; align-items:center; white-space:nowrap; }
+  #legend .sw{ width:13px; height:13px; border-radius:2px; flex:0 0 auto; }
+  #legend .sw.line{ height:3px; border-radius:2px; }
+  #legend .sw.dot{ border-radius:50%; }
+
+  .clickthru{ pointer-events:none; }
+  @media (prefers-reduced-motion: reduce){ .overlay, .overlay.on, .r-row{ transition:none !important; } }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="frame">
+    <svg id="map" viewBox="0 0 1000 593" preserveAspectRatio="xMidYMid meet" aria-label="영덕 산불 대피 경로 시연 지도"></svg>
+
+    <div id="wordmark" class="clickthru">
+      <div class="wm-name">WildfireGuardian · 산불 골든타임</div>
+      <div class="wm-sub">YEONGDEOK 2025 · PREDICT → ROUTE</div>
+    </div>
+
+    <div id="rail" class="clickthru">
+      <div class="rail-model" id="railModel"></div>
+      <div id="railRows"></div>
+    </div>
+
+    <!-- S0 thesis -->
+    <div id="thesis" class="overlay clickthru">
+      <div class="t-line">불이 지금 있는 곳이 아니라, 앞으로 갈 곳에서 대피시킵니다.</div>
+      <div class="t-sub">WildfireGuardian · 산불 골든타임</div>
+    </div>
+
+    <!-- S1 callout -->
+    <div id="s1" class="overlay callout clickthru">
+      <div class="c-kicker">Scene 1 — 화재는 이동합니다</div>
+      <div class="c-title"><span class="hl">화재 확산선</span>이<br>시간에 따라 전진합니다</div>
+      <div class="c-data" id="s1data"></div>
+      <div class="c-cav" id="s1cav"></div>
+    </div>
+
+    <!-- S2 callout -->
+    <div id="s2" class="overlay callout clickthru">
+      <div class="c-kicker">Scene 2 — 화재 예측 없는 경로</div>
+      <div class="c-title" style="color:var(--naive)">주민 대피 경로 (화재 예측 없음)</div>
+      <div class="c-body">현재 불의 위치만 보고 가장 가까운 안전지대로 향하면,<br><b style="color:var(--ink)">나중에 도달할 확산선</b> 안으로 걸어 들어갑니다.</div>
+      <div class="c-data" id="s2data"></div>
+    </div>
+
+    <!-- S3 callout -->
+    <div id="s3" class="overlay callout clickthru">
+      <div class="c-kicker">Scene 3 — 미래를 아는 경로</div>
+      <div class="c-title" style="color:var(--fa)">미래 인지 경로</div>
+      <div class="c-body">같은 출발지에서, 예측된 확산선을 <b style="color:var(--ink)">우회</b>하여<br>안전지대에 도달합니다.</div>
+      <div class="c-data" id="s3data"></div>
+    </div>
+
+    <!-- S4 -->
+    <div id="s4" class="overlay clickthru">
+      <div class="c-kicker">Scene 4 — 한계는 곧 발견입니다</div>
+      <div class="big" id="s4big"></div>
+      <div class="c-body" id="s4body" style="margin-top:12px;"></div>
+    </div>
+
+    <!-- S5 metrics -->
+    <div id="s5" class="overlay">
+      <div id="panel">
+        <div class="p-head">
+          <h2>모든 수치는 커밋된 아티팩트에서 재생성됩니다.</h2>
+          <div class="p-model" id="s5model"></div>
+        </div>
+        <div class="p-grid" id="s5grid"></div>
+        <div class="p-foot">
+          <div>출처 · <span id="s5sources"></span></div>
+          <div class="repro" id="s5repro" style="margin-top:6px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- transport -->
+  <div id="transport">
+    <button id="play" class="btn" aria-label="재생 또는 일시정지 (Space)">▶ 재생</button>
+    <div class="stepgrp">
+      <button id="prev" class="btn" aria-label="이전 장면 (왼쪽 화살표)">◀ Scene</button>
+      <button id="next" class="btn" aria-label="다음 장면 (오른쪽 화살표)">Scene ▶</button>
+    </div>
+    <div id="scenelab" aria-live="polite"></div>
+    <div id="scrubwrap">
+      <input id="scrub" type="range" min="0" max="1000" value="0" step="1" aria-label="타임라인 스크러버">
+      <div id="ticks"></div>
+    </div>
+    <div id="legend" aria-hidden="true"></div>
+  </div>
+</div>
+
+<script type="application/json" id="demo-data">
+{
+  "meta": {
+    "title": "WildfireGuardian · 산불 골든타임 — demo data bundle",
+    "generated_by": "scripts/export_demo_data.py (reads committed artifacts only)",
+    "seed": 20250603,
+    "reproducibility_line": "모든 수치는 커밋된 아티팩트에서 재생성됩니다.",
+    "data_sources_line": "NASA FIRMS(VIIRS+MODIS) · ERA5 · SRTM · ESA WorldCover / 경로: 시간 확장 그래프 + Dijkstra(OSMnx) · Tobler(1993) 보행 보정",
+    "reconciliation": {
+      "self_evac_failure_~40pct": {
+        "resolved_to": "REAL-OSM flip needs_rescuer = 167/439 = 38.0%",
+        "source": "rescue_verify_fc.json :: needs_rescuer.baseline / baseline_pct",
+        "note": "브리프의 '264/452=58%'는 flip 이전 합성 기준선. 실데이터 flip에서 38.0% ≈ 약 40%."
+      },
+      "rescue_coverage_resolved": {
+        "decision": "실데이터(real-OSM) flip 단일 데이터셋으로 일관 표기.",
+        "real_flip_8units": "24 / 167 = 14.4% (분모 167). 브리프의 '10% 미만'은 합성 기준선(9.1%, 분모 264)에서만 성립 → 혼용하지 않고 14.4%로 정직 표기.",
+        "source": "rescue_capacity.json :: sweep_units_baseline_delay[8]"
+      },
+      "predicted_front_geometry": {
+        "decision": "spread_v2 예측 확산선은 FIRMS 잠금 → 미표시(조작 금지). 대신 실제 OSM 도로망 위에서 관측-근사 확산선에 대해 경로를 실제 계산하여 시연.",
+        "source": "scripts/build_demo_routes.py :: demo_geometry.json"
+      }
+    }
+  },
+  "prediction": {
+    "model_line": "모델: HistGradientBoosting · Leave-One-Fire-Out 교차검증 (6개 실제 산불)",
+    "seed": {
+      "value": 20250603,
+      "source": "data/processed/spread_v2_lofo.json :: seed"
+    },
+    "pooled_auc": {
+      "value": 0.9053,
+      "display": "0.905",
+      "source": "data/processed/spread_v2_lofo.json :: pooled_auc"
+    },
+    "mean_of_folds_auc": {
+      "value": 0.8895,
+      "display": "0.890",
+      "std": 0.1066,
+      "std_display": "0.107",
+      "recomputed_from": "mean/std(ddof=1) of per_fire_auc — verified == 0.890 ± 0.107",
+      "source": "data/processed/spread_v2_lofo.json :: per_fire_auc"
+    },
+    "far_band_auc": {
+      "value": 0.8766,
+      "display": "0.877",
+      "source": "data/processed/spread_v2_lofo.json :: far_band_auc"
+    },
+    "mid_band_auc": {
+      "value": 0.8698,
+      "display": "0.870",
+      "source": "data/processed/spread_v2_lofo.json :: mid_band_auc"
+    },
+    "per_fire_auc": {
+      "value": {
+        "gangneung_2023": 0.682,
+        "hongseong_2023": 0.9449,
+        "miryang_2022": 0.9737,
+        "uiseong_andong_2025": 0.8777,
+        "uljin_samcheok_2022": 0.9181,
+        "yeongdeok_2025": 0.9408
+      },
+      "source": "data/processed/spread_v2_lofo.json :: per_fire_auc"
+    },
+    "top_predictor": {
+      "name": "days_since_rain",
+      "importance": 0.0773,
+      "source": "data/processed/spread_v2_lofo.json :: permutation_importance (rank 1)"
+    },
+    "wind_alignment_importance": {
+      "value": 0.0023,
+      "source": "data/processed/spread_v2_lofo.json :: wind_alignment_importance"
+    },
+    "severity_over_direction_ratio": {
+      "value": 43.69,
+      "display": "≈44×",
+      "source": "data/processed/spread_v2_lofo.json :: severity_over_direction_ratio"
+    },
+    "finding_label": "화재-기상 심각도(건조도·습도·풍속) ≫ 풍향",
+    "forward_sim_iou_note": {
+      "value": 0.4,
+      "display": "≈0.40",
+      "caveat": "전방 시뮬레이션 포락선 IoU (3-12h). 단일 스텝 0.874는 공유 연소면적이 지배 → 미표시.",
+      "source": "data/processed/yeongdeok_forward_sim.json :: drift[].iou (steps 1-4 ≈ 0.37-0.40)"
+    }
+  },
+  "rescue": {
+    "hazard_provenance_warning": "구조/용량 수치는 실제 OSM 도로망 위에서 계산되었으나, 화재 위험면(hazard)은 FIRMS 번들 부재로 합성(synthetic)입니다. 방향/대비는 견고하나 절대 수치는 예시입니다.",
+    "real_flip": {
+      "n_origins": {
+        "value": 439,
+        "source": "data/processed/rescue_routing.json :: n_origins"
+      },
+      "four_way_counts": {
+        "value": {
+          "saved_by_rescue_reachable_refuge": 10,
+          "already_safe": 262,
+          "no_safe_pedestrian_route": 143,
+          "no_surviving_vehicle_ingress": 24
+        },
+        "source": "data/processed/rescue_routing.json :: four_way_counts"
+      },
+      "needs_rescuer": {
+        "value": 167,
+        "pct": 38.0,
+        "display": "167 / 439 (38.0%)",
+        "wording": "스스로 대피할 수 없는 주민 (거동 불가 30% 가정 + 보행로 차단)",
+        "source": "data/processed/rescue_verify_fc.json :: needs_rescuer.baseline / baseline_pct"
+      },
+      "geometry_unreachable": {
+        "value": 24,
+        "pct": 5.5,
+        "wording": "순수 도달 불가 집합 (생존 도로 없음)",
+        "source": "data/processed/rescue_routing.json :: four_way_counts.no_surviving_vehicle_ingress"
+      },
+      "capacity_curve": {
+        "value": [
+          {
+            "units": 1,
+            "rescued_in_time": 3,
+            "pct_demand_met": 1.8
+          },
+          {
+            "units": 2,
+            "rescued_in_time": 6,
+            "pct_demand_met": 3.6
+          },
+          {
+            "units": 3,
+            "rescued_in_time": 9,
+            "pct_demand_met": 5.4
+          },
+          {
+            "units": 4,
+            "rescued_in_time": 12,
+            "pct_demand_met": 7.2
+          },
+          {
+            "units": 6,
+            "rescued_in_time": 18,
+            "pct_demand_met": 10.8
+          },
+          {
+            "units": 8,
+            "rescued_in_time": 24,
+            "pct_demand_met": 14.4
+          }
+        ],
+        "source": "data/processed/rescue_capacity.json :: sweep_units_baseline_delay"
+      },
+      "capacity_8units_pct": {
+        "value": 14.4,
+        "display": "14.4%",
+        "demand_denominator": 167,
+        "source": "data/processed/rescue_capacity.json :: sweep_units_baseline_delay[8]"
+      },
+      "geometry_ceiling_pct": {
+        "value": 85.6,
+        "source": "data/processed/rescue_capacity.json :: geometry_ceiling_pct"
+      }
+    },
+    "synthetic_baseline": {
+      "note": "flip 이전 합성-폴백 기준선 (data/processed/rescue_baseline_synthetic/). 브리프의 452 / 264(58%) / 8팀<10%(9.1%) 수치의 출처.",
+      "n_origins": {
+        "value": 452,
+        "source": "data/processed/rescue_baseline_synthetic/rescue_verify_fc.json :: n_origins"
+      },
+      "needs_rescuer": {
+        "value": 264,
+        "pct": 58.4,
+        "display": "264 / 452 (58.4%)",
+        "source": "data/processed/rescue_baseline_synthetic/rescue_verify_fc.json :: needs_rescuer.baseline / baseline_pct"
+      },
+      "capacity_8units_pct": {
+        "value": 9.1,
+        "display": "9.1%",
+        "demand_denominator": 264,
+        "source": "data/processed/rescue_baseline_synthetic/rescue_capacity.json :: sweep_units_baseline_delay[8]"
+      }
+    },
+    "supply_identity": {
+      "W_min": 75.0,
+      "service_min": 25.0,
+      "rescues_per_unit": 3,
+      "source": "data/processed/rescue_capacity.json :: capacity_config_PoC"
+    }
+  },
+  "geometry": {
+    "note": "geometry from scripts/build_demo_routes.py (real OSM routes vs committed observed-approx front). See meta.front_provenance for the honest caveat.",
+    "meta": {
+      "crs": "EPSG:5179",
+      "bbox_5179": [
+        1160478.2,
+        1831971.4,
+        1174753.2,
+        1840438.1
+      ],
+      "seed": 20250603,
+      "graph_source": "cached graphml (offline)",
+      "graph_nodes": 2931,
+      "elderly_speed_ms": 0.7,
+      "front_provenance": "OBSERVED-APPROXIMATE perimeter (ellipse reconstruction from public reporting), reprojected WGS84->EPSG:5179. NOT the spread_v2 prediction (FIRMS-locked). Used to demonstrate the routing METHOD on real roads.",
+      "front_source": "data/validation_cases/yeongdeok_2025_perimeter_approx.geojson",
+      "route_method": "naive = fire-blind least-walk-time to nearest coastal safe node; future_aware = same objective, forbidding any node the front reaches at/before arrival. Replicates routing/evacuation.py policies.",
+      "origin_selection": "deterministic: among origins where naive enters the front and future-aware stays clean, max detour-minutes, tie-break lowest OSM node id. No randomness.",
+      "y_axis": "normalized y flipped for screen (north = up)"
+    },
+    "fire_fronts": [
+      {
+        "t_min": 0.0,
+        "area_ha": 0.5,
+        "t_norm": 0.0,
+        "ring": [
+          [
+            0.49309,
+            0.62114
+          ],
+          [
+            0.49309,
+            0.61169
+          ],
+          [
+            0.48749,
+            0.61169
+          ],
+          [
+            0.48749,
+            0.62114
+          ],
+          [
+            0.49309,
+            0.62114
+          ]
+        ]
+      },
+      {
+        "t_min": 60.0,
+        "area_ha": 50.0,
+        "t_norm": 0.0208,
+        "ring": [
+          [
+            0.53182,
+            0.6419
+          ],
+          [
+            0.53133,
+            0.64367
+          ],
+          [
+            0.53067,
+            0.64533
+          ],
+          [
+            0.52984,
+            0.64687
+          ],
+          [
+            0.52884,
+            0.64828
+          ],
+          [
+            0.52767,
+            0.64955
+          ],
+          [
+            0.52634,
+            0.65067
+          ],
+          [
+            0.52486,
+            0.65165
+          ],
+          [
+            0.52323,
+            0.65248
+          ],
+          [
+            0.52146,
+            0.65316
+          ],
+          [
+            0.51955,
+            0.65368
+          ],
+          [
+            0.51753,
+            0.65404
+          ],
+          [
+            0.51538,
+            0.65424
+          ],
+          [
+            0.51313,
+            0.65427
+          ],
+          [
+            0.51077,
+            0.65414
+          ],
+          [
+            0.50833,
+            0.65386
+          ],
+          [
+            0.50582,
+            0.65341
+          ],
+          [
+            0.50324,
+            0.6528
+          ],
+          [
+            0.5006,
+            0.65204
+          ],
+          [
+            0.49791,
+            0.65112
+          ],
+          [
+            0.4952,
+            0.65006
+          ],
+          [
+            0.49246,
+            0.64885
+          ],
+          [
+            0.48972,
+            0.64751
+          ],
+          [
+            0.48698,
+            0.64603
+          ],
+          [
+            0.48425,
+            0.64442
+          ],
+          [
+            0.48154,
+            0.64269
+          ],
+          [
+            0.47888,
+            0.64085
+          ],
+          [
+            0.47626,
+            0.63891
+          ],
+          [
+            0.47371,
+            0.63687
+          ],
+          [
+            0.47122,
+            0.63474
+          ],
+          [
+            0.46882,
+            0.63254
+          ],
+          [
+            0.46651,
+            0.63026
+          ],
+          [
+            0.4643,
+            0.62793
+          ],
+          [
+            0.4622,
+            0.62554
+          ],
+          [
+            0.46022,
+            0.62312
+          ],
+          [
+            0.45837,
+            0.62067
+          ],
+          [
+            0.45666,
+            0.6182
+          ],
+          [
+            0.45509,
+            0.61572
+          ],
+          [
+            0.45367,
+            0.61325
+          ],
+          [
+            0.45241,
+            0.61079
+          ],
+          [
+            0.45131,
+            0.60835
+          ],
+          [
+            0.45038,
+            0.60595
+          ],
+          [
+            0.44962,
+            0.60359
+          ],
+          [
+            0.44903,
+            0.60129
+          ],
+          [
+            0.44862,
+            0.59905
+          ],
+          [
+            0.44839,
+            0.59689
+          ],
+          [
+            0.44834,
+            0.59481
+          ],
+          [
+            0.44846,
+            0.59282
+          ],
+          [
+            0.44877,
+            0.59093
+          ],
+          [
+            0.44925,
+            0.58916
+          ],
+          [
+            0.44991,
+            0.5875
+          ],
+          [
+            0.45075,
+            0.58596
+          ],
+          [
+            0.45175,
+            0.58456
+          ],
+          [
+            0.45292,
+            0.58329
+          ],
+          [
+            0.45424,
+            0.58216
+          ],
+          [
+            0.45572,
+            0.58118
+          ],
+          [
+            0.45735,
+            0.58035
+          ],
+          [
+            0.45913,
+            0.57967
+          ],
+          [
+            0.46103,
+            0.57915
+          ],
+          [
+            0.46306,
+            0.57879
+          ],
+          [
+            0.46521,
+            0.5786
+          ],
+          [
+            0.46746,
+            0.57856
+          ],
+          [
+            0.46981,
+            0.57869
+          ],
+          [
+            0.47225,
+            0.57898
+          ],
+          [
+            0.47477,
+            0.57942
+          ],
+          [
+            0.47735,
+            0.58003
+          ],
+          [
+            0.47999,
+            0.58079
+          ],
+          [
+            0.48267,
+            0.58171
+          ],
+          [
+            0.48538,
+            0.58277
+          ],
+          [
+            0.48812,
+            0.58398
+          ],
+          [
+            0.49087,
+            0.58533
+          ],
+          [
+            0.49361,
+            0.58681
+          ],
+          [
+            0.49634,
+            0.58841
+          ],
+          [
+            0.49904,
+            0.59014
+          ],
+          [
+            0.50171,
+            0.59198
+          ],
+          [
+            0.50432,
+            0.59392
+          ],
+          [
+            0.50688,
+            0.59596
+          ],
+          [
+            0.50936,
+            0.59809
+          ],
+          [
+            0.51177,
+            0.6003
+          ],
+          [
+            0.51408,
+            0.60257
+          ],
+          [
+            0.51629,
+            0.6049
+          ],
+          [
+            0.51839,
+            0.60729
+          ],
+          [
+            0.52037,
+            0.60971
+          ],
+          [
+            0.52222,
+            0.61216
+          ],
+          [
+            0.52393,
+            0.61463
+          ],
+          [
+            0.5255,
+            0.61711
+          ],
+          [
+            0.52691,
+            0.61958
+          ],
+          [
+            0.52818,
+            0.62204
+          ],
+          [
+            0.52927,
+            0.62448
+          ],
+          [
+            0.53021,
+            0.62688
+          ],
+          [
+            0.53097,
+            0.62924
+          ],
+          [
+            0.53155,
+            0.63154
+          ],
+          [
+            0.53197,
+            0.63378
+          ],
+          [
+            0.5322,
+            0.63594
+          ],
+          [
+            0.53225,
+            0.63802
+          ],
+          [
+            0.53212,
+            0.64001
+          ],
+          [
+            0.53182,
+            0.6419
+          ]
+        ]
+      },
+      {
+        "t_min": 120.0,
+        "area_ha": 250.0,
+        "t_norm": 0.0417,
+        "ring": [
+          [
+            0.58314,
+            0.67339
+          ],
+          [
+            0.58206,
+            0.67737
+          ],
+          [
+            0.58058,
+            0.68108
+          ],
+          [
+            0.57872,
+            0.68451
+          ],
+          [
+            0.57648,
+            0.68766
+          ],
+          [
+            0.57387,
+            0.6905
+          ],
+          [
+            0.5709,
+            0.69302
+          ],
+          [
+            0.56759,
+            0.69521
+          ],
+          [
+            0.56394,
+            0.69707
+          ],
+          [
+            0.55998,
+            0.69858
+          ],
+          [
+            0.55572,
+            0.69974
+          ],
+          [
+            0.55119,
+            0.70054
+          ],
+          [
+            0.54639,
+            0.70098
+          ],
+          [
+            0.54135,
+            0.70106
+          ],
+          [
+            0.53609,
+            0.70078
+          ],
+          [
+            0.53064,
+            0.70014
+          ],
+          [
+            0.52501,
+            0.69913
+          ],
+          [
+            0.51923,
+            0.69778
+          ],
+          [
+            0.51334,
+            0.69607
+          ],
+          [
+            0.50734,
+            0.69403
+          ],
+          [
+            0.50127,
+            0.69165
+          ],
+          [
+            0.49515,
+            0.68895
+          ],
+          [
+            0.48901,
+            0.68594
+          ],
+          [
+            0.48288,
+            0.68263
+          ],
+          [
+            0.47677,
+            0.67903
+          ],
+          [
+            0.47073,
+            0.67517
+          ],
+          [
+            0.46477,
+            0.67106
+          ],
+          [
+            0.45892,
+            0.66671
+          ],
+          [
+            0.4532,
+            0.66215
+          ],
+          [
+            0.44765,
+            0.6574
+          ],
+          [
+            0.44227,
+            0.65246
+          ],
+          [
+            0.4371,
+            0.64738
+          ],
+          [
+            0.43216,
+            0.64216
+          ],
+          [
+            0.42747,
+            0.63683
+          ],
+          [
+            0.42305,
+            0.63141
+          ],
+          [
+            0.41891,
+            0.62593
+          ],
+          [
+            0.41508,
+            0.6204
+          ],
+          [
+            0.41157,
+            0.61486
+          ],
+          [
+            0.4084,
+            0.60933
+          ],
+          [
+            0.40558,
+            0.60383
+          ],
+          [
+            0.40312,
+            0.59838
+          ],
+          [
+            0.40104,
+            0.59301
+          ],
+          [
+            0.39934,
+            0.58774
+          ],
+          [
+            0.39803,
+            0.58259
+          ],
+          [
+            0.39711,
+            0.57759
+          ],
+          [
+            0.39659,
+            0.57275
+          ],
+          [
+            0.39647,
+            0.5681
+          ],
+          [
+            0.39676,
+            0.56366
+          ],
+          [
+            0.39744,
+            0.55944
+          ],
+          [
+            0.39853,
+            0.55546
+          ],
+          [
+            0.4,
+            0.55175
+          ],
+          [
+            0.40186,
+            0.54832
+          ],
+          [
+            0.40411,
+            0.54517
+          ],
+          [
+            0.40672,
+            0.54233
+          ],
+          [
+            0.40968,
+            0.53981
+          ],
+          [
+            0.413,
+            0.53762
+          ],
+          [
+            0.41664,
+            0.53576
+          ],
+          [
+            0.4206,
+            0.53425
+          ],
+          [
+            0.42486,
+            0.53309
+          ],
+          [
+            0.4294,
+            0.53229
+          ],
+          [
+            0.4342,
+            0.53185
+          ],
+          [
+            0.43924,
+            0.53177
+          ],
+          [
+            0.44449,
+            0.53205
+          ],
+          [
+            0.44995,
+            0.5327
+          ],
+          [
+            0.45557,
+            0.5337
+          ],
+          [
+            0.46135,
+            0.53506
+          ],
+          [
+            0.46725,
+            0.53676
+          ],
+          [
+            0.47325,
+            0.53881
+          ],
+          [
+            0.47932,
+            0.54118
+          ],
+          [
+            0.48544,
+            0.54389
+          ],
+          [
+            0.49157,
+            0.5469
+          ],
+          [
+            0.49771,
+            0.55021
+          ],
+          [
+            0.50381,
+            0.5538
+          ],
+          [
+            0.50985,
+            0.55766
+          ],
+          [
+            0.51581,
+            0.56177
+          ],
+          [
+            0.52166,
+            0.56612
+          ],
+          [
+            0.52738,
+            0.57068
+          ],
+          [
+            0.53294,
+            0.57544
+          ],
+          [
+            0.53831,
+            0.58037
+          ],
+          [
+            0.54348,
+            0.58546
+          ],
+          [
+            0.54842,
+            0.59068
+          ],
+          [
+            0.55312,
+            0.59601
+          ],
+          [
+            0.55754,
+            0.60142
+          ],
+          [
+            0.56167,
+            0.60691
+          ],
+          [
+            0.5655,
+            0.61243
+          ],
+          [
+            0.56901,
+            0.61797
+          ],
+          [
+            0.57218,
+            0.6235
+          ],
+          [
+            0.575,
+            0.629
+          ],
+          [
+            0.57746,
+            0.63445
+          ],
+          [
+            0.57954,
+            0.63982
+          ],
+          [
+            0.58125,
+            0.64509
+          ],
+          [
+            0.58256,
+            0.65024
+          ],
+          [
+            0.58348,
+            0.65525
+          ],
+          [
+            0.58399,
+            0.66008
+          ],
+          [
+            0.58411,
+            0.66473
+          ],
+          [
+            0.58383,
+            0.66918
+          ],
+          [
+            0.58314,
+            0.67339
+          ]
+        ]
+      },
+      {
+        "t_min": 180.0,
+        "area_ha": 600.0,
+        "t_norm": 0.0625,
+        "ring": [
+          [
+            0.63413,
+            0.70469
+          ],
+          [
+            0.63246,
+            0.71084
+          ],
+          [
+            0.63017,
+            0.71659
+          ],
+          [
+            0.62728,
+            0.72191
+          ],
+          [
+            0.62381,
+            0.72678
+          ],
+          [
+            0.61977,
+            0.73118
+          ],
+          [
+            0.61517,
+            0.73509
+          ],
+          [
+            0.61004,
+            0.73849
+          ],
+          [
+            0.60439,
+            0.74136
+          ],
+          [
+            0.59826,
+            0.7437
+          ],
+          [
+            0.59166,
+            0.7455
+          ],
+          [
+            0.58463,
+            0.74674
+          ],
+          [
+            0.57719,
+            0.74743
+          ],
+          [
+            0.56939,
+            0.74755
+          ],
+          [
+            0.56124,
+            0.74711
+          ],
+          [
+            0.55279,
+            0.74611
+          ],
+          [
+            0.54408,
+            0.74456
+          ],
+          [
+            0.53513,
+            0.74246
+          ],
+          [
+            0.52599,
+            0.73982
+          ],
+          [
+            0.5167,
+            0.73665
+          ],
+          [
+            0.50729,
+            0.73296
+          ],
+          [
+            0.49781,
+            0.72878
+          ],
+          [
+            0.4883,
+            0.72411
+          ],
+          [
+            0.4788,
+            0.71899
+          ],
+          [
+            0.46935,
+            0.71342
+          ],
+          [
+            0.45999,
+            0.70744
+          ],
+          [
+            0.45075,
+            0.70107
+          ],
+          [
+            0.44169,
+            0.69434
+          ],
+          [
+            0.43284,
+            0.68727
+          ],
+          [
+            0.42423,
+            0.6799
+          ],
+          [
+            0.4159,
+            0.67226
+          ],
+          [
+            0.40789,
+            0.66438
+          ],
+          [
+            0.40024,
+            0.65629
+          ],
+          [
+            0.39297,
+            0.64803
+          ],
+          [
+            0.38611,
+            0.63964
+          ],
+          [
+            0.37971,
+            0.63115
+          ],
+          [
+            0.37377,
+            0.62259
+          ],
+          [
+            0.36834,
+            0.61401
+          ],
+          [
+            0.36343,
+            0.60544
+          ],
+          [
+            0.35906,
+            0.59692
+          ],
+          [
+            0.35525,
+            0.58848
+          ],
+          [
+            0.35202,
+            0.58015
+          ],
+          [
+            0.34939,
+            0.57199
+          ],
+          [
+            0.34735,
+            0.56401
+          ],
+          [
+            0.34593,
+            0.55626
+          ],
+          [
+            0.34513,
+            0.54877
+          ],
+          [
+            0.34495,
+            0.54156
+          ],
+          [
+            0.34539,
+            0.53468
+          ],
+          [
+            0.34645,
+            0.52815
+          ],
+          [
+            0.34813,
+            0.52199
+          ],
+          [
+            0.35042,
+            0.51624
+          ],
+          [
+            0.3533,
+            0.51092
+          ],
+          [
+            0.35677,
+            0.50605
+          ],
+          [
+            0.36082,
+            0.50165
+          ],
+          [
+            0.36541,
+            0.49774
+          ],
+          [
+            0.37055,
+            0.49434
+          ],
+          [
+            0.37619,
+            0.49147
+          ],
+          [
+            0.38233,
+            0.48913
+          ],
+          [
+            0.38892,
+            0.48733
+          ],
+          [
+            0.39595,
+            0.48609
+          ],
+          [
+            0.40339,
+            0.48541
+          ],
+          [
+            0.4112,
+            0.48528
+          ],
+          [
+            0.41934,
+            0.48572
+          ],
+          [
+            0.42779,
+            0.48672
+          ],
+          [
+            0.43651,
+            0.48827
+          ],
+          [
+            0.44545,
+            0.49037
+          ],
+          [
+            0.45459,
+            0.49301
+          ],
+          [
+            0.46389,
+            0.49618
+          ],
+          [
+            0.47329,
+            0.49987
+          ],
+          [
+            0.48277,
+            0.50405
+          ],
+          [
+            0.49228,
+            0.50872
+          ],
+          [
+            0.50178,
+            0.51384
+          ],
+          [
+            0.51123,
+            0.51941
+          ],
+          [
+            0.5206,
+            0.52539
+          ],
+          [
+            0.52983,
+            0.53176
+          ],
+          [
+            0.53889,
+            0.53849
+          ],
+          [
+            0.54775,
+            0.54556
+          ],
+          [
+            0.55636,
+            0.55293
+          ],
+          [
+            0.56468,
+            0.56057
+          ],
+          [
+            0.57269,
+            0.56845
+          ],
+          [
+            0.58035,
+            0.57654
+          ],
+          [
+            0.58762,
+            0.5848
+          ],
+          [
+            0.59447,
+            0.59319
+          ],
+          [
+            0.60088,
+            0.60168
+          ],
+          [
+            0.60681,
+            0.61024
+          ],
+          [
+            0.61224,
+            0.61882
+          ],
+          [
+            0.61716,
+            0.62739
+          ],
+          [
+            0.62153,
+            0.63591
+          ],
+          [
+            0.62533,
+            0.64436
+          ],
+          [
+            0.62856,
+            0.65268
+          ],
+          [
+            0.6312,
+            0.66084
+          ],
+          [
+            0.63323,
+            0.66882
+          ],
+          [
+            0.63465,
+            0.67657
+          ],
+          [
+            0.63545,
+            0.68406
+          ],
+          [
+            0.63564,
+            0.69127
+          ],
+          [
+            0.63519,
+            0.69815
+          ],
+          [
+            0.63413,
+            0.70469
+          ]
+        ]
+      },
+      {
+        "t_min": 240.0,
+        "area_ha": 900.0,
+        "t_norm": 0.0833,
+        "ring": [
+          [
+            0.66646,
+            0.72452
+          ],
+          [
+            0.66441,
+            0.73206
+          ],
+          [
+            0.66161,
+            0.73911
+          ],
+          [
+            0.65807,
+            0.74562
+          ],
+          [
+            0.65382,
+            0.75159
+          ],
+          [
+            0.64887,
+            0.75698
+          ],
+          [
+            0.64324,
+            0.76176
+          ],
+          [
+            0.63695,
+            0.76592
+          ],
+          [
+            0.63003,
+            0.76944
+          ],
+          [
+            0.62252,
+            0.77231
+          ],
+          [
+            0.61444,
+            0.77451
+          ],
+          [
+            0.60583,
+            0.77603
+          ],
+          [
+            0.59673,
+            0.77687
+          ],
+          [
+            0.58716,
+            0.77702
+          ],
+          [
+            0.57719,
+            0.77648
+          ],
+          [
+            0.56684,
+            0.77526
+          ],
+          [
+            0.55616,
+            0.77336
+          ],
+          [
+            0.54521,
+            0.77079
+          ],
+          [
+            0.53401,
+            0.76755
+          ],
+          [
+            0.52263,
+            0.76367
+          ],
+          [
+            0.51111,
+            0.75916
+          ],
+          [
+            0.49951,
+            0.75403
+          ],
+          [
+            0.48786,
+            0.74832
+          ],
+          [
+            0.47622,
+            0.74204
+          ],
+          [
+            0.46464,
+            0.73522
+          ],
+          [
+            0.45318,
+            0.7279
+          ],
+          [
+            0.44187,
+            0.7201
+          ],
+          [
+            0.43077,
+            0.71185
+          ],
+          [
+            0.41992,
+            0.7032
+          ],
+          [
+            0.40938,
+            0.69417
+          ],
+          [
+            0.39918,
+            0.68481
+          ],
+          [
+            0.38937,
+            0.67516
+          ],
+          [
+            0.38,
+            0.66525
+          ],
+          [
+            0.37109,
+            0.65514
+          ],
+          [
+            0.3627,
+            0.64486
+          ],
+          [
+            0.35485,
+            0.63446
+          ],
+          [
+            0.34759,
+            0.62398
+          ],
+          [
+            0.34093,
+            0.61347
+          ],
+          [
+            0.33492,
+            0.60297
+          ],
+          [
+            0.32956,
+            0.59253
+          ],
+          [
+            0.3249,
+            0.5822
+          ],
+          [
+            0.32095,
+            0.57201
+          ],
+          [
+            0.31772,
+            0.562
+          ],
+          [
+            0.31523,
+            0.55224
+          ],
+          [
+            0.31349,
+            0.54274
+          ],
+          [
+            0.31251,
+            0.53356
+          ],
+          [
+            0.31228,
+            0.52474
+          ],
+          [
+            0.31282,
+            0.51631
+          ],
+          [
+            0.31412,
+            0.50831
+          ],
+          [
+            0.31618,
+            0.50077
+          ],
+          [
+            0.31898,
+            0.49373
+          ],
+          [
+            0.32251,
+            0.48721
+          ],
+          [
+            0.32677,
+            0.48124
+          ],
+          [
+            0.33172,
+            0.47586
+          ],
+          [
+            0.33735,
+            0.47107
+          ],
+          [
+            0.34364,
+            0.46691
+          ],
+          [
+            0.35055,
+            0.46339
+          ],
+          [
+            0.35806,
+            0.46052
+          ],
+          [
+            0.36614,
+            0.45832
+          ],
+          [
+            0.37475,
+            0.4568
+          ],
+          [
+            0.38386,
+            0.45596
+          ],
+          [
+            0.39342,
+            0.45581
+          ],
+          [
+            0.4034,
+            0.45635
+          ],
+          [
+            0.41374,
+            0.45757
+          ],
+          [
+            0.42442,
+            0.45947
+          ],
+          [
+            0.43538,
+            0.46204
+          ],
+          [
+            0.44657,
+            0.46528
+          ],
+          [
+            0.45795,
+            0.46916
+          ],
+          [
+            0.46947,
+            0.47368
+          ],
+          [
+            0.48108,
+            0.4788
+          ],
+          [
+            0.49273,
+            0.48451
+          ],
+          [
+            0.50436,
+            0.49079
+          ],
+          [
+            0.51594,
+            0.49761
+          ],
+          [
+            0.52741,
+            0.50493
+          ],
+          [
+            0.53872,
+            0.51273
+          ],
+          [
+            0.54982,
+            0.52098
+          ],
+          [
+            0.56066,
+            0.52964
+          ],
+          [
+            0.57121,
+            0.53866
+          ],
+          [
+            0.5814,
+            0.54802
+          ],
+          [
+            0.59121,
+            0.55767
+          ],
+          [
+            0.60059,
+            0.56758
+          ],
+          [
+            0.60949,
+            0.57769
+          ],
+          [
+            0.61788,
+            0.58797
+          ],
+          [
+            0.62573,
+            0.59837
+          ],
+          [
+            0.633,
+            0.60885
+          ],
+          [
+            0.63965,
+            0.61936
+          ],
+          [
+            0.64567,
+            0.62986
+          ],
+          [
+            0.65102,
+            0.6403
+          ],
+          [
+            0.65568,
+            0.65064
+          ],
+          [
+            0.65964,
+            0.66083
+          ],
+          [
+            0.66287,
+            0.67083
+          ],
+          [
+            0.66536,
+            0.6806
+          ],
+          [
+            0.6671,
+            0.69009
+          ],
+          [
+            0.66808,
+            0.69927
+          ],
+          [
+            0.6683,
+            0.70809
+          ],
+          [
+            0.66776,
+            0.71652
+          ],
+          [
+            0.66646,
+            0.72452
+          ]
+        ]
+      },
+      {
+        "t_min": 360.0,
+        "area_ha": 1500.0,
+        "t_norm": 0.125,
+        "ring": [
+          [
+            0.71772,
+            0.75598
+          ],
+          [
+            0.71507,
+            0.76571
+          ],
+          [
+            0.71146,
+            0.77481
+          ],
+          [
+            0.70689,
+            0.78322
+          ],
+          [
+            0.7014,
+            0.79092
+          ],
+          [
+            0.69501,
+            0.79788
+          ],
+          [
+            0.68774,
+            0.80405
+          ],
+          [
+            0.67962,
+            0.80943
+          ],
+          [
+            0.6707,
+            0.81397
+          ],
+          [
+            0.661,
+            0.81767
+          ],
+          [
+            0.65057,
+            0.82051
+          ],
+          [
+            0.63945,
+            0.82248
+          ],
+          [
+            0.6277,
+            0.82356
+          ],
+          [
+            0.61535,
+            0.82376
+          ],
+          [
+            0.60247,
+            0.82306
+          ],
+          [
+            0.58912,
+            0.82149
+          ],
+          [
+            0.57533,
+            0.81903
+          ],
+          [
+            0.56119,
+            0.81571
+          ],
+          [
+            0.54674,
+            0.81153
+          ],
+          [
+            0.53204,
+            0.80652
+          ],
+          [
+            0.51717,
+            0.80069
+          ],
+          [
+            0.50219,
+            0.79408
+          ],
+          [
+            0.48715,
+            0.7867
+          ],
+          [
+            0.47213,
+            0.7786
+          ],
+          [
+            0.45718,
+            0.7698
+          ],
+          [
+            0.44238,
+            0.76034
+          ],
+          [
+            0.42778,
+            0.75027
+          ],
+          [
+            0.41345,
+            0.73962
+          ],
+          [
+            0.39945,
+            0.72845
+          ],
+          [
+            0.38583,
+            0.7168
+          ],
+          [
+            0.37267,
+            0.70471
+          ],
+          [
+            0.36,
+            0.69225
+          ],
+          [
+            0.3479,
+            0.67947
+          ],
+          [
+            0.33641,
+            0.66641
+          ],
+          [
+            0.32557,
+            0.65314
+          ],
+          [
+            0.31544,
+            0.63971
+          ],
+          [
+            0.30606,
+            0.62619
+          ],
+          [
+            0.29747,
+            0.61262
+          ],
+          [
+            0.2897,
+            0.59906
+          ],
+          [
+            0.28279,
+            0.58559
+          ],
+          [
+            0.27677,
+            0.57224
+          ],
+          [
+            0.27167,
+            0.55908
+          ],
+          [
+            0.2675,
+            0.54617
+          ],
+          [
+            0.26429,
+            0.53356
+          ],
+          [
+            0.26204,
+            0.5213
+          ],
+          [
+            0.26077,
+            0.50945
+          ],
+          [
+            0.26048,
+            0.49806
+          ],
+          [
+            0.26118,
+            0.48718
+          ],
+          [
+            0.26286,
+            0.47685
+          ],
+          [
+            0.26551,
+            0.46712
+          ],
+          [
+            0.26913,
+            0.45802
+          ],
+          [
+            0.27369,
+            0.44961
+          ],
+          [
+            0.27918,
+            0.44191
+          ],
+          [
+            0.28557,
+            0.43495
+          ],
+          [
+            0.29284,
+            0.42878
+          ],
+          [
+            0.30096,
+            0.4234
+          ],
+          [
+            0.30989,
+            0.41886
+          ],
+          [
+            0.31959,
+            0.41516
+          ],
+          [
+            0.33002,
+            0.41232
+          ],
+          [
+            0.34113,
+            0.41035
+          ],
+          [
+            0.35289,
+            0.40927
+          ],
+          [
+            0.36523,
+            0.40908
+          ],
+          [
+            0.37811,
+            0.40977
+          ],
+          [
+            0.39147,
+            0.41134
+          ],
+          [
+            0.40525,
+            0.4138
+          ],
+          [
+            0.4194,
+            0.41712
+          ],
+          [
+            0.43385,
+            0.4213
+          ],
+          [
+            0.44854,
+            0.42631
+          ],
+          [
+            0.46341,
+            0.43214
+          ],
+          [
+            0.4784,
+            0.43875
+          ],
+          [
+            0.49343,
+            0.44613
+          ],
+          [
+            0.50846,
+            0.45423
+          ],
+          [
+            0.5234,
+            0.46303
+          ],
+          [
+            0.53821,
+            0.47249
+          ],
+          [
+            0.55281,
+            0.48256
+          ],
+          [
+            0.56714,
+            0.49321
+          ],
+          [
+            0.58114,
+            0.50438
+          ],
+          [
+            0.59475,
+            0.51604
+          ],
+          [
+            0.60792,
+            0.52812
+          ],
+          [
+            0.62058,
+            0.54058
+          ],
+          [
+            0.63268,
+            0.55337
+          ],
+          [
+            0.64418,
+            0.56642
+          ],
+          [
+            0.65501,
+            0.57969
+          ],
+          [
+            0.66514,
+            0.59312
+          ],
+          [
+            0.67452,
+            0.60665
+          ],
+          [
+            0.68312,
+            0.62022
+          ],
+          [
+            0.69088,
+            0.63377
+          ],
+          [
+            0.69779,
+            0.64725
+          ],
+          [
+            0.70381,
+            0.66059
+          ],
+          [
+            0.70891,
+            0.67375
+          ],
+          [
+            0.71308,
+            0.68666
+          ],
+          [
+            0.7163,
+            0.69927
+          ],
+          [
+            0.71854,
+            0.71153
+          ],
+          [
+            0.71981,
+            0.72338
+          ],
+          [
+            0.7201,
+            0.73477
+          ],
+          [
+            0.7194,
+            0.74565
+          ],
+          [
+            0.71772,
+            0.75598
+          ]
+        ]
+      },
+      {
+        "t_min": 540.0,
+        "area_ha": 2200.0,
+        "t_norm": 0.1875,
+        "ring": [
+          [
+            0.76573,
+            0.78544
+          ],
+          [
+            0.76251,
+            0.79723
+          ],
+          [
+            0.75814,
+            0.80824
+          ],
+          [
+            0.75261,
+            0.81843
+          ],
+          [
+            0.74596,
+            0.82776
+          ],
+          [
+            0.73822,
+            0.83618
+          ],
+          [
+            0.72941,
+            0.84366
+          ],
+          [
+            0.71959,
+            0.85016
+          ],
+          [
+            0.70877,
+            0.85567
+          ],
+          [
+            0.69703,
+            0.86015
+          ],
+          [
+            0.6844,
+            0.86359
+          ],
+          [
+            0.67093,
+            0.86597
+          ],
+          [
+            0.6567,
+            0.86728
+          ],
+          [
+            0.64175,
+            0.86752
+          ],
+          [
+            0.62615,
+            0.86668
+          ],
+          [
+            0.60997,
+            0.86477
+          ],
+          [
+            0.59328,
+            0.8618
+          ],
+          [
+            0.57615,
+            0.85777
+          ],
+          [
+            0.55865,
+            0.85271
+          ],
+          [
+            0.54086,
+            0.84664
+          ],
+          [
+            0.52285,
+            0.83959
+          ],
+          [
+            0.5047,
+            0.83158
+          ],
+          [
+            0.48649,
+            0.82264
+          ],
+          [
+            0.46829,
+            0.81283
+          ],
+          [
+            0.45019,
+            0.80217
+          ],
+          [
+            0.43226,
+            0.79072
+          ],
+          [
+            0.41458,
+            0.77852
+          ],
+          [
+            0.39723,
+            0.76563
+          ],
+          [
+            0.38027,
+            0.75209
+          ],
+          [
+            0.36379,
+            0.73798
+          ],
+          [
+            0.34784,
+            0.72335
+          ],
+          [
+            0.33251,
+            0.70826
+          ],
+          [
+            0.31785,
+            0.69277
+          ],
+          [
+            0.30393,
+            0.67696
+          ],
+          [
+            0.29081,
+            0.66089
+          ],
+          [
+            0.27854,
+            0.64463
+          ],
+          [
+            0.26718,
+            0.62825
+          ],
+          [
+            0.25677,
+            0.61181
+          ],
+          [
+            0.24736,
+            0.5954
+          ],
+          [
+            0.239,
+            0.57908
+          ],
+          [
+            0.23171,
+            0.56292
+          ],
+          [
+            0.22553,
+            0.54698
+          ],
+          [
+            0.22048,
+            0.53134
+          ],
+          [
+            0.21659,
+            0.51607
+          ],
+          [
+            0.21387,
+            0.50123
+          ],
+          [
+            0.21233,
+            0.48688
+          ],
+          [
+            0.21198,
+            0.47308
+          ],
+          [
+            0.21283,
+            0.4599
+          ],
+          [
+            0.21486,
+            0.44739
+          ],
+          [
+            0.21807,
+            0.43561
+          ],
+          [
+            0.22245,
+            0.42459
+          ],
+          [
+            0.22797,
+            0.4144
+          ],
+          [
+            0.23462,
+            0.40508
+          ],
+          [
+            0.24237,
+            0.39665
+          ],
+          [
+            0.25117,
+            0.38917
+          ],
+          [
+            0.261,
+            0.38267
+          ],
+          [
+            0.27181,
+            0.37716
+          ],
+          [
+            0.28356,
+            0.37268
+          ],
+          [
+            0.29619,
+            0.36924
+          ],
+          [
+            0.30965,
+            0.36686
+          ],
+          [
+            0.32389,
+            0.36555
+          ],
+          [
+            0.33883,
+            0.36531
+          ],
+          [
+            0.35443,
+            0.36615
+          ],
+          [
+            0.37061,
+            0.36806
+          ],
+          [
+            0.3873,
+            0.37104
+          ],
+          [
+            0.40444,
+            0.37506
+          ],
+          [
+            0.42194,
+            0.38012
+          ],
+          [
+            0.43973,
+            0.38619
+          ],
+          [
+            0.45774,
+            0.39324
+          ],
+          [
+            0.47589,
+            0.40126
+          ],
+          [
+            0.4941,
+            0.41019
+          ],
+          [
+            0.51229,
+            0.42
+          ],
+          [
+            0.53039,
+            0.43066
+          ],
+          [
+            0.54832,
+            0.44211
+          ],
+          [
+            0.566,
+            0.45431
+          ],
+          [
+            0.58336,
+            0.46721
+          ],
+          [
+            0.60031,
+            0.48074
+          ],
+          [
+            0.6168,
+            0.49485
+          ],
+          [
+            0.63274,
+            0.50948
+          ],
+          [
+            0.64808,
+            0.52457
+          ],
+          [
+            0.66274,
+            0.54006
+          ],
+          [
+            0.67666,
+            0.55587
+          ],
+          [
+            0.68978,
+            0.57194
+          ],
+          [
+            0.70205,
+            0.5882
+          ],
+          [
+            0.71341,
+            0.60458
+          ],
+          [
+            0.72381,
+            0.62102
+          ],
+          [
+            0.73322,
+            0.63743
+          ],
+          [
+            0.74159,
+            0.65375
+          ],
+          [
+            0.74887,
+            0.66992
+          ],
+          [
+            0.75506,
+            0.68585
+          ],
+          [
+            0.76011,
+            0.70149
+          ],
+          [
+            0.764,
+            0.71676
+          ],
+          [
+            0.76672,
+            0.7316
+          ],
+          [
+            0.76826,
+            0.74595
+          ],
+          [
+            0.7686,
+            0.75975
+          ],
+          [
+            0.76776,
+            0.77293
+          ],
+          [
+            0.76573,
+            0.78544
+          ]
+        ]
+      },
+      {
+        "t_min": 720.0,
+        "area_ha": 2800.0,
+        "t_norm": 0.25,
+        "ring": [
+          [
+            0.80102,
+            0.8071
+          ],
+          [
+            0.7974,
+            0.8204
+          ],
+          [
+            0.79246,
+            0.83282
+          ],
+          [
+            0.78623,
+            0.84432
+          ],
+          [
+            0.77873,
+            0.85484
+          ],
+          [
+            0.76999,
+            0.86434
+          ],
+          [
+            0.76006,
+            0.87278
+          ],
+          [
+            0.74897,
+            0.88012
+          ],
+          [
+            0.73677,
+            0.88633
+          ],
+          [
+            0.72352,
+            0.89139
+          ],
+          [
+            0.70927,
+            0.89527
+          ],
+          [
+            0.69408,
+            0.89795
+          ],
+          [
+            0.67802,
+            0.89943
+          ],
+          [
+            0.66116,
+            0.8997
+          ],
+          [
+            0.64356,
+            0.89875
+          ],
+          [
+            0.62531,
+            0.8966
+          ],
+          [
+            0.60648,
+            0.89324
+          ],
+          [
+            0.58715,
+            0.8887
+          ],
+          [
+            0.56741,
+            0.88299
+          ],
+          [
+            0.54734,
+            0.87615
+          ],
+          [
+            0.52702,
+            0.86819
+          ],
+          [
+            0.50654,
+            0.85915
+          ],
+          [
+            0.486,
+            0.84907
+          ],
+          [
+            0.46547,
+            0.838
+          ],
+          [
+            0.44505,
+            0.82598
+          ],
+          [
+            0.42483,
+            0.81306
+          ],
+          [
+            0.40488,
+            0.79929
+          ],
+          [
+            0.3853,
+            0.78475
+          ],
+          [
+            0.36617,
+            0.76948
+          ],
+          [
+            0.34757,
+            0.75356
+          ],
+          [
+            0.32959,
+            0.73705
+          ],
+          [
+            0.31229,
+            0.72003
+          ],
+          [
+            0.29575,
+            0.70256
+          ],
+          [
+            0.28004,
+            0.68472
+          ],
+          [
+            0.26524,
+            0.66659
+          ],
+          [
+            0.2514,
+            0.64824
+          ],
+          [
+            0.23858,
+            0.62976
+          ],
+          [
+            0.22684,
+            0.61122
+          ],
+          [
+            0.21623,
+            0.59271
+          ],
+          [
+            0.2068,
+            0.57429
+          ],
+          [
+            0.19857,
+            0.55606
+          ],
+          [
+            0.1916,
+            0.53808
+          ],
+          [
+            0.1859,
+            0.52044
+          ],
+          [
+            0.18151,
+            0.50321
+          ],
+          [
+            0.17844,
+            0.48647
+          ],
+          [
+            0.17671,
+            0.47028
+          ],
+          [
+            0.17631,
+            0.45472
+          ],
+          [
+            0.17727,
+            0.43985
+          ],
+          [
+            0.17956,
+            0.42573
+          ],
+          [
+            0.18319,
+            0.41243
+          ],
+          [
+            0.18812,
+            0.40001
+          ],
+          [
+            0.19436,
+            0.38851
+          ],
+          [
+            0.20186,
+            0.37799
+          ],
+          [
+            0.21059,
+            0.36849
+          ],
+          [
+            0.22053,
+            0.36005
+          ],
+          [
+            0.23161,
+            0.35271
+          ],
+          [
+            0.24381,
+            0.3465
+          ],
+          [
+            0.25706,
+            0.34144
+          ],
+          [
+            0.27131,
+            0.33756
+          ],
+          [
+            0.2865,
+            0.33488
+          ],
+          [
+            0.30256,
+            0.3334
+          ],
+          [
+            0.31943,
+            0.33313
+          ],
+          [
+            0.33702,
+            0.33408
+          ],
+          [
+            0.35527,
+            0.33624
+          ],
+          [
+            0.3741,
+            0.33959
+          ],
+          [
+            0.39343,
+            0.34413
+          ],
+          [
+            0.41318,
+            0.34984
+          ],
+          [
+            0.43325,
+            0.35668
+          ],
+          [
+            0.45357,
+            0.36464
+          ],
+          [
+            0.47404,
+            0.37368
+          ],
+          [
+            0.49459,
+            0.38376
+          ],
+          [
+            0.51511,
+            0.39483
+          ],
+          [
+            0.53553,
+            0.40686
+          ],
+          [
+            0.55576,
+            0.41978
+          ],
+          [
+            0.5757,
+            0.43354
+          ],
+          [
+            0.59528,
+            0.44808
+          ],
+          [
+            0.61441,
+            0.46335
+          ],
+          [
+            0.63301,
+            0.47927
+          ],
+          [
+            0.651,
+            0.49578
+          ],
+          [
+            0.6683,
+            0.5128
+          ],
+          [
+            0.68484,
+            0.53027
+          ],
+          [
+            0.70054,
+            0.54811
+          ],
+          [
+            0.71534,
+            0.56624
+          ],
+          [
+            0.72918,
+            0.58459
+          ],
+          [
+            0.742,
+            0.60307
+          ],
+          [
+            0.75374,
+            0.62161
+          ],
+          [
+            0.76435,
+            0.64012
+          ],
+          [
+            0.77379,
+            0.65854
+          ],
+          [
+            0.78201,
+            0.67677
+          ],
+          [
+            0.78899,
+            0.69475
+          ],
+          [
+            0.79468,
+            0.71239
+          ],
+          [
+            0.79907,
+            0.72962
+          ],
+          [
+            0.80214,
+            0.74636
+          ],
+          [
+            0.80388,
+            0.76255
+          ],
+          [
+            0.80427,
+            0.77811
+          ],
+          [
+            0.80332,
+            0.79299
+          ],
+          [
+            0.80102,
+            0.8071
+          ]
+        ]
+      },
+      {
+        "t_min": 1080.0,
+        "area_ha": 3400.0,
+        "t_norm": 0.375,
+        "ring": [
+          [
+            0.8327,
+            0.82654
+          ],
+          [
+            0.82871,
+            0.84119
+          ],
+          [
+            0.82326,
+            0.85488
+          ],
+          [
+            0.8164,
+            0.86755
+          ],
+          [
+            0.80813,
+            0.87915
+          ],
+          [
+            0.79851,
+            0.88962
+          ],
+          [
+            0.78756,
+            0.89891
+          ],
+          [
+            0.77534,
+            0.907
+          ],
+          [
+            0.7619,
+            0.91385
+          ],
+          [
+            0.7473,
+            0.91942
+          ],
+          [
+            0.7316,
+            0.92369
+          ],
+          [
+            0.71486,
+            0.92665
+          ],
+          [
+            0.69716,
+            0.92828
+          ],
+          [
+            0.67858,
+            0.92858
+          ],
+          [
+            0.65919,
+            0.92753
+          ],
+          [
+            0.63908,
+            0.92516
+          ],
+          [
+            0.61832,
+            0.92146
+          ],
+          [
+            0.59703,
+            0.91646
+          ],
+          [
+            0.57527,
+            0.91017
+          ],
+          [
+            0.55315,
+            0.90263
+          ],
+          [
+            0.53076,
+            0.89385
+          ],
+          [
+            0.5082,
+            0.88389
+          ],
+          [
+            0.48556,
+            0.87279
+          ],
+          [
+            0.46294,
+            0.86059
+          ],
+          [
+            0.44044,
+            0.84734
+          ],
+          [
+            0.41815,
+            0.8331
+          ],
+          [
+            0.39617,
+            0.81794
+          ],
+          [
+            0.3746,
+            0.80191
+          ],
+          [
+            0.35352,
+            0.78509
+          ],
+          [
+            0.33302,
+            0.76754
+          ],
+          [
+            0.3132,
+            0.74935
+          ],
+          [
+            0.29414,
+            0.73059
+          ],
+          [
+            0.27592,
+            0.71134
+          ],
+          [
+            0.25861,
+            0.69168
+          ],
+          [
+            0.2423,
+            0.6717
+          ],
+          [
+            0.22705,
+            0.65149
+          ],
+          [
+            0.21292,
+            0.63112
+          ],
+          [
+            0.19999,
+            0.6107
+          ],
+          [
+            0.18829,
+            0.59029
+          ],
+          [
+            0.17789,
+            0.57
+          ],
+          [
+            0.16883,
+            0.54991
+          ],
+          [
+            0.16115,
+            0.5301
+          ],
+          [
+            0.15487,
+            0.51066
+          ],
+          [
+            0.15003,
+            0.49167
+          ],
+          [
+            0.14665,
+            0.47322
+          ],
+          [
+            0.14474,
+            0.45538
+          ],
+          [
+            0.14431,
+            0.43823
+          ],
+          [
+            0.14536,
+            0.42185
+          ],
+          [
+            0.14788,
+            0.40629
+          ],
+          [
+            0.15188,
+            0.39164
+          ],
+          [
+            0.15732,
+            0.37795
+          ],
+          [
+            0.16419,
+            0.36528
+          ],
+          [
+            0.17245,
+            0.35369
+          ],
+          [
+            0.18208,
+            0.34322
+          ],
+          [
+            0.19302,
+            0.33392
+          ],
+          [
+            0.20524,
+            0.32583
+          ],
+          [
+            0.21868,
+            0.31898
+          ],
+          [
+            0.23329,
+            0.31341
+          ],
+          [
+            0.24899,
+            0.30914
+          ],
+          [
+            0.26572,
+            0.30618
+          ],
+          [
+            0.28342,
+            0.30455
+          ],
+          [
+            0.30201,
+            0.30426
+          ],
+          [
+            0.3214,
+            0.3053
+          ],
+          [
+            0.34151,
+            0.30767
+          ],
+          [
+            0.36226,
+            0.31137
+          ],
+          [
+            0.38356,
+            0.31637
+          ],
+          [
+            0.40531,
+            0.32266
+          ],
+          [
+            0.42743,
+            0.33021
+          ],
+          [
+            0.44982,
+            0.33898
+          ],
+          [
+            0.47238,
+            0.34894
+          ],
+          [
+            0.49502,
+            0.36004
+          ],
+          [
+            0.51764,
+            0.37224
+          ],
+          [
+            0.54014,
+            0.38549
+          ],
+          [
+            0.56243,
+            0.39973
+          ],
+          [
+            0.58441,
+            0.41489
+          ],
+          [
+            0.60599,
+            0.43092
+          ],
+          [
+            0.62707,
+            0.44775
+          ],
+          [
+            0.64756,
+            0.46529
+          ],
+          [
+            0.66738,
+            0.48348
+          ],
+          [
+            0.68645,
+            0.50224
+          ],
+          [
+            0.70467,
+            0.52149
+          ],
+          [
+            0.72197,
+            0.54115
+          ],
+          [
+            0.73829,
+            0.56113
+          ],
+          [
+            0.75354,
+            0.58134
+          ],
+          [
+            0.76766,
+            0.60171
+          ],
+          [
+            0.7806,
+            0.62214
+          ],
+          [
+            0.79229,
+            0.64254
+          ],
+          [
+            0.80269,
+            0.66283
+          ],
+          [
+            0.81175,
+            0.68293
+          ],
+          [
+            0.81944,
+            0.70273
+          ],
+          [
+            0.82571,
+            0.72217
+          ],
+          [
+            0.83055,
+            0.74116
+          ],
+          [
+            0.83394,
+            0.75961
+          ],
+          [
+            0.83585,
+            0.77745
+          ],
+          [
+            0.83628,
+            0.7946
+          ],
+          [
+            0.83523,
+            0.81099
+          ],
+          [
+            0.8327,
+            0.82654
+          ]
+        ]
+      },
+      {
+        "t_min": 1440.0,
+        "area_ha": 3800.0,
+        "t_norm": 0.5,
+        "ring": [
+          [
+            0.85228,
+            0.83856
+          ],
+          [
+            0.84806,
+            0.85405
+          ],
+          [
+            0.84231,
+            0.86852
+          ],
+          [
+            0.83505,
+            0.88191
+          ],
+          [
+            0.82631,
+            0.89417
+          ],
+          [
+            0.81613,
+            0.90524
+          ],
+          [
+            0.80456,
+            0.91507
+          ],
+          [
+            0.79164,
+            0.92362
+          ],
+          [
+            0.77743,
+            0.93086
+          ],
+          [
+            0.762,
+            0.93675
+          ],
+          [
+            0.7454,
+            0.94127
+          ],
+          [
+            0.7277,
+            0.94439
+          ],
+          [
+            0.70899,
+            0.94612
+          ],
+          [
+            0.68935,
+            0.94643
+          ],
+          [
+            0.66885,
+            0.94533
+          ],
+          [
+            0.64758,
+            0.94282
+          ],
+          [
+            0.62565,
+            0.93891
+          ],
+          [
+            0.60313,
+            0.93362
+          ],
+          [
+            0.58013,
+            0.92697
+          ],
+          [
+            0.55675,
+            0.91899
+          ],
+          [
+            0.53308,
+            0.90972
+          ],
+          [
+            0.50922,
+            0.89919
+          ],
+          [
+            0.48529,
+            0.88745
+          ],
+          [
+            0.46138,
+            0.87455
+          ],
+          [
+            0.43759,
+            0.86055
+          ],
+          [
+            0.41403,
+            0.84549
+          ],
+          [
+            0.39079,
+            0.82946
+          ],
+          [
+            0.36798,
+            0.81252
+          ],
+          [
+            0.3457,
+            0.79473
+          ],
+          [
+            0.32403,
+            0.77618
+          ],
+          [
+            0.30307,
+            0.75695
+          ],
+          [
+            0.28292,
+            0.73712
+          ],
+          [
+            0.26366,
+            0.71677
+          ],
+          [
+            0.24536,
+            0.69599
+          ],
+          [
+            0.22812,
+            0.67487
+          ],
+          [
+            0.21199,
+            0.6535
+          ],
+          [
+            0.19706,
+            0.63196
+          ],
+          [
+            0.18338,
+            0.61037
+          ],
+          [
+            0.17102,
+            0.5888
+          ],
+          [
+            0.16003,
+            0.56734
+          ],
+          [
+            0.15045,
+            0.5461
+          ],
+          [
+            0.14232,
+            0.52516
+          ],
+          [
+            0.13569,
+            0.50461
+          ],
+          [
+            0.13057,
+            0.48454
+          ],
+          [
+            0.127,
+            0.46503
+          ],
+          [
+            0.12498,
+            0.44617
+          ],
+          [
+            0.12452,
+            0.42804
+          ],
+          [
+            0.12563,
+            0.41072
+          ],
+          [
+            0.1283,
+            0.39428
+          ],
+          [
+            0.13252,
+            0.37879
+          ],
+          [
+            0.13828,
+            0.36431
+          ],
+          [
+            0.14554,
+            0.35092
+          ],
+          [
+            0.15428,
+            0.33866
+          ],
+          [
+            0.16445,
+            0.32759
+          ],
+          [
+            0.17602,
+            0.31776
+          ],
+          [
+            0.18894,
+            0.30921
+          ],
+          [
+            0.20315,
+            0.30197
+          ],
+          [
+            0.21859,
+            0.29608
+          ],
+          [
+            0.23519,
+            0.29156
+          ],
+          [
+            0.25288,
+            0.28844
+          ],
+          [
+            0.27159,
+            0.28671
+          ],
+          [
+            0.29124,
+            0.2864
+          ],
+          [
+            0.31174,
+            0.28751
+          ],
+          [
+            0.333,
+            0.29002
+          ],
+          [
+            0.35494,
+            0.29392
+          ],
+          [
+            0.37745,
+            0.29921
+          ],
+          [
+            0.40045,
+            0.30586
+          ],
+          [
+            0.42384,
+            0.31384
+          ],
+          [
+            0.44751,
+            0.32311
+          ],
+          [
+            0.47136,
+            0.33364
+          ],
+          [
+            0.49529,
+            0.34538
+          ],
+          [
+            0.51921,
+            0.35828
+          ],
+          [
+            0.54299,
+            0.37229
+          ],
+          [
+            0.56656,
+            0.38734
+          ],
+          [
+            0.58979,
+            0.40337
+          ],
+          [
+            0.6126,
+            0.42031
+          ],
+          [
+            0.63489,
+            0.4381
+          ],
+          [
+            0.65655,
+            0.45665
+          ],
+          [
+            0.67751,
+            0.47588
+          ],
+          [
+            0.69766,
+            0.49571
+          ],
+          [
+            0.71693,
+            0.51606
+          ],
+          [
+            0.73522,
+            0.53684
+          ],
+          [
+            0.75247,
+            0.55797
+          ],
+          [
+            0.76859,
+            0.57934
+          ],
+          [
+            0.78352,
+            0.60087
+          ],
+          [
+            0.7972,
+            0.62246
+          ],
+          [
+            0.80956,
+            0.64403
+          ],
+          [
+            0.82056,
+            0.66549
+          ],
+          [
+            0.83014,
+            0.68673
+          ],
+          [
+            0.83826,
+            0.70767
+          ],
+          [
+            0.8449,
+            0.72822
+          ],
+          [
+            0.85001,
+            0.74829
+          ],
+          [
+            0.85359,
+            0.7678
+          ],
+          [
+            0.85561,
+            0.78666
+          ],
+          [
+            0.85606,
+            0.80479
+          ],
+          [
+            0.85495,
+            0.82211
+          ],
+          [
+            0.85228,
+            0.83856
+          ]
+        ]
+      },
+      {
+        "t_min": 2880.0,
+        "area_ha": 3800.0,
+        "t_norm": 1.0,
+        "ring": [
+          [
+            0.85228,
+            0.83856
+          ],
+          [
+            0.84806,
+            0.85405
+          ],
+          [
+            0.84231,
+            0.86852
+          ],
+          [
+            0.83505,
+            0.88191
+          ],
+          [
+            0.82631,
+            0.89417
+          ],
+          [
+            0.81613,
+            0.90524
+          ],
+          [
+            0.80456,
+            0.91507
+          ],
+          [
+            0.79164,
+            0.92362
+          ],
+          [
+            0.77743,
+            0.93086
+          ],
+          [
+            0.762,
+            0.93675
+          ],
+          [
+            0.7454,
+            0.94127
+          ],
+          [
+            0.7277,
+            0.94439
+          ],
+          [
+            0.70899,
+            0.94612
+          ],
+          [
+            0.68935,
+            0.94643
+          ],
+          [
+            0.66885,
+            0.94533
+          ],
+          [
+            0.64758,
+            0.94282
+          ],
+          [
+            0.62565,
+            0.93891
+          ],
+          [
+            0.60313,
+            0.93362
+          ],
+          [
+            0.58013,
+            0.92697
+          ],
+          [
+            0.55675,
+            0.91899
+          ],
+          [
+            0.53308,
+            0.90972
+          ],
+          [
+            0.50922,
+            0.89919
+          ],
+          [
+            0.48529,
+            0.88745
+          ],
+          [
+            0.46138,
+            0.87455
+          ],
+          [
+            0.43759,
+            0.86055
+          ],
+          [
+            0.41403,
+            0.84549
+          ],
+          [
+            0.39079,
+            0.82946
+          ],
+          [
+            0.36798,
+            0.81252
+          ],
+          [
+            0.3457,
+            0.79473
+          ],
+          [
+            0.32403,
+            0.77618
+          ],
+          [
+            0.30307,
+            0.75695
+          ],
+          [
+            0.28292,
+            0.73712
+          ],
+          [
+            0.26366,
+            0.71677
+          ],
+          [
+            0.24536,
+            0.69599
+          ],
+          [
+            0.22812,
+            0.67487
+          ],
+          [
+            0.21199,
+            0.6535
+          ],
+          [
+            0.19706,
+            0.63196
+          ],
+          [
+            0.18338,
+            0.61037
+          ],
+          [
+            0.17102,
+            0.5888
+          ],
+          [
+            0.16003,
+            0.56734
+          ],
+          [
+            0.15045,
+            0.5461
+          ],
+          [
+            0.14232,
+            0.52516
+          ],
+          [
+            0.13569,
+            0.50461
+          ],
+          [
+            0.13057,
+            0.48454
+          ],
+          [
+            0.127,
+            0.46503
+          ],
+          [
+            0.12498,
+            0.44617
+          ],
+          [
+            0.12452,
+            0.42804
+          ],
+          [
+            0.12563,
+            0.41072
+          ],
+          [
+            0.1283,
+            0.39428
+          ],
+          [
+            0.13252,
+            0.37879
+          ],
+          [
+            0.13828,
+            0.36431
+          ],
+          [
+            0.14554,
+            0.35092
+          ],
+          [
+            0.15428,
+            0.33866
+          ],
+          [
+            0.16445,
+            0.32759
+          ],
+          [
+            0.17602,
+            0.31776
+          ],
+          [
+            0.18894,
+            0.30921
+          ],
+          [
+            0.20315,
+            0.30197
+          ],
+          [
+            0.21859,
+            0.29608
+          ],
+          [
+            0.23519,
+            0.29156
+          ],
+          [
+            0.25288,
+            0.28844
+          ],
+          [
+            0.27159,
+            0.28671
+          ],
+          [
+            0.29124,
+            0.2864
+          ],
+          [
+            0.31174,
+            0.28751
+          ],
+          [
+            0.333,
+            0.29002
+          ],
+          [
+            0.35494,
+            0.29392
+          ],
+          [
+            0.37745,
+            0.29921
+          ],
+          [
+            0.40045,
+            0.30586
+          ],
+          [
+            0.42384,
+            0.31384
+          ],
+          [
+            0.44751,
+            0.32311
+          ],
+          [
+            0.47136,
+            0.33364
+          ],
+          [
+            0.49529,
+            0.34538
+          ],
+          [
+            0.51921,
+            0.35828
+          ],
+          [
+            0.54299,
+            0.37229
+          ],
+          [
+            0.56656,
+            0.38734
+          ],
+          [
+            0.58979,
+            0.40337
+          ],
+          [
+            0.6126,
+            0.42031
+          ],
+          [
+            0.63489,
+            0.4381
+          ],
+          [
+            0.65655,
+            0.45665
+          ],
+          [
+            0.67751,
+            0.47588
+          ],
+          [
+            0.69766,
+            0.49571
+          ],
+          [
+            0.71693,
+            0.51606
+          ],
+          [
+            0.73522,
+            0.53684
+          ],
+          [
+            0.75247,
+            0.55797
+          ],
+          [
+            0.76859,
+            0.57934
+          ],
+          [
+            0.78352,
+            0.60087
+          ],
+          [
+            0.7972,
+            0.62246
+          ],
+          [
+            0.80956,
+            0.64403
+          ],
+          [
+            0.82056,
+            0.66549
+          ],
+          [
+            0.83014,
+            0.68673
+          ],
+          [
+            0.83826,
+            0.70767
+          ],
+          [
+            0.8449,
+            0.72822
+          ],
+          [
+            0.85001,
+            0.74829
+          ],
+          [
+            0.85359,
+            0.7678
+          ],
+          [
+            0.85561,
+            0.78666
+          ],
+          [
+            0.85606,
+            0.80479
+          ],
+          [
+            0.85495,
+            0.82211
+          ],
+          [
+            0.85228,
+            0.83856
+          ]
+        ]
+      }
+    ],
+    "origin": [
+      0.05357,
+      0.67432
+    ],
+    "routes": {
+      "naive": {
+        "polyline": [
+          [
+            0.05357,
+            0.67432
+          ],
+          [
+            0.06157,
+            0.68027
+          ],
+          [
+            0.31434,
+            0.64035
+          ],
+          [
+            0.3481,
+            0.64564
+          ],
+          [
+            0.34861,
+            0.64562
+          ],
+          [
+            0.36801,
+            0.65729
+          ],
+          [
+            0.37734,
+            0.66001
+          ],
+          [
+            0.379,
+            0.65955
+          ],
+          [
+            0.38163,
+            0.65815
+          ],
+          [
+            0.38621,
+            0.6551
+          ],
+          [
+            0.3903,
+            0.65468
+          ],
+          [
+            0.39128,
+            0.65476
+          ],
+          [
+            0.45065,
+            0.65382
+          ],
+          [
+            0.45605,
+            0.65165
+          ],
+          [
+            0.46255,
+            0.6505
+          ],
+          [
+            0.46721,
+            0.65059
+          ],
+          [
+            0.47014,
+            0.65069
+          ],
+          [
+            0.48047,
+            0.65474
+          ],
+          [
+            0.49532,
+            0.68077
+          ],
+          [
+            0.50665,
+            0.70587
+          ],
+          [
+            0.51077,
+            0.71157
+          ],
+          [
+            0.5127,
+            0.71245
+          ],
+          [
+            0.53096,
+            0.70108
+          ],
+          [
+            0.55451,
+            0.67992
+          ],
+          [
+            0.56744,
+            0.70997
+          ],
+          [
+            0.58356,
+            0.71369
+          ],
+          [
+            0.58494,
+            0.71327
+          ],
+          [
+            0.59802,
+            0.70734
+          ],
+          [
+            0.62388,
+            0.71923
+          ],
+          [
+            0.6267,
+            0.71808
+          ],
+          [
+            0.62278,
+            0.65977
+          ],
+          [
+            0.60983,
+            0.5799
+          ],
+          [
+            0.63194,
+            0.55447
+          ],
+          [
+            0.64775,
+            0.52883
+          ],
+          [
+            0.65861,
+            0.52498
+          ],
+          [
+            0.66033,
+            0.52566
+          ],
+          [
+            0.66155,
+            0.52329
+          ],
+          [
+            0.66532,
+            0.52087
+          ],
+          [
+            0.6718,
+            0.50957
+          ],
+          [
+            0.68177,
+            0.5239
+          ],
+          [
+            0.68636,
+            0.52564
+          ],
+          [
+            0.68819,
+            0.52522
+          ],
+          [
+            0.68836,
+            0.52566
+          ],
+          [
+            0.70012,
+            0.51507
+          ],
+          [
+            0.71791,
+            0.52353
+          ],
+          [
+            0.7288,
+            0.52467
+          ],
+          [
+            0.74236,
+            0.54605
+          ],
+          [
+            0.74446,
+            0.55032
+          ],
+          [
+            0.74695,
+            0.5554
+          ],
+          [
+            0.74853,
+            0.55022
+          ],
+          [
+            0.74925,
+            0.54885
+          ],
+          [
+            0.74968,
+            0.54816
+          ],
+          [
+            0.75073,
+            0.54743
+          ],
+          [
+            0.75651,
+            0.54333
+          ],
+          [
+            0.86421,
+            0.54914
+          ],
+          [
+            0.86636,
+            0.55316
+          ],
+          [
+            0.87751,
+            0.57565
+          ],
+          [
+            0.89292,
+            0.61727
+          ],
+          [
+            0.8939,
+            0.62072
+          ],
+          [
+            0.89509,
+            0.62453
+          ],
+          [
+            0.89898,
+            0.6321
+          ],
+          [
+            0.9069,
+            0.63753
+          ],
+          [
+            0.92442,
+            0.64835
+          ],
+          [
+            0.93049,
+            0.64914
+          ],
+          [
+            0.93525,
+            0.65609
+          ],
+          [
+            0.93567,
+            0.65665
+          ],
+          [
+            0.94643,
+            0.67831
+          ]
+        ],
+        "reached_coast": true,
+        "enters_front": true,
+        "fail_point": [
+          0.45065,
+          0.65382
+        ],
+        "fail_time_min": 161.2,
+        "total_time_min": 408.9,
+        "destination": [
+          0.94643,
+          0.67831
+        ],
+        "label": "주민 대피 경로 (화재 예측 없음)"
+      },
+      "future_aware": {
+        "polyline": [
+          [
+            0.05357,
+            0.67432
+          ],
+          [
+            0.06157,
+            0.68027
+          ],
+          [
+            0.31434,
+            0.64035
+          ],
+          [
+            0.33184,
+            0.61242
+          ],
+          [
+            0.33921,
+            0.60888
+          ],
+          [
+            0.34031,
+            0.60904
+          ],
+          [
+            0.34948,
+            0.59355
+          ],
+          [
+            0.32986,
+            0.41093
+          ],
+          [
+            0.32747,
+            0.39598
+          ],
+          [
+            0.32407,
+            0.39201
+          ],
+          [
+            0.28101,
+            0.35398
+          ],
+          [
+            0.29912,
+            0.34917
+          ],
+          [
+            0.31304,
+            0.28676
+          ],
+          [
+            0.31473,
+            0.28232
+          ],
+          [
+            0.33187,
+            0.2197
+          ],
+          [
+            0.35007,
+            0.20191
+          ],
+          [
+            0.37379,
+            0.20885
+          ],
+          [
+            0.38946,
+            0.21243
+          ],
+          [
+            0.42792,
+            0.2152
+          ],
+          [
+            0.43354,
+            0.20736
+          ],
+          [
+            0.44675,
+            0.17446
+          ],
+          [
+            0.46333,
+            0.14434
+          ],
+          [
+            0.50871,
+            0.13269
+          ],
+          [
+            0.51891,
+            0.13289
+          ],
+          [
+            0.53363,
+            0.11821
+          ],
+          [
+            0.53774,
+            0.11148
+          ],
+          [
+            0.54001,
+            0.10724
+          ],
+          [
+            0.54689,
+            0.09441
+          ],
+          [
+            0.55084,
+            0.07692
+          ],
+          [
+            0.55308,
+            0.06443
+          ],
+          [
+            0.55188,
+            0.06145
+          ],
+          [
+            0.55328,
+            0.05971
+          ],
+          [
+            0.55696,
+            0.0575
+          ],
+          [
+            0.56029,
+            0.05675
+          ],
+          [
+            0.57015,
+            0.05465
+          ],
+          [
+            0.57243,
+            0.05427
+          ],
+          [
+            0.57809,
+            0.05357
+          ],
+          [
+            0.59417,
+            0.05413
+          ],
+          [
+            0.61039,
+            0.0584
+          ],
+          [
+            0.62737,
+            0.05928
+          ],
+          [
+            0.64111,
+            0.05969
+          ],
+          [
+            0.64223,
+            0.05829
+          ],
+          [
+            0.64471,
+            0.05796
+          ],
+          [
+            0.64711,
+            0.05777
+          ],
+          [
+            0.64868,
+            0.05761
+          ],
+          [
+            0.64972,
+            0.05751
+          ],
+          [
+            0.65215,
+            0.05738
+          ],
+          [
+            0.65528,
+            0.05763
+          ],
+          [
+            0.65605,
+            0.0578
+          ],
+          [
+            0.65934,
+            0.05943
+          ],
+          [
+            0.66284,
+            0.06142
+          ],
+          [
+            0.66427,
+            0.06229
+          ],
+          [
+            0.67778,
+            0.07001
+          ],
+          [
+            0.67977,
+            0.07106
+          ],
+          [
+            0.68546,
+            0.07433
+          ],
+          [
+            0.68881,
+            0.07646
+          ],
+          [
+            0.69035,
+            0.07744
+          ],
+          [
+            0.69308,
+            0.07909
+          ],
+          [
+            0.69387,
+            0.07949
+          ],
+          [
+            0.69439,
+            0.07931
+          ],
+          [
+            0.69636,
+            0.07845
+          ],
+          [
+            0.697,
+            0.07766
+          ],
+          [
+            0.69794,
+            0.0778
+          ],
+          [
+            0.69814,
+            0.07803
+          ],
+          [
+            0.69958,
+            0.07706
+          ],
+          [
+            0.70019,
+            0.0769
+          ],
+          [
+            0.70221,
+            0.07564
+          ],
+          [
+            0.71027,
+            0.06988
+          ],
+          [
+            0.7107,
+            0.06957
+          ],
+          [
+            0.7118,
+            0.06879
+          ],
+          [
+            0.71291,
+            0.06803
+          ],
+          [
+            0.7135,
+            0.0676
+          ],
+          [
+            0.71836,
+            0.06408
+          ],
+          [
+            0.72371,
+            0.06023
+          ],
+          [
+            0.72519,
+            0.06626
+          ],
+          [
+            0.72629,
+            0.06642
+          ],
+          [
+            0.73212,
+            0.06713
+          ],
+          [
+            0.73973,
+            0.06861
+          ],
+          [
+            0.74835,
+            0.07475
+          ],
+          [
+            0.74874,
+            0.07428
+          ],
+          [
+            0.74941,
+            0.07358
+          ],
+          [
+            0.75116,
+            0.07159
+          ],
+          [
+            0.75561,
+            0.06653
+          ],
+          [
+            0.75688,
+            0.06509
+          ],
+          [
+            0.759,
+            0.06446
+          ],
+          [
+            0.76647,
+            0.06475
+          ],
+          [
+            0.76962,
+            0.06669
+          ],
+          [
+            0.77309,
+            0.0688
+          ],
+          [
+            0.77368,
+            0.06923
+          ],
+          [
+            0.78482,
+            0.07692
+          ],
+          [
+            0.83026,
+            0.11403
+          ],
+          [
+            0.91633,
+            0.19593
+          ],
+          [
+            0.92012,
+            0.19788
+          ],
+          [
+            0.92159,
+            0.19738
+          ],
+          [
+            0.92267,
+            0.197
+          ],
+          [
+            0.92324,
+            0.20843
+          ],
+          [
+            0.92441,
+            0.21738
+          ],
+          [
+            0.92466,
+            0.2186
+          ],
+          [
+            0.93707,
+            0.31181
+          ],
+          [
+            0.94078,
+            0.31819
+          ],
+          [
+            0.94207,
+            0.31926
+          ],
+          [
+            0.94279,
+            0.32024
+          ],
+          [
+            0.94329,
+            0.32741
+          ]
+        ],
+        "reached_coast": true,
+        "enters_front": false,
+        "total_time_min": 519.0,
+        "detour_min": 110.1,
+        "destination": [
+          0.94329,
+          0.32741
+        ],
+        "label": "미래 인지 경로"
+      }
+    },
+    "safe_zone_note": "안전 지대 = 동측 해안 집결 방향 (routing_integration 방법과 동일).",
+    "rescue_points_in_frame": {
+      "value": [
+        [
+          0.32407,
+          0.39201
+        ],
+        [
+          0.33666,
+          0.0144
+        ],
+        [
+          0.47234,
+          0.16274
+        ],
+        [
+          0.48908,
+          0.03588
+        ],
+        [
+          0.73771,
+          0.9315
+        ],
+        [
+          0.58356,
+          0.71369
+        ],
+        [
+          0.74039,
+          0.94368
+        ],
+        [
+          0.51077,
+          0.71157
+        ],
+        [
+          0.47014,
+          0.65069
+        ],
+        [
+          0.39128,
+          0.65476
+        ],
+        [
+          0.39128,
+          0.65476
+        ],
+        [
+          0.6463,
+          0.94132
+        ],
+        [
+          0.46547,
+          0.77728
+        ],
+        [
+          0.34682,
+          0.83624
+        ]
+      ],
+      "count": 14,
+      "provenance": "real OSM 영덕 households needing a rescuer (routing pipeline)",
+      "source": "data/processed/rescue_routing.json :: dispatch_top20 + unreachable_homes"
+    },
+    "refuges_in_frame": {
+      "value": [
+        {
+          "xy": [
+            0.87225,
+            0.24422
+          ],
+          "safe": true,
+          "rescue_reachable": false
+        },
+        {
+          "xy": [
+            0.87645,
+            0.34215
+          ],
+          "safe": true,
+          "rescue_reachable": false
+        },
+        {
+          "xy": [
+            0.68977,
+            0.50983
+          ],
+          "safe": true,
+          "rescue_reachable": false
+        },
+        {
+          "xy": [
+            0.76636,
+            0.04273
+          ],
+          "safe": true,
+          "rescue_reachable": false
+        },
+        {
+          "xy": [
+            0.70037,
+            0.20835
+          ],
+          "safe": true,
+          "rescue_reachable": false
+        },
+        {
+          "xy": [
+            0.75618,
+            0.10025
+          ],
+          "safe": true,
+          "rescue_reachable": false
+        },
+        {
+          "xy": [
+            0.94576,
+            0.76001
+          ],
+          "safe": true,
+          "rescue_reachable": false
+        },
+        {
+          "xy": [
+            0.3388,
+            0.00971
+          ],
+          "safe": true,
+          "rescue_reachable": false
+        },
+        {
+          "xy": [
+            0.69548,
+            0.35777
+          ],
+          "safe": true,
+          "rescue_reachable": false
+        },
+        {
+          "xy": [
+            0.65126,
+            0.42136
+          ],
+          "safe": true,
+          "rescue_reachable": false
+        },
+        {
+          "xy": [
+            0.70273,
+            0.49095
+          ],
+          "safe": true,
+          "rescue_reachable": false
+        }
+      ],
+      "count": 11,
+      "source": "data/processed/rescue_routing.json :: destinations (source=osm)"
+    },
+    "spread_v2_predicted_front_status": {
+      "status": "NOT SHOWN — FIRMS-locked, never fabricated",
+      "why": "The spread_v2 isochrone rings + the router's own polylines are written only to the git-ignored routing_demo.npz; run_routing_integration.py aborts (return 2) without the FIRMS bundle. yeongdeok_forward_sim.json holds only scalar envelope_area_ha/breadth. So the drawn front is the committed observed-approx reconstruction (labelled), and AUC 0.905 is shown as the model's validated skill, never as a caption on the drawn front.",
+      "committed_aggregate_result": {
+        "note": "The real spread_v2 routing run's aggregate contrast IS committed (routing_demo.json):",
+        "naive_exposure_probmin": 334.3,
+        "future_aware_exposure_probmin": 23.1,
+        "source": "data/processed/routing_demo.json :: headline.naive/future_aware.exposure"
+      },
+      "needs": "FIRMS(VIIRS+MODIS)+ERA5+SRTM+WorldCover → data/raw/firms/ (or WFG_FIRMS_DIR)"
+    }
+  }
+}
+</script>
+
+<script>
+"use strict";
+const DATA = JSON.parse(document.getElementById("demo-data").textContent);
+const SVGNS = "http://www.w3.org/2000/svg";
+const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// ---- viewport / projection (aspect preserved: bbox 1.686 -> 1000 x 593) ----
+const VB_W = 1000, VB_H = 593;
+const P = ([nx, ny]) => [nx * VB_W, ny * VB_H];
+const pathD = (pts) => pts.map((p, i) => (i ? "L" : "M") + P(p).map(v => v.toFixed(1)).join(" ")).join(" ");
+const polyLen = (pts) => { let L = 0; for (let i = 1; i < pts.length; i++){ const a=P(pts[i-1]), b=P(pts[i]); L += Math.hypot(b[0]-a[0], b[1]-a[1]); } return L; };
+
+// ---- scenes ----
+const SCENES = [
+  {id:"S0", a:0.00, b:0.12, name:"THESIS · 명제"},
+  {id:"S1", a:0.12, b:0.34, name:"THE FIRE MOVES · 확산"},
+  {id:"S2", a:0.34, b:0.56, name:"NAIVE FAILURE · 대피 실패"},
+  {id:"S3", a:0.56, b:0.74, name:"FUTURE-AWARE · 대피 성공"},
+  {id:"S4", a:0.74, b:0.90, name:"RESCUE · 구조 우선순위"},
+  {id:"S5", a:0.90, b:1.00, name:"REPRODUCIBLE · 재현 가능"},
+];
+const sceneAt = (t) => SCENES.find(s => t < s.b) || SCENES[SCENES.length-1];
+
+// eased reveal in [0,1]; snaps under reduced motion
+const ease = x => x<=0?0 : x>=1?1 : 1-Math.pow(1-x,3);
+function reveal(t, t0, t1){ if (REDUCED) return t>=t0?1:0; return ease(Math.max(0, Math.min(1,(t-t0)/(t1-t0)))); }
+const lerp = (a,b,u)=>a+(b-a)*u;
+function hex2rgb(h){ return [parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)]; }
+function fireColor(u){ // u in [0,1]: cool -> mid -> hot
+  const c0=hex2rgb("#F2C14E"), c1=hex2rgb("#E8752B"), c2=hex2rgb("#C1361E");
+  let r,g,b; if(u<0.5){ const v=u/0.5; r=lerp(c0[0],c1[0],v);g=lerp(c0[1],c1[1],v);b=lerp(c0[2],c1[2],v);} else { const v=(u-0.5)/0.5; r=lerp(c1[0],c2[0],v);g=lerp(c1[1],c2[1],v);b=lerp(c1[2],c2[2],v);}
+  return `rgb(${r|0},${g|0},${b|0})`;
+}
+
+// ---- build static SVG ----
+const svg = document.getElementById("map");
+function el(tag, attrs){ const e=document.createElementNS(SVGNS, tag); for(const k in attrs) e.setAttribute(k, attrs[k]); return e; }
+
+// graticule (cartographic grid — honest coordinate lines, not fake terrain)
+const gGrat = el("g",{});
+for(let i=1;i<8;i++){ const x=VB_W*i/8; gGrat.appendChild(el("line",{x1:x,y1:0,x2:x,y2:VB_H,stroke:"#1E2A36","stroke-width":0.6})); }
+for(let i=1;i<5;i++){ const y=VB_H*i/5; gGrat.appendChild(el("line",{x1:0,y1:y,x2:VB_W,y2:y,stroke:"#1E2A36","stroke-width":0.6})); }
+svg.appendChild(gGrat);
+// north arrow + coast hint
+const gCompass = el("g",{transform:`translate(${VB_W-46},${VB_H-58})`});
+gCompass.appendChild(el("line",{x1:0,y1:22,x2:0,y2:-6,stroke:"#8A97A6","stroke-width":1}));
+gCompass.appendChild(el("path",{d:"M0 -12 L4 -3 L0 -6 L-4 -3 Z", fill:"#8A97A6"}));
+const nlab=el("text",{x:0,y:34,fill:"#8A97A6","font-size":10,"text-anchor":"middle","font-family":"IBM Plex Mono, monospace"}); nlab.textContent="N"; gCompass.appendChild(nlab);
+svg.appendChild(gCompass);
+
+// groups (paint order)
+const gFronts = el("g",{}); svg.appendChild(gFronts);
+const gSafe   = el("g",{}); svg.appendChild(gSafe);
+const gRoutes = el("g",{}); svg.appendChild(gRoutes);
+const gPoints = el("g",{}); svg.appendChild(gPoints);
+const gMarks  = el("g",{}); svg.appendChild(gMarks);
+
+// fronts (polygons) — reversed so late/big drawn first, early on top
+const fronts = DATA.geometry.fire_fronts;
+const frontEls = fronts.map((f, i) => {
+  const u = fronts.length>1 ? i/(fronts.length-1) : 0;
+  const col = fireColor(u);
+  const fill = el("polygon",{ points:f.ring.map(p=>P(p).map(v=>v.toFixed(1)).join(",")).join(" "),
+    fill:col, "fill-opacity":0.0, stroke:col, "stroke-opacity":0.0, "stroke-width":1.1 });
+  gFronts.appendChild(fill);
+  return {node:fill, u, col};
+});
+
+// safe zone: east coast band + committed refuge markers
+const gCoast = el("rect",{x:VB_W*0.965, y:0, width:VB_W*0.035, height:VB_H, fill:"#4C9A6A","fill-opacity":0.0});
+gSafe.appendChild(gCoast);
+const refuges = DATA.geometry.refuges_in_frame.value.map(r=>{
+  const [x,y]=P(r.xy); const m=el("path",{d:`M${x} ${y-4.6} L${x+4.2} ${y} L${x} ${y+4.6} L${x-4.2} ${y} Z`,
+    fill:"none", stroke:"#4C9A6A","stroke-width":1.3,"stroke-opacity":0}); gSafe.appendChild(m); return m;
+});
+
+// routes
+const nv = DATA.geometry.routes.naive, fa = DATA.geometry.routes.future_aware;
+// split naive at fail point
+function nearestIdx(poly, pt){ let bi=0,bd=1e9; poly.forEach((p,i)=>{const d=Math.hypot(p[0]-pt[0],p[1]-pt[1]); if(d<bd){bd=d;bi=i;}}); return bi; }
+const failIdx = nearestIdx(nv.polyline, nv.fail_point);
+const nvPre = nv.polyline.slice(0, failIdx+1);          // origin -> fail (amber -> ash)
+const nvPost = nv.polyline.slice(failIdx);              // fail -> intended coast (doomed, faint)
+
+const nvPostEl = el("path",{d:pathD(nvPost), fill:"none", stroke:"#6B6257","stroke-width":1.6,
+  "stroke-dasharray":"3 5","stroke-opacity":0,"stroke-linecap":"round"}); gRoutes.appendChild(nvPostEl);
+const nvEl = el("path",{d:pathD(nvPre), fill:"none", stroke:"#E6A23C","stroke-width":3.2,
+  "stroke-linecap":"round","stroke-linejoin":"round"}); gRoutes.appendChild(nvEl);
+const faEl = el("path",{d:pathD(fa.polyline), fill:"none", stroke:"#33C4B5","stroke-width":3.2,
+  "stroke-linecap":"round","stroke-linejoin":"round"}); gRoutes.appendChild(faEl);
+const nvLen = polyLen(nvPre), faLen = polyLen(fa.polyline);
+nvEl.setAttribute("stroke-dasharray", nvLen); nvEl.setAttribute("stroke-dashoffset", nvLen);
+faEl.setAttribute("stroke-dasharray", faLen); faEl.setAttribute("stroke-dashoffset", faLen);
+
+// origin marker
+const [ox,oy]=P(DATA.geometry.origin);
+const originEl = el("g",{opacity:0});
+originEl.appendChild(el("circle",{cx:ox,cy:oy,r:5.5,fill:"#0B0F14",stroke:"#E8EDF2","stroke-width":1.6}));
+originEl.appendChild(el("circle",{cx:ox,cy:oy,r:2,fill:"#E8EDF2"}));
+const oLab=el("text",{x:ox+9,y:oy+4,fill:"#E8EDF2","font-size":11,"font-family":"IBM Plex Mono, monospace"}); oLab.textContent="출발"; originEl.appendChild(oLab);
+gMarks.appendChild(originEl);
+
+// fail / success markers
+function pin(pt, color, label){
+  const [x,y]=P(pt); const g=el("g",{opacity:0});
+  g.appendChild(el("circle",{cx:x,cy:y,r:6.5,fill:"none",stroke:color,"stroke-width":1.6}));
+  g.appendChild(el("circle",{cx:x,cy:y,r:2.4,fill:color}));
+  const bg=el("rect",{x:x+9,y:y-11,width:label.length*8.6+12,height:20,rx:2,fill:"rgba(11,15,20,.82)",stroke:color,"stroke-width":0.8});
+  const tx=el("text",{x:x+15,y:y+3.5,fill:color,"font-size":12,"font-weight":600,"font-family":"IBM Plex Sans KR, sans-serif"}); tx.textContent=label;
+  g.appendChild(bg); g.appendChild(tx); gMarks.appendChild(g); return g;
+}
+const failPin = pin(nv.fail_point, "#C1361E", "대피 실패");
+const okPin   = pin(fa.destination, "#4C9A6A", "대피 성공");
+
+// rescue points
+const rescuePts = DATA.geometry.rescue_points_in_frame.value.map(p=>{
+  const [x,y]=P(p); const c=el("circle",{cx:x,cy:y,r:4.2,fill:"#E5507E","fill-opacity":0,stroke:"#E5507E","stroke-opacity":0,"stroke-width":1}); gPoints.appendChild(c); return {node:c,x,y}; });
+
+// ---- rail + panel content ----
+document.getElementById("railModel").textContent = DATA.prediction.model_line;
+const railRows = [
+  {id:"auc",   k:"예측 AUC",        v:DATA.prediction.pooled_auc.display, cls:""},
+  {id:"gen",   k:"일반화(폴드)",     v:DATA.prediction.mean_of_folds_auc.display+" ± "+DATA.prediction.mean_of_folds_auc.std_display, cls:""},
+  {id:"feat",  k:"최중요 변수",      v:DATA.prediction.top_predictor.name, cls:""},
+  {id:"sev",   k:"심각도 ≫ 풍향",   v:DATA.prediction.severity_over_direction_ratio.display, cls:""},
+  {id:"n",     k:"대상 원점(OSM)",  v:DATA.rescue.real_flip.n_origins.value+"", cls:""},
+  {id:"needs", k:"스스로 대피 불가", v:DATA.rescue.real_flip.needs_rescuer.pct.toFixed(1)+"%", cls:"warn"},
+  {id:"cap",   k:"8팀 대응(수요대비)", v:DATA.rescue.real_flip.capacity_8units_pct.display, cls:"warn"},
+];
+const railWrap = document.getElementById("railRows");
+const railEls = {};
+railRows.forEach(r=>{ const row=document.createElement("div"); row.className="r-row"; row.id="rr-"+r.id;
+  row.innerHTML=`<span class="r-k">${r.k}</span><span class="r-v ${r.cls}">${r.v}</span>`; railWrap.appendChild(row); railEls[r.id]=row; });
+
+// S1 data
+document.getElementById("s1data").innerHTML =
+  `예측 정확도 AUC <b class="hl">${DATA.prediction.pooled_auc.display}</b> · 최중요 변수 <b>${DATA.prediction.top_predictor.name}</b><br>화재-기상 심각도(건조도·습도·풍속) ≫ 풍향 <b class="hl">${DATA.prediction.severity_over_direction_ratio.display}</b>`;
+document.getElementById("s1cav").textContent =
+  "표시된 확산선은 관측 기반 근사(공개 보도 재구성)이며, spread_v2 예측 확산선은 아닙니다. AUC는 모델의 검증된 예측력입니다.";
+// S2 / S3 data
+document.getElementById("s2data").innerHTML =
+  `확산선 진입 시각 <b style="color:var(--fire-mid)">t = ${nv.fail_time_min.toFixed(0)} min</b> · 도보 ${nv.total_time_min.toFixed(0)} min`;
+document.getElementById("s3data").innerHTML =
+  `우회 <b style="color:var(--fa)">+${fa.detour_min.toFixed(0)} min</b> · 확산선 진입 없음 · 도보 ${fa.total_time_min.toFixed(0)} min`;
+// S4
+const rf = DATA.rescue.real_flip;
+document.getElementById("s4big").innerHTML =
+  `최적 경로로도 <span class="pct">약 40%</span>는 스스로 대피할 수 없습니다`;
+document.getElementById("s4body").innerHTML =
+  `<span style="font-family:var(--mono)">${rf.needs_rescuer.value} / ${rf.n_origins.value} (${rf.needs_rescuer.pct.toFixed(1)}%)</span> · 거동 불편·보행로 차단 (순수 도달 불가 ${rf.geometry_unreachable.pct.toFixed(1)}%)<br>` +
+  `구조 대원 8팀 = 적시 <span style="font-family:var(--mono);color:var(--rescue)">24건</span> — 수요 ${rf.needs_rescuer.value}명의 <span style="font-family:var(--mono);color:var(--rescue)">${rf.capacity_8units_pct.display}</span> → 구조 필요 인원 / 구조 대원 파견 (우선순위 분류)`;
+// S5
+document.getElementById("s5model").textContent = DATA.prediction.model_line;
+document.getElementById("s5sources").textContent = DATA.meta.data_sources_line;
+document.getElementById("s5repro").innerHTML = `<span class="repro">모든 수치는 커밋된 아티팩트에서 재생성됩니다 (재현 가능).</span> · seed ${DATA.meta.seed}`;
+const s5metrics = [
+  {v:DATA.prediction.pooled_auc.display, cls:"", lab:"예측 AUC (pooled)", src:"spread_v2_lofo.json"},
+  {v:DATA.prediction.mean_of_folds_auc.display+"±"+DATA.prediction.mean_of_folds_auc.std_display, cls:"small", lab:"일반화 AUC (6-fold LOFO)", src:"mean(per_fire_auc)"},
+  {v:DATA.prediction.severity_over_direction_ratio.display, cls:"fire", lab:"심각도(건조·습도·풍속) ≫ 풍향", src:"severity_over_direction_ratio"},
+  {v:DATA.prediction.top_predictor.name, cls:"small", lab:"최중요 변수 (rank #1)", src:"permutation_importance"},
+  {v:rf.n_origins.value+"", cls:"", lab:"대상 원점 N (실 OSM 도로망)", src:"rescue_routing.json"},
+  {v:rf.needs_rescuer.pct.toFixed(1)+"%", cls:"rose", lab:"스스로 대피 불가 ("+rf.needs_rescuer.value+"/"+rf.n_origins.value+")", src:"rescue_verify_fc.json"},
+  {v:rf.capacity_8units_pct.display, cls:"rose", lab:"구조 8팀 → 수요 대비", src:"rescue_capacity.json"},
+  {v:DATA.geometry.routes.future_aware.detour_min.toFixed(0)+" min", cls:"teal small", lab:"미래 인지 경로 우회 (도보)", src:"demo_geometry.json"},
+];
+const grid = document.getElementById("s5grid");
+s5metrics.forEach(m=>{ const d=document.createElement("div"); d.className="metric";
+  d.innerHTML=`<div class="m-val ${m.cls}">${m.v}</div><div class="m-lab">${m.lab}</div><div class="m-src">${m.src}</div>`; grid.appendChild(d); });
+
+// legend
+const legend = document.getElementById("legend");
+[["화재 확산선","sw","background:linear-gradient(90deg,#F2C14E,#C1361E)"],
+ ["주민 대피 경로 (화재 예측 없음)","sw line","background:#E6A23C"],
+ ["미래 인지 경로","sw line","background:#33C4B5"],
+ ["구조 필요 인원","sw dot","background:#E5507E"],
+ ["안전 지대 (해안)","sw","background:#4C9A6A"]].forEach(([t,c,st])=>{
+  const g=document.createElement("div"); g.className="lg";
+  g.innerHTML=`<span class="${c}" style="${st}"></span>${t}`; legend.appendChild(g); });
+
+// ticks
+const ticks=document.getElementById("ticks");
+SCENES.forEach(s=>{ const sp=document.createElement("span"); sp.textContent=s.id; sp.dataset.id=s.id; ticks.appendChild(sp); });
+
+// ---- master render ----
+function setOv(id,on){ const e=document.getElementById(id); e.classList.toggle("on",on); }
+function render(t){
+  const sc = sceneAt(t);
+  // fronts reveal across S1 (0.13..0.32), stay after; dim during S4/S5
+  const dimLate = t>=0.90 ? 0.5 : (t>=0.74 ? 0.72 : 1);
+  frontEls.forEach((f,i)=>{ const u=frontEls.length>1?i/(frontEls.length-1):0;
+    const t0=0.13+0.185*u, r=reveal(t,t0,t0+0.03);
+    f.node.setAttribute("fill-opacity",(0.13*r*dimLate).toFixed(3));
+    f.node.setAttribute("stroke-opacity",(0.55*r*dimLate).toFixed(3)); });
+
+  // safe zone appears from S2
+  const safeR = reveal(t,0.34,0.40);
+  gCoast.setAttribute("fill-opacity",(0.06*safeR).toFixed(3));
+  const refR = reveal(t,0.58,0.66);
+  refuges.forEach(m=>m.setAttribute("stroke-opacity",(0.7*refR).toFixed(3)));
+
+  // origin from S2
+  originEl.setAttribute("opacity", reveal(t,0.34,0.39).toFixed(3));
+
+  // naive: draw 0.35..0.47, extinguish 0.47..0.50
+  const nvDraw = reveal(t,0.35,0.47);
+  nvEl.setAttribute("stroke-dashoffset",(nvLen*(1-nvDraw)).toFixed(1));
+  const ext = reveal(t,0.47,0.51);                // extinguish progress
+  // amber -> ash + dim
+  const amber=hex2rgb("#E6A23C"), ash=hex2rgb("#6B6257");
+  const cr=lerp(amber[0],ash[0],ext),cg=lerp(amber[1],ash[1],ext),cb=lerp(amber[2],ash[2],ext);
+  nvEl.setAttribute("stroke",`rgb(${cr|0},${cg|0},${cb|0})`);
+  nvEl.setAttribute("stroke-opacity",(1-0.45*ext).toFixed(3));
+  nvPostEl.setAttribute("stroke-opacity",(0.5*reveal(t,0.49,0.54)).toFixed(3));
+  failPin.setAttribute("opacity", reveal(t,0.47,0.52).toFixed(3));
+
+  // future-aware: draw 0.57..0.70
+  const faDraw = reveal(t,0.57,0.70);
+  faEl.setAttribute("stroke-dashoffset",(faLen*(1-faDraw)).toFixed(1));
+  okPin.setAttribute("opacity", reveal(t,0.70,0.74).toFixed(3));
+  // hold both routes; dim slightly in S4/S5
+  const routeDim = t>=0.74 ? 0.55 : 1;
+  faEl.setAttribute("stroke-opacity", (faDraw>0? routeDim:0).toFixed(3));
+  if(t>=0.74){ nvEl.setAttribute("stroke-opacity",(0.55*(1-0.45*ext)).toFixed(3)); }
+
+  // rescue points bloom 0.75..0.87 (stagger), soft pulse
+  rescuePts.forEach((p,i)=>{ const t0=0.75+0.10*(i/Math.max(1,rescuePts.length-1)); const r=reveal(t,t0,t0+0.05);
+    let pulse=1; if(!REDUCED && r>0.99 && t<0.90){ pulse=1+0.14*Math.sin((t*140)+(i)); }
+    p.node.setAttribute("fill-opacity",(0.85*r).toFixed(3));
+    p.node.setAttribute("stroke-opacity",(0.9*r).toFixed(3));
+    p.node.setAttribute("r",(4.2*pulse).toFixed(2)); });
+
+  // overlays
+  setOv("thesis", sc.id==="S0");
+  setOv("s1", sc.id==="S1");
+  setOv("s2", sc.id==="S2");
+  setOv("s3", sc.id==="S3");
+  setOv("s4", sc.id==="S4");
+  setOv("s5", sc.id==="S5");
+
+  // rail rows visible progressively
+  const on = {auc:t>=0.14,gen:t>=0.14,feat:t>=0.18,sev:t>=0.22,n:t>=0.74,needs:t>=0.76,cap:t>=0.80};
+  for(const k in railEls) railEls[k].classList.toggle("on", !!on[k]);
+
+  // transport
+  document.getElementById("scenelab").innerHTML = `<b>${sc.id}</b> · ${sc.name}`;
+  [...ticks.children].forEach(sp=>sp.classList.toggle("active", sp.dataset.id===sc.id));
+  const scr=document.getElementById("scrub"); if(document.activeElement!==scr) scr.value=Math.round(t*1000);
+}
+
+// ---- playback ----
+let t=0, playing=false, last=null;
+const LOOP_SECONDS=44;
+function frame(ts){ if(!playing){ last=null; return; } if(last==null) last=ts; const dt=(ts-last)/1000; last=ts;
+  t+=dt/LOOP_SECONDS; if(t>=1){ t=0; } render(t); requestAnimationFrame(frame); }
+function play(){ if(playing) return; playing=true; last=null; document.getElementById("play").textContent="‖ 일시정지"; requestAnimationFrame(frame); }
+function pause(){ playing=false; document.getElementById("play").textContent="▶ 재생"; }
+function toggle(){ playing?pause():play(); }
+document.getElementById("play").addEventListener("click",toggle);
+document.getElementById("prev").addEventListener("click",()=>{ pause(); const s=sceneAt(t); const idx=SCENES.indexOf(s); const target = (t-s.a<0.01 && idx>0)?SCENES[idx-1]:s; t=target.a+1e-4; render(t); });
+document.getElementById("next").addEventListener("click",()=>{ pause(); const s=sceneAt(t); const idx=SCENES.indexOf(s); const target=SCENES[Math.min(SCENES.length-1,idx+1)]; t=target.a+1e-4; render(t); });
+document.getElementById("scrub").addEventListener("input",e=>{ pause(); t=(+e.target.value)/1000; render(t); });
+window.addEventListener("keydown",e=>{
+  if(e.code==="Space"){ e.preventDefault(); toggle(); }
+  else if(e.code==="ArrowRight"){ e.preventDefault(); document.getElementById("next").click(); }
+  else if(e.code==="ArrowLeft"){ e.preventDefault(); document.getElementById("prev").click(); }
+});
+
+render(0);
+// autoplay for the recorded 시연영상; presenter can pause/scrub/step any time
+if(!REDUCED) play();
+</script>
+</body>
+</html>
