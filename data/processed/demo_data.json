@@ -1,0 +1,881 @@
+{
+  "meta": {
+    "generated_by": "scripts/export_demo_data.py",
+    "reads_committed_artifacts_only": true,
+    "reproducibility": "All displayed numbers copied from committed files; mean-of-folds AUC/std and self-evac-fail fraction re-derived and asserted here.",
+    "model": "HistGradientBoostingClassifier (scikit-learn)",
+    "model_source": "src/wildfireguardian/spread_v2/model.py",
+    "seed": 20250603,
+    "cv": "Leave-One-Fire-Out",
+    "fires_used": [
+      "gangneung_2023",
+      "hongseong_2023",
+      "miryang_2022",
+      "uiseong_andong_2025",
+      "uljin_samcheok_2022",
+      "yeongdeok_2025"
+    ],
+    "n_rows": 151904,
+    "n_positives": 2989,
+    "data_sources_label": "NASA FIRMS(VIIRS+MODIS) · ERA5 · SRTM · ESA WorldCover / 경로: 시간 확장 그래프 + Dijkstra(OSMnx) · Tobler(1993) 보행 보정"
+  },
+  "prediction": {
+    "pooled_auc": {
+      "value": 0.905,
+      "raw": 0.9053277489374548,
+      "source": "data/processed/spread_v2_lofo.json::pooled_auc"
+    },
+    "mean_of_folds_auc": {
+      "value": 0.89,
+      "std": 0.107,
+      "raw_mean": 0.8895257820705522,
+      "raw_std": 0.10657331184934365,
+      "recomputed_from": "per_fire_auc (mean; sample std, ddof=1)",
+      "source": "data/processed/spread_v2_lofo.json::per_fire_auc"
+    },
+    "far_band_auc": {
+      "value": 0.877,
+      "raw": 0.8765583120330634,
+      "note": "AUC on the far band (cells not adjacent to current fire) — the hard, out-ahead case",
+      "source": "data/processed/spread_v2_lofo.json::far_band_auc"
+    },
+    "per_fire_auc": {
+      "value": {
+        "gangneung_2023": 0.682,
+        "hongseong_2023": 0.945,
+        "miryang_2022": 0.974,
+        "uiseong_andong_2025": 0.878,
+        "uljin_samcheok_2022": 0.918,
+        "yeongdeok_2025": 0.941
+      },
+      "source": "data/processed/spread_v2_lofo.json::per_fire_auc"
+    },
+    "top_predictor": {
+      "value": "days_since_rain",
+      "importance": 0.0773,
+      "rank": 1,
+      "source": "data/processed/spread_v2_lofo.json::permutation_importance"
+    },
+    "severity_over_direction_ratio": {
+      "value": 43.69,
+      "display": "≈44×",
+      "note": "severity feature importance sum / wind_alignment importance",
+      "source": "data/processed/spread_v2_lofo.json::severity_over_direction_ratio"
+    },
+    "wind_alignment_importance": {
+      "value": 0.0023,
+      "note": "near-zero — wind DIRECTION barely matters vs severity",
+      "source": "data/processed/spread_v2_lofo.json::wind_alignment_importance"
+    },
+    "footprint_iou_single_step_REPORT_BLOCKED": {
+      "value": 0.874,
+      "display": false,
+      "reason": "dominated by shared burned area (next overpass GIVEN current burn); report-blocked",
+      "source": "data/processed/spread_v2_lofo.json::footprint_iou_single_step.model"
+    }
+  },
+  "forward_sim": {
+    "envelope_area_ha": [
+      6225,
+      18225,
+      25500,
+      27050,
+      27900
+    ],
+    "drift_iou_per_step": [
+      1.0,
+      0.368,
+      0.398,
+      0.392,
+      0.398
+    ],
+    "step_hours": 3.0,
+    "horizon_min": 720.0,
+    "honest_envelope_iou": {
+      "value": 0.39,
+      "display": "≈0.40",
+      "note": "forward-sim envelope IoU vs observed at 3-12 h (steps 1-4); the honest footprint figure (NOT the report-blocked 0.874)",
+      "source": "data/processed/yeongdeok_forward_sim.json::drift[1:].iou"
+    },
+    "source": "data/processed/yeongdeok_forward_sim.json::drift / envelope_area_ha"
+  },
+  "routing_headline": {
+    "hazard_provenance": "REAL spread_v2 forward-sim on held-out Yeongdeok (out-of-sample)",
+    "origin_xy_5179": [
+      1156815.412341581,
+      1832255.7560967335
+    ],
+    "naive": {
+      "total_distance_m": 16500.0,
+      "exposure": 334.35,
+      "max_hazard": 1.0,
+      "enters_hazard": true,
+      "reached": true
+    },
+    "future_aware": {
+      "total_distance_m": 20227.9,
+      "exposure": 23.09,
+      "max_hazard": 0.3236,
+      "enters_hazard": false,
+      "reached": true
+    },
+    "exposure_reduction_pct": 93.1,
+    "scan_counts": {
+      "n_origins_scanned": 407,
+      "naive_into_FA_safe": 56,
+      "no_safe_route": 88,
+      "both_safe": 240,
+      "both_enter": 0
+    },
+    "source": "data/processed/routing_demo.json::headline / counts"
+  },
+  "scenario_geometry": null,
+  "rescue": {
+    "honesty": "PARTIAL REAL FLIP (영덕). Road networks / refuges / depots are REAL OpenStreetMap geometry (source='osm'); the fire HAZARD and the TERRAIN (land–sea mask) remain SYNTHETIC, pending the git-ignored FIRMS fire-data bundle that the spread_v2 forward-sim needs. Every survival / reachability number is therefore still driven by a synthetic fire on a synthetic coastline — contrasts are the robust result; absolute magnitudes stay illustrative until the real hazard is flipped in. 'No safe route' / 'rescuer can't reach' are valid outputs, reported, never imputed.",
+    "sources_map": {
+      "walk_network": "osm",
+      "drive_network": "osm",
+      "shelters": "osm",
+      "depots": "osm",
+      "hazard": "synthetic",
+      "terrain": "synthetic",
+      "origins": "sampled candidates"
+    },
+    "n_origins": 439,
+    "already_safe": 262,
+    "saved_by_rescue_reachable_refuge": 10,
+    "no_safe_pedestrian_route": 143,
+    "no_surviving_vehicle_ingress": 24,
+    "n_needs_rescuer": 167,
+    "needs_rescuer_immobile": 132,
+    "needs_rescuer_walk_cut": 35,
+    "self_evac_fail": {
+      "value_pct": 38.0,
+      "numerator": 167,
+      "denominator": 439,
+      "note": "share of sampled origins that cannot self-evacuate on foot (needs-rescuer / all sampled origins)",
+      "source": "data/processed/rescue_routing.json::responder_exposure.n_need_rescue / n_origins"
+    },
+    "n_refuges": 50,
+    "n_refuges_rescue_reachable": 24,
+    "capacity_sweep": [
+      {
+        "units": 1,
+        "rescued_in_time": 3,
+        "capacity_deferred": 140,
+        "geometry_unreachable": 24,
+        "pct_demand_met": 1.8
+      },
+      {
+        "units": 2,
+        "rescued_in_time": 6,
+        "capacity_deferred": 137,
+        "geometry_unreachable": 24,
+        "pct_demand_met": 3.6
+      },
+      {
+        "units": 3,
+        "rescued_in_time": 9,
+        "capacity_deferred": 134,
+        "geometry_unreachable": 24,
+        "pct_demand_met": 5.4
+      },
+      {
+        "units": 4,
+        "rescued_in_time": 12,
+        "capacity_deferred": 131,
+        "geometry_unreachable": 24,
+        "pct_demand_met": 7.2
+      },
+      {
+        "units": 6,
+        "rescued_in_time": 18,
+        "capacity_deferred": 125,
+        "geometry_unreachable": 24,
+        "pct_demand_met": 10.8
+      },
+      {
+        "units": 8,
+        "rescued_in_time": 24,
+        "capacity_deferred": 119,
+        "geometry_unreachable": 24,
+        "pct_demand_met": 14.4
+      }
+    ],
+    "capacity_config_PoC": {
+      "n_rescue_units": 3,
+      "rescue_service_time_min": 25.0,
+      "PoC_not_measured": "Capacity (unit count + service time) is a PoC parameter, NOT measured 영덕 fire-service capacity. The result is the demand–supply curve; absolute 'rescued' counts are illustrative."
+    },
+    "capacity_note": "PoC supply parameters, NOT measured Yeongdeok fire-service capacity; the deliverable is the demand-supply CURVE, never a 'lives saved' figure",
+    "source": "data/processed/rescue_routing.json + data/processed/rescue_capacity.json"
+  },
+  "rescue_points": {
+    "crs": "EPSG:5179",
+    "bbox_5179": [
+      1157954.1,
+      1815481.4,
+      1174854.6,
+      1846345.7
+    ],
+    "normalization": "x,y mapped into [0,1]^2 within bbox_5179 (padded); y flipped so north is up (ny=0)",
+    "hazard_provenance": "SYNTHETIC hazard (no FIRMS bundle); point locations are REAL OpenStreetMap",
+    "refuges": [
+      {
+        "xy": [
+          0.16869,
+          0.94
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.77343,
+          0.14538
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.83924,
+          0.18329
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.806,
+          0.18136
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.83976,
+          0.28739
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.84289,
+          0.31103
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.94,
+          0.34544
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.71541,
+          0.63114
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.64291,
+          0.84955
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.74312,
+          0.72471
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.09271,
+          0.91772
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.06025,
+          0.92445
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.44132,
+          0.16995
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.43064,
+          0.17116
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.70413,
+          0.35151
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.5893,
+          0.66789
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.67897,
+          0.81735
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.64421,
+          0.85552
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.74345,
+          0.06
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.77344,
+          0.1454
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.66199,
+          0.11046
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.84129,
+          0.1869
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.80627,
+          0.1814
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.84796,
+          0.19194
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.71404,
+          0.2146
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.76106,
+          0.23875
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.80335,
+          0.19979
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.71201,
+          0.27873
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.75349,
+          0.25264
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.89441,
+          0.41191
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.44326,
+          0.23078
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.15138,
+          0.54096
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.70838,
+          0.3148
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.67551,
+          0.33016
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.71376,
+          0.34695
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.86668,
+          0.60333
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.78489,
+          0.62346
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.59776,
+          0.65138
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.58829,
+          0.66609
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.57304,
+          0.67663
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.56521,
+          0.69836
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.56289,
+          0.72721
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.55313,
+          0.72434
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.5094,
+          0.62231
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.60312,
+          0.81346
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.15718,
+          0.54501
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.13821,
+          0.54242
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.38642,
+          0.93482
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.06,
+          0.92424
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.56472,
+          0.63526
+        ],
+        "rescue_reachable": true
+      }
+    ],
+    "demand_homes": [
+      {
+        "xy": [
+          0.43231,
+          0.32307
+        ],
+        "closing_window_min": -76.9
+      },
+      {
+        "xy": [
+          0.32378,
+          0.20732
+        ],
+        "closing_window_min": -76.4
+      },
+      {
+        "xy": [
+          0.07155,
+          0.12631
+        ],
+        "closing_window_min": -76.1
+      },
+      {
+        "xy": [
+          0.67148,
+          0.10217
+        ],
+        "closing_window_min": -73.0
+      },
+      {
+        "xy": [
+          0.65818,
+          0.1067
+        ],
+        "closing_window_min": -72.8
+      },
+      {
+        "xy": [
+          0.65818,
+          0.1067
+        ],
+        "closing_window_min": -72.8
+      },
+      {
+        "xy": [
+          0.66424,
+          0.11055
+        ],
+        "closing_window_min": -72.5
+      },
+      {
+        "xy": [
+          0.44167,
+          0.23191
+        ],
+        "closing_window_min": -72.5
+      },
+      {
+        "xy": [
+          0.71415,
+          0.13194
+        ],
+        "closing_window_min": -72.2
+      },
+      {
+        "xy": [
+          0.19024,
+          0.14149
+        ],
+        "closing_window_min": -72.0
+      },
+      {
+        "xy": [
+          0.71519,
+          0.14811
+        ],
+        "closing_window_min": -71.3
+      },
+      {
+        "xy": [
+          0.62563,
+          0.22189
+        ],
+        "closing_window_min": -71.0
+      },
+      {
+        "xy": [
+          0.55615,
+          0.20782
+        ],
+        "closing_window_min": -70.3
+      },
+      {
+        "xy": [
+          0.62077,
+          0.17922
+        ],
+        "closing_window_min": -69.7
+      },
+      {
+        "xy": [
+          0.54252,
+          0.26772
+        ],
+        "closing_window_min": -69.7
+      },
+      {
+        "xy": [
+          0.62618,
+          0.17915
+        ],
+        "closing_window_min": -69.6
+      },
+      {
+        "xy": [
+          0.8369,
+          0.19357
+        ],
+        "closing_window_min": -69.6
+      },
+      {
+        "xy": [
+          0.55496,
+          0.2371
+        ],
+        "closing_window_min": -69.1
+      },
+      {
+        "xy": [
+          0.69129,
+          0.20476
+        ],
+        "closing_window_min": -68.7
+      },
+      {
+        "xy": [
+          0.79653,
+          0.19911
+        ],
+        "closing_window_min": -68.6
+      }
+    ],
+    "unreachable_homes": [
+      {
+        "xy": [
+          0.73977,
+          0.4533
+        ]
+      },
+      {
+        "xy": [
+          0.62519,
+          0.40072
+        ]
+      },
+      {
+        "xy": [
+          0.8297,
+          0.54212
+        ]
+      },
+      {
+        "xy": [
+          0.74176,
+          0.45624
+        ]
+      },
+      {
+        "xy": [
+          0.57108,
+          0.40021
+        ]
+      },
+      {
+        "xy": [
+          0.54088,
+          0.38552
+        ]
+      },
+      {
+        "xy": [
+          0.48227,
+          0.3865
+        ]
+      },
+      {
+        "xy": [
+          0.48227,
+          0.3865
+        ]
+      },
+      {
+        "xy": [
+          0.8297,
+          0.54212
+        ]
+      },
+      {
+        "xy": [
+          0.79891,
+          0.54949
+        ]
+      },
+      {
+        "xy": [
+          0.78526,
+          0.54847
+        ]
+      },
+      {
+        "xy": [
+          0.76371,
+          0.56143
+        ]
+      },
+      {
+        "xy": [
+          0.80151,
+          0.61325
+        ]
+      },
+      {
+        "xy": [
+          0.74714,
+          0.51638
+        ]
+      },
+      {
+        "xy": [
+          0.67182,
+          0.45567
+        ]
+      },
+      {
+        "xy": [
+          0.58234,
+          0.48408
+        ]
+      },
+      {
+        "xy": [
+          0.53741,
+          0.41608
+        ]
+      },
+      {
+        "xy": [
+          0.44922,
+          0.43031
+        ]
+      },
+      {
+        "xy": [
+          0.49205,
+          0.48658
+        ]
+      },
+      {
+        "xy": [
+          0.49166,
+          0.58983
+        ]
+      },
+      {
+        "xy": [
+          0.59293,
+          0.61207
+        ]
+      },
+      {
+        "xy": [
+          0.59293,
+          0.61207
+        ]
+      },
+      {
+        "xy": [
+          0.50763,
+          0.58711
+        ]
+      },
+      {
+        "xy": [
+          0.47176,
+          0.58422
+        ]
+      }
+    ],
+    "source": "data/processed/rescue_routing.json::destinations / dispatch_top20 / unreachable_homes"
+  },
+  "geometry_status": {
+    "fire_fronts": {
+      "status": "MISSING",
+      "what": "predicted-front isochrone rings for Yeongdeok",
+      "lives_in": "data/processed/routing_demo.npz (git-ignored bulk) keys 'haz_stack' (float surfaces) + 'grid_extent' + 'haz_times'",
+      "regenerate_needs": "FIRMS/ERA5/DEM raw bundle (git-ignored; data.data_available()==False in a fresh clone) via scripts/run_routing_integration.py (forward-sim requires it)",
+      "note": "NOT fabricated. Only scalar summaries (areas, IoU, breadth) are committed in yeongdeok_forward_sim.json; the polygon rings are not."
+    },
+    "evac_routes": {
+      "status": "MISSING",
+      "what": "naive + future-aware evacuation route polylines for the headline origin",
+      "lives_in": "data/processed/routing_demo.npz (git-ignored bulk) keys 'naive_xy' / 'fa_xy' / 'origin_xy' / 'shelters_xy'",
+      "regenerate_needs": "FIRMS/ERA5/DEM raw bundle (git-ignored; data.data_available()==False in a fresh clone) (lattice network is built on the FIRMS-derived grid)",
+      "note": "NOT fabricated. routing_demo.json commits only node ids + scalar route metrics."
+    }
+  }
+}

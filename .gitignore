@@ -79,6 +79,10 @@ data/processed/**
 !data/processed/spread_v2_lofo.json
 !data/processed/yeongdeok_forward_sim.json
 !data/processed/routing_demo.json
+# CodeFair demo bundle (small self-contained JSON; every value carries a source
+# string; regenerable via scripts/export_demo_data.py, which reads committed
+# artifacts only). The bulk routing_demo.npz input stays ignored.
+!data/processed/demo_data.json
 # AUC-interval + ML-baseline analysis outputs (per-fire DeLong CIs / significance;
 # logistic/RF vs GBM comparison; persisted LOFO out-of-fold predictions). These are
 # the result artifacts of scripts/auc_intervals.py and scripts/ml_baselines.py;

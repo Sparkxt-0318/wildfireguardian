@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WildfireGuardian · 산불 골든타임 — 시연</title>
+<!-- Fonts load from Google when online; the fallback stack keeps the page legible offline. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* cartographic slate base (a choice, not #000) */
+  --base0:#0B0F14; --base1:#121A22; --hair:#1E2A36; --struct:#2A3540;
+  /* fire isochrones: early->late = cool->hot (sequential ramp, monotonic light->dark) */
+  --fire1:#F2C14E; --fire2:#E8752B; --fire3:#C1361E;
+  /* routes */
+  --naive:#E6A23C; --ash:#6B6257; --future:#33C4B5;
+  /* points */
+  --rescue:#E5507E; --safe:#4C9A6A;
+  /* ink */
+  --ink:#E8EDF2; --ink2:#8A97A6;
+  --sans:'IBM Plex Sans KR', system-ui, 'Apple SD Gothic Neo','Malgun Gothic', sans-serif;
+  --mono:'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+*{box-sizing:border-box; margin:0; padding:0}
+html,body{height:100%}
+body{
+  background:#05070A; color:var(--ink); font-family:var(--sans);
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden; -webkit-font-smoothing:antialiased;
+}
+/* 16:9 stage, scales to viewport, letterboxed */
+#stage{
+  position:relative; width:min(100vw, calc(100vh * 16/9));
+  aspect-ratio:16/9; background:linear-gradient(178deg,var(--base0),var(--base1));
+  overflow:hidden; box-shadow:0 0 0 1px #000, 0 24px 80px rgba(0,0,0,.6);
+}
+/* everything is authored against a 1600x900 design box and scaled by the stage width */
+#scaler{position:absolute; inset:0; width:1600px; height:900px; transform-origin:top left}
+.map-area{position:absolute; left:0; top:0; width:1600px; height:836px}
+svg#map{position:absolute; inset:0; width:100%; height:100%}
+.layer{transition:opacity .0s linear}
+
+/* ---- floating panels over the map (ESRI-ops style, not glassy cards) ---- */
+.panel{position:absolute; pointer-events:none}
+/* thesis */
+#thesis{left:0; right:0; top:298px; text-align:center; padding:0 120px}
+#thesis .line{font-size:56px; font-weight:600; letter-spacing:-.5px; line-height:1.16;
+  color:var(--ink); text-shadow:0 2px 30px rgba(0,0,0,.75)}
+#thesis .sub{margin-top:26px; font-family:var(--mono); font-size:15px; letter-spacing:2px;
+  color:var(--ink2); text-transform:uppercase}
+#thesis .brand-dot{color:var(--fire2)}
+
+/* scene tag, top-left */
+#scenetag{left:34px; top:28px; font-family:var(--mono); font-size:13px; letter-spacing:1.5px; color:var(--ink2)}
+#scenetag b{color:var(--ink); font-weight:600}
+
+/* data rail, lower-left */
+#rail{left:34px; bottom:24px; width:352px;
+  background:linear-gradient(100deg, rgba(8,12,16,.78), rgba(8,12,16,.34));
+  border-left:2px solid var(--struct); padding:16px 18px}
+#rail h4{font-family:var(--mono); font-size:12px; letter-spacing:2px; text-transform:uppercase;
+  color:var(--ink2); font-weight:500; margin-bottom:12px}
+.rrow{display:flex; justify-content:space-between; align-items:baseline; gap:12px; padding:5px 0;
+  border-bottom:1px solid rgba(42,53,64,.5)}
+.rrow:last-child{border-bottom:0}
+.rrow .k{font-family:var(--sans); font-size:13px; color:var(--ink2)}
+.rrow .v{font-family:var(--mono); font-size:15px; color:var(--ink); font-weight:500; font-variant-numeric:tabular-nums}
+.rrow .v.hot{color:var(--fire1)} .rrow .v.teal{color:var(--future)} .rrow .v.rose{color:var(--rescue)}
+#rail .src{margin-top:11px; font-family:var(--mono); font-size:10.5px; line-height:1.5; color:#6C7787}
+
+/* callout, upper-right */
+#callout{right:34px; top:96px; width:392px; text-align:right}
+#callout .big{font-family:var(--mono); font-size:20px; color:var(--ink); font-weight:500}
+#callout .kr{font-size:15px; color:var(--ink); line-height:1.5; margin-top:10px}
+#callout .muted{color:var(--ink2)}
+#callout .em-hot{color:var(--fire1)} #callout .em-teal{color:var(--future)} #callout .em-rose{color:var(--rescue)}
+.chip{display:inline-block; font-family:var(--mono); font-size:12px; letter-spacing:.5px;
+  padding:3px 9px; border:1px solid var(--struct); border-radius:2px; color:var(--ink2); margin-top:14px}
+.chip.syn{color:#C9A24B; border-color:#5a4d27}
+
+/* route field labels near the map */
+.flabel{position:absolute; font-family:var(--sans); font-size:14px; font-weight:500;
+  padding:5px 9px; border-radius:3px; white-space:nowrap; pointer-events:none}
+.flabel .sub{font-family:var(--mono); font-size:11px; color:var(--ink2); display:block; margin-top:1px}
+.flabel.naive{color:var(--naive); background:rgba(8,12,16,.7); border:1px solid rgba(230,162,60,.35)}
+.flabel.future{color:var(--future); background:rgba(8,12,16,.7); border:1px solid rgba(51,196,181,.35)}
+.verdict{position:absolute; font-family:var(--mono); font-size:13px; font-weight:600;
+  padding:4px 10px; border-radius:3px; letter-spacing:.5px}
+.verdict.fail{color:#F1D2C6; background:rgba(107,98,87,.9)}
+.verdict.ok{color:#DDF3E7; background:rgba(76,154,106,.92)}
+
+/* S4 capacity mini-chart, right */
+#cap{right:34px; top:300px; width:392px}
+#cap .cap-t{font-family:var(--mono); font-size:12px; letter-spacing:1px; color:var(--ink2); text-align:right; margin-bottom:8px}
+#cap svg{width:100%; height:150px; display:block}
+
+/* S5 sources */
+#sources{left:0; right:0; top:250px; text-align:center; padding:0 160px}
+#sources .repro{font-size:26px; font-weight:600; color:var(--ink); line-height:1.3}
+#sources .srcline{font-family:var(--mono); font-size:13px; color:var(--ink2); line-height:1.9; margin-top:22px}
+#sources .model{font-family:var(--mono); font-size:13px; color:var(--ink2); margin-top:8px}
+
+/* ---- transport bar ---- */
+#transport{position:absolute; left:0; right:0; bottom:0; height:64px;
+  display:flex; align-items:center; gap:18px; padding:0 22px;
+  background:linear-gradient(0deg, rgba(4,6,9,.96), rgba(4,6,9,.72)); border-top:1px solid var(--hair)}
+.tbtn{pointer-events:auto; cursor:pointer; background:none; border:1px solid var(--struct); color:var(--ink);
+  width:36px; height:34px; border-radius:3px; font-size:15px; display:flex; align-items:center; justify-content:center}
+.tbtn:hover{border-color:var(--future); color:var(--future)}
+.tbtn:focus-visible{outline:2px solid var(--future); outline-offset:2px}
+#scenestep{display:flex; align-items:center; gap:8px; font-family:var(--mono); font-size:12px; color:var(--ink2); min-width:150px}
+#scenestep b{color:var(--ink)}
+#scrubwrap{flex:1; display:flex; align-items:center; gap:12px}
+#scrub{-webkit-appearance:none; appearance:none; width:100%; height:4px; border-radius:2px;
+  background:var(--struct); pointer-events:auto; cursor:pointer}
+#scrub::-webkit-slider-thumb{-webkit-appearance:none; width:14px; height:14px; border-radius:50%;
+  background:var(--future); border:2px solid #05070A; cursor:pointer}
+#scrub::-moz-range-thumb{width:14px; height:14px; border-radius:50%; background:var(--future); border:2px solid #05070A}
+#scrub:focus-visible{outline:2px solid var(--future); outline-offset:4px}
+#clock{font-family:var(--mono); font-size:12px; color:var(--ink2); min-width:74px; text-align:right; font-variant-numeric:tabular-nums}
+
+/* legend (persistent) */
+#legend{display:flex; gap:16px; align-items:center; flex-wrap:nowrap}
+.lg{display:flex; align-items:center; gap:6px; font-family:var(--sans); font-size:12px; color:var(--ink2); white-space:nowrap}
+.lg .gl{width:22px; height:12px; position:relative; flex:0 0 auto}
+.gl.fire{background:linear-gradient(90deg,var(--fire1),var(--fire2),var(--fire3)); opacity:.85; border-radius:2px}
+.gl.line-n::after,.gl.line-f::after{content:""; position:absolute; left:0; right:0; top:5px; height:2px; border-radius:2px}
+.gl.line-n::after{background:var(--naive)} .gl.line-f::after{background:var(--future)}
+.gl.dot::after{content:""; position:absolute; left:5px; top:1px; width:10px; height:10px; border-radius:50%}
+.gl.rose::after{background:var(--rescue)} .gl.green::after{background:var(--safe)}
+.gl.ash::after{content:""; position:absolute; left:5px; top:1px; width:10px; height:10px; border-radius:50%; background:var(--ash)}
+
+/* SVG mark styles */
+.front-fill{stroke:none}
+.front-line{fill:none; stroke-width:1.4; vector-effect:non-scaling-stroke}
+.route-casing{fill:none; stroke:#05070A; stroke-width:6; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke}
+.route{fill:none; stroke-width:3; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke}
+.route.naive{stroke:var(--naive)} .route.future{stroke:var(--future)}
+.route.doomed{stroke:var(--ash)}
+.grat{stroke:var(--hair); stroke-width:1; vector-effect:non-scaling-stroke; opacity:.5}
+.pt{stroke:#05070A; stroke-width:1.2}
+.pt.rescue{fill:var(--rescue)} .pt.safe{fill:var(--safe)} .pt.unreach{fill:var(--ash)}
+.origin-ring{fill:none; stroke:var(--ink); stroke-width:2; vector-effect:non-scaling-stroke}
+
+#pending{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none}
+#pending div{font-family:var(--mono); font-size:13px; color:#5b6675; border:1px dashed var(--struct);
+  padding:14px 20px; border-radius:4px; max-width:520px; text-align:center; line-height:1.6; background:rgba(8,12,16,.5)}
+
+@media (prefers-reduced-motion: reduce){ .pulse{animation:none !important} }
+.pulse{transform-box:fill-box; transform-origin:center}
+@keyframes softpulse{0%,100%{opacity:.55} 50%{opacity:1}}
+</style>
+</head>
+<body>
+<div id="stage">
+ <div id="scaler">
+  <div class="map-area">
+    <svg id="map" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet" aria-label="영덕 산불 시나리오 지도">
+      <defs>
+        <radialGradient id="glow" cx="50%" cy="50%" r="60%">
+          <stop offset="0%" stop-color="#1a2632" stop-opacity="0.55"/>
+          <stop offset="100%" stop-color="#0B0F14" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect x="0" y="0" width="1000" height="1000" fill="url(#glow)"/>
+      <g id="g-grat" class="layer"></g>
+      <g id="g-fronts" class="layer"></g>
+      <g id="g-ign" class="layer"></g>
+      <g id="g-routes" class="layer"></g>
+      <g id="g-rescue" class="layer" opacity="0"></g>
+    </svg>
+    <div id="pending"><div></div></div>
+    <div id="flabel-naive" class="flabel naive panel" style="opacity:0"></div>
+    <div id="flabel-future" class="flabel future panel" style="opacity:0"></div>
+    <div id="verdict-fail" class="verdict fail panel" style="opacity:0">대피 실패</div>
+    <div id="verdict-ok" class="verdict ok panel" style="opacity:0">대피 성공</div>
+  </div>
+
+  <div id="scenetag" class="panel"></div>
+
+  <div id="thesis" class="panel">
+    <div class="line">불이 지금 있는 곳이 아니라,<br>앞으로 갈 곳에서 대피시킵니다.</div>
+    <div class="sub">WildfireGuardian <span class="brand-dot">·</span> 산불 골든타임</div>
+  </div>
+
+  <div id="rail" class="panel">
+    <h4 id="rail-title">예측 모델</h4>
+    <div id="rail-rows"></div>
+    <div class="src" id="rail-src"></div>
+  </div>
+
+  <div id="callout" class="panel"></div>
+
+  <div id="cap" class="panel" style="opacity:0">
+    <div class="cap-t">구조 용량 곡선 · 파견 팀 수 → 적시 구조 (수요 대비 %)</div>
+    <svg viewBox="0 0 392 150" id="cap-svg" preserveAspectRatio="none"></svg>
+  </div>
+
+  <div id="sources" class="panel" style="opacity:0">
+    <div class="repro">모든 수치는 커밋된 아티팩트에서<br>재생성됩니다. <span style="color:var(--future)">(재현 가능)</span></div>
+    <div class="model" id="src-model"></div>
+    <div class="srcline" id="src-data"></div>
+  </div>
+
+  <div id="transport">
+    <button class="tbtn" id="play" aria-label="재생/일시정지 (Space)">❚❚</button>
+    <div id="scenestep">
+      <button class="tbtn" id="prev" aria-label="이전 장면 (←)">◀</button>
+      <span>SCENE <b id="scene-n">0</b>/5 · <b id="scene-name">논지</b></span>
+      <button class="tbtn" id="next" aria-label="다음 장면 (→)">▶</button>
+    </div>
+    <div id="scrubwrap">
+      <input type="range" id="scrub" min="0" max="1000" value="0" aria-label="타임라인 스크러버">
+      <span id="clock">0.00</span>
+    </div>
+    <div id="legend">
+      <span class="lg"><span class="gl fire"></span>예측 화재 전선</span>
+      <span class="lg"><span class="gl line-n"></span>주민 대피 경로</span>
+      <span class="lg"><span class="gl line-f"></span>미래 인지 경로</span>
+      <span class="lg"><span class="gl dot rose"></span>구조 필요 인원</span>
+      <span class="lg"><span class="gl dot green"></span>대피소</span>
+      <span class="lg"><span class="gl dot ash"></span>도달 불가</span>
+    </div>
+  </div>
+ </div>
+</div>
+
+<script type="application/json" id="demo-data">
+/*__DEMO_DATA_START__*/
+{
+  "meta": {
+    "generated_by": "scripts/export_demo_data.py",
+    "reads_committed_artifacts_only": true,
+    "reproducibility": "All displayed numbers copied from committed files; mean-of-folds AUC/std and self-evac-fail fraction re-derived and asserted here.",
+    "model": "HistGradientBoostingClassifier (scikit-learn)",
+    "model_source": "src/wildfireguardian/spread_v2/model.py",
+    "seed": 20250603,
+    "cv": "Leave-One-Fire-Out",
+    "fires_used": [
+      "gangneung_2023",
+      "hongseong_2023",
+      "miryang_2022",
+      "uiseong_andong_2025",
+      "uljin_samcheok_2022",
+      "yeongdeok_2025"
+    ],
+    "n_rows": 151904,
+    "n_positives": 2989,
+    "data_sources_label": "NASA FIRMS(VIIRS+MODIS) · ERA5 · SRTM · ESA WorldCover / 경로: 시간 확장 그래프 + Dijkstra(OSMnx) · Tobler(1993) 보행 보정"
+  },
+  "prediction": {
+    "pooled_auc": {
+      "value": 0.905,
+      "raw": 0.9053277489374548,
+      "source": "data/processed/spread_v2_lofo.json::pooled_auc"
+    },
+    "mean_of_folds_auc": {
+      "value": 0.89,
+      "std": 0.107,
+      "raw_mean": 0.8895257820705522,
+      "raw_std": 0.10657331184934365,
+      "recomputed_from": "per_fire_auc (mean; sample std, ddof=1)",
+      "source": "data/processed/spread_v2_lofo.json::per_fire_auc"
+    },
+    "far_band_auc": {
+      "value": 0.877,
+      "raw": 0.8765583120330634,
+      "note": "AUC on the far band (cells not adjacent to current fire) — the hard, out-ahead case",
+      "source": "data/processed/spread_v2_lofo.json::far_band_auc"
+    },
+    "per_fire_auc": {
+      "value": {
+        "gangneung_2023": 0.682,
+        "hongseong_2023": 0.945,
+        "miryang_2022": 0.974,
+        "uiseong_andong_2025": 0.878,
+        "uljin_samcheok_2022": 0.918,
+        "yeongdeok_2025": 0.941
+      },
+      "source": "data/processed/spread_v2_lofo.json::per_fire_auc"
+    },
+    "top_predictor": {
+      "value": "days_since_rain",
+      "importance": 0.0773,
+      "rank": 1,
+      "source": "data/processed/spread_v2_lofo.json::permutation_importance"
+    },
+    "severity_over_direction_ratio": {
+      "value": 43.69,
+      "display": "≈44×",
+      "note": "severity feature importance sum / wind_alignment importance",
+      "source": "data/processed/spread_v2_lofo.json::severity_over_direction_ratio"
+    },
+    "wind_alignment_importance": {
+      "value": 0.0023,
+      "note": "near-zero — wind DIRECTION barely matters vs severity",
+      "source": "data/processed/spread_v2_lofo.json::wind_alignment_importance"
+    },
+    "footprint_iou_single_step_REPORT_BLOCKED": {
+      "value": 0.874,
+      "display": false,
+      "reason": "dominated by shared burned area (next overpass GIVEN current burn); report-blocked",
+      "source": "data/processed/spread_v2_lofo.json::footprint_iou_single_step.model"
+    }
+  },
+  "forward_sim": {
+    "envelope_area_ha": [
+      6225,
+      18225,
+      25500,
+      27050,
+      27900
+    ],
+    "drift_iou_per_step": [
+      1.0,
+      0.368,
+      0.398,
+      0.392,
+      0.398
+    ],
+    "step_hours": 3.0,
+    "horizon_min": 720.0,
+    "honest_envelope_iou": {
+      "value": 0.39,
+      "display": "≈0.40",
+      "note": "forward-sim envelope IoU vs observed at 3-12 h (steps 1-4); the honest footprint figure (NOT the report-blocked 0.874)",
+      "source": "data/processed/yeongdeok_forward_sim.json::drift[1:].iou"
+    },
+    "source": "data/processed/yeongdeok_forward_sim.json::drift / envelope_area_ha"
+  },
+  "routing_headline": {
+    "hazard_provenance": "REAL spread_v2 forward-sim on held-out Yeongdeok (out-of-sample)",
+    "origin_xy_5179": [
+      1156815.412341581,
+      1832255.7560967335
+    ],
+    "naive": {
+      "total_distance_m": 16500.0,
+      "exposure": 334.35,
+      "max_hazard": 1.0,
+      "enters_hazard": true,
+      "reached": true
+    },
+    "future_aware": {
+      "total_distance_m": 20227.9,
+      "exposure": 23.09,
+      "max_hazard": 0.3236,
+      "enters_hazard": false,
+      "reached": true
+    },
+    "exposure_reduction_pct": 93.1,
+    "scan_counts": {
+      "n_origins_scanned": 407,
+      "naive_into_FA_safe": 56,
+      "no_safe_route": 88,
+      "both_safe": 240,
+      "both_enter": 0
+    },
+    "source": "data/processed/routing_demo.json::headline / counts"
+  },
+  "scenario_geometry": null,
+  "rescue": {
+    "honesty": "PARTIAL REAL FLIP (영덕). Road networks / refuges / depots are REAL OpenStreetMap geometry (source='osm'); the fire HAZARD and the TERRAIN (land–sea mask) remain SYNTHETIC, pending the git-ignored FIRMS fire-data bundle that the spread_v2 forward-sim needs. Every survival / reachability number is therefore still driven by a synthetic fire on a synthetic coastline — contrasts are the robust result; absolute magnitudes stay illustrative until the real hazard is flipped in. 'No safe route' / 'rescuer can't reach' are valid outputs, reported, never imputed.",
+    "sources_map": {
+      "walk_network": "osm",
+      "drive_network": "osm",
+      "shelters": "osm",
+      "depots": "osm",
+      "hazard": "synthetic",
+      "terrain": "synthetic",
+      "origins": "sampled candidates"
+    },
+    "n_origins": 439,
+    "already_safe": 262,
+    "saved_by_rescue_reachable_refuge": 10,
+    "no_safe_pedestrian_route": 143,
+    "no_surviving_vehicle_ingress": 24,
+    "n_needs_rescuer": 167,
+    "needs_rescuer_immobile": 132,
+    "needs_rescuer_walk_cut": 35,
+    "self_evac_fail": {
+      "value_pct": 38.0,
+      "numerator": 167,
+      "denominator": 439,
+      "note": "share of sampled origins that cannot self-evacuate on foot (needs-rescuer / all sampled origins)",
+      "source": "data/processed/rescue_routing.json::responder_exposure.n_need_rescue / n_origins"
+    },
+    "n_refuges": 50,
+    "n_refuges_rescue_reachable": 24,
+    "capacity_sweep": [
+      {
+        "units": 1,
+        "rescued_in_time": 3,
+        "capacity_deferred": 140,
+        "geometry_unreachable": 24,
+        "pct_demand_met": 1.8
+      },
+      {
+        "units": 2,
+        "rescued_in_time": 6,
+        "capacity_deferred": 137,
+        "geometry_unreachable": 24,
+        "pct_demand_met": 3.6
+      },
+      {
+        "units": 3,
+        "rescued_in_time": 9,
+        "capacity_deferred": 134,
+        "geometry_unreachable": 24,
+        "pct_demand_met": 5.4
+      },
+      {
+        "units": 4,
+        "rescued_in_time": 12,
+        "capacity_deferred": 131,
+        "geometry_unreachable": 24,
+        "pct_demand_met": 7.2
+      },
+      {
+        "units": 6,
+        "rescued_in_time": 18,
+        "capacity_deferred": 125,
+        "geometry_unreachable": 24,
+        "pct_demand_met": 10.8
+      },
+      {
+        "units": 8,
+        "rescued_in_time": 24,
+        "capacity_deferred": 119,
+        "geometry_unreachable": 24,
+        "pct_demand_met": 14.4
+      }
+    ],
+    "capacity_config_PoC": {
+      "n_rescue_units": 3,
+      "rescue_service_time_min": 25.0,
+      "PoC_not_measured": "Capacity (unit count + service time) is a PoC parameter, NOT measured 영덕 fire-service capacity. The result is the demand–supply curve; absolute 'rescued' counts are illustrative."
+    },
+    "capacity_note": "PoC supply parameters, NOT measured Yeongdeok fire-service capacity; the deliverable is the demand-supply CURVE, never a 'lives saved' figure",
+    "source": "data/processed/rescue_routing.json + data/processed/rescue_capacity.json"
+  },
+  "rescue_points": {
+    "crs": "EPSG:5179",
+    "bbox_5179": [
+      1157954.1,
+      1815481.4,
+      1174854.6,
+      1846345.7
+    ],
+    "normalization": "x,y mapped into [0,1]^2 within bbox_5179 (padded); y flipped so north is up (ny=0)",
+    "hazard_provenance": "SYNTHETIC hazard (no FIRMS bundle); point locations are REAL OpenStreetMap",
+    "refuges": [
+      {
+        "xy": [
+          0.16869,
+          0.94
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.77343,
+          0.14538
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.83924,
+          0.18329
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.806,
+          0.18136
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.83976,
+          0.28739
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.84289,
+          0.31103
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.94,
+          0.34544
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.71541,
+          0.63114
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.64291,
+          0.84955
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.74312,
+          0.72471
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.09271,
+          0.91772
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.06025,
+          0.92445
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.44132,
+          0.16995
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.43064,
+          0.17116
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.70413,
+          0.35151
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.5893,
+          0.66789
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.67897,
+          0.81735
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.64421,
+          0.85552
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.74345,
+          0.06
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.77344,
+          0.1454
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.66199,
+          0.11046
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.84129,
+          0.1869
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.80627,
+          0.1814
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.84796,
+          0.19194
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.71404,
+          0.2146
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.76106,
+          0.23875
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.80335,
+          0.19979
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.71201,
+          0.27873
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.75349,
+          0.25264
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.89441,
+          0.41191
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.44326,
+          0.23078
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.15138,
+          0.54096
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.70838,
+          0.3148
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.67551,
+          0.33016
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.71376,
+          0.34695
+        ],
+        "rescue_reachable": false
+      },
+      {
+        "xy": [
+          0.86668,
+          0.60333
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.78489,
+          0.62346
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.59776,
+          0.65138
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.58829,
+          0.66609
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.57304,
+          0.67663
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.56521,
+          0.69836
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.56289,
+          0.72721
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.55313,
+          0.72434
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.5094,
+          0.62231
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.60312,
+          0.81346
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.15718,
+          0.54501
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.13821,
+          0.54242
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.38642,
+          0.93482
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.06,
+          0.92424
+        ],
+        "rescue_reachable": true
+      },
+      {
+        "xy": [
+          0.56472,
+          0.63526
+        ],
+        "rescue_reachable": true
+      }
+    ],
+    "demand_homes": [
+      {
+        "xy": [
+          0.43231,
+          0.32307
+        ],
+        "closing_window_min": -76.9
+      },
+      {
+        "xy": [
+          0.32378,
+          0.20732
+        ],
+        "closing_window_min": -76.4
+      },
+      {
+        "xy": [
+          0.07155,
+          0.12631
+        ],
+        "closing_window_min": -76.1
+      },
+      {
+        "xy": [
+          0.67148,
+          0.10217
+        ],
+        "closing_window_min": -73.0
+      },
+      {
+        "xy": [
+          0.65818,
+          0.1067
+        ],
+        "closing_window_min": -72.8
+      },
+      {
+        "xy": [
+          0.65818,
+          0.1067
+        ],
+        "closing_window_min": -72.8
+      },
+      {
+        "xy": [
+          0.66424,
+          0.11055
+        ],
+        "closing_window_min": -72.5
+      },
+      {
+        "xy": [
+          0.44167,
+          0.23191
+        ],
+        "closing_window_min": -72.5
+      },
+      {
+        "xy": [
+          0.71415,
+          0.13194
+        ],
+        "closing_window_min": -72.2
+      },
+      {
+        "xy": [
+          0.19024,
+          0.14149
+        ],
+        "closing_window_min": -72.0
+      },
+      {
+        "xy": [
+          0.71519,
+          0.14811
+        ],
+        "closing_window_min": -71.3
+      },
+      {
+        "xy": [
+          0.62563,
+          0.22189
+        ],
+        "closing_window_min": -71.0
+      },
+      {
+        "xy": [
+          0.55615,
+          0.20782
+        ],
+        "closing_window_min": -70.3
+      },
+      {
+        "xy": [
+          0.62077,
+          0.17922
+        ],
+        "closing_window_min": -69.7
+      },
+      {
+        "xy": [
+          0.54252,
+          0.26772
+        ],
+        "closing_window_min": -69.7
+      },
+      {
+        "xy": [
+          0.62618,
+          0.17915
+        ],
+        "closing_window_min": -69.6
+      },
+      {
+        "xy": [
+          0.8369,
+          0.19357
+        ],
+        "closing_window_min": -69.6
+      },
+      {
+        "xy": [
+          0.55496,
+          0.2371
+        ],
+        "closing_window_min": -69.1
+      },
+      {
+        "xy": [
+          0.69129,
+          0.20476
+        ],
+        "closing_window_min": -68.7
+      },
+      {
+        "xy": [
+          0.79653,
+          0.19911
+        ],
+        "closing_window_min": -68.6
+      }
+    ],
+    "unreachable_homes": [
+      {
+        "xy": [
+          0.73977,
+          0.4533
+        ]
+      },
+      {
+        "xy": [
+          0.62519,
+          0.40072
+        ]
+      },
+      {
+        "xy": [
+          0.8297,
+          0.54212
+        ]
+      },
+      {
+        "xy": [
+          0.74176,
+          0.45624
+        ]
+      },
+      {
+        "xy": [
+          0.57108,
+          0.40021
+        ]
+      },
+      {
+        "xy": [
+          0.54088,
+          0.38552
+        ]
+      },
+      {
+        "xy": [
+          0.48227,
+          0.3865
+        ]
+      },
+      {
+        "xy": [
+          0.48227,
+          0.3865
+        ]
+      },
+      {
+        "xy": [
+          0.8297,
+          0.54212
+        ]
+      },
+      {
+        "xy": [
+          0.79891,
+          0.54949
+        ]
+      },
+      {
+        "xy": [
+          0.78526,
+          0.54847
+        ]
+      },
+      {
+        "xy": [
+          0.76371,
+          0.56143
+        ]
+      },
+      {
+        "xy": [
+          0.80151,
+          0.61325
+        ]
+      },
+      {
+        "xy": [
+          0.74714,
+          0.51638
+        ]
+      },
+      {
+        "xy": [
+          0.67182,
+          0.45567
+        ]
+      },
+      {
+        "xy": [
+          0.58234,
+          0.48408
+        ]
+      },
+      {
+        "xy": [
+          0.53741,
+          0.41608
+        ]
+      },
+      {
+        "xy": [
+          0.44922,
+          0.43031
+        ]
+      },
+      {
+        "xy": [
+          0.49205,
+          0.48658
+        ]
+      },
+      {
+        "xy": [
+          0.49166,
+          0.58983
+        ]
+      },
+      {
+        "xy": [
+          0.59293,
+          0.61207
+        ]
+      },
+      {
+        "xy": [
+          0.59293,
+          0.61207
+        ]
+      },
+      {
+        "xy": [
+          0.50763,
+          0.58711
+        ]
+      },
+      {
+        "xy": [
+          0.47176,
+          0.58422
+        ]
+      }
+    ],
+    "source": "data/processed/rescue_routing.json::destinations / dispatch_top20 / unreachable_homes"
+  },
+  "geometry_status": {
+    "fire_fronts": {
+      "status": "MISSING",
+      "what": "predicted-front isochrone rings for Yeongdeok",
+      "lives_in": "data/processed/routing_demo.npz (git-ignored bulk) keys 'haz_stack' (float surfaces) + 'grid_extent' + 'haz_times'",
+      "regenerate_needs": "FIRMS/ERA5/DEM raw bundle (git-ignored; data.data_available()==False in a fresh clone) via scripts/run_routing_integration.py (forward-sim requires it)",
+      "note": "NOT fabricated. Only scalar summaries (areas, IoU, breadth) are committed in yeongdeok_forward_sim.json; the polygon rings are not."
+    },
+    "evac_routes": {
+      "status": "MISSING",
+      "what": "naive + future-aware evacuation route polylines for the headline origin",
+      "lives_in": "data/processed/routing_demo.npz (git-ignored bulk) keys 'naive_xy' / 'fa_xy' / 'origin_xy' / 'shelters_xy'",
+      "regenerate_needs": "FIRMS/ERA5/DEM raw bundle (git-ignored; data.data_available()==False in a fresh clone) (lattice network is built on the FIRMS-derived grid)",
+      "note": "NOT fabricated. routing_demo.json commits only node ids + scalar route metrics."
+    }
+  }
+}
+/*__DEMO_DATA_END__*/
+</script>
+
+<script>
+"use strict";
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const DATA = (()=>{ try{ const raw=document.getElementById('demo-data').textContent; return JSON.parse(raw.slice(raw.indexOf('{'), raw.lastIndexOf('}')+1)); }catch(e){ return {}; } })();
+
+const SVGNS='http://www.w3.org/2000/svg';
+const $=id=>document.getElementById(id);
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const lerp=(a,b,t)=>a+(b-a)*t;
+// ramps
+const seg=(t,a,b)=>clamp((t-a)/(b-a||1e-9),0,1);                 // 0 before a -> 1 after b
+const easeIO=t=>t<0.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+const band=(t,a,b,c,d)=>Math.min(seg(t,a,b),1-seg(t,c,d));        // fade in [a,b], hold, out [c,d]
+
+const SCENES=[
+  {id:'S0',name:'논지',       t0:0.00,t1:0.12},
+  {id:'S1',name:'화재 예측',   t0:0.12,t1:0.34},
+  {id:'S2',name:'단순 대피 실패',t0:0.34,t1:0.56},
+  {id:'S3',name:'미래 인지 성공',t0:0.56,t1:0.74},
+  {id:'S4',name:'구조 우선순위',t0:0.74,t1:0.90},
+  {id:'S5',name:'재현 가능',   t0:0.90,t1:1.00},
+];
+const DURATION_MS=60000;
+// settled "poster" frame per scene — used for reduced-motion (final state, no bloom)
+const POSTER=[0.09,0.30,0.545,0.72,0.885,0.965];
+
+// project normalized [0,1]^2 into the 1000x1000 svg square
+const PJ=n=>[+(n[0]*1000).toFixed(2), +(n[1]*1000).toFixed(2)];
+const geo=DATA.scenario_geometry||null;
+const rp=DATA.rescue_points||null;
+
+// ---- build static graticule (honest coordinate grid, EPSG:5179 — not fake roads) ----
+(function grat(){
+  const g=$('g-grat'); const N=8;
+  for(let i=1;i<N;i++){const x=i*1000/N;
+    line(g,x,0,x,1000);line(g,0,x,1000,x);}
+  function line(p,x1,y1,x2,y2){const l=document.createElementNS(SVGNS,'line');
+    l.setAttribute('x1',x1);l.setAttribute('y1',y1);l.setAttribute('x2',x2);l.setAttribute('y2',y2);
+    l.setAttribute('class','grat');p.appendChild(l);}
+})();
+
+// ---- build fire fronts (sequential ramp early->late) ----
+const FIRE=['#F2C14E','#E8752B','#C1361E'];
+function fireColor(tn){ // tn in [0,1] -> cool..hot
+  const s=clamp(tn,0,1)*2, i=Math.min(1,Math.floor(s)), f=s-i;
+  const a=hex(FIRE[i]),b=hex(FIRE[i+1]||FIRE[2]);
+  return `rgb(${Math.round(lerp(a[0],b[0],f))},${Math.round(lerp(a[1],b[1],f))},${Math.round(lerp(a[2],b[2],f))})`;
+}
+function hex(h){return [parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];}
+const frontEls=[];
+if(geo && geo.fire_fronts){
+  const gg=$('g-fronts');
+  geo.fire_fronts.forEach((f,k)=>{
+    const col=fireColor(geo.fire_fronts.length>1?k/(geo.fire_fronts.length-1):0);
+    f.rings.forEach(r=>{
+      const d='M'+r.map(p=>PJ(p).join(',')).join('L')+'Z';
+      const fill=document.createElementNS(SVGNS,'path');
+      fill.setAttribute('d',d); fill.setAttribute('class','front-fill');
+      fill.setAttribute('fill',col); fill.setAttribute('fill-opacity','0.13');
+      const ln=document.createElementNS(SVGNS,'path');
+      ln.setAttribute('d',d); ln.setAttribute('class','front-line'); ln.setAttribute('stroke',col);
+      gg.appendChild(fill); gg.appendChild(ln);
+      frontEls.push({fill,ln,tn:geo.fire_fronts.length>1?k/(geo.fire_fronts.length-1):0,k});
+    });
+  });
+}
+// ignition marker
+if(geo && geo.ignition){
+  const c=document.createElementNS(SVGNS,'circle');const p=PJ(geo.ignition);
+  c.setAttribute('cx',p[0]);c.setAttribute('cy',p[1]);c.setAttribute('r','4');
+  c.setAttribute('fill','#F2C14E');c.setAttribute('stroke','#05070A');c.setAttribute('stroke-width','1.4');
+  $('g-ign').appendChild(c);
+}
+
+// ---- build routes ----
+let naivePre,naiveDoomed,futurePath,originRing,naiveLenPre=0,naiveLenDoom=0,futureLen=0;
+let failPx=null,okPx=null,originPx=null;
+if(geo && geo.routes){
+  const gr=$('g-routes');
+  const nv=geo.routes.naive, fa=geo.routes.future_aware;
+  // split naive at failure point (nearest vertex to failure_point)
+  let fi=nv.length-1;
+  if(geo.failure_point){ let best=1e9; nv.forEach((p,i)=>{const dx=p[0]-geo.failure_point[0],dy=p[1]-geo.failure_point[1];const dd=dx*dx+dy*dy; if(dd<best){best=dd;fi=i;}}); }
+  const preN=nv.slice(0,fi+1), doomN=nv.slice(fi);
+  naiveDoomed=mkRoute(gr,doomN,'route naive doomed',true);   // will recolor to ash
+  naivePre=mkRoute(gr,preN,'route naive',true);
+  futurePath=mkRoute(gr,fa,'route future',true);
+  naiveLenPre=naivePre.path.getTotalLength(); naiveLenDoom=naiveDoomed.path.getTotalLength(); futureLen=futurePath.path.getTotalLength();
+  // origin ring + verdict anchors
+  originPx=PJ(geo.origin); failPx=PJ(geo.failure_point||nv[fi]); okPx=PJ(fa[fa.length-1]);
+  originRing=document.createElementNS(SVGNS,'circle');
+  originRing.setAttribute('cx',originPx[0]);originRing.setAttribute('cy',originPx[1]);originRing.setAttribute('r','6');
+  originRing.setAttribute('class','origin-ring'); gr.appendChild(originRing);
+}
+function mkRoute(parent,pts,cls,withCasing){
+  const d='M'+pts.map(p=>PJ(p).join(',')).join('L');
+  let casing=null;
+  if(withCasing){casing=document.createElementNS(SVGNS,'path');casing.setAttribute('d',d);casing.setAttribute('class','route-casing');parent.appendChild(casing);}
+  const path=document.createElementNS(SVGNS,'path');path.setAttribute('d',d);path.setAttribute('class',cls);parent.appendChild(path);
+  return {path,casing};
+}
+
+// ---- build rescue points (S4, separate frame; synthetic hazard) ----
+const rescueEls=[];
+if(rp){
+  const g=$('g-rescue');
+  const add=(arr,cls,r,pulse)=>arr.forEach((o,i)=>{
+    const c=document.createElementNS(SVGNS,'circle');const p=PJ(o.xy);
+    c.setAttribute('cx',p[0]);c.setAttribute('cy',p[1]);c.setAttribute('r',r);
+    c.setAttribute('class','pt '+cls+(pulse&&!REDUCED?' pulse':''));
+    if(pulse&&!REDUCED){c.style.animation=`softpulse ${2.4+ (i%5)*0.18}s ease-in-out ${(i%7)*0.12}s infinite`;}
+    g.appendChild(c); rescueEls.push({el:c,i,cls});
+  });
+  // draw order: refuges (green/reachable, ash/not), unreachable homes (ash), demand (rose) on top
+  add(rp.refuges.filter(o=>o.rescue_reachable),'safe',6,false);
+  add(rp.refuges.filter(o=>!o.rescue_reachable),'unreach',5,false);
+  add(rp.unreachable_homes,'unreach',4.5,false);
+  add(rp.demand_homes,'rescue',6.5,true);
+}
+
+// ---- capacity mini-chart (S4) : units -> % demand met ----
+let capPaths=[];
+(function cap(){
+  if(!DATA.rescue||!DATA.rescue.capacity_sweep) return;
+  const sw=DATA.rescue.capacity_sweep, svg=$('cap-svg');
+  const W=392,H=150,mL=34,mR=14,mT=10,mB=26;
+  const xs=sw.map(d=>d.units), ys=sw.map(d=>d.pct_demand_met);
+  const xmin=Math.min(...xs),xmax=Math.max(...xs),ymax=Math.max(15,Math.max(...ys));
+  const X=u=>mL+(u-xmin)/(xmax-xmin)*(W-mL-mR), Y=v=>H-mB-(v/ymax)*(H-mT-mB);
+  // 10% reference line (the honest "even 8 teams < 15%" story)
+  const yref=Y(10);
+  addLine(mL,yref,W-mR,yref,'#3a4653',1,'4 4');
+  addText(W-mR,yref-4,'10%','end','#6C7787',10);
+  // axes baseline
+  addLine(mL,H-mB,W-mR,H-mB,'#2A3540',1);
+  // area + line
+  let dl='M'+sw.map(d=>`${X(d.units).toFixed(1)},${Y(d.pct_demand_met).toFixed(1)}`).join('L');
+  const area=path(dl+`L${X(xmax)},${H-mB}L${X(xmin)},${H-mB}Z`,'none','var(--rescue)',0);area.setAttribute('fill-opacity','0.10');
+  const line=path(dl,'var(--rescue)','none',2.4); line.setAttribute('stroke-linejoin','round');
+  capPaths.push(line);
+  // markers + x labels + value at 8
+  sw.forEach(d=>{
+    const cx=X(d.units),cy=Y(d.pct_demand_met);
+    const c=document.createElementNS(SVGNS,'circle');c.setAttribute('cx',cx);c.setAttribute('cy',cy);c.setAttribute('r',3);
+    c.setAttribute('fill','var(--rescue)');c.setAttribute('stroke','#05070A');c.setAttribute('stroke-width',1.2);svg.appendChild(c);
+    addText(cx,H-mB+14,d.units,'middle','#8A97A6',10);
+  });
+  const last=sw[sw.length-1];
+  addText(X(last.units)+2,Y(last.pct_demand_met)-8,last.pct_demand_met.toFixed(1)+'%','end','#E5507E',12);
+  addText(mL-6,Y(0),'0','end','#6C7787',10);
+  function addLine(x1,y1,x2,y2,st,w,dash){const l=document.createElementNS(SVGNS,'line');l.setAttribute('x1',x1);l.setAttribute('y1',y1);l.setAttribute('x2',x2);l.setAttribute('y2',y2);l.setAttribute('stroke',st);l.setAttribute('stroke-width',w);if(dash)l.setAttribute('stroke-dasharray',dash);svg.appendChild(l);}
+  function addText(x,y,t,anc,fill,fs){const e=document.createElementNS(SVGNS,'text');e.setAttribute('x',x);e.setAttribute('y',y);e.setAttribute('text-anchor',anc);e.setAttribute('fill',fill);e.setAttribute('font-size',fs);e.setAttribute('font-family','var(--mono)');e.textContent=t;svg.appendChild(e);}
+  function path(d,stroke,fill,w){const p=document.createElementNS(SVGNS,'path');p.setAttribute('d',d);p.setAttribute('stroke',stroke);p.setAttribute('fill',fill);if(w)p.setAttribute('stroke-width',w);svg.appendChild(p);return p;}
+})();
+
+// ---- static text bindings from committed data ----
+(function bind(){
+  const P=DATA.prediction, M=DATA.meta;
+  if(M) $('src-model').textContent='모델: HistGradientBoosting · Leave-One-Fire-Out 교차검증 (6개 실제 산불)';
+  if(M) $('src-data').innerHTML=(M.data_sources_label||'').replace('/ ','<br>/ ');
+})();
+
+// position helper: svg 1000-space -> map-area px (accounts for xMidYMid meet letterboxing)
+function svgToArea(px,py){
+  const area=document.querySelector('.map-area'); const W=1600,H=836;
+  const s=Math.min(W,H), ox=(W-s)/2, oy=(H-s)/2;
+  return [ox+px/1000*s, oy+py/1000*s];
+}
+function place(el,px,py,dx,dy){const a=svgToArea(px,py);el.style.left=(a[0]+dx)+'px';el.style.top=(a[1]+dy)+'px';}
+
+// ======================= RENDER =======================
+function render(t){
+  t=clamp(t,0,1);
+  const si=SCENES.findIndex(s=>t< s.t1) < 0 ? 5 : Math.max(0,SCENES.findIndex(s=>t< s.t1));
+  const S=SCENES[si]; const p=seg(t,S.t0,S.t1);
+
+  // scene tag + transport
+  $('scenetag').innerHTML=`<b>${S.id}</b> · ${S.name}`;
+  $('scene-n').textContent=si; $('scene-name').textContent=S.name;
+  $('clock').textContent=t.toFixed(2);
+  if(!scrubbing) $('scrub').value=Math.round(t*1000);
+
+  // THESIS (S0): in then out
+  $('thesis').style.opacity = band(t, 0.005,0.05, 0.10,0.135);
+
+  // FRONTS: reveal during S1 by tn; full through S2/S3; fade as S4 begins
+  const evacVisible = 1-seg(t,0.735,0.775);   // evac scene fades out into rescue
+  const s1p = si===1? easeIO(p):(t>0.34?1:(t<0.12?0:easeIO(seg(t,0.12,0.34))));
+  frontEls.forEach(f=>{
+    const appear = t<0.12 ? 0 : (t<0.34 ? seg(s1p, Math.max(0,f.tn-0.15), f.tn+0.05) : 1);
+    const o = appear*evacVisible;
+    f.fill.setAttribute('fill-opacity',(0.13*o).toFixed(3));
+    f.ln.setAttribute('opacity',(0.9*o).toFixed(3));
+  });
+  $('g-ign').setAttribute('opacity', (seg(t,0.12,0.16)*evacVisible).toFixed(3));
+  $('g-grat').setAttribute('opacity', (band(t,0.12,0.18, 0.74,0.78)*0.9 + (si>=4?0.28*seg(t,0.78,0.82):0)).toFixed(3));
+
+  // ROUTES
+  if(geo && geo.routes){
+    // naive draws S2 (0.34->0.50), doomed segment extinguishes 0.48->0.56
+    const drawN=easeIO(seg(t,0.35,0.50));
+    dash(naivePre, naiveLenPre, drawN);
+    const drawD=easeIO(seg(t,0.47,0.55));
+    dash(naiveDoomed, naiveLenDoom, drawD);
+    const ash=seg(t,0.50,0.56); // recolor doomed to ash + dim
+    naiveDoomed.path.setAttribute('stroke', ash>0? mixHex('#E6A23C','#6B6257',ash) : '#E6A23C');
+    naiveDoomed.path.setAttribute('opacity',(1-0.55*ash).toFixed(3));
+    const nOpEvac=evacVisible;
+    naivePre.path.setAttribute('opacity',(1*nOpEvac).toFixed(3));
+    [naivePre,naiveDoomed].forEach(r=>{r.casing.setAttribute('opacity',((r===naiveDoomed?(1-0.55*ash):1)*nOpEvac).toFixed(3));});
+    naivePre.path.style.opacity=nOpEvac;
+    // origin ring visible S2+
+    originRing.setAttribute('opacity',(band(t,0.35,0.40, 0.74,0.775)).toFixed(3));
+    // future draws S3 (0.57->0.72)
+    const drawF=easeIO(seg(t,0.57,0.72));
+    dash(futurePath, futureLen, drawF);
+    futurePath.path.setAttribute('opacity',(seg(t,0.565,0.60)*evacVisible).toFixed(3));
+    futurePath.casing.setAttribute('opacity',(seg(t,0.565,0.60)*evacVisible).toFixed(3));
+    // whole route group fade with evac
+    $('g-routes').setAttribute('opacity', evacVisible.toFixed(3));
+
+    // labels + verdicts
+    const fN=$('flabel-naive'), fF=$('flabel-future'), vFail=$('verdict-fail'), vOk=$('verdict-ok');
+    fN.innerHTML='주민 대피 경로 (화재 예측 없음) <span class="sub">화재 노출 '+DATA.routing_headline.naive.exposure.toFixed(0)+' → 대피 실패</span>';
+    fF.innerHTML='미래 인지 경로 <span class="sub">예측 전선 회피 · 화재 노출 '+DATA.routing_headline.future_aware.exposure.toFixed(0)+'</span>';
+    if(originPx){ place(fN, (originPx[0]+failPx[0])/2, (originPx[1]+failPx[1])/2, -60,-46);
+      place(fF, okPx[0],okPx[1], -150, 14);
+      place(vFail, failPx[0],failPx[1], 8,-10);
+      place(vOk, okPx[0],okPx[1], 10, -8); }
+    fN.style.opacity=band(t,0.40,0.44, 0.74,0.775);
+    fF.style.opacity=band(t,0.60,0.64, 0.74,0.775);
+    vFail.style.opacity=band(t,0.505,0.55, 0.74,0.775);
+    vOk.style.opacity=band(t,0.685,0.72, 0.74,0.775);
+  }
+
+  // PENDING note if geometry not yet supplied
+  $('pending').style.opacity = (!geo && t>=0.12 && t<0.74)?1:0;
+  if(!geo) $('pending').firstElementChild.textContent =
+    'S1–S3 지오메트리 대기 중 — routing_demo.npz 업로드 후 예측 전선·경로가 실측 좌표로 렌더링됩니다. (수치는 이미 커밋된 산출물에서 표시)';
+
+  // RESCUE layer (S4)
+  const rescueVis=seg(t,0.755,0.80);
+  $('g-rescue').setAttribute('opacity', (Math.min(rescueVis, 1-seg(t,0.895,0.93))).toFixed(3));
+  if(rescueEls.length){
+    const bloom=easeIO(seg(t,0.77,0.88));
+    rescueEls.forEach(o=>{ const th=(o.i%17)/17; const a=REDUCED?1:seg(bloom, th*0.7, th*0.7+0.25);
+      o.el.setAttribute('transform', REDUCED?'':`scale(${lerp(0.2,1,a)})`);
+      o.el.style.transformOrigin='center';
+      if(o.cls!=='rescue') o.el.setAttribute('opacity',(a*(o.cls==='safe'?0.95:0.8)).toFixed(3));
+    });
+  }
+  // capacity chart (S4 second half)
+  $('cap').style.opacity=band(t,0.82,0.86, 0.895,0.925);
+  capPaths.forEach(pth=>{ const L=pth.getTotalLength(); const dr=easeIO(seg(t,0.83,0.90));
+    pth.style.strokeDasharray=L; pth.style.strokeDashoffset=L*(1-dr); });
+
+  // SOURCES (S5)
+  $('sources').style.opacity=seg(t,0.905,0.95);
+
+  // ---- data rail + callout per scene ----
+  updateRail(si,t); updateCallout(si,t);
+}
+function dash(r,L,pr){ r.path.style.strokeDasharray=L; r.path.style.strokeDashoffset=L*(1-pr);
+  if(r.casing){ r.casing.style.strokeDasharray=L; r.casing.style.strokeDashoffset=L*(1-pr);} }
+function mixHex(h1,h2,f){const a=hex(h1),b=hex(h2);return `rgb(${Math.round(lerp(a[0],b[0],f))},${Math.round(lerp(a[1],b[1],f))},${Math.round(lerp(a[2],b[2],f))})`;}
+
+function row(k,v,cls){return `<div class="rrow"><span class="k">${k}</span><span class="v ${cls||''}">${v}</span></div>`;}
+function updateRail(si,t){
+  const P=DATA.prediction,F=DATA.forward_sim,R=DATA.routing_headline,RE=DATA.rescue;
+  let title='예측 모델', rows='', src='';
+  if(si<=1){
+    title='예측 모델 · Leave-One-Fire-Out';
+    rows =row('통합 AUC (pooled)', P.pooled_auc.value.toFixed(3),'hot')
+        +row('폴드 평균 AUC', P.mean_of_folds_auc.value.toFixed(3)+' ± '+P.mean_of_folds_auc.std.toFixed(3))
+        +row('원거리 밴드 AUC', P.far_band_auc.value.toFixed(3))
+        +row('최중요 변수', P.top_predictor.value)
+        +row('심각도 ≫ 풍향', P.severity_over_direction_ratio.display,'hot');
+    src='src: spread_v2_lofo.json · seed '+DATA.meta.seed;
+  } else if(si===2||si===3){
+    title='대피 경로 · 영덕 (예측 전선 대상)';
+    rows =row('주민 대피 경로', Math.round(R.naive.total_distance_m).toLocaleString()+' m')
+        +row('  · 화재 노출도', R.naive.exposure.toFixed(0)+'  →  대피 실패','')
+        +row('미래 인지 경로', Math.round(R.future_aware.total_distance_m).toLocaleString()+' m','teal')
+        +row('  · 화재 노출도', R.future_aware.exposure.toFixed(0)+'  →  대피 성공','teal')
+        +row('노출 저감', R.exposure_reduction_pct.toFixed(0)+' %','teal');
+    src='src: routing_demo.json · '+R.scan_counts.n_origins_scanned+' origins scanned';
+  } else if(si===4){
+    title='구조 우선순위 · 영덕 (합성 화재)';
+    rows =row('표본 대피 지점', RE.n_origins.toLocaleString())
+        +row('스스로 대피 불가', RE.self_evac_fail.numerator+' / '+RE.self_evac_fail.denominator+'  ('+RE.self_evac_fail.value_pct.toFixed(0)+'%)','rose')
+        +row('  · 거동 불가 / 도보 차단', RE.needs_rescuer_immobile+' / '+RE.needs_rescuer_walk_cut)
+        +row('대피소 (구조 도달 가능)', RE.n_refuges+' ('+RE.n_refuges_rescue_reachable+')')
+        +row('8팀 적시 구조', RE.capacity_sweep[RE.capacity_sweep.length-1].pct_demand_met.toFixed(1)+' %','rose');
+    src='src: rescue_routing.json + rescue_capacity.json';
+  } else {
+    title='재현 가능성 · 데이터 출처';
+    rows =row('통합 AUC', P.pooled_auc.value.toFixed(3),'hot')
+        +row('폴드 평균', P.mean_of_folds_auc.value.toFixed(3)+' ± '+P.mean_of_folds_auc.std.toFixed(3))
+        +row('전방 시뮬 IoU', F.honest_envelope_iou.display)
+        +row('스스로 대피 불가', DATA.rescue.self_evac_fail.value_pct.toFixed(0)+' %','rose')
+        +row('모델 seed', DATA.meta.seed);
+    src='모든 값 ← 커밋된 아티팩트 · scripts/export_demo_data.py';
+  }
+  $('rail-title').textContent=title; $('rail-rows').innerHTML=rows; $('rail-src').textContent=src;
+}
+function updateCallout(si,t){
+  const P=DATA.prediction,F=DATA.forward_sim,RE=DATA.rescue,co=$('callout');
+  let html='',op=0;
+  if(si===1){ op=band(t,0.15,0.20, 0.335,0.36);
+    html=`<div class="big em-hot">예측 정확도 AUC ${P.pooled_auc.value.toFixed(3)}</div>
+      <div class="kr">최중요 변수 <b>days_since_rain</b><br>
+      화재-기상 심각도(건조도·습도·풍속) <span class="em-hot">≫ 풍향 (≈44×)</span></div>
+      <div class="kr muted">전방 시뮬 포락선 IoU ${F.honest_envelope_iou.display} · 6개 실제 산불 교차검증</div>`;
+  } else if(si===2){ op=band(t,0.42,0.47, 0.55,0.57);
+    html=`<div class="kr"><span class="em-hot">주민 대피 경로</span>는 화재의 <b>현재</b> 위치만 보고<br>
+      안전지대로 향하지만, <b>이후 예측 전선</b> 속으로 들어갑니다.</div>
+      <div class="big" style="margin-top:12px;color:var(--ash)">→ 대피 실패</div>`;
+  } else if(si===3){ op=band(t,0.62,0.66, 0.735,0.755);
+    html=`<div class="kr"><span class="em-teal">미래 인지 경로</span>는 동일 출발점에서<br>
+      예측 전선을 <b>우회</b>하여 안전지대에 도달합니다.</div>
+      <div class="big em-teal" style="margin-top:12px">노출 −${RE?'':''}${DATA.routing_headline.exposure_reduction_pct.toFixed(0)}%  →  대피 성공</div>`;
+  } else if(si===4){ op=band(t,0.79,0.83, 0.895,0.925);
+    html=`<div class="kr">최적 경로로도 <span class="em-rose">약 ${RE.self_evac_fail.value_pct.toFixed(0)}%</span>는<br>스스로 대피할 수 없습니다 <span class="muted">(기하학적 한계)</span></div>
+      <div class="kr" style="margin-top:12px">구조 대원을 8팀까지 늘려도 적시 구조는<br>수요의 <span class="em-rose">약 ${RE.capacity_sweep[RE.capacity_sweep.length-1].pct_demand_met.toFixed(0)}%</span>에 그칩니다
+      <span class="muted">→ 구조 대원 파견 (우선순위 분류)</span></div>
+      <div class="chip syn">구조 시나리오: 도로·대피소는 실제 OSM · 화재/지형은 합성(synthetic)</div>`;
+  }
+  co.style.opacity=op; if(op>0.01) co.innerHTML=html;
+}
+
+// ======================= TRANSPORT =======================
+let playing=!REDUCED, t0=performance.now(), base=0, scrubbing=false;
+function loop(now){
+  if(playing){ let t=((now-t0)/DURATION_MS+base)%1; render(t); }
+  requestAnimationFrame(loop);
+}
+function setT(t){ base=((t%1)+1)%1; t0=performance.now(); render(base); }
+$('play').addEventListener('click',togglePlay);
+function togglePlay(){ playing=!playing; if(playing){t0=performance.now();} else {base=((performance.now()-t0)/DURATION_MS+base)%1;} $('play').textContent=playing?'❚❚':'►'; }
+$('scrub').addEventListener('input',e=>{scrubbing=true; const t=e.target.value/1000; if(playing){playing=false;$('play').textContent='►';} render(t); base=t;});
+$('scrub').addEventListener('change',e=>{scrubbing=false; setT(e.target.value/1000);});
+$('prev').addEventListener('click',()=>stepScene(-1));
+$('next').addEventListener('click',()=>stepScene(1));
+function curScene(){const t=base; return Math.max(0,SCENES.findIndex(s=>t<s.t1-1e-6));}
+function stepScene(d){ let i=clamp(curScene()+d,0,SCENES.length-1); if(playing)togglePlay(); setT(REDUCED?POSTER[i]:(SCENES[i].t0+0.001)); }
+document.addEventListener('keydown',e=>{
+  if(e.code==='Space'){e.preventDefault();togglePlay();}
+  else if(e.code==='ArrowRight'){e.preventDefault();stepScene(1);}
+  else if(e.code==='ArrowLeft'){e.preventDefault();stepScene(-1);}
+});
+
+// ======================= SCALE + BOOT =======================
+function fit(){ const st=$('stage'); const s=st.clientWidth/1600; $('scaler').style.transform='scale('+s+')';
+  $('scaler').style.width='1600px'; $('scaler').style.height='900px'; }
+addEventListener('resize',fit); fit();
+$('play').textContent=playing?'❚❚':'►';
+// deep-link a static frame: #t=0.44 (also lets the presenter re-show the divergence)
+function applyHash(){ const m=/[#&]t=([0-9.]+)/.exec(location.hash); if(m){ playing=false; $('play').textContent='►'; setT(parseFloat(m[1])); return true; } return false; }
+addEventListener('hashchange',applyHash);
+if(applyHash()){ /* deep-linked static frame */ }
+else if(REDUCED){ playing=false; $('play').textContent='►'; setT(POSTER[0]); }
+else { render(0); }
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
