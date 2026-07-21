@@ -10,7 +10,7 @@
 > were produced by a different build ("Build B" — seed 20250603, 16 features, fire
 > set incl. `gangneung_2023`). Build B is canonical **by consistency** (it produced
 > the results), not by being "better" — see **[`docs/MODEL_CARD.md`](MODEL_CARD.md)**
-> for the canonical numbers (mean-of-folds ROC-AUC 0.89 ± 0.11; footprint IoU ~0.40).
+> for the canonical numbers (mean-of-folds ROC-AUC 0.90 ± 0.07; footprint IoU ~0.40).
 > Both builds independently corroborate the central finding (severity ≫ wind direction).
 
 ---
