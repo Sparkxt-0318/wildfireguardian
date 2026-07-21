@@ -31,7 +31,7 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "src"))
 PROC = REPO / "data" / "processed"
 
-CANON_REFERENCE = {"mean_of_folds": 0.901, "pooled": 0.8666547831321919}
+CANON_REFERENCE = {"mean_of_folds": 0.890, "pooled": 0.9053277489374548}
 
 
 def main() -> int:

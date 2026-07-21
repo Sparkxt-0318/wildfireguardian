@@ -4,7 +4,7 @@
 Re-runs the **canonical** leave-one-fire-out model (seed 20250603, the 16
 `FEATURE_COLUMNS`, the same fold set) ONCE to persist the per-fold out-of-fold
 predictions (which are not currently stored), **gates** them against the canonical
-numbers (pooled 0.867 / mean-of-folds 0.90 / the per-fire AUCs), and only then
+numbers (pooled 0.905 / mean-of-folds 0.890 / the per-fire AUCs), and only then
 reports:
 
   * per-fire ROC-AUC with **DeLong 95 % CIs** (each fold has thousands of cells →
@@ -38,19 +38,18 @@ sys.path.insert(0, str(REPO / "src"))
 
 PROC = REPO / "data" / "processed"
 
-# Canonical Build-B numbers to gate against (data/processed/spread_v2_lofo.json,
-# six-fire run, seed 20250603).
-CANON_POOLED = 0.8666547831321919
-CANON_MEAN_OF_FOLDS = 0.901        # mean of the six per_fire_auc values
+# Canonical Build-B numbers to gate against (data/processed/spread_v2_lofo.json).
+CANON_POOLED = 0.9053277489374548
+CANON_MEAN_OF_FOLDS = 0.890
 CANON_PER_FIRE = {
-    "gangneung_2023": 0.9329710144927537,
-    "hongseong_2023": 0.9556098964326812,
-    "miryang_2022": 0.9814412850010852,
-    "uiseong_andong_2025": 0.8594557270306507,
-    "uljin_samcheok_2022": 0.8946649818524703,
-    "yeongdeok_2025": 0.7827540499481829,
+    "gangneung_2023": 0.6820231958762887,
+    "hongseong_2023": 0.9448983570529749,
+    "miryang_2022": 0.973692264885921,
+    "uiseong_andong_2025": 0.8776874123436931,
+    "uljin_samcheok_2022": 0.9180778687255129,
+    "yeongdeok_2025": 0.9407755935389225,
 }
-CANON_FAR_BAND_POOLED = 0.8205213474141444
+CANON_FAR_BAND_POOLED = 0.8765583120330634
 GATE_TOL = 1e-3            # rounding tolerance for the consistency gate
 FAR_BAND_MIN_M = 3000.0    # ">3 km" far band (the far-field reach question)
 

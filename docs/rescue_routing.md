@@ -21,8 +21,8 @@ python scripts/make_rescue_figures.py`.*
 > 9–17 %, derived from the committed fc sweep via `scripts/derive_walk_failure.py`).
 >
 > **Spread-model numbers:** the canonical foundation model (Build B) is documented in
-> `docs/MODEL_CARD.md` — headline LOFO **mean-of-folds ROC-AUC 0.90 ± 0.07** (pooled
-> 0.867), forward-sim footprint IoU **~0.40**.
+> `docs/MODEL_CARD.md` — headline LOFO **mean-of-folds ROC-AUC 0.89 ± 0.11** (pooled
+> 0.905), forward-sim footprint IoU **~0.40**.
 
 ---
 

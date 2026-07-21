@@ -49,19 +49,19 @@ aspirational figures.
 > **not** a like-for-like comparison — the "brief" column is a *different build*
 > (Build A: different fire set incl. `gangneung_donghae_2022`, 19 features, seed 42;
 > `docs/SPREAD_MODEL_REPORT_V2_FINAL.md`). No "better than A" claim is made; the
-> headline generalization figure is the **mean-of-folds ROC-AUC 0.90 ± 0.07**
-> (range 0.78–0.98), not the pooled 0.867.
+> headline generalization figure is the **mean-of-folds ROC-AUC 0.89 ± 0.11**
+> (range 0.68–0.97), not the pooled 0.905.
 
 How this build's numbers relate to the brief's stated ones (all **leave-one-fire-out**;
 **different builds — see the banner above**):
 
 | Quantity | brief / Build A | this build (Build B) | note |
 |---|---|---|---|
-| Mean-of-folds AUC | ~0.83 | **0.90 ± 0.07** (0.78–0.98) | generalization figure |
-| Pooled AUC | ~0.83 | **0.867** (pooled) | different build; not like-for-like |
-| Far-band (>3 km) AUC | ~0.80 | **0.821** (pooled) | different build; not like-for-like |
-| Footprint IoU | 0.32 | **~0.40** forward-sim (3–12 h) | 0.866 single-step IoU is report-blocked (next-overpass *given* current burn) |
-| `wind_alignment` importance | ≈ 0 | **0.0062** (9.3× below severity) | **both builds corroborate severity ≫ direction** |
+| Mean-of-folds AUC | ~0.83 | **0.89 ± 0.11** (0.68–0.97) | generalization figure |
+| Pooled AUC | ~0.83 | **0.905** (pooled) | different build; not like-for-like |
+| Far-band (>3 km) AUC | ~0.80 | **0.877** (pooled) | different build; not like-for-like |
+| Footprint IoU | 0.32 | **~0.40** forward-sim (3–12 h) | 0.874 single-step IoU is report-blocked (next-overpass *given* current burn) |
+| `wind_alignment` importance | ≈ 0 | **0.0023** (44× below severity) | **both builds corroborate severity ≫ direction** |
 
 `src/wildfireguardian/spread_v2/` is the new package (`data, grid, weather, features,
 model, forward_sim`); see its README for the pipeline and provenance.
@@ -73,34 +73,34 @@ model, forward_sim`); see its README for the pipeline and provenance.
 `spread_v2` predicts, per ~0.5 km cell, **P(detected as burning by the next satellite
 overpass)** with a gradient-boosted classifier, trained on **6 real Korean fires** (the 8 in
 the bundle minus gangneung_donghae_2022, whose ERA5 is a 0-byte file, and goseong_2019,
-which has a single overpass). 138,619 candidate-cell rows, 2,731 positives (~2%).
+which has a single overpass). 151,904 candidate-cell rows, 2,989 positives (~2%).
 
 **Leave-one-fire-out results** (`data/processed/spread_v2_lofo.json`):
 
-- **Generalization: mean-of-folds AUC 0.90 ± 0.07** (range 0.78–0.98). Pooled
-  out-of-fold AUC 0.867; mid-band (1–3 km) 0.786; far-band (>3 km) 0.821 — these
+- **Generalization: mean-of-folds AUC 0.89 ± 0.11** (range 0.68–0.97). Pooled
+  out-of-fold AUC 0.905; mid-band (1–3 km) 0.870; far-band (>3 km) 0.877 — these
   three are **pooled** (concatenated held-out predictions), not the mean-of-folds
   (see `docs/MODEL_CARD.md`).
-- Per held-out fire: miryang 0.98, hongseong 0.96, gangneung 0.93, uljin 0.89,
-  uiseong 0.86, yeongdeok **0.78** (the out-of-sample demonstration fire — the hardest fold).
+- Per held-out fire: miryang 0.97, hongseong 0.94, yeongdeok **0.94**, uljin 0.92,
+  uiseong 0.88, gangneung_2023 0.68 (a tiny 17-detection fire — noisy, flagged).
 
 **Permutation importance — the central finding, reproduced:**
 
 | rank | feature | AUC drop | group |
 |---:|---|---:|---|
-| 1 | **dist_to_fire_m** | **0.072** | geometry |
-| 2 | **wind_speed_ms** | 0.028 | fire-weather **severity** |
-| 3 | **days_since_rain** | 0.025 | severity |
-| 4 | active_frac_3000m | 0.020 | geometry |
-| 5 | dt_hours (overpass gap) | 0.015 | interval |
+| 1 | **days_since_rain** | **0.077** | fire-weather **severity** |
+| 2 | dist_to_fire_m | 0.060 | geometry |
+| 3 | **wind_speed_ms** | 0.021 | severity |
+| 4–5 | active_frac_1500m / 3000m | 0.017 / 0.013 | geometry |
+| 6 | dt_hours (overpass gap) | 0.009 | interval |
 | … | … | … | |
-| 6 | **wind_alignment** | **0.0062** | wind **DIRECTION** |
+| 9 | **wind_alignment** | **0.0023** | wind **DIRECTION** |
 
-Summed fire-weather-severity importance is **0.057 vs 0.0062 for `wind_alignment` — a 9.3×
-ratio.** Distance-to-fire is the single strongest predictor overall; among fire-weather
-features wind speed and days-since-rain lead, while wind *direction* is near-useless. This
-is exactly the finding the brief is built on, and it is *why the router treats the hazard
-as a broad, severity-scaled REACH envelope rather than a thin directional jet.*
+Summed fire-weather-severity importance is **0.102 vs 0.0023 for `wind_alignment` — a 44×
+ratio.** Dryness (days-since-rain) is the single strongest predictor; wind *direction* is
+near-useless. This is exactly the finding the brief is built on, and it is *why the router
+treats the hazard as a broad, severity-scaled REACH envelope rather than a thin directional
+jet.*
 
 ![findings](figures/spread_v2_findings.png)
 
@@ -160,7 +160,7 @@ and far above the mechanistic CA baseline (~0.09). Two honesty caveats on IoU:
   persistence baseline) only because the already-burned area sits in both prediction and
   truth. The **new-ring-only** IoU is ~0.07 (≈ persistence): the model is not better than
   "spread to the neighbours" at pinpointing *exactly* which new cells ignite.
-- Its real edge is in **ranking / calibrated probability** (AUC 0.867, held-out Brier ~0.03)
+- Its real edge is in **ranking / calibrated probability** (AUC 0.905, held-out Brier ~0.03)
   and in **reach magnitude** — which is precisely what the router needs. As the brief itself
   says, *the hazard is a risk surface, not a precise perimeter.*
 

@@ -115,7 +115,7 @@ grid. The finer-grained timings below belong to the **superseded CA track**:
 The **canonical validation is leave-one-fire-out (LOFO)** for the data-driven
 `spread_v2` model: six real Korean fires (gangneung_2023, hongseong_2023,
 miryang_2022, uiseong_andong_2025, uljin_samcheok_2022, yeongdeok_2025), each held
-out whole. Headline **mean-of-folds ROC-AUC 0.90** (range 0.78–0.98; pooled 0.867),
+out whole. Headline **mean-of-folds ROC-AUC 0.89** (range 0.68–0.97; pooled 0.905),
 with per-fire DeLong CIs and a significance test vs 0.5, standard ML baselines on the
 identical folds, and a forward-simulated footprint IoU ≈ 0.40 (Yeongdeok, 3–12 h).
 Full numbers: `docs/MODEL_CARD.md`, `docs/auc_intervals.md`, `docs/baselines.md`.

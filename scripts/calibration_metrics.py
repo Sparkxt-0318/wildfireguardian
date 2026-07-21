@@ -45,7 +45,7 @@ CANONICAL_SEED = 20250603
 #: The canonical GBM's committed pooled out-of-fold AUC (data/processed/
 #: spread_v2_lofo.json) — a consistency guard that the regenerated OOF is the
 #: canonical model on the canonical fold set, not something drifted.
-REFERENCE_POOLED_AUC = 0.8666547831321919
+REFERENCE_POOLED_AUC = 0.9053277489374548
 
 OOF_GBM = PROC / "spread_v2_lofo_oof.csv.gz"
 OOF_RF = PROC / "lofo_oof_random_forest.csv.gz"

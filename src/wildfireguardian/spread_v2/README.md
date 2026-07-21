@@ -38,19 +38,19 @@ forward_sim.py iterate the model into a time-sequenced hazard surface
 
 ## Headline results (leave-one-fire-out, fully out-of-sample)
 
-- **Mean-of-folds ROC-AUC ≈ 0.90** (range 0.78–0.98 across 6 fires; the hardest
-  fold, `yeongdeok_2025`, at 0.783) — the generalization figure. The pooled
-  out-of-fold AUC ≈ **0.87** and far-band (>3 km) AUC ≈ **0.82** are *pooled*
+- **Mean-of-folds ROC-AUC ≈ 0.89** (range 0.68–0.97 across 6 fires; the 0.68 fold,
+  `gangneung_2023`, has ~17 detections) — the generalization figure. The pooled
+  out-of-fold AUC ≈ **0.91** and far-band (>3 km) AUC ≈ **0.88** are *pooled*
   (concatenated held-out predictions), not the mean-of-folds. Canonical numbers:
   `docs/MODEL_CARD.md`.
-- **`dist_to_fire_m` is the #1 predictor overall; among fire-weather features
-  `wind_speed_ms` and `days_since_rain` lead, and summed severity importance is
-  ~9.3× `wind_alignment`** — far-field skill comes from *severity*, not wind
-  *direction*. (Severity is spatially uniform at ERA5's 0.25° resolution, so it sets
-  the reach *magnitude* across days/fires while geometry/terrain place it spatially.)
+- **`days_since_rain` (dryness) is the #1 predictor; summed fire-weather
+  severity importance is ~40× `wind_alignment`** — far-field skill comes from
+  *severity*, not wind *direction*. (Severity is spatially uniform at ERA5's
+  0.25° resolution, so it sets the reach *magnitude* across days/fires while
+  geometry/terrain place it spatially.)
 - Forward simulation produces a **broad** (~60°) reach envelope that **drifts**
   from observed as compounding error accumulates; the forward-sim envelope IoU
-  settles at **~0.40** over 3–12 h (the honest footprint figure — *not* the 0.866
+  settles at **~0.40** over 3–12 h (the honest footprint figure — *not* the 0.874
   single-step IoU, which measures "next overpass given the current burn").
 
 Regenerate: `python scripts/run_routing_integration.py`.

@@ -9,7 +9,7 @@ Reads the arrays/metrics produced by ``run_routing_integration.py`` and writes:
   docs/figures/routing_exposure_comparison.png  exposure / hazard-along-route.
   docs/figures/spread_v2_findings.png        headline single-panel chart:
                                              fire-weather severity vs wind
-                                             direction (~9x importance ratio).
+                                             direction (~44x importance ratio).
 
 Run after the integration script:  python scripts/make_routing_figures.py
 """
@@ -186,14 +186,14 @@ def exposure_figure(npz, demo):
 def findings_figure(lofo, fwd=None):
     """Headline single-panel chart: fire-weather *severity* ≫ wind *direction*.
 
-    Three permutation-importance bars — the top fire-weather SEVERITY feature
-    (``wind_speed_ms``), the summed fire-weather SEVERITY group, and the lone
+    Three permutation-importance bars — the top dryness predictor
+    (``days_since_rain``), the summed fire-weather SEVERITY group, and the lone
     wind-DIRECTION feature (``wind_alignment``) — with a red ``≈ NN×`` arrow
     whose head lands on the (tiny) grey ``wind_alignment`` bar to mark the
     severity-vs-direction ratio. ``fwd`` is unused, kept for call compatibility.
     """
     imp = lofo["permutation_importance"]
-    top_sev = imp["wind_speed_ms"]
+    days = imp["days_since_rain"]
     severity = sum(imp[f] for f in SEVERITY_FEATURES)   # canonical group sum
     wind = imp["wind_alignment"]
     ratio = round(severity / wind)
@@ -203,11 +203,11 @@ def findings_figure(lofo, fwd=None):
     red, navy = "#c0392b", "#2c3e6b"
 
     labels = [
-        "풍속\nwind_speed_ms\n(최상위 심각도 특징)",
+        "강우 후 경과일\ndays_since_rain\n(최상위 예측변수)",
         "기상 심각도 합\nfire-weather severity",
         "풍향 정렬\nwind_alignment\n(바람 '방향')",
     ]
-    vals = [top_sev, severity, wind]
+    vals = [days, severity, wind]
 
     fig, ax = plt.subplots(figsize=(9.2, 5.0))
     bars = ax.bar(range(3), vals, width=0.62, color=[orange, blue, grey],
@@ -219,8 +219,8 @@ def findings_figure(lofo, fwd=None):
                 ha="center", va="bottom", fontsize=12, fontweight="bold",
                 color=navy, zorder=4)
 
-    ax.set_ylim(0, 0.08)
-    ax.set_yticks([0.00, 0.02, 0.04, 0.06, 0.08])
+    ax.set_ylim(0, 0.12)
+    ax.set_yticks([0.00, 0.02, 0.04, 0.06, 0.08, 0.10, 0.12])
     ax.set_xticks(range(3))
     ax.set_xticklabels(labels, fontsize=10.5, color="#2b2b2b")
     ax.set_ylabel("순열 중요도 / permutation importance", fontsize=11.5,
