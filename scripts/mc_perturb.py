@@ -1,127 +1,212 @@
 #!/usr/bin/env python
-"""Driver-perturbation helper for the routing Monte Carlo (Ensemble A).
+"""Forecast-error perturbation primitives + fixed-route re-scorer.
 
-ADDITIVE ONLY. Imports and calls the existing spread_v2 weather code unchanged;
-constructs a NEW perturbed :class:`WeatherSeries` per realisation and never
-mutates the input or any existing identifier / dict key.
+Robustness analysis for the evacuation router: the routes are computed ONCE on
+the forecast hazard field (that step is done elsewhere and frozen into
+``data/processed/routing_demo.npz``). Here we ask a different question — *if the
+forecast were wrong, would the already-chosen routes still be safe?* We never
+re-route. We take the FIXED node geometry and FIXED arrival clock of each route
+and re-score its on-route hazard against deliberately perturbed hazard fields.
 
-One *systematic bias* draw per realisation, held constant across the whole
-domain AND across every timestep of the series (reanalysis error is spatially
-and temporally correlated at these scales), per ``configs/mc_perturbation.json``.
-NOT an independent per-cell / per-timestep draw.
+Runs entirely from ``routing_demo.npz`` — no raw FIRMS bundle, no package
+import. The re-scorer reproduces :class:`wildfireguardian.routing.hazard.
+HazardSequence` (bilinear in space, linear in time, clamp outside the horizon)
+and the route scoring in ``routing.evacuation._evaluate_path`` (exposure =
+sum of hazard * edge-time, max_hazard = worst node, enters_hazard = any node at
+or above ``p_cut``) to <1e-6. Verified against the stored ``fa_node_haz`` /
+``naive_node_haz`` arrays by :func:`self_check`.
 
-VPD handling (reviewer condition 2): ``vpd_kpa`` is a model feature derived
-from temperature and dewpoint. After perturbing ``temp_c`` and ``rh_pct`` we
-reconstruct dewpoint from the perturbed ``(T, RH)`` using the repository's OWN
-Magnus saturation-vapour-pressure function and recompute VPD by calling the
-repository function :func:`weather.vpd_kpa`. No re-implemented ``es`` formula is
-used, so there is no silent train/inference offset.
+Three perturbation axes are applied to the hazard field:
+
+  (a) temporal shift  — the front arrives ``dt_earlier`` minutes EARLY. A route
+      node at clock time ``t`` then sees the hazard the unperturbed forecast
+      placed at ``t + dt_earlier``. Implemented by shifting the query clock.
+  (b) spatial translation — the whole reach envelope is displaced by
+      ``(dx, dy)`` metres. Hazard at ``(x, y)`` becomes the unperturbed hazard
+      at ``(x - dx, y - dy)``. Implemented by shifting the query point.
+  (c) probability scaling — every cell multiplied by ``k`` and clipped to
+      [0, 1]. Implemented by scaling+clipping the stack, then sampling.
+
+These magnitudes are EXPLORATORY ranges, not a calibrated forecast-error model.
+
+This is a robustness analysis of the METHOD on ONE real route pair — the npz
+naive(28 nodes)/future-aware(23 nodes) pair, whose origin differs from the
+committed ``routing_demo.json`` headline (origin_node 3316, 23/23). It is NOT a
+restatement of that headline.
 """
 
 from __future__ import annotations
 
-import dataclasses
-import json
+import hashlib
+from dataclasses import dataclass
 from pathlib import Path
 
 import numpy as np
 
-from wildfireguardian.spread_v2 import weather as W
-from wildfireguardian.spread_v2.weather import WeatherSeries
-
 REPO = Path(__file__).resolve().parents[1]
-DEFAULT_CONFIG = REPO / "configs" / "mc_perturbation.json"
+DEFAULT_NPZ = REPO / "data" / "processed" / "routing_demo.npz"
 
 
-def load_config(path=DEFAULT_CONFIG) -> dict:
-    return json.loads(Path(path).read_text())
-
-
-def _dewpoint_c_from_T_RH(temp_c: np.ndarray, rh_pct: np.ndarray) -> np.ndarray:
-    """Reconstruct dewpoint (deg C) from temperature and RH via the repo Magnus fn.
-
-    Inverts ``RH = 100 * es(Td) / es(T)`` using the repository's own
-    ``_sat_vapour_pressure_hpa`` and Magnus coefficients, so the resulting VPD
-    matches the coefficients that generated the training features exactly.
+# --------------------------------------------------------------------------- #
+# Perturbable hazard field (standalone reimplementation of HazardSequence)     #
+# --------------------------------------------------------------------------- #
+@dataclass
+class HazardField:
+    """A time-stack of EPSG:5179 ignition-probability surfaces, sampleable
+    under temporal-shift / spatial-translation / probability-scale perturbation.
     """
-    es_T = W._sat_vapour_pressure_hpa(temp_c)          # hPa
-    rh_safe = np.clip(rh_pct, 1e-6, 100.0)             # floor only for the log
-    ea = (rh_safe / 100.0) * es_T                      # hPa
-    z = np.log(ea / 6.1094)
-    return W._MAGNUS_B * z / (W._MAGNUS_A - z)
+
+    minx: float
+    miny: float
+    maxx: float
+    maxy: float
+    cell: float
+    times_min: np.ndarray          # ascending minutes
+    stack: np.ndarray              # (T, nrows, ncols) float, in [0, 1]
+
+    @property
+    def nrows(self) -> int:
+        return self.stack.shape[1]
+
+    @property
+    def ncols(self) -> int:
+        return self.stack.shape[2]
+
+    @classmethod
+    def from_npz(cls, npz) -> "HazardField":
+        minx, miny, maxx, maxy, cell = [float(v) for v in npz["grid_extent"]]
+        return cls(minx, miny, maxx, maxy, cell,
+                   np.asarray(npz["haz_times"], float),
+                   np.asarray(npz["haz_stack"], float))
+
+    # -- exact copy of HazardSequence._bilinear (vectorised) ---------------- #
+    def _bilinear(self, surface: np.ndarray, x: np.ndarray, y: np.ndarray) -> np.ndarray:
+        col_f = (x - self.minx) / self.cell - 0.5
+        row_f = (self.maxy - y) / self.cell - 0.5
+        c0 = np.floor(col_f).astype(int)
+        r0 = np.floor(row_f).astype(int)
+        dc = col_f - c0
+        dr = row_f - r0
+        c0c = np.clip(c0, 0, self.ncols - 1)
+        c1c = np.clip(c0 + 1, 0, self.ncols - 1)
+        r0c = np.clip(r0, 0, self.nrows - 1)
+        r1c = np.clip(r0 + 1, 0, self.nrows - 1)
+        v00 = surface[r0c, c0c]
+        v01 = surface[r0c, c1c]
+        v10 = surface[r1c, c0c]
+        v11 = surface[r1c, c1c]
+        top = v00 * (1 - dc) + v01 * dc
+        bot = v10 * (1 - dc) + v11 * dc
+        val = top * (1 - dr) + bot * dr
+        inside = (x >= self.minx) & (x <= self.maxx) & (y >= self.miny) & (y <= self.maxy)
+        return np.where(inside, val, 0.0)
+
+    # -- exact copy of HazardSequence._time_bracket ------------------------- #
+    def _time_bracket(self, t_min: float) -> tuple[int, int, float]:
+        ts = self.times_min
+        if t_min <= ts[0]:
+            return 0, 0, 0.0
+        if t_min >= ts[-1]:
+            return len(ts) - 1, len(ts) - 1, 0.0
+        j = int(np.searchsorted(ts, t_min, side="right"))
+        i0, i1 = j - 1, j
+        return i0, i1, (t_min - ts[i0]) / (ts[i1] - ts[i0])
+
+    def _prob_stack(self, stack: np.ndarray, xs: np.ndarray, ys: np.ndarray,
+                    t_min: float) -> np.ndarray:
+        i0, i1, frac = self._time_bracket(t_min)
+        v0 = self._bilinear(stack[i0], xs, ys)
+        if i0 == i1:
+            return np.clip(v0, 0.0, 1.0)
+        v1 = self._bilinear(stack[i1], xs, ys)
+        return np.clip(v0 * (1 - frac) + v1 * frac, 0.0, 1.0)
 
 
-def draw_perturbation(rng: np.random.Generator, cfg: dict) -> dict:
-    """One systematic-bias draw (scalars) for a single realisation.
+# --------------------------------------------------------------------------- #
+# Route container                                                              #
+# --------------------------------------------------------------------------- #
+@dataclass
+class FixedRoute:
+    """A frozen route: node geometry + arrival clock never change under
+    perturbation (we re-score, never re-route)."""
 
-    Returns the concrete per-channel offsets/factors actually applied, so a
-    caller can log them. When ``cfg['enabled']`` is false every channel is an
-    exact identity (factor 1.0 / offset 0), which is what sanity check 2 uses.
+    name: str
+    xy: np.ndarray            # (n, 2) EPSG:5179
+    arrivals: np.ndarray      # (n,) minutes
+
+    @property
+    def edge_dt(self) -> np.ndarray:
+        return np.diff(self.arrivals)
+
+
+@dataclass
+class RouteScore:
+    max_hazard: float
+    exposure: float
+    enters_hazard: bool
+    node_hazard: np.ndarray
+
+
+# --------------------------------------------------------------------------- #
+# Perturbed re-scoring                                                         #
+# --------------------------------------------------------------------------- #
+def score_route(field: HazardField, route: FixedRoute, p_cut: float,
+                *, dt_earlier: float = 0.0, dx: float = 0.0, dy: float = 0.0,
+                k: float = 1.0) -> RouteScore:
+    """Re-score a FIXED route against a perturbed hazard field.
+
+    (a) ``dt_earlier`` > 0 -> front arrives early -> query clock += dt_earlier.
+    (b) ``(dx, dy)`` metres translate the front -> query point -= (dx, dy).
+    (c) ``k`` scales every cell (clipped to [0, 1]) -> scale+clip the stack.
     """
-    ch = cfg["channels"]
-    if not cfg.get("enabled", True):
-        return {"enabled": False, "wind_speed_factor": 1.0, "wind_dir_delta_deg": 0.0,
-                "rh_delta_pp": 0.0, "days_since_rain_delta": 0, "temp_delta_c": 0.0}
+    stack = field.stack if k == 1.0 else np.clip(field.stack * k, 0.0, 1.0)
+    xs = route.xy[:, 0] - dx
+    ys = route.xy[:, 1] - dy
+    node_h = np.empty(len(route.xy), float)
+    for i in range(len(route.xy)):
+        clk = route.arrivals[i] + dt_earlier
+        node_h[i] = field._prob_stack(stack, xs[i:i + 1], ys[i:i + 1], clk)[0]
+    max_h = float(node_h.max())
+    exposure = float(np.sum(node_h[:-1] * route.edge_dt))   # h[i] * dt[i]
+    enters = bool(np.any(node_h >= p_cut))
+    return RouteScore(max_h, exposure, enters, node_h)
+
+
+# 8 compass directions (unit vectors), clockwise from East.
+DIRECTIONS = {
+    "E": (1.0, 0.0), "NE": (0.7071067811865476, 0.7071067811865476),
+    "N": (0.0, 1.0), "NW": (-0.7071067811865476, 0.7071067811865476),
+    "W": (-1.0, 0.0), "SW": (-0.7071067811865476, -0.7071067811865476),
+    "S": (0.0, -1.0), "SE": (0.7071067811865476, -0.7071067811865476),
+}
+
+
+def load_routes(npz) -> dict[str, FixedRoute]:
     return {
-        "enabled": True,
-        "wind_speed_factor": float(np.exp(rng.normal(0.0, ch["wind_speed_ms"]["sigma"]))),
-        "wind_dir_delta_deg": float(rng.normal(0.0, ch["wind_direction_deg"]["sigma"])),
-        "rh_delta_pp": float(rng.normal(0.0, ch["rh_pct"]["sigma"])),
-        "days_since_rain_delta": int(rng.choice(ch["days_since_rain"]["values"])),
-        "temp_delta_c": float(rng.normal(0.0, ch["temp_c"]["sigma"])),
+        "naive": FixedRoute("naive", np.asarray(npz["naive_xy"], float),
+                            np.asarray(npz["naive_arrivals"], float)),
+        "fa": FixedRoute("fa", np.asarray(npz["fa_xy"], float),
+                         np.asarray(npz["fa_arrivals"], float)),
     }
 
 
-def perturb_weather(ws: WeatherSeries, draw: dict, cfg: dict) -> WeatherSeries:
-    """Return a NEW WeatherSeries with the systematic-bias ``draw`` applied.
-
-    The input ``ws`` is not mutated. When ``draw['enabled']`` is false the
-    result is an exact element-wise copy of ``ws`` (identity), guaranteeing the
-    degenerate-ensemble sanity check.
-    """
-    # Identity fast-path (degenerate ensemble / master flag off).
-    if not draw.get("enabled", True):
-        return dataclasses.replace(
-            ws,
-            wind_speed_ms=ws.wind_speed_ms.copy(),
-            wind_toward_deg=ws.wind_toward_deg.copy(),
-            wind_u=ws.wind_u.copy(), wind_v=ws.wind_v.copy(),
-            temp_c=ws.temp_c.copy(), rh_pct=ws.rh_pct.copy(),
-            vpd_kpa=ws.vpd_kpa.copy(),
-            days_since_rain=ws.days_since_rain.copy(),
-            precip_24h_mm=ws.precip_24h_mm.copy(),
-        )
-
-    ch = cfg["channels"]
-    # --- wind speed: multiplicative lognormal (direction unchanged here) ------
-    new_speed = ws.wind_speed_ms * draw["wind_speed_factor"]
-    # --- wind direction: additive rotation of bearing + unit vector -----------
-    new_toward = (ws.wind_toward_deg + draw["wind_dir_delta_deg"]) % 360.0
-    tr = np.radians(new_toward)
-    # toward_deg = atan2(u, v)  =>  unit east = sin(toward), unit north = cos(toward)
-    new_u = np.sin(tr)
-    new_v = np.cos(tr)
-    # --- relative humidity: additive normal, clipped ---------------------------
-    rh_clip = ch["rh_pct"]["clip"]
-    new_rh = np.clip(ws.rh_pct + draw["rh_delta_pp"], rh_clip[0], rh_clip[1])
-    # --- temperature: additive normal ------------------------------------------
-    new_temp_c = ws.temp_c + draw["temp_delta_c"]
-    # --- days since rain: additive integer, clipped at 0 -----------------------
-    new_dsr = np.clip(ws.days_since_rain + draw["days_since_rain_delta"],
-                      ch["days_since_rain"]["clip_min"], None)
-    # --- VPD: recompute via the REPO function on reconstructed dewpoint --------
-    td_c = _dewpoint_c_from_T_RH(new_temp_c, new_rh)
-    new_vpd = W.vpd_kpa(new_temp_c + 273.15, td_c + 273.15)
-
-    return dataclasses.replace(
-        ws,
-        wind_speed_ms=new_speed,
-        wind_toward_deg=new_toward,
-        wind_u=new_u, wind_v=new_v,
-        temp_c=new_temp_c, rh_pct=new_rh, vpd_kpa=new_vpd,
-        days_since_rain=new_dsr,
-        precip_24h_mm=ws.precip_24h_mm.copy(),  # unperturbed per the driver table
-    )
+def npz_sha256(path: Path) -> str:
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-__all__ = ["load_config", "draw_perturbation", "perturb_weather", "DEFAULT_CONFIG"]
+def self_check(npz_path: Path = DEFAULT_NPZ, p_cut: float = 0.5, tol: float = 1e-6):
+    """Assert the unperturbed re-score reproduces the stored node hazards."""
+    npz = np.load(npz_path)
+    field = HazardField.from_npz(npz)
+    routes = load_routes(npz)
+    for name, route in routes.items():
+        sc = score_route(field, route, p_cut)
+        stored = np.asarray(npz[f"{name}_node_haz"], float)
+        err = float(np.max(np.abs(sc.node_hazard - stored)))
+        assert err < tol, f"{name} re-score error {err} exceeds {tol}"
+    return True
+
+
+if __name__ == "__main__":
+    ok = self_check()
+    print("self_check passed:", ok)
