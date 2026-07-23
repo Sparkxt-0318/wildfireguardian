@@ -1,8 +1,8 @@
 # WildfireGuardian — Architecture
 
 This document describes the system architecture. The **canonical, working spine is
-the data-driven model**: `spread_v2` (XGBoost-class per-cell ignition probability,
-LOFO-validated on six real fires) feeding the elderly- and rescue-aware evacuation
+the data-driven model**: `spread_v2` (sklearn `HistGradientBoostingClassifier`
+per-cell ignition probability, LOFO-validated on six real fires) feeding the elderly- and rescue-aware evacuation
 router. The mechanistic **Rothermel / cellular-automaton spread engine described in
 §2–§3 is the project's *initial* track — now superseded** and kept as a research
 record (see the README "Research log / superseded approaches" and
@@ -46,7 +46,7 @@ See `docs/methodology/vulnerable_counties.md` for the deployment-target list.
                                   │
    ┌──────────────────────────────▼───────────────────────────────────┐
    │   Spread model (CANONICAL):  spread_v2 per-cell P(ignite)        │
-   │   XGBoost-class · LOFO-validated · calibrated probabilities      │
+   │   HistGradientBoosting · LOFO-validated · calibrated probs      │
    │   — superseded initial track: Rothermel + Huygens CA (research)  │
    └──────────────────────────────┬───────────────────────────────────┘
                                   │  perimeters + burn probability raster

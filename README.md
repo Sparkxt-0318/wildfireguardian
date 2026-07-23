@@ -54,7 +54,7 @@
 본 저장소의 **정식(canonical) 모델은 Build B** (`src/wildfireguardian/spread_v2`)
 이며, 모든 후속 결과(라우팅 노출도, 구조 4-구분 등)를 산출한 모델입니다. 한 산불의
 다음 위성 통과 시점에 각 격자 셀이 발화(탐지)될 확률 `P(ignite)` 를 예측하는
-그래디언트 부스팅(XGBoost 계열) 분류기입니다.
+그래디언트 부스팅(sklearn `HistGradientBoostingClassifier`) 분류기입니다.
 
 - **평가 — 한 산불씩 제외 교차검증 (LOFO; 각 산불을 그룹으로 묶어 통째로 제외하는
   leave-one-group-out / LOGO-CV)**: 6개 실제 산불(gangneung_2023, hongseong_2023,
@@ -99,7 +99,7 @@
 > |---|---|---|
 > | 랜덤포레스트 | 0.920 ± 0.036 | 0.898 |
 > | 로지스틱 회귀 | 0.903 ± 0.060 | 0.826 |
-> | **XGBoost/GBM (본 모델)** | **0.889 ± 0.107** | **0.905** |
+> | **hist_gbm (본 모델)** | **0.889 ± 0.107** | **0.905** |
 >
 > 폴드 평균에서는 랜덤포레스트가 근소 우위이나, **보정된 확률**(라우터가 실제
 > `P(ignite)` 를 소비) · **추론 속도** · **해석가능성**(순열 중요도가 "세기 ≫ 풍향"
@@ -122,7 +122,7 @@
                                     │
             ┌───────────────────────▼──────────────────────┐
             │   데이터 기반 격자 발화확률 모델 (spread_v2)  │
-            │   XGBoost 계열 · LOFO 검증 · 보정된 P(ignite) │
+            │  HistGradientBoosting · LOFO 검증 · 보정 P(ignite) │
             └───────────────────────┬──────────────────────┘
                                     │ 위험도 표면
             ┌───────────────────────▼──────────────────────┐
@@ -265,7 +265,7 @@ with the stretch goal of qualifying for ISEF in the Systems Software category.
 
 The **canonical model is Build B** (`src/wildfireguardian/spread_v2`) — the build
 that produced **every** downstream result in this repo. It is a gradient-boosted
-decision-tree classifier (XGBoost-class) that predicts, for each grid cell, the
+decision-tree classifier (sklearn `HistGradientBoostingClassifier`) that predicts, for each grid cell, the
 probability `P(ignites by the next satellite overpass)`.
 
 - **Evaluation — leave-one-fire-out (LOFO; each fire held out as a *group*, i.e.
@@ -315,7 +315,7 @@ probability `P(ignites by the next satellite overpass)`.
 > |---|---|---|
 > | random forest | 0.920 ± 0.036 | 0.898 |
 > | logistic regression | 0.903 ± 0.060 | 0.826 |
-> | **XGBoost/GBM (ours)** | **0.889 ± 0.107** | **0.905** |
+> | **hist_gbm (ours)** | **0.889 ± 0.107** | **0.905** |
 >
 > Random forest edges us on mean-of-folds; we keep the GBM for its **calibrated
 > probabilities** (the router consumes a real `P(ignite)`), **inference speed**, and

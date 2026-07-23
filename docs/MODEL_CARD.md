@@ -13,7 +13,7 @@
 | field | value | source |
 |---|---|---|
 | build | **Build B** (`src/wildfireguardian/spread_v2`) | — |
-| task | per-cell `P(ignites by next satellite overpass)`, XGBoost | `spread_v2/model.py` |
+| task | per-cell `P(ignites by next satellite overpass)`, sklearn `HistGradientBoostingClassifier` | `spread_v2/model.py` |
 | grid / CRS | 375 m / EPSG:5179 | `run_routing_integration.py` |
 | seed | **20250603** | `spread_v2_lofo.json/seed` |
 | evaluation | leave-one-fire-out (LOFO), hold out whole fires | `model.py::leave_one_fire_out` |
