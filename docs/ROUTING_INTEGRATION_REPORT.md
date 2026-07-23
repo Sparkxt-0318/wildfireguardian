@@ -2,7 +2,8 @@
 
 **Demonstration fire: 2025 영덕(영남) 산불 / Yeongdeok 2025** — the anchor casualty
 event (part of the 2025 의성–안동 wildfire complex: ~27 deaths total — 8 in 영덕 —
-victims predominantly in their 60s–80s). Real roads geometry, real terrain, real fire data.
+victims predominantly in their 60s–80s). Real terrain, real fire data; synthetic road
+topology on the real extent.
 〔출처: 서울환경연합 2026 회고(23명은 2025-03-26 시점); 세계일보·한겨레 2025-03-26〕
 
 ---
