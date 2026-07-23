@@ -1,0 +1,131 @@
+{
+  "schema": "spread_v2 fire_manifest — consumed by wildfireguardian.spread_v2.data.list_fires()",
+  "fires": [
+    {
+      "id": "yeongdeok_2025",
+      "name": "Yeongdeok (영덕) 2025",
+      "bbox": [
+        128.97,
+        36.1,
+        129.77,
+        36.9
+      ],
+      "start": "2025-03-22T12:15:00+09:00",
+      "end": "2025-03-27T00:00:00+09:00",
+      "ignition": [
+        129.37,
+        36.5
+      ],
+      "reported_ha": 3800.0,
+      "n_detections": 2219,
+      "first_detection": "2025-03-25",
+      "last_detection": "2025-03-26",
+      "notes": "Padded bbox (S=36.10, N=36.90, W=128.97, E=129.77) around the public ignition point (129.37E, 36.50N); the true bbox normally ships in this manifest but was absent, so it is reconstructed here per the round-2 data brief. bbox key order = [minlon, minlat, maxlon, maxlat] (W,S,E,N) as required by FireMeta.bbox_wgs84=tuple(f['bbox']). ignition = [lon, lat]. FIRMS is a detection product: first hit (2025-03-25) lags the 2025-03-22 ignition by days (see spread_v2/data.py docstring). start/end/reported_ha are provenance only — not used in computation (only bbox + ignition drive the grid/model). reported_ha=3800 carried from the repo audit (SPREAD_MODEL_REPORT_V2_FINAL). n_detections=2219 per the data brief for the detections.csv shipped in this bundle. DEM = SRTM GL1 30 m (OpenTopography, EPSG:4326); fuel = ESA WorldCover 2021 v200 10 m class codes (EPSG:4326, uint8)."
+    },
+    {
+      "id": "uljin_samcheok_2022",
+      "name": "Uljin–Samcheok (울진·삼척) 2022",
+      "bbox": [
+        128.95,
+        36.6,
+        129.55,
+        37.35
+      ],
+      "start": "2022-03-04T11:14:00+09:00",
+      "end": "2022-03-13T18:00:00+09:00",
+      "ignition": [
+        129.34,
+        36.99
+      ],
+      "reported_ha": 16302.0,
+      "n_detections": 2342,
+      "first_detection": "2022-03-04",
+      "last_detection": "2022-03-12",
+      "notes": "bbox = padded box [128.95, 36.6, 129.55, 37.35] (W,S,E,N) enclosing the documented burn extent; ignition [129.34, 36.99] ≈ 울진 북면 두천리 산154 (public reporting; approximate to ~0.01°, confirmed by user 2026-07-20). Event window 2022-03-04..2022-03-14 (KST provenance start=2022-03-04T11:14:00+09:00, end=2022-03-13T18:00:00+09:00). reported_ha=16302 (public/KFS + repo audit). Detections = FIRMS VIIRS_SNPP_SP + VIIRS_NOAA20_SP + MODIS_SP merged over the window; UTC 'timestamp' column pre-joined for the loader; first hit 2022-03-04 may lag ignition. DEM = OpenTopography SRTMGL1 30 m (EPSG:4326, int16 m); fuel = ESA WorldCover 2021 v200 10 m class codes (EPSG:4326, uint8). start/end/reported_ha are provenance only — only bbox + ignition drive the grid/model."
+    },
+    {
+      "id": "uiseong_andong_2025",
+      "name": "Uiseong–Andong (의성·안동) 2025",
+      "bbox": [
+        128.35,
+        36.15,
+        128.97,
+        36.75
+      ],
+      "start": "2025-03-22T11:25:00+09:00",
+      "end": "2025-03-28T17:00:00+09:00",
+      "ignition": [
+        128.63,
+        36.45
+      ],
+      "reported_ha": 45000.0,
+      "n_detections": 3416,
+      "first_detection": "2025-03-22",
+      "last_detection": "2025-03-28",
+      "notes": "bbox = padded box [128.35, 36.15, 128.97, 36.75] (W,S,E,N) enclosing the documented burn extent; ignition [128.63, 36.45] ≈ 의성 안평면 (public reporting; approximate to ~0.01°, confirmed by user 2026-07-20). Event window 2025-03-22..2025-03-29 (KST provenance start=2025-03-22T11:25:00+09:00, end=2025-03-28T17:00:00+09:00). reported_ha=45000 (public/KFS + repo audit). Detections = FIRMS VIIRS_SNPP_SP + VIIRS_NOAA20_SP + MODIS_SP merged over the window; UTC 'timestamp' column pre-joined for the loader; first hit 2025-03-22 may lag ignition. DEM = OpenTopography SRTMGL1 30 m (EPSG:4326, int16 m); fuel = ESA WorldCover 2021 v200 10 m class codes (EPSG:4326, uint8). start/end/reported_ha are provenance only — only bbox + ignition drive the grid/model."
+    },
+    {
+      "id": "miryang_2022",
+      "name": "Miryang (밀양) 2022",
+      "bbox": [
+        128.43,
+        35.33,
+        129.03,
+        35.83
+      ],
+      "start": "2022-05-31T09:30:00+09:00",
+      "end": "2022-06-04T10:00:00+09:00",
+      "ignition": [
+        128.77,
+        35.54
+      ],
+      "reported_ha": 763.0,
+      "n_detections": 75,
+      "first_detection": "2022-05-31",
+      "last_detection": "2022-06-02",
+      "notes": "bbox = padded box [128.43, 35.33, 129.03, 35.83] (W,S,E,N) enclosing the documented burn extent; ignition [128.77, 35.54] ≈ 밀양 부북면 춘화리 (public reporting; approximate to ~0.01°, confirmed by user 2026-07-20). Event window 2022-05-31..2022-06-05 (KST provenance start=2022-05-31T09:30:00+09:00, end=2022-06-04T10:00:00+09:00). reported_ha=763 (public/KFS + repo audit). Detections = FIRMS VIIRS_SNPP_SP + VIIRS_NOAA20_SP + MODIS_SP merged over the window; UTC 'timestamp' column pre-joined for the loader; first hit 2022-05-31 may lag ignition. DEM = OpenTopography SRTMGL1 30 m (EPSG:4326, int16 m); fuel = ESA WorldCover 2021 v200 10 m class codes (EPSG:4326, uint8). start/end/reported_ha are provenance only — only bbox + ignition drive the grid/model."
+    },
+    {
+      "id": "gangneung_2023",
+      "name": "Gangneung (강릉) 2023",
+      "bbox": [
+        128.62,
+        37.57,
+        129.02,
+        37.97
+      ],
+      "start": "2023-04-11T08:22:00+09:00",
+      "end": "2023-04-11T16:30:00+09:00",
+      "ignition": [
+        128.87,
+        37.77
+      ],
+      "reported_ha": 379.0,
+      "n_detections": 27,
+      "first_detection": "2023-04-11",
+      "last_detection": "2023-04-12",
+      "notes": "bbox = padded box [128.62, 37.57, 129.02, 37.97] (W,S,E,N) enclosing the documented burn extent; ignition [128.87, 37.77] ≈ 강릉 난곡동 (public reporting; approximate to ~0.01°, confirmed by user 2026-07-20). Event window 2023-04-11..2023-04-13 (KST provenance start=2023-04-11T08:22:00+09:00, end=2023-04-11T16:30:00+09:00). reported_ha=379 (public/KFS + repo audit). Detections = FIRMS VIIRS_SNPP_SP + VIIRS_NOAA20_SP + MODIS_SP merged over the window; UTC 'timestamp' column pre-joined for the loader; first hit 2023-04-11 may lag ignition. DEM = OpenTopography SRTMGL1 30 m (EPSG:4326, int16 m); fuel = ESA WorldCover 2021 v200 10 m class codes (EPSG:4326, uint8). start/end/reported_ha are provenance only — only bbox + ignition drive the grid/model."
+    },
+    {
+      "id": "hongseong_2023",
+      "name": "Hongseong (홍성) 2023",
+      "bbox": [
+        126.22,
+        36.36,
+        126.82,
+        36.76
+      ],
+      "start": "2023-04-02T11:00:00+09:00",
+      "end": "2023-04-05T09:00:00+09:00",
+      "ignition": [
+        126.52,
+        36.56
+      ],
+      "reported_ha": 1454.0,
+      "n_detections": 210,
+      "first_detection": "2023-04-02",
+      "last_detection": "2023-04-03",
+      "notes": "bbox = padded box [126.22, 36.36, 126.82, 36.76] (W,S,E,N) enclosing the documented burn extent; ignition [126.52, 36.56] ≈ 홍성 서부면 (public reporting; approximate to ~0.01°, confirmed by user 2026-07-20). Event window 2023-04-02..2023-04-06 (KST provenance start=2023-04-02T11:00:00+09:00, end=2023-04-05T09:00:00+09:00). reported_ha=1454 (public/KFS + repo audit). Detections = FIRMS VIIRS_SNPP_SP + VIIRS_NOAA20_SP + MODIS_SP merged over the window; UTC 'timestamp' column pre-joined for the loader; first hit 2023-04-02 may lag ignition. DEM = OpenTopography SRTMGL1 30 m (EPSG:4326, int16 m); fuel = ESA WorldCover 2021 v200 10 m class codes (EPSG:4326, uint8). start/end/reported_ha are provenance only — only bbox + ignition drive the grid/model."
+    }
+  ]
+}
