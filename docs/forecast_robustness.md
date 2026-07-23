@@ -1,4 +1,21 @@
-# Forecast-error robustness of the evacuation routes
+# Forecast-error sensitivity of the evacuation routes — risk reduction with a characterized failure mode
+
+**The claim this analysis supports.** On this one real route pair the future-aware
+method delivers **risk reduction with a characterized failure mode**, *not*
+blanket robustness. Its exposure advantage over the forecast-unaware route
+largely survives perturbation, while its hazard-free guarantee has a specific,
+quantified breaking condition (spatial displacement). We state it that way
+deliberately: a method that measurably reduces risk *and* names the error that
+would defeat it is a stronger result than an untested claim of robustness.
+
+**Headline.**
+
+- **PRIMARY — 미래 인지 경로의 노출이 화재 예측 미사용 경로보다 낮은 경우가 86%였습니다.**
+  (The future-aware route's exposure is lower than the forecast-unaware route in
+  86 % of perturbed worlds.)
+- **SECONDARY — 공간 오차에 취약하며, 방향에 따라 125–530 m 변위에서 임계값에 도달합니다.**
+  (It is vulnerable to spatial error, reaching the cutoff at displacements of
+  125–530 m depending on direction.)
 
 **Question.** The router chooses routes *once*, on the forecast hazard field. This
 analysis asks the separate question: **if the forecast were wrong, would the
@@ -10,7 +27,9 @@ re-route.**
 
 ## Scope and caveats
 
-This is a robustness analysis of the **method** on **one real route pair**. The
+This is a forecast-error *sensitivity* analysis of the **method** on **one real
+route pair** — characterizing where it reduces risk and where it breaks, not
+asserting robustness. The
 npz route pair has a *different origin* from the committed `routing_demo.json`
 headline (origin_node 3316, 23/23 nodes). It is **not** a restatement of that
 headline. The perturbation magnitudes below are **exploratory ranges, not a
@@ -53,33 +72,49 @@ where `S_i0`, `S_i1` are the two bracketing forecast surfaces, `B[·]` is the
 bilinear sample at the node, and `f` is the time fraction. This is **not**
 `clip(k · node_haz)`.
 
-## Primary result — deterministic breaking-point sweep
+## Deterministic breaking-point sweep
 
 For each axis independently, the smallest perturbation at which the future-aware
 route's maximum on-route hazard first reaches `p_cut = 0.5`:
 
-| Axis | Breaking point | Behaviour |
-|------|----------------|-----------|
-| Temporal (early arrival) | **Never** within 720 min (12 h); max 0.352 | monotone, shallow |
-| Probability scaling | **Never** within documented k ≤ 2.0 (max 0.270); still below 0.5 even at k = 20 (max 0.481) | monotone, shallow |
-| **Spatial translation** | **125 m** (eastward); grid first crosses at 250 m | **non-monotone — the breaking axis** |
+| Axis | Breaking point | Interpretation |
+|------|----------------|----------------|
+| Temporal (early arrival) | **Never** within 720 min (12 h); max 0.352 | genuine but shallow response — does not break in range |
+| Probability scaling | **Never** within k ≤ 2.0 (max 0.270); still 0.481 even at k = 20 | **null result — a low-information test, NOT robustness** (see below) |
+| **Spatial translation** | **125–530 m** by direction (E worst, NW most forgiving) | **non-monotone — the breaking axis** |
 
-The temporal and probability axes barely move the future-aware route: arriving up
-to 12 hours early lifts its peak only from 0.260 to 0.352, and multiplying every
-hazard probability by 2 lifts it only to 0.270. Neither reaches the cutoff
-anywhere in — or well beyond — the explored range.
+The temporal axis moves the future-aware route only modestly — arriving up to 12
+hours early lifts its peak from 0.260 to 0.352, never reaching the cutoff in
+range. This is a real, shallow response, not a robustness proof.
 
-**Why probability scaling is so weak — and why ×20 gives 0.481, not 1.0.**
-Because *k* multiplies and clips each **cell before interpolation**, not the
-sampled node value, a route node only gains as much as its *surrounding cells*
-gain. The future-aware route's peak node sits at bilinear weights (dc = 0.75,
-dr = 0.25) where ~75 % of its weight falls on cells that are essentially zero and
-only ~25 % on a cell already saturated at 1.0. Scaling leaves the saturated cell
-at 1.0 (clipped — no gain) and lifts the near-zero neighbours only modestly, so
-even ×20 raises the route-max to just 0.481. A naive `clip(k · 0.2597)` would
-read 1.0 at k ≥ 3.86, but that scales the sampled scalar, which the field never
-does. The route runs where the underlying *cells* are low, so scaling the field
-cannot manufacture a high on-route sample.
+**Probability scaling is a NULL RESULT WITH A KNOWN CAUSE — do not read it as
+robustness.**
+
+> 확률 스케일링 축에서는 임계값에 도달하지 않았으나, 이는 강건성의 근거로 해석되어서는 안
+> 됩니다. 해당 경로의 최대 노출 지점은 확률 1.0으로 포화된 셀에 인접해 있으며, 곱셈적
+> 스케일링은 포화된 셀의 값을 높일 수 없습니다. 따라서 본 축은 이 경로쌍에 대하여 정보량이
+> 낮은 검정이며, 예측 화재 규모의 과소추정을 검정하려면 임계 영역의 형태학적 팽창이 더
+> 적합합니다. 이는 향후 과제입니다.
+
+(*The probability-scaling axis did not reach the cutoff, but this must not be read
+as evidence of robustness. The route's maximum-exposure point is adjacent to a
+cell already saturated at probability 1.0, and multiplicative scaling cannot
+raise the value of a saturated cell. This axis is therefore a low-information
+test for this route pair; to probe underestimation of forecast fire size,
+morphological dilation of the hazard region is the appropriate instrument. That
+is left as future work.*)
+
+The mechanism, verified numerically: *k* multiplies and clips each grid **cell
+before** the bilinear+time interpolation, not the sampled node value. The
+future-aware route's peak node sits at bilinear weights (dc = 0.75, dr = 0.25)
+with ~25 % of its weight on a cell already saturated at 1.0 and ~75 % on cells
+near zero. Scaling leaves the saturated cell at 1.0 (clipped — no gain) and lifts
+the near-zero neighbours only modestly, so even ×20 reaches just 0.481. A naive
+`clip(k · 0.2597)` would read 1.0 at k ≥ 3.86, but that scales the sampled
+scalar, which the field never does. Because the axis literally cannot exercise
+the saturated cell that dominates this node, its "no break" says nothing about
+the route's tolerance to a genuinely larger fire — hence a low-information test,
+and hence morphological dilation as the correct future instrument.
 
 **Spatial displacement is the axis that breaks it.** Because the fixed route
 threads close to the hazard boundary, translating the front by only a few
@@ -95,34 +130,47 @@ full per-direction first-crossing thresholds span **125 m (worst) to 530 m
 |-----------|----|----|----|----|----|----|----|----|
 | First crossing to p_cut (m) | 125 | 175 | 175 | 175 | 205 | 205 | 205 | 530 |
 
-So the route tolerates at most ~125 m of front displacement toward the east and
-at most ~530 m toward the northwest before a node enters hazard. By the 250 m
-grid point the worst direction already sits at 0.75.
+So the failure mode is directional: the route tolerates as little as **125 m** of
+front displacement toward the east but up to **530 m** toward the northwest
+before a node enters hazard — a **125–530 m** breaking band, not a single number.
+Quoting the 125 m minimum alone overstates the fragility; the route's actual
+tolerance depends on the direction of the forecast error. By the 250 m grid point
+the worst direction already sits at 0.75.
 
-Headline: **the future-aware route stays hazard-free against forecast timing
-error (arriving 12 h early) and probability error (2× and beyond), but a spatial
-forecast error of ~125 m in the worst direction is enough to put it into hazard.**
+Breaking-point summary: **the future-aware route does not break under forecast
+timing error (arriving 12 h early) and cannot be exercised by the
+probability-scaling axis (a low-information test here), while spatial forecast
+error is the real failure mode — reaching the cutoff at a direction-dependent
+125–530 m of front displacement.**
 
-## Secondary result — joint Monte Carlo
+## Joint Monte Carlo
 
 2000 draws (seed 20260723), sampling the three axes jointly and independently
 from the documented ranges: Δt ~ U(0, 120) min, translation magnitude
 ~ U(0, 2000) m with a uniform continuous direction, k ~ U(1.0, 2.0). Both routes
 are re-scored in the *same* perturbed world each draw.
 
-- **Fraction where the future-aware route stays below `p_cut`: 0.21.** Because
-  the spatial range extends to 2000 m — four cells, far past the 125 m breaking
-  point — most random draws displace the route into hazard. The 95th-percentile
-  perturbed on-route peak is 0.92.
-- **Fraction where the future-aware route's exposure stays below the naive
-  route's: 0.86.** Even when perturbation pushes the future-aware route into
-  hazard, it usually still accrues *less* cumulative exposure than the naive
-  route in the same perturbed world.
+**Read the two fractions differently — one reflects the method, one reflects the
+chosen range.**
 
-The result is stable: across seeds 0.21 vs 0.856–0.860, and converged from 500 to
-4000 draws (0.18→0.21 and 0.844→0.859). The two fractions carry different
-messages — the *hazard-free guarantee* is sensitive to large spatial error,
-while the *relative advantage over the naive route* is robust.
+- **Exposure advantage (the PRIMARY result): 0.86.** In 86 % of perturbed worlds
+  the future-aware route's exposure stays *below* the naive route's — even when
+  perturbation has pushed it into hazard. This is the risk-reduction signal, and
+  it is a property of the method.
+- **Stays below `p_cut`: 0.21 — but this number largely reflects the sampling
+  range, not the method.** The Monte Carlo samples spatial displacement uniformly
+  out to **2000 m — 16× the 125 m minimum break point (and ~4× the 530 m
+  maximum)** — so the majority of draws sit *past* the breaking band by
+  construction, and the future-aware route is displaced into hazard in most of
+  them. The 0.21 figure must never be quoted without this caveat: it is an
+  artifact of a deliberately punishing exploratory range, not a measured failure
+  rate under realistic forecast error. (95th-percentile perturbed on-route peak:
+  0.92.)
+
+Both fractions are stable and seeded-reproducible: the exposure advantage holds
+at 0.856–0.860 across seeds and converges 0.844 → 0.859 from 500 to 4000 draws;
+the below-`p_cut` fraction sits at 0.18 → 0.21 over the same range — and carries
+the same 2000 m sampling caveat wherever it appears.
 
 ## Reproduce
 

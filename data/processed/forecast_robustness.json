@@ -1,5 +1,11 @@
 {
   "analysis": "forecast_error_robustness",
+  "overall_claim": "RISK REDUCTION WITH A CHARACTERIZED FAILURE MODE, not robustness. The future-aware method's exposure advantage over the naive route largely survives perturbation; its hazard-free guarantee has a specific spatial breaking condition.",
+  "headline": {
+    "primary": "Future-aware exposure is lower than the naive route in 86% of perturbed worlds (property of the method).",
+    "secondary": "Spatial error is the failure mode: the cutoff is reached at a direction-dependent 125-530 m of front displacement.",
+    "mc_below_pcut_caveat": "The 0.21 'stays below p_cut' fraction largely reflects the sampling range (spatial displacement uniform to 2000 m = 16x the 125 m minimum break), NOT a realistic failure rate. Never quote 0.21 without this caveat."
+  },
   "scope": "Robustness of the routing METHOD on ONE real npz route pair (naive 28 nodes, future-aware 23 nodes). This origin DIFFERS from the committed routing_demo.json headline (origin_node 3316, 23/23 nodes). NOT a restatement of that headline.",
   "caveat": "Perturbation magnitudes are exploratory ranges, not a calibrated forecast-error model. Routes are FIXED; we re-score, never re-route.",
   "p_cut": 0.5,
@@ -222,7 +228,12 @@
       "breaking_point_m": 125.0,
       "breaking_direction": "E",
       "radial_step_m": 5.0,
-      "search_bound_m": 20000.0
+      "search_bound_m": 20000.0,
+      "interpretation": "THE FAILURE MODE. Report the direction-dependent BAND, not the minimum: the route tolerates as little as 125 m of displacement (E, worst) but up to 530 m (NW). Quoting 125 m alone overstates fragility.",
+      "breaking_band_m": [
+        125.0,
+        530.0
+      ]
     },
     "probability": {
       "axis": "probability_scaling",
@@ -267,7 +278,8 @@
       "reaches_pcut_within_bound": false,
       "continuous_breaking_point_k": null,
       "max_hazard_at_search_bound": 0.481,
-      "search_bound_k_beyond_documented": 20.0
+      "search_bound_k_beyond_documented": 20.0,
+      "interpretation": "NULL RESULT WITH KNOWN CAUSE, not robustness. The route's peak on-route node is adjacent to a grid cell already saturated at probability 1.0; multiplicative scaling cannot raise a clipped cell, so this axis cannot exercise the cell that dominates the node (k=20 reaches only 0.481). It is a low-information test for this route pair. Testing underestimation of forecast fire SIZE requires morphological dilation of the hazard region, not probability scaling -- future work."
     }
   },
   "monte_carlo": {
@@ -292,7 +304,9 @@
     "frac_fa_exposure_below_naive": 0.8595,
     "fa_max_hazard_p50": 0.6661,
     "fa_max_hazard_p95": 0.9202,
-    "fa_max_hazard_max": 0.9966
+    "fa_max_hazard_max": 0.9966,
+    "frac_fa_below_pcut_caveat": "Reflects the sampling range: spatial displacement is uniform to 2000 m = 16x the 125 m minimum break point, so most draws sit past the breaking band by construction. This is NOT a realistic failure rate.",
+    "frac_fa_exposure_below_naive_note": "PRIMARY risk-reduction signal: future-aware exposure < naive exposure in the same perturbed world."
   },
   "provenance": {
     "npz": "data/processed/routing_demo.npz",

@@ -144,8 +144,16 @@ def sweep_spatial(field, routes, p_cut):
             "breaking_magnitude_by_dir_m": per_dir_break,
             "breaking_point_m": best_mag,
             "breaking_direction": best_dir,
+            "breaking_band_m": ([None, None] if not [m for m in per_dir_break.values() if m is not None]
+                                else [min(m for m in per_dir_break.values() if m is not None),
+                                      max(m for m in per_dir_break.values() if m is not None)]),
             "radial_step_m": 5.0,
-            "search_bound_m": SPACE_MAX_M}
+            "search_bound_m": SPACE_MAX_M,
+            "interpretation": (
+                "THE FAILURE MODE. Report the direction-dependent BAND, not the "
+                "minimum: the route tolerates as little as 125 m of displacement "
+                "(E, worst) but up to 530 m (NW). Quoting 125 m alone overstates "
+                "fragility.")}
 
 
 def sweep_probability(field, routes, p_cut):
@@ -170,7 +178,16 @@ def sweep_probability(field, routes, p_cut):
             "reaches_pcut_within_bound": thr is not None,
             "continuous_breaking_point_k": (None if thr is None else round(thr, 4)),
             "max_hazard_at_search_bound": round(val, 4),
-            "search_bound_k_beyond_documented": K_MAX}
+            "search_bound_k_beyond_documented": K_MAX,
+            "interpretation": (
+                "NULL RESULT WITH KNOWN CAUSE, not robustness. The route's peak "
+                "on-route node is adjacent to a grid cell already saturated at "
+                "probability 1.0; multiplicative scaling cannot raise a clipped "
+                "cell, so this axis cannot exercise the cell that dominates the "
+                "node (k=20 reaches only 0.481). It is a low-information test for "
+                "this route pair. Testing underestimation of forecast fire SIZE "
+                "requires morphological dilation of the hazard region, not "
+                "probability scaling -- future work.")}
 
 
 def monte_carlo(field, routes, p_cut, n_draws, seed):
@@ -200,7 +217,13 @@ def monte_carlo(field, routes, p_cut, n_draws, seed):
                          "translation_direction": "uniform_continuous_0_2pi",
                          "k": [float(K_GRID[0]), float(K_GRID[-1])]},
             "frac_fa_below_pcut": round(fa_safe / n_draws, 4),
+            "frac_fa_below_pcut_caveat": ("Reflects the sampling range: spatial "
+                "displacement is uniform to 2000 m = 16x the 125 m minimum break "
+                "point, so most draws sit past the breaking band by construction. "
+                "This is NOT a realistic failure rate."),
             "frac_fa_exposure_below_naive": round(fa_below_naive / n_draws, 4),
+            "frac_fa_exposure_below_naive_note": ("PRIMARY risk-reduction signal: "
+                "future-aware exposure < naive exposure in the same perturbed world."),
             "fa_max_hazard_p50": round(float(np.percentile(fa_max_vals, 50)), 4),
             "fa_max_hazard_p95": round(float(np.percentile(fa_max_vals, 95)), 4),
             "fa_max_hazard_max": round(float(fa_max_vals.max()), 4)}
@@ -239,6 +262,22 @@ def main() -> int:
 
     result = {
         "analysis": "forecast_error_robustness",
+        "overall_claim": ("RISK REDUCTION WITH A CHARACTERIZED FAILURE MODE, not "
+                          "robustness. The future-aware method's exposure advantage "
+                          "over the naive route largely survives perturbation; its "
+                          "hazard-free guarantee has a specific spatial breaking "
+                          "condition."),
+        "headline": {
+            "primary": ("Future-aware exposure is lower than the naive route in "
+                        "86% of perturbed worlds (property of the method)."),
+            "secondary": ("Spatial error is the failure mode: the cutoff is reached "
+                          "at a direction-dependent 125-530 m of front displacement."),
+            "mc_below_pcut_caveat": ("The 0.21 'stays below p_cut' fraction largely "
+                                     "reflects the sampling range (spatial displacement "
+                                     "uniform to 2000 m = 16x the 125 m minimum break), "
+                                     "NOT a realistic failure rate. Never quote 0.21 "
+                                     "without this caveat."),
+        },
         "scope": ("Robustness of the routing METHOD on ONE real npz route pair "
                   "(naive 28 nodes, future-aware 23 nodes). This origin DIFFERS "
                   "from the committed routing_demo.json headline (origin_node "
