@@ -1,0 +1,60 @@
+{
+  "held_fixed": {
+    "cbh_m": 4.4,
+    "fmc_pct": 119.0,
+    "I_o_kw_m": 1945.6747445860788,
+    "u_10m_ms": 13.902317076691167,
+    "wind_from_deg": 282.3921587312073,
+    "dead_moisture_1h": 0.08,
+    "live_moisture_lfmc": 0.4,
+    "cell_size_m": 50.0,
+    "duration_min": 1440.0
+  },
+  "repo_current_values": {
+    "korean_pine_waf_default": 0.1,
+    "crown_fire_KOREAN_PINE_FOLIAR_MOISTURE_PCT": 119.0,
+    "rothermel_fuel_model_KOREAN_PINUS_canopy_base_height_m": 4.4
+  },
+  "sweep": [
+    {
+      "waf": 0.1,
+      "midflame_wind_ms": 1.3902317076691169,
+      "mean_byram_intensity_kw_m": 469.73798512507767,
+      "max_byram_intensity_kw_m": 1085.386729703195,
+      "frac_cells_exceeding_Io": 0.0,
+      "area_capture_24h_pct": 8.571908051737978,
+      "footprint_iou_24h": 0.08571908051737971,
+      "n_cells_ever_burning": 1301
+    },
+    {
+      "waf": 0.13,
+      "midflame_wind_ms": 1.8073012199698517,
+      "mean_byram_intensity_kw_m": 603.8496188090816,
+      "max_byram_intensity_kw_m": 1212.802065829937,
+      "frac_cells_exceeding_Io": 0.0,
+      "area_capture_24h_pct": 7.084003889147515,
+      "footprint_iou_24h": 0.0708400388914751,
+      "n_cells_ever_burning": 1076
+    },
+    {
+      "waf": 0.16,
+      "midflame_wind_ms": 2.224370732270587,
+      "mean_byram_intensity_kw_m": 748.7137382326749,
+      "max_byram_intensity_kw_m": 1188.2213354384605,
+      "frac_cells_exceeding_Io": 0.0,
+      "area_capture_24h_pct": 0.5596099726557052,
+      "footprint_iou_24h": 0.005596099726557047,
+      "n_cells_ever_burning": 84
+    },
+    {
+      "waf": 0.2,
+      "midflame_wind_ms": 2.7804634153382337,
+      "mean_byram_intensity_kw_m": 926.4699476623914,
+      "max_byram_intensity_kw_m": 1559.4284168196546,
+      "frac_cells_exceeding_Io": 0.0,
+      "area_capture_24h_pct": 16.211080432496868,
+      "footprint_iou_24h": 0.16190109259463098,
+      "n_cells_ever_burning": 2481
+    }
+  ]
+}

@@ -28,8 +28,19 @@ moisture of **119 %**:
 |-----------:|----------:|----------:|----------:|
 | 2 m | 11 % | 12 % | **27 %** |
 | 3 m | 10 % | 9 % | 8 % |
-| 4 m (measured central) | 10 % | 9 % | 8 % |
+| 4 m — value used for the submitted 작품설명서 figures | 10 % | 9 % | 8 % |
+| 4.4 m — current live `fuel_model` default | 10 % | 9 % | 8 % |
 | 5 m | 10 % | 9 % | 8 % |
+
+> **Provenance note:** `rothermel.fuel_model.KOREAN_PINUS.canopy_base_height_m`
+> is the single source of truth for CBH, set to 4.4 m. (Historical note: an
+> earlier fix briefly introduced a second, duplicate constant,
+> `crown_fire.KOREAN_PINE_CBH_M`; that symbol no longer exists in the
+> codebase — it was deleted in favor of this single source of truth.) Both
+> the 4.0 m and 4.4 m rows above are now committed sweep points in
+> `CBH_VALUES` in `scripts/crown_sensitivity.py` and are regenerated
+> directly into `data/processed/crown_sensitivity.json` by that script —
+> they reproduce the same 10 % / 9 % / 8 % figures.
 
 - **Across the measured Korean CBH range (3.6–5.2 m), capture is a stable
   8–10 %** — essentially the surface-only baseline. Crown fire does not

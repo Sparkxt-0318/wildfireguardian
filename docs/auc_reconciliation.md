@@ -69,18 +69,18 @@ Summary statistics:
   mean-of-folds far-band AUC +/- sd      | NOT RECOMPUTABLE | per-fire far-band not stored          | requires LOFO re-run
   IoU (0.40)                             | 0.368/0.398/0.392/0.398 @ 3/6/9/12 h | FORWARD-SIM envelope IoU vs observed, Yeongdeok single fire, p_cut threshold | yeongdeok_forward_sim.json/drift
   IoU (0.87)                             | 0.8742           | SINGLE-STEP cumulative footprint IoU (this build) | spread_v2_lofo.json/footprint_iou_single_step.model
-  IoU (0.32)                             | 0.32             | a DIFFERENT build's single-step top-N footprint IoU AND the brief's stated value | docs/SPREAD_MODEL_REPORT_V2_FINAL.md:22,172 ; docs/ROUTING_INTEGRATION_REPORT.md:53
+  IoU (0.32)                             | 0.32             | a DIFFERENT build's single-step top-N footprint IoU AND the brief's stated value | docs/SPREAD_MODEL_REPORT_BUILD_A_LEGACY.md:22,172 ; docs/ROUTING_INTEGRATION_REPORT.md:53
 
 What "0.83 / 0.80 / 0.32" referred to:
   Located in-repo as a DIFFERENT model build, not a different statistic of this one:
    - 0.83  = pooled AUC of PR #2's independent spread_v2 RE-TRAIN (seed 42, 19 features:
              frp_sum_nearby, v1_alignment, ... ) = 0.834 full / 0.857 weather-complete
-             [docs/SPREAD_MODEL_REPORT_V2_FINAL.md:206,353 ; data/processed/spread_v2/*],
+             [docs/SPREAD_MODEL_REPORT_BUILD_A_LEGACY.md:206,353 ; data/processed/spread_v2/*],
              which COINCIDES with the project brief's stated ~0.83
              [docs/ROUTING_INTEGRATION_REPORT.md:51 "brief states ~0.83 | we measure 0.905"].
    - 0.80  = same PR #2 build / brief far-band AUC (~0.80) [same sources, lines 25/52].
    - 0.32  = PR #2 build's single-step top-N footprint IoU (mean 0.32) + brief value
-             [SPREAD_MODEL_REPORT_V2_FINAL.md:172 ; ROUTING_INTEGRATION_REPORT.md:53].
+             [SPREAD_MODEL_REPORT_BUILD_A_LEGACY.md:172 ; ROUTING_INTEGRATION_REPORT.md:53].
    - 0.748 = an even earlier model: PR #1's ignition_model LOFO MEAN-of-folds AUC
              (0.748 +/- 0.033, 4 fires) [PR #1 description / SPREAD_MODEL_REPORT.md].
 

@@ -1,0 +1,365 @@
+{
+  "analysis": "forecast_error_robustness__morphological_dilation_axis",
+  "purpose": "Fourth perturbation axis, converting the future-work item named in docs/forecast_robustness.md into a result: tests whether the predicted fire FOOTPRINT being too small breaks the fixed routes. This is the axis the probability-scaling axis cannot exercise.",
+  "why_dilation_not_scaling": "Dilation, unlike multiplicative probability scaling, CAN raise a cell adjacent to one already saturated at 1.0: the disk-maximum pulls the saturated neighbour's value into the node once the disk reaches it. Multiplicative scaling leaves a clipped 1.0 cell at 1.0 (k=20 -> only 0.481). That is precisely why morphological dilation is the appropriate instrument here.",
+  "relation_to_prior_axes": "ADDITIVE fourth axis. Does NOT modify or restate forecast_robustness.json (temporal / spatial-translation / probability-scaling). Same npz, same re-scorer, same p_cut.",
+  "scope_verbatim_ko": "이 검사는 정준 파이프라인이 산출한 실제 경로쌍(화재 예측 미사용 28개 노드, 미래 인지 23개 노드)을 사용하나, 해당 경로쌍은 커밋된 routing_demo.json의 헤드라인 사례와 다른 실행에서 생성된 것으로 확인되었습니다. 따라서 본 검사의 결과는 보고된 특정 결과에 대한 진술이 아니라 라우팅 방식 자체의 강건성에 대한 진술입니다. 위험면은 Ⅲ-9가 사용한 것과 동일한 필드입니다(sha256 5bed5026…).",
+  "scope_en": "Robustness of the routing METHOD on ONE real npz route pair (naive 28 nodes, future-aware 23 nodes), whose origin DIFFERS from the committed routing_demo.json headline. A statement about the routing method's robustness, not about that specific reported result. Hazard field is the same one used by III-9 (sha256 5bed5026...).",
+  "p_cut": 0.5,
+  "method": {
+    "kind": "continuous_distance_grey_dilation_at_query_points",
+    "definition": "dilated_prob(x,y,t) = max over S of prob_at(x+dx, y+dy, t)",
+    "raster_not_dilated": "500 m cells are too coarse (translation broke at sub-cell 125-530 m); dilation is evaluated at query points using the existing bilinear+time interpolator, not on the raster.",
+    "sampling_scheme": {
+      "n_samples_per_query": 33,
+      "structure": "centre + two rings x 16 directions",
+      "rings_radii": [
+        "d/2",
+        "d"
+      ],
+      "n_directions": 16,
+      "direction_spacing_deg": 22.5,
+      "approximation_note": "approximation of the disk maximum, EXACT for radially monotone fields and close otherwise"
+    },
+    "axis_isolation": "spatial only (no temporal shift, no probability scaling; k=1)",
+    "routes": "FIXED node geometry + arrival clock; re-score, never re-route"
+  },
+  "verification_gate": {
+    "requirement": "at d=0 reproduce stored fa_node_haz / naive_node_haz to <1e-6",
+    "d0_residual_maxabs": {
+      "fa": 3.047512121129303e-10,
+      "naive": 6.021472209738477e-10
+    },
+    "tol": 1e-06,
+    "passed": true,
+    "stored_peaks": {
+      "fa_node_haz_max": 0.259731,
+      "naive_node_haz_max": 0.754977
+    }
+  },
+  "unperturbed": {
+    "fa_max_hazard": 0.2597,
+    "fa_exposure": 38.6642,
+    "fa_enters": false,
+    "naive_max_hazard": 0.755,
+    "naive_exposure": 163.4121,
+    "naive_enters": true,
+    "fa_margin_to_pcut": 0.2403
+  },
+  "dilation_distances_m": [
+    0,
+    25,
+    50,
+    75,
+    100,
+    125,
+    150,
+    200,
+    250,
+    300,
+    400,
+    500,
+    750,
+    1000
+  ],
+  "sweep": [
+    {
+      "d_m": 0,
+      "fa_max_hazard": 0.2597,
+      "naive_max_hazard": 0.755,
+      "fa_exposure": 38.6642,
+      "naive_exposure": 163.4121,
+      "fa_crosses_pcut": false,
+      "fa_enters": false,
+      "naive_enters": true
+    },
+    {
+      "d_m": 25,
+      "fa_max_hazard": 0.3091,
+      "naive_max_hazard": 0.804,
+      "fa_exposure": 46.0603,
+      "naive_exposure": 184.9779,
+      "fa_crosses_pcut": false,
+      "fa_enters": false,
+      "naive_enters": true
+    },
+    {
+      "d_m": 50,
+      "fa_max_hazard": 0.3584,
+      "naive_max_hazard": 0.853,
+      "fa_exposure": 53.7209,
+      "naive_exposure": 207.4481,
+      "fa_crosses_pcut": false,
+      "fa_enters": false,
+      "naive_enters": true
+    },
+    {
+      "d_m": 75,
+      "fa_max_hazard": 0.4078,
+      "naive_max_hazard": 0.902,
+      "fa_exposure": 61.646,
+      "naive_exposure": 230.8228,
+      "fa_crosses_pcut": false,
+      "fa_enters": false,
+      "naive_enters": true
+    },
+    {
+      "d_m": 100,
+      "fa_max_hazard": 0.4571,
+      "naive_max_hazard": 0.951,
+      "fa_exposure": 69.8358,
+      "naive_exposure": 255.1019,
+      "fa_crosses_pcut": false,
+      "fa_enters": false,
+      "naive_enters": true
+    },
+    {
+      "d_m": 125,
+      "fa_max_hazard": 0.5065,
+      "naive_max_hazard": 1.0,
+      "fa_exposure": 78.2902,
+      "naive_exposure": 280.2856,
+      "fa_crosses_pcut": true,
+      "fa_enters": true,
+      "naive_enters": true
+    },
+    {
+      "d_m": 150,
+      "fa_max_hazard": 0.5558,
+      "naive_max_hazard": 0.9733,
+      "fa_exposure": 90.4739,
+      "naive_exposure": 304.4596,
+      "fa_crosses_pcut": true,
+      "fa_enters": true,
+      "naive_enters": true
+    },
+    {
+      "d_m": 200,
+      "fa_max_hazard": 0.6545,
+      "naive_max_hazard": 0.9678,
+      "fa_exposure": 116.8189,
+      "naive_exposure": 342.0224,
+      "fa_crosses_pcut": true,
+      "fa_enters": true,
+      "naive_enters": true
+    },
+    {
+      "d_m": 250,
+      "fa_max_hazard": 0.7532,
+      "naive_max_hazard": 1.0,
+      "fa_exposure": 145.7738,
+      "naive_exposure": 373.7287,
+      "fa_crosses_pcut": true,
+      "fa_enters": true,
+      "naive_enters": true
+    },
+    {
+      "d_m": 300,
+      "fa_max_hazard": 0.8519,
+      "naive_max_hazard": 0.98,
+      "fa_exposure": 177.181,
+      "naive_exposure": 423.3414,
+      "fa_crosses_pcut": true,
+      "fa_enters": true,
+      "naive_enters": true
+    },
+    {
+      "d_m": 400,
+      "fa_max_hazard": 0.9892,
+      "naive_max_hazard": 0.9895,
+      "fa_exposure": 224.0502,
+      "naive_exposure": 488.313,
+      "fa_crosses_pcut": true,
+      "fa_enters": true,
+      "naive_enters": true
+    },
+    {
+      "d_m": 500,
+      "fa_max_hazard": 0.9576,
+      "naive_max_hazard": 0.9586,
+      "fa_exposure": 212.502,
+      "naive_exposure": 449.0114,
+      "fa_crosses_pcut": true,
+      "fa_enters": true,
+      "naive_enters": true
+    },
+    {
+      "d_m": 750,
+      "fa_max_hazard": 1.0,
+      "naive_max_hazard": 1.0,
+      "fa_exposure": 282.4074,
+      "naive_exposure": 486.8143,
+      "fa_crosses_pcut": true,
+      "fa_enters": true,
+      "naive_enters": true
+    },
+    {
+      "d_m": 1000,
+      "fa_max_hazard": 0.9848,
+      "naive_max_hazard": 0.9586,
+      "fa_exposure": 303.2971,
+      "naive_exposure": 499.6056,
+      "fa_crosses_pcut": true,
+      "fa_enters": true,
+      "naive_enters": true
+    }
+  ],
+  "monotonicity": {
+    "monotone_nondecreasing": false,
+    "worst_step": -0.00279903,
+    "n_decreasing_steps": 267,
+    "eps": 1e-09,
+    "first_violation_d_m": 376.0,
+    "expectation": "dilation SHOULD be monotone non-decreasing in d (the disk grows), unlike the non-monotone spatial-translation axis; non-monotonicity would indicate a bug",
+    "fine_scan_step_m": 1.0,
+    "fine_scan_max_m": 1000.0,
+    "diagnosis": "NOT A BUG. TRUE dilation IS monotone: the nested cumulative disk max (fixed absolute radii, cummax over radius) has worst step +0.0 (see verification.cumulative_nested_reference). The small ripple here (worst ~-0.0028) is an artifact of the MANDATED 33-point approximation, whose two rings (r=d/2, r=d) are NOT nested across d: as d grows the ring positions shift, so a hazard pocket squarely sampled at one d can be straddled at another. It persists even at 8 rings x64 dirs (still scaling with d) and is CONFINED to d>=376 m — far above the ~122 m break — so it does not affect the breaking distance, which is identical (122 m) across the 33-pt, denser, and cumulative schemes."
+  },
+  "breaking_distance": {
+    "fa_first_grid_point_reaching_pcut_m": 125,
+    "fa_breaking_distance_m_5m_resolution": 125.0,
+    "fa_max_hazard_at_breaking_distance": 0.5065,
+    "fa_breaking_distance_continuous_m": 121.7,
+    "fa_max_hazard_at_continuous_break": 0.5,
+    "bisection_valid_only_if_monotone": true,
+    "radial_resolution_m": 5.0,
+    "vs_translation_axis": "FINDING (contrary to the stated expectation): dilation breaks at the SAME distance as translation's minimum — 125 m at the committed 5 m grid, ~122 m at 1 m resolution for BOTH axes (independently recomputed). The naive expectation that expanding in all directions breaks the route sooner is WRONG here: translation already minimizes over all 8 compass directions, and the nearest hazard pocket lies due-west of the fa peak node, so the growing disk reaches it at the same radius the translation-E displacement does. Dilation cannot beat the single closest approach translation already found. Reported, not hidden.",
+    "translation_axis_min_break_m": 125.0
+  },
+  "approx_justification": {
+    "per_d": [
+      {
+        "d_m": 0,
+        "fa_max_33pt": 0.2597,
+        "fa_max_dense_24x64": 0.2597,
+        "abs_diff": 0.0
+      },
+      {
+        "d_m": 25,
+        "fa_max_33pt": 0.3091,
+        "fa_max_dense_24x64": 0.3091,
+        "abs_diff": 0.0
+      },
+      {
+        "d_m": 50,
+        "fa_max_33pt": 0.3584,
+        "fa_max_dense_24x64": 0.3584,
+        "abs_diff": 0.0
+      },
+      {
+        "d_m": 75,
+        "fa_max_33pt": 0.4078,
+        "fa_max_dense_24x64": 0.4078,
+        "abs_diff": 0.0
+      },
+      {
+        "d_m": 100,
+        "fa_max_33pt": 0.4571,
+        "fa_max_dense_24x64": 0.4571,
+        "abs_diff": 0.0
+      },
+      {
+        "d_m": 125,
+        "fa_max_33pt": 0.5065,
+        "fa_max_dense_24x64": 0.5065,
+        "abs_diff": 0.0
+      },
+      {
+        "d_m": 150,
+        "fa_max_33pt": 0.5558,
+        "fa_max_dense_24x64": 0.5558,
+        "abs_diff": 0.0
+      },
+      {
+        "d_m": 200,
+        "fa_max_33pt": 0.6545,
+        "fa_max_dense_24x64": 0.6545,
+        "abs_diff": 0.0
+      },
+      {
+        "d_m": 250,
+        "fa_max_33pt": 0.7532,
+        "fa_max_dense_24x64": 0.7532,
+        "abs_diff": 0.0
+      },
+      {
+        "d_m": 300,
+        "fa_max_33pt": 0.8519,
+        "fa_max_dense_24x64": 0.8519,
+        "abs_diff": 0.0
+      },
+      {
+        "d_m": 400,
+        "fa_max_33pt": 0.9892,
+        "fa_max_dense_24x64": 0.9981,
+        "abs_diff": 0.0088
+      },
+      {
+        "d_m": 500,
+        "fa_max_33pt": 0.9576,
+        "fa_max_dense_24x64": 1.0,
+        "abs_diff": 0.0424
+      },
+      {
+        "d_m": 750,
+        "fa_max_33pt": 1.0,
+        "fa_max_dense_24x64": 1.0,
+        "abs_diff": 0.0
+      },
+      {
+        "d_m": 1000,
+        "fa_max_33pt": 0.9848,
+        "fa_max_dense_24x64": 1.0,
+        "abs_diff": 0.0152
+      }
+    ],
+    "max_abs_diff_fa": 0.0424,
+    "dense_reference": "24 radii x 64 directions + centre (1537 samples)"
+  },
+  "verification": {
+    "purpose": "rules out an implementation bug behind the 33-pt non-monotonicity and confirms the breaking distance is scheme-invariant",
+    "ring_schemes_scaling_with_d": {
+      "spec_2rings_x16": {
+        "worst_step": -0.005586,
+        "breaking_distance_m": 122.0
+      },
+      "denser_8rings_x64": {
+        "worst_step": -0.005174,
+        "breaking_distance_m": 122.0
+      }
+    },
+    "note_on_schemes": "worst_step stays ~-0.0028 even at 8 rings x64 dirs, so the ripple is NOT cured by denser sampling — it comes from rings that are not nested across d, an intrinsic property of the disk-boundary approximation, not a bug.",
+    "cumulative_nested_reference": {
+      "construction": "fixed absolute radii 0..1000 m @2 m x 128 dirs, cummax over radius",
+      "worst_step": 0.0,
+      "monotone": true,
+      "breaking_distance_m": 122.0,
+      "meaning": "cummax is monotone BY CONSTRUCTION and approximates the TRUE disk maximum; worst_step >= 0 confirms true dilation is monotone"
+    },
+    "breaking_distance_scheme_invariant_m": {
+      "spec_33pt": 122.0,
+      "denser_8x64": 122.0,
+      "cumulative_true_disk": 122.0
+    },
+    "translation_axis_independent_recompute": {
+      "min_breaking_distance_m_1m_res": 122.0,
+      "direction": "E",
+      "committed_value_5m_grid_m": 125.0,
+      "meaning": "independent 1 m recompute of the committed spatial-translation minimum, for a same-resolution comparison; does NOT modify forecast_robustness.json"
+    }
+  },
+  "provenance": {
+    "npz": "data/processed/routing_demo.npz",
+    "npz_sha256": "5bed502661afa8e33335c342ddc468c2df6858267ea4f769a659f970e918da58",
+    "base_commit": "2e8712cddce0b8d9716284eb2a01ac80b3a9ea2d",
+    "git_head": "1f270d2cfe8a472db4edc1e536e654085c3b4986",
+    "git_branch": "results/dilation-perturbation",
+    "deterministic": true,
+    "no_monte_carlo": "this axis is a deterministic geometric sweep; no seed",
+    "reused_rescorer": "scripts/mc_perturb.py (unmodified)",
+    "n_route_nodes": {
+      "naive": 28,
+      "fa": 23
+    }
+  }
+}

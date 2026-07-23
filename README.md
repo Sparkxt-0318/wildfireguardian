@@ -54,7 +54,7 @@
 본 저장소의 **정식(canonical) 모델은 Build B** (`src/wildfireguardian/spread_v2`)
 이며, 모든 후속 결과(라우팅 노출도, 구조 4-구분 등)를 산출한 모델입니다. 한 산불의
 다음 위성 통과 시점에 각 격자 셀이 발화(탐지)될 확률 `P(ignite)` 를 예측하는
-그래디언트 부스팅(XGBoost 계열) 분류기입니다.
+그래디언트 부스팅(sklearn `HistGradientBoostingClassifier`) 분류기입니다.
 
 - **평가 — 한 산불씩 제외 교차검증 (LOFO; 각 산불을 그룹으로 묶어 통째로 제외하는
   leave-one-group-out / LOGO-CV)**: 6개 실제 산불(gangneung_2023, hongseong_2023,
@@ -99,7 +99,7 @@
 > |---|---|---|
 > | 랜덤포레스트 | 0.920 ± 0.036 | 0.898 |
 > | 로지스틱 회귀 | 0.903 ± 0.060 | 0.826 |
-> | **XGBoost/GBM (본 모델)** | **0.889 ± 0.107** | **0.905** |
+> | **hist_gbm (본 모델)** | **0.889 ± 0.107** | **0.905** |
 >
 > 폴드 평균에서는 랜덤포레스트가 근소 우위이나, **보정된 확률**(라우터가 실제
 > `P(ignite)` 를 소비) · **추론 속도** · **해석가능성**(순열 중요도가 "세기 ≫ 풍향"
@@ -122,7 +122,7 @@
                                     │
             ┌───────────────────────▼──────────────────────┐
             │   데이터 기반 격자 발화확률 모델 (spread_v2)  │
-            │   XGBoost 계열 · LOFO 검증 · 보정된 P(ignite) │
+            │  HistGradientBoosting · LOFO 검증 · 보정 P(ignite) │
             └───────────────────────┬──────────────────────┘
                                     │ 위험도 표면
             ┌───────────────────────▼──────────────────────┐
@@ -210,12 +210,13 @@ pytest -q                             # 단위 테스트 (실데이터 불필요
 안내하고, 스스로 대피할 수 없는 주민에게는 **구조대 차량의 진입 경로**를 계산하며,
 **누가 도달 불가능한지 정직하게** 보고합니다(추정·날조 없음).
 
-합성 영덕 PoC 4-구분(합 = N = 452): 원래 안전 154 · 구조가능 대피소로 구조 34 ·
-도보 불가(구조대 출동) 244 · **차량 접근 불가(도달 불가) 20**. 도보 자력대피 실패율
-**w ≈ 40 %**(임계값에 따라 33–45 %)는 10시간 보행 예산에서도 거동불능 가정과 무관하게
-유지됩니다. 출동 지연 **0→60분**이면 도달 불가 출발지가 **6→34**로 늘어납니다.
-예측 기반 주민 경로는 예측 없음 경로 대비 노출 **~85 % 감소**(24.06→3.55 prob·min),
-생존-인지 구조대 진입은 최단경로 대비 노출 **~54 % 감소**(0.172→0.079 prob·min).
+영덕 PoC 4-구분(합 = N = 439, 실제 OSM 도로·대피소·차고지 + 합성 화재·지형 기반):
+원래 안전 262 · 구조가능 대피소로 구조 10 · 도보 불가(구조대 출동) 143 ·
+**차량 접근 불가(도달 불가) 24**. 도보 자력대피 실패율 **w ≈ 11 %**(임계값에 따라 9–17 %)로
+10시간 보행 예산·거동불능 가정과 무관하게 낮게 유지되며, 구조대가 필요한 출발지는
+**167/439 = 38 %**입니다. 출동 지연 **0→60분**이면 도달 불가 출발지가 **6→66**으로 늘어납니다.
+예측 기반 주민 경로는 예측 없음 경로 대비 노출 **~83 % 감소**(9.16→1.59 prob·min),
+생존-인지 구조대 진입은 최단경로 대비 노출 **~72 % 감소**(6.12→1.71 prob·min).
 점추정치는 방향성 지표이며, 단일 산불 PoC + 합성 보조 데이터 위의 값입니다. 자세한
 방법론·데이터 출처는 [`docs/rescue_routing.md`](docs/rescue_routing.md).
 
@@ -265,7 +266,7 @@ with the stretch goal of qualifying for ISEF in the Systems Software category.
 
 The **canonical model is Build B** (`src/wildfireguardian/spread_v2`) — the build
 that produced **every** downstream result in this repo. It is a gradient-boosted
-decision-tree classifier (XGBoost-class) that predicts, for each grid cell, the
+decision-tree classifier (sklearn `HistGradientBoostingClassifier`) that predicts, for each grid cell, the
 probability `P(ignites by the next satellite overpass)`.
 
 - **Evaluation — leave-one-fire-out (LOFO; each fire held out as a *group*, i.e.
@@ -315,7 +316,7 @@ probability `P(ignites by the next satellite overpass)`.
 > |---|---|---|
 > | random forest | 0.920 ± 0.036 | 0.898 |
 > | logistic regression | 0.903 ± 0.060 | 0.826 |
-> | **XGBoost/GBM (ours)** | **0.889 ± 0.107** | **0.905** |
+> | **hist_gbm (ours)** | **0.889 ± 0.107** | **0.905** |
 >
 > Random forest edges us on mean-of-folds; we keep the GBM for its **calibrated
 > probabilities** (the router consumes a real `P(ignite)`), **inference speed**, and
@@ -442,22 +443,23 @@ refuges whose **vehicle access road survives the predicted fire**, and — when 
 resident cannot self-evacuate — computes the **responder's** ingress route instead,
 always reporting honestly who cannot be reached.
 
-**Honest four-way origin split on the synthetic 영덕 PoC (sums to N = 452):**
+**Honest four-way origin split on the real-OSM 영덕 PoC (sums to N = 439):**
 
 | outcome | count |
 |---|---:|
-| already safe (naive walk works) | 154 |
-| saved by routing to a rescue-reachable refuge | 34 |
-| no safe pedestrian route — but a responder can reach (dispatched) | 244 |
-| **no surviving vehicle ingress — UNREACHABLE (reported, not imputed)** | **20** |
+| already safe (naive walk works) | 262 |
+| saved by routing to a rescue-reachable refuge | 10 |
+| no safe pedestrian route — but a responder can reach (dispatched) | 143 |
+| **no surviving vehicle ingress — UNREACHABLE (reported, not imputed)** | **24** |
 
 Contrasts (the robust result; absolute magnitudes are illustrative on a single-fire
-PoC + synthetic auxiliary inputs): the on-foot self-evacuation **failure rate
-w ≈ 40 %** (33–45 % across thresholds) holds even with a 10-hour walking budget and
-independent of the immobility assumption; the future-aware resident route cuts
-predicted-hazard exposure **~85 %** vs naive (24.06 → 3.55 prob·min), and the
-survival-aware responder ingress cuts exposure **~54 %** vs a fire-blind shortest
-path (0.172 → 0.079 prob·min). A verification pass
+PoC with a real OSM road/refuge/depot network but synthetic fire hazard + terrain):
+the on-foot self-evacuation **failure rate w ≈ 11 %** (9–17 % across thresholds) stays
+low even with a 10-hour walking budget and independent of the immobility assumption, so
+**167 / 439 = 38 %** of origins need a rescuer; the future-aware resident route cuts
+predicted-hazard exposure **~83 %** vs naive (9.16 → 1.59 prob·min), and the
+survival-aware responder ingress cuts exposure **~72 %** vs a fire-blind shortest
+path (6.12 → 1.71 prob·min). A verification pass
 (`scripts/verify_rescue_routing.py`) re-derives the split and runs a full-N 2-D
 sweep whose baseline cell equals the headline (asserted); the robust finding is that
 **unreachable starts rise monotonically with dispatch delay** (6 → 34 as delay goes

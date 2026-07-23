@@ -2,7 +2,8 @@
 
 **Demonstration fire: 2025 영덕(영남) 산불 / Yeongdeok 2025** — the anchor casualty
 event (part of the 2025 의성–안동 wildfire complex: ~27 deaths total — 8 in 영덕 —
-victims predominantly in their 60s–80s). Real roads geometry, real terrain, real fire data.
+victims predominantly in their 60s–80s). Real terrain, real fire data; synthetic road
+topology on the real extent.
 〔출처: 서울환경연합 2026 회고(23명은 2025-03-26 시점); 세계일보·한겨레 2025-03-26〕
 
 ---
@@ -48,7 +49,7 @@ aspirational figures.
 > **Canonical numbers: [`docs/MODEL_CARD.md`](MODEL_CARD.md).** The table below is
 > **not** a like-for-like comparison — the "brief" column is a *different build*
 > (Build A: different fire set incl. `gangneung_donghae_2022`, 19 features, seed 42;
-> `docs/SPREAD_MODEL_REPORT_V2_FINAL.md`). No "better than A" claim is made; the
+> `docs/SPREAD_MODEL_REPORT_BUILD_A_LEGACY.md`). No "better than A" claim is made; the
 > headline generalization figure is the **mean-of-folds ROC-AUC 0.89 ± 0.11**
 > (range 0.68–0.97), not the pooled 0.905.
 
@@ -71,9 +72,10 @@ model, forward_sim`); see its README for the pipeline and provenance.
 ## 2. spread_v2: what predicts where the fire goes (and why it's severity, not direction)
 
 `spread_v2` predicts, per ~0.5 km cell, **P(detected as burning by the next satellite
-overpass)** with a gradient-boosted classifier, trained on **6 real Korean fires** (the 8 in
-the bundle minus gangneung_donghae_2022, whose ERA5 is a 0-byte file, and goseong_2019,
-which has a single overpass). 151,904 candidate-cell rows, 2,989 positives (~2%).
+overpass)** with a gradient-boosted classifier, trained on the canonical **6 real Korean
+fires** (the Leave-One-Fire-Out set). Two of the eight bundled fires are excluded up front —
+gangneung_donghae_2022 (0-byte ERA5 file) and goseong_2019 (single overpass). 151,904
+candidate-cell rows, 2,989 positives (~2%).
 
 **Leave-one-fire-out results** (`data/processed/spread_v2_lofo.json`):
 

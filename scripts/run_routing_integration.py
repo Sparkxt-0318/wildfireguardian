@@ -180,7 +180,15 @@ def main() -> int:
     print(f"      network: {net.graph.number_of_nodes()} nodes, {len(net.shelters)} shelters; "
           f"scanning {len(cand)} origins ...")
 
-    classes = {"naive_into_FA_safe": [], "no_safe_route": [], "both_safe": [], "both_enter": []}
+    # Every origin in `cand` must land in exactly one bucket below so the
+    # counts always partition the scanned candidate set; the assertion after
+    # the loop enforces that (unreachable-by-naive and any naive/future-aware
+    # combination not explicitly handled still get a home instead of being
+    # dropped).
+    classes = {
+        "naive_into_FA_safe": [], "no_safe_route": [], "both_safe": [], "both_enter": [],
+        "naive_unreachable": [], "unclassified": [],
+    }
     best_headline = None
     best_gain = -np.inf
     no_safe_example = None
@@ -190,6 +198,7 @@ def main() -> int:
                                 time_budget_min=args.time_budget_min, p_cut=args.p_cut,
                                 time_step_min=args.time_step_min)
         if not nv.reached:
+            classes["naive_unreachable"].append(n)
             continue
         if nv.enters_hazard and fa.reached and not fa.enters_hazard:
             classes["naive_into_FA_safe"].append(n)
@@ -204,6 +213,11 @@ def main() -> int:
             classes["both_safe"].append(n)
         elif nv.enters_hazard and fa.enters_hazard:
             classes["both_enter"].append(n)
+        else:
+            classes["unclassified"].append(n)
+
+    assert sum(len(v) for v in classes.values()) == len(cand), \
+        f"classification must partition: {sum(len(v) for v in classes.values())} != {len(cand)}"
 
     if best_headline is None:
         print("      WARNING: no clean headline origin found; using highest-exposure naive case")

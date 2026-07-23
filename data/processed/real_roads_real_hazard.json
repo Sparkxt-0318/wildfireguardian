@@ -1,0 +1,207 @@
+{
+  "title": "Real roads + real hazard evacuation-routing run (Yeongdeok 2025)",
+  "p_cut": 0.5,
+  "time_budget_min": 600.0,
+  "time_step_min": 10.0,
+  "n_origins_scanned": 459,
+  "counts": {
+    "naive_into_FA_safe": 18,
+    "no_safe_route": 3,
+    "both_safe": 438,
+    "both_enter": 0,
+    "naive_unreachable": 0,
+    "unclassified": 0
+  },
+  "partition_holds": true,
+  "network_source": {
+    "kind": "REAL \u2014 OpenStreetMap via OSMnx",
+    "osmnx_query": "ox.graph_from_bbox(bbox=(129.25, 36.3, 129.55, 36.6), network_type='walk')",
+    "reprojected_to": "EPSG:5179 via ox.project_graph",
+    "bbox_wgs84": [
+      129.25,
+      36.3,
+      129.55,
+      36.6
+    ],
+    "region_name": "yeongdeok_2025",
+    "n_nodes": 8439,
+    "n_edges": 11015,
+    "n_nodes_outside_hazard_extent": 0,
+    "shelter_source": "osm",
+    "n_refuge_pois": 50,
+    "n_shelter_nodes": 46,
+    "origin_scan": {
+      "stride": 18,
+      "walk_cutoff": 0.5,
+      "ignition_proxy_xy_5179": [
+        1155109.9924308143,
+        1831529.1776990735
+      ],
+      "note": "ignition proxy = centroid of t0 >=0.5 hazard core; reach band does not bind (exceeds graph footprint)"
+    }
+  },
+  "hazard_source": {
+    "kind": "REAL \u2014 spread_v2 forward-simulation ignition-probability field",
+    "npz_path": "data/processed/routing_demo.npz",
+    "npz_sha256": "5bed502661afa8e33335c342ddc468c2df6858267ea4f769a659f970e918da58",
+    "shape": [
+      5,
+      181,
+      147
+    ],
+    "times_min": [
+      0.0,
+      180.0,
+      360.0,
+      540.0,
+      720.0
+    ],
+    "grid_extent_5179": [
+      1130969.9509370383,
+      1789870.4640061273,
+      1204469.9509370383,
+      1880370.4640061273,
+      500.0
+    ],
+    "constructed_via": "HazardSequence(grid, times_min, surfaces) \u2014 direct, not from_forward_sim",
+    "known_origin_prob_at_t0": 0.0
+  },
+  "git_head": "ccb086537862d5a1b5cc3050b869a6f80d0f6fdc",
+  "provenance": {
+    "roads_real": true,
+    "hazard_real": true,
+    "statement": "BOTH road topology AND fire-hazard surface are REAL. Roads/refuges are real OpenStreetMap geometry (OSMnx, EPSG:5179); the hazard is the real spread_v2 forward-simulated ignition-probability field for the held-out Yeongdeok 2025 fire. Closes the limitation that road topology and fire-hazard surface were never simultaneously real.",
+    "still_synthetic_or_assumed": [
+      "elderly walk speed 0.7 m/s (literature/assumed)",
+      "NO DEM slope correction on the OSM walk edges: edge times use a FLAT elderly walk speed. This is a real methodological difference from the other runs, which build the walk lattice with Tobler slope correction (build_evacuation_network). The OSM nodes carry no attached DEM, so no per-node slope is invented here \u2014 walk timing is distance/flat-speed only. Disclosed, not hidden.",
+      "elderly-home origins (seeded sampled candidates; real per-household data is private)"
+    ],
+    "gate_b_temporal_resolution": {
+      "npz_hazard": "5 slices at 180-min steps [0,180,360,540,720]",
+      "rescue_run_synthetic_hazard": "15 slices at 15-min steps [0,15,...,600]",
+      "factor": "~12x coarser",
+      "cells_ge_0.5_per_frame": [
+        241,
+        241,
+        241,
+        242,
+        244
+      ],
+      "cells_ge_0.3_per_frame": [
+        241,
+        241,
+        241,
+        247,
+        262
+      ],
+      "consequences": [
+        "results dominated by the near-static >=0.5 core, not front advance",
+        "NOT directly comparable to the ~439-origin rescue run on timing",
+        "third cell of the real/synthetic axis table, not a like-for-like replacement"
+      ]
+    },
+    "comparison_to_407_run": {
+      "this_run": {
+        "n_scanned": 459,
+        "naive_into_FA_safe": 18,
+        "no_safe_route": 3,
+        "both_safe": 438,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "unclassified": 0,
+        "partition_sum": 459
+      },
+      "run_407": {
+        "n_scanned": 407,
+        "naive_into_FA_safe": 56,
+        "no_safe_route": 88,
+        "both_safe": 240,
+        "both_enter": 0,
+        "partition_sum": 384,
+        "unaccounted_gap": 23
+      },
+      "why_fewer_help_and_far_fewer_trapped": "On the REAL OSM walk network with 46 REAL refuge nodes, connectivity and shelter density are far higher than on the synthetic 8-connected lattice used by the 407 run. Consequently FEWER origins need future-aware routing to stay safe (naive_into_FA_safe 18 vs 56) and FAR FEWER are trapped with no safe route (3 vs 88). This is evidence that the synthetic lattice was PESSIMISTIC about real-world evacuability, NOT that the future-aware method is weak \u2014 the method's benefit (naive walks into fire, future-aware detours cleanly) still appears on 18 real homes, and the 3 genuinely-trapped homes are real, reported outcomes."
+    },
+    "partition_completeness": {
+      "this_run": "438 + 18 + 3 = 459 EXACTLY; naive_unreachable = 0 and unclassified = 0. Every scanned origin lands in exactly one bucket \u2014 the partition is complete and asserted.",
+      "run_407": "56 + 88 + 240 = 384 classified out of 407 scanned \u2014 a 23-origin gap (origins that fell outside the then-reported buckets).",
+      "claim": "This run's classifier is a methodological improvement: the six-bucket partition (adding naive_unreachable + unclassified as explicit sinks) provably accounts for 100% of scanned origins, closing the 407 run's 23-origin gap."
+    },
+    "self_corrected_discrepancy": {
+      "observed": "An intermediate scratch run reported 21 / 3 / 435 (naive_into_FA_safe / no_safe_route / both_safe); the reproducible script reports 18 / 3 / 438.",
+      "cause": "The intermediate run round-tripped the OSM graph through GraphML and RELABELED nodes to 0..N-1 integers. The stride-18 origin sub-sample is taken over sorted(node_ids), so relabeling changed WHICH 459 origins were sampled \u2014 shifting 3 origins between naive_into_FA_safe and both_safe. no_safe_route (3) and the partition total (459) were unaffected.",
+      "resolution": "The CANONICAL result is the reproducible script's 18 / 3 / 438, which samples over the REAL OSM node ids (matching the repo convention in rescue_demo._scan_origins). scripts/run_real_roads_real_hazard.py regenerates it deterministically. The relabeled 21/3/435 figures are superseded."
+    }
+  },
+  "method_matches_repo": "6-bucket partition from scripts/run_routing_integration.py; routing via evacuation.naive_route / future_aware_route (unchanged).",
+  "headline": {
+    "origin_node": 11830469271,
+    "origin_xy_5179": [
+      1157654.0349222494,
+      1839947.527205261
+    ],
+    "naive": {
+      "kind": "naive",
+      "reached": true,
+      "route_len_nodes": 38,
+      "target": 12048311093,
+      "departure_min": 0.0,
+      "total_distance_m": 12080.3,
+      "total_time_min": 287.63,
+      "exposure": 36.389,
+      "max_hazard": 0.5699,
+      "enters_hazard": true,
+      "clearance_margin_min": -209.01,
+      "note": ""
+    },
+    "future_aware": {
+      "kind": "future_aware",
+      "reached": true,
+      "route_len_nodes": 44,
+      "target": 11784514628,
+      "departure_min": 0.0,
+      "total_distance_m": 16522.7,
+      "total_time_min": 393.4,
+      "exposure": 1.3536,
+      "max_hazard": 0.0094,
+      "enters_hazard": false,
+      "clearance_margin_min": null,
+      "note": ""
+    },
+    "exposure_reduction_abs": 35.035344187818026,
+    "exposure_reduction_pct": 96.28013978080357
+  },
+  "no_safe_route_example": {
+    "origin_node": 10258416057,
+    "naive": {
+      "kind": "naive",
+      "reached": true,
+      "route_len_nodes": 5,
+      "target": 10258212187,
+      "departure_min": 0.0,
+      "total_distance_m": 4534.2,
+      "total_time_min": 107.96,
+      "exposure": 41.0866,
+      "max_hazard": 0.8012,
+      "enters_hazard": true,
+      "clearance_margin_min": -60.46,
+      "note": ""
+    },
+    "future_aware": {
+      "kind": "future_aware",
+      "reached": false,
+      "route_len_nodes": 0,
+      "target": null,
+      "departure_min": 0.0,
+      "total_distance_m": 0.0,
+      "total_time_min": 0.0,
+      "exposure": 0.0,
+      "max_hazard": 0.0,
+      "enters_hazard": false,
+      "clearance_margin_min": null,
+      "note": "no safe route: hazard envelope overtakes all shelters within budget"
+    }
+  },
+  "base_branch": "round2-clean",
+  "git_head_note": "git_head = round2-clean HEAD (the base this additive branch is cut from). A live run stamps the branch HEAD at run time."
+}

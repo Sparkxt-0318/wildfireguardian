@@ -17,9 +17,13 @@ pyproj>=3.5
 networkx>=3.0
 osmnx>=1.6
 
-# --- Machine learning (LFMC retrieval, ignition probability) ---
+# --- Machine learning (canonical ignition probability = sklearn HistGradientBoosting) ---
 scikit-learn>=1.3
-xgboost>=2.0
+# xgboost is required ONLY by the abandoned spread_v2_xgb (Build A) and the LFMC
+# scaffold, NOT by the canonical spread_v2 model. Intentionally not a core
+# dependency (see docs/REPORT_ROUND2_P1.md). Install via the `legacy` extra
+# (pip install -e ".[legacy]") only if you need to run the superseded build.
+# xgboost>=2.0
 
 # --- Visualization ---
 matplotlib>=3.7

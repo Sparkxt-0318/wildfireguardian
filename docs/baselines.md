@@ -34,9 +34,9 @@ boosted model compare to **standard ML baselines** on the same task?*
 | `hist_gbm` (reference) | the canonical `HistGradientBoosting` (log-loss, `lr=0.08`, `max_iter=300`, `max_leaf_nodes=31`, `min_samples_leaf=40`, `l2=1.0`) — produced the model card's **mean-of-folds 0.89 / pooled 0.905** |
 
 (The GBM/RF use the tree models' native or imputed NaN handling; LR adds
-standardization. The model card labels the canonical estimator "XGBoost"; the
-actual canonical estimator in `spread_v2.model` is `HistGradientBoosting` — the
-build that produced every downstream number — so it is used as the reference here.)
+standardization. The canonical estimator in `spread_v2.model` is
+`HistGradientBoosting` — the build that produced every downstream number — so it is
+used as the reference here.)
 
 ## Result (gated re-run; regenerate via `scripts/ml_baselines.py`)
 
