@@ -1,0 +1,307 @@
+{
+  "analysis": "forecast_error_robustness",
+  "scope": "Robustness of the routing METHOD on ONE real npz route pair (naive 28 nodes, future-aware 23 nodes). This origin DIFFERS from the committed routing_demo.json headline (origin_node 3316, 23/23 nodes). NOT a restatement of that headline.",
+  "caveat": "Perturbation magnitudes are exploratory ranges, not a calibrated forecast-error model. Routes are FIXED; we re-score, never re-route.",
+  "p_cut": 0.5,
+  "unperturbed": {
+    "fa_max_hazard": 0.2597,
+    "fa_exposure": 38.6642,
+    "fa_enters": false,
+    "naive_max_hazard": 0.755,
+    "naive_exposure": 163.4121,
+    "naive_enters": true,
+    "fa_margin_to_pcut": 0.2403
+  },
+  "perturbation_ranges": {
+    "temporal_shift_earlier_min": [
+      0,
+      15,
+      30,
+      60,
+      90,
+      120
+    ],
+    "spatial_translation_m": [
+      0,
+      250,
+      500,
+      1000,
+      2000
+    ],
+    "spatial_directions": [
+      "E",
+      "NE",
+      "N",
+      "NW",
+      "W",
+      "SW",
+      "S",
+      "SE"
+    ],
+    "probability_scale_k": [
+      1.0,
+      1.2,
+      1.5,
+      2.0
+    ]
+  },
+  "sweep": {
+    "temporal": {
+      "axis": "temporal_shift_earlier",
+      "unit": "minutes_front_arrives_early",
+      "monotone": true,
+      "grid": [
+        {
+          "dt_earlier_min": 0,
+          "fa_max_hazard": 0.2597,
+          "fa_exposure": 38.6642,
+          "fa_enters": false,
+          "naive_max_hazard": 0.755,
+          "naive_exposure": 163.4121,
+          "fa_exposure_below_naive": true
+        },
+        {
+          "dt_earlier_min": 15,
+          "fa_max_hazard": 0.2611,
+          "fa_exposure": 38.9272,
+          "fa_enters": false,
+          "naive_max_hazard": 0.7554,
+          "naive_exposure": 163.8057,
+          "fa_exposure_below_naive": true
+        },
+        {
+          "dt_earlier_min": 30,
+          "fa_max_hazard": 0.2624,
+          "fa_exposure": 39.1886,
+          "fa_enters": false,
+          "naive_max_hazard": 0.7557,
+          "naive_exposure": 164.2064,
+          "fa_exposure_below_naive": true
+        },
+        {
+          "dt_earlier_min": 60,
+          "fa_max_hazard": 0.2651,
+          "fa_exposure": 39.7074,
+          "fa_enters": false,
+          "naive_max_hazard": 0.7565,
+          "naive_exposure": 165.0335,
+          "fa_exposure_below_naive": true
+        },
+        {
+          "dt_earlier_min": 90,
+          "fa_max_hazard": 0.2677,
+          "fa_exposure": 40.213,
+          "fa_enters": false,
+          "naive_max_hazard": 0.7573,
+          "naive_exposure": 165.8377,
+          "fa_exposure_below_naive": true
+        },
+        {
+          "dt_earlier_min": 120,
+          "fa_max_hazard": 0.2703,
+          "fa_exposure": 40.7071,
+          "fa_enters": false,
+          "naive_max_hazard": 0.758,
+          "naive_exposure": 166.6488,
+          "fa_exposure_below_naive": true
+        }
+      ],
+      "first_grid_point_reaching_pcut": null,
+      "reaches_pcut_within_bound": false,
+      "continuous_breaking_point": null,
+      "max_hazard_at_search_bound": 0.3524,
+      "search_bound_min": 720.0
+    },
+    "spatial": {
+      "axis": "spatial_translation",
+      "unit": "metres_front_displacement",
+      "directions_tested": [
+        "E",
+        "NE",
+        "N",
+        "NW",
+        "W",
+        "SW",
+        "S",
+        "SE"
+      ],
+      "note": "response is NON-monotone in magnitude; breaking point is first radial crossing",
+      "grid": [
+        {
+          "magnitude_m": 0,
+          "fa_max_hazard_by_dir": {
+            "E": 0.2597,
+            "NE": 0.2597,
+            "N": 0.2597,
+            "NW": 0.2597,
+            "W": 0.2597,
+            "SW": 0.2597,
+            "S": 0.2597,
+            "SE": 0.2597
+          },
+          "worst_dir": "E",
+          "worst_fa_max_hazard": 0.2597,
+          "worst_fa_enters": false
+        },
+        {
+          "magnitude_m": 250,
+          "fa_max_hazard_by_dir": {
+            "E": 0.7532,
+            "NE": 0.6084,
+            "N": 0.5689,
+            "NW": 0.2532,
+            "W": 0.5669,
+            "SW": 0.5499,
+            "S": 0.5696,
+            "SE": 0.5466
+          },
+          "worst_dir": "E",
+          "worst_fa_max_hazard": 0.7532,
+          "worst_fa_enters": true
+        },
+        {
+          "magnitude_m": 500,
+          "fa_max_hazard_by_dir": {
+            "E": 0.7526,
+            "NE": 0.9576,
+            "N": 0.5678,
+            "NW": 0.4439,
+            "W": 0.5681,
+            "SW": 0.5277,
+            "S": 0.5711,
+            "SE": 0.5262
+          },
+          "worst_dir": "NE",
+          "worst_fa_max_hazard": 0.9576,
+          "worst_fa_enters": true
+        },
+        {
+          "magnitude_m": 1000,
+          "fa_max_hazard_by_dir": {
+            "E": 0.5695,
+            "NE": 0.7002,
+            "N": 0.6287,
+            "NW": 0.7021,
+            "W": 0.5685,
+            "SW": 0.8417,
+            "S": 0.5674,
+            "SE": 0.7023
+          },
+          "worst_dir": "SW",
+          "worst_fa_max_hazard": 0.8417,
+          "worst_fa_enters": true
+        },
+        {
+          "magnitude_m": 2000,
+          "fa_max_hazard_by_dir": {
+            "E": 0.6308,
+            "NE": 0.3395,
+            "N": 0.5672,
+            "NW": 0.5373,
+            "W": 0.5706,
+            "SW": 0.5431,
+            "S": 0.572,
+            "SE": 0.9253
+          },
+          "worst_dir": "SE",
+          "worst_fa_max_hazard": 0.9253,
+          "worst_fa_enters": true
+        }
+      ],
+      "first_grid_point_reaching_pcut": 250,
+      "breaking_magnitude_by_dir_m": {
+        "E": 125.0,
+        "NE": 175.0,
+        "N": 205.0,
+        "NW": 530.0,
+        "W": 205.0,
+        "SW": 175.0,
+        "S": 205.0,
+        "SE": 175.0
+      },
+      "breaking_point_m": 125.0,
+      "breaking_direction": "E",
+      "radial_step_m": 5.0,
+      "search_bound_m": 20000.0
+    },
+    "probability": {
+      "axis": "probability_scaling",
+      "unit": "multiplicative_factor_k_clipped_0_1",
+      "monotone": true,
+      "documented_max_k": 2.0,
+      "grid": [
+        {
+          "k": 1.0,
+          "fa_max_hazard": 0.2597,
+          "fa_exposure": 38.6642,
+          "fa_enters": false,
+          "naive_max_hazard": 0.755,
+          "fa_exposure_below_naive": true
+        },
+        {
+          "k": 1.2,
+          "fa_max_hazard": 0.2617,
+          "fa_exposure": 39.4215,
+          "fa_enters": false,
+          "naive_max_hazard": 0.756,
+          "fa_exposure_below_naive": true
+        },
+        {
+          "k": 1.5,
+          "fa_max_hazard": 0.2646,
+          "fa_exposure": 40.5574,
+          "fa_enters": false,
+          "naive_max_hazard": 0.7575,
+          "fa_exposure_below_naive": true
+        },
+        {
+          "k": 2.0,
+          "fa_max_hazard": 0.2695,
+          "fa_exposure": 42.4506,
+          "fa_enters": false,
+          "naive_max_hazard": 0.76,
+          "fa_exposure_below_naive": true
+        }
+      ],
+      "first_grid_point_reaching_pcut": null,
+      "reaches_pcut_within_bound": false,
+      "continuous_breaking_point_k": null,
+      "max_hazard_at_search_bound": 0.481,
+      "search_bound_k_beyond_documented": 20.0
+    }
+  },
+  "monte_carlo": {
+    "n_draws": 2000,
+    "seed": 20260723,
+    "sampling": {
+      "dt_earlier_min": [
+        0.0,
+        120.0
+      ],
+      "translation_m": [
+        0.0,
+        2000.0
+      ],
+      "translation_direction": "uniform_continuous_0_2pi",
+      "k": [
+        1.0,
+        2.0
+      ]
+    },
+    "frac_fa_below_pcut": 0.2095,
+    "frac_fa_exposure_below_naive": 0.8595,
+    "fa_max_hazard_p50": 0.6661,
+    "fa_max_hazard_p95": 0.9202,
+    "fa_max_hazard_max": 0.9966
+  },
+  "provenance": {
+    "npz": "data/processed/routing_demo.npz",
+    "npz_sha256": "5bed502661afa8e33335c342ddc468c2df6858267ea4f769a659f970e918da58",
+    "git_head": "ccb086537862d5a1b5cc3050b869a6f80d0f6fdc",
+    "seed": 20260723,
+    "n_route_nodes": {
+      "naive": 28,
+      "fa": 23
+    }
+  }
+}
