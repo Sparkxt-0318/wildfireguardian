@@ -1,7 +1,8 @@
 # LEGACY — Build A. SUPERSEDED. Do not cite.
 
-These artifacts come from an **abandoned early build** (XGBoost, seed 42, 18 features,
-a different fire set including `gangneung_donghae_2022`) and do **not** correspond to any
+These artifacts come from an **abandoned early build** (XGBoost, seed 42, a different and internally
+inconsistent feature set — artifacts in this directory variously report 18 and 19 features —
+and a different fire set including `gangneung_donghae_2022`) and do **not** correspond to any
 number in the submitted documents.
 
 **Canonical results:** `data/processed/spread_v2_lofo.json` —
