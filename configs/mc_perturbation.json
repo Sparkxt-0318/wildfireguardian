@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "description": "ERA5 driver perturbation magnitudes for the routing Monte Carlo (Ensemble A, input uncertainty). One systematic-bias draw per realisation, held constant across the whole domain AND across all timesteps of the weather series (reanalysis error is spatially and temporally correlated at these scales). NOT drawn independently per cell or per timestep.",
+  "provenance": "ALL magnitudes below are ASSUMPTIONS, not measured ERA5 error statistics. Starting values from the task spec; documented as assumptions and logged verbatim into data/processed/routing_monte_carlo.json.",
+  "enabled": true,
+  "master_flag_note": "Set 'enabled' to false to hard-disable EVERY channel (each becomes an exact identity no-op). Used for sanity check 2 (degenerate ensemble): with enabled=false every Ensemble-A realisation must equal f_hat and margin(oracle)==margin(forecast_aware) exactly. This is used INSTEAD of zeroing sigmas, because 'days_since_rain' is a uniform integer draw with no sigma to zero.",
+  "systematic_bias": true,
+  "channels": {
+    "wind_speed_ms": {
+      "kind": "multiplicative_lognormal",
+      "sigma": 0.15,
+      "detail": "factor = exp(N(0, sigma)); wind_speed_ms *= factor. Median factor = 1.0."
+    },
+    "wind_direction_deg": {
+      "kind": "additive_normal",
+      "sigma": 15.0,
+      "units": "degrees",
+      "detail": "delta ~ N(0, sigma) added to the wind bearing; wind_toward_deg, wind_u, wind_v are all rotated consistently by the same delta. wind_speed magnitude is preserved by the rotation."
+    },
+    "rh_pct": {
+      "kind": "additive_normal",
+      "sigma": 5.0,
+      "units": "percentage_points",
+      "clip": [0.0, 100.0]
+    },
+    "days_since_rain": {
+      "kind": "additive_uniform_int",
+      "values": [-1, 0, 1],
+      "clip_min": 0.0,
+      "detail": "one integer drawn uniformly from {-1,0,+1}, added, then clipped at 0."
+    },
+    "temp_c": {
+      "kind": "additive_normal",
+      "sigma": 1.0,
+      "units": "K (== degC delta)"
+    }
+  },
+  "derived_recompute": {
+    "vpd_kpa": {
+      "policy": "recompute_from_perturbed_T_and_RH",
+      "detail": "vpd_kpa is a model feature derived from temperature and dewpoint. After perturbing temp_c and rh_pct, dewpoint is reconstructed from the perturbed (T, RH) using the repository's own Magnus saturation-vapour-pressure function (weather._sat_vapour_pressure_hpa / weather._MAGNUS_A/_B), and vpd_kpa is then recomputed by calling the repository function weather.vpd_kpa(T_K, Td_K). No re-implemented 'es' formula is used, so there is no train/inference offset. Documented as an explicit assumption per reviewer condition 2."
+    }
+  },
+  "unperturbed": {
+    "precip_24h_mm": "left at observed value (the driver table perturbs days_since_rain, not the 24h accumulation)",
+    "static_layers": "elevation / slope / burnable_frac / DEM are NOT perturbed (input uncertainty here is meteorological driver uncertainty only)"
+  }
+}

@@ -210,12 +210,13 @@ pytest -q                             # 단위 테스트 (실데이터 불필요
 안내하고, 스스로 대피할 수 없는 주민에게는 **구조대 차량의 진입 경로**를 계산하며,
 **누가 도달 불가능한지 정직하게** 보고합니다(추정·날조 없음).
 
-합성 영덕 PoC 4-구분(합 = N = 452): 원래 안전 154 · 구조가능 대피소로 구조 34 ·
-도보 불가(구조대 출동) 244 · **차량 접근 불가(도달 불가) 20**. 도보 자력대피 실패율
-**w ≈ 40 %**(임계값에 따라 33–45 %)는 10시간 보행 예산에서도 거동불능 가정과 무관하게
-유지됩니다. 출동 지연 **0→60분**이면 도달 불가 출발지가 **6→34**로 늘어납니다.
-예측 기반 주민 경로는 예측 없음 경로 대비 노출 **~85 % 감소**(24.06→3.55 prob·min),
-생존-인지 구조대 진입은 최단경로 대비 노출 **~54 % 감소**(0.172→0.079 prob·min).
+영덕 PoC 4-구분(합 = N = 439, 실제 OSM 도로·대피소·차고지 + 합성 화재·지형 기반):
+원래 안전 262 · 구조가능 대피소로 구조 10 · 도보 불가(구조대 출동) 143 ·
+**차량 접근 불가(도달 불가) 24**. 도보 자력대피 실패율 **w ≈ 11 %**(임계값에 따라 9–17 %)로
+10시간 보행 예산·거동불능 가정과 무관하게 낮게 유지되며, 구조대가 필요한 출발지는
+**167/439 = 38 %**입니다. 출동 지연 **0→60분**이면 도달 불가 출발지가 **6→66**으로 늘어납니다.
+예측 기반 주민 경로는 예측 없음 경로 대비 노출 **~83 % 감소**(9.16→1.59 prob·min),
+생존-인지 구조대 진입은 최단경로 대비 노출 **~72 % 감소**(6.12→1.71 prob·min).
 점추정치는 방향성 지표이며, 단일 산불 PoC + 합성 보조 데이터 위의 값입니다. 자세한
 방법론·데이터 출처는 [`docs/rescue_routing.md`](docs/rescue_routing.md).
 
@@ -442,22 +443,23 @@ refuges whose **vehicle access road survives the predicted fire**, and — when 
 resident cannot self-evacuate — computes the **responder's** ingress route instead,
 always reporting honestly who cannot be reached.
 
-**Honest four-way origin split on the synthetic 영덕 PoC (sums to N = 452):**
+**Honest four-way origin split on the real-OSM 영덕 PoC (sums to N = 439):**
 
 | outcome | count |
 |---|---:|
-| already safe (naive walk works) | 154 |
-| saved by routing to a rescue-reachable refuge | 34 |
-| no safe pedestrian route — but a responder can reach (dispatched) | 244 |
-| **no surviving vehicle ingress — UNREACHABLE (reported, not imputed)** | **20** |
+| already safe (naive walk works) | 262 |
+| saved by routing to a rescue-reachable refuge | 10 |
+| no safe pedestrian route — but a responder can reach (dispatched) | 143 |
+| **no surviving vehicle ingress — UNREACHABLE (reported, not imputed)** | **24** |
 
 Contrasts (the robust result; absolute magnitudes are illustrative on a single-fire
-PoC + synthetic auxiliary inputs): the on-foot self-evacuation **failure rate
-w ≈ 40 %** (33–45 % across thresholds) holds even with a 10-hour walking budget and
-independent of the immobility assumption; the future-aware resident route cuts
-predicted-hazard exposure **~85 %** vs naive (24.06 → 3.55 prob·min), and the
-survival-aware responder ingress cuts exposure **~54 %** vs a fire-blind shortest
-path (0.172 → 0.079 prob·min). A verification pass
+PoC with a real OSM road/refuge/depot network but synthetic fire hazard + terrain):
+the on-foot self-evacuation **failure rate w ≈ 11 %** (9–17 % across thresholds) stays
+low even with a 10-hour walking budget and independent of the immobility assumption, so
+**167 / 439 = 38 %** of origins need a rescuer; the future-aware resident route cuts
+predicted-hazard exposure **~83 %** vs naive (9.16 → 1.59 prob·min), and the
+survival-aware responder ingress cuts exposure **~72 %** vs a fire-blind shortest
+path (6.12 → 1.71 prob·min). A verification pass
 (`scripts/verify_rescue_routing.py`) re-derives the split and runs a full-N 2-D
 sweep whose baseline cell equals the headline (asserted); the robust finding is that
 **unreachable starts rise monotonically with dispatch delay** (6 → 34 as delay goes

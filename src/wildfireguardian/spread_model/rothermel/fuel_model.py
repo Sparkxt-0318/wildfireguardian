@@ -551,8 +551,14 @@ def _make_korean_pinus_fuel() -> MultiClassFuelModel:
         delta=_m_to_ft(_KP_BED_DEPTH_M),
         m_x_dead=_KP_M_X_DEAD,
         live_moisture_default=_KP_FOLIAR_MOISTURE,
-        # Canopy structure (MEASURED, Lee et al. 2018) for crown-fire physics.
-        canopy_base_height_m=4.0,            # Gyeongbuk default (range 3.6–5.2)
+        # Canopy structure for crown-fire physics. This is the single source
+        # of truth for CBH — read it as ``KOREAN_PINUS.canopy_base_height_m``
+        # rather than duplicating it elsewhere.
+        # canopy_base_height_m: nominal; midpoint of the 3.6-5.2 m range
+        # reported for Korean P. densiflora by Lee et al. (2018). Not a
+        # measured central value - the source reports a range. Sensitivity
+        # swept 2-5 m in crown_sensitivity.py.
+        canopy_base_height_m=4.4,
         canopy_bulk_density_kg_m3=0.47,      # dense Gyeongbuk stand
         particles=(
             # 1-h dead needle litter — PROVISIONAL load/SAV.

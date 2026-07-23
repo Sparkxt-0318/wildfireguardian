@@ -47,7 +47,9 @@ CRITICAL_MASS_FLOW_KG_M2_MIN: float = 3.0
 VAN_WAGNER_C: float = 0.01
 
 #: Korean Pinus densiflora (Gyeongbuk) canopy defaults (Lee et al. 2018).
-KOREAN_PINE_CBH_M: float = 4.0          # canopy base height (range 3.6–5.2)
+#: Canopy base height (CBH) is NOT duplicated here — the single source of
+#: truth is ``rothermel.fuel_model.KOREAN_PINUS.canopy_base_height_m``.
+#: Read it from there rather than adding a second constant.
 KOREAN_PINE_CBD_KG_M3: float = 0.47     # canopy bulk density (dense Gyeongbuk)
 KOREAN_PINE_FOLIAR_MOISTURE_PCT: float = 119.0   # well-watered measured value
 KOREAN_PINE_HEAT_KJ_KG: float = 18600.0
@@ -148,7 +150,6 @@ __all__ = [
     "CrownRegime",
     "CRITICAL_MASS_FLOW_KG_M2_MIN",
     "VAN_WAGNER_C",
-    "KOREAN_PINE_CBH_M",
     "KOREAN_PINE_CBD_KG_M3",
     "KOREAN_PINE_FOLIAR_MOISTURE_PCT",
     "KOREAN_PINE_HEAT_KJ_KG",

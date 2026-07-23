@@ -48,7 +48,7 @@ aspirational figures.
 > **Canonical numbers: [`docs/MODEL_CARD.md`](MODEL_CARD.md).** The table below is
 > **not** a like-for-like comparison — the "brief" column is a *different build*
 > (Build A: different fire set incl. `gangneung_donghae_2022`, 19 features, seed 42;
-> `docs/SPREAD_MODEL_REPORT_V2_FINAL.md`). No "better than A" claim is made; the
+> `docs/SPREAD_MODEL_REPORT_BUILD_A_LEGACY.md`). No "better than A" claim is made; the
 > headline generalization figure is the **mean-of-folds ROC-AUC 0.89 ± 0.11**
 > (range 0.68–0.97), not the pooled 0.905.
 
@@ -71,9 +71,10 @@ model, forward_sim`); see its README for the pipeline and provenance.
 ## 2. spread_v2: what predicts where the fire goes (and why it's severity, not direction)
 
 `spread_v2` predicts, per ~0.5 km cell, **P(detected as burning by the next satellite
-overpass)** with a gradient-boosted classifier, trained on **6 real Korean fires** (the 8 in
-the bundle minus gangneung_donghae_2022, whose ERA5 is a 0-byte file, and goseong_2019,
-which has a single overpass). 151,904 candidate-cell rows, 2,989 positives (~2%).
+overpass)** with a gradient-boosted classifier, trained on the canonical **6 real Korean
+fires** (the Leave-One-Fire-Out set). Two of the eight bundled fires are excluded up front —
+gangneung_donghae_2022 (0-byte ERA5 file) and goseong_2019 (single overpass). 151,904
+candidate-cell rows, 2,989 positives (~2%).
 
 **Leave-one-fire-out results** (`data/processed/spread_v2_lofo.json`):
 

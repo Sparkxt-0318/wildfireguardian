@@ -34,7 +34,7 @@ from wildfireguardian.validation.metrics import (
 )
 
 CELL, DURATION, DT = 50.0, 1440.0, 1.0
-CBH_VALUES = (2.0, 3.0, 4.0, 5.0)
+CBH_VALUES = (2.0, 3.0, 4.0, 4.4, 5.0)   # 4.4 = live fuel_model default
 LOAD_VALUES = (0.5, 0.7, 0.9)   # total fine-fuel load kg/m²
 LIVE_KG = 0.15                  # KP live understory load (held)
 
@@ -112,7 +112,7 @@ def main():
                 r = run_one(cbh, load, fmc, dem, u10, wdir, waf, obs_final)
                 all_rows.append(r)
                 cells.append(f"{r['capture']*100:4.0f}% IoU{r['iou']:.2f}")
-            print(f"{cbh:>6.0f}m  " + " ".join(f"{c:>14}" for c in cells))
+            print(f"{cbh:>6.1f}m  " + " ".join(f"{c:>14}" for c in cells))
         caps = [r["capture"] for r in all_rows if r["fmc"] == fmc]
         print(f"  capture range at FMC {fmc:.0f}%: {min(caps)*100:.0f}% – {max(caps)*100:.0f}%")
 

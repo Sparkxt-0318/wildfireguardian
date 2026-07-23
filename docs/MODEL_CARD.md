@@ -118,7 +118,7 @@ Method: `docs/baselines.md`.
 ## Provenance — two builds exist; why they are NOT directly comparable
 
 The project's 작품설명서 / brief cites **0.834 / 0.80 / 0.32** from an earlier,
-**different** build ("Build A" — `docs/SPREAD_MODEL_REPORT_V2_FINAL.md`,
+**different** build ("Build A" — `docs/SPREAD_MODEL_REPORT_BUILD_A_LEGACY.md`,
 `data/processed/spread_v2/`). Build A and the canonical Build B are **two
 independent reconstructions and are not a like-for-like comparison** — the
 0.834-vs-0.905 difference cannot be read as "B is better." The specific

@@ -1,5 +1,11 @@
 # Rescue-aware evacuation routing — methods note
 
+> ⚠️ **DO NOT CITE THESE NUMBERS / 제출·인용 금지 — SUPERSEDED.** The `N`, four-way split,
+> and `w` figures in this note are the **pre-flip synthetic baseline** and must **not** be
+> quoted in the submission. The committed real-OSM values are **N = 439**, four-way
+> **262 / 10 / 143 / 24**, needs-rescuer **38.0 % (167)**, walk-failure **`w` = 0.091–0.174**
+> — see `docs/REPORT_ROUND2_P1.md` for the authoritative OLD-vs-NEW table.
+
 > **Round 2 · Phase 1 — real-data flip (2026-07).** The committed
 > `data/processed/rescue_*.json` have since been flipped from synthetic fallbacks to
 > **real OpenStreetMap** road/refuge/depot geometry (fire **hazard** + **terrain**

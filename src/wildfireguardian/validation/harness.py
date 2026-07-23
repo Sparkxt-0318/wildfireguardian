@@ -549,6 +549,11 @@ class ValidationRunWithBaselines:
     mean_head_rate_m_min: float
     data_provenance: dict
     notes: list[str] = field(default_factory=list)
+    #: Additive (Session: WAF sweep support). The underlying FireGrid after
+    #: the run, exposed so callers can pull per-cell diagnostics (e.g. the
+    #: cached Rothermel rate-of-spread per burned cell) that aren't reduced
+    #: into HorizonMetrics. Not included in as_dict() (not JSON-serialisable).
+    grid: "FireGrid | None" = None
 
     def as_dict(self) -> dict:
         return {
@@ -730,6 +735,7 @@ def run_validation_with_baselines(
         mean_head_rate_m_min=mean_head_rate,
         data_provenance=provenance,
         notes=notes,
+        grid=grid,
     )
 
 
