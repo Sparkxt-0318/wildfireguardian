@@ -5,7 +5,7 @@
 > Wildfire spread forecasting and household-level evacuation and rescue routing,
 > focused on protecting rural elderly Koreans.
 >
-> 농촌 고령층 보호를 위한 다중규모 산불 예측·개인화 대피 안내 시스템.
+> 공개 데이터 기반 산불 확산 예측을 활용한 노인·장애인 등 이동 취약 주민의 구조 우선순위 및 안전 이동경로 산정 연구
 
 ![status](https://img.shields.io/badge/status-research%20PoC-orange)
 ![python](https://img.shields.io/badge/python-3.10%2B-blue)
