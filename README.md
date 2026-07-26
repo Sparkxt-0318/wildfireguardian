@@ -1,5 +1,3 @@
-> 제출 기준 커밋: `Main` @ 42da1d2 · 위험면 파일 sha256 `5bed5026…`
-
 # WildfireGuardian
 
 > Wildfire spread forecasting and household-level evacuation and rescue routing,
