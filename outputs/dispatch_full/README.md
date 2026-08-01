@@ -21,31 +21,61 @@ origins** and covers **all 174** needing rescue.
 
 ## eps comparison — no value has been chosen
 
-Singletons exceed the 40 % threshold at every radius, so all three were run:
-
-| eps | clusters | singletons | singleton % | max points | multi-page A4 |
+| eps | clusters | singletons | singleton % | max points | over one page |
 |---:|---:|---:|---:|---:|---:|
 | 500 m | 107 | 74 | 69.2 % | 16 | **0** |
 | 750 m | 82 | 48 | 58.5 % | 16 | **0** |
 | 1000 m | 63 | 31 | 49.2 % | 24 | **2** |
 
-At 1000 m two sheets overflow to a second page. Overflow depends on the table
-**mix**, not the point count: a 14-point all-dispatch cluster fits, while a
-13-point cluster with 9 unreachable points does not, because the unreachable
-section carries its own heading and header row.
-
 `eps = 500 m` remains the configured default. The choice between these is open.
+The dispersion behind these numbers is measured in
+[`docs/cluster_sparsity.md`](../../docs/cluster_sparsity.md) — and it is a
+property of the **sampled origins**, not of households.
+
+## Overflow guard
+
+Every sheet is checked against a one-page budget (`printable.MAX_PAGES`). A
+breach prints a warning naming the village, its page count and the remedy, and
+is recorded in `MANIFEST.json/overflow`.
+
+`--split-unreachable` (default **off**) re-emits an overflowing sheet as two
+single-purpose sheets — `dispatch_a4_dispatch.pdf` and
+`dispatch_a4_unreachable.pdf` — each carrying a banner saying a companion sheet
+exists.
+
+**It resolves 1 of the 2 breaches and cannot resolve the other.** Splitting moves
+the 도달 불가 table; a 24-row all-dispatch sheet has no second table to move. Both
+cases are kept here as evidence:
+
+| eps | village | points | 출동 / 불가 | pages | split |
+|---|---|---:|---|---:|---|
+| 1000 m | 삼각주공원 북서쪽 | 24 | 24 / 0 | 2 | **cannot help** — nothing to move |
+| 1000 m | 영덕해맞이공원 일대 | 13 | 4 / 9 | 2 | resolved → 1 + 1 page |
+
+At 500 m and 750 m there are **no** breaches, with or without the option.
 
 ## Layout
 
 ```
 {timestamp}/                      one per eps value
-  MANIFEST.json                   clusters, checks, PDF results, label
+  MANIFEST.json                   clusters, checks, overflow, retained_in_git
   {NN}-{place-name}/
     dispatch_a4.html              canonical
-    dispatch_a4.pdf               three largest clusters only (see .gitignore)
+    dispatch_a4.pdf               committed for a few clusters (see .gitignore)
+    dispatch_a4_{dispatch,unreachable}.*   only when --split-unreachable fired
     broadcast_script.txt
     sms_drafts.txt / .json        NEVER SENT
+```
+
+## What is committed
+
+`eps = 500 m` (the default) is complete. The other two keep their `MANIFEST.json`
+— which still describes **all** clusters, and says so in a `retained_in_git`
+field — plus the three largest clusters and every sheet that breached the page
+budget. Regenerate any set with:
+
+```bash
+python scripts/generate_dispatch_outputs.py --full --eps-m 750 --split-unreachable
 ```
 
 Nothing was transmitted: `sms.send()` is never called, requires an

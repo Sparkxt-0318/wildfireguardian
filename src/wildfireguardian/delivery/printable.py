@@ -97,15 +97,25 @@ def _fmt_remaining(v) -> tuple[str, str]:
 
 def render_html(village, *, generated_at: str, git_commit: str,
                 config_hash: str, source_file: str, n_total_dispatch: int,
-                n_total_unreachable: int, extra_label: str | None = None) -> str:
+                n_total_unreachable: int, extra_label: str | None = None,
+                sections: str = "both", sheet_note: str | None = None) -> str:
     """Render one village's A4 sheet as self-contained HTML.
 
     ``extra_label`` renders as a second bordered banner directly under the
     "not 행정리" one. It exists so a sheet built from the 2026-07-24 re-run can
     say on its face that its figures differ from the ones the submission cites.
+
+    ``sections`` selects which tables to emit: ``"both"`` (default), ``"dispatch"``
+    or ``"unreachable"``. Splitting exists because a sheet's page budget depends
+    on the table MIX, not the row count — the unreachable section carries its own
+    heading and header row, so a 13-row sheet with 9 unreachable rows can overflow
+    where a 14-row all-dispatch sheet fits. ``sheet_note`` labels the halves so a
+    reader knows a companion sheet exists.
     """
     dispatch = [p for p in village.points if not p.get("unreachable")]
     unreach = [p for p in village.points if p.get("unreachable")]
+    show_dispatch = sections in ("both", "dispatch")
+    show_unreach = sections in ("both", "unreachable") and unreach
     dispatch.sort(key=lambda p: (p.get("closing_window_min") is None,
                                  p.get("closing_window_min", 1e9)))
 
@@ -135,7 +145,7 @@ def render_html(village, *, generated_at: str, git_commit: str,
             f"<td class='blank'>□</td></tr>")
 
     unreach_block = ""
-    if urows:
+    if urows and show_unreach:
         unreach_block = (
             "<h2>■ 차량 도달 불가 지점 — 별도 조치 필요</h2>"
             "<table><thead><tr><th style='width:7%'>번호</th>"
@@ -146,6 +156,15 @@ def render_html(village, *, generated_at: str, git_commit: str,
     footer = "".join(f"<div>{e(line)}</div>" for line in FOOTER_LINES)
     extra_block = (f'<div class="warnbox">※ {e(extra_label)}</div>'
                    if extra_label else "")
+    if sheet_note:
+        extra_block += f'<div class="warnbox">※ {e(sheet_note)}</div>'
+    dispatch_block = ("""<h2>■ 구조 필요 지점 — 남은 시간 순</h2>
+<table><thead><tr>
+  <th style="width:7%">번호</th><th style="width:30%">위치</th>
+  <th style="width:17%">남은 시간</th><th>진입 가능 경로</th>
+  <th style="width:9%">확인</th>
+</tr></thead><tbody>""" + "".join(rows) + "</tbody></table>"
+                      if show_dispatch else "")
 
     return f"""<!doctype html>
 <html lang="ko"><head><meta charset="utf-8">
@@ -169,13 +188,7 @@ def render_html(village, *, generated_at: str, git_commit: str,
 </div>
 {extra_block}
 
-<h2>■ 구조 필요 지점 — 남은 시간 순</h2>
-<table><thead><tr>
-  <th style="width:7%">번호</th><th style="width:30%">위치</th>
-  <th style="width:17%">남은 시간</th><th>진입 가능 경로</th>
-  <th style="width:9%">확인</th>
-</tr></thead><tbody>{''.join(rows)}</tbody></table>
-
+{dispatch_block}
 {unreach_block}
 
 <div class="ftr">{footer}</div>
@@ -269,5 +282,28 @@ def pdf_page_count(pdf_path: Path) -> int | None:
     return int(m[0]) if m else None
 
 
-__all__ = ["FOOTER_LINES", "find_chrome", "html_to_pdf", "pdf_page_count",
-           "render_html"]
+#: A dispatch sheet is designed to be ONE A4 page. More than that is a defect:
+#: a second page gets separated from the first, and the 이장 acts on half a list.
+MAX_PAGES: int = 1
+
+
+def check_page_budget(pdf_result: dict, village_name: str) -> dict:
+    """Classify a conversion result against the one-page design constraint."""
+    n = pdf_result.get("n_pages")
+    if not pdf_result.get("ok") or n is None:
+        return {"ok": False, "n_pages": n, "severity": "unknown",
+                "message": f"{village_name}: page count unavailable"}
+    if n <= MAX_PAGES:
+        return {"ok": True, "n_pages": n, "severity": "none", "message": ""}
+    sev = "over" if n == 2 else "far_over"
+    return {
+        "ok": False, "n_pages": n, "severity": sev,
+        "message": (f"{village_name}: {n} pages — the sheet is designed for "
+                    f"{MAX_PAGES}. A second page gets separated from the first. "
+                    "Reduce the cluster radius, or pass --split-unreachable to "
+                    "move the 도달 불가 table onto its own sheet."),
+    }
+
+
+__all__ = ["FOOTER_LINES", "MAX_PAGES", "check_page_budget", "find_chrome",
+           "html_to_pdf", "pdf_page_count", "render_html"]

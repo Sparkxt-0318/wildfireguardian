@@ -50,6 +50,7 @@ SLOPE = "data/processed/real_roads_real_hazard_slope_60.json"   # canonical spac
 OBJ = "data/processed/routing_objective_experiment.json"
 BUD = "data/processed/budget_sweep_experiment.json"
 FULL = "data/processed/rescue_routing_full.json"
+SPARSE = "data/processed/cluster_sparsity.json"
 
 # Reproducibility is MEASURED, not assumed. Each artifact was re-run on
 # 2026-08-01 into a scratch directory and diffed against the committed copy.
@@ -125,6 +126,12 @@ REPRO = {
                     "graphs (data/cache/ never read) with osmnx pinned to 2.0.7; "
                     "scripts/run_rescue_routing_full.py regenerates it and asserts "
                     "the drift arm-B figures.",
+        "blocked_by": None,
+    },
+    SPARSE: {
+        "status": "reproducible",
+        "evidence": "pure geometry over rescue_routing_full.json; "
+                    "scripts/analyse_cluster_sparsity.py regenerates it exactly.",
         "blocked_by": None,
     },
     NPZ: {
@@ -739,6 +746,72 @@ def main() -> int:
             check={"kind": "expression",
                    "operands": {"a": op(FULL, "origins_full")},
                    "expr": "len(a)", "tolerance": 0.0},
+        )
+
+    # ----------------------------------------------- origin sparsity -------
+    if (REPO / SPARSE).exists():
+        sp = read(SPARSE)
+        ORIGINS_NOT_HOUSEHOLDS = (
+            "SAMPLED ORIGINS, NOT HOUSEHOLDS. Origins are taken by walking the OSM "
+            "node list at a fixed stride, so their distribution reflects ROAD "
+            "NETWORK structure, not residential density. This is a property of the "
+            "analysis, not of Yeongdeok. Snapshot-network (2026-07-24) values.")
+        FORBID_SPARSE = ["영덕 가구가 흩어져 있다", "households are dispersed",
+                         "주민이 흩어져 있다", "residents are scattered",
+                         "실제 취락 분포"]
+        by = {int(r["eps_m"]): r for r in sp["eps_sweep"]}
+        N["sparsity_singleton_fraction_at_500m"] = entry(
+            value=round(by[500]["singleton_fraction"], 4), unit="fraction",
+            source_file=SPARSE, json_path="eps_sweep[eps_m=500].singleton_fraction",
+            derivation="n_singletons / n_clusters at the configured 500 m radius",
+            sample="구조 필요 174곳 · eps=500 m",
+            caveat=(f"{ORIGINS_NOT_HOUSEHOLDS} 74 of 107 clusters hold a single "
+                    "point. Where a cluster is one point there is no village-level "
+                    "audience for a broadcast to reach."),
+            forbidden_phrasings=FORBID_SPARSE,
+            check={"kind": "expression", "operands": {"a": op(SPARSE, "eps_sweep")},
+                   "expr": ("round(next(r['singleton_fraction'] for r in a "
+                            "if r['eps_m'] == 500.0), 4)"), "tolerance": 0.0},
+        )
+        N["sparsity_min_singleton_fraction_usable_eps"] = entry(
+            value=round(sp["finding"]["min_singleton_fraction_within_usable_eps"], 4),
+            unit="fraction", source_file=SPARSE,
+            json_path="finding.min_singleton_fraction_within_usable_eps",
+            derivation="minimum singleton fraction over radii where no cluster "
+                       "exceeds 25 % of all rescue points (250–1500 m)",
+            sample="구조 필요 174곳 · eps 250–1500 m",
+            caveat=(f"{ORIGINS_NOT_HOUSEHOLDS} The fraction DOES fall to 35.3 % at "
+                    "2000 m, but there the largest cluster holds 91 of 174 points "
+                    "(52 %) and at 3000 m it holds 168 of 174 — clustering has "
+                    "collapsed, not improved. Never quote the 2000 m figure as "
+                    "evidence that a wider radius solves the problem."),
+            forbidden_phrasings=FORBID_SPARSE + [
+                "2000 m에서 문제가 해결된다",
+                "a wider radius solves the singleton problem"],
+            check={"kind": "expression",
+                   "operands": {"a": op(SPARSE,
+                                        "finding.min_singleton_fraction_within_usable_eps")},
+                   "expr": "round(a, 4)", "tolerance": 0.0},
+        )
+        N["sparsity_rescue_dispersion_ratio"] = entry(
+            value=round(sp["nearest_neighbour_m"]["comparison"]
+                        ["median_ratio_rescue_over_all"], 3),
+            unit="ratio", source_file=SPARSE,
+            json_path="nearest_neighbour_m.comparison.median_ratio_rescue_over_all",
+            derivation="median nearest-neighbour distance of the 174 rescue-needing "
+                       "origins / that of all 441 origins (418 m / 196 m)",
+            sample="174곳 대 441곳",
+            caveat=(f"{ORIGINS_NOT_HOUSEHOLDS} Origins needing rescue are 2.13x "
+                    "more dispersed than origins in general. Isolation and needing "
+                    "rescue travel together in this sample — an origin far from its "
+                    "neighbours tends to be far from a refuge and a depot too. "
+                    "Directional, not causal."),
+            forbidden_phrasings=FORBID_SPARSE + [
+                "고립이 구조 필요를 유발한다", "isolation causes rescue need"],
+            check={"kind": "expression",
+                   "operands": {"a": op(SPARSE, "nearest_neighbour_m")},
+                   "expr": "round(a['comparison']['median_ratio_rescue_over_all'], 3)",
+                   "tolerance": 0.0},
         )
 
     try:

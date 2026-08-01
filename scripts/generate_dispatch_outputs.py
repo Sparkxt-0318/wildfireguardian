@@ -142,6 +142,9 @@ def main() -> int:
     ap.add_argument("--source", default=str(SRC))
     ap.add_argument("--out-root", default=str(REPO / "outputs" / "dispatch"))
     ap.add_argument("--eps-m", type=float, default=500.0)
+    ap.add_argument("--split-unreachable", action="store_true",
+                    help="when a sheet overflows one A4 page, move the 도달 불가 "
+                         "table onto its own second sheet (default: off)")
     ap.add_argument("--full", action="store_true",
                     help="read a full-coverage artifact (origins_full) instead "
                          "of the committed dispatch_top20 slice")
@@ -208,12 +211,15 @@ def main() -> int:
                        "min_samples": 1,
                        "is_administrative_village": False,
                        "note": "행정리가 아닌 공간 군집"},
+        "split_unreachable_enabled": args.split_unreachable,
+        "max_pages_per_sheet": printable.MAX_PAGES,
         "sms_demo_mode": sms.demo_mode(),
         "sms_credentials_present": sms.credentials_present(),
         "nothing_was_sent": True,
         "villages": [],
     }
 
+    overflow_reports: list[dict] = []
     for v in villages:
         vdir = out_root / v.slug()
         vdir.mkdir(parents=True, exist_ok=True)
@@ -230,6 +236,39 @@ def main() -> int:
         hp = vdir / "dispatch_a4.html"
         hp.write_text(h, encoding="utf-8")
         pdf = printable.html_to_pdf(hp, vdir / "dispatch_a4.pdf")
+        budget = printable.check_page_budget(pdf, v.name)
+        split = None
+        if not budget["ok"] and args.split_unreachable and v.n_unreachable:
+            # Re-emit as two single-purpose sheets. Only helps when the overflow
+            # is caused by the second table existing at all; a long all-dispatch
+            # list still overflows, and that is reported rather than hidden.
+            parts = {}
+            for tag, sec, note in (
+                    ("dispatch", "dispatch",
+                     f"본 시트는 구조 필요 지점만 담습니다. 도달 불가 "
+                     f"{v.n_unreachable}곳은 별도 시트에 있습니다."),
+                    ("unreachable", "unreachable",
+                     f"본 시트는 도달 불가 지점만 담습니다. 구조 필요 "
+                     f"{v.n_dispatch}곳은 별도 시트에 있습니다.")):
+                hh = printable.render_html(
+                    v, generated_at=generated_at, git_commit=commit,
+                    config_hash=cfg_hash, source_file=str(src.relative_to(REPO)),
+                    n_total_dispatch=data["responder_exposure"]["n_dispatch"],
+                    n_total_unreachable=len(data["unreachable_homes"]),
+                    extra_label=extra_label, sections=sec, sheet_note=note)
+                php = vdir / f"dispatch_a4_{tag}.html"
+                php.write_text(hh, encoding="utf-8")
+                r = printable.html_to_pdf(php, vdir / f"dispatch_a4_{tag}.pdf")
+                parts[tag] = {"pdf": r,
+                              "budget": printable.check_page_budget(r, f"{v.name}/{tag}")}
+            split = {"applied": True, "parts": parts,
+                     "all_within_budget": all(x["budget"]["ok"] for x in parts.values())}
+        if not budget["ok"]:
+            overflow_reports.append({"village": v.name, "n_points": v.n_points,
+                                     "n_dispatch": v.n_dispatch,
+                                     "n_unreachable": v.n_unreachable,
+                                     "budget": budget, "split": split})
+            print(f"      ⚠ {budget['message']}")
 
         # (2) Broadcast script
         soonest = min((p["closing_window_min"] for p in v.points
@@ -261,6 +300,8 @@ def main() -> int:
             "refuge_used_in_messages": refuge_name,
             "pdf": pdf,
             "broadcast_check": bc.check(),
+            "page_budget": budget,
+            "split_unreachable": split,
             "sms": [m.as_dict() for m in msgs],
         })
         manifest["villages"].append(entry)
@@ -273,15 +314,28 @@ def main() -> int:
               f"방송 {'OK' if bc.check()['ok'] else 'OVER'}  "
               f"SMS {'OK' if ok_sms else 'OVER'}")
 
+    manifest["overflow"] = {
+        "n_sheets_over_budget": len(overflow_reports),
+        "max_pages_per_sheet": printable.MAX_PAGES,
+        "split_unreachable_enabled": args.split_unreachable,
+        "reports": overflow_reports,
+        "resolved_by_split": sum(1 for r in overflow_reports
+                                 if (r["split"] or {}).get("all_within_budget")),
+    }
+
     (out_root / "MANIFEST.json").write_text(
         json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
     pdfs = [v["pdf"] for v in manifest["villages"]]
     n_ok = sum(1 for p in pdfs if p.get("ok"))
     multi = [v["name"] for v in manifest["villages"]
-             if (v["pdf"].get("n_pages") or 1) > 1]
+             if (v["pdf"].get("n_pages") or 1) > printable.MAX_PAGES]
     print(f"\nPDF: {n_ok}/{len(pdfs)} generated"
-          + (f"  ⚠ MULTI-PAGE: {multi}" if multi else "  (all single-page)"))
+          + (f"  ⚠ OVER BUDGET: {len(multi)} sheet(s) {multi}"
+             if multi else "  (all within the 1-page budget)"))
+    if overflow_reports and args.split_unreachable:
+        fixed = manifest["overflow"]["resolved_by_split"]
+        print(f"     split-unreachable resolved {fixed}/{len(overflow_reports)}")
     print(f"SMS: DEMO_MODE={sms.demo_mode()}  credentials="
           f"{sms.credentials_present()}  nothing sent")
     print(f"wrote {out_root.relative_to(REPO)}")

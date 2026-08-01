@@ -2,7 +2,7 @@
   "schema_version": 1,
   "_README": "CANONICAL REGISTRY. Every reportable number lives here exactly once. Do not restate a value in prose without citing its key. 'verified' = still matches its artifact; 'reproducible' = re-running the pipeline regenerates that artifact. They are independent — several numbers here are verified but NOT reproducible because the OSM network behind them was overwritten (docs/DATA_LOSS_2026-07-24.md). Run scripts/verify_numbers.py to re-check every entry.",
   "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
-  "built_at_git_commit": "8e6b60ef52636a41a932dc4d6c2ed31fa04eaec8",
+  "built_at_git_commit": "66122711d2f3adf0b931d068b9b5786056fb7614",
   "round2_submission_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
   "numbers": {
     "lofo_mean_of_folds_auc": {
@@ -1355,6 +1355,118 @@
       "reproducibility": {
         "status": "reproducible",
         "evidence": "built 2026-08-01 from the hash-verified 2026-07-24 snapshot graphs (data/cache/ never read) with osmnx pinned to 2.0.7; scripts/run_rescue_routing_full.py regenerates it and asserts the drift arm-B figures.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "sparsity_singleton_fraction_at_500m": {
+      "value": 0.6916,
+      "unit": "fraction",
+      "source_file": "data/processed/cluster_sparsity.json",
+      "json_path": "eps_sweep[eps_m=500].singleton_fraction",
+      "derivation": "n_singletons / n_clusters at the configured 500 m radius",
+      "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "구조 필요 174곳 · eps=500 m",
+      "caveat": "SAMPLED ORIGINS, NOT HOUSEHOLDS. Origins are taken by walking the OSM node list at a fixed stride, so their distribution reflects ROAD NETWORK structure, not residential density. This is a property of the analysis, not of Yeongdeok. Snapshot-network (2026-07-24) values. 74 of 107 clusters hold a single point. Where a cluster is one point there is no village-level audience for a broadcast to reach.",
+      "forbidden_phrasings": [
+        "영덕 가구가 흩어져 있다",
+        "households are dispersed",
+        "주민이 흩어져 있다",
+        "residents are scattered",
+        "실제 취락 분포"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/cluster_sparsity.json",
+            "json_path": "eps_sweep"
+          }
+        },
+        "expr": "round(next(r['singleton_fraction'] for r in a if r['eps_m'] == 500.0), 4)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "pure geometry over rescue_routing_full.json; scripts/analyse_cluster_sparsity.py regenerates it exactly.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "sparsity_min_singleton_fraction_usable_eps": {
+      "value": 0.4516,
+      "unit": "fraction",
+      "source_file": "data/processed/cluster_sparsity.json",
+      "json_path": "finding.min_singleton_fraction_within_usable_eps",
+      "derivation": "minimum singleton fraction over radii where no cluster exceeds 25 % of all rescue points (250–1500 m)",
+      "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "구조 필요 174곳 · eps 250–1500 m",
+      "caveat": "SAMPLED ORIGINS, NOT HOUSEHOLDS. Origins are taken by walking the OSM node list at a fixed stride, so their distribution reflects ROAD NETWORK structure, not residential density. This is a property of the analysis, not of Yeongdeok. Snapshot-network (2026-07-24) values. The fraction DOES fall to 35.3 % at 2000 m, but there the largest cluster holds 91 of 174 points (52 %) and at 3000 m it holds 168 of 174 — clustering has collapsed, not improved. Never quote the 2000 m figure as evidence that a wider radius solves the problem.",
+      "forbidden_phrasings": [
+        "영덕 가구가 흩어져 있다",
+        "households are dispersed",
+        "주민이 흩어져 있다",
+        "residents are scattered",
+        "실제 취락 분포",
+        "2000 m에서 문제가 해결된다",
+        "a wider radius solves the singleton problem"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/cluster_sparsity.json",
+            "json_path": "finding.min_singleton_fraction_within_usable_eps"
+          }
+        },
+        "expr": "round(a, 4)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "pure geometry over rescue_routing_full.json; scripts/analyse_cluster_sparsity.py regenerates it exactly.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "sparsity_rescue_dispersion_ratio": {
+      "value": 2.131,
+      "unit": "ratio",
+      "source_file": "data/processed/cluster_sparsity.json",
+      "json_path": "nearest_neighbour_m.comparison.median_ratio_rescue_over_all",
+      "derivation": "median nearest-neighbour distance of the 174 rescue-needing origins / that of all 441 origins (418 m / 196 m)",
+      "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "174곳 대 441곳",
+      "caveat": "SAMPLED ORIGINS, NOT HOUSEHOLDS. Origins are taken by walking the OSM node list at a fixed stride, so their distribution reflects ROAD NETWORK structure, not residential density. This is a property of the analysis, not of Yeongdeok. Snapshot-network (2026-07-24) values. Origins needing rescue are 2.13x more dispersed than origins in general. Isolation and needing rescue travel together in this sample — an origin far from its neighbours tends to be far from a refuge and a depot too. Directional, not causal.",
+      "forbidden_phrasings": [
+        "영덕 가구가 흩어져 있다",
+        "households are dispersed",
+        "주민이 흩어져 있다",
+        "residents are scattered",
+        "실제 취락 분포",
+        "고립이 구조 필요를 유발한다",
+        "isolation causes rescue need"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/cluster_sparsity.json",
+            "json_path": "nearest_neighbour_m"
+          }
+        },
+        "expr": "round(a['comparison']['median_ratio_rescue_over_all'], 3)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "pure geometry over rescue_routing_full.json; scripts/analyse_cluster_sparsity.py regenerates it exactly.",
         "blocked_by": null
       },
       "reproducible": true

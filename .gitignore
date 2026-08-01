@@ -97,6 +97,8 @@ data/processed/**
 # PHASE 3-B: full-coverage re-run with every origin serialized (441 rows).
 # Drift values (441/174/32), NOT the committed values — see docs/network_drift.md.
 !data/processed/rescue_routing_full.json
+# Origin sparsity sweep + nearest-neighbour distributions (small JSON).
+!data/processed/cluster_sparsity.json
 # AUC-interval + ML-baseline analysis outputs (per-fire DeLong CIs / significance;
 # logistic/RF vs GBM comparison; persisted LOFO out-of-fold predictions). These are
 # the result artifacts of scripts/auc_intervals.py and scripts/ml_baselines.py;
@@ -204,3 +206,7 @@ outputs/dispatch_full/*/*/dispatch_a4.pdf
 !outputs/dispatch_full/*/01-*/dispatch_a4.pdf
 !outputs/dispatch_full/*/02-*/dispatch_a4.pdf
 !outputs/dispatch_full/*/03-*/dispatch_a4.pdf
+# ...and the split sheets, which are the evidence that the overflow guard
+# works (and where it cannot help).
+!outputs/dispatch_full/*/0[123]-*/dispatch_a4_dispatch.pdf
+!outputs/dispatch_full/*/0[123]-*/dispatch_a4_unreachable.pdf

@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "title": "Origin sparsity and its effect on village clustering",
+  "generated_utc": "2026-08-01T18:08:37Z",
+  "git_commit": "66122711d2f3adf0b931d068b9b5786056fb7614",
+  "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
+  "source_file": "data/processed/rescue_routing_full.json",
+  "what_this_measures": "The spatial dispersion of SAMPLED ORIGINS, not of households. Origins are taken by walking the OSM node list at a fixed stride, so their distribution reflects road-network structure, not residential density. Whether Yeongdeok's actual settlements are equally dispersed is a separate question this project has no household data to answer.",
+  "nearest_neighbour_m": {
+    "all_origins": {
+      "n": 441,
+      "min_m": 8.670507246382982,
+      "p25_m": 106.03633372782267,
+      "median_m": 196.29187104784256,
+      "mean_m": 352.91156106494435,
+      "p90_m": 813.6395915295913,
+      "p99_m": 2097.542876777679,
+      "max_m": 4031.9971667746063,
+      "frac_beyond_500m": 0.2222222222222222,
+      "frac_beyond_1000m": 0.061224489795918366,
+      "frac_beyond_1500m": 0.031746031746031744
+    },
+    "origins_needing_rescue": {
+      "n": 174,
+      "min_m": 8.670507246382982,
+      "p25_m": 187.88481860873148,
+      "median_m": 418.21353657884003,
+      "mean_m": 624.0950273414056,
+      "p90_m": 1450.3134837558034,
+      "p99_m": 3171.7426529638483,
+      "max_m": 4031.9971667746063,
+      "frac_beyond_500m": 0.42528735632183906,
+      "frac_beyond_1000m": 0.1781609195402299,
+      "frac_beyond_1500m": 0.08045977011494253
+    },
+    "comparison": {
+      "median_ratio_rescue_over_all": 2.130569821084991,
+      "rescue_more_dispersed": true
+    }
+  },
+  "eps_sweep": [
+    {
+      "eps_m": 250.0,
+      "n_clusters": 143,
+      "n_singletons": 120,
+      "singleton_fraction": 0.8391608391608392,
+      "max_cluster_size": 8,
+      "mean_cluster_size": 1.2167832167832169,
+      "points_in_singletons": 120,
+      "fraction_of_points_isolated": 0.6896551724137931,
+      "largest_cluster_fraction": 0.04597701149425287
+    },
+    {
+      "eps_m": 500.0,
+      "n_clusters": 107,
+      "n_singletons": 74,
+      "singleton_fraction": 0.6915887850467289,
+      "max_cluster_size": 16,
+      "mean_cluster_size": 1.6261682242990654,
+      "points_in_singletons": 74,
+      "fraction_of_points_isolated": 0.42528735632183906,
+      "largest_cluster_fraction": 0.09195402298850575
+    },
+    {
+      "eps_m": 750.0,
+      "n_clusters": 82,
+      "n_singletons": 48,
+      "singleton_fraction": 0.5853658536585366,
+      "max_cluster_size": 16,
+      "mean_cluster_size": 2.1219512195121952,
+      "points_in_singletons": 48,
+      "fraction_of_points_isolated": 0.27586206896551724,
+      "largest_cluster_fraction": 0.09195402298850575
+    },
+    {
+      "eps_m": 1000.0,
+      "n_clusters": 63,
+      "n_singletons": 31,
+      "singleton_fraction": 0.49206349206349204,
+      "max_cluster_size": 24,
+      "mean_cluster_size": 2.761904761904762,
+      "points_in_singletons": 31,
+      "fraction_of_points_isolated": 0.1781609195402299,
+      "largest_cluster_fraction": 0.13793103448275862
+    },
+    {
+      "eps_m": 1500.0,
+      "n_clusters": 31,
+      "n_singletons": 14,
+      "singleton_fraction": 0.45161290322580644,
+      "max_cluster_size": 38,
+      "mean_cluster_size": 5.612903225806452,
+      "points_in_singletons": 14,
+      "fraction_of_points_isolated": 0.08045977011494253,
+      "largest_cluster_fraction": 0.21839080459770116
+    },
+    {
+      "eps_m": 2000.0,
+      "n_clusters": 17,
+      "n_singletons": 6,
+      "singleton_fraction": 0.35294117647058826,
+      "max_cluster_size": 91,
+      "mean_cluster_size": 10.235294117647058,
+      "points_in_singletons": 6,
+      "fraction_of_points_isolated": 0.034482758620689655,
+      "largest_cluster_fraction": 0.5229885057471264
+    },
+    {
+      "eps_m": 3000.0,
+      "n_clusters": 5,
+      "n_singletons": 2,
+      "singleton_fraction": 0.4,
+      "max_cluster_size": 168,
+      "mean_cluster_size": 34.8,
+      "points_in_singletons": 2,
+      "fraction_of_points_isolated": 0.011494252873563218,
+      "largest_cluster_fraction": 0.9655172413793104
+    }
+  ],
+  "finding": {
+    "singleton_fraction_never_below_40pct_any_eps": false,
+    "singleton_fraction_never_below_40pct_usable_eps": true,
+    "collapse_threshold_largest_cluster_fraction": 0.25,
+    "usable_eps_m": [
+      250.0,
+      500.0,
+      750.0,
+      1000.0,
+      1500.0
+    ],
+    "min_singleton_fraction_within_usable_eps": 0.45161290322580644,
+    "eps_range_tested_m": [
+      250.0,
+      3000.0
+    ],
+    "statement": "The singleton fraction falls monotonically from 83.9 % at 250 m to 35.3 % at 2000 m, so it DOES drop below 40 % — but only once clustering has stopped being clustering: at 2000 m the largest cluster holds 91 of 174 points (52 %), and at 3000 m it holds 168 of 174 (97 %). Restricting to radii where no cluster exceeds 25% of all rescue points, the singleton fraction never goes below 49.2 %. Dispersion is a measured property of the sampled origin set here, not an untuned parameter."
+  },
+  "operational_implication": "A village-level broadcast reaches a cluster. Where a cluster is one point, there is no village-level audience to reach — the channel and the geography do not line up. Recorded as an observation; no remedy is proposed here.",
+  "caveat": "Snapshot-network (2026-07-24) values on 441 origins, separate from the committed 439-origin figures."
+}
