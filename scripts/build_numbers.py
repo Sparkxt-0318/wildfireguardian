@@ -48,6 +48,7 @@ NPZ = "data/processed/routing_demo.npz"
 DRIFT = "data/processed/network_drift_experiment.json"
 SLOPE = "data/processed/real_roads_real_hazard_slope_60.json"   # canonical spacing
 OBJ = "data/processed/routing_objective_experiment.json"
+BUD = "data/processed/budget_sweep_experiment.json"
 
 # Reproducibility is MEASURED, not assumed. Each artifact was re-run on
 # 2026-08-01 into a scratch directory and diffed against the committed copy.
@@ -108,6 +109,13 @@ REPRO = {
         "evidence": "built 2026-08-01 from the hash-verified snapshot graph and "
                     "SRTM raster with osmnx pinned to 2.0.7; "
                     "scripts/run_routing_objective_experiment.py regenerates it.",
+        "blocked_by": None,
+    },
+    BUD: {
+        "status": "reproducible",
+        "evidence": "built 2026-08-01 from the hash-verified snapshot graph and "
+                    "SRTM raster with osmnx pinned to 2.0.7; "
+                    "scripts/run_budget_sweep_experiment.py regenerates it.",
         "blocked_by": None,
     },
     NPZ: {
@@ -594,6 +602,62 @@ def main() -> int:
                    "operands": {"a": op(OBJ, "arms.flat/length_m.counts"),
                                 "b": op(OBJ, "arms.slope/time_min.counts")},
                    "expr": "a == b", "tolerance": 0.0},
+        )
+
+    # -------------------------------------------------- budget sweep -------
+    if (REPO / BUD).exists():
+        bd = read(BUD)
+        rows = {int(r["budget_min"]): r for r in bd["sweep"]}
+        NOT_A_REPLACEMENT = (
+            "600분 기준 w ≈ 11.4%는 커밋된 값이며 유효합니다. 본 실험의 단축 예산 "
+            "w(t)는 운영 조건에서의 추가 측정이며 대체값이 아닙니다. The committed "
+            "11.4 % is a 600-min figure from the 439-origin rescue pipeline over "
+            "n_mobile=307; this sweep uses 460 scanned origins on the 2026-07-24 "
+            "snapshot network. Different denominator, different pipeline. "
+            "NEVER quote a short-budget w without stating the budget.")
+        for b in (30, 60, 90, 120, 600):
+            if b not in rows:
+                continue
+            N[f"budget_{b}min_walk_failure_rate"] = entry(
+                value=round(rows[b]["distance_objective"]["w"], 4),
+                unit="fraction of origins", source_file=BUD,
+                json_path=f"sweep[budget_min={b}].distance_objective.w",
+                derivation="1 - (reaches AND not enters_hazard AND time <= budget) "
+                           "/ 460, distance-ranked status-quo route",
+                sample=f"460곳 주사 · 예산 {b}분",
+                caveat=(f"{NOT_A_REPLACEMENT} Failure rises from 4.35 % at 600 min "
+                        "to 55.00 % at 30 min — the 600-min ceiling was concealing "
+                        "the operational picture, as the Round-2 limitation warned."),
+                forbidden_phrasings=["주민의 55%가 사망", "55% will die",
+                                     "w = 55%" if b == 30 else "w는 11.4%가 아니다"],
+                check={"kind": "expression",
+                       "operands": {"a": op(BUD, "sweep")},
+                       "expr": (f"round(next(r['distance_objective']['w'] for r in a "
+                                f"if r['budget_min'] == {b}.0), 4)"),
+                       "tolerance": 0.0},
+            )
+        N["budget_time_objective_hazard_cost"] = entry(
+            value=rows[600]["time_objective"]["why"]["enters_hazard"]
+            - rows[600]["distance_objective"]["why"]["enters_hazard"],
+            unit="origins", source_file=BUD,
+            json_path="sweep[*].{time,distance}_objective.why.enters_hazard",
+            derivation="time_objective.why.enters_hazard - "
+                       "distance_objective.why.enters_hazard (23 - 20)",
+            sample="460곳 주사 · 모든 예산에서 동일",
+            caveat=("THE PRICE of terrain-aware status-quo routing: it is not "
+                    "hazard-aware. A gentler detour is chosen for speed alone and "
+                    "3 more origins' routes cross the predicted fire. Constant "
+                    "across every budget, because it has nothing to do with time. "
+                    "At 600 min the timing gain is zero, so the time objective is "
+                    "NET WORSE by 3."),
+            forbidden_phrasings=["시간 기반이 항상 낫다",
+                                 "time-aware routing is strictly better"],
+            check={"kind": "expression",
+                   "operands": {"a": op(BUD, "sweep")},
+                   "expr": ("next(r['time_objective']['why']['enters_hazard'] "
+                            "- r['distance_objective']['why']['enters_hazard'] "
+                            "for r in a if r['budget_min'] == 600.0)"),
+                   "tolerance": 0.0},
         )
 
     try:

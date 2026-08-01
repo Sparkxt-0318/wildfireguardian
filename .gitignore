@@ -92,6 +92,8 @@ data/processed/**
 !data/processed/real_roads_real_hazard_slope_*.json
 # PHASE 2-C-1: routing-objective 2x2 (distance-min vs time-min x flat vs slope).
 !data/processed/routing_objective_experiment.json
+# PHASE 2-C-2: w(t) budget sweep, closing the Round-2 V-2 future-work item.
+!data/processed/budget_sweep_experiment.json
 # AUC-interval + ML-baseline analysis outputs (per-fire DeLong CIs / significance;
 # logistic/RF vs GBM comparison; persisted LOFO out-of-fold predictions). These are
 # the result artifacts of scripts/auc_intervals.py and scripts/ml_baselines.py;

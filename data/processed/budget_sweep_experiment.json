@@ -1,0 +1,351 @@
+{
+  "schema_version": 1,
+  "title": "w(t): evacuation failure vs walking budget (PHASE 2-C-2)",
+  "generated_utc": "2026-08-01T15:13:33Z",
+  "git_commit": "938cd6dec6e902442fedbf880634d11b7a1c2388",
+  "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
+  "closes": "Round-2 Ⅴ-2 future-work item: the 30/60/90-minute w(t) sweep.",
+  "definitions": {
+    "evacuable": "status-quo route reaches a shelter, does not enter the predicted hazard, AND takes <= budget minutes",
+    "w": "1 - evacuable / n_origins",
+    "denominator": "460 scanned origins on the 2026-07-24 snapshot network — NOT the 439-origin rescue run's n_mobile=307",
+    "budget_application": "naive_route carries no budget, so the budget is applied explicitly to its traversal time; future_aware_counts uses time_budget_min=budget"
+  },
+  "does_not_replace": "600분 기준 w ≈ 11.4%는 커밋된 값이며 유효합니다. 본 실험의 단축 예산 w(t)는 운영 조건에서의 추가 측정이며 대체값이 아닙니다. The committed w = 11.4 % is a 600-minute figure from the 439-origin rescue pipeline over n_mobile = 307. It stands. These are additional measurements on a different denominator under operational budgets.",
+  "design": {
+    "budgets_min": [
+      30.0,
+      60.0,
+      90.0,
+      120.0,
+      600.0
+    ],
+    "objectives": [
+      "length_m (committed default)",
+      "time_min (opt-in)"
+    ],
+    "slope_sampling_m": 60.0,
+    "flat_arm": "distance objective only, as the 600-min control",
+    "held_constant": [
+      "snapshot walk graph 2026-07-24",
+      "osmnx 2.0.7",
+      "p_cut=0.5",
+      "shelters",
+      "origin scan rule"
+    ],
+    "hazard_npz_sha256": "5bed502661afa8e33335c342ddc468c2df6858267ea4f769a659f970e918da58",
+    "shelter_source": "osm"
+  },
+  "sweep": [
+    {
+      "budget_min": 30.0,
+      "n_origins": 460,
+      "distance_objective": {
+        "n_fail": 253,
+        "w": 0.55,
+        "why": {
+          "unreachable": 0,
+          "enters_hazard": 20,
+          "over_budget": 233
+        }
+      },
+      "time_objective": {
+        "n_fail": 252,
+        "w": 0.5478260869565217,
+        "why": {
+          "unreachable": 0,
+          "enters_hazard": 23,
+          "over_budget": 229
+        }
+      },
+      "flat_distance_objective_control": {
+        "n_fail": 240,
+        "w": 0.5217391304347826,
+        "why": {
+          "unreachable": 0,
+          "enters_hazard": 20,
+          "over_budget": 220
+        }
+      },
+      "difference_n_fail": 1,
+      "difference_w": 0.002173913043478261,
+      "n_rescued_by_time_objective": 1,
+      "n_lost_by_time_objective": 0,
+      "rescued_route_hilliness": {
+        "n": 1,
+        "mean": 0.5209379303158408,
+        "median": 0.5209379303158408
+      },
+      "all_route_hilliness": {
+        "n": 454,
+        "mean": 0.1835294054806813,
+        "median": 0.11579895355993475
+      },
+      "future_aware_counts": {
+        "naive_into_FA_safe": 2,
+        "no_safe_route": 18,
+        "both_safe": 205,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "unclassified": 235
+      }
+    },
+    {
+      "budget_min": 60.0,
+      "n_origins": 460,
+      "distance_objective": {
+        "n_fail": 176,
+        "w": 0.3826086956521739,
+        "why": {
+          "unreachable": 0,
+          "enters_hazard": 20,
+          "over_budget": 156
+        }
+      },
+      "time_objective": {
+        "n_fail": 172,
+        "w": 0.3739130434782609,
+        "why": {
+          "unreachable": 0,
+          "enters_hazard": 23,
+          "over_budget": 149
+        }
+      },
+      "flat_distance_objective_control": {
+        "n_fail": 150,
+        "w": 0.32608695652173914,
+        "why": {
+          "unreachable": 0,
+          "enters_hazard": 20,
+          "over_budget": 130
+        }
+      },
+      "difference_n_fail": 4,
+      "difference_w": 0.008695652173913044,
+      "n_rescued_by_time_objective": 4,
+      "n_lost_by_time_objective": 0,
+      "rescued_route_hilliness": {
+        "n": 4,
+        "mean": 0.3078512841751176,
+        "median": 0.33250817685663026
+      },
+      "all_route_hilliness": {
+        "n": 454,
+        "mean": 0.1835294054806813,
+        "median": 0.11579895355993475
+      },
+      "future_aware_counts": {
+        "naive_into_FA_safe": 2,
+        "no_safe_route": 18,
+        "both_safe": 285,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "unclassified": 155
+      }
+    },
+    {
+      "budget_min": 90.0,
+      "n_origins": 460,
+      "distance_objective": {
+        "n_fail": 120,
+        "w": 0.2608695652173913,
+        "why": {
+          "unreachable": 0,
+          "enters_hazard": 20,
+          "over_budget": 100
+        }
+      },
+      "time_objective": {
+        "n_fail": 118,
+        "w": 0.2565217391304348,
+        "why": {
+          "unreachable": 0,
+          "enters_hazard": 23,
+          "over_budget": 95
+        }
+      },
+      "flat_distance_objective_control": {
+        "n_fail": 98,
+        "w": 0.21304347826086956,
+        "why": {
+          "unreachable": 0,
+          "enters_hazard": 20,
+          "over_budget": 78
+        }
+      },
+      "difference_n_fail": 2,
+      "difference_w": 0.004347826086956522,
+      "n_rescued_by_time_objective": 2,
+      "n_lost_by_time_objective": 0,
+      "rescued_route_hilliness": {
+        "n": 2,
+        "mean": 0.287185284755908,
+        "median": 0.287185284755908
+      },
+      "all_route_hilliness": {
+        "n": 454,
+        "mean": 0.1835294054806813,
+        "median": 0.11579895355993475
+      },
+      "future_aware_counts": {
+        "naive_into_FA_safe": 2,
+        "no_safe_route": 18,
+        "both_safe": 342,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "unclassified": 98
+      }
+    },
+    {
+      "budget_min": 120.0,
+      "n_origins": 460,
+      "distance_objective": {
+        "n_fail": 91,
+        "w": 0.19782608695652174,
+        "why": {
+          "unreachable": 0,
+          "enters_hazard": 20,
+          "over_budget": 71
+        }
+      },
+      "time_objective": {
+        "n_fail": 88,
+        "w": 0.19130434782608696,
+        "why": {
+          "unreachable": 0,
+          "enters_hazard": 23,
+          "over_budget": 65
+        }
+      },
+      "flat_distance_objective_control": {
+        "n_fail": 73,
+        "w": 0.15869565217391304,
+        "why": {
+          "unreachable": 0,
+          "enters_hazard": 20,
+          "over_budget": 53
+        }
+      },
+      "difference_n_fail": 3,
+      "difference_w": 0.006521739130434782,
+      "n_rescued_by_time_objective": 3,
+      "n_lost_by_time_objective": 0,
+      "rescued_route_hilliness": {
+        "n": 3,
+        "mean": 0.45002042293780137,
+        "median": 0.33382798476152753
+      },
+      "all_route_hilliness": {
+        "n": 454,
+        "mean": 0.1835294054806813,
+        "median": 0.11579895355993475
+      },
+      "future_aware_counts": {
+        "naive_into_FA_safe": 2,
+        "no_safe_route": 18,
+        "both_safe": 371,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "unclassified": 69
+      }
+    },
+    {
+      "budget_min": 600.0,
+      "n_origins": 460,
+      "distance_objective": {
+        "n_fail": 20,
+        "w": 0.043478260869565216,
+        "why": {
+          "unreachable": 0,
+          "enters_hazard": 20,
+          "over_budget": 0
+        }
+      },
+      "time_objective": {
+        "n_fail": 23,
+        "w": 0.05,
+        "why": {
+          "unreachable": 0,
+          "enters_hazard": 23,
+          "over_budget": 0
+        }
+      },
+      "flat_distance_objective_control": {
+        "n_fail": 20,
+        "w": 0.043478260869565216,
+        "why": {
+          "unreachable": 0,
+          "enters_hazard": 20,
+          "over_budget": 0
+        }
+      },
+      "difference_n_fail": -3,
+      "difference_w": -0.006521739130434782,
+      "n_rescued_by_time_objective": 2,
+      "n_lost_by_time_objective": 5,
+      "rescued_route_hilliness": {
+        "n": 2,
+        "mean": 0.2838856226973252,
+        "median": 0.2838856226973252
+      },
+      "all_route_hilliness": {
+        "n": 454,
+        "mean": 0.1835294054806813,
+        "median": 0.11579895355993475
+      },
+      "future_aware_counts": {
+        "naive_into_FA_safe": 17,
+        "no_safe_route": 3,
+        "both_safe": 440,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "unclassified": 0
+      }
+    }
+  ],
+  "objective_flips": {
+    "30": {
+      "n_rescued_by_time_objective": 1,
+      "n_lost_by_time_objective": 0,
+      "rescued_origins": [
+        11930006817
+      ]
+    },
+    "60": {
+      "n_rescued_by_time_objective": 4,
+      "n_lost_by_time_objective": 0,
+      "rescued_origins": [
+        11001086319,
+        11739984002,
+        11764450608,
+        11764450722
+      ]
+    },
+    "90": {
+      "n_rescued_by_time_objective": 2,
+      "n_lost_by_time_objective": 0,
+      "rescued_origins": [
+        11825276907,
+        12067173185
+      ]
+    },
+    "120": {
+      "n_rescued_by_time_objective": 3,
+      "n_lost_by_time_objective": 0,
+      "rescued_origins": [
+        11001089397,
+        11779898047,
+        11877066585
+      ]
+    },
+    "600": {
+      "n_rescued_by_time_objective": 2,
+      "n_lost_by_time_objective": 5,
+      "rescued_origins": [
+        11825850690,
+        11999581724
+      ]
+    }
+  },
+  "caveat": "Snapshot-network values, separate from the committed 459-origin figures. Never quote a short-budget w without its budget."
+}

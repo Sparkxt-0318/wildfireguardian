@@ -2,7 +2,7 @@
   "schema_version": 1,
   "_README": "CANONICAL REGISTRY. Every reportable number lives here exactly once. Do not restate a value in prose without citing its key. 'verified' = still matches its artifact; 'reproducible' = re-running the pipeline regenerates that artifact. They are independent — several numbers here are verified but NOT reproducible because the OSM network behind them was overwritten (docs/DATA_LOSS_2026-07-24.md). Run scripts/verify_numbers.py to re-check every entry.",
   "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
-  "built_at_git_commit": "b7fc59315c377ab74f5674a97888dfe2e14fb166",
+  "built_at_git_commit": "938cd6dec6e902442fedbf880634d11b7a1c2388",
   "round2_submission_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
   "numbers": {
     "lofo_mean_of_folds_auc": {
@@ -968,6 +968,209 @@
       "reproducibility": {
         "status": "reproducible",
         "evidence": "built 2026-08-01 from the hash-verified snapshot graph and SRTM raster with osmnx pinned to 2.0.7; scripts/run_routing_objective_experiment.py regenerates it.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "budget_30min_walk_failure_rate": {
+      "value": 0.55,
+      "unit": "fraction of origins",
+      "source_file": "data/processed/budget_sweep_experiment.json",
+      "json_path": "sweep[budget_min=30].distance_objective.w",
+      "derivation": "1 - (reaches AND not enters_hazard AND time <= budget) / 460, distance-ranked status-quo route",
+      "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "460곳 주사 · 예산 30분",
+      "caveat": "600분 기준 w ≈ 11.4%는 커밋된 값이며 유효합니다. 본 실험의 단축 예산 w(t)는 운영 조건에서의 추가 측정이며 대체값이 아닙니다. The committed 11.4 % is a 600-min figure from the 439-origin rescue pipeline over n_mobile=307; this sweep uses 460 scanned origins on the 2026-07-24 snapshot network. Different denominator, different pipeline. NEVER quote a short-budget w without stating the budget. Failure rises from 4.35 % at 600 min to 55.00 % at 30 min — the 600-min ceiling was concealing the operational picture, as the Round-2 limitation warned.",
+      "forbidden_phrasings": [
+        "주민의 55%가 사망",
+        "55% will die",
+        "w = 55%"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/budget_sweep_experiment.json",
+            "json_path": "sweep"
+          }
+        },
+        "expr": "round(next(r['distance_objective']['w'] for r in a if r['budget_min'] == 30.0), 4)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-01 from the hash-verified snapshot graph and SRTM raster with osmnx pinned to 2.0.7; scripts/run_budget_sweep_experiment.py regenerates it.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "budget_60min_walk_failure_rate": {
+      "value": 0.3826,
+      "unit": "fraction of origins",
+      "source_file": "data/processed/budget_sweep_experiment.json",
+      "json_path": "sweep[budget_min=60].distance_objective.w",
+      "derivation": "1 - (reaches AND not enters_hazard AND time <= budget) / 460, distance-ranked status-quo route",
+      "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "460곳 주사 · 예산 60분",
+      "caveat": "600분 기준 w ≈ 11.4%는 커밋된 값이며 유효합니다. 본 실험의 단축 예산 w(t)는 운영 조건에서의 추가 측정이며 대체값이 아닙니다. The committed 11.4 % is a 600-min figure from the 439-origin rescue pipeline over n_mobile=307; this sweep uses 460 scanned origins on the 2026-07-24 snapshot network. Different denominator, different pipeline. NEVER quote a short-budget w without stating the budget. Failure rises from 4.35 % at 600 min to 55.00 % at 30 min — the 600-min ceiling was concealing the operational picture, as the Round-2 limitation warned.",
+      "forbidden_phrasings": [
+        "주민의 55%가 사망",
+        "55% will die",
+        "w는 11.4%가 아니다"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/budget_sweep_experiment.json",
+            "json_path": "sweep"
+          }
+        },
+        "expr": "round(next(r['distance_objective']['w'] for r in a if r['budget_min'] == 60.0), 4)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-01 from the hash-verified snapshot graph and SRTM raster with osmnx pinned to 2.0.7; scripts/run_budget_sweep_experiment.py regenerates it.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "budget_90min_walk_failure_rate": {
+      "value": 0.2609,
+      "unit": "fraction of origins",
+      "source_file": "data/processed/budget_sweep_experiment.json",
+      "json_path": "sweep[budget_min=90].distance_objective.w",
+      "derivation": "1 - (reaches AND not enters_hazard AND time <= budget) / 460, distance-ranked status-quo route",
+      "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "460곳 주사 · 예산 90분",
+      "caveat": "600분 기준 w ≈ 11.4%는 커밋된 값이며 유효합니다. 본 실험의 단축 예산 w(t)는 운영 조건에서의 추가 측정이며 대체값이 아닙니다. The committed 11.4 % is a 600-min figure from the 439-origin rescue pipeline over n_mobile=307; this sweep uses 460 scanned origins on the 2026-07-24 snapshot network. Different denominator, different pipeline. NEVER quote a short-budget w without stating the budget. Failure rises from 4.35 % at 600 min to 55.00 % at 30 min — the 600-min ceiling was concealing the operational picture, as the Round-2 limitation warned.",
+      "forbidden_phrasings": [
+        "주민의 55%가 사망",
+        "55% will die",
+        "w는 11.4%가 아니다"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/budget_sweep_experiment.json",
+            "json_path": "sweep"
+          }
+        },
+        "expr": "round(next(r['distance_objective']['w'] for r in a if r['budget_min'] == 90.0), 4)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-01 from the hash-verified snapshot graph and SRTM raster with osmnx pinned to 2.0.7; scripts/run_budget_sweep_experiment.py regenerates it.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "budget_120min_walk_failure_rate": {
+      "value": 0.1978,
+      "unit": "fraction of origins",
+      "source_file": "data/processed/budget_sweep_experiment.json",
+      "json_path": "sweep[budget_min=120].distance_objective.w",
+      "derivation": "1 - (reaches AND not enters_hazard AND time <= budget) / 460, distance-ranked status-quo route",
+      "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "460곳 주사 · 예산 120분",
+      "caveat": "600분 기준 w ≈ 11.4%는 커밋된 값이며 유효합니다. 본 실험의 단축 예산 w(t)는 운영 조건에서의 추가 측정이며 대체값이 아닙니다. The committed 11.4 % is a 600-min figure from the 439-origin rescue pipeline over n_mobile=307; this sweep uses 460 scanned origins on the 2026-07-24 snapshot network. Different denominator, different pipeline. NEVER quote a short-budget w without stating the budget. Failure rises from 4.35 % at 600 min to 55.00 % at 30 min — the 600-min ceiling was concealing the operational picture, as the Round-2 limitation warned.",
+      "forbidden_phrasings": [
+        "주민의 55%가 사망",
+        "55% will die",
+        "w는 11.4%가 아니다"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/budget_sweep_experiment.json",
+            "json_path": "sweep"
+          }
+        },
+        "expr": "round(next(r['distance_objective']['w'] for r in a if r['budget_min'] == 120.0), 4)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-01 from the hash-verified snapshot graph and SRTM raster with osmnx pinned to 2.0.7; scripts/run_budget_sweep_experiment.py regenerates it.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "budget_600min_walk_failure_rate": {
+      "value": 0.0435,
+      "unit": "fraction of origins",
+      "source_file": "data/processed/budget_sweep_experiment.json",
+      "json_path": "sweep[budget_min=600].distance_objective.w",
+      "derivation": "1 - (reaches AND not enters_hazard AND time <= budget) / 460, distance-ranked status-quo route",
+      "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "460곳 주사 · 예산 600분",
+      "caveat": "600분 기준 w ≈ 11.4%는 커밋된 값이며 유효합니다. 본 실험의 단축 예산 w(t)는 운영 조건에서의 추가 측정이며 대체값이 아닙니다. The committed 11.4 % is a 600-min figure from the 439-origin rescue pipeline over n_mobile=307; this sweep uses 460 scanned origins on the 2026-07-24 snapshot network. Different denominator, different pipeline. NEVER quote a short-budget w without stating the budget. Failure rises from 4.35 % at 600 min to 55.00 % at 30 min — the 600-min ceiling was concealing the operational picture, as the Round-2 limitation warned.",
+      "forbidden_phrasings": [
+        "주민의 55%가 사망",
+        "55% will die",
+        "w는 11.4%가 아니다"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/budget_sweep_experiment.json",
+            "json_path": "sweep"
+          }
+        },
+        "expr": "round(next(r['distance_objective']['w'] for r in a if r['budget_min'] == 600.0), 4)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-01 from the hash-verified snapshot graph and SRTM raster with osmnx pinned to 2.0.7; scripts/run_budget_sweep_experiment.py regenerates it.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "budget_time_objective_hazard_cost": {
+      "value": 3,
+      "unit": "origins",
+      "source_file": "data/processed/budget_sweep_experiment.json",
+      "json_path": "sweep[*].{time,distance}_objective.why.enters_hazard",
+      "derivation": "time_objective.why.enters_hazard - distance_objective.why.enters_hazard (23 - 20)",
+      "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "460곳 주사 · 모든 예산에서 동일",
+      "caveat": "THE PRICE of terrain-aware status-quo routing: it is not hazard-aware. A gentler detour is chosen for speed alone and 3 more origins' routes cross the predicted fire. Constant across every budget, because it has nothing to do with time. At 600 min the timing gain is zero, so the time objective is NET WORSE by 3.",
+      "forbidden_phrasings": [
+        "시간 기반이 항상 낫다",
+        "time-aware routing is strictly better"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/budget_sweep_experiment.json",
+            "json_path": "sweep"
+          }
+        },
+        "expr": "next(r['time_objective']['why']['enters_hazard'] - r['distance_objective']['why']['enters_hazard'] for r in a if r['budget_min'] == 600.0)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-01 from the hash-verified snapshot graph and SRTM raster with osmnx pinned to 2.0.7; scripts/run_budget_sweep_experiment.py regenerates it.",
         "blocked_by": null
       },
       "reproducible": true
