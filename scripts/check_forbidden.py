@@ -59,11 +59,11 @@ HARD: list[tuple[str, str, str]] = [
                         "GIVEN the burned area, not a from-scratch footprint"),
     ("138619",  "num",  "retired row count (canonical is 151,904)"),
     ("2731",    "num",  "retired positive count (canonical is 2,989)"),
-    ("Chen",    "word", "XGBoost citation — the canonical model is sklearn "
+    ("Chen",    "word", "XGBoost citation — the canonical model is sklearn "  # forbidden-ok: Chen, XGBoost
                         "HistGradientBoosting, not XGBoost"),
-    ("Guestrin", "word", "XGBoost citation — see Chen"),
-    ("multi-scale", "word", "the model is single-scale (one 375 m / 500 m grid)"),
-    ("Multi-scale", "word", "see multi-scale"),
+    ("Guestrin", "word", "XGBoost citation — see Chen"),  # forbidden-ok: Chen, Guestrin, XGBoost
+    ("multi-scale", "word", "the model is single-scale (one 375 m / 500 m grid)"),  # forbidden-ok: multi-scale
+    ("Multi-scale", "word", "see multi-scale"),  # forbidden-ok: multi-scale, Multi-scale
 ]
 
 #: token -> regex that, if present on the line, counts as an adequate label.
@@ -88,38 +88,43 @@ LABEL: list[tuple[str, str, str, str]] = [
      "(walk_failure_rate_pct)"),
 ]
 
-#: Generated numeric payloads. NUMERIC rules are skipped here — a polygon vertex
-#: that happens to read 0.8745 is a coordinate, not a claim, and 30 such
-#: coincidences per file bury the real findings. WORD rules still apply, because
-#: "XGBoost" or "multi-scale" in a payload IS a claim.
+#: ---------------------------------------------------------------------------
+#: SCOPE: which rules apply where. Documented in docs/forbidden_check_scope.md.
 #:
-#: This is a SCOPE rule, not an exemption: every skip is counted and printed on
-#: every run, so it can never quietly hide anything. It is deliberately not
-#: reachable from a pragma — files cannot exempt themselves.
-DATA_PAYLOADS = {
-    "demo/wildfire_demo.html",          # embeds demo_data.json as a JS payload
-}
+#: WORD rules (Chen, Guestrin, multi-scale, XGBoost) apply to EVERY tracked text  # forbidden-ok: Chen, Guestrin, multi-scale, XGBoost
+#: file. A misattributed model name is wrong wherever it appears, including in
+#: code comments — that is precisely where it gets copied from.
+#:
+#: RETIRED-NUMBER rules (452, 264, 0.834, 2731, ...) apply ONLY to authored
+#: prose, i.e. `.md` files, wherever they live — including data/**/*.md, because
+#: LEGACY_DO_NOT_CITE.md is an authored document that happens to sit next to the
+#: artifacts it describes.
+#:
+#: They do NOT apply to code or artifacts:
+#:   .py    `Sardoy (2008) Combust. Flame 154` is a citation; the XGBoost in
+#:          spread_v2_xgb/model.py is the superseded build's own source.
+#:   .json  `"n_origins": 452` is that run's own recorded value.
+#:   .html/.txt/.toml/.yaml  generated payloads and machine config.
+#:
+#: A retired number is misleading exactly when it reads as a CURRENT CLAIM, and
+#: claims live in prose. Records are evidence and must stay legible.
+#:
+#: Every skipped numeric match is counted and printed on every run, per file, so
+#: the scope can never quietly hide anything.
+def is_authored_prose(rel: str) -> bool:
+    """True for files whose numbers are claims rather than records."""
+    return rel.lower().endswith(".md")
 
-
-def is_data_payload(rel: str) -> bool:
-    """True for generated numeric evidence, as opposed to authored prose.
-
-    Every `.json` under `data/` is a pipeline OUTPUT: `"n_origins": 452` there is
-    that run's own value, not an unlabelled claim about another build. Prose
-    (`.md`, `.py`, `.html`, `.txt`) is where a bare number misleads, so numeric
-    rules stay fully in force there.
-
-    `docs/NUMBERS.json` is deliberately NOT covered — it is an authored registry
-    of claims, and the numeric rules must apply to it.
-    """
-    return rel in DATA_PAYLOADS or (rel.startswith("data/") and rel.endswith(".json"))
 
 SKIP_DIRS = {".git", ".venv", "venv", "node_modules", "__pycache__", ".pytest_cache",
              "data/snapshots"}
 SKIP_SUFFIXES = {".png", ".jpg", ".jpeg", ".gif", ".pdf", ".npz", ".gz", ".tif",
                  ".nc", ".graphml", ".ipynb", ".zip", ".csv"}
 
-PRAGMA = re.compile(r"(?:#|//|<!--)\s*forbidden-ok:\s*([^\n>-]*)")
+# NB: the token list must allow hyphens ("multi-scale"), so it is matched  # forbidden-ok: multi-scale
+# non-greedily up to a closing "-->" or end of line rather than with a
+# negated class that would swallow the hyphen.
+PRAGMA = re.compile(r"(?:#|//|<!--)\s*forbidden-ok:\s*(.*?)\s*(?:-->|$)")
 
 
 def pattern_for(token: str, kind: str) -> re.Pattern:
@@ -172,7 +177,7 @@ def scan(paths: list[Path]) -> tuple[list[dict], list[dict], int]:
         except (UnicodeDecodeError, OSError):
             continue
         rel = p.relative_to(REPO).as_posix()
-        is_payload = is_data_payload(rel)
+        num_rules_apply = is_authored_prose(rel)
         for i, line in enumerate(lines, 1):
             allowed = pragma_tokens(line)
             if i >= 2:
@@ -181,7 +186,7 @@ def scan(paths: list[Path]) -> tuple[list[dict], list[dict], int]:
             for token, rx, why, kind in hard_rules:
                 if not rx.search(line):
                     continue
-                if is_payload and kind == "num":
+                if kind != "word" and not num_rules_apply:
                     payload_skips[rel] = payload_skips.get(rel, 0) + 1
                     continue
                 if token in allowed:
@@ -193,7 +198,7 @@ def scan(paths: list[Path]) -> tuple[list[dict], list[dict], int]:
             for token, rx, lab, why, kind in label_rules:
                 if not rx.search(line):
                     continue
-                if is_payload and kind == "num":
+                if kind != "word" and not num_rules_apply:
                     payload_skips[rel] = payload_skips.get(rel, 0) + 1
                     continue
                 if token in allowed:
@@ -238,9 +243,13 @@ def main() -> int:
     hard, label, suppressed, payload_skips = scan(paths)
     print(f"scanned {len(paths)} tracked text files "
           f"({suppressed} pragma-suppressed occurrence(s))")
-    for f, n in sorted(payload_skips.items()):
-        print(f"  scope: skipped {n} NUMERIC match(es) in {f} "
-              "(generated numeric payload; word rules still applied)")
+    if payload_skips:
+        tot = sum(payload_skips.values())
+        print(f"  scope: {tot} retired-number match(es) skipped in "
+              f"{len(payload_skips)} non-prose file(s) — records, not claims "
+              "(docs/forbidden_check_scope.md). Word rules still applied:")
+        for f, n in sorted(payload_skips.items(), key=lambda kv: -kv[1]):
+            print(f"           {n:4d}  {f}")
     print()
     report(hard, "HARD violations")
     print()

@@ -99,11 +99,23 @@ Measured, OSM road-network bbox against each canvas:
 | fire-acquisition (committed, 181 × 147) | 25.56 km | 22.96 km | **20.40 km** | 33.73 km | OK |
 | `fire_manifest.json` after 2026-07-23 (125 × 119) | 27.09 km | 11.95 km | **4.87 km** | 16.74 km | **WARNS** |
 
-So the 2026-07-23 manifest change was not merely cosmetic: it cut the eastern
-clearance from 20.4 km to 4.87 km, below the 5 km threshold. On the committed
-canvas the check is silent; on the narrow one it fires. The committed 459-origin
-run independently records `n_nodes_outside_hazard_extent: 0`, consistent with the
-wide canvas.
+### The finding, stated plainly
+
+**The `fire_manifest.json` regeneration did not merely shrink the canvas — it cut
+the eastern routing clearance from 20.40 km to 4.87 km.** The envelope did not
+touch the boundary on either grid, so no result changed. But the configuration
+had already crossed below the 5 km threshold, and nothing said so.
+
+That is the whole point of both checks. A canvas that is *merely smaller* is
+harmless right up until it is not, and the transition is asymptomatic: no error,
+no warning, no visible difference in any reported number. The boundary-contact
+check and the clearance check exist to surface exactly this class of silent
+narrowing — before a fire that does reach the edge makes it visible as a wrong
+answer instead of a warning.
+
+On the committed canvas the clearance check is silent; on the narrow one it
+fires. The committed 459-origin run independently records
+`n_nodes_outside_hazard_extent: 0`, consistent with the wide canvas.
 
 ## Reporting rules
 
