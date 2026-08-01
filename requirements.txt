@@ -1,42 +1,72 @@
 # WildfireGuardian dependencies
-# Python >= 3.10 required.
+# =============================================================================
+# Python 3.11 required (3.11.15 is the verified reference; see docs/ENVIRONMENT.md).
+#
+# Versions below are PINNED to the `wfg311` conda-forge environment in which the
+# suite is green (395 passed, 1 skipped, 2026-08-01). Round 2 shipped a
+# requirements.txt that DECLARED networkx/osmnx/geopandas while the working
+# environment had none of them installed, so five real-OSM tests silently
+# skipped and three geospatial tests silently failed. Lower bounds hid that.
+# Exact pins make "declared but not installed" impossible to overlook.
+#
+# INSTALL VIA CONDA-FORGE, NOT PIP. geopandas/rasterio/osmnx need binary
+# GDAL/GEOS/PROJ that pip cannot resolve reliably. See docs/ENVIRONMENT.md.
+# This file is the authoritative version record; the conda command is the
+# authoritative install path.
+# =============================================================================
 
 # --- Scientific core ---
-numpy>=1.24
-scipy>=1.10
-pandas>=2.0
+numpy==2.4.6
+scipy==1.17.1
+pandas==3.0.5
 
-# --- Geospatial ---
-geopandas>=0.13
-rasterio>=1.3
-xarray>=2023.1
-shapely>=2.0
-pyproj>=3.5
+# --- Geospatial (needs binary GDAL/GEOS/PROJ -> conda-forge) ---
+geopandas==1.1.4
+rasterio==1.4.4
+xarray==2026.7.0
+shapely==2.1.2
+pyproj==3.7.2
 
 # --- Networks / routing ---
-networkx>=3.0
-osmnx>=1.6
+networkx==3.6.1
+# osmnx is PINNED to 2.0.7 deliberately: it is the version recorded in
+# `created_with` inside data/snapshots/osm-*.graphml. Reading those snapshots
+# with a different osmnx would add a second, invisible variable to any
+# before/after comparison. Do not float this pin without re-snapshotting.
+osmnx==2.0.7
 
-# --- Machine learning (canonical ignition probability = sklearn HistGradientBoosting) ---
-scikit-learn>=1.3
-# xgboost is required ONLY by the abandoned spread_v2_xgb (Build A) and the LFMC
-# scaffold, NOT by the canonical spread_v2 model. Intentionally not a core
-# dependency (see docs/REPORT_ROUND2_P1.md). Install via the `legacy` extra
-# (pip install -e ".[legacy]") only if you need to run the superseded build.
-# xgboost>=2.0
+# --- Machine learning ---
+# CANONICAL ignition probability = sklearn HistGradientBoostingClassifier
+# (src/wildfireguardian/spread_v2/model.py). This is the reported model.
+scikit-learn==1.9.0
 
 # --- Visualization ---
-matplotlib>=3.7
-folium>=0.14
-pillow>=10.0
+matplotlib==3.11.1
+pillow==12.3.0
+rich==15.0.0          # lazy imports inside the demo CLIs' main()
 
 # --- Configuration / I/O ---
-pydantic>=2.0
-python-dotenv>=1.0
-requests>=2.31
-tqdm>=4.65
-rich>=13.0
+# PyYAML reads config/default.yaml, the single source of truth for every
+# pipeline parameter (see src/wildfireguardian/config.py).
+PyYAML==6.0.3
 
 # --- Testing / dev ---
-pytest>=7.4
-jupyter>=1.0
+pytest==9.1.1
+
+# --- Optional extra: `legacy` (pip install -e ".[legacy]") ------------------
+# xgboost is required ONLY by the abandoned spread_v2_xgb (Build A) and the LFMC
+# scaffold, NOT by the canonical spread_v2 model. It is NOT a core dependency.
+# Note: tests/test_spread_v2_xgb.py::test_lofo_holds_out_whole_fire imports
+# xgboost WITHOUT a pytest.importorskip guard (unlike tests/test_lfmc_retrieval.py),
+# so it ERRORS rather than skips when the legacy extra is absent.
+# xgboost==3.2.0
+
+# --- Declared in Round 2 but imported nowhere in src/, scripts/ or tests/ ----
+# Removed rather than pinned, so this file states only what the project uses.
+# Restore a line here if and when something actually imports it.
+#   pydantic         (0 imports)
+#   python-dotenv    (0 imports)
+#   tqdm             (0 imports)
+#   jupyter          (0 imports; notebooks/ are run from the user's own Jupyter)
+#   folium           (0 imports)
+#   requests         (0 imports; HTTP goes through osmnx / cdsapi / rasterio vsicurl)

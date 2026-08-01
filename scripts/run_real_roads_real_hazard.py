@@ -34,6 +34,7 @@ import numpy as np
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "src"))
 
+from wildfireguardian.config import config_hash, get as _cfg  # noqa: E402
 from wildfireguardian.spread_v2.grid import CoarseGrid  # noqa: E402
 from wildfireguardian.routing.hazard import HazardSequence  # noqa: E402
 from wildfireguardian.routing.rescue import (  # noqa: E402
@@ -45,16 +46,21 @@ from pyproj import Transformer  # noqa: E402
 
 _TO_5179 = Transformer.from_crs("EPSG:4326", "EPSG:5179", always_xy=True)
 KNOWN_ORIGIN = (1153094.95, 1832745.46)   # a known routing origin, for the hazard sanity check
-REAL_OSM_SCAN_STRIDE = 18                 # matches rescue_demo.REAL_OSM_SCAN_STRIDE
+# Sourced from config/default.yaml (PHASE 1-A); literal fallback = Round-2 value.
+REAL_OSM_SCAN_STRIDE = int(_cfg("origin_scan.real_osm_stride", 18))  # == rescue_demo's stride
 
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--npz", default=str(REPO / "data" / "processed" / "routing_demo.npz"))
-    ap.add_argument("--p-cut", type=float, default=0.5)
-    ap.add_argument("--time-budget-min", type=float, default=600.0)
-    ap.add_argument("--time-step-min", type=float, default=10.0)
-    ap.add_argument("--osm-cache-dir", default=str(REPO / "data" / "cache" / "osm"))
+    ap.add_argument("--npz", default=str(REPO / _cfg("paths.hazard_npz",
+                                                     "data/processed/routing_demo.npz")))
+    ap.add_argument("--p-cut", type=float, default=_cfg("pedestrian.walk_cutoff_p", 0.5))
+    ap.add_argument("--time-budget-min", type=float,
+                    default=_cfg("pedestrian.walk_budget_min", 600.0))
+    ap.add_argument("--time-step-min", type=float,
+                    default=_cfg("time.routing_time_step_min", 10.0))
+    ap.add_argument("--osm-cache-dir",
+                    default=str(REPO / _cfg("paths.osm_cache_dir", "data/cache/osm")))
     ap.add_argument("--out", default=str(REPO / "data" / "processed" / "real_roads_real_hazard.json"))
     args = ap.parse_args()
 
@@ -196,6 +202,7 @@ def main() -> int:
             "known_origin_prob_at_t0": p_known,
         },
         "git_head": head,
+        "config_hash": config_hash(),
         "provenance": {
             "roads_real": True, "hazard_real": True,
             "statement": "BOTH road topology AND fire-hazard surface are REAL. Roads/refuges "

@@ -1,0 +1,272 @@
+# WildfireGuardian — canonical parameter registry
+# =============================================================================
+# Round-3 infrastructure (PHASE 1-A).
+#
+# PURPOSE
+#   Every tunable that previously lived as a literal inside scripts/ or src/ is
+#   collected here so a run can be described by one hash instead of by reading
+#   nine files.
+#
+# NON-NEGOTIABLE INVARIANT
+#   The values in this file are BIT-IDENTICAL to the Round-2 submission
+#   (tag `round2-submitted` = 4e9dfe3). This file MOVES parameters; it does not
+#   CHANGE them. `scripts/verify_numbers.py` enforces that every value here
+#   still equals the literal it was lifted from.
+#
+#   If you change a value here, the config_hash changes, and every number in
+#   docs/NUMBERS.json that carries the old hash is thereby marked stale.
+#   That is the point.
+#
+# LAYER DUPLICATES ARE PRESERVED, NOT UNIFIED
+#   Round 2 had the same conceptual parameter living at two different values in
+#   two different pipeline layers (e.g. the hazard grid is 375 m in the rescue
+#   pipeline and 500 m in the routing-integration pipeline). Silently unifying
+#   them would change results. They are recorded here side by side with an
+#   explicit `# DUPLICATE:` marker so the divergence is visible instead of
+#   buried. Resolving them is a separate, deliberate decision.
+#
+# PROVENANCE TAGS used in comments below:
+#   [src: path:line]  the literal this value was lifted from
+#   ASSUMED           literature / PoC constant, not measured
+#   SYNTHETIC         labelled stand-in, not real data
+#   OBSERVED          measured from a committed artifact
+# =============================================================================
+
+schema_version: 1
+config_id: default
+description: >-
+  Round-2 submitted parameter set for the Yeongdeok 2025 held-out fire.
+  Frozen reference; do not edit except through a deliberate, reported change.
+
+# -----------------------------------------------------------------------------
+# Project / geography
+# -----------------------------------------------------------------------------
+project:
+  region_name: yeongdeok_2025      # [src: rescue.py RescueConfig.region_name]
+  crs: "EPSG:5179"                 # [src: rescue.py RescueConfig.crs] Korea 2000 / Unified TM
+
+# -----------------------------------------------------------------------------
+# Seeds — THREE distinct seeds exist in the tree. All three are recorded.
+# -----------------------------------------------------------------------------
+seeds:
+  # Canonical Build-B seed. Governs spread_v2 (the reported model) AND the
+  # rescue pipeline. This is the seed printed in spread_v2_lofo.json.
+  canonical: 20250603              # [src: spread_v2/model.py:36 DEFAULT_SEED]
+                                   # [src: rescue.py RescueConfig.seed]
+                                   # [src: scripts/calibration_metrics.py:43 CANONICAL_SEED]
+
+  # DUPLICATE: superseded Build-A (spread_v2_xgb) seed. Retained ONLY so the
+  # legacy artifact data/processed/spread_v2/lofo_metrics.json stays
+  # reproducible. Not used by any reported number.
+  legacy_build_a: 42               # [src: spread_v2_xgb/__init__.py:14 SEED]
+
+  # Diagnostic-only seed; touches no reported number.
+  diagnostics: 12345               # [src: scripts/diagnose_spread_warmup.py:39 SEED]
+
+# -----------------------------------------------------------------------------
+# Bounding boxes — DELIBERATELY SEPARATED (they are genuinely different extents)
+# -----------------------------------------------------------------------------
+bbox:
+  # (1) FIRE ACQUISITION extent — the download window for ERA5 weather and ESA
+  #     WorldCover fuel. Larger than the routing extent so edge cells have
+  #     complete neighbourhoods.
+  fire_acquisition:
+    wgs84_wsen: [128.97, 36.10, 129.77, 36.90]   # [src: scripts/get_fuel.py:15 W,S,E,N]
+    # CDS/ERA5 uses [North, West, South, East] — same box, different ordering.
+    era5_area_nwse: [36.90, 128.97, 36.10, 129.77]  # [src: scripts/get_era5.py:20]
+
+  # (2) ROAD / WALK NETWORK extent — the OSMnx query window and the routing
+  #     extent. A STRICT SUBSET of the acquisition box above.
+  #     Authoritative definition lives in utils/regions.py; verify_numbers.py
+  #     asserts this copy still matches regions.lookup(region_name).bbox_wgs84.
+  road_network:
+    wgs84_wsen: [129.25, 36.30, 129.55, 36.60]   # [src: utils/regions.py:263 YEONGDEOK_2025]
+    source_of_truth: "wildfireguardian.utils.regions.lookup('yeongdeok_2025').bbox_wgs84"
+
+# -----------------------------------------------------------------------------
+# Grid resolution
+# -----------------------------------------------------------------------------
+grid:
+  # Rescue pipeline (run_rescue_routing.py -> the 439-origin run).
+  hazard_cell_m: 375.0             # [src: rescue.py RescueConfig.hazard_cell_m]
+  route_cell_m: 750.0              # [src: rescue.py RescueConfig.route_cell_m]
+
+  # DUPLICATE: routing-integration pipeline (run_routing_integration.py -> the
+  # 407-origin run) uses a 500 m hazard grid, NOT 375 m. Different value, same
+  # concept. Preserved verbatim — unifying would change the 407 run.
+  routing_integration_hazard_cell_m: 500.0   # [src: run_routing_integration.py:78]
+  routing_integration_route_cell_m: 750.0    # [src: run_routing_integration.py:79]
+
+  # Library defaults behind the two grid modules.
+  spread_v2_default_cell_m: 500.0  # [src: spread_v2/grid.py:30 DEFAULT_CELL_M]
+  spread_v2_xgb_cell_m: 375.0      # [src: spread_v2_xgb/grid.py:36 CELL_SIZE_M] (legacy Build A)
+
+  feature_buffer_m: 6000.0         # [src: run_routing_integration.py:106]
+
+  # ---------------------------------------------------------------------------
+  # Simulation canvas — EXPLICIT, because leaving it implicit already cost us a
+  # result.
+  #
+  # The forward simulation used to take its extent from `ev.meta.bbox_wgs84`,
+  # i.e. whatever bbox happened to be sitting in data/raw/firms_data/
+  # fire_manifest.json — a git-ignored file. That file was regenerated on
+  # 2026-07-23 15:21 with a tighter, detection-derived bbox, and the committed
+  # data/processed/routing_demo.npz (2026-07-20, sha256 5bed5026…) stopped
+  # reproducing: grid 181x147 became 125x119.
+  #
+  # No science changed — the predicted envelope never touched either grid's
+  # boundary, so the two runs differ only in canvas size (docs/grid_extent.md).
+  # But the pipeline had no way to SAY that, and a silent canvas change is a
+  # silent failure. So the canvas is now a stated parameter, and
+  # `boundary_check` below turns clipping into a loud error.
+  #
+  # Default = bbox.fire_acquisition. That is a CHOICE, not a law: it is the
+  # extent for which ERA5 weather and WorldCover fuel were actually downloaded,
+  # so it is the largest canvas on which every input layer is real.
+  simulation_bbox: fire_acquisition   # key into `bbox:` above, or an explicit
+                                      # [W, S, E, N] list to override
+
+  boundary_check:
+    # Raise if the forward-simulated envelope reaches the outermost grid cells.
+    # A clipped fire silently under-reports area, breadth and drift.
+    enabled: true
+    # Probability at/above which a boundary cell counts as "reached".
+    p_threshold: 0.3
+    # How many cells deep the boundary ring is.
+    margin_cells: 1
+    # The routing extent must sit at least this far inside the simulation grid,
+    # otherwise routes can leave the hazard field and get clipped to p=0.
+    # NOTE: at the current settings the eastern clearance is ~4.5 km, so this
+    # check WARNS. That is the intended behaviour, not a misconfiguration —
+    # see docs/grid_extent.md.
+    routing_clearance_km: 5.0
+
+# -----------------------------------------------------------------------------
+# Time resolution
+# -----------------------------------------------------------------------------
+time:
+  # Time-expanded routing graph discretisation.
+  routing_time_step_min: 10.0      # [src: rescue.py RescueConfig.time_step_min]
+                                   # [src: run_routing_integration.py:89]
+                                   # [src: run_real_roads_real_hazard.py:56]
+
+  # Forward simulation horizon: 4 steps x 3 h => 5 snapshots at t = 0..720 min.
+  forward_sim_n_steps: 4           # [src: run_routing_integration.py:84]
+  forward_sim_step_hours: 3.0      # [src: run_routing_integration.py:85]
+  forward_sim_advance_threshold: 0.3   # [src: run_routing_integration.py:86]
+
+  # OBSERVED in data/processed/routing_demo.npz (haz_times). The real-roads run
+  # inherits this coarse 180-min cadence; the synthetic rescue hazard is 15 min.
+  npz_hazard_slices_min: [0, 180, 360, 540, 720]        # OBSERVED
+  synthetic_rescue_hazard_step_min: 15                  # SYNTHETIC
+
+# -----------------------------------------------------------------------------
+# Pedestrian (rural-elderly evacuee) model
+# -----------------------------------------------------------------------------
+pedestrian:
+  elderly_flat_speed_ms: 0.7       # ASSUMED [src: evacuation.py:44 ELDERLY_FLAT_SPEED_MS]
+  min_speed_ms: 0.15               # [src: evacuation.py:46 _MIN_SPEED_MS]
+
+  # Tobler (1993) hiking function w = 6 exp(-3.5 |S + 0.05|) km/h, rescaled so
+  # the flat speed equals elderly_flat_speed_ms. PHASE 2 reuses this unchanged.
+  tobler_base_kmh: 6.0             # [src: evacuation.py:59]
+  tobler_slope_coeff: 3.5          # [src: evacuation.py:59]
+  tobler_slope_offset: 0.05        # [src: evacuation.py:59]
+
+  # p_cut: ignition probability at/above which a location is impassable on foot.
+  walk_cutoff_p: 0.5               # ASSUMED [src: rescue.py:62 DEFAULT_WALK_CUTOFF]
+                                   # [src: run_routing_integration.py:87 --p-cut]
+                                   # [src: run_real_roads_real_hazard.py:54 --p-cut]
+
+  # Walk budget: how long a slow evacuee may spend before the route is a failure.
+  walk_budget_min: 600.0           # ASSUMED [src: rescue.py RescueConfig.resident_time_budget_min]
+                                   # [src: run_routing_integration.py:88 --time-budget-min]
+                                   # [src: run_real_roads_real_hazard.py:55 --time-budget-min]
+
+# -----------------------------------------------------------------------------
+# Responder (rescue vehicle) model
+# -----------------------------------------------------------------------------
+responder:
+  vehicle_speed_kmh: 40.0          # ASSUMED [src: rescue.py:57 DEFAULT_VEHICLE_SPEED_KMH]
+  vehicle_cutoff_p: 0.7            # ASSUMED [src: rescue.py:66 DEFAULT_VEHICLE_CUTOFF]
+
+  # 출동 지연 — detection + mobilisation lag before the vehicle starts moving.
+  dispatch_delay_min: 30.0         # ASSUMED [src: rescue.py RescueConfig.responder_dispatch_delay_min]
+  safety_margin_min: 12.0          # ASSUMED [src: rescue.py RescueConfig.responder_safety_margin_min]
+  time_budget_min: 75.0            # ASSUMED [src: rescue.py RescueConfig.responder_time_budget_min]
+  ingress_sample_spacing_m: 150.0  # [src: rescue.py RescueConfig.ingress_sample_spacing_m]
+                                   # chosen < hazard_cell_m so no cell is skipped
+
+  # 부대 수 — depot (119안전센터 proxy) count.
+  n_depots_synthetic: 2            # SYNTHETIC [src: rescue.py RescueConfig.n_synthetic_depots]
+  n_depots_osm_observed: 4         # OBSERVED  data/cache/osm/depots.geojson feature count
+
+# -----------------------------------------------------------------------------
+# Population assumptions
+# -----------------------------------------------------------------------------
+population:
+  # f — fraction of residents who cannot self-evacuate on foot at all.
+  # The single most load-bearing assumption in the rescue results; the fc sweep
+  # exists precisely to show what depends on it.
+  immobile_fraction: 0.3           # ASSUMED [src: rescue.py RescueConfig.immobile_fraction]
+  immobile_fraction_sweep: [0.15, 0.3, 0.45]   # [src: data/processed/rescue_verify_fc.json grid]
+  walk_cutoff_sweep: [0.4, 0.5, 0.6]           # [src: data/processed/rescue_verify_fc.json grid]
+
+# -----------------------------------------------------------------------------
+# Origin scan strides — these set N for each run and are NOT interchangeable
+# -----------------------------------------------------------------------------
+origin_scan:
+  rescue_stride: 3                 # [src: rescue.py RescueConfig.scan_stride]   -> N = 439
+  routing_integration_stride: 4    # [src: run_routing_integration.py:90]        -> N = 407
+  real_osm_stride: 18              # [src: run_real_roads_real_hazard.py:48]     -> N = 459
+  sweep_max_origins: 200           # [src: rescue.py RescueConfig.sweep_max_origins]
+
+# -----------------------------------------------------------------------------
+# Synthetic hazard envelope — used ONLY when no real forward-sim field is present
+# -----------------------------------------------------------------------------
+synthetic_hazard:
+  n_shelters: 12                   # SYNTHETIC [src: rescue.py RescueConfig.n_synthetic_shelters]
+  n_inland_shelters: 8             # SYNTHETIC [src: rescue.py RescueConfig.n_synthetic_inland_shelters]
+  ignition_frac: [0.46, 0.5]       # SYNTHETIC [src: rescue.py RescueConfig.syn_ignition_frac]
+  base_reach_m: 2200.0             # SYNTHETIC [src: rescue.py RescueConfig.syn_fire_base_reach_m]
+  reach_rate_m_per_min: 52.0       # SYNTHETIC [src: rescue.py RescueConfig.syn_fire_reach_rate_m_per_min]
+  edge_width_m: 1100.0             # SYNTHETIC [src: rescue.py RescueConfig.syn_fire_edge_width_m]
+  inland_flank_radius_m: 5000.0    # SYNTHETIC [src: rescue.py RescueConfig.syn_inland_flank_radius_m]
+
+# -----------------------------------------------------------------------------
+# Ignition model — CANONICAL is sklearn HistGradientBoosting (Build B).
+# The xgboost path (Build A) is SUPERSEDED and must never be reported.
+# -----------------------------------------------------------------------------
+model:
+  canonical:
+    family: sklearn.ensemble.HistGradientBoostingClassifier
+    loss: log_loss
+    learning_rate: 0.08            # [src: spread_v2/model.py:52]
+    max_iter: 300                  # [src: spread_v2/model.py:53]
+    max_leaf_nodes: 31             # [src: spread_v2/model.py:54]
+    min_samples_leaf: 40           # [src: spread_v2/model.py:55]
+    l2_regularization: 1.0         # [src: spread_v2/model.py:56]
+    early_stopping: true           # [src: spread_v2/model.py:57]
+    validation_fraction: 0.15      # [src: spread_v2/model.py:58]
+    class_weight: null             # deliberately NOT "balanced" — calibration over balance
+    n_features: 16                 # [src: spread_v2/features.py:40 FEATURE_COLUMNS]
+
+  # DUPLICATE / SUPERSEDED. Present for legacy reproducibility only.
+  legacy_build_a_xgb:
+    status: SUPERSEDED_DO_NOT_REPORT
+    n_estimators: 400              # [src: spread_v2_xgb/model.py:33]
+    learning_rate: 0.05            # [src: spread_v2_xgb/model.py:34]
+    max_depth: 4                   # [src: spread_v2_xgb/model.py:35]
+    subsample: 0.8                 # [src: spread_v2_xgb/model.py:37]
+    colsample_bytree: 0.8          # [src: spread_v2_xgb/model.py:38]
+    candidate_radius_m: 2000.0     # [src: spread_v2_xgb/candidates.py:32]
+
+# -----------------------------------------------------------------------------
+# Paths (repo-relative)
+# -----------------------------------------------------------------------------
+paths:
+  osm_cache_dir: data/cache/osm    # [src: rescue.py RescueConfig.osm_cache_dir]
+  snapshots_dir: data/snapshots
+  processed_dir: data/processed
+  hazard_npz: data/processed/routing_demo.npz
+  numbers_registry: docs/NUMBERS.json

@@ -47,6 +47,7 @@ from dataclasses import asdict, dataclass, field
 import networkx as nx
 import numpy as np
 
+from ..config import get as _cfg
 from ..spread_v2.grid import CoarseGrid
 from .evacuation import (
     ELDERLY_FLAT_SPEED_MS,
@@ -57,13 +58,17 @@ from .evacuation import (
 from .future_front import RoadNetwork
 from .hazard import HazardSequence
 
+# Every default below is read from config/default.yaml (PHASE 1-A) with the
+# historical Round-2 literal as an explicit fallback. Moving the values, not
+# changing them: scripts/verify_numbers.py asserts config == these literals.
+
 #: Default responder vehicle speed (km/h) on rural East-Coast roads. ASSUMED.
-DEFAULT_VEHICLE_SPEED_KMH: float = 40.0
+DEFAULT_VEHICLE_SPEED_KMH: float = float(_cfg("responder.vehicle_speed_kmh", 40.0))
 #: Pedestrian (elderly) impassable cutoff — reuse the routing default.
-DEFAULT_WALK_CUTOFF: float = 0.5
+DEFAULT_WALK_CUTOFF: float = float(_cfg("pedestrian.walk_cutoff_p", 0.5))
 #: SEPARATE, higher vehicle-impassable cutoff: a responder vehicle moves fast and
 #: may accept more risk than a walking elder. ASSUMED; exposed via config.
-DEFAULT_VEHICLE_CUTOFF: float = 0.7
+DEFAULT_VEHICLE_CUTOFF: float = float(_cfg("responder.vehicle_cutoff_p", 0.7))
 
 
 # ---------------------------------------------------------------------------
@@ -81,10 +86,10 @@ class RescueConfig:
     """
 
     # -- geography / grids -------------------------------------------------
-    region_name: str = "yeongdeok_2025"        # key into utils.regions.ALL_REGIONS
-    crs: str = "EPSG:5179"
-    hazard_cell_m: float = 375.0               # 375 m hazard grid for 영덕 (per brief)
-    route_cell_m: float = 750.0               # walk/drive lattice spacing (synthetic net)
+    region_name: str = _cfg("project.region_name", "yeongdeok_2025")  # key into utils.regions
+    crs: str = _cfg("project.crs", "EPSG:5179")
+    hazard_cell_m: float = float(_cfg("grid.hazard_cell_m", 375.0))   # 375 m hazard grid (per brief)
+    route_cell_m: float = float(_cfg("grid.route_cell_m", 750.0))     # walk/drive lattice spacing
 
     # -- speeds (ASSUMED, literature defaults) -----------------------------
     elderly_walk_speed_ms: float = ELDERLY_FLAT_SPEED_MS   # 0.7 m/s, Tobler-scaled
@@ -98,40 +103,43 @@ class RescueConfig:
     # ETA = dispatch delay (detection + mobilisation) + drive travel time. A
     # delayed responder is a documented cause of death for the immobile, so this
     # delay is first-class, not cosmetic.
-    responder_dispatch_delay_min: float = 30.0  # ASSUMED detection + mobilisation lag
-    responder_safety_margin_min: float = 12.0   # ASSUMED margin before corridor cut
-    responder_time_budget_min: float = 75.0     # ASSUMED dispatch budget (depot->home)
-    resident_time_budget_min: float = 600.0     # reuse routing default (slow elder)
+    responder_dispatch_delay_min: float = float(_cfg("responder.dispatch_delay_min", 30.0))
+    responder_safety_margin_min: float = float(_cfg("responder.safety_margin_min", 12.0))
+    responder_time_budget_min: float = float(_cfg("responder.time_budget_min", 75.0))
+    resident_time_budget_min: float = float(_cfg("pedestrian.walk_budget_min", 600.0))
 
     # -- corridor sampling / time discretisation ---------------------------
-    ingress_sample_spacing_m: float = 150.0     # < hazard cell so no cell is skipped
-    time_step_min: float = 10.0
+    ingress_sample_spacing_m: float = float(_cfg("responder.ingress_sample_spacing_m", 150.0))
+    time_step_min: float = float(_cfg("time.routing_time_step_min", 10.0))
 
     # -- immobile residents (the "send the rescuer" population) ------------
-    immobile_fraction: float = 0.3              # ASSUMED fraction that cannot self-evac
+    immobile_fraction: float = float(_cfg("population.immobile_fraction", 0.3))
 
     # -- synthetic fallback knobs (ALL SYNTHETIC, tagged) ------------------
-    n_synthetic_shelters: int = 12              # SYNTHETIC coastal refuge count
-    n_synthetic_inland_shelters: int = 8        # SYNTHETIC inland open-space refuges
-    n_synthetic_depots: int = 2                 # SYNTHETIC fire-station count
-    scan_stride: int = 3                        # sub-sample stride for the origin scan
-    sweep_max_origins: int = 200                # cap origins in the sensitivity sweep
+    n_synthetic_shelters: int = int(_cfg("synthetic_hazard.n_shelters", 12))
+    n_synthetic_inland_shelters: int = int(_cfg("synthetic_hazard.n_inland_shelters", 8))
+    n_synthetic_depots: int = int(_cfg("responder.n_depots_synthetic", 2))
+    scan_stride: int = int(_cfg("origin_scan.rescue_stride", 3))
+    sweep_max_origins: int = int(_cfg("origin_scan.sweep_max_origins", 200))
 
     # -- synthetic hazard envelope (SYNTHETIC; tunable, no FIRMS present) ---
-    syn_ignition_frac: tuple[float, float] = (0.46, 0.5)   # (E-W, N-S) of extent
-    syn_fire_base_reach_m: float = 2200.0       # reach radius at t0 (early footprint)
-    syn_fire_reach_rate_m_per_min: float = 52.0  # ~3 km/h sustained broad growth
-    syn_fire_edge_width_m: float = 1100.0       # probabilistic edge transition width
-    syn_inland_flank_radius_m: float = 5000.0   # ring radius for inland flank refuges
+    syn_ignition_frac: tuple[float, float] = tuple(  # type: ignore[assignment]
+        _cfg("synthetic_hazard.ignition_frac", (0.46, 0.5)))     # (E-W, N-S) of extent
+    syn_fire_base_reach_m: float = float(_cfg("synthetic_hazard.base_reach_m", 2200.0))
+    syn_fire_reach_rate_m_per_min: float = float(
+        _cfg("synthetic_hazard.reach_rate_m_per_min", 52.0))     # ~3 km/h sustained growth
+    syn_fire_edge_width_m: float = float(_cfg("synthetic_hazard.edge_width_m", 1100.0))
+    syn_inland_flank_radius_m: float = float(
+        _cfg("synthetic_hazard.inland_flank_radius_m", 5000.0))
 
     # -- real-source data (optional; loaders fall back to synthetic) -------
     shelters_path: str | None = None            # 공공데이터포털 대피소 GeoJSON/CSV
     depots_path: str | None = None              # 119안전센터 / OSM fire_station file
-    osm_cache_dir: str = "data/cache/osm"
+    osm_cache_dir: str = _cfg("paths.osm_cache_dir", "data/cache/osm")
     use_osm: bool = False                       # try OSMnx download (needs network)
 
     # -- determinism -------------------------------------------------------
-    seed: int = 20250603
+    seed: int = int(_cfg("seeds.canonical", 20250603))
 
     @property
     def vehicle_speed_ms(self) -> float:

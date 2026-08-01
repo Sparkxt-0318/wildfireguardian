@@ -1,0 +1,185 @@
+{
+  "generated": "2026-06-02T14:18:06.563889",
+  "worldcover_burnable_map": {
+    "10": 1,
+    "20": 1,
+    "30": 1,
+    "40": 1,
+    "50": 0,
+    "60": 0,
+    "70": 0,
+    "80": 0,
+    "90": 1,
+    "95": 1,
+    "100": 1
+  },
+  "layers": [
+    {
+      "id": "yeongdeok_2025",
+      "bbox": [
+        128.95,
+        36.2,
+        129.6,
+        36.75
+      ],
+      "dem": "yeongdeok_2025_dem.tif",
+      "dem_shape": [
+        1980,
+        2340
+      ],
+      "fuel": "yeongdeok_2025_fuel.tif",
+      "fuel_shape": [
+        6600,
+        7800
+      ],
+      "burnable_frac": 0.701,
+      "era5": "yeongdeok_2025_era5.nc"
+    },
+    {
+      "id": "uiseong_andong_2025",
+      "bbox": [
+        128.4,
+        36.2,
+        129.1,
+        36.75
+      ],
+      "dem": "uiseong_andong_2025_dem.tif",
+      "dem_shape": [
+        1980,
+        2520
+      ],
+      "fuel": "uiseong_andong_2025_fuel.tif",
+      "fuel_shape": [
+        6600,
+        8400
+      ],
+      "burnable_frac": 0.946,
+      "era5": "uiseong_andong_2025_era5.nc"
+    },
+    {
+      "id": "uljin_samcheok_2022",
+      "bbox": [
+        129.1,
+        36.85,
+        129.6,
+        37.45
+      ],
+      "dem": "uljin_samcheok_2022_dem.tif",
+      "dem_shape": [
+        2160,
+        1800
+      ],
+      "fuel": "uljin_samcheok_2022_fuel.tif",
+      "fuel_shape": [
+        7200,
+        6000
+      ],
+      "burnable_frac": 0.482,
+      "era5": "uljin_samcheok_2022_era5.nc"
+    },
+    {
+      "id": "gangneung_donghae_2022",
+      "bbox": [
+        128.75,
+        37.4,
+        129.15,
+        37.85
+      ],
+      "dem": "gangneung_donghae_2022_dem.tif",
+      "dem_shape": [
+        1620,
+        1440
+      ],
+      "fuel": "gangneung_donghae_2022_fuel.tif",
+      "fuel_shape": [
+        5400,
+        4800
+      ],
+      "burnable_frac": 0.708
+    },
+    {
+      "id": "goseong_2019",
+      "bbox": [
+        128.35,
+        38.15,
+        128.75,
+        38.55
+      ],
+      "dem": "goseong_2019_dem.tif",
+      "dem_shape": [
+        1440,
+        1440
+      ],
+      "fuel": "goseong_2019_fuel.tif",
+      "fuel_shape": [
+        4800,
+        4800
+      ],
+      "burnable_frac": 0.381,
+      "era5": "goseong_2019_era5.nc"
+    },
+    {
+      "id": "gangneung_2023",
+      "bbox": [
+        128.75,
+        37.7,
+        129.05,
+        37.95
+      ],
+      "dem": "gangneung_2023_dem.tif",
+      "dem_shape": [
+        900,
+        1080
+      ],
+      "fuel": "gangneung_2023_fuel.tif",
+      "fuel_shape": [
+        3000,
+        3000
+      ],
+      "burnable_frac": 0.495,
+      "era5": "gangneung_2023_era5.nc"
+    },
+    {
+      "id": "hongseong_2023",
+      "bbox": [
+        126.45,
+        36.5,
+        126.85,
+        36.9
+      ],
+      "dem": "hongseong_2023_dem.tif",
+      "dem_shape": [
+        1440,
+        1440
+      ],
+      "fuel": "hongseong_2023_fuel.tif",
+      "fuel_shape": [
+        4800,
+        4800
+      ],
+      "burnable_frac": 0.858,
+      "era5": "hongseong_2023_era5.nc"
+    },
+    {
+      "id": "miryang_2022",
+      "bbox": [
+        128.65,
+        35.4,
+        129.05,
+        35.75
+      ],
+      "dem": "miryang_2022_dem.tif",
+      "dem_shape": [
+        1260,
+        1440
+      ],
+      "fuel": "miryang_2022_fuel.tif",
+      "fuel_shape": [
+        4200,
+        4200
+      ],
+      "burnable_frac": 0.939,
+      "era5": "miryang_2022_era5.nc"
+    }
+  ]
+}

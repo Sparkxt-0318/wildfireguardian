@@ -1,0 +1,198 @@
+{
+  "generated": "2026-05-30T07:01:08.676783",
+  "n_fires": 8,
+  "fires": [
+    {
+      "id": "yeongdeok_2025",
+      "name": "2025 \uc601\ub0a8(\uc601\ub355) \uc0b0\ubd88",
+      "bbox": [
+        128.95,
+        36.2,
+        129.6,
+        36.75
+      ],
+      "start": "2025-03-22",
+      "end": "2025-03-28",
+      "ignition": [
+        129.05,
+        36.43
+      ],
+      "reported_ha": 3800,
+      "notes": "Primary validation case. Avg victim age 84.",
+      "n_detections": 2290,
+      "first_detection": "2025-03-25T12:25:00+00:00",
+      "last_detection": "2025-03-27T04:28:00+00:00",
+      "distinct_overpass_hours": 10,
+      "csv": "yeongdeok_2025_detections.csv",
+      "geojson": "yeongdeok_2025_detections.geojson"
+    },
+    {
+      "id": "uiseong_andong_2025",
+      "name": "2025 \uc758\uc131-\uc548\ub3d9 \uc0b0\ubd88",
+      "bbox": [
+        128.4,
+        36.2,
+        129.1,
+        36.75
+      ],
+      "start": "2025-03-22",
+      "end": "2025-03-28",
+      "ignition": [
+        128.7,
+        36.35
+      ],
+      "reported_ha": 45000,
+      "notes": "Same March 2025 event cluster, inland spread (very large).",
+      "n_detections": 4021,
+      "first_detection": "2025-03-22T04:22:00+00:00",
+      "last_detection": "2025-03-28T16:53:00+00:00",
+      "distinct_overpass_hours": 32,
+      "csv": "uiseong_andong_2025_detections.csv",
+      "geojson": "uiseong_andong_2025_detections.geojson"
+    },
+    {
+      "id": "uljin_samcheok_2022",
+      "name": "2022 \uc6b8\uc9c4-\uc0bc\ucc99 \uc0b0\ubd88",
+      "bbox": [
+        129.1,
+        36.85,
+        129.6,
+        37.45
+      ],
+      "start": "2022-03-04",
+      "end": "2022-03-14",
+      "ignition": [
+        129.32,
+        36.96
+      ],
+      "reported_ha": 16302,
+      "notes": "Longest-burning KR fire (213h). Ignition \uc6b8\uc9c4\uad70 \ubd81\uba74 \ub450\ucc9c\ub9ac.",
+      "n_detections": 2372,
+      "first_detection": "2022-03-04T03:19:00+00:00",
+      "last_detection": "2022-03-14T17:32:00+00:00",
+      "distinct_overpass_hours": 55,
+      "csv": "uljin_samcheok_2022_detections.csv",
+      "geojson": "uljin_samcheok_2022_detections.geojson"
+    },
+    {
+      "id": "gangneung_donghae_2022",
+      "name": "2022 \uac15\ub989-\ub3d9\ud574 \uc0b0\ubd88",
+      "bbox": [
+        128.75,
+        37.4,
+        129.15,
+        37.85
+      ],
+      "start": "2022-03-04",
+      "end": "2022-03-09",
+      "ignition": [
+        128.87,
+        37.66
+      ],
+      "reported_ha": 4000,
+      "notes": "Same March 2022 east-coast outbreak, northern cluster.",
+      "n_detections": 637,
+      "first_detection": "2022-03-04T04:09:00+00:00",
+      "last_detection": "2022-03-09T17:26:00+00:00",
+      "distinct_overpass_hours": 29,
+      "csv": "gangneung_donghae_2022_detections.csv",
+      "geojson": "gangneung_donghae_2022_detections.geojson"
+    },
+    {
+      "id": "goseong_2019",
+      "name": "2019 \uace0\uc131-\uc18d\ucd08 \uc0b0\ubd88",
+      "bbox": [
+        128.35,
+        38.15,
+        128.75,
+        38.55
+      ],
+      "start": "2019-04-04",
+      "end": "2019-04-07",
+      "ignition": [
+        128.46,
+        38.3
+      ],
+      "reported_ha": 700,
+      "notes": "Power-line ignition, urban interface deaths.",
+      "n_detections": 114,
+      "first_detection": "2019-04-04T16:48:00+00:00",
+      "last_detection": "2019-04-04T18:28:00+00:00",
+      "distinct_overpass_hours": 3,
+      "csv": "goseong_2019_detections.csv",
+      "geojson": "goseong_2019_detections.geojson"
+    },
+    {
+      "id": "gangneung_2023",
+      "name": "2023 \uac15\ub989(\uacbd\ud3ec) \uc0b0\ubd88",
+      "bbox": [
+        128.75,
+        37.7,
+        129.05,
+        37.95
+      ],
+      "start": "2023-04-11",
+      "end": "2023-04-13",
+      "ignition": [
+        128.87,
+        37.8
+      ],
+      "reported_ha": 530,
+      "notes": "April 2023 urban-adjacent fire, fast wind-driven.",
+      "n_detections": 17,
+      "first_detection": "2023-04-11T01:53:00+00:00",
+      "last_detection": "2023-04-11T04:04:00+00:00",
+      "distinct_overpass_hours": 2,
+      "csv": "gangneung_2023_detections.csv",
+      "geojson": "gangneung_2023_detections.geojson"
+    },
+    {
+      "id": "hongseong_2023",
+      "name": "2023 \ud64d\uc131 \uc0b0\ubd88",
+      "bbox": [
+        126.45,
+        36.5,
+        126.85,
+        36.9
+      ],
+      "start": "2023-04-02",
+      "end": "2023-04-05",
+      "ignition": [
+        126.6,
+        36.65
+      ],
+      "reported_ha": 1454,
+      "notes": "West-coast pine fire \u2014 useful out-of-region generalization case.",
+      "n_detections": 196,
+      "first_detection": "2023-04-02T02:17:00+00:00",
+      "last_detection": "2023-04-03T17:14:00+00:00",
+      "distinct_overpass_hours": 11,
+      "csv": "hongseong_2023_detections.csv",
+      "geojson": "hongseong_2023_detections.geojson"
+    },
+    {
+      "id": "miryang_2022",
+      "name": "2022 \ubc00\uc591 \uc0b0\ubd88",
+      "bbox": [
+        128.65,
+        35.4,
+        129.05,
+        35.75
+      ],
+      "start": "2022-05-31",
+      "end": "2022-06-05",
+      "ignition": [
+        128.85,
+        35.55
+      ],
+      "reported_ha": 763,
+      "notes": "Late-spring southern fire \u2014 different climate window.",
+      "n_detections": 74,
+      "first_detection": "2022-05-31T02:48:00+00:00",
+      "last_detection": "2022-06-02T17:33:00+00:00",
+      "distinct_overpass_hours": 10,
+      "csv": "miryang_2022_detections.csv",
+      "geojson": "miryang_2022_detections.geojson"
+    }
+  ]
+}

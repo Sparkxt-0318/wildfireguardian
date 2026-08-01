@@ -155,7 +155,7 @@ unreachable set; it does not eliminate it.
   operational.
 - **(d) The spread hazard is a risk *ranking*, not a perimeter forecast.** Report AUC
   (mean-of-folds 0.89 ± 0.11; pooled 0.905) and footprint IoU (~0.40 forward-sim;
-  the 0.874 single-step IoU is "next overpass given the current burn", not a
+  the 0.874 single-step IoU is "next overpass given the current burn", not a  <!-- forbidden-ok: 0.874 -->
   from-scratch footprint) together: the model ranks at-risk cells well but
   does not pinpoint the exact perimeter `[src: data/processed/spread_v2_lofo.json;
   docs/ROUTING_INTEGRATION_REPORT.md]`.

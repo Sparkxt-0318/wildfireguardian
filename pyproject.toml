@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "wildfireguardian"
 version = "0.1.0-alpha"
-description = "Multi-scale wildfire forecasting and personalized evacuation system, focused on protecting rural elderly Koreans."
+description = "Wildfire spread forecasting and household-level evacuation and rescue routing, focused on protecting rural elderly Koreans."
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.10"

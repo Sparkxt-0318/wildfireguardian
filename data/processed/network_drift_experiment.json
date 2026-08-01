@@ -1,0 +1,217 @@
+{
+  "schema_version": 1,
+  "title": "Network-drift sensitivity: what changes when ONLY the road network changes",
+  "generated_utc": "2026-08-01T13:03:31Z",
+  "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+  "config_hash": "8daf6bd1ce101a860e0c4750d7daa5a56814df115e1ba88a18992c3831967263",
+  "design": {
+    "held_constant": [
+      "seed (20250603)",
+      "every RescueConfig assumed parameter",
+      "synthetic hazard envelope",
+      "synthetic terrain / land-sea mask",
+      "pipeline code",
+      "refuge and depot POI layers"
+    ],
+    "varied": "the OSM walk + drive road network ONLY",
+    "arm_a": {
+      "label": "committed",
+      "artifact": "data/processed/rescue_routing.json",
+      "run_utc": "2026-07-19T00:53:55Z",
+      "config_hash": null,
+      "config_hash_note": "predates config/ (PHASE 1-A); parameter values were proven bit-identical to the current config.",
+      "network": "OSM graph fetched on or before 2026-07-19 — OVERWRITTEN 2026-07-24, unrecoverable.",
+      "network_sha256": null
+    },
+    "arm_b": {
+      "label": "re-run",
+      "run_utc": "2026-08-01T13:03:31Z",
+      "config_hash": "8daf6bd1ce101a860e0c4750d7daa5a56814df115e1ba88a18992c3831967263",
+      "network": "OSM graph acquired 2026-07-24, preserved in data/snapshots/",
+      "network_snapshots": [
+        {
+          "snapshot_file": "osm-depots_yeongdeok-2025_20260724_ab512d83.geojson",
+          "sha256": "ab512d839438325aaf6dae6b40ac86022920b802b96a569c0cacddea373057d8",
+          "acquired_utc": "2026-07-24T13:44:54Z",
+          "source": "osm-depots",
+          "bytes": 1281
+        },
+        {
+          "snapshot_file": "osm-drive_yeongdeok-2025_20260724_f537bdf5.graphml",
+          "sha256": "f537bdf598547931e2d1c7dfbfa0ca7fe799444b58058c87c4d94fd8443946f8",
+          "acquired_utc": "2026-07-24T13:41:13Z",
+          "source": "osm-drive",
+          "bytes": 3233194
+        },
+        {
+          "snapshot_file": "osm-shelters_yeongdeok-2025_20260724_ac42a42b.geojson",
+          "sha256": "ac42a42be8c251b68c6f0c6f17f7513a976694f259731b794ef2a59a306f2c8c",
+          "acquired_utc": "2026-07-24T13:43:14Z",
+          "source": "osm-shelters",
+          "bytes": 17252
+        },
+        {
+          "snapshot_file": "osm-walk_yeongdeok-2025_20260724_2bff8d85.graphml",
+          "sha256": "2bff8d851296dedf86d7543684a837897c3e6d188a3192fe16398e857305012f",
+          "acquired_utc": "2026-07-24T13:40:57Z",
+          "source": "osm-walk",
+          "bytes": 12061393
+        }
+      ]
+    },
+    "not_a_correction": "Arm B does NOT supersede arm A. Neither network is 'right'; OSM is a living dataset. The measured quantity is SENSITIVITY, not either arm's absolute values."
+  },
+  "network_delta": {
+    "walk_nodes": {
+      "arm_a_recorded": 8439,
+      "arm_b": 8443,
+      "delta": 4,
+      "delta_pct": 0.0474,
+      "source_arm_a": "data/processed/real_roads_real_hazard.json/network_source.n_nodes (same graph vintage)"
+    },
+    "walk_edges_collapsed": {
+      "arm_a_recorded": 11015,
+      "arm_b": 11020,
+      "delta": 5,
+      "delta_pct": 0.0454
+    }
+  },
+  "metrics": [
+    {
+      "metric": "n_origins",
+      "json_path": "n_origins",
+      "kind": "count",
+      "arm_a_committed": 439,
+      "arm_b_rerun": 441,
+      "delta": 2,
+      "delta_pct": 0.45558086560364464
+    },
+    {
+      "metric": "saved_by_rescue_reachable_refuge",
+      "json_path": "four_way_counts.saved_by_rescue_reachable_refuge",
+      "kind": "count",
+      "arm_a_committed": 10,
+      "arm_b_rerun": 12,
+      "delta": 2,
+      "delta_pct": 20.0
+    },
+    {
+      "metric": "already_safe",
+      "json_path": "four_way_counts.already_safe",
+      "kind": "count",
+      "arm_a_committed": 262,
+      "arm_b_rerun": 255,
+      "delta": -7,
+      "delta_pct": -2.6717557251908395
+    },
+    {
+      "metric": "no_safe_pedestrian_route",
+      "json_path": "four_way_counts.no_safe_pedestrian_route",
+      "kind": "count",
+      "arm_a_committed": 143,
+      "arm_b_rerun": 142,
+      "delta": -1,
+      "delta_pct": -0.6993006993006993
+    },
+    {
+      "metric": "no_surviving_vehicle_ingress",
+      "json_path": "four_way_counts.no_surviving_vehicle_ingress",
+      "kind": "count",
+      "arm_a_committed": 24,
+      "arm_b_rerun": 32,
+      "delta": 8,
+      "delta_pct": 33.333333333333336
+    },
+    {
+      "metric": "n_need_rescue",
+      "json_path": "responder_exposure.n_need_rescue",
+      "kind": "count",
+      "arm_a_committed": 167,
+      "arm_b_rerun": 174,
+      "delta": 7,
+      "delta_pct": 4.191616766467066
+    },
+    {
+      "metric": "n_dispatch",
+      "json_path": "responder_exposure.n_dispatch",
+      "kind": "count",
+      "arm_a_committed": 143,
+      "arm_b_rerun": 142,
+      "delta": -1,
+      "delta_pct": -0.6993006993006993
+    },
+    {
+      "metric": "n_unreachable",
+      "json_path": "responder_exposure.n_unreachable",
+      "kind": "count",
+      "arm_a_committed": 24,
+      "arm_b_rerun": 32,
+      "delta": 8,
+      "delta_pct": 33.333333333333336
+    },
+    {
+      "metric": "shortest_path_enters_hazard_count",
+      "json_path": "responder_exposure.shortest_path_enters_hazard_count",
+      "kind": "count",
+      "arm_a_committed": 57,
+      "arm_b_rerun": 59,
+      "delta": 2,
+      "delta_pct": 3.508771929824561
+    },
+    {
+      "metric": "n_refuges",
+      "json_path": "n_refuges",
+      "kind": "count",
+      "arm_a_committed": 50,
+      "arm_b_rerun": 50,
+      "delta": 0,
+      "delta_pct": 0.0
+    },
+    {
+      "metric": "n_refuges_rescue_reachable",
+      "json_path": "n_refuges_rescue_reachable",
+      "kind": "count",
+      "arm_a_committed": 24,
+      "arm_b_rerun": 24,
+      "delta": 0,
+      "delta_pct": 0.0
+    },
+    {
+      "metric": "responder_exposure_shortest_path_mean",
+      "json_path": "responder_exposure.shortest_path.mean",
+      "kind": "contrast_input",
+      "arm_a_committed": 6.11732626055555,
+      "arm_b_rerun": 6.148702855507698,
+      "delta": 0.03137659495214784,
+      "delta_pct": 0.5129135445082236
+    },
+    {
+      "metric": "responder_exposure_survival_aware_mean",
+      "json_path": "responder_exposure.survival_aware.mean",
+      "kind": "contrast_input",
+      "arm_a_committed": 1.7112264016498908,
+      "arm_b_rerun": 1.6854864881595726,
+      "delta": -0.025739913490318234,
+      "delta_pct": -1.504179310551831
+    },
+    {
+      "metric": "responder_exposure_reduction_pct",
+      "json_path": "(shortest_path.mean - survival_aware.mean) / shortest_path.mean * 100",
+      "kind": "contrast",
+      "arm_a_committed": 72.02656309695529,
+      "arm_b_rerun": 72.58793394691698,
+      "delta": 0.5613708499616905,
+      "delta_pct": 0.7793941926758696
+    }
+  ],
+  "finding": {
+    "headline": "A 0.05 % change in the walk network moved the binary reachability verdict by 33 % (24 -> 32 origins with no surviving vehicle ingress), while the responder-exposure reduction moved 0.56 percentage points (72.03 % -> 72.59 %).",
+    "interpretation": "Binary verdicts are sensitive to network topology; paired contrasts are robust to it. Report contrasts as results and counts as illustrative.",
+    "most_sensitive_count": {
+      "metric": "no_surviving_vehicle_ingress",
+      "delta_pct": 33.33
+    },
+    "contrast_stability_pp": 0.5614
+  },
+  "caveat": "Arm B values are a 2026-07-24-network re-run and are SEPARATE from the committed Round-2 values. Do not substitute one for the other; do not average them."
+}

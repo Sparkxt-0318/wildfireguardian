@@ -74,11 +74,18 @@ data/processed/**
 # importances; small JSON, key deliverables, regenerable via scripts/spread_v2/*.py).
 !data/processed/spread_v2/
 !data/processed/spread_v2/*.json
+# ...and the notice that says NOT to cite any of them. Build A is superseded;
+# the file is kept as labelled evidence, never as a source (Round-3 PHASE 1-F).
+!data/processed/spread_v2/LEGACY_DO_NOT_CITE.md
 # Routing-spine summaries (small JSON metrics; regenerable via
 # scripts/run_routing_integration.py). The bulk .npz figure data stays ignored.
 !data/processed/spread_v2_lofo.json
 !data/processed/yeongdeok_forward_sim.json
 !data/processed/routing_demo.json
+# Round-3 network-drift experiment: what moves when ONLY the OSM road network
+# moves (docs/network_drift.md). Small JSON, and it is the ONLY surviving
+# record of the comparison — arm A's road network no longer exists.
+!data/processed/network_drift_experiment.json
 # AUC-interval + ML-baseline analysis outputs (per-fire DeLong CIs / significance;
 # logistic/RF vs GBM comparison; persisted LOFO out-of-fold predictions). These are
 # the result artifacts of scripts/auc_intervals.py and scripts/ml_baselines.py;
@@ -149,3 +156,17 @@ data/processed/**
 # Allow small reference figures
 !docs/figures/*.png
 !docs/figures/*.svg
+
+# --- Snapshot store (data/snapshots/) -------------------------------------
+# The store IS committed — it is the evidence layer that Round 2 lacked
+# (see data/snapshots/README.md). Two exceptions are kept local-only:
+#
+#   osm-httpcache_*  raw Overpass API responses, ~24 MB. Fully derivable from
+#                    the committed .graphml.gz, so they add bulk without adding
+#                    reproducibility. Their sha256 digests ARE recorded in
+#                    MANIFEST.json, so a future fetch can still be compared
+#                    byte-for-byte against what Round 2 actually received.
+data/snapshots/osm-httpcache_*
+# ...but the tiny .sha256 sidecars stay in git: every snapshot's digest is
+# checkable from a fresh clone even when the payload itself is local-only.
+!data/snapshots/osm-httpcache_*.sha256

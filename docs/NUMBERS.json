@@ -1,0 +1,732 @@
+{
+  "schema_version": 1,
+  "_README": "CANONICAL REGISTRY. Every reportable number lives here exactly once. Do not restate a value in prose without citing its key. 'verified' = still matches its artifact; 'reproducible' = re-running the pipeline regenerates that artifact. They are independent — several numbers here are verified but NOT reproducible because the OSM network behind them was overwritten (docs/DATA_LOSS_2026-07-24.md). Run scripts/verify_numbers.py to re-check every entry.",
+  "config_hash": "8daf6bd1ce101a860e0c4750d7daa5a56814df115e1ba88a18992c3831967263",
+  "built_at_git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+  "round2_submission_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+  "numbers": {
+    "lofo_mean_of_folds_auc": {
+      "value": 0.89,
+      "unit": "ROC-AUC",
+      "source_file": "data/processed/spread_v2_lofo.json",
+      "json_path": "per_fire_auc",
+      "derivation": "mean(per_fire_auc.values()); N=6 leave-one-fire-out folds",
+      "config_hash": "8daf6bd1ce101a860e0c4750d7daa5a56814df115e1ba88a18992c3831967263",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "6개 화재 LOFO 폴드",
+      "caveat": "MEAN-OF-FOLDS, not pooled. Pooled OOF AUC is 0.905 and is a DIFFERENT quantity — never present one as the other. Fold sd is 0.107 and the range is 0.682–0.974, so a single-number headline hides a fold that barely beats chance (gangneung_2023 = 0.682).",
+      "forbidden_phrasings": [
+        "정확도 89%",
+        "89% accurate",
+        "pooled AUC 0.890"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/spread_v2_lofo.json",
+            "json_path": "per_fire_auc"
+          }
+        },
+        "expr": "round(sum(a.values()) / len(a), 3)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "tested 2026-08-01: re-ran scripts/run_routing_integration.py; per_fire_auc, pooled_auc, mid/far-band AUC, n_rows and n_positives are all BIT-IDENTICAL to the committed artifact.",
+        "blocked_by": null
+      },
+      "reproducible": true,
+      "notes": "Produced by scripts/run_routing_integration.py. The superseded Build-A artifact data/processed/spread_v2/lofo_metrics.json holds a DIFFERENT mean (0.8309) over a DIFFERENT fire set — do not cite it."
+    },
+    "lofo_fold_auc_sd": {
+      "value": 0.107,
+      "unit": "ROC-AUC (sample sd)",
+      "source_file": "data/processed/spread_v2_lofo.json",
+      "json_path": "per_fire_auc",
+      "derivation": "statistics.stdev(per_fire_auc.values()), N=6",
+      "config_hash": "8daf6bd1ce101a860e0c4750d7daa5a56814df115e1ba88a18992c3831967263",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "6개 화재 LOFO 폴드",
+      "caveat": "Sample sd over 6 folds. Not a confidence interval.",
+      "forbidden_phrasings": [
+        "±0.107 신뢰구간",
+        "95% CI"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/spread_v2_lofo.json",
+            "json_path": "per_fire_auc"
+          }
+        },
+        "expr": "round(__import__('statistics').stdev(list(a.values())), 3)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "tested 2026-08-01: re-ran scripts/run_routing_integration.py; per_fire_auc, pooled_auc, mid/far-band AUC, n_rows and n_positives are all BIT-IDENTICAL to the committed artifact.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "rescue_n_origins": {
+      "value": 439,
+      "unit": "origins",
+      "source_file": "data/processed/rescue_routing.json",
+      "json_path": "n_origins",
+      "derivation": "origin scan at origin_scan.rescue_stride=3 over the OSM walk graph",
+      "config_hash": "8daf6bd1ce101a860e0c4750d7daa5a56814df115e1ba88a18992c3831967263",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "영덕 2025 범위",
+      "caveat": "Sampled candidate origins; real per-household locations are private.",
+      "forbidden_phrasings": [
+        "439 households",
+        "439 가구",
+        "주민 439명"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/rescue_routing.json",
+            "json_path": "n_origins"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "not_reproducible",
+        "evidence": "tested 2026-08-01: re-ran scripts/run_rescue_routing.py with the same seed (20250603) and identical assumed parameters. N moved 439->441, no_surviving_vehicle_ingress 24->32, no_safe_pedestrian_route 143->142, exposure reduction 72.03%->72.59%.",
+        "blocked_by": "OSM walk/drive network overwritten 2026-07-24; unrecoverable."
+      },
+      "reproducible": false
+    },
+    "rescue_self_sufficient_count": {
+      "value": 272,
+      "unit": "origins",
+      "source_file": "data/processed/rescue_routing.json",
+      "json_path": "four_way_counts",
+      "derivation": "four_way_counts.saved_by_rescue_reachable_refuge + four_way_counts.already_safe",
+      "config_hash": "8daf6bd1ce101a860e0c4750d7daa5a56814df115e1ba88a18992c3831967263",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "439곳 중",
+      "caveat": "The complement of needs-rescuer. 272 = 10 saved + 262 already-safe; 'already safe' is a modelled state, not an observed one.",
+      "forbidden_phrasings": [
+        "272명 구조",
+        "272 rescued"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/rescue_routing.json",
+            "json_path": "four_way_counts.saved_by_rescue_reachable_refuge"
+          },
+          "b": {
+            "file": "data/processed/rescue_routing.json",
+            "json_path": "four_way_counts.already_safe"
+          }
+        },
+        "expr": "a + b",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "not_reproducible",
+        "evidence": "tested 2026-08-01: re-ran scripts/run_rescue_routing.py with the same seed (20250603) and identical assumed parameters. N moved 439->441, no_surviving_vehicle_ingress 24->32, no_safe_pedestrian_route 143->142, exposure reduction 72.03%->72.59%.",
+        "blocked_by": "OSM walk/drive network overwritten 2026-07-24; unrecoverable."
+      },
+      "reproducible": false
+    },
+    "rescue_needs_rescuer_count": {
+      "value": 167,
+      "unit": "origins",
+      "source_file": "data/processed/rescue_routing.json",
+      "json_path": "responder_exposure.n_need_rescue",
+      "derivation": "no_safe_pedestrian_route + no_surviving_vehicle_ingress = 143 + 24; equivalently round(f*N) + walk_failures_mobile = 132 + 35",
+      "config_hash": "8daf6bd1ce101a860e0c4750d7daa5a56814df115e1ba88a18992c3831967263",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "439곳 중",
+      "caveat": "Depends on f = immobile_fraction = 0.3 (ASSUMED). Across the fc sweep this ranges 100–240, so the count is directional, not precise.",
+      "forbidden_phrasings": [
+        "167명이 사망",
+        "167 will die",
+        "167명 고립 확정"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/rescue_routing.json",
+            "json_path": "four_way_counts.no_safe_pedestrian_route"
+          },
+          "b": {
+            "file": "data/processed/rescue_routing.json",
+            "json_path": "four_way_counts.no_surviving_vehicle_ingress"
+          },
+          "c": {
+            "file": "data/processed/rescue_routing.json",
+            "json_path": "responder_exposure.n_need_rescue"
+          }
+        },
+        "expr": "c if (a + b) == c else -1",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "not_reproducible",
+        "evidence": "tested 2026-08-01: re-ran scripts/run_rescue_routing.py with the same seed (20250603) and identical assumed parameters. N moved 439->441, no_surviving_vehicle_ingress 24->32, no_safe_pedestrian_route 143->142, exposure reduction 72.03%->72.59%.",
+        "blocked_by": "OSM walk/drive network overwritten 2026-07-24; unrecoverable."
+      },
+      "reproducible": false
+    },
+    "rescue_partition_identity": {
+      "value": true,
+      "unit": "boolean",
+      "source_file": "data/processed/rescue_routing.json",
+      "json_path": "four_way_sums_to_n",
+      "derivation": "439 = 272 + 167, i.e. the four-way split partitions N exactly",
+      "config_hash": "8daf6bd1ce101a860e0c4750d7daa5a56814df115e1ba88a18992c3831967263",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "439곳",
+      "caveat": "A structural invariant, not a result. It must hold in every run.",
+      "forbidden_phrasings": [],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/rescue_routing.json",
+            "json_path": "n_origins"
+          },
+          "b": {
+            "file": "data/processed/rescue_routing.json",
+            "json_path": "four_way_counts.saved_by_rescue_reachable_refuge"
+          },
+          "c": {
+            "file": "data/processed/rescue_routing.json",
+            "json_path": "four_way_counts.already_safe"
+          },
+          "d": {
+            "file": "data/processed/rescue_routing.json",
+            "json_path": "four_way_counts.no_safe_pedestrian_route"
+          },
+          "e": {
+            "file": "data/processed/rescue_routing.json",
+            "json_path": "four_way_counts.no_surviving_vehicle_ingress"
+          }
+        },
+        "expr": "a == b + c + d + e",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "not_reproducible",
+        "evidence": "tested 2026-08-01: re-ran scripts/run_rescue_routing.py with the same seed (20250603) and identical assumed parameters. N moved 439->441, no_surviving_vehicle_ingress 24->32, no_safe_pedestrian_route 143->142, exposure reduction 72.03%->72.59%.",
+        "blocked_by": "OSM walk/drive network overwritten 2026-07-24; unrecoverable."
+      },
+      "reproducible": false
+    },
+    "rescue_dispatch_count": {
+      "value": 143,
+      "unit": "origins",
+      "source_file": "data/processed/rescue_routing.json",
+      "json_path": "responder_exposure.n_dispatch",
+      "derivation": "four_way_counts.no_safe_pedestrian_route",
+      "config_hash": "8daf6bd1ce101a860e0c4750d7daa5a56814df115e1ba88a18992c3831967263",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "439곳 중",
+      "caveat": "Origins a responder can still reach. Pairs with the 24 it cannot.",
+      "forbidden_phrasings": [],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/rescue_routing.json",
+            "json_path": "responder_exposure.n_dispatch"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "not_reproducible",
+        "evidence": "tested 2026-08-01: re-ran scripts/run_rescue_routing.py with the same seed (20250603) and identical assumed parameters. N moved 439->441, no_surviving_vehicle_ingress 24->32, no_safe_pedestrian_route 143->142, exposure reduction 72.03%->72.59%.",
+        "blocked_by": "OSM walk/drive network overwritten 2026-07-24; unrecoverable."
+      },
+      "reproducible": false
+    },
+    "rescue_unreachable_count": {
+      "value": 24,
+      "unit": "origins",
+      "source_file": "data/processed/rescue_routing.json",
+      "json_path": "responder_exposure.n_unreachable",
+      "derivation": "four_way_counts.no_surviving_vehicle_ingress",
+      "config_hash": "8daf6bd1ce101a860e0c4750d7daa5a56814df115e1ba88a18992c3831967263",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "439곳 중",
+      "caveat": "Reported, never imputed — 'the rescuer cannot arrive in time' is a valid output. Sensitive to vehicle_cutoff: the sweep moves it across 0.40→0.80.",
+      "forbidden_phrasings": [
+        "24명 사망",
+        "24 deaths"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/rescue_routing.json",
+            "json_path": "responder_exposure.n_unreachable"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "not_reproducible",
+        "evidence": "tested 2026-08-01: re-ran scripts/run_rescue_routing.py with the same seed (20250603) and identical assumed parameters. N moved 439->441, no_surviving_vehicle_ingress 24->32, no_safe_pedestrian_route 143->142, exposure reduction 72.03%->72.59%.",
+        "blocked_by": "OSM walk/drive network overwritten 2026-07-24; unrecoverable."
+      },
+      "reproducible": false
+    },
+    "responder_shortest_path_enters_hazard_count": {
+      "value": 57,
+      "unit": "origins",
+      "source_file": "data/processed/rescue_routing.json",
+      "json_path": "responder_exposure.shortest_path_enters_hazard_count",
+      "derivation": "count of the 143 dispatch routes whose shortest path crosses the hazard",
+      "config_hash": "8daf6bd1ce101a860e0c4750d7daa5a56814df115e1ba88a18992c3831967263",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "143곳 중",
+      "caveat": "Denominator is 143 (the dispatch set), NOT 439. 57/143 = 39.9 %.",
+      "forbidden_phrasings": [
+        "439곳 중 57",
+        "57 of 439"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/rescue_routing.json",
+            "json_path": "responder_exposure.shortest_path_enters_hazard_count"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "not_reproducible",
+        "evidence": "tested 2026-08-01: re-ran scripts/run_rescue_routing.py with the same seed (20250603) and identical assumed parameters. N moved 439->441, no_surviving_vehicle_ingress 24->32, no_safe_pedestrian_route 143->142, exposure reduction 72.03%->72.59%.",
+        "blocked_by": "OSM walk/drive network overwritten 2026-07-24; unrecoverable."
+      },
+      "reproducible": false
+    },
+    "responder_exposure_shortest_path_mean": {
+      "value": 6.11732626055555,
+      "unit": "prob·min",
+      "source_file": "data/processed/rescue_routing.json",
+      "json_path": "responder_exposure.shortest_path.mean",
+      "derivation": "mean cumulative ignition-probability × travel-time over the 143 dispatch routes",
+      "config_hash": "8daf6bd1ce101a860e0c4750d7daa5a56814df115e1ba88a18992c3831967263",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "143곳 대응표본",
+      "caveat": "Responder side only.",
+      "forbidden_phrasings": [],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/rescue_routing.json",
+            "json_path": "responder_exposure.shortest_path.mean"
+          }
+        },
+        "expr": "a",
+        "tolerance": 1e-12
+      },
+      "reproducibility": {
+        "status": "not_reproducible",
+        "evidence": "tested 2026-08-01: re-ran scripts/run_rescue_routing.py with the same seed (20250603) and identical assumed parameters. N moved 439->441, no_surviving_vehicle_ingress 24->32, no_safe_pedestrian_route 143->142, exposure reduction 72.03%->72.59%.",
+        "blocked_by": "OSM walk/drive network overwritten 2026-07-24; unrecoverable."
+      },
+      "reproducible": false
+    },
+    "responder_exposure_survival_aware_mean": {
+      "value": 1.7112264016498908,
+      "unit": "prob·min",
+      "source_file": "data/processed/rescue_routing.json",
+      "json_path": "responder_exposure.survival_aware.mean",
+      "derivation": "same measure under the survival-aware routing policy",
+      "config_hash": "8daf6bd1ce101a860e0c4750d7daa5a56814df115e1ba88a18992c3831967263",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "143곳 대응표본",
+      "caveat": "Responder side only.",
+      "forbidden_phrasings": [],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/rescue_routing.json",
+            "json_path": "responder_exposure.survival_aware.mean"
+          }
+        },
+        "expr": "a",
+        "tolerance": 1e-12
+      },
+      "reproducibility": {
+        "status": "not_reproducible",
+        "evidence": "tested 2026-08-01: re-ran scripts/run_rescue_routing.py with the same seed (20250603) and identical assumed parameters. N moved 439->441, no_surviving_vehicle_ingress 24->32, no_safe_pedestrian_route 143->142, exposure reduction 72.03%->72.59%.",
+        "blocked_by": "OSM walk/drive network overwritten 2026-07-24; unrecoverable."
+      },
+      "reproducible": false
+    },
+    "responder_exposure_reduction_pct": {
+      "value": 72.0,
+      "unit": "percent",
+      "source_file": "data/processed/rescue_routing.json",
+      "json_path": "responder_exposure",
+      "derivation": "(shortest_path.mean - survival_aware.mean) / shortest_path.mean * 100",
+      "config_hash": "8daf6bd1ce101a860e0c4750d7daa5a56814df115e1ba88a18992c3831967263",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "143곳 대응표본",
+      "caveat": "구조자 측만. 주민 측은 H3a 미지지. A relative contrast between two routing policies on the same synthetic hazard — not an absolute safety guarantee.",
+      "forbidden_phrasings": [
+        "3.6배 감소",
+        "3.6x reduction",
+        "72% 더 안전",
+        "노출 72% 감소로 생존율 72% 증가"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/rescue_routing.json",
+            "json_path": "responder_exposure.shortest_path.mean"
+          },
+          "b": {
+            "file": "data/processed/rescue_routing.json",
+            "json_path": "responder_exposure.survival_aware.mean"
+          }
+        },
+        "expr": "round((a - b) / a * 100, 1)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "not_reproducible",
+        "evidence": "tested 2026-08-01: re-ran scripts/run_rescue_routing.py with the same seed (20250603) and identical assumed parameters. N moved 439->441, no_surviving_vehicle_ingress 24->32, no_safe_pedestrian_route 143->142, exposure reduction 72.03%->72.59%.",
+        "blocked_by": "OSM walk/drive network overwritten 2026-07-24; unrecoverable."
+      },
+      "reproducible": false
+    },
+    "walk_failure_rate_pct": {
+      "value": 11.4,
+      "unit": "percent",
+      "source_file": "data/processed/rescue_verify_fc.json",
+      "json_path": "walk_failure.per_cell[f=0.30,c=0.50].w",
+      "derivation": "walk_failures_mobile / n_mobile = 35 / 307, at baseline f=0.3, walk_cutoff=0.5",
+      "config_hash": "8daf6bd1ce101a860e0c4750d7daa5a56814df115e1ba88a18992c3831967263",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "307명 이동가능 표본",
+      "caveat": "Measured among the MOBILE population only, so it is independent of the immobility assumption f. Varies 9.1–17.4 % across the fc sweep; at the baseline cutoff 0.5 the range is 11.3–14.1 %.",
+      "forbidden_phrasings": [
+        "약 40%",
+        "40% 보행 실패",
+        "주민 11.4%가 사망"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/rescue_verify_fc.json",
+            "json_path": "walk_failure.per_cell"
+          }
+        },
+        "expr": "round(100 * next(r['w'] for r in a if r['immobile_fraction'] == 0.3 and r['walk_cutoff'] == 0.5), 1)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "not_reproducible",
+        "evidence": "derived by pure arithmetic from the same four-way counts as rescue_routing.json (scripts/derive_walk_failure.py performs no re-run), so it inherits that artifact's status exactly.",
+        "blocked_by": "OSM walk/drive network overwritten 2026-07-24; unrecoverable."
+      },
+      "reproducible": false
+    },
+    "real_roads_both_safe": {
+      "value": 438,
+      "unit": "origins",
+      "source_file": "data/processed/real_roads_real_hazard.json",
+      "json_path": "counts.both_safe",
+      "derivation": "6-bucket partition, counts.both_safe",
+      "config_hash": "8daf6bd1ce101a860e0c4750d7daa5a56814df115e1ba88a18992c3831967263",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "459곳 주사",
+      "caveat": "Both routers reach a safe refuge. Dominated by the near-static ≥0.5 hazard core.",
+      "forbidden_phrasings": [],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/real_roads_real_hazard.json",
+            "json_path": "counts.both_safe"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "not_reproducible",
+        "evidence": "NOT yet re-run as of this build. Shares the OSM walk graph with rescue_routing.json, which was tested and does not reproduce; the snapshot graph also differs from this artifact's recorded counts (8443 vs 8439 nodes, 11020 vs 11015 collapsed edges). PHASE 2 measures this directly as the middle column of its 3-way table.",
+        "blocked_by": "OSM walk network overwritten 2026-07-24; unrecoverable."
+      },
+      "reproducible": false
+    },
+    "real_roads_future_aware_only_safe": {
+      "value": 18,
+      "unit": "origins",
+      "source_file": "data/processed/real_roads_real_hazard.json",
+      "json_path": "counts.naive_into_FA_safe",
+      "derivation": "6-bucket partition, counts.naive_into_FA_safe",
+      "config_hash": "8daf6bd1ce101a860e0c4750d7daa5a56814df115e1ba88a18992c3831967263",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "459곳 주사",
+      "caveat": "The headline cell: the fire-blind route enters the hazard, the future-aware one does not.",
+      "forbidden_phrasings": [],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/real_roads_real_hazard.json",
+            "json_path": "counts.naive_into_FA_safe"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "not_reproducible",
+        "evidence": "NOT yet re-run as of this build. Shares the OSM walk graph with rescue_routing.json, which was tested and does not reproduce; the snapshot graph also differs from this artifact's recorded counts (8443 vs 8439 nodes, 11020 vs 11015 collapsed edges). PHASE 2 measures this directly as the middle column of its 3-way table.",
+        "blocked_by": "OSM walk network overwritten 2026-07-24; unrecoverable."
+      },
+      "reproducible": false
+    },
+    "real_roads_no_safe_route": {
+      "value": 3,
+      "unit": "origins",
+      "source_file": "data/processed/real_roads_real_hazard.json",
+      "json_path": "counts.no_safe_route",
+      "derivation": "6-bucket partition, counts.no_safe_route",
+      "config_hash": "8daf6bd1ce101a860e0c4750d7daa5a56814df115e1ba88a18992c3831967263",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "459곳 주사",
+      "caveat": "Neither router finds a safe route. A valid, expected output — never imputed.",
+      "forbidden_phrasings": [],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/real_roads_real_hazard.json",
+            "json_path": "counts.no_safe_route"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "not_reproducible",
+        "evidence": "NOT yet re-run as of this build. Shares the OSM walk graph with rescue_routing.json, which was tested and does not reproduce; the snapshot graph also differs from this artifact's recorded counts (8443 vs 8439 nodes, 11020 vs 11015 collapsed edges). PHASE 2 measures this directly as the middle column of its 3-way table.",
+        "blocked_by": "OSM walk network overwritten 2026-07-24; unrecoverable."
+      },
+      "reproducible": false
+    },
+    "real_roads_n_origins_scanned": {
+      "value": 459,
+      "unit": "origins",
+      "source_file": "data/processed/real_roads_real_hazard.json",
+      "json_path": "n_origins_scanned",
+      "derivation": "459 = 438 both_safe + 18 future-aware-only + 3 no_safe_route",
+      "config_hash": "8daf6bd1ce101a860e0c4750d7daa5a56814df115e1ba88a18992c3831967263",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "459곳 주사",
+      "caveat": "Stride 18 over the OSM walk graph. NOT comparable on timing to the 439-origin rescue run: the hazard here is 5 slices at 180-min steps (~12× coarser).",
+      "forbidden_phrasings": [
+        "459 residents",
+        "459명"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/real_roads_real_hazard.json",
+            "json_path": "counts.both_safe"
+          },
+          "b": {
+            "file": "data/processed/real_roads_real_hazard.json",
+            "json_path": "counts.naive_into_FA_safe"
+          },
+          "c": {
+            "file": "data/processed/real_roads_real_hazard.json",
+            "json_path": "counts.no_safe_route"
+          },
+          "d": {
+            "file": "data/processed/real_roads_real_hazard.json",
+            "json_path": "n_origins_scanned"
+          }
+        },
+        "expr": "d if a + b + c == d else -1",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "not_reproducible",
+        "evidence": "NOT yet re-run as of this build. Shares the OSM walk graph with rescue_routing.json, which was tested and does not reproduce; the snapshot graph also differs from this artifact's recorded counts (8443 vs 8439 nodes, 11020 vs 11015 collapsed edges). PHASE 2 measures this directly as the middle column of its 3-way table.",
+        "blocked_by": "OSM walk network overwritten 2026-07-24; unrecoverable."
+      },
+      "reproducible": false
+    },
+    "hazard_npz_sha256": {
+      "value": "5bed502661afa8e33335c342ddc468c2df6858267ea4f769a659f970e918da58",
+      "unit": "sha256",
+      "source_file": "data/processed/routing_demo.npz",
+      "json_path": null,
+      "derivation": "sha256 of data/processed/routing_demo.npz (the forward-sim hazard field)",
+      "config_hash": "8daf6bd1ce101a860e0c4750d7daa5a56814df115e1ba88a18992c3831967263",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "위험면 파일 전체",
+      "caveat": "The identity of the hazard surface shared by the routing runs. real_roads_real_hazard.json records the same digest at hazard_source.npz_sha256; both must agree.",
+      "forbidden_phrasings": [],
+      "check": {
+        "kind": "file_sha256",
+        "operands": {
+          "a": {
+            "file": "data/processed/routing_demo.npz"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "not_reproducible",
+        "evidence": "tested 2026-08-01: the regenerated npz hashes to d1620f9f…, not 5bed5026…. Cause identified and fully explained: the committed field was built on the FIRE-ACQUISITION bbox (128.97, 36.10, 129.77, 36.90) -> grid 181x147, which reproduces the committed grid_extent EXACTLY. data/raw/firms_data/fire_manifest.json was regenerated 2026-07-23 15:21 with a tighter detection-derived bbox (128.95, 36.20, 129.60, 36.75) -> grid 125x119. The forward simulation itself is unchanged (envelope_area_ha, breadth and drift are all identical).",
+        "blocked_by": "fire_manifest.json bbox changed 2026-07-23. UNLIKE the OSM loss this is RECOVERABLE: pinning the grid to config bbox.fire_acquisition restores the committed extent. Not changed here — it would alter results and needs a decision."
+      },
+      "reproducible": false,
+      "cross_check": {
+        "file": "data/processed/real_roads_real_hazard.json",
+        "json_path": "hazard_source.npz_sha256",
+        "must_equal": "hazard_npz_sha256.value"
+      }
+    },
+    "network_drift_unreachable_delta_pct": {
+      "value": 33.3333,
+      "unit": "percent",
+      "source_file": "data/processed/network_drift_experiment.json",
+      "json_path": "metrics[metric=no_surviving_vehicle_ingress]",
+      "derivation": "100 * (arm_b_rerun - arm_a_committed) / arm_a_committed",
+      "config_hash": "8daf6bd1ce101a860e0c4750d7daa5a56814df115e1ba88a18992c3831967263",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "439곳(arm A) vs 441곳(arm B) · 도로망만 변경",
+      "caveat": "ARM B — a re-run on the 2026-07-24 OSM network. SEPARATE from the committed Round-2 value; never substitute one for the other and never average them. Neither network is 'right'; the reported quantity is SENSITIVITY. 24 -> 32 origins. The most network-sensitive quantity measured: a 0.047 % change in walk-graph nodes moved it 33 %.",
+      "forbidden_phrasings": [
+        "재실행값이 정정값",
+        "arm B corrects arm A",
+        "24는 틀렸고 32가 맞다"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/network_drift_experiment.json",
+            "json_path": "metrics"
+          }
+        },
+        "expr": "round(next(r['delta_pct'] for r in a if r['metric'] == 'no_surviving_vehicle_ingress'), 4)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "arm B is regenerable from the snapshotted 2026-07-24 network (data/snapshots/osm-walk_…2bff8d85); arm A is quoted from the committed artifact. Re-running scripts/run_network_drift_experiment.py reproduces the comparison.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "network_drift_exposure_reduction_delta_pp": {
+      "value": 0.5614,
+      "unit": "percentage points",
+      "source_file": "data/processed/network_drift_experiment.json",
+      "json_path": "metrics[metric=responder_exposure_reduction_pct]",
+      "derivation": "arm_b_rerun - arm_a_committed",
+      "config_hash": "8daf6bd1ce101a860e0c4750d7daa5a56814df115e1ba88a18992c3831967263",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "439곳(arm A) vs 441곳(arm B) · 도로망만 변경",
+      "caveat": "ARM B — a re-run on the 2026-07-24 OSM network. SEPARATE from the committed Round-2 value; never substitute one for the other and never average them. Neither network is 'right'; the reported quantity is SENSITIVITY. 72.03 % -> 72.59 %. The paired contrast absorbs the perturbation that the binary verdict amplifies.",
+      "forbidden_phrasings": [
+        "재실행값이 정정값",
+        "arm B corrects arm A",
+        "24는 틀렸고 32가 맞다"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/network_drift_experiment.json",
+            "json_path": "metrics"
+          }
+        },
+        "expr": "round(next(r['delta'] for r in a if r['metric'] == 'responder_exposure_reduction_pct'), 4)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "arm B is regenerable from the snapshotted 2026-07-24 network (data/snapshots/osm-walk_…2bff8d85); arm A is quoted from the committed artifact. Re-running scripts/run_network_drift_experiment.py reproduces the comparison.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "network_drift_walk_node_delta_pct": {
+      "value": 0.0474,
+      "unit": "percent",
+      "source_file": "data/processed/network_drift_experiment.json",
+      "json_path": "network_delta.walk_nodes.delta_pct",
+      "derivation": "100 * (8443 - 8439) / 8439",
+      "config_hash": "8daf6bd1ce101a860e0c4750d7daa5a56814df115e1ba88a18992c3831967263",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "OSM 보행망 노드",
+      "caveat": "The size of the perturbation, not a result. Arm A's node count is read from real_roads_real_hazard.json (same graph vintage), since the graph itself is lost.",
+      "forbidden_phrasings": [],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/network_drift_experiment.json",
+            "json_path": "network_delta.walk_nodes.delta_pct"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "arm B is regenerable from the snapshotted 2026-07-24 network (data/snapshots/osm-walk_…2bff8d85); arm A is quoted from the committed artifact. Re-running scripts/run_network_drift_experiment.py reproduces the comparison.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    }
+  }
+}

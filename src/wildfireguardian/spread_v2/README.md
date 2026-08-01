@@ -50,7 +50,7 @@ forward_sim.py iterate the model into a time-sequenced hazard surface
   geometry/terrain place it spatially.)
 - Forward simulation produces a **broad** (~60°) reach envelope that **drifts**
   from observed as compounding error accumulates; the forward-sim envelope IoU
-  settles at **~0.40** over 3–12 h (the honest footprint figure — *not* the 0.874
+  settles at **~0.40** over 3–12 h (the honest footprint figure — *not* the 0.874  <!-- forbidden-ok: 0.874 -->
   single-step IoU, which measures "next overpass given the current burn").
 
 Regenerate: `python scripts/run_routing_integration.py`.

@@ -36,14 +36,23 @@ from dataclasses import dataclass, field
 import networkx as nx
 import numpy as np
 
+from ..config import get as _cfg
 from ..spread_v2.grid import CoarseGrid
 from .future_front import RoadNetwork
 from .hazard import HazardSequence
 
+# Parameters below are sourced from config/default.yaml (PHASE 1-A). Each call
+# passes the historical literal as an explicit fallback, so an absent or
+# unreadable config degrades to the Round-2 values rather than to something new.
+
 #: Default elderly walking speed on flat ground (m/s).
-ELDERLY_FLAT_SPEED_MS: float = 0.7
+ELDERLY_FLAT_SPEED_MS: float = float(_cfg("pedestrian.elderly_flat_speed_ms", 0.7))
 #: Floor so very steep edges never give an absurd (near-zero) speed.
-_MIN_SPEED_MS: float = 0.15
+_MIN_SPEED_MS: float = float(_cfg("pedestrian.min_speed_ms", 0.15))
+#: Tobler (1993) hiking-function constants: w = B exp(-K |S + O|) km/h.
+_TOBLER_BASE_KMH: float = float(_cfg("pedestrian.tobler_base_kmh", 6.0))
+_TOBLER_SLOPE_COEFF: float = float(_cfg("pedestrian.tobler_slope_coeff", 3.5))
+_TOBLER_SLOPE_OFFSET: float = float(_cfg("pedestrian.tobler_slope_offset", 0.05))
 
 
 def elderly_speed_ms(slope_fraction: float, flat_speed_ms: float = ELDERLY_FLAT_SPEED_MS) -> float:
@@ -54,9 +63,10 @@ def elderly_speed_ms(slope_fraction: float, flat_speed_ms: float = ELDERLY_FLAT_
     ``flat_speed_ms`` (default 0.7 m/s for rural elderly) and keep Tobler's
     slope dependence.
     """
-    tobler_flat = 6.0 * math.exp(-3.5 * 0.05)            # km/h at S=0
+    b, k, o = _TOBLER_BASE_KMH, _TOBLER_SLOPE_COEFF, _TOBLER_SLOPE_OFFSET
+    tobler_flat = b * math.exp(-k * o)                    # km/h at S=0
     scale = (flat_speed_ms * 3.6) / tobler_flat           # m/s target -> km/h ratio
-    w_kmh = 6.0 * math.exp(-3.5 * abs(slope_fraction + 0.05)) * scale
+    w_kmh = b * math.exp(-k * abs(slope_fraction + o)) * scale
     return max(w_kmh / 3.6, _MIN_SPEED_MS)
 
 

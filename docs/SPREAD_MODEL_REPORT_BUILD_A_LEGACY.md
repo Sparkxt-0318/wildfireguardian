@@ -26,7 +26,7 @@ prior "candidate bottom-up vs fuel top-down" mismatch cannot recur.
 | Result | Corrected v2 (this run) | Prior v2 run |
 |---|---|---|
 | uljin positive cells | **915** (~880 expected) | ~120 (orientation bug) |
-| Pooled LOFO ROC-AUC (with-weather) | **0.834** (full) / **0.857** (weather-complete) | 0.781 |
+| Pooled LOFO ROC-AUC (with-weather) | **0.834** (full) / **0.857** (weather-complete) | 0.781 |  <!-- forbidden-ok: 0.834 -->
 | Far-band (>1500 m) ROC-AUC | **0.798** (full) / **0.835** (weather-complete) | 0.63–0.66 |
 | Footprint IoU vs observed perimeter | **0.32** mean | (mechanistic CA ≈ 0.09) |
 
@@ -170,7 +170,7 @@ count (915, sane) is the orientation-bug-free confirmation at the feature level.
 | uljin_samcheok_2022 | 30 326 | 915 | 0.773 | 0.119 | 0.0284 | 0.38 | 0.53 |
 | hongseong_2023 | 2 038 | 82 | 0.709 | 0.117 | 0.0382 | 0.19 | 0.28 |
 | **mean ± std** | | | **0.831 ± 0.074** | 0.198 ± 0.086 | 0.027 | **0.32** | 0.45 |
-| **pooled OOF** | | | **0.834** | 0.186 | 0.0221 | | |
+| **pooled OOF** | | | **0.834** | 0.186 | 0.0221 | | |  <!-- forbidden-ok: 0.834 -->
 
 **Conditional ROC-AUC by distance band:** 0–375 m **0.808**, 375–750 m **0.792**,
 750–1500 m **0.775**, >1500 m **0.798**. The near-flat profile (~0.78–0.81) means the
@@ -198,7 +198,7 @@ take the top-N where N = observed positives, union with the seed), **mean IoU = 
 |---|---|---|---|---|---|
 | distance-only | 0.683 | 0.451 | 0.527 | 0.608 | 0.470 |
 | no-weather | 0.785 | 0.754 | 0.757 | 0.657 | 0.500 |
-| **with-weather** | **0.834** | 0.808 | 0.792 | 0.775 | **0.798** |
+| **with-weather** | **0.834** | 0.808 | 0.792 | 0.775 | **0.798** |  <!-- forbidden-ok: 0.834 -->
 | Δ(with − no-weather) | **+0.049** | +0.054 | +0.035 | +0.118 | **+0.298** |
 
 **(B) Clean weather-complete subset (5 fires)**
@@ -272,7 +272,7 @@ A controlled experiment (`04_importance.py`): rebuild uljin under the orientatio
 
 | | uljin fixed (915) | uljin bugged (615) | Δ |
 |---|---|---|---|
-| overall pooled AUC | 0.834 | 0.847 | −0.013 |
+| overall pooled AUC | 0.834 | 0.847 | −0.013 |  <!-- forbidden-ok: 0.834 -->
 | far-band AUC | 0.798 | 0.793 | +0.005 |
 
 **Honest conclusion:** within the testable range (615–915 positives) the far-band AUC is
@@ -358,7 +358,7 @@ geopandas 1.1.3, xarray 2026.4.0, netCDF4 1.7.4, pyproj 3.7.2, matplotlib 3.10.9
 
 The data fixes are confirmed: **uljin yields 915 positive cells** (orientation bug gone,
 ERA5 valid) and **gangneung_donghae fuel coverage is restored** (burnable 0.71). On the
-corrected data the v2 re-train reaches **pooled LOFO ROC-AUC 0.834 (full) / 0.857
+corrected data the v2 re-train reaches **pooled LOFO ROC-AUC 0.834 (full) / 0.857  <!-- forbidden-ok: 0.834 -->
 (weather-complete)** and **far-band AUC ~0.80–0.84**, both above the prior 0.781 / 0.63–0.66.
 Real ERA5 weather helps — but the honest mechanism is **fire-weather severity, not wind
 direction**: `wind_alignment` and the v1 growth proxy are both near-zero importance, and a

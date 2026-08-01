@@ -44,7 +44,11 @@ from wildfireguardian.spread_v2.forward_sim import (  # noqa: E402
     forward_simulate,
 )
 from wildfireguardian.spread_v2.weather import weather_series_from_event  # noqa: E402
+from wildfireguardian.config import config_hash, get as _cfg  # noqa: E402
 from wildfireguardian.routing.hazard import HazardSequence  # noqa: E402
+from wildfireguardian.spread_v2.extent import (  # noqa: E402
+    assert_envelope_within_grid, check_routing_clearance, resolve_simulation_bbox,
+)
 from wildfireguardian.routing.evacuation import (  # noqa: E402
     build_evacuation_network,
     future_aware_route,
@@ -73,21 +77,32 @@ def _fmt(value, spec: str, *, none: str = "n/a") -> str:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--fire", default="yeongdeok_2025")
-    ap.add_argument("--seed", type=int, default=DEFAULT_SEED)
-    ap.add_argument("--hazard-cell-m", type=float, default=500.0)
-    ap.add_argument("--route-cell-m", type=float, default=750.0)
+    # Defaults sourced from config/default.yaml (PHASE 1-A); every literal
+    # fallback is the Round-2 value, so behaviour is unchanged.
+    ap.add_argument("--fire", default=_cfg("project.region_name", "yeongdeok_2025"))
+    ap.add_argument("--seed", type=int, default=_cfg("seeds.canonical", DEFAULT_SEED))
+    # NB 500.0 here, NOT the rescue pipeline's 375.0 — a real cross-layer
+    # divergence, recorded in config as grid.routing_integration_hazard_cell_m.
+    ap.add_argument("--hazard-cell-m", type=float,
+                    default=_cfg("grid.routing_integration_hazard_cell_m", 500.0))
+    ap.add_argument("--route-cell-m", type=float,
+                    default=_cfg("grid.routing_integration_route_cell_m", 750.0))
     # 3 h steps sit inside the model's real overpass-gap training range
     # (~3-12 h); shorter steps extrapolate the dt_hours feature below that
     # range and the envelope barely grows. The HazardSequence interpolates
     # between these surfaces for the finer-grained routing clock.
-    ap.add_argument("--n-steps", type=int, default=4)
-    ap.add_argument("--step-hours", type=float, default=3.0)
-    ap.add_argument("--advance-threshold", type=float, default=0.3)
-    ap.add_argument("--p-cut", type=float, default=0.5)
-    ap.add_argument("--time-budget-min", type=float, default=600.0)
-    ap.add_argument("--time-step-min", type=float, default=10.0)
-    ap.add_argument("--scan-stride", type=int, default=4, help="sub-sample stride for the origin scan")
+    ap.add_argument("--n-steps", type=int, default=_cfg("time.forward_sim_n_steps", 4))
+    ap.add_argument("--step-hours", type=float, default=_cfg("time.forward_sim_step_hours", 3.0))
+    ap.add_argument("--advance-threshold", type=float,
+                    default=_cfg("time.forward_sim_advance_threshold", 0.3))
+    ap.add_argument("--p-cut", type=float, default=_cfg("pedestrian.walk_cutoff_p", 0.5))
+    ap.add_argument("--time-budget-min", type=float,
+                    default=_cfg("pedestrian.walk_budget_min", 600.0))
+    ap.add_argument("--time-step-min", type=float,
+                    default=_cfg("time.routing_time_step_min", 10.0))
+    ap.add_argument("--scan-stride", type=int,
+                    default=_cfg("origin_scan.routing_integration_stride", 4),
+                    help="sub-sample stride for the origin scan")
     ap.add_argument("--out", default=str(REPO / "data" / "processed"))
     args = ap.parse_args()
 
@@ -103,7 +118,8 @@ def main() -> int:
 
     # ---- 1. dataset + LOFO -------------------------------------------------
     print("[1/4] building dataset + leave-one-fire-out validation ...")
-    ds = features.build_dataset(fire_ids, cell_size_m=args.hazard_cell_m, buffer_m=6000.0)
+    ds = features.build_dataset(fire_ids, cell_size_m=args.hazard_cell_m,
+                                buffer_m=_cfg("grid.feature_buffer_m", 6000.0))
     lofo = leave_one_fire_out(ds, seed=args.seed, compute_importance=True)
     fiou = footprint_iou_lofo(sorted(ds["fire_id"].unique()), ds, threshold=args.p_cut,
                               seed=args.seed, cell_size_m=args.hazard_cell_m)
@@ -111,6 +127,7 @@ def main() -> int:
     align = lofo.permutation_importance.get("wind_alignment", 0.0)
     lofo_summary = {
         "seed": args.seed,
+        "config_hash": config_hash(),
         "n_rows": int(len(ds)),
         "n_positives": int(ds["label"].sum()),
         "fires_used": sorted(ds["fire_id"].unique()),
@@ -137,13 +154,28 @@ def main() -> int:
     model = IgnitionModelV2(seed=args.seed).fit(ds[ds["fire_id"] != args.fire])
     ev = data.load_event(args.fire)
     ws = weather_series_from_event(ev)
-    hg = gridmod.build_grid(ev.meta.bbox_wgs84, cell_size_m=args.hazard_cell_m)
+    # Simulation canvas comes from config, NOT from whatever bbox happens to be
+    # in the git-ignored fire_manifest.json. Round 2 lost the reproducibility of
+    # routing_demo.npz exactly that way (docs/grid_extent.md).
+    sim_bbox, bbox_prov = resolve_simulation_bbox(fallback=ev.meta.bbox_wgs84)
+    print(f"      simulation canvas: {sim_bbox}  [{bbox_prov}]")
+    if tuple(sim_bbox) != tuple(ev.meta.bbox_wgs84):
+        print(f"      note: differs from fire_manifest.json bbox "
+              f"{tuple(ev.meta.bbox_wgs84)} — config wins, by design.")
+    hg = gridmod.build_grid(sim_bbox, cell_size_m=args.hazard_cell_m)
     snaps = gridmod.overpass_snapshots(ev, hg, gap_minutes=90.0)
     hstatic = StaticLayers.from_event(ev, hg)
     sim = forward_simulate(model, ev, hg, hstatic, snaps[0].cumulative_mask, snaps[0].time, ws,
                            n_steps=args.n_steps, step_hours=args.step_hours,
                            advance_threshold=args.advance_threshold)
     hazard = HazardSequence.from_forward_sim(sim)
+    # A fire that reaches the canvas edge under-reports area, breadth and drift,
+    # and every routing decision downstream inherits that. Fail loudly.
+    boundary = assert_envelope_within_grid(
+        hazard.surfaces, grid=hg, context=f"{args.fire} forward simulation")
+    _bmax = max(max(r["max_p_per_edge"].values()) for r in boundary)
+    print(f"      boundary check: clear (max edge p = {_bmax:.4f}, "
+          f"threshold {boundary[0]['p_threshold']})")
     ign_xy = np.array(_TO_5179.transform(*ev.meta.ignition_lonlat), float)
     drift = drift_vs_observed(sim, snaps, p_cut=args.p_cut)
     breadth = [envelope_breadth_deg(sim, s, tuple(ign_xy), p_cut=0.3) for s in range(sim.n_steps)]
@@ -157,6 +189,12 @@ def main() -> int:
         "drift": [d.__dict__ for d in drift],
         "envelope_breadth_deg": breadth,
         "envelope_area_ha": [sim.envelope_area_ha(s, args.p_cut) for s in range(sim.n_steps)],
+        "simulation_bbox_wgs84": list(sim_bbox),
+        "simulation_bbox_provenance": bbox_prov,
+        "fire_manifest_bbox_wgs84": list(ev.meta.bbox_wgs84),
+        "grid": {"nrows": hg.nrows, "ncols": hg.ncols, "cell_size_m": hg.cell_size_m,
+                 "extent_5179": [hg.minx, hg.miny, hg.maxx, hg.maxy]},
+        "boundary_check": boundary,
     }
     (out / "yeongdeok_forward_sim.json").write_text(json.dumps(fwd_summary, indent=2, default=str))
     print("      drift IoU by step: " + ", ".join(f"{d.iou:.2f}" for d in drift) +
@@ -165,10 +203,20 @@ def main() -> int:
 
     # ---- 3. routing network + origin scan ---------------------------------
     print("[3/4] building evacuation network + scanning origins ...")
-    rg = gridmod.build_grid(ev.meta.bbox_wgs84, cell_size_m=args.route_cell_m)
+    rg = gridmod.build_grid(sim_bbox, cell_size_m=args.route_cell_m)
+    # Nodes outside the hazard grid read p=0 — no hazard at all — which is
+    # optimistic. Warn rather than raise: it is a limitation to disclose, not a
+    # corrupted result.
+    clearance = check_routing_clearance((rg.minx, rg.miny, rg.maxx, rg.maxy), hg)
+    print(f"      routing clearance (km): {clearance['margins_km']}"
+          + ("" if clearance["ok"]
+             else f"  <-- below {clearance['clearance_required_m']/1000:g} km on "
+                  f"{'/'.join(clearance['sides_below_clearance'])}"))
     relev = gridmod.elevation_on_grid(ev, rg)
     rburn = gridmod.burnable_fraction_on_grid(ev, rg)
-    net = build_evacuation_network(rg, relev, rburn, flat_speed_ms=0.7)
+    net = build_evacuation_network(
+        rg, relev, rburn,
+        flat_speed_ms=_cfg("pedestrian.elderly_flat_speed_ms", 0.7))
     shelters_xy = np.array([[net.graph.nodes[s]["x"], net.graph.nodes[s]["y"]] for s in net.shelters], float)
 
     nodes = list(net.graph.nodes)

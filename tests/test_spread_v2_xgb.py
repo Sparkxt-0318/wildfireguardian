@@ -214,6 +214,12 @@ def test_observed_sequence_monotone_and_candidate_labels():
 
 def test_lofo_holds_out_whole_fire():
     """lofo_predict must train without the held-out fire and cover every row once."""
+    # spread_v2_xgb is the SUPERSEDED Build A; xgboost is the optional `legacy`
+    # extra, not a core dependency. Without this guard the test ERRORS instead of
+    # skipping on the canonical stack, which reads as a broken build rather than
+    # an absent optional extra. Its sibling tests/test_lfmc_retrieval.py already
+    # guards this way.
+    pytest.importorskip("xgboost")
     from wildfireguardian.spread_v2_xgb.model import lofo_predict
 
     rng = np.random.default_rng(0)

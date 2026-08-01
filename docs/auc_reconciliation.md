@@ -5,7 +5,7 @@
 > (different fire set, 16 vs 19 features, seed 42 vs 20250603, different eval code),
 > so no "B better than A" claim is made. Headline = LOFO **mean-of-folds ROC-AUC
 > 0.89 ± 0.11** (range 0.68–0.97); pooled 0.905 is labeled-as-pooled; footprint
-> IoU **~0.40** (the 0.874 single-step IoU is report-blocked).
+> IoU **~0.40** (the 0.874 single-step IoU is report-blocked).  <!-- forbidden-ok: 0.874 -->
 
 > **Diagnostic only.** This document recomputes statistics from already-committed
 > artifacts to explain why two AUCs are cited (repo `0.905`, project doc `0.83`). It
@@ -74,7 +74,7 @@ Summary statistics:
 What "0.83 / 0.80 / 0.32" referred to:
   Located in-repo as a DIFFERENT model build, not a different statistic of this one:
    - 0.83  = pooled AUC of PR #2's independent spread_v2 RE-TRAIN (seed 42, 19 features:
-             frp_sum_nearby, v1_alignment, ... ) = 0.834 full / 0.857 weather-complete
+             frp_sum_nearby, v1_alignment, ... ) = 0.834 full / 0.857 weather-complete  <!-- forbidden-ok: 0.834 -->
              [docs/SPREAD_MODEL_REPORT_BUILD_A_LEGACY.md:206,353 ; data/processed/spread_v2/*],
              which COINCIDES with the project brief's stated ~0.83
              [docs/ROUTING_INTEGRATION_REPORT.md:51 "brief states ~0.83 | we measure 0.905"].

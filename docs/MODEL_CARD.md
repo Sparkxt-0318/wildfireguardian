@@ -85,10 +85,10 @@ statistics unit-tested in `tests/test_auc_stats.py`.
 | IoU | value | exact definition | use? |
 |---|---|---|---|
 | forward-sim envelope | **~0.40** | forward-simulated cumulative envelope vs observed FIRMS footprint at 3/6/9/12 h (0.37/0.40/0.39/0.40), Yeongdeok, threshold `p_cut` | **YES — the honest footprint/reach figure** `[src: yeongdeok_forward_sim.json/drift]` |
-| single-step cumulative | 0.874 | `pred_cum = active ∪ pred_new` IoU `obs_next` (which **also contains `active`**); dominated by the shared already-burned area — measures "next overpass *given* the current burned area," not a from-scratch footprint (`model.py:285–286`) | **NO — REPORT-BLOCKED** as a footprint result `[src: spread_v2_lofo.json/footprint_iou_single_step]` |
+| single-step cumulative | 0.874 | `pred_cum = active ∪ pred_new` IoU `obs_next` (which **also contains `active`**); dominated by the shared already-burned area — measures "next overpass *given* the current burned area," not a from-scratch footprint (`model.py:285–286`) | **NO — REPORT-BLOCKED** as a footprint result `[src: spread_v2_lofo.json/footprint_iou_single_step]` |  <!-- forbidden-ok: 0.874 -->
 | new-ring-only | ~0.07 | IoU on only the *newly*-burned ring (≈ persistence) — the hardest "exactly which new cells" metric | context only `[src: docs/ROUTING_INTEGRATION_REPORT.md §3]` |
 
-**Do not report 0.874 as a footprint result** — it is not leakage (no future
+**Do not report 0.874 as a footprint result** — it is not leakage (no future  <!-- forbidden-ok: 0.874 -->
 information), but it measures an easier task; the honest figure is **~0.40**.
 
 ## Headline finding (severity ≫ wind direction)
@@ -117,11 +117,11 @@ Method: `docs/baselines.md`.
 
 ## Provenance — two builds exist; why they are NOT directly comparable
 
-The project's 작품설명서 / brief cites **0.834 / 0.80 / 0.32** from an earlier,
+The project's 작품설명서 / brief cites **0.834 / 0.80 / 0.32** from an earlier,  <!-- forbidden-ok: 0.834 -->
 **different** build ("Build A" — `docs/SPREAD_MODEL_REPORT_BUILD_A_LEGACY.md`,
 `data/processed/spread_v2/`). Build A and the canonical Build B are **two
 independent reconstructions and are not a like-for-like comparison** — the
-0.834-vs-0.905 difference cannot be read as "B is better." The specific
+0.834-vs-0.905 difference cannot be read as "B is better." The specific  <!-- forbidden-ok: 0.834 -->
 non-comparability reasons:
 
 1. **Different fire set.** Build A's 6th fold is `gangneung_donghae_2022`
@@ -189,9 +189,9 @@ The 작품설명서 is **not in this repo** — apply these old→new correction
 
 | field | old (Build A / brief) | new (Build B, canonical) |
 |---|---|---|
-| ROC-AUC (headline) | 0.83 / 0.834 | **0.89 (LOFO mean-of-folds, range 0.68–0.97)**; pooled 0.905 if labeled "pooled" |
+| ROC-AUC (headline) | 0.83 / 0.834 | **0.89 (LOFO mean-of-folds, range 0.68–0.97)**; pooled 0.905 if labeled "pooled" |  <!-- forbidden-ok: 0.834 -->
 | far-band (>3 km) AUC | ~0.80 | **0.925 (mean-of-folds, n=3); 0.877 pooled** |
-| footprint IoU | 0.32 | **~0.40 (forward-sim envelope, 3–12 h)** — do not use 0.874 |
+| footprint IoU | 0.32 | **~0.40 (forward-sim envelope, 3–12 h)** — do not use 0.874 |  <!-- forbidden-ok: 0.874 -->
 | feature count | 19 | **16** |
 
 Suggested replacement sentence (formal 합니다체):
@@ -202,6 +202,6 @@ Suggested replacement sentence (formal 합니다체):
 > 성능 지표로는 폴드 평균을 보고합니다. 순방향 모의 화선(footprint) IoU는 약
 > **0.40**입니다(영덕, 3–12시간).
 
-*Build comparison note for the author: the earlier 0.834 / 0.80 / 0.32 came from a
+*Build comparison note for the author: the earlier 0.834 / 0.80 / 0.32 came from a  <!-- forbidden-ok: 0.834 -->
 different build (different fire set, 19 features, seed 42) and is not a like-for-like
 comparison; report the canonical Build B numbers above.*

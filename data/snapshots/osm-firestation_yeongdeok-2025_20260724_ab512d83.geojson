@@ -1,0 +1,11 @@
+{
+"type": "FeatureCollection",
+"name": "fire_station",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "element": "node", "id": 11955031298, "amenity": "fire_station", "name": "영덕소방서", "wikidata": "Q16098588", "wikipedia": "ko:영덕소방서", "building": null }, "geometry": { "type": "Point", "coordinates": [ 129.371013799999986, 36.4166584 ] } },
+{ "type": "Feature", "properties": { "element": "node", "id": 11955031299, "amenity": "fire_station", "name": "영덕119안전센터", "wikidata": null, "wikipedia": null, "building": null }, "geometry": { "type": "Point", "coordinates": [ 129.3708394, 36.4167145 ] } },
+{ "type": "Feature", "properties": { "element": "node", "id": 12011651426, "amenity": "fire_station", "name": "강구119안전센터", "wikidata": null, "wikipedia": null, "building": null }, "geometry": { "type": "Point", "coordinates": [ 129.3746724, 36.3513789 ] } },
+{ "type": "Feature", "properties": { "element": "way", "id": 678973008, "amenity": "fire_station", "name": "강구119안전센터", "wikidata": null, "wikipedia": null, "building": "yes" }, "geometry": { "type": "Point", "coordinates": [ 129.374663996103664, 36.351372865122109 ] } }
+]
+}

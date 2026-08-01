@@ -584,10 +584,10 @@ motivated the move to the data-driven, LOGO-CV-validated `spread_v2` model.
 
 ### Provenance note — two builds exist (A vs B)
 
-An earlier project brief cited **0.834 / 0.80 / 0.32** (ROC-AUC / far-band /
+An earlier project brief cited **0.834 / 0.80 / 0.32** (ROC-AUC / far-band /  <!-- forbidden-ok: 0.834 -->
 footprint IoU) from a **different reconstruction** ("Build A": different fire set,
 19 features, seed 42). Build A and the canonical Build B are **two independent
-reconstructions and are not a like-for-like comparison** — the 0.834-vs-0.905 gap
+reconstructions and are not a like-for-like comparison** — the 0.834-vs-0.905 gap  <!-- forbidden-ok: 0.834 -->
 must **not** be read as "B is better". Both nonetheless corroborate the central
 finding (fire-weather *severity* ≫ wind *direction*). The full old→new correction
 mapping is in [`docs/MODEL_CARD.md`](docs/MODEL_CARD.md).

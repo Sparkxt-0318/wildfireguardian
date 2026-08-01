@@ -61,7 +61,7 @@ How this build's numbers relate to the brief's stated ones (all **leave-one-fire
 | Mean-of-folds AUC | ~0.83 | **0.89 ± 0.11** (0.68–0.97) | generalization figure |
 | Pooled AUC | ~0.83 | **0.905** (pooled) | different build; not like-for-like |
 | Far-band (>3 km) AUC | ~0.80 | **0.877** (pooled) | different build; not like-for-like |
-| Footprint IoU | 0.32 | **~0.40** forward-sim (3–12 h) | 0.874 single-step IoU is report-blocked (next-overpass *given* current burn) |
+| Footprint IoU | 0.32 | **~0.40** forward-sim (3–12 h) | 0.874 single-step IoU is report-blocked (next-overpass *given* current burn) |  <!-- forbidden-ok: 0.874 -->
 | `wind_alignment` importance | ≈ 0 | **0.0023** (44× below severity) | **both builds corroborate severity ≫ direction** |
 
 `src/wildfireguardian/spread_v2/` is the new package (`data, grid, weather, features,

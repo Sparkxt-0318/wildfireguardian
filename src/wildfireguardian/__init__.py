@@ -1,4 +1,5 @@
-"""WildfireGuardian — multi-scale wildfire forecasting and personalised evacuation.
+"""WildfireGuardian — wildfire spread forecasting and household-level evacuation
+and rescue routing.
 
 Top-level package. Importing this module is intentionally cheap: subpackages
 that depend on optional heavy dependencies (geopandas, rasterio, osmnx) are
