@@ -148,9 +148,11 @@ That isolates the remaining blockers to causes 2 and 3:
 * the hazard is quasi-static, so shifted arrival times rarely change which slice
   a node is evaluated against.
 
-Those are the subjects of 2-C-2 (budget sweep) and 2-C-3 (hazard time
-resolution). This experiment's contribution is to take cause 1 off the list with
-evidence rather than argument.
+Those are the subjects of 2-C-2 (budget sweep — measured, see
+[`budget_sweep.md`](budget_sweep.md): `no_safe_route` moves 3 → 18 once the
+budget binds) and 2-C-3 (hazard time resolution — untested, priority lowered).
+This experiment's contribution is to take cause 1 off the list with evidence
+rather than argument.
 
 ⚠ The default objective is **unchanged**. The committed 407- and 459-origin
 results are distance-ranked, and interpreting them requires that behaviour to

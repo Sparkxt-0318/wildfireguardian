@@ -636,26 +636,57 @@ def main() -> int:
                                 f"if r['budget_min'] == {b}.0), 4)"),
                        "tolerance": 0.0},
             )
-        N["budget_time_objective_hazard_cost"] = entry(
+        N["baseline_hazard_entry_increase"] = entry(
             value=rows[600]["time_objective"]["why"]["enters_hazard"]
             - rows[600]["distance_objective"]["why"]["enters_hazard"],
             unit="origins", source_file=BUD,
             json_path="sweep[*].{time,distance}_objective.why.enters_hazard",
             derivation="time_objective.why.enters_hazard - "
-                       "distance_objective.why.enters_hazard (23 - 20)",
+                       "distance_objective.why.enters_hazard (23 - 20), "
+                       "both measured on naive_route",
             sample="460곳 주사 · 모든 예산에서 동일",
-            caveat=("THE PRICE of terrain-aware status-quo routing: it is not "
-                    "hazard-aware. A gentler detour is chosen for speed alone and "
-                    "3 more origins' routes cross the predicted fire. Constant "
-                    "across every budget, because it has nothing to do with time. "
-                    "At 600 min the timing gain is zero, so the time objective is "
-                    "NET WORSE by 3."),
+            caveat=("A LIMIT OF THE FIRE-BLIND BASELINE, NOT A COST OF THE "
+                    "PROPOSED SYSTEM. Both figures are naive_route figures, and "
+                    "naive_route never sees the fire under EITHER objective — the "
+                    "hazard only scores it afterwards. Telling a fire-blind router "
+                    "about terrain makes it faster; it cannot make it safer. "
+                    "future_aware_route refuses any node at/above p_cut, so it "
+                    "cannot enter the hazard at all: `both_enter` is 0 at every "
+                    "budget in this sweep. The +3 is therefore direct evidence FOR "
+                    "a hazard-aware routing layer — a reader who attributes it to "
+                    "the proposed system has inverted the finding."),
             forbidden_phrasings=["시간 기반이 항상 낫다",
-                                 "time-aware routing is strictly better"],
+                                 "time-aware routing is strictly better",
+                                 "+3을 제안 시스템의 비용으로 서술",
+                                 "the proposed system sends 3 more into the fire",
+                                 "지형 인지 라우팅의 대가"],
             check={"kind": "expression",
                    "operands": {"a": op(BUD, "sweep")},
                    "expr": ("next(r['time_objective']['why']['enters_hazard'] "
                             "- r['distance_objective']['why']['enters_hazard'] "
+                            "for r in a if r['budget_min'] == 600.0)"),
+                   "tolerance": 0.0},
+        )
+
+        N["partition_sixth_category_empty_at_600min"] = entry(
+            value=True, unit="boolean", source_file=BUD,
+            json_path="sweep[budget_min=600].future_aware_counts.fa_exceeds_budget",
+            derivation="fa_exceeds_budget == 0 at a 600-minute budget",
+            sample="460곳 주사",
+            caveat=("The regression that proves `fa_exceeds_budget` is ADDITIVE "
+                    "rather than a redefinition. At 600 min the future-aware "
+                    "router always finishes, so the new category must be empty and "
+                    "the five original counts must remain 440/17/3/0/0 — they do. "
+                    "The committed 459-origin reading is therefore untouched. A "
+                    "non-zero value here would mean the new branch is capturing "
+                    "origins that previously belonged to one of the five."),
+            forbidden_phrasings=["분류 체계를 재정의했다",
+                                 "the categories were redefined"],
+            check={"kind": "expression",
+                   "operands": {"a": op(BUD, "sweep")},
+                   "expr": ("next(r['future_aware_counts']['fa_exceeds_budget'] == 0 "
+                            "and r['future_aware_counts']['unclassified'] == 0 "
+                            "and r['future_aware_counts']['both_safe'] == 440 "
                             "for r in a if r['budget_min'] == 600.0)"),
                    "tolerance": 0.0},
         )

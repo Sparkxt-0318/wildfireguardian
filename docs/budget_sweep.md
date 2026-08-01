@@ -68,19 +68,33 @@ Two opposing effects:
 
 * **Time-aware routing consistently beats the clock**, saving 4–7 origins from
   the budget constraint at every binding budget.
-* **Time-aware routing is NOT hazard-aware.** A gentler detour is chosen for
-  speed alone, and 3 more origins' detours cross the predicted fire. This cost is
-  **constant at +3 across every budget**, because it has nothing to do with time.
+* **The fire-blind baseline puts 3 more origins into the hazard.** Constant at
+  +3 across every budget, because it has nothing to do with time.
 
-At tight budgets the timing gain outweighs the safety cost (net +1 to +4). At
-600 minutes the timing gain is exactly zero — nobody is over budget — so only the
-safety cost remains, and the time objective is **worse by 3**.
+### ⚠ Where the +3 belongs
 
-**This is the operational value of terrain-aware routing, and its price.** The
-brief expected the difference column to grow as budgets tighten; it does, but the
-gain is bounded by a hazard-blindness cost that a status-quo router cannot avoid.
-The obvious fix — rank by time *and* respect the hazard — is precisely what
-`future_aware_route` already does, and is not a status-quo policy.
+**Both of these numbers are `naive_route` numbers, and `naive_route` is the
+fire-blind BASELINE.** It is the status quo — "walk to the nearest shelter" — and
+its path never sees the fire under *either* objective; the hazard is only used to
+*score* it afterwards. Telling that baseline about terrain makes it faster. It
+does not, and cannot, make it safer.
+
+**This is not a cost of the proposed system.** `future_aware_route` minimises
+cumulative exposure on a time-expanded graph and refuses any node at or above
+`p_cut`, so it cannot enter the hazard at all. Measured across every budget in
+this sweep, `both_enter` — the only bucket in which the future-aware route enters
+the hazard — is **0**. Asserted in
+`tests/test_partition_categories.py::test_hazard_entry_is_a_baseline_property_not_a_system_cost`.
+
+So the +3 is **direct evidence for the rescue-aware routing layer, not against
+it**: it shows that giving a fire-blind router better terrain information does
+not produce safety, and that hazard-awareness has to be a separate capability.
+A reader who attributes the +3 to the proposed system has inverted the finding.
+
+At tight budgets the baseline's timing gain outweighs its hazard cost (net +1 to
++4). At 600 minutes the timing gain is exactly zero — nobody is over budget — so
+only the baseline's hazard-blindness remains, and the time-ranked baseline is
+**worse by 3**.
 
 ## Who gets rescued: steep-terrain residents
 
@@ -101,17 +115,21 @@ concentrated in steep terrain, exactly as the mechanism predicts. The counts are
 small (1–4), so this is directional evidence about *who* benefits, not a
 population estimate.
 
-## The 6-bucket partition degrades under a binding budget
+## The partition, with its sixth category
 
 Applying the budget to `future_aware_route` as well:
 
-| 예산 | both_safe | FA_only | no_safe_route | **unclassified** |
-|---|---:|---:|---:|---:|
-| 600분 | 440 | 17 | **3** | **0** |
-| 120분 | 371 | 2 | **18** | **69** |
-| 90분 | 342 | 2 | **18** | **98** |
-| 60분 | 285 | 2 | **18** | **155** |
-| 30분 | 205 | 2 | **18** | **235** |
+| 예산 | both_safe | FA_only | no_safe_route | **fa_exceeds_budget** | unclassified | 합계 |
+|---|---:|---:|---:|---:|---:|---:|
+| 600분 | 440 | 17 | **3** | **0** | 0 | 460 |
+| 120분 | 371 | 2 | **18** | **69** | 0 | 460 |
+| 90분 | 342 | 2 | **18** | **98** | 0 | 460 |
+| 60분 | 285 | 2 | **18** | **155** | 0 | 460 |
+| 30분 | 205 | 2 | **18** | **235** | 0 | 460 |
+
+(`both_enter` and `naive_unreachable` are 0 at every budget and omitted for
+width; the six categories sum to 460 throughout — partition completeness is
+asserted in the test suite.)
 
 Two things to state plainly:
 
@@ -119,15 +137,22 @@ Two things to state plainly:
    because it requires the naive route to enter the hazard (20 origins,
    budget-independent) *and* the future-aware route to fail. So the PHASE-2 null
    result was a budget artifact after all, for this bucket.
-2. **`unclassified` explodes to 235.** This is a **partition defect exposed by
-   the experiment, not a result.** The 6-bucket rule has no branch for "the naive
-   route is safe but the future-aware route cannot finish within budget" — the
-   commonest state once the budget binds — so those origins fall through to
-   `unclassified`. The partition was designed when the budget never bound.
+2. **`fa_exceeds_budget` carries the load**, rising monotonically to 235 of 460
+   as the budget tightens. **`unclassified` is 0 at every budget.**
 
-**Do not report the tight-budget bucket counts as if the partition were
-meaningful there.** The `w(t)` table above is the sound measurement; the bucket
-table is included because hiding it would be worse.
+Before PHASE 2-C-2 those 235 origins fell through every branch into
+`unclassified`, because the original five-category rule was written when the
+budget never bound and had no branch for "the naive route is safe but the
+future-aware router cannot finish in time" — the commonest state once it does.
+That state has a meaning, so it now has a name.
+
+**The addition is strictly additive.** The five original categories keep their
+definitions and their evaluation order. At a 600-minute budget the new category
+is empty and the counts are exactly 440 / 17 / 3 / 0 / 0, so the committed
+459-origin reading is untouched. Regression-tested in
+`tests/test_partition_categories.py`.
+
+These bucket counts are now reportable results rather than an artifact.
 
 ## Reporting rules
 
@@ -143,6 +168,7 @@ table is included because hiding it would be worse.
 
 ## What this does not settle
 
-The `unclassified` blow-up says the classification needs a sixth honest category
-before tight-budget bucket counts can be reported. And cause 3 — the hazard's
-180-minute time resolution — is still untested; PHASE 2-C-3 addresses it.
+Cause 3 — the hazard's 180-minute time resolution — is still untested. Its
+priority has fallen: `no_safe_route` moving 3 → 18 shows the budget was the
+main blocker, so the remaining resolution effect is a refinement rather than
+an explanation.

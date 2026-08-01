@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "title": "w(t): evacuation failure vs walking budget (PHASE 2-C-2)",
-  "generated_utc": "2026-08-01T15:13:33Z",
-  "git_commit": "938cd6dec6e902442fedbf880634d11b7a1c2388",
+  "generated_utc": "2026-08-01T15:50:15Z",
+  "git_commit": "cbc9b456c7075f822efec3ebdb26c7a6351a0020",
   "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
   "closes": "Round-2 Ⅴ-2 future-work item: the 30/60/90-minute w(t) sweep.",
   "definitions": {
@@ -87,7 +87,8 @@
         "both_safe": 205,
         "both_enter": 0,
         "naive_unreachable": 0,
-        "unclassified": 235
+        "fa_exceeds_budget": 235,
+        "unclassified": 0
       }
     },
     {
@@ -140,7 +141,8 @@
         "both_safe": 285,
         "both_enter": 0,
         "naive_unreachable": 0,
-        "unclassified": 155
+        "fa_exceeds_budget": 155,
+        "unclassified": 0
       }
     },
     {
@@ -193,7 +195,8 @@
         "both_safe": 342,
         "both_enter": 0,
         "naive_unreachable": 0,
-        "unclassified": 98
+        "fa_exceeds_budget": 98,
+        "unclassified": 0
       }
     },
     {
@@ -246,7 +249,8 @@
         "both_safe": 371,
         "both_enter": 0,
         "naive_unreachable": 0,
-        "unclassified": 69
+        "fa_exceeds_budget": 69,
+        "unclassified": 0
       }
     },
     {
@@ -299,6 +303,7 @@
         "both_safe": 440,
         "both_enter": 0,
         "naive_unreachable": 0,
+        "fa_exceeds_budget": 0,
         "unclassified": 0
       }
     }

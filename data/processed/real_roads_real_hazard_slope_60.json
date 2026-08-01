@@ -1,8 +1,8 @@
 {
   "title": "Real roads + real hazard + real terrain (Yeongdeok 2025, 60 m slope sampling)",
   "schema_version": 1,
-  "generated_utc": "2026-08-01T14:04:16Z",
-  "git_commit": "9de5eae3f06b3118d7a7e28e1236810d9b9bb7a8",
+  "generated_utc": "2026-08-01T15:48:08Z",
+  "git_commit": "cbc9b456c7075f822efec3ebdb26c7a6351a0020",
   "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
   "is_canonical_sampling": true,
   "p_cut": 0.5,
@@ -31,6 +31,7 @@
         "both_safe": 440,
         "both_enter": 0,
         "naive_unreachable": 0,
+        "fa_exceeds_budget": 0,
         "unclassified": 0
       },
       "n_shelter_nodes": 46,
@@ -48,6 +49,7 @@
         "both_safe": 440,
         "both_enter": 0,
         "naive_unreachable": 0,
+        "fa_exceeds_budget": 0,
         "unclassified": 0
       },
       "n_shelter_nodes": 46,
@@ -292,6 +294,7 @@
       "both_safe": 440,
       "both_enter": 0,
       "naive_unreachable": 0,
+      "fa_exceeds_budget": 0,
       "unclassified": 0
     },
     "n_shelter_nodes": 46,
@@ -432,6 +435,7 @@
       "both_safe": 440,
       "both_enter": 0,
       "naive_unreachable": 0,
+      "fa_exceeds_budget": 0,
       "unclassified": 0
     },
     "digraph_counts": {
@@ -440,6 +444,7 @@
       "both_safe": 440,
       "both_enter": 0,
       "naive_unreachable": 0,
+      "fa_exceeds_budget": 0,
       "unclassified": 0
     },
     "identical": true,
@@ -489,18 +494,6 @@
     ]
   },
   "sampling_sensitivity": {
-    "30m": {
-      "counts": {
-        "naive_into_FA_safe": 17,
-        "no_safe_route": 3,
-        "both_safe": 440,
-        "both_enter": 0,
-        "naive_unreachable": 0,
-        "unclassified": 0
-      },
-      "n_origins_scanned": 460,
-      "pct_change_mean_of_directions": 40.37062815778734
-    },
     "60m": {
       "counts": {
         "naive_into_FA_safe": 17,
@@ -508,22 +501,11 @@
         "both_safe": 440,
         "both_enter": 0,
         "naive_unreachable": 0,
+        "fa_exceeds_budget": 0,
         "unclassified": 0
       },
       "n_origins_scanned": 460,
       "pct_change_mean_of_directions": 26.593986527331225
-    },
-    "90m": {
-      "counts": {
-        "naive_into_FA_safe": 17,
-        "no_safe_route": 3,
-        "both_safe": 440,
-        "both_enter": 0,
-        "naive_unreachable": 0,
-        "unclassified": 0
-      },
-      "n_origins_scanned": 460,
-      "pct_change_mean_of_directions": 21.03399673420956
     }
   }
 }

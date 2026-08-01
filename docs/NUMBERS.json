@@ -2,7 +2,7 @@
   "schema_version": 1,
   "_README": "CANONICAL REGISTRY. Every reportable number lives here exactly once. Do not restate a value in prose without citing its key. 'verified' = still matches its artifact; 'reproducible' = re-running the pipeline regenerates that artifact. They are independent — several numbers here are verified but NOT reproducible because the OSM network behind them was overwritten (docs/DATA_LOSS_2026-07-24.md). Run scripts/verify_numbers.py to re-check every entry.",
   "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
-  "built_at_git_commit": "938cd6dec6e902442fedbf880634d11b7a1c2388",
+  "built_at_git_commit": "cbc9b456c7075f822efec3ebdb26c7a6351a0020",
   "round2_submission_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
   "numbers": {
     "lofo_mean_of_folds_auc": {
@@ -1142,20 +1142,23 @@
       },
       "reproducible": true
     },
-    "budget_time_objective_hazard_cost": {
+    "baseline_hazard_entry_increase": {
       "value": 3,
       "unit": "origins",
       "source_file": "data/processed/budget_sweep_experiment.json",
       "json_path": "sweep[*].{time,distance}_objective.why.enters_hazard",
-      "derivation": "time_objective.why.enters_hazard - distance_objective.why.enters_hazard (23 - 20)",
+      "derivation": "time_objective.why.enters_hazard - distance_objective.why.enters_hazard (23 - 20), both measured on naive_route",
       "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "460곳 주사 · 모든 예산에서 동일",
-      "caveat": "THE PRICE of terrain-aware status-quo routing: it is not hazard-aware. A gentler detour is chosen for speed alone and 3 more origins' routes cross the predicted fire. Constant across every budget, because it has nothing to do with time. At 600 min the timing gain is zero, so the time objective is NET WORSE by 3.",
+      "caveat": "A LIMIT OF THE FIRE-BLIND BASELINE, NOT A COST OF THE PROPOSED SYSTEM. Both figures are naive_route figures, and naive_route never sees the fire under EITHER objective — the hazard only scores it afterwards. Telling a fire-blind router about terrain makes it faster; it cannot make it safer. future_aware_route refuses any node at/above p_cut, so it cannot enter the hazard at all: `both_enter` is 0 at every budget in this sweep. The +3 is therefore direct evidence FOR a hazard-aware routing layer — a reader who attributes it to the proposed system has inverted the finding.",
       "forbidden_phrasings": [
         "시간 기반이 항상 낫다",
-        "time-aware routing is strictly better"
+        "time-aware routing is strictly better",
+        "+3을 제안 시스템의 비용으로 서술",
+        "the proposed system sends 3 more into the fire",
+        "지형 인지 라우팅의 대가"
       ],
       "check": {
         "kind": "expression",
@@ -1166,6 +1169,39 @@
           }
         },
         "expr": "next(r['time_objective']['why']['enters_hazard'] - r['distance_objective']['why']['enters_hazard'] for r in a if r['budget_min'] == 600.0)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-01 from the hash-verified snapshot graph and SRTM raster with osmnx pinned to 2.0.7; scripts/run_budget_sweep_experiment.py regenerates it.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "partition_sixth_category_empty_at_600min": {
+      "value": true,
+      "unit": "boolean",
+      "source_file": "data/processed/budget_sweep_experiment.json",
+      "json_path": "sweep[budget_min=600].future_aware_counts.fa_exceeds_budget",
+      "derivation": "fa_exceeds_budget == 0 at a 600-minute budget",
+      "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "460곳 주사",
+      "caveat": "The regression that proves `fa_exceeds_budget` is ADDITIVE rather than a redefinition. At 600 min the future-aware router always finishes, so the new category must be empty and the five original counts must remain 440/17/3/0/0 — they do. The committed 459-origin reading is therefore untouched. A non-zero value here would mean the new branch is capturing origins that previously belonged to one of the five.",
+      "forbidden_phrasings": [
+        "분류 체계를 재정의했다",
+        "the categories were redefined"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/budget_sweep_experiment.json",
+            "json_path": "sweep"
+          }
+        },
+        "expr": "next(r['future_aware_counts']['fa_exceeds_budget'] == 0 and r['future_aware_counts']['unclassified'] == 0 and r['future_aware_counts']['both_safe'] == 440 for r in a if r['budget_min'] == 600.0)",
         "tolerance": 0.0
       },
       "reproducibility": {

@@ -98,12 +98,29 @@ def candidate_origins(net, hazard, haz, extent, p_cut):
     return cand, (ign_x, ign_y)
 
 
-def classify(net, cand, hazard, p_cut, budget, step):
-    """The 6-bucket PARTITION from scripts/run_routing_integration.py."""
+def classify(net, cand, hazard, p_cut, budget, step, objective="length_m"):
+    """The 6-bucket PARTITION from run_routing_integration.py, PLUS one category.
+
+    ``fa_exceeds_budget`` — naive route is safe, but the future-aware router
+    cannot finish within ``budget`` — is ADDITIVE. The five original categories
+    keep their exact definitions and evaluation order, so committed results are
+    unaffected.
+
+    The addition exists because the original partition was written when the
+    budget never bound. Once it does, "naive safe, future-aware over budget"
+    becomes the commonest state, and it previously fell through every branch into
+    ``unclassified`` — 235 of 460 origins at a 30-minute budget (PHASE 2-C-2).
+    That is a state with a meaning, not a residue.
+
+    At a 600-minute budget the new category is EMPTY and the five original counts
+    are unchanged; ``tests/test_partition_categories.py`` asserts exactly that.
+    """
     classes = {"naive_into_FA_safe": [], "no_safe_route": [], "both_safe": [],
-               "both_enter": [], "naive_unreachable": [], "unclassified": []}
+               "both_enter": [], "naive_unreachable": [], "fa_exceeds_budget": [],
+               "unclassified": []}
     for n in cand:
-        nv = naive_route(net, n, hazard, departure_min=0.0, p_cut=p_cut)
+        nv = naive_route(net, n, hazard, departure_min=0.0, p_cut=p_cut,
+                         objective=objective)
         fa = future_aware_route(net, n, hazard, departure_min=0.0,
                                 time_budget_min=budget, p_cut=p_cut,
                                 time_step_min=step)
@@ -117,6 +134,9 @@ def classify(net, cand, hazard, p_cut, budget, step):
             classes["both_safe"].append(n)
         elif nv.enters_hazard and fa.enters_hazard:
             classes["both_enter"].append(n)
+        # --- ADDITIVE: everything above is untouched -------------------------
+        elif not nv.enters_hazard and not fa.reached:
+            classes["fa_exceeds_budget"].append(n)
         else:
             classes["unclassified"].append(n)
     counts = {k: len(v) for k, v in classes.items()}
