@@ -10,6 +10,8 @@ import pytest
 import xarray as xr
 
 from wildfireguardian.data_io.raster import (
+    CACHE_DIR_ENV,
+    _cache_dir,
     clear_cache,
     load_dem,
     load_fuel_type,
@@ -26,10 +28,41 @@ from wildfireguardian.utils.regions import YEONGDEOK_2025, RegionConfig
 
 
 @pytest.fixture(autouse=True)
-def _clear_cache_between_tests():
+def _isolated_cache(tmp_path, monkeypatch):
+    """Redirect the raster cache into tmp_path for the whole module.
+
+    ``clear_cache()`` deletes every ``*.nc`` in the cache directory. Before
+    Round 3 that directory was the project's REAL ``data/cache/``, so running
+    pytest destroyed the user's cached rasters. The cache dir is now overridable
+    and these tests point it at tmp_path; ``data/cache/`` is never touched.
+    See ``test_fixture_does_not_touch_the_real_cache`` below.
+    """
+    monkeypatch.setenv(CACHE_DIR_ENV, str(tmp_path))
     clear_cache()
     yield
     clear_cache()
+
+
+def test_fixture_does_not_touch_the_real_cache(tmp_path):
+    """Regression: pytest must never delete files from the project's data/cache/.
+
+    The autouse fixture above is active here, so ``clear_cache()`` must resolve
+    to tmp_path. A canary planted in the real cache directory has to survive.
+    """
+    real = Path(__file__).resolve().parents[1] / "data" / "cache"
+    real.mkdir(parents=True, exist_ok=True)
+    canary = real / "_pytest_canary_do_not_delete.nc"
+    canary.write_bytes(b"canary")
+    try:
+        assert _cache_dir() != real, "cache dir must be redirected under test"
+        removed = clear_cache()
+        assert canary.exists(), (
+            "clear_cache() deleted a file from the REAL data/cache/ — the test "
+            "fixture is not isolating the cache directory")
+        assert not any(Path(_cache_dir()).glob("*.nc"))
+        assert removed >= 0
+    finally:
+        canary.unlink(missing_ok=True)
 
 
 # ---------------------------------------------------------------------------

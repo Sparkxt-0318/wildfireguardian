@@ -46,6 +46,7 @@ RRRH = "data/processed/real_roads_real_hazard.json"
 LOFO = "data/processed/spread_v2_lofo.json"
 NPZ = "data/processed/routing_demo.npz"
 DRIFT = "data/processed/network_drift_experiment.json"
+SLOPE = "data/processed/real_roads_real_hazard_slope_60.json"   # canonical spacing
 
 # Reproducibility is MEASURED, not assumed. Each artifact was re-run on
 # 2026-08-01 into a scratch directory and diffed against the committed copy.
@@ -89,6 +90,16 @@ REPRO = {
                     "(data/snapshots/osm-walk_…2bff8d85); arm A is quoted from the "
                     "committed artifact. Re-running scripts/run_network_drift_"
                     "experiment.py reproduces the comparison.",
+        "blocked_by": None,
+    },
+    SLOPE: {
+        "status": "reproducible",
+        "evidence": "built 2026-08-01 from the SNAPSHOT walk graph "
+                    "(data/snapshots/osm-walk_…2bff8d85.graphml.gz) plus the "
+                    "intact SRTM raster, with osmnx pinned to 2.0.7 to match the "
+                    "snapshot's created_with. Both inputs are hash-verified, so "
+                    "re-running scripts/run_real_roads_real_hazard_slope.py "
+                    "regenerates it.",
         "blocked_by": None,
     },
     NPZ: {
@@ -456,6 +467,69 @@ def main() -> int:
                    "operands": {"a": op(DRIFT, "network_delta.walk_nodes.delta_pct")},
                    "expr": "a", "tolerance": 0.0},
         )
+
+    # ------------------------------------------------ slope integration ----
+    if (REPO / SLOPE).exists():
+        sl = read(SLOPE)
+        cmp3 = sl["three_column_comparison"]
+        col2, col3 = cmp3["col2_jul24_flat"], cmp3["col3_jul24_slope"]
+        st = col3["slope_stats"]
+        SLOPE_CAVEAT = ("THREE-AXIS run: real OSM roads + real spread_v2 hazard + "
+                        "real SRTM terrain. Built on the 2026-07-24 snapshot "
+                        "network, so it is NOT comparable line-for-line with the "
+                        "committed 459-origin figures, whose network is lost. Use "
+                        "the three-column table (docs/slope_integration.md).")
+        for key, path, val, unit, extra in [
+            ("slope_walk_time_increase_pct",
+             "three_column_comparison.col3_jul24_slope.slope_stats."
+             "traversal_time.pct_change_mean_of_directions",
+             st["traversal_time"]["pct_change_mean_of_directions"], "percent",
+             "Mean of the two directions, whole network, 60 m sampling. STRONGLY "
+             "sampling-dependent: +40.3 % at 30 m, +20.9 % at 90 m. Never quote "
+             "without the spacing."),
+            ("slope_directional_asymmetry_mean",
+             "three_column_comparison.col3_jul24_slope.slope_stats."
+             "directional_asymmetry.mean",
+             st["directional_asymmetry"]["mean"], "fraction of flat time",
+             "|t(u->v) - t(v->u)| / t_flat per undirected edge. This is why the "
+             "walk graph is a DiGraph: averaging the directions would be wrong "
+             "for residents and responders in opposite directions."),
+            ("slope_mean_abs_slope",
+             "three_column_comparison.col3_jul24_slope.slope_stats.slope_abs.mean",
+             st["slope_abs"]["mean"], "rise/run",
+             "Per sub-segment at 60 m spacing, after clipping at |0.60|."),
+        ]:
+            N[key] = entry(
+                value=round(val, 4), unit=unit, source_file=SLOPE, json_path=path,
+                derivation=f"{path.split('.')[-1]} at 60 m sampling, clipped",
+                sample="OSM 보행망 전체 (11,020 무향 간선)",
+                caveat=f"{SLOPE_CAVEAT} {extra}",
+                forbidden_phrasings=["경사 적용으로 438이 바뀌었다",
+                                     "slope changed the committed counts"],
+                check={"kind": "json_path", "operands": {"a": op(SLOPE, path)},
+                       "expr": "a", "tolerance": 5e-5},
+            )
+        N["slope_counts_unchanged_vs_flat"] = entry(
+            value=True, unit="boolean", source_file=SLOPE,
+            json_path="three_column_comparison",
+            derivation="col2_jul24_flat.counts == col3_jul24_slope.counts",
+            sample="460곳 주사 (7-24 망)",
+            caveat=("A NULL RESULT, and a real one. Slope raises walk times "
+                    "substantially (naive route mean +18.4 %, longest 283 -> 444 "
+                    "min) yet moves no origin across a decision threshold: the "
+                    "600-min budget is never exhausted and the hazard is "
+                    "quasi-static across its 5 slices at 180-min steps. The "
+                    "committed run's own provenance already warned that results "
+                    "are 'dominated by the near-static >=0.5 core, not front "
+                    "advance'. Do NOT read this as 'slope does not matter'."),
+            forbidden_phrasings=["경사는 영향이 없다", "slope has no effect",
+                                 "지형은 중요하지 않다"],
+            check={"kind": "expression",
+                   "operands": {"a": op(SLOPE, "three_column_comparison.col2_jul24_flat.counts"),
+                                "b": op(SLOPE, "three_column_comparison.col3_jul24_slope.counts")},
+                   "expr": "a == b", "tolerance": 0.0},
+        )
+        _ = col2
 
     try:
         head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=REPO).decode().strip()

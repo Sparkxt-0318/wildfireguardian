@@ -174,6 +174,26 @@ pedestrian:
   tobler_slope_offset: 0.05        # [src: evacuation.py:59]
 
   # p_cut: ignition probability at/above which a location is impassable on foot.
+  # --- DEM slope on OSM walk edges (Round-3 PHASE 2) -------------------------
+  # Arc-length spacing at which each edge's elevation profile is sampled.
+  # 60 m is the CANONICAL choice: the SRTM raster is ~25 x 31 m per pixel, and
+  # sampling at or below one pixel reads DEM noise as terrain (at 30 m the
+  # apparent max slope reaches 309 %). 90 m smooths real relief away. The
+  # choice is load-bearing — mean traversal time rises +40.3 % at 30 m but only
+  # +20.9 % at 90 m — so all three are reported (docs/slope_integration.md).
+  slope_sampling_m: 60.0
+  slope_sampling_sweep_m: [30.0, 60.0, 90.0]
+
+  # Hard limit on |rise/run| per sub-segment.
+  #
+  # This is a DEFENCE AGAINST DEM REGISTRATION ERROR, **not a physical
+  # correction**. Where a road crosses a bridge, a tunnel, or a steep cut, SRTM
+  # reports the terrain surface rather than the roadbed, and the resulting
+  # "slope" is an artefact of comparing a road position with a hillside
+  # elevation. Clipping bounds that artefact; it does not make the value right.
+  # Runs are reported with AND without clipping so its effect is visible.
+  max_abs_slope: 0.60
+
   walk_cutoff_p: 0.5               # ASSUMED [src: rescue.py:62 DEFAULT_WALK_CUTOFF]
                                    # [src: run_routing_integration.py:87 --p-cut]
                                    # [src: run_real_roads_real_hazard.py:54 --p-cut]

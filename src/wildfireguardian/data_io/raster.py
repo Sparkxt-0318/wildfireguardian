@@ -65,8 +65,23 @@ def _project_root() -> Path:
     return Path(__file__).resolve().parents[3]
 
 
+#: Environment override for the raster cache directory.
+#:
+#: ``clear_cache()`` deletes every ``*.nc`` in this directory. Until Round 3 the
+#: directory was unconditionally the project's real ``data/cache/``, and
+#: ``tests/test_raster_ingestion.py`` cleared it around EVERY test — so simply
+#: running pytest destroyed the user's cached rasters (a 1.5 MB 50 m SRTM DEM
+#: and a 0.7 MB fuel cache were lost this way on 2026-08-01). Nothing was
+#: unrecoverable, because these are resamples of intact raw rasters, but a test
+#: suite that mutates real data contradicts the whole provenance effort.
+#:
+#: Tests now point this at a tmp_path. Production leaves it unset.
+CACHE_DIR_ENV: str = "WFG_CACHE_DIR"
+
+
 def _cache_dir() -> Path:
-    p = _project_root() / "data" / "cache"
+    override = os.environ.get(CACHE_DIR_ENV)
+    p = Path(override) if override else _project_root() / "data" / "cache"
     p.mkdir(parents=True, exist_ok=True)
     return p
 
@@ -699,4 +714,5 @@ __all__ = [
     "populate_firegrid",
     "compute_slope_aspect",
     "clear_cache",
+    "CACHE_DIR_ENV",
 ]

@@ -1,0 +1,529 @@
+{
+  "title": "Real roads + real hazard + real terrain (Yeongdeok 2025, 90 m slope sampling)",
+  "schema_version": 1,
+  "generated_utc": "2026-08-01T14:04:16Z",
+  "git_commit": "9de5eae3f06b3118d7a7e28e1236810d9b9bb7a8",
+  "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
+  "is_canonical_sampling": false,
+  "p_cut": 0.5,
+  "time_budget_min": 600.0,
+  "time_step_min": 10.0,
+  "three_column_comparison": {
+    "col1_committed_jul23_flat": {
+      "source": "data/processed/real_roads_real_hazard.json",
+      "n_origins_scanned": 459,
+      "counts": {
+        "naive_into_FA_safe": 18,
+        "no_safe_route": 3,
+        "both_safe": 438,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "unclassified": 0
+      },
+      "note": "QUOTED, NOT re-run. Its OSM network was overwritten 2026-07-24 and is unrecoverable (docs/DATA_LOSS_2026-07-24.md)."
+    },
+    "col2_jul24_flat": {
+      "label": "flat / undirected (col 2)",
+      "n_origins_scanned": 460,
+      "counts": {
+        "naive_into_FA_safe": 17,
+        "no_safe_route": 3,
+        "both_safe": 440,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "unclassified": 0
+      },
+      "n_shelter_nodes": 46,
+      "shelter_source": "osm",
+      "n_nodes": 8443,
+      "n_edges": 10991,
+      "slope_stats": null
+    },
+    "col3_jul24_slope": {
+      "label": "slope 90m clip0.6",
+      "n_origins_scanned": 460,
+      "counts": {
+        "naive_into_FA_safe": 17,
+        "no_safe_route": 3,
+        "both_safe": 440,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "unclassified": 0
+      },
+      "n_shelter_nodes": 46,
+      "shelter_source": "osm",
+      "n_nodes": 8443,
+      "n_edges": 21982,
+      "slope_stats": {
+        "sampling_m": 90.0,
+        "max_abs_slope": 0.6,
+        "n_edges_undirected": 10991,
+        "n_edges_directed": 21982,
+        "n_subsegments": 21395,
+        "n_edges_with_geometry": 7365,
+        "n_edges_straight_line": 3626,
+        "geometry_fraction": 0.6701,
+        "slope_abs": {
+          "mean": 0.07113670477175252,
+          "length_weighted_mean": 0.07261847914377945,
+          "median": 0.03872145687776415,
+          "p90": 0.18058411080993894,
+          "p99": 0.45204198144951,
+          "max": 0.6,
+          "frac_gt_5pct": 0.42776349614395887,
+          "frac_gt_15pct": 0.1369011451273662,
+          "frac_gt_50pct": 0.007525122692217808
+        },
+        "traversal_time": {
+          "flat_total_h": 631.9077542350476,
+          "slope_forward_total_h": 775.634807269528,
+          "slope_reverse_total_h": 754.0116139786008,
+          "pct_change_forward": 22.744942132965008,
+          "pct_change_reverse": 19.32305133545409,
+          "pct_change_mean_of_directions": 21.03399673420956
+        },
+        "directional_asymmetry": {
+          "definition": "|t(u->v) - t(v->u)| / t_flat, per undirected edge",
+          "mean": 0.2071645963629395,
+          "median": 0.14775040596331282,
+          "p90": 0.47122002625612847,
+          "max": 1.3718754295335078,
+          "frac_edges_gt_10pct": 0.5801109999090165
+        },
+        "clipping": {
+          "note": "DEFENCE AGAINST DEM REGISTRATION ERROR, NOT a physical correction. Where a road crosses a bridge, tunnel or cutting, SRTM reports the terrain surface rather than the roadbed; the resulting slope is an artefact of comparing a road position with a hillside elevation.",
+          "n_clipped_subsegments": 75,
+          "frac_clipped": 0.0035054919373685442,
+          "n_edges_affected": 60,
+          "worst_edges": [
+            {
+              "u": 11768368384,
+              "v": 11768368391,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 3.0898593971443034,
+              "xy_5179": [
+                1174841.6544097215,
+                1836286.7069796121
+              ]
+            },
+            {
+              "u": 11769621073,
+              "v": 11769621226,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 1.5265553743784814,
+              "xy_5179": [
+                1167886.741574142,
+                1839647.7617723374
+              ]
+            },
+            {
+              "u": 12014304372,
+              "v": 12014304373,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 1.4491763389808159,
+              "xy_5179": [
+                1168859.5627316793,
+                1818136.0349196661
+              ]
+            },
+            {
+              "u": 11001087902,
+              "v": 11001088348,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 1.3792629219777865,
+              "xy_5179": [
+                1158505.5495308605,
+                1815087.493255764
+              ]
+            },
+            {
+              "u": 12022819431,
+              "v": 12022829577,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 1.2798569386357828,
+              "xy_5179": [
+                1172197.0104862049,
+                1842148.6208205542
+              ]
+            },
+            {
+              "u": 11768368400,
+              "v": 11768368404,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 1.2547032756385983,
+              "xy_5179": [
+                1174877.1946444507,
+                1836248.881477875
+              ]
+            },
+            {
+              "u": 11935650799,
+              "v": 11935650800,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 1.2033468284642823,
+              "xy_5179": [
+                1171689.6628324166,
+                1826520.5178567222
+              ]
+            },
+            {
+              "u": 11001091918,
+              "v": 12125807906,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 1.130679127060842,
+              "xy_5179": [
+                1159427.204006178,
+                1818172.6883175157
+              ]
+            },
+            {
+              "u": 11830469271,
+              "v": 11830469273,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 1.1154479216285256,
+              "xy_5179": [
+                1157654.0349222494,
+                1839947.527205261
+              ]
+            },
+            {
+              "u": 11952344325,
+              "v": 11952344326,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 1.078092764029141,
+              "xy_5179": [
+                1168140.297302789,
+                1826639.7094402984
+              ]
+            }
+          ]
+        }
+      },
+      "top_slowed_edges": [
+        {
+          "rank": 1,
+          "flat_s": 15585.182613018429,
+          "slope_uphill_s": 22818.744210889843,
+          "slope_downhill_s": 20625.588325934426,
+          "delta_s": 7233.561597871414,
+          "delta_pct": 46.413069243277015
+        },
+        {
+          "rank": 2,
+          "flat_s": 12747.890235866871,
+          "slope_uphill_s": 18359.66207767208,
+          "slope_downhill_s": 17149.784549922602,
+          "delta_s": 5611.77184180521,
+          "delta_pct": 44.02118105799334
+        },
+        {
+          "rank": 3,
+          "flat_s": 3310.4882672110366,
+          "slope_uphill_s": 8704.876515090928,
+          "slope_downhill_s": 8131.698492887138,
+          "delta_s": 5394.388247879891,
+          "delta_pct": 162.948417649112
+        },
+        {
+          "rank": 4,
+          "flat_s": 2012.2884548152817,
+          "slope_uphill_s": 6074.253835788812,
+          "slope_downhill_s": 4917.576592891351,
+          "delta_s": 4061.96538097353,
+          "delta_pct": 201.858007546259
+        },
+        {
+          "rank": 5,
+          "flat_s": 1763.9311903181303,
+          "slope_uphill_s": 5557.005962685659,
+          "slope_downhill_s": 4623.167489889816,
+          "delta_s": 3793.0747723675286,
+          "delta_pct": 215.03530257795575
+        },
+        {
+          "rank": 6,
+          "flat_s": 2816.444301699126,
+          "slope_uphill_s": 6579.334349415508,
+          "slope_downhill_s": 5201.7556637688085,
+          "delta_s": 3762.890047716382,
+          "delta_pct": 133.6042770469942
+        },
+        {
+          "rank": 7,
+          "flat_s": 1279.7774568146906,
+          "slope_uphill_s": 4935.694552245716,
+          "slope_downhill_s": 4340.892772736271,
+          "delta_s": 3655.9170954310257,
+          "delta_pct": 285.6681898843914
+        },
+        {
+          "rank": 8,
+          "flat_s": 8986.98850007153,
+          "slope_uphill_s": 12479.072005764108,
+          "slope_downhill_s": 11480.551701724497,
+          "delta_s": 3492.083505692579,
+          "delta_pct": 38.85710442007114
+        },
+        {
+          "rank": 9,
+          "flat_s": 1764.1855532802822,
+          "slope_uphill_s": 5206.367335726637,
+          "slope_downhill_s": 4341.711742886518,
+          "delta_s": 3442.181782446355,
+          "delta_pct": 195.11449779452332
+        },
+        {
+          "rank": 10,
+          "flat_s": 1175.3813305819244,
+          "slope_uphill_s": 4549.222129068759,
+          "slope_downhill_s": 3722.7048584820504,
+          "delta_s": 3373.840798486835,
+          "delta_pct": 287.0422313766432
+        }
+      ]
+    }
+  },
+  "unclipped_arm": {
+    "label": "slope 90m NOCLIP",
+    "n_origins_scanned": 460,
+    "counts": {
+      "naive_into_FA_safe": 17,
+      "no_safe_route": 3,
+      "both_safe": 440,
+      "both_enter": 0,
+      "naive_unreachable": 0,
+      "unclassified": 0
+    },
+    "n_shelter_nodes": 46,
+    "shelter_source": "osm",
+    "n_nodes": 8443,
+    "n_edges": 21982,
+    "slope_stats": {
+      "sampling_m": 90.0,
+      "max_abs_slope": null,
+      "n_edges_undirected": 10991,
+      "n_edges_directed": 21982,
+      "n_subsegments": 21395,
+      "n_edges_with_geometry": 7365,
+      "n_edges_straight_line": 3626,
+      "geometry_fraction": 0.6701,
+      "slope_abs": {
+        "mean": 0.07190095597125731,
+        "length_weighted_mean": 0.07290972758831658,
+        "median": 0.03872145687776415,
+        "p90": 0.18058411080993894,
+        "p99": 0.45204198144951,
+        "max": 3.0898593971443034,
+        "frac_gt_5pct": 0.42776349614395887,
+        "frac_gt_15pct": 0.1369011451273662,
+        "frac_gt_50pct": 0.007525122692217808
+      },
+      "traversal_time": {
+        "flat_total_h": 631.9077542350476,
+        "slope_forward_total_h": 775.634807269528,
+        "slope_reverse_total_h": 754.0116139786008,
+        "pct_change_forward": 22.744942132965008,
+        "pct_change_reverse": 19.32305133545409,
+        "pct_change_mean_of_directions": 21.03399673420956
+      },
+      "directional_asymmetry": {
+        "definition": "|t(u->v) - t(v->u)| / t_flat, per undirected edge",
+        "mean": 0.2071645963629395,
+        "median": 0.14775040596331282,
+        "p90": 0.47122002625612847,
+        "max": 1.3718754295335078,
+        "frac_edges_gt_10pct": 0.5801109999090165
+      },
+      "clipping": {
+        "note": "DEFENCE AGAINST DEM REGISTRATION ERROR, NOT a physical correction. Where a road crosses a bridge, tunnel or cutting, SRTM reports the terrain surface rather than the roadbed; the resulting slope is an artefact of comparing a road position with a hillside elevation.",
+        "n_clipped_subsegments": 0,
+        "frac_clipped": 0.0,
+        "n_edges_affected": 0,
+        "worst_edges": []
+      }
+    },
+    "top_slowed_edges": [
+      {
+        "rank": 1,
+        "flat_s": 15585.182613018429,
+        "slope_uphill_s": 22818.744210889843,
+        "slope_downhill_s": 20625.588325934426,
+        "delta_s": 7233.561597871414,
+        "delta_pct": 46.413069243277015
+      },
+      {
+        "rank": 2,
+        "flat_s": 12747.890235866871,
+        "slope_uphill_s": 18359.66207767208,
+        "slope_downhill_s": 17149.784549922602,
+        "delta_s": 5611.77184180521,
+        "delta_pct": 44.02118105799334
+      },
+      {
+        "rank": 3,
+        "flat_s": 3310.4882672110366,
+        "slope_uphill_s": 8704.876515090928,
+        "slope_downhill_s": 8131.698492887138,
+        "delta_s": 5394.388247879891,
+        "delta_pct": 162.948417649112
+      },
+      {
+        "rank": 4,
+        "flat_s": 2012.2884548152817,
+        "slope_uphill_s": 6074.253835788812,
+        "slope_downhill_s": 4917.576592891351,
+        "delta_s": 4061.96538097353,
+        "delta_pct": 201.858007546259
+      },
+      {
+        "rank": 5,
+        "flat_s": 1763.9311903181303,
+        "slope_uphill_s": 5557.005962685659,
+        "slope_downhill_s": 4623.167489889816,
+        "delta_s": 3793.0747723675286,
+        "delta_pct": 215.03530257795575
+      },
+      {
+        "rank": 6,
+        "flat_s": 2816.444301699126,
+        "slope_uphill_s": 6579.334349415508,
+        "slope_downhill_s": 5201.7556637688085,
+        "delta_s": 3762.890047716382,
+        "delta_pct": 133.6042770469942
+      },
+      {
+        "rank": 7,
+        "flat_s": 1279.7774568146906,
+        "slope_uphill_s": 4935.694552245716,
+        "slope_downhill_s": 4340.892772736271,
+        "delta_s": 3655.9170954310257,
+        "delta_pct": 285.6681898843914
+      },
+      {
+        "rank": 8,
+        "flat_s": 8986.98850007153,
+        "slope_uphill_s": 12479.072005764108,
+        "slope_downhill_s": 11480.551701724497,
+        "delta_s": 3492.083505692579,
+        "delta_pct": 38.85710442007114
+      },
+      {
+        "rank": 9,
+        "flat_s": 1764.1855532802822,
+        "slope_uphill_s": 5206.367335726637,
+        "slope_downhill_s": 4341.711742886518,
+        "delta_s": 3442.181782446355,
+        "delta_pct": 195.11449779452332
+      },
+      {
+        "rank": 10,
+        "flat_s": 1175.3813305819244,
+        "slope_uphill_s": 4549.222129068759,
+        "slope_downhill_s": 3722.7048584820504,
+        "delta_s": 3373.840798486835,
+        "delta_pct": 287.0422313766432
+      }
+    ]
+  },
+  "digraph_regression": {
+    "undirected_counts": {
+      "naive_into_FA_safe": 17,
+      "no_safe_route": 3,
+      "both_safe": 440,
+      "both_enter": 0,
+      "naive_unreachable": 0,
+      "unclassified": 0
+    },
+    "digraph_counts": {
+      "naive_into_FA_safe": 17,
+      "no_safe_route": 3,
+      "both_safe": 440,
+      "both_enter": 0,
+      "naive_unreachable": 0,
+      "unclassified": 0
+    },
+    "identical": true,
+    "why": "With flat timing, direction carries no information, so converting to a DiGraph MUST leave results unchanged. A divergence here would mean the conversion is buggy."
+  },
+  "network_source": {
+    "kind": "REAL — OpenStreetMap, read from the SNAPSHOT store",
+    "snapshot_file": "osm-walk_yeongdeok-2025_20260724_2bff8d85.graphml.gz",
+    "snapshot_sha256_note": "uncompressed digest in data/snapshots/MANIFEST.json",
+    "bbox_wgs84": [
+      129.25,
+      36.3,
+      129.55,
+      36.6
+    ],
+    "osmnx_pin": "2.0.7 (matches the snapshot's created_with)"
+  },
+  "hazard_source": {
+    "kind": "REAL — spread_v2 forward-simulated ignition probability",
+    "npz_path": "data/processed/routing_demo.npz",
+    "npz_sha256": "5bed502661afa8e33335c342ddc468c2df6858267ea4f769a659f970e918da58",
+    "shape": [
+      5,
+      181,
+      147
+    ]
+  },
+  "terrain_source": {
+    "kind": "REAL — SRTM",
+    "dem_path": "data/raw/firms_data/yeongdeok_2025_dem.tif",
+    "sampling_m": 90.0,
+    "max_abs_slope": 0.6,
+    "tobler": "wildfireguardian.routing.evacuation.elderly_speed_ms (REUSED, not reimplemented — identical to the 407-origin run)",
+    "straight_line_edges": "OSM omits geometry where a way runs straight between its two nodes; those edges are interpolated straight, which is the intended reading rather than a fallback."
+  },
+  "provenance": {
+    "roads_real": true,
+    "hazard_real": true,
+    "terrain_real": true,
+    "statement": "ALL THREE axes are real simultaneously: OpenStreetMap road topology, the spread_v2 forward-simulated hazard for the held-out Yeongdeok 2025 fire, and SRTM terrain slope on the walk edges.",
+    "slope_provenance": "per-node DEM slope applied (Tobler, 90m arc-length sampling, DiGraph, slope clipped at ±60%)",
+    "supersedes_disclosure": "Replaces the Round-2 disclosure 'no per-node DEM slope on OSM walk edges (flat-speed timing)'.",
+    "still_synthetic_or_assumed": [
+      "elderly walk speed 0.7 m/s (literature/assumed)",
+      "elderly-home origins (seeded sampled candidates; real per-household data is private)",
+      "slope clipping is a defence against DEM registration error (bridges/tunnels/cuttings), NOT a physical correction"
+    ]
+  },
+  "sampling_sensitivity": {
+    "30m": {
+      "counts": {
+        "naive_into_FA_safe": 17,
+        "no_safe_route": 3,
+        "both_safe": 440,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "unclassified": 0
+      },
+      "n_origins_scanned": 460,
+      "pct_change_mean_of_directions": 40.37062815778734
+    },
+    "60m": {
+      "counts": {
+        "naive_into_FA_safe": 17,
+        "no_safe_route": 3,
+        "both_safe": 440,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "unclassified": 0
+      },
+      "n_origins_scanned": 460,
+      "pct_change_mean_of_directions": 26.593986527331225
+    },
+    "90m": {
+      "counts": {
+        "naive_into_FA_safe": 17,
+        "no_safe_route": 3,
+        "both_safe": 440,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "unclassified": 0
+      },
+      "n_origins_scanned": 460,
+      "pct_change_mean_of_directions": 21.03399673420956
+    }
+  }
+}

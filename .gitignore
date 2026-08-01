@@ -86,6 +86,10 @@ data/processed/**
 # moves (docs/network_drift.md). Small JSON, and it is the ONLY surviving
 # record of the comparison — arm A's road network no longer exists.
 !data/processed/network_drift_experiment.json
+# Round-3 PHASE 2: slope-aware 459-origin re-runs at three sampling spacings
+# (docs/slope_integration.md). Small JSON; the committed
+# real_roads_real_hazard.json is untouched.
+!data/processed/real_roads_real_hazard_slope_*.json
 # AUC-interval + ML-baseline analysis outputs (per-fire DeLong CIs / significance;
 # logistic/RF vs GBM comparison; persisted LOFO out-of-fold predictions). These are
 # the result artifacts of scripts/auc_intervals.py and scripts/ml_baselines.py;

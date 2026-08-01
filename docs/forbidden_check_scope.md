@@ -21,11 +21,11 @@ evidence. The same digits in `docs/` prose, unqualified, would mislead.
 
 | family | tokens | scope |
 |---|---|---|
-| **word** | `Chen`, `Guestrin`, `multi-scale`, `Multi-scale`, `XGBoost` | **every** tracked text file |
-| **retired figure** | `452`, `264`, `154`, `0.867`, `0.8667`, `0.834`, `0.8309`, `0.8337`, `0.8340`, `0.8745`, `0.874`, `138619`, `2731`, `약 40%` | **authored prose only** — every `.md`, wherever it lives |
+| **word** | `Chen`, `Guestrin`, `multi-scale`, `Multi-scale`, `XGBoost` | **every** tracked text file |  <!-- forbidden-ok: Chen, Guestrin, Multi-scale, multi-scale -->
+| **retired figure** | `452`, `264`, `154`, `0.867`, `0.8667`, `0.834`, `0.8309`, `0.8337`, `0.8340`, `0.8745`, `0.874`, `138619`, `2731`, `약 40%` | **authored prose only** — every `.md`, wherever it lives |  <!-- forbidden-ok: 0.8309, 0.8337, 0.834, 0.8340, 0.8667, 0.867, 0.874, 0.8745, 138619, 2731 -->
 
 **Word rules are repo-wide** because a misattributed model name is wrong
-everywhere. `Chen` / `Guestrin` is the XGBoost citation; the canonical model is
+everywhere. `Chen` / `Guestrin` is the XGBoost citation; the canonical model is  <!-- forbidden-ok: Chen, Guestrin -->
 sklearn `HistGradientBoostingClassifier`. A code comment is exactly where a
 wrong attribution gets copied from into a document.
 
@@ -35,7 +35,7 @@ wrong attribution gets copied from into a document.
 |---|---|
 | `.py` | `Sardoy et al. (2008) Combust. Flame **154**` is a citation. `산**154**` is a Korean land-lot number. The `XGBoost` in `spread_v2_xgb/model.py` is the superseded build's own source code. None are claims. |
 | `.json`, `.npz` | pipeline outputs. `"n_origins": 452` is that run's recorded value. |
-| `.html`, `.txt`, `.toml`, `.yaml` | generated payloads and machine config. `demo_data.json` holds polygon vertices, one of which is literally `[0.8745, 0.5558]` — a coordinate, not an IoU. |
+| `.html`, `.txt`, `.toml`, `.yaml` | generated payloads and machine config. `demo_data.json` holds polygon vertices, one of which is literally `[0.8745, 0.5558]` — a coordinate, not an IoU. |  <!-- forbidden-ok: 0.8745 -->
 
 ### `.md` is in scope wherever it lives
 
@@ -82,11 +82,11 @@ A rule's own statement necessarily contains the thing it forbids. Suppression is
 The pragma must sit on the offending line or the line directly above, and
 suppresses only the tokens it names. There is **no whole-file pragma and no
 `forbidden-ok: *`** — a file-level escape hatch becomes a permanent one. The
-token list allows hyphens, so `multi-scale` can be suppressed.
+token list allows hyphens, so `multi-scale` can be suppressed.  <!-- forbidden-ok: multi-scale -->
 
 Legitimate pragma uses today: `scripts/check_forbidden.py`'s own rule table, and
-documents whose job is to name a retired value (`MODEL_CARD.md` blocking 0.874,
-`LEGACY_DO_NOT_CITE.md` naming 0.8309 / 0.8337).
+documents whose job is to name a retired value (`MODEL_CARD.md` blocking 0.874,  <!-- forbidden-ok: 0.874 -->
+`LEGACY_DO_NOT_CITE.md` naming 0.8309 / 0.8337).  <!-- forbidden-ok: 0.8309, 0.8337 -->
 
 ## Known limitation
 
