@@ -12,6 +12,7 @@ row. Feature groups (matching the documented v2 methodology):
   (cos angle between wind-toward and spread direction), ``downwind_distance_proj``
   (m, spread vector projected onto wind-toward), ``temperature``,
   ``relative_humidity``, ``days_since_rain``. NaN when a fire has no ERA5
+  # forbidden-ok: XGBoost
   (XGBoost handles NaN natively).
 - **v1 proxy**: ``v1_alignment`` — cos angle between the fire's *observed recent
   growth direction* (computed from past overpasses only, no leakage) and the

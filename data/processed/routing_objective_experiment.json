@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "title": "Routing objective vs slope sensitivity (PHASE 2-C-1)",
+  "generated_utc": "2026-08-01T14:55:11Z",
+  "git_commit": "b7fc59315c377ab74f5674a97888dfe2e14fb166",
+  "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
+  "question": "PHASE 2 found slope moves no count. Is that because naive_route minimises DISTANCE, making its path slope-invariant by construction?",
+  "design": {
+    "arms": "2x2: timing (flat | slope 60 m) x objective (length_m | time_min)",
+    "held_constant": [
+      "snapshot walk graph (2026-07-24)",
+      "osmnx 2.0.7",
+      "hazard field (routing_demo.npz)",
+      "p_cut=0.5",
+      "time_budget_min=600.0",
+      "shelters, origin scan rule"
+    ],
+    "hazard_npz_sha256": "5bed502661afa8e33335c342ddc468c2df6858267ea4f769a659f970e918da58",
+    "shelter_source": "osm",
+    "sampling_m": 60.0
+  },
+  "arms": {
+    "flat/length_m": {
+      "timing": "flat",
+      "objective": "length_m",
+      "n_origins_scanned": 460,
+      "counts": {
+        "naive_into_FA_safe": 17,
+        "no_safe_route": 3,
+        "both_safe": 440,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "unclassified": 0
+      },
+      "naive_mean_distance_m": 2303.338599202455,
+      "naive_mean_time_min": 54.84139521910607,
+      "naive_max_time_min": 282.9882699108872
+    },
+    "flat/time_min": {
+      "timing": "flat",
+      "objective": "time_min",
+      "n_origins_scanned": 460,
+      "counts": {
+        "naive_into_FA_safe": 17,
+        "no_safe_route": 3,
+        "both_safe": 440,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "unclassified": 0
+      },
+      "naive_mean_distance_m": 2303.338599202455,
+      "naive_mean_time_min": 54.84139521910607,
+      "naive_max_time_min": 282.9882699108872
+    },
+    "slope/length_m": {
+      "timing": "slope",
+      "objective": "length_m",
+      "n_origins_scanned": 460,
+      "counts": {
+        "naive_into_FA_safe": 17,
+        "no_safe_route": 3,
+        "both_safe": 440,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "unclassified": 0
+      },
+      "naive_mean_distance_m": 2303.338599202455,
+      "naive_mean_time_min": 67.88935358928308,
+      "naive_max_time_min": 444.0496675356331
+    },
+    "slope/time_min": {
+      "timing": "slope",
+      "objective": "time_min",
+      "n_origins_scanned": 460,
+      "counts": {
+        "naive_into_FA_safe": 17,
+        "no_safe_route": 3,
+        "both_safe": 440,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "unclassified": 0
+      },
+      "naive_mean_distance_m": 2344.6056648017498,
+      "naive_mean_time_min": 64.79119148054926,
+      "naive_max_time_min": 352.7511547678033
+    }
+  },
+  "path_deltas": {
+    "slope_effect_under_distance_min": {
+      "from": "flat/length_m",
+      "to": "slope/length_m",
+      "n_comparable": 460,
+      "n_path_changed": 0,
+      "frac_path_changed": 0.0,
+      "n_detour_is_longer": 0,
+      "n_detour_is_faster": 0,
+      "median_distance_change_pct": 0.0,
+      "max_distance_change_pct": 0.0,
+      "median_time_change_pct": 0.0,
+      "min_time_change_pct": 0.0
+    },
+    "slope_effect_under_time_min": {
+      "from": "flat/time_min",
+      "to": "slope/time_min",
+      "n_comparable": 460,
+      "n_path_changed": 150,
+      "frac_path_changed": 0.32608695652173914,
+      "n_detour_is_longer": 150,
+      "n_detour_is_faster": 1,
+      "median_distance_change_pct": 1.4000927547194508,
+      "max_distance_change_pct": 26.691798222048725,
+      "median_time_change_pct": 18.52994393990578,
+      "min_time_change_pct": -0.9412678489655546
+    },
+    "objective_effect_under_flat": {
+      "from": "flat/length_m",
+      "to": "flat/time_min",
+      "n_comparable": 460,
+      "n_path_changed": 0,
+      "frac_path_changed": 0.0,
+      "n_detour_is_longer": 0,
+      "n_detour_is_faster": 0,
+      "median_distance_change_pct": 0.0,
+      "max_distance_change_pct": 0.0,
+      "median_time_change_pct": 0.0,
+      "min_time_change_pct": 0.0
+    },
+    "objective_effect_under_slope": {
+      "from": "slope/length_m",
+      "to": "slope/time_min",
+      "n_comparable": 460,
+      "n_path_changed": 150,
+      "frac_path_changed": 0.32608695652173914,
+      "n_detour_is_longer": 150,
+      "n_detour_is_faster": 150,
+      "median_distance_change_pct": 1.4000927547194508,
+      "max_distance_change_pct": 26.691798222048725,
+      "median_time_change_pct": -1.5055099733701727,
+      "min_time_change_pct": -36.18558765596387
+    }
+  },
+  "finding": {
+    "slope_changes_route_under_time_min": true,
+    "n_routes_changed_by_slope_under_time_min": 150,
+    "counts_moved": false
+  },
+  "caveat": "Arm values are on the 2026-07-24 snapshot network and are SEPARATE from the committed 459-origin figures, whose network is unrecoverable. The default objective is unchanged: length_m remains the committed behaviour."
+}

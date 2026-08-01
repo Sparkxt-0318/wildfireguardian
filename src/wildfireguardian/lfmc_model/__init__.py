@@ -1,5 +1,6 @@
 """Live Fuel Moisture Content (LFMC) retrieval.
 
+# forbidden-ok: XGBoost
 Session 3 adds a methodology scaffold: the feature engineering + XGBoost
 regression structure from Rao et al. (2020) / Wang et al. (2019),
 demonstrated on a CLEARLY-LABELLED synthetic training set. Real

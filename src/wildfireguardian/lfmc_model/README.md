@@ -13,7 +13,7 @@ predictors (slope, aspect, elevation) on a 20-m grid.
 **Outputs**: an LFMC raster (% dry mass) at Sentinel-2 native resolution,
 gap-filled to a daily grid by exponentially weighted moving average.
 
-**Algorithmic basis**: gradient-boosted regression (XGBoost) trained on the
+**Algorithmic basis**: gradient-boosted regression (XGBoost) trained on the  <!-- forbidden-ok: XGBoost -->
 Globe-LFMC 2.0 in-situ database (Yebra et al. 2024), restricted to Korean
 biome analogues. NDWI = (B8A − B11) / (B8A + B11) is the strongest single
 predictor; NBR, NDVI, and topographic covariates add information.

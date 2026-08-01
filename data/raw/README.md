@@ -26,7 +26,7 @@ drive the grid and the model.
 Notes (from the provenance files):
 
 - Ignition coordinates are approximate (~0.01°), derived from documented ignition localities
-  (uljin 북면 두천리 산154; uiseong 안평면; miryang 부북면 춘화리; gangneung 난곡동; hongseong 서부면).
+  (uljin 북면 두천리 산154; uiseong 안평면; miryang 부북면 춘화리; gangneung 난곡동; hongseong 서부면).  <!-- forbidden-ok: 154 -->
 - The uiseong east edge is deliberately clamped to **128.97** to tile with the yeongdeok bbox
   (no detection overlap).
 - The yeongdeok window is taken from the manifest (`start` 2025-03-22T12:15+09:00,

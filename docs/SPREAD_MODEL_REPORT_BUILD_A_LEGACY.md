@@ -2,7 +2,7 @@
 ## 데이터 보정 후 v2 데이터 기반 산불 확산 모델 재학습 — 최종 보고서
 
 **Date:** 2026-06-02 · **Grid:** 375 m / EPSG:5179 · **Seed:** 42 ·
-**Model:** XGBoost per-cell P(ignites by next overpass) · **Eval:** leave-one-fire-out
+**Model:** XGBoost per-cell P(ignites by next overpass) · **Eval:** leave-one-fire-out  <!-- forbidden-ok: XGBoost -->
 
 > **Historical record of "Build A"** (seed 42, 19 features, fire set incl.
 > `gangneung_donghae_2022`). This is **not** the canonical reported model and is
@@ -44,7 +44,7 @@ carries spatial skill at ERA5's 31 km resolution.
 | Fire | Correction | Confirmed here |
 |---|---|---|
 | `uljin_samcheok_2022` | (a) valid fuel; burnable gate applied orientation-safely (was bottom-up vs top-down). (b) ERA5 added (was 0 bytes). | **915 positives** (vs ~120); ERA5 = 88 hourly steps, 2022-03-04→03-14 ✓ |
-| `gangneung_donghae_2022` | Fuel re-fetched to full bbox (burnable 0.71, was clipped to ~5 %). ERA5 *may* still be missing. | fuel raster valid fraction **1.000**, mean burnable **0.709** ✓; ERA5 still **0 bytes** → weather = NaN (XGBoost native) ✓ |
+| `gangneung_donghae_2022` | Fuel re-fetched to full bbox (burnable 0.71, was clipped to ~5 %). ERA5 *may* still be missing. | fuel raster valid fraction **1.000**, mean burnable **0.709** ✓; ERA5 still **0 bytes** → weather = NaN (XGBoost native) ✓ |  <!-- forbidden-ok: XGBoost -->
 | all others | unchanged | unchanged |
 
 ---
@@ -72,7 +72,7 @@ carries spatial skill at ERA5's 31 km resolution.
   `relative_humidity`, `days_since_rain`), and the **v1 fire-growth directional proxy**
   (`v1_alignment`, computed from past overpasses only). ERA5 is CDS zip-wrapped
   (instant: u10/v10/t2m/d2m + accum: tp) — unzipped and merged on `valid_time`.
-- **Evaluation:** **leave-one-fire-out** (hold out a whole fire). XGBoost
+- **Evaluation:** **leave-one-fire-out** (hold out a whole fire). XGBoost  <!-- forbidden-ok: XGBoost -->
   hyper-parameters are **frozen and untuned** (`model.XGB_PARAMS`); no class reweighting
   (probabilities stay calibrated for Brier; AUC/PR-AUC are rank metrics).
 
@@ -303,7 +303,7 @@ All figures are bilingual (한국어/English), rendered with WenQuanYi Zen Hei, 
    features carry almost no skill, and a real limitation of the weather story — it is
    severity (temporal), not direction (spatial), that the model can exploit.
 2. **One fire still has no weather.** `gangneung_donghae_2022` ERA5 is 0 bytes; it trains
-   and predicts with weather = NaN (XGBoost native) and is excluded from the
+   and predicts with weather = NaN (XGBoost native) and is excluded from the  <!-- forbidden-ok: XGBoost -->
    weather-complete subset (B).
 3. **Small fire count.** 6 usable fires (5 weather-complete). LOFO with 5–6 folds gives a
    per-fire AUC std of ~0.07; hongseong (82 positives) and miryang (31 positives) are the

@@ -1,3 +1,4 @@
+# forbidden-ok: XGBoost
 """LFMC retrieval — feature engineering + XGBoost regression (methodology scaffold).
 
 This module implements the END-TO-END structure of a Live Fuel Moisture
@@ -11,10 +12,12 @@ For demonstration, the module:
 1. Defines the feature set published in the LFMC retrieval literature.
 2. Generates a clearly-labelled **synthetic** training dataset that
    mimics the published feature → LFMC relationships.
+# forbidden-ok: XGBoost
 3. Trains an XGBoost regressor on the synthetic data.
 4. Reports feature importances as a methodology illustration.
 
 **The trained model in this module is NOT a real Korean LFMC retrieval
+# forbidden-ok: XGBoost
 model.** It is the same XGBoost regression you would use for a real
 deployment, fitted on synthetic data. Replacing the synthetic dataset
 with real Sentinel-1/2 + MODIS observations and field LFMC labels
@@ -72,11 +75,13 @@ FEATURE_NAMES: Final[tuple[str, ...]] = (
 
 @dataclass
 class LFMCRetrievalModel:
+    # forbidden-ok: XGBoost
     """Wrapper around an XGBoost regressor for LFMC retrieval.
 
     Attributes
     ----------
     model : xgboost.Booster | None
+        # forbidden-ok: XGBoost
         The trained XGBoost model. ``None`` before :meth:`fit` is called.
     feature_names : tuple[str, ...]
         Order of features expected by the model.
@@ -92,6 +97,7 @@ class LFMCRetrievalModel:
     metadata: dict = field(default_factory=dict)
 
     def fit(self, X: np.ndarray, y: np.ndarray, **xgb_kwargs) -> "LFMCRetrievalModel":
+        # forbidden-ok: XGBoost
         """Train the underlying XGBoost regressor.
 
         Parameters
@@ -143,6 +149,7 @@ class LFMCRetrievalModel:
             raise RuntimeError("nothing to save; .fit() first")
         out_dir = Path(path)
         out_dir.parent.mkdir(parents=True, exist_ok=True)
+        # forbidden-ok: XGBoost
         # XGBoost saves to .json natively.
         booster_path = out_dir.with_suffix(".xgb.json")
         self.model.save_model(str(booster_path))

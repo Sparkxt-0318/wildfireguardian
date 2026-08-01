@@ -134,7 +134,7 @@ upstream priority.
 
 ## 6. (Stretch, done) Empirical super-multiplicativity test scaffold
 
-`spread_model/empirical_interaction.py`: XGBoost on a **clearly-labelled
+`spread_model/empirical_interaction.py`: XGBoost on a **clearly-labelled  <!-- forbidden-ok: XGBoost -->
 synthetic** dataset, recovering ∂²R/∂M∂U from the fitted surface and
 comparing to the Rothermel separable baseline.
 

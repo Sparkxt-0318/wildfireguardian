@@ -13,7 +13,7 @@ or `make verify`.
 > and evidence must stay legible.
 
 `data/processed/rescue_baseline_synthetic/rescue_capacity.json` contains
-`"n_origins": 452`. That is not someone asserting 452 today; it is the
+`"n_origins": 452`. That is not someone asserting 452 today; it is the  <!-- forbidden-ok: 452 -->
 superseded run's own faithful record. Rewriting or flagging it would corrupt the
 evidence. The same digits in `docs/` prose, unqualified, would mislead.
 
@@ -21,11 +21,11 @@ evidence. The same digits in `docs/` prose, unqualified, would mislead.
 
 | family | tokens | scope |
 |---|---|---|
-| **word** | `Chen`, `Guestrin`, `multi-scale`, `Multi-scale`, `XGBoost` | **every** tracked text file |  <!-- forbidden-ok: Chen, Guestrin, Multi-scale, multi-scale -->
+| **word** | `Chen`, `Guestrin`, `multi-scale`, `Multi-scale`, `XGBoost` | **every** tracked text file |  <!-- forbidden-ok: Chen, Guestrin, Multi-scale, XGBoost, multi-scale -->
 | **retired figure** | `452`, `264`, `154`, `0.867`, `0.8667`, `0.834`, `0.8309`, `0.8337`, `0.8340`, `0.8745`, `0.874`, `138619`, `2731`, `약 40%` | **authored prose only** — every `.md`, wherever it lives |  <!-- forbidden-ok: 0.8309, 0.8337, 0.834, 0.8340, 0.8667, 0.867, 0.874, 0.8745, 138619, 2731 -->
 
 **Word rules are repo-wide** because a misattributed model name is wrong
-everywhere. `Chen` / `Guestrin` is the XGBoost citation; the canonical model is  <!-- forbidden-ok: Chen, Guestrin -->
+everywhere. `Chen` / `Guestrin` is the XGBoost citation; the canonical model is  <!-- forbidden-ok: Chen, Guestrin, XGBoost -->
 sklearn `HistGradientBoostingClassifier`. A code comment is exactly where a
 wrong attribution gets copied from into a document.
 
@@ -34,7 +34,7 @@ wrong attribution gets copied from into a document.
 | | why not |
 |---|---|
 | `.py` | `Sardoy et al. (2008) Combust. Flame **154**` is a citation. `산**154**` is a Korean land-lot number. The `XGBoost` in `spread_v2_xgb/model.py` is the superseded build's own source code. None are claims. |
-| `.json`, `.npz` | pipeline outputs. `"n_origins": 452` is that run's recorded value. |
+| `.json`, `.npz` | pipeline outputs. `"n_origins": 452` is that run's recorded value. |  <!-- forbidden-ok: 452 -->
 | `.html`, `.txt`, `.toml`, `.yaml` | generated payloads and machine config. `demo_data.json` holds polygon vertices, one of which is literally `[0.8745, 0.5558]` — a coordinate, not an IoU. |  <!-- forbidden-ok: 0.8745 -->
 
 ### `.md` is in scope wherever it lives

@@ -47,6 +47,7 @@ LOFO = "data/processed/spread_v2_lofo.json"
 NPZ = "data/processed/routing_demo.npz"
 DRIFT = "data/processed/network_drift_experiment.json"
 SLOPE = "data/processed/real_roads_real_hazard_slope_60.json"   # canonical spacing
+OBJ = "data/processed/routing_objective_experiment.json"
 
 # Reproducibility is MEASURED, not assumed. Each artifact was re-run on
 # 2026-08-01 into a scratch directory and diffed against the committed copy.
@@ -100,6 +101,13 @@ REPRO = {
                     "snapshot's created_with. Both inputs are hash-verified, so "
                     "re-running scripts/run_real_roads_real_hazard_slope.py "
                     "regenerates it.",
+        "blocked_by": None,
+    },
+    OBJ: {
+        "status": "reproducible",
+        "evidence": "built 2026-08-01 from the hash-verified snapshot graph and "
+                    "SRTM raster with osmnx pinned to 2.0.7; "
+                    "scripts/run_routing_objective_experiment.py regenerates it.",
         "blocked_by": None,
     },
     NPZ: {
@@ -530,6 +538,63 @@ def main() -> int:
                    "expr": "a == b", "tolerance": 0.0},
         )
         _ = col2
+
+    # ----------------------------------------------- routing objective -----
+    if (REPO / OBJ).exists():
+        ob = read(OBJ)
+        dl = ob["path_deltas"]["objective_effect_under_slope"]
+        OBJ_CAVEAT = ("2026-07-24 snapshot network; SEPARATE from the committed "
+                      "459-origin figures. The DEFAULT objective is unchanged — "
+                      "length_m remains the committed behaviour and time_min is "
+                      "opt-in.")
+        N["objective_routes_changed_frac"] = entry(
+            value=round(dl["frac_path_changed"], 4), unit="fraction of origins",
+            source_file=OBJ,
+            json_path="path_deltas.objective_effect_under_slope.frac_path_changed",
+            derivation="n_path_changed / n_comparable, slope timing, "
+                       "distance-min vs time-min",
+            sample="460곳 주사",
+            caveat=(f"{OBJ_CAVEAT} 150 of 460 routes change. Control: under FLAT "
+                    "timing the same switch changes 0 routes, because flat time is "
+                    "proportional to distance — the mechanism is identified, not "
+                    "inferred."),
+            forbidden_phrasings=["경로의 32.6%가 틀렸다", "32.6% of routes were wrong"],
+            check={"kind": "expression",
+                   "operands": {"a": op(OBJ, "path_deltas.objective_effect_under_slope.frac_path_changed")},
+                   "expr": "round(a, 4)", "tolerance": 0.0},
+        )
+        N["objective_longest_walk_saving_min"] = entry(
+            value=round(ob["arms"]["slope/length_m"]["naive_max_time_min"]
+                        - ob["arms"]["slope/time_min"]["naive_max_time_min"], 1),
+            unit="minutes", source_file=OBJ, json_path="arms",
+            derivation="arms['slope/length_m'].naive_max_time_min - "
+                       "arms['slope/time_min'].naive_max_time_min  (444.0 - 352.8)",
+            sample="460곳 중 최장 보행",
+            caveat=(f"{OBJ_CAVEAT} The worst-case evacuee's walk falls from 444 to "
+                    "353 minutes purely by ranking routes on time instead of "
+                    "distance once terrain is known. A single-origin worst case, "
+                    "not a population mean."),
+            forbidden_phrasings=["91분 단축으로 생존율 향상", "saves 91 minutes for everyone"],
+            check={"kind": "expression",
+                   "operands": {"a": op(OBJ, "arms.slope/length_m.naive_max_time_min"),
+                                "b": op(OBJ, "arms.slope/time_min.naive_max_time_min")},
+                   "expr": "round(a - b, 1)", "tolerance": 0.0},
+        )
+        N["objective_counts_still_unchanged"] = entry(
+            value=True, unit="boolean", source_file=OBJ, json_path="arms",
+            derivation="all four arms classify 440/17/3",
+            sample="460곳 주사 · 2x2 arms",
+            caveat=("Cause 1 (distance-ranked routing) is now REMOVED with "
+                    "evidence — routes respond to terrain — and the classification "
+                    "is still invariant. That isolates the remaining blockers to "
+                    "the unexhausted 600-min budget and the quasi-static hazard "
+                    "(PHASE 2-C-2 and 2-C-3)."),
+            forbidden_phrasings=["목적함수는 무의미하다", "the objective does not matter"],
+            check={"kind": "expression",
+                   "operands": {"a": op(OBJ, "arms.flat/length_m.counts"),
+                                "b": op(OBJ, "arms.slope/time_min.counts")},
+                   "expr": "a == b", "tolerance": 0.0},
+        )
 
     try:
         head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=REPO).decode().strip()

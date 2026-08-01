@@ -10,6 +10,7 @@ novel scientific question is therefore:
     processes Rothermel omits — spotting, fire-induced wind, crown transitions)
 
 This module scaffolds the test. It cannot use real fire+weather data
+# forbidden-ok: XGBoost
 offline, so it trains an XGBoost regressor on a **CLEARLY-LABELLED
 SYNTHETIC** dataset and shows the test can *detect* injected
 super-multiplicativity. When real data is available (a later session with
@@ -111,6 +112,7 @@ def run_empirical_test(
     super_strength: float = 0.0, n: int = 4000, seed: int = 0,
     dead0: float = 0.12, u0: float = 1.5,
 ) -> EmpiricalInteractionResult:
+    # forbidden-ok: XGBoost
     """Train XGBoost on synthetic data; compare empirical vs Rothermel ∂²R/∂M∂U.
 
     On separable data (``super_strength = 0``) the empirical cross-partial

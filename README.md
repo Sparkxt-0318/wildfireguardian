@@ -601,7 +601,7 @@ The **canonical** data-driven spread model is the `spread_v2` package
 [`scripts/calibration_metrics.py`](scripts/calibration_metrics.py). See
 [`docs/REPRODUCE.md`](docs/REPRODUCE.md) to reproduce it from a fresh clone.
 
-An **earlier** XGBoost re-train build lives at
+An **earlier** XGBoost re-train build lives at  <!-- forbidden-ok: XGBoost -->
 `src/wildfireguardian/spread_v2_xgb/`. It is **superseded and not part of the live
 pipeline** — no runtime/pipeline module imports it. Its "Deliverable 0–6" driver
 scripts, `scripts/spread_v2/00_audit.py … 06_figures.py`, still `import

@@ -41,7 +41,7 @@ NOT. We do not present any of them as confirmed-correct.
 
 | # | Deliverable | Status | One-line |
 |---|-------------|--------|----------|
-| 6 | LFMC retrieval scaffold | **DONE** | `lfmc_model/retrieval.py`; Rao 2020 / Wang 2019 feature set + XGBoost; synthetic-fit R²≈0.79; tagged do-not-use-for-production |
+| 6 | LFMC retrieval scaffold | **DONE** | `lfmc_model/retrieval.py`; Rao 2020 / Wang 2019 feature set + XGBoost; synthetic-fit R²≈0.79; tagged do-not-use-for-production |  <!-- forbidden-ok: XGBoost -->
 | 7 | Smoke dispersion stub | **DONE** | `smoke_dispersion/gaussian_plume.py`; Pasquill-Gifford plume; `smoke_plume_demo.png`; labelled architecture-demo |
 
 ### TIER 3 — correctly NOT built this session

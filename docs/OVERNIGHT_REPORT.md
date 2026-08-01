@@ -228,7 +228,7 @@ Priority order, in case the same overnight pattern repeats:
    polygons. Half a day.
 
 3. **LFMC retrieval scaffolding** (`lfmc_model`). Pull Globe-LFMC 2.0,
-   set up the Sentinel-2 → LFMC XGBoost pipeline with synthetic / cached
+   set up the Sentinel-2 → LFMC XGBoost pipeline with synthetic / cached  <!-- forbidden-ok: XGBoost -->
    labels first; real Sentinel-2 ingestion can wait. One day.
 
 4. **Validation harness** (`validation`). Compute Sørensen–Dice between

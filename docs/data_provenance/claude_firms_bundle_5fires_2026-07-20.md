@@ -24,7 +24,7 @@ files were delivered back to the user to drop into their repo.
 - uiseong east edge deliberately clamped to **128.97** to tile with the yeongdeok
   bbox (no detection overlap) — user directive.
 - ignition coords are approximate (~0.01°), derived from documented ignition
-  localities (uljin 북면 두천리 산154; uiseong 안평면; miryang 부북면 춘화리; gangneung 난곡동;
+  localities (uljin 북면 두천리 산154; uiseong 안평면; miryang 부북면 춘화리; gangneung 난곡동;  <!-- forbidden-ok: 154 -->
   hongseong 서부면). Geocoders/Wikipedia were unfetchable in the sandbox.
 
 ## Recipe used (matches yeongdeok bundle)

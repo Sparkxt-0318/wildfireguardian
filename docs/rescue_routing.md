@@ -10,7 +10,7 @@
 > `data/processed/rescue_*.json` have since been flipped from synthetic fallbacks to
 > **real OpenStreetMap** road/refuge/depot geometry (fire **hazard** + **terrain**
 > remain synthetic, pending the FIRMS bundle). The synthetic **numbers** quoted in
-> this methods note (e.g. N = 452, the four-way split, `w` ≈ 40 %) describe the
+> this methods note (e.g. N = 452, the four-way split, `w` ≈ 40 %) describe the  <!-- forbidden-ok: 452 -->
 > **pre-flip** baseline, preserved at `data/processed/rescue_baseline_synthetic/`;
 > the current real values and an OLD-vs-NEW comparison are in
 > `docs/REPORT_ROUND2_P1.md`. The **method** described here is unchanged.
@@ -122,7 +122,7 @@ does **not eliminate** (the last class remains) the unreachable set.
 ## 4a. Reconciled results & robustness (verification pass)
 
 All headline numbers below are on **one explicit baseline**, on the **same origin
-set N = 452**, regenerable with `python scripts/verify_rescue_routing.py`
+set N = 452**, regenerable with `python scripts/verify_rescue_routing.py`  <!-- forbidden-ok: 452 -->
 (`data/processed/rescue_verify.json`). The verify sweep runs at full N, so its
 **baseline cell equals the headline** (asserted in code and by a test). Treat
 absolute counts as illustrative (single-fire PoC + synthetic inputs); the robust
@@ -136,18 +136,18 @@ budget 600/75 min · seed 20250603 · all inputs synthetic (tagged).
 output): resident exposure is over **pedestrian** routes; responder over
 **vehicle** routes; both in `prob·min`.
 
-**Why N = 452 (not the old 407):** the rescue origin scan uses `scan_stride=3`
+**Why N = 452 (not the old 407):** the rescue origin scan uses `scan_stride=3`  <!-- forbidden-ok: 452 -->
 plus a fire-reach latitude band on the walk-network land nodes; the older
 routing-spine used a `scan_stride=4`, 14 km-band scan giving 407.
 
-**Four-way split @ baseline (sums to 452):** already-safe **154** · saved-by-
+**Four-way split @ baseline (sums to 452):** already-safe **154** · saved-by-  <!-- forbidden-ok: 154, 452 -->
 rescue-reachable-refuge **34** · no-walk-rescuer-reaches **244** · unreachable
 **20**. Resident exposure (pedestrian, prob·min) naive/​b/​c = **24.06 / 3.55 /
 3.47** (paired b vs c over the same 185 origins = 3.42 / 3.47; c re-routed 2 off a
 cut-off refuge). Responder ingress (vehicle, prob·min) shortest-path/​survival-
 aware = **0.172 / 0.079** (dispatch 244, unreachable 20).
 
-**2-D sweep — unreachable count (dispatch delay × vehicle cutoff), full N = 452:**
+**2-D sweep — unreachable count (dispatch delay × vehicle cutoff), full N = 452:**  <!-- forbidden-ok: 452 -->
 
 | delay \ cutoff | 0.50 | 0.60 | 0.70 | 0.80 | 0.90 |
 |---|---|---|---|---|---|
@@ -157,7 +157,7 @@ aware = **0.172 / 0.079** (dispatch 244, unreachable 20).
 | 45 | 37 | 31 | 25 | 20 | 15 |
 | 60 | 40 | 38 | **34** | 27 | 20 |
 
-(`already_safe`=154 and `saved`=34 are constant across the grid; `no_walk` = 264 −
+(`already_safe`=154 and `saved`=34 are constant across the grid; `no_walk` = 264 −  <!-- forbidden-ok: 154, 264 -->
 unreachable. See `docs/figures/rescue_sweep_2d.png`.) This resolves the earlier
 20-vs-2/13 confusion: the old sweep was **sub-sampled to N≈151** (the convenience
 `sensitivity_sweep` caps origins at `sweep_max_origins`); at full N the baseline
@@ -169,7 +169,7 @@ unreachable is 20 and the dispatch 0→60 bracket at cutoff 0.7 is **6 → 34**.
 |---|---|---|
 | unreachable rises with dispatch delay (0→60: **6→34** at cutoff 0.7) | **robust direction** | monotone non-decreasing for *every* cutoff |
 | unreachable rises as the vehicle cutoff gets harsher | **robust direction** | monotone for *every* delay |
-| `no_walk_rescuer` ≈ 244 (majority need a rescuer) | **robust to the vehicle knobs** (grid 224–263, central rel-spread 0.09) — but its *level* is set by the assumed immobile fraction (0.3) + the slow-elder-vs-fast-fire pedestrian regime, **not** by the vehicle cutoff/speed | complement of unreachable within the constant 264-home needs-rescue pool |
+| `no_walk_rescuer` ≈ 244 (majority need a rescuer) | **robust to the vehicle knobs** (grid 224–263, central rel-spread 0.09) — but its *level* is set by the assumed immobile fraction (0.3) + the slow-elder-vs-fast-fire pedestrian regime, **not** by the vehicle cutoff/speed | complement of unreachable within the constant 264-home needs-rescue pool |  <!-- forbidden-ok: 264 -->
 | `unreachable` point estimate (20) | **directional only** (grid 1–40) — report the direction + range, not the point value | central rel-spread 1.17 |
 
 `rescue_reachable ⊆ safe` holds at every cutoff. The headline four-way and the
@@ -181,17 +181,17 @@ The vehicle×delay sweep (§4a) only *splits* a **fixed** needs-rescuer pool int
 `no_walk_rescuer` vs `unreachable`; it never moved the pool's size. The two knobs
 that set that size are `immobile_fraction` and `walk_cutoff`. Decompose the
 partition: `self_evacuable = already_safe + saved`, `needs_rescuer =
-no_walk_rescuer + unreachable`; the headline "58% need a rescuer" is `264/452`.
+no_walk_rescuer + unreachable`; the headline "58% need a rescuer" is `264/452`.  <!-- forbidden-ok: 264, 452 -->
 
 **How `immobile_fraction` routes origins (from the code):** `_immobile_homes`
 draws a **random `f·N`** origins (`rng.choice(..., replace=False)`) and the loop
 does `if n in immobile: needs_rescue; continue` — they **skip the walk checks
 regardless of whether they could have walked out**. So `already_safe`/`saved` are
 computed only over the mobile `(1−f)` pool and **fall as `f` rises** — they are
-**not** invariant to `f` (the pass-1 "constant 154/34" was true only for the
+**not** invariant to `f` (the pass-1 "constant 154/34" was true only for the  <!-- forbidden-ok: 154 -->
 vehicle×delay grid, where `f` was fixed).
 
-**f × c sweep, full N = 452** (`scripts/verify_rescue_routing.py --sweep fc`,
+**f × c sweep, full N = 452** (`scripts/verify_rescue_routing.py --sweep fc`,  <!-- forbidden-ok: 452 -->
 `rescue_verify_fc.json`; baseline cell f=0.30, c=0.50 == headline, asserted):
 
 `needs_rescuer` (= can't self-evacuate on foot):
@@ -199,7 +199,7 @@ vehicle×delay grid, where `f` was fixed).
 | immobile `f` \ walk cutoff | 0.40 | **0.50** | 0.60 |
 |---|---|---|---|
 | 0.15 | 226 (50%) | 211 (47%) | 196 (43%) |
-| **0.30** | 272 (60%) | **264 (58%)** | 249 (55%) |
+| **0.30** | 272 (60%) | **264 (58%)** | 249 (55%) |  <!-- forbidden-ok: 264 -->
 | 0.45 | 315 (70%) | 306 (68%) | 292 (65%) |
 
 `self_evacuable` (= already_safe + saved): 0.15→{226, 241, 256}; 0.30→{180, 188,
@@ -211,13 +211,13 @@ rises with `f` and as the walk cutoff falls. See `docs/figures/rescue_sweep_fc.p
 
 | quantity | verdict | basis |
 |---|---|---|
-| `needs_rescuer` = **58 %** (264/452) | **directional, not a number** | grid 196–315 (43–70 %); **halving the assumed immobile fraction (0.30→0.15) drops it 58 %→47 %** (264→211 @ c=0.5) |
+| `needs_rescuer` = **58 %** (264/452) | **directional, not a number** | grid 196–315 (43–70 %); **halving the assumed immobile fraction (0.30→0.15) drops it 58 %→47 %** (264→211 @ c=0.5) |  <!-- forbidden-ok: 264, 452 -->
 | `no_walk_rescuer` = **244** | **re-classified directional** w.r.t. the assumption knobs (grid 178–286, rel-spread 0.46); the §4a "robust" held *only* against the vehicle knobs | moves with both `f` and `walk_cutoff` |
 | `saved` = **34** | **rescue-meaningful, not a mislabel** — a pedestrian route to a *rescue-reachable* refuge (the resident-side win); it moves with `f` (over the mobile pool), so not f-invariant | — |
 
 **Defensible headline today:** *"Under walk cutoff 0.5 and 30 % assumed immobile,
-264/452 (58 %) cannot self-evacuate on foot; at 15 % assumed immobile this falls to
-211/452 (47 %). The share is driven by the assumed immobile fraction plus the
+264/452 (58 %) cannot self-evacuate on foot; at 15 % assumed immobile this falls to  <!-- forbidden-ok: 264, 452 -->
+211/452 (47 %). The share is driven by the assumed immobile fraction plus the  <!-- forbidden-ok: 452 -->
 slow-elder pedestrian regime — not by the vehicle-side knobs."* Even at the most
 optimistic swept assumptions a **large minority (≥43 %)** still cannot self-evacuate
 — that direction is robust; the exact percentage is not. **Unchanged keeper:** the
@@ -225,7 +225,7 @@ optimistic swept assumptions a **large minority (≥43 %)** still cannot self-ev
 
 ## 4c. Rescue capacity / triage — the demand–supply gap (PoC)
 
-§4a–4b size the **demand**: of N = 452 origins, **264 need a rescuer** = **244
+§4a–4b size the **demand**: of N = 452 origins, **264 need a rescuer** = **244  <!-- forbidden-ok: 264, 452 -->
 dispatch-reachable** (a vehicle corridor survives long enough to reach them) +
 **20 geometry-unreachable** (no surviving ingress). They never asked whether the
 fire service can **supply** that many rescues in the window. This layer
@@ -243,14 +243,14 @@ home is **`rescued_in_time`** iff a unit ARRIVES no later than its
 *and* within the operational window `W = responder_time_budget_min = 75 min`),
 else **`capacity_deferred`** (a *supply* failure — a surviving route exists but no
 unit reaches it in time). `geometry_unreachable` (the 20) is unchanged. The three
-outcomes **partition the 264-home needs-rescuer pool**.
+outcomes **partition the 264-home needs-rescuer pool**.  <!-- forbidden-ok: 264 -->
 
 > **These capacity numbers are PoC parameters, NOT measured 영덕 fire-service
 > capacity.** The deliverable is the demand–supply **curve**, never a single
 > "X rescued" or any "lives saved" figure.
 
 **Capacity sweep @ baseline (PoC: `service = 25 min/rescue`, `W = 75 min`,
-units mobilised at the 30-min dispatch delay), full N = 452:**
+units mobilised at the 30-min dispatch delay), full N = 452:**  <!-- forbidden-ok: 452 -->
 
 | rescue units | rescued_in_time | capacity_deferred | geometry_unreachable | % of demand met |
 |---:|---:|---:|---:|---:|
@@ -268,7 +268,7 @@ meet < 10 % of demand. *This gap is the quantitative case for pre-positioning
 resources and for triage, not a deficiency to hide.*
 
 **Secondary axis — dispatch delay × units** (`CAP_DELAYS = {0, 30, 60}`; the
-needs-rescuer pool is delay-invariant, so its 264 split moves between reachable
+needs-rescuer pool is delay-invariant, so its 264 split moves between reachable  <!-- forbidden-ok: 264 -->
 and geometry as the delay rises): geometry-unreachable goes **6 → 20 → 34** at
 delay 0/30/60 (matching the §4a finding), while the supply-limited
 `rescued_in_time` per unit is **delay-invariant** (the window span `W` is the same
@@ -279,13 +279,13 @@ binding constraint** on timely rescue here.
 
 | invariant | result |
 |---|---|
-| three outcomes sum to the 264 needs-rescuer count in every cell | ✓ |
+| three outcomes sum to the 264 needs-rescuer count in every cell | ✓ |  <!-- forbidden-ok: 264 -->
 | unlimited units → `capacity_deferred = 0`, recovers the geometry-only set (20) — the layer is a strict refinement | ✓ |
 | `rescued_in_time` monotone non-decreasing in unit count | ✓ (3→6→9→12→18→24) |
 | capacity binds (1 unit leaves demand unmet) | ✓ |
 | 2-D baseline cell (delay 30, units 3) reconciles with the 1-D sweep + `run_pipeline` | ✓ |
 
-**Reading.** Geometry alone caps timely rescue at **92.4 %** of demand (244/264);
+**Reading.** Geometry alone caps timely rescue at **92.4 %** of demand (244/264);  <!-- forbidden-ok: 264 -->
 the residual 20 have no surviving corridor and are never imputed. The robust
 result is the **shape** of the curve (sharp unmet demand at realistic unit
 counts); the absolute % moves with the PoC `service`/`W` and is not a measured

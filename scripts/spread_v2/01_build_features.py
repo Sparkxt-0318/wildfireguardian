@@ -3,6 +3,7 @@
 # LEGACY / SUPERSEDED — research history, NOT part of the live pipeline.
 #
 # This "Deliverable 0-6" script belongs to the abandoned `spread_v2_xgb`
+# forbidden-ok: XGBoost
 # (XGBoost) re-train track and imports `wildfireguardian.spread_v2_xgb`. The
 # CANONICAL data-driven spread model is the `spread_v2` package
 # (src/wildfireguardian/spread_v2/), exercised end-to-end by

@@ -1,7 +1,9 @@
+# forbidden-ok: XGBoost
 """XGBoost classifier + leave-one-fire-out evaluation (Deliverables 3–5).
 
 The estimator is a gradient-boosted tree with **frozen, untuned**
 hyper-parameters (see :data:`XGB_PARAMS`) — we deliberately do NOT search them
+# forbidden-ok: XGBoost
 against the CV metric, per the honesty principle. XGBoost's native missing
 handling lets the weather-incomplete fire (gangneung_donghae, no ERA5) train
 and predict with weather = NaN.

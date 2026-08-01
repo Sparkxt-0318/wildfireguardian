@@ -39,7 +39,7 @@ All numbers in this report trace to a committed JSON:
 (8 439 vs ~1 400 nodes). The origin-scan *procedure* is unchanged; only its stride
 knob is adapted (`REAL_OSM_SCAN_STRIDE = 18`, up from the synthetic default 3) so
 the sampled-candidate count stays near the synthetic scale (**N = 439** real vs
-**452** synthetic) and the full-N verification sweeps stay tractable
+**452** synthetic) and the full-N verification sweeps stay tractable  <!-- forbidden-ok: 452 -->
 (~61 s/`_split_counts` at N = 439).
 
 ---
@@ -51,12 +51,12 @@ All at the single baseline: dispatch delay 30 min, vehicle cutoff 0.7, walk cuto
 
 | Metric | OLD (synthetic) | NEW (real OSM) | Source key |
 |---|---|---|---|
-| Origins N | 452 | **439** | `n_origins` |
-| Four-way — `already_safe` | 154 | **262** | `four_way_counts` |
+| Origins N | 452 | **439** | `n_origins` |  <!-- forbidden-ok: 452 -->
+| Four-way — `already_safe` | 154 | **262** | `four_way_counts` |  <!-- forbidden-ok: 154 -->
 | Four-way — `saved_by_rescue_reachable_refuge` | 34 | **10** | " |
 | Four-way — `no_safe_pedestrian_route` (needs rescuer, reachable) | 244 | **143** | " |
 | Four-way — `no_surviving_vehicle_ingress` (beyond reach) | 20 | **24** | " |
-| Four-way sums to N | 452 ✓ | 439 ✓ | `four_way_sums_to_n` |
+| Four-way sums to N | 452 ✓ | 439 ✓ | `four_way_sums_to_n` |  <!-- forbidden-ok: 452 -->
 | Refuges rescue-reachable | 19 / 20 | **24 / 50** | `n_refuges_rescue_reachable` |
 | Resident exposure — naive (prob·min) | 24.06 | **9.16** | `resident_exposure.naive.mean` |
 | Resident exposure — future-aware→any | 3.55 | **1.59** | `…future_aware_any.mean` |
@@ -71,13 +71,13 @@ All at the single baseline: dispatch delay 30 min, vehicle cutoff 0.7, walk cuto
 | Dispatch-delay 0→60 trend, `no-ingress` (sampled sweep) | 2 → 13 | **1 → 21** | `sensitivity_sweep.responder_dispatch_delay_min` |
 | Vehicle-cutoff 0.4→0.8, `no-ingress` (sampled sweep) | 12→6 | **21→2** | `sensitivity_sweep.vehicle_cutoff` |
 | Walk-failure `w` (full-N, assumption-light) — range | 0.333–0.450 | **0.091–0.174** | `walk_failure.summary` (verify_fc) |
-| `needs_rescuer` baseline % of N (full-N) | 58.4 % (264) | **38.0 % (167)** | `needs_rescuer` (verify_fc) |
+| `needs_rescuer` baseline % of N (full-N) | 58.4 % (264) | **38.0 % (167)** | `needs_rescuer` (verify_fc) |  <!-- forbidden-ok: 264 -->
 | Capacity: % demand met @ 3 units (PoC) | 3.4 % | **5.4 %** | `sweep_units_baseline_delay` (capacity) |
 | Capacity: geometry ceiling on timely rescue | 92.4 % | **85.6 %** | `geometry_ceiling_pct` (capacity) |
 
 ### Reading the changes honestly
 
-- **Far more residents are already safe on real roads (154 → 262).** Real 영덕 road
+- **Far more residents are already safe on real roads (154 → 262).** Real 영덕 road  <!-- forbidden-ok: 154 -->
   topology gives residents genuine connectivity to refuges the coarse synthetic
   lattice lacked, so `already_safe` and the reachable/self-evacuable share rise and
   `no_safe_pedestrian_route` falls sharply (244 → 143). This is the single biggest
@@ -99,7 +99,7 @@ All at the single baseline: dispatch delay 30 min, vehicle cutoff 0.7, walk cuto
   is the robust result; the absolute magnitudes are hazard-synthetic and will change
   again when the real hazard lands.
 - **The assumption-light rescue burden falls on real roads.** Full-N,
-  `needs_rescuer` drops from 58.4 % (264) to **38.0 % (167)** of origins, and the
+  `needs_rescuer` drops from 58.4 % (264) to **38.0 % (167)** of origins, and the  <!-- forbidden-ok: 264 -->
   walk-failure fraction of *mobile* residents `w` falls from **0.33–0.45** to
   **0.09–0.17** — real pedestrian connectivity lets many more elders reach a refuge
   on foot. `w` stays approximately flat across the immobile fraction (max spread

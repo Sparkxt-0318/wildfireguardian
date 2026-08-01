@@ -14,6 +14,7 @@ Provenance guardrails enforced here (see the CodeFair brief):
     area); its numeric value is NOT exported at all. The honest footprint figure
     is the forward-sim envelope IoU ~0.40, exported from ``yeongdeok_forward_sim``.
   * The model is scikit-learn ``HistGradientBoostingClassifier`` (seed 20250603).
+    # forbidden-ok: XGBoost
     The word "XGBoost" never appears in the exported bundle.
   * The rescue layer's HAZARD and TERRAIN are SYNTHETIC (no FIRMS bundle present);
     its roads / refuges / depots are REAL OpenStreetMap. Both facts are exported

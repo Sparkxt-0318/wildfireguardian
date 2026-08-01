@@ -1,7 +1,7 @@
 # Rescue-aware evacuation routing — results (DRAFT)
 
 > ⚠️ **DO NOT CITE THESE NUMBERS / 제출·인용 금지 — SUPERSEDED.** Every quantitative value in
-> this draft (N = 452; four-way 154/34/244/20; `w` ≈ 40 %; 264/58 % needs-rescuer) is the
+> this draft (N = 452; four-way 154/34/244/20; `w` ≈ 40 %; 264/58 % needs-rescuer) is the  <!-- forbidden-ok: 154, 264, 452 -->
 > **pre-flip synthetic baseline**. The committed real-OSM values are **N = 439**, four-way
 > **262 / 10 / 143 / 24**, needs-rescuer **38.0 % (167)**, walk-failure **`w` = 0.091–0.174**.
 > Cite `docs/REPORT_ROUND2_P1.md` (authoritative OLD-vs-NEW table), never this draft.
@@ -9,8 +9,8 @@
 > **Round 2 · Phase 1 — real-data flip (2026-07).** The `[src: rescue_*.json]`
 > citations below now resolve to **real-OSM** outputs (road/refuge/depot geometry
 > flipped from synthetic; fire hazard + terrain still synthetic pending FIRMS). The
-> synthetic values quoted in this draft (N = 452; four-way 154/34/244/20; `w` ≈ 40 %;
-> 264/58 % needs-rescuer; etc.) are the **pre-flip** baseline, preserved at
+> synthetic values quoted in this draft (N = 452; four-way 154/34/244/20; `w` ≈ 40 %;  <!-- forbidden-ok: 154, 452 -->
+> 264/58 % needs-rescuer; etc.) are the **pre-flip** baseline, preserved at  <!-- forbidden-ok: 264 -->
 > `data/processed/rescue_baseline_synthetic/`. For the current real numbers and the
 > OLD-vs-NEW table see `docs/REPORT_ROUND2_P1.md`.
 
@@ -45,7 +45,7 @@ time-sliced per-cell ignition-probability surface — the foundation this builds
 0.905, far-band 0.877 pooled
 `[src: data/processed/spread_v2_lofo.json; docs/MODEL_CARD.md]`; forward-simulated
 footprint IoU **~0.40**
-`[src: docs/ROUTING_INTEGRATION_REPORT.md]`). N = **452** candidate elderly-home
+`[src: docs/ROUTING_INTEGRATION_REPORT.md]`). N = **452** candidate elderly-home  <!-- forbidden-ok: 452 -->
 origins are scanned on an OSM-style **walk** network; responders use a separate
 **drive** network; shelters (대피소) and responder depots (119안전센터) have real-source
 loaders **and a clearly-labelled synthetic fallback used here, tagged
@@ -113,10 +113,10 @@ they reflect different route lengths and speeds, not different safety.
 
 ## 5. Result 4 — the "58 %", decomposed and demoted
 
-At baseline (`f`=0.30, walk cutoff 0.50) **264/452 = 58 %** cannot self-evacuate on
+At baseline (`f`=0.30, walk cutoff 0.50) **264/452 = 58 %** cannot self-evacuate on  <!-- forbidden-ok: 264, 452 -->
 foot `[src: rescue_verify_fc.json / needs_rescuer.baseline_pct]`. This is **not a
 robust number**: across the assumption grid it ranges **43–70 %** (196–315), and
-**halving the assumed immobile fraction to 0.15 drops it to 47 %** (211/452)
+**halving the assumed immobile fraction to 0.15 drops it to 47 %** (211/452)  <!-- forbidden-ok: 452 -->
 `[src: rescue_verify_fc.json / needs_rescuer]`. Reported honestly it is
 `needs_rescuer = f·N + (1−f)·w·N` — **a model-derived ~40 % walk-failure (`w`) plus an
 assumed immobile add-on** — and should never appear as a bare "58 %". The robust

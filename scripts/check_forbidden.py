@@ -68,6 +68,7 @@ HARD: list[tuple[str, str, str]] = [
 
 #: token -> regex that, if present on the line, counts as an adequate label.
 LABEL: list[tuple[str, str, str, str]] = [
+    # forbidden-ok: XGBoost
     ("XGBoost", "word",
      r"(?i)(superseded|legacy|build[ -]?a|abandoned|not\s+the\s+canonical|"
      r"deprecated|retired|previous|형|폐기|구|이전|레거시)",
@@ -101,6 +102,7 @@ LABEL: list[tuple[str, str, str, str]] = [
 #: artifacts it describes.
 #:
 #: They do NOT apply to code or artifacts:
+# forbidden-ok: XGBoost
 #:   .py    `Sardoy (2008) Combust. Flame 154` is a citation; the XGBoost in
 #:          spread_v2_xgb/model.py is the superseded build's own source.
 #:   .json  `"n_origins": 452` is that run's own recorded value.
@@ -225,8 +227,12 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--list-rules", action="store_true")
-    ap.add_argument("--label-is-error", action="store_true",
-                    help="treat unlabelled LABEL hits as failures too")
+    # Unlabelled mentions are ERRORS by default as of 2026-08-01, the day the
+    # count first reached zero. A checker that always reports 89 findings is a
+    # checker nobody reads; at zero, the next finding is a real signal.
+    ap.add_argument("--allow-unlabelled", action="store_true",
+                    help="downgrade unlabelled LABEL hits to warnings (default: "
+                         "they are failures)")
     args = ap.parse_args()
 
     if args.list_rules:
@@ -258,12 +264,14 @@ def main() -> int:
     if hard:
         print(f"\nFAILED: {len(hard)} hard violation(s).")
         return 1
-    if label and args.label_is_error:
-        print(f"\nFAILED: {len(label)} unlabelled mention(s) (--label-is-error).")
+    if label and not args.allow_unlabelled:
+        print(f"\nFAILED: {len(label)} unlabelled mention(s). Add a qualifier on "
+              "the line, or a line pragma if the line's job is to name the value. "
+              "The count has been zero since 2026-08-01 — this is a real finding.")
         return 1
     if label:
-        print(f"\nOK with warnings: {len(label)} unlabelled mention(s) — review, "
-              "then either add a qualifier or a line pragma.")
+        print(f"\nOK with warnings: {len(label)} unlabelled mention(s) "
+              "(--allow-unlabelled).")
         return 0
     print("\nOK — no forbidden strings.")
     return 0

@@ -1,7 +1,7 @@
 # Live Fuel Moisture Content (LFMC) — methodology
 
 > Status (Session 3): **methodology scaffold implemented**. The feature
-> engineering + XGBoost regression structure is in
+> engineering + XGBoost regression structure is in  <!-- forbidden-ok: XGBoost -->
 > `src/wildfireguardian/lfmc_model/retrieval.py`, demonstrated on a
 > CLEARLY-LABELLED synthetic training set. Real Sentinel-1/2 + MODIS
 > ingestion and Korean field-LFMC labels are Round 2.
@@ -32,7 +32,7 @@ structure:
   ratio, MODIS/Sentinel-2 NDVI + NDMI, 30-day accumulated precipitation,
   terrain (elevation/slope/aspect), and KFS forest-type code. This matches
   the SAR-enhanced feature set of Rao et al. (2020) and Wang et al. (2019).
-- **Model** (`LFMCRetrievalModel`): an XGBoost regressor with the
+- **Model** (`LFMCRetrievalModel`): an XGBoost regressor with the  <!-- forbidden-ok: XGBoost -->
   hyper-parameters used in the published LFMC literature.
 - **Synthetic demonstration** (`demo_train_synthetic`): trains the model
   on a clearly-labelled synthetic dataset whose feature→LFMC relationships

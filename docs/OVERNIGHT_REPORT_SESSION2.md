@@ -340,7 +340,7 @@ In priority order:
    classification. Requires registration; day of work plus species-code
    lookup table.
 
-5. **LFMC retrieval scaffold (`lfmc_model`).** Sentinel-2 → XGBoost
+5. **LFMC retrieval scaffold (`lfmc_model`).** Sentinel-2 → XGBoost  <!-- forbidden-ok: XGBoost -->
    pipeline using Globe-LFMC 2.0 + Korean field LFMC samples. Day of
    work. Without this we have no real LFMC; we use a manifest-supplied
    constant.

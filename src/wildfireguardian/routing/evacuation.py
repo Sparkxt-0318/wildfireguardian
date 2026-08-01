@@ -253,6 +253,11 @@ def _evaluate_path(
 # ---------------------------------------------------------------------------
 
 
+#: Objective for :func:`naive_route`. ``"length_m"`` is the committed Round-2
+#: behaviour and the DEFAULT; do not change it without re-reporting.
+NAIVE_OBJECTIVES: tuple[str, ...] = ("length_m", "time_min")
+
+
 def naive_route(
     net: RoadNetwork,
     start: int,
@@ -260,13 +265,34 @@ def naive_route(
     *,
     departure_min: float = 0.0,
     p_cut: float = 0.5,
+    objective: str = "length_m",
 ) -> RouteResult:
-    """Shortest-distance path to the nearest shelter, fire-blind, then scored."""
+    """Fire-blind shortest path to the nearest shelter, then scored against the hazard.
+
+    Parameters
+    ----------
+    objective
+        ``"length_m"`` (DEFAULT, and the committed Round-2 behaviour) minimises
+        DISTANCE. ``"time_min"`` minimises TRAVERSAL TIME.
+
+        The distinction only matters once edge times stop being proportional to
+        length — i.e. once DEM slope is applied. Under distance minimisation the
+        chosen path is slope-invariant by construction, which is why PHASE 2
+        measured zero path changes from slope across 460 origins
+        (docs/slope_integration.md). Under time minimisation a walker may prefer
+        a longer, gentler detour to a steep short-cut.
+
+        The default is NOT changed: the committed 407- and 459-origin results
+        are distance-ranked, and reinterpreting them requires that behaviour to
+        stay reachable.
+    """
     if not net.shelters:
         raise ValueError("network has no shelters")
+    if objective not in NAIVE_OBJECTIVES:
+        raise ValueError(f"objective must be one of {NAIVE_OBJECTIVES}, got {objective!r}")
     # One Dijkstra from the origin to all nodes, then pick the nearest
     # reachable shelter (far cheaper than a Dijkstra per shelter).
-    lengths, paths = nx.single_source_dijkstra(net.graph, start, weight="length_m")
+    lengths, paths = nx.single_source_dijkstra(net.graph, start, weight=objective)
     best_path: list[int] | None = None
     best_len = math.inf
     best_target = None
@@ -277,7 +303,10 @@ def naive_route(
         return RouteResult(kind="naive", reached=False, route=[], target=None,
                            departure_min=departure_min, total_distance_m=0.0,
                            total_time_min=0.0, note="no path to any shelter")
-    return _evaluate_path(net, best_path, hazard, departure_min, p_cut, "naive", best_target)
+    # _evaluate_path recomputes distance and time from the edges, so the reported
+    # totals are correct under either objective.
+    kind = "naive" if objective == "length_m" else "naive_time"
+    return _evaluate_path(net, best_path, hazard, departure_min, p_cut, kind, best_target)
 
 
 # ---------------------------------------------------------------------------
@@ -393,6 +422,7 @@ def future_aware_route(
 __all__ = [
     "ELDERLY_FLAT_SPEED_MS",
     "elderly_speed_ms",
+    "NAIVE_OBJECTIVES",
     "build_evacuation_network",
     "RouteResult",
     "naive_route",

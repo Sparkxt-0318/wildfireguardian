@@ -180,3 +180,62 @@ def test_length_is_unchanged_by_slope():
                                   apply_slope=True)
     for u, v, d in list(flat.graph.edges(data=True))[:1000]:
         assert slope.graph[u][v]["length_m"] == pytest.approx(d["length_m"])
+
+
+# ---------------------------------------------------------------------------
+# PHASE 2-C-1: the routing objective
+# ---------------------------------------------------------------------------
+
+
+def test_naive_route_default_objective_is_unchanged():
+    """The committed behaviour is distance-ranked and must stay the default."""
+    import inspect
+
+    from wildfireguardian.routing.evacuation import NAIVE_OBJECTIVES, naive_route
+    sig = inspect.signature(naive_route)
+    assert sig.parameters["objective"].default == "length_m"
+    assert NAIVE_OBJECTIVES == ("length_m", "time_min")
+
+
+def test_naive_route_rejects_an_unknown_objective():
+    from wildfireguardian.routing.evacuation import naive_route
+    from wildfireguardian.routing.future_front import RoadNetwork
+    net = RoadNetwork(graph=nx.DiGraph(), shelters={1})
+    net.graph.add_node(1, x=0.0, y=0.0)
+    with pytest.raises(ValueError, match="objective must be one of"):
+        naive_route(net, 1, None, objective="cost")
+
+
+@pytest.mark.skipif(not DEM.exists(), reason="SRTM DEM absent")
+def test_time_objective_is_inert_under_flat_timing():
+    """Flat time is proportional to distance, so the objective cannot matter.
+
+    This is the control for PHASE 2-C-1: it is what makes the 150 route changes
+    under slope timing attributable to terrain rather than to the code change.
+    """
+    import numpy as np
+
+    from wildfireguardian.routing.evacuation import naive_route
+    from wildfireguardian.routing.hazard import HazardSequence
+    from wildfireguardian.spread_v2.grid import CoarseGrid
+
+    z = np.load(REPO / "data/processed/routing_demo.npz")
+    haz = z["haz_stack"].astype(np.float32)
+    xmin, ymin, xmax, ymax, cell = [float(v) for v in z["grid_extent"]]
+    hazard = HazardSequence(
+        grid=CoarseGrid(minx=xmin, miny=ymin, maxx=xmax, maxy=ymax, cell_size_m=cell,
+                        nrows=haz.shape[1], ncols=haz.shape[2]),
+        times_min=np.asarray(z["haz_times"], float),
+        surfaces=[haz[i] for i in range(haz.shape[0])])
+
+    G = _graph()
+    net, _ = build_walk_network(G, None, apply_slope=False, directed=True)
+    nodes = sorted(net.graph.nodes)
+    net.shelters = set(nodes[:40])
+    sample = [n for n in nodes[::400]][:25]
+    for n in sample:
+        a = naive_route(net, n, hazard, p_cut=0.5, objective="length_m")
+        b = naive_route(net, n, hazard, p_cut=0.5, objective="time_min")
+        assert a.reached == b.reached
+        if a.reached:
+            assert a.route == b.route, "flat timing must make the objective inert"

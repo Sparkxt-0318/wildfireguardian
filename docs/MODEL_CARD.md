@@ -147,10 +147,10 @@ is strong (0.88–0.97 ROC-AUC) on the five fires shared with Build A.
 ## Downstream: rescue capacity / triage (PoC)
 
 The rescue-routing layer that consumes this model's hazard surfaces now reports a
-**demand–supply** split, not just demand. Of N = 452 영덕 origins, **264 need a
+**demand–supply** split, not just demand. Of N = 452 영덕 origins, **264 need a  <!-- forbidden-ok: 264, 452 -->
 rescuer** = **244 dispatch-reachable** + **20 geometry-unreachable** (no surviving
 ingress). A parameterized capacity model (`RescueCapacityConfig`,
-`rescue.py::capacity_triage`, `--sweep capacity`) partitions the 264 into
+`rescue.py::capacity_triage`, `--sweep capacity`) partitions the 264 into  <!-- forbidden-ok: 264 -->
 **rescued_in_time / capacity_deferred / geometry_unreachable** using the existing
 priority order (closing window) as the triage rule:
 

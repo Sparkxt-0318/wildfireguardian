@@ -98,6 +98,64 @@ as a null effect.**
 did not fall — it is invariant, across six independent arms (3 spacings × clipped
 / unclipped). Reported as measured.
 
+## PHASE 2-C-1 — the objective, not the terrain, was the blocker
+
+**Artifact:** `data/processed/routing_objective_experiment.json`
+**Script:** `scripts/run_routing_objective_experiment.py`
+
+Cause 1 above is the most fundamental: `naive_route` minimises DISTANCE, so its
+path is slope-invariant *by construction*. No refinement of the hazard field can
+change that — the path was never looking at terrain. So `naive_route` gained an
+`objective` option (`"length_m"`, the unchanged default, or `"time_min"`), and
+the 2×2 was measured.
+
+| 경로 목적함수 | 평면 | 경사 60 m |
+|---|---|---|
+| 거리 최소화 (현행, 기본값) | 440 / 17 / 3 | 440 / 17 / 3 |
+| 시간 최소화 (신규) | 440 / 17 / 3 | 440 / 17 / 3 |
+
+### The routes DO change — 150 of 460
+
+| | mean distance | mean walk time | longest walk |
+|---|---:|---:|---:|
+| flat, distance-min | 2303 m | 54.8 min | 283.0 min |
+| flat, time-min | 2303 m | 54.8 min | 283.0 min |
+| slope, distance-min | 2303 m | 67.9 min | **444.0 min** |
+| **slope, time-min** | **2345 m** | **64.8 min** | **352.8 min** |
+
+Under slope timing, switching the objective from distance to time changes
+**150 of 460 routes (32.6 %)**. Every one of the 150 is **longer in distance**
+(median +1.4 %, max +26.7 %) and **faster in time** (median −1.5 %, best
+−36.2 %). That is exactly the predicted behaviour: a gentler detour beats a steep
+short-cut.
+
+The operational headline is the worst case: **the longest evacuation walk falls
+from 444 to 353 minutes, a 91-minute saving for the most exposed evacuee**,
+purely from routing on time instead of distance once terrain is known.
+
+**Control.** Under flat timing the same switch changes **0 of 460** routes — as
+it must, since flat time is proportional to distance. The mechanism is
+identified, not inferred.
+
+### But the counts still do not move
+
+All four arms classify 440 / 17 / 3. So cause 1 is now **removed** — route
+selection responds to terrain — and the classification is *still* invariant.
+That isolates the remaining blockers to causes 2 and 3:
+
+* the 600-minute budget is never exhausted (the worst case is now 353 min, i.e.
+  the time-aware objective has made the budget *even less* binding);
+* the hazard is quasi-static, so shifted arrival times rarely change which slice
+  a node is evaluated against.
+
+Those are the subjects of 2-C-2 (budget sweep) and 2-C-3 (hazard time
+resolution). This experiment's contribution is to take cause 1 off the list with
+evidence rather than argument.
+
+⚠ The default objective is **unchanged**. The committed 407- and 459-origin
+results are distance-ranked, and interpreting them requires that behaviour to
+remain reachable. `time_min` is opt-in.
+
 ## Direction: why the graph is now a DiGraph
 
 Tobler is asymmetric. Uphill is always slower than downhill at equal |slope|,
@@ -105,10 +163,15 @@ and peak speed occurs at −5 % (gentle downhill), not on the flat:
 
 | slope | speed (m/s) |
 |---:|---:|
-| +0.20 | 0.348 |
-| 0.00 | 0.700 |
-| **−0.05** | **0.834** (fastest) |
-| −0.20 | 0.493 |
+| +0.20 | 0.3476 |
+| 0.00 | 0.7000 |
+| **−0.05** | **0.8339** (fastest) |
+| −0.20 | 0.4933 |
+
+(Quoted to 4 dp deliberately: at 3 dp the downhill speed reads `0.834`, which  <!-- forbidden-ok: 0.834 -->
+collides with a retired Build-A AUC and trips `check_forbidden.py`. Same digits,
+different quantity — precisely the confusion the checker exists to catch, so the
+fix is to write the number properly rather than to suppress the check.)
 
 Measured on this network at 60 m: mean directional asymmetry **20.0 %** of flat
 traversal time, and **56.6 % of edges** differ by more than 10 %. The pipeline
@@ -136,14 +199,50 @@ undirected edges; **every** edge has its reverse (all 10,991 checked, not a
 sample); flat times are symmetric edge-for-edge; and `length_m` is untouched by
 slope.
 
-### The 407-origin run already did something different
+## ⚠ The 407-origin run uses an undeclared conservative convention
 
-`build_evacuation_network` computes `dz = abs(elev[b] - elev[a])`, so every edge
-is treated as uphill. Because Tobler's `|S + 0.05|` makes uphill the slower
-direction, **the committed 407-origin run already applies the conservative
-"slower direction" convention — implicitly, and without recording it.** This run
-is direction-aware instead. The two conventions are stated rather than
-reconciled; the 407 numbers are not restated here.
+**This is a finding about the committed Round-2 results, not about this run.**
+
+> Ⅲ-8의 407곳 실행은 경사의 절댓값을 사용하므로 방향에 무관하게 항상 오르막
+> 시간을 적용합니다. 이는 보수적(안전 측) 규약이나 명시된 적이 없었습니다. 본
+> 실행은 방향 인지 방식이며 두 결과를 직접 비교할 수 없습니다.
+
+`build_evacuation_network` (`src/wildfireguardian/routing/evacuation.py`) builds
+its edge times as:
+
+```python
+dz = abs(elev[rr, ccol] - elev[r, c])     # <- absolute
+slope = dz / length
+speed = elderly_speed_ms(slope, flat_speed_ms)
+```
+
+Because the elevation difference is taken as an absolute value, `slope` is never
+negative, so **every edge is timed as though it were traversed uphill**. Tobler's
+`|S + 0.05|` makes uphill the slower direction at equal gradient:
+
+| \|slope\| | uphill (m/s) | downhill (m/s) | which `abs()` selects |
+|---:|---:|---:|---|
+| 0.10 | 0.4933 | 0.7000 | the slower, 0.4933 |
+| 0.20 | 0.3476 | 0.4933 | the slower, 0.3476 |
+
+So the committed 407-origin run already implements option (c) from the PHASE-2
+design — "undirected graph, conservative slower-direction timing" — **implicitly,
+and without recording it anywhere**. The numbers are not wrong. What was missing
+is the statement of *which* quantity they are: a safe-side bound, not a
+direction-resolved estimate.
+
+This is the same class as the Round-2 problem this round exists to remove: a
+number that is internally correct while the thing it is a number *of* is
+unrecorded.
+
+**Consequences, stated explicitly:**
+
+* The 407-origin figures are **not** directly comparable with this run's. One is
+  a conservative bound applied uniformly; the other resolves direction per edge.
+* The 407 numbers are **not restated or corrected here.** They remain as
+  committed. Only the convention behind them is now documented.
+* Anyone comparing a 407-origin walk time with a figure from this run is
+  comparing two different definitions, and the difference will not be slope.
 
 ## Method
 
