@@ -1,0 +1,24 @@
+{
+  "village": "신돌석장군공원 남서쪽 4km 31",
+  "demo_mode": true,
+  "sent": false,
+  "note": "drafts only; sms.send() was never called and requires an approval_token",
+  "messages": [
+    {
+      "recipient_role": "가족",
+      "village": "신돌석장군공원 남서쪽 4km 31",
+      "body": "[산불] 신돌석장군공원 남서쪽 4km 31 구조 요청 1곳 중 1곳은 차량 진입이 어렵습니다. 무리한 이동은 삼가시고 소방 지시를 따라 주십시오.",
+      "n_chars": 81,
+      "within_limit": true,
+      "max_chars": 90
+    },
+    {
+      "recipient_role": "복지사",
+      "village": "신돌석장군공원 남서쪽 4km 31",
+      "body": "[산불] 신돌석장군공원 남서쪽 4km 31 방문 대상 1곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 1곳은 별도 확인 부탁드립니다.",
+      "n_chars": 82,
+      "within_limit": true,
+      "max_chars": 90
+    }
+  ]
+}

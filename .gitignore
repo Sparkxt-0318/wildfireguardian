@@ -178,3 +178,18 @@ data/snapshots/osm-httpcache_*
 # ...but the tiny .sha256 sidecars stay in git: every snapshot's digest is
 # checkable from a fresh clone even when the payload itself is local-only.
 !data/snapshots/osm-httpcache_*.sha256
+
+# --- outputs/dispatch/ (Round-3 PHASE 3) ----------------------------------
+# Every sheet is committed as HTML (the canonical artifact, openable and
+# screenshot-able in any browser) together with its broadcast script, SMS
+# drafts and MANIFEST.json — 0.23 MB for all 33 clusters.
+#
+# The PDFs are NOT all committed: headless Chrome embeds a Korean font subset
+# in each one, so 33 sheets come to 6.7 MB of fully regenerable output. The
+# three largest clusters' PDFs ARE kept as evidence that the A4 conversion
+# works and fits on a single page. Regenerate the rest with:
+#     python scripts/generate_dispatch_outputs.py
+outputs/dispatch/*/*/dispatch_a4.pdf
+!outputs/dispatch/*/01-*/dispatch_a4.pdf
+!outputs/dispatch/*/02-*/dispatch_a4.pdf
+!outputs/dispatch/*/03-*/dispatch_a4.pdf
