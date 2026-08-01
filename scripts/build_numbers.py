@@ -49,6 +49,7 @@ DRIFT = "data/processed/network_drift_experiment.json"
 SLOPE = "data/processed/real_roads_real_hazard_slope_60.json"   # canonical spacing
 OBJ = "data/processed/routing_objective_experiment.json"
 BUD = "data/processed/budget_sweep_experiment.json"
+FULL = "data/processed/rescue_routing_full.json"
 
 # Reproducibility is MEASURED, not assumed. Each artifact was re-run on
 # 2026-08-01 into a scratch directory and diffed against the committed copy.
@@ -116,6 +117,14 @@ REPRO = {
         "evidence": "built 2026-08-01 from the hash-verified snapshot graph and "
                     "SRTM raster with osmnx pinned to 2.0.7; "
                     "scripts/run_budget_sweep_experiment.py regenerates it.",
+        "blocked_by": None,
+    },
+    FULL: {
+        "status": "reproducible",
+        "evidence": "built 2026-08-01 from the hash-verified 2026-07-24 snapshot "
+                    "graphs (data/cache/ never read) with osmnx pinned to 2.0.7; "
+                    "scripts/run_rescue_routing_full.py regenerates it and asserts "
+                    "the drift arm-B figures.",
         "blocked_by": None,
     },
     NPZ: {
@@ -689,6 +698,47 @@ def main() -> int:
                             "and r['future_aware_counts']['both_safe'] == 440 "
                             "for r in a if r['budget_min'] == 600.0)"),
                    "tolerance": 0.0},
+        )
+
+    # ------------------------------------------- full-coverage re-run ------
+    if (REPO / FULL).exists():
+        fl = read(FULL)
+        DRIFT_LABEL = (
+            "2026-07-24 도로망 스냅샷 기준 재실행값입니다. 제출 문서가 인용하는 "
+            "커밋값(439곳 · 167곳 · 24곳)과 다르며, 도로망 재취득에 따른 차이입니다 "
+            "(docs/network_drift.md). 두 값을 화해시키거나 평균하지 마십시오.")
+        FORBID = ["441/174/32를 커밋값 대신 인용",
+                  "441 replaces 439", "174 replaces 167", "32 replaces 24",
+                  "커밋값이 수정되었다", "the committed figures were corrected"]
+        for key, path, val, desc in [
+            ("full_rerun_n_origins", "n_origins", fl["n_origins"], "출발지"),
+            ("full_rerun_n_need_rescue", "responder_exposure.n_need_rescue",
+             fl["responder_exposure"]["n_need_rescue"], "구조 필요"),
+            ("full_rerun_n_unreachable", "responder_exposure.n_unreachable",
+             fl["responder_exposure"]["n_unreachable"], "차량 도달 불가"),
+        ]:
+            N[key] = entry(
+                value=val, unit="origins", source_file=FULL, json_path=path,
+                derivation=f"{desc}, full-coverage re-run on the 2026-07-24 snapshot",
+                sample="441곳 주사 (스냅샷 도로망)",
+                caveat=DRIFT_LABEL,
+                forbidden_phrasings=FORBID,
+                check={"kind": "json_path", "operands": {"a": op(FULL, path)},
+                       "expr": "a", "tolerance": 0.0},
+            )
+        N["full_rerun_origins_serialized"] = entry(
+            value=fl["serialization"]["n_origins_serialized"], unit="rows",
+            source_file=FULL, json_path="serialization.n_origins_serialized",
+            derivation="len(origins_full) — every origin, not a top-N slice",
+            sample="441곳 전량",
+            caveat=("The committed artifact serialised dispatch_top20 (20 of 143), "
+                    "which is why the first operational sheets covered 44 of 167 "
+                    "points and 25 of 33 clusters were singletons. That was a "
+                    "SERIALIZATION limit, not a modelling one. " + DRIFT_LABEL),
+            forbidden_phrasings=FORBID,
+            check={"kind": "expression",
+                   "operands": {"a": op(FULL, "origins_full")},
+                   "expr": "len(a)", "tolerance": 0.0},
         )
 
     try:

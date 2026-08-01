@@ -2,7 +2,7 @@
   "schema_version": 1,
   "_README": "CANONICAL REGISTRY. Every reportable number lives here exactly once. Do not restate a value in prose without citing its key. 'verified' = still matches its artifact; 'reproducible' = re-running the pipeline regenerates that artifact. They are independent — several numbers here are verified but NOT reproducible because the OSM network behind them was overwritten (docs/DATA_LOSS_2026-07-24.md). Run scripts/verify_numbers.py to re-check every entry.",
   "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
-  "built_at_git_commit": "cbc9b456c7075f822efec3ebdb26c7a6351a0020",
+  "built_at_git_commit": "8e6b60ef52636a41a932dc4d6c2ed31fa04eaec8",
   "round2_submission_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
   "numbers": {
     "lofo_mean_of_folds_auc": {
@@ -1207,6 +1207,154 @@
       "reproducibility": {
         "status": "reproducible",
         "evidence": "built 2026-08-01 from the hash-verified snapshot graph and SRTM raster with osmnx pinned to 2.0.7; scripts/run_budget_sweep_experiment.py regenerates it.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "full_rerun_n_origins": {
+      "value": 441,
+      "unit": "origins",
+      "source_file": "data/processed/rescue_routing_full.json",
+      "json_path": "n_origins",
+      "derivation": "출발지, full-coverage re-run on the 2026-07-24 snapshot",
+      "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "441곳 주사 (스냅샷 도로망)",
+      "caveat": "2026-07-24 도로망 스냅샷 기준 재실행값입니다. 제출 문서가 인용하는 커밋값(439곳 · 167곳 · 24곳)과 다르며, 도로망 재취득에 따른 차이입니다 (docs/network_drift.md). 두 값을 화해시키거나 평균하지 마십시오.",
+      "forbidden_phrasings": [
+        "441/174/32를 커밋값 대신 인용",
+        "441 replaces 439",
+        "174 replaces 167",
+        "32 replaces 24",
+        "커밋값이 수정되었다",
+        "the committed figures were corrected"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/rescue_routing_full.json",
+            "json_path": "n_origins"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-01 from the hash-verified 2026-07-24 snapshot graphs (data/cache/ never read) with osmnx pinned to 2.0.7; scripts/run_rescue_routing_full.py regenerates it and asserts the drift arm-B figures.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "full_rerun_n_need_rescue": {
+      "value": 174,
+      "unit": "origins",
+      "source_file": "data/processed/rescue_routing_full.json",
+      "json_path": "responder_exposure.n_need_rescue",
+      "derivation": "구조 필요, full-coverage re-run on the 2026-07-24 snapshot",
+      "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "441곳 주사 (스냅샷 도로망)",
+      "caveat": "2026-07-24 도로망 스냅샷 기준 재실행값입니다. 제출 문서가 인용하는 커밋값(439곳 · 167곳 · 24곳)과 다르며, 도로망 재취득에 따른 차이입니다 (docs/network_drift.md). 두 값을 화해시키거나 평균하지 마십시오.",
+      "forbidden_phrasings": [
+        "441/174/32를 커밋값 대신 인용",
+        "441 replaces 439",
+        "174 replaces 167",
+        "32 replaces 24",
+        "커밋값이 수정되었다",
+        "the committed figures were corrected"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/rescue_routing_full.json",
+            "json_path": "responder_exposure.n_need_rescue"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-01 from the hash-verified 2026-07-24 snapshot graphs (data/cache/ never read) with osmnx pinned to 2.0.7; scripts/run_rescue_routing_full.py regenerates it and asserts the drift arm-B figures.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "full_rerun_n_unreachable": {
+      "value": 32,
+      "unit": "origins",
+      "source_file": "data/processed/rescue_routing_full.json",
+      "json_path": "responder_exposure.n_unreachable",
+      "derivation": "차량 도달 불가, full-coverage re-run on the 2026-07-24 snapshot",
+      "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "441곳 주사 (스냅샷 도로망)",
+      "caveat": "2026-07-24 도로망 스냅샷 기준 재실행값입니다. 제출 문서가 인용하는 커밋값(439곳 · 167곳 · 24곳)과 다르며, 도로망 재취득에 따른 차이입니다 (docs/network_drift.md). 두 값을 화해시키거나 평균하지 마십시오.",
+      "forbidden_phrasings": [
+        "441/174/32를 커밋값 대신 인용",
+        "441 replaces 439",
+        "174 replaces 167",
+        "32 replaces 24",
+        "커밋값이 수정되었다",
+        "the committed figures were corrected"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/rescue_routing_full.json",
+            "json_path": "responder_exposure.n_unreachable"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-01 from the hash-verified 2026-07-24 snapshot graphs (data/cache/ never read) with osmnx pinned to 2.0.7; scripts/run_rescue_routing_full.py regenerates it and asserts the drift arm-B figures.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "full_rerun_origins_serialized": {
+      "value": 441,
+      "unit": "rows",
+      "source_file": "data/processed/rescue_routing_full.json",
+      "json_path": "serialization.n_origins_serialized",
+      "derivation": "len(origins_full) — every origin, not a top-N slice",
+      "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "441곳 전량",
+      "caveat": "The committed artifact serialised dispatch_top20 (20 of 143), which is why the first operational sheets covered 44 of 167 points and 25 of 33 clusters were singletons. That was a SERIALIZATION limit, not a modelling one. 2026-07-24 도로망 스냅샷 기준 재실행값입니다. 제출 문서가 인용하는 커밋값(439곳 · 167곳 · 24곳)과 다르며, 도로망 재취득에 따른 차이입니다 (docs/network_drift.md). 두 값을 화해시키거나 평균하지 마십시오.",
+      "forbidden_phrasings": [
+        "441/174/32를 커밋값 대신 인용",
+        "441 replaces 439",
+        "174 replaces 167",
+        "32 replaces 24",
+        "커밋값이 수정되었다",
+        "the committed figures were corrected"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/rescue_routing_full.json",
+            "json_path": "origins_full"
+          }
+        },
+        "expr": "len(a)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-01 from the hash-verified 2026-07-24 snapshot graphs (data/cache/ never read) with osmnx pinned to 2.0.7; scripts/run_rescue_routing_full.py regenerates it and asserts the drift arm-B figures.",
         "blocked_by": null
       },
       "reproducible": true

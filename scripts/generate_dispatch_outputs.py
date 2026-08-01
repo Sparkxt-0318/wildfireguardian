@@ -78,6 +78,38 @@ def _place_label(x: float, y: float, refuges: list[dict]) -> str:
     return f"{best['name'].strip()} {word}쪽 {int(round(bd))}m"
 
 
+def build_points_full(data: dict) -> list[dict]:
+    """EVERY origin needing rescue, from the full-coverage re-run.
+
+    The full artifact serialises all 441 origins with their four-way class, so
+    no top-N slice is involved: this returns all 142 dispatch + 32 unreachable
+    points rather than the committed artifact's 20 + 24.
+    """
+    refuges = named_refuges(data["destinations"])
+    pts: list[dict] = []
+    for r in data["origins_full"]:
+        cls = r["four_way_class"]
+        if cls not in ("no_safe_pedestrian_route", "no_surviving_vehicle_ingress"):
+            continue
+        unreachable = cls == "no_surviving_vehicle_ingress"
+        pt = {
+            "x": r["x_5179"], "y": r["y_5179"], "unreachable": unreachable,
+            "home_node": r["origin_walk_node"],
+            "label": _place_label(r["x_5179"], r["y_5179"], refuges),
+        }
+        if unreachable:
+            pt["closing_window_min"] = r.get("best_closing_window_min")
+            pt["reason_ko"] = "예산 내 차량 진입로가 화재로 차단됨(우회 포함)"
+        else:
+            pt["closing_window_min"] = r.get("closing_window_min")
+            pt["responder_eta_min"] = r.get("responder_eta_min")
+            pt["route_note"] = ("차량 진입 가능 — 생존 인지 경로"
+                                if not r.get("shortest_path_enters_hazard")
+                                else "최단 경로는 화재 통과 — 우회 경로 필요")
+        pts.append(pt)
+    return pts
+
+
 def build_points(data: dict) -> list[dict]:
     """Committed dispatch + unreachable points, labelled by nearby place name."""
     refuges = named_refuges(data["destinations"])
@@ -110,7 +142,14 @@ def main() -> int:
     ap.add_argument("--source", default=str(SRC))
     ap.add_argument("--out-root", default=str(REPO / "outputs" / "dispatch"))
     ap.add_argument("--eps-m", type=float, default=500.0)
+    ap.add_argument("--full", action="store_true",
+                    help="read a full-coverage artifact (origins_full) instead "
+                         "of the committed dispatch_top20 slice")
     args = ap.parse_args()
+    if args.full and args.source == str(SRC):
+        args.source = str(REPO / "data" / "processed" / "rescue_routing_full.json")
+        if args.out_root == str(REPO / "outputs" / "dispatch"):
+            args.out_root = str(REPO / "outputs" / "dispatch_full")
 
     src = Path(args.source)
     if not src.exists():
@@ -124,16 +163,25 @@ def main() -> int:
     out_root = Path(args.out_root) / stamp
     out_root.mkdir(parents=True, exist_ok=True)
 
-    pts = build_points(data)
+    full = "origins_full" in data
+    pts = build_points_full(data) if full else build_points(data)
+    extra_label = data.get("label_ko") if full else None
     villages = cluster_points(pts, data["destinations"], eps_m=args.eps_m)
     refuges = named_refuges(data["destinations"])
     safe_refuges = [r for r in refuges if r.get("rescue_reachable")]
 
     print(f"source   : {src.relative_to(REPO)} (600-min budget, NOT re-run)")
-    print(f"points   : {len(pts)}  "
-          f"({data['responder_exposure']['n_dispatch']} dispatch in the run, "
-          f"top {len(data['dispatch_top20'])} committed; "
-          f"{len(data['unreachable_homes'])} unreachable, all committed)")
+    if full:
+        print(f"points   : {len(pts)}  (FULL COVERAGE — every origin needing "
+              f"rescue: {data['four_way_counts']['no_safe_pedestrian_route']} "
+              f"dispatch + "
+              f"{data['four_way_counts']['no_surviving_vehicle_ingress']} "
+              "unreachable)")
+    else:
+        print(f"points   : {len(pts)}  "
+              f"({data['responder_exposure']['n_dispatch']} dispatch in the run, "
+              f"top {len(data['dispatch_top20'])} committed; "
+              f"{len(data['unreachable_homes'])} unreachable, all committed)")
     print(f"clusters : {len(villages)} (DBSCAN eps={args.eps_m:g} m — "
           f"spatial, NOT 행정리)\n")
 
@@ -144,11 +192,18 @@ def main() -> int:
         "source_budget_min": 600.0,
         "source_note": "committed artifact; not re-run, no number recomputed",
         "coverage_note": (
+            f"FULL COVERAGE: all {len(pts)} origins needing rescue are covered "
+            f"({data['four_way_counts']['no_safe_pedestrian_route']} dispatch + "
+            f"{data['four_way_counts']['no_surviving_vehicle_ingress']} "
+            "unreachable), serialized from origins_full."
+            if full else
             f"The committed artifact carries all "
             f"{len(data['unreachable_homes'])} unreachable points but only the "
             f"top {len(data['dispatch_top20'])} of its "
             f"{data['responder_exposure']['n_dispatch']} dispatch points, so "
             f"these sheets cover {len(pts)} points."),
+        "label_ko": extra_label,
+        "is_full_coverage": full,
         "clustering": {"algorithm": "DBSCAN", "eps_m": args.eps_m,
                        "min_samples": 1,
                        "is_administrative_village": False,
@@ -170,7 +225,8 @@ def main() -> int:
             v, generated_at=generated_at, git_commit=commit,
             config_hash=cfg_hash, source_file=str(src.relative_to(REPO)),
             n_total_dispatch=data["responder_exposure"]["n_dispatch"],
-            n_total_unreachable=len(data["unreachable_homes"]))
+            n_total_unreachable=len(data["unreachable_homes"]),
+            extra_label=extra_label)
         hp = vdir / "dispatch_a4.html"
         hp.write_text(h, encoding="utf-8")
         pdf = printable.html_to_pdf(hp, vdir / "dispatch_a4.pdf")

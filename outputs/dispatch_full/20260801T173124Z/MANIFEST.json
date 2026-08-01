@@ -1,0 +1,2995 @@
+{
+  "schema_version": 1,
+  "generated_utc": "20260801T173124Z",
+  "git_commit": "8e6b60ef52636a41a932dc4d6c2ed31fa04eaec8",
+  "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
+  "source_file": "data/processed/rescue_routing_full.json",
+  "source_budget_min": 600.0,
+  "source_note": "committed artifact; not re-run, no number recomputed",
+  "coverage_note": "FULL COVERAGE: all 174 origins needing rescue are covered (142 dispatch + 32 unreachable), serialized from origins_full.",
+  "label_ko": "본 산출물은 2026-07-24 도로망 스냅샷 기준 재실행값(출발지 441곳, 구조 필요 174곳)이며, 제출 문서가 인용하는 커밋값(439곳, 167곳)과 다릅니다. 도로망 재취득에 따른 차이이며 자세한 내용은 docs/network_drift.md를 참조하십시오.",
+  "is_full_coverage": true,
+  "clustering": {
+    "algorithm": "DBSCAN",
+    "eps_m": 1000.0,
+    "min_samples": 1,
+    "is_administrative_village": false,
+    "note": "행정리가 아닌 공간 군집"
+  },
+  "sms_demo_mode": true,
+  "sms_credentials_present": false,
+  "nothing_was_sent": true,
+  "villages": [
+    {
+      "cluster_id": 1,
+      "name": "삼각주공원 북서쪽",
+      "name_basis": "nearest named refuge '삼각주공원' at 452 m; disambiguated by bearing (북서)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 24,
+      "n_dispatch": 24,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1167578.9797640427,
+        1825108.5584048491
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/01-삼각주공원-북서쪽",
+      "refuge_used_in_messages": "삼각주공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 264119,
+        "n_pages": 2
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "삼각주공원 북서쪽",
+          "body": "[산불] 삼각주공원 북서쪽 구조 요청 24곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 삼각주공원입니다.",
+          "n_chars": 67,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "삼각주공원 북서쪽",
+          "body": "[산불] 삼각주공원 북서쪽 방문 대상 24곳입니다. 가장 급한 곳은 약 26분 남았습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 74,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 2,
+      "name": "경북대종각 일대",
+      "name_basis": "nearest named refuge '경북대종각' at 549 m",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 14,
+      "n_dispatch": 14,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1169010.638843178,
+        1819184.7324531525
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/02-경북대종각-일대",
+      "refuge_used_in_messages": "경북대종각",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 238704,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "경북대종각 일대",
+          "body": "[산불] 경북대종각 일대 구조 요청 14곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 경북대종각입니다.",
+          "n_chars": 66,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "경북대종각 일대",
+          "body": "[산불] 경북대종각 일대 방문 대상 14곳입니다. 가장 급한 곳은 약 114분 남았습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 74,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 3,
+      "name": "영덕해맞이공원 일대",
+      "name_basis": "nearest named refuge '영덕해맞이공원' at 1337 m",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 13,
+      "n_dispatch": 4,
+      "n_unreachable": 9,
+      "centroid_5179": [
+        1172501.0803408807,
+        1828235.474848524
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/03-영덕해맞이공원-일대",
+      "refuge_used_in_messages": "영덕해맞이공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 269917,
+        "n_pages": 2
+      },
+      "broadcast_check": {
+        "n_lines": 15,
+        "max_sentence_chars": 15,
+        "longest": 12,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "영덕해맞이공원 일대",
+          "body": "[산불] 영덕해맞이공원 일대 구조 요청 13곳 중 9곳은 차량 진입이 어렵습니다. 무리한 이동은 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 74,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "영덕해맞이공원 일대",
+          "body": "[산불] 영덕해맞이공원 일대 방문 대상 13곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 9곳은 별도 확인 부탁드립니다.",
+          "n_chars": 75,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 4,
+      "name": "전통생활 정신문화 체험지구공원 일대",
+      "name_basis": "nearest named refuge '전통생활 정신문화 체험지구공원' at 1153 m",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 11,
+      "n_dispatch": 11,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1170119.5420836702,
+        1839612.3174576221
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/04-전통생활-정신문화-체험지구공원-일대",
+      "refuge_used_in_messages": "영덕해맞이공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 249263,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 14,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "전통생활 정신문화 체험지구공원 일대",
+          "body": "[산불] 전통생활 정신문화 체험지구공원 일대 구조 요청 11곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 영덕해맞이공원입니다.",
+          "n_chars": 79,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "전통생활 정신문화 체험지구공원 일대",
+          "body": "[산불] 전통생활 정신문화 체험지구공원 일대 방문 대상 11곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 84,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 5,
+      "name": "관어대 일대",
+      "name_basis": "nearest named refuge '관어대' at 1374 m",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 10,
+      "n_dispatch": 10,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1171139.5919407608,
+        1841324.0584530695
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/05-관어대-일대",
+      "refuge_used_in_messages": "영덕해맞이공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 241847,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 10,
+        "max_sentence_chars": 15,
+        "longest": 14,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "관어대 일대",
+          "body": "[산불] 관어대 일대 구조 요청 10곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 영덕해맞이공원입니다.",
+          "n_chars": 66,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "관어대 일대",
+          "body": "[산불] 관어대 일대 방문 대상 10곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 71,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 6,
+      "name": "천전공원 북서쪽",
+      "name_basis": "nearest named refuge '천전공원' at 2578 m; disambiguated by bearing (북서)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 6,
+      "n_dispatch": 6,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1164325.9500135637,
+        1827866.1615376573
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/06-천전공원-북서쪽",
+      "refuge_used_in_messages": "천전공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 224580,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "천전공원 북서쪽",
+          "body": "[산불] 천전공원 북서쪽 구조 요청 6곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 천전공원입니다.",
+          "n_chars": 64,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "천전공원 북서쪽",
+          "body": "[산불] 천전공원 북서쪽 방문 대상 6곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 72,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 7,
+      "name": "거무역리공원 남동쪽",
+      "name_basis": "nearest named refuge '거무역리공원' at 158 m; disambiguated by bearing (남동)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 5,
+      "n_dispatch": 5,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1169579.4481527314,
+        1844431.753497044
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/07-거무역리공원-남동쪽",
+      "refuge_used_in_messages": "영덕해맞이공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 228908,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "거무역리공원 남동쪽",
+          "body": "[산불] 거무역리공원 남동쪽 구조 요청 5곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 영덕해맞이공원입니다.",
+          "n_chars": 69,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "거무역리공원 남동쪽",
+          "body": "[산불] 거무역리공원 남동쪽 방문 대상 5곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 74,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 8,
+      "name": "송이광장 남쪽",
+      "name_basis": "positional descriptor from nearest named refuge '송이광장' at 5845 m, bearing 남",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 4,
+      "n_dispatch": 4,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1157851.009099944,
+        1823805.7687946465
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/08-송이광장-남쪽",
+      "refuge_used_in_messages": "송이광장",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 217487,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 10,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "송이광장 남쪽",
+          "body": "[산불] 송이광장 남쪽 구조 요청 4곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 송이광장입니다.",
+          "n_chars": 63,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "송이광장 남쪽",
+          "body": "[산불] 송이광장 남쪽 방문 대상 4곳입니다. 가장 급한 곳은 약 122분 남았습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 72,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 9,
+      "name": "영덕군산림생태문화체험공원 일대",
+      "name_basis": "nearest named refuge '영덕군산림생태문화체험공원' at 1496 m",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 4,
+      "n_dispatch": 4,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1172941.0298933878,
+        1825533.3890543175
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/09-영덕군산림생태문화체험공원-일대",
+      "refuge_used_in_messages": "영덕군산림생태문화체험공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 228073,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 14,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "영덕군산림생태문화체험공원 일대",
+          "body": "[산불] 영덕군산림생태문화체험공원 일대 구조 요청 4곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 영덕군산림생태문화체험공원입니다.",
+          "n_chars": 81,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "영덕군산림생태문화체험공원 일대",
+          "body": "[산불] 영덕군산림생태문화체험공원 일대 방문 대상 4곳입니다. 가장 급한 곳은 약 45분 남았습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 80,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 10,
+      "name": "만호정 일대",
+      "name_basis": "nearest named refuge '만호정' at 613 m",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 4,
+      "n_dispatch": 4,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1174249.7206206615,
+        1836233.2769656668
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/10-만호정-일대",
+      "refuge_used_in_messages": "영덕해맞이공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 223259,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 10,
+        "max_sentence_chars": 15,
+        "longest": 14,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "만호정 일대",
+          "body": "[산불] 만호정 일대 구조 요청 4곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 영덕해맞이공원입니다.",
+          "n_chars": 65,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "만호정 일대",
+          "body": "[산불] 만호정 일대 방문 대상 4곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 70,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 11,
+      "name": "우곡공원 남동쪽",
+      "name_basis": "positional descriptor from nearest named refuge '우곡공원' at 3429 m, bearing 남동",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 3,
+      "n_dispatch": 3,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1170985.4464834705,
+        1823143.3041124605
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/11-우곡공원-남동쪽",
+      "refuge_used_in_messages": "우곡공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 217864,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "우곡공원 남동쪽",
+          "body": "[산불] 우곡공원 남동쪽 구조 요청 3곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 우곡공원입니다.",
+          "n_chars": 64,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "우곡공원 남동쪽",
+          "body": "[산불] 우곡공원 남동쪽 방문 대상 3곳입니다. 가장 급한 곳은 약 80분 남았습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 72,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 12,
+      "name": "경북동해안국가지질공원(경정리 해안) 남쪽",
+      "name_basis": "nearest named refuge '경북동해안국가지질공원(경정리 해안)' at 2780 m; disambiguated by bearing (남)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 3,
+      "n_dispatch": 3,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1173417.2589606403,
+        1831281.061360781
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/12-경북동해안국가지질공원-경정리-해안-남쪽",
+      "refuge_used_in_messages": "영덕해맞이공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 232297,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 14,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "경북동해안국가지질공원(경정리 해안) 남쪽",
+          "body": "[산불] 경북동해안국가지질공원(경정리 해안) 남쪽 구조 요청 3곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 영덕해맞이공원입니다.",
+          "n_chars": 81,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "경북동해안국가지질공원(경정리 해안) 남쪽",
+          "body": "[산불] 경북동해안국가지질공원(경정리 해안) 남쪽 방문 대상 3곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 86,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 13,
+      "name": "고래산마을 남동쪽",
+      "name_basis": "nearest named refuge '고래산마을' at 199 m; disambiguated by bearing (남동)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 3,
+      "n_dispatch": 3,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1170693.3508891622,
+        1836204.8541165888
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/13-고래산마을-남동쪽",
+      "refuge_used_in_messages": "영덕해맞이공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 222277,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "고래산마을 남동쪽",
+          "body": "[산불] 고래산마을 남동쪽 구조 요청 3곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 영덕해맞이공원입니다.",
+          "n_chars": 68,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "고래산마을 남동쪽",
+          "body": "[산불] 고래산마을 남동쪽 방문 대상 3곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 73,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 14,
+      "name": "천전공원 북쪽 5km",
+      "name_basis": "positional descriptor from nearest named refuge '천전공원' at 4738 m, bearing 북; disambiguated by distance (~5 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 3,
+      "n_dispatch": 0,
+      "n_unreachable": 3,
+      "centroid_5179": [
+        1167282.6822783097,
+        1831309.577469229
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/14-천전공원-북쪽-5km",
+      "refuge_used_in_messages": "천전공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 234079,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 15,
+        "max_sentence_chars": 15,
+        "longest": 12,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "천전공원 북쪽 5km",
+          "body": "[산불] 천전공원 북쪽 5km 구조 요청 3곳 중 3곳은 차량 진입이 어렵습니다. 무리한 이동은 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 74,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "천전공원 북쪽 5km",
+          "body": "[산불] 천전공원 북쪽 5km 방문 대상 3곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 3곳은 별도 확인 부탁드립니다.",
+          "n_chars": 75,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 15,
+      "name": "영덕해파랑공원 북동쪽",
+      "name_basis": "nearest named refuge '영덕해파랑공원' at 2106 m; disambiguated by bearing (북동)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 2,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1170665.673592389,
+        1821721.2429439
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/15-영덕해파랑공원-북동쪽",
+      "refuge_used_in_messages": "영덕해파랑공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 219127,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "영덕해파랑공원 북동쪽",
+          "body": "[산불] 영덕해파랑공원 북동쪽 구조 요청 2곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 영덕해파랑공원입니다.",
+          "n_chars": 70,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "영덕해파랑공원 북동쪽",
+          "body": "[산불] 영덕해파랑공원 북동쪽 방문 대상 2곳입니다. 가장 급한 곳은 약 112분 남았습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 76,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 16,
+      "name": "송이생태공원 일대",
+      "name_basis": "nearest named refuge '송이생태공원' at 2820 m",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 2,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1162234.358643987,
+        1827877.559170801
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/16-송이생태공원-일대",
+      "refuge_used_in_messages": "송이생태공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 212343,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "송이생태공원 일대",
+          "body": "[산불] 송이생태공원 일대 구조 요청 2곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 송이생태공원입니다.",
+          "n_chars": 67,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "송이생태공원 일대",
+          "body": "[산불] 송이생태공원 일대 방문 대상 2곳입니다. 가장 급한 곳은 약 95분 남았습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 73,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 17,
+      "name": "경북동해안국가지질공원(경정리 해안) 남서쪽",
+      "name_basis": "positional descriptor from nearest named refuge '경북동해안국가지질공원(경정리 해안)' at 3317 m, bearing 남서",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 0,
+      "n_unreachable": 2,
+      "centroid_5179": [
+        1171008.1617978984,
+        1832528.787719467
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/17-경북동해안국가지질공원-경정리-해안-남서쪽",
+      "refuge_used_in_messages": "영덕해맞이공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 244200,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 17,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "경북동해안국가지질공원(경정리 해안) 남서쪽",
+          "body": "[산불] 경북동해안국가지질공원(경정리 해안) 남서쪽 구조 요청 2곳 중 2곳은 차량 진입이 어렵습니다. 무리한 이동은 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 86,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "경북동해안국가지질공원(경정리 해안) 남서쪽",
+          "body": "[산불] 경북동해안국가지질공원(경정리 해안) 남서쪽 방문 대상 2곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 2곳은 별도 확인 부탁드립니다.",
+          "n_chars": 87,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 18,
+      "name": "고래산마을 남서쪽",
+      "name_basis": "nearest named refuge '고래산마을' at 2445 m; disambiguated by bearing (남서)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 0,
+      "n_unreachable": 2,
+      "centroid_5179": [
+        1168698.5871228455,
+        1834638.5984997726
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/18-고래산마을-남서쪽",
+      "refuge_used_in_messages": "천전공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 235995,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 15,
+        "max_sentence_chars": 15,
+        "longest": 12,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "고래산마을 남서쪽",
+          "body": "[산불] 고래산마을 남서쪽 구조 요청 2곳 중 2곳은 차량 진입이 어렵습니다. 무리한 이동은 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 72,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "고래산마을 남서쪽",
+          "body": "[산불] 고래산마을 남서쪽 방문 대상 2곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 2곳은 별도 확인 부탁드립니다.",
+          "n_chars": 73,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 19,
+      "name": "옥계솟대공원 일대",
+      "name_basis": "nearest named refuge '옥계솟대공원' at 1134 m",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 2,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1158426.5596082585,
+        1814997.0179265365
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/19-옥계솟대공원-일대",
+      "refuge_used_in_messages": "옥계솟대공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 214415,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "옥계솟대공원 일대",
+          "body": "[산불] 옥계솟대공원 일대 구조 요청 2곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 옥계솟대공원입니다.",
+          "n_chars": 67,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "옥계솟대공원 일대",
+          "body": "[산불] 옥계솟대공원 일대 방문 대상 2곳입니다. 가장 급한 곳은 약 121분 남았습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 74,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 20,
+      "name": "거무역리공원 남쪽",
+      "name_basis": "nearest named refuge '거무역리공원' at 2300 m; disambiguated by bearing (남)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 2,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1168944.1599517963,
+        1842347.6174498824
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/20-거무역리공원-남쪽",
+      "refuge_used_in_messages": "영덕해맞이공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 218197,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "거무역리공원 남쪽",
+          "body": "[산불] 거무역리공원 남쪽 구조 요청 2곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 영덕해맞이공원입니다.",
+          "n_chars": 68,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "거무역리공원 남쪽",
+          "body": "[산불] 거무역리공원 남쪽 방문 대상 2곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 73,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 21,
+      "name": "경북동해안국가지질공원(경정리 해안) 북서쪽",
+      "name_basis": "nearest named refuge '경북동해안국가지질공원(경정리 해안)' at 875 m; disambiguated by bearing (북서)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 2,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1173543.1402646233,
+        1834762.3591005562
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/21-경북동해안국가지질공원-경정리-해안-북서쪽",
+      "refuge_used_in_messages": "영덕해맞이공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 230416,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 14,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "경북동해안국가지질공원(경정리 해안) 북서쪽",
+          "body": "[산불] 경북동해안국가지질공원(경정리 해안) 북서쪽 구조 요청 2곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 영덕해맞이공원입니다.",
+          "n_chars": 82,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "경북동해안국가지질공원(경정리 해안) 북서쪽",
+          "body": "[산불] 경북동해안국가지질공원(경정리 해안) 북서쪽 방문 대상 2곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 87,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 22,
+      "name": "거무역리공원 남서쪽",
+      "name_basis": "positional descriptor from nearest named refuge '거무역리공원' at 7489 m, bearing 남서",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 2,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1162986.4941716832,
+        1840907.0640948357
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/22-거무역리공원-남서쪽",
+      "refuge_used_in_messages": "지품팡팡놀이터",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 223076,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "거무역리공원 남서쪽",
+          "body": "[산불] 거무역리공원 남서쪽 구조 요청 2곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 지품팡팡놀이터입니다.",
+          "n_chars": 69,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "거무역리공원 남서쪽",
+          "body": "[산불] 거무역리공원 남서쪽 방문 대상 2곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 74,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 23,
+      "name": "지품팡팡놀이터 일대",
+      "name_basis": "nearest named refuge '지품팡팡놀이터' at 1423 m",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 2,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1159466.7551596512,
+        1830879.344880881
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/23-지품팡팡놀이터-일대",
+      "refuge_used_in_messages": "지품팡팡놀이터",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 211390,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "지품팡팡놀이터 일대",
+          "body": "[산불] 지품팡팡놀이터 일대 구조 요청 2곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 지품팡팡놀이터입니다.",
+          "n_chars": 69,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "지품팡팡놀이터 일대",
+          "body": "[산불] 지품팡팡놀이터 일대 방문 대상 2곳입니다. 가장 급한 곳은 약 88분 남았습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 74,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 24,
+      "name": "신돌석장군공원 남서쪽 3km",
+      "name_basis": "positional descriptor from nearest named refuge '신돌석장군공원' at 3242 m, bearing 남서; disambiguated by bearing (남서); disambiguated by distance (~3 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 0,
+      "n_unreachable": 2,
+      "centroid_5179": [
+        1167181.2979704433,
+        1834925.5298511921
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/24-신돌석장군공원-남서쪽-3km",
+      "refuge_used_in_messages": "천전공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 237681,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 15,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "신돌석장군공원 남서쪽 3km",
+          "body": "[산불] 신돌석장군공원 남서쪽 3km 구조 요청 2곳 중 2곳은 차량 진입이 어렵습니다. 무리한 이동은 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 78,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "신돌석장군공원 남서쪽 3km",
+          "body": "[산불] 신돌석장군공원 남서쪽 3km 방문 대상 2곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 2곳은 별도 확인 부탁드립니다.",
+          "n_chars": 79,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 25,
+      "name": "고래산마을 남쪽",
+      "name_basis": "positional descriptor from nearest named refuge '고래산마을' at 4209 m, bearing 남",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 0,
+      "n_unreachable": 2,
+      "centroid_5179": [
+        1169399.483678231,
+        1832221.7124653151
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/25-고래산마을-남쪽",
+      "refuge_used_in_messages": "영덕군산림생태문화체험공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 233207,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 15,
+        "max_sentence_chars": 15,
+        "longest": 12,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "고래산마을 남쪽",
+          "body": "[산불] 고래산마을 남쪽 구조 요청 2곳 중 2곳은 차량 진입이 어렵습니다. 무리한 이동은 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 71,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "고래산마을 남쪽",
+          "body": "[산불] 고래산마을 남쪽 방문 대상 2곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 2곳은 별도 확인 부탁드립니다.",
+          "n_chars": 72,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 26,
+      "name": "신돌석장군공원 남서쪽 4km 26",
+      "name_basis": "positional descriptor from nearest named refuge '신돌석장군공원' at 4015 m, bearing 남서; disambiguated by bearing (남서); disambiguated by distance (~4 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 0,
+      "n_unreachable": 2,
+      "centroid_5179": [
+        1167119.2103732498,
+        1833859.5798821785
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/26-신돌석장군공원-남서쪽-4km-26",
+      "refuge_used_in_messages": "천전공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 238426,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 17,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "신돌석장군공원 남서쪽 4km 26",
+          "body": "[산불] 신돌석장군공원 남서쪽 4km 26 구조 요청 2곳 중 2곳은 차량 진입이 어렵습니다. 무리한 이동은 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 81,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "신돌석장군공원 남서쪽 4km 26",
+          "body": "[산불] 신돌석장군공원 남서쪽 4km 26 방문 대상 2곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 2곳은 별도 확인 부탁드립니다.",
+          "n_chars": 82,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 27,
+      "name": "영덕해맞이공원 북서쪽",
+      "name_basis": "positional descriptor from nearest named refuge '영덕해맞이공원' at 3996 m, bearing 북서",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 0,
+      "n_unreachable": 2,
+      "centroid_5179": [
+        1171415.500766886,
+        1830730.4662569412
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/27-영덕해맞이공원-북서쪽",
+      "refuge_used_in_messages": "영덕해맞이공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 240818,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 15,
+        "max_sentence_chars": 15,
+        "longest": 12,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "영덕해맞이공원 북서쪽",
+          "body": "[산불] 영덕해맞이공원 북서쪽 구조 요청 2곳 중 2곳은 차량 진입이 어렵습니다. 무리한 이동은 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 74,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "영덕해맞이공원 북서쪽",
+          "body": "[산불] 영덕해맞이공원 북서쪽 방문 대상 2곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 2곳은 별도 확인 부탁드립니다.",
+          "n_chars": 75,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 28,
+      "name": "영덕군민공원 일대",
+      "name_basis": "nearest named refuge '영덕군민공원' at 1025 m",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 0,
+      "n_unreachable": 2,
+      "centroid_5179": [
+        1168071.497132266,
+        1827102.8709551832
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/28-영덕군민공원-일대",
+      "refuge_used_in_messages": "영덕군민공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 233866,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 15,
+        "max_sentence_chars": 15,
+        "longest": 12,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "영덕군민공원 일대",
+          "body": "[산불] 영덕군민공원 일대 구조 요청 2곳 중 2곳은 차량 진입이 어렵습니다. 무리한 이동은 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 72,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "영덕군민공원 일대",
+          "body": "[산불] 영덕군민공원 일대 방문 대상 2곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 2곳은 별도 확인 부탁드립니다.",
+          "n_chars": 73,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 29,
+      "name": "천전공원 북쪽 1km",
+      "name_basis": "nearest named refuge '천전공원' at 1261 m; disambiguated by bearing (북); disambiguated by distance (~1 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 0,
+      "n_unreachable": 2,
+      "centroid_5179": [
+        1166153.9890043158,
+        1827808.7955583069
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/29-천전공원-북쪽-1km",
+      "refuge_used_in_messages": "천전공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 231971,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 15,
+        "max_sentence_chars": 15,
+        "longest": 12,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "천전공원 북쪽 1km",
+          "body": "[산불] 천전공원 북쪽 1km 구조 요청 2곳 중 2곳은 차량 진입이 어렵습니다. 무리한 이동은 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 74,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "천전공원 북쪽 1km",
+          "body": "[산불] 천전공원 북쪽 1km 방문 대상 2곳입니다. 가장 급한 곳은 약 10분 남았습니다. 진입 불가 2곳은 별도 확인 부탁드립니다.",
+          "n_chars": 75,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 30,
+      "name": "삼사해상공원 남쪽",
+      "name_basis": "positional descriptor from nearest named refuge '삼사해상공원' at 3163 m, bearing 남",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 2,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1168693.1647899551,
+        1815318.2325606334
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/30-삼사해상공원-남쪽",
+      "refuge_used_in_messages": "삼사해상공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 215102,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "삼사해상공원 남쪽",
+          "body": "[산불] 삼사해상공원 남쪽 구조 요청 2곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 삼사해상공원입니다.",
+          "n_chars": 67,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "삼사해상공원 남쪽",
+          "body": "[산불] 삼사해상공원 남쪽 방문 대상 2곳입니다. 가장 급한 곳은 약 203분 남았습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 74,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 31,
+      "name": "삼각주공원 남서쪽 3km",
+      "name_basis": "nearest named refuge '삼각주공원' at 2829 m; disambiguated by bearing (남서); disambiguated by distance (~3 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 2,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1166189.2039146598,
+        1822397.966339373
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/31-삼각주공원-남서쪽-3km",
+      "refuge_used_in_messages": "삼각주공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 212321,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 13,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "삼각주공원 남서쪽 3km",
+          "body": "[산불] 삼각주공원 남서쪽 3km 구조 요청 2곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 삼각주공원입니다.",
+          "n_chars": 70,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "삼각주공원 남서쪽 3km",
+          "body": "[산불] 삼각주공원 남서쪽 3km 방문 대상 2곳입니다. 가장 급한 곳은 약 111분 남았습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 78,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 32,
+      "name": "송이생태공원 남쪽 5km",
+      "name_basis": "positional descriptor from nearest named refuge '송이생태공원' at 5093 m, bearing 남; disambiguated by bearing (남); disambiguated by distance (~5 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 2,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1161317.1957007837,
+        1824467.2876537326
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/32-송이생태공원-남쪽-5km",
+      "refuge_used_in_messages": "송이생태공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 214808,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 13,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "송이생태공원 남쪽 5km",
+          "body": "[산불] 송이생태공원 남쪽 5km 구조 요청 2곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 송이생태공원입니다.",
+          "n_chars": 71,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "송이생태공원 남쪽 5km",
+          "body": "[산불] 송이생태공원 남쪽 5km 방문 대상 2곳입니다. 가장 급한 곳은 약 131분 남았습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 78,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 33,
+      "name": "천전공원 남서쪽",
+      "name_basis": "positional descriptor from nearest named refuge '천전공원' at 5692 m, bearing 남서",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1162067.1713771217,
+        1823161.4125230233
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/33-천전공원-남서쪽",
+      "refuge_used_in_messages": "천전공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 208691,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "천전공원 남서쪽",
+          "body": "[산불] 천전공원 남서쪽 구조 요청 1곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 천전공원입니다.",
+          "n_chars": 64,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "천전공원 남서쪽",
+          "body": "[산불] 천전공원 남서쪽 방문 대상 1곳입니다. 가장 급한 곳은 약 133분 남았습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 73,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 34,
+      "name": "삼각주공원 남서쪽 5km",
+      "name_basis": "positional descriptor from nearest named refuge '삼각주공원' at 5474 m, bearing 남서; disambiguated by distance (~5 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1163023.2351300712,
+        1822057.653893516
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/34-삼각주공원-남서쪽-5km",
+      "refuge_used_in_messages": "삼각주공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 210111,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 13,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "삼각주공원 남서쪽 5km",
+          "body": "[산불] 삼각주공원 남서쪽 5km 구조 요청 1곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 삼각주공원입니다.",
+          "n_chars": 70,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "삼각주공원 남서쪽 5km",
+          "body": "[산불] 삼각주공원 남서쪽 5km 방문 대상 1곳입니다. 가장 급한 곳은 약 137분 남았습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 78,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 35,
+      "name": "침수정 북쪽 6km",
+      "name_basis": "positional descriptor from nearest named refuge '침수정' at 5651 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~6 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1157365.1235419626,
+        1821781.1479222418
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/35-침수정-북쪽-6km",
+      "refuge_used_in_messages": "침수정",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 206191,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "침수정 북쪽 6km",
+          "body": "[산불] 침수정 북쪽 6km 구조 요청 1곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 침수정입니다.",
+          "n_chars": 65,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "침수정 북쪽 6km",
+          "body": "[산불] 침수정 북쪽 6km 방문 대상 1곳입니다. 가장 급한 곳은 약 119분 남았습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 75,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 36,
+      "name": "고래불 봉송정 남쪽",
+      "name_basis": "nearest named refuge '고래불 봉송정' at 471 m; disambiguated by bearing (남)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1171809.1862061673,
+        1842905.150833433
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/36-고래불-봉송정-남쪽",
+      "refuge_used_in_messages": "영덕해맞이공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 218837,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "고래불 봉송정 남쪽",
+          "body": "[산불] 고래불 봉송정 남쪽 구조 요청 1곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 영덕해맞이공원입니다.",
+          "n_chars": 69,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "고래불 봉송정 남쪽",
+          "body": "[산불] 고래불 봉송정 남쪽 방문 대상 1곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 74,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 37,
+      "name": "침수정 일대",
+      "name_basis": "nearest named refuge '침수정' at 1795 m",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1159730.252172536,
+        1817642.3790396296
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/37-침수정-일대",
+      "refuge_used_in_messages": "침수정",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 204188,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 10,
+        "max_sentence_chars": 15,
+        "longest": 14,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "침수정 일대",
+          "body": "[산불] 침수정 일대 구조 요청 1곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 침수정입니다.",
+          "n_chars": 61,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "침수정 일대",
+          "body": "[산불] 침수정 일대 방문 대상 1곳입니다. 가장 급한 곳은 약 125분 남았습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 71,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 38,
+      "name": "고래불 봉송정 서쪽",
+      "name_basis": "nearest named refuge '고래불 봉송정' at 1291 m; disambiguated by bearing (서)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1170365.4755267245,
+        1843309.8175227584
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/38-고래불-봉송정-서쪽",
+      "refuge_used_in_messages": "영덕해맞이공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 217471,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "고래불 봉송정 서쪽",
+          "body": "[산불] 고래불 봉송정 서쪽 구조 요청 1곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 영덕해맞이공원입니다.",
+          "n_chars": 69,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "고래불 봉송정 서쪽",
+          "body": "[산불] 고래불 봉송정 서쪽 방문 대상 1곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 74,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 39,
+      "name": "도해단 일대",
+      "name_basis": "nearest named refuge '도해단' at 330 m",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1173114.9249722871,
+        1841755.2508016785
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/39-도해단-일대",
+      "refuge_used_in_messages": "영덕해맞이공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 211466,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 10,
+        "max_sentence_chars": 15,
+        "longest": 14,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "도해단 일대",
+          "body": "[산불] 도해단 일대 구조 요청 1곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 영덕해맞이공원입니다.",
+          "n_chars": 65,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "도해단 일대",
+          "body": "[산불] 도해단 일대 방문 대상 1곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 70,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 40,
+      "name": "거무역리공원 서쪽 5km",
+      "name_basis": "positional descriptor from nearest named refuge '거무역리공원' at 4867 m, bearing 서; disambiguated by bearing (서); disambiguated by distance (~5 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1164661.9774388063,
+        1844208.2455988962
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/40-거무역리공원-서쪽-5km",
+      "refuge_used_in_messages": "지품팡팡놀이터",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 220065,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 13,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "거무역리공원 서쪽 5km",
+          "body": "[산불] 거무역리공원 서쪽 5km 구조 요청 1곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 지품팡팡놀이터입니다.",
+          "n_chars": 72,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "거무역리공원 서쪽 5km",
+          "body": "[산불] 거무역리공원 서쪽 5km 방문 대상 1곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 77,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 41,
+      "name": "신돌석장군공원 일대",
+      "name_basis": "nearest named refuge '신돌석장군공원' at 1372 m",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1170671.1095767315,
+        1837909.5833956907
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/41-신돌석장군공원-일대",
+      "refuge_used_in_messages": "영덕해맞이공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 218574,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "신돌석장군공원 일대",
+          "body": "[산불] 신돌석장군공원 일대 구조 요청 1곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 영덕해맞이공원입니다.",
+          "n_chars": 69,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "신돌석장군공원 일대",
+          "body": "[산불] 신돌석장군공원 일대 방문 대상 1곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 74,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 42,
+      "name": "신돌석장군공원 북서쪽",
+      "name_basis": "positional descriptor from nearest named refuge '신돌석장군공원' at 5662 m, bearing 북서",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1165270.3689995725,
+        1840301.289187418
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/42-신돌석장군공원-북서쪽",
+      "refuge_used_in_messages": "지품팡팡놀이터",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 218924,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "신돌석장군공원 북서쪽",
+          "body": "[산불] 신돌석장군공원 북서쪽 구조 요청 1곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 지품팡팡놀이터입니다.",
+          "n_chars": 70,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "신돌석장군공원 북서쪽",
+          "body": "[산불] 신돌석장군공원 북서쪽 방문 대상 1곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 75,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 43,
+      "name": "거무역리공원 서쪽 7km",
+      "name_basis": "positional descriptor from nearest named refuge '거무역리공원' at 7436 m, bearing 서; disambiguated by bearing (서); disambiguated by distance (~7 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1162483.093383268,
+        1842159.3786537922
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/43-거무역리공원-서쪽-7km",
+      "refuge_used_in_messages": "지품팡팡놀이터",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 219958,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 13,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "거무역리공원 서쪽 7km",
+          "body": "[산불] 거무역리공원 서쪽 7km 구조 요청 1곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 지품팡팡놀이터입니다.",
+          "n_chars": 72,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "거무역리공원 서쪽 7km",
+          "body": "[산불] 거무역리공원 서쪽 7km 방문 대상 1곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 77,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 44,
+      "name": "신돌석장군공원 서쪽 4km",
+      "name_basis": "positional descriptor from nearest named refuge '신돌석장군공원' at 4265 m, bearing 서; disambiguated by bearing (서); disambiguated by distance (~4 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1165756.7087987498,
+        1838299.9652448767
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/44-신돌석장군공원-서쪽-4km",
+      "refuge_used_in_messages": "지품팡팡놀이터",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 219889,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 14,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "신돌석장군공원 서쪽 4km",
+          "body": "[산불] 신돌석장군공원 서쪽 4km 구조 요청 1곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 지품팡팡놀이터입니다.",
+          "n_chars": 73,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "신돌석장군공원 서쪽 4km",
+          "body": "[산불] 신돌석장군공원 서쪽 4km 방문 대상 1곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 78,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 45,
+      "name": "신돌석장군공원 서쪽 5km",
+      "name_basis": "positional descriptor from nearest named refuge '신돌석장군공원' at 4627 m, bearing 서; disambiguated by bearing (서); disambiguated by distance (~5 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1165158.5609291072,
+        1837184.5724770771
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/45-신돌석장군공원-서쪽-5km",
+      "refuge_used_in_messages": "지품팡팡놀이터",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 219860,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 14,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "신돌석장군공원 서쪽 5km",
+          "body": "[산불] 신돌석장군공원 서쪽 5km 구조 요청 1곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 지품팡팡놀이터입니다.",
+          "n_chars": 73,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "신돌석장군공원 서쪽 5km",
+          "body": "[산불] 신돌석장군공원 서쪽 5km 방문 대상 1곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 78,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 46,
+      "name": "지품팡팡놀이터 북쪽 8km",
+      "name_basis": "positional descriptor from nearest named refuge '지품팡팡놀이터' at 7757 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~8 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1160926.938793752,
+        1837137.1441221202
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/46-지품팡팡놀이터-북쪽-8km",
+      "refuge_used_in_messages": "지품팡팡놀이터",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 211214,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 14,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "지품팡팡놀이터 북쪽 8km",
+          "body": "[산불] 지품팡팡놀이터 북쪽 8km 구조 요청 1곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 지품팡팡놀이터입니다.",
+          "n_chars": 73,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "지품팡팡놀이터 북쪽 8km",
+          "body": "[산불] 지품팡팡놀이터 북쪽 8km 방문 대상 1곳입니다. 가장 급한 곳은 약 78분 남았습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 78,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 47,
+      "name": "지품팡팡놀이터 북쪽 10km",
+      "name_basis": "positional descriptor from nearest named refuge '지품팡팡놀이터' at 10372 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~10 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1157556.5021160068,
+        1839622.4985452767
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/47-지품팡팡놀이터-북쪽-10km",
+      "refuge_used_in_messages": "지품팡팡놀이터",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 211833,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "지품팡팡놀이터 북쪽 10km",
+          "body": "[산불] 지품팡팡놀이터 북쪽 10km 구조 요청 1곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 지품팡팡놀이터입니다.",
+          "n_chars": 74,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "지품팡팡놀이터 북쪽 10km",
+          "body": "[산불] 지품팡팡놀이터 북쪽 10km 방문 대상 1곳입니다. 가장 급한 곳은 약 71분 남았습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 79,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 48,
+      "name": "지품팡팡놀이터 북쪽 5km",
+      "name_basis": "positional descriptor from nearest named refuge '지품팡팡놀이터' at 5149 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~5 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1161174.3930417397,
+        1834412.796671221
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/48-지품팡팡놀이터-북쪽-5km",
+      "refuge_used_in_messages": "지품팡팡놀이터",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 211579,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 14,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "지품팡팡놀이터 북쪽 5km",
+          "body": "[산불] 지품팡팡놀이터 북쪽 5km 구조 요청 1곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 지품팡팡놀이터입니다.",
+          "n_chars": 73,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "지품팡팡놀이터 북쪽 5km",
+          "body": "[산불] 지품팡팡놀이터 북쪽 5km 방문 대상 1곳입니다. 가장 급한 곳은 약 84분 남았습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 78,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 49,
+      "name": "거무역리공원 서쪽 9km",
+      "name_basis": "positional descriptor from nearest named refuge '거무역리공원' at 9381 m, bearing 서; disambiguated by bearing (서); disambiguated by distance (~9 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1160231.0906614463,
+        1843229.748207523
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/49-거무역리공원-서쪽-9km",
+      "refuge_used_in_messages": "지품팡팡놀이터",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 220043,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 13,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "거무역리공원 서쪽 9km",
+          "body": "[산불] 거무역리공원 서쪽 9km 구조 요청 1곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 지품팡팡놀이터입니다.",
+          "n_chars": 72,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "거무역리공원 서쪽 9km",
+          "body": "[산불] 거무역리공원 서쪽 9km 방문 대상 1곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 77,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 50,
+      "name": "거무역리공원 서쪽 11km",
+      "name_basis": "positional descriptor from nearest named refuge '거무역리공원' at 10948 m, bearing 서; disambiguated by bearing (서); disambiguated by distance (~11 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1158618.814651954,
+        1843512.034922385
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/50-거무역리공원-서쪽-11km",
+      "refuge_used_in_messages": "지품팡팡놀이터",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 220088,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 14,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "거무역리공원 서쪽 11km",
+          "body": "[산불] 거무역리공원 서쪽 11km 구조 요청 1곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 지품팡팡놀이터입니다.",
+          "n_chars": 73,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "거무역리공원 서쪽 11km",
+          "body": "[산불] 거무역리공원 서쪽 11km 방문 대상 1곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 78,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 51,
+      "name": "거무역리공원 서쪽 12km",
+      "name_basis": "positional descriptor from nearest named refuge '거무역리공원' at 12173 m, bearing 서; disambiguated by bearing (서); disambiguated by distance (~12 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 0,
+      "n_unreachable": 1,
+      "centroid_5179": [
+        1157346.8407139666,
+        1844245.4043368744
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/51-거무역리공원-서쪽-12km",
+      "refuge_used_in_messages": "지품팡팡놀이터",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 234235,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 15,
+        "max_sentence_chars": 15,
+        "longest": 14,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "거무역리공원 서쪽 12km",
+          "body": "[산불] 거무역리공원 서쪽 12km 구조 요청 1곳 중 1곳은 차량 진입이 어렵습니다. 무리한 이동은 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 77,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "거무역리공원 서쪽 12km",
+          "body": "[산불] 거무역리공원 서쪽 12km 방문 대상 1곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 1곳은 별도 확인 부탁드립니다.",
+          "n_chars": 78,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 52,
+      "name": "신돌석장군공원 남서쪽 4km 52",
+      "name_basis": "positional descriptor from nearest named refuge '신돌석장군공원' at 4379 m, bearing 남서; disambiguated by bearing (남서); disambiguated by distance (~4 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 0,
+      "n_unreachable": 1,
+      "centroid_5179": [
+        1165888.3921239716,
+        1834853.9021222028
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/52-신돌석장군공원-남서쪽-4km-52",
+      "refuge_used_in_messages": "지품팡팡놀이터",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 236834,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 17,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "신돌석장군공원 남서쪽 4km 52",
+          "body": "[산불] 신돌석장군공원 남서쪽 4km 52 구조 요청 1곳 중 1곳은 차량 진입이 어렵습니다. 무리한 이동은 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 81,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "신돌석장군공원 남서쪽 4km 52",
+          "body": "[산불] 신돌석장군공원 남서쪽 4km 52 방문 대상 1곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 1곳은 별도 확인 부탁드립니다.",
+          "n_chars": 82,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 53,
+      "name": "신돌석장군공원 남서쪽 5km",
+      "name_basis": "positional descriptor from nearest named refuge '신돌석장군공원' at 5161 m, bearing 남서; disambiguated by bearing (남서); disambiguated by distance (~5 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 0,
+      "n_unreachable": 1,
+      "centroid_5179": [
+        1165694.3701846406,
+        1833711.3109295343
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/53-신돌석장군공원-남서쪽-5km",
+      "refuge_used_in_messages": "천전공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 235874,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 15,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "신돌석장군공원 남서쪽 5km",
+          "body": "[산불] 신돌석장군공원 남서쪽 5km 구조 요청 1곳 중 1곳은 차량 진입이 어렵습니다. 무리한 이동은 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 78,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "신돌석장군공원 남서쪽 5km",
+          "body": "[산불] 신돌석장군공원 남서쪽 5km 방문 대상 1곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 1곳은 별도 확인 부탁드립니다.",
+          "n_chars": 79,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 54,
+      "name": "천전공원 북쪽 3km",
+      "name_basis": "nearest named refuge '천전공원' at 2995 m; disambiguated by bearing (북); disambiguated by distance (~3 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 0,
+      "n_unreachable": 1,
+      "centroid_5179": [
+        1165791.3017229747,
+        1829511.7966238977
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/54-천전공원-북쪽-3km",
+      "refuge_used_in_messages": "천전공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 230013,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 15,
+        "max_sentence_chars": 15,
+        "longest": 12,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "천전공원 북쪽 3km",
+          "body": "[산불] 천전공원 북쪽 3km 구조 요청 1곳 중 1곳은 차량 진입이 어렵습니다. 무리한 이동은 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 74,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "천전공원 북쪽 3km",
+          "body": "[산불] 천전공원 북쪽 3km 방문 대상 1곳입니다. 이미 진입 시한이 지난 곳이 있습니다. 진입 불가 1곳은 별도 확인 부탁드립니다.",
+          "n_chars": 75,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 55,
+      "name": "영덕해파랑공원 북서쪽",
+      "name_basis": "nearest named refuge '영덕해파랑공원' at 2488 m; disambiguated by bearing (북서)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1168111.7167481882,
+        1821572.2329308367
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/55-영덕해파랑공원-북서쪽",
+      "refuge_used_in_messages": "영덕해파랑공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 217862,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "영덕해파랑공원 북서쪽",
+          "body": "[산불] 영덕해파랑공원 북서쪽 구조 요청 1곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 영덕해파랑공원입니다.",
+          "n_chars": 70,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "영덕해파랑공원 북서쪽",
+          "body": "[산불] 영덕해파랑공원 북서쪽 방문 대상 1곳입니다. 가장 급한 곳은 약 114분 남았습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 76,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 56,
+      "name": "삼사해상공원 일대",
+      "name_basis": "nearest named refuge '삼사해상공원' at 2167 m",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1167026.9752062114,
+        1818150.986399775
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/56-삼사해상공원-일대",
+      "refuge_used_in_messages": "삼사해상공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 211561,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "삼사해상공원 일대",
+          "body": "[산불] 삼사해상공원 일대 구조 요청 1곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 삼사해상공원입니다.",
+          "n_chars": 67,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "삼사해상공원 일대",
+          "body": "[산불] 삼사해상공원 일대 방문 대상 1곳입니다. 가장 급한 곳은 약 205분 남았습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 74,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 57,
+      "name": "송이생태공원 남쪽 3km",
+      "name_basis": "positional descriptor from nearest named refuge '송이생태공원' at 3418 m, bearing 남; disambiguated by bearing (남); disambiguated by distance (~3 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1159911.9260859361,
+        1825918.7428842015
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/57-송이생태공원-남쪽-3km",
+      "refuge_used_in_messages": "송이생태공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 212474,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 13,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "송이생태공원 남쪽 3km",
+          "body": "[산불] 송이생태공원 남쪽 3km 구조 요청 1곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 송이생태공원입니다.",
+          "n_chars": 71,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "송이생태공원 남쪽 3km",
+          "body": "[산불] 송이생태공원 남쪽 3km 방문 대상 1곳입니다. 가장 급한 곳은 약 127분 남았습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 78,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 58,
+      "name": "송이생태공원 남쪽 4km",
+      "name_basis": "positional descriptor from nearest named refuge '송이생태공원' at 4277 m, bearing 남; disambiguated by bearing (남); disambiguated by distance (~4 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1159165.1120764627,
+        1825108.4182983043
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/58-송이생태공원-남쪽-4km",
+      "refuge_used_in_messages": "송이생태공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 212116,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 13,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "송이생태공원 남쪽 4km",
+          "body": "[산불] 송이생태공원 남쪽 4km 구조 요청 1곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 송이생태공원입니다.",
+          "n_chars": 71,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "송이생태공원 남쪽 4km",
+          "body": "[산불] 송이생태공원 남쪽 4km 방문 대상 1곳입니다. 가장 급한 곳은 약 126분 남았습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 78,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 59,
+      "name": "침수정 북쪽 5km",
+      "name_basis": "positional descriptor from nearest named refuge '침수정' at 5301 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~5 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1159571.7253102693,
+        1821470.5594237964
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/59-침수정-북쪽-5km",
+      "refuge_used_in_messages": "침수정",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 206201,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "침수정 북쪽 5km",
+          "body": "[산불] 침수정 북쪽 5km 구조 요청 1곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 침수정입니다.",
+          "n_chars": 65,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "침수정 북쪽 5km",
+          "body": "[산불] 침수정 북쪽 5km 방문 대상 1곳입니다. 가장 급한 곳은 약 131분 남았습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 75,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 60,
+      "name": "송이광장 남서쪽",
+      "name_basis": "positional descriptor from nearest named refuge '송이광장' at 3740 m, bearing 남서",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1157728.0807495478,
+        1826108.65222374
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/60-송이광장-남서쪽",
+      "refuge_used_in_messages": "송이광장",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 208993,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "송이광장 남서쪽",
+          "body": "[산불] 송이광장 남서쪽 구조 요청 1곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 송이광장입니다.",
+          "n_chars": 64,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "송이광장 남서쪽",
+          "body": "[산불] 송이광장 남서쪽 방문 대상 1곳입니다. 가장 급한 곳은 약 125분 남았습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 73,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 61,
+      "name": "정자 동쪽",
+      "name_basis": "positional descriptor from nearest named refuge '정자' at 4235 m, bearing 동",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1164268.7545739664,
+        1815744.0890434817
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/61-정자-동쪽",
+      "refuge_used_in_messages": "정자",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 200472,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 10,
+        "max_sentence_chars": 15,
+        "longest": 13,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "정자 동쪽",
+          "body": "[산불] 정자 동쪽 구조 요청 1곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 정자입니다.",
+          "n_chars": 59,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "정자 동쪽",
+          "body": "[산불] 정자 동쪽 방문 대상 1곳입니다. 가장 급한 곳은 약 117분 남았습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 70,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 62,
+      "name": "침수정 북동쪽",
+      "name_basis": "positional descriptor from nearest named refuge '침수정' at 4191 m, bearing 북동",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1161057.0183138472,
+        1819645.0348027104
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/62-침수정-북동쪽",
+      "refuge_used_in_messages": "침수정",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 205086,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 10,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "침수정 북동쪽",
+          "body": "[산불] 침수정 북동쪽 구조 요청 1곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 침수정입니다.",
+          "n_chars": 62,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "침수정 북동쪽",
+          "body": "[산불] 침수정 북동쪽 방문 대상 1곳입니다. 가장 급한 곳은 약 128분 남았습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 72,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    },
+    {
+      "cluster_id": 63,
+      "name": "침수정 북쪽 4km",
+      "name_basis": "positional descriptor from nearest named refuge '침수정' at 3548 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~4 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1159741.8433329542,
+        1819615.7478241767
+      ],
+      "directory": "outputs/dispatch_full/20260801T173124Z/63-침수정-북쪽-4km",
+      "refuge_used_in_messages": "침수정",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 206587,
+        "n_pages": 1
+      },
+      "broadcast_check": {
+        "n_lines": 12,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "침수정 북쪽 4km",
+          "body": "[산불] 침수정 북쪽 4km 구조 요청 1곳이 접수되었습니다. 안전한 곳에서 대기해 주십시오. 대피처는 침수정입니다.",
+          "n_chars": 65,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "침수정 북쪽 4km",
+          "body": "[산불] 침수정 북쪽 4km 방문 대상 1곳입니다. 가장 급한 곳은 약 127분 남았습니다. 진입 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 75,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ]
+    }
+  ],
+  "retained_in_git": {
+    "complete": false,
+    "clusters_described_in_this_manifest": 63,
+    "cluster_bundles_present": [
+      "01-삼각주공원-북서쪽",
+      "02-경북대종각-일대",
+      "03-영덕해맞이공원-일대"
+    ],
+    "note": "Non-primary eps. Only 3 sample bundles are committed; this manifest still describes ALL 63 clusters (names, counts, PDF page counts, broadcast/SMS checks), which is what the eps comparison needs. Regenerate the full set with: python scripts/generate_dispatch_outputs.py --full --eps-m 1000"
+  }
+}

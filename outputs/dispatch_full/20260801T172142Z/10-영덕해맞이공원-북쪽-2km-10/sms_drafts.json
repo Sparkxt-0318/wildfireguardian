@@ -1,0 +1,24 @@
+{
+  "village": "영덕해맞이공원 북쪽 2km 10",
+  "demo_mode": true,
+  "sent": false,
+  "note": "drafts only; sms.send() was never called and requires an approval_token",
+  "messages": [
+    {
+      "recipient_role": "가족",
+      "village": "영덕해맞이공원 북쪽 2km 10",
+      "body": "[산불] 영덕해맞이공원 북쪽 2km 10 구조 요청 3곳 중 2곳은 차량 진입이 어렵습니다. 무리한 이동은 삼가시고 소방 지시를 따라 주십시오.",
+      "n_chars": 80,
+      "within_limit": true,
+      "max_chars": 90
+    },
+    {
+      "recipient_role": "복지사",
+      "village": "영덕해맞이공원 북쪽 2km 10",
+      "body": "[산불] 영덕해맞이공원 북쪽 2km 10 방문 대상 3곳입니다. 가장 급한 곳은 약 9분 남았습니다. 진입 불가 2곳은 별도 확인 부탁드립니다.",
+      "n_chars": 80,
+      "within_limit": true,
+      "max_chars": 90
+    }
+  ]
+}

@@ -97,8 +97,13 @@ def _fmt_remaining(v) -> tuple[str, str]:
 
 def render_html(village, *, generated_at: str, git_commit: str,
                 config_hash: str, source_file: str, n_total_dispatch: int,
-                n_total_unreachable: int) -> str:
-    """Render one village's A4 sheet as self-contained HTML."""
+                n_total_unreachable: int, extra_label: str | None = None) -> str:
+    """Render one village's A4 sheet as self-contained HTML.
+
+    ``extra_label`` renders as a second bordered banner directly under the
+    "not 행정리" one. It exists so a sheet built from the 2026-07-24 re-run can
+    say on its face that its figures differ from the ones the submission cites.
+    """
     dispatch = [p for p in village.points if not p.get("unreachable")]
     unreach = [p for p in village.points if p.get("unreachable")]
     dispatch.sort(key=lambda p: (p.get("closing_window_min") is None,
@@ -139,6 +144,8 @@ def render_html(village, *, generated_at: str, git_commit: str,
             f"<tbody>{''.join(urows)}</tbody></table>")
 
     footer = "".join(f"<div>{e(line)}</div>" for line in FOOTER_LINES)
+    extra_block = (f'<div class="warnbox">※ {e(extra_label)}</div>'
+                   if extra_label else "")
 
     return f"""<!doctype html>
 <html lang="ko"><head><meta charset="utf-8">
@@ -157,9 +164,10 @@ def render_html(village, *, generated_at: str, git_commit: str,
 </div>
 
 <div class="warnbox">
-  ※ 이 「마을」은 행정리가 아니라 좌표 기반 공간 군집(반경 500 m)입니다.
+  ※ 이 「마을」은 행정리가 아니라 좌표 기반 공간 군집입니다.
   실제 행정리 경계와 다를 수 있습니다.
 </div>
+{extra_block}
 
 <h2>■ 구조 필요 지점 — 남은 시간 순</h2>
 <table><thead><tr>
