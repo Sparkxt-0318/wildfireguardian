@@ -1,0 +1,263 @@
+{
+  "schema_version": 1,
+  "title": "Canonical Yeongdeok forward-simulated hazard field",
+  "generated_utc": "2026-08-02T12:22:17Z",
+  "git_commit": "05fbfca5cd09dd24c5cb106bcb5e6d3435b3c139",
+  "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+  "npz_path": "data/processed/routing_demo_canonical.npz",
+  "npz_sha256": "81b4e4d159daa7a8ccc7c4fedf3fea948d501fff2d7e886c1fd55bbf47043fb7",
+  "npz_arrays": [
+    "grid_extent",
+    "haz_times",
+    "haz_stack",
+    "obs_times",
+    "obs_stack",
+    "ign_xy"
+  ],
+  "npz_arrays_note": "The routing-demo route arrays (naive_xy, fa_xy, origin_xy, ...) are deliberately NOT reproduced here: they belong to the origin scan, not to the hazard field, and shipping a look-alike of routing_demo.npz would invite the two to be confused.",
+  "does_not_supersede": "data/processed/routing_demo.npz is UNTOUCHED and its digest is unchanged. Which field is published is a separate decision.",
+  "dataset": {
+    "n_rows": 151904,
+    "n_positives": 2989,
+    "fires": [
+      "gangneung_2023",
+      "hongseong_2023",
+      "miryang_2022",
+      "uiseong_andong_2025",
+      "uljin_samcheok_2022",
+      "yeongdeok_2025"
+    ],
+    "matches_spread_v2_lofo_json": true
+  },
+  "parameters": {
+    "seed": 20250603,
+    "cell_size_m": 500.0,
+    "n_advance_steps": 4,
+    "n_slices": 5,
+    "step_hours": 3.0,
+    "advance_threshold": 0.3,
+    "horizon_min": 720.0,
+    "source": "as recorded in the committed npz's run (yeongdeok_forward_sim.json at 01099bf: n_steps 5 slices, step_hours 3.0, advance 0.3, horizon 720)"
+  },
+  "canvas": {
+    "base_bbox_wgs84": [
+      128.97,
+      36.1,
+      129.77,
+      36.9
+    ],
+    "base_provenance": "config bbox.fire_acquisition.wgs84_wsen",
+    "west_extend_deg": 0.05,
+    "final_bbox_wgs84": [
+      128.92,
+      36.1,
+      129.77,
+      36.9
+    ],
+    "grid": {
+      "nrows": 181,
+      "ncols": 156,
+      "cell_size_m": 500.0,
+      "extent_5179": [
+        1126514.9293265936,
+        1789870.4640061273,
+        1204514.9293265936,
+        1880370.4640061273
+      ]
+    },
+    "committed_npz_grid": {
+      "nrows": 181,
+      "ncols": 147
+    },
+    "why_the_grid_differs": "On the unextended canvas the canonical envelope reaches the WESTERN edge at p = 1.000. The committed npz did not, because its outer ring is exactly 0.0 on all four sides — it was truncated. Extending the canvas is what lets the envelope be measured instead of cut off; a larger grid here is the fix, not a discrepancy.",
+    "extension_search": [
+      {
+        "west_extend_deg": 0.0,
+        "bbox_wgs84": [
+          128.97,
+          36.1,
+          129.77,
+          36.9
+        ],
+        "grid": [
+          181,
+          147
+        ],
+        "boundary_clear": false,
+        "edges_reached": [
+          "west"
+        ],
+        "cells_ge_0.5": [
+          245,
+          678,
+          927,
+          959,
+          1014
+        ]
+      },
+      {
+        "west_extend_deg": 0.05,
+        "bbox_wgs84": [
+          128.92,
+          36.1,
+          129.77,
+          36.9
+        ],
+        "grid": [
+          181,
+          156
+        ],
+        "boundary_clear": true,
+        "edges_reached": [],
+        "cells_ge_0.5": [
+          249,
+          692,
+          952,
+          981,
+          1036
+        ]
+      }
+    ]
+  },
+  "boundary_check": {
+    "clear": true,
+    "per_slice": [
+      {
+        "reached": false,
+        "edges_reached": [],
+        "max_p_per_edge": {
+          "north": 0.0,
+          "south": 0.0,
+          "west": 0.0,
+          "east": 0.0
+        },
+        "p_threshold": 0.3,
+        "margin_cells": 1,
+        "slice": 0
+      },
+      {
+        "reached": false,
+        "edges_reached": [],
+        "max_p_per_edge": {
+          "north": 0.0,
+          "south": 0.0,
+          "west": 0.0,
+          "east": 0.0
+        },
+        "p_threshold": 0.3,
+        "margin_cells": 1,
+        "slice": 1
+      },
+      {
+        "reached": false,
+        "edges_reached": [],
+        "max_p_per_edge": {
+          "north": 0.0,
+          "south": 0.0,
+          "west": 0.0,
+          "east": 0.0
+        },
+        "p_threshold": 0.3,
+        "margin_cells": 1,
+        "slice": 2
+      },
+      {
+        "reached": false,
+        "edges_reached": [],
+        "max_p_per_edge": {
+          "north": 0.0,
+          "south": 0.0,
+          "west": 0.0,
+          "east": 0.0
+        },
+        "p_threshold": 0.3,
+        "margin_cells": 1,
+        "slice": 3
+      },
+      {
+        "reached": false,
+        "edges_reached": [],
+        "max_p_per_edge": {
+          "north": 0.0,
+          "south": 0.0,
+          "west": 0.0,
+          "east": 0.0
+        },
+        "p_threshold": 0.3,
+        "margin_cells": 1,
+        "slice": 4
+      }
+    ],
+    "max_edge_p": 0.0
+  },
+  "field": {
+    "times_min": [
+      0.0,
+      180.0,
+      360.0,
+      540.0,
+      720.0
+    ],
+    "cells_ge_0.5": [
+      249,
+      692,
+      952,
+      981,
+      1036
+    ],
+    "cells_ge_0.3": [
+      249,
+      692,
+      1113,
+      1158,
+      1231
+    ],
+    "envelope_area_ha_p05": [
+      6225.0,
+      17300.0,
+      23800.0,
+      24525.0,
+      25900.0
+    ],
+    "core_growth_pct_first_to_last": 316.0642570281125,
+    "envelope_breadth_deg": [
+      48.32918487879058,
+      53.287396709968725,
+      56.151126663131095,
+      55.97610513555904,
+      56.145824412659415
+    ]
+  },
+  "side_by_side_vs_committed_npz": {
+    "committed_cells_ge_0.5": [
+      241,
+      241,
+      241,
+      242,
+      244
+    ],
+    "committed_envelope_area_ha": [
+      6025.0,
+      6025.0,
+      6025.0,
+      6050.0,
+      6100.0
+    ],
+    "committed_grid": "181x147 (truncated ring)",
+    "committed_provenance": "output of the 2026-07-20 run reverted by 2f7f555 / ccb0865; its LOFO figures 0.867 / 138,619 / 2,731 are HARD-forbidden retired values (data/processed/routing_demo_divergence.json)",
+    "canonical_cells_ge_0.5": [
+      249,
+      692,
+      952,
+      981,
+      1036
+    ],
+    "canonical_envelope_area_ha": [
+      6225.0,
+      17300.0,
+      23800.0,
+      24525.0,
+      25900.0
+    ]
+  }
+}

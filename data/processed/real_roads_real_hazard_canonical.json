@@ -1,0 +1,298 @@
+{
+  "schema_version": 1,
+  "title": "Yeongdeok 459-series on the CANONICAL hazard field",
+  "generated_utc": "2026-08-02T12:24:26Z",
+  "git_commit": "05fbfca5cd09dd24c5cb106bcb5e6d3435b3c139",
+  "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+  "does_not_supersede": "real_roads_real_hazard.json and real_roads_real_hazard_slope_60.json are UNTOUCHED. The PHASE-2/2-C derived experiments (slope 30/90, routing objective, budget sweep) were deliberately NOT re-run.",
+  "hazard_source": {
+    "kind": "CANONICAL — 151,904 rows / 2,989 positives, corrected DEMs, unclipped canvas",
+    "npz_path": "data/processed/routing_demo_canonical.npz",
+    "npz_sha256": "81b4e4d159daa7a8ccc7c4fedf3fea948d501fff2d7e886c1fd55bbf47043fb7",
+    "shape": [
+      5,
+      181,
+      156
+    ],
+    "grid_extent_5179": [
+      1126514.9293265936,
+      1789870.4640061273,
+      1204514.9293265936,
+      1880370.4640061273,
+      500.0
+    ],
+    "cells_ge_0.5_per_slice": [
+      249,
+      692,
+      952,
+      981,
+      1036
+    ],
+    "provenance_doc": "data/processed/canonical_hazard.json"
+  },
+  "network_source": {
+    "kind": "REAL — OpenStreetMap, snapshot store (data/cache never read)",
+    "snapshot_walk": "osm-walk_yeongdeok-2025_20260724_2bff8d85.graphml.gz",
+    "n_refuge_pois": 50,
+    "bbox_wgs84": [
+      129.25,
+      36.3,
+      129.55,
+      36.6
+    ]
+  },
+  "parameters": {
+    "slope_sampling_m": 60.0,
+    "max_abs_slope": 0.6,
+    "p_cut": 0.5,
+    "time_budget_min": 600.0,
+    "time_step_min": 10.0,
+    "origin_scan_stride": 18,
+    "routing_objective": "length_m (distance-ranked)",
+    "source": "config/default.yaml — unchanged from every 459-series run"
+  },
+  "preflight": {
+    "routing_bbox_5179": [
+      1156527.0480374359,
+      1812829.533525575,
+      1184071.1627929113,
+      1846641.825906918
+    ],
+    "envelope_coverage": {
+      "final_slice": {
+        "ok": false,
+        "n_core_cells": 1036,
+        "n_covered": 338,
+        "coverage": 0.32625482625482627,
+        "min_fraction": 0.8,
+        "p_cut": 0.5,
+        "uncovered_cells": 698,
+        "core_extent_5179": [
+          1130014.9293265936,
+          1819870.4640061273,
+          1175014.9293265936,
+          1845370.4640061273
+        ]
+      },
+      "t0_slice": {
+        "ok": false,
+        "n_core_cells": 249,
+        "n_covered": 119,
+        "coverage": 0.4779116465863454,
+        "min_fraction": 0.8,
+        "p_cut": 0.5,
+        "uncovered_cells": 130,
+        "core_extent_5179": [
+          1130014.9293265936,
+          1820370.4640061273,
+          1175014.9293265936,
+          1844370.4640061273
+        ]
+      },
+      "warnings": [
+        "routing extent covers only 32.6% of the predicted fire core (338/1036 cells at p >= 0.5); minimum is 80%. Origins are therefore drawn from part of the fire, not all of it — a spatially biased sample, ",
+        "routing extent covers only 47.8% of the predicted fire core (119/249 cells at p >= 0.5); minimum is 80%. Origins are therefore drawn from part of the fire, not all of it — a spatially biased sample, n"
+      ]
+    },
+    "boundary_contact": {
+      "per_slice": [
+        {
+          "reached": false,
+          "edges_reached": [],
+          "max_p_per_edge": {
+            "north": 0.0,
+            "south": 0.0,
+            "west": 0.0,
+            "east": 0.0
+          },
+          "p_threshold": 0.3,
+          "margin_cells": 1,
+          "slice": 0
+        },
+        {
+          "reached": false,
+          "edges_reached": [],
+          "max_p_per_edge": {
+            "north": 0.0,
+            "south": 0.0,
+            "west": 0.0,
+            "east": 0.0
+          },
+          "p_threshold": 0.3,
+          "margin_cells": 1,
+          "slice": 1
+        },
+        {
+          "reached": false,
+          "edges_reached": [],
+          "max_p_per_edge": {
+            "north": 0.0,
+            "south": 0.0,
+            "west": 0.0,
+            "east": 0.0
+          },
+          "p_threshold": 0.3,
+          "margin_cells": 1,
+          "slice": 2
+        },
+        {
+          "reached": false,
+          "edges_reached": [],
+          "max_p_per_edge": {
+            "north": 0.0,
+            "south": 0.0,
+            "west": 0.0,
+            "east": 0.0
+          },
+          "p_threshold": 0.3,
+          "margin_cells": 1,
+          "slice": 3
+        },
+        {
+          "reached": false,
+          "edges_reached": [],
+          "max_p_per_edge": {
+            "north": 0.0,
+            "south": 0.0,
+            "west": 0.0,
+            "east": 0.0
+          },
+          "p_threshold": 0.3,
+          "margin_cells": 1,
+          "slice": 4
+        }
+      ],
+      "any_slice_reached_edge": false,
+      "max_edge_p": 0.0
+    },
+    "routing_clearance": {
+      "clearance_required_m": 5000.0,
+      "margins_m": {
+        "west": 30012.118710842216,
+        "south": 22959.06951944763,
+        "east": 20443.766533682356,
+        "north": 33728.638099209405
+      },
+      "margins_km": {
+        "west": 30.01,
+        "south": 22.96,
+        "east": 20.44,
+        "north": 33.73
+      },
+      "sides_below_clearance": [],
+      "outside_grid": [],
+      "ok": true
+    }
+  },
+  "arms": {
+    "flat_undirected": {
+      "label": "flat / undirected",
+      "n_origins_scanned": 458,
+      "counts": {
+        "naive_into_FA_safe": 41,
+        "no_safe_route": 2,
+        "both_safe": 415,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "fa_exceeds_budget": 0,
+        "unclassified": 0
+      },
+      "future_aware_only_safe_fraction": 0.08951965065502183,
+      "n_shelter_nodes": 46,
+      "n_nodes": 8443,
+      "n_edges": 10991,
+      "ignition_proxy_xy_5179": [
+        1154325.1702904492,
+        1831232.9138053241
+      ],
+      "slope_applied": false
+    },
+    "slope_digraph_canonical": {
+      "label": "slope 60m / DiGraph",
+      "n_origins_scanned": 458,
+      "counts": {
+        "naive_into_FA_safe": 42,
+        "no_safe_route": 2,
+        "both_safe": 414,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "fa_exceeds_budget": 0,
+        "unclassified": 0
+      },
+      "future_aware_only_safe_fraction": 0.09170305676855896,
+      "n_shelter_nodes": 46,
+      "n_nodes": 8443,
+      "n_edges": 21982,
+      "ignition_proxy_xy_5179": [
+        1154325.1702904492,
+        1831232.9138053241
+      ],
+      "slope_applied": true
+    }
+  },
+  "side_by_side": {
+    "committed_459_jul23_network_old_hazard": {
+      "n_origins_scanned": 459,
+      "counts": {
+        "naive_into_FA_safe": 18,
+        "no_safe_route": 3,
+        "both_safe": 438,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "unclassified": 0
+      },
+      "status": "QUOTED — its OSM network was overwritten 2026-07-24 and is unrecoverable; never re-derived"
+    },
+    "committed_slope60_col2_jul24_network_old_hazard": {
+      "n_origins_scanned": 460,
+      "counts": {
+        "naive_into_FA_safe": 17,
+        "no_safe_route": 3,
+        "both_safe": 440,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "fa_exceeds_budget": 0,
+        "unclassified": 0
+      },
+      "status": "QUOTED"
+    },
+    "committed_slope60_col3_jul24_network_old_hazard": {
+      "n_origins_scanned": 460,
+      "counts": {
+        "naive_into_FA_safe": 17,
+        "no_safe_route": 3,
+        "both_safe": 440,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "fa_exceeds_budget": 0,
+        "unclassified": 0
+      },
+      "status": "QUOTED"
+    },
+    "canonical_flat_jul24_network_canonical_hazard": {
+      "n_origins_scanned": 458,
+      "counts": {
+        "naive_into_FA_safe": 41,
+        "no_safe_route": 2,
+        "both_safe": 415,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "fa_exceeds_budget": 0,
+        "unclassified": 0
+      }
+    },
+    "canonical_slope_jul24_network_canonical_hazard": {
+      "n_origins_scanned": 458,
+      "counts": {
+        "naive_into_FA_safe": 42,
+        "no_safe_route": 2,
+        "both_safe": 414,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "fa_exceeds_budget": 0,
+        "unclassified": 0
+      }
+    },
+    "single_variable_pairs": "col2 vs canonical_flat, and col3 vs canonical_slope, differ ONLY in the hazard field. The committed 459 row differs additionally by its OSM network and is not a single-variable comparison."
+  }
+}

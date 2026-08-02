@@ -134,6 +134,12 @@ data/processed/**
 # Why routing_demo.npz and yeongdeok_forward_sim.json disagree (archaeology,
 # boundary forensics, parameter sweep). Declares no winner.
 !data/processed/routing_demo_divergence.json
+# The CANONICAL Yeongdeok hazard field and the 459-series scan on it. NEW files:
+# routing_demo.npz is untouched and still carries the digest the submission
+# cites. Which field is published is not decided here.
+!data/processed/routing_demo_canonical.npz
+!data/processed/canonical_hazard.json
+!data/processed/real_roads_real_hazard_canonical.json
 # AUC-interval + ML-baseline analysis outputs (per-fire DeLong CIs / significance;
 # logistic/RF vs GBM comparison; persisted LOFO out-of-fold predictions). These are
 # the result artifacts of scripts/auc_intervals.py and scripts/ml_baselines.py;
