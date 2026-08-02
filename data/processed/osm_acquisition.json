@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "note": "Acquisition provenance. Bytes live in data/cache/osm/{region}/ and are preserved in data/snapshots/.",
+  "acquisitions": [
+    {
+      "osmnx_version": "2.0.7",
+      "bbox_wgs84_wsen": [
+        128.55,
+        36.2,
+        128.85,
+        36.5
+      ],
+      "layers": {
+        "walk.graphml": {
+          "query": "ox.graph_from_bbox(bbox=(128.55, 36.2, 128.85, 36.5), network_type='walk')",
+          "reprojected_to": "EPSG:5179",
+          "n_nodes": 6678,
+          "n_edges": 17456,
+          "bytes": 13144688,
+          "seconds": 4.4
+        },
+        "drive.graphml": {
+          "query": "ox.graph_from_bbox(bbox=(128.55, 36.2, 128.85, 36.5), network_type='drive')",
+          "reprojected_to": "EPSG:5179",
+          "n_nodes": 2674,
+          "n_edges": 6377,
+          "bytes": 5077204,
+          "seconds": 1.8
+        },
+        "shelters.geojson": {
+          "query": "ox.features_from_bbox(bbox=(128.55, 36.2, 128.85, 36.5), tags={'amenity': ['shelter', 'community_centre'], 'leisure': ['park']})",
+          "n_features": 34,
+          "bytes": 15084,
+          "empty": false
+        },
+        "fire_station.geojson": {
+          "query": "ox.features_from_bbox(bbox=(128.55, 36.2, 128.85, 36.5), tags={'amenity': 'fire_station'})",
+          "n_features": 0,
+          "bytes": 159,
+          "empty": true,
+          "note": "OSM contains no matching feature inside THIS bbox. That is a property of the bbox and of OSM coverage, not a failed download."
+        },
+        "depots.geojson": {
+          "copy_of": "fire_station.geojson",
+          "note": "the loader expects depots.geojson"
+        }
+      },
+      "depot_count": 0,
+      "responder_side_available": false,
+      "responder_side_note": "NO depots in this bbox, so the RESPONDER side cannot run for this region: build_dispatch_list has no origin to dispatch from. The resident-side metric (the 459-series 3-way split) is unaffected and IS the cross-region comparison metric. Recorded as 'not applicable', never as zero-dispatch.",
+      "region": "uiseong_andong_2025",
+      "acquired_utc": "2026-08-02T05:27:07Z",
+      "completed_utc": "2026-08-02T05:27:15Z",
+      "cache_dir": "data/cache/osm/uiseong_andong_2025",
+      "config_hash": "51ec446843b6107438cce06fa23aa0578bf1d46bee084297b18b311eb7d7c129",
+      "git_commit": "cc41f12e0410ea85ca3380248e5a11252ab21df7"
+    },
+    {
+      "osmnx_version": "2.0.7",
+      "bbox_wgs84_wsen": [
+        129.17,
+        36.81,
+        129.47,
+        37.11
+      ],
+      "layers": {
+        "walk.graphml": {
+          "query": "ox.graph_from_bbox(bbox=(129.17, 36.81, 129.47, 37.11), network_type='walk')",
+          "reprojected_to": "EPSG:5179",
+          "n_nodes": 7300,
+          "n_edges": 18520,
+          "bytes": 13951012,
+          "seconds": 83.6
+        },
+        "drive.graphml": {
+          "query": "ox.graph_from_bbox(bbox=(129.17, 36.81, 129.47, 37.11), network_type='drive')",
+          "reprojected_to": "EPSG:5179",
+          "n_nodes": 1428,
+          "n_edges": 3655,
+          "bytes": 4320901,
+          "seconds": 10.0
+        },
+        "shelters.geojson": {
+          "query": "ox.features_from_bbox(bbox=(129.17, 36.81, 129.47, 37.11), tags={'amenity': ['shelter', 'community_centre'], 'leisure': ['park']})",
+          "n_features": 26,
+          "bytes": 7532
+        },
+        "fire_station.geojson": {
+          "query": "ox.features_from_bbox(bbox=(129.17, 36.81, 129.47, 37.11), tags={'amenity': 'fire_station'})",
+          "n_features": 4,
+          "bytes": 1161
+        },
+        "depots.geojson": {
+          "copy_of": "fire_station.geojson",
+          "note": "the loader expects depots.geojson"
+        }
+      },
+      "region": "uljin_samcheok_2022",
+      "acquired_utc": "2026-08-02T04:35:22Z",
+      "completed_utc": "2026-08-02T04:37:10Z",
+      "cache_dir": "data/cache/osm/uljin_samcheok_2022",
+      "config_hash": "51ec446843b6107438cce06fa23aa0578bf1d46bee084297b18b311eb7d7c129",
+      "git_commit": "66abf92efb3183ff1cfb5ef6770f9b6770f467f9"
+    }
+  ]
+}

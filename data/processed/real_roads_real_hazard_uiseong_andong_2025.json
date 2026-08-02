@@ -1,0 +1,686 @@
+{
+  "title": "Real roads + real hazard + real terrain (uiseong_andong_2025, 60 m slope sampling)",
+  "schema_version": 1,
+  "series": "459",
+  "series_note": "459-SERIES, THREE BUCKETS. The reported cross-region quantity is `future_aware_only_safe_fraction` = naive_into_FA_safe / n_origins_scanned — the share of origins that reach safety ONLY on the future-aware route. It is NOT the walk-failure rate w: w belongs to the 439 series, which is bound to a synthetic hazard envelope and cannot be carried inland.",
+  "region": "uiseong_andong_2025",
+  "generated_utc": "2026-08-02T05:45:03Z",
+  "git_commit": "79138d0e987ae5c13912a0eee1d91d52e1c7f7b8",
+  "config_hash": "51ec446843b6107438cce06fa23aa0578bf1d46bee084297b18b311eb7d7c129",
+  "runtime_s": 86.1,
+  "parameters": {
+    "identical_to_yeongdeok": true,
+    "slope_sampling_m": 60.0,
+    "is_canonical_sampling": true,
+    "max_abs_slope": 0.6,
+    "routing_objective": "length_m (distance-ranked)",
+    "p_cut": 0.5,
+    "time_budget_min": 600.0,
+    "time_step_min": 10.0,
+    "origin_scan_stride": 18,
+    "osmnx_pin": "2.0.7",
+    "source": "config/default.yaml — NOT varied per region"
+  },
+  "headline": {
+    "n_origins_scanned": 368,
+    "both_safe": 346,
+    "future_aware_only_safe": 13,
+    "no_safe_route": 0,
+    "future_aware_only_safe_fraction": 0.035326086956521736,
+    "arm": "slope 60 m / DiGraph (canonical)"
+  },
+  "arms": {
+    "flat_undirected_control": {
+      "label": "flat / undirected",
+      "n_origins_scanned": 368,
+      "counts": {
+        "naive_into_FA_safe": 13,
+        "no_safe_route": 0,
+        "both_safe": 354,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "fa_exceeds_budget": 1,
+        "unclassified": 0
+      },
+      "future_aware_only_safe_fraction": 0.035326086956521736,
+      "n_shelter_nodes": 31,
+      "shelter_source": "osm (snapshot store)",
+      "n_nodes": 6678,
+      "n_edges": 8635,
+      "ignition_proxy_xy_5179": [
+        1101590.813427112,
+        1818173.7048986782
+      ],
+      "reach_band_m": 30375.0,
+      "reach_band_binds": false,
+      "slope_stats": null,
+      "origin_nodes_by_bucket": {
+        "naive_into_FA_safe": [
+          330186872,
+          7348686426,
+          9120108767,
+          9851985144,
+          10806853248,
+          12369636734,
+          12661934937,
+          12738909323,
+          13075772755,
+          13113924473,
+          13375458301,
+          13375651306,
+          13375662088
+        ],
+        "no_safe_route": [],
+        "both_enter": [],
+        "naive_unreachable": [],
+        "fa_exceeds_budget": [
+          13069388731
+        ],
+        "unclassified": []
+      }
+    },
+    "flat_digraph_regression": {
+      "label": "flat / DiGraph (regr.)",
+      "n_origins_scanned": 368,
+      "counts": {
+        "naive_into_FA_safe": 13,
+        "no_safe_route": 0,
+        "both_safe": 354,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "fa_exceeds_budget": 1,
+        "unclassified": 0
+      },
+      "future_aware_only_safe_fraction": 0.035326086956521736,
+      "n_shelter_nodes": 31,
+      "shelter_source": "osm (snapshot store)",
+      "n_nodes": 6678,
+      "n_edges": 17270,
+      "ignition_proxy_xy_5179": [
+        1101590.813427112,
+        1818173.7048986782
+      ],
+      "reach_band_m": 30375.0,
+      "reach_band_binds": false,
+      "slope_stats": null,
+      "origin_nodes_by_bucket": {
+        "naive_into_FA_safe": [
+          330186872,
+          7348686426,
+          9120108767,
+          9851985144,
+          10806853248,
+          12369636734,
+          12661934937,
+          12738909323,
+          13075772755,
+          13113924473,
+          13375458301,
+          13375651306,
+          13375662088
+        ],
+        "no_safe_route": [],
+        "both_enter": [],
+        "naive_unreachable": [],
+        "fa_exceeds_budget": [
+          13069388731
+        ],
+        "unclassified": []
+      }
+    },
+    "slope_digraph_canonical": {
+      "label": "slope 60m / DiGraph",
+      "n_origins_scanned": 368,
+      "counts": {
+        "naive_into_FA_safe": 13,
+        "no_safe_route": 0,
+        "both_safe": 346,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "fa_exceeds_budget": 9,
+        "unclassified": 0
+      },
+      "future_aware_only_safe_fraction": 0.035326086956521736,
+      "n_shelter_nodes": 31,
+      "shelter_source": "osm (snapshot store)",
+      "n_nodes": 6678,
+      "n_edges": 17270,
+      "ignition_proxy_xy_5179": [
+        1101590.813427112,
+        1818173.7048986782
+      ],
+      "reach_band_m": 30375.0,
+      "reach_band_binds": false,
+      "slope_stats": {
+        "sampling_m": 60.0,
+        "max_abs_slope": 0.6,
+        "n_edges_undirected": 8635,
+        "n_edges_directed": 17270,
+        "n_subsegments": 36020,
+        "n_edges_with_geometry": 6767,
+        "n_edges_straight_line": 1868,
+        "geometry_fraction": 0.7837,
+        "slope_abs": {
+          "mean": 0.07027815741171306,
+          "length_weighted_mean": 0.07063697180801387,
+          "median": 0.040310203210523296,
+          "p90": 0.17547992517284133,
+          "p99": 0.40460704490207605,
+          "max": 0.6,
+          "frac_gt_5pct": 0.4471960022209883,
+          "frac_gt_15pct": 0.13112159911160468,
+          "frac_gt_50pct": 0.0039144919489172685
+        },
+        "traversal_time": {
+          "flat_total_h": 835.8149013419726,
+          "slope_forward_total_h": 1006.680961753745,
+          "slope_reverse_total_h": 993.1569390977767,
+          "pct_change_forward": 20.443050265965866,
+          "pct_change_reverse": 18.82498595121693,
+          "pct_change_mean_of_directions": 19.634018108591377
+        },
+        "directional_asymmetry": {
+          "definition": "|t(u->v) - t(v->u)| / t_flat, per undirected edge",
+          "mean": 0.16155187253886663,
+          "median": 0.1163655795045902,
+          "p90": 0.38642415529141794,
+          "max": 1.331080765614254,
+          "frac_edges_gt_10pct": 0.5442964678633468
+        },
+        "dem_sampling": {
+          "note": "A sample outside the DEM footprint reads nodata and is then timed as FLAT. Silent by construction, so it is counted: n_nodata_samples > 0 means part of this 'slope' run is a flat run.",
+          "n_elev_samples": 44655,
+          "n_nodata_samples": 1,
+          "frac_nodata": 2.2393908856790954e-05,
+          "n_edges_with_nodata": 1,
+          "frac_edges_with_nodata": 0.00011580775911986103
+        },
+        "clipping": {
+          "note": "DEFENCE AGAINST DEM REGISTRATION ERROR, NOT a physical correction. Where a road crosses a bridge, tunnel or cutting, SRTM reports the terrain surface rather than the roadbed; the resulting slope is an artefact of comparing a road position with a hillside elevation.",
+          "n_clipped_subsegments": 52,
+          "frac_clipped": 0.0014436424208772905,
+          "n_edges_affected": 40,
+          "worst_edges": [
+            {
+              "u": 7943612842,
+              "v": 7943612864,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 1.4770394414161372,
+              "xy_5179": [
+                1117436.3862191846,
+                1814706.3677056935
+              ]
+            },
+            {
+              "u": 7943612626,
+              "v": 7943612628,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 1.437365871006923,
+              "xy_5179": [
+                1116401.178293819,
+                1815757.32673215
+              ]
+            },
+            {
+              "u": 7943612227,
+              "v": 7943612228,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 1.3388121456529662,
+              "xy_5179": [
+                1116666.099080608,
+                1816411.8691882591
+              ]
+            },
+            {
+              "u": 330188512,
+              "v": 6665720691,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 1.1651470849900332,
+              "xy_5179": [
+                1108111.1757002487,
+                1829589.6635316857
+              ]
+            },
+            {
+              "u": 10602791183,
+              "v": 10602805267,
+              "n_subsegments_clipped": 4,
+              "max_abs_slope_raw": 1.120025597259517,
+              "xy_5179": [
+                1112969.0246529926,
+                1803252.3277098874
+              ]
+            },
+            {
+              "u": 8148010569,
+              "v": 8148010570,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 1.1144358112022925,
+              "xy_5179": [
+                1095972.8378226045,
+                1805959.2380627901
+              ]
+            },
+            {
+              "u": 9851984951,
+              "v": 13375210729,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 1.023817558298611,
+              "xy_5179": [
+                1099676.502726672,
+                1812942.0227508307
+              ]
+            },
+            {
+              "u": 11058678884,
+              "v": 11058678904,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 0.9872848031230047,
+              "xy_5179": [
+                1111270.2894480973,
+                1832617.8256083045
+              ]
+            },
+            {
+              "u": 7272152832,
+              "v": 7272152833,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 0.9330042736255337,
+              "xy_5179": [
+                1105141.0433977114,
+                1825552.2420106512
+              ]
+            },
+            {
+              "u": 368191242,
+              "v": 11256496160,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 0.8533680839184432,
+              "xy_5179": [
+                1114737.2471026324,
+                1832338.4796947036
+              ]
+            }
+          ]
+        }
+      },
+      "origin_nodes_by_bucket": {
+        "naive_into_FA_safe": [
+          330186872,
+          7348686426,
+          9120108767,
+          9851985144,
+          10806853248,
+          12369636734,
+          12661934937,
+          12738909323,
+          13075772755,
+          13113924473,
+          13375458301,
+          13375651306,
+          13375662088
+        ],
+        "no_safe_route": [],
+        "both_enter": [],
+        "naive_unreachable": [],
+        "fa_exceeds_budget": [
+          365848487,
+          368191242,
+          11058678936,
+          13063318627,
+          13069388731,
+          13113945830,
+          13113946271,
+          13113952194,
+          13337676232
+        ],
+        "unclassified": []
+      },
+      "top_slowed_edges": [
+        {
+          "rank": 1,
+          "flat_s": 8887.55197974216,
+          "slope_uphill_s": 16682.268560909062,
+          "slope_downhill_s": 15889.50060483488,
+          "delta_s": 7794.716581166902,
+          "delta_pct": 87.70375238236342
+        },
+        {
+          "rank": 2,
+          "flat_s": 6713.579006103428,
+          "slope_uphill_s": 13570.943659173496,
+          "slope_downhill_s": 12695.557973420677,
+          "delta_s": 6857.364653070068,
+          "delta_pct": 102.14171378389861
+        },
+        {
+          "rank": 3,
+          "flat_s": 10176.286503178193,
+          "slope_uphill_s": 16764.736340761978,
+          "slope_downhill_s": 15841.324773683536,
+          "delta_s": 6588.449837583785,
+          "delta_pct": 64.74316378107203
+        },
+        {
+          "rank": 4,
+          "flat_s": 8095.770179962875,
+          "slope_uphill_s": 13814.465812946712,
+          "slope_downhill_s": 13525.524793506243,
+          "delta_s": 5718.695632983837,
+          "delta_pct": 70.63806785347828
+        },
+        {
+          "rank": 5,
+          "flat_s": 7364.305091324603,
+          "slope_uphill_s": 12935.916359995685,
+          "slope_downhill_s": 12855.14399181103,
+          "delta_s": 5571.611268671081,
+          "delta_pct": 75.65698595560123
+        },
+        {
+          "rank": 6,
+          "flat_s": 4891.874587907218,
+          "slope_uphill_s": 9999.374474474791,
+          "slope_downhill_s": 9053.977065744519,
+          "delta_s": 5107.499886567573,
+          "delta_pct": 104.4078255643222
+        },
+        {
+          "rank": 7,
+          "flat_s": 3225.921715878339,
+          "slope_uphill_s": 8066.340079142123,
+          "slope_downhill_s": 7330.217605590559,
+          "delta_s": 4840.418363263783,
+          "delta_pct": 150.04760777171734
+        },
+        {
+          "rank": 8,
+          "flat_s": 11434.058906259743,
+          "slope_uphill_s": 15853.681561010148,
+          "slope_downhill_s": 15740.87676376824,
+          "delta_s": 4419.622654750405,
+          "delta_pct": 38.65313875837055
+        },
+        {
+          "rank": 9,
+          "flat_s": 5407.743437356215,
+          "slope_uphill_s": 9713.19071635029,
+          "slope_downhill_s": 9006.553268360898,
+          "delta_s": 4305.447278994075,
+          "delta_pct": 79.61633773622513
+        },
+        {
+          "rank": 10,
+          "flat_s": 5331.935108213271,
+          "slope_uphill_s": 9299.572894430306,
+          "slope_downhill_s": 8976.863160761543,
+          "delta_s": 3967.6377862170357,
+          "delta_pct": 74.41271706599201
+        }
+      ]
+    }
+  },
+  "digraph_regression": {
+    "identical": true,
+    "why": "with flat timing, direction carries no information, so the DiGraph conversion MUST leave results unchanged"
+  },
+  "slope_effect": {
+    "counts_changed_vs_flat": true,
+    "flat_counts": {
+      "naive_into_FA_safe": 13,
+      "no_safe_route": 0,
+      "both_safe": 354,
+      "both_enter": 0,
+      "naive_unreachable": 0,
+      "fa_exceeds_budget": 1,
+      "unclassified": 0
+    },
+    "slope_counts": {
+      "naive_into_FA_safe": 13,
+      "no_safe_route": 0,
+      "both_safe": 346,
+      "both_enter": 0,
+      "naive_unreachable": 0,
+      "fa_exceeds_budget": 9,
+      "unclassified": 0
+    },
+    "why_it_can_be_nil": "naive_route ranks by DISTANCE, so its path is slope-invariant by construction; at a 600-minute budget the future-aware router is not time-bound either. Yeongdeok showed the same null result (docs/slope_integration.md)."
+  },
+  "preflight": {
+    "routing_bbox_5179": [
+      1094034.5807899912,
+      1800827.604890517,
+      1121367.7552325125,
+      1834440.3913804663
+    ],
+    "walk_bbox_wgs84_wsen": [
+      128.55,
+      36.2,
+      128.85,
+      36.5
+    ],
+    "envelope_coverage": {
+      "final_slice": {
+        "ok": true,
+        "n_core_cells": 95,
+        "n_covered": 94,
+        "coverage": 0.9894736842105263,
+        "min_fraction": 0.8,
+        "p_cut": 0.5,
+        "uncovered_cells": 1,
+        "core_extent_5179": [
+          1083840.813427112,
+          1803018.0445213197,
+          1107840.813427112,
+          1822018.0445213197
+        ]
+      },
+      "t0_slice": {
+        "ok": true,
+        "n_core_cells": 53,
+        "n_covered": 52,
+        "coverage": 0.9811320754716981,
+        "min_fraction": 0.8,
+        "p_cut": 0.5,
+        "uncovered_cells": 1,
+        "core_extent_5179": [
+          1083840.813427112,
+          1803018.0445213197,
+          1107840.813427112,
+          1821518.0445213197
+        ]
+      },
+      "warnings": [],
+      "definition": "share of grid cells at p >= p_cut that fall inside the walk bbox, by CELL COUNT (not bbox overlap)"
+    },
+    "boundary_contact": {
+      "per_slice": [
+        {
+          "reached": false,
+          "edges_reached": [],
+          "max_p_per_edge": {
+            "north": 0.0,
+            "south": 0.0,
+            "west": 0.0,
+            "east": 0.0
+          },
+          "p_threshold": 0.3,
+          "margin_cells": 1,
+          "slice": 0
+        },
+        {
+          "reached": false,
+          "edges_reached": [],
+          "max_p_per_edge": {
+            "north": 0.0,
+            "south": 0.0,
+            "west": 0.0,
+            "east": 0.0
+          },
+          "p_threshold": 0.3,
+          "margin_cells": 1,
+          "slice": 1
+        },
+        {
+          "reached": false,
+          "edges_reached": [],
+          "max_p_per_edge": {
+            "north": 0.0,
+            "south": 0.0,
+            "west": 0.0,
+            "east": 0.0
+          },
+          "p_threshold": 0.3,
+          "margin_cells": 1,
+          "slice": 2
+        },
+        {
+          "reached": false,
+          "edges_reached": [],
+          "max_p_per_edge": {
+            "north": 0.0,
+            "south": 0.0,
+            "west": 0.0,
+            "east": 0.0
+          },
+          "p_threshold": 0.3,
+          "margin_cells": 1,
+          "slice": 3
+        },
+        {
+          "reached": false,
+          "edges_reached": [],
+          "max_p_per_edge": {
+            "north": 0.0,
+            "south": 0.0,
+            "west": 0.0,
+            "east": 0.0
+          },
+          "p_threshold": 0.3,
+          "margin_cells": 1,
+          "slice": 4
+        }
+      ],
+      "any_slice_reached_edge": false,
+      "max_edge_p": 0.0
+    },
+    "routing_clearance": {
+      "clearance_required_m": 5000.0,
+      "margins_m": {
+        "west": 13693.767362879124,
+        "south": 5809.560369197279,
+        "east": 22973.05819459958,
+        "north": 28077.653140853392
+      },
+      "margins_km": {
+        "west": 13.69,
+        "south": 5.81,
+        "east": 22.97,
+        "north": 28.08
+      },
+      "sides_below_clearance": [],
+      "outside_grid": [],
+      "ok": true,
+      "warnings": []
+    },
+    "walk_nodes_vs_hazard_grid": {
+      "n_nodes": 6678,
+      "n_outside_hazard_extent": 0,
+      "frac_outside": 0.0,
+      "graph_crs_as_stored": "EPSG:5179",
+      "note": "nodes outside the hazard grid read p=0 — no extrapolation, but also no hazard, which is OPTIMISTIC"
+    },
+    "dem_footprint": {
+      "dem_path": "data/raw/firms_data/uiseong_andong_2025_dem.tif",
+      "dem_crs": "EPSG:4326",
+      "dem_bounds_wsen": [
+        128.4,
+        36.2,
+        129.1,
+        36.75
+      ],
+      "n_nodes_outside_dem": 0,
+      "frac_nodes_outside_dem": 0.0,
+      "node_lat_range": [
+        36.200122,
+        36.499821100000005
+      ],
+      "note": "a walk node outside the DEM footprint reads nodata, and the slope build then times its edges as FLAT. Where this count is non-zero the 'slope' arm is partly a flat arm, and the flat control arm in this same file is the honest bound."
+    }
+  },
+  "dem_hole_origins": null,
+  "responder_side": {
+    "responder_side_available": false,
+    "n_depot_pois": 0,
+    "computed": false,
+    "status": "NOT APPLICABLE — no amenity=fire_station is mapped in OSM inside this region's ignition-centred walk bbox",
+    "note": "The 459 series is RESIDENT-SIDE ONLY for every region, Yeongdeok included: it contrasts a fire-blind walking route with a future-aware one and never dispatches a vehicle. Where responder_side_available is false the responder side additionally COULD NOT be computed even if the series called for it, because build_dispatch_list would have no depot to dispatch from. Record that as 'not applicable'. It is NEVER zero dispatches.",
+    "depot_phrasing_rule": "발화점 중심 walk bbox 범위 내에 OSM에 매핑된 fire_station이 없다는 뜻이며, 해당 지역에 소방서가 없다는 뜻이 아닙니다. Uiseong-Andong's wider 3,926 km² manifest bbox contains six (data/processed/osm_completeness.json). NEVER write 'Uiseong-Andong has no fire stations.'"
+  },
+  "network_source": {
+    "kind": "REAL — OpenStreetMap, read from the SNAPSHOT store",
+    "snapshot_walk": "osm-walk_uiseong-andong-2025_20260802_031147a0.graphml.gz",
+    "snapshot_shelters": "osm-shelters_uiseong-andong-2025_20260802_065fac6b.geojson",
+    "snapshot_depots": "osm-depots_uiseong-andong-2025_20260802_eaa10a64.geojson",
+    "read_from_cache": false,
+    "why_snapshot": "data/cache/** is git-ignored and may be regenerated underneath a run; the snapshot store is the evidence layer. The bytes are identical by construction.",
+    "bbox_wgs84": [
+      128.55,
+      36.2,
+      128.85,
+      36.5
+    ],
+    "n_refuge_pois": 34
+  },
+  "hazard_source": {
+    "kind": "REAL — spread_v2 forward-simulated ignition probability",
+    "npz_path": "data/processed/hazard_uiseong_andong_2025.npz",
+    "npz_sha256": "5a821a58c6d59252f736cee34882046a718118d7d3dd7b3a586fc4ba2c379fe6",
+    "shape": [
+      5,
+      135,
+      128
+    ],
+    "times_min": [
+      0.0,
+      180.0,
+      360.0,
+      540.0,
+      720.0
+    ],
+    "grid_extent_5179": [
+      1080340.813427112,
+      1795018.0445213197,
+      1144340.813427112,
+      1862518.0445213197,
+      500.0
+    ],
+    "cells_ge_0.5_per_slice": [
+      53,
+      63,
+      71,
+      86,
+      95
+    ],
+    "core_growth_pct_first_to_last": 79.24528301886792
+  },
+  "terrain_source": {
+    "kind": "REAL — SRTM",
+    "dem_path": "data/raw/firms_data/uiseong_andong_2025_dem.tif",
+    "sampling_m": 60.0,
+    "max_abs_slope": 0.6,
+    "tobler": "wildfireguardian.routing.evacuation.elderly_speed_ms (REUSED, identical to Yeongdeok)"
+  },
+  "provenance": {
+    "roads_real": true,
+    "hazard_real": true,
+    "terrain_real": true,
+    "yeongdeok_rerun": false,
+    "statement": "OSM road topology, the spread_v2 forward-simulated hazard for this region's fire, and SRTM terrain slope on the walk edges — all three real simultaneously.",
+    "still_synthetic_or_assumed": [
+      "elderly walk speed 0.7 m/s (literature/assumed)",
+      "elderly-home origins (stride-sampled walk nodes; real per-household data is private)",
+      "slope clipping is a defence against DEM registration error, NOT a physical correction"
+    ]
+  }
+}

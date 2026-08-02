@@ -51,6 +51,9 @@ OBJ = "data/processed/routing_objective_experiment.json"
 BUD = "data/processed/budget_sweep_experiment.json"
 FULL = "data/processed/rescue_routing_full.json"
 SPARSE = "data/processed/cluster_sparsity.json"
+MULTI = "data/processed/multi_region_comparison.json"      # PHASE 5 STEP 4
+MR_UISEONG = "data/processed/real_roads_real_hazard_uiseong_andong_2025.json"
+MR_ULJIN = "data/processed/real_roads_real_hazard_uljin_samcheok_2022.json"
 
 # Reproducibility is MEASURED, not assumed. Each artifact was re-run on
 # 2026-08-01 into a scratch directory and diffed against the committed copy.
@@ -132,6 +135,32 @@ REPRO = {
         "status": "reproducible",
         "evidence": "pure geometry over rescue_routing_full.json; "
                     "scripts/analyse_cluster_sparsity.py regenerates it exactly.",
+        "blocked_by": None,
+    },
+    MR_UISEONG: {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified snapshot walk graph, "
+                    "the STEP 2-1 hazard npz and the SRTM raster, with osmnx "
+                    "pinned to 2.0.7; re-running "
+                    "scripts/run_multi_region_routing.py into a scratch directory "
+                    "reproduced every bucket count exactly. Unlike the Yeongdeok "
+                    "459 series, this region's network was NEVER overwritten.",
+        "blocked_by": None,
+    },
+    MR_ULJIN: {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified snapshot walk graph, "
+                    "the STEP 2-1 hazard npz and the SRTM raster, with osmnx "
+                    "pinned to 2.0.7; re-running "
+                    "scripts/run_multi_region_routing.py into a scratch directory "
+                    "reproduced every bucket count exactly.",
+        "blocked_by": None,
+    },
+    MULTI: {
+        "status": "reproducible",
+        "evidence": "pure arithmetic over committed artifacts; "
+                    "scripts/build_multi_region_comparison.py re-runs nothing and "
+                    "regenerates it exactly.",
         "blocked_by": None,
     },
     NPZ: {
@@ -822,6 +851,264 @@ def main() -> int:
                    "tolerance": 0.0},
         )
 
+    # ------------------------------------------- PHASE 5: multi-region ------
+    # SEPARATE KEYS, deliberately. These do not amend, average or supersede any
+    # Yeongdeok figure; `real_roads_*` above stays exactly as committed.
+    if (REPO / MULTI).exists():
+        mr = read(MULTI)
+        by_region = {r["region"]: (i, r) for i, r in enumerate(mr["regions"])}
+
+        MR_NOT_W = (
+            "459-SERIES, THREE BUCKETS. This is the share of scanned origins that "
+            "reach safety ONLY on the future-aware route. It is NOT the walk-"
+            "failure rate w — w is a 439-series quantity built on a SYNTHETIC "
+            "hazard envelope with a fabricated coastline and cannot be computed "
+            "for an inland region at all.")
+        MR_COVARIATES = (
+            "Never quote across regions without the covariates in the same table: "
+            "envelope coverage 50.4–98.9 %, hazard envelope area 2.77x between "
+            "smallest and largest, node density 7.27–9.07 per km². n = 3.")
+        FORBID_MR = [
+            "보행 실패율", "walk failure rate", "w = ",
+            "지역 간 상관관계가 있다", "correlates across regions",
+            "의성·안동이 영덕보다 안전하다", "Uiseong-Andong is safer than Yeongdeok",
+            "의성·안동에는 소방서가 없다", "Uiseong-Andong has no fire stations",
+        ]
+
+        MR_SRC = {"uiseong_andong_2025": MR_UISEONG, "uljin_samcheok_2022": MR_ULJIN}
+        MR_KR = {"uiseong_andong_2025": "의성·안동 2025", "uljin_samcheok_2022": "울진·삼척 2022"}
+
+        for region, src in MR_SRC.items():
+            i, r = by_region[region]
+            tag = "uiseong" if region.startswith("uiseong") else "uljin"
+            for key, field, unit, deriv in (
+                ("n_origins", "n_origins_scanned", "origins",
+                 "stride-18 scan of the snapshot walk graph, minus nodes already "
+                 "at/above p_cut at t0 and minus the reach band"),
+                ("both_safe", "both_safe", "origins",
+                 "both the fire-blind and the future-aware route reach a refuge "
+                 "without entering the predicted hazard"),
+                ("future_aware_only_safe", "future_aware_only_safe", "origins",
+                 "fire-blind route enters the predicted hazard, future-aware "
+                 "route reaches a refuge without entering it"),
+                ("no_safe_route", "no_safe_route", "origins",
+                 "fire-blind route enters the hazard AND the future-aware router "
+                 "finds no route at all"),
+                ("fa_exceeds_budget", "fa_exceeds_budget", "origins",
+                 "fire-blind route is safe but the future-aware router cannot "
+                 "finish inside the 600-minute budget"),
+            ):
+                N[f"mr_{tag}_{key}"] = entry(
+                    value=r[field], unit=unit, source_file=src,
+                    json_path=f"arms.slope_digraph_canonical.counts",
+                    derivation=deriv,
+                    sample=f"{MR_KR[region]} · {r['n_origins_scanned']}곳 주사",
+                    caveat=f"{MR_NOT_W} {MR_COVARIATES}",
+                    forbidden_phrasings=FORBID_MR,
+                    check={"kind": "json_path",
+                           "operands": {"a": op(MULTI, f"regions.{i}.{field}")},
+                           "expr": "a", "tolerance": 0.0},
+                )
+            N[f"mr_{tag}_fa_only_pct"] = entry(
+                value=round(r["future_aware_only_safe_pct"], 2), unit="% of origins",
+                source_file=MULTI, json_path=f"regions.{i}.future_aware_only_safe_pct",
+                derivation="100 * naive_into_FA_safe / n_origins_scanned",
+                sample=f"{MR_KR[region]} · {r['n_origins_scanned']}곳 주사",
+                caveat=f"{MR_NOT_W} {MR_COVARIATES}",
+                forbidden_phrasings=FORBID_MR,
+                check={"kind": "expression",
+                       "operands": {"a": op(MULTI,
+                                            f"regions.{i}.future_aware_only_safe_pct")},
+                       "expr": "round(a, 2)", "tolerance": 0.0},
+            )
+
+        for region in ("yeongdeok_2025", "uiseong_andong_2025", "uljin_samcheok_2022"):
+            i, r = by_region[region]
+            tag = region.split("_")[0]
+            N[f"mr_{tag}_envelope_coverage"] = entry(
+                value=round(r["envelope_coverage_final_slice"], 3), unit="fraction",
+                source_file=MULTI,
+                json_path=f"regions.{i}.envelope_coverage_final_slice",
+                derivation="grid cells at p >= 0.5 in the FINAL hazard slice that "
+                           "fall inside the walk bbox, divided by all such cells — "
+                           "by CELL COUNT, not bbox overlap",
+                sample=f"{r['label_kr']} · 보행 bbox {r['bbox_area_km2']} km²",
+                caveat=("Comparable AREAS, very different COVERAGE. Yeongdeok's "
+                        "walk bbox omits the western part of its own predicted "
+                        "core (docs/walk_bbox_coverage.md); the two new bboxes are "
+                        "ignition-centred. Carry this column into every "
+                        "cross-region statement."),
+                forbidden_phrasings=FORBID_MR + ["동일한 조건에서 비교",
+                                                 "like-for-like across regions"],
+                check={"kind": "expression",
+                       "operands": {"a": op(MULTI,
+                                            f"regions.{i}.envelope_coverage_final_slice")},
+                       "expr": "round(a, 3)", "tolerance": 0.0},
+            )
+            N[f"mr_{tag}_envelope_area_ha"] = entry(
+                value=r["envelope_area_ha"], unit="ha", source_file=MULTI,
+                json_path=f"regions.{i}.envelope_area_ha",
+                derivation="cells at p >= 0.5 in the final slice of the hazard npz "
+                           "the routing run actually read, x 25 ha per cell",
+                sample=f"{r['label_kr']} · 예보 12시간",
+                caveat=("ONE definition for all three regions. The 27,900 ha "
+                        "Yeongdeok figure quoted elsewhere comes from "
+                        "yeongdeok_forward_sim.json, a DIFFERENT simulation "
+                        "artifact; mixing it with these inflates the cross-region "
+                        "spread from 2.77x to about 11.7x."),
+                forbidden_phrasings=FORBID_MR + ["위험면 면적 12배", "12x envelope area"],
+                check={"kind": "json_path",
+                       "operands": {"a": op(MULTI, f"regions.{i}.envelope_area_ha")},
+                       "expr": "a", "tolerance": 0.0},
+            )
+            N[f"mr_{tag}_fa_rescue_rate"] = entry(
+                value=round(r["future_aware_rescue_rate"], 3), unit="fraction",
+                source_file=MULTI, json_path=f"regions.{i}.future_aware_rescue_rate",
+                derivation="naive_into_FA_safe / (naive_into_FA_safe + "
+                           "no_safe_route + both_enter) — of the origins whose "
+                           "FIRE-BLIND route is unsafe, the share the future-aware "
+                           "router still gets to a refuge",
+                sample=f"{r['label_kr']} · 화재 무시 경로가 위험한 "
+                       f"{r['n_naive_route_unsafe']}곳",
+                caveat=("Conditional rate on a SMALL denominator (13–20 origins), "
+                        "so it moves in large steps. It is reported because the "
+                        "headline fraction alone hides the mechanism: where the "
+                        "core advances fastest, unsafe origins fall into "
+                        "no_safe_route instead of into the future-aware bucket."),
+                forbidden_phrasings=FORBID_MR + ["100% 구조", "rescues everyone"],
+                check={"kind": "expression",
+                       "operands": {"a": op(MULTI,
+                                            f"regions.{i}.future_aware_rescue_rate")},
+                       "expr": "round(a, 3)", "tolerance": 0.0},
+            )
+
+        # Terrain statistics per new region. Registered because the headline
+        # reading turns on them: the two new regions are NOT steeper than
+        # Yeongdeok, so slope moving their counts is not a terrain-severity
+        # story.
+        for region, src in MR_SRC.items():
+            tag = "uiseong" if region.startswith("uiseong") else "uljin"
+            ss = read(src)["arms"]["slope_digraph_canonical"]["slope_stats"]
+            N[f"mr_{tag}_mean_abs_slope"] = entry(
+                value=round(ss["slope_abs"]["mean"], 4), unit="rise/run",
+                source_file=src,
+                json_path="arms.slope_digraph_canonical.slope_stats.slope_abs.mean",
+                derivation="mean |rise/run| over every 60 m sub-segment of the "
+                           "walk network, clipped at ±60 %",
+                sample=f"{MR_KR[region]} 보행망",
+                caveat=("Compare with slope_mean_abs_slope (Yeongdeok, 0.0818). "
+                        "Uiseong-Andong is GENTLER and Uljin-Samcheok is "
+                        "indistinguishable, so 'slope changes the counts here but "
+                        "not in Yeongdeok' is NOT a statement about terrain "
+                        "severity — it is about budget headroom."),
+                forbidden_phrasings=FORBID_MR + ["더 험준한 지형", "steeper terrain"],
+                check={"kind": "expression",
+                       "operands": {"a": op(src, "arms.slope_digraph_canonical."
+                                                 "slope_stats.slope_abs.mean")},
+                       "expr": "round(a, 4)", "tolerance": 0.0},
+            )
+            N[f"mr_{tag}_walk_time_increase_pct"] = entry(
+                value=round(ss["traversal_time"]["pct_change_mean_of_directions"], 2),
+                unit="percent", source_file=src,
+                json_path="arms.slope_digraph_canonical.slope_stats."
+                          "traversal_time.pct_change_mean_of_directions",
+                derivation="mean of the two directions' total traversal time "
+                           "against flat-speed timing, over the whole network",
+                sample=f"{MR_KR[region]} 보행망",
+                caveat=("Network-wide, not per route. Compare with "
+                        "slope_walk_time_increase_pct (Yeongdeok, 26.594)."),
+                forbidden_phrasings=FORBID_MR + ["경로가 26% 길어진다",
+                                                 "routes take 26 % longer"],
+                check={"kind": "expression",
+                       "operands": {"a": op(src, "arms.slope_digraph_canonical."
+                                                 "slope_stats.traversal_time."
+                                                 "pct_change_mean_of_directions")},
+                       "expr": "round(a, 2)", "tolerance": 0.0},
+            )
+
+        for region in ("yeongdeok_2025", "uiseong_andong_2025", "uljin_samcheok_2022"):
+            i, r = by_region[region]
+            tag = region.split("_")[0]
+            N[f"mr_{tag}_shelter_pois"] = entry(
+                value=r["shelter_pois"], unit="POIs", source_file=MULTI,
+                json_path=f"regions.{i}.shelter_pois",
+                derivation="OSM amenity=shelter|community_centre + leisure=park "
+                           "features inside the walk bbox, centroided",
+                sample=f"{r['label_kr']} · 보행 bbox {r['bbox_area_km2']} km²",
+                caveat=("OSM COVERAGE, not a facility census. A region with fewer "
+                        "mapped refuges is not thereby a region with fewer "
+                        "refuges. Carried here because refuge density is the "
+                        "covariate most likely to explain why a fixed 600-minute "
+                        "budget binds in the two new regions and not in "
+                        "Yeongdeok — a reading to test, not a finding."),
+                forbidden_phrasings=FORBID_MR + [
+                    "대피소가 부족하다", "has too few shelters",
+                    "대피소 부족이 원인이다", "shelter scarcity causes"],
+                check={"kind": "json_path",
+                       "operands": {"a": op(MULTI, f"regions.{i}.shelter_pois")},
+                       "expr": "a", "tolerance": 0.0},
+            )
+
+        N["mr_envelope_area_spread"] = entry(
+            value=round(mr["envelope_area_definition"]["spread_max_over_min"], 2),
+            unit="ratio", source_file=MULTI,
+            json_path="envelope_area_definition.spread_max_over_min",
+            derivation="max / min of the three regions' p>=0.5 final-slice "
+                       "envelope areas, all read from the npz each routing run "
+                       "actually consumed",
+            sample="3개 지역",
+            caveat=("Computed under ONE definition. The often-quoted '12x' mixes "
+                    "this quantity for the two new regions with a DIFFERENT "
+                    "artifact's figure for Yeongdeok."),
+            forbidden_phrasings=["위험면 면적 최대 12배", "up to 12x the envelope area"],
+            check={"kind": "expression",
+                   "operands": {"a": op(MULTI,
+                                        "envelope_area_definition.spread_max_over_min")},
+                   "expr": "round(a, 2)", "tolerance": 0.0},
+        )
+        N["mr_core_growth_vs_fa_only_rho"] = entry(
+            value=mr["core_growth_vs_metric"]["spearman_rho_vs_fa_only"],
+            unit="Spearman rho", source_file=MULTI,
+            json_path="core_growth_vs_metric.spearman_rho_vs_fa_only",
+            derivation="rank correlation between core growth (first->last slice, "
+                       "p>=0.5) and the future-aware-only share, over 3 regions",
+            sample="n = 3 지역",
+            caveat=("n = 3. This is an ORDERING, not a correlation, and no p-value "
+                    "exists for it. rho = -1 means the ordering is exactly "
+                    "REVERSED: the fastest-advancing core has the LOWEST "
+                    "future-aware-only share, because its unsafe origins fall into "
+                    "no_safe_route instead. Do not report this as 'no benefit "
+                    "where the fire advances'."),
+            forbidden_phrasings=["상관관계", "correlation", "유의하다", "significant",
+                                 "화재가 전진할수록 효과가 없다"],
+            check={"kind": "json_path",
+                   "operands": {"a": op(MULTI,
+                                        "core_growth_vs_metric.spearman_rho_vs_fa_only")},
+                   "expr": "a", "tolerance": 0.0},
+        )
+        N["mr_uljin_walk_nodes_outside_dem"] = entry(
+            value=read(MR_ULJIN)["preflight"]["dem_footprint"]["n_nodes_outside_dem"],
+            unit="walk nodes", source_file=MR_ULJIN,
+            json_path="preflight.dem_footprint.n_nodes_outside_dem",
+            derivation="walk-graph nodes whose lon/lat falls outside the SRTM "
+                       "raster's footprint; the raster starts at 36.85 N while the "
+                       "walk bbox starts at 36.81 N",
+            sample="울진·삼척 보행망 7,300개 노드",
+            caveat=("A node outside the DEM reads nodata, and the slope build then "
+                    "times its edges as FLAT — silently. So part of the "
+                    "Uljin-Samcheok 'slope' arm is a flat arm. 23 of its 393 "
+                    "scanned origins sit in that strip and ALL 23 are in "
+                    "both_safe, so the reported FA-only and no_safe_route counts "
+                    "are not drawn from it. A flat control arm is reported beside "
+                    "the slope arm for exactly this reason."),
+            forbidden_phrasings=["전 구간에 실제 경사 적용",
+                                 "slope applied everywhere"],
+            check={"kind": "json_path",
+                   "operands": {"a": op(MR_ULJIN,
+                                        "preflight.dem_footprint.n_nodes_outside_dem")},
+                   "expr": "a", "tolerance": 0.0},
+        )
+
     try:
         head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=REPO).decode().strip()
     except Exception:  # noqa: BLE001
@@ -839,6 +1126,15 @@ def main() -> int:
             "Run scripts/verify_numbers.py to re-check every entry."
         ),
         "config_hash": config_hash(),
+        "config_hash_note": (
+            "The per-entry config_hash is re-stamped on every build, so it marks "
+            "the config a build SAW, not the config a number was PRODUCED under. "
+            "It moved 0b6eb481177a… -> 51ec446843b6… between the 2026-08-01 build "
+            "and the 2026-08-02 (PHASE 5 STEP 4) build. That move is PURELY "
+            "ADDITIVE: `bbox.multi_region_walk_bbox` and "
+            "`grid.simulation_bbox_extension` were added and NOT ONE existing key "
+            "changed value (verified key-by-key against config/default.yaml at "
+            "commit 5fe86db). No Round-2 number is stale as a result."),
         "built_at_git_commit": head,
         "round2_submission_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
         "numbers": N,

@@ -84,6 +84,15 @@ class SlopeStats:
     time_flat_s: np.ndarray
     time_fwd_s: np.ndarray
     time_rev_s: np.ndarray
+    #: DEM-footprint accounting. A sample that falls OUTSIDE the raster reads
+    #: nodata, and the ``nan_to_num`` below then times that sub-segment as FLAT.
+    #: That fallback is silent, so it is counted here and reported: a region
+    #: whose walk bbox overruns its DEM is partly a flat-timing run wearing a
+    #: slope-run label. Zero for Yeongdeok; NOT zero for Uljin-Samcheok, whose
+    #: DEM starts at 36.85 N while its walk bbox starts at 36.81 N.
+    n_elev_samples: int = 0
+    n_nodata_samples: int = 0
+    n_edges_with_nodata: int = 0
 
     def as_dict(self) -> dict:
         s, L = self.slope_abs, self.seg_len
@@ -125,6 +134,18 @@ class SlopeStats:
                 "p90": float(np.percentile(asym, 90)),
                 "max": float(asym.max()),
                 "frac_edges_gt_10pct": float((asym > 0.10).mean()),
+            },
+            "dem_sampling": {
+                "note": ("A sample outside the DEM footprint reads nodata and is "
+                         "then timed as FLAT. Silent by construction, so it is "
+                         "counted: n_nodata_samples > 0 means part of this "
+                         "'slope' run is a flat run."),
+                "n_elev_samples": self.n_elev_samples,
+                "n_nodata_samples": self.n_nodata_samples,
+                "frac_nodata": (self.n_nodata_samples / max(self.n_elev_samples, 1)),
+                "n_edges_with_nodata": self.n_edges_with_nodata,
+                "frac_edges_with_nodata": (self.n_edges_with_nodata /
+                                           max(self.n_edges_undirected, 1)),
             },
             "clipping": {
                 "note": ("DEFENCE AGAINST DEM REGISTRATION ERROR, NOT a physical "
@@ -248,6 +269,7 @@ def build_walk_network(
     to_wgs = Transformer.from_crs("EPSG:5179", "EPSG:4326", always_xy=True)
 
     n_geom = n_straight = n_clip = 0
+    n_elev = n_nodata = n_edges_nodata = 0
     slopes, seglens, t_flat, t_fwd, t_rev = [], [], [], [], []
     clipped_edges: list[dict] = []
 
@@ -278,6 +300,10 @@ def build_walk_network(
             lo, la = to_wgs.transform(xs, ys)
             z = np.array([w[0] for w in src.sample(np.column_stack([lo, la]))], float)
             z[z <= -1000.0] = np.nan
+            n_bad = int((~np.isfinite(z)).sum())
+            n_elev += int(z.size)
+            n_nodata += n_bad
+            n_edges_nodata += 1 if n_bad else 0
             dz = np.diff(z)
             if not np.isfinite(dz).all():
                 dz = np.nan_to_num(dz, nan=0.0)
@@ -325,6 +351,9 @@ def build_walk_network(
         time_flat_s=np.array(t_flat),
         time_fwd_s=np.array(t_fwd),
         time_rev_s=np.array(t_rev),
+        n_elev_samples=n_elev,
+        n_nodata_samples=n_nodata,
+        n_edges_with_nodata=n_edges_nodata,
     )
     return RoadNetwork(graph=g, shelters=set()), stats
 

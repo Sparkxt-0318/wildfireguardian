@@ -1,0 +1,370 @@
+{
+  "schema_version": 1,
+  "title": "Per-region forward simulation for the multi-region routing extension",
+  "generated_utc": "2026-08-02T04:16:00Z",
+  "git_commit": "5fe86db26db44dbaae0f1cfa9340c2e4954d8a98",
+  "config_hash": "0b6eb481177a61bf23b99cef83a55fd5ebe3f556997c45d264d9acaf101bc178",
+  "no_new_acquisition": true,
+  "parameters": {
+    "cell_m": 500.0,
+    "n_steps": 4,
+    "step_hours": 3.0,
+    "advance_threshold": 0.3,
+    "p_cut": 0.5,
+    "seed": 20250603,
+    "training": "leave-the-target-fire-out"
+  },
+  "grid_note": "The simulation grid is each fire's own fire_manifest.json bbox. Yeongdeok's committed field instead used the larger fire-ACQUISITION bbox (docs/grid_extent.md), so its grid is 181x147. Envelope AREA is physical and comparable provided nothing is clipped — which the boundary guard checks.",
+  "regions": [
+    {
+      "fire_id": "uiseong_andong_2025",
+      "reported_ha": 45000,
+      "n_detections": 4021,
+      "manifest_bbox_wgs84": [
+        128.4,
+        36.2,
+        129.1,
+        36.75
+      ],
+      "simulation_bbox_extension_deg": {
+        "west": 0.0,
+        "south": 0.05,
+        "east": 0.0,
+        "north": 0.0
+      },
+      "simulation_bbox_wgs84": [
+        128.4,
+        36.15,
+        129.1,
+        36.75
+      ],
+      "simulation_bbox_source": "data/raw/firms_data/fire_manifest.json + config grid.simulation_bbox_extension",
+      "grid": {
+        "nrows": 135,
+        "ncols": 128,
+        "cell_size_m": 500.0,
+        "extent_5179": [
+          1080340.813427112,
+          1795018.0445213197,
+          1144340.813427112,
+          1862518.0445213197
+        ],
+        "width_km": 64.0,
+        "height_km": 67.5
+      },
+      "boundary_check": {
+        "clear": true,
+        "max_edge_p": 0.0,
+        "per_slice": [
+          {
+            "reached": false,
+            "edges_reached": [],
+            "max_p_per_edge": {
+              "north": 0.0,
+              "south": 0.0,
+              "west": 0.0,
+              "east": 0.0
+            },
+            "p_threshold": 0.3,
+            "margin_cells": 1,
+            "slice": 0
+          },
+          {
+            "reached": false,
+            "edges_reached": [],
+            "max_p_per_edge": {
+              "north": 0.0,
+              "south": 0.0,
+              "west": 0.0,
+              "east": 0.0
+            },
+            "p_threshold": 0.3,
+            "margin_cells": 1,
+            "slice": 1
+          },
+          {
+            "reached": false,
+            "edges_reached": [],
+            "max_p_per_edge": {
+              "north": 0.0,
+              "south": 0.0,
+              "west": 0.0,
+              "east": 0.0
+            },
+            "p_threshold": 0.3,
+            "margin_cells": 1,
+            "slice": 2
+          },
+          {
+            "reached": false,
+            "edges_reached": [],
+            "max_p_per_edge": {
+              "north": 0.0,
+              "south": 0.0,
+              "west": 0.0,
+              "east": 0.0
+            },
+            "p_threshold": 0.3,
+            "margin_cells": 1,
+            "slice": 3
+          },
+          {
+            "reached": false,
+            "edges_reached": [],
+            "max_p_per_edge": {
+              "north": 0.0,
+              "south": 0.0,
+              "west": 0.0,
+              "east": 0.0
+            },
+            "p_threshold": 0.3,
+            "margin_cells": 1,
+            "slice": 4
+          }
+        ]
+      },
+      "envelope_area_ha": [
+        1325.0,
+        1575.0,
+        1775.0,
+        2150.0,
+        2375.0
+      ],
+      "cells_ge_0.5": [
+        53,
+        63,
+        71,
+        86,
+        95
+      ],
+      "cells_ge_0.3": [
+        53,
+        63,
+        89,
+        117,
+        130
+      ],
+      "envelope_breadth_deg": [
+        24.762513623853497,
+        24.958382192410852,
+        25.19474501701048,
+        24.76163290205579,
+        25.723326191564414
+      ],
+      "envelope_extent_5179_p_cut": {
+        "minx": 1083840.813427112,
+        "miny": 1803018.0445213197,
+        "maxx": 1107840.813427112,
+        "maxy": 1822018.0445213197,
+        "n_cells": 95
+      },
+      "envelope_extent_wgs84_p_cut": [
+        128.4328,
+        36.2207,
+        128.7025,
+        36.3896
+      ],
+      "derived_walk_bbox": {
+        "minx": 1078840.813427112,
+        "miny": 1798018.0445213197,
+        "maxx": 1112840.813427112,
+        "maxy": 1827018.0445213197,
+        "width_km": 34.0,
+        "height_km": 29.0,
+        "area_km2": 986.0,
+        "wgs84_wsen": [
+          128.3767,
+          36.1761,
+          128.7589,
+          36.4341
+        ],
+        "clearance_to_sim_grid_km": {
+          "west": -1.5,
+          "south": 3.0,
+          "east": 31.5,
+          "north": 35.5
+        },
+        "fits_inside_sim_grid": false
+      },
+      "walk_margin_km": 5.0,
+      "hazard_npz": "data/processed/hazard_uiseong_andong_2025.npz",
+      "hazard_npz_sha256": "5a821a58c6d59252f736cee34882046a718118d7d3dd7b3a586fc4ba2c379fe6",
+      "start_time": "2025-03-22 05:39:00+00:00"
+    },
+    {
+      "fire_id": "uljin_samcheok_2022",
+      "reported_ha": 16302,
+      "n_detections": 2372,
+      "manifest_bbox_wgs84": [
+        129.1,
+        36.85,
+        129.6,
+        37.45
+      ],
+      "simulation_bbox_extension_deg": {
+        "west": 0.0,
+        "south": 0.09,
+        "east": 0.0,
+        "north": 0.0
+      },
+      "simulation_bbox_wgs84": [
+        129.1,
+        36.76,
+        129.6,
+        37.45
+      ],
+      "simulation_bbox_source": "data/raw/firms_data/fire_manifest.json + config grid.simulation_bbox_extension",
+      "grid": {
+        "nrows": 155,
+        "ncols": 92,
+        "cell_size_m": 500.0,
+        "extent_5179": [
+          1141523.2038216323,
+          1863549.6785631683,
+          1187523.2038216323,
+          1941049.6785631683
+        ],
+        "width_km": 46.0,
+        "height_km": 77.5
+      },
+      "boundary_check": {
+        "clear": true,
+        "max_edge_p": 0.0,
+        "per_slice": [
+          {
+            "reached": false,
+            "edges_reached": [],
+            "max_p_per_edge": {
+              "north": 0.0,
+              "south": 0.0,
+              "west": 0.0,
+              "east": 0.0
+            },
+            "p_threshold": 0.3,
+            "margin_cells": 1,
+            "slice": 0
+          },
+          {
+            "reached": false,
+            "edges_reached": [],
+            "max_p_per_edge": {
+              "north": 0.0,
+              "south": 0.0,
+              "west": 0.0,
+              "east": 0.0
+            },
+            "p_threshold": 0.3,
+            "margin_cells": 1,
+            "slice": 1
+          },
+          {
+            "reached": false,
+            "edges_reached": [],
+            "max_p_per_edge": {
+              "north": 0.0,
+              "south": 0.0,
+              "west": 0.0,
+              "east": 0.0
+            },
+            "p_threshold": 0.3,
+            "margin_cells": 1,
+            "slice": 2
+          },
+          {
+            "reached": false,
+            "edges_reached": [],
+            "max_p_per_edge": {
+              "north": 0.0,
+              "south": 0.0,
+              "west": 0.0,
+              "east": 0.0
+            },
+            "p_threshold": 0.3,
+            "margin_cells": 1,
+            "slice": 3
+          },
+          {
+            "reached": false,
+            "edges_reached": [],
+            "max_p_per_edge": {
+              "north": 0.0,
+              "south": 0.0,
+              "west": 0.0,
+              "east": 0.0
+            },
+            "p_threshold": 0.3,
+            "margin_cells": 1,
+            "slice": 4
+          }
+        ]
+      },
+      "envelope_area_ha": [
+        2575.0,
+        3725.0,
+        4975.0,
+        6225.0,
+        6575.0
+      ],
+      "cells_ge_0.5": [
+        103,
+        149,
+        199,
+        249,
+        263
+      ],
+      "cells_ge_0.3": [
+        103,
+        149,
+        222,
+        296,
+        312
+      ],
+      "envelope_breadth_deg": [
+        8.861183928277889,
+        10.024859608169686,
+        10.998579772030402,
+        11.586928718840218,
+        11.515086905132232
+      ],
+      "envelope_extent_5179_p_cut": {
+        "minx": 1157023.2038216323,
+        "miny": 1893049.6785631683,
+        "maxx": 1168023.2038216323,
+        "maxy": 1906049.6785631683,
+        "n_cells": 263
+      },
+      "envelope_extent_wgs84_p_cut": [
+        129.2652,
+        37.0229,
+        129.3917,
+        37.1381
+      ],
+      "derived_walk_bbox": {
+        "minx": 1152023.2038216323,
+        "miny": 1888049.6785631683,
+        "maxx": 1173023.2038216323,
+        "maxy": 1911049.6785631683,
+        "width_km": 21.0,
+        "height_km": 23.0,
+        "area_km2": 483.0,
+        "wgs84_wsen": [
+          129.208,
+          36.9786,
+          129.4492,
+          37.1822
+        ],
+        "clearance_to_sim_grid_km": {
+          "west": 10.5,
+          "south": 24.5,
+          "east": 14.5,
+          "north": 30.0
+        },
+        "fits_inside_sim_grid": true
+      },
+      "walk_margin_km": 5.0,
+      "hazard_npz": "data/processed/hazard_uljin_samcheok_2022.npz",
+      "hazard_npz_sha256": "f93e62ada9c3f02a2b7daf6ae1fa3994ebce16629b1824acae65a01858cd5f2e",
+      "start_time": "2022-03-04 05:26:00+00:00"
+    }
+  ]
+}

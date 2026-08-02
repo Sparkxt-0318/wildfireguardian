@@ -99,6 +99,29 @@ data/processed/**
 !data/processed/rescue_routing_full.json
 # Origin sparsity sweep + nearest-neighbour distributions (small JSON).
 !data/processed/cluster_sparsity.json
+# ---------------------------------------------------------------------------
+# PHASE 5 — multi-region extension (docs/multi_region.md).
+#
+# STEP 2-1/2-2 produced forward_sim_regions.json, hazard_{region}.npz,
+# osm_acquisition.json and osm_completeness.json but never allow-listed them,
+# so they existed only in one working tree. STEP 2-3/4 depends on all four:
+# without them `make verify` fails on a fresh clone with "source_file missing"
+# for every mr_* entry. Adding the exceptions here is what makes the
+# multi-region numbers checkable by someone who did not run them.
+#
+# The two hazard .npz files are 17-28 KB — the per-region equivalent of the
+# already-tracked routing_demo.npz, not bulk figure data.
+!data/processed/forward_sim_regions.json
+!data/processed/hazard_uiseong_andong_2025.npz
+!data/processed/hazard_uljin_samcheok_2022.npz
+!data/processed/osm_acquisition.json
+!data/processed/osm_completeness.json
+# STEP 2-3 routing outputs, one per region. The committed Yeongdeok
+# real_roads_real_hazard.json is a DIFFERENT file and is untouched.
+!data/processed/real_roads_real_hazard_uiseong_andong_2025.json
+!data/processed/real_roads_real_hazard_uljin_samcheok_2022.json
+# STEP 4 cross-region table.
+!data/processed/multi_region_comparison.json
 # AUC-interval + ML-baseline analysis outputs (per-fire DeLong CIs / significance;
 # logistic/RF vs GBM comparison; persisted LOFO out-of-fold predictions). These are
 # the result artifacts of scripts/auc_intervals.py and scripts/ml_baselines.py;

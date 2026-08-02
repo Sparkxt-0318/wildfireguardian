@@ -5,13 +5,13 @@
 | | |
 |---|---|
 | branch | **`round3-dev`** (tracks `origin/round3-dev`) |
-| HEAD | `cc41f12` + this commit |
+| HEAD | `79138d0` + this commit |
 | baseline tag | **`round2-submitted`** = `4e9dfe3` — the submitted state |
 | environment | conda env **`wfg311`**, Python 3.11.15 — see [`ENVIRONMENT.md`](ENVIRONMENT.md) |
-| suite | **504 passed, 1 skipped, 0 failed** |
-| registry | [`NUMBERS.json`](NUMBERS.json) — 42 entries, 26 reproducible |
+| suite | **535 passed, 1 skipped, 0 failed** |
+| registry | [`NUMBERS.json`](NUMBERS.json) — 73 entries, 57 reproducible |
 | OSM regions | 3 acquired + snapshotted (`MANIFEST.json`, 64 entries) |
-| config hash | `0b6eb481177a…` |
+| config hash | `51ec446843b6…` — moved from `0b6eb481177a…` by PURE ADDITION at `cc41f12` (two new PHASE-5 keys, no existing value changed). `NUMBERS.json.config_hash_note` records this. |
 
 `docs/figures/*.png` carry three known uncommitted modifications. **Leave them
 unstaged**; every commit here used `git add -A -- . ':!docs/figures/*.png'`.
@@ -32,7 +32,7 @@ unstaged**; every commit here used `git add -A -- . ':!docs/figures/*.png'`.
 | 3-B — full-coverage re-run | done | `6612271` |
 | sparsity analysis | done | `bc3dfdd` |
 | 4 — live-operation feasibility | **NOT started** | — |
-| 5 — multi-region | STEP 0, 1, 2-1, **2-2 done**; **2-3 (routing) is next** | `466884f`, `5fe86db`, `a0eaf07`, `cc41f12` |
+| 5 — multi-region | STEP 0, 1, 2-1, 2-2, **2-3 and 4 done — the phase is complete** | `466884f`, `5fe86db`, `a0eaf07`, `cc41f12`, `79138d0`, this commit |
 
 ---
 
@@ -134,6 +134,51 @@ The bias **flips sign**, so no normalisation removes it. Report raw values with
 envelope area as a column. This is a limit of the forward simulation, **not** of
 the routing.
 
+⚠ The 27,900 ha above comes from `yeongdeok_forward_sim.json`, a **different**
+simulation artifact from the field the routing reads. Under one definition
+(p ≥ 0.5, final slice, from each region's routing npz) the areas are
+**6,100 / 2,375 / 6,575 ha** — a 2.77× spread, not 12×. Use one definition
+throughout; `multi_region_comparison.json` does.
+
+### PHASE 5 STEP 2-3 / 4 — multi-region routing and comparison
+
+`real_roads_real_hazard_{uiseong_andong_2025,uljin_samcheok_2022}.json`,
+`multi_region_comparison.json` · [`multi_region.md`](multi_region.md)
+
+Identical parameters everywhere (slope 60 m, distance objective, 600-min budget,
+stride 18, `osmnx` 2.0.7). Yeongdeok is **quoted, never re-run**; the runner
+refuses `--regions yeongdeok_2025` and exits 4 if a protected artifact moves.
+
+| region | origins | both_safe | FA-only | no_safe | over budget | FA-only % | coverage | depots |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Yeongdeok 2025 *(quoted)* | 460 | 440 | 17 | 3 | 0 | 3.70 % | 50.4 % | 4 |
+| Uiseong-Andong 2025 | 368 | 346 | 13 | 0 | **9** | 3.53 % | 98.9 % | **0** |
+| Uljin-Samcheok 2022 | 393 | 376 | 3 | 10 | **4** | **0.76 %** | 84.8 % | 4 |
+
+Both new regions **reproduce exactly** (re-run into a scratch dir: every count,
+every bucket membership list, every slope statistic identical).
+
+Four things that did **not** carry over from Yeongdeok:
+
+1. **`fa_exceeds_budget` is no longer empty at 600 minutes** (9 and 4). The
+   three-way split therefore does not sum to N outside Yeongdeok. Carry the
+   column.
+2. **Slope moves the counts.** PHASE 2's null result was Yeongdeok-specific. And
+   it is *not* because the new regions are steeper — Uiseong-Andong is gentler
+   (mean |slope| 7.03 % vs 8.18 %) and Uljin-Samcheok is indistinguishable. The
+   flat control arms already show origins at the budget edge before terrain is
+   applied.
+3. **The core-growth hypothesis is NOT supported as posed.** Core growth
+   +1.2 / +79.2 / +155.3 % runs *opposite* to the FA-only share (ρ = −1, n = 3).
+   The decomposition explains it: the share of origins whose fire-blind route is
+   unsafe is nearly flat (4.35 / 3.53 / 3.31 %); what moves is whether an
+   alternative exists (future-aware rescues 85 % / 100 % / 23 % of them). Where
+   the core advances fastest the fire outruns *every* route, so those origins
+   land in `no_safe_route`. This does **not** show the "quasi-static core"
+   limitation was Yeongdeok-specific; it shows a failure mode Yeongdeok
+   structurally could not exhibit.
+4. **Uljin-Samcheok's DEM does not cover its own walk bbox** — see §4.
+
 ---
 
 ## 3. Decisions already made — do not relitigate
@@ -177,8 +222,7 @@ fire_station이 없으며, 더 넓은 3,926 km² 범위에는 6곳이 있습니�
 
 | item | why it is open |
 |---|---|
-| **PHASE 5 STEP 2-2 — OSM acquisition** | **This is the next action.** bboxes are fixed (§6). |
-| PHASE 5 STEP 2-3, STEP 4 | Blocked on 2-2. |
+| **Uljin-Samcheok's DEM stops 4.4 km north of its walk bbox** | `uljin_samcheok_2022_dem.tif` spans 36.85–37.45 °N; the walk bbox starts at 36.81 °N. **405 of 7,300 walk nodes (5.55 %)** read nodata and are silently timed FLAT. Now counted (`slope_stats.dem_sampling`) and bounded: 23 scanned origins sit in the strip and **all 23 are `both_safe`**, so no reported FA-only or `no_safe_route` count is drawn from it. Fixing it needs a new SRTM acquisition — no other DEM in `data/raw/firms_data/` covers 36.75–36.85 °N — which is a STEP 2-2 action with its own snapshot requirements, not an analysis-run side effect. **This is the next action if PHASE 5 is reopened.** |
 | PHASE 4 — live-operation feasibility | Never started. Investigation only, no code. |
 | PHASE 2-C-3 — hazard time resolution | Deprioritised: `no_safe_route` already moved 3→18 once the budget bound, so the budget was the main blocker. |
 | `routing_demo.npz` not reproducible | Cause fully identified and **recoverable** — pin the grid to `bbox.fire_acquisition`. Not done: it would change results. |
@@ -217,6 +261,21 @@ fire_station이 없으며, 더 넓은 3,926 km² 범위에는 6곳이 있습니�
     wider 3,926 km² manifest bbox contains six.
 12. **Never report a cross-region routing number without the completeness
     covariates** from `osm_completeness.json`.
+13. **Never call the cross-region metric `w`.** It is the 459-series FA-only
+    share (3 buckets). `w` is a 439-series quantity built on a synthetic hazard
+    envelope and cannot be computed inland at all.
+14. **Never rank the three regions on the FA-only column alone**, and never
+    write "correlates" from it. n = 3, three covariates move together, and the
+    two orderings that look strongest (core growth, envelope area) both run
+    *against* the naive reading. [`multi_region.md`](multi_region.md) §8.
+15. **Never mix envelope-area definitions.** 6,100 / 2,375 / 6,575 ha (p ≥ 0.5,
+    final slice, routing npz) is one column; the 27,900 ha figure from
+    `yeongdeok_forward_sim.json` is a different quantity. Mixing them turns a
+    2.77× spread into a fictitious 12×.
+16. **Never quote Uljin-Samcheok's slope arm without its DEM gap** (§4).
+17. **Never re-run Yeongdeok's 459 series to "refresh" the comparison.** The
+    table quotes committed artifacts; `run_multi_region_routing.py` refuses the
+    region and exits 4 if a protected artifact moves.
 
 ---
 
@@ -225,14 +284,21 @@ fire_station이 없으며, 더 넓은 3,926 km² 범위에는 6곳이 있습니�
 ```bash
 cd ~/Desktop/Korea\ Code\ Fair/wildfireguardian
 conda activate wfg311          # or use /Users/jp/miniforge3/envs/wfg311/bin/python
-make verify && make test       # expect 42/42 and 504 passed, 1 skipped
+make all-checks                # 73/73, 535 passed 1 skipped, snapshots intact, env clean
 ```
 
-**PHASE 5 STEP 2-3 — routing.** Acquisition is done; the next action is to run
-the 459-series routing per region with parameters identical to Yeongdeok (slope
-60 m, distance objective, 600-min budget), writing
-`real_roads_real_hazard_{region}.json`. Then STEP 4:
-`multi_region_comparison.json` + `docs/multi_region.md`.
+**PHASE 5 is complete.** To regenerate its outputs from committed inputs:
+
+```bash
+python scripts/run_multi_region_routing.py          # ~2.5 min, both regions
+python scripts/build_multi_region_comparison.py     # re-runs nothing
+python scripts/build_numbers.py && make verify
+```
+
+The runner reads `data/snapshots/` only — never `data/cache/` — and records the
+sha256 of every protected Yeongdeok artifact before and after, exiting 4 if one
+moved. `--limit-origins` exists for smoke tests and writes under a `_SMOKE_`
+prefix so a truncated run can never be mistaken for a result.
 
 The walk bboxes, already acquired, are:
 
@@ -244,18 +310,29 @@ The walk bboxes, already acquired, are:
 Rule: ignition-centred, Yeongdeok's 0.30° × 0.30° footprint. Both now clear 5 km
 of grid clearance on every side (south +5.81 / +5.73 km).
 
-Acquisition must: use `network_type="walk"` and `"drive"`, project to EPSG:5179,
-fetch POIs with `{"amenity": ["shelter","community_centre"], "leisure":["park"]}`
-and `{"amenity":"fire_station"}`, write into
-`data/cache/osm/{region}/`, retry 3× with 30/60/120 s backoff, and **snapshot
-immediately**:
+⚠ **`.gitignore` gained exceptions for the STEP 2-1/2-2 artifacts**
+(`forward_sim_regions.json`, `hazard_{region}.npz`, `osm_acquisition.json`,
+`osm_completeness.json`). They had been produced but never allow-listed past the
+`data/processed/**` rule, so they lived in one working tree only — and every
+`mr_*` registry entry depends on them. Without the exceptions `make verify`
+fails on a fresh clone with "source_file missing".
+
+**If a fourth region is ever added**, acquisition is
+`scripts/acquire_region_osm.py`: `network_type="walk"` and `"drive"`, projected
+to EPSG:5179, POIs from `{"amenity": ["shelter","community_centre"],
+"leisure":["park"]}` and `{"amenity":"fire_station"}`, into
+`data/cache/osm/{region}/`, 3 retries with 30/60/120 s backoff, all-or-nothing.
+Then **snapshot immediately** — and check the DEM footprint against the walk
+bbox before routing, which is the check Uljin-Samcheok needed and did not get:
 
 ```bash
 python scripts/snapshot_external.py --preset osm    # extend the preset per region first
 python scripts/snapshot_external.py --verify
+python scripts/measure_osm_completeness.py
+python scripts/run_multi_region_routing.py --regions <new_region>
 ```
 
-Then the completeness metrics, same method as the Yeongdeok baseline:
+Completeness covariates, for comparison against the Yeongdeok baseline:
 
 | metric | Yeongdeok baseline |
 |---|---:|
@@ -266,10 +343,6 @@ Then the completeness metrics, same method as the Yeongdeok baseline:
 | highway-tagged edges | 100.0 % |
 | shelter POIs | 50 → 5.37 / 100 km² |
 | depot POIs | 4 → 0.43 / 100 km² |
-
-Then STEP 2-3 (routing, params identical to Yeongdeok: slope 60 m, distance
-objective, 600-min budget, output `real_roads_real_hazard_{region}.json`) and
-STEP 4 (`multi_region_comparison.json`, `docs/multi_region.md`).
 
 ---
 
@@ -300,6 +373,7 @@ Override the interpreter with `make verify PYTHON=/path/to/python`.
 | [`grid_extent.md`](grid_extent.md) | why the npz hash cannot be reproduced |
 | [`network_drift.md`](network_drift.md) | how sensitive each quantity is to the road network |
 | [`walk_bbox_coverage.md`](walk_bbox_coverage.md) | the 50.4 % coverage finding |
+| [`multi_region.md`](multi_region.md) | **the three-region comparison, its covariates and the rules for quoting it** |
 | [`forward_sim_regions.md`](forward_sim_regions.md) | per-region hazard fields and the canvas extension |
 | [`budget_sweep.md`](budget_sweep.md) | w(t) and the fire-blind-baseline attribution |
 | [`slope_integration.md`](slope_integration.md) | slope method, the null result, the 407 convention |

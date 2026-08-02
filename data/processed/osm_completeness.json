@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "title": "OSM completeness covariates per region",
+  "generated_utc": "2026-08-02T05:28:29Z",
+  "git_commit": "cc41f12e0410ea85ca3380248e5a11252ab21df7",
+  "config_hash": "51ec446843b6107438cce06fa23aa0578bf1d46bee084297b18b311eb7d7c129",
+  "osmnx_version": "2.0.7",
+  "why": "A less completely mapped region looks worse on any routing metric for reasons that have nothing to do with its terrain or its fire. These covariates must accompany every cross-region comparison so 'regions differ' can be told apart from 'mapping differs'.",
+  "depot_note": "발화점 중심 919 km² 범위 내에 OSM에 매핑된 fire_station이 없으며, 더 넓은 3,926 km² 범위에는 6곳이 있습니다. Uiseong-Andong has NO amenity=fire_station mapped in OSM inside its 919 km² ignition-centred walk bbox; the wider 3,926 km² manifest bbox contains SIX. This is a property of the bbox and of OSM coverage — NOT a statement that the county has no fire service. The responder side is therefore recorded as NOT APPLICABLE for that region, never as zero dispatches. The resident-side 3-way split, which is the cross-region comparison metric, is unaffected.",
+  "fire_station_counts_by_extent": {
+    "uiseong_andong_2025": {
+      "walk_bbox_919km2": 0,
+      "manifest_bbox_3926km2": 6,
+      "walk_bbox_with_police_tag": 10,
+      "measured_utc": "2026-08-02",
+      "note": "counted directly via ox.features_from_bbox to confirm the empty result was real, not a transient failure"
+    },
+    "uljin_samcheok_2022": {
+      "walk_bbox_924km2": 4
+    },
+    "yeongdeok_2025": {
+      "walk_bbox_931km2": 4
+    }
+  },
+  "regions": [
+    {
+      "region": "uiseong_andong_2025",
+      "walk_bbox_wgs84_wsen": [
+        128.55,
+        36.2,
+        128.85,
+        36.5
+      ],
+      "bbox_area_km2": 918.7,
+      "walk_nodes": 6678,
+      "walk_edges_directed": 17456,
+      "walk_edges_undirected": 8652,
+      "walk_length_km": 2142.2,
+      "road_density_km_per_km2": 2.332,
+      "node_density_per_km2": 7.27,
+      "geometry_edge_fraction": 0.786,
+      "highway_tag_fraction": 1.0,
+      "shelter_pois": 34,
+      "shelter_density_per_100km2": 3.7,
+      "depot_pois": 0,
+      "depot_density_per_100km2": 0.0,
+      "responder_side_available": false,
+      "relative_to_yeongdeok": {
+        "road_density_km_per_km2": 1.346,
+        "node_density_per_km2": 0.802,
+        "shelter_density_per_100km2": 0.689,
+        "depot_density_per_100km2": 0.0
+      }
+    },
+    {
+      "region": "uljin_samcheok_2022",
+      "walk_bbox_wgs84_wsen": [
+        129.17,
+        36.81,
+        129.47,
+        37.11
+      ],
+      "bbox_area_km2": 924.2,
+      "walk_nodes": 7300,
+      "walk_edges_directed": 18520,
+      "walk_edges_undirected": 9157,
+      "walk_length_km": 1479.1,
+      "road_density_km_per_km2": 1.601,
+      "node_density_per_km2": 7.9,
+      "geometry_edge_fraction": 0.6835,
+      "highway_tag_fraction": 1.0,
+      "shelter_pois": 26,
+      "shelter_density_per_100km2": 2.81,
+      "depot_pois": 4,
+      "depot_density_per_100km2": 0.43,
+      "responder_side_available": true,
+      "relative_to_yeongdeok": {
+        "road_density_km_per_km2": 0.924,
+        "node_density_per_km2": 0.871,
+        "shelter_density_per_100km2": 0.523,
+        "depot_density_per_100km2": 1.0
+      }
+    },
+    {
+      "region": "yeongdeok_2025",
+      "walk_bbox_wgs84_wsen": [
+        129.25,
+        36.3,
+        129.55,
+        36.6
+      ],
+      "bbox_area_km2": 931.3,
+      "walk_nodes": 8443,
+      "walk_edges_directed": 22276,
+      "walk_edges_undirected": 11020,
+      "walk_length_km": 1613.9,
+      "road_density_km_per_km2": 1.733,
+      "node_density_per_km2": 9.07,
+      "geometry_edge_fraction": 0.6744,
+      "highway_tag_fraction": 1.0,
+      "shelter_pois": 50,
+      "shelter_density_per_100km2": 5.37,
+      "depot_pois": 4,
+      "depot_density_per_100km2": 0.43,
+      "responder_side_available": true,
+      "relative_to_yeongdeok": {
+        "road_density_km_per_km2": 1.0,
+        "node_density_per_km2": 1.0,
+        "shelter_density_per_100km2": 1.0,
+        "depot_density_per_100km2": 1.0
+      }
+    }
+  ]
+}

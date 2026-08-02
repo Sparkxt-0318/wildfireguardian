@@ -1,0 +1,530 @@
+{
+  "schema_version": 1,
+  "title": "Multi-region 459-series routing comparison (3 regions)",
+  "generated_utc": "2026-08-02T05:48:29Z",
+  "git_commit": "79138d0e987ae5c13912a0eee1d91d52e1c7f7b8",
+  "config_hash": "51ec446843b6107438cce06fa23aa0578bf1d46bee084297b18b311eb7d7c129",
+  "n_regions": 3,
+  "region_order": [
+    "yeongdeok_2025",
+    "uiseong_andong_2025",
+    "uljin_samcheok_2022"
+  ],
+  "metric_definition": {
+    "name": "future_aware_only_safe_fraction",
+    "formula": "counts.naive_into_FA_safe / n_origins_scanned",
+    "means": "share of scanned origins that reach safety ONLY on the future-aware route — the fire-blind shortest path enters the predicted hazard, the future-aware one does not",
+    "series": "459 (real roads + real hazard), THREE buckets",
+    "is_not": "This is NOT the walk-failure rate w. w is a 439-series quantity, produced on a SYNTHETIC hazard envelope tied to a fabricated coastline, and cannot be carried to an inland region at all. Never label this column w."
+  },
+  "parameters_identical_across_regions": {
+    "slope_sampling_m": 60.0,
+    "max_abs_slope": 0.6,
+    "routing_objective": "length_m (distance-ranked)",
+    "p_cut": 0.5,
+    "time_budget_min": 600.0,
+    "time_step_min": 10.0,
+    "origin_scan_stride": 18,
+    "osmnx_pin": "2.0.7",
+    "source": "config/default.yaml — no per-region override exists"
+  },
+  "interpretation_rules": [
+    "DO NOT rank the regions on future_aware_only_safe_fraction alone.",
+    "Three covariates differ materially and simultaneously: envelope coverage 50.4-98.9 %, hazard envelope area 2.77x between the smallest and largest, node density 7.27-9.07 per km².",
+    "Uiseong-Andong has the HIGHEST road-length density (2.332 km/km²) and the LOWEST node density (7.27/km²): long straight ways carried by few nodes. A stride-18 scan over NODES is sensitive to that, so the origin count is reported normalised against road length AND node count, not raw.",
+    "n = 3. Associations below are ORDERINGS, not correlations. No p-value is computed and none should be inferred. Never write 'X correlates with Y' from this table.",
+    "Before attributing a difference to terrain or to road network, read the covariate columns. 'Regions differ' and 'mapping differs' are not separable at n = 3.",
+    "Yeongdeok is QUOTED from its committed artifacts and was not re-run: its 2026-07-23 network is unrecoverable."
+  ],
+  "envelope_area_definition": {
+    "definition": "cells at p >= 0.5 in the FINAL slice of the hazard npz the routing run actually read, x cell area",
+    "computed_here_for_all_three": true,
+    "values_ha": {
+      "yeongdeok_2025": 6100.0,
+      "uiseong_andong_2025": 2375.0,
+      "uljin_samcheok_2022": 6575.0
+    },
+    "spread_max_over_min": 2.768421052631579,
+    "warning": "A 27,900 ha figure for Yeongdeok appears in data/processed/yeongdeok_forward_sim.json and in prose derived from it. It is NOT this quantity: that artifact is a different simulation whose step-0 area is 6,225 ha where this field's is 6,025 ha. Combining it with the two new regions' p>=0.5 areas inflates the apparent spread from 2.77x to about 11.7x. Use one definition or the other, never one of each."
+  },
+  "regions": [
+    {
+      "region": "yeongdeok_2025",
+      "label_kr": "영덕 2025",
+      "walk_bbox_wgs84_wsen": [
+        129.25,
+        36.3,
+        129.55,
+        36.6
+      ],
+      "bbox_area_km2": 931.3,
+      "n_origins_scanned": 460,
+      "both_safe": 440,
+      "future_aware_only_safe": 17,
+      "no_safe_route": 3,
+      "other_buckets": {
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "fa_exceeds_budget": 0,
+        "unclassified": 0
+      },
+      "fa_exceeds_budget": 0,
+      "future_aware_only_safe_fraction": 0.03695652173913044,
+      "future_aware_only_safe_pct": 3.6956521739130435,
+      "n_naive_route_unsafe": 20,
+      "naive_route_unsafe_pct": 4.3478260869565215,
+      "future_aware_rescue_rate": 0.85,
+      "future_aware_rescue_rate_note": "share of the origins whose FIRE-BLIND route is unsafe that the future-aware router still gets to a refuge. Denominator is naive_into_FA_safe + no_safe_route + both_enter, so it is not diluted by the origins that were never in danger.",
+      "envelope_coverage_final_slice": 0.5040983606557377,
+      "road_density_km_per_km2": 1.733,
+      "node_density_per_km2": 9.07,
+      "walk_length_km": 1613.9,
+      "walk_nodes": 8443,
+      "geometry_edge_fraction": 0.6744,
+      "shelter_pois": 50,
+      "envelope_area_ha": 6100.0,
+      "core_growth_pct": 1.2448132780082943,
+      "depot_pois": 4,
+      "origins_per_road_km": 0.2850238552574509,
+      "origins_per_1000_walk_nodes": 54.483003671680684,
+      "origins_per_100km2": 49.39332116396435,
+      "origin_retention_vs_stride": 0.9806940660902523,
+      "responder_side": {
+        "responder_side_available": true,
+        "n_depot_pois": 4,
+        "computed": false
+      },
+      "hazard_facts": {
+        "hazard_npz": "data/processed/routing_demo.npz",
+        "grid_shape": [
+          5,
+          181,
+          147
+        ],
+        "cell_size_m": 500.0,
+        "cells_ge_0.5_per_slice": [
+          241,
+          241,
+          241,
+          242,
+          244
+        ],
+        "envelope_area_ha_final_slice": 6100.0,
+        "core_growth_pct_first_to_last": 1.2448132780082943,
+        "envelope_coverage_final_slice": 0.5040983606557377,
+        "envelope_coverage_cells": [
+          123,
+          244
+        ]
+      },
+      "primary_source": {
+        "source_file": "data/processed/real_roads_real_hazard_slope_60.json",
+        "source_path": "three_column_comparison.col3_jul24_slope",
+        "arm": "slope 60 m / DiGraph (canonical)",
+        "role": "primary"
+      },
+      "quoted_not_rerun": true,
+      "yeongdeok_variants": [
+        {
+          "role": "primary",
+          "source_file": "data/processed/real_roads_real_hazard_slope_60.json",
+          "source_path": "three_column_comparison.col3_jul24_slope",
+          "arm": "slope 60 m / DiGraph (canonical)",
+          "n_origins_scanned": 460,
+          "counts": {
+            "naive_into_FA_safe": 17,
+            "no_safe_route": 3,
+            "both_safe": 440,
+            "both_enter": 0,
+            "naive_unreachable": 0,
+            "fa_exceeds_budget": 0,
+            "unclassified": 0
+          },
+          "n_walk_nodes_in_graph": 8443,
+          "why": "PARAMETER-MATCHED to the two new regions: same 60 m slope sampling, same distance objective, same 600-minute budget, same stride 18. This is the row that belongs in the table."
+        },
+        {
+          "role": "context",
+          "source_file": "data/processed/real_roads_real_hazard.json",
+          "source_path": "counts",
+          "arm": "flat / undirected, 2026-07-23 network",
+          "n_origins_scanned": 459,
+          "counts": {
+            "naive_into_FA_safe": 18,
+            "no_safe_route": 3,
+            "both_safe": 438,
+            "both_enter": 0,
+            "naive_unreachable": 0,
+            "unclassified": 0
+          },
+          "n_walk_nodes_in_graph": 8439,
+          "why": "The originally committed 459 = 438 + 18 + 3. Its network was overwritten on 2026-07-24 and is unrecoverable, so it is quoted for continuity and is NOT the parameter-matched row. The gap to the primary row (459 vs 460 origins, 18 vs 17 FA-only) is NETWORK DRIFT, not terrain."
+        }
+      ]
+    },
+    {
+      "region": "uiseong_andong_2025",
+      "label_kr": "의성·안동 2025",
+      "walk_bbox_wgs84_wsen": [
+        128.55,
+        36.2,
+        128.85,
+        36.5
+      ],
+      "bbox_area_km2": 918.7,
+      "n_origins_scanned": 368,
+      "both_safe": 346,
+      "future_aware_only_safe": 13,
+      "no_safe_route": 0,
+      "other_buckets": {
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "fa_exceeds_budget": 9,
+        "unclassified": 0
+      },
+      "fa_exceeds_budget": 9,
+      "future_aware_only_safe_fraction": 0.035326086956521736,
+      "future_aware_only_safe_pct": 3.532608695652174,
+      "n_naive_route_unsafe": 13,
+      "naive_route_unsafe_pct": 3.532608695652174,
+      "future_aware_rescue_rate": 1.0,
+      "future_aware_rescue_rate_note": "share of the origins whose FIRE-BLIND route is unsafe that the future-aware router still gets to a refuge. Denominator is naive_into_FA_safe + no_safe_route + both_enter, so it is not diluted by the origins that were never in danger.",
+      "envelope_coverage_final_slice": 0.9894736842105263,
+      "road_density_km_per_km2": 2.332,
+      "node_density_per_km2": 7.27,
+      "walk_length_km": 2142.2,
+      "walk_nodes": 6678,
+      "geometry_edge_fraction": 0.786,
+      "shelter_pois": 34,
+      "envelope_area_ha": 2375.0,
+      "core_growth_pct": 79.24528301886792,
+      "depot_pois": 0,
+      "origins_per_road_km": 0.17178601437774252,
+      "origins_per_1000_walk_nodes": 55.106319257262655,
+      "origins_per_100km2": 40.05660171982149,
+      "origin_retention_vs_stride": 0.9919137466307277,
+      "responder_side": {
+        "responder_side_available": false,
+        "n_depot_pois": 0,
+        "computed": false,
+        "status": "NOT APPLICABLE — no amenity=fire_station is mapped in OSM inside this region's ignition-centred walk bbox"
+      },
+      "hazard_facts": {
+        "hazard_npz": "data/processed/hazard_uiseong_andong_2025.npz",
+        "grid_shape": [
+          5,
+          135,
+          128
+        ],
+        "cell_size_m": 500.0,
+        "cells_ge_0.5_per_slice": [
+          53,
+          63,
+          71,
+          86,
+          95
+        ],
+        "envelope_area_ha_final_slice": 2375.0,
+        "core_growth_pct_first_to_last": 79.24528301886792,
+        "envelope_coverage_final_slice": 0.9894736842105263,
+        "envelope_coverage_cells": [
+          94,
+          95
+        ]
+      },
+      "primary_source": {
+        "source_file": "data/processed/real_roads_real_hazard_uiseong_andong_2025.json",
+        "source_path": "arms.slope_digraph_canonical",
+        "arm": "slope 60m / DiGraph",
+        "role": "primary"
+      },
+      "quoted_not_rerun": false,
+      "slope_changed_counts_vs_flat": true,
+      "flat_control_counts": {
+        "naive_into_FA_safe": 13,
+        "no_safe_route": 0,
+        "both_safe": 354,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "fa_exceeds_budget": 1,
+        "unclassified": 0
+      },
+      "dem_footprint": {
+        "n_nodes_outside_dem": 0,
+        "frac_nodes_outside_dem": 0.0
+      },
+      "dem_hole_origins": null
+    },
+    {
+      "region": "uljin_samcheok_2022",
+      "label_kr": "울진·삼척 2022",
+      "walk_bbox_wgs84_wsen": [
+        129.17,
+        36.81,
+        129.47,
+        37.11
+      ],
+      "bbox_area_km2": 924.2,
+      "n_origins_scanned": 393,
+      "both_safe": 376,
+      "future_aware_only_safe": 3,
+      "no_safe_route": 10,
+      "other_buckets": {
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "fa_exceeds_budget": 4,
+        "unclassified": 0
+      },
+      "fa_exceeds_budget": 4,
+      "future_aware_only_safe_fraction": 0.007633587786259542,
+      "future_aware_only_safe_pct": 0.7633587786259542,
+      "n_naive_route_unsafe": 13,
+      "naive_route_unsafe_pct": 3.3078880407124682,
+      "future_aware_rescue_rate": 0.23076923076923078,
+      "future_aware_rescue_rate_note": "share of the origins whose FIRE-BLIND route is unsafe that the future-aware router still gets to a refuge. Denominator is naive_into_FA_safe + no_safe_route + both_enter, so it is not diluted by the origins that were never in danger.",
+      "envelope_coverage_final_slice": 0.8479087452471483,
+      "road_density_km_per_km2": 1.601,
+      "node_density_per_km2": 7.9,
+      "walk_length_km": 1479.1,
+      "walk_nodes": 7300,
+      "geometry_edge_fraction": 0.6835,
+      "shelter_pois": 26,
+      "envelope_area_ha": 6575.0,
+      "core_growth_pct": 155.33980582524273,
+      "depot_pois": 4,
+      "origins_per_road_km": 0.2657021161517139,
+      "origins_per_1000_walk_nodes": 53.83561643835616,
+      "origins_per_100km2": 42.52326336290846,
+      "origin_retention_vs_stride": 0.969041095890411,
+      "responder_side": {
+        "responder_side_available": true,
+        "n_depot_pois": 4,
+        "computed": false,
+        "status": "AVAILABLE but NOT COMPUTED in this run"
+      },
+      "hazard_facts": {
+        "hazard_npz": "data/processed/hazard_uljin_samcheok_2022.npz",
+        "grid_shape": [
+          5,
+          155,
+          92
+        ],
+        "cell_size_m": 500.0,
+        "cells_ge_0.5_per_slice": [
+          103,
+          149,
+          199,
+          249,
+          263
+        ],
+        "envelope_area_ha_final_slice": 6575.0,
+        "core_growth_pct_first_to_last": 155.33980582524273,
+        "envelope_coverage_final_slice": 0.8479087452471483,
+        "envelope_coverage_cells": [
+          223,
+          263
+        ]
+      },
+      "primary_source": {
+        "source_file": "data/processed/real_roads_real_hazard_uljin_samcheok_2022.json",
+        "source_path": "arms.slope_digraph_canonical",
+        "arm": "slope 60m / DiGraph",
+        "role": "primary"
+      },
+      "quoted_not_rerun": false,
+      "slope_changed_counts_vs_flat": true,
+      "flat_control_counts": {
+        "naive_into_FA_safe": 4,
+        "no_safe_route": 9,
+        "both_safe": 380,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "fa_exceeds_budget": 0,
+        "unclassified": 0
+      },
+      "dem_footprint": {
+        "n_nodes_outside_dem": 405,
+        "frac_nodes_outside_dem": 0.05547945205479452
+      },
+      "dem_hole_origins": {
+        "n_scanned_origins_outside_dem": 23,
+        "frac_of_scanned_origins": 0.058524173027989825,
+        "by_bucket": {
+          "naive_into_FA_safe": 0,
+          "no_safe_route": 0,
+          "both_enter": 0,
+          "naive_unreachable": 0,
+          "fa_exceeds_budget": 0,
+          "unclassified": 0,
+          "both_safe": 23
+        },
+        "note": "these origins were routed on FLAT-timed edges inside a run labelled 'slope'. Their bucket membership is listed so the effect on the headline can be bounded rather than assumed."
+      }
+    }
+  ],
+  "associations_directional_only": {
+    "n": 3,
+    "warning": "n = 3. These are orderings. Reporting them as correlations, or attaching significance, is wrong.",
+    "no_p_values": true,
+    "vs": "future_aware_only_safe_fraction",
+    "by_covariate": {
+      "envelope_coverage_final_slice": {
+        "values_in_region_order": [
+          0.5040983606557377,
+          0.9894736842105263,
+          0.8479087452471483
+        ],
+        "pearson_r": -0.2817075370112375,
+        "spearman_rho": -0.5,
+        "same_ordering_as_fa_only": false,
+        "reverse_ordering_of_fa_only": false
+      },
+      "road_density_km_per_km2": {
+        "values_in_region_order": [
+          1.733,
+          2.332,
+          1.601
+        ],
+        "pearson_r": 0.6006771040260998,
+        "spearman_rho": 0.5,
+        "same_ordering_as_fa_only": false,
+        "reverse_ordering_of_fa_only": false
+      },
+      "node_density_per_km2": {
+        "values_in_region_order": [
+          9.07,
+          7.27,
+          7.9
+        ],
+        "pearson_r": 0.2191990563056375,
+        "spearman_rho": 0.5,
+        "same_ordering_as_fa_only": false,
+        "reverse_ordering_of_fa_only": false
+      },
+      "envelope_area_ha": {
+        "values_in_region_order": [
+          6100.0,
+          2375.0,
+          6575.0
+        ],
+        "pearson_r": -0.5459746889191525,
+        "spearman_rho": -0.5,
+        "same_ordering_as_fa_only": false,
+        "reverse_ordering_of_fa_only": false
+      },
+      "core_growth_pct": {
+        "values_in_region_order": [
+          1.2448132780082943,
+          79.24528301886792,
+          155.33980582524273
+        ],
+        "pearson_r": -0.886417114947117,
+        "spearman_rho": -1.0,
+        "same_ordering_as_fa_only": false,
+        "reverse_ordering_of_fa_only": true
+      },
+      "origins_per_road_km": {
+        "values_in_region_order": [
+          0.2850238552574509,
+          0.17178601437774252,
+          0.2657021161517139
+        ],
+        "pearson_r": -0.3088086594760425,
+        "spearman_rho": 0.5,
+        "same_ordering_as_fa_only": false,
+        "reverse_ordering_of_fa_only": false
+      },
+      "origins_per_1000_walk_nodes": {
+        "values_in_region_order": [
+          54.483003671680684,
+          55.106319257262655,
+          53.83561643835616
+        ],
+        "pearson_r": 0.8461100005086278,
+        "spearman_rho": 0.5,
+        "same_ordering_as_fa_only": false,
+        "reverse_ordering_of_fa_only": false
+      },
+      "shelter_pois": {
+        "values_in_region_order": [
+          50,
+          34,
+          26
+        ],
+        "pearson_r": 0.7873889463876769,
+        "spearman_rho": 1.0,
+        "same_ordering_as_fa_only": true,
+        "reverse_ordering_of_fa_only": false
+      },
+      "geometry_edge_fraction": {
+        "values_in_region_order": [
+          0.6744,
+          0.786,
+          0.6835
+        ],
+        "pearson_r": 0.3899922536650128,
+        "spearman_rho": -0.5,
+        "same_ordering_as_fa_only": false,
+        "reverse_ordering_of_fa_only": false
+      }
+    }
+  },
+  "core_growth_vs_metric": {
+    "question": "Does the future-aware route help more where the fire core actually advances?",
+    "why_it_matters": "The Round-2 documents record a limitation — the 459-series result is 'dominated by a quasi-static >=0.5 core'. If the metric tracked core growth across regions, that limitation would look like a property of the Yeongdeok field rather than of the method.",
+    "core_growth_pct": {
+      "yeongdeok_2025": 1.2448132780082943,
+      "uiseong_andong_2025": 79.24528301886792,
+      "uljin_samcheok_2022": 155.33980582524273
+    },
+    "fa_only_pct": {
+      "yeongdeok_2025": 3.6956521739130435,
+      "uiseong_andong_2025": 3.532608695652174,
+      "uljin_samcheok_2022": 0.7633587786259542
+    },
+    "no_safe_route_pct": {
+      "yeongdeok_2025": 0.6521739130434783,
+      "uiseong_andong_2025": 0.0,
+      "uljin_samcheok_2022": 2.544529262086514
+    },
+    "naive_route_unsafe_pct": {
+      "yeongdeok_2025": 4.3478260869565215,
+      "uiseong_andong_2025": 3.532608695652174,
+      "uljin_samcheok_2022": 3.3078880407124682
+    },
+    "future_aware_rescue_rate": {
+      "yeongdeok_2025": 0.85,
+      "uiseong_andong_2025": 1.0,
+      "uljin_samcheok_2022": 0.23076923076923078
+    },
+    "same_ordering_as_fa_only": false,
+    "spearman_rho_vs_fa_only": -1.0,
+    "spearman_rho_vs_no_safe_route": 0.5,
+    "spearman_rho_vs_rescue_rate": -0.5,
+    "finding": "NOT SUPPORTED as stated. The headline fraction runs OPPOSITE to core growth: the fastest-advancing core (Uljin-Samcheok, +155 %) has the LOWEST future-aware-only share. The decomposition says why — where the core advances fastest, an unsafe fire-blind route more often has no safe alternative at all, so those origins land in no_safe_route instead of naive_into_FA_safe. The share of origins whose fire-blind route is unsafe is nearly FLAT across the three regions (4.35 / 3.53 / 3.31 %); what moves is whether the future-aware router can still rescue them (85 % / 100 % / 23 %).",
+    "verdict": "This does NOT establish that the 'dominated by a quasi-static core' limitation was Yeongdeok-specific. It does establish that the two new fields are not quasi-static (+79 % and +155 % core growth) and that the method still runs on them — and it shows a failure mode Yeongdeok could not show, because a near-static core cannot overtake a walker.",
+    "n_is_3": true
+  },
+  "sources": {
+    "yeongdeok_primary": "data/processed/real_roads_real_hazard_slope_60.json",
+    "yeongdeok_context": "data/processed/real_roads_real_hazard.json",
+    "uiseong_andong": "data/processed/real_roads_real_hazard_uiseong_andong_2025.json",
+    "uljin_samcheok": "data/processed/real_roads_real_hazard_uljin_samcheok_2022.json",
+    "covariates": "data/processed/osm_completeness.json",
+    "fire_station_counts_by_extent": {
+      "uiseong_andong_2025": {
+        "walk_bbox_919km2": 0,
+        "manifest_bbox_3926km2": 6,
+        "walk_bbox_with_police_tag": 10,
+        "measured_utc": "2026-08-02",
+        "note": "counted directly via ox.features_from_bbox to confirm the empty result was real, not a transient failure"
+      },
+      "uljin_samcheok_2022": {
+        "walk_bbox_924km2": 4
+      },
+      "yeongdeok_2025": {
+        "walk_bbox_931km2": 4
+      }
+    }
+  }
+}
