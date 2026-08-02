@@ -104,6 +104,11 @@ FIRMS_PRESET: list[tuple[str, str, str]] = [
 
 #: The OSM preset — exactly the artifacts that were lost in Round 2.
 #: (origin path, source id, layer description)
+#: Regions whose OSM layers are snapshotted by --preset osm. Yeongdeok is the
+#: Round-2 loss; the others are the PHASE-5 multi-region extension.
+OSM_REGIONS: tuple[str, ...] = ("yeongdeok_2025", "uljin_samcheok_2022",
+                                "uiseong_andong_2025")
+
 OSM_PRESET: list[tuple[str, str, str]] = [
     ("data/cache/osm/yeongdeok_2025/walk.graphml", "osm-walk",
      "OSMnx network_type='walk' graph, reprojected to EPSG:5179"),
@@ -392,12 +397,14 @@ def main() -> int:
         params = {"osmnx_query": f"ox.graph_from_bbox(bbox={bbox}, network_type=...)",
                   "bbox_wgs84_wsen": bbox,
                   "reprojected_to": _cfg("project.crs", "EPSG:5179")}
-        for rel, src, layer in OSM_PRESET:
-            p = REPO / rel
-            if p.exists():
-                targets.append((p, src, layer, params))
-            else:
-                print(f"  skip (absent): {rel}")
+        for region in OSM_REGIONS:
+            for rel, src, layer in OSM_PRESET:
+                p = REPO / rel.replace("yeongdeok_2025", region)
+                if p.exists():
+                    targets.append((p, src, layer,
+                                    {**params, "region": region}))
+                elif region == "yeongdeok_2025":
+                    print(f"  skip (absent): {p.relative_to(REPO)}")
         if args.include_httpcache:
             for p in sorted((REPO / "data/cache/osm/_httpcache").glob("*.json")):
                 targets.append((p, "osm-httpcache",
@@ -417,7 +424,8 @@ def main() -> int:
     total = 0
     print(f"snapshot store: {SNAP_DIR.relative_to(REPO)}")
     for p, src, layer, params in targets:
-        dest, created = snapshot_one(p, src, args.region, layer=layer,
+        region = params.get("region", args.region)
+        dest, created = snapshot_one(p, src, region, layer=layer,
                                      parameters=params, man=man, compress=args.compress)
         total += dest.stat().st_size
         n_new += created

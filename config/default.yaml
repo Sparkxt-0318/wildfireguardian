@@ -83,6 +83,24 @@ bbox:
     wgs84_wsen: [129.25, 36.30, 129.55, 36.60]   # [src: utils/regions.py:263 YEONGDEOK_2025]
     source_of_truth: "wildfireguardian.utils.regions.lookup('yeongdeok_2025').bbox_wgs84"
 
+  # (3) MULTI-REGION walk bboxes (Round-3 PHASE 5).
+  #
+  # RULE: ignition-centred, with Yeongdeok's 0.30° x 0.30° footprint, which puts
+  # every region at 919-931 km² so the density denominators are comparable.
+  #
+  # Yeongdeok's own bbox is NOT derived by this rule — it is the hand-drawn
+  # administrative box above, kept unchanged so the committed 439/459 figures
+  # stay explainable. Listed here for comparison only.
+  #
+  # ⚠ Equal area does NOT mean equal coverage of the fire. Measured coverage of
+  # the p>=0.5 core: Yeongdeok 50.4 %, Uiseong-Andong 98.9 %, Uljin-Samcheok
+  # 84.8 % (docs/walk_bbox_coverage.md). Carry that column into every
+  # cross-region comparison.
+  multi_region_walk_bbox:
+    yeongdeok_2025:      [129.250, 36.300, 129.550, 36.600]   # committed, hand-drawn
+    uiseong_andong_2025: [128.550, 36.200, 128.850, 36.500]   # ignition (128.70, 36.35)
+    uljin_samcheok_2022: [129.170, 36.810, 129.470, 37.110]   # ignition (129.32, 36.96)
+
 # -----------------------------------------------------------------------------
 # Grid resolution
 # -----------------------------------------------------------------------------

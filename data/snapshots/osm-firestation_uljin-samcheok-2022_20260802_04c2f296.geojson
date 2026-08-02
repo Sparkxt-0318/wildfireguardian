@@ -1,0 +1,11 @@
+{
+"type": "FeatureCollection",
+"name": "fire_station",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "element": "node", "id": 5144856225, "amenity": "fire_station", "name": "울진소방서", "wikidata": "Q12609183", "building": null }, "geometry": { "type": "Point", "coordinates": [ 129.3945904, 36.9934696 ] } },
+{ "type": "Feature", "properties": { "element": "node", "id": 11340867799, "amenity": "fire_station", "name": "북면119안전센터", "wikidata": null, "building": null }, "geometry": { "type": "Point", "coordinates": [ 129.3752336, 37.1027615 ] } },
+{ "type": "Feature", "properties": { "element": "node", "id": 11381940911, "amenity": "fire_station", "name": "죽변119안전센터", "wikidata": null, "building": null }, "geometry": { "type": "Point", "coordinates": [ 129.4125152, 37.0548028 ] } },
+{ "type": "Feature", "properties": { "element": "way", "id": 528419912, "amenity": "fire_station", "name": null, "wikidata": null, "building": "yes" }, "geometry": { "type": "Point", "coordinates": [ 129.394522479825582, 36.993510901883511 ] } }
+]
+}
