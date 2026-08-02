@@ -3,7 +3,7 @@
   "_README": "CANONICAL REGISTRY. Every reportable number lives here exactly once. Do not restate a value in prose without citing its key. 'verified' = still matches its artifact; 'reproducible' = re-running the pipeline regenerates that artifact. They are independent — several numbers here are verified but NOT reproducible because the OSM network behind them was overwritten (docs/DATA_LOSS_2026-07-24.md). Run scripts/verify_numbers.py to re-check every entry.",
   "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
   "config_hash_note": "The per-entry config_hash is re-stamped on every build, so it marks the config a build SAW, not the config a number was PRODUCED under. It moved 0b6eb481177a… -> 51ec446843b6… between the 2026-08-01 build and the 2026-08-02 (PHASE 5 STEP 4) build. That move is PURELY ADDITIVE: `bbox.multi_region_walk_bbox` and `grid.simulation_bbox_extension` were added and NOT ONE existing key changed value (verified key-by-key against config/default.yaml at commit 5fe86db). No Round-2 number is stale as a result.",
-  "built_at_git_commit": "ed5e6b0987aeeee95fc2dc04cbeb9e9eb39276c3",
+  "built_at_git_commit": "815dc02a275b80aa7c3b63d0081284e4c4ba0290",
   "round2_submission_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
   "numbers": {
     "lofo_mean_of_folds_auc": {
@@ -2968,6 +2968,430 @@
       "reproducibility": {
         "status": "reproducible",
         "evidence": "built 2026-08-02 from the hash-verified snapshot walk graph, the STEP 2-1 hazard npz and the SRTM raster, with osmnx pinned to 2.0.7; re-running scripts/run_multi_region_routing.py into a scratch directory reproduced every bucket count exactly.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "slope_canonical_30m_both_safe": {
+      "value": 413,
+      "unit": "origins",
+      "source_file": "data/processed/slope_sweep_canonical.json",
+      "json_path": "arms.slope_30.counts.both_safe",
+      "derivation": "30 m slope sampling, DiGraph, clipped at 60 %, on the canonical hazard field",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "영덕 2025 · 458곳 주사",
+      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one.",
+      "forbidden_phrasings": [
+        "경사가 계수를 바꾼다",
+        "slope changes the counts",
+        "지형 효과가 확인되었다",
+        "terrain effect confirmed"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/slope_sweep_canonical.json",
+            "json_path": "arms.slope_30.counts.both_safe"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, osmnx pinned to 2.0.7. Deterministic: no sampling, no fit.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "slope_canonical_30m_fa_only": {
+      "value": 42,
+      "unit": "origins",
+      "source_file": "data/processed/slope_sweep_canonical.json",
+      "json_path": "arms.slope_30.counts.naive_into_FA_safe",
+      "derivation": "30 m slope sampling, DiGraph, clipped at 60 %, on the canonical hazard field",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "영덕 2025 · 458곳 주사",
+      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one.",
+      "forbidden_phrasings": [
+        "경사가 계수를 바꾼다",
+        "slope changes the counts",
+        "지형 효과가 확인되었다",
+        "terrain effect confirmed"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/slope_sweep_canonical.json",
+            "json_path": "arms.slope_30.counts.naive_into_FA_safe"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, osmnx pinned to 2.0.7. Deterministic: no sampling, no fit.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "slope_canonical_30m_no_safe": {
+      "value": 3,
+      "unit": "origins",
+      "source_file": "data/processed/slope_sweep_canonical.json",
+      "json_path": "arms.slope_30.counts.no_safe_route",
+      "derivation": "30 m slope sampling, DiGraph, clipped at 60 %, on the canonical hazard field",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "영덕 2025 · 458곳 주사",
+      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one.",
+      "forbidden_phrasings": [
+        "경사가 계수를 바꾼다",
+        "slope changes the counts",
+        "지형 효과가 확인되었다",
+        "terrain effect confirmed"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/slope_sweep_canonical.json",
+            "json_path": "arms.slope_30.counts.no_safe_route"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, osmnx pinned to 2.0.7. Deterministic: no sampling, no fit.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "slope_canonical_60m_both_safe": {
+      "value": 414,
+      "unit": "origins",
+      "source_file": "data/processed/slope_sweep_canonical.json",
+      "json_path": "arms.slope_60.counts.both_safe",
+      "derivation": "60 m slope sampling, DiGraph, clipped at 60 %, on the canonical hazard field",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "영덕 2025 · 458곳 주사",
+      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one.",
+      "forbidden_phrasings": [
+        "경사가 계수를 바꾼다",
+        "slope changes the counts",
+        "지형 효과가 확인되었다",
+        "terrain effect confirmed"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/slope_sweep_canonical.json",
+            "json_path": "arms.slope_60.counts.both_safe"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, osmnx pinned to 2.0.7. Deterministic: no sampling, no fit.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "slope_canonical_60m_fa_only": {
+      "value": 42,
+      "unit": "origins",
+      "source_file": "data/processed/slope_sweep_canonical.json",
+      "json_path": "arms.slope_60.counts.naive_into_FA_safe",
+      "derivation": "60 m slope sampling, DiGraph, clipped at 60 %, on the canonical hazard field",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "영덕 2025 · 458곳 주사",
+      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one.",
+      "forbidden_phrasings": [
+        "경사가 계수를 바꾼다",
+        "slope changes the counts",
+        "지형 효과가 확인되었다",
+        "terrain effect confirmed"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/slope_sweep_canonical.json",
+            "json_path": "arms.slope_60.counts.naive_into_FA_safe"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, osmnx pinned to 2.0.7. Deterministic: no sampling, no fit.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "slope_canonical_60m_no_safe": {
+      "value": 2,
+      "unit": "origins",
+      "source_file": "data/processed/slope_sweep_canonical.json",
+      "json_path": "arms.slope_60.counts.no_safe_route",
+      "derivation": "60 m slope sampling, DiGraph, clipped at 60 %, on the canonical hazard field",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "영덕 2025 · 458곳 주사",
+      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one.",
+      "forbidden_phrasings": [
+        "경사가 계수를 바꾼다",
+        "slope changes the counts",
+        "지형 효과가 확인되었다",
+        "terrain effect confirmed"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/slope_sweep_canonical.json",
+            "json_path": "arms.slope_60.counts.no_safe_route"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, osmnx pinned to 2.0.7. Deterministic: no sampling, no fit.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "slope_canonical_90m_both_safe": {
+      "value": 415,
+      "unit": "origins",
+      "source_file": "data/processed/slope_sweep_canonical.json",
+      "json_path": "arms.slope_90.counts.both_safe",
+      "derivation": "90 m slope sampling, DiGraph, clipped at 60 %, on the canonical hazard field",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "영덕 2025 · 458곳 주사",
+      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one.",
+      "forbidden_phrasings": [
+        "경사가 계수를 바꾼다",
+        "slope changes the counts",
+        "지형 효과가 확인되었다",
+        "terrain effect confirmed"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/slope_sweep_canonical.json",
+            "json_path": "arms.slope_90.counts.both_safe"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, osmnx pinned to 2.0.7. Deterministic: no sampling, no fit.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "slope_canonical_90m_fa_only": {
+      "value": 41,
+      "unit": "origins",
+      "source_file": "data/processed/slope_sweep_canonical.json",
+      "json_path": "arms.slope_90.counts.naive_into_FA_safe",
+      "derivation": "90 m slope sampling, DiGraph, clipped at 60 %, on the canonical hazard field",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "영덕 2025 · 458곳 주사",
+      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one.",
+      "forbidden_phrasings": [
+        "경사가 계수를 바꾼다",
+        "slope changes the counts",
+        "지형 효과가 확인되었다",
+        "terrain effect confirmed"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/slope_sweep_canonical.json",
+            "json_path": "arms.slope_90.counts.naive_into_FA_safe"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, osmnx pinned to 2.0.7. Deterministic: no sampling, no fit.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "slope_canonical_90m_no_safe": {
+      "value": 2,
+      "unit": "origins",
+      "source_file": "data/processed/slope_sweep_canonical.json",
+      "json_path": "arms.slope_90.counts.no_safe_route",
+      "derivation": "90 m slope sampling, DiGraph, clipped at 60 %, on the canonical hazard field",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "영덕 2025 · 458곳 주사",
+      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one.",
+      "forbidden_phrasings": [
+        "경사가 계수를 바꾼다",
+        "slope changes the counts",
+        "지형 효과가 확인되었다",
+        "terrain effect confirmed"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/slope_sweep_canonical.json",
+            "json_path": "arms.slope_90.counts.no_safe_route"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, osmnx pinned to 2.0.7. Deterministic: no sampling, no fit.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "slope_canonical_flat_control_fa_only": {
+      "value": 41,
+      "unit": "origins",
+      "source_file": "data/processed/slope_sweep_canonical.json",
+      "json_path": "arms.flat_undirected.counts.naive_into_FA_safe",
+      "derivation": "flat-timing control on the canonical hazard field",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "영덕 2025 · 458곳 주사",
+      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one. This is the baseline the slope arms move against.",
+      "forbidden_phrasings": [
+        "경사가 계수를 바꾼다",
+        "slope changes the counts",
+        "지형 효과가 확인되었다",
+        "terrain effect confirmed"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/slope_sweep_canonical.json",
+            "json_path": "arms.flat_undirected.counts.naive_into_FA_safe"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, osmnx pinned to 2.0.7. Deterministic: no sampling, no fit.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "slope_canonical_origins_moved_at_all_spacings": {
+      "value": 0,
+      "unit": "origins",
+      "source_file": "data/processed/slope_sweep_canonical.json",
+      "json_path": "bucket_movement_vs_flat_control.moved_at_all_spacings",
+      "derivation": "origins whose bucket differs from the flat control at 30 AND 60 AND 90 m — the intersection, not the union",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "영덕 2025 · 458곳 주사",
+      "caveat": "ZERO is the result. Three origins move at SOME spacing but none at all three, and movement tracks the sampling-induced time penalty (+40.4 / +26.6 / +21.0 %) rather than terrain. That is sampling noise, so the PHASE-2 null result survives the move to the canonical field.",
+      "forbidden_phrasings": [
+        "경사가 계수를 바꾼다",
+        "slope changes the counts",
+        "지형 효과가 확인되었다",
+        "terrain effect confirmed",
+        "경사가 3곳을 움직였다",
+        "slope moved three origins"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/slope_sweep_canonical.json",
+            "json_path": "bucket_movement_vs_flat_control.moved_at_all_spacings"
+          }
+        },
+        "expr": "len(a)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, osmnx pinned to 2.0.7. Deterministic: no sampling, no fit.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "slope_canonical_fa_routes_changed_60m": {
+      "value": 179,
+      "unit": "origins",
+      "source_file": "data/processed/slope_sweep_canonical.json",
+      "json_path": "path_changes_vs_flat_control.60.future_aware_routes_changed",
+      "derivation": "origins whose FUTURE-AWARE path differs from the flat control at 60 m sampling",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "영덕 2025 · 458곳 주사",
+      "caveat": "39.1 % of routes change while the bucket counts barely do. Terrain changes HOW people walk, not — on this instrument — whether they reach safety. The naive path changes for 0 origins by construction, since it ranks by length_m.",
+      "forbidden_phrasings": [
+        "경사가 계수를 바꾼다",
+        "slope changes the counts",
+        "지형 효과가 확인되었다",
+        "terrain effect confirmed",
+        "경로가 바뀌면 결과가 바뀐다",
+        "changed routes mean changed outcomes"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/slope_sweep_canonical.json",
+            "json_path": "path_changes_vs_flat_control.60.future_aware_routes_changed"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, osmnx pinned to 2.0.7. Deterministic: no sampling, no fit.",
         "blocked_by": null
       },
       "reproducible": true

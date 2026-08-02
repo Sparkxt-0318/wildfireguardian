@@ -55,6 +55,7 @@ MULTI = "data/processed/multi_region_comparison.json"      # PHASE 5 STEP 4
 MR_UISEONG = "data/processed/real_roads_real_hazard_uiseong_andong_2025.json"
 MR_ULJIN = "data/processed/real_roads_real_hazard_uljin_samcheok_2022.json"
 MR_YEONGDEOK = "data/processed/real_roads_real_hazard_canonical.json"
+SWEEP_CANON = "data/processed/slope_sweep_canonical.json"      # step 2
 
 # Reproducibility is MEASURED, not assumed. Each artifact was re-run on
 # 2026-08-01 into a scratch directory and diffed against the committed copy.
@@ -165,6 +166,13 @@ REPRO = {
                     "on the CANONICAL hazard field; the committed "
                     "real_roads_real_hazard.json (2026-07-23 network, reverted-run "
                     "hazard) is untouched and remains not reproducible.",
+        "blocked_by": None,
+    },
+    SWEEP_CANON: {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot "
+                    "walk graph, the SRTM raster and routing_demo_canonical.npz, "
+                    "osmnx pinned to 2.0.7. Deterministic: no sampling, no fit.",
         "blocked_by": None,
     },
     MULTI: {
@@ -1129,6 +1137,89 @@ def main() -> int:
             check={"kind": "json_path",
                    "operands": {"a": op(MR_ULJIN,
                                         "preflight.dem_footprint.n_nodes_outside_dem")},
+                   "expr": "a", "tolerance": 0.0},
+        )
+
+    # -------------------------------- PHASE 2 slope, canonical field --------
+    # SEPARATE KEYS from slope_*, which describe the same sweep on the reverted
+    # run's hazard field. Neither supersedes the other in the registry; the
+    # documents say which is current.
+    if (REPO / SWEEP_CANON).exists():
+        sw = read(SWEEP_CANON)
+        FORBID_SW = ["경사가 계수를 바꾼다", "slope changes the counts",
+                     "지형 효과가 확인되었다", "terrain effect confirmed"]
+        CAVEAT_SW = (
+            "CANONICAL hazard field (routing_demo_canonical.npz), NOT the "
+            "committed routing_demo.npz. The committed slope_* entries describe "
+            "the same sweep on the reverted run's near-static field and are a "
+            "different measurement, not a superseded one.")
+        for s in (30, 60, 90):
+            arm = sw["arms"][f"slope_{s}"]["counts"]
+            for key, field in (("both_safe", "both_safe"),
+                               ("fa_only", "naive_into_FA_safe"),
+                               ("no_safe", "no_safe_route")):
+                N[f"slope_canonical_{s}m_{key}"] = entry(
+                    value=arm[field], unit="origins", source_file=SWEEP_CANON,
+                    json_path=f"arms.slope_{s}.counts.{field}",
+                    derivation=f"{s} m slope sampling, DiGraph, clipped at 60 %, "
+                               "on the canonical hazard field",
+                    sample="영덕 2025 · 458곳 주사",
+                    caveat=CAVEAT_SW,
+                    forbidden_phrasings=FORBID_SW,
+                    check={"kind": "json_path",
+                           "operands": {"a": op(SWEEP_CANON,
+                                                f"arms.slope_{s}.counts.{field}")},
+                           "expr": "a", "tolerance": 0.0},
+                )
+        N["slope_canonical_flat_control_fa_only"] = entry(
+            value=sw["arms"]["flat_undirected"]["counts"]["naive_into_FA_safe"],
+            unit="origins", source_file=SWEEP_CANON,
+            json_path="arms.flat_undirected.counts.naive_into_FA_safe",
+            derivation="flat-timing control on the canonical hazard field",
+            sample="영덕 2025 · 458곳 주사",
+            caveat=CAVEAT_SW + " This is the baseline the slope arms move against.",
+            forbidden_phrasings=FORBID_SW,
+            check={"kind": "json_path",
+                   "operands": {"a": op(SWEEP_CANON,
+                                        "arms.flat_undirected.counts.naive_into_FA_safe")},
+                   "expr": "a", "tolerance": 0.0},
+        )
+        N["slope_canonical_origins_moved_at_all_spacings"] = entry(
+            value=len(sw["bucket_movement_vs_flat_control"]["moved_at_all_spacings"]),
+            unit="origins", source_file=SWEEP_CANON,
+            json_path="bucket_movement_vs_flat_control.moved_at_all_spacings",
+            derivation="origins whose bucket differs from the flat control at "
+                       "30 AND 60 AND 90 m — the intersection, not the union",
+            sample="영덕 2025 · 458곳 주사",
+            caveat=("ZERO is the result. Three origins move at SOME spacing but "
+                    "none at all three, and movement tracks the sampling-induced "
+                    "time penalty (+40.4 / +26.6 / +21.0 %) rather than terrain. "
+                    "That is sampling noise, so the PHASE-2 null result survives "
+                    "the move to the canonical field."),
+            forbidden_phrasings=FORBID_SW + [
+                "경사가 3곳을 움직였다", "slope moved three origins"],
+            check={"kind": "expression",
+                   "operands": {"a": op(SWEEP_CANON,
+                                        "bucket_movement_vs_flat_control."
+                                        "moved_at_all_spacings")},
+                   "expr": "len(a)", "tolerance": 0.0},
+        )
+        N["slope_canonical_fa_routes_changed_60m"] = entry(
+            value=sw["path_changes_vs_flat_control"]["60"]["future_aware_routes_changed"],
+            unit="origins", source_file=SWEEP_CANON,
+            json_path="path_changes_vs_flat_control.60.future_aware_routes_changed",
+            derivation="origins whose FUTURE-AWARE path differs from the flat "
+                       "control at 60 m sampling",
+            sample="영덕 2025 · 458곳 주사",
+            caveat=("39.1 % of routes change while the bucket counts barely do. "
+                    "Terrain changes HOW people walk, not — on this instrument — "
+                    "whether they reach safety. The naive path changes for 0 "
+                    "origins by construction, since it ranks by length_m."),
+            forbidden_phrasings=FORBID_SW + [
+                "경로가 바뀌면 결과가 바뀐다", "changed routes mean changed outcomes"],
+            check={"kind": "json_path",
+                   "operands": {"a": op(SWEEP_CANON, "path_changes_vs_flat_control."
+                                                     "60.future_aware_routes_changed")},
                    "expr": "a", "tolerance": 0.0},
         )
 

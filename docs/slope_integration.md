@@ -1,9 +1,20 @@
 # DEM slope on OSM walk edges — three axes real at once
 
-**Artifacts:** `data/processed/real_roads_real_hazard_slope_{30,60,90}.json`
-**Script:** `scripts/run_real_roads_real_hazard_slope.py`
+**Artifacts:** `data/processed/slope_sweep_canonical.json` (current) ·
+`real_roads_real_hazard_slope_{30,60,90}.json` (earlier reading)
+**Scripts:** `scripts/run_yeongdeok_canonical_slope_sweep.py` (current) ·
+`scripts/run_real_roads_real_hazard_slope.py` (earlier)
 **Module:** `src/wildfireguardian/routing/slope.py`
-**Measured:** 2026-08-01 · config_hash `b97a4d73…`
+**Measured:** 2026-08-01, **re-measured 2026-08-02 on the canonical hazard field**
+
+> ⚠ **Everything below §"The canonical-field re-run" is the EARLIER READING.**
+> It was measured on `routing_demo.npz`, which the 2026-08-02 investigation
+> identified as the surviving output of a run reverted on 2026-07-21
+> ([`routing_demo_divergence.json`](../data/processed/routing_demo_divergence.json)).
+> Its hazard field is near-static (241 → 244 core cells); the canonical field
+> grows 249 → 1,036. The earlier reading is kept because **the null result
+> turning out to be a property of the hazard field is itself the finding** — and
+> because, remarkably, the null largely survives the change.
 
 ## What this closes
 
@@ -27,6 +38,84 @@ forward-simulated hazard, and SRTM terrain are now all real simultaneously.**
 > That is a null result on the counts and a large effect on the times. It is not
 > evidence that terrain is unimportant; it is evidence that **this hazard field
 > cannot resolve it** (see *Why the counts do not move*).
+>
+> ⚠ **2026-08-02:** the "this hazard field cannot resolve it" reading was the
+> right instinct but the wrong culprit. On a hazard field that grows four times
+> over, the counts still barely move — and the origins that do move are not the
+> same ones at different sampling spacings. See the canonical-field re-run below.
+
+## The canonical-field re-run (2026-08-02) — the null largely survives
+
+Same walk graph, same DEM, same parameters, four-times-larger hazard field.
+
+| 표본 간격 | 폐기 장 (커밋, 인용) | **정본 장** | 평면 대비 이동 |
+|---|---:|---:|---:|
+| 평면 (대조군) | 440 / 17 / 3 | **415 / 41 / 2** | — |
+| 30 m | 440 / 17 / 3 | **413 / 42 / 3** | 3곳 |
+| **60 m ★정본** | 440 / 17 / 3 | **414 / 42 / 2** | 1곳 |
+| 90 m | 440 / 17 / 3 | **415 / 41 / 2** | **0곳** |
+
+`n_origins_scanned` is 460 on the reverted field and **458** on the canonical
+one: the t0 core grew from 241 to 249 cells, so two more nodes start at or above
+`p_cut` and are excluded by the unchanged origin rule. `fa_exceeds_budget` is 0
+in every arm. The flat-DiGraph regression passes — identical to the undirected
+control, as it must be when timing is flat.
+
+### The decisive check: it is not the same origin twice
+
+Three origins change bucket at *some* spacing. **None changes at all three.**
+
+| origin | flat bucket | 30 m | 60 m | 90 m | naive time ×flat (30/60/90) |
+|---|---|---|---|---|---|
+| `6205151092` | FA-only | **no_safe_route** | FA-only | FA-only | 1.22 / 1.09 / 1.08 |
+| `12044832090` | both_safe | **FA-only** | **FA-only** | both_safe | 1.33 / 1.16 / 1.14 |
+| `12048310971` | both_safe | **FA-only** | both_safe | both_safe | 1.47 / 1.21 / 1.20 |
+
+The movement is **monotone in the sampling-induced time penalty, not in
+terrain**: 30 m adds +40.4 % network-wide walk time and moves three origins,
+60 m adds +26.6 % and moves one, 90 m adds +21.0 % and moves none. All three
+origins are marginal cases whose naive walk is slowed 8–47 % — enough to change
+which hazard slice they meet, and only at the spacings that penalise hardest.
+
+That is the signature of **sampling noise**, and it is the same reason 60 m is
+canonical: at 30 m the sub-segment baseline drops below one SRTM pixel and DEM
+noise is read as terrain. So the PHASE-2 null result **holds on the canonical
+field too**, now for a measured reason rather than for want of an instrument.
+
+### Terrain reroutes without re-classifying
+
+| spacing | naive routes changed | future-aware routes changed |
+|---|---:|---:|
+| 30 m | **0** of 458 | 222 (**48.5 %**) |
+| 60 m | **0** of 458 | 179 (**39.1 %**) |
+| 90 m | **0** of 458 | 153 (**33.4 %**) |
+
+Naive stays at exactly 0 — it ranks by `length_m`, so its path is
+slope-invariant by construction, and any other value would be a bug. But the
+future-aware router, which does see time, **re-routes a third to a half of all
+origins** and almost never changes the verdict. Terrain changes *how people
+walk*; on this instrument it does not change *whether they survive*.
+
+### Implementation control
+
+Traversal time is a property of the graph and the DEM, not of the fire, and
+Yeongdeok's DEM was not re-acquired. At 60 m:
+
+| | committed | canonical |
+|---|---:|---:|
+| mean walk-time change | +26.594 % | **+26.594 %** |
+| mean \|slope\| | 8.18 % | 8.18 % |
+
+Identical to three decimal places, so the difference in counts is the hazard
+field and nothing else. The 30 / 90 m arms likewise reproduce 9.98 % / +40.4 %
+and 7.11 % / +21.0 %.
+
+---
+
+# ── EARLIER READING (reverted hazard field) ──────────────────────
+
+Everything from here on was measured on `routing_demo.npz`. It is retained as
+the record of what was reported, and because the contrast is the finding.
 
 ## The three-column comparison
 
