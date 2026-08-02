@@ -131,6 +131,9 @@ data/processed/**
 !data/processed/spread_v2_lofo_dem_corrected.json
 !data/processed/dem_negative_elevation_audit.json
 !data/processed/yeongdeok_dem_sensitivity.json
+# Why routing_demo.npz and yeongdeok_forward_sim.json disagree (archaeology,
+# boundary forensics, parameter sweep). Declares no winner.
+!data/processed/routing_demo_divergence.json
 # AUC-interval + ML-baseline analysis outputs (per-fire DeLong CIs / significance;
 # logistic/RF vs GBM comparison; persisted LOFO out-of-fold predictions). These are
 # the result artifacts of scripts/auc_intervals.py and scripts/ml_baselines.py;

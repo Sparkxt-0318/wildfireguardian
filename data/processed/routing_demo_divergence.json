@@ -1,0 +1,422 @@
+{
+  "schema_version": 1,
+  "title": "routing_demo.npz vs yeongdeok_forward_sim.json — why they disagree",
+  "generated_utc": "2026-08-02T12:07:31Z",
+  "git_commit": "6df4fcf0edf1cf69b00f478b2afbe074f901f2c4",
+  "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+  "declares_no_winner": "This file does NOT assert that 244 is wrong or that 27,900 is wrong. It records which explanations survive.",
+  "archaeology": {
+    "method": "git show <commit>:<path> for every revision touching the artifacts",
+    "file_mtimes": {
+      "routing_demo.npz": "2026-07-20 19:21:38",
+      "routing_demo.json": "2026-07-22 08:45:16",
+      "yeongdeok_forward_sim.json": "2026-07-22 08:45:16",
+      "spread_v2_lofo.json": "2026-07-22 08:45:16",
+      "fire_manifest.json": "2026-07-23 15:21:55"
+    },
+    "yeongdeok_forward_sim_envelope_by_commit": {
+      "c96bff0 (2026-06-03)": [
+        6225.0,
+        18225.0,
+        25500.0,
+        27050.0,
+        27900.0
+      ],
+      "01099bf (2026-07-20)": [
+        6025.0,
+        6025.0,
+        6025.0,
+        6050.0,
+        6100.0
+      ],
+      "bfa4677 (2026-07-20)": [
+        6225.0,
+        18225.0,
+        25500.0,
+        27050.0,
+        27900.0
+      ],
+      "ccb0865 (2026-07-21, Revert)": [
+        6225.0,
+        18225.0,
+        25500.0,
+        27050.0,
+        27900.0
+      ],
+      "HEAD": [
+        6225.0,
+        18225.0,
+        25500.0,
+        27050.0,
+        27900.0
+      ]
+    },
+    "spread_v2_lofo_by_commit": {
+      "c96bff0 (2026-06-03)": {
+        "pooled_auc": 0.9053,
+        "n_rows": 151904,
+        "n_positives": 2989
+      },
+      "01099bf (2026-07-20)": {
+        "pooled_auc": 0.8667,
+        "n_rows": 138619,
+        "n_positives": 2731
+      },
+      "bfa4677 (2026-07-20)": {
+        "pooled_auc": 0.8667,
+        "n_rows": 138619,
+        "n_positives": 2731
+      },
+      "ccb0865 (2026-07-21, Revert)": {
+        "pooled_auc": 0.9053,
+        "n_rows": 151904,
+        "n_positives": 2989
+      },
+      "HEAD": {
+        "pooled_auc": 0.9053,
+        "n_rows": 151904,
+        "n_positives": 2989
+      }
+    },
+    "npz_committed_at": "1e451ee (2026-07-24) — three days AFTER the revert",
+    "finding": "The npz's core areas (241/241/241/242/244 cells = 6025/6025/6025/6050/6100 ha) are EXACTLY the envelope_area_ha that yeongdeok_forward_sim.json carried at commit 01099bf. So the two artifacts DID come from one run — the 2026-07-20 run whose LOFO was pooled AUC 0.8667 over 138,619 rows and 2,731 positives. Commits 2f7f555 and ccb0865 then REVERTED that state on 2026-07-21, restoring the JSON to the earlier 6225->27900 figures and the LOFO to 0.9053 / 151,904 / 2,989. The npz was not part of those reverts: it was added to git separately on 2026-07-24 and still carries the reverted run's field.",
+    "retired_values_note": "0.867, 138619 and 2731 are all on the HARD forbidden list in scripts/check_forbidden.py as retired pre-correction values. The npz is the surviving output of exactly that run.",
+    "routing_demo_json_by_commit": {
+      "c96bff0 (2026-06-03)": {
+        "n_origins": 407,
+        "counts": {
+          "naive_into_FA_safe": 56,
+          "no_safe_route": 88,
+          "both_safe": 240
+        },
+        "headline_origin_xy_5179": [
+          1156815.41,
+          1832255.76
+        ]
+      },
+      "01099bf (2026-07-20)": {
+        "n_origins": 490,
+        "counts": {
+          "naive_into_FA_safe": 102,
+          "no_safe_route": 11,
+          "both_safe": 357
+        },
+        "headline_origin_xy_5179": [
+          1153094.95,
+          1832745.46
+        ]
+      },
+      "ccb0865 (2026-07-21, Revert)": {
+        "n_origins": 407,
+        "counts": {
+          "naive_into_FA_safe": 56,
+          "no_safe_route": 88,
+          "both_safe": 240
+        },
+        "headline_origin_xy_5179": [
+          1156815.41,
+          1832255.76
+        ]
+      },
+      "HEAD": {
+        "n_origins": 407,
+        "counts": {
+          "naive_into_FA_safe": 56,
+          "no_safe_route": 88,
+          "both_safe": 240
+        },
+        "headline_origin_xy_5179": [
+          1156815.41,
+          1832255.76
+        ]
+      }
+    },
+    "npz_origin_xy_5179": [
+      1153094.95093704,
+      1832745.46400613
+    ],
+    "three_way_confirmation": "The npz stores origin_xy = [1153094.95, 1832745.46]. That is EXACTLY the headline origin recorded in routing_demo.json at commit 01099bf, and it is NOT the one in the committed routing_demo.json (1156815.41, 1832255.76). So the npz agrees with the 2026-07-20 run on the hazard field AND on the routed origin, and disagrees with the currently committed JSONs on both. At 01099bf all four artifacts were mutually consistent; the 2026-07-21 reverts restored three of them and left the npz behind."
+  },
+  "code_was_not_the_variable": {
+    "method": "git diff 01099bf HEAD -- src/wildfireguardian/spread_v2/<file>",
+    "features.py": "UNCHANGED",
+    "model.py": "UNCHANGED",
+    "grid.py": "UNCHANGED",
+    "dataset.py": "UNCHANGED",
+    "forward_sim.py": "UNCHANGED",
+    "weather.py": "UNCHANGED",
+    "data.py": "UNCHANGED",
+    "only_change_in_package": "extent.py ADDED (PHASE 1, boundary guard) and README.md (2 lines)",
+    "parameters_recorded_in_the_01099bf_json": {
+      "n_steps": 5,
+      "step_hours": 3.0,
+      "advance_threshold": 0.3,
+      "horizon_min": 720.0
+    },
+    "consequence": "Identical model code and identical recorded parameters produced 138,619 rows then and 151,904 rows now, so the variable is the INPUT DATA, not the code and not the knobs. fire_manifest.json was itself regenerated on 2026-07-23 15:21."
+  },
+  "boundary_forensics": {
+    "npz_sha256": "5bed502661afa8e33335c342ddc468c2df6858267ea4f769a659f970e918da58",
+    "grid_shape": [
+      5,
+      181,
+      147
+    ],
+    "cells_ge_0.5_per_slice": [
+      241,
+      241,
+      241,
+      242,
+      244
+    ],
+    "core_column_extent": [
+      1,
+      87
+    ],
+    "core_row_extent": [
+      72,
+      116
+    ],
+    "n_columns": 147,
+    "n_rows": 181,
+    "max_p_west_columns_0_to_6": [
+      0.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.24,
+      1.0
+    ],
+    "max_p_east_columns_last_7": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "outer_ring_is_exactly_zero_in_every_slice": {
+      "col_0": true,
+      "col_last": true,
+      "row_0": true,
+      "row_last": true
+    },
+    "finding": "The outer ring is EXACTLY 0.0 in every slice on all four sides, while column 1 — one cell in from the western edge — reaches p = 1.0. A probability field does not fall from 1.0 to exactly 0.0 across one cell, so the western edge is TRUNCATED, not resolved. But the core occupies columns 1-87 of 147 and rows 72-116 of 181, so it has room to grow east, north and south and does not. Truncation therefore explains the western boundary; it does NOT explain why the core is near-static.",
+    "how_much_could_truncation_hide": "At most one column of the core's 45-row extent — about 45 cells, ~1,125 ha — is lost to the zeroed western ring. The gap to be explained is 244 vs ~1,014-1,094 cells. Truncation is an order of magnitude too small."
+  },
+  "parameter_sweep": {
+    "dataset": {
+      "n_rows": 151904,
+      "n_positives": 2989,
+      "fires": [
+        "gangneung_2023",
+        "hongseong_2023",
+        "miryang_2022",
+        "uiseong_andong_2025",
+        "uljin_samcheok_2022",
+        "yeongdeok_2025"
+      ]
+    },
+    "simulation_bbox_wgs84": [
+      128.97,
+      36.1,
+      129.77,
+      36.9
+    ],
+    "bbox_provenance": "config bbox.fire_acquisition.wgs84_wsen",
+    "target_committed_npz": [
+      241,
+      241,
+      241,
+      242,
+      244
+    ],
+    "runs": [
+      {
+        "advance_threshold": 0.9,
+        "n_steps": 4,
+        "step_hours": 3.0,
+        "cell_size_m": 500.0,
+        "grid": [
+          181,
+          147
+        ],
+        "cells_ge_0.5": [
+          245,
+          414,
+          665,
+          670,
+          672
+        ],
+        "envelope_area_ha": [
+          6125.0,
+          10350.0,
+          16625.0,
+          16750.0,
+          16800.0
+        ],
+        "final_minus_target": 428,
+        "abs_distance_to_target_final": 428
+      },
+      {
+        "advance_threshold": 0.95,
+        "n_steps": 4,
+        "step_hours": 3.0,
+        "cell_size_m": 500.0,
+        "grid": [
+          181,
+          147
+        ],
+        "cells_ge_0.5": [
+          245,
+          414,
+          665,
+          670,
+          672
+        ],
+        "envelope_area_ha": [
+          6125.0,
+          10350.0,
+          16625.0,
+          16750.0,
+          16800.0
+        ],
+        "final_minus_target": 428,
+        "abs_distance_to_target_final": 428
+      },
+      {
+        "advance_threshold": 0.99,
+        "n_steps": 4,
+        "step_hours": 3.0,
+        "cell_size_m": 500.0,
+        "grid": [
+          181,
+          147
+        ],
+        "cells_ge_0.5": [
+          245,
+          414,
+          665,
+          670,
+          672
+        ],
+        "envelope_area_ha": [
+          6125.0,
+          10350.0,
+          16625.0,
+          16750.0,
+          16800.0
+        ],
+        "final_minus_target": 428,
+        "abs_distance_to_target_final": 428
+      },
+      {
+        "advance_threshold": 0.7,
+        "n_steps": 4,
+        "step_hours": 3.0,
+        "cell_size_m": 500.0,
+        "grid": [
+          181,
+          147
+        ],
+        "cells_ge_0.5": [
+          245,
+          414,
+          671,
+          680,
+          684
+        ],
+        "envelope_area_ha": [
+          6125.0,
+          10350.0,
+          16775.0,
+          17000.0,
+          17100.0
+        ],
+        "final_minus_target": 440,
+        "abs_distance_to_target_final": 440
+      },
+      {
+        "advance_threshold": 0.5,
+        "n_steps": 4,
+        "step_hours": 3.0,
+        "cell_size_m": 500.0,
+        "grid": [
+          181,
+          147
+        ],
+        "cells_ge_0.5": [
+          245,
+          414,
+          742,
+          782,
+          811
+        ],
+        "envelope_area_ha": [
+          6125.0,
+          10350.0,
+          18550.0,
+          19550.0,
+          20275.0
+        ],
+        "final_minus_target": 567,
+        "abs_distance_to_target_final": 567
+      },
+      {
+        "advance_threshold": 0.3,
+        "n_steps": 4,
+        "step_hours": 3.0,
+        "cell_size_m": 500.0,
+        "grid": [
+          181,
+          147
+        ],
+        "cells_ge_0.5": [
+          245,
+          678,
+          927,
+          959,
+          1014
+        ],
+        "envelope_area_ha": [
+          6125.0,
+          16950.0,
+          23175.0,
+          23975.0,
+          25350.0
+        ],
+        "final_minus_target": 770,
+        "abs_distance_to_target_final": 770
+      }
+    ],
+    "closest_run": {
+      "advance_threshold": 0.9,
+      "n_steps": 4,
+      "step_hours": 3.0,
+      "cell_size_m": 500.0,
+      "grid": [
+        181,
+        147
+      ],
+      "cells_ge_0.5": [
+        245,
+        414,
+        665,
+        670,
+        672
+      ],
+      "envelope_area_ha": [
+        6125.0,
+        10350.0,
+        16625.0,
+        16750.0,
+        16800.0
+      ],
+      "final_minus_target": 428,
+      "abs_distance_to_target_final": 428
+    }
+  },
+  "downstream_reach": "routing_demo.npz is config paths.hazard_npz. It is the hazard field consumed by run_real_roads_real_hazard.py and run_real_roads_real_hazard_slope.py, so the whole 459 series — 459 = 438 + 18 + 3, the slope arms, the routing-objective 2x2, the budget sweep, and the Yeongdeok row quoted in the multi-region comparison — rests on it. The routing is correct FOR THAT FIELD; what is in question is which run the field came from. Registry entry hazard_npz_sha256 pins the npz, while the lofo_* entries come from spread_v2_lofo.json — and those two artifacts are from different runs."
+}
