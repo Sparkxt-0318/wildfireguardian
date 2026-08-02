@@ -5,11 +5,12 @@
 | | |
 |---|---|
 | branch | **`round3-dev`** (tracks `origin/round3-dev`) |
-| HEAD | `a0eaf07` |
+| HEAD | `cc41f12` + this commit |
 | baseline tag | **`round2-submitted`** = `4e9dfe3` — the submitted state |
 | environment | conda env **`wfg311`**, Python 3.11.15 — see [`ENVIRONMENT.md`](ENVIRONMENT.md) |
 | suite | **504 passed, 1 skipped, 0 failed** |
 | registry | [`NUMBERS.json`](NUMBERS.json) — 42 entries, 26 reproducible |
+| OSM regions | 3 acquired + snapshotted (`MANIFEST.json`, 64 entries) |
 | config hash | `0b6eb481177a…` |
 
 `docs/figures/*.png` carry three known uncommitted modifications. **Leave them
@@ -31,7 +32,7 @@ unstaged**; every commit here used `git add -A -- . ':!docs/figures/*.png'`.
 | 3-B — full-coverage re-run | done | `6612271` |
 | sparsity analysis | done | `bc3dfdd` |
 | 4 — live-operation feasibility | **NOT started** | — |
-| 5 — multi-region | STEP 0, 1, 2-1 done; **2-2 (acquisition) is next** | `466884f`, `5fe86db`, `a0eaf07` |
+| 5 — multi-region | STEP 0, 1, 2-1, **2-2 done**; **2-3 (routing) is next** | `466884f`, `5fe86db`, `a0eaf07`, `cc41f12` |
 
 ---
 
@@ -146,9 +147,31 @@ the routing.
 | **stride 18, not 3** | `rescue_demo.py:325` replaces the synthetic default 3 with `REAL_OSM_SCAN_STRIDE = 18` on the OSM path. Same stride for all regions; origin counts differ with road density, and that difference is part of the comparison. |
 | **`osmnx == 2.0.7` pinned** | Matches `created_with` inside the snapshot graphml. Floating it would put a second variable into every before/after comparison. `make env-check` fails on drift. |
 | **Envelope size differences are NOT normalised** | Choosing a denominator would be a new arbitrary decision. Report raw, with envelope area as a column. |
+| **Uiseong-Andong runs without depots** | Its 919 km² ignition-centred box contains **no** `amenity=fire_station` in OSM (the wider 3,926 km² manifest box contains six). Widening the tag set or the bbox would break the identical-rule requirement and destroy the comparison. The cross-region metric is resident-side, so it is unaffected; the responder side is recorded as `responder_side_available: false` — **never as zero dispatches**. |
 | **OSM cache is per region** | `RescueConfig.osm_cache_path` = `{osm_cache_dir}/{region_name}/`. Fixed filenames previously meant a second region's fetch would overwrite the first. |
 
 ---
+
+### PHASE 5 STEP 2-2 — acquisition complete
+
+All three regions are on disk under `data/cache/osm/{region}/` and snapshotted
+(`MANIFEST.json`, 64 entries). Provenance in `osm_acquisition.json`, covariates
+in `osm_completeness.json`.
+
+| region | area | road km/km² | nodes/km² | geometry | highway | shelter /100 km² | **depot /100 km²** | responder side |
+|---|---:|---:|---:|---:|---:|---:|---:|---|
+| Yeongdeok 2025 | 931 | 1.733 | 9.07 | 67.4 % | 100 % | 5.37 | 0.43 | available |
+| Uiseong-Andong 2025 | 919 | **2.332** | 7.27 | **78.6 %** | 100 % | 3.70 | **0.00** | **NOT APPLICABLE** |
+| Uljin-Samcheok 2022 | 924 | 1.601 | 7.90 | 68.3 % | 100 % | 2.81 | 0.43 | available |
+
+Relative to Yeongdeok: road density 1.35× / 0.92×, node density 0.80× / 0.87×,
+shelter density 0.69× / 0.52×. **Carry this table beside every cross-region
+routing number** — otherwise "regions differ" cannot be told from "mapping
+differs".
+
+⚠ Write the depot fact as: *발화점 중심 919 km² 범위 내에 OSM에 매핑된
+fire_station이 없으며, 더 넓은 3,926 km² 범위에는 6곳이 있습니다.* **Never** as
+"Uiseong-Andong has no fire stations."
 
 ## 4. Open items
 
@@ -189,6 +212,11 @@ the routing.
 9. **Never edit `data/raw/firms_data/fire_manifest.json`.** It is the acquisition
    record. Simulation-side changes belong in `config`.
 10. **Never quote a short-budget `w` without its budget.** 55 % alone is wrong.
+11. **Never write "Uiseong-Andong has no fire stations."** Say: no
+    `amenity=fire_station` is mapped in OSM inside its 919 km² walk bbox; the
+    wider 3,926 km² manifest bbox contains six.
+12. **Never report a cross-region routing number without the completeness
+    covariates** from `osm_completeness.json`.
 
 ---
 
@@ -200,7 +228,13 @@ conda activate wfg311          # or use /Users/jp/miniforge3/envs/wfg311/bin/pyt
 make verify && make test       # expect 42/42 and 504 passed, 1 skipped
 ```
 
-**PHASE 5 STEP 2-2 — acquire OSM for the two regions.** bboxes are FIXED:
+**PHASE 5 STEP 2-3 — routing.** Acquisition is done; the next action is to run
+the 459-series routing per region with parameters identical to Yeongdeok (slope
+60 m, distance objective, 600-min budget), writing
+`real_roads_real_hazard_{region}.json`. Then STEP 4:
+`multi_region_comparison.json` + `docs/multi_region.md`.
+
+The walk bboxes, already acquired, are:
 
 | region | walk bbox (W, S, E, N) | area | envelope coverage |
 |---|---|---:|---:|

@@ -886,6 +886,36 @@
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4"
     },
     {
+      "snapshot_file": "osm-depots_uiseong-andong-2025_20260802_eaa10a64.geojson",
+      "sha256": "eaa10a64f543bc2bb4ba9f30c005131265fb48086e394c803c68d052a0da555c",
+      "bytes": 159,
+      "stored_file": "osm-depots_uiseong-andong-2025_20260802_eaa10a64.geojson",
+      "stored_bytes": 159,
+      "stored_sha256": "eaa10a64f543bc2bb4ba9f30c005131265fb48086e394c803c68d052a0da555c",
+      "compression": "none",
+      "committed_to_git": true,
+      "source": "osm-depots",
+      "region": "uiseong-andong-2025",
+      "layer": "OSM depot POIs used as responder origins (119안전센터 proxy)",
+      "origin_path": "data/cache/osm/uiseong_andong_2025/depots.geojson",
+      "acquired_utc": "2026-08-02T05:27:15Z",
+      "acquired_clock": "source file mtime (not snapshot time)",
+      "snapshotted_utc": "2026-08-02T05:27:32Z",
+      "parameters": {
+        "osmnx_query": "ox.graph_from_bbox(bbox=[129.25, 36.3, 129.55, 36.6], network_type=...)",
+        "bbox_wgs84_wsen": [
+          129.25,
+          36.3,
+          129.55,
+          36.6
+        ],
+        "reprojected_to": "EPSG:5179",
+        "region": "uiseong_andong_2025"
+      },
+      "config_hash": "51ec446843b6107438cce06fa23aa0578bf1d46bee084297b18b311eb7d7c129",
+      "git_commit": "cc41f12e0410ea85ca3380248e5a11252ab21df7"
+    },
+    {
       "snapshot_file": "osm-depots_uljin-samcheok-2022_20260802_04c2f296.geojson",
       "sha256": "04c2f296a8cd06f291af3f9e1cfe33efa907687541b3a233c7dae100886a4b04",
       "bytes": 1161,
@@ -900,7 +930,7 @@
       "origin_path": "data/cache/osm/uljin_samcheok_2022/depots.geojson",
       "acquired_utc": "2026-08-02T04:37:10Z",
       "acquired_clock": "source file mtime (not snapshot time)",
-      "snapshotted_utc": "2026-08-02T04:40:30Z",
+      "snapshotted_utc": "2026-08-02T05:27:32Z",
       "parameters": {
         "osmnx_query": "ox.graph_from_bbox(bbox=[129.25, 36.3, 129.55, 36.6], network_type=...)",
         "bbox_wgs84_wsen": [
@@ -913,7 +943,7 @@
         "region": "uljin_samcheok_2022"
       },
       "config_hash": "51ec446843b6107438cce06fa23aa0578bf1d46bee084297b18b311eb7d7c129",
-      "git_commit": "66abf92efb3183ff1cfb5ef6770f9b6770f467f9"
+      "git_commit": "cc41f12e0410ea85ca3380248e5a11252ab21df7"
     },
     {
       "snapshot_file": "osm-depots_yeongdeok-2025_20260724_ab512d83.geojson",
@@ -930,7 +960,7 @@
       "origin_path": "data/cache/osm/yeongdeok_2025/depots.geojson",
       "acquired_utc": "2026-07-24T13:44:54Z",
       "acquired_clock": "source file mtime (not snapshot time)",
-      "snapshotted_utc": "2026-08-02T04:40:30Z",
+      "snapshotted_utc": "2026-08-02T05:27:32Z",
       "parameters": {
         "osmnx_query": "ox.graph_from_bbox(bbox=[129.25, 36.3, 129.55, 36.6], network_type=...)",
         "bbox_wgs84_wsen": [
@@ -943,7 +973,37 @@
         "region": "yeongdeok_2025"
       },
       "config_hash": "51ec446843b6107438cce06fa23aa0578bf1d46bee084297b18b311eb7d7c129",
-      "git_commit": "66abf92efb3183ff1cfb5ef6770f9b6770f467f9"
+      "git_commit": "cc41f12e0410ea85ca3380248e5a11252ab21df7"
+    },
+    {
+      "snapshot_file": "osm-drive_uiseong-andong-2025_20260802_d601bf15.graphml",
+      "sha256": "d601bf15d72f64a16cafbc06babf63cac9064f37c3c00a34e3ceb49b3c67eacf",
+      "bytes": 5077204,
+      "stored_file": "osm-drive_uiseong-andong-2025_20260802_d601bf15.graphml.gz",
+      "stored_bytes": 1053774,
+      "stored_sha256": "874e297cc13fcebc690462668bac8d6be1acebd68885a64097048dafef2a9a22",
+      "compression": "gzip(mtime=0,level=9)",
+      "committed_to_git": true,
+      "source": "osm-drive",
+      "region": "uiseong-andong-2025",
+      "layer": "OSMnx network_type='drive' graph, reprojected to EPSG:5179",
+      "origin_path": "data/cache/osm/uiseong_andong_2025/drive.graphml",
+      "acquired_utc": "2026-08-02T05:27:15Z",
+      "acquired_clock": "source file mtime (not snapshot time)",
+      "snapshotted_utc": "2026-08-02T05:27:32Z",
+      "parameters": {
+        "osmnx_query": "ox.graph_from_bbox(bbox=[129.25, 36.3, 129.55, 36.6], network_type=...)",
+        "bbox_wgs84_wsen": [
+          129.25,
+          36.3,
+          129.55,
+          36.6
+        ],
+        "reprojected_to": "EPSG:5179",
+        "region": "uiseong_andong_2025"
+      },
+      "config_hash": "51ec446843b6107438cce06fa23aa0578bf1d46bee084297b18b311eb7d7c129",
+      "git_commit": "cc41f12e0410ea85ca3380248e5a11252ab21df7"
     },
     {
       "snapshot_file": "osm-drive_uljin-samcheok-2022_20260802_e646f00f.graphml",
@@ -960,7 +1020,7 @@
       "origin_path": "data/cache/osm/uljin_samcheok_2022/drive.graphml",
       "acquired_utc": "2026-08-02T04:36:56Z",
       "acquired_clock": "source file mtime (not snapshot time)",
-      "snapshotted_utc": "2026-08-02T04:40:30Z",
+      "snapshotted_utc": "2026-08-02T05:27:32Z",
       "parameters": {
         "osmnx_query": "ox.graph_from_bbox(bbox=[129.25, 36.3, 129.55, 36.6], network_type=...)",
         "bbox_wgs84_wsen": [
@@ -973,7 +1033,7 @@
         "region": "uljin_samcheok_2022"
       },
       "config_hash": "51ec446843b6107438cce06fa23aa0578bf1d46bee084297b18b311eb7d7c129",
-      "git_commit": "66abf92efb3183ff1cfb5ef6770f9b6770f467f9"
+      "git_commit": "cc41f12e0410ea85ca3380248e5a11252ab21df7"
     },
     {
       "snapshot_file": "osm-drive_yeongdeok-2025_20260724_f537bdf5.graphml",
@@ -990,7 +1050,7 @@
       "origin_path": "data/cache/osm/yeongdeok_2025/drive.graphml",
       "acquired_utc": "2026-07-24T13:41:13Z",
       "acquired_clock": "source file mtime (not snapshot time)",
-      "snapshotted_utc": "2026-08-02T04:40:30Z",
+      "snapshotted_utc": "2026-08-02T05:27:32Z",
       "parameters": {
         "osmnx_query": "ox.graph_from_bbox(bbox=[129.25, 36.3, 129.55, 36.6], network_type=...)",
         "bbox_wgs84_wsen": [
@@ -1003,7 +1063,37 @@
         "region": "yeongdeok_2025"
       },
       "config_hash": "51ec446843b6107438cce06fa23aa0578bf1d46bee084297b18b311eb7d7c129",
-      "git_commit": "66abf92efb3183ff1cfb5ef6770f9b6770f467f9"
+      "git_commit": "cc41f12e0410ea85ca3380248e5a11252ab21df7"
+    },
+    {
+      "snapshot_file": "osm-firestation_uiseong-andong-2025_20260802_eaa10a64.geojson",
+      "sha256": "eaa10a64f543bc2bb4ba9f30c005131265fb48086e394c803c68d052a0da555c",
+      "bytes": 159,
+      "stored_file": "osm-firestation_uiseong-andong-2025_20260802_eaa10a64.geojson",
+      "stored_bytes": 159,
+      "stored_sha256": "eaa10a64f543bc2bb4ba9f30c005131265fb48086e394c803c68d052a0da555c",
+      "compression": "none",
+      "committed_to_git": true,
+      "source": "osm-firestation",
+      "region": "uiseong-andong-2025",
+      "layer": "OSM amenity=fire_station POIs (source layer behind depots)",
+      "origin_path": "data/cache/osm/uiseong_andong_2025/fire_station.geojson",
+      "acquired_utc": "2026-08-02T05:27:15Z",
+      "acquired_clock": "source file mtime (not snapshot time)",
+      "snapshotted_utc": "2026-08-02T05:27:32Z",
+      "parameters": {
+        "osmnx_query": "ox.graph_from_bbox(bbox=[129.25, 36.3, 129.55, 36.6], network_type=...)",
+        "bbox_wgs84_wsen": [
+          129.25,
+          36.3,
+          129.55,
+          36.6
+        ],
+        "reprojected_to": "EPSG:5179",
+        "region": "uiseong_andong_2025"
+      },
+      "config_hash": "51ec446843b6107438cce06fa23aa0578bf1d46bee084297b18b311eb7d7c129",
+      "git_commit": "cc41f12e0410ea85ca3380248e5a11252ab21df7"
     },
     {
       "snapshot_file": "osm-firestation_uljin-samcheok-2022_20260802_04c2f296.geojson",
@@ -1020,7 +1110,7 @@
       "origin_path": "data/cache/osm/uljin_samcheok_2022/fire_station.geojson",
       "acquired_utc": "2026-08-02T04:37:10Z",
       "acquired_clock": "source file mtime (not snapshot time)",
-      "snapshotted_utc": "2026-08-02T04:40:30Z",
+      "snapshotted_utc": "2026-08-02T05:27:32Z",
       "parameters": {
         "osmnx_query": "ox.graph_from_bbox(bbox=[129.25, 36.3, 129.55, 36.6], network_type=...)",
         "bbox_wgs84_wsen": [
@@ -1033,7 +1123,7 @@
         "region": "uljin_samcheok_2022"
       },
       "config_hash": "51ec446843b6107438cce06fa23aa0578bf1d46bee084297b18b311eb7d7c129",
-      "git_commit": "66abf92efb3183ff1cfb5ef6770f9b6770f467f9"
+      "git_commit": "cc41f12e0410ea85ca3380248e5a11252ab21df7"
     },
     {
       "snapshot_file": "osm-firestation_yeongdeok-2025_20260724_ab512d83.geojson",
@@ -1050,7 +1140,7 @@
       "origin_path": "data/cache/osm/yeongdeok_2025/fire_station.geojson",
       "acquired_utc": "2026-07-24T13:44:28Z",
       "acquired_clock": "source file mtime (not snapshot time)",
-      "snapshotted_utc": "2026-08-02T04:40:30Z",
+      "snapshotted_utc": "2026-08-02T05:27:32Z",
       "parameters": {
         "osmnx_query": "ox.graph_from_bbox(bbox=[129.25, 36.3, 129.55, 36.6], network_type=...)",
         "bbox_wgs84_wsen": [
@@ -1063,7 +1153,7 @@
         "region": "yeongdeok_2025"
       },
       "config_hash": "51ec446843b6107438cce06fa23aa0578bf1d46bee084297b18b311eb7d7c129",
-      "git_commit": "66abf92efb3183ff1cfb5ef6770f9b6770f467f9"
+      "git_commit": "cc41f12e0410ea85ca3380248e5a11252ab21df7"
     },
     {
       "snapshot_file": "osm-httpcache_yeongdeok-2025_20260724_1e7f6ad7.json",
@@ -1269,6 +1359,36 @@
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4"
     },
     {
+      "snapshot_file": "osm-shelters_uiseong-andong-2025_20260802_065fac6b.geojson",
+      "sha256": "065fac6b4380000fd316febcef641bdc8ed7e14493aae27922d5ad1b711637f2",
+      "bytes": 15084,
+      "stored_file": "osm-shelters_uiseong-andong-2025_20260802_065fac6b.geojson",
+      "stored_bytes": 15084,
+      "stored_sha256": "065fac6b4380000fd316febcef641bdc8ed7e14493aae27922d5ad1b711637f2",
+      "compression": "none",
+      "committed_to_git": true,
+      "source": "osm-shelters",
+      "region": "uiseong-andong-2025",
+      "layer": "OSM refuge/assembly POIs used as evacuation destinations",
+      "origin_path": "data/cache/osm/uiseong_andong_2025/shelters.geojson",
+      "acquired_utc": "2026-08-02T05:27:15Z",
+      "acquired_clock": "source file mtime (not snapshot time)",
+      "snapshotted_utc": "2026-08-02T05:27:32Z",
+      "parameters": {
+        "osmnx_query": "ox.graph_from_bbox(bbox=[129.25, 36.3, 129.55, 36.6], network_type=...)",
+        "bbox_wgs84_wsen": [
+          129.25,
+          36.3,
+          129.55,
+          36.6
+        ],
+        "reprojected_to": "EPSG:5179",
+        "region": "uiseong_andong_2025"
+      },
+      "config_hash": "51ec446843b6107438cce06fa23aa0578bf1d46bee084297b18b311eb7d7c129",
+      "git_commit": "cc41f12e0410ea85ca3380248e5a11252ab21df7"
+    },
+    {
       "snapshot_file": "osm-shelters_uljin-samcheok-2022_20260802_f91a2e1f.geojson",
       "sha256": "f91a2e1f0387d1d1a4e203af2ea5bef6fbc6959dc58260dc09d0990ae55edf5e",
       "bytes": 7532,
@@ -1283,7 +1403,7 @@
       "origin_path": "data/cache/osm/uljin_samcheok_2022/shelters.geojson",
       "acquired_utc": "2026-08-02T04:37:07Z",
       "acquired_clock": "source file mtime (not snapshot time)",
-      "snapshotted_utc": "2026-08-02T04:40:30Z",
+      "snapshotted_utc": "2026-08-02T05:27:32Z",
       "parameters": {
         "osmnx_query": "ox.graph_from_bbox(bbox=[129.25, 36.3, 129.55, 36.6], network_type=...)",
         "bbox_wgs84_wsen": [
@@ -1296,7 +1416,7 @@
         "region": "uljin_samcheok_2022"
       },
       "config_hash": "51ec446843b6107438cce06fa23aa0578bf1d46bee084297b18b311eb7d7c129",
-      "git_commit": "66abf92efb3183ff1cfb5ef6770f9b6770f467f9"
+      "git_commit": "cc41f12e0410ea85ca3380248e5a11252ab21df7"
     },
     {
       "snapshot_file": "osm-shelters_yeongdeok-2025_20260724_ac42a42b.geojson",
@@ -1313,7 +1433,7 @@
       "origin_path": "data/cache/osm/yeongdeok_2025/shelters.geojson",
       "acquired_utc": "2026-07-24T13:43:14Z",
       "acquired_clock": "source file mtime (not snapshot time)",
-      "snapshotted_utc": "2026-08-02T04:40:30Z",
+      "snapshotted_utc": "2026-08-02T05:27:32Z",
       "parameters": {
         "osmnx_query": "ox.graph_from_bbox(bbox=[129.25, 36.3, 129.55, 36.6], network_type=...)",
         "bbox_wgs84_wsen": [
@@ -1326,7 +1446,37 @@
         "region": "yeongdeok_2025"
       },
       "config_hash": "51ec446843b6107438cce06fa23aa0578bf1d46bee084297b18b311eb7d7c129",
-      "git_commit": "66abf92efb3183ff1cfb5ef6770f9b6770f467f9"
+      "git_commit": "cc41f12e0410ea85ca3380248e5a11252ab21df7"
+    },
+    {
+      "snapshot_file": "osm-walk_uiseong-andong-2025_20260802_031147a0.graphml",
+      "sha256": "031147a07903dc3434ec05f4aad18a6bcbf7eb69c0ed30f023042a20fb89ed34",
+      "bytes": 13144688,
+      "stored_file": "osm-walk_uiseong-andong-2025_20260802_031147a0.graphml.gz",
+      "stored_bytes": 2662585,
+      "stored_sha256": "b73e8b939c9f31264c7cb35214821760bbb64ce469faa40c060f87523bb1b678",
+      "compression": "gzip(mtime=0,level=9)",
+      "committed_to_git": true,
+      "source": "osm-walk",
+      "region": "uiseong-andong-2025",
+      "layer": "OSMnx network_type='walk' graph, reprojected to EPSG:5179",
+      "origin_path": "data/cache/osm/uiseong_andong_2025/walk.graphml",
+      "acquired_utc": "2026-08-02T05:27:13Z",
+      "acquired_clock": "source file mtime (not snapshot time)",
+      "snapshotted_utc": "2026-08-02T05:27:32Z",
+      "parameters": {
+        "osmnx_query": "ox.graph_from_bbox(bbox=[129.25, 36.3, 129.55, 36.6], network_type=...)",
+        "bbox_wgs84_wsen": [
+          129.25,
+          36.3,
+          129.55,
+          36.6
+        ],
+        "reprojected_to": "EPSG:5179",
+        "region": "uiseong_andong_2025"
+      },
+      "config_hash": "51ec446843b6107438cce06fa23aa0578bf1d46bee084297b18b311eb7d7c129",
+      "git_commit": "cc41f12e0410ea85ca3380248e5a11252ab21df7"
     },
     {
       "snapshot_file": "osm-walk_uljin-samcheok-2022_20260802_a3c22a47.graphml",
@@ -1343,7 +1493,7 @@
       "origin_path": "data/cache/osm/uljin_samcheok_2022/walk.graphml",
       "acquired_utc": "2026-08-02T04:36:46Z",
       "acquired_clock": "source file mtime (not snapshot time)",
-      "snapshotted_utc": "2026-08-02T04:40:30Z",
+      "snapshotted_utc": "2026-08-02T05:27:32Z",
       "parameters": {
         "osmnx_query": "ox.graph_from_bbox(bbox=[129.25, 36.3, 129.55, 36.6], network_type=...)",
         "bbox_wgs84_wsen": [
@@ -1356,7 +1506,7 @@
         "region": "uljin_samcheok_2022"
       },
       "config_hash": "51ec446843b6107438cce06fa23aa0578bf1d46bee084297b18b311eb7d7c129",
-      "git_commit": "66abf92efb3183ff1cfb5ef6770f9b6770f467f9"
+      "git_commit": "cc41f12e0410ea85ca3380248e5a11252ab21df7"
     },
     {
       "snapshot_file": "osm-walk_yeongdeok-2025_20260724_2bff8d85.graphml",
@@ -1373,7 +1523,7 @@
       "origin_path": "data/cache/osm/yeongdeok_2025/walk.graphml",
       "acquired_utc": "2026-07-24T13:40:57Z",
       "acquired_clock": "source file mtime (not snapshot time)",
-      "snapshotted_utc": "2026-08-02T04:40:30Z",
+      "snapshotted_utc": "2026-08-02T05:27:32Z",
       "parameters": {
         "osmnx_query": "ox.graph_from_bbox(bbox=[129.25, 36.3, 129.55, 36.6], network_type=...)",
         "bbox_wgs84_wsen": [
@@ -1386,8 +1536,8 @@
         "region": "yeongdeok_2025"
       },
       "config_hash": "51ec446843b6107438cce06fa23aa0578bf1d46bee084297b18b311eb7d7c129",
-      "git_commit": "66abf92efb3183ff1cfb5ef6770f9b6770f467f9"
+      "git_commit": "cc41f12e0410ea85ca3380248e5a11252ab21df7"
     }
   ],
-  "updated_utc": "2026-08-02T04:40:30Z"
+  "updated_utc": "2026-08-02T05:27:32Z"
 }
