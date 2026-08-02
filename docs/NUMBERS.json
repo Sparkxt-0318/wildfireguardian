@@ -3,7 +3,7 @@
   "_README": "CANONICAL REGISTRY. Every reportable number lives here exactly once. Do not restate a value in prose without citing its key. 'verified' = still matches its artifact; 'reproducible' = re-running the pipeline regenerates that artifact. They are independent — several numbers here are verified but NOT reproducible because the OSM network behind them was overwritten (docs/DATA_LOSS_2026-07-24.md). Run scripts/verify_numbers.py to re-check every entry.",
   "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
   "config_hash_note": "The per-entry config_hash is re-stamped on every build, so it marks the config a build SAW, not the config a number was PRODUCED under. It moved 0b6eb481177a… -> 51ec446843b6… between the 2026-08-01 build and the 2026-08-02 (PHASE 5 STEP 4) build. That move is PURELY ADDITIVE: `bbox.multi_region_walk_bbox` and `grid.simulation_bbox_extension` were added and NOT ONE existing key changed value (verified key-by-key against config/default.yaml at commit 5fe86db). No Round-2 number is stale as a result.",
-  "built_at_git_commit": "141b035aaaa87884fec7a97f430b35f258b4ab6a",
+  "built_at_git_commit": "ed5e6b0987aeeee95fc2dc04cbeb9e9eb39276c3",
   "round2_submission_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
   "numbers": {
     "lofo_mean_of_folds_auc": {
@@ -1472,6 +1472,246 @@
       },
       "reproducible": true
     },
+    "mr_yeongdeok_n_origins": {
+      "value": 458,
+      "unit": "origins",
+      "source_file": "data/processed/real_roads_real_hazard_canonical.json",
+      "json_path": "arms.slope_digraph_canonical.counts",
+      "derivation": "stride-18 scan of the snapshot walk graph, minus nodes already at/above p_cut at t0 and minus the reach band",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "영덕 2025 · 458곳 주사",
+      "caveat": "459-SERIES, THREE BUCKETS. This is the share of scanned origins that reach safety ONLY on the future-aware route. It is NOT the walk-failure rate w — w is a 439-series quantity built on a SYNTHETIC hazard envelope with a fabricated coastline and cannot be computed for an inland region at all. Never quote across regions without the covariates in the same table: envelope coverage 50.4–98.9 %, hazard envelope area 2.77x between smallest and largest, node density 7.27–9.07 per km². n = 3.",
+      "forbidden_phrasings": [
+        "보행 실패율",
+        "walk failure rate",
+        "w = ",
+        "지역 간 상관관계가 있다",
+        "correlates across regions",
+        "의성·안동이 영덕보다 안전하다",
+        "Uiseong-Andong is safer than Yeongdeok",
+        "의성·안동에는 소방서가 없다",
+        "Uiseong-Andong has no fire stations"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/multi_region_comparison.json",
+            "json_path": "regions.0.n_origins_scanned"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, with osmnx pinned to 2.0.7. It re-runs the 459-series scan on the CANONICAL hazard field; the committed real_roads_real_hazard.json (2026-07-23 network, reverted-run hazard) is untouched and remains not reproducible.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "mr_yeongdeok_both_safe": {
+      "value": 414,
+      "unit": "origins",
+      "source_file": "data/processed/real_roads_real_hazard_canonical.json",
+      "json_path": "arms.slope_digraph_canonical.counts",
+      "derivation": "both the fire-blind and the future-aware route reach a refuge without entering the predicted hazard",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "영덕 2025 · 458곳 주사",
+      "caveat": "459-SERIES, THREE BUCKETS. This is the share of scanned origins that reach safety ONLY on the future-aware route. It is NOT the walk-failure rate w — w is a 439-series quantity built on a SYNTHETIC hazard envelope with a fabricated coastline and cannot be computed for an inland region at all. Never quote across regions without the covariates in the same table: envelope coverage 50.4–98.9 %, hazard envelope area 2.77x between smallest and largest, node density 7.27–9.07 per km². n = 3.",
+      "forbidden_phrasings": [
+        "보행 실패율",
+        "walk failure rate",
+        "w = ",
+        "지역 간 상관관계가 있다",
+        "correlates across regions",
+        "의성·안동이 영덕보다 안전하다",
+        "Uiseong-Andong is safer than Yeongdeok",
+        "의성·안동에는 소방서가 없다",
+        "Uiseong-Andong has no fire stations"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/multi_region_comparison.json",
+            "json_path": "regions.0.both_safe"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, with osmnx pinned to 2.0.7. It re-runs the 459-series scan on the CANONICAL hazard field; the committed real_roads_real_hazard.json (2026-07-23 network, reverted-run hazard) is untouched and remains not reproducible.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "mr_yeongdeok_future_aware_only_safe": {
+      "value": 42,
+      "unit": "origins",
+      "source_file": "data/processed/real_roads_real_hazard_canonical.json",
+      "json_path": "arms.slope_digraph_canonical.counts",
+      "derivation": "fire-blind route enters the predicted hazard, future-aware route reaches a refuge without entering it",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "영덕 2025 · 458곳 주사",
+      "caveat": "459-SERIES, THREE BUCKETS. This is the share of scanned origins that reach safety ONLY on the future-aware route. It is NOT the walk-failure rate w — w is a 439-series quantity built on a SYNTHETIC hazard envelope with a fabricated coastline and cannot be computed for an inland region at all. Never quote across regions without the covariates in the same table: envelope coverage 50.4–98.9 %, hazard envelope area 2.77x between smallest and largest, node density 7.27–9.07 per km². n = 3.",
+      "forbidden_phrasings": [
+        "보행 실패율",
+        "walk failure rate",
+        "w = ",
+        "지역 간 상관관계가 있다",
+        "correlates across regions",
+        "의성·안동이 영덕보다 안전하다",
+        "Uiseong-Andong is safer than Yeongdeok",
+        "의성·안동에는 소방서가 없다",
+        "Uiseong-Andong has no fire stations"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/multi_region_comparison.json",
+            "json_path": "regions.0.future_aware_only_safe"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, with osmnx pinned to 2.0.7. It re-runs the 459-series scan on the CANONICAL hazard field; the committed real_roads_real_hazard.json (2026-07-23 network, reverted-run hazard) is untouched and remains not reproducible.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "mr_yeongdeok_no_safe_route": {
+      "value": 2,
+      "unit": "origins",
+      "source_file": "data/processed/real_roads_real_hazard_canonical.json",
+      "json_path": "arms.slope_digraph_canonical.counts",
+      "derivation": "fire-blind route enters the hazard AND the future-aware router finds no route at all",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "영덕 2025 · 458곳 주사",
+      "caveat": "459-SERIES, THREE BUCKETS. This is the share of scanned origins that reach safety ONLY on the future-aware route. It is NOT the walk-failure rate w — w is a 439-series quantity built on a SYNTHETIC hazard envelope with a fabricated coastline and cannot be computed for an inland region at all. Never quote across regions without the covariates in the same table: envelope coverage 50.4–98.9 %, hazard envelope area 2.77x between smallest and largest, node density 7.27–9.07 per km². n = 3.",
+      "forbidden_phrasings": [
+        "보행 실패율",
+        "walk failure rate",
+        "w = ",
+        "지역 간 상관관계가 있다",
+        "correlates across regions",
+        "의성·안동이 영덕보다 안전하다",
+        "Uiseong-Andong is safer than Yeongdeok",
+        "의성·안동에는 소방서가 없다",
+        "Uiseong-Andong has no fire stations"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/multi_region_comparison.json",
+            "json_path": "regions.0.no_safe_route"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, with osmnx pinned to 2.0.7. It re-runs the 459-series scan on the CANONICAL hazard field; the committed real_roads_real_hazard.json (2026-07-23 network, reverted-run hazard) is untouched and remains not reproducible.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "mr_yeongdeok_fa_exceeds_budget": {
+      "value": 0,
+      "unit": "origins",
+      "source_file": "data/processed/real_roads_real_hazard_canonical.json",
+      "json_path": "arms.slope_digraph_canonical.counts",
+      "derivation": "fire-blind route is safe but the future-aware router cannot finish inside the 600-minute budget",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "영덕 2025 · 458곳 주사",
+      "caveat": "459-SERIES, THREE BUCKETS. This is the share of scanned origins that reach safety ONLY on the future-aware route. It is NOT the walk-failure rate w — w is a 439-series quantity built on a SYNTHETIC hazard envelope with a fabricated coastline and cannot be computed for an inland region at all. Never quote across regions without the covariates in the same table: envelope coverage 50.4–98.9 %, hazard envelope area 2.77x between smallest and largest, node density 7.27–9.07 per km². n = 3.",
+      "forbidden_phrasings": [
+        "보행 실패율",
+        "walk failure rate",
+        "w = ",
+        "지역 간 상관관계가 있다",
+        "correlates across regions",
+        "의성·안동이 영덕보다 안전하다",
+        "Uiseong-Andong is safer than Yeongdeok",
+        "의성·안동에는 소방서가 없다",
+        "Uiseong-Andong has no fire stations"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/multi_region_comparison.json",
+            "json_path": "regions.0.fa_exceeds_budget"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, with osmnx pinned to 2.0.7. It re-runs the 459-series scan on the CANONICAL hazard field; the committed real_roads_real_hazard.json (2026-07-23 network, reverted-run hazard) is untouched and remains not reproducible.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "mr_yeongdeok_fa_only_pct": {
+      "value": 9.17,
+      "unit": "% of origins",
+      "source_file": "data/processed/multi_region_comparison.json",
+      "json_path": "regions.0.future_aware_only_safe_pct",
+      "derivation": "100 * naive_into_FA_safe / n_origins_scanned",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "영덕 2025 · 458곳 주사",
+      "caveat": "459-SERIES, THREE BUCKETS. This is the share of scanned origins that reach safety ONLY on the future-aware route. It is NOT the walk-failure rate w — w is a 439-series quantity built on a SYNTHETIC hazard envelope with a fabricated coastline and cannot be computed for an inland region at all. Never quote across regions without the covariates in the same table: envelope coverage 50.4–98.9 %, hazard envelope area 2.77x between smallest and largest, node density 7.27–9.07 per km². n = 3.",
+      "forbidden_phrasings": [
+        "보행 실패율",
+        "walk failure rate",
+        "w = ",
+        "지역 간 상관관계가 있다",
+        "correlates across regions",
+        "의성·안동이 영덕보다 안전하다",
+        "Uiseong-Andong is safer than Yeongdeok",
+        "의성·안동에는 소방서가 없다",
+        "Uiseong-Andong has no fire stations"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/multi_region_comparison.json",
+            "json_path": "regions.0.future_aware_only_safe_pct"
+          }
+        },
+        "expr": "round(a, 2)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
     "mr_uiseong_n_origins": {
       "value": 368,
       "unit": "origins",
@@ -1953,7 +2193,7 @@
       "reproducible": true
     },
     "mr_yeongdeok_envelope_coverage": {
-      "value": 0.504,
+      "value": 0.326,
       "unit": "fraction",
       "source_file": "data/processed/multi_region_comparison.json",
       "json_path": "regions.0.envelope_coverage_final_slice",
@@ -1995,7 +2235,7 @@
       "reproducible": true
     },
     "mr_yeongdeok_envelope_area_ha": {
-      "value": 6100.0,
+      "value": 25900.0,
       "unit": "ha",
       "source_file": "data/processed/multi_region_comparison.json",
       "json_path": "regions.0.envelope_area_ha",
@@ -2037,7 +2277,7 @@
       "reproducible": true
     },
     "mr_yeongdeok_fa_rescue_rate": {
-      "value": 0.85,
+      "value": 0.955,
       "unit": "fraction",
       "source_file": "data/processed/multi_region_comparison.json",
       "json_path": "regions.0.future_aware_rescue_rate",
@@ -2045,7 +2285,7 @@
       "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
-      "sample": "영덕 2025 · 화재 무시 경로가 위험한 20곳",
+      "sample": "영덕 2025 · 화재 무시 경로가 위험한 44곳",
       "caveat": "Conditional rate on a SMALL denominator (13–20 origins), so it moves in large steps. It is reported because the headline fraction alone hides the mechanism: where the core advances fastest, unsafe origins fall into no_safe_route instead of into the future-aware bucket.",
       "forbidden_phrasings": [
         "보행 실패율",
@@ -2631,7 +2871,7 @@
       "reproducible": true
     },
     "mr_envelope_area_spread": {
-      "value": 2.23,
+      "value": 7.91,
       "unit": "ratio",
       "source_file": "data/processed/multi_region_comparison.json",
       "json_path": "envelope_area_definition.spread_max_over_min",

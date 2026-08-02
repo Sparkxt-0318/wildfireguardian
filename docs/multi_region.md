@@ -5,13 +5,18 @@ after the DEM re-acquisition.**
 Artifacts: [`multi_region_comparison.json`](../data/processed/multi_region_comparison.json),
 `real_roads_real_hazard_{uiseong_andong_2025,uljin_samcheok_2022}.json`.
 
-> ⚠ **Every number on this page changed on 2026-08-02.** The first version was
-> computed on hazard fields derived from a defective DEM: Uljin-Samcheok's
-> raster filled the East Sea with a ramp down to −497 m, and that region sits in
-> the shared leave-one-out training set for every other fire
-> ([`dem_defect_2026-08-02.md`](dem_defect_2026-08-02.md)). After re-acquisition
-> Uiseong-Andong's future-aware-only share moved from 3.53 % to **24.73 %**.
-> **Do not cite the earlier figures.** The before/after tables are in §4.
+> ⚠ **This page has been recomputed twice on 2026-08-02, and every number
+> changed both times.** First the DEMs were corrected — Uljin-Samcheok's raster
+> filled the East Sea with a ramp to −497 m and that region trains every other
+> fire's model ([`dem_defect_2026-08-02.md`](dem_defect_2026-08-02.md)), which
+> moved Uiseong-Andong from 3.53 % to **24.73 %**. Then the Yeongdeok row was
+> moved off `routing_demo.npz`, which the investigation identified as the
+> surviving output of a run reverted on 2026-07-21
+> ([`routing_demo_divergence.json`](../data/processed/routing_demo_divergence.json)),
+> onto the canonical field — which moved Yeongdeok from 3.70 % to **9.17 %** and
+> its core growth from +1.2 % to **+316.1 %**.
+> **Do not cite any earlier figure from this page.** Superseded values survive
+> only in the labelled before/after tables in §4 and §5.
 
 This comparison is in the **459 series**, which has **three buckets**, so the
 quantity in every column below is *the share of scanned origins that reach
@@ -33,7 +38,7 @@ distance-ranked routing, 600-minute budget, 10-minute time step, stride 18,
 
 | region | origins | both_safe | FA-only | no_safe_route | over budget | **FA-only %** | envelope coverage | road density | node density | envelope area | depots |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 영덕 2025 | 460 | 440 | 17 | 3 | 0 | **3.70 %** | 50.4 % | 1.733 | 9.07 | 6,100 ha | 4 |
+| 영덕 2025 | 458 | 414 | 42 | 2 | 0 | **9.17 %** | 32.6 % | 1.733 | 9.07 | 25,900 ha | 4 |
 | 의성·안동 2025 | 368 | 263 | 91 | 12 | 2 | **24.73 %** | 99.2 % | 2.332 | 7.27 | 3,275 ha | **0** |
 | 울진·삼척 2022 | 393 | 377 | 3 | 10 | 3 | **0.76 %** | 81.5 % | 1.601 | 7.90 | 7,300 ha | 4 |
 
@@ -41,15 +46,25 @@ Units: road density km/km², node density nodes/km², envelope area = cells at
 p ≥ 0.5 in the final hazard slice × 25 ha. `both_enter`, `naive_unreachable` and
 `unclassified` are zero in all three regions and are omitted.
 
-**The Yeongdeok row is quoted, not re-run.** It is
-`three_column_comparison.col3_jul24_slope` of
-[`real_roads_real_hazard_slope_60.json`](../data/processed/real_roads_real_hazard_slope_60.json),
-chosen because it is the arm whose parameters match the two new regions. The
-originally committed flat reading — 459 = 438 + 18 + 3 — is carried in the
-artifact as `role: context`; the gap between the two (459 vs 460 origins, 18 vs
-17 FA-only) is **network drift**, not terrain, and the July-23 network behind
-the committed reading is unrecoverable
-([`DATA_LOSS_2026-07-24.md`](DATA_LOSS_2026-07-24.md)).
+**The Yeongdeok row is now the canonical-hazard run**, not a quotation. Until
+2026-08-02 it quoted `real_roads_real_hazard_slope_60.json` col 3 (460 origins,
+440 / 17 / 3). That arm consumed `routing_demo.npz`, which the investigation
+identified as the output of a 2026-07-20 run reverted the next day — a field
+whose own validation figures are HARD-forbidden retired values. The table now
+uses [`real_roads_real_hazard_canonical.json`](../data/processed/real_roads_real_hazard_canonical.json),
+run on the **same** 2026-07-24 snapshot network with the **same** parameters, so
+440 / 17 / 3 → 414 / 42 / 2 is attributable to the hazard field alone.
+
+Two superseded Yeongdeok readings are carried in the artifact as
+`role: context`: that slope-60 arm, and the originally committed
+459 = 438 + 18 + 3, whose 2026-07-23 network is also unrecoverable
+([`DATA_LOSS_2026-07-24.md`](DATA_LOSS_2026-07-24.md)) and which therefore
+differs from the primary row in **two** variables, not one.
+
+**Every region in this table now runs on a hazard field built from the same
+canonical dataset (151,904 rows / 2,989 positives) and the same corrected
+DEMs.** Before this revision the table mixed two freshly simulated regions with
+a Yeongdeok row from a reverted run, and was not a comparison at all.
 
 ---
 
@@ -59,8 +74,8 @@ The three regions differ on three axes **at the same time**:
 
 | axis | spread | why it moves the metric |
 |---|---|---|
-| envelope coverage | 50.4 – 99.2 % | Yeongdeok's origins are drawn from the eastern half of its own predicted core; the two new bboxes are ignition-centred ([`walk_bbox_coverage.md`](walk_bbox_coverage.md)) |
-| envelope area | 3,275 – 7,300 ha, **2.23×** | a bigger fire has more origins near it |
+| envelope coverage | **32.6 – 99.2 %** | Yeongdeok's walk bbox now covers barely a third of its own predicted core — the core quadrupled and the bbox did not ([`walk_bbox_coverage.md`](walk_bbox_coverage.md), which still carries the superseded 50.4 %) |
+| envelope area | 3,275 – 25,900 ha, **7.91×** | a bigger fire has more origins near it |
 | node density | 7.27 – 9.07 /km² | the origin scan strides over **nodes** |
 
 With n = 3 and three covariates moving together, no ranking on the FA-only
@@ -74,7 +89,7 @@ node list, so it is sensitive to exactly that difference.
 
 | region | origins | per km of road | per 1,000 walk nodes |
 |---|---:|---:|---:|
-| 영덕 2025 | 460 | 0.285 | 54.5 |
+| 영덕 2025 | 458 | 0.284 | 54.3 |
 | 의성·안동 2025 | 368 | **0.172** | 55.1 |
 | 울진·삼척 2022 | 393 | 0.266 | 53.8 |
 
@@ -88,25 +103,27 @@ Yeongdeok's in the way "919 km² vs 931 km²" suggests. Report both columns.
 
 The area column above is computed for all three regions from the hazard `npz`
 that each routing run **actually read**, at p ≥ 0.5, final slice. Under that one
-definition the spread is **2.23×**.
+definition the spread is **7.91×**.
 
-A figure of 27,900 ha for Yeongdeok appears in
-[`yeongdeok_forward_sim.json`](../data/processed/yeongdeok_forward_sim.json) and
-in prose derived from it. It is a different quantity from a different simulation
-— its step-0 area is 6,225 ha where the routing field's is 6,025 ha. Combining
-it with the two new regions' p ≥ 0.5 areas inflates the apparent spread from
-2.23× to about 8.5×. **Use one definition or the other, never one of each.**
+The long-standing conflict with the 27,900 ha figure in
+[`yeongdeok_forward_sim.json`](../data/processed/yeongdeok_forward_sim.json) has
+largely dissolved. That file was never the odd one out: it belongs to the
+canonical lineage, and the canonical routing field agrees with it — step-0 area
+**6,225 ha in both**, final 25,900 ha against its 27,900 ha (7.7 % apart, the
+residue of a re-fitted model and a widened canvas). What disagreed was
+`routing_demo.npz` (6,025 → 6,100 ha), the reverted run's field, which is no
+longer in this table.
 
 ---
 
-## 3. Two things the new regions do that Yeongdeok did not
+## 3. Two things that do not carry over from the committed run
 
 ### 3.1 The 600-minute budget binds
 
 `fa_exceeds_budget` — fire-blind route safe, future-aware router cannot finish
-in time — is **0 for Yeongdeok at 600 minutes**, and that emptiness is asserted
-in `tests/test_partition_categories.py`. It is **2** for Uiseong-Andong and
-**3** for Uljin-Samcheok.
+in time — is **0 for Yeongdeok at 600 minutes**, asserted in
+`tests/test_partition_categories.py`, and it stays 0 on the canonical field. It
+is **2** for Uiseong-Andong and **3** for Uljin-Samcheok.
 
 So the three-way split no longer accounts for every origin outside Yeongdeok.
 The column is in the table above for that reason; dropping it would make
@@ -115,14 +132,24 @@ The column is in the table above for that reason; dropping it would make
 ### 3.2 Slope moves the counts
 
 PHASE 2 found slope changed **nothing** for Yeongdeok: 440 / 17 / 3 flat *and*
-slope. That null result does not carry.
+slope. That null result was obtained on the reverted run's near-static field and
+does not survive it.
 
 | region | arm | both_safe | FA-only | no_safe | over budget |
 |---|---|---:|---:|---:|---:|
+| 영덕 (reverted field, committed) | flat / slope | 440 / 440 | 17 / 17 | 3 / 3 | 0 / 0 |
+| 영덕 | flat control | 415 | 41 | 2 | 0 |
+| 영덕 | **slope 60 m** | **414** | **42** | **2** | **0** |
 | 의성·안동 | flat control | 266 | 96 | 6 | 0 |
 | 의성·안동 | **slope 60 m** | **263** | **91** | **12** | **2** |
 | 울진·삼척 | flat control | 380 | 4 | 9 | 0 |
 | 울진·삼척 | **slope 60 m** | **377** | **3** | **10** | **3** |
+
+On the canonical field slope moves one Yeongdeok origin out of `both_safe` into
+FA-only. One origin is not a result, but it is not zero either, and the
+committed null was exactly zero. **The 30 / 60 / 90 m slope experiments have NOT
+been re-run on the canonical field**; until they are, `slope_integration.md`'s
+null result should be read as a property of the reverted field.
 
 **It is not because the new regions are steeper.** They are not:
 
@@ -235,64 +262,87 @@ a ramp-filled sea is fully-populated data. The rule that catches that one is in
 [`dem_defect_2026-08-02.md`](dem_defect_2026-08-02.md) §5: a coastal DEM whose
 minimum is a large negative number is reporting a void fill, not bathymetry.
 
+### 4.4 Yeongdeok's envelope coverage collapsed to 32.6 %
+
+A consequence of moving the Yeongdeok row onto the canonical field, recorded
+here because it changes how §5's Yeongdeok numbers must be read.
+
+| | committed (reverted field) | canonical |
+|---|---:|---:|
+| core cells at p ≥ 0.5, final slice | 244 | **1,036** |
+| of those, inside the walk bbox | 123 | **338** |
+| **coverage** | **50.4 %** | **32.6 %** |
+
+The walk bbox did not move. The core quadrupled, and the bbox now misses two
+thirds of it. So the 44 origins whose fire-blind route is unsafe are drawn from
+a third of the predicted fire, and the direction of that bias is still
+unmeasured ([`walk_bbox_coverage.md`](walk_bbox_coverage.md), which still
+carries the superseded 50.4 % and has NOT yet been updated).
+
+Re-drawing Yeongdeok's walk bbox around the canonical envelope would fix the
+coverage but break continuity with every committed 439- and 459-series figure.
+That trade has not been re-opened here.
+
 ---
 
 ## 5. Does the future-aware route help more where the fire actually advances?
 
-The question is live because the Round-2 documents record a limitation: the
-459-series result is *dominated by a quasi-static ≥ 0.5 core*. Core growth over
-the 12-hour horizon is +1.2 % for Yeongdeok, **+147.2 %** for Uiseong-Andong and
-**+183.5 %** for Uljin-Samcheok, so the two new fields are decisively not
-quasi-static.
-
-> ⚠ The pre-fix version of this section reported that the hypothesis was
-> refuted, on the strength of a near-flat fire-blind-risk column
-> (4.35 / 3.53 / 3.31 %). That column was an artifact of the contaminated
-> hazard field. It now reads **4.35 / 27.99 / 3.31 %** and the refutation does
-> not stand either. Neither does its opposite.
+**The question has lost its premise.** It was asked because Yeongdeok's core
+looked quasi-static (+1.2 % over 12 h) while the two new regions advanced. On
+the canonical field Yeongdeok's core advances **fastest of the three**. There is
+no static region left to contrast against.
 
 | region | core growth | FA-only % | no_safe_route % | fire-blind route unsafe | future-aware rescues |
 |---|---:|---:|---:|---:|---:|
-| 영덕 2025 | +1.2 % | 3.70 % | 0.65 % | 20 / 460 = 4.35 % | **85.0 %** |
-| 의성·안동 2025 | +147.2 % | **24.73 %** | 3.26 % | 103 / 368 = **27.99 %** | **88.3 %** |
+| 영덕 2025 | **+316.1 %** | 9.17 % | 0.44 % | 44 / 458 = 9.61 % | **95.5 %** |
+| 의성·안동 2025 | +147.2 % | **24.73 %** | 3.26 % | 103 / 368 = **27.99 %** | 88.3 % |
 | 울진·삼척 2022 | +183.5 % | 0.76 % | 2.54 % | 13 / 393 = 3.31 % | **23.1 %** |
 
-**At n = 3 nothing orders cleanly.** Spearman ρ between core growth and the
-FA-only share is −0.5; against the rescue rate it is also −0.5. Two of three
-regions support the hypothesis strongly and the third contradicts it strongly.
-No ordering statement is available and none should be made.
+All three fires advance by 147–316 %, and their future-aware-only shares span
+**32×** with no ordering that tracks growth.
 
-### What can be said
+### The rank statistic is not usable here, and we can now show why
 
-**Uiseong-Andong is the strongest evidence the project has that the method
-matters.** A fast-advancing core (+147 %) inside a walk bbox that covers 99.2 %
-of it produces a fire-blind route that is unsafe for **28 % of origins**, and
-the future-aware router still reaches a refuge for **88 %** of those. Yeongdeok,
-whose core barely moves, produces 4.35 % and 85 %. That is the contrast the
-Yeongdeok-only result could not show, and it is a **result**, not a limitation.
+Spearman ρ between core growth and the FA-only share has been computed three
+times today, on inputs that changed drastically each time:
 
-**Uljin-Samcheok is the strongest evidence of the method's ceiling.** Its core
-advances fastest of the three, yet only 3.31 % of origins have an unsafe
-fire-blind route and the future-aware router rescues only **23 %** of those.
-Where it cannot help, it is because the fire overtakes every walking route, not
-because the naive route was already fine.
+| recomputation | core growth | FA-only % | ρ |
+|---|---|---|---:|
+| (a) pre-DEM-fix | 1.2 / 79.2 / 155.3 | 3.70 / 3.53 / 0.76 | **−1.0** |
+| (b) corrected DEMs, Yeongdeok on the reverted field | 1.2 / 147.2 / 183.5 | 3.70 / 24.73 / 0.76 | **−0.5** |
+| (c) corrected DEMs, Yeongdeok canonical — this table | **316.1** / 147.2 / 183.5 | **9.17** / 24.73 / 0.76 | **−0.5** |
 
-**What separates them is not core growth.** Candidate covariates that do differ:
-envelope coverage (99.2 % vs 81.5 %), refuge density (3.70 vs 2.81 per 100 km²),
-and the geometry of the fire relative to the road network — Uljin-Samcheok's
-fire runs along a coastal corridor with the sea on one side, which removes half
-the escape directions. None of these is separable at n = 3.
+Between (b) and (c) Yeongdeok went from the slowest-advancing region to the
+fastest — a complete reversal of its rank — and ρ did not move. At n = 3 there
+are six possible orderings and ρ can therefore take only four values
+(±1, ±0.5). It has almost no resolution, and it did not track a change that
+inverted the data. **Do not report a trend from it in either direction.** That
+instability is the finding about the statistic, not about the fires.
 
-### So what does this settle about the Round-2 limitation?
+### What survives
 
-The "quasi-static core" limitation was **real and consequential**: on a field
-that actually advances, the same method and the same parameters produce a
-future-aware-only share nearly **seven times** Yeongdeok's. Yeongdeok understated
-the method's benefit.
+**The "quasi-static core" limitation was a property of the reverted field, not
+of the Yeongdeok fire.** The Round-2 documents describe the 459-series result as
+dominated by a near-static ≥ 0.5 core; on the canonical field that same fire's
+core quadruples. The limitation as written does not describe the canonical
+Yeongdeok field at all.
 
-It does **not** follow that the benefit rises with fire speed. Uljin-Samcheok
-advances faster still and shows the smallest benefit of the three. Both
-statements are in the artifact; neither is a trend.
+**The method's benefit varies 32× across three regions whose cores all advance.**
+Whatever governs it, fire speed is not sufficient to explain it. The covariates
+that do differ are envelope coverage (32.6 / 99.2 / 81.5 %), refuge density
+(5.37 / 3.70 / 2.81 per 100 km²) and the fire's geometry relative to the road
+network — Uljin-Samcheok's runs along a coastal corridor with the sea on one
+side, which removes half the escape directions. **n = 3 separates none of them.**
+
+**Uljin-Samcheok remains the ceiling case.** Only 3.31 % of its origins have an
+unsafe fire-blind route, and the future-aware router rescues 23.1 % of those —
+the lowest by a wide margin. Where it cannot help, the fire has overtaken every
+walking route, not merely the naive one.
+
+**Yeongdeok's rescue rate is now the highest (95.5 %)**, on the largest
+denominator it has ever had (44 origins). Read it against its coverage: those 44
+origins are drawn from a walk bbox covering **a third** of the predicted core,
+so the sample they represent is the most spatially biased of the three (§4.4).
 
 ---
 
@@ -327,9 +377,9 @@ than implying the other two were run differently.
 |---|---|
 | walk graphs | `data/snapshots/osm-walk_*.graphml.gz`, resolved through `MANIFEST.json`. **`data/cache/` is never read** — it is git-ignored and is how the July-23 graph was lost |
 | refuges / depots | `data/snapshots/osm-{shelters,depots}_*.geojson`, byte-identical to the cache copies |
-| hazard | `data/processed/hazard_{region}.npz`, **re-simulated 2026-08-02** on the corrected DEMs |
+| hazard | `hazard_{region}.npz` for the two new regions and `routing_demo_canonical.npz` for Yeongdeok — all **re-simulated 2026-08-02** on the corrected DEMs from the canonical 151,904-row dataset |
 | terrain | `data/raw/firms_data/{region}_dem.tif` — **re-acquired 2026-08-02**, OpenTopography SRTMGL1, snapshotted as `srtm-dem_*.tif` (bytes stored, not digest-only) |
-| Yeongdeok | **quoted from committed artifacts, never re-run.** Its DEM was NOT re-acquired; the runner refuses `--regions yeongdeok_2025` and aborts with exit 4 if any protected Yeongdeok artifact changes byte-for-byte during a run |
+| Yeongdeok | **re-run on the canonical field** by `scripts/run_yeongdeok_canonical_routing.py`, which imports the origin rule and the classifier from the committed slope runner so they cannot drift. Its DEM was NOT re-acquired. `routing_demo.npz`, `real_roads_real_hazard.json` and `real_roads_real_hazard_slope_60.json` are digest-checked before and after every run and are unchanged |
 
 Both new regions **reproduce exactly**: re-running
 `scripts/run_multi_region_routing.py` into a scratch directory regenerated every
@@ -363,9 +413,17 @@ true of their own moment. A silent "ok" would have been the bug.
 6. Yeongdeok's numbers here are quotations. They are not a new measurement and
    must not be presented as one.
 7. **Never cite a pre-2026-08-02 figure from this page.** Every number moved
-   when the DEM was corrected; Uiseong-Andong's headline moved sevenfold. The
-   superseded values survive only in §4's before/after tables, labelled
-   "before".
-8. **Never claim the benefit rises with fire speed.** Uiseong-Andong (+147 %
-   core growth) shows the largest benefit and Uljin-Samcheok (+183 %) the
-   smallest. §5.
+   twice: once when the DEMs were corrected, once when Yeongdeok moved off the
+   reverted run's hazard field. Superseded values survive only in the labelled
+   before/after tables in §4 and §5.
+8. **Never claim the benefit rises or falls with fire speed.** All three cores
+   advance by 147–316 % and the benefit spans 32× with no matching ordering.
+   §5.
+9. **Never quote Spearman ρ from this table as a trend.** At n = 3 it takes one
+   of four values and it did not move when Yeongdeok's rank inverted. §5.
+10. **Never repeat "the core is quasi-static (241 → 244)".** That is a property
+    of the reverted 2026-07-20 field, not of the Yeongdeok fire; on the
+    canonical field the same fire's core quadruples.
+11. **The PHASE-2 slope null result and the PHASE-2-C objective and budget
+    sweeps have NOT been re-run on the canonical field.** Do not present them
+    beside this table as though they had.

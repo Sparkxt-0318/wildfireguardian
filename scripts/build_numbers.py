@@ -54,6 +54,7 @@ SPARSE = "data/processed/cluster_sparsity.json"
 MULTI = "data/processed/multi_region_comparison.json"      # PHASE 5 STEP 4
 MR_UISEONG = "data/processed/real_roads_real_hazard_uiseong_andong_2025.json"
 MR_ULJIN = "data/processed/real_roads_real_hazard_uljin_samcheok_2022.json"
+MR_YEONGDEOK = "data/processed/real_roads_real_hazard_canonical.json"
 
 # Reproducibility is MEASURED, not assumed. Each artifact was re-run on
 # 2026-08-01 into a scratch directory and diffed against the committed copy.
@@ -154,6 +155,16 @@ REPRO = {
                     "pinned to 2.0.7; re-running "
                     "scripts/run_multi_region_routing.py into a scratch directory "
                     "reproduced every bucket count exactly.",
+        "blocked_by": None,
+    },
+    MR_YEONGDEOK: {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot "
+                    "walk graph, the SRTM raster and routing_demo_canonical.npz, "
+                    "with osmnx pinned to 2.0.7. It re-runs the 459-series scan "
+                    "on the CANONICAL hazard field; the committed "
+                    "real_roads_real_hazard.json (2026-07-23 network, reverted-run "
+                    "hazard) is untouched and remains not reproducible.",
         "blocked_by": None,
     },
     MULTI: {
@@ -875,12 +886,24 @@ def main() -> int:
             "의성·안동에는 소방서가 없다", "Uiseong-Andong has no fire stations",
         ]
 
-        MR_SRC = {"uiseong_andong_2025": MR_UISEONG, "uljin_samcheok_2022": MR_ULJIN}
-        MR_KR = {"uiseong_andong_2025": "의성·안동 2025", "uljin_samcheok_2022": "울진·삼척 2022"}
+        MR_SRC = {"yeongdeok_2025": MR_YEONGDEOK,
+                  "uiseong_andong_2025": MR_UISEONG,
+                  "uljin_samcheok_2022": MR_ULJIN}
+        #: Only the two acquired regions serialise slope_stats; the Yeongdeok
+        #: canonical runner records the arms and the hazard provenance, not the
+        #: terrain diagnostics (those live in the committed slope_* entries).
+        MR_SLOPE_SRC = {"uiseong_andong_2025": MR_UISEONG,
+                        "uljin_samcheok_2022": MR_ULJIN}
+        MR_KR = {"yeongdeok_2025": "영덕 2025",
+                 "uiseong_andong_2025": "의성·안동 2025",
+                 "uljin_samcheok_2022": "울진·삼척 2022"}
+        MR_TAG = {"yeongdeok_2025": "yeongdeok",
+                  "uiseong_andong_2025": "uiseong",
+                  "uljin_samcheok_2022": "uljin"}
 
         for region, src in MR_SRC.items():
             i, r = by_region[region]
-            tag = "uiseong" if region.startswith("uiseong") else "uljin"
+            tag = MR_TAG[region]
             for key, field, unit, deriv in (
                 ("n_origins", "n_origins_scanned", "origins",
                  "stride-18 scan of the snapshot walk graph, minus nodes already "
@@ -986,8 +1009,8 @@ def main() -> int:
         # reading turns on them: the two new regions are NOT steeper than
         # Yeongdeok, so slope moving their counts is not a terrain-severity
         # story.
-        for region, src in MR_SRC.items():
-            tag = "uiseong" if region.startswith("uiseong") else "uljin"
+        for region, src in MR_SLOPE_SRC.items():
+            tag = MR_TAG[region]
             ss = read(src)["arms"]["slope_digraph_canonical"]["slope_stats"]
             N[f"mr_{tag}_mean_abs_slope"] = entry(
                 value=round(ss["slope_abs"]["mean"], 4), unit="rise/run",

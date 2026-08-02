@@ -31,6 +31,7 @@ from wildfireguardian.spread_v2.grid import CoarseGrid  # noqa: E402
 UISEONG = REPO / "data/processed/real_roads_real_hazard_uiseong_andong_2025.json"
 ULJIN = REPO / "data/processed/real_roads_real_hazard_uljin_samcheok_2022.json"
 COMPARISON = REPO / "data/processed/multi_region_comparison.json"
+CANONICAL = REPO / "data/processed/real_roads_real_hazard_canonical.json"
 YEONGDEOK_COMMITTED = REPO / "data/processed/real_roads_real_hazard.json"
 
 ORIGINAL_CATEGORIES = ("naive_into_FA_safe", "no_safe_route", "both_safe",
@@ -462,13 +463,42 @@ def test_comparison_covers_three_regions_in_a_fixed_order():
     assert d["n_regions"] == 3
 
 
-def test_yeongdeok_row_is_quoted_not_rerun():
-    _needs(COMPARISON)
+def test_yeongdeok_row_runs_on_the_canonical_field_not_the_reverted_one():
+    """The row moved on 2026-08-02; what must NEVER move is the committed input.
+
+    routing_demo.npz is the surviving output of the 2026-07-20 run reverted the
+    next day (data/processed/routing_demo_divergence.json). The comparison must
+    not consume it, and must still carry the superseded readings as context so
+    the change is auditable rather than silent.
+    """
+    _needs(COMPARISON, CANONICAL)
     y = next(r for r in _load(COMPARISON)["regions"] if r["region"] == "yeongdeok_2025")
-    assert y["quoted_not_rerun"] is True
-    assert y["primary_source"]["source_file"].endswith("slope_60.json")
-    variants = {v["role"] for v in y["yeongdeok_variants"]}
-    assert variants == {"primary", "context"}
+    assert y["quoted_not_rerun"] is False
+    assert y["primary_source"]["source_file"].endswith(
+        "real_roads_real_hazard_canonical.json")
+    assert y["hazard_facts"]["hazard_npz"].endswith("routing_demo_canonical.npz"), (
+        "the Yeongdeok row must not be computed from the reverted run's field")
+    roles = [v["role"] for v in y["yeongdeok_variants"]]
+    assert roles.count("primary") == 1
+    assert roles.count("context") >= 2, (
+        "both superseded readings — the slope-60 arm and the committed 459 — "
+        "must stay in the artifact as context")
+    # And the primary row must agree with the run it claims to come from.
+    arm = _load(CANONICAL)["arms"]["slope_digraph_canonical"]
+    assert y["n_origins_scanned"] == arm["n_origins_scanned"]
+    assert y["both_safe"] == arm["counts"]["both_safe"]
+    assert y["future_aware_only_safe"] == arm["counts"]["naive_into_FA_safe"]
+
+
+def test_the_canonical_run_left_every_committed_artifact_alone():
+    _needs(CANONICAL)
+    import run_multi_region_routing as mr
+
+    for rel in mr.PROTECTED:
+        assert (REPO / rel).exists(), rel
+    d = _load(CANONICAL)
+    assert d["hazard_source"]["npz_path"].endswith("routing_demo_canonical.npz")
+    assert "UNTOUCHED" in d["does_not_supersede"]
 
 
 def test_every_row_carries_its_covariates():
@@ -511,13 +541,33 @@ def test_n_equals_3_is_stated_and_no_p_values_are_emitted():
 
 
 def test_envelope_area_uses_one_definition_for_all_three():
+    """One definition, checked against the rasters — not a magic threshold.
+
+    The earlier version of this test bounded the spread, which only worked while
+    the spread happened to be small. The real invariant is that every region's
+    area is cells-at-p>=0.5 x cell area, read from the npz that region's routing
+    run actually consumed.
+    """
+    import numpy as np
+
     _needs(COMPARISON)
-    d = _load(COMPARISON)["envelope_area_definition"]
+    doc = _load(COMPARISON)
+    d = doc["envelope_area_definition"]
     assert d["computed_here_for_all_three"] is True
     assert len(d["values_ha"]) == 3
-    assert d["spread_max_over_min"] < 5.0, (
-        "a spread near 12x means a Yeongdeok figure from a DIFFERENT simulation "
-        "artifact has been mixed into this column")
+
+    for r in doc["regions"]:
+        npz = REPO / r["hazard_facts"]["hazard_npz"]
+        if not npz.exists():
+            pytest.skip(f"{npz.name} absent")
+        z = np.load(npz)
+        h = z["haz_stack"]
+        cell = float(z["grid_extent"][4])
+        expected = int((h[-1] >= 0.5).sum()) * cell * cell / 10_000.0
+        assert r["envelope_area_ha"] == pytest.approx(expected), (
+            f"{r['region']}: the table's area does not match its own hazard npz")
+    assert (max(d["values_ha"].values()) / min(d["values_ha"].values())
+            == pytest.approx(d["spread_max_over_min"]))
 
 
 def test_normalised_origin_counts_are_reported_against_both_denominators():
@@ -540,7 +590,14 @@ def test_the_decomposition_is_present_because_the_headline_alone_misleads():
     cg = _load(COMPARISON)["core_growth_vs_metric"]
     assert cg["n_is_3"] is True
     assert cg["same_ordering_as_fa_only"] is False
-    assert "NOT SUPPORTED" in cg["finding"]
+    # The wording of the finding is allowed to change as the data does; what may
+    # not change is that a trend is never claimed from three points.
+    assert cg["spearman_rho_vs_fa_only"] in (-1.0, -0.5, 0.5, 1.0), (
+        "at n = 3 Spearman rho can only take these four values — if it does "
+        "not, the statistic is not what this field claims to be")
+    hist = cg["rho_is_not_stable_and_that_is_the_point"]
+    assert len(hist["recomputations"]) >= 3
+    assert "Do not report a trend" in hist["reading"]
     for r in _load(COMPARISON)["regions"]:
         assert r["future_aware_rescue_rate"] is not None
         assert r["n_naive_route_unsafe"] == (

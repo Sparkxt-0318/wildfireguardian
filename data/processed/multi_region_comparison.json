@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "title": "Multi-region 459-series routing comparison (3 regions)",
-  "generated_utc": "2026-08-02T09:20:53Z",
-  "git_commit": "141b035aaaa87884fec7a97f430b35f258b4ab6a",
+  "generated_utc": "2026-08-02T12:43:46Z",
+  "git_commit": "ed5e6b0987aeeee95fc2dc04cbeb9e9eb39276c3",
   "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
   "n_regions": 3,
   "region_order": [
@@ -40,11 +40,11 @@
     "definition": "cells at p >= 0.5 in the FINAL slice of the hazard npz the routing run actually read, x cell area",
     "computed_here_for_all_three": true,
     "values_ha": {
-      "yeongdeok_2025": 6100.0,
+      "yeongdeok_2025": 25900.0,
       "uiseong_andong_2025": 3275.0,
       "uljin_samcheok_2022": 7300.0
     },
-    "spread_max_over_min": 2.2290076335877864,
+    "spread_max_over_min": 7.908396946564886,
     "warning": "A 27,900 ha figure for Yeongdeok appears in data/processed/yeongdeok_forward_sim.json and in prose derived from it. It is NOT this quantity: that artifact is a different simulation whose step-0 area is 6,225 ha where this field's is 6,025 ha. Combining it with the two new regions' p>=0.5 areas inflates the apparent spread from 2.77x to about 11.7x. Use one definition or the other, never one of each."
   },
   "regions": [
@@ -58,10 +58,10 @@
         36.6
       ],
       "bbox_area_km2": 931.3,
-      "n_origins_scanned": 460,
-      "both_safe": 440,
-      "future_aware_only_safe": 17,
-      "no_safe_route": 3,
+      "n_origins_scanned": 458,
+      "both_safe": 414,
+      "future_aware_only_safe": 42,
+      "no_safe_route": 2,
       "other_buckets": {
         "both_enter": 0,
         "naive_unreachable": 0,
@@ -69,67 +69,98 @@
         "unclassified": 0
       },
       "fa_exceeds_budget": 0,
-      "future_aware_only_safe_fraction": 0.03695652173913044,
-      "future_aware_only_safe_pct": 3.6956521739130435,
-      "n_naive_route_unsafe": 20,
-      "naive_route_unsafe_pct": 4.3478260869565215,
-      "future_aware_rescue_rate": 0.85,
+      "future_aware_only_safe_fraction": 0.09170305676855896,
+      "future_aware_only_safe_pct": 9.170305676855895,
+      "n_naive_route_unsafe": 44,
+      "naive_route_unsafe_pct": 9.606986899563319,
+      "future_aware_rescue_rate": 0.9545454545454546,
       "future_aware_rescue_rate_note": "share of the origins whose FIRE-BLIND route is unsafe that the future-aware router still gets to a refuge. Denominator is naive_into_FA_safe + no_safe_route + both_enter, so it is not diluted by the origins that were never in danger.",
-      "envelope_coverage_final_slice": 0.5040983606557377,
+      "envelope_coverage_final_slice": 0.32625482625482627,
       "road_density_km_per_km2": 1.733,
       "node_density_per_km2": 9.07,
       "walk_length_km": 1613.9,
       "walk_nodes": 8443,
       "geometry_edge_fraction": 0.6744,
       "shelter_pois": 50,
-      "envelope_area_ha": 6100.0,
-      "core_growth_pct": 1.2448132780082943,
+      "envelope_area_ha": 25900.0,
+      "core_growth_pct": 316.0642570281125,
       "depot_pois": 4,
-      "origins_per_road_km": 0.2850238552574509,
-      "origins_per_1000_walk_nodes": 54.483003671680684,
-      "origins_per_100km2": 49.39332116396435,
-      "origin_retention_vs_stride": 0.9806940660902523,
+      "origins_per_road_km": 0.28378462110415764,
+      "origins_per_1000_walk_nodes": 54.2461210470212,
+      "origins_per_100km2": 49.178567593686246,
+      "origin_retention_vs_stride": 0.9764301788463816,
       "responder_side": {
         "responder_side_available": true,
         "n_depot_pois": 4,
         "computed": false
       },
       "hazard_facts": {
-        "hazard_npz": "data/processed/routing_demo.npz",
+        "hazard_npz": "data/processed/routing_demo_canonical.npz",
         "grid_shape": [
           5,
           181,
-          147
+          156
         ],
         "cell_size_m": 500.0,
         "cells_ge_0.5_per_slice": [
-          241,
-          241,
-          241,
-          242,
-          244
+          249,
+          692,
+          952,
+          981,
+          1036
         ],
-        "envelope_area_ha_final_slice": 6100.0,
-        "core_growth_pct_first_to_last": 1.2448132780082943,
-        "envelope_coverage_final_slice": 0.5040983606557377,
+        "envelope_area_ha_final_slice": 25900.0,
+        "core_growth_pct_first_to_last": 316.0642570281125,
+        "envelope_coverage_final_slice": 0.32625482625482627,
         "envelope_coverage_cells": [
-          123,
-          244
+          338,
+          1036
         ]
       },
       "primary_source": {
-        "source_file": "data/processed/real_roads_real_hazard_slope_60.json",
-        "source_path": "three_column_comparison.col3_jul24_slope",
-        "arm": "slope 60 m / DiGraph (canonical)",
+        "source_file": "data/processed/real_roads_real_hazard_canonical.json",
+        "source_path": "arms.slope_digraph_canonical",
+        "arm": "slope 60m / DiGraph",
         "role": "primary"
       },
-      "quoted_not_rerun": true,
+      "quoted_not_rerun": false,
+      "hazard_field": "data/processed/routing_demo_canonical.npz",
+      "flat_control_counts": {
+        "naive_into_FA_safe": 41,
+        "no_safe_route": 2,
+        "both_safe": 415,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "fa_exceeds_budget": 0,
+        "unclassified": 0
+      },
+      "slope_changed_counts_vs_flat": true,
+      "superseded_readings_note": "yeongdeok_variants carries the two superseded readings: the committed slope-60 arm (460, 440/17/3 — same network and parameters, reverted-run hazard field) and the originally committed 459 (438/18/3 — different network AND field). Neither is touched by this build.",
       "yeongdeok_variants": [
         {
           "role": "primary",
+          "source_file": "data/processed/real_roads_real_hazard_canonical.json",
+          "source_path": "arms.slope_digraph_canonical",
+          "arm": "slope 60m / DiGraph",
+          "n_origins_scanned": 458,
+          "counts": {
+            "naive_into_FA_safe": 42,
+            "no_safe_route": 2,
+            "both_safe": 414,
+            "both_enter": 0,
+            "naive_unreachable": 0,
+            "fa_exceeds_budget": 0,
+            "unclassified": 0
+          },
+          "n_walk_nodes_in_graph": 8443,
+          "hazard_field": "data/processed/routing_demo_canonical.npz",
+          "why": "PARAMETER-MATCHED to the two new regions AND built on a hazard field from the same canonical dataset (151,904 rows / 2,989 positives) and the same corrected DEMs. Before 2026-08-02 this row quoted the committed slope-60 arm, whose hazard field came from a run that was reverted on 2026-07-21 (data/processed/routing_demo_divergence.json)."
+        },
+        {
+          "role": "context",
           "source_file": "data/processed/real_roads_real_hazard_slope_60.json",
           "source_path": "three_column_comparison.col3_jul24_slope",
-          "arm": "slope 60 m / DiGraph (canonical)",
+          "arm": "slope 60 m / DiGraph on the REVERTED-RUN hazard field",
           "n_origins_scanned": 460,
           "counts": {
             "naive_into_FA_safe": 17,
@@ -141,13 +172,14 @@
             "unclassified": 0
           },
           "n_walk_nodes_in_graph": 8443,
-          "why": "PARAMETER-MATCHED to the two new regions: same 60 m slope sampling, same distance objective, same 600-minute budget, same stride 18. This is the row that belongs in the table."
+          "hazard_field": "data/processed/routing_demo.npz (reverted run)",
+          "why": "Same network and parameters as the primary row; only the hazard field differs. 440/17/3 -> 414/42/2 is therefore attributable to the field alone. QUOTED, never re-derived."
         },
         {
           "role": "context",
           "source_file": "data/processed/real_roads_real_hazard.json",
           "source_path": "counts",
-          "arm": "flat / undirected, 2026-07-23 network",
+          "arm": "flat / undirected, 2026-07-23 network, reverted-run hazard",
           "n_origins_scanned": 459,
           "counts": {
             "naive_into_FA_safe": 18,
@@ -158,7 +190,8 @@
             "unclassified": 0
           },
           "n_walk_nodes_in_graph": 8439,
-          "why": "The originally committed 459 = 438 + 18 + 3. Its network was overwritten on 2026-07-24 and is unrecoverable, so it is quoted for continuity and is NOT the parameter-matched row. The gap to the primary row (459 vs 460 origins, 18 vs 17 FA-only) is NETWORK DRIFT, not terrain."
+          "hazard_field": "data/processed/routing_demo.npz (reverted run)",
+          "why": "The originally committed 459 = 438 + 18 + 3. It differs from the primary row in BOTH the network and the hazard field, so it is not a single-variable comparison. Its 2026-07-23 network is unrecoverable. Quoted for continuity only."
         }
       ]
     },
@@ -357,11 +390,11 @@
     "by_covariate": {
       "envelope_coverage_final_slice": {
         "values_in_region_order": [
-          0.5040983606557377,
+          0.32625482625482627,
           0.9923664122137404,
           0.815068493150685
         ],
-        "pearson_r": 0.7018845121301455,
+        "pearson_r": 0.4173122651043259,
         "spearman_rho": 0.5,
         "same_ordering_as_fa_only": false,
         "reverse_ordering_of_fa_only": false
@@ -372,7 +405,7 @@
           2.332,
           1.601
         ],
-        "pearson_r": 0.9983274833939005,
+        "pearson_r": 0.9833465382317805,
         "spearman_rho": 1.0,
         "same_ordering_as_fa_only": true,
         "reverse_ordering_of_fa_only": false
@@ -383,51 +416,51 @@
           7.27,
           7.9
         ],
-        "pearson_r": -0.6913092210726274,
+        "pearson_r": -0.4992205773320786,
         "spearman_rho": -0.5,
         "same_ordering_as_fa_only": false,
         "reverse_ordering_of_fa_only": false
       },
       "envelope_area_ha": {
         "values_in_region_order": [
-          6100.0,
+          25900.0,
           3275.0,
           7300.0
         ],
-        "pearson_r": -0.9834471933695594,
-        "spearman_rho": -1.0,
+        "pearson_r": -0.33172121321416537,
+        "spearman_rho": -0.5,
         "same_ordering_as_fa_only": false,
-        "reverse_ordering_of_fa_only": true
+        "reverse_ordering_of_fa_only": false
       },
       "core_growth_pct": {
         "values_in_region_order": [
-          1.2448132780082943,
+          316.0642570281125,
           147.16981132075472,
           183.49514563106797
         ],
-        "pearson_r": 0.21997029130141507,
+        "pearson_r": -0.36753446468217243,
         "spearman_rho": -0.5,
         "same_ordering_as_fa_only": false,
         "reverse_ordering_of_fa_only": false
       },
       "origins_per_road_km": {
         "values_in_region_order": [
-          0.2850238552574509,
+          0.28378462110415764,
           0.17178601437774252,
           0.2657021161517139
         ],
-        "pearson_r": -0.9630840411490984,
+        "pearson_r": -0.8756873051628499,
         "spearman_rho": -0.5,
         "same_ordering_as_fa_only": false,
         "reverse_ordering_of_fa_only": false
       },
       "origins_per_1000_walk_nodes": {
         "values_in_region_order": [
-          54.483003671680684,
+          54.2461210470212,
           55.106319257262655,
           53.83561643835616
         ],
-        "pearson_r": 0.9122139043532941,
+        "pearson_r": 0.9995213131093077,
         "spearman_rho": 1.0,
         "same_ordering_as_fa_only": true,
         "reverse_ordering_of_fa_only": false
@@ -438,7 +471,7 @@
           34,
           26
         ],
-        "pearson_r": -0.07765276178047358,
+        "pearson_r": 0.16215028147029822,
         "spearman_rho": 0.5,
         "same_ordering_as_fa_only": false,
         "reverse_ordering_of_fa_only": false
@@ -449,7 +482,7 @@
           0.786,
           0.6835
         ],
-        "pearson_r": 0.9827739506538823,
+        "pearson_r": 0.9104272315569254,
         "spearman_rho": 0.5,
         "same_ordering_as_fa_only": false,
         "reverse_ordering_of_fa_only": false
@@ -460,36 +493,86 @@
     "question": "Does the future-aware route help more where the fire core actually advances?",
     "why_it_matters": "The Round-2 documents record a limitation — the 459-series result is 'dominated by a quasi-static >=0.5 core'. If the metric tracked core growth across regions, that limitation would look like a property of the Yeongdeok field rather than of the method.",
     "core_growth_pct": {
-      "yeongdeok_2025": 1.2448132780082943,
+      "yeongdeok_2025": 316.0642570281125,
       "uiseong_andong_2025": 147.16981132075472,
       "uljin_samcheok_2022": 183.49514563106797
     },
     "fa_only_pct": {
-      "yeongdeok_2025": 3.6956521739130435,
+      "yeongdeok_2025": 9.170305676855895,
       "uiseong_andong_2025": 24.72826086956522,
       "uljin_samcheok_2022": 0.7633587786259542
     },
     "no_safe_route_pct": {
-      "yeongdeok_2025": 0.6521739130434783,
+      "yeongdeok_2025": 0.4366812227074236,
       "uiseong_andong_2025": 3.260869565217391,
       "uljin_samcheok_2022": 2.544529262086514
     },
     "naive_route_unsafe_pct": {
-      "yeongdeok_2025": 4.3478260869565215,
+      "yeongdeok_2025": 9.606986899563319,
       "uiseong_andong_2025": 27.98913043478261,
       "uljin_samcheok_2022": 3.3078880407124682
     },
     "future_aware_rescue_rate": {
-      "yeongdeok_2025": 0.85,
+      "yeongdeok_2025": 0.9545454545454546,
       "uiseong_andong_2025": 0.883495145631068,
       "uljin_samcheok_2022": 0.23076923076923078
     },
     "same_ordering_as_fa_only": false,
     "spearman_rho_vs_fa_only": -0.5,
-    "spearman_rho_vs_no_safe_route": 0.5,
-    "spearman_rho_vs_rescue_rate": -0.5,
-    "finding": "NOT SUPPORTED as stated. The headline fraction runs OPPOSITE to core growth: the fastest-advancing core (Uljin-Samcheok, +155 %) has the LOWEST future-aware-only share. The decomposition says why — where the core advances fastest, an unsafe fire-blind route more often has no safe alternative at all, so those origins land in no_safe_route instead of naive_into_FA_safe. The share of origins whose fire-blind route is unsafe is nearly FLAT across the three regions (4.35 / 3.53 / 3.31 %); what moves is whether the future-aware router can still rescue them (85 % / 100 % / 23 %).",
-    "verdict": "This does NOT establish that the 'dominated by a quasi-static core' limitation was Yeongdeok-specific. It does establish that the two new fields are not quasi-static (+79 % and +155 % core growth) and that the method still runs on them — and it shows a failure mode Yeongdeok could not show, because a near-static core cannot overtake a walker.",
+    "rho_is_not_stable_and_that_is_the_point": {
+      "recomputations": [
+        {
+          "when": "2026-08-02 (a)",
+          "inputs": "pre-DEM-fix fields",
+          "core_growth_pct": [
+            1.2,
+            79.2,
+            155.3
+          ],
+          "fa_only_pct": [
+            3.7,
+            3.53,
+            0.76
+          ],
+          "rho": -1.0
+        },
+        {
+          "when": "2026-08-02 (b)",
+          "inputs": "corrected DEMs, Yeongdeok still on the reverted-run field",
+          "core_growth_pct": [
+            1.2,
+            147.2,
+            183.5
+          ],
+          "fa_only_pct": [
+            3.7,
+            24.73,
+            0.76
+          ],
+          "rho": -0.5
+        },
+        {
+          "when": "2026-08-02 (c)",
+          "inputs": "corrected DEMs, Yeongdeok on the canonical field — this file",
+          "core_growth_pct": [
+            316.1,
+            147.2,
+            183.5
+          ],
+          "fa_only_pct": [
+            9.17,
+            24.73,
+            0.76
+          ],
+          "rho": -0.5
+        }
+      ],
+      "reading": "Three recomputations, and Yeongdeok's core growth moved from +1.2 % to +316.1 % — a complete reversal of its position in the ordering — while rho moved -1.0, -0.5, -0.5. The statistic did not track the data. At n = 3 Spearman rho can only take four values (+/-1, +/-0.5) across the six possible orderings, so it has almost no resolution and cannot distinguish these situations. Do not report a trend from it, in either direction. The instability across recomputations IS the finding about this statistic."
+    },
+    "spearman_rho_vs_no_safe_route": -1.0,
+    "spearman_rho_vs_rescue_rate": 0.5,
+    "finding": "UNRESOLVED at n = 3, and the question as posed has lost its premise. It was asked because Yeongdeok's core looked quasi-static (+1.2 %) while the other two advanced. On the canonical field Yeongdeok advances FASTEST of the three (+316.1 %), so there is no longer a static region to contrast against. All three fires advance by 147-316 % and their future-aware-only shares are 9.17 / 24.73 / 0.76 % — a spread of 32x with no ordering that tracks growth.",
+    "verdict": "The 'dominated by a quasi-static core' limitation was a property of the REVERTED 2026-07-20 hazard field, not of the Yeongdeok fire. On the canonical field that field's own core quadruples. What survives is that the future-aware-only share varies by 32x across three regions whose cores all advance, so something other than fire speed governs it — coverage (32.6-99.2 %), refuge density and the fire's geometry relative to the road network are the candidates, and n = 3 separates none of them.",
     "n_is_3": true
   },
   "sources": {

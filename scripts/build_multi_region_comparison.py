@@ -56,8 +56,14 @@ PROCESSED = REPO / "data" / "processed"
 COMPLETENESS = PROCESSED / "osm_completeness.json"
 
 #: region -> the hazard npz the 459-series routing actually consumed.
+#:
+#: Yeongdeok points at the CANONICAL field, not at `routing_demo.npz`. The
+#: latter is the surviving output of the 2026-07-20 run that commits 2f7f555 /
+#: ccb0865 reverted (`routing_demo_divergence.json`), and its own validation
+#: figures are HARD-forbidden retired values. Leaving it here would put a
+#: reverted run's field in the same table as two freshly simulated ones.
 HAZARD_NPZ = {
-    "yeongdeok_2025": PROCESSED / "routing_demo.npz",
+    "yeongdeok_2025": PROCESSED / "routing_demo_canonical.npz",
     "uiseong_andong_2025": PROCESSED / "hazard_uiseong_andong_2025.npz",
     "uljin_samcheok_2022": PROCESSED / "hazard_uljin_samcheok_2022.npz",
 }
@@ -121,36 +127,61 @@ def hazard_facts(region: str, walk_bbox) -> dict:
 
 
 def yeongdeok_rows() -> list[dict]:
-    """The two committed Yeongdeok readings. QUOTED — never re-derived here."""
+    """The canonical Yeongdeok reading, plus the two superseded ones as context.
+
+    The primary row moved on 2026-08-02 from the committed slope-60 arm to the
+    canonical-hazard arm. Both were computed on the same 2026-07-24 snapshot
+    network with the same parameters; the variable between them is the HAZARD
+    FIELD, and the committed one came from a reverted run.
+    """
+    canon = json.loads((PROCESSED / "real_roads_real_hazard_canonical.json").read_text())
     slope = json.loads((PROCESSED / "real_roads_real_hazard_slope_60.json").read_text())
     flat = json.loads((PROCESSED / "real_roads_real_hazard.json").read_text())
+    arm = canon["arms"]["slope_digraph_canonical"]
     col3 = slope["three_column_comparison"]["col3_jul24_slope"]
     return [
         {
             "role": "primary",
+            "source_file": "data/processed/real_roads_real_hazard_canonical.json",
+            "source_path": "arms.slope_digraph_canonical",
+            "arm": arm["label"],
+            "n_origins_scanned": arm["n_origins_scanned"],
+            "counts": arm["counts"],
+            "n_walk_nodes_in_graph": arm["n_nodes"],
+            "hazard_field": "data/processed/routing_demo_canonical.npz",
+            "why": "PARAMETER-MATCHED to the two new regions AND built on a "
+                   "hazard field from the same canonical dataset (151,904 rows / "
+                   "2,989 positives) and the same corrected DEMs. Before "
+                   "2026-08-02 this row quoted the committed slope-60 arm, whose "
+                   "hazard field came from a run that was reverted on "
+                   "2026-07-21 (data/processed/routing_demo_divergence.json).",
+        },
+        {
+            "role": "context",
             "source_file": "data/processed/real_roads_real_hazard_slope_60.json",
             "source_path": "three_column_comparison.col3_jul24_slope",
-            "arm": "slope 60 m / DiGraph (canonical)",
+            "arm": "slope 60 m / DiGraph on the REVERTED-RUN hazard field",
             "n_origins_scanned": col3["n_origins_scanned"],
             "counts": col3["counts"],
             "n_walk_nodes_in_graph": col3["n_nodes"],
-            "why": "PARAMETER-MATCHED to the two new regions: same 60 m slope "
-                   "sampling, same distance objective, same 600-minute budget, "
-                   "same stride 18. This is the row that belongs in the table.",
+            "hazard_field": "data/processed/routing_demo.npz (reverted run)",
+            "why": "Same network and parameters as the primary row; only the "
+                   "hazard field differs. 440/17/3 -> 414/42/2 is therefore "
+                   "attributable to the field alone. QUOTED, never re-derived.",
         },
         {
             "role": "context",
             "source_file": "data/processed/real_roads_real_hazard.json",
             "source_path": "counts",
-            "arm": "flat / undirected, 2026-07-23 network",
+            "arm": "flat / undirected, 2026-07-23 network, reverted-run hazard",
             "n_origins_scanned": flat["n_origins_scanned"],
             "counts": flat["counts"],
             "n_walk_nodes_in_graph": flat["network_source"]["n_nodes"],
-            "why": "The originally committed 459 = 438 + 18 + 3. Its network was "
-                   "overwritten on 2026-07-24 and is unrecoverable, so it is "
-                   "quoted for continuity and is NOT the parameter-matched row. "
-                   "The gap to the primary row (459 vs 460 origins, 18 vs 17 "
-                   "FA-only) is NETWORK DRIFT, not terrain.",
+            "hazard_field": "data/processed/routing_demo.npz (reverted run)",
+            "why": "The originally committed 459 = 438 + 18 + 3. It differs from "
+                   "the primary row in BOTH the network and the hazard field, so "
+                   "it is not a single-variable comparison. Its 2026-07-23 "
+                   "network is unrecoverable. Quoted for continuity only.",
         },
     ]
 
@@ -190,9 +221,28 @@ def main() -> int:
         if region == "yeongdeok_2025":
             variants = yeongdeok_rows()
             primary = next(v for v in variants if v["role"] == "primary")
+            canon = json.loads(
+                (PROCESSED / "real_roads_real_hazard_canonical.json").read_text())
             responder = {"responder_side_available": cov["responder_side_available"],
                          "n_depot_pois": cov["depot_pois"], "computed": False}
-            extra = {"quoted_not_rerun": True, "yeongdeok_variants": variants}
+            extra = {
+                # The row is RE-RUN as of 2026-08-02. It used to be a quotation
+                # from the committed slope-60 arm; that arm consumed the reverted
+                # run's hazard field.
+                "quoted_not_rerun": False,
+                "hazard_field": "data/processed/routing_demo_canonical.npz",
+                "flat_control_counts": canon["arms"]["flat_undirected"]["counts"],
+                "slope_changed_counts_vs_flat": (
+                    canon["arms"]["slope_digraph_canonical"]["counts"]
+                    != canon["arms"]["flat_undirected"]["counts"]),
+                "superseded_readings_note": (
+                    "yeongdeok_variants carries the two superseded readings: the "
+                    "committed slope-60 arm (460, 440/17/3 — same network and "
+                    "parameters, reverted-run hazard field) and the originally "
+                    "committed 459 (438/18/3 — different network AND field). "
+                    "Neither is touched by this build."),
+                "yeongdeok_variants": variants,
+            }
         else:
             src = PROCESSED / f"real_roads_real_hazard_{region}.json"
             if not src.exists():
@@ -406,6 +456,31 @@ def main() -> int:
                 fa, [r["core_growth_pct"] for r in rows]) == 1.0,
             "spearman_rho_vs_fa_only": spearman(
                 fa, [r["core_growth_pct"] for r in rows]),
+            "rho_is_not_stable_and_that_is_the_point": {
+                "recomputations": [
+                    {"when": "2026-08-02 (a)", "inputs": "pre-DEM-fix fields",
+                     "core_growth_pct": [1.2, 79.2, 155.3],
+                     "fa_only_pct": [3.70, 3.53, 0.76], "rho": -1.0},
+                    {"when": "2026-08-02 (b)", "inputs": "corrected DEMs, Yeongdeok "
+                     "still on the reverted-run field",
+                     "core_growth_pct": [1.2, 147.2, 183.5],
+                     "fa_only_pct": [3.70, 24.73, 0.76], "rho": -0.5},
+                    {"when": "2026-08-02 (c)", "inputs": "corrected DEMs, Yeongdeok "
+                     "on the canonical field — this file",
+                     "core_growth_pct": [316.1, 147.2, 183.5],
+                     "fa_only_pct": [9.17, 24.73, 0.76], "rho": -0.5},
+                ],
+                "reading": (
+                    "Three recomputations, and Yeongdeok's core growth moved from "
+                    "+1.2 % to +316.1 % — a complete reversal of its position in "
+                    "the ordering — while rho moved -1.0, -0.5, -0.5. The "
+                    "statistic did not track the data. At n = 3 Spearman rho can "
+                    "only take four values (+/-1, +/-0.5) across the six possible "
+                    "orderings, so it has almost no resolution and cannot "
+                    "distinguish these situations. Do not report a trend from it, "
+                    "in either direction. The instability across recomputations "
+                    "IS the finding about this statistic."),
+            },
             "spearman_rho_vs_no_safe_route": spearman(
                 [r["no_safe_route"] / r["n_origins_scanned"] for r in rows],
                 [r["core_growth_pct"] for r in rows]),
@@ -413,23 +488,23 @@ def main() -> int:
                 [r["future_aware_rescue_rate"] or 0.0 for r in rows],
                 [r["core_growth_pct"] for r in rows]),
             "finding": (
-                "NOT SUPPORTED as stated. The headline fraction runs OPPOSITE to "
-                "core growth: the fastest-advancing core (Uljin-Samcheok, +155 %) "
-                "has the LOWEST future-aware-only share. The decomposition says "
-                "why — where the core advances fastest, an unsafe fire-blind "
-                "route more often has no safe alternative at all, so those "
-                "origins land in no_safe_route instead of naive_into_FA_safe. "
-                "The share of origins whose fire-blind route is unsafe is nearly "
-                "FLAT across the three regions (4.35 / 3.53 / 3.31 %); what moves "
-                "is whether the future-aware router can still rescue them "
-                "(85 % / 100 % / 23 %)."),
+                "UNRESOLVED at n = 3, and the question as posed has lost its "
+                "premise. It was asked because Yeongdeok's core looked "
+                "quasi-static (+1.2 %) while the other two advanced. On the "
+                "canonical field Yeongdeok advances FASTEST of the three "
+                "(+316.1 %), so there is no longer a static region to contrast "
+                "against. All three fires advance by 147-316 % and their "
+                "future-aware-only shares are 9.17 / 24.73 / 0.76 % — a spread of "
+                "32x with no ordering that tracks growth."),
             "verdict": (
-                "This does NOT establish that the 'dominated by a quasi-static "
-                "core' limitation was Yeongdeok-specific. It does establish that "
-                "the two new fields are not quasi-static (+79 % and +155 % core "
-                "growth) and that the method still runs on them — and it shows a "
-                "failure mode Yeongdeok could not show, because a near-static "
-                "core cannot overtake a walker."),
+                "The 'dominated by a quasi-static core' limitation was a property "
+                "of the REVERTED 2026-07-20 hazard field, not of the Yeongdeok "
+                "fire. On the canonical field that field's own core quadruples. "
+                "What survives is that the future-aware-only share varies by 32x "
+                "across three regions whose cores all advance, so something other "
+                "than fire speed governs it — coverage (32.6-99.2 %), refuge "
+                "density and the fire's geometry relative to the road network are "
+                "the candidates, and n = 3 separates none of them."),
             "n_is_3": True,
         },
 
