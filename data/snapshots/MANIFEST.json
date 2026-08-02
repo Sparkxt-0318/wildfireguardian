@@ -897,10 +897,10 @@
       "source": "osm-depots",
       "region": "yeongdeok-2025",
       "layer": "OSM depot POIs used as responder origins (119안전센터 proxy)",
-      "origin_path": "data/cache/osm/depots.geojson",
+      "origin_path": "data/cache/osm/yeongdeok_2025/depots.geojson",
       "acquired_utc": "2026-07-24T13:44:54Z",
       "acquired_clock": "source file mtime (not snapshot time)",
-      "snapshotted_utc": "2026-08-01T10:57:30Z",
+      "snapshotted_utc": "2026-08-02T01:52:33Z",
       "parameters": {
         "osmnx_query": "ox.graph_from_bbox(bbox=[129.25, 36.3, 129.55, 36.6], network_type=...)",
         "bbox_wgs84_wsen": [
@@ -911,8 +911,8 @@
         ],
         "reprojected_to": "EPSG:5179"
       },
-      "config_hash": "35349edca534d015366614fd2387ba54ed27e6b8fb087768f462e08a6e9f1bca",
-      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4"
+      "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
+      "git_commit": "bc3dfdd6e7318478e488536549e0c754f348681c"
     },
     {
       "snapshot_file": "osm-drive_yeongdeok-2025_20260724_f537bdf5.graphml",
@@ -926,10 +926,10 @@
       "source": "osm-drive",
       "region": "yeongdeok-2025",
       "layer": "OSMnx network_type='drive' graph, reprojected to EPSG:5179",
-      "origin_path": "data/cache/osm/drive.graphml",
+      "origin_path": "data/cache/osm/yeongdeok_2025/drive.graphml",
       "acquired_utc": "2026-07-24T13:41:13Z",
       "acquired_clock": "source file mtime (not snapshot time)",
-      "snapshotted_utc": "2026-08-01T10:57:30Z",
+      "snapshotted_utc": "2026-08-02T01:52:33Z",
       "parameters": {
         "osmnx_query": "ox.graph_from_bbox(bbox=[129.25, 36.3, 129.55, 36.6], network_type=...)",
         "bbox_wgs84_wsen": [
@@ -940,8 +940,8 @@
         ],
         "reprojected_to": "EPSG:5179"
       },
-      "config_hash": "35349edca534d015366614fd2387ba54ed27e6b8fb087768f462e08a6e9f1bca",
-      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4"
+      "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
+      "git_commit": "bc3dfdd6e7318478e488536549e0c754f348681c"
     },
     {
       "snapshot_file": "osm-firestation_yeongdeok-2025_20260724_ab512d83.geojson",
@@ -955,10 +955,10 @@
       "source": "osm-firestation",
       "region": "yeongdeok-2025",
       "layer": "OSM amenity=fire_station POIs (source layer behind depots)",
-      "origin_path": "data/cache/osm/fire_station.geojson",
+      "origin_path": "data/cache/osm/yeongdeok_2025/fire_station.geojson",
       "acquired_utc": "2026-07-24T13:44:28Z",
       "acquired_clock": "source file mtime (not snapshot time)",
-      "snapshotted_utc": "2026-08-01T10:57:30Z",
+      "snapshotted_utc": "2026-08-02T01:52:33Z",
       "parameters": {
         "osmnx_query": "ox.graph_from_bbox(bbox=[129.25, 36.3, 129.55, 36.6], network_type=...)",
         "bbox_wgs84_wsen": [
@@ -969,8 +969,8 @@
         ],
         "reprojected_to": "EPSG:5179"
       },
-      "config_hash": "35349edca534d015366614fd2387ba54ed27e6b8fb087768f462e08a6e9f1bca",
-      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4"
+      "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
+      "git_commit": "bc3dfdd6e7318478e488536549e0c754f348681c"
     },
     {
       "snapshot_file": "osm-httpcache_yeongdeok-2025_20260724_1e7f6ad7.json",
@@ -1187,10 +1187,10 @@
       "source": "osm-shelters",
       "region": "yeongdeok-2025",
       "layer": "OSM refuge/assembly POIs used as evacuation destinations",
-      "origin_path": "data/cache/osm/shelters.geojson",
+      "origin_path": "data/cache/osm/yeongdeok_2025/shelters.geojson",
       "acquired_utc": "2026-07-24T13:43:14Z",
       "acquired_clock": "source file mtime (not snapshot time)",
-      "snapshotted_utc": "2026-08-01T10:57:30Z",
+      "snapshotted_utc": "2026-08-02T01:52:33Z",
       "parameters": {
         "osmnx_query": "ox.graph_from_bbox(bbox=[129.25, 36.3, 129.55, 36.6], network_type=...)",
         "bbox_wgs84_wsen": [
@@ -1201,8 +1201,8 @@
         ],
         "reprojected_to": "EPSG:5179"
       },
-      "config_hash": "35349edca534d015366614fd2387ba54ed27e6b8fb087768f462e08a6e9f1bca",
-      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4"
+      "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
+      "git_commit": "bc3dfdd6e7318478e488536549e0c754f348681c"
     },
     {
       "snapshot_file": "osm-walk_yeongdeok-2025_20260724_2bff8d85.graphml",
@@ -1216,10 +1216,10 @@
       "source": "osm-walk",
       "region": "yeongdeok-2025",
       "layer": "OSMnx network_type='walk' graph, reprojected to EPSG:5179",
-      "origin_path": "data/cache/osm/walk.graphml",
+      "origin_path": "data/cache/osm/yeongdeok_2025/walk.graphml",
       "acquired_utc": "2026-07-24T13:40:57Z",
       "acquired_clock": "source file mtime (not snapshot time)",
-      "snapshotted_utc": "2026-08-01T10:57:30Z",
+      "snapshotted_utc": "2026-08-02T01:52:33Z",
       "parameters": {
         "osmnx_query": "ox.graph_from_bbox(bbox=[129.25, 36.3, 129.55, 36.6], network_type=...)",
         "bbox_wgs84_wsen": [
@@ -1230,9 +1230,9 @@
         ],
         "reprojected_to": "EPSG:5179"
       },
-      "config_hash": "35349edca534d015366614fd2387ba54ed27e6b8fb087768f462e08a6e9f1bca",
-      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4"
+      "config_hash": "b97a4d7303a6894383f01d880099d15a056b51728a7c8b453dbfae6ba2008539",
+      "git_commit": "bc3dfdd6e7318478e488536549e0c754f348681c"
     }
   ],
-  "updated_utc": "2026-08-01T12:55:47Z"
+  "updated_utc": "2026-08-02T01:52:33Z"
 }

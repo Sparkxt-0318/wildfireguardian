@@ -69,6 +69,13 @@ byte-for-byte against what Round 2 actually received. Manifest entries carry
 `committed_to_git: false`; `--verify` reports them as `absent`, not as failures,
 when running from a fresh clone.
 
+## The OSM cache is scoped per region
+
+`data/cache/osm/{region}/` — see `RescueConfig.osm_cache_path`. The loaders write
+fixed filenames, so before 2026-08-02 a second region's fetch would have
+overwritten the first. Snapshot `origin_path` fields record the per-region
+location.
+
 ## Rules
 
 1. **Never overwrite.** Same bytes → same name → re-running is a no-op.

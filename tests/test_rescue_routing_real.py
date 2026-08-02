@@ -27,7 +27,12 @@ from wildfireguardian.routing.rescue_demo import (
     run_pipeline,
 )
 
-_OSM_CACHE = Path(__file__).resolve().parents[1] / "data" / "cache" / "osm"
+# Derived from RescueConfig so it tracks the per-region layout automatically.
+# Hard-coding "data/cache/osm" here would have made this whole module skip
+# silently the moment the cache became region-scoped — the same silent-skip
+# failure Round 2 shipped with (docs/ENVIRONMENT.md).
+_OSM_CACHE = (Path(__file__).resolve().parents[1]
+              / RescueConfig().osm_cache_path)
 try:  # osmnx is needed to load the cached .graphml graphs
     import osmnx  # noqa: F401
 
@@ -43,7 +48,7 @@ _HAVE_OSM = (
 
 pytestmark = pytest.mark.skipif(
     not _HAVE_OSM,
-    reason="OSM cache absent (data/cache/osm) or osmnx not installed; "
+    reason=f"OSM cache absent ({_OSM_CACHE}) or osmnx not installed; "
     "real-data rescue-routing test skipped (offline CI path unaffected)",
 )
 

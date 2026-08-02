@@ -202,7 +202,9 @@ def main() -> int:
 
     tmp = Path(tempfile.mkdtemp(prefix="wfg-snap-osm-"))
     try:
-        prov = materialise_snapshots(tmp)
+        # The loader resolves {osm_cache_dir}/{region_name}/, so materialise into
+        # a region-shaped subdirectory rather than the bare temp root.
+        prov = materialise_snapshots(tmp / "yeongdeok_2025")
         print(f"[1/4] snapshot materialised into {tmp} "
               "(data/cache/ NOT read)")
         cfg = RescueConfig(use_osm=True, osm_cache_dir=str(tmp))

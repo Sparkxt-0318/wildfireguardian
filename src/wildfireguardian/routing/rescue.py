@@ -136,6 +136,8 @@ class RescueConfig:
     shelters_path: str | None = None            # 공공데이터포털 대피소 GeoJSON/CSV
     depots_path: str | None = None              # 119안전센터 / OSM fire_station file
     osm_cache_dir: str = _cfg("paths.osm_cache_dir", "data/cache/osm")
+    # NB: the effective directory is `osm_cache_path` = this / region_name.
+    # Never join cache filenames onto `osm_cache_dir` directly.
     use_osm: bool = False                       # try OSMnx download (needs network)
 
     # -- determinism -------------------------------------------------------
@@ -144,6 +146,22 @@ class RescueConfig:
     @property
     def vehicle_speed_ms(self) -> float:
         return self.vehicle_speed_kmh / 3.6
+
+    @property
+    def osm_cache_path(self) -> "Path":
+        """Per-region OSM cache directory: ``{osm_cache_dir}/{region_name}/``.
+
+        The cache filenames are fixed (``walk.graphml``, ``shelters.geojson``,
+        …), so before Round-3 PHASE 5 every region shared one directory and
+        acquiring a second region would have silently OVERWRITTEN the first.
+        That is exactly how the 2026-07-23 walk graph was lost
+        (``docs/DATA_LOSS_2026-07-24.md``) — a fixed path plus a new fetch.
+
+        Isolating by region makes the collision impossible rather than unlikely.
+        """
+        from pathlib import Path
+
+        return Path(self.osm_cache_dir) / self.region_name
 
     def provenance(self) -> dict:
         """Machine-readable record of synthetic/assumed inputs for the outputs."""
@@ -244,7 +262,7 @@ def load_shelters(cfg: RescueConfig, bbox_wgs84: tuple[float, float, float, floa
             dests = _osm_points(bbox_wgs84, {"amenity": ["shelter", "community_centre"],
                                              "leisure": ["park"]},
                                 to_5179, kind="shelter", source="osm",
-                                cache_dir=cfg.osm_cache_dir, tagname="shelters")
+                                cache_dir=str(cfg.osm_cache_path), tagname="shelters")
             if dests:
                 return dests, "osm"
         except Exception as exc:  # pragma: no cover
@@ -273,7 +291,7 @@ def load_depots(cfg: RescueConfig, bbox_wgs84: tuple[float, float, float, float]
         try:  # pragma: no cover - needs network
             pts = _osm_points(bbox_wgs84, {"amenity": "fire_station"}, to_5179,
                               kind="depot", source="osm",
-                              cache_dir=cfg.osm_cache_dir, tagname="depots")
+                              cache_dir=str(cfg.osm_cache_path), tagname="depots")
             depots = [Depot(p.name, p.x, p.y, source="osm") for p in pts]
             if depots:
                 return depots, "osm"
@@ -413,8 +431,8 @@ def _osm_walk_network(cfg, bbox_wgs84):  # pragma: no cover - needs network
 
     import osmnx as ox
 
-    os.makedirs(cfg.osm_cache_dir, exist_ok=True)
-    cache = os.path.join(cfg.osm_cache_dir, "walk.graphml")
+    os.makedirs(cfg.osm_cache_path, exist_ok=True)
+    cache = os.path.join(cfg.osm_cache_path, "walk.graphml")
     if os.path.exists(cache):
         G = ox.load_graphml(cache)
     else:
@@ -441,8 +459,8 @@ def _osm_drive_network(cfg, bbox_wgs84):  # pragma: no cover - needs network
 
     import osmnx as ox
 
-    os.makedirs(cfg.osm_cache_dir, exist_ok=True)
-    cache = os.path.join(cfg.osm_cache_dir, "drive.graphml")
+    os.makedirs(cfg.osm_cache_path, exist_ok=True)
+    cache = os.path.join(cfg.osm_cache_path, "drive.graphml")
     if os.path.exists(cache):
         G = ox.load_graphml(cache)
     else:

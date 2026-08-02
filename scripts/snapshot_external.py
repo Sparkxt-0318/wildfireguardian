@@ -105,15 +105,15 @@ FIRMS_PRESET: list[tuple[str, str, str]] = [
 #: The OSM preset — exactly the artifacts that were lost in Round 2.
 #: (origin path, source id, layer description)
 OSM_PRESET: list[tuple[str, str, str]] = [
-    ("data/cache/osm/walk.graphml", "osm-walk",
+    ("data/cache/osm/yeongdeok_2025/walk.graphml", "osm-walk",
      "OSMnx network_type='walk' graph, reprojected to EPSG:5179"),
-    ("data/cache/osm/drive.graphml", "osm-drive",
+    ("data/cache/osm/yeongdeok_2025/drive.graphml", "osm-drive",
      "OSMnx network_type='drive' graph, reprojected to EPSG:5179"),
-    ("data/cache/osm/shelters.geojson", "osm-shelters",
+    ("data/cache/osm/yeongdeok_2025/shelters.geojson", "osm-shelters",
      "OSM refuge/assembly POIs used as evacuation destinations"),
-    ("data/cache/osm/depots.geojson", "osm-depots",
+    ("data/cache/osm/yeongdeok_2025/depots.geojson", "osm-depots",
      "OSM depot POIs used as responder origins (119안전센터 proxy)"),
-    ("data/cache/osm/fire_station.geojson", "osm-firestation",
+    ("data/cache/osm/yeongdeok_2025/fire_station.geojson", "osm-firestation",
      "OSM amenity=fire_station POIs (source layer behind depots)"),
 ]
 
