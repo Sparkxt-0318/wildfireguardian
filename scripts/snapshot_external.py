@@ -109,6 +109,14 @@ FIRMS_PRESET: list[tuple[str, str, str]] = [
 OSM_REGIONS: tuple[str, ...] = ("yeongdeok_2025", "uljin_samcheok_2022",
                                 "uiseong_andong_2025")
 
+#: The DEM preset. The rest of the FIRMS bundle is digest-only (41 MB), but the
+#: per-region DEM is different in kind: `routing/slope.py` samples it directly,
+#: and where it has no data the edge is silently timed FLAT. An input whose
+#: absence changes a result without raising must be RECOVERABLE, not merely
+#: recognisable, so these bytes are stored.
+DEM_REGIONS: tuple[str, ...] = ("yeongdeok_2025", "uljin_samcheok_2022",
+                                "uiseong_andong_2025")
+
 OSM_PRESET: list[tuple[str, str, str]] = [
     ("data/cache/osm/yeongdeok_2025/walk.graphml", "osm-walk",
      "OSMnx network_type='walk' graph, reprojected to EPSG:5179"),
@@ -358,7 +366,7 @@ def main() -> int:
     ap.add_argument("files", nargs="*", help="explicit files to snapshot")
     ap.add_argument("--source", help="source id for explicit files (e.g. firms, srtm)")
     ap.add_argument("--region", default=_cfg("project.region_name", "yeongdeok_2025"))
-    ap.add_argument("--preset", choices=["osm", "firms", "all"],
+    ap.add_argument("--preset", choices=["osm", "firms", "dem", "all"],
                     help="snapshot a known bundle")
     ap.add_argument("--include-httpcache", action="store_true",
                     help="also snapshot the raw Overpass HTTP responses (~27 MB)")
@@ -383,14 +391,34 @@ def main() -> int:
             else:
                 print(f"  skip (absent): {rel}")
         # The bulk bundle is ~41 MB: digests only, no bytes stored.
+        # The DEMs of the multi-region set are STORED in full by --preset dem, so
+        # recording them a second time as digest-only would say "bytes not kept"
+        # about bytes that are kept.
+        stored_elsewhere = ({f"{r}_dem.tif" for r in DEM_REGIONS}
+                            if args.preset in ("dem", "all") else set())
         bulk = [q for q in sorted((REPO / "data/raw/firms_data").glob("*"))
                 if q.is_file() and q.name not in
-                {"fire_manifest.json", "data_layers_manifest.json"}]
+                ({"fire_manifest.json", "data_layers_manifest.json"} | stored_elsewhere)]
         n_digest = digest_only(bulk, "firms-bundle", args.region, man)
         if n_digest:
             nb = sum(q.stat().st_size for q in bulk)
             print(f"  digest-only: {n_digest} FIRMS bundle file(s), {nb:,} B "
                   f"({nb / 1024 / 1024:.1f} MB) NOT stored — digests in MANIFEST only")
+
+    if args.preset in ("dem", "all"):
+        for region in DEM_REGIONS:
+            p = REPO / "data/raw/firms_data" / f"{region}_dem.tif"
+            if not p.exists():
+                print(f"  skip (absent): {p.relative_to(REPO)}")
+                continue
+            params = {"region": region, "product": "SRTMGL1 (1 arc-second, ~30 m)",
+                      "provider": "OpenTopography Global DEM API",
+                      "walk_bbox_wsen":
+                          (_cfg("bbox.multi_region_walk_bbox", {}) or {}).get(region)}
+            targets.append((p, "srtm-dem",
+                            "SRTM elevation raster sampled by routing/slope.py and "
+                            "reprojected onto the spread_v2 simulation grid",
+                            params))
 
     if args.preset in ("osm", "all"):
         bbox = _cfg("bbox.road_network.wgs84_wsen", None)

@@ -4,10 +4,10 @@
   "series": "459",
   "series_note": "459-SERIES, THREE BUCKETS. The reported cross-region quantity is `future_aware_only_safe_fraction` = naive_into_FA_safe / n_origins_scanned — the share of origins that reach safety ONLY on the future-aware route. It is NOT the walk-failure rate w: w belongs to the 439 series, which is bound to a synthetic hazard envelope and cannot be carried inland.",
   "region": "uiseong_andong_2025",
-  "generated_utc": "2026-08-02T05:45:03Z",
-  "git_commit": "79138d0e987ae5c13912a0eee1d91d52e1c7f7b8",
-  "config_hash": "51ec446843b6107438cce06fa23aa0578bf1d46bee084297b18b311eb7d7c129",
-  "runtime_s": 86.1,
+  "generated_utc": "2026-08-02T08:50:02Z",
+  "git_commit": "a32da6b510bf366ac0ee8d1393d0af19c72acfac",
+  "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+  "runtime_s": 89.3,
   "parameters": {
     "identical_to_yeongdeok": true,
     "slope_sampling_m": 60.0,
@@ -607,6 +607,17 @@
       ],
       "note": "a walk node outside the DEM footprint reads nodata, and the slope build then times its edges as FLAT. Where this count is non-zero the 'slope' arm is partly a flat arm, and the flat control arm in this same file is the honest bound."
     }
+  },
+  "dem_adequacy": {
+    "frac_nodata_samples": 2.2393908856790954e-05,
+    "n_nodata_samples": 1,
+    "n_elev_samples": 44655,
+    "n_edges_with_nodata": 1,
+    "warn_fraction": 0.01,
+    "stop_fraction": 0.05,
+    "verdict": "ok",
+    "acknowledged_via_flag": false,
+    "config_source": "config/default.yaml dem.nodata_{warn,stop}_fraction"
   },
   "dem_hole_origins": null,
   "responder_side": {

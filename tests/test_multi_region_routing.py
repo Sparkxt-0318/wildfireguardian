@@ -292,28 +292,162 @@ def test_uljin_has_depots_but_the_series_still_does_not_compute_them():
 # ---------------------------------------------------------------------------
 
 
-def test_uljin_dem_gap_is_measured_and_bounded():
-    _needs(ULJIN)
-    d = _load(ULJIN)
+@pytest.mark.parametrize("path", [UISEONG, ULJIN])
+def test_a_dem_gap_is_always_measured_and_always_bounded(path):
+    """The INVARIANT, stated so it survives the DEM being re-acquired.
+
+    Either the raster covers the network — then nothing is timed flat by
+    accident — or it does not, and then the shortfall is counted AND no
+    reported bucket is drawn from the uncovered strip. What is never allowed is
+    a gap that exists and is not measured.
+    """
+    _needs(path)
+    d = _load(path)
     gap = d["preflight"]["dem_footprint"]
-    assert gap["n_nodes_outside_dem"] > 0, (
-        "this region's DEM starts at 36.85 N and its walk bbox at 36.81 N; a zero "
-        "here means the check stopped working, not that the gap closed")
-    hole = d["dem_hole_origins"]
-    assert hole is not None
-    # THE bound: no origin in the DEM hole reaches a bucket the comparison reads.
+    ds = d["arms"]["slope_digraph_canonical"]["slope_stats"]["dem_sampling"]
+    hole = d.get("dem_hole_origins")
+
+    if gap["n_nodes_outside_dem"] == 0:
+        assert hole is None
+        assert ds["frac_nodata"] < 0.001, (
+            "no node falls outside the raster, yet samples still read nodata — "
+            "the raster has interior voids, which needs its own explanation")
+        return
+
+    assert ds["n_nodata_samples"] > 0, (
+        "nodes fall outside the raster but no sample read nodata — the counter "
+        "has stopped working")
+    assert ds["n_elev_samples"] > ds["n_nodata_samples"]
+    assert hole is not None, "an unmeasured DEM hole is the failure mode itself"
+    # THE bound: no origin in the hole reaches a bucket the comparison reads.
     for bucket in ("naive_into_FA_safe", "no_safe_route", "both_enter"):
         assert hole["by_bucket"][bucket] == 0, (
             f"a DEM-hole origin landed in {bucket}; the flat-timing fallback now "
             "touches a reported count and the comparison must say so")
 
 
-def test_the_silent_flat_fallback_is_counted():
+@pytest.mark.parametrize("path", [UISEONG, ULJIN])
+def test_the_dem_adequacy_gate_ran_and_is_recorded(path):
+    _needs(path)
+    import run_multi_region_routing as mr
+
+    a = _load(path)["dem_adequacy"]
+    assert a["warn_fraction"] == mr.DEM_NODATA_WARN
+    assert a["stop_fraction"] == mr.DEM_NODATA_STOP
+    frac = a["frac_nodata_samples"]
+    expected = ("stop" if frac > a["stop_fraction"]
+                else "warn" if frac > a["warn_fraction"] else "ok")
+    assert a["verdict"] == expected
+    # A run past the stop threshold may exist ONLY if it was acknowledged.
+    if a["verdict"] == "stop":
+        assert a["acknowledged_via_flag"] is True, (
+            "an artifact past the stop threshold that records no acknowledgement "
+            "means the gate was bypassed silently")
+
+
+def test_config_carries_the_dem_thresholds_and_they_are_ordered():
+    from wildfireguardian.config import get as cfg
+
+    warn = float(cfg("dem.nodata_warn_fraction"))
+    stop = float(cfg("dem.nodata_stop_fraction"))
+    assert 0.0 < warn < stop < 1.0
+
+
+def test_the_gate_stops_warns_and_passes_at_the_right_fractions():
+    """The gate is the point of the change; exercise all three verdicts."""
+    import run_multi_region_routing as mr
+
+    class _Stats:
+        def __init__(self, frac):
+            self.frac = frac
+
+        def as_dict(self):
+            n = 100_000
+            return {"dem_sampling": {"frac_nodata": self.frac,
+                                     "n_nodata_samples": int(self.frac * n),
+                                     "n_elev_samples": n,
+                                     "n_edges_with_nodata": 1}}
+
+    assert mr.check_dem_adequacy("t", _Stats(0.0), acknowledged=False)["verdict"] == "ok"
+    with pytest.warns(UserWarning):
+        assert mr.check_dem_adequacy("t", _Stats(0.02),
+                                     acknowledged=False)["verdict"] == "warn"
+    with pytest.raises(mr.DemGapError):
+        mr.check_dem_adequacy("t", _Stats(0.20), acknowledged=False)
+    with pytest.warns(UserWarning):
+        rep = mr.check_dem_adequacy("t", _Stats(0.20), acknowledged=True)
+    assert rep["verdict"] == "stop" and rep["acknowledged_via_flag"] is True
+
+
+def test_an_unacknowledged_gap_exits_5_and_writes_nothing(monkeypatch, tmp_path,
+                                                          capsys):
     _needs(ULJIN)
-    ds = _load(ULJIN)["arms"]["slope_digraph_canonical"]["slope_stats"]["dem_sampling"]
-    assert ds["n_nodata_samples"] > 0
-    assert 0.0 < ds["frac_nodata"] < 0.25
-    assert ds["n_elev_samples"] > ds["n_nodata_samples"]
+    import run_multi_region_routing as mr
+
+    if _load(ULJIN)["dem_adequacy"]["verdict"] != "stop":
+        pytest.skip("the DEM gap has been closed; there is nothing to gate on")
+    monkeypatch.setattr(sys, "argv", ["run_multi_region_routing.py",
+                                      "--regions", "uljin_samcheok_2022",
+                                      "--limit-origins", "1",
+                                      "--out-dir", str(tmp_path)])
+    assert mr.main() == mr.EXIT_DEM_GAP
+    assert list(tmp_path.iterdir()) == [], "a gated run must not write a result"
+    assert "acquire_region_dem" in capsys.readouterr().err
+
+
+# ---------------------------------------------------------------------------
+# 5b. The DEM re-acquisition must not shrink the raster or change provider
+# ---------------------------------------------------------------------------
+
+
+def test_dem_acquisition_targets_every_extent_the_raster_is_sampled_on():
+    """Walk bbox, simulation canvas AND the existing raster — the union."""
+    from acquire_region_dem import required_boxes, target_bbox
+
+    for region in ("uljin_samcheok_2022", "uiseong_andong_2025"):
+        boxes = required_boxes(region)
+        assert "walk_bbox" in boxes
+        assert "simulation_canvas" in boxes, (
+            "the spread model reprojects this DEM onto the simulation grid and "
+            "fills missing cells with the grid MEAN; that extent must be covered")
+        t = target_bbox(region, 0.02)
+        for name, (W, S, E, N) in boxes.items():
+            assert t[0] <= W and t[1] <= S and t[2] >= E and t[3] >= N, (
+                f"target bbox does not contain {name}")
+
+
+def test_dem_acquisition_never_shrinks_an_existing_raster():
+    import rasterio
+
+    from acquire_region_dem import target_bbox
+
+    for region in ("uljin_samcheok_2022", "uiseong_andong_2025"):
+        p = REPO / f"data/raw/firms_data/{region}_dem.tif"
+        if not p.exists():
+            pytest.skip(f"{p.name} absent")
+        with rasterio.open(p) as src:
+            b = src.bounds
+        t = target_bbox(region, 0.02)
+        assert (t[0] <= b.left and t[1] <= b.bottom
+                and t[2] >= b.right and t[3] >= b.top), (
+            "re-acquiring must never lose coverage another consumer already has")
+
+
+def test_dem_acquisition_refuses_to_take_a_key_on_the_command_line():
+    """A key in argv lands in shell history and in the process list."""
+    import acquire_region_dem as ad
+
+    src = Path(ad.__file__).read_text(encoding="utf-8")
+    assert "add_argument(\"--api-key" not in src and "--API_Key" not in src
+    assert ad.KEY_ENV == "OPENTOPOGRAPHY_API_KEY"
+
+
+def test_dem_acquisition_pins_one_provider_and_one_product():
+    import acquire_region_dem as ad
+
+    assert ad.DEMTYPE == "SRTMGL1"
+    assert "opentopography.org" in ad.API
+    assert abs(ad.ARCSEC - 1.0 / 3600.0) < 1e-12
 
 
 # ---------------------------------------------------------------------------

@@ -173,12 +173,72 @@ that sub-segment as **flat**. The fallback was silent; it is now counted
 is a flat arm. But all 23 affected origins land in `both_safe`, so the FA-only
 (3) and `no_safe_route` (10) counts — the two the comparison turns on — are not
 drawn from the strip. The flat control arm in the same artifact bounds the
-effect from the other side.
+effect from the other side. **That bound is luck, not design**, which is why the
+next two subsections exist.
 
-**Why it was not fixed here.** Fixing it means acquiring new SRTM tiles, and no
-other DEM in `data/raw/firms_data/` covers 36.75 – 36.85 °N. Acquisition is a
-STEP 2-2 action with its own snapshot and provenance requirements, not something
-to slip into an analysis run. It is recorded as an open item instead.
+### 4.1 The same fallback is in the forward simulation, on both new regions
+
+`spread_v2.grid.elevation_on_grid` reprojects the DEM onto the coarse
+simulation grid, and `features` then replaces every missing cell with the grid
+**mean** elevation. Both simulation canvases were extended southward in
+`a0eaf07` — and both extensions went past their DEM:
+
+| region | canvas cells with no DEM | filled with |
+|---|---:|---:|
+| 의성·안동 2025 | 1,733 / 17,280 = **10.0 %** | 251.3 m (grid mean) |
+| 울진·삼척 2022 | 2,221 / 14,260 = **15.6 %** | 134.4 m (grid mean) |
+
+Measured 2026-08-02. **The committed hazard fields are not contaminated**: the
+predicted ignition probability is exactly 0.0000 in every one of those cells in
+every time slice, so no cell that carries hazard was ever mean-filled. But the
+fill was silent, and Uiseong-Andong's walk network — which is fully covered by
+its DEM — gave no hint that its *simulation* was not.
+
+A re-acquisition must therefore target the **union** of the walk bbox, the
+simulation canvas and the existing raster, never just the strip that happens to
+be causing today's symptom. `scripts/acquire_region_dem.py` computes that union
+and refuses to install a raster that does not cover all three.
+
+### 4.2 The silent fallback is now a gate, not a footnote
+
+`config/default.yaml`:
+
+```yaml
+dem:
+  nodata_warn_fraction: 0.01
+  nodata_stop_fraction: 0.05
+```
+
+The routing run measures the fraction of edge elevation samples that read
+nodata, and above the stop threshold it **exits 5 and writes nothing**. It can
+be overridden only by passing `--acknowledge-dem-gap`, which does not suppress
+the finding — it records it, so `dem_adequacy.verdict: "stop"` with
+`acknowledged_via_flag: true` travels inside the artifact. The Uljin-Samcheok
+artifact in this repo carries exactly that pair today.
+
+| region | nodata samples | verdict |
+|---|---:|---|
+| 의성·안동 2025 | 1 / 44,655 = 0.002 % | `ok` |
+| 울진·삼척 2022 | **2,189 / 35,492 = 6.17 %** | **`stop`** (acknowledged) |
+
+This is the same treatment `grid.boundary_check` gave the clipped-envelope
+failure in PHASE 1: an input silently not covering the thing it is applied to
+becomes a loud stop.
+
+### 4.3 Status of the fix
+
+**Not yet applied — blocked on a credential.** OpenTopography's Global DEM API
+requires an API key (a keyless request returns HTTP 401, confirmed
+2026-08-02) and none is present in this environment.
+`scripts/acquire_region_dem.py` is written and tested against everything that
+does not need the network; it reads the key from `OPENTOPOGRAPHY_API_KEY` (env
+or the git-ignored `.env`) and never accepts it on the command line.
+
+It will **not** substitute another provider. The repo's in-tree SRTM loader can
+read AWS-Mapzen `.hgt` tiles without a key, but Mapzen's product is gap-filled
+from several sources; stitching a strip of it onto an OpenTopography raster
+would put two provenances inside one input, which is the class of thing this
+project refuses to do silently. One provider, one product, or stop.
 
 ---
 

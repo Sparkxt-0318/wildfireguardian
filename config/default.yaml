@@ -262,6 +262,32 @@ pedestrian:
                                    # [src: run_real_roads_real_hazard.py:55 --time-budget-min]
 
 # -----------------------------------------------------------------------------
+# DEM adequacy — the raster must actually cover the network it is sampled on
+# -----------------------------------------------------------------------------
+#
+# WHY THIS EXISTS (Round-3 PHASE 5). `routing/slope.py` samples each edge's
+# elevation profile from a GeoTIFF. A sample that falls OUTSIDE the raster reads
+# nodata, `np.nan_to_num` turns the resulting gradient into 0, and the
+# sub-segment is timed at FLAT speed. Nothing raised. Nothing logged.
+#
+# Uljin-Samcheok's DEM spans 36.85–37.45 N; its walk bbox starts at 36.81 N. So
+# 405 of 7,300 walk nodes (5.55 %) and 2,189 of 35,492 elevation samples (6.2 %)
+# were being timed flat inside a run labelled "slope". The reported bucket counts
+# happened not to be contaminated — all 23 affected origins were `both_safe` —
+# but that was luck, not design.
+#
+# This is the same failure MODE that `grid.boundary_check` was added to remove:
+# an input silently not covering the thing it is applied to. Same treatment.
+dem:
+  # Fraction of edge elevation samples permitted to read nodata.
+  #   > warn_fraction  -> loud warning, run continues
+  #   > stop_fraction  -> the run STOPS (exit 5) unless the caller passes
+  #                       --acknowledge-dem-gap, which is recorded in the output
+  #                       so an acknowledged gap can never look like a clean run.
+  nodata_warn_fraction: 0.01
+  nodata_stop_fraction: 0.05
+
+# -----------------------------------------------------------------------------
 # Responder (rescue vehicle) model
 # -----------------------------------------------------------------------------
 responder:

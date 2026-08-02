@@ -102,6 +102,69 @@ REAL_OSM_SCAN_STRIDE = int(_cfg("origin_scan.real_osm_stride", 18))
 CATEGORIES = ("naive_into_FA_safe", "no_safe_route", "both_safe", "both_enter",
               "naive_unreachable", "fa_exceeds_budget", "unclassified")
 
+#: DEM adequacy thresholds, on the fraction of edge elevation samples that read
+#: nodata. See the `dem:` block in config/default.yaml for why they exist.
+DEM_NODATA_WARN = float(_cfg("dem.nodata_warn_fraction", 0.01))
+DEM_NODATA_STOP = float(_cfg("dem.nodata_stop_fraction", 0.05))
+
+#: Exit code for "the DEM does not cover this region's walk network".
+EXIT_DEM_GAP = 5
+
+
+class DemGapError(RuntimeError):
+    """Too much of the walk network was timed flat for want of elevation data."""
+
+
+def check_dem_adequacy(region: str, stats, *, acknowledged: bool) -> dict:
+    """Gate a slope run on how much of it was silently flat.
+
+    `slope.build_walk_network` falls back to flat timing wherever the DEM has no
+    data, and that fallback is invisible in the result — a "slope" run over a
+    raster that misses a third of its region is a flat run wearing a label.
+    This turns that into a warning, or into a stop.
+
+    ``acknowledged`` does NOT suppress the finding: it is recorded in the
+    returned dict and written into the artifact, so an acknowledged gap can
+    never be mistaken for a clean run.
+    """
+    d = stats.as_dict()["dem_sampling"]
+    frac = float(d["frac_nodata"])
+    verdict = ("stop" if frac > DEM_NODATA_STOP
+               else "warn" if frac > DEM_NODATA_WARN else "ok")
+    report = {
+        "frac_nodata_samples": frac,
+        "n_nodata_samples": d["n_nodata_samples"],
+        "n_elev_samples": d["n_elev_samples"],
+        "n_edges_with_nodata": d["n_edges_with_nodata"],
+        "warn_fraction": DEM_NODATA_WARN,
+        "stop_fraction": DEM_NODATA_STOP,
+        "verdict": verdict,
+        "acknowledged_via_flag": bool(acknowledged and verdict == "stop"),
+        "config_source": "config/default.yaml dem.nodata_{warn,stop}_fraction",
+    }
+    if verdict == "ok":
+        print(f"  DEM adequacy: ok ({frac * 100:.3f} % of elevation samples "
+              f"read nodata)")
+        return report
+    msg = (f"{region}: {frac * 100:.2f} % of edge elevation samples read nodata "
+           f"({d['n_nodata_samples']:,} of {d['n_elev_samples']:,}, over "
+           f"{d['n_edges_with_nodata']:,} edges). Those sub-segments are timed "
+           f"FLAT, so this run is part slope and part flat.")
+    if verdict == "warn":
+        print(f"  ⚠ DEM adequacy WARNING — {msg}")
+        warnings.warn(msg, UserWarning, stacklevel=2)
+        return report
+    if not acknowledged:
+        raise DemGapError(
+            f"{msg}\n  That exceeds dem.nodata_stop_fraction "
+            f"({DEM_NODATA_STOP * 100:g} %). Re-acquire the DEM so it covers the "
+            "walk bbox (scripts/acquire_region_dem.py), or re-run with "
+            "--acknowledge-dem-gap, which records the gap in the output rather "
+            "than hiding it.")
+    print(f"  ⚠⚠ DEM adequacy STOP threshold exceeded, ACKNOWLEDGED via flag — {msg}")
+    warnings.warn(msg, UserWarning, stacklevel=2)
+    return report
+
 
 # ---------------------------------------------------------------------------
 # Provenance helpers
@@ -464,6 +527,10 @@ def run_region(region: str, args) -> dict:
     net_s, st = build_walk_network(G, dem, sampling_m=args.sampling_m,
                                    max_abs_slope=args.max_abs_slope,
                                    directed=True, apply_slope=True)
+    # Gate BEFORE classification: the routing is the expensive part, and a run
+    # whose terrain is half-missing should not be paid for.
+    dem_adequacy = check_dem_adequacy(region, st,
+                                      acknowledged=args.acknowledge_dem_gap)
     arm_slope = run_arm(f"slope {args.sampling_m:g}m / DiGraph", net_s, st)
     arm_slope["top_slowed_edges"] = slowest_edges(st, net_s, k=10)
 
@@ -566,6 +633,7 @@ def run_region(region: str, args) -> dict:
                                  "(docs/slope_integration.md).",
         },
         "preflight": pf,
+        "dem_adequacy": dem_adequacy,
         "dem_hole_origins": dem_hole_origins,
         "responder_side": {
             "responder_side_available": responder_available,
@@ -664,6 +732,12 @@ def main() -> int:
                     default=float(_cfg("pedestrian.walk_budget_min", 600.0)))
     ap.add_argument("--time-step-min", type=float,
                     default=float(_cfg("time.routing_time_step_min", 10.0)))
+    ap.add_argument("--acknowledge-dem-gap", action="store_true",
+                    help="proceed even though more than "
+                         f"{DEM_NODATA_STOP * 100:g} %% of elevation samples read "
+                         "nodata. The gap is RECORDED in the output, not "
+                         "suppressed. Use only to regenerate a historical "
+                         "artifact; the fix is to re-acquire the DEM.")
     ap.add_argument("--limit-origins", type=int, default=0,
                     help="SMOKE TEST ONLY: truncate the origin list. Output is "
                          "written under a _SMOKE_ prefix and is not reportable.")
@@ -688,10 +762,14 @@ def main() -> int:
         print(f"  {v[:16]}...  {k}")
 
     out_dir = Path(args.out_dir)
-    written, failed = [], []
+    written, failed, dem_gaps = [], [], []
     for region in args.regions:
         try:
             doc = run_region(region, args)
+        except DemGapError as exc:
+            print(f"\nSTOP (exit {EXIT_DEM_GAP}) {region}: {exc}", file=sys.stderr)
+            dem_gaps.append(region)
+            continue
         except Exception as exc:  # noqa: BLE001
             print(f"FAILED {region}: {type(exc).__name__}: {exc}", file=sys.stderr)
             failed.append((region, f"{type(exc).__name__}: {exc}"))
@@ -715,6 +793,14 @@ def main() -> int:
         return 4
     print(f"\nprotected artifacts unchanged ({len(before)} verified byte-for-byte)")
 
+    if dem_gaps:
+        print(f"\n{len(dem_gaps)} region(s) stopped on DEM coverage: "
+              f"{', '.join(dem_gaps)}.\n"
+              "  Fix: python scripts/acquire_region_dem.py --regions "
+              f"{' '.join(dem_gaps)}\n"
+              "  Or, to regenerate a historical artifact as it stands, re-run "
+              "with --acknowledge-dem-gap.", file=sys.stderr)
+        return EXIT_DEM_GAP
     if failed:
         print(f"\nSTOP: {len(failed)} region(s) failed.", file=sys.stderr)
         for r, e in failed:

@@ -222,7 +222,9 @@ fire_station이 없으며, 더 넓은 3,926 km² 범위에는 6곳이 있습니�
 
 | item | why it is open |
 |---|---|
-| **Uljin-Samcheok's DEM stops 4.4 km north of its walk bbox** | `uljin_samcheok_2022_dem.tif` spans 36.85–37.45 °N; the walk bbox starts at 36.81 °N. **405 of 7,300 walk nodes (5.55 %)** read nodata and are silently timed FLAT. Now counted (`slope_stats.dem_sampling`) and bounded: 23 scanned origins sit in the strip and **all 23 are `both_safe`**, so no reported FA-only or `no_safe_route` count is drawn from it. Fixing it needs a new SRTM acquisition — no other DEM in `data/raw/firms_data/` covers 36.75–36.85 °N — which is a STEP 2-2 action with its own snapshot requirements, not an analysis-run side effect. **This is the next action if PHASE 5 is reopened.** |
+| **DEM re-acquisition — BLOCKED on an OpenTopography API key** | **This is the next action.** Two gaps, one fix. (a) `uljin_samcheok_2022_dem.tif` spans 36.85–37.45 °N while its walk bbox starts at 36.81 °N: **405 of 7,300 walk nodes (5.55 %)**, 6.17 % of elevation samples, timed FLAT. (b) BOTH new regions' simulation canvases were extended south past their DEMs in `a0eaf07`, so **10.0 %** (Uiseong-Andong) and **15.6 %** (Uljin-Samcheok) of simulation cells carry a MEAN-FILLED elevation — hazard is p = 0 in every one of them, so the committed fields are clean, but the fill was silent. `scripts/acquire_region_dem.py` is written, targets the UNION of walk bbox + simulation canvas + existing raster, validates coverage before installing, and refuses to mix providers. It needs `OPENTOPOGRAPHY_API_KEY` (env or the git-ignored `.env`); a keyless request is HTTP 401, confirmed 2026-08-02. **Do not route on a partial DEM and do not substitute AWS-Mapzen tiles.** |
+| Promote the hypothesis-refutation decomposition into `multi_region.md`'s results section | Requested 2026-08-02, deferred behind the DEM fix. The measured part — fire-blind risk is near-constant across regions (4.35/3.53/3.31 %) while the rescue rate is not (85/100/23 %) — is a RESULT; only "Yeongdeok could not show this" is a limitation. Wording already agreed. |
+| Shelter-density experiment (within-region refuge decimation) | Requested 2026-08-02 as a way around n = 3: hold terrain and road network fixed, remove refuges at 100/75/50/25 % with repeats, and measure FA-only and `no_safe_route`. Sequenced after the DEM fix; the user will confirm before it starts. |
 | PHASE 4 — live-operation feasibility | Never started. Investigation only, no code. |
 | PHASE 2-C-3 — hazard time resolution | Deprioritised: `no_safe_route` already moved 3→18 once the budget bound, so the budget was the main blocker. |
 | `routing_demo.npz` not reproducible | Cause fully identified and **recoverable** — pin the grid to `bbox.fire_acquisition`. Not done: it would change results. |
@@ -273,7 +275,12 @@ fire_station이 없으며, 더 넓은 3,926 km² 범위에는 6곳이 있습니�
     `yeongdeok_forward_sim.json` is a different quantity. Mixing them turns a
     2.77× spread into a fictitious 12×.
 16. **Never quote Uljin-Samcheok's slope arm without its DEM gap** (§4).
-17. **Never re-run Yeongdeok's 459 series to "refresh" the comparison.** The
+17. **Never route on a partial DEM, and never mosaic two DEM providers.**
+    `dem.nodata_stop_fraction` makes the first a hard stop (exit 5);
+    `--acknowledge-dem-gap` records the override in the artifact rather than
+    hiding it, and is only for regenerating a historical result. The second has
+    no override at all: OpenTopography SRTMGL1 or nothing.
+18. **Never re-run Yeongdeok's 459 series to "refresh" the comparison.** The
     table quotes committed artifacts; `run_multi_region_routing.py` refuses the
     region and exits 4 if a protected artifact moves.
 
@@ -290,10 +297,28 @@ make all-checks                # 73/73, 535 passed 1 skipped, snapshots intact, 
 **PHASE 5 is complete.** To regenerate its outputs from committed inputs:
 
 ```bash
-python scripts/run_multi_region_routing.py          # ~2.5 min, both regions
+# Uljin-Samcheok STOPS at exit 5 until its DEM is re-acquired (§4). To
+# regenerate it as it stands, add --acknowledge-dem-gap; the override is then
+# recorded in the artifact as dem_adequacy.acknowledged_via_flag.
+python scripts/run_multi_region_routing.py --acknowledge-dem-gap
 python scripts/build_multi_region_comparison.py     # re-runs nothing
 python scripts/build_numbers.py && make verify
 ```
+
+**To close the DEM gap**, once an OpenTopography key is available:
+
+```bash
+export OPENTOPOGRAPHY_API_KEY=...    # or a line in the git-ignored .env
+python scripts/acquire_region_dem.py --regions uljin_samcheok_2022 --force
+python scripts/snapshot_external.py --preset dem && python scripts/snapshot_external.py --verify
+python scripts/run_multi_region_routing.py --regions uljin_samcheok_2022   # no flag: must now pass
+python scripts/build_multi_region_comparison.py && python scripts/build_numbers.py && make verify
+```
+
+Report the bucket counts **before and after** side by side. If they move, that
+movement is the result; if they do not, record "no effect, confirmed". Adding
+`uiseong_andong_2025` to the same acquisition also closes that region's
+simulation-canvas fill (§4.1) — it costs one more request.
 
 The runner reads `data/snapshots/` only — never `data/cache/` — and records the
 sha256 of every protected Yeongdeok artifact before and after, exiting 4 if one

@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "title": "Multi-region 459-series routing comparison (3 regions)",
-  "generated_utc": "2026-08-02T05:48:29Z",
-  "git_commit": "79138d0e987ae5c13912a0eee1d91d52e1c7f7b8",
-  "config_hash": "51ec446843b6107438cce06fa23aa0578bf1d46bee084297b18b311eb7d7c129",
+  "generated_utc": "2026-08-02T08:51:13Z",
+  "git_commit": "a32da6b510bf366ac0ee8d1393d0af19c72acfac",
+  "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
   "n_regions": 3,
   "region_order": [
     "yeongdeok_2025",
