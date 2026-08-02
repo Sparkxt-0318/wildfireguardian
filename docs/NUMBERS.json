@@ -3,7 +3,7 @@
   "_README": "CANONICAL REGISTRY. Every reportable number lives here exactly once. Do not restate a value in prose without citing its key. 'verified' = still matches its artifact; 'reproducible' = re-running the pipeline regenerates that artifact. They are independent — several numbers here are verified but NOT reproducible because the OSM network behind them was overwritten (docs/DATA_LOSS_2026-07-24.md). Run scripts/verify_numbers.py to re-check every entry.",
   "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
   "config_hash_note": "The per-entry config_hash is re-stamped on every build, so it marks the config a build SAW, not the config a number was PRODUCED under. It moved 0b6eb481177a… -> 51ec446843b6… between the 2026-08-01 build and the 2026-08-02 (PHASE 5 STEP 4) build. That move is PURELY ADDITIVE: `bbox.multi_region_walk_bbox` and `grid.simulation_bbox_extension` were added and NOT ONE existing key changed value (verified key-by-key against config/default.yaml at commit 5fe86db). No Round-2 number is stale as a result.",
-  "built_at_git_commit": "a9b79cb4ef469514291de268a55d34bef6e8b59a",
+  "built_at_git_commit": "c8851d856c115715fcfbabb173c14f5b7c546e2d",
   "round2_submission_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
   "numbers": {
     "lofo_mean_of_folds_auc": {
@@ -3698,6 +3698,107 @@
       "reproducibility": {
         "status": "reproducible",
         "evidence": "built 2026-08-02 from the hash-verified snapshot graph, the SRTM raster and routing_demo_canonical.npz, osmnx 2.0.7. Deterministic. w, route_hilliness and the origin rule are IMPORTED from the committed scripts, not restated.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "yeongdeok_canonical_envelope_coverage": {
+      "value": 0.326,
+      "unit": "fraction",
+      "source_file": "data/processed/yeongdeok_bbox_reacquisition_estimate.json",
+      "json_path": "current_bbox.envelope_coverage_final_slice",
+      "derivation": "core cells at p >= 0.5 in the final canonical slice that fall inside the walk bbox, divided by all such cells, by CELL COUNT",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "영덕 2025 · 보행 bbox 931 km² · 정본 핵심 1,036셀",
+      "caveat": "32.6 %, against 50.4 % on the reverted run's field. The bbox did not move; the core quadrupled. Yeongdeok's absolute rates — w, the FA-only share, the 95.5 % rescue rate — are rates ON THE COVERED THIRD, not region-wide estimates, and the direction of the bias is unmeasured. Paired contrasts are unaffected: both arms use the same origins.",
+      "forbidden_phrasings": [
+        "영덕 전역",
+        "across Yeongdeok",
+        "지역 전체 비율",
+        "region-wide rate"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/yeongdeok_bbox_reacquisition_estimate.json",
+            "json_path": "current_bbox.envelope_coverage_final_slice"
+          }
+        },
+        "expr": "round(a, 3)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "pure arithmetic over committed artifacts; the script performs no network I/O and regenerates it exactly.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "yeongdeok_reacquisition_bbox_area_km2": {
+      "value": 1992.6,
+      "unit": "km²",
+      "source_file": "data/processed/yeongdeok_bbox_reacquisition_estimate.json",
+      "json_path": "extrapolated_from_current_density.area_km2",
+      "derivation": "canonical p>=0.5 core plus 5 km on every side, the same walk_margin_km the two acquired regions used",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "추정치 · 취득하지 않음",
+      "caveat": "ESTIMATE ONLY — nothing was acquired. 2.14x the current 931 km². It does NOT fit the canonical simulation grid: the west clearance is −1.5 km against a 5 km requirement, so re-drawing the bbox would also force re-extending the canvas and re-simulating the hazard field.",
+      "forbidden_phrasings": [
+        "새 bbox로 취득했다",
+        "the bbox was re-acquired"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/yeongdeok_bbox_reacquisition_estimate.json",
+            "json_path": "extrapolated_from_current_density.area_km2"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "pure arithmetic over committed artifacts; the script performs no network I/O and regenerates it exactly.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "yeongdeok_reacquisition_projected_origins": {
+      "value": 980,
+      "unit": "origins",
+      "source_file": "data/processed/yeongdeok_bbox_reacquisition_estimate.json",
+      "json_path": "extrapolated_from_current_density.origins_at_stride_18",
+      "derivation": "proposed area x current node density / stride 18 x the measured origin-retention factor",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "추정치 · 현행 458곳",
+      "caveat": "ESTIMATE, BIASED HIGH. Densities come from the current coastal bbox containing Yeongdeok town; the proposal extends ~25 km west into the Taebaek range, where road and settlement density are lower. Upper bound only, and the error cannot be measured without the acquisition this estimate exists to avoid.",
+      "forbidden_phrasings": [
+        "980곳을 주사했다",
+        "980 origins were scanned"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/yeongdeok_bbox_reacquisition_estimate.json",
+            "json_path": "extrapolated_from_current_density.origins_at_stride_18"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "pure arithmetic over committed artifacts; the script performs no network I/O and regenerates it exactly.",
         "blocked_by": null
       },
       "reproducible": true

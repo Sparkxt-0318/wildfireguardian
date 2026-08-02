@@ -57,6 +57,7 @@ MR_ULJIN = "data/processed/real_roads_real_hazard_uljin_samcheok_2022.json"
 MR_YEONGDEOK = "data/processed/real_roads_real_hazard_canonical.json"
 SWEEP_CANON = "data/processed/slope_sweep_canonical.json"      # step 2
 OBJBUD_CANON = "data/processed/objective_budget_canonical.json"  # step 3
+BBOX_EST = "data/processed/yeongdeok_bbox_reacquisition_estimate.json"  # step 4
 
 # Reproducibility is MEASURED, not assumed. Each artifact was re-run on
 # 2026-08-01 into a scratch directory and diffed against the committed copy.
@@ -182,6 +183,12 @@ REPRO = {
                     "SRTM raster and routing_demo_canonical.npz, osmnx 2.0.7. "
                     "Deterministic. w, route_hilliness and the origin rule are "
                     "IMPORTED from the committed scripts, not restated.",
+        "blocked_by": None,
+    },
+    BBOX_EST: {
+        "status": "reproducible",
+        "evidence": "pure arithmetic over committed artifacts; the script "
+                    "performs no network I/O and regenerates it exactly.",
         "blocked_by": None,
     },
     MULTI: {
@@ -1356,6 +1363,68 @@ def main() -> int:
                    "operands": {"a": op(OBJBUD_CANON,
                                         "objective_2x2.longest_walk_min.saving_min")},
                    "expr": "round(a, 1)", "tolerance": 0.0},
+        )
+
+    # ------------------------------- step 4: coverage -----------------------
+    if (REPO / BBOX_EST).exists():
+        be = read(BBOX_EST)
+        N["yeongdeok_canonical_envelope_coverage"] = entry(
+            value=round(be["current_bbox"]["envelope_coverage_final_slice"], 3),
+            unit="fraction", source_file=BBOX_EST,
+            json_path="current_bbox.envelope_coverage_final_slice",
+            derivation="core cells at p >= 0.5 in the final canonical slice that "
+                       "fall inside the walk bbox, divided by all such cells, by "
+                       "CELL COUNT",
+            sample="영덕 2025 · 보행 bbox 931 km² · 정본 핵심 1,036셀",
+            caveat=("32.6 %, against 50.4 % on the reverted run's field. The bbox "
+                    "did not move; the core quadrupled. Yeongdeok's absolute "
+                    "rates — w, the FA-only share, the 95.5 % rescue rate — are "
+                    "rates ON THE COVERED THIRD, not region-wide estimates, and "
+                    "the direction of the bias is unmeasured. Paired contrasts "
+                    "are unaffected: both arms use the same origins."),
+            forbidden_phrasings=["영덕 전역", "across Yeongdeok",
+                                 "지역 전체 비율", "region-wide rate"],
+            check={"kind": "expression",
+                   "operands": {"a": op(BBOX_EST,
+                                        "current_bbox.envelope_coverage_final_slice")},
+                   "expr": "round(a, 3)", "tolerance": 0.0},
+        )
+        N["yeongdeok_reacquisition_bbox_area_km2"] = entry(
+            value=be["proposed_bbox"] and be["extrapolated_from_current_density"]["area_km2"],
+            unit="km²", source_file=BBOX_EST,
+            json_path="extrapolated_from_current_density.area_km2",
+            derivation="canonical p>=0.5 core plus 5 km on every side, the same "
+                       "walk_margin_km the two acquired regions used",
+            sample="추정치 · 취득하지 않음",
+            caveat=("ESTIMATE ONLY — nothing was acquired. 2.14x the current "
+                    "931 km². It does NOT fit the canonical simulation grid: the "
+                    "west clearance is −1.5 km against a 5 km requirement, so "
+                    "re-drawing the bbox would also force re-extending the canvas "
+                    "and re-simulating the hazard field."),
+            forbidden_phrasings=["새 bbox로 취득했다", "the bbox was re-acquired"],
+            check={"kind": "json_path",
+                   "operands": {"a": op(BBOX_EST,
+                                        "extrapolated_from_current_density.area_km2")},
+                   "expr": "a", "tolerance": 0.0},
+        )
+        N["yeongdeok_reacquisition_projected_origins"] = entry(
+            value=be["extrapolated_from_current_density"]["origins_at_stride_18"],
+            unit="origins", source_file=BBOX_EST,
+            json_path="extrapolated_from_current_density.origins_at_stride_18",
+            derivation="proposed area x current node density / stride 18 x the "
+                       "measured origin-retention factor",
+            sample="추정치 · 현행 458곳",
+            caveat=("ESTIMATE, BIASED HIGH. Densities come from the current "
+                    "coastal bbox containing Yeongdeok town; the proposal extends "
+                    "~25 km west into the Taebaek range, where road and "
+                    "settlement density are lower. Upper bound only, and the "
+                    "error cannot be measured without the acquisition this "
+                    "estimate exists to avoid."),
+            forbidden_phrasings=["980곳을 주사했다", "980 origins were scanned"],
+            check={"kind": "json_path",
+                   "operands": {"a": op(BBOX_EST, "extrapolated_from_current_density."
+                                                  "origins_at_stride_18")},
+                   "expr": "a", "tolerance": 0.0},
         )
 
     try:

@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "title": "ESTIMATE ONLY — re-drawing Yeongdeok's walk bbox around the canonical fire core",
+  "generated_utc": "2026-08-02T17:17:01Z",
+  "git_commit": "c8851d856c115715fcfbabb173c14f5b7c546e2d",
+  "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+  "nothing_was_acquired": "This script performs no network I/O and imports no OSM client. It reads committed artifacts and extrapolates. No bbox was changed and no graph was fetched.",
+  "canonical_core": {
+    "n_cells": 1036,
+    "extent_5179": [
+      1130014.9293265936,
+      1819870.4640061273,
+      1175014.9293265936,
+      1845370.4640061273
+    ],
+    "width_km": 45.0,
+    "height_km": 25.5
+  },
+  "current_bbox": {
+    "wgs84_wsen": [
+      129.25,
+      36.3,
+      129.55,
+      36.6
+    ],
+    "area_km2": 931.3,
+    "walk_nodes": 8443,
+    "walk_edges_directed": 22276,
+    "walk_length_km": 1613.9,
+    "shelter_pois": 50,
+    "origins_at_stride_18": 458,
+    "envelope_coverage_final_slice": 0.32625482625482627
+  },
+  "proposed_bbox": {
+    "rule": "canonical p>=0.5 final-slice core, plus 5 km on every side — the same walk_margin_km the two acquired regions used",
+    "wgs84_wsen": [
+      128.893,
+      36.323,
+      129.513,
+      36.634
+    ],
+    "extent_5179": [
+      1125015,
+      1814870,
+      1180015,
+      1850370
+    ],
+    "width_km": 55.0,
+    "height_km": 35.5,
+    "would_cover_core": true
+  },
+  "extrapolated_from_current_density": {
+    "area_km2": 1992.6,
+    "area_multiple_of_current": 2.14,
+    "walk_nodes": 18073,
+    "walk_edges_directed": 47663,
+    "walk_length_km": 3453.3,
+    "shelter_pois": 107,
+    "origins_at_stride_18": 980,
+    "graphml_mb": 25.8,
+    "basis": {
+      "node_density_per_km2": 9.07,
+      "road_density_km_per_km2": 1.733,
+      "edges_directed_per_km2": 23.92,
+      "origin_retention_vs_stride": 0.9764,
+      "current_walk_graphml_mb": 12.06
+    }
+  },
+  "extrapolation_caveat": "⚠ BIASED HIGH. Densities come from the CURRENT bbox, which is coastal and contains Yeongdeok town. The proposal extends ~25 km WEST into the Taebaek range, where settlement and road density are lower. Treat every projected count as an upper bound. The error is unmeasured — measuring it would require the acquisition this estimate exists to avoid.",
+  "simulation_grid_clearance": {
+    "grid_extent_5179": [
+      1126514.9293265936,
+      1789870.4640061273,
+      1204514.9293265936,
+      1880370.4640061273
+    ],
+    "grid_note": "the CANONICAL grid, already extended 0.05 deg west",
+    "margins_km": {
+      "west_km": -1.5,
+      "south_km": 25.0,
+      "east_km": 24.5,
+      "north_km": 30.0
+    },
+    "required_km": 5.0,
+    "sides_below_requirement": [
+      "west_km"
+    ],
+    "fits_with_required_clearance": false
+  },
+  "acquisition_scale_reference": {
+    "measured_walk_graph_fetches": [
+      {
+        "region": "uiseong_andong_2025",
+        "seconds": 4.4,
+        "n_nodes": 6678
+      },
+      {
+        "region": "uljin_samcheok_2022",
+        "seconds": 83.6,
+        "n_nodes": 7300
+      }
+    ],
+    "note": "Overpass fetch times for the two 2026-08-02 acquisitions, at 919-924 km2. A bbox of 1993 km2 is 2.1x that area; Overpass cost scales with extracted features, not linearly with area, so treat this as an order-of-magnitude reference only."
+  }
+}

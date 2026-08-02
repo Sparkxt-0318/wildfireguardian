@@ -148,6 +148,9 @@ data/processed/**
 # field. routing_objective_experiment.json and budget_sweep_experiment.json,
 # which measure the same experiments on the reverted field, are untouched.
 !data/processed/objective_budget_canonical.json
+# Step 4: what re-drawing Yeongdeok's walk bbox would cost. ESTIMATE ONLY — the
+# script performs no network I/O and nothing was acquired.
+!data/processed/yeongdeok_bbox_reacquisition_estimate.json
 # AUC-interval + ML-baseline analysis outputs (per-fire DeLong CIs / significance;
 # logistic/RF vs GBM comparison; persisted LOFO out-of-fold predictions). These are
 # the result artifacts of scripts/auc_intervals.py and scripts/ml_baselines.py;
