@@ -1,0 +1,203 @@
+{
+  "seed": 20250603,
+  "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+  "n_rows": 151904,
+  "n_positives": 2989,
+  "fires_used": [
+    "gangneung_2023",
+    "hongseong_2023",
+    "miryang_2022",
+    "uiseong_andong_2025",
+    "uljin_samcheok_2022",
+    "yeongdeok_2025"
+  ],
+  "pooled_auc": 0.9036468798222611,
+  "mid_band_auc": 0.8585423003876191,
+  "far_band_auc": 0.8408179410762759,
+  "per_fire_auc": {
+    "gangneung_2023": 0.7184278350515464,
+    "hongseong_2023": 0.9392712191836663,
+    "miryang_2022": 0.9768224819143017,
+    "uiseong_andong_2025": 0.8750543587532484,
+    "uljin_samcheok_2022": 0.9158966281835095,
+    "yeongdeok_2025": 0.9402991092522952
+  },
+  "permutation_importance": {
+    "days_since_rain": 0.07900826670839396,
+    "dist_to_fire_m": 0.06188706581592463,
+    "wind_speed_ms": 0.020023150633313846,
+    "active_frac_3000m": 0.015754626234424106,
+    "active_frac_1500m": 0.014048849551998472,
+    "dt_hours": 0.009045432071632303,
+    "burnable_frac": 0.004221083146952396,
+    "wind_alignment": 0.0030473651843605336,
+    "n_active_adjacent": 0.0016968988910443475,
+    "elevation_m": 0.0015140929471250126,
+    "vpd_kpa": 0.0014961207790190687,
+    "rh_pct": 0.0011911149964316877,
+    "temp_c": 0.0005881565136892644,
+    "precip_24h_mm": 0.000543389468777259,
+    "elev_above_source_m": -3.8142503923212716e-05,
+    "slope_deg": -0.0012338870243428302
+  },
+  "severity_importance_sum": 0.10285019909962509,
+  "wind_alignment_importance": 0.0030473651843605336,
+  "severity_over_direction_ratio": 33.750532961216926,
+  "footprint_iou_single_step": {
+    "model": 0.8744566241228194,
+    "persistence": 0.6196295727179437,
+    "ratio_vs_persistence": 1.411257084272305,
+    "n_transitions": 54
+  },
+  "_meta": {
+    "title": "6-fire LOFO re-run on the CORRECTED DEMs",
+    "generated_utc": "2026-08-02T10:41:40Z",
+    "git_commit": "9ba83b45634963785f7880b9fa2fc7199bffa0ee",
+    "produced_by": "scripts/run_routing_integration.py --out <scratch>",
+    "why": "The pre-2026-08-02 Uljin-Samcheok raster filled the East Sea with a ramp to -497 m and sits in the leave-one-out training set for every fold (docs/dem_defect_2026-08-02.md). This measures what that cost.",
+    "does_not_supersede": "data/processed/spread_v2_lofo.json is UNTOUCHED. This file is additive evidence, not a replacement. Which figure is published is a separate decision.",
+    "control": {
+      "statement": "An identical run against the PRE-FIX rasters reproduced the committed artifact on every field except config_hash.",
+      "arm_old_equals_committed": true,
+      "consequence": "The only variable between the committed numbers and this file is the DEM."
+    },
+    "comparison_vs_committed": {
+      "mean_of_folds_auc": {
+        "committed": 0.8895,
+        "corrected": 0.8943,
+        "delta": 0.0048
+      },
+      "pooled_auc": {
+        "committed": 0.9053277489374548,
+        "corrected": 0.9036468798222611,
+        "delta": -0.0016808691151937172
+      },
+      "mid_band_auc": {
+        "committed": 0.8698153315452233,
+        "corrected": 0.8585423003876191,
+        "delta": -0.011273031157604141
+      },
+      "far_band_auc": {
+        "committed": 0.8765583120330634,
+        "corrected": 0.8408179410762759,
+        "delta": -0.035740370956787504
+      },
+      "per_fire_auc_delta": {
+        "gangneung_2023": 0.036404639175257714,
+        "hongseong_2023": -0.005627137869308574,
+        "miryang_2022": 0.0031302170283806774,
+        "uiseong_andong_2025": -0.002633053590444634,
+        "uljin_samcheok_2022": -0.0021812405420034153,
+        "yeongdeok_2025": -0.0004764842866272767
+      },
+      "severity_over_direction_ratio": {
+        "committed": 43.69090867796396,
+        "corrected": 33.750532961216926
+      }
+    },
+    "permutation_importance_rank_change": {
+      "days_since_rain": {
+        "committed_value": 0.07725724263769516,
+        "corrected_value": 0.07900826670839396,
+        "committed_rank": 1,
+        "corrected_rank": 1
+      },
+      "dist_to_fire_m": {
+        "committed_value": 0.06004802689991257,
+        "corrected_value": 0.06188706581592463,
+        "committed_rank": 2,
+        "corrected_rank": 2
+      },
+      "wind_speed_ms": {
+        "committed_value": 0.02089608658152345,
+        "corrected_value": 0.020023150633313846,
+        "committed_rank": 3,
+        "corrected_rank": 3
+      },
+      "active_frac_1500m": {
+        "committed_value": 0.017419104998390406,
+        "corrected_value": 0.014048849551998472,
+        "committed_rank": 4,
+        "corrected_rank": 5
+      },
+      "active_frac_3000m": {
+        "committed_value": 0.012582439666487954,
+        "corrected_value": 0.015754626234424106,
+        "committed_rank": 5,
+        "corrected_rank": 4
+      },
+      "dt_hours": {
+        "committed_value": 0.009082127866531696,
+        "corrected_value": 0.009045432071632303,
+        "committed_rank": 6,
+        "corrected_rank": 6
+      },
+      "burnable_frac": {
+        "committed_value": 0.0037139748152484695,
+        "corrected_value": 0.004221083146952396,
+        "committed_rank": 7,
+        "corrected_rank": 7
+      },
+      "elev_above_source_m": {
+        "committed_value": 0.0025318355757968304,
+        "corrected_value": -3.8142503923212716e-05,
+        "committed_rank": 8,
+        "corrected_rank": 15
+      },
+      "wind_alignment": {
+        "committed_value": 0.002329176371633542,
+        "corrected_value": 0.0030473651843605336,
+        "committed_rank": 9,
+        "corrected_rank": 8
+      },
+      "temp_c": {
+        "committed_value": 0.0020622439649094744,
+        "corrected_value": 0.0005881565136892644,
+        "committed_rank": 10,
+        "corrected_rank": 13
+      },
+      "elevation_m": {
+        "committed_value": 0.0019861406612787604,
+        "corrected_value": 0.0015140929471250126,
+        "committed_rank": 11,
+        "corrected_rank": 10
+      },
+      "vpd_kpa": {
+        "committed_value": 0.000971543762474378,
+        "corrected_value": 0.0014961207790190687,
+        "committed_rank": 12,
+        "corrected_rank": 11
+      },
+      "n_active_adjacent": {
+        "committed_value": 0.0005205699680603634,
+        "corrected_value": 0.0016968988910443475,
+        "committed_rank": 13,
+        "corrected_rank": 9
+      },
+      "rh_pct": {
+        "committed_value": 0.00031472197766562767,
+        "corrected_value": 0.0011911149964316877,
+        "committed_rank": 14,
+        "corrected_rank": 12
+      },
+      "precip_24h_mm": {
+        "committed_value": 0.0002619932236444511,
+        "corrected_value": 0.000543389468777259,
+        "committed_rank": 15,
+        "corrected_rank": 14
+      },
+      "slope_deg": {
+        "committed_value": -0.000882734278824641,
+        "corrected_value": -0.0012338870243428302,
+        "committed_rank": 16,
+        "corrected_rank": 16
+      }
+    },
+    "dem_provenance": {
+      "uljin_samcheok_2022": "re-acquired 2026-08-02, OpenTopography SRTMGL1",
+      "uiseong_andong_2025": "re-acquired 2026-08-02, OpenTopography SRTMGL1",
+      "yeongdeok_2025": "UNCHANGED (protected; not re-acquired)",
+      "others": "unchanged"
+    }
+  }
+}

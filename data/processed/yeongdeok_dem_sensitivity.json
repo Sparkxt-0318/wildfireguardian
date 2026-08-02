@@ -1,0 +1,447 @@
+{
+  "schema_version": 1,
+  "title": "Yeongdeok forward-sim sensitivity to the corrected DEMs",
+  "generated_utc": "2026-08-02T10:48:40Z",
+  "git_commit": "9ba83b45634963785f7880b9fa2fc7199bffa0ee",
+  "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+  "fire": "yeongdeok_2025",
+  "why": "Yeongdeok's own DEM was NOT re-acquired. Its hazard field is produced by a model fitted leave-Yeongdeok-out on the other five fires, two of which had their rasters replaced, so the field can move without its terrain moving.",
+  "does_not_supersede": "data/processed/routing_demo.npz is UNTOUCHED and is read here only for comparison. This is additive evidence.",
+  "boundary_guard_note": "assert_envelope_within_grid RAISES on this configuration: the envelope touches the WESTERN edge at p = 1.000 in every slice, on both arms. This script records the contact instead of raising so the DEM contrast can be measured at all. The clipping is real, it predates the guard, and it applies to the committed field too.",
+  "parameters": {
+    "seed": 20250603,
+    "cell_m": 500.0,
+    "n_steps": 4,
+    "step_hours": 3.0,
+    "advance_threshold": 0.3,
+    "source": "config/default.yaml"
+  },
+  "committed_reference": {
+    "source": "data/processed/routing_demo.npz (COMMITTED, read-only)",
+    "sha256": "5bed502661afa8e33335c342ddc468c2df6858267ea4f769a659f970e918da58",
+    "grid": {
+      "nrows": 181,
+      "ncols": 147,
+      "cell_size_m": 500.0,
+      "extent_5179": [
+        1130969.9509370383,
+        1789870.4640061273,
+        1204469.9509370383,
+        1880370.4640061273
+      ]
+    },
+    "times_min": [
+      0.0,
+      180.0,
+      360.0,
+      540.0,
+      720.0
+    ],
+    "cells_ge_0.5": [
+      241,
+      241,
+      241,
+      242,
+      244
+    ],
+    "cells_ge_0.3": [
+      241,
+      241,
+      241,
+      247,
+      262
+    ],
+    "envelope_area_ha_p05": [
+      6025.0,
+      6025.0,
+      6025.0,
+      6050.0,
+      6100.0
+    ],
+    "core_growth_pct_first_to_last": 1.2448132780082943,
+    "boundary_contact": {
+      "per_slice": [
+        {
+          "reached": false,
+          "edges_reached": [],
+          "max_p_per_edge": {
+            "north": 0.0,
+            "south": 0.0,
+            "west": 0.0,
+            "east": 0.0
+          },
+          "p_threshold": 0.3,
+          "margin_cells": 1,
+          "slice": 0
+        },
+        {
+          "reached": false,
+          "edges_reached": [],
+          "max_p_per_edge": {
+            "north": 0.0,
+            "south": 0.0,
+            "west": 0.0,
+            "east": 0.0
+          },
+          "p_threshold": 0.3,
+          "margin_cells": 1,
+          "slice": 1
+        },
+        {
+          "reached": false,
+          "edges_reached": [],
+          "max_p_per_edge": {
+            "north": 0.0,
+            "south": 0.0,
+            "west": 0.0,
+            "east": 0.0
+          },
+          "p_threshold": 0.3,
+          "margin_cells": 1,
+          "slice": 2
+        },
+        {
+          "reached": false,
+          "edges_reached": [],
+          "max_p_per_edge": {
+            "north": 0.0,
+            "south": 0.0,
+            "west": 0.0,
+            "east": 0.0
+          },
+          "p_threshold": 0.3,
+          "margin_cells": 1,
+          "slice": 3
+        },
+        {
+          "reached": false,
+          "edges_reached": [],
+          "max_p_per_edge": {
+            "north": 0.0,
+            "south": 0.0,
+            "west": 0.0,
+            "east": 0.0
+          },
+          "p_threshold": 0.3,
+          "margin_cells": 1,
+          "slice": 4
+        }
+      ],
+      "any_slice_reached_edge": false,
+      "edges_reached": [],
+      "max_edge_p": 0.0
+    }
+  },
+  "arms": {
+    "old_dem": {
+      "arm": "old_dem",
+      "firms_dir": "/private/tmp/claude-501/-Users-jp-Desktop-Korea-Code-Fair/9507a0b6-1329-4cc3-b501-72445d0d408c/scratchpad/firms_old_dem",
+      "grid": {
+        "nrows": 181,
+        "ncols": 147,
+        "cell_size_m": 500.0,
+        "extent_5179": [
+          1130969.9509370383,
+          1789870.4640061273,
+          1204469.9509370383,
+          1880370.4640061273
+        ]
+      },
+      "simulation_bbox_wgs84": [
+        128.97,
+        36.1,
+        129.77,
+        36.9
+      ],
+      "simulation_bbox_provenance": "config bbox.fire_acquisition.wgs84_wsen",
+      "fire_manifest_bbox_wgs84": [
+        128.95,
+        36.2,
+        129.6,
+        36.75
+      ],
+      "times_min": [
+        0.0,
+        180.0,
+        360.0,
+        540.0,
+        720.0
+      ],
+      "cells_ge_0.5": [
+        245,
+        706,
+        1004,
+        1056,
+        1094
+      ],
+      "cells_ge_0.3": [
+        245,
+        706,
+        1136,
+        1206,
+        1279
+      ],
+      "envelope_area_ha_p05": [
+        6125.0,
+        17650.0,
+        25100.0,
+        26400.0,
+        27350.0
+      ],
+      "core_growth_pct_first_to_last": 346.530612244898,
+      "boundary_contact": {
+        "per_slice": [
+          {
+            "reached": true,
+            "edges_reached": [
+              "west"
+            ],
+            "max_p_per_edge": {
+              "north": 0.0,
+              "south": 0.0,
+              "west": 1.0,
+              "east": 0.0
+            },
+            "p_threshold": 0.3,
+            "margin_cells": 1,
+            "slice": 0
+          },
+          {
+            "reached": true,
+            "edges_reached": [
+              "west"
+            ],
+            "max_p_per_edge": {
+              "north": 0.0,
+              "south": 0.0,
+              "west": 1.0,
+              "east": 0.0
+            },
+            "p_threshold": 0.3,
+            "margin_cells": 1,
+            "slice": 1
+          },
+          {
+            "reached": true,
+            "edges_reached": [
+              "west"
+            ],
+            "max_p_per_edge": {
+              "north": 0.0,
+              "south": 0.0,
+              "west": 1.0,
+              "east": 0.0
+            },
+            "p_threshold": 0.3,
+            "margin_cells": 1,
+            "slice": 2
+          },
+          {
+            "reached": true,
+            "edges_reached": [
+              "west"
+            ],
+            "max_p_per_edge": {
+              "north": 0.0,
+              "south": 0.0,
+              "west": 1.0,
+              "east": 0.0
+            },
+            "p_threshold": 0.3,
+            "margin_cells": 1,
+            "slice": 3
+          },
+          {
+            "reached": true,
+            "edges_reached": [
+              "west"
+            ],
+            "max_p_per_edge": {
+              "north": 0.0,
+              "south": 0.0,
+              "west": 1.0,
+              "east": 0.0
+            },
+            "p_threshold": 0.3,
+            "margin_cells": 1,
+            "slice": 4
+          }
+        ],
+        "any_slice_reached_edge": true,
+        "edges_reached": [
+          "west"
+        ],
+        "max_edge_p": 1.0
+      }
+    },
+    "corrected_dem": {
+      "arm": "corrected_dem",
+      "firms_dir": "repo default (data/raw/firms_data)",
+      "grid": {
+        "nrows": 181,
+        "ncols": 147,
+        "cell_size_m": 500.0,
+        "extent_5179": [
+          1130969.9509370383,
+          1789870.4640061273,
+          1204469.9509370383,
+          1880370.4640061273
+        ]
+      },
+      "simulation_bbox_wgs84": [
+        128.97,
+        36.1,
+        129.77,
+        36.9
+      ],
+      "simulation_bbox_provenance": "config bbox.fire_acquisition.wgs84_wsen",
+      "fire_manifest_bbox_wgs84": [
+        128.95,
+        36.2,
+        129.6,
+        36.75
+      ],
+      "times_min": [
+        0.0,
+        180.0,
+        360.0,
+        540.0,
+        720.0
+      ],
+      "cells_ge_0.5": [
+        245,
+        678,
+        927,
+        959,
+        1014
+      ],
+      "cells_ge_0.3": [
+        245,
+        678,
+        1082,
+        1131,
+        1205
+      ],
+      "envelope_area_ha_p05": [
+        6125.0,
+        16950.0,
+        23175.0,
+        23975.0,
+        25350.0
+      ],
+      "core_growth_pct_first_to_last": 313.87755102040813,
+      "boundary_contact": {
+        "per_slice": [
+          {
+            "reached": true,
+            "edges_reached": [
+              "west"
+            ],
+            "max_p_per_edge": {
+              "north": 0.0,
+              "south": 0.0,
+              "west": 1.0,
+              "east": 0.0
+            },
+            "p_threshold": 0.3,
+            "margin_cells": 1,
+            "slice": 0
+          },
+          {
+            "reached": true,
+            "edges_reached": [
+              "west"
+            ],
+            "max_p_per_edge": {
+              "north": 0.0,
+              "south": 0.0,
+              "west": 1.0,
+              "east": 0.0
+            },
+            "p_threshold": 0.3,
+            "margin_cells": 1,
+            "slice": 1
+          },
+          {
+            "reached": true,
+            "edges_reached": [
+              "west"
+            ],
+            "max_p_per_edge": {
+              "north": 0.0,
+              "south": 0.0,
+              "west": 1.0,
+              "east": 0.0
+            },
+            "p_threshold": 0.3,
+            "margin_cells": 1,
+            "slice": 2
+          },
+          {
+            "reached": true,
+            "edges_reached": [
+              "west"
+            ],
+            "max_p_per_edge": {
+              "north": 0.0,
+              "south": 0.0,
+              "west": 1.0,
+              "east": 0.0
+            },
+            "p_threshold": 0.3,
+            "margin_cells": 1,
+            "slice": 3
+          },
+          {
+            "reached": true,
+            "edges_reached": [
+              "west"
+            ],
+            "max_p_per_edge": {
+              "north": 0.0,
+              "south": 0.0,
+              "west": 1.0,
+              "east": 0.0
+            },
+            "p_threshold": 0.3,
+            "margin_cells": 1,
+            "slice": 4
+          }
+        ],
+        "any_slice_reached_edge": true,
+        "edges_reached": [
+          "west"
+        ],
+        "max_edge_p": 1.0
+      }
+    }
+  },
+  "delta_corrected_minus_old": {
+    "cells_ge_0.5": [
+      0,
+      -28,
+      -77,
+      -97,
+      -80
+    ],
+    "envelope_area_ha_p05": [
+      0.0,
+      -700.0,
+      -1925.0,
+      -2425.0,
+      -2000.0
+    ],
+    "core_growth_pct": -32.653061224489875
+  },
+  "delta_old_arm_minus_committed": {
+    "cells_ge_0.5": [
+      4,
+      465,
+      763,
+      814,
+      850
+    ],
+    "grid_identical": true,
+    "note": "If this is non-zero the old arm does not reproduce the committed field, and something OTHER than the DEM has also moved since it was written — read it before attributing anything to the DEM."
+  }
+}

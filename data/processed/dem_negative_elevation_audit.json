@@ -1,0 +1,214 @@
+{
+  "schema_version": 1,
+  "title": "Are sea cells inflating the reported AUC?",
+  "generated_utc": "2026-08-02T10:45:50Z",
+  "git_commit": "9ba83b45634963785f7880b9fa2fc7199bffa0ee",
+  "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+  "seed": 20250603,
+  "hypothesis": "A grid cell over open water is an EASY NEGATIVE. The pre-2026-08-02 Uljin-Samcheok raster filled the sea with a ramp to -497 m, so if those rows are in the pooled negatives the reported AUC is optimistic.",
+  "arms": {
+    "old_dem": {
+      "firms_dir": "/private/tmp/claude-501/-Users-jp-Desktop-Korea-Code-Fair/9507a0b6-1329-4cc3-b501-72445d0d408c/scratchpad/firms_old_dem",
+      "profile": {
+        "n_rows": 151904,
+        "n_positives": 2989,
+        "n_rows_negative_elevation": 99,
+        "frac_rows_negative_elevation": 0.0006517274067832315,
+        "min_elevation_m": -6.8699220513293895,
+        "negative_elevation_rows": {
+          "n_positive": 0,
+          "n_negative": 99,
+          "positive_rate": 0.0
+        },
+        "all_rows_positive_rate": 0.019676901200758375,
+        "per_fire": {
+          "gangneung_2023": {
+            "n_rows": 396,
+            "n_negative_elevation": 5,
+            "frac_negative_elevation": 0.012626262626262626,
+            "min_elevation_m": -5.143391324974578,
+            "n_positives_in_negative_elevation": 0
+          },
+          "hongseong_2023": {
+            "n_rows": 3353,
+            "n_negative_elevation": 4,
+            "frac_negative_elevation": 0.0011929615269907546,
+            "min_elevation_m": -0.6464125570729631,
+            "n_positives_in_negative_elevation": 0
+          },
+          "miryang_2022": {
+            "n_rows": 3019,
+            "n_negative_elevation": 0,
+            "frac_negative_elevation": 0.0,
+            "min_elevation_m": 5.730399151369454,
+            "n_positives_in_negative_elevation": 0
+          },
+          "uiseong_andong_2025": {
+            "n_rows": 82736,
+            "n_negative_elevation": 0,
+            "frac_negative_elevation": 0.0,
+            "min_elevation_m": 44.24938544156684,
+            "n_positives_in_negative_elevation": 0
+          },
+          "uljin_samcheok_2022": {
+            "n_rows": 41651,
+            "n_negative_elevation": 75,
+            "frac_negative_elevation": 0.0018006770545725193,
+            "min_elevation_m": -3.428215689362685,
+            "n_positives_in_negative_elevation": 0
+          },
+          "yeongdeok_2025": {
+            "n_rows": 20749,
+            "n_negative_elevation": 15,
+            "frac_negative_elevation": 0.0007229264060918598,
+            "min_elevation_m": -6.8699220513293895,
+            "n_positives_in_negative_elevation": 0
+          }
+        }
+      },
+      "lofo_all_rows": {
+        "pooled_auc": 0.9053277489374548,
+        "mid_band_auc": 0.8698153315452233,
+        "far_band_auc": 0.8765583120330634,
+        "per_fire_auc": {
+          "gangneung_2023": 0.6820231958762887,
+          "hongseong_2023": 0.9448983570529749,
+          "miryang_2022": 0.973692264885921,
+          "uiseong_andong_2025": 0.8776874123436931,
+          "uljin_samcheok_2022": 0.9180778687255129,
+          "yeongdeok_2025": 0.9407755935389225
+        },
+        "mean_of_folds_auc": 0.8895257820705522
+      },
+      "lofo_excluding_negative_elevation": {
+        "pooled_auc": 0.9022581662671629,
+        "mid_band_auc": 0.8573017508839736,
+        "far_band_auc": 0.835863430062872,
+        "per_fire_auc": {
+          "gangneung_2023": 0.9033942558746736,
+          "hongseong_2023": 0.9311299655649828,
+          "miryang_2022": 0.9773789649415693,
+          "uiseong_andong_2025": 0.8779409048515857,
+          "uljin_samcheok_2022": 0.9166094317882677,
+          "yeongdeok_2025": 0.9355730135018466
+        },
+        "mean_of_folds_auc": 0.9236710894204876
+      },
+      "delta_excluding_minus_all": {
+        "pooled_auc": -0.0030695826702918927,
+        "mean_of_folds_auc": 0.03414530734993537,
+        "per_fire_auc": {
+          "gangneung_2023": 0.2213710599983849,
+          "hongseong_2023": -0.013768391487992027,
+          "miryang_2022": 0.0036867000556483065,
+          "uiseong_andong_2025": 0.00025349250789263866,
+          "uljin_samcheok_2022": -0.0014684369372451878,
+          "yeongdeok_2025": -0.005202580037075855
+        }
+      },
+      "n_rows_dropped": 100
+    },
+    "corrected_dem": {
+      "firms_dir": "repo default (data/raw/firms_data)",
+      "profile": {
+        "n_rows": 151904,
+        "n_positives": 2989,
+        "n_rows_negative_elevation": 24,
+        "frac_rows_negative_elevation": 0.00015799452285654097,
+        "min_elevation_m": -6.8699220513293895,
+        "negative_elevation_rows": {
+          "n_positive": 0,
+          "n_negative": 24,
+          "positive_rate": 0.0
+        },
+        "all_rows_positive_rate": 0.019676901200758375,
+        "per_fire": {
+          "gangneung_2023": {
+            "n_rows": 396,
+            "n_negative_elevation": 5,
+            "frac_negative_elevation": 0.012626262626262626,
+            "min_elevation_m": -5.143391324974578,
+            "n_positives_in_negative_elevation": 0
+          },
+          "hongseong_2023": {
+            "n_rows": 3353,
+            "n_negative_elevation": 4,
+            "frac_negative_elevation": 0.0011929615269907546,
+            "min_elevation_m": -0.6464125570729631,
+            "n_positives_in_negative_elevation": 0
+          },
+          "miryang_2022": {
+            "n_rows": 3019,
+            "n_negative_elevation": 0,
+            "frac_negative_elevation": 0.0,
+            "min_elevation_m": 5.730399151369454,
+            "n_positives_in_negative_elevation": 0
+          },
+          "uiseong_andong_2025": {
+            "n_rows": 82736,
+            "n_negative_elevation": 0,
+            "frac_negative_elevation": 0.0,
+            "min_elevation_m": 45.833634310622664,
+            "n_positives_in_negative_elevation": 0
+          },
+          "uljin_samcheok_2022": {
+            "n_rows": 41651,
+            "n_negative_elevation": 0,
+            "frac_negative_elevation": 0.0,
+            "min_elevation_m": 0.1917360309351368,
+            "n_positives_in_negative_elevation": 0
+          },
+          "yeongdeok_2025": {
+            "n_rows": 20749,
+            "n_negative_elevation": 15,
+            "frac_negative_elevation": 0.0007229264060918598,
+            "min_elevation_m": -6.8699220513293895,
+            "n_positives_in_negative_elevation": 0
+          }
+        }
+      },
+      "lofo_all_rows": {
+        "pooled_auc": 0.9036468798222611,
+        "mid_band_auc": 0.8585423003876191,
+        "far_band_auc": 0.8408179410762759,
+        "per_fire_auc": {
+          "gangneung_2023": 0.7184278350515464,
+          "hongseong_2023": 0.9392712191836663,
+          "miryang_2022": 0.9768224819143017,
+          "uiseong_andong_2025": 0.8750543587532484,
+          "uljin_samcheok_2022": 0.9158966281835095,
+          "yeongdeok_2025": 0.9402991092522952
+        },
+        "mean_of_folds_auc": 0.894295272056428
+      },
+      "lofo_excluding_negative_elevation": {
+        "pooled_auc": 0.9063084669759073,
+        "mid_band_auc": 0.8651242983159583,
+        "far_band_auc": 0.8453593231379759,
+        "per_fire_auc": {
+          "gangneung_2023": 0.8671671018276763,
+          "hongseong_2023": 0.9285384642692321,
+          "miryang_2022": 0.9742765720645521,
+          "uiseong_andong_2025": 0.8814798871219691,
+          "uljin_samcheok_2022": 0.9159465695482323,
+          "yeongdeok_2025": 0.9363989387149226
+        },
+        "mean_of_folds_auc": 0.9173012555910974
+      },
+      "delta_excluding_minus_all": {
+        "pooled_auc": 0.002661587153646172,
+        "mean_of_folds_auc": 0.023005983534669427,
+        "per_fire_auc": {
+          "gangneung_2023": 0.14873926677612992,
+          "hongseong_2023": -0.01073275491443415,
+          "miryang_2022": -0.0025459098497495614,
+          "uiseong_andong_2025": 0.006425528368720679,
+          "uljin_samcheok_2022": 4.9941364722805304e-05,
+          "yeongdeok_2025": -0.0039001705373725715
+        }
+      },
+      "n_rows_dropped": 25
+    }
+  },
+  "reading_rule": "A NEGATIVE delta (AUC falls once sea cells are removed) supports the hypothesis: the committed figure was flattered by easy negatives. A delta near zero refutes it, and that refutation is a result, not an absence of one. Report whichever occurred."
+}
