@@ -180,7 +180,66 @@ def check_routing_clearance(
     return report
 
 
+class EnvelopeCoverageWarning(UserWarning):
+    """The routing extent does not cover enough of the predicted fire core."""
+
+
+def check_envelope_coverage(
+    routing_bbox_5179: tuple[float, float, float, float],
+    surface: "np.ndarray", grid: CoarseGrid, *,
+    p_cut: float = 0.5, min_fraction: float | None = None,
+) -> dict:
+    """What fraction of the predicted fire core does the routing extent cover?
+
+    :func:`check_routing_clearance` asks whether the road network sits inside
+    the hazard GRID. This asks the question nobody asked before: whether it
+    covers the FIRE. Yeongdeok passes the first with 20 km to spare and fails
+    this one — its walk bbox omits the western 25.1 km of its own predicted core
+    (``docs/walk_bbox_coverage.md``).
+
+    Coverage is measured by CELL COUNT over cells at/above ``p_cut``, not by
+    bounding-box overlap, so a long thin envelope is not flattered by a square
+    box that happens to touch both ends.
+    """
+    import numpy as np
+
+    if min_fraction is None:
+        min_fraction = float(_cfg("grid.boundary_check.envelope_coverage_min", 0.80))
+    rminx, rminy, rmaxx, rmaxy = routing_bbox_5179
+    rr, cc = np.where(np.asarray(surface) >= p_cut)
+    n_total = int(len(rr))
+    if n_total == 0:
+        return {"ok": True, "n_core_cells": 0, "n_covered": 0, "coverage": None,
+                "min_fraction": min_fraction,
+                "note": "no cells at or above p_cut; nothing to cover"}
+    c = grid.cell_size_m
+    xs = grid.minx + (cc + 0.5) * c
+    ys = grid.maxy - (rr + 0.5) * c
+    inside = (xs >= rminx) & (xs <= rmaxx) & (ys >= rminy) & (ys <= rmaxy)
+    n_cov = int(inside.sum())
+    cov = n_cov / n_total
+    rep = {
+        "ok": cov >= min_fraction, "n_core_cells": n_total, "n_covered": n_cov,
+        "coverage": cov, "min_fraction": min_fraction, "p_cut": p_cut,
+        "uncovered_cells": n_total - n_cov,
+        "core_extent_5179": [float(grid.minx + cc.min() * c),
+                             float(grid.maxy - (rr.max() + 1) * c),
+                             float(grid.minx + (cc.max() + 1) * c),
+                             float(grid.maxy - rr.min() * c)],
+    }
+    if not rep["ok"]:
+        warnings.warn(
+            f"routing extent covers only {cov:.1%} of the predicted fire core "
+            f"({n_cov}/{n_total} cells at p >= {p_cut}); minimum is "
+            f"{min_fraction:.0%}. Origins are therefore drawn from part of the "
+            "fire, not all of it — a spatially biased sample, not a wrong one. "
+            "Widen the routing bbox or report the coverage alongside the result.",
+            EnvelopeCoverageWarning, stacklevel=2)
+    return rep
+
+
 __all__ = [
+    "EnvelopeCoverageWarning", "check_envelope_coverage",
     "GridBoundaryError", "RoutingClearanceWarning", "resolve_simulation_bbox",
     "boundary_contact", "assert_envelope_within_grid", "check_routing_clearance",
 ]

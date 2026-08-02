@@ -141,6 +141,20 @@ grid:
     # see docs/grid_extent.md.
     routing_clearance_km: 5.0
 
+    # Fraction of the predicted fire core (p >= p_cut) that the ROUTING extent
+    # must actually cover.
+    #
+    # `routing_clearance_km` above asks "is the road network inside the hazard
+    # GRID?" — Yeongdeok answers yes, with 20 km to spare. It never asked "does
+    # the road network cover the FIRE?", and there Yeongdeok answers no: its
+    # walk bbox spans 129.25–129.55 while the p>=0.5 envelope spans
+    # 128.966–129.456, so the western 25.1 km of the predicted core has no road
+    # network at all (docs/walk_bbox_coverage.md).
+    #
+    # Applied to Yeongdeok this check WARNS. That is correct behaviour, not a
+    # misconfiguration: it is the finding.
+    envelope_coverage_min: 0.80
+
 # -----------------------------------------------------------------------------
 # Time resolution
 # -----------------------------------------------------------------------------

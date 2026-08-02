@@ -397,6 +397,13 @@ def main() -> int:
     )
 
     # ------------------------------------------- real roads + real hazard ----
+    COVERAGE_CAVEAT = (
+        " 출발지는 예측 화재 핵심의 동측 약 40% 구간에서 추출되었습니다. 보행망 "
+        "bbox가 포락선 전체를 덮지 않습니다. Measured by cell count the walk bbox "
+        "covers 50.4 % (123/244) of the p>=0.5 core; the western 25.1 km has no "
+        "road network. The origins are a SPATIALLY BIASED sample, not a wrong "
+        "one — the direction of the bias is unmeasured. See "
+        "docs/walk_bbox_coverage.md.")
     for key, cnt, desc, cav in [
         ("real_roads_both_safe", k["both_safe"], "both_safe",
          "Both routers reach a safe refuge. Dominated by the near-static ≥0.5 hazard core."),
@@ -405,6 +412,7 @@ def main() -> int:
         ("real_roads_no_safe_route", k["no_safe_route"], "no_safe_route",
          "Neither router finds a safe route. A valid, expected output — never imputed."),
     ]:
+        cav = cav + COVERAGE_CAVEAT
         N[key] = entry(
             value=cnt, unit="origins", source_file=RRRH, json_path=f"counts.{desc}",
             derivation=f"6-bucket partition, counts.{desc}",
@@ -421,7 +429,7 @@ def main() -> int:
         sample="459곳 주사",
         caveat=("Stride 18 over the OSM walk graph. NOT comparable on timing to the "
                 "439-origin rescue run: the hazard here is 5 slices at 180-min steps "
-                "(~12× coarser)."),
+                "(~12× coarser)." + COVERAGE_CAVEAT),
         forbidden_phrasings=["459 residents", "459명"],
         check={"kind": "expression",
                "operands": {"a": op(RRRH, "counts.both_safe"),
