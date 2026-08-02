@@ -3,7 +3,7 @@
   "_README": "CANONICAL REGISTRY. Every reportable number lives here exactly once. Do not restate a value in prose without citing its key. 'verified' = still matches its artifact; 'reproducible' = re-running the pipeline regenerates that artifact. They are independent — several numbers here are verified but NOT reproducible because the OSM network behind them was overwritten (docs/DATA_LOSS_2026-07-24.md). Run scripts/verify_numbers.py to re-check every entry.",
   "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
   "config_hash_note": "The per-entry config_hash is re-stamped on every build, so it marks the config a build SAW, not the config a number was PRODUCED under. It moved 0b6eb481177a… -> 51ec446843b6… between the 2026-08-01 build and the 2026-08-02 (PHASE 5 STEP 4) build. That move is PURELY ADDITIVE: `bbox.multi_region_walk_bbox` and `grid.simulation_bbox_extension` were added and NOT ONE existing key changed value (verified key-by-key against config/default.yaml at commit 5fe86db). No Round-2 number is stale as a result.",
-  "built_at_git_commit": "a32da6b510bf366ac0ee8d1393d0af19c72acfac",
+  "built_at_git_commit": "141b035aaaa87884fec7a97f430b35f258b4ab6a",
   "round2_submission_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
   "numbers": {
     "lofo_mean_of_folds_auc": {
@@ -1513,7 +1513,7 @@
       "reproducible": true
     },
     "mr_uiseong_both_safe": {
-      "value": 346,
+      "value": 263,
       "unit": "origins",
       "source_file": "data/processed/real_roads_real_hazard_uiseong_andong_2025.json",
       "json_path": "arms.slope_digraph_canonical.counts",
@@ -1553,7 +1553,7 @@
       "reproducible": true
     },
     "mr_uiseong_future_aware_only_safe": {
-      "value": 13,
+      "value": 91,
       "unit": "origins",
       "source_file": "data/processed/real_roads_real_hazard_uiseong_andong_2025.json",
       "json_path": "arms.slope_digraph_canonical.counts",
@@ -1593,7 +1593,7 @@
       "reproducible": true
     },
     "mr_uiseong_no_safe_route": {
-      "value": 0,
+      "value": 12,
       "unit": "origins",
       "source_file": "data/processed/real_roads_real_hazard_uiseong_andong_2025.json",
       "json_path": "arms.slope_digraph_canonical.counts",
@@ -1633,7 +1633,7 @@
       "reproducible": true
     },
     "mr_uiseong_fa_exceeds_budget": {
-      "value": 9,
+      "value": 2,
       "unit": "origins",
       "source_file": "data/processed/real_roads_real_hazard_uiseong_andong_2025.json",
       "json_path": "arms.slope_digraph_canonical.counts",
@@ -1673,7 +1673,7 @@
       "reproducible": true
     },
     "mr_uiseong_fa_only_pct": {
-      "value": 3.53,
+      "value": 24.73,
       "unit": "% of origins",
       "source_file": "data/processed/multi_region_comparison.json",
       "json_path": "regions.1.future_aware_only_safe_pct",
@@ -1753,7 +1753,7 @@
       "reproducible": true
     },
     "mr_uljin_both_safe": {
-      "value": 376,
+      "value": 377,
       "unit": "origins",
       "source_file": "data/processed/real_roads_real_hazard_uljin_samcheok_2022.json",
       "json_path": "arms.slope_digraph_canonical.counts",
@@ -1873,7 +1873,7 @@
       "reproducible": true
     },
     "mr_uljin_fa_exceeds_budget": {
-      "value": 4,
+      "value": 3,
       "unit": "origins",
       "source_file": "data/processed/real_roads_real_hazard_uljin_samcheok_2022.json",
       "json_path": "arms.slope_digraph_canonical.counts",
@@ -2079,7 +2079,7 @@
       "reproducible": true
     },
     "mr_uiseong_envelope_coverage": {
-      "value": 0.989,
+      "value": 0.992,
       "unit": "fraction",
       "source_file": "data/processed/multi_region_comparison.json",
       "json_path": "regions.1.envelope_coverage_final_slice",
@@ -2121,7 +2121,7 @@
       "reproducible": true
     },
     "mr_uiseong_envelope_area_ha": {
-      "value": 2375.0,
+      "value": 3275.0,
       "unit": "ha",
       "source_file": "data/processed/multi_region_comparison.json",
       "json_path": "regions.1.envelope_area_ha",
@@ -2163,7 +2163,7 @@
       "reproducible": true
     },
     "mr_uiseong_fa_rescue_rate": {
-      "value": 1.0,
+      "value": 0.883,
       "unit": "fraction",
       "source_file": "data/processed/multi_region_comparison.json",
       "json_path": "regions.1.future_aware_rescue_rate",
@@ -2171,7 +2171,7 @@
       "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
-      "sample": "의성·안동 2025 · 화재 무시 경로가 위험한 13곳",
+      "sample": "의성·안동 2025 · 화재 무시 경로가 위험한 103곳",
       "caveat": "Conditional rate on a SMALL denominator (13–20 origins), so it moves in large steps. It is reported because the headline fraction alone hides the mechanism: where the core advances fastest, unsafe origins fall into no_safe_route instead of into the future-aware bucket.",
       "forbidden_phrasings": [
         "보행 실패율",
@@ -2205,7 +2205,7 @@
       "reproducible": true
     },
     "mr_uljin_envelope_coverage": {
-      "value": 0.848,
+      "value": 0.815,
       "unit": "fraction",
       "source_file": "data/processed/multi_region_comparison.json",
       "json_path": "regions.2.envelope_coverage_final_slice",
@@ -2247,7 +2247,7 @@
       "reproducible": true
     },
     "mr_uljin_envelope_area_ha": {
-      "value": 6575.0,
+      "value": 7300.0,
       "unit": "ha",
       "source_file": "data/processed/multi_region_comparison.json",
       "json_path": "regions.2.envelope_area_ha",
@@ -2331,7 +2331,7 @@
       "reproducible": true
     },
     "mr_uiseong_mean_abs_slope": {
-      "value": 0.0703,
+      "value": 0.0636,
       "unit": "rise/run",
       "source_file": "data/processed/real_roads_real_hazard_uiseong_andong_2025.json",
       "json_path": "arms.slope_digraph_canonical.slope_stats.slope_abs.mean",
@@ -2373,7 +2373,7 @@
       "reproducible": true
     },
     "mr_uiseong_walk_time_increase_pct": {
-      "value": 19.63,
+      "value": 15.14,
       "unit": "percent",
       "source_file": "data/processed/real_roads_real_hazard_uiseong_andong_2025.json",
       "json_path": "arms.slope_digraph_canonical.slope_stats.traversal_time.pct_change_mean_of_directions",
@@ -2415,7 +2415,7 @@
       "reproducible": true
     },
     "mr_uljin_mean_abs_slope": {
-      "value": 0.0818,
+      "value": 0.0806,
       "unit": "rise/run",
       "source_file": "data/processed/real_roads_real_hazard_uljin_samcheok_2022.json",
       "json_path": "arms.slope_digraph_canonical.slope_stats.slope_abs.mean",
@@ -2457,7 +2457,7 @@
       "reproducible": true
     },
     "mr_uljin_walk_time_increase_pct": {
-      "value": 26.58,
+      "value": 23.67,
       "unit": "percent",
       "source_file": "data/processed/real_roads_real_hazard_uljin_samcheok_2022.json",
       "json_path": "arms.slope_digraph_canonical.slope_stats.traversal_time.pct_change_mean_of_directions",
@@ -2631,7 +2631,7 @@
       "reproducible": true
     },
     "mr_envelope_area_spread": {
-      "value": 2.77,
+      "value": 2.23,
       "unit": "ratio",
       "source_file": "data/processed/multi_region_comparison.json",
       "json_path": "envelope_area_definition.spread_max_over_min",
@@ -2664,7 +2664,7 @@
       "reproducible": true
     },
     "mr_core_growth_vs_fa_only_rho": {
-      "value": -1.0,
+      "value": -0.5,
       "unit": "Spearman rho",
       "source_file": "data/processed/multi_region_comparison.json",
       "json_path": "core_growth_vs_metric.spearman_rho_vs_fa_only",
@@ -2700,7 +2700,7 @@
       "reproducible": true
     },
     "mr_uljin_walk_nodes_outside_dem": {
-      "value": 405,
+      "value": 0,
       "unit": "walk nodes",
       "source_file": "data/processed/real_roads_real_hazard_uljin_samcheok_2022.json",
       "json_path": "preflight.dem_footprint.n_nodes_outside_dem",

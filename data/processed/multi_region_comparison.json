@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "title": "Multi-region 459-series routing comparison (3 regions)",
-  "generated_utc": "2026-08-02T08:51:13Z",
-  "git_commit": "a32da6b510bf366ac0ee8d1393d0af19c72acfac",
+  "generated_utc": "2026-08-02T09:20:53Z",
+  "git_commit": "141b035aaaa87884fec7a97f430b35f258b4ab6a",
   "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
   "n_regions": 3,
   "region_order": [
@@ -41,10 +41,10 @@
     "computed_here_for_all_three": true,
     "values_ha": {
       "yeongdeok_2025": 6100.0,
-      "uiseong_andong_2025": 2375.0,
-      "uljin_samcheok_2022": 6575.0
+      "uiseong_andong_2025": 3275.0,
+      "uljin_samcheok_2022": 7300.0
     },
-    "spread_max_over_min": 2.768421052631579,
+    "spread_max_over_min": 2.2290076335877864,
     "warning": "A 27,900 ha figure for Yeongdeok appears in data/processed/yeongdeok_forward_sim.json and in prose derived from it. It is NOT this quantity: that artifact is a different simulation whose step-0 area is 6,225 ha where this field's is 6,025 ha. Combining it with the two new regions' p>=0.5 areas inflates the apparent spread from 2.77x to about 11.7x. Use one definition or the other, never one of each."
   },
   "regions": [
@@ -173,31 +173,31 @@
       ],
       "bbox_area_km2": 918.7,
       "n_origins_scanned": 368,
-      "both_safe": 346,
-      "future_aware_only_safe": 13,
-      "no_safe_route": 0,
+      "both_safe": 263,
+      "future_aware_only_safe": 91,
+      "no_safe_route": 12,
       "other_buckets": {
         "both_enter": 0,
         "naive_unreachable": 0,
-        "fa_exceeds_budget": 9,
+        "fa_exceeds_budget": 2,
         "unclassified": 0
       },
-      "fa_exceeds_budget": 9,
-      "future_aware_only_safe_fraction": 0.035326086956521736,
-      "future_aware_only_safe_pct": 3.532608695652174,
-      "n_naive_route_unsafe": 13,
-      "naive_route_unsafe_pct": 3.532608695652174,
-      "future_aware_rescue_rate": 1.0,
+      "fa_exceeds_budget": 2,
+      "future_aware_only_safe_fraction": 0.24728260869565216,
+      "future_aware_only_safe_pct": 24.72826086956522,
+      "n_naive_route_unsafe": 103,
+      "naive_route_unsafe_pct": 27.98913043478261,
+      "future_aware_rescue_rate": 0.883495145631068,
       "future_aware_rescue_rate_note": "share of the origins whose FIRE-BLIND route is unsafe that the future-aware router still gets to a refuge. Denominator is naive_into_FA_safe + no_safe_route + both_enter, so it is not diluted by the origins that were never in danger.",
-      "envelope_coverage_final_slice": 0.9894736842105263,
+      "envelope_coverage_final_slice": 0.9923664122137404,
       "road_density_km_per_km2": 2.332,
       "node_density_per_km2": 7.27,
       "walk_length_km": 2142.2,
       "walk_nodes": 6678,
       "geometry_edge_fraction": 0.786,
       "shelter_pois": 34,
-      "envelope_area_ha": 2375.0,
-      "core_growth_pct": 79.24528301886792,
+      "envelope_area_ha": 3275.0,
+      "core_growth_pct": 147.16981132075472,
       "depot_pois": 0,
       "origins_per_road_km": 0.17178601437774252,
       "origins_per_1000_walk_nodes": 55.106319257262655,
@@ -219,17 +219,17 @@
         "cell_size_m": 500.0,
         "cells_ge_0.5_per_slice": [
           53,
-          63,
-          71,
-          86,
-          95
+          80,
+          101,
+          121,
+          131
         ],
-        "envelope_area_ha_final_slice": 2375.0,
-        "core_growth_pct_first_to_last": 79.24528301886792,
-        "envelope_coverage_final_slice": 0.9894736842105263,
+        "envelope_area_ha_final_slice": 3275.0,
+        "core_growth_pct_first_to_last": 147.16981132075472,
+        "envelope_coverage_final_slice": 0.9923664122137404,
         "envelope_coverage_cells": [
-          94,
-          95
+          130,
+          131
         ]
       },
       "primary_source": {
@@ -241,12 +241,12 @@
       "quoted_not_rerun": false,
       "slope_changed_counts_vs_flat": true,
       "flat_control_counts": {
-        "naive_into_FA_safe": 13,
-        "no_safe_route": 0,
-        "both_safe": 354,
+        "naive_into_FA_safe": 96,
+        "no_safe_route": 6,
+        "both_safe": 266,
         "both_enter": 0,
         "naive_unreachable": 0,
-        "fa_exceeds_budget": 1,
+        "fa_exceeds_budget": 0,
         "unclassified": 0
       },
       "dem_footprint": {
@@ -266,31 +266,31 @@
       ],
       "bbox_area_km2": 924.2,
       "n_origins_scanned": 393,
-      "both_safe": 376,
+      "both_safe": 377,
       "future_aware_only_safe": 3,
       "no_safe_route": 10,
       "other_buckets": {
         "both_enter": 0,
         "naive_unreachable": 0,
-        "fa_exceeds_budget": 4,
+        "fa_exceeds_budget": 3,
         "unclassified": 0
       },
-      "fa_exceeds_budget": 4,
+      "fa_exceeds_budget": 3,
       "future_aware_only_safe_fraction": 0.007633587786259542,
       "future_aware_only_safe_pct": 0.7633587786259542,
       "n_naive_route_unsafe": 13,
       "naive_route_unsafe_pct": 3.3078880407124682,
       "future_aware_rescue_rate": 0.23076923076923078,
       "future_aware_rescue_rate_note": "share of the origins whose FIRE-BLIND route is unsafe that the future-aware router still gets to a refuge. Denominator is naive_into_FA_safe + no_safe_route + both_enter, so it is not diluted by the origins that were never in danger.",
-      "envelope_coverage_final_slice": 0.8479087452471483,
+      "envelope_coverage_final_slice": 0.815068493150685,
       "road_density_km_per_km2": 1.601,
       "node_density_per_km2": 7.9,
       "walk_length_km": 1479.1,
       "walk_nodes": 7300,
       "geometry_edge_fraction": 0.6835,
       "shelter_pois": 26,
-      "envelope_area_ha": 6575.0,
-      "core_growth_pct": 155.33980582524273,
+      "envelope_area_ha": 7300.0,
+      "core_growth_pct": 183.49514563106797,
       "depot_pois": 4,
       "origins_per_road_km": 0.2657021161517139,
       "origins_per_1000_walk_nodes": 53.83561643835616,
@@ -312,17 +312,17 @@
         "cell_size_m": 500.0,
         "cells_ge_0.5_per_slice": [
           103,
-          149,
-          199,
-          249,
-          263
+          150,
+          211,
+          274,
+          292
         ],
-        "envelope_area_ha_final_slice": 6575.0,
-        "core_growth_pct_first_to_last": 155.33980582524273,
-        "envelope_coverage_final_slice": 0.8479087452471483,
+        "envelope_area_ha_final_slice": 7300.0,
+        "core_growth_pct_first_to_last": 183.49514563106797,
+        "envelope_coverage_final_slice": 0.815068493150685,
         "envelope_coverage_cells": [
-          223,
-          263
+          238,
+          292
         ]
       },
       "primary_source": {
@@ -343,23 +343,10 @@
         "unclassified": 0
       },
       "dem_footprint": {
-        "n_nodes_outside_dem": 405,
-        "frac_nodes_outside_dem": 0.05547945205479452
+        "n_nodes_outside_dem": 0,
+        "frac_nodes_outside_dem": 0.0
       },
-      "dem_hole_origins": {
-        "n_scanned_origins_outside_dem": 23,
-        "frac_of_scanned_origins": 0.058524173027989825,
-        "by_bucket": {
-          "naive_into_FA_safe": 0,
-          "no_safe_route": 0,
-          "both_enter": 0,
-          "naive_unreachable": 0,
-          "fa_exceeds_budget": 0,
-          "unclassified": 0,
-          "both_safe": 23
-        },
-        "note": "these origins were routed on FLAT-timed edges inside a run labelled 'slope'. Their bucket membership is listed so the effect on the headline can be bounded rather than assumed."
-      }
+      "dem_hole_origins": null
     }
   ],
   "associations_directional_only": {
@@ -371,11 +358,11 @@
       "envelope_coverage_final_slice": {
         "values_in_region_order": [
           0.5040983606557377,
-          0.9894736842105263,
-          0.8479087452471483
+          0.9923664122137404,
+          0.815068493150685
         ],
-        "pearson_r": -0.2817075370112375,
-        "spearman_rho": -0.5,
+        "pearson_r": 0.7018845121301455,
+        "spearman_rho": 0.5,
         "same_ordering_as_fa_only": false,
         "reverse_ordering_of_fa_only": false
       },
@@ -385,9 +372,9 @@
           2.332,
           1.601
         ],
-        "pearson_r": 0.6006771040260998,
-        "spearman_rho": 0.5,
-        "same_ordering_as_fa_only": false,
+        "pearson_r": 0.9983274833939005,
+        "spearman_rho": 1.0,
+        "same_ordering_as_fa_only": true,
         "reverse_ordering_of_fa_only": false
       },
       "node_density_per_km2": {
@@ -396,32 +383,32 @@
           7.27,
           7.9
         ],
-        "pearson_r": 0.2191990563056375,
-        "spearman_rho": 0.5,
+        "pearson_r": -0.6913092210726274,
+        "spearman_rho": -0.5,
         "same_ordering_as_fa_only": false,
         "reverse_ordering_of_fa_only": false
       },
       "envelope_area_ha": {
         "values_in_region_order": [
           6100.0,
-          2375.0,
-          6575.0
+          3275.0,
+          7300.0
         ],
-        "pearson_r": -0.5459746889191525,
-        "spearman_rho": -0.5,
+        "pearson_r": -0.9834471933695594,
+        "spearman_rho": -1.0,
         "same_ordering_as_fa_only": false,
-        "reverse_ordering_of_fa_only": false
+        "reverse_ordering_of_fa_only": true
       },
       "core_growth_pct": {
         "values_in_region_order": [
           1.2448132780082943,
-          79.24528301886792,
-          155.33980582524273
+          147.16981132075472,
+          183.49514563106797
         ],
-        "pearson_r": -0.886417114947117,
-        "spearman_rho": -1.0,
+        "pearson_r": 0.21997029130141507,
+        "spearman_rho": -0.5,
         "same_ordering_as_fa_only": false,
-        "reverse_ordering_of_fa_only": true
+        "reverse_ordering_of_fa_only": false
       },
       "origins_per_road_km": {
         "values_in_region_order": [
@@ -429,8 +416,8 @@
           0.17178601437774252,
           0.2657021161517139
         ],
-        "pearson_r": -0.3088086594760425,
-        "spearman_rho": 0.5,
+        "pearson_r": -0.9630840411490984,
+        "spearman_rho": -0.5,
         "same_ordering_as_fa_only": false,
         "reverse_ordering_of_fa_only": false
       },
@@ -440,9 +427,9 @@
           55.106319257262655,
           53.83561643835616
         ],
-        "pearson_r": 0.8461100005086278,
-        "spearman_rho": 0.5,
-        "same_ordering_as_fa_only": false,
+        "pearson_r": 0.9122139043532941,
+        "spearman_rho": 1.0,
+        "same_ordering_as_fa_only": true,
         "reverse_ordering_of_fa_only": false
       },
       "shelter_pois": {
@@ -451,9 +438,9 @@
           34,
           26
         ],
-        "pearson_r": 0.7873889463876769,
-        "spearman_rho": 1.0,
-        "same_ordering_as_fa_only": true,
+        "pearson_r": -0.07765276178047358,
+        "spearman_rho": 0.5,
+        "same_ordering_as_fa_only": false,
         "reverse_ordering_of_fa_only": false
       },
       "geometry_edge_fraction": {
@@ -462,8 +449,8 @@
           0.786,
           0.6835
         ],
-        "pearson_r": 0.3899922536650128,
-        "spearman_rho": -0.5,
+        "pearson_r": 0.9827739506538823,
+        "spearman_rho": 0.5,
         "same_ordering_as_fa_only": false,
         "reverse_ordering_of_fa_only": false
       }
@@ -474,31 +461,31 @@
     "why_it_matters": "The Round-2 documents record a limitation — the 459-series result is 'dominated by a quasi-static >=0.5 core'. If the metric tracked core growth across regions, that limitation would look like a property of the Yeongdeok field rather than of the method.",
     "core_growth_pct": {
       "yeongdeok_2025": 1.2448132780082943,
-      "uiseong_andong_2025": 79.24528301886792,
-      "uljin_samcheok_2022": 155.33980582524273
+      "uiseong_andong_2025": 147.16981132075472,
+      "uljin_samcheok_2022": 183.49514563106797
     },
     "fa_only_pct": {
       "yeongdeok_2025": 3.6956521739130435,
-      "uiseong_andong_2025": 3.532608695652174,
+      "uiseong_andong_2025": 24.72826086956522,
       "uljin_samcheok_2022": 0.7633587786259542
     },
     "no_safe_route_pct": {
       "yeongdeok_2025": 0.6521739130434783,
-      "uiseong_andong_2025": 0.0,
+      "uiseong_andong_2025": 3.260869565217391,
       "uljin_samcheok_2022": 2.544529262086514
     },
     "naive_route_unsafe_pct": {
       "yeongdeok_2025": 4.3478260869565215,
-      "uiseong_andong_2025": 3.532608695652174,
+      "uiseong_andong_2025": 27.98913043478261,
       "uljin_samcheok_2022": 3.3078880407124682
     },
     "future_aware_rescue_rate": {
       "yeongdeok_2025": 0.85,
-      "uiseong_andong_2025": 1.0,
+      "uiseong_andong_2025": 0.883495145631068,
       "uljin_samcheok_2022": 0.23076923076923078
     },
     "same_ordering_as_fa_only": false,
-    "spearman_rho_vs_fa_only": -1.0,
+    "spearman_rho_vs_fa_only": -0.5,
     "spearman_rho_vs_no_safe_route": 0.5,
     "spearman_rho_vs_rescue_rate": -0.5,
     "finding": "NOT SUPPORTED as stated. The headline fraction runs OPPOSITE to core growth: the fastest-advancing core (Uljin-Samcheok, +155 %) has the LOWEST future-aware-only share. The decomposition says why — where the core advances fastest, an unsafe fire-blind route more often has no safe alternative at all, so those origins land in no_safe_route instead of naive_into_FA_safe. The share of origins whose fire-blind route is unsafe is nearly FLAT across the three regions (4.35 / 3.53 / 3.31 %); what moves is whether the future-aware router can still rescue them (85 % / 100 % / 23 %).",

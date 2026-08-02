@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "title": "Per-region forward simulation for the multi-region routing extension",
-  "generated_utc": "2026-08-02T04:16:00Z",
-  "git_commit": "5fe86db26db44dbaae0f1cfa9340c2e4954d8a98",
-  "config_hash": "0b6eb481177a61bf23b99cef83a55fd5ebe3f556997c45d264d9acaf101bc178",
+  "generated_utc": "2026-08-02T09:17:38Z",
+  "git_commit": "141b035aaaa87884fec7a97f430b35f258b4ab6a",
+  "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
   "no_new_acquisition": true,
   "parameters": {
     "cell_m": 500.0,
@@ -125,38 +125,38 @@
       },
       "envelope_area_ha": [
         1325.0,
-        1575.0,
-        1775.0,
-        2150.0,
-        2375.0
+        2000.0,
+        2525.0,
+        3025.0,
+        3275.0
       ],
       "cells_ge_0.5": [
         53,
-        63,
-        71,
-        86,
-        95
+        80,
+        101,
+        121,
+        131
       ],
       "cells_ge_0.3": [
         53,
-        63,
-        89,
-        117,
-        130
+        80,
+        137,
+        169,
+        179
       ],
       "envelope_breadth_deg": [
         24.762513623853497,
-        24.958382192410852,
-        25.19474501701048,
-        24.76163290205579,
-        25.723326191564414
+        22.279398994559543,
+        23.501469148795252,
+        24.169884191938557,
+        24.136933638164212
       ],
       "envelope_extent_5179_p_cut": {
         "minx": 1083840.813427112,
         "miny": 1803018.0445213197,
         "maxx": 1107840.813427112,
         "maxy": 1822018.0445213197,
-        "n_cells": 95
+        "n_cells": 131
       },
       "envelope_extent_wgs84_p_cut": [
         128.4328,
@@ -188,7 +188,7 @@
       },
       "walk_margin_km": 5.0,
       "hazard_npz": "data/processed/hazard_uiseong_andong_2025.npz",
-      "hazard_npz_sha256": "5a821a58c6d59252f736cee34882046a718118d7d3dd7b3a586fc4ba2c379fe6",
+      "hazard_npz_sha256": "4016c2e6ef8e27eb12310a816a416b6d1a6bf54d0187d6ac8fbc4ad4f747e3cd",
       "start_time": "2025-03-22 05:39:00+00:00"
     },
     {
@@ -300,70 +300,70 @@
       },
       "envelope_area_ha": [
         2575.0,
-        3725.0,
-        4975.0,
-        6225.0,
-        6575.0
+        3750.0,
+        5275.0,
+        6850.0,
+        7300.0
       ],
       "cells_ge_0.5": [
         103,
-        149,
-        199,
-        249,
-        263
+        150,
+        211,
+        274,
+        292
       ],
       "cells_ge_0.3": [
         103,
-        149,
-        222,
-        296,
-        312
+        150,
+        254,
+        343,
+        370
       ],
       "envelope_breadth_deg": [
         8.861183928277889,
-        10.024859608169686,
-        10.998579772030402,
-        11.586928718840218,
-        11.515086905132232
+        10.049210907657141,
+        11.342858847242535,
+        12.410003180866312,
+        12.55574382199926
       ],
       "envelope_extent_5179_p_cut": {
-        "minx": 1157023.2038216323,
+        "minx": 1156523.2038216323,
         "miny": 1893049.6785631683,
-        "maxx": 1168023.2038216323,
+        "maxx": 1169023.2038216323,
         "maxy": 1906049.6785631683,
-        "n_cells": 263
+        "n_cells": 292
       },
       "envelope_extent_wgs84_p_cut": [
-        129.2652,
+        129.2596,
         37.0229,
-        129.3917,
-        37.1381
+        129.403,
+        37.1379
       ],
       "derived_walk_bbox": {
-        "minx": 1152023.2038216323,
+        "minx": 1151523.2038216323,
         "miny": 1888049.6785631683,
-        "maxx": 1173023.2038216323,
+        "maxx": 1174023.2038216323,
         "maxy": 1911049.6785631683,
-        "width_km": 21.0,
+        "width_km": 22.5,
         "height_km": 23.0,
-        "area_km2": 483.0,
+        "area_km2": 517.5,
         "wgs84_wsen": [
-          129.208,
-          36.9786,
-          129.4492,
-          37.1822
+          129.2024,
+          36.9787,
+          129.4604,
+          37.182
         ],
         "clearance_to_sim_grid_km": {
-          "west": 10.5,
+          "west": 10.0,
           "south": 24.5,
-          "east": 14.5,
+          "east": 13.5,
           "north": 30.0
         },
         "fits_inside_sim_grid": true
       },
       "walk_margin_km": 5.0,
       "hazard_npz": "data/processed/hazard_uljin_samcheok_2022.npz",
-      "hazard_npz_sha256": "f93e62ada9c3f02a2b7daf6ae1fa3994ebce16629b1824acae65a01858cd5f2e",
+      "hazard_npz_sha256": "5482c9b5ded9a576f3a8d4134b0633bb20992838ffd013942531f58adc09eb97",
       "start_time": "2022-03-04 05:26:00+00:00"
     }
   ]

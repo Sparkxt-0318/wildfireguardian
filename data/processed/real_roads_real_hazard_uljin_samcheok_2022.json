@@ -4,10 +4,10 @@
   "series": "459",
   "series_note": "459-SERIES, THREE BUCKETS. The reported cross-region quantity is `future_aware_only_safe_fraction` = naive_into_FA_safe / n_origins_scanned — the share of origins that reach safety ONLY on the future-aware route. It is NOT the walk-failure rate w: w belongs to the 439 series, which is bound to a synthetic hazard envelope and cannot be carried inland.",
   "region": "uljin_samcheok_2022",
-  "generated_utc": "2026-08-02T08:50:58Z",
-  "git_commit": "a32da6b510bf366ac0ee8d1393d0af19c72acfac",
+  "generated_utc": "2026-08-02T09:20:34Z",
+  "git_commit": "141b035aaaa87884fec7a97f430b35f258b4ab6a",
   "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
-  "runtime_s": 55.3,
+  "runtime_s": 61.9,
   "parameters": {
     "identical_to_yeongdeok": true,
     "slope_sampling_m": 60.0,
@@ -23,7 +23,7 @@
   },
   "headline": {
     "n_origins_scanned": 393,
-    "both_safe": 376,
+    "both_safe": 377,
     "future_aware_only_safe": 3,
     "no_safe_route": 10,
     "future_aware_only_safe_fraction": 0.007633587786259542,
@@ -132,10 +132,10 @@
       "counts": {
         "naive_into_FA_safe": 3,
         "no_safe_route": 10,
-        "both_safe": 376,
+        "both_safe": 377,
         "both_enter": 0,
         "naive_unreachable": 0,
-        "fa_exceeds_budget": 4,
+        "fa_exceeds_budget": 3,
         "unclassified": 0
       },
       "future_aware_only_safe_fraction": 0.007633587786259542,
@@ -159,144 +159,144 @@
         "n_edges_straight_line": 2931,
         "geometry_fraction": 0.679,
         "slope_abs": {
-          "mean": 0.08180390500212675,
-          "length_weighted_mean": 0.08333459123395649,
-          "median": 0.04965608962782693,
-          "p90": 0.20811267243166517,
-          "p99": 0.46535344149104474,
+          "mean": 0.08056874032038101,
+          "length_weighted_mean": 0.08193756344133545,
+          "median": 0.05073669283087,
+          "p90": 0.1969386387103965,
+          "p99": 0.41000723245183823,
           "max": 0.6,
-          "frac_gt_5pct": 0.49222306525037934,
-          "frac_gt_15pct": 0.17921092564491653,
-          "frac_gt_50pct": 0.007207890743550834
+          "frac_gt_5pct": 0.5191578148710166,
+          "frac_gt_15pct": 0.16437784522003035,
+          "frac_gt_50pct": 0.0041350531107739
         },
         "traversal_time": {
           "flat_total_h": 579.0099511163157,
-          "slope_forward_total_h": 744.7904489276315,
-          "slope_reverse_total_h": 721.0553452508566,
-          "pct_change_forward": 28.63171824451296,
-          "pct_change_reverse": 24.5324616374349,
-          "pct_change_mean_of_directions": 26.58208994097393
+          "slope_forward_total_h": 728.1733774939823,
+          "slope_reverse_total_h": 703.9660299403811,
+          "pct_change_forward": 25.761807044953787,
+          "pct_change_reverse": 21.580989857454647,
+          "pct_change_mean_of_directions": 23.67139845120423
         },
         "directional_asymmetry": {
           "definition": "|t(u->v) - t(v->u)| / t_flat, per undirected edge",
-          "mean": 0.19557735036422633,
-          "median": 0.1393006852991141,
-          "p90": 0.45609107726217907,
-          "max": 1.3698337338783595,
-          "frac_edges_gt_10pct": 0.5713972842750766
+          "mean": 0.21173996880863472,
+          "median": 0.17199030367091506,
+          "p90": 0.4508207296128782,
+          "max": 1.345946601839698,
+          "frac_edges_gt_10pct": 0.6367717915024091
         },
         "dem_sampling": {
           "note": "A sample outside the DEM footprint reads nodata and is then timed as FLAT. Silent by construction, so it is counted: n_nodata_samples > 0 means part of this 'slope' run is a flat run.",
           "n_elev_samples": 35492,
-          "n_nodata_samples": 2189,
-          "frac_nodata": 0.061675870618730984,
-          "n_edges_with_nodata": 504,
-          "frac_edges_with_nodata": 0.05519053876478318
+          "n_nodata_samples": 0,
+          "frac_nodata": 0.0,
+          "n_edges_with_nodata": 0,
+          "frac_edges_with_nodata": 0.0
         },
         "clipping": {
           "note": "DEFENCE AGAINST DEM REGISTRATION ERROR, NOT a physical correction. Where a road crosses a bridge, tunnel or cutting, SRTM reports the terrain surface rather than the roadbed; the resulting slope is an artefact of comparing a road position with a hillside elevation.",
-          "n_clipped_subsegments": 92,
-          "frac_clipped": 0.0034901365705614566,
-          "n_edges_affected": 71,
+          "n_clipped_subsegments": 45,
+          "frac_clipped": 0.0017071320182094083,
+          "n_edges_affected": 31,
           "worst_edges": [
             {
-              "u": 11381940775,
-              "v": 11381940793,
+              "u": 11340867632,
+              "v": 11340867636,
               "n_subsegments_clipped": 1,
-              "max_abs_slope_raw": 2.3402778633977985,
+              "max_abs_slope_raw": 1.9947158906241953,
               "xy_5179": [
-                1170276.0779041178,
-                1896965.2006538545
+                1166403.3246039138,
+                1902228.6645565638
               ]
             },
             {
-              "u": 11360547020,
-              "v": 11364920594,
+              "u": 12087968610,
+              "v": 12087970982,
               "n_subsegments_clipped": 1,
-              "max_abs_slope_raw": 2.3101754427251153,
+              "max_abs_slope_raw": 1.72455006520194,
               "xy_5179": [
-                1167730.6408966384,
-                1899362.0669647488
+                1167912.966514818,
+                1900720.721296188
               ]
             },
             {
-              "u": 12087971299,
-              "v": 12087971326,
+              "u": 3886478769,
+              "v": 11461539968,
               "n_subsegments_clipped": 1,
-              "max_abs_slope_raw": 1.9740220352821187,
+              "max_abs_slope_raw": 1.5357237638795167,
               "xy_5179": [
-                1167890.5800542207,
-                1899850.8827305634
+                1164815.9592678344,
+                1895087.7567604673
               ]
             },
             {
-              "u": 469710698,
-              "v": 11762657233,
+              "u": 11461523023,
+              "v": 11461523033,
               "n_subsegments_clipped": 1,
-              "max_abs_slope_raw": 1.8447466568705844,
+              "max_abs_slope_raw": 0.946762738526779,
               "xy_5179": [
-                1171464.1545063874,
-                1897298.9157823422
+                1166472.2288709534,
+                1894465.2735797553
               ]
             },
             {
-              "u": 12087971290,
-              "v": 12087971326,
+              "u": 4746863598,
+              "v": 4746863599,
               "n_subsegments_clipped": 1,
-              "max_abs_slope_raw": 1.5358952007175595,
+              "max_abs_slope_raw": 0.8997219889590602,
               "xy_5179": [
-                1167889.4528718125,
-                1899861.5047628037
+                1167696.287909004,
+                1882685.364279348
               ]
             },
             {
-              "u": 5554288444,
-              "v": 5554288445,
+              "u": 12087966942,
+              "v": 12087966949,
               "n_subsegments_clipped": 1,
-              "max_abs_slope_raw": 1.4419520471066554,
+              "max_abs_slope_raw": 0.8944184916133786,
               "xy_5179": [
-                1159142.297399233,
-                1893476.4317670988
+                1167113.459910239,
+                1899812.822579104
               ]
             },
             {
-              "u": 11415429010,
-              "v": 11415429016,
+              "u": 11374115685,
+              "v": 11374115686,
               "n_subsegments_clipped": 1,
-              "max_abs_slope_raw": 1.385524602988812,
+              "max_abs_slope_raw": 0.8636541513355223,
               "xy_5179": [
-                1169990.1651987007,
-                1892487.28918055
+                1169928.0017385157,
+                1898781.076993658
               ]
             },
             {
-              "u": 11379034645,
-              "v": 11379034701,
+              "u": 10307777982,
+              "v": 10307779086,
               "n_subsegments_clipped": 1,
-              "max_abs_slope_raw": 1.3354005947208363,
+              "max_abs_slope_raw": 0.7840732454081896,
               "xy_5179": [
-                1171120.8105605526,
-                1897795.3170499618
+                1149228.0740891132,
+                1902158.388119976
               ]
             },
             {
-              "u": 5135420159,
-              "v": 5135420160,
+              "u": 11098830292,
+              "v": 11098835625,
               "n_subsegments_clipped": 1,
-              "max_abs_slope_raw": 1.2823349803084343,
+              "max_abs_slope_raw": 0.7683072349531125,
               "xy_5179": [
-                1167393.091352427,
-                1888821.8855661321
+                1164757.6641811468,
+                1877133.480190974
               ]
             },
             {
-              "u": 469710698,
-              "v": 11380625747,
-              "n_subsegments_clipped": 1,
-              "max_abs_slope_raw": 1.2430714123138988,
+              "u": 4617474790,
+              "v": 7488335393,
+              "n_subsegments_clipped": 8,
+              "max_abs_slope_raw": 0.7673711265087287,
               "xy_5179": [
-                1171464.1545063874,
-                1897298.9157823422
+                1160196.5261076028,
+                1887194.8090020346
               ]
             }
           ]
@@ -324,7 +324,6 @@
         "naive_unreachable": [],
         "fa_exceeds_budget": [
           377913410,
-          1722506083,
           11098833902,
           11802156394
         ],
@@ -334,82 +333,82 @@
         {
           "rank": 1,
           "flat_s": 10704.449816424358,
-          "slope_uphill_s": 24150.934351662632,
-          "slope_downhill_s": 23483.33922382306,
-          "delta_s": 13446.484535238274,
-          "delta_pct": 125.61583982211472
+          "slope_uphill_s": 23026.448976698503,
+          "slope_downhill_s": 22084.99991623906,
+          "delta_s": 12321.999160274145,
+          "delta_pct": 115.11099936559002
         },
         {
           "rank": 2,
-          "flat_s": 12894.74123006779,
-          "slope_uphill_s": 24107.200157901396,
-          "slope_downhill_s": 22817.96766785074,
-          "delta_s": 11212.458927833606,
-          "delta_pct": 86.95373352424119
+          "flat_s": 15354.355245435168,
+          "slope_uphill_s": 25524.37558006818,
+          "slope_downhill_s": 24585.812191983598,
+          "delta_s": 10170.02033463301,
+          "delta_pct": 66.23541120462578
         },
         {
           "rank": 3,
-          "flat_s": 15354.355245435168,
-          "slope_uphill_s": 25994.877181725984,
-          "slope_downhill_s": 25144.590470477782,
-          "delta_s": 10640.521936290816,
-          "delta_pct": 69.29969879037566
+          "flat_s": 12894.74123006779,
+          "slope_uphill_s": 22818.00894039021,
+          "slope_downhill_s": 21593.06551111755,
+          "delta_s": 9923.26771032242,
+          "delta_pct": 76.95592748448084
         },
         {
           "rank": 4,
-          "flat_s": 13759.82765834622,
-          "slope_uphill_s": 23203.432750549895,
-          "slope_downhill_s": 22764.80866687931,
-          "delta_s": 9443.605092203676,
-          "delta_pct": 68.6317105612549
+          "flat_s": 8218.8227241893,
+          "slope_uphill_s": 17077.49340829259,
+          "slope_downhill_s": 15478.66282594495,
+          "delta_s": 8858.67068410329,
+          "delta_pct": 107.78515343847015
         },
         {
           "rank": 5,
-          "flat_s": 13428.407787637823,
-          "slope_uphill_s": 22813.881034380156,
-          "slope_downhill_s": 20929.813002035495,
-          "delta_s": 9385.473246742333,
-          "delta_pct": 69.8926737642164
+          "flat_s": 8414.516318223663,
+          "slope_uphill_s": 16290.870487355947,
+          "slope_downhill_s": 13631.618853630049,
+          "delta_s": 7876.354169132284,
+          "delta_pct": 93.60436026577239
         },
         {
           "rank": 6,
-          "flat_s": 8218.8227241893,
-          "slope_uphill_s": 17265.890764084812,
-          "slope_downhill_s": 15649.191324727526,
-          "delta_s": 9047.068039895512,
-          "delta_pct": 110.07742037394912
+          "flat_s": 13428.407787637823,
+          "slope_uphill_s": 20934.22198348345,
+          "slope_downhill_s": 18956.69484153967,
+          "delta_s": 7505.814195845627,
+          "delta_pct": 55.89504217138439
         },
         {
           "rank": 7,
-          "flat_s": 10865.85492585704,
-          "slope_uphill_s": 19698.822937065386,
-          "slope_downhill_s": 18093.99396201301,
-          "delta_s": 8832.968011208346,
-          "delta_pct": 81.29105414603765
+          "flat_s": 13759.82765834622,
+          "slope_uphill_s": 21156.19446714611,
+          "slope_downhill_s": 20762.37315207403,
+          "delta_s": 7396.36680879989,
+          "delta_pct": 53.753339013032765
         },
         {
           "rank": 8,
-          "flat_s": 10432.50342974694,
-          "slope_uphill_s": 18799.514986211005,
-          "slope_downhill_s": 17481.749052835337,
-          "delta_s": 8367.011556464066,
-          "delta_pct": 80.20137844006464
+          "flat_s": 10865.85492585704,
+          "slope_uphill_s": 18221.41999838121,
+          "slope_downhill_s": 16178.801174806968,
+          "delta_s": 7355.56507252417,
+          "delta_pct": 67.69430590335259
         },
         {
           "rank": 9,
-          "flat_s": 14716.386526654214,
-          "slope_uphill_s": 22927.974899540186,
-          "slope_downhill_s": 22580.23274634645,
-          "delta_s": 8211.588372885972,
-          "delta_pct": 55.79894465270535
+          "flat_s": 8709.928908170466,
+          "slope_uphill_s": 15876.64311547616,
+          "slope_downhill_s": 15203.363248833542,
+          "delta_s": 7166.714207305693,
+          "delta_pct": 82.28212058749251
         },
         {
           "rank": 10,
-          "flat_s": 17676.70127039153,
-          "slope_uphill_s": 25848.432534204047,
-          "slope_downhill_s": 25310.362066859547,
-          "delta_s": 8171.731263812515,
-          "delta_pct": 46.22882481755893
+          "flat_s": 5841.620739820868,
+          "slope_uphill_s": 12756.327423097142,
+          "slope_downhill_s": 9907.407696966828,
+          "delta_s": 6914.706683276274,
+          "delta_pct": 118.36966128493154
         }
       ]
     }
@@ -432,10 +431,10 @@
     "slope_counts": {
       "naive_into_FA_safe": 3,
       "no_safe_route": 10,
-      "both_safe": 376,
+      "both_safe": 377,
       "both_enter": 0,
       "naive_unreachable": 0,
-      "fa_exceeds_budget": 4,
+      "fa_exceeds_budget": 3,
       "unclassified": 0
     },
     "why_it_can_be_nil": "naive_route ranks by DISTANCE, so its path is slope-invariant by construction; at a 600-minute budget the future-aware router is not time-bound either. Yeongdeok showed the same null result (docs/slope_integration.md)."
@@ -456,16 +455,16 @@
     "envelope_coverage": {
       "final_slice": {
         "ok": true,
-        "n_core_cells": 263,
-        "n_covered": 223,
-        "coverage": 0.8479087452471483,
+        "n_core_cells": 292,
+        "n_covered": 238,
+        "coverage": 0.815068493150685,
         "min_fraction": 0.8,
         "p_cut": 0.5,
-        "uncovered_cells": 40,
+        "uncovered_cells": 54,
         "core_extent_5179": [
-          1157023.2038216323,
+          1156523.2038216323,
           1893049.6785631683,
-          1168023.2038216323,
+          1169023.2038216323,
           1906049.6785631683
         ]
       },
@@ -588,13 +587,13 @@
       "dem_path": "data/raw/firms_data/uljin_samcheok_2022_dem.tif",
       "dem_crs": "EPSG:4326",
       "dem_bounds_wsen": [
-        129.1,
-        36.85,
-        129.6,
-        37.45
+        129.07986111115207,
+        36.74013888888581,
+        129.61986111115215,
+        37.470138888885906
       ],
-      "n_nodes_outside_dem": 405,
-      "frac_nodes_outside_dem": 0.05547945205479452,
+      "n_nodes_outside_dem": 0,
+      "frac_nodes_outside_dem": 0.0,
       "node_lat_range": [
         36.8104531,
         37.1099281
@@ -603,30 +602,17 @@
     }
   },
   "dem_adequacy": {
-    "frac_nodata_samples": 0.061675870618730984,
-    "n_nodata_samples": 2189,
+    "frac_nodata_samples": 0.0,
+    "n_nodata_samples": 0,
     "n_elev_samples": 35492,
-    "n_edges_with_nodata": 504,
+    "n_edges_with_nodata": 0,
     "warn_fraction": 0.01,
     "stop_fraction": 0.05,
-    "verdict": "stop",
-    "acknowledged_via_flag": true,
+    "verdict": "ok",
+    "acknowledged_via_flag": false,
     "config_source": "config/default.yaml dem.nodata_{warn,stop}_fraction"
   },
-  "dem_hole_origins": {
-    "n_scanned_origins_outside_dem": 23,
-    "frac_of_scanned_origins": 0.058524173027989825,
-    "by_bucket": {
-      "naive_into_FA_safe": 0,
-      "no_safe_route": 0,
-      "both_enter": 0,
-      "naive_unreachable": 0,
-      "fa_exceeds_budget": 0,
-      "unclassified": 0,
-      "both_safe": 23
-    },
-    "note": "these origins were routed on FLAT-timed edges inside a run labelled 'slope'. Their bucket membership is listed so the effect on the headline can be bounded rather than assumed."
-  },
+  "dem_hole_origins": null,
   "responder_side": {
     "responder_side_available": true,
     "n_depot_pois": 4,
@@ -653,7 +639,7 @@
   "hazard_source": {
     "kind": "REAL — spread_v2 forward-simulated ignition probability",
     "npz_path": "data/processed/hazard_uljin_samcheok_2022.npz",
-    "npz_sha256": "f93e62ada9c3f02a2b7daf6ae1fa3994ebce16629b1824acae65a01858cd5f2e",
+    "npz_sha256": "5482c9b5ded9a576f3a8d4134b0633bb20992838ffd013942531f58adc09eb97",
     "shape": [
       5,
       155,
@@ -675,12 +661,12 @@
     ],
     "cells_ge_0.5_per_slice": [
       103,
-      149,
-      199,
-      249,
-      263
+      150,
+      211,
+      274,
+      292
     ],
-    "core_growth_pct_first_to_last": 155.33980582524273
+    "core_growth_pct_first_to_last": 183.49514563106797
   },
   "terrain_source": {
     "kind": "REAL — SRTM",

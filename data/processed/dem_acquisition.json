@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "note": "DEM acquisition provenance. The rasters live in data/raw/firms_data/ (git-ignored) and are preserved in data/snapshots/ — snapshot immediately after acquiring.",
+  "acquisitions": [
+    {
+      "region": "uiseong_andong_2025",
+      "acquired_utc": "2026-08-02T09:16:40Z",
+      "provider": "OpenTopography Global DEM API",
+      "product": "SRTMGL1",
+      "citation": "NASA JPL. NASA Shuttle Radar Topography Mission Global 1 arc second [SRTMGL1] V003. NASA EOSDIS Land Processes DAAC. doi:10.5067/MEaSUREs/SRTM/SRTMGL1.003",
+      "why": "the per-fire DEM was downloaded on the fire_manifest bbox, which does not contain the PHASE-5 ignition-centred walk bbox; edges in the uncovered strip were being timed at flat speed",
+      "request": {
+        "url_redacted": "https://portal.opentopography.org/API/globaldem?demtype=SRTMGL1&south=36.129999999999995&north=36.77&west=128.38&east=129.12&outputFormat=GTiff&API_Key=<redacted>",
+        "demtype": "SRTMGL1",
+        "bbox_wgs84_wsen": [
+          128.38,
+          36.129999999999995,
+          129.12,
+          36.77
+        ],
+        "content_type": "application/octet-stream",
+        "bytes": 7463627,
+        "seconds": 15.7,
+        "attempts": 1
+      },
+      "raster": {
+        "crs": "EPSG:4326",
+        "shape": [
+          2304,
+          2664
+        ],
+        "bounds_wsen": [
+          128.37986111115197,
+          36.130138888885725,
+          129.11986111115206,
+          36.77013888888581
+        ],
+        "resolution_deg": [
+          0.0002777777777778146,
+          0.0002777777777778146
+        ],
+        "is_one_arcsecond": true,
+        "covers_every_required_extent": true,
+        "coverage": {
+          "walk_bbox": {
+            "box_wsen": [
+              128.55,
+              36.2,
+              128.85,
+              36.5
+            ],
+            "covered": true,
+            "slack_deg": {
+              "west": 0.170139,
+              "south": 0.069861,
+              "east": 0.269861,
+              "north": 0.270139
+            }
+          },
+          "simulation_canvas": {
+            "box_wsen": [
+              128.4,
+              36.15,
+              129.1,
+              36.75
+            ],
+            "covered": true,
+            "slack_deg": {
+              "west": 0.020139,
+              "south": 0.019861,
+              "east": 0.019861,
+              "north": 0.020139
+            }
+          },
+          "existing_dem": {
+            "box_wsen": [
+              128.4,
+              36.2,
+              129.1,
+              36.75
+            ],
+            "covered": true,
+            "slack_deg": {
+              "west": 0.020139,
+              "south": 0.069861,
+              "east": 0.019861,
+              "north": 0.020139
+            }
+          }
+        },
+        "margin_deg_requested": 0.02,
+        "raster_nodata_fraction": 0.0,
+        "sha256": "e4df23a97ef33c4d23ebaf0bce8c9be6399130b1a22c4e0abd4ac50e86369a9f"
+      },
+      "replaced": {
+        "path": "data/raw/firms_data/uiseong_andong_2025_dem.tif",
+        "sha256": "14288109b8bc0f5c85873ffdc45a2858e4d67f380dc384ec357d4356b3225d51",
+        "bounds_wsen": [
+          128.4,
+          36.2,
+          129.1,
+          36.75
+        ],
+        "bytes": 6200605
+      },
+      "installed_path": "data/raw/firms_data/uiseong_andong_2025_dem.tif",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "git_commit": "141b035aaaa87884fec7a97f430b35f258b4ab6a"
+    },
+    {
+      "region": "uljin_samcheok_2022",
+      "acquired_utc": "2026-08-02T09:16:24Z",
+      "provider": "OpenTopography Global DEM API",
+      "product": "SRTMGL1",
+      "citation": "NASA JPL. NASA Shuttle Radar Topography Mission Global 1 arc second [SRTMGL1] V003. NASA EOSDIS Land Processes DAAC. doi:10.5067/MEaSUREs/SRTM/SRTMGL1.003",
+      "why": "the per-fire DEM was downloaded on the fire_manifest bbox, which does not contain the PHASE-5 ignition-centred walk bbox; edges in the uncovered strip were being timed at flat speed",
+      "request": {
+        "url_redacted": "https://portal.opentopography.org/API/globaldem?demtype=SRTMGL1&south=36.739999999999995&north=37.470000000000006&west=129.07999999999998&east=129.62&outputFormat=GTiff&API_Key=<redacted>",
+        "demtype": "SRTMGL1",
+        "bbox_wgs84_wsen": [
+          129.07999999999998,
+          36.739999999999995,
+          129.62,
+          37.470000000000006
+        ],
+        "content_type": "application/octet-stream",
+        "bytes": 3777922,
+        "seconds": 17.2,
+        "attempts": 1
+      },
+      "raster": {
+        "crs": "EPSG:4326",
+        "shape": [
+          2628,
+          1944
+        ],
+        "bounds_wsen": [
+          129.07986111115207,
+          36.74013888888581,
+          129.61986111115215,
+          37.470138888885906
+        ],
+        "resolution_deg": [
+          0.0002777777777778146,
+          0.0002777777777778146
+        ],
+        "is_one_arcsecond": true,
+        "covers_every_required_extent": true,
+        "coverage": {
+          "walk_bbox": {
+            "box_wsen": [
+              129.17,
+              36.81,
+              129.47,
+              37.11
+            ],
+            "covered": true,
+            "slack_deg": {
+              "west": 0.090139,
+              "south": 0.069861,
+              "east": 0.149861,
+              "north": 0.360139
+            }
+          },
+          "simulation_canvas": {
+            "box_wsen": [
+              129.1,
+              36.76,
+              129.6,
+              37.45
+            ],
+            "covered": true,
+            "slack_deg": {
+              "west": 0.020139,
+              "south": 0.019861,
+              "east": 0.019861,
+              "north": 0.020139
+            }
+          },
+          "existing_dem": {
+            "box_wsen": [
+              129.1,
+              36.85,
+              129.6,
+              37.45
+            ],
+            "covered": true,
+            "slack_deg": {
+              "west": 0.020139,
+              "south": 0.109861,
+              "east": 0.019861,
+              "north": 0.020139
+            }
+          }
+        },
+        "margin_deg_requested": 0.02,
+        "raster_nodata_fraction": 0.0,
+        "sha256": "5087a5e034b282ce44618e129bcf60fbe59e2dbbc30d54e03654f268616106c9"
+      },
+      "replaced": {
+        "path": "data/raw/firms_data/uljin_samcheok_2022_dem.tif",
+        "sha256": "4850941d7a2019923d7198d806762b1bbc0522904a91ef83f96365338e6845d6",
+        "bounds_wsen": [
+          129.1,
+          36.85,
+          129.6,
+          37.45
+        ],
+        "bytes": 3733262
+      },
+      "installed_path": "data/raw/firms_data/uljin_samcheok_2022_dem.tif",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "git_commit": "141b035aaaa87884fec7a97f430b35f258b4ab6a"
+    }
+  ]
+}

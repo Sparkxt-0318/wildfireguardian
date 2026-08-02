@@ -122,6 +122,9 @@ data/processed/**
 !data/processed/real_roads_real_hazard_uljin_samcheok_2022.json
 # STEP 4 cross-region table.
 !data/processed/multi_region_comparison.json
+# DEM re-acquisition provenance (2026-08-02): what was replaced, by what, and
+# the digest of both. Small JSON; the rasters live in the snapshot store below.
+!data/processed/dem_acquisition.json
 # AUC-interval + ML-baseline analysis outputs (per-fire DeLong CIs / significance;
 # logistic/RF vs GBM comparison; persisted LOFO out-of-fold predictions). These are
 # the result artifacts of scripts/auc_intervals.py and scripts/ml_baselines.py;
@@ -167,6 +170,17 @@ data/processed/**
 *.nc
 *.nc4
 *.hdf
+
+# ...with ONE exception: the SNAPSHOT copies of the per-region DEMs (~16 MB for
+# all three). Everything else under data/snapshots/ is committed, and these are
+# the reason why. `routing/slope.py` samples the DEM directly and `spread_v2`
+# reprojects it onto the simulation grid; a defect in it changes results
+# WITHOUT RAISING — which is exactly what the 2026-08-02 Uljin-Samcheok raster
+# did for months (docs/dem_defect_2026-08-02.md). Recording only a digest would
+# let a future reader detect that the input had changed but never recover the
+# one the numbers were computed on. The working copies in data/raw/ stay
+# ignored; these are the evidence layer.
+!data/snapshots/srtm-dem_*.tif
 *.hdf5
 *.h5
 *.zip

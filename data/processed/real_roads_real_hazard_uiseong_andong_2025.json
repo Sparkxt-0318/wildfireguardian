@@ -4,10 +4,10 @@
   "series": "459",
   "series_note": "459-SERIES, THREE BUCKETS. The reported cross-region quantity is `future_aware_only_safe_fraction` = naive_into_FA_safe / n_origins_scanned — the share of origins that reach safety ONLY on the future-aware route. It is NOT the walk-failure rate w: w belongs to the 439 series, which is bound to a synthetic hazard envelope and cannot be carried inland.",
   "region": "uiseong_andong_2025",
-  "generated_utc": "2026-08-02T08:50:02Z",
-  "git_commit": "a32da6b510bf366ac0ee8d1393d0af19c72acfac",
+  "generated_utc": "2026-08-02T09:19:32Z",
+  "git_commit": "141b035aaaa87884fec7a97f430b35f258b4ab6a",
   "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
-  "runtime_s": 89.3,
+  "runtime_s": 87.4,
   "parameters": {
     "identical_to_yeongdeok": true,
     "slope_sampling_m": 60.0,
@@ -23,10 +23,10 @@
   },
   "headline": {
     "n_origins_scanned": 368,
-    "both_safe": 346,
-    "future_aware_only_safe": 13,
-    "no_safe_route": 0,
-    "future_aware_only_safe_fraction": 0.035326086956521736,
+    "both_safe": 263,
+    "future_aware_only_safe": 91,
+    "no_safe_route": 12,
+    "future_aware_only_safe_fraction": 0.24728260869565216,
     "arm": "slope 60 m / DiGraph (canonical)"
   },
   "arms": {
@@ -34,15 +34,15 @@
       "label": "flat / undirected",
       "n_origins_scanned": 368,
       "counts": {
-        "naive_into_FA_safe": 13,
-        "no_safe_route": 0,
-        "both_safe": 354,
+        "naive_into_FA_safe": 96,
+        "no_safe_route": 6,
+        "both_safe": 266,
         "both_enter": 0,
         "naive_unreachable": 0,
-        "fa_exceeds_budget": 1,
+        "fa_exceeds_budget": 0,
         "unclassified": 0
       },
-      "future_aware_only_safe_fraction": 0.035326086956521736,
+      "future_aware_only_safe_fraction": 0.2608695652173913,
       "n_shelter_nodes": 31,
       "shelter_source": "osm (snapshot store)",
       "n_nodes": 6678,
@@ -57,25 +57,113 @@
       "origin_nodes_by_bucket": {
         "naive_into_FA_safe": [
           330186872,
+          365832477,
+          365834935,
+          365838099,
+          365840174,
+          365843543,
+          367855171,
+          367855611,
+          367856490,
+          367857498,
+          367858725,
+          6602597956,
+          6602598020,
+          6602598059,
+          6602598132,
+          6602598207,
+          6665720685,
+          6665720755,
+          6665720797,
+          6667033701,
+          6667033765,
+          6667108998,
+          6667109029,
+          6667109108,
+          6667109180,
+          6667109305,
+          7272152883,
+          7348685984,
           7348686426,
+          8488013765,
+          8488020090,
           9120108767,
+          9842953160,
           9851985144,
+          9851985333,
+          9856969533,
+          9856969771,
+          9859514543,
+          9859514626,
+          9859514700,
+          10129507458,
           10806853248,
+          11058678936,
+          11633929813,
+          11707864056,
+          12099879598,
+          12099940125,
+          12099940500,
+          12099940676,
+          12100016299,
+          12100026449,
+          12100026685,
+          12100026820,
+          12100027070,
+          12100027218,
+          12100027347,
+          12100027501,
           12369636734,
+          12369637053,
+          12616948842,
+          12616949089,
+          12616949212,
           12661934937,
           12738909323,
+          13052018542,
+          13052089767,
+          13064587891,
+          13064588291,
+          13064588432,
+          13064588588,
+          13070646970,
           13075772755,
+          13075773975,
+          13075774226,
+          13075774548,
+          13084694786,
+          13113492677,
+          13113494316,
+          13113542711,
+          13113887806,
+          13113896443,
           13113924473,
+          13113968226,
+          13113973650,
+          13119054201,
+          13119105061,
+          13238387928,
+          13238388426,
+          13238388764,
+          13238388941,
+          13238389148,
+          13375223823,
           13375458301,
           13375651306,
-          13375662088
+          13375662088,
+          13375750094
         ],
-        "no_safe_route": [],
+        "no_safe_route": [
+          365848487,
+          13069388731,
+          13113945830,
+          13113946271,
+          13113952194,
+          13337676232
+        ],
         "both_enter": [],
         "naive_unreachable": [],
-        "fa_exceeds_budget": [
-          13069388731
-        ],
+        "fa_exceeds_budget": [],
         "unclassified": []
       }
     },
@@ -83,15 +171,15 @@
       "label": "flat / DiGraph (regr.)",
       "n_origins_scanned": 368,
       "counts": {
-        "naive_into_FA_safe": 13,
-        "no_safe_route": 0,
-        "both_safe": 354,
+        "naive_into_FA_safe": 96,
+        "no_safe_route": 6,
+        "both_safe": 266,
         "both_enter": 0,
         "naive_unreachable": 0,
-        "fa_exceeds_budget": 1,
+        "fa_exceeds_budget": 0,
         "unclassified": 0
       },
-      "future_aware_only_safe_fraction": 0.035326086956521736,
+      "future_aware_only_safe_fraction": 0.2608695652173913,
       "n_shelter_nodes": 31,
       "shelter_source": "osm (snapshot store)",
       "n_nodes": 6678,
@@ -106,25 +194,113 @@
       "origin_nodes_by_bucket": {
         "naive_into_FA_safe": [
           330186872,
+          365832477,
+          365834935,
+          365838099,
+          365840174,
+          365843543,
+          367855171,
+          367855611,
+          367856490,
+          367857498,
+          367858725,
+          6602597956,
+          6602598020,
+          6602598059,
+          6602598132,
+          6602598207,
+          6665720685,
+          6665720755,
+          6665720797,
+          6667033701,
+          6667033765,
+          6667108998,
+          6667109029,
+          6667109108,
+          6667109180,
+          6667109305,
+          7272152883,
+          7348685984,
           7348686426,
+          8488013765,
+          8488020090,
           9120108767,
+          9842953160,
           9851985144,
+          9851985333,
+          9856969533,
+          9856969771,
+          9859514543,
+          9859514626,
+          9859514700,
+          10129507458,
           10806853248,
+          11058678936,
+          11633929813,
+          11707864056,
+          12099879598,
+          12099940125,
+          12099940500,
+          12099940676,
+          12100016299,
+          12100026449,
+          12100026685,
+          12100026820,
+          12100027070,
+          12100027218,
+          12100027347,
+          12100027501,
           12369636734,
+          12369637053,
+          12616948842,
+          12616949089,
+          12616949212,
           12661934937,
           12738909323,
+          13052018542,
+          13052089767,
+          13064587891,
+          13064588291,
+          13064588432,
+          13064588588,
+          13070646970,
           13075772755,
+          13075773975,
+          13075774226,
+          13075774548,
+          13084694786,
+          13113492677,
+          13113494316,
+          13113542711,
+          13113887806,
+          13113896443,
           13113924473,
+          13113968226,
+          13113973650,
+          13119054201,
+          13119105061,
+          13238387928,
+          13238388426,
+          13238388764,
+          13238388941,
+          13238389148,
+          13375223823,
           13375458301,
           13375651306,
-          13375662088
+          13375662088,
+          13375750094
         ],
-        "no_safe_route": [],
+        "no_safe_route": [
+          365848487,
+          13069388731,
+          13113945830,
+          13113946271,
+          13113952194,
+          13337676232
+        ],
         "both_enter": [],
         "naive_unreachable": [],
-        "fa_exceeds_budget": [
-          13069388731
-        ],
+        "fa_exceeds_budget": [],
         "unclassified": []
       }
     },
@@ -132,15 +308,15 @@
       "label": "slope 60m / DiGraph",
       "n_origins_scanned": 368,
       "counts": {
-        "naive_into_FA_safe": 13,
-        "no_safe_route": 0,
-        "both_safe": 346,
+        "naive_into_FA_safe": 91,
+        "no_safe_route": 12,
+        "both_safe": 263,
         "both_enter": 0,
         "naive_unreachable": 0,
-        "fa_exceeds_budget": 9,
+        "fa_exceeds_budget": 2,
         "unclassified": 0
       },
-      "future_aware_only_safe_fraction": 0.035326086956521736,
+      "future_aware_only_safe_fraction": 0.24728260869565216,
       "n_shelter_nodes": 31,
       "shelter_source": "osm (snapshot store)",
       "n_nodes": 6678,
@@ -161,144 +337,144 @@
         "n_edges_straight_line": 1868,
         "geometry_fraction": 0.7837,
         "slope_abs": {
-          "mean": 0.07027815741171306,
-          "length_weighted_mean": 0.07063697180801387,
-          "median": 0.040310203210523296,
-          "p90": 0.17547992517284133,
-          "p99": 0.40460704490207605,
+          "mean": 0.06364872400635811,
+          "length_weighted_mean": 0.06373701505360403,
+          "median": 0.038361847364424564,
+          "p90": 0.1507197073952271,
+          "p99": 0.33365576611396147,
           "max": 0.6,
-          "frac_gt_5pct": 0.4471960022209883,
-          "frac_gt_15pct": 0.13112159911160468,
-          "frac_gt_50pct": 0.0039144919489172685
+          "frac_gt_5pct": 0.4335091615769017,
+          "frac_gt_15pct": 0.10277623542476402,
+          "frac_gt_50pct": 0.0017767906718489728
         },
         "traversal_time": {
           "flat_total_h": 835.8149013419726,
-          "slope_forward_total_h": 1006.680961753745,
-          "slope_reverse_total_h": 993.1569390977767,
-          "pct_change_forward": 20.443050265965866,
-          "pct_change_reverse": 18.82498595121693,
-          "pct_change_mean_of_directions": 19.634018108591377
+          "slope_forward_total_h": 969.2709662030404,
+          "slope_reverse_total_h": 955.399291546099,
+          "pct_change_forward": 15.967179413383592,
+          "pct_change_reverse": 14.307520721648226,
+          "pct_change_mean_of_directions": 15.137350067515909
         },
         "directional_asymmetry": {
           "definition": "|t(u->v) - t(v->u)| / t_flat, per undirected edge",
-          "mean": 0.16155187253886663,
-          "median": 0.1163655795045902,
-          "p90": 0.38642415529141794,
-          "max": 1.331080765614254,
-          "frac_edges_gt_10pct": 0.5442964678633468
+          "mean": 0.1702782479793937,
+          "median": 0.12690399006363484,
+          "p90": 0.38911707856337385,
+          "max": 1.3618371682618466,
+          "frac_edges_gt_10pct": 0.5752171395483497
         },
         "dem_sampling": {
           "note": "A sample outside the DEM footprint reads nodata and is then timed as FLAT. Silent by construction, so it is counted: n_nodata_samples > 0 means part of this 'slope' run is a flat run.",
           "n_elev_samples": 44655,
-          "n_nodata_samples": 1,
-          "frac_nodata": 2.2393908856790954e-05,
-          "n_edges_with_nodata": 1,
-          "frac_edges_with_nodata": 0.00011580775911986103
+          "n_nodata_samples": 0,
+          "frac_nodata": 0.0,
+          "n_edges_with_nodata": 0,
+          "frac_edges_with_nodata": 0.0
         },
         "clipping": {
           "note": "DEFENCE AGAINST DEM REGISTRATION ERROR, NOT a physical correction. Where a road crosses a bridge, tunnel or cutting, SRTM reports the terrain surface rather than the roadbed; the resulting slope is an artefact of comparing a road position with a hillside elevation.",
-          "n_clipped_subsegments": 52,
-          "frac_clipped": 0.0014436424208772905,
-          "n_edges_affected": 40,
+          "n_clipped_subsegments": 22,
+          "frac_clipped": 0.0006107717934480844,
+          "n_edges_affected": 20,
           "worst_edges": [
             {
-              "u": 7943612842,
-              "v": 7943612864,
+              "u": 9120194440,
+              "v": 9120194513,
               "n_subsegments_clipped": 1,
-              "max_abs_slope_raw": 1.4770394414161372,
+              "max_abs_slope_raw": 0.9544906841520097,
               "xy_5179": [
-                1117436.3862191846,
-                1814706.3677056935
+                1105094.630660941,
+                1817390.2507454252
+              ]
+            },
+            {
+              "u": 9854779648,
+              "v": 10223070057,
+              "n_subsegments_clipped": 2,
+              "max_abs_slope_raw": 0.7740866261111197,
+              "xy_5179": [
+                1109435.9626659122,
+                1807415.6303708826
+              ]
+            },
+            {
+              "u": 10207011388,
+              "v": 10207011420,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 0.7056196797510204,
+              "xy_5179": [
+                1108869.5880423994,
+                1807810.6325386034
+              ]
+            },
+            {
+              "u": 10207000001,
+              "v": 10207011388,
+              "n_subsegments_clipped": 2,
+              "max_abs_slope_raw": 0.6893210879872109,
+              "xy_5179": [
+                1110589.0286035526,
+                1809132.6514670744
               ]
             },
             {
               "u": 7943612626,
               "v": 7943612628,
               "n_subsegments_clipped": 1,
-              "max_abs_slope_raw": 1.437365871006923,
+              "max_abs_slope_raw": 0.6874358513511372,
               "xy_5179": [
                 1116401.178293819,
                 1815757.32673215
               ]
             },
             {
-              "u": 7943612227,
-              "v": 7943612228,
-              "n_subsegments_clipped": 1,
-              "max_abs_slope_raw": 1.3388121456529662,
-              "xy_5179": [
-                1116666.099080608,
-                1816411.8691882591
-              ]
-            },
-            {
-              "u": 330188512,
-              "v": 6665720691,
-              "n_subsegments_clipped": 1,
-              "max_abs_slope_raw": 1.1651470849900332,
-              "xy_5179": [
-                1108111.1757002487,
-                1829589.6635316857
-              ]
-            },
-            {
-              "u": 10602791183,
-              "v": 10602805267,
-              "n_subsegments_clipped": 4,
-              "max_abs_slope_raw": 1.120025597259517,
-              "xy_5179": [
-                1112969.0246529926,
-                1803252.3277098874
-              ]
-            },
-            {
-              "u": 8148010569,
-              "v": 8148010570,
-              "n_subsegments_clipped": 1,
-              "max_abs_slope_raw": 1.1144358112022925,
-              "xy_5179": [
-                1095972.8378226045,
-                1805959.2380627901
-              ]
-            },
-            {
-              "u": 9851984951,
-              "v": 13375210729,
-              "n_subsegments_clipped": 1,
-              "max_abs_slope_raw": 1.023817558298611,
-              "xy_5179": [
-                1099676.502726672,
-                1812942.0227508307
-              ]
-            },
-            {
               "u": 11058678884,
               "v": 11058678904,
               "n_subsegments_clipped": 1,
-              "max_abs_slope_raw": 0.9872848031230047,
+              "max_abs_slope_raw": 0.6755106547683717,
               "xy_5179": [
                 1111270.2894480973,
                 1832617.8256083045
               ]
             },
             {
-              "u": 7272152832,
-              "v": 7272152833,
+              "u": 13113946366,
+              "v": 13113946386,
               "n_subsegments_clipped": 1,
-              "max_abs_slope_raw": 0.9330042736255337,
+              "max_abs_slope_raw": 0.6637543014865949,
               "xy_5179": [
-                1105141.0433977114,
-                1825552.2420106512
+                1095808.8247341677,
+                1832699.6333170824
               ]
             },
             {
-              "u": 368191242,
-              "v": 11256496160,
+              "u": 13269497237,
+              "v": 13269497571,
               "n_subsegments_clipped": 1,
-              "max_abs_slope_raw": 0.8533680839184432,
+              "max_abs_slope_raw": 0.6617651933691454,
               "xy_5179": [
-                1114737.2471026324,
-                1832338.4796947036
+                1116005.0487636134,
+                1809346.7081810813
+              ]
+            },
+            {
+              "u": 10223080984,
+              "v": 10806784864,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 0.6561140476079534,
+              "xy_5179": [
+                1110176.6998511946,
+                1811844.6378545605
+              ]
+            },
+            {
+              "u": 13269497571,
+              "v": 13269497884,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 0.6465282440618917,
+              "xy_5179": [
+                1118321.760028985,
+                1808134.725839753
               ]
             }
           ]
@@ -307,32 +483,116 @@
       "origin_nodes_by_bucket": {
         "naive_into_FA_safe": [
           330186872,
+          365832477,
+          365838099,
+          365840174,
+          365843543,
+          367855171,
+          367855611,
+          367856490,
+          367857498,
+          367858725,
+          6602597956,
+          6602598020,
+          6602598059,
+          6602598132,
+          6602598207,
+          6665720685,
+          6665720755,
+          6665720797,
+          6667033701,
+          6667033765,
+          6667108998,
+          6667109029,
+          6667109108,
+          6667109180,
+          7272152883,
+          7348685984,
           7348686426,
+          8488013765,
+          8488020090,
+          9120108701,
           9120108767,
+          9842953160,
           9851985144,
+          9851985333,
+          9856969533,
+          9856969771,
+          9859514543,
+          9859514626,
+          9859514700,
           10806853248,
+          11633929813,
+          11707864056,
+          12099879598,
+          12099940125,
+          12099940500,
+          12099940676,
+          12100016299,
+          12100026449,
+          12100026685,
+          12100026820,
+          12100027070,
+          12100027218,
+          12100027347,
+          12100027501,
           12369636734,
+          12369637053,
+          12616948842,
+          12616949089,
+          12616949212,
           12661934937,
           12738909323,
+          13052018542,
+          13052089767,
+          13064587891,
+          13064588291,
+          13064588432,
+          13064588588,
+          13070646970,
           13075772755,
+          13075774226,
+          13075774548,
+          13084694786,
+          13113492677,
+          13113494316,
+          13113542711,
+          13113887806,
+          13113896443,
           13113924473,
+          13113973650,
+          13119054201,
+          13119105061,
+          13238387928,
+          13238388426,
+          13238388764,
+          13238388941,
+          13238389148,
+          13375223823,
           13375458301,
           13375651306,
-          13375662088
+          13375662088,
+          13375750094
         ],
-        "no_safe_route": [],
-        "both_enter": [],
-        "naive_unreachable": [],
-        "fa_exceeds_budget": [
+        "no_safe_route": [
+          365834935,
           365848487,
-          368191242,
+          6667109305,
+          10129507458,
           11058678936,
-          13063318627,
           13069388731,
+          13075773975,
           13113945830,
           13113946271,
           13113952194,
+          13113968226,
           13337676232
+        ],
+        "both_enter": [],
+        "naive_unreachable": [],
+        "fa_exceeds_budget": [
+          368191242,
+          13063318627
         ],
         "unclassified": []
       },
@@ -340,82 +600,82 @@
         {
           "rank": 1,
           "flat_s": 8887.55197974216,
-          "slope_uphill_s": 16682.268560909062,
-          "slope_downhill_s": 15889.50060483488,
-          "delta_s": 7794.716581166902,
-          "delta_pct": 87.70375238236342
+          "slope_uphill_s": 16498.37665082693,
+          "slope_downhill_s": 15463.26913974895,
+          "delta_s": 7610.824671084769,
+          "delta_pct": 85.6346571973081
         },
         {
           "rank": 2,
-          "flat_s": 6713.579006103428,
-          "slope_uphill_s": 13570.943659173496,
-          "slope_downhill_s": 12695.557973420677,
-          "delta_s": 6857.364653070068,
-          "delta_pct": 102.14171378389861
+          "flat_s": 8095.770179962875,
+          "slope_uphill_s": 13793.498156249376,
+          "slope_downhill_s": 13564.4572434559,
+          "delta_s": 5697.727976286501,
+          "delta_pct": 70.37907264695389
         },
         {
           "rank": 3,
-          "flat_s": 10176.286503178193,
-          "slope_uphill_s": 16764.736340761978,
-          "slope_downhill_s": 15841.324773683536,
-          "delta_s": 6588.449837583785,
-          "delta_pct": 64.74316378107203
+          "flat_s": 6713.579006103428,
+          "slope_uphill_s": 11649.150167863318,
+          "slope_downhill_s": 10507.815369303085,
+          "delta_s": 4935.57116175989,
+          "delta_pct": 73.5162445734664
         },
         {
           "rank": 4,
-          "flat_s": 8095.770179962875,
-          "slope_uphill_s": 13814.465812946712,
-          "slope_downhill_s": 13525.524793506243,
-          "delta_s": 5718.695632983837,
-          "delta_pct": 70.63806785347828
+          "flat_s": 7364.305091324603,
+          "slope_uphill_s": 11882.950790691511,
+          "slope_downhill_s": 11717.364959184584,
+          "delta_s": 4518.645699366908,
+          "delta_pct": 61.358752025225336
         },
         {
           "rank": 5,
-          "flat_s": 7364.305091324603,
-          "slope_uphill_s": 12935.916359995685,
-          "slope_downhill_s": 12855.14399181103,
-          "delta_s": 5571.611268671081,
-          "delta_pct": 75.65698595560123
+          "flat_s": 3225.921715878339,
+          "slope_uphill_s": 7690.761680495907,
+          "slope_downhill_s": 6758.2105908213925,
+          "delta_s": 4464.839964617568,
+          "delta_pct": 138.40509342310256
         },
         {
           "rank": 6,
-          "flat_s": 4891.874587907218,
-          "slope_uphill_s": 9999.374474474791,
-          "slope_downhill_s": 9053.977065744519,
-          "delta_s": 5107.499886567573,
-          "delta_pct": 104.4078255643222
+          "flat_s": 11434.058906259743,
+          "slope_uphill_s": 15478.075860987374,
+          "slope_downhill_s": 15365.475175218131,
+          "delta_s": 4044.016954727631,
+          "delta_pct": 35.368166176874205
         },
         {
           "rank": 7,
-          "flat_s": 3225.921715878339,
-          "slope_uphill_s": 8066.340079142123,
-          "slope_downhill_s": 7330.217605590559,
-          "delta_s": 4840.418363263783,
-          "delta_pct": 150.04760777171734
+          "flat_s": 10176.286503178193,
+          "slope_uphill_s": 14145.374870198422,
+          "slope_downhill_s": 13131.113324285776,
+          "delta_s": 3969.0883670202293,
+          "delta_pct": 39.00330799236665
         },
         {
           "rank": 8,
-          "flat_s": 11434.058906259743,
-          "slope_uphill_s": 15853.681561010148,
-          "slope_downhill_s": 15740.87676376824,
-          "delta_s": 4419.622654750405,
-          "delta_pct": 38.65313875837055
+          "flat_s": 4418.426098942723,
+          "slope_uphill_s": 8288.116079610745,
+          "slope_downhill_s": 8084.267819703092,
+          "delta_s": 3869.689980668022,
+          "delta_pct": 87.58073336553016
         },
         {
           "rank": 9,
-          "flat_s": 5407.743437356215,
-          "slope_uphill_s": 9713.19071635029,
-          "slope_downhill_s": 9006.553268360898,
-          "delta_s": 4305.447278994075,
-          "delta_pct": 79.61633773622513
+          "flat_s": 4891.874587907218,
+          "slope_uphill_s": 8512.799997238857,
+          "slope_downhill_s": 7989.055314030296,
+          "delta_s": 3620.9254093316395,
+          "delta_pct": 74.01917903379244
         },
         {
           "rank": 10,
-          "flat_s": 5331.935108213271,
-          "slope_uphill_s": 9299.572894430306,
-          "slope_downhill_s": 8976.863160761543,
-          "delta_s": 3967.6377862170357,
-          "delta_pct": 74.41271706599201
+          "flat_s": 5296.914437278942,
+          "slope_uphill_s": 8864.254093597461,
+          "slope_downhill_s": 8669.442305092669,
+          "delta_s": 3567.339656318519,
+          "delta_pct": 67.34750388286588
         }
       ]
     }
@@ -427,21 +687,21 @@
   "slope_effect": {
     "counts_changed_vs_flat": true,
     "flat_counts": {
-      "naive_into_FA_safe": 13,
-      "no_safe_route": 0,
-      "both_safe": 354,
+      "naive_into_FA_safe": 96,
+      "no_safe_route": 6,
+      "both_safe": 266,
       "both_enter": 0,
       "naive_unreachable": 0,
-      "fa_exceeds_budget": 1,
+      "fa_exceeds_budget": 0,
       "unclassified": 0
     },
     "slope_counts": {
-      "naive_into_FA_safe": 13,
-      "no_safe_route": 0,
-      "both_safe": 346,
+      "naive_into_FA_safe": 91,
+      "no_safe_route": 12,
+      "both_safe": 263,
       "both_enter": 0,
       "naive_unreachable": 0,
-      "fa_exceeds_budget": 9,
+      "fa_exceeds_budget": 2,
       "unclassified": 0
     },
     "why_it_can_be_nil": "naive_route ranks by DISTANCE, so its path is slope-invariant by construction; at a 600-minute budget the future-aware router is not time-bound either. Yeongdeok showed the same null result (docs/slope_integration.md)."
@@ -462,9 +722,9 @@
     "envelope_coverage": {
       "final_slice": {
         "ok": true,
-        "n_core_cells": 95,
-        "n_covered": 94,
-        "coverage": 0.9894736842105263,
+        "n_core_cells": 131,
+        "n_covered": 130,
+        "coverage": 0.9923664122137404,
         "min_fraction": 0.8,
         "p_cut": 0.5,
         "uncovered_cells": 1,
@@ -594,10 +854,10 @@
       "dem_path": "data/raw/firms_data/uiseong_andong_2025_dem.tif",
       "dem_crs": "EPSG:4326",
       "dem_bounds_wsen": [
-        128.4,
-        36.2,
-        129.1,
-        36.75
+        128.37986111115197,
+        36.130138888885725,
+        129.11986111115206,
+        36.77013888888581
       ],
       "n_nodes_outside_dem": 0,
       "frac_nodes_outside_dem": 0.0,
@@ -609,10 +869,10 @@
     }
   },
   "dem_adequacy": {
-    "frac_nodata_samples": 2.2393908856790954e-05,
-    "n_nodata_samples": 1,
+    "frac_nodata_samples": 0.0,
+    "n_nodata_samples": 0,
     "n_elev_samples": 44655,
-    "n_edges_with_nodata": 1,
+    "n_edges_with_nodata": 0,
     "warn_fraction": 0.01,
     "stop_fraction": 0.05,
     "verdict": "ok",
@@ -646,7 +906,7 @@
   "hazard_source": {
     "kind": "REAL — spread_v2 forward-simulated ignition probability",
     "npz_path": "data/processed/hazard_uiseong_andong_2025.npz",
-    "npz_sha256": "5a821a58c6d59252f736cee34882046a718118d7d3dd7b3a586fc4ba2c379fe6",
+    "npz_sha256": "4016c2e6ef8e27eb12310a816a416b6d1a6bf54d0187d6ac8fbc4ad4f747e3cd",
     "shape": [
       5,
       135,
@@ -668,12 +928,12 @@
     ],
     "cells_ge_0.5_per_slice": [
       53,
-      63,
-      71,
-      86,
-      95
+      80,
+      101,
+      121,
+      131
     ],
-    "core_growth_pct_first_to_last": 79.24528301886792
+    "core_growth_pct_first_to_last": 147.16981132075472
   },
   "terrain_source": {
     "kind": "REAL — SRTM",

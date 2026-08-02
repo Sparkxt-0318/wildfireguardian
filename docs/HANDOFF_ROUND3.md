@@ -8,7 +8,7 @@
 | HEAD | `79138d0` + this commit |
 | baseline tag | **`round2-submitted`** = `4e9dfe3` — the submitted state |
 | environment | conda env **`wfg311`**, Python 3.11.15 — see [`ENVIRONMENT.md`](ENVIRONMENT.md) |
-| suite | **535 passed, 1 skipped, 0 failed** |
+| suite | **543 passed, 2 skipped, 0 failed** |
 | registry | [`NUMBERS.json`](NUMBERS.json) — 73 entries, 57 reproducible |
 | OSM regions | 3 acquired + snapshotted (`MANIFEST.json`, 64 entries) |
 | config hash | `51ec446843b6…` — moved from `0b6eb481177a…` by PURE ADDITION at `cc41f12` (two new PHASE-5 keys, no existing value changed). `NUMBERS.json.config_hash_note` records this. |
@@ -124,11 +124,14 @@ values) · `rescue_routing_full.json` (441 origins fully serialised)
 `forward_sim_regions.json`, `hazard_uiseong_andong_2025.npz`,
 `hazard_uljin_samcheok_2022.npz` · [`forward_sim_regions.md`](forward_sim_regions.md)
 
+Re-simulated 2026-08-02 on the corrected DEMs; the values below are the current
+ones. Pre-fix they read 2,375 ha / +79 % and 6,575 ha / +155 %.
+
 | region | reported | 12-h envelope | ratio | core growth |
 |---|---:|---:|---:|---:|
 | Yeongdeok 2025 | 3,800 ha | 27,900 ha | 7.34× **over** | +1.2 % |
-| Uiseong-Andong 2025 | 45,000 ha | 2,375 ha | 0.05× **under** | +79 % |
-| Uljin-Samcheok 2022 | 16,302 ha | 6,575 ha | 0.40× under | +155 % |
+| Uiseong-Andong 2025 | 45,000 ha | 3,275 ha | 0.07× **under** | **+147.2 %** |
+| Uljin-Samcheok 2022 | 16,302 ha | 7,300 ha | 0.45× under | **+183.5 %** |
 
 The bias **flips sign**, so no normalisation removes it. Report raw values with
 envelope area as a column. This is a limit of the forward simulation, **not** of
@@ -137,7 +140,7 @@ the routing.
 ⚠ The 27,900 ha above comes from `yeongdeok_forward_sim.json`, a **different**
 simulation artifact from the field the routing reads. Under one definition
 (p ≥ 0.5, final slice, from each region's routing npz) the areas are
-**6,100 / 2,375 / 6,575 ha** — a 2.77× spread, not 12×. Use one definition
+**6,100 / 3,275 / 7,300 ha** — a 2.23× spread, not 12×. Use one definition
 throughout; `multi_region_comparison.json` does.
 
 ### PHASE 5 STEP 2-3 / 4 — multi-region routing and comparison
@@ -152,8 +155,13 @@ refuses `--regions yeongdeok_2025` and exits 4 if a protected artifact moves.
 | region | origins | both_safe | FA-only | no_safe | over budget | FA-only % | coverage | depots |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
 | Yeongdeok 2025 *(quoted)* | 460 | 440 | 17 | 3 | 0 | 3.70 % | 50.4 % | 4 |
-| Uiseong-Andong 2025 | 368 | 346 | 13 | 0 | **9** | 3.53 % | 98.9 % | **0** |
-| Uljin-Samcheok 2022 | 393 | 376 | 3 | 10 | **4** | **0.76 %** | 84.8 % | 4 |
+| Uiseong-Andong 2025 | 368 | 263 | 91 | 12 | 2 | **24.73 %** | 99.2 % | **0** |
+| Uljin-Samcheok 2022 | 393 | 377 | 3 | 10 | 3 | **0.76 %** | 81.5 % | 4 |
+
+⚠ These are the **post-DEM-fix** values (2026-08-02). The first version of this
+table was computed on a hazard field derived from a defective DEM and is
+superseded — Uiseong-Andong read 346/13/0 and 3.53 % there. See
+[`dem_defect_2026-08-02.md`](dem_defect_2026-08-02.md).
 
 Both new regions **reproduce exactly** (re-run into a scratch dir: every count,
 every bucket membership list, every slope statistic identical).
@@ -164,20 +172,25 @@ Four things that did **not** carry over from Yeongdeok:
    three-way split therefore does not sum to N outside Yeongdeok. Carry the
    column.
 2. **Slope moves the counts.** PHASE 2's null result was Yeongdeok-specific. And
-   it is *not* because the new regions are steeper — Uiseong-Andong is gentler
-   (mean |slope| 7.03 % vs 8.18 %) and Uljin-Samcheok is indistinguishable. The
-   flat control arms already show origins at the budget edge before terrain is
-   applied.
-3. **The core-growth hypothesis is NOT supported as posed.** Core growth
-   +1.2 / +79.2 / +155.3 % runs *opposite* to the FA-only share (ρ = −1, n = 3).
-   The decomposition explains it: the share of origins whose fire-blind route is
-   unsafe is nearly flat (4.35 / 3.53 / 3.31 %); what moves is whether an
-   alternative exists (future-aware rescues 85 % / 100 % / 23 % of them). Where
-   the core advances fastest the fire outruns *every* route, so those origins
-   land in `no_safe_route`. This does **not** show the "quasi-static core"
-   limitation was Yeongdeok-specific; it shows a failure mode Yeongdeok
-   structurally could not exhibit.
-4. **Uljin-Samcheok's DEM does not cover its own walk bbox** — see §4.
+   it is *not* because the new regions are steeper — Uiseong-Andong is the
+   gentlest of the three (mean |slope| 6.36 % vs 8.18 %) and Uljin-Samcheok is
+   close to Yeongdeok. Slope now moves origins into `no_safe_route`, not only
+   into `fa_exceeds_budget`.
+3. **The core-growth hypothesis orders no better than chance at n = 3.**
+   Growth +1.2 / +147.2 / +183.5 % against FA-only 3.70 / 24.73 / 0.76 %
+   (ρ = −0.5). Two regions support it strongly, one contradicts it strongly.
+   What IS established: on a field that actually advances, the same method and
+   parameters give a future-aware-only share nearly **seven times** Yeongdeok's,
+   so the "quasi-static core" limitation was real and understated the benefit.
+   What is NOT established: that the benefit rises with fire speed —
+   Uljin-Samcheok advances fastest and benefits least.
+   ⚠ The earlier reading (ρ = −1, "fire-blind risk is flat at 4.35/3.53/3.31 %")
+   was an artifact of the defective DEM. It now reads 4.35 / **27.99** / 3.31 %.
+4. **The Uljin-Samcheok DEM was filling the East Sea with a ramp to −497 m**,
+   and that region is in the shared leave-one-out training set for every other
+   fire — which is why fixing it moved *Uiseong-Andong* sevenfold.
+   [`dem_defect_2026-08-02.md`](dem_defect_2026-08-02.md). Re-acquired,
+   re-simulated, re-routed, snapshotted; both regions now read 0.000 % nodata.
 
 ---
 
@@ -222,7 +235,8 @@ fire_station이 없으며, 더 넓은 3,926 km² 범위에는 6곳이 있습니�
 
 | item | why it is open |
 |---|---|
-| **DEM re-acquisition — BLOCKED on an OpenTopography API key** | **This is the next action.** Two gaps, one fix. (a) `uljin_samcheok_2022_dem.tif` spans 36.85–37.45 °N while its walk bbox starts at 36.81 °N: **405 of 7,300 walk nodes (5.55 %)**, 6.17 % of elevation samples, timed FLAT. (b) BOTH new regions' simulation canvases were extended south past their DEMs in `a0eaf07`, so **10.0 %** (Uiseong-Andong) and **15.6 %** (Uljin-Samcheok) of simulation cells carry a MEAN-FILLED elevation — hazard is p = 0 in every one of them, so the committed fields are clean, but the fill was silent. `scripts/acquire_region_dem.py` is written, targets the UNION of walk bbox + simulation canvas + existing raster, validates coverage before installing, and refuses to mix providers. It needs `OPENTOPOGRAPHY_API_KEY` (env or the git-ignored `.env`); a keyless request is HTTP 401, confirmed 2026-08-02. **Do not route on a partial DEM and do not substitute AWS-Mapzen tiles.** |
+| **`spread_v2_lofo.json` was trained on the defective Uljin-Samcheok DEM** | **This is the next decision.** The headline mean-of-folds AUC is built over the six-fire set that includes `uljin_samcheok_2022`, whose raster filled the sea with a ramp to −497 m, so EVERY fold — including Yeongdeok's — trained on it. The same applies to `routing_demo.npz` and every Yeongdeok number derived from it. **Nothing has been re-run**: those are committed Round-2 artifacts protected by §5.2, and re-running them changes figures the submission cites. The effect is unmeasured and could go either way. [`dem_defect_2026-08-02.md`](dem_defect_2026-08-02.md) §3. |
+| ~~DEM re-acquisition~~ — **DONE 2026-08-02** | Both regions re-acquired, validated, snapshotted, re-simulated and re-routed; nodata 0.000 %, sim-grid mean-fill 0.00 %, both pass the gate with no acknowledgement flag. Superseded text: **This was the next action.** Two gaps, one fix. (a) `uljin_samcheok_2022_dem.tif` spans 36.85–37.45 °N while its walk bbox starts at 36.81 °N: **405 of 7,300 walk nodes (5.55 %)**, 6.17 % of elevation samples, timed FLAT. (b) BOTH new regions' simulation canvases were extended south past their DEMs in `a0eaf07`, so **10.0 %** (Uiseong-Andong) and **15.6 %** (Uljin-Samcheok) of simulation cells carry a MEAN-FILLED elevation — hazard is p = 0 in every one of them, so the committed fields are clean, but the fill was silent. `scripts/acquire_region_dem.py` is written, targets the UNION of walk bbox + simulation canvas + existing raster, validates coverage before installing, and refuses to mix providers. It needs `OPENTOPOGRAPHY_API_KEY` (env or the git-ignored `.env`); a keyless request is HTTP 401, confirmed 2026-08-02. **Do not route on a partial DEM and do not substitute AWS-Mapzen tiles.** |
 | Promote the hypothesis-refutation decomposition into `multi_region.md`'s results section | Requested 2026-08-02, deferred behind the DEM fix. The measured part — fire-blind risk is near-constant across regions (4.35/3.53/3.31 %) while the rescue rate is not (85/100/23 %) — is a RESULT; only "Yeongdeok could not show this" is a limitation. Wording already agreed. |
 | Shelter-density experiment (within-region refuge decimation) | Requested 2026-08-02 as a way around n = 3: hold terrain and road network fixed, remove refuges at 100/75/50/25 % with repeats, and measure FA-only and `no_safe_route`. Sequenced after the DEM fix; the user will confirm before it starts. |
 | PHASE 4 — live-operation feasibility | Never started. Investigation only, no code. |

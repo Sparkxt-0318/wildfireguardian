@@ -1537,7 +1537,97 @@
       },
       "config_hash": "51ec446843b6107438cce06fa23aa0578bf1d46bee084297b18b311eb7d7c129",
       "git_commit": "cc41f12e0410ea85ca3380248e5a11252ab21df7"
+    },
+    {
+      "snapshot_file": "srtm-dem_uiseong-andong-2025_20260802_e4df23a9.tif",
+      "sha256": "e4df23a97ef33c4d23ebaf0bce8c9be6399130b1a22c4e0abd4ac50e86369a9f",
+      "bytes": 7463627,
+      "stored_file": "srtm-dem_uiseong-andong-2025_20260802_e4df23a9.tif",
+      "stored_bytes": 7463627,
+      "stored_sha256": "e4df23a97ef33c4d23ebaf0bce8c9be6399130b1a22c4e0abd4ac50e86369a9f",
+      "compression": "none",
+      "committed_to_git": true,
+      "source": "srtm-dem",
+      "region": "uiseong-andong-2025",
+      "layer": "SRTM elevation raster sampled by routing/slope.py and reprojected onto the spread_v2 simulation grid",
+      "origin_path": "data/raw/firms_data/uiseong_andong_2025_dem.tif",
+      "acquired_utc": "2026-08-02T09:16:40Z",
+      "acquired_clock": "source file mtime (not snapshot time)",
+      "snapshotted_utc": "2026-08-02T09:16:50Z",
+      "parameters": {
+        "region": "uiseong_andong_2025",
+        "product": "SRTMGL1 (1 arc-second, ~30 m)",
+        "provider": "OpenTopography Global DEM API",
+        "walk_bbox_wsen": [
+          128.55,
+          36.2,
+          128.85,
+          36.5
+        ]
+      },
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "git_commit": "141b035aaaa87884fec7a97f430b35f258b4ab6a"
+    },
+    {
+      "snapshot_file": "srtm-dem_uljin-samcheok-2022_20260802_5087a5e0.tif",
+      "sha256": "5087a5e034b282ce44618e129bcf60fbe59e2dbbc30d54e03654f268616106c9",
+      "bytes": 3777922,
+      "stored_file": "srtm-dem_uljin-samcheok-2022_20260802_5087a5e0.tif",
+      "stored_bytes": 3777922,
+      "stored_sha256": "5087a5e034b282ce44618e129bcf60fbe59e2dbbc30d54e03654f268616106c9",
+      "compression": "none",
+      "committed_to_git": true,
+      "source": "srtm-dem",
+      "region": "uljin-samcheok-2022",
+      "layer": "SRTM elevation raster sampled by routing/slope.py and reprojected onto the spread_v2 simulation grid",
+      "origin_path": "data/raw/firms_data/uljin_samcheok_2022_dem.tif",
+      "acquired_utc": "2026-08-02T09:16:24Z",
+      "acquired_clock": "source file mtime (not snapshot time)",
+      "snapshotted_utc": "2026-08-02T09:16:50Z",
+      "parameters": {
+        "region": "uljin_samcheok_2022",
+        "product": "SRTMGL1 (1 arc-second, ~30 m)",
+        "provider": "OpenTopography Global DEM API",
+        "walk_bbox_wsen": [
+          129.17,
+          36.81,
+          129.47,
+          37.11
+        ]
+      },
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "git_commit": "141b035aaaa87884fec7a97f430b35f258b4ab6a"
+    },
+    {
+      "snapshot_file": "srtm-dem_yeongdeok-2025_20260723_66988bf5.tif",
+      "sha256": "66988bf5545dc4c3abf844a0e72122130ccb27583c9d421dd7228a8e2181ce46",
+      "bytes": 5888382,
+      "stored_file": "srtm-dem_yeongdeok-2025_20260723_66988bf5.tif",
+      "stored_bytes": 5888382,
+      "stored_sha256": "66988bf5545dc4c3abf844a0e72122130ccb27583c9d421dd7228a8e2181ce46",
+      "compression": "none",
+      "committed_to_git": true,
+      "source": "srtm-dem",
+      "region": "yeongdeok-2025",
+      "layer": "SRTM elevation raster sampled by routing/slope.py and reprojected onto the spread_v2 simulation grid",
+      "origin_path": "data/raw/firms_data/yeongdeok_2025_dem.tif",
+      "acquired_utc": "2026-07-23T07:21:55Z",
+      "acquired_clock": "source file mtime (not snapshot time)",
+      "snapshotted_utc": "2026-08-02T09:16:50Z",
+      "parameters": {
+        "region": "yeongdeok_2025",
+        "product": "SRTMGL1 (1 arc-second, ~30 m)",
+        "provider": "OpenTopography Global DEM API",
+        "walk_bbox_wsen": [
+          129.25,
+          36.3,
+          129.55,
+          36.6
+        ]
+      },
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "git_commit": "141b035aaaa87884fec7a97f430b35f258b4ab6a"
     }
   ],
-  "updated_utc": "2026-08-02T05:27:32Z"
+  "updated_utc": "2026-08-02T09:16:50Z"
 }
