@@ -1,0 +1,485 @@
+{
+  "schema_version": 1,
+  "title": "Routing objective (2-C-1) and w(t) budget sweep (2-C-2) on the CANONICAL hazard field",
+  "generated_utc": "2026-08-02T17:06:36Z",
+  "git_commit": "a9b79cb4ef469514291de268a55d34bef6e8b59a",
+  "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+  "does_not_supersede": "routing_objective_experiment.json and budget_sweep_experiment.json are UNTOUCHED. They measure the same experiments on the reverted run's hazard field.",
+  "definitions": {
+    "evacuable": "status-quo route reaches a shelter, does not enter the predicted hazard, AND takes <= budget minutes",
+    "w": "1 - evacuable / n_origins",
+    "denominator": "458 scanned origins on the 2026-07-24 snapshot network and the CANONICAL hazard field",
+    "imported_from": "candidate_origins and classify from the committed runners; route_hilliness from run_budget_sweep_experiment.py"
+  },
+  "not_the_committed_w": "커밋된 w ≈ 11.4 %는 439 계열 구조 파이프라인의 600분 값으로, n_mobile = 307을 분모로 하고 합성 위험면 위에서 산출되었습니다. 본 실험과 분모도 계보도 위험면도 다르며 대체값이 아닙니다. The committed w = 11.4 % is a 600-minute figure from the 439-origin rescue pipeline over n_mobile = 307 on a SYNTHETIC hazard envelope. Different denominator, different lineage, different field. Neither replaces the other.",
+  "hazard_source": {
+    "npz_path": "data/processed/routing_demo_canonical.npz",
+    "npz_sha256": "81b4e4d159daa7a8ccc7c4fedf3fea948d501fff2d7e886c1fd55bbf47043fb7",
+    "shape": [
+      5,
+      181,
+      156
+    ]
+  },
+  "network_source": {
+    "snapshot_walk": "osm-walk_yeongdeok-2025_20260724_2bff8d85.graphml.gz",
+    "n_refuge_pois": 50,
+    "read_from_cache": false
+  },
+  "objective_2x2": {
+    "arms": {
+      "flat/length_m": {
+        "timing": "flat",
+        "objective": "length_m",
+        "n_origins_scanned": 458,
+        "counts": {
+          "naive_into_FA_safe": 41,
+          "no_safe_route": 2,
+          "both_safe": 415,
+          "both_enter": 0,
+          "naive_unreachable": 0,
+          "fa_exceeds_budget": 0,
+          "unclassified": 0
+        },
+        "naive_mean_distance_m": 2293.4313470999396,
+        "naive_mean_time_min": 54.60550826428428,
+        "naive_max_time_min": 282.9882699108872
+      },
+      "flat/time_min": {
+        "timing": "flat",
+        "objective": "time_min",
+        "n_origins_scanned": 458,
+        "counts": {
+          "naive_into_FA_safe": 41,
+          "no_safe_route": 2,
+          "both_safe": 415,
+          "both_enter": 0,
+          "naive_unreachable": 0,
+          "fa_exceeds_budget": 0,
+          "unclassified": 0
+        },
+        "naive_mean_distance_m": 2293.4313470999396,
+        "naive_mean_time_min": 54.60550826428428,
+        "naive_max_time_min": 282.9882699108872
+      },
+      "slope/length_m": {
+        "timing": "slope",
+        "objective": "length_m",
+        "n_origins_scanned": 458,
+        "counts": {
+          "naive_into_FA_safe": 42,
+          "no_safe_route": 2,
+          "both_safe": 414,
+          "both_enter": 0,
+          "naive_unreachable": 0,
+          "fa_exceeds_budget": 0,
+          "unclassified": 0
+        },
+        "naive_mean_distance_m": 2293.4313470999396,
+        "naive_mean_time_min": 67.67713989991294,
+        "naive_max_time_min": 444.0496675356331
+      },
+      "slope/time_min": {
+        "timing": "slope",
+        "objective": "time_min",
+        "n_origins_scanned": 458,
+        "counts": {
+          "naive_into_FA_safe": 43,
+          "no_safe_route": 2,
+          "both_safe": 413,
+          "both_enter": 0,
+          "naive_unreachable": 0,
+          "fa_exceeds_budget": 0,
+          "unclassified": 0
+        },
+        "naive_mean_distance_m": 2334.773462821629,
+        "naive_mean_time_min": 64.59692425888991,
+        "naive_max_time_min": 352.7511547678033
+      }
+    },
+    "flat_control_routes_changed": 0,
+    "flat_control_must_be_zero_because": "with flat timing every edge time is length / constant speed, so minimising time and minimising distance are the same problem. A non-zero count is an implementation fault, not a finding.",
+    "flat_invariant_holds": true,
+    "slope_routes_changed": 150,
+    "slope_routes_changed_pct": 32.751091703056765,
+    "path_deltas_on_changed_routes": {
+      "n": 150,
+      "distance_pct": {
+        "median": 1.4000927547194508,
+        "max": 26.691798222048725
+      },
+      "time_pct": {
+        "median": -1.4741252660899595,
+        "best": -36.18558765596387
+      }
+    },
+    "longest_walk_min": {
+      "slope_distance_objective": 444.0496675356331,
+      "slope_time_objective": 352.7511547678033,
+      "saving_min": 91.29851276782978
+    },
+    "committed_reading_on_the_reverted_field": {
+      "flat/length_m": {
+        "counts": "440/17/3",
+        "max_time_min": 282.99
+      },
+      "flat/time_min": {
+        "counts": "440/17/3",
+        "max_time_min": 282.99
+      },
+      "slope/length_m": {
+        "counts": "440/17/3",
+        "max_time_min": 444.0
+      },
+      "slope/time_min": {
+        "counts": "440/17/3",
+        "max_time_min": 352.8
+      },
+      "routes_changed_slope": "150 of 460 (32.6 %)",
+      "flat_routes_changed": "0 of 460"
+    },
+    "what_is_being_compared_when_both_minimise_time": "Switching naive_route to time_min does NOT make the two routers the same. future_aware_route minimises cumulative EXPOSURE on a time-expanded graph and only breaks ties on arrival time; the status-quo router minimises a single scalar and is blind to the fire. So naive_into_FA_safe still means 'the fire-blind route enters the predicted hazard and the future-aware one does not'. What changes is which fire-blind route is being tested — the shortest, or the fastest. Both are fire-blind."
+  },
+  "budget_sweep": {
+    "budgets_min": [
+      30.0,
+      60.0,
+      90.0,
+      120.0,
+      600.0
+    ],
+    "rows": [
+      {
+        "budget_min": 30.0,
+        "n_origins": 458,
+        "distance_objective": {
+          "n_fail": 259,
+          "w": 0.5655021834061136,
+          "why": {
+            "unreachable": 0,
+            "enters_hazard": 44,
+            "over_budget": 215
+          }
+        },
+        "time_objective": {
+          "n_fail": 258,
+          "w": 0.5633187772925764,
+          "why": {
+            "unreachable": 0,
+            "enters_hazard": 45,
+            "over_budget": 213
+          }
+        },
+        "flat_distance_objective_control": {
+          "n_fail": 247,
+          "w": 0.5393013100436681,
+          "why": {
+            "unreachable": 0,
+            "enters_hazard": 43,
+            "over_budget": 204
+          }
+        },
+        "difference_n_fail": 1,
+        "difference_w": 0.002183406113537118,
+        "n_rescued_by_time_objective": 1,
+        "n_lost_by_time_objective": 0,
+        "rescued_route_hilliness": {
+          "n": 1,
+          "mean": 0.5209379303158408,
+          "median": 0.5209379303158408
+        },
+        "all_route_hilliness": {
+          "n": 452,
+          "mean": 0.18429633611519458,
+          "median": 0.11579895355993475
+        },
+        "future_aware_counts": {
+          "naive_into_FA_safe": 1,
+          "no_safe_route": 43,
+          "both_safe": 198,
+          "both_enter": 0,
+          "naive_unreachable": 0,
+          "fa_exceeds_budget": 216,
+          "unclassified": 0
+        }
+      },
+      {
+        "budget_min": 60.0,
+        "n_origins": 458,
+        "distance_objective": {
+          "n_fail": 184,
+          "w": 0.4017467248908297,
+          "why": {
+            "unreachable": 0,
+            "enters_hazard": 44,
+            "over_budget": 140
+          }
+        },
+        "time_objective": {
+          "n_fail": 180,
+          "w": 0.3930131004366812,
+          "why": {
+            "unreachable": 0,
+            "enters_hazard": 45,
+            "over_budget": 135
+          }
+        },
+        "flat_distance_objective_control": {
+          "n_fail": 159,
+          "w": 0.3471615720524017,
+          "why": {
+            "unreachable": 0,
+            "enters_hazard": 43,
+            "over_budget": 116
+          }
+        },
+        "difference_n_fail": 4,
+        "difference_w": 0.008733624454148471,
+        "n_rescued_by_time_objective": 4,
+        "n_lost_by_time_objective": 0,
+        "rescued_route_hilliness": {
+          "n": 4,
+          "mean": 0.3078512841751176,
+          "median": 0.33250817685663026
+        },
+        "all_route_hilliness": {
+          "n": 452,
+          "mean": 0.18429633611519458,
+          "median": 0.11579895355993475
+        },
+        "future_aware_counts": {
+          "naive_into_FA_safe": 10,
+          "no_safe_route": 34,
+          "both_safe": 275,
+          "both_enter": 0,
+          "naive_unreachable": 0,
+          "fa_exceeds_budget": 139,
+          "unclassified": 0
+        }
+      },
+      {
+        "budget_min": 90.0,
+        "n_origins": 458,
+        "distance_objective": {
+          "n_fail": 130,
+          "w": 0.2838427947598253,
+          "why": {
+            "unreachable": 0,
+            "enters_hazard": 44,
+            "over_budget": 86
+          }
+        },
+        "time_objective": {
+          "n_fail": 128,
+          "w": 0.2794759825327511,
+          "why": {
+            "unreachable": 0,
+            "enters_hazard": 45,
+            "over_budget": 83
+          }
+        },
+        "flat_distance_objective_control": {
+          "n_fail": 109,
+          "w": 0.23799126637554585,
+          "why": {
+            "unreachable": 0,
+            "enters_hazard": 43,
+            "over_budget": 66
+          }
+        },
+        "difference_n_fail": 2,
+        "difference_w": 0.004366812227074236,
+        "n_rescued_by_time_objective": 2,
+        "n_lost_by_time_objective": 0,
+        "rescued_route_hilliness": {
+          "n": 2,
+          "mean": 0.287185284755908,
+          "median": 0.287185284755908
+        },
+        "all_route_hilliness": {
+          "n": 452,
+          "mean": 0.18429633611519458,
+          "median": 0.11579895355993475
+        },
+        "future_aware_counts": {
+          "naive_into_FA_safe": 11,
+          "no_safe_route": 33,
+          "both_safe": 329,
+          "both_enter": 0,
+          "naive_unreachable": 0,
+          "fa_exceeds_budget": 85,
+          "unclassified": 0
+        }
+      },
+      {
+        "budget_min": 120.0,
+        "n_origins": 458,
+        "distance_objective": {
+          "n_fail": 102,
+          "w": 0.22270742358078602,
+          "why": {
+            "unreachable": 0,
+            "enters_hazard": 44,
+            "over_budget": 58
+          }
+        },
+        "time_objective": {
+          "n_fail": 99,
+          "w": 0.21615720524017468,
+          "why": {
+            "unreachable": 0,
+            "enters_hazard": 45,
+            "over_budget": 54
+          }
+        },
+        "flat_distance_objective_control": {
+          "n_fail": 86,
+          "w": 0.18777292576419213,
+          "why": {
+            "unreachable": 0,
+            "enters_hazard": 43,
+            "over_budget": 43
+          }
+        },
+        "difference_n_fail": 3,
+        "difference_w": 0.006550218340611353,
+        "n_rescued_by_time_objective": 3,
+        "n_lost_by_time_objective": 0,
+        "rescued_route_hilliness": {
+          "n": 3,
+          "mean": 0.45002042293780137,
+          "median": 0.33382798476152753
+        },
+        "all_route_hilliness": {
+          "n": 452,
+          "mean": 0.18429633611519458,
+          "median": 0.11579895355993475
+        },
+        "future_aware_counts": {
+          "naive_into_FA_safe": 13,
+          "no_safe_route": 31,
+          "both_safe": 358,
+          "both_enter": 0,
+          "naive_unreachable": 0,
+          "fa_exceeds_budget": 56,
+          "unclassified": 0
+        }
+      },
+      {
+        "budget_min": 600.0,
+        "n_origins": 458,
+        "distance_objective": {
+          "n_fail": 44,
+          "w": 0.09606986899563319,
+          "why": {
+            "unreachable": 0,
+            "enters_hazard": 44,
+            "over_budget": 0
+          }
+        },
+        "time_objective": {
+          "n_fail": 45,
+          "w": 0.0982532751091703,
+          "why": {
+            "unreachable": 0,
+            "enters_hazard": 45,
+            "over_budget": 0
+          }
+        },
+        "flat_distance_objective_control": {
+          "n_fail": 43,
+          "w": 0.09388646288209607,
+          "why": {
+            "unreachable": 0,
+            "enters_hazard": 43,
+            "over_budget": 0
+          }
+        },
+        "difference_n_fail": -1,
+        "difference_w": -0.002183406113537118,
+        "n_rescued_by_time_objective": 2,
+        "n_lost_by_time_objective": 3,
+        "rescued_route_hilliness": {
+          "n": 2,
+          "mean": 0.23334224196021258,
+          "median": 0.23334224196021258
+        },
+        "all_route_hilliness": {
+          "n": 452,
+          "mean": 0.18429633611519458,
+          "median": 0.11579895355993475
+        },
+        "future_aware_counts": {
+          "naive_into_FA_safe": 42,
+          "no_safe_route": 2,
+          "both_safe": 414,
+          "both_enter": 0,
+          "naive_unreachable": 0,
+          "fa_exceeds_budget": 0,
+          "unclassified": 0
+        }
+      }
+    ],
+    "objective_flips": {
+      "30": {
+        "n_rescued_by_time_objective": 1,
+        "n_lost_by_time_objective": 0,
+        "rescued_origins": [
+          11930006817
+        ]
+      },
+      "60": {
+        "n_rescued_by_time_objective": 4,
+        "n_lost_by_time_objective": 0,
+        "rescued_origins": [
+          11001086319,
+          11739984002,
+          11764450608,
+          11764450722
+        ]
+      },
+      "90": {
+        "n_rescued_by_time_objective": 2,
+        "n_lost_by_time_objective": 0,
+        "rescued_origins": [
+          11825276907,
+          12067173185
+        ]
+      },
+      "120": {
+        "n_rescued_by_time_objective": 3,
+        "n_lost_by_time_objective": 0,
+        "rescued_origins": [
+          11001089397,
+          11779898047,
+          11877066585
+        ]
+      },
+      "600": {
+        "n_rescued_by_time_objective": 2,
+        "n_lost_by_time_objective": 3,
+        "rescued_origins": [
+          11825850690,
+          12044832090
+        ]
+      }
+    },
+    "w_ratio_tightest_over_loosest": 5.886363636363637,
+    "committed_w_on_the_reverted_field": {
+      "30": 0.55,
+      "60": 0.3826,
+      "90": 0.2609,
+      "120": 0.1978,
+      "600": 0.0435
+    },
+    "hazard_entry_attribution": "'enters_hazard' failures belong to the FIRE-BLIND BASELINE, not to the proposed system. future_aware_route never enters the hazard: both_enter is 0 at every budget in future_aware_counts. Never restate these as a cost of the system."
+  },
+  "held_constant": [
+    "snapshot walk graph 2026-07-24",
+    "osmnx 2.0.7",
+    "p_cut=0.5",
+    "shelters",
+    "origin scan rule",
+    "slope sampling 60 m"
+  ]
+}

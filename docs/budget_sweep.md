@@ -1,8 +1,75 @@
 # w(t): evacuation failure as the walking budget tightens
 
-**Artifact:** `data/processed/budget_sweep_experiment.json`
-**Script:** `scripts/run_budget_sweep_experiment.py`
-**Measured:** 2026-08-01 · PHASE 2-C-2
+**Artifacts:** `data/processed/objective_budget_canonical.json` (current) ·
+`budget_sweep_experiment.json` (earlier reading)
+**Scripts:** `scripts/run_canonical_objective_and_budget.py` (current) ·
+`scripts/run_budget_sweep_experiment.py` (earlier)
+**Measured:** 2026-08-01, **re-measured 2026-08-02 on the canonical hazard field**
+
+## The canonical-field re-run (2026-08-02)
+
+The earlier sweep consumed `routing_demo.npz`, the near-static field of the run
+reverted on 2026-07-21 ([`routing_demo_divergence.json`](../data/processed/routing_demo_divergence.json)).
+The canonical field's ≥ 0.5 core is four times larger. Same network, same DEM,
+same definitions — `w`, `route_hilliness` and the origin rule are **imported**
+from the committed scripts, not restated.
+
+| 예산 | 거리 기반 w (폐기 장) | **거리 기반 w (정본)** | 시간 기반 w (정본) | 차이 | FA 예산 초과 |
+|---|---:|---:|---:|---:|---:|
+| 30분 | 55.00 % | **56.55 %** (259) | 56.33 % (258) | **+1** | 216 |
+| 60분 | 38.26 % | **40.17 %** (184) | 39.30 % (180) | **+4** | 139 |
+| 90분 | 26.09 % | **28.38 %** (130) | 27.95 % (128) | **+2** | 85 |
+| 120분 | 19.78 % | **22.27 %** (102) | 21.62 % (99) | **+3** | 56 |
+| 600분 | 4.35 % | **9.61 %** (44) | 9.83 % (45) | **−1** | **0** |
+
+Denominator **458** origins (460 on the earlier field; the t0 core grew, so two
+more nodes start at or above `p_cut`).
+
+### The 600-minute budget still does not bind
+
+`fa_exceeds_budget` is **0 at 600 minutes on the canonical field too**, and the
+"차이" column is unchanged at +1 / +4 / +2 / +3. That is not a coincidence: a
+budget failure is a **walk-time** failure, and walk time is a property of the
+graph and the DEM, neither of which moved. What moved is the **hazard**, and it
+shows up in the other failure cause.
+
+### Failure ratio 12.6× → 5.9×, and the reason is a raised floor
+
+| | 폐기 장 | 정본 |
+|---|---:|---:|
+| w(30분) | 55.00 % | 56.55 % |
+| w(600분) | 4.35 % | 9.61 % |
+| 비율 | **12.65×** | **5.89×** |
+
+The tight-budget end barely moved (+1.55 pp) because it is dominated by walking
+time. The loose-budget end more than doubled (4.35 → 9.61 %) because at 600
+minutes nothing fails on time and **everything that fails, fails by entering the
+fire**. A bigger fire raises the floor; it does not change the ceiling.
+
+### ⚠ Hazard entry doubled — and it is still the baseline's, not the system's
+
+| | 폐기 장 | 정본 |
+|---|---:|---:|
+| 거리 기반 `enters_hazard` | 20 | **44** |
+| 시간 기반 `enters_hazard` | 23 | **45** |
+| `both_enter` (제안 시스템) | **0** at every budget | **0** at every budget |
+
+These are failures of the **fire-blind status-quo route**. `future_aware_route`
+never enters the hazard — `both_enter` is 0 at every budget on both fields.
+**Never restate a rising `enters_hazard` as a cost of the proposed system.** The
+number doubled because the fire is four times larger, so a fire-blind walk is
+more likely to walk into it. That is the argument *for* the system.
+
+The 44 is the same 44 as the routing run's `FA_only + no_safe_route` = 42 + 2.
+It is budget-independent by construction: hazard entry is tested before the
+budget is.
+
+---
+
+# ── EARLIER READING (reverted hazard field) ──────────────────────
+
+Everything from here on was measured on `routing_demo.npz`. Retained because the
+contrast — a raised floor with an unchanged ceiling — is only legible against it.
 
 ## What this closes
 

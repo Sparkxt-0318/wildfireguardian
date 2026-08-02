@@ -56,6 +56,7 @@ MR_UISEONG = "data/processed/real_roads_real_hazard_uiseong_andong_2025.json"
 MR_ULJIN = "data/processed/real_roads_real_hazard_uljin_samcheok_2022.json"
 MR_YEONGDEOK = "data/processed/real_roads_real_hazard_canonical.json"
 SWEEP_CANON = "data/processed/slope_sweep_canonical.json"      # step 2
+OBJBUD_CANON = "data/processed/objective_budget_canonical.json"  # step 3
 
 # Reproducibility is MEASURED, not assumed. Each artifact was re-run on
 # 2026-08-01 into a scratch directory and diffed against the committed copy.
@@ -173,6 +174,14 @@ REPRO = {
         "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot "
                     "walk graph, the SRTM raster and routing_demo_canonical.npz, "
                     "osmnx pinned to 2.0.7. Deterministic: no sampling, no fit.",
+        "blocked_by": None,
+    },
+    OBJBUD_CANON: {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified snapshot graph, the "
+                    "SRTM raster and routing_demo_canonical.npz, osmnx 2.0.7. "
+                    "Deterministic. w, route_hilliness and the origin rule are "
+                    "IMPORTED from the committed scripts, not restated.",
         "blocked_by": None,
     },
     MULTI: {
@@ -1221,6 +1230,132 @@ def main() -> int:
                    "operands": {"a": op(SWEEP_CANON, "path_changes_vs_flat_control."
                                                      "60.future_aware_routes_changed")},
                    "expr": "a", "tolerance": 0.0},
+        )
+
+    # ------------------------- PHASE 2-C on the canonical field -------------
+    if (REPO / OBJBUD_CANON).exists():
+        ob = read(OBJBUD_CANON)
+        NOT_W = ("This w is NOT the committed w = 11.4 %. That is a 600-minute "
+                 "figure from the 439-origin rescue pipeline over n_mobile = 307 "
+                 "on a SYNTHETIC hazard envelope — different denominator, "
+                 "lineage and field. Neither replaces the other. And NEVER quote "
+                 "a short-budget w without its budget.")
+        FORBID_W = ["보행 실패율 11.4%를 대체", "replaces the committed w",
+                    "w = 56.55%", "evacuation fails for 56 % of residents"]
+        for b in (30, 60, 120, 600):
+            row = next(r for r in ob["budget_sweep"]["rows"] if int(r["budget_min"]) == b)
+            N[f"budget_canonical_{b}min_w"] = entry(
+                value=round(row["distance_objective"]["w"], 4), unit="fraction",
+                source_file=OBJBUD_CANON,
+                json_path=f"budget_sweep.rows[budget_min={b}].distance_objective.w",
+                derivation="1 - evacuable / n_origins, distance-ranked status-quo "
+                           f"route, {b}-minute budget, canonical hazard field",
+                sample=f"영덕 2025 · {row['n_origins']}곳 · 예산 {b}분",
+                caveat=NOT_W,
+                forbidden_phrasings=FORBID_W,
+                check={"kind": "expression",
+                       "operands": {"a": op(OBJBUD_CANON, "budget_sweep.rows")},
+                       "expr": f"round(next(r['distance_objective']['w'] for r in a "
+                               f"if r['budget_min'] == {b}.0), 4)",
+                       "tolerance": 0.0},
+            )
+        N["budget_canonical_w_ratio"] = entry(
+            value=round(ob["budget_sweep"]["w_ratio_tightest_over_loosest"], 2),
+            unit="ratio", source_file=OBJBUD_CANON,
+            json_path="budget_sweep.w_ratio_tightest_over_loosest",
+            derivation="w(30 min) / w(600 min), distance objective",
+            sample="영덕 2025 · 458곳",
+            caveat=("5.89x against 12.65x on the reverted field. The tight end "
+                    "barely moved (+1.55 pp) because it is dominated by WALK "
+                    "TIME, which did not change; the loose end more than doubled "
+                    "because at 600 minutes everything that fails, fails by "
+                    "entering the fire. A bigger fire raises the floor, it does "
+                    "not change the ceiling."),
+            forbidden_phrasings=["실패율이 12.6배 증가", "failure rises 12.6x"],
+            check={"kind": "expression",
+                   "operands": {"a": op(OBJBUD_CANON,
+                                        "budget_sweep.w_ratio_tightest_over_loosest")},
+                   "expr": "round(a, 2)", "tolerance": 0.0},
+        )
+        N["budget_canonical_fa_exceeds_budget_at_600min"] = entry(
+            value=next(r for r in ob["budget_sweep"]["rows"]
+                       if r["budget_min"] == 600.0)["future_aware_counts"]["fa_exceeds_budget"],
+            unit="origins", source_file=OBJBUD_CANON,
+            json_path="budget_sweep.rows[budget_min=600].future_aware_counts."
+                      "fa_exceeds_budget",
+            derivation="origins whose fire-blind route is safe but whose "
+                       "future-aware route cannot finish within 600 minutes",
+            sample="영덕 2025 · 458곳 · 예산 600분",
+            caveat=("ZERO — the 600-minute budget does NOT bind on the canonical "
+                    "field either, even though its fire core is four times "
+                    "larger. A budget failure is a walk-time failure, and walk "
+                    "time is a property of the graph and the DEM, neither of "
+                    "which changed."),
+            forbidden_phrasings=["600분 예산이 구속한다", "the 600-minute budget binds"],
+            check={"kind": "expression",
+                   "operands": {"a": op(OBJBUD_CANON, "budget_sweep.rows")},
+                   "expr": "next(r['future_aware_counts']['fa_exceeds_budget'] "
+                           "for r in a if r['budget_min'] == 600.0)",
+                   "tolerance": 0.0},
+        )
+        N["budget_canonical_baseline_hazard_entries"] = entry(
+            value=next(r for r in ob["budget_sweep"]["rows"]
+                       if r["budget_min"] == 600.0)["distance_objective"]["why"]["enters_hazard"],
+            unit="origins", source_file=OBJBUD_CANON,
+            json_path="budget_sweep.rows[budget_min=600].distance_objective.why."
+                      "enters_hazard",
+            derivation="status-quo distance-ranked routes that enter the "
+                       "predicted hazard; budget-independent by construction",
+            sample="영덕 2025 · 458곳",
+            caveat=("⚠ THESE BELONG TO THE FIRE-BLIND BASELINE, NOT TO THE "
+                    "PROPOSED SYSTEM. future_aware_route never enters the hazard: "
+                    "both_enter is 0 at every budget. The count rose 20 -> 44 "
+                    "because the fire is four times larger, so a fire-blind walk "
+                    "is likelier to walk into it — that is the argument FOR the "
+                    "system, not a cost of it."),
+            forbidden_phrasings=["시스템이 44곳을 화재로 보낸다",
+                                 "the system routes 44 origins into the fire",
+                                 "화재 진입이 늘어난 비용"],
+            check={"kind": "expression",
+                   "operands": {"a": op(OBJBUD_CANON, "budget_sweep.rows")},
+                   "expr": "next(r['distance_objective']['why']['enters_hazard'] "
+                           "for r in a if r['budget_min'] == 600.0)",
+                   "tolerance": 0.0},
+        )
+        o2 = ob["objective_2x2"]
+        N["objective_canonical_routes_changed"] = entry(
+            value=o2["slope_routes_changed"], unit="origins",
+            source_file=OBJBUD_CANON, json_path="objective_2x2.slope_routes_changed",
+            derivation="origins whose status-quo path differs between the "
+                       "distance and time objectives, slope timing",
+            sample="영덕 2025 · 458곳",
+            caveat=("150 of 458 (32.8 %), against 150 of 460 (32.6 %) on the "
+                    "reverted field. The objective switch is a property of the "
+                    "NETWORK and the TERRAIN, not of the fire, so it is expected "
+                    "to be invariant to the hazard field — and it is. The flat "
+                    "control changes 0 routes, as it must."),
+            forbidden_phrasings=["위험면이 경로를 바꿨다", "the hazard changed the routes"],
+            check={"kind": "json_path",
+                   "operands": {"a": op(OBJBUD_CANON,
+                                        "objective_2x2.slope_routes_changed")},
+                   "expr": "a", "tolerance": 0.0},
+        )
+        N["objective_canonical_longest_walk_saving_min"] = entry(
+            value=round(o2["longest_walk_min"]["saving_min"], 1), unit="minutes",
+            source_file=OBJBUD_CANON,
+            json_path="objective_2x2.longest_walk_min.saving_min",
+            derivation="longest status-quo walk under the distance objective "
+                       "minus the same under the time objective, slope timing",
+            sample="영덕 2025 · 458곳 중 최장 보행 1곳",
+            caveat=("444.0 -> 352.8 min. Reproduces the committed 91.3-minute "
+                    "saving on a four-times-larger hazard field, because the "
+                    "quantity depends on terrain and topology only. ONE origin — "
+                    "a maximum, not a typical case."),
+            forbidden_phrasings=["평균 91분 단축", "saves 91 minutes on average"],
+            check={"kind": "expression",
+                   "operands": {"a": op(OBJBUD_CANON,
+                                        "objective_2x2.longest_walk_min.saving_min")},
+                   "expr": "round(a, 1)", "tolerance": 0.0},
         )
 
     try:

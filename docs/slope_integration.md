@@ -110,6 +110,47 @@ Identical to three decimal places, so the difference in counts is the hazard
 field and nothing else. The 30 / 90 m arms likewise reproduce 9.98 % / +40.4 %
 and 7.11 % / +21.0 %.
 
+## PHASE 2-C-1 on the canonical field — the routes are unchanged, the counts are not
+
+**Artifact:** `data/processed/objective_budget_canonical.json`
+
+| 목적함수 | 폐기 장 (커밋, 인용) | **정본 장** |
+|---|---:|---:|
+| 평면 · 거리 최소화 | 440 / 17 / 3 | **415 / 41 / 2** |
+| 평면 · 시간 최소화 | 440 / 17 / 3 | **415 / 41 / 2** |
+| 경사 · 거리 최소화 | 440 / 17 / 3 | **414 / 42 / 2** |
+| 경사 · 시간 최소화 | 440 / 17 / 3 | **413 / 43 / 2** |
+
+The flat control changes **0 of 458** routes when the objective switches — as it
+must, since with flat timing minimising time and minimising distance are the
+same problem. A non-zero count would be an implementation fault.
+
+### The route-level findings reproduce almost exactly
+
+| | 폐기 장 | 정본 |
+|---|---:|---:|
+| 경로가 바뀐 출발지 | 150 of 460 (32.6 %) | **150 of 458 (32.8 %)** |
+| 거리 변화 (중앙값 / 최대) | +1.4 % / +26.7 % | **+1.40 % / +26.69 %** |
+| 시간 변화 (중앙값 / 최선) | −1.5 % / −36.2 % | **−1.47 % / −36.19 %** |
+| 최장 보행 | 444 → 353분 (−91.3) | **444.0 → 352.8분 (−91.3)** |
+
+This is the control the experiment needed and did not have before: the objective
+switch is a property of the **network and the terrain**, not of the fire, so it
+should be invariant to the hazard field — and it is, to three significant
+figures. **What the hazard field changes is only which bucket each origin lands
+in.** Slope + time-min moves one more origin into FA-only than slope +
+distance-min (42 → 43); on the reverted field it moved none.
+
+### ⚠ What is being compared once both routers minimise time
+
+Switching `naive_route` to `time_min` does **not** make the two routers the
+same. `future_aware_route` minimises cumulative **exposure** on a time-expanded
+graph and breaks ties on arrival time; the status-quo router minimises one
+scalar and is **blind to the fire**. So `naive_into_FA_safe` still means *the
+fire-blind route enters the predicted hazard and the future-aware one does not*.
+What changes is which fire-blind route is under test — the shortest one, or the
+fastest one. Both are fire-blind, and that is the whole comparison.
+
 ---
 
 # ── EARLIER READING (reverted hazard field) ──────────────────────

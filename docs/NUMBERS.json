@@ -3,7 +3,7 @@
   "_README": "CANONICAL REGISTRY. Every reportable number lives here exactly once. Do not restate a value in prose without citing its key. 'verified' = still matches its artifact; 'reproducible' = re-running the pipeline regenerates that artifact. They are independent — several numbers here are verified but NOT reproducible because the OSM network behind them was overwritten (docs/DATA_LOSS_2026-07-24.md). Run scripts/verify_numbers.py to re-check every entry.",
   "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
   "config_hash_note": "The per-entry config_hash is re-stamped on every build, so it marks the config a build SAW, not the config a number was PRODUCED under. It moved 0b6eb481177a… -> 51ec446843b6… between the 2026-08-01 build and the 2026-08-02 (PHASE 5 STEP 4) build. That move is PURELY ADDITIVE: `bbox.multi_region_walk_bbox` and `grid.simulation_bbox_extension` were added and NOT ONE existing key changed value (verified key-by-key against config/default.yaml at commit 5fe86db). No Round-2 number is stale as a result.",
-  "built_at_git_commit": "815dc02a275b80aa7c3b63d0081284e4c4ba0290",
+  "built_at_git_commit": "a9b79cb4ef469514291de268a55d34bef6e8b59a",
   "round2_submission_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
   "numbers": {
     "lofo_mean_of_folds_auc": {
@@ -3392,6 +3392,312 @@
       "reproducibility": {
         "status": "reproducible",
         "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, osmnx pinned to 2.0.7. Deterministic: no sampling, no fit.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "budget_canonical_30min_w": {
+      "value": 0.5655,
+      "unit": "fraction",
+      "source_file": "data/processed/objective_budget_canonical.json",
+      "json_path": "budget_sweep.rows[budget_min=30].distance_objective.w",
+      "derivation": "1 - evacuable / n_origins, distance-ranked status-quo route, 30-minute budget, canonical hazard field",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "영덕 2025 · 458곳 · 예산 30분",
+      "caveat": "This w is NOT the committed w = 11.4 %. That is a 600-minute figure from the 439-origin rescue pipeline over n_mobile = 307 on a SYNTHETIC hazard envelope — different denominator, lineage and field. Neither replaces the other. And NEVER quote a short-budget w without its budget.",
+      "forbidden_phrasings": [
+        "보행 실패율 11.4%를 대체",
+        "replaces the committed w",
+        "w = 56.55%",
+        "evacuation fails for 56 % of residents"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/objective_budget_canonical.json",
+            "json_path": "budget_sweep.rows"
+          }
+        },
+        "expr": "round(next(r['distance_objective']['w'] for r in a if r['budget_min'] == 30.0), 4)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified snapshot graph, the SRTM raster and routing_demo_canonical.npz, osmnx 2.0.7. Deterministic. w, route_hilliness and the origin rule are IMPORTED from the committed scripts, not restated.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "budget_canonical_60min_w": {
+      "value": 0.4017,
+      "unit": "fraction",
+      "source_file": "data/processed/objective_budget_canonical.json",
+      "json_path": "budget_sweep.rows[budget_min=60].distance_objective.w",
+      "derivation": "1 - evacuable / n_origins, distance-ranked status-quo route, 60-minute budget, canonical hazard field",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "영덕 2025 · 458곳 · 예산 60분",
+      "caveat": "This w is NOT the committed w = 11.4 %. That is a 600-minute figure from the 439-origin rescue pipeline over n_mobile = 307 on a SYNTHETIC hazard envelope — different denominator, lineage and field. Neither replaces the other. And NEVER quote a short-budget w without its budget.",
+      "forbidden_phrasings": [
+        "보행 실패율 11.4%를 대체",
+        "replaces the committed w",
+        "w = 56.55%",
+        "evacuation fails for 56 % of residents"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/objective_budget_canonical.json",
+            "json_path": "budget_sweep.rows"
+          }
+        },
+        "expr": "round(next(r['distance_objective']['w'] for r in a if r['budget_min'] == 60.0), 4)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified snapshot graph, the SRTM raster and routing_demo_canonical.npz, osmnx 2.0.7. Deterministic. w, route_hilliness and the origin rule are IMPORTED from the committed scripts, not restated.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "budget_canonical_120min_w": {
+      "value": 0.2227,
+      "unit": "fraction",
+      "source_file": "data/processed/objective_budget_canonical.json",
+      "json_path": "budget_sweep.rows[budget_min=120].distance_objective.w",
+      "derivation": "1 - evacuable / n_origins, distance-ranked status-quo route, 120-minute budget, canonical hazard field",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "영덕 2025 · 458곳 · 예산 120분",
+      "caveat": "This w is NOT the committed w = 11.4 %. That is a 600-minute figure from the 439-origin rescue pipeline over n_mobile = 307 on a SYNTHETIC hazard envelope — different denominator, lineage and field. Neither replaces the other. And NEVER quote a short-budget w without its budget.",
+      "forbidden_phrasings": [
+        "보행 실패율 11.4%를 대체",
+        "replaces the committed w",
+        "w = 56.55%",
+        "evacuation fails for 56 % of residents"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/objective_budget_canonical.json",
+            "json_path": "budget_sweep.rows"
+          }
+        },
+        "expr": "round(next(r['distance_objective']['w'] for r in a if r['budget_min'] == 120.0), 4)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified snapshot graph, the SRTM raster and routing_demo_canonical.npz, osmnx 2.0.7. Deterministic. w, route_hilliness and the origin rule are IMPORTED from the committed scripts, not restated.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "budget_canonical_600min_w": {
+      "value": 0.0961,
+      "unit": "fraction",
+      "source_file": "data/processed/objective_budget_canonical.json",
+      "json_path": "budget_sweep.rows[budget_min=600].distance_objective.w",
+      "derivation": "1 - evacuable / n_origins, distance-ranked status-quo route, 600-minute budget, canonical hazard field",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "영덕 2025 · 458곳 · 예산 600분",
+      "caveat": "This w is NOT the committed w = 11.4 %. That is a 600-minute figure from the 439-origin rescue pipeline over n_mobile = 307 on a SYNTHETIC hazard envelope — different denominator, lineage and field. Neither replaces the other. And NEVER quote a short-budget w without its budget.",
+      "forbidden_phrasings": [
+        "보행 실패율 11.4%를 대체",
+        "replaces the committed w",
+        "w = 56.55%",
+        "evacuation fails for 56 % of residents"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/objective_budget_canonical.json",
+            "json_path": "budget_sweep.rows"
+          }
+        },
+        "expr": "round(next(r['distance_objective']['w'] for r in a if r['budget_min'] == 600.0), 4)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified snapshot graph, the SRTM raster and routing_demo_canonical.npz, osmnx 2.0.7. Deterministic. w, route_hilliness and the origin rule are IMPORTED from the committed scripts, not restated.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "budget_canonical_w_ratio": {
+      "value": 5.89,
+      "unit": "ratio",
+      "source_file": "data/processed/objective_budget_canonical.json",
+      "json_path": "budget_sweep.w_ratio_tightest_over_loosest",
+      "derivation": "w(30 min) / w(600 min), distance objective",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "영덕 2025 · 458곳",
+      "caveat": "5.89x against 12.65x on the reverted field. The tight end barely moved (+1.55 pp) because it is dominated by WALK TIME, which did not change; the loose end more than doubled because at 600 minutes everything that fails, fails by entering the fire. A bigger fire raises the floor, it does not change the ceiling.",
+      "forbidden_phrasings": [
+        "실패율이 12.6배 증가",
+        "failure rises 12.6x"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/objective_budget_canonical.json",
+            "json_path": "budget_sweep.w_ratio_tightest_over_loosest"
+          }
+        },
+        "expr": "round(a, 2)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified snapshot graph, the SRTM raster and routing_demo_canonical.npz, osmnx 2.0.7. Deterministic. w, route_hilliness and the origin rule are IMPORTED from the committed scripts, not restated.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "budget_canonical_fa_exceeds_budget_at_600min": {
+      "value": 0,
+      "unit": "origins",
+      "source_file": "data/processed/objective_budget_canonical.json",
+      "json_path": "budget_sweep.rows[budget_min=600].future_aware_counts.fa_exceeds_budget",
+      "derivation": "origins whose fire-blind route is safe but whose future-aware route cannot finish within 600 minutes",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "영덕 2025 · 458곳 · 예산 600분",
+      "caveat": "ZERO — the 600-minute budget does NOT bind on the canonical field either, even though its fire core is four times larger. A budget failure is a walk-time failure, and walk time is a property of the graph and the DEM, neither of which changed.",
+      "forbidden_phrasings": [
+        "600분 예산이 구속한다",
+        "the 600-minute budget binds"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/objective_budget_canonical.json",
+            "json_path": "budget_sweep.rows"
+          }
+        },
+        "expr": "next(r['future_aware_counts']['fa_exceeds_budget'] for r in a if r['budget_min'] == 600.0)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified snapshot graph, the SRTM raster and routing_demo_canonical.npz, osmnx 2.0.7. Deterministic. w, route_hilliness and the origin rule are IMPORTED from the committed scripts, not restated.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "budget_canonical_baseline_hazard_entries": {
+      "value": 44,
+      "unit": "origins",
+      "source_file": "data/processed/objective_budget_canonical.json",
+      "json_path": "budget_sweep.rows[budget_min=600].distance_objective.why.enters_hazard",
+      "derivation": "status-quo distance-ranked routes that enter the predicted hazard; budget-independent by construction",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "영덕 2025 · 458곳",
+      "caveat": "⚠ THESE BELONG TO THE FIRE-BLIND BASELINE, NOT TO THE PROPOSED SYSTEM. future_aware_route never enters the hazard: both_enter is 0 at every budget. The count rose 20 -> 44 because the fire is four times larger, so a fire-blind walk is likelier to walk into it — that is the argument FOR the system, not a cost of it.",
+      "forbidden_phrasings": [
+        "시스템이 44곳을 화재로 보낸다",
+        "the system routes 44 origins into the fire",
+        "화재 진입이 늘어난 비용"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/objective_budget_canonical.json",
+            "json_path": "budget_sweep.rows"
+          }
+        },
+        "expr": "next(r['distance_objective']['why']['enters_hazard'] for r in a if r['budget_min'] == 600.0)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified snapshot graph, the SRTM raster and routing_demo_canonical.npz, osmnx 2.0.7. Deterministic. w, route_hilliness and the origin rule are IMPORTED from the committed scripts, not restated.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "objective_canonical_routes_changed": {
+      "value": 150,
+      "unit": "origins",
+      "source_file": "data/processed/objective_budget_canonical.json",
+      "json_path": "objective_2x2.slope_routes_changed",
+      "derivation": "origins whose status-quo path differs between the distance and time objectives, slope timing",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "영덕 2025 · 458곳",
+      "caveat": "150 of 458 (32.8 %), against 150 of 460 (32.6 %) on the reverted field. The objective switch is a property of the NETWORK and the TERRAIN, not of the fire, so it is expected to be invariant to the hazard field — and it is. The flat control changes 0 routes, as it must.",
+      "forbidden_phrasings": [
+        "위험면이 경로를 바꿨다",
+        "the hazard changed the routes"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/objective_budget_canonical.json",
+            "json_path": "objective_2x2.slope_routes_changed"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified snapshot graph, the SRTM raster and routing_demo_canonical.npz, osmnx 2.0.7. Deterministic. w, route_hilliness and the origin rule are IMPORTED from the committed scripts, not restated.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "objective_canonical_longest_walk_saving_min": {
+      "value": 91.3,
+      "unit": "minutes",
+      "source_file": "data/processed/objective_budget_canonical.json",
+      "json_path": "objective_2x2.longest_walk_min.saving_min",
+      "derivation": "longest status-quo walk under the distance objective minus the same under the time objective, slope timing",
+      "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "영덕 2025 · 458곳 중 최장 보행 1곳",
+      "caveat": "444.0 -> 352.8 min. Reproduces the committed 91.3-minute saving on a four-times-larger hazard field, because the quantity depends on terrain and topology only. ONE origin — a maximum, not a typical case.",
+      "forbidden_phrasings": [
+        "평균 91분 단축",
+        "saves 91 minutes on average"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/objective_budget_canonical.json",
+            "json_path": "objective_2x2.longest_walk_min.saving_min"
+          }
+        },
+        "expr": "round(a, 1)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-02 from the hash-verified snapshot graph, the SRTM raster and routing_demo_canonical.npz, osmnx 2.0.7. Deterministic. w, route_hilliness and the origin rule are IMPORTED from the committed scripts, not restated.",
         "blocked_by": null
       },
       "reproducible": true
