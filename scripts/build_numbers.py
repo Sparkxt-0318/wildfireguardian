@@ -1427,6 +1427,41 @@ def main() -> int:
                    "expr": "a", "tolerance": 0.0},
         )
 
+    # ---------------------------------------------------------------- 32.6 % --
+    # DECISION 2026-08-02: Yeongdeok's walk bbox is NOT re-drawn around the
+    # canonical fire (docs/walk_bbox_coverage.md). The cost of that decision is
+    # that every ABSOLUTE RATE and every RAW COUNT of Yeongdeok origins is a
+    # figure on the covered third, so the caveat travels with them mechanically
+    # rather than by remembering.
+    #
+    # NOT applied to paired contrasts (flat vs slope, distance vs time — both
+    # arms share the origins, so the sampling frame cancels) or to network and
+    # terrain quantities (traversal time, changed routes, the longest-walk
+    # saving), none of which depend on the fire.
+    COVERAGE_CAVEAT = (
+        " ⚠ 영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. "
+        "나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 "
+        "알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 "
+        "함께 제시하십시오. — Yeongdeok figures are computed on a walk network "
+        "covering only 32.6 % of the canonical fire core; the remaining two "
+        "thirds are unmeasured and the direction of the bias is unknown. This is "
+        "a rate ON THE COVERED THIRD, not a region-wide estimate "
+        "(docs/walk_bbox_coverage.md).")
+    COVERAGE_FORBID = ["영덕 전역", "across Yeongdeok", "지역 전체 비율",
+                       "region-wide rate", "영덕 화재 전체"]
+    _needs_coverage = [k for k in N if (
+        k.startswith("mr_yeongdeok_")
+        or k.startswith("budget_canonical_")
+        or (k.startswith("slope_canonical_")
+            and not k.startswith("slope_canonical_origins_moved")
+            and not k.startswith("slope_canonical_fa_routes_changed")))]
+    for k in _needs_coverage:
+        if "32.6" not in N[k]["caveat"]:
+            N[k]["caveat"] += COVERAGE_CAVEAT
+            N[k]["forbidden_phrasings"] = list(
+                dict.fromkeys(N[k]["forbidden_phrasings"] + COVERAGE_FORBID))
+    print(f"  coverage caveat applied to {len(_needs_coverage)} entries")
+
     try:
         head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=REPO).decode().strip()
     except Exception:  # noqa: BLE001

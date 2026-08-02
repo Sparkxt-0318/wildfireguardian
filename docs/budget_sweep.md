@@ -25,6 +25,14 @@ from the committed scripts, not restated.
 Denominator **458** origins (460 on the earlier field; the t0 core grew, so two
 more nodes start at or above `p_cut`).
 
+> ⚠ **영덕 절대 비율에 대한 단서** — 영덕 수치는 정본 화재 핵심의 **32.6 %만
+> 덮는** 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은
+> 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕
+> 행을 인용할 때는 이 열을 반드시 함께 제시하십시오.
+> ([`walk_bbox_coverage.md`](walk_bbox_coverage.md) · 재취득하지 않기로 2026-08-02
+> 확정) **짝지어진 대비는 영향받지 않습니다** — 두 arm이 같은 출발지를 쓰므로
+> 표본 프레임이 상쇄됩니다.
+
 ### The 600-minute budget still does not bind
 
 `fa_exceeds_budget` is **0 at 600 minutes on the canonical field too**, and the

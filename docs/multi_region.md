@@ -46,6 +46,14 @@ Units: road density km/km², node density nodes/km², envelope area = cells at
 p ≥ 0.5 in the final hazard slice × 25 ha. `both_enter`, `naive_unreachable` and
 `unclassified` are zero in all three regions and are omitted.
 
+> ⚠ **영덕 절대 비율에 대한 단서** — 영덕 수치는 정본 화재 핵심의 **32.6 %만
+> 덮는** 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은
+> 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕
+> 행을 인용할 때는 이 열을 반드시 함께 제시하십시오.
+> ([`walk_bbox_coverage.md`](walk_bbox_coverage.md) · 재취득하지 않기로 2026-08-02
+> 확정) **짝지어진 대비는 영향받지 않습니다** — 두 arm이 같은 출발지를 쓰므로
+> 표본 프레임이 상쇄됩니다.
+
 **The Yeongdeok row is now the canonical-hazard run**, not a quotation. Until
 2026-08-02 it quoted `real_roads_real_hazard_slope_60.json` col 3 (460 origins,
 440 / 17 / 3). That arm consumed `routing_demo.npz`, which the investigation
@@ -300,6 +308,14 @@ no static region left to contrast against.
 
 All three fires advance by 147–316 %, and their future-aware-only shares span
 **32×** with no ordering that tracks growth.
+
+> ⚠ **영덕 절대 비율에 대한 단서** — 영덕 수치는 정본 화재 핵심의 **32.6 %만
+> 덮는** 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은
+> 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕
+> 행을 인용할 때는 이 열을 반드시 함께 제시하십시오.
+> ([`walk_bbox_coverage.md`](walk_bbox_coverage.md) · 재취득하지 않기로 2026-08-02
+> 확정) **짝지어진 대비는 영향받지 않습니다** — 두 arm이 같은 출발지를 쓰므로
+> 표본 프레임이 상쇄됩니다.
 
 ### The rank statistic is not usable here, and we can now show why
 

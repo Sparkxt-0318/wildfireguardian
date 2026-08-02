@@ -3,7 +3,7 @@
   "_README": "CANONICAL REGISTRY. Every reportable number lives here exactly once. Do not restate a value in prose without citing its key. 'verified' = still matches its artifact; 'reproducible' = re-running the pipeline regenerates that artifact. They are independent — several numbers here are verified but NOT reproducible because the OSM network behind them was overwritten (docs/DATA_LOSS_2026-07-24.md). Run scripts/verify_numbers.py to re-check every entry.",
   "config_hash": "faf90a81b7e661ca5dedfe787de4a67a7c3ac696e8b42e40103dfe19a64f59cf",
   "config_hash_note": "The per-entry config_hash is re-stamped on every build, so it marks the config a build SAW, not the config a number was PRODUCED under. It moved 0b6eb481177a… -> 51ec446843b6… between the 2026-08-01 build and the 2026-08-02 (PHASE 5 STEP 4) build. That move is PURELY ADDITIVE: `bbox.multi_region_walk_bbox` and `grid.simulation_bbox_extension` were added and NOT ONE existing key changed value (verified key-by-key against config/default.yaml at commit 5fe86db). No Round-2 number is stale as a result.",
-  "built_at_git_commit": "c8851d856c115715fcfbabb173c14f5b7c546e2d",
+  "built_at_git_commit": "75f347a730cd7dc30aa019fc94e81359119b84b9",
   "round2_submission_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
   "numbers": {
     "lofo_mean_of_folds_auc": {
@@ -1482,7 +1482,7 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "영덕 2025 · 458곳 주사",
-      "caveat": "459-SERIES, THREE BUCKETS. This is the share of scanned origins that reach safety ONLY on the future-aware route. It is NOT the walk-failure rate w — w is a 439-series quantity built on a SYNTHETIC hazard envelope with a fabricated coastline and cannot be computed for an inland region at all. Never quote across regions without the covariates in the same table: envelope coverage 50.4–98.9 %, hazard envelope area 2.77x between smallest and largest, node density 7.27–9.07 per km². n = 3.",
+      "caveat": "459-SERIES, THREE BUCKETS. This is the share of scanned origins that reach safety ONLY on the future-aware route. It is NOT the walk-failure rate w — w is a 439-series quantity built on a SYNTHETIC hazard envelope with a fabricated coastline and cannot be computed for an inland region at all. Never quote across regions without the covariates in the same table: envelope coverage 50.4–98.9 %, hazard envelope area 2.77x between smallest and largest, node density 7.27–9.07 per km². n = 3. ⚠ 영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오. — Yeongdeok figures are computed on a walk network covering only 32.6 % of the canonical fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. This is a rate ON THE COVERED THIRD, not a region-wide estimate (docs/walk_bbox_coverage.md).",
       "forbidden_phrasings": [
         "보행 실패율",
         "walk failure rate",
@@ -1492,7 +1492,12 @@
         "의성·안동이 영덕보다 안전하다",
         "Uiseong-Andong is safer than Yeongdeok",
         "의성·안동에는 소방서가 없다",
-        "Uiseong-Andong has no fire stations"
+        "Uiseong-Andong has no fire stations",
+        "영덕 전역",
+        "across Yeongdeok",
+        "지역 전체 비율",
+        "region-wide rate",
+        "영덕 화재 전체"
       ],
       "check": {
         "kind": "json_path",
@@ -1522,7 +1527,7 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "영덕 2025 · 458곳 주사",
-      "caveat": "459-SERIES, THREE BUCKETS. This is the share of scanned origins that reach safety ONLY on the future-aware route. It is NOT the walk-failure rate w — w is a 439-series quantity built on a SYNTHETIC hazard envelope with a fabricated coastline and cannot be computed for an inland region at all. Never quote across regions without the covariates in the same table: envelope coverage 50.4–98.9 %, hazard envelope area 2.77x between smallest and largest, node density 7.27–9.07 per km². n = 3.",
+      "caveat": "459-SERIES, THREE BUCKETS. This is the share of scanned origins that reach safety ONLY on the future-aware route. It is NOT the walk-failure rate w — w is a 439-series quantity built on a SYNTHETIC hazard envelope with a fabricated coastline and cannot be computed for an inland region at all. Never quote across regions without the covariates in the same table: envelope coverage 50.4–98.9 %, hazard envelope area 2.77x between smallest and largest, node density 7.27–9.07 per km². n = 3. ⚠ 영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오. — Yeongdeok figures are computed on a walk network covering only 32.6 % of the canonical fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. This is a rate ON THE COVERED THIRD, not a region-wide estimate (docs/walk_bbox_coverage.md).",
       "forbidden_phrasings": [
         "보행 실패율",
         "walk failure rate",
@@ -1532,7 +1537,12 @@
         "의성·안동이 영덕보다 안전하다",
         "Uiseong-Andong is safer than Yeongdeok",
         "의성·안동에는 소방서가 없다",
-        "Uiseong-Andong has no fire stations"
+        "Uiseong-Andong has no fire stations",
+        "영덕 전역",
+        "across Yeongdeok",
+        "지역 전체 비율",
+        "region-wide rate",
+        "영덕 화재 전체"
       ],
       "check": {
         "kind": "json_path",
@@ -1562,7 +1572,7 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "영덕 2025 · 458곳 주사",
-      "caveat": "459-SERIES, THREE BUCKETS. This is the share of scanned origins that reach safety ONLY on the future-aware route. It is NOT the walk-failure rate w — w is a 439-series quantity built on a SYNTHETIC hazard envelope with a fabricated coastline and cannot be computed for an inland region at all. Never quote across regions without the covariates in the same table: envelope coverage 50.4–98.9 %, hazard envelope area 2.77x between smallest and largest, node density 7.27–9.07 per km². n = 3.",
+      "caveat": "459-SERIES, THREE BUCKETS. This is the share of scanned origins that reach safety ONLY on the future-aware route. It is NOT the walk-failure rate w — w is a 439-series quantity built on a SYNTHETIC hazard envelope with a fabricated coastline and cannot be computed for an inland region at all. Never quote across regions without the covariates in the same table: envelope coverage 50.4–98.9 %, hazard envelope area 2.77x between smallest and largest, node density 7.27–9.07 per km². n = 3. ⚠ 영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오. — Yeongdeok figures are computed on a walk network covering only 32.6 % of the canonical fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. This is a rate ON THE COVERED THIRD, not a region-wide estimate (docs/walk_bbox_coverage.md).",
       "forbidden_phrasings": [
         "보행 실패율",
         "walk failure rate",
@@ -1572,7 +1582,12 @@
         "의성·안동이 영덕보다 안전하다",
         "Uiseong-Andong is safer than Yeongdeok",
         "의성·안동에는 소방서가 없다",
-        "Uiseong-Andong has no fire stations"
+        "Uiseong-Andong has no fire stations",
+        "영덕 전역",
+        "across Yeongdeok",
+        "지역 전체 비율",
+        "region-wide rate",
+        "영덕 화재 전체"
       ],
       "check": {
         "kind": "json_path",
@@ -1602,7 +1617,7 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "영덕 2025 · 458곳 주사",
-      "caveat": "459-SERIES, THREE BUCKETS. This is the share of scanned origins that reach safety ONLY on the future-aware route. It is NOT the walk-failure rate w — w is a 439-series quantity built on a SYNTHETIC hazard envelope with a fabricated coastline and cannot be computed for an inland region at all. Never quote across regions without the covariates in the same table: envelope coverage 50.4–98.9 %, hazard envelope area 2.77x between smallest and largest, node density 7.27–9.07 per km². n = 3.",
+      "caveat": "459-SERIES, THREE BUCKETS. This is the share of scanned origins that reach safety ONLY on the future-aware route. It is NOT the walk-failure rate w — w is a 439-series quantity built on a SYNTHETIC hazard envelope with a fabricated coastline and cannot be computed for an inland region at all. Never quote across regions without the covariates in the same table: envelope coverage 50.4–98.9 %, hazard envelope area 2.77x between smallest and largest, node density 7.27–9.07 per km². n = 3. ⚠ 영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오. — Yeongdeok figures are computed on a walk network covering only 32.6 % of the canonical fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. This is a rate ON THE COVERED THIRD, not a region-wide estimate (docs/walk_bbox_coverage.md).",
       "forbidden_phrasings": [
         "보행 실패율",
         "walk failure rate",
@@ -1612,7 +1627,12 @@
         "의성·안동이 영덕보다 안전하다",
         "Uiseong-Andong is safer than Yeongdeok",
         "의성·안동에는 소방서가 없다",
-        "Uiseong-Andong has no fire stations"
+        "Uiseong-Andong has no fire stations",
+        "영덕 전역",
+        "across Yeongdeok",
+        "지역 전체 비율",
+        "region-wide rate",
+        "영덕 화재 전체"
       ],
       "check": {
         "kind": "json_path",
@@ -1642,7 +1662,7 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "영덕 2025 · 458곳 주사",
-      "caveat": "459-SERIES, THREE BUCKETS. This is the share of scanned origins that reach safety ONLY on the future-aware route. It is NOT the walk-failure rate w — w is a 439-series quantity built on a SYNTHETIC hazard envelope with a fabricated coastline and cannot be computed for an inland region at all. Never quote across regions without the covariates in the same table: envelope coverage 50.4–98.9 %, hazard envelope area 2.77x between smallest and largest, node density 7.27–9.07 per km². n = 3.",
+      "caveat": "459-SERIES, THREE BUCKETS. This is the share of scanned origins that reach safety ONLY on the future-aware route. It is NOT the walk-failure rate w — w is a 439-series quantity built on a SYNTHETIC hazard envelope with a fabricated coastline and cannot be computed for an inland region at all. Never quote across regions without the covariates in the same table: envelope coverage 50.4–98.9 %, hazard envelope area 2.77x between smallest and largest, node density 7.27–9.07 per km². n = 3. ⚠ 영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오. — Yeongdeok figures are computed on a walk network covering only 32.6 % of the canonical fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. This is a rate ON THE COVERED THIRD, not a region-wide estimate (docs/walk_bbox_coverage.md).",
       "forbidden_phrasings": [
         "보행 실패율",
         "walk failure rate",
@@ -1652,7 +1672,12 @@
         "의성·안동이 영덕보다 안전하다",
         "Uiseong-Andong is safer than Yeongdeok",
         "의성·안동에는 소방서가 없다",
-        "Uiseong-Andong has no fire stations"
+        "Uiseong-Andong has no fire stations",
+        "영덕 전역",
+        "across Yeongdeok",
+        "지역 전체 비율",
+        "region-wide rate",
+        "영덕 화재 전체"
       ],
       "check": {
         "kind": "json_path",
@@ -1682,7 +1707,7 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "영덕 2025 · 458곳 주사",
-      "caveat": "459-SERIES, THREE BUCKETS. This is the share of scanned origins that reach safety ONLY on the future-aware route. It is NOT the walk-failure rate w — w is a 439-series quantity built on a SYNTHETIC hazard envelope with a fabricated coastline and cannot be computed for an inland region at all. Never quote across regions without the covariates in the same table: envelope coverage 50.4–98.9 %, hazard envelope area 2.77x between smallest and largest, node density 7.27–9.07 per km². n = 3.",
+      "caveat": "459-SERIES, THREE BUCKETS. This is the share of scanned origins that reach safety ONLY on the future-aware route. It is NOT the walk-failure rate w — w is a 439-series quantity built on a SYNTHETIC hazard envelope with a fabricated coastline and cannot be computed for an inland region at all. Never quote across regions without the covariates in the same table: envelope coverage 50.4–98.9 %, hazard envelope area 2.77x between smallest and largest, node density 7.27–9.07 per km². n = 3. ⚠ 영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오. — Yeongdeok figures are computed on a walk network covering only 32.6 % of the canonical fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. This is a rate ON THE COVERED THIRD, not a region-wide estimate (docs/walk_bbox_coverage.md).",
       "forbidden_phrasings": [
         "보행 실패율",
         "walk failure rate",
@@ -1692,7 +1717,12 @@
         "의성·안동이 영덕보다 안전하다",
         "Uiseong-Andong is safer than Yeongdeok",
         "의성·안동에는 소방서가 없다",
-        "Uiseong-Andong has no fire stations"
+        "Uiseong-Andong has no fire stations",
+        "영덕 전역",
+        "across Yeongdeok",
+        "지역 전체 비율",
+        "region-wide rate",
+        "영덕 화재 전체"
       ],
       "check": {
         "kind": "expression",
@@ -2202,7 +2232,7 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "영덕 2025 · 보행 bbox 931.3 km²",
-      "caveat": "Comparable AREAS, very different COVERAGE. Yeongdeok's walk bbox omits the western part of its own predicted core (docs/walk_bbox_coverage.md); the two new bboxes are ignition-centred. Carry this column into every cross-region statement.",
+      "caveat": "Comparable AREAS, very different COVERAGE. Yeongdeok's walk bbox omits the western part of its own predicted core (docs/walk_bbox_coverage.md); the two new bboxes are ignition-centred. Carry this column into every cross-region statement. ⚠ 영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오. — Yeongdeok figures are computed on a walk network covering only 32.6 % of the canonical fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. This is a rate ON THE COVERED THIRD, not a region-wide estimate (docs/walk_bbox_coverage.md).",
       "forbidden_phrasings": [
         "보행 실패율",
         "walk failure rate",
@@ -2214,7 +2244,12 @@
         "의성·안동에는 소방서가 없다",
         "Uiseong-Andong has no fire stations",
         "동일한 조건에서 비교",
-        "like-for-like across regions"
+        "like-for-like across regions",
+        "영덕 전역",
+        "across Yeongdeok",
+        "지역 전체 비율",
+        "region-wide rate",
+        "영덕 화재 전체"
       ],
       "check": {
         "kind": "expression",
@@ -2244,7 +2279,7 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "영덕 2025 · 예보 12시간",
-      "caveat": "ONE definition for all three regions. The 27,900 ha Yeongdeok figure quoted elsewhere comes from yeongdeok_forward_sim.json, a DIFFERENT simulation artifact; mixing it with these inflates the cross-region spread from 2.77x to about 11.7x.",
+      "caveat": "ONE definition for all three regions. The 27,900 ha Yeongdeok figure quoted elsewhere comes from yeongdeok_forward_sim.json, a DIFFERENT simulation artifact; mixing it with these inflates the cross-region spread from 2.77x to about 11.7x. ⚠ 영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오. — Yeongdeok figures are computed on a walk network covering only 32.6 % of the canonical fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. This is a rate ON THE COVERED THIRD, not a region-wide estimate (docs/walk_bbox_coverage.md).",
       "forbidden_phrasings": [
         "보행 실패율",
         "walk failure rate",
@@ -2256,7 +2291,12 @@
         "의성·안동에는 소방서가 없다",
         "Uiseong-Andong has no fire stations",
         "위험면 면적 12배",
-        "12x envelope area"
+        "12x envelope area",
+        "영덕 전역",
+        "across Yeongdeok",
+        "지역 전체 비율",
+        "region-wide rate",
+        "영덕 화재 전체"
       ],
       "check": {
         "kind": "json_path",
@@ -2286,7 +2326,7 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "영덕 2025 · 화재 무시 경로가 위험한 44곳",
-      "caveat": "Conditional rate on a SMALL denominator (13–20 origins), so it moves in large steps. It is reported because the headline fraction alone hides the mechanism: where the core advances fastest, unsafe origins fall into no_safe_route instead of into the future-aware bucket.",
+      "caveat": "Conditional rate on a SMALL denominator (13–20 origins), so it moves in large steps. It is reported because the headline fraction alone hides the mechanism: where the core advances fastest, unsafe origins fall into no_safe_route instead of into the future-aware bucket. ⚠ 영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오. — Yeongdeok figures are computed on a walk network covering only 32.6 % of the canonical fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. This is a rate ON THE COVERED THIRD, not a region-wide estimate (docs/walk_bbox_coverage.md).",
       "forbidden_phrasings": [
         "보행 실패율",
         "walk failure rate",
@@ -2298,7 +2338,12 @@
         "의성·안동에는 소방서가 없다",
         "Uiseong-Andong has no fire stations",
         "100% 구조",
-        "rescues everyone"
+        "rescues everyone",
+        "영덕 전역",
+        "across Yeongdeok",
+        "지역 전체 비율",
+        "region-wide rate",
+        "영덕 화재 전체"
       ],
       "check": {
         "kind": "expression",
@@ -2748,7 +2793,7 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "영덕 2025 · 보행 bbox 931.3 km²",
-      "caveat": "OSM COVERAGE, not a facility census. A region with fewer mapped refuges is not thereby a region with fewer refuges. Carried here because refuge density is the covariate most likely to explain why a fixed 600-minute budget binds in the two new regions and not in Yeongdeok — a reading to test, not a finding.",
+      "caveat": "OSM COVERAGE, not a facility census. A region with fewer mapped refuges is not thereby a region with fewer refuges. Carried here because refuge density is the covariate most likely to explain why a fixed 600-minute budget binds in the two new regions and not in Yeongdeok — a reading to test, not a finding. ⚠ 영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오. — Yeongdeok figures are computed on a walk network covering only 32.6 % of the canonical fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. This is a rate ON THE COVERED THIRD, not a region-wide estimate (docs/walk_bbox_coverage.md).",
       "forbidden_phrasings": [
         "보행 실패율",
         "walk failure rate",
@@ -2762,7 +2807,12 @@
         "대피소가 부족하다",
         "has too few shelters",
         "대피소 부족이 원인이다",
-        "shelter scarcity causes"
+        "shelter scarcity causes",
+        "영덕 전역",
+        "across Yeongdeok",
+        "지역 전체 비율",
+        "region-wide rate",
+        "영덕 화재 전체"
       ],
       "check": {
         "kind": "json_path",
@@ -2982,12 +3032,17 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "영덕 2025 · 458곳 주사",
-      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one.",
+      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one. ⚠ 영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오. — Yeongdeok figures are computed on a walk network covering only 32.6 % of the canonical fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. This is a rate ON THE COVERED THIRD, not a region-wide estimate (docs/walk_bbox_coverage.md).",
       "forbidden_phrasings": [
         "경사가 계수를 바꾼다",
         "slope changes the counts",
         "지형 효과가 확인되었다",
-        "terrain effect confirmed"
+        "terrain effect confirmed",
+        "영덕 전역",
+        "across Yeongdeok",
+        "지역 전체 비율",
+        "region-wide rate",
+        "영덕 화재 전체"
       ],
       "check": {
         "kind": "json_path",
@@ -3017,12 +3072,17 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "영덕 2025 · 458곳 주사",
-      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one.",
+      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one. ⚠ 영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오. — Yeongdeok figures are computed on a walk network covering only 32.6 % of the canonical fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. This is a rate ON THE COVERED THIRD, not a region-wide estimate (docs/walk_bbox_coverage.md).",
       "forbidden_phrasings": [
         "경사가 계수를 바꾼다",
         "slope changes the counts",
         "지형 효과가 확인되었다",
-        "terrain effect confirmed"
+        "terrain effect confirmed",
+        "영덕 전역",
+        "across Yeongdeok",
+        "지역 전체 비율",
+        "region-wide rate",
+        "영덕 화재 전체"
       ],
       "check": {
         "kind": "json_path",
@@ -3052,12 +3112,17 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "영덕 2025 · 458곳 주사",
-      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one.",
+      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one. ⚠ 영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오. — Yeongdeok figures are computed on a walk network covering only 32.6 % of the canonical fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. This is a rate ON THE COVERED THIRD, not a region-wide estimate (docs/walk_bbox_coverage.md).",
       "forbidden_phrasings": [
         "경사가 계수를 바꾼다",
         "slope changes the counts",
         "지형 효과가 확인되었다",
-        "terrain effect confirmed"
+        "terrain effect confirmed",
+        "영덕 전역",
+        "across Yeongdeok",
+        "지역 전체 비율",
+        "region-wide rate",
+        "영덕 화재 전체"
       ],
       "check": {
         "kind": "json_path",
@@ -3087,12 +3152,17 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "영덕 2025 · 458곳 주사",
-      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one.",
+      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one. ⚠ 영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오. — Yeongdeok figures are computed on a walk network covering only 32.6 % of the canonical fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. This is a rate ON THE COVERED THIRD, not a region-wide estimate (docs/walk_bbox_coverage.md).",
       "forbidden_phrasings": [
         "경사가 계수를 바꾼다",
         "slope changes the counts",
         "지형 효과가 확인되었다",
-        "terrain effect confirmed"
+        "terrain effect confirmed",
+        "영덕 전역",
+        "across Yeongdeok",
+        "지역 전체 비율",
+        "region-wide rate",
+        "영덕 화재 전체"
       ],
       "check": {
         "kind": "json_path",
@@ -3122,12 +3192,17 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "영덕 2025 · 458곳 주사",
-      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one.",
+      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one. ⚠ 영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오. — Yeongdeok figures are computed on a walk network covering only 32.6 % of the canonical fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. This is a rate ON THE COVERED THIRD, not a region-wide estimate (docs/walk_bbox_coverage.md).",
       "forbidden_phrasings": [
         "경사가 계수를 바꾼다",
         "slope changes the counts",
         "지형 효과가 확인되었다",
-        "terrain effect confirmed"
+        "terrain effect confirmed",
+        "영덕 전역",
+        "across Yeongdeok",
+        "지역 전체 비율",
+        "region-wide rate",
+        "영덕 화재 전체"
       ],
       "check": {
         "kind": "json_path",
@@ -3157,12 +3232,17 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "영덕 2025 · 458곳 주사",
-      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one.",
+      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one. ⚠ 영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오. — Yeongdeok figures are computed on a walk network covering only 32.6 % of the canonical fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. This is a rate ON THE COVERED THIRD, not a region-wide estimate (docs/walk_bbox_coverage.md).",
       "forbidden_phrasings": [
         "경사가 계수를 바꾼다",
         "slope changes the counts",
         "지형 효과가 확인되었다",
-        "terrain effect confirmed"
+        "terrain effect confirmed",
+        "영덕 전역",
+        "across Yeongdeok",
+        "지역 전체 비율",
+        "region-wide rate",
+        "영덕 화재 전체"
       ],
       "check": {
         "kind": "json_path",
@@ -3192,12 +3272,17 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "영덕 2025 · 458곳 주사",
-      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one.",
+      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one. ⚠ 영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오. — Yeongdeok figures are computed on a walk network covering only 32.6 % of the canonical fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. This is a rate ON THE COVERED THIRD, not a region-wide estimate (docs/walk_bbox_coverage.md).",
       "forbidden_phrasings": [
         "경사가 계수를 바꾼다",
         "slope changes the counts",
         "지형 효과가 확인되었다",
-        "terrain effect confirmed"
+        "terrain effect confirmed",
+        "영덕 전역",
+        "across Yeongdeok",
+        "지역 전체 비율",
+        "region-wide rate",
+        "영덕 화재 전체"
       ],
       "check": {
         "kind": "json_path",
@@ -3227,12 +3312,17 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "영덕 2025 · 458곳 주사",
-      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one.",
+      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one. ⚠ 영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오. — Yeongdeok figures are computed on a walk network covering only 32.6 % of the canonical fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. This is a rate ON THE COVERED THIRD, not a region-wide estimate (docs/walk_bbox_coverage.md).",
       "forbidden_phrasings": [
         "경사가 계수를 바꾼다",
         "slope changes the counts",
         "지형 효과가 확인되었다",
-        "terrain effect confirmed"
+        "terrain effect confirmed",
+        "영덕 전역",
+        "across Yeongdeok",
+        "지역 전체 비율",
+        "region-wide rate",
+        "영덕 화재 전체"
       ],
       "check": {
         "kind": "json_path",
@@ -3262,12 +3352,17 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "영덕 2025 · 458곳 주사",
-      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one.",
+      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one. ⚠ 영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오. — Yeongdeok figures are computed on a walk network covering only 32.6 % of the canonical fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. This is a rate ON THE COVERED THIRD, not a region-wide estimate (docs/walk_bbox_coverage.md).",
       "forbidden_phrasings": [
         "경사가 계수를 바꾼다",
         "slope changes the counts",
         "지형 효과가 확인되었다",
-        "terrain effect confirmed"
+        "terrain effect confirmed",
+        "영덕 전역",
+        "across Yeongdeok",
+        "지역 전체 비율",
+        "region-wide rate",
+        "영덕 화재 전체"
       ],
       "check": {
         "kind": "json_path",
@@ -3297,12 +3392,17 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "영덕 2025 · 458곳 주사",
-      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one. This is the baseline the slope arms move against.",
+      "caveat": "CANONICAL hazard field (routing_demo_canonical.npz), NOT the committed routing_demo.npz. The committed slope_* entries describe the same sweep on the reverted run's near-static field and are a different measurement, not a superseded one. This is the baseline the slope arms move against. ⚠ 영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오. — Yeongdeok figures are computed on a walk network covering only 32.6 % of the canonical fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. This is a rate ON THE COVERED THIRD, not a region-wide estimate (docs/walk_bbox_coverage.md).",
       "forbidden_phrasings": [
         "경사가 계수를 바꾼다",
         "slope changes the counts",
         "지형 효과가 확인되었다",
-        "terrain effect confirmed"
+        "terrain effect confirmed",
+        "영덕 전역",
+        "across Yeongdeok",
+        "지역 전체 비율",
+        "region-wide rate",
+        "영덕 화재 전체"
       ],
       "check": {
         "kind": "json_path",
@@ -3406,12 +3506,17 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "영덕 2025 · 458곳 · 예산 30분",
-      "caveat": "This w is NOT the committed w = 11.4 %. That is a 600-minute figure from the 439-origin rescue pipeline over n_mobile = 307 on a SYNTHETIC hazard envelope — different denominator, lineage and field. Neither replaces the other. And NEVER quote a short-budget w without its budget.",
+      "caveat": "This w is NOT the committed w = 11.4 %. That is a 600-minute figure from the 439-origin rescue pipeline over n_mobile = 307 on a SYNTHETIC hazard envelope — different denominator, lineage and field. Neither replaces the other. And NEVER quote a short-budget w without its budget. ⚠ 영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오. — Yeongdeok figures are computed on a walk network covering only 32.6 % of the canonical fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. This is a rate ON THE COVERED THIRD, not a region-wide estimate (docs/walk_bbox_coverage.md).",
       "forbidden_phrasings": [
         "보행 실패율 11.4%를 대체",
         "replaces the committed w",
         "w = 56.55%",
-        "evacuation fails for 56 % of residents"
+        "evacuation fails for 56 % of residents",
+        "영덕 전역",
+        "across Yeongdeok",
+        "지역 전체 비율",
+        "region-wide rate",
+        "영덕 화재 전체"
       ],
       "check": {
         "kind": "expression",
@@ -3441,12 +3546,17 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "영덕 2025 · 458곳 · 예산 60분",
-      "caveat": "This w is NOT the committed w = 11.4 %. That is a 600-minute figure from the 439-origin rescue pipeline over n_mobile = 307 on a SYNTHETIC hazard envelope — different denominator, lineage and field. Neither replaces the other. And NEVER quote a short-budget w without its budget.",
+      "caveat": "This w is NOT the committed w = 11.4 %. That is a 600-minute figure from the 439-origin rescue pipeline over n_mobile = 307 on a SYNTHETIC hazard envelope — different denominator, lineage and field. Neither replaces the other. And NEVER quote a short-budget w without its budget. ⚠ 영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오. — Yeongdeok figures are computed on a walk network covering only 32.6 % of the canonical fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. This is a rate ON THE COVERED THIRD, not a region-wide estimate (docs/walk_bbox_coverage.md).",
       "forbidden_phrasings": [
         "보행 실패율 11.4%를 대체",
         "replaces the committed w",
         "w = 56.55%",
-        "evacuation fails for 56 % of residents"
+        "evacuation fails for 56 % of residents",
+        "영덕 전역",
+        "across Yeongdeok",
+        "지역 전체 비율",
+        "region-wide rate",
+        "영덕 화재 전체"
       ],
       "check": {
         "kind": "expression",
@@ -3476,12 +3586,17 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "영덕 2025 · 458곳 · 예산 120분",
-      "caveat": "This w is NOT the committed w = 11.4 %. That is a 600-minute figure from the 439-origin rescue pipeline over n_mobile = 307 on a SYNTHETIC hazard envelope — different denominator, lineage and field. Neither replaces the other. And NEVER quote a short-budget w without its budget.",
+      "caveat": "This w is NOT the committed w = 11.4 %. That is a 600-minute figure from the 439-origin rescue pipeline over n_mobile = 307 on a SYNTHETIC hazard envelope — different denominator, lineage and field. Neither replaces the other. And NEVER quote a short-budget w without its budget. ⚠ 영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오. — Yeongdeok figures are computed on a walk network covering only 32.6 % of the canonical fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. This is a rate ON THE COVERED THIRD, not a region-wide estimate (docs/walk_bbox_coverage.md).",
       "forbidden_phrasings": [
         "보행 실패율 11.4%를 대체",
         "replaces the committed w",
         "w = 56.55%",
-        "evacuation fails for 56 % of residents"
+        "evacuation fails for 56 % of residents",
+        "영덕 전역",
+        "across Yeongdeok",
+        "지역 전체 비율",
+        "region-wide rate",
+        "영덕 화재 전체"
       ],
       "check": {
         "kind": "expression",
@@ -3511,12 +3626,17 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "영덕 2025 · 458곳 · 예산 600분",
-      "caveat": "This w is NOT the committed w = 11.4 %. That is a 600-minute figure from the 439-origin rescue pipeline over n_mobile = 307 on a SYNTHETIC hazard envelope — different denominator, lineage and field. Neither replaces the other. And NEVER quote a short-budget w without its budget.",
+      "caveat": "This w is NOT the committed w = 11.4 %. That is a 600-minute figure from the 439-origin rescue pipeline over n_mobile = 307 on a SYNTHETIC hazard envelope — different denominator, lineage and field. Neither replaces the other. And NEVER quote a short-budget w without its budget. ⚠ 영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오. — Yeongdeok figures are computed on a walk network covering only 32.6 % of the canonical fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. This is a rate ON THE COVERED THIRD, not a region-wide estimate (docs/walk_bbox_coverage.md).",
       "forbidden_phrasings": [
         "보행 실패율 11.4%를 대체",
         "replaces the committed w",
         "w = 56.55%",
-        "evacuation fails for 56 % of residents"
+        "evacuation fails for 56 % of residents",
+        "영덕 전역",
+        "across Yeongdeok",
+        "지역 전체 비율",
+        "region-wide rate",
+        "영덕 화재 전체"
       ],
       "check": {
         "kind": "expression",
@@ -3546,10 +3666,15 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "영덕 2025 · 458곳",
-      "caveat": "5.89x against 12.65x on the reverted field. The tight end barely moved (+1.55 pp) because it is dominated by WALK TIME, which did not change; the loose end more than doubled because at 600 minutes everything that fails, fails by entering the fire. A bigger fire raises the floor, it does not change the ceiling.",
+      "caveat": "5.89x against 12.65x on the reverted field. The tight end barely moved (+1.55 pp) because it is dominated by WALK TIME, which did not change; the loose end more than doubled because at 600 minutes everything that fails, fails by entering the fire. A bigger fire raises the floor, it does not change the ceiling. ⚠ 영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오. — Yeongdeok figures are computed on a walk network covering only 32.6 % of the canonical fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. This is a rate ON THE COVERED THIRD, not a region-wide estimate (docs/walk_bbox_coverage.md).",
       "forbidden_phrasings": [
         "실패율이 12.6배 증가",
-        "failure rises 12.6x"
+        "failure rises 12.6x",
+        "영덕 전역",
+        "across Yeongdeok",
+        "지역 전체 비율",
+        "region-wide rate",
+        "영덕 화재 전체"
       ],
       "check": {
         "kind": "expression",
@@ -3579,10 +3704,15 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "영덕 2025 · 458곳 · 예산 600분",
-      "caveat": "ZERO — the 600-minute budget does NOT bind on the canonical field either, even though its fire core is four times larger. A budget failure is a walk-time failure, and walk time is a property of the graph and the DEM, neither of which changed.",
+      "caveat": "ZERO — the 600-minute budget does NOT bind on the canonical field either, even though its fire core is four times larger. A budget failure is a walk-time failure, and walk time is a property of the graph and the DEM, neither of which changed. ⚠ 영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오. — Yeongdeok figures are computed on a walk network covering only 32.6 % of the canonical fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. This is a rate ON THE COVERED THIRD, not a region-wide estimate (docs/walk_bbox_coverage.md).",
       "forbidden_phrasings": [
         "600분 예산이 구속한다",
-        "the 600-minute budget binds"
+        "the 600-minute budget binds",
+        "영덕 전역",
+        "across Yeongdeok",
+        "지역 전체 비율",
+        "region-wide rate",
+        "영덕 화재 전체"
       ],
       "check": {
         "kind": "expression",
@@ -3612,11 +3742,16 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "영덕 2025 · 458곳",
-      "caveat": "⚠ THESE BELONG TO THE FIRE-BLIND BASELINE, NOT TO THE PROPOSED SYSTEM. future_aware_route never enters the hazard: both_enter is 0 at every budget. The count rose 20 -> 44 because the fire is four times larger, so a fire-blind walk is likelier to walk into it — that is the argument FOR the system, not a cost of it.",
+      "caveat": "⚠ THESE BELONG TO THE FIRE-BLIND BASELINE, NOT TO THE PROPOSED SYSTEM. future_aware_route never enters the hazard: both_enter is 0 at every budget. The count rose 20 -> 44 because the fire is four times larger, so a fire-blind walk is likelier to walk into it — that is the argument FOR the system, not a cost of it. ⚠ 영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오. — Yeongdeok figures are computed on a walk network covering only 32.6 % of the canonical fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. This is a rate ON THE COVERED THIRD, not a region-wide estimate (docs/walk_bbox_coverage.md).",
       "forbidden_phrasings": [
         "시스템이 44곳을 화재로 보낸다",
         "the system routes 44 origins into the fire",
-        "화재 진입이 늘어난 비용"
+        "화재 진입이 늘어난 비용",
+        "영덕 전역",
+        "across Yeongdeok",
+        "지역 전체 비율",
+        "region-wide rate",
+        "영덕 화재 전체"
       ],
       "check": {
         "kind": "expression",
