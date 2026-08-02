@@ -133,11 +133,21 @@ def main() -> int:
             print(f"      SKIP: {fid} not in the usable set", file=sys.stderr)
             continue
         meta = by_id[fid]
-        bbox = tuple(meta["bbox"])
+        manifest_bbox = tuple(meta["bbox"])
+        # Per-region canvas extension, stated in config, applied to the
+        # SIMULATION grid only. fire_manifest.json is the acquisition record and
+        # is never edited.
+        ext = (_cfg("grid.simulation_bbox_extension", {}) or {}).get(fid) or {}
+        ext = {k: float(ext.get(k, 0.0)) for k in ("west", "south", "east", "north")}
+        bbox = (manifest_bbox[0] - ext["west"], manifest_bbox[1] - ext["south"],
+                manifest_bbox[2] + ext["east"], manifest_bbox[3] + ext["north"])
         g = gridmod.build_grid(bbox, cell_size_m=args.cell_m)
-        print(f"      manifest bbox {bbox} -> grid {g.nrows}x{g.ncols} @ "
-              f"{args.cell_m:g} m ({g.ncols*args.cell_m/1000:.0f} x "
-              f"{g.nrows*args.cell_m/1000:.0f} km)")
+        if any(ext.values()):
+            print(f"      manifest bbox {manifest_bbox}")
+            print(f"      + extension   {ext}  (simulation grid only)")
+        print(f"      grid bbox     {tuple(round(v, 3) for v in bbox)} -> "
+              f"{g.nrows}x{g.ncols} @ {args.cell_m:g} m "
+              f"({g.ncols*args.cell_m/1000:.0f} x {g.nrows*args.cell_m/1000:.0f} km)")
 
         model = IgnitionModelV2(seed=args.seed).fit(ds[ds["fire_id"] != fid])
         ev = data.load_event(fid)
@@ -214,8 +224,11 @@ def main() -> int:
             "fire_id": fid,
             "reported_ha": meta.get("reported_ha"),
             "n_detections": meta.get("n_detections"),
-            "simulation_bbox_wgs84": list(bbox),
-            "simulation_bbox_source": "data/raw/firms_data/fire_manifest.json",
+            "manifest_bbox_wgs84": list(manifest_bbox),
+            "simulation_bbox_extension_deg": ext,
+            "simulation_bbox_wgs84": [round(v, 4) for v in bbox],
+            "simulation_bbox_source": ("data/raw/firms_data/fire_manifest.json "
+                                       "+ config grid.simulation_bbox_extension"),
             "grid": {"nrows": g.nrows, "ncols": g.ncols, "cell_size_m": g.cell_size_m,
                      "extent_5179": [g.minx, g.miny, g.maxx, g.maxy],
                      "width_km": g.ncols * g.cell_size_m / 1000,

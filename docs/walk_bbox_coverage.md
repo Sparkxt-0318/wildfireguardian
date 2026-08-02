@@ -77,11 +77,15 @@ misconfiguration.
 
 ## Coverage across the three regions
 
-| region | walk bbox | area | core coverage |
-|---|---|---:|---:|
-| Yeongdeok 2025 | committed, hand-drawn | 931 km² | **50.4 %** |
-| Uiseong-Andong 2025 | ignition-centred | 919 km² | **98.9 %** |
-| Uljin-Samcheok 2022 | ignition-centred | 924 km² | **84.8 %** |
+| region | walk bbox | area | core coverage | min. grid clearance |
+|---|---|---:|---:|---:|
+| Yeongdeok 2025 | committed, hand-drawn | 931 km² | **50.4 %** | 20.4 km |
+| Uiseong-Andong 2025 | ignition-centred | 919 km² | **98.9 %** | 5.81 km (south) |
+| Uljin-Samcheok 2022 | ignition-centred | 924 km² | **84.8 %** | 5.73 km (south) |
+
+The two new regions reach ≥ 5 km clearance on every side only because their
+simulation canvas was extended southward (`docs/forward_sim_regions.md`); the
+extension left both envelopes bit-identical.
 
 Comparable areas, very different coverage. Read every cross-region number with
 this column beside it.

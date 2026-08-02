@@ -38,12 +38,57 @@ respect to it. Nothing above says the routing is wrong; it says the hazard
 fields differ in fidelity between regions, so a cross-region routing comparison
 is partly a comparison of hazard fields. Keep the two statements apart.
 
+## The simulation canvas was extended southward — and the fire did not change
+
+Both new regions' ignition points sit near the southern edge of their manifest
+bbox, so an ignition-centred walk bbox had no southern clearance: Uiseong-Andong
++0.00 km, Uljin-Samcheok **−4.44 km**, i.e. its routing extent fell *outside*
+its own hazard grid, where nodes read p = 0 and every origin looks safe. That is
+an optimistic bias, so the canvas was extended rather than the bbox moved or
+clipped — moving it north would sample away from the fire, clipping it would
+change the density denominator, and extending biases nothing.
+
+| region | manifest bbox | south extension | grid before → after |
+|---|---|---:|---|
+| Uiseong-Andong 2025 | (128.40, 36.20, 129.10, 36.75) | **0.05° = 5.55 km** | 124 × 128 → **135 × 128** (62 → 68 km tall) |
+| Uljin-Samcheok 2022 | (129.10, 36.85, 129.60, 37.45) | **0.09° = 5.55 km** | 135 × 92 → **155 × 92** (68 → 78 km tall) |
+
+Recorded as `grid.simulation_bbox_extension` in `config/default.yaml`, per region
+and per edge, so the canvas is readable without running anything.
+`fire_manifest.json` is the **acquisition** record and was not edited.
+
+### The envelope is bit-identical before and after
+
+| region | envelope area (ha) | cells ≥ 0.5 | p ≥ 0.5 extent |
+|---|---|---|---|
+| Uiseong-Andong | 1325 / 1575 / 1775 / 2150 / 2375 — **identical** | 53 / 63 / 71 / 86 / 95 — **identical** | **identical** |
+| Uljin-Samcheok | 2575 / 3725 / 4975 / 6225 / 6575 — **identical** | 103 / 149 / 199 / 249 / 263 — **identical** | **identical** |
+
+**Nothing was being clipped.** The extension bought clearance for the *routing*
+extent, not room for the fire. This matters for the section above: the finding
+that the envelope does not track burned area is **not** a canvas artifact, and
+the 2,375 ha and 6,575 ha figures were not under-reported by truncation.
+
+Uiseong-Andong's worst southern edge did fall from 0.0248 to 0.0000, so a faint
+southern tail below the 0.3 threshold now sits inside the canvas — too weak to
+move the envelope, and now no longer touching an edge at all.
+
+### ⚠ Yeongdeok is not extended — a deliberate asymmetry
+
+Yeongdeok's grid, envelope and walk bbox stay exactly as committed. Extending it
+would change the committed field and break continuity with every 439/459 figure
+the submission cites. So two regions sit on a manifest bbox + a stated southern
+extension, and one sits on the fire-acquisition bbox with no extension. The
+canvases are not built by one rule; the per-region parameters say so explicitly.
+
 ## Boundary guard — both clear
+
+Values are for the **extended** canvas (the pre-extension run was also clear):
 
 | region | verdict | max edge p | grid |
 |---|---|---:|---|
-| Uiseong-Andong 2025 | **CLEAR** | 0.0248 (south) | 124 × 128 @ 500 m — 64 × 62 km |
-| Uljin-Samcheok 2022 | **CLEAR** | 0.0000 | 135 × 92 @ 500 m — 46 × 68 km |
+| Uiseong-Andong 2025 | **CLEAR** | 0.0000 (was 0.0248 pre-extension) | 135 × 128 @ 500 m — 64 × 68 km |
+| Uljin-Samcheok 2022 | **CLEAR** | 0.0000 | 155 × 92 @ 500 m — 46 × 78 km |
 
 Uiseong-Andong was the region expected to fill its canvas at 45,000 ha. It did
 not come close: the worst edge reads 0.0248 against a 0.3 threshold. **No bbox

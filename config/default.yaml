@@ -126,6 +126,32 @@ grid:
   simulation_bbox: fire_acquisition   # key into `bbox:` above, or an explicit
                                       # [W, S, E, N] list to override
 
+  # ---------------------------------------------------------------------------
+  # Per-region SIMULATION-GRID extension, in degrees, applied to the fire's
+  # fire_manifest.json bbox. STATED HERE rather than computed in code, so the
+  # canvas of every region is readable without running anything.
+  #
+  # WHY IT EXISTS (Round-3 PHASE 5). Both new regions' ignition points sit near
+  # the southern edge of their manifest bbox, so an ignition-centred walk bbox
+  # has no southern clearance: Uiseong-Andong +0.00 km, Uljin-Samcheok
+  # -4.44 km — the latter's routing extent fell OUTSIDE its own hazard grid,
+  # where nodes read p=0 and every origin looks safe. That is an optimistic
+  # bias, so the canvas is extended rather than the bbox moved or clipped:
+  # moving it north would sample away from the fire, clipping it would change
+  # the density denominator. Extending the canvas biases nothing; it gives the
+  # simulation the room it should have had.
+  #
+  # ⚠ This is a SIMULATION setting. data/raw/firms_data/fire_manifest.json is
+  # the ACQUISITION record and is never edited.
+  #
+  # ⚠ ASYMMETRY, deliberate: Yeongdeok is NOT extended. Its grid, envelope and
+  # walk bbox stay exactly as committed (docs/walk_bbox_coverage.md).
+  simulation_bbox_extension:
+    # degrees added to each edge of the manifest bbox; south only here.
+    uiseong_andong_2025: {south: 0.05, north: 0.0, west: 0.0, east: 0.0}
+    uljin_samcheok_2022: {south: 0.09, north: 0.0, west: 0.0, east: 0.0}
+    yeongdeok_2025:      {south: 0.0,  north: 0.0, west: 0.0, east: 0.0}
+
   boundary_check:
     # Raise if the forward-simulated envelope reaches the outermost grid cells.
     # A clipped fire silently under-reports area, breadth and drift.
