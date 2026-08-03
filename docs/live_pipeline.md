@@ -313,7 +313,7 @@ entirely and is the right flag for a timing demonstration.
 
 | property | enforcement |
 |---|---|
-| nothing is ever sent | `sms.send` is not called anywhere in `live/` or the runner — asserted against the **call AST** of every module, not a substring. `DEMO_MODE` is on unless the env var is exactly `"0"`, and `send` still requires a positional `approval_token`. |
+| the pipeline itself transmits nothing | `sms.send` is not called anywhere in `live/` or the runner — asserted against the **call AST** of every module, not a substring. `DEMO_MODE` is on unless the env var is exactly `"0"`, and `send` still requires a positional `approval_token`. ⚠ Since PHASE 7 a *separate*, manually-invoked script (`send_dispatch_email.py`) **can** transmit by email after an operator types a confirmation; the automatic pipeline still cannot. [`delivery_channels.md`](delivery_channels.md). |
 | no committed artifact moves | the four protected digests are recorded before and after every run; exit **4** if one moves. |
 | `routing_demo.npz` is never consumed | refused by name at start-up. |
 | the ERA5 lag is never hidden | `scope.py` owns the strings; every artifact carries both lines; tests assert `"5일 지연"` survives. |

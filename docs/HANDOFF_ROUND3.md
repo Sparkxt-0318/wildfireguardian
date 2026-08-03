@@ -1,15 +1,15 @@
 # Round-3 handoff
 
 **Read this file alone and you can continue.** Written 2026-08-02, updated
-2026-08-03 (PHASE 6).
+2026-08-03 (PHASE 6, PHASE 7).
 
 | | |
 |---|---|
 | branch | **`round3-dev`** (tracks `origin/round3-dev`) |
-| HEAD | `f52132f` + this commit |
+| HEAD | `5a7cfc5` + this commit |
 | baseline tag | **`round2-submitted`** = `4e9dfe3` — the submitted state |
 | environment | conda env **`wfg311`**, Python 3.11.15 — see [`ENVIRONMENT.md`](ENVIRONMENT.md) |
-| suite | **588 passed, 2 skipped, 0 failed** (was 544; PHASE 6 added 44) |
+| suite | **635 passed, 2 skipped, 0 failed** (was 544; PHASE 6 added 44, PHASE 7 added 47) |
 | registry | [`NUMBERS.json`](NUMBERS.json) — 103 entries, 87 reproducible |
 | OSM regions | 3 acquired + snapshotted (`MANIFEST.json`, 68 entries — 64 + 4 FIRMS NRT polls) |
 | config hash | `05c6feae1dff…` — moved from `faf90a81b7e6…` by PURE ADDITION (the PHASE-6 `live:` block; no existing value changed, and re-running `build_numbers.py` moved **only** the per-entry `config_hash` stamp, 0 values). Earlier lineage: `0b6eb481177a…` → `51ec446843b6…` at `cc41f12`. `NUMBERS.json.config_hash_note` records why this is expected. |
@@ -35,7 +35,8 @@ unstaged**; every commit here used `git add -A -- . ':!docs/figures/*.png'`.
 | 4 — live-operation feasibility | **NOT started** | — |
 | 5 — multi-region | STEP 0–4 done | `466884f`, `5fe86db`, `a0eaf07`, `cc41f12`, `79138d0`, `a32da6b` |
 | **canonical-hazard reconstruction** | **done — steps 1–4. See §2-A.** | `141b035`, `9ba83b4`, `6df4fcf`, `05fbfca`, `ed5e6b0`, `815dc02`, `a9b79cb`, `c8851d8`, `75f347a` |
-| **6 — live detection pipeline** | **done.** FIRMS NRT + replay mode. See §9 and [`live_pipeline.md`](live_pipeline.md). | this commit |
+| **6 — live detection pipeline** | **done.** FIRMS NRT + replay mode. See §9 and [`live_pipeline.md`](live_pipeline.md). | `5a7cfc5` |
+| **7 — email delivery channel** | **done, with one caveat.** Approval-gated Gmail SMTP. The verification send did **not** complete: outbound SMTP is blocked on this network. See §10 and [`delivery_channels.md`](delivery_channels.md). | this commit |
 
 ---
 
@@ -118,8 +119,13 @@ Canonical-field w: 56.55 / 40.17 / 28.38 / 22.27 / **9.61 %**; ratio 5.89×, not
 values) · `rescue_routing_full.json` (441 origins fully serialised)
 
 * Three formats: SMS draft, A4 sheet for the 이장, 마을방송 script.
-* **Nothing is ever sent**: `sms.send()` requires a positional `approval_token`
-  and `DEMO_MODE` is on unless the env var is exactly `"0"`.
+* ⚠ **The safety claim changed at PHASE 7.** "Nothing is ever sent" was true
+  while every channel wrote files; the email channel can transmit. State it as:
+  *전달 문구는 자동으로 발송되지 않으며, 승인 권한을 가진 사람이 명시적으로
+  확인한 뒤에만 발송됩니다. 발송 함수는 승인 토큰 없이 호출될 수 없습니다.*
+  `sms.send()` still requires a positional `approval_token` and `DEMO_MODE` is
+  on unless the env var is exactly `"0"`.
+  [`delivery_channels.md`](delivery_channels.md).
 * Full re-run reproduces drift arm B exactly: **441 / 174 / 32**.
 
 ### Network drift, sparsity, coverage
@@ -724,3 +730,89 @@ value moved, and no registered number depends on the new keys. The config hash
 therefore moves again, exactly as it did at `cc41f12`;
 `NUMBERS.json.config_hash_note` already records that this is expected.
 
+
+---
+
+## 10. PHASE 7 — the email delivery channel (DONE 2026-08-03)
+
+Full write-up: [`delivery_channels.md`](delivery_channels.md).
+
+`src/wildfireguardian/delivery/email.py` · `scripts/send_dispatch_email.py` ·
+`tests/test_email_delivery.py` (47 tests)
+
+### ⚠ The safety claim changed. Use the new wording everywhere.
+
+The old statement — *"SMS 전달은 모사이며 실제 발송하지 않습니다"* — was true
+while every channel wrote files. The email channel can transmit, so repeating it
+now would understate the system. **Say this instead:**
+
+> 전달 문구는 자동으로 발송되지 않으며, 승인 권한을 가진 사람이 명시적으로
+> 확인한 뒤에만 발송됩니다. 발송 함수는 승인 토큰 없이 호출될 수 없습니다.
+
+### Why email
+
+The Twilio **trial** account cannot verify a Korean mobile number without a paid
+upgrade, so SMS cannot reach the demonstration handset. Email reaches the same
+two audiences — 가족 and 복지사 — so the transport changed and the claim did not.
+`sms.py` is **not** deleted and stays in `DEMO_MODE`.
+
+⚠ `.env` now holds `TWILIO_*`. **Presence of credentials does not mean SMS can
+send** — the account restriction is what blocks it. Never read
+`sms.credentials_present() == True` as "SMS is live".
+
+### Three independent locks, all of which must be open
+
+1. `--confirm-send` on the command line;
+2. a **typed confirmation word in full** (`발송확인` / `SEND`) — not `y/N`;
+3. `email.send`'s own gate: positional mandatory `approval_token`,
+   `dry_run=True` by default, and a hard recipient check against
+   `DEMO_RECIPIENT`.
+
+There is **no flag that skips step 2**, and that is enforced against the AST:
+the test parses the script and asserts the single `dry_run = False` assignment
+sits inside a branch that has just called `confirm_or_abort()`. A future `--yes`
+shortcut fails the suite. Aborting exits **3**, and nothing is recorded.
+
+### ⚠ The verification send did NOT complete
+
+Outbound SMTP is blocked on this network — ports 25, 465 and 587 all time out
+while HTTPS 443 works, both inside and outside the tool sandbox. So:
+
+* the app password was **never presented to Gmail**; a `TimeoutError` implies
+  **nothing** about whether the credential is valid;
+* one real attempt is recorded (`failure_kind: network`, 30.06 s);
+* the script now checks reachability **before** asking a person to confirm, so a
+  blocked port cannot spend an operator's authorisation. It stays DRY RUN, says
+  why, and exits 0.
+
+**To finish the verification, run it from a network that permits outbound SMTP.**
+The Gmail API over HTTPS would work here but needs OAuth rather than an app
+password — separate work, not part of this phase.
+
+### Two defects this phase found
+
+1. **The email script scraped the A4 HTML** to recover each village's points.
+   Its unreachable-row detector tested the row's *inner* HTML for the `unreach`
+   class, which lives in the `<tr>` tag the regex had already stripped — so every
+   unreachable point was parsed as a dispatch point and its checkbox column
+   became its route note. Fixed at the source: `live.pipeline.deliver` now writes
+   the points **structurally** into `MANIFEST.json`. A rendering is not a data
+   source.
+2. **"확인 불가" is the wrong label in the 459 series.** An absent closing window
+   there is a *positive* statement — the place never reaches p ≥ 0.5 within the
+   12-hour horizon — not missing data. The email says `12시간 내 미도달`; the A4
+   sheet still says `확인 불가`. **The A4 layer was deliberately not edited**
+   (out of scope), so the divergence is recorded rather than hidden. Wording
+   only; no count changes.
+
+### Never do these
+
+1. **Never send to any address other than `DEMO_RECIPIENT`.** Enforced in code,
+   before a connection opens.
+2. **Never write the app password anywhere** — not a log, not an artifact, not
+   an exception. An SMTP 535 can quote the credential it rejected; the failure
+   path scrubs it to `<REDACTED>` and a test proves it.
+3. **Never add a path that skips the typed confirmation.**
+4. **Never delete `sms.py`** — two channels coexist.
+5. **Never modify the A4 or 마을방송 layers from the email path.** The fixed
+   cautions are *imported* from `printable.FOOTER_LINES` so they cannot drift.

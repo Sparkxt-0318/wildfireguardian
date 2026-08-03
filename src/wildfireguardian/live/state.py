@@ -207,7 +207,13 @@ class RunRecord:
             "field_applicability": self.field_applicability,
             "timings_s": self.timings.as_dict(),
             "outputs": self.outputs,
+            # Scope: this AUTOMATIC pipeline. Since PHASE 7 the email channel
+            # can transmit, but only from the manually invoked
+            # scripts/send_dispatch_email.py behind a typed confirmation, and
+            # its record is email_sent.json beside this file.
             "nothing_was_sent": True,
+            "nothing_was_sent_scope": "the automatic pipeline; see "
+                                      "docs/delivery_channels.md",
             "notes": self.notes,
         }
 

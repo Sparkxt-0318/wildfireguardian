@@ -421,8 +421,13 @@ def deliver(points: list[dict], res: Resources, out_dir: Path, *,
     would answer "how long to print 29 sheets?" when the question is "how long
     until an operator has the list?".
 
-    NOTHING IS SENT. ``sms.send`` is not called anywhere on this path; the SMS
-    layer only composes drafts and writes them to disk.
+    THIS PATH TRANSMITS NOTHING. ``sms.send`` is not called anywhere on it; the
+    SMS layer only composes drafts and writes them to disk.
+
+    ⚠ Since PHASE 7 that is a statement about the AUTOMATIC pipeline, not about
+    the project. ``scripts/send_dispatch_email.py`` is a separate, manually
+    invoked tool that CAN transmit by email — after an operator types a
+    confirmation word in full. See ``docs/delivery_channels.md``.
     """
     refuges = named_refuges(res.destinations)
 
@@ -468,6 +473,13 @@ def deliver(points: list[dict], res: Resources, out_dir: Path, *,
         "sms_demo_mode": sms.demo_mode(),
         "sms_credentials_present": sms.credentials_present(),
         "nothing_was_sent": True,
+        "nothing_was_sent_scope": (
+            "This automatic pipeline transmits nothing. Since PHASE 7 the "
+            "email channel CAN transmit, but only from the separate, manually "
+            "invoked scripts/send_dispatch_email.py, and only after an "
+            "operator types a confirmation word in full. If that ran against "
+            "this run, its record is email_sent.json in this directory. "
+            "docs/delivery_channels.md"),
         "villages": [],
     }
 
@@ -530,6 +542,21 @@ def deliver(points: list[dict], res: Resources, out_dir: Path, *,
                       "pdf": pdf, "page_budget": budget,
                       "broadcast_check": bc.check(),
                       "sms": [m.as_dict() for m in msgs],
+                      # The points themselves, structurally. A downstream
+                      # channel must never have to scrape the A4 HTML to learn
+                      # what is on it: PHASE 7's first email did exactly that
+                      # and silently rendered an unreachable point's checkbox
+                      # column as its route note. Coordinates are deliberately
+                      # NOT included — every operational artifact is
+                      # coordinate-free by requirement.
+                      "points": [{"label": p["label"],
+                                  "unreachable": p["unreachable"],
+                                  "bucket": p["bucket"],
+                                  "closing_window_min": p["closing_window_min"],
+                                  "walk_time_min": p.get("walk_time_min"),
+                                  "reason_ko": p.get("reason_ko"),
+                                  "route_note": p.get("route_note")}
+                                 for p in v.points],
                       "formats_written": ["dispatch_a4.html",
                                           "broadcast_script.txt",
                                           "sms_drafts.json", "sms_drafts.txt"]})
