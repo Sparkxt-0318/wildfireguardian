@@ -164,6 +164,73 @@ def burnable_fraction_on_grid(event, grid: CoarseGrid) -> np.ndarray:
     return np.clip(dst, 0.0, 1.0)
 
 
+#: Elevation above which a cell is treated as LAND when splitting an uncovered
+#: fuel strip into "the bbox includes sea" and "a fuel tile is missing". Sea
+#: cells read nan or ~0 from the DEM; 5 m clears tidal noise without excluding
+#: real low-lying land.
+LAND_ELEV_MIN_M: float = 5.0
+
+
+def fuel_coverage(event, grid: CoarseGrid) -> dict:
+    """How much of ``grid`` the fuel raster actually covers, split sea vs land.
+
+    WHY THIS EXISTS (Round-3 PHASE 13). ``burnable_fraction_on_grid`` reprojects
+    the WorldCover mask onto the grid. Where the raster does not reach, the cell
+    reads 0 — and :func:`wildfireguardian.spread_v2.features.build_transition_frame`
+    uses ``burnable_frac > 0.05`` as a HARD CANDIDATE GATE, so such a cell is
+    silently EXCLUDED from prediction rather than merely given a low feature
+    value. Nothing raised and nothing logged.
+
+    Found on ``miryang_2022``: ESA WorldCover tiles are 3 x 3 degrees, so a crop
+    that fetched only ``N36E126`` stops dead at 129.000 E while that fire's
+    analysis bbox runs to 129.05 E. The ``N36E129`` tile was never acquired.
+
+    ⚠ THE SPLIT IS THE POINT. A plain uncovered-fraction reading is useless here
+    because a coastal bbox is legitimately uncovered over the sea — ``gangneung_2023``
+    is 17.61 % uncovered and 17.2 pp of that is the East Sea, which is correct.
+    Crossing that with the DEM separates the two causes: uncovered LAND is the
+    quantity a missing tile moves, and it is 0.00 % for every fire whose tiles
+    were fully fetched.
+
+    This is a MEASUREMENT and never raises. The gate that consumes it lives in
+    ``scripts/run_forward_sim_region.py``, mirroring how ``dem.nodata_*_fraction``
+    is enforced in ``scripts/run_multi_region_routing.py``.
+    """
+    import rasterio
+    from rasterio.enums import Resampling
+    from rasterio.warp import reproject
+
+    with rasterio.open(event.fuel_path) as src:
+        ones = np.ones(src.shape, dtype="float64")
+        src_crs, src_transform = src.crs, src.transform
+    present = np.full((grid.nrows, grid.ncols), np.nan, dtype="float64")
+    reproject(
+        source=ones, destination=present,
+        src_transform=src_transform, src_crs=src_crs,
+        dst_transform=grid.transform, dst_crs=KOREA_2000_UNIFIED,
+        src_nodata=None, dst_nodata=np.nan,
+        resampling=Resampling.average,
+    )
+    uncovered = ~np.isfinite(present)
+
+    elev = elevation_on_grid(event, grid)
+    land = np.isfinite(elev) & (elev > LAND_ELEV_MIN_M)
+    uncovered_land = uncovered & land
+
+    n = int(uncovered.size)
+    return {
+        "n_cells": n,
+        "n_uncovered": int(uncovered.sum()),
+        "frac_uncovered": float(uncovered.mean()),
+        "n_uncovered_land": int(uncovered_land.sum()),
+        "frac_uncovered_land": float(uncovered_land.mean()),
+        "uncovered_land_km2": float(uncovered_land.sum()
+                                    * (grid.cell_size_m / 1000.0) ** 2),
+        "land_elev_min_m": LAND_ELEV_MIN_M,
+        "fuel_path": str(event.fuel_path),
+    }
+
+
 def slope_deg(elevation: np.ndarray, cell_size_m: float) -> np.ndarray:
     """Slope (degrees) from a coarse DEM via central differences."""
     z = np.where(np.isfinite(elevation), elevation, np.nanmean(elevation))

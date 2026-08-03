@@ -1073,6 +1073,88 @@ def main() -> int:
                        "expr": "round(a, 2)", "tolerance": 0.0},
             )
 
+        # --- the OSM-completeness covariates themselves ---------------------
+        # HANDOFF §5 rule 12 forbids reporting a cross-region routing number
+        # without these, and until PHASE 13 they were the one quantity the rule
+        # names that the registry did not carry. Registering them means a stale
+        # density is caught by `make verify` rather than by a reader.
+        #
+        # ⚠ All five moved on 2026-08-03 and NO COUNT changed. `bbox_area_km2`
+        # used to project the four bbox corners into EPSG:5179 and return the
+        # area of their axis-aligned bounding RECTANGLE — strictly larger than
+        # the projected quadrilateral, and undefined outside Korea at all. It is
+        # now geodesic on WGS84. Areas fell 931.3 -> 895.3, 918.7 -> 896.5 and
+        # 924.2 -> 889.5 km², so every density rose by 2.5-4.0 %.
+        COV_CAVEAT = (
+            "OSM MAPPING COVERAGE, not a ground census. Densities are counts "
+            "divided by the GEODESIC bbox area (corrected 2026-08-03; the "
+            "previous EPSG:5179 planar reading inflated every denominator by "
+            "2.5-4.0 % and so under-reported every density). Carry the whole "
+            "row, never one column — otherwise 'regions differ' cannot be told "
+            "from 'mapping differs'.")
+        COV_FORBID = FORBID_MR + [
+            "지역별 인프라 밀도", "infrastructure density by region",
+            "shelter density measures refuge supply",
+        ]
+        for region in ("yeongdeok_2025", "uiseong_andong_2025", "uljin_samcheok_2022"):
+            i, r = by_region[region]
+            tag = MR_TAG[region]
+            for key, unit, deriv, prec in (
+                ("bbox_area_km2", "km²",
+                 "geodesic area of the walk bbox on the WGS84 ellipsoid "
+                 "(pyproj.Geod, edges densified to 300 points per side so the "
+                 "north and south edges follow parallels)", 1),
+                ("road_density_km_per_km2", "km/km²",
+                 "summed `length` of the osmnx network_type='walk' graph, halved "
+                 "for the directed duplication, over the geodesic bbox area", 3),
+                ("node_density_per_km2", "nodes/km²",
+                 "walk-graph node count over the geodesic bbox area", 2),
+            ):
+                N[f"mr_{tag}_{key}"] = entry(
+                    value=round(r[key], prec), unit=unit, source_file=MULTI,
+                    json_path=f"regions.{i}.{key}",
+                    derivation=deriv,
+                    sample=f"{r['label_kr']} · 보행 bbox {r['bbox_area_km2']} km²",
+                    caveat=COV_CAVEAT,
+                    forbidden_phrasings=COV_FORBID,
+                    check={"kind": "expression",
+                           "operands": {"a": op(MULTI, f"regions.{i}.{key}")},
+                           "expr": f"round(a, {prec})", "tolerance": 0.0},
+                )
+            for key, unit, count_key, what in (
+                ("shelter_density_per_100km2", "POIs/100 km²", "shelter_pois",
+                 "amenity=shelter|community_centre + leisure=park"),
+                ("depot_density_per_100km2", "POIs/100 km²", "depot_pois",
+                 "amenity=fire_station"),
+            ):
+                N[f"mr_{tag}_{key}"] = entry(
+                    value=round(100.0 * r[count_key] / r["bbox_area_km2"], 2),
+                    unit=unit, source_file=MULTI,
+                    json_path=f"regions.{i}.{count_key}",
+                    derivation=f"OSM {what} features inside the walk bbox, "
+                               f"centroided, per 100 km² of geodesic bbox area",
+                    sample=f"{r['label_kr']} · {r[count_key]}곳 / "
+                           f"{r['bbox_area_km2']} km²",
+                    caveat=COV_CAVEAT + (
+                        " ⚠ The shelter layer is 66-73 % `leisure=park` in two of "
+                        "the three regions and its `amenity=shelter` features are "
+                        "정자 (shelter_type=gazebo), so this column is closer to a "
+                        "park-mapping convention than to refuge supply — "
+                        "docs/multi_region.md §2."
+                        if count_key == "shelter_pois" else
+                        " ⚠ Uiseong-Andong reads 0.00: no amenity=fire_station is "
+                        "mapped in OSM inside its walk bbox; the wider manifest "
+                        "bbox contains six. NEVER write that the region has no "
+                        "fire stations."),
+                    forbidden_phrasings=COV_FORBID + (
+                        ["의성·안동에는 소방서가 없", "has no fire stations"]
+                        if count_key == "depot_pois" else []),
+                    check={"kind": "expression",
+                           "operands": {"a": op(MULTI, f"regions.{i}.{count_key}"),
+                                        "b": op(MULTI, f"regions.{i}.bbox_area_km2")},
+                           "expr": "round(100.0 * a / b, 2)", "tolerance": 0.0},
+                )
+
         for region in ("yeongdeok_2025", "uiseong_andong_2025", "uljin_samcheok_2022"):
             i, r = by_region[region]
             tag = region.split("_")[0]
@@ -1487,7 +1569,14 @@ def main() -> int:
             "ADDITIVE: `bbox.multi_region_walk_bbox` and "
             "`grid.simulation_bbox_extension` were added and NOT ONE existing key "
             "changed value (verified key-by-key against config/default.yaml at "
-            "commit 5fe86db). No Round-2 number is stale as a result."),
+            "commit 5fe86db). No Round-2 number is stale as a result. "
+            "It moved again 05c6feae1dff… -> 8e29a6cc4a99… on 2026-08-03 "
+            "(PHASE 13), and again PURELY ADDITIVELY: the `fuel:` block "
+            "(uncovered_land_warn_fraction / uncovered_land_stop_fraction) was "
+            "added, no existing key changed value, and a rebuild moved 0 of the "
+            "registered VALUES — only six `sample` labels, which carry the bbox "
+            "area and therefore inherit the geodesic-area correction described "
+            "under the mr_* completeness entries."),
         "built_at_git_commit": head,
         "round2_submission_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
         "numbers": N,

@@ -36,6 +36,7 @@ import hashlib
 import json
 import subprocess
 import sys
+import warnings
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -62,6 +63,67 @@ from wildfireguardian.spread_v2.weather import weather_series_from_event  # noqa
 _TO_5179 = Transformer.from_crs("EPSG:4326", "EPSG:5179", always_xy=True)
 _TO_WGS = Transformer.from_crs("EPSG:5179", "EPSG:4326", always_xy=True)
 OUT_DIR = REPO / "data" / "processed"
+
+
+#: Fuel adequacy thresholds, on the fraction of grid cells that are LAND and
+#: outside the fuel raster. See the `fuel:` block in config/default.yaml.
+FUEL_UNCOVERED_WARN = float(_cfg("fuel.uncovered_land_warn_fraction", 0.01))
+FUEL_UNCOVERED_STOP = float(_cfg("fuel.uncovered_land_stop_fraction", 0.05))
+
+#: Exit code for "the fuel raster does not cover this fire's simulation grid".
+#: 5 is already the DEM gap; 6 is the fuel gap.
+EXIT_FUEL_GAP = 6
+
+
+class FuelGapError(RuntimeError):
+    """Too much LAND fell outside the fuel raster and was gated out of candidacy."""
+
+
+def check_fuel_coverage(fid: str, cov: dict, *, acknowledged: bool) -> dict:
+    """Gate a simulation on how much land the fuel raster silently omitted.
+
+    Mirrors ``check_dem_adequacy`` in ``run_multi_region_routing.py``, including
+    the rule that ``acknowledged`` does NOT suppress the finding — it is recorded
+    in the returned dict and written into the artifact, so an acknowledged gap
+    can never be mistaken for a clean run.
+    """
+    frac = float(cov["frac_uncovered_land"])
+    verdict = ("stop" if frac > FUEL_UNCOVERED_STOP
+               else "warn" if frac > FUEL_UNCOVERED_WARN else "ok")
+    report = dict(cov)
+    report.update({
+        "warn_fraction": FUEL_UNCOVERED_WARN,
+        "stop_fraction": FUEL_UNCOVERED_STOP,
+        "verdict": verdict,
+        "acknowledged_via_flag": bool(acknowledged and verdict == "stop"),
+        "config_source": "config/default.yaml fuel.uncovered_land_{warn,stop}_fraction",
+    })
+    if verdict == "ok":
+        print(f"      fuel coverage: ok ({frac * 100:.2f} % of cells are land "
+              f"outside the fuel raster; {cov['frac_uncovered'] * 100:.2f} % "
+              f"uncovered overall, the rest sea)")
+        return report
+    msg = (f"{fid}: {frac * 100:.2f} % of simulation cells "
+           f"({cov['n_uncovered_land']:,} of {cov['n_cells']:,}, "
+           f"{cov['uncovered_land_km2']:.0f} km²) are LAND lying outside the fuel "
+           f"raster. They read burnable_frac = 0 and are therefore EXCLUDED from "
+           f"the candidate set by the burnable_frac > 0.05 gate, not merely "
+           f"down-weighted.")
+    if verdict == "warn":
+        print(f"      ⚠ FUEL COVERAGE WARNING — {msg}")
+        warnings.warn(msg, UserWarning, stacklevel=2)
+        return report
+    if not acknowledged:
+        raise FuelGapError(
+            f"{msg}\n  That exceeds fuel.uncovered_land_stop_fraction "
+            f"({FUEL_UNCOVERED_STOP * 100:g} %). ESA WorldCover ships 3 x 3 degree "
+            f"tiles; a bbox crossing a tile boundary needs both tiles. Re-crop the "
+            f"fuel raster to cover the grid, or re-run with --acknowledge-fuel-gap, "
+            f"which records the gap in the output rather than hiding it.")
+    print(f"      ⚠⚠ FUEL COVERAGE STOP threshold exceeded, ACKNOWLEDGED via flag "
+          f"— {msg}")
+    warnings.warn(msg, UserWarning, stacklevel=2)
+    return report
 
 
 def _git() -> str:
@@ -109,6 +171,9 @@ def main() -> int:
     ap.add_argument("--seed", type=int, default=_cfg("seeds.canonical", 20250603))
     ap.add_argument("--walk-margin-km", type=float, default=5.0,
                     help="margin added around the envelope to derive the walk bbox")
+    ap.add_argument("--acknowledge-fuel-gap", action="store_true",
+                    help="proceed past fuel.uncovered_land_stop_fraction and RECORD "
+                         "the gap in the artifact rather than hiding it")
     args = ap.parse_args()
 
     if not data.data_available():
@@ -153,6 +218,10 @@ def main() -> int:
         ev = data.load_event(fid)
         ws = weather_series_from_event(ev)
         snaps = gridmod.overpass_snapshots(ev, g, gap_minutes=90.0)
+        # --- the fuel gate, before the layers are built on it ---------------
+        fuel_report = check_fuel_coverage(
+            fid, gridmod.fuel_coverage(ev, g),
+            acknowledged=args.acknowledge_fuel_gap)
         static = StaticLayers.from_event(ev, g)
         sim = forward_simulate(model, ev, g, static, snaps[0].cumulative_mask,
                                snaps[0].time, ws, n_steps=args.n_steps,
@@ -235,6 +304,7 @@ def main() -> int:
                      "height_km": g.nrows * g.cell_size_m / 1000},
             "boundary_check": {"clear": not clipped, "max_edge_p": max_edge,
                                "per_slice": reports},
+            "fuel_coverage": fuel_report,
             "envelope_area_ha": areas,
             "cells_ge_0.5": core, "cells_ge_0.3": core3,
             "envelope_breadth_deg": breadth,
@@ -273,4 +343,10 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    try:
+        raise SystemExit(main())
+    except FuelGapError as exc:
+        # Exit 6, distinct from the DEM gap's 5, so a caller can tell which input
+        # layer failed to cover the grid without parsing the message.
+        print(f"\nSTOP (fuel gap): {exc}", file=sys.stderr)
+        raise SystemExit(EXIT_FUEL_GAP) from exc

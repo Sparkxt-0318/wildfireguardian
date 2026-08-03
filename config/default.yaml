@@ -295,6 +295,64 @@ dem:
   nodata_stop_fraction: 0.05
 
 # -----------------------------------------------------------------------------
+# Fuel adequacy — the WorldCover raster must cover the grid it is sampled on
+# -----------------------------------------------------------------------------
+#
+# WHY THIS EXISTS (Round-3 PHASE 13). Same failure MODE as `dem:` above, in the
+# other input layer, and worse in consequence.
+#
+# `spread_v2/grid.py:burnable_fraction_on_grid` reprojects the WorldCover mask
+# onto the simulation grid. Where the raster does not reach, the cell reads 0 —
+# and `spread_v2/features.py` gates candidacy on `burnable_frac > 0.05`, so such
+# a cell is not merely given a low feature value, it is EXCLUDED FROM PREDICTION
+# ENTIRELY. Nothing raised. Nothing logged.
+#
+# Found on miryang_2022: ESA WorldCover ships 3 x 3 degree tiles, so a crop that
+# fetched only N36E126 stops dead at 129.000 E while that fire's analysis bbox
+# runs to 129.05 E — the N36E129 tile was never acquired. 706 grid cells
+# (176 km², 12.08 % of the grid) are LAND reading burnable_frac = 0.
+#
+# ⚠ THE MEASURE IS UNCOVERED **LAND**, NOT UNCOVERED AREA. A coastal bbox is
+# legitimately uncovered over the sea: gangneung_2023 is 17.61 % uncovered and
+# 17.2 pp of that is the East Sea, which is correct and must not trip a gate.
+# Crossing the uncovered mask with the DEM separates the two causes. Measured
+# across all eight manifest fires, uncovered-LAND is 0.00 % wherever the tiles
+# were fully fetched and is the only reading a missing tile moves.
+#
+# ⚠ The committed numbers are NOT contaminated by the miryang gap: its
+# easternmost detection is 128.777 E, the gap starts at 129.000 E, and the
+# candidate buffer is 6 km — a 20.2 km margin. That was luck, not design, which
+# is exactly why this gate now exists.
+fuel:
+  # Fraction of simulation-grid cells that are LAND and outside the fuel raster.
+  #   > warn_fraction  -> loud warning, run continues
+  #   > stop_fraction  -> the run STOPS (exit 6) unless the caller passes
+  #                       --acknowledge-fuel-gap, which is recorded in the output
+  #                       so an acknowledged gap can never look like a clean run.
+  # Thresholds deliberately identical to `dem:` above — same failure mode, same
+  # tolerance, and one number to remember instead of two.
+  uncovered_land_warn_fraction: 0.01
+  uncovered_land_stop_fraction: 0.05
+
+  # ⚠ WHERE THE GATE IS, AND WHERE IT IS NOT — a stated limit, not a hidden one.
+  #
+  # ENFORCED in scripts/run_forward_sim_region.py, which turns fuel into a
+  # committed hazard field. That is the path on which an uncovered strip reaches
+  # an artifact.
+  #
+  # NOT ENFORCED on the LOFO training path (spread_v2/features.py:build_dataset).
+  # Putting it there would drop miryang_2022 (12.08 % uncovered land) from the
+  # six-fire training set and move the committed AUC — a result change disguised
+  # as a guard. The MEASUREMENT is a library function (spread_v2/grid.py
+  # fuel_coverage) and can be called from anywhere; what is deliberately absent
+  # is the raise. Measured per fire, uncovered LAND is:
+  #     yeongdeok 0.00 %, gangneung_donghae 0.00 %, goseong 0.00 %,
+  #     hongseong 0.00 %, gangneung_2023 0.39 %, uljin_samcheok 0.93 %,
+  #     uiseong_andong 2.05 % (warn), miryang 12.08 % (stop).
+  # Whether the training path should also gate is a decision about the committed
+  # model, not about this threshold.
+
+# -----------------------------------------------------------------------------
 # Responder (rescue vehicle) model
 # -----------------------------------------------------------------------------
 responder:

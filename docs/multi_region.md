@@ -38,9 +38,9 @@ distance-ranked routing, 600-minute budget, 10-minute time step, stride 18,
 
 | region | origins | both_safe | FA-only | no_safe_route | over budget | **FA-only %** | envelope coverage | road density | node density | envelope area | depots |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 영덕 2025 | 458 | 414 | 42 | 2 | 0 | **9.17 %** | 32.6 % | 1.733 | 9.07 | 25,900 ha | 4 |
-| 의성·안동 2025 | 368 | 263 | 91 | 12 | 2 | **24.73 %** | 99.2 % | 2.332 | 7.27 | 3,275 ha | **0** |
-| 울진·삼척 2022 | 393 | 377 | 3 | 10 | 3 | **0.76 %** | 81.5 % | 1.601 | 7.90 | 7,300 ha | 4 |
+| 영덕 2025 | 458 | 414 | 42 | 2 | 0 | **9.17 %** | 32.6 % | 1.803 | 9.43 | 25,900 ha | 4 |
+| 의성·안동 2025 | 368 | 263 | 91 | 12 | 2 | **24.73 %** | 99.2 % | 2.390 | 7.45 | 3,275 ha | **0** |
+| 울진·삼척 2022 | 393 | 377 | 3 | 10 | 3 | **0.76 %** | 81.5 % | 1.663 | 8.21 | 7,300 ha | 4 |
 
 Units: road density km/km², node density nodes/km², envelope area = cells at
 p ≥ 0.5 in the final hazard slice × 25 ha. `both_enter`, `naive_unreachable` and
@@ -84,7 +84,7 @@ The three regions differ on three axes **at the same time**:
 |---|---|---|
 | envelope coverage | **32.6 – 99.2 %** | Yeongdeok's walk bbox now covers barely a third of its own predicted core — the core quadrupled and the bbox did not ([`walk_bbox_coverage.md`](walk_bbox_coverage.md)) |
 | envelope area | 3,275 – 25,900 ha, **7.91×** | a bigger fire has more origins near it |
-| node density | 7.27 – 9.07 /km² | the origin scan strides over **nodes** |
+| node density | 7.45 – 9.43 /km² | the origin scan strides over **nodes** |
 
 With n = 3 and three covariates moving together, no ranking on the FA-only
 column is interpretable on its own. Do not produce one.
@@ -105,7 +105,42 @@ Normalised by **nodes** the three are within 2.4 % of each other — the scan is
 doing exactly what it says. Normalised by **road length** Uiseong-Andong yields
 40 % fewer origins per kilometre than Yeongdeok. So its origins are the sparser
 sample **per kilometre of road**, and its denominator is not comparable to
-Yeongdeok's in the way "919 km² vs 931 km²" suggests. Report both columns.
+Yeongdeok's in the way "896 km² vs 895 km²" suggests. Report both columns.
+
+### ⚠ Two bbox areas are in circulation, and the operational text still carries the old one
+
+Recorded 2026-08-03 (PHASE 13). `bbox_area_km2` used to project the four bbox
+corners into EPSG:5179 and return the area of their axis-aligned bounding
+RECTANGLE — strictly larger than the projected quadrilateral, and undefined
+outside Korea at all. It is now geodesic on the WGS84 ellipsoid, and
+`osm_completeness.json`, `multi_region_comparison.json` and the fifteen new
+`mr_*` registry entries all carry the corrected values.
+
+**The operator-facing text was deliberately NOT updated, and this is the record
+of that decision.**
+
+| quantity | planar (in the operational text) | geodesic (in the artifacts) | difference |
+|---|---:|---:|---:|
+| Uiseong-Andong walk bbox | **919 km²** | **896.5 km²** | 2.5 % |
+| Uiseong-Andong manifest bbox | **3,926 km²** | **3,828.8 km²** | 2.5 % |
+
+Those two figures appear in `live/pipeline.py`'s `status_ko`, in
+`run_multi_region_routing.py`, in the mandated wording at
+`docs/HANDOFF_ROUND3.md` §5 rule 11, and on every operator screen and A4 sheet
+for that region. They are the stated basis of the **"no `amenity=fire_station`
+is mapped in OSM inside this bbox"** statement.
+
+⚠ **The zero-fire-station conclusion does not depend on which area is used.** It
+is a count of features inside a bbox, and the bbox itself did not move — only the
+number reported for its area. The statement remains valid verbatim, on either
+figure. Changing the printed area would require re-confirming the whole
+statement, its §5 rule and the tests that pin its phrasing, for a 2.5 % cosmetic
+correction to a number that is not load-bearing for the claim. **Updating the
+operational text is therefore a separate piece of work, deliberately deferred.**
+
+Until it is done: quote the geodesic figure when citing the artifact, quote the
+printed figure when quoting an operator sheet, and never present the two as a
+discrepancy in the underlying data — they are one bbox measured two ways.
 
 ### One definition of envelope area, or none
 
@@ -178,12 +213,60 @@ the fire reaches more of the network before the walker clears it, so terrain no
 longer costs only budget — it costs reachable safety.
 
 **Refuge density** remains the covariate most likely to explain the residual
-budget pressure: 50 refuge POIs in Yeongdeok (5.37 per 100 km²) against 34 in
-Uiseong-Andong (3.70) and 26 in Uljin-Samcheok (2.81). Fewer refuges over a
+budget pressure: 50 refuge POIs in Yeongdeok (5.58 per 100 km²) against 34 in
+Uiseong-Andong (3.79) and 26 in Uljin-Samcheok (2.92). Fewer refuges over a
 comparable area means longer walks and less headroom under a fixed budget. That
 is *consistent with* what the arms show and is not established by them — three
 regions cannot separate refuge density from everything else that differs. It is
 the reading to test next, not the finding.
+
+### ⚠ What the "shelter" layer actually contains
+
+Recorded 2026-08-03 (PHASE 13 STEP 2). This is a **finding about the data, not a
+defect**, and the tag set is deliberately unchanged — it is the set the committed
+Yeongdeok numbers were produced with, and changing it would break the
+identical-rule design. But the layer does not mean what its name suggests, and
+every use of "refuge density" on this page has to be read with that in mind.
+
+Split by tag, from the committed `shelters.geojson` snapshots:
+
+| region | `amenity=shelter` | `amenity=community_centre` | `leisure=park` | total |
+|---|---:|---:|---:|---:|
+| Yeongdeok 2025 | 17 | **0** | 33 | 50 |
+| Uiseong-Andong 2025 | 10 | 15 | 9 | 34 |
+| Uljin-Samcheok 2022 | 7 | **0** | 19 | 26 |
+
+Two things follow, and neither is what the column name implies.
+
+**① It is mostly parks.** `leisure=park` is 66 % of Yeongdeok's layer and 73 % of
+Uljin-Samcheok's. `amenity=community_centre` — the tag that would actually denote
+a 마을회관, a building people can shelter *in* — returns **zero** in two of the
+three regions. Only Uiseong-Andong has any, and there it is the largest limb.
+
+**② The `amenity=shelter` features are 정자, not refuges.** Every one that carries
+a `shelter_type` is a non-refuge type: Yeongdeok 16 of 17 `gazebo`, Uiseong-Andong
+10 of 10 `gazebo`, Uljin-Samcheok 6 `gazebo` + 1 `lean_to`. These are village
+pavilions and roadside rain shelters. They are real gathering points in rural
+Korea and their coordinates are real, but `amenity=shelter` in OSM means a roofed
+structure, not an evacuation destination.
+
+There is no downstream filtering: `read_poi_snapshot` in
+`scripts/run_multi_region_routing.py` turns **every** feature in the file into a
+`Destination(kind="shelter")` with no check on `shelter_type`, capacity or
+building type, and `live/pipeline.py` feeds those straight to the router as
+`net.shelters`.
+
+**What this costs the comparison.** A cross-region "refuge density" contrast is
+substantially a contrast in **park-polygon mapping convention**, not in refuge
+supply. That cuts in both directions and must be stated whenever the column is
+used: it weakens any claim that a low-density region is short of refuges, and it
+weakens any claim that a high-density one is adequately served. The routing
+result itself is unaffected — the destinations are real coordinates that a walker
+can reach — but the *interpretation* of the density covariate is not the one the
+name invites.
+
+This matters most for any future cross-country comparison, where the same
+measurement would be comparing two countries' park-mapping habits.
 
 Every region's flat control arm is reported beside its slope arm in the
 artifact, so this is a measured contrast rather than an inference.
@@ -350,7 +433,7 @@ Yeongdeok field at all.
 **The method's benefit varies 32× across three regions whose cores all advance.**
 Whatever governs it, fire speed is not sufficient to explain it. The covariates
 that do differ are envelope coverage (32.6 / 99.2 / 81.5 %), refuge density
-(5.37 / 3.70 / 2.81 per 100 km²) and the fire's geometry relative to the road
+(5.58 / 3.79 / 2.92 per 100 km²) and the fire's geometry relative to the road
 network — Uljin-Samcheok's runs along a coastal corridor with the sea on one
 side, which removes half the escape directions. **n = 3 separates none of them.**
 

@@ -497,12 +497,21 @@ in `osm_completeness.json`.
 
 | region | area | road km/km² | nodes/km² | geometry | highway | shelter /100 km² | **depot /100 km²** | responder side |
 |---|---:|---:|---:|---:|---:|---:|---:|---|
-| Yeongdeok 2025 | 931 | 1.733 | 9.07 | 67.4 % | 100 % | 5.37 | 0.43 | available |
-| Uiseong-Andong 2025 | 919 | **2.332** | 7.27 | **78.6 %** | 100 % | 3.70 | **0.00** | **NOT APPLICABLE** |
-| Uljin-Samcheok 2022 | 924 | 1.601 | 7.90 | 68.3 % | 100 % | 2.81 | 0.43 | available |
+| Yeongdeok 2025 | 895 | 1.803 | 9.43 | 67.4 % | 100 % | 5.58 | 0.45 | available |
+| Uiseong-Andong 2025 | 896 | **2.390** | 7.45 | **78.6 %** | 100 % | 3.79 | **0.00** | **NOT APPLICABLE** |
+| Uljin-Samcheok 2022 | 890 | 1.663 | 8.21 | 68.3 % | 100 % | 2.92 | 0.45 | available |
 
-Relative to Yeongdeok: road density 1.35× / 0.92×, node density 0.80× / 0.87×,
-shelter density 0.69× / 0.52×. **Carry this table beside every cross-region
+⚠ **These densities moved on 2026-08-03 and no COUNT changed.** `bbox_area_km2`
+projected the four bbox corners into EPSG:5179 and returned the area of their
+axis-aligned bounding RECTANGLE, which is strictly larger than the projected
+quadrilateral — and EPSG:5179 cannot be evaluated outside Korea at all. It is now
+geodesic on the WGS84 ellipsoid. Areas fell 931.3 → 895.3, 918.7 → 896.5 and
+924.2 → 889.5 km² (+4.02 / +2.48 / +3.90 % inflation removed), so every density
+rose by that much. Walk nodes, edges, length, geometry share, highway share and
+both POI counts are bit-identical before and after.
+
+Relative to Yeongdeok: road density 1.33× / 0.92×, node density 0.79× / 0.87×,
+shelter density 0.68× / 0.52×. **Carry this table beside every cross-region
 routing number** — otherwise "regions differ" cannot be told from "mapping
 differs".
 

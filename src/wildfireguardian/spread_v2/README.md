@@ -21,9 +21,41 @@ That data (`firms_data.zip`) is now available, so this package builds it.
 | Land cover / fuel | ESA WorldCover, ~10 m | burnability via `data_layers_manifest.json`; class 80 = sea |
 | Weather | ERA5 reanalysis, 0.25°, 3-hourly | `u10,v10,t2m,d2m,tp` → wind, RH, VPD, dryness |
 
-8 Korean fires ship in the bundle; 6 have usable ERA5 and ≥2 overpasses and
-are used (gangneung_donghae_2022 has an empty ERA5 file; goseong_2019 has a
-single overpass).
+8 Korean fires ship in the bundle; 6 have usable ERA5 and ≥2 overpass
+CLUSTERS and are used (gangneung_donghae_2022 has an empty ERA5 file;
+goseong_2019 yields one cluster).
+
+⚠ **CORRECTED 2026-08-03 (PHASE 13 STEP 2). `goseong_2019` does not have "a
+single overpass" — it has four acquisitions, and the 90-minute clustering rule
+merges them.** The earlier wording attributed the exclusion to the data. It is a
+property of the threshold.
+
+Its acquisitions are 16:48 (NOAA-20), 17:34 (Aqua), 17:38 (S-NPP), 18:28
+(NOAA-20) — gaps of 46, 4 and 50 minutes. `cluster_overpasses` in `grid.py` is
+single-linkage (`np.cumsum(gaps > gap_minutes)`), so a chain of sub-threshold
+gaps collapses however far it spans. All three gaps are under 90 minutes, so the
+chain becomes ONE cluster, there is no (t → t+1) transition pair, and the fire
+contributes zero training rows.
+
+**The 16:48 and 18:28 NOAA-20 acquisitions are exactly 100 minutes apart — one
+full orbital period.** They are genuinely consecutive orbits, which is the
+double coverage expected at goseong's 38.35 °N, and the intervening Aqua and
+S-NPP passes are what bridge them under the threshold. At 30 minutes the fire
+splits into three clusters.
+
+This is not confined to goseong. Across the shipped bundle the 90-minute rule
+merges distinct passes everywhere — `uljin_samcheok_2022` has 75 distinct
+acquisition times collapsing to 27 clusters, and cluster time spans reach 201
+minutes (`hongseong_2023`), i.e. a "near-instantaneous overpass" that is three
+hours wide. Cluster counts at 90 / 60 / 30 minutes: uljin 27/29/53, uiseong
+19/26/29, gangneung_donghae 15/16/31, yeongdeok 6/9/9, hongseong 5/7/12,
+miryang 5/5/10, gangneung_2023 2/2/2, goseong 1/1/3.
+
+The 90-minute value is a hardcoded default in `grid.py` with no config key, and
+the superseded `spread_v2_xgb` track uses 60 minutes instead. Nothing here has
+been changed — the committed model, its training set and its reported AUC are
+all conditioned on 90 minutes, and moving it would move them. This note exists
+so the exclusion is not read as a fact about goseong.
 
 ## Pipeline
 

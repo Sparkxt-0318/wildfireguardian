@@ -35,6 +35,7 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "src"))
 
 import networkx as nx  # noqa: E402
+import numpy as np  # noqa: E402
 import osmnx as ox  # noqa: E402
 from pyproj import Transformer  # noqa: E402
 
@@ -53,14 +54,46 @@ def _git() -> str:
         return "unknown"
 
 
+#: Points per bbox edge when densifying for the geodesic area. A lat/lon box's
+#: north and south edges are parallels, not geodesics, so the polygon has to be
+#: sampled along them or the area comes out short.
+_DENSIFY_N: int = 300
+
+
 def bbox_area_km2(bbox) -> float:
+    """Geodesic area of a lon/lat bbox on the WGS84 ellipsoid, in km².
+
+    ⚠ CORRECTED Round-3 PHASE 13. This used to project the four corners into
+    EPSG:5179 and return the area of their axis-aligned bounding RECTANGLE:
+
+        (max(x) - min(x)) * (max(y) - min(y)) / 1e6
+
+    That is wrong twice over. The projected quadrilateral is not axis-aligned, so
+    the bounding rectangle is strictly larger than it; and EPSG:5179 is a
+    Transverse Mercator defined for the Korean peninsula, so the function cannot
+    be evaluated at all outside it — a US bbox would return a finite, meaningless
+    number rather than failing (measured elsewhere: at Paradise CA the local scale
+    factor is 1.435 and grid north is 120.7° off true north).
+
+    The old reading inflated every Korean denominator by 2.5–4.0 %, which made
+    every published density that much too LOW. This is the whole of the change:
+    no count moved, only the area they are divided by.
+
+        region                planar    geodesic   inflation
+        yeongdeok_2025        931.3       895.3      +4.02 %
+        uiseong_andong_2025   918.7       896.5      +2.48 %
+        uljin_samcheok_2022   924.2       889.5      +3.90 %
+    """
+    from pyproj import Geod
+
     W, S, E, N = bbox
-    xs, ys = [], []
-    for lon in (W, E):
-        for lat in (S, N):
-            x, y = _TO_5179.transform(lon, lat)
-            xs.append(x); ys.append(y)
-    return (max(xs) - min(xs)) * (max(ys) - min(ys)) / 1e6
+    n = _DENSIFY_N
+    lons = (list(np.linspace(W, E, n)) + [E] * n
+            + list(np.linspace(E, W, n)) + [W] * n)
+    lats = ([S] * n + list(np.linspace(S, N, n))
+            + [N] * n + list(np.linspace(N, S, n)))
+    area_m2, _perimeter = Geod(ellps="WGS84").polygon_area_perimeter(lons, lats)
+    return abs(area_m2) / 1e6
 
 
 def n_features(path: Path) -> int:
