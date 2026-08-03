@@ -1,0 +1,132 @@
+{
+  "mode": "replay",
+  "scope": {
+    "mode": "replay",
+    "mode_banner_ko": "■ 재생 모드 ■ 과거 화재의 화점 기록을 시간 순으로 재생한 것이며, 지금 발생 중인 화재가 아닙니다.",
+    "trigger_source": "replay",
+    "trigger_at": "",
+    "trigger_at_meaning": "the satellite overpass whose batch fired the trigger",
+    "detection": "real-time (FIRMS NRT)",
+    "detection_line_ko": "화점 탐지: 실시간 (FIRMS NRT)",
+    "weather": "NOT real-time",
+    "weather_basis": "2025-03-25 12:25 UTC",
+    "weather_line_ko": "기상 자료: 2025-03-25 12:25 UTC 기준 (ERA5는 약 5일 지연 발행)",
+    "era5_publication_lag_days": 5,
+    "scope_ko": "본 산출물은 「실시간 탐지 + 사전 계산 위험면 기반 결정」입니다. 「실시간 예보 기반 예측」이 아닙니다.",
+    "scope_en": "REAL-TIME DETECTION over a PRE-COMPUTED risk surface. This is NOT a real-time forecast: ERA5 reanalysis publishes on a ~5-day lag, so no hazard field exists for today.",
+    "hazard_field": "data/processed/routing_demo_canonical.npz",
+    "hazard_field_is_precomputed": true,
+    "region": "yeongdeok_2025",
+    "coverage_caveat_ko": "영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오."
+  },
+  "n_triggers": 2,
+  "runs": [
+    {
+      "run_id": "20260803T051600Z",
+      "out_dir": "/Users/jp/Desktop/Korea Code Fair/wildfireguardian/outputs/live/replay/yeongdeok_2025/20260803T051600Z",
+      "counts": {
+        "naive_into_FA_safe": 42,
+        "no_safe_route": 2,
+        "both_safe": 414,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "fa_exceeds_budget": 0,
+        "unclassified": 0
+      },
+      "timings": {
+        "load_hazard_s": 0.001,
+        "load_network_s": 2.723,
+        "load_pois_s": 0.071,
+        "route_s": 25.202,
+        "cluster_s": 0.109,
+        "render_s": 0.058,
+        "pdf_s": 79.499,
+        "deliver_s": 79.557,
+        "warm_total_s": 25.369,
+        "cold_total_s": 28.164,
+        "warm_total_with_pdf_s": 104.867,
+        "definition": {
+          "warm_total_s": "trigger -> the dispatch list exists in every text format (HTML sheet, broadcast script, SMS drafts). Hazard field and walk graph already resident, as in a running service. THE NUMBER TO QUOTE.",
+          "cold_total_s": "process start -> the dispatch list, including loading the field, the graph and the POIs.",
+          "pdf_s": "headless-Chrome A4 conversion, EXCLUDED from the totals: it runs after the list already exists and costs ~2.7 s per sheet, so it scales with the number of villages rather than with the decision.",
+          "warm_total_with_pdf_s": "warm_total_s + pdf_s, for when the printed sheets are what is being waited on."
+        }
+      },
+      "applicability": {
+        "verdict": "IN_SCOPE",
+        "hotspot_to_field_core_km": 13.403,
+        "hotspot_to_manifest_ignition_km": 28.631,
+        "radius_km": 15.0,
+        "anchor": "field t=0 core centroid (p >= 0.5)",
+        "field_core_lonlat": [
+          129.22241635417447,
+          36.46629146493234
+        ],
+        "manifest_ignition_lonlat": [
+          129.05,
+          36.43
+        ],
+        "statement_ko": "트리거 화점은 사전 계산 위험면의 초기 화재 핵심에서 13.4 km 떨어져 있습니다(기준 15 km 이내).",
+        "note": "A LABEL, never a filter. Nothing is dropped on account of it: suppressing a real detection is worse than publishing a stamped one."
+      },
+      "trigger_source": "replay",
+      "n_villages": 29,
+      "n_points": 44
+    },
+    {
+      "run_id": "20260803T051744Z",
+      "out_dir": "/Users/jp/Desktop/Korea Code Fair/wildfireguardian/outputs/live/replay/yeongdeok_2025/20260803T051744Z",
+      "counts": {
+        "naive_into_FA_safe": 42,
+        "no_safe_route": 2,
+        "both_safe": 414,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "fa_exceeds_budget": 0,
+        "unclassified": 0
+      },
+      "timings": {
+        "load_hazard_s": 0.001,
+        "load_network_s": 2.723,
+        "load_pois_s": 0.071,
+        "route_s": 28.985,
+        "cluster_s": 0.001,
+        "render_s": 0.064,
+        "pdf_s": 81.121,
+        "deliver_s": 81.185,
+        "warm_total_s": 29.051,
+        "cold_total_s": 31.846,
+        "warm_total_with_pdf_s": 110.172,
+        "definition": {
+          "warm_total_s": "trigger -> the dispatch list exists in every text format (HTML sheet, broadcast script, SMS drafts). Hazard field and walk graph already resident, as in a running service. THE NUMBER TO QUOTE.",
+          "cold_total_s": "process start -> the dispatch list, including loading the field, the graph and the POIs.",
+          "pdf_s": "headless-Chrome A4 conversion, EXCLUDED from the totals: it runs after the list already exists and costs ~2.7 s per sheet, so it scales with the number of villages rather than with the decision.",
+          "warm_total_with_pdf_s": "warm_total_s + pdf_s, for when the printed sheets are what is being waited on."
+        }
+      },
+      "applicability": {
+        "verdict": "IN_SCOPE",
+        "hotspot_to_field_core_km": 13.359,
+        "hotspot_to_manifest_ignition_km": 28.229,
+        "radius_km": 15.0,
+        "anchor": "field t=0 core centroid (p >= 0.5)",
+        "field_core_lonlat": [
+          129.22241635417447,
+          36.46629146493234
+        ],
+        "manifest_ignition_lonlat": [
+          129.05,
+          36.43
+        ],
+        "statement_ko": "트리거 화점은 사전 계산 위험면의 초기 화재 핵심에서 13.4 km 떨어져 있습니다(기준 15 km 이내).",
+        "note": "A LABEL, never a filter. Nothing is dropped on account of it: suppressing a real detection is worse than publishing a stamped one."
+      },
+      "trigger_source": "replay",
+      "n_villages": 29,
+      "n_points": 44
+    }
+  ],
+  "notes": [
+    "Twilio credentials absent (2/3): the SMS layer stays in DEMO_MODE and composes drafts only. Nothing could be sent even if the code tried."
+  ]
+}

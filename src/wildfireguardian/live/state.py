@@ -200,6 +200,10 @@ class RunRecord:
             "started_utc": self.started_utc.strftime("%Y-%m-%dT%H:%M:%SZ"),
             "mode": self.mode,
             "region": self.region,
+            # Lifted out of `scope` so "which trigger produced this?" is
+            # answerable without reading a nested block. FIRMS, replay and
+            # manual all write here; only the value differs.
+            "trigger_source": self.scope.get("trigger_source", "firms_nrt"),
             "scope": self.scope,
             "trigger": self.trigger,
             "inputs": self.inputs,

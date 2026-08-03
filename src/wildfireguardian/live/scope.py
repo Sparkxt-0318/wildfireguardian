@@ -37,6 +37,22 @@ ERA5_PUBLICATION_LAG_DAYS: int = 5
 DETECTION_LINE_KO: str = "화점 탐지: 실시간 (FIRMS NRT)"
 WEATHER_LINE_KO_TEMPLATE: str = "기상 자료: {basis} 기준 (ERA5는 약 5일 지연 발행)"
 
+#: Where the ignition point came from. The weather half of the scope statement
+#: is identical for all three — the surface is pre-computed whatever triggered
+#: it — but the DETECTION half is not, and must not be faked.
+#:
+#: ``manual`` exists because in real operation a fire's location arrives from a
+#: 119 call, a watch-tower or a CCTV operator long before a satellite sees it.
+#: Waiting for an overpass is a property of the demo, not of the problem.
+TRIGGER_SOURCES: tuple[str, ...] = ("firms_nrt", "replay", "manual")
+
+MANUAL_LINE_KO_TEMPLATE: str = "발화점: 수동 입력 · {when}"
+REPLAY_LINE_KO_TEMPLATE: str = "화점 탐지: 재생 모드 · {when}"
+
+MANUAL_BANNER_KO: str = (
+    "■ 수동 입력 ■ 119 신고·감시원·CCTV 등으로 접수된 발화점 좌표입니다. "
+    "위성 탐지를 기다리지 않았습니다.")
+
 #: The banner every operational artifact carries above its numbers.
 SCOPE_BANNER_KO: str = (
     "본 산출물은 「실시간 탐지 + 사전 계산 위험면 기반 결정」입니다. "
@@ -72,21 +88,52 @@ class Scope:
     from the field it describes.
     """
 
-    mode: str                       # "replay" | "live"
+    mode: str                       # "replay" | "live" | "manual"
     weather_basis: str              # e.g. "2025-03-25 12:25 UTC"
     hazard_field: str               # repo-relative path to the npz
     region: str
+    #: Where the ignition point came from. Defaults to FIRMS so every existing
+    #: caller keeps its exact wording.
+    trigger_source: str = "firms_nrt"
+    #: For manual and replay, WHEN the trigger happened, already formatted.
+    #:
+    #: ⚠ For a manual trigger this is the moment the COORDINATE WAS ENTERED —
+    #: a 119 call, a watch-tower, a CCTV operator. It is NOT a satellite
+    #: overpass time, and the two must never be presented as the same kind of
+    #: thing: one is when a person reported a fire, the other is when an
+    #: instrument observed one.
+    trigger_at: str = ""
 
     @property
     def is_replay(self) -> bool:
         return self.mode == "replay"
 
+    @property
+    def is_manual(self) -> bool:
+        return self.trigger_source == "manual"
+
+    def detection_line(self) -> str:
+        """The first mandated line, worded for the source that actually fired.
+
+        A manual report is not a FIRMS detection, and saying 「화점 탐지: 실시간
+        (FIRMS NRT)」 over a coordinate someone phoned in would claim an
+        instrument that was never involved.
+        """
+        if self.trigger_source == "manual":
+            return MANUAL_LINE_KO_TEMPLATE.format(when=self.trigger_at or "시각 미상")
+        if self.trigger_source == "replay":
+            return (REPLAY_LINE_KO_TEMPLATE.format(when=self.trigger_at)
+                    if self.trigger_at else DETECTION_LINE_KO)
+        return DETECTION_LINE_KO
+
     def lines(self) -> list[str]:
         """The two mandated lines, in order, exactly as they must be shown."""
-        return [DETECTION_LINE_KO,
+        return [self.detection_line(),
                 WEATHER_LINE_KO_TEMPLATE.format(basis=self.weather_basis)]
 
     def mode_banner(self) -> str:
+        if self.is_manual:
+            return MANUAL_BANNER_KO
         return REPLAY_BANNER_KO if self.is_replay else LIVE_BANNER_KO
 
     def banner_block(self) -> str:
@@ -97,8 +144,16 @@ class Scope:
         return {
             "mode": self.mode,
             "mode_banner_ko": self.mode_banner(),
-            "detection": "real-time (FIRMS NRT)",
-            "detection_line_ko": DETECTION_LINE_KO,
+            "trigger_source": self.trigger_source,
+            "trigger_at": self.trigger_at,
+            "trigger_at_meaning": (
+                "the moment the coordinate was ENTERED by an operator (119 "
+                "call / watch-tower / CCTV). NOT a satellite overpass time."
+                if self.is_manual else
+                "the satellite overpass whose batch fired the trigger"),
+            "detection": ("manual report — no satellite involved"
+                          if self.is_manual else "real-time (FIRMS NRT)"),
+            "detection_line_ko": self.detection_line(),
             "weather": "NOT real-time",
             "weather_basis": self.weather_basis,
             "weather_line_ko": self.lines()[1],
@@ -124,6 +179,8 @@ def scope_lines(weather_basis: str) -> list[str]:
 
 __all__ = [
     "COVERAGE_CAVEAT_KO", "DETECTION_LINE_KO", "ERA5_PUBLICATION_LAG_DAYS",
-    "LIVE_BANNER_KO", "REPLAY_BANNER_KO", "SCOPE_BANNER_EN", "SCOPE_BANNER_KO",
-    "Scope", "WEATHER_LINE_KO_TEMPLATE", "scope_lines",
+    "LIVE_BANNER_KO", "MANUAL_BANNER_KO", "MANUAL_LINE_KO_TEMPLATE",
+    "REPLAY_BANNER_KO", "REPLAY_LINE_KO_TEMPLATE", "SCOPE_BANNER_EN",
+    "SCOPE_BANNER_KO", "Scope", "TRIGGER_SOURCES",
+    "WEATHER_LINE_KO_TEMPLATE", "scope_lines",
 ]

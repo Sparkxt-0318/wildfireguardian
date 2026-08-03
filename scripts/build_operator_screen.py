@@ -201,15 +201,26 @@ def build(run_dir: Path, out_path: Path, *, skip_preroll: bool = False,
     # detection in overpass 0 shares one timestamp); for Uiseong-Andong they are
     # 77 minutes apart, and the earlier version showed 계산 중 at t=0 for a run
     # that did not route until t+77.
+    trigger_source = (viz.get("trigger_source")
+                      or run.get("trigger_source")
+                      or run["scope"].get("trigger_source")
+                      or ("replay" if run["mode"] == "replay" else "firms_nrt"))
     overpasses = (run.get("inputs", {}).get("poll", {}) or {}).get("overpasses")
-    if not overpasses:
+    if trigger_source == "manual":
+        # A manual report has no overpass to wait for — that is the whole
+        # point of it. The reported coordinate IS the trigger, and it is the
+        # only point on the map, so the trigger sits at t = 0.
+        triggers = [0.0]
+    elif overpasses:
+        triggers = sorted(
+            round((datetime.strptime(o["archive_time_utc"], "%Y-%m-%dT%H:%M:%SZ")
+                   - t0dt).total_seconds() / 60.0, 1)
+            for o in overpasses)
+    else:
         raise SystemExit(
-            "RUN.json carries no overpass times, so the trigger moment cannot "
-            "be established. Regenerate the run.")
-    triggers = sorted(
-        round((datetime.strptime(o["archive_time_utc"], "%Y-%m-%dT%H:%M:%SZ")
-               - t0dt).total_seconds() / 60.0, 1)
-        for o in overpasses)
+            "RUN.json carries no overpass times and this is not a manual "
+            "trigger, so the trigger moment cannot be established. Regenerate "
+            "the run.")
 
     # The dispatch rows: actionable points, most urgent first. Same ordering
     # rule the A4 sheet uses, so the screen and the paper agree.
@@ -271,6 +282,12 @@ def build(run_dir: Path, out_path: Path, *, skip_preroll: bool = False,
             "COVERAGE_PCT rather than letting the screen invent one.")
 
     scope = run["scope"]
+    # A manual trigger has nothing to lead in FROM — no satellite was being
+    # waited on — so the pre-roll defaults off unless a start point was asked
+    # for explicitly.
+    if trigger_source == "manual" and start_at is None:
+        skip_preroll = True
+
     payload = {
         "view": view,
         "walk_box": walk_box,
@@ -292,6 +309,9 @@ def build(run_dir: Path, out_path: Path, *, skip_preroll: bool = False,
         "responder": viz.get("responder_side", {}),
         "max_rows": MAX_ROWS,
         "triggers": triggers,
+        "trigger_source": trigger_source,
+        "trigger_at": run["scope"].get("trigger_at", ""),
+        "trigger_at_meaning": run["scope"].get("trigger_at_meaning", ""),
         "calc_min": CALC_MIN,
         "fill_span_min": FILL_SPAN_MIN,
         "start_at": start_at,
@@ -303,6 +323,7 @@ def build(run_dir: Path, out_path: Path, *, skip_preroll: bool = False,
         "scope": {
             "mode_banner": scope["mode_banner_ko"],
             "detection": scope["detection_line_ko"],
+            "trigger_at": scope.get("trigger_at", ""),
             "weather": scope["weather_line_ko"],
             "weather_basis": scope["weather_basis"],
         },
@@ -317,7 +338,7 @@ def build(run_dir: Path, out_path: Path, *, skip_preroll: bool = False,
                                                        separators=(",", ":")))
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(html, encoding="utf-8")
-    return {"triggers": triggers,
+    return {"triggers": triggers, "trigger_source": trigger_source,
             "bytes": out_path.stat().st_size, "n_origins": len(viz["origins"]),
             "n_rows": len(rows), "n_rows_shown": min(len(rows), MAX_ROWS),
             "n_routes": len(viz["routes"]), "n_hotspots": len(hotspots),
@@ -390,6 +411,7 @@ footer{flex:0 0 auto;display:flex;gap:0;border-top:1px solid #1f2a37;
   background:#0e141b;font-size:12.5px}
 footer div{padding:7px 16px;border-right:1px solid #1f2a37;white-space:nowrap}
 footer .warn{color:#fca5a5;font-weight:700}
+footer .manual{background:#1e3a5f;color:#bfdbfe;font-weight:700}
 footer .k{color:#64748b;margin-right:6px}
 footer .last{border-right:none;margin-left:auto;color:#64748b}
 </style></head>
@@ -691,10 +713,28 @@ document.getElementById('calc').textContent =
 document.getElementById('bandleg').innerHTML = D.band_labels.map((l, i) =>
   `<div><span class="sw" style="background:${D.band_fills[i]}"></span>p ${l}</div>`
 ).join('');
-document.getElementById('modebadge').textContent = '재생 모드';
+document.getElementById('modebadge').textContent =
+  D.trigger_source === 'manual' ? '수동 입력'
+  : D.trigger_source === 'firms_nrt' ? '실시간 모드' : '재생 모드';
 document.getElementById('regionlbl').textContent = D.region_ko;
-document.getElementById('f1').textContent =
-  '재생 모드 · ' + D.scope.weather_basis.split(' ')[0] + ' 기록 재생';
+/* The first status cell states the SOURCE. For a manual trigger the time on
+   it is when the coordinate was entered — a 119 call, a watch-tower, a CCTV
+   operator — and NOT a satellite overpass. Saying so on the bar itself is the
+   difference between reporting and claiming. */
+const f1 = document.getElementById('f1');
+if (D.trigger_source === 'manual') {
+  /* The mandated line is 「발화점: 수동 입력 · {시각}」 in full, so the generic
+     label prefix is cleared rather than duplicated. */
+  f1.parentNode.firstChild.textContent = '';
+  f1.textContent = D.scope.detection;
+  f1.parentNode.classList.add('manual');
+  const note = document.createElement('div');
+  note.className = 'warn';
+  note.textContent = '트리거 시각 = 좌표 입력 시각 (위성 통과 시각 아님)';
+  f1.parentNode.parentNode.insertBefore(note, f1.parentNode.nextSibling);
+} else {
+  f1.textContent = '재생 모드 · ' + D.scope.weather_basis.split(' ')[0] + ' 기록 재생';
+}
 document.getElementById('f2').textContent = D.scope.weather.replace('기상 자료: ', '');
 document.getElementById('f3').textContent = '보행망 커버리지 ' + D.coverage_pct + '%';
 if (D.responder && D.responder.available === false) {
@@ -724,6 +764,12 @@ def main() -> int:
     ap.add_argument("--region", default=None,
                     help="pick the newest run for this region instead of the "
                          "newest run overall")
+    ap.add_argument("--trigger-source", default=None,
+                    choices=["firms_nrt", "replay", "manual"],
+                    help="which trigger's run to build from. Required when a "
+                         "region has runs from more than one source — picking "
+                         "the newest silently once built a FIRMS screen out of "
+                         "a manual run.")
     ap.add_argument("--out", default=None,
                     help="default: outputs/live/screens/{region}/operator_screen.html")
     ap.add_argument("--also-demo", action="store_true",
@@ -747,13 +793,29 @@ def main() -> int:
 
     root = REPO / "outputs" / "live"
     if args.run_dir:
-        run_dir = Path(args.run_dir)
+        run_dir = Path(args.run_dir).resolve()   # accept relative paths too
     else:
         cands = sorted(root.glob("**/viz.json"), key=lambda p: p.stat().st_mtime)
+        def _src(v: Path) -> str:
+            d = json.loads(v.read_text(encoding="utf-8"))
+            return d.get("trigger_source") or (
+                "manual" if "/manual/" in str(v) else "replay")
+
         if args.region:
             cands = [c for c in cands
                      if json.loads(c.read_text(encoding="utf-8")).get("region")
                      == args.region]
+        if args.trigger_source:
+            cands = [c for c in cands if _src(c) == args.trigger_source]
+        elif cands:
+            # Ambiguity is an error, not a coin toss. Building a FIRMS screen
+            # out of a manual run is silent and wrong, and it happened once.
+            sources = {_src(c) for c in cands}
+            if len(sources) > 1:
+                print(f"STOP: runs from {sorted(sources)} match. Pass "
+                      "--trigger-source to say which one this screen is of.",
+                      file=sys.stderr)
+                return 2
         if not cands:
             print(f"STOP: no run with viz.json"
                   + (f" for {args.region}" if args.region else "") + ". Generate one:\n"
@@ -779,7 +841,7 @@ def main() -> int:
     info = build(run_dir, out, skip_preroll=args.skip_preroll,
                  start_at=args.start_at,
                  paused_on_load=args.paused_on_load)
-    print(f"region : {region}")
+    print(f"region : {region}   source: {info['trigger_source']}")
     print(f"run    : {run_dir.relative_to(REPO)}")
     print(f"origins: {info['n_origins']}  rows shown: {info['n_rows_shown']}"
           f"/{info['n_rows']}  routes: {info['n_routes']}  "

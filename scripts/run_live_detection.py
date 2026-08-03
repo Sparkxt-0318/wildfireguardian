@@ -144,9 +144,13 @@ def run_trigger(res: pipeline.Resources, scope: Scope, trigger: firms.Hotspot,
     applicability = pipeline.assess_applicability(
         trigger, res, float(args.applicability_radius_km))
     print(banner(scope, applicability))
-    print(f"  트리거 화점 : {trigger.lat:.4f}, {trigger.lon:.4f}  "
+    label = "트리거 좌표" if scope.is_manual else "트리거 화점"
+    print(f"  {label} : {trigger.lat:.4f}, {trigger.lon:.4f}  "
           f"{trigger.acquired_utc:%Y-%m-%d %H:%M UTC}  "
           f"{trigger.source} conf={trigger.confidence}")
+    if scope.is_manual:
+        print("               ⚠ 위 시각은 좌표 입력 시각이며 위성 통과 시각이 "
+              "아닙니다.")
     if applicability["verdict"] != "IN_SCOPE":
         print(f"  ⚠ {applicability['statement_ko']}")
 
@@ -201,7 +205,9 @@ def run_trigger(res: pipeline.Resources, scope: Scope, trigger: firms.Hotspot,
           f"credentials={sms.credentials_present()} — 발송 없음\n")
     return {"run_id": run_id, "out_dir": str(out_dir), "counts": counts,
             "timings": t.as_dict(), "applicability": applicability,
-            "n_villages": manifest["n_villages"]}
+            "trigger_source": scope.trigger_source,
+            "n_villages": manifest["n_villages"],
+            "n_points": manifest["n_points"]}
 
 
 # ---------------------------------------------------------------------------
@@ -289,7 +295,12 @@ def main() -> int:
 
     basis, basis_meta = pipeline.weather_basis(args.region, repo=REPO)
     scope = Scope(mode="replay" if args.replay else "live", weather_basis=basis,
-                  hazard_field=str(npz.relative_to(REPO)), region=args.region)
+                  hazard_field=str(npz.relative_to(REPO)), region=args.region,
+                  # PHASE 12: three sources, recorded distinctly. `trigger_at`
+                  # is deliberately left empty here so the replay and live
+                  # branches keep the PHASE-6 mandated detection line verbatim;
+                  # only the manual path substitutes its own wording.
+                  trigger_source="replay" if args.replay else "firms_nrt")
     print(banner(scope))
 
     # -- credential report (names only; values are never printed) -------------

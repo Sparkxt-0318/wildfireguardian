@@ -1,15 +1,15 @@
 # Round-3 handoff
 
 **Read this file alone and you can continue.** Written 2026-08-02, updated
-2026-08-03 (PHASE 6, 7, 8).
+2026-08-03 (PHASE 6, 7, 8, 12).
 
 | | |
 |---|---|
 | branch | **`round3-dev`** (tracks `origin/round3-dev`) |
-| HEAD | `1e8e828` + this commit |
+| HEAD | `6f94e39` + this commit |
 | baseline tag | **`round2-submitted`** = `4e9dfe3` — the submitted state |
 | environment | conda env **`wfg311`**, Python 3.11.15 — see [`ENVIRONMENT.md`](ENVIRONMENT.md) |
-| suite | **701 passed, 2 skipped, 0 failed** (was 544; PHASE 6 +44, PHASE 7 +47, PHASE 8 +66) |
+| suite | **722 passed, 2 skipped, 0 failed** (was 544; PHASE 6 +44, PHASE 7 +47, PHASE 8 +66, PHASE 12 +21) |
 | registry | [`NUMBERS.json`](NUMBERS.json) — 103 entries, 87 reproducible |
 | OSM regions | 3 acquired + snapshotted (`MANIFEST.json`, 68 entries — 64 + 4 FIRMS NRT polls) |
 | config hash | `05c6feae1dff…` — moved from `faf90a81b7e6…` by PURE ADDITION (the PHASE-6 `live:` block; no existing value changed, and re-running `build_numbers.py` moved **only** the per-entry `config_hash` stamp, 0 values). Earlier lineage: `0b6eb481177a…` → `51ec446843b6…` at `cc41f12`. `NUMBERS.json.config_hash_note` records why this is expected. |
@@ -37,7 +37,8 @@ unstaged**; every commit here used `git add -A -- . ':!docs/figures/*.png'`.
 | **canonical-hazard reconstruction** | **done — steps 1–4. See §2-A.** | `141b035`, `9ba83b4`, `6df4fcf`, `05fbfca`, `ed5e6b0`, `815dc02`, `a9b79cb`, `c8851d8`, `75f347a` |
 | **6 — live detection pipeline** | **done.** FIRMS NRT + replay mode. See §9 and [`live_pipeline.md`](live_pipeline.md). | `5a7cfc5` |
 | **7 — email delivery channel** | **done, with one caveat.** Approval-gated Gmail SMTP. The verification send did **not** complete: outbound SMTP is blocked on this network. See §10 and [`delivery_channels.md`](delivery_channels.md). | `353a3fe` |
-| **8 — operator screen** | **done, TWO regions.** 의성·안동 (시연용) and 영덕 (한계 설명용). See §11 and [`operator_screen.md`](operator_screen.md). | `1e8e828` + this commit |
+| **8 — operator screen** | **done, TWO regions.** 의성·안동 (시연용) and 영덕 (한계 설명용). See §11 and [`operator_screen.md`](operator_screen.md). | `1e8e828`, `ac96a75`, `6f94e39` |
+| **12 — manual ignition trigger** | **done.** A reported coordinate routes at once; the FIRMS path is untouched. See §12 and [`manual_trigger.md`](manual_trigger.md). | this commit |
 
 ---
 
@@ -961,3 +962,72 @@ for 의성·안동.
 Both routes are already solved for every origin and were previously discarded;
 `--collect-routes N` (default 12) simply retains the polylines. The run is
 unchanged: 458 origins, 414 / 42 / 2, same as every canonical run.
+
+---
+
+## 12. PHASE 12 — the manual ignition-point trigger (DONE 2026-08-03)
+
+Full write-up: [`manual_trigger.md`](manual_trigger.md).
+
+`scripts/run_manual_trigger.py` · `tests/test_manual_trigger.py` (21 tests)
+
+```bash
+python scripts/run_manual_trigger.py --lat 36.4436 --lon 129.3696 --reported-by "119 신고"
+```
+
+In real operation a fire's location arrives from a **119 call, a watch-tower or
+a CCTV operator** long before a satellite sees it — VIIRS revisits about every
+12 h, then FIRMS NRT publishes ~3 h after the overpass. There is no reason to
+wait. **Both triggers coexist**; the FIRMS and replay branches are untouched.
+
+### Three sources, recorded distinctly
+
+    trigger_source: "firms_nrt" | "replay" | "manual"
+
+Top-level in `RUN.json`, and in `viz.json` and the screen payload.
+
+### ⚠ The trigger time means something different per source
+
+| source | trigger time is |
+|---|---|
+| `firms_nrt`, `replay` | **a satellite overpass** — when an instrument observed |
+| `manual` | **when the coordinate was entered** — when a person reported |
+
+Stated in four places: the console, `scope.trigger_at_meaning`, the screen's
+status bar (`트리거 시각 = 좌표 입력 시각 (위성 통과 시각 아님)`), and the
+detection line itself — 「발화점: 수동 입력 · {시각}」, which does **not** say
+`FIRMS NRT` because no instrument was involved. `scope.detection_line()` picks
+the wording by source; the PHASE-6 mandated line is unchanged for every
+pre-existing caller.
+
+### Identical downstream — structurally, then measured
+
+The script hands a one-point trigger to `run_live_detection.run_trigger`, the
+same function FIRMS and replay call. A test asserts it via the AST and forbids
+this script from calling `route_region` / `deliver` / `write_viz` /
+`build_run_record` directly, which would fork the path.
+
+Measured on the same coordinate: counts, villages, points, every point, SMS
+drafts, hazard digest, weather basis, parameters and applicability **all
+identical**. The one difference is the 마을방송 script's first line — replay
+prepends 「재생 모드입니다.」 and a real report must not.
+
+### Measured: coordinate in hand → dispatch list
+
+Five runs, `--no-pdf`, idle machine: cold **29.6 s median** (26.2–30.2), of
+which routing **26.7 s**; warm **26.8 s**. A4 PDF (+79 s for 29 sheets) is
+excluded, as everywhere else. **Say "about 30 seconds from a 119 call to a
+dispatch list."**
+
+### ⚠ Rules
+
+1. **Never remove the FIRMS or replay branch.** Three doors, one room.
+2. **Never present a manual trigger time as an overpass time**, or a manual
+   trigger as a FIRMS detection.
+3. **Never route a coordinate outside the registered walk bbox.** Exit 3, before
+   any routing — the network, refuges and surface exist only inside it, so a
+   list for a coordinate outside would be invented evidence.
+4. **No geocoding.** Latitude and longitude only; a test forbids a geocoder.
+5. **`--trigger-source` is required when a region has runs from more than one
+   source.** `--region` used to take the newest of any, which silently built a
+   FIRMS screen out of a manual run.

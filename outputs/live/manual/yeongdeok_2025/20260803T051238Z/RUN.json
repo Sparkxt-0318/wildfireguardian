@@ -1,0 +1,212 @@
+{
+  "schema_version": 1,
+  "run_id": "20260803T051238Z",
+  "started_utc": "2026-08-03T05:12:38Z",
+  "mode": "manual",
+  "region": "yeongdeok_2025",
+  "trigger_source": "manual",
+  "scope": {
+    "mode": "manual",
+    "mode_banner_ko": "■ 수동 입력 ■ 119 신고·감시원·CCTV 등으로 접수된 발화점 좌표입니다. 위성 탐지를 기다리지 않았습니다.",
+    "trigger_source": "manual",
+    "trigger_at": "2026-08-03 05:12 UTC",
+    "trigger_at_meaning": "the moment the coordinate was ENTERED by an operator (119 call / watch-tower / CCTV). NOT a satellite overpass time.",
+    "detection": "manual report — no satellite involved",
+    "detection_line_ko": "발화점: 수동 입력 · 2026-08-03 05:12 UTC",
+    "weather": "NOT real-time",
+    "weather_basis": "2025-03-25 12:25 UTC",
+    "weather_line_ko": "기상 자료: 2025-03-25 12:25 UTC 기준 (ERA5는 약 5일 지연 발행)",
+    "era5_publication_lag_days": 5,
+    "scope_ko": "본 산출물은 「실시간 탐지 + 사전 계산 위험면 기반 결정」입니다. 「실시간 예보 기반 예측」이 아닙니다.",
+    "scope_en": "REAL-TIME DETECTION over a PRE-COMPUTED risk surface. This is NOT a real-time forecast: ERA5 reanalysis publishes on a ~5-day lag, so no hazard field exists for today.",
+    "hazard_field": "data/processed/routing_demo_canonical.npz",
+    "hazard_field_is_precomputed": true,
+    "region": "yeongdeok_2025",
+    "coverage_caveat_ko": "영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오."
+  },
+  "trigger": {
+    "trigger_source": "manual",
+    "trigger_at": "2026-08-03 05:12 UTC",
+    "trigger_at_meaning": "the moment the coordinate was ENTERED by an operator (119 call / watch-tower / CCTV). NOT a satellite overpass time.",
+    "triggering_hotspot": {
+      "lat": 36.4436,
+      "lon": 129.3696,
+      "acquired_utc": "2026-08-03T05:12:36Z",
+      "source": "manual:119 신고",
+      "satellite": "",
+      "instrument": "manual",
+      "confidence": "high",
+      "confidence_raw": "high",
+      "frp": null,
+      "daynight": ""
+    },
+    "n_new_hotspots_this_trigger": 1,
+    "new_hotspots": [
+      {
+        "lat": 36.4436,
+        "lon": 129.3696,
+        "acquired_utc": "2026-08-03T05:12:36Z",
+        "source": "manual:119 신고",
+        "satellite": "",
+        "instrument": "manual",
+        "confidence": "high",
+        "confidence_raw": "high",
+        "frp": null,
+        "daynight": ""
+      }
+    ],
+    "rule": "a hotspot inside the registered bbox whose coordinate was absent from every previous poll, at or above the configured confidence, with the re-trigger interval elapsed"
+  },
+  "inputs": {
+    "region": "yeongdeok_2025",
+    "hazard_npz": "data/processed/routing_demo_canonical.npz",
+    "hazard_npz_sha256": "81b4e4d159daa7a8ccc7c4fedf3fea948d501fff2d7e886c1fd55bbf47043fb7",
+    "hazard_shape": [
+      5,
+      181,
+      156
+    ],
+    "hazard_is_precomputed": true,
+    "hazard_lineage": "CANONICAL (routing_demo_canonical.npz). NOT routing_demo.npz, which is the output of a reverted run — HANDOFF_ROUND3.md §2-A.",
+    "snapshot_walk": "osm-walk_yeongdeok-2025_20260724_2bff8d85.graphml.gz",
+    "snapshot_shelters": "osm-shelters_yeongdeok-2025_20260724_ac42a42b.geojson",
+    "n_walk_nodes": 8443,
+    "n_walk_edges": 21982,
+    "n_shelter_pois": 50,
+    "n_shelter_nodes": 46,
+    "field_core_lonlat": [
+      129.22241635417447,
+      36.46629146493234
+    ],
+    "manifest_ignition_lonlat": [
+      129.05,
+      36.43
+    ],
+    "anchor_note": "field_core_lonlat is the centroid of the t=0 cells at p >= 0.5 in the pre-computed field — what the forward simulation was actually seeded from, and the same proxy candidate_origins uses for the reach band. manifest_ignition_lonlat is the editorial coordinate in fire_manifest.json. For yeongdeok_2025 they differ by about 17 km and the manifest point falls outside the walk bbox, so applicability is measured against the field, not against the manifest.",
+    "read_from_cache": false,
+    "poll": {
+      "kind": "manual",
+      "reported_by": "119 신고",
+      "entered_utc": "2026-08-03T05:12:36Z",
+      "entered_utc_meaning": "when the coordinate was entered by an operator; NOT a satellite overpass time",
+      "input_lat": 36.4436,
+      "input_lon": 129.3696,
+      "region_bbox_wsen": [
+        129.25,
+        36.3,
+        129.55,
+        36.6
+      ],
+      "inside_registered_region": true,
+      "hazard_field": "data/processed/routing_demo_canonical.npz",
+      "hazard_field_sha256": "81b4e4d159daa7a8ccc7c4fedf3fea948d501fff2d7e886c1fd55bbf47043fb7",
+      "hazard_weather_basis": "2025-03-25 12:25 UTC",
+      "hazard_weather_basis_utc": "2025-03-25T12:25:00Z",
+      "no_geocoding": "latitude/longitude only; address and 지번 lookup are out of scope for this phase"
+    },
+    "parameters": {
+      "p_cut": 0.5,
+      "time_budget_min": 600.0,
+      "time_step_min": 10.0,
+      "origin_scan_stride": 18,
+      "eps_m": 500.0,
+      "routing_objective": "length_m (distance-ranked)",
+      "weather_basis": {
+        "basis_utc": "2025-03-25T12:25:00Z",
+        "derived_from": "data/raw/firms_data/yeongdeok_2025_detections.csv",
+        "how": "first overpass cluster (gap 90 min) of the committed detections CSV — the same anchor spread_v2 forward-simulation uses for t=0",
+        "era5_window": "ERA5 reanalysis for the fire's own dates; published on an approximately five-day lag, so it exists for that fire and does not exist for today"
+      },
+      "source": "config/default.yaml — identical to the FIRMS path"
+    }
+  },
+  "counts": {
+    "naive_into_FA_safe": 42,
+    "no_safe_route": 2,
+    "both_safe": 414,
+    "both_enter": 0,
+    "naive_unreachable": 0,
+    "fa_exceeds_budget": 0,
+    "unclassified": 0
+  },
+  "field_applicability": {
+    "verdict": "IN_SCOPE",
+    "hotspot_to_field_core_km": 13.403,
+    "hotspot_to_manifest_ignition_km": 28.631,
+    "radius_km": 15.0,
+    "anchor": "field t=0 core centroid (p >= 0.5)",
+    "field_core_lonlat": [
+      129.22241635417447,
+      36.46629146493234
+    ],
+    "manifest_ignition_lonlat": [
+      129.05,
+      36.43
+    ],
+    "statement_ko": "트리거 화점은 사전 계산 위험면의 초기 화재 핵심에서 13.4 km 떨어져 있습니다(기준 15 km 이내).",
+    "note": "A LABEL, never a filter. Nothing is dropped on account of it: suppressing a real detection is worse than publishing a stamped one."
+  },
+  "timings_s": {
+    "load_hazard_s": 0.001,
+    "load_network_s": 2.655,
+    "load_pois_s": 0.06,
+    "route_s": 25.807,
+    "cluster_s": 0.106,
+    "render_s": 0.067,
+    "pdf_s": 79.048,
+    "deliver_s": 79.116,
+    "warm_total_s": 25.981,
+    "cold_total_s": 28.697,
+    "warm_total_with_pdf_s": 105.029,
+    "definition": {
+      "warm_total_s": "trigger -> the dispatch list exists in every text format (HTML sheet, broadcast script, SMS drafts). Hazard field and walk graph already resident, as in a running service. THE NUMBER TO QUOTE.",
+      "cold_total_s": "process start -> the dispatch list, including loading the field, the graph and the POIs.",
+      "pdf_s": "headless-Chrome A4 conversion, EXCLUDED from the totals: it runs after the list already exists and costs ~2.7 s per sheet, so it scales with the number of villages rather than with the decision.",
+      "warm_total_with_pdf_s": "warm_total_s + pdf_s, for when the printed sheets are what is being waited on."
+    }
+  },
+  "outputs": {
+    "directory": "outputs/live/manual/yeongdeok_2025/20260803T051238Z",
+    "n_villages": 29,
+    "n_points": 44,
+    "n_dispatch": 42,
+    "n_unreachable": 2,
+    "formats": [
+      "A4 sheet (HTML/PDF)",
+      "마을방송 script (txt)",
+      "SMS drafts (json/txt)"
+    ],
+    "all_three_formats_per_village": true,
+    "sms_demo_mode": true,
+    "sms_credentials_present": false
+  },
+  "nothing_was_sent": true,
+  "nothing_was_sent_scope": "the automatic pipeline; see docs/delivery_channels.md",
+  "notes": [
+    "MANUAL TRIGGER. The ignition point was reported, not detected. The trigger time is when the coordinate was entered, not a satellite overpass.",
+    "The hazard surface is the SAME pre-computed field the FIRMS path uses and was not re-simulated: ERA5 publishes on a ~5-day lag."
+  ],
+  "manual_trigger": {
+    "kind": "manual",
+    "reported_by": "119 신고",
+    "entered_utc": "2026-08-03T05:12:36Z",
+    "entered_utc_meaning": "when the coordinate was entered by an operator; NOT a satellite overpass time",
+    "input_lat": 36.4436,
+    "input_lon": 129.3696,
+    "region_bbox_wsen": [
+      129.25,
+      36.3,
+      129.55,
+      36.6
+    ],
+    "inside_registered_region": true,
+    "hazard_field": "data/processed/routing_demo_canonical.npz",
+    "hazard_field_sha256": "81b4e4d159daa7a8ccc7c4fedf3fea948d501fff2d7e886c1fd55bbf47043fb7",
+    "hazard_weather_basis": "2025-03-25 12:25 UTC",
+    "hazard_weather_basis_utc": "2025-03-25T12:25:00Z",
+    "no_geocoding": "latitude/longitude only; address and 지번 lookup are out of scope for this phase",
+    "input_to_dispatch_list_s": 28.715,
+    "input_to_dispatch_list_excludes_pdf_s": 79.048,
+    "input_to_dispatch_list_note": "wall clock from the coordinate being in hand to the dispatch list existing in every text format. Includes loading the field, the graph and the POIs, which a running service does once at start-up; the warm figure is in timings_s. EXCLUDES A4 PDF conversion, which runs after the list already exists."
+  }
+}

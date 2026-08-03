@@ -28,6 +28,8 @@ UA = REPO / "data" / "processed" / "real_roads_real_hazard_uiseong_andong_2025.j
 
 #: Every built screen. Both regions are checked by the same properties — a
 #: guard that only holds for the region it was written against is not a guard.
+#: The per-region directories hold the FIRMS/replay screens; the manual-trigger
+#: screen is a sibling file and is covered by tests/test_manual_trigger.py.
 ALL = sorted(SCREENS.glob("*/operator_screen.html")) if SCREENS.exists() else []
 
 pytestmark = pytest.mark.skipif(
@@ -347,7 +349,10 @@ def test_triggers_are_overpass_moments_not_first_hotspot_times(screen):
 
 
 def test_the_two_regions_trigger_at_the_known_moments():
+    """These are the REPLAY screens; a manual screen triggers at t=0 by
+    construction and is checked in tests/test_manual_trigger.py."""
     by = by_region()
+    assert {d["trigger_source"] for d in by.values()} == {"replay"}
     assert by["uiseong_andong_2025"]["triggers"] == [77.0, 463.0]
     assert by["yeongdeok_2025"]["triggers"] == [0.0, 333.0]
 
