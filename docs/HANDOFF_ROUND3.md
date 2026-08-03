@@ -1,12 +1,12 @@
 # Round-3 handoff
 
 **Read this file alone and you can continue.** Written 2026-08-02, updated
-2026-08-03 (PHASE 6, 7, 8, 12).
+2026-08-03 (PHASE 6, 7, 8, 12). §1 is the full Round-3 summary.
 
 | | |
 |---|---|
 | branch | **`round3-dev`** (tracks `origin/round3-dev`) |
-| HEAD | `6f94e39` + this commit |
+| HEAD | `f666c76` + this commit |
 | baseline tag | **`round2-submitted`** = `4e9dfe3` — the submitted state |
 | environment | conda env **`wfg311`**, Python 3.11.15 — see [`ENVIRONMENT.md`](ENVIRONMENT.md) |
 | suite | **722 passed, 2 skipped, 0 failed** (was 544; PHASE 6 +44, PHASE 7 +47, PHASE 8 +66, PHASE 12 +21) |
@@ -19,27 +19,148 @@ unstaged**; every commit here used `git add -A -- . ':!docs/figures/*.png'`.
 
 ---
 
-## 1. What is done
+## 1. Round 3 in full — read this section and you know where things stand
 
-| PHASE | State | Commit |
-|---|---|---|
-| 0 — freeze | done — tag `round2-submitted`, branch `round3-dev` | — |
-| 1 — reproducibility infrastructure | done | `a465128`, `9de5eae` |
-| 2 — DEM slope on OSM edges | done | `b7fc593` |
-| 2-C-1 — time-minimising objective | done | `938cd6d` |
-| 2-C-2 — w(t) budget sweep | done | `cbc9b45`, `322bfb8` |
-| 2-C-3 — hazard time resolution | **NOT started**, deprioritised | — |
-| 3 — operational outputs | done | `8e6b60e` |
-| 3-B — full-coverage re-run | done | `6612271` |
-| sparsity analysis | done | `bc3dfdd` |
-| 4 — live-operation feasibility | **NOT started** | — |
-| 5 — multi-region | STEP 0–4 done | `466884f`, `5fe86db`, `a0eaf07`, `cc41f12`, `79138d0`, `a32da6b` |
-| **canonical-hazard reconstruction** | **done — steps 1–4. See §2-A.** | `141b035`, `9ba83b4`, `6df4fcf`, `05fbfca`, `ed5e6b0`, `815dc02`, `a9b79cb`, `c8851d8`, `75f347a` |
-| **6 — live detection pipeline** | **done.** FIRMS NRT + replay mode. See §9 and [`live_pipeline.md`](live_pipeline.md). | `5a7cfc5` |
-| **7 — email delivery channel** | **done, with one caveat.** Approval-gated Gmail SMTP. The verification send did **not** complete: outbound SMTP is blocked on this network. See §10 and [`delivery_channels.md`](delivery_channels.md). | `353a3fe` |
-| **8 — operator screen** | **done, TWO regions.** 의성·안동 (시연용) and 영덕 (한계 설명용). See §11 and [`operator_screen.md`](operator_screen.md). | `1e8e828`, `ac96a75`, `6f94e39` |
-| **12 — manual ignition trigger** | **done.** A reported coordinate routes at once; the FIRMS path is untouched. See §12 and [`manual_trigger.md`](manual_trigger.md). | this commit |
+Round 3 started from `round2-submitted` (`4e9dfe3`). Twelve phases later the
+project has three things it did not have: **an evidence layer** that can answer
+"is this number still true?", **a corrected hazard field** that moved the
+headline routing result, and **a working operational path** from a fire being
+reported to a dispatch list in about thirty seconds.
 
+### 1.1 The three things that actually changed
+
+**① Every number is now checkable.** `docs/NUMBERS.json` holds all 103
+reportable values with their derivation, caveat and forbidden phrasings;
+`make verify` re-derives each from its artifact and scans the prose for retired
+figures. 87 of 103 are reproducible from current inputs — the other 16 are
+*verified but not reproducible*, because the OSM graph behind them was
+overwritten on 2026-07-24 and is unrecoverable. That distinction is the point:
+"not reproducible" is not "wrong", and before Round 3 there was no way to say
+which was which.
+
+**② The hazard field was wrong, and fixing it moved the headline.** Two
+independent defects, found in that order:
+
+* `uljin_samcheok_2022_dem.tif` **filled the East Sea with a ramp to −497 m**
+  across 49 % of the raster — and because the model trains leave-one-fire-out on
+  one shared dataset, that fiction was training data for *every* fold.
+* `data/processed/routing_demo.npz` turned out to be the surviving output of a
+  run that was **reverted the next day**. Everything downstream of it had been
+  measured on a field nobody had chosen.
+
+Rebuilt on a canonical field, Yeongdeok's 459-series counts moved
+**440 / 17 / 3 → 414 / 42 / 2**, the future-aware-only share **3.70 % → 9.17 %**,
+and core growth **+1.2 % → +316.1 %** — the "quasi-static core" limitation was a
+property of the reverted field, not of the fire. **The headline AUC 0.890 is
+unaffected** (§2-A).
+
+**③ It runs.** A detection — satellite *or* phoned in — triggers routing on the
+pre-computed surface and produces the three delivery formats unattended, with a
+single-file offline screen for the demonstration.
+
+### 1.2 Phase by phase
+
+| PHASE | State | What it produced | Commit |
+|---|---|---|---|
+| 0 — freeze | done | tag `round2-submitted`, branch `round3-dev` | — |
+| **1 — reproducibility infrastructure** | done | `NUMBERS.json` registry, snapshot store, `config/default.yaml`, `make verify / check-forbidden / snapshot-verify / env-check` | `a465128`, `9de5eae` |
+| **2 — DEM slope on OSM edges** | done | 60 m canonical sampling; **+26.6 %** traversal time, mean \|slope\| **8.18 %**, directional asymmetry **20.0 %** — and a **null result** on the bucket counts | `b7fc593` |
+| **2-C-1 — time-minimising objective** | done | **150 of 458 routes change (32.8 %)**; longest walk 444 → 353 min (**−91.3 min**); flat control changes 0 | `938cd6d` |
+| **2-C-2 — w(t) budget sweep** | done | w = 56.55 / 40.17 / 28.38 / 22.27 / **9.61 %**; ratio **5.89×**; sixth bucket `fa_exceeds_budget` added, strictly additive | `cbc9b45`, `322bfb8` |
+| 2-C-3 — hazard time resolution | **NOT started** | deprioritised: the budget was the binding constraint | — |
+| **3 — operational outputs** | done | three formats — SMS draft, A4 sheet for the 이장, 마을방송 script. `outputs/dispatch/` (44 points) | `8e6b60e` |
+| **3-B — full-coverage re-run** | done | `outputs/dispatch_full/` (174 points, 3 eps); reproduces drift arm B exactly **441 / 174 / 32** | `6612271` |
+| sparsity analysis | done | rescue-needing origins are **2.13× more dispersed**; singleton fraction never below **49.2 %** | `bc3dfdd` |
+| 4 — live-operation feasibility | **superseded** | PHASE 6 built the thing this was to investigate | — |
+| **5 — multi-region** | STEP 0–4 done | three regions acquired, snapshotted, simulated and routed under one identical rule | `466884f` … `a32da6b` |
+| **canonical-hazard reconstruction** | done, steps 1–4 | the corrected field and everything re-run on it. **§2-A** | `141b035` … `75f347a` |
+| **6 — live detection pipeline** | done | FIRMS NRT polling + offline replay → routing → three formats. §9, [`live_pipeline.md`](live_pipeline.md) | `5a7cfc5` |
+| **7 — email delivery channel** | done, one caveat | approval-gated Gmail SMTP. **The verification send did not complete — outbound SMTP is blocked on this network.** §10, [`delivery_channels.md`](delivery_channels.md) | `353a3fe` |
+| **8 — operator screen** | done, two regions | single-file offline screens: 의성·안동 (시연용) and 영덕 (한계 설명용). §11, [`operator_screen.md`](operator_screen.md) | `1e8e828`, `ac96a75`, `6f94e39` |
+| **12 — manual ignition trigger** | done | a reported coordinate routes at once; the FIRMS path is untouched. §12, [`manual_trigger.md`](manual_trigger.md) | `f666c76` |
+
+PHASES 9–11 were not defined; the numbering jumps to 12 as the brief did.
+
+### 1.3 The numbers that are new in Round 3
+
+Nothing here existed at `round2-submitted`. **Every absolute Yeongdeok figure
+carries the 32.6 % coverage caveat** (§2-A); the paired contrasts do not need it.
+
+**The canonical Yeongdeok field** — `routing_demo_canonical.npz`, sha256
+`81b4e4d1…`, 181 × 156 @ 500 m, five slices at 0–720 min:
+
+| | |
+|---|---|
+| core at p ≥ 0.5 | 249 → **1,036 cells** (6,225 → **25,900 ha**) |
+| core growth | **+316.1 %** |
+| 459-series scan | **458 origins → 414 / 42 / 2** |
+| future-aware-only share | **9.17 %** |
+| future-aware rescue rate | **95.5 %** of the origins whose fire-blind route is unsafe |
+
+**The three-region table** — identical parameters everywhere (slope 60 m,
+distance objective, 600-min budget, stride 18, `osmnx` 2.0.7):
+
+| region | origins | both_safe | FA-only | no_safe | over budget | FA-only % | coverage | envelope | core growth | depots |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 영덕 2025 | 458 | 414 | 42 | 2 | 0 | **9.17 %** | **32.6 %** | 25,900 ha | +316.1 % | 4 |
+| 의성·안동 2025 | 368 | 263 | **91** | 12 | 2 | **24.73 %** | **99.2 %** | 3,275 ha | +147.2 % | **0** |
+| 울진·삼척 2022 | 393 | 377 | 3 | 10 | 3 | **0.76 %** | 81.5 % | 7,300 ha | +183.5 % | 4 |
+
+Envelope-area spread **7.91×**. ⚠ Never rank the regions on the FA-only column
+(rule 14) — n = 3 and three covariates move together. What **is** established:
+on a field that actually advances, the same method and parameters give a
+future-aware-only share nearly **seven times** Yeongdeok's, so the quasi-static
+limitation was real and understated the benefit. What is **not**: that the
+benefit rises with fire speed — 울진·삼척 advances fastest and benefits least.
+
+**Measured operational timings** — all on the reference machine, A4 PDF
+conversion excluded throughout (it runs after the list exists and scales with
+village count, ~2.7 s per sheet):
+
+| | |
+|---|---|
+| routing, 458 origins | **≈ 25 s** (24.9 – 29.0 across runs) |
+| render three formats × 29 villages | **≈ 0.06 s** |
+| FIRMS trigger → dispatch list (warm) | **≈ 25 s** |
+| **manual coordinate → dispatch list** | **≈ 30 s cold** (29.6 s median of 5), 26.8 s warm |
+| A4 PDF, 29 sheets | +79 s · 65 villages +175 s |
+| operator screen, full replay at 60× | 12.4 min (12.0 with `--skip-preroll`) |
+
+**What was refuted or corrected**, and is not to be restated:
+
+* the "sea cells inflate the AUC" hypothesis — **refuted**: only 99 of 151,904
+  rows have elevation < 0, and removing them *raises* the AUC;
+* "fire-blind risk is flat across regions" — an artifact of the defective DEM;
+  it reads 9.61 / 27.99 / 3.31 %;
+* Yeongdeok coverage **50.4 % → 32.6 %** — the bbox did not move, the core
+  quadrupled;
+* the 27,900 ha vs 6,225 ha conflict — **dissolved**; `routing_demo.npz` was the
+  outlier.
+
+### 1.4 What a next session should know before touching anything
+
+1. **Read §2-A before quoting any Yeongdeok number.** Two artifacts look
+   interchangeable and are not: `routing_demo.npz` is a reverted run's output,
+   `routing_demo_canonical.npz` is the canonical lineage.
+2. **The coverage decision is closed** (§2-A, confirmed 2026-08-03). 32.6 % is
+   reported as a stated limit; Yeongdeok is not re-acquired.
+3. **The safety claim changed at PHASE 7.** "Nothing is ever sent" is no longer
+   true — the email channel can transmit, behind an approval gate. Use the
+   wording in §10.
+4. **Run `make all-checks` first.** 103/103 registry entries, 722 tests,
+   snapshots intact, environment pinned.
+5. **§5 is the list of things that must never be done.** It is 21 items long
+   because each one was learned from something that went wrong.
+
+### 1.5 Still open
+
+| item | why |
+|---|---|
+| `spread_v2_lofo.json` trained on the defective Uljin-Samcheok DEM | **the next decision.** Every fold saw the sea-fill. Nothing has been re-run: those are committed Round-2 artifacts the submission cites. Effect unmeasured, could go either way. §4 |
+| Which field to PUBLISH | both are in the tree with their provenance; the documents lead with the canonical one. **The submission materials have not been touched** — the choice is the user's. |
+| PHASE 7's verification send | blocked by this network, not by the credential. Run it from a network that permits outbound SMTP. |
+| Shelter-density experiment | requested 2026-08-02 as a way around n = 3; sequenced, not started. |
+| PHASE 2-C-3 — hazard time resolution | deprioritised. |
 ---
 
 ## 2. Outputs and headline numbers
@@ -210,15 +331,20 @@ Four things that did **not** carry over from Yeongdeok:
    close to Yeongdeok. Slope now moves origins into `no_safe_route`, not only
    into `fa_exceeds_budget`.
 3. **The core-growth hypothesis orders no better than chance at n = 3.**
-   Growth +1.2 / +147.2 / +183.5 % against FA-only 3.70 / 24.73 / 0.76 %
-   (ρ = −0.5). Two regions support it strongly, one contradicts it strongly.
-   What IS established: on a field that actually advances, the same method and
-   parameters give a future-aware-only share nearly **seven times** Yeongdeok's,
-   so the "quasi-static core" limitation was real and understated the benefit.
-   What is NOT established: that the benefit rises with fire speed —
+   On the canonical lineage: growth **+316.1** / +147.2 / +183.5 % against
+   FA-only **9.17** / 24.73 / 0.76 %. Two regions support it, one contradicts it
+   strongly. What IS established: on a field that actually advances, the same
+   method and parameters give a future-aware-only share nearly **seven times**
+   Yeongdeok's, so the "quasi-static core" limitation was real and understated
+   the benefit. What is NOT established: that the benefit rises with fire speed —
    Uljin-Samcheok advances fastest and benefits least.
    ⚠ The earlier reading (ρ = −1, "fire-blind risk is flat at 4.35/3.53/3.31 %")
-   was an artifact of the defective DEM. It now reads 4.35 / **27.99** / 3.31 %.
+   was an artifact of the defective DEM. On the canonical lineage it reads
+   **9.61 / 27.99 / 3.31 %** — Yeongdeok's w(600) rose 4.35 → 9.61 with the
+   field switch (§2-A step 3), and Uiseong-Andong's 3.53 → 27.99 with the DEM
+   fix. *(Corrected 2026-08-03: this line previously carried Yeongdeok's
+   reverted-field 4.35 beside two canonical values, contradicting §4. The growth
+   and FA-only figures above were the reverted run's, too.)*
 4. **The Uljin-Samcheok DEM was filling the East Sea with a ramp to −497 m**,
    and that region is in the shared leave-one-out training set for every other
    fire — which is why fixing it moved *Uiseong-Andong* sevenfold.
@@ -395,7 +521,7 @@ fire_station이 없으며, 더 넓은 3,926 km² 범위에는 6곳이 있습니�
 | ~~Promote the hypothesis-refutation decomposition~~ | **Withdrawn.** The "fire-blind risk is near-constant" finding was an artifact of the pre-fix fields; it now reads 9.61 / 27.99 / 3.31 %. §2-A. |
 | Which field to PUBLISH | Both `routing_demo.npz` (reverted run) and `routing_demo_canonical.npz` are in the tree with their provenance. The documents lead with the canonical one; **the submission materials have not been touched** and the choice of what to publish is the user's. |
 | Shelter-density experiment (within-region refuge decimation) | Requested 2026-08-02 as a way around n = 3: hold terrain and road network fixed, remove refuges at 100/75/50/25 % with repeats, and measure FA-only and `no_safe_route`. Sequenced after the DEM fix; the user will confirm before it starts. |
-| PHASE 4 — live-operation feasibility | Never started. Investigation only, no code. |
+| ~~PHASE 4 — live-operation feasibility~~ | **SUPERSEDED 2026-08-03.** It was scoped as investigation-only; PHASE 6 built the thing instead, and PHASE 12 added a second trigger into it. Nothing is outstanding. |
 | PHASE 2-C-3 — hazard time resolution | Deprioritised: `no_safe_route` already moved 3→18 once the budget bound, so the budget was the main blocker. |
 | `routing_demo.npz` not reproducible | Cause fully identified and **recoverable** — pin the grid to `bbox.fire_acquisition`. Not done: it would change results. |
 | 407-run directionality | Uses `abs(dz)` (conservative). Documented, not changed. |
@@ -570,7 +696,7 @@ Override the interpreter with `make verify PYTHON=/path/to/python`.
 | [`DATA_LOSS_2026-07-24.md`](DATA_LOSS_2026-07-24.md) | why the 459 numbers cannot be reproduced |
 | [`grid_extent.md`](grid_extent.md) | why the npz hash cannot be reproduced |
 | [`network_drift.md`](network_drift.md) | how sensitive each quantity is to the road network |
-| [`walk_bbox_coverage.md`](walk_bbox_coverage.md) | the 50.4 % coverage finding |
+| [`walk_bbox_coverage.md`](walk_bbox_coverage.md) | the coverage finding — **32.6 %** on the canonical field; the superseded 50.4 % is retained there as a labelled record |
 | [`multi_region.md`](multi_region.md) | **the three-region comparison, its covariates and the rules for quoting it** |
 | [`routing_demo_divergence.json`](../data/processed/routing_demo_divergence.json) | **why `routing_demo.npz` is the orphan of a reverted run** — archaeology, boundary forensics, parameter sweep |
 | [`dem_defect_2026-08-02.md`](dem_defect_2026-08-02.md) | the Uljin-Samcheok sea-fill and what it contaminated |
@@ -580,6 +706,9 @@ Override the interpreter with `make verify PYTHON=/path/to/python`.
 | [`slope_integration.md`](slope_integration.md) | slope method, the null result, the 407 convention |
 | [`ENVIRONMENT.md`](ENVIRONMENT.md) | how to rebuild `wfg311` and why 3.11 |
 | [`live_pipeline.md`](live_pipeline.md) | **PHASE 6 — the live detection pipeline, replay mode, and the measured timings** |
+| [`delivery_channels.md`](delivery_channels.md) | **PHASE 7 — SMS vs email, the approval gate, and the changed safety claim** |
+| [`operator_screen.md`](operator_screen.md) | **PHASE 8 — the two demonstration screens and what each is for** |
+| [`manual_trigger.md`](manual_trigger.md) | **PHASE 12 — the manual ignition trigger and its measured latency** |
 
 ---
 
