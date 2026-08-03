@@ -150,10 +150,10 @@ def run_trigger(res: pipeline.Resources, scope: Scope, trigger: firms.Hotspot,
         print(f"  ⚠ {applicability['statement_ko']}")
 
     print("  [1/2] 라우팅 (정본 위험면) ...", flush=True)
-    counts, points, route_s = pipeline.route_region(
+    counts, points, geo, routes, route_s = pipeline.route_region(
         res, p_cut=args.p_cut, budget_min=args.time_budget_min,
         step_min=args.time_step_min, stride=args.stride,
-        limit_origins=args.limit_origins)
+        limit_origins=args.limit_origins, collect_routes=args.collect_routes)
     n_scanned = sum(counts.values())
     print(f"        N={n_scanned}  both_safe={counts['both_safe']}  "
           f"FA_only={counts['naive_into_FA_safe']}  "
@@ -175,6 +175,13 @@ def run_trigger(res: pipeline.Resources, scope: Scope, trigger: firms.Hotspot,
                      load_pois_s=res.timings.load_pois_s,
                      route_s=route_s, cluster_s=cluster_s, render_s=render_s,
                      pdf_s=pdf_s)
+    viz = pipeline.write_viz(
+        out_dir, res, points=points, geo=geo, routes=routes, counts=counts,
+        scope=scope, trigger=trigger, hotspots=new,
+        applicability=applicability)
+    print(f"        시각화 자료 {viz.name} (출발지 {len(geo)} · 조치 필요 "
+          f"{len(points)} · 경로 {len(routes)}쌍)")
+
     rec = pipeline.build_run_record(
         run_id=run_id, started=started, scope=scope, res=res, trigger=trigger,
         new_hotspots=new, poll_meta=poll_meta, counts=counts,
@@ -240,6 +247,11 @@ def main() -> int:
                     help="write the A4 sheet as HTML only (skip headless Chrome)")
     ap.add_argument("--limit-origins", type=int, default=0,
                     help="SMOKE TEST ONLY: truncate the origin list")
+    ap.add_argument("--collect-routes", type=int, default=12,
+                    help="retain both route polylines for up to N "
+                         "future-aware-only origins, into viz.json for the "
+                         "operator screen. Recomputes nothing — the routes are "
+                         "already solved and otherwise discarded. 0 disables.")
     ap.add_argument("--out-root", default=None)
     ap.add_argument("--state-file", default=None)
     ap.add_argument("--reset-state", action="store_true",

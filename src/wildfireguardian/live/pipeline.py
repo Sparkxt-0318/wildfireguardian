@@ -324,13 +324,31 @@ def _time_to_cutoff(hazard: HazardSequence, x: float, y: float, p_cut: float) ->
 
 
 def route_region(res: Resources, *, p_cut: float, budget_min: float,
-                 step_min: float, stride: int,
-                 limit_origins: int = 0) -> tuple[dict, list[dict], float]:
-    """Run the 459-series scan and return (counts, actionable points, seconds).
+                 step_min: float, stride: int, limit_origins: int = 0,
+                 collect_routes: int = 0
+                 ) -> tuple[dict, list[dict], list[dict], list[dict], float]:
+    """Run the 459-series scan.
+
+    Returns ``(counts, actionable points, every origin's geometry, route
+    geometry, seconds)``.
+
+    The geometry list carries ALL scanned origins including ``both_safe``,
+    because the operator screen colours the three outcomes against each other
+    and a map showing only the 44 that need something would misrepresent the
+    result as 44-of-44 rather than 44-of-458. It never reaches an operational
+    artifact — see :func:`write_viz`.
 
     Unlike the batch runners this also carries each actionable origin's
     coordinates and window out, because the delivery layer needs a place, not a
     node id.
+
+    ``collect_routes`` retains the polyline of BOTH routes for up to that many
+    ``naive_into_FA_safe`` origins — the bucket where the two actually differ.
+    Nothing extra is computed for it: both routes are already solved for every
+    origin and are otherwise discarded. It exists so the PHASE-8 operator
+    screen can draw a real route rather than an illustration, and it is written
+    to a SEPARATE visualisation artifact: the operational sheets stay
+    coordinate-free by requirement.
     """
     t0 = time.monotonic()
     cand, _ign = candidate_origins(res.net, res.hazard, res.haz, res.extent,
@@ -342,6 +360,8 @@ def route_region(res: Resources, *, p_cut: float, budget_min: float,
                              "both_enter", "naive_unreachable",
                              "fa_exceeds_budget", "unclassified")}
     points: list[dict] = []
+    geo: list[dict] = []
+    routes: list[dict] = []
     for n in cand:
         nv = naive_route(res.net, n, res.hazard, departure_min=0.0, p_cut=p_cut)
         fa = future_aware_route(res.net, n, res.hazard, departure_min=0.0,
@@ -362,9 +382,25 @@ def route_region(res: Resources, *, p_cut: float, budget_min: float,
         else:
             bucket = "unclassified"
         counts[bucket] += 1
+        if (bucket == "naive_into_FA_safe" and collect_routes
+                and len(routes) < collect_routes):
+            routes.append({
+                "origin_node": int(n),
+                "naive_xy": [[round(v, 1) for v in res.net.node_xy(m)]
+                             for m in nv.route],
+                "fa_xy": [[round(v, 1) for v in res.net.node_xy(m)]
+                          for m in fa.route],
+                "naive_enters_hazard": bool(nv.enters_hazard),
+                "fa_enters_hazard": bool(fa.enters_hazard),
+                "naive_time_min": round(nv.total_time_min, 1),
+                "fa_time_min": round(fa.total_time_min, 1),
+                "naive_distance_m": round(nv.total_distance_m, 1),
+                "fa_distance_m": round(fa.total_distance_m, 1),
+            })
+        x, y = res.net.node_xy(n)
+        geo.append({"x": round(x, 1), "y": round(y, 1), "bucket": bucket})
         if bucket not in ACTIONABLE:
             continue
-        x, y = res.net.node_xy(n)
         tc = _time_to_cutoff(res.hazard, x, y, p_cut)
         unreachable, text = BUCKET_TEXT[bucket]
         pt = {
@@ -380,7 +416,8 @@ def route_region(res: Resources, *, p_cut: float, budget_min: float,
         points.append(pt)
 
     assert sum(counts.values()) == len(cand), "classification must partition"
-    return counts, points, time.monotonic() - t0
+    assert len(geo) == len(cand), "every scanned origin must have geometry"
+    return counts, points, geo, routes, time.monotonic() - t0
 
 
 # ---------------------------------------------------------------------------
@@ -573,6 +610,67 @@ def deliver(points: list[dict], res: Resources, out_dir: Path, *,
 # ---------------------------------------------------------------------------
 # Field applicability
 # ---------------------------------------------------------------------------
+
+
+def write_viz(out_dir: Path, res: Resources, *, points: list[dict],
+              geo: list[dict], routes: list[dict], counts: dict, scope: Scope,
+              trigger: Hotspot, hotspots: list[Hotspot],
+              applicability: dict) -> Path:
+    """Write ``viz.json`` — geometry for the PHASE-8 operator screen.
+
+    ⚠ SEPARATE FROM THE OPERATIONAL ARTIFACTS, ON PURPOSE. Every sheet, script
+    and SMS draft this project produces is COORDINATE-FREE by requirement: a
+    이장 navigates by place name, and a coordinate on a dispatch sheet is
+    unusable at best. A map, however, is nothing but coordinates. Keeping the
+    two in different files is what lets both rules hold at once, so do not
+    merge this into MANIFEST.json.
+
+    Nothing here is recomputed. Every value is carried out of the run that just
+    happened, and the counts are the same object the sheets were built from.
+    """
+    xmin, ymin, xmax, ymax, cell = res.extent
+    doc = {
+        "schema_version": 1,
+        "purpose": "geometry for the operator screen. NOT an operational "
+                   "artifact: the sheets, scripts and drafts are "
+                   "coordinate-free by requirement and stay that way.",
+        "region": res.region,
+        "scope": scope.as_dict(),
+        "field_applicability": applicability,
+        "hazard": {
+            "npz_path": str(res.npz_path.relative_to(REPO)),
+            "npz_sha256": res.npz_sha256,
+            "grid_extent_5179": [xmin, ymin, xmax, ymax],
+            "cell_size_m": cell,
+            "nrows": int(res.haz.shape[1]), "ncols": int(res.haz.shape[2]),
+            "times_min": [float(t) for t in res.hazard.times_min],
+            "cells_ge_0.5_per_slice": [int((res.haz[i] >= 0.5).sum())
+                                       for i in range(res.haz.shape[0])],
+        },
+        "counts": counts,
+        "field_core_lonlat": list(res.field_core_lonlat),
+        "refuges": [{"name": d["name"], "x": round(d["x"], 1),
+                     "y": round(d["y"], 1)} for d in res.destinations],
+        "origins": geo,
+        "origins_note": (
+            f"ALL {len(geo)} scanned origins, so the three outcomes can be "
+            "coloured against each other. Plotting only the 44 that need "
+            "something would read as 44-of-44 rather than 44-of-458."),
+        "actionable": [{"x": round(p["x"], 1), "y": round(p["y"], 1),
+                        "label": p.get("label"), "bucket": p["bucket"],
+                        "unreachable": p["unreachable"],
+                        "closing_window_min": p["closing_window_min"],
+                        "walk_time_min": p.get("walk_time_min")}
+                       for p in points],
+        "routes": routes,
+        "trigger_hotspot": trigger.as_dict(),
+        "hotspots": [h.as_dict() for h in hotspots],
+    }
+    out_dir.mkdir(parents=True, exist_ok=True)
+    p = out_dir / "viz.json"
+    p.write_text(json.dumps(doc, indent=1, ensure_ascii=False) + "\n",
+                 encoding="utf-8")
+    return p
 
 
 def assess_applicability(trigger: Hotspot, res: Resources, radius_km: float) -> dict:

@@ -1,15 +1,15 @@
 # Round-3 handoff
 
 **Read this file alone and you can continue.** Written 2026-08-02, updated
-2026-08-03 (PHASE 6, PHASE 7).
+2026-08-03 (PHASE 6, 7, 8).
 
 | | |
 |---|---|
 | branch | **`round3-dev`** (tracks `origin/round3-dev`) |
-| HEAD | `5a7cfc5` + this commit |
+| HEAD | `353a3fe` + this commit |
 | baseline tag | **`round2-submitted`** = `4e9dfe3` — the submitted state |
 | environment | conda env **`wfg311`**, Python 3.11.15 — see [`ENVIRONMENT.md`](ENVIRONMENT.md) |
-| suite | **635 passed, 2 skipped, 0 failed** (was 544; PHASE 6 added 44, PHASE 7 added 47) |
+| suite | **661 passed, 2 skipped, 0 failed** (was 544; PHASE 6 +44, PHASE 7 +47, PHASE 8 +26) |
 | registry | [`NUMBERS.json`](NUMBERS.json) — 103 entries, 87 reproducible |
 | OSM regions | 3 acquired + snapshotted (`MANIFEST.json`, 68 entries — 64 + 4 FIRMS NRT polls) |
 | config hash | `05c6feae1dff…` — moved from `faf90a81b7e6…` by PURE ADDITION (the PHASE-6 `live:` block; no existing value changed, and re-running `build_numbers.py` moved **only** the per-entry `config_hash` stamp, 0 values). Earlier lineage: `0b6eb481177a…` → `51ec446843b6…` at `cc41f12`. `NUMBERS.json.config_hash_note` records why this is expected. |
@@ -36,7 +36,8 @@ unstaged**; every commit here used `git add -A -- . ':!docs/figures/*.png'`.
 | 5 — multi-region | STEP 0–4 done | `466884f`, `5fe86db`, `a0eaf07`, `cc41f12`, `79138d0`, `a32da6b` |
 | **canonical-hazard reconstruction** | **done — steps 1–4. See §2-A.** | `141b035`, `9ba83b4`, `6df4fcf`, `05fbfca`, `ed5e6b0`, `815dc02`, `a9b79cb`, `c8851d8`, `75f347a` |
 | **6 — live detection pipeline** | **done.** FIRMS NRT + replay mode. See §9 and [`live_pipeline.md`](live_pipeline.md). | `5a7cfc5` |
-| **7 — email delivery channel** | **done, with one caveat.** Approval-gated Gmail SMTP. The verification send did **not** complete: outbound SMTP is blocked on this network. See §10 and [`delivery_channels.md`](delivery_channels.md). | this commit |
+| **7 — email delivery channel** | **done, with one caveat.** Approval-gated Gmail SMTP. The verification send did **not** complete: outbound SMTP is blocked on this network. See §10 and [`delivery_channels.md`](delivery_channels.md). | `353a3fe` |
+| **8 — operator screen** | **done.** Single-file offline replay screen for the demonstration. See §11 and [`operator_screen.md`](operator_screen.md). | this commit |
 
 ---
 
@@ -816,3 +817,61 @@ password — separate work, not part of this phase.
 4. **Never delete `sms.py`** — two channels coexist.
 5. **Never modify the A4 or 마을방송 layers from the email path.** The fixed
    cautions are *imported* from `printable.FOOTER_LINES` so they cannot drift.
+
+---
+
+## 11. PHASE 8 — the operator screen (DONE 2026-08-03)
+
+Full write-up: [`operator_screen.md`](operator_screen.md).
+
+`scripts/build_operator_screen.py` → `demo/operator_screen.html` ·
+`tests/test_operator_screen.py` (26 tests)
+
+One self-contained HTML file, opened from `file://`, replaying a PHASE-6 run in
+the order a judge follows it: **탐지 → 위험면 → 경로 → 출동 목록**.
+
+| | |
+|---|---|
+| size | ~125 KB, one file |
+| network requests | **1** — the file itself |
+| console errors | 0 |
+| viewport | 1920×1080, **no scroll** (`scrollHeight` 1080 = `innerHeight`) |
+| full replay at 60× | **12 minutes** (720-minute horizon) |
+| dispatch rows | 44, all visible — 880 px of table in a 954 px pane |
+
+### It draws, it does not fetch
+
+No tiles, no basemap, no CDN, no storage API. Coordinates are projected at
+**build** time with the same `pyproj` transformer the routing used, and written
+in as SVG. The hazard surface is quantised into four bands and run-length
+encoded — the field is sparse (249 cells ≥ 0.10 at t=0), so all five slices cost
+~40 KB rather than a raster.
+
+The map shows all **458** origins in three colours, both **real** route
+polylines for a `naive_into_FA_safe` origin, and the **walk-network bbox** as a
+dashed outline — the fire runs 45 km west and the network stops at the box, so
+32.6 % coverage becomes something a judge can see rather than a footer figure to
+be taken on trust.
+
+### ⚠ Rules
+
+1. **Never add a fetch, a tile layer, a CDN or a storage call.** Enforced: each
+   forbidden API is asserted absent from executable source individually.
+2. **Never let the screen show a figure the committed run does not.** A test
+   compares its counts against `real_roads_real_hazard_canonical.json`
+   (458 / 414 / 42 / 2).
+3. **The string "FIRMS NRT" must stay** — it names the detection source on the
+   status bar. What is banned is a polling *mechanism*, not the word.
+4. **`viz.json` is a VISUALISATION artifact and stays separate from the
+   operational ones.** Sheets, scripts and drafts are coordinate-free by
+   requirement; a map is nothing but coordinates. Do not merge it into
+   `MANIFEST.json`. The dispatch rows on screen carry place labels only.
+5. **The 25-minute pre-roll is a presentation device**, chosen for legibility.
+   The minutes are real and empty — the field's t=0 *is* the first overpass — and
+   the clock says `탐지 전 N분` rather than pretending otherwise.
+
+### Costs nothing extra to produce
+
+Both routes are already solved for every origin and were previously discarded;
+`--collect-routes N` (default 12) simply retains the polylines. The run is
+unchanged: 458 origins, 414 / 42 / 2, same as every canonical run.
