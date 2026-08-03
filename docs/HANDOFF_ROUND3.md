@@ -1,17 +1,18 @@
 # Round-3 handoff
 
-**Read this file alone and you can continue.** Written 2026-08-02.
+**Read this file alone and you can continue.** Written 2026-08-02, updated
+2026-08-03 (PHASE 6).
 
 | | |
 |---|---|
 | branch | **`round3-dev`** (tracks `origin/round3-dev`) |
-| HEAD | `75f347a` + this commit |
+| HEAD | `f52132f` + this commit |
 | baseline tag | **`round2-submitted`** = `4e9dfe3` — the submitted state |
 | environment | conda env **`wfg311`**, Python 3.11.15 — see [`ENVIRONMENT.md`](ENVIRONMENT.md) |
-| suite | **544 passed, 2 skipped, 0 failed** |
+| suite | **588 passed, 2 skipped, 0 failed** (was 544; PHASE 6 added 44) |
 | registry | [`NUMBERS.json`](NUMBERS.json) — 103 entries, 87 reproducible |
-| OSM regions | 3 acquired + snapshotted (`MANIFEST.json`, 64 entries) |
-| config hash | `51ec446843b6…` — moved from `0b6eb481177a…` by PURE ADDITION at `cc41f12` (two new PHASE-5 keys, no existing value changed). `NUMBERS.json.config_hash_note` records this. |
+| OSM regions | 3 acquired + snapshotted (`MANIFEST.json`, 68 entries — 64 + 4 FIRMS NRT polls) |
+| config hash | `05c6feae1dff…` — moved from `faf90a81b7e6…` by PURE ADDITION (the PHASE-6 `live:` block; no existing value changed, and re-running `build_numbers.py` moved **only** the per-entry `config_hash` stamp, 0 values). Earlier lineage: `0b6eb481177a…` → `51ec446843b6…` at `cc41f12`. `NUMBERS.json.config_hash_note` records why this is expected. |
 
 `docs/figures/*.png` carry three known uncommitted modifications. **Leave them
 unstaged**; every commit here used `git add -A -- . ':!docs/figures/*.png'`.
@@ -34,7 +35,7 @@ unstaged**; every commit here used `git add -A -- . ':!docs/figures/*.png'`.
 | 4 — live-operation feasibility | **NOT started** | — |
 | 5 — multi-region | STEP 0–4 done | `466884f`, `5fe86db`, `a0eaf07`, `cc41f12`, `79138d0`, `a32da6b` |
 | **canonical-hazard reconstruction** | **done — steps 1–4. See §2-A.** | `141b035`, `9ba83b4`, `6df4fcf`, `05fbfca`, `ed5e6b0`, `815dc02`, `a9b79cb`, `c8851d8`, `75f347a` |
-| 6 — delivery layer | **NOT started. This is the next phase.** See §9. | — |
+| **6 — live detection pipeline** | **done.** FIRMS NRT + replay mode. See §9 and [`live_pipeline.md`](live_pipeline.md). | this commit |
 
 ---
 
@@ -275,7 +276,23 @@ artifacts are current.
 | **3 — objective 2×2 + budget sweep** | Route-level findings reproduce to three significant figures (150 routes, −91.3 min). **The 600-minute budget still does not bind** (`fa_exceeds_budget` = 0). Failure ratio 12.65× → **5.89×** because the FLOOR rose (w(600) 4.35 → 9.61 %), not because the ceiling fell. Baseline hazard entry 20 → 44 — still the fire-blind baseline's, never the system's (`both_enter` = 0 at every budget). |
 | **4 — coverage** | **32.6 %**, down from 50.4 %. The bbox did not move; the core quadrupled. |
 
-### ⚠ The coverage decision — settled 2026-08-02, do not relitigate
+### ⚠ The coverage decision — settled 2026-08-02, **CONFIRMED FINAL 2026-08-03**
+
+> **Decision (user, 2026-08-03): do NOT re-acquire. Report 32.6 % as a stated
+> limit.** The reasoning, in the user's own terms: the bbox and the simulation
+> canvas are coupled, so re-acquiring means re-running steps 1–3 in full; and
+> the price of not re-acquiring is **exactly one thing** — absolute rates need a
+> caveat — while **every paired contrast remains valid**, because both arms share
+> the origins and the sampling frame cancels. Paired contrasts are most of what
+> the project reports.
+>
+> This closes the item. It is no longer an open question, and it is not to be
+> reopened without new information about the canvas coupling itself.
+
+The caveat is applied mechanically (see below) and now also travels onto
+operational artifacts: every A4 sheet the PHASE-6 live pipeline emits carries it
+in its banner block, because those sheets carry absolute Yeongdeok counts
+(`docs/live_pipeline.md` §7).
 
 **Yeongdeok's walk bbox is NOT re-drawn.** The estimate is in
 [`yeongdeok_bbox_reacquisition_estimate.json`](../data/processed/yeongdeok_bbox_reacquisition_estimate.json):
@@ -309,8 +326,16 @@ reports.
 It is applied mechanically: `build_numbers.py` appends it to all 27 registry
 entries that are absolute Yeongdeok rates or raw origin counts, and **not** to
 paired contrasts or to network/terrain quantities. It also appears in
-`multi_region.md` (×2), `budget_sweep.md`, `slope_integration.md` and
-`walk_bbox_coverage.md`.
+`multi_region.md` (×2), `budget_sweep.md`, `slope_integration.md`,
+`walk_bbox_coverage.md`, the `bbox.multi_region_walk_bbox` comment in
+`config/default.yaml`, and — as of PHASE 6 — `live/scope.py`, from which it
+reaches **every A4 dispatch sheet the live pipeline emits**.
+
+Where it is deliberately NOT applied, and why: paired contrasts (flat vs slope,
+distance vs time) and network/terrain quantities (traversal time, changed
+routes, the longest-walk saving). Both arms of a paired contrast are drawn from
+the same origins, so the sampling frame divides out; the terrain quantities do
+not depend on the fire at all.
 
 ---
 
@@ -355,7 +380,8 @@ fire_station이 없으며, 더 넓은 3,926 km² 범위에는 6곳이 있습니�
 
 | item | why it is open |
 |---|---|
-| **PHASE 6 — delivery layer** | **This is the next phase.** Not started. See §9. |
+| ~~PHASE 6 — live detection pipeline~~ | **DONE 2026-08-03.** FIRMS NRT acquisition, trigger → 459-series routing on the canonical field → all three delivery formats, plus an offline replay mode. [`live_pipeline.md`](live_pipeline.md), §9. Its own open limits are listed there §9; the two that matter are that the hazard surface is fixed (ERA5 lag — not fixable without a real-time weather source) and that **no trigger has ever fired on a live detection**, which needs an actual fire in the bbox. |
+| ~~The 439-vs-459 delivery scoping question~~ | **DECIDED 2026-08-03: the live pipeline consumes the 459/canonical series.** It follows from the PHASE-6 brief (canonical field, snapshot network, real hazard). The 439 outputs under `outputs/dispatch*` are untouched and still generated by `generate_dispatch_outputs.py`; the two lineages now co-exist with different filenames and different wording (459 sheets say 도보, never 차량). |
 | **`spread_v2_lofo.json` was trained on the defective Uljin-Samcheok DEM** | **This is the next decision.** The headline mean-of-folds AUC is built over the six-fire set that includes `uljin_samcheok_2022`, whose raster filled the sea with a ramp to −497 m, so EVERY fold — including Yeongdeok's — trained on it. The same applies to `routing_demo.npz` and every Yeongdeok number derived from it. **Nothing has been re-run**: those are committed Round-2 artifacts protected by §5.2, and re-running them changes figures the submission cites. The effect is unmeasured and could go either way. [`dem_defect_2026-08-02.md`](dem_defect_2026-08-02.md) §3. |
 | ~~DEM re-acquisition~~ — **DONE 2026-08-02** | Both regions re-acquired, validated, snapshotted, re-simulated and re-routed; nodata 0.000 %, sim-grid mean-fill 0.00 %, both pass the gate with no acknowledgement flag. Superseded text: **This was the next action.** Two gaps, one fix. (a) `uljin_samcheok_2022_dem.tif` spans 36.85–37.45 °N while its walk bbox starts at 36.81 °N: **405 of 7,300 walk nodes (5.55 %)**, 6.17 % of elevation samples, timed FLAT. (b) BOTH new regions' simulation canvases were extended south past their DEMs in `a0eaf07`, so **10.0 %** (Uiseong-Andong) and **15.6 %** (Uljin-Samcheok) of simulation cells carry a MEAN-FILLED elevation — hazard is p = 0 in every one of them, so the committed fields are clean, but the fill was silent. `scripts/acquire_region_dem.py` is written, targets the UNION of walk bbox + simulation canvas + existing raster, validates coverage before installing, and refuses to mix providers. It needs `OPENTOPOGRAPHY_API_KEY` (env or the git-ignored `.env`); a keyless request is HTTP 401, confirmed 2026-08-02. **Do not route on a partial DEM and do not substitute AWS-Mapzen tiles.** |
 | ~~Promote the hypothesis-refutation decomposition~~ | **Withdrawn.** The "fire-blind risk is near-constant" finding was an artifact of the pre-fix fields; it now reads 9.61 / 27.99 / 3.31 %. §2-A. |
@@ -366,7 +392,7 @@ fire_station이 없으며, 더 넓은 3,926 km² 범위에는 6곳이 있습니�
 | `routing_demo.npz` not reproducible | Cause fully identified and **recoverable** — pin the grid to `bbox.fire_acquisition`. Not done: it would change results. |
 | 407-run directionality | Uses `abs(dz)` (conservative). Documented, not changed. |
 | `unclassified` in tight-budget buckets | Fixed by `fa_exceeds_budget`. No action. |
-| Yeongdeok walk-bbox coverage 50.4 % | Accepted and reported, not fixed. See §3. |
+| ~~Yeongdeok walk-bbox coverage~~ | **CLOSED 2026-08-03.** It is **32.6 %** on the canonical field (the superseded 50.4 % was measured against the reverted run's four-times-smaller core). Accepted, reported as a covariate, and carried by every absolute Yeongdeok rate. Not fixed, and not to be fixed — §2-A. |
 
 ---
 
@@ -545,54 +571,156 @@ Override the interpreter with `make verify PYTHON=/path/to/python`.
 | [`budget_sweep.md`](budget_sweep.md) | w(t) and the fire-blind-baseline attribution |
 | [`slope_integration.md`](slope_integration.md) | slope method, the null result, the 407 convention |
 | [`ENVIRONMENT.md`](ENVIRONMENT.md) | how to rebuild `wfg311` and why 3.11 |
-## 9. PHASE 6 — the delivery layer (NOT started, this is next)
-
-Everything PHASE 6 needs is on disk and verified.
-
-### The canonical hazard field
-
-| | |
-|---|---|
-| field | **`data/processed/routing_demo_canonical.npz`** |
-| arrays | `grid_extent`, `haz_times`, `haz_stack`, `obs_times`, `obs_stack`, `ign_xy` |
-| grid | 181 × 156 @ 500 m, `bbox.fire_acquisition` extended **0.05° west** |
-| slices | 5 at [0, 180, 360, 540, 720] min |
-| core | 249 → 1,036 cells at p ≥ 0.5 (6,225 → 25,900 ha) |
-| provenance | [`canonical_hazard.json`](../data/processed/canonical_hazard.json) |
-| built by | `scripts/build_canonical_hazard.py` |
-
-⚠ **`data/processed/routing_demo.npz` is the REVERTED run's field.** It is
-retained, untouched, because the submission cites its digest. Do not consume it
-in new work; do not overwrite it.
-
-The routing run on that field is
-[`real_roads_real_hazard_canonical.json`](../data/processed/real_roads_real_hazard_canonical.json)
-(`scripts/run_yeongdeok_canonical_routing.py`), 458 origins, 414 / 42 / 2.
-
-### The delivery layer as it stands
-
-| | |
-|---|---|
-| module | `src/wildfireguardian/delivery/` — `sms.py`, `printable.py`, `broadcast.py`, `villages.py` |
-| generator | `scripts/generate_dispatch_outputs.py` |
-| outputs | `outputs/dispatch/` (44 points) · `outputs/dispatch_full/` (174 points, 3 eps values) |
-| input today | `rescue_routing_full.json` — the **439 series**, on a SYNTHETIC hazard envelope |
-| formats | SMS draft · A4 sheet for the 이장 · 마을방송 script |
-| safety | `sms.send()` requires a positional `approval_token`, and `DEMO_MODE` is on unless the env var is exactly `"0"`. **Nothing is ever sent.** |
-
-### The design question PHASE 6 has to answer first
-
-The delivery layer currently consumes the **439 series** (synthetic hazard,
-n_mobile = 307, four buckets, responder side included). The canonical work is
-the **459 series** (real hazard, three buckets, resident side only, no depots
-for one region). They are different populations with different bucket
-definitions.
-
-So: does PHASE 6 re-point delivery at the 459/canonical series, keep it on the
-439 series, or emit both? That is a scoping decision, not an implementation
-detail, and it should be made before code is written. Whichever is chosen, the
-32.6 % coverage caveat (§2-A) applies to any Yeongdeok count that reaches an
-operational sheet.
+| [`live_pipeline.md`](live_pipeline.md) | **PHASE 6 — the live detection pipeline, replay mode, and the measured timings** |
 
 ---
+
+## 9. PHASE 6 — the live detection pipeline (DONE 2026-08-03)
+
+Full write-up: [`live_pipeline.md`](live_pipeline.md). This section is the
+summary and the rules for quoting it.
+
+`scripts/run_live_detection.py` · `src/wildfireguardian/live/` (5 modules) ·
+`tests/test_live_pipeline.py` (44 tests)
+
+### ⚠ The scope statement — carry it, verbatim, with every PHASE-6 number
+
+    화점 탐지: 실시간 (FIRMS NRT)
+    기상 자료: 2025-03-25 12:25 UTC 기준 (ERA5는 약 5일 지연 발행)
+
+This is **「실시간 탐지 + 사전 계산 위험면 기반 결정」**, never
+**「실시간 예보 기반 예측」**. FIRMS NRT publishes hotspots within ~3 h of
+overpass; ERA5 publishes on a **~5-day lag**, so no hazard field exists for
+today. The surface routed on was simulated once, from the weather of the fire it
+was built for, and is held fixed. A detection decides *whether* and *where* to
+act; it does not move the surface.
+
+The strings live in `live/scope.py` — one definition, so a retyped caveat cannot
+drift — and reach every console screen, A4 sheet, broadcast script, SMS draft
+and JSON record. Tests fail if either line is missing.
+
+The weather basis is **derived, not typed**: `pipeline.weather_basis` reads the
+committed detections CSV and re-runs the same 90-minute overpass clustering the
+forward simulation used, so it cannot drift away from the field it labels. A
+test asserts the literal `2025-03-25` does not appear in that function.
+
+### What it does
+
+| step | |
+|---|---|
+| 6-A | poll FIRMS NRT over the registered bbox (default 3 h); new hotspot = coordinate absent from every previous poll, de-duplicated at **375 m** (one VIIRS pixel); every acquisition snapshotted immediately |
+| 6-B | a new in-region hotspot runs the **459-series scan on `routing_demo_canonical.npz`** with the snapshot walk graph and refuge POIs, then renders all three PHASE-3 formats |
+| 6-C | `--replay` replays a past fire's committed hotspots in time order, **fully offline**, at a speed multiplier (default 60×) |
+| 6-D | `outputs/live/{replay,live}/{timestamp}/` — `RUN.json` carries inputs, the triggering hotspot, the field path **and sha256**, the weather basis, per-stage timings, and the outputs |
+
+### It reproduces the committed result
+
+| | origins | both_safe | FA-only | no_safe | over budget |
+|---|---:|---:|---:|---:|---:|
+| `real_roads_real_hazard_canonical.json` | 458 | 414 | 42 | 2 | 0 |
+| **live pipeline** | **458** | **414** | **42** | **2** | **0** |
+
+That is the design: the same computation with a different trigger, not a second
+implementation. The origin rule is pinned line-for-line against the batch scan.
+
+### ⚠ Measured timings — say "about 25 seconds", not "a few seconds"
+
+Full 458-origin scan on the reference machine, from `RUN.json`:
+
+Two triggers in the committed replay run:
+
+| stage | trigger 1 | trigger 2 |
+|---|---:|---:|
+| load hazard npz + graph + POIs | 2.98 | — (warm) |
+| **routing** | **26.72** | **24.87** |
+| cluster + render 3 formats × 29 villages | 0.15 | 0.07 |
+| **trigger → the dispatch list (warm)** | **26.87** | **24.93** |
+| process start → the dispatch list (cold) | 29.86 | 27.92 |
+| — A4 PDF conversion, 29 sheets (**separate**) | 79.15 | 77.99 |
+
+The spread is first-run warm-up; trigger 2 is the steady state. Across three
+full runs routing measured **24.9 – 28.2 s** — quote **"about 25 seconds"**, and
+treat 30 s as the safe upper bound.
+
+Routing is 99 % of it. The delivery layer — the part that looks slow — is 40 ms.
+*Warm* is what a running service exhibits (field and graph loaded once at
+start-up); *cold* is process start to the list.
+
+⚠ **PDF conversion is reported separately and excluded from the headline.**
+Headless Chrome is ~2.7 s per sheet, so 29 villages cost ~78 s — three times the
+routing — but it runs *after* the list already exists in every text format, and
+it scales with the number of villages rather than with the decision.
+`warm_total_with_pdf_s` (≈ 104 s) is in `RUN.json` for when the printed sheets
+are what is being waited on. The first full replay run reported the conflated
+104 s as its headline; the split was added to stop that.
+
+### ⚠ Rules for PHASE 6
+
+1. **Never describe this as forecasting.** See the scope statement above.
+2. **Never quote a PHASE-6 Yeongdeok count without the 32.6 % caveat.** These are
+   absolute counts reaching an operational sheet; the caveat is in the sheet's
+   banner block for exactly that reason (§2-A, rule 19).
+3. **Never point the pipeline at `routing_demo.npz`.** It is refused by name at
+   start-up; do not remove that check.
+4. **Replay must stay offline.** It imports no HTTP client, and the tests assert
+   that against the **import AST** and by running a full replay with the socket
+   layer disabled. Adding a network fallback to replay would destroy the one
+   property that makes it the demonstration path.
+5. **Never say the live branch has been demonstrated end to end.** The API has
+   been exercised for reachability and credentials; **no trigger has ever fired
+   on a live detection**, because that needs an actual fire in the bbox. Replay
+   is what has been run end to end.
+6. **`OUT_OF_SCOPE` is a label, never a filter.** When the triggering hotspot is
+   beyond `field_applicability_radius_km` the outputs are still produced and
+   stamped with the distance. Suppressing a real detection is worse than
+   publishing a stamped one.
+
+### ⚠ The applicability anchor is the FIELD's core, not the manifest's ignition
+
+For `yeongdeok_2025` these differ by **17 km**: `fire_manifest.json` records
+129.05, 36.43, which falls **outside the walk bbox entirely**, while the observed
+first-overpass core sits at 129.222, 36.466. Anchoring on the manifest put every
+genuine in-region detection out of scope — the first smoke run reported 28.6 km
+and `OUT_OF_SCOPE`, which is how it was found. Both distances are recorded.
+
+### What was added to the delivery layer, and why it is safe
+
+`printable`, `sms` and `broadcast` were written for the 439 series, whose
+unreachable points are places a **vehicle** cannot reach. The 459 series is
+resident-side and on foot, so saying 차량 would describe a computation that was
+not performed. The additions are **purely additive**, and every default is the
+original string:
+
+* `sms.compose_family_walk` / `compose_welfare_walk` — new functions;
+* `broadcast.compose(mode=…)` — defaults to `"vehicle"`, the committed wording;
+* `printable.render_html(banner_lines=…, dispatch_heading=…, …)` — defaults are
+  the committed headings.
+
+Tests assert both directions: the walk variants never say 차량, and the defaults
+still produce the 439 wording, so committed `outputs/dispatch*` sheets render
+byte-identically.
+
+⚠ **The scope statement costs page space.** Putting the mandated strings in five
+bordered banner boxes pushed the largest cluster (9 rows) onto a **second A4
+page**, breaking PHASE 3's one-page-per-village rule. Nothing was dropped:
+the block was compacted to **two** boxes (mode banner alone; scope statement and
+both lines merged), and the standing 32.6 % qualifier moved to the **footer**
+beside the fixed cautions. **29 of 29 sheets now fit one page**, and a test
+asserts every mandated string survives, so page space can never be bought by
+deleting a caveat.
+
+### Credentials, as found
+
+`.env` holds `FIRMS_MAP_KEY` (verified against the live API) and
+`OPENTOPOGRAPHY_API_KEY`. **No Twilio credentials (0 of 3)**, so the SMS layer
+stays in `DEMO_MODE` and composes drafts only — recorded in every `RUN.json`
+under `notes`. It changes nothing: this PHASE composes drafts and stops, so a
+configured Twilio account would not be used either. **Nothing was sent.**
+
+### Config
+
+A new `live:` block in `config/default.yaml`, a **PURE ADDITION** — no existing
+value moved, and no registered number depends on the new keys. The config hash
+therefore moves again, exactly as it did at `cc41f12`;
+`NUMBERS.json.config_hash_note` already records that this is expected.
 

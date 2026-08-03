@@ -82,7 +82,7 @@ The three regions differ on three axes **at the same time**:
 
 | axis | spread | why it moves the metric |
 |---|---|---|
-| envelope coverage | **32.6 – 99.2 %** | Yeongdeok's walk bbox now covers barely a third of its own predicted core — the core quadrupled and the bbox did not ([`walk_bbox_coverage.md`](walk_bbox_coverage.md), which still carries the superseded 50.4 %) |
+| envelope coverage | **32.6 – 99.2 %** | Yeongdeok's walk bbox now covers barely a third of its own predicted core — the core quadrupled and the bbox did not ([`walk_bbox_coverage.md`](walk_bbox_coverage.md)) |
 | envelope area | 3,275 – 25,900 ha, **7.91×** | a bigger fire has more origins near it |
 | node density | 7.27 – 9.07 /km² | the origin scan strides over **nodes** |
 
@@ -284,12 +284,16 @@ here because it changes how §5's Yeongdeok numbers must be read.
 The walk bbox did not move. The core quadrupled, and the bbox now misses two
 thirds of it. So the 44 origins whose fire-blind route is unsafe are drawn from
 a third of the predicted fire, and the direction of that bias is still
-unmeasured ([`walk_bbox_coverage.md`](walk_bbox_coverage.md), which still
-carries the superseded 50.4 % and has NOT yet been updated).
+unmeasured ([`walk_bbox_coverage.md`](walk_bbox_coverage.md), which now leads
+with 32.6 % and retains the superseded 50.4 % as a labelled historical record).
 
 Re-drawing Yeongdeok's walk bbox around the canonical envelope would fix the
 coverage but break continuity with every committed 439- and 459-series figure.
-That trade has not been re-opened here.
+**Decided and closed 2026-08-03: it is not re-drawn.** The bbox and the
+simulation canvas are coupled, so re-drawing means re-simulating and re-running
+canonical steps 1–3; the price of not doing so is exactly one thing — absolute
+rates carry a caveat — and every paired contrast stays valid, because both arms
+share the origins. `HANDOFF_ROUND3.md` §2-A is the decision record.
 
 ---
 

@@ -71,14 +71,37 @@ def _split_name(name: str) -> list[str]:
     return lines
 
 
+#: Announcement modes. ``"vehicle"`` is the 439-series wording (a rescue vehicle
+#: cannot get in) and stays the DEFAULT so every committed script is unchanged.
+#: ``"walk"`` is the 459/canonical resident-side wording, where the finding is
+#: that no safe walking route exists — a different statement about a different
+#: computation. PHASE 6 uses ``"walk"``.
+MODES: tuple[str, ...] = ("vehicle", "walk")
+
+_UNREACHABLE_LINES: dict[str, tuple[str, ...]] = {
+    "vehicle": ("차량 진입이", "어려운 곳이 있습니다.", "무리하지 마십시오."),
+    "walk": ("걸어서 대피가", "어려운 곳이 있습니다.", "무리하지 마십시오."),
+}
+
+
 def compose(village: str, *, refuge: str | None = None,
-            blocked: str | None = None, n_unreachable: int = 0) -> Broadcast:
+            blocked: str | None = None, n_unreachable: int = 0,
+            mode: str = "vehicle",
+            prefix_lines: tuple[str, ...] | list[str] | None = None) -> Broadcast:
     """Build the announcement.
 
     Structure: address → instruction → detail → repeat instruction. Every line
     is <= 15 characters; long place names are wrapped rather than truncated.
+
+    ``mode`` selects the wording for unreachable points; see :data:`MODES`.
+    ``prefix_lines`` are read out before the address — PHASE 6 uses it to say
+    「재생 모드」 aloud, so a recorded demonstration cannot be mistaken for a
+    live warning even by someone who only hears it. Each prefix line is subject
+    to the same 15-character rule as every other line.
     """
-    lines: list[str] = []
+    if mode not in MODES:
+        raise ValueError(f"mode must be one of {MODES}, got {mode!r}")
+    lines: list[str] = list(prefix_lines or ())
     lines += _split_name(village)
     lines.append("산불이 접근합니다.")
 
@@ -96,9 +119,7 @@ def compose(village: str, *, refuge: str | None = None,
         lines.append("통행할 수 없습니다.")
 
     if n_unreachable:
-        lines.append("차량 진입이")
-        lines.append("어려운 곳이 있습니다.")
-        lines.append("무리하지 마십시오.")
+        lines.extend(_UNREACHABLE_LINES[mode])
 
     lines.append("거동이 불편한 분은")
     lines.append("집에서 기다리십시오.")
@@ -112,4 +133,4 @@ def compose(village: str, *, refuge: str | None = None,
     return Broadcast(village=village, lines=lines)
 
 
-__all__ = ["Broadcast", "MAX_SENTENCE_CHARS", "compose"]
+__all__ = ["Broadcast", "MAX_SENTENCE_CHARS", "MODES", "compose"]

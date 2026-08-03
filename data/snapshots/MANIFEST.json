@@ -886,6 +886,118 @@
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4"
     },
     {
+      "snapshot_file": "firms-nrt-modis-nrt_yeongdeok-2025_20260803_64ed71a4.csv",
+      "sha256": "64ed71a4446426389026d389501df269e707d1ea071bdada2d8e34ced1bc37c9",
+      "bytes": 122,
+      "stored_file": "firms-nrt-modis-nrt_yeongdeok-2025_20260803_64ed71a4.csv",
+      "stored_bytes": 122,
+      "stored_sha256": "64ed71a4446426389026d389501df269e707d1ea071bdada2d8e34ced1bc37c9",
+      "compression": "none",
+      "committed_to_git": true,
+      "source": "firms-nrt-modis-nrt",
+      "region": "yeongdeok-2025",
+      "layer": "FIRMS NRT area query, MODIS_NRT",
+      "origin_path": "outputs/live/live/poll_20260803T000648Z/firms_raw/MODIS_NRT.csv",
+      "acquired_utc": "2026-08-03T00:06:53Z",
+      "acquired_clock": "source file mtime (not snapshot time)",
+      "snapshotted_utc": "2026-08-03T00:06:53Z",
+      "parameters": {
+        "bbox_wsen": [
+          129.25,
+          36.3,
+          129.55,
+          36.6
+        ],
+        "polled_utc": "2026-08-03T00:06:48Z"
+      },
+      "config_hash": "05c6feae1dff733427f9118ef9f732d15aa2aefd4caba40f7bb7236610dc072b",
+      "git_commit": "f52132f49c92eb4b8d582bb4f0dbb409b18c69d0"
+    },
+    {
+      "snapshot_file": "firms-nrt-viirs-noaa20-nrt_yeongdeok-2025_20260803_2b11a446.csv",
+      "sha256": "2b11a44667d05367ecf77651b95fd3d34c545c7ec154856094b91245e41ae697",
+      "bytes": 122,
+      "stored_file": "firms-nrt-viirs-noaa20-nrt_yeongdeok-2025_20260803_2b11a446.csv",
+      "stored_bytes": 122,
+      "stored_sha256": "2b11a44667d05367ecf77651b95fd3d34c545c7ec154856094b91245e41ae697",
+      "compression": "none",
+      "committed_to_git": true,
+      "source": "firms-nrt-viirs-noaa20-nrt",
+      "region": "yeongdeok-2025",
+      "layer": "FIRMS NRT area query, VIIRS_NOAA20_NRT",
+      "origin_path": "outputs/live/live/poll_20260803T000648Z/firms_raw/VIIRS_NOAA20_NRT.csv",
+      "acquired_utc": "2026-08-03T00:06:53Z",
+      "acquired_clock": "source file mtime (not snapshot time)",
+      "snapshotted_utc": "2026-08-03T00:06:53Z",
+      "parameters": {
+        "bbox_wsen": [
+          129.25,
+          36.3,
+          129.55,
+          36.6
+        ],
+        "polled_utc": "2026-08-03T00:06:48Z"
+      },
+      "config_hash": "05c6feae1dff733427f9118ef9f732d15aa2aefd4caba40f7bb7236610dc072b",
+      "git_commit": "f52132f49c92eb4b8d582bb4f0dbb409b18c69d0"
+    },
+    {
+      "snapshot_file": "firms-nrt-viirs-noaa21-nrt_yeongdeok-2025_20260803_2b11a446.csv",
+      "sha256": "2b11a44667d05367ecf77651b95fd3d34c545c7ec154856094b91245e41ae697",
+      "bytes": 122,
+      "stored_file": "firms-nrt-viirs-noaa21-nrt_yeongdeok-2025_20260803_2b11a446.csv",
+      "stored_bytes": 122,
+      "stored_sha256": "2b11a44667d05367ecf77651b95fd3d34c545c7ec154856094b91245e41ae697",
+      "compression": "none",
+      "committed_to_git": true,
+      "source": "firms-nrt-viirs-noaa21-nrt",
+      "region": "yeongdeok-2025",
+      "layer": "FIRMS NRT area query, VIIRS_NOAA21_NRT",
+      "origin_path": "outputs/live/live/poll_20260803T000648Z/firms_raw/VIIRS_NOAA21_NRT.csv",
+      "acquired_utc": "2026-08-03T00:06:53Z",
+      "acquired_clock": "source file mtime (not snapshot time)",
+      "snapshotted_utc": "2026-08-03T00:06:53Z",
+      "parameters": {
+        "bbox_wsen": [
+          129.25,
+          36.3,
+          129.55,
+          36.6
+        ],
+        "polled_utc": "2026-08-03T00:06:48Z"
+      },
+      "config_hash": "05c6feae1dff733427f9118ef9f732d15aa2aefd4caba40f7bb7236610dc072b",
+      "git_commit": "f52132f49c92eb4b8d582bb4f0dbb409b18c69d0"
+    },
+    {
+      "snapshot_file": "firms-nrt-viirs-snpp-nrt_yeongdeok-2025_20260803_2b11a446.csv",
+      "sha256": "2b11a44667d05367ecf77651b95fd3d34c545c7ec154856094b91245e41ae697",
+      "bytes": 122,
+      "stored_file": "firms-nrt-viirs-snpp-nrt_yeongdeok-2025_20260803_2b11a446.csv",
+      "stored_bytes": 122,
+      "stored_sha256": "2b11a44667d05367ecf77651b95fd3d34c545c7ec154856094b91245e41ae697",
+      "compression": "none",
+      "committed_to_git": true,
+      "source": "firms-nrt-viirs-snpp-nrt",
+      "region": "yeongdeok-2025",
+      "layer": "FIRMS NRT area query, VIIRS_SNPP_NRT",
+      "origin_path": "outputs/live/live/poll_20260803T000648Z/firms_raw/VIIRS_SNPP_NRT.csv",
+      "acquired_utc": "2026-08-03T00:06:53Z",
+      "acquired_clock": "source file mtime (not snapshot time)",
+      "snapshotted_utc": "2026-08-03T00:06:53Z",
+      "parameters": {
+        "bbox_wsen": [
+          129.25,
+          36.3,
+          129.55,
+          36.6
+        ],
+        "polled_utc": "2026-08-03T00:06:48Z"
+      },
+      "config_hash": "05c6feae1dff733427f9118ef9f732d15aa2aefd4caba40f7bb7236610dc072b",
+      "git_commit": "f52132f49c92eb4b8d582bb4f0dbb409b18c69d0"
+    },
+    {
       "snapshot_file": "osm-depots_uiseong-andong-2025_20260802_eaa10a64.geojson",
       "sha256": "eaa10a64f543bc2bb4ba9f30c005131265fb48086e394c803c68d052a0da555c",
       "bytes": 159,
@@ -1629,5 +1741,5 @@
       "git_commit": "141b035aaaa87884fec7a97f430b35f258b4ab6a"
     }
   ],
-  "updated_utc": "2026-08-02T09:16:50Z"
+  "updated_utc": "2026-08-03T00:06:53Z"
 }

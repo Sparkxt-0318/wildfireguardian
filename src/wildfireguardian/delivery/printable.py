@@ -95,10 +95,27 @@ def _fmt_remaining(v) -> tuple[str, str]:
     return f"{int(round(v))}분", ("긴급" if v < 30 else "")
 
 
+#: Default section headings. The wording is VEHICLE-side, because the 439-series
+#: run this module was written for dispatches a rescue vehicle. The 459 series
+#: (PHASE 6) is resident-side and walks, so it overrides them — see
+#: `wildfireguardian.live.pipeline`. Defaults are unchanged so every sheet
+#: already committed under outputs/dispatch* renders byte-identically.
+DISPATCH_HEADING: str = "■ 구조 필요 지점 — 남은 시간 순"
+UNREACHABLE_HEADING: str = "■ 차량 도달 불가 지점 — 별도 조치 필요"
+UNREACHABLE_REASON_FALLBACK: str = "차량 진입로가 화재로 차단됨"
+ROUTE_NOTE_FALLBACK: str = "진입 경로 확인 필요"
+
+
 def render_html(village, *, generated_at: str, git_commit: str,
                 config_hash: str, source_file: str, n_total_dispatch: int,
                 n_total_unreachable: int, extra_label: str | None = None,
-                sections: str = "both", sheet_note: str | None = None) -> str:
+                sections: str = "both", sheet_note: str | None = None,
+                banner_lines: tuple[str, ...] | list[str] | None = None,
+                extra_footer_lines: tuple[str, ...] | list[str] | None = None,
+                dispatch_heading: str = DISPATCH_HEADING,
+                unreachable_heading: str = UNREACHABLE_HEADING,
+                unreachable_reason_fallback: str = UNREACHABLE_REASON_FALLBACK,
+                route_note_fallback: str = ROUTE_NOTE_FALLBACK) -> str:
     """Render one village's A4 sheet as self-contained HTML.
 
     ``extra_label`` renders as a second bordered banner directly under the
@@ -111,6 +128,26 @@ def render_html(village, *, generated_at: str, git_commit: str,
     heading and header row, so a 13-row sheet with 9 unreachable rows can overflow
     where a 14-row all-dispatch sheet fits. ``sheet_note`` labels the halves so a
     reader knows a companion sheet exists.
+
+    ``banner_lines`` renders one bordered banner per string, before
+    ``extra_label``. PHASE 6 puts the scope statement there — "detection is
+    real-time, weather is not" has to be on the paper an operator holds, not
+    only in a JSON record nobody at a fire will open. Each banner is a bordered
+    box and costs real vertical space, so keep the list short: five boxes
+    pushed the largest cluster's sheet onto a second page, which the one-page
+    rule exists to prevent.
+
+    ``extra_footer_lines`` append to the fixed cautions in the footer. That is
+    where a long standing qualifier belongs — the 32.6 % coverage caveat, for
+    instance — because the footer is dense small text rather than a bordered
+    box, and the qualifier is a property of the whole sheet rather than a
+    warning about one thing on it.
+
+    The four ``*_heading`` / ``*_fallback`` arguments exist because this module
+    was written for the 439 series, whose unreachable points are places a
+    **vehicle** cannot reach. The 459/canonical series is resident-side and on
+    foot, so its sheets must not say 차량. Every default is the original string,
+    so existing callers produce byte-identical output.
     """
     dispatch = [p for p in village.points if not p.get("unreachable")]
     unreach = [p for p in village.points if p.get("unreachable")]
@@ -123,7 +160,7 @@ def render_html(village, *, generated_at: str, git_commit: str,
     rows = []
     for i, p in enumerate(dispatch, start=1):
         disp, urg = _fmt_remaining(p.get("closing_window_min"))
-        route = p.get("route_note") or "진입 경로 확인 필요"
+        route = p.get("route_note") or route_note_fallback
         rows.append(
             f"<tr><td class='num'>{i}</td>"
             f"<td>{e(p.get('label', '-'))}</td>"
@@ -137,7 +174,7 @@ def render_html(village, *, generated_at: str, git_commit: str,
 
     urows = []
     for i, p in enumerate(unreach, start=1):
-        reason = p.get("reason_ko") or "차량 진입로가 화재로 차단됨"
+        reason = p.get("reason_ko") or unreachable_reason_fallback
         urows.append(
             f"<tr class='unreach'><td class='num'>{i}</td>"
             f"<td>{e(p.get('label', '-'))}</td>"
@@ -147,18 +184,21 @@ def render_html(village, *, generated_at: str, git_commit: str,
     unreach_block = ""
     if urows and show_unreach:
         unreach_block = (
-            "<h2>■ 차량 도달 불가 지점 — 별도 조치 필요</h2>"
+            f"<h2>{e(unreachable_heading)}</h2>"
             "<table><thead><tr><th style='width:7%'>번호</th>"
             "<th style='width:33%'>위치</th><th>사유</th>"
             "<th style='width:9%'>확인</th></tr></thead>"
             f"<tbody>{''.join(urows)}</tbody></table>")
 
-    footer = "".join(f"<div>{e(line)}</div>" for line in FOOTER_LINES)
-    extra_block = (f'<div class="warnbox">※ {e(extra_label)}</div>'
-                   if extra_label else "")
+    footer = "".join(f"<div>{e(line)}</div>"
+                     for line in (*FOOTER_LINES, *(extra_footer_lines or ())))
+    extra_block = "".join(f'<div class="warnbox">※ {e(b)}</div>'
+                          for b in (banner_lines or ()))
+    if extra_label:
+        extra_block += f'<div class="warnbox">※ {e(extra_label)}</div>'
     if sheet_note:
         extra_block += f'<div class="warnbox">※ {e(sheet_note)}</div>'
-    dispatch_block = ("""<h2>■ 구조 필요 지점 — 남은 시간 순</h2>
+    dispatch_block = (f"<h2>{e(dispatch_heading)}</h2>" + """
 <table><thead><tr>
   <th style="width:7%">번호</th><th style="width:30%">위치</th>
   <th style="width:17%">남은 시간</th><th>진입 가능 경로</th>

@@ -273,3 +273,23 @@ outputs/dispatch_full/*/*/dispatch_a4.pdf
 # works (and where it cannot help).
 !outputs/dispatch_full/*/0[123]-*/dispatch_a4_dispatch.pdf
 !outputs/dispatch_full/*/0[123]-*/dispatch_a4_unreachable.pdf
+
+# --- outputs/live/ (Round-3 PHASE 6) --------------------------------------
+# The replay run is committed as evidence that the demonstration path works
+# end to end offline: RUN.json, MANIFEST.json and every village's HTML sheet,
+# broadcast script and SMS drafts. Same PDF policy as above — headless Chrome
+# embeds a Korean font subset per file, so only the three largest clusters'
+# PDFs per run are kept. Regenerate the rest with:
+#     python scripts/run_live_detection.py --replay
+outputs/live/*/*/*/dispatch_a4.pdf
+!outputs/live/*/*/01-*/dispatch_a4.pdf
+!outputs/live/*/*/02-*/dispatch_a4.pdf
+!outputs/live/*/*/03-*/dispatch_a4.pdf
+#
+# The LIVE branch's raw FIRMS payloads are NOT committed here: they are
+# acquisitions, and acquisitions belong in the snapshot store, which
+# scripts/run_live_detection.py writes to on every poll. Committing them twice
+# would create a second copy that could drift from the digest that pins it.
+outputs/live/live/poll_*/firms_raw/
+# The seen-set is per-machine runtime state, not evidence.
+outputs/live/*/state_*.json

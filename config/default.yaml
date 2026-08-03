@@ -93,9 +93,16 @@ bbox:
   # stay explainable. Listed here for comparison only.
   #
   # ⚠ Equal area does NOT mean equal coverage of the fire. Measured coverage of
-  # the p>=0.5 core: Yeongdeok 50.4 %, Uiseong-Andong 98.9 %, Uljin-Samcheok
-  # 84.8 % (docs/walk_bbox_coverage.md). Carry that column into every
-  # cross-region comparison.
+  # the p>=0.5 core, ON THE CANONICAL FIELD: Yeongdeok 32.6 %, Uiseong-Andong
+  # 99.2 %, Uljin-Samcheok 81.5 % (docs/walk_bbox_coverage.md). Carry that
+  # column into every cross-region comparison.
+  #
+  # ⚠ Yeongdeok is NOT re-acquired — decided 2026-08-02, re-confirmed
+  # 2026-08-03. Its bbox and the simulation canvas are coupled, so re-drawing it
+  # means re-simulating the hazard field and re-running canonical steps 1-3. The
+  # price of not doing so is exactly one thing: every ABSOLUTE Yeongdeok rate
+  # needs the 32.6 % caveat. Paired contrasts are unaffected — both arms share
+  # the origins, so the sampling frame cancels. See HANDOFF_ROUND3.md §2-A.
   multi_region_walk_bbox:
     yeongdeok_2025:      [129.250, 36.300, 129.550, 36.600]   # committed, hand-drawn
     uiseong_andong_2025: [128.550, 36.200, 128.850, 36.500]   # ignition (128.70, 36.35)
@@ -364,6 +371,71 @@ model:
     subsample: 0.8                 # [src: spread_v2_xgb/model.py:37]
     colsample_bytree: 0.8          # [src: spread_v2_xgb/model.py:38]
     candidate_radius_m: 2000.0     # [src: spread_v2_xgb/candidates.py:32]
+
+# -----------------------------------------------------------------------------
+# Live detection pipeline (Round-3 PHASE 6)
+# -----------------------------------------------------------------------------
+#
+# ⚠ WHAT THIS IS, AND WHAT IT IS NOT.
+#
+#   detection  REAL-TIME.        NASA FIRMS NRT, polled.
+#   weather    NOT REAL-TIME.    ERA5 is published with roughly a five-day lag,
+#                                so today's weather does not exist. The hazard
+#                                surface this pipeline routes on was simulated
+#                                ONCE, from the weather of the fire it was built
+#                                for, and is then held FIXED.
+#
+# So the product is a REAL-TIME-DETECTION, PRE-COMPUTED-RISK-SURFACE decision —
+# never a real-time forecast. Every screen and every artifact must say so; the
+# strings that say it live in `wildfireguardian.live.scope` and are asserted by
+# tests/test_live_pipeline.py.
+live:
+  # The registered region. A hotspot outside this bbox does not trigger.
+  # Same bbox as the 459-series walk network, so a trigger can only ever fire
+  # where the routing is actually defined.
+  region: yeongdeok_2025
+
+  # The pre-computed risk surface. THE CANONICAL FIELD — never routing_demo.npz,
+  # which is the output of a reverted run (docs/HANDOFF_ROUND3.md §2-A).
+  hazard_npz: data/processed/routing_demo_canonical.npz
+
+  firms:
+    # NRT products only. The SP (standard-processing) archives lag by ~2 months
+    # and would silently turn a "live" poll into a historical one.
+    sources: [VIIRS_SNPP_NRT, VIIRS_NOAA20_NRT, VIIRS_NOAA21_NRT, MODIS_NRT]
+    poll_interval_min: 180.0        # 3 h — matches the VIIRS revisit cadence
+    day_range: 1                    # days of NRT history per poll (API max 10)
+    api_base: https://firms.modaps.eosdis.nasa.gov/api/area/csv
+    timeout_s: 60.0
+    retries: 3
+    backoff_s: [30.0, 60.0, 120.0]  # same all-or-nothing policy as Overpass
+    # Two detections within this distance are the same hotspot. VIIRS pixels are
+    # ~375 m, so anything under one pixel is a re-observation, not a new fire.
+    dedupe_radius_m: 375.0
+
+  trigger:
+    # Simulated/wall-clock minutes that must pass before routing runs again.
+    # Without it a single overpass of 400 detections would queue 400 routing
+    # runs, none of which would differ.
+    retrigger_min_interval_min: 180.0
+    # Below this confidence a detection does not trigger. FIRMS reports VIIRS
+    # confidence as l/n/h and MODIS as 0-100; both are normalised in
+    # `live.firms.confidence_rank`.
+    min_confidence: nominal         # low | nominal | high
+    # How far the triggering hotspot may sit from the pre-computed field's own
+    # ignition point before the field stops being a statement about THIS fire.
+    # Beyond it the run still completes, but every output is stamped
+    # OUT_OF_SCOPE. It is a labelling threshold, never a filter.
+    field_applicability_radius_km: 15.0
+
+  replay:
+    # Replay is the demo path, and it is fully offline BY CONSTRUCTION: no FIRMS
+    # client is ever constructed on this branch (asserted in tests).
+    default_speed: 60.0             # 60x — twelve hours in twelve minutes
+    default_window_h: 12.0
+    detections_csv: data/raw/firms_data/{region}_detections.csv
+
+  output_root: outputs/live
 
 # -----------------------------------------------------------------------------
 # Paths (repo-relative)

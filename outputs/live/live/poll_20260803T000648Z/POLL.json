@@ -1,0 +1,96 @@
+{
+  "polled_utc": "2026-08-03T00:06:48Z",
+  "bbox_wsen": [
+    129.25,
+    36.3,
+    129.55,
+    36.6
+  ],
+  "sources": [
+    "VIIRS_SNPP_NRT",
+    "VIIRS_NOAA20_NRT",
+    "VIIRS_NOAA21_NRT",
+    "MODIS_NRT"
+  ],
+  "n_hotspots": 0,
+  "per_source_counts": {
+    "VIIRS_SNPP_NRT": 0,
+    "VIIRS_NOAA20_NRT": 0,
+    "VIIRS_NOAA21_NRT": 0,
+    "MODIS_NRT": 0
+  },
+  "attempts": [
+    {
+      "source": "VIIRS_SNPP_NRT",
+      "attempt": 1,
+      "ok": true,
+      "elapsed_s": 1.177,
+      "url": "https://firms.modaps.eosdis.nasa.gov/api/area/csv/<MAP_KEY>/VIIRS_SNPP_NRT/129.25,36.3,129.55,36.6/1"
+    },
+    {
+      "source": "VIIRS_NOAA20_NRT",
+      "attempt": 1,
+      "ok": true,
+      "elapsed_s": 1.463,
+      "url": "https://firms.modaps.eosdis.nasa.gov/api/area/csv/<MAP_KEY>/VIIRS_NOAA20_NRT/129.25,36.3,129.55,36.6/1"
+    },
+    {
+      "source": "VIIRS_NOAA21_NRT",
+      "attempt": 1,
+      "ok": true,
+      "elapsed_s": 1.143,
+      "url": "https://firms.modaps.eosdis.nasa.gov/api/area/csv/<MAP_KEY>/VIIRS_NOAA21_NRT/129.25,36.3,129.55,36.6/1"
+    },
+    {
+      "source": "MODIS_NRT",
+      "attempt": 1,
+      "ok": true,
+      "elapsed_s": 1.202,
+      "url": "https://firms.modaps.eosdis.nasa.gov/api/area/csv/<MAP_KEY>/MODIS_NRT/129.25,36.3,129.55,36.6/1"
+    }
+  ],
+  "n_in_bbox": 0,
+  "n_new": 0,
+  "snapshots": [
+    {
+      "source": "MODIS_NRT",
+      "stored_file": "firms-nrt-modis-nrt_yeongdeok-2025_20260803_64ed71a4.csv",
+      "newly_created": true,
+      "raw_path": "firms_raw/MODIS_NRT.csv"
+    },
+    {
+      "source": "VIIRS_NOAA20_NRT",
+      "stored_file": "firms-nrt-viirs-noaa20-nrt_yeongdeok-2025_20260803_2b11a446.csv",
+      "newly_created": true,
+      "raw_path": "firms_raw/VIIRS_NOAA20_NRT.csv"
+    },
+    {
+      "source": "VIIRS_NOAA21_NRT",
+      "stored_file": "firms-nrt-viirs-noaa21-nrt_yeongdeok-2025_20260803_2b11a446.csv",
+      "newly_created": true,
+      "raw_path": "firms_raw/VIIRS_NOAA21_NRT.csv"
+    },
+    {
+      "source": "VIIRS_SNPP_NRT",
+      "stored_file": "firms-nrt-viirs-snpp-nrt_yeongdeok-2025_20260803_2b11a446.csv",
+      "newly_created": true,
+      "raw_path": "firms_raw/VIIRS_SNPP_NRT.csv"
+    }
+  ],
+  "scope": {
+    "mode": "live",
+    "mode_banner_ko": "■ 실시간 모드 ■ FIRMS NRT 조회 결과입니다.",
+    "detection": "real-time (FIRMS NRT)",
+    "detection_line_ko": "화점 탐지: 실시간 (FIRMS NRT)",
+    "weather": "NOT real-time",
+    "weather_basis": "2025-03-25 12:25 UTC",
+    "weather_line_ko": "기상 자료: 2025-03-25 12:25 UTC 기준 (ERA5는 약 5일 지연 발행)",
+    "era5_publication_lag_days": 5,
+    "scope_ko": "본 산출물은 「실시간 탐지 + 사전 계산 위험면 기반 결정」입니다. 「실시간 예보 기반 예측」이 아닙니다.",
+    "scope_en": "REAL-TIME DETECTION over a PRE-COMPUTED risk surface. This is NOT a real-time forecast: ERA5 reanalysis publishes on a ~5-day lag, so no hazard field exists for today.",
+    "hazard_field": "data/processed/routing_demo_canonical.npz",
+    "hazard_field_is_precomputed": true,
+    "region": "yeongdeok_2025",
+    "coverage_caveat_ko": "영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오."
+  }
+}

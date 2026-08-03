@@ -1,0 +1,626 @@
+"""Detection -> routing -> operational outputs.
+
+Round-3 PHASE 6-B / 6-D.
+
+WHAT A TRIGGER ACTUALLY DOES
+----------------------------
+A new hotspot inside the registered region causes the 459-series scan to be run
+against the **pre-computed canonical hazard field**, and its output rendered
+into the three PHASE-3 delivery formats. The detection decides *whether* and
+*where* to act. It does **not** move the hazard surface, and it cannot: ERA5
+publishes on a ~5-day lag, so no field can be simulated for today
+(:mod:`wildfireguardian.live.scope`).
+
+THE HONEST LIMIT, STATED RATHER THAN HIDDEN
+-------------------------------------------
+The canonical field was simulated for one specific fire, anchored at that fire's
+own ignition point. A hotspot 40 km away is a real detection, but the field is
+not a statement about it. So every run measures the distance from the
+triggering hotspot to the field's ignition point and records a verdict:
+
+    IN_SCOPE       within live.trigger.field_applicability_radius_km
+    OUT_OF_SCOPE   beyond it — outputs are still produced, and every one of
+                   them is stamped, because suppressing them would hide a real
+                   detection and publishing them silently would overclaim.
+
+It is a LABEL, never a filter. Nothing is dropped on account of it.
+
+THE 459 SERIES IS RESIDENT-SIDE
+-------------------------------
+Three buckets, no responder, no depot, no vehicle ETA. The mapping onto the
+delivery layer's point schema is therefore:
+
+    naive_into_FA_safe   -> a point to visit; the fire-blind route walks into
+                            the fire and a detour exists
+    no_safe_route        -> unreachable: no safe walking route within budget
+    fa_exceeds_budget    -> unreachable: a route exists but not within budget
+    both_safe            -> not on a sheet
+
+``closing_window_min`` is the origin's OWN time-to-cutoff — the minutes until
+that place reaches the impassable probability. For a 이장 reading the sheet that
+is the same question the 439-series column answered, asked of a person on foot
+rather than of a vehicle.
+"""
+
+from __future__ import annotations
+
+import hashlib
+import json
+import math
+import subprocess
+import time
+from dataclasses import dataclass
+from datetime import UTC, datetime
+from pathlib import Path
+
+import numpy as np
+
+from ..config import config_hash, get as _cfg
+from ..delivery import broadcast, printable, sms
+from ..delivery.villages import _bearing_word, cluster_points, named_refuges
+from ..routing.evacuation import future_aware_route, naive_route
+from ..routing.hazard import HazardSequence
+from ..routing.slope import build_walk_network, load_snapshot_graph
+from ..spread_v2.grid import CoarseGrid
+from .firms import Hotspot, haversine_m
+from .scope import COVERAGE_CAVEAT_KO, SCOPE_BANNER_KO, Scope
+from .state import RunRecord, StageTimings
+
+REPO = Path(__file__).resolve().parents[3]
+
+#: Sheet wording for the resident-side series. `printable`'s defaults are
+#: vehicle-side and belong to the 439 series; see its module docstring.
+WALK_DISPATCH_HEADING = "■ 도보 대피 안내 지점 — 남은 시간 순"
+WALK_UNREACHABLE_HEADING = "■ 안전한 도보 대피로 없음 — 별도 조치 필요"
+WALK_UNREACHABLE_FALLBACK = "예산 내 안전한 보행 경로 없음"
+WALK_ROUTE_FALLBACK = "대피 경로 확인 필요"
+
+#: Bucket -> (is_unreachable, Korean reason / route note).
+BUCKET_TEXT: dict[str, tuple[bool, str]] = {
+    "naive_into_FA_safe": (False, "최단 경로는 화재 통과 — 우회 경로 필요"),
+    "no_safe_route": (True, "예산 내 안전한 보행 경로가 없음(우회 포함)"),
+    "fa_exceeds_budget": (True, "보행 경로는 있으나 대피 시간 예산 초과"),
+    "both_enter": (True, "우회 경로도 화재를 통과함"),
+    "naive_unreachable": (True, "대피처까지 연결된 경로 없음"),
+}
+#: Buckets that put a point on an operational sheet. `both_safe` does not.
+ACTIONABLE: tuple[str, ...] = tuple(BUCKET_TEXT)
+
+
+def _git() -> str:
+    try:
+        return subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=REPO,
+                                       stderr=subprocess.DEVNULL).decode().strip()
+    except Exception:  # noqa: BLE001
+        return "unknown"
+
+
+def sha256_file(p: Path) -> str:
+    h = hashlib.sha256()
+    with Path(p).open("rb") as fh:
+        while block := fh.read(1 << 20):
+            h.update(block)
+    return h.hexdigest()
+
+
+# ---------------------------------------------------------------------------
+# The weather basis — read from the data, never typed as a literal
+# ---------------------------------------------------------------------------
+
+
+def weather_basis(region: str, *, repo: Path = REPO) -> tuple[str, dict]:
+    """When the pre-computed field's weather is from.
+
+    The canonical field's t = 0 is the first satellite overpass of the fire it
+    was built for (``spread_v2.grid.overpass_snapshots`` takes the max time of
+    the first cluster), and the ERA5 series is evaluated from there. So the
+    basis is derived from the committed detections CSV with the same clustering
+    function the simulation used — it cannot drift away from the field, which a
+    hard-coded date would.
+    """
+    import pandas as pd
+
+    from ..spread_v2.grid import cluster_overpasses
+
+    csv = repo / f"data/raw/firms_data/{region}_detections.csv"
+    if not csv.exists():
+        raise FileNotFoundError(
+            f"cannot establish the weather basis: {csv} is missing. The scope "
+            "statement is mandatory, so the run stops rather than printing an "
+            "unlabelled one.")
+    df = pd.read_csv(csv)
+    col = "timestamp" if "timestamp" in df.columns else "acq_datetime"
+    t = pd.to_datetime(df[col], utc=True).sort_values().reset_index(drop=True)
+    op = cluster_overpasses(t, gap_minutes=90.0)
+    first = op.iloc[0] if hasattr(op, "iloc") else op[0]
+    t0 = t[op == first].max()
+    stamp = t0.strftime("%Y-%m-%d %H:%M UTC")
+    return stamp, {
+        "basis_utc": t0.strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "derived_from": str(csv.relative_to(repo)),
+        "how": "first overpass cluster (gap 90 min) of the committed detections "
+               "CSV — the same anchor spread_v2 forward-simulation uses for t=0",
+        "era5_window": "ERA5 reanalysis for the fire's own dates; published on "
+                       "an approximately five-day lag, so it exists for that "
+                       "fire and does not exist for today",
+    }
+
+
+# ---------------------------------------------------------------------------
+# Resources — loaded once, reused across triggers
+# ---------------------------------------------------------------------------
+
+
+@dataclass
+class Resources:
+    """Everything a trigger needs, loaded once so a running service is warm."""
+
+    region: str
+    hazard: HazardSequence
+    haz: np.ndarray
+    extent: tuple[float, float, float, float, float]
+    npz_path: Path
+    npz_sha256: str
+    net: object
+    destinations: list[dict]
+    n_shelter_pois: int
+    snapshot_walk: str
+    snapshot_shelters: str
+    #: The FIELD's own t = 0 core centroid. This — not the manifest's declared
+    #: ignition coordinate — is what the simulation actually started from, and
+    #: therefore what "is this field a statement about this hotspot?" must be
+    #: measured against. For Yeongdeok the two differ by ~17 km: the manifest
+    #: records 129.05, 36.43, which lies outside the walk bbox entirely, while
+    #: the observed first-overpass core sits at 129.22, 36.47. Both are carried.
+    field_core_lonlat: tuple[float, float]
+    manifest_ignition_lonlat: tuple[float, float]
+    timings: StageTimings
+
+    def as_dict(self) -> dict:
+        return {
+            "region": self.region,
+            "hazard_npz": str(self.npz_path.relative_to(REPO)),
+            "hazard_npz_sha256": self.npz_sha256,
+            "hazard_shape": list(self.haz.shape),
+            "hazard_is_precomputed": True,
+            "hazard_lineage": "CANONICAL (routing_demo_canonical.npz). NOT "
+                              "routing_demo.npz, which is the output of a "
+                              "reverted run — HANDOFF_ROUND3.md §2-A.",
+            "snapshot_walk": self.snapshot_walk,
+            "snapshot_shelters": self.snapshot_shelters,
+            "n_walk_nodes": self.net.graph.number_of_nodes(),
+            "n_walk_edges": self.net.graph.number_of_edges(),
+            "n_shelter_pois": self.n_shelter_pois,
+            "n_shelter_nodes": len(self.net.shelters),
+            "field_core_lonlat": list(self.field_core_lonlat),
+            "manifest_ignition_lonlat": list(self.manifest_ignition_lonlat),
+            "anchor_note": (
+                "field_core_lonlat is the centroid of the t=0 cells at p >= 0.5 "
+                "in the pre-computed field — what the forward simulation was "
+                "actually seeded from, and the same proxy candidate_origins "
+                "uses for the reach band. manifest_ignition_lonlat is the "
+                "editorial coordinate in fire_manifest.json. For "
+                "yeongdeok_2025 they differ by about 17 km and the manifest "
+                "point falls outside the walk bbox, so applicability is "
+                "measured against the field, not against the manifest."),
+            "read_from_cache": False,
+        }
+
+
+def load_resources(region: str, *, npz_path: Path, repo: Path = REPO,
+                   sampling_m: float | None = None,
+                   max_abs_slope: float | None = None) -> Resources:
+    """Load the pre-computed field, the snapshot walk graph and the refuges.
+
+    Everything comes from ``data/snapshots/`` and ``data/processed/`` — never
+    from ``data/cache/**``, which is git-ignored and may be regenerated
+    underneath a run.
+    """
+    import sys
+
+    sys.path.insert(0, str(repo / "scripts"))
+    from run_multi_region_routing import read_poi_snapshot, snapshot_for  # noqa: PLC0415
+
+    t = StageTimings()
+
+    t0 = time.monotonic()
+    z = np.load(npz_path)
+    haz = z["haz_stack"].astype(np.float32)
+    times = np.asarray(z["haz_times"], float)
+    xmin, ymin, xmax, ymax, cell = [float(v) for v in z["grid_extent"]]
+    grid = CoarseGrid(minx=xmin, miny=ymin, maxx=xmax, maxy=ymax,
+                      cell_size_m=cell, nrows=haz.shape[1], ncols=haz.shape[2])
+    hazard = HazardSequence(grid=grid, times_min=times,
+                            surfaces=[haz[i] for i in range(haz.shape[0])])
+    npz_sha = sha256_file(npz_path)
+    t.load_hazard_s = time.monotonic() - t0
+
+    t0 = time.monotonic()
+    snap_walk = snapshot_for(region, "walk")
+    G = load_snapshot_graph(snap_walk)
+    dem = repo / f"data/raw/firms_data/{region}_dem.tif"
+    net, _stats = build_walk_network(
+        G, dem,
+        sampling_m=float(sampling_m if sampling_m is not None
+                         else _cfg("pedestrian.slope_sampling_m", 60.0)),
+        max_abs_slope=float(max_abs_slope if max_abs_slope is not None
+                            else _cfg("pedestrian.max_abs_slope", 0.60)),
+        directed=True, apply_slope=True)
+    t.load_network_s = time.monotonic() - t0
+
+    t0 = time.monotonic()
+    snap_shel = snapshot_for(region, "shelters")
+    dests, n_pois = read_poi_snapshot(snap_shel, kind="shelter")
+    if not dests:
+        raise RuntimeError(
+            "GATE A: zero refuges in the snapshot store. Every origin would be "
+            "unreachable and the dispatch list would be meaningless.")
+    net.shelters = {net.nearest_node(d.x, d.y) for d in dests}
+    dest_dicts = [{"name": d.name, "x": d.x, "y": d.y, "kind": d.kind}
+                  for d in dests]
+    t.load_pois_s = time.monotonic() - t0
+
+    manifest = json.loads(
+        (repo / "data/raw/firms_data/fire_manifest.json").read_text(encoding="utf-8"))
+    ign = next((f["ignition"] for f in manifest["fires"] if f["id"] == region), None)
+    if ign is None:
+        raise KeyError(f"{region} has no ignition point in fire_manifest.json")
+
+    from pyproj import Transformer  # noqa: PLC0415
+
+    to_4326 = Transformer.from_crs("EPSG:5179", "EPSG:4326", always_xy=True)
+    rr, cc = np.where(haz[0] >= 0.5)
+    core_x = float(xmin + (cc.mean() + 0.5) * cell)
+    core_y = float(ymax - (rr.mean() + 0.5) * cell)
+    core_lon, core_lat = to_4326.transform(core_x, core_y)
+
+    return Resources(region=region, hazard=hazard, haz=haz,
+                     extent=(xmin, ymin, xmax, ymax, cell),
+                     npz_path=Path(npz_path), npz_sha256=npz_sha, net=net,
+                     destinations=dest_dicts, n_shelter_pois=n_pois,
+                     snapshot_walk=snap_walk.name, snapshot_shelters=snap_shel.name,
+                     field_core_lonlat=(float(core_lon), float(core_lat)),
+                     manifest_ignition_lonlat=(float(ign[0]), float(ign[1])),
+                     timings=t)
+
+
+# ---------------------------------------------------------------------------
+# Routing
+# ---------------------------------------------------------------------------
+
+
+def candidate_origins(net, hazard, haz, extent, p_cut: float, stride: int):
+    """The committed 459-series origin rule, unchanged.
+
+    Duplicated from ``run_real_roads_real_hazard_slope.candidate_origins`` for
+    the same reason the multi-region runner duplicates it: a later edit to a
+    script must not silently redefine what "origin" means in a live run. The
+    three copies are pinned against each other in tests.
+    """
+    xmin, ymin, xmax, ymax, cell = extent
+    core = haz[0] >= 0.5
+    rr, cc = np.where(core)
+    ign_y = float(ymax - (rr.mean() + 0.5) * cell)
+    ign_x = float(xmin + (cc.mean() + 0.5) * cell)
+    band = 0.45 * (ymax - ymin)
+    cand = []
+    for i, n in enumerate(sorted(net.graph.nodes)):
+        if i % stride:
+            continue
+        x, y = net.node_xy(n)
+        if hazard.prob_at(x, y, 0.0) >= p_cut:
+            continue
+        if abs(y - ign_y) > band:
+            continue
+        cand.append(n)
+    return cand, (ign_x, ign_y)
+
+
+def _time_to_cutoff(hazard: HazardSequence, x: float, y: float, p_cut: float) -> float:
+    for tm in hazard.times_min:
+        if hazard.prob_at(x, y, float(tm)) >= p_cut:
+            return float(tm)
+    return math.inf
+
+
+def route_region(res: Resources, *, p_cut: float, budget_min: float,
+                 step_min: float, stride: int,
+                 limit_origins: int = 0) -> tuple[dict, list[dict], float]:
+    """Run the 459-series scan and return (counts, actionable points, seconds).
+
+    Unlike the batch runners this also carries each actionable origin's
+    coordinates and window out, because the delivery layer needs a place, not a
+    node id.
+    """
+    t0 = time.monotonic()
+    cand, _ign = candidate_origins(res.net, res.hazard, res.haz, res.extent,
+                                   p_cut, stride)
+    if limit_origins:
+        cand = cand[:limit_origins]
+
+    counts = {k: 0 for k in ("naive_into_FA_safe", "no_safe_route", "both_safe",
+                             "both_enter", "naive_unreachable",
+                             "fa_exceeds_budget", "unclassified")}
+    points: list[dict] = []
+    for n in cand:
+        nv = naive_route(res.net, n, res.hazard, departure_min=0.0, p_cut=p_cut)
+        fa = future_aware_route(res.net, n, res.hazard, departure_min=0.0,
+                                time_budget_min=budget_min, p_cut=p_cut,
+                                time_step_min=step_min)
+        if not nv.reached:
+            bucket = "naive_unreachable"
+        elif nv.enters_hazard and fa.reached and not fa.enters_hazard:
+            bucket = "naive_into_FA_safe"
+        elif nv.enters_hazard and not fa.reached:
+            bucket = "no_safe_route"
+        elif not nv.enters_hazard and fa.reached and not fa.enters_hazard:
+            bucket = "both_safe"
+        elif nv.enters_hazard and fa.enters_hazard:
+            bucket = "both_enter"
+        elif not nv.enters_hazard and not fa.reached:
+            bucket = "fa_exceeds_budget"
+        else:
+            bucket = "unclassified"
+        counts[bucket] += 1
+        if bucket not in ACTIONABLE:
+            continue
+        x, y = res.net.node_xy(n)
+        tc = _time_to_cutoff(res.hazard, x, y, p_cut)
+        unreachable, text = BUCKET_TEXT[bucket]
+        pt = {
+            "x": x, "y": y, "home_node": int(n), "bucket": bucket,
+            "unreachable": unreachable,
+            "closing_window_min": (None if math.isinf(tc) else tc),
+            "walk_time_min": (round(fa.total_time_min, 1) if fa.reached else None),
+        }
+        if unreachable:
+            pt["reason_ko"] = text
+        else:
+            pt["route_note"] = text
+        points.append(pt)
+
+    assert sum(counts.values()) == len(cand), "classification must partition"
+    return counts, points, time.monotonic() - t0
+
+
+# ---------------------------------------------------------------------------
+# Delivery
+# ---------------------------------------------------------------------------
+
+
+def _place_label(x: float, y: float, refuges: list[dict]) -> str:
+    """A coordinate-free label. Identical rule to generate_dispatch_outputs."""
+    best, bd = None, float("inf")
+    for r in refuges:
+        d = ((r["x"] - x) ** 2 + (r["y"] - y) ** 2) ** 0.5
+        if d < bd:
+            best, bd = r, d
+    if best is None:
+        return "위치 미상"
+    word = _bearing_word(x - best["x"], y - best["y"])
+    return f"{best['name'].strip()} {word}쪽 {int(round(bd))}m"
+
+
+def _nearest_named(x: float, y: float, refuges: list[dict]) -> str:
+    best, bd = None, float("inf")
+    for r in refuges:
+        d = ((r["x"] - x) ** 2 + (r["y"] - y) ** 2) ** 0.5
+        if d < bd:
+            best, bd = r, d
+    return best["name"].strip() if best else "미상"
+
+
+def deliver(points: list[dict], res: Resources, out_dir: Path, *,
+            scope: Scope, counts: dict, applicability: dict, eps_m: float,
+            make_pdf: bool = True) -> tuple[dict, float, float, float]:
+    """Render the three PHASE-3 formats.
+
+    Returns ``(manifest, cluster_s, render_s, pdf_s)``. PDF conversion is timed
+    SEPARATELY because it happens after the dispatch list already exists and
+    costs ~2.7 s per sheet in headless Chrome — folding it into the headline
+    would answer "how long to print 29 sheets?" when the question is "how long
+    until an operator has the list?".
+
+    NOTHING IS SENT. ``sms.send`` is not called anywhere on this path; the SMS
+    layer only composes drafts and writes them to disk.
+    """
+    refuges = named_refuges(res.destinations)
+
+    t0 = time.monotonic()
+    for p in points:
+        p["label"] = _place_label(p["x"], p["y"], refuges)
+    villages = cluster_points(points, res.destinations, eps_m=eps_m)
+    cluster_s = time.monotonic() - t0
+
+    t0 = time.monotonic()
+    pdf_s = 0.0
+    generated_at = datetime.now(UTC).strftime("%Y-%m-%d %H:%M UTC")
+    commit, cfg = _git(), config_hash()
+    # Two boxes, not five. Every mandated string still appears — the two scope
+    # lines are merged into one box and the standing coverage qualifier moves
+    # to the footer — because each bordered box costs enough vertical space
+    # that five of them pushed the largest cluster onto a second page, and one
+    # A4 page per village is a PHASE-3 design constraint.
+    banners = [scope.mode_banner(),
+               SCOPE_BANNER_KO + "  " + " · ".join(scope.lines())]
+    if applicability["verdict"] != "IN_SCOPE":
+        banners.insert(1, applicability["statement_ko"])
+    footer_extra = [COVERAGE_CAVEAT_KO]
+
+    n_dispatch = sum(1 for p in points if not p["unreachable"])
+    n_unreach = sum(1 for p in points if p["unreachable"])
+
+    manifest: dict = {
+        "schema_version": 1,
+        "generated_utc": datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ"),
+        "git_commit": commit,
+        "config_hash": cfg,
+        "series": "459 (canonical, resident-side, three buckets)",
+        "scope": scope.as_dict(),
+        "field_applicability": applicability,
+        "counts": counts,
+        "n_points": len(points),
+        "n_dispatch": n_dispatch,
+        "n_unreachable": n_unreach,
+        "clustering": {"algorithm": "DBSCAN", "eps_m": eps_m, "min_samples": 1,
+                       "is_administrative_village": False,
+                       "note": "행정리가 아닌 공간 군집"},
+        "sms_demo_mode": sms.demo_mode(),
+        "sms_credentials_present": sms.credentials_present(),
+        "nothing_was_sent": True,
+        "villages": [],
+    }
+
+    prefix = ("재생 모드입니다.",) if scope.is_replay else ()
+    for v in villages:
+        vdir = out_dir / v.slug()
+        vdir.mkdir(parents=True, exist_ok=True)
+        cx, cy = v.centroid
+        refuge_name = _nearest_named(cx, cy, refuges or res.destinations)
+
+        # (1) A4 sheet — the most important channel.
+        html = printable.render_html(
+            v, generated_at=generated_at, git_commit=commit, config_hash=cfg,
+            source_file=str(res.npz_path.relative_to(REPO)),
+            n_total_dispatch=n_dispatch, n_total_unreachable=n_unreach,
+            banner_lines=banners, extra_footer_lines=footer_extra,
+            dispatch_heading=WALK_DISPATCH_HEADING,
+            unreachable_heading=WALK_UNREACHABLE_HEADING,
+            unreachable_reason_fallback=WALK_UNREACHABLE_FALLBACK,
+            route_note_fallback=WALK_ROUTE_FALLBACK)
+        hp = vdir / "dispatch_a4.html"
+        hp.write_text(html, encoding="utf-8")
+        if make_pdf:
+            t_pdf = time.monotonic()
+            pdf = printable.html_to_pdf(hp, vdir / "dispatch_a4.pdf")
+            pdf_s += time.monotonic() - t_pdf
+            budget = printable.check_page_budget(pdf, v.name)
+        else:
+            pdf = {"ok": False, "engine": None, "reason": "--no-pdf: HTML only"}
+            budget = {"ok": None, "message": "not measured (--no-pdf)"}
+
+        # (2) 마을방송 script.
+        bc = broadcast.compose(v.name, refuge=refuge_name,
+                               n_unreachable=v.n_unreachable, mode="walk",
+                               prefix_lines=prefix)
+        (vdir / "broadcast_script.txt").write_text(bc.text + "\n", encoding="utf-8")
+
+        # (3) SMS drafts — composed and written, NEVER sent.
+        soonest = min((p["closing_window_min"] for p in v.points
+                       if p.get("closing_window_min") is not None), default=None)
+        msgs = [sms.compose_family_walk(v.name, v.n_points, v.n_unreachable,
+                                        refuge=refuge_name),
+                sms.compose_welfare_walk(v.name, v.n_points, v.n_unreachable,
+                                         soonest_min=soonest)]
+        (vdir / "sms_drafts.json").write_text(json.dumps(
+            {"village": v.name, "demo_mode": sms.demo_mode(), "sent": False,
+             "scope_ko": scope.banner_block(),
+             "note": "drafts only; sms.send() was never called and requires a "
+                     "positional approval_token",
+             "messages": [m.as_dict() for m in msgs]},
+            indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        (vdir / "sms_drafts.txt").write_text(
+            scope.banner_block() + "\n\n"
+            + "\n\n".join(f"[{m.recipient_role}] ({m.n_chars}자)\n{m.body}"
+                          for m in msgs) + "\n", encoding="utf-8")
+
+        entry = v.as_dict()
+        entry.update({"directory": str(vdir.relative_to(out_dir)),
+                      "refuge_used_in_messages": refuge_name,
+                      "pdf": pdf, "page_budget": budget,
+                      "broadcast_check": bc.check(),
+                      "sms": [m.as_dict() for m in msgs],
+                      "formats_written": ["dispatch_a4.html",
+                                          "broadcast_script.txt",
+                                          "sms_drafts.json", "sms_drafts.txt"]})
+        manifest["villages"].append(entry)
+
+    manifest["n_villages"] = len(villages)
+    manifest["all_three_formats_per_village"] = all(
+        len(v["formats_written"]) >= 4 for v in manifest["villages"])
+    (out_dir / "MANIFEST.json").write_text(
+        json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    return manifest, cluster_s, (time.monotonic() - t0) - pdf_s, pdf_s
+
+
+# ---------------------------------------------------------------------------
+# Field applicability
+# ---------------------------------------------------------------------------
+
+
+def assess_applicability(trigger: Hotspot, res: Resources, radius_km: float) -> dict:
+    """Is the pre-computed field a statement about THIS hotspot?
+
+    Measured against the field's own t = 0 core, because that is what the
+    forward simulation was seeded from. The manifest's declared ignition
+    coordinate is reported beside it, and its distance too — for Yeongdeok the
+    two are ~17 km apart, so silently using the manifest one would put every
+    genuine in-region detection out of scope.
+    """
+    lon0, lat0 = res.field_core_lonlat
+    d_km = haversine_m(trigger.lat, trigger.lon, lat0, lon0) / 1000.0
+    mlon, mlat = res.manifest_ignition_lonlat
+    d_manifest = haversine_m(trigger.lat, trigger.lon, mlat, mlon) / 1000.0
+    ok = d_km <= radius_km
+    return {
+        "verdict": "IN_SCOPE" if ok else "OUT_OF_SCOPE",
+        "hotspot_to_field_core_km": round(d_km, 3),
+        "hotspot_to_manifest_ignition_km": round(d_manifest, 3),
+        "radius_km": radius_km,
+        "anchor": "field t=0 core centroid (p >= 0.5)",
+        "field_core_lonlat": [lon0, lat0],
+        "manifest_ignition_lonlat": [mlon, mlat],
+        "statement_ko": (
+            f"트리거 화점은 사전 계산 위험면의 초기 화재 핵심에서 {d_km:.1f} km "
+            f"떨어져 있습니다(기준 {radius_km:g} km 이내)."
+            if ok else
+            f"⚠ 범위 밖: 트리거 화점이 사전 계산 위험면의 초기 화재 핵심에서 "
+            f"{d_km:.1f} km 떨어져 있습니다(기준 {radius_km:g} km). 이 위험면은 "
+            f"이번 화점에 대한 예측이 아니며, 아래 수치는 참고용입니다."),
+        "note": "A LABEL, never a filter. Nothing is dropped on account of it: "
+                "suppressing a real detection is worse than publishing a "
+                "stamped one.",
+    }
+
+
+def build_run_record(*, run_id: str, started: datetime, scope: Scope,
+                     res: Resources, trigger: Hotspot, new_hotspots: list[Hotspot],
+                     poll_meta: dict, counts: dict, applicability: dict,
+                     timings: StageTimings, manifest: dict, out_dir: Path,
+                     params: dict, notes: list[str]) -> RunRecord:
+    return RunRecord(
+        run_id=run_id, started_utc=started, mode=scope.mode, region=res.region,
+        scope=scope.as_dict(),
+        trigger={
+            "triggering_hotspot": trigger.as_dict(),
+            "n_new_hotspots_this_trigger": len(new_hotspots),
+            "new_hotspots": [h.as_dict() for h in new_hotspots],
+            "rule": "a hotspot inside the registered bbox whose coordinate was "
+                    "absent from every previous poll, at or above the "
+                    "configured confidence, with the re-trigger interval "
+                    "elapsed",
+        },
+        inputs={**res.as_dict(), "poll": poll_meta, "parameters": params},
+        counts=counts,
+        outputs={
+            "directory": str(out_dir.relative_to(REPO))
+                         if out_dir.is_relative_to(REPO) else str(out_dir),
+            "n_villages": manifest.get("n_villages", 0),
+            "n_points": manifest.get("n_points", 0),
+            "n_dispatch": manifest.get("n_dispatch", 0),
+            "n_unreachable": manifest.get("n_unreachable", 0),
+            "formats": ["A4 sheet (HTML/PDF)", "마을방송 script (txt)",
+                        "SMS drafts (json/txt)"],
+            "all_three_formats_per_village":
+                manifest.get("all_three_formats_per_village"),
+            "sms_demo_mode": manifest.get("sms_demo_mode"),
+            "sms_credentials_present": manifest.get("sms_credentials_present"),
+        },
+        timings=timings, field_applicability=applicability, notes=notes)
+
+
+__all__ = [
+    "ACTIONABLE", "BUCKET_TEXT", "Resources", "assess_applicability",
+    "build_run_record", "candidate_origins", "deliver", "load_resources",
+    "route_region", "sha256_file", "weather_basis",
+]

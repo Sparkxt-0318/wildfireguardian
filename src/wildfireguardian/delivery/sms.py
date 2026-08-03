@@ -117,6 +117,50 @@ def compose_welfare(village: str, n_points: int, n_unreachable: int,
     return SmsMessage("복지사", village, body, len(body), len(body) <= MAX_CHARS)
 
 
+# ---------------------------------------------------------------------------
+# 459-series (resident-side, on foot) composers — Round-3 PHASE 6
+# ---------------------------------------------------------------------------
+#
+# The two composers above describe a RESCUE VEHICLE that cannot get in. That is
+# correct for the 439 series, which has a responder side. The canonical 459
+# series does not: it contrasts a fire-blind walking route with a future-aware
+# one and never dispatches a vehicle, so "차량 진입이 어렵습니다" would describe
+# a computation that was not performed.
+#
+# These are separate functions rather than a flag on the originals, so no
+# committed 439-series draft can change wording underneath a re-run.
+
+
+def compose_family_walk(village: str, n_points: int, n_unreachable: int,
+                        refuge: str | None = None) -> SmsMessage:
+    """Family message for the resident-side (walking) series."""
+    where = f" 대피처는 {refuge}입니다." if refuge else ""
+    if n_unreachable:
+        body = (f"[산불] {village} 안내 대상 {n_points}곳 중 {n_unreachable}곳은 "
+                f"안전한 도보 대피로가 없습니다. 자체 이동을 삼가시고 소방 "
+                f"지시를 따라 주십시오.")
+    else:
+        body = (f"[산불] {village} 도보 대피 안내 {n_points}곳입니다. "
+                f"안전한 곳에서 대기해 주십시오.{where}")
+    body = _fit(body)
+    return SmsMessage("가족", village, body, len(body), len(body) <= MAX_CHARS)
+
+
+def compose_welfare_walk(village: str, n_points: int, n_unreachable: int,
+                         soonest_min: float | None = None) -> SmsMessage:
+    """Welfare-worker message for the resident-side (walking) series."""
+    urgency = ""
+    if soonest_min is not None and soonest_min == soonest_min:  # not NaN
+        if soonest_min <= 0:
+            urgency = " 이미 대피 시한이 지난 곳이 있습니다."
+        else:
+            urgency = f" 가장 급한 곳은 약 {int(soonest_min)}분 남았습니다."
+    body = (f"[산불] {village} 방문 대상 {n_points}곳입니다."
+            f"{urgency} 도보 대피 불가 {n_unreachable}곳은 별도 확인 부탁드립니다.")
+    body = _fit(body)
+    return SmsMessage("복지사", village, body, len(body), len(body) <= MAX_CHARS)
+
+
 def send(message: SmsMessage, to_number: str, approval_token: str) -> dict:
     """Send one message. **Requires** an explicit approval token.
 
@@ -162,4 +206,5 @@ def send(message: SmsMessage, to_number: str, approval_token: str) -> dict:
 
 
 __all__ = ["MAX_CHARS", "ApprovalRequired", "SmsMessage", "compose_family",
-           "compose_welfare", "credentials_present", "demo_mode", "send"]
+           "compose_family_walk", "compose_welfare", "compose_welfare_walk",
+           "credentials_present", "demo_mode", "send"]
