@@ -9,7 +9,7 @@
 | HEAD | `1e8e828` + this commit |
 | baseline tag | **`round2-submitted`** = `4e9dfe3` — the submitted state |
 | environment | conda env **`wfg311`**, Python 3.11.15 — see [`ENVIRONMENT.md`](ENVIRONMENT.md) |
-| suite | **688 passed, 2 skipped, 0 failed** (was 544; PHASE 6 +44, PHASE 7 +47, PHASE 8 +53) |
+| suite | **701 passed, 2 skipped, 0 failed** (was 544; PHASE 6 +44, PHASE 7 +47, PHASE 8 +66) |
 | registry | [`NUMBERS.json`](NUMBERS.json) — 103 entries, 87 reproducible |
 | OSM regions | 3 acquired + snapshotted (`MANIFEST.json`, 68 entries — 64 + 4 FIRMS NRT polls) |
 | config hash | `05c6feae1dff…` — moved from `faf90a81b7e6…` by PURE ADDITION (the PHASE-6 `live:` block; no existing value changed, and re-running `build_numbers.py` moved **only** the per-entry `config_hash` stamp, 0 values). Earlier lineage: `0b6eb481177a…` → `51ec446843b6…` at `cc41f12`. `NUMBERS.json.config_hash_note` records why this is expected. |
@@ -825,7 +825,7 @@ password — separate work, not part of this phase.
 Full write-up: [`operator_screen.md`](operator_screen.md).
 
 `scripts/build_operator_screen.py` → `demo/operator_screen.html` ·
-`tests/test_operator_screen.py` (26 tests)
+`tests/test_operator_screen.py` (66 tests)
 
 One self-contained HTML file, opened from `file://`, replaying a PHASE-6 run in
 the order a judge follows it: **탐지 → 위험면 → 경로 → 출동 목록**.
@@ -911,6 +911,42 @@ zero and never for one with some. **Never shorten it** to "의성·안동에는 
 is resident-side for every region: both lines are the resident's (fire-blind and
 future-aware). What changed is that the screen now *states* the responder side
 is not applicable instead of leaving its absence unexplained.
+
+### Demo window — `--start-at`, `--paused-on-load`
+
+`--list-triggers` prints when the routing actually fired:
+
+| region | trigger 1 | trigger 2 |
+|---|---:|---:|
+| 의성·안동 2025 | **t+77 min** | t+463 min |
+| 영덕 2025 | t+0 min | t+333 min |
+
+⚠ **Trigger times are OVERPASS moments, not hotspot arrival times.** A trigger
+fires when an overpass completes and its batch is diffed against the seen-set.
+For Yeongdeok the two coincide; for 의성·안동 they are **77 minutes apart**, and
+the first version of this screen showed 「계산 중」 at t=0 for a run that did not
+route until t+77. Read from `RUN.json`'s overpass list, never inferred.
+
+`outputs/live/screens/uiseong_andong_2025_demo.html` — built with
+`--start-at 47 --paused-on-load` — is the four-minute-talk file. At 60× one
+wall-clock second is one field minute, so it is a **60-second window**: 30 s of
+context, trigger at 30 s, 12 s of 계산 중, list complete at 60 s. Then pause and
+take questions.
+
+The fill is a **fixed duration** (18 field min) rather than a fixed rate, so the
+beat is the same length for 44 rows and for 45-of-105. That is what makes
+trigger → complete list exactly 30 s, and the 60-second window possible.
+
+**Moving the start point reproduces the state exactly.** Structurally: every
+drawn thing is a function of `t`, and `T_START` appears in exactly three places
+(definition, clock initial value, reset target) — a test pins that count.
+Empirically: nine start points were built and their rendered DOM compared
+against the state computed independently from the payload; all nine matched,
+including the hotspot fade pattern.
+
+⚠ `--start-at` overrides `--skip-preroll`. ⚠ `requestAnimationFrame` does not
+run in a hidden tab, so the replay freezes when backgrounded and resumes where
+it left off — no time jump.
 
 ### `--skip-preroll`
 

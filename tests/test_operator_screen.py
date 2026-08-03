@@ -311,3 +311,98 @@ def test_skip_preroll_variant_starts_at_detection():
         pytest.skip("--skip-preroll variant not built")
     assert payload(alt)["preroll"] == 0
     assert by_region()["uiseong_andong_2025"]["preroll"] == 25
+
+
+# ---------------------------------------------------------------------------
+# 9. Demo window: --start-at, --paused-on-load, and exact state reconstruction
+# ---------------------------------------------------------------------------
+
+DEMO = SCREENS / "uiseong_andong_2025_demo.html"
+
+
+def _run_json(region: str) -> dict:
+    """The RUN.json the screen for `region` was built from."""
+    runs = sorted((REPO / "outputs" / "live" / "replay" / region).glob("*/RUN.json"),
+                  key=lambda p: p.stat().st_mtime)
+    return json.loads(runs[-1].read_text(encoding="utf-8"))
+
+
+@pytest.mark.parametrize("screen", ALL, ids=lambda p: p.parent.name)
+def test_triggers_are_overpass_moments_not_first_hotspot_times(screen):
+    """A trigger fires when an OVERPASS completes and its batch is diffed
+    against the seen-set — not when the first hotspot of that batch was
+    acquired. For Uiseong-Andong those are 77 minutes apart, and an earlier
+    version showed 계산 중 at t=0 for a run that did not route until t+77."""
+    from datetime import datetime
+
+    d = payload(screen)
+    run = _run_json(d["region"])
+    poll = run["inputs"]["poll"]
+    t0 = datetime.strptime(poll["archive_t0_utc"], "%Y-%m-%dT%H:%M:%SZ")
+    expected = sorted(
+        round((datetime.strptime(o["archive_time_utc"], "%Y-%m-%dT%H:%M:%SZ")
+               - t0).total_seconds() / 60.0, 1)
+        for o in poll["overpasses"])
+    assert d["triggers"] == expected
+
+
+def test_the_two_regions_trigger_at_the_known_moments():
+    by = by_region()
+    assert by["uiseong_andong_2025"]["triggers"] == [77.0, 463.0]
+    assert by["yeongdeok_2025"]["triggers"] == [0.0, 333.0]
+
+
+@pytest.mark.parametrize("screen", ALL, ids=lambda p: p.parent.name)
+def test_the_fill_is_a_fixed_duration_not_a_fixed_rate(screen):
+    """So the beat is the same length for 44 rows and for 45-of-105, which is
+    what makes a 60-second window around the trigger possible at all."""
+    d = payload(screen)
+    assert d["fill_span_min"] == 18 and d["calc_min"] == 12
+    assert "D.fill_span_min / cap" in html(screen)
+
+
+@pytest.mark.skipif(not DEMO.exists(), reason="demo screen not built")
+def test_the_demo_screen_opens_thirty_seconds_before_the_trigger_and_paused():
+    d = payload(DEMO)
+    trigger = d["triggers"][0]
+    assert trigger == 77.0
+    # 30 s of wall clock at 60x is 30 field minutes.
+    assert d["start_at"] == trigger - 30 == 47.0
+    assert d["paused_on_load"] is True
+    # trigger -> full list is calc + fill = 30 field minutes, so the window
+    # from start to a complete list is exactly 60 s at 60x.
+    assert d["calc_min"] + d["fill_span_min"] == 30
+    assert (trigger + d["calc_min"] + d["fill_span_min"]) - d["start_at"] == 60
+
+
+@pytest.mark.skipif(not DEMO.exists(), reason="demo screen not built")
+def test_the_demo_screen_is_the_same_region_and_data_as_the_full_one():
+    """A separate start point must not mean separate numbers."""
+    a, b = payload(DEMO), by_region()["uiseong_andong_2025"]
+    for k in ("region", "counts", "origins", "actionable", "routes", "bands",
+              "hotspots", "triggers", "coverage_pct", "npz_sha256"):
+        assert a[k] == b[k], k
+
+
+@pytest.mark.parametrize("screen", ALL + ([DEMO] if DEMO.exists() else []),
+                         ids=lambda p: p.stem if p.name != "operator_screen.html"
+                         else p.parent.name)
+def test_the_start_point_only_enters_through_the_clock(screen):
+    """Reconstruction is exact because every drawn thing is a function of t.
+    `T_START` may only initialise the clock and the reset target; if it leaked
+    into the hazard, hotspot or row logic the two paths could diverge."""
+    src = html(screen)
+    assert "const T_START = (D.start_at !== null" in src
+    assert "let t = T_START" in src
+    assert "t = T_START; shown = -1; filled = 0; fillStart = null;" in src
+    # T_START appears exactly three times: the definition and those two uses.
+    assert src.count("T_START") == 3, src.count("T_START")
+
+
+@pytest.mark.parametrize("screen", ALL + ([DEMO] if DEMO.exists() else []),
+                         ids=lambda p: p.stem if p.name != "operator_screen.html"
+                         else p.parent.name)
+def test_paused_on_load_paints_before_the_first_frame(screen):
+    """Otherwise a paused screen opens blank and stays blank."""
+    src = html(screen)
+    assert "render();" in src.split("requestAnimationFrame(tick);")[0][-400:]

@@ -81,6 +81,17 @@ MAX_ROWS: int = 45
 #: Minutes of empty lead-in before the first detection. See the template.
 PREROLL_MIN: int = 25
 
+#: How long 「계산 중」 shows, in field minutes (12 s at 60x). The real routing
+#: takes ~25 s; this is a beat, and the status bar carries the measured figure.
+CALC_MIN: int = 12
+
+#: Field minutes over which the dispatch list fills, WHATEVER the row count.
+#: Fixed duration rather than fixed rate, so the beat is the same length for
+#: Yeongdeok's 44 rows and Uiseong-Andong's 45-of-105. Trigger -> full list is
+#: therefore CALC_MIN + FILL_SPAN_MIN = 30 field minutes = 30 s at 60x, which
+#: is what makes a 60-second demo window around the trigger possible.
+FILL_SPAN_MIN: int = 18
+
 #: Envelope coverage per region, from the committed runs. NOT computed here.
 #: docs/walk_bbox_coverage.md · docs/multi_region.md
 REGION_KO: dict[str, str] = {
@@ -150,7 +161,8 @@ def quantise(npz_path: Path) -> tuple[list[list[list[int]]], dict]:
     return out, meta
 
 
-def build(run_dir: Path, out_path: Path, *, skip_preroll: bool = False) -> dict:
+def build(run_dir: Path, out_path: Path, *, skip_preroll: bool = False,
+          start_at: float | None = None, paused_on_load: bool = False) -> dict:
     viz = json.loads((run_dir / "viz.json").read_text(encoding="utf-8"))
     man = json.loads((run_dir / "MANIFEST.json").read_text(encoding="utf-8"))
     run = json.loads((run_dir / "RUN.json").read_text(encoding="utf-8"))
@@ -181,6 +193,23 @@ def build(run_dir: Path, out_path: Path, *, skip_preroll: bool = False) -> dict:
             "conf": h["confidence"], "utc": h["acquired_utc"],
         })
     hotspots.sort(key=lambda h: h["t"])
+
+    # ---- when did the routing actually fire? ------------------------------
+    # NOT "when did the first hotspot arrive". A trigger fires when an OVERPASS
+    # completes and its batch is diffed against the seen-set, which is the
+    # cluster's last detection time. For Yeongdeok the two coincide (every
+    # detection in overpass 0 shares one timestamp); for Uiseong-Andong they are
+    # 77 minutes apart, and the earlier version showed 계산 중 at t=0 for a run
+    # that did not route until t+77.
+    overpasses = (run.get("inputs", {}).get("poll", {}) or {}).get("overpasses")
+    if not overpasses:
+        raise SystemExit(
+            "RUN.json carries no overpass times, so the trigger moment cannot "
+            "be established. Regenerate the run.")
+    triggers = sorted(
+        round((datetime.strptime(o["archive_time_utc"], "%Y-%m-%dT%H:%M:%SZ")
+               - t0dt).total_seconds() / 60.0, 1)
+        for o in overpasses)
 
     # The dispatch rows: actionable points, most urgent first. Same ordering
     # rule the A4 sheet uses, so the screen and the paper agree.
@@ -262,6 +291,11 @@ def build(run_dir: Path, out_path: Path, *, skip_preroll: bool = False) -> dict:
         "coverage_pct": coverage_pct,
         "responder": viz.get("responder_side", {}),
         "max_rows": MAX_ROWS,
+        "triggers": triggers,
+        "calc_min": CALC_MIN,
+        "fill_span_min": FILL_SPAN_MIN,
+        "start_at": start_at,
+        "paused_on_load": bool(paused_on_load),
         "n_actionable_total": len(rows),
         "preroll": 0 if skip_preroll else PREROLL_MIN,
         "region": viz["region"],
@@ -283,7 +317,8 @@ def build(run_dir: Path, out_path: Path, *, skip_preroll: bool = False) -> dict:
                                                        separators=(",", ":")))
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(html, encoding="utf-8")
-    return {"bytes": out_path.stat().st_size, "n_origins": len(viz["origins"]),
+    return {"triggers": triggers,
+            "bytes": out_path.stat().st_size, "n_origins": len(viz["origins"]),
             "n_rows": len(rows), "n_rows_shown": min(len(rows), MAX_ROWS),
             "n_routes": len(viz["routes"]), "n_hotspots": len(hotspots),
             "preroll": 0 if skip_preroll else PREROLL_MIN,
@@ -501,14 +536,20 @@ if (routePair) {
    One clock, in minutes since the hazard field's t=0. The detections and the
    surface are two records of the same fire, so they share an axis. */
 const HORIZON = G.times_min[G.times_min.length - 1];
-const TRIGGERS = [...new Set(D.hotspots.map(h => h.t))].sort((a, b) => a - b);
-const CALC_MIN = 12;               /* how long "계산 중" shows, in field minutes */
+/* When the routing ACTUALLY fired: an overpass completing, not the first
+   hotspot arriving. For Yeongdeok the two coincide; for Uiseong-Andong they
+   are 77 minutes apart. Carried from RUN.json, never inferred here. */
+const TRIGGERS = D.triggers;
+const CALC_MIN = D.calc_min;
 /* A short lead-in before the first detection. The field's t=0 IS the first
    overpass, so without it the screen opens mid-trigger and the sequence
    detection -> surface -> routes -> list is never visible. These minutes are
-   real and empty: nothing had been detected yet. The clock says so. */
+   real and empty: nothing had been detected yet. The clock says so.
+   --start-at overrides it: an explicit start point is where you meant. */
 const PREROLL = D.preroll;
-let t = -PREROLL, speed = 60, paused = false, last = null;
+const T_START = (D.start_at !== null && D.start_at !== undefined)
+  ? D.start_at : -PREROLL;
+let t = T_START, speed = 60, paused = !!D.paused_on_load, last = null;
 let shown = -1, filled = 0, fillStart = null;
 
 const rowsEl = document.getElementById('rows');
@@ -574,7 +615,10 @@ function render() {
     } else {
       calcEl.classList.remove('on');
       const cap = Math.min(D.actionable.length, D.max_rows);
-      const want = Math.min(cap, Math.ceil((t - fillStart) / 1.4));
+      /* Fixed DURATION, not fixed rate: the beat is the same length whether
+         the region has 44 rows or 45-of-105. */
+      const per = D.fill_span_min / cap;
+      const want = Math.min(cap, Math.ceil((t - fillStart) / per));
       while (filled < want) { addRow(filled); filled++; }
       /* More points than fit on one screen. Say so rather than letting the
          list appear to end — the A4 sheets carry every one of them. */
@@ -626,11 +670,13 @@ document.querySelectorAll('button[data-sp]').forEach(b => {
 });
 document.getElementById('durlbl').textContent = durText();
 const pb = document.getElementById('pause');
+pb.textContent = paused ? '재생' : '일시정지';
+pb.classList.toggle('on', paused);
 pb.onclick = () => { paused = !paused;
   pb.textContent = paused ? '재생' : '일시정지';
   pb.classList.toggle('on', paused); };
 document.getElementById('reset').onclick = () => {
-  t = -PREROLL; shown = -1; filled = 0; fillStart = null;
+  t = T_START; shown = -1; filled = 0; fillStart = null;
   rowsEl.innerHTML = ''; delete rowsEl.dataset.more; gHot.innerHTML = '';
   calcEl.classList.remove('on');
   subEl.textContent = '대기 중 — 화점 탐지를 기다리는 중입니다';
@@ -663,6 +709,8 @@ document.getElementById('f5').textContent =
   `라우팅 ${D.timings.route_s.toFixed(1)}s · 마을 ${D.n_villages}곳 · ` +
   `커밋 ${D.git_commit.slice(0, 7)} · 사전 계산 결과 재생 (실시간 계산 아님)`;
 
+render();          /* paint the start state before the first frame, so a
+                      --paused-on-load screen opens on its content */
 requestAnimationFrame(tick);
 </script></body></html>
 """
@@ -684,6 +732,17 @@ def main() -> int:
                     help="start at the moment of detection instead of "
                          f"{PREROLL_MIN} empty minutes before it. A four-minute "
                          "talk may not have 25 seconds to spend on an empty map.")
+    ap.add_argument("--start-at", type=float, default=None, metavar="MIN",
+                    help="open at this many FIELD MINUTES from the field's t=0. "
+                         "The hazard slice, the hotspots and the dispatch list "
+                         "are reconstructed to that instant, so the screen is "
+                         "identical to one played from the beginning and "
+                         "scrubbed forward. Overrides --skip-preroll.")
+    ap.add_argument("--paused-on-load", action="store_true",
+                    help="open paused, showing the start state. Press 재생 when "
+                         "you are ready to talk.")
+    ap.add_argument("--list-triggers", action="store_true",
+                    help="print this run's trigger times and exit")
     args = ap.parse_args()
 
     root = REPO / "outputs" / "live"
@@ -708,14 +767,30 @@ def main() -> int:
     out = Path(args.out) if args.out else (
         REPO / "outputs" / "live" / "screens" / region / "operator_screen.html")
 
-    info = build(run_dir, out, skip_preroll=args.skip_preroll)
+    if args.list_triggers:
+        info = build(run_dir, REPO / ".trigger-probe.html")
+        (REPO / ".trigger-probe.html").unlink(missing_ok=True)
+        print(f"region : {region}")
+        for i, tm in enumerate(info["triggers"], start=1):
+            print(f"  trigger {i}: t+{tm:g} min  "
+                  f"(60x -> {tm:g}s from the field's t=0)")
+        return 0
+
+    info = build(run_dir, out, skip_preroll=args.skip_preroll,
+                 start_at=args.start_at,
+                 paused_on_load=args.paused_on_load)
     print(f"region : {region}")
     print(f"run    : {run_dir.relative_to(REPO)}")
     print(f"origins: {info['n_origins']}  rows shown: {info['n_rows_shown']}"
           f"/{info['n_rows']}  routes: {info['n_routes']}  "
           f"hotspots: {info['n_hotspots']}")
-    print(f"pre-roll: {info['preroll']} min"
-          + ("  (skipped)" if args.skip_preroll else ""))
+    print(f"triggers: {', '.join('t+' + format(x, 'g') for x in info['triggers'])} min")
+    if args.start_at is not None:
+        print(f"start-at: t+{args.start_at:g} min"
+              + ("  (paused on load)" if args.paused_on_load else ""))
+    else:
+        print(f"pre-roll: {info['preroll']} min"
+              + ("  (skipped)" if args.skip_preroll else ""))
     print(f"horizon: {info['horizon_min']:.0f} min "
           f"(60x -> {(info['horizon_min'] + info['preroll']) / 60:.1f} min wall clock)")
     print(f"wrote  : {out.relative_to(REPO)}  "

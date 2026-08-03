@@ -3,7 +3,7 @@
 Round-3 PHASE 8. Written 2026-08-03.
 
 `scripts/build_operator_screen.py` → `demo/operator_screen.html` ·
-`tests/test_operator_screen.py` (26 tests)
+`tests/test_operator_screen.py` (66 tests)
 
 ```bash
 python scripts/build_operator_screen.py --region uiseong_andong_2025
@@ -162,6 +162,81 @@ overpass, so without a lead-in the screen opens mid-trigger and the
 detection → surface → routes → list sequence is never visible. Those 25 minutes
 are real and empty — nothing had been detected yet — and the clock says
 `탐지 전 N분` rather than pretending otherwise.
+
+### Demo window — `--start-at` and `--paused-on-load`
+
+A four-minute talk cannot spend twelve minutes replaying. `--start-at` opens the
+screen at any point on the field's clock, and `--paused-on-load` opens it
+frozen there, so the presenter starts it when they are ready to talk.
+
+```bash
+python scripts/build_operator_screen.py --region uiseong_andong_2025 --list-triggers
+#   trigger 1: t+77 min
+#   trigger 2: t+463 min
+
+python scripts/build_operator_screen.py --region uiseong_andong_2025 \
+    --start-at 47 --paused-on-load \
+    --out outputs/live/screens/uiseong_andong_2025_demo.html
+```
+
+**`outputs/live/screens/uiseong_andong_2025_demo.html`** is that file. At 60×
+one wall-clock second is one field minute, so its 60-second window is:
+
+| wall clock | field time | what is on screen |
+|---:|---:|---|
+| 0 s | t+47 | opens **paused** — surface, 49 hotspots, no list yet |
+| 0–30 s | t+47 → t+77 | detections keep arriving |
+| **30 s** | **t+77** | **트리거** — 「계산 중」 |
+| 30–42 s | t+77 → t+89 | 계산 중 |
+| 42–60 s | t+89 → t+107 | origins colour in, routes appear, list fills |
+| 60 s | t+107 | 45 rows + 「… 외 60곳」, complete |
+
+Then pause and take questions; 재생 continues to t+463 for the second trigger.
+
+The fill is a **fixed duration** (18 field minutes) rather than a fixed rate, so
+the beat is the same length for Yeongdeok's 44 rows and Uiseong-Andong's
+45-of-105. That is what makes trigger → complete list exactly 30 s at 60×, and
+therefore a 60-second window possible at all.
+
+### Moving the start point reproduces the state exactly
+
+The requirement is that a screen opened at t+110 is identical to one played from
+the beginning and scrubbed there. It holds **structurally**: everything drawn is
+a pure function of `t`, and `T_START` appears in exactly three places — the
+definition, the clock's initial value, and the reset target. It never enters the
+hazard, hotspot or row logic, so both paths run the same `render()`.
+
+Verified by building at nine start points and comparing the rendered DOM against
+the state computed independently from the payload:
+
+| t | slice | hotspots | 계산 중 | rows |
+|---:|---:|---:|---|---:|
+| 0 | 1/5 | 23 | no | 0 |
+| 47 | 1/5 | 49 | no | 0 |
+| **77** | 1/5 | 77 | **yes** | 0 |
+| 89 | 1/5 | 77 | no | 0 |
+| 95 | 1/5 | 77 | no | 15 |
+| 110 | 1/5 | 77 | no | 45 + overflow |
+| 200 | 2/5 | 77 | no | 45 + overflow |
+| 463 | 3/5 | 101 | no | 45 + overflow |
+| 500 | 3/5 | 101 | no | 45 + overflow |
+
+Every one matched, including the hotspot fade pattern — 100 dimmed and 1 current
+at t+463, which is exactly what sequential play produces.
+
+> ⚠ **`--start-at` overrides `--skip-preroll`.** An explicit start point is
+> where you meant to be; the pre-roll is only a default lead-in.
+
+> ⚠ **Trigger times come from the run's OVERPASS moments, not from hotspot
+> arrival times.** A trigger fires when an overpass completes and its batch is
+> diffed against the seen-set. For Yeongdeok the two coincide (every detection
+> in overpass 0 shares one timestamp); for 의성·안동 they are **77 minutes
+> apart**, and an earlier version showed 「계산 중」 at t=0 for a run that did
+> not route until t+77.
+
+> ⚠ **`requestAnimationFrame` does not run in a hidden tab**, so the replay
+> freezes if the window is backgrounded and resumes where it left off — no time
+> jump. Harmless in a demo, and worth knowing if the screen ever looks stuck.
 
 **`--skip-preroll`** builds a variant that starts at the moment of detection:
 
