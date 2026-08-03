@@ -1,0 +1,204 @@
+{
+  "generated_utc": "2026-08-03T15:37:26Z",
+  "seed": 20250603,
+  "n_rows": 151904,
+  "n_positives": 2989,
+  "swappable_features": [
+    "wind_speed_ms",
+    "temp_c",
+    "rh_pct",
+    "vpd_kpa",
+    "precip_24h_mm",
+    "wind_alignment"
+  ],
+  "arms": {
+    "A0_all_16": {
+      "n_features": 16,
+      "mean_of_folds": 0.894295272056428,
+      "std_of_folds": 0.09242955799266486,
+      "pooled": 0.9036468798222611,
+      "far_band": 0.8408179410762759,
+      "per_fire": {
+        "gangneung_2023": 0.7184278350515464,
+        "hongseong_2023": 0.9392712191836663,
+        "miryang_2022": 0.9768224819143017,
+        "uiseong_andong_2025": 0.8750543587532484,
+        "uljin_samcheok_2022": 0.9158966281835095,
+        "yeongdeok_2025": 0.9402991092522952
+      },
+      "dropped": [],
+      "seconds": 34.6,
+      "delta_mean_of_folds_vs_A0": 0.0,
+      "delta_pooled_vs_A0": 0.0,
+      "per_fire_delta_vs_A0": {
+        "gangneung_2023": 0.0,
+        "hongseong_2023": 0.0,
+        "miryang_2022": 0.0,
+        "uiseong_andong_2025": 0.0,
+        "uljin_samcheok_2022": 0.0,
+        "yeongdeok_2025": 0.0
+      }
+    },
+    "A1_drop_swappable": {
+      "n_features": 10,
+      "mean_of_folds": 0.8621637858479444,
+      "std_of_folds": 0.1109306164596099,
+      "pooled": 0.8952872313705919,
+      "far_band": 0.7280683636893425,
+      "per_fire": {
+        "gangneung_2023": 0.6420747422680413,
+        "hongseong_2023": 0.8768498661893199,
+        "miryang_2022": 0.940845854201447,
+        "uiseong_andong_2025": 0.8778876771210207,
+        "uljin_samcheok_2022": 0.9059391430615471,
+        "yeongdeok_2025": 0.9293854322462904
+      },
+      "dropped": [
+        "wind_speed_ms",
+        "temp_c",
+        "rh_pct",
+        "vpd_kpa",
+        "precip_24h_mm",
+        "wind_alignment"
+      ],
+      "seconds": 33.0,
+      "delta_mean_of_folds_vs_A0": -0.03213,
+      "delta_pooled_vs_A0": -0.00836,
+      "per_fire_delta_vs_A0": {
+        "gangneung_2023": -0.07635,
+        "hongseong_2023": -0.06242,
+        "miryang_2022": -0.03598,
+        "uiseong_andong_2025": 0.00283,
+        "uljin_samcheok_2022": -0.00996,
+        "yeongdeok_2025": -0.01091
+      }
+    },
+    "A2_shuffle_swappable": {
+      "n_features": 16,
+      "mean_of_folds": 0.8738927898847071,
+      "std_of_folds": 0.0850251279057286,
+      "pooled": 0.8981041319879682,
+      "far_band": 0.8064516249981253,
+      "per_fire": {
+        "gangneung_2023": 0.7090850515463917,
+        "hongseong_2023": 0.8726405898303884,
+        "miryang_2022": 0.9437256538675571,
+        "uiseong_andong_2025": 0.8832855115633628,
+        "uljin_samcheok_2022": 0.9061688546346409,
+        "yeongdeok_2025": 0.9284510778659022
+      },
+      "shuffled": [
+        "wind_speed_ms",
+        "temp_c",
+        "rh_pct",
+        "vpd_kpa",
+        "precip_24h_mm",
+        "wind_alignment"
+      ],
+      "seconds": 22.3,
+      "delta_mean_of_folds_vs_A0": -0.0204,
+      "delta_pooled_vs_A0": -0.00554,
+      "per_fire_delta_vs_A0": {
+        "gangneung_2023": -0.00934,
+        "hongseong_2023": -0.06663,
+        "miryang_2022": -0.0331,
+        "uiseong_andong_2025": 0.00823,
+        "uljin_samcheok_2022": -0.00973,
+        "yeongdeok_2025": -0.01185
+      }
+    },
+    "A3_drop_all_weather": {
+      "n_features": 9,
+      "mean_of_folds": 0.9027016979060485,
+      "std_of_folds": 0.06340119049349148,
+      "pooled": 0.8720727076517016,
+      "far_band": 0.6123646727614362,
+      "per_fire": {
+        "gangneung_2023": 0.9697164948453608,
+        "hongseong_2023": 0.8218102546833739,
+        "miryang_2022": 0.9576099053978854,
+        "uiseong_andong_2025": 0.8345397124520713,
+        "uljin_samcheok_2022": 0.8935166494409486,
+        "yeongdeok_2025": 0.9390171706166504
+      },
+      "dropped": [
+        "wind_speed_ms",
+        "temp_c",
+        "rh_pct",
+        "vpd_kpa",
+        "precip_24h_mm",
+        "wind_alignment",
+        "days_since_rain"
+      ],
+      "seconds": 36.8,
+      "delta_mean_of_folds_vs_A0": 0.00841,
+      "delta_pooled_vs_A0": -0.03157,
+      "per_fire_delta_vs_A0": {
+        "gangneung_2023": 0.25129,
+        "hongseong_2023": -0.11746,
+        "miryang_2022": -0.01921,
+        "uiseong_andong_2025": -0.04051,
+        "uljin_samcheok_2022": -0.02238,
+        "yeongdeok_2025": -0.00128
+      }
+    },
+    "A4_drop_days_since_rain": {
+      "n_features": 15,
+      "mean_of_folds": 0.9212516536885055,
+      "std_of_folds": 0.04687498411941008,
+      "pooled": 0.8893538998667814,
+      "far_band": 0.8941031283008277,
+      "per_fire": {
+        "gangneung_2023": 0.8888530927835052,
+        "hongseong_2023": 0.9453857469471669,
+        "miryang_2022": 0.9834028937117417,
+        "uiseong_andong_2025": 0.8483743942103178,
+        "uljin_samcheok_2022": 0.9308124304094204,
+        "yeongdeok_2025": 0.9306813640688802
+      },
+      "dropped": [
+        "days_since_rain"
+      ],
+      "seconds": 38.0,
+      "delta_mean_of_folds_vs_A0": 0.02696,
+      "delta_pooled_vs_A0": -0.01429,
+      "per_fire_delta_vs_A0": {
+        "gangneung_2023": 0.17043,
+        "hongseong_2023": 0.00611,
+        "miryang_2022": 0.00658,
+        "uiseong_andong_2025": -0.02668,
+        "uljin_samcheok_2022": 0.01492,
+        "yeongdeok_2025": -0.00962
+      }
+    },
+    "A5_drop_wind_speed": {
+      "n_features": 15,
+      "mean_of_folds": 0.9017173604924631,
+      "std_of_folds": 0.03898635924894537,
+      "pooled": 0.9007816099293083,
+      "far_band": 0.8049353600191971,
+      "per_fire": {
+        "gangneung_2023": 0.8376288659793815,
+        "hongseong_2023": 0.9098949010155433,
+        "miryang_2022": 0.948692264885921,
+        "uiseong_andong_2025": 0.8870639714953434,
+        "uljin_samcheok_2022": 0.8944611023731388,
+        "yeongdeok_2025": 0.9325630572054497
+      },
+      "dropped": [
+        "wind_speed_ms"
+      ],
+      "seconds": 35.3,
+      "delta_mean_of_folds_vs_A0": 0.00742,
+      "delta_pooled_vs_A0": -0.00287,
+      "per_fire_delta_vs_A0": {
+        "gangneung_2023": 0.1192,
+        "hongseong_2023": -0.02938,
+        "miryang_2022": -0.02813,
+        "uiseong_andong_2025": 0.01201,
+        "uljin_samcheok_2022": -0.02144,
+        "yeongdeok_2025": -0.00774
+      }
+    }
+  }
+}
