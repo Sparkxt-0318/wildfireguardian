@@ -192,8 +192,25 @@ folds reproduce the committed per-fire AUC to within ±0.006; **`gangneung_2023`
 differs by +0.0364** (0.6820 → 0.7184), which accounts for essentially the whole
 mean-of-folds difference (0.8895 committed → 0.8943 here). That fold is the
 smallest and noisiest in the set — 17 detections, 2 overpass clusters, a 1×2
-two-cell ERA5 domain — and the likely mechanism is the random validation split
-inside `HistGradientBoostingClassifier(early_stopping=True,
-validation_fraction=0.15)` seeing a different RNG state. **Every arm ran through
+two-cell ERA5 domain — and there are two candidate mechanisms. The first is
+the random validation split inside
+`HistGradientBoostingClassifier(early_stopping=True, validation_fraction=0.15)`
+seeing a different RNG state. The second is more likely and is checkable:
+
+⚠ **the installed environment has drifted from `requirements.txt`.** `make
+env-check` reports six packages off their pins — numpy 2.5.0 vs 2.4.6, scipy
+1.18.0 vs 1.17.1, pandas 3.0.3 vs 3.0.5, rasterio 1.5.0 vs 1.4.4, matplotlib
+3.11.0 vs 3.11.1, pillow 12.2.0 vs 12.3.0. The drift is in the **environment**,
+not the repo: `requirements.txt` was last modified at `a465128` (PHASE 1) and no
+PHASE-13 or PHASE-14 commit touched it; the check fails identically against the
+pre-PHASE-13 version of the file. So it predates this work.
+
+That matters here because the committed `spread_v2_lofo.json` was produced under
+the pinned versions and this table was not. `make verify` is unaffected — it
+re-derives each registered number **from its artifact**, never by re-running the
+model — but anyone re-running the model today gets slightly different fold AUCs,
+and the smallest fold is where that would show first. **Re-running this script
+under the pinned environment would settle which mechanism it is**, and is worth
+doing before any figure from this table is quoted absolutely. **Every arm ran through
 the identical harness, so the Δ columns are valid.** Do not quote an absolute
 figure from this table beside a committed one.
