@@ -52,6 +52,7 @@ BUD = "data/processed/budget_sweep_experiment.json"
 FULL = "data/processed/rescue_routing_full.json"
 SPARSE = "data/processed/cluster_sparsity.json"
 MULTI = "data/processed/multi_region_comparison.json"      # PHASE 5 STEP 4
+WXDEP = "data/processed/weather_dependency.json"           # PHASE 14
 MR_UISEONG = "data/processed/real_roads_real_hazard_uiseong_andong_2025.json"
 MR_ULJIN = "data/processed/real_roads_real_hazard_uljin_samcheok_2022.json"
 MR_YEONGDEOK = "data/processed/real_roads_real_hazard_canonical.json"
@@ -191,6 +192,13 @@ REPRO = {
                     "performs no network I/O and regenerates it exactly.",
         "blocked_by": None,
     },
+    WXDEP: {
+        "status": "reproducible",
+        "evidence": "tested 2026-08-03: re-ran scripts/measure_weather_dependency.py; "
+                    "the dataset rebuilds to the canonical (151904, 2989) and every "
+                    "arm reproduces to 4 dp. Deterministic given seed 20250603.",
+        "blocked_by": None,
+    },
     MULTI: {
         "status": "reproducible",
         "evidence": "pure arithmetic over committed artifacts; "
@@ -302,6 +310,87 @@ def main() -> int:
                "Build-A artifact data/processed/spread_v2/lofo_metrics.json holds "
                "a DIFFERENT mean (0.8309) over a DIFFERENT fire set — do not cite it."),
     )
+    # ------------------------------------------- PHASE 14: weather ceiling ---
+    # ⚠ These are CEILINGS on a forecast-source swap, not measurements of one.
+    # No forecast data was ever acquired. docs/weather_dependency.md.
+    N["wxdep_shuffle_far_band_delta"] = entry(
+        value=-0.0344, unit="ROC-AUC (delta)", source_file=WXDEP,
+        json_path="arms.A2_shuffle_swappable.far_band",
+        derivation=("arms.A2_shuffle_swappable.far_band - arms.A0_all_16.far_band; "
+                    "the six instantaneous weather features permuted across rows, "
+                    "dimensionality preserved, LOFO over the same 6 fires"),
+        sample="원거리대 AUC, 순간 기상 6개 셔플",
+        caveat=("A CEILING on the cost of swapping the weather source, not a "
+                "measurement of that swap. A real forecast carries SOME information "
+                "about these quantities, so its degradation is smaller. NO FORECAST "
+                "DATA WAS ACQUIRED. days_since_rain is NOT in the shuffled set — a "
+                "forecast cannot supply it — so antecedent dryness is unmeasured "
+                "here. Far band is the metric with resolving power: the same "
+                "contrast is -0.0055 on pooled AUC, which is noise."),
+        forbidden_phrasings=["GFS로 전환했다", "we switched to forecast data",
+                             "전환 비용은 0", "the switch costs nothing",
+                             "기상은 중요하지 않다", "weather does not matter"],
+        check={"kind": "expression",
+               "operands": {"a": op(WXDEP, "arms.A2_shuffle_swappable.far_band"),
+                            "b": op(WXDEP, "arms.A0_all_16.far_band")},
+               "expr": "round(a - b, 4)", "tolerance": 0.0},
+        notes=("PHASE 14 stopped here. The archive question was already settled "
+               "affirmatively (AWS noaa-gfs-bdp-pds, GFS 0.25 deg full forecasts "
+               "from 2021-01-02, measured publication lag +3h34m..+3h51m), so the "
+               "experiment was runnable and was not run."),
+    )
+    N["wxdep_drop_far_band_delta"] = entry(
+        value=-0.1127, unit="ROC-AUC (delta)", source_file=WXDEP,
+        json_path="arms.A1_drop_swappable.far_band",
+        derivation=("arms.A1_drop_swappable.far_band - arms.A0_all_16.far_band; "
+                    "the six instantaneous weather features REMOVED (10 features left)"),
+        sample="원거리대 AUC, 순간 기상 6개 제거",
+        caveat=("Dropping removes the column entirely and forces the model onto the "
+                "remaining ten, so it is a LOOSER bound than the shuffle arm "
+                "(-0.0344). Quote the shuffle number for a like-for-like ceiling."),
+        forbidden_phrasings=["GFS 저하 -0.11", "GFS degrades by 0.11"],
+        check={"kind": "expression",
+               "operands": {"a": op(WXDEP, "arms.A1_drop_swappable.far_band"),
+                            "b": op(WXDEP, "arms.A0_all_16.far_band")},
+               "expr": "round(a - b, 4)", "tolerance": 0.0},
+    )
+    N["wxdep_drop_days_since_rain_mean_delta"] = entry(
+        value=+0.0270, unit="ROC-AUC (delta)", source_file=WXDEP,
+        json_path="arms.A4_drop_days_since_rain.mean_of_folds",
+        derivation=("arms.A4_drop_days_since_rain.mean_of_folds - "
+                    "arms.A0_all_16.mean_of_folds"),
+        sample="폴드평균 AUC, days_since_rain 제거",
+        caveat=("⚠ POSITIVE. Removing the TOP-RANKED feature by permutation "
+                "importance (+0.07726) IMPROVES mean-of-folds by +0.0270 and the far "
+                "band by +0.0533, while lowering pooled by -0.0142. For three of six "
+                "fires the feature equals the ERA5 window length exactly (2.88 / 6.88 "
+                "/ 6.88 d) because those windows contain zero wet samples, so it acts "
+                "as a per-fire constant — a fire fingerprint that raises pooled and "
+                "damages transfer. Do NOT read this as 'dryness does not matter': it "
+                "is a statement about this FEATURE as computed, not about dryness."),
+        forbidden_phrasings=["건조도는 중요하지 않다", "dryness does not matter",
+                             "days_since_rain는 쓸모없다"],
+        check={"kind": "expression",
+               "operands": {"a": op(WXDEP, "arms.A4_drop_days_since_rain.mean_of_folds"),
+                            "b": op(WXDEP, "arms.A0_all_16.mean_of_folds")},
+               "expr": "round(a - b, 4)", "tolerance": 0.0},
+    )
+    N["wxdep_drop_all_weather_far_band"] = entry(
+        value=0.6124, unit="ROC-AUC", source_file=WXDEP,
+        json_path="arms.A3_drop_all_weather.far_band",
+        derivation="arms.A3_drop_all_weather.far_band; all 7 weather features removed",
+        sample="원거리대 AUC, 기상 7개 전부 제거",
+        caveat=("Against 0.8408 with all sixteen. This is the strongest statement in "
+                "the set: without weather the model cannot do far-field prediction. "
+                "It coexists with the fact that the SAME ablation RAISES mean-of-folds "
+                "by +0.0084 — the two metrics answer the question oppositely and both "
+                "answers are real."),
+        forbidden_phrasings=["기상 없이도 동등하다", "weather adds nothing"],
+        check={"kind": "expression",
+               "operands": {"a": op(WXDEP, "arms.A3_drop_all_weather.far_band")},
+               "expr": "round(a, 4)", "tolerance": 0.0},
+    )
+
     N["lofo_fold_auc_sd"] = entry(
         value=0.107, unit="ROC-AUC (sample sd)", source_file=LOFO,
         json_path="per_fire_auc",

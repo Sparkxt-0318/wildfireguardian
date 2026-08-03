@@ -3,7 +3,7 @@
   "_README": "CANONICAL REGISTRY. Every reportable number lives here exactly once. Do not restate a value in prose without citing its key. 'verified' = still matches its artifact; 'reproducible' = re-running the pipeline regenerates that artifact. They are independent — several numbers here are verified but NOT reproducible because the OSM network behind them was overwritten (docs/DATA_LOSS_2026-07-24.md). Run scripts/verify_numbers.py to re-check every entry.",
   "config_hash": "8e29a6cc4a995844a04866355d38f556b1d35f6d3986d84c3af1529ede4aa208",
   "config_hash_note": "The per-entry config_hash is re-stamped on every build, so it marks the config a build SAW, not the config a number was PRODUCED under. It moved 0b6eb481177a… -> 51ec446843b6… between the 2026-08-01 build and the 2026-08-02 (PHASE 5 STEP 4) build. That move is PURELY ADDITIVE: `bbox.multi_region_walk_bbox` and `grid.simulation_bbox_extension` were added and NOT ONE existing key changed value (verified key-by-key against config/default.yaml at commit 5fe86db). No Round-2 number is stale as a result. It moved again 05c6feae1dff… -> 8e29a6cc4a99… on 2026-08-03 (PHASE 13), and again PURELY ADDITIVELY: the `fuel:` block (uncovered_land_warn_fraction / uncovered_land_stop_fraction) was added, no existing key changed value, and a rebuild moved 0 of the registered VALUES — only six `sample` labels, which carry the bbox area and therefore inherit the geodesic-area correction described under the mr_* completeness entries.",
-  "built_at_git_commit": "24407eb416c6ce3ce014653fe9fc29aa411605f0",
+  "built_at_git_commit": "dc4a9faf7db02c00bcca7c3ceea2d306c76d6779",
   "round2_submission_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
   "numbers": {
     "lofo_mean_of_folds_auc": {
@@ -40,6 +40,156 @@
       },
       "reproducible": true,
       "notes": "Produced by scripts/run_routing_integration.py. The superseded Build-A artifact data/processed/spread_v2/lofo_metrics.json holds a DIFFERENT mean (0.8309) over a DIFFERENT fire set — do not cite it."
+    },
+    "wxdep_shuffle_far_band_delta": {
+      "value": -0.0344,
+      "unit": "ROC-AUC (delta)",
+      "source_file": "data/processed/weather_dependency.json",
+      "json_path": "arms.A2_shuffle_swappable.far_band",
+      "derivation": "arms.A2_shuffle_swappable.far_band - arms.A0_all_16.far_band; the six instantaneous weather features permuted across rows, dimensionality preserved, LOFO over the same 6 fires",
+      "config_hash": "8e29a6cc4a995844a04866355d38f556b1d35f6d3986d84c3af1529ede4aa208",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "원거리대 AUC, 순간 기상 6개 셔플",
+      "caveat": "A CEILING on the cost of swapping the weather source, not a measurement of that swap. A real forecast carries SOME information about these quantities, so its degradation is smaller. NO FORECAST DATA WAS ACQUIRED. days_since_rain is NOT in the shuffled set — a forecast cannot supply it — so antecedent dryness is unmeasured here. Far band is the metric with resolving power: the same contrast is -0.0055 on pooled AUC, which is noise.",
+      "forbidden_phrasings": [
+        "GFS로 전환했다",
+        "we switched to forecast data",
+        "전환 비용은 0",
+        "the switch costs nothing",
+        "기상은 중요하지 않다",
+        "weather does not matter"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/weather_dependency.json",
+            "json_path": "arms.A2_shuffle_swappable.far_band"
+          },
+          "b": {
+            "file": "data/processed/weather_dependency.json",
+            "json_path": "arms.A0_all_16.far_band"
+          }
+        },
+        "expr": "round(a - b, 4)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "tested 2026-08-03: re-ran scripts/measure_weather_dependency.py; the dataset rebuilds to the canonical (151904, 2989) and every arm reproduces to 4 dp. Deterministic given seed 20250603.",
+        "blocked_by": null
+      },
+      "reproducible": true,
+      "notes": "PHASE 14 stopped here. The archive question was already settled affirmatively (AWS noaa-gfs-bdp-pds, GFS 0.25 deg full forecasts from 2021-01-02, measured publication lag +3h34m..+3h51m), so the experiment was runnable and was not run."
+    },
+    "wxdep_drop_far_band_delta": {
+      "value": -0.1127,
+      "unit": "ROC-AUC (delta)",
+      "source_file": "data/processed/weather_dependency.json",
+      "json_path": "arms.A1_drop_swappable.far_band",
+      "derivation": "arms.A1_drop_swappable.far_band - arms.A0_all_16.far_band; the six instantaneous weather features REMOVED (10 features left)",
+      "config_hash": "8e29a6cc4a995844a04866355d38f556b1d35f6d3986d84c3af1529ede4aa208",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "원거리대 AUC, 순간 기상 6개 제거",
+      "caveat": "Dropping removes the column entirely and forces the model onto the remaining ten, so it is a LOOSER bound than the shuffle arm (-0.0344). Quote the shuffle number for a like-for-like ceiling.",
+      "forbidden_phrasings": [
+        "GFS 저하 -0.11",
+        "GFS degrades by 0.11"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/weather_dependency.json",
+            "json_path": "arms.A1_drop_swappable.far_band"
+          },
+          "b": {
+            "file": "data/processed/weather_dependency.json",
+            "json_path": "arms.A0_all_16.far_band"
+          }
+        },
+        "expr": "round(a - b, 4)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "tested 2026-08-03: re-ran scripts/measure_weather_dependency.py; the dataset rebuilds to the canonical (151904, 2989) and every arm reproduces to 4 dp. Deterministic given seed 20250603.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "wxdep_drop_days_since_rain_mean_delta": {
+      "value": 0.027,
+      "unit": "ROC-AUC (delta)",
+      "source_file": "data/processed/weather_dependency.json",
+      "json_path": "arms.A4_drop_days_since_rain.mean_of_folds",
+      "derivation": "arms.A4_drop_days_since_rain.mean_of_folds - arms.A0_all_16.mean_of_folds",
+      "config_hash": "8e29a6cc4a995844a04866355d38f556b1d35f6d3986d84c3af1529ede4aa208",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "폴드평균 AUC, days_since_rain 제거",
+      "caveat": "⚠ POSITIVE. Removing the TOP-RANKED feature by permutation importance (+0.07726) IMPROVES mean-of-folds by +0.0270 and the far band by +0.0533, while lowering pooled by -0.0142. For three of six fires the feature equals the ERA5 window length exactly (2.88 / 6.88 / 6.88 d) because those windows contain zero wet samples, so it acts as a per-fire constant — a fire fingerprint that raises pooled and damages transfer. Do NOT read this as 'dryness does not matter': it is a statement about this FEATURE as computed, not about dryness.",
+      "forbidden_phrasings": [
+        "건조도는 중요하지 않다",
+        "dryness does not matter",
+        "days_since_rain는 쓸모없다"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/weather_dependency.json",
+            "json_path": "arms.A4_drop_days_since_rain.mean_of_folds"
+          },
+          "b": {
+            "file": "data/processed/weather_dependency.json",
+            "json_path": "arms.A0_all_16.mean_of_folds"
+          }
+        },
+        "expr": "round(a - b, 4)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "tested 2026-08-03: re-ran scripts/measure_weather_dependency.py; the dataset rebuilds to the canonical (151904, 2989) and every arm reproduces to 4 dp. Deterministic given seed 20250603.",
+        "blocked_by": null
+      },
+      "reproducible": true
+    },
+    "wxdep_drop_all_weather_far_band": {
+      "value": 0.6124,
+      "unit": "ROC-AUC",
+      "source_file": "data/processed/weather_dependency.json",
+      "json_path": "arms.A3_drop_all_weather.far_band",
+      "derivation": "arms.A3_drop_all_weather.far_band; all 7 weather features removed",
+      "config_hash": "8e29a6cc4a995844a04866355d38f556b1d35f6d3986d84c3af1529ede4aa208",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "원거리대 AUC, 기상 7개 전부 제거",
+      "caveat": "Against 0.8408 with all sixteen. This is the strongest statement in the set: without weather the model cannot do far-field prediction. It coexists with the fact that the SAME ablation RAISES mean-of-folds by +0.0084 — the two metrics answer the question oppositely and both answers are real.",
+      "forbidden_phrasings": [
+        "기상 없이도 동등하다",
+        "weather adds nothing"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/weather_dependency.json",
+            "json_path": "arms.A3_drop_all_weather.far_band"
+          }
+        },
+        "expr": "round(a, 4)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "tested 2026-08-03: re-ran scripts/measure_weather_dependency.py; the dataset rebuilds to the canonical (151904, 2989) and every arm reproduces to 4 dp. Deterministic given seed 20250603.",
+        "blocked_by": null
+      },
+      "reproducible": true
     },
     "lofo_fold_auc_sd": {
       "value": 0.107,
