@@ -133,7 +133,8 @@ def snapshot_poll(poll: firms.PollResult, region: str, out_dir: Path) -> list[di
 
 def run_trigger(res: pipeline.Resources, scope: Scope, trigger: firms.Hotspot,
                 new: list[firms.Hotspot], poll_meta: dict, args, params: dict,
-                notes: list[str]) -> dict:
+                notes: list[str],
+                all_hotspots: list[firms.Hotspot] | None = None) -> dict:
     """One trigger: route, deliver, record. Returns a compact summary."""
     started = datetime.now(UTC)
     run_id = started.strftime("%Y%m%dT%H%M%SZ")
@@ -175,9 +176,12 @@ def run_trigger(res: pipeline.Resources, scope: Scope, trigger: firms.Hotspot,
                      load_pois_s=res.timings.load_pois_s,
                      route_s=route_s, cluster_s=cluster_s, render_s=render_s,
                      pdf_s=pdf_s)
+    # The screen animates the WHOLE detection sequence, not just this trigger's
+    # new points: a viewer needs to see the fire being observed over time, and
+    # a single trigger's delta is a few dozen points out of context.
     viz = pipeline.write_viz(
         out_dir, res, points=points, geo=geo, routes=routes, counts=counts,
-        scope=scope, trigger=trigger, hotspots=new,
+        scope=scope, trigger=trigger, hotspots=(all_hotspots or new),
         applicability=applicability)
     print(f"        시각화 자료 {viz.name} (출발지 {len(geo)} · 조치 필요 "
           f"{len(points)} · 경로 {len(routes)}쌍)")
@@ -381,7 +385,8 @@ def main() -> int:
             seen.save()
             summaries.append(run_trigger(
                 res, scope, new[0], new,
-                {"kind": "replay", **src.as_dict()}, args, params, notes))
+                {"kind": "replay", **src.as_dict()}, args, params, notes,
+                all_hotspots=src.hotspots))
             if args.max_triggers and len(summaries) >= args.max_triggers:
                 print(f"  --max-triggers {args.max_triggers} 도달, 종료합니다.")
                 break

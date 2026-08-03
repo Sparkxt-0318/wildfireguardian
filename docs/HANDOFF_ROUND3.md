@@ -6,10 +6,10 @@
 | | |
 |---|---|
 | branch | **`round3-dev`** (tracks `origin/round3-dev`) |
-| HEAD | `353a3fe` + this commit |
+| HEAD | `1e8e828` + this commit |
 | baseline tag | **`round2-submitted`** = `4e9dfe3` — the submitted state |
 | environment | conda env **`wfg311`**, Python 3.11.15 — see [`ENVIRONMENT.md`](ENVIRONMENT.md) |
-| suite | **661 passed, 2 skipped, 0 failed** (was 544; PHASE 6 +44, PHASE 7 +47, PHASE 8 +26) |
+| suite | **688 passed, 2 skipped, 0 failed** (was 544; PHASE 6 +44, PHASE 7 +47, PHASE 8 +53) |
 | registry | [`NUMBERS.json`](NUMBERS.json) — 103 entries, 87 reproducible |
 | OSM regions | 3 acquired + snapshotted (`MANIFEST.json`, 68 entries — 64 + 4 FIRMS NRT polls) |
 | config hash | `05c6feae1dff…` — moved from `faf90a81b7e6…` by PURE ADDITION (the PHASE-6 `live:` block; no existing value changed, and re-running `build_numbers.py` moved **only** the per-entry `config_hash` stamp, 0 values). Earlier lineage: `0b6eb481177a…` → `51ec446843b6…` at `cc41f12`. `NUMBERS.json.config_hash_note` records why this is expected. |
@@ -37,7 +37,7 @@ unstaged**; every commit here used `git add -A -- . ':!docs/figures/*.png'`.
 | **canonical-hazard reconstruction** | **done — steps 1–4. See §2-A.** | `141b035`, `9ba83b4`, `6df4fcf`, `05fbfca`, `ed5e6b0`, `815dc02`, `a9b79cb`, `c8851d8`, `75f347a` |
 | **6 — live detection pipeline** | **done.** FIRMS NRT + replay mode. See §9 and [`live_pipeline.md`](live_pipeline.md). | `5a7cfc5` |
 | **7 — email delivery channel** | **done, with one caveat.** Approval-gated Gmail SMTP. The verification send did **not** complete: outbound SMTP is blocked on this network. See §10 and [`delivery_channels.md`](delivery_channels.md). | `353a3fe` |
-| **8 — operator screen** | **done.** Single-file offline replay screen for the demonstration. See §11 and [`operator_screen.md`](operator_screen.md). | this commit |
+| **8 — operator screen** | **done, TWO regions.** 의성·안동 (시연용) and 영덕 (한계 설명용). See §11 and [`operator_screen.md`](operator_screen.md). | `1e8e828` + this commit |
 
 ---
 
@@ -869,6 +869,56 @@ be taken on trust.
 5. **The 25-minute pre-roll is a presentation device**, chosen for legibility.
    The minutes are real and empty — the field's t=0 *is* the first overpass — and
    the clock says `탐지 전 N분` rather than pretending otherwise.
+
+### ⚠ TWO screens, and they do different jobs — keep both
+
+Same builder, same pipeline; only `--region` changes.
+
+| | **의성·안동 2025** — 시연용 | **영덕 2025** — 한계 설명용 |
+|---|---|---|
+| origins | 368 | 458 |
+| **FA-only** | **91 (24.7 %)** | 42 (9.2 %) |
+| no_safe / over budget | 12 / 2 | 2 / 0 |
+| **coverage** | **99.2 %** | **32.6 %** |
+| villages / points | 65 / 105 | 29 / 44 |
+| rows shown | 45 of 105 + 「… 외 60곳」 | 44 of 44 |
+| depots in walk bbox | **0** → responder side N/A | 4 |
+| the point | the network covers the fire, so the result is the region's | the fire runs 45 km **west out of the dashed box** — 32.6 % made visible |
+
+의성·안동 leads because its result is a statement about the region rather than
+about a third of it. 영덕 follows because its dashed walk-bbox outline is the
+easiest way to point at the coverage limit. **A presentation that shows only
+the first is selling something** — that is why both are kept.
+
+⚠ Do NOT quote the two FA-only shares as a ranking (rule 14: n = 3, the
+covariates move together). The honest statement is that on a field which
+actually advances, the same method and parameters give a much larger benefit —
+not that benefit rises with fire speed.
+
+### ⚠ 의성·안동 has no responder side, and the screen says so
+
+Its 919 km² walk bbox contains no `amenity=fire_station` mapped in OSM, so the
+status bar carries:
+
+> 이 지역은 walk bbox(919 km²) 내에 OSM에 매핑된 소방서가 없어 구조자 측
+> 산출이 불가합니다 — 더 넓은 3,926 km² 범위에는 6곳
+
+Generated from the depot count in `viz.json`, so it appears for any region with
+zero and never for one with some. **Never shorten it** to "의성·안동에는 소방서가
+없습니다" (rule 11) — a test bans that phrasing in the built file.
+
+**No responder route was removed, because none was ever drawn.** The 459 series
+is resident-side for every region: both lines are the resident's (fire-blind and
+future-aware). What changed is that the screen now *states* the responder side
+is not applicable instead of leaving its absence unexplained.
+
+### `--skip-preroll`
+
+At 60× the 25-minute pre-roll costs **25 seconds** of wall clock, and a
+four-minute talk may not have it. `--skip-preroll` starts at the moment of
+detection: **12.0 min** instead of 12.4. The trade is that the screen opens
+mid-trigger and the "nothing detected yet" beat is lost. Both variants are built
+for 의성·안동.
 
 ### Costs nothing extra to produce
 

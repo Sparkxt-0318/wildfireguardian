@@ -6,9 +6,72 @@ Round-3 PHASE 8. Written 2026-08-03.
 `tests/test_operator_screen.py` (26 tests)
 
 ```bash
-python scripts/build_operator_screen.py          # rebuild from the latest run
-open demo/operator_screen.html                   # or double-click it
+python scripts/build_operator_screen.py --region uiseong_andong_2025
+python scripts/build_operator_screen.py --region yeongdeok_2025
+open outputs/live/screens/uiseong_andong_2025/operator_screen.html
 ```
+
+---
+
+## 0-A. Two screens, two jobs
+
+They are built by the **same builder** from the **same pipeline**; only the
+region differs. Keeping both is deliberate — one demonstrates the system, the
+other demonstrates its limit, and a presentation that shows only the first is
+selling something.
+
+| | **의성·안동 2025** | **영덕 2025** |
+|---|---|---|
+| purpose | **시연용** — this is the demo | **한계 설명용** — this is the caveat |
+| origins | 368 | 458 |
+| 자력 대피 | 263 | 414 |
+| **구조 필요 (FA-only)** | **91** (24.7 %) | 42 (9.2 %) |
+| 도달 불가 | 12 + 2 over budget | 2 |
+| **보행망 커버리지** | **99.2 %** | **32.6 %** |
+| villages / actionable points | 65 / 105 | 29 / 44 |
+| rows shown | 45 of 105, with 「… 외 60곳」 | 44 of 44 |
+| 차고지 (depots in walk bbox) | **0** → responder side N/A | 4 |
+| what the map shows | the network covers the fire, so the result is the region's | the fire runs 45 km **west out of the dashed box** — 32.6 % made visible |
+| output | `outputs/live/screens/uiseong_andong_2025/` | `outputs/live/screens/yeongdeok_2025/` |
+
+**의성·안동 leads.** Its walk network covers 99.2 % of the predicted core, so
+its 91 future-aware-only origins are a statement about the region rather than
+about a third of it. It is also the strongest result the project has: nearly
+**seven times** Yeongdeok's future-aware-only share, on a field that actually
+advances.
+
+**영덕 follows, to show the limit.** Its dashed walk-bbox outline sits over a
+fire that runs 45 km west, and two thirds of the predicted core falls outside
+it. Every absolute Yeongdeok number on that screen is a rate on the covered
+third. Saying so is easier when it can be pointed at.
+
+> ⚠ Do not quote the two FA-only shares side by side as a ranking. n = 3, the
+> covariates move together, and `HANDOFF_ROUND3.md` rule 14 forbids it. The
+> honest statement is the one above: on a field that advances, the same method
+> and parameters give a much larger benefit — not that the benefit rises with
+> fire speed (Uljin-Samcheok advances fastest and benefits least).
+
+### 의성·안동 has no responder side
+
+Its ignition-centred 919 km² walk bbox contains **no `amenity=fire_station`
+mapped in OSM**, so `build_dispatch_list` would have no depot to dispatch from.
+The status bar says so:
+
+> 이 지역은 walk bbox(919 km²) 내에 OSM에 매핑된 소방서가 없어 구조자 측
+> 산출이 불가합니다 — 더 넓은 3,926 km² 범위에는 6곳
+
+⚠ **Never shorten that to "의성·안동에는 소방서가 없습니다."** The statement is
+about OSM mapping inside one bbox; the wider manifest bbox contains six
+(`HANDOFF_ROUND3.md` rule 11). The line is generated from the depot count in
+`viz.json`, so it appears automatically for any region with zero and never for
+one with some.
+
+**No responder route was removed, because none was ever drawn.** The 459 series
+is resident-side for *every* region, Yeongdeok included: it contrasts a
+fire-blind walking route with a future-aware one and never dispatches a vehicle.
+The two lines on both maps are 주민 대피 경로 and 미래 인지 경로 — both are the
+resident's. What changed for 의성·안동 is that the screen now *says* the
+responder side is not applicable, rather than leaving its absence unexplained.
 
 ---
 
@@ -99,6 +162,24 @@ overpass, so without a lead-in the screen opens mid-trigger and the
 detection → surface → routes → list sequence is never visible. Those 25 minutes
 are real and empty — nothing had been detected yet — and the clock says
 `탐지 전 N분` rather than pretending otherwise.
+
+**`--skip-preroll`** builds a variant that starts at the moment of detection:
+
+```bash
+python scripts/build_operator_screen.py --region uiseong_andong_2025 --skip-preroll
+```
+
+At 60× the pre-roll costs **25 seconds** of wall clock, and a four-minute talk
+may not have it to spend on an empty map. The trade is that the screen opens
+mid-trigger, so the "nothing detected yet → first detection" beat is lost. Both
+variants are built for 의성·안동; the flag changes one number in the payload and
+nothing else.
+
+| | with pre-roll | `--skip-preroll` |
+|---|---:|---:|
+| total at 60× | **12.4 min** | **12.0 min** |
+| total at 10× | 74.5 min | 72.0 min |
+| opens on | empty map, `탐지 전 25분` | first detection, `+000분` |
 
 **Sequence.** Hotspots appear at the minute they were detected (240 of them
 across the window, newest emphasised). At a trigger the panel shows

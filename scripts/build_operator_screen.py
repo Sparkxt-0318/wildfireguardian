@@ -29,11 +29,26 @@ WHERE THE DATA COMES FROM
                       hotspots, the field's grid and slice times
     MANIFEST.json     villages and their points (coordinate-free)
     RUN.json          scope, timings, applicability, counts
-    routing_demo_canonical.npz   the hazard surface itself, quantised here into
-                      five bands and run-length encoded
+    the region's hazard npz   the surface itself, quantised here into five
+                      bands and run-length encoded. Yeongdeok reads
+                      routing_demo_canonical.npz; the other regions read their
+                      own hazard_{region}.npz. The name is carried onto the
+                      status bar, never assumed.
 
-Run:  python scripts/build_operator_screen.py
-      python scripts/build_operator_screen.py --run-dir outputs/live/replay/…
+TWO SCREENS ARE BUILT, AND THEY DO DIFFERENT JOBS
+-------------------------------------------------
+    의성·안동 2025   the demonstration. Coverage 99.2 %, 91 future-aware-only
+                    origins, no responder side (no fire station is mapped in
+                    OSM inside its walk bbox).
+    영덕 2025        the limitation. Coverage 32.6 %, and the dashed walk-bbox
+                    outline sits over a fire that runs 45 km west of it, so the
+                    caveat is visible rather than merely stated.
+
+Same builder, same pipeline; only the region changes. docs/operator_screen.md.
+
+Run:  python scripts/build_operator_screen.py --region uiseong_andong_2025
+      python scripts/build_operator_screen.py --region yeongdeok_2025
+      python scripts/build_operator_screen.py --region … --skip-preroll
 """
 
 from __future__ import annotations
@@ -58,6 +73,27 @@ BAND_LABELS = ("0.10–0.30", "0.30–0.50", "0.50–0.70", "0.70–1.00")
 #: Monochrome-safe ramp: increasing saturation AND decreasing lightness, so the
 #: order survives a black-and-white projector.
 BAND_FILLS = ("#fde68a", "#fb923c", "#dc2626", "#7f1d1d")
+
+#: Rows the right-hand panel can show without scrolling at 1920x1080.
+#: Measured, not guessed: 19.5 px per row in a 954 px pane.
+MAX_ROWS: int = 45
+
+#: Minutes of empty lead-in before the first detection. See the template.
+PREROLL_MIN: int = 25
+
+#: Envelope coverage per region, from the committed runs. NOT computed here.
+#: docs/walk_bbox_coverage.md · docs/multi_region.md
+REGION_KO: dict[str, str] = {
+    "yeongdeok_2025": "영덕 2025",
+    "uiseong_andong_2025": "의성·안동 2025",
+    "uljin_samcheok_2022": "울진·삼척 2022",
+}
+
+COVERAGE_PCT: dict[str, float] = {
+    "yeongdeok_2025": 32.6,
+    "uiseong_andong_2025": 99.2,
+    "uljin_samcheok_2022": 81.5,
+}
 
 OUTCOME = {
     "both_safe": ("자력 대피", "#2563eb"),
@@ -114,7 +150,7 @@ def quantise(npz_path: Path) -> tuple[list[list[list[int]]], dict]:
     return out, meta
 
 
-def build(run_dir: Path, out_path: Path) -> dict:
+def build(run_dir: Path, out_path: Path, *, skip_preroll: bool = False) -> dict:
     viz = json.loads((run_dir / "viz.json").read_text(encoding="utf-8"))
     man = json.loads((run_dir / "MANIFEST.json").read_text(encoding="utf-8"))
     run = json.loads((run_dir / "RUN.json").read_text(encoding="utf-8"))
@@ -195,6 +231,16 @@ def build(run_dir: Path, out_path: Path) -> dict:
     view = {"x0": min(xs) - pad, "y0": min(ys) - pad,
             "x1": max(xs) + pad, "y1": max(ys) + pad}
 
+    # Coverage is per REGION, and the whole point of keeping both screens is
+    # that the two differ: Yeongdeok 32.6 % (the limitation, visible on the
+    # map) against Uiseong-Andong 99.2 % (the demonstration). Reading it from
+    # the region's own committed artifact stops the constant drifting.
+    coverage_pct = COVERAGE_PCT.get(viz["region"])
+    if coverage_pct is None:
+        raise SystemExit(
+            f"no committed coverage figure for {viz['region']}. Add it to "
+            "COVERAGE_PCT rather than letting the screen invent one.")
+
     scope = run["scope"]
     payload = {
         "view": view,
@@ -213,8 +259,13 @@ def build(run_dir: Path, out_path: Path) -> dict:
         "refuges": viz["refuges"],
         "hotspots": hotspots,
         "counts": viz["counts"],
-        "coverage_pct": 32.6,
+        "coverage_pct": coverage_pct,
+        "responder": viz.get("responder_side", {}),
+        "max_rows": MAX_ROWS,
+        "n_actionable_total": len(rows),
+        "preroll": 0 if skip_preroll else PREROLL_MIN,
         "region": viz["region"],
+        "region_ko": REGION_KO.get(viz["region"], viz["region"]),
         "scope": {
             "mode_banner": scope["mode_banner_ko"],
             "detection": scope["detection_line_ko"],
@@ -223,6 +274,7 @@ def build(run_dir: Path, out_path: Path) -> dict:
         },
         "applicability": viz["field_applicability"],
         "timings": run["timings_s"],
+        "npz_name": Path(viz["hazard"]["npz_path"]).name,
         "npz_sha256": viz["hazard"]["npz_sha256"][:16],
         "n_villages": man["n_villages"],
     }
@@ -232,8 +284,10 @@ def build(run_dir: Path, out_path: Path) -> dict:
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(html, encoding="utf-8")
     return {"bytes": out_path.stat().st_size, "n_origins": len(viz["origins"]),
-            "n_rows": len(rows), "n_routes": len(viz["routes"]),
-            "n_hotspots": len(hotspots),
+            "n_rows": len(rows), "n_rows_shown": min(len(rows), MAX_ROWS),
+            "n_routes": len(viz["routes"]), "n_hotspots": len(hotspots),
+            "preroll": 0 if skip_preroll else PREROLL_MIN,
+            "region": viz["region"], "coverage_pct": coverage_pct,
             "horizon_min": hmeta["times_min"][-1]}
 
 
@@ -306,7 +360,8 @@ footer .last{border-right:none;margin-left:auto;color:#64748b}
 </style></head>
 <body><div id="app">
 <header>
-  <h1>WildfireGuardian 운영자 화면</h1>
+  <h1>WildfireGuardian 운영자 화면 <span id="regionlbl"
+    style="font-weight:400;color:#94a3b8;font-size:14px"></span></h1>
   <span class="badge" id="modebadge">재생 모드</span>
   <span class="clock" id="clock">+000분</span>
   <span style="font-size:12px;color:#94a3b8" id="slicelbl"></span>
@@ -341,7 +396,7 @@ footer .last{border-right:none;margin-left:auto;color:#64748b}
       <h2>출동 목록</h2>
       <div class="sub" id="sidesub">대기 중 — 화점 탐지를 기다리는 중입니다</div>
     </div>
-    <div id="calc">계산 중 … 정본 위험면에서 458개 출발지를 라우팅하고 있습니다</div>
+    <div id="calc">계산 중 …</div>
     <div id="tablewrap"><table>
       <thead><tr><th class="rank">#</th><th class="loc">위치</th>
       <th class="win">남은 시간</th><th class="st">도달</th></tr></thead>
@@ -452,7 +507,7 @@ const CALC_MIN = 12;               /* how long "계산 중" shows, in field minu
    overpass, so without it the screen opens mid-trigger and the sequence
    detection -> surface -> routes -> list is never visible. These minutes are
    real and empty: nothing had been detected yet. The clock says so. */
-const PREROLL = 25;
+const PREROLL = D.preroll;
 let t = -PREROLL, speed = 60, paused = false, last = null;
 let shown = -1, filled = 0, fillStart = null;
 
@@ -518,9 +573,19 @@ function render() {
       subEl.textContent = '트리거 — 라우팅 실행 중';
     } else {
       calcEl.classList.remove('on');
-      const want = Math.min(D.actionable.length,
-        Math.ceil((t - fillStart) / 1.4));
+      const cap = Math.min(D.actionable.length, D.max_rows);
+      const want = Math.min(cap, Math.ceil((t - fillStart) / 1.4));
       while (filled < want) { addRow(filled); filled++; }
+      /* More points than fit on one screen. Say so rather than letting the
+         list appear to end — the A4 sheets carry every one of them. */
+      if (filled === cap && D.n_actionable_total > cap && !rowsEl.dataset.more) {
+        rowsEl.dataset.more = '1';
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td colspan="4" style="color:#94a3b8;font-weight:700;` +
+          `padding:5px 8px">… 외 ${D.n_actionable_total - cap}곳 · ` +
+          `전체 ${D.n_actionable_total}곳 (A4 시트에는 전부 포함)</td>`;
+        rowsEl.appendChild(tr);
+      }
       if (filled) {
         subEl.textContent =
           `${D.counts.naive_into_FA_safe}곳 안내 · ` +
@@ -566,7 +631,7 @@ pb.onclick = () => { paused = !paused;
   pb.classList.toggle('on', paused); };
 document.getElementById('reset').onclick = () => {
   t = -PREROLL; shown = -1; filled = 0; fillStart = null;
-  rowsEl.innerHTML = ''; gHot.innerHTML = '';
+  rowsEl.innerHTML = ''; delete rowsEl.dataset.more; gHot.innerHTML = '';
   calcEl.classList.remove('on');
   subEl.textContent = '대기 중 — 화점 탐지를 기다리는 중입니다';
   originNodes.forEach(n => n.setAttribute('opacity', 0));
@@ -575,16 +640,25 @@ document.getElementById('reset').onclick = () => {
 };
 
 /* ---- chrome ------------------------------------------------------------- */
+document.getElementById('calc').textContent =
+  `계산 중 … 사전 계산 위험면에서 ${D.origins.length}개 출발지를 라우팅하고 있습니다`;
 document.getElementById('bandleg').innerHTML = D.band_labels.map((l, i) =>
   `<div><span class="sw" style="background:${D.band_fills[i]}"></span>p ${l}</div>`
 ).join('');
 document.getElementById('modebadge').textContent = '재생 모드';
+document.getElementById('regionlbl').textContent = D.region_ko;
 document.getElementById('f1').textContent =
   '재생 모드 · ' + D.scope.weather_basis.split(' ')[0] + ' 기록 재생';
 document.getElementById('f2').textContent = D.scope.weather.replace('기상 자료: ', '');
 document.getElementById('f3').textContent = '보행망 커버리지 ' + D.coverage_pct + '%';
-document.getElementById('f4').textContent =
-  'routing_demo_canonical.npz · ' + D.npz_sha256 + '…';
+if (D.responder && D.responder.available === false) {
+  const f = document.querySelector('footer');
+  const d = document.createElement('div');
+  d.className = 'warn';
+  d.textContent = D.responder.status_ko;
+  f.insertBefore(d, document.getElementById('f4').parentNode);
+}
+document.getElementById('f4').textContent = D.npz_name + ' · ' + D.npz_sha256 + '…';
 document.getElementById('f5').textContent =
   `라우팅 ${D.timings.route_s.toFixed(1)}s · 마을 ${D.n_villages}곳 · ` +
   `커밋 ${D.git_commit.slice(0, 7)} · 사전 계산 결과 재생 (실시간 계산 아님)`;
@@ -597,30 +671,59 @@ requestAnimationFrame(tick);
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--run-dir", default=None)
-    ap.add_argument("--out", default=str(REPO / "demo" / "operator_screen.html"))
+    ap.add_argument("--run-dir", default=None,
+                    help="a PHASE-6 run directory containing viz.json")
+    ap.add_argument("--region", default=None,
+                    help="pick the newest run for this region instead of the "
+                         "newest run overall")
+    ap.add_argument("--out", default=None,
+                    help="default: outputs/live/screens/{region}/operator_screen.html")
+    ap.add_argument("--also-demo", action="store_true",
+                    help="additionally write demo/operator_screen.html")
+    ap.add_argument("--skip-preroll", action="store_true",
+                    help="start at the moment of detection instead of "
+                         f"{PREROLL_MIN} empty minutes before it. A four-minute "
+                         "talk may not have 25 seconds to spend on an empty map.")
     args = ap.parse_args()
 
     root = REPO / "outputs" / "live"
     if args.run_dir:
         run_dir = Path(args.run_dir)
     else:
-        cands = sorted(root.glob("*/*/viz.json"), key=lambda p: p.stat().st_mtime)
+        cands = sorted(root.glob("**/viz.json"), key=lambda p: p.stat().st_mtime)
+        if args.region:
+            cands = [c for c in cands
+                     if json.loads(c.read_text(encoding="utf-8")).get("region")
+                     == args.region]
         if not cands:
-            print("STOP: no run with viz.json. Generate one:\n"
-                  "  python scripts/run_live_detection.py --replay",
+            print(f"STOP: no run with viz.json"
+                  + (f" for {args.region}" if args.region else "") + ". Generate one:\n"
+                  "  python scripts/run_live_detection.py --replay"
+                  + (f" --region {args.region}" if args.region else ""),
                   file=sys.stderr)
             return 2
         run_dir = cands[-1].parent
 
-    info = build(run_dir, Path(args.out))
+    region = json.loads((run_dir / "viz.json").read_text(encoding="utf-8"))["region"]
+    out = Path(args.out) if args.out else (
+        REPO / "outputs" / "live" / "screens" / region / "operator_screen.html")
+
+    info = build(run_dir, out, skip_preroll=args.skip_preroll)
+    print(f"region : {region}")
     print(f"run    : {run_dir.relative_to(REPO)}")
-    print(f"origins: {info['n_origins']}  rows: {info['n_rows']}  "
-          f"routes: {info['n_routes']}  hotspots: {info['n_hotspots']}")
+    print(f"origins: {info['n_origins']}  rows shown: {info['n_rows_shown']}"
+          f"/{info['n_rows']}  routes: {info['n_routes']}  "
+          f"hotspots: {info['n_hotspots']}")
+    print(f"pre-roll: {info['preroll']} min"
+          + ("  (skipped)" if args.skip_preroll else ""))
     print(f"horizon: {info['horizon_min']:.0f} min "
-          f"(60x -> {info['horizon_min'] / 60:.0f} min wall clock)")
-    print(f"wrote  : {Path(args.out).relative_to(REPO)}  "
+          f"(60x -> {(info['horizon_min'] + info['preroll']) / 60:.1f} min wall clock)")
+    print(f"wrote  : {out.relative_to(REPO)}  "
           f"({info['bytes'] / 1024:.0f} KB, self-contained)")
+    if args.also_demo:
+        d = REPO / "demo" / "operator_screen.html"
+        build(run_dir, d, skip_preroll=args.skip_preroll)
+        print(f"       : {d.relative_to(REPO)}")
     return 0
 
 

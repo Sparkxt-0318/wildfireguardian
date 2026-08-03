@@ -166,6 +166,11 @@ class Resources:
     n_shelter_pois: int
     snapshot_walk: str
     snapshot_shelters: str
+    #: Depot (119안전센터 proxy) POIs inside this region's walk bbox. Zero for
+    #: Uiseong-Andong, which is why the responder side is NOT APPLICABLE there
+    #: rather than zero. Never phrase this as "the region has no fire stations":
+    #: six are mapped in the wider manifest bbox (HANDOFF_ROUND3.md rule 11).
+    n_depot_pois: int
     #: The FIELD's own t = 0 core centroid. This — not the manifest's declared
     #: ignition coordinate — is what the simulation actually started from, and
     #: therefore what "is this field a statement about this hotspot?" must be
@@ -258,6 +263,11 @@ def load_resources(region: str, *, npz_path: Path, repo: Path = REPO,
     net.shelters = {net.nearest_node(d.x, d.y) for d in dests}
     dest_dicts = [{"name": d.name, "x": d.x, "y": d.y, "kind": d.kind}
                   for d in dests]
+    # An EMPTY depot layer is a legitimate answer, not a failure. Read it so
+    # the screen can say "responder side not applicable" instead of implying a
+    # responder side that was silently never computed.
+    _depots, n_depots = read_poi_snapshot(snapshot_for(region, "depots"),
+                                          kind="depot")
     t.load_pois_s = time.monotonic() - t0
 
     manifest = json.loads(
@@ -279,6 +289,7 @@ def load_resources(region: str, *, npz_path: Path, repo: Path = REPO,
                      npz_path=Path(npz_path), npz_sha256=npz_sha, net=net,
                      destinations=dest_dicts, n_shelter_pois=n_pois,
                      snapshot_walk=snap_walk.name, snapshot_shelters=snap_shel.name,
+                     n_depot_pois=n_depots,
                      field_core_lonlat=(float(core_lon), float(core_lat)),
                      manifest_ignition_lonlat=(float(ign[0]), float(ign[1])),
                      timings=t)
@@ -648,6 +659,26 @@ def write_viz(out_dir: Path, res: Resources, *, points: list[dict],
                                        for i in range(res.haz.shape[0])],
         },
         "counts": counts,
+        "responder_side": {
+            "n_depot_pois": res.n_depot_pois,
+            "available": res.n_depot_pois > 0,
+            "computed": False,
+            "status_ko": (
+                "이 지역은 walk bbox(919 km²) 내에 OSM에 매핑된 소방서가 없어 "
+                "구조자 측 산출이 불가합니다 — 더 넓은 3,926 km² 범위에는 6곳"
+                if res.n_depot_pois == 0 else
+                f"차고지 {res.n_depot_pois}곳이 매핑되어 있으나, 459 계열은 "
+                f"주민 측만 산출합니다"),
+            "phrasing_rule": (
+                "NEVER write 'this region has no fire stations'. The statement "
+                "is that no amenity=fire_station is MAPPED IN OSM inside the "
+                "ignition-centred walk bbox; the wider manifest bbox contains "
+                "six. HANDOFF_ROUND3.md rule 11."),
+            "note": "The 459 series is RESIDENT-SIDE for every region, "
+                    "Yeongdeok included: it contrasts a fire-blind walking "
+                    "route with a future-aware one and never dispatches a "
+                    "vehicle. No responder route exists to draw, anywhere.",
+        },
         "field_core_lonlat": list(res.field_core_lonlat),
         "refuges": [{"name": d["name"], "x": round(d["x"], 1),
                      "y": round(d["y"], 1)} for d in res.destinations],
