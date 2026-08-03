@@ -690,8 +690,51 @@ Completeness covariates, for comparison against the Yeongdeok baseline:
 | `make snapshot-verify` | re-hash the snapshot store against `MANIFEST.json`, through gzip, including digest-only FIRMS entries. |
 | `make env-check` | installed packages vs the exact pins in `requirements.txt`. Catches "declared but not installed" — the Round-2 failure that turned 5 real-OSM tests into silent skips. |
 | `make config-hash` | print the current config hash and the file digest. |
+| **`make baseline-verify`** | **every tracked `data/processed` artifact, the four PROTECTED paths, and the sha256 of the git-IGNORED `fire_manifest.json`, against [`baseline_phase13.json`](baseline_phase13.json). The check `make verify` cannot do — see below.** |
+| **`make baseline-freeze`** | RE-record that baseline. Deliberate; say so in the commit message. |
 | `make test` | pytest. |
 | `make all-checks` | everything except `snapshot`. |
+
+### ⚠ Why `make verify` is not enough, and the scratch-output convention
+
+Added PHASE 13 PHASE 0, before any US work.
+
+`make verify` re-derives every registered number **from its artifact**. So if a
+re-run moves an artifact *and* `build_numbers.py` is re-run over the moved
+artifact, the two agree and `make verify` passes — while the number has silently
+changed. **The registry is a consistency check, not a fixity check.**
+
+That is exactly what the US port invites. The port re-runs Korean producing
+scripts (to re-derive the same quantity under a new cluster threshold, a new
+observation-reference stamp, a new permutation-importance pass), and **every one
+of those scripts defaults to writing into `data/processed`** —
+`run_routing_integration.py` alone writes `spread_v2_lofo.json`,
+`yeongdeok_forward_sim.json`, `routing_demo.json` and `routing_demo.npz`. Several
+of those artifacts are **irreproducible** ([`DATA_LOSS_2026-07-24.md`](DATA_LOSS_2026-07-24.md)).
+
+**The convention, for the duration of the port:**
+
+1. **Never re-run a Korean producing script without an explicit `--out` (or
+   `--npz-out` / `--json-out`) pointing outside `data/processed`.** The scripts
+   all take one; the danger is the default, not the flag.
+2. **`make baseline-verify` before and after any such run.** It is in
+   `make all-checks`, so a full check already covers it.
+3. **A deliberate change is a `make baseline-freeze` plus a sentence in the
+   commit message.** An undeclared move is the failure this exists to catch.
+
+⚠ **The four `PROTECTED` paths are not enough.** `run_multi_region_routing.py`
+digests four files and exits 4 if one moves — that covers the 459 series and
+nothing else. Not `spread_v2_lofo.json` (the headline AUC), not
+`routing_demo_canonical.npz` (the canonical field), not the eight per-region
+hazard fields. The freeze is a superset; both are kept.
+
+⚠ **And the manifest.** `data/raw/firms_data/fire_manifest.json` is git-ignored
+but it **is the training-set definition**: `data.list_fires()` returns every
+entry with no filter, and that list feeds `features.build_dataset` in nine
+scripts. Adding one US fire silently retrains every LOFO fold and rewrites the
+headline AUC — **with no diff, because the file is not tracked.** Its sha256 now
+sits in a tracked file, so the contract exists even though the file cannot carry
+it. `(n_rows, n_positives) = (151904, 2989)` is pinned in the same record.
 
 Override the interpreter with `make verify PYTHON=/path/to/python`.
 

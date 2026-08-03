@@ -11,7 +11,7 @@ SCRIPTS := scripts
 
 .DEFAULT_GOAL := help
 .PHONY: help verify verify-numbers check-forbidden snapshot snapshot-verify \
-        env-check config-hash test all-checks
+        env-check config-hash test baseline-verify baseline-freeze all-checks
 
 help:
 	@echo "WildfireGuardian — verification targets"
@@ -22,6 +22,9 @@ help:
 	@echo "  make snapshot         preserve external inputs (OSM + FIRMS manifests)"
 	@echo "  make snapshot-verify  re-hash the snapshot store against MANIFEST.json"
 	@echo "  make env-check        installed packages vs the pins in requirements.txt"
+	@echo "  make baseline-verify  every data/processed artifact + the git-ignored"
+	@echo "                        manifests, against docs/baseline_phase13.json"
+	@echo "  make baseline-freeze  RE-record that baseline (deliberate)"
 	@echo "  make config-hash      print the current config hash"
 	@echo "  make test             pytest"
 	@echo "  make all-checks       everything above except snapshot"
@@ -61,12 +64,26 @@ env-check:
 	@echo "=== installed packages vs requirements.txt pins ==="
 	@$(PYTHON) $(SCRIPTS)/env_check.py
 
+# --- the Korean baseline -----------------------------------------------------
+# `make verify` re-derives each registered number FROM its artifact, so an
+# artifact and its registry entry can move TOGETHER and still agree. This is
+# the check that notices. It also covers the four PROTECTED paths (which only
+# run_multi_region_routing.py digests today) and the sha256 of the git-IGNORED
+# fire_manifest.json, which defines the training set and would otherwise be
+# changeable with no diff at all.
+baseline-verify:
+	@echo "=== Korean baseline <-> docs/baseline_phase13.json ==="
+	@$(PYTHON) $(SCRIPTS)/freeze_baseline.py --check
+
+baseline-freeze:
+	@$(PYTHON) $(SCRIPTS)/freeze_baseline.py --freeze
+
 config-hash:
 	@$(PYTHON) -m wildfireguardian.config
 
 test:
 	@$(PYTHON) -m pytest -q
 
-all-checks: verify snapshot-verify env-check test
+all-checks: verify baseline-verify snapshot-verify env-check test
 	@echo
 	@echo "=== all checks PASSED ==="
