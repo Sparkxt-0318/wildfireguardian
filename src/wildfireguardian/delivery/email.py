@@ -76,11 +76,13 @@ SMTP_PORT = 465                      # implicit TLS; no STARTTLS upgrade race
 from .printable import FOOTER_LINES  # noqa: E402
 
 #: Carried by every absolute Yeongdeok count that reaches a recipient.
-#: docs/HANDOFF_ROUND3.md §2-A is the decision record.
-COVERAGE_CAVEAT_KO: str = (
-    "영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. "
-    "나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 "
-    "알려져 있지 않습니다.")
+#: docs/HANDOFF_ROUND3.md §2-A is the decision record, and it says the caveat is
+#: carried VERBATIM. This module used to hold a second, hand-retyped copy that had
+#: lost the closing sentence — exactly the drift ``live.scope`` exists to prevent
+#: ("a caveat that is retyped is a caveat that eventually is not", scope.py:25).
+#: There is now ONE definition. Re-exported below so ``email.COVERAGE_CAVEAT_KO``
+#: keeps working for existing callers.
+from ..live.scope import COVERAGE_CAVEAT_KO  # noqa: E402
 
 SENDER_NAME = "WildfireGuardian 대피 안내"
 

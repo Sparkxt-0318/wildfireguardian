@@ -203,6 +203,39 @@ def _resample_uniform(x: np.ndarray, y: np.ndarray, step: float):
     return np.interp(t, s, x), np.interp(t, s, y), total / n
 
 
+def _is_analysis_crs(crs) -> bool:
+    """True when ``crs`` denotes EPSG:5179, in whatever spelling it arrives.
+
+    ⚠ This guard decides whether an incoming OSM graph is REPROJECTED. Answering
+    "no" for a graph that is already in the analysis CRS reprojects it needlessly;
+    answering "yes" for one that is not leaves lon/lat degrees being read as
+    metres. So it has to recognise the CRS, not a particular way of writing it.
+
+    The snapshot store already carries two spellings — ``osm-*_yeongdeok-2025_*``
+    store ``epsg:4326`` while both 2026-08-02 regions store ``EPSG:5179`` — and
+    osmnx/pyproj may hand back a :class:`pyproj.CRS`, a WKT string or an integer
+    code rather than an authority string.
+
+    This replaces a two-element membership test whose two elements were the same
+    string, ``("epsg:5179", "epsg:5179")``. Because ``.lower()`` was already
+    applied, the duplicate made it a plain equality test: correct for both values
+    in the store, but unable to match any non-code spelling. Comparing CRS
+    identity accepts every spelling of EPSG:5179 and none of any other; verified
+    to give the identical answer for every ``crs`` value present in the six
+    committed graphml snapshots.
+    """
+    if crs is None:
+        return False
+    try:
+        from pyproj import CRS  # noqa: PLC0415
+        return CRS.from_user_input(crs).equals(CRS.from_epsg(5179))
+    except Exception:
+        # Unparseable input is not a reason to raise here — fall back to the
+        # historical string test, which sends anything unrecognised to
+        # project_graph exactly as before.
+        return str(crs).strip().lower() == "epsg:5179"
+
+
 def build_walk_network(
     G,
     dem_path: str | Path | None,
@@ -232,7 +265,7 @@ def build_walk_network(
     import osmnx as ox
     from pyproj import Transformer
 
-    if str(G.graph.get("crs", "")).lower() not in ("epsg:5179", "epsg:5179"):
+    if not _is_analysis_crs(G.graph.get("crs")):
         G = ox.project_graph(G, to_crs="EPSG:5179")
 
     g: nx.Graph = nx.DiGraph() if directed else nx.Graph()
