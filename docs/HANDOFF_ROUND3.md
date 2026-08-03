@@ -1,18 +1,19 @@
 # Round-3 handoff
 
 **Read this file alone and you can continue.** Written 2026-08-02, updated
-2026-08-03 (PHASE 6, 7, 8, 12). §1 is the full Round-3 summary.
+2026-08-03 (PHASE 6, 7, 8, 12, 13). §1 is the full Round-3 summary; **§13 is
+PHASE 13 — international portability, investigated and deliberately stopped.**
 
 | | |
 |---|---|
 | branch | **`round3-dev`** (tracks `origin/round3-dev`) |
-| HEAD | `f666c76` + this commit |
+| HEAD | `fb1d011` + this commit |
 | baseline tag | **`round2-submitted`** = `4e9dfe3` — the submitted state |
 | environment | conda env **`wfg311`**, Python 3.11.15 — see [`ENVIRONMENT.md`](ENVIRONMENT.md) |
-| suite | **722 passed, 2 skipped, 0 failed** (was 544; PHASE 6 +44, PHASE 7 +47, PHASE 8 +66, PHASE 12 +21) |
-| registry | [`NUMBERS.json`](NUMBERS.json) — 103 entries, 87 reproducible |
+| suite | **743 passed, 2 skipped, 0 failed** (was 544; PHASE 6 +44, PHASE 7 +47, PHASE 8 +66, PHASE 12 +21, PHASE 13 +21) |
+| registry | [`NUMBERS.json`](NUMBERS.json) — **118 entries, 102 reproducible** (PHASE 13 registered the 15 OSM-completeness covariates that §5 rule 12 names) |
 | OSM regions | 3 acquired + snapshotted (`MANIFEST.json`, 68 entries — 64 + 4 FIRMS NRT polls) |
-| config hash | `05c6feae1dff…` — moved from `faf90a81b7e6…` by PURE ADDITION (the PHASE-6 `live:` block; no existing value changed, and re-running `build_numbers.py` moved **only** the per-entry `config_hash` stamp, 0 values). Earlier lineage: `0b6eb481177a…` → `51ec446843b6…` at `cc41f12`. `NUMBERS.json.config_hash_note` records why this is expected. |
+| config hash | `8e29a6cc4a99…` — moved from `05c6feae1dff…` by PURE ADDITION (the PHASE-13 `fuel:` block; a rebuild moved **0** registered values). Earlier lineage below. Superseded text: `05c6feae1dff…` — moved from `faf90a81b7e6…` by PURE ADDITION (the PHASE-6 `live:` block; no existing value changed, and re-running `build_numbers.py` moved **only** the per-entry `config_hash` stamp, 0 values). Earlier lineage: `0b6eb481177a…` → `51ec446843b6…` at `cc41f12`. `NUMBERS.json.config_hash_note` records why this is expected. |
 
 `docs/figures/*.png` carry three known uncommitted modifications. **Leave them
 unstaged**; every commit here used `git add -A -- . ':!docs/figures/*.png'`.
@@ -761,6 +762,8 @@ Override the interpreter with `make verify PYTHON=/path/to/python`.
 | [`delivery_channels.md`](delivery_channels.md) | **PHASE 7 — SMS vs email, the approval gate, and the changed safety claim** |
 | [`operator_screen.md`](operator_screen.md) | **PHASE 8 — the two demonstration screens and what each is for** |
 | [`manual_trigger.md`](manual_trigger.md) | **PHASE 12 — the manual ignition trigger and its measured latency** |
+| [`baseline_phase13.json`](baseline_phase13.json) | **the frozen Korean baseline — every `data/processed` digest, the four PROTECTED paths, the LOFO shape, and the sha256 of the git-ignored `fire_manifest.json`. `make baseline-verify`.** |
+| **§13 of this file** | **PHASE 13 — the portability investigation, the four defects it found, why McKinney 2022, the four-arm design, and the resume condition** |
 
 ---
 
@@ -1212,3 +1215,278 @@ dispatch list."**
 5. **`--trigger-source` is required when a region has runs from more than one
    source.** `--region` used to take the newest of any, which silently built a
    FIRMS screen out of a manual run.
+
+---
+
+## 13. PHASE 13 — international portability, INVESTIGATED AND STOPPED (2026-08-03)
+
+**Status: stopped deliberately, not blocked.** Investigation and design are complete;
+acquisition was never started and is deferred past the October final. §13.7 is the
+resume condition.
+
+### 13.1 What it was for, and what it produced instead
+
+The brief was to find out **what breaks** when the pipeline is pointed at a US
+fire — a demonstration of portability, not a port. It did that. It also found
+**four real defects in the repository as it stands**, none of them about
+internationalisation, which is the more useful outcome.
+
+| | found | state |
+|---|---|---|
+| **① CRS predicate** | `routing/slope.py:235` tested membership in `("epsg:5179", "epsg:5179")` — the same string twice | **fixed** `24407eb` |
+| **② caveat drift** | `delivery/email.py` held a second, hand-retyped `COVERAGE_CAVEAT_KO` that had lost its closing sentence | **fixed** `24407eb` |
+| **③ fuel-tile gap** | `miryang_2022`: 176 km² of LAND read `burnable_frac = 0` because the `N36E129` WorldCover tile was never fetched — and `features.py:151` gates candidacy on it, so those cells were EXCLUDED FROM PREDICTION. Nothing raised. | **gate added** `825aba9` |
+| **④ planar bbox area** | `bbox_area_km2` returned the axis-aligned bounding RECTANGLE of the 5179-projected corners, inflating every Korean denominator 2.5–4.0 % | **fixed** `825aba9` |
+
+⚠ **Two more were found and are NOT fixed.** They are the open items in §13.6.
+
+Everything in §13 was verified against the tree. Two claims that circulated
+during the phase and turn out to have **no basis in this repository** are recorded
+here so they are not re-adopted: there is no `_bbox_from_grid` round-trip
+anywhere in the tree, and there is no `httpx` stub — `httpx` is not imported,
+not used and not installed; `raise_for_status` appears zero times. The HTTP layer
+is `urllib.request.urlopen` at exactly three call sites, and all three fail loudly
+on 4xx/5xx (tested locally on 401/403/404/429/500).
+
+### 13.2 The Korea-specific assumptions, in one table
+
+Six-dimension read-only audit, **210 findings, 635 file:line citations verified**.
+Full detail lives in the phase transcript; the load-bearing results:
+
+**EPSG:5179 does not fail outside Korea — it succeeds, wrongly.** Measured at
+Paradise, CA (39.755 N, 121.62 W): local scale **1.4352×**, area **2.06×**,
+grid-north **−120.71°** from true north, and **both axes inverted** (moving east
+decreases x). No exception. At McKinney (41.85 N, 122.6 W): scale **1.3991×**, a
+500 m projected cell is **357.4 ground m = 12.77 ha** against Korea's 25.00 ha.
+Under the correct EPSG:32610 the same measurements give 0.9996× and −0.27°.
+
+* `"EPSG:5179"` appears as a quoted literal at **46 sites across 33 `.py` files**.
+  `config/default.yaml:46` has a `project.crs` key; it is read at **two** call
+  sites and **drives no transform**. Changing it makes the provenance record lie.
+* Two independent definitions of the constant (`utils/regions.py:65`,
+  `spread_v2/grid.py:28`), each with its own import-time transformer pair.
+* The committed hazard `.npz` files carry **no CRS key**. Four writers, ~15
+  readers, each re-assuming 5179; and `CoarseGrid` / `Grid` / `RoadNetwork` have
+  no field to put one in.
+* **The region registry is split.** `utils/regions.py:387 ALL_REGIONS` is seven
+  hardcoded presets (code edit); `config/default.yaml:106 multi_region_walk_bbox`
+  is region-keyed data read at ten sites (config edit). Proof they diverge:
+  `uiseong_andong_2025` is in the config table and the manifests and **absent from
+  `ALL_REGIONS`** — and it runs. Seven further hand-maintained region lists exist
+  and are already out of step with each other.
+* **Place names do not crash and are not coordinates.** `pipeline.py:449` composes
+  nearest-named-OSM-POI + Korean bearing + metres, so a US run emits
+  `"Riverside Park 북쪽 320m"` — real English POI names in Korean grammar. If no
+  refuge is named at all the third branch gives `"군집 3"`.
+* **The hard blockers in the delivery layer are numeric, not linguistic:**
+  `broadcast.MAX_SENTENCE_CHARS = 15` code points, `sms.MAX_CHARS = 90`,
+  `printable.MAX_PAGES = 1`. English needs ~2–2.5× the glyphs. These are design
+  decisions to be re-argued, not strings to be translated.
+* **The village concept is geometric and transfers; the 이장 concept is
+  institutional and does not.** DBSCAN eps = 500 m, `min_samples = 1`, no POI, no
+  boundary. The delivery contract is *N clusters → N sheets, addressee
+  unspecified, acknowledgment in ink* — there is nothing US-shaped to remove and
+  an entire recipient-resolution layer to add.
+* **Timezones are already clean on the operational path** (UTC-aware or pure
+  durations throughout). Two real defects sit off it: `data_io/weather.py`'s
+  naive-KST diurnal term, and naive warning times in the validation cases.
+
+### 13.3 Why the target fire moved off Camp Fire 2018
+
+Criterion 1 was the fuel epoch, and it reframed the test. **ESA WorldCover v200 is
+a full-calendar-year composite, 01 Jan – 31 Dec 2021** (PUM V2.0 §3.4.3), with no
+documented burn handling. So the safe test is not *"epoch year < fire year"* but
+**"the landcover reference year ENDS before ignition."**
+
+All six Korean fires pass it — landcover precedes the fire by 1–4 years, mean 2.33.
+Dixie 2021 **fails**: 47 % of the compositing window is post-ignition. Camp 2018
+and North Complex 2020 invert outright.
+
+Criterion 2 pointed the opposite way, and that is the finding. **FEDS** (NASA/UCI)
+is the only 12-hourly perimeter product and matches the pipeline's horizon exactly
+— probed record counts: Camp **43**, North Complex **149**, Dixie **255**,
+**Park 0**, all 2022 **0**. The GeoMAC archive ends 2020-04-30; WFIGS Daily has
+4/2/0/0 California large-fire records for 2020/21/22/23. **The two criteria are
+anti-correlated because both are era-dependent in opposite directions.**
+
+Criterion 3 settled it. Against the project's own ignition-centred 0.30° box
+(Korean predicted-envelope ratios 0.04–0.28×):
+
+| fire | burned km² | fire/box | |
+|---|---:|---:|---|
+| Oak 2022 | 77.9 | **0.09×** | inside the Korean range |
+| **McKinney 2022** | **243.4** | **0.29×** | **= Yeongdeok's 0.28×** |
+| Mosquito 2022 | 310.8 | 0.36× | |
+| Camp 2018 | 620.5 | 0.73× | tight |
+| North Complex 2020 | 1,290.7 | **1.51×** | overflows |
+| Park 2024 | 1,738.5 | **2.03×** | overflows |
+| Dixie 2021 | 3,898.4 | **4.56×** | overflows |
+
+**Three of the four headline candidates are larger than the box meant to contain
+them.** McKinney 2022 was chosen because it is the only candidate that is
+epoch-clean on the ALREADY-HARDCODED fuel layer *and* fits the footprint rule —
+zero data-source change, which is the only configuration in which a Korea-vs-US
+comparison stays interpretable.
+
+### 13.4 The four-arm design (agreed, not executed)
+
+| arm | what | answers |
+|---|---|---|
+| **0** | run end-to-end, report **only** structural facts — nodata, coverage, gate outcomes, cluster counts, stage completion. **No IoU.** | portability alone |
+| **A** | Korea-trained model, zero-shot on the US fire | the transfer measurement |
+| **B** | US-internal leave-one-out over N=5 (McKinney + Mosquito + Borel + Rum Creek + Oak) | the ceiling |
+| **C** | `validation/baselines.py` on the US fire | the floor |
+
+Reported as **C < A < B**, never A alone. **Arm A alone says nothing**; a starved
+B (N=3 trains each fold on 2 fires against Korea's 5) can produce C < B < A, which
+is an artifact and not a transfer finding.
+
+⚠ **Portability and model transfer are different questions and must not be mixed.**
+A model trained on six Korean fires is *expected* to lose accuracy in California.
+If Arm 0 passes and A is low, that is **portability succeeded + transfer degraded**
+— two sentences, written separately.
+
+**Confound-neutralisation rules**, all five plus one:
+0. **artifact-write isolation** — every Korean producing script defaults to
+   writing into `data/processed`; the first careless re-run overwrites
+   irreproducible artifacts. This is why §13.5 exists.
+1. fuel measurement fixed (WorldCover v200/2021 on both sides)
+2. observation reference fixed (FIRMS hotspots on both sides — this is what keeps
+   the committed IoU 0.37–0.40 quotable)
+3. cluster threshold reported at 90/60/30 min on both sides
+4. envelope coverage carried as a column
+5. permutation importance recomputed — and readable **only after** the CRS work,
+   for the reason in §13.6.
+
+⚠ **DEM source is a sixth rule.** It is currently in neither config nor the
+registry. See §13.6.
+
+### 13.5 What PHASE 13 actually changed in the tree
+
+Four commits. **No committed Korean result moved**: `make verify` 118/118 with
+**0 pre-existing registry values changed**, 743 passed / 2 skipped / 0 failed.
+
+| commit | |
+|---|---|
+| `24407eb` | ① CRS predicate → `_is_analysis_crs()`, CRS **identity** comparison. All three Korean walk networks rebuilt under old and new predicates and compared by sha256 — **bit-identical**. ② `email.py` now imports the caveat from `live.scope`; one definition. |
+| `825aba9` | ③ fuel-coverage gate. ④ geodesic `bbox_area_km2`. Plus two findings recorded: the shelter-layer composition, and the `goseong_2019` correction. **15 completeness covariates registered** (103 → 118 entries) — HANDOFF §5 rule 12 names them, and until now the registry could not check them. |
+| `fb1d011` | the baseline freeze — §13.5.1 |
+
+**13.5.1 `make baseline-verify`, and why `make verify` was not enough.** `make
+verify` re-derives every registered number **from its artifact**, so an artifact
+and its registry entry can move **together** and still agree. It is a consistency
+check, not a fixity check. `scripts/freeze_baseline.py` records all 58 tracked
+`data/processed` artifacts, the four `PROTECTED` paths, the config hash, the LOFO
+shape, and **the sha256 of the git-ignored `fire_manifest.json`**.
+
+⚠ **That last one is the point.** `fire_manifest.json` **is the training-set
+definition** — `data.list_fires()` returns every entry with no filter, feeding
+`features.build_dataset` in nine scripts. Adding one US fire silently retrains
+every LOFO fold and rewrites the headline AUC, **with no diff, because the file is
+not tracked.** A tracked sha256 creates the contract the file cannot carry.
+
+**13.5.2 The fuel gate measures uncovered LAND, not uncovered area.** A coastal
+bbox is legitimately uncovered over the sea — `gangneung_2023` is 17.61 %
+uncovered and 17.2 pp of that is the East Sea. Crossing the uncovered mask with
+the DEM separates the causes: uncovered **land** is 0.00 % for every fire whose
+tiles were fully fetched, 2.05 % for `uiseong_andong` (warn) and 12.08 % for
+`miryang` (stop, exit 6). ⚠ Replacing the DEM-based land test with a
+WorldCover-derived one **destroys the gate** — measured: it reports 0.00 % for
+every fire, because the uncovered cells are precisely the cells WorldCover has no
+data for. The gate is enforced in `run_forward_sim_region.py` and deliberately
+**not** on the LOFO training path, where it would drop `miryang` and move the
+committed AUC.
+
+### 13.6 Open, and NOT fixed
+
+1. **⚠ `data_io/raster.py:252` returns a different elevation product per
+   hemisphere.** The AWS terrain-tiles archive is a multi-source composite.
+   Verified by HTTP HEAD on the archive's own metadata: a US tile reports
+   `x-amz-meta-x-imagery-sources: ned13/imgn39w121_13.tif` (USGS NED/3DEP); a
+   Korean tile reports `srtm/N35E128.tif, gmted/…, etopo1/…`. **Same bucket, same
+   code path, two different missions** — and `raster.py:527-537` stamps a
+   hardcoded SRTMGL1 V003 citation on the result regardless. Nothing in the repo
+   would catch it. HANDOFF §5 rule 17 forbids exactly this mixture; the pinned
+   path (`acquire_region_dem.py`, OpenTopography SRTMGL1, test-locked) is safe,
+   the unpinned one is not. **This is a defect that only a multi-region port could
+   surface — in a single-country study both sides are the same and it is
+   invisible.**
+2. **Five of eight DEMs are not snapshotted** — `goseong_2019`,
+   `gangneung_donghae_2022`, `gangneung_2023`, `hongseong_2023`, `miryang_2022`.
+   **Three of those are in the six-fire LOFO training set**, and
+   `data/raw/firms_data/` is git-ignored. §5 rule 8 is in live violation.
+3. **The DEM set is already inhomogeneous within Korea**: `int16`/−32768 for the
+   two 2026-08-02 re-acquisitions, `float32`/NaN for the other six. All are 1.00″
+   EPSG:4326, so resolution is consistent — but `validate()` has **no dtype gate**
+   (it checks CRS, resolution, coverage and nodata, and reads dtype nowhere).
+4. **⚠ No integrity check against a published checksum.** `validate()` computes
+   and *records* a sha256 but has nothing to compare it to; there is no
+   provider-published digest fetched, no file-size floor and no magic-byte test.
+   What actually guards the file is `rasterio.open()` parsing it (a truncated or
+   structurally corrupt GeoTIFF fails there) plus the ≤50 % nodata gate. So
+   **byte-level corruption inside a well-formed, parseable GeoTIFF with <50 %
+   nodata would pass every check.** Nothing suggests this has happened — the
+   recorded digests are stable and the two re-acquisitions succeeded on attempt 1
+   — but it is a stated limit of the validator, not a property it guarantees.
+   (Note also that the 2026-07-20 manual bundle validated by TIFF magic bytes,
+   which this script does not, so the two acquisition routes do not check the same
+   things.)
+5. **Six of eight DEMs have no acquisition record.** `dem_acquisition.json` covers
+   only the two 2026-08-02 re-acquisitions.
+6. **The two `fire_manifest.json` files.** `data/raw/…` (git-ignored, what
+   executes, defines the training grid) and `docs/data_provenance/…` (committed,
+   the 2026-07-20 acquisition record, read by no code). All six shared fires
+   diverge — Yeongdeok's ignition by **29.7 km**. Deliberately not reconciled;
+   the larger issue is that the runtime file defines the headline AUC's grid and
+   is untracked.
+7. **No archive-FIRMS acquisition code.** `live/firms.py:315-320` hard-refuses any
+   non-`_NRT` source. All eight Korean CSVs are `_SP` products acquired manually.
+   `scripts/merge_firms.py` already implements the merge and the UTC timestamp
+   join; only the download and argparse are missing.
+
+### 13.7 The stop, and the resume condition
+
+**Stopped 2026-08-03 by the user, after STEP 3 and before any acquisition.** The
+reasoning, in the user's terms: a four-minute talk already carries three regions,
+the live path and the operational outputs, and there is no room for a fourth
+country; judges are looking at depth of validation, not at a country count; and
+the value of an international arm accrues at ISEF and IEEE, which is 2027.
+
+**Nothing is half-done.** No US data was acquired, no US region exists in any
+registry, `mckinney` appears in the tree exactly once — in
+`tests/test_baseline_freeze.py`, asserting it is **absent** from the frozen
+baseline. The four defects that were fixed are Korea-side fixes that stand on
+their own.
+
+**To resume**, in order:
+
+1. `make all-checks` — the baseline freeze must still be intact.
+2. **PHASE 0.5 — bundle isolation, before any acquisition.** Separate
+   `$WFG_FIRMS_DIR` (the seam exists at `data.py:148`), plus the
+   `(151904, 2989)` assertion added to `run_routing_integration.py` — today only
+   `build_canonical_hazard.py:117-127` makes it.
+3. **PHASE 1 — CRS parameterisation, `spread_v2` only.** ⚠ It must precede
+   acquisition, and the reason is not obvious: at 122.6 W both axes invert, so
+   every US detection falls outside the grid, `cells.empty` fires,
+   `overpass_snapshots` returns `[]`, and the fire is **silently skipped** — the
+   acquisition would validate while the fire is invisible. The routing, delivery
+   and operator-screen stacks are **not** needed for any of the four arms;
+   `features`/`forward_sim`/`model`/`data`/`weather` contain exactly one 5179
+   mention and it is a docstring.
+4. Fix §13.6 items 1–3 first; they are cheap and two of them are live rule
+   violations.
+5. **Then** decide on PHASE 2 acquisition.
+
+⚠ **Before resuming, re-read §13.4's fifth confound rule and §13.6 item 1
+together.** The distance features `dist_to_fire_m`, `active_frac_1500m` and
+`active_frac_3000m` carry combined permutation importance **0.0900** — more than
+the single top feature `days_since_rain` (0.0773) — and under a wrong CRS all
+three shift the same way, so the Korea-trained decay under-predicts, the envelope
+comes out small, IoU is depressed, and **Arm A reads "the model does not transfer"
+as a projection artifact.** The experiment would manufacture its own headline.
+Same class of hazard for the ERA5 window: `days_since_rain` is anchored to the
+series start, Korean support is 2.38–8.88 d, and a 41-day McKinney window drives
+it 4.5–6× outside that support — **generated by an acquisition decision, not by
+weather.** The fix is a config-stated window CAP (11 days leaves all six Korean
+fires untouched at max 10.88), **not** a switch to the active-detection window,
+which was measured and would move Korea too (`gangneung_2023` → 0.09 d).
