@@ -1,0 +1,512 @@
+{
+  "schema_version": 1,
+  "phase": "PHASE 18 STEP 1 — snapping measurement, NO routing, NO sampling",
+  "generated_utc": "2026-08-05T13:45:41Z",
+  "git_commit": "b3c35cf84532293e69add60f89732116f6cb6479",
+  "config_hash": "8e29a6cc4a995844a04866355d38f556b1d35f6d3986d84c3af1529ede4aa208",
+  "snap_caps_measured_m": [
+    100.0,
+    200.0,
+    300.0,
+    500.0
+  ],
+  "regions": [
+    {
+      "region": "yeongdeok_2025",
+      "walk_bbox_wsen": [
+        129.25,
+        36.3,
+        129.55,
+        36.6
+      ],
+      "source": "osm",
+      "source_file": "data/snapshots/osm-buildings_yeongdeok-2025_20260805_137c5d78.geojson",
+      "walk_graphml_crs_as_stored": "epsg:4326",
+      "n_walk_nodes": 8443,
+      "n_buildings": 124,
+      "footprint_area_m2": {
+        "total": 78966.39933403705,
+        "median": 421.38039299946536,
+        "mean": 636.825801080944,
+        "p90": 1322.3853338795568,
+        "max": 4181.807431922706
+      },
+      "building_tag_values": {
+        "yes": 71,
+        "apartments": 24,
+        "school": 18,
+        "public": 3,
+        "train_station": 3,
+        "hospital": 2,
+        "fire_station": 2,
+        "commercial": 1
+      },
+      "snap_distance": {
+        "n": 124,
+        "min_m": 8.609195234087464,
+        "p50_m": 29.546941267186845,
+        "p75_m": 46.23473051358146,
+        "p90_m": 58.936095502859644,
+        "p95_m": 75.94629449869504,
+        "p99_m": 137.17029073601205,
+        "max_m": 176.78718975771125,
+        "mean_m": 36.760656766143114
+      },
+      "snap_caps": {
+        "100m": {
+          "kept": 120,
+          "excluded": 4,
+          "excluded_pct": 3.23,
+          "distinct_walk_nodes": 106,
+          "distinct_nodes_pct_of_graph": 1.26,
+          "buildings_per_node": {
+            "median": 1.0,
+            "mean": 1.1320754716981132,
+            "p95": 2.0,
+            "max": 4,
+            "nodes_with_more_than_one": 10
+          },
+          "excluded_spatial": {
+            "x_range_km": 5.02,
+            "y_range_km": 20.0,
+            "centroid_offset_from_all_km": 4.35,
+            "median_nn_distance_m": 3629.092350120134
+          },
+          "routable_buildings": 115,
+          "routable_distinct_nodes": 104
+        },
+        "200m": {
+          "kept": 124,
+          "excluded": 0,
+          "excluded_pct": 0.0,
+          "distinct_walk_nodes": 110,
+          "distinct_nodes_pct_of_graph": 1.3,
+          "buildings_per_node": {
+            "median": 1.0,
+            "mean": 1.1272727272727272,
+            "p95": 2.0,
+            "max": 4,
+            "nodes_with_more_than_one": 10
+          },
+          "routable_buildings": 119,
+          "routable_distinct_nodes": 108
+        },
+        "300m": {
+          "kept": 124,
+          "excluded": 0,
+          "excluded_pct": 0.0,
+          "distinct_walk_nodes": 110,
+          "distinct_nodes_pct_of_graph": 1.3,
+          "buildings_per_node": {
+            "median": 1.0,
+            "mean": 1.1272727272727272,
+            "p95": 2.0,
+            "max": 4,
+            "nodes_with_more_than_one": 10
+          },
+          "routable_buildings": 119,
+          "routable_distinct_nodes": 108
+        },
+        "500m": {
+          "kept": 124,
+          "excluded": 0,
+          "excluded_pct": 0.0,
+          "distinct_walk_nodes": 110,
+          "distinct_nodes_pct_of_graph": 1.3,
+          "buildings_per_node": {
+            "median": 1.0,
+            "mean": 1.1272727272727272,
+            "p95": 2.0,
+            "max": 4,
+            "nodes_with_more_than_one": 10
+          },
+          "routable_buildings": 119,
+          "routable_distinct_nodes": 108
+        }
+      },
+      "origin_filter": {
+        "p_cut": 0.3,
+        "buildings_passing": 119,
+        "buildings_rejected": 5
+      },
+      "worldcover_builtup": {
+        "raster_covers_whole_bbox": true,
+        "pixels": 236702,
+        "area_km2": 16.13,
+        "note": "ESA WorldCover class 50 inside the walk bbox, from the committed fuel raster. Used as an independent statement of where settlement is — NOT as a building count.",
+        "builtup_pixel_to_nearest_building_m": {
+          "n": 236702,
+          "min_m": 0.36210830817715234,
+          "p50_m": 1002.4272064477436,
+          "p75_m": 2089.3567478545683,
+          "p90_m": 3268.5397430397584,
+          "p95_m": 4427.087167966789,
+          "p99_m": 6718.366583571589,
+          "max_m": 9670.865455899338,
+          "mean_m": 1435.8998208839835
+        },
+        "builtup_area_within_m_of_a_building_pct": {
+          "100m": 9.54,
+          "250m": 22.61,
+          "500m": 32.38,
+          "1000m": 49.9,
+          "2000m": 74.06
+        }
+      },
+      "mapped_extent": {
+        "building_x_range_km": 17.0,
+        "building_y_range_km": 27.24,
+        "walk_node_x_range_km": 18.34,
+        "walk_node_y_range_km": 33.37
+      }
+    },
+    {
+      "region": "uiseong_andong_2025",
+      "walk_bbox_wsen": [
+        128.55,
+        36.2,
+        128.85,
+        36.5
+      ],
+      "source": "osm",
+      "source_file": "data/snapshots/osm-buildings_uiseong-andong-2025_20260805_3c15ee24.geojson",
+      "walk_graphml_crs_as_stored": "epsg:5179",
+      "n_walk_nodes": 6678,
+      "n_buildings": 339,
+      "footprint_area_m2": {
+        "total": 209150.39689346158,
+        "median": 179.03347265717966,
+        "mean": 616.962822694577,
+        "p90": 1544.530122472279,
+        "max": 10044.800110065997
+      },
+      "building_tag_values": {
+        "yes": 203,
+        "industrial": 50,
+        "school": 28,
+        "house": 18,
+        "greenhouse": 16,
+        "public": 5,
+        "warehouse": 5,
+        "apartments": 5,
+        "roof": 4,
+        "hospital": 2,
+        "ruins": 2,
+        "train_station": 1
+      },
+      "snap_distance": {
+        "n": 339,
+        "min_m": 4.332216095884531,
+        "p50_m": 45.69927456269681,
+        "p75_m": 74.40138980599218,
+        "p90_m": 115.60713573528568,
+        "p95_m": 162.90059851252934,
+        "p99_m": 502.9159446602722,
+        "max_m": 1754.4357319699866,
+        "mean_m": 70.7044113281556
+      },
+      "snap_caps": {
+        "100m": {
+          "kept": 288,
+          "excluded": 51,
+          "excluded_pct": 15.04,
+          "distinct_walk_nodes": 146,
+          "distinct_nodes_pct_of_graph": 2.19,
+          "buildings_per_node": {
+            "median": 1.0,
+            "mean": 1.9726027397260273,
+            "p95": 5.75,
+            "max": 18,
+            "nodes_with_more_than_one": 49
+          },
+          "excluded_spatial": {
+            "x_range_km": 26.28,
+            "y_range_km": 20.89,
+            "centroid_offset_from_all_km": 6.83,
+            "median_nn_distance_m": 57.392541762718906
+          },
+          "routable_buildings": 280,
+          "routable_distinct_nodes": 141
+        },
+        "200m": {
+          "kept": 326,
+          "excluded": 13,
+          "excluded_pct": 3.83,
+          "distinct_walk_nodes": 160,
+          "distinct_nodes_pct_of_graph": 2.4,
+          "buildings_per_node": {
+            "median": 1.0,
+            "mean": 2.0375,
+            "p95": 6.049999999999983,
+            "max": 18,
+            "nodes_with_more_than_one": 51
+          },
+          "excluded_spatial": {
+            "x_range_km": 26.28,
+            "y_range_km": 12.79,
+            "centroid_offset_from_all_km": 8.48,
+            "median_nn_distance_m": 103.4082424316709
+          },
+          "routable_buildings": 318,
+          "routable_distinct_nodes": 155
+        },
+        "300m": {
+          "kept": 332,
+          "excluded": 7,
+          "excluded_pct": 2.06,
+          "distinct_walk_nodes": 164,
+          "distinct_nodes_pct_of_graph": 2.46,
+          "buildings_per_node": {
+            "median": 1.0,
+            "mean": 2.024390243902439,
+            "p95": 6.849999999999994,
+            "max": 18,
+            "nodes_with_more_than_one": 52
+          },
+          "excluded_spatial": {
+            "x_range_km": 26.28,
+            "y_range_km": 7.05,
+            "centroid_offset_from_all_km": 4.93,
+            "median_nn_distance_m": 23.52812343491191
+          },
+          "routable_buildings": 324,
+          "routable_distinct_nodes": 159
+        },
+        "500m": {
+          "kept": 335,
+          "excluded": 4,
+          "excluded_pct": 1.18,
+          "distinct_walk_nodes": 165,
+          "distinct_nodes_pct_of_graph": 2.47,
+          "buildings_per_node": {
+            "median": 1.0,
+            "mean": 2.0303030303030303,
+            "p95": 6.799999999999983,
+            "max": 18,
+            "nodes_with_more_than_one": 52
+          },
+          "excluded_spatial": {
+            "x_range_km": 26.28,
+            "y_range_km": 1.91,
+            "centroid_offset_from_all_km": 3.42,
+            "median_nn_distance_m": 62.52218879703908
+          },
+          "routable_buildings": 327,
+          "routable_distinct_nodes": 160
+        }
+      },
+      "origin_filter": {
+        "p_cut": 0.3,
+        "buildings_passing": 331,
+        "buildings_rejected": 8
+      },
+      "worldcover_builtup": {
+        "raster_covers_whole_bbox": true,
+        "pixels": 383665,
+        "area_km2": 26.18,
+        "note": "ESA WorldCover class 50 inside the walk bbox, from the committed fuel raster. Used as an independent statement of where settlement is — NOT as a building count.",
+        "builtup_pixel_to_nearest_building_m": {
+          "n": 383665,
+          "min_m": 0.34035883334662653,
+          "p50_m": 1266.3998166491456,
+          "p75_m": 2566.4449083183804,
+          "p90_m": 3604.113382256445,
+          "p95_m": 4315.235637658528,
+          "p99_m": 6826.384719962262,
+          "max_m": 9811.492355032564,
+          "mean_m": 1660.4998409988195
+        },
+        "builtup_area_within_m_of_a_building_pct": {
+          "100m": 7.25,
+          "250m": 16.65,
+          "500m": 27.79,
+          "1000m": 43.44,
+          "2000m": 63.85
+        }
+      },
+      "mapped_extent": {
+        "building_x_range_km": 26.28,
+        "building_y_range_km": 30.65,
+        "walk_node_x_range_km": 27.03,
+        "walk_node_y_range_km": 33.45
+      }
+    },
+    {
+      "region": "uljin_samcheok_2022",
+      "walk_bbox_wsen": [
+        129.17,
+        36.81,
+        129.47,
+        37.11
+      ],
+      "source": "osm",
+      "source_file": "data/snapshots/osm-buildings_uljin-samcheok-2022_20260805_b72dd8de.geojson",
+      "walk_graphml_crs_as_stored": "epsg:5179",
+      "n_walk_nodes": 7300,
+      "n_buildings": 1220,
+      "footprint_area_m2": {
+        "total": 601986.8444997363,
+        "median": 151.01733946094916,
+        "mean": 493.43183975388223,
+        "p90": 953.5962917984208,
+        "max": 20106.023549951104
+      },
+      "building_tag_values": {
+        "yes": 828,
+        "apartments": 89,
+        "industrial": 73,
+        "storage_tank": 62,
+        "house": 58,
+        "watchtower": 41,
+        "school": 22,
+        "commercial": 15,
+        "public": 8,
+        "roof": 7,
+        "train_station": 7,
+        "residential": 3,
+        "fire_station": 2,
+        "museum": 1,
+        "hospital": 1,
+        "dormitory": 1,
+        "tower": 1,
+        "retail": 1
+      },
+      "snap_distance": {
+        "n": 1220,
+        "min_m": 3.132948267689153,
+        "p50_m": 31.43036788706364,
+        "p75_m": 52.210662061286996,
+        "p90_m": 100.53346710523297,
+        "p95_m": 154.00884896788853,
+        "p99_m": 213.61693869614638,
+        "max_m": 1220.6467682754537,
+        "mean_m": 47.39466736469618
+      },
+      "snap_caps": {
+        "100m": {
+          "kept": 1097,
+          "excluded": 123,
+          "excluded_pct": 10.08,
+          "distinct_walk_nodes": 573,
+          "distinct_nodes_pct_of_graph": 7.85,
+          "buildings_per_node": {
+            "median": 1.0,
+            "mean": 1.9144851657940662,
+            "p95": 6.0,
+            "max": 12,
+            "nodes_with_more_than_one": 202
+          },
+          "excluded_spatial": {
+            "x_range_km": 20.05,
+            "y_range_km": 27.28,
+            "centroid_offset_from_all_km": 4.73,
+            "median_nn_distance_m": 26.890759265912685
+          },
+          "routable_buildings": 1097,
+          "routable_distinct_nodes": 573
+        },
+        "200m": {
+          "kept": 1201,
+          "excluded": 19,
+          "excluded_pct": 1.56,
+          "distinct_walk_nodes": 586,
+          "distinct_nodes_pct_of_graph": 8.03,
+          "buildings_per_node": {
+            "median": 1.0,
+            "mean": 2.0494880546075085,
+            "p95": 6.0,
+            "max": 21,
+            "nodes_with_more_than_one": 213
+          },
+          "excluded_spatial": {
+            "x_range_km": 19.92,
+            "y_range_km": 20.97,
+            "centroid_offset_from_all_km": 4.12,
+            "median_nn_distance_m": 22.803167138364934
+          },
+          "routable_buildings": 1201,
+          "routable_distinct_nodes": 586
+        },
+        "300m": {
+          "kept": 1219,
+          "excluded": 1,
+          "excluded_pct": 0.08,
+          "distinct_walk_nodes": 588,
+          "distinct_nodes_pct_of_graph": 8.05,
+          "buildings_per_node": {
+            "median": 1.0,
+            "mean": 2.07312925170068,
+            "p95": 6.0,
+            "max": 21,
+            "nodes_with_more_than_one": 216
+          },
+          "excluded_spatial": {
+            "x_range_km": 0.0,
+            "y_range_km": 0.0,
+            "centroid_offset_from_all_km": 21.18,
+            "median_nn_distance_m": NaN
+          },
+          "routable_buildings": 1219,
+          "routable_distinct_nodes": 588
+        },
+        "500m": {
+          "kept": 1219,
+          "excluded": 1,
+          "excluded_pct": 0.08,
+          "distinct_walk_nodes": 588,
+          "distinct_nodes_pct_of_graph": 8.05,
+          "buildings_per_node": {
+            "median": 1.0,
+            "mean": 2.07312925170068,
+            "p95": 6.0,
+            "max": 21,
+            "nodes_with_more_than_one": 216
+          },
+          "excluded_spatial": {
+            "x_range_km": 0.0,
+            "y_range_km": 0.0,
+            "centroid_offset_from_all_km": 21.18,
+            "median_nn_distance_m": NaN
+          },
+          "routable_buildings": 1219,
+          "routable_distinct_nodes": 588
+        }
+      },
+      "origin_filter": {
+        "p_cut": 0.3,
+        "buildings_passing": 1220,
+        "buildings_rejected": 0
+      },
+      "worldcover_builtup": {
+        "raster_covers_whole_bbox": false,
+        "pixels": 217305,
+        "area_km2": 14.71,
+        "note": "ESA WorldCover class 50 inside the walk bbox, from the committed fuel raster. Used as an independent statement of where settlement is — NOT as a building count.",
+        "builtup_pixel_to_nearest_building_m": {
+          "n": 217305,
+          "min_m": 0.031265690605786836,
+          "p50_m": 345.36943880853346,
+          "p75_m": 1244.3592100462968,
+          "p90_m": 2171.125549807458,
+          "p95_m": 2796.838602801543,
+          "p99_m": 5259.41352370184,
+          "max_m": 9592.693947864329,
+          "mean_m": 801.9450871797521
+        },
+        "builtup_area_within_m_of_a_building_pct": {
+          "100m": 30.53,
+          "250m": 43.96,
+          "500m": 57.96,
+          "1000m": 71.29,
+          "2000m": 88.27
+        }
+      },
+      "mapped_extent": {
+        "building_x_range_km": 22.28,
+        "building_y_range_km": 33.39,
+        "walk_node_x_range_km": 25.53,
+        "walk_node_y_range_km": 33.43
+      }
+    }
+  ]
+}

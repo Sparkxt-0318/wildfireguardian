@@ -154,6 +154,12 @@ data/processed/**
 # Step 4: what re-drawing Yeongdeok's walk bbox would cost. ESTIMATE ONLY — the
 # script performs no network I/O and nothing was acquired.
 !data/processed/yeongdeok_bbox_reacquisition_estimate.json
+# PHASE 18 — real building locations. The acquisition provenance and the
+# snapping measurement. Allow-listed for the same reason the PHASE-5 artifacts
+# were: without an exception they live in one working tree only, and a report
+# that cites them cannot be checked on a fresh clone.
+!data/processed/osm_buildings_acquisition.json
+!data/processed/building_snapping_measurement.json
 # AUC-interval + ML-baseline analysis outputs (per-fire DeLong CIs / significance;
 # logistic/RF vs GBM comparison; persisted LOFO out-of-fold predictions). These are
 # the result artifacts of scripts/auc_intervals.py and scripts/ml_baselines.py;

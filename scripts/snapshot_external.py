@@ -128,6 +128,11 @@ OSM_PRESET: list[tuple[str, str, str]] = [
      "OSM depot POIs used as responder origins (119안전센터 proxy)"),
     ("data/cache/osm/yeongdeok_2025/fire_station.geojson", "osm-firestation",
      "OSM amenity=fire_station POIs (source layer behind depots)"),
+    # PHASE 18. Additive: acquired by scripts/acquire_region_buildings.py, which
+    # writes this filename and no other and proves every pre-existing layer is
+    # byte-identical before and after.
+    ("data/cache/osm/yeongdeok_2025/buildings.geojson", "osm-buildings",
+     "OSM building=* footprint polygons (EPSG:4326) + projected centroid/area"),
 ]
 
 
