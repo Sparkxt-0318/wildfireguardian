@@ -391,6 +391,35 @@ origin_scan:
   sweep_max_origins: 200           # [src: rescue.py RescueConfig.sweep_max_origins]
 
 # -----------------------------------------------------------------------------
+# PHASE 18 — building-location origins.
+#
+# A SECOND origin rule that coexists with the stride rule above; it does not
+# replace it. The stride rule samples the walk graph, this one samples buildings.
+# They count different things, so both are reported side by side and neither is
+# "the corrected version" of the other.
+# -----------------------------------------------------------------------------
+building_origins:
+  # "osm" | "vworld". OSM is what is acquired; VWorld (GIS건물통합정보) is the
+  # intended source and is a seam, not a rewrite — src/wildfireguardian/buildings/.
+  source: "osm"
+
+  # Maximum building-centroid -> walk-node snap distance. Buildings beyond it
+  # are NOT dropped: they are recorded as `unsnappable`, because a house with no
+  # walk node within 500 m is a finding about the network, not a missing row.
+  max_snap_distance_m: 500
+
+  # Sampling. The seed is pinned here so a sample is reproducible from config
+  # alone; changing it is a deliberate act with a visible diff.
+  sample_seed: 20260805
+  sample_size: 1000
+
+  # The convergence curve that justifies the sample size. Sizes above a region's
+  # own routable-building count are reported as INFEASIBLE rather than silently
+  # clamped — "we could not draw 1000 from 124" is the result, not an error.
+  convergence_sample_sizes: [50, 100, 250, 500, 1000, 2000]
+  convergence_repeats: 400
+
+# -----------------------------------------------------------------------------
 # Synthetic hazard envelope — used ONLY when no real forward-sim field is present
 # -----------------------------------------------------------------------------
 synthetic_hazard:

@@ -1,0 +1,5506 @@
+{
+  "schema_version": 1,
+  "title": "PHASE 18 — building-location origins, three regions, one rule",
+  "series_note": "This is a SECOND origin rule beside the committed stride-18 rule, not a replacement for it. The stride rule samples the walk graph; this one enumerates buildings. They count different things. Every table that shows one must show the other, and neither is the corrected version of the other.",
+  "coverage_warning": "⚠ The OSM building layer covers a SMALL and REGION-DEPENDENT fraction of the real building stock (measured: 124 / 339 / 1,220 against a STEP-0 estimate of 1.5-6 man per bbox). Comparing these three regions on any building-derived rate without the mapping- coverage column repeats exactly the confound HANDOFF_ROUND3.md §5 rules 7 and 12 forbid.",
+  "generated_utc": "2026-08-05T14:01:35Z",
+  "git_commit": "926fcc6e8739208bd7afe1e463b75f5e7645cbfc",
+  "config_hash": "f21177ab83cbccc24b4bede3d134630aac4e90943e3e131a2b326b2bf7f6cc80",
+  "total_seconds": 52.0,
+  "regions": [
+    {
+      "region": "yeongdeok_2025",
+      "rule": {
+        "source": "osm",
+        "source_file": "data/snapshots/osm-buildings_yeongdeok-2025_20260805_137c5d78.geojson",
+        "max_snap_distance_m": 500.0,
+        "p_cut": 0.5,
+        "time_budget_min": 600.0,
+        "time_step_min": 10.0,
+        "slope_sampling_m": 60.0,
+        "max_abs_slope": 0.6,
+        "arm": "slope DiGraph — the same arm the committed stride headline uses",
+        "snapper": "net.nearest_node (the routing layer's own)",
+        "walk_graphml_crs_as_stored": "epsg:4326"
+      },
+      "n_buildings": 124,
+      "n_within_snap_cap": 124,
+      "n_unsnappable": 0,
+      "n_origin_filtered": 5,
+      "n_routable": 119,
+      "snap_distance_m": {
+        "median": 29.5,
+        "p90": 58.9,
+        "p99": 137.2,
+        "max": 176.8,
+        "note": "measured with net.nearest_node over ALL buildings, pre-cap"
+      },
+      "unsnappable": [],
+      "distinct_walk_nodes_routed": 108,
+      "buildings_per_node": {
+        "median": 1.0,
+        "mean": 1.102,
+        "p95": 2.0,
+        "max": 4,
+        "nodes_with_more_than_one": 9
+      },
+      "per_node": [
+        {
+          "walk_node": 11024146456,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 437261621,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4679486151,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 9214166187,
+          "n_buildings": 2,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 11024146338,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11024146437,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12009411019,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12031802028,
+          "n_buildings": 2,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 12187916520,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 436594363,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 436738537,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 436912442,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 436912505,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 437092421,
+          "n_buildings": 1,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 2828250443,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4677181616,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4714366895,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4714366911,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5362635109,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5536595875,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6001724860,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6001724867,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6001725993,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6001726061,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6001726130,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6002481924,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 8814008954,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 9050092114,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 9214189473,
+          "n_buildings": 1,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 11024146337,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11024146343,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11024152225,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11024152230,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11024152238,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11345427582,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11696335221,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11735676096,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11756939365,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11760232581,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11760232791,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11760232974,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11762659326,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11762659334,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11762667299,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11764450795,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11768209914,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11768210215,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11768210331,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11784514572,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11784514588,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11784514735,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11835585369,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11841921039,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11872368536,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11910568124,
+          "n_buildings": 1,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 11930006917,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11930007020,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11930007052,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11932123077,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11955031300,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11956398136,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11956398143,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11956398189,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11968172966,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11968186362,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11968186379,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11968186396,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11968186507,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11968186570,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11968186572,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11968186582,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11968186594,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11968186596,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11970080979,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11976156816,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11976156825,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11976156834,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11976156849,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11976156875,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11976156876,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11976156877,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11976156878,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11976157052,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11976157126,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11976157127,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11976157131,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11976157169,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11976157238,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11976273471,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11982470697,
+          "n_buildings": 1,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 11982470766,
+          "n_buildings": 1,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 11982470858,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11984959355,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11985893494,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12000161817,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12009089711,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12009089849,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12011651408,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12011651425,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12014304167,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12022819431,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12031802024,
+          "n_buildings": 1,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 12032277630,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12032277646,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12218538907,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12662644751,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 13607558047,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 14045090808,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        }
+      ],
+      "node_level_counts": {
+        "naive_into_FA_safe": 8,
+        "no_safe_route": 0,
+        "both_safe": 100,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "fa_exceeds_budget": 0,
+        "unclassified": 0
+      },
+      "building_level_counts": {
+        "naive_into_FA_safe": 10,
+        "no_safe_route": 0,
+        "both_safe": 109,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "fa_exceeds_budget": 0,
+        "unclassified": 0
+      },
+      "building_fa_only_pct": 8.4,
+      "routing_seconds": 5.7,
+      "hazard_npz": "data/processed/routing_demo_canonical.npz",
+      "hazard_npz_sha256": "81b4e4d159daa7a8ccc7c4fedf3fea948d501fff2d7e886c1fd55bbf47043fb7",
+      "n_shelter_pois": 50,
+      "slope_stats": {
+        "sampling_m": 60.0,
+        "max_abs_slope": 0.6,
+        "n_edges_undirected": 10991,
+        "n_edges_directed": 21982,
+        "n_subsegments": 29092,
+        "n_edges_with_geometry": 7365,
+        "n_edges_straight_line": 3626,
+        "geometry_fraction": 0.6701,
+        "slope_abs": {
+          "mean": 0.08181527182818722,
+          "length_weighted_mean": 0.0834187427122866,
+          "median": 0.048180826786919734,
+          "p90": 0.20931178222241328,
+          "p99": 0.5068733779254319,
+          "max": 0.6,
+          "frac_gt_5pct": 0.4775883404372336,
+          "frac_gt_15pct": 0.17142169668637425,
+          "frac_gt_50pct": 0.010415234428708923
+        },
+        "traversal_time": {
+          "flat_total_h": 631.9077542350476,
+          "slope_forward_total_h": 809.5808455874994,
+          "slope_reverse_total_h": 790.3335889354555,
+          "pct_change_forward": 28.116934815514803,
+          "pct_change_reverse": 25.071038239147647,
+          "pct_change_mean_of_directions": 26.593986527331225
+        },
+        "directional_asymmetry": {
+          "definition": "|t(u->v) - t(v->u)| / t_flat, per undirected edge",
+          "mean": 0.19960270251679943,
+          "median": 0.13719638603978973,
+          "p90": 0.46408877861587683,
+          "max": 1.3718754295335078,
+          "frac_edges_gt_10pct": 0.5659175689200254
+        },
+        "dem_sampling": {
+          "note": "A sample outside the DEM footprint reads nodata and is then timed as FLAT. Silent by construction, so it is counted: n_nodata_samples > 0 means part of this 'slope' run is a flat run.",
+          "n_elev_samples": 40083,
+          "n_nodata_samples": 0,
+          "frac_nodata": 0.0,
+          "n_edges_with_nodata": 0,
+          "frac_edges_with_nodata": 0.0
+        },
+        "clipping": {
+          "note": "DEFENCE AGAINST DEM REGISTRATION ERROR, NOT a physical correction. Where a road crosses a bridge, tunnel or cutting, SRTM reports the terrain surface rather than the roadbed; the resulting slope is an artefact of comparing a road position with a hillside elevation.",
+          "n_clipped_subsegments": 165,
+          "frac_clipped": 0.0056716623126632755,
+          "n_edges_affected": 106,
+          "worst_edges": [
+            {
+              "u": 11768368384,
+              "v": 11768368391,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 3.0898593971443034,
+              "xy_5179": [
+                1174841.6544097215,
+                1836286.7069796121
+              ]
+            },
+            {
+              "u": 11769621073,
+              "v": 11769621226,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 1.5265553743784814,
+              "xy_5179": [
+                1167886.741574142,
+                1839647.7617723374
+              ]
+            },
+            {
+              "u": 12014304372,
+              "v": 12014304373,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 1.4491763389808159,
+              "xy_5179": [
+                1168859.5627316793,
+                1818136.0349196661
+              ]
+            },
+            {
+              "u": 11001087902,
+              "v": 11001088348,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 1.3792629219777865,
+              "xy_5179": [
+                1158505.5495308605,
+                1815087.493255764
+              ]
+            },
+            {
+              "u": 12022819431,
+              "v": 12022829577,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 1.2798569386357828,
+              "xy_5179": [
+                1172197.0104862049,
+                1842148.6208205542
+              ]
+            },
+            {
+              "u": 11768368400,
+              "v": 11768368404,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 1.2547032756385983,
+              "xy_5179": [
+                1174877.1946444507,
+                1836248.881477875
+              ]
+            },
+            {
+              "u": 11935650799,
+              "v": 11935650800,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 1.2033468284642823,
+              "xy_5179": [
+                1171689.6628324166,
+                1826520.5178567222
+              ]
+            },
+            {
+              "u": 10235830692,
+              "v": 10235830771,
+              "n_subsegments_clipped": 6,
+              "max_abs_slope_raw": 1.1888227623694354,
+              "xy_5179": [
+                1158004.3688418576,
+                1818693.1927774001
+              ]
+            },
+            {
+              "u": 11707583385,
+              "v": 13418581861,
+              "n_subsegments_clipped": 2,
+              "max_abs_slope_raw": 1.1820236881763,
+              "xy_5179": [
+                1158359.4858962693,
+                1829437.7049263776
+              ]
+            },
+            {
+              "u": 11001091918,
+              "v": 12125807906,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 1.130679127060842,
+              "xy_5179": [
+                1159427.204006178,
+                1818172.6883175157
+              ]
+            }
+          ]
+        }
+      },
+      "ignition_proxy_xy_5179": [
+        1154325.1702904492,
+        1831232.9138053241
+      ],
+      "reach_band_m": 40725.0,
+      "convergence": [
+        {
+          "n": 50,
+          "feasible": true,
+          "repeats": 400,
+          "naive_into_FA_safe": {
+            "mean_pct": 8.68,
+            "sd_pct": 3.017,
+            "p2.5_pct": 4.0,
+            "p97.5_pct": 14.0,
+            "half_ci95_pp": 5.0
+          },
+          "both_safe": {
+            "mean_pct": 91.32,
+            "sd_pct": 3.017,
+            "p2.5_pct": 86.0,
+            "p97.5_pct": 96.0,
+            "half_ci95_pp": 5.0
+          }
+        },
+        {
+          "n": 100,
+          "feasible": true,
+          "repeats": 400,
+          "naive_into_FA_safe": {
+            "mean_pct": 8.415,
+            "sd_pct": 1.125,
+            "p2.5_pct": 6.0,
+            "p97.5_pct": 10.0,
+            "half_ci95_pp": 2.0
+          },
+          "both_safe": {
+            "mean_pct": 91.585,
+            "sd_pct": 1.125,
+            "p2.5_pct": 90.0,
+            "p97.5_pct": 94.0,
+            "half_ci95_pp": 2.0
+          }
+        },
+        {
+          "n": 250,
+          "feasible": false,
+          "reason": "census has 119 routable buildings"
+        },
+        {
+          "n": 500,
+          "feasible": false,
+          "reason": "census has 119 routable buildings"
+        },
+        {
+          "n": 1000,
+          "feasible": false,
+          "reason": "census has 119 routable buildings"
+        },
+        {
+          "n": 2000,
+          "feasible": false,
+          "reason": "census has 119 routable buildings"
+        }
+      ],
+      "spatial_bias_of_sampling": [
+        {
+          "n": 50,
+          "feasible": true,
+          "centroid_offset_m": {
+            "mean": 721.1,
+            "p95": 1505.1,
+            "max": 2588.7
+          },
+          "spread_ratio_vs_census": {
+            "mean": 0.9883,
+            "p05": 0.8353,
+            "p95": 1.1128
+          }
+        },
+        {
+          "n": 100,
+          "feasible": true,
+          "centroid_offset_m": {
+            "mean": 247.2,
+            "p95": 509.7,
+            "max": 730.9
+          },
+          "spread_ratio_vs_census": {
+            "mean": 1.0009,
+            "p05": 0.9577,
+            "p95": 1.0447
+          }
+        },
+        {
+          "n": 250,
+          "feasible": false
+        },
+        {
+          "n": 500,
+          "feasible": false
+        },
+        {
+          "n": 1000,
+          "feasible": false
+        },
+        {
+          "n": 2000,
+          "feasible": false
+        }
+      ],
+      "stride_reference": {
+        "available": true,
+        "artifact": "real_roads_real_hazard_canonical.json",
+        "arm": "arms.slope_digraph_canonical",
+        "n_origins": 458,
+        "counts": {
+          "naive_into_FA_safe": 42,
+          "no_safe_route": 2,
+          "both_safe": 414,
+          "both_enter": 0,
+          "naive_unreachable": 0,
+          "fa_exceeds_budget": 0,
+          "unclassified": 0
+        },
+        "fa_only_pct": 9.17
+      },
+      "region_seconds": 8.9
+    },
+    {
+      "region": "uiseong_andong_2025",
+      "rule": {
+        "source": "osm",
+        "source_file": "data/snapshots/osm-buildings_uiseong-andong-2025_20260805_3c15ee24.geojson",
+        "max_snap_distance_m": 500.0,
+        "p_cut": 0.5,
+        "time_budget_min": 600.0,
+        "time_step_min": 10.0,
+        "slope_sampling_m": 60.0,
+        "max_abs_slope": 0.6,
+        "arm": "slope DiGraph — the same arm the committed stride headline uses",
+        "snapper": "net.nearest_node (the routing layer's own)",
+        "walk_graphml_crs_as_stored": "epsg:5179"
+      },
+      "n_buildings": 339,
+      "n_within_snap_cap": 335,
+      "n_unsnappable": 4,
+      "n_origin_filtered": 8,
+      "n_routable": 327,
+      "snap_distance_m": {
+        "median": 45.7,
+        "p90": 115.6,
+        "p99": 502.9,
+        "max": 1754.4,
+        "note": "measured with net.nearest_node over ALL buildings, pre-cap"
+      },
+      "unsnappable": [
+        {
+          "building_id": "474689707",
+          "centroid_5179": [
+            1120626.7,
+            1809692.6
+          ],
+          "nearest_walk_node_distance_m": 1754.4,
+          "footprint_area_m2": 96.9
+        },
+        {
+          "building_id": "474689764",
+          "centroid_5179": [
+            1120573.2,
+            1809604.1
+          ],
+          "nearest_walk_node_distance_m": 1680.8,
+          "footprint_area_m2": 156.2
+        },
+        {
+          "building_id": "993434752",
+          "centroid_5179": [
+            1094343.8,
+            1807807.1
+          ],
+          "nearest_walk_node_distance_m": 512.1,
+          "footprint_area_m2": 931.2
+        },
+        {
+          "building_id": "993434753",
+          "centroid_5179": [
+            1094348.5,
+            1807786.0
+          ],
+          "nearest_walk_node_distance_m": 532.5,
+          "footprint_area_m2": 931.4
+        }
+      ],
+      "distinct_walk_nodes_routed": 160,
+      "buildings_per_node": {
+        "median": 1.0,
+        "mean": 2.044,
+        "p95": 7.049999999999983,
+        "max": 18,
+        "nodes_with_more_than_one": 51
+      },
+      "per_node": [
+        {
+          "walk_node": 7259772750,
+          "n_buildings": 18,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 8291985758,
+          "n_buildings": 12,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7259792101,
+          "n_buildings": 11,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4663400522,
+          "n_buildings": 9,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 8291985761,
+          "n_buildings": 9,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12432293095,
+          "n_buildings": 9,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4663400529,
+          "n_buildings": 8,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7259772755,
+          "n_buildings": 8,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4663401090,
+          "n_buildings": 7,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 8291985755,
+          "n_buildings": 6,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 8291985759,
+          "n_buildings": 6,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6602598132,
+          "n_buildings": 5,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 6602598153,
+          "n_buildings": 5,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 8291985766,
+          "n_buildings": 5,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 368196860,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4663401231,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4742600769,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6602598144,
+          "n_buildings": 4,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 6602598228,
+          "n_buildings": 4,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 7983668130,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 9100530462,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 9828045857,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6602598152,
+          "n_buildings": 3,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 6602598166,
+          "n_buildings": 3,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 6667108976,
+          "n_buildings": 3,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 6667109060,
+          "n_buildings": 3,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 6667109061,
+          "n_buildings": 3,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 7259792104,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7979850960,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 8291985760,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 9135513401,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 10806853019,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 437153483,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4706163977,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5600178306,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5600198561,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6602598140,
+          "n_buildings": 2,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 6602598167,
+          "n_buildings": 2,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 6667109058,
+          "n_buildings": 2,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 7259772758,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7943612466,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7943612863,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 9120108748,
+          "n_buildings": 2,
+          "bucket": "fa_exceeds_budget"
+        },
+        {
+          "walk_node": 9828045928,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 9828140025,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 9848259931,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11074504419,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11752175516,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12432293103,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12432295405,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 13353332127,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 315038273,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 367855620,
+          "n_buildings": 1,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 367858607,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 367858636,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 368196886,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 437147817,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 437248128,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4663400526,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4663400528,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4663400864,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4742597286,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4894940228,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4894940234,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4894940292,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4894940357,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4894940398,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4894940523,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4894970271,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5554576630,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5556703369,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5600198594,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6602597935,
+          "n_buildings": 1,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 6602597940,
+          "n_buildings": 1,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 6602597947,
+          "n_buildings": 1,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 6602598003,
+          "n_buildings": 1,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 6602598107,
+          "n_buildings": 1,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 6602598149,
+          "n_buildings": 1,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 6602598150,
+          "n_buildings": 1,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 6665720703,
+          "n_buildings": 1,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 6667108942,
+          "n_buildings": 1,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 6667108944,
+          "n_buildings": 1,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 6667108973,
+          "n_buildings": 1,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 6667109052,
+          "n_buildings": 1,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 6667109054,
+          "n_buildings": 1,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 6956297933,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7259772740,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7259790463,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7259792100,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7836384271,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7838335421,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7838412602,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7943612197,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7943612198,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7943612230,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7943612233,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7943612239,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7943612340,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7943612347,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7943612441,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7943612459,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7943612766,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7943612812,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7943612820,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7943612886,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 8147985453,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 8147985460,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 8148010447,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 8148010481,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 8148010512,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 8148010528,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 8148010848,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 8289537332,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 8289537337,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 8289537377,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 8292069688,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 8664591358,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 8704319081,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 8946261163,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 8946261349,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 8994669574,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 9119794995,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 9120108753,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 9520863360,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 9668621016,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 9826869450,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 9826869453,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 9826873622,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 9828045862,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 9841481184,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 9842930244,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 9848210938,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 9848211375,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 9854795966,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 9856969702,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 9859514684,
+          "n_buildings": 1,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 9884207251,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 9931532811,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11019543026,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11019543048,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11256551904,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11491077082,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11524014486,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11633909627,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11633909656,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11633930944,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11752175512,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11752194692,
+          "n_buildings": 1,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 11993380884,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12369637141,
+          "n_buildings": 1,
+          "bucket": "naive_into_FA_safe"
+        },
+        {
+          "walk_node": 12389500765,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12389500783,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12432233687,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12432292475,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12662276134,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12705314159,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 13064588138,
+          "n_buildings": 1,
+          "bucket": "no_safe_route"
+        },
+        {
+          "walk_node": 13076836428,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 13373907642,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 13664088930,
+          "n_buildings": 1,
+          "bucket": "no_safe_route"
+        }
+      ],
+      "node_level_counts": {
+        "naive_into_FA_safe": 29,
+        "no_safe_route": 2,
+        "both_safe": 128,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "fa_exceeds_budget": 1,
+        "unclassified": 0
+      },
+      "building_level_counts": {
+        "naive_into_FA_safe": 56,
+        "no_safe_route": 2,
+        "both_safe": 267,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "fa_exceeds_budget": 2,
+        "unclassified": 0
+      },
+      "building_fa_only_pct": 17.13,
+      "routing_seconds": 10.1,
+      "hazard_npz": "data/processed/hazard_uiseong_andong_2025.npz",
+      "hazard_npz_sha256": "4016c2e6ef8e27eb12310a816a416b6d1a6bf54d0187d6ac8fbc4ad4f747e3cd",
+      "n_shelter_pois": 34,
+      "slope_stats": {
+        "sampling_m": 60.0,
+        "max_abs_slope": 0.6,
+        "n_edges_undirected": 8635,
+        "n_edges_directed": 17270,
+        "n_subsegments": 36020,
+        "n_edges_with_geometry": 6767,
+        "n_edges_straight_line": 1868,
+        "geometry_fraction": 0.7837,
+        "slope_abs": {
+          "mean": 0.06364872400635811,
+          "length_weighted_mean": 0.06373701505360403,
+          "median": 0.038361847364424564,
+          "p90": 0.1507197073952271,
+          "p99": 0.33365576611396147,
+          "max": 0.6,
+          "frac_gt_5pct": 0.4335091615769017,
+          "frac_gt_15pct": 0.10277623542476402,
+          "frac_gt_50pct": 0.0017767906718489728
+        },
+        "traversal_time": {
+          "flat_total_h": 835.8149013419726,
+          "slope_forward_total_h": 969.2709662030404,
+          "slope_reverse_total_h": 955.399291546099,
+          "pct_change_forward": 15.967179413383592,
+          "pct_change_reverse": 14.307520721648226,
+          "pct_change_mean_of_directions": 15.137350067515909
+        },
+        "directional_asymmetry": {
+          "definition": "|t(u->v) - t(v->u)| / t_flat, per undirected edge",
+          "mean": 0.1702782479793937,
+          "median": 0.12690399006363484,
+          "p90": 0.38911707856337385,
+          "max": 1.3618371682618466,
+          "frac_edges_gt_10pct": 0.5752171395483497
+        },
+        "dem_sampling": {
+          "note": "A sample outside the DEM footprint reads nodata and is then timed as FLAT. Silent by construction, so it is counted: n_nodata_samples > 0 means part of this 'slope' run is a flat run.",
+          "n_elev_samples": 44655,
+          "n_nodata_samples": 0,
+          "frac_nodata": 0.0,
+          "n_edges_with_nodata": 0,
+          "frac_edges_with_nodata": 0.0
+        },
+        "clipping": {
+          "note": "DEFENCE AGAINST DEM REGISTRATION ERROR, NOT a physical correction. Where a road crosses a bridge, tunnel or cutting, SRTM reports the terrain surface rather than the roadbed; the resulting slope is an artefact of comparing a road position with a hillside elevation.",
+          "n_clipped_subsegments": 22,
+          "frac_clipped": 0.0006107717934480844,
+          "n_edges_affected": 20,
+          "worst_edges": [
+            {
+              "u": 9120194440,
+              "v": 9120194513,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 0.9544906841520097,
+              "xy_5179": [
+                1105094.630660941,
+                1817390.2507454252
+              ]
+            },
+            {
+              "u": 9854779648,
+              "v": 10223070057,
+              "n_subsegments_clipped": 2,
+              "max_abs_slope_raw": 0.7740866261111197,
+              "xy_5179": [
+                1109435.9626659122,
+                1807415.6303708826
+              ]
+            },
+            {
+              "u": 10207011388,
+              "v": 10207011420,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 0.7056196797510204,
+              "xy_5179": [
+                1108869.5880423994,
+                1807810.6325386034
+              ]
+            },
+            {
+              "u": 10207000001,
+              "v": 10207011388,
+              "n_subsegments_clipped": 2,
+              "max_abs_slope_raw": 0.6893210879872109,
+              "xy_5179": [
+                1110589.0286035526,
+                1809132.6514670744
+              ]
+            },
+            {
+              "u": 7943612626,
+              "v": 7943612628,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 0.6874358513511372,
+              "xy_5179": [
+                1116401.178293819,
+                1815757.32673215
+              ]
+            },
+            {
+              "u": 11058678884,
+              "v": 11058678904,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 0.6755106547683717,
+              "xy_5179": [
+                1111270.2894480973,
+                1832617.8256083045
+              ]
+            },
+            {
+              "u": 13113946366,
+              "v": 13113946386,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 0.6637543014865949,
+              "xy_5179": [
+                1095808.8247341677,
+                1832699.6333170824
+              ]
+            },
+            {
+              "u": 13269497237,
+              "v": 13269497571,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 0.6617651933691454,
+              "xy_5179": [
+                1116005.0487636134,
+                1809346.7081810813
+              ]
+            },
+            {
+              "u": 10223080984,
+              "v": 10806784864,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 0.6561140476079534,
+              "xy_5179": [
+                1110176.6998511946,
+                1811844.6378545605
+              ]
+            },
+            {
+              "u": 13269497571,
+              "v": 13269497884,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 0.6465282440618917,
+              "xy_5179": [
+                1118321.760028985,
+                1808134.725839753
+              ]
+            }
+          ]
+        }
+      },
+      "ignition_proxy_xy_5179": [
+        1101590.813427112,
+        1818173.7048986782
+      ],
+      "reach_band_m": 30375.0,
+      "convergence": [
+        {
+          "n": 50,
+          "feasible": true,
+          "repeats": 400,
+          "naive_into_FA_safe": {
+            "mean_pct": 17.39,
+            "sd_pct": 4.932,
+            "p2.5_pct": 8.0,
+            "p97.5_pct": 26.0,
+            "half_ci95_pp": 9.0
+          },
+          "no_safe_route": {
+            "mean_pct": 0.62,
+            "sd_pct": 0.968,
+            "p2.5_pct": 0.0,
+            "p97.5_pct": 2.0,
+            "half_ci95_pp": 1.0
+          },
+          "both_safe": {
+            "mean_pct": 81.385,
+            "sd_pct": 5.053,
+            "p2.5_pct": 72.0,
+            "p97.5_pct": 90.0,
+            "half_ci95_pp": 9.0
+          },
+          "fa_exceeds_budget": {
+            "mean_pct": 0.605,
+            "sd_pct": 1.013,
+            "p2.5_pct": 0.0,
+            "p97.5_pct": 2.0,
+            "half_ci95_pp": 1.0
+          }
+        },
+        {
+          "n": 100,
+          "feasible": true,
+          "repeats": 400,
+          "naive_into_FA_safe": {
+            "mean_pct": 17.188,
+            "sd_pct": 3.321,
+            "p2.5_pct": 10.0,
+            "p97.5_pct": 24.0,
+            "half_ci95_pp": 7.0
+          },
+          "no_safe_route": {
+            "mean_pct": 0.642,
+            "sd_pct": 0.675,
+            "p2.5_pct": 0.0,
+            "p97.5_pct": 2.0,
+            "half_ci95_pp": 1.0
+          },
+          "both_safe": {
+            "mean_pct": 81.585,
+            "sd_pct": 3.439,
+            "p2.5_pct": 75.0,
+            "p97.5_pct": 88.0,
+            "half_ci95_pp": 6.5
+          },
+          "fa_exceeds_budget": {
+            "mean_pct": 0.585,
+            "sd_pct": 0.647,
+            "p2.5_pct": 0.0,
+            "p97.5_pct": 2.0,
+            "half_ci95_pp": 1.0
+          }
+        },
+        {
+          "n": 250,
+          "feasible": true,
+          "repeats": 400,
+          "naive_into_FA_safe": {
+            "mean_pct": 17.155,
+            "sd_pct": 1.173,
+            "p2.5_pct": 14.8,
+            "p97.5_pct": 19.2,
+            "half_ci95_pp": 2.2
+          },
+          "no_safe_route": {
+            "mean_pct": 0.614,
+            "sd_pct": 0.237,
+            "p2.5_pct": 0.0,
+            "p97.5_pct": 0.8,
+            "half_ci95_pp": 0.4
+          },
+          "both_safe": {
+            "mean_pct": 81.627,
+            "sd_pct": 1.195,
+            "p2.5_pct": 79.6,
+            "p97.5_pct": 84.0,
+            "half_ci95_pp": 2.2
+          },
+          "fa_exceeds_budget": {
+            "mean_pct": 0.604,
+            "sd_pct": 0.245,
+            "p2.5_pct": 0.0,
+            "p97.5_pct": 0.8,
+            "half_ci95_pp": 0.4
+          }
+        },
+        {
+          "n": 500,
+          "feasible": false,
+          "reason": "census has 327 routable buildings"
+        },
+        {
+          "n": 1000,
+          "feasible": false,
+          "reason": "census has 327 routable buildings"
+        },
+        {
+          "n": 2000,
+          "feasible": false,
+          "reason": "census has 327 routable buildings"
+        }
+      ],
+      "spatial_bias_of_sampling": [
+        {
+          "n": 50,
+          "feasible": true,
+          "centroid_offset_m": {
+            "mean": 1439.3,
+            "p95": 2833.6,
+            "max": 3594.1
+          },
+          "spread_ratio_vs_census": {
+            "mean": 0.9903,
+            "p05": 0.9347,
+            "p95": 1.0404
+          }
+        },
+        {
+          "n": 100,
+          "feasible": true,
+          "centroid_offset_m": {
+            "mean": 944.7,
+            "p95": 1850.7,
+            "max": 3183.9
+          },
+          "spread_ratio_vs_census": {
+            "mean": 0.9983,
+            "p05": 0.9606,
+            "p95": 1.0328
+          }
+        },
+        {
+          "n": 250,
+          "feasible": true,
+          "centroid_offset_m": {
+            "mean": 339.5,
+            "p95": 655.3,
+            "max": 984.5
+          },
+          "spread_ratio_vs_census": {
+            "mean": 0.9996,
+            "p05": 0.985,
+            "p95": 1.0145
+          }
+        },
+        {
+          "n": 500,
+          "feasible": false
+        },
+        {
+          "n": 1000,
+          "feasible": false
+        },
+        {
+          "n": 2000,
+          "feasible": false
+        }
+      ],
+      "stride_reference": {
+        "available": true,
+        "artifact": "real_roads_real_hazard_uiseong_andong_2025.json",
+        "arm": "arms.slope_digraph_canonical",
+        "n_origins": 368,
+        "counts": {
+          "naive_into_FA_safe": 91,
+          "no_safe_route": 12,
+          "both_safe": 263,
+          "both_enter": 0,
+          "naive_unreachable": 0,
+          "fa_exceeds_budget": 2,
+          "unclassified": 0
+        },
+        "fa_only_pct": 24.73
+      },
+      "region_seconds": 11.8
+    },
+    {
+      "region": "uljin_samcheok_2022",
+      "rule": {
+        "source": "osm",
+        "source_file": "data/snapshots/osm-buildings_uljin-samcheok-2022_20260805_b72dd8de.geojson",
+        "max_snap_distance_m": 500.0,
+        "p_cut": 0.5,
+        "time_budget_min": 600.0,
+        "time_step_min": 10.0,
+        "slope_sampling_m": 60.0,
+        "max_abs_slope": 0.6,
+        "arm": "slope DiGraph — the same arm the committed stride headline uses",
+        "snapper": "net.nearest_node (the routing layer's own)",
+        "walk_graphml_crs_as_stored": "epsg:5179"
+      },
+      "n_buildings": 1220,
+      "n_within_snap_cap": 1219,
+      "n_unsnappable": 1,
+      "n_origin_filtered": 0,
+      "n_routable": 1219,
+      "snap_distance_m": {
+        "median": 31.4,
+        "p90": 100.5,
+        "p99": 213.6,
+        "max": 1220.6,
+        "note": "measured with net.nearest_node over ALL buildings, pre-cap"
+      },
+      "unsnappable": [
+        {
+          "building_id": "466987456",
+          "centroid_5179": [
+            1150756.6,
+            1881737.0
+          ],
+          "nearest_walk_node_distance_m": 1220.6,
+          "footprint_area_m2": 265.0
+        }
+      ],
+      "distinct_walk_nodes_routed": 588,
+      "buildings_per_node": {
+        "median": 1.0,
+        "mean": 2.073,
+        "p95": 6.0,
+        "max": 21,
+        "nodes_with_more_than_one": 216
+      },
+      "per_node": [
+        {
+          "walk_node": 11360369265,
+          "n_buildings": 21,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087969540,
+          "n_buildings": 15,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970984,
+          "n_buildings": 13,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189575958,
+          "n_buildings": 12,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087964278,
+          "n_buildings": 12,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4406466009,
+          "n_buildings": 11,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11360369162,
+          "n_buildings": 11,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11429585734,
+          "n_buildings": 11,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11449901405,
+          "n_buildings": 11,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087964279,
+          "n_buildings": 11,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11360369160,
+          "n_buildings": 10,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970037,
+          "n_buildings": 9,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970755,
+          "n_buildings": 9,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970891,
+          "n_buildings": 9,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189575941,
+          "n_buildings": 8,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189575982,
+          "n_buildings": 8,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11360369158,
+          "n_buildings": 8,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11487201840,
+          "n_buildings": 8,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087967792,
+          "n_buildings": 8,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4406465819,
+          "n_buildings": 7,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189577033,
+          "n_buildings": 7,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11430469302,
+          "n_buildings": 7,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11430469313,
+          "n_buildings": 7,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11430469392,
+          "n_buildings": 7,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970572,
+          "n_buildings": 7,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087971291,
+          "n_buildings": 7,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087971383,
+          "n_buildings": 7,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 454911496,
+          "n_buildings": 6,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4406465876,
+          "n_buildings": 6,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4758168802,
+          "n_buildings": 6,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5135504967,
+          "n_buildings": 6,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189575955,
+          "n_buildings": 6,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11098836917,
+          "n_buildings": 6,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11360369362,
+          "n_buildings": 6,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11369354795,
+          "n_buildings": 6,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11430469312,
+          "n_buildings": 6,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11430469439,
+          "n_buildings": 6,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11430469442,
+          "n_buildings": 6,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087964281,
+          "n_buildings": 6,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087968206,
+          "n_buildings": 6,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970928,
+          "n_buildings": 6,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12813187320,
+          "n_buildings": 6,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4224941073,
+          "n_buildings": 5,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4224943708,
+          "n_buildings": 5,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4406465874,
+          "n_buildings": 5,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4406465881,
+          "n_buildings": 5,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4406466017,
+          "n_buildings": 5,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5134976094,
+          "n_buildings": 5,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189577047,
+          "n_buildings": 5,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11098836843,
+          "n_buildings": 5,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11360369264,
+          "n_buildings": 5,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11429585620,
+          "n_buildings": 5,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11430469448,
+          "n_buildings": 5,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087963703,
+          "n_buildings": 5,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087968620,
+          "n_buildings": 5,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4406416275,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4406465878,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4406466037,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4662059532,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5135075353,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5145073600,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5145073623,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189575964,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7247344472,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7490966823,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 8170105395,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 10651123372,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11360369071,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11360369263,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11360369576,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11360369715,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11430469300,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11430469306,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11430469314,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11430469318,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11430469424,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11470114294,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11472400136,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087959557,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087959559,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087959564,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087962777,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087963705,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087969971,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970430,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970842,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087971385,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12738694682,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12813187375,
+          "n_buildings": 4,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4224941056,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4224941081,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4224943709,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4406416270,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5135064897,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5135420159,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5135455354,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5135455357,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189575961,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7247344458,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7248565701,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7248621014,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 8170105394,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11098836238,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11316333675,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11340867735,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11360369509,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11369354799,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11416335459,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11418024649,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11430469345,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11448799658,
+          "n_buildings": 3,
+          "bucket": "no_safe_route"
+        },
+        {
+          "walk_node": 11815234033,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087964239,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087965090,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087965273,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087965777,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087965849,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087966978,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087968611,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087969605,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087969740,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087969885,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970146,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970754,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970757,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970875,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970888,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970892,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087971290,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12813187147,
+          "n_buildings": 3,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 454836592,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4406465833,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4406465873,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4406465883,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4406466027,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4406466035,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4409148056,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4488639261,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4532837227,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4655454102,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4662059466,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4742688198,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4742689785,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4742689786,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4972221372,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4972221383,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5135036527,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5135036550,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5135504951,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5135504964,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5240574441,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5240574444,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5240574446,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189575946,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189575959,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189575960,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189576994,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189577004,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189577026,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189577050,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189577052,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7248565689,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7487960186,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 10651123371,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11098836245,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11316333628,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11316333668,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11340867742,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11340867863,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11360368982,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11360369021,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11364923577,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11369375828,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11374694297,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11379033983,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11416335529,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11429585733,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11430281538,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11430469333,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11430469355,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11430469364,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11430469425,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11432236803,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11470114955,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11470114965,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11492912221,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11500858349,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087946947,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087959562,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087959563,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087962490,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087965089,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087965248,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087965268,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087965274,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087965293,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087966052,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087966055,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087967000,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087969119,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087969125,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087969741,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087969798,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087969834,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970229,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970230,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970418,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970498,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970597,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970982,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087971104,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087971298,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087971299,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087971381,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087971580,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12140752516,
+          "n_buildings": 2,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 414668764,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 436608332,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 436608600,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 454903546,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 454911215,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 454911848,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 454912389,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 455026497,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 469709056,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 469709284,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 1919638115,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4224941068,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4406465836,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4406465837,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4406465839,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4406465841,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4406465851,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4406465853,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4406465857,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4406466022,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4488639259,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4488639262,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4488639277,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4488639284,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4488644743,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4488644745,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4488644749,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4488644779,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4488657558,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4490683750,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4490683760,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4490683785,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4635199843,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4662053945,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4662059202,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4662059285,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4662059413,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4662059445,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4662059471,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4662059474,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4662059506,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4662262160,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4662262167,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4662262174,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4662262182,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4662262185,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4662423408,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4694934952,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4742689672,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4742689695,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4742689715,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4742689772,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4742689792,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4742689816,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4758169619,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4758169725,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4758169727,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4758169762,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4769711379,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4771229195,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4972221406,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 4972221414,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5135036524,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5135036547,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5135205123,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5135205130,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5135396601,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5135401132,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5135420160,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5135455333,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5135504949,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5135504968,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5136871788,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5136871805,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5136871811,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5136871826,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5145020358,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5145020686,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5145073532,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5145073617,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5152841569,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5240574422,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5240574479,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 5557613494,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189575920,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189575965,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189575966,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189576988,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189576991,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189576992,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189576995,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189576997,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189577000,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189577010,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189577016,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189577018,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189577027,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189577036,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189577051,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6189577053,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 6570305465,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7247344460,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7247344461,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7247344463,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7247344467,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7247344468,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7247344469,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7247344481,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7248565668,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7248565683,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7248565702,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 7490966824,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 10651123382,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11098836342,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11316333617,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11316333632,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11316333633,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11332360095,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11340844712,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11340867658,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11340867668,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11340867691,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11340867695,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11340867703,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11340867710,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11340867711,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11340867744,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11340867788,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11340867927,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11342338848,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11342340166,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11342340170,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11360368945,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11360368957,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11360369038,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11360369043,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11360369047,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11360369048,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11360369253,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11360369393,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11360369469,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11360369532,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11360369593,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11360369597,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11360369601,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11360369609,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11360369622,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11360369727,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11360546506,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11364920583,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11364923479,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11364923489,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11364923498,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11364923520,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11369375528,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11369375554,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11369375605,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11369375832,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11369375858,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11369375863,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11369376166,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11374115342,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11374115552,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11374690812,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11374693944,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11374693952,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11374693958,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11374694074,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11374694093,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11374694114,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11374694143,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11374694146,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11374694251,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11374694252,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11379033985,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11379034197,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11379034211,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11379034336,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11379034422,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11379034431,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11379034480,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11379034488,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11379034489,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11379034600,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11379034935,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11380625685,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11380626339,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11380626379,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11381940797,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11381940887,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11384967943,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11390296613,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11416335465,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11416335479,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11416335483,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11416335526,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11416335537,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11417973212,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11417973260,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11418024641,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11418024884,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11418024892,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11418025033,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11418025222,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11418025223,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11418025225,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11418025282,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11429584985,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11429585202,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11429585619,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11429585652,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11429585661,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11429585681,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11430469134,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11430469310,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11430469365,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11430469379,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11430469406,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11430469443,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11432236532,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11432236662,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11432236675,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11432236888,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11435599539,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11436632554,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11436632586,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11436632588,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11436632591,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11448799681,
+          "n_buildings": 1,
+          "bucket": "no_safe_route"
+        },
+        {
+          "walk_node": 11448799725,
+          "n_buildings": 1,
+          "bucket": "no_safe_route"
+        },
+        {
+          "walk_node": 11448799729,
+          "n_buildings": 1,
+          "bucket": "no_safe_route"
+        },
+        {
+          "walk_node": 11458692489,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11463457698,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11470114156,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11470114268,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11470114298,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11470114949,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11472400900,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11472400908,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11476776325,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11476776326,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11476776350,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11476776356,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11476797749,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11476797844,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11476797854,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11476797857,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11476797863,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11476797864,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11476797911,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11476797945,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11476797956,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11476797962,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11476797971,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11476797986,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11476797988,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11476798002,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11476798007,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11476798014,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11476798015,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11476798024,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11476798025,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11476798067,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11478500442,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11478500446,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11478500898,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11492912265,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11492936176,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11497841997,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11497842002,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11499413728,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11499415582,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11500858344,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11500858353,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11500858354,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11500858388,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11507665812,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11507665892,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11507665972,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11507665974,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11507666057,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11514493951,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11514494006,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11532867077,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11532867800,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11540092272,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11762739212,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11815108869,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11815108872,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11815108922,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11815234016,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11815234024,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 11967490298,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087946949,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087962489,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087962492,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087962504,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087962505,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087962831,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087962833,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087964282,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087964285,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087964286,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087965093,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087965214,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087965277,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087965349,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087965353,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087965366,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087965367,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087965371,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087965397,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087966047,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087966128,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087966141,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087966986,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087966988,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087967023,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087967026,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087967258,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087968613,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087969110,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087969135,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087969564,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087969571,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087969573,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087969606,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087969619,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087969754,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087969768,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087969777,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087969828,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087969856,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087969898,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970030,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970147,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970193,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970224,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970228,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970291,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970293,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970294,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970295,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970358,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970400,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970401,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970403,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970404,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970407,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970415,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970421,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970427,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970467,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970549,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970550,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970551,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970735,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970750,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970914,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087970997,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087971006,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087971093,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087971108,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087971110,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087971304,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087971335,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12087971522,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12088756135,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12146608919,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12738757046,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 12813187276,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        },
+        {
+          "walk_node": 13399605265,
+          "n_buildings": 1,
+          "bucket": "both_safe"
+        }
+      ],
+      "node_level_counts": {
+        "naive_into_FA_safe": 0,
+        "no_safe_route": 4,
+        "both_safe": 584,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "fa_exceeds_budget": 0,
+        "unclassified": 0
+      },
+      "building_level_counts": {
+        "naive_into_FA_safe": 0,
+        "no_safe_route": 6,
+        "both_safe": 1213,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "fa_exceeds_budget": 0,
+        "unclassified": 0
+      },
+      "building_fa_only_pct": 0.0,
+      "routing_seconds": 29.2,
+      "hazard_npz": "data/processed/hazard_uljin_samcheok_2022.npz",
+      "hazard_npz_sha256": "5482c9b5ded9a576f3a8d4134b0633bb20992838ffd013942531f58adc09eb97",
+      "n_shelter_pois": 26,
+      "slope_stats": {
+        "sampling_m": 60.0,
+        "max_abs_slope": 0.6,
+        "n_edges_undirected": 9132,
+        "n_edges_directed": 18264,
+        "n_subsegments": 26360,
+        "n_edges_with_geometry": 6201,
+        "n_edges_straight_line": 2931,
+        "geometry_fraction": 0.679,
+        "slope_abs": {
+          "mean": 0.08056874032038101,
+          "length_weighted_mean": 0.08193756344133545,
+          "median": 0.05073669283087,
+          "p90": 0.1969386387103965,
+          "p99": 0.41000723245183823,
+          "max": 0.6,
+          "frac_gt_5pct": 0.5191578148710166,
+          "frac_gt_15pct": 0.16437784522003035,
+          "frac_gt_50pct": 0.0041350531107739
+        },
+        "traversal_time": {
+          "flat_total_h": 579.0099511163157,
+          "slope_forward_total_h": 728.1733774939823,
+          "slope_reverse_total_h": 703.9660299403811,
+          "pct_change_forward": 25.761807044953787,
+          "pct_change_reverse": 21.580989857454647,
+          "pct_change_mean_of_directions": 23.67139845120423
+        },
+        "directional_asymmetry": {
+          "definition": "|t(u->v) - t(v->u)| / t_flat, per undirected edge",
+          "mean": 0.21173996880863472,
+          "median": 0.17199030367091506,
+          "p90": 0.4508207296128782,
+          "max": 1.345946601839698,
+          "frac_edges_gt_10pct": 0.6367717915024091
+        },
+        "dem_sampling": {
+          "note": "A sample outside the DEM footprint reads nodata and is then timed as FLAT. Silent by construction, so it is counted: n_nodata_samples > 0 means part of this 'slope' run is a flat run.",
+          "n_elev_samples": 35492,
+          "n_nodata_samples": 0,
+          "frac_nodata": 0.0,
+          "n_edges_with_nodata": 0,
+          "frac_edges_with_nodata": 0.0
+        },
+        "clipping": {
+          "note": "DEFENCE AGAINST DEM REGISTRATION ERROR, NOT a physical correction. Where a road crosses a bridge, tunnel or cutting, SRTM reports the terrain surface rather than the roadbed; the resulting slope is an artefact of comparing a road position with a hillside elevation.",
+          "n_clipped_subsegments": 45,
+          "frac_clipped": 0.0017071320182094083,
+          "n_edges_affected": 31,
+          "worst_edges": [
+            {
+              "u": 11340867632,
+              "v": 11340867636,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 1.9947158906241953,
+              "xy_5179": [
+                1166403.3246039138,
+                1902228.6645565638
+              ]
+            },
+            {
+              "u": 12087968610,
+              "v": 12087970982,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 1.72455006520194,
+              "xy_5179": [
+                1167912.966514818,
+                1900720.721296188
+              ]
+            },
+            {
+              "u": 3886478769,
+              "v": 11461539968,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 1.5357237638795167,
+              "xy_5179": [
+                1164815.9592678344,
+                1895087.7567604673
+              ]
+            },
+            {
+              "u": 11461523023,
+              "v": 11461523033,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 0.946762738526779,
+              "xy_5179": [
+                1166472.2288709534,
+                1894465.2735797553
+              ]
+            },
+            {
+              "u": 4746863598,
+              "v": 4746863599,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 0.8997219889590602,
+              "xy_5179": [
+                1167696.287909004,
+                1882685.364279348
+              ]
+            },
+            {
+              "u": 12087966942,
+              "v": 12087966949,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 0.8944184916133786,
+              "xy_5179": [
+                1167113.459910239,
+                1899812.822579104
+              ]
+            },
+            {
+              "u": 11374115685,
+              "v": 11374115686,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 0.8636541513355223,
+              "xy_5179": [
+                1169928.0017385157,
+                1898781.076993658
+              ]
+            },
+            {
+              "u": 10307777982,
+              "v": 10307779086,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 0.7840732454081896,
+              "xy_5179": [
+                1149228.0740891132,
+                1902158.388119976
+              ]
+            },
+            {
+              "u": 11098830292,
+              "v": 11098835625,
+              "n_subsegments_clipped": 1,
+              "max_abs_slope_raw": 0.7683072349531125,
+              "xy_5179": [
+                1164757.6641811468,
+                1877133.480190974
+              ]
+            },
+            {
+              "u": 4617474790,
+              "v": 7488335393,
+              "n_subsegments_clipped": 8,
+              "max_abs_slope_raw": 0.7673711265087287,
+              "xy_5179": [
+                1160196.5261076028,
+                1887194.8090020346
+              ]
+            }
+          ]
+        }
+      },
+      "ignition_proxy_xy_5179": [
+        1162404.2717827973,
+        1897848.2222524886
+      ],
+      "reach_band_m": 34875.0,
+      "convergence": [
+        {
+          "n": 50,
+          "feasible": true,
+          "repeats": 400,
+          "no_safe_route": {
+            "mean_pct": 0.52,
+            "sd_pct": 0.986,
+            "p2.5_pct": 0.0,
+            "p97.5_pct": 2.0,
+            "half_ci95_pp": 1.0
+          },
+          "both_safe": {
+            "mean_pct": 99.48,
+            "sd_pct": 0.986,
+            "p2.5_pct": 98.0,
+            "p97.5_pct": 100.0,
+            "half_ci95_pp": 1.0
+          }
+        },
+        {
+          "n": 100,
+          "feasible": true,
+          "repeats": 400,
+          "no_safe_route": {
+            "mean_pct": 0.518,
+            "sd_pct": 0.693,
+            "p2.5_pct": 0.0,
+            "p97.5_pct": 2.0,
+            "half_ci95_pp": 1.0
+          },
+          "both_safe": {
+            "mean_pct": 99.483,
+            "sd_pct": 0.693,
+            "p2.5_pct": 98.0,
+            "p97.5_pct": 100.0,
+            "half_ci95_pp": 1.0
+          }
+        },
+        {
+          "n": 250,
+          "feasible": true,
+          "repeats": 400,
+          "no_safe_route": {
+            "mean_pct": 0.503,
+            "sd_pct": 0.407,
+            "p2.5_pct": 0.0,
+            "p97.5_pct": 1.6,
+            "half_ci95_pp": 0.8
+          },
+          "both_safe": {
+            "mean_pct": 99.497,
+            "sd_pct": 0.407,
+            "p2.5_pct": 98.4,
+            "p97.5_pct": 100.0,
+            "half_ci95_pp": 0.8
+          }
+        },
+        {
+          "n": 500,
+          "feasible": true,
+          "repeats": 400,
+          "no_safe_route": {
+            "mean_pct": 0.506,
+            "sd_pct": 0.239,
+            "p2.5_pct": 0.0,
+            "p97.5_pct": 1.0,
+            "half_ci95_pp": 0.5
+          },
+          "both_safe": {
+            "mean_pct": 99.494,
+            "sd_pct": 0.239,
+            "p2.5_pct": 99.0,
+            "p97.5_pct": 100.0,
+            "half_ci95_pp": 0.5
+          }
+        },
+        {
+          "n": 1000,
+          "feasible": true,
+          "repeats": 400,
+          "no_safe_route": {
+            "mean_pct": 0.496,
+            "sd_pct": 0.092,
+            "p2.5_pct": 0.3,
+            "p97.5_pct": 0.6,
+            "half_ci95_pp": 0.15
+          },
+          "both_safe": {
+            "mean_pct": 99.504,
+            "sd_pct": 0.092,
+            "p2.5_pct": 99.4,
+            "p97.5_pct": 99.7,
+            "half_ci95_pp": 0.15
+          }
+        },
+        {
+          "n": 2000,
+          "feasible": false,
+          "reason": "census has 1219 routable buildings"
+        }
+      ],
+      "spatial_bias_of_sampling": [
+        {
+          "n": 50,
+          "feasible": true,
+          "centroid_offset_m": {
+            "mean": 858.7,
+            "p95": 1957.4,
+            "max": 2496.5
+          },
+          "spread_ratio_vs_census": {
+            "mean": 0.9484,
+            "p05": 0.623,
+            "p95": 1.2148
+          }
+        },
+        {
+          "n": 100,
+          "feasible": true,
+          "centroid_offset_m": {
+            "mean": 651.5,
+            "p95": 1344.1,
+            "max": 2014.9
+          },
+          "spread_ratio_vs_census": {
+            "mean": 0.9899,
+            "p05": 0.8005,
+            "p95": 1.1784
+          }
+        },
+        {
+          "n": 250,
+          "feasible": true,
+          "centroid_offset_m": {
+            "mean": 370.0,
+            "p95": 833.6,
+            "max": 1294.7
+          },
+          "spread_ratio_vs_census": {
+            "mean": 0.9887,
+            "p05": 0.8779,
+            "p95": 1.0888
+          }
+        },
+        {
+          "n": 500,
+          "feasible": true,
+          "centroid_offset_m": {
+            "mean": 218.1,
+            "p95": 480.0,
+            "max": 744.4
+          },
+          "spread_ratio_vs_census": {
+            "mean": 0.9965,
+            "p05": 0.9354,
+            "p95": 1.0593
+          }
+        },
+        {
+          "n": 1000,
+          "feasible": true,
+          "centroid_offset_m": {
+            "mean": 87.2,
+            "p95": 200.6,
+            "max": 286.9
+          },
+          "spread_ratio_vs_census": {
+            "mean": 0.9995,
+            "p05": 0.9705,
+            "p95": 1.0241
+          }
+        },
+        {
+          "n": 2000,
+          "feasible": false
+        }
+      ],
+      "stride_reference": {
+        "available": true,
+        "artifact": "real_roads_real_hazard_uljin_samcheok_2022.json",
+        "arm": "arms.slope_digraph_canonical",
+        "n_origins": 393,
+        "counts": {
+          "naive_into_FA_safe": 3,
+          "no_safe_route": 10,
+          "both_safe": 377,
+          "both_enter": 0,
+          "naive_unreachable": 0,
+          "fa_exceeds_budget": 3,
+          "unclassified": 0
+        },
+        "fa_only_pct": 0.76
+      },
+      "region_seconds": 31.3
+    }
+  ]
+}

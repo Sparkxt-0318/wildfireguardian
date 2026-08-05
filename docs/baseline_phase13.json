@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "title": "Korean baseline freeze — PHASE 13 PHASE 0",
-  "frozen_utc": "2026-08-03T15:53:49Z",
-  "git_commit": "dc4a9faf7db02c00bcca7c3ceea2d306c76d6779",
-  "config_hash": "8e29a6cc4a995844a04866355d38f556b1d35f6d3986d84c3af1529ede4aa208",
+  "frozen_utc": "2026-08-05T14:06:35Z",
+  "git_commit": "926fcc6e8739208bd7afe1e463b75f5e7645cbfc",
+  "config_hash": "f21177ab83cbccc24b4bede3d134630aac4e90943e3e131a2b326b2bf7f6cc80",
   "registry_entries": 122,
   "lofo_shape": {
     "n_rows": 151904,
@@ -31,6 +31,8 @@
   "tracked_processed": {
     "data/processed/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "data/processed/budget_sweep_experiment.json": "2bd580015dd15e7c3f10495bd01e510fd4a1a0f1667f89e176ab6c46b8119398",
+    "data/processed/building_origin_routing.json": "915aead89fa624ec3745741c3f90580036c90972a28d03cc777015f108d11126",
+    "data/processed/building_snapping_measurement.json": "7886d1b5b20f526923670ce1ada580cbd5864f2ede3f4669f4f18f455d377cac",
     "data/processed/canonical_hazard.json": "ddc9b0d90e60fd071313d5d3b2b21a19038c5dee205d8fa7118d51b100d3db8c",
     "data/processed/cluster_sparsity.json": "f9d07ba7e5939ff6371b356b163ff4666fd6074c31fef8bfb2792021eeef9ad3",
     "data/processed/crown_sensitivity.json": "f5714efb8b8b2cac37f97b713ff9051673d216f88fb26b3fadac7302e9487f84",
@@ -46,6 +48,7 @@
     "data/processed/network_drift_experiment.json": "4fb11bb3faacb85c6dfc02dc861b2367a6b7f9756447b10865a6e035a37799ad",
     "data/processed/objective_budget_canonical.json": "2bb9f86884e4fae6129931ce3c75de3a5d23bdc90b542f58d4357ac1c2fde73c",
     "data/processed/osm_acquisition.json": "f56d9ed77b0f9af0749bb850fe77be96ed501508bb26d260eef2623f36397faa",
+    "data/processed/osm_buildings_acquisition.json": "ed4c0dc02ceb0f8cd9e0b58c89838a8c40b1caf19c5add769d4cd2dc862c4809",
     "data/processed/osm_completeness.json": "3287bbf0dc1446a125f3bf5ba1bf023b7a135aa5cf9bd6e9c2d41c08d2d73076",
     "data/processed/real_roads_real_hazard.json": "96f48fc97b467637033d6ba8f3569a29e13cb8efe3a8e7f39a92f7d2d5282d6d",
     "data/processed/real_roads_real_hazard_canonical.json": "629f4d20510e22047406b391899a83e16792a7b3f395593af4f3f0274e7f4087",
