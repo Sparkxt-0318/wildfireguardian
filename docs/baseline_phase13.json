@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "title": "Korean baseline freeze — PHASE 13 PHASE 0",
-  "frozen_utc": "2026-08-05T14:06:35Z",
-  "git_commit": "926fcc6e8739208bd7afe1e463b75f5e7645cbfc",
+  "frozen_utc": "2026-08-05T16:09:32Z",
+  "git_commit": "b736cd34923d8cbaf9e40e6a5a1eabe3625f3038",
   "config_hash": "f21177ab83cbccc24b4bede3d134630aac4e90943e3e131a2b326b2bf7f6cc80",
   "registry_entries": 122,
   "lofo_shape": {
@@ -33,6 +33,7 @@
     "data/processed/budget_sweep_experiment.json": "2bd580015dd15e7c3f10495bd01e510fd4a1a0f1667f89e176ab6c46b8119398",
     "data/processed/building_origin_routing.json": "915aead89fa624ec3745741c3f90580036c90972a28d03cc777015f108d11126",
     "data/processed/building_snapping_measurement.json": "7886d1b5b20f526923670ce1ada580cbd5864f2ede3f4669f4f18f455d377cac",
+    "data/processed/building_spatial_bias.json": "c4ec6223f59184078d5ba75bd01843c93ee984dea4ca7938e3a3c289deb4bb97",
     "data/processed/canonical_hazard.json": "ddc9b0d90e60fd071313d5d3b2b21a19038c5dee205d8fa7118d51b100d3db8c",
     "data/processed/cluster_sparsity.json": "f9d07ba7e5939ff6371b356b163ff4666fd6074c31fef8bfb2792021eeef9ad3",
     "data/processed/crown_sensitivity.json": "f5714efb8b8b2cac37f97b713ff9051673d216f88fb26b3fadac7302e9487f84",

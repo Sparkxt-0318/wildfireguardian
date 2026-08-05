@@ -1,0 +1,295 @@
+{
+  "schema_version": 1,
+  "title": "PHASE 18 — does the building layer represent settlement, or only its road-adjacent, village-centre subset?",
+  "generated_utc": "2026-08-05T16:08:13Z",
+  "git_commit": "b736cd34923d8cbaf9e40e6a5a1eabe3625f3038",
+  "config_hash": "f21177ab83cbccc24b4bede3d134630aac4e90943e3e131a2b326b2bf7f6cc80",
+  "quadrat_size_m": 1000.0,
+  "regions": [
+    {
+      "region": "yeongdeok_2025",
+      "n_buildings": 124,
+      "settlement_pixels": 236702,
+      "settlement_area_km2": 16.13,
+      "settlement_raster_covers_whole_bbox": true,
+      "distance_to_nearest_walk_node": {
+        "osm_buildings": {
+          "n": 124,
+          "p50_m": 29.5,
+          "p75_m": 46.2,
+          "p90_m": 58.9,
+          "p95_m": 75.9,
+          "p99_m": 137.2,
+          "max_m": 176.8,
+          "mean_m": 36.8,
+          "beyond_150m_pct": 0.81,
+          "beyond_300m_pct": 0.0,
+          "beyond_500m_pct": 0.0
+        },
+        "settlement_area_weighted": {
+          "n": 236702,
+          "p50_m": 34.0,
+          "p75_m": 67.0,
+          "p90_m": 132.6,
+          "p95_m": 208.9,
+          "p99_m": 394.6,
+          "max_m": 1231.9,
+          "mean_m": 60.0,
+          "beyond_150m_pct": 8.3,
+          "beyond_300m_pct": 2.55,
+          "beyond_500m_pct": 0.47
+        },
+        "interpretation": "If OSM buildings were a fair sample of settlement, these two distributions would agree. Every metre by which settlement is farther is settlement the building layer does not represent.",
+        "gap_beyond_150m_pp": 7.49,
+        "gap_beyond_300m_pp": 2.55,
+        "gap_beyond_500m_pp": 0.47
+      },
+      "fate": {
+        "routable": 119,
+        "excluded_unsnappable_gt_cap": 0,
+        "excluded_outside_hazard_grid": 0,
+        "excluded_already_at_p_ge_pcut_at_t0": 5,
+        "excluded_outside_reach_band": 0,
+        "unclassified_after_routing": 0,
+        "note": "Every building is in exactly one row. `unclassified` is a ROUTING bucket and is 0 in all three regions — an origin that reaches classification always lands in one of the six defined buckets."
+      },
+      "quadrat_1km": {
+        "settled_quadrats": 389,
+        "quadrats_with_a_mapped_building": 33,
+        "quadrats_with_NO_mapped_building": 356,
+        "quadrats_with_no_mapped_building_pct": 91.5,
+        "settlement_area_in_those_quadrats_km2": 10.88,
+        "settlement_area_in_those_quadrats_pct": 67.4,
+        "gini_buildings_over_settled_quadrats": 0.96,
+        "gini_settlement_area_over_settled_quadrats": 0.659,
+        "top_decile_share_of_buildings_pct": 100.0,
+        "top_decile_share_of_settlement_area_pct": 49.5,
+        "interpretation": "A Gini for buildings well above the Gini for settlement area means the mapped buildings are concentrated into a few places that settlement itself is not concentrated into — village cores."
+      },
+      "nearest_neighbour_m": {
+        "osm_buildings_p50": 84.3,
+        "osm_buildings_p90": 459.0
+      },
+      "distance_to_fire_core_t0": {
+        "osm_buildings": {
+          "n": 124,
+          "p50_m": 1587.7,
+          "p75_m": 6196.6,
+          "p90_m": 7063.5,
+          "p95_m": 7447.7,
+          "p99_m": 10983.6,
+          "max_m": 11018.1,
+          "mean_m": 3208.7,
+          "beyond_150m_pct": 99.19,
+          "beyond_300m_pct": 94.35,
+          "beyond_500m_pct": 90.32
+        },
+        "settlement_area_weighted": {
+          "n": 236702,
+          "p50_m": 4822.4,
+          "p75_m": 7428.9,
+          "p90_m": 9825.7,
+          "p95_m": 10922.4,
+          "p99_m": 12927.2,
+          "max_m": 14023.3,
+          "mean_m": 4978.4,
+          "beyond_150m_pct": 99.23,
+          "beyond_300m_pct": 96.29,
+          "beyond_500m_pct": 89.6
+        },
+        "routable_buildings_p50_m": 1643.0,
+        "excluded_buildings_p50_m": 186.2
+      }
+    },
+    {
+      "region": "uiseong_andong_2025",
+      "n_buildings": 339,
+      "settlement_pixels": 383665,
+      "settlement_area_km2": 26.18,
+      "settlement_raster_covers_whole_bbox": true,
+      "distance_to_nearest_walk_node": {
+        "osm_buildings": {
+          "n": 339,
+          "p50_m": 45.7,
+          "p75_m": 74.4,
+          "p90_m": 115.6,
+          "p95_m": 162.9,
+          "p99_m": 502.9,
+          "max_m": 1754.4,
+          "mean_m": 70.7,
+          "beyond_150m_pct": 7.08,
+          "beyond_300m_pct": 2.06,
+          "beyond_500m_pct": 1.18
+        },
+        "settlement_area_weighted": {
+          "n": 383665,
+          "p50_m": 69.3,
+          "p75_m": 152.8,
+          "p90_m": 360.1,
+          "p95_m": 584.7,
+          "p99_m": 1214.2,
+          "max_m": 2288.7,
+          "mean_m": 148.1,
+          "beyond_150m_pct": 25.43,
+          "beyond_300m_pct": 12.27,
+          "beyond_500m_pct": 6.65
+        },
+        "interpretation": "If OSM buildings were a fair sample of settlement, these two distributions would agree. Every metre by which settlement is farther is settlement the building layer does not represent.",
+        "gap_beyond_150m_pp": 18.35,
+        "gap_beyond_300m_pp": 10.21,
+        "gap_beyond_500m_pp": 5.47
+      },
+      "fate": {
+        "routable": 327,
+        "excluded_unsnappable_gt_cap": 4,
+        "excluded_outside_hazard_grid": 0,
+        "excluded_already_at_p_ge_pcut_at_t0": 8,
+        "excluded_outside_reach_band": 0,
+        "unclassified_after_routing": 0,
+        "note": "Every building is in exactly one row. `unclassified` is a ROUTING bucket and is 0 in all three regions — an origin that reaches classification always lands in one of the six defined buckets."
+      },
+      "quadrat_1km": {
+        "settled_quadrats": 712,
+        "quadrats_with_a_mapped_building": 58,
+        "quadrats_with_NO_mapped_building": 654,
+        "quadrats_with_no_mapped_building_pct": 91.9,
+        "settlement_area_in_those_quadrats_km2": 19.07,
+        "settlement_area_in_those_quadrats_pct": 72.9,
+        "gini_buildings_over_settled_quadrats": 0.968,
+        "gini_settlement_area_over_settled_quadrats": 0.651,
+        "top_decile_share_of_buildings_pct": 100.0,
+        "top_decile_share_of_settlement_area_pct": 48.4,
+        "interpretation": "A Gini for buildings well above the Gini for settlement area means the mapped buildings are concentrated into a few places that settlement itself is not concentrated into — village cores."
+      },
+      "nearest_neighbour_m": {
+        "osm_buildings_p50": 31.2,
+        "osm_buildings_p90": 192.7
+      },
+      "distance_to_fire_core_t0": {
+        "osm_buildings": {
+          "n": 339,
+          "p50_m": 9577.4,
+          "p75_m": 10825.1,
+          "p90_m": 11762.2,
+          "p95_m": 11902.8,
+          "p99_m": 12295.4,
+          "max_m": 14119.5,
+          "mean_m": 7510.7,
+          "beyond_150m_pct": 99.41,
+          "beyond_300m_pct": 97.64,
+          "beyond_500m_pct": 95.28
+        },
+        "settlement_area_weighted": {
+          "n": 383665,
+          "p50_m": 6117.9,
+          "p75_m": 9670.7,
+          "p90_m": 11016.4,
+          "p95_m": 12421.1,
+          "p99_m": 15409.0,
+          "max_m": 20395.8,
+          "mean_m": 6295.5,
+          "beyond_150m_pct": 99.81,
+          "beyond_300m_pct": 98.83,
+          "beyond_500m_pct": 97.73
+        },
+        "routable_buildings_p50_m": 9623.4,
+        "excluded_buildings_p50_m": 223.3
+      }
+    },
+    {
+      "region": "uljin_samcheok_2022",
+      "n_buildings": 1220,
+      "settlement_pixels": 217305,
+      "settlement_area_km2": 14.71,
+      "settlement_raster_covers_whole_bbox": false,
+      "distance_to_nearest_walk_node": {
+        "osm_buildings": {
+          "n": 1220,
+          "p50_m": 31.4,
+          "p75_m": 52.2,
+          "p90_m": 100.5,
+          "p95_m": 154.0,
+          "p99_m": 213.6,
+          "max_m": 1220.6,
+          "mean_m": 47.4,
+          "beyond_150m_pct": 5.25,
+          "beyond_300m_pct": 0.08,
+          "beyond_500m_pct": 0.08
+        },
+        "settlement_area_weighted": {
+          "n": 217305,
+          "p50_m": 36.8,
+          "p75_m": 73.0,
+          "p90_m": 152.3,
+          "p95_m": 218.9,
+          "p99_m": 514.0,
+          "max_m": 1921.8,
+          "mean_m": 67.7,
+          "beyond_150m_pct": 10.26,
+          "beyond_300m_pct": 2.74,
+          "beyond_500m_pct": 1.06
+        },
+        "interpretation": "If OSM buildings were a fair sample of settlement, these two distributions would agree. Every metre by which settlement is farther is settlement the building layer does not represent.",
+        "gap_beyond_150m_pp": 5.02,
+        "gap_beyond_300m_pp": 2.65,
+        "gap_beyond_500m_pp": 0.98
+      },
+      "fate": {
+        "routable": 1219,
+        "excluded_unsnappable_gt_cap": 1,
+        "excluded_outside_hazard_grid": 0,
+        "excluded_already_at_p_ge_pcut_at_t0": 0,
+        "excluded_outside_reach_band": 0,
+        "unclassified_after_routing": 0,
+        "note": "Every building is in exactly one row. `unclassified` is a ROUTING bucket and is 0 in all three regions — an origin that reaches classification always lands in one of the six defined buckets."
+      },
+      "quadrat_1km": {
+        "settled_quadrats": 355,
+        "quadrats_with_a_mapped_building": 60,
+        "quadrats_with_NO_mapped_building": 295,
+        "quadrats_with_no_mapped_building_pct": 83.1,
+        "settlement_area_in_those_quadrats_km2": 6.15,
+        "settlement_area_in_those_quadrats_pct": 41.8,
+        "gini_buildings_over_settled_quadrats": 0.957,
+        "gini_settlement_area_over_settled_quadrats": 0.713,
+        "top_decile_share_of_buildings_pct": 95.6,
+        "top_decile_share_of_settlement_area_pct": 56.2,
+        "interpretation": "A Gini for buildings well above the Gini for settlement area means the mapped buildings are concentrated into a few places that settlement itself is not concentrated into — village cores."
+      },
+      "nearest_neighbour_m": {
+        "osm_buildings_p50": 23.3,
+        "osm_buildings_p90": 84.2
+      },
+      "distance_to_fire_core_t0": {
+        "osm_buildings": {
+          "n": 1220,
+          "p50_m": 4731.6,
+          "p75_m": 8114.5,
+          "p90_m": 8928.0,
+          "p95_m": 14965.5,
+          "p99_m": 24588.5,
+          "max_m": 25760.6,
+          "mean_m": 5764.8,
+          "beyond_150m_pct": 100.0,
+          "beyond_300m_pct": 100.0,
+          "beyond_500m_pct": 100.0
+        },
+        "settlement_area_weighted": {
+          "n": 217305,
+          "p50_m": 7428.7,
+          "p75_m": 10788.2,
+          "p90_m": 15428.8,
+          "p95_m": 18569.0,
+          "p99_m": 21805.0,
+          "max_m": 23218.4,
+          "mean_m": 7506.7,
+          "beyond_150m_pct": 99.46,
+          "beyond_300m_pct": 97.85,
+          "beyond_500m_pct": 96.24
+        },
+        "routable_buildings_p50_m": 4712.4,
+        "excluded_buildings_p50_m": 15463.5
+      }
+    }
+  ]
+}

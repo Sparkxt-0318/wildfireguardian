@@ -161,6 +161,7 @@ data/processed/**
 !data/processed/osm_buildings_acquisition.json
 !data/processed/building_snapping_measurement.json
 !data/processed/building_origin_routing.json
+!data/processed/building_spatial_bias.json
 # AUC-interval + ML-baseline analysis outputs (per-fire DeLong CIs / significance;
 # logistic/RF vs GBM comparison; persisted LOFO out-of-fold predictions). These are
 # the result artifacts of scripts/auc_intervals.py and scripts/ml_baselines.py;
