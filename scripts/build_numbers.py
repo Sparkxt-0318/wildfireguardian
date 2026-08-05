@@ -59,6 +59,8 @@ MR_YEONGDEOK = "data/processed/real_roads_real_hazard_canonical.json"
 SWEEP_CANON = "data/processed/slope_sweep_canonical.json"      # step 2
 OBJBUD_CANON = "data/processed/objective_budget_canonical.json"  # step 3
 BBOX_EST = "data/processed/yeongdeok_bbox_reacquisition_estimate.json"  # step 4
+BLD_ROUTE = "data/processed/building_origin_routing.json"      # PHASE 18
+BLD_BIAS = "data/processed/building_spatial_bias.json"         # PHASE 18
 
 # Reproducibility is MEASURED, not assumed. Each artifact was re-run on
 # 2026-08-01 into a scratch directory and diffed against the committed copy.
@@ -190,6 +192,22 @@ REPRO = {
         "status": "reproducible",
         "evidence": "pure arithmetic over committed artifacts; the script "
                     "performs no network I/O and regenerates it exactly.",
+        "blocked_by": None,
+    },
+    BLD_ROUTE: {
+        "status": "reproducible",
+        "evidence": "built 2026-08-05 from the SNAPSHOT walk graphs, the snapshotted "
+                    "building layers and the committed hazard fields, with osmnx "
+                    "pinned to 2.0.7. Every input is hash-verified in MANIFEST.json, "
+                    "the routing is deterministic, and the resampling seed is pinned "
+                    "in config (building_origins.sample_seed).",
+        "blocked_by": None,
+    },
+    BLD_BIAS: {
+        "status": "reproducible",
+        "evidence": "built 2026-08-05 from the snapshotted building layers, the "
+                    "snapshot walk graphs and the committed ESA WorldCover rasters. "
+                    "No sampling and no network I/O; regenerates exactly.",
         "blocked_by": None,
     },
     WXDEP: {
@@ -1637,6 +1655,147 @@ def main() -> int:
         head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=REPO).decode().strip()
     except Exception:  # noqa: BLE001
         head = None
+
+    # ------------------------------------------------ PHASE 18 buildings ----
+    # A SECOND origin rule beside stride-18. Every key is prefixed `bld_` and
+    # none replaces an existing entry: the stride numbers are untouched.
+    bld = read(BLD_ROUTE)
+    bias = read(BLD_BIAS)
+    br = {r["region"]: r for r in bld["regions"]}
+    bb = {r["region"]: r for r in bias["regions"]}
+
+    BLD_CAVEAT = (
+        "⚠ OSM building coverage in these bboxes is a SMALL and REGION-DEPENDENT "
+        "fraction of the real building stock (124 / 339 / 1,220 mapped against a "
+        "STEP-0 estimate of 1.5-6 man per bbox). docs/building_sampling.md §3 "
+        "measures the resulting bias directly and it is large. Never quote a "
+        "building-origin figure as a household result, and never compare the "
+        "three regions on one without the mapping covariates.")
+
+    for reg, short in (("yeongdeok_2025", "yeongdeok"),
+                       ("uiseong_andong_2025", "uiseong"),
+                       ("uljin_samcheok_2022", "uljin")):
+        r, x = br[reg], bb[reg]
+        N[f"bld_{short}_n_mapped"] = entry(
+            value=r["n_buildings"], unit="buildings", source_file=BLD_ROUTE,
+            json_path=f"regions.{list(br).index(reg)}.n_buildings",
+            derivation="count of OSM building=* polygons inside the walk bbox",
+            sample=f"{reg} walk bbox",
+            caveat=BLD_CAVEAT + " This is the MAPPED count, not a building count.",
+            forbidden_phrasings=[f"{r['n_buildings']}동의 건물이 있다",
+                                 f"{r['n_buildings']} buildings exist"],
+            check={"kind": "json_path",
+                   "operands": {"a": op(BLD_ROUTE,
+                                        f"regions.{list(br).index(reg)}.n_buildings")},
+                   "expr": "a", "tolerance": 0.0},
+        )
+        N[f"bld_{short}_fa_only_pct"] = entry(
+            value=r["building_fa_only_pct"], unit="% of routable buildings",
+            source_file=BLD_ROUTE,
+            json_path=f"regions.{list(br).index(reg)}.building_fa_only_pct",
+            derivation=("100 * building_level_counts.naive_into_FA_safe / n_routable; "
+                        "buildings inherit their snapped walk node's bucket"),
+            sample=f"{reg}, {r['n_routable']}동 전수",
+            caveat=(BLD_CAVEAT + " The stride-rule value for the same region is "
+                    f"{r['stride_reference']['fa_only_pct']} % over "
+                    f"{r['stride_reference']['n_origins']} origins; the two rules "
+                    "count different things and BOTH must be shown."),
+            forbidden_phrasings=["stride 값을 대체한다", "supersedes the stride figure",
+                                 "가구 단위 결과", "household-level result"],
+            check={"kind": "json_path",
+                   "operands": {"a": op(BLD_ROUTE,
+                                        f"regions.{list(br).index(reg)}."
+                                        "building_fa_only_pct")},
+                   "expr": "a", "tolerance": 0.0},
+        )
+        N[f"bld_{short}_settlement_beyond_150m_gap_pp"] = entry(
+            value=x["distance_to_nearest_walk_node"]["gap_beyond_150m_pp"],
+            unit="percentage points", source_file=BLD_BIAS,
+            json_path=(f"regions.{list(bb).index(reg)}."
+                       "distance_to_nearest_walk_node.gap_beyond_150m_pp"),
+            derivation=("share of WorldCover built-up area more than 150 m from a "
+                        "walk node MINUS the same share for mapped OSM buildings"),
+            sample=f"{reg} walk bbox",
+            caveat=("THE DISCRIMINATING MEASUREMENT. Positive means settlement is "
+                    "farther from the road network than the mapped buildings are, "
+                    "i.e. OSM sampled the road-adjacent subset. It establishes that "
+                    "mapping bias EXISTS and is large; it does NOT measure the "
+                    "terrain effect, which pushes the same way and is not separated "
+                    "by this data. docs/building_sampling.md §4."),
+            forbidden_phrasings=["지형 효과를 측정했다", "measures the terrain effect",
+                                 "건물이 도로에서 멀다는 증거"],
+            check={"kind": "json_path",
+                   "operands": {"a": op(BLD_BIAS,
+                                        f"regions.{list(bb).index(reg)}."
+                                        "distance_to_nearest_walk_node."
+                                        "gap_beyond_150m_pp")},
+                   "expr": "a", "tolerance": 0.0},
+        )
+        N[f"bld_{short}_settled_quadrats_without_a_building_pct"] = entry(
+            value=x["quadrat_1km"]["quadrats_with_no_mapped_building_pct"],
+            unit="% of settled 1 km quadrats", source_file=BLD_BIAS,
+            json_path=(f"regions.{list(bb).index(reg)}.quadrat_1km."
+                       "quadrats_with_no_mapped_building_pct"),
+            derivation=("1 km quadrats containing WorldCover built-up but NO mapped "
+                        "OSM building, over all quadrats containing built-up"),
+            sample=f"{reg}, {x['quadrat_1km']['settled_quadrats']}개 취락 격자",
+            caveat=("Together with the building Gini (0.96) against the "
+                    "settlement-area Gini (0.65) this is what makes the "
+                    "village-centre reading a measurement rather than an "
+                    "impression. It is a statement about OSM, not about the region."),
+            forbidden_phrasings=["취락이 없다", "no settlement there",
+                                 "건물이 없는 지역"],
+            check={"kind": "json_path",
+                   "operands": {"a": op(BLD_BIAS,
+                                        f"regions.{list(bb).index(reg)}.quadrat_1km."
+                                        "quadrats_with_no_mapped_building_pct")},
+                   "expr": "a", "tolerance": 0.0},
+        )
+
+    N["bld_unsnappable_total_at_500m"] = entry(
+        value=sum(r["n_unsnappable"] for r in bld["regions"]), unit="buildings",
+        source_file=BLD_ROUTE, json_path="regions.*.n_unsnappable",
+        derivation=("buildings whose centroid has NO walk node within "
+                    "building_origins.max_snap_distance_m = 500 m, summed over the "
+                    "three regions"),
+        sample="세 지역 합계, 상한 500 m",
+        caveat=("Recorded as `unsnappable`, never dropped: each is listed with id, "
+                "coordinates, distance and footprint. Three are 1.2-1.8 km out, so "
+                "raising the cap from 300 m (which excluded 8) to 500 m did not "
+                "reach them. ⚠ This is a LOWER BOUND on the isolated-dwelling "
+                "problem — it counts only buildings OSM mapped. On settlement area "
+                "the figure is 8.3 / 25.4 / 10.3 % beyond 150 m of any walk node."),
+        forbidden_phrasings=["외딴집은 5동뿐", "only 5 isolated buildings",
+                             "8동이 배제되었다"],
+        check={"kind": "expression",
+               "operands": {"a": op(BLD_ROUTE, "regions.0.n_unsnappable"),
+                            "b": op(BLD_ROUTE, "regions.1.n_unsnappable"),
+                            "c": op(BLD_ROUTE, "regions.2.n_unsnappable")},
+               "expr": "a + b + c", "tolerance": 0.0},
+    )
+    N["bld_unclassified_total"] = entry(
+        value=sum(r["building_level_counts"]["unclassified"] for r in bld["regions"]),
+        unit="buildings", source_file=BLD_ROUTE,
+        json_path="regions.*.building_level_counts.unclassified",
+        derivation="the `unclassified` routing bucket, summed over the three regions",
+        sample="세 지역 합계",
+        caveat=("ZERO. `unclassified` is a ROUTING bucket, and an origin that reaches "
+                "classification always lands in one of the six defined buckets. "
+                "Exclusion happens BEFORE routing and has exactly two causes here — "
+                "unsnappable (0/4/1) and already at p>=p_cut at t=0 (5/8/0) — giving "
+                "4.0 / 3.5 / 0.1 %. No building fell outside a hazard grid: every "
+                "grid contains its whole walk bbox with room to spare."),
+        forbidden_phrasings=["미분류 516", "516 unclassified", "격자 밖 건물",
+                             "buildings outside the grid"],
+        check={"kind": "expression",
+               "operands": {"a": op(BLD_ROUTE,
+                                    "regions.0.building_level_counts.unclassified"),
+                            "b": op(BLD_ROUTE,
+                                    "regions.1.building_level_counts.unclassified"),
+                            "c": op(BLD_ROUTE,
+                                    "regions.2.building_level_counts.unclassified")},
+               "expr": "a + b + c", "tolerance": 0.0},
+    )
 
     doc = {
         "schema_version": 1,
