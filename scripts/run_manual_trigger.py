@@ -65,7 +65,9 @@ from wildfireguardian.live.scope import Scope  # noqa: E402
 # The SAME trigger path the FIRMS and replay branches use. Imported, never
 # copied: a second implementation could drift, and "identical to the FIRMS
 # route" is the property this phase is supposed to deliver.
-from run_live_detection import banner, load_dotenv, run_trigger  # noqa: E402
+from wildfireguardian.service.params import check_in_region  # noqa: E402
+
+from run_live_detection import banner, load_dotenv, rel_to_repo, run_trigger  # noqa: E402
 from run_multi_region_routing import PROTECTED, protected_digests  # noqa: E402
 
 EXIT_OUT_OF_REGION = 3
@@ -134,9 +136,12 @@ def main() -> int:
         return 2
 
     # ---- is the coordinate inside the registered region? -------------------
-    bbox = tuple((_cfg("bbox.multi_region_walk_bbox", {}) or {})[args.region])
-    w, s, e, n = bbox
-    inside = (w <= args.lon <= e) and (s <= args.lat <= n)
+    # PHASE 19: the gate is `service.params.check_in_region`, which returns the
+    # verdict as DATA. This script turns a refusal into exit 3 and a Korean
+    # console block; an HTTP layer would turn the same verdict into a 422. The
+    # decision is shared, the presentation is not.
+    gate = check_in_region(args.region, args.lat, args.lon)
+    bbox = tuple(gate["bbox_wsen"])
     print("=" * 74)
     print(f"  수동 발화점 입력 — {args.reported_by}")
     print("=" * 74)
@@ -144,7 +149,7 @@ def main() -> int:
     print(f"  입력 시각   : {entered_utc:%Y-%m-%d %H:%M:%S UTC}"
           "   ← 좌표 입력 시각 (위성 통과 시각 아님)")
     print(f"  등록 지역   : {args.region}  bbox {bbox}")
-    if not inside:
+    if not gate["inside_registered_region"]:
         print(f"\nSTOP (exit {EXIT_OUT_OF_REGION}): 좌표가 등록 지역 bbox 밖입니다.\n"
               "  이 지역의 보행망·대피소·위험면은 이 범위에 대해서만 준비되어 "
               "있으므로,\n  범위 밖 좌표로 산출하면 없는 근거를 만들어내는 것이 "
@@ -254,7 +259,7 @@ def main() -> int:
           "(FIRMS 경로와 동일한 라우팅, 출처만 다름)")
     print(f"보호 산출물 {len(PROTECTED)}개 무변경 확인")
     print(f"SMS: DEMO_MODE={sms.demo_mode()} — 발송된 메시지 없음")
-    print(f"기록: {out_dir.relative_to(REPO)}/RUN.json")
+    print(f"기록: {rel_to_repo(out_dir)}/RUN.json")
     print("=" * 74)
     return 0
 

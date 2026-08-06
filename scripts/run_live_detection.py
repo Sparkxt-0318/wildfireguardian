@@ -58,6 +58,11 @@ from wildfireguardian.live import firms, pipeline, replay as replay_mod  # noqa:
 from wildfireguardian.live.scope import Scope  # noqa: E402
 from wildfireguardian.live.state import SeenState, StageTimings  # noqa: E402
 
+# PHASE 19 — the computation this script used to inline. `run_trigger` below is
+# the console around `service.routing.run_trigger_core`, not a second copy of it.
+from wildfireguardian.service import routing as service_routing  # noqa: E402
+from wildfireguardian.service.params import RoutingParams  # noqa: E402
+
 from run_multi_region_routing import PROTECTED, protected_digests  # noqa: E402
 
 EXIT_PROTECTED_MOVED = 4
@@ -85,6 +90,20 @@ def load_dotenv(path: Path) -> list[str]:
         if k and v:
             names.append(k)
     return names
+
+
+def rel_to_repo(p: Path | str) -> str:
+    """A repo-relative path for display, or the absolute one when it is outside.
+
+    ``Path.relative_to`` RAISES for a path outside the repo, and the console
+    line that used it was the last statement of a trigger — so a run whose
+    ``--out-root`` pointed anywhere else wrote every artifact correctly and
+    then died on the way to printing where they were. A service writes outside
+    the repo by definition, so this is fixed here rather than worked around at
+    each call site.
+    """
+    p = Path(p)
+    return str(p.relative_to(REPO)) if p.is_relative_to(REPO) else str(p)
 
 
 def banner(scope: Scope, applicability: dict | None = None) -> str:
@@ -135,12 +154,18 @@ def run_trigger(res: pipeline.Resources, scope: Scope, trigger: firms.Hotspot,
                 new: list[firms.Hotspot], poll_meta: dict, args, params: dict,
                 notes: list[str],
                 all_hotspots: list[firms.Hotspot] | None = None) -> dict:
-    """One trigger: route, deliver, record. Returns a compact summary."""
-    started = datetime.now(UTC)
-    run_id = started.strftime("%Y%m%dT%H%M%SZ")
-    out_dir = Path(args.out_root) / run_id
-    out_dir.mkdir(parents=True, exist_ok=True)
+    """One trigger: route, deliver, record. Returns a compact summary.
 
+    PHASE 19: the computation now lives in
+    ``wildfireguardian.service.routing.run_trigger_core`` and this is the
+    console around it. Nothing about WHAT is computed moved — the same
+    functions run in the same order with the same parameters — but the routing
+    is now reachable without argparse, without a working-directory assumption
+    and without a print, which is what a request needs.
+
+    The three trigger sources still converge here, so "identical downstream" is
+    still a property of one function rather than an agreement between three.
+    """
     applicability = pipeline.assess_applicability(
         trigger, res, float(args.applicability_radius_km))
     print(banner(scope, applicability))
@@ -155,59 +180,53 @@ def run_trigger(res: pipeline.Resources, scope: Scope, trigger: firms.Hotspot,
         print(f"  ⚠ {applicability['statement_ko']}")
 
     print("  [1/2] 라우팅 (정본 위험면) ...", flush=True)
-    counts, points, geo, routes, route_s = pipeline.route_region(
-        res, p_cut=args.p_cut, budget_min=args.time_budget_min,
-        step_min=args.time_step_min, stride=args.stride,
-        limit_origins=args.limit_origins, collect_routes=args.collect_routes)
-    n_scanned = sum(counts.values())
-    print(f"        N={n_scanned}  both_safe={counts['both_safe']}  "
+    print("  [2/2] 전달물 3종 생성 ...", flush=True)
+
+    # The batch path reports the load cost on EVERY trigger, exactly as it did
+    # before PHASE 19: a script owns its process, loads once, and its second
+    # trigger's cold_total_s is still "what this process paid to get here".
+    # Only the service's own entry point zeroes it on a cache hit, because
+    # there the load was paid by a different request.
+    load_timings = StageTimings(load_hazard_s=res.timings.load_hazard_s,
+                                load_network_s=res.timings.load_network_s,
+                                load_pois_s=res.timings.load_pois_s)
+    summary = service_routing.run_trigger_core(
+        res, scope, trigger, new,
+        params=RoutingParams.from_args(args),
+        out_dir=Path(args.out_root) / service_routing.make_run_id(),
+        poll_meta=poll_meta, notes=notes, all_hotspots=all_hotspots,
+        make_pdf=not args.no_pdf, load_timings=load_timings,
+        resources_were_cached=False, applicability=applicability,
+        # The committed RUN.json parameter block, verbatim: it carries
+        # min_confidence and the re-trigger interval, which are trigger-policy
+        # rather than routing, and a consumer reads them from here.
+        extra_inputs={"parameters": params})
+
+    counts = summary["counts"]
+    t = summary["timings"]
+    print(f"        N={summary['n_scanned']}  both_safe={counts['both_safe']}  "
           f"FA_only={counts['naive_into_FA_safe']}  "
           f"no_safe={counts['no_safe_route']}  "
-          f"budget={counts['fa_exceeds_budget']}   [{route_s:.1f}s]")
-
-    print("  [2/2] 전달물 3종 생성 ...", flush=True)
-    manifest, cluster_s, render_s, pdf_s = pipeline.deliver(
-        points, res, out_dir, scope=scope, counts=counts,
-        applicability=applicability, eps_m=args.eps_m,
-        make_pdf=not args.no_pdf)
-    print(f"        마을 {manifest['n_villages']}곳 · 지점 {manifest['n_points']}곳 "
-          f"(안내 {manifest['n_dispatch']} / 도보 불가 {manifest['n_unreachable']})"
-          f"   [{render_s:.2f}s]"
-          + (f"  + A4 PDF 변환 {pdf_s:.0f}s (목록 확정 이후)" if pdf_s else ""))
-
-    t = StageTimings(load_hazard_s=res.timings.load_hazard_s,
-                     load_network_s=res.timings.load_network_s,
-                     load_pois_s=res.timings.load_pois_s,
-                     route_s=route_s, cluster_s=cluster_s, render_s=render_s,
-                     pdf_s=pdf_s)
-    # The screen animates the WHOLE detection sequence, not just this trigger's
-    # new points: a viewer needs to see the fire being observed over time, and
-    # a single trigger's delta is a few dozen points out of context.
-    viz = pipeline.write_viz(
-        out_dir, res, points=points, geo=geo, routes=routes, counts=counts,
-        scope=scope, trigger=trigger, hotspots=(all_hotspots or new),
-        applicability=applicability)
-    print(f"        시각화 자료 {viz.name} (출발지 {len(geo)} · 조치 필요 "
-          f"{len(points)} · 경로 {len(routes)}쌍)")
-
-    rec = pipeline.build_run_record(
-        run_id=run_id, started=started, scope=scope, res=res, trigger=trigger,
-        new_hotspots=new, poll_meta=poll_meta, counts=counts,
-        applicability=applicability, timings=t, manifest=manifest,
-        out_dir=out_dir, params=params, notes=notes)
-    rec.write(out_dir)
-
-    print(f"  소요        : 탐지→목록 {t.warm_total_s:.1f}s (warm) / "
-          f"{t.cold_total_s:.1f}s (cold, 적재 포함)"
-          + (f" · PDF 포함 {t.warm_total_with_pdf_s:.0f}s" if t.pdf_s else ""))
-    print(f"  기록        : {out_dir.relative_to(REPO)}/RUN.json")
+          f"budget={counts['fa_exceeds_budget']}   [{t['route_s']:.1f}s]")
+    man = summary["manifest"]
+    print(f"        마을 {man['n_villages']}곳 · 지점 {man['n_points']}곳 "
+          f"(안내 {man['n_dispatch']} / 도보 불가 {man['n_unreachable']})"
+          f"   [{t['render_s']:.2f}s]"
+          + (f"  + A4 PDF 변환 {t['pdf_s']:.0f}s (목록 확정 이후)"
+             if t["pdf_s"] else ""))
+    print(f"        시각화 자료 viz.json (출발지 {summary['n_scanned']} · 조치 필요 "
+          f"{man['n_points']} · 경로 {summary['n_routes']}쌍)")
+    print(f"  소요        : 탐지→목록 {t['warm_total_s']:.1f}s (warm) / "
+          f"{t['cold_total_s']:.1f}s (cold, 적재 포함)"
+          + (f" · PDF 포함 {t['warm_total_with_pdf_s']:.0f}s" if t["pdf_s"] else ""))
+    print(f"  기록        : {rel_to_repo(summary['out_dir'])}/RUN.json")
     print(f"  SMS         : DEMO_MODE={sms.demo_mode()} "
           f"credentials={sms.credentials_present()} — 발송 없음\n")
-    return {"run_id": run_id, "out_dir": str(out_dir), "counts": counts,
-            "timings": t.as_dict(), "applicability": applicability,
-            "trigger_source": scope.trigger_source,
-            "n_villages": manifest["n_villages"],
-            "n_points": manifest["n_points"]}
+    return {"run_id": summary["run_id"], "out_dir": summary["out_dir"],
+            "counts": counts, "timings": t,
+            "applicability": summary["applicability"],
+            "trigger_source": summary["trigger_source"],
+            "n_villages": man["n_villages"], "n_points": man["n_points"]}
 
 
 # ---------------------------------------------------------------------------
@@ -443,7 +462,7 @@ def main() -> int:
                 indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
             print(f"[{poll.polled_utc:%Y-%m-%d %H:%M}Z] 조회 완료: "
                   f"{poll.per_source_counts} · 지역 내 {len(inside)} · "
-                  f"신규 {len(new)} → {poll_dir.relative_to(REPO)}")
+                  f"신규 {len(new)} → {rel_to_repo(poll_dir)}")
 
             due = (seen.last_trigger_utc is None
                    or poll.polled_utc - seen.last_trigger_utc
@@ -488,7 +507,7 @@ def main() -> int:
             {"mode": scope.mode, "scope": scope.as_dict(),
              "n_triggers": len(summaries), "runs": summaries, "notes": notes},
             indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-        print(f"요약: {summary_path.relative_to(REPO)}")
+        print(f"요약: {rel_to_repo(summary_path)}")
     print(f"SMS: DEMO_MODE={sms.demo_mode()} — 발송된 메시지 없음")
     print("=" * 74)
     return 0
