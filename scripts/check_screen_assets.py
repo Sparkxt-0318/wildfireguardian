@@ -140,9 +140,50 @@ def check_dashes(text: str, *, html: bool = True) -> list[Finding]:
                 col = line.index(ch)
                 out.append(Finding(
                     "dashes", i,
-                    f"{name} in visible text — it is wider than a digit and "
-                    "defeats tabular-nums",
+                    f"{name} in visible text, wider than a digit and so "
+                    "defeating tabular-nums",
                     line.strip()[max(0, col - 40):col + 40]))
+    return out
+
+
+#: A script line that puts a string on screen. Stripping <script> wholesale —
+#: which :func:`visible_text` does, correctly, for the HTML layer — hides these,
+#: and a dash written into ``textContent`` is every bit as visible as one typed
+#: into the markup. Found the hard way: `demo/operator_screen.html` set
+#: '트리거 — 라우팅 실행 중' from JavaScript and the gate said the file was clean.
+_DOM_SINK = re.compile(
+    r"\.(textContent|innerText|innerHTML|outerHTML|title|alt|placeholder|"
+    r"ariaLabel)\s*=|"
+    r"(setAttribute|insertAdjacentHTML|append|prepend|write)\s*\(")
+
+_JS_LINE_COMMENT = re.compile(r"//.*$")
+_JS_BLOCK_COMMENT = re.compile(r"/\*.*?\*/", re.S)
+
+
+def check_dashes_in_scripts(html: str) -> list[Finding]:
+    """Dashes inside script code that assigns text to the DOM.
+
+    Reported SEPARATELY from the markup gate, because a script region also holds
+    comments and inert data payloads, and a banned dash in either is harmless.
+    What is not harmless is a dash on a line that writes to the DOM.
+    """
+    out: list[Finding] = []
+    for m in re.finditer(r"<script\b[^>]*>(.*?)</script>", html, re.S | re.I):
+        base = html[:m.start(1)].count("\n")
+        code = _JS_BLOCK_COMMENT.sub(lambda x: "\n" * x.group(0).count("\n"),
+                                     m.group(1))
+        for j, raw in enumerate(code.splitlines()):
+            line = _JS_LINE_COMMENT.sub("", raw)
+            if not _DOM_SINK.search(line):
+                continue
+            for ch, name in BANNED_DASHES.items():
+                if ch in line:
+                    col = line.index(ch)
+                    out.append(Finding(
+                        "dashes-in-script", base + j + 1,
+                        f"{name} on a line that writes to the DOM — it will be "
+                        "on screen, and the shipped subset has no glyph for it",
+                        line.strip()[max(0, col - 40):col + 40]))
     return out
 
 
@@ -238,7 +279,7 @@ CURRENT_BG_PANEL = "#16202b"
 CURRENT_PALETTE: list[ContrastPair] = [
     ContrastPair("본문 (밝은 회색)", "#e8edf2", CURRENT_BG_PANEL),
     ContrastPair("보조 텍스트", "#94a3b8", CURRENT_BG_PANEL),
-    ContrastPair("흐린 텍스트", "#64748b", CURRENT_BG_PANEL),
+    ContrastPair("흐린 텍스트", "#7c8ba1", CURRENT_BG_PANEL),
     ContrastPair("자력 대피 (청록 점)", "#22d3ee", CURRENT_BG_DEEP, non_text=True),
     ContrastPair("구조 필요 (황색 점)", "#f59e0b", CURRENT_BG_DEEP, non_text=True),
     ContrastPair("도달 불가 (적색 점)", "#dc2626", CURRENT_BG_DEEP, non_text=True),
@@ -285,6 +326,8 @@ def check_file(path: Path, *, pairs: list[ContrastPair] | None = None) -> list[F
     text = path.read_text(encoding="utf-8")
     html = path.suffix.lower() in (".html", ".htm")
     found = check_offline(text) + check_dashes(text, html=html)
+    if html:
+        found += check_dashes_in_scripts(text)
     if pairs:
         found += check_contrast(pairs)
     return found

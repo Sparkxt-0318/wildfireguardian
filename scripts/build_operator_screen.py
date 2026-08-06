@@ -62,6 +62,11 @@ from pathlib import Path
 
 import numpy as np
 
+# The standing honesty line is the A4 sheet's own constant, imported so the
+# screen and the paper a 이장 holds cannot drift apart.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src'))
+from wildfireguardian.delivery.printable import FOOTER_LINES  # noqa: E402
+
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "src"))
 
@@ -69,7 +74,7 @@ sys.path.insert(0, str(REPO / "src"))
 #: invites reading a precision the model does not have, and a judge asking
 #: "what is that shade?" should get an interval, not a guess.
 BANDS: tuple[float, ...] = (0.10, 0.30, 0.50, 0.70)
-BAND_LABELS = ("0.10–0.30", "0.30–0.50", "0.50–0.70", "0.70–1.00")
+BAND_LABELS = ("0.10~0.30", "0.30~0.50", "0.50~0.70", "0.70~1.00")
 #: Monochrome-safe ramp: increasing saturation AND decreasing lightness, so the
 #: order survives a black-and-white projector.
 BAND_FILLS = ("#fde68a", "#fb923c", "#dc2626", "#7f1d1d")
@@ -336,6 +341,7 @@ def build(run_dir: Path, out_path: Path, *, skip_preroll: bool = False,
 
     html = TEMPLATE.replace("/*__DATA__*/", json.dumps(payload, ensure_ascii=False,
                                                        separators=(",", ":")))
+    html = html.replace("__HONESTY__", FOOTER_LINES[0])
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(html, encoding="utf-8")
     return {"triggers": triggers, "trigger_source": trigger_source,
@@ -349,7 +355,7 @@ def build(run_dir: Path, out_path: Path, *, skip_preroll: bool = False,
 
 TEMPLATE = r"""<!doctype html>
 <html lang="ko"><head><meta charset="utf-8">
-<title>WildfireGuardian — 운영자 화면 (재생 모드)</title>
+<title>WildfireGuardian · 운영자 화면 (재생 모드)</title>
 <style>
 /* Self-contained: system fonts only, no external stylesheet, no network. */
 *{box-sizing:border-box;margin:0;padding:0}
@@ -391,7 +397,7 @@ td{padding:2px 8px;border-bottom:1px solid #16202b;white-space:nowrap;
   overflow:hidden;text-overflow:ellipsis}
 tr.new{animation:flash .5s ease-out}
 @keyframes flash{from{background:#1e3a5f}to{background:transparent}}
-.rank{color:#64748b;width:26px}
+.rank{color:#7c8ba1;width:26px}
 .loc{max-width:0;width:52%}
 .win{width:64px;text-align:right;font-weight:700}
 .st{width:70px;font-weight:700}
@@ -412,8 +418,9 @@ footer{flex:0 0 auto;display:flex;gap:0;border-top:1px solid #1f2a37;
 footer div{padding:7px 16px;border-right:1px solid #1f2a37;white-space:nowrap}
 footer .warn{color:#fca5a5;font-weight:700}
 footer .manual{background:#1e3a5f;color:#bfdbfe;font-weight:700}
-footer .k{color:#64748b;margin-right:6px}
-footer .last{border-right:none;margin-left:auto;color:#64748b}
+footer .k{color:#7c8ba1;margin-right:6px}
+footer .last{border-right:none;margin-left:auto;color:#7c8ba1}
+#honesty{flex:0 0 auto;padding:5px 16px;background:#0b0f14;color:#94a3b8;font-size:12px;border-top:1px solid #1f2a37}
 </style></head>
 <body><div id="app">
 <header>
@@ -422,7 +429,7 @@ footer .last{border-right:none;margin-left:auto;color:#64748b}
   <span class="badge" id="modebadge">재생 모드</span>
   <span class="clock" id="clock">+000분</span>
   <span style="font-size:12px;color:#94a3b8" id="slicelbl"></span>
-  <span style="font-size:12px;color:#64748b" id="durlbl"></span>
+  <span style="font-size:12px;color:#7c8ba1" id="durlbl"></span>
   <div class="ctrl">
     <button id="pause" class="pause">일시정지</button>
     <button data-sp="1">1×</button>
@@ -451,7 +458,7 @@ footer .last{border-right:none;margin-left:auto;color:#64748b}
   <div id="side">
     <div class="sidehead">
       <h2>출동 목록</h2>
-      <div class="sub" id="sidesub">대기 중 — 화점 탐지를 기다리는 중입니다</div>
+      <div class="sub" id="sidesub">대기 중: 화점 탐지를 기다리는 중입니다</div>
     </div>
     <div id="calc">계산 중 …</div>
     <div id="tablewrap"><table>
@@ -467,6 +474,10 @@ footer .last{border-right:none;margin-left:auto;color:#64748b}
   <div><span class="k">위험면</span><span id="f4"></span></div>
   <div class="last" id="f5"></div>
 </footer>
+<!-- PHASE 21: the standing honesty line. Not a live value, never changes, and
+     substituted from delivery.printable.FOOTER_LINES[0] at build time so it is
+     the same sentence the A4 sheet carries. -->
+<div id="honesty">__HONESTY__</div>
 </div>
 <script>
 const D = /*__DATA__*/;
@@ -495,7 +506,7 @@ if (D.walk_box) {
   const b = D.walk_box;
   gBox.appendChild(el('rect', {x: PX(b.x0), y: PY(b.y1),
     width: b.x1 - b.x0, height: b.y1 - b.y0, fill: 'none',
-    stroke: '#64748b', 'stroke-width': 1.6 * R,
+    stroke: '#7c8ba1', 'stroke-width': 1.6 * R,
     'stroke-dasharray': `${7 * R} ${5 * R}`}));
 }
 
@@ -633,7 +644,7 @@ function render() {
   if (fillStart !== null) {
     if (t < fillStart) {
       calcEl.classList.add('on');
-      subEl.textContent = '트리거 — 라우팅 실행 중';
+      subEl.textContent = '트리거: 라우팅 실행 중';
     } else {
       calcEl.classList.remove('on');
       const cap = Math.min(D.actionable.length, D.max_rows);
@@ -701,7 +712,7 @@ document.getElementById('reset').onclick = () => {
   t = T_START; shown = -1; filled = 0; fillStart = null;
   rowsEl.innerHTML = ''; delete rowsEl.dataset.more; gHot.innerHTML = '';
   calcEl.classList.remove('on');
-  subEl.textContent = '대기 중 — 화점 탐지를 기다리는 중입니다';
+  subEl.textContent = '대기 중: 화점 탐지를 기다리는 중입니다';
   originNodes.forEach(n => n.setAttribute('opacity', 0));
   if (rNaive) { rNaive.setAttribute('opacity', 0); rFA.setAttribute('opacity', 0); }
   render();          /* repaint now, so reset works while paused too */

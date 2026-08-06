@@ -174,10 +174,17 @@ def test_the_hazard_surface_is_the_canonical_field():
 def test_the_probability_bands_are_discrete_and_labelled():
     d = payload()
     assert len(d["band_labels"]) == len(d["band_fills"]) == 4
+    # PHASE 21: the separator is a TILDE, not an EN dash. Two reasons, and the
+    # second is the one that would have bitten in the hall:
+    #   · a range is written with a tilde by the project's own typographic rule
+    #     (scripts/check_screen_assets.py), and the tilde is exactly a digit's
+    #     advance in the shipped face, so it cannot nudge a numeric column;
+    #   · the shipped font subset contains NO EN dash glyph, so the old labels
+    #     would now render as tofu on the legend.
     for lbl in d["band_labels"]:
-        assert re.fullmatch(r"[01]\.\d\d–[01]\.\d\d", lbl), lbl
-    lo = [float(x.split("–")[0]) for x in d["band_labels"]]
-    hi = [float(x.split("–")[1]) for x in d["band_labels"]]
+        assert re.fullmatch(r"[01]\.\d\d~[01]\.\d\d", lbl), lbl
+    lo = [float(x.split("~")[0]) for x in d["band_labels"]]
+    hi = [float(x.split("~")[1]) for x in d["band_labels"]]
     assert lo == sorted(lo) and hi == sorted(hi), "bands must ascend"
     assert lo[1:] == hi[:-1], "bands must be contiguous, with no gap"
 

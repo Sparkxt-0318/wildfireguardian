@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>WildfireGuardian · 산불 골든타임 — 시연</title>
+<title>WildfireGuardian · 산불 골든타임 · 시연</title>
 <!-- PHASE 21: fonts are VENDORED, not fetched. The previous three lines pulled
      IBM Plex from Google Fonts, so in a hall with no network this page fell back
      to a system face - and a fallback face is worst at exactly the thing this
@@ -28457,7 +28457,7 @@ function render(t){
   // PENDING note if geometry not yet supplied
   $('pending').style.opacity = (!geo && t>=0.12 && t<0.74)?1:0;
   if(!geo) $('pending').firstElementChild.textContent =
-    'S1–S3 지오메트리 대기 중 — routing_demo.npz 업로드 후 예측 전선·경로가 실측 좌표로 렌더링됩니다. (수치는 이미 커밋된 산출물에서 표시)';
+    'S1~S3 지오메트리 대기 중: routing_demo.npz 업로드 후 예측 전선·경로가 실측 좌표로 렌더링됩니다. (수치는 이미 커밋된 산출물에서 표시)';
 
   // RESCUE layer (S4)
   const rescueVis=seg(t,0.755,0.80);

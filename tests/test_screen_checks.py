@@ -188,14 +188,17 @@ def test_the_phase8_operator_screen_has_no_known_violations_to_excuse():
         assert not check_offline(p.read_text(encoding="utf-8"))
 
 
-#: EM dashes currently present in visible text of the committed screens.
-#: ⚠ PINNED, NOT ACCEPTED. Both sit in prose (a <title> and a status line), not
-#: in a numeric column, so neither can break tabular-nums today. They are
-#: recorded as a RATCHET: the count may fall, never rise. Editing the committed
-#: screen is a decision for whoever owns the demo — `docs/HANDOFF_ROUND3.md`
-#: treats shipped demo assets as things you do not quietly regenerate.
-KNOWN_DASHES: dict[str, int] = {"operator_screen.html": 2,
-                                "wildfire_demo.html": 1}
+#: Empty, and meant to stay empty.
+#:
+#: PHASE 21 fixed all of them at the GENERATOR as well as in the built file, so
+#: a rebuild cannot reintroduce them: scripts/build_operator_screen.py no longer
+#: contains an EM dash in any string that reaches the screen. The replacements
+#: are the approved ones — a colon for a clause break, a middle dot for a list,
+#: a tilde for a range (0.10~0.30 band labels).
+#:
+#: This matters more than tidiness now: the shipped subset has NO EM or EN dash
+#: glyph, so any that came back would render as tofu in front of a judge.
+KNOWN_DASHES: dict[str, int] = {}
 
 
 @pytest.mark.skipif(not SHIPPED_SCREENS, reason="no demo HTML in the tree")
@@ -217,14 +220,37 @@ def test_the_dash_count_in_shipped_screens_never_rises(path):
 # ---------------------------------------------------------------------------
 
 
-def test_the_palette_report_names_the_current_failure():
+def test_the_palette_now_passes_wcag_everywhere_it_is_measured():
+    """It did not, until PHASE 21.
+
+    #64748b measured 3.46:1 against a 4.5:1 body-text bar and is now #7c8ba1 at
+    4.75:1 — the closest colour to the original that clears AA, chosen from a
+    measured ladder rather than by eye.
+    """
     rep = palette_report()
     fails = [r for r in rep["pairs"] if r["grade"] == "FAIL"]
-    assert fails, (
-        "the audit found no failure — if the palette was fixed, update this "
-        "test rather than deleting it")
-    assert any(r["fg"] == "#64748b" for r in fails), (
-        "#64748b on #16202b measures 3.46:1 against a 4.5:1 bar")
+    assert not fails, (
+        "contrast regressed: "
+        + "; ".join(f"{r['name']} {r['ratio']}:1 needs {r['required']}:1"
+                    for r in fails))
+    dim = next(r for r in rep["pairs"] if r["name"] == "흐린 텍스트")
+    assert dim["fg"] == "#7c8ba1" and dim["ratio"] >= 4.5
+
+
+def test_the_blue_is_never_used_as_a_text_colour():
+    """#2563eb clears the 3:1 non-text bar and would FAIL as body text.
+
+    Audited across the generator: it appears as a legend dot, a map marker and
+    an active-button background (white on it measures 5.17:1). If it is ever
+    set as a `color:`, this is the reminder that it does not qualify.
+    """
+    from check_screen_assets import contrast
+    assert contrast("#2563eb", "#16202b") < AA_NORMAL
+    gen = (REPO / "scripts" / "build_operator_screen.py")
+    if gen.exists():
+        for line in gen.read_text(encoding="utf-8").splitlines():
+            if "#2563eb" in line and "color:#2563eb" in line.replace(" ", ""):
+                pytest.fail(f"#2563eb used as a text colour: {line.strip()}")
 
 
 def test_the_report_says_out_loud_what_it_could_not_measure():
