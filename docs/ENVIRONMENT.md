@@ -124,3 +124,39 @@ make test           # 395 passed, 1 skipped
 `make env-check` exists specifically so the Round-2 failure mode — a dependency
 declared in `requirements.txt` but absent from the environment — is a non-zero
 exit rather than a silent skip.
+
+## ⚠ `make env-check` checks one direction only
+
+Recorded 2026-08-07, when PHASE 22 added FastAPI. **Not fixed, deliberately.**
+
+`scripts/env_check.py` reads `requirements.txt` and asserts every **declared**
+package is installed at the pinned version. It does **not** ask the reverse
+question — whether everything installed is declared. So:
+
+> **`pip install` something and do not pin it, and `make env-check` stays
+> green while the environment silently stops matching its own declaration.**
+
+That is the same shape as the Round-2 failure this target was written to catch,
+approached from the other side. Round 2 declared `networkx`/`osmnx`/`geopandas`
+without installing them; the reverse is installing without declaring. Both end
+with an environment nobody can rebuild, and only the first is caught.
+
+**Why the reverse check is not added.** It would require pinning every
+transitive dependency — `starlette`, `pydantic`, `h11`, `anyio`, `httpcore`,
+`annotated-types` and the rest arrive with FastAPI. Pinning a transitive states
+a compatibility claim this project has never tested, and it makes `env-check`
+fail whenever a resolver makes a legitimate different choice. The cure is worse
+than the disease.
+
+**What to do instead, every time a dependency is added:**
+
+1. `pip install --dry-run <pkg>` FIRST, and read the output. If it would upgrade
+   anything already pinned, stop — that is a change to the environment every
+   committed number was produced in.
+2. Pin the **direct** dependency in `requirements.txt`, at the exact installed
+   version. Transitives stay unpinned, on purpose.
+3. Say in the commit message which packages were added and that the dry run
+   showed no upgrades.
+
+PHASE 22 did exactly that: `fastapi`, `uvicorn`, `httpx`, dry run reporting 12
+new packages and **zero** upgrades.

@@ -70,3 +70,20 @@ pytest==9.1.1
 #   jupyter          (0 imports; notebooks/ are run from the user's own Jupyter)
 #   folium           (0 imports)
 #   requests         (0 imports; HTTP goes through osmnx / cdsapi / rasterio vsicurl)
+
+# -----------------------------------------------------------------------------
+# Transport (PHASE 22). Installed with PIP, not conda-forge: these are pure
+# Python and pull no binary GDAL/GEOS/PROJ, so the reason the rest of this file
+# insists on conda does not apply to them. Verified additive — `pip install
+# --dry-run` reported 12 new packages and ZERO upgrades, so no pin above moved.
+#
+# Direct dependencies only. The transitives (starlette, pydantic, h11, anyio,
+# httpcore, ...) are deliberately NOT pinned here: pinning a transitive states a
+# compatibility claim this project has not tested, and `make env-check` would
+# then fail on a resolver's legitimate choice.
+#
+# httpx is a TEST dependency — fastapi's TestClient needs it — and is listed
+# because an untested API layer is the thing PHASE 19 was built to avoid.
+fastapi==0.141.1
+uvicorn==0.52.1
+httpx==0.28.1
