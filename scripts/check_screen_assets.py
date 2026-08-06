@@ -70,6 +70,21 @@ NETWORK_TOKENS: tuple[str, ...] = (
     "@import", "url(http", "srcset=", "integrity=",
 )
 
+#: Tokens that are about REACHING A HOST, as opposed to reaching this page's own
+#: origin. These stay banned even for a page allowed to call its own API: a
+#: WebSocket or a beacon is not something this project's console needs, and a
+#: service worker would cache across runs.
+CROSS_ORIGIN_ONLY_TOKENS: tuple[str, ...] = (
+    "WebSocket(", "EventSource(", "navigator.sendBeacon", "importScripts(",
+    "serviceWorker", "@import", "url(http", "srcset=", "integrity=",
+)
+
+#: A `fetch()` whose argument is a SAME-ORIGIN path — a quoted string or
+#: template literal starting with `/` or `./`, optionally interpolated.
+#: `fetch('/api/jobs')` and `fetch(\`/api/jobs/${id}\`)` match; anything
+#: starting with a scheme or `//` does not.
+_SAME_ORIGIN_FETCH = re.compile(r"""fetch\(\s*[`'"](?:\./|/)(?!/)""")
+
 _URL_RE = re.compile(r"""https?://[^\s"'<>)]+""")
 
 
@@ -85,7 +100,22 @@ class Finding:
                 "excerpt": self.excerpt}
 
 
-def check_offline(text: str) -> list[Finding]:
+def check_offline(text: str, *, allow_same_origin_fetch: bool = False
+                  ) -> list[Finding]:
+    """External references, and constructs that could make one.
+
+    ``allow_same_origin_fetch`` exists for ONE case and should be justified
+    every time it is used: a page that talks to this project's own API, served
+    from the same process on localhost. `demo/*.html` must never set it — those
+    screens replay, they do not compute, and a fetch in one of them is a bug.
+
+    ⚠ The relaxation is narrow on purpose. An ABSOLUTE URL is still reported
+    wherever it appears, including inside a `fetch()`, so the flag permits
+    `fetch('/api/jobs')` and still catches `fetch('https://…')`. Everything else
+    that reaches a host — WebSocket, EventSource, sendBeacon, a service worker,
+    a CSS `@import` — stays banned either way.
+    """
+    tokens = CROSS_ORIGIN_ONLY_TOKENS if allow_same_origin_fetch else NETWORK_TOKENS
     out: list[Finding] = []
     for i, line in enumerate(text.splitlines(), start=1):
         for url in _URL_RE.findall(line):
@@ -93,11 +123,23 @@ def check_offline(text: str) -> list[Finding]:
                 continue
             out.append(Finding("offline", i, f"external URL: {url}",
                                line.strip()[:120]))
-        for tok in NETWORK_TOKENS:
+        for tok in tokens:
             if tok in line:
                 out.append(Finding("offline", i,
                                    f"network-capable construct: {tok}",
                                    line.strip()[:120]))
+        if allow_same_origin_fetch:
+            # A fetch that is NOT clearly same-origin is still reported: an
+            # argument the checker cannot read is an argument that could be a
+            # CDN, and "unreadable" must not mean "allowed".
+            for m in re.finditer(r"fetch\(", line):
+                tail = line[m.start():]
+                if not _SAME_ORIGIN_FETCH.match(tail):
+                    out.append(Finding(
+                        "offline", i,
+                        "fetch() whose target is not a literal same-origin "
+                        "path — the checker cannot prove where it goes",
+                        line.strip()[:120]))
     return out
 
 
