@@ -314,6 +314,108 @@ def naive_route(
 # ---------------------------------------------------------------------------
 
 
+@dataclass(frozen=True)
+class TimeExpandedField:
+    """The node x time-bin hazard table, and everything derived from it.
+
+    Round-3 PHASE 20.
+
+    WHY THIS IS A SEPARATE OBJECT
+    -----------------------------
+    :func:`future_aware_route` needs a table of P(ignition) at every node at
+    every time bin, so that its inner Dijkstra loop is an O(1) array lookup
+    rather than millions of bilinear samples. Building it costs one
+    ``prob_at_points`` call per bin over every node — for Yeongdeok, 61 calls
+    over 8,443 nodes, about 515,000 samples.
+
+    ⚠ THE TABLE DOES NOT DEPEND ON ``start``. It is a pure function of the
+    network's node coordinates, the hazard, the departure time, the budget and
+    the step. A 459-series scan holds all five fixed across its origins, so the
+    committed code was rebuilding the *same array* 458 times — measured at
+    35–58 % of the whole scan (``docs/service_layer.md`` §5.1).
+
+    Hoisting it is memoisation of a pure function, so the values are identical
+    by construction rather than by argument. That is the only reason this
+    optimisation was allowed: there is no version of it that returns a
+    different number.
+    """
+
+    nodes: list[int]
+    idx: dict[int, int]
+    #: ``(n_nodes, n_bins)``; ``table[i, k]`` is P(ignition) at ``nodes[i]`` at
+    #: ``departure_min + k * time_step_min``.
+    table: np.ndarray
+    n_bins: int
+    departure_min: float
+    time_budget_min: float
+    p_cut: float
+    time_step_min: float
+    #: Earliest time each node reaches the cutoff. Carried because the
+    #: committed code computed it; nothing reads it today.
+    t_cut: np.ndarray
+
+    def check(self, net: RoadNetwork, start: int, *, departure_min: float,
+              time_budget_min: float, p_cut: float, time_step_min: float) -> None:
+        """Refuse a field that was built for a different question.
+
+        A silently mismatched table would not raise — it would return a
+        plausible route computed against the wrong hazard. So the four scalars
+        are compared exactly and the node set is size-checked, and a caller
+        that gets it wrong gets an exception instead of an answer.
+        """
+        if (departure_min, time_budget_min, p_cut, time_step_min) != (
+                self.departure_min, self.time_budget_min, self.p_cut,
+                self.time_step_min):
+            raise ValueError(
+                "time-expanded field was built for different parameters: "
+                f"built for (departure={self.departure_min}, "
+                f"budget={self.time_budget_min}, p_cut={self.p_cut}, "
+                f"step={self.time_step_min}), asked for (departure="
+                f"{departure_min}, budget={time_budget_min}, p_cut={p_cut}, "
+                f"step={time_step_min})")
+        if len(self.nodes) != net.graph.number_of_nodes():
+            raise ValueError(
+                f"time-expanded field has {len(self.nodes)} nodes but the "
+                f"network has {net.graph.number_of_nodes()}")
+        if start not in self.idx:
+            raise ValueError(f"origin {start} is not in the field's node set")
+
+
+def build_time_expanded_field(
+    net: RoadNetwork,
+    hazard: HazardSequence,
+    *,
+    departure_min: float = 0.0,
+    time_budget_min: float = 240.0,
+    p_cut: float = 0.5,
+    time_step_min: float = 5.0,
+) -> TimeExpandedField:
+    """Build the node x time-bin hazard table once, for reuse across origins.
+
+    The body is the committed one, moved rather than rewritten: same node
+    order, same bin arithmetic, same ``prob_at_points`` calls in the same
+    order. Moving code that produces floats is the only way to keep the floats
+    identical.
+    """
+    nodes = list(net.graph.nodes)
+    idx = {n: i for i, n in enumerate(nodes)}
+    nx_arr = np.array([net.graph.nodes[n]["x"] for n in nodes], float)
+    ny_arr = np.array([net.graph.nodes[n]["y"] for n in nodes], float)
+    n_bins = int(math.ceil(time_budget_min / time_step_min)) + 1
+    table = np.empty((len(nodes), n_bins), float)
+    for k in range(n_bins):
+        table[:, k] = hazard.prob_at_points(nx_arr, ny_arr,
+                                            departure_min + k * time_step_min)
+    # Earliest time each node reaches the cutoff (for clearance reporting).
+    over = table >= p_cut
+    t_cut = np.where(over.any(axis=1),
+                     departure_min + over.argmax(axis=1) * time_step_min, math.inf)
+    return TimeExpandedField(
+        nodes=nodes, idx=idx, table=table, n_bins=n_bins,
+        departure_min=departure_min, time_budget_min=time_budget_min,
+        p_cut=p_cut, time_step_min=time_step_min, t_cut=t_cut)
+
+
 def future_aware_route(
     net: RoadNetwork,
     start: int,
@@ -323,8 +425,16 @@ def future_aware_route(
     time_budget_min: float = 240.0,
     p_cut: float = 0.5,
     time_step_min: float = 5.0,
+    field: TimeExpandedField | None = None,
 ) -> RouteResult:
     """Exposure-minimising evacuation on a time-expanded graph.
+
+    ``field`` is an optional precomputed :class:`TimeExpandedField`. Omitted,
+    one is built here and the function behaves exactly as it always has — every
+    existing caller is unaffected. Supplied, the identical table is reused
+    instead of rebuilt, which is what makes a 458-origin scan stop paying for
+    the same array 458 times. The field is validated against this call's
+    parameters before it is used.
 
     State is ``(node, time_bin)``; time advances by each edge's elderly
     traversal time rounded **up** to ``time_step_min`` (conservative: the
@@ -338,23 +448,21 @@ def future_aware_route(
     if not net.shelters:
         raise ValueError("network has no shelters")
 
-    # Precompute a node x time-bin hazard table so the inner Dijkstra loop is
-    # an O(1) array lookup instead of millions of bilinear samples. Time bin k
+    # The node x time-bin hazard table makes the inner Dijkstra loop an O(1)
+    # array lookup instead of millions of bilinear samples. Time bin k
     # corresponds to clock = departure_min + k*time_step_min; travel time is
     # rounded UP to a bin (conservative: the evacuee meets slightly-grown
     # hazard). True travel clock is still carried exactly for edge timing.
-    nodes = list(net.graph.nodes)
-    idx = {n: i for i, n in enumerate(nodes)}
-    nx_arr = np.array([net.graph.nodes[n]["x"] for n in nodes], float)
-    ny_arr = np.array([net.graph.nodes[n]["y"] for n in nodes], float)
-    n_bins = int(math.ceil(time_budget_min / time_step_min)) + 1
-    table = np.empty((len(nodes), n_bins), float)
-    for k in range(n_bins):
-        table[:, k] = hazard.prob_at_points(nx_arr, ny_arr, departure_min + k * time_step_min)
-    # Earliest time each node reaches the cutoff (for clearance reporting).
-    over = table >= p_cut
-    t_cut = np.where(over.any(axis=1),
-                     departure_min + over.argmax(axis=1) * time_step_min, math.inf)
+    if field is None:
+        field = build_time_expanded_field(
+            net, hazard, departure_min=departure_min,
+            time_budget_min=time_budget_min, p_cut=p_cut,
+            time_step_min=time_step_min)
+    else:
+        field.check(net, start, departure_min=departure_min,
+                    time_budget_min=time_budget_min, p_cut=p_cut,
+                    time_step_min=time_step_min)
+    nodes, idx, table, n_bins = field.nodes, field.idx, field.table, field.n_bins
 
     s_idx = idx[start]
     if table[s_idx, 0] >= p_cut:
@@ -423,7 +531,9 @@ __all__ = [
     "ELDERLY_FLAT_SPEED_MS",
     "elderly_speed_ms",
     "NAIVE_OBJECTIVES",
+    "TimeExpandedField",
     "build_evacuation_network",
+    "build_time_expanded_field",
     "RouteResult",
     "naive_route",
     "future_aware_route",

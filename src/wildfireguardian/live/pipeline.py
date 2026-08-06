@@ -49,6 +49,7 @@ import json
 import math
 import subprocess
 import time
+from collections.abc import Callable
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
@@ -58,7 +59,9 @@ import numpy as np
 from ..config import config_hash, get as _cfg
 from ..delivery import broadcast, printable, sms
 from ..delivery.villages import _bearing_word, cluster_points, named_refuges
-from ..routing.evacuation import future_aware_route, naive_route
+from ..routing.evacuation import (
+    build_time_expanded_field, future_aware_route, naive_route,
+)
 from ..routing.hazard import HazardSequence
 from ..routing.slope import build_walk_network, load_snapshot_graph
 from ..spread_v2.grid import CoarseGrid
@@ -74,6 +77,21 @@ WALK_DISPATCH_HEADING = "■ 도보 대피 안내 지점 — 남은 시간 순"
 WALK_UNREACHABLE_HEADING = "■ 안전한 도보 대피로 없음 — 별도 조치 필요"
 WALK_UNREACHABLE_FALLBACK = "예산 내 안전한 보행 경로 없음"
 WALK_ROUTE_FALLBACK = "대피 경로 확인 필요"
+
+class RoutingCancelled(RuntimeError):
+    """A scan was cancelled between origins, before anything was written.
+
+    Round-3 PHASE 19 STEP 2. Raised by :func:`route_region` when the caller's
+    ``should_cancel`` says so. It is a CONTROL signal and therefore separate
+    from ``on_progress``, which is observation-only and whose return value is
+    never read — keeping them apart is what lets the progress hook stay
+    provably unable to change an answer.
+
+    Cancellation is cooperative and lands only at an origin boundary. The scan
+    has no other safe suspension point, and a half-finished classification is
+    not a smaller answer — it is a wrong one.
+    """
+
 
 #: Bucket -> (is_unreachable, Korean reason / route note).
 BUCKET_TEXT: dict[str, tuple[bool, str]] = {
@@ -336,12 +354,27 @@ def _time_to_cutoff(hazard: HazardSequence, x: float, y: float, p_cut: float) ->
 
 def route_region(res: Resources, *, p_cut: float, budget_min: float,
                  step_min: float, stride: int, limit_origins: int = 0,
-                 collect_routes: int = 0
+                 collect_routes: int = 0,
+                 on_progress: Callable[[int, int], None] | None = None,
+                 should_cancel: Callable[[], bool] | None = None
                  ) -> tuple[dict, list[dict], list[dict], list[dict], float]:
     """Run the 459-series scan.
 
     Returns ``(counts, actionable points, every origin's geometry, route
     geometry, seconds)``.
+
+    ``on_progress(done, total)`` is called after each origin is classified, for
+    a caller that has to show a human what is happening for the ~27 seconds
+    this takes (PHASE 19). It is OBSERVATION ONLY: it receives two integers,
+    its return value is discarded, and it is never consulted for a decision —
+    so a run with a callback and a run without one classify identically. The
+    default is ``None``, which is the committed batch behaviour exactly.
+
+    ``should_cancel()`` is the CONTROL hook, deliberately separate from the
+    observation one. Consulted once per origin; a true answer raises
+    :class:`RoutingCancelled` before anything has been written. A run that is
+    never cancelled takes exactly the same path as a run with no hook at all —
+    the only extra work is one predicate call per origin.
 
     The geometry list carries ALL scanned origins including ``both_safe``,
     because the operator screen colours the three outcomes against each other
@@ -373,11 +406,37 @@ def route_region(res: Resources, *, p_cut: float, budget_min: float,
     points: list[dict] = []
     geo: list[dict] = []
     routes: list[dict] = []
-    for n in cand:
+    n_cand = len(cand)
+    if on_progress is not None:
+        on_progress(0, n_cand)
+
+    # PHASE 20: the time-expanded hazard table is a pure function of the
+    # network, the hazard, the departure time, the budget and the step — and
+    # this scan holds all five fixed, so the committed code rebuilt the SAME
+    # array once per origin. Built once here instead. Every origin is handed
+    # the identical object, so the answer is identical by construction rather
+    # than by argument (docs/service_layer.md §5.1).
+    #
+    # The cancel check comes FIRST: the build costs a few hundred milliseconds,
+    # and a request that has already been cancelled should not pay for a table
+    # nobody will read.
+    if should_cancel is not None and should_cancel():
+        raise RoutingCancelled(
+            f"cancelled before the hazard table was built; 0 of {n_cand} "
+            "origins routed, nothing was written")
+    field = build_time_expanded_field(
+        res.net, res.hazard, departure_min=0.0, time_budget_min=budget_min,
+        p_cut=p_cut, time_step_min=step_min)
+
+    for i_origin, n in enumerate(cand, start=1):
+        if should_cancel is not None and should_cancel():
+            raise RoutingCancelled(
+                f"cancelled after {i_origin - 1} of {n_cand} origins; nothing "
+                "was written")
         nv = naive_route(res.net, n, res.hazard, departure_min=0.0, p_cut=p_cut)
         fa = future_aware_route(res.net, n, res.hazard, departure_min=0.0,
                                 time_budget_min=budget_min, p_cut=p_cut,
-                                time_step_min=step_min)
+                                time_step_min=step_min, field=field)
         if not nv.reached:
             bucket = "naive_unreachable"
         elif nv.enters_hazard and fa.reached and not fa.enters_hazard:
@@ -410,6 +469,8 @@ def route_region(res: Resources, *, p_cut: float, budget_min: float,
             })
         x, y = res.net.node_xy(n)
         geo.append({"x": round(x, 1), "y": round(y, 1), "bucket": bucket})
+        if on_progress is not None:
+            on_progress(i_origin, n_cand)
         if bucket not in ACTIONABLE:
             continue
         tc = _time_to_cutoff(res.hazard, x, y, p_cut)
@@ -460,8 +521,15 @@ def _nearest_named(x: float, y: float, refuges: list[dict]) -> str:
 
 def deliver(points: list[dict], res: Resources, out_dir: Path, *,
             scope: Scope, counts: dict, applicability: dict, eps_m: float,
-            make_pdf: bool = True) -> tuple[dict, float, float, float]:
+            make_pdf: bool = True,
+            on_progress: Callable[[str, int, int], None] | None = None
+            ) -> tuple[dict, float, float, float]:
     """Render the three PHASE-3 formats.
+
+    ``on_progress(phase, done, total)`` is called with ``phase`` in
+    ``{"cluster", "render", "pdf"}`` (PHASE 19). Observation only: two integers
+    and a label go out, nothing comes back, and no decision reads it. Default
+    ``None`` is the committed behaviour.
 
     Returns ``(manifest, cluster_s, render_s, pdf_s)``. PDF conversion is timed
     SEPARATELY because it happens after the dispatch list already exists and
@@ -480,8 +548,12 @@ def deliver(points: list[dict], res: Resources, out_dir: Path, *,
     refuges = named_refuges(res.destinations)
 
     t0 = time.monotonic()
-    for p in points:
+    if on_progress is not None:
+        on_progress("cluster", 0, len(points))
+    for i_pt, p in enumerate(points, start=1):
         p["label"] = _place_label(p["x"], p["y"], refuges)
+        if on_progress is not None:
+            on_progress("cluster", i_pt, len(points))
     villages = cluster_points(points, res.destinations, eps_m=eps_m)
     cluster_s = time.monotonic() - t0
 
@@ -532,7 +604,9 @@ def deliver(points: list[dict], res: Resources, out_dir: Path, *,
     }
 
     prefix = ("재생 모드입니다.",) if scope.is_replay else ()
-    for v in villages:
+    if on_progress is not None:
+        on_progress("render", 0, len(villages))
+    for i_v, v in enumerate(villages, start=1):
         vdir = out_dir / v.slug()
         vdir.mkdir(parents=True, exist_ok=True)
         cx, cy = v.centroid
@@ -555,6 +629,8 @@ def deliver(points: list[dict], res: Resources, out_dir: Path, *,
             pdf = printable.html_to_pdf(hp, vdir / "dispatch_a4.pdf")
             pdf_s += time.monotonic() - t_pdf
             budget = printable.check_page_budget(pdf, v.name)
+            if on_progress is not None:
+                on_progress("pdf", i_v, len(villages))
         else:
             pdf = {"ok": False, "engine": None, "reason": "--no-pdf: HTML only"}
             budget = {"ok": None, "message": "not measured (--no-pdf)"}
@@ -609,6 +685,8 @@ def deliver(points: list[dict], res: Resources, out_dir: Path, *,
                                           "broadcast_script.txt",
                                           "sms_drafts.json", "sms_drafts.txt"]})
         manifest["villages"].append(entry)
+        if on_progress is not None:
+            on_progress("render", i_v, len(villages))
 
     manifest["n_villages"] = len(villages)
     manifest["all_three_formats_per_village"] = all(
@@ -782,7 +860,7 @@ def build_run_record(*, run_id: str, started: datetime, scope: Scope,
 
 
 __all__ = [
-    "ACTIONABLE", "BUCKET_TEXT", "Resources", "assess_applicability",
-    "build_run_record", "candidate_origins", "deliver", "load_resources",
-    "route_region", "sha256_file", "weather_basis",
+    "ACTIONABLE", "BUCKET_TEXT", "Resources", "RoutingCancelled",
+    "assess_applicability", "build_run_record", "candidate_origins", "deliver",
+    "load_resources", "route_region", "sha256_file", "weather_basis",
 ]
