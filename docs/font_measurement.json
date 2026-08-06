@@ -1,0 +1,1172 @@
+{
+  "schema_version": 1,
+  "fonts": [
+    {
+      "file": "IBMPlexMono-Regular.ttf",
+      "bytes": 40928,
+      "kib": 40.0,
+      "units_per_em": 1000,
+      "x_height_units": 516,
+      "x_height_em": 0.516,
+      "cap_height_units": 698,
+      "cap_height_em": 0.698,
+      "x_height_px_at_13": 6.71,
+      "n_glyphs": 280,
+      "digits_uniform_width": true,
+      "digit_advance_units": 600,
+      "widths": {
+        "digit zero": {
+          "char": "0",
+          "codepoint": "U+0030",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "digit one": {
+          "char": "1",
+          "codepoint": "U+0031",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "digit eight": {
+          "char": "8",
+          "codepoint": "U+0038",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "EM dash": {
+          "char": "—",
+          "codepoint": "U+2014",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "EN dash": {
+          "char": "–",
+          "codepoint": "U+2013",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "hyphen-minus": {
+          "char": "-",
+          "codepoint": "U+002D",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "rightwards arrow": {
+          "char": "→",
+          "codepoint": "U+2192",
+          "present": false,
+          "advance_units": null,
+          "advance_em": null,
+          "vs_digit": null,
+          "same_as_digit": null
+        },
+        "tilde": {
+          "char": "~",
+          "codepoint": "U+007E",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "middle dot": {
+          "char": "·",
+          "codepoint": "U+00B7",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "solidus": {
+          "char": "/",
+          "codepoint": "U+002F",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "full stop": {
+          "char": ".",
+          "codepoint": "U+002E",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "space": {
+          "char": " ",
+          "codepoint": "U+0020",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        }
+      },
+      "hangul": {
+        "이": {
+          "present": false,
+          "advance_units": null,
+          "ink_w": null,
+          "ink_h": null,
+          "ink_h_em": null
+        },
+        "고": {
+          "present": false,
+          "advance_units": null,
+          "ink_w": null,
+          "ink_h": null,
+          "ink_h_em": null
+        },
+        "산": {
+          "present": false,
+          "advance_units": null,
+          "ink_w": null,
+          "ink_h": null,
+          "ink_h_em": null
+        },
+        "불": {
+          "present": false,
+          "advance_units": null,
+          "ink_w": null,
+          "ink_h": null,
+          "ink_h_em": null
+        },
+        "칠": {
+          "present": false,
+          "advance_units": null,
+          "ink_w": null,
+          "ink_h": null,
+          "ink_h_em": null
+        },
+        "될": {
+          "present": false,
+          "advance_units": null,
+          "ink_w": null,
+          "ink_h": null,
+          "ink_h_em": null
+        },
+        "뚫": {
+          "present": false,
+          "advance_units": null,
+          "ink_w": null,
+          "ink_h": null,
+          "ink_h_em": null
+        },
+        "쫓": {
+          "present": false,
+          "advance_units": null,
+          "ink_w": null,
+          "ink_h": null,
+          "ink_h_em": null
+        }
+      },
+      "hangul_present": 0,
+      "hangul_probes": 8,
+      "mean_hangul_ink_h_em": null,
+      "hangul_ink_px_at_13": null
+    },
+    {
+      "file": "IBMPlexMono-SemiBold.ttf",
+      "bytes": 44264,
+      "kib": 43.2,
+      "units_per_em": 1000,
+      "x_height_units": 516,
+      "x_height_em": 0.516,
+      "cap_height_units": 698,
+      "cap_height_em": 0.698,
+      "x_height_px_at_13": 6.71,
+      "n_glyphs": 280,
+      "digits_uniform_width": true,
+      "digit_advance_units": 600,
+      "widths": {
+        "digit zero": {
+          "char": "0",
+          "codepoint": "U+0030",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "digit one": {
+          "char": "1",
+          "codepoint": "U+0031",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "digit eight": {
+          "char": "8",
+          "codepoint": "U+0038",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "EM dash": {
+          "char": "—",
+          "codepoint": "U+2014",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "EN dash": {
+          "char": "–",
+          "codepoint": "U+2013",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "hyphen-minus": {
+          "char": "-",
+          "codepoint": "U+002D",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "rightwards arrow": {
+          "char": "→",
+          "codepoint": "U+2192",
+          "present": false,
+          "advance_units": null,
+          "advance_em": null,
+          "vs_digit": null,
+          "same_as_digit": null
+        },
+        "tilde": {
+          "char": "~",
+          "codepoint": "U+007E",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "middle dot": {
+          "char": "·",
+          "codepoint": "U+00B7",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "solidus": {
+          "char": "/",
+          "codepoint": "U+002F",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "full stop": {
+          "char": ".",
+          "codepoint": "U+002E",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "space": {
+          "char": " ",
+          "codepoint": "U+0020",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        }
+      },
+      "hangul": {
+        "이": {
+          "present": false,
+          "advance_units": null,
+          "ink_w": null,
+          "ink_h": null,
+          "ink_h_em": null
+        },
+        "고": {
+          "present": false,
+          "advance_units": null,
+          "ink_w": null,
+          "ink_h": null,
+          "ink_h_em": null
+        },
+        "산": {
+          "present": false,
+          "advance_units": null,
+          "ink_w": null,
+          "ink_h": null,
+          "ink_h_em": null
+        },
+        "불": {
+          "present": false,
+          "advance_units": null,
+          "ink_w": null,
+          "ink_h": null,
+          "ink_h_em": null
+        },
+        "칠": {
+          "present": false,
+          "advance_units": null,
+          "ink_w": null,
+          "ink_h": null,
+          "ink_h_em": null
+        },
+        "될": {
+          "present": false,
+          "advance_units": null,
+          "ink_w": null,
+          "ink_h": null,
+          "ink_h_em": null
+        },
+        "뚫": {
+          "present": false,
+          "advance_units": null,
+          "ink_w": null,
+          "ink_h": null,
+          "ink_h_em": null
+        },
+        "쫓": {
+          "present": false,
+          "advance_units": null,
+          "ink_w": null,
+          "ink_h": null,
+          "ink_h_em": null
+        }
+      },
+      "hangul_present": 0,
+      "hangul_probes": 8,
+      "mean_hangul_ink_h_em": null,
+      "hangul_ink_px_at_13": null
+    },
+    {
+      "file": "IBMPlexSansKR-Regular.ttf",
+      "bytes": 2622252,
+      "kib": 2560.8,
+      "units_per_em": 1000,
+      "x_height_units": 516,
+      "x_height_em": 0.516,
+      "cap_height_units": 698,
+      "cap_height_em": 0.698,
+      "x_height_px_at_13": 6.71,
+      "n_glyphs": 11484,
+      "digits_uniform_width": true,
+      "digit_advance_units": 600,
+      "widths": {
+        "digit zero": {
+          "char": "0",
+          "codepoint": "U+0030",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "digit one": {
+          "char": "1",
+          "codepoint": "U+0031",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "digit eight": {
+          "char": "8",
+          "codepoint": "U+0038",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "EM dash": {
+          "char": "—",
+          "codepoint": "U+2014",
+          "present": true,
+          "advance_units": 780,
+          "advance_em": 0.78,
+          "vs_digit": 1.3,
+          "same_as_digit": false
+        },
+        "EN dash": {
+          "char": "–",
+          "codepoint": "U+2013",
+          "present": true,
+          "advance_units": 588,
+          "advance_em": 0.588,
+          "vs_digit": 0.98,
+          "same_as_digit": false
+        },
+        "hyphen-minus": {
+          "char": "-",
+          "codepoint": "U+002D",
+          "present": true,
+          "advance_units": 399,
+          "advance_em": 0.399,
+          "vs_digit": 0.665,
+          "same_as_digit": false
+        },
+        "rightwards arrow": {
+          "char": "→",
+          "codepoint": "U+2192",
+          "present": false,
+          "advance_units": null,
+          "advance_em": null,
+          "vs_digit": null,
+          "same_as_digit": null
+        },
+        "tilde": {
+          "char": "~",
+          "codepoint": "U+007E",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "middle dot": {
+          "char": "·",
+          "codepoint": "U+00B7",
+          "present": true,
+          "advance_units": 326,
+          "advance_em": 0.326,
+          "vs_digit": 0.543,
+          "same_as_digit": false
+        },
+        "solidus": {
+          "char": "/",
+          "codepoint": "U+002F",
+          "present": true,
+          "advance_units": 383,
+          "advance_em": 0.383,
+          "vs_digit": 0.638,
+          "same_as_digit": false
+        },
+        "full stop": {
+          "char": ".",
+          "codepoint": "U+002E",
+          "present": true,
+          "advance_units": 272,
+          "advance_em": 0.272,
+          "vs_digit": 0.453,
+          "same_as_digit": false
+        },
+        "space": {
+          "char": " ",
+          "codepoint": "U+0020",
+          "present": true,
+          "advance_units": 236,
+          "advance_em": 0.236,
+          "vs_digit": 0.393,
+          "same_as_digit": false
+        }
+      },
+      "hangul": {
+        "이": {
+          "present": true,
+          "advance_units": 892,
+          "ink_w": 718,
+          "ink_h": 868,
+          "ink_h_em": 0.868
+        },
+        "고": {
+          "present": true,
+          "advance_units": 892,
+          "ink_w": 816,
+          "ink_h": 697,
+          "ink_h_em": 0.697
+        },
+        "산": {
+          "present": true,
+          "advance_units": 892,
+          "ink_w": 846,
+          "ink_h": 887,
+          "ink_h_em": 0.887
+        },
+        "불": {
+          "present": true,
+          "advance_units": 892,
+          "ink_w": 816,
+          "ink_h": 905,
+          "ink_h_em": 0.905
+        },
+        "칠": {
+          "present": true,
+          "advance_units": 892,
+          "ink_w": 744,
+          "ink_h": 909,
+          "ink_h_em": 0.909
+        },
+        "될": {
+          "present": true,
+          "advance_units": 892,
+          "ink_w": 768,
+          "ink_h": 909,
+          "ink_h_em": 0.909
+        },
+        "뚫": {
+          "present": true,
+          "advance_units": 892,
+          "ink_w": 816,
+          "ink_h": 909,
+          "ink_h_em": 0.909
+        },
+        "쫓": {
+          "present": true,
+          "advance_units": 892,
+          "ink_w": 816,
+          "ink_h": 906,
+          "ink_h_em": 0.906
+        }
+      },
+      "hangul_present": 8,
+      "hangul_probes": 8,
+      "mean_hangul_ink_h_em": 0.8737,
+      "hangul_ink_px_at_13": 11.36
+    },
+    {
+      "file": "IBMPlexSansKR-SemiBold.ttf",
+      "bytes": 2680128,
+      "kib": 2617.3,
+      "units_per_em": 1000,
+      "x_height_units": 522,
+      "x_height_em": 0.522,
+      "cap_height_units": 698,
+      "cap_height_em": 0.698,
+      "x_height_px_at_13": 6.79,
+      "n_glyphs": 11484,
+      "digits_uniform_width": true,
+      "digit_advance_units": 600,
+      "widths": {
+        "digit zero": {
+          "char": "0",
+          "codepoint": "U+0030",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "digit one": {
+          "char": "1",
+          "codepoint": "U+0031",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "digit eight": {
+          "char": "8",
+          "codepoint": "U+0038",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "EM dash": {
+          "char": "—",
+          "codepoint": "U+2014",
+          "present": true,
+          "advance_units": 780,
+          "advance_em": 0.78,
+          "vs_digit": 1.3,
+          "same_as_digit": false
+        },
+        "EN dash": {
+          "char": "–",
+          "codepoint": "U+2013",
+          "present": true,
+          "advance_units": 588,
+          "advance_em": 0.588,
+          "vs_digit": 0.98,
+          "same_as_digit": false
+        },
+        "hyphen-minus": {
+          "char": "-",
+          "codepoint": "U+002D",
+          "present": true,
+          "advance_units": 402,
+          "advance_em": 0.402,
+          "vs_digit": 0.67,
+          "same_as_digit": false
+        },
+        "rightwards arrow": {
+          "char": "→",
+          "codepoint": "U+2192",
+          "present": false,
+          "advance_units": null,
+          "advance_em": null,
+          "vs_digit": null,
+          "same_as_digit": null
+        },
+        "tilde": {
+          "char": "~",
+          "codepoint": "U+007E",
+          "present": true,
+          "advance_units": 600,
+          "advance_em": 0.6,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "middle dot": {
+          "char": "·",
+          "codepoint": "U+00B7",
+          "present": true,
+          "advance_units": 350,
+          "advance_em": 0.35,
+          "vs_digit": 0.583,
+          "same_as_digit": false
+        },
+        "solidus": {
+          "char": "/",
+          "codepoint": "U+002F",
+          "present": true,
+          "advance_units": 437,
+          "advance_em": 0.437,
+          "vs_digit": 0.728,
+          "same_as_digit": false
+        },
+        "full stop": {
+          "char": ".",
+          "codepoint": "U+002E",
+          "present": true,
+          "advance_units": 299,
+          "advance_em": 0.299,
+          "vs_digit": 0.498,
+          "same_as_digit": false
+        },
+        "space": {
+          "char": " ",
+          "codepoint": "U+0020",
+          "present": true,
+          "advance_units": 236,
+          "advance_em": 0.236,
+          "vs_digit": 0.393,
+          "same_as_digit": false
+        }
+      },
+      "hangul": {
+        "이": {
+          "present": true,
+          "advance_units": 892,
+          "ink_w": 741,
+          "ink_h": 882,
+          "ink_h_em": 0.882
+        },
+        "고": {
+          "present": true,
+          "advance_units": 892,
+          "ink_w": 824,
+          "ink_h": 716,
+          "ink_h_em": 0.716
+        },
+        "산": {
+          "present": true,
+          "advance_units": 892,
+          "ink_w": 868,
+          "ink_h": 901,
+          "ink_h_em": 0.901
+        },
+        "불": {
+          "present": true,
+          "advance_units": 892,
+          "ink_w": 824,
+          "ink_h": 915,
+          "ink_h_em": 0.915
+        },
+        "칠": {
+          "present": true,
+          "advance_units": 892,
+          "ink_w": 770,
+          "ink_h": 924,
+          "ink_h_em": 0.924
+        },
+        "될": {
+          "present": true,
+          "advance_units": 892,
+          "ink_w": 782,
+          "ink_h": 924,
+          "ink_h_em": 0.924
+        },
+        "뚫": {
+          "present": true,
+          "advance_units": 892,
+          "ink_w": 824,
+          "ink_h": 920,
+          "ink_h_em": 0.92
+        },
+        "쫓": {
+          "present": true,
+          "advance_units": 892,
+          "ink_w": 824,
+          "ink_h": 924,
+          "ink_h_em": 0.924
+        }
+      },
+      "hangul_present": 8,
+      "hangul_probes": 8,
+      "mean_hangul_ink_h_em": 0.8883,
+      "hangul_ink_px_at_13": 11.55
+    },
+    {
+      "file": "Pretendard-Regular.ttf",
+      "bytes": 2725076,
+      "kib": 2661.2,
+      "units_per_em": 2048,
+      "x_height_units": 1086,
+      "x_height_em": 0.5303,
+      "cap_height_units": 1448,
+      "cap_height_em": 0.707,
+      "x_height_px_at_13": 6.89,
+      "n_glyphs": 14716,
+      "digits_uniform_width": false,
+      "digit_advance_units": 1220,
+      "widths": {
+        "digit zero": {
+          "char": "0",
+          "codepoint": "U+0030",
+          "present": true,
+          "advance_units": 1220,
+          "advance_em": 0.5957,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "digit one": {
+          "char": "1",
+          "codepoint": "U+0031",
+          "present": true,
+          "advance_units": 898,
+          "advance_em": 0.4385,
+          "vs_digit": 0.736,
+          "same_as_digit": false
+        },
+        "digit eight": {
+          "char": "8",
+          "codepoint": "U+0038",
+          "present": true,
+          "advance_units": 1242,
+          "advance_em": 0.6064,
+          "vs_digit": 1.018,
+          "same_as_digit": false
+        },
+        "EM dash": {
+          "char": "—",
+          "codepoint": "U+2014",
+          "present": true,
+          "advance_units": 1960,
+          "advance_em": 0.957,
+          "vs_digit": 1.607,
+          "same_as_digit": false
+        },
+        "EN dash": {
+          "char": "–",
+          "codepoint": "U+2013",
+          "present": true,
+          "advance_units": 964,
+          "advance_em": 0.4707,
+          "vs_digit": 0.79,
+          "same_as_digit": false
+        },
+        "hyphen-minus": {
+          "char": "-",
+          "codepoint": "U+002D",
+          "present": true,
+          "advance_units": 886,
+          "advance_em": 0.4326,
+          "vs_digit": 0.726,
+          "same_as_digit": false
+        },
+        "rightwards arrow": {
+          "char": "→",
+          "codepoint": "U+2192",
+          "present": true,
+          "advance_units": 1870,
+          "advance_em": 0.9131,
+          "vs_digit": 1.533,
+          "same_as_digit": false
+        },
+        "tilde": {
+          "char": "~",
+          "codepoint": "U+007E",
+          "present": true,
+          "advance_units": 1284,
+          "advance_em": 0.627,
+          "vs_digit": 1.052,
+          "same_as_digit": false
+        },
+        "middle dot": {
+          "char": "·",
+          "codepoint": "U+00B7",
+          "present": true,
+          "advance_units": 520,
+          "advance_em": 0.2539,
+          "vs_digit": 0.426,
+          "same_as_digit": false
+        },
+        "solidus": {
+          "char": "/",
+          "codepoint": "U+002F",
+          "present": true,
+          "advance_units": 684,
+          "advance_em": 0.334,
+          "vs_digit": 0.561,
+          "same_as_digit": false
+        },
+        "full stop": {
+          "char": ".",
+          "codepoint": "U+002E",
+          "present": true,
+          "advance_units": 520,
+          "advance_em": 0.2539,
+          "vs_digit": 0.426,
+          "same_as_digit": false
+        },
+        "space": {
+          "char": " ",
+          "codepoint": "U+0020",
+          "present": true,
+          "advance_units": 514,
+          "advance_em": 0.251,
+          "vs_digit": 0.421,
+          "same_as_digit": false
+        }
+      },
+      "hangul": {
+        "이": {
+          "present": true,
+          "advance_units": 1770,
+          "ink_w": 1400,
+          "ink_h": 1782,
+          "ink_h_em": 0.8701
+        },
+        "고": {
+          "present": true,
+          "advance_units": 1770,
+          "ink_w": 1620,
+          "ink_h": 1346,
+          "ink_h_em": 0.6572
+        },
+        "산": {
+          "present": true,
+          "advance_units": 1770,
+          "ink_w": 1664,
+          "ink_h": 1740,
+          "ink_h_em": 0.8496
+        },
+        "불": {
+          "present": true,
+          "advance_units": 1770,
+          "ink_w": 1620,
+          "ink_h": 1728,
+          "ink_h_em": 0.8438
+        },
+        "칠": {
+          "present": true,
+          "advance_units": 1770,
+          "ink_w": 1500,
+          "ink_h": 1770,
+          "ink_h_em": 0.8643
+        },
+        "될": {
+          "present": true,
+          "advance_units": 1770,
+          "ink_w": 1522,
+          "ink_h": 1756,
+          "ink_h_em": 0.8574
+        },
+        "뚫": {
+          "present": true,
+          "advance_units": 1770,
+          "ink_w": 1620,
+          "ink_h": 1708,
+          "ink_h_em": 0.834
+        },
+        "쫓": {
+          "present": true,
+          "advance_units": 1770,
+          "ink_w": 1626,
+          "ink_h": 1724,
+          "ink_h_em": 0.8418
+        }
+      },
+      "hangul_present": 8,
+      "hangul_probes": 8,
+      "mean_hangul_ink_h_em": 0.8273,
+      "hangul_ink_px_at_13": 10.75
+    },
+    {
+      "file": "Pretendard-SemiBold.ttf",
+      "bytes": 2670712,
+      "kib": 2608.1,
+      "units_per_em": 2048,
+      "x_height_units": 1086,
+      "x_height_em": 0.5303,
+      "cap_height_units": 1448,
+      "cap_height_em": 0.707,
+      "x_height_px_at_13": 6.89,
+      "n_glyphs": 14716,
+      "digits_uniform_width": false,
+      "digit_advance_units": 1308,
+      "widths": {
+        "digit zero": {
+          "char": "0",
+          "codepoint": "U+0030",
+          "present": true,
+          "advance_units": 1308,
+          "advance_em": 0.6387,
+          "vs_digit": 1.0,
+          "same_as_digit": true
+        },
+        "digit one": {
+          "char": "1",
+          "codepoint": "U+0031",
+          "present": true,
+          "advance_units": 940,
+          "advance_em": 0.459,
+          "vs_digit": 0.719,
+          "same_as_digit": false
+        },
+        "digit eight": {
+          "char": "8",
+          "codepoint": "U+0038",
+          "present": true,
+          "advance_units": 1292,
+          "advance_em": 0.6309,
+          "vs_digit": 0.988,
+          "same_as_digit": false
+        },
+        "EM dash": {
+          "char": "—",
+          "codepoint": "U+2014",
+          "present": true,
+          "advance_units": 1972,
+          "advance_em": 0.9629,
+          "vs_digit": 1.508,
+          "same_as_digit": false
+        },
+        "EN dash": {
+          "char": "–",
+          "codepoint": "U+2013",
+          "present": true,
+          "advance_units": 976,
+          "advance_em": 0.4766,
+          "vs_digit": 0.746,
+          "same_as_digit": false
+        },
+        "hyphen-minus": {
+          "char": "-",
+          "codepoint": "U+002D",
+          "present": true,
+          "advance_units": 908,
+          "advance_em": 0.4434,
+          "vs_digit": 0.694,
+          "same_as_digit": false
+        },
+        "rightwards arrow": {
+          "char": "→",
+          "codepoint": "U+2192",
+          "present": true,
+          "advance_units": 1882,
+          "advance_em": 0.9189,
+          "vs_digit": 1.439,
+          "same_as_digit": false
+        },
+        "tilde": {
+          "char": "~",
+          "codepoint": "U+007E",
+          "present": true,
+          "advance_units": 1320,
+          "advance_em": 0.6445,
+          "vs_digit": 1.009,
+          "same_as_digit": false
+        },
+        "middle dot": {
+          "char": "·",
+          "codepoint": "U+00B7",
+          "present": true,
+          "advance_units": 558,
+          "advance_em": 0.2725,
+          "vs_digit": 0.427,
+          "same_as_digit": false
+        },
+        "solidus": {
+          "char": "/",
+          "codepoint": "U+002F",
+          "present": true,
+          "advance_units": 734,
+          "advance_em": 0.3584,
+          "vs_digit": 0.561,
+          "same_as_digit": false
+        },
+        "full stop": {
+          "char": ".",
+          "codepoint": "U+002E",
+          "present": true,
+          "advance_units": 558,
+          "advance_em": 0.2725,
+          "vs_digit": 0.427,
+          "same_as_digit": false
+        },
+        "space": {
+          "char": " ",
+          "codepoint": "U+0020",
+          "present": true,
+          "advance_units": 486,
+          "advance_em": 0.2373,
+          "vs_digit": 0.372,
+          "same_as_digit": false
+        }
+      },
+      "hangul": {
+        "이": {
+          "present": true,
+          "advance_units": 1770,
+          "ink_w": 1446,
+          "ink_h": 1810,
+          "ink_h_em": 0.8838
+        },
+        "고": {
+          "present": true,
+          "advance_units": 1770,
+          "ink_w": 1648,
+          "ink_h": 1408,
+          "ink_h_em": 0.6875
+        },
+        "산": {
+          "present": true,
+          "advance_units": 1770,
+          "ink_w": 1700,
+          "ink_h": 1772,
+          "ink_h_em": 0.8652
+        },
+        "불": {
+          "present": true,
+          "advance_units": 1770,
+          "ink_w": 1648,
+          "ink_h": 1764,
+          "ink_h_em": 0.8613
+        },
+        "칠": {
+          "present": true,
+          "advance_units": 1770,
+          "ink_w": 1538,
+          "ink_h": 1802,
+          "ink_h_em": 0.8799
+        },
+        "될": {
+          "present": true,
+          "advance_units": 1770,
+          "ink_w": 1552,
+          "ink_h": 1790,
+          "ink_h_em": 0.874
+        },
+        "뚫": {
+          "present": true,
+          "advance_units": 1770,
+          "ink_w": 1648,
+          "ink_h": 1746,
+          "ink_h_em": 0.8525
+        },
+        "쫓": {
+          "present": true,
+          "advance_units": 1770,
+          "ink_w": 1648,
+          "ink_h": 1754,
+          "ink_h_em": 0.8564
+        }
+      },
+      "hangul_present": 8,
+      "hangul_probes": 8,
+      "mean_hangul_ink_h_em": 0.8451,
+      "hangul_ink_px_at_13": 10.99
+    }
+  ],
+  "verdict": {
+    "notes": [
+      "IBMPlexMono-Regular.ttf: rightwards arrow (U+2192) is ABSENT — it would render as tofu or fall back to another face mid-line.",
+      "IBMPlexMono-SemiBold.ttf: rightwards arrow (U+2192) is ABSENT — it would render as tofu or fall back to another face mid-line.",
+      "IBMPlexSansKR-Regular.ttf: rightwards arrow (U+2192) is ABSENT — it would render as tofu or fall back to another face mid-line.",
+      "IBMPlexSansKR-Regular.ttf: EM dash is 1.3x a digit's width, so putting it INSIDE a numeric column shifts that row.",
+      "IBMPlexSansKR-Regular.ttf: EN dash is 0.98x a digit's width, so putting it INSIDE a numeric column shifts that row.",
+      "IBMPlexSansKR-SemiBold.ttf: rightwards arrow (U+2192) is ABSENT — it would render as tofu or fall back to another face mid-line.",
+      "IBMPlexSansKR-SemiBold.ttf: EM dash is 1.3x a digit's width, so putting it INSIDE a numeric column shifts that row.",
+      "IBMPlexSansKR-SemiBold.ttf: EN dash is 0.98x a digit's width, so putting it INSIDE a numeric column shifts that row.",
+      "Pretendard-Regular.ttf: digits do NOT share an advance width by default; the screen must set font-variant-numeric: tabular-nums and it must be verified in the browser, not assumed.",
+      "Pretendard-Regular.ttf: rightwards arrow is 1.533x a digit's width, so putting it INSIDE a numeric column shifts that row.",
+      "Pretendard-Regular.ttf: tilde is 1.052x a digit's width, so putting it INSIDE a numeric column shifts that row.",
+      "Pretendard-Regular.ttf: EM dash is 1.607x a digit's width, so putting it INSIDE a numeric column shifts that row.",
+      "Pretendard-Regular.ttf: EN dash is 0.79x a digit's width, so putting it INSIDE a numeric column shifts that row.",
+      "Pretendard-SemiBold.ttf: digits do NOT share an advance width by default; the screen must set font-variant-numeric: tabular-nums and it must be verified in the browser, not assumed.",
+      "Pretendard-SemiBold.ttf: rightwards arrow is 1.439x a digit's width, so putting it INSIDE a numeric column shifts that row.",
+      "Pretendard-SemiBold.ttf: EM dash is 1.508x a digit's width, so putting it INSIDE a numeric column shifts that row.",
+      "Pretendard-SemiBold.ttf: EN dash is 0.746x a digit's width, so putting it INSIDE a numeric column shifts that row."
+    ],
+    "rule": "A glyph whose advance differs from a digit's is safe in PROSE and unsafe INSIDE a tabular-nums column. Splitting the column (Before / After) avoids the question entirely, which is why that is the table rule regardless of what these numbers say.",
+    "not_settled_by_metrics": [
+      "Which face is more legible at 13 px when actually rendered and actually looked at. Metrics rank; they do not adjudicate a close call.",
+      "Hinting and rasterisation differences between platforms."
+    ]
+  },
+  "probe_chars": {
+    "digit zero": "U+0030",
+    "digit one": "U+0031",
+    "digit eight": "U+0038",
+    "EM dash": "U+2014",
+    "EN dash": "U+2013",
+    "hyphen-minus": "U+002D",
+    "rightwards arrow": "U+2192",
+    "tilde": "U+007E",
+    "middle dot": "U+00B7",
+    "solidus": "U+002F",
+    "full stop": "U+002E",
+    "space": "U+0020"
+  },
+  "hangul_probes": [
+    "이",
+    "고",
+    "산",
+    "불",
+    "칠",
+    "될",
+    "뚫",
+    "쫓"
+  ],
+  "rendered": "/private/tmp/claude-501/-Users-jp-Desktop-Korea-Code-Fair/2bdba79a-bb2c-41d8-918d-af3a267efb18/scratchpad/font_compare_13px.png"
+}

@@ -151,19 +151,17 @@ def test_a_self_contained_page_passes():
 # ---------------------------------------------------------------------------
 
 
-#: ⚠ A KNOWN, UNFIXED DEFECT — recorded so it cannot be forgotten, not excused.
+#: Empty, and it is meant to stay empty.
 #:
-#: `demo/wildfire_demo.html` pulls IBM Plex Sans KR and IBM Plex Mono from
-#: Google Fonts at load time: two preconnects and one stylesheet. In a hall with
-#: no network — which is the situation the whole offline design exists for — the
-#: page renders in a fallback face, and Korean text is exactly what a fallback
-#: face handles worst.
+#: `demo/wildfire_demo.html` used to pull IBM Plex Sans KR and Mono from Google
+#: Fonts — two preconnects and a stylesheet. In a hall with no network the page
+#: fell back to a system face, and a fallback face is worst at exactly what that
+#: page is full of. PHASE 21 vendored the fonts (web/assets/fonts/, SIL OFL,
+#: subset to KS X 1001) and the three requests are gone.
 #:
-#: It is pinned rather than fixed here because fixing it means vendoring a font
-#: (a new binary asset and a licence decision) and editing a committed demo
-#: page. Both are the owner's calls. `demo/operator_screen.html`, the PHASE-8
-#: screen, is already clean and stays hard-asserted.
-KNOWN_OFFLINE_VIOLATIONS: dict[str, int] = {"wildfire_demo.html": 3}
+#: Anything added here is a screen that reaches the network. There should never
+#: be one.
+KNOWN_OFFLINE_VIOLATIONS: dict[str, int] = {}
 
 
 @pytest.mark.skipif(not SHIPPED_SCREENS, reason="no demo HTML in the tree")
@@ -239,14 +237,94 @@ def test_the_report_says_out_loud_what_it_could_not_measure():
         "contrast passing must never be read as 'colour alone is enough'")
 
 
-def test_no_font_is_vendored_yet_so_the_glyph_claim_stays_unproven():
-    skip = {".git", ".venv", "venv", "node_modules", "__pycache__",
-            "site-packages"}
-    fonts = [p for p in REPO.rglob("*")
-             if p.suffix.lower() in (".woff", ".woff2", ".ttf", ".otf")
-             and not skip & set(p.parts)]
-    if fonts:
-        pytest.fail(
-            f"a font is now vendored ({[f.name for f in fonts][:3]}) — measure "
-            "the arrow/tilde advance widths against a digit and delete this "
-            "test, because the assumption it guards is now checkable")
+def test_the_vendored_faces_are_present_and_licensed():
+    """PHASE 21 vendored them, so the assumption became a measurement."""
+    d = REPO / "web" / "assets" / "fonts"
+    if not d.exists():
+        pytest.skip("no fonts vendored")
+    assert list(d.glob("*.woff2")), "no web fonts in web/assets/fonts"
+    licences = list(d.glob("LICENSE-*"))
+    assert len(licences) >= 2, (
+        f"vendored fonts without their licences: {[q.name for q in licences]} — "
+        "both faces are SIL OFL and the licence must travel with the binary")
+    for lic in licences:
+        assert "SIL OPEN FONT LICENSE" in lic.read_text(encoding="utf-8").upper()
+
+
+def _face(name: str):
+    from fontTools.ttLib import TTFont
+    p = REPO / "web" / "assets" / "fonts" / name
+    if not p.exists():
+        pytest.skip(f"{name} not vendored")
+    return TTFont(str(p), lazy=False)
+
+
+def _advance(font, ch: str):
+    cmap = {}
+    for t in font["cmap"].tables:
+        if t.isUnicode():
+            cmap.update(t.cmap)
+    g = cmap.get(ord(ch))
+    return None if g is None else font["hmtx"][g][0]
+
+
+def test_the_digits_of_the_shipped_face_share_an_advance_width():
+    """IBM Plex's figures are tabular by default — measured, not assumed."""
+    f = _face("IBMPlexSansKR-Regular.woff2")
+    widths = {d: _advance(f, d) for d in "0123456789"}
+    assert None not in widths.values()
+    assert len(set(widths.values())) == 1, (
+        f"digits are not uniform: {widths} — the screen would need "
+        "font-variant-numeric: tabular-nums and it would have to be verified")
+
+
+def test_the_banned_dashes_are_not_even_in_the_shipped_subset():
+    """Better than a rule: the shipped face cannot render them at all.
+
+    The subset was built from Latin + KS X 1001 + the punctuation this project
+    actually uses, and the EM and EN dash were deliberately left out. A stray
+    dash therefore renders as tofu — loudly, in front of everyone — instead of
+    quietly nudging a numeric column out of line.
+
+    The width justification for banning them was measured on the FULL faces and
+    is recorded in docs/font_measurement.json: EM dash 1.30x a digit in IBM Plex
+    Sans KR and 1.61x in Pretendard.
+    """
+    f = _face("IBMPlexSansKR-Regular.woff2")
+    for ch, name in (("\u2014", "EM dash"), ("\u2013", "EN dash")):
+        assert _advance(f, ch) is None, (
+            f"{name} is now IN the shipped subset — either it was added back on "
+            "purpose, in which case re-argue the ban, or the subset character "
+            "set drifted")
+
+
+def test_the_tilde_is_exactly_a_digit_wide_so_a_range_is_column_safe():
+    for name in ("IBMPlexSansKR-Regular.woff2", "IBMPlexMono-Regular.woff2"):
+        f = _face(name)
+        assert _advance(f, "~") == _advance(f, "0"), (
+            f"{name}: tilde is no longer digit-width; 125~530 would shift its "
+            "row inside a numeric column")
+
+
+def test_the_arrow_is_absent_from_plex_and_is_why_a_subset_face_is_shipped():
+    """The measured fact the CSS depends on. If it changes, drop the subset."""
+    for name in ("IBMPlexSansKR-Regular.woff2", "IBMPlexMono-Regular.woff2"):
+        assert _advance(_face(name), "\u2192") is None, (
+            f"{name} now has U+2192 — delete Pretendard-arrow.subset.woff2 and "
+            "the @font-face that borrows it, because it is no longer needed")
+    arrow = _face("Pretendard-arrow.subset.woff2")
+    assert _advance(arrow, "\u2192") is not None, (
+        "the borrowed-arrow face does not contain the arrow it exists for")
+
+
+def test_the_arrow_is_wider_than_a_digit_so_it_stays_out_of_numeric_columns():
+    """Why the table rule is 'split the column', not 'use an arrow'."""
+    arrow = _advance(_face("Pretendard-arrow.subset.woff2"), "\u2192")
+    digit = _advance(_face("IBMPlexSansKR-Regular.woff2"), "0")
+    plex_upem = _face("IBMPlexSansKR-Regular.woff2")["head"].unitsPerEm
+    pret_upem = _face("Pretendard-arrow.subset.woff2")["head"].unitsPerEm
+    arrow_em, digit_em = arrow / pret_upem, digit / plex_upem
+    assert arrow_em > digit_em, (
+        f"arrow {arrow_em:.3f} em vs digit {digit_em:.3f} em — the arrow is "
+        "safe in PROSE and unsafe inside a tabular-nums column, which is why "
+        "tables split into Before / After columns instead")
