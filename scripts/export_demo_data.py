@@ -1,6 +1,40 @@
 #!/usr/bin/env python
 """Export the WildfireGuardian demo data bundle from COMMITTED artifacts only.
 
+⚠⚠ THIS EXPORT IS ON THE PRE-CANONICAL LINEAGE. DO NOT CITE OR DEMONSTRATE
+    ``demo/wildfire_demo.html`` UNTIL IT HAS BEEN RE-EXPORTED. (Recorded
+    2026-08-06; re-export is sequenced AFTER the operator dashboard, because
+    doing it first would mean doing it twice.)
+
+    The routing figures on that page come from here, and here reads:
+
+        routing_demo.json     ->  the routing headline and its scan counts
+        routing_demo.npz      ->  the S0-S3 geometry
+        rescue_routing.json   ->  the 439 series
+        spread_v2_lofo.json   ->  the model metrics
+
+    ``routing_demo.json`` and ``routing_demo.npz`` are the **pre-canonical**
+    artifacts. ``HANDOFF_ROUND3.md`` §2-A: the npz is the surviving output of a
+    run that was REVERTED the next day, and the canonical lineage is
+    ``routing_demo_canonical.npz`` / ``real_roads_real_hazard_canonical.json``.
+    Rule 20 forbids presenting the two as versions of the same thing.
+
+    So the page is not WRONG in the sense of carrying a HARD-forbidden figure —
+    it shows none of 0.867 / 440-17-3 / 3.70 %, and it labels its own hazard and
+    terrain as SYNTHETIC. It is wrong in the sense that matters for a final:
+    **it shows a superseded lineage**, and the canonical numbers a judge would
+    hear spoken (458 / 414 / 42 / 2, 9.17 %) do not appear on it at all.
+
+    ⚠ ``make check-forbidden`` will NOT catch this. Its retired-number rules
+    apply to authored prose (``.md``) only, so a generated ``.html`` carrying a
+    retired figure passes silently. See ``docs/forbidden_check_scope.md`` §"The
+    gap this scope leaves".
+
+    Re-exporting means pointing the routing block at the canonical artifacts and
+    rebuilding the page through ``scripts/build_demo_html.py``. It is a
+    deliberate act with a visible diff, not a tidy-up.
+
+
 This script READS committed pipeline outputs under ``data/processed/`` and writes
 a single self-contained ``data/processed/demo_data.json`` that the offline demo
 (``demo/wildfire_demo.html``) inlines. It invents nothing: every figure that will

@@ -164,10 +164,17 @@ it, so it is not an error anyone should go hunting for.
 
 ### 3.2 Progress — what an operator sees during the 27 seconds
 
+⚠ The routing stage's weight collides, digit for digit, with a HARD-forbidden
+retired AUC from the pre-correction Build A. It is not that number and has
+nothing to do with it: it is a share of wall clock, measured in STEP 0, and it
+lives in `progress.py` as a `StageSpec.weight`. The row below carries a
+`forbidden-ok` pragma for exactly that reason. Worth knowing, because a
+collision like this is precisely what makes someone "fix" a correct value.
+
 | stage | weight | unit |
 |---|---:|---|
 | 자원 적재 — 위험면·보행망·대피 POI | 0.118 | 단계 |
-| **경로 산출 — 출발지별 대피소 탐색** | **0.867** | **출발지** |
+| **경로 산출 — 출발지별 대피소 탐색** | **0.867** | **출발지** | <!-- forbidden-ok: 0.867 -->
 | 마을 군집화 | 0.003 | 지점 |
 | 전달물 생성 — A4·마을방송·SMS | 0.011 | 마을 |
 | 기록 작성 — RUN.json·viz.json | 0.001 | 파일 |

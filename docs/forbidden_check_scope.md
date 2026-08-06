@@ -96,3 +96,43 @@ still reports every later mention. That is a deliberate conservatism, not an
 oversight: document-level trust is what let a superseded number drift into a
 submission in the first place. Those mentions are reported and reviewed rather
 than auto-excused.
+
+## The gap this scope leaves
+
+Recorded 2026-08-06. **Not fixed** — widening the rules would flag a large body
+of existing generated assets at once, and deciding what to do with each of them
+is a separate judgement.
+
+Retired-number rules apply to `.md` only. That was reasoned deliberately (above:
+"a retired number is misleading exactly when it reads as a CURRENT CLAIM, and
+claims live in prose"). But the reasoning has a seam, and the seam is now load
+bearing:
+
+> **A generated `.html` demonstration screen is not a record. It is a claim,
+> made to a judge, in a room.**
+
+`demo/wildfire_demo.html` is the case that exposed it. It inlines
+`data/processed/demo_data.json`, whose routing block is exported from
+`routing_demo.json` / `routing_demo.npz` — the **pre-canonical** lineage
+(`HANDOFF_ROUND3.md` §2-A). The scan passes it without a word, because it is
+`.html`, while a `.md` file containing the same figures would be stopped.
+
+It carries no HARD-forbidden value today, so nothing is currently mis-stated.
+What it does carry is a superseded lineage: the canonical figures a presenter
+would say out loud — 458 / 414 / 42 / 2, 9.17 % — appear nowhere on it.
+
+⚠ **Until that page is re-exported, do not cite it and do not demonstrate from
+it.** The provenance is recorded at the top of `scripts/export_demo_data.py`.
+Re-export is sequenced after the operator dashboard, deliberately: doing it
+first would mean doing it twice.
+
+Two ways to close the gap when someone decides to:
+
+1. Extend `is_authored_prose` to generated screens under `demo/`. Cheap, and it
+   will report a batch of existing assets that then need individual decisions.
+2. Check the DATA a screen inlines rather than the screen — `demo_data.json`
+   already carries a `source` string per figure, so a rule could assert those
+   sources name canonical artifacts. Narrower, and it catches the real failure
+   (wrong lineage) rather than the symptom (a digit in a blob of HTML).
+
+The second is the better shape. Neither is done.
