@@ -143,6 +143,40 @@ def create_app(*, runner: JobRunner | None = None,
     def regions() -> JSONResponse:
         return _payload({"regions": region_catalogue()}, where="GET /api/regions")
 
+    @app.get("/api/regions/{region}/locate")
+    def locate(region: str, x: float, y: float) -> JSONResponse:
+        """EPSG:5179 metres in, WGS84 degrees and the gate verdict out.
+
+        ⚠ THE GEODESY LIVES HERE, NOT IN THE PAGE. The console knows how to turn
+        a click into its own viewBox coordinates and then into projected metres,
+        because that is arithmetic on numbers it was handed at build time. Going
+        from metres to degrees is a projection, and doing it in JavaScript would
+        mean vendoring a projection library and trusting it to agree with the
+        pyproj transformer every committed coordinate was produced by. One
+        transformer, server-side, is the only way those cannot diverge.
+
+        Returns the gate verdict in the same payload, so a click costs one round
+        trip rather than two.
+        """
+        try:
+            from pyproj import Transformer
+            to4326 = Transformer.from_crs("EPSG:5179", "EPSG:4326",
+                                          always_xy=True)
+            lon, lat = to4326.transform(float(x), float(y))
+            verdict = region_gate(region, lat, lon)
+        except HTTPException:
+            raise
+        except Exception as exc:
+            raise HTTPException(404, f"unknown region: {region}") from exc
+        return _payload({
+            "x_5179": float(x), "y_5179": float(y),
+            "lon": lon, "lat": lat,
+            **verdict,
+            "hazard_field_note_ko": (
+                f"위험면은 {region}의 사전 계산 결과이며 클릭 좌표로 "
+                "재생성되지 않습니다."),
+        }, where="GET /api/regions/{region}/locate")
+
     @app.get("/api/regions/{region}/gate")
     def gate(region: str, lat: float, lon: float) -> JSONResponse:
         try:

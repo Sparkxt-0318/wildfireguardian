@@ -306,3 +306,57 @@ def test_the_service_package_still_imports_no_web_framework():
 def test_static_mount_does_not_shadow_the_api(client):
     """The web root is mounted at / and must lose to /api on every path."""
     assert client.get("/api/regions").status_code == 200
+
+
+# ---------------------------------------------------------------------------
+# 4. Map-click ignition: the geodesy stays server-side
+# ---------------------------------------------------------------------------
+
+
+def test_locate_unprojects_and_gates_in_one_round_trip(client):
+    """A click costs one request, not two, and the page does no projection."""
+    from pyproj import Transformer
+    to5179 = Transformer.from_crs("EPSG:4326", "EPSG:5179", always_xy=True)
+    w, s, e, n = _routing.walk_bbox("yeongdeok_2025")
+    lon, lat = (w + e) / 2, (s + n) / 2
+    x, y = to5179.transform(lon, lat)
+    d = client.get(f"/api/regions/yeongdeok_2025/locate?x={x:.2f}&y={y:.2f}").json()
+    assert d["inside_registered_region"] is True
+    assert d["lon"] == pytest.approx(lon, abs=1e-6)
+    assert d["lat"] == pytest.approx(lat, abs=1e-6)
+    assert "재생성되지 않습니다" in d["hazard_field_note_ko"]
+
+
+def test_the_locate_round_trip_is_exact_to_the_centimetre(client):
+    """Measured, not assumed. The only loss is the 2-decimal metre in the URL."""
+    from pyproj import Geod, Transformer
+    to5179 = Transformer.from_crs("EPSG:4326", "EPSG:5179", always_xy=True)
+    geod = Geod(ellps="WGS84")
+    for lon, lat in ((129.3696, 36.4436), (129.40, 36.45), (129.26, 36.31)):
+        x, y = to5179.transform(lon, lat)
+        d = client.get(
+            f"/api/regions/yeongdeok_2025/locate?x={x:.2f}&y={y:.2f}").json()
+        _a, _b, err_m = geod.inv(lon, lat, d["lon"], d["lat"])
+        assert err_m < 0.05, f"{lon},{lat} round-tripped {err_m*100:.2f} cm out"
+
+
+def test_a_click_outside_the_region_is_refused_with_the_services_sentence(client):
+    """Refused, and refused in words the service owns — not composed here."""
+    from pyproj import Transformer
+    to5179 = Transformer.from_crs("EPSG:4326", "EPSG:5179", always_xy=True)
+    x, y = to5179.transform(129.20, 35.60)          # far south, outside the grid
+    d = client.get(f"/api/regions/yeongdeok_2025/locate?x={x:.2f}&y={y:.2f}").json()
+    assert d["inside_registered_region"] is False
+    assert "없는 근거를 만들어내는" in d["reason_ko"]
+
+
+def test_locate_carries_no_external_url(client):
+    from pyproj import Transformer
+    x, y = Transformer.from_crs("EPSG:4326", "EPSG:5179",
+                                always_xy=True).transform(129.40, 36.45)
+    d = client.get(f"/api/regions/yeongdeok_2025/locate?x={x:.1f}&y={y:.1f}").json()
+    assert find_external_refs(d) == []
+
+
+def test_locate_on_an_unknown_region_is_404(client):
+    assert client.get("/api/regions/nowhere_2099/locate?x=1&y=1").status_code == 404
