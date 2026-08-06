@@ -12,7 +12,7 @@ Both were investigated and deliberately stopped.**
 | baseline tag | **`round2-submitted`** = `4e9dfe3` — the submitted state |
 | environment | conda env **`wfg311`**, Python 3.11.15 — see [`ENVIRONMENT.md`](ENVIRONMENT.md) |
 | suite | **743 passed, 2 skipped, 0 failed** (was 544; PHASE 6 +44, PHASE 7 +47, PHASE 8 +66, PHASE 12 +21, PHASE 13 +21) |
-| registry | [`NUMBERS.json`](NUMBERS.json) — **122 entries, 106 reproducible** (PHASE 13 registered the 15 OSM-completeness covariates that §5 rule 12 names) |
+| registry | [`NUMBERS.json`](NUMBERS.json) — **136 entries, 120 reproducible** (PHASE 13 registered the 15 OSM-completeness covariates that §5 rule 12 names) |
 | OSM regions | 3 acquired + snapshotted (`MANIFEST.json`, 68 entries — 64 + 4 FIRMS NRT polls) |
 | config hash | `8e29a6cc4a99…` — moved from `05c6feae1dff…` by PURE ADDITION (the PHASE-13 `fuel:` block; a rebuild moved **0** registered values). Earlier lineage below. Superseded text: `05c6feae1dff…` — moved from `faf90a81b7e6…` by PURE ADDITION (the PHASE-6 `live:` block; no existing value changed, and re-running `build_numbers.py` moved **only** the per-entry `config_hash` stamp, 0 values). Earlier lineage: `0b6eb481177a…` → `51ec446843b6…` at `cc41f12`. `NUMBERS.json.config_hash_note` records why this is expected. |
 
@@ -83,6 +83,57 @@ single-file offline screen for the demonstration.
 
 PHASES 9–11 were not defined; the numbering jumps to 12 as the brief did.
 
+### 1.2-b PHASES 19–21 — the service layer, the one safe optimisation, the gates
+
+| PHASE | State | What it produced |
+|---|---|---|
+| **19 — service layer** | done | `src/wildfireguardian/service/` (7 modules, 2,109 lines): frozen request params, osmnx/numpy global guards, six-stage progress, per-region resource cache, an async job model with cancellation. `tests/test_service_layer.py` (1,101 lines), `scripts/measure_service_layer.py`, [`service_layer.md`](service_layer.md) |
+| **20 — routing cost** | done | the per-origin hazard table hoisted out of the scan loop. **Routing 26.5 s → 10.9 s**, warm trigger→list 26.9 s → 11.1 s, cold coordinate→list 29.6 s → 13.8 s |
+| **21 — screen gates** | partly | three gates + fonts vendored + CDN removed + palette at AA. **The dashboard screen itself is NOT built.** |
+
+**PHASE 19.** No web server, by design and by test — the package is asserted to
+import no HTTP framework. `run_live_detection.run_trigger` is now a printing
+console around `service.routing.run_trigger_core`, so FIRMS, replay and manual
+converge on one function rather than on an agreement between three. Two
+concurrent requests are safe (shared read-only resources, per-job directories)
+but not faster: threads, GIL, measured at 43.5 s each against 22 s alone.
+Cancellation reaches a running scan, stops in **0.060 s**, and leaves **no
+artifact** because routing precedes every write.
+
+**PHASE 20.** The time-expanded hazard table is a pure function of the network,
+the hazard, the departure time, the budget and the step — `start` never enters
+it — so a 458-origin scan was building the same array 458 times. Now built once
+per scan. ⚠ Allowed **because** it is memoisation of a pure function: every
+origin is handed the identical object, so the answer cannot move. Regression run
+against a pre-PHASE-19 worktree: **6/6 zero-difference** (459 × 3 regions, 439,
+building sample, dispatch list, all three delivery formats). Applies to the
+SERVICE path only; the batch runners keep their own `classify()` loops and still
+take ~25–28 s per arm.
+
+**PHASE 21, done.** Three gates in `scripts/check_screen_assets.py`, wired into
+the suite (`tests/test_screen_checks.py`): offline (0 external requests), dashes
+(no EM/EN in visible text **or** on a line that writes to the DOM), WCAG
+contrast. They immediately found three real defects: `wildfire_demo.html` was
+fetching IBM Plex from Google Fonts; `#64748b` measured 3.46:1 against a 4.5:1
+bar; and seven EM/EN dashes, four of which the first version of the gate itself
+missed because they were set from JavaScript. Fonts are now vendored under
+`web/assets/fonts/` (SIL OFL, licences committed), subset to KS X 1001's 2,350
+syllables — derived from the EUC-KR wansung byte range, not typed from a list —
+at 505 KiB → 214 KiB. `#64748b` → `#7c8ba1` (4.75:1). Both screens pass all
+three gates.
+
+⚠ **The font choice was decided by measurement and it went against the
+expectation.** IBM Plex Sans KR beats Pretendard on Hangul ink height at 13 px
+(11.36 px vs 10.75 px), has uniform digit advances by default, and subsets
+smaller — but has **no U+2192**, nor any arrow at all. A 1.3 KiB three-glyph
+Pretendard subset is bound by `unicode-range` to U+2192/2191/2193 and the
+fallback was verified by rendering, not assumed. `docs/font_measurement.json`.
+
+**PHASE 21, NOT done: the dashboard screen.** Nothing has been built. What
+exists is `demo/operator_screen.html` (PHASE 8, replay-only, no solver) and the
+service layer underneath. There is no transport.
+
+
 ### 1.3 The numbers that are new in Round 3
 
 Nothing here existed at `round2-submitted`. **Every absolute Yeongdeok figure
@@ -127,6 +178,28 @@ village count, ~2.7 s per sheet):
 | **manual coordinate → dispatch list** | **≈ 30 s cold** (29.6 s median of 5), 26.8 s warm |
 | A4 PDF, 29 sheets | +79 s · 65 villages +175 s |
 | operator screen, full replay at 60× | 12.4 min (12.0 with `--skip-preroll`) |
+
+⚠ **PHASE 20 (2026-08-06) more than halved the routing line — for the SERVICE
+path only.** The per-origin hazard table in `future_aware_route` is invariant
+across a scan's origins and was being rebuilt 458 times; it is now built once
+(`build_time_expanded_field`). Measured on the same machine, same coordinate,
+before and after:
+
+| | before | after |
+|---|---:|---:|
+| routing, 458 origins | 26.5 s | **10.9 s** |
+| trigger → dispatch list (warm) | 26.9 s | **11.1 s** |
+| manual coordinate → dispatch list (cold) | 29.6 s | **13.8 s** |
+
+The counts, the routes and every delivered format are **bit-identical** — the
+hoist is memoisation of a pure function, and the six-way regression is in
+[`service_layer.md`](service_layer.md) §6.0.
+
+⚠ **The BATCH runners are unchanged and still take ≈ 25–28 s per arm.** They
+carry their own `classify()` loops and call `future_aware_route` with no field.
+The rows above therefore still describe them; only the live/manual/replay path
+is faster. Extending the hoist into the batch runners is a follow-up and needs
+the same gate, because those scripts produce committed numbers.
 
 **What was refuted or corrected**, and is not to be restated:
 
@@ -541,6 +614,44 @@ fire_station이 없으며, 더 넓은 3,926 km² 범위에는 6곳이 있습니�
 
 ---
 
+## 4-B. ⚠ A process failure, recorded because it will recur
+
+Across the PHASE 19–21 sessions, **five separate instructions arrived carrying
+findings, measurements and completed work that did not exist in this
+repository.** Each was approved in good faith as though a prior step had
+produced it. Examples, all verified absent at the time:
+
+| cited as established | what the repository held |
+|---|---|
+| "two service functions were polluting the numpy global seed" | none were. `convergence()`/`spatial_bias()` use `default_rng(seed)`; a measured request leaves the global digest unchanged |
+| a PHASE-20 STEP 0 with options 1(a)/1(b)/3(a)/3(b)/3(c) and "26.6 s → 12.3 s" | no such investigation had been run |
+| "1(a) multi-destination single search" as an optimisation to make | **already implemented** — `naive_route` runs 1.00 Dijkstras per origin, measured |
+| "78 % of the time is the shelter search", "458 × 26 = 11,908 Dijkstra" | 13.5–28.2 % depending on region; ~458 solves, not ~11,908 |
+| a completed PHASE 20 with "6/6 zero-diff", "_pick_best preserved", "20.7 s" | no code changed; no `_pick_best` exists anywhere; `20.7` appeared in no artifact |
+| a STEP -1 with EN-dash width findings, a 34.2 s measurement, a "skill v2" | none existed; the progress model has 6 stages, not 22; `34.2` occurs once, as a latitude |
+
+**Two of these reached the documentation before being caught.** The
+"11,908 Dijkstra / 78 %" figure was written into `service_layer.md` from a
+conversational summary rather than from the code, and had to be retracted in
+place (§5 of that file). That is the failure mode to guard against: a number
+that enters the docs by agreement rather than by measurement looks exactly like
+one that did not.
+
+**The standing rule, set by the user on 2026-08-06:**
+
+> 앞으로 제가 특정 수치나 이전 작업을 인용하면, 저장소에서 확인되지 않는
+> 경우 진행하지 말고 그 사실을 보고하십시오.
+
+So: **before acting on a cited measurement or a cited prior step, check that it
+exists.** `git log`, `grep`, the artifact. If it is not there, say so and stop —
+do not reconstruct it, and do not build on it. Every one of the six rows above
+was caught that way, and the cost of checking was a single grep each time.
+
+⚠ This is not a remark about anyone's care. It is a property of long sessions
+with a summarising context: a plausible number, once spoken, is indistinguishable
+from a measured one unless somebody looks. This project's entire value is that
+its numbers can be looked up. Look them up.
+
 ## 5. ⚠ Never do these
 
 1. **Never push to `Main`.** All work stays on `round3-dev`. Merging is the
@@ -763,6 +874,7 @@ Override the interpreter with `make verify PYTHON=/path/to/python`.
 | [`delivery_channels.md`](delivery_channels.md) | **PHASE 7 — SMS vs email, the approval gate, and the changed safety claim** |
 | [`operator_screen.md`](operator_screen.md) | **PHASE 8 — the two demonstration screens and what each is for** |
 | [`manual_trigger.md`](manual_trigger.md) | **PHASE 12 — the manual ignition trigger and its measured latency** |
+| [`service_layer.md`](service_layer.md) | **PHASE 19 — the service layer (job model, resource cache, progress, cancellation, guards) and PHASE 20 — the one result-invariant optimisation, plus §5.3 the optimisations DELIBERATELY NOT taken and why** |
 | [`weather_dependency.md`](weather_dependency.md) | **PHASE 14 — how much of the model's skill is instantaneous weather, and the ceiling on a forecast-source swap** |
 | [`baseline_phase13.json`](baseline_phase13.json) | **the frozen Korean baseline — every `data/processed` digest, the four PROTECTED paths, the LOFO shape, and the sha256 of the git-ignored `fire_manifest.json`. `make baseline-verify`.** |
 | **§13 of this file** | **PHASE 13 — the portability investigation, the four defects it found, why McKinney 2022, the four-arm design, and the resume condition** |
