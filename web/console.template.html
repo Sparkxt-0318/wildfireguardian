@@ -88,6 +88,14 @@ footer{flex:0 0 auto;border-top:1px solid var(--hair);background:var(--panel)}
 #facts .k{color:var(--ink3);margin-right:7px}
 #standing{padding:6px 16px;background:var(--bg);color:var(--ink2);font-size:12px;
   border-top:1px solid var(--hair)}
+/* The constraint a click MUST not be allowed to hide. #fde047 on #1a1206 is
+   14.2:1 — it is a warning and is meant to be read, not decoration. */
+#hazardnote{padding:6px 16px;background:#1a1206;color:#fde047;font-size:12px;
+  border-top:1px solid var(--hair);font-weight:600}
+#map{cursor:crosshair}
+#reject{position:absolute;left:16px;top:16px;max-width:640px;padding:10px 14px;
+  background:#7f1d1d;color:#fca5a5;border:1px solid #dc2626;border-radius:3px;
+  font-size:13px;line-height:1.5}
 
 @media (prefers-reduced-motion: reduce){
   *{transition:none !important;animation:none !important}
@@ -100,6 +108,7 @@ footer{flex:0 0 auto;border-top:1px solid var(--hair);background:var(--panel)}
   <div><span class="k">지역</span><b id="region"></b></div>
   <div><span class="k">발화점</span><span class="num" id="ign"></span></div>
   <div id="progwrap" hidden><span class="k">진행</span><span id="prog">대기</span></div>
+  <div id="clickwrap" hidden><span class="k">클릭 발화점</span><span class="num" id="clickpt"></span></div>
   <div id="spacer"></div>
   <div>
     <button id="run">라이브 계산 실행</button>
@@ -113,6 +122,7 @@ footer{flex:0 0 auto;border-top:1px solid var(--hair);background:var(--panel)}
     <svg id="svg" preserveAspectRatio="xMidYMid meet"
          role="img" aria-label="영덕 위험 확률장과 출발지 4구분, 대피 경로 2종"></svg>
     <div id="legend"></div>
+    <div id="reject" hidden role="alert"></div>
   </section>
 
   <section id="side">
@@ -140,7 +150,8 @@ footer{flex:0 0 auto;border-top:1px solid var(--hair);background:var(--panel)}
     <div><span class="k">위험면</span><span class="num" id="f-haz"></span></div>
     <div><span class="k">계산</span><span id="f-calc"></span></div>
   </div>
-  <div id="standing"></div>
+  <div id="hazardnote"></div>
+<div id="standing"></div>
 </footer>
 
 <script id="data" type="application/json">/*__DATA__*/</script>
@@ -318,6 +329,11 @@ el('f-weather').textContent = D.honesty.weather;
 el('f-cov').textContent = `${D.honesty.coverage_pct}%`;
 el('f-haz').textContent = `${D.precomputed.hazard_sha256}…`;
 el('standing').textContent = D.honesty.standing;
+// ⚠ Always on screen, not only after a click. A click moves where the ROUTING
+// starts; it does not move the hazard surface, which was simulated once for one
+// fire and is held fixed (ERA5 publishes on a ~5-day lag). Leaving this implicit
+// invites "the prediction starts where I clicked", which is not what happens.
+el('hazardnote').textContent = D.honesty.hazard_fixed;
 function setCalcLabel(text){ el('f-calc').textContent = text; }
 setCalcLabel(`사전 계산 결과 · 실제 계산 ${D.precomputed.warm_total_s}초`);
 // Two passes are not enough: pass 1 renders everything to get a row height,
@@ -336,6 +352,66 @@ function fitRows(){
 }
 fitRows();
 window.addEventListener('resize', fitRows);
+
+// ---- the clicked ignition point ---------------------------------------------
+// The page turns a click into VIEWBOX coordinates (a matrix it already has) and
+// then into projected METRES (arithmetic on the grid extent it was handed at
+// build time). It stops there. Metres to degrees is a PROJECTION, and it is
+// done by the server with the same pyproj transformer every committed
+// coordinate came from — vendoring a JS projection library would mean trusting
+// it to agree, and there would be no way to notice if it did not.
+const gClick = mk('g', {}); svg.appendChild(gClick);
+let CLICK = null;                       // {lon, lat} once a click is accepted
+
+function inverseToMetres(ev){
+  const pt = svg.createSVGPoint();
+  pt.x = ev.clientX; pt.y = ev.clientY;
+  const v = pt.matrixTransform(svg.getScreenCTM().inverse());
+  return {vx: v.x, vy: v.y,
+          x: G.xmin + v.x * SPAN / 1000,
+          y: G.ymax - v.y * SPAN / 1000};
+}
+
+function markClick(vx, vy, ok){
+  gClick.textContent = '';
+  const col = ok ? '#fde047' : '#dc2626';
+  gClick.appendChild(mk('circle', {cx: vx, cy: vy, r: 9, fill: 'none',
+    stroke: col, 'stroke-width': 2.4}));
+  gClick.appendChild(mk('line', {x1: vx - 13, y1: vy, x2: vx + 13, y2: vy,
+    stroke: col, 'stroke-width': 1.4}));
+  gClick.appendChild(mk('line', {x1: vx, y1: vy - 13, x2: vx, y2: vy + 13,
+    stroke: col, 'stroke-width': 1.4}));
+}
+
+function showReject(msg){
+  const r = el('reject'); r.hidden = false; r.textContent = msg;
+}
+function clearReject(){ el('reject').hidden = true; }
+
+svg.addEventListener('click', async (ev) => {
+  const m = inverseToMetres(ev);
+  const inGrid = m.x >= G.xmin && m.x <= G.xmax && m.y >= G.ymin && m.y <= G.ymax;
+  // One round trip: the server unprojects AND answers the gate.
+  const r = await fetch(`/api/regions/${D.region}/locate?x=${m.x.toFixed(2)}&y=${m.y.toFixed(2)}`);
+  if (!r.ok){ markClick(m.vx, m.vy, false); showReject(`좌표 조회 실패 (HTTP ${r.status})`); return; }
+  const d = await r.json();
+  markClick(m.vx, m.vy, d.inside_registered_region);
+  el('clickwrap').hidden = false;
+  el('clickpt').textContent = `${d.lat.toFixed(4)}, ${d.lon.toFixed(4)}`;
+  if (!d.inside_registered_region){
+    CLICK = null;
+    el('run').disabled = true;
+    // The service owns this sentence. The page does not compose operator
+    // wording, and a refusal is SHOWN — a click that did nothing visible reads
+    // as a broken screen, which is worse than a refusal.
+    showReject((inGrid ? '' : '위험면 격자 밖입니다. ') + d.reason_ko);
+    return;
+  }
+  clearReject();
+  CLICK = {lon: d.lon, lat: d.lat};
+  el('run').disabled = false;
+  el('run').textContent = '이 지점에서 라이브 계산';
+});
 
 // ---- live calculation -------------------------------------------------------
 // Same-origin only. This page talks to the process that served it and to
@@ -380,8 +456,10 @@ el('run').addEventListener('click', async () => {
   el('progwrap').hidden = false; el('prog').textContent = '제출 중…';
   const r = await fetch('/api/jobs', {method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({region: D.region, lat: D.live_lat ?? 36.4436,
-                          lon: D.live_lon ?? 129.3696, reported_by: '운영자 콘솔'})});
+    body: JSON.stringify({region: D.region,
+                          lat: CLICK ? CLICK.lat : D.default_latlon[0],
+                          lon: CLICK ? CLICK.lon : D.default_latlon[1],
+                          reported_by: CLICK ? '지도 클릭' : '운영자 콘솔'})});
   if (!r.ok){ stopLive(`제출 거절 (HTTP ${r.status})`); return; }
   JOB = (await r.json()).job_id;
   poll();

@@ -168,7 +168,15 @@ def build_payload(run_dir: Path) -> dict:
             "coverage_note": "보행망 커버리지",
             # NOT typed. FOOTER_LINES[0] is the A4 sheet's constant.
             "standing": FOOTER_LINES[0],
+            # The constraint a map click must not be allowed to hide. Composed
+            # from the region name so it cannot claim the wrong region.
+            "hazard_fixed": (
+                f"⚠ 위험면은 {viz['region']}의 사전 계산 결과이며 클릭 좌표로 "
+                "재생성되지 않습니다. 클릭은 라우팅 출발점만 바꿉니다."),
         },
+        # The coordinate a live run uses when nothing has been clicked: the
+        # field's own t=0 core, so an unclicked run is about THIS fire.
+        "default_latlon": [round(ign_lat, 4), round(ign_lon, 4)],
         "precomputed": {
             "run_id": run["run_id"],
             "warm_total_s": warm,

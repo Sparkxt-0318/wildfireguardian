@@ -141,6 +141,58 @@ Every endpoint, scanned with the same rule the static gate uses:
 
 ---
 
+## 1.9 Map-click ignition (STEP 1 ⓐ)
+
+`GET /api/regions/{region}/locate?x=&y=` takes EPSG:5179 metres and returns
+WGS84 degrees **and** the gate verdict, in one round trip.
+
+⚠ **The geodesy is server-side, and that is the design rather than a
+convenience.** The page turns a click into viewBox coordinates (a matrix it
+already holds) and then into projected metres (arithmetic on the grid extent it
+was handed at build time). It stops there. Metres to degrees is a *projection*,
+and doing it in JavaScript would mean vendoring a projection library and
+trusting it to agree with the pyproj transformer that produced every committed
+coordinate in this repository. One transformer cannot disagree with itself.
+
+**Round-trip accuracy, measured** — known lon/lat → 5179 → viewBox → 5179 →
+lon/lat, where the middle two steps are exactly the arithmetic the page does:
+
+| probe | error |
+|---|---:|
+| PHASE-12 manual-trigger coordinate | **0.000 mm** |
+| hazard-field t=0 core | **0.000 mm** |
+| walk-bbox SW / NE corners | **0.000 mm** |
+| grid centre | **0.000 mm** |
+
+The viewBox step is lossless. Through the live endpoint the error is **≤ 0.54
+cm**, and all of it is the two-decimal metre the console puts in the query
+string. Both are far below the things that actually bound a click: one viewBox
+pixel is **78.0 m**, and the hazard grid's own cell is **500 m**.
+
+**Refusal is explicit, and the sentence is the service's.** A click outside the
+registered walk bbox draws a red crosshair, disables the run button, and shows
+`check_in_region`'s own Korean sentence — with `위험면 격자 밖입니다.` prefixed
+when the click is outside the hazard grid entirely. Verified in a browser: a
+click at 35.2834 N, 129.2587 E produced exactly that.
+
+⚠ A click that did nothing visible would read as a broken screen, which is worse
+than a refusal. Nothing is silently ignored.
+
+**The constraint is on screen permanently**, not only after a click:
+
+> ⚠ 위험면은 yeongdeok_2025의 사전 계산 결과이며 클릭 좌표로 재생성되지
+> 않습니다. 클릭은 라우팅 출발점만 바꿉니다.
+
+A click moves where the routing *starts*. It does not move the hazard surface,
+which was simulated once for one fire and is held fixed because ERA5 publishes
+on a ~5-day lag. Leaving that implicit invites "the prediction starts where I
+clicked", which is not what happens. `#fde047` on `#1a1206` measures 14.06:1 —
+it is a warning and is meant to be read.
+
+**Verified end to end in a browser**, not asserted: click at 36.4907 N,
+129.2856 E → 「이 지점에서 라이브 계산」 → progress → 「완료 · 458개 출발지」,
+라우팅 11.751 s, badge flipped to 라이브 계산 결과.
+
 ## 2. Decisions, and why
 
 **One worker.** Threads do not make two scans faster: the routing is
