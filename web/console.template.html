@@ -1,0 +1,394 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>WildfireGuardian · 운영자 콘솔</title>
+<style>
+/* Vendored, not fetched. web/assets/fonts/, SIL OFL, subset to KS X 1001. */
+@font-face{font-family:'IBM Plex Sans KR';font-weight:400;font-display:block;
+  src:url('assets/fonts/IBMPlexSansKR-Regular.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Sans KR';font-weight:600;font-display:block;
+  src:url('assets/fonts/IBMPlexSansKR-SemiBold.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-weight:400;font-display:block;
+  src:url('assets/fonts/IBMPlexMono-Regular.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-weight:600;font-display:block;
+  src:url('assets/fonts/IBMPlexMono-SemiBold.woff2') format('woff2')}
+/* IBM Plex has no U+2192. Measured, docs/font_measurement.json. */
+@font-face{font-family:'Arrow';font-weight:400;font-display:block;
+  unicode-range:U+2192,U+2191,U+2193;
+  src:url('assets/fonts/Pretendard-arrow.subset.woff2') format('woff2')}
+:root{
+  --bg:#0b0f14; --panel:#16202b; --hair:#1f2a37;
+  --ink:#e8edf2; --ink2:#94a3b8; --ink3:#7c8ba1;
+  --safe:#22d3ee; --need:#f59e0b; --none:#dc2626; --over:#2563eb;
+  --sans:'Arrow','IBM Plex Sans KR',system-ui,sans-serif;
+  --mono:'Arrow','IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:14px;
+  display:flex;flex-direction:column;width:100vw;height:100vh}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+/* ---- status bar ---------------------------------------------------------- */
+header{flex:0 0 auto;height:58px;display:flex;align-items:center;gap:0;
+  border-bottom:1px solid var(--hair);background:var(--panel)}
+header>div{padding:0 18px;height:100%;display:flex;align-items:center;gap:9px;
+  border-right:1px solid var(--hair)}
+header .k{color:var(--ink3);font-size:12px}
+.badge{font-weight:600;font-size:13px;padding:4px 11px;border-radius:3px;
+  background:#1e3a5f;color:#bfdbfe;white-space:nowrap}
+.badge.live{background:#7f1d1d;color:#fca5a5}
+#spacer{flex:1 1 auto;border-right:none}
+button{font-family:var(--sans);font-size:13px;font-weight:600;cursor:pointer;
+  padding:8px 15px;border-radius:3px;border:1px solid #3b82f6;
+  background:#2563eb;color:#fff}
+button.ghost{background:transparent;border-color:#3f5060;color:var(--ink2)}
+button[disabled]{opacity:.4;cursor:not-allowed}
+/* 3:1 minimum against the panel it sits on — #fbbf24 on #16202b is 8.6:1. */
+:focus-visible{outline:3px solid #fbbf24;outline-offset:2px}
+
+/* ---- main ---------------------------------------------------------------- */
+main{flex:1 1 auto;display:flex;min-height:0}
+#map{flex:0 0 62%;position:relative;border-right:1px solid var(--hair)}
+#side{flex:1 1 38%;display:flex;flex-direction:column;min-width:0}
+svg{display:block;width:100%;height:100%}
+
+#legend{position:absolute;left:16px;bottom:16px;background:rgba(11,15,20,.92);
+  border:1px solid var(--hair);border-radius:3px;padding:10px 13px;font-size:12px}
+#legend .r{display:flex;align-items:center;gap:8px;margin:3px 0}
+#legend .sw{width:13px;text-align:center;font-size:11px}
+#bandleg{display:flex;gap:0;margin-top:8px;border-top:1px solid var(--hair);
+  padding-top:8px}
+#bandleg div{padding:2px 7px;font-size:11px}
+
+/* ---- dispatch list ------------------------------------------------------- */
+#sidehead{flex:0 0 auto;padding:11px 16px;border-bottom:1px solid var(--hair);
+  background:var(--panel);display:flex;align-items:baseline;gap:10px}
+#sidehead b{font-size:15px}
+#sidehead span{color:var(--ink3);font-size:12px}
+#tablewrap{flex:1 1 auto;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{position:sticky;top:0;background:var(--panel);color:var(--ink3);
+  font-size:11px;font-weight:600;text-align:left;padding:7px 10px;
+  border-bottom:1px solid var(--hair)}
+tbody td{padding:0 10px;height:19.5px;line-height:19.5px;border-bottom:1px solid #121a22;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:#1a2530}
+tbody tr[aria-selected="true"]{background:#1e3a5f}
+td.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+td.b{width:78px}
+#more{flex:0 0 auto;padding:7px 10px;color:var(--ink3);font-size:12px;
+  border-top:1px solid var(--hair);background:var(--panel)}
+
+/* ---- meta bar ------------------------------------------------------------ */
+footer{flex:0 0 auto;border-top:1px solid var(--hair);background:var(--panel)}
+#facts{display:flex}
+#facts div{padding:7px 16px;border-right:1px solid var(--hair);font-size:12px;
+  white-space:nowrap}
+#facts .k{color:var(--ink3);margin-right:7px}
+#standing{padding:6px 16px;background:var(--bg);color:var(--ink2);font-size:12px;
+  border-top:1px solid var(--hair)}
+
+@media (prefers-reduced-motion: reduce){
+  *{transition:none !important;animation:none !important}
+}
+#bar{height:3px;background:#1e3a5f;width:0}
+</style>
+
+<header>
+  <div><span class="badge" id="mode">사전 계산 결과</span></div>
+  <div><span class="k">지역</span><b id="region"></b></div>
+  <div><span class="k">발화점</span><span class="num" id="ign"></span></div>
+  <div id="progwrap" hidden><span class="k">진행</span><span id="prog">대기</span></div>
+  <div id="spacer"></div>
+  <div>
+    <button id="run">라이브 계산 실행</button>
+    <button id="cancel" class="ghost" hidden>취소</button>
+  </div>
+</header>
+<div id="bar"></div>
+
+<main>
+  <section id="map">
+    <svg id="svg" preserveAspectRatio="xMidYMid meet"
+         role="img" aria-label="영덕 위험 확률장과 출발지 4구분, 대피 경로 2종"></svg>
+    <div id="legend"></div>
+  </section>
+
+  <section id="side">
+    <div id="sidehead">
+      <b>출동 목록</b><span id="sidesub"></span>
+    </div>
+    <div id="tablewrap">
+      <table>
+        <thead><tr>
+          <th style="width:42px">#</th><th>위치</th>
+          <th style="width:86px">남은 시간</th><th style="width:70px">도보</th>
+          <th style="width:78px">구분</th>
+        </tr></thead>
+        <tbody id="rows" tabindex="0" aria-label="출동 목록. 위아래 화살표로 이동, Enter 로 지도에서 강조"></tbody>
+      </table>
+    </div>
+    <div id="more" hidden></div>
+  </section>
+</main>
+
+<footer>
+  <div id="facts">
+    <div><span class="k">기상 자료</span><span class="num" id="f-weather"></span></div>
+    <div><span class="k">보행망 커버리지</span><span class="num" id="f-cov"></span></div>
+    <div><span class="k">위험면</span><span class="num" id="f-haz"></span></div>
+    <div><span class="k">계산</span><span id="f-calc"></span></div>
+  </div>
+  <div id="standing"></div>
+</footer>
+
+<script id="data" type="application/json">/*__DATA__*/</script>
+<script>
+"use strict";
+const D = JSON.parse(document.getElementById('data').textContent);
+const SVGNS = 'http://www.w3.org/2000/svg';
+const G = D.grid;
+const el = (id) => document.getElementById(id);
+
+// ---- projection: EPSG:5179 metres -> the 1000x1000 viewBox -----------------
+// The page does no geodesy. Everything was projected at build time by the same
+// transformer the routing used; this is a linear fit into the box.
+// Fit the viewBox to the grid's own aspect ratio. A square box would leave a
+// third of the map pane empty, and an operator reading names off a map wants
+// the pixels. Scale is uniform in both axes: distances stay comparable.
+const SPAN = G.xmax - G.xmin;
+const VH = Math.round((G.ymax - G.ymin) / SPAN * 1000);
+const PX = (x) => (x - G.xmin) / SPAN * 1000;
+const PY = (y) => (G.ymax - y) / SPAN * 1000;
+
+function mk(tag, attrs){ const n = document.createElementNS(SVGNS, tag);
+  for (const k in attrs) n.setAttribute(k, attrs[k]); return n; }
+
+// ---- hazard bands, run-length decoded --------------------------------------
+const svg = el('svg');
+svg.setAttribute('viewBox', `0 0 1000 ${VH}`);
+const gHaz = mk('g', {}); svg.appendChild(gHaz);
+const cw = (G.cell / SPAN) * 1000;
+D.bands.forEach((runsForBand, bi) => {
+  const fill = D.band_fills[bi];
+  runsForBand.forEach(([r, c0, len]) => {
+    gHaz.appendChild(mk('rect', {
+      x: PX(G.xmin + c0 * G.cell), y: PY(G.ymax - r * G.cell),
+      width: cw * len + .5, height: cw + .5, fill: fill,
+      'fill-opacity': 0.30 + 0.16 * bi }));
+  });
+});
+
+// ---- walk bbox: what 32.6 % coverage looks like ----------------------------
+const [bx0, by0, bx1, by1] = D.walk_bbox;
+svg.appendChild(mk('rect', {x: PX(bx0), y: PY(by1),
+  width: PX(bx1) - PX(bx0), height: PY(by0) - PY(by1),
+  fill: 'none', stroke: '#7c8ba1', 'stroke-width': 1.4,
+  'stroke-dasharray': '7 5'}));
+
+// ---- origins: colour AND shape ---------------------------------------------
+const SHAPE = {
+  circle: (x, y, s, f) => mk('circle', {cx: x, cy: y, r: s, fill: f}),
+  triangle: (x, y, s, f) => mk('polygon',
+    {points: `${x},${y - s * 1.2} ${x - s * 1.1},${y + s * .85} ${x + s * 1.1},${y + s * .85}`, fill: f}),
+  square: (x, y, s, f) => mk('rect',
+    {x: x - s * .95, y: y - s * .95, width: s * 1.9, height: s * 1.9, fill: f}),
+  diamond: (x, y, s, f) => mk('polygon',
+    {points: `${x},${y - s * 1.3} ${x + s * 1.3},${y} ${x},${y + s * 1.3} ${x - s * 1.3},${y}`, fill: f}),
+};
+const BY_KEY = {}; D.buckets.forEach(b => BY_KEY[b.key] = b);
+const gOrig = mk('g', {}); svg.appendChild(gOrig);
+function drawOrigins(origins){
+  gOrig.textContent = '';
+  origins.forEach(o => {
+    const b = BY_KEY[o.bucket]; if (!b) return;
+    gOrig.appendChild(SHAPE[b.shape](PX(o.x), PY(o.y), 3.1, b.fill));
+  });
+}
+drawOrigins(D.origins);
+
+// ---- refuges, depots, ignition ---------------------------------------------
+const gPoi = mk('g', {}); svg.appendChild(gPoi);
+D.refuges.forEach(r => gPoi.appendChild(mk('rect',
+  {x: PX(r.x) - 2.4, y: PY(r.y) - 2.4, width: 4.8, height: 4.8,
+   fill: 'none', stroke: '#e8edf2', 'stroke-width': 1.2})));
+gPoi.appendChild(mk('circle', {cx: PX(D.ignition[0]), cy: PY(D.ignition[1]),
+  r: 7, fill: 'none', stroke: '#fde047', 'stroke-width': 2.2}));
+gPoi.appendChild(mk('circle', {cx: PX(D.ignition[0]), cy: PY(D.ignition[1]),
+  r: 2.4, fill: '#fde047'}));
+
+// ---- the two routes, drawn rather than asserted -----------------------------
+const gRoute = mk('g', {}); svg.appendChild(gRoute);
+function drawRoutes(routes){
+  gRoute.textContent = '';
+  (routes || []).forEach(rt => {
+    const path = (pts) => pts.map(p => `${PX(p[0])},${PY(p[1])}`).join(' ');
+    gRoute.appendChild(mk('polyline', {points: path(rt.naive_xy), fill: 'none',
+      stroke: '#f87171', 'stroke-width': 2, 'stroke-dasharray': '6 4'}));
+    gRoute.appendChild(mk('polyline', {points: path(rt.fa_xy), fill: 'none',
+      stroke: '#22d3ee', 'stroke-width': 2.4}));
+  });
+}
+drawRoutes(D.routes);
+
+// ---- the highlight ring the list drives ------------------------------------
+const ring = mk('circle', {r: 11, fill: 'none', stroke: '#fde047',
+  'stroke-width': 2.6, visibility: 'hidden'});
+svg.appendChild(ring);
+
+// ---- legend -----------------------------------------------------------------
+el('legend').innerHTML =
+  D.buckets.map(b => `<div class="r"><span class="sw" style="color:${b.fill}">${b.mark}</span>` +
+    `<span>${b.ko}</span><span class="num" style="color:var(--ink3)"> ${D.counts[b.key]}</span></div>`).join('') +
+  `<div class="r"><span class="sw" style="color:#fde047">◎</span><span>발화점(위험면 t=0 핵심)</span></div>` +
+  `<div class="r"><span class="sw" style="color:#e8edf2">□</span><span>대피소</span></div>` +
+  `<div class="r"><span class="sw" style="color:#7c8ba1">┄</span><span>보행망 범위</span></div>` +
+  `<div id="bandleg">` + D.band_labels.map((l, i) =>
+    `<div class="num" style="background:${D.band_fills[i]};color:#0b0f14">${l}</div>`).join('') + `</div>`;
+
+// ---- dispatch list ----------------------------------------------------------
+let SEL = -1;
+// How many rows fit RIGHT NOW. Measured against the rendered table rather than
+// assumed: a build-time row height was wrong by 1 px and silently clipped the
+// last row, which is worse than an honest 「외 N곳」 line.
+function rowsThatFit(){
+  const wrap = el('tablewrap'), thead = document.querySelector('thead');
+  const probe = document.querySelector('#rows tr');
+  const rowH = probe ? probe.getBoundingClientRect().height : 20.5;
+  // #more is a SIBLING of #tablewrap now, so it has its own space and this
+  // only has to fit rows under the sticky header.
+  const avail = wrap.getBoundingClientRect().height
+              - thead.getBoundingClientRect().height;
+  return Math.max(1, Math.floor(avail / rowH));
+}
+
+function renderRows(rows, limit){
+  const body = el('rows'); body.textContent = '';
+  const show = rows.slice(0, limit ?? rows.length);
+  show.forEach((r, i) => {
+    const b = BY_KEY[r.bucket] || {ko: r.bucket, fill: '#94a3b8', mark: '·'};
+    const tr = document.createElement('tr');
+    tr.setAttribute('role', 'row'); tr.setAttribute('aria-selected', 'false');
+    tr.dataset.i = i;
+    const remain = (r.closing === null || r.closing === undefined)
+      ? '해당 없음' : `${r.closing.toFixed(0)}분`;
+    const walk = (r.walk === null || r.walk === undefined)
+      ? '-' : `${r.walk.toFixed(0)}분`;
+    tr.innerHTML =
+      `<td class="n">${i + 1}</td><td>${r.label ?? ''}</td>` +
+      `<td class="n">${remain}</td><td class="n">${walk}</td>` +
+      `<td class="b" style="color:${b.fill}">${b.mark} ${b.ko}</td>`;
+    tr.addEventListener('click', () => select(i));
+    body.appendChild(tr);
+  });
+  const more = el('more');
+  const shown = show.length;
+  if (rows.length > shown){
+    more.hidden = false;
+    more.textContent = `… 외 ${rows.length - shown}곳 · A4 전달물에는 전부 실립니다`;
+  } else { more.hidden = true; }
+  el('sidesub').textContent =
+    `${rows.length}개 지점 · 마을 ${D.n_villages}곳 · ${shown}행 표시`;
+  SEL = -1; ring.setAttribute('visibility', 'hidden');
+}
+function select(i){
+  const body = el('rows'), rows = CURRENT.rows;
+  if (i < 0 || i >= Math.min(rows.length, D.max_rows)) return;
+  [...body.children].forEach(tr => tr.setAttribute('aria-selected', 'false'));
+  const tr = body.children[i]; if (!tr) return;
+  tr.setAttribute('aria-selected', 'true'); SEL = i;
+  const r = rows[i];
+  ring.setAttribute('cx', PX(r.x)); ring.setAttribute('cy', PY(r.y));
+  ring.setAttribute('visibility', 'visible');
+  tr.scrollIntoView({block: 'nearest'});
+}
+el('rows').addEventListener('keydown', (ev) => {
+  if (ev.key === 'ArrowDown'){ ev.preventDefault(); select(SEL + 1); }
+  else if (ev.key === 'ArrowUp'){ ev.preventDefault(); select(Math.max(0, SEL - 1)); }
+  else if (ev.key === 'Enter' || ev.key === ' '){ ev.preventDefault(); select(SEL < 0 ? 0 : SEL); }
+  else if (ev.key === 'Home'){ ev.preventDefault(); select(0); }
+});
+
+// ---- the standing facts -----------------------------------------------------
+let CURRENT = {rows: D.rows, counts: D.counts, origins: D.origins};
+el('region').textContent = D.region;
+el('ign').textContent = `${D.ignition[0].toFixed(0)}, ${D.ignition[1].toFixed(0)} (EPSG:5179)`;
+el('f-weather').textContent = D.honesty.weather;
+el('f-cov').textContent = `${D.honesty.coverage_pct}%`;
+el('f-haz').textContent = `${D.precomputed.hazard_sha256}…`;
+el('standing').textContent = D.honesty.standing;
+function setCalcLabel(text){ el('f-calc').textContent = text; }
+setCalcLabel(`사전 계산 결과 · 실제 계산 ${D.precomputed.warm_total_s}초`);
+// Two passes are not enough: pass 1 renders everything to get a row height,
+// pass 2 fits — but if pass 2 turns the 「외 N곳」 line ON, that line now takes
+// space the fit did not reserve and the line itself gets clipped. So iterate
+// until the answer stops moving, which takes at most three passes.
+function fitRows(){
+  renderRows(CURRENT.rows, null);
+  let limit = rowsThatFit();
+  for (let pass = 0; pass < 3; pass++){
+    renderRows(CURRENT.rows, limit);
+    const next = rowsThatFit();
+    if (next === limit) break;
+    limit = next;
+  }
+}
+fitRows();
+window.addEventListener('resize', fitRows);
+
+// ---- live calculation -------------------------------------------------------
+// Same-origin only. This page talks to the process that served it and to
+// nothing else; there is no CDN, no tile server and no telemetry.
+let JOB = null, TIMER = null;
+function setBar(pct){ el('bar').style.width = `${pct}%`; }
+
+async function poll(){
+  if (!JOB) return;
+  const r = await fetch(`/api/jobs/${JOB}`);
+  if (!r.ok){ stopLive(`조회 실패 (HTTP ${r.status})`); return; }
+  const s = await r.json();
+  const p = s.progress;
+  el('prog').textContent = p.current_text_ko || s.state_ko;
+  setBar(p.overall_pct);
+  if (s.state === 'succeeded'){
+    const res = await (await fetch(`/api/jobs/${JOB}/result`)).json();
+    CURRENT = {rows: (res.scan?.actionable ?? []).map(a => ({
+        label: a.label, bucket: a.bucket, closing: a.closing_window_min,
+        walk: a.walk_time_min, x: 0, y: 0})),
+      counts: res.counts, origins: D.origins};
+    el('mode').textContent = '라이브 계산 결과';
+    el('mode').classList.add('live');
+    setCalcLabel(`라이브 계산 · 라우팅 ${res.timings.route_s}초`);
+    fitRows();
+    stopLive(`완료 · ${res.n_scanned}개 출발지`);
+  } else if (s.state === 'failed' || s.state === 'cancelled'){
+    stopLive(s.state === 'cancelled' ? '취소됨 — 산출물 없음' : `실패: ${s.error ?? ''}`);
+  } else {
+    TIMER = setTimeout(poll, 700);
+  }
+}
+function stopLive(msg){
+  if (TIMER) clearTimeout(TIMER);
+  TIMER = null; JOB = null;
+  el('prog').textContent = msg;
+  el('run').disabled = false; el('cancel').hidden = true;
+  setBar(0);
+}
+el('run').addEventListener('click', async () => {
+  el('run').disabled = true; el('cancel').hidden = false;
+  el('progwrap').hidden = false; el('prog').textContent = '제출 중…';
+  const r = await fetch('/api/jobs', {method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({region: D.region, lat: D.live_lat ?? 36.4436,
+                          lon: D.live_lon ?? 129.3696, reported_by: '운영자 콘솔'})});
+  if (!r.ok){ stopLive(`제출 거절 (HTTP ${r.status})`); return; }
+  JOB = (await r.json()).job_id;
+  poll();
+});
+el('cancel').addEventListener('click', async () => {
+  if (!JOB) return;
+  el('prog').textContent = '취소 요청…';
+  await fetch(`/api/jobs/${JOB}`, {method: 'DELETE'});
+});
+</script>

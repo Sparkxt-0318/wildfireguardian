@@ -19,8 +19,8 @@ sys.path.insert(0, str(REPO / "scripts"))
 
 from check_screen_assets import (  # noqa: E402
     AA_LARGE, AA_NORMAL, AAA_NORMAL, NON_TEXT, SVG_NS, XLINK_NS, ContrastPair,
-    check_contrast, check_dashes, check_offline, contrast, palette_report,
-    relative_luminance,
+    check_contrast, check_dashes, check_dashes_in_scripts, check_offline,
+    contrast, palette_report, relative_luminance,
 )
 
 SHIPPED_SCREENS = sorted((REPO / "demo").glob("*.html"))
@@ -354,3 +354,105 @@ def test_the_arrow_is_wider_than_a_digit_so_it_stays_out_of_numeric_columns():
         f"arrow {arrow_em:.3f} em vs digit {digit_em:.3f} em — the arrow is "
         "safe in PROSE and unsafe inside a tabular-nums column, which is why "
         "tables split into Before / After columns instead")
+
+
+# ---------------------------------------------------------------------------
+# 6. The PHASE-22 operator console
+# ---------------------------------------------------------------------------
+
+CONSOLE = REPO / "web" / "console.html"
+console_only = pytest.mark.skipif(not CONSOLE.exists(),
+                                  reason="run scripts/build_console.py first")
+
+
+@console_only
+def test_the_console_reaches_nothing_but_its_own_origin():
+    """It MAY call /api. It may not call a host.
+
+    The relaxation is narrow and is the only place it is used: the demo screens
+    stay under the strict rule, asserted separately below.
+    """
+    found = check_offline(CONSOLE.read_text(encoding="utf-8"),
+                          allow_same_origin_fetch=True)
+    assert not found, "\n".join(f"line {f.line}: {f.detail}" for f in found)
+
+
+@console_only
+def test_the_console_still_fails_the_strict_rule_and_that_is_expected():
+    """Proof the relaxation is doing something, rather than the file being inert.
+
+    If this ever passes, the console has stopped calling its own API and the
+    live-calculation button is dead.
+    """
+    strict = check_offline(CONSOLE.read_text(encoding="utf-8"))
+    assert strict, "the console no longer fetches anything — is live mode gone?"
+    assert all("fetch(" in f.detail or "fetch" in f.excerpt for f in strict), (
+        f"strict mode found something OTHER than a fetch: "
+        f"{[f.detail for f in strict]}")
+
+
+@console_only
+def test_the_console_carries_no_banned_dash_anywhere_it_shows():
+    src = CONSOLE.read_text(encoding="utf-8")
+    found = check_dashes(src) + check_dashes_in_scripts(src)
+    assert not found, "\n".join(f"line {f.line}: {f.detail}" for f in found)
+
+
+@console_only
+def test_the_console_shows_all_three_honesty_items():
+    """Checked as STRINGS ON THE PAGE, not as intentions."""
+    src = CONSOLE.read_text(encoding="utf-8")
+    assert "기상 자료" in src
+    assert "보행망 커버리지" in src
+    assert "최종 판단은 현장에서" in src
+
+
+@console_only
+def test_the_standing_line_is_byte_identical_to_the_a4_sheets_constant():
+    """Imported at build time, never retyped. One sentence, two surfaces."""
+    import sys as _sys
+    _sys.path.insert(0, str(REPO / "src"))
+    from wildfireguardian.delivery.printable import FOOTER_LINES
+    assert FOOTER_LINES[0] in CONSOLE.read_text(encoding="utf-8"), (
+        "the console's standing line has drifted from the A4 sheet's constant")
+
+
+@console_only
+def test_the_console_loads_no_web_font_and_no_map_tile():
+    src = CONSOLE.read_text(encoding="utf-8").lower()
+    for token in ("googleapis", "gstatic", "jsdelivr", "unpkg",
+                  "tile.openstreetmap", "basemap", "mapbox", "leaflet"):
+        assert token not in src, token
+    assert "assets/fonts/ibmplexsanskr-regular.woff2" in src, (
+        "the console must reference the VENDORED font, not a system fallback")
+
+
+@console_only
+def test_the_console_respects_reduced_motion():
+    assert "prefers-reduced-motion" in CONSOLE.read_text(encoding="utf-8")
+
+
+@console_only
+def test_every_bucket_has_a_shape_and_a_label_not_only_a_colour():
+    """Colour is not a channel on its own — colour blindness, projectors, and
+    the photocopier a 이장 uses all remove it."""
+    import sys as _sys
+    _sys.path.insert(0, str(REPO / "scripts"))
+    from build_console import BUCKETS
+    assert len(BUCKETS) == 4
+    shapes = {b["shape"] for b in BUCKETS}
+    assert len(shapes) == 4, f"two buckets share a shape: {shapes}"
+    for b in BUCKETS:
+        assert b["ko"] and b["mark"] and b["fill"].startswith("#")
+
+
+@console_only
+def test_the_console_palette_meets_wcag_where_it_is_used():
+    import sys as _sys
+    _sys.path.insert(0, str(REPO / "scripts"))
+    from build_console import BUCKETS
+    for b in BUCKETS:
+        r = contrast(b["fill"], "#0b0f14")
+        assert r >= NON_TEXT, f"{b['ko']} {b['fill']} is {r:.2f}:1 on the map base"
+    # The focus ring is the one a keyboard user depends on.
+    assert contrast("#fbbf24", "#16202b") >= NON_TEXT
