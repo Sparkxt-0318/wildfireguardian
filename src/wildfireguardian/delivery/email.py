@@ -80,9 +80,10 @@ from .printable import FOOTER_LINES  # noqa: E402
 #: carried VERBATIM. This module used to hold a second, hand-retyped copy that had
 #: lost the closing sentence — exactly the drift ``live.scope`` exists to prevent
 #: ("a caveat that is retyped is a caveat that eventually is not", scope.py:25).
-#: There is now ONE definition. Re-exported below so ``email.COVERAGE_CAVEAT_KO``
+#: ⚠ It is now ONE definition AND PER REGION. Re-exported below so
+#: ``email.coverage_caveat_ko``
 #: keeps working for existing callers.
-from ..live.scope import COVERAGE_CAVEAT_KO  # noqa: E402
+from ..live.scope import coverage_caveat_ko  # noqa: E402
 
 SENDER_NAME = "WildfireGuardian 대피 안내"
 
@@ -277,6 +278,7 @@ def _rows(points: list[dict]) -> list[dict]:
 
 
 def _text_body(role: str, village: str, rows: list[dict], *, refuge: str | None,
+               coverage_caveat: str,
                n_points: int, n_unreachable: int, generated_at: str,
                scope_lines: list[str], banner: str | None) -> str:
     L: list[str] = []
@@ -319,7 +321,7 @@ def _text_body(role: str, village: str, rows: list[dict], *, refuge: str | None,
     L.append("")
     for line in FOOTER_LINES:
         L.append(line)
-    L.append(COVERAGE_CAVEAT_KO)
+    L.append(coverage_caveat)
     L.append("")
     L.append(f"생성 {generated_at} · WildfireGuardian")
     return "\n".join(L)
@@ -336,6 +338,7 @@ _TH = ("padding:6px 8px;border:1px solid #000;font-size:13px;font-weight:bold;"
 def _html_body(role: str, village: str, rows: list[dict], *,
                refuge: str | None, n_points: int, n_unreachable: int,
                generated_at: str, scope_lines: list[str],
+               coverage_caveat: str,
                banner: str | None) -> str:
     e = _html.escape
     parts: list[str] = [
@@ -409,7 +412,7 @@ def _html_body(role: str, village: str, rows: list[dict], *,
                  'font-size:13px;font-weight:bold;line-height:1.45;">'
                  + "".join(f"<div>{e(line)}</div>" for line in FOOTER_LINES)
                  + f'<div style="font-weight:normal;margin-top:6px;">'
-                   f'{e(COVERAGE_CAVEAT_KO)}</div>'
+                   f'{e(coverage_caveat)}</div>'
                  + "</div>")
     parts.append(f'<div style="margin-top:10px;font-size:12px;color:#000;">'
                  f'생성 {e(generated_at)} · WildfireGuardian</div>')
@@ -420,27 +423,37 @@ def _html_body(role: str, village: str, rows: list[dict], *,
 def compose_family(village: str, points: list[dict], *,
                    refuge: str | None = None, generated_at: str | None = None,
                    scope_lines: list[str] | None = None,
-                   banner: str | None = None) -> EmailMessageDraft:
+                   banner: str | None = None,
+                   region: str) -> EmailMessageDraft:
     """Message to a family member: how many points, and where the refuge is."""
     return _compose("가족", village, points, refuge=refuge,
                     generated_at=generated_at, scope_lines=scope_lines,
-                    banner=banner)
+                    banner=banner, region=region)
 
 
 def compose_welfare(village: str, points: list[dict], *,
                     refuge: str | None = None, generated_at: str | None = None,
                     scope_lines: list[str] | None = None,
-                    banner: str | None = None) -> EmailMessageDraft:
+                    banner: str | None = None,
+                    region: str) -> EmailMessageDraft:
     """Message to a welfare worker: the visit list, elapsed windows flagged."""
     return _compose("복지사", village, points, refuge=refuge,
                     generated_at=generated_at, scope_lines=scope_lines,
-                    banner=banner)
+                    banner=banner, region=region)
 
 
 def _compose(role: str, village: str, points: list[dict], *,
              refuge: str | None, generated_at: str | None,
              scope_lines: list[str] | None,
-             banner: str | None) -> EmailMessageDraft:
+             banner: str | None, region: str) -> EmailMessageDraft:
+    """⚠ ``region`` is REQUIRED and has no default, deliberately.
+
+    The coverage caveat used to be a module constant naming 영덕 and 32.6 %, and
+    it went out on every region's message. A default here would be the same
+    defect with a nicer spelling: the caller knows which region it is composing
+    for, so it has to say so.
+    """
+    caveat = coverage_caveat_ko(region)
     gen = generated_at or datetime.now(UTC).strftime("%Y-%m-%d %H:%M UTC")
     rows = _rows(points)
     n_points = len(points)
@@ -450,9 +463,11 @@ def _compose(role: str, village: str, points: list[dict], *,
         recipient_role=role, village=village,
         subject=subject_for(village, gen),
         text_body=_text_body(role, village, rows, refuge=refuge,
+                             coverage_caveat=caveat,
                              n_points=n_points, n_unreachable=n_unreach,
                              generated_at=gen, scope_lines=sl, banner=banner),
         html_body=_html_body(role, village, rows, refuge=refuge,
+                             coverage_caveat=caveat,
                              n_points=n_points, n_unreachable=n_unreach,
                              generated_at=gen, scope_lines=sl, banner=banner),
         n_points=n_points, n_unreachable=n_unreach, generated_at=gen)
@@ -597,10 +612,11 @@ def send(draft: EmailMessageDraft, to_address: str, approval_token: str, *,
 
 
 __all__ = [
-    "ApprovalRequired", "COVERAGE_CAVEAT_KO", "CredentialsMissing",
+    "ApprovalRequired", "CredentialsMissing",
     "EmailMessageDraft", "ENV_ADDRESS", "ENV_APP_PASSWORD", "ENV_RECIPIENT",
     "RecipientNotAllowed", "SendResult", "allowed_recipient", "build_mime",
-    "compose_family", "compose_welfare", "credentials_present",
+    "compose_family", "compose_welfare", "coverage_caveat_ko",
+    "credentials_present",
     "gmail_address", "HORIZON_H", "mask_address", "NO_WINDOW_LABEL",
     "send", "subject_for",
 ]

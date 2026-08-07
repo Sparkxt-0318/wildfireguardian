@@ -1,0 +1,5820 @@
+{
+ "schema_version": 1,
+ "purpose": "geometry for the operator screen. NOT an operational artifact: the sheets, scripts and drafts are coordinate-free by requirement and stay that way.",
+ "region": "uljin_samcheok_2022",
+ "scope": {
+  "mode": "replay",
+  "mode_banner_ko": "■ 재생 모드 ■ 과거 화재의 화점 기록을 시간 순으로 재생한 것이며, 지금 발생 중인 화재가 아닙니다.",
+  "trigger_source": "replay",
+  "trigger_at": "",
+  "trigger_at_meaning": "the satellite overpass whose batch fired the trigger",
+  "detection": "real-time (FIRMS NRT)",
+  "detection_line_ko": "화점 탐지: 실시간 (FIRMS NRT)",
+  "weather": "NOT real-time",
+  "weather_basis": "2022-03-04 05:26 UTC",
+  "weather_line_ko": "기상 자료: 2022-03-04 05:26 UTC 기준 (ERA5는 약 5일 지연 발행)",
+  "era5_publication_lag_days": 5,
+  "scope_ko": "본 산출물은 「실시간 탐지 + 사전 계산 위험면 기반 결정」입니다. 「실시간 예보 기반 예측」이 아닙니다.",
+  "scope_en": "REAL-TIME DETECTION over a PRE-COMPUTED risk surface. This is NOT a real-time forecast: ERA5 reanalysis publishes on a ~5-day lag, so no hazard field exists for today.",
+  "hazard_field": "data/processed/hazard_uljin_samcheok_2022.npz",
+  "hazard_field_is_precomputed": true,
+  "region": "uljin_samcheok_2022",
+  "coverage_caveat_ko": "울진·삼척 2022 수치는 정본 화재 핵심의 81.5 %만 덮는 보행망에서 산출되었습니다. 나머지 18.5 %에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 울진·삼척 2022 행을 인용할 때는 이 열을 반드시 함께 제시하십시오."
+ },
+ "trigger_source": "replay",
+ "field_applicability": {
+  "verdict": "IN_SCOPE",
+  "hotspot_to_field_core_km": 3.922,
+  "hotspot_to_manifest_ignition_km": 9.036,
+  "radius_km": 15.0,
+  "anchor": "field t=0 core centroid (p >= 0.5)",
+  "field_core_lonlat": [
+   129.32673289582132,
+   37.06517543135533
+  ],
+  "manifest_ignition_lonlat": [
+   129.32,
+   36.96
+  ],
+  "statement_ko": "트리거 화점은 사전 계산 위험면의 초기 화재 핵심에서 3.9 km 떨어져 있습니다(기준 15 km 이내).",
+  "note": "A LABEL, never a filter. Nothing is dropped on account of it: suppressing a real detection is worse than publishing a stamped one."
+ },
+ "hazard": {
+  "npz_path": "data/processed/hazard_uljin_samcheok_2022.npz",
+  "npz_sha256": "5482c9b5ded9a576f3a8d4134b0633bb20992838ffd013942531f58adc09eb97",
+  "grid_extent_5179": [
+   1141523.2038216323,
+   1863549.6785631683,
+   1187523.2038216323,
+   1941049.6785631683
+  ],
+  "cell_size_m": 500.0,
+  "nrows": 155,
+  "ncols": 92,
+  "times_min": [
+   0.0,
+   180.0,
+   360.0,
+   540.0,
+   720.0
+  ],
+  "cells_ge_0.5_per_slice": [
+   103,
+   150,
+   211,
+   274,
+   292
+  ]
+ },
+ "counts": {
+  "naive_into_FA_safe": 3,
+  "no_safe_route": 10,
+  "both_safe": 377,
+  "both_enter": 0,
+  "naive_unreachable": 0,
+  "fa_exceeds_budget": 3,
+  "unclassified": 0
+ },
+ "responder_side": {
+  "n_depot_pois": 4,
+  "available": true,
+  "computed": false,
+  "status_ko": "차고지 4곳이 매핑되어 있으나, 459 계열은 주민 측만 산출합니다",
+  "phrasing_rule": "NEVER write 'this region has no fire stations'. The statement is that no amenity=fire_station is MAPPED IN OSM inside the ignition-centred walk bbox; the wider manifest bbox contains six. HANDOFF_ROUND3.md rule 11.",
+  "note": "The 459 series is RESIDENT-SIDE for every region, Yeongdeok included: it contrasts a fire-blind walking route with a future-aware one and never dispatches a vehicle. No responder route exists to draw, anywhere."
+ },
+ "field_core_lonlat": [
+  129.32673289582132,
+  37.06517543135533
+ ],
+ "refuges": [
+  {
+   "name": "Pavilion",
+   "x": 1166390.6,
+   "y": 1901702.6
+  },
+  {
+   "name": "매화동산",
+   "x": 1167770.9,
+   "y": 1882573.9
+  },
+  {
+   "name": "불영정",
+   "x": 1161508.5,
+   "y": 1886253.5
+  },
+  {
+   "name": "선유정",
+   "x": 1160984.5,
+   "y": 1886124.9
+  },
+  {
+   "name": "nan",
+   "x": 1167774.3,
+   "y": 1890908.2
+  },
+  {
+   "name": "구산리청암정",
+   "x": 1164738.3,
+   "y": 1882908.1
+  },
+  {
+   "name": "정자",
+   "x": 1166957.9,
+   "y": 1885384.3
+  },
+  {
+   "name": "정자",
+   "x": 1167009.3,
+   "y": 1885403.1
+  },
+  {
+   "name": "봉평신라비사적공원",
+   "x": 1169793.4,
+   "y": 1895623.7
+  },
+  {
+   "name": "연호공원",
+   "x": 1169814.1,
+   "y": 1890126.4
+  },
+  {
+   "name": "왕피천공원",
+   "x": 1169509.6,
+   "y": 1887427.6
+  },
+  {
+   "name": "영양국제밤하늘보호공원",
+   "x": 1157853.7,
+   "y": 1872534.0
+  },
+  {
+   "name": "흥부만세공원",
+   "x": 1166402.0,
+   "y": 1902547.7
+  },
+  {
+   "name": "nan",
+   "x": 1170456.0,
+   "y": 1898130.2
+  },
+  {
+   "name": "nan",
+   "x": 1170066.3,
+   "y": 1897854.6
+  },
+  {
+   "name": "nan",
+   "x": 1167776.6,
+   "y": 1890906.2
+  },
+  {
+   "name": "왕피천생태공원",
+   "x": 1169511.7,
+   "y": 1887216.3
+  },
+  {
+   "name": "격암남사고유적지공원",
+   "x": 1165637.3,
+   "y": 1885748.7
+  },
+  {
+   "name": "매화동산",
+   "x": 1167773.3,
+   "y": 1882575.3
+  },
+  {
+   "name": "울진기미독립만세공원",
+   "x": 1167754.7,
+   "y": 1882515.8
+  },
+  {
+   "name": "남벌열차카페공원",
+   "x": 1167416.1,
+   "y": 1881008.0
+  },
+  {
+   "name": "황금울진대게공원",
+   "x": 1171372.5,
+   "y": 1875358.3
+  },
+  {
+   "name": "nan",
+   "x": 1173528.8,
+   "y": 1871766.8
+  },
+  {
+   "name": "죽변등대공원",
+   "x": 1171464.9,
+   "y": 1897223.9
+  },
+  {
+   "name": "반딧불이생태숲공원",
+   "x": 1157393.8,
+   "y": 1871500.0
+  },
+  {
+   "name": "금강송에코리움",
+   "x": 1152420.7,
+   "y": 1887606.5
+  }
+ ],
+ "origins": [
+  {
+   "x": 1168756.4,
+   "y": 1888752.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1157099.0,
+   "y": 1877427.6,
+   "bucket": "fa_exceeds_budget"
+  },
+  {
+   "x": 1155780.9,
+   "y": 1883350.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168824.4,
+   "y": 1887091.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170642.8,
+   "y": 1878553.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170389.6,
+   "y": 1887059.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1162343.6,
+   "y": 1894918.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1153886.5,
+   "y": 1873616.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1152584.8,
+   "y": 1886476.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169182.1,
+   "y": 1890030.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167199.5,
+   "y": 1886671.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1171444.7,
+   "y": 1897313.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169714.1,
+   "y": 1885360.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1171464.2,
+   "y": 1897298.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167778.5,
+   "y": 1892655.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1149760.9,
+   "y": 1894595.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1158929.6,
+   "y": 1899189.9,
+   "bucket": "no_safe_route"
+  },
+  {
+   "x": 1169117.8,
+   "y": 1891026.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169397.8,
+   "y": 1890176.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169273.2,
+   "y": 1890282.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169313.4,
+   "y": 1889754.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166091.8,
+   "y": 1902843.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166273.3,
+   "y": 1902656.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170687.9,
+   "y": 1897182.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169117.2,
+   "y": 1889892.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168863.6,
+   "y": 1889096.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167077.3,
+   "y": 1885910.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166224.1,
+   "y": 1902683.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166066.1,
+   "y": 1902621.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166537.1,
+   "y": 1902179.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170645.3,
+   "y": 1898105.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169607.3,
+   "y": 1890061.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170224.2,
+   "y": 1894474.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170082.4,
+   "y": 1889979.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169963.6,
+   "y": 1895760.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168558.0,
+   "y": 1874146.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1172585.6,
+   "y": 1871962.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170522.8,
+   "y": 1878121.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167674.7,
+   "y": 1880927.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167377.8,
+   "y": 1884445.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170194.7,
+   "y": 1890228.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168951.8,
+   "y": 1889389.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169226.2,
+   "y": 1888321.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169166.6,
+   "y": 1889791.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170283.7,
+   "y": 1898105.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170806.1,
+   "y": 1897666.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168032.8,
+   "y": 1888735.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167403.6,
+   "y": 1888825.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167623.4,
+   "y": 1888628.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169715.5,
+   "y": 1887512.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167908.3,
+   "y": 1890856.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1173515.1,
+   "y": 1871780.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1172814.5,
+   "y": 1871845.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168034.9,
+   "y": 1886737.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168551.4,
+   "y": 1890338.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169134.2,
+   "y": 1895469.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168044.4,
+   "y": 1899083.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169273.6,
+   "y": 1887921.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168294.6,
+   "y": 1890443.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169800.4,
+   "y": 1887786.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169341.2,
+   "y": 1890809.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169497.5,
+   "y": 1890850.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169004.2,
+   "y": 1890688.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169889.8,
+   "y": 1895880.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167169.8,
+   "y": 1879960.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167968.8,
+   "y": 1880938.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169547.9,
+   "y": 1890279.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169009.5,
+   "y": 1890671.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169190.9,
+   "y": 1889323.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170050.5,
+   "y": 1897833.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166329.3,
+   "y": 1891291.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169464.3,
+   "y": 1889973.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1149716.3,
+   "y": 1901221.3,
+   "bucket": "no_safe_route"
+  },
+  {
+   "x": 1168852.1,
+   "y": 1887267.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1148853.1,
+   "y": 1893370.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1157333.6,
+   "y": 1872368.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1164617.2,
+   "y": 1886212.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1164936.5,
+   "y": 1887283.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1153558.6,
+   "y": 1879135.4,
+   "bucket": "fa_exceeds_budget"
+  },
+  {
+   "x": 1164704.8,
+   "y": 1876013.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1157812.9,
+   "y": 1872539.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1157958.2,
+   "y": 1873500.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1163532.7,
+   "y": 1901900.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166662.4,
+   "y": 1902487.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1164784.3,
+   "y": 1889950.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166390.2,
+   "y": 1902220.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166627.7,
+   "y": 1902296.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166591.6,
+   "y": 1902057.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166108.4,
+   "y": 1901720.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166354.2,
+   "y": 1901631.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166643.6,
+   "y": 1901575.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166974.2,
+   "y": 1901651.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166310.6,
+   "y": 1901611.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166362.1,
+   "y": 1901511.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166192.9,
+   "y": 1901092.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167184.1,
+   "y": 1900667.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167578.8,
+   "y": 1900338.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168983.3,
+   "y": 1899417.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166443.7,
+   "y": 1899924.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166713.8,
+   "y": 1899708.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167299.5,
+   "y": 1899155.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167455.0,
+   "y": 1899102.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167810.6,
+   "y": 1899140.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167896.2,
+   "y": 1899186.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168176.6,
+   "y": 1899390.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168299.6,
+   "y": 1899108.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167854.7,
+   "y": 1898566.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1165717.5,
+   "y": 1901847.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1165563.2,
+   "y": 1901988.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1165995.8,
+   "y": 1901980.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1165881.6,
+   "y": 1901855.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169165.5,
+   "y": 1899104.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169099.7,
+   "y": 1899154.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169743.5,
+   "y": 1898575.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170286.0,
+   "y": 1898957.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169879.6,
+   "y": 1898217.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170020.7,
+   "y": 1898234.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168605.2,
+   "y": 1898822.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170241.9,
+   "y": 1897992.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170232.0,
+   "y": 1897944.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170575.5,
+   "y": 1897810.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1171125.5,
+   "y": 1897902.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170906.6,
+   "y": 1897746.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1171025.3,
+   "y": 1897826.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1171045.6,
+   "y": 1897684.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169579.3,
+   "y": 1898183.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1171042.1,
+   "y": 1897571.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1171507.1,
+   "y": 1897164.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170665.6,
+   "y": 1897374.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169378.9,
+   "y": 1898250.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1171370.1,
+   "y": 1897022.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1171191.8,
+   "y": 1897162.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170841.1,
+   "y": 1897364.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170700.8,
+   "y": 1897242.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170350.4,
+   "y": 1897169.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170319.9,
+   "y": 1896984.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169966.9,
+   "y": 1896753.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169931.4,
+   "y": 1896105.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169592.6,
+   "y": 1895835.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169288.6,
+   "y": 1896511.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169209.8,
+   "y": 1896645.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168816.4,
+   "y": 1896587.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167651.9,
+   "y": 1896945.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167463.4,
+   "y": 1897043.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168292.9,
+   "y": 1896554.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169839.3,
+   "y": 1895676.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169797.7,
+   "y": 1895568.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169468.7,
+   "y": 1895565.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168869.8,
+   "y": 1894723.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168892.6,
+   "y": 1895318.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167408.1,
+   "y": 1896046.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169929.6,
+   "y": 1895041.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170368.1,
+   "y": 1894493.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169793.1,
+   "y": 1893724.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169206.8,
+   "y": 1893575.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168208.2,
+   "y": 1893795.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167406.9,
+   "y": 1895484.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170198.5,
+   "y": 1892490.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169868.4,
+   "y": 1892444.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169835.2,
+   "y": 1892509.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170413.9,
+   "y": 1890876.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170421.4,
+   "y": 1891459.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170283.4,
+   "y": 1891327.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169867.7,
+   "y": 1890480.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169900.5,
+   "y": 1889905.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169832.1,
+   "y": 1890307.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169659.7,
+   "y": 1890127.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169700.6,
+   "y": 1889877.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169764.3,
+   "y": 1889681.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169423.2,
+   "y": 1889717.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169373.8,
+   "y": 1892602.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169368.6,
+   "y": 1889472.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169378.9,
+   "y": 1889437.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170390.0,
+   "y": 1889615.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169432.4,
+   "y": 1889318.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169370.7,
+   "y": 1889083.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169476.5,
+   "y": 1888530.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169134.5,
+   "y": 1891491.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168992.9,
+   "y": 1887084.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168189.8,
+   "y": 1892498.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169177.8,
+   "y": 1891250.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169160.2,
+   "y": 1890738.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168399.3,
+   "y": 1890718.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166594.1,
+   "y": 1896911.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166381.2,
+   "y": 1896637.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1164738.6,
+   "y": 1890192.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169182.3,
+   "y": 1890378.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169398.0,
+   "y": 1890381.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1165156.0,
+   "y": 1901680.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1165121.9,
+   "y": 1901494.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169213.0,
+   "y": 1890060.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168703.6,
+   "y": 1890028.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166921.0,
+   "y": 1887301.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166851.3,
+   "y": 1887589.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1164921.0,
+   "y": 1886974.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1161990.2,
+   "y": 1886762.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1159112.5,
+   "y": 1884794.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1156744.6,
+   "y": 1883786.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1155590.7,
+   "y": 1883017.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1155979.4,
+   "y": 1882234.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1164925.5,
+   "y": 1901814.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1164636.4,
+   "y": 1901563.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1164466.5,
+   "y": 1902630.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1163719.7,
+   "y": 1900683.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1163340.1,
+   "y": 1900616.1,
+   "bucket": "no_safe_route"
+  },
+  {
+   "x": 1155331.1,
+   "y": 1883278.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1154173.9,
+   "y": 1883168.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1160701.7,
+   "y": 1901476.3,
+   "bucket": "no_safe_route"
+  },
+  {
+   "x": 1159505.5,
+   "y": 1902267.7,
+   "bucket": "no_safe_route"
+  },
+  {
+   "x": 1160866.3,
+   "y": 1899683.6,
+   "bucket": "no_safe_route"
+  },
+  {
+   "x": 1159269.9,
+   "y": 1899954.9,
+   "bucket": "no_safe_route"
+  },
+  {
+   "x": 1158332.9,
+   "y": 1899304.9,
+   "bucket": "no_safe_route"
+  },
+  {
+   "x": 1158574.6,
+   "y": 1899320.9,
+   "bucket": "no_safe_route"
+  },
+  {
+   "x": 1159536.1,
+   "y": 1896230.4,
+   "bucket": "no_safe_route"
+  },
+  {
+   "x": 1159266.0,
+   "y": 1894345.6,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1152283.6,
+   "y": 1887347.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1152494.8,
+   "y": 1886597.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1163960.0,
+   "y": 1900790.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1164729.8,
+   "y": 1896091.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167576.7,
+   "y": 1893996.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167989.8,
+   "y": 1893310.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1164422.6,
+   "y": 1896796.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167436.9,
+   "y": 1894096.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166651.6,
+   "y": 1894397.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1164348.8,
+   "y": 1895768.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1164846.4,
+   "y": 1895022.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1165120.4,
+   "y": 1894559.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1165755.9,
+   "y": 1893712.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1163930.5,
+   "y": 1896237.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1162359.0,
+   "y": 1894572.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1159491.7,
+   "y": 1894647.0,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1163220.9,
+   "y": 1893679.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1163996.4,
+   "y": 1893501.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166471.9,
+   "y": 1892497.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1165581.0,
+   "y": 1893089.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166743.0,
+   "y": 1892219.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166658.8,
+   "y": 1892033.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167403.8,
+   "y": 1891835.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167770.6,
+   "y": 1891819.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167037.4,
+   "y": 1891382.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1162962.0,
+   "y": 1891676.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1164078.8,
+   "y": 1891290.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1165349.6,
+   "y": 1891282.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167199.2,
+   "y": 1890470.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167705.5,
+   "y": 1891531.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167626.5,
+   "y": 1889460.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167903.6,
+   "y": 1889385.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168644.2,
+   "y": 1889195.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168733.8,
+   "y": 1889166.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169304.7,
+   "y": 1889826.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168728.7,
+   "y": 1889607.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168634.2,
+   "y": 1889978.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168835.8,
+   "y": 1889554.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169060.1,
+   "y": 1889454.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168914.0,
+   "y": 1889260.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168815.6,
+   "y": 1889106.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168813.5,
+   "y": 1888309.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169087.3,
+   "y": 1887596.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168923.5,
+   "y": 1887362.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169859.5,
+   "y": 1886901.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170114.0,
+   "y": 1886798.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170634.8,
+   "y": 1886002.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168834.4,
+   "y": 1886685.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169936.4,
+   "y": 1886565.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169742.5,
+   "y": 1886402.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167034.7,
+   "y": 1886218.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166785.6,
+   "y": 1885972.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1159315.1,
+   "y": 1893216.8,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1158440.3,
+   "y": 1891545.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170538.6,
+   "y": 1886023.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170739.2,
+   "y": 1885028.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170792.3,
+   "y": 1884674.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170362.2,
+   "y": 1885752.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170664.1,
+   "y": 1883090.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170739.3,
+   "y": 1882841.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169958.4,
+   "y": 1883192.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1161856.5,
+   "y": 1895367.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170668.6,
+   "y": 1881806.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170586.9,
+   "y": 1880645.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168607.0,
+   "y": 1886579.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169566.7,
+   "y": 1886247.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168472.4,
+   "y": 1886198.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168532.8,
+   "y": 1885914.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170405.7,
+   "y": 1880348.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167962.4,
+   "y": 1885527.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168480.7,
+   "y": 1885439.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166821.7,
+   "y": 1885624.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169815.9,
+   "y": 1887571.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169247.8,
+   "y": 1887058.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1165699.2,
+   "y": 1885746.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1165534.7,
+   "y": 1885841.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167345.9,
+   "y": 1885648.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166802.5,
+   "y": 1885348.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166904.8,
+   "y": 1885195.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166901.7,
+   "y": 1884618.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167250.5,
+   "y": 1883831.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166542.3,
+   "y": 1884181.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1165048.1,
+   "y": 1884842.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166591.2,
+   "y": 1884268.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167409.7,
+   "y": 1883700.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167050.2,
+   "y": 1883452.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1165331.5,
+   "y": 1883972.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1164508.7,
+   "y": 1882396.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1164264.9,
+   "y": 1882099.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1164109.7,
+   "y": 1882091.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167321.2,
+   "y": 1882072.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1171054.1,
+   "y": 1879386.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170932.6,
+   "y": 1879052.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167660.8,
+   "y": 1883063.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167078.5,
+   "y": 1882778.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167994.6,
+   "y": 1883278.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167772.8,
+   "y": 1882557.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167575.4,
+   "y": 1881704.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167038.6,
+   "y": 1882350.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168133.3,
+   "y": 1881599.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167669.3,
+   "y": 1880870.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167713.4,
+   "y": 1881279.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167686.6,
+   "y": 1880864.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168639.1,
+   "y": 1880293.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169487.5,
+   "y": 1879649.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167832.7,
+   "y": 1879355.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169267.9,
+   "y": 1878679.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170645.2,
+   "y": 1878523.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170681.3,
+   "y": 1878253.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170537.9,
+   "y": 1878095.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170753.8,
+   "y": 1877695.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170802.4,
+   "y": 1877525.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169241.9,
+   "y": 1877111.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168089.0,
+   "y": 1877289.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167951.5,
+   "y": 1877170.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1171321.1,
+   "y": 1875420.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1171436.9,
+   "y": 1875199.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1171827.6,
+   "y": 1874215.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1172544.2,
+   "y": 1872438.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1173453.2,
+   "y": 1871815.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1172560.2,
+   "y": 1871983.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1172815.9,
+   "y": 1871407.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1173605.0,
+   "y": 1871311.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1173498.6,
+   "y": 1871518.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166980.9,
+   "y": 1880303.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166736.4,
+   "y": 1879498.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166590.6,
+   "y": 1879453.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167233.7,
+   "y": 1877998.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166724.1,
+   "y": 1876471.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169293.7,
+   "y": 1872610.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1171910.0,
+   "y": 1870991.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1171280.7,
+   "y": 1870110.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169256.3,
+   "y": 1870009.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167007.2,
+   "y": 1871009.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1171533.5,
+   "y": 1897231.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1171429.4,
+   "y": 1897194.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166177.7,
+   "y": 1878152.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1164979.1,
+   "y": 1877876.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1150595.3,
+   "y": 1874315.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1156733.1,
+   "y": 1871458.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1159241.2,
+   "y": 1878724.6,
+   "bucket": "fa_exceeds_budget"
+  },
+  {
+   "x": 1157230.0,
+   "y": 1871699.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1157195.0,
+   "y": 1871362.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1157706.3,
+   "y": 1871644.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1157032.5,
+   "y": 1870866.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1170295.9,
+   "y": 1894491.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166446.4,
+   "y": 1901332.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166989.2,
+   "y": 1900615.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168333.7,
+   "y": 1899370.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168530.5,
+   "y": 1899419.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168161.0,
+   "y": 1899407.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168020.6,
+   "y": 1899482.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166620.4,
+   "y": 1901636.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167121.1,
+   "y": 1899819.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167317.6,
+   "y": 1901291.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168078.7,
+   "y": 1900615.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166520.0,
+   "y": 1901274.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167439.1,
+   "y": 1901160.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166586.2,
+   "y": 1901489.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166799.4,
+   "y": 1901475.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166875.8,
+   "y": 1901753.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166958.0,
+   "y": 1901668.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166747.6,
+   "y": 1901837.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1166681.7,
+   "y": 1901781.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167805.5,
+   "y": 1900849.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167749.2,
+   "y": 1900929.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1167849.8,
+   "y": 1900824.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168937.4,
+   "y": 1899172.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168350.4,
+   "y": 1899758.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168299.2,
+   "y": 1899968.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1164295.0,
+   "y": 1888490.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1161905.3,
+   "y": 1884673.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1151720.5,
+   "y": 1879787.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1158503.3,
+   "y": 1875362.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169025.2,
+   "y": 1891588.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1168773.8,
+   "y": 1888799.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1171588.6,
+   "y": 1897150.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1169197.0,
+   "y": 1885970.3,
+   "bucket": "both_safe"
+  }
+ ],
+ "origins_note": "ALL 393 scanned origins, so the three outcomes can be coloured against each other. Plotting only the 44 that need something would read as 44-of-44 rather than 44-of-458.",
+ "actionable": [
+  {
+   "x": 1157099.0,
+   "y": 1877427.6,
+   "label": "영양국제밤하늘보호공원 북쪽 4951m",
+   "bucket": "fa_exceeds_budget",
+   "unreachable": true,
+   "closing_window_min": null,
+   "walk_time_min": null
+  },
+  {
+   "x": 1158929.6,
+   "y": 1899189.9,
+   "label": "Pavilion 서쪽 7873m",
+   "bucket": "no_safe_route",
+   "unreachable": true,
+   "closing_window_min": 360.0,
+   "walk_time_min": null
+  },
+  {
+   "x": 1149716.3,
+   "y": 1901221.3,
+   "label": "금강송에코리움 북쪽 13881m",
+   "bucket": "no_safe_route",
+   "unreachable": true,
+   "closing_window_min": null,
+   "walk_time_min": null
+  },
+  {
+   "x": 1153558.6,
+   "y": 1879135.4,
+   "label": "영양국제밤하늘보호공원 북서쪽 7876m",
+   "bucket": "fa_exceeds_budget",
+   "unreachable": true,
+   "closing_window_min": null,
+   "walk_time_min": null
+  },
+  {
+   "x": 1163340.1,
+   "y": 1900616.1,
+   "label": "Pavilion 서쪽 3238m",
+   "bucket": "no_safe_route",
+   "unreachable": true,
+   "closing_window_min": 180.0,
+   "walk_time_min": null
+  },
+  {
+   "x": 1160701.7,
+   "y": 1901476.3,
+   "label": "Pavilion 서쪽 5693m",
+   "bucket": "no_safe_route",
+   "unreachable": true,
+   "closing_window_min": 360.0,
+   "walk_time_min": null
+  },
+  {
+   "x": 1159505.5,
+   "y": 1902267.7,
+   "label": "흥부만세공원 서쪽 6902m",
+   "bucket": "no_safe_route",
+   "unreachable": true,
+   "closing_window_min": 180.0,
+   "walk_time_min": null
+  },
+  {
+   "x": 1160866.3,
+   "y": 1899683.6,
+   "label": "Pavilion 서쪽 5882m",
+   "bucket": "no_safe_route",
+   "unreachable": true,
+   "closing_window_min": 720.0,
+   "walk_time_min": null
+  },
+  {
+   "x": 1159269.9,
+   "y": 1899954.9,
+   "label": "Pavilion 서쪽 7332m",
+   "bucket": "no_safe_route",
+   "unreachable": true,
+   "closing_window_min": 180.0,
+   "walk_time_min": null
+  },
+  {
+   "x": 1158332.9,
+   "y": 1899304.9,
+   "label": "Pavilion 서쪽 8407m",
+   "bucket": "no_safe_route",
+   "unreachable": true,
+   "closing_window_min": null,
+   "walk_time_min": null
+  },
+  {
+   "x": 1158574.6,
+   "y": 1899320.9,
+   "label": "Pavilion 서쪽 8171m",
+   "bucket": "no_safe_route",
+   "unreachable": true,
+   "closing_window_min": 360.0,
+   "walk_time_min": null
+  },
+  {
+   "x": 1159536.1,
+   "y": 1896230.4,
+   "label": "Pavilion 남서쪽 8771m",
+   "bucket": "no_safe_route",
+   "unreachable": true,
+   "closing_window_min": 180.0,
+   "walk_time_min": null
+  },
+  {
+   "x": 1159266.0,
+   "y": 1894345.6,
+   "label": "불영정 북쪽 8397m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": 180.0,
+   "walk_time_min": 465.6
+  },
+  {
+   "x": 1159491.7,
+   "y": 1894647.0,
+   "label": "불영정 북쪽 8632m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": 180.0,
+   "walk_time_min": 484.8
+  },
+  {
+   "x": 1159315.1,
+   "y": 1893216.8,
+   "label": "선유정 북쪽 7286m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 571.6
+  },
+  {
+   "x": 1159241.2,
+   "y": 1878724.6,
+   "label": "영양국제밤하늘보호공원 북쪽 6344m",
+   "bucket": "fa_exceeds_budget",
+   "unreachable": true,
+   "closing_window_min": null,
+   "walk_time_min": null
+  }
+ ],
+ "routes": [
+  {
+   "origin_node": 11448923119,
+   "naive_xy": [
+    [
+     1159266.0,
+     1894345.6
+    ],
+    [
+     1159301.2,
+     1894500.6
+    ],
+    [
+     1159322.8,
+     1894510.0
+    ],
+    [
+     1159363.9,
+     1894533.2
+    ],
+    [
+     1159375.1,
+     1894539.6
+    ],
+    [
+     1159460.6,
+     1894590.7
+    ],
+    [
+     1159470.6,
+     1894597.3
+    ],
+    [
+     1159494.6,
+     1894613.1
+    ],
+    [
+     1159529.4,
+     1894625.1
+    ],
+    [
+     1160291.0,
+     1894906.7
+    ],
+    [
+     1160715.8,
+     1894945.7
+    ],
+    [
+     1161049.9,
+     1894879.5
+    ],
+    [
+     1161060.9,
+     1894875.9
+    ],
+    [
+     1161339.3,
+     1894801.3
+    ],
+    [
+     1161509.7,
+     1894765.3
+    ],
+    [
+     1161527.6,
+     1894766.8
+    ],
+    [
+     1161720.6,
+     1894820.5
+    ],
+    [
+     1161735.8,
+     1894829.5
+    ],
+    [
+     1161872.9,
+     1894925.0
+    ],
+    [
+     1161909.4,
+     1894884.6
+    ],
+    [
+     1162359.0,
+     1894572.2
+    ],
+    [
+     1162446.2,
+     1894599.2
+    ],
+    [
+     1162334.7,
+     1894053.4
+    ],
+    [
+     1162494.5,
+     1893867.8
+    ],
+    [
+     1162919.8,
+     1893599.6
+    ],
+    [
+     1163025.8,
+     1893550.7
+    ],
+    [
+     1163173.8,
+     1893501.5
+    ],
+    [
+     1163243.9,
+     1893477.4
+    ],
+    [
+     1163339.9,
+     1893444.1
+    ],
+    [
+     1163351.4,
+     1893440.2
+    ],
+    [
+     1164497.5,
+     1893370.0
+    ],
+    [
+     1164624.3,
+     1893447.3
+    ],
+    [
+     1164751.3,
+     1893493.6
+    ],
+    [
+     1165837.9,
+     1893130.1
+    ],
+    [
+     1165931.4,
+     1893062.4
+    ],
+    [
+     1166471.9,
+     1892497.9
+    ],
+    [
+     1166695.1,
+     1892274.8
+    ],
+    [
+     1166743.0,
+     1892219.4
+    ],
+    [
+     1166848.4,
+     1892103.6
+    ],
+    [
+     1166898.0,
+     1892031.3
+    ],
+    [
+     1166981.8,
+     1891922.1
+    ],
+    [
+     1167027.8,
+     1891909.5
+    ],
+    [
+     1167053.5,
+     1891901.1
+    ],
+    [
+     1167096.2,
+     1891870.8
+    ],
+    [
+     1167120.8,
+     1891860.0
+    ],
+    [
+     1167252.9,
+     1891802.9
+    ],
+    [
+     1167308.3,
+     1891779.0
+    ],
+    [
+     1167373.7,
+     1891814.8
+    ],
+    [
+     1167403.8,
+     1891835.6
+    ],
+    [
+     1167537.9,
+     1891908.1
+    ],
+    [
+     1167713.7,
+     1891927.7
+    ],
+    [
+     1167742.2,
+     1891899.5
+    ],
+    [
+     1167770.6,
+     1891819.1
+    ],
+    [
+     1167986.8,
+     1891290.5
+    ],
+    [
+     1168073.5,
+     1890870.5
+    ],
+    [
+     1167908.3,
+     1890856.4
+    ],
+    [
+     1167793.6,
+     1890887.8
+    ],
+    [
+     1167774.1,
+     1890895.0
+    ]
+   ],
+   "fa_xy": [
+    [
+     1159266.0,
+     1894345.6
+    ],
+    [
+     1159243.0,
+     1894318.9
+    ],
+    [
+     1159190.4,
+     1894274.2
+    ],
+    [
+     1157895.6,
+     1893911.8
+    ],
+    [
+     1157285.3,
+     1893671.3
+    ],
+    [
+     1157050.7,
+     1893207.8
+    ],
+    [
+     1154372.3,
+     1891827.5
+    ],
+    [
+     1153787.0,
+     1891532.6
+    ],
+    [
+     1153767.3,
+     1891559.6
+    ],
+    [
+     1153589.4,
+     1891355.9
+    ],
+    [
+     1153233.4,
+     1890943.9
+    ],
+    [
+     1151805.0,
+     1890123.0
+    ],
+    [
+     1151676.2,
+     1889863.2
+    ],
+    [
+     1152126.9,
+     1888534.3
+    ],
+    [
+     1152279.2,
+     1887654.4
+    ]
+   ],
+   "naive_enters_hazard": true,
+   "fa_enters_hazard": false,
+   "naive_time_min": 308.4,
+   "fa_time_min": 465.6,
+   "naive_distance_m": 12423.2,
+   "fa_distance_m": 14037.6
+  },
+  {
+   "origin_node": 11463458038,
+   "naive_xy": [
+    [
+     1159491.7,
+     1894647.0
+    ],
+    [
+     1159529.4,
+     1894625.1
+    ],
+    [
+     1160291.0,
+     1894906.7
+    ],
+    [
+     1160715.8,
+     1894945.7
+    ],
+    [
+     1161049.9,
+     1894879.5
+    ],
+    [
+     1161060.9,
+     1894875.9
+    ],
+    [
+     1161339.3,
+     1894801.3
+    ],
+    [
+     1161509.7,
+     1894765.3
+    ],
+    [
+     1161527.6,
+     1894766.8
+    ],
+    [
+     1161720.6,
+     1894820.5
+    ],
+    [
+     1161735.8,
+     1894829.5
+    ],
+    [
+     1161872.9,
+     1894925.0
+    ],
+    [
+     1161909.4,
+     1894884.6
+    ],
+    [
+     1162359.0,
+     1894572.2
+    ],
+    [
+     1162446.2,
+     1894599.2
+    ],
+    [
+     1162334.7,
+     1894053.4
+    ],
+    [
+     1162494.5,
+     1893867.8
+    ],
+    [
+     1162919.8,
+     1893599.6
+    ],
+    [
+     1163025.8,
+     1893550.7
+    ],
+    [
+     1163173.8,
+     1893501.5
+    ],
+    [
+     1163243.9,
+     1893477.4
+    ],
+    [
+     1163339.9,
+     1893444.1
+    ],
+    [
+     1163351.4,
+     1893440.2
+    ],
+    [
+     1164497.5,
+     1893370.0
+    ],
+    [
+     1164624.3,
+     1893447.3
+    ],
+    [
+     1164751.3,
+     1893493.6
+    ],
+    [
+     1165837.9,
+     1893130.1
+    ],
+    [
+     1165931.4,
+     1893062.4
+    ],
+    [
+     1166471.9,
+     1892497.9
+    ],
+    [
+     1166695.1,
+     1892274.8
+    ],
+    [
+     1166743.0,
+     1892219.4
+    ],
+    [
+     1166848.4,
+     1892103.6
+    ],
+    [
+     1166898.0,
+     1892031.3
+    ],
+    [
+     1166981.8,
+     1891922.1
+    ],
+    [
+     1167027.8,
+     1891909.5
+    ],
+    [
+     1167053.5,
+     1891901.1
+    ],
+    [
+     1167096.2,
+     1891870.8
+    ],
+    [
+     1167120.8,
+     1891860.0
+    ],
+    [
+     1167252.9,
+     1891802.9
+    ],
+    [
+     1167308.3,
+     1891779.0
+    ],
+    [
+     1167373.7,
+     1891814.8
+    ],
+    [
+     1167403.8,
+     1891835.6
+    ],
+    [
+     1167537.9,
+     1891908.1
+    ],
+    [
+     1167713.7,
+     1891927.7
+    ],
+    [
+     1167742.2,
+     1891899.5
+    ],
+    [
+     1167770.6,
+     1891819.1
+    ],
+    [
+     1167986.8,
+     1891290.5
+    ],
+    [
+     1168073.5,
+     1890870.5
+    ],
+    [
+     1167908.3,
+     1890856.4
+    ],
+    [
+     1167793.6,
+     1890887.8
+    ],
+    [
+     1167774.1,
+     1890895.0
+    ]
+   ],
+   "fa_xy": [
+    [
+     1159491.7,
+     1894647.0
+    ],
+    [
+     1159494.6,
+     1894613.1
+    ],
+    [
+     1159492.7,
+     1894593.6
+    ],
+    [
+     1159072.3,
+     1893924.1
+    ],
+    [
+     1159059.0,
+     1893932.8
+    ],
+    [
+     1157895.6,
+     1893911.8
+    ],
+    [
+     1157285.3,
+     1893671.3
+    ],
+    [
+     1157050.7,
+     1893207.8
+    ],
+    [
+     1154372.3,
+     1891827.5
+    ],
+    [
+     1153787.0,
+     1891532.6
+    ],
+    [
+     1153767.3,
+     1891559.6
+    ],
+    [
+     1153589.4,
+     1891355.9
+    ],
+    [
+     1153233.4,
+     1890943.9
+    ],
+    [
+     1151805.0,
+     1890123.0
+    ],
+    [
+     1151676.2,
+     1889863.2
+    ],
+    [
+     1152126.9,
+     1888534.3
+    ],
+    [
+     1152279.2,
+     1887654.4
+    ]
+   ],
+   "naive_enters_hazard": true,
+   "fa_enters_hazard": false,
+   "naive_time_min": 298.5,
+   "fa_time_min": 484.8,
+   "naive_distance_m": 12012.3,
+   "fa_distance_m": 14742.4
+  },
+  {
+   "origin_node": 11483361038,
+   "naive_xy": [
+    [
+     1159315.1,
+     1893216.8
+    ],
+    [
+     1159304.0,
+     1893110.1
+    ],
+    [
+     1159297.7,
+     1893286.0
+    ],
+    [
+     1159145.6,
+     1893465.1
+    ],
+    [
+     1159142.3,
+     1893476.4
+    ],
+    [
+     1159072.3,
+     1893924.1
+    ],
+    [
+     1159492.7,
+     1894593.6
+    ],
+    [
+     1159529.4,
+     1894625.1
+    ],
+    [
+     1160291.0,
+     1894906.7
+    ],
+    [
+     1160715.8,
+     1894945.7
+    ],
+    [
+     1161049.9,
+     1894879.5
+    ],
+    [
+     1161060.9,
+     1894875.9
+    ],
+    [
+     1161339.3,
+     1894801.3
+    ],
+    [
+     1161509.7,
+     1894765.3
+    ],
+    [
+     1161527.6,
+     1894766.8
+    ],
+    [
+     1161720.6,
+     1894820.5
+    ],
+    [
+     1161735.8,
+     1894829.5
+    ],
+    [
+     1161872.9,
+     1894925.0
+    ],
+    [
+     1161909.4,
+     1894884.6
+    ],
+    [
+     1162359.0,
+     1894572.2
+    ],
+    [
+     1162446.2,
+     1894599.2
+    ],
+    [
+     1162334.7,
+     1894053.4
+    ],
+    [
+     1162494.5,
+     1893867.8
+    ],
+    [
+     1162919.8,
+     1893599.6
+    ],
+    [
+     1163025.8,
+     1893550.7
+    ],
+    [
+     1163173.8,
+     1893501.5
+    ],
+    [
+     1163243.9,
+     1893477.4
+    ],
+    [
+     1163339.9,
+     1893444.1
+    ],
+    [
+     1163351.4,
+     1893440.2
+    ],
+    [
+     1164497.5,
+     1893370.0
+    ],
+    [
+     1164624.3,
+     1893447.3
+    ],
+    [
+     1164751.3,
+     1893493.6
+    ],
+    [
+     1165837.9,
+     1893130.1
+    ],
+    [
+     1165931.4,
+     1893062.4
+    ],
+    [
+     1166471.9,
+     1892497.9
+    ],
+    [
+     1166695.1,
+     1892274.8
+    ],
+    [
+     1166743.0,
+     1892219.4
+    ],
+    [
+     1166848.4,
+     1892103.6
+    ],
+    [
+     1166898.0,
+     1892031.3
+    ],
+    [
+     1166981.8,
+     1891922.1
+    ],
+    [
+     1167027.8,
+     1891909.5
+    ],
+    [
+     1167053.5,
+     1891901.1
+    ],
+    [
+     1167096.2,
+     1891870.8
+    ],
+    [
+     1167120.8,
+     1891860.0
+    ],
+    [
+     1167252.9,
+     1891802.9
+    ],
+    [
+     1167308.3,
+     1891779.0
+    ],
+    [
+     1167373.7,
+     1891814.8
+    ],
+    [
+     1167403.8,
+     1891835.6
+    ],
+    [
+     1167537.9,
+     1891908.1
+    ],
+    [
+     1167713.7,
+     1891927.7
+    ],
+    [
+     1167742.2,
+     1891899.5
+    ],
+    [
+     1167770.6,
+     1891819.1
+    ],
+    [
+     1167986.8,
+     1891290.5
+    ],
+    [
+     1168073.5,
+     1890870.5
+    ],
+    [
+     1167908.3,
+     1890856.4
+    ],
+    [
+     1167793.6,
+     1890887.8
+    ],
+    [
+     1167774.1,
+     1890895.0
+    ]
+   ],
+   "fa_xy": [
+    [
+     1159315.1,
+     1893216.8
+    ],
+    [
+     1159304.0,
+     1893110.1
+    ],
+    [
+     1159114.2,
+     1892785.1
+    ],
+    [
+     1159098.0,
+     1892761.5
+    ],
+    [
+     1159046.0,
+     1892689.8
+    ],
+    [
+     1159037.0,
+     1892679.2
+    ],
+    [
+     1158895.2,
+     1892550.1
+    ],
+    [
+     1158660.4,
+     1891963.5
+    ],
+    [
+     1158455.5,
+     1891641.9
+    ],
+    [
+     1158445.4,
+     1891602.9
+    ],
+    [
+     1158487.3,
+     1891569.7
+    ],
+    [
+     1158424.1,
+     1891498.4
+    ],
+    [
+     1158266.0,
+     1891365.5
+    ],
+    [
+     1157940.0,
+     1889821.1
+    ],
+    [
+     1158310.5,
+     1889171.7
+    ],
+    [
+     1162369.9,
+     1887701.7
+    ],
+    [
+     1162387.8,
+     1887509.0
+    ],
+    [
+     1162259.2,
+     1887263.7
+    ],
+    [
+     1162234.3,
+     1887252.4
+    ],
+    [
+     1161957.6,
+     1886887.6
+    ],
+    [
+     1161958.6,
+     1886855.5
+    ],
+    [
+     1161990.2,
+     1886762.6
+    ],
+    [
+     1161005.3,
+     1886130.4
+    ]
+   ],
+   "naive_enters_hazard": true,
+   "fa_enters_hazard": false,
+   "naive_time_min": 350.0,
+   "fa_time_min": 571.6,
+   "naive_distance_m": 13823.4,
+   "fa_distance_m": 18289.7
+  }
+ ],
+ "trigger_at": "",
+ "trigger_hotspot": {
+  "lat": 37.03914,
+  "lon": 129.29691,
+  "acquired_utc": "2022-03-04T03:19:00Z",
+  "source": "replay:uljin_samcheok_2022_detections.csv",
+  "satellite": "N20",
+  "instrument": "VIIRS",
+  "confidence": "nominal",
+  "confidence_raw": "n",
+  "frp": 26.68,
+  "daynight": "D"
+ },
+ "hotspots": [
+  {
+   "lat": 37.03914,
+   "lon": 129.29691,
+   "acquired_utc": "2022-03-04T03:19:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 26.68,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.04282,
+   "lon": 129.30919,
+   "acquired_utc": "2022-03-04T03:19:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 26.91,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.04461,
+   "lon": 129.31516,
+   "acquired_utc": "2022-03-04T03:19:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 26.91,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.04653,
+   "lon": 129.32158,
+   "acquired_utc": "2022-03-04T03:19:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 17.68,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.04721,
+   "lon": 129.30054,
+   "acquired_utc": "2022-03-04T03:19:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 156.57,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.04858,
+   "lon": 129.32845,
+   "acquired_utc": "2022-03-04T03:19:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 17.68,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.04903,
+   "lon": 129.30661,
+   "acquired_utc": "2022-03-04T03:19:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 167.47,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05441,
+   "lon": 129.31938,
+   "acquired_utc": "2022-03-04T03:19:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 56.34,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05476,
+   "lon": 129.32576,
+   "acquired_utc": "2022-03-04T03:19:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 94.45,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05632,
+   "lon": 129.32562,
+   "acquired_utc": "2022-03-04T03:19:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 32.72,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05656,
+   "lon": 129.33182,
+   "acquired_utc": "2022-03-04T03:19:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 42.89,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05816,
+   "lon": 129.33167,
+   "acquired_utc": "2022-03-04T03:19:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 32.72,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.04102,
+   "lon": 129.30313,
+   "acquired_utc": "2022-03-04T03:19:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 26.68,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0674,
+   "lon": 129.3211,
+   "acquired_utc": "2022-03-04T03:48:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "75",
+   "frp": 139.9,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0579,
+   "lon": 129.2841,
+   "acquired_utc": "2022-03-04T03:48:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "65",
+   "frp": 103.3,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0519,
+   "lon": 129.3269,
+   "acquired_utc": "2022-03-04T03:48:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "77",
+   "frp": 382.0,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0423,
+   "lon": 129.2894,
+   "acquired_utc": "2022-03-04T03:48:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "36",
+   "frp": 151.0,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0349,
+   "lon": 129.296,
+   "acquired_utc": "2022-03-04T03:48:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "78",
+   "frp": 159.6,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0444,
+   "lon": 129.3337,
+   "acquired_utc": "2022-03-04T03:48:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "71",
+   "frp": 117.6,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06988,
+   "lon": 129.3358,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 292.04,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06981,
+   "lon": 129.35568,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 7.81,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06912,
+   "lon": 129.31123,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 56.99,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06905,
+   "lon": 129.3311,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 177.13,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06897,
+   "lon": 129.35097,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 258.27,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06828,
+   "lon": 129.30652,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 56.99,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06735,
+   "lon": 129.32158,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 119.2,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06727,
+   "lon": 129.34142,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 292.04,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06652,
+   "lon": 129.31689,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 119.2,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06643,
+   "lon": 129.3367,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 292.04,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06569,
+   "lon": 129.31221,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 293.41,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0656,
+   "lon": 129.33202,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 177.13,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0682,
+   "lon": 129.32635,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 177.13,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06995,
+   "lon": 129.31589,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 33.23,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07584,
+   "lon": 129.349,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 29.15,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07078,
+   "lon": 129.32054,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 33.23,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07156,
+   "lon": 129.34528,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 258.27,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07248,
+   "lon": 129.33014,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 76.15,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07332,
+   "lon": 129.33484,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 72.21,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07421,
+   "lon": 129.31952,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 33.23,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07499,
+   "lon": 129.34427,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 29.15,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07506,
+   "lon": 129.32433,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 76.15,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06485,
+   "lon": 129.3075,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 293.41,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07592,
+   "lon": 129.32913,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 76.15,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07667,
+   "lon": 129.35373,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 5.33,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07676,
+   "lon": 129.33386,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 72.21,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07759,
+   "lon": 129.33858,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 72.21,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07843,
+   "lon": 129.34329,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 29.15,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07072,
+   "lon": 129.34052,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 292.04,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06476,
+   "lon": 129.32732,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 177.13,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.03817,
+   "lon": 129.29976,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 11.05,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06399,
+   "lon": 129.30269,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 20.18,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05442,
+   "lon": 129.33008,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 56.11,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05358,
+   "lon": 129.32538,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 9.12,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05278,
+   "lon": 129.30063,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 99.05,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05273,
+   "lon": 129.3206,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 9.12,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05189,
+   "lon": 129.31587,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 32.55,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05104,
+   "lon": 129.31111,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 32.55,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05098,
+   "lon": 129.33102,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 56.11,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05019,
+   "lon": 129.30638,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 43.75,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05014,
+   "lon": 129.32629,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 9.12,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.04077,
+   "lon": 129.29407,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 11.05,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.04161,
+   "lon": 129.29881,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 11.05,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.04246,
+   "lon": 129.30353,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 23.53,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0433,
+   "lon": 129.30827,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 23.53,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.04414,
+   "lon": 129.31296,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 59.87,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.04498,
+   "lon": 129.31767,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 59.87,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.04591,
+   "lon": 129.30261,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 43.75,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.04675,
+   "lon": 129.30731,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 43.75,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.04934,
+   "lon": 129.30162,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 43.75,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.04844,
+   "lon": 129.31676,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 32.55,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.04929,
+   "lon": 129.32153,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 9.12,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06467,
+   "lon": 129.34711,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 39.55,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05449,
+   "lon": 129.31021,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 60.14,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05526,
+   "lon": 129.33475,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 56.11,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.04758,
+   "lon": 129.31201,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 32.55,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05609,
+   "lon": 129.33945,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 16.32,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06392,
+   "lon": 129.32259,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 119.2,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05534,
+   "lon": 129.31496,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 60.14,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06383,
+   "lon": 129.34236,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 86.76,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06299,
+   "lon": 129.33762,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 86.76,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06225,
+   "lon": 129.31323,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 293.41,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06215,
+   "lon": 129.33292,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 61.52,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0614,
+   "lon": 129.30844,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 293.41,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06132,
+   "lon": 129.32825,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 61.52,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06054,
+   "lon": 129.30359,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 20.18,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06047,
+   "lon": 129.32353,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 18.17,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06308,
+   "lon": 129.31786,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 119.2,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05964,
+   "lon": 129.31883,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 18.17,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06038,
+   "lon": 129.34326,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 86.76,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05703,
+   "lon": 129.32445,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 18.17,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05709,
+   "lon": 129.3045,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 99.05,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05787,
+   "lon": 129.32915,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 61.52,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05619,
+   "lon": 129.31973,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 18.17,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05871,
+   "lon": 129.33385,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 61.52,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0588,
+   "lon": 129.3141,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 60.14,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05954,
+   "lon": 129.33853,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 86.76,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05794,
+   "lon": 129.30931,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 60.14,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05623,
+   "lon": 129.29967,
+   "acquired_utc": "2022-03-04T04:09:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 99.05,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06094,
+   "lon": 129.33406,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 8.31,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0648,
+   "lon": 129.3194,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 16.74,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06147,
+   "lon": 129.34114,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 48.46,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06197,
+   "lon": 129.34793,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 48.46,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06247,
+   "lon": 129.35468,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 43.63,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06375,
+   "lon": 129.30531,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 13.26,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06426,
+   "lon": 129.31216,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 16.74,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06636,
+   "lon": 129.34041,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 48.46,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06584,
+   "lon": 129.33334,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 8.31,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06617,
+   "lon": 129.3089,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 47.82,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06665,
+   "lon": 129.3161,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 105.77,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06686,
+   "lon": 129.3472,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 48.46,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06713,
+   "lon": 129.32318,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 105.77,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06736,
+   "lon": 129.35399,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 43.63,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06041,
+   "lon": 129.32686,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 8.31,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0676,
+   "lon": 129.32996,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 51.14,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06531,
+   "lon": 129.32631,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 8.31,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05937,
+   "lon": 129.31279,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 16.74,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.04571,
+   "lon": 129.32869,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 14.29,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05657,
+   "lon": 129.34183,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 18.38,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06788,
+   "lon": 129.36101,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 43.63,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.03831,
+   "lon": 129.29489,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 11.29,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.03881,
+   "lon": 129.30182,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 22.04,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.03933,
+   "lon": 129.30885,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 22.04,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.03984,
+   "lon": 129.31596,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 25.99,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.04318,
+   "lon": 129.29413,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 11.29,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0437,
+   "lon": 129.30113,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 22.04,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.04422,
+   "lon": 129.30821,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 22.04,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.04474,
+   "lon": 129.31534,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 25.99,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0486,
+   "lon": 129.30067,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 19.37,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.04911,
+   "lon": 129.30763,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 19.37,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.04962,
+   "lon": 129.31456,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 17.62,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05013,
+   "lon": 129.3214,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 17.62,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05114,
+   "lon": 129.33522,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 84.83,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.054,
+   "lon": 129.30704,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 19.37,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0545,
+   "lon": 129.31375,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 17.62,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05605,
+   "lon": 129.33467,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 84.83,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.05888,
+   "lon": 129.30614,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 13.26,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06808,
+   "lon": 129.3371,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 51.14,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07346,
+   "lon": 129.34338,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 51.18,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06901,
+   "lon": 129.35072,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 51.18,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07826,
+   "lon": 129.36734,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 45.93,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07838,
+   "lon": 129.34309,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 601.7,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07886,
+   "lon": 129.35005,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 601.7,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07933,
+   "lon": 129.35689,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 244.22,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07959,
+   "lon": 129.31885,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 267.95,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07981,
+   "lon": 129.36395,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 244.22,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.08008,
+   "lon": 129.32547,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 413.68,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0803,
+   "lon": 129.37122,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 28.32,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.08058,
+   "lon": 129.33205,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 413.68,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.08111,
+   "lon": 129.33908,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 242.29,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0779,
+   "lon": 129.33603,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 487.34,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.08143,
+   "lon": 129.31549,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 374.74,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.08214,
+   "lon": 129.35295,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 786.23,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.08318,
+   "lon": 129.36684,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 46.38,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.08473,
+   "lon": 129.36349,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 244.22,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.08503,
+   "lon": 129.32536,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 413.68,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.08607,
+   "lon": 129.33923,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 242.29,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0866,
+   "lon": 129.34627,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 242.29,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.08731,
+   "lon": 129.32903,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 8.99,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0878,
+   "lon": 129.33604,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 8.99,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.08828,
+   "lon": 129.34303,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 14.66,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.08874,
+   "lon": 129.34978,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 14.66,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.08164,
+   "lon": 129.34616,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 242.29,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06855,
+   "lon": 129.34395,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 51.18,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07772,
+   "lon": 129.36009,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 132.86,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07721,
+   "lon": 129.35313,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 132.86,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06918,
+   "lon": 129.31195,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 163.53,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06948,
+   "lon": 129.35771,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 76.71,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.06973,
+   "lon": 129.31917,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 163.53,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07023,
+   "lon": 129.3259,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 124.56,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07073,
+   "lon": 129.3327,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 124.56,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07108,
+   "lon": 129.30864,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 47.82,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07125,
+   "lon": 129.33971,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 156.89,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07158,
+   "lon": 129.31595,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 105.77,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07176,
+   "lon": 129.34653,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 156.89,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07206,
+   "lon": 129.32289,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 105.77,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07743,
+   "lon": 129.32915,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 487.34,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07227,
+   "lon": 129.35341,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 132.86,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0728,
+   "lon": 129.36057,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 132.86,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07298,
+   "lon": 129.33644,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 51.14,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07335,
+   "lon": 129.36786,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 45.93,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07393,
+   "lon": 129.35027,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 51.18,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0744,
+   "lon": 129.35725,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 76.71,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07466,
+   "lon": 129.319,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 163.53,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07489,
+   "lon": 129.36453,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 76.71,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07515,
+   "lon": 129.32564,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 124.56,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07565,
+   "lon": 129.33229,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 124.56,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07699,
+   "lon": 129.32269,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 374.74,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.07251,
+   "lon": 129.32948,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 51.14,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.08236,
+   "lon": 129.32906,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 487.34,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.04524,
+   "lon": 129.3222,
+   "acquired_utc": "2022-03-04T04:59:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 25.99,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0805,
+   "lon": 129.2907,
+   "acquired_utc": "2022-03-04T05:26:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "61",
+   "frp": 311.3,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0817,
+   "lon": 129.3534,
+   "acquired_utc": "2022-03-04T05:26:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "low",
+   "confidence_raw": "0",
+   "frp": 2911.6,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0982,
+   "lon": 129.2868,
+   "acquired_utc": "2022-03-04T05:26:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "68",
+   "frp": 167.1,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0796,
+   "lon": 129.299,
+   "acquired_utc": "2022-03-04T05:26:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "91",
+   "frp": 621.3,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0645,
+   "lon": 129.3451,
+   "acquired_utc": "2022-03-04T05:26:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "39",
+   "frp": 341.0,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0639,
+   "lon": 129.3535,
+   "acquired_utc": "2022-03-04T05:26:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "58",
+   "frp": 228.1,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0627,
+   "lon": 129.2903,
+   "acquired_utc": "2022-03-04T05:26:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "35",
+   "frp": 252.7,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0618,
+   "lon": 129.2995,
+   "acquired_utc": "2022-03-04T05:26:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "90",
+   "frp": 390.5,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0449,
+   "lon": 129.2907,
+   "acquired_utc": "2022-03-04T05:26:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "75",
+   "frp": 185.2,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.044,
+   "lon": 129.2995,
+   "acquired_utc": "2022-03-04T05:26:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "82",
+   "frp": 261.8,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.1002,
+   "lon": 129.3445,
+   "acquired_utc": "2022-03-04T05:26:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "low",
+   "confidence_raw": "0",
+   "frp": 629.2,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0824,
+   "lon": 129.3451,
+   "acquired_utc": "2022-03-04T05:26:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "65",
+   "frp": 2915.8,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0973,
+   "lon": 129.2968,
+   "acquired_utc": "2022-03-04T05:26:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "71",
+   "frp": 253.0,
+   "daynight": "D"
+  },
+  {
+   "lat": 37.0733,
+   "lon": 129.3589,
+   "acquired_utc": "2022-03-04T13:05:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "77",
+   "frp": 15.2,
+   "daynight": "N"
+  },
+  {
+   "lat": 37.0735,
+   "lon": 129.3017,
+   "acquired_utc": "2022-03-04T13:05:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 46.0,
+   "daynight": "N"
+  },
+  {
+   "lat": 37.0833,
+   "lon": 129.2987,
+   "acquired_utc": "2022-03-04T13:05:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "97",
+   "frp": 29.3,
+   "daynight": "N"
+  },
+  {
+   "lat": 37.1048,
+   "lon": 129.3639,
+   "acquired_utc": "2022-03-04T13:05:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "80",
+   "frp": 16.4,
+   "daynight": "N"
+  },
+  {
+   "lat": 37.1049,
+   "lon": 129.3009,
+   "acquired_utc": "2022-03-04T13:05:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 38.6,
+   "daynight": "N"
+  },
+  {
+   "lat": 37.1052,
+   "lon": 129.3072,
+   "acquired_utc": "2022-03-04T13:05:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "88",
+   "frp": 29.6,
+   "daynight": "N"
+  },
+  {
+   "lat": 37.0489,
+   "lon": 129.337,
+   "acquired_utc": "2022-03-04T13:05:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 44.5,
+   "daynight": "N"
+  },
+  {
+   "lat": 37.0465,
+   "lon": 129.3233,
+   "acquired_utc": "2022-03-04T13:05:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "38",
+   "frp": 24.3,
+   "daynight": "N"
+  },
+  {
+   "lat": 37.1029,
+   "lon": 129.2937,
+   "acquired_utc": "2022-03-04T13:05:00Z",
+   "source": "replay:uljin_samcheok_2022_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "61",
+   "frp": 24.9,
+   "daynight": "N"
+  }
+ ]
+}

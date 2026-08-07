@@ -137,7 +137,7 @@ def test_the_default_scope_wording_is_unchanged():
 
 
 def test_a_manual_scope_records_what_its_trigger_time_means():
-    s = Scope(mode="manual", weather_basis="b", hazard_field="x", region="r",
+    s = Scope(mode="manual", weather_basis="b", hazard_field="x", region="yeongdeok_2025",
               trigger_source="manual", trigger_at="2026-08-03 04:53 UTC")
     d = s.as_dict()
     assert d["trigger_source"] == "manual"
@@ -147,7 +147,7 @@ def test_a_manual_scope_records_what_its_trigger_time_means():
 
 
 def test_a_firms_scope_says_its_trigger_time_is_an_overpass():
-    s = Scope(mode="live", weather_basis="b", hazard_field="x", region="r")
+    s = Scope(mode="live", weather_basis="b", hazard_field="x", region="yeongdeok_2025")
     assert "overpass" in s.as_dict()["trigger_at_meaning"]
 
 

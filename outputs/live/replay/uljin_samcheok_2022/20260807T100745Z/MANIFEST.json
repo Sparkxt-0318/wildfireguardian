@@ -1,0 +1,1007 @@
+{
+  "schema_version": 1,
+  "generated_utc": "20260807T100753Z",
+  "git_commit": "86b1e6a448ba768e860bb78c4788ce8ebe44b102",
+  "config_hash": "f21177ab83cbccc24b4bede3d134630aac4e90943e3e131a2b326b2bf7f6cc80",
+  "series": "459 (canonical, resident-side, three buckets)",
+  "scope": {
+    "mode": "replay",
+    "mode_banner_ko": "■ 재생 모드 ■ 과거 화재의 화점 기록을 시간 순으로 재생한 것이며, 지금 발생 중인 화재가 아닙니다.",
+    "trigger_source": "replay",
+    "trigger_at": "",
+    "trigger_at_meaning": "the satellite overpass whose batch fired the trigger",
+    "detection": "real-time (FIRMS NRT)",
+    "detection_line_ko": "화점 탐지: 실시간 (FIRMS NRT)",
+    "weather": "NOT real-time",
+    "weather_basis": "2022-03-04 05:26 UTC",
+    "weather_line_ko": "기상 자료: 2022-03-04 05:26 UTC 기준 (ERA5는 약 5일 지연 발행)",
+    "era5_publication_lag_days": 5,
+    "scope_ko": "본 산출물은 「실시간 탐지 + 사전 계산 위험면 기반 결정」입니다. 「실시간 예보 기반 예측」이 아닙니다.",
+    "scope_en": "REAL-TIME DETECTION over a PRE-COMPUTED risk surface. This is NOT a real-time forecast: ERA5 reanalysis publishes on a ~5-day lag, so no hazard field exists for today.",
+    "hazard_field": "data/processed/hazard_uljin_samcheok_2022.npz",
+    "hazard_field_is_precomputed": true,
+    "region": "uljin_samcheok_2022",
+    "coverage_caveat_ko": "울진·삼척 2022 수치는 정본 화재 핵심의 81.5 %만 덮는 보행망에서 산출되었습니다. 나머지 18.5 %에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 울진·삼척 2022 행을 인용할 때는 이 열을 반드시 함께 제시하십시오."
+  },
+  "field_applicability": {
+    "verdict": "IN_SCOPE",
+    "hotspot_to_field_core_km": 3.922,
+    "hotspot_to_manifest_ignition_km": 9.036,
+    "radius_km": 15.0,
+    "anchor": "field t=0 core centroid (p >= 0.5)",
+    "field_core_lonlat": [
+      129.32673289582132,
+      37.06517543135533
+    ],
+    "manifest_ignition_lonlat": [
+      129.32,
+      36.96
+    ],
+    "statement_ko": "트리거 화점은 사전 계산 위험면의 초기 화재 핵심에서 3.9 km 떨어져 있습니다(기준 15 km 이내).",
+    "note": "A LABEL, never a filter. Nothing is dropped on account of it: suppressing a real detection is worse than publishing a stamped one."
+  },
+  "counts": {
+    "naive_into_FA_safe": 3,
+    "no_safe_route": 10,
+    "both_safe": 377,
+    "both_enter": 0,
+    "naive_unreachable": 0,
+    "fa_exceeds_budget": 3,
+    "unclassified": 0
+  },
+  "n_points": 16,
+  "n_dispatch": 3,
+  "n_unreachable": 13,
+  "clustering": {
+    "algorithm": "DBSCAN",
+    "eps_m": 500.0,
+    "min_samples": 1,
+    "is_administrative_village": false,
+    "note": "행정리가 아닌 공간 군집"
+  },
+  "sms_demo_mode": true,
+  "sms_credentials_present": false,
+  "nothing_was_sent": true,
+  "nothing_was_sent_scope": "This automatic pipeline transmits nothing. Since PHASE 7 the email channel CAN transmit, but only from the separate, manually invoked scripts/send_dispatch_email.py, and only after an operator types a confirmation word in full. If that ran against this run, its record is email_sent.json in this directory. docs/delivery_channels.md",
+  "villages": [
+    {
+      "cluster_id": 1,
+      "name": "Pavilion 서쪽 8km",
+      "name_basis": "positional descriptor from nearest named refuge 'Pavilion' at 8149 m, bearing 서; disambiguated by bearing (서); disambiguated by distance (~8 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 3,
+      "n_dispatch": 0,
+      "n_unreachable": 3,
+      "centroid_5179": [
+        1158612.3404062104,
+        1899271.8747308794
+      ],
+      "directory": "01-Pavilion-서쪽-8km",
+      "refuge_used_in_messages": "Pavilion",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 241994,
+        "n_pages": 1
+      },
+      "page_budget": {
+        "ok": true,
+        "n_pages": 1,
+        "severity": "none",
+        "message": ""
+      },
+      "broadcast_check": {
+        "n_lines": 16,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "Pavilion 서쪽 8km",
+          "body": "[산불] Pavilion 서쪽 8km 안내 대상 3곳 중 3곳은 안전한 도보 대피로가 없습니다. 자체 이동을 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 81,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "Pavilion 서쪽 8km",
+          "body": "[산불] Pavilion 서쪽 8km 방문 대상 3곳입니다. 가장 급한 곳은 약 360분 남았습니다. 도보 대피 불가 3곳은 별도 확인 부탁드립니다.",
+          "n_chars": 83,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "Pavilion 서쪽 7873m",
+          "unreachable": true,
+          "bucket": "no_safe_route",
+          "closing_window_min": 360.0,
+          "walk_time_min": null,
+          "reason_ko": "예산 내 안전한 보행 경로가 없음(우회 포함)",
+          "route_note": null
+        },
+        {
+          "label": "Pavilion 서쪽 8407m",
+          "unreachable": true,
+          "bucket": "no_safe_route",
+          "closing_window_min": null,
+          "walk_time_min": null,
+          "reason_ko": "예산 내 안전한 보행 경로가 없음(우회 포함)",
+          "route_note": null
+        },
+        {
+          "label": "Pavilion 서쪽 8171m",
+          "unreachable": true,
+          "bucket": "no_safe_route",
+          "closing_window_min": 360.0,
+          "walk_time_min": null,
+          "reason_ko": "예산 내 안전한 보행 경로가 없음(우회 포함)",
+          "route_note": null
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 2,
+      "name": "불영정 북쪽",
+      "name_basis": "positional descriptor from nearest named refuge '불영정' at 8513 m, bearing 북",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 2,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1159378.8904596022,
+        1894496.3178131862
+      ],
+      "directory": "02-불영정-북쪽",
+      "refuge_used_in_messages": "불영정",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 223983,
+        "n_pages": 1
+      },
+      "page_budget": {
+        "ok": true,
+        "n_pages": 1,
+        "severity": "none",
+        "message": ""
+      },
+      "broadcast_check": {
+        "n_lines": 11,
+        "max_sentence_chars": 15,
+        "longest": 14,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "불영정 북쪽",
+          "body": "[산불] 불영정 북쪽 도보 대피 안내 2곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 불영정입니다.",
+          "n_chars": 58,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "불영정 북쪽",
+          "body": "[산불] 불영정 북쪽 방문 대상 2곳입니다. 가장 급한 곳은 약 180분 남았습니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 74,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "불영정 북쪽 8397m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": 180.0,
+          "walk_time_min": 465.6,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "불영정 북쪽 8632m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": 180.0,
+          "walk_time_min": 484.8,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 3,
+      "name": "영양국제밤하늘보호공원 북쪽 5km",
+      "name_basis": "positional descriptor from nearest named refuge '영양국제밤하늘보호공원' at 4951 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~5 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 0,
+      "n_unreachable": 1,
+      "centroid_5179": [
+        1157098.9728247584,
+        1877427.601496945
+      ],
+      "directory": "03-영양국제밤하늘보호공원-북쪽-5km",
+      "refuge_used_in_messages": "영양국제밤하늘보호공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 252938,
+        "n_pages": 1
+      },
+      "page_budget": {
+        "ok": true,
+        "n_pages": 1,
+        "severity": "none",
+        "message": ""
+      },
+      "broadcast_check": {
+        "n_lines": 18,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "영양국제밤하늘보호공원 북쪽 5km",
+          "body": "[산불] 영양국제밤하늘보호공원 북쪽 5km 안내 대상 1곳 중 1곳은 안전한 도보 대피로가 없습니다. 자체 이동을 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 84,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "영양국제밤하늘보호공원 북쪽 5km",
+          "body": "[산불] 영양국제밤하늘보호공원 북쪽 5km 방문 대상 1곳입니다. 도보 대피 불가 1곳은 별도 확인 부탁드립니다.",
+          "n_chars": 63,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "영양국제밤하늘보호공원 북쪽 4951m",
+          "unreachable": true,
+          "bucket": "fa_exceeds_budget",
+          "closing_window_min": null,
+          "walk_time_min": null,
+          "reason_ko": "보행 경로는 있으나 대피 시간 예산 초과",
+          "route_note": null
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 4,
+      "name": "금강송에코리움 북쪽",
+      "name_basis": "positional descriptor from nearest named refuge '금강송에코리움' at 13881 m, bearing 북",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 0,
+      "n_unreachable": 1,
+      "centroid_5179": [
+        1149716.3187378692,
+        1901221.3058288777
+      ],
+      "directory": "04-금강송에코리움-북쪽",
+      "refuge_used_in_messages": "금강송에코리움",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 244283,
+        "n_pages": 1
+      },
+      "page_budget": {
+        "ok": true,
+        "n_pages": 1,
+        "severity": "none",
+        "message": ""
+      },
+      "broadcast_check": {
+        "n_lines": 16,
+        "max_sentence_chars": 15,
+        "longest": 12,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "금강송에코리움 북쪽",
+          "body": "[산불] 금강송에코리움 북쪽 안내 대상 1곳 중 1곳은 안전한 도보 대피로가 없습니다. 자체 이동을 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 76,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "금강송에코리움 북쪽",
+          "body": "[산불] 금강송에코리움 북쪽 방문 대상 1곳입니다. 도보 대피 불가 1곳은 별도 확인 부탁드립니다.",
+          "n_chars": 55,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "금강송에코리움 북쪽 13881m",
+          "unreachable": true,
+          "bucket": "no_safe_route",
+          "closing_window_min": null,
+          "walk_time_min": null,
+          "reason_ko": "예산 내 안전한 보행 경로가 없음(우회 포함)",
+          "route_note": null
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 5,
+      "name": "영양국제밤하늘보호공원 북서쪽",
+      "name_basis": "positional descriptor from nearest named refuge '영양국제밤하늘보호공원' at 7876 m, bearing 북서",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 0,
+      "n_unreachable": 1,
+      "centroid_5179": [
+        1153558.5752406719,
+        1879135.428368252
+      ],
+      "directory": "05-영양국제밤하늘보호공원-북서쪽",
+      "refuge_used_in_messages": "영양국제밤하늘보호공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 253302,
+        "n_pages": 1
+      },
+      "page_budget": {
+        "ok": true,
+        "n_pages": 1,
+        "severity": "none",
+        "message": ""
+      },
+      "broadcast_check": {
+        "n_lines": 16,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "영양국제밤하늘보호공원 북서쪽",
+          "body": "[산불] 영양국제밤하늘보호공원 북서쪽 안내 대상 1곳 중 1곳은 안전한 도보 대피로가 없습니다. 자체 이동을 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 81,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "영양국제밤하늘보호공원 북서쪽",
+          "body": "[산불] 영양국제밤하늘보호공원 북서쪽 방문 대상 1곳입니다. 도보 대피 불가 1곳은 별도 확인 부탁드립니다.",
+          "n_chars": 60,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "영양국제밤하늘보호공원 북서쪽 7876m",
+          "unreachable": true,
+          "bucket": "fa_exceeds_budget",
+          "closing_window_min": null,
+          "walk_time_min": null,
+          "reason_ko": "보행 경로는 있으나 대피 시간 예산 초과",
+          "route_note": null
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 6,
+      "name": "Pavilion 서쪽 3km",
+      "name_basis": "positional descriptor from nearest named refuge 'Pavilion' at 3238 m, bearing 서; disambiguated by bearing (서); disambiguated by distance (~3 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 0,
+      "n_unreachable": 1,
+      "centroid_5179": [
+        1163340.1135939262,
+        1900616.1409684767
+      ],
+      "directory": "06-Pavilion-서쪽-3km",
+      "refuge_used_in_messages": "Pavilion",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 238139,
+        "n_pages": 1
+      },
+      "page_budget": {
+        "ok": true,
+        "n_pages": 1,
+        "severity": "none",
+        "message": ""
+      },
+      "broadcast_check": {
+        "n_lines": 16,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "Pavilion 서쪽 3km",
+          "body": "[산불] Pavilion 서쪽 3km 안내 대상 1곳 중 1곳은 안전한 도보 대피로가 없습니다. 자체 이동을 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 81,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "Pavilion 서쪽 3km",
+          "body": "[산불] Pavilion 서쪽 3km 방문 대상 1곳입니다. 가장 급한 곳은 약 180분 남았습니다. 도보 대피 불가 1곳은 별도 확인 부탁드립니다.",
+          "n_chars": 83,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "Pavilion 서쪽 3238m",
+          "unreachable": true,
+          "bucket": "no_safe_route",
+          "closing_window_min": 180.0,
+          "walk_time_min": null,
+          "reason_ko": "예산 내 안전한 보행 경로가 없음(우회 포함)",
+          "route_note": null
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 7,
+      "name": "Pavilion 서쪽 6km 7",
+      "name_basis": "positional descriptor from nearest named refuge 'Pavilion' at 5693 m, bearing 서; disambiguated by bearing (서); disambiguated by distance (~6 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 0,
+      "n_unreachable": 1,
+      "centroid_5179": [
+        1160701.7174809906,
+        1901476.2519319765
+      ],
+      "directory": "07-Pavilion-서쪽-6km-7",
+      "refuge_used_in_messages": "Pavilion",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 238655,
+        "n_pages": 1
+      },
+      "page_budget": {
+        "ok": true,
+        "n_pages": 1,
+        "severity": "none",
+        "message": ""
+      },
+      "broadcast_check": {
+        "n_lines": 18,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "Pavilion 서쪽 6km 7",
+          "body": "[산불] Pavilion 서쪽 6km 7 안내 대상 1곳 중 1곳은 안전한 도보 대피로가 없습니다. 자체 이동을 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 83,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "Pavilion 서쪽 6km 7",
+          "body": "[산불] Pavilion 서쪽 6km 7 방문 대상 1곳입니다. 가장 급한 곳은 약 360분 남았습니다. 도보 대피 불가 1곳은 별도 확인 부탁드립니다.",
+          "n_chars": 85,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "Pavilion 서쪽 5693m",
+          "unreachable": true,
+          "bucket": "no_safe_route",
+          "closing_window_min": 360.0,
+          "walk_time_min": null,
+          "reason_ko": "예산 내 안전한 보행 경로가 없음(우회 포함)",
+          "route_note": null
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 8,
+      "name": "흥부만세공원 서쪽",
+      "name_basis": "positional descriptor from nearest named refuge '흥부만세공원' at 6902 m, bearing 서",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 0,
+      "n_unreachable": 1,
+      "centroid_5179": [
+        1159505.5116950164,
+        1902267.6883917614
+      ],
+      "directory": "08-흥부만세공원-서쪽",
+      "refuge_used_in_messages": "흥부만세공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 242268,
+        "n_pages": 1
+      },
+      "page_budget": {
+        "ok": true,
+        "n_pages": 1,
+        "severity": "none",
+        "message": ""
+      },
+      "broadcast_check": {
+        "n_lines": 16,
+        "max_sentence_chars": 15,
+        "longest": 12,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "흥부만세공원 서쪽",
+          "body": "[산불] 흥부만세공원 서쪽 안내 대상 1곳 중 1곳은 안전한 도보 대피로가 없습니다. 자체 이동을 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 75,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "흥부만세공원 서쪽",
+          "body": "[산불] 흥부만세공원 서쪽 방문 대상 1곳입니다. 가장 급한 곳은 약 180분 남았습니다. 도보 대피 불가 1곳은 별도 확인 부탁드립니다.",
+          "n_chars": 77,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "흥부만세공원 서쪽 6902m",
+          "unreachable": true,
+          "bucket": "no_safe_route",
+          "closing_window_min": 180.0,
+          "walk_time_min": null,
+          "reason_ko": "예산 내 안전한 보행 경로가 없음(우회 포함)",
+          "route_note": null
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 9,
+      "name": "Pavilion 서쪽 6km 9",
+      "name_basis": "positional descriptor from nearest named refuge 'Pavilion' at 5882 m, bearing 서; disambiguated by bearing (서); disambiguated by distance (~6 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 0,
+      "n_unreachable": 1,
+      "centroid_5179": [
+        1160866.2952303144,
+        1899683.550863993
+      ],
+      "directory": "09-Pavilion-서쪽-6km-9",
+      "refuge_used_in_messages": "Pavilion",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 238444,
+        "n_pages": 1
+      },
+      "page_budget": {
+        "ok": true,
+        "n_pages": 1,
+        "severity": "none",
+        "message": ""
+      },
+      "broadcast_check": {
+        "n_lines": 18,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "Pavilion 서쪽 6km 9",
+          "body": "[산불] Pavilion 서쪽 6km 9 안내 대상 1곳 중 1곳은 안전한 도보 대피로가 없습니다. 자체 이동을 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 83,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "Pavilion 서쪽 6km 9",
+          "body": "[산불] Pavilion 서쪽 6km 9 방문 대상 1곳입니다. 가장 급한 곳은 약 720분 남았습니다. 도보 대피 불가 1곳은 별도 확인 부탁드립니다.",
+          "n_chars": 85,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "Pavilion 서쪽 5882m",
+          "unreachable": true,
+          "bucket": "no_safe_route",
+          "closing_window_min": 720.0,
+          "walk_time_min": null,
+          "reason_ko": "예산 내 안전한 보행 경로가 없음(우회 포함)",
+          "route_note": null
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 10,
+      "name": "Pavilion 서쪽 7km",
+      "name_basis": "positional descriptor from nearest named refuge 'Pavilion' at 7332 m, bearing 서; disambiguated by bearing (서); disambiguated by distance (~7 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 0,
+      "n_unreachable": 1,
+      "centroid_5179": [
+        1159269.8761544276,
+        1899954.8552072204
+      ],
+      "directory": "10-Pavilion-서쪽-7km",
+      "refuge_used_in_messages": "Pavilion",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 237832,
+        "n_pages": 1
+      },
+      "page_budget": {
+        "ok": true,
+        "n_pages": 1,
+        "severity": "none",
+        "message": ""
+      },
+      "broadcast_check": {
+        "n_lines": 16,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "Pavilion 서쪽 7km",
+          "body": "[산불] Pavilion 서쪽 7km 안내 대상 1곳 중 1곳은 안전한 도보 대피로가 없습니다. 자체 이동을 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 81,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "Pavilion 서쪽 7km",
+          "body": "[산불] Pavilion 서쪽 7km 방문 대상 1곳입니다. 가장 급한 곳은 약 180분 남았습니다. 도보 대피 불가 1곳은 별도 확인 부탁드립니다.",
+          "n_chars": 83,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "Pavilion 서쪽 7332m",
+          "unreachable": true,
+          "bucket": "no_safe_route",
+          "closing_window_min": 180.0,
+          "walk_time_min": null,
+          "reason_ko": "예산 내 안전한 보행 경로가 없음(우회 포함)",
+          "route_note": null
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 11,
+      "name": "Pavilion 남서쪽",
+      "name_basis": "positional descriptor from nearest named refuge 'Pavilion' at 8771 m, bearing 남서",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 0,
+      "n_unreachable": 1,
+      "centroid_5179": [
+        1159536.1251402714,
+        1896230.4262298993
+      ],
+      "directory": "11-Pavilion-남서쪽",
+      "refuge_used_in_messages": "Pavilion",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 238963,
+        "n_pages": 1
+      },
+      "page_budget": {
+        "ok": true,
+        "n_pages": 1,
+        "severity": "none",
+        "message": ""
+      },
+      "broadcast_check": {
+        "n_lines": 16,
+        "max_sentence_chars": 15,
+        "longest": 12,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "Pavilion 남서쪽",
+          "body": "[산불] Pavilion 남서쪽 안내 대상 1곳 중 1곳은 안전한 도보 대피로가 없습니다. 자체 이동을 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 78,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "Pavilion 남서쪽",
+          "body": "[산불] Pavilion 남서쪽 방문 대상 1곳입니다. 가장 급한 곳은 약 180분 남았습니다. 도보 대피 불가 1곳은 별도 확인 부탁드립니다.",
+          "n_chars": 80,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "Pavilion 남서쪽 8771m",
+          "unreachable": true,
+          "bucket": "no_safe_route",
+          "closing_window_min": 180.0,
+          "walk_time_min": null,
+          "reason_ko": "예산 내 안전한 보행 경로가 없음(우회 포함)",
+          "route_note": null
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 12,
+      "name": "선유정 북쪽",
+      "name_basis": "positional descriptor from nearest named refuge '선유정' at 7286 m, bearing 북",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1159315.1088775503,
+        1893216.764433605
+      ],
+      "directory": "12-선유정-북쪽",
+      "refuge_used_in_messages": "선유정",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 220150,
+        "n_pages": 1
+      },
+      "page_budget": {
+        "ok": true,
+        "n_pages": 1,
+        "severity": "none",
+        "message": ""
+      },
+      "broadcast_check": {
+        "n_lines": 11,
+        "max_sentence_chars": 15,
+        "longest": 14,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "선유정 북쪽",
+          "body": "[산불] 선유정 북쪽 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 선유정입니다.",
+          "n_chars": 58,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "선유정 북쪽",
+          "body": "[산불] 선유정 북쪽 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 51,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "선유정 북쪽 7286m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 571.6,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 13,
+      "name": "영양국제밤하늘보호공원 북쪽 6km",
+      "name_basis": "positional descriptor from nearest named refuge '영양국제밤하늘보호공원' at 6344 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~6 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 0,
+      "n_unreachable": 1,
+      "centroid_5179": [
+        1159241.2435025533,
+        1878724.639150748
+      ],
+      "directory": "13-영양국제밤하늘보호공원-북쪽-6km",
+      "refuge_used_in_messages": "영양국제밤하늘보호공원",
+      "pdf": {
+        "ok": true,
+        "engine": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "bytes": 253025,
+        "n_pages": 1
+      },
+      "page_budget": {
+        "ok": true,
+        "n_pages": 1,
+        "severity": "none",
+        "message": ""
+      },
+      "broadcast_check": {
+        "n_lines": 18,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "영양국제밤하늘보호공원 북쪽 6km",
+          "body": "[산불] 영양국제밤하늘보호공원 북쪽 6km 안내 대상 1곳 중 1곳은 안전한 도보 대피로가 없습니다. 자체 이동을 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 84,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "영양국제밤하늘보호공원 북쪽 6km",
+          "body": "[산불] 영양국제밤하늘보호공원 북쪽 6km 방문 대상 1곳입니다. 도보 대피 불가 1곳은 별도 확인 부탁드립니다.",
+          "n_chars": 63,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "영양국제밤하늘보호공원 북쪽 6344m",
+          "unreachable": true,
+          "bucket": "fa_exceeds_budget",
+          "closing_window_min": null,
+          "walk_time_min": null,
+          "reason_ko": "보행 경로는 있으나 대피 시간 예산 초과",
+          "route_note": null
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    }
+  ],
+  "n_villages": 13,
+  "all_three_formats_per_village": true
+}

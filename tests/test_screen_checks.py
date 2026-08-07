@@ -739,3 +739,80 @@ def test_every_status_code_the_console_prints_is_accompanied_by_a_sentence():
         assert "showReject(" in window, (
             "a status code is printed with no sentence beside it at offset "
             f"{m.start()}")
+
+
+# ---------------------------------------------------------------------------
+# 7. One region's value, typed into a string every region reads
+#
+# The same defect three times in three files, and every one of them was CORRECT
+# ON YEONGDEOK — which is why all three survived review. `check_region_literals`
+# is scoped to the operator-facing builders and is demonstrated below to fail on
+# each of the three as they were actually written.
+# ---------------------------------------------------------------------------
+
+sys.path.insert(0, str(REPO / "scripts"))
+from check_region_literals import (  # noqa: E402
+    KNOWN_REGION_LITERALS, check_repo, check_text, over_the_ratchet,
+)
+
+#: The three, reproduced verbatim from the commits that introduced them.
+THE_THREE_DEFECTS: dict[str, tuple[str, str]] = {
+    "build_operator_screen legend": (
+        '      <b style="margin-top:7px">보행망 범위 (커버리지 32.6%)</b>',
+        ".html"),
+    "build_console payload": (
+        '            "coverage_pct": 32.6,   # 보행망 커버리지',
+        ".py"),
+    "scope coverage caveat": (
+        '    "영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 '
+        '산출되었습니다. "', ".py"),
+}
+
+
+@pytest.mark.parametrize("name", list(THE_THREE_DEFECTS))
+def test_the_region_literal_check_catches_all_three(name):
+    """⚠ The bar this checker was built to clear.
+
+    It is not complete and does not try to be. It has to catch the shape these
+    three had; anything beyond that is a bonus.
+    """
+    line, suffix = THE_THREE_DEFECTS[name]
+    found = check_text(line, "probe" + suffix, suffix=suffix)
+    assert found, f"{name}: the check does not fire on the original defect"
+
+
+def test_the_check_stays_quiet_on_the_patterns_that_are_the_FIX():
+    """A detector that always fires is as useless as one that never does.
+
+    Each of these is the correct pattern the fix uses, and must not be flagged.
+    """
+    quiet = [
+        ('    "yeongdeok_2025": 32.6,   # 보행망 커버리지', ".py"),
+        ('COVERAGE_PCT = {"uiseong_andong_2025": 99.2}  # 커버리지', ".py"),
+        ("    el('f-cov').textContent = `${D.honesty.coverage_pct}%`;", ".html"),
+        ('    return f"{label} 수치는 {cov} %만 덮는 보행망에서"', ".py"),
+        ("  # 영덕 was 32.6 % here and that is what made it survive", ".py"),
+        ("  // 보행망 커버리지 32.6% used to be hardcoded here", ".html"),
+    ]
+    for line, suffix in quiet:
+        found = check_text(line, "probe" + suffix, suffix=suffix)
+        assert not found, f"false positive on the FIX pattern: {line!r} -> {found}"
+
+
+def test_the_tree_carries_no_region_literal_above_the_recorded_floor():
+    over = over_the_ratchet(check_repo())
+    assert not over, "\n".join(
+        f"{f.path}:{f.line} {f.what}\n    {f.excerpt}" for f in over)
+
+
+def test_the_ratchet_floor_is_not_stale():
+    """If a file improved below its allowance, lower it. A stale floor is a
+    ceiling, and this repo already ratchets dashes and offline violations."""
+    by_file: dict[str, int] = {}
+    for f in check_repo():
+        by_file[f.path] = by_file.get(f.path, 0) + 1
+    for path, allowed in KNOWN_REGION_LITERALS.items():
+        actual = by_file.get(path, 0)
+        assert actual == allowed, (
+            f"{path}: recorded floor {allowed}, actual {actual} — "
+            "lower KNOWN_REGION_LITERALS so the floor holds the improvement")

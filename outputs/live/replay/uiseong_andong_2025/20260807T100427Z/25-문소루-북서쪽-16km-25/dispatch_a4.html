@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<title>문소루 북서쪽 16km 25 출동 목록</title><style>
+@page { size: A4 portrait; margin: 11mm 10mm 10mm 10mm; }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: "Apple SD Gothic Neo", "AppleGothic", "NanumGothic",
+               "Malgun Gothic", sans-serif;
+  font-size: 14pt; line-height: 1.28; color: #000; background: #fff;
+}
+.hdr { border-bottom: 3px solid #000; padding-bottom: 4px; margin-bottom: 7px; }
+.hdr h1 { font-size: 25pt; margin: 0 0 2px 0; letter-spacing: -0.5px; }
+.hdr .sub { font-size: 14pt; font-weight: bold; margin-bottom: 3px; }
+.meta { font-size: 10.5pt; line-height: 1.35; }
+.meta b { font-weight: bold; }
+.warnbox {
+  border: 2px solid #000; padding: 4px 7px; margin: 6px 0;
+  font-size: 12pt; font-weight: bold;
+}
+h2 { font-size: 16pt; margin: 9px 0 4px 0; padding-bottom: 2px;
+     border-bottom: 2px solid #000; }
+table { width: 100%; border-collapse: collapse; font-size: 14pt; }
+th, td { border: 1px solid #000; padding: 3px 5px; text-align: left;
+         vertical-align: top; }
+th { background: #ddd; font-weight: bold; font-size: 12.5pt; }
+td.num { text-align: right; font-variant-numeric: tabular-nums;
+         white-space: nowrap; }
+td.big { font-size: 16pt; font-weight: bold; }
+tr.unreach td { border-top: 3px solid #000; border-bottom: 3px solid #000;
+                background: #eee; }
+.tag { display: inline-block; border: 2px solid #000; padding: 0 4px;
+       font-size: 11.5pt; font-weight: bold; }
+.blank { color: #000; font-weight: bold; }
+.ftr { margin-top: 9px; padding-top: 5px; border-top: 3px solid #000;
+       font-size: 12pt; font-weight: bold; line-height: 1.35; }
+.ftr div { margin-bottom: 2px; }
+.sig { margin-top: 6px; font-size: 12pt; }
+.sig span { display: inline-block; border-bottom: 1px solid #000;
+            min-width: 95px; margin-right: 14px; }
+</style></head>
+<body>
+<div class="hdr">
+  <h1>문소루 북서쪽 16km 25 출동 목록</h1>
+  <div class="sub">구조 요청 0곳 · 도달 불가 1곳</div>
+  <div class="meta">
+    생성 2026-08-07 10:04 UTC · 커밋 <b>86b1e6a448ba</b> ·
+    설정 <b>f21177ab83cb</b><br>
+    산출물 data/processed/hazard_uiseong_andong_2025.npz · 전체 출동 91곳 중
+    본 목록 0곳, 전체 도달 불가 14곳 중
+    본 목록 1곳
+  </div>
+</div>
+
+<div class="warnbox">
+  ※ 이 「마을」은 행정리가 아니라 좌표 기반 공간 군집입니다.
+  실제 행정리 경계와 다를 수 있습니다.
+</div>
+<div class="warnbox">※ ■ 재생 모드 ■ 과거 화재의 화점 기록을 시간 순으로 재생한 것이며, 지금 발생 중인 화재가 아닙니다.</div><div class="warnbox">※ 본 산출물은 「실시간 탐지 + 사전 계산 위험면 기반 결정」입니다. 「실시간 예보 기반 예측」이 아닙니다.  화점 탐지: 실시간 (FIRMS NRT) · 기상 자료: 2025-03-22 05:39 UTC 기준 (ERA5는 약 5일 지연 발행)</div>
+
+<h2>■ 도보 대피 안내 지점 — 남은 시간 순</h2>
+<table><thead><tr>
+  <th style="width:7%">번호</th><th style="width:30%">위치</th>
+  <th style="width:17%">남은 시간</th><th>진입 가능 경로</th>
+  <th style="width:9%">확인</th>
+</tr></thead><tbody><tr><td colspan='5'>이 마을에는 구조 요청 지점이 없습니다.</td></tr></tbody></table>
+<h2>■ 안전한 도보 대피로 없음 — 별도 조치 필요</h2><table><thead><tr><th style='width:7%'>번호</th><th style='width:33%'>위치</th><th>사유</th><th style='width:9%'>확인</th></tr></thead><tbody><tr class='unreach'><td class='num'>1</td><td>문소루 북서쪽 16429m</td><td>예산 내 안전한 보행 경로가 없음(우회 포함)</td><td class='blank'>□</td></tr></tbody></table>
+
+<div class="ftr"><div>본 목록은 예측에 기반한 참고 자료이며 최종 판단은 현장에서 하십시오.</div><div>본 목록은 600분 보행 예산 기준이며, 실제 경보 시간에서는 도달 불가 지점이 크게 늘어납니다.</div><div>의성·안동 2025 수치는 정본 화재 핵심의 99.2 %만 덮는 보행망에서 산출되었습니다. 나머지 0.8 %에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 의성·안동 2025 행을 인용할 때는 이 열을 반드시 함께 제시하십시오.</div></div>
+<div class="sig">확인자 <span>&nbsp;</span> 시각 <span>&nbsp;</span>
+  연락처 <span>&nbsp;</span></div>
+</body></html>

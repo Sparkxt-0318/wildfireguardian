@@ -427,7 +427,7 @@ def test_the_live_sheet_keeps_every_mandated_string_in_two_banners():
     html = printable.render_html(
         v, generated_at="t", git_commit="c" * 12, config_hash="h" * 12,
         source_file="f", n_total_dispatch=1, n_total_unreachable=0,
-        banner_lines=banners, extra_footer_lines=[scope.COVERAGE_CAVEAT_KO],
+        banner_lines=banners, extra_footer_lines=[s.coverage_caveat()],
         dispatch_heading=pipeline.WALK_DISPATCH_HEADING,
         unreachable_heading=pipeline.WALK_UNREACHABLE_HEADING)
     assert len(banners) == 2, "keep the banner block short; boxes cost a page"

@@ -54,7 +54,7 @@ def _draft(role: str = "복지사") -> em.EmailMessageDraft:
               scope_lines=["화점 탐지: 실시간 (FIRMS NRT)",
                            "기상 자료: 2025-03-25 12:25 UTC 기준 "
                            "(ERA5는 약 5일 지연 발행)"],
-              banner="■ 재생 모드 ■")
+              banner="■ 재생 모드 ■", region="yeongdeok_2025")
 
 
 # ---------------------------------------------------------------------------
@@ -389,7 +389,8 @@ def test_the_html_embeds_no_remote_assets():
 def test_the_html_escapes_place_names():
     pts = [{"label": "<script>x</script> 마을", "unreachable": False,
             "closing_window_min": 10.0, "route_note": "확인"}]
-    d = em.compose_family("<b>마을</b>", pts, generated_at="t", scope_lines=[])
+    d = em.compose_family("<b>마을</b>", pts, generated_at="t", scope_lines=[],
+                          region="yeongdeok_2025")
     assert "<script>" not in d.html_body
     assert "&lt;script&gt;" in d.html_body
 

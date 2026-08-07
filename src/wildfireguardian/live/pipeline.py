@@ -66,7 +66,9 @@ from ..routing.hazard import HazardSequence
 from ..routing.slope import build_walk_network, load_snapshot_graph
 from ..spread_v2.grid import CoarseGrid
 from .firms import Hotspot, haversine_m
-from .scope import COVERAGE_CAVEAT_KO, SCOPE_BANNER_KO, Scope
+from .scope import (
+    SCOPE_BANNER_KO, Scope, coverage_caveat_ko, responder_status_ko,
+)
 from .state import RunRecord, StageTimings
 
 REPO = Path(__file__).resolve().parents[3]
@@ -570,7 +572,9 @@ def deliver(points: list[dict], res: Resources, out_dir: Path, *,
                SCOPE_BANNER_KO + "  " + " · ".join(scope.lines())]
     if applicability["verdict"] != "IN_SCOPE":
         banners.insert(1, applicability["statement_ko"])
-    footer_extra = [COVERAGE_CAVEAT_KO]
+    # Per region. This is the A4 path: 273 sheets for the other two regions
+    # carried Yeongdeok's caveat, and neither carried its own.
+    footer_extra = [coverage_caveat_ko(res.region)]
 
     n_dispatch = sum(1 for p in points if not p["unreachable"])
     n_unreach = sum(1 for p in points if p["unreachable"])
@@ -755,12 +759,7 @@ def write_viz(out_dir: Path, res: Resources, *, points: list[dict],
             # JSON payload data rather than as a literal beside a DOM sink
             # (`check_screen_assets.PAYLOAD_BLIND_SPOT`). Fixing it here does
             # not close that hole; the hole is recorded separately and stays.
-            "status_ko": (
-                "이 지역은 walk bbox(919 km²) 내에 OSM에 매핑된 소방서가 없어 "
-                "구조자 측 산출이 불가합니다. 더 넓은 3,926 km² 범위에는 6곳"
-                if res.n_depot_pois == 0 else
-                f"차고지 {res.n_depot_pois}곳이 매핑되어 있으나, 459 계열은 "
-                f"주민 측만 산출합니다"),
+            "status_ko": responder_status_ko(res.region, res.n_depot_pois),
             "phrasing_rule": (
                 "NEVER write 'this region has no fire stations'. The statement "
                 "is that no amenity=fire_station is MAPPED IN OSM inside the "

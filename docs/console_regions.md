@@ -92,11 +92,15 @@ Shipping them beside Yeongdeok's 10.4 s would have put 30.7 s next to it and
 invited "Uiseong-Andong is three times slower", when the difference was the
 optimisation, not the region. Both missing regions were re-run on current code.
 
+All three were re-run once more on 2026-08-07 **with PDFs**, to check the A4 page
+budget after the coverage caveat became per region ([`region_literals.md`](region_literals.md)).
+The shipped console is built from those:
+
 | region | run | warm | routing | counts (safe / FA-only / none / budget) | matches the committed table |
 |---|---|---|---|---|---|
-| 영덕 2025 | `20260807T022854Z` | **10.385 s** | 10.249 s | 414 / 42 / 2 / 0 | yes |
-| 의성·안동 2025 | `20260807T050300Z` | **18.361 s** | 18.105 s | 263 / 91 / 12 / 2 | yes |
-| 울진·삼척 2022 | `20260807T050338Z` | **8.543 s** | 8.406 s | 377 / 3 / 10 / 3 | yes |
+| 영덕 2025 | `20260807T100249Z` | **9.961 s** | 9.801 s | 414 / 42 / 2 / 0 | yes |
+| 의성·안동 2025 | `20260807T100427Z` | **18.252 s** | 18.057 s | 263 / 91 / 12 / 2 | yes |
+| 울진·삼척 2022 | `20260807T100745Z` | **8.174 s** | 8.042 s | 377 / 3 / 10 / 3 | yes |
 
 Every count checked against `data/processed/multi_region_comparison.json`, and a
 test now pins that agreement so a rebuild cannot quietly move one.
@@ -250,3 +254,64 @@ Driven end to end:
 
 Gates: offline **0** · dash **0** · contrast **0**. Suite **949 passed, 4
 skipped**. `make verify` PASSED, `check-forbidden` HARD **0**.
+
+---
+
+## 10. Recorded, deliberately NOT fixed
+
+Two literals name one region in code the other regions also run. **Both are
+correct on every path that can currently reach them**, which is exactly why they
+are recorded rather than left unmentioned — that property is what made the three
+real instances survive review.
+
+| where | literal | why it is correct today |
+|---|---|---|
+| `scripts/console.template.html:195` | `<svg … aria-label="영덕 위험 확률장과 …">` | `renderFacts()` overwrites it with `${D.label_kr}` on **every** mount including the first, so what a screen reader announces is always the mounted region. The literal is only the value between parse and first paint. |
+| `scripts/build_console.py` | `차고지 0곳 → 구조자 측 산출 불가 표시` in the build printout | reached only inside `if not p["responder"]["available"]`, and `available` is `n_depot_pois > 0`, so the count is 0 by construction. Build stdout only; never shipped. |
+
+The first is the single entry in
+`check_region_literals.KNOWN_REGION_LITERALS`, so the ratchet holds at one and
+any **new** literal fails. The second is not matched by that checker (no Korean
+region name, no per-region figure) and is recorded here instead.
+
+---
+
+## 11. The three instances of one defect, and the check that now catches them
+
+| # | where | what it said | who saw it |
+|---|---|---|---|
+| 1 | `build_operator_screen.py` legend | `보행망 범위 (커버리지 32.6%)` in static markup while the footer read the per-region value | the **의성·안동 demonstration screen** showed 32.6 % and 99.2 % at once |
+| 2 | `build_console.py` | `"coverage_pct": 32.6` in the payload builder | nobody yet — it would have gone wrong the moment the console could switch |
+| 3 | `live/scope.py` | `COVERAGE_CAVEAT_KO` naming 영덕 and 32.6 % | **273** A4 sheets for the other two regions, none of which carried its own figure |
+
+⚠ **All three were correct on Yeongdeok.** That is the whole pathology: the
+author checks the screen in front of them, and that screen is the one the
+literal happens to match. A defect invisible from the default region needs a
+check that does not start there.
+
+`scripts/check_region_literals.py` is that check. It is scoped to the nine
+operator-facing builders and delivery modules, it looks for a Korean region name
+or a per-region figure inside a user-visible string, and it exempts per-region
+tables (a line naming a region *key*), comments and docstrings.
+
+**It is not complete and does not try to be.** The bar it was built to clear is
+"would it have caught the three", and
+`tests/test_screen_checks.py::test_the_region_literal_check_catches_all_three`
+feeds it each of the three exactly as they were written and asserts it fires.
+A companion test feeds it six *correct* patterns — the per-region dict, the
+templated string, the value read from the payload, the comments — and asserts it
+stays quiet, because a detector that always fires is as useless as one that
+never does.
+
+Wired into `make verify`.
+
+### Two weaknesses found while building it, both fixed
+
+* It flagged **its own docstring** explaining the defect. Comment detection only
+  matched an *opening* line, so docstring continuation prose was scanned. It now
+  tracks the fences.
+* It was **blind to instance 2**. An early exemption skipped any line mentioning
+  `coverage_pct` on the grounds that such a line "reads the value" — but
+  `"coverage_pct": 32.6` both names the field and states the value, so the
+  exemption covered precisely the defect. A line that genuinely reads a value has
+  no literal in it, so the exemption was removed rather than narrowed.

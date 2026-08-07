@@ -192,8 +192,14 @@ def main() -> int:
     drafts = []
     for role in roles:
         fn = em.compose_family if role == "가족" else em.compose_welfare
+        # ⚠ NAMED, not defaulted. This script reads `outputs/dispatch*`, which
+        # is the 439-series Yeongdeok lineage and nothing else — see the module
+        # docstring. Saying so at the call site is the point: the coverage
+        # caveat used to be a module constant that silently claimed 영덕 for
+        # every region's message.
         drafts.append(fn(village["name"], pts, refuge=refuge,
-                         scope_lines=scope_lines, banner=banner))
+                         scope_lines=scope_lines, banner=banner,
+                         region="yeongdeok_2025"))
 
     recipient = em.allowed_recipient()
     creds = em.credentials_present()

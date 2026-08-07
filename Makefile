@@ -10,7 +10,8 @@ PYTHON ?= python
 SCRIPTS := scripts
 
 .DEFAULT_GOAL := help
-.PHONY: help verify verify-numbers check-forbidden snapshot snapshot-verify \
+.PHONY: help verify verify-numbers check-forbidden check-region-literals \
+	snapshot snapshot-verify \
         env-check config-hash test baseline-verify baseline-freeze all-checks
 
 help:
@@ -19,6 +20,7 @@ help:
 	@echo "  make verify           NUMBERS.json re-derived from artifacts + forbidden-string scan"
 	@echo "  make verify-numbers   just the NUMBERS.json re-derivation"
 	@echo "  make check-forbidden  just the forbidden-string scan"
+	@echo "  make check-region-literals  one region's values typed into shared text"
 	@echo "  make snapshot         preserve external inputs (OSM + FIRMS manifests)"
 	@echo "  make snapshot-verify  re-hash the snapshot store against MANIFEST.json"
 	@echo "  make env-check        installed packages vs the pins in requirements.txt"
@@ -34,7 +36,7 @@ help:
 # --- the headline gate -------------------------------------------------------
 # Every registered number is re-derived from its artifact, then the prose is
 # scanned for retired values. Either failing is a hard stop.
-verify: verify-numbers check-forbidden
+verify: verify-numbers check-forbidden check-region-literals
 	@echo
 	@echo "=== make verify: PASSED ==="
 
@@ -46,6 +48,11 @@ check-forbidden:
 	@echo
 	@echo "=== forbidden strings ==="
 	@$(PYTHON) $(SCRIPTS)/check_forbidden.py
+
+check-region-literals:
+	@echo
+	@echo "=== region literals in user-visible text ==="
+	@$(PYTHON) $(SCRIPTS)/check_region_literals.py
 
 # --- provenance --------------------------------------------------------------
 snapshot:

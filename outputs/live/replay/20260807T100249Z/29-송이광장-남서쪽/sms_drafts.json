@@ -1,0 +1,25 @@
+{
+  "village": "송이광장 남서쪽",
+  "demo_mode": true,
+  "sent": false,
+  "scope_ko": "■ 재생 모드 ■ 과거 화재의 화점 기록을 시간 순으로 재생한 것이며, 지금 발생 중인 화재가 아닙니다. · 화점 탐지: 실시간 (FIRMS NRT) · 기상 자료: 2025-03-25 12:25 UTC 기준 (ERA5는 약 5일 지연 발행)",
+  "note": "drafts only; sms.send() was never called and requires a positional approval_token",
+  "messages": [
+    {
+      "recipient_role": "가족",
+      "village": "송이광장 남서쪽",
+      "body": "[산불] 송이광장 남서쪽 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 송이광장입니다.",
+      "n_chars": 61,
+      "within_limit": true,
+      "max_chars": 90
+    },
+    {
+      "recipient_role": "복지사",
+      "village": "송이광장 남서쪽",
+      "body": "[산불] 송이광장 남서쪽 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+      "n_chars": 53,
+      "within_limit": true,
+      "max_chars": 90
+    }
+  ]
+}
