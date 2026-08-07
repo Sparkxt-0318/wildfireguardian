@@ -1,0 +1,770 @@
+/* ==========================================================================
+   산불지킴이 / WildfireGuardian — design tokens & base styles (spec §7)
+   Single light theme (highest-contrast choice for elderly eyes).
+   Type scale is rem-based so the ×1.25 text-size setting works by scaling
+   the root font-size (see prefs.ts / SettingsScreen).
+   ========================================================================== */
+
+:root {
+  /* -- danger status colors (fixed by spec §7; always icon + word + color) -- */
+  --safe: #1b7f4b;
+  --watch: #b45309;
+  --go: #b91c1c;
+  --safe-tint: #e8f4ed;
+  --watch-tint: #fdeedd;
+  --go-tint: #fbe7e7;
+
+  /* -- surfaces & ink -- */
+  --page: #f7f5f0;
+  --surface: #ffffff;
+  --ink: #1a1a1a;
+  --ink-secondary: #52514e;
+  --ink-muted: #6d6b66;
+  --hairline: #e3e1da;
+  --focus: #1c5cab;
+
+  /* -- data-viz roles (validated with the dataviz palette validator) -- */
+  --viz-series: #2a78d6; /* single-series line / wind */
+  --viz-deep: #1c5cab; /* route line, emphasis */
+  --viz-grid: #e3e1da; /* hairline gridlines, solid */
+  --viz-axis: #c3c2b7;
+  /* ordinal spread ramp: one red hue, 1 h deepest (validated --ordinal) */
+  --spread-1h: #b91c1c;
+  --spread-3h: #d64545;
+  --spread-6h: #e98b8b;
+
+  /* -- type scale (spec §7: body ≥22, titles 28, hero 40 at ×1.0) -- */
+  --fs-label: 1rem; /* 16px — tab labels, captions (minimum) */
+  --fs-small: 1.125rem; /* 18px */
+  --fs-body: 1.375rem; /* 22px */
+  --fs-title: 1.75rem; /* 28px */
+  --fs-hero: 2.5rem; /* 40px */
+
+  /* -- geometry -- */
+  --space: 8px;
+  --radius: 16px;
+  --touch: 64px;
+  --tabbar-h: 92px;
+
+  font-family:
+    "Noto Sans KR",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    "Apple SD Gothic Neo",
+    "Malgun Gothic",
+    sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--page);
+  color: var(--ink);
+  font-size: var(--fs-body);
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 4px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Layout shell
+   -------------------------------------------------------------------------- */
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.screen {
+  flex: 1;
+  padding-bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom, 0px) + 16px);
+}
+
+.screen-pad {
+  padding-left: 16px;
+  padding-right: 16px;
+  max-width: 720px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 16px;
+  max-width: 720px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.top-bar .app-name {
+  font-size: var(--fs-title);
+  font-weight: 800;
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Demo banner — persistent, bilingual, honesty label (spec §1.5)
+   -------------------------------------------------------------------------- */
+.demo-banner {
+  background: #313131;
+  color: #ffffff;
+  text-align: center;
+  font-size: var(--fs-small);
+  font-weight: 700;
+  padding: 8px 16px;
+  letter-spacing: 0.02em;
+}
+
+/* --------------------------------------------------------------------------
+   Status header (Home) — full-bleed color + icon + word
+   -------------------------------------------------------------------------- */
+.status-header {
+  color: #ffffff;
+  padding: 32px 16px 28px;
+  text-align: center;
+}
+
+.status-header.level-SAFE {
+  background: var(--safe);
+}
+.status-header.level-WATCH {
+  background: var(--watch);
+}
+.status-header.level-GO {
+  background: var(--go);
+}
+
+.status-header .status-icon {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 8px;
+  display: block;
+}
+
+.status-header .status-word {
+  font-size: var(--fs-hero);
+  font-weight: 900;
+  margin: 0;
+  line-height: 1.15;
+}
+
+.status-header .status-word-sub {
+  font-size: var(--fs-body);
+  font-weight: 700;
+  margin: 4px 0 0;
+  opacity: 0.95;
+}
+
+.status-header .status-reason {
+  font-size: var(--fs-body);
+  margin: 12px auto 0;
+  max-width: 640px;
+}
+
+/* --------------------------------------------------------------------------
+   Buttons
+   -------------------------------------------------------------------------- */
+.btn-giant {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 96px;
+  border: none;
+  border-radius: var(--radius);
+  font-size: var(--fs-title);
+  font-weight: 800;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+.btn-giant.level-SAFE {
+  background: var(--safe);
+}
+.btn-giant.level-WATCH {
+  background: var(--watch);
+}
+.btn-giant.level-GO {
+  background: var(--go);
+}
+.btn-giant:active {
+  transform: translateY(1px);
+}
+
+.btn-giant .btn-sub {
+  display: block;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  opacity: 0.92;
+}
+
+.btn-big-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: var(--touch);
+  border: 3px solid var(--ink);
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: var(--radius);
+  font-size: var(--fs-body);
+  font-weight: 700;
+  cursor: pointer;
+  padding: 8px 16px;
+}
+
+.btn-pill {
+  min-height: var(--touch);
+  min-width: var(--touch);
+  border-radius: var(--radius);
+  border: 3px solid var(--hairline);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: var(--fs-body);
+  font-weight: 700;
+  cursor: pointer;
+  padding: 8px 20px;
+}
+
+.btn-pill.selected {
+  border-color: var(--safe);
+  background: var(--safe-tint);
+}
+
+.btn-call {
+  background: var(--go);
+  color: #ffffff;
+  border: none;
+  text-decoration: none;
+}
+
+a.btn-giant,
+a.btn-big-secondary {
+  text-decoration: none;
+}
+
+/* --------------------------------------------------------------------------
+   Cards
+   -------------------------------------------------------------------------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.card .card-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.card .card-icon {
+  width: 44px;
+  height: 44px;
+  flex: none;
+}
+
+.card .card-title {
+  font-size: var(--fs-title);
+  font-weight: 800;
+  margin: 0;
+  flex: 1;
+  line-height: 1.25;
+}
+
+.card .card-body {
+  font-size: var(--fs-body);
+  color: var(--ink);
+  margin: 8px 0 0;
+  white-space: pre-line;
+}
+
+.card.kind-route {
+  border: 3px solid var(--go);
+  background: var(--go-tint);
+}
+
+.card.kind-contact {
+  border: 3px solid var(--watch);
+}
+
+/* --------------------------------------------------------------------------
+   Read-aloud button (every card, spec §7)
+   -------------------------------------------------------------------------- */
+.read-aloud {
+  min-width: var(--touch);
+  min-height: var(--touch);
+  border-radius: 50%;
+  border: 3px solid var(--hairline);
+  background: var(--surface);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+.read-aloud.speaking {
+  border-color: var(--viz-deep);
+  background: #e8f0fb;
+}
+
+/* --------------------------------------------------------------------------
+   Tab bar — 5 tabs, large icons + labels ≥ 16 px
+   -------------------------------------------------------------------------- */
+.tabbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(var(--tabbar-h) + env(safe-area-inset-bottom, 0px));
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: var(--surface);
+  border-top: 1px solid var(--hairline);
+  display: flex;
+  z-index: 1200;
+}
+
+.tabbar .tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--ink-secondary);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  min-width: var(--touch);
+}
+
+.tabbar .tab svg {
+  width: 34px;
+  height: 34px;
+}
+
+.tabbar .tab.active {
+  color: var(--safe);
+}
+
+.tabbar .tab.active .tab-underline {
+  width: 40px;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--safe);
+}
+
+.tabbar .tab .tab-underline {
+  width: 40px;
+  height: 5px;
+  border-radius: 3px;
+  background: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   Loading / error states — calm, huge type, bilingual
+   -------------------------------------------------------------------------- */
+.big-state {
+  text-align: center;
+  padding: 64px 24px;
+}
+
+.big-state .big-state-word {
+  font-size: var(--fs-title);
+  font-weight: 800;
+  margin: 16px 0 4px;
+}
+
+.big-state .big-state-sub {
+  font-size: var(--fs-body);
+  color: var(--ink-secondary);
+  margin: 0 0 24px;
+}
+
+/* --------------------------------------------------------------------------
+   Map screen
+   -------------------------------------------------------------------------- */
+.map-wrap {
+  position: relative;
+  height: calc(100vh - var(--tabbar-h) - env(safe-area-inset-bottom, 0px));
+  width: 100%;
+}
+
+.map-wrap .leaflet-container {
+  height: 100%;
+  width: 100%;
+  font-size: 16px;
+}
+
+.map-controls {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.map-btn {
+  width: var(--touch);
+  height: var(--touch);
+  border-radius: var(--radius);
+  border: 2px solid var(--hairline);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-mylocation {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  z-index: 1000;
+  min-height: var(--touch);
+  border-radius: var(--radius);
+  border: 2px solid var(--hairline);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: var(--fs-small);
+  font-weight: 800;
+  padding: 8px 14px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.map-route-btn {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  right: 12px;
+  z-index: 1000;
+}
+
+.map-legend {
+  position: absolute;
+  left: 12px;
+  top: 84px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  max-width: 260px;
+}
+
+.map-legend h3 {
+  margin: 0 0 6px;
+  font-size: var(--fs-label);
+  font-weight: 800;
+  color: var(--ink-secondary);
+}
+
+.map-legend .legend-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-label);
+  font-weight: 600;
+  margin: 4px 0;
+  color: var(--ink);
+}
+
+.map-legend .swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  flex: none;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.map-legend .swatch.line {
+  height: 6px;
+  border-radius: 3px;
+  border: none;
+}
+
+.map-notice {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 96px;
+  z-index: 1000;
+  background: var(--surface);
+  border: 3px solid var(--watch);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  font-size: var(--fs-small);
+  font-weight: 600;
+}
+
+/* markers (Leaflet divIcon content) */
+.wfg-flame-marker {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+}
+
+.wfg-flame-marker .flame-pulse {
+  transform-origin: 50% 80%;
+  animation: wfg-pulse 1.6s ease-in-out infinite;
+}
+
+.wfg-user-marker,
+.wfg-shelter-marker,
+.wfg-walker-marker {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+}
+
+.wfg-arrowhead {
+  transform-origin: 50% 50%;
+}
+
+/* Leaflet vector layers (className on paths) */
+.wfg-pathway {
+  stroke-dasharray: 4 12;
+  animation: wfg-dash-march 1.4s linear infinite;
+}
+
+.wfg-route-line {
+  stroke-linecap: round;
+}
+
+/* oversized default popup text */
+.leaflet-popup-content {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   Hand-rolled charts (dataviz method)
+   -------------------------------------------------------------------------- */
+.viz-card {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.viz-title {
+  font-size: var(--fs-body);
+  font-weight: 800;
+  margin: 0 0 4px;
+}
+
+.viz-sub {
+  font-size: var(--fs-small);
+  color: var(--ink-secondary);
+  margin: 0 0 8px;
+}
+
+.viz-value {
+  font-size: var(--fs-hero);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.viz-unit {
+  font-size: var(--fs-body);
+  font-weight: 600;
+  color: var(--ink-secondary);
+}
+
+.viz-axis-text {
+  font-size: 14px;
+  fill: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.viz-label-text {
+  font-size: 15px;
+  font-weight: 700;
+  fill: var(--ink);
+}
+
+.wind-arrows .drift {
+  animation: wfg-drift 2.4s linear infinite;
+}
+
+.evac-arrow .march {
+  stroke-dasharray: 6 10;
+  animation: wfg-dash-march 1.2s linear infinite;
+}
+
+/* --------------------------------------------------------------------------
+   Forms (Family / Settings)
+   -------------------------------------------------------------------------- */
+.field-label {
+  display: block;
+  font-size: var(--fs-body);
+  font-weight: 700;
+  margin: 16px 0 6px;
+}
+
+.text-input {
+  width: 100%;
+  min-height: var(--touch);
+  font-size: var(--fs-body);
+  font-family: inherit;
+  border: 2px solid var(--hairline);
+  border-radius: var(--radius);
+  padding: 8px 16px;
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.row.wrap {
+  flex-wrap: wrap;
+}
+
+.notice {
+  border: 3px solid var(--watch);
+  background: var(--watch-tint);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  font-size: var(--fs-body);
+  margin: 16px 0;
+}
+
+.notice.ok {
+  border-color: var(--safe);
+  background: var(--safe-tint);
+}
+
+.check-list {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  font-size: var(--fs-body);
+}
+
+.check-list li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 10px 0;
+}
+
+.check-list .mark {
+  flex: none;
+  font-weight: 900;
+}
+
+.disclaimer {
+  font-size: var(--fs-small);
+  color: var(--ink-secondary);
+  white-space: pre-line;
+}
+
+.section-title {
+  font-size: var(--fs-title);
+  font-weight: 800;
+  margin: 24px 0 8px;
+}
+
+/* screen-reader-only table twins for the hand-rolled charts */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Animations — ALL disabled under prefers-reduced-motion (spec §7)
+   -------------------------------------------------------------------------- */
+@keyframes wfg-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.18);
+    opacity: 0.85;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes wfg-dash-march {
+  to {
+    stroke-dashoffset: -32;
+  }
+}
+
+@keyframes wfg-drift {
+  0% {
+    transform: translateX(-6px);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(10px);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="산불지킴이 WildfireGuardian">
+  <!-- Shield + flame glyph. Hand-drawn placeholder icon (not a trademark). -->
+  <rect width="512" height="512" rx="112" fill="#1B7F4B"/>
+  <path d="M256 84 L412 132 L412 268 C412 356 348 414 256 444 C164 414 100 356 100 268 L100 132 Z"
+        fill="#FFFFFF"/>
+  <path d="M256 116 L384 155 L384 266 C384 338 332 386 256 412 C180 386 128 338 128 266 L128 155 Z"
+        fill="#1B7F4B"/>
+  <path d="M256 170 C276 210 316 228 316 282 C316 322 290 352 256 352 C222 352 196 322 196 282 C196 252 210 238 222 222 C226 246 236 254 244 258 C238 226 244 196 256 170 Z"
+        fill="#FF8A3D"/>
+  <path d="M256 236 C266 256 286 266 286 294 C286 316 272 332 256 332 C240 332 226 316 226 294 C226 276 236 266 242 256 C244 268 250 274 254 276 C251 260 252 248 256 236 Z"
+        fill="#FFD166"/>
+</svg>
