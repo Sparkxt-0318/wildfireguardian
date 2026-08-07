@@ -1,11 +1,9 @@
-> 제출 기준 커밋: `Main` @ 42da1d2 · 위험면 파일 sha256 `5bed5026…`
-
 # WildfireGuardian
 
 > Wildfire spread forecasting and household-level evacuation and rescue routing,
 > focused on protecting rural elderly Koreans.
 >
-> 공개 데이터 기반 산불 확산 예측을 활용한 노인·장애인 등 이동 취약 주민의 구조 우선순위 및 안전 이동경로 산정 연구
+> 공개 데이터 기반 산불 확산 예측을 활용한 고령자 등 이동 취약 주민의 구조 우선순위 및 안전 이동경로 산정 연구
 
 ![status](https://img.shields.io/badge/status-research%20PoC-orange)
 ![python](https://img.shields.io/badge/python-3.10%2B-blue)
