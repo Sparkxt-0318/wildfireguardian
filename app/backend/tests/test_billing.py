@@ -35,7 +35,12 @@ def test_webhook_billing_not_configured(client):
 def test_status_billing_not_configured(client):
     r = client.get("/v1/billing/status?customer_id=cus_x")
     assert r.status_code == 200
-    assert r.json() == {"active": False, "reason": "billing_not_configured"}
+    assert r.json() == {
+        "active": False,
+        "plan": None,
+        "renews_utc": None,
+        "reason": "billing_not_configured",
+    }
 
 
 # ------------------------------------------- configured, stripe stubbed out --

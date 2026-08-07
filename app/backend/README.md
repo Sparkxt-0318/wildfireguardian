@@ -84,6 +84,7 @@ python3 scripts/make_scenario.py --check  # verify the committed file matches
 | `STRIPE_PRICE_YEARLY` | – | Guardian Plus yearly price id |
 | `WFG_DB_PATH` | `guardian.db` | sqlite database file |
 | `WFG_CORS_ORIGINS` | `*` | comma-separated allowed origins |
+| `WFG_SCENARIO_FILE` | bundled scenario | dev/test hook: path to an alternate demo scenario JSON |
 
 With no Stripe keys the billing endpoints answer
 `{"error": "billing_not_configured"}` (503) and

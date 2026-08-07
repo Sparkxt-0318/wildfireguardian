@@ -50,14 +50,14 @@ sign-up. Guardian Plus adds one thing only: the family, watching together.
 
 | | |
 |---|---|
-| **ko** | 산불이 가까워지면 가장 먼저 알기 쉽게 알려드리고, 가장 안전한 길을 안내해 드립니다 — 생명을 지키는 기능은 모두, 영원히 무료입니다. |
-| **en** | When wildfire comes close, we tell you first — clearly and simply — and show you the safest way out. Every life-saving feature is free, forever. |
+| **ko** | 산불이 가까워지면 바로 알기 쉽게 알려드리고, 대피소까지 가는 길을 안내해 드립니다 — 생명을 지키는 기능은 모두, 영원히 무료입니다. |
+| **en** | When wildfire comes close, we tell you right away — clearly and simply — and show you the way to shelter. Every life-safety feature is free, forever. |
 
 ### 1.3 Brand voice rules
 
 | # | Rule | Do (ko) | Never (ko) |
 |---|---|---|---|
-| V1 | **Urgent, never fear-exploiting.** Urgency lives in *speed and preparedness*, not in flames and loss. No burning homes, no victims, no smoke-filled skies in any creative. | "산불보다 먼저 도착하는 알림" | "다음 희생자는 누구입니까?" |
+| V1 | **Urgent, never fear-exploiting.** Urgency lives in *speed and preparedness*, not in flames and loss. No burning homes, no victims, no smoke-filled skies in any creative. | "산불이 다가오면 바로 알려드립니다" | "다음 희생자는 누구입니까?" |
 | V2 | **Hope + preparedness framing.** Every ad ends on the prepared, calm state — the green screen, the family at ease. | "준비된 마을이 가장 안전합니다" | "겁나지 않으세요?" |
 | V3 | **존댓말, always, in every elder-facing word.** Respectful, warm, unhurried. Address as 어르신 / 부모님, never 노인 in copy. | "어르신, 세 가지 색만 기억해 주세요" | "노인용 앱" |
 | V4 | **Simple words. No jargon.** No "AI", "위성 데이터 파이프라인", "머신러닝", "알고리즘" in elder-facing copy. (Fine in B2G/press materials.) | "산불이 다가오면 알려드립니다" | "AI 기반 확산 예측 솔루션" |
@@ -70,7 +70,7 @@ sign-up. Guardian Plus adds one thing only: the family, watching together.
 
 | use | ko | en |
 |---|---|---|
-| Master tagline | 생명을 지키는 기능은 모두 무료입니다 | Every life-saving feature is free |
+| Master tagline | 생명을 지키는 기능은 모두 무료입니다 | Every life-safety feature is free |
 | Elder-facing | 어르신을 위해 만들었습니다 | Made for you |
 | Family-facing | 멀리 살아도, 곁에 있는 것처럼 | Far away, yet right beside them |
 | B2G-facing | 마을 방송이 닿지 않는 순간에도 | Reaching residents when the village loudspeaker can't |
@@ -186,9 +186,9 @@ percentages.
 | **Naver 밴드 (BAND)** | Highest 40–60 penetration of any Korean social app; 귀농·향우회·마을 밴드 communities are exactly segment (b)+(a) overlap | Feed ads (image `ad_creative_family.jpg` 4:5 crop), 밴드 게시글 partnerships with 향우회 밴드 | Age 40–65, interests: 고향, 귀농귀촌, 부모님, 건강; regions both metro and 경북/강원 | 7% |
 | **KakaoTalk 채널 + Kakao Moment** | Kakao is where family logistics happen; a 카카오톡 채널 doubles as CRM (seasonal preparedness messages) and the ad unit reaches essentially all adults | Kakao Moment: 비즈보드 (talk-tab banner) + display; 채널 add-friend campaign; 알림톡 later for opted-in Plus onboarding | 비즈보드: age 35–59, parents-of-rural-parents proxy (interests: 효도, 건강식품, 고향), device Android-heavy; 채널 콘텐츠 organic | 17% |
 | **YouTube 프리롤** | The moving-image channel for 40–60; scripts §4.4 are built for skippable in-stream; also the only paid channel that can carry the full emotional arc | 15–30s skippable in-stream (Scripts A/B), 15s bumper cut (Script C); companion banner from `hero_banner.jpg` | Age 40–60, KR; affinity: 부모님/가족, 트로트, 귀농, 뉴스; placement on news & 트로트 channels; exclude children's content; **geo-pause per §9.4** | 20% |
-| **Instagram / Facebook (Meta)** | Secondary reach for 40–55; strong 4:5 creative fit; Facebook still holds 50대 커뮤니티 groups | 4:5 feed + Stories from `ad_creative_family.jpg`; carousel: 3-color explainer | Age 38–60 KR; Advantage+ off for placements in Reels-only; conservative creative per Meta policy (§9.2) | 8% |
-| **Community (bought print + field)** | The elder channel that actually converts installs — 경로당 install events with 이장 endorsement | A2 posters (경로당·보건소·농협 게시판, `ad_creative_elder.jpg` layout §4.5), A5 leaflets for 농협 창구, install-event kits | 경북·강원 우선 (시군 리스트: 의성·안동·청송·영양·영덕·울진·삼척·강릉 등 산불 이력 지역 우선 — 존중의 원칙 §1.3 V8 준수) | 13% |
-| **Local radio/TV (경북·강원)** | Radio is the trusted background medium of rural elders; builds the name recognition that makes the child's install offer land | 20s radio spot (§4.6) on 지역 MBC·CBS·TBN 한국교통방송; TV only at ₩150M tier (지역민방 20s, Script C cutdown) | Morning & early-evening dayparts; 농어촌 프로그램 인접 | 12% |
+| **Instagram / Facebook (Meta)** | Secondary reach for 40–55; strong 4:5 creative fit; Facebook still holds 50대 커뮤니티 groups | 4:5 feed + Stories from `ad_creative_family.jpg`; carousel: 3-color explainer | Age 38–60 KR; Advantage+ placements off — manual Feed/Stories only, no Reels; conservative creative per Meta policy (§9.2) | 8% |
+| **Community (bought print + field)** | The elder channel that actually converts installs — 경로당 install events with 이장 endorsement | A2 posters (경로당·보건소·농협 게시판, `ad_creative_elder.jpg` layout §4.6), A5 leaflets for 농협 창구, install-event kits | 경북·강원 우선 (시군 리스트: 의성·안동·청송·영양·영덕·울진·삼척·강릉 등 산불 이력 지역 우선 — 존중의 원칙 §1.3 V8 준수) | 13% |
+| **Local radio/TV (경북·강원)** | Radio is the trusted background medium of rural elders; builds the name recognition that makes the child's install offer land | 20s radio spot (§4.5) on 지역 MBC·CBS·TBN 한국교통방송; TV only at ₩150M tier (지역민방 20s, Script C cutdown) | Morning & early-evening dayparts; 농어촌 프로그램 인접 | 12% |
 
 ### 3.2 Global / secondary
 
@@ -201,6 +201,20 @@ Rationale for the split: paid digital buys the **payer** (segment b);
 print/radio/field buys the **user** (segment a); B2G (unpaid, §8.2) buys
 **scale and trust**. Do not let a media agency invert this into a
 digital-only plan — installs without elder activation are vanity.
+
+### 3.3 First moves — the concrete first action per channel
+
+| Channel | Do this first (before any spend) |
+|---|---|
+| Naver SA | Open the 네이버 검색광고 account; register 비즈채널 (landing domain + both store links); submit the §4.7 keyword list **and** the §9.4 live-fire negative list for review (2–3 영업일 lead) |
+| Naver 밴드 | Create the official 산불지킴이 밴드 page; book feed ads via 네이버 성과형 디스플레이 광고(GFA) with the 4:5 `ad_creative_family.jpg` crop |
+| Kakao | Open the 카카오톡 채널 (@산불지킴이) and finish 비즈니스 인증 first — it gates Moment and 알림톡; then create the Kakao Moment account and load the 비즈보드 unit |
+| YouTube | Upload finished Scripts A/B as unlisted videos; link the channel to Google Ads; build both audiences (KR 40–60; news/트로트 affinity) the week before the flight |
+| Meta | Set up Business Manager + domain verification; submit one 4:5 unit for review a full week early — Meta's automated review is the strictest (§9.2), learn its verdict before committing budget |
+| Community | Choose the 2 pilot 시군; reach the 이장/경로당 회장 through each 읍면 행정복지센터; fix the first install-event date — print posters only after the date is set |
+| Local radio/TV | Request rate cards (지역 MBC·CBS·TBN); submit the §4.5 script for 방송광고 심의 immediately — the longest lead time in the plan (§9.6) |
+| Google App Campaigns | Link Play Console ↔ Google Ads; import the activation event (주소 등록) as the conversion; start tCPI at the §6.4 assumption midpoint |
+| Apple Search Ads | From App Store Connect, start exact-match on the brand term only; widen to §4.7 category keywords once W4 CPI data exists |
 
 ---
 
@@ -217,7 +231,7 @@ where required, never presented as real people/events).
 | `marketing/assets/app_icon_concept.png` | Shield + flame + path-to-safe-house mark. Redraw as vector for stores. Must read at 48px. | Store icon, avatar for Naver/Kakao/YouTube channels, favicon |
 | `marketing/assets/hero_banner.jpg` | 16:9 hopeful hero (grandmother, green check screen); copy space right third. Overlay master tagline + store badges. | Landing page, store feature graphic, YouTube companion, press kit header, B2G one-pager header strip |
 | `marketing/assets/ad_creative_family.jpg` | 4:5 social creative for segment (b); headline space top quarter. Pair with headlines H3/H4/H9. | Kakao Moment, Naver 밴드, Instagram/Facebook feed |
-| `marketing/assets/ad_creative_elder.jpg` | 4:5 print-first creative for segment (a); text space bottom quarter. Pair with poster copy §4.5. | 경로당/보건소/농협 posters, leaflets, local newspaper |
+| `marketing/assets/ad_creative_elder.jpg` | 4:5 print-first creative for segment (a); text space bottom quarter. Pair with poster copy §4.6. | 경로당/보건소/농협 posters, leaflets, local newspaper |
 | `marketing/assets/promo_video.mp4` | 5s hopeful clip (not in git; regenerate per assets README: animate `hero_banner.jpg`, slow push-in, no fire/smoke/text). | Script C bumper base, social loops, landing-page header |
 
 **Every creative, every format, carries somewhere legible:**
@@ -229,42 +243,50 @@ crop it out (§9.5 checklist).
 
 | # | ko | romanization | en | best fit |
 |---|---|---|---|---|
-| H1 | 생명을 지키는 기능은 모두 무료입니다 | Saengmyeong-eul jikineun gineung-eun modu muryo-imnida | Every life-saving feature is free | all channels — master |
-| H2 | 산불보다 먼저 도착하는 알림 | Sanbul-boda meonjeo dochakhaneun allim | The alert that arrives before the fire | YouTube, Naver SA |
+| H1 | 생명을 지키는 기능은 모두 무료입니다 | Saengmyeong-eul jikineun gineung-eun modu muryo-imnida | Every life-safety feature is free | all channels — master |
+| H2 | 산불이 다가오면, 바로 알려드립니다 | Sanbul-i dagaomyeon, baro allyeodeurimnida | When fire draws near, you'll know right away | YouTube, Naver SA |
 | H3 | 부모님 계신 곳, 지금 안전한가요? | Bumonim gyesin got, jigeum anjeonhangayo? | Is it safe where your parents are, right now? | Kakao, Meta (b) |
 | H4 | 멀리 살아도, 곁에 있는 것처럼 | Meolli sarado, gyeote inneun geotcheoreom | Far away, yet right beside them | Kakao, 밴드 (b) |
 | H5 | 세 가지 색만 기억하세요 — 안전, 주의, 대피 | Se gaji saek-man gieokhaseyo — anjeon, juui, daepi | Remember just three colors — Safe, Watch, Go | poster, radio, explainer |
-| H6 | 버튼 하나로, 가장 안전한 길을 | Beoteun hanaro, gajang anjeonhan gireul | One button to the safest way out | store listing, UAC |
+| H6 | 버튼 하나로, 대피소 가는 길을 | Beoteun hanaro, daepiso ganeun gireul | One button shows the way to shelter | store listing, UAC |
 | H7 | 우리 마을에도 산불지킴이 | Uri maeul-edo Sanbuljikimi | WildfireGuardian, for our village too | B2G, community, radio |
 | H8 | 준비된 마을이 가장 안전합니다 | Junbidoen maeur-i gajang anjeonhamnida | A prepared village is the safest village | B2G, poster, PR |
 | H9 | 부모님 휴대폰에, 지킴이 하나 | Bumonim hyudaepon-e, jikimi hana | A guardian on your parents' phone | Seollal push (b) |
 | H10 | 가입도, 요금도 없습니다 | Gaip-do, yogeum-do eopseumnida | No sign-up. No fees. | elder print, 농협 leaflet |
 
+> **Why no headline says "가장 안전한", "산불보다 먼저", or "지켜드립니다":**
+> arrival-timing claims ("the alert beats the fire") and superlatives ("safest
+> route") cannot be substantiated under 광고 실증제 (§9.3) — satellite
+> detection has latency, and routes carry warnings by design (ARCHITECTURE
+> §5.2, honest `no_safe_walk` failure). Headlines promise only what the app
+> verifiably does: prompt, clear notification and a route to shelter. Hold
+> every new variant to the same line.
+
 ### 4.2 The 5 body texts
 
 **B1 — elder print/leaflet (a):**
 > ko: 산불은 소식이 빠를수록 안전합니다. '산불지킴이'는 산불이 가까워지면 큰
-> 글씨와 세 가지 색으로 알려드리고, 안전한 길을 안내해 드립니다. 요금도,
+> 글씨와 세 가지 색으로 알려드리고, 대피소로 가는 길을 안내해 드립니다. 요금도,
 > 가입도 없습니다. 글을 읽기 어려우시면 소리로 읽어 드립니다. 자녀분께
 > 한마디 부탁해 보세요 — "산불지킴이 깔아 다오."
 >
 > en: With wildfire, the sooner you know, the safer you are. WildfireGuardian
 > tells you in big letters and three colors when fire comes near, and shows you
-> a safe way out. No fees, no sign-up. If reading is hard, it reads aloud to
+> the way to shelter. No fees, no sign-up. If reading is hard, it reads aloud to
 > you. Just ask your son or daughter: "Put WildfireGuardian on my phone."
 
 **B2 — adult children digital (b):**
 > ko: 뉴스에 산불 소식이 나올 때마다, 고향에 전화부터 하게 되시나요?
 > 산불지킴이는 부모님 댁 주변을 지켜보다가 위험이 다가오면 부모님 휴대폰으로
 > 바로, 알기 쉽게 알려드립니다. 부모님이 쓰시는 안전 기능은 전부 무료입니다.
-> '가디언 플러스'로 가족을 연결하시면, 부모님의 안전 상태를 내 휴대폰에서도
-> 함께 받아보실 수 있습니다.
+> '가디언 플러스'를 더하시면, 위험 알림이 문자와 전화로도 전해지고, 온 가족이
+> 같은 알림을 함께 받습니다.
 >
 > en: Every time wildfire is on the news, is your first move calling home?
 > WildfireGuardian watches the area around your parents' house and alerts their
 > phone — clearly and simply — when danger nears. Everything your parents use
-> is free. Connect your family with Guardian Plus and their safety status
-> reaches your phone too.
+> is free. Add Guardian Plus and alerts also arrive by SMS and phone call —
+> to the whole family at once.
 
 **B3 — the trust/honesty ad (all audiences; run this one proudly):**
 > ko: 안전을 돈 받고 팔지 않습니다. 위험 알림, 지도, 대피 경로, 대피소 안내 —
@@ -281,13 +303,13 @@ crop it out (§9.5 checklist).
 
 **B4 — community / B2G poster body (c → a):**
 > ko: 우리 마을 어르신들의 휴대폰에 산불지킴이 하나면, 마을 방송이 닿지 않는
-> 순간에도 안내가 닿습니다. 사용법은 세 가지 색만 기억하시면 됩니다 —
-> 초록이면 안심, 노랑이면 준비, 빨강이면 대피. 경로당과 마을회관에서 설치를
+> 순간에도 안내가 닿을 수 있습니다. 사용법은 세 가지 색만 기억하시면 됩니다 —
+> 초록이면 안전, 노랑이면 주의, 빨강이면 대피. 경로당과 마을회관에서 설치를
 > 도와드립니다.
 >
-> en: With WildfireGuardian on our elders' phones, guidance reaches them even
+> en: With WildfireGuardian on our elders' phones, guidance can reach them even
 > when the village loudspeaker can't. Just remember three colors — green means
-> at ease, amber means prepare, red means evacuate. Install help available at
+> safe, amber means watch, red means evacuate. Install help available at
 > the senior center and village hall.
 
 **B5 — app store / generic digital:**
@@ -307,10 +329,10 @@ crop it out (§9.5 checklist).
 | Kakao 비즈보드 | `ad_creative_family.jpg` crop | H3 | — (banner) | 설치하기 | Talk-tab banner; no fire imagery; free-line as sub if space |
 | Kakao/Meta feed 4:5 | `ad_creative_family.jpg` | H4 or H9 | B2 (short cut) | 무료로 시작하기 | headline in top-quarter copy space |
 | Naver 밴드 feed | `ad_creative_family.jpg` | H9 | B2 | 부모님 폰에 설치 | Seollal flight swaps headline to "고향 가시는 길에" |
-| Naver SA text | — | H2 / H6 (title ≤15자) | B5 first sentence as desc | 사이트링크: 무료 안내 / 사용법 / 가족 연결 | negatives per §9.4 |
+| Naver SA text | — | H2 / H6, ≤15자 축약형 (e.g. "산불 오면 바로 알림") | B5 first sentence as desc | 사이트링크: 무료 안내 / 사용법 / 가족 연결 | negatives per §9.4 |
 | YouTube in-stream | Scripts A/B (§4.4) | end-card H1 | — | 지금 설치 | companion = `hero_banner.jpg` |
 | UAC / ASA | icon + `hero_banner.jpg` + Script C | H1, H6 rotate | B5 | Install | store-policy safe wording only |
-| Poster A2 | `ad_creative_elder.jpg` | §4.5 layout | B1/B4 | QR + 전화번호 | bottom-quarter text zone |
+| Poster A2 | `ad_creative_elder.jpg` | §4.6 layout | B1/B4 | QR + 전화번호 | bottom-quarter text zone |
 
 ### 4.4 YouTube scripts (15–30 s, storyboard beats)
 
@@ -318,7 +340,7 @@ crop it out (§9.5 checklist).
 
 | t | Visual | Audio |
 |---|---|---|
-| 0–3s | Night. City apartment. A woman (50s) sees a news *text headline* on her phone: "경북 산불 확산" — text on screen only, **no fire footage** | (SFX: quiet room, phone buzz) |
+| 0–3s | Night. City apartment. A woman (50s) sees a news *text headline* on her phone: "산불 확산 우려" — generic wording, **no region name** (naming 경북 would evoke the real 2025 fire, §9.5 item 4), text on screen only, **no fire footage** | (SFX: quiet room, phone buzz) |
 | 3–8s | She dials. Ringing tone. Her face: worry. | (SFX: 통화 연결음) VO(따뜻하게): "산불 소식이 나오면, 가장 먼저 하게 되는 일." |
 | 8–14s | Cut: countryside morning. Grandmother's phone on the table — **green 안전 screen, `연습 모드` banner visible**. She answers brightly: "응, 여기는 괜찮아~" | VO: "이제, 전화보다 먼저 알 수 있습니다." |
 | 14–22s | App UI: Family screen — parent's status card, green. Daughter's phone shows the same. Split-screen of both smiling. | VO: "부모님 댁의 산불 상황을, 부모님과 함께, 내 휴대폰에서도." |
@@ -331,7 +353,7 @@ crop it out (§9.5 checklist).
 |---|---|---|
 | 0–4s | Full-screen green 안전 UI (demo banner visible), elderly hand holding phone steadily | VO: "초록이면, 안심하셔도 됩니다." |
 | 4–9s | Amber 주의 UI: 준비 카드 3장이 순서대로 | VO: "노랑이면, 함께 준비합니다." |
-| 9–14s | Red 대피 UI: 큰 버튼 하나 → 지도 위 도보 경로 | VO: "빨강이면, 가장 안전한 길을 안내해 드립니다." |
+| 9–14s | Red 대피 UI: 큰 버튼 하나 → 지도 위 도보 경로 | VO: "빨강이면, 대피소까지 가는 길을 안내해 드립니다." |
 | 14–20s | Three colors side by side → logo. Super: H1 + disclaimer + "시연 화면 · 연습 모드" | VO: "복잡한 앱이 아닙니다. 색 하나, 버튼 하나. 산불지킴이 — 무료입니다." |
 
 **Script C — 「우리 마을」 (15 s bumper, built from `promo_video.mp4`)**
@@ -339,7 +361,7 @@ crop it out (§9.5 checklist).
 | t | Visual | Audio |
 |---|---|---|
 | 0–5s | `promo_video.mp4`: slow push-in, breeze in the trees, grandmother smiles at the green check screen | (음악: 잔잔한 국악 크로스오버) |
-| 5–10s | Super over footage: "산불보다 먼저 도착하는 알림" | VO: "산불보다 먼저 도착하는 알림." |
+| 5–10s | Super over footage: "산불이 다가오면, 바로 알려드립니다" | VO: "산불이 다가오면, 바로 알려드립니다." |
 | 10–15s | Logo + H1 + store badges + disclaimer super | VO: "산불지킴이. 생명을 지키는 기능은 모두 무료입니다." |
 
 Production rules for all three: no flames, no smoke, no destroyed property, no
@@ -352,14 +374,14 @@ platform requires (§9.5).
 > **(차분하고 따뜻한 남성 또는 여성 성우, 어르신께 말씀드리는 속도로)**
 >
 > 산불은, 소식이 빠를수록 안전합니다. (쉼)
-> 휴대폰에 '산불지킴이'를 설치해 두시면, 산불이 다가올 때 먼저 알려드리고,
-> 안전한 길도 함께 안내해 드립니다. (쉼)
+> 휴대폰에 '산불지킴이'를 설치해 두시면, 산불이 다가올 때 바로 알려드리고,
+> 대피소 가는 길도 함께 안내해 드립니다. (쉼)
 > 요금도, 가입도 없습니다.
 > 자녀분께 한마디 부탁해 보세요 — "산불지킴이, 깔아 다오."
 >
 > **(로고송/징글 2초)** 산불지킴이.
 
-(약 85음절 + 쉼 = 20초. 협찬고지 필요 시 "이 캠페인은 산불지킴이가
+(약 90음절 + 쉼 = 20초. 협찬고지 필요 시 "이 캠페인은 산불지킴이가
 함께합니다"로 대체 — §9.5.)
 
 ### 4.6 Poster copy — 경로당 / 보건소 (A2, layout on `ad_creative_elder.jpg`)
@@ -369,14 +391,14 @@ platform requires (§9.5).
 
 [하단 텍스트 영역 — 특대 활자, 고대비]
 
-  산불이 나면, 이 앱이 먼저 알려드립니다
+  산불이 나면, 이 앱이 바로 알려드립니다
   ─────────────────────────────
   무료입니다 · 가입이 없습니다 · 글씨가 큽니다 · 소리로 읽어 드립니다
 
   ① 자녀분께 부탁하세요 — "산불지킴이 깔아 다오"
   ② 우리 집 주소를 넣어 주세요
   ③ 화면의 색만 보세요
-     ● 초록 = 안심   ● 노랑 = 준비   ● 빨강 = 대피
+     ● 초록 = 안전   ● 노랑 = 주의   ● 빨강 = 대피
 
   [QR코드]  설치 도움: ○○경로당 매주 ○요일 / 문의 ○○○-○○○○
 
@@ -384,21 +406,24 @@ platform requires (§9.5).
      실제 상황에서는 항상 공식 안내를 먼저 따라 주세요.
 ```
 
-보건소 variant: swap line ③'s help line to "설치 도움: 보건소 안내데스크",
+보건소 variant: swap the 설치 도움 line to "설치 도움: 보건소 안내데스크",
 and add "진료 대기 중 5분이면 설치해 드립니다." 농협 leaflet (A5): same copy,
 front = headline + 3 steps, back = B1 + QR.
 
 English rendering (for the doc record): "When wildfire comes, this app tells
-you first / Free · No sign-up · Big letters · Reads aloud / ① Ask your child —
-'Install WildfireGuardian for me' ② Enter your home address ③ Just watch the
-color — green = at ease, amber = prepare, red = evacuate."
+you right away / Free · No sign-up · Big letters · Reads aloud / ① Ask your
+child — 'Install WildfireGuardian for me' ② Enter your home address ③ Just
+watch the color — green = safe, amber = watch, red = evacuate."
+
+(The color legend uses the app's exact level words — 안전/주의/대피, Safe/Watch
+— so what elders memorize from the poster matches what the screen says.)
 
 ### 4.7 App store listing (ASO)
 
 | Field | ko | en |
 |---|---|---|
 | Title (≤30자) | 산불지킴이 – 산불 알림·대피 안내 | WildfireGuardian: Fire Alerts |
-| Subtitle/short desc (≤30자) | 생명을 지키는 기능은 모두 무료 | Wildfire alerts & safe routes |
+| Subtitle/short desc (≤30자) | 생명을 지키는 기능은 모두 무료 | Wildfire alerts & evacuation |
 
 **Description (ko):**
 
@@ -408,7 +433,7 @@ color — green = at ease, amber = prepare, red = evacuate."
 > **세 가지 색이면 충분합니다**
 > · 초록(안전): 안심하셔도 됩니다 — 오늘의 상황과 준비 안내를 보여드립니다
 > · 노랑(주의): 산불의 거리와 바람 방향, 준비할 일을 알려드립니다
-> · 빨강(대피): 큰 버튼 하나로 대피소까지 가장 안전한 도보 경로를 안내합니다
+> · 빨강(대피): 큰 버튼 하나로 대피소까지 가는 도보 경로를 안내합니다
 >
 > **어르신을 생각해 만들었습니다**
 > · 큰 글씨, 큰 버튼, 쉬운 우리말
@@ -436,7 +461,7 @@ color — green = at ease, amber = prepare, red = evacuate."
 > **Three colors are enough**
 > · Green (Safe): at ease — today's conditions and preparedness tips
 > · Amber (Watch): fire distance, wind direction, what to prepare
-> · Red (Go): one big button guides you along the safest walking route to
+> · Red (Go): one big button guides you along a walking route to
 >   shelter
 >
 > **Designed for elderly users**
@@ -472,13 +497,16 @@ and captions from H5/H6/H1; never screenshot fabricated live-fire data (§9.5).
 
 Anchored to the spring fire season (봄철 산불조심기간 Feb 1 – May 15) and
 설날 (Seollal, late Jan/early Feb). Suggested absolute anchor: W1 = last full
-week of January.
+week of January — so the 산불조심기간 opening (Feb 1) falls in W2. Seollal
+moves each year (2027: Feb 6–8; 2028: Jan 26–28): in a late-January-Seollal
+year, slide the whole ramp one week earlier so W2 still covers 귀성 week;
+the Feb 1 season anchor stays fixed.
 
 | Week | Theme | Actions | Milestone / gate |
 |---|---|---|---|
 | **W1** (late Jan) | **Soft launch** | Stores live (listing §4.7); landing page up; 2 pilot 시군 seeded via 경로당 install events (no paid media); analytics events verified; Kakao 채널 opened | Activation funnel measured; crash-free ≥ 99.5%; go/no-go for paid |
-| **W2** (Seollal week) | **귀성 seeding** | Organic + small Kakao/밴드 flight: "고향 가시는 길에, 부모님 휴대폰에" (H9); leaflets at 농협 창구 in pilot counties; B2G outreach wave 1 (5 시군, §2.4 one-pager posted + calls) | ≥ 40% of installs reach activation (address set) — else fix onboarding before scaling |
-| **W3** (Feb, season opens) | **Press launch** | PR push (§8.1) timed to 산불조심기간; Naver SA on; radio starts 경북·강원; poster wave 1 (500 sites) | Coverage in ≥ 3 outlets incl. 1 지역지; brand-search volume baseline |
+| **W2** (early Feb: Seollal + 산불조심기간 opens Feb 1) | **귀성 seeding** | Organic + small Kakao/밴드 flight: "고향 가시는 길에, 부모님 휴대폰에" (H9); leaflets at 농협 창구 in pilot counties; B2G outreach wave 1 (5 시군, §2.4 one-pager posted + calls) | ≥ 40% of installs reach activation (address set) — else fix onboarding before scaling |
+| **W3** (mid-Feb) | **Press launch** | PR push (§8.1) on the just-opened 산불조심기간 hook; Naver SA on; radio starts 경북·강원; poster wave 1 (500 sites) | Coverage in ≥ 3 outlets incl. 1 지역지; brand-search volume baseline |
 | **W4** | **Paid ramp 1** | Kakao Moment + 밴드 to 50% budget rate; YouTube Scripts A/B live; first B2G MOU target signed; install events ×4 | CPI within 1.5× assumption (§6.4) or creative iteration |
 | **W5** | **Paid ramp 2** | YouTube to full flight; Meta on; Google App Campaigns + ASA on; poster wave 2 (보건소·복지관) | Family-circle attach ≥ 15% of activated (b-segment cohorts) |
 | **W6** (early Mar) | **Peak begins** | All channels at peak rate; ₩150M tier: local TV spots start; 대한노인회 co-branded install month kickoff (§8.3); B2G outreach wave 2 (10 시군) | WAU in target regions growing WoW; 2nd MOU |
@@ -520,17 +548,17 @@ Philosophy: no broad paid media; prove the community install loop + seed brand.
 
 ### 6.2 Tier 2 — ₩30,000,000 (reference plan; §3 shares)
 
-| Line | ₩ | Share of paid media |
+| Line | ₩ | Share of paid media (₩29M base — contingency excluded) |
 |---|---|---|
-| YouTube in-stream + bumper | 6,000,000 | 20% |
-| Kakao Moment + 채널 | 5,000,000 | 17% |
-| Naver SA | 4,000,000 | 13% |
-| Community print + install events | 4,000,000 | 13% |
+| YouTube in-stream + bumper | 5,800,000 | 20% |
+| Kakao Moment + 채널 | 4,900,000 | 17% |
+| Naver SA | 3,800,000 | 13% |
+| Community print + install events | 3,800,000 | 13% |
 | Local radio (경북+강원) | 3,500,000 | 12% |
-| Google App Campaigns | 2,500,000 | 8% |
+| Google App Campaigns | 2,300,000 | 8% |
 | Meta (IG/FB) | 2,300,000 | 8% |
 | Naver 밴드 | 2,000,000 | 7% |
-| Apple Search Ads | 700,000 | 2% |
+| Apple Search Ads | 600,000 | 2% |
 | Contingency | 1,000,000 | — |
 | **Total** | **30,000,000** | Assumption: 15,000–35,000 installs, blended CPI ₩850–2,000 |
 
@@ -539,13 +567,13 @@ Philosophy: no broad paid media; prove the community install loop + seed brand.
 | Line | ₩ | Notes |
 |---|---|---|
 | YouTube (full-funnel, incl. 트로트/뉴스 채널 reservations) | 30,000,000 | Scripts A/B/C rotation |
-| Local TV (지역민방/지역MBC 20s, 6주) | 30,000,000 | Script C cutdown; 경북·강원 |
+| Local TV (지역민방/지역MBC 20s, 6주: W6 → mid-April, inside 봄철 조심기간) | 30,000,000 | Script C cutdown; 경북·강원 |
 | Kakao (Moment + 비즈보드 + 채널 growth) | 20,000,000 | |
 | Naver SA + 브랜드검색 | 15,000,000 | |
 | Google App Campaigns | 15,000,000 | |
 | Community program (50 install events, 3,000 posters, field staff) | 10,000,000 | the activation engine — do not cut this to buy more digital |
 | Meta | 8,000,000 | |
-| Local radio (3 stations, 8 weeks) | 7,000,000 | |
+| Local radio (3 stations, 8주: W3 → mid-April) | 7,000,000 | |
 | Naver 밴드 | 5,000,000 | |
 | Apple Search Ads | 5,000,000 | |
 | Contingency | 5,000,000 | |
@@ -598,9 +626,10 @@ Philosophy: no broad paid media; prove the community install loop + seed brand.
    platform-side ad engagement.
 4. **Events are behavioral, not content.** We log "route opened", never which
    address, never health/mobility inferences.
-5. **Retargeting: platform-standard, 30-day cap, excluded entirely** for
-   anyone who reached the app during an active-fire period in their region
-   (no "we saw you were in danger, now buy Plus" — ever).
+5. **Retargeting: platform-standard, 30-day window cap.** Anyone who reached
+   the app during an active-fire period in their region is excluded from
+   retargeting and Plus upsell prompts for 60 days after (§9.4 rule 5) — no
+   "we saw you were in danger, now buy Plus", ever.
 6. Legal prerequisites tracked in §9.6 (개인정보보호법, 위치정보법 신고).
 
 ---

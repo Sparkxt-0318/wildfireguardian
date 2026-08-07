@@ -181,7 +181,7 @@ export default function App() {
           <LangToggle />
         </div>
       )}
-      <main className={tab === "map" ? "screen" : "screen"}>{screenEl}</main>
+      <main className="screen">{screenEl}</main>
       <TabBar active={tab} onChange={changeTab} />
     </div>
   );

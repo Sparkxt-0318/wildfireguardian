@@ -71,8 +71,8 @@ def test_t_loops_and_snaps(client):
 
 
 def test_history_prefix_grows_with_t(client):
-    p0 = client.get("/v1/history?t=0").json()["points"]
-    p355 = client.get("/v1/history?t=355").json()["points"]
+    p0 = client.get("/v1/history?t=0").json()
+    p355 = client.get("/v1/history?t=355").json()
     assert len(p0) == 1 and len(p355) == 72
     assert p355[0] == p0[0]
     rh = [p["rh_pct"] for p in p355]

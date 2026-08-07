@@ -80,10 +80,34 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Never cache other live API endpoints or SSE.
+  // Never cache other live API endpoints (incl. /v1/billing/*) or SSE.
   if (url.pathname.startsWith("/v1/")) return;
 
-  // App shell: cache first, then network (and backfill same-origin assets).
+  // Navigations (the HTML shell): network first so a newly deployed app is
+  // picked up, falling back to the cached shell when offline.
+  if (event.request.mode === "navigate") {
+    event.respondWith(
+      fetch(event.request)
+        .then((res) => {
+          if (res.ok) {
+            const copy = res.clone();
+            caches
+              .open(SHELL_CACHE)
+              .then((cache) => cache.put("/index.html", copy));
+          }
+          return res;
+        })
+        .catch(() =>
+          caches
+            .match("/index.html")
+            .then((hit) => hit || caches.match("/")),
+        ),
+    );
+    return;
+  }
+
+  // Static assets: cache first, then network (and backfill same-origin assets;
+  // Vite asset filenames are content-hashed, so stale entries are never served).
   event.respondWith(
     caches.match(event.request).then(
       (hit) =>

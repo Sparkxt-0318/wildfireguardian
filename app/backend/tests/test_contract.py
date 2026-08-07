@@ -160,9 +160,11 @@ def test_shelters_shape(client):
 
 
 def test_history_shape(client):
-    j = client.get("/v1/history?t=100").json()
-    assert j["mode"] == "demo"
-    points = j["points"]
+    r = client.get("/v1/history?t=100")
+    assert r.headers["content-type"] == "application/json; charset=utf-8"
+    points = r.json()
+    # Spec §5: a bare array [{t_utc, detections, area_ha_est, ...}] — no wrapper.
+    assert isinstance(points, list)
     assert len(points) == 21  # timesteps 0..100 at 5-min spacing
     for p in points:
         assert set(p) == {"t_utc", "detections", "area_ha_est", "wind_speed_ms", "rh_pct"}

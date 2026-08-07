@@ -13,7 +13,6 @@ from typing import Optional
 from fastapi import APIRouter, FastAPI, Query, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
 
 from . import __version__, alerts, payments
 from .config import Settings, load_settings
@@ -25,9 +24,11 @@ from .models import (
     DEMO_BANNER_KO,
     ConfigResponse,
     HealthResponse,
+    HistoryPoint,
     RouteResponse,
     SheltersResponse,
     SituationResponse,
+    UTF8JSONResponse,
 )
 from .spread import fires_feature_collection, spread_feature_collection
 from .store import Store
@@ -47,7 +48,11 @@ def _now_utc() -> str:
 def create_app(env: Optional[dict] = None) -> FastAPI:
     """Build the FastAPI app from the environment (or an explicit env dict)."""
     settings: Settings = load_settings(env)
-    app = FastAPI(title="WildfireGuardian Resident Gateway", version=__version__)
+    app = FastAPI(
+        title="WildfireGuardian Resident Gateway",
+        version=__version__,
+        default_response_class=UTF8JSONResponse,  # spec §5: charset=utf-8
+    )
     app.state.settings = settings
     app.state.provider = make_provider(settings)
     app.state.store = Store(settings.db_path)
@@ -62,7 +67,7 @@ def create_app(env: Optional[dict] = None) -> FastAPI:
 
     @app.exception_handler(RequestValidationError)
     async def _validation_handler(request: Request, exc: RequestValidationError):
-        return JSONResponse(
+        return UTF8JSONResponse(
             status_code=400,
             content={
                 "error": "invalid_request",
@@ -114,10 +119,10 @@ def create_app(env: Optional[dict] = None) -> FastAPI:
         state = app.state.provider.snapshot(None)
         return SheltersResponse(shelters=sorted_shelters(lat, lon, state))
 
-    @v1.get("/history")
+    @v1.get("/history", response_model=list[HistoryPoint])
     async def history(t: Optional[float] = TQuery):
-        points = app.state.provider.history(t)
-        return {"mode": settings.mode, "points": points}
+        # Spec §5: a bare array — the frontend chart consumes it directly.
+        return app.state.provider.history(t)
 
     app.include_router(v1)
     app.include_router(alerts.router, prefix="/v1")

@@ -98,13 +98,17 @@ export interface FireStatus {
   last_update_utc: string | null;
 }
 
+// The spec example (§5.1) shows values for every field, but the gateway may
+// honestly have no weather feed (live mode) and then sends null — the truth
+// rule forbids inventing a number, so the client types tolerate null and the
+// UI simply omits what the API did not send.
 export interface WeatherStatus {
-  wind_speed_ms: number;
-  wind_dir_deg: number;
+  wind_speed_ms: number | null;
+  wind_dir_deg: number | null;
   wind_toward_user: boolean;
-  rh_pct: number;
-  temp_c: number;
-  days_since_rain: number;
+  rh_pct: number | null;
+  temp_c: number | null;
+  days_since_rain: number | null;
 }
 
 export type CardKind = "action" | "info" | "route" | "contact";
@@ -337,8 +341,13 @@ export async function getShelters(lat: number, lon: number): Promise<Shelter[]> 
   return Array.isArray(data) ? data : (data.shelters ?? []);
 }
 
-export function getHistory(t?: number): Promise<HistoryPoint[]> {
-  return request<HistoryPoint[]>(`/v1/history${query({ t })}`);
+export async function getHistory(t?: number): Promise<HistoryPoint[]> {
+  // Contract (§5): a bare array of history points. Accept a {points: [...]}
+  // envelope too, so a benign wrapper difference doesn't hide the chart.
+  const data = await request<HistoryPoint[] | { points: HistoryPoint[] }>(
+    `/v1/history${query({ t })}`,
+  );
+  return Array.isArray(data) ? data : (data.points ?? []);
 }
 
 export function postCheckout(body: CheckoutRequest): Promise<CheckoutResponse> {

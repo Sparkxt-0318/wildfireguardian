@@ -18,6 +18,10 @@ import { WindArrows } from "../svg/WindArrows";
  */
 export function WindCompass({ weather }: { weather: WeatherStatus }) {
   const { t } = useI18n();
+  // Truth rule: no wind data from the API → no compass (never a made-up dial).
+  if (weather.wind_speed_ms === null || weather.wind_dir_deg === null) {
+    return null;
+  }
   const towardDeg = (weather.wind_dir_deg + 180) % 360;
 
   const C = 100; // center
@@ -128,9 +132,10 @@ export function WindCompass({ weather }: { weather: WeatherStatus }) {
           </div>
           <p
             style={{
+              // Safety-relevant full sentence — body size (spec §7: ≥ 22px).
               margin: "8px 0 0",
-              fontSize: "var(--fs-small)",
-              color: "var(--ink-secondary)",
+              fontSize: "var(--fs-body)",
+              color: "var(--ink)",
               display: "flex",
               alignItems: "center",
               gap: 8,

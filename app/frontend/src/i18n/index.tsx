@@ -2,6 +2,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
   type ReactNode,
@@ -43,6 +44,12 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     setLangState(next);
     setPref("lang", next);
   }, []);
+
+  // Keep <html lang> in sync (index.html ships lang="ko") so screen readers
+  // voice the UI in the selected language.
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
 
   const t = useCallback((key: MessageKey) => DICTS[lang][key], [lang]);
 

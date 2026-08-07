@@ -10,7 +10,18 @@ from __future__ import annotations
 
 from typing import Literal, Optional
 
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
+
+
+class UTF8JSONResponse(JSONResponse):
+    """Spec section 5: all responses ``application/json; charset=utf-8``.
+
+    Wired as the app's ``default_response_class`` and used for every
+    hand-built ``JSONResponse`` so the charset is always explicit.
+    """
+
+    media_type = "application/json; charset=utf-8"
 
 DangerLevel = Literal["SAFE", "WATCH", "GO"]
 CardKind = Literal["action", "info", "route", "contact"]
@@ -125,17 +136,14 @@ class SheltersResponse(BaseModel):
     shelters: list[ShelterInfo]
 
 
+# Spec section 5: /v1/history returns the bare array
+# [{t_utc, detections, area_ha_est, wind_speed_ms, rh_pct}] — no wrapper.
 class HistoryPoint(BaseModel):
     t_utc: str
     detections: int
     area_ha_est: float
     wind_speed_ms: float
     rh_pct: float
-
-
-class HistoryResponse(BaseModel):
-    mode: str
-    points: list[HistoryPoint]
 
 
 class CheckoutRequest(BaseModel):

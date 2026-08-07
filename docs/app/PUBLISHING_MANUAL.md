@@ -53,8 +53,8 @@
 
 The *terminal* (Mac: "Terminal" app; Windows: "PowerShell"; Linux: any
 terminal) is a window where you type commands instead of clicking. You need
-about five commands total in this manual, and every one is given to you
-verbatim. Three habits:
+about a dozen short commands total in this manual, and every one is given to
+you verbatim. Four habits:
 
 1. Press Enter to run a command; wait until a new prompt line appears before
    typing the next one.
@@ -63,6 +63,10 @@ verbatim. Three habits:
 3. If a command fails, the error text is the clue. Copy the *last* few lines
    of it into a web search or into an AI assistant; that is what professional
    developers do too.
+4. A command only "sees" the folder the terminal is currently in. Every
+   command block in this manual says which folder to be in; if you closed the
+   terminal in between, `cd` back into that folder first (e.g.
+   `cd wildfireguardian/app/frontend`).
 
 ### 0.4 Glossary — every term this manual uses
 
@@ -314,12 +318,20 @@ pushes it), skip to §3.3. Otherwise:
 2. Click **+** (top right) → **New repository** → name `wildfireguardian` →
    **Private** → **Create repository**.
 3. Follow GitHub's "push an existing repository" instructions shown on the
-   next screen from a terminal opened in the project folder:
+   next screen from a terminal opened in the project folder (Mac: in Finder,
+   right-click the `wildfireguardian` folder → **New Terminal at Folder**;
+   Windows: open PowerShell and type `cd ` followed by the folder's path):
 
    ```bash
    git remote add origin https://github.com/YOUR_USERNAME/wildfireguardian.git
    git push -u origin main
    ```
+
+   If `git push` asks for a username/password: GitHub no longer accepts
+   account passwords from the terminal. The easiest fix for a novice is
+   [GitHub Desktop](https://desktop.github.com) — install it, sign in, **Add
+   local repository** → pick the project folder → **Publish repository**
+   (keep "private" ticked). Same result, no terminal.
 
    ✅ *What you should see:* refresh the GitHub page — folders `app/`,
    `docs/`, `src/` etc. are listed.
@@ -506,7 +518,8 @@ don't use app stores:
    - ✅ *What you should see:* a 산불지킴이 icon on the home screen that
      opens full-screen without browser bars.
 
-**iPhone (Safari — must be Safari):**
+**iPhone (use Safari — the most reliable path; Chrome on iOS only gained
+this ability in iOS 16.4, and older phones need Safari):**
 1. Open the site in Safari.
 2. Tap the **Share** square-with-arrow → scroll → **홈 화면에 추가 / Add to
    Home Screen** → **Add**.
@@ -671,23 +684,34 @@ carve-outs:
 - **United States storefront:** after the Epic v. Apple contempt ruling,
   Apple updated its guidelines (May 2025) so US-storefront apps **may
   include buttons and external links to outside purchase pages — no
-  entitlement, no Apple commission** on those web purchases. This is
-  US-only. ([Apple's current 3.1.1(a)](https://developer.apple.com/app-store/review/guidelines/#payments); [TechCrunch coverage](https://techcrunch.com/2025/05/02/apple-changes-us-app-store-rules-to-let-apps-redirect-users-to-their-own-websites-for-payments); [9to5Mac](https://9to5mac.com/2025/05/01/apple-app-store-guidelines-external-links/))
+  entitlement required, and currently no Apple commission** on those web
+  purchases. Caution: an appeals court has since ruled Apple may seek a
+  **court-approved, cost-based fee** on such linked-out purchases, so the
+  0%-commission state could change — re-check before building a revenue plan
+  on it. This carve-out is US-only. ([Apple's current 3.1.1(a)](https://developer.apple.com/app-store/review/guidelines/#payments); [TechCrunch coverage](https://techcrunch.com/2025/05/02/apple-changes-us-app-store-rules-to-let-apps-redirect-users-to-their-own-websites-for-payments); [9to5Mac](https://9to5mac.com/2025/05/01/apple-app-store-guidelines-external-links/))
 - **All other storefronts (including Korea):** apps "may not include
   buttons, external links, or other calls to action that direct customers to
   purchasing mechanisms other than in-app purchase" (guideline text, Aug
-  2026). Korea has a separate legal carve-out — the StoreKit External
-  Purchase entitlement under the Telecommunications Business Act — but it
-  requires a **Korea-only separate binary** and Apple still charges a **26%
-  commission** on those alternative-payment sales
+  2026). Two regional exceptions exist, both entitlement-based and both
+  irrelevant to a small first launch: the **EU** has DMA-driven external-link
+  entitlements with their own Apple fee structure (changing frequently — only
+  matters if you actively sell in the EU), and **Korea** has the StoreKit
+  External Purchase entitlement under the Telecommunications Business Act —
+  but it requires a **Korea-only separate binary** and Apple still charges a
+  **26% commission** on those alternative-payment sales
   ([Apple's Korea entitlement page](https://developer.apple.com/support/storekit-external-entitlement-kr); [CNBC](https://www.cnbc.com/2022/06/30/apple-opens-up-third-party-app-payments-in-korea-will-take-26percent-cut-.html)).
   26% + your payment processor's fees ≈ 30%: for a small app it buys you
   paperwork, not margin. Skip it.
-- **What is always allowed everywhere (Guideline 3.1.3(b), "multiplatform
-  services"):** users may **sign in and use content/subscriptions they
-  bought elsewhere** (on your website), as long as the app itself doesn't
-  advertise or link to the external way to buy. This is the "Netflix model"
-  and it is the backbone of our recommended path.
+- **Sign-in to things bought elsewhere (Guideline 3.1.3(b), "multiplatform
+  services"):** apps that operate across platforms may let users **access
+  content, subscriptions, or features they acquired on your website**,
+  *"provided those items are also available as in-app purchases within the
+  app"* (guideline text, Aug 2026). Read that proviso carefully: strictly
+  applied, unlocking a web-bought subscription inside the iOS app is meant to
+  come **with** a matching IAP option. In practice Apple routinely approves
+  free apps that merely honor an existing account with no purchase UI at all
+  — but a reviewer *can* invoke the proviso and ask you to add IAP. §6.3
+  explains how our recommended path stays safe either way.
 
 **Google Play:** digital purchases inside the app must use Google Play's
 billing, **except** where billing-choice programs apply:
@@ -695,8 +719,9 @@ billing, **except** where billing-choice programs apply:
 - **From June 30, 2026** *(rolling out first in the US, UK, and EEA)*:
   developers may offer **alternative billing or external web links alongside
   Play Billing**. New fee structure in those regions: **10% service fee** on
-  the first US$1M/year and on all auto-renewing subscriptions, **plus a 5%
-  billing fee only if Google processes the payment**
+  the first US$1M/year and on all auto-renewing subscriptions (one-time
+  purchases beyond US$1M/yr rise to 20%), **plus a 5% billing fee only if
+  Google processes the payment**
   ([Android Developers Blog](https://android-developers.googleblog.com/2026/06/play-expanded-billing.html); [Play service-fee help](https://support.google.com/googleplay/android-developer/answer/112622)).
 - **South Korea:** the older user-choice billing program applies —
   offering an alternative billing system reduces Google's service fee by
@@ -721,8 +746,15 @@ contain no purchases at all.**
    payment button, no "Guardian Plus" upsell screen, no link to the website's
    pricing page. The web/PWA version is where Guardian Plus is sold (§5).
 2. A user who subscribed on the web and signs in inside the native app gets
-   their Plus features — allowed everywhere under the multiplatform rules
-   (Apple 3.1.3(b); Play's equivalent).
+   their Plus features. This rests on the multiplatform rules (Apple
+   3.1.3(b); Play's equivalent) — but note 3.1.3(b)'s proviso (§6.2): a
+   strict reviewer may say web-bought items must *also* be offered as IAP.
+   If that happens you have two clean answers, pick either: **(a)** remove
+   Plus-feature sign-in from the store builds entirely (Plus stays a
+   web/PWA-only product — nothing safety-related is lost, since every safety
+   feature is free everywhere), or **(b)** move Phase 2 forward and add real
+   IAP. Do not argue the guideline in Resolution Center hoping to keep a
+   proviso-violating build — that path leads to §6.4.
 3. The app may say, at most, factual copy like "이 기기에서는 Guardian Plus를
    구매할 수 없습니다 / Guardian Plus is not available for purchase in this
    app." **No price, no URL, no "visit our website."** (On the US storefront
@@ -730,9 +762,10 @@ contain no purchases at all.**
    simpler and cannot be rejected anywhere.)
 
 Why this is the right first move: it requires **zero native billing code**,
-it is compliant in every country simultaneously, review risk is near zero,
-and — because Guardian Plus is a convenience tier for a free safety app —
-the revenue you forgo from store users at launch is small.
+it is compliant in every country simultaneously, review risk is low (and
+item 2 gives you a pre-decided answer if a reviewer raises 3.1.3(b)), and —
+because Guardian Plus is a convenience tier for a free safety app — the
+revenue you forgo from store users at launch is small.
 
 **Phase 2 — when revenue matters (later, optional):** implement real store
 billing (Apple IAP via StoreKit, Google Play Billing), sell the same
@@ -742,9 +775,10 @@ plugin, backend receipt validation, reconciling three subscription sources)
 — budget weeks, not days, and do it only when store demand proves itself.
 
 **Phase 3 — regional link-outs (advanced, optional):** US storefront
-link-out (free of commission) and Play's US/UK/EEA billing-choice program
-can raise margins, at the cost of region-specific builds/configuration and
-ongoing policy-watching. Not for a first-time publisher.
+link-out (currently commission-free — see the court caveat in §6.2) and
+Play's US/UK/EEA billing-choice program can raise margins, at the cost of
+region-specific builds/configuration and ongoing policy-watching. Not for a
+first-time publisher.
 
 ### 6.4 Consequences of getting it wrong
 
@@ -802,7 +836,9 @@ ongoing policy-watching. Not for a first-time publisher.
    sudo gem install cocoapods
    ```
 
-   (If this fights you on a fresh Mac, the Homebrew route — `brew install
+   (`sudo` asks for your Mac login password; the terminal shows nothing
+   while you type it — that is normal, type it and press Enter. If this
+   fights you on a fresh Mac, the Homebrew route — `brew install
    cocoapods` — is the reliable fallback; FAQ Q10.)
 4. Get the code onto the Mac:
 
@@ -813,6 +849,10 @@ ongoing policy-watching. Not for a first-time publisher.
    ```
 
 ### 7.3 Build the web app and generate the iOS project
+
+All commands in this section run in the `wildfireguardian/app/frontend`
+folder (§7.2 step 4 left you there; if you closed the terminal, run
+`cd wildfireguardian/app/frontend` first).
 
 1. Build with the production backend baked in:
 
@@ -877,7 +917,10 @@ when-in-use location only.
    > Your location is used only to show wildfire danger, evacuation routes,
    > and shelters near you. It is not used for advertising.
 
-2. Give it Korean too (App Store language = ko first): in the project
+2. Give it Korean too (App Store language = ko first). First tell Xcode the
+   project *has* Korean: click the blue **App** project icon → select the
+   **App** *project* (above the targets) → **Info** tab → under
+   **Localizations** click **+** → **Korean (ko)**. Then, in the project
    navigator select **App → App →** add a **Strings File (Legacy)** named
    `InfoPlist.strings`, click it → File Inspector → **Localize…** → Korean,
    and put in the Korean variant:
@@ -939,9 +982,10 @@ mention of purchasing outside the app (§6).
 
 ### 7.8 Screenshots *(sizes as of Aug 2026)*
 
-Apple requires screenshots in exact pixel sizes. Since Apple auto-scales the
-largest iPhone size down, you only need **one iPhone set** — plus an iPad
-set **only if** the app targets iPad:
+Apple requires screenshots in exact pixel sizes
+([Apple's specification](https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications/)).
+Since Apple auto-scales the largest iPhone size down, you only need **one
+iPhone set** — plus an iPad set **only if** the app targets iPad:
 
 | Device class | Size | Required? |
 |---|---|---|
@@ -985,7 +1029,9 @@ exactly what the app does — matching the privacy policy (§10.5):
      processing finishes).
 3. **Internal testing** (instant, no review): TestFlight tab → Internal
    Testing → **+** → add up to **100 members** of your team by Apple ID
-   email. They get an invite in the TestFlight app.
+   email (a person must first exist under **Users and Access** in App Store
+   Connect — add them there with any role if the list is empty). They get an
+   invite in the TestFlight app.
 4. **External testing** (optional, up to **10,000 testers** via email or a
    public link): create a group, add the build — the **first build of each
    version needs a lightweight Apple review** (~1 day) before external
@@ -1075,11 +1121,28 @@ Works on Windows, Mac, or Linux.
 
 ### 8.2 Build the web app and generate the Android project
 
+All commands below run in the `wildfireguardian/app/frontend` folder (§8.1
+step 3 left you there; if you closed the terminal, `cd` back into it first).
+
+On **Mac/Linux**:
+
 ```bash
 VITE_API_BASE=https://api.wildfireguardian.app npm run build
 npx cap add android      # first time only — creates app/frontend/android/
 npx cap sync android     # repeat after every npm run build
 npx cap open android     # opens the project in Android Studio
+```
+
+On **Windows (PowerShell)** the `NAME=value command` form on the first line
+does not work — set the variable on its own line instead (everything else is
+identical):
+
+```powershell
+$env:VITE_API_BASE = "https://api.wildfireguardian.app"
+npm run build
+npx cap add android
+npx cap sync android
+npx cap open android
 ```
 
 - ✅ *What you should see:* Android Studio opens, Gradle sync runs
@@ -1102,9 +1165,11 @@ two-key system before creating anything:
   could never update the app again. So: use Play App Signing (the default),
   and still guard your upload keystore like a passport.
 
-1. Create the upload keystore (any terminal; `keytool` ships with Android
-   Studio's JDK — on Windows run this in the terminal *inside* Android
-   Studio if `keytool` isn't found):
+1. Create the upload keystore. Open a terminal and `cd` into a folder you
+   keep private files in (e.g. `cd Documents`) — the file is created in
+   whatever folder the terminal is in, **not** inside the repo. (`keytool`
+   ships with Android Studio's JDK — on Windows run this in the terminal
+   *inside* Android Studio if `keytool` isn't found):
 
    ```bash
    keytool -genkey -v -keystore wfg-upload.keystore -alias wfg-upload -keyalg RSA -keysize 2048 -validity 10000
@@ -1119,20 +1184,14 @@ two-key system before creating anything:
    an offline USB stick, and a second location (cloud drive is acceptable
    for the *upload* key since Google can reset it — but never commit it to
    the git repository).
-4. Tell Gradle about it. Create
-   `app/frontend/android/keystore.properties`:
-
-   ```properties
-   storeFile=/absolute/path/to/wfg-upload.keystore
-   storePassword=YOUR_KEYSTORE_PASSWORD
-   keyAlias=wfg-upload
-   keyPassword=YOUR_KEY_PASSWORD
-   ```
-
-   and add `keystore.properties` to `.gitignore` (never commit passwords).
-   Then in Android Studio you can simply use **Build → Generate Signed App
-   Bundle** (next step) which asks for the same values interactively — the
-   file is optional convenience for command-line builds.
+4. You do **not** need to tell Gradle about the keystore: this manual signs
+   through Android Studio's **Build → Generate Signed App Bundle** dialog
+   (next step), which asks for the file and passwords interactively each
+   time. (A command-line `./gradlew bundleRelease` produces an **unsigned**
+   bundle unless you first wire a signing config into
+   `android/app/build.gradle` — an advanced setup this manual deliberately
+   skips. If you ever add such a config, keep the passwords in a file listed
+   in `.gitignore`, never in the repo.)
 
 ### 8.4 Build the AAB (the file you upload)
 
@@ -1147,8 +1206,9 @@ In Android Studio:
      successfully" with a locate link — the file is
      `app/frontend/android/app/build/outputs/bundle/release/app-release.aab`.
 
-(Command-line equivalent, after §8.3 step 4: `cd app/frontend/android &&
-./gradlew bundleRelease`.)
+(There is a command-line route via `./gradlew bundleRelease`, but with this
+manual's setup it would produce an unsigned bundle — use the Android Studio
+dialog above; see §8.3 step 4.)
 
 ### 8.5 Play Console: account and app record
 
@@ -1225,8 +1285,11 @@ Organization accounts may skip to §8.7 (still run a real test anyway).
 2. Countries: select **South Korea** plus anywhere else you want (adding
    more later is one click; launching everywhere at once is fine for a free
    app).
-3. **Roll-out percentage:** start **staged at 20%**, watch crashes/ANRs in
-   **Quality → Android vitals** for a few days, then raise to 100%.
+3. **Roll-out:** a brand-new app's **first** production release always goes
+   to 100% of the selected countries — Play's staged (percentage) rollout is
+   only offered for *updates*. From your second release onward, use it:
+   start updates **staged at 20%**, watch crashes/ANRs in **Quality →
+   Android vitals** for a few days, then raise to 100%.
 4. **Send for review.** New apps' first production review can take from a
    day to a week+ *(as of Aug 2026)*.
    - ✅ *What you should see:* status "In review" → "Available on Google
@@ -1257,6 +1320,7 @@ net here — §8.3).
 - Revenue share, for reference: developers keep **80%** on paid
   apps/in-app items and **85% on subscriptions** via Samsung Checkout
   (structure effective May 15, 2025 —
+  [Samsung's official announcement](https://developer.samsung.com/sdp/news/en/2025/03/13/new-revenue-share-model-for-galaxy-store);
   [Samsung's FAQ](https://developer.samsung.com/galaxy-store/faq.html)).
 - Process: New Application → upload APK, reuse the Play listing text and
   screenshots, country list Korea (or wider), submit; review takes days.
@@ -1341,9 +1405,13 @@ one of the quiet superpowers of this architecture.
 
 ### 10.5 Legal minimums
 
-Publish these as pages on the website (e.g. `/privacy`, `/terms` — a simple
-page each; Netlify serves anything in the frontend's `public/` folder), link
-them in both store listings, and keep them true.
+Publish these as pages on the website, link them in both store listings, and
+keep them true. Concretely: create two plain HTML files in the repo at
+`app/frontend/public/privacy/index.html` and
+`app/frontend/public/terms/index.html` (everything in the frontend's
+`public/` folder is copied into the build as-is), then `git push` — after
+Netlify redeploys they are live at `https://wildfireguardian.app/privacy`
+and `…/terms`.
 
 **A. Privacy policy — fill-in-the-blanks template (ko + en on one page):**
 
@@ -1438,7 +1506,7 @@ Store commissions apply only if/when you sell through store billing
 | §7 iOS: submission → approved | 1–2 h | 1–4 days typical; +1–3 days per rejection round |
 | §8 Android: setup → closed test live | 3–6 h | 1–2 days |
 | §8.6 Play 14-day test gate + production review (personal acct) | ~1 h | **14 days + ≤7 days review** |
-| §8.7 Staged rollout to 100% | minutes | 3–7 days (your choice) |
+| §8.7 First release live (100%) → staged rollouts on later updates | minutes | first release: immediate on approval; update rollouts: 3–7 days (your choice) |
 | **Web product live** | | **~1 day** |
 | **App Store live** | | **~1–2 weeks** |
 | **Google Play live (new personal account)** | | **~3–5 weeks** |
@@ -1470,7 +1538,8 @@ the backend's 60 s cache, effectively impossible unless the key is shared).
 **Q5. The PWA won't offer "Add to Home Screen".**
 It must be HTTPS (not `http://`), the `manifest.webmanifest` and service
 worker must load (Netlify serves them from the build automatically), and on
-iPhone it must be **Safari** — Chrome on iOS can't install PWAs.
+iPhone use **Safari** — third-party iOS browsers only support Add to Home
+Screen on iOS 16.4+ and it is less reliable there.
 
 **Q6. Stripe Checkout returns `billing_not_configured`.**
 The backend has no `STRIPE_SECRET_KEY` (§5.2) — by design it degrades to
@@ -1543,9 +1612,12 @@ Payments policy: [Apple App Review Guidelines](https://developer.apple.com/app-s
 [Apple Korea external-purchase entitlement](https://developer.apple.com/support/storekit-external-entitlement-kr) ·
 [Google Play expanded billing (June 30, 2026)](https://android-developers.googleblog.com/2026/06/play-expanded-billing.html) ·
 [Play service fees](https://support.google.com/googleplay/android-developer/answer/112622)
-Stores: [Galaxy Store FAQ](https://developer.samsung.com/galaxy-store/faq.html) ·
+Stores: [Galaxy Store revenue-share announcement (May 15, 2025)](https://developer.samsung.com/sdp/news/en/2025/03/13/new-revenue-share-model-for-galaxy-store) ·
+[Galaxy Store FAQ](https://developer.samsung.com/galaxy-store/faq.html) ·
 [ONE store developer center](https://dev.onestore.net) ·
 [ONE store service fees](https://onestore-dev.gitbook.io/dev/docs/payment/service_fee)
+Store mechanics: [Apple screenshot specifications](https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications/) ·
+[Play staged rollouts (updates only)](https://support.google.com/googleplay/android-developer/answer/6346149)
 Infra: [Render pricing/free tier](https://render.com/docs/free) ·
 [Stripe go-live checklist](https://docs.stripe.com/get-started/checklist/go-live) ·
 [Stripe global availability](https://stripe.com/global) ·

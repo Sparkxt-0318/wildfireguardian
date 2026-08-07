@@ -11,9 +11,8 @@ from __future__ import annotations
 
 import stripe
 from fastapi import APIRouter, Request
-from fastapi.responses import JSONResponse
 
-from .models import CheckoutRequest
+from .models import CheckoutRequest, UTF8JSONResponse
 
 router = APIRouter()
 
@@ -36,12 +35,12 @@ def _store(request: Request):
 async def create_checkout(request: Request, body: CheckoutRequest):
     settings = _settings(request)
     if not settings.billing_configured:
-        return JSONResponse(status_code=503, content=_NOT_CONFIGURED)
+        return UTF8JSONResponse(status_code=503, content=_NOT_CONFIGURED)
     price = (
         settings.stripe_price_yearly if body.plan == "yearly" else settings.stripe_price_monthly
     )
     if not price:
-        return JSONResponse(
+        return UTF8JSONResponse(
             status_code=503,
             content={
                 "error": "billing_not_configured",
@@ -58,7 +57,7 @@ async def create_checkout(request: Request, body: CheckoutRequest):
             cancel_url=body.cancel_url,
         )
     except Exception:
-        return JSONResponse(
+        return UTF8JSONResponse(
             status_code=502,
             content={
                 "error": "stripe_error",
@@ -73,7 +72,7 @@ async def create_checkout(request: Request, body: CheckoutRequest):
 async def stripe_webhook(request: Request):
     settings = _settings(request)
     if not settings.billing_configured or not settings.stripe_webhook_secret:
-        return JSONResponse(status_code=503, content=_NOT_CONFIGURED)
+        return UTF8JSONResponse(status_code=503, content=_NOT_CONFIGURED)
     payload = await request.body()
     sig_header = request.headers.get("stripe-signature", "")
     try:
@@ -82,7 +81,7 @@ async def stripe_webhook(request: Request):
         )
     except Exception:
         # Bad payload or bad/missing signature: reject, never process.
-        return JSONResponse(
+        return UTF8JSONResponse(
             status_code=400,
             content={
                 "error": "invalid_signature",
@@ -133,7 +132,13 @@ async def stripe_webhook(request: Request):
 async def billing_status(request: Request, customer_id: str = ""):
     settings = _settings(request)
     if not settings.billing_configured:
-        return {"active": False, "reason": "billing_not_configured"}
+        # Spec §5 shape ({active, plan, renews_utc}) plus an honest reason.
+        return {
+            "active": False,
+            "plan": None,
+            "renews_utc": None,
+            "reason": "billing_not_configured",
+        }
     sub = _store(request).get_subscription(customer_id) if customer_id else None
     if not sub or sub.get("status") != "active":
         return {"active": False, "plan": None, "renews_utc": None}
