@@ -47,6 +47,13 @@ one borrowed from somewhere else.
 Run:
     python scripts/build_console.py                       # newest replay run
     python scripts/build_console.py --run-dir <dir> --out web/console.html
+
+⚠ THE TEMPLATE LIVES IN scripts/, NOT web/.
+``web/`` is served wholesale by the API, and a template is a BUILD INPUT: it
+still carries the ``/*__DATA__*/`` placeholder, so a browser that reached it
+would run ``JSON.parse`` on a comment and render a blank, broken console. It was
+in ``web/`` and WAS reachable at /console.template.html with HTTP 200. Anything
+under ``web/`` is public; put build inputs somewhere else.
 """
 
 from __future__ import annotations
@@ -201,7 +208,7 @@ def main() -> int:
 
     run_dir = args.run_dir or newest_run(args.region)
     payload = build_payload(run_dir)
-    tpl = (REPO / "web" / "console.template.html").read_text(encoding="utf-8")
+    tpl = (REPO / "scripts" / "console.template.html").read_text(encoding="utf-8")
     html = tpl.replace("/*__DATA__*/", json.dumps(payload, ensure_ascii=False,
                                                   separators=(",", ":")))
     args.out.parent.mkdir(parents=True, exist_ok=True)

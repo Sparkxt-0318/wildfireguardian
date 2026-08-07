@@ -360,3 +360,65 @@ def test_locate_carries_no_external_url(client):
 
 def test_locate_on_an_unknown_region_is_404(client):
     assert client.get("/api/regions/nowhere_2099/locate?x=1&y=1").status_code == 404
+
+
+# ---------------------------------------------------------------------------
+# 5. The root URL IS the console
+# ---------------------------------------------------------------------------
+
+
+def test_the_root_url_serves_the_console(client):
+    """「127.0.0.1:8000 을 여시면 됩니다」 has to be true.
+
+    It was not. `StaticFiles(html=True)` serves `index.html` for a directory
+    request, `web/` has no `index.html`, and so GET / returned
+    {"detail":"Not Found"} while /console.html worked — a demonstration where
+    the presenter reads a path aloud instead of saying "open localhost".
+    """
+    r = client.get("/")
+    if not (REPO / "web" / "console.html").is_file():
+        assert r.status_code == 503, "an unbuilt console must say so, not 404"
+        return
+    assert r.status_code == 200, r.text
+    assert r.headers["content-type"].startswith("text/html")
+    assert "<title>" in r.text and "운영자 콘솔" in r.text
+
+
+def test_the_root_url_and_console_html_serve_the_same_bytes(client):
+    if not (REPO / "web" / "console.html").is_file():
+        pytest.skip("console not built")
+    assert client.get("/").content == client.get("/console.html").content
+
+
+def test_the_build_template_is_not_served(client):
+    """Everything under web/ is public, so build inputs do not live there.
+
+    The template still carries its /*__DATA__*/ placeholder: a browser reaching
+    it runs JSON.parse on a comment and renders a blank console. It WAS at
+    /console.template.html with HTTP 200.
+    """
+    assert client.get("/console.template.html").status_code == 404
+    assert not (REPO / "web" / "console.template.html").exists(), (
+        "the template is back under web/, where it is publicly served")
+    assert (REPO / "scripts" / "console.template.html").is_file()
+
+
+def test_no_html_under_web_is_a_template(client):
+    """Generalised: nothing served from web/ may contain a build placeholder."""
+    for page in (REPO / "web").rglob("*.html"):
+        assert "/*__DATA__*/" not in page.read_text(encoding="utf-8"), (
+            f"{page.name} is a template and is being served")
+
+
+def test_the_startup_message_names_the_url_that_actually_works():
+    """The message promised the root URL while the root URL returned 404.
+
+    Both halves are pinned: the script must print the root URL, and the app must
+    serve it.
+    """
+    src = (REPO / "scripts" / "run_api.py").read_text(encoding="utf-8")
+    assert 'url = f"http://{args.host}:{args.port}/"' in src
+    assert "{url}" in src, "the message must interpolate the URL, not retype it"
+    app_src = (REPO / "src" / "wildfireguardian" / "api" / "app.py").read_text(
+        encoding="utf-8")
+    assert '@app.get("/"' in app_src

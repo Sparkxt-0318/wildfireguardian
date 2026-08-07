@@ -46,7 +46,7 @@ from pathlib import Path
 from typing import Any
 
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
@@ -255,11 +255,43 @@ def create_app(*, runner: JobRunner | None = None,
         return JSONResponse({"error": "external_reference_in_response",
                              "detail": str(exc), "urls": exc.urls}, status_code=500)
 
+    # -- the console -------------------------------------------------------
+    @app.get("/", include_in_schema=False)
+    def root():
+        """`http://127.0.0.1:8000/` IS the console. Explicitly, not by luck.
+
+        ⚠ This route exists because the obvious alternative silently did not
+        work. `StaticFiles(html=True)` serves `index.html` for a directory
+        request, `web/` has no `index.html`, and so `GET /` returned
+        `{"detail":"Not Found"}` while `/console.html` worked — a demonstration
+        where the presenter has to read a path aloud instead of saying "open
+        localhost".
+
+        Naming the file here rather than renaming it to `index.html` keeps the
+        filename meaningful and makes the mapping something a reader can see.
+        """
+        page = WEB_ROOT / "console.html"
+        if not page.is_file():
+            # A missing build is a different problem from a missing route, and
+            # saying which saves somebody the search.
+            raise HTTPException(503, {
+                "error": "console_not_built",
+                "detail_ko": "콘솔이 아직 빌드되지 않았습니다.",
+                "build": "python scripts/run_live_detection.py --replay "
+                         "--speed 0 --no-pdf --max-triggers 1 && "
+                         "python scripts/build_console.py",
+            })
+        return FileResponse(page, media_type="text/html")
+
     # -- static ------------------------------------------------------------
-    # Mounted LAST so it cannot shadow /api. Serves the vendored fonts, which is
-    # the whole reason the screen needs no network.
+    # Mounted LAST so it cannot shadow /api or /. Serves the vendored fonts,
+    # which is the whole reason the screen needs no network.
+    #
+    # ⚠ EVERYTHING UNDER web/ IS PUBLIC. The build template used to live here
+    # and was reachable at /console.template.html with HTTP 200, placeholder and
+    # all. Build inputs belong in scripts/.
     if WEB_ROOT.is_dir():
-        app.mount("/", StaticFiles(directory=str(WEB_ROOT), html=True), name="web")
+        app.mount("/", StaticFiles(directory=str(WEB_ROOT)), name="web")
     return app
 
 

@@ -35,7 +35,14 @@ def main() -> int:
 
     from wildfireguardian.api import create_app
 
-    print(f"자원 사전 적재 후 http://{args.host}:{args.port} 에서 응답합니다.")
+    url = f"http://{args.host}:{args.port}/"
+    # ⚠ This message was previously a promise the server did not keep: it named
+    # the root URL while GET / returned 404 and the console lived at
+    # /console.html. The route is mapped now, and the message names the address
+    # that is actually served — checked by tests/test_api.py, so the two cannot
+    # drift apart again.
+    print(f"자원 사전 적재 중… 완료되면 {url} 에서 운영자 콘솔이 열립니다.",
+          flush=True)
     uvicorn.run(create_app(), host=args.host, port=args.port,
                 log_level=args.log_level)
     return 0

@@ -25,6 +25,7 @@ be.
 | `GET /api/jobs/{id}` | state + the six-stage progress |
 | `GET /api/jobs/{id}/result` | the dispatch list |
 | `DELETE /api/jobs/{id}` | cancel, queued or running |
+| **`GET /`** | **the operator console** — `web/console.html` |
 | `/*` | `web/`, including `assets/fonts/` |
 
 ---
@@ -192,6 +193,56 @@ it is a warning and is meant to be read.
 **Verified end to end in a browser**, not asserted: click at 36.4907 N,
 129.2856 E → 「이 지점에서 라이브 계산」 → progress → 「완료 · 458개 출발지」,
 라우팅 11.751 s, badge flipped to 라이브 계산 결과.
+
+## 1.10 ⚠ `GET /` returned 404, and the start-up message said otherwise
+
+Reported from a running server and reproduced. Three findings, all fixed.
+
+**1. The root URL was not the console.** `StaticFiles(directory=web, html=True)`
+serves `index.html` for a directory request; `web/` has no `index.html`. So
+`GET /` returned `{"detail":"Not Found"}` while `/console.html` returned 200.
+For a demonstration that is the difference between "open localhost" and reading
+a path aloud to a judge.
+
+There is now an explicit `@app.get("/")` returning `web/console.html`. Naming the
+file rather than renaming it to `index.html` keeps the filename meaningful and
+puts the mapping where a reader can see it. If the console has not been built,
+the route answers **503** with the build command — an unbuilt page is a different
+problem from a missing route, and saying which saves the search.
+
+**2. The start-up message was false.** It printed
+「…http://127.0.0.1:8000 에서 응답합니다」 for an address that 404'd. It now names
+the URL that is served, and a test pins both halves: the script must interpolate
+the root URL, and the app must have a `/` route.
+
+**3. The build template was publicly served.** `web/console.template.html`
+returned **HTTP 200**, placeholder and all — a browser reaching it runs
+`JSON.parse` on `/*__DATA__*/` and renders a blank console. It has moved to
+`scripts/`, because **everything under `web/` is public** and a template is a
+build input. A test asserts no HTML under `web/` contains a placeholder.
+
+⚠ **A note on how this was verified, because the first two attempts lied.**
+`curl` kept reporting 404 after the fix. The cause was not the code: a stale
+server from before the edit still held port 8000, so the freshly started process
+died with `[Errno 48] address already in use` and every request went to the old
+one. The failure was silent because the bind error went to a log nobody read.
+The fix was confirmed only after killing the holder **by pid** and checking the
+port was free first. `TestClient` had been reporting 200 the whole time — when a
+live check and an in-process check disagree, suspect the process before the code.
+
+### Verified, on port 8000
+
+| | |
+|---|---|
+| `GET /` | **HTTP 200**, 66,696 B, `text/html`, `<title>WildfireGuardian · 운영자 콘솔</title>` |
+| `GET /` vs `/console.html` | identical bytes |
+| `GET /console.template.html` | **404** |
+| `GET /assets/fonts/…woff2` | 200, `font/woff2` |
+| browser at `http://127.0.0.1:8000/` | console renders |
+| click → live calculation | 36.4907 N, 129.2856 E → 「완료 · 458개 출발지」, 라우팅 11.693 s |
+| gates | offline 0 · dash 0 · contrast 0 |
+
+---
 
 ## 2. Decisions, and why
 
