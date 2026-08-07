@@ -1,4 +1,5 @@
 import type { Situation } from "../api/client";
+import { DangerBadge } from "../components/DangerBadge";
 import { GuidanceCard } from "../components/GuidanceCard";
 import { IconPhone } from "../components/Icons";
 import { useI18n } from "../i18n";
@@ -24,7 +25,10 @@ export function GuideScreen({
 
   return (
     <div className="screen-pad">
-      <h1 className="section-title">{t("guide_title")}</h1>
+      <div className="row" style={{ justifyContent: "space-between" }}>
+        <h1 className="section-title">{t("guide_title")}</h1>
+        <DangerBadge danger={situation.danger} />
+      </div>
       {situation.cards.length === 0 && (
         <p className="big-state-sub">{t("guide_empty")}</p>
       )}

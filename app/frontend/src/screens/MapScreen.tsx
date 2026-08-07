@@ -28,9 +28,9 @@ import {
 import { IconLocation, IconPhone } from "../components/Icons";
 import { useI18n } from "../i18n";
 import { formatKm } from "../lib/format";
-import { getCurrentPosition, type Coords } from "../lib/geo";
-import { arrowheadHtml } from "../svg/EvacArrow";
-import { flamePulseHtml } from "../svg/FlamePulse";
+import { DEFAULT_COORDS, getCurrentPosition, type Coords } from "../lib/geo";
+import { arrowheadHtml, EvacArrow } from "../svg/EvacArrow";
+import { FlamePulse, flamePulseHtml } from "../svg/FlamePulse";
 
 const OSM_TILES = "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
 const OSM_ATTR = "&copy; OpenStreetMap contributors";
@@ -223,7 +223,7 @@ export function MapScreen({
       onCoordsChange(pos);
     } catch {
       // graceful denial: default demo coordinate + visible bilingual notice
-      onCoordsChange({ lat: 36.44, lon: 129.4 });
+      onCoordsChange(DEFAULT_COORDS);
       showNotice(t("map_location_denied"));
     }
   };
@@ -368,22 +368,23 @@ export function MapScreen({
           <button
             type="button"
             onClick={() => setLegendOpen(false)}
+            aria-expanded={true}
             style={{
               border: "none",
               background: "none",
               padding: 0,
               width: "100%",
+              minHeight: "var(--touch)", // spec §7: 64px touch target
+              display: "flex",
+              alignItems: "center",
               textAlign: "left",
               cursor: "pointer",
             }}
           >
-            <h3>{t("legend_title")} ✕</h3>
+            <h3 style={{ margin: 0 }}>{t("legend_title")} ✕</h3>
           </button>
           <div className="legend-row">
-            <span
-              className="swatch"
-              style={{ background: "#E25822", borderRadius: "50%" }}
-            />
+            <FlamePulse size={24} />
             {t("legend_fire")}
           </div>
           <div className="legend-row">
@@ -478,6 +479,7 @@ export function MapScreen({
       )}
       {route?.status === "ok" && routeShelter && (
         <div className="map-notice" style={{ borderColor: "var(--safe)" }}>
+          <EvacArrow size={40} />{" "}
           <strong>{pick(routeShelter, "name")}</strong>
           {" · "}
           {t("dist_label")}: {formatKm(routeShelter.distance_km)} {t("unit_km")}

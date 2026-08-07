@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useI18n } from "../i18n";
 import { speak, stop, ttsSupported } from "../lib/tts";
 import { IconSpeaker, IconStop } from "./Icons";
@@ -10,25 +10,33 @@ import { IconSpeaker, IconStop } from "./Icons";
 export function ReadAloud({ text }: { text: string }) {
   const { t, speechLang } = useI18n();
   const [speaking, setSpeaking] = useState(false);
+  const speakingRef = useRef(false);
 
   useEffect(() => {
-    // If the surrounding screen unmounts mid-speech, stop talking.
+    // If the surrounding screen unmounts while THIS button's speech is
+    // playing, stop it (ref, not state — the cleanup closure is stale).
     return () => {
-      if (speaking) stop();
+      if (speakingRef.current) stop();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!ttsSupported()) return null;
 
   const onClick = () => {
-    if (speaking) {
+    if (speakingRef.current) {
       stop();
+      speakingRef.current = false;
       setSpeaking(false);
       return;
     }
-    const ok = speak(text, speechLang, () => setSpeaking(false));
-    if (ok) setSpeaking(true);
+    const ok = speak(text, speechLang, () => {
+      speakingRef.current = false;
+      setSpeaking(false);
+    });
+    if (ok) {
+      speakingRef.current = true;
+      setSpeaking(true);
+    }
   };
 
   return (

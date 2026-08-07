@@ -125,4 +125,16 @@ def create_app(env: Optional[dict] = None) -> FastAPI:
     return app
 
 
-app = create_app()
+_app: Optional[FastAPI] = None
+
+
+def __getattr__(name: str) -> FastAPI:
+    """Lazy module attribute (PEP 562): ``uvicorn guardian_app.main:app``
+    builds the app on first access, while importing ``create_app`` for tests
+    stays side-effect free (no sqlite file is created at import time)."""
+    global _app
+    if name == "app":
+        if _app is None:
+            _app = create_app()
+        return _app
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

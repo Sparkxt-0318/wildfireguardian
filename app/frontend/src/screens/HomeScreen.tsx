@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   getHistory,
   type HistoryPoint,
@@ -28,9 +28,16 @@ export function HomeScreen({
   onOpenMap: () => void;
   onOpenRoute: () => void;
 }) {
-  const { t, lang, pick, speechLang } = useI18n();
+  const { lang, pair, pick, speechLang, t } = useI18n();
   const [history, setHistory] = useState<HistoryPoint[] | null>(null);
   const [readingAll, setReadingAll] = useState(false);
+  const readingAllRef = useRef(false);
+
+  useEffect(() => {
+    return () => {
+      if (readingAllRef.current) stop();
+    };
+  }, []);
 
   useEffect(() => {
     let alive = true;
@@ -50,15 +57,10 @@ export function HomeScreen({
   const level = danger.level;
 
   // ONE giant primary button; label depends on the danger level (spec §1.3).
-  const primaryLabel = level === "GO" ? t("home_btn_go") : t("home_btn_safe");
-  const primarySub =
-    level === "GO"
-      ? lang === "ko"
-        ? "See evacuation route"
-        : "대피 경로 보기"
-      : lang === "ko"
-        ? "View map"
-        : "지도 보기";
+  // pair() = [current language, other language] — main label + bilingual sub.
+  const [primaryLabel, primarySub] = pair(
+    level === "GO" ? "home_btn_go" : "home_btn_safe",
+  );
   const primaryAction = level === "GO" ? onOpenRoute : onOpenMap;
 
   // Whole-screen read-aloud: status + reason + every card, in UI language.
@@ -71,12 +73,18 @@ export function HomeScreen({
   ].join(". ");
 
   const toggleReadAll = () => {
-    if (readingAll) {
+    if (readingAllRef.current) {
       stop();
+      readingAllRef.current = false;
       setReadingAll(false);
       return;
     }
-    if (speak(readAllText, speechLang, () => setReadingAll(false))) {
+    const ok = speak(readAllText, speechLang, () => {
+      readingAllRef.current = false;
+      setReadingAll(false);
+    });
+    if (ok) {
+      readingAllRef.current = true;
       setReadingAll(true);
     }
   };
