@@ -5,6 +5,93 @@ were **correct on Yeongdeok**, which is why all three survived review.
 
 ---
 
+## 0. The shape, in one page
+
+### One form, three instances
+
+A value that has to differ per region is written as **one region's value**. In
+that region it is right, so the screen looks correct, the test that checks it
+passes, and the reviewer who opens the page sees nothing wrong. It becomes wrong
+only when a second region reads the same string — and by then the string has
+been in the tree long enough that nobody is looking at it any more.
+
+Every one of the three was correct on Yeongdeok. Yeongdeok is the default
+region, the one the console opens on, the one the demo screen was built for, and
+the one every earlier phase measured. **The defect is invisible from the place
+everybody stands.**
+
+### ⚠ Single-region verification cannot reveal it, structurally
+
+This is not a matter of care. While there is one region:
+
+* the literal and the correct value are **the same number**, so no assertion can
+  separate them;
+* a test that checks the payload field passes, because the payload field was
+  always right — `test_every_screen_carries_its_own_coverage_figure` passed
+  throughout instance 1, checking a field the defect never touched;
+* rendering the page shows the right figure, because the right figure *is* the
+  literal;
+* review reads a sentence about 영덕 on 영덕's sheet and moves on.
+
+There is no observation available inside one region that distinguishes
+「the value for this region」 from 「the value, typed once」. The second region is
+not a better test of the same thing — it is **the first test that exists**.
+
+### ⚠ One of the three was created by fixing a real defect
+
+Instance 3 has a specific history worth keeping. `delivery/email.py` once held
+its own hand-retyped copy of the caveat, and that copy had **lost its closing
+sentence**. The audit caught the drift and `24407eb` fixed it the right way: the
+duplicate was deleted and the module imported the single definition from
+`live/scope.py`.
+
+**Unifying was correct.** Two copies of a mandated caveat, one of them missing a
+sentence, is worse in every way than one copy.
+
+The question nobody asked was the next one: *should the one definition be a
+constant at all, or a function of the region?* At that moment there was one
+region in operational use, so a constant and a function were indistinguishable —
+see above. The fix removed a real defect and left this one in place, correctly
+spelled, in exactly one location, for two more regions to inherit later.
+
+⚠ **A single source of truth is only as good as its granularity.** "One
+definition" and "one definition per region" look identical until the second
+region arrives.
+
+### How each was actually found
+
+| # | instance | found | how |
+|---|---|---|---|
+| 1 | `build_console.py` `"coverage_pct": 32.6` | PHASE 22 STEP 3, **region switching** (`d343667`) | writing `_coverage_pct()` to read the value per region. The literal was in the function being replaced. |
+| 2 | `build_operator_screen.py` legend | the **EM-dash investigation** (`ed8a82b`) | *by rendering the 의성·안동 screen for an unrelated reason* — to check whether a dash showed as tofu — and reading two coverage figures on the same page |
+| 3 | `live/scope.py` `COVERAGE_CAVEAT_KO` | the **deliberate sweep** (`43b1104`) | asked for after the first two, on the reasoning that a defect seen twice has a third |
+
+⚠ **Note on this table.** The brief that requested this record placed instance 2
+in the region-switching work. It was not: it was found a round later, while
+rendering that screen to answer a question about dashes. The correction matters
+because the real sequence is the more useful lesson — **instance 2 was found by
+accident, and only instance 3 was found by looking.** Two of the three arrived
+through work aimed at something else.
+
+### What this cost, and what it is worth
+
+Instance 2 was on the screen `operator_screen.md` names as **the
+demonstration**, showing 32.6 % and 99.2 % simultaneously. Instance 3 was on
+**273 sheets of paper** for two regions, neither of which carried its own
+coverage figure anywhere.
+
+⚠ **This is one of the things the multi-region extension actually bought.** The
+cross-region AUC comparison is the visible product of adding two regions; three
+latent defects in operator-facing text — one of them already printed — is the
+substantive one. A second region is not primarily more data. It is the first
+condition under which a whole class of hardcoding becomes observable at all.
+
+The class is now closed by `make verify` (§5). What it cannot close is the
+general form: **the next quantity to become per-region will be invisible in
+exactly the same way**, until something reads it from a second place.
+
+---
+
 ## 1. The three
 
 | # | where | what it said | who actually saw it |

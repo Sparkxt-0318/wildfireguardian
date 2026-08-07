@@ -877,6 +877,11 @@ Override the interpreter with `make verify PYTHON=/path/to/python`.
 | [`operator_screen.md`](operator_screen.md) | **PHASE 8 — the two demonstration screens and what each is for** |
 | [`manual_trigger.md`](manual_trigger.md) | **PHASE 12 — the manual ignition trigger and its measured latency** |
 | [`service_layer.md`](service_layer.md) | **PHASE 19 — the service layer (job model, resource cache, progress, cancellation, guards) and PHASE 20 — the one result-invariant optimisation, plus §5.3 the optimisations DELIBERATELY NOT taken and why** |
+| [`api_layer.md`](api_layer.md) | **PHASE 22 STEP 0 — the four endpoints; §1.11 the live-calculation refusal; §1.12 the console build input that can vanish** |
+| [`photo_exif.md`](photo_exif.md) | **PHASE 22 STEP 2 — a coordinate out of a reported photograph, and the processing rules that are tested rather than promised** |
+| [`console_regions.md`](console_regions.md) | **PHASE 22 STEP 3 — three regions in one built file, the measured payload decision, and the per-region reset** |
+| [`screen_gate_scope.md`](screen_gate_scope.md) | **what the dash gate covers and why; ⚠ both of its original reasons were measured and found wrong, and it cannot see strings that arrive as JSON payload** |
+| [`region_literals.md`](region_literals.md) | **⚠ READ §0. One region's values typed into text every region reads — the same defect three times, why single-region verification cannot reveal it, and the check now in `make verify`** |
 | [`weather_dependency.md`](weather_dependency.md) | **PHASE 14 — how much of the model's skill is instantaneous weather, and the ceiling on a forecast-source swap** |
 | [`baseline_phase13.json`](baseline_phase13.json) | **the frozen Korean baseline — every `data/processed` digest, the four PROTECTED paths, the LOFO shape, and the sha256 of the git-ignored `fire_manifest.json`. `make baseline-verify`.** |
 | **§13 of this file** | **PHASE 13 — the portability investigation, the four defects it found, why McKinney 2022, the four-arm design, and the resume condition** |
