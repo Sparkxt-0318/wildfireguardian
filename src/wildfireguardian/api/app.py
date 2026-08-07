@@ -52,7 +52,7 @@ from pydantic import BaseModel, Field
 
 from ..service import (
     IgnitionRequest, JobRunner, QueueFull, RoutingParams, ServiceError,
-    build_runner, known_regions, region_catalogue, region_gate,
+    build_runner, known_regions, region_catalogue, region_gate, walk_bbox,
 )
 from ..service import jobs as _jobs
 from .guard import ExternalReferenceError, assert_offline
@@ -176,6 +176,69 @@ def create_app(*, runner: JobRunner | None = None,
                 f"위험면은 {region}의 사전 계산 결과이며 클릭 좌표로 "
                 "재생성되지 않습니다."),
         }, where="GET /api/regions/{region}/locate")
+
+    @app.post("/api/regions/{region}/photo-gps")
+    async def photo_gps(region: str, request: Request) -> JSONResponse:
+        """A reported photograph in, a coordinate and the SAME gate verdict out.
+
+        ⚠ RAW BYTES, NOT MULTIPART, AND THAT IS A PRIVACY DECISION.
+        A multipart upload carries the filename in its Content-Disposition
+        header, which would then be in the request this process handles and in
+        anything that ever logs it. Reading the body directly means the filename
+        never leaves the browser — there is no field for it to travel in. It
+        also means no `python-multipart` dependency, which is a smaller reason
+        and a real one.
+
+        ⚠ THE PHOTOGRAPH IS NOT STORED. The bytes live in this coroutine and
+        nowhere else: no temp file, no cache, no artifact directory. Only four
+        EXIF tags are read out (:data:`wildfireguardian.photo.GPS_ONLY_TAGS`),
+        and nothing is logged — not a coordinate, not a filename.
+
+        ⚠ ONE GATE. A coordinate from EXIF is gated by `region_gate`, the same
+        function a map click and `POST /api/jobs` go through. There is no
+        second rule for photographs: outside the walk bbox is outside the walk
+        bbox however the coordinate arrived, and the operator sees the sentence
+        the service already owns.
+
+        A photograph with no usable location is a **200 carrying a verdict**,
+        like the gate endpoint: the caller asked a question and got an answer.
+        Only a malformed REQUEST is a 4xx.
+        """
+        from ..photo import MAX_BYTES, read_gps          # noqa: PLC0415
+
+        try:
+            walk_bbox(region)                            # registered at all?
+        except Exception as exc:
+            raise HTTPException(404, f"unknown region: {region}") from exc
+
+        declared = request.headers.get("content-length")
+        if declared is not None and declared.isdigit() and int(declared) > MAX_BYTES:
+            # Refuse on the header rather than after reading 200 MiB into the
+            # one worker's memory.
+            raise HTTPException(413, f"photo exceeds {MAX_BYTES} bytes")
+        data = await request.body()
+        if len(data) > MAX_BYTES:
+            raise HTTPException(413, f"photo exceeds {MAX_BYTES} bytes")
+
+        reading = read_gps(data)
+        del data                                        # not held a moment longer
+        payload = reading.as_dict()
+        if reading.ok:
+            # ⚠ THE PROJECTION IS DONE HERE, for the same reason `locate` does
+            # the inverse here: one pyproj transformer, the one every committed
+            # coordinate came from. The console needs projected metres to draw
+            # the crosshair, and computing them in JavaScript would mean
+            # vendoring a projection library and trusting it to agree.
+            from pyproj import Transformer               # noqa: PLC0415
+            to5179 = Transformer.from_crs("EPSG:4326", "EPSG:5179",
+                                          always_xy=True)
+            x, y = to5179.transform(reading.lon, reading.lat)
+            payload["x_5179"], payload["y_5179"] = float(x), float(y)
+            payload.update(region_gate(region, reading.lat, reading.lon))
+            payload["hazard_field_note_ko"] = (
+                f"위험면은 {region}의 사전 계산 결과이며 사진 좌표로 "
+                "재생성되지 않습니다.")
+        return _payload(payload, where="POST /api/regions/{region}/photo-gps")
 
     @app.get("/api/regions/{region}/gate")
     def gate(region: str, lat: float, lon: float) -> JSONResponse:

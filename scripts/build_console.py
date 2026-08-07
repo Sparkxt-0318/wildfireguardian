@@ -71,6 +71,9 @@ sys.path.insert(0, str(REPO / "scripts"))
 # on paper and the sentence on the console must be one string.
 from wildfireguardian.delivery.printable import FOOTER_LINES  # noqa: E402
 
+# The photo-EXIF processing statement. Imported for the same reason: one copy.
+from wildfireguardian.photo import PRIVACY_KO as PHOTO_PRIVACY_KO  # noqa: E402
+
 # PHASE 8's rendering decisions, reused rather than re-made.
 from build_operator_screen import (  # noqa: E402
     BAND_FILLS, BAND_LABELS, quantise,
@@ -199,6 +202,11 @@ def build_payload(run_dir: Path) -> dict:
         # WITH the gate's verdict on it. `servable` false means the button must
         # not offer a run that cannot happen.
         "default_start": default_start,
+        # NOT typed. `wildfireguardian.photo.PRIVACY_KO` is the one copy, the
+        # same way `honesty.standing` is the A4 sheet's own constant. What
+        # happens to a reported photograph must not be able to say one thing on
+        # the screen and another in the documentation.
+        "photo_privacy_ko": PHOTO_PRIVACY_KO,
         "precomputed": {
             "run_id": run["run_id"],
             "warm_total_s": warm,

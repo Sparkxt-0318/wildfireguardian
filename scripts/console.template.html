@@ -93,7 +93,15 @@ footer{flex:0 0 auto;border-top:1px solid var(--hair);background:var(--panel)}
 #hazardnote{padding:6px 16px;background:#1a1206;color:#fde047;font-size:12px;
   border-top:1px solid var(--hair);font-weight:600}
 #map{cursor:crosshair}
-#reject{position:absolute;left:16px;top:16px;max-width:640px;padding:10px 14px;
+/* ⚠ The max-width has TWO bounds and the second one is load-bearing.
+   640 px is the reading measure. `100% - 334px` keeps the banner clear of the
+   photo panel on its right (286 wide + 16 offset + a 32 px gap): at 1366x768
+   the map pane is 847 px, and a flat 640 put the panel straight over the end of
+   the sentence — the explanation added for the refused default became
+   unreadable at exactly the smallest resolution this has to work at. Above
+   about 1600 the 640 still wins and nothing moves. */
+#reject{position:absolute;left:16px;top:16px;padding:10px 14px;
+  max-width:min(640px, calc(100% - 334px));
   background:#7f1d1d;color:#fca5a5;border:1px solid #dc2626;border-radius:3px;
   font-size:13px;line-height:1.5}
 /* A PRECONDITION is not a failure. The unclicked start being outside the walk
@@ -101,6 +109,30 @@ footer{flex:0 0 auto;border-top:1px solid var(--hair);background:var(--panel)}
    so it must not wear the colours of an error the operator just caused.
    #bfdbfe on #1e3a5f is the badge pair already measured at AA. */
 #reject.info{background:#1e3a5f;color:#bfdbfe;border-color:#3b82f6}
+
+/* ---- photo EXIF panel ------------------------------------------------------
+   Top-RIGHT of the map, because #reject and #legend already own the left.
+   Narrow enough to leave the map readable at 1366 px, where the pane is 847. */
+#photo{position:absolute;right:16px;top:16px;width:286px;
+  background:rgba(11,15,20,.94);border:1px solid var(--hair);border-radius:3px;
+  padding:11px 13px;font-size:12px}
+#photo h2{font-size:13px;font-weight:600;margin-bottom:7px;color:var(--ink)}
+#photo .hint{color:var(--ink2);margin-top:7px;line-height:1.5}
+/* The processing statement is not fine print. It is smaller than the body text
+   and still at 4.5:1, because a person handing over someone else's photograph
+   is entitled to read what happens to it without leaning in. */
+#photo .priv{color:var(--ink2);margin-top:8px;padding-top:8px;
+  border-top:1px solid var(--hair);line-height:1.5}
+#pickphoto{display:inline-block;width:100%;text-align:center;
+  font-family:var(--sans);font-size:13px;font-weight:600;cursor:pointer;
+  padding:8px 15px;border-radius:3px;border:1px solid #3b82f6;
+  background:#2563eb;color:#fff}
+#pickphoto:hover{background:#1d4ed8}
+#photofile{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+/* Drag feedback. The whole map is the drop target: a 286 px box is a small
+   thing to hit with a file, and the map is where the answer lands anyway. */
+#map.drop{outline:3px dashed #3b82f6;outline-offset:-6px}
+#photo .busy{color:#bfdbfe}
 
 @media (prefers-reduced-motion: reduce){
   *{transition:none !important;animation:none !important}
@@ -113,7 +145,7 @@ footer{flex:0 0 auto;border-top:1px solid var(--hair);background:var(--panel)}
   <div><span class="k">지역</span><b id="region"></b></div>
   <div><span class="k">발화점</span><span class="num" id="ign"></span></div>
   <div id="progwrap" hidden><span class="k">진행</span><span id="prog">대기</span></div>
-  <div id="clickwrap" hidden><span class="k">클릭 발화점</span><span class="num" id="clickpt"></span></div>
+  <div id="clickwrap" hidden><span class="k" id="ptsrc">클릭 발화점</span><span class="num" id="clickpt"></span></div>
   <div id="spacer"></div>
   <div>
     <button id="run">라이브 계산 실행</button>
@@ -128,6 +160,14 @@ footer{flex:0 0 auto;border-top:1px solid var(--hair);background:var(--panel)}
          role="img" aria-label="영덕 위험 확률장과 출발지 4구분, 대피 경로 2종"></svg>
     <div id="legend"></div>
     <div id="reject" hidden role="alert"></div>
+    <div id="photo">
+      <h2>신고 사진에서 좌표 읽기</h2>
+      <label id="pickphoto" for="photofile" tabindex="0" role="button">사진 선택</label>
+      <input id="photofile" type="file"
+             accept="image/jpeg,image/png,image/heic,image/heif,.jpg,.jpeg,.png,.heic,.heif">
+      <div class="hint" id="photostate">JPEG · HEIC · PNG · 지도 위로 끌어다 놓아도 됩니다.</div>
+      <div class="priv" id="photoprivacy"></div>
+    </div>
   </section>
 
   <section id="side">
@@ -419,20 +459,37 @@ function applyDefaultStartGate(){
 }
 applyDefaultStartGate();
 
-svg.addEventListener('click', async (ev) => {
-  const m = inverseToMetres(ev);
-  const inGrid = m.x >= G.xmin && m.x <= G.xmax && m.y >= G.ymin && m.y <= G.ymax;
-  // One round trip: the server unprojects AND answers the gate.
-  const r = await fetch(`/api/regions/${D.region}/locate?x=${m.x.toFixed(2)}&y=${m.y.toFixed(2)}`);
-  if (!r.ok){
-    markClick(m.vx, m.vy, false);
-    const why = await reasonFrom(r);
-    showReject(why || `좌표를 조회하지 못했습니다 (HTTP ${r.status})`);
-    return;
-  }
-  const d = await r.json();
-  markClick(m.vx, m.vy, d.inside_registered_region);
+// ⚠ ONE PLACE WHERE A COORDINATE IS ACCEPTED OR REFUSED.
+// A map click and a photograph's EXIF arrive by different routes and are the
+// SAME question once a coordinate exists: is it inside the registered walk
+// bbox? Both call this, so neither can grow its own wording, its own banner or
+// its own idea of what is servable. `d` is the gate verdict as the server
+// returned it; `sourceKo` is the only thing that differs between them.
+// ⚠ AN ATTEMPT THAT PRODUCED NO COORDINATE MUST NOT LEAVE THE LAST ONE ARMED.
+// Found by uploading a GPS-less photograph after a successful one: the header
+// still read 「사진 발화점(EXIF) 37.5000, 127.0000」 from the PREVIOUS file while
+// the banner said this photograph had no location. The operator's most recent
+// intent was "use this photo"; it failed; so the point is cleared and the
+// banner's own sentence 「지도를 클릭해 발화점을 지정하십시오」 is true again.
+// Losing an earlier click costs one click. Running a scan from a coordinate the
+// operator believes came from the photograph costs more than that.
+function clearPoint(){
+  CLICK = null;
+  gClick.textContent = '';
+  el('clickwrap').hidden = true;
+  el('clickpt').textContent = '';
+  el('ptsrc').textContent = '클릭 발화점';
+  el('run').disabled = !START.servable;
+  el('run').textContent = START.servable
+    ? '라이브 계산 실행' : '지도를 클릭해 발화점 지정';
+}
+
+function applyPoint(vx, vy, d, sourceKo){
+  const inGrid = d.x_5179 >= G.xmin && d.x_5179 <= G.xmax
+              && d.y_5179 >= G.ymin && d.y_5179 <= G.ymax;
+  markClick(vx, vy, d.inside_registered_region);
   el('clickwrap').hidden = false;
+  el('ptsrc').textContent = sourceKo;
   el('clickpt').textContent = `${d.lat.toFixed(4)}, ${d.lon.toFixed(4)}`;
   if (!d.inside_registered_region){
     CLICK = null;
@@ -444,13 +501,118 @@ svg.addEventListener('click', async (ev) => {
     // wording, and a refusal is SHOWN — a click that did nothing visible reads
     // as a broken screen, which is worse than a refusal.
     showReject((inGrid ? '' : '위험면 격자 밖입니다. ') + d.reason_ko);
-    return;
+    return false;
   }
   clearReject();
   CLICK = {lon: d.lon, lat: d.lat};
   el('run').disabled = false;
   el('run').textContent = '이 지점에서 라이브 계산';
+  return true;
+}
+
+svg.addEventListener('click', async (ev) => {
+  const m = inverseToMetres(ev);
+  // One round trip: the server unprojects AND answers the gate.
+  const r = await fetch(`/api/regions/${D.region}/locate?x=${m.x.toFixed(2)}&y=${m.y.toFixed(2)}`);
+  if (!r.ok){
+    markClick(m.vx, m.vy, false);
+    const why = await reasonFrom(r);
+    showReject(why || `좌표를 조회하지 못했습니다 (HTTP ${r.status})`);
+    return;
+  }
+  applyPoint(m.vx, m.vy, await r.json(), '클릭 발화점');
 });
+
+// ---- a reported photograph's EXIF -------------------------------------------
+// ⚠ WHAT THIS DOES NOT DO: it does not look at the picture. No landmark or
+// terrain inference, no model. EXIF only. A location guessed from what is in
+// the frame would be a number nobody can check, which is the one thing this
+// project does not ship.
+//
+// ⚠ THE BYTES GO STRAIGHT OUT AND ARE NEVER HELD. The File is handed to fetch
+// as the raw body: no FileReader, no data URI, no canvas, nothing that would
+// put the photograph into a variable this page keeps. And no FormData, so the
+// FILENAME never leaves the browser — there is no field for it to travel in.
+// ⚠ ONE COPY OF THE PROCESSING STATEMENT. Inlined at build time from
+// `wildfireguardian.photo.PRIVACY_KO`, never retyped, for the same reason the
+// standing footer line is imported from the A4 sheet's constant: a promise about
+// personal data that exists twice is a promise that can end up saying two things.
+el('photoprivacy').textContent = D.photo_privacy_ko;
+
+function photoState(text, busy){
+  const s = el('photostate');
+  s.textContent = text;
+  s.classList.toggle('busy', !!busy);
+}
+
+async function readPhoto(file){
+  if (!file) return;
+  photoState('사진에서 좌표를 읽는 중…', true);
+  let r;
+  try {
+    r = await fetch(`/api/regions/${D.region}/photo-gps`,
+                    {method: 'POST', body: file});
+  } catch (e) {
+    clearPoint();
+    photoState('사진을 보내지 못했습니다. 다시 시도하십시오.');
+    showReject('사진을 서버로 보내지 못했습니다. 다시 시도하십시오.');
+    return;
+  }
+  if (!r.ok){
+    const why = await reasonFrom(r);
+    clearPoint();
+    photoState('사진을 읽지 못했습니다.');
+    showReject(why || `사진을 읽지 못했습니다 (HTTP ${r.status})`);
+    return;
+  }
+  const d = await r.json();
+  if (!d.ok){
+    // EXIF 없음 · GPS 태그 없음 · 0,0 · 형식 미지원 · 손상 — each has its own
+    // sentence, owned by the photo module. NEVER a silent no-op: a file that
+    // was picked and produced nothing visible reads as a broken screen.
+    clearPoint();
+    photoState('좌표를 읽지 못했습니다.');
+    showReject(d.photo_reason_ko);
+    return;
+  }
+  const vx = PX(d.x_5179), vy = PY(d.y_5179);
+  const onMap = vx >= 0 && vx <= 1000 && vy >= 0 && vy <= VH;
+  const accepted = applyPoint(vx, vy, d, '사진 발화점(EXIF)');
+  photoState(accepted
+    ? `${d.container} 사진의 EXIF 에서 좌표를 읽었습니다.`
+    : (onMap ? `${d.container} 사진에서 좌표를 읽었으나 사용할 수 없습니다.`
+             : `${d.container} 사진의 좌표가 이 지도 범위 밖이라 표시할 수 없습니다.`));
+}
+
+el('photofile').addEventListener('change', (ev) => {
+  const f = ev.target.files && ev.target.files[0];
+  // Reset the input so picking the SAME file twice fires `change` again. A
+  // second attempt that appeared to do nothing would be indistinguishable from
+  // a broken button.
+  readPhoto(f).finally(() => { ev.target.value = ''; });
+});
+// The label is focusable, so it must also activate from the keyboard.
+el('pickphoto').addEventListener('keydown', (ev) => {
+  if (ev.key === 'Enter' || ev.key === ' '){ ev.preventDefault(); el('photofile').click(); }
+});
+
+// Drag and drop onto the map. The default browser behaviour for a dropped image
+// is to NAVIGATE AWAY to the file, which would lose the console; every one of
+// these preventDefaults is load-bearing.
+const mapEl = el('map');
+['dragenter', 'dragover'].forEach(t => mapEl.addEventListener(t, (ev) => {
+  ev.preventDefault(); mapEl.classList.add('drop');
+}));
+['dragleave', 'dragend'].forEach(t => mapEl.addEventListener(t, (ev) => {
+  ev.preventDefault(); mapEl.classList.remove('drop');
+}));
+mapEl.addEventListener('drop', (ev) => {
+  ev.preventDefault(); mapEl.classList.remove('drop');
+  const f = ev.dataTransfer && ev.dataTransfer.files && ev.dataTransfer.files[0];
+  if (f) readPhoto(f);
+});
+window.addEventListener('dragover', (ev) => ev.preventDefault());
+window.addEventListener('drop', (ev) => ev.preventDefault());
 
 // ---- live calculation -------------------------------------------------------
 // Same-origin only. This page talks to the process that served it and to

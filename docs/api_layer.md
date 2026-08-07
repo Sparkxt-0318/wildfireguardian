@@ -21,6 +21,8 @@ be.
 | `GET /api/health` | start-up cost, preloaded regions, cache and runner stats |
 | `GET /api/regions` | every registered region and whether its hazard field is on disk |
 | `GET /api/regions/{region}/gate?lat=&lon=` | is this coordinate servable — verdict as data |
+| `GET /api/regions/{region}/locate?x=&y=` | EPSG:5179 metres → degrees **and** the gate verdict, one round trip (§1.9) |
+| `POST /api/regions/{region}/photo-gps` | a reported photograph's raw bytes → its EXIF GPS **and** the same gate verdict. Nothing is stored, only four EXIF tags are read, and the filename never leaves the browser. [`photo_exif.md`](photo_exif.md) |
 | `POST /api/jobs` | submit an ignition point → **202** + job id |
 | `GET /api/jobs/{id}` | state + the six-stage progress |
 | `GET /api/jobs/{id}/result` | the dispatch list |
