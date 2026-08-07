@@ -244,6 +244,161 @@ live check and an in-process check disagree, suspect the process before the code
 
 ---
 
+## 1.11 ⚠ 「라이브 계산 실행」 was refused every time, and the screen said only 422
+
+Reported from the browser 2026-08-07 and reproduced. **The refusal was correct.
+The screen was not.** Two faults, both fixed.
+
+### What was actually happening
+
+`build_console.py` set the console's unclicked start to the hazard field's t=0
+core — deliberately, so that "an unclicked run is about THIS fire". For
+`yeongdeok_2025` that coordinate is **36.4663 N, 129.2224 E**, and the region's
+registered walk bbox starts at **129.25 E**. The core is therefore **2,472 m
+west of the bbox** (geodesic, to the nearest point on it; measured by
+`_default_start`, not estimated). So `POST /api/jobs` gated it, correctly, and
+returned **422** — every time, for anyone who pressed the button without first
+clicking the map.
+
+| path | before | verdict |
+|---|---|---|
+| press with **no click** | **HTTP 422**, screen shows 「제출 거절 (HTTP 422)」 | **defect** |
+| click inside the walk bbox, then press | runs, 「완료 · 458개 출발지」 | correct |
+| click **outside the hazard grid** | red banner, full sentence, button disabled | correct |
+| click inside grid, outside walk bbox | red banner, full sentence, button disabled | correct |
+| queue | 3 concurrent submits all **202**; capacity 32, depth 2 | not involved |
+
+⚠ **The queue was never the cause** and neither was a zombie process; both were
+checked before the code was. The port was cleared by pid first, per §1.10.
+
+### Fault 1 — the screen offered a run the server was certain to refuse
+
+The button was enabled at page load, and the map drew the ◎ ignition marker
+**outside** the dashed walk-bbox rectangle, which is exactly what an operator
+reads as "the fire is here, compute it".
+
+Fixed by asking the gate at BUILD time. `build_console.py` now calls the service's
+own `check_in_region` — the same function `POST /api/jobs` refuses on, never a
+second copy of the bbox test — and emits `default_start` = `{latlon, servable,
+reason_ko, offset_m, note_ko}`. When `servable` is false the console starts with
+the button **disabled and relabelled** 「지도를 클릭해 발화점 지정」, and says why
+before anything is pressed.
+
+⚠ **The unservable default was NOT replaced with a servable one.** Substituting
+a coordinate inside the bbox would make the demonstration run from a point that
+is not where the fire was, which is the manufactured evidence
+`check_in_region`'s own sentence exists to prevent. The screen keeps showing the
+real core and explains that it cannot be routed from — that IS the 32.6 %
+coverage limitation, made visible at the moment it bites.
+
+### Fault 2 — a justified refusal that an operator could not act on
+
+The API already answers with the Korean sentence `service.params.check_in_region`
+owns (§2, "A refusal carries the service's own Korean sentence"). The console
+threw it away and printed the status code. **A refusal nobody can read is a
+defect even when the refusal is right.**
+
+`serverReason()` now unwraps FastAPI's `detail` in all three shapes it arrives
+in — a string (this app's refusals), an object (409), an array of validation
+items (pydantic) — so none can reach the screen as `[object Object]`. Every
+branch that prints a status code shows the sentence beside it: submit, status
+poll, result fetch, and the map-click locate.
+
+The banner gained an `info` variant (`#bfdbfe` on `#1e3a5f`, **8.10:1**, the
+badge pair already measured) with `role="status"`. A standing precondition is
+not an error the operator just caused and must not wear its colours, or
+interrupt like one.
+
+### Verified, in the browser
+
+| | |
+|---|---|
+| unclicked press | button disabled; blue note names the 2,472 m and what to do |
+| click 36.4498 N, 129.3996 E → press | 「완료 · 458개 출발지」, 라우팅 12.316 s |
+| forced refusal on the submit path | red banner carries the full bbox sentence |
+| 1920×1080 · 1600×900 · 1366×768 | document scroll **0 × 0** at all three |
+| gates | offline 0 · dash 0 · contrast 0; suite 909 passed, 4 skipped |
+
+⚠ **Why it survived STEP 1's verification.** The row in §1.9 reads
+「click → live calculation」. The click path was exercised and passed; the path
+with **no** click never was, and it is the one a first-time user takes. Four new
+tests in `tests/test_screen_checks.py` pin both faults, and each was shown to
+FAIL against an injected regression before being accepted.
+
+### Still open, found while verifying (NOT introduced here, NOT fixed)
+
+At **1366×768** the dispatch table is 548 px wide inside a 519 px pane, so
+**29 px of the 구분 column is cut off** — `#tablewrap` is `overflow:hidden`, so it
+is clipped silently rather than scrolled. Measured identical on `HEAD`'s
+committed `console.html`, so it predates this fix. Document scroll is still 0;
+the loss is inside the pane. It belongs with the multi-region screen work.
+
+---
+
+## 1.12 ⚠ The console's build input can vanish, and a rebuild then regresses the badge silently
+
+Found while fixing §1.11, and it nearly happened: **the replay run the committed
+console was built from was not on disk.**
+
+### What the tree actually held, 2026-08-07
+
+| | |
+|---|---|
+| `console.html` says it was built from | `20260807T015743Z`, warm **11.467 s** |
+| that run, on disk | **absent** |
+| newest `yeongdeok_2025` replay run present | `20260803T051744Z`, warm **29.051 s** |
+| next newest | `20260803T051600Z`, warm **25.369 s** |
+
+`build_console.newest_run()` takes the newest run it can *find*. So running the
+documented rebuild command that day would have produced a console whose badge
+read **29.051 s** — a pre-PHASE-20 figure — with no error, no warning, and no
+diff anywhere except the one number a presenter says aloud. PHASE 20's measured
+gain would have been quietly undone on the screen that demonstrates it.
+
+It was caught only because §1.11's fix required a rebuild and the run IDs were
+compared by hand first. Nothing in the tooling would have said anything.
+
+### Two facts behind it
+
+**① The build input is not committed — except that it is.**
+`build_console.py`'s own docstring says a replay run is "~1 MiB of per-village
+output and is not worth committing". The repository disagrees with it: the
+`20260803T…` runs under `outputs/live/replay/` **are tracked**, 122 files each.
+So the practice is to commit them and the documentation says not to, which is
+exactly the gap a run fell through.
+
+**② The ID is already recorded; nothing verifies it.**
+The payload carries `precomputed.run_id`, so the console has always known which
+run produced it. What is missing is any step that reads that field back. The
+provenance is written and never checked, which looks identical to provenance
+that was never written until somebody looks.
+
+### Proposed, NOT implemented
+
+Recorded here for a decision, deliberately left unbuilt:
+
+1. **Make `build_console.py` refuse a silent downgrade.** It already knows the
+   outgoing `run_id` and warm figure; before overwriting, read the EXISTING
+   `web/console.html`'s payload and compare. If the run about to be used is
+   older than the one already shipped, or its warm figure is worse, **stop with
+   a message naming both** and require an explicit `--allow-older` to proceed.
+   A rebuild that makes the demonstration slower should be a decision, not a
+   default.
+2. **Make the absence loud.** If `precomputed.run_id` of the shipped console has
+   no directory under `outputs/live/replay/`, say so — at build time, and in a
+   test. The console's provenance is either checkable or it is decoration.
+3. **Settle ① either way.** Commit the run that built the shipped console (and
+   correct the docstring), or stop committing runs (and say where the shipped
+   console's input lives instead). The current split is what let a run
+   disappear without anyone noticing.
+
+⚠ **Interim, done now rather than proposed:** the run this console was rebuilt
+from, `20260807T022854Z` (warm **10.385 s**), **is committed with it**, matching
+what the tree already does for the `20260803T…` runs. That does not fix the
+mechanism; it just means the shipped console's provenance is present today.
+
+---
+
 ## 2. Decisions, and why
 
 **One worker.** Threads do not make two scans faster: the routing is

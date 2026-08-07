@@ -9,6 +9,8 @@ does.
 
 from __future__ import annotations
 
+import json
+import re
 import sys
 from pathlib import Path
 
@@ -456,3 +458,100 @@ def test_the_console_palette_meets_wcag_where_it_is_used():
         assert r >= NON_TEXT, f"{b['ko']} {b['fill']} is {r:.2f}:1 on the map base"
     # The focus ring is the one a keyboard user depends on.
     assert contrast("#fbbf24", "#16202b") >= NON_TEXT
+
+
+# ---------------------------------------------------------------------------
+# 6-b. The unclicked start, and refusals an operator can read
+#
+# The defect these pin, found by pressing the button on 2026-08-07: the console
+# submitted the hazard field's t=0 core when nothing had been clicked, and for
+# `yeongdeok_2025` that coordinate lies 2,472 m OUTSIDE the walk bbox. The gate
+# refused it, correctly, 422 every time — and the screen printed
+# 「제출 거절 (HTTP 422)」 and nothing else. Both halves are faults: an offer that
+# cannot be honoured, and a refusal an operator cannot act on.
+# ---------------------------------------------------------------------------
+
+_DATA_BLOCK = re.compile(
+    r'<script id="data" type="application/json">(.*?)</script>', re.S)
+
+
+def console_payload() -> dict:
+    """The inlined build payload, read back out of the shipped file."""
+    m = _DATA_BLOCK.search(CONSOLE.read_text(encoding="utf-8"))
+    assert m, "the console has no inlined data block"
+    return json.loads(m.group(1))
+
+
+@console_only
+def test_the_console_agrees_with_the_gate_about_its_own_default_start():
+    """One definition of servable, asked of the function the API gates on.
+
+    The console may still SHOW an unservable default — it is where the fire
+    actually was, and hiding that would hide the coverage limitation. What it
+    may not do is disagree with the server about whether it can be run.
+    """
+    import sys as _sys
+    _sys.path.insert(0, str(REPO / "src"))
+    from wildfireguardian.service.params import check_in_region
+
+    payload = console_payload()
+    start = payload["default_start"]
+    lat, lon = start["latlon"]
+    truth = check_in_region(payload["region"], lat, lon)
+    assert start["servable"] is bool(truth["inside_registered_region"]), (
+        "the console's verdict on its own default start disagrees with "
+        "check_in_region, which is what POST /api/jobs refuses on")
+
+
+@console_only
+def test_an_unservable_default_start_is_measured_and_explained():
+    start = console_payload()["default_start"]
+    if start["servable"]:
+        pytest.skip("this region's default start is inside the walk bbox")
+    import sys as _sys
+    _sys.path.insert(0, str(REPO / "src"))
+    from wildfireguardian.service.params import check_in_region
+
+    payload = console_payload()
+    lat, lon = start["latlon"]
+    assert isinstance(start["offset_m"], int) and start["offset_m"] > 0, (
+        "how far outside is a MEASUREMENT, not an adjective")
+    assert check_in_region(payload["region"], lat, lon)["reason_ko"] \
+        in start["note_ko"], (
+        "the note must carry the service's own sentence verbatim, not a "
+        "second copy of it that can drift")
+    assert "클릭" in start["note_ko"], (
+        "a refusal the operator cannot act on is half an answer; the note must "
+        "say what to do instead")
+
+
+@console_only
+def test_the_button_does_not_offer_a_run_the_gate_is_certain_to_refuse():
+    src = CONSOLE.read_text(encoding="utf-8")
+    if console_payload()["default_start"]["servable"]:
+        pytest.skip("this region's default start is inside the walk bbox")
+    assert "applyDefaultStartGate()" in src, (
+        "nothing disables the button for an unservable default start")
+    assert "run.disabled = true" in src
+    # And the submit path refuses to send it even if the button is reached by
+    # some other route.
+    assert "if (!CLICK && !START.servable)" in src
+
+
+@console_only
+def test_every_status_code_the_console_prints_is_accompanied_by_a_sentence():
+    """A bare HTTP number on screen is the defect, even when the refusal is right.
+
+    Checked structurally: every place the console prints a status code, it must
+    have shown the server's own wording first.
+    """
+    src = CONSOLE.read_text(encoding="utf-8")
+    assert "function serverReason(" in src, (
+        "nothing unwraps FastAPI's `detail` into a readable sentence")
+    sites = list(re.finditer(r"stopLive\(`[^`]*HTTP \$\{", src))
+    assert sites, "no status code is printed at all — has live mode gone?"
+    for m in sites:
+        window = src[max(0, m.start() - 500):m.start()]
+        assert "showReject(" in window, (
+            "a status code is printed with no sentence beside it at offset "
+            f"{m.start()}")

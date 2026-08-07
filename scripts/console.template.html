@@ -96,6 +96,11 @@ footer{flex:0 0 auto;border-top:1px solid var(--hair);background:var(--panel)}
 #reject{position:absolute;left:16px;top:16px;max-width:640px;padding:10px 14px;
   background:#7f1d1d;color:#fca5a5;border:1px solid #dc2626;border-radius:3px;
   font-size:13px;line-height:1.5}
+/* A PRECONDITION is not a failure. The unclicked start being outside the walk
+   bbox is a standing fact about this region, shown before anything is pressed,
+   so it must not wear the colours of an error the operator just caused.
+   #bfdbfe on #1e3a5f is the badge pair already measured at AA. */
+#reject.info{background:#1e3a5f;color:#bfdbfe;border-color:#3b82f6}
 
 @media (prefers-reduced-motion: reduce){
   *{transition:none !important;animation:none !important}
@@ -383,17 +388,48 @@ function markClick(vx, vy, ok){
     stroke: col, 'stroke-width': 1.4}));
 }
 
-function showReject(msg){
-  const r = el('reject'); r.hidden = false; r.textContent = msg;
+// `kind` is 'error' for something the operator's action caused and 'info' for a
+// standing precondition. Same box, different colours and different ARIA role:
+// an alert interrupts, a status does not, and a fact that is true before the
+// page is touched must not interrupt.
+function showReject(msg, kind){
+  const r = el('reject');
+  r.hidden = false; r.textContent = msg;
+  const info = kind === 'info';
+  r.classList.toggle('info', info);
+  r.setAttribute('role', info ? 'status' : 'alert');
 }
 function clearReject(){ el('reject').hidden = true; }
+
+// ---- the unclicked start, and whether it can be run at all ------------------
+// ⚠ The verdict was computed at BUILD time by the same `check_in_region` the
+// API gates on, so this is not a second bbox test — it is the answer, inlined.
+// For yeongdeok_2025 it is NO: the field's t=0 core sits outside the walk bbox,
+// so a run with no click was refused 422 every time. A button that offers a run
+// the server will always refuse is worse than a disabled one, and a disabled
+// one with no reason is worse than both.
+const START = D.default_start;
+function applyDefaultStartGate(){
+  if (START.servable) return;
+  const run = el('run');
+  run.disabled = true;
+  run.textContent = '지도를 클릭해 발화점 지정';
+  run.title = START.note_ko;
+  showReject(START.note_ko, 'info');
+}
+applyDefaultStartGate();
 
 svg.addEventListener('click', async (ev) => {
   const m = inverseToMetres(ev);
   const inGrid = m.x >= G.xmin && m.x <= G.xmax && m.y >= G.ymin && m.y <= G.ymax;
   // One round trip: the server unprojects AND answers the gate.
   const r = await fetch(`/api/regions/${D.region}/locate?x=${m.x.toFixed(2)}&y=${m.y.toFixed(2)}`);
-  if (!r.ok){ markClick(m.vx, m.vy, false); showReject(`좌표 조회 실패 (HTTP ${r.status})`); return; }
+  if (!r.ok){
+    markClick(m.vx, m.vy, false);
+    const why = await reasonFrom(r);
+    showReject(why || `좌표를 조회하지 못했습니다 (HTTP ${r.status})`);
+    return;
+  }
   const d = await r.json();
   markClick(m.vx, m.vy, d.inside_registered_region);
   el('clickwrap').hidden = false;
@@ -401,6 +437,9 @@ svg.addEventListener('click', async (ev) => {
   if (!d.inside_registered_region){
     CLICK = null;
     el('run').disabled = true;
+    // Not just disabled: RELABELLED. A greyed button still reading 「이 지점에서
+    // 라이브 계산」 says the previous click is still armed when it is not.
+    el('run').textContent = '지도를 클릭해 발화점 지정';
     // The service owns this sentence. The page does not compose operator
     // wording, and a refusal is SHOWN — a click that did nothing visible reads
     // as a broken screen, which is worse than a refusal.
@@ -419,16 +458,53 @@ svg.addEventListener('click', async (ev) => {
 let JOB = null, TIMER = null;
 function setBar(pct){ el('bar').style.width = `${pct}%`; }
 
+// ⚠ A REFUSAL MUST ARRIVE AS A SENTENCE, NOT AS A NUMBER.
+// The API already answers a refused submission with the Korean wording
+// `service.params.check_in_region` owns; the screen used to throw it away and
+// print 「제출 거절 (HTTP 422)」, which tells an operator that something was
+// refused and nothing about what to do. FastAPI puts it in `detail`, which is a
+// string for the refusals this app raises, an object for 409, and an array of
+// validation items when pydantic rejects the body — all three are unwrapped
+// here so none of them can reach the screen as `[object Object]`.
+function serverReason(body){
+  if (body === null || body === undefined) return '';
+  const d = (typeof body === 'object' && 'detail' in body) ? body.detail : body;
+  if (typeof d === 'string') return d;
+  if (Array.isArray(d)){
+    return d.map(x => (x && x.msg) ? x.msg : String(x)).filter(Boolean).join(' · ');
+  }
+  if (d && typeof d === 'object'){
+    return [d.reason_ko, d.state_ko, d.error, d.detail]
+      .filter(v => typeof v === 'string' && v).join(' · ');
+  }
+  return '';
+}
+async function reasonFrom(response){
+  try { return serverReason(await response.json()); } catch (e) { return ''; }
+}
+
 async function poll(){
   if (!JOB) return;
   const r = await fetch(`/api/jobs/${JOB}`);
-  if (!r.ok){ stopLive(`조회 실패 (HTTP ${r.status})`); return; }
+  if (!r.ok){
+    const why = await reasonFrom(r);
+    showReject(why || `작업 상태 조회에 실패했습니다 (HTTP ${r.status})`);
+    stopLive(`조회 실패 (HTTP ${r.status})`);
+    return;
+  }
   const s = await r.json();
   const p = s.progress;
   el('prog').textContent = p.current_text_ko || s.state_ko;
   setBar(p.overall_pct);
   if (s.state === 'succeeded'){
-    const res = await (await fetch(`/api/jobs/${JOB}/result`)).json();
+    const rr = await fetch(`/api/jobs/${JOB}/result`);
+    if (!rr.ok){
+      const why = await reasonFrom(rr);
+      showReject(why || `산출 결과를 가져오지 못했습니다 (HTTP ${rr.status})`);
+      stopLive(`결과 조회 실패 (HTTP ${rr.status})`);
+      return;
+    }
+    const res = await rr.json();
     CURRENT = {rows: (res.scan?.actionable ?? []).map(a => ({
         label: a.label, bucket: a.bucket, closing: a.closing_window_min,
         walk: a.walk_time_min, x: 0, y: 0})),
@@ -452,15 +528,25 @@ function stopLive(msg){
   setBar(0);
 }
 el('run').addEventListener('click', async () => {
+  // Belt and braces. The button is already disabled when the unclicked start is
+  // not servable, but a keyboard activation on a stale page must not be able to
+  // send a request the gate is certain to refuse.
+  if (!CLICK && !START.servable){ showReject(START.note_ko, 'info'); return; }
   el('run').disabled = true; el('cancel').hidden = false;
   el('progwrap').hidden = false; el('prog').textContent = '제출 중…';
   const r = await fetch('/api/jobs', {method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({region: D.region,
-                          lat: CLICK ? CLICK.lat : D.default_latlon[0],
-                          lon: CLICK ? CLICK.lon : D.default_latlon[1],
+                          lat: CLICK ? CLICK.lat : START.latlon[0],
+                          lon: CLICK ? CLICK.lon : START.latlon[1],
                           reported_by: CLICK ? '지도 클릭' : '운영자 콘솔'})});
-  if (!r.ok){ stopLive(`제출 거절 (HTTP ${r.status})`); return; }
+  if (!r.ok){
+    const why = await reasonFrom(r);
+    showReject(why || `계산 요청이 거절되었습니다 (HTTP ${r.status})`);
+    stopLive(`제출 거절 (HTTP ${r.status})`);
+    return;
+  }
+  clearReject();
   JOB = (await r.json()).job_id;
   poll();
 });

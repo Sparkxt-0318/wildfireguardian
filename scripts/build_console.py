@@ -147,6 +147,20 @@ def build_payload(run_dir: Path) -> dict:
     t = run["timings_s"]
     warm = t.get("warm_total_s")
 
+    # ⚠ THE UNCLICKED START MUST BE ONE THE GATE WILL ACCEPT, AND FOR YEONGDEOK
+    # IT IS NOT. The field's t=0 core is the right anchor for APPLICABILITY (the
+    # 15 km radius that decides whether a detection is in scope) and it is not
+    # necessarily inside the WALK BBOX, which is what routing is gated on. Those
+    # are two different questions and for `yeongdeok_2025` they disagree: the
+    # core sits 2,472 m west of the bbox, so a run from it was refused 422 by
+    # `POST /api/jobs` every time, and the screen showed only the status code.
+    #
+    # So the verdict is computed HERE, at build time, by the service's own
+    # `check_in_region` — the same function the API gates on, never a second
+    # copy of the bbox test — and the screen is built knowing the answer instead
+    # of discovering it when somebody presses the button.
+    default_start = _default_start(viz["region"], ign_lat, ign_lon)
+
     return {
         "region": viz["region"],
         "grid": {"xmin": xmin, "ymin": ymin, "xmax": xmax, "ymax": ymax,
@@ -181,9 +195,10 @@ def build_payload(run_dir: Path) -> dict:
                 f"⚠ 위험면은 {viz['region']}의 사전 계산 결과이며 클릭 좌표로 "
                 "재생성되지 않습니다. 클릭은 라우팅 출발점만 바꿉니다."),
         },
-        # The coordinate a live run uses when nothing has been clicked: the
-        # field's own t=0 core, so an unclicked run is about THIS fire.
-        "default_latlon": [round(ign_lat, 4), round(ign_lon, 4)],
+        # The coordinate a live run would use when nothing has been clicked,
+        # WITH the gate's verdict on it. `servable` false means the button must
+        # not offer a run that cannot happen.
+        "default_start": default_start,
         "precomputed": {
             "run_id": run["run_id"],
             "warm_total_s": warm,
@@ -196,6 +211,50 @@ def build_payload(run_dir: Path) -> dict:
 def _walk_bbox(region: str):
     from wildfireguardian.service.params import walk_bbox
     return walk_bbox(region)
+
+
+def _default_start(region: str, lat: float, lon: float) -> dict:
+    """The unclicked start, and whether the routing gate will accept it.
+
+    ⚠ ONE DEFINITION OF THE GATE. ``check_in_region`` is the function
+    ``POST /api/jobs`` refuses on; asking it here means the screen and the
+    server cannot disagree about which coordinates are servable. Re-testing the
+    bbox in JavaScript would be a second copy, and a second copy is a thing that
+    can drift.
+
+    When the answer is no, the distance is MEASURED (geodesic, to the nearest
+    point of the bbox) rather than described, so the screen can say how far
+    outside the point is instead of only that it is outside.
+    """
+    from pyproj import Geod
+
+    from wildfireguardian.service.params import check_in_region
+
+    verdict = check_in_region(region, lat, lon)
+    w, s, e, n = verdict["bbox_wsen"]
+    out: dict = {
+        "latlon": [round(lat, 4), round(lon, 4)],
+        "servable": bool(verdict["inside_registered_region"]),
+        "reason_ko": verdict["reason_ko"],
+        "offset_m": None,
+        "note_ko": "",
+    }
+    if out["servable"]:
+        return out
+
+    near_lon = min(max(lon, w), e)
+    near_lat = min(max(lat, s), n)
+    _az1, _az2, dist = Geod(ellps="WGS84").inv(lon, lat, near_lon, near_lat)
+    out["offset_m"] = round(float(dist))
+    # Composed here, from the service's own sentence plus what to do instead.
+    # A refusal an operator cannot act on is only half an answer, and this one
+    # has an action: the dashed rectangle on the map is exactly the servable set.
+    out["note_ko"] = (
+        f"발화점(위험면 t=0 핵심)이 보행망 범위에서 {out['offset_m']:,} m "
+        "벗어나 있어 이 좌표로는 라이브 계산을 실행할 수 없습니다. "
+        "지도의 점선(보행망 범위) 안을 클릭해 출발점을 지정하십시오. "
+        + verdict["reason_ko"])
+    return out
 
 
 def main() -> int:
@@ -222,6 +281,11 @@ def main() -> int:
           f"{payload['counts']['no_safe_route']}")
     print(f"  rows     : {len(payload['rows'])} (표시 {min(len(payload['rows']), MAX_ROWS)})")
     print(f"  warm     : {payload['precomputed']['warm_total_s']} s")
+    ds = payload["default_start"]
+    print(f"  기본 출발점: {ds['latlon']} "
+          + ("게이트 통과" if ds["servable"] else
+             f"게이트 거절 · 보행망 범위에서 {ds['offset_m']:,} m 밖 "
+             "→ 클릭 전에는 라이브 계산 버튼이 비활성"))
     print(f"  -> {args.out.resolve().relative_to(REPO)}  ({args.out.stat().st_size / 1024:.0f} KiB)")
     return 0
 
