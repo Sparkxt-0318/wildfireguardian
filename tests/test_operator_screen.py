@@ -221,9 +221,20 @@ def test_no_coordinate_reaches_the_dispatch_table():
 # ---------------------------------------------------------------------------
 
 
-def test_both_regions_are_built():
+def test_every_registered_region_is_built():
+    """Was `test_both_regions_are_built`, pinned to the two that existed.
+
+    Uljin-Samcheok had no screen at all until 2026-08-07 — not stale, absent —
+    and a test naming the other two by hand could never say so. It now asks the
+    registry, so a fourth region would be reported as missing rather than
+    silently uncovered.
+    """
+    import sys as _sys
+    _sys.path.insert(0, str(REPO / "src"))
+    from wildfireguardian.service.params import known_regions
     regions = set(by_region())
-    assert regions == {"yeongdeok_2025", "uiseong_andong_2025"}, regions
+    assert regions == set(known_regions()), (
+        f"built {sorted(regions)}, registered {sorted(known_regions())}")
 
 
 @pytest.mark.parametrize("screen", ALL, ids=lambda p: p.parent.name)
@@ -239,9 +250,25 @@ def test_every_screen_names_its_own_hazard_field(screen):
 
 @pytest.mark.parametrize("screen", ALL, ids=lambda p: p.parent.name)
 def test_every_screen_carries_its_own_coverage_figure(screen):
+    """⚠ THIS TEST PASSED THROUGHOUT THE DEFECT, AND THAT IS THE LESSON.
+
+    It checks the PAYLOAD field, which was always correct per region. The bug
+    was a `32.6%` typed into the static markup that never read the payload at
+    all, so the screen showed two different figures and every assertion here
+    still held. `test_no_coverage_figure_is_hardcoded_in_the_markup` is the one
+    that would have caught it.
+
+    The expected values are now read from the committed table rather than typed
+    here, so this test cannot be the third place a coverage figure is written by
+    hand.
+    """
+    table = json.loads(
+        (REPO / "data" / "processed" / "multi_region_comparison.json")
+        .read_text(encoding="utf-8"))
+    want = {r["region"]: round(r["envelope_coverage_final_slice"] * 100, 1)
+            for r in table["regions"]}
     d = payload(screen)
-    assert d["coverage_pct"] == {"yeongdeok_2025": 32.6,
-                                 "uiseong_andong_2025": 99.2}[d["region"]]
+    assert d["coverage_pct"] == want[d["region"]]
 
 
 @pytest.mark.skipif(not UA.exists(), reason="Uiseong-Andong artifact absent")
@@ -418,3 +445,78 @@ def test_paused_on_load_paints_before_the_first_frame(screen):
     """Otherwise a paused screen opens blank and stays blank."""
     src = html(screen)
     assert "render();" in src.split("requestAnimationFrame(tick);")[0][-400:]
+
+
+# ---------------------------------------------------------------------------
+# 9. ⚠ The coverage figure, which the 의성·안동 DEMONSTRATION screen got wrong
+#
+# Found 2026-08-07 by rendering the screen `docs/operator_screen.md` line 11
+# names as the demo. It showed BOTH figures at once:
+#
+#     legend  보행망 범위 (커버리지 32.6%)     <- hardcoded in the static markup
+#     footer  보행망 커버리지 99.2%            <- the region's real value
+#
+# 32.6 % is Yeongdeok's. On the Yeongdeok screen the two agreed by coincidence,
+# which is exactly why it survived. Both are now written from `D.coverage_pct`.
+# ---------------------------------------------------------------------------
+
+
+COVERAGE_LITERAL = re.compile(r"커버리지[^<>]{0,4}\d")
+
+
+@pytest.mark.parametrize("screen", ALL + ([SCREEN] if SCREEN.exists() else []),
+                         ids=lambda p: p.stem if p.name != "operator_screen.html"
+                         else p.parent.name)
+def test_no_coverage_figure_is_hardcoded_in_the_markup(screen):
+    """A number typed beside 「커버리지」 in the static markup cannot follow the
+    region. It has to come from the payload, like the footer's already did."""
+    src = html(screen)
+    static = src.split("<script")[0] + "".join(
+        part.split("</script>")[-1] for part in src.split("<script")[1:])
+    hit = COVERAGE_LITERAL.search(static)
+    assert hit is None, (
+        f"{screen}: a coverage figure is typed into the markup "
+        f"({static[max(0, hit.start()-30):hit.start()+40]!r}) instead of being "
+        "read from D.coverage_pct")
+
+
+@pytest.mark.parametrize("screen", ALL, ids=lambda p: p.parent.name)
+def test_the_screen_states_one_coverage_figure_and_it_is_the_committed_one(screen):
+    """One value per page, and it is the one the committed table carries."""
+    table = json.loads(
+        (REPO / "data" / "processed" / "multi_region_comparison.json")
+        .read_text(encoding="utf-8"))
+    want = {r["region"]: round(r["envelope_coverage_final_slice"] * 100, 1)
+            for r in table["regions"]}
+    d = payload(screen)
+    assert d["coverage_pct"] == want[d["region"]], (
+        f"{d['region']}: screen says {d['coverage_pct']} %, the committed "
+        f"multi-region table says {want[d['region']]} %")
+
+
+@pytest.mark.parametrize("screen", ALL, ids=lambda p: p.parent.name)
+def test_both_coverage_labels_are_written_from_the_same_payload_field(screen):
+    """The structural guarantee: two writers, one source, so they cannot part."""
+    src = html(screen)
+    for sink in ("document.getElementById('f3').textContent",
+                 "document.getElementById('covleg').textContent"):
+        i = src.find(sink)
+        assert i != -1, f"{screen}: {sink} is missing"
+        assert "D.coverage_pct" in src[i:i + 200], (
+            f"{screen}: {sink} does not read D.coverage_pct")
+
+
+@pytest.mark.parametrize("screen", ALL, ids=lambda p: p.parent.name)
+def test_the_counts_on_the_screen_match_the_committed_multi_region_table(screen):
+    """A regenerated screen must not quietly move a region's numbers."""
+    table = json.loads(
+        (REPO / "data" / "processed" / "multi_region_comparison.json")
+        .read_text(encoding="utf-8"))
+    want = {r["region"]: (r["both_safe"], r["future_aware_only_safe"],
+                          r["no_safe_route"], r["fa_exceeds_budget"])
+            for r in table["regions"]}
+    d = payload(screen)
+    c = d["counts"]
+    got = (c["both_safe"], c["naive_into_FA_safe"], c["no_safe_route"],
+           c["fa_exceeds_budget"])
+    assert got == want[d["region"]], f"{d['region']}: {got} != {want[d['region']]}"

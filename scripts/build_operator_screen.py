@@ -448,7 +448,7 @@ footer .last{border-right:none;margin-left:auto;color:#7c8ba1}
       <div class="row"><div class="col"><span class="dot" style="background:#2563eb"></span>자력 대피</div>
       <div class="col"><span class="dot" style="background:#f59e0b"></span>구조 필요</div>
       <div class="col"><span class="dot" style="background:#dc2626"></span>도달 불가</div></div>
-      <b style="margin-top:7px">보행망 범위 (커버리지 32.6%)</b>
+      <b style="margin-top:7px" id="covleg">보행망 범위</b>
       <div><span class="sw" style="background:none;border:1px dashed #94a3b8"></span>이 범위 밖 출발지는 측정되지 않았습니다</div>
       <b style="margin-top:7px">경로</b>
       <div class="row"><div class="col"><span class="sw" style="background:#f87171"></span>주민 대피 경로</div>
@@ -747,7 +747,15 @@ if (D.trigger_source === 'manual') {
   f1.textContent = '재생 모드 · ' + D.scope.weather_basis.split(' ')[0] + ' 기록 재생';
 }
 document.getElementById('f2').textContent = D.scope.weather.replace('기상 자료: ', '');
+// ⚠ BOTH COVERAGE FIGURES COME FROM D.coverage_pct, AND THAT IS THE POINT.
+// The legend used to carry a hardcoded 「(커버리지 32.6%)」 in the static markup
+// while the footer read the per-region value. On the Yeongdeok screen the two
+// agreed by coincidence; on the 의성·안동 screen — which docs/operator_screen.md
+// names as THE demonstration — the page showed 32.6 % and 99.2 % at the same
+// time. One source, set in one place, so they cannot disagree again.
 document.getElementById('f3').textContent = '보행망 커버리지 ' + D.coverage_pct + '%';
+document.getElementById('covleg').textContent =
+  '보행망 범위 (커버리지 ' + D.coverage_pct + '%)';
 if (D.responder && D.responder.available === false) {
   const f = document.querySelector('footer');
   const d = document.createElement('div');

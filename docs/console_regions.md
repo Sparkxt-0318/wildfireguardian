@@ -143,23 +143,39 @@ The sentence is `viz.json`'s `responder_side.status_ko`, produced by
 requires: the claim is about OSM mapping inside one bbox, never "this region has
 no fire stations", and a test bans the shortened phrasings on the built file.
 
-### ⚠ One dash, normalised, and why not at the source
+### ⚠ One dash, normalised — and a correction to what this section first said
 
 That constant contains an **EM dash**, which the PHASE-21 gate bans in visible
-text because the vendored subset font has no glyph for it. It could not be fixed
-at the source: `tests/test_operator_screen.py` asserts the generated
-`outputs/live/screens/**` screens contain `status_ko` **verbatim**, so changing
-the constant would desync committed screens from the code that made them.
+text. `build_console._dash_safe` normalises the punctuation on the way to **this**
+screen only. Content is untouched, and a test checks that 919 km², 3,926 km² and
+6곳 all survive and that no banned dash reaches the console.
 
-So `build_console._dash_safe` normalises the punctuation on the way to **this**
-screen only. Content is untouched and a test checks that 919 km², 3,926 km² and
-6곳 all survive, and that no banned dash reaches the console.
+⚠ **CORRECTION, 2026-08-07.** This section originally justified normalising here
+rather than at source with two claims. Both were investigated and **both were
+wrong**; they are restated rather than deleted, because a wrong reason that
+quietly disappears is indistinguishable from one that was never made.
 
-⚠ **Recorded, NOT fixed:** `outputs/live/screens/*/operator_screen.html` each
-carry **4** EM dashes in visible text, measured. The dash gate only scans
-`demo/*.html` and `web/console.html`, so generated screens are outside it — the
-same blind spot the handoff records for `make check-forbidden`. Those screens
-ship a glyph their own font cannot draw. It needs its own decision.
+| the claim | what the measurement shows |
+|---|---|
+| "it could not be fixed at source: `tests/test_operator_screen.py` pins the generated screens to `status_ko` **verbatim**, so changing the constant would desync them" | **Wrong.** `payload(p)` parses the inlined `const D = {…}` out of the *same file* `html(p)` reads, so the assertion compares a file with itself. It is a self-consistency check, not a coupling to `live/pipeline.py`. Fixing the constant and regenerating keeps it passing. |
+| "the vendored subset font has no glyph for it" (implying it renders as tofu) | **Half true, wrong conclusion.** `IBMPlexSansKR` lacks U+2014, but the page declares `system-ui, sans-serif` after it and the browser falls back per character: 33.62 px, identical to `system-ui` alone, against a 40 px notdef box. It renders — in a *different typeface*. Full measurements in [`screen_gate_scope.md`](screen_gate_scope.md) §1. |
+
+**Normalising at build time is still what this console does**, and it is still
+defensible — one screen, one place, no effect on any other consumer. But it is a
+choice, not a necessity, and fixing `live/pipeline.py` is available whenever it
+is wanted.
+
+⚠ **Recorded, NOT fixed:** the responder sentence's EM dash still **renders** on
+the 의성·안동 demonstration screen, and the dash gate reports **0 findings** on
+that file — because the string arrives as JSON payload data, which the checker
+cannot see. That blind spot, and the (now measured) reasons the gate scope stops
+where it does, are in [`screen_gate_scope.md`](screen_gate_scope.md) §2~3.
+
+⚠ **Superseded here:** an earlier version of this note said the generated screens
+"each carry 4 EM dashes in visible text" and "ship a glyph their own font cannot
+draw". The count was right for what the gate could see and wrong for what
+rendered (6 rendered, only 2 of them flagged); the font claim was wrong outright
+— those screens vendor **no** font at all and use the system stack.
 
 ---
 

@@ -25,7 +25,23 @@ from check_screen_assets import (  # noqa: E402
     contrast, palette_report, relative_luminance,
 )
 
-SHIPPED_SCREENS = sorted((REPO / "demo").glob("*.html"))
+#: ⚠ `outputs/live/screens/**` IS IN SCOPE, and it is in scope for a reason that
+#: does NOT extend to the rest of `outputs/`.
+#: `docs/operator_screen.md` line 11 gives the demonstration command as
+#: `open outputs/live/screens/uiseong_andong_2025/operator_screen.html`, and
+#: line 25 calls that region 시연용 — "this is the demo". Those files are shown
+#: to judges, so they are shipped screens whatever directory they live in.
+#:
+#: The gate is deliberately NOT widened past them. `outputs/dispatch*/**` and
+#: `outputs/live/replay/**` hold **297** and **593** dash findings (measured
+#: 2026-08-07, 475 files in total), and almost all of them come from
+#: `delivery.printable`'s live heading constants — text that is PRINTED ON
+#: PAPER, in whatever full font the PDF renderer uses, as a section heading with
+#: no numeric column to misalign. Neither half of the dash rule's rationale
+#: applies there. See `docs/screen_gate_scope.md`.
+SHIPPED_SCREENS = sorted(
+    list((REPO / "demo").glob("*.html"))
+    + list((REPO / "outputs" / "live" / "screens").glob("*/*.html")))
 
 
 # ---------------------------------------------------------------------------

@@ -18,9 +18,31 @@ THREE GATES
    tile, not an analytics beacon. The only URL permitted anywhere is the SVG
    XML namespace, which is an identifier and is never fetched.
 2. ``dashes``   — no EM dash (U+2014) and no EN dash (U+2013) in visible text.
-   Both are wider than a digit in most proportional faces, so a dash inside a
-   numeric column defeats ``font-variant-numeric: tabular-nums`` and the
-   figures stop lining up. Ranges and changes get a tilde or an arrow instead.
+   ⚠ **The reason was restated on 2026-08-07 after both original ones were
+   measured and found not to hold.** See ``docs/screen_gate_scope.md``.
+
+   What was written here before, and what the measurement says:
+
+   * *"the shipped subset has no glyph, so it renders as tofu."* Half true and
+     the conclusion was wrong. ``IBMPlexSansKR-Regular.woff2`` genuinely lacks
+     U+2014 and U+2013 (checked in the font's own cmap). But the pages declare
+     ``system-ui, sans-serif`` after it, and a browser falls back **per
+     character**: measured at 40 px, the dash renders 33.62 px wide from the
+     system face, identical to ``system-ui`` alone, against a 40 px notdef box.
+     It is not tofu. It is a character in a **different typeface** in the middle
+     of a Korean sentence.
+   * *"wider than a digit, so it defeats tabular-nums."* False where it would
+     matter. Numeric columns are set in ``IBM Plex Mono``, whose cmap **does**
+     contain U+2014/U+2013, and measured there the dash is **24 px, exactly one
+     digit width**. Alignment is not affected.
+
+   **The rule stands on the first point restated honestly:** a glyph the body
+   face cannot draw is silently served by whatever the OS happens to have, so
+   the same sentence renders in two typefaces, differently on every machine, and
+   the one that matters is a stranger's laptop in a competition hall. That is a
+   real defect and it is cheap to avoid. Ranges get a tilde, changes get an
+   arrow, lists get a middle dot — all three are IN the subset (U+00B7 checked
+   present; U+2192 is bound from a 1.3 KiB Pretendard subset by ``unicode-range``).
 3. ``contrast`` — every declared foreground/background pair meets WCAG 2.1.
    Computed exactly, from the relative-luminance definition, not eyeballed.
 
@@ -158,9 +180,32 @@ DASH_REPLACEMENTS = (
     "range  ->  tilde:  125~530 m",
     "change ->  arrow:  6.12 → 1.71",
     "list   ->  middle dot or slash",
-    "inside a numeric TABLE -> split the column (Before / After), never a "
-    "glyph: any inline glyph risks breaking tabular-nums alignment",
+    "inside a numeric TABLE -> split the column (Before / After). ⚠ NOT for "
+    "the reason this line used to give: in IBM Plex Mono the EM dash measures "
+    "exactly one digit width, so it does NOT break tabular-nums. Split the "
+    "column because a glyph in a numeric cell is ambiguous to read, not "
+    "because it misaligns.",
 )
+
+#: ⚠ A HOLE THIS CHECKER CANNOT SEE, RECORDED SO NOBODY READS A PASS AS PROOF.
+#:
+#: Text that reaches the screen from an inlined JSON PAYLOAD is invisible here.
+#: :func:`visible_text` strips ``<script>`` wholesale (correct for the markup
+#: layer) and :func:`check_dashes_in_scripts` only flags lines that *literally
+#: contain* a banned dash next to a DOM sink. A payload string assigned through
+#: a variable satisfies neither test:
+#:
+#:     const D = {... "status_ko": "…불가합니다 — 더 넓은 …"}   <- not scanned
+#:     d.textContent = D.responder.status_ko;                   <- no literal
+#:
+#: Measured 2026-08-07 on the 의성·안동 demonstration screen: this checker
+#: reported **0** findings while the rendered page carried a visible EM dash in
+#: its footer warning, plus four EN dashes in the hazard band legend (since
+#: fixed at their source). Closing this needs the checker to render, or to be
+#: told which payload keys are displayed. Neither is built.
+PAYLOAD_BLIND_SPOT: str = (
+    "strings inlined as JSON data and written to the DOM through a variable "
+    "are not scanned; a pass here is not proof the rendered page is clean")
 
 #: Regions of an HTML file that are NOT visible text. A dash inside a comment
 #: or a script string is not on screen and is not a typographic problem.
