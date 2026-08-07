@@ -482,60 +482,228 @@ def console_payload() -> dict:
     return json.loads(m.group(1))
 
 
+def console_regions() -> dict:
+    """Every region inlined in the shipped console."""
+    return console_payload()["regions"]
+
+
 @console_only
-def test_the_console_agrees_with_the_gate_about_its_own_default_start():
+def test_the_console_agrees_with_the_gate_about_every_default_start():
     """One definition of servable, asked of the function the API gates on.
 
     The console may still SHOW an unservable default — it is where the fire
     actually was, and hiding that would hide the coverage limitation. What it
     may not do is disagree with the server about whether it can be run.
+
+    Checked for EVERY inlined region. Yeongdeok's core is outside its walk bbox
+    and the other two are inside theirs, so this also pins that the console is
+    not special-casing one region by name.
     """
     import sys as _sys
     _sys.path.insert(0, str(REPO / "src"))
     from wildfireguardian.service.params import check_in_region
 
-    payload = console_payload()
-    start = payload["default_start"]
-    lat, lon = start["latlon"]
-    truth = check_in_region(payload["region"], lat, lon)
-    assert start["servable"] is bool(truth["inside_registered_region"]), (
-        "the console's verdict on its own default start disagrees with "
-        "check_in_region, which is what POST /api/jobs refuses on")
+    regions = console_regions()
+    assert len(regions) >= 2, "the switcher should carry more than one region"
+    for region, payload in regions.items():
+        start = payload["default_start"]
+        lat, lon = start["latlon"]
+        truth = check_in_region(region, lat, lon)
+        assert start["servable"] is bool(truth["inside_registered_region"]), (
+            f"{region}: the console's verdict on its own default start "
+            "disagrees with check_in_region, which POST /api/jobs refuses on")
 
 
 @console_only
-def test_an_unservable_default_start_is_measured_and_explained():
-    start = console_payload()["default_start"]
-    if start["servable"]:
-        pytest.skip("this region's default start is inside the walk bbox")
+def test_every_unservable_default_start_is_measured_and_explained():
     import sys as _sys
     _sys.path.insert(0, str(REPO / "src"))
     from wildfireguardian.service.params import check_in_region
 
-    payload = console_payload()
-    lat, lon = start["latlon"]
-    assert isinstance(start["offset_m"], int) and start["offset_m"] > 0, (
-        "how far outside is a MEASUREMENT, not an adjective")
-    assert check_in_region(payload["region"], lat, lon)["reason_ko"] \
-        in start["note_ko"], (
-        "the note must carry the service's own sentence verbatim, not a "
-        "second copy of it that can drift")
-    assert "클릭" in start["note_ko"], (
-        "a refusal the operator cannot act on is half an answer; the note must "
-        "say what to do instead")
+    unservable = {r: p for r, p in console_regions().items()
+                  if not p["default_start"]["servable"]}
+    assert unservable, (
+        "no region has an unservable default start any more — if that is a "
+        "real change, this test and the note it guards should go together")
+    for region, payload in unservable.items():
+        start = payload["default_start"]
+        lat, lon = start["latlon"]
+        assert isinstance(start["offset_m"], int) and start["offset_m"] > 0, (
+            f"{region}: how far outside is a MEASUREMENT, not an adjective")
+        assert check_in_region(region, lat, lon)["reason_ko"] \
+            in start["note_ko"], (
+            f"{region}: the note must carry the service's own sentence "
+            "verbatim, not a second copy of it that can drift")
+        assert "클릭" in start["note_ko"], (
+            f"{region}: a refusal the operator cannot act on is half an "
+            "answer; the note must say what to do instead")
 
 
 @console_only
 def test_the_button_does_not_offer_a_run_the_gate_is_certain_to_refuse():
     src = CONSOLE.read_text(encoding="utf-8")
-    if console_payload()["default_start"]["servable"]:
-        pytest.skip("this region's default start is inside the walk bbox")
+    assert any(not p["default_start"]["servable"]
+               for p in console_regions().values())
     assert "applyDefaultStartGate()" in src, (
         "nothing disables the button for an unservable default start")
     assert "run.disabled = true" in src
     # And the submit path refuses to send it even if the button is reached by
     # some other route.
     assert "if (!CLICK && !START.servable)" in src
+
+
+# ---------------------------------------------------------------------------
+# 6-c. Runtime region switching, in ONE build artifact
+# ---------------------------------------------------------------------------
+
+
+@console_only
+def test_all_registered_regions_are_inlined_in_the_one_file():
+    """⚠ One artifact, not three.
+
+    Three built files would mean keeping track of which is current, and this
+    project has already paid for that once. A per-region fetch was measured and
+    rejected for a different reason: it would read a replay run directory at
+    runtime, which is the thing that went missing in api_layer.md §1.12.
+    """
+    import sys as _sys
+    _sys.path.insert(0, str(REPO / "src"))
+    from wildfireguardian.service.params import known_regions
+
+    payload = console_payload()
+    assert set(payload["regions"]) == set(known_regions())
+    assert payload["default_region"] in payload["regions"]
+    assert list(payload["region_order"]) == list(payload["regions"])
+
+
+@console_only
+def test_the_console_still_opens_with_nothing_else_present():
+    """The data is INLINE. No region is fetched, so file:// still works."""
+    src = CONSOLE.read_text(encoding="utf-8")
+    assert '<script id="data" type="application/json">' in src
+    for banned in ("regions.json", "/api/regions/data", "fetch(`/api/console"):
+        assert banned not in src, f"{banned}: a region is being fetched"
+
+
+@console_only
+def test_the_honesty_items_are_per_region_and_not_one_regions_values():
+    """⚠ Coverage was the literal 32.6 in the builder.
+
+    Right for Yeongdeok, and silently wrong for the other two the moment the
+    console could switch. Every one of these is now read per region, and the
+    three coverage figures must differ.
+    """
+    regions = console_regions()
+    covers = {r: p["honesty"]["coverage_pct"] for r, p in regions.items()}
+    assert len(set(covers.values())) == len(covers), (
+        f"two regions share a coverage figure: {covers}")
+    weather = {r: p["honesty"]["weather"] for r, p in regions.items()}
+    assert len(set(weather.values())) == len(weather), (
+        f"two regions share a weather basis: {weather}")
+    for region, p in regions.items():
+        assert region in p["honesty"]["hazard_fixed"], (
+            f"{region}: the fixed-surface caution names the wrong region")
+        assert p["precomputed"]["hazard_sha256"], region
+
+
+@console_only
+def test_coverage_matches_the_committed_multi_region_table():
+    """Read, never typed. The table is the artifact that owns all three."""
+    table = json.loads(
+        (REPO / "data" / "processed" / "multi_region_comparison.json")
+        .read_text(encoding="utf-8"))
+    want = {row["region"]: round(row["envelope_coverage_final_slice"] * 100, 1)
+            for row in table["regions"]}
+    got = {r: p["honesty"]["coverage_pct"] for r, p in console_regions().items()}
+    assert got == {k: v for k, v in want.items() if k in got}, (got, want)
+
+
+@console_only
+def test_counts_match_the_committed_multi_region_table():
+    """A rebuild that quietly changed a region's counts would show here."""
+    table = json.loads(
+        (REPO / "data" / "processed" / "multi_region_comparison.json")
+        .read_text(encoding="utf-8"))
+    want = {row["region"]: (row["both_safe"], row["future_aware_only_safe"],
+                            row["no_safe_route"], row["fa_exceeds_budget"])
+            for row in table["regions"]}
+    for region, p in console_regions().items():
+        c = p["counts"]
+        got = (c["both_safe"], c["naive_into_FA_safe"], c["no_safe_route"],
+               c["fa_exceeds_budget"])
+        assert got == want[region], f"{region}: {got} != {want[region]}"
+
+
+@console_only
+def test_a_region_with_no_depots_says_so_instead_of_showing_a_blank_table():
+    """⚠ An empty responder side reads as a broken screen unless it is stated."""
+    src = CONSOLE.read_text(encoding="utf-8")
+    zero = [r for r, p in console_regions().items()
+            if not p["responder"]["available"]]
+    assert zero, "no region has zero depots any more; check the snapshot"
+    for region in zero:
+        note = console_regions()[region]["responder"]["status_ko"]
+        assert note.strip(), f"{region}: nothing to show in place of the table"
+        assert note in src, f"{region}: the statement never reaches the page"
+        assert "OSM에 매핑된" in note
+        assert "3,926" in note, "the wider bbox's six must be stated"
+        assert "919" in note, "the walk bbox's area must be stated"
+    assert "구조자 측 산출 없음" in src
+
+
+@console_only
+def test_the_depot_statement_never_says_a_region_has_no_fire_stations():
+    """HANDOFF_ROUND3.md rule 11, enforced on the console as on the screens."""
+    src = CONSOLE.read_text(encoding="utf-8")
+    for banned in ("의성·안동에는 소방서가 없", "의성안동에는 소방서가 없",
+                   "소방서가 없습니다."):
+        assert banned not in src, banned
+
+
+@console_only
+def test_the_responder_note_survived_dash_normalisation_intact():
+    """⚠ The source constant carries an EM dash the shipped font cannot draw.
+
+    `_dash_safe` replaces the punctuation on the way to THIS screen only, so the
+    generated `outputs/live/screens/**` screens keep the string
+    `tests/test_operator_screen.py` pins verbatim. What must survive is the
+    content, so it is checked here rather than assumed.
+    """
+    for region, p in console_regions().items():
+        note = p["responder"]["status_ko"]
+        assert "—" not in note and "–" not in note, (
+            f"{region}: a banned dash reached the console's responder note")
+
+
+@console_only
+def test_switching_regions_resets_the_chosen_ignition_point():
+    """A coordinate belongs to the region it was chosen in.
+
+    Yeongdeok's walk bbox and Uiseong-Andong's do not overlap, so carrying a
+    point across would leave the header showing one the new region cannot route
+    from.
+    """
+    src = CONSOLE.read_text(encoding="utf-8")
+    body = src[src.index("function mountRegion("):]
+    body = body[:body.index("\n}")]
+    for call in ("clearPoint()", "clearReject()", "applyDefaultStartGate()",
+                 "renderResponderNote()", "setProjection()"):
+        assert call in body, f"mountRegion does not call {call}"
+
+
+@console_only
+def test_the_dispatch_table_cannot_silently_clip_a_column():
+    """⚠ The 1366x768 defect: 548 px of table in a 519 px pane, 29 px gone.
+
+    `overflow:hidden` on the wrapper meant no scrollbar and no ellipsis — the
+    구분 column simply stopped. `table-layout:fixed` makes the table exactly as
+    wide as the pane, so the shortfall is spent on the one column that can
+    ellipsise.
+    """
+    src = CONSOLE.read_text(encoding="utf-8")
+    assert "table-layout:fixed" in src.replace(" ", ""), (
+        "without fixed layout the nowrap cells set a min-content width and the "
+        "last column is clipped at 1366x768")
 
 
 @console_only

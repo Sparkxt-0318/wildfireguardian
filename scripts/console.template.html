@@ -66,7 +66,24 @@ svg{display:block;width:100%;height:100%}
 #sidehead b{font-size:15px}
 #sidehead span{color:var(--ink3);font-size:12px}
 #tablewrap{flex:1 1 auto;overflow:hidden}
-table{width:100%;border-collapse:collapse;font-size:13px}
+/* ⚠ `table-layout:fixed` is the fix for a SILENT CLIP, not a cosmetic choice.
+   With auto layout the `white-space:nowrap` cells set a min-content width, so at
+   1366x768 the table measured 548 px inside a 519 px pane and 29 px of the 구분
+   column was cut off by `#tablewrap`'s `overflow:hidden` — no scrollbar, no
+   ellipsis, just a column that stopped existing. Measured identical on the
+   pre-PHASE-22 committed console, so it predated the region switcher.
+   Fixed layout makes the table exactly as wide as the pane and spends the
+   shortfall on the ONE column that can afford it: 위치 ellipsises, and the
+   「A4 전달물에는 전부 실립니다」 line already says where the full text lives. */
+table{width:100%;border-collapse:collapse;font-size:13px;table-layout:fixed}
+/* ⚠ MEASURED, not chosen. Each fixed column is set to the widest content it
+   actually has to hold, read off the rendered table: # 38, 남은 시간 76
+   (「해당 없음」), 도보 58 (「568분」), 구분 84 (「■ 도달 불가」). 구분 was 76 first
+   and ellipsised to 「■ 도달 ...」 — and that column IS the four-way answer, so
+   it is the one column that must never be shortened. 위치 takes the remainder
+   and is the only one allowed to ellipsise; the 「A4 전달물에는 전부 실립니다」
+   line already says where the full text lives. */
+th.c-n{width:38px} th.c-t{width:76px} th.c-w{width:58px} th.c-b{width:86px}
 thead th{position:sticky;top:0;background:var(--panel);color:var(--ink3);
   font-size:11px;font-weight:600;text-align:left;padding:7px 10px;
   border-bottom:1px solid var(--hair)}
@@ -76,9 +93,27 @@ tbody tr{cursor:pointer}
 tbody tr:hover{background:#1a2530}
 tbody tr[aria-selected="true"]{background:#1e3a5f}
 td.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
-td.b{width:78px}
 #more{flex:0 0 auto;padding:7px 10px;color:var(--ink3);font-size:12px;
   border-top:1px solid var(--hair);background:var(--panel)}
+/* ⚠ An empty dispatch table reads as a broken screen. Uiseong-Andong has zero
+   depots, so its responder side genuinely cannot be computed, and that has to
+   be SAID rather than shown as a blank. Amber, not red: it is a property of the
+   OSM data, not a failure of this run. #fde047 on #1a1206 is 14.2:1. */
+#empty{flex:0 0 auto;margin:10px;padding:11px 13px;background:#1a1206;
+  color:#fde047;border:1px solid #78350f;border-radius:3px;font-size:12px;
+  line-height:1.6}
+#empty b{display:block;font-size:13px;margin-bottom:5px}
+
+/* ---- region switcher -------------------------------------------------------
+   Buttons, not a <select>: three regions is few enough that the current one
+   should be visible without opening anything, and a judge should be able to see
+   that the other two exist. */
+#regionpick{gap:6px}
+.rbtn{font-family:var(--sans);font-size:13px;font-weight:600;cursor:pointer;
+  padding:6px 12px;border-radius:3px;border:1px solid #3f5060;
+  background:transparent;color:var(--ink2)}
+.rbtn:hover{background:#1a2530;color:var(--ink)}
+.rbtn[aria-pressed="true"]{background:#1e3a5f;border-color:#3b82f6;color:#bfdbfe}
 
 /* ---- meta bar ------------------------------------------------------------ */
 footer{flex:0 0 auto;border-top:1px solid var(--hair);background:var(--panel)}
@@ -142,7 +177,7 @@ footer{flex:0 0 auto;border-top:1px solid var(--hair);background:var(--panel)}
 
 <header>
   <div><span class="badge" id="mode">사전 계산 결과</span></div>
-  <div><span class="k">지역</span><b id="region"></b></div>
+  <div id="regionpick" role="group" aria-label="지역 선택"></div>
   <div><span class="k">발화점</span><span class="num" id="ign"></span></div>
   <div id="progwrap" hidden><span class="k">진행</span><span id="prog">대기</span></div>
   <div id="clickwrap" hidden><span class="k" id="ptsrc">클릭 발화점</span><span class="num" id="clickpt"></span></div>
@@ -177,13 +212,14 @@ footer{flex:0 0 auto;border-top:1px solid var(--hair);background:var(--panel)}
     <div id="tablewrap">
       <table>
         <thead><tr>
-          <th style="width:42px">#</th><th>위치</th>
-          <th style="width:86px">남은 시간</th><th style="width:70px">도보</th>
-          <th style="width:78px">구분</th>
+          <th class="c-n">#</th><th>위치</th>
+          <th class="c-t">남은 시간</th><th class="c-w">도보</th>
+          <th class="c-b">구분</th>
         </tr></thead>
         <tbody id="rows" tabindex="0" aria-label="출동 목록. 위아래 화살표로 이동, Enter 로 지도에서 강조"></tbody>
       </table>
     </div>
+    <div id="empty" hidden></div>
     <div id="more" hidden></div>
   </section>
 </main>
@@ -202,46 +238,76 @@ footer{flex:0 0 auto;border-top:1px solid var(--hair);background:var(--panel)}
 <script id="data" type="application/json">/*__DATA__*/</script>
 <script>
 "use strict";
-const D = JSON.parse(document.getElementById('data').textContent);
+const DATA = JSON.parse(document.getElementById('data').textContent);
 const SVGNS = 'http://www.w3.org/2000/svg';
-const G = D.grid;
 const el = (id) => document.getElementById(id);
 
-// ---- projection: EPSG:5179 metres -> the 1000x1000 viewBox -----------------
-// The page does no geodesy. Everything was projected at build time by the same
-// transformer the routing used; this is a linear fit into the box.
-// Fit the viewBox to the grid's own aspect ratio. A square box would leave a
-// third of the map pane empty, and an operator reading names off a map wants
-// the pixels. Scale is uniform in both axes: distances stay comparable.
-const SPAN = G.xmax - G.xmin;
-const VH = Math.round((G.ymax - G.ymin) / SPAN * 1000);
-const PX = (x) => (x - G.xmin) / SPAN * 1000;
-const PY = (y) => (G.ymax - y) / SPAN * 1000;
+// ⚠ RUNTIME REGION SWITCHING, ONE BUILD ARTIFACT.
+// All three regions are inlined in the payload above and the page swaps between
+// them without touching the network. The alternative — one built file per
+// region — was rejected outright: this project has already paid for "which of
+// these artifacts is the current one?" once. A per-region API fetch was
+// measured and also rejected (localhost round trip 0.42~0.73 ms, so latency was
+// never the question) because it would make the console read a replay run
+// directory AT RUNTIME, and that is exactly the thing that went missing in
+// docs/api_layer.md §1.12. It would also break this file opening on its own.
+//
+// `D` is the CURRENT region's payload and is reassigned by mountRegion().
+// Everything derived from it — the projection, the viewBox, the cell width —
+// is derived again there, because the three grids differ in extent and shape.
+let D = DATA.regions[DATA.default_region];
+let G, SPAN, VH, CW;
+let PX = (x) => x, PY = (y) => y;
+
+function setProjection(){
+  // The page does no geodesy. Everything was projected at build time by the
+  // same transformer the routing used; this is a linear fit into the box.
+  // Fit the viewBox to the grid's own aspect ratio. A square box would leave a
+  // third of the map pane empty, and an operator reading names off a map wants
+  // the pixels. Scale is uniform in both axes: distances stay comparable.
+  G = D.grid;
+  SPAN = G.xmax - G.xmin;
+  VH = Math.round((G.ymax - G.ymin) / SPAN * 1000);
+  CW = (G.cell / SPAN) * 1000;
+  PX = (x) => (x - G.xmin) / SPAN * 1000;
+  PY = (y) => (G.ymax - y) / SPAN * 1000;
+}
 
 function mk(tag, attrs){ const n = document.createElementNS(SVGNS, tag);
   for (const k in attrs) n.setAttribute(k, attrs[k]); return n; }
 
-// ---- hazard bands, run-length decoded --------------------------------------
 const svg = el('svg');
-svg.setAttribute('viewBox', `0 0 1000 ${VH}`);
+// One group per layer, created ONCE and emptied on switch. Rebuilding the <svg>
+// wholesale would drop the click listener with it.
 const gHaz = mk('g', {}); svg.appendChild(gHaz);
-const cw = (G.cell / SPAN) * 1000;
-D.bands.forEach((runsForBand, bi) => {
-  const fill = D.band_fills[bi];
-  runsForBand.forEach(([r, c0, len]) => {
-    gHaz.appendChild(mk('rect', {
-      x: PX(G.xmin + c0 * G.cell), y: PY(G.ymax - r * G.cell),
-      width: cw * len + .5, height: cw + .5, fill: fill,
-      'fill-opacity': 0.30 + 0.16 * bi }));
-  });
-});
+const gBox = mk('g', {}); svg.appendChild(gBox);
+const gOrig = mk('g', {}); svg.appendChild(gOrig);
+const gPoi = mk('g', {}); svg.appendChild(gPoi);
+const gRoute = mk('g', {}); svg.appendChild(gRoute);
 
-// ---- walk bbox: what 32.6 % coverage looks like ----------------------------
-const [bx0, by0, bx1, by1] = D.walk_bbox;
-svg.appendChild(mk('rect', {x: PX(bx0), y: PY(by1),
-  width: PX(bx1) - PX(bx0), height: PY(by0) - PY(by1),
-  fill: 'none', stroke: '#7c8ba1', 'stroke-width': 1.4,
-  'stroke-dasharray': '7 5'}));
+// ---- hazard bands, run-length decoded --------------------------------------
+function drawHazard(){
+  gHaz.textContent = '';
+  D.bands.forEach((runsForBand, bi) => {
+    const fill = DATA.band_fills[bi];
+    runsForBand.forEach(([r, c0, len]) => {
+      gHaz.appendChild(mk('rect', {
+        x: PX(G.xmin + c0 * G.cell), y: PY(G.ymax - r * G.cell),
+        width: CW * len + .5, height: CW + .5, fill: fill,
+        'fill-opacity': 0.30 + 0.16 * bi }));
+    });
+  });
+}
+
+// ---- walk bbox: what this region's coverage figure looks like ---------------
+function drawWalkBox(){
+  gBox.textContent = '';
+  const [bx0, by0, bx1, by1] = D.walk_bbox;
+  gBox.appendChild(mk('rect', {x: PX(bx0), y: PY(by1),
+    width: PX(bx1) - PX(bx0), height: PY(by0) - PY(by1),
+    fill: 'none', stroke: '#7c8ba1', 'stroke-width': 1.4,
+    'stroke-dasharray': '7 5'}));
+}
 
 // ---- origins: colour AND shape ---------------------------------------------
 const SHAPE = {
@@ -253,8 +319,7 @@ const SHAPE = {
   diamond: (x, y, s, f) => mk('polygon',
     {points: `${x},${y - s * 1.3} ${x + s * 1.3},${y} ${x},${y + s * 1.3} ${x - s * 1.3},${y}`, fill: f}),
 };
-const BY_KEY = {}; D.buckets.forEach(b => BY_KEY[b.key] = b);
-const gOrig = mk('g', {}); svg.appendChild(gOrig);
+const BY_KEY = {}; DATA.buckets.forEach(b => BY_KEY[b.key] = b);
 function drawOrigins(origins){
   gOrig.textContent = '';
   origins.forEach(o => {
@@ -262,20 +327,20 @@ function drawOrigins(origins){
     gOrig.appendChild(SHAPE[b.shape](PX(o.x), PY(o.y), 3.1, b.fill));
   });
 }
-drawOrigins(D.origins);
 
-// ---- refuges, depots, ignition ---------------------------------------------
-const gPoi = mk('g', {}); svg.appendChild(gPoi);
-D.refuges.forEach(r => gPoi.appendChild(mk('rect',
-  {x: PX(r.x) - 2.4, y: PY(r.y) - 2.4, width: 4.8, height: 4.8,
-   fill: 'none', stroke: '#e8edf2', 'stroke-width': 1.2})));
-gPoi.appendChild(mk('circle', {cx: PX(D.ignition[0]), cy: PY(D.ignition[1]),
-  r: 7, fill: 'none', stroke: '#fde047', 'stroke-width': 2.2}));
-gPoi.appendChild(mk('circle', {cx: PX(D.ignition[0]), cy: PY(D.ignition[1]),
-  r: 2.4, fill: '#fde047'}));
+// ---- refuges, ignition ------------------------------------------------------
+function drawPoi(){
+  gPoi.textContent = '';
+  D.refuges.forEach(r => gPoi.appendChild(mk('rect',
+    {x: PX(r.x) - 2.4, y: PY(r.y) - 2.4, width: 4.8, height: 4.8,
+     fill: 'none', stroke: '#e8edf2', 'stroke-width': 1.2})));
+  gPoi.appendChild(mk('circle', {cx: PX(D.ignition[0]), cy: PY(D.ignition[1]),
+    r: 7, fill: 'none', stroke: '#fde047', 'stroke-width': 2.2}));
+  gPoi.appendChild(mk('circle', {cx: PX(D.ignition[0]), cy: PY(D.ignition[1]),
+    r: 2.4, fill: '#fde047'}));
+}
 
 // ---- the two routes, drawn rather than asserted -----------------------------
-const gRoute = mk('g', {}); svg.appendChild(gRoute);
 function drawRoutes(routes){
   gRoute.textContent = '';
   (routes || []).forEach(rt => {
@@ -286,7 +351,6 @@ function drawRoutes(routes){
       stroke: '#22d3ee', 'stroke-width': 2.4}));
   });
 }
-drawRoutes(D.routes);
 
 // ---- the highlight ring the list drives ------------------------------------
 const ring = mk('circle', {r: 11, fill: 'none', stroke: '#fde047',
@@ -294,14 +358,16 @@ const ring = mk('circle', {r: 11, fill: 'none', stroke: '#fde047',
 svg.appendChild(ring);
 
 // ---- legend -----------------------------------------------------------------
-el('legend').innerHTML =
-  D.buckets.map(b => `<div class="r"><span class="sw" style="color:${b.fill}">${b.mark}</span>` +
-    `<span>${b.ko}</span><span class="num" style="color:var(--ink3)"> ${D.counts[b.key]}</span></div>`).join('') +
-  `<div class="r"><span class="sw" style="color:#fde047">◎</span><span>발화점(위험면 t=0 핵심)</span></div>` +
-  `<div class="r"><span class="sw" style="color:#e8edf2">□</span><span>대피소</span></div>` +
-  `<div class="r"><span class="sw" style="color:#7c8ba1">┄</span><span>보행망 범위</span></div>` +
-  `<div id="bandleg">` + D.band_labels.map((l, i) =>
-    `<div class="num" style="background:${D.band_fills[i]};color:#0b0f14">${l}</div>`).join('') + `</div>`;
+function drawLegend(){
+  el('legend').innerHTML =
+    DATA.buckets.map(b => `<div class="r"><span class="sw" style="color:${b.fill}">${b.mark}</span>` +
+      `<span>${b.ko}</span><span class="num" style="color:var(--ink3)"> ${D.counts[b.key]}</span></div>`).join('') +
+    `<div class="r"><span class="sw" style="color:#fde047">◎</span><span>발화점(위험면 t=0 핵심)</span></div>` +
+    `<div class="r"><span class="sw" style="color:#e8edf2">□</span><span>대피소</span></div>` +
+    `<div class="r"><span class="sw" style="color:#7c8ba1">┄</span><span>보행망 범위</span></div>` +
+    `<div id="bandleg">` + DATA.band_labels.map((l, i) =>
+      `<div class="num" style="background:${DATA.band_fills[i]};color:#0b0f14">${l}</div>`).join('') + `</div>`;
+}
 
 // ---- dispatch list ----------------------------------------------------------
 let SEL = -1;
@@ -348,9 +414,29 @@ function renderRows(rows, limit){
     `${rows.length}개 지점 · 마을 ${D.n_villages}곳 · ${shown}행 표시`;
   SEL = -1; ring.setAttribute('visibility', 'hidden');
 }
+
+// ⚠ AN EMPTY TABLE IS NOT AN ANSWER, IT IS A BLANK.
+// Uiseong-Andong has zero `amenity=fire_station` mapped inside its walk bbox,
+// so there is no responder-side output to show. Left as an empty table that
+// reads as a broken screen, and the operator's next move would be to reload it.
+// The sentence is the SERVICE's, carried through viz.json, and it is worded the
+// way HANDOFF_ROUND3.md rule 11 requires: the claim is about OSM mapping inside
+// one bbox, never "this region has no fire stations".
+function renderResponderNote(){
+  const box = el('empty'), r = D.responder;
+  if (r && r.available){ box.hidden = true; return; }
+  box.hidden = false;
+  box.innerHTML = '';
+  const h = document.createElement('b');
+  h.textContent = '구조자 측 산출 없음';
+  const p = document.createElement('div');
+  p.textContent = (r && r.status_ko) ? r.status_ko : '';
+  box.appendChild(h); box.appendChild(p);
+}
+
 function select(i){
   const body = el('rows'), rows = CURRENT.rows;
-  if (i < 0 || i >= Math.min(rows.length, D.max_rows)) return;
+  if (i < 0 || i >= Math.min(rows.length, DATA.max_rows)) return;
   [...body.children].forEach(tr => tr.setAttribute('aria-selected', 'false'));
   const tr = body.children[i]; if (!tr) return;
   tr.setAttribute('aria-selected', 'true'); SEL = i;
@@ -368,19 +454,32 @@ el('rows').addEventListener('keydown', (ev) => {
 
 // ---- the standing facts -----------------------------------------------------
 let CURRENT = {rows: D.rows, counts: D.counts, origins: D.origins};
-el('region').textContent = D.region;
-el('ign').textContent = `${D.ignition[0].toFixed(0)}, ${D.ignition[1].toFixed(0)} (EPSG:5179)`;
-el('f-weather').textContent = D.honesty.weather;
-el('f-cov').textContent = `${D.honesty.coverage_pct}%`;
-el('f-haz').textContent = `${D.precomputed.hazard_sha256}…`;
-el('standing').textContent = D.honesty.standing;
-// ⚠ Always on screen, not only after a click. A click moves where the ROUTING
-// starts; it does not move the hazard surface, which was simulated once for one
-// fire and is held fixed (ERA5 publishes on a ~5-day lag). Leaving this implicit
-// invites "the prediction starts where I clicked", which is not what happens.
-el('hazardnote').textContent = D.honesty.hazard_fixed;
 function setCalcLabel(text){ el('f-calc').textContent = text; }
-setCalcLabel(`사전 계산 결과 · 실제 계산 ${D.precomputed.warm_total_s}초`);
+
+// ⚠ EVERY ONE OF THESE IS PER-REGION AND USED TO BE WRITTEN ONCE AT LOAD.
+// Coverage was the literal 32.6 in the builder, which was right for Yeongdeok
+// and would have been silently wrong for the other two the moment the console
+// could switch. It is now read from the committed comparison table per region,
+// along with the weather basis, the hazard digest and the region name inside
+// the fixed-surface caution.
+function renderFacts(){
+  el('ign').textContent =
+    `${D.ignition[0].toFixed(0)}, ${D.ignition[1].toFixed(0)} (EPSG:5179)`;
+  el('f-weather').textContent = D.honesty.weather;
+  el('f-cov').textContent = `${D.honesty.coverage_pct}%`;
+  el('f-haz').textContent = `${D.precomputed.hazard_sha256}…`;
+  el('standing').textContent = DATA.standing;
+  // ⚠ Always on screen, not only after a click. Choosing an ignition point moves
+  // where the ROUTING starts; it does not move the hazard surface, which was
+  // simulated once for one fire and is held fixed (ERA5 publishes on a ~5-day
+  // lag). Leaving this implicit invites "the prediction starts where I
+  // clicked", which is not what happens.
+  el('hazardnote').textContent = D.honesty.hazard_fixed;
+  svg.setAttribute('aria-label',
+    `${D.label_kr} 위험 확률장과 출발지 4구분, 대피 경로 2종`);
+  setCalcLabel(`사전 계산 결과 · 실제 계산 ${D.precomputed.warm_total_s}초`);
+}
+
 // Two passes are not enough: pass 1 renders everything to get a row height,
 // pass 2 fits — but if pass 2 turns the 「외 N곳」 line ON, that line now takes
 // space the fit did not reserve and the line itself gets clipped. So iterate
@@ -395,7 +494,6 @@ function fitRows(){
     limit = next;
   }
 }
-fitRows();
 window.addEventListener('resize', fitRows);
 
 // ---- the clicked ignition point ---------------------------------------------
@@ -448,16 +546,24 @@ function clearReject(){ el('reject').hidden = true; }
 // so a run with no click was refused 422 every time. A button that offers a run
 // the server will always refuse is worse than a disabled one, and a disabled
 // one with no reason is worse than both.
-const START = D.default_start;
+// ⚠ PER REGION. Yeongdeok's t=0 core is 2,472 m outside its walk bbox and the
+// other two regions' cores are inside theirs (7,384 m and 4,975 m clear,
+// measured), so this gate fires for one region and not the others. It is the
+// same computation for all three; nothing here is special-cased by name.
+let START = D.default_start;
 function applyDefaultStartGate(){
-  if (START.servable) return;
   const run = el('run');
+  if (START.servable){
+    run.disabled = false;
+    run.textContent = '라이브 계산 실행';
+    run.removeAttribute('title');
+    return;
+  }
   run.disabled = true;
   run.textContent = '지도를 클릭해 발화점 지정';
   run.title = START.note_ko;
   showReject(START.note_ko, 'info');
 }
-applyDefaultStartGate();
 
 // ⚠ ONE PLACE WHERE A COORDINATE IS ACCEPTED OR REFUSED.
 // A map click and a photograph's EXIF arrive by different routes and are the
@@ -537,8 +643,12 @@ svg.addEventListener('click', async (ev) => {
 // `wildfireguardian.photo.PRIVACY_KO`, never retyped, for the same reason the
 // standing footer line is imported from the A4 sheet's constant: a promise about
 // personal data that exists twice is a promise that can end up saying two things.
-el('photoprivacy').textContent = D.photo_privacy_ko;
+el('photoprivacy').textContent = DATA.photo_privacy_ko;
 
+// The panel's resting line. Held as a constant because a region switch has to
+// put it back: leaving 「HEIF 사진의 EXIF 에서 좌표를 읽었습니다」 on screen after
+// switching would describe a photograph that belongs to the previous region.
+const PHOTO_STATE_IDLE = 'JPEG · HEIC · PNG · 지도 위로 끌어다 놓아도 됩니다.';
 function photoState(text, busy){
   const s = el('photostate');
   s.textContent = text;
@@ -717,4 +827,57 @@ el('cancel').addEventListener('click', async () => {
   el('prog').textContent = '취소 요청…';
   await fetch(`/api/jobs/${JOB}`, {method: 'DELETE'});
 });
+
+// ---- region switching -------------------------------------------------------
+// ⚠ A SWITCH IS A FULL RESET, NOT A REDRAW.
+// The clicked or photographed ignition point belongs to the region it was taken
+// in: a coordinate inside Yeongdeok's walk bbox is outside Uiseong-Andong's, and
+// carrying it across would leave the header showing a point the new region
+// cannot route from. A live result belongs to its region too, so the badge goes
+// back to 「사전 계산 결과」 and the calculation label back to that region's own
+// measured cost. Everything returns to that region's t=0 core.
+function mountRegion(id){
+  const next = DATA.regions[id];
+  if (!next) return;
+  if (JOB){ try { fetch(`/api/jobs/${JOB}`, {method: 'DELETE'}); } catch (e) {} }
+  stopLive('대기');
+  el('progwrap').hidden = true;
+
+  D = next;
+  START = D.default_start;
+  CURRENT = {rows: D.rows, counts: D.counts, origins: D.origins};
+
+  setProjection();
+  svg.setAttribute('viewBox', `0 0 1000 ${VH}`);
+  drawHazard(); drawWalkBox(); drawOrigins(D.origins); drawPoi();
+  drawRoutes(D.routes); drawLegend();
+
+  // Back to the pre-computed view for THIS region.
+  el('mode').textContent = '사전 계산 결과';
+  el('mode').classList.remove('live');
+  renderFacts();
+  renderResponderNote();
+  fitRows();
+
+  clearPoint();            // drops the click/photo point and re-labels the button
+  clearReject();
+  photoState(PHOTO_STATE_IDLE);
+  applyDefaultStartGate(); // and re-raises the info note if this core is outside
+
+  [...el('regionpick').children].forEach(b =>
+    b.setAttribute('aria-pressed', String(b.dataset.region === id)));
+}
+
+DATA.region_order.forEach(id => {
+  const b = document.createElement('button');
+  b.className = 'rbtn';
+  b.type = 'button';
+  b.dataset.region = id;
+  b.textContent = DATA.regions[id].label_kr;
+  b.setAttribute('aria-pressed', String(id === DATA.default_region));
+  b.addEventListener('click', () => mountRegion(id));
+  el('regionpick').appendChild(b);
+});
+
+mountRegion(DATA.default_region);
 </script>
