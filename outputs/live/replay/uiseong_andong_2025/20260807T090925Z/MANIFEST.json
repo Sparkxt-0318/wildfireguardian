@@ -1,0 +1,4785 @@
+{
+  "schema_version": 1,
+  "generated_utc": "20260807T090943Z",
+  "git_commit": "ed8a82b15d9cb27e100896b1930feb542231d6b5",
+  "config_hash": "f21177ab83cbccc24b4bede3d134630aac4e90943e3e131a2b326b2bf7f6cc80",
+  "series": "459 (canonical, resident-side, three buckets)",
+  "scope": {
+    "mode": "replay",
+    "mode_banner_ko": "■ 재생 모드 ■ 과거 화재의 화점 기록을 시간 순으로 재생한 것이며, 지금 발생 중인 화재가 아닙니다.",
+    "trigger_source": "replay",
+    "trigger_at": "",
+    "trigger_at_meaning": "the satellite overpass whose batch fired the trigger",
+    "detection": "real-time (FIRMS NRT)",
+    "detection_line_ko": "화점 탐지: 실시간 (FIRMS NRT)",
+    "weather": "NOT real-time",
+    "weather_basis": "2025-03-22 05:39 UTC",
+    "weather_line_ko": "기상 자료: 2025-03-22 05:39 UTC 기준 (ERA5는 약 5일 지연 발행)",
+    "era5_publication_lag_days": 5,
+    "scope_ko": "본 산출물은 「실시간 탐지 + 사전 계산 위험면 기반 결정」입니다. 「실시간 예보 기반 예측」이 아닙니다.",
+    "scope_en": "REAL-TIME DETECTION over a PRE-COMPUTED risk surface. This is NOT a real-time forecast: ERA5 reanalysis publishes on a ~5-day lag, so no hazard field exists for today.",
+    "hazard_field": "data/processed/hazard_uiseong_andong_2025.npz",
+    "hazard_field_is_precomputed": true,
+    "region": "uiseong_andong_2025",
+    "coverage_caveat_ko": "영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오."
+  },
+  "field_applicability": {
+    "verdict": "IN_SCOPE",
+    "hotspot_to_field_core_km": 2.468,
+    "hotspot_to_manifest_ignition_km": 7.942,
+    "radius_km": 15.0,
+    "anchor": "field t=0 core centroid (p >= 0.5)",
+    "field_core_lonlat": [
+      128.63227183973575,
+      36.355624885903545
+    ],
+    "manifest_ignition_lonlat": [
+      128.7,
+      36.35
+    ],
+    "statement_ko": "트리거 화점은 사전 계산 위험면의 초기 화재 핵심에서 2.5 km 떨어져 있습니다(기준 15 km 이내).",
+    "note": "A LABEL, never a filter. Nothing is dropped on account of it: suppressing a real detection is worse than publishing a stamped one."
+  },
+  "counts": {
+    "naive_into_FA_safe": 91,
+    "no_safe_route": 12,
+    "both_safe": 263,
+    "both_enter": 0,
+    "naive_unreachable": 0,
+    "fa_exceeds_budget": 2,
+    "unclassified": 0
+  },
+  "n_points": 105,
+  "n_dispatch": 91,
+  "n_unreachable": 14,
+  "clustering": {
+    "algorithm": "DBSCAN",
+    "eps_m": 500.0,
+    "min_samples": 1,
+    "is_administrative_village": false,
+    "note": "행정리가 아닌 공간 군집"
+  },
+  "sms_demo_mode": true,
+  "sms_credentials_present": false,
+  "nothing_was_sent": true,
+  "nothing_was_sent_scope": "This automatic pipeline transmits nothing. Since PHASE 7 the email channel CAN transmit, but only from the separate, manually invoked scripts/send_dispatch_email.py, and only after an operator types a confirmation word in full. If that ran against this run, its record is email_sent.json in this directory. docs/delivery_channels.md",
+  "villages": [
+    {
+      "cluster_id": 1,
+      "name": "정자 북쪽 12km 1",
+      "name_basis": "positional descriptor from nearest named refuge '정자' at 12364 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~12 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 9,
+      "n_dispatch": 9,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1104469.9655890828,
+        1830298.393288702
+      ],
+      "directory": "01-정자-북쪽-12km-1",
+      "refuge_used_in_messages": "정자",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 12,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "정자 북쪽 12km 1",
+          "body": "[산불] 정자 북쪽 12km 1 도보 대피 안내 9곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 정자입니다.",
+          "n_chars": 63,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "정자 북쪽 12km 1",
+          "body": "[산불] 정자 북쪽 12km 1 방문 대상 9곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 57,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북쪽 12415m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 500.5,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "정자 북쪽 12418m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 508.8,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "문소루 북쪽 12419m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 558.8,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "정자 북쪽 12334m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 519.2,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "정자 북쪽 12837m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 537.4,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "정자 북쪽 12135m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 519.3,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "정자 북쪽 12151m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 528.9,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "문소루 북쪽 12746m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 554.0,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "정자 북쪽 11891m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 499.7,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 2,
+      "name": "정자 북쪽 8km 2",
+      "name_basis": "positional descriptor from nearest named refuge '정자' at 8485 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~8 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 8,
+      "n_dispatch": 8,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1107918.1827585972,
+        1826627.0775901356
+      ],
+      "directory": "02-정자-북쪽-8km-2",
+      "refuge_used_in_messages": "정자",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "정자 북쪽 8km 2",
+          "body": "[산불] 정자 북쪽 8km 2 도보 대피 안내 8곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 정자입니다.",
+          "n_chars": 62,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "정자 북쪽 8km 2",
+          "body": "[산불] 정자 북쪽 8km 2 방문 대상 8곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 56,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "정자 북쪽 9085m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 566.6,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "정자 북쪽 8232m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 502.5,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "정자 북쪽 7750m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 515.6,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "정자 북쪽 8612m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 591.7,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "정자 북쪽 8386m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 588.8,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "정자 북쪽 8648m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 579.8,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "정자 북쪽 8186m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 497.2,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "정자 북쪽 9078m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 589.6,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 3,
+      "name": "정자 북쪽 12km 3",
+      "name_basis": "positional descriptor from nearest named refuge '정자' at 11856 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~12 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 5,
+      "n_dispatch": 5,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1108806.7972565487,
+        1829909.2234850428
+      ],
+      "directory": "03-정자-북쪽-12km-3",
+      "refuge_used_in_messages": "정자",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 12,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "정자 북쪽 12km 3",
+          "body": "[산불] 정자 북쪽 12km 3 도보 대피 안내 5곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 정자입니다.",
+          "n_chars": 63,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "정자 북쪽 12km 3",
+          "body": "[산불] 정자 북쪽 12km 3 방문 대상 5곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 57,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "정자 북쪽 11880m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 546.1,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "정자 북쪽 11704m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 535.5,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "정자 북쪽 11749m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 539.1,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "정자 북쪽 12074m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 555.0,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "정자 북쪽 11883m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 550.8,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 4,
+      "name": "문소루 북서쪽 9km",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 8904 m, bearing 북서; disambiguated by bearing (북서); disambiguated by distance (~9 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 4,
+      "n_dispatch": 4,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1102671.2395125274,
+        1826032.9283050108
+      ],
+      "directory": "04-문소루-북서쪽-9km",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북서쪽 9km",
+          "body": "[산불] 문소루 북서쪽 9km 도보 대피 안내 4곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 문소루입니다.",
+          "n_chars": 63,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북서쪽 9km",
+          "body": "[산불] 문소루 북서쪽 9km 방문 대상 4곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 56,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북서쪽 9238m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 584.0,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "문소루 북서쪽 8940m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 586.4,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "문소루 북서쪽 8799m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 597.5,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "문소루 북서쪽 8642m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 598.1,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 5,
+      "name": "문소루 북쪽 16km",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 16024 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~16 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 3,
+      "n_dispatch": 3,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1103448.413346988,
+        1833822.005679372
+      ],
+      "directory": "05-문소루-북쪽-16km",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북쪽 16km",
+          "body": "[산불] 문소루 북쪽 16km 도보 대피 안내 3곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 문소루입니다.",
+          "n_chars": 63,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북쪽 16km",
+          "body": "[산불] 문소루 북쪽 16km 방문 대상 3곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 56,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북쪽 15759m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 593.5,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "정자 북쪽 16166m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 584.7,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "문소루 북쪽 16146m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 583.6,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 6,
+      "name": "정자 북쪽 8km 6",
+      "name_basis": "positional descriptor from nearest named refuge '정자' at 7700 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~8 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 3,
+      "n_dispatch": 3,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1106154.517562413,
+        1825848.7532138021
+      ],
+      "directory": "06-정자-북쪽-8km-6",
+      "refuge_used_in_messages": "정자",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "정자 북쪽 8km 6",
+          "body": "[산불] 정자 북쪽 8km 6 도보 대피 안내 3곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 정자입니다.",
+          "n_chars": 62,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "정자 북쪽 8km 6",
+          "body": "[산불] 정자 북쪽 8km 6 방문 대상 3곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 56,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "정자 북쪽 7933m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 556.8,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "정자 북쪽 7651m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 545.3,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "정자 북쪽 7530m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 535.9,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 7,
+      "name": "문소루 북쪽 14km",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 14031 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~14 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 2,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1103530.8479826716,
+        1831796.959684993
+      ],
+      "directory": "07-문소루-북쪽-14km",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북쪽 14km",
+          "body": "[산불] 문소루 북쪽 14km 도보 대피 안내 2곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 문소루입니다.",
+          "n_chars": 63,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북쪽 14km",
+          "body": "[산불] 문소루 북쪽 14km 방문 대상 2곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 56,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북쪽 14001m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 543.2,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "문소루 북쪽 14063m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 551.3,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 8,
+      "name": "정자 북쪽 10km",
+      "name_basis": "positional descriptor from nearest named refuge '정자' at 9920 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~10 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 2,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1105767.8761835014,
+        1828038.0758412536
+      ],
+      "directory": "08-정자-북쪽-10km",
+      "refuge_used_in_messages": "정자",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "정자 북쪽 10km",
+          "body": "[산불] 정자 북쪽 10km 도보 대피 안내 2곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 정자입니다.",
+          "n_chars": 61,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "정자 북쪽 10km",
+          "body": "[산불] 정자 북쪽 10km 방문 대상 2곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 55,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "정자 북쪽 9831m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 582.8,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "정자 북쪽 10012m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 593.2,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 9,
+      "name": "정자 북쪽 13km 9",
+      "name_basis": "positional descriptor from nearest named refuge '정자' at 13423 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~13 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 2,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1110648.327013498,
+        1831108.412708619
+      ],
+      "directory": "09-정자-북쪽-13km-9",
+      "refuge_used_in_messages": "정자",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 12,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "정자 북쪽 13km 9",
+          "body": "[산불] 정자 북쪽 13km 9 도보 대피 안내 2곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 정자입니다.",
+          "n_chars": 63,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "정자 북쪽 13km 9",
+          "body": "[산불] 정자 북쪽 13km 9 방문 대상 2곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 57,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "정자 북쪽 13538m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 589.4,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "정자 북쪽 13309m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 584.5,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 10,
+      "name": "정자 북쪽 12km 10",
+      "name_basis": "positional descriptor from nearest named refuge '정자' at 12066 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~12 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 2,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1109789.22489338,
+        1829930.4148144578
+      ],
+      "directory": "10-정자-북쪽-12km-10",
+      "refuge_used_in_messages": "정자",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 13,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "정자 북쪽 12km 10",
+          "body": "[산불] 정자 북쪽 12km 10 도보 대피 안내 2곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 정자입니다.",
+          "n_chars": 64,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "정자 북쪽 12km 10",
+          "body": "[산불] 정자 북쪽 12km 10 방문 대상 2곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 58,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "정자 북쪽 11909m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 565.2,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "정자 북쪽 12224m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 567.4,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 11,
+      "name": "문소루 북서쪽 15km 11",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 14694 m, bearing 북서; disambiguated by bearing (북서); disambiguated by distance (~15 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 1,
+      "n_unreachable": 1,
+      "centroid_5179": [
+        1100958.1541031492,
+        1831629.8732656175
+      ],
+      "directory": "11-문소루-북서쪽-15km-11",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 16,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북서쪽 15km 11",
+          "body": "[산불] 문소루 북서쪽 15km 11 안내 대상 2곳 중 1곳은 안전한 도보 대피로가 없습니다. 자체 이동을 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 81,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북서쪽 15km 11",
+          "body": "[산불] 문소루 북서쪽 15km 11 방문 대상 2곳입니다. 도보 대피 불가 1곳은 별도 확인 부탁드립니다.",
+          "n_chars": 60,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북서쪽 14777m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 595.6,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "문소루 북서쪽 14611m",
+          "unreachable": true,
+          "bucket": "no_safe_route",
+          "closing_window_min": null,
+          "walk_time_min": null,
+          "reason_ko": "예산 내 안전한 보행 경로가 없음(우회 포함)",
+          "route_note": null
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 12,
+      "name": "정자 일대",
+      "name_basis": "nearest named refuge '정자' at 2433 m",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 2,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1104842.5014048899,
+        1816603.1239664864
+      ],
+      "directory": "12-정자-일대",
+      "refuge_used_in_messages": "정자",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 11,
+        "max_sentence_chars": 15,
+        "longest": 13,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "정자 일대",
+          "body": "[산불] 정자 일대 도보 대피 안내 2곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 정자입니다.",
+          "n_chars": 56,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "정자 일대",
+          "body": "[산불] 정자 일대 방문 대상 2곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 50,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 남서쪽 2459m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 185.6,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "정자 서쪽 2382m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 181.0,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 13,
+      "name": "정자 북서쪽 4km 13",
+      "name_basis": "positional descriptor from nearest named refuge '정자' at 3721 m, bearing 북서; disambiguated by bearing (북서); disambiguated by distance (~4 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 2,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1103377.9801073773,
+        1814480.0021102265
+      ],
+      "directory": "13-정자-북서쪽-4km-13",
+      "refuge_used_in_messages": "정자",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 13,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "정자 북서쪽 4km 13",
+          "body": "[산불] 정자 북서쪽 4km 13 도보 대피 안내 2곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 정자입니다.",
+          "n_chars": 64,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "정자 북서쪽 4km 13",
+          "body": "[산불] 정자 북서쪽 4km 13 방문 대상 2곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 58,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "정자 북쪽 3799m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 284.4,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "정자 북서쪽 3651m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 277.8,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 14,
+      "name": "문소루 북쪽 8km 14",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 8077 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~8 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 2,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1104569.4560551462,
+        1825914.0376541447
+      ],
+      "directory": "14-문소루-북쪽-8km-14",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 13,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북쪽 8km 14",
+          "body": "[산불] 문소루 북쪽 8km 14 도보 대피 안내 2곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 문소루입니다.",
+          "n_chars": 65,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북쪽 8km 14",
+          "body": "[산불] 문소루 북쪽 8km 14 방문 대상 2곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 58,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북쪽 7978m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 580.2,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "문소루 북쪽 8181m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 595.3,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 15,
+      "name": "문소루 북서쪽 16km 15",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 15957 m, bearing 북서; disambiguated by bearing (북서); disambiguated by distance (~16 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 0,
+      "n_unreachable": 2,
+      "centroid_5179": [
+        1098283.8067979766,
+        1831635.7458458645
+      ],
+      "directory": "15-문소루-북서쪽-16km-15",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 16,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북서쪽 16km 15",
+          "body": "[산불] 문소루 북서쪽 16km 15 안내 대상 2곳 중 2곳은 안전한 도보 대피로가 없습니다. 자체 이동을 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 81,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북서쪽 16km 15",
+          "body": "[산불] 문소루 북서쪽 16km 15 방문 대상 2곳입니다. 도보 대피 불가 2곳은 별도 확인 부탁드립니다.",
+          "n_chars": 60,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북서쪽 15734m",
+          "unreachable": true,
+          "bucket": "no_safe_route",
+          "closing_window_min": null,
+          "walk_time_min": null,
+          "reason_ko": "예산 내 안전한 보행 경로가 없음(우회 포함)",
+          "route_note": null
+        },
+        {
+          "label": "문소루 북서쪽 16181m",
+          "unreachable": true,
+          "bucket": "no_safe_route",
+          "closing_window_min": null,
+          "walk_time_min": null,
+          "reason_ko": "예산 내 안전한 보행 경로가 없음(우회 포함)",
+          "route_note": null
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 16,
+      "name": "정자 북쪽 9km 16",
+      "name_basis": "positional descriptor from nearest named refuge '정자' at 9114 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~9 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 2,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1105164.1263689233,
+        1827123.1517589542
+      ],
+      "directory": "16-정자-북쪽-9km-16",
+      "refuge_used_in_messages": "정자",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 12,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "정자 북쪽 9km 16",
+          "body": "[산불] 정자 북쪽 9km 16 도보 대피 안내 2곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 정자입니다.",
+          "n_chars": 63,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "정자 북쪽 9km 16",
+          "body": "[산불] 정자 북쪽 9km 16 방문 대상 2곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 57,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "정자 북쪽 8960m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 542.9,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "정자 북쪽 9271m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 586.9,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 17,
+      "name": "정자 북쪽 13km 17",
+      "name_basis": "positional descriptor from nearest named refuge '정자' at 12914 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~13 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 2,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1105182.259734024,
+        1830981.0823167793
+      ],
+      "directory": "17-정자-북쪽-13km-17",
+      "refuge_used_in_messages": "정자",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 13,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "정자 북쪽 13km 17",
+          "body": "[산불] 정자 북쪽 13km 17 도보 대피 안내 2곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 정자입니다.",
+          "n_chars": 64,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "정자 북쪽 13km 17",
+          "body": "[산불] 정자 북쪽 13km 17 방문 대상 2곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 58,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "정자 북쪽 12894m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 545.0,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "정자 북쪽 12935m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 543.7,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 18,
+      "name": "문소루 북서쪽 8km 18",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 8433 m, bearing 북서; disambiguated by bearing (북서); disambiguated by distance (~8 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 2,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1100594.168828465,
+        1823838.177282203
+      ],
+      "directory": "18-문소루-북서쪽-8km-18",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 14,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북서쪽 8km 18",
+          "body": "[산불] 문소루 북서쪽 8km 18 도보 대피 안내 2곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 문소루입니다.",
+          "n_chars": 66,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북서쪽 8km 18",
+          "body": "[산불] 문소루 북서쪽 8km 18 방문 대상 2곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 59,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북서쪽 8224m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 572.2,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "문소루 북서쪽 8642m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 481.7,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 19,
+      "name": "문소루 서쪽 9km",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 9209 m, bearing 서; disambiguated by bearing (서); disambiguated by distance (~9 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 2,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1097945.2023973023,
+        1820586.8649330195
+      ],
+      "directory": "19-문소루-서쪽-9km",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 서쪽 9km",
+          "body": "[산불] 문소루 서쪽 9km 도보 대피 안내 2곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 문소루입니다.",
+          "n_chars": 62,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 서쪽 9km",
+          "body": "[산불] 문소루 서쪽 9km 방문 대상 2곳입니다. 가장 급한 곳은 약 360분 남았습니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 78,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 서쪽 9224m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": 360.0,
+          "walk_time_min": 351.0,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "문소루 서쪽 9193m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": 540.0,
+          "walk_time_min": 356.3,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 20,
+      "name": "문소루 북서쪽 10km",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 9785 m, bearing 북서; disambiguated by bearing (북서); disambiguated by distance (~10 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 2,
+      "n_dispatch": 2,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1101810.6877950844,
+        1826560.0948651303
+      ],
+      "directory": "20-문소루-북서쪽-10km",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 12,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북서쪽 10km",
+          "body": "[산불] 문소루 북서쪽 10km 도보 대피 안내 2곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 문소루입니다.",
+          "n_chars": 64,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북서쪽 10km",
+          "body": "[산불] 문소루 북서쪽 10km 방문 대상 2곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 57,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북서쪽 9975m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 595.8,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        },
+        {
+          "label": "문소루 북서쪽 9598m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 594.9,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 21,
+      "name": "문소루 서쪽 11km 21",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 10678 m, bearing 서; disambiguated by bearing (서); disambiguated by distance (~11 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1096714.6601002978,
+        1821586.4244388079
+      ],
+      "directory": "21-문소루-서쪽-11km-21",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 14,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 서쪽 11km 21",
+          "body": "[산불] 문소루 서쪽 11km 21 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 문소루입니다.",
+          "n_chars": 66,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 서쪽 11km 21",
+          "body": "[산불] 문소루 서쪽 11km 21 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 59,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 서쪽 10678m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 368.1,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 22,
+      "name": "문소루 북쪽 17km",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 16715 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~17 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 0,
+      "n_unreachable": 1,
+      "centroid_5179": [
+        1101668.4722357877,
+        1834057.9756661765
+      ],
+      "directory": "22-문소루-북쪽-17km",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 16,
+        "max_sentence_chars": 15,
+        "longest": 12,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북쪽 17km",
+          "body": "[산불] 문소루 북쪽 17km 안내 대상 1곳 중 1곳은 안전한 도보 대피로가 없습니다. 자체 이동을 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 77,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북쪽 17km",
+          "body": "[산불] 문소루 북쪽 17km 방문 대상 1곳입니다. 도보 대피 불가 1곳은 별도 확인 부탁드립니다.",
+          "n_chars": 56,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북쪽 16715m",
+          "unreachable": true,
+          "bucket": "no_safe_route",
+          "closing_window_min": null,
+          "walk_time_min": null,
+          "reason_ko": "예산 내 안전한 보행 경로가 없음(우회 포함)",
+          "route_note": null
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 23,
+      "name": "문소루 북쪽 12km 23",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 11832 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~12 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1102350.6353948598,
+        1829110.9467919006
+      ],
+      "directory": "23-문소루-북쪽-12km-23",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 14,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북쪽 12km 23",
+          "body": "[산불] 문소루 북쪽 12km 23 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 문소루입니다.",
+          "n_chars": 66,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북쪽 12km 23",
+          "body": "[산불] 문소루 북쪽 12km 23 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 59,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북쪽 11832m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 500.1,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 24,
+      "name": "문소루 북쪽 12km 24",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 11774 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~12 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1103525.7511117447,
+        1829460.2477493403
+      ],
+      "directory": "24-문소루-북쪽-12km-24",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 14,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북쪽 12km 24",
+          "body": "[산불] 문소루 북쪽 12km 24 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 문소루입니다.",
+          "n_chars": 66,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북쪽 12km 24",
+          "body": "[산불] 문소루 북쪽 12km 24 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 59,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북쪽 11774m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 525.2,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 25,
+      "name": "문소루 북서쪽 16km 25",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 16429 m, bearing 북서; disambiguated by bearing (북서); disambiguated by distance (~16 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 0,
+      "n_unreachable": 1,
+      "centroid_5179": [
+        1095978.0938588155,
+        1830495.8578055853
+      ],
+      "directory": "25-문소루-북서쪽-16km-25",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 16,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북서쪽 16km 25",
+          "body": "[산불] 문소루 북서쪽 16km 25 안내 대상 1곳 중 1곳은 안전한 도보 대피로가 없습니다. 자체 이동을 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 81,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북서쪽 16km 25",
+          "body": "[산불] 문소루 북서쪽 16km 25 방문 대상 1곳입니다. 도보 대피 불가 1곳은 별도 확인 부탁드립니다.",
+          "n_chars": 60,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북서쪽 16429m",
+          "unreachable": true,
+          "bucket": "no_safe_route",
+          "closing_window_min": null,
+          "walk_time_min": null,
+          "reason_ko": "예산 내 안전한 보행 경로가 없음(우회 포함)",
+          "route_note": null
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 26,
+      "name": "문소루 북쪽 8km 26",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 7516 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~8 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1105278.0588570056,
+        1825513.224704162
+      ],
+      "directory": "26-문소루-북쪽-8km-26",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 13,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북쪽 8km 26",
+          "body": "[산불] 문소루 북쪽 8km 26 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 문소루입니다.",
+          "n_chars": 65,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북쪽 8km 26",
+          "body": "[산불] 문소루 북쪽 8km 26 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 58,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북쪽 7516m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 575.8,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 27,
+      "name": "정자 북쪽 14km",
+      "name_basis": "positional descriptor from nearest named refuge '정자' at 13540 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~14 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1105934.2516129257,
+        1831693.0089973917
+      ],
+      "directory": "27-정자-북쪽-14km",
+      "refuge_used_in_messages": "정자",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "정자 북쪽 14km",
+          "body": "[산불] 정자 북쪽 14km 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 정자입니다.",
+          "n_chars": 61,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "정자 북쪽 14km",
+          "body": "[산불] 정자 북쪽 14km 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 55,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "정자 북쪽 13540m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 570.0,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 28,
+      "name": "정자 북동쪽 16km",
+      "name_basis": "positional descriptor from nearest named refuge '정자' at 16128 m, bearing 북동; disambiguated by bearing (북동); disambiguated by distance (~16 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 0,
+      "n_unreachable": 1,
+      "centroid_5179": [
+        1114737.2471026324,
+        1832338.4796947036
+      ],
+      "directory": "28-정자-북동쪽-16km",
+      "refuge_used_in_messages": "정자",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 16,
+        "max_sentence_chars": 15,
+        "longest": 12,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "정자 북동쪽 16km",
+          "body": "[산불] 정자 북동쪽 16km 안내 대상 1곳 중 1곳은 안전한 도보 대피로가 없습니다. 자체 이동을 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 77,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "정자 북동쪽 16km",
+          "body": "[산불] 정자 북동쪽 16km 방문 대상 1곳입니다. 도보 대피 불가 1곳은 별도 확인 부탁드립니다.",
+          "n_chars": 56,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "정자 북동쪽 16128m",
+          "unreachable": true,
+          "bucket": "fa_exceeds_budget",
+          "closing_window_min": null,
+          "walk_time_min": null,
+          "reason_ko": "보행 경로는 있으나 대피 시간 예산 초과",
+          "route_note": null
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 29,
+      "name": "정자 북쪽 11km",
+      "name_basis": "positional descriptor from nearest named refuge '정자' at 11338 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~11 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1107902.0229356184,
+        1829494.7844162046
+      ],
+      "directory": "29-정자-북쪽-11km",
+      "refuge_used_in_messages": "정자",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "정자 북쪽 11km",
+          "body": "[산불] 정자 북쪽 11km 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 정자입니다.",
+          "n_chars": 61,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "정자 북쪽 11km",
+          "body": "[산불] 정자 북쪽 11km 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 55,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "정자 북쪽 11338m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 535.9,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 30,
+      "name": "정자 북쪽 15km 30",
+      "name_basis": "positional descriptor from nearest named refuge '정자' at 14513 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~15 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 0,
+      "n_unreachable": 1,
+      "centroid_5179": [
+        1112216.0506319,
+        1831731.8747328497
+      ],
+      "directory": "30-정자-북쪽-15km-30",
+      "refuge_used_in_messages": "정자",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 16,
+        "max_sentence_chars": 15,
+        "longest": 13,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "정자 북쪽 15km 30",
+          "body": "[산불] 정자 북쪽 15km 30 안내 대상 1곳 중 1곳은 안전한 도보 대피로가 없습니다. 자체 이동을 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 79,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "정자 북쪽 15km 30",
+          "body": "[산불] 정자 북쪽 15km 30 방문 대상 1곳입니다. 도보 대피 불가 1곳은 별도 확인 부탁드립니다.",
+          "n_chars": 58,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "정자 북쪽 14513m",
+          "unreachable": true,
+          "bucket": "no_safe_route",
+          "closing_window_min": null,
+          "walk_time_min": null,
+          "reason_ko": "예산 내 안전한 보행 경로가 없음(우회 포함)",
+          "route_note": null
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 31,
+      "name": "문소루 북서쪽 14km 31",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 13756 m, bearing 북서; disambiguated by bearing (북서); disambiguated by distance (~14 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1098948.4358345645,
+        1829434.3762810992
+      ],
+      "directory": "31-문소루-북서쪽-14km-31",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북서쪽 14km 31",
+          "body": "[산불] 문소루 북서쪽 14km 31 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 문소루입니다.",
+          "n_chars": 67,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북서쪽 14km 31",
+          "body": "[산불] 문소루 북서쪽 14km 31 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 60,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북서쪽 13756m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 571.7,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 32,
+      "name": "문소루 북서쪽 14km 32",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 14314 m, bearing 북서; disambiguated by bearing (북서); disambiguated by distance (~14 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1094917.3516496485,
+        1826097.4895915526
+      ],
+      "directory": "32-문소루-북서쪽-14km-32",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북서쪽 14km 32",
+          "body": "[산불] 문소루 북서쪽 14km 32 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 문소루입니다.",
+          "n_chars": 67,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북서쪽 14km 32",
+          "body": "[산불] 문소루 북서쪽 14km 32 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 60,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북서쪽 14314m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 492.6,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 33,
+      "name": "문소루 일대",
+      "name_basis": "nearest named refuge '문소루' at 1336 m",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1105514.4104450375,
+        1818403.8005781025
+      ],
+      "directory": "33-문소루-일대",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 11,
+        "max_sentence_chars": 15,
+        "longest": 14,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 일대",
+          "body": "[산불] 문소루 일대 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 문소루입니다.",
+          "n_chars": 58,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 일대",
+          "body": "[산불] 문소루 일대 방문 대상 1곳입니다. 가장 급한 곳은 약 180분 남았습니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 74,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 서쪽 1336m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": 180.0,
+          "walk_time_min": 48.6,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 34,
+      "name": "정자 서쪽",
+      "name_basis": "positional descriptor from nearest named refuge '정자' at 3066 m, bearing 서",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1104381.5492461643,
+        1815648.585466928
+      ],
+      "directory": "34-정자-서쪽",
+      "refuge_used_in_messages": "정자",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 11,
+        "max_sentence_chars": 15,
+        "longest": 13,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "정자 서쪽",
+          "body": "[산불] 정자 서쪽 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 정자입니다.",
+          "n_chars": 56,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "정자 서쪽",
+          "body": "[산불] 정자 서쪽 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 50,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "정자 서쪽 3066m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 155.3,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 35,
+      "name": "문소루 서쪽 10km 35",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 10089 m, bearing 서; disambiguated by bearing (서); disambiguated by distance (~10 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1096981.5051589576,
+        1820359.4774334105
+      ],
+      "directory": "35-문소루-서쪽-10km-35",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 14,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 서쪽 10km 35",
+          "body": "[산불] 문소루 서쪽 10km 35 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 문소루입니다.",
+          "n_chars": 66,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 서쪽 10km 35",
+          "body": "[산불] 문소루 서쪽 10km 35 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 59,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 서쪽 10089m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 331.1,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 36,
+      "name": "정자 남서쪽",
+      "name_basis": "positional descriptor from nearest named refuge '정자' at 3747 m, bearing 남서",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1103938.5685598678,
+        1814958.4367882658
+      ],
+      "directory": "36-정자-남서쪽",
+      "refuge_used_in_messages": "정자",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 11,
+        "max_sentence_chars": 15,
+        "longest": 14,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "정자 남서쪽",
+          "body": "[산불] 정자 남서쪽 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 정자입니다.",
+          "n_chars": 57,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "정자 남서쪽",
+          "body": "[산불] 정자 남서쪽 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 51,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "정자 남서쪽 3747m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 308.3,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 37,
+      "name": "정자 북서쪽 4km 37",
+      "name_basis": "positional descriptor from nearest named refuge '정자' at 4449 m, bearing 북서; disambiguated by bearing (북서); disambiguated by distance (~4 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1102352.0167560768,
+        1814735.1387413715
+      ],
+      "directory": "37-정자-북서쪽-4km-37",
+      "refuge_used_in_messages": "정자",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 13,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "정자 북서쪽 4km 37",
+          "body": "[산불] 정자 북서쪽 4km 37 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 정자입니다.",
+          "n_chars": 64,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "정자 북서쪽 4km 37",
+          "body": "[산불] 정자 북서쪽 4km 37 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 58,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "정자 북서쪽 4449m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 267.5,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 38,
+      "name": "오곡리 경로당 북쪽",
+      "name_basis": "positional descriptor from nearest named refuge '오곡리 경로당' at 11209 m, bearing 북",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1095540.1191576517,
+        1820259.371022896
+      ],
+      "directory": "38-오곡리-경로당-북쪽",
+      "refuge_used_in_messages": "오곡리 경로당",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "오곡리 경로당 북쪽",
+          "body": "[산불] 오곡리 경로당 북쪽 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 오곡리 경로당입니다.",
+          "n_chars": 66,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "오곡리 경로당 북쪽",
+          "body": "[산불] 오곡리 경로당 북쪽 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 55,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "오곡리 경로당 북쪽 11209m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 345.8,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 39,
+      "name": "정자 북쪽 16km",
+      "name_basis": "positional descriptor from nearest named refuge '정자' at 15528 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~16 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 0,
+      "n_unreachable": 1,
+      "centroid_5179": [
+        1112510.04437891,
+        1832706.9158710951
+      ],
+      "directory": "39-정자-북쪽-16km",
+      "refuge_used_in_messages": "정자",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 16,
+        "max_sentence_chars": 15,
+        "longest": 12,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "정자 북쪽 16km",
+          "body": "[산불] 정자 북쪽 16km 안내 대상 1곳 중 1곳은 안전한 도보 대피로가 없습니다. 자체 이동을 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 76,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "정자 북쪽 16km",
+          "body": "[산불] 정자 북쪽 16km 방문 대상 1곳입니다. 도보 대피 불가 1곳은 별도 확인 부탁드립니다.",
+          "n_chars": 55,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "정자 북쪽 15528m",
+          "unreachable": true,
+          "bucket": "no_safe_route",
+          "closing_window_min": null,
+          "walk_time_min": null,
+          "reason_ko": "예산 내 안전한 보행 경로가 없음(우회 포함)",
+          "route_note": null
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 40,
+      "name": "문소루 서쪽 6km",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 5611 m, bearing 서; disambiguated by bearing (서); disambiguated by distance (~6 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1101383.7792106115,
+        1816799.753670938
+      ],
+      "directory": "40-문소루-서쪽-6km",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 서쪽 6km",
+          "body": "[산불] 문소루 서쪽 6km 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 문소루입니다.",
+          "n_chars": 62,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 서쪽 6km",
+          "body": "[산불] 문소루 서쪽 6km 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 55,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 서쪽 5611m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 347.3,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 41,
+      "name": "문소루 북쪽 6km",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 6234 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~6 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1105344.3317102361,
+        1824213.2150541744
+      ],
+      "directory": "41-문소루-북쪽-6km",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북쪽 6km",
+          "body": "[산불] 문소루 북쪽 6km 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 문소루입니다.",
+          "n_chars": 62,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북쪽 6km",
+          "body": "[산불] 문소루 북쪽 6km 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 55,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북쪽 6234m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 535.3,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 42,
+      "name": "문소루 북쪽 9km",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 9449 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~9 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1104481.853023717,
+        1827312.2285463824
+      ],
+      "directory": "42-문소루-북쪽-9km",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북쪽 9km",
+          "body": "[산불] 문소루 북쪽 9km 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 문소루입니다.",
+          "n_chars": 62,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북쪽 9km",
+          "body": "[산불] 문소루 북쪽 9km 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 55,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북쪽 9449m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 555.8,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 43,
+      "name": "문소루 북서쪽 7km",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 6652 m, bearing 북서; disambiguated by bearing (북서); disambiguated by distance (~7 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1102477.9126071045,
+        1823191.2035791301
+      ],
+      "directory": "43-문소루-북서쪽-7km",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북서쪽 7km",
+          "body": "[산불] 문소루 북서쪽 7km 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 문소루입니다.",
+          "n_chars": 63,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북서쪽 7km",
+          "body": "[산불] 문소루 북서쪽 7km 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 56,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북서쪽 6652m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 510.3,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 44,
+      "name": "정자 북동쪽 5km 44",
+      "name_basis": "positional descriptor from nearest named refuge '정자' at 5441 m, bearing 북동; disambiguated by bearing (북동); disambiguated by distance (~5 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1110053.6687468078,
+        1822688.6909786542
+      ],
+      "directory": "44-정자-북동쪽-5km-44",
+      "refuge_used_in_messages": "정자",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 13,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "정자 북동쪽 5km 44",
+          "body": "[산불] 정자 북동쪽 5km 44 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 정자입니다.",
+          "n_chars": 64,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "정자 북동쪽 5km 44",
+          "body": "[산불] 정자 북동쪽 5km 44 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 58,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "정자 북동쪽 5441m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 536.2,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 45,
+      "name": "정자 북동쪽 5km 45",
+      "name_basis": "positional descriptor from nearest named refuge '정자' at 4944 m, bearing 북동; disambiguated by bearing (북동); disambiguated by distance (~5 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1109349.7063461607,
+        1822537.492942548
+      ],
+      "directory": "45-정자-북동쪽-5km-45",
+      "refuge_used_in_messages": "정자",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 13,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "정자 북동쪽 5km 45",
+          "body": "[산불] 정자 북동쪽 5km 45 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 정자입니다.",
+          "n_chars": 64,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "정자 북동쪽 5km 45",
+          "body": "[산불] 정자 북동쪽 5km 45 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 58,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "정자 북동쪽 4944m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 513.7,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 46,
+      "name": "정자 북동쪽 18km",
+      "name_basis": "positional descriptor from nearest named refuge '정자' at 18326 m, bearing 북동; disambiguated by bearing (북동); disambiguated by distance (~18 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 0,
+      "n_unreachable": 1,
+      "centroid_5179": [
+        1117510.549562312,
+        1833197.4765947359
+      ],
+      "directory": "46-정자-북동쪽-18km",
+      "refuge_used_in_messages": "정자",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 16,
+        "max_sentence_chars": 15,
+        "longest": 12,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "정자 북동쪽 18km",
+          "body": "[산불] 정자 북동쪽 18km 안내 대상 1곳 중 1곳은 안전한 도보 대피로가 없습니다. 자체 이동을 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 77,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "정자 북동쪽 18km",
+          "body": "[산불] 정자 북동쪽 18km 방문 대상 1곳입니다. 도보 대피 불가 1곳은 별도 확인 부탁드립니다.",
+          "n_chars": 56,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "정자 북동쪽 18326m",
+          "unreachable": true,
+          "bucket": "fa_exceeds_budget",
+          "closing_window_min": null,
+          "walk_time_min": null,
+          "reason_ko": "보행 경로는 있으나 대피 시간 예산 초과",
+          "route_note": null
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 47,
+      "name": "문소루 북쪽 15km 47",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 15154 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~15 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1101779.462244897,
+        1832447.3998738397
+      ],
+      "directory": "47-문소루-북쪽-15km-47",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 14,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북쪽 15km 47",
+          "body": "[산불] 문소루 북쪽 15km 47 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 문소루입니다.",
+          "n_chars": 66,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북쪽 15km 47",
+          "body": "[산불] 문소루 북쪽 15km 47 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 59,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북쪽 15154m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 597.8,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 48,
+      "name": "문소루 북쪽 15km 48",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 14703 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~15 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1102454.5162485575,
+        1832195.896327627
+      ],
+      "directory": "48-문소루-북쪽-15km-48",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 14,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북쪽 15km 48",
+          "body": "[산불] 문소루 북쪽 15km 48 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 문소루입니다.",
+          "n_chars": 66,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북쪽 15km 48",
+          "body": "[산불] 문소루 북쪽 15km 48 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 59,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북쪽 14703m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 576.4,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 49,
+      "name": "문소루 북서쪽 20km",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 19598 m, bearing 북서; disambiguated by bearing (북서); disambiguated by distance (~20 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 0,
+      "n_unreachable": 1,
+      "centroid_5179": [
+        1094574.152022033,
+        1833453.7367189396
+      ],
+      "directory": "49-문소루-북서쪽-20km",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 16,
+        "max_sentence_chars": 15,
+        "longest": 12,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북서쪽 20km",
+          "body": "[산불] 문소루 북서쪽 20km 안내 대상 1곳 중 1곳은 안전한 도보 대피로가 없습니다. 자체 이동을 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 78,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북서쪽 20km",
+          "body": "[산불] 문소루 북서쪽 20km 방문 대상 1곳입니다. 도보 대피 불가 1곳은 별도 확인 부탁드립니다.",
+          "n_chars": 57,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북서쪽 19598m",
+          "unreachable": true,
+          "bucket": "no_safe_route",
+          "closing_window_min": null,
+          "walk_time_min": null,
+          "reason_ko": "예산 내 안전한 보행 경로가 없음(우회 포함)",
+          "route_note": null
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 50,
+      "name": "문소루 북서쪽 11km 50",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 10836 m, bearing 북서; disambiguated by bearing (북서); disambiguated by distance (~11 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1100628.8804800173,
+        1827046.5407191606
+      ],
+      "directory": "50-문소루-북서쪽-11km-50",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북서쪽 11km 50",
+          "body": "[산불] 문소루 북서쪽 11km 50 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 문소루입니다.",
+          "n_chars": 67,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북서쪽 11km 50",
+          "body": "[산불] 문소루 북서쪽 11km 50 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 60,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북서쪽 10836m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 479.6,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 51,
+      "name": "문소루 북서쪽 15km 51",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 15401 m, bearing 북서; disambiguated by bearing (북서); disambiguated by distance (~15 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1094826.0561357294,
+        1827810.7366025758
+      ],
+      "directory": "51-문소루-북서쪽-15km-51",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북서쪽 15km 51",
+          "body": "[산불] 문소루 북서쪽 15km 51 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 문소루입니다.",
+          "n_chars": 67,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북서쪽 15km 51",
+          "body": "[산불] 문소루 북서쪽 15km 51 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 60,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북서쪽 15401m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 550.1,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 52,
+      "name": "정자 북쪽 15km 52",
+      "name_basis": "positional descriptor from nearest named refuge '정자' at 14702 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~15 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1103847.9002144942,
+        1832556.6602479066
+      ],
+      "directory": "52-정자-북쪽-15km-52",
+      "refuge_used_in_messages": "정자",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 13,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "정자 북쪽 15km 52",
+          "body": "[산불] 정자 북쪽 15km 52 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 정자입니다.",
+          "n_chars": 64,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "정자 북쪽 15km 52",
+          "body": "[산불] 정자 북쪽 15km 52 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 58,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "정자 북쪽 14702m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 563.1,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 53,
+      "name": "정자 북쪽 12km 53",
+      "name_basis": "positional descriptor from nearest named refuge '정자' at 12215 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~12 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1106465.6446894587,
+        1830397.5576061653
+      ],
+      "directory": "53-정자-북쪽-12km-53",
+      "refuge_used_in_messages": "정자",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 13,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "정자 북쪽 12km 53",
+          "body": "[산불] 정자 북쪽 12km 53 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 정자입니다.",
+          "n_chars": 64,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "정자 북쪽 12km 53",
+          "body": "[산불] 정자 북쪽 12km 53 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 58,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "정자 북쪽 12215m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 586.4,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 54,
+      "name": "문소루 북서쪽 11km 54",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 10847 m, bearing 북서; disambiguated by bearing (북서); disambiguated by distance (~11 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1099704.5053706456,
+        1826339.50455584
+      ],
+      "directory": "54-문소루-북서쪽-11km-54",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북서쪽 11km 54",
+          "body": "[산불] 문소루 북서쪽 11km 54 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 문소루입니다.",
+          "n_chars": 67,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북서쪽 11km 54",
+          "body": "[산불] 문소루 북서쪽 11km 54 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 60,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북서쪽 10847m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 509.8,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 55,
+      "name": "문소루 북서쪽 8km 55",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 8398 m, bearing 북서; disambiguated by bearing (북서); disambiguated by distance (~8 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1102358.7912030926,
+        1825269.1792270935
+      ],
+      "directory": "55-문소루-북서쪽-8km-55",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 14,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북서쪽 8km 55",
+          "body": "[산불] 문소루 북서쪽 8km 55 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 문소루입니다.",
+          "n_chars": 66,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북서쪽 8km 55",
+          "body": "[산불] 문소루 북서쪽 8km 55 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 59,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북서쪽 8398m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 593.7,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 56,
+      "name": "문소루 북서쪽 8km 56",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 7532 m, bearing 북서; disambiguated by bearing (북서); disambiguated by distance (~8 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1102268.1611132945,
+        1824153.615723579
+      ],
+      "directory": "56-문소루-북서쪽-8km-56",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 14,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북서쪽 8km 56",
+          "body": "[산불] 문소루 북서쪽 8km 56 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 문소루입니다.",
+          "n_chars": 66,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북서쪽 8km 56",
+          "body": "[산불] 문소루 북서쪽 8km 56 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 59,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북서쪽 7532m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 486.3,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 57,
+      "name": "문소루 북서쪽 15km 57",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 14525 m, bearing 북서; disambiguated by bearing (북서); disambiguated by distance (~15 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1095743.8158476292,
+        1827546.7603230623
+      ],
+      "directory": "57-문소루-북서쪽-15km-57",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북서쪽 15km 57",
+          "body": "[산불] 문소루 북서쪽 15km 57 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 문소루입니다.",
+          "n_chars": 67,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북서쪽 15km 57",
+          "body": "[산불] 문소루 북서쪽 15km 57 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 60,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북서쪽 14525m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 532.8,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 58,
+      "name": "문소루 북서쪽 18km 58",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 17798 m, bearing 북서; disambiguated by bearing (북서); disambiguated by distance (~18 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 0,
+      "n_unreachable": 1,
+      "centroid_5179": [
+        1096680.0254920893,
+        1832780.775149413
+      ],
+      "directory": "58-문소루-북서쪽-18km-58",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 16,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북서쪽 18km 58",
+          "body": "[산불] 문소루 북서쪽 18km 58 안내 대상 1곳 중 1곳은 안전한 도보 대피로가 없습니다. 자체 이동을 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 81,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북서쪽 18km 58",
+          "body": "[산불] 문소루 북서쪽 18km 58 방문 대상 1곳입니다. 도보 대피 불가 1곳은 별도 확인 부탁드립니다.",
+          "n_chars": 60,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북서쪽 17798m",
+          "unreachable": true,
+          "bucket": "no_safe_route",
+          "closing_window_min": null,
+          "walk_time_min": null,
+          "reason_ko": "예산 내 안전한 보행 경로가 없음(우회 포함)",
+          "route_note": null
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 59,
+      "name": "문소루 북서쪽 18km 59",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 18299 m, bearing 북서; disambiguated by bearing (북서); disambiguated by distance (~18 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 0,
+      "n_unreachable": 1,
+      "centroid_5179": [
+        1095888.4255104503,
+        1832828.2795220509
+      ],
+      "directory": "59-문소루-북서쪽-18km-59",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 16,
+        "max_sentence_chars": 15,
+        "longest": 15,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북서쪽 18km 59",
+          "body": "[산불] 문소루 북서쪽 18km 59 안내 대상 1곳 중 1곳은 안전한 도보 대피로가 없습니다. 자체 이동을 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 81,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북서쪽 18km 59",
+          "body": "[산불] 문소루 북서쪽 18km 59 방문 대상 1곳입니다. 도보 대피 불가 1곳은 별도 확인 부탁드립니다.",
+          "n_chars": 60,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북서쪽 18299m",
+          "unreachable": true,
+          "bucket": "no_safe_route",
+          "closing_window_min": null,
+          "walk_time_min": null,
+          "reason_ko": "예산 내 안전한 보행 경로가 없음(우회 포함)",
+          "route_note": null
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 60,
+      "name": "문소루 북서쪽 17km",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 16816 m, bearing 북서; disambiguated by bearing (북서); disambiguated by distance (~17 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 0,
+      "n_unreachable": 1,
+      "centroid_5179": [
+        1098164.8898223445,
+        1832571.978633521
+      ],
+      "directory": "60-문소루-북서쪽-17km",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 16,
+        "max_sentence_chars": 15,
+        "longest": 12,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북서쪽 17km",
+          "body": "[산불] 문소루 북서쪽 17km 안내 대상 1곳 중 1곳은 안전한 도보 대피로가 없습니다. 자체 이동을 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 78,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북서쪽 17km",
+          "body": "[산불] 문소루 북서쪽 17km 방문 대상 1곳입니다. 도보 대피 불가 1곳은 별도 확인 부탁드립니다.",
+          "n_chars": 57,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북서쪽 16816m",
+          "unreachable": true,
+          "bucket": "no_safe_route",
+          "closing_window_min": null,
+          "walk_time_min": null,
+          "reason_ko": "예산 내 안전한 보행 경로가 없음(우회 포함)",
+          "route_note": null
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 61,
+      "name": "정자 북쪽 9km 61",
+      "name_basis": "positional descriptor from nearest named refuge '정자' at 9425 m, bearing 북; disambiguated by bearing (북); disambiguated by distance (~9 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1109896.5928018186,
+        1827158.8683600335
+      ],
+      "directory": "61-정자-북쪽-9km-61",
+      "refuge_used_in_messages": "정자",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 12,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "정자 북쪽 9km 61",
+          "body": "[산불] 정자 북쪽 9km 61 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 정자입니다.",
+          "n_chars": 63,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "정자 북쪽 9km 61",
+          "body": "[산불] 정자 북쪽 9km 61 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 57,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "정자 북쪽 9425m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 534.7,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 62,
+      "name": "문소루 북서쪽 19km",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 18913 m, bearing 북서; disambiguated by bearing (북서); disambiguated by distance (~19 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 0,
+      "n_unreachable": 1,
+      "centroid_5179": [
+        1096098.1114901495,
+        1833733.4684898383
+      ],
+      "directory": "62-문소루-북서쪽-19km",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 16,
+        "max_sentence_chars": 15,
+        "longest": 12,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 북서쪽 19km",
+          "body": "[산불] 문소루 북서쪽 19km 안내 대상 1곳 중 1곳은 안전한 도보 대피로가 없습니다. 자체 이동을 삼가시고 소방 지시를 따라 주십시오.",
+          "n_chars": 78,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 북서쪽 19km",
+          "body": "[산불] 문소루 북서쪽 19km 방문 대상 1곳입니다. 도보 대피 불가 1곳은 별도 확인 부탁드립니다.",
+          "n_chars": 57,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 북서쪽 18913m",
+          "unreachable": true,
+          "bucket": "no_safe_route",
+          "closing_window_min": null,
+          "walk_time_min": null,
+          "reason_ko": "예산 내 안전한 보행 경로가 없음(우회 포함)",
+          "route_note": null
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 63,
+      "name": "정자 북서쪽 5km",
+      "name_basis": "positional descriptor from nearest named refuge '정자' at 4738 m, bearing 북서; disambiguated by bearing (북서); disambiguated by distance (~5 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1102688.0012549758,
+        1815275.9814606705
+      ],
+      "directory": "63-정자-북서쪽-5km",
+      "refuge_used_in_messages": "정자",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 11,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "정자 북서쪽 5km",
+          "body": "[산불] 정자 북서쪽 5km 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 정자입니다.",
+          "n_chars": 61,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "정자 북서쪽 5km",
+          "body": "[산불] 정자 북서쪽 5km 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 55,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "정자 북서쪽 4738m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 278.6,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 64,
+      "name": "문소루 서쪽 10km 64",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 10494 m, bearing 서; disambiguated by bearing (서); disambiguated by distance (~10 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1096659.8458380143,
+        1820754.184605193
+      ],
+      "directory": "64-문소루-서쪽-10km-64",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 14,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 서쪽 10km 64",
+          "body": "[산불] 문소루 서쪽 10km 64 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 문소루입니다.",
+          "n_chars": 66,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 서쪽 10km 64",
+          "body": "[산불] 문소루 서쪽 10km 64 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 59,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 서쪽 10494m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 346.0,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    },
+    {
+      "cluster_id": 65,
+      "name": "문소루 서쪽 11km 65",
+      "name_basis": "positional descriptor from nearest named refuge '문소루' at 11173 m, bearing 서; disambiguated by bearing (서); disambiguated by distance (~11 km)",
+      "is_administrative_village": false,
+      "grouping_note": "DBSCAN 공간 군집(eps=500 m). 행정리가 아닙니다.",
+      "n_points": 1,
+      "n_dispatch": 1,
+      "n_unreachable": 0,
+      "centroid_5179": [
+        1096318.5354387134,
+        1821952.1660604598
+      ],
+      "directory": "65-문소루-서쪽-11km-65",
+      "refuge_used_in_messages": "문소루",
+      "pdf": {
+        "ok": false,
+        "engine": null,
+        "reason": "--no-pdf: HTML only"
+      },
+      "page_budget": {
+        "ok": null,
+        "message": "not measured (--no-pdf)"
+      },
+      "broadcast_check": {
+        "n_lines": 13,
+        "max_sentence_chars": 15,
+        "longest": 14,
+        "violations": [],
+        "ok": true
+      },
+      "sms": [
+        {
+          "recipient_role": "가족",
+          "village": "문소루 서쪽 11km 65",
+          "body": "[산불] 문소루 서쪽 11km 65 도보 대피 안내 1곳입니다. 안전한 곳에서 대기해 주십시오. 대피처는 문소루입니다.",
+          "n_chars": 66,
+          "within_limit": true,
+          "max_chars": 90
+        },
+        {
+          "recipient_role": "복지사",
+          "village": "문소루 서쪽 11km 65",
+          "body": "[산불] 문소루 서쪽 11km 65 방문 대상 1곳입니다. 도보 대피 불가 0곳은 별도 확인 부탁드립니다.",
+          "n_chars": 59,
+          "within_limit": true,
+          "max_chars": 90
+        }
+      ],
+      "points": [
+        {
+          "label": "문소루 서쪽 11173m",
+          "unreachable": false,
+          "bucket": "naive_into_FA_safe",
+          "closing_window_min": null,
+          "walk_time_min": 376.0,
+          "reason_ko": null,
+          "route_note": "최단 경로는 화재 통과 — 우회 경로 필요"
+        }
+      ],
+      "formats_written": [
+        "dispatch_a4.html",
+        "broadcast_script.txt",
+        "sms_drafts.json",
+        "sms_drafts.txt"
+      ]
+    }
+  ],
+  "n_villages": 65,
+  "all_three_formats_per_village": true
+}

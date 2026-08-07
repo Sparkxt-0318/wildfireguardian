@@ -1,0 +1,9829 @@
+{
+ "schema_version": 1,
+ "purpose": "geometry for the operator screen. NOT an operational artifact: the sheets, scripts and drafts are coordinate-free by requirement and stay that way.",
+ "region": "uiseong_andong_2025",
+ "scope": {
+  "mode": "replay",
+  "mode_banner_ko": "■ 재생 모드 ■ 과거 화재의 화점 기록을 시간 순으로 재생한 것이며, 지금 발생 중인 화재가 아닙니다.",
+  "trigger_source": "replay",
+  "trigger_at": "",
+  "trigger_at_meaning": "the satellite overpass whose batch fired the trigger",
+  "detection": "real-time (FIRMS NRT)",
+  "detection_line_ko": "화점 탐지: 실시간 (FIRMS NRT)",
+  "weather": "NOT real-time",
+  "weather_basis": "2025-03-22 05:39 UTC",
+  "weather_line_ko": "기상 자료: 2025-03-22 05:39 UTC 기준 (ERA5는 약 5일 지연 발행)",
+  "era5_publication_lag_days": 5,
+  "scope_ko": "본 산출물은 「실시간 탐지 + 사전 계산 위험면 기반 결정」입니다. 「실시간 예보 기반 예측」이 아닙니다.",
+  "scope_en": "REAL-TIME DETECTION over a PRE-COMPUTED risk surface. This is NOT a real-time forecast: ERA5 reanalysis publishes on a ~5-day lag, so no hazard field exists for today.",
+  "hazard_field": "data/processed/hazard_uiseong_andong_2025.npz",
+  "hazard_field_is_precomputed": true,
+  "region": "uiseong_andong_2025",
+  "coverage_caveat_ko": "영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 산출되었습니다. 나머지 3분의 2에 있는 출발지들의 거동은 측정되지 않았으며, 편향의 방향도 알려져 있지 않습니다. 지역 간 비교에서 영덕 행을 인용할 때는 이 열을 반드시 함께 제시하십시오."
+ },
+ "trigger_source": "replay",
+ "field_applicability": {
+  "verdict": "IN_SCOPE",
+  "hotspot_to_field_core_km": 2.468,
+  "hotspot_to_manifest_ignition_km": 7.942,
+  "radius_km": 15.0,
+  "anchor": "field t=0 core centroid (p >= 0.5)",
+  "field_core_lonlat": [
+   128.63227183973575,
+   36.355624885903545
+  ],
+  "manifest_ignition_lonlat": [
+   128.7,
+   36.35
+  ],
+  "statement_ko": "트리거 화점은 사전 계산 위험면의 초기 화재 핵심에서 2.5 km 떨어져 있습니다(기준 15 km 이내).",
+  "note": "A LABEL, never a filter. Nothing is dropped on account of it: suppressing a real detection is worse than publishing a stamped one."
+ },
+ "hazard": {
+  "npz_path": "data/processed/hazard_uiseong_andong_2025.npz",
+  "npz_sha256": "4016c2e6ef8e27eb12310a816a416b6d1a6bf54d0187d6ac8fbc4ad4f747e3cd",
+  "grid_extent_5179": [
+   1080340.813427112,
+   1795018.0445213197,
+   1144340.813427112,
+   1862518.0445213197
+  ],
+  "cell_size_m": 500.0,
+  "nrows": 135,
+  "ncols": 128,
+  "times_min": [
+   0.0,
+   180.0,
+   360.0,
+   540.0,
+   720.0
+  ],
+  "cells_ge_0.5_per_slice": [
+   53,
+   80,
+   101,
+   121,
+   131
+  ]
+ },
+ "counts": {
+  "naive_into_FA_safe": 91,
+  "no_safe_route": 12,
+  "both_safe": 263,
+  "both_enter": 0,
+  "naive_unreachable": 0,
+  "fa_exceeds_budget": 2,
+  "unclassified": 0
+ },
+ "responder_side": {
+  "n_depot_pois": 0,
+  "available": false,
+  "computed": false,
+  "status_ko": "이 지역은 walk bbox(919 km²) 내에 OSM에 매핑된 소방서가 없어 구조자 측 산출이 불가합니다. 더 넓은 3,926 km² 범위에는 6곳",
+  "phrasing_rule": "NEVER write 'this region has no fire stations'. The statement is that no amenity=fire_station is MAPPED IN OSM inside the ignition-centred walk bbox; the wider manifest bbox contains six. HANDOFF_ROUND3.md rule 11.",
+  "note": "The 459 series is RESIDENT-SIDE for every region, Yeongdeok included: it contrasts a fire-blind walking route with a future-aware one and never dispatches a vehicle. No responder route exists to draw, anywhere."
+ },
+ "field_core_lonlat": [
+  128.63227183973575,
+  36.355624885903545
+ ],
+ "refuges": [
+  {
+   "name": "오상1리 마을회관",
+   "x": 1112339.7,
+   "y": 1814182.7
+  },
+  {
+   "name": "nan",
+   "x": 1113001.9,
+   "y": 1804263.7
+  },
+  {
+   "name": "정자",
+   "x": 1115436.7,
+   "y": 1809844.6
+  },
+  {
+   "name": "정자",
+   "x": 1099292.1,
+   "y": 1806205.1
+  },
+  {
+   "name": "문소루",
+   "x": 1106827.9,
+   "y": 1818158.8
+  },
+  {
+   "name": "조문국 화장실",
+   "x": 1105737.5,
+   "y": 1809109.1
+  },
+  {
+   "name": "nan",
+   "x": 1105697.2,
+   "y": 1809024.6
+  },
+  {
+   "name": "정자",
+   "x": 1106988.0,
+   "y": 1818193.7
+  },
+  {
+   "name": "정자",
+   "x": 1104886.0,
+   "y": 1811078.2
+  },
+  {
+   "name": "정자",
+   "x": 1095154.5,
+   "y": 1805130.6
+  },
+  {
+   "name": "정자",
+   "x": 1109240.5,
+   "y": 1807366.1
+  },
+  {
+   "name": "노행2리 경로당",
+   "x": 1101284.2,
+   "y": 1801869.1
+  },
+  {
+   "name": "정3리 경로당",
+   "x": 1095764.9,
+   "y": 1806882.9
+  },
+  {
+   "name": "하곡리 경로당",
+   "x": 1097413.2,
+   "y": 1805168.3
+  },
+  {
+   "name": "하곡리(속골) 경로당",
+   "x": 1098156.3,
+   "y": 1804287.9
+  },
+  {
+   "name": "용대리 경로당",
+   "x": 1098959.6,
+   "y": 1804427.7
+  },
+  {
+   "name": "상곡리 경로당",
+   "x": 1099319.3,
+   "y": 1806158.0
+  },
+  {
+   "name": "광현1리 경로당",
+   "x": 1101524.8,
+   "y": 1806096.6
+  },
+  {
+   "name": "광현2리 경로당",
+   "x": 1100717.6,
+   "y": 1806738.4
+  },
+  {
+   "name": "광현3리 경로당",
+   "x": 1099895.4,
+   "y": 1805067.6
+  },
+  {
+   "name": "대북1리 경로당",
+   "x": 1095629.4,
+   "y": 1808514.7
+  },
+  {
+   "name": "대북2리 경로당",
+   "x": 1095132.0,
+   "y": 1807416.9
+  },
+  {
+   "name": "오곡리 경로당",
+   "x": 1097300.0,
+   "y": 1809189.8
+  },
+  {
+   "name": "정1리 경로당",
+   "x": 1096180.6,
+   "y": 1806087.2
+  },
+  {
+   "name": "정2리 경로당",
+   "x": 1096081.0,
+   "y": 1806356.5
+  },
+  {
+   "name": "군위 생활체육공원",
+   "x": 1095429.6,
+   "y": 1805302.6
+  },
+  {
+   "name": "nan",
+   "x": 1118882.4,
+   "y": 1807514.4
+  },
+  {
+   "name": "조문국 사적지",
+   "x": 1105586.9,
+   "y": 1809196.5
+  },
+  {
+   "name": "nan",
+   "x": 1106899.9,
+   "y": 1818111.3
+  },
+  {
+   "name": "정자",
+   "x": 1107274.6,
+   "y": 1816664.2
+  },
+  {
+   "name": "nan",
+   "x": 1106926.4,
+   "y": 1817670.3
+  },
+  {
+   "name": "nan",
+   "x": 1106975.1,
+   "y": 1817343.3
+  },
+  {
+   "name": "군위힐링도시숲",
+   "x": 1095192.6,
+   "y": 1805081.6
+  },
+  {
+   "name": "nan",
+   "x": 1109356.8,
+   "y": 1807328.1
+  }
+ ],
+ "origins": [
+  {
+   "x": 1104897.4,
+   "y": 1817069.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1096714.7,
+   "y": 1821586.4,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1096375.2,
+   "y": 1808354.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1116538.8,
+   "y": 1823948.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1099165.2,
+   "y": 1804593.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1103712.2,
+   "y": 1831809.1,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1101668.5,
+   "y": 1834058.0,
+   "bucket": "no_safe_route"
+  },
+  {
+   "x": 1102624.9,
+   "y": 1826385.2,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1102350.6,
+   "y": 1829110.9,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1103525.8,
+   "y": 1829460.2,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1095978.1,
+   "y": 1830495.9,
+   "bucket": "no_safe_route"
+  },
+  {
+   "x": 1108779.7,
+   "y": 1827100.6,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1105278.1,
+   "y": 1825513.2,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1108615.4,
+   "y": 1829961.6,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1105934.3,
+   "y": 1831693.0,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1106894.9,
+   "y": 1818732.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1096458.2,
+   "y": 1811155.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1105959.3,
+   "y": 1827970.7,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1095937.0,
+   "y": 1803451.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1114737.2,
+   "y": 1832338.5,
+   "bucket": "fa_exceeds_budget"
+  },
+  {
+   "x": 1118436.1,
+   "y": 1823044.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1113318.4,
+   "y": 1825687.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1110915.3,
+   "y": 1826531.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1117156.2,
+   "y": 1822588.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1117600.8,
+   "y": 1831386.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1095656.7,
+   "y": 1801053.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1112902.0,
+   "y": 1806112.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1113426.0,
+   "y": 1814327.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1107805.9,
+   "y": 1817615.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1111176.9,
+   "y": 1819354.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1103374.8,
+   "y": 1809164.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1105783.3,
+   "y": 1809945.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1113347.8,
+   "y": 1825882.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1095663.3,
+   "y": 1801052.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1096055.2,
+   "y": 1801801.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1095731.1,
+   "y": 1802631.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1096487.4,
+   "y": 1811026.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1109985.7,
+   "y": 1804001.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1110798.6,
+   "y": 1803955.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1110575.5,
+   "y": 1804120.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1106129.3,
+   "y": 1807556.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1111858.8,
+   "y": 1806911.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1109956.6,
+   "y": 1805896.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1105547.1,
+   "y": 1801391.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1106142.4,
+   "y": 1807634.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1106096.2,
+   "y": 1807389.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1106423.1,
+   "y": 1806776.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1108303.8,
+   "y": 1817794.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1095869.6,
+   "y": 1804907.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1096188.3,
+   "y": 1804765.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1117185.6,
+   "y": 1804686.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1116722.8,
+   "y": 1805143.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1116458.0,
+   "y": 1806051.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1111510.7,
+   "y": 1803714.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1095887.9,
+   "y": 1805341.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1107564.0,
+   "y": 1826405.9,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1107268.7,
+   "y": 1825938.4,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1107875.5,
+   "y": 1826759.5,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1108143.6,
+   "y": 1826499.4,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1108506.7,
+   "y": 1826707.6,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1107902.0,
+   "y": 1829494.8,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1108536.2,
+   "y": 1829794.4,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1108831.1,
+   "y": 1829796.8,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1108897.8,
+   "y": 1830115.9,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1109153.5,
+   "y": 1829877.4,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1110735.2,
+   "y": 1831202.4,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1109796.6,
+   "y": 1829767.0,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1109781.8,
+   "y": 1830093.9,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1110561.5,
+   "y": 1831014.4,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1112216.1,
+   "y": 1831731.9,
+   "bucket": "no_safe_route"
+  },
+  {
+   "x": 1097548.5,
+   "y": 1812563.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1108039.0,
+   "y": 1805616.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1101162.5,
+   "y": 1802804.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1104199.7,
+   "y": 1830292.4,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1107169.3,
+   "y": 1808844.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1115552.7,
+   "y": 1812861.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1098948.4,
+   "y": 1829434.4,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1094917.4,
+   "y": 1826097.5,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1107551.9,
+   "y": 1816996.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1109136.7,
+   "y": 1814836.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1111683.7,
+   "y": 1814035.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1112999.0,
+   "y": 1804178.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1107731.2,
+   "y": 1805706.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1116489.4,
+   "y": 1817126.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1116590.6,
+   "y": 1816319.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1117931.4,
+   "y": 1816741.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1116566.1,
+   "y": 1816371.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1116047.9,
+   "y": 1816307.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1116641.0,
+   "y": 1815922.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1116402.9,
+   "y": 1815728.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1116763.7,
+   "y": 1815274.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1117432.5,
+   "y": 1814813.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1117470.7,
+   "y": 1814701.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1117371.0,
+   "y": 1814692.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1107440.2,
+   "y": 1817383.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1107160.4,
+   "y": 1818134.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1107259.7,
+   "y": 1818574.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1096259.6,
+   "y": 1804746.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1095746.4,
+   "y": 1804307.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1095745.5,
+   "y": 1804568.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1095403.5,
+   "y": 1805192.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1095961.2,
+   "y": 1805951.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1096204.9,
+   "y": 1804619.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1095391.0,
+   "y": 1805357.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1096377.8,
+   "y": 1805561.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1096831.9,
+   "y": 1805420.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1095485.5,
+   "y": 1803544.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1096256.1,
+   "y": 1806177.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1096147.0,
+   "y": 1806506.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1095897.4,
+   "y": 1806822.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1100939.5,
+   "y": 1831712.1,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1103349.5,
+   "y": 1831784.8,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1106616.5,
+   "y": 1806711.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1107244.2,
+   "y": 1807639.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1106784.9,
+   "y": 1807151.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1105773.6,
+   "y": 1807811.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1105255.5,
+   "y": 1808229.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1105625.2,
+   "y": 1808194.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1106420.5,
+   "y": 1818822.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1096888.5,
+   "y": 1810290.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1096824.4,
+   "y": 1810341.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1095226.8,
+   "y": 1809129.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1106115.2,
+   "y": 1808147.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1106173.0,
+   "y": 1804695.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1111021.7,
+   "y": 1814352.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1110176.3,
+   "y": 1815847.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1110743.5,
+   "y": 1815584.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1104710.4,
+   "y": 1817364.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1105016.9,
+   "y": 1817377.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1104778.0,
+   "y": 1816800.1,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1105514.4,
+   "y": 1818403.8,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1105822.7,
+   "y": 1817711.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1106150.9,
+   "y": 1804905.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1107731.3,
+   "y": 1818558.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1107459.6,
+   "y": 1817954.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1107899.9,
+   "y": 1816572.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1107745.0,
+   "y": 1816923.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1108210.8,
+   "y": 1816839.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1107663.9,
+   "y": 1817182.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1107594.5,
+   "y": 1818124.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1107725.3,
+   "y": 1816478.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1106178.3,
+   "y": 1819534.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1106239.3,
+   "y": 1818954.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1108393.1,
+   "y": 1817740.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1096168.4,
+   "y": 1812203.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1096318.5,
+   "y": 1810783.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1098638.8,
+   "y": 1812923.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1107000.9,
+   "y": 1818487.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1108200.9,
+   "y": 1817708.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1104381.5,
+   "y": 1815648.6,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1099449.3,
+   "y": 1810480.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1101611.4,
+   "y": 1809679.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1100292.9,
+   "y": 1813552.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1105224.4,
+   "y": 1810161.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1101454.4,
+   "y": 1811423.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1097316.9,
+   "y": 1817359.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1096981.5,
+   "y": 1820359.5,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1103510.4,
+   "y": 1814619.8,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1098535.5,
+   "y": 1812977.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1103676.3,
+   "y": 1808630.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1103656.5,
+   "y": 1808278.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1107847.8,
+   "y": 1805632.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1108439.4,
+   "y": 1806311.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1109212.4,
+   "y": 1804187.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1104669.9,
+   "y": 1811704.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1095806.8,
+   "y": 1810709.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1095638.0,
+   "y": 1813001.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1105867.7,
+   "y": 1809523.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1104779.5,
+   "y": 1825869.9,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1104907.0,
+   "y": 1816406.2,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1094534.7,
+   "y": 1811060.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1096017.2,
+   "y": 1811282.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1095808.9,
+   "y": 1812822.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1103245.5,
+   "y": 1814340.2,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1103938.6,
+   "y": 1814958.4,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1102352.0,
+   "y": 1814735.1,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1099229.2,
+   "y": 1812731.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1107988.0,
+   "y": 1815481.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1096865.9,
+   "y": 1811927.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1098833.0,
+   "y": 1811354.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1099997.4,
+   "y": 1812709.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1096891.1,
+   "y": 1809477.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1107742.5,
+   "y": 1816635.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1107403.4,
+   "y": 1817869.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1113341.7,
+   "y": 1814082.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1105449.4,
+   "y": 1809043.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1098428.8,
+   "y": 1831463.1,
+   "bucket": "no_safe_route"
+  },
+  {
+   "x": 1119746.7,
+   "y": 1826051.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1113663.9,
+   "y": 1802718.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1097868.1,
+   "y": 1805350.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1095873.9,
+   "y": 1803282.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1097139.9,
+   "y": 1803634.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1097841.4,
+   "y": 1805194.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1098599.0,
+   "y": 1811562.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1098896.8,
+   "y": 1810771.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1100516.2,
+   "y": 1810161.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1101592.5,
+   "y": 1809718.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1099987.0,
+   "y": 1810223.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1101542.8,
+   "y": 1808606.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1109804.1,
+   "y": 1812157.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1111840.9,
+   "y": 1811773.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1112304.5,
+   "y": 1819076.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1095540.1,
+   "y": 1820259.4,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1096264.1,
+   "y": 1806120.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1112510.0,
+   "y": 1832706.9,
+   "bucket": "no_safe_route"
+  },
+  {
+   "x": 1118051.7,
+   "y": 1805286.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1107356.2,
+   "y": 1811650.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1111512.4,
+   "y": 1819642.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1108266.6,
+   "y": 1819824.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1118439.9,
+   "y": 1822922.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1117057.2,
+   "y": 1822662.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1116771.2,
+   "y": 1822658.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1096166.6,
+   "y": 1804451.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1107269.0,
+   "y": 1816675.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1104907.9,
+   "y": 1813197.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1105552.8,
+   "y": 1812728.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1101383.8,
+   "y": 1816799.8,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1107744.4,
+   "y": 1816240.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1105344.3,
+   "y": 1824213.2,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1105809.2,
+   "y": 1818524.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1103649.2,
+   "y": 1809223.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1102592.4,
+   "y": 1808360.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1114039.8,
+   "y": 1819642.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1115751.9,
+   "y": 1820883.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1116590.2,
+   "y": 1820460.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1117752.6,
+   "y": 1821267.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1104481.9,
+   "y": 1827312.2,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1105576.5,
+   "y": 1828105.5,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1105025.9,
+   "y": 1826935.9,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1105302.3,
+   "y": 1827310.4,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1104477.2,
+   "y": 1830355.3,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1103897.8,
+   "y": 1830227.0,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1104930.6,
+   "y": 1830355.0,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1104395.9,
+   "y": 1830766.2,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1104977.9,
+   "y": 1830160.7,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1105200.0,
+   "y": 1830962.9,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1105210.2,
+   "y": 1830214.3,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1105164.6,
+   "y": 1830999.2,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1115519.9,
+   "y": 1827393.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1100784.4,
+   "y": 1823737.0,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1102477.9,
+   "y": 1823191.2,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1104224.7,
+   "y": 1821930.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1095023.2,
+   "y": 1818977.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1113174.0,
+   "y": 1819119.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1116973.2,
+   "y": 1822691.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1094792.6,
+   "y": 1808310.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1095465.8,
+   "y": 1802625.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1095685.8,
+   "y": 1806285.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1094408.1,
+   "y": 1808315.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1095151.7,
+   "y": 1802955.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1094928.6,
+   "y": 1802439.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1094600.3,
+   "y": 1805722.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1094784.3,
+   "y": 1805831.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1095605.0,
+   "y": 1804307.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1107445.8,
+   "y": 1826366.6,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1110053.7,
+   "y": 1822688.7,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1109349.7,
+   "y": 1822537.5,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1097914.5,
+   "y": 1820532.6,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1097385.9,
+   "y": 1804307.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1101058.9,
+   "y": 1802821.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1099869.6,
+   "y": 1805072.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1098058.5,
+   "y": 1804594.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1108517.0,
+   "y": 1818639.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1108792.2,
+   "y": 1819037.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1100515.4,
+   "y": 1813697.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1100404.0,
+   "y": 1823939.4,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1109241.6,
+   "y": 1809850.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1108970.8,
+   "y": 1809760.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1109571.0,
+   "y": 1810599.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1109982.2,
+   "y": 1810298.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1107619.7,
+   "y": 1809961.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1108470.2,
+   "y": 1804829.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1108425.2,
+   "y": 1804771.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1108600.5,
+   "y": 1804556.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1101843.5,
+   "y": 1826799.4,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1101777.8,
+   "y": 1826320.8,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1117510.5,
+   "y": 1833197.5,
+   "bucket": "fa_exceeds_budget"
+  },
+  {
+   "x": 1101779.5,
+   "y": 1832447.4,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1102454.5,
+   "y": 1832195.9,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1103445.9,
+   "y": 1833550.7,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1103469.7,
+   "y": 1833971.7,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1094574.2,
+   "y": 1833453.7,
+   "bucket": "no_safe_route"
+  },
+  {
+   "x": 1100628.9,
+   "y": 1827046.5,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1094826.1,
+   "y": 1827810.7,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1100976.8,
+   "y": 1831547.6,
+   "bucket": "no_safe_route"
+  },
+  {
+   "x": 1103847.9,
+   "y": 1832556.7,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1106465.6,
+   "y": 1830397.6,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1109092.3,
+   "y": 1805749.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1107940.3,
+   "y": 1805893.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1108999.2,
+   "y": 1805907.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1109378.8,
+   "y": 1805891.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1108916.2,
+   "y": 1806336.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1108322.7,
+   "y": 1806224.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1108179.6,
+   "y": 1806190.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1110559.9,
+   "y": 1804229.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1110308.5,
+   "y": 1803741.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1099704.5,
+   "y": 1826339.5,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1102358.8,
+   "y": 1825269.2,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1102781.6,
+   "y": 1826131.0,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1102268.2,
+   "y": 1824153.6,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1102600.3,
+   "y": 1825875.7,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1102678.1,
+   "y": 1825739.8,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1095743.8,
+   "y": 1827546.8,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1096680.0,
+   "y": 1832780.8,
+   "bucket": "no_safe_route"
+  },
+  {
+   "x": 1095888.4,
+   "y": 1832828.3,
+   "bucket": "no_safe_route"
+  },
+  {
+   "x": 1098164.9,
+   "y": 1832572.0,
+   "bucket": "no_safe_route"
+  },
+  {
+   "x": 1098138.8,
+   "y": 1831808.4,
+   "bucket": "no_safe_route"
+  },
+  {
+   "x": 1103530.6,
+   "y": 1830470.5,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1103429.7,
+   "y": 1833943.6,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1104609.8,
+   "y": 1829844.2,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1116495.8,
+   "y": 1812627.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1113449.8,
+   "y": 1811745.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1113757.4,
+   "y": 1812696.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1114949.7,
+   "y": 1813101.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1113489.2,
+   "y": 1814022.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1113321.2,
+   "y": 1813743.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1116616.2,
+   "y": 1824949.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1115200.3,
+   "y": 1825837.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1106429.5,
+   "y": 1826106.6,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1111584.5,
+   "y": 1826249.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1111543.5,
+   "y": 1826403.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1113953.1,
+   "y": 1825284.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1109896.6,
+   "y": 1827158.9,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1105858.3,
+   "y": 1825760.4,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1106175.7,
+   "y": 1825679.3,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1107761.5,
+   "y": 1827238.7,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1113562.3,
+   "y": 1808430.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1113357.0,
+   "y": 1807618.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1113531.0,
+   "y": 1809864.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1114609.1,
+   "y": 1808590.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1114782.3,
+   "y": 1828729.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1113247.2,
+   "y": 1826056.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1096098.1,
+   "y": 1833733.5,
+   "bucket": "no_safe_route"
+  },
+  {
+   "x": 1098648.7,
+   "y": 1813206.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1097470.7,
+   "y": 1810335.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1096014.2,
+   "y": 1811394.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1095159.1,
+   "y": 1802217.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1102746.9,
+   "y": 1801402.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1105401.9,
+   "y": 1801884.9,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1112632.1,
+   "y": 1801784.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1118159.9,
+   "y": 1801769.8,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1111551.6,
+   "y": 1803649.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1111013.6,
+   "y": 1803776.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1116091.9,
+   "y": 1805147.3,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1119784.7,
+   "y": 1805045.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1116118.2,
+   "y": 1806660.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1102947.9,
+   "y": 1807758.4,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1102664.2,
+   "y": 1808266.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1101790.0,
+   "y": 1811448.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1104545.7,
+   "y": 1811525.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1100547.8,
+   "y": 1813739.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1102688.0,
+   "y": 1815276.0,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1097585.6,
+   "y": 1816754.1,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1096504.6,
+   "y": 1816068.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1097594.6,
+   "y": 1817658.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1096946.8,
+   "y": 1817927.5,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1096496.1,
+   "y": 1818682.6,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1095958.8,
+   "y": 1819913.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1096659.8,
+   "y": 1820754.2,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1097975.9,
+   "y": 1820641.1,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1099025.0,
+   "y": 1816939.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1096318.5,
+   "y": 1821952.2,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1106669.1,
+   "y": 1818524.7,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1104359.4,
+   "y": 1825958.2,
+   "bucket": "naive_into_FA_safe"
+  },
+  {
+   "x": 1114510.9,
+   "y": 1816529.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1116648.1,
+   "y": 1822775.0,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1118666.8,
+   "y": 1822978.2,
+   "bucket": "both_safe"
+  },
+  {
+   "x": 1107545.9,
+   "y": 1818450.4,
+   "bucket": "both_safe"
+  }
+ ],
+ "origins_note": "ALL 368 scanned origins, so the three outcomes can be coloured against each other. Plotting only the 44 that need something would read as 44-of-44 rather than 44-of-458.",
+ "actionable": [
+  {
+   "x": 1096714.7,
+   "y": 1821586.4,
+   "label": "문소루 서쪽 10678m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 368.1
+  },
+  {
+   "x": 1103712.2,
+   "y": 1831809.1,
+   "label": "문소루 북쪽 14001m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 543.2
+  },
+  {
+   "x": 1101668.5,
+   "y": 1834058.0,
+   "label": "문소루 북쪽 16715m",
+   "bucket": "no_safe_route",
+   "unreachable": true,
+   "closing_window_min": null,
+   "walk_time_min": null
+  },
+  {
+   "x": 1102624.9,
+   "y": 1826385.2,
+   "label": "문소루 북서쪽 9238m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 584.0
+  },
+  {
+   "x": 1102350.6,
+   "y": 1829110.9,
+   "label": "문소루 북쪽 11832m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 500.1
+  },
+  {
+   "x": 1103525.8,
+   "y": 1829460.2,
+   "label": "문소루 북쪽 11774m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 525.2
+  },
+  {
+   "x": 1095978.1,
+   "y": 1830495.9,
+   "label": "문소루 북서쪽 16429m",
+   "bucket": "no_safe_route",
+   "unreachable": true,
+   "closing_window_min": null,
+   "walk_time_min": null
+  },
+  {
+   "x": 1108779.7,
+   "y": 1827100.6,
+   "label": "정자 북쪽 9085m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 566.6
+  },
+  {
+   "x": 1105278.1,
+   "y": 1825513.2,
+   "label": "문소루 북쪽 7516m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 575.8
+  },
+  {
+   "x": 1108615.4,
+   "y": 1829961.6,
+   "label": "정자 북쪽 11880m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 546.1
+  },
+  {
+   "x": 1105934.3,
+   "y": 1831693.0,
+   "label": "정자 북쪽 13540m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 570.0
+  },
+  {
+   "x": 1105959.3,
+   "y": 1827970.7,
+   "label": "정자 북쪽 9831m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 582.8
+  },
+  {
+   "x": 1114737.2,
+   "y": 1832338.5,
+   "label": "정자 북동쪽 16128m",
+   "bucket": "fa_exceeds_budget",
+   "unreachable": true,
+   "closing_window_min": null,
+   "walk_time_min": null
+  },
+  {
+   "x": 1107564.0,
+   "y": 1826405.9,
+   "label": "정자 북쪽 8232m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 502.5
+  },
+  {
+   "x": 1107268.7,
+   "y": 1825938.4,
+   "label": "정자 북쪽 7750m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 515.6
+  },
+  {
+   "x": 1107875.5,
+   "y": 1826759.5,
+   "label": "정자 북쪽 8612m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 591.7
+  },
+  {
+   "x": 1108143.6,
+   "y": 1826499.4,
+   "label": "정자 북쪽 8386m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 588.8
+  },
+  {
+   "x": 1108506.7,
+   "y": 1826707.6,
+   "label": "정자 북쪽 8648m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 579.8
+  },
+  {
+   "x": 1107902.0,
+   "y": 1829494.8,
+   "label": "정자 북쪽 11338m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 535.9
+  },
+  {
+   "x": 1108536.2,
+   "y": 1829794.4,
+   "label": "정자 북쪽 11704m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 535.5
+  },
+  {
+   "x": 1108831.1,
+   "y": 1829796.8,
+   "label": "정자 북쪽 11749m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 539.1
+  },
+  {
+   "x": 1108897.8,
+   "y": 1830115.9,
+   "label": "정자 북쪽 12074m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 555.0
+  },
+  {
+   "x": 1109153.5,
+   "y": 1829877.4,
+   "label": "정자 북쪽 11883m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 550.8
+  },
+  {
+   "x": 1110735.2,
+   "y": 1831202.4,
+   "label": "정자 북쪽 13538m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 589.4
+  },
+  {
+   "x": 1109796.6,
+   "y": 1829767.0,
+   "label": "정자 북쪽 11909m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 565.2
+  },
+  {
+   "x": 1109781.8,
+   "y": 1830093.9,
+   "label": "정자 북쪽 12224m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 567.4
+  },
+  {
+   "x": 1110561.5,
+   "y": 1831014.4,
+   "label": "정자 북쪽 13309m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 584.5
+  },
+  {
+   "x": 1112216.1,
+   "y": 1831731.9,
+   "label": "정자 북쪽 14513m",
+   "bucket": "no_safe_route",
+   "unreachable": true,
+   "closing_window_min": null,
+   "walk_time_min": null
+  },
+  {
+   "x": 1104199.7,
+   "y": 1830292.4,
+   "label": "문소루 북쪽 12415m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 500.5
+  },
+  {
+   "x": 1098948.4,
+   "y": 1829434.4,
+   "label": "문소루 북서쪽 13756m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 571.7
+  },
+  {
+   "x": 1094917.4,
+   "y": 1826097.5,
+   "label": "문소루 북서쪽 14314m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 492.6
+  },
+  {
+   "x": 1100939.5,
+   "y": 1831712.1,
+   "label": "문소루 북서쪽 14777m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 595.6
+  },
+  {
+   "x": 1103349.5,
+   "y": 1831784.8,
+   "label": "문소루 북쪽 14063m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 551.3
+  },
+  {
+   "x": 1104778.0,
+   "y": 1816800.1,
+   "label": "문소루 남서쪽 2459m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 185.6
+  },
+  {
+   "x": 1105514.4,
+   "y": 1818403.8,
+   "label": "문소루 서쪽 1336m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": 180.0,
+   "walk_time_min": 48.6
+  },
+  {
+   "x": 1104381.5,
+   "y": 1815648.6,
+   "label": "정자 서쪽 3066m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 155.3
+  },
+  {
+   "x": 1096981.5,
+   "y": 1820359.5,
+   "label": "문소루 서쪽 10089m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 331.1
+  },
+  {
+   "x": 1103510.4,
+   "y": 1814619.8,
+   "label": "정자 북쪽 3799m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 284.4
+  },
+  {
+   "x": 1104779.5,
+   "y": 1825869.9,
+   "label": "문소루 북쪽 7978m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 580.2
+  },
+  {
+   "x": 1104907.0,
+   "y": 1816406.2,
+   "label": "정자 서쪽 2382m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 181.0
+  },
+  {
+   "x": 1103245.5,
+   "y": 1814340.2,
+   "label": "정자 북서쪽 3651m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 277.8
+  },
+  {
+   "x": 1103938.6,
+   "y": 1814958.4,
+   "label": "정자 남서쪽 3747m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 308.3
+  },
+  {
+   "x": 1102352.0,
+   "y": 1814735.1,
+   "label": "정자 북서쪽 4449m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 267.5
+  },
+  {
+   "x": 1098428.8,
+   "y": 1831463.1,
+   "label": "문소루 북서쪽 15734m",
+   "bucket": "no_safe_route",
+   "unreachable": true,
+   "closing_window_min": null,
+   "walk_time_min": null
+  },
+  {
+   "x": 1095540.1,
+   "y": 1820259.4,
+   "label": "오곡리 경로당 북쪽 11209m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 345.8
+  },
+  {
+   "x": 1112510.0,
+   "y": 1832706.9,
+   "label": "정자 북쪽 15528m",
+   "bucket": "no_safe_route",
+   "unreachable": true,
+   "closing_window_min": null,
+   "walk_time_min": null
+  },
+  {
+   "x": 1101383.8,
+   "y": 1816799.8,
+   "label": "문소루 서쪽 5611m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 347.3
+  },
+  {
+   "x": 1105344.3,
+   "y": 1824213.2,
+   "label": "문소루 북쪽 6234m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 535.3
+  },
+  {
+   "x": 1104481.9,
+   "y": 1827312.2,
+   "label": "문소루 북쪽 9449m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 555.8
+  },
+  {
+   "x": 1105576.5,
+   "y": 1828105.5,
+   "label": "정자 북쪽 10012m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 593.2
+  },
+  {
+   "x": 1105025.9,
+   "y": 1826935.9,
+   "label": "정자 북쪽 8960m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 542.9
+  },
+  {
+   "x": 1105302.3,
+   "y": 1827310.4,
+   "label": "정자 북쪽 9271m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 586.9
+  },
+  {
+   "x": 1104477.2,
+   "y": 1830355.3,
+   "label": "정자 북쪽 12418m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 508.8
+  },
+  {
+   "x": 1103897.8,
+   "y": 1830227.0,
+   "label": "문소루 북쪽 12419m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 558.8
+  },
+  {
+   "x": 1104930.6,
+   "y": 1830355.0,
+   "label": "정자 북쪽 12334m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 519.2
+  },
+  {
+   "x": 1104395.9,
+   "y": 1830766.2,
+   "label": "정자 북쪽 12837m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 537.4
+  },
+  {
+   "x": 1104977.9,
+   "y": 1830160.7,
+   "label": "정자 북쪽 12135m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 519.3
+  },
+  {
+   "x": 1105200.0,
+   "y": 1830962.9,
+   "label": "정자 북쪽 12894m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 545.0
+  },
+  {
+   "x": 1105210.2,
+   "y": 1830214.3,
+   "label": "정자 북쪽 12151m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 528.9
+  },
+  {
+   "x": 1105164.6,
+   "y": 1830999.2,
+   "label": "정자 북쪽 12935m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 543.7
+  },
+  {
+   "x": 1100784.4,
+   "y": 1823737.0,
+   "label": "문소루 북서쪽 8224m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 572.2
+  },
+  {
+   "x": 1102477.9,
+   "y": 1823191.2,
+   "label": "문소루 북서쪽 6652m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 510.3
+  },
+  {
+   "x": 1107445.8,
+   "y": 1826366.6,
+   "label": "정자 북쪽 8186m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 497.2
+  },
+  {
+   "x": 1110053.7,
+   "y": 1822688.7,
+   "label": "정자 북동쪽 5441m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 536.2
+  },
+  {
+   "x": 1109349.7,
+   "y": 1822537.5,
+   "label": "정자 북동쪽 4944m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 513.7
+  },
+  {
+   "x": 1097914.5,
+   "y": 1820532.6,
+   "label": "문소루 서쪽 9224m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": 360.0,
+   "walk_time_min": 351.0
+  },
+  {
+   "x": 1100404.0,
+   "y": 1823939.4,
+   "label": "문소루 북서쪽 8642m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 481.7
+  },
+  {
+   "x": 1101843.5,
+   "y": 1826799.4,
+   "label": "문소루 북서쪽 9975m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 595.8
+  },
+  {
+   "x": 1101777.8,
+   "y": 1826320.8,
+   "label": "문소루 북서쪽 9598m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 594.9
+  },
+  {
+   "x": 1117510.5,
+   "y": 1833197.5,
+   "label": "정자 북동쪽 18326m",
+   "bucket": "fa_exceeds_budget",
+   "unreachable": true,
+   "closing_window_min": null,
+   "walk_time_min": null
+  },
+  {
+   "x": 1101779.5,
+   "y": 1832447.4,
+   "label": "문소루 북쪽 15154m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 597.8
+  },
+  {
+   "x": 1102454.5,
+   "y": 1832195.9,
+   "label": "문소루 북쪽 14703m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 576.4
+  },
+  {
+   "x": 1103445.9,
+   "y": 1833550.7,
+   "label": "문소루 북쪽 15759m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 593.5
+  },
+  {
+   "x": 1103469.7,
+   "y": 1833971.7,
+   "label": "정자 북쪽 16166m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 584.7
+  },
+  {
+   "x": 1094574.2,
+   "y": 1833453.7,
+   "label": "문소루 북서쪽 19598m",
+   "bucket": "no_safe_route",
+   "unreachable": true,
+   "closing_window_min": null,
+   "walk_time_min": null
+  },
+  {
+   "x": 1100628.9,
+   "y": 1827046.5,
+   "label": "문소루 북서쪽 10836m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 479.6
+  },
+  {
+   "x": 1094826.1,
+   "y": 1827810.7,
+   "label": "문소루 북서쪽 15401m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 550.1
+  },
+  {
+   "x": 1100976.8,
+   "y": 1831547.6,
+   "label": "문소루 북서쪽 14611m",
+   "bucket": "no_safe_route",
+   "unreachable": true,
+   "closing_window_min": null,
+   "walk_time_min": null
+  },
+  {
+   "x": 1103847.9,
+   "y": 1832556.7,
+   "label": "정자 북쪽 14702m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 563.1
+  },
+  {
+   "x": 1106465.6,
+   "y": 1830397.6,
+   "label": "정자 북쪽 12215m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 586.4
+  },
+  {
+   "x": 1099704.5,
+   "y": 1826339.5,
+   "label": "문소루 북서쪽 10847m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 509.8
+  },
+  {
+   "x": 1102358.8,
+   "y": 1825269.2,
+   "label": "문소루 북서쪽 8398m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 593.7
+  },
+  {
+   "x": 1102781.6,
+   "y": 1826131.0,
+   "label": "문소루 북서쪽 8940m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 586.4
+  },
+  {
+   "x": 1102268.2,
+   "y": 1824153.6,
+   "label": "문소루 북서쪽 7532m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 486.3
+  },
+  {
+   "x": 1102600.3,
+   "y": 1825875.7,
+   "label": "문소루 북서쪽 8799m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 597.5
+  },
+  {
+   "x": 1102678.1,
+   "y": 1825739.8,
+   "label": "문소루 북서쪽 8642m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 598.1
+  },
+  {
+   "x": 1095743.8,
+   "y": 1827546.8,
+   "label": "문소루 북서쪽 14525m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 532.8
+  },
+  {
+   "x": 1096680.0,
+   "y": 1832780.8,
+   "label": "문소루 북서쪽 17798m",
+   "bucket": "no_safe_route",
+   "unreachable": true,
+   "closing_window_min": null,
+   "walk_time_min": null
+  },
+  {
+   "x": 1095888.4,
+   "y": 1832828.3,
+   "label": "문소루 북서쪽 18299m",
+   "bucket": "no_safe_route",
+   "unreachable": true,
+   "closing_window_min": null,
+   "walk_time_min": null
+  },
+  {
+   "x": 1098164.9,
+   "y": 1832572.0,
+   "label": "문소루 북서쪽 16816m",
+   "bucket": "no_safe_route",
+   "unreachable": true,
+   "closing_window_min": null,
+   "walk_time_min": null
+  },
+  {
+   "x": 1098138.8,
+   "y": 1831808.4,
+   "label": "문소루 북서쪽 16181m",
+   "bucket": "no_safe_route",
+   "unreachable": true,
+   "closing_window_min": null,
+   "walk_time_min": null
+  },
+  {
+   "x": 1103530.6,
+   "y": 1830470.5,
+   "label": "문소루 북쪽 12746m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 554.0
+  },
+  {
+   "x": 1103429.7,
+   "y": 1833943.6,
+   "label": "문소루 북쪽 16146m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 583.6
+  },
+  {
+   "x": 1104609.8,
+   "y": 1829844.2,
+   "label": "정자 북쪽 11891m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 499.7
+  },
+  {
+   "x": 1106429.5,
+   "y": 1826106.6,
+   "label": "정자 북쪽 7933m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 556.8
+  },
+  {
+   "x": 1109896.6,
+   "y": 1827158.9,
+   "label": "정자 북쪽 9425m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 534.7
+  },
+  {
+   "x": 1105858.3,
+   "y": 1825760.4,
+   "label": "정자 북쪽 7651m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 545.3
+  },
+  {
+   "x": 1106175.7,
+   "y": 1825679.3,
+   "label": "정자 북쪽 7530m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 535.9
+  },
+  {
+   "x": 1107761.5,
+   "y": 1827238.7,
+   "label": "정자 북쪽 9078m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 589.6
+  },
+  {
+   "x": 1096098.1,
+   "y": 1833733.5,
+   "label": "문소루 북서쪽 18913m",
+   "bucket": "no_safe_route",
+   "unreachable": true,
+   "closing_window_min": null,
+   "walk_time_min": null
+  },
+  {
+   "x": 1102688.0,
+   "y": 1815276.0,
+   "label": "정자 북서쪽 4738m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 278.6
+  },
+  {
+   "x": 1096659.8,
+   "y": 1820754.2,
+   "label": "문소루 서쪽 10494m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 346.0
+  },
+  {
+   "x": 1097975.9,
+   "y": 1820641.1,
+   "label": "문소루 서쪽 9193m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": 540.0,
+   "walk_time_min": 356.3
+  },
+  {
+   "x": 1096318.5,
+   "y": 1821952.2,
+   "label": "문소루 서쪽 11173m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 376.0
+  },
+  {
+   "x": 1104359.4,
+   "y": 1825958.2,
+   "label": "문소루 북쪽 8181m",
+   "bucket": "naive_into_FA_safe",
+   "unreachable": false,
+   "closing_window_min": null,
+   "walk_time_min": 595.3
+  }
+ ],
+ "routes": [
+  {
+   "origin_node": 330186872,
+   "naive_xy": [
+    [
+     1096714.7,
+     1821586.4
+    ],
+    [
+     1096768.3,
+     1821440.1
+    ],
+    [
+     1096809.7,
+     1821343.1
+    ],
+    [
+     1096879.8,
+     1821138.9
+    ],
+    [
+     1096902.6,
+     1820710.1
+    ],
+    [
+     1096895.3,
+     1820675.2
+    ],
+    [
+     1096886.3,
+     1820477.9
+    ],
+    [
+     1096970.8,
+     1820476.8
+    ],
+    [
+     1097312.8,
+     1820493.7
+    ],
+    [
+     1097582.4,
+     1820530.3
+    ],
+    [
+     1097886.4,
+     1820591.3
+    ],
+    [
+     1097975.9,
+     1820641.1
+    ],
+    [
+     1098051.8,
+     1820689.4
+    ],
+    [
+     1098173.6,
+     1820759.0
+    ],
+    [
+     1099302.3,
+     1821310.7
+    ],
+    [
+     1100391.0,
+     1820945.0
+    ],
+    [
+     1101494.5,
+     1820176.8
+    ],
+    [
+     1101705.8,
+     1819892.9
+    ],
+    [
+     1103240.0,
+     1819189.8
+    ],
+    [
+     1103302.1,
+     1819195.2
+    ],
+    [
+     1104531.5,
+     1818889.4
+    ],
+    [
+     1105140.2,
+     1818956.3
+    ],
+    [
+     1105978.8,
+     1818852.3
+    ],
+    [
+     1106029.7,
+     1818818.6
+    ],
+    [
+     1106053.3,
+     1818805.7
+    ],
+    [
+     1106112.9,
+     1818782.8
+    ],
+    [
+     1106143.2,
+     1818767.1
+    ],
+    [
+     1106156.3,
+     1818759.0
+    ],
+    [
+     1106200.7,
+     1818742.7
+    ],
+    [
+     1106258.4,
+     1818716.8
+    ],
+    [
+     1106329.8,
+     1818684.5
+    ],
+    [
+     1106360.7,
+     1818669.7
+    ],
+    [
+     1106372.5,
+     1818663.4
+    ],
+    [
+     1106400.0,
+     1818650.5
+    ],
+    [
+     1106499.7,
+     1818605.5
+    ],
+    [
+     1106669.1,
+     1818524.7
+    ],
+    [
+     1106793.0,
+     1818460.6
+    ],
+    [
+     1106962.7,
+     1818287.6
+    ],
+    [
+     1107010.1,
+     1818190.4
+    ]
+   ],
+   "fa_xy": [
+    [
+     1096714.7,
+     1821586.4
+    ],
+    [
+     1096551.8,
+     1821523.4
+    ],
+    [
+     1096625.8,
+     1821322.0
+    ],
+    [
+     1096683.2,
+     1821182.8
+    ],
+    [
+     1096692.2,
+     1821147.9
+    ],
+    [
+     1096737.7,
+     1821078.7
+    ],
+    [
+     1096892.0,
+     1820713.3
+    ],
+    [
+     1096902.6,
+     1820710.1
+    ],
+    [
+     1096895.3,
+     1820675.2
+    ],
+    [
+     1096886.3,
+     1820477.9
+    ],
+    [
+     1096933.6,
+     1820279.2
+    ],
+    [
+     1096967.2,
+     1820136.6
+    ],
+    [
+     1096660.7,
+     1819243.7
+    ],
+    [
+     1096665.2,
+     1819110.5
+    ],
+    [
+     1096654.7,
+     1819029.9
+    ],
+    [
+     1096604.0,
+     1818833.6
+    ],
+    [
+     1096573.2,
+     1818664.8
+    ],
+    [
+     1096656.8,
+     1818466.0
+    ],
+    [
+     1096869.7,
+     1818284.6
+    ],
+    [
+     1096928.8,
+     1818237.7
+    ],
+    [
+     1097001.6,
+     1818104.5
+    ],
+    [
+     1097023.5,
+     1817942.2
+    ],
+    [
+     1097082.6,
+     1817852.4
+    ],
+    [
+     1097149.6,
+     1817751.0
+    ],
+    [
+     1097256.9,
+     1817591.7
+    ],
+    [
+     1097265.5,
+     1817578.4
+    ],
+    [
+     1097380.0,
+     1817404.1
+    ],
+    [
+     1097316.9,
+     1817359.4
+    ],
+    [
+     1097502.4,
+     1816784.4
+    ],
+    [
+     1097507.5,
+     1816747.6
+    ],
+    [
+     1097409.4,
+     1816395.6
+    ],
+    [
+     1097480.0,
+     1816357.4
+    ],
+    [
+     1097448.3,
+     1816309.1
+    ],
+    [
+     1097401.4,
+     1816077.1
+    ],
+    [
+     1097381.3,
+     1815869.7
+    ],
+    [
+     1097372.7,
+     1815780.3
+    ],
+    [
+     1097332.9,
+     1815665.9
+    ],
+    [
+     1097128.6,
+     1815225.0
+    ],
+    [
+     1097213.1,
+     1815001.7
+    ],
+    [
+     1097474.9,
+     1814531.4
+    ],
+    [
+     1097462.1,
+     1814351.2
+    ],
+    [
+     1097688.3,
+     1813506.4
+    ],
+    [
+     1097732.9,
+     1813293.8
+    ],
+    [
+     1097548.5,
+     1812563.1
+    ],
+    [
+     1097337.5,
+     1812110.2
+    ],
+    [
+     1097213.6,
+     1812032.1
+    ],
+    [
+     1097276.0,
+     1811945.6
+    ],
+    [
+     1097198.4,
+     1811843.1
+    ],
+    [
+     1097103.9,
+     1811770.5
+    ],
+    [
+     1097031.5,
+     1811727.1
+    ],
+    [
+     1096845.5,
+     1811697.3
+    ],
+    [
+     1096831.0,
+     1811705.9
+    ],
+    [
+     1096808.8,
+     1811678.5
+    ],
+    [
+     1096626.5,
+     1811426.9
+    ],
+    [
+     1096604.8,
+     1811397.1
+    ],
+    [
+     1096471.2,
+     1811207.3
+    ],
+    [
+     1096458.2,
+     1811155.4
+    ],
+    [
+     1096475.7,
+     1811047.0
+    ],
+    [
+     1096487.4,
+     1811026.5
+    ],
+    [
+     1096556.9,
+     1810896.5
+    ],
+    [
+     1096590.7,
+     1810833.1
+    ],
+    [
+     1096646.9,
+     1810728.0
+    ],
+    [
+     1096707.6,
+     1810614.6
+    ],
+    [
+     1096952.2,
+     1810089.5
+    ],
+    [
+     1096943.3,
+     1809888.3
+    ],
+    [
+     1096941.1,
+     1809757.3
+    ],
+    [
+     1096891.1,
+     1809477.5
+    ],
+    [
+     1096920.3,
+     1809459.9
+    ],
+    [
+     1096988.2,
+     1809417.3
+    ],
+    [
+     1097313.2,
+     1809207.7
+    ]
+   ],
+   "naive_enters_hazard": true,
+   "fa_enters_hazard": false,
+   "naive_time_min": 346.9,
+   "fa_time_min": 368.1,
+   "naive_distance_m": 12702.5,
+   "fa_distance_m": 14812.5
+  },
+  {
+   "origin_node": 365832477,
+   "naive_xy": [
+    [
+     1103712.2,
+     1831809.1
+    ],
+    [
+     1103914.4,
+     1831696.4
+    ],
+    [
+     1103943.2,
+     1831646.3
+    ],
+    [
+     1103969.8,
+     1831575.0
+    ],
+    [
+     1103997.1,
+     1831484.1
+    ],
+    [
+     1104019.0,
+     1831399.6
+    ],
+    [
+     1104173.6,
+     1830582.6
+    ],
+    [
+     1104199.7,
+     1830292.4
+    ],
+    [
+     1104270.5,
+     1829897.0
+    ],
+    [
+     1105048.7,
+     1829171.2
+    ],
+    [
+     1105044.9,
+     1829165.3
+    ],
+    [
+     1104979.6,
+     1829037.5
+    ],
+    [
+     1105745.8,
+     1828087.5
+    ],
+    [
+     1105866.7,
+     1828021.6
+    ],
+    [
+     1105603.9,
+     1827377.3
+    ],
+    [
+     1104560.5,
+     1826634.4
+    ],
+    [
+     1104537.1,
+     1826548.0
+    ],
+    [
+     1104541.3,
+     1826178.6
+    ],
+    [
+     1104576.8,
+     1825931.5
+    ],
+    [
+     1105132.0,
+     1825546.4
+    ],
+    [
+     1105392.5,
+     1825052.1
+    ],
+    [
+     1105416.0,
+     1824999.2
+    ],
+    [
+     1105338.9,
+     1824465.1
+    ],
+    [
+     1105344.3,
+     1824213.2
+    ],
+    [
+     1105354.8,
+     1824173.6
+    ],
+    [
+     1105404.9,
+     1823982.4
+    ],
+    [
+     1105419.3,
+     1823920.5
+    ],
+    [
+     1105450.2,
+     1822067.5
+    ],
+    [
+     1106416.7,
+     1818852.0
+    ],
+    [
+     1106368.7,
+     1818695.9
+    ],
+    [
+     1106360.7,
+     1818669.7
+    ],
+    [
+     1106372.5,
+     1818663.4
+    ],
+    [
+     1106400.0,
+     1818650.5
+    ],
+    [
+     1106499.7,
+     1818605.5
+    ],
+    [
+     1106669.1,
+     1818524.7
+    ],
+    [
+     1106793.0,
+     1818460.6
+    ],
+    [
+     1106962.7,
+     1818287.6
+    ],
+    [
+     1107010.1,
+     1818190.4
+    ]
+   ],
+   "fa_xy": [
+    [
+     1103712.2,
+     1831809.1
+    ],
+    [
+     1103914.4,
+     1831696.4
+    ],
+    [
+     1103943.2,
+     1831646.3
+    ],
+    [
+     1103969.8,
+     1831575.0
+    ],
+    [
+     1103997.1,
+     1831484.1
+    ],
+    [
+     1104006.1,
+     1831487.6
+    ],
+    [
+     1104028.4,
+     1831409.9
+    ],
+    [
+     1104147.0,
+     1830980.4
+    ],
+    [
+     1104151.7,
+     1830935.3
+    ],
+    [
+     1104197.7,
+     1830407.8
+    ],
+    [
+     1104205.2,
+     1830336.6
+    ],
+    [
+     1104280.5,
+     1829898.7
+    ],
+    [
+     1106022.2,
+     1828190.3
+    ],
+    [
+     1105900.8,
+     1827646.3
+    ],
+    [
+     1105086.3,
+     1826990.3
+    ],
+    [
+     1105025.9,
+     1826935.9
+    ],
+    [
+     1104891.2,
+     1826836.6
+    ],
+    [
+     1104557.9,
+     1826563.5
+    ],
+    [
+     1104543.8,
+     1826513.6
+    ],
+    [
+     1104551.7,
+     1826220.2
+    ],
+    [
+     1104574.2,
+     1826052.0
+    ],
+    [
+     1104582.0,
+     1826050.7
+    ],
+    [
+     1104775.3,
+     1826001.2
+    ],
+    [
+     1104810.8,
+     1825968.7
+    ],
+    [
+     1105033.2,
+     1825742.8
+    ],
+    [
+     1105041.0,
+     1825730.7
+    ],
+    [
+     1105085.1,
+     1825745.4
+    ],
+    [
+     1105115.7,
+     1825667.9
+    ],
+    [
+     1105154.3,
+     1825618.7
+    ],
+    [
+     1105221.1,
+     1825483.3
+    ],
+    [
+     1105249.4,
+     1825407.0
+    ],
+    [
+     1105356.6,
+     1825236.7
+    ],
+    [
+     1105406.0,
+     1825183.0
+    ],
+    [
+     1106253.9,
+     1824730.6
+    ],
+    [
+     1106535.9,
+     1824657.1
+    ],
+    [
+     1106636.6,
+     1824572.3
+    ],
+    [
+     1106708.9,
+     1824537.0
+    ],
+    [
+     1106796.2,
+     1824524.9
+    ],
+    [
+     1106825.0,
+     1824507.0
+    ],
+    [
+     1106909.4,
+     1824475.9
+    ],
+    [
+     1107020.6,
+     1824348.9
+    ],
+    [
+     1107353.8,
+     1823835.5
+    ],
+    [
+     1107451.7,
+     1823775.8
+    ],
+    [
+     1107662.4,
+     1823570.8
+    ],
+    [
+     1107919.9,
+     1823429.3
+    ],
+    [
+     1108392.8,
+     1823060.3
+    ],
+    [
+     1108516.1,
+     1822886.5
+    ],
+    [
+     1108648.9,
+     1822717.2
+    ],
+    [
+     1108749.9,
+     1822638.7
+    ],
+    [
+     1108757.3,
+     1822636.4
+    ],
+    [
+     1108940.6,
+     1822554.5
+    ],
+    [
+     1108894.3,
+     1822484.2
+    ],
+    [
+     1108524.9,
+     1821875.8
+    ],
+    [
+     1109077.1,
+     1821218.1
+    ],
+    [
+     1108266.6,
+     1819824.5
+    ],
+    [
+     1107854.8,
+     1819042.6
+    ],
+    [
+     1107839.4,
+     1819008.1
+    ],
+    [
+     1107467.3,
+     1818802.4
+    ],
+    [
+     1107486.9,
+     1818737.2
+    ],
+    [
+     1107490.9,
+     1818725.9
+    ],
+    [
+     1107569.7,
+     1818471.1
+    ],
+    [
+     1107571.7,
+     1818442.5
+    ],
+    [
+     1107586.1,
+     1818240.8
+    ],
+    [
+     1107592.7,
+     1818164.5
+    ],
+    [
+     1107594.5,
+     1818124.0
+    ],
+    [
+     1107598.5,
+     1818050.7
+    ],
+    [
+     1107598.8,
+     1818045.6
+    ],
+    [
+     1107604.2,
+     1817944.4
+    ],
+    [
+     1107613.9,
+     1817838.5
+    ],
+    [
+     1107624.5,
+     1817710.5
+    ],
+    [
+     1107630.7,
+     1817598.8
+    ],
+    [
+     1107531.7,
+     1817588.8
+    ],
+    [
+     1107402.1,
+     1817575.7
+    ],
+    [
+     1107268.8,
+     1817559.3
+    ],
+    [
+     1107158.7,
+     1817542.7
+    ],
+    [
+     1107081.2,
+     1817530.4
+    ],
+    [
+     1106975.0,
+     1817448.7
+    ]
+   ],
+   "naive_enters_hazard": true,
+   "fa_enters_hazard": false,
+   "naive_time_min": 430.4,
+   "fa_time_min": 543.2,
+   "naive_distance_m": 16686.2,
+   "fa_distance_m": 20573.9
+  },
+  {
+   "origin_node": 365838099,
+   "naive_xy": [
+    [
+     1102624.9,
+     1826385.2
+    ],
+    [
+     1102727.3,
+     1826426.2
+    ],
+    [
+     1102778.2,
+     1826456.4
+    ],
+    [
+     1102812.1,
+     1826474.0
+    ],
+    [
+     1102821.9,
+     1826479.1
+    ],
+    [
+     1103012.0,
+     1826512.6
+    ],
+    [
+     1103263.7,
+     1826574.3
+    ],
+    [
+     1103537.2,
+     1826748.8
+    ],
+    [
+     1103683.0,
+     1826812.2
+    ],
+    [
+     1103954.5,
+     1826988.2
+    ],
+    [
+     1104122.8,
+     1826951.8
+    ],
+    [
+     1104131.6,
+     1826944.2
+    ],
+    [
+     1104251.7,
+     1826640.0
+    ],
+    [
+     1104483.3,
+     1826556.2
+    ],
+    [
+     1104520.8,
+     1826566.6
+    ],
+    [
+     1104537.1,
+     1826548.0
+    ],
+    [
+     1104541.3,
+     1826178.6
+    ],
+    [
+     1104576.8,
+     1825931.5
+    ],
+    [
+     1105132.0,
+     1825546.4
+    ],
+    [
+     1105392.5,
+     1825052.1
+    ],
+    [
+     1105416.0,
+     1824999.2
+    ],
+    [
+     1105338.9,
+     1824465.1
+    ],
+    [
+     1105344.3,
+     1824213.2
+    ],
+    [
+     1105354.8,
+     1824173.6
+    ],
+    [
+     1105404.9,
+     1823982.4
+    ],
+    [
+     1105419.3,
+     1823920.5
+    ],
+    [
+     1105450.2,
+     1822067.5
+    ],
+    [
+     1106416.7,
+     1818852.0
+    ],
+    [
+     1106368.7,
+     1818695.9
+    ],
+    [
+     1106360.7,
+     1818669.7
+    ],
+    [
+     1106372.5,
+     1818663.4
+    ],
+    [
+     1106400.0,
+     1818650.5
+    ],
+    [
+     1106499.7,
+     1818605.5
+    ],
+    [
+     1106669.1,
+     1818524.7
+    ],
+    [
+     1106793.0,
+     1818460.6
+    ],
+    [
+     1106962.7,
+     1818287.6
+    ],
+    [
+     1107010.1,
+     1818190.4
+    ]
+   ],
+   "fa_xy": [
+    [
+     1102624.9,
+     1826385.2
+    ],
+    [
+     1102727.3,
+     1826426.2
+    ],
+    [
+     1102778.2,
+     1826456.4
+    ],
+    [
+     1102812.1,
+     1826474.0
+    ],
+    [
+     1102821.9,
+     1826479.1
+    ],
+    [
+     1103012.0,
+     1826512.6
+    ],
+    [
+     1103263.7,
+     1826574.3
+    ],
+    [
+     1103537.2,
+     1826748.8
+    ],
+    [
+     1103683.0,
+     1826812.2
+    ],
+    [
+     1103954.5,
+     1826988.2
+    ],
+    [
+     1104122.8,
+     1826951.8
+    ],
+    [
+     1104131.6,
+     1826944.2
+    ],
+    [
+     1104251.7,
+     1826640.0
+    ],
+    [
+     1104483.3,
+     1826556.2
+    ],
+    [
+     1104520.8,
+     1826566.6
+    ],
+    [
+     1104537.1,
+     1826548.0
+    ],
+    [
+     1104541.3,
+     1826178.6
+    ],
+    [
+     1104526.9,
+     1826063.1
+    ],
+    [
+     1104574.2,
+     1826052.0
+    ],
+    [
+     1104582.0,
+     1826050.7
+    ],
+    [
+     1104775.3,
+     1826001.2
+    ],
+    [
+     1104810.8,
+     1825968.7
+    ],
+    [
+     1105033.2,
+     1825742.8
+    ],
+    [
+     1105041.0,
+     1825730.7
+    ],
+    [
+     1105085.1,
+     1825745.4
+    ],
+    [
+     1105115.7,
+     1825667.9
+    ],
+    [
+     1105154.3,
+     1825618.7
+    ],
+    [
+     1105221.1,
+     1825483.3
+    ],
+    [
+     1105249.4,
+     1825407.0
+    ],
+    [
+     1105356.6,
+     1825236.7
+    ],
+    [
+     1105406.0,
+     1825183.0
+    ],
+    [
+     1106253.9,
+     1824730.6
+    ],
+    [
+     1106535.9,
+     1824657.1
+    ],
+    [
+     1106636.6,
+     1824572.3
+    ],
+    [
+     1106708.9,
+     1824537.0
+    ],
+    [
+     1106796.2,
+     1824524.9
+    ],
+    [
+     1106825.0,
+     1824507.0
+    ],
+    [
+     1106909.4,
+     1824475.9
+    ],
+    [
+     1107020.6,
+     1824348.9
+    ],
+    [
+     1107353.8,
+     1823835.5
+    ],
+    [
+     1107451.7,
+     1823775.8
+    ],
+    [
+     1107662.4,
+     1823570.8
+    ],
+    [
+     1107919.9,
+     1823429.3
+    ],
+    [
+     1108392.8,
+     1823060.3
+    ],
+    [
+     1108516.1,
+     1822886.5
+    ],
+    [
+     1108648.9,
+     1822717.2
+    ],
+    [
+     1108749.9,
+     1822638.7
+    ],
+    [
+     1108757.3,
+     1822636.4
+    ],
+    [
+     1108940.6,
+     1822554.5
+    ],
+    [
+     1108894.3,
+     1822484.2
+    ],
+    [
+     1108524.9,
+     1821875.8
+    ],
+    [
+     1109077.1,
+     1821218.1
+    ],
+    [
+     1109167.6,
+     1821428.0
+    ],
+    [
+     1111351.4,
+     1819708.4
+    ],
+    [
+     1111451.2,
+     1819645.7
+    ],
+    [
+     1111446.5,
+     1819646.3
+    ],
+    [
+     1110879.7,
+     1819877.2
+    ],
+    [
+     1110260.0,
+     1819709.5
+    ],
+    [
+     1110223.0,
+     1819702.8
+    ],
+    [
+     1109865.3,
+     1819464.1
+    ],
+    [
+     1109674.9,
+     1819214.9
+    ],
+    [
+     1109667.2,
+     1819211.4
+    ],
+    [
+     1108926.8,
+     1819072.8
+    ],
+    [
+     1108845.9,
+     1819028.2
+    ],
+    [
+     1108792.2,
+     1819037.9
+    ],
+    [
+     1108480.5,
+     1819024.2
+    ],
+    [
+     1108316.3,
+     1818996.6
+    ],
+    [
+     1108190.5,
+     1818901.4
+    ],
+    [
+     1108137.4,
+     1818872.9
+    ],
+    [
+     1107992.8,
+     1818779.7
+    ],
+    [
+     1107895.7,
+     1818680.8
+    ],
+    [
+     1107752.8,
+     1818569.1
+    ],
+    [
+     1107748.1,
+     1818552.1
+    ],
+    [
+     1107756.0,
+     1818456.1
+    ],
+    [
+     1107763.8,
+     1818360.0
+    ],
+    [
+     1107778.3,
+     1818228.2
+    ],
+    [
+     1107781.0,
+     1818187.4
+    ],
+    [
+     1107775.9,
+     1818180.5
+    ],
+    [
+     1107705.5,
+     1818032.7
+    ],
+    [
+     1107693.5,
+     1817834.2
+    ],
+    [
+     1107686.8,
+     1817716.1
+    ],
+    [
+     1107630.7,
+     1817598.8
+    ],
+    [
+     1107531.7,
+     1817588.8
+    ],
+    [
+     1107402.1,
+     1817575.7
+    ],
+    [
+     1107268.8,
+     1817559.3
+    ],
+    [
+     1107158.7,
+     1817542.7
+    ],
+    [
+     1107081.2,
+     1817530.4
+    ],
+    [
+     1106975.0,
+     1817448.7
+    ]
+   ],
+   "naive_enters_hazard": true,
+   "fa_enters_hazard": false,
+   "naive_time_min": 312.5,
+   "fa_time_min": 584.0,
+   "naive_distance_m": 12050.8,
+   "fa_distance_m": 21499.6
+  },
+  {
+   "origin_node": 365840174,
+   "naive_xy": [
+    [
+     1102350.6,
+     1829110.9
+    ],
+    [
+     1102457.7,
+     1828956.6
+    ],
+    [
+     1102482.8,
+     1828966.8
+    ],
+    [
+     1102838.3,
+     1826528.0
+    ],
+    [
+     1102821.9,
+     1826479.1
+    ],
+    [
+     1103012.0,
+     1826512.6
+    ],
+    [
+     1103263.7,
+     1826574.3
+    ],
+    [
+     1103537.2,
+     1826748.8
+    ],
+    [
+     1103683.0,
+     1826812.2
+    ],
+    [
+     1103954.5,
+     1826988.2
+    ],
+    [
+     1104122.8,
+     1826951.8
+    ],
+    [
+     1104131.6,
+     1826944.2
+    ],
+    [
+     1104251.7,
+     1826640.0
+    ],
+    [
+     1104483.3,
+     1826556.2
+    ],
+    [
+     1104520.8,
+     1826566.6
+    ],
+    [
+     1104537.1,
+     1826548.0
+    ],
+    [
+     1104541.3,
+     1826178.6
+    ],
+    [
+     1104576.8,
+     1825931.5
+    ],
+    [
+     1105132.0,
+     1825546.4
+    ],
+    [
+     1105392.5,
+     1825052.1
+    ],
+    [
+     1105416.0,
+     1824999.2
+    ],
+    [
+     1105338.9,
+     1824465.1
+    ],
+    [
+     1105344.3,
+     1824213.2
+    ],
+    [
+     1105354.8,
+     1824173.6
+    ],
+    [
+     1105404.9,
+     1823982.4
+    ],
+    [
+     1105419.3,
+     1823920.5
+    ],
+    [
+     1105450.2,
+     1822067.5
+    ],
+    [
+     1106416.7,
+     1818852.0
+    ],
+    [
+     1106368.7,
+     1818695.9
+    ],
+    [
+     1106360.7,
+     1818669.7
+    ],
+    [
+     1106372.5,
+     1818663.4
+    ],
+    [
+     1106400.0,
+     1818650.5
+    ],
+    [
+     1106499.7,
+     1818605.5
+    ],
+    [
+     1106669.1,
+     1818524.7
+    ],
+    [
+     1106793.0,
+     1818460.6
+    ],
+    [
+     1106962.7,
+     1818287.6
+    ],
+    [
+     1107010.1,
+     1818190.4
+    ]
+   ],
+   "fa_xy": [
+    [
+     1102350.6,
+     1829110.9
+    ],
+    [
+     1102457.7,
+     1828956.6
+    ],
+    [
+     1102482.8,
+     1828966.8
+    ],
+    [
+     1102838.3,
+     1826528.0
+    ],
+    [
+     1102821.9,
+     1826479.1
+    ],
+    [
+     1103012.0,
+     1826512.6
+    ],
+    [
+     1103263.7,
+     1826574.3
+    ],
+    [
+     1103537.2,
+     1826748.8
+    ],
+    [
+     1103683.0,
+     1826812.2
+    ],
+    [
+     1103954.5,
+     1826988.2
+    ],
+    [
+     1104122.8,
+     1826951.8
+    ],
+    [
+     1104131.6,
+     1826944.2
+    ],
+    [
+     1104251.7,
+     1826640.0
+    ],
+    [
+     1104483.3,
+     1826556.2
+    ],
+    [
+     1104520.8,
+     1826566.6
+    ],
+    [
+     1104537.1,
+     1826548.0
+    ],
+    [
+     1104541.3,
+     1826178.6
+    ],
+    [
+     1104526.9,
+     1826063.1
+    ],
+    [
+     1104574.2,
+     1826052.0
+    ],
+    [
+     1104582.0,
+     1826050.7
+    ],
+    [
+     1104775.3,
+     1826001.2
+    ],
+    [
+     1104810.8,
+     1825968.7
+    ],
+    [
+     1105033.2,
+     1825742.8
+    ],
+    [
+     1105041.0,
+     1825730.7
+    ],
+    [
+     1105085.1,
+     1825745.4
+    ],
+    [
+     1105115.7,
+     1825667.9
+    ],
+    [
+     1105154.3,
+     1825618.7
+    ],
+    [
+     1105221.1,
+     1825483.3
+    ],
+    [
+     1105249.4,
+     1825407.0
+    ],
+    [
+     1105356.6,
+     1825236.7
+    ],
+    [
+     1105406.0,
+     1825183.0
+    ],
+    [
+     1106253.9,
+     1824730.6
+    ],
+    [
+     1106535.9,
+     1824657.1
+    ],
+    [
+     1106636.6,
+     1824572.3
+    ],
+    [
+     1106708.9,
+     1824537.0
+    ],
+    [
+     1106796.2,
+     1824524.9
+    ],
+    [
+     1106825.0,
+     1824507.0
+    ],
+    [
+     1106909.4,
+     1824475.9
+    ],
+    [
+     1107020.6,
+     1824348.9
+    ],
+    [
+     1107353.8,
+     1823835.5
+    ],
+    [
+     1107451.7,
+     1823775.8
+    ],
+    [
+     1107662.4,
+     1823570.8
+    ],
+    [
+     1107919.9,
+     1823429.3
+    ],
+    [
+     1108392.8,
+     1823060.3
+    ],
+    [
+     1108516.1,
+     1822886.5
+    ],
+    [
+     1108648.9,
+     1822717.2
+    ],
+    [
+     1108749.9,
+     1822638.7
+    ],
+    [
+     1108757.3,
+     1822636.4
+    ],
+    [
+     1108940.6,
+     1822554.5
+    ],
+    [
+     1108894.3,
+     1822484.2
+    ],
+    [
+     1108524.9,
+     1821875.8
+    ],
+    [
+     1109077.1,
+     1821218.1
+    ],
+    [
+     1108266.6,
+     1819824.5
+    ],
+    [
+     1107854.8,
+     1819042.6
+    ],
+    [
+     1107839.4,
+     1819008.1
+    ],
+    [
+     1107467.3,
+     1818802.4
+    ],
+    [
+     1107486.9,
+     1818737.2
+    ],
+    [
+     1107490.9,
+     1818725.9
+    ],
+    [
+     1107569.7,
+     1818471.1
+    ],
+    [
+     1107571.7,
+     1818442.5
+    ],
+    [
+     1107586.1,
+     1818240.8
+    ],
+    [
+     1107592.7,
+     1818164.5
+    ],
+    [
+     1107594.5,
+     1818124.0
+    ],
+    [
+     1107598.5,
+     1818050.7
+    ],
+    [
+     1107598.8,
+     1818045.6
+    ],
+    [
+     1107604.2,
+     1817944.4
+    ],
+    [
+     1107613.9,
+     1817838.5
+    ],
+    [
+     1107624.5,
+     1817710.5
+    ],
+    [
+     1107630.7,
+     1817598.8
+    ],
+    [
+     1107531.7,
+     1817588.8
+    ],
+    [
+     1107402.1,
+     1817575.7
+    ],
+    [
+     1107268.8,
+     1817559.3
+    ],
+    [
+     1107158.7,
+     1817542.7
+    ],
+    [
+     1107081.2,
+     1817530.4
+    ],
+    [
+     1106975.0,
+     1817448.7
+    ]
+   ],
+   "naive_enters_hazard": true,
+   "fa_enters_hazard": false,
+   "naive_time_min": 392.1,
+   "fa_time_min": 500.1,
+   "naive_distance_m": 14835.2,
+   "fa_distance_m": 18693.2
+  },
+  {
+   "origin_node": 365843543,
+   "naive_xy": [
+    [
+     1103525.8,
+     1829460.2
+    ],
+    [
+     1103480.8,
+     1829403.9
+    ],
+    [
+     1102482.8,
+     1828966.8
+    ],
+    [
+     1102838.3,
+     1826528.0
+    ],
+    [
+     1102821.9,
+     1826479.1
+    ],
+    [
+     1103012.0,
+     1826512.6
+    ],
+    [
+     1103263.7,
+     1826574.3
+    ],
+    [
+     1103537.2,
+     1826748.8
+    ],
+    [
+     1103683.0,
+     1826812.2
+    ],
+    [
+     1103954.5,
+     1826988.2
+    ],
+    [
+     1104122.8,
+     1826951.8
+    ],
+    [
+     1104131.6,
+     1826944.2
+    ],
+    [
+     1104251.7,
+     1826640.0
+    ],
+    [
+     1104483.3,
+     1826556.2
+    ],
+    [
+     1104520.8,
+     1826566.6
+    ],
+    [
+     1104537.1,
+     1826548.0
+    ],
+    [
+     1104541.3,
+     1826178.6
+    ],
+    [
+     1104576.8,
+     1825931.5
+    ],
+    [
+     1105132.0,
+     1825546.4
+    ],
+    [
+     1105392.5,
+     1825052.1
+    ],
+    [
+     1105416.0,
+     1824999.2
+    ],
+    [
+     1105338.9,
+     1824465.1
+    ],
+    [
+     1105344.3,
+     1824213.2
+    ],
+    [
+     1105354.8,
+     1824173.6
+    ],
+    [
+     1105404.9,
+     1823982.4
+    ],
+    [
+     1105419.3,
+     1823920.5
+    ],
+    [
+     1105450.2,
+     1822067.5
+    ],
+    [
+     1106416.7,
+     1818852.0
+    ],
+    [
+     1106368.7,
+     1818695.9
+    ],
+    [
+     1106360.7,
+     1818669.7
+    ],
+    [
+     1106372.5,
+     1818663.4
+    ],
+    [
+     1106400.0,
+     1818650.5
+    ],
+    [
+     1106499.7,
+     1818605.5
+    ],
+    [
+     1106669.1,
+     1818524.7
+    ],
+    [
+     1106793.0,
+     1818460.6
+    ],
+    [
+     1106962.7,
+     1818287.6
+    ],
+    [
+     1107010.1,
+     1818190.4
+    ]
+   ],
+   "fa_xy": [
+    [
+     1103525.8,
+     1829460.2
+    ],
+    [
+     1103480.8,
+     1829403.9
+    ],
+    [
+     1102482.8,
+     1828966.8
+    ],
+    [
+     1102838.3,
+     1826528.0
+    ],
+    [
+     1102821.9,
+     1826479.1
+    ],
+    [
+     1103012.0,
+     1826512.6
+    ],
+    [
+     1103263.7,
+     1826574.3
+    ],
+    [
+     1103537.2,
+     1826748.8
+    ],
+    [
+     1103683.0,
+     1826812.2
+    ],
+    [
+     1103954.5,
+     1826988.2
+    ],
+    [
+     1104122.8,
+     1826951.8
+    ],
+    [
+     1104131.6,
+     1826944.2
+    ],
+    [
+     1104251.7,
+     1826640.0
+    ],
+    [
+     1104483.3,
+     1826556.2
+    ],
+    [
+     1104520.8,
+     1826566.6
+    ],
+    [
+     1104537.1,
+     1826548.0
+    ],
+    [
+     1104541.3,
+     1826178.6
+    ],
+    [
+     1104526.9,
+     1826063.1
+    ],
+    [
+     1104574.2,
+     1826052.0
+    ],
+    [
+     1104582.0,
+     1826050.7
+    ],
+    [
+     1104775.3,
+     1826001.2
+    ],
+    [
+     1104810.8,
+     1825968.7
+    ],
+    [
+     1105033.2,
+     1825742.8
+    ],
+    [
+     1105041.0,
+     1825730.7
+    ],
+    [
+     1105085.1,
+     1825745.4
+    ],
+    [
+     1105115.7,
+     1825667.9
+    ],
+    [
+     1105154.3,
+     1825618.7
+    ],
+    [
+     1105221.1,
+     1825483.3
+    ],
+    [
+     1105249.4,
+     1825407.0
+    ],
+    [
+     1105356.6,
+     1825236.7
+    ],
+    [
+     1105406.0,
+     1825183.0
+    ],
+    [
+     1106253.9,
+     1824730.6
+    ],
+    [
+     1106535.9,
+     1824657.1
+    ],
+    [
+     1106636.6,
+     1824572.3
+    ],
+    [
+     1106708.9,
+     1824537.0
+    ],
+    [
+     1106796.2,
+     1824524.9
+    ],
+    [
+     1106825.0,
+     1824507.0
+    ],
+    [
+     1106909.4,
+     1824475.9
+    ],
+    [
+     1107020.6,
+     1824348.9
+    ],
+    [
+     1107353.8,
+     1823835.5
+    ],
+    [
+     1107451.7,
+     1823775.8
+    ],
+    [
+     1107662.4,
+     1823570.8
+    ],
+    [
+     1107919.9,
+     1823429.3
+    ],
+    [
+     1108392.8,
+     1823060.3
+    ],
+    [
+     1108516.1,
+     1822886.5
+    ],
+    [
+     1108648.9,
+     1822717.2
+    ],
+    [
+     1108749.9,
+     1822638.7
+    ],
+    [
+     1108757.3,
+     1822636.4
+    ],
+    [
+     1108940.6,
+     1822554.5
+    ],
+    [
+     1108894.3,
+     1822484.2
+    ],
+    [
+     1108524.9,
+     1821875.8
+    ],
+    [
+     1109077.1,
+     1821218.1
+    ],
+    [
+     1108266.6,
+     1819824.5
+    ],
+    [
+     1107854.8,
+     1819042.6
+    ],
+    [
+     1107839.4,
+     1819008.1
+    ],
+    [
+     1107467.3,
+     1818802.4
+    ],
+    [
+     1107486.9,
+     1818737.2
+    ],
+    [
+     1107490.9,
+     1818725.9
+    ],
+    [
+     1107569.7,
+     1818471.1
+    ],
+    [
+     1107571.7,
+     1818442.5
+    ],
+    [
+     1107586.1,
+     1818240.8
+    ],
+    [
+     1107592.7,
+     1818164.5
+    ],
+    [
+     1107594.5,
+     1818124.0
+    ],
+    [
+     1107598.5,
+     1818050.7
+    ],
+    [
+     1107598.8,
+     1818045.6
+    ],
+    [
+     1107604.2,
+     1817944.4
+    ],
+    [
+     1107613.9,
+     1817838.5
+    ],
+    [
+     1107624.5,
+     1817710.5
+    ],
+    [
+     1107630.7,
+     1817598.8
+    ],
+    [
+     1107531.7,
+     1817588.8
+    ],
+    [
+     1107402.1,
+     1817575.7
+    ],
+    [
+     1107268.8,
+     1817559.3
+    ],
+    [
+     1107158.7,
+     1817542.7
+    ],
+    [
+     1107081.2,
+     1817530.4
+    ],
+    [
+     1106975.0,
+     1817448.7
+    ]
+   ],
+   "naive_enters_hazard": true,
+   "fa_enters_hazard": false,
+   "naive_time_min": 417.2,
+   "fa_time_min": 525.2,
+   "naive_distance_m": 15816.3,
+   "fa_distance_m": 19674.3
+  },
+  {
+   "origin_node": 367855171,
+   "naive_xy": [
+    [
+     1108779.7,
+     1827100.6
+    ],
+    [
+     1108720.2,
+     1827020.3
+    ],
+    [
+     1108586.8,
+     1826846.8
+    ],
+    [
+     1108387.1,
+     1826768.4
+    ],
+    [
+     1108374.1,
+     1826771.9
+    ],
+    [
+     1108300.9,
+     1826771.3
+    ],
+    [
+     1108122.5,
+     1826749.4
+    ],
+    [
+     1107949.4,
+     1826660.6
+    ],
+    [
+     1107870.9,
+     1826641.0
+    ],
+    [
+     1107785.6,
+     1826616.9
+    ],
+    [
+     1107474.9,
+     1826421.0
+    ],
+    [
+     1107445.8,
+     1826366.6
+    ],
+    [
+     1107384.8,
+     1826367.6
+    ],
+    [
+     1107257.5,
+     1826395.6
+    ],
+    [
+     1106175.7,
+     1825679.3
+    ],
+    [
+     1106141.4,
+     1825660.7
+    ],
+    [
+     1106063.7,
+     1825731.0
+    ],
+    [
+     1105853.3,
+     1825730.7
+    ],
+    [
+     1105748.7,
+     1825747.0
+    ],
+    [
+     1105145.4,
+     1825771.9
+    ],
+    [
+     1105085.1,
+     1825745.4
+    ],
+    [
+     1105041.0,
+     1825730.7
+    ],
+    [
+     1105046.2,
+     1825723.0
+    ],
+    [
+     1105141.0,
+     1825552.2
+    ],
+    [
+     1105132.0,
+     1825546.4
+    ],
+    [
+     1105392.5,
+     1825052.1
+    ],
+    [
+     1105416.0,
+     1824999.2
+    ],
+    [
+     1105338.9,
+     1824465.1
+    ],
+    [
+     1105344.3,
+     1824213.2
+    ],
+    [
+     1105354.8,
+     1824173.6
+    ],
+    [
+     1105404.9,
+     1823982.4
+    ],
+    [
+     1105419.3,
+     1823920.5
+    ],
+    [
+     1105450.2,
+     1822067.5
+    ],
+    [
+     1106416.7,
+     1818852.0
+    ],
+    [
+     1106368.7,
+     1818695.9
+    ],
+    [
+     1106360.7,
+     1818669.7
+    ],
+    [
+     1106372.5,
+     1818663.4
+    ],
+    [
+     1106400.0,
+     1818650.5
+    ],
+    [
+     1106499.7,
+     1818605.5
+    ],
+    [
+     1106669.1,
+     1818524.7
+    ],
+    [
+     1106793.0,
+     1818460.6
+    ],
+    [
+     1106962.7,
+     1818287.6
+    ],
+    [
+     1107010.1,
+     1818190.4
+    ]
+   ],
+   "fa_xy": [
+    [
+     1108779.7,
+     1827100.6
+    ],
+    [
+     1108923.1,
+     1827246.1
+    ],
+    [
+     1109057.3,
+     1827371.5
+    ],
+    [
+     1109112.8,
+     1827369.6
+    ],
+    [
+     1109187.6,
+     1827359.8
+    ],
+    [
+     1109237.2,
+     1827327.7
+    ],
+    [
+     1109242.9,
+     1827325.7
+    ],
+    [
+     1109691.1,
+     1827264.7
+    ],
+    [
+     1109896.6,
+     1827158.9
+    ],
+    [
+     1110078.8,
+     1827069.3
+    ],
+    [
+     1110877.1,
+     1826552.9
+    ],
+    [
+     1110915.3,
+     1826531.2
+    ],
+    [
+     1111384.9,
+     1826309.2
+    ],
+    [
+     1111491.6,
+     1826278.0
+    ],
+    [
+     1111536.0,
+     1826264.5
+    ],
+    [
+     1111584.5,
+     1826249.8
+    ],
+    [
+     1111710.1,
+     1826211.6
+    ],
+    [
+     1111766.8,
+     1826188.1
+    ],
+    [
+     1111912.0,
+     1826121.7
+    ],
+    [
+     1112054.8,
+     1826093.9
+    ],
+    [
+     1112056.6,
+     1826094.5
+    ],
+    [
+     1112159.8,
+     1826096.6
+    ],
+    [
+     1112226.4,
+     1826095.0
+    ],
+    [
+     1112261.6,
+     1826093.0
+    ],
+    [
+     1112267.0,
+     1826092.7
+    ],
+    [
+     1112884.0,
+     1826041.8
+    ],
+    [
+     1112960.9,
+     1826051.6
+    ],
+    [
+     1112986.5,
+     1825881.3
+    ],
+    [
+     1113042.7,
+     1825780.7
+    ],
+    [
+     1113158.8,
+     1825715.6
+    ],
+    [
+     1113318.4,
+     1825687.7
+    ],
+    [
+     1113682.8,
+     1825625.2
+    ],
+    [
+     1113889.8,
+     1825568.3
+    ],
+    [
+     1113899.0,
+     1825556.3
+    ],
+    [
+     1113905.4,
+     1825560.6
+    ],
+    [
+     1114069.2,
+     1825400.2
+    ],
+    [
+     1114107.7,
+     1825331.9
+    ],
+    [
+     1114205.1,
+     1825131.2
+    ],
+    [
+     1114288.2,
+     1824976.0
+    ],
+    [
+     1114255.4,
+     1823516.6
+    ],
+    [
+     1113103.9,
+     1820006.6
+    ],
+    [
+     1112733.5,
+     1819953.5
+    ],
+    [
+     1113174.0,
+     1819119.4
+    ],
+    [
+     1113186.9,
+     1819105.4
+    ],
+    [
+     1113196.6,
+     1819100.6
+    ],
+    [
+     1113267.6,
+     1819037.1
+    ],
+    [
+     1113824.9,
+     1818181.8
+    ],
+    [
+     1114143.7,
+     1817444.6
+    ],
+    [
+     1114510.9,
+     1816529.2
+    ],
+    [
+     1114431.8,
+     1815638.6
+    ],
+    [
+     1114348.0,
+     1815312.2
+    ],
+    [
+     1113426.0,
+     1814327.6
+    ],
+    [
+     1113341.7,
+     1814082.3
+    ],
+    [
+     1113330.5,
+     1813833.4
+    ],
+    [
+     1112936.4,
+     1813883.6
+    ],
+    [
+     1112576.8,
+     1814054.1
+    ],
+    [
+     1112371.0,
+     1814153.3
+    ]
+   ],
+   "naive_enters_hazard": true,
+   "fa_enters_hazard": false,
+   "naive_time_min": 335.8,
+   "fa_time_min": 566.6,
+   "naive_distance_m": 13016.8,
+   "fa_distance_m": 21332.5
+  },
+  {
+   "origin_node": 367855611,
+   "naive_xy": [
+    [
+     1105278.1,
+     1825513.2
+    ],
+    [
+     1105221.1,
+     1825483.3
+    ],
+    [
+     1105179.3,
+     1825463.3
+    ],
+    [
+     1105403.3,
+     1825049.6
+    ],
+    [
+     1105389.0,
+     1824867.9
+    ],
+    [
+     1105344.3,
+     1824213.2
+    ],
+    [
+     1105354.8,
+     1824173.6
+    ],
+    [
+     1105404.9,
+     1823982.4
+    ],
+    [
+     1105419.3,
+     1823920.5
+    ],
+    [
+     1105450.2,
+     1822067.5
+    ],
+    [
+     1106416.7,
+     1818852.0
+    ],
+    [
+     1106368.7,
+     1818695.9
+    ],
+    [
+     1106360.7,
+     1818669.7
+    ],
+    [
+     1106372.5,
+     1818663.4
+    ],
+    [
+     1106400.0,
+     1818650.5
+    ],
+    [
+     1106499.7,
+     1818605.5
+    ],
+    [
+     1106669.1,
+     1818524.7
+    ],
+    [
+     1106793.0,
+     1818460.6
+    ],
+    [
+     1106962.7,
+     1818287.6
+    ],
+    [
+     1107010.1,
+     1818190.4
+    ]
+   ],
+   "fa_xy": [
+    [
+     1105278.1,
+     1825513.2
+    ],
+    [
+     1105213.9,
+     1825643.3
+    ],
+    [
+     1105188.3,
+     1825692.8
+    ],
+    [
+     1105145.4,
+     1825771.9
+    ],
+    [
+     1105748.7,
+     1825747.0
+    ],
+    [
+     1105858.3,
+     1825760.4
+    ],
+    [
+     1106063.7,
+     1825731.0
+    ],
+    [
+     1106141.4,
+     1825660.7
+    ],
+    [
+     1106175.7,
+     1825679.3
+    ],
+    [
+     1107257.5,
+     1826395.6
+    ],
+    [
+     1107384.8,
+     1826367.6
+    ],
+    [
+     1107445.8,
+     1826366.6
+    ],
+    [
+     1107474.9,
+     1826421.0
+    ],
+    [
+     1107785.6,
+     1826616.9
+    ],
+    [
+     1107870.9,
+     1826641.0
+    ],
+    [
+     1107949.4,
+     1826660.6
+    ],
+    [
+     1108122.5,
+     1826749.4
+    ],
+    [
+     1108300.9,
+     1826771.3
+    ],
+    [
+     1108374.1,
+     1826771.9
+    ],
+    [
+     1108387.1,
+     1826768.4
+    ],
+    [
+     1108586.8,
+     1826846.8
+    ],
+    [
+     1108720.2,
+     1827020.3
+    ],
+    [
+     1109822.5,
+     1826988.8
+    ],
+    [
+     1109990.7,
+     1826963.2
+    ],
+    [
+     1110078.8,
+     1827069.3
+    ],
+    [
+     1110877.1,
+     1826552.9
+    ],
+    [
+     1110915.3,
+     1826531.2
+    ],
+    [
+     1111384.9,
+     1826309.2
+    ],
+    [
+     1111491.6,
+     1826278.0
+    ],
+    [
+     1111536.0,
+     1826264.5
+    ],
+    [
+     1111584.5,
+     1826249.8
+    ],
+    [
+     1111710.1,
+     1826211.6
+    ],
+    [
+     1111766.8,
+     1826188.1
+    ],
+    [
+     1111912.0,
+     1826121.7
+    ],
+    [
+     1112054.8,
+     1826093.9
+    ],
+    [
+     1112049.1,
+     1825961.0
+    ],
+    [
+     1112025.8,
+     1825559.6
+    ],
+    [
+     1112248.9,
+     1825538.8
+    ],
+    [
+     1112759.4,
+     1825551.9
+    ],
+    [
+     1113130.3,
+     1825304.3
+    ],
+    [
+     1113120.6,
+     1825294.9
+    ],
+    [
+     1112976.3,
+     1825094.3
+    ],
+    [
+     1112748.3,
+     1824300.9
+    ],
+    [
+     1112755.9,
+     1823961.3
+    ],
+    [
+     1112712.6,
+     1823045.4
+    ],
+    [
+     1112730.8,
+     1822820.9
+    ],
+    [
+     1112372.5,
+     1822131.6
+    ],
+    [
+     1112329.0,
+     1822031.4
+    ],
+    [
+     1112183.4,
+     1821655.8
+    ],
+    [
+     1112095.2,
+     1819727.7
+    ],
+    [
+     1111512.4,
+     1819642.2
+    ],
+    [
+     1111451.2,
+     1819645.7
+    ],
+    [
+     1111446.5,
+     1819646.3
+    ],
+    [
+     1110879.7,
+     1819877.2
+    ],
+    [
+     1110260.0,
+     1819709.5
+    ],
+    [
+     1110223.0,
+     1819702.8
+    ],
+    [
+     1109865.3,
+     1819464.1
+    ],
+    [
+     1109674.9,
+     1819214.9
+    ],
+    [
+     1109667.2,
+     1819211.4
+    ],
+    [
+     1108926.8,
+     1819072.8
+    ],
+    [
+     1108845.9,
+     1819028.2
+    ],
+    [
+     1108792.2,
+     1819037.9
+    ],
+    [
+     1108480.5,
+     1819024.2
+    ],
+    [
+     1108316.3,
+     1818996.6
+    ],
+    [
+     1108190.5,
+     1818901.4
+    ],
+    [
+     1108137.4,
+     1818872.9
+    ],
+    [
+     1107992.8,
+     1818779.7
+    ],
+    [
+     1107895.7,
+     1818680.8
+    ],
+    [
+     1107752.8,
+     1818569.1
+    ],
+    [
+     1107748.1,
+     1818552.1
+    ],
+    [
+     1107756.0,
+     1818456.1
+    ],
+    [
+     1107763.8,
+     1818360.0
+    ],
+    [
+     1107778.3,
+     1818228.2
+    ],
+    [
+     1107781.0,
+     1818187.4
+    ],
+    [
+     1107775.9,
+     1818180.5
+    ],
+    [
+     1107705.5,
+     1818032.7
+    ],
+    [
+     1107693.5,
+     1817834.2
+    ],
+    [
+     1107686.8,
+     1817716.1
+    ],
+    [
+     1107630.7,
+     1817598.8
+    ],
+    [
+     1107531.7,
+     1817588.8
+    ],
+    [
+     1107402.1,
+     1817575.7
+    ],
+    [
+     1107268.8,
+     1817559.3
+    ],
+    [
+     1107158.7,
+     1817542.7
+    ],
+    [
+     1107081.2,
+     1817530.4
+    ],
+    [
+     1106975.0,
+     1817448.7
+    ]
+   ],
+   "naive_enters_hazard": true,
+   "fa_enters_hazard": false,
+   "naive_time_min": 227.5,
+   "fa_time_min": 575.8,
+   "naive_distance_m": 8486.7,
+   "fa_distance_m": 22864.4
+  },
+  {
+   "origin_node": 367856490,
+   "naive_xy": [
+    [
+     1108615.4,
+     1829961.6
+    ],
+    [
+     1108615.9,
+     1829958.9
+    ],
+    [
+     1108742.1,
+     1829799.0
+    ],
+    [
+     1108535.3,
+     1829713.7
+    ],
+    [
+     1108475.9,
+     1829676.9
+    ],
+    [
+     1108465.1,
+     1829168.1
+    ],
+    [
+     1109193.2,
+     1827521.9
+    ],
+    [
+     1109192.2,
+     1827481.4
+    ],
+    [
+     1109139.1,
+     1827445.4
+    ],
+    [
+     1109112.8,
+     1827369.6
+    ],
+    [
+     1109057.3,
+     1827371.5
+    ],
+    [
+     1108923.1,
+     1827246.1
+    ],
+    [
+     1108779.7,
+     1827100.6
+    ],
+    [
+     1108720.2,
+     1827020.3
+    ],
+    [
+     1108586.8,
+     1826846.8
+    ],
+    [
+     1108387.1,
+     1826768.4
+    ],
+    [
+     1108374.1,
+     1826771.9
+    ],
+    [
+     1108300.9,
+     1826771.3
+    ],
+    [
+     1108122.5,
+     1826749.4
+    ],
+    [
+     1107949.4,
+     1826660.6
+    ],
+    [
+     1107870.9,
+     1826641.0
+    ],
+    [
+     1107785.6,
+     1826616.9
+    ],
+    [
+     1107474.9,
+     1826421.0
+    ],
+    [
+     1107445.8,
+     1826366.6
+    ],
+    [
+     1107384.8,
+     1826367.6
+    ],
+    [
+     1107257.5,
+     1826395.6
+    ],
+    [
+     1106175.7,
+     1825679.3
+    ],
+    [
+     1106141.4,
+     1825660.7
+    ],
+    [
+     1106063.7,
+     1825731.0
+    ],
+    [
+     1105853.3,
+     1825730.7
+    ],
+    [
+     1105748.7,
+     1825747.0
+    ],
+    [
+     1105145.4,
+     1825771.9
+    ],
+    [
+     1105085.1,
+     1825745.4
+    ],
+    [
+     1105041.0,
+     1825730.7
+    ],
+    [
+     1105046.2,
+     1825723.0
+    ],
+    [
+     1105141.0,
+     1825552.2
+    ],
+    [
+     1105132.0,
+     1825546.4
+    ],
+    [
+     1105392.5,
+     1825052.1
+    ],
+    [
+     1105416.0,
+     1824999.2
+    ],
+    [
+     1105338.9,
+     1824465.1
+    ],
+    [
+     1105344.3,
+     1824213.2
+    ],
+    [
+     1105354.8,
+     1824173.6
+    ],
+    [
+     1105404.9,
+     1823982.4
+    ],
+    [
+     1105419.3,
+     1823920.5
+    ],
+    [
+     1105450.2,
+     1822067.5
+    ],
+    [
+     1106416.7,
+     1818852.0
+    ],
+    [
+     1106368.7,
+     1818695.9
+    ],
+    [
+     1106360.7,
+     1818669.7
+    ],
+    [
+     1106372.5,
+     1818663.4
+    ],
+    [
+     1106400.0,
+     1818650.5
+    ],
+    [
+     1106499.7,
+     1818605.5
+    ],
+    [
+     1106669.1,
+     1818524.7
+    ],
+    [
+     1106793.0,
+     1818460.6
+    ],
+    [
+     1106962.7,
+     1818287.6
+    ],
+    [
+     1107010.1,
+     1818190.4
+    ]
+   ],
+   "fa_xy": [
+    [
+     1108615.4,
+     1829961.6
+    ],
+    [
+     1108615.9,
+     1829958.9
+    ],
+    [
+     1108742.1,
+     1829799.0
+    ],
+    [
+     1108535.3,
+     1829713.7
+    ],
+    [
+     1108475.9,
+     1829676.9
+    ],
+    [
+     1108465.1,
+     1829168.1
+    ],
+    [
+     1109193.2,
+     1827521.9
+    ],
+    [
+     1109192.2,
+     1827481.4
+    ],
+    [
+     1109187.6,
+     1827359.8
+    ],
+    [
+     1109237.2,
+     1827327.7
+    ],
+    [
+     1109242.9,
+     1827325.7
+    ],
+    [
+     1109691.1,
+     1827264.7
+    ],
+    [
+     1109896.6,
+     1827158.9
+    ],
+    [
+     1110078.8,
+     1827069.3
+    ],
+    [
+     1110877.1,
+     1826552.9
+    ],
+    [
+     1110915.3,
+     1826531.2
+    ],
+    [
+     1111384.9,
+     1826309.2
+    ],
+    [
+     1111491.6,
+     1826278.0
+    ],
+    [
+     1111536.0,
+     1826264.5
+    ],
+    [
+     1111584.5,
+     1826249.8
+    ],
+    [
+     1111710.1,
+     1826211.6
+    ],
+    [
+     1111766.8,
+     1826188.1
+    ],
+    [
+     1111912.0,
+     1826121.7
+    ],
+    [
+     1112054.8,
+     1826093.9
+    ],
+    [
+     1112049.1,
+     1825961.0
+    ],
+    [
+     1112025.8,
+     1825559.6
+    ],
+    [
+     1112248.9,
+     1825538.8
+    ],
+    [
+     1112759.4,
+     1825551.9
+    ],
+    [
+     1113130.3,
+     1825304.3
+    ],
+    [
+     1113120.6,
+     1825294.9
+    ],
+    [
+     1112976.3,
+     1825094.3
+    ],
+    [
+     1112748.3,
+     1824300.9
+    ],
+    [
+     1112755.9,
+     1823961.3
+    ],
+    [
+     1112712.6,
+     1823045.4
+    ],
+    [
+     1112730.8,
+     1822820.9
+    ],
+    [
+     1112372.5,
+     1822131.6
+    ],
+    [
+     1112329.0,
+     1822031.4
+    ],
+    [
+     1112183.4,
+     1821655.8
+    ],
+    [
+     1112095.2,
+     1819727.7
+    ],
+    [
+     1111512.4,
+     1819642.2
+    ],
+    [
+     1111451.2,
+     1819645.7
+    ],
+    [
+     1111446.5,
+     1819646.3
+    ],
+    [
+     1110879.7,
+     1819877.2
+    ],
+    [
+     1110260.0,
+     1819709.5
+    ],
+    [
+     1110223.0,
+     1819702.8
+    ],
+    [
+     1109865.3,
+     1819464.1
+    ],
+    [
+     1109674.9,
+     1819214.9
+    ],
+    [
+     1109667.2,
+     1819211.4
+    ],
+    [
+     1108926.8,
+     1819072.8
+    ],
+    [
+     1108845.9,
+     1819028.2
+    ],
+    [
+     1108792.2,
+     1819037.9
+    ],
+    [
+     1108480.5,
+     1819024.2
+    ],
+    [
+     1108316.3,
+     1818996.6
+    ],
+    [
+     1108190.5,
+     1818901.4
+    ],
+    [
+     1108137.4,
+     1818872.9
+    ],
+    [
+     1107992.8,
+     1818779.7
+    ],
+    [
+     1107895.7,
+     1818680.8
+    ],
+    [
+     1107752.8,
+     1818569.1
+    ],
+    [
+     1107748.1,
+     1818552.1
+    ],
+    [
+     1107756.0,
+     1818456.1
+    ],
+    [
+     1107763.8,
+     1818360.0
+    ],
+    [
+     1107778.3,
+     1818228.2
+    ],
+    [
+     1107781.0,
+     1818187.4
+    ],
+    [
+     1107775.9,
+     1818180.5
+    ],
+    [
+     1107705.5,
+     1818032.7
+    ],
+    [
+     1107693.5,
+     1817834.2
+    ],
+    [
+     1107686.8,
+     1817716.1
+    ],
+    [
+     1107630.7,
+     1817598.8
+    ],
+    [
+     1107531.7,
+     1817588.8
+    ],
+    [
+     1107402.1,
+     1817575.7
+    ],
+    [
+     1107268.8,
+     1817559.3
+    ],
+    [
+     1107158.7,
+     1817542.7
+    ],
+    [
+     1107081.2,
+     1817530.4
+    ],
+    [
+     1106975.0,
+     1817448.7
+    ]
+   ],
+   "naive_enters_hazard": true,
+   "fa_enters_hazard": false,
+   "naive_time_min": 440.3,
+   "fa_time_min": 546.1,
+   "naive_distance_m": 16749.7,
+   "fa_distance_m": 21130.4
+  },
+  {
+   "origin_node": 367857498,
+   "naive_xy": [
+    [
+     1105934.3,
+     1831693.0
+    ],
+    [
+     1106092.0,
+     1831464.7
+    ],
+    [
+     1105699.2,
+     1831081.8
+    ],
+    [
+     1105720.3,
+     1830922.4
+    ],
+    [
+     1105723.6,
+     1830815.8
+    ],
+    [
+     1105577.3,
+     1830736.4
+    ],
+    [
+     1105549.3,
+     1830744.2
+    ],
+    [
+     1105477.7,
+     1830707.5
+    ],
+    [
+     1105378.6,
+     1830582.9
+    ],
+    [
+     1105356.0,
+     1830568.7
+    ],
+    [
+     1105070.3,
+     1830412.1
+    ],
+    [
+     1104930.6,
+     1830355.0
+    ],
+    [
+     1104924.5,
+     1830302.2
+    ],
+    [
+     1104769.2,
+     1830209.0
+    ],
+    [
+     1104750.3,
+     1830011.9
+    ],
+    [
+     1104658.1,
+     1829887.3
+    ],
+    [
+     1104609.8,
+     1829844.2
+    ],
+    [
+     1104600.8,
+     1829829.3
+    ],
+    [
+     1104562.8,
+     1829778.2
+    ],
+    [
+     1104486.5,
+     1829677.1
+    ],
+    [
+     1104324.6,
+     1829759.9
+    ],
+    [
+     1104326.7,
+     1829742.2
+    ],
+    [
+     1104291.3,
+     1829734.8
+    ],
+    [
+     1104307.0,
+     1829640.8
+    ],
+    [
+     1104372.8,
+     1829529.2
+    ],
+    [
+     1104538.3,
+     1829425.8
+    ],
+    [
+     1104996.2,
+     1829186.3
+    ],
+    [
+     1105044.9,
+     1829165.3
+    ],
+    [
+     1104979.6,
+     1829037.5
+    ],
+    [
+     1105745.8,
+     1828087.5
+    ],
+    [
+     1105866.7,
+     1828021.6
+    ],
+    [
+     1105603.9,
+     1827377.3
+    ],
+    [
+     1104560.5,
+     1826634.4
+    ],
+    [
+     1104537.1,
+     1826548.0
+    ],
+    [
+     1104541.3,
+     1826178.6
+    ],
+    [
+     1104576.8,
+     1825931.5
+    ],
+    [
+     1105132.0,
+     1825546.4
+    ],
+    [
+     1105392.5,
+     1825052.1
+    ],
+    [
+     1105416.0,
+     1824999.2
+    ],
+    [
+     1105338.9,
+     1824465.1
+    ],
+    [
+     1105344.3,
+     1824213.2
+    ],
+    [
+     1105354.8,
+     1824173.6
+    ],
+    [
+     1105404.9,
+     1823982.4
+    ],
+    [
+     1105419.3,
+     1823920.5
+    ],
+    [
+     1105450.2,
+     1822067.5
+    ],
+    [
+     1106416.7,
+     1818852.0
+    ],
+    [
+     1106368.7,
+     1818695.9
+    ],
+    [
+     1106360.7,
+     1818669.7
+    ],
+    [
+     1106372.5,
+     1818663.4
+    ],
+    [
+     1106400.0,
+     1818650.5
+    ],
+    [
+     1106499.7,
+     1818605.5
+    ],
+    [
+     1106669.1,
+     1818524.7
+    ],
+    [
+     1106793.0,
+     1818460.6
+    ],
+    [
+     1106962.7,
+     1818287.6
+    ],
+    [
+     1107010.1,
+     1818190.4
+    ]
+   ],
+   "fa_xy": [
+    [
+     1105934.3,
+     1831693.0
+    ],
+    [
+     1106092.0,
+     1831464.7
+    ],
+    [
+     1105699.2,
+     1831081.8
+    ],
+    [
+     1105720.3,
+     1830922.4
+    ],
+    [
+     1105723.6,
+     1830815.8
+    ],
+    [
+     1105577.3,
+     1830736.4
+    ],
+    [
+     1105549.3,
+     1830744.2
+    ],
+    [
+     1105477.7,
+     1830707.5
+    ],
+    [
+     1105378.6,
+     1830582.9
+    ],
+    [
+     1105356.0,
+     1830568.7
+    ],
+    [
+     1105070.3,
+     1830412.1
+    ],
+    [
+     1104930.6,
+     1830355.0
+    ],
+    [
+     1104924.5,
+     1830302.2
+    ],
+    [
+     1104769.2,
+     1830209.0
+    ],
+    [
+     1104750.3,
+     1830011.9
+    ],
+    [
+     1104658.1,
+     1829887.3
+    ],
+    [
+     1104609.8,
+     1829844.2
+    ],
+    [
+     1104496.6,
+     1829826.4
+    ],
+    [
+     1104408.2,
+     1829854.0
+    ],
+    [
+     1104318.8,
+     1829901.3
+    ],
+    [
+     1104280.5,
+     1829898.7
+    ],
+    [
+     1106022.2,
+     1828190.3
+    ],
+    [
+     1105900.8,
+     1827646.3
+    ],
+    [
+     1105086.3,
+     1826990.3
+    ],
+    [
+     1104543.8,
+     1826513.6
+    ],
+    [
+     1104551.7,
+     1826220.2
+    ],
+    [
+     1104574.2,
+     1826052.0
+    ],
+    [
+     1104582.0,
+     1826050.7
+    ],
+    [
+     1104775.3,
+     1826001.2
+    ],
+    [
+     1104810.8,
+     1825968.7
+    ],
+    [
+     1105033.2,
+     1825742.8
+    ],
+    [
+     1105041.0,
+     1825730.7
+    ],
+    [
+     1105085.1,
+     1825745.4
+    ],
+    [
+     1105115.7,
+     1825667.9
+    ],
+    [
+     1105154.3,
+     1825618.7
+    ],
+    [
+     1105221.1,
+     1825483.3
+    ],
+    [
+     1105249.4,
+     1825407.0
+    ],
+    [
+     1105356.6,
+     1825236.7
+    ],
+    [
+     1105406.0,
+     1825183.0
+    ],
+    [
+     1106253.9,
+     1824730.6
+    ],
+    [
+     1106535.9,
+     1824657.1
+    ],
+    [
+     1106636.6,
+     1824572.3
+    ],
+    [
+     1106708.9,
+     1824537.0
+    ],
+    [
+     1106796.2,
+     1824524.9
+    ],
+    [
+     1106825.0,
+     1824507.0
+    ],
+    [
+     1106909.4,
+     1824475.9
+    ],
+    [
+     1107020.6,
+     1824348.9
+    ],
+    [
+     1107353.8,
+     1823835.5
+    ],
+    [
+     1107451.7,
+     1823775.8
+    ],
+    [
+     1107662.4,
+     1823570.8
+    ],
+    [
+     1107919.9,
+     1823429.3
+    ],
+    [
+     1108392.8,
+     1823060.3
+    ],
+    [
+     1108516.1,
+     1822886.5
+    ],
+    [
+     1108648.9,
+     1822717.2
+    ],
+    [
+     1108749.9,
+     1822638.7
+    ],
+    [
+     1108757.3,
+     1822636.4
+    ],
+    [
+     1108940.6,
+     1822554.5
+    ],
+    [
+     1108894.3,
+     1822484.2
+    ],
+    [
+     1108524.9,
+     1821875.8
+    ],
+    [
+     1109077.1,
+     1821218.1
+    ],
+    [
+     1108266.6,
+     1819824.5
+    ],
+    [
+     1107854.8,
+     1819042.6
+    ],
+    [
+     1107839.4,
+     1819008.1
+    ],
+    [
+     1107467.3,
+     1818802.4
+    ],
+    [
+     1107486.9,
+     1818737.2
+    ],
+    [
+     1107490.9,
+     1818725.9
+    ],
+    [
+     1107569.7,
+     1818471.1
+    ],
+    [
+     1107571.7,
+     1818442.5
+    ],
+    [
+     1107586.1,
+     1818240.8
+    ],
+    [
+     1107592.7,
+     1818164.5
+    ],
+    [
+     1107594.5,
+     1818124.0
+    ],
+    [
+     1107598.5,
+     1818050.7
+    ],
+    [
+     1107598.8,
+     1818045.6
+    ],
+    [
+     1107604.2,
+     1817944.4
+    ],
+    [
+     1107613.9,
+     1817838.5
+    ],
+    [
+     1107624.5,
+     1817710.5
+    ],
+    [
+     1107630.7,
+     1817598.8
+    ],
+    [
+     1107531.7,
+     1817588.8
+    ],
+    [
+     1107402.1,
+     1817575.7
+    ],
+    [
+     1107268.8,
+     1817559.3
+    ],
+    [
+     1107158.7,
+     1817542.7
+    ],
+    [
+     1107081.2,
+     1817530.4
+    ],
+    [
+     1106975.0,
+     1817448.7
+    ]
+   ],
+   "naive_enters_hazard": true,
+   "fa_enters_hazard": false,
+   "naive_time_min": 456.4,
+   "fa_time_min": 570.0,
+   "naive_distance_m": 17692.2,
+   "fa_distance_m": 21652.0
+  },
+  {
+   "origin_node": 367858725,
+   "naive_xy": [
+    [
+     1105959.3,
+     1827970.7
+    ],
+    [
+     1105960.6,
+     1827967.4
+    ],
+    [
+     1105902.8,
+     1827666.4
+    ],
+    [
+     1105603.9,
+     1827377.3
+    ],
+    [
+     1104560.5,
+     1826634.4
+    ],
+    [
+     1104537.1,
+     1826548.0
+    ],
+    [
+     1104541.3,
+     1826178.6
+    ],
+    [
+     1104576.8,
+     1825931.5
+    ],
+    [
+     1105132.0,
+     1825546.4
+    ],
+    [
+     1105392.5,
+     1825052.1
+    ],
+    [
+     1105416.0,
+     1824999.2
+    ],
+    [
+     1105338.9,
+     1824465.1
+    ],
+    [
+     1105344.3,
+     1824213.2
+    ],
+    [
+     1105354.8,
+     1824173.6
+    ],
+    [
+     1105404.9,
+     1823982.4
+    ],
+    [
+     1105419.3,
+     1823920.5
+    ],
+    [
+     1105450.2,
+     1822067.5
+    ],
+    [
+     1106416.7,
+     1818852.0
+    ],
+    [
+     1106368.7,
+     1818695.9
+    ],
+    [
+     1106360.7,
+     1818669.7
+    ],
+    [
+     1106372.5,
+     1818663.4
+    ],
+    [
+     1106400.0,
+     1818650.5
+    ],
+    [
+     1106499.7,
+     1818605.5
+    ],
+    [
+     1106669.1,
+     1818524.7
+    ],
+    [
+     1106793.0,
+     1818460.6
+    ],
+    [
+     1106962.7,
+     1818287.6
+    ],
+    [
+     1107010.1,
+     1818190.4
+    ]
+   ],
+   "fa_xy": [
+    [
+     1105959.3,
+     1827970.7
+    ],
+    [
+     1105960.6,
+     1827967.4
+    ],
+    [
+     1106053.2,
+     1827935.5
+    ],
+    [
+     1105900.8,
+     1827646.3
+    ],
+    [
+     1105086.3,
+     1826990.3
+    ],
+    [
+     1105025.9,
+     1826935.9
+    ],
+    [
+     1104891.2,
+     1826836.6
+    ],
+    [
+     1104557.9,
+     1826563.5
+    ],
+    [
+     1104543.8,
+     1826513.6
+    ],
+    [
+     1104551.7,
+     1826220.2
+    ],
+    [
+     1104574.2,
+     1826052.0
+    ],
+    [
+     1104582.0,
+     1826050.7
+    ],
+    [
+     1104775.3,
+     1826001.2
+    ],
+    [
+     1104810.8,
+     1825968.7
+    ],
+    [
+     1105033.2,
+     1825742.8
+    ],
+    [
+     1105041.0,
+     1825730.7
+    ],
+    [
+     1105085.1,
+     1825745.4
+    ],
+    [
+     1105115.7,
+     1825667.9
+    ],
+    [
+     1105154.3,
+     1825618.7
+    ],
+    [
+     1105221.1,
+     1825483.3
+    ],
+    [
+     1105249.4,
+     1825407.0
+    ],
+    [
+     1105356.6,
+     1825236.7
+    ],
+    [
+     1105406.0,
+     1825183.0
+    ],
+    [
+     1106253.9,
+     1824730.6
+    ],
+    [
+     1106535.9,
+     1824657.1
+    ],
+    [
+     1106636.6,
+     1824572.3
+    ],
+    [
+     1106708.9,
+     1824537.0
+    ],
+    [
+     1106796.2,
+     1824524.9
+    ],
+    [
+     1106825.0,
+     1824507.0
+    ],
+    [
+     1106909.4,
+     1824475.9
+    ],
+    [
+     1107020.6,
+     1824348.9
+    ],
+    [
+     1107353.8,
+     1823835.5
+    ],
+    [
+     1107451.7,
+     1823775.8
+    ],
+    [
+     1107662.4,
+     1823570.8
+    ],
+    [
+     1107919.9,
+     1823429.3
+    ],
+    [
+     1108392.8,
+     1823060.3
+    ],
+    [
+     1108516.1,
+     1822886.5
+    ],
+    [
+     1108648.9,
+     1822717.2
+    ],
+    [
+     1108749.9,
+     1822638.7
+    ],
+    [
+     1108757.3,
+     1822636.4
+    ],
+    [
+     1108940.6,
+     1822554.5
+    ],
+    [
+     1108894.3,
+     1822484.2
+    ],
+    [
+     1108524.9,
+     1821875.8
+    ],
+    [
+     1109077.1,
+     1821218.1
+    ],
+    [
+     1109167.6,
+     1821428.0
+    ],
+    [
+     1111351.4,
+     1819708.4
+    ],
+    [
+     1111451.2,
+     1819645.7
+    ],
+    [
+     1111446.5,
+     1819646.3
+    ],
+    [
+     1110879.7,
+     1819877.2
+    ],
+    [
+     1110260.0,
+     1819709.5
+    ],
+    [
+     1110223.0,
+     1819702.8
+    ],
+    [
+     1109865.3,
+     1819464.1
+    ],
+    [
+     1109674.9,
+     1819214.9
+    ],
+    [
+     1109667.2,
+     1819211.4
+    ],
+    [
+     1108926.8,
+     1819072.8
+    ],
+    [
+     1108845.9,
+     1819028.2
+    ],
+    [
+     1108792.2,
+     1819037.9
+    ],
+    [
+     1108480.5,
+     1819024.2
+    ],
+    [
+     1108316.3,
+     1818996.6
+    ],
+    [
+     1108190.5,
+     1818901.4
+    ],
+    [
+     1108137.4,
+     1818872.9
+    ],
+    [
+     1107992.8,
+     1818779.7
+    ],
+    [
+     1107895.7,
+     1818680.8
+    ],
+    [
+     1107752.8,
+     1818569.1
+    ],
+    [
+     1107748.1,
+     1818552.1
+    ],
+    [
+     1107756.0,
+     1818456.1
+    ],
+    [
+     1107763.8,
+     1818360.0
+    ],
+    [
+     1107778.3,
+     1818228.2
+    ],
+    [
+     1107781.0,
+     1818187.4
+    ],
+    [
+     1107775.9,
+     1818180.5
+    ],
+    [
+     1107705.5,
+     1818032.7
+    ],
+    [
+     1107693.5,
+     1817834.2
+    ],
+    [
+     1107686.8,
+     1817716.1
+    ],
+    [
+     1107630.7,
+     1817598.8
+    ],
+    [
+     1107531.7,
+     1817588.8
+    ],
+    [
+     1107402.1,
+     1817575.7
+    ],
+    [
+     1107268.8,
+     1817559.3
+    ],
+    [
+     1107158.7,
+     1817542.7
+    ],
+    [
+     1107081.2,
+     1817530.4
+    ],
+    [
+     1106975.0,
+     1817448.7
+    ]
+   ],
+   "naive_enters_hazard": true,
+   "fa_enters_hazard": false,
+   "naive_time_min": 308.8,
+   "fa_time_min": 582.8,
+   "naive_distance_m": 11809.1,
+   "fa_distance_m": 21323.8
+  },
+  {
+   "origin_node": 6602597956,
+   "naive_xy": [
+    [
+     1107564.0,
+     1826405.9
+    ],
+    [
+     1107570.1,
+     1826398.8
+    ],
+    [
+     1107492.5,
+     1826401.5
+    ],
+    [
+     1107445.8,
+     1826366.6
+    ],
+    [
+     1107384.8,
+     1826367.6
+    ],
+    [
+     1107257.5,
+     1826395.6
+    ],
+    [
+     1106175.7,
+     1825679.3
+    ],
+    [
+     1106141.4,
+     1825660.7
+    ],
+    [
+     1106063.7,
+     1825731.0
+    ],
+    [
+     1105853.3,
+     1825730.7
+    ],
+    [
+     1105748.7,
+     1825747.0
+    ],
+    [
+     1105145.4,
+     1825771.9
+    ],
+    [
+     1105085.1,
+     1825745.4
+    ],
+    [
+     1105041.0,
+     1825730.7
+    ],
+    [
+     1105046.2,
+     1825723.0
+    ],
+    [
+     1105141.0,
+     1825552.2
+    ],
+    [
+     1105132.0,
+     1825546.4
+    ],
+    [
+     1105392.5,
+     1825052.1
+    ],
+    [
+     1105416.0,
+     1824999.2
+    ],
+    [
+     1105338.9,
+     1824465.1
+    ],
+    [
+     1105344.3,
+     1824213.2
+    ],
+    [
+     1105354.8,
+     1824173.6
+    ],
+    [
+     1105404.9,
+     1823982.4
+    ],
+    [
+     1105419.3,
+     1823920.5
+    ],
+    [
+     1105450.2,
+     1822067.5
+    ],
+    [
+     1106416.7,
+     1818852.0
+    ],
+    [
+     1106368.7,
+     1818695.9
+    ],
+    [
+     1106360.7,
+     1818669.7
+    ],
+    [
+     1106372.5,
+     1818663.4
+    ],
+    [
+     1106400.0,
+     1818650.5
+    ],
+    [
+     1106499.7,
+     1818605.5
+    ],
+    [
+     1106669.1,
+     1818524.7
+    ],
+    [
+     1106793.0,
+     1818460.6
+    ],
+    [
+     1106962.7,
+     1818287.6
+    ],
+    [
+     1107010.1,
+     1818190.4
+    ]
+   ],
+   "fa_xy": [
+    [
+     1107564.0,
+     1826405.9
+    ],
+    [
+     1107570.1,
+     1826398.8
+    ],
+    [
+     1107492.5,
+     1826401.5
+    ],
+    [
+     1107474.9,
+     1826421.0
+    ],
+    [
+     1107785.6,
+     1826616.9
+    ],
+    [
+     1107870.9,
+     1826641.0
+    ],
+    [
+     1107949.4,
+     1826660.6
+    ],
+    [
+     1108122.5,
+     1826749.4
+    ],
+    [
+     1108139.1,
+     1826691.1
+    ],
+    [
+     1108394.1,
+     1826543.3
+    ],
+    [
+     1108320.7,
+     1826401.6
+    ],
+    [
+     1108381.0,
+     1826388.8
+    ],
+    [
+     1108635.2,
+     1826332.2
+    ],
+    [
+     1108944.4,
+     1826176.7
+    ],
+    [
+     1108974.5,
+     1826170.9
+    ],
+    [
+     1109007.5,
+     1826171.4
+    ],
+    [
+     1109069.0,
+     1826152.4
+    ],
+    [
+     1109902.5,
+     1825309.7
+    ],
+    [
+     1110549.7,
+     1824177.0
+    ],
+    [
+     1112730.8,
+     1822820.9
+    ],
+    [
+     1112372.5,
+     1822131.6
+    ],
+    [
+     1112329.0,
+     1822031.4
+    ],
+    [
+     1112183.4,
+     1821655.8
+    ],
+    [
+     1112095.2,
+     1819727.7
+    ],
+    [
+     1111512.4,
+     1819642.2
+    ],
+    [
+     1111451.2,
+     1819645.7
+    ],
+    [
+     1111446.5,
+     1819646.3
+    ],
+    [
+     1110879.7,
+     1819877.2
+    ],
+    [
+     1110260.0,
+     1819709.5
+    ],
+    [
+     1110223.0,
+     1819702.8
+    ],
+    [
+     1109865.3,
+     1819464.1
+    ],
+    [
+     1109674.9,
+     1819214.9
+    ],
+    [
+     1109667.2,
+     1819211.4
+    ],
+    [
+     1108926.8,
+     1819072.8
+    ],
+    [
+     1108845.9,
+     1819028.2
+    ],
+    [
+     1108792.2,
+     1819037.9
+    ],
+    [
+     1108480.5,
+     1819024.2
+    ],
+    [
+     1108316.3,
+     1818996.6
+    ],
+    [
+     1108190.5,
+     1818901.4
+    ],
+    [
+     1108137.4,
+     1818872.9
+    ],
+    [
+     1107992.8,
+     1818779.7
+    ],
+    [
+     1107895.7,
+     1818680.8
+    ],
+    [
+     1107752.8,
+     1818569.1
+    ],
+    [
+     1107748.1,
+     1818552.1
+    ],
+    [
+     1107756.0,
+     1818456.1
+    ],
+    [
+     1107763.8,
+     1818360.0
+    ],
+    [
+     1107778.3,
+     1818228.2
+    ],
+    [
+     1107781.0,
+     1818187.4
+    ],
+    [
+     1107775.9,
+     1818180.5
+    ],
+    [
+     1107705.5,
+     1818032.7
+    ],
+    [
+     1107693.5,
+     1817834.2
+    ],
+    [
+     1107686.8,
+     1817716.1
+    ],
+    [
+     1107630.7,
+     1817598.8
+    ],
+    [
+     1107531.7,
+     1817588.8
+    ],
+    [
+     1107402.1,
+     1817575.7
+    ],
+    [
+     1107268.8,
+     1817559.3
+    ],
+    [
+     1107158.7,
+     1817542.7
+    ],
+    [
+     1107081.2,
+     1817530.4
+    ],
+    [
+     1106975.0,
+     1817448.7
+    ]
+   ],
+   "naive_enters_hazard": true,
+   "fa_enters_hazard": false,
+   "naive_time_min": 300.5,
+   "fa_time_min": 502.5,
+   "naive_distance_m": 11550.8,
+   "fa_distance_m": 18778.3
+  },
+  {
+   "origin_node": 6602598020,
+   "naive_xy": [
+    [
+     1107268.7,
+     1825938.4
+    ],
+    [
+     1107224.4,
+     1825961.4
+    ],
+    [
+     1107171.6,
+     1825830.6
+    ],
+    [
+     1107160.9,
+     1825804.1
+    ],
+    [
+     1107017.1,
+     1825755.2
+    ],
+    [
+     1106790.0,
+     1825643.4
+    ],
+    [
+     1106692.5,
+     1825607.9
+    ],
+    [
+     1106428.6,
+     1825550.7
+    ],
+    [
+     1106170.4,
+     1825638.2
+    ],
+    [
+     1106141.4,
+     1825660.7
+    ],
+    [
+     1106063.7,
+     1825731.0
+    ],
+    [
+     1105853.3,
+     1825730.7
+    ],
+    [
+     1105748.7,
+     1825747.0
+    ],
+    [
+     1105145.4,
+     1825771.9
+    ],
+    [
+     1105085.1,
+     1825745.4
+    ],
+    [
+     1105041.0,
+     1825730.7
+    ],
+    [
+     1105046.2,
+     1825723.0
+    ],
+    [
+     1105141.0,
+     1825552.2
+    ],
+    [
+     1105132.0,
+     1825546.4
+    ],
+    [
+     1105392.5,
+     1825052.1
+    ],
+    [
+     1105416.0,
+     1824999.2
+    ],
+    [
+     1105338.9,
+     1824465.1
+    ],
+    [
+     1105344.3,
+     1824213.2
+    ],
+    [
+     1105354.8,
+     1824173.6
+    ],
+    [
+     1105404.9,
+     1823982.4
+    ],
+    [
+     1105419.3,
+     1823920.5
+    ],
+    [
+     1105450.2,
+     1822067.5
+    ],
+    [
+     1106416.7,
+     1818852.0
+    ],
+    [
+     1106368.7,
+     1818695.9
+    ],
+    [
+     1106360.7,
+     1818669.7
+    ],
+    [
+     1106372.5,
+     1818663.4
+    ],
+    [
+     1106400.0,
+     1818650.5
+    ],
+    [
+     1106499.7,
+     1818605.5
+    ],
+    [
+     1106669.1,
+     1818524.7
+    ],
+    [
+     1106793.0,
+     1818460.6
+    ],
+    [
+     1106962.7,
+     1818287.6
+    ],
+    [
+     1107010.1,
+     1818190.4
+    ]
+   ],
+   "fa_xy": [
+    [
+     1107268.7,
+     1825938.4
+    ],
+    [
+     1107224.4,
+     1825961.4
+    ],
+    [
+     1107288.2,
+     1826122.6
+    ],
+    [
+     1107364.1,
+     1826091.1
+    ],
+    [
+     1107407.5,
+     1826294.3
+    ],
+    [
+     1107445.8,
+     1826366.6
+    ],
+    [
+     1107474.9,
+     1826421.0
+    ],
+    [
+     1107785.6,
+     1826616.9
+    ],
+    [
+     1107870.9,
+     1826641.0
+    ],
+    [
+     1107949.4,
+     1826660.6
+    ],
+    [
+     1107919.6,
+     1826536.3
+    ],
+    [
+     1107920.8,
+     1826515.5
+    ],
+    [
+     1107917.8,
+     1826484.5
+    ],
+    [
+     1107887.1,
+     1826356.0
+    ],
+    [
+     1108222.5,
+     1826426.8
+    ],
+    [
+     1108274.5,
+     1826415.9
+    ],
+    [
+     1108320.7,
+     1826401.6
+    ],
+    [
+     1108381.0,
+     1826388.8
+    ],
+    [
+     1108635.2,
+     1826332.2
+    ],
+    [
+     1108944.4,
+     1826176.7
+    ],
+    [
+     1108974.5,
+     1826170.9
+    ],
+    [
+     1109007.5,
+     1826171.4
+    ],
+    [
+     1109069.0,
+     1826152.4
+    ],
+    [
+     1109902.5,
+     1825309.7
+    ],
+    [
+     1110549.7,
+     1824177.0
+    ],
+    [
+     1112730.8,
+     1822820.9
+    ],
+    [
+     1112372.5,
+     1822131.6
+    ],
+    [
+     1112329.0,
+     1822031.4
+    ],
+    [
+     1112183.4,
+     1821655.8
+    ],
+    [
+     1112095.2,
+     1819727.7
+    ],
+    [
+     1111512.4,
+     1819642.2
+    ],
+    [
+     1111451.2,
+     1819645.7
+    ],
+    [
+     1111446.5,
+     1819646.3
+    ],
+    [
+     1110879.7,
+     1819877.2
+    ],
+    [
+     1110260.0,
+     1819709.5
+    ],
+    [
+     1110223.0,
+     1819702.8
+    ],
+    [
+     1109865.3,
+     1819464.1
+    ],
+    [
+     1109674.9,
+     1819214.9
+    ],
+    [
+     1109667.2,
+     1819211.4
+    ],
+    [
+     1108926.8,
+     1819072.8
+    ],
+    [
+     1108845.9,
+     1819028.2
+    ],
+    [
+     1108792.2,
+     1819037.9
+    ],
+    [
+     1108480.5,
+     1819024.2
+    ],
+    [
+     1108316.3,
+     1818996.6
+    ],
+    [
+     1108190.5,
+     1818901.4
+    ],
+    [
+     1108137.4,
+     1818872.9
+    ],
+    [
+     1107992.8,
+     1818779.7
+    ],
+    [
+     1107895.7,
+     1818680.8
+    ],
+    [
+     1107752.8,
+     1818569.1
+    ],
+    [
+     1107748.1,
+     1818552.1
+    ],
+    [
+     1107756.0,
+     1818456.1
+    ],
+    [
+     1107763.8,
+     1818360.0
+    ],
+    [
+     1107778.3,
+     1818228.2
+    ],
+    [
+     1107781.0,
+     1818187.4
+    ],
+    [
+     1107775.9,
+     1818180.5
+    ],
+    [
+     1107705.5,
+     1818032.7
+    ],
+    [
+     1107693.5,
+     1817834.2
+    ],
+    [
+     1107686.8,
+     1817716.1
+    ],
+    [
+     1107630.7,
+     1817598.8
+    ],
+    [
+     1107531.7,
+     1817588.8
+    ],
+    [
+     1107402.1,
+     1817575.7
+    ],
+    [
+     1107268.8,
+     1817559.3
+    ],
+    [
+     1107158.7,
+     1817542.7
+    ],
+    [
+     1107081.2,
+     1817530.4
+    ],
+    [
+     1106975.0,
+     1817448.7
+    ]
+   ],
+   "naive_enters_hazard": true,
+   "fa_enters_hazard": false,
+   "naive_time_min": 291.2,
+   "fa_time_min": 515.6,
+   "naive_distance_m": 11085.4,
+   "fa_distance_m": 19319.4
+  }
+ ],
+ "trigger_at": "",
+ "trigger_hotspot": {
+  "lat": 36.37374,
+  "lon": 128.61635,
+  "acquired_utc": "2025-03-22T04:22:00Z",
+  "source": "replay:uiseong_andong_2025_detections.csv",
+  "satellite": "N",
+  "instrument": "VIIRS",
+  "confidence": "nominal",
+  "confidence_raw": "n",
+  "frp": 3.4,
+  "daynight": "D"
+ },
+ "hotspots": [
+  {
+   "lat": 36.37374,
+   "lon": 128.61635,
+   "acquired_utc": "2025-03-22T04:22:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 3.4,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.37306,
+   "lon": 128.61211,
+   "acquired_utc": "2025-03-22T04:22:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 5.36,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.37248,
+   "lon": 128.62996,
+   "acquired_utc": "2025-03-22T04:22:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 67.35,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3718,
+   "lon": 128.62569,
+   "acquired_utc": "2025-03-22T04:22:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 67.35,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.37112,
+   "lon": 128.62143,
+   "acquired_utc": "2025-03-22T04:22:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 44.15,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.37101,
+   "lon": 128.5992,
+   "acquired_utc": "2025-03-22T04:22:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 3.5,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.36986,
+   "lon": 128.63504,
+   "acquired_utc": "2025-03-22T04:22:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 30.95,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.36976,
+   "lon": 128.61293,
+   "acquired_utc": "2025-03-22T04:22:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 15.59,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.36917,
+   "lon": 128.63077,
+   "acquired_utc": "2025-03-22T04:22:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 67.35,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.36908,
+   "lon": 128.60863,
+   "acquired_utc": "2025-03-22T04:22:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 15.59,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.36861,
+   "lon": 128.64873,
+   "acquired_utc": "2025-03-22T04:22:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 15.84,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.37044,
+   "lon": 128.61717,
+   "acquired_utc": "2025-03-22T04:22:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 44.15,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.36839,
+   "lon": 128.60434,
+   "acquired_utc": "2025-03-22T04:22:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 9.86,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3685,
+   "lon": 128.6265,
+   "acquired_utc": "2025-03-22T04:22:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 67.35,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.36258,
+   "lon": 128.63239,
+   "acquired_utc": "2025-03-22T04:22:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 51.97,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.36451,
+   "lon": 128.62303,
+   "acquired_utc": "2025-03-22T04:22:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 153.66,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.36519,
+   "lon": 128.6273,
+   "acquired_utc": "2025-03-22T04:22:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 51.97,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.36588,
+   "lon": 128.63159,
+   "acquired_utc": "2025-03-22T04:22:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 51.97,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3619,
+   "lon": 128.6281,
+   "acquired_utc": "2025-03-22T04:22:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 51.97,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.36771,
+   "lon": 128.60004,
+   "acquired_utc": "2025-03-22T04:22:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 9.86,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.36782,
+   "lon": 128.62224,
+   "acquired_utc": "2025-03-22T04:22:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 44.15,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.36792,
+   "lon": 128.64441,
+   "acquired_utc": "2025-03-22T04:22:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 15.84,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.36714,
+   "lon": 128.61798,
+   "acquired_utc": "2025-03-22T04:22:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 44.15,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.36877,
+   "lon": 128.62726,
+   "acquired_utc": "2025-03-22T04:45:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 18.42,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.372,
+   "lon": 128.62025,
+   "acquired_utc": "2025-03-22T04:45:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 15.64,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.37196,
+   "lon": 128.65741,
+   "acquired_utc": "2025-03-22T04:45:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 209.91,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.37133,
+   "lon": 128.61392,
+   "acquired_utc": "2025-03-22T04:45:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 15.64,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.37132,
+   "lon": 128.65143,
+   "acquired_utc": "2025-03-22T04:45:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 209.91,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.37071,
+   "lon": 128.64557,
+   "acquired_utc": "2025-03-22T04:45:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 32.53,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.37069,
+   "lon": 128.60791,
+   "acquired_utc": "2025-03-22T04:45:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 92.36,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.37008,
+   "lon": 128.63956,
+   "acquired_utc": "2025-03-22T04:45:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 32.53,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.37006,
+   "lon": 128.60201,
+   "acquired_utc": "2025-03-22T04:45:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 92.36,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.36943,
+   "lon": 128.63345,
+   "acquired_utc": "2025-03-22T04:45:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 18.42,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.36872,
+   "lon": 128.66437,
+   "acquired_utc": "2025-03-22T04:45:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 4.05,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.36353,
+   "lon": 128.61519,
+   "acquired_utc": "2025-03-22T04:45:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 29.35,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.36806,
+   "lon": 128.65808,
+   "acquired_utc": "2025-03-22T04:45:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 118.88,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.36742,
+   "lon": 128.65201,
+   "acquired_utc": "2025-03-22T04:45:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 118.88,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.36742,
+   "lon": 128.61449,
+   "acquired_utc": "2025-03-22T04:45:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 15.64,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3668,
+   "lon": 128.64618,
+   "acquired_utc": "2025-03-22T04:45:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 59.66,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.36616,
+   "lon": 128.64009,
+   "acquired_utc": "2025-03-22T04:45:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 59.66,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.36613,
+   "lon": 128.60236,
+   "acquired_utc": "2025-03-22T04:45:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "low",
+   "confidence_raw": "l",
+   "frp": 92.36,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.36551,
+   "lon": 128.63396,
+   "acquired_utc": "2025-03-22T04:45:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 58.88,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.36487,
+   "lon": 128.62785,
+   "acquired_utc": "2025-03-22T04:45:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 58.88,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3642,
+   "lon": 128.62157,
+   "acquired_utc": "2025-03-22T04:45:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 29.35,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.36416,
+   "lon": 128.6588,
+   "acquired_utc": "2025-03-22T04:45:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 118.88,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.37268,
+   "lon": 128.62665,
+   "acquired_utc": "2025-03-22T04:45:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 18.42,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3681,
+   "lon": 128.62088,
+   "acquired_utc": "2025-03-22T04:45:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "high",
+   "confidence_raw": "h",
+   "frp": 15.64,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.36224,
+   "lon": 128.64061,
+   "acquired_utc": "2025-03-22T04:45:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 59.66,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.36221,
+   "lon": 128.60275,
+   "acquired_utc": "2025-03-22T04:45:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "N20",
+   "instrument": "VIIRS",
+   "confidence": "nominal",
+   "confidence_raw": "n",
+   "frp": 184.03,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3584,
+   "lon": 128.6227,
+   "acquired_utc": "2025-03-22T05:39:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 757.0,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3821,
+   "lon": 128.6632,
+   "acquired_utc": "2025-03-22T05:39:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "47",
+   "frp": 8.0,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3806,
+   "lon": 128.6521,
+   "acquired_utc": "2025-03-22T05:39:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "77",
+   "frp": 12.9,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3761,
+   "lon": 128.6189,
+   "acquired_utc": "2025-03-22T05:39:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "low",
+   "confidence_raw": "13",
+   "frp": 6.0,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3746,
+   "lon": 128.6078,
+   "acquired_utc": "2025-03-22T05:39:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "85",
+   "frp": 23.6,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3733,
+   "lon": 128.6651,
+   "acquired_utc": "2025-03-22T05:39:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 532.0,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3731,
+   "lon": 128.5969,
+   "acquired_utc": "2025-03-22T05:39:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "39",
+   "frp": 6.3,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3718,
+   "lon": 128.654,
+   "acquired_utc": "2025-03-22T05:39:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 1001.9,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3688,
+   "lon": 128.6319,
+   "acquired_utc": "2025-03-22T05:39:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "97",
+   "frp": 61.6,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3672,
+   "lon": 128.6208,
+   "acquired_utc": "2025-03-22T05:39:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 156.3,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.366,
+   "lon": 128.6782,
+   "acquired_utc": "2025-03-22T05:39:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 243.7,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3657,
+   "lon": 128.6096,
+   "acquired_utc": "2025-03-22T05:39:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 1407.4,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3645,
+   "lon": 128.667,
+   "acquired_utc": "2025-03-22T05:39:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 480.3,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3642,
+   "lon": 128.5986,
+   "acquired_utc": "2025-03-22T05:39:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 195.2,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3703,
+   "lon": 128.643,
+   "acquired_utc": "2025-03-22T05:39:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 125.5,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3614,
+   "lon": 128.6448,
+   "acquired_utc": "2025-03-22T05:39:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 461.0,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3629,
+   "lon": 128.6559,
+   "acquired_utc": "2025-03-22T05:39:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 239.5,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.2279,
+   "lon": 128.6855,
+   "acquired_utc": "2025-03-22T05:39:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 94.1,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.2294,
+   "lon": 128.6965,
+   "acquired_utc": "2025-03-22T05:39:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "40",
+   "frp": 3.7,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3481,
+   "lon": 128.6136,
+   "acquired_utc": "2025-03-22T05:39:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "80",
+   "frp": 16.1,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3496,
+   "lon": 128.6246,
+   "acquired_utc": "2025-03-22T05:39:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "49",
+   "frp": 17.6,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3511,
+   "lon": 128.6356,
+   "acquired_utc": "2025-03-22T05:39:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "41",
+   "frp": 27.1,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.2263,
+   "lon": 128.6744,
+   "acquired_utc": "2025-03-22T05:39:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "94",
+   "frp": 52.4,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3556,
+   "lon": 128.669,
+   "acquired_utc": "2025-03-22T05:39:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "62",
+   "frp": 14.3,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3569,
+   "lon": 128.6116,
+   "acquired_utc": "2025-03-22T05:39:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 752.6,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3571,
+   "lon": 128.6801,
+   "acquired_utc": "2025-03-22T05:39:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "49",
+   "frp": 12.6,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3599,
+   "lon": 128.6337,
+   "acquired_utc": "2025-03-22T05:39:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 785.4,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.3554,
+   "lon": 128.6005,
+   "acquired_utc": "2025-03-22T05:39:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Aqua",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 85.1,
+   "daynight": "D"
+  },
+  {
+   "lat": 36.387,
+   "lon": 128.6499,
+   "acquired_utc": "2025-03-22T12:05:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 103.4,
+   "daynight": "N"
+  },
+  {
+   "lat": 36.3883,
+   "lon": 128.6626,
+   "acquired_utc": "2025-03-22T12:05:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 156.3,
+   "daynight": "N"
+  },
+  {
+   "lat": 36.3897,
+   "lon": 128.7864,
+   "acquired_utc": "2025-03-22T12:05:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 93.9,
+   "daynight": "N"
+  },
+  {
+   "lat": 36.3902,
+   "lon": 128.7279,
+   "acquired_utc": "2025-03-22T12:05:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 159.0,
+   "daynight": "N"
+  },
+  {
+   "lat": 36.3905,
+   "lon": 128.6684,
+   "acquired_utc": "2025-03-22T12:05:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 106.2,
+   "daynight": "N"
+  },
+  {
+   "lat": 36.3919,
+   "lon": 128.6809,
+   "acquired_utc": "2025-03-22T12:05:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "83",
+   "frp": 28.6,
+   "daynight": "N"
+  },
+  {
+   "lat": 36.3937,
+   "lon": 128.7461,
+   "acquired_utc": "2025-03-22T12:05:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 226.9,
+   "daynight": "N"
+  },
+  {
+   "lat": 36.3931,
+   "lon": 128.8042,
+   "acquired_utc": "2025-03-22T12:05:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "56",
+   "frp": 16.6,
+   "daynight": "N"
+  },
+  {
+   "lat": 36.3865,
+   "lon": 128.7088,
+   "acquired_utc": "2025-03-22T12:05:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 109.9,
+   "daynight": "N"
+  },
+  {
+   "lat": 36.3641,
+   "lon": 128.7151,
+   "acquired_utc": "2025-03-22T12:05:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "low",
+   "confidence_raw": "16",
+   "frp": 17.2,
+   "daynight": "N"
+  },
+  {
+   "lat": 36.3846,
+   "lon": 128.644,
+   "acquired_utc": "2025-03-22T12:05:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 55.8,
+   "daynight": "N"
+  },
+  {
+   "lat": 36.3828,
+   "lon": 128.6897,
+   "acquired_utc": "2025-03-22T12:05:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "63",
+   "frp": 34.0,
+   "daynight": "N"
+  },
+  {
+   "lat": 36.3825,
+   "lon": 128.7494,
+   "acquired_utc": "2025-03-22T12:05:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 79.9,
+   "daynight": "N"
+  },
+  {
+   "lat": 36.382,
+   "lon": 128.8078,
+   "acquired_utc": "2025-03-22T12:05:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 59.8,
+   "daynight": "N"
+  },
+  {
+   "lat": 36.3793,
+   "lon": 128.6715,
+   "acquired_utc": "2025-03-22T12:05:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 81.8,
+   "daynight": "N"
+  },
+  {
+   "lat": 36.379,
+   "lon": 128.7311,
+   "acquired_utc": "2025-03-22T12:05:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "35",
+   "frp": 29.1,
+   "daynight": "N"
+  },
+  {
+   "lat": 36.3758,
+   "lon": 128.6531,
+   "acquired_utc": "2025-03-22T12:05:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "43",
+   "frp": 25.4,
+   "daynight": "N"
+  },
+  {
+   "lat": 36.3753,
+   "lon": 128.7122,
+   "acquired_utc": "2025-03-22T12:05:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "58",
+   "frp": 24.4,
+   "daynight": "N"
+  },
+  {
+   "lat": 36.375,
+   "lon": 128.7714,
+   "acquired_utc": "2025-03-22T12:05:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 67.0,
+   "daynight": "N"
+  },
+  {
+   "lat": 36.3716,
+   "lon": 128.693,
+   "acquired_utc": "2025-03-22T12:05:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "41",
+   "frp": 21.5,
+   "daynight": "N"
+  },
+  {
+   "lat": 36.3714,
+   "lon": 128.7527,
+   "acquired_utc": "2025-03-22T12:05:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "94",
+   "frp": 35.0,
+   "daynight": "N"
+  },
+  {
+   "lat": 36.3678,
+   "lon": 128.734,
+   "acquired_utc": "2025-03-22T12:05:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "nominal",
+   "confidence_raw": "39",
+   "frp": 23.8,
+   "daynight": "N"
+  },
+  {
+   "lat": 36.3861,
+   "lon": 128.7679,
+   "acquired_utc": "2025-03-22T12:05:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 90.9,
+   "daynight": "N"
+  },
+  {
+   "lat": 36.3786,
+   "lon": 128.7899,
+   "acquired_utc": "2025-03-22T12:05:00Z",
+   "source": "replay:uiseong_andong_2025_detections.csv",
+   "satellite": "Terra",
+   "instrument": "MODIS",
+   "confidence": "high",
+   "confidence_raw": "100",
+   "frp": 97.4,
+   "daynight": "N"
+  }
+ ]
+}

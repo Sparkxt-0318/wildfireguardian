@@ -58,7 +58,7 @@ mapped in OSM**, so `build_dispatch_list` would have no depot to dispatch from.
 The status bar says so:
 
 > 이 지역은 walk bbox(919 km²) 내에 OSM에 매핑된 소방서가 없어 구조자 측
-> 산출이 불가합니다 — 더 넓은 3,926 km² 범위에는 6곳
+> 산출이 불가합니다. 더 넓은 3,926 km² 범위에는 6곳
 
 ⚠ **Never shorten that to "의성·안동에는 소방서가 없습니다."** The statement is
 about OSM mapping inside one bbox; the wider manifest bbox contains six

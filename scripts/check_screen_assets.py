@@ -195,14 +195,21 @@ DASH_REPLACEMENTS = (
 #: contain* a banned dash next to a DOM sink. A payload string assigned through
 #: a variable satisfies neither test:
 #:
-#:     const D = {... "status_ko": "…불가합니다 — 더 넓은 …"}   <- not scanned
-#:     d.textContent = D.responder.status_ko;                   <- no literal
+#:     const D = {... "status_ko": "…불가합니다 <BANNED DASH> 더 넓은 …"}  not scanned
+#:     d.textContent = D.responder.status_ko;                          no literal
 #:
 #: Measured 2026-08-07 on the 의성·안동 demonstration screen: this checker
 #: reported **0** findings while the rendered page carried a visible EM dash in
-#: its footer warning, plus four EN dashes in the hazard band legend (since
-#: fixed at their source). Closing this needs the checker to render, or to be
-#: told which payload keys are displayed. Neither is built.
+#: its footer warning, plus four EN dashes in the hazard band legend.
+#:
+#: ⚠ THOSE PARTICULAR INSTANCES ARE NOW FIXED, at their sources in
+#: :mod:`wildfireguardian.live.pipeline` and ``build_operator_screen``; every
+#: payload string in every shipped screen and in the console scans clean today
+#: (9,089 strings, 0 dashes, measured). **THE HOLE IS NOT FIXED.** It is kept on
+#: the record because the next displayed payload string will be exactly as
+#: invisible, and because somebody grepping for the old sentence should land
+#: here rather than on nothing. Closing it needs the checker to render the page,
+#: or to be told which payload keys are displayed. Neither is built.
 PAYLOAD_BLIND_SPOT: str = (
     "strings inlined as JSON data and written to the DOM through a variable "
     "are not scanned; a pass here is not proof the rendered page is clean")

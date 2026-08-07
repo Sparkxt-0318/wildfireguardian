@@ -77,22 +77,41 @@ payload** is invisible to it, because:
 A payload string assigned through a variable satisfies neither:
 
 ```js
-const D = { … "status_ko": "…구조자 측 산출이 불가합니다 — 더 넓은 3,926 km²…" }  // not scanned
-d.textContent = D.responder.status_ko;                                          // no literal
+const D = { … "status_ko": "…구조자 측 산출이 불가합니다 «BANNED DASH» 더 넓은 …" }  // not scanned
+d.textContent = D.responder.status_ko;                                             // no literal
 ```
 
 **Measured, on the screen `operator_screen.md` names as the demonstration:** the
 checker reported **0 findings** while the rendered page carried
 
 * **1** EM dash in the footer warning (`responder.status_ko`, from
-  `live/pipeline.py`) — **still present today**;
-* **4** EN dashes in the hazard band legend (`band_labels`) — since fixed at
-  source; the constant now uses `~`.
+  `live/pipeline.py`);
+* **4** EN dashes in the hazard band legend (`band_labels`).
 
-⚠ **A pass from this gate is therefore not proof that the rendered page is
-clean.** Closing the hole needs either a checker that renders the page, or a
-declared list of payload keys that are displayed. Neither is built, and neither
-is proposed here without a decision.
+### Both instances are now closed. The hole is not.
+
+Fixed at their sources — `live/pipeline.py` uses a full stop, `BAND_LABELS` uses
+`~` — and re-measured across **every payload string in every shipped screen and
+the console**:
+
+| file | payload strings | banned dashes |
+|---|---|---|
+| `outputs/live/screens/uiseong_andong_2025/operator_screen.html` | 848 | **0** |
+| `…/operator_screen_nopreroll.html` | 848 | **0** |
+| `outputs/live/screens/uljin_samcheok_2022/operator_screen.html` | 909 | **0** |
+| `outputs/live/screens/yeongdeok_2025/operator_screen.html` | 2,326 | **0** |
+| `demo/operator_screen.html` | 2,326 | **0** |
+| `web/console.html` | 1,732 | **0** |
+| | **9,089** | **0** |
+
+Rendered confirmation on the 의성·안동 demonstration screen: **0 visible dashes**,
+with 919 km², 3,926 km², 6곳 and 「OSM에 매핑된」 all intact.
+
+⚠ **A pass from this gate is still not proof that the rendered page is clean.**
+The next displayed payload string will be exactly as invisible as these were.
+Closing the hole needs either a checker that renders the page, or a declared
+list of payload keys that are displayed. Neither is built, and neither is
+proposed here without a decision.
 
 ---
 

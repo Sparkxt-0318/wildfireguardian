@@ -1202,7 +1202,7 @@ Its 919 km² walk bbox contains no `amenity=fire_station` mapped in OSM, so the
 status bar carries:
 
 > 이 지역은 walk bbox(919 km²) 내에 OSM에 매핑된 소방서가 없어 구조자 측
-> 산출이 불가합니다 — 더 넓은 3,926 km² 범위에는 6곳
+> 산출이 불가합니다. 더 넓은 3,926 km² 범위에는 6곳
 
 Generated from the depot count in `viz.json`, so it appears for any region with
 zero and never for one with some. **Never shorten it** to "의성·안동에는 소방서가

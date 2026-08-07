@@ -742,9 +742,22 @@ def write_viz(out_dir: Path, res: Resources, *, points: list[dict],
             "n_depot_pois": res.n_depot_pois,
             "available": res.n_depot_pois > 0,
             "computed": False,
+            # ⚠ The separator is a FULL STOP, not an EM dash, and that is not a
+            # style preference. This sentence is DISPLAYED: it reaches the
+            # operator screen's footer warning and the console's amber panel.
+            # The subset font shipped under `web/assets/fonts/` has no U+2014,
+            # so the character was being served by whatever face the viewing
+            # machine happened to have — one word of a Korean sentence in a
+            # different typeface, differently on every laptop.
+            # `docs/screen_gate_scope.md` §1 carries the measurement.
+            #
+            # ⚠ It was ALSO invisible to the dash gate, because it travels as
+            # JSON payload data rather than as a literal beside a DOM sink
+            # (`check_screen_assets.PAYLOAD_BLIND_SPOT`). Fixing it here does
+            # not close that hole; the hole is recorded separately and stays.
             "status_ko": (
                 "이 지역은 walk bbox(919 km²) 내에 OSM에 매핑된 소방서가 없어 "
-                "구조자 측 산출이 불가합니다 — 더 넓은 3,926 km² 범위에는 6곳"
+                "구조자 측 산출이 불가합니다. 더 넓은 3,926 km² 범위에는 6곳"
                 if res.n_depot_pois == 0 else
                 f"차고지 {res.n_depot_pois}곳이 매핑되어 있으나, 459 계열은 "
                 f"주민 측만 산출합니다"),
