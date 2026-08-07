@@ -11,7 +11,7 @@ Faces are synthetic; any resemblance to real persons is coincidental.
 | `hero_banner.jpg` | Nano Banana 2 (16:9, 2K) | website/store hero. Copy space on the right third. |
 | `ad_creative_family.jpg` | Nano Banana 2 (4:5, 2K) | social ad targeting adult children ("watch over your parents"). Headline space top quarter. |
 | `ad_creative_elder.jpg` | Nano Banana 2 (4:5, 2K) | poster/print creative for senior-facing channels. Text space bottom quarter. |
-| `promo_video.mp4` | Kling 2.1 (image-to-video from the hero, 5 s, 720p) | short promo clip for social/YouTube pre-roll bumper. |
+| `promo_video.mp4` | Kling 2.1 (image-to-video from the hero, 5 s, 720p) | short promo clip for social/YouTube pre-roll bumper. **Not in git** — the repo ignores `*.mp4` by policy; regenerate by animating `hero_banner.jpg` with any image-to-video model (prompt: slow push-in, breeze in the trees, the grandmother smiles at the green check screen; negative: fire, smoke, text). |
 
 Usage rules (see `docs/app/AD_CAMPAIGN.md` §compliance):
 
