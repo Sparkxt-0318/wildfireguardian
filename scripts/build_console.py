@@ -30,14 +30,23 @@ band looks like or which dispatch row is most urgent.
     ⚠ No tiles. No basemap. No web font. Coordinates are projected at build time
       by the same transformer the routing used, and written into the file as SVG.
 
-⚠ REBUILDING NEEDS A REPLAY RUN, AND THE RUN IS NOT COMMITTED.
+⚠ REBUILDING NEEDS A REPLAY RUN. WHETHER THAT RUN IS COMMITTED IS **UNSETTLED**.
 ``web/console.html`` is a committed build artifact with its data inlined, in
 exactly the way ``demo/operator_screen.html`` is — it opens and works with
-nothing else present. Its build INPUT, a replay run directory, is ~1 MiB of
-per-village output and is not worth committing. To rebuild:
+nothing else present. To rebuild:
 
     python scripts/run_live_detection.py --replay --speed 0 --no-pdf --max-triggers 1
     python scripts/build_console.py
+
+⚠ **This docstring used to claim the build INPUT "is not worth committing", and
+the repository disagreed with it**: the `20260803T…` runs under
+`outputs/live/replay/` are tracked, 122 files each. The claim was therefore
+false when read as a description and misleading when read as a rule, and a run
+went missing under cover of it — see `docs/api_layer.md` §1.12, where the
+inconsistency, what it cost, and three candidate resolutions are recorded.
+
+The decision is the user's and is NOT taken here. What this file no longer does
+is assert one of the two answers while the tree does the other.
 
 The figure the badge shows is that run's OWN measured cost, read from its
 RUN.json. It is never typed, so it cannot drift from the result beside it — and

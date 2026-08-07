@@ -363,11 +363,31 @@ compared by hand first. Nothing in the tooling would have said anything.
 ### Two facts behind it
 
 **① The build input is not committed — except that it is.**
-`build_console.py`'s own docstring says a replay run is "~1 MiB of per-village
+`build_console.py`'s own docstring said a replay run is "~1 MiB of per-village
 output and is not worth committing". The repository disagrees with it: the
 `20260803T…` runs under `outputs/live/replay/` **are tracked**, 122 files each.
-So the practice is to commit them and the documentation says not to, which is
+So the practice is to commit them and the documentation said not to, which is
 exactly the gap a run fell through.
+
+⚠ **Measured 2026-08-07, since "the runs are committed" is itself a claim:**
+
+| | |
+|---|---|
+| `git ls-files outputs/live/replay/` | **898** tracked files: 895 inside run directories, 3 loose `SUMMARY_*.json` |
+| runs tracked | **5** |
+| `yeongdeok_2025/20260803T051600Z` · `…/20260803T051744Z` | 122 files each |
+| `uiseong_andong_2025/20260803T051938Z` · `…/20260803T052309Z` | 266 files each |
+| `20260807T022854Z` (committed with the console, §1.11) | 119 files, 1.0 MiB |
+| runs on disk but **untracked** | none |
+| `uljin_samcheok_2022` replay runs | **zero, tracked or otherwise** |
+
+⚠ The per-run file count is **not** uniform (119 / 122 / 266) because the runs
+differ in village count and in whether PDFs were generated. "~1 MiB per run" is
+the right order; a single figure for all of them would be wrong.
+
+The docstring has been corrected to stop asserting an answer — it now records
+that the question is open and points here. **No run was added or removed to
+resolve it**; the four `20260803T…` runs are exactly as they were.
 
 **② The ID is already recorded; nothing verifies it.**
 The payload carries `precomputed.run_id`, so the console has always known which
@@ -389,10 +409,17 @@ Recorded here for a decision, deliberately left unbuilt:
 2. **Make the absence loud.** If `precomputed.run_id` of the shipped console has
    no directory under `outputs/live/replay/`, say so — at build time, and in a
    test. The console's provenance is either checkable or it is decoration.
-3. **Settle ① either way.** Commit the run that built the shipped console (and
-   correct the docstring), or stop committing runs (and say where the shipped
-   console's input lives instead). The current split is what let a run
-   disappear without anyone noticing.
+3. **Settle ① either way.** The current split is what let a run disappear
+   without anyone noticing. Three candidate resolutions, with what each costs:
+
+   | resolution | what it means | cost |
+   |---|---|---|
+   | **(a) commit the run that built the shipped console** *(recommended)* | one run per shipped region is tracked; older runs may be pruned. Matches what the tree already does, and makes the badge's provenance reproducible by anyone who clones. | ~1.0 MiB per region, so ~3 MiB once the console carries three. Bounded, because only the CURRENT run is kept. |
+   | (b) commit every replay run | the present state, continued | grows without bound; four runs already, and nothing prunes them |
+   | (c) commit none, and say where the input lives | smallest tree | the shipped console's badge becomes unverifiable from a clone, which is the failure this section is about. Only viable together with proposal 1, so a rebuild at least *refuses* rather than silently downgrading. |
+
+   ⚠ **This is the user's decision and is not taken here.** What has changed is
+   only that `build_console.py` no longer asserts (c) while the tree does (b).
 
 ⚠ **Interim, done now rather than proposed:** the run this console was rebuilt
 from, `20260807T022854Z` (warm **10.385 s**), **is committed with it**, matching
