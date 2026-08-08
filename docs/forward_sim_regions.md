@@ -96,11 +96,18 @@ needed widening, so the FIRMS manifest values were not departed from.**
 
 ## Core growth — Yeongdeok is the static one
 
+> ⚠ **영덕 행은 제출 시점 기록입니다.** 241 → 244 (+1.2 %) 는 되돌려진 실행의
+> 위험면(`routing_demo.npz`) 위에서 측정된 값입니다. **정본 위험면 위 재산출값은
+> 249 → 1,036 셀, 성장 +316.1 %** 이며, 「준정적 핵심」이라는 기술은 화재의 성질이
+> 아니라 그 위험면의 성질이었습니다 ([`HANDOFF_ROUND3.md`](HANDOFF_ROUND3.md) §2-A).
+> 나머지 두 지역 행은 각자의 위험면에서 측정된 값으로 영향받지 않습니다.
+> 수치를 지우지 않는 것은 이것이 그 실행의 기록이기 때문입니다.
+
 Cells at p ≥ 0.5, t = 0 → 720 min:
 
 | region | trajectory | growth |
 |---|---|---:|
-| Yeongdeok 2025 | 241 → 241 → 241 → 242 → 244 | **+1.2 %** |
+| Yeongdeok 2025 ⚠ | 241 → 241 → 241 → 242 → 244 | **+1.2 %** ⚠ |
 | Uiseong-Andong 2025 | 53 → 63 → 71 → 86 → 95 | **+79 %** |
 | Uljin-Samcheok 2022 | 103 → 149 → 199 → 249 → 263 | **+155 %** |
 

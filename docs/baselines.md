@@ -51,9 +51,21 @@ mean-of-folds** (0.920 vs 0.889) and is more stable (SD 0.036 vs 0.107); the GBM
 **pooled** (0.905 vs 0.898) and leads logistic throughout. So we do **not** claim a
 large accuracy win. We keep the GBM for what is actually true: its **calibrated
 probabilities** (the router consumes a genuine `P(ignite)`; held-out Brier ~0.03
-unweighted vs ~0.09 balanced), **inference speed**, and the **severity ≫
-wind-direction interpretability** (the 44× permutation-importance ratio that surfaced
-the headline finding).
+unweighted vs ~0.09 balanced), **inference speed**, and that it yields a
+**permutation-importance ranking** at all.
+
+> ⚠ **이 비율은 미확립으로 철회되었습니다.** 측정값(0.102 vs 0.0023)은 유효하나
+> 결론은 지지되지 않습니다: **6개 특징 합산 대 단일 변수** 비교이고, **ERA5 0.25°
+> (~28 km)** 는 이 비교가 다루는 국지풍을 해상하지 못하며, **산포를 측정하지 않은
+> 단일 점추정**입니다. ⚠ **「풍향이 중요하지 않다」는 뜻이 아니라 이 장비로 볼 수
+> 없다는 뜻입니다.** 전체 근거: [`MODEL_CARD.md`](MODEL_CARD.md) §"Permutation
+> importance — what it measures, and what it does NOT establish".
+
+⚠ The third reason used to read "the **severity ≫ wind-direction
+interpretability** (the 44× permutation-importance ratio that surfaced the
+headline finding)". With that finding withdrawn, what survives is
+interpretability itself, not the conclusion drawn from it. **The first two
+reasons are unaffected** and neither depended on the withdrawn claim.
 
 The honest comparison is the deliverable: the prior "beats a ~9 % Rothermel model"
 framing is replaced by "compared head-to-head with standard ML baselines on identical

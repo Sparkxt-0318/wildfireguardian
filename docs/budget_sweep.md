@@ -224,7 +224,13 @@ That state has a meaning, so it now has a name.
 **The addition is strictly additive.** The five original categories keep their
 definitions and their evaluation order. At a 600-minute budget the new category
 is empty and the counts are exactly 440 / 17 / 3 / 0 / 0, so the committed
-459-origin reading is untouched. Regression-tested in
+459-origin reading is untouched.
+
+> ⚠ **제출 시점 기록입니다.** 440 / 17 / 3 / 0 / 0 은 되돌려진 실행의 위험면 위
+> 값이며, 정본 재산출값은 **414 / 42 / 2 / 0 / 0** 입니다
+> ([`HANDOFF_ROUND3.md`](HANDOFF_ROUND3.md) §2-A). ⚠ **위 문단의 주장 자체는
+> 영향받지 않습니다** — 요점은 「600분 예산에서 새 범주가 비어 있어 기존 판독이
+> 그대로 유지된다」는 *가산성*이고, 그것은 두 위험면 모두에서 성립합니다. Regression-tested in
 `tests/test_partition_categories.py`.
 
 These bucket counts are now reportable results rather than an artifact.

@@ -91,6 +91,13 @@ The 459 origins were drawn from the eastern portion of the predicted fire.
 459 / 438 / 18 / 3 counts are correct for the origins that were scanned. What is
 unsupported is treating those origins as representative of the whole fire area.
 
+> ⚠ **제출 시점 기록입니다.** 459 / 438 / 18 / 3 은 제출 시점의 값이며, 정본 위험면
+> 위 재산출값은 **458 — 414 / 42 / 2** 입니다
+> ([`HANDOFF_ROUND3.md`](HANDOFF_ROUND3.md) §2-A,
+> [`real_roads_real_hazard_canonical.json`](../data/processed/real_roads_real_hazard_canonical.json)).
+> 위 문장의 논지 — 주사된 출발지에 대해서는 옳고, 그것을 화재 전역의 대표로 보는 것이
+> 근거 없다 — 는 재산출값에도 그대로 적용됩니다. 커버리지 32.6 %는 두 값 모두의 분모입니다.
+
 **The direction of the bias has not been measured.** The western half might be
 easier terrain or harder, better connected or worse; nothing here establishes
 which. Anyone tempted to guess should note that the walk bbox follows

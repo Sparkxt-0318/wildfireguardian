@@ -91,11 +91,43 @@ statistics unit-tested in `tests/test_auc_stats.py`.
 **Do not report 0.874 as a footprint result** — it is not leakage (no future  <!-- forbidden-ok: 0.874 -->
 information), but it measures an easier task; the honest figure is **~0.40**.
 
-## Headline finding (severity ≫ wind direction)
+## Permutation importance — what it measures, and what it does NOT establish
 
-Permutation importance: `days_since_rain` 0.077 is the top predictor; summed
+Permutation importance: `days_since_rain` 0.077 is the top-ranked feature; summed
 fire-weather **severity** importance 0.102 vs `wind_alignment` 0.0023 — a **44×**
 ratio. `[src: spread_v2_lofo.json/permutation_importance]`
+
+⚠ **THIS SECTION WAS HEADED "Headline finding (severity ≫ wind direction)" AND
+THAT CLAIM IS WITHDRAWN AS NOT ESTABLISHED.** The measurement above is real and
+reproducible; the *conclusion* drawn from it was not supported. Three reasons,
+each checkable:
+
+1. **It sets a six-feature SUM against a single variable.** The severity group is
+   `days_since_rain`, `vpd_kpa`, `rh_pct`, `temp_c`, `precip_24h_mm` and
+   `wind_speed_ms`; `wind_alignment` is one feature. A sum of six will beat one
+   almost regardless of what they measure.
+2. **ERA5 is 0.25° (~28 km), so it does not resolve the wind the comparison is
+   about.** The severity features are near-uniform across a single fire at a
+   single instant, so they discriminate among *days and fires* — they set the
+   magnitude of the reach — rather than placing ignitions *within* an overpass.
+   `docs/ROUTING_INTEGRATION_REPORT.md` §"Honest nuance".
+3. **It is a single point estimate.** Its spread across seeds and folds was never
+   measured; recomputing it needs the same data dependency and is recorded as
+   future work in `docs/auc_intervals.md`.
+
+⚠ **This does NOT mean wind direction is unimportant.** It means this
+instrument, on this weather product, cannot see it. Anyone quoting the ratio must
+quote these limits with it.
+
+⚠ **AND THE TOP-RANKED FEATURE MAKES THE MODEL WORSE OUT-OF-FOLD.** *Dropping*
+`days_since_rain` — rank 1 at +0.07726 — **raises** mean-of-folds AUC by
+**+0.0270** and far-band AUC by **+0.0533**, while lowering pooled by −0.0143;
+`gangneung_2023` alone moves **+0.1705**. For **three of the six fires** the
+feature equals the ERA5 window length exactly, because those windows contain zero
+wet samples — for half the training set the top feature is a per-fire constant
+equal to an acquisition parameter. PHASE 14, `docs/weather_dependency.md` §②.
+**"Top-ranked by permutation importance" and "good for generalisation" are not
+the same property**, and here they point in opposite directions.
 
 **Standard ML baselines** on the identical 16 features/folds/seed (20250603), via
 `scripts/ml_baselines.py` (`validation/ml_baselines.py`, unit-tested) — to answer
@@ -110,8 +142,12 @@ ratio. `[src: spread_v2_lofo.json/permutation_importance]`
 Random forest actually **edges the GBM on mean-of-folds** (and is more stable); the
 GBM wins pooled (0.905 vs 0.898). We keep the GBM not for a large accuracy win but
 for its **calibrated probabilities** (the router consumes a real `P(ignite)`),
-**inference speed**, and **interpretability** (permutation importance produced the
-severity≫direction finding). Values regenerate via `scripts/ml_baselines.py` →
+**inference speed**, and **interpretability** (it yields a permutation-importance
+ranking at all). ⚠ **The third reason used to read "produced the severity≫direction
+finding"; that finding is withdrawn as not established** (see the section above),
+so what remains of it is that the model is interpretable, not that a particular
+conclusion was drawn. **The first two reasons stand unchanged**, and neither
+depended on the withdrawn claim. Values regenerate via `scripts/ml_baselines.py` →
 `data/processed/ml_baselines.json` (STOPs cleanly where the FIRMS bundle is absent).
 Method: `docs/baselines.md`.
 

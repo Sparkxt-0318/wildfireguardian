@@ -7,7 +7,14 @@
 **Module:** `src/wildfireguardian/routing/slope.py`
 **Measured:** 2026-08-01, **re-measured 2026-08-02 on the canonical hazard field**
 
-> ⚠ **Everything below §"The canonical-field re-run" is the EARLIER READING.**
+> ⚠ **NAMED SECTIONS BELOW ARE THE EARLIER READING — §"Why the counts do not
+> move", §"PHASE 2-C-1 — the objective, not the terrain, was the blocker" and
+> §"Slope clipping". The canonical-field sections (§"The canonical-field re-run",
+> §"PHASE 2-C-1 on the canonical field") carry the current values.**
+> The earlier wording of this banner said "everything below §The canonical-field
+> re-run", which read as marking the canonical sections themselves. Each earlier
+> section now also carries its own local marker, because a reader arriving by
+> link or search does not see this banner.
 > It was measured on `routing_demo.npz`, which the 2026-08-02 investigation
 > identified as the surviving output of a run reverted on 2026-07-21
 > ([`routing_demo_divergence.json`](../data/processed/routing_demo_divergence.json)).
@@ -34,6 +41,12 @@ forward-simulated hazard, and SRTM terrain are now all real simultaneously.**
 > walk going **283 → 444 minutes** — yet **the 6-bucket classification does not
 > move at all**: 440 / 17 / 3 with flat timing and 440 / 17 / 3 with slope, at
 > every sampling spacing and with or without clipping.
+>
+> ⚠ **제출 시점 기록입니다.** 위 440 / 17 / 3 은 되돌려진 실행의 위험면 위 값입니다.
+> **정본 장에서는 평면 415 / 41 / 2, 경사 414 / 42 / 2** 로, 네 배 커진 위험면
+> 위에서도 **null 이 거의 그대로 살아남지만 정확히 불변은 아닙니다** — 한 출발지가
+> 이동합니다. 그리고 이동하는 출발지는 표본 간격마다 같지 않습니다.
+> §"The canonical-field re-run (2026-08-02) — the null largely survives" 참조.
 >
 > That is a null result on the counts and a large effect on the times. It is not
 > evidence that terrain is unimportant; it is evidence that **this hazard field
@@ -247,6 +260,14 @@ change that — the path was never looking at terrain. So `naive_route` gained a
 `objective` option (`"length_m"`, the unchanged default, or `"time_min"`), and
 the 2×2 was measured.
 
+
+> ⚠ **제출 시점 기록입니다.** 아래 수치는 되돌려진 실행의 위험면
+> (`routing_demo.npz`) 위에서 측정된 값입니다. **정본 재산출값은
+> 평면·거리 415 / 41 / 2 · 평면·시간 415 / 41 / 2 · 경사·거리 **414 / 42 / 2** ·
+> 경사·시간 413 / 43 / 2** 이며, §"PHASE 2-C-1 on the canonical field" 의 표와
+> [`objective_budget_canonical.json`](../data/processed/objective_budget_canonical.json)
+> 가 출처입니다. 수치를 지우지 않는 것은 이것이 그 실행의 기록이기 때문입니다.
+
 | 경로 목적함수 | 평면 | 경사 60 m |
 |---|---|---|
 | 거리 최소화 (현행, 기본값) | 440 / 17 / 3 | 440 / 17 / 3 |
@@ -276,6 +297,10 @@ it must, since flat time is proportional to distance. The mechanism is
 identified, not inferred.
 
 ### But the counts still do not move
+
+⚠ **제출 시점 기록** — 정본 장에서는 네 팔이 415/41/2 · 415/41/2 · **414/42/2** ·
+413/43/2 로 갈라집니다(§"PHASE 2-C-1 on the canonical field"). 즉 아래의 불변성은
+**화재의 성질이 아니라 되돌려진 위험면의 성질**이었습니다.
 
 All four arms classify 440 / 17 / 3. So cause 1 is now **removed** — route
 selection responds to terrain — and the classification is *still* invariant.
@@ -412,6 +437,14 @@ artefact; it does not make the value right.
 
 Runs were done **with and without** clipping, as required:
 
+
+> ⚠ **제출 시점 기록입니다.** 아래 수치는 되돌려진 실행의 위험면
+> (`routing_demo.npz`) 위에서 측정된 값입니다. **정본 재산출값은
+> 평면·거리 415 / 41 / 2 · 평면·시간 415 / 41 / 2 · 경사·거리 **414 / 42 / 2** ·
+> 경사·시간 413 / 43 / 2** 이며, §"PHASE 2-C-1 on the canonical field" 의 표와
+> [`objective_budget_canonical.json`](../data/processed/objective_budget_canonical.json)
+> 가 출처입니다. 수치를 지우지 않는 것은 이것이 그 실행의 기록이기 때문입니다.
+
 | | clipped at 60 % | unclipped |
 |---|---:|---:|
 | counts (all spacings) | 440 / 17 / 3 | 440 / 17 / 3 |
@@ -449,9 +482,14 @@ sub-segment each):
 
 ## Reporting rules
 
-* Quote the counts only as **440 / 17 / 3 on the 2026-07-24 network**. They are
-  not the committed 438 / 18 / 3 and do not supersede them — the committed run's
-  network no longer exists.
+* ⚠ **이 규칙은 갱신되었습니다.** 이전 문구: *"Quote the counts only as
+  **440 / 17 / 3 on the 2026-07-24 network**."* 그 값은 되돌려진 실행의 위험면
+  위에서 측정된 것입니다. **현행 인용 규칙은 정본 장의 값** — 평면 415 / 41 / 2,
+  경사 60 m **414 / 42 / 2** — 이며, 출처는
+  [`objective_budget_canonical.json`](../data/processed/objective_budget_canonical.json)
+  와 [`slope_sweep_canonical.json`](../data/processed/slope_sweep_canonical.json) 입니다.
+  세 값 모두 커밋된 438 / 18 / 3 을 **대체하지 않습니다** — 그 실행의 도로망은
+  더 이상 존재하지 않으며, 서로 다른 입력 위의 서로 다른 판독입니다.
 * Never quote a slope time-change without its sampling spacing.
 * Do not write "slope had no effect". Write: slope raises walk times ~26 % but
   does not move this classification, because the classification is

@@ -1,5 +1,15 @@
 # Round 2 — Phase 2: measuring the spread model's probability calibration
 
+> ⚠ **제출 시점(2026-07) 기록입니다. 본문은 그대로 둡니다.**
+> 이 보고서는 Round 2 제출 시점의 상태를 기록한 문서이며, 당시의 판단과 표현을
+> 보존하는 것이 목적입니다. 이후 Round 3 에서 바뀐 것 중 이 문서에 영향을 주는
+> 항목은 하나입니다: 모델 채택 근거로 인용된 **"severity ≫ direction"(44배) 발견이
+> 미확립으로 철회**되었습니다 — 6개 특징 합산 대 단일 변수, ERA5 0.25°(~28 km)의
+> 국지풍 미해상, 산포 미측정 단일 점추정. ⚠ **「풍향이 중요하지 않다」는 뜻이
+> 아닙니다.** 근거: [`MODEL_CARD.md`](MODEL_CARD.md) §"Permutation importance".
+> **이 문서가 실제로 측정한 것(확률 보정 — Brier·ECE·신뢰도 곡선)은 영향받지
+> 않습니다.** 제출 시점 상태 전체는 태그 `round2-submitted` (`4e9dfe3`).
+
 **Scope of this pass (honest, up front).** The Round-1 문서 adopted the
 gradient-boosted spread model (`spread_v2`, `HistGradientBoostingClassifier`,
 seed `20250603`) partly for **확률 보정** (probability calibration) — but

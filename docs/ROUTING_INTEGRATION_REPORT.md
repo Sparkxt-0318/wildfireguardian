@@ -62,7 +62,7 @@ How this build's numbers relate to the brief's stated ones (all **leave-one-fire
 | Pooled AUC | ~0.83 | **0.905** (pooled) | different build; not like-for-like |
 | Far-band (>3 km) AUC | ~0.80 | **0.877** (pooled) | different build; not like-for-like |
 | Footprint IoU | 0.32 | **~0.40** forward-sim (3–12 h) | 0.874 single-step IoU is report-blocked (next-overpass *given* current burn) |  <!-- forbidden-ok: 0.874 -->
-| `wind_alignment` importance | ≈ 0 | **0.0023** (44× below severity) | **both builds corroborate severity ≫ direction** |
+| `wind_alignment` importance | ≈ 0 | **0.0023** (44× below summed severity) | ⚠ **both builds measure the same ratio — but see the withdrawal below** |
 
 `src/wildfireguardian/spread_v2/` is the new package (`data, grid, weather, features,
 model, forward_sim`); see its README for the pipeline and provenance.
@@ -99,10 +99,27 @@ candidate-cell rows, 2,989 positives (~2%).
 | 9 | **wind_alignment** | **0.0023** | wind **DIRECTION** |
 
 Summed fire-weather-severity importance is **0.102 vs 0.0023 for `wind_alignment` — a 44×
-ratio.** Dryness (days-since-rain) is the single strongest predictor; wind *direction* is
-near-useless. This is exactly the finding the brief is built on, and it is *why the router
+ratio.** Dryness (days-since-rain) is the top-ranked predictor. This is *why the router
 treats the hazard as a broad, severity-scaled REACH envelope rather than a thin directional
 jet.*
+
+> ⚠ **이 비율은 미확립으로 철회되었습니다.** 측정값(0.102 vs 0.0023)은 유효하나
+> 결론은 지지되지 않습니다: **6개 특징 합산 대 단일 변수** 비교이고, **ERA5 0.25°
+> (~28 km)** 는 이 비교가 다루는 국지풍을 해상하지 못하며, **산포를 측정하지 않은
+> 단일 점추정**입니다. ⚠ **「풍향이 중요하지 않다」는 뜻이 아니라 이 장비로 볼 수
+> 없다는 뜻입니다.** 전체 근거: [`MODEL_CARD.md`](MODEL_CARD.md) §"Permutation
+> importance — what it measures, and what it does NOT establish".
+
+⚠ Two phrases were removed from the paragraph above rather than left standing:
+「wind *direction* is near-useless」 and 「this is exactly the finding the brief is
+built on」. The first states the withdrawn conclusion; the second makes the brief
+rest on it. The routing design choice does not depend on either — a reach
+envelope is the conservative shape whether or not direction is resolvable, and it
+is *more* defensible on a weather product that cannot resolve direction.
+
+⚠ And the top-ranked predictor makes the model WORSE out-of-fold: dropping
+`days_since_rain` raises mean-of-folds **+0.0270** and far-band **+0.0533**
+(PHASE 14, [`weather_dependency.md`](weather_dependency.md) §②).
 
 ![findings](figures/spread_v2_findings.png)
 

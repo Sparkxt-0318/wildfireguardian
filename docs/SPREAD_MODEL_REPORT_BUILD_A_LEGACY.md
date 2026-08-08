@@ -11,7 +11,16 @@
 > set incl. `gangneung_2023`). Build B is canonical **by consistency** (it produced
 > the results), not by being "better" — see **[`docs/MODEL_CARD.md`](MODEL_CARD.md)**
 > for the canonical numbers (mean-of-folds ROC-AUC 0.89 ± 0.11; footprint IoU ~0.40).
-> Both builds independently corroborate the central finding (severity ≫ wind direction).
+> ~~Both builds independently corroborate the central finding (severity ≫ wind
+> direction).~~ ⚠ **WITHDRAWN.** That "central finding" is **not established** —
+> it sets a six-feature sum against a single variable, ERA5's 0.25° (~28 km) grid
+> does not resolve the wind the comparison is about, and it is a single point
+> estimate with unmeasured spread. Two builds agreeing does not repair any of
+> those: they share the same weather product and the same comparison shape, so
+> the agreement is not independent evidence about wind direction.
+> ⚠ **It does NOT mean wind direction is unimportant.**
+> See [`MODEL_CARD.md`](MODEL_CARD.md) §"Permutation importance — what it
+> measures, and what it does NOT establish".
 
 ---
 
