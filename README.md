@@ -18,11 +18,19 @@
   **leave-one-group-out cross-validation (LOGO-CV, group = fire)** on **six real
   Korean wildfires**.
   **Mean-of-folds ROC-AUC = 0.89** (range 0.68–0.97; pooled out-of-fold 0.905).
-- **Headline finding**: fire-weather **severity** (the weather feature group,
-  incl. wind speed) dominates wind **direction** by **~44×** in permutation
-  importance; **`days_since_rain` is the single strongest feature**.
-- The calibrated `P(ignite)` surface is coupled into **elderly-aware and
-  rescue-aware evacuation routing** (the project's core systems contribution).
+- **Headline result**: the calibrated `P(ignite)` surface is coupled into
+  **elderly-aware and rescue-aware evacuation routing** — the project's core
+  systems contribution. On the canonical Yeongdeok field, **42 of 458** scanned
+  origins reach a refuge **only** when the router accounts for where the fire
+  will be, and **2** have no safe walking route at all
+  ([Round 3](#round-3-2026-08); the 32.6 % coverage caveat applies).
+- ⚠ **A claim that used to stand here has been withdrawn.** Earlier versions led
+  with "fire-weather severity dominates wind direction by ~44× in permutation
+  importance". That ratio compares a **six-feature sum** against a **single
+  variable**, and ERA5's 0.25° (~28 km) grid does not resolve the local winds the
+  comparison is about. It is **not established** and must not be read as "wind
+  direction does not matter". The measurement itself is retained, with its
+  limits, in [Current model & results](#current-model--results-build-b--spread_v2).
 - **Intellectual-honesty record**: an earlier Rothermel-based *physics* model
   captured only **~9 %** of the burned area (a documented moisture-conflation
   bug), which **motivated the pivot** to this data-driven model. That history is
@@ -35,12 +43,121 @@
 
 ## Round 2 결과 (2026-07)
 
-- 실제 OSM 도로 + 실자료 기반 예측 위험면 통합 주사 **459곳** — **438 / 18 / 3**, 분할 완전, 나머지 세 범주 **0곳** 실측 → [`docs/real_roads_real_hazard.md`](docs/real_roads_real_hazard.md)
+> ⚠ **이 절은 제출 시점(2026-07)의 기록입니다.** 아래 첫 항목의 459 계열 수치는
+> Round 3 에서 **자료 결함을 정정한 뒤 재산출**되었습니다. 현행 값은
+> [Round 3](#round-3-2026-08) 을 보십시오. 제출 시점 상태 전체는 태그
+> **`round2-submitted`** (`4e9dfe3`) 로 그대로 접근할 수 있습니다.
+
+- 실제 OSM 도로 + 실자료 기반 예측 위험면 통합 주사 **459곳** — **438 / 18 / 3**, 분할 완전, 나머지 세 범주 **0곳** 실측. ⚠ **정본 위험면 재산출 후 458곳 — 414 / 42 / 2** ([Round 3](#round-3-2026-08)) → [`docs/real_roads_real_hazard.md`](docs/real_roads_real_hazard.md)
 - 실자료 기반 위험면 위 라우팅 주사 **407곳** — **240 / 56 / 88 / 0** (분류 384) → [`docs/REPORT_ROUND2_P1.md`](docs/REPORT_ROUND2_P1.md)
 - 예측 오차 하 경로 강건성 — 미래 인지 경로의 노출이 더 낮은 경우 **86 %**, 공간 오차 **125–530 m**에서 파단 → [`docs/forecast_robustness.md`](docs/forecast_robustness.md)
 - 형태학적 팽창 교란 — 약 **122 m**에서 파단하며 공간 이동 축과 동일 거리 → [`docs/dilation_perturbation.md`](docs/dilation_perturbation.md)
 - 취득 파라미터 문서화 — [`docs/data_provenance/`](docs/data_provenance/) (6개 화재 매니페스트 + 5개 화재 취득 기록)
 - 재현성 실측 — 도로망 재취득 시 출발지 **439→441**, 보행 실패율 **11.4 % → 13.6 %**로 변화. 그래프 스냅샷 미보존이 원인이며 한계로 기록 → [`docs/real_roads_real_hazard.md`](docs/real_roads_real_hazard.md)
+
+---
+
+## Round 3 (2026-08)
+
+Round 3 은 새 기능을 얹기 전에 **기존 수치가 아직 참인지 확인할 수 있는 층**을
+먼저 만들었고, 그 층이 곧바로 자료 결함 하나를 찾아냈습니다.
+
+> ⚠ **읽는 법.** 아래는 "제출본이 틀렸다"가 아닙니다. **자료 결함을 정정한 뒤
+> 재산출한 값**이며, 바뀐 세 수치는 모두 **제출본이 결과를 과소평가하고 있었음**을
+> 뜻합니다. 제출 시점 상태는 태그 **`round2-submitted`** (`4e9dfe3`) 로 그대로
+> 접근할 수 있고, 무엇이 왜 바뀌었는지는
+> [`docs/HANDOFF_ROUND3.md`](docs/HANDOFF_ROUND3.md) §2-A 에 있습니다.
+
+### 1. 정본(canonical) 위험면 전환
+
+`uljin_samcheok_2022` 의 DEM 이 **동해를 −497 m 까지 내려가는 경사면으로 메우고
+있었고**(래스터의 49 %), 모델은 6개 산불 **하나의 공유 데이터셋**에서 leave-one-fire-out
+으로 학습하므로 그 허구가 **모든 폴드의 학습 자료**였습니다. DEM 을 재취득해
+측정하는 과정에서 두 번째 문제가 드러났습니다 — `routing_demo.npz` 는 **다음 날
+되돌려진(reverted) 실행의 산출물**이었고, 그 아래 모든 수치가 아무도 선택하지 않은
+위험면 위에서 측정돼 있었습니다.
+
+정본 위험면 위에서 재산출한 결과 (영덕 459 계열):
+
+| | 제출본 | 정본 재산출 | 방향 |
+|---|---:|---:|---|
+| 3-구분 counts | 440 / 17 / 3 | **414 / 42 / 2** | — |
+| 미래 인지 경로로만 안전 | 17곳 | **42곳** | ⚠ **과소평가였음** |
+| 미래 인지 전용 비율 | 3.70 % | **9.17 %** | ⚠ **과소평가였음** |
+| 화선 핵심 성장 | +1.2 % | **+316.1 %** | ⚠ **과소평가였음** |
+
+「준정적 핵심(quasi-static core)」이라는 한계 기술은 **화재의 성질이 아니라 되돌려진
+위험면의 성질**이었습니다. **헤드라인 AUC 는 영향을 받지 않습니다** — DEM 정정은
+폴드평균을 **+0.0048**, pooled 를 **−0.0017** 움직입니다
+([`data/processed/spread_v2_lofo_dem_corrected.json`](data/processed/spread_v2_lofo_dem_corrected.json)).
+그 재실행은 커밋된 산출물을 **대체하지 않았고**, 제출본이 인용하는 수치를 보존하기
+위해 별도 파일로 둡니다. **439 계열(439/167/24)은 다른 파이프라인·다른 분모이므로
+영향 없음**입니다.
+
+### 2. 다지역 — 3곳
+
+동일 규칙·동일 파라미터로 3개 지역을 취득·모의·라우팅했습니다.
+
+| 지역 | 주사 출발지 | 3-구분 | 보행망 커버리지 | 차고지 |
+|---|---:|---|---:|---:|
+| 영덕 2025 | 458 | 414 / 42 / 2 | **32.6 %** | 4 |
+| 의성·안동 2025 | 368 | 263 / 91 / 12 | **99.2 %** | **0** |
+| 울진·삼척 2022 | 393 | 377 / 3 / 10 | **81.5 %** | 4 |
+
+⚠ **세 지역을 이 표로 순위 매기지 마십시오.** n = 3 이고 커버리지·핵심 성장·포락면적이
+함께 움직입니다 ([`docs/multi_region.md`](docs/multi_region.md) §8). 영덕의 절대 비율은
+모두 **커버리지 32.6 %** 위의 값입니다.
+
+⚠ **의성·안동은 919 km² 보행 bbox 안에 OSM 에 매핑된 `amenity=fire_station` 이 없어**
+구조자 측 산출이 불가합니다(더 넓은 3,926 km² 범위에는 6곳). 「소방서가 없다」가
+**아니라** OSM 매핑의 성질이며, 산출물은 이를 *0건*이 아니라 *해당 없음*으로 기록합니다.
+
+### 3. 다지역 확장이 실제로 찾아낸 것 — 지역 리터럴 결함 3건
+
+같은 결함을 **세 파일에서 세 번** 만났고, **셋 다 같은 형태**입니다: 지역별이어야 할
+값이 **한 지역의 값으로 박혀 있고, 그 지역에서는 우연히 맞습니다.**
+
+| # | 위치 | 증상 |
+|---|---|---|
+| 1 | 콘솔 빌더 | 커버리지가 리터럴 `32.6` — 지역 전환이 가능해지는 순간 나머지 둘에 대해 틀림 |
+| 2 | 화면 생성기 범례 | **시연 화면이 32.6 %와 99.2 %를 동시에 표시** |
+| 3 | 캐비엇 상수 | 영덕 이름과 32.6 %가 **273장의 A4 출동 시트**에 인쇄됨. 두 지역 모두 자기 커버리지가 시트에 없었음 |
+
+⚠ **단일 지역 검증으로는 구조적으로 드러나지 않습니다.** 지역이 하나인 동안
+리터럴과 옳은 값은 **같은 숫자**여서 어떤 단언도 둘을 가르지 못합니다. **두 번째
+지역은 같은 것의 더 나은 테스트가 아니라, 존재하는 첫 테스트입니다.**
+셋 중 하나는 「사본이 어긋난다」를 고치다 생겼습니다 — 통일은 옳았고, **통일된 하나가
+지역별이어야 하는지는 아무도 묻지 않았습니다.**
+전체 기록: [`docs/region_literals.md`](docs/region_literals.md) §0.
+
+지금은 `make verify` 의 `check-region-literals` 가 이 부류를 막습니다.
+
+### 4. 동작하는 운영 경로
+
+- **실시간 트리거** — FIRMS NRT 또는 전화 신고 좌표 하나가 들어오면, 사전 계산된
+  위험면 위에서 라우팅해 3종 전달물(SMS 초안·이장용 A4·마을방송 원고)까지 무인으로
+  산출합니다. 최신 실행 실측 **탐지→목록 9.961초**(적재 포함 12.758초).
+  [`docs/live_pipeline.md`](docs/live_pipeline.md)
+- **운영자 콘솔** — 단일 파일 **153.9 KiB**, 3개 지역 인라인, 런타임 전환.
+  지도를 클릭하면 그 지점에서 다시 계산합니다. 외부 요청 0건.
+  [`docs/console_regions.md`](docs/console_regions.md)
+- **신고 사진 EXIF** — 119 신고자가 주소를 모를 때, 사진의 GPS 좌표를 읽어 발화점으로
+  씁니다. JPEG·HEIC·PNG. ⚠ **사진은 저장하지 않고, 좌표(4개 태그)만 읽고 즉시
+  폐기하며, 파일명은 서버로 전송되지 않습니다.** 사진 내용으로 위치를 추정하지
+  않습니다. [`docs/photo_exif.md`](docs/photo_exif.md)
+
+### 5. 확인 가능성
+
+- **`docs/NUMBERS.json`** — 보고 가능한 값 **136개**, 그중 **120개가 현재 입력에서
+  재현 가능**. 나머지는 *검증되었으나 재현 불가*(2026-07-24 에 OSM 그래프가 덮어써짐)
+  이며, **그 구분이 요점입니다** — 「재현 불가」는 「틀림」이 아니고, Round 3 이전에는
+  어느 쪽인지 말할 방법이 없었습니다.
+- **`make verify`** — 각 수치를 산출물에서 재유도하고, 폐기된 수치를 문서에서
+  스캔하고, 지역 리터럴을 검사합니다.
+- **화면 게이트 3종** (`scripts/check_screen_assets.py`) — 오프라인(외부 요청 0),
+  대시, WCAG 대비. ⚠ 이 게이트는 **JSON 페이로드로 도착하는 문자열을 보지 못합니다**;
+  그 한계는 [`docs/screen_gate_scope.md`](docs/screen_gate_scope.md) 에 기록돼 있습니다.
+- **테스트 996개 통과 / 4개 건너뜀.**
 
 ---
 
@@ -73,10 +190,23 @@
   0.93 입니다. **일반화 지표로는 폴드 평균을 보고**합니다. 전체 보류예측 통합
   **pooled = 0.905** (부트스트랩 95 % CI [0.901, 0.909])는 *pooled* 로 명시해서만
   사용하며, 일반화 지표가 아닙니다.
-- **핵심 발견 — 세기(severity) ≫ 풍향(direction)**: 순열 중요도에서 화재기상
+- ⚠ **세기 vs 풍향 — 측정값이며 미확립입니다.** 순열 중요도에서 화재기상
   **세기**(`days_since_rain`, `vpd_kpa`, `rh_pct`, `temp_c`, `precip_24h_mm`,
-  풍속 `wind_speed_ms`) 합 0.102 vs 풍향 정렬 `wind_alignment` 0.0023 → **약 44배**.
-  단일 최강 특징은 **`days_since_rain`** (0.077) 입니다.
+  풍속 `wind_speed_ms`) 합은 **0.102**, 풍향 정렬 `wind_alignment` 는 **0.0023**
+  입니다. 이전 판은 이 비율을 헤드라인으로 걸었으나 **철회**했습니다. 근거 세 가지:
+  1. **6개 특징 합산**을 **단일 변수**와 견주는 비교입니다.
+  2. ERA5 는 **0.25°(~28 km)** 라 세기 특징이 한 산불의 한 시점 안에서 거의 균일합니다.
+     즉 *날짜·산불 간* 구분력이지 *통과 내 공간* 배치력이 아닙니다
+     ([`docs/ROUTING_INTEGRATION_REPORT.md`](docs/ROUTING_INTEGRATION_REPORT.md) "Honest nuance").
+  3. 시드·폴드에 걸친 산포를 측정하지 않은 **단일 점추정**입니다
+     ([`docs/auc_intervals.md`](docs/auc_intervals.md)).
+
+  ⚠ **「풍향이 중요하지 않다」는 뜻이 아닙니다.** 이 장비로는 볼 수 없다는 뜻입니다.
+- ⚠ **그리고 1위 특징은 폴드 밖에서 모델을 악화시킵니다.** `days_since_rain` 은
+  순열 중요도 1위(**+0.077**)이지만, *제거하면* 폴드평균 AUC 가 **+0.0270**,
+  원거리대가 **+0.0533** 올라갑니다. 6개 산불 중 3개에서 이 값이 ERA5 창 길이와
+  정확히 같아, 일부는 산불별 지문입니다. PHASE 14,
+  [`docs/weather_dependency.md`](docs/weather_dependency.md) §②.
 - **규모**: 16개 특징, 151,904행 / 양성 2,989(약 1.97 %), 시드 20250603,
   좌표계 EPSG:5179.
 - **원거리(>3 km) 폴드 평균 AUC = 0.925** (n=3; 화선의 *도달* 예측력), 통합 pooled
@@ -111,9 +241,10 @@
 > | **hist_gbm (본 모델)** | **0.889 ± 0.107** | **0.905** |
 >
 > 폴드 평균에서는 랜덤포레스트가 근소 우위이나, **보정된 확률**(라우터가 실제
-> `P(ignite)` 를 소비) · **추론 속도** · **해석가능성**(순열 중요도가 "세기 ≫ 풍향"
-> 발견을 제공)을 근거로 GBM을 정식 모델로 채택했습니다. 베이스라인 수치는 동일
-> 게이트형 재실행(`scripts/ml_baselines.py`)으로 재현합니다. 방법론:
+> `P(ignite)` 를 소비) · **추론 속도** · **해석가능성**(순열 중요도를 산출)을
+> 근거로 GBM을 정식 모델로 채택했습니다. ⚠ 채택 근거로 들었던 "세기 ≫ 풍향"
+> 발견은 이후 미확립으로 철회되었습니다(위 참조). 나머지 두 근거는 유효합니다.
+> 베이스라인 수치는 동일 게이트형 재실행(`scripts/ml_baselines.py`)으로 재현합니다. 방법론:
 > [`docs/baselines.md`](docs/baselines.md).
 
 ### 시스템 구성
@@ -151,8 +282,10 @@
 데이터 기반 모델과 그 위의 라우팅까지 동작하는 개념검증입니다. 본 저장소가 제공하는 것:
 
 - **데이터 기반 격자 발화확률 모델 (`spread_v2`, Build B)** — 6개 실제 산불에
-  대한 LOGO-CV 검증(폴드평균 ROC-AUC 0.89), 보정된 확률, 순열 중요도 기반 "세기≫풍향"
-  발견. `src/wildfireguardian/spread_v2/`
+  대한 LOGO-CV 검증(폴드평균 ROC-AUC 0.89), 보정된 확률, 순열 중요도.
+  ⚠ "세기≫풍향" 주장은 **미확립으로 철회**되었습니다 — 6개 특징 합산 대 단일 변수
+  비교이며 ERA5 0.25°(~28 km)가 국지풍을 해상하지 못합니다. 「풍향이 중요하지 않다」는
+  뜻이 아닙니다. `src/wildfireguardian/spread_v2/`
 - **실데이터 인제스션** — NASA FIRMS 발화점 + SRTM DEM + ESA WorldCover 연료 +
   ERA5 기상(`spread_v2/data.py`). FIRMS 번들은 git-ignore 되어 별도 다운로드합니다.
 - **검증 통계 도구** — DeLong CI/유의성, 부트스트랩, 순열검정, 폴드평균 t-구간
@@ -292,11 +425,25 @@ probability `P(ignites by the next satellite overpass)`.
   five average ≈ 0.93. **Mean-of-folds is the generalization figure.** The pooled
   out-of-fold AUC **0.905** (bootstrap 95 % CI [0.901, 0.909]) is reported only when
   labelled "pooled" and is **not** the generalization metric.
-- **Headline finding — severity ≫ wind direction**: summed fire-weather
-  **severity** permutation importance **0.102** vs `wind_alignment` (direction)
-  **0.0023** → a **~44×** ratio. The **single strongest feature is
-  `days_since_rain`** (0.077). The weather/severity group includes wind *speed*
-  (`wind_speed_ms`); the *control* it dominates is wind *direction*.
+- ⚠ **Severity vs wind direction — measured, NOT established.** Summed
+  fire-weather **severity** permutation importance is **0.102** against
+  `wind_alignment` (direction) **0.0023**. Earlier versions led with the ~44×
+  ratio; it is withdrawn as a headline for three reasons, each checkable:
+  1. it sets a **six-feature sum** against a **single variable**;
+  2. ERA5 is **0.25° (~28 km)**, so the severity features are near-uniform across
+     one fire at one instant — they discriminate among *days and fires*, not
+     *within-overpass spatial* placement
+     ([`docs/ROUTING_INTEGRATION_REPORT.md`](docs/ROUTING_INTEGRATION_REPORT.md) §"Honest nuance");
+  3. it is a **single point estimate** whose spread across seeds and folds was
+     never measured ([`docs/auc_intervals.md`](docs/auc_intervals.md)).
+
+  **It does not mean wind direction is unimportant** — it means this instrument
+  cannot see it.
+- ⚠ **And the top-ranked feature makes the model WORSE out-of-fold.**
+  `days_since_rain` ranks first at **+0.077**, but *dropping* it **raises**
+  mean-of-folds AUC by **+0.0270** and far-band by **+0.0533**. For three of six
+  fires it equals the ERA5 window length exactly, i.e. it is partly a per-fire
+  fingerprint. PHASE 14, [`docs/weather_dependency.md`](docs/weather_dependency.md) §②.
 - **Scale**: 16 features, 151,904 rows / 2,989 positives (~1.97 %), seed 20250603,
   EPSG:5179.
 - **Far-band (>3 km) mean-of-folds AUC = 0.925** (n=3; the "can it predict *reach*?"
@@ -375,9 +522,11 @@ model validated on six real fires, with downstream routing working on top of it.
 This repository provides:
 
 - **Data-driven per-cell ignition model (`spread_v2`, Build B)** — LOGO-CV-validated
-  on six real fires (mean-of-folds ROC-AUC 0.89), calibrated probabilities, the
-  "severity ≫ direction" permutation-importance finding.
-  `src/wildfireguardian/spread_v2/`
+  on six real fires (mean-of-folds ROC-AUC 0.89), calibrated probabilities and
+  permutation importance. ⚠ The "severity ≫ direction" claim is **withdrawn as
+  not established** — a six-feature sum against one variable, on a 0.25° (~28 km)
+  grid that does not resolve local wind. It does NOT mean direction is
+  unimportant. `src/wildfireguardian/spread_v2/`
 - **Real-data ingestion** — NASA FIRMS detections + SRTM DEM + ESA WorldCover
   fuel + ERA5 weather (`spread_v2/data.py`). The FIRMS bundle is git-ignored and
   downloaded separately.
