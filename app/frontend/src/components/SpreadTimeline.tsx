@@ -29,7 +29,12 @@ const LEVEL_COLOR: Record<string, { fill: string; tint: string }> = {
 export function SpreadTimeline({ situation }: { situation: Situation }) {
   const { t, lang } = useI18n();
   const eta = situation.eta_minutes;
-  if (eta === null) return null; // not on a predicted pathway — nothing to show
+  // Not on a predicted pathway — nothing to show. A non-positive ETA is the
+  // same case wearing a number: "the fire arrives in 0 minutes" is never
+  // information a resident can act on, and beside a CAUTION status it reads as
+  // a contradiction. The gateway sends null for this now (spread.py), and this
+  // screen refuses to print a countdown of zero even if one ever arrives.
+  if (eta === null || eta <= 0) return null;
 
   const colors = LEVEL_COLOR[situation.danger.level] ?? LEVEL_COLOR.GO;
   const clamped = Math.max(0, Math.min(eta, SCALE_MAX_MIN));

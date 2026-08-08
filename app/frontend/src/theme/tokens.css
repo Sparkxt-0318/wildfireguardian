@@ -105,11 +105,21 @@ button {
   width: 100%;
 }
 
+/* ⚠ THE TOGGLE WRAPS INSTEAD OF SITTING ON THE APP NAME.
+   The two language pills cannot shrink and must not: 64 px touch targets and
+   22 px labels are §7 floors, and "한국어 / English" has to stay readable in
+   whichever language the user already speaks. Their chrome alone is ~244 px,
+   and the 28 px app name another ~140 px — more than the ~348 px a 380 px
+   phone leaves inside the padding, and far more on the 360 px screens most
+   common in Korea. Without wrapping, the name reflowed underneath the pills
+   and the header rendered as overlapping text. Wrapping spends one row of
+   height on small screens and nothing at all on large ones. */
 .top-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
+  flex-wrap: wrap;
   padding: 12px 16px;
   max-width: 720px;
   margin: 0 auto;
@@ -120,6 +130,7 @@ button {
   font-size: var(--fs-title);
   font-weight: 800;
   margin: 0;
+  min-width: 0;
 }
 
 /* --------------------------------------------------------------------------

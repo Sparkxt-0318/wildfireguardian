@@ -129,3 +129,52 @@ def test_danger_labels_bilingual():
     assert "45" in d.reason_ko and "45" in d.reason_en
     d = make_danger("SAFE", None, None, None, None, False)
     assert d.label_ko == "안전" and d.reason_ko and d.reason_en
+
+
+# --------------------------------------------------------------------------
+# ETA: a resident beside or behind the front has no ETA, not an ETA of zero.
+#
+# Regression for a defect found by running the real UI against the real
+# gateway: `along == 0` (the projection lands on the start of the pathway,
+# i.e. the fire is level with the resident or has already passed) produced
+# eta_minutes == 0, which the screen rendered as "0분 / 0 minutes until the
+# fire arrives" — directly under a CAUTION status whose own sentence said the
+# wind was carrying the fire away. Contract §5.1: null when the resident is
+# not on a predicted pathway.
+# --------------------------------------------------------------------------
+
+from guardian_app import spread as sp  # noqa: E402
+
+
+def _straight_pathway_east(lat: float = 36.40, lon0: float = 129.40) -> list[dict]:
+    """One pathway running due east from (lat, lon0) for ~9 km."""
+    return [{"bearing_deg": 90.0,
+             "coords": [[lon0, lat], [lon0 + 0.05, lat], [lon0 + 0.10, lat]]}]
+
+
+def test_eta_is_none_when_level_with_the_front():
+    """Standing at the pathway origin is not a zero-minute countdown."""
+    pw = _straight_pathway_east()
+    assert sp.eta_minutes_for(36.40, 129.40, pw, 8.0) is None
+
+
+def test_eta_is_none_when_behind_the_front():
+    """The fire has passed: still inside the corridor, but not ahead of it."""
+    pw = _straight_pathway_east()
+    assert sp.eta_minutes_for(36.40, 129.38, pw, 8.0) is None
+
+
+def test_eta_is_a_positive_number_when_ahead_of_the_front():
+    pw = _straight_pathway_east()
+    eta = sp.eta_minutes_for(36.40, 129.47, pw, 8.0)
+    assert eta is not None and eta > 0
+
+
+def test_eta_is_none_outside_the_corridor():
+    pw = _straight_pathway_east()
+    assert sp.eta_minutes_for(36.60, 129.47, pw, 8.0) is None
+
+
+def test_zero_eta_never_reaches_triage_as_an_imminent_arrival():
+    """With no ETA and the wind blowing away, the answer is WATCH — not GO."""
+    assert triage_level(True, 8.0, None, False) == "WATCH"

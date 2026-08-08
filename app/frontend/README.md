@@ -91,3 +91,23 @@ public/
 - The UI never displays a number the API did not send; demo data is always
   labelled; loading/error states are calm, huge-type, and bilingual.
 - All animation is disabled under `prefers-reduced-motion`.
+
+## Offline demo — the real app with no server
+
+Two scripts turn this build into one self-contained HTML file that anybody can
+open with no install, no server and no network:
+
+```bash
+cd app/backend  && python3 scripts/capture_demo_fixtures.py   # record the gateway
+cd ../frontend  && npm run build && node scripts/make-offline-demo.mjs
+# → marketing/demo/resident_app_offline.html
+```
+
+The page is this exact production bundle. Only the transport is replaced:
+`fetch` and `EventSource` answer from `demo-fixtures.json`, which holds
+responses **recorded from the real gateway** in demo mode. No triage rule is
+reimplemented — the danger level, the cards, the spread rings and the route are
+the backend's own output, so the demo cannot drift from the shipped app.
+
+`capture_demo_fixtures.py --check` verifies the committed fixtures still match a
+fresh capture, the same way `make_scenario.py --check` guards the scenario.

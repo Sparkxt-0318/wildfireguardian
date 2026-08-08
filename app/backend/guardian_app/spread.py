@@ -19,6 +19,11 @@ import math
 from typing import Optional
 
 PATHWAY_CORRIDOR_KM = 3.0
+
+#: Minimum along-pathway distance (km) that counts as "ahead of the front".
+#: Below it the resident is beside or behind the fire and has no ETA at all —
+#: see the note in :func:`eta_minutes_for`.
+ETA_MIN_ALONG_KM = 0.1
 WIND_TOWARD_HALF_ANGLE_DEG = 60.0
 
 _KO_DIRS = ["북쪽", "북동쪽", "동쪽", "남동쪽", "남쪽", "남서쪽", "서쪽", "북서쪽"]
@@ -138,6 +143,20 @@ def eta_minutes_for(
         if perp <= PATHWAY_CORRIDOR_KM and (best is None or along < best):
             best = along
     if best is None:
+        return None
+    # ⚠ AN ETA OF ZERO IS NOT AN ETA, AND SHOWING IT IS THE WORST KIND OF WRONG.
+    # `along` is measured from the front, downwind. A resident who is beside or
+    # BEHIND the front projects onto the start of the polyline and scores
+    # along == 0 — the fire has passed them, or is moving away. Returning 0
+    # there put "0분 / 0 minutes until the fire arrives" on a CAUTION screen
+    # whose own sentence said the wind was blowing the fire away: the most
+    # alarming number this app can print, next to a reassurance, for somebody
+    # who is not in fact in the fire's path. The contract (§5.1) already says
+    # what to answer when the resident is not on a predicted pathway — null —
+    # and being beside the front is that case. Someone genuinely at the front
+    # is still reached by the distance rule (<5 km + wind toward = GO), so no
+    # warning is lost by declining to invent a countdown.
+    if best <= ETA_MIN_ALONG_KM:
         return None
     speed = front_speed_kmh(wind_speed_ms)
     return max(0, round(best / speed * 60.0))
