@@ -89,6 +89,88 @@ LABEL: list[tuple[str, str, str, str]] = [
      "(walk_failure_rate_pct)"),
 ]
 
+#: How many lines either side of a hit count as "near" for LABEL_NEAR.
+#: ⚠ MEASURED, NOT CHOSEN. Against the tree before and after the 2026-08-08
+#: caveat pass, on the six LABEL_NEAR tokens:
+#:
+#:     window   false positives (corrected tree)   detections (pre-fix tree)
+#:     same line              37                            42
+#:     ±3                     14                            31
+#:     ±10                     6                            23      <- adopted
+#:     ±25                     5                            17
+#:
+#: **The same-line rule that LABEL uses cannot work here.** The natural way to
+#: caveat a TABLE is a block quote above it, not a suffix on every row, so 88 %
+#: of same-line "findings" landed on content that was already correctly marked.
+#: LABEL's five tokens are single prose mentions, which is why same-line suits
+#: them. Widening past ±10 buys one fewer false positive and loses six
+#: detections.
+NEAR_WINDOW: int = 10
+
+#: A label that makes a retired value legible as history rather than as a claim.
+#: Deliberately generous and bilingual: the cost of accepting a weak marker is
+#: one missed finding, and the cost of rejecting a real one is a checker people
+#: start ignoring.
+NEAR_LABEL: str = (
+    r"(?i)(미확립|철회|withdraw|not\s+establ|제출\s*시점|정본|폐기|이전|구\s|"
+    r"superseded|legacy|retired|previous|reverted|되돌려|historical|"
+    r"earlier\s+reading|no\s+longer|was\s+headed|used\s+to\s+read|"
+    # ⚠ "a single point estimate whose spread was never measured" IS the caveat.
+    # auc_intervals.md states exactly that and was being reported as unlabelled.
+    r"single\s+point\s+estimate|deferred|future\s+work|unmeasured|"
+    # ⚠ English docs draw the contrast with "canonical", Korean ones with 정본.
+    # multi_region.md §5 says "the question has lost its premise ... on the
+    # canonical field Yeongdeok's core advances fastest" — that IS the caveat,
+    # and omitting the English word reported it as bare.
+    #
+    # ⚠ NOT bare "canonical". This repository calls its current model the
+    # "canonical reference", and a baseline table row saying exactly that, eight
+    # lines above a retired ratio, masked a real finding in docs/baselines.md.
+    # Only the CONTRASTIVE usage counts: the canonical FIELD or RE-RUN, i.e. the
+    # corrected lineage a retired value is being set against.
+    r"canonical\s+(field|장|re-?run|reconstruction|recomputation|value)|"
+    r"lost\s+its\s+premise)")
+
+#: token -> (kind, why). Checked with NEAR_LABEL over ±NEAR_WINDOW lines.
+#:
+#: ⚠ THIS LIST IS THE CHECK'S ENTIRE SCOPE — see the limitation in
+#: docs/forbidden_check_scope.md §"What LABEL_NEAR cannot do".
+LABEL_NEAR: list[tuple[str, str, str]] = [
+    ("440 / 17 / 3", "lit",
+     "retired 459-series counts (reverted-run hazard field); canonical is "
+     "414 / 42 / 2"),
+    ("440/17/3", "lit", "see '440 / 17 / 3'"),
+    ("438 / 18 / 3", "lit",
+     "submission-time 459-series counts; canonical is 458 — 414 / 42 / 2"),
+    # ⚠ The boundary matters: docs/OVERNIGHT_REPORT_SESSION4.md carries 1.44×
+    # and 18.3× for the physics model's LFMC x wind decomposition, which is a
+    # different quantity entirely. `(?<![\d.])` keeps those out.
+    ("44×", "ratio",
+     "withdrawn severity-vs-direction ratio — six-feature sum vs one variable, "
+     "on a 0.25° grid that cannot resolve local wind"),
+    ("severity ≫ direction", "sevdir", "withdrawn conclusion — see 44×"),
+    ("3.70 %", "lit",
+     "retired future-aware-only share (reverted field); canonical is 9.17 %"),
+    ("+1.2 %", "lit",
+     "retired Yeongdeok core growth (reverted field); canonical is +316.1 %"),
+]
+
+#: ⚠ THE RATCHET, AND EVERY ENTRY CARRIES ITS REASON.
+#: Same idea as KNOWN_DASHES and KNOWN_REGION_LITERALS: the floor is where the
+#: tree stands today and may only go down. An entry here has been LOOKED AT.
+KNOWN_NEAR_UNLABELLED: dict[str, int] = {
+    # Describes what a SCRIPT prints ("...and severity ≫ wind direction
+    # (skipped if the dataset is absent)"), not a claim the document makes. The
+    # withdrawal is stated twice elsewhere in the same file.
+    "docs/ROUTING_INTEGRATION_REPORT.md": 1,
+    # The body of a submission-time report, left verbatim ON PURPOSE: its header
+    # carries the marker and the instruction was to preserve the body as written.
+    "docs/REPORT_ROUND2_P2.md": 1,
+    # 439-series five-category context ("the five originals are still
+    # 440/17/3/0/0"), a different lineage and denominator from the 459 series.
+    "docs/HANDOFF_ROUND3.md": 1,
+}
+
 #: ---------------------------------------------------------------------------
 #: SCOPE: which rules apply where. Documented in docs/forbidden_check_scope.md.
 #:
@@ -130,6 +212,25 @@ PRAGMA = re.compile(r"(?:#|//|<!--)\s*forbidden-ok:\s*(.*?)\s*(?:-->|$)")
 
 
 def pattern_for(token: str, kind: str) -> re.Pattern:
+    if kind == "ratio":
+        # ⚠ "44×" must not match "1.44×" or "18.3×". The lookbehind rejects a
+        # preceding digit or decimal point, which is what separates the withdrawn
+        # severity ratio from the physics model's LFMC x wind decomposition in
+        # docs/OVERNIGHT_REPORT_SESSION4.md. Both × and x are accepted because
+        # both are written in this repository.
+        #
+        # ⚠ NO TRAILING \\b. The first version had one and matched NOTHING
+        # for the "44×" form: × is not a word character, so \\b between × and
+        # the following "*" (in "**44×**") can never hold. It silently passed
+        # the MODEL_CARD line it was written for, and only the ASCII "44x"
+        # spelling ever matched. The lookbehind alone does the whole job —
+        # it is what excludes 1.44× and 18.3×.
+        return re.compile(r"(?<![\d.])44\s*[×x]")
+    if kind == "sevdir":
+        # Both orderings and both languages, with any of the comparison glyphs.
+        return re.compile(
+            r"(?i)(severity\s*[≫>]{1,2}\s*(wind\s*)?direction|"
+            r"세기\s*[≫>]{1,2}\s*풍향)")
     if kind == "num":
         # The lookbehind also excludes "," so a thousands separator cannot make
         # "1,264" match the token "264". A real prose mention is written ", 264"
@@ -168,8 +269,11 @@ def scan(paths: list[Path]) -> tuple[list[dict], list[dict], int]:
     hard_rules = [(t, pattern_for(t, k), why, k) for t, k, why in HARD]
     label_rules = [(t, pattern_for(t, k), re.compile(lab), why, k)
                    for t, k, lab, why in LABEL]
+    near_rules = [(t, pattern_for(t, k), why) for t, k, why in LABEL_NEAR]
+    near_label = re.compile(NEAR_LABEL)
     hard_hits: list[dict] = []
     label_hits: list[dict] = []
+    near_hits: list[dict] = []
     n_suppressed = 0
     payload_skips: dict[str, int] = {}
 
@@ -210,7 +314,39 @@ def scan(paths: list[Path]) -> tuple[list[dict], list[dict], int]:
                     continue
                 label_hits.append({"file": rel, "line": i, "token": token,
                                    "why": why, "text": line.strip()[:150]})
-    return hard_hits, label_hits, n_suppressed, payload_skips
+
+            # ⚠ LABEL_NEAR: the label may be anywhere within ±NEAR_WINDOW lines,
+            # because a table is caveated by a block quote above it rather than
+            # by a suffix on every row. `i` is 1-based, so the slice is i-1
+            # centred.
+            if not num_rules_apply:
+                continue
+            lo = max(0, i - 1 - NEAR_WINDOW)
+            window = "\n".join(lines[lo:i + NEAR_WINDOW])
+            for token, rx, why in near_rules:
+                if not rx.search(line):
+                    continue
+                if token in allowed:
+                    n_suppressed += 1
+                    continue
+                if near_label.search(window):
+                    continue
+                near_hits.append({"file": rel, "line": i, "token": token,
+                                  "why": why, "text": line.strip()[:150]})
+    return hard_hits, label_hits, near_hits, n_suppressed, payload_skips
+
+
+def over_near_ratchet(hits: list[dict]) -> list[dict]:
+    """Findings above the recorded floor, per file. The floor may only go DOWN."""
+    by_file: dict[str, list[dict]] = {}
+    for h in hits:
+        by_file.setdefault(h["file"], []).append(h)
+    out: list[dict] = []
+    for rel, items in by_file.items():
+        allowed = KNOWN_NEAR_UNLABELLED.get(rel, 0)
+        if len(items) > allowed:
+            out += items[allowed:]
+    return out
 
 
 def report(hits: list[dict], title: str) -> None:
@@ -242,11 +378,14 @@ def main() -> int:
         print("\nLABEL (permitted only with a qualifier on the same line):")
         for t, k, _lab, why in LABEL:
             print(f"  {t:14s} [{k}]  {why}")
+        print(f"\nLABEL_NEAR (caveat required within ±{NEAR_WINDOW} lines):")
+        for t, k, why in LABEL_NEAR:
+            print(f"  {t:22s} [{k}]  {why}")
         print("\nPragma: '# forbidden-ok: TOKEN' on the line or the line above.")
         return 0
 
     paths = tracked_files()
-    hard, label, suppressed, payload_skips = scan(paths)
+    hard, label, near, suppressed, payload_skips = scan(paths)
     print(f"scanned {len(paths)} tracked text files "
           f"({suppressed} pragma-suppressed occurrence(s))")
     if payload_skips:
@@ -260,6 +399,12 @@ def main() -> int:
     report(hard, "HARD violations")
     print()
     report(label, "UNLABELLED mentions")
+    print()
+    near_over = over_near_ratchet(near)
+    allowed_near = sum(KNOWN_NEAR_UNLABELLED.values())
+    report(near_over, f"RETIRED CLAIMS without a nearby caveat (±{NEAR_WINDOW} lines)")
+    if not near_over and allowed_near:
+        print(f"    ({allowed_near} known and recorded in KNOWN_NEAR_UNLABELLED)")
 
     if hard:
         print(f"\nFAILED: {len(hard)} hard violation(s).")
@@ -269,9 +414,16 @@ def main() -> int:
               "the line, or a line pragma if the line's job is to name the value. "
               "The count has been zero since 2026-08-01 — this is a real finding.")
         return 1
-    if label:
-        print(f"\nOK with warnings: {len(label)} unlabelled mention(s) "
-              "(--allow-unlabelled).")
+    if near_over and not args.allow_unlabelled:
+        print(f"\nFAILED: {len(near_over)} retired claim(s) stated with no "
+              f"caveat within {NEAR_WINDOW} lines. Add the marker beside it — "
+              "the value itself must NOT be deleted, it is the record of that "
+              "run. If the mention is legitimately bare, add a line pragma or an "
+              "entry to KNOWN_NEAR_UNLABELLED with its reason.")
+        return 1
+    if label or near_over:
+        print(f"\nOK with warnings: {len(label)} unlabelled mention(s), "
+              f"{len(near_over)} uncaveated retired claim(s) (--allow-unlabelled).")
         return 0
     print("\nOK — no forbidden strings.")
     return 0

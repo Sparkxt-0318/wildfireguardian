@@ -816,3 +816,102 @@ def test_the_ratchet_floor_is_not_stale():
         assert actual == allowed, (
             f"{path}: recorded floor {allowed}, actual {actual} — "
             "lower KNOWN_REGION_LITERALS so the floor holds the improvement")
+
+
+# ---------------------------------------------------------------------------
+# 8. LABEL_NEAR — a retired claim stated with no caveat nearby
+#
+# Added after the same defect turned up in five documents in one day, including
+# MODEL_CARD.md, which the README calls the canonical source of truth and which
+# carried a section headed "Headline finding (severity ≫ wind direction)" months
+# after that conclusion was withdrawn.
+# ---------------------------------------------------------------------------
+
+from check_forbidden import (  # noqa: E402
+    KNOWN_NEAR_UNLABELLED, LABEL_NEAR, NEAR_LABEL, NEAR_WINDOW, over_near_ratchet,
+    pattern_for, scan, tracked_files,
+)
+
+#: Reproduced from the commits that introduced them, exactly as written.
+THE_RETIRED_CLAIMS: dict[str, str] = {
+    "MODEL_CARD section heading": "## Headline finding (severity ≫ wind direction)",
+    "MODEL_CARD ratio": (
+        "fire-weather **severity** importance 0.102 vs `wind_alignment` 0.0023 "
+        "— a **44×**"),
+    "baselines rationale": (
+        "wind-direction interpretability** (the 44× permutation-importance ratio)"),
+    "slope 2x2 table row": "| 거리 최소화 (현행, 기본값) | 440 / 17 / 3 | 440 / 17 / 3 |",
+    "walk_bbox counts": "459 / 438 / 18 / 3 counts are correct for the origins",
+}
+
+
+@pytest.mark.parametrize("name", list(THE_RETIRED_CLAIMS))
+def test_label_near_fires_on_every_retired_claim_as_written(name):
+    """⚠ The bar this rule was built to clear: would it have caught them."""
+    line = THE_RETIRED_CLAIMS[name]
+    fired = any(pattern_for(tok, kind).search(line)
+                for tok, kind, _why in LABEL_NEAR)
+    assert fired, f"{name}: no LABEL_NEAR token matches the line as written"
+
+
+def test_the_ratio_pattern_excludes_the_physics_models_different_ratios():
+    """⚠ The first version ended in \\b and matched NOTHING for the × form.
+
+    `×` is not a word character, so the boundary could never hold before the
+    `**` in `**44×**` — only the ASCII `44x` spelling matched, and the rule
+    silently passed the MODEL_CARD line it was written for.
+    """
+    rx = pattern_for("44×", "ratio")
+    assert rx.search("importance 0.0023 — a **44×**"), (
+        "the × form must match; a trailing \\b breaks it")
+    assert rx.search("a 44x ratio"), "the ASCII form must match too"
+    for other in ("| B drought-only | 3.34 | **1.44×** |",
+                  "multiplicative (1.44 × 12.76 = 18.3×)"):
+        assert not rx.search(other), (
+            f"{other!r}: the physics model's LFMC x wind ratios are a different "
+            "quantity and must not be flagged")
+
+
+def test_the_label_vocabulary_does_not_accept_bare_canonical():
+    """⚠ A baseline row reading 'hist_gbm (canonical reference)' eight lines up
+    silenced a real finding in docs/baselines.md. Only the CONTRASTIVE usage
+    counts."""
+    lab = re.compile(NEAR_LABEL)
+    assert not lab.search("| hist_gbm (canonical reference) | 0.890 | 0.905 |"), (
+        "bare 'canonical' must not count as a caveat")
+    for good in ("on the canonical field Yeongdeok's core advances fastest",
+                 "정본 장에서는 414 / 42 / 2", "제출 시점 기록입니다",
+                 "this claim is withdrawn as not established",
+                 "a single point estimate whose spread was never measured"):
+        assert lab.search(good), f"{good!r} should count as a caveat"
+
+
+def test_the_tree_states_no_retired_claim_above_the_recorded_floor():
+    _hard, _label, near, _sup, _skips = scan(tracked_files())
+    over = over_near_ratchet(near)
+    assert not over, "\n".join(
+        f"{h['file']}:{h['line']} [{h['token']}] {h['why']}\n    {h['text']}"
+        for h in over)
+
+
+def test_the_near_ratchet_floor_is_not_stale():
+    """A stale floor is a ceiling. Same rule as the dash and region ratchets."""
+    _hard, _label, near, _sup, _skips = scan(tracked_files())
+    by_file: dict[str, int] = {}
+    for h in near:
+        by_file[h["file"]] = by_file.get(h["file"], 0) + 1
+    for rel, allowed in KNOWN_NEAR_UNLABELLED.items():
+        actual = by_file.get(rel, 0)
+        assert actual == allowed, (
+            f"{rel}: recorded floor {allowed}, actual {actual} — lower "
+            "KNOWN_NEAR_UNLABELLED so the floor holds the improvement")
+
+
+def test_the_window_is_documented_as_measured_not_chosen():
+    src = (REPO / "scripts" / "check_forbidden.py").read_text(encoding="utf-8")
+    assert NEAR_WINDOW == 10
+    assert "MEASURED, NOT CHOSEN" in src
+    scope = (REPO / "docs" / "forbidden_check_scope.md").read_text(encoding="utf-8")
+    assert "What LABEL_NEAR CANNOT do" in scope, (
+        "the limitation must be recorded: a check that people read as safety is "
+        "worse than no check")

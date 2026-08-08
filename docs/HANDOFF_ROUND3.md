@@ -347,6 +347,10 @@ values) · `rescue_routing_full.json` (441 origins fully serialised)
 Re-simulated 2026-08-02 on the corrected DEMs; the values below are the current
 ones. Pre-fix they read 2,375 ha / +79 % and 6,575 ha / +155 %.
 
+> ⚠ Yeongdeok's `+1.2 %` below is the REVERTED run's field; on the canonical
+> field it is **+316.1 %** (§2-A). The full note is a dozen lines down, which is
+> too far for a reader who is scanning the table.
+
 | region | reported | 12-h envelope | ratio | core growth |
 |---|---:|---:|---:|---:|
 | Yeongdeok 2025 | 3,800 ha | 27,900 ha | 7.34× **over** | +1.2 % ⚠ |

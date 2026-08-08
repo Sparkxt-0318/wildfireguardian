@@ -136,3 +136,75 @@ Two ways to close the gap when someone decides to:
    (wrong lineage) rather than the symptom (a digit in a blob of HTML).
 
 The second is the better shape. Neither is done.
+
+---
+
+## LABEL_NEAR — retired claims stated without a caveat (2026-08-08)
+
+A third severity, added after the same defect was found in five documents in one
+day: a value the repository has **retired** stated as a **current claim**, with no
+marker anywhere near it. `MODEL_CARD.md` — the file the README calls "canonical
+source of truth for every number below" — carried a section headed
+**"Headline finding (severity ≫ wind direction)"** with no caveat in the file at
+all, months after that conclusion was withdrawn.
+
+`HARD` could not express this (the values are legitimate history and must NOT be
+deleted) and `LABEL` could not either, for a measured reason.
+
+### ⚠ Why the window is ±10 lines and not the same line
+
+`LABEL` requires the qualifier **on the same line**. That suits its five tokens,
+which are single prose mentions. It does not suit these, because **the natural way
+to caveat a table is a block quote above it, not a suffix on every row.**
+
+Measured against the tree before and after the caveat pass:
+
+| window | false positives (corrected tree) | detections (pre-fix tree) |
+|---|---:|---:|
+| same line | **37** | 42 |
+| ±3 | 14 | 31 |
+| **±10** | **6** | **23** |
+| ±25 | 5 | 17 |
+
+Same-line put **88 %** of its findings on content that was already correctly
+marked. Past ±10, each further widening buys one fewer false positive and loses
+six detections.
+
+### Two mistakes made while building it, both fixed
+
+* **The `44×` pattern matched nothing.** It ended in `\b`, and `×` is not a word
+  character, so the boundary could never hold before the `**` in `**44×**`. Only
+  the ASCII `44x` spelling ever matched — the rule silently passed the very
+  `MODEL_CARD` line it was written for. The lookbehind `(?<![\d.])` alone does the
+  real work; it is what keeps `1.44×` and `18.3×` (a different quantity, in
+  `OVERNIGHT_REPORT_SESSION4.md`) out.
+* **Bare `canonical` in the label vocabulary masked a real finding.** This
+  repository calls its current model the "canonical reference", and a baseline
+  table row saying so eight lines above a retired ratio silenced
+  `docs/baselines.md`. Only the contrastive usage — the canonical *field* or
+  *re-run* — now counts.
+
+Both were caught by re-running the checker against the reverted documents rather
+than by reading it.
+
+### ⚠ What LABEL_NEAR CANNOT do
+
+> **It catches "a retired TOKEN appears with no caveat nearby". It does not, and
+> cannot, judge that a CLAIM has been retired.** The next withdrawn claim will be
+> exactly as invisible as this one was, in exactly the way an unregistered value
+> is invisible to `check_region_literals`. **The registry IS the scope.**
+
+So: **the existence of this check is not a reason to feel safe.** It converts one
+specific failure — *we already knew this was retired and said it anyway* — from a
+thing found by chance months later into a thing found at `make verify`. It does
+nothing about the failure that actually hurt here, which is *nobody asked whether
+the claim still held*. That one has no textual signature, and no rule proposed so
+far would have caught it.
+
+Two further limits, stated so a pass is not over-read:
+
+* **Prose scope only.** Like the retired-number rules, it runs on `.md`. A claim
+  restated in a slide, a screen or a commit message is out of reach.
+* **Proximity is not endorsement.** A caveat within ten lines satisfies the rule
+  even if it is about something else entirely. The check tests for the *presence*
+  of a marker, never for its relevance.
