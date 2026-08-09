@@ -358,10 +358,12 @@ const ring = mk('circle', {r: 11, fill: 'none', stroke: '#fde047',
 svg.appendChild(ring);
 
 // ---- legend -----------------------------------------------------------------
+// Reads CURRENT, not D: after a live run the four counts beside the legend
+// must be the live result's, or the screen shows two answers at once.
 function drawLegend(){
   el('legend').innerHTML =
     DATA.buckets.map(b => `<div class="r"><span class="sw" style="color:${b.fill}">${b.mark}</span>` +
-      `<span>${b.ko}</span><span class="num" style="color:var(--ink3)"> ${D.counts[b.key]}</span></div>`).join('') +
+      `<span>${b.ko}</span><span class="num" style="color:var(--ink3)"> ${CURRENT.counts[b.key]}</span></div>`).join('') +
     `<div class="r"><span class="sw" style="color:#fde047">◎</span><span>발화점(위험면 t=0 핵심)</span></div>` +
     `<div class="r"><span class="sw" style="color:#e8edf2">□</span><span>대피소</span></div>` +
     `<div class="r"><span class="sw" style="color:#7c8ba1">┄</span><span>보행망 범위</span></div>` +
@@ -411,7 +413,7 @@ function renderRows(rows, limit){
     more.textContent = `… 외 ${rows.length - shown}곳 · A4 전달물에는 전부 실립니다`;
   } else { more.hidden = true; }
   el('sidesub').textContent =
-    `${rows.length}개 지점 · 마을 ${D.n_villages}곳 · ${shown}행 표시`;
+    `${rows.length}개 지점 · 마을 ${CURRENT.n_villages}곳 · ${shown}행 표시`;
   SEL = -1; ring.setAttribute('visibility', 'hidden');
 }
 
@@ -441,6 +443,14 @@ function select(i){
   const tr = body.children[i]; if (!tr) return;
   tr.setAttribute('aria-selected', 'true'); SEL = i;
   const r = rows[i];
+  if (r.x === null || r.x === undefined || r.y === null || r.y === undefined){
+    // A live row: coordinate-free by design. Suppress the ring and say why,
+    // instead of drawing it off-screen where it reads as a broken click.
+    ring.setAttribute('visibility', 'hidden');
+    showReject(LIVE_ROW_NO_XY_KO, 'info');
+    tr.scrollIntoView({block: 'nearest'});
+    return;
+  }
   ring.setAttribute('cx', PX(r.x)); ring.setAttribute('cy', PY(r.y));
   ring.setAttribute('visibility', 'visible');
   tr.scrollIntoView({block: 'nearest'});
@@ -453,7 +463,14 @@ el('rows').addEventListener('keydown', (ev) => {
 });
 
 // ---- the standing facts -----------------------------------------------------
-let CURRENT = {rows: D.rows, counts: D.counts, origins: D.origins};
+// ⚠ CURRENT is the display state and the ONLY thing the list, the legend and
+// the village figure read. At mount it carries the region's pre-computed
+// values; after a live run it carries THAT RESULT's values. Reading D.counts
+// or D.n_villages directly from a renderer would show the pre-computed number
+// beside a live table: two lineages on one screen, the defect ed8a82b fixed
+// on the demonstration screens.
+let CURRENT = {rows: D.rows, counts: D.counts, origins: D.origins,
+               n_villages: D.n_villages};
 function setCalcLabel(text){ el('f-calc').textContent = text; }
 
 // ⚠ EVERY ONE OF THESE IS PER-REGION AND USED TO BE WRITTEN ONCE AT LOAD.
@@ -539,6 +556,28 @@ function showReject(msg, kind){
 }
 function clearReject(){ el('reject').hidden = true; }
 
+// ⚠ A DEAD SERVER MUST NOT LOOK LIKE A DEAD SCREEN.
+// A network call rejects with no HTTP status at all when the process that
+// served this page is gone (killed, crashed, its port taken by another
+// process) or when the page was opened from file://, which build_console.py
+// declares a supported way to view the PRE-COMPUTED state. Every network
+// handler below catches that rejection and produces a sentence, because an
+// unhandled one produced the two worst screens this file can show: a map click
+// with no visible effect, and a run button locked at 「제출 중…」 with no
+// recovery except a reload. api_layer.md: nothing is silently ignored.
+const NET_FAIL_KO = '서버에 연결하지 못했습니다. API 서버(run_api.py)가 실행 중인지 '
+  + '확인하십시오. 콘솔을 파일로 직접 열었다면 사전 계산 표시만 사용할 수 있습니다.';
+const CONN_LOST_KO = '서버와의 연결이 끊어졌습니다. 서버가 재시작되었다면 진행 중이던 '
+  + '작업은 남아 있지 않습니다. 서버 상태를 확인한 뒤 다시 실행하십시오.';
+// Live rows arrive coordinate-free BY DESIGN (service/routing.py as_dict: the
+// wire form is the operational one, and the operational artifacts carry place
+// labels, never coordinates). The map ring therefore cannot follow a live row,
+// and pretending otherwise put the ring tens of thousands of viewBox units
+// off-screen: a click that did nothing visible.
+const LIVE_ROW_NO_XY_KO = '라이브 계산 결과의 행에는 지도 표시용 좌표가 실리지 '
+  + '않아 지도 강조를 표시할 수 없습니다. 지점 확인은 A4 전달물의 마을·지점 '
+  + '목록을 사용하십시오.';
+
 // ---- the unclicked start, and whether it can be run at all ------------------
 // ⚠ The verdict was computed at BUILD time by the same `check_in_region` the
 // API gates on, so this is not a second bbox test — it is the answer, inlined.
@@ -619,7 +658,16 @@ function applyPoint(vx, vy, d, sourceKo){
 svg.addEventListener('click', async (ev) => {
   const m = inverseToMetres(ev);
   // One round trip: the server unprojects AND answers the gate.
-  const r = await fetch(`/api/regions/${D.region}/locate?x=${m.x.toFixed(2)}&y=${m.y.toFixed(2)}`);
+  let r;
+  try {
+    r = await fetch(`/api/regions/${D.region}/locate?x=${m.x.toFixed(2)}&y=${m.y.toFixed(2)}`);
+  } catch (e) {
+    // No HTTP status exists: the server is unreachable. The click still marks
+    // the spot (refused colour) and still produces a sentence.
+    markClick(m.vx, m.vy, false);
+    showReject(NET_FAIL_KO);
+    return;
+  }
   if (!r.ok){
     markClick(m.vx, m.vy, false);
     const why = await reasonFrom(r);
@@ -757,39 +805,57 @@ async function reasonFrom(response){
 
 async function poll(){
   if (!JOB) return;
-  const r = await fetch(`/api/jobs/${JOB}`);
-  if (!r.ok){
-    const why = await reasonFrom(r);
-    showReject(why || `작업 상태 조회에 실패했습니다 (HTTP ${r.status})`);
-    stopLive(`조회 실패 (HTTP ${r.status})`);
-    return;
-  }
-  const s = await r.json();
-  const p = s.progress;
-  el('prog').textContent = p.current_text_ko || s.state_ko;
-  setBar(p.overall_pct);
-  if (s.state === 'succeeded'){
-    const rr = await fetch(`/api/jobs/${JOB}/result`);
-    if (!rr.ok){
-      const why = await reasonFrom(rr);
-      showReject(why || `산출 결과를 가져오지 못했습니다 (HTTP ${rr.status})`);
-      stopLive(`결과 조회 실패 (HTTP ${rr.status})`);
+  // The whole poll is one try: a rejection anywhere in it (server killed
+  // mid-job, restarted, connection dropped between status and result) has no
+  // HTTP status to unwrap. Jobs live in the server's memory, so after a
+  // restart the job is gone and retrying would only 404: say so and stop.
+  try {
+    const r = await fetch(`/api/jobs/${JOB}`);
+    if (!r.ok){
+      const why = await reasonFrom(r);
+      showReject(why || `작업 상태 조회에 실패했습니다 (HTTP ${r.status})`);
+      stopLive(`조회 실패 (HTTP ${r.status})`);
       return;
     }
-    const res = await rr.json();
-    CURRENT = {rows: (res.scan?.actionable ?? []).map(a => ({
-        label: a.label, bucket: a.bucket, closing: a.closing_window_min,
-        walk: a.walk_time_min, x: 0, y: 0})),
-      counts: res.counts, origins: D.origins};
-    el('mode').textContent = '라이브 계산 결과';
-    el('mode').classList.add('live');
-    setCalcLabel(`라이브 계산 · 라우팅 ${res.timings.route_s}초`);
-    fitRows();
-    stopLive(`완료 · ${res.n_scanned}개 출발지`);
-  } else if (s.state === 'failed' || s.state === 'cancelled'){
-    stopLive(s.state === 'cancelled' ? '취소됨 — 산출물 없음' : `실패: ${s.error ?? ''}`);
-  } else {
-    TIMER = setTimeout(poll, 700);
+    const s = await r.json();
+    const p = s.progress;
+    el('prog').textContent = p.current_text_ko || s.state_ko;
+    setBar(p.overall_pct);
+    if (s.state === 'succeeded'){
+      const rr = await fetch(`/api/jobs/${JOB}/result`);
+      if (!rr.ok){
+        const why = await reasonFrom(rr);
+        showReject(why || `산출 결과를 가져오지 못했습니다 (HTTP ${rr.status})`);
+        stopLive(`결과 조회 실패 (HTTP ${rr.status})`);
+        return;
+      }
+      const res = await rr.json();
+      // x/y are null, not 0: the wire form is coordinate-free by design, and
+      // a placeholder 0 put the highlight ring far outside the viewBox — a
+      // row click with no visible effect. select() checks for null and says
+      // why instead.
+      CURRENT = {rows: (res.scan?.actionable ?? []).map(a => ({
+          label: a.label, bucket: a.bucket, closing: a.closing_window_min,
+          walk: a.walk_time_min, x: null, y: null})),
+        counts: res.counts, origins: D.origins,
+        n_villages: res.n_villages};
+      el('mode').textContent = '라이브 계산 결과';
+      el('mode').classList.add('live');
+      setCalcLabel(`라이브 계산 · 라우팅 ${res.timings.route_s}초`);
+      // The legend and the village figure are display state, not region
+      // constants: redrawn here so they show THIS result's counts, not the
+      // pre-computed ones beside a live table.
+      drawLegend();
+      fitRows();
+      stopLive(`완료 · ${res.n_scanned}개 출발지`);
+    } else if (s.state === 'failed' || s.state === 'cancelled'){
+      stopLive(s.state === 'cancelled' ? '취소됨 · 산출물 없음' : `실패: ${s.error ?? ''}`);
+    } else {
+      TIMER = setTimeout(poll, 700);
+    }
+  } catch (e) {
+    showReject(CONN_LOST_KO);
+    stopLive('연결 끊김 · 진행 상태 확인 불가');
   }
 }
 function stopLive(msg){
@@ -806,12 +872,22 @@ el('run').addEventListener('click', async () => {
   if (!CLICK && !START.servable){ showReject(START.note_ko, 'info'); return; }
   el('run').disabled = true; el('cancel').hidden = false;
   el('progwrap').hidden = false; el('prog').textContent = '제출 중…';
-  const r = await fetch('/api/jobs', {method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({region: D.region,
-                          lat: CLICK ? CLICK.lat : START.latlon[0],
-                          lon: CLICK ? CLICK.lon : START.latlon[1],
-                          reported_by: CLICK ? '지도 클릭' : '운영자 콘솔'})});
+  let r;
+  try {
+    r = await fetch('/api/jobs', {method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({region: D.region,
+                            lat: CLICK ? CLICK.lat : START.latlon[0],
+                            lon: CLICK ? CLICK.lon : START.latlon[1],
+                            reported_by: CLICK ? '지도 클릭' : '운영자 콘솔'})});
+  } catch (e) {
+    // The button was disabled and the label said 「제출 중…」 two lines up:
+    // without this catch both stayed that way forever. stopLive() is the
+    // recovery path — it re-enables the button and clears the timer.
+    showReject(NET_FAIL_KO);
+    stopLive('제출 실패 · 서버 연결 없음');
+    return;
+  }
   if (!r.ok){
     const why = await reasonFrom(r);
     showReject(why || `계산 요청이 거절되었습니다 (HTTP ${r.status})`);
@@ -825,7 +901,14 @@ el('run').addEventListener('click', async () => {
 el('cancel').addEventListener('click', async () => {
   if (!JOB) return;
   el('prog').textContent = '취소 요청…';
-  await fetch(`/api/jobs/${JOB}`, {method: 'DELETE'});
+  try {
+    await fetch(`/api/jobs/${JOB}`, {method: 'DELETE'});
+  } catch (e) {
+    // The server is gone, so there is nothing left to cancel; the poll's own
+    // catch would land here a tick later anyway. Same sentence, sooner.
+    showReject(CONN_LOST_KO);
+    stopLive('취소 확인 불가 · 서버 연결 없음');
+  }
 });
 
 // ---- region switching -------------------------------------------------------
@@ -839,13 +922,16 @@ el('cancel').addEventListener('click', async () => {
 function mountRegion(id){
   const next = DATA.regions[id];
   if (!next) return;
-  if (JOB){ try { fetch(`/api/jobs/${JOB}`, {method: 'DELETE'}); } catch (e) {} }
+  // Fire-and-forget: a rejected un-awaited fetch is an UNHANDLED rejection —
+  // try/catch around it caught nothing. .catch() is the form that does.
+  if (JOB){ fetch(`/api/jobs/${JOB}`, {method: 'DELETE'}).catch(() => {}); }
   stopLive('대기');
   el('progwrap').hidden = true;
 
   D = next;
   START = D.default_start;
-  CURRENT = {rows: D.rows, counts: D.counts, origins: D.origins};
+  CURRENT = {rows: D.rows, counts: D.counts, origins: D.origins,
+             n_villages: D.n_villages};
 
   setProjection();
   svg.setAttribute('viewBox', `0 0 1000 ${VH}`);
