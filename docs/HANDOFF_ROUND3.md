@@ -658,6 +658,54 @@ with a summarising context: a plausible number, once spoken, is indistinguishabl
 from a measured one unless somebody looks. This project's entire value is that
 its numbers can be looked up. Look them up.
 
+### ⚠ Round-4 addendum (2026-08-10): the VPD story — five checks, all negative
+
+Two claims were cited across several sessions and used as premises for
+approved work: **「VPD 단위 결함」** (a Magnus formula fed Kelvin, located at
+`features.py:296`) and **「순열 중요도 11위→3위」**. When finally checked, all
+five lines of evidence came back negative:
+
+1. **`features.py:296` has never existed.** The file peaked at 273 lines in
+   every revision on every branch (`spread_v2_xgb` variant: 197), and no
+   revision of any `features.py` ever contained a Magnus computation.
+2. **Both places that do hold a Magnus formula are correct from birth.**
+   `spread_v2/weather.py vpd_kpa()` (created `c9e8f2f`) and
+   `spread_v2_xgb/era5.py _relative_humidity()` (created `690008f`) carry the
+   K→°C conversion in their creation commits; the only later commit touching
+   either file is the package rename.
+3. **The training data was never clamped.** The canonical table (151,904 rows,
+   rebuilt in-memory, matching the pinned shape exactly) has `vpd_kpa` with
+   0 NaN, 0 zeros, 0 negatives, range 0.20–3.56 kPa. Legacy Build A has no VPD
+   feature at all.
+4. **No artifact ranks `vpd_kpa` 3rd.** Committed rank 12 (+0.00097),
+   DEM-corrected rank 11 (+0.00150, `spread_v2_lofo_dem_corrected.json`).
+   Nothing on `us-acquisition` either.
+5. **「-0.0004」, cited as the measured instantaneous-weather dependency and
+   used to argue the spread layer was not worth improving, also has no
+   basis.** The measured dependency is mean-of-folds **−0.0204** (A2 shuffle,
+   `weather_dependency.json`) — 50× larger. The single repository value near
+   −0.0004 is the Yeongdeok per-fire delta of the **DEM correction**
+   (−0.00048, in `spread_v2_lofo_dem_corrected.json` `_meta`) — a different
+   quantity entirely.
+
+**And no change ever entered the tree under that name.** A message search over
+every branch, the stash and the reflog finds no commit describing a VPD fix, a
+unit fix, or a Magnus fix; the one commit message mentioning VPD is `c9e8f2f`,
+which lists it as a derived feature. The approved "fix" changed nothing,
+because there was nothing to change.
+
+The correct sentence, wherever the 0.00097 figure appears: *0.00097 is the
+committed, pre-DEM-fix importance; after the DEM correction it reads 0.0015.*
+Never "before/after the VPD unit fix" — no such event exists in this
+repository.
+
+⚠ **Why this survived until five checks all came back negative:** every guard
+this repository has is registry-based — retired tokens, forbidden phrasings,
+protected digests. Those catch a *retired* number being re-quoted. They cannot
+catch a citation whose event **never happened**, because there is nothing on
+file to match against. The §4-B rule — look the citation up before building on
+it — is the only defence for this class, and it is what caught it.
+
 ## 5. ⚠ Never do these
 
 1. **Never push to `Main`.** All work stays on `round3-dev`. Merging is the
