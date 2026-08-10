@@ -65,12 +65,19 @@ class StageSpec:
 
 
 #: The stage plan of one ignition-to-dispatch-list job.
+#: ⚠ No EM/EN dash in any label. These strings leave the process as
+#: `current_text_ko` in every status response and land in the console's
+#: header via textContent — a layer none of the static screen gates scan
+#: (docs/screen_gate_scope.md), and the console's vendored subset has no
+#: U+2014 glyph, so a dash here rendered in a fallback face mid-sentence
+#: for the whole 25-second routing. The separator is a colon because the
+#: list inside each label already uses the middle dot.
 TRIGGER_STAGES: tuple[StageSpec, ...] = (
-    StageSpec("load", "자원 적재 — 위험면·보행망·대피 POI", 0.118, "단계"),
-    StageSpec("routing", "경로 산출 — 출발지별 대피소 탐색", 0.867, "출발지"),
+    StageSpec("load", "자원 적재: 위험면·보행망·대피 POI", 0.118, "단계"),
+    StageSpec("routing", "경로 산출: 출발지별 대피소 탐색", 0.867, "출발지"),
     StageSpec("cluster", "마을 군집화", 0.003, "지점"),
-    StageSpec("render", "전달물 생성 — A4·마을방송·SMS", 0.011, "마을"),
-    StageSpec("record", "기록 작성 — RUN.json·viz.json", 0.001, "파일"),
+    StageSpec("render", "전달물 생성: A4·마을방송·SMS", 0.011, "마을"),
+    StageSpec("record", "기록 작성: RUN.json·viz.json", 0.001, "파일"),
     StageSpec("pdf", "A4 PDF 변환 (목록 확정 이후)", 0.0, "장",
               excluded_from_total=True),
 )
@@ -134,7 +141,7 @@ class StageState:
         to know that rather than 「계산 중」.
         """
         if self.state == "skipped":
-            return f"{self.spec.label_ko} — 생략 ({self.skip_reason})"
+            return f"{self.spec.label_ko} · 생략 ({self.skip_reason})"
         base = self.spec.label_ko
         if self.total:
             base = (f"{base} {self.done}/{self.total}"

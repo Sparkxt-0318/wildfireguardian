@@ -399,6 +399,30 @@ def test_every_duration_looking_key_the_service_emits_is_excluded():
 # ---------------------------------------------------------------------------
 
 
+def test_no_runtime_korean_string_carries_a_banned_dash():
+    """The layer the screen gates cannot see, guarded at its source.
+
+    Stage labels, the skipped-stage format and the cancellation note travel
+    as JSON in HTTP responses and reach the console's header via textContent.
+    check_screen_assets scans built files, so a dash HERE showed on screen
+    for the whole routing while every static gate passed — and the vendored
+    subset has no U+2014 glyph, so it rendered in a fallback face.
+    """
+    banned = ("—", "–")  # EM dash, EN dash
+    for s in progress.TRIGGER_STAGES:
+        assert not any(c in s.label_ko for c in banned), s.label_ko
+    # The skipped-stage line is composed at runtime; compose one and check it.
+    p = progress.Progress(progress.TRIGGER_STAGES)
+    p.skip("pdf", "검사용")
+    line = p._stages["pdf"].text_ko()
+    assert "생략" in line and not any(c in line for c in banned), line
+    # The cancellation note as the status endpoint serialises it.
+    src = Path(jobs.__file__).read_text(encoding="utf-8")
+    for ln in src.splitlines():
+        if "취소된 요청" in ln:
+            assert not any(c in ln for c in banned), ln
+
+
 def test_the_stage_weights_are_a_partition():
     total = sum(s.weight for s in progress.TRIGGER_STAGES
                 if not s.excluded_from_total)

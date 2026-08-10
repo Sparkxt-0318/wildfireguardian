@@ -125,6 +125,26 @@ Closing the hole needs either a checker that renders the page, or a declared
 list of payload keys that are displayed. Neither is built, and neither is
 proposed here without a decision.
 
+### Two more layers the gates cannot see, found 2026-08-10
+
+1. **A dash and its DOM sink on different lines.** `check_dashes_in_scripts`
+   flags a line only when a banned dash and a DOM-writing pattern share it.
+   `'취소됨 — 산출물 없음'` passed the gate for months because the sink sat
+   inside the `stopLive()` helper two hundred lines away — one level of
+   indirection is enough, and the pattern generalises: any dash that reaches
+   the screen through a variable or a helper is invisible to this gate. The
+   instance is retyped (a middle dot); the limitation stands and is recorded
+   here rather than papered over with a taint analysis nobody would trust.
+2. **Runtime HTTP JSON.** The service's progress labels
+   (`service/progress.py TRIGGER_STAGES`), the skipped-stage format and the
+   cancellation note (`service/jobs.py`) travel as `current_text_ko` /
+   `cancel_note_ko` in status responses and reach the console's header via
+   `textContent` during a live calculation — a path that exists in no built
+   file, so no file-scanning gate can ever see it. The strings are now
+   dash-free at their source and pinned by
+   `tests/test_service_layer.py::test_no_runtime_korean_string_carries_a_banned_dash`,
+   which guards the SOURCE layer, the only place a scan can stand.
+
 ---
 
 ## 3. Scope: `outputs/live/screens/**` is in; the rest of `outputs/` is out

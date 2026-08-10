@@ -133,8 +133,10 @@ class Job:
             d["error_code"] = self.error_code
         if self.state == CANCELLED:
             d["nothing_was_written"] = True
+            # No EM dash: this sentence travels in the status response and can
+            # be shown by the console, a layer no static gate scans.
             d["cancel_note_ko"] = (
-                "취소된 요청은 산출물을 남기지 않습니다 — 라우팅이 모든 쓰기보다 "
+                "취소된 요청은 산출물을 남기지 않습니다. 라우팅이 모든 쓰기보다 "
                 "앞서고, 예약해 둔 실행 디렉터리는 비어 있으면 삭제됩니다.")
         if with_result and self.state == SUCCEEDED:
             d["result"] = self.result
