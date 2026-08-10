@@ -1715,11 +1715,14 @@ shuffled and −0.1127 dropped. Removing weather entirely collapses the far band
 mean-of-folds **+0.0270** and the far band **+0.0533** while lowering pooled
 −0.0143 — `gangneung_2023` alone moves **+0.1705**. The mechanism is in the data:
 the feature counts from the start of the ERA5 window where no sampled step
-exceeds 1 mm, and **for three of six fires it equals the window length exactly**
-(2.88 / 6.88 / 6.88 d) because those windows contain **zero** wet samples. For
-half the training set the top feature is a per-fire constant equal to an
-acquisition parameter — a fire fingerprint that raises pooled and damages
-transfer.
+exceeds 1 mm, and for three of six fires (gangneung, uiseong_andong, yeongdeok)
+the window contains **zero** wet samples — so for half the training set the
+feature is anchored to an acquisition decision, not to rain. *(Corrected
+2026-08-10: this entry previously said it "equals the window length exactly
+(2.88/6.88/6.88 d)" and is "a per-fire constant"; the canonical table measures
+otherwise — one value per overpass step, e.g. gangneung a single 0.125 d,
+uiseong_andong 17 values 0.25–5.25 d. The measured wording is in
+`weather_dependency.md` §3②; the ablation deltas are unaffected.)*
 
 **⚠ Every weather ablation moves mean-of-folds and the far band in OPPOSITE
 directions.** "Is weather important to this model?" has opposite answers on the

@@ -19,6 +19,12 @@ The sixteen features do not divide the way the phrase "a weather-driven spread
 model" suggests. Grouped by what they measure, with the committed leave-one-out
 permutation importance from [`spread_v2_lofo.json`](../data/processed/spread_v2_lofo.json):
 
+⚠ **Lineage: this table is the COMMITTED, pre-DEM-correction measurement**,
+while §2's arms below ran on the corrected DEMs (identified in §7). Do not set
+a §1 group total beside a §2 arm as though they shared a lineage — the
+corrected-lineage importances live in
+[`spread_v2_lofo_dem_corrected.json`](../data/processed/spread_v2_lofo_dem_corrected.json).
+
 | group | n | Σ importance | features |
 |---|---:|---:|---|
 | **fire geometry / state** | **5** | **+0.09965** | `dist_to_fire_m` +0.06005, `active_frac_1500m` +0.01742, `active_frac_3000m` +0.01258, `dt_hours` +0.00908, `n_active_adjacent` +0.00052 |
@@ -40,7 +46,8 @@ reanalysis regardless. That split is what the experiment measures.
 Six arms, leave-one-fire-out over the same six fires, same seed (`20250603`),
 same dataset. The dataset reproduces the committed `(151904, 2989)` exactly — the
 script builds it with the identical call `scripts/build_canonical_hazard.py:117-118`
-makes.
+makes. ⚠ **These arms ran on the corrected DEMs**: A0's nine summary numbers
+match `spread_v2_lofo_dem_corrected.json` to every printed digit (§7).
 
 | arm | features | mean-of-folds | Δ | **far band** | **Δ** | pooled | Δ |
 |---|---:|---:|---:|---:|---:|---:|---:|
@@ -91,15 +98,28 @@ AUC by **+0.0270** and far-band AUC by **+0.0533**, while lowering pooled by
 That is the signature of a feature that helps *within* a fire and hurts *across*
 fires. The mechanism is visible in the data: `days_since_rain` counts from the
 last sampled 3-hourly step exceeding 1 mm, and where no such step exists it
-counts from the **start of the ERA5 window**. For three of the six fires it
-equals the window length exactly — gangneung_2023 **2.88 d**, uiseong_andong and
-yeongdeok **6.88 d** each — because those windows contain **zero** wet samples.
-Uljin-Samcheok has 3 wet steps out of 88.
+counts from the **start of the ERA5 window**. For three of the six fires —
+gangneung_2023, uiseong_andong_2025, yeongdeok_2025 — the window contains
+**zero** wet samples, so the feature is anchored to an acquisition decision
+rather than to any rain event. Uljin-Samcheok has 3 wet steps out of 88.
 
-So for half the training set the top-ranked feature is a **per-fire constant
-equal to an acquisition parameter**. Inside a fold it separates nothing; across
-folds it is a fire fingerprint, which raises pooled AUC and damages transfer.
-Pooled up, mean-of-folds and far band down, is what leakage looks like.
+⚠ **Corrected 2026-08-10 — the quantitative half of this paragraph did not
+survive measurement.** It previously said the feature "equals the window length
+exactly (2.88 / 6.88 / 6.88 d)" and called it "a per-fire constant". Against
+the canonical training table, neither holds: the rows evaluate at **overpass
+times**, so the three no-rain fires carry a handful of distinct values each —
+gangneung_2023 a single **0.125 d** (not its 2.88 d window span),
+uiseong_andong **17** distinct values (0.25–5.25 d), yeongdeok **5**
+(3.5–4.75 d) — tiny counts against tens of thousands of rows, i.e. shared
+across every candidate of an overpass step, but not one constant per fire.
+
+What survives the correction — and is all the leakage argument needs — is that
+for half the training set the feature measures **elapsed time since acquisition
+began**: it carries no rain information, and its scale is set by where the
+window happened to start. Across folds that is still a fire-linked artifact,
+which raises pooled AUC and damages transfer. Pooled up, mean-of-folds and far
+band down, is what leakage looks like. The A4 deltas (+0.0270 / +0.0533) are
+measured, not derived from this description, and are unaffected.
 
 **③ Every weather ablation moves mean-of-folds and the far band in opposite
 directions.** A3 +0.0084 / −0.2285. A5 +0.0074 / −0.0359. A4 +0.0270 / +0.0533
@@ -185,32 +205,35 @@ python scripts/measure_weather_dependency.py
 ~3.5 minutes; writes `data/processed/weather_dependency.json` only.
 
 ⚠ **The arm-to-arm deltas are the result; the absolute AUCs are not directly
-comparable to `spread_v2_lofo.json`.** This script runs its own leave-one-out
-loop so it can vary the feature set, and it does not compute permutation
-importance inside the fold loop as `model.leave_one_fire_out` does. Five of six
-folds reproduce the committed per-fire AUC to within ±0.006; **`gangneung_2023`
-differs by +0.0364** (0.6820 → 0.7184), which accounts for essentially the whole
-mean-of-folds difference (0.8895 committed → 0.8943 here). That fold is the
-smallest and noisiest in the set — 17 detections, 2 overpass clusters, a 1×2
-two-cell ERA5 domain — and there are two candidate mechanisms. The first is
-the random validation split inside
-`HistGradientBoostingClassifier(early_stopping=True, validation_fraction=0.15)`
-seeing a different RNG state. The second is more likely and is checkable:
+comparable to `spread_v2_lofo.json` — and the reason is identified.** This
+script runs its own leave-one-out loop so it can vary the feature set. Five of
+six folds reproduce the committed per-fire AUC to within ±0.006;
+**`gangneung_2023` differs by +0.0364** (0.6820 → 0.7184), which accounts for
+essentially the whole mean-of-folds difference (0.8895 committed → 0.8943 here).
 
-⚠ **the installed environment has drifted from `requirements.txt`.** `make
-env-check` reports six packages off their pins — numpy 2.5.0 vs 2.4.6, scipy
-1.18.0 vs 1.17.1, pandas 3.0.3 vs 3.0.5, rasterio 1.5.0 vs 1.4.4, matplotlib
-3.11.0 vs 3.11.1, pillow 12.2.0 vs 12.3.0. The drift is in the **environment**,
-not the repo: `requirements.txt` was last modified at `a465128` (PHASE 1) and no
-PHASE-13 or PHASE-14 commit touched it; the check fails identically against the
-pre-PHASE-13 version of the file. So it predates this work.
+⚠ **Corrected 2026-08-10: the cause is the 2026-08-02 DEM correction — not the
+RNG split and not the environment.** A0's nine summary numbers — mean-of-folds
+0.8943, far-band 0.8408, pooled 0.9036, and all six per-fire AUCs — match
+[`spread_v2_lofo_dem_corrected.json`](../data/processed/spread_v2_lofo_dem_corrected.json)
+to every printed digit. That artifact's control arm reproduces the committed
+values **exactly** when run against the pre-fix rasters *under today's
+environment*, which rules both candidate mechanisms out as the mover: this
+table simply ran the day after the DEMs were fixed, on the corrected rasters.
+An earlier revision of this section attributed the difference to the
+early-stopping RNG split or the environment drift below and recommended a
+pinned-environment re-run to decide between them — that re-run would have found
+nothing, because neither was the cause.
 
-That matters here because the committed `spread_v2_lofo.json` was produced under
-the pinned versions and this table was not. `make verify` is unaffected — it
-re-derives each registered number **from its artifact**, never by re-running the
-model — but anyone re-running the model today gets slightly different fold AUCs,
-and the smallest fold is where that would show first. **Re-running this script
-under the pinned environment would settle which mechanism it is**, and is worth
-doing before any figure from this table is quoted absolutely. **Every arm ran through
-the identical harness, so the Δ columns are valid.** Do not quote an absolute
-figure from this table beside a committed one.
+⚠ **The environment drift is real, but it is a separate observation, not the
+explanation.** `make env-check` reports six packages off their pins — numpy
+2.5.0 vs 2.4.6, scipy 1.18.0 vs 1.17.1, pandas 3.0.3 vs 3.0.5, rasterio 1.5.0
+vs 1.4.4, matplotlib 3.11.0 vs 3.11.1, pillow 12.2.0 vs 12.3.0 — and the drift
+predates this work (`requirements.txt` unchanged since `a465128`). The control
+experiment above shows it moved nothing on this path; it remains worth knowing
+for anyone re-running the model. `make verify` is unaffected either way — it
+re-derives each registered number **from its artifact**, never by re-running
+the model.
+
+**Every arm ran through the identical harness, so the Δ columns are valid.**
+Do not quote an absolute figure from this table beside a committed one without
+naming the lineage: corrected DEMs here, pre-correction in the committed file.
