@@ -422,3 +422,34 @@ def test_the_startup_message_names_the_url_that_actually_works():
     app_src = (REPO / "src" / "wildfireguardian" / "api" / "app.py").read_text(
         encoding="utf-8")
     assert '@app.get("/"' in app_src
+
+
+def test_a_taken_port_fails_loudly_before_the_ready_message():
+    """The stale-server trap (api_layer.md §1.10), closed at the script.
+
+    uvicorn binds only after the lifespan preload, so a taken port used to
+    mean several seconds of preload output ending in a bind traceback —
+    while the browser kept talking to whatever old process held the port.
+    The script now probes the exact (host, port) first: the failure must be
+    immediate, on stderr, in Korean, and the ready-when-loaded line must
+    never have been printed.
+    """
+    import socket
+    import subprocess
+
+    blocker = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    try:
+        blocker.bind(("127.0.0.1", 0))
+        blocker.listen(1)
+        port = blocker.getsockname()[1]
+        proc = subprocess.run(
+            [sys.executable, str(REPO / "scripts" / "run_api.py"),
+             "--port", str(port)],
+            capture_output=True, text=True, timeout=60, cwd=REPO)
+    finally:
+        blocker.close()
+    assert proc.returncode == 2, (proc.returncode, proc.stderr[-300:])
+    assert "포트를 열 수 없습니다" in proc.stderr
+    assert "lsof" in proc.stderr, "the occupant-finding command is the fix"
+    assert "자원 사전 적재 중" not in proc.stdout, (
+        "the ready message printed before the bind check — the trap is back")

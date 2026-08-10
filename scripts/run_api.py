@@ -11,6 +11,14 @@ dispatch generator on whatever network the hall provides.
 Start-up preloads every registered region's walk graph, hazard field and refuge
 POIs, so the first request pays no load. Expect a few seconds before the port
 answers.
+
+⚠ The port is probed BEFORE anything else. uvicorn binds only after the
+lifespan preload, so a taken port used to mean: this process prints the
+ready-when-loaded message, works for several seconds, then dies on bind —
+while the browser quietly talks to whatever old process holds the port. That
+is the stale-server trap docs/api_layer.md §1.10 records falling into during
+verification. Now a taken port fails in under a second, on stderr, with the
+command that shows the occupant, and the ready message is never printed.
 """
 
 from __future__ import annotations
@@ -30,6 +38,28 @@ def main() -> int:
     ap.add_argument("--port", type=int, default=8000)
     ap.add_argument("--log-level", default="warning")
     args = ap.parse_args()
+
+    # ⚠ Probe the exact (host, port) FIRST, before the ready message and before
+    # any heavy import. A bound-and-closed probe is not a perfect reservation
+    # (another process could take the port in the gap), but the failure this
+    # exists to catch is a server from the last rehearsal still holding the
+    # port for minutes, and that one it catches every time. No SO_REUSEADDR:
+    # the probe must fail exactly when uvicorn's own bind would.
+    import socket
+
+    probe = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    try:
+        probe.bind((args.host, args.port))
+    except OSError as exc:
+        print(f"포트를 열 수 없습니다: {args.host}:{args.port} "
+              f"({exc.strerror}).", file=sys.stderr)
+        print("이미 실행 중인 서버가 이 포트를 잡고 있으면, 지금 브라우저가 "
+              "보는 화면은 그 옛 프로세스의 것입니다.", file=sys.stderr)
+        print(f"확인: lsof -nP -iTCP:{args.port} -sTCP:LISTEN    "
+              "종료 후 다시 실행하십시오.", file=sys.stderr)
+        return 2
+    finally:
+        probe.close()
 
     import uvicorn
 
