@@ -201,7 +201,14 @@ def is_authored_prose(rel: str) -> bool:
 
 
 SKIP_DIRS = {".git", ".venv", "venv", "node_modules", "__pycache__", ".pytest_cache",
-             "data/snapshots"}
+             "data/snapshots",
+             # ⚠ Agent/IDE tooling, not project prose. The first tracked
+             # skill bundle (c881714) tripped the scanner with oklch colour
+             # components reading "264" and a slide-template author's
+             # name  # forbidden-ok: Chen
+             # — none of them claims anything about this project's
+             # numbers. Nothing under .claude/ is a document a judge reads.
+             ".claude"}
 SKIP_SUFFIXES = {".png", ".jpg", ".jpeg", ".gif", ".pdf", ".npz", ".gz", ".tif",
                  ".nc", ".graphml", ".ipynb", ".zip", ".csv"}
 

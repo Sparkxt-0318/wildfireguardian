@@ -5,22 +5,26 @@ supervised table: each row is a candidate cell (not yet detected as burning
 at overpass ``k``, burnable, within a buffer of the active footprint) and the
 label is whether that cell is detected as burning by overpass ``k+1``.
 
-Feature groups (the names matter for the headline finding):
+Feature groups (the names matter for the permutation-importance grouping):
 
 - **state / geometry**: ``dist_to_fire_m``, ``active_frac_1500m``,
   ``active_frac_3000m``, ``n_active_adjacent`` — where the fire already is.
 - **terrain**: ``elevation_m``, ``slope_deg``, ``elev_above_source_m`` (cell
   elevation minus the nearest active cell's — fire runs uphill).
 - **fuel**: ``burnable_frac``.
-- **fire-weather SEVERITY** (the far-field skill, per the finding):
+- **fire-weather SEVERITY** (grouped for the importance sum — ⚠ the
+  "severity ≫ direction" reading of that sum is WITHDRAWN as not
+  established; docs/MODEL_CARD.md):
   ``wind_speed_ms``, ``temp_c``, ``rh_pct``, ``vpd_kpa``,
   ``days_since_rain``, ``precip_24h_mm``.
 - **interval**: ``dt_hours`` — length of the overpass window (the label is
   "by next overpass", whose spacing varies 3-12 h).
-- **DIRECTION (the control we expect to be ~useless)**: ``wind_alignment`` =
-  cosine between the wind's blow-toward vector and the bearing from the
-  nearest active cell to the candidate. Included precisely so the model's
-  feature-importance can show it carries ~no far-field skill.
+- **DIRECTION control**: ``wind_alignment`` = cosine between the wind's
+  blow-toward vector and the bearing from the nearest active cell to the
+  candidate. ⚠ Its low measured importance does NOT establish that wind
+  direction is unimportant — ERA5's 0.25° grid cannot resolve the wind the
+  comparison is about, which is one reason the conclusion drawn from this
+  control was withdrawn (docs/MODEL_CARD.md).
 
 ``dist_band`` (a non-feature tag) buckets each row by distance to the fire so
 the evaluation can report a separate **far-band AUC**.

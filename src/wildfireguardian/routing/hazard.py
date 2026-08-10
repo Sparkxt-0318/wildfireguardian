@@ -8,15 +8,22 @@ repeatedly:
     ``prob_at(x, y, t_min)`` -> P(this location has ignited by clock time
     ``t_min``), in [0, 1].
 
-It is consumed **as-is**: a probabilistic, severity-scaled reach envelope that
-grows with time — NOT a binarised front and NOT a thin directional jet. The
+It is consumed **as-is**: a probabilistic reach envelope that grows with time —
+NOT a binarised front and NOT a thin directional jet. (That is a statement
+about the simulated surface's shape; the withdrawn "severity ≫ direction"
+importance claim is a separate matter — docs/MODEL_CARD.md.) The
 router weights edges by this probability (risk cost) and treats locations
 above a high-probability cutoff as impassable.
 
 Sampling is bilinear in space (over coarse cell centres) and linear in time
 between the two bracketing forecast surfaces; before the first / after the
-last surface it clamps to that surface (the hazard is monotone, so clamping
-after the horizon is the conservative choice).
+last surface it clamps to that surface. ⚠ For a monotone-INCREASING hazard,
+clamping PAST the horizon is a lower bound — it under-states risk beyond the
+last surface, i.e. it is conservative only relative to assuming zero, not in
+the safety-gating direction. This matters to nothing committed: the 600-min
+operational budget sits within every committed field's horizon (720 min
+canonical, 600 min synthetic), so the clamp region is not where committed
+results were decided.
 """
 
 from __future__ import annotations

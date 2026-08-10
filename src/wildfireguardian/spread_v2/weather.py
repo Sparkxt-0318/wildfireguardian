@@ -1,10 +1,13 @@
 """ERA5 → fire-weather-severity features for the spread_v2 ignition model.
 
-The CRITICAL FINDING that shapes the whole routing project is that far-field
-predictive skill comes from **fire-weather severity** (dryness, low humidity,
-wind *speed*) rather than wind *direction*. This module derives those
-severity variables from raw ERA5 fields, plus the wind vector that lets the
-feature builder compute (and then show the unimportance of) ``wind_alignment``.
+This module derives the fire-weather variables (dryness, humidity,
+temperature, wind speed) from raw ERA5 fields, plus the wind vector that
+lets the feature builder compute the ``wind_alignment`` control.
+
+⚠ An earlier version of this docstring called "severity ≫ direction" THE
+CRITICAL FINDING shaping the routing project. That conclusion is WITHDRAWN
+as not established (docs/MODEL_CARD.md, permutation-importance section):
+the measured importance ratio is real; the reading of it was not supported.
 
 Derived per time step from ERA5 ``u10, v10, t2m, d2m, tp``:
 

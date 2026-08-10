@@ -75,11 +75,17 @@ forward_sim.py iterate the model into a time-sequenced hazard surface
   out-of-fold AUC ≈ **0.91** and far-band (>3 km) AUC ≈ **0.88** are *pooled*
   (concatenated held-out predictions), not the mean-of-folds. Canonical numbers:
   `docs/MODEL_CARD.md`.
-- **`days_since_rain` (dryness) is the #1 predictor; summed fire-weather
-  severity importance is ~40× `wind_alignment`** — far-field skill comes from
-  *severity*, not wind *direction*. (Severity is spatially uniform at ERA5's
-  0.25° resolution, so it sets the reach *magnitude* across days/fires while
-  geometry/terrain place it spatially.)
+- **`days_since_rain` (dryness) ranks #1 in permutation importance; summed
+  fire-weather severity importance is ~44× `wind_alignment`** — a measured
+  ratio whose original reading, *"far-field skill comes from severity, not
+  wind direction"*, is **WITHDRAWN as not established**
+  (`docs/MODEL_CARD.md`, permutation-importance section): the comparison sets
+  a six-feature sum against one variable, ERA5's 0.25° grid cannot resolve
+  the wind it is about, and the ratio is a single point estimate. PHASE 14
+  further measured that *dropping* the #1 feature RAISES out-of-fold AUC
+  (`docs/weather_dependency.md` §②). What remains true: severity is spatially
+  near-uniform at 0.25°, so it can only set reach *magnitude* across
+  days/fires while geometry/terrain place it spatially.
 - Forward simulation produces a **broad** (~60°) reach envelope that **drifts**
   from observed as compounding error accumulates; the forward-sim envelope IoU
   settles at **~0.40** over 3–12 h (the honest footprint figure — *not* the 0.874  <!-- forbidden-ok: 0.874 -->

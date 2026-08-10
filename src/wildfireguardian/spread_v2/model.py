@@ -17,8 +17,11 @@ unseen event. We report:
   observed next-overpass detection footprint, against a "spread-to-adjacent"
   persistence baseline (so any "Nx baseline" claim is grounded in *this* data,
   not an external number),
-- **permutation importance** averaged over folds — the evidence for the
-  "severity, not wind direction" finding.
+- **permutation importance**, aggregated across folds as a ROW-WEIGHTED
+  average (each fold's AUC drop weighted by its held-out row count — the
+  largest fire carries ~54 % of rows, so this is not a plain fold mean).
+  ⚠ The "severity, not wind direction" conclusion this once evidenced is
+  WITHDRAWN as not established (docs/MODEL_CARD.md).
 
 We use scikit-learn's :class:`HistGradientBoostingClassifier` (handles NaN,
 no extra dependency); xgboost is intentionally not required.
