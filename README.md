@@ -162,9 +162,9 @@ Round 3 은 새 기능을 얹기 전에 **기존 수치가 아직 참인지 확�
 - **화면 게이트 3종** (`scripts/check_screen_assets.py`) — 오프라인(외부 요청 0),
   대시, WCAG 대비. ⚠ 이 게이트는 **JSON 페이로드로 도착하는 문자열을 보지 못합니다**;
   그 한계는 [`docs/screen_gate_scope.md`](docs/screen_gate_scope.md) 에 기록돼 있습니다.
-- **테스트 1,018개 통과 / 4개 건너뜀** (2026-08-10 실측; 수집 1,022개. 건너뜀
-  4 = 설계상 2 + `calibration_metrics.json` 미생성 1 + DEM 격차 해소로 무의미해진
-  게이트 1).
+- **테스트 1,021개 통과 / 3개 건너뜀** (2026-08-10 실측. 건너뜀 3 = 설계상 2 +
+  DEM 격차 해소로 무의미해진 게이트 1. `calibration_metrics.json` 이 커밋되며
+  8분짜리 재생성 결정론 게이트가 이 스위트에서 처음으로 실제 실행됩니다).
 
 ---
 
@@ -576,7 +576,7 @@ This repository provides:
 - **Rothermel physics fire-spread model** — preserved as the *initial* approach
   (see [Research log](#research-log--superseded-approaches-physics-model)).
 
-**Unit tests**: the full suite passes — **1,018 passed, 4 skipped** (measured
+**Unit tests**: the full suite passes — **1,021 passed, 3 skipped** (measured
 2026-08-10 with the full data bundle present; data-dependent tests self-skip on
 a fresh clone, so a bundle-absent run passes with more skips). *(An earlier
 revision of this line carried the Round-2 count, 377/2.)*

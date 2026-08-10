@@ -11,7 +11,7 @@ Both were investigated and deliberately stopped.**
 | branch (historical) | `round3-dev` (tracked `origin/round3-dev`), HEAD `fb1d011` at the time §1–§14 were written |
 | baseline tag | **`round2-submitted`** = `4e9dfe3` — the submitted state |
 | environment | conda env **`wfg311`**, Python 3.11.15 — see [`ENVIRONMENT.md`](ENVIRONMENT.md) |
-| suite | **1,018 passed, 4 skipped, 0 failed** (measured 2026-08-10; skips = 2 by design + `calibration_metrics.json` not yet generated + the closed-DEM-gap gate). Historical: 743/2 at `fb1d011`, 544 at PHASE 5. |
+| suite | **1,021 passed, 3 skipped, 0 failed** (measured 2026-08-10, after PHASE 5 committed `calibration_metrics.json` and its regeneration gate ran for the first time; skips = 2 by design + the closed-DEM-gap gate). Historical: 743/2 at `fb1d011`, 544 at PHASE 5. |
 | registry | [`NUMBERS.json`](NUMBERS.json) — **136 entries, 120 reproducible** (PHASE 13 registered the 15 OSM-completeness covariates that §5 rule 12 names) |
 | OSM regions | 3 acquired + snapshotted (`MANIFEST.json`, **74 entries** as of 2026-08-10; was 68 — 64 + 4 FIRMS NRT polls — when this file was first written) |
 | config hash | `8e29a6cc4a99…` — moved from `05c6feae1dff…` by PURE ADDITION (the PHASE-13 `fuel:` block; a rebuild moved **0** registered values). Earlier lineage below. Superseded text: `05c6feae1dff…` — moved from `faf90a81b7e6…` by PURE ADDITION (the PHASE-6 `live:` block; no existing value changed, and re-running `build_numbers.py` moved **only** the per-entry `config_hash` stamp, 0 values). Earlier lineage: `0b6eb481177a…` → `51ec446843b6…` at `cc41f12`. `NUMBERS.json.config_hash_note` records why this is expected. |
