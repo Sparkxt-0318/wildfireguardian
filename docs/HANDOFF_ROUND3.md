@@ -7,13 +7,13 @@ Both were investigated and deliberately stopped.**
 
 | | |
 |---|---|
-| branch | **`round3-dev`** (tracks `origin/round3-dev`) |
-| HEAD | `fb1d011` + this commit |
+| branch | **`Main`** — ⚠ updated 2026-08-10: Round-3 work happened on `round3-dev`, which has since been merged; every commit from PHASE 22 (2026-08-07) onward is on `Main` directly. The `round3-dev` row below is the historical record. |
+| branch (historical) | `round3-dev` (tracked `origin/round3-dev`), HEAD `fb1d011` at the time §1–§14 were written |
 | baseline tag | **`round2-submitted`** = `4e9dfe3` — the submitted state |
 | environment | conda env **`wfg311`**, Python 3.11.15 — see [`ENVIRONMENT.md`](ENVIRONMENT.md) |
-| suite | **743 passed, 2 skipped, 0 failed** (was 544; PHASE 6 +44, PHASE 7 +47, PHASE 8 +66, PHASE 12 +21, PHASE 13 +21) |
+| suite | **1,018 passed, 4 skipped, 0 failed** (measured 2026-08-10; skips = 2 by design + `calibration_metrics.json` not yet generated + the closed-DEM-gap gate). Historical: 743/2 at `fb1d011`, 544 at PHASE 5. |
 | registry | [`NUMBERS.json`](NUMBERS.json) — **136 entries, 120 reproducible** (PHASE 13 registered the 15 OSM-completeness covariates that §5 rule 12 names) |
-| OSM regions | 3 acquired + snapshotted (`MANIFEST.json`, 68 entries — 64 + 4 FIRMS NRT polls) |
+| OSM regions | 3 acquired + snapshotted (`MANIFEST.json`, **74 entries** as of 2026-08-10; was 68 — 64 + 4 FIRMS NRT polls — when this file was first written) |
 | config hash | `8e29a6cc4a99…` — moved from `05c6feae1dff…` by PURE ADDITION (the PHASE-13 `fuel:` block; a rebuild moved **0** registered values). Earlier lineage below. Superseded text: `05c6feae1dff…` — moved from `faf90a81b7e6…` by PURE ADDITION (the PHASE-6 `live:` block; no existing value changed, and re-running `build_numbers.py` moved **only** the per-entry `config_hash` stamp, 0 values). Earlier lineage: `0b6eb481177a…` → `51ec446843b6…` at `cc41f12`. `NUMBERS.json.config_hash_note` records why this is expected. |
 
 `docs/figures/*.png` carry three known uncommitted modifications. **Leave them
@@ -129,9 +129,15 @@ smaller — but has **no U+2192**, nor any arrow at all. A 1.3 KiB three-glyph
 Pretendard subset is bound by `unicode-range` to U+2192/2191/2193 and the
 fallback was verified by rendering, not assumed. `docs/font_measurement.json`.
 
-**PHASE 21, NOT done: the dashboard screen.** Nothing has been built. What
-exists is `demo/operator_screen.html` (PHASE 8, replay-only, no solver) and the
-service layer underneath. There is no transport.
+**PHASE 21, NOT done: the dashboard screen.** ⚠ **SUPERSEDED — PHASE 22
+(2026-08-07/08) built it.** The API (`src/wildfireguardian/api/`, four
+endpoints, [`api_layer.md`](api_layer.md)) is the transport, and
+`web/console.html` is the dashboard: three regions in one built file, map
+click → live calculation → progress → dispatch list
+([`console_regions.md`](console_regions.md)). The sentence below is the
+state as of 2026-08-06 and is kept as the record of what PHASE 21 itself did
+not do: nothing had been built then beyond `demo/operator_screen.html`
+(PHASE 8, replay-only, no solver) and the service layer underneath.
 
 
 ### 1.3 The numbers that are new in Round 3
@@ -231,7 +237,7 @@ the same gate, because those scripts produce committed numbers.
 
 | item | why |
 |---|---|
-| `spread_v2_lofo.json` trained on the defective Uljin-Samcheok DEM | **the next decision.** Every fold saw the sea-fill. Nothing has been re-run: those are committed Round-2 artifacts the submission cites. Effect unmeasured, could go either way. §4 |
+| `spread_v2_lofo.json` trained on the defective Uljin-Samcheok DEM | Every fold saw the sea-fill. ⚠ *Corrected 2026-08-10: the effect IS measured* — `spread_v2_lofo_dem_corrected.json` (same day as this entry was first written): mean-of-folds +0.0048, pooled −0.0017, far-band −0.0357. What remains open is only whether a re-run ever REPLACES the committed artifact the submission cites — that choice is the user's. §4 |
 | Which field to PUBLISH | both are in the tree with their provenance; the documents lead with the canonical one. **The submission materials have not been touched** — the choice is the user's. |
 | PHASE 7's verification send | blocked by this network, not by the credential. Run it from a network that permits outbound SMTP. |
 | Shelter-density experiment | requested 2026-08-02 as a way around n = 3; sequenced, not started. |
@@ -604,7 +610,7 @@ fire_station이 없으며, 더 넓은 3,926 km² 범위에는 6곳이 있습니�
 |---|---|
 | ~~PHASE 6 — live detection pipeline~~ | **DONE 2026-08-03.** FIRMS NRT acquisition, trigger → 459-series routing on the canonical field → all three delivery formats, plus an offline replay mode. [`live_pipeline.md`](live_pipeline.md), §9. Its own open limits are listed there §9; the two that matter are that the hazard surface is fixed (ERA5 lag — not fixable without a real-time weather source) and that **no trigger has ever fired on a live detection**, which needs an actual fire in the bbox. |
 | ~~The 439-vs-459 delivery scoping question~~ | **DECIDED 2026-08-03: the live pipeline consumes the 459/canonical series.** It follows from the PHASE-6 brief (canonical field, snapshot network, real hazard). The 439 outputs under `outputs/dispatch*` are untouched and still generated by `generate_dispatch_outputs.py`; the two lineages now co-exist with different filenames and different wording (459 sheets say 도보, never 차량). |
-| **`spread_v2_lofo.json` was trained on the defective Uljin-Samcheok DEM** | **This is the next decision.** The headline mean-of-folds AUC is built over the six-fire set that includes `uljin_samcheok_2022`, whose raster filled the sea with a ramp to −497 m, so EVERY fold — including Yeongdeok's — trained on it. The same applies to `routing_demo.npz` and every Yeongdeok number derived from it. **Nothing has been re-run**: those are committed Round-2 artifacts protected by §5.2, and re-running them changes figures the submission cites. The effect is unmeasured and could go either way. [`dem_defect_2026-08-02.md`](dem_defect_2026-08-02.md) §3. |
+| **`spread_v2_lofo.json` was trained on the defective Uljin-Samcheok DEM** | The headline mean-of-folds AUC is built over the six-fire set that includes `uljin_samcheok_2022`, whose raster filled the sea with a ramp to −497 m, so EVERY fold — including Yeongdeok's — trained on it. The same applies to `routing_demo.npz` and every Yeongdeok number derived from it. ⚠ *Corrected 2026-08-10: this entry used to end "the effect is unmeasured and could go either way", which contradicted §2-A in the same file — the effect was measured the same day this was written* (`spread_v2_lofo_dem_corrected.json`: mean-of-folds +0.0048, pooled −0.0017, far-band −0.0357, `elev_above_source_m` rank 8→15; its control arm reproduces the committed values on the pre-fix rasters). What is still true: **no committed artifact has been replaced** — those are Round-2 artifacts protected by §5.2, the registry headline still reads from `spread_v2_lofo.json`, and whether to ever publish the corrected lineage instead is the user's decision. [`dem_defect_2026-08-02.md`](dem_defect_2026-08-02.md) §3. |
 | ~~DEM re-acquisition~~ — **DONE 2026-08-02** | Both regions re-acquired, validated, snapshotted, re-simulated and re-routed; nodata 0.000 %, sim-grid mean-fill 0.00 %, both pass the gate with no acknowledgement flag. Superseded text: **This was the next action.** Two gaps, one fix. (a) `uljin_samcheok_2022_dem.tif` spans 36.85–37.45 °N while its walk bbox starts at 36.81 °N: **405 of 7,300 walk nodes (5.55 %)**, 6.17 % of elevation samples, timed FLAT. (b) BOTH new regions' simulation canvases were extended south past their DEMs in `a0eaf07`, so **10.0 %** (Uiseong-Andong) and **15.6 %** (Uljin-Samcheok) of simulation cells carry a MEAN-FILLED elevation — hazard is p = 0 in every one of them, so the committed fields are clean, but the fill was silent. `scripts/acquire_region_dem.py` is written, targets the UNION of walk bbox + simulation canvas + existing raster, validates coverage before installing, and refuses to mix providers. It needs `OPENTOPOGRAPHY_API_KEY` (env or the git-ignored `.env`); a keyless request is HTTP 401, confirmed 2026-08-02. **Do not route on a partial DEM and do not substitute AWS-Mapzen tiles.** |
 | ~~Promote the hypothesis-refutation decomposition~~ | **Withdrawn.** The "fire-blind risk is near-constant" finding was an artifact of the pre-fix fields; it now reads 9.61 / 27.99 / 3.31 %. §2-A. |
 | Which field to PUBLISH | Both `routing_demo.npz` (reverted run) and `routing_demo_canonical.npz` are in the tree with their provenance. The documents lead with the canonical one; **the submission materials have not been touched** and the choice of what to publish is the user's. |
@@ -1630,6 +1636,20 @@ registry, `mckinney` appears in the tree exactly once — in
 `tests/test_baseline_freeze.py`, asserting it is **absent** from the frozen
 baseline. The four defects that were fixed are Korea-side fixes that stand on
 their own.
+
+⚠ **Addendum 2026-08-10: the paragraph above is true of `Main` ONLY, and a
+next session planning from it would plan wrong.** On 2026-08-04 the
+**`us-acquisition` branch** (unmerged, 4 commits) acquired **five California
+fires**, added the archive-FIRMS (`_SP`) acquisition path that §13.6 item 7
+records as missing, routed them, and ran an **Arm 0 transfer measurement**
+(a later commit records the Arm 0 non-advance as seed-dependent). Its
+acquisition by-products sit git-ignored in this working tree
+(`data/snapshots_us/` holds the DEM/fuel tif payloads LOCAL-ONLY by that
+branch's own recorded .gitignore policy — digests committed, payload
+refetchable). **Whether that branch honoured this section's resume order
+(PHASE 0.5 bundle isolation → PHASE 1 CRS before acquisition) is not
+recorded anywhere** — audit it before building on the branch, and do not
+re-acquire from zero without first looking at what it already holds.
 
 **To resume**, in order:
 
