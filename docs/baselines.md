@@ -38,21 +38,43 @@ standardization. The canonical estimator in `spread_v2.model` is
 `HistGradientBoosting` — the build that produced every downstream number — so it is
 used as the reference here.)
 
-## Result (gated re-run; regenerate via `scripts/ml_baselines.py`)
+## Result (committed artifact: `data/processed/ml_baselines.json`, 2026-08-10)
+
+⚠ **Lineage.** These values were measured on the corrected-DEM bundle (the
+2026-08-02 re-acquisition — the only bundle this machine holds), so the GBM row
+reads the `spread_v2_lofo_dem_corrected.json` values, not the committed
+headline's 0.890 / 0.905 (pre-correction lineage; `MODEL_CARD.md`,
+DEM-correction section). *An earlier revision of this table carried a
+pre-correction run's values (random forest 0.920 ± 0.036 / 0.898) that were
+never committed as an artifact; the ordering conclusions below are identical
+in both lineages.*
 
 | model | mean-of-folds AUC ± SD | pooled AUC |
 |---|---|---|
-| random_forest | 0.920 ± 0.036 | 0.898 |
+| random_forest | 0.914 ± 0.044 | 0.896 |
 | logistic | 0.903 ± 0.060 | 0.826 |
-| hist_gbm (canonical reference) | 0.890 ± 0.107 | 0.905 |
+| hist_gbm (canonical model, corrected-DEM lineage) | 0.894 ± 0.092 | 0.904 |
 
 **The verdict, given these numbers:** random forest actually **edges the GBM on
-mean-of-folds** (0.920 vs 0.889) and is more stable (SD 0.036 vs 0.107); the GBM wins
-**pooled** (0.905 vs 0.898) and leads logistic throughout. So we do **not** claim a
-large accuracy win. We keep the GBM for what is actually true: its **calibrated
-probabilities** (the router consumes a genuine `P(ignite)`; held-out Brier ~0.03
-unweighted vs ~0.09 balanced), **inference speed**, and that it yields a
-**permutation-importance ranking** at all.
+mean-of-folds** (0.914 vs 0.894) and is more stable (SD 0.044 vs 0.092); the GBM wins
+**pooled** (0.904 vs 0.896) and leads logistic throughout. So we do **not** claim a
+large accuracy win.
+
+⚠ **And calibration is not the differentiator either — measured, 2026-08-10**
+(`data/processed/calibration_metrics.json`): pooled out-of-fold Brier / ECE are
+GBM **0.0183 / 0.0086**, random forest **0.0174 / 0.0068**, logistic
+0.0212 / 0.0148 — the baseline calibrates *at least as well* as the GBM, which
+the measurement script itself prints with the instruction "report it plainly,
+do not spin". *(An earlier revision of this paragraph cited "held-out Brier
+~0.03 unweighted vs ~0.09 balanced" — figures that match no committed
+artifact; the measured values replace them.)* What the GBM's calibration
+claim now means: the router consumes a genuine, well-calibrated `P(ignite)`
+(Brier 0.018 in absolute terms) — not that the GBM out-calibrates the
+alternatives.
+
+What actually keeps the GBM: the **pooled AUC edge**, **inference speed**,
+**native NaN handling**, and that it yields a **permutation-importance
+ranking** at all.
 
 > ⚠ **이 비율은 미확립으로 철회되었습니다.** 측정값(0.102 vs 0.0023)은 유효하나
 > 결론은 지지되지 않습니다: **6개 특징 합산 대 단일 변수** 비교이고, **ERA5 0.25°

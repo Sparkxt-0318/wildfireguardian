@@ -231,8 +231,13 @@ def test_calibration_metrics_regenerates_deterministically():
     from wildfireguardian.spread_v2 import data, features
 
     if not COMMITTED_JSON.exists():
-        pytest.skip("data/processed/calibration_metrics.json not generated yet "
-                    "(FIRMS/ERA5/DEM bundle absent in this environment)")
+        # ⚠ Say WHY it is absent truthfully. The old parenthesis blamed the
+        # bundle, which was present on the machine where this skip fired for
+        # months — the artifact had simply never been generated, and the wrong
+        # reason sent readers to the wrong remedy (Round-4 A1-2).
+        pytest.skip("data/processed/calibration_metrics.json has not been "
+                    "generated/committed (run scripts/calibration_metrics.py "
+                    "where the FIRMS/ERA5/DEM bundle is present)")
     if not data.data_available():
         pytest.skip("FIRMS/ERA5/DEM bundle absent — cannot rebuild OOF to check "
                     "regeneration determinism")

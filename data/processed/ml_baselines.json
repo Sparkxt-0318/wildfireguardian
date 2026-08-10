@@ -1,0 +1,58 @@
+{
+  "seed": 20250603,
+  "models": {
+    "logistic": {
+      "model": "logistic",
+      "per_fire_auc": {
+        "gangneung_2023": 0.9584,
+        "hongseong_2023": 0.9143,
+        "miryang_2022": 0.9697,
+        "uiseong_andong_2025": 0.8047,
+        "uljin_samcheok_2022": 0.8979,
+        "yeongdeok_2025": 0.872
+      },
+      "mean_of_folds": 0.9028,
+      "sd": 0.0605,
+      "pooled_auc": 0.826
+    },
+    "random_forest": {
+      "model": "random_forest",
+      "per_fire_auc": {
+        "gangneung_2023": 0.9378,
+        "hongseong_2023": 0.8581,
+        "miryang_2022": 0.9763,
+        "uiseong_andong_2025": 0.8755,
+        "uljin_samcheok_2022": 0.9336,
+        "yeongdeok_2025": 0.9036
+      },
+      "mean_of_folds": 0.9142,
+      "sd": 0.0437,
+      "pooled_auc": 0.8963
+    },
+    "hist_gbm": {
+      "model": "hist_gbm",
+      "per_fire_auc": {
+        "gangneung_2023": 0.7184,
+        "hongseong_2023": 0.9393,
+        "miryang_2022": 0.9768,
+        "uiseong_andong_2025": 0.8751,
+        "uljin_samcheok_2022": 0.9159,
+        "yeongdeok_2025": 0.9403
+      },
+      "mean_of_folds": 0.8943,
+      "sd": 0.0924,
+      "pooled_auc": 0.9036
+    }
+  },
+  "canonical_reference": {
+    "mean_of_folds": 0.89,
+    "pooled": 0.9053277489374548
+  },
+  "dem_corrected_reference": {
+    "mean_of_folds": 0.8943,
+    "pooled": 0.9036468798222611
+  },
+  "gbm_minus_rf_mean_of_folds": -0.0199,
+  "interpretation": "MARGINAL over random forest \u2014 pivot the 'technical excellence' claim to calibrated probabilities + speed + interpretability, NOT a large accuracy win.",
+  "note": "identical 16 features / folds / seed; hyperparameters untuned"
+}

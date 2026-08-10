@@ -1,0 +1,780 @@
+{
+  "binning": {
+    "n_bins": 15,
+    "note": "each bin holds ~N/n_bins rows via a stable rank split (equal-count / equal-mass), robust to ties in the rare-positive regime; ECE = count-weighted mean |observed - predicted| over the bins",
+    "strategy": "equal-count (equal-mass)"
+  },
+  "dataset": {
+    "base_rate": 0.019677,
+    "features": [
+      "dist_to_fire_m",
+      "active_frac_1500m",
+      "active_frac_3000m",
+      "n_active_adjacent",
+      "elevation_m",
+      "slope_deg",
+      "elev_above_source_m",
+      "burnable_frac",
+      "wind_speed_ms",
+      "temp_c",
+      "rh_pct",
+      "vpd_kpa",
+      "days_since_rain",
+      "precip_24h_mm",
+      "dt_hours",
+      "wind_alignment"
+    ],
+    "fires": [
+      "gangneung_2023",
+      "hongseong_2023",
+      "miryang_2022",
+      "uiseong_andong_2025",
+      "uljin_samcheok_2022",
+      "yeongdeok_2025"
+    ],
+    "n_fires": 6,
+    "n_positives": 2989,
+    "n_rows": 151904
+  },
+  "generated_by": "scripts/calibration_metrics.py",
+  "measurement_only": "no model / forward-sim / routing change; OOF predictions scored by models that never saw the fire",
+  "models": {
+    "hist_gbm": {
+      "per_fold": {
+        "brier_mean": 0.016517,
+        "brier_sd": 0.008249,
+        "ece_mean": 0.01088,
+        "ece_sd": 0.00581,
+        "folds": {
+          "gangneung_2023": {
+            "brier": 0.020015,
+            "ece": 0.019183,
+            "n": 396,
+            "positives": 8
+          },
+          "hongseong_2023": {
+            "brier": 0.009064,
+            "ece": 0.005362,
+            "n": 3353,
+            "positives": 34
+          },
+          "miryang_2022": {
+            "brier": 0.007402,
+            "ece": 0.006278,
+            "n": 3019,
+            "positives": 24
+          },
+          "uiseong_andong_2025": {
+            "brier": 0.017953,
+            "ece": 0.010667,
+            "n": 82736,
+            "positives": 1502
+          },
+          "uljin_samcheok_2022": {
+            "brier": 0.014599,
+            "ece": 0.007093,
+            "n": 41651,
+            "positives": 652
+          },
+          "yeongdeok_2025": {
+            "brier": 0.030068,
+            "ece": 0.016695,
+            "n": 20749,
+            "positives": 769
+          }
+        }
+      },
+      "pooled": {
+        "base_rate": 0.019677,
+        "brier": 0.018288,
+        "ece": 0.008555,
+        "n": 151904,
+        "positives": 2989
+      },
+      "reliability": [
+        {
+          "bin": 0,
+          "mean_pred": 5.2e-05,
+          "n": 10127,
+          "obs_freq": 0.0,
+          "p_hi": 6.8e-05,
+          "p_lo": 4e-06,
+          "positives": 0
+        },
+        {
+          "bin": 1,
+          "mean_pred": 8e-05,
+          "n": 10127,
+          "obs_freq": 0.0,
+          "p_hi": 9.2e-05,
+          "p_lo": 6.8e-05,
+          "positives": 0
+        },
+        {
+          "bin": 2,
+          "mean_pred": 0.000107,
+          "n": 10127,
+          "obs_freq": 9.9e-05,
+          "p_hi": 0.000122,
+          "p_lo": 9.2e-05,
+          "positives": 1
+        },
+        {
+          "bin": 3,
+          "mean_pred": 0.000139,
+          "n": 10127,
+          "obs_freq": 0.000691,
+          "p_hi": 0.000158,
+          "p_lo": 0.000122,
+          "positives": 7
+        },
+        {
+          "bin": 4,
+          "mean_pred": 0.000182,
+          "n": 10127,
+          "obs_freq": 0.000889,
+          "p_hi": 0.000208,
+          "p_lo": 0.000158,
+          "positives": 9
+        },
+        {
+          "bin": 5,
+          "mean_pred": 0.000238,
+          "n": 10127,
+          "obs_freq": 0.001086,
+          "p_hi": 0.000272,
+          "p_lo": 0.000208,
+          "positives": 11
+        },
+        {
+          "bin": 6,
+          "mean_pred": 0.000316,
+          "n": 10127,
+          "obs_freq": 0.00237,
+          "p_hi": 0.000366,
+          "p_lo": 0.000272,
+          "positives": 24
+        },
+        {
+          "bin": 7,
+          "mean_pred": 0.000433,
+          "n": 10127,
+          "obs_freq": 0.001481,
+          "p_hi": 0.000513,
+          "p_lo": 0.000366,
+          "positives": 15
+        },
+        {
+          "bin": 8,
+          "mean_pred": 0.000628,
+          "n": 10127,
+          "obs_freq": 0.003061,
+          "p_hi": 0.000764,
+          "p_lo": 0.000513,
+          "positives": 31
+        },
+        {
+          "bin": 9,
+          "mean_pred": 0.000976,
+          "n": 10127,
+          "obs_freq": 0.00316,
+          "p_hi": 0.001246,
+          "p_lo": 0.000764,
+          "positives": 32
+        },
+        {
+          "bin": 10,
+          "mean_pred": 0.001669,
+          "n": 10127,
+          "obs_freq": 0.006912,
+          "p_hi": 0.002201,
+          "p_lo": 0.001246,
+          "positives": 70
+        },
+        {
+          "bin": 11,
+          "mean_pred": 0.003132,
+          "n": 10127,
+          "obs_freq": 0.018268,
+          "p_hi": 0.00439,
+          "p_lo": 0.002202,
+          "positives": 185
+        },
+        {
+          "bin": 12,
+          "mean_pred": 0.006891,
+          "n": 10127,
+          "obs_freq": 0.04019,
+          "p_hi": 0.010445,
+          "p_lo": 0.00439,
+          "positives": 407
+        },
+        {
+          "bin": 13,
+          "mean_pred": 0.018247,
+          "n": 10127,
+          "obs_freq": 0.080675,
+          "p_hi": 0.030746,
+          "p_lo": 0.010445,
+          "positives": 817
+        },
+        {
+          "bin": 14,
+          "mean_pred": 0.138544,
+          "n": 10126,
+          "obs_freq": 0.136283,
+          "p_hi": 0.850491,
+          "p_lo": 0.030749,
+          "positives": 1380
+        }
+      ]
+    },
+    "logistic": {
+      "per_fold": {
+        "brier_mean": 0.034843,
+        "brier_sd": 0.042274,
+        "ece_mean": 0.048723,
+        "ece_sd": 0.081132,
+        "folds": {
+          "gangneung_2023": {
+            "brier": 0.118664,
+            "ece": 0.212448,
+            "n": 396,
+            "positives": 8
+          },
+          "hongseong_2023": {
+            "brier": 0.009353,
+            "ece": 0.004839,
+            "n": 3353,
+            "positives": 34
+          },
+          "miryang_2022": {
+            "brier": 0.00612,
+            "ece": 0.003912,
+            "n": 3019,
+            "positives": 24
+          },
+          "uiseong_andong_2025": {
+            "brier": 0.017417,
+            "ece": 0.009782,
+            "n": 82736,
+            "positives": 1502
+          },
+          "uljin_samcheok_2022": {
+            "brier": 0.023421,
+            "ece": 0.029147,
+            "n": 41651,
+            "positives": 652
+          },
+          "yeongdeok_2025": {
+            "brier": 0.034082,
+            "ece": 0.032212,
+            "n": 20749,
+            "positives": 769
+          }
+        }
+      },
+      "pooled": {
+        "base_rate": 0.019677,
+        "brier": 0.021201,
+        "ece": 0.014762,
+        "n": 151904,
+        "positives": 2989
+      },
+      "reliability": [
+        {
+          "bin": 0,
+          "mean_pred": 0.0,
+          "n": 10127,
+          "obs_freq": 9.9e-05,
+          "p_hi": 0.0,
+          "p_lo": 0.0,
+          "positives": 1
+        },
+        {
+          "bin": 1,
+          "mean_pred": 2e-06,
+          "n": 10127,
+          "obs_freq": 0.003851,
+          "p_hi": 8e-06,
+          "p_lo": 0.0,
+          "positives": 39
+        },
+        {
+          "bin": 2,
+          "mean_pred": 2.7e-05,
+          "n": 10127,
+          "obs_freq": 0.005431,
+          "p_hi": 5.3e-05,
+          "p_lo": 8e-06,
+          "positives": 55
+        },
+        {
+          "bin": 3,
+          "mean_pred": 9.2e-05,
+          "n": 10127,
+          "obs_freq": 0.003851,
+          "p_hi": 0.000137,
+          "p_lo": 5.3e-05,
+          "positives": 39
+        },
+        {
+          "bin": 4,
+          "mean_pred": 0.000206,
+          "n": 10127,
+          "obs_freq": 0.006122,
+          "p_hi": 0.000292,
+          "p_lo": 0.000137,
+          "positives": 62
+        },
+        {
+          "bin": 5,
+          "mean_pred": 0.000423,
+          "n": 10127,
+          "obs_freq": 0.006715,
+          "p_hi": 0.000584,
+          "p_lo": 0.000292,
+          "positives": 68
+        },
+        {
+          "bin": 6,
+          "mean_pred": 0.000832,
+          "n": 10127,
+          "obs_freq": 0.004049,
+          "p_hi": 0.00113,
+          "p_lo": 0.000584,
+          "positives": 41
+        },
+        {
+          "bin": 7,
+          "mean_pred": 0.001559,
+          "n": 10127,
+          "obs_freq": 0.005135,
+          "p_hi": 0.002067,
+          "p_lo": 0.00113,
+          "positives": 52
+        },
+        {
+          "bin": 8,
+          "mean_pred": 0.002798,
+          "n": 10127,
+          "obs_freq": 0.005234,
+          "p_hi": 0.003663,
+          "p_lo": 0.002067,
+          "positives": 53
+        },
+        {
+          "bin": 9,
+          "mean_pred": 0.004884,
+          "n": 10127,
+          "obs_freq": 0.01027,
+          "p_hi": 0.006389,
+          "p_lo": 0.003664,
+          "positives": 104
+        },
+        {
+          "bin": 10,
+          "mean_pred": 0.008621,
+          "n": 10127,
+          "obs_freq": 0.011553,
+          "p_hi": 0.011363,
+          "p_lo": 0.006389,
+          "positives": 117
+        },
+        {
+          "bin": 11,
+          "mean_pred": 0.015638,
+          "n": 10127,
+          "obs_freq": 0.016392,
+          "p_hi": 0.021146,
+          "p_lo": 0.011363,
+          "positives": 166
+        },
+        {
+          "bin": 12,
+          "mean_pred": 0.030622,
+          "n": 10127,
+          "obs_freq": 0.035549,
+          "p_hi": 0.043249,
+          "p_lo": 0.021148,
+          "positives": 360
+        },
+        {
+          "bin": 13,
+          "mean_pred": 0.067433,
+          "n": 10127,
+          "obs_freq": 0.072578,
+          "p_hi": 0.10532,
+          "p_lo": 0.04325,
+          "positives": 735
+        },
+        {
+          "bin": 14,
+          "mean_pred": 0.276084,
+          "n": 10126,
+          "obs_freq": 0.108335,
+          "p_hi": 0.941115,
+          "p_lo": 0.105323,
+          "positives": 1097
+        }
+      ]
+    },
+    "random_forest": {
+      "per_fold": {
+        "brier_mean": 0.017008,
+        "brier_sd": 0.008908,
+        "ece_mean": 0.020838,
+        "ece_sd": 0.032219,
+        "folds": {
+          "gangneung_2023": {
+            "brier": 0.027056,
+            "ece": 0.086465,
+            "n": 396,
+            "positives": 8
+          },
+          "hongseong_2023": {
+            "brier": 0.009112,
+            "ece": 0.006278,
+            "n": 3353,
+            "positives": 34
+          },
+          "miryang_2022": {
+            "brier": 0.006711,
+            "ece": 0.006583,
+            "n": 3019,
+            "positives": 24
+          },
+          "uiseong_andong_2025": {
+            "brier": 0.017048,
+            "ece": 0.005261,
+            "n": 82736,
+            "positives": 1502
+          },
+          "uljin_samcheok_2022": {
+            "brier": 0.014183,
+            "ece": 0.010069,
+            "n": 41651,
+            "positives": 652
+          },
+          "yeongdeok_2025": {
+            "brier": 0.027938,
+            "ece": 0.010375,
+            "n": 20749,
+            "positives": 769
+          }
+        }
+      },
+      "pooled": {
+        "base_rate": 0.019677,
+        "brier": 0.017395,
+        "ece": 0.0068,
+        "n": 151904,
+        "positives": 2989
+      },
+      "reliability": [
+        {
+          "bin": 0,
+          "mean_pred": 0.0,
+          "n": 10127,
+          "obs_freq": 0.000296,
+          "p_hi": 0.0,
+          "p_lo": 0.0,
+          "positives": 3
+        },
+        {
+          "bin": 1,
+          "mean_pred": 0.0,
+          "n": 10127,
+          "obs_freq": 0.0,
+          "p_hi": 0.0,
+          "p_lo": 0.0,
+          "positives": 0
+        },
+        {
+          "bin": 2,
+          "mean_pred": 0.000126,
+          "n": 10127,
+          "obs_freq": 0.000395,
+          "p_hi": 0.000256,
+          "p_lo": 0.0,
+          "positives": 4
+        },
+        {
+          "bin": 3,
+          "mean_pred": 0.000424,
+          "n": 10127,
+          "obs_freq": 0.000592,
+          "p_hi": 0.000619,
+          "p_lo": 0.000256,
+          "positives": 6
+        },
+        {
+          "bin": 4,
+          "mean_pred": 0.000874,
+          "n": 10127,
+          "obs_freq": 0.001481,
+          "p_hi": 0.00116,
+          "p_lo": 0.000619,
+          "positives": 15
+        },
+        {
+          "bin": 5,
+          "mean_pred": 0.001578,
+          "n": 10127,
+          "obs_freq": 0.000987,
+          "p_hi": 0.002072,
+          "p_lo": 0.00116,
+          "positives": 10
+        },
+        {
+          "bin": 6,
+          "mean_pred": 0.002737,
+          "n": 10127,
+          "obs_freq": 0.002962,
+          "p_hi": 0.003515,
+          "p_lo": 0.002072,
+          "positives": 30
+        },
+        {
+          "bin": 7,
+          "mean_pred": 0.004494,
+          "n": 10127,
+          "obs_freq": 0.005135,
+          "p_hi": 0.005606,
+          "p_lo": 0.003515,
+          "positives": 52
+        },
+        {
+          "bin": 8,
+          "mean_pred": 0.007145,
+          "n": 10127,
+          "obs_freq": 0.004839,
+          "p_hi": 0.008994,
+          "p_lo": 0.005606,
+          "positives": 49
+        },
+        {
+          "bin": 9,
+          "mean_pred": 0.011453,
+          "n": 10127,
+          "obs_freq": 0.008295,
+          "p_hi": 0.014229,
+          "p_lo": 0.008995,
+          "positives": 84
+        },
+        {
+          "bin": 10,
+          "mean_pred": 0.017827,
+          "n": 10127,
+          "obs_freq": 0.01027,
+          "p_hi": 0.021905,
+          "p_lo": 0.014229,
+          "positives": 104
+        },
+        {
+          "bin": 11,
+          "mean_pred": 0.027611,
+          "n": 10127,
+          "obs_freq": 0.015207,
+          "p_hi": 0.034769,
+          "p_lo": 0.021906,
+          "positives": 154
+        },
+        {
+          "bin": 12,
+          "mean_pred": 0.044901,
+          "n": 10127,
+          "obs_freq": 0.031599,
+          "p_hi": 0.057178,
+          "p_lo": 0.03477,
+          "positives": 320
+        },
+        {
+          "bin": 13,
+          "mean_pred": 0.077575,
+          "n": 10127,
+          "obs_freq": 0.050163,
+          "p_hi": 0.108742,
+          "p_lo": 0.057179,
+          "positives": 508
+        },
+        {
+          "bin": 14,
+          "mean_pred": 0.196005,
+          "n": 10126,
+          "obs_freq": 0.162947,
+          "p_hi": 0.612364,
+          "p_lo": 0.108757,
+          "positives": 1650
+        }
+      ]
+    }
+  },
+  "oof_files": {
+    "hist_gbm": "data/processed/spread_v2_lofo_oof.csv.gz",
+    "logistic": "data/processed/lofo_oof_logistic.csv.gz",
+    "random_forest": "data/processed/lofo_oof_random_forest.csv.gz"
+  },
+  "reference": {
+    "committed_pooled_auc": 0.905328,
+    "regenerated_gbm_pooled_auc": 0.903647
+  },
+  "seed": 20250603,
+  "supplementary_isotonic_gbm": {
+    "delta": {
+      "pooled_brier": -1.7e-05,
+      "pooled_ece": 0.000536
+    },
+    "method": "per-fold isotonic \u2014 CalibratedClassifierCV(method='isotonic'), internal StratifiedKFold CV on train fires only, applied to the held-out fire",
+    "note": "SUPPLEMENTARY / measurement only \u2014 calibrated probabilities are NOT wired into the forward-sim or routing this round (that would change every routing number); future work.",
+    "post": {
+      "per_fold_brier_mean": 0.016202,
+      "per_fold_ece_mean": 0.009371,
+      "pooled_brier": 0.018271,
+      "pooled_ece": 0.009091
+    },
+    "raw": {
+      "per_fold_brier_mean": 0.016517,
+      "per_fold_ece_mean": 0.01088,
+      "pooled_brier": 0.018288,
+      "pooled_ece": 0.008555
+    },
+    "reliability_post": [
+      {
+        "bin": 0,
+        "mean_pred": 0.0,
+        "n": 10127,
+        "obs_freq": 0.000197,
+        "p_hi": 0.0,
+        "p_lo": 0.0,
+        "positives": 2
+      },
+      {
+        "bin": 1,
+        "mean_pred": 0.0,
+        "n": 10127,
+        "obs_freq": 0.000197,
+        "p_hi": 0.0,
+        "p_lo": 0.0,
+        "positives": 2
+      },
+      {
+        "bin": 2,
+        "mean_pred": 0.0,
+        "n": 10127,
+        "obs_freq": 0.000197,
+        "p_hi": 0.0,
+        "p_lo": 0.0,
+        "positives": 2
+      },
+      {
+        "bin": 3,
+        "mean_pred": 0.0,
+        "n": 10127,
+        "obs_freq": 0.0,
+        "p_hi": 0.0,
+        "p_lo": 0.0,
+        "positives": 0
+      },
+      {
+        "bin": 4,
+        "mean_pred": 1.9e-05,
+        "n": 10127,
+        "obs_freq": 0.002172,
+        "p_hi": 3.9e-05,
+        "p_lo": 0.0,
+        "positives": 22
+      },
+      {
+        "bin": 5,
+        "mean_pred": 4.9e-05,
+        "n": 10127,
+        "obs_freq": 0.000197,
+        "p_hi": 6.6e-05,
+        "p_lo": 3.9e-05,
+        "positives": 2
+      },
+      {
+        "bin": 6,
+        "mean_pred": 9.6e-05,
+        "n": 10127,
+        "obs_freq": 0.003555,
+        "p_hi": 0.0001,
+        "p_lo": 6.6e-05,
+        "positives": 36
+      },
+      {
+        "bin": 7,
+        "mean_pred": 0.00011,
+        "n": 10127,
+        "obs_freq": 0.001382,
+        "p_hi": 0.000126,
+        "p_lo": 0.0001,
+        "positives": 14
+      },
+      {
+        "bin": 8,
+        "mean_pred": 0.000176,
+        "n": 10127,
+        "obs_freq": 0.001777,
+        "p_hi": 0.000293,
+        "p_lo": 0.000126,
+        "positives": 18
+      },
+      {
+        "bin": 9,
+        "mean_pred": 0.000586,
+        "n": 10127,
+        "obs_freq": 0.002962,
+        "p_hi": 0.000882,
+        "p_lo": 0.000293,
+        "positives": 30
+      },
+      {
+        "bin": 10,
+        "mean_pred": 0.001373,
+        "n": 10127,
+        "obs_freq": 0.006912,
+        "p_hi": 0.001971,
+        "p_lo": 0.000882,
+        "positives": 70
+      },
+      {
+        "bin": 11,
+        "mean_pred": 0.003108,
+        "n": 10127,
+        "obs_freq": 0.013034,
+        "p_hi": 0.00487,
+        "p_lo": 0.001971,
+        "positives": 132
+      },
+      {
+        "bin": 12,
+        "mean_pred": 0.009201,
+        "n": 10127,
+        "obs_freq": 0.035746,
+        "p_hi": 0.015165,
+        "p_lo": 0.004875,
+        "positives": 362
+      },
+      {
+        "bin": 13,
+        "mean_pred": 0.026673,
+        "n": 10127,
+        "obs_freq": 0.08502,
+        "p_hi": 0.044534,
+        "p_lo": 0.015183,
+        "positives": 861
+      },
+      {
+        "bin": 14,
+        "mean_pred": 0.166225,
+        "n": 10126,
+        "obs_freq": 0.141813,
+        "p_hi": 0.805402,
+        "p_lo": 0.044542,
+        "positives": 1436
+      }
+    ]
+  }
+}

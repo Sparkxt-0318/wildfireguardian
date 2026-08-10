@@ -53,6 +53,30 @@ CANON_FAR_BAND_POOLED = 0.8765583120330634
 GATE_TOL = 1e-3            # rounding tolerance for the consistency gate
 FAR_BAND_MIN_M = 3000.0    # ">3 km" far band (the far-field reach question)
 
+#: ⚠ TWO LINEAGES CAN LEGITIMATELY PASS THE GATE, and the artifact records
+#: which one did. The committed numbers above were measured on the
+#: pre-correction DEM bundle; the 2026-08-02 re-acquisition installed the
+#: CORRECTED rasters into data/raw, so a re-run on this machine's bundle
+#: lands on the values committed in spread_v2_lofo_dem_corrected.json
+#: (pooled 0.9036, gangneung fold +0.036) and the committed-only gate would
+#: refuse a perfectly healthy bundle. The corrected values are READ FROM the
+#: committed artifact, never typed here; anything matching NEITHER lineage
+#: is real drift and still stops the run.
+DEM_CORRECTED_JSON = PROC / "spread_v2_lofo_dem_corrected.json"
+
+
+def _gate_lineages() -> list[tuple[str, float, dict[str, float]]]:
+    """(label, pooled, per_fire) for each lineage this bundle may be."""
+    lineages: list[tuple[str, float, dict[str, float]]] = [
+        ("committed", CANON_POOLED, CANON_PER_FIRE)]
+    try:
+        d = json.loads(DEM_CORRECTED_JSON.read_text(encoding="utf-8"))
+        lineages.append(("dem_corrected", float(d["pooled_auc"]),
+                         {k: float(v) for k, v in d["per_fire_auc"].items()}))
+    except (OSError, KeyError, ValueError):
+        pass                       # gate falls back to committed-only
+    return lineages
+
 
 def _blocked(reason: str) -> int:
     print("=" * 78, file=sys.stderr)
@@ -121,20 +145,28 @@ def main() -> int:
         oof.to_csv(oof_artifact, index=False, compression="gzip")
     print(f"      persisted {len(oof)} per-fold predictions -> {oof_artifact}")
 
-    # ---- 2. consistency gate (STOP on mismatch) ----
-    print("[2/4] consistency gate vs the canonical numbers ...")
+    # ---- 2. consistency gate (STOP on mismatch with EVERY known lineage) ----
+    print("[2/4] consistency gate vs the known lineages ...")
     per_fire_rerun = {f: lofo.per_fire_auc.get(f) for f in CANON_PER_FIRE}
     mof_rerun = float(np.mean([v for v in per_fire_rerun.values() if v is not None]))
-    gate_ok = _gate("pooled AUC", lofo.pooled_auc, CANON_POOLED)
-    gate_ok &= _gate("mean-of-folds", round(mof_rerun, 3), CANON_MEAN_OF_FOLDS, tol=2e-3)
-    for f, want in CANON_PER_FIRE.items():
-        gate_ok &= _gate(f"per-fire {f}", per_fire_rerun.get(f), want)
-    if not gate_ok:
-        print("\nSTOP (exit 3): re-run did NOT reproduce the canonical AUCs — not "
-              "proceeding, not 'fixing' the model. Investigate the data/seed/fold set.",
-              file=sys.stderr)
+    gate_lineage: str | None = None
+    for label, pooled_want, per_fire_want in _gate_lineages():
+        print(f"      lineage {label!r}:")
+        ok = _gate("pooled AUC", lofo.pooled_auc, pooled_want)
+        mof_want = round(float(np.mean(list(per_fire_want.values()))), 3)
+        ok &= _gate("mean-of-folds", round(mof_rerun, 3), mof_want, tol=2e-3)
+        for f, want in per_fire_want.items():
+            ok &= _gate(f"per-fire {f}", per_fire_rerun.get(f), want)
+        if ok:
+            gate_lineage = label
+            break
+    if gate_lineage is None:
+        print("\nSTOP (exit 3): re-run reproduced NEITHER the committed nor the "
+              "dem_corrected lineage — not proceeding, not 'fixing' the model. "
+              "Investigate the data/seed/fold set.", file=sys.stderr)
         return 3
-    print("      gate PASSED — proceeding to intervals + significance.")
+    print(f"      gate PASSED against the {gate_lineage!r} lineage — "
+          "proceeding to intervals + significance.")
 
     # ---- 3. intervals + significance ----
     print("[3/4] per-fire DeLong CIs + significance vs 0.5; pooled bootstrap; far-band ...")
@@ -182,6 +214,11 @@ def main() -> int:
 
     out = {
         "seed": args.seed, "gate_passed": True,
+        # ⚠ Which lineage this run's bundle matched. "dem_corrected" means the
+        # rasters are the 2026-08-02 re-acquisition and every interval below
+        # is a corrected-lineage quantity — quote beside committed numbers
+        # only with that label (docs/MODEL_CARD.md, DEM-correction section).
+        "gate_lineage": gate_lineage,
         "consistency_gate": {"pooled_canonical": CANON_POOLED,
                              "pooled_rerun": lofo.pooled_auc,
                              "mean_of_folds_canonical": CANON_MEAN_OF_FOLDS,

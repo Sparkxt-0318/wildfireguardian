@@ -52,18 +52,28 @@ wind_alignment` `[src: features.py/FEATURE_COLUMNS]`.
 | uiseong_andong_2025 | 0.878 | [0.871, 0.884] | |
 | gangneung_2023 | **0.682** | [0.577, 0.771] | **~8 positives — fold far too small for a stable estimate; treat as noisy** |
 
-`[ROC-AUC src: spread_v2_lofo.json/per_fire_auc; DeLong CIs: scripts/auc_intervals.py]`
+`[ROC-AUC src: spread_v2_lofo.json/per_fire_auc]`
 
-**All six folds are significant vs AUC = 0.5** (`gangneung_2023` p = 2.7×10⁻⁴; the
-other five p ≪ 0.001) — the test hypothesis H1 needs. The per-fire DeLong CIs above
-and those p-values come from `scripts/auc_intervals.py`, which re-runs the canonical
-model (seed 20250603, same 16 features/folds), **gates** against pooled 0.905 /
-mean-of-folds 0.890 / the per-fire AUCs, persists the out-of-fold predictions, and
-emits the per-fire `AUC [95 % CI]` table + p-values to
-`data/processed/auc_intervals.json`. The script **STOPs cleanly (exit 2)** where the
-FIRMS/ERA5/DEM bundle is absent (e.g. a fresh clone) rather than fabricate — re-run
-it where the data is present to regenerate the JSON. Method: `docs/auc_intervals.md`;
-statistics unit-tested in `tests/test_auc_stats.py`.
+⚠ **The CI columns above are a lineage note.** The AUC column is the committed
+(pre-correction-DEM) artifact. The **committed CI/p artifact**
+(`data/processed/auc_intervals.json`, 2026-08-10) gates on this machine's
+bundle, which is the **corrected-DEM lineage** (`gate_lineage: "dem_corrected"`
+— it matched `spread_v2_lofo_dem_corrected.json` to Δ=0 on every check), so
+its point AUCs differ from this table in the third decimal — except the tiny
+`gangneung_2023` fold, which reads 0.718 [0.609, 0.807] there.
+
+**All six folds are significant vs AUC = 0.5 in the committed artifact**
+(`gangneung_2023` p = 1.9×10⁻⁵; the other five p ≪ 10⁻²⁷⁰) — the test
+hypothesis H1 needs, and it holds on both lineages. The CIs and p-values come
+from `scripts/auc_intervals.py`, which re-runs the canonical model (seed
+20250603, same 16 features/folds), **gates** against the committed numbers —
+or, on a corrected-DEM bundle, against the `spread_v2_lofo_dem_corrected.json`
+lineage, recording which passed in `gate_lineage` — persists the out-of-fold
+predictions, and emits the per-fire `AUC [95 % CI]` table + p-values to
+`data/processed/auc_intervals.json`. The script **STOPs cleanly (exit 2)**
+where the FIRMS/ERA5/DEM bundle is absent (e.g. a fresh clone), and **STOPs
+(exit 3)** when the re-run matches *neither* lineage. Method:
+`docs/auc_intervals.md`; statistics unit-tested in `tests/test_auc_stats.py`.
 
 ### Pooled and far-band (labeled — NOT the generalization figure)
 
@@ -72,12 +82,14 @@ statistics unit-tested in `tests/test_auc_stats.py`.
   larger/easier folds; it is **not** the generalization estimate (it sits only
   +0.016 above the mean-of-folds here). `[src: spread_v2_lofo.json/pooled_auc]`
 - **Far-band (>3 km) mean-of-folds** ROC-AUC = **0.925** (n=3 fires with far-band
-  positives); **pooled far-band 0.877**, mid-band (1–3 km) 0.870. The mean-of-folds
-  far-band comes from the gated `scripts/auc_intervals.py` re-run (which also
-  persists the per-fire far-band AUCs); the pooled scalars are stored.
-  `[pooled src: spread_v2_lofo.json/far_band_auc, mid_band_auc; mean-of-folds: scripts/auc_intervals.py]`
+  positives); **pooled far-band 0.877**, mid-band (1–3 km) 0.870. The pooled
+  scalars are the committed `spread_v2_lofo.json` values.
+  `[pooled src: spread_v2_lofo.json/far_band_auc, mid_band_auc]`
   ⚠ On the corrected DEMs the pooled far-band reads **0.8408** — see the
-  DEM-correction section below before quoting 0.877 anywhere.
+  DEM-correction section below before quoting 0.877 anywhere. ⚠ The 0.925
+  mean-of-folds is a pre-correction re-run that was never committed; the
+  **committed** artifact (`auc_intervals.json`, corrected lineage) reads
+  **0.904 ± 0.100** (n=3). Quote whichever you can point at, with its lineage.
 
 ## The 2026-08-02 DEM correction — what moved, what did not
 
@@ -169,21 +181,30 @@ the same property**, and here they point in opposite directions.
 
 | model | mean-of-folds AUC ± SD | pooled |
 |---|---|---|
-| random_forest | 0.920 ± 0.036 | 0.898 |
+| random_forest | 0.914 ± 0.044 | 0.896 |
 | logistic | 0.903 ± 0.060 | 0.826 |
-| **hist_gbm (ours)** | **0.889 ± 0.107** | **0.905** |
+| **hist_gbm (ours)** | **0.894 ± 0.092** | **0.904** |
 
-Random forest actually **edges the GBM on mean-of-folds** (and is more stable); the
-GBM wins pooled (0.905 vs 0.898). We keep the GBM not for a large accuracy win but
-for its **calibrated probabilities** (the router consumes a real `P(ignite)`),
-**inference speed**, and **interpretability** (it yields a permutation-importance
-ranking at all). ⚠ **The third reason used to read "produced the severity≫direction
-finding"; that finding is withdrawn as not established** (see the section above),
-so what remains of it is that the model is interpretable, not that a particular
-conclusion was drawn. **The first two reasons stand unchanged**, and neither
-depended on the withdrawn claim. Values regenerate via `scripts/ml_baselines.py` →
-`data/processed/ml_baselines.json` (STOPs cleanly where the FIRMS bundle is absent).
-Method: `docs/baselines.md`.
+⚠ Values are the **committed artifact** `data/processed/ml_baselines.json`
+(2026-08-10, corrected-DEM bundle — the only bundle this machine holds; an
+earlier revision of this table carried a never-committed pre-correction run's
+values, same ordering conclusions in both lineages).
+
+Random forest actually **edges the GBM on mean-of-folds** (and is more stable);
+the GBM wins pooled (0.904 vs 0.896). We keep the GBM not for a large accuracy
+win — **and not for a calibration win either**: measured pooled out-of-fold
+Brier / ECE (`data/processed/calibration_metrics.json`, 2026-08-10) are GBM
+**0.0183 / 0.0086** vs random forest **0.0174 / 0.0068** — the baseline
+calibrates at least as well, and the measurement script prints exactly that
+("report it plainly, do not spin"). What the calibration claim now means: the
+router consumes a genuine, well-calibrated `P(ignite)` (Brier 0.018 absolute) —
+a property of the GBM, not an edge over RF. What actually keeps the GBM: the
+**pooled-AUC edge**, **inference speed**, **native NaN handling**, and
+**interpretability** (it yields a permutation-importance ranking at all).
+⚠ **The interpretability reason used to read "produced the severity≫direction
+finding"; that finding is withdrawn as not established** (see the section
+above). Values regenerate via `scripts/ml_baselines.py` and
+`scripts/calibration_metrics.py`. Method: `docs/baselines.md`.
 
 ## Provenance — two builds exist; why they are NOT directly comparable
 

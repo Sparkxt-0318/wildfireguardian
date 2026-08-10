@@ -11,8 +11,9 @@ neither the baselines (to lose) nor the GBM (to win).
 
 Honest interpretation is the point: if the GBM only marginally beats random
 forest, say so and pivot "technical excellence" to what is actually true
-(calibrated probabilities, speed, the severity≫direction interpretability), not a
-large accuracy win.
+(calibrated probabilities, speed, interpretability — noting that the
+"severity ≫ direction" READING of that interpretability is withdrawn as not
+established; docs/MODEL_CARD.md), not a large accuracy win.
 
 Like `scripts/auc_intervals.py`, this needs the (git-ignored) FIRMS/ERA5/DEM
 bundle to rebuild the LOFO dataset; absent it the script STOPs (exit 2) rather
@@ -78,12 +79,25 @@ def main() -> int:
     rf = rows["random_forest"]["mean_of_folds"]
     margin = gbm - rf
     verdict = ("MARGINAL over random forest — pivot the 'technical excellence' claim to "
-               "calibrated probabilities + speed + severity≫direction interpretability, "
+               "calibrated probabilities + speed + interpretability, "
                "NOT a large accuracy win." if margin < 0.03 else
                "GBM leads random forest by a clear margin on mean-of-folds.")
     print(f"\n  GBM − RF mean-of-folds margin = {margin:+.3f}  →  {verdict}")
 
-    out = {"seed": args.seed, "models": rows, "canonical_reference": CANON_REFERENCE,
+    # ⚠ Both known lineages ride along, so a reader can see which bundle
+    # this run measured (the 2026-08-02 corrected DEMs land on the
+    # dem_corrected values; docs/MODEL_CARD.md, DEM-correction section).
+    refs = {"canonical_reference": CANON_REFERENCE}
+    try:
+        _dc = json.loads((PROC / "spread_v2_lofo_dem_corrected.json")
+                         .read_text(encoding="utf-8"))
+        refs["dem_corrected_reference"] = {
+            "mean_of_folds": round(sum(_dc["per_fire_auc"].values())
+                                   / len(_dc["per_fire_auc"]), 4),
+            "pooled": _dc["pooled_auc"]}
+    except (OSError, KeyError, ValueError):
+        pass
+    out = {"seed": args.seed, "models": rows, **refs,
            "gbm_minus_rf_mean_of_folds": round(margin, 4), "interpretation": verdict,
            "note": "identical 16 features / folds / seed; hyperparameters untuned"}
     Path(args.out).write_text(json.dumps(out, indent=2, default=str))

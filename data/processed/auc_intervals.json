@@ -1,0 +1,252 @@
+{
+  "seed": 20250603,
+  "gate_passed": true,
+  "gate_lineage": "dem_corrected",
+  "consistency_gate": {
+    "pooled_canonical": 0.9053277489374548,
+    "pooled_rerun": 0.9036468798222611,
+    "mean_of_folds_canonical": 0.89,
+    "mean_of_folds_rerun": 0.8943
+  },
+  "per_fire": {
+    "gangneung_2023": {
+      "auc_ci_delong": {
+        "auc": 0.7184,
+        "se": 0.0511,
+        "ci95": [
+          0.6085,
+          0.8072
+        ],
+        "n": 396,
+        "n_pos": 8
+      },
+      "significance_vs_0p5": {
+        "auc": 0.7184278350515464,
+        "se": 0.05113934913077891,
+        "z": 4.27122829610052,
+        "p_value": 1.9439927304199344e-05,
+        "ref": 0.5
+      },
+      "permutation_vs_0p5": {
+        "auc": 0.7184278350515464,
+        "p_value": 0.013986013986013986,
+        "n_perm": 1000,
+        "seed": 20250603,
+        "alternative": "auc > 0.5"
+      }
+    },
+    "hongseong_2023": {
+      "auc_ci_delong": {
+        "auc": 0.9393,
+        "se": 0.0124,
+        "ci95": [
+          0.91,
+          0.9594
+        ],
+        "n": 3353,
+        "n_pos": 34
+      },
+      "significance_vs_0p5": {
+        "auc": 0.9392712191836662,
+        "se": 0.012358769231633317,
+        "z": 35.5432819361425,
+        "p_value": 1.0551761846595778e-276,
+        "ref": 0.5
+      },
+      "permutation_vs_0p5": {
+        "auc": 0.9392712191836663,
+        "p_value": 0.000999000999000999,
+        "n_perm": 1000,
+        "seed": 20250603,
+        "alternative": "auc > 0.5"
+      }
+    },
+    "miryang_2022": {
+      "auc_ci_delong": {
+        "auc": 0.9768,
+        "se": 0.0106,
+        "ci95": [
+          0.944,
+          0.9906
+        ],
+        "n": 3019,
+        "n_pos": 24
+      },
+      "significance_vs_0p5": {
+        "auc": 0.9768224819143017,
+        "se": 0.010593209747356667,
+        "z": 45.01208729802443,
+        "p_value": 0.0,
+        "ref": 0.5
+      },
+      "permutation_vs_0p5": {
+        "auc": 0.9768224819143017,
+        "p_value": 0.000999000999000999,
+        "n_perm": 1000,
+        "seed": 20250603,
+        "alternative": "auc > 0.5"
+      }
+    },
+    "uiseong_andong_2025": {
+      "auc_ci_delong": {
+        "auc": 0.8751,
+        "se": 0.0036,
+        "ci95": [
+          0.8679,
+          0.8819
+        ],
+        "n": 82736,
+        "n_pos": 1502
+      },
+      "significance_vs_0p5": {
+        "auc": 0.8750543587532484,
+        "se": 0.0035709202367728825,
+        "z": 105.0301697839639,
+        "p_value": 0.0,
+        "ref": 0.5
+      },
+      "permutation_vs_0p5": {
+        "auc": 0.8750543587532484,
+        "p_value": 0.000999000999000999,
+        "n_perm": 1000,
+        "seed": 20250603,
+        "alternative": "auc > 0.5"
+      },
+      "far_band_auc_ci_delong": {
+        "auc": 0.7893,
+        "se": 0.0177,
+        "ci95": [
+          0.7524,
+          0.8219
+        ],
+        "n": 36306,
+        "n_pos": 104
+      }
+    },
+    "uljin_samcheok_2022": {
+      "auc_ci_delong": {
+        "auc": 0.9159,
+        "se": 0.0036,
+        "ci95": [
+          0.9086,
+          0.9227
+        ],
+        "n": 41651,
+        "n_pos": 652
+      },
+      "significance_vs_0p5": {
+        "auc": 0.9158966281835095,
+        "se": 0.0035847181120115656,
+        "z": 116.01933964903282,
+        "p_value": 0.0,
+        "ref": 0.5
+      },
+      "permutation_vs_0p5": {
+        "auc": 0.9158966281835095,
+        "p_value": 0.000999000999000999,
+        "n_perm": 1000,
+        "seed": 20250603,
+        "alternative": "auc > 0.5"
+      },
+      "far_band_auc_ci_delong": {
+        "auc": 0.9536,
+        "se": 0.0114,
+        "ci95": [
+          0.9253,
+          0.9715
+        ],
+        "n": 20103,
+        "n_pos": 26
+      }
+    },
+    "yeongdeok_2025": {
+      "auc_ci_delong": {
+        "auc": 0.9403,
+        "se": 0.0025,
+        "ci95": [
+          0.9352,
+          0.945
+        ],
+        "n": 20749,
+        "n_pos": 769
+      },
+      "significance_vs_0p5": {
+        "auc": 0.9402991092522952,
+        "se": 0.0024855207969902613,
+        "z": 177.14561462750873,
+        "p_value": 0.0,
+        "ref": 0.5
+      },
+      "permutation_vs_0p5": {
+        "auc": 0.9402991092522952,
+        "p_value": 0.000999000999000999,
+        "n_perm": 1000,
+        "seed": 20250603,
+        "alternative": "auc > 0.5"
+      },
+      "far_band_auc_ci_delong": {
+        "auc": 0.9692,
+        "se": 0.0073,
+        "ci95": [
+          0.9513,
+          0.9807
+        ],
+        "n": 6323,
+        "n_pos": 10
+      }
+    }
+  },
+  "mean_of_folds_interval": {
+    "mean": 0.8942999999999999,
+    "sd": 0.09243728684897669,
+    "n": 6,
+    "ci95": [
+      0.7972930167253953,
+      0.9913069832746044
+    ],
+    "small_sample": true,
+    "caveat": "n=6 folds \u2014 small-sample t interval; the per-fold DeLong CIs are the stronger evidence"
+  },
+  "pooled_bootstrap_ci": {
+    "auc": 0.9036468798222611,
+    "ci95": [
+      0.8994431116873073,
+      0.9076198150844358
+    ],
+    "n_boot_effective": 1000,
+    "seed": 20250603,
+    "method": "percentile bootstrap"
+  },
+  "far_band_gt3km": {
+    "mean_of_folds": {
+      "mean": 0.9040180777306551,
+      "sd": 0.09969724467449666,
+      "n": 3,
+      "ci95": [
+        0.6563563924771382,
+        1.151679762984172
+      ],
+      "small_sample": true,
+      "caveat": "n=3 folds \u2014 small-sample t interval; the per-fold DeLong CIs are the stronger evidence"
+    },
+    "pooled_bootstrap_ci": {
+      "auc": 0.8408179410762759,
+      "ci95": [
+        0.8157704761119169,
+        0.8664023134449875
+      ],
+      "n_boot_effective": 1000,
+      "seed": 20250603,
+      "method": "percentile bootstrap"
+    },
+    "canonical_pooled": 0.8765583120330634
+  },
+  "oof_artifact": "/Users/jp/Desktop/Korea Code Fair/wildfireguardian/data/processed/spread_v2_lofo_oof.csv.gz",
+  "method_notes": {
+    "delong": "Sun & Xu 2014 fast midrank single-classifier variance; logit CI",
+    "bootstrap": "1000 stratified resamples, seed 20250603",
+    "permutation": "1000 label permutations, seed 20250603",
+    "mean_of_folds": "t-interval; n=6 small-sample caveat carried",
+    "no_model_change": true
+  }
+}

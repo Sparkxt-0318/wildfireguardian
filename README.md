@@ -218,7 +218,9 @@ Round 3 은 새 기능을 얹기 전에 **기존 수치가 아직 참인지 확�
   [`docs/weather_dependency.md`](docs/weather_dependency.md) §②.)* PHASE 14.
 - **규모**: 16개 특징, 151,904행 / 양성 2,989(약 1.97 %), 시드 20250603,
   좌표계 EPSG:5179.
-- **원거리(>3 km) 폴드 평균 AUC = 0.925** (n=3; 화선의 *도달* 예측력), 통합 pooled
+- **원거리(>3 km) 폴드 평균 AUC = 0.925** (n=3; 화선의 *도달* 예측력 — ⚠ 이
+  값은 커밋된 적 없는 정정 이전 재실행의 것으로, 커밋된 산출물
+  `auc_intervals.json`(정정 계보)은 **0.904 ± 0.100** 을 담습니다), 통합 pooled
   0.877 — ⚠ 정정 DEM 재실행에서는 pooled 원거리대가 **0.8408**로 내려갑니다.
   0.877 을 인용할 때는 이 캐비앗을 함께 제시하십시오
   ([`docs/MODEL_CARD.md`](docs/MODEL_CARD.md) DEM 정정 절). 순방향 모의 화선
@@ -248,15 +250,23 @@ Round 3 은 새 기능을 얹기 전에 **기존 수치가 아직 참인지 확�
 >
 > | 모델 | 폴드 평균 AUC ± SD | pooled |
 > |---|---|---|
-> | 랜덤포레스트 | 0.920 ± 0.036 | 0.898 |
+> | 랜덤포레스트 | 0.914 ± 0.044 | 0.896 |
 > | 로지스틱 회귀 | 0.903 ± 0.060 | 0.826 |
-> | **hist_gbm (본 모델)** | **0.889 ± 0.107** | **0.905** |
+> | **hist_gbm (본 모델)** | **0.894 ± 0.092** | **0.904** |
 >
-> 폴드 평균에서는 랜덤포레스트가 근소 우위이나, **보정된 확률**(라우터가 실제
-> `P(ignite)` 를 소비) · **추론 속도** · **해석가능성**(순열 중요도를 산출)을
-> 근거로 GBM을 정식 모델로 채택했습니다. ⚠ 채택 근거로 들었던 "세기 ≫ 풍향"
-> 발견은 이후 미확립으로 철회되었습니다(위 참조). 나머지 두 근거는 유효합니다.
-> 베이스라인 수치는 동일 게이트형 재실행(`scripts/ml_baselines.py`)으로 재현합니다. 방법론:
+> ⚠ 표의 수치는 커밋된 산출물 `data/processed/ml_baselines.json`(2026-08-10,
+> **정정 DEM 번들** — 이 기기의 유일한 번들)의 값입니다. 이전 판의 수치
+> (랜덤포레스트 0.920 등)는 커밋된 적 없는 정정 이전 실행의 것이었으며, 순위
+> 결론(폴드 평균 RF 근소 우위, pooled GBM 우위)은 두 계보에서 동일합니다.
+>
+> 폴드 평균에서는 랜덤포레스트가 근소 우위입니다. ⚠ **보정도 GBM의 차별점이
+> 아닙니다** — 실측(`calibration_metrics.json`): pooled Brier/ECE 가 GBM
+> 0.0183/0.0086, RF **0.0174/0.0068** 로 베이스라인이 GBM 만큼 잘 보정됩니다.
+> GBM 채택의 실측 근거는 **pooled AUC 우위 · 추론 속도 · NaN 원생 처리 ·
+> 순열 중요도 산출**이며, 「보정된 확률」은 GBM 의 절대적 성질(라우터가 실제
+> `P(ignite)` 를 소비, Brier 0.018)이지 비교 우위가 아닙니다. ⚠ 채택 근거로
+> 들었던 "세기 ≫ 풍향" 발견은 미확립으로 철회되었습니다(위 참조).
+> 재현: `scripts/ml_baselines.py` · `scripts/calibration_metrics.py`. 방법론:
 > [`docs/baselines.md`](docs/baselines.md).
 
 ### 시스템 구성
@@ -462,7 +472,8 @@ probability `P(ignites by the next satellite overpass)`.
 - **Scale**: 16 features, 151,904 rows / 2,989 positives (~1.97 %), seed 20250603,
   EPSG:5179.
 - **Far-band (>3 km) mean-of-folds AUC = 0.925** (n=3; the "can it predict *reach*?"
-  question), pooled 0.877 — ⚠ the corrected-DEM re-run reads **0.8408** pooled;
+  question — ⚠ a never-committed pre-correction re-run; the committed
+  `auc_intervals.json` (corrected lineage) reads **0.904 ± 0.100**), pooled 0.877 — ⚠ the corrected-DEM re-run reads **0.8408** pooled;
   quote 0.877 only with that caveat ([`docs/MODEL_CARD.md`](docs/MODEL_CARD.md),
   DEM-correction section). Forward-simulated **footprint IoU ≈ 0.40** (Yeongdeok,
   3–12 h) — roughly **4×** the Rothermel surface model's **~0.09**, i.e. it captures
@@ -492,14 +503,20 @@ probability `P(ignites by the next satellite overpass)`.
 >
 > | model | mean-of-folds AUC ± SD | pooled |
 > |---|---|---|
-> | random forest | 0.920 ± 0.036 | 0.898 |
+> | random forest | 0.914 ± 0.044 | 0.896 |
 > | logistic regression | 0.903 ± 0.060 | 0.826 |
-> | **hist_gbm (ours)** | **0.889 ± 0.107** | **0.905** |
+> | **hist_gbm (ours)** | **0.894 ± 0.092** | **0.904** |
 >
-> Random forest edges us on mean-of-folds; we keep the GBM for its **calibrated
-> probabilities** (the router consumes a real `P(ignite)`), **inference speed**, and
-> **interpretability** (permutation importance is what surfaced "severity ≫
-> direction"). Values reproduce via `scripts/ml_baselines.py`
+> ⚠ Values are the committed artifact `data/processed/ml_baselines.json`
+> (2026-08-10, corrected-DEM bundle; an earlier revision carried a
+> never-committed pre-correction run's values — same ordering conclusions).
+> Random forest edges us on mean-of-folds. Calibration is **not** the
+> differentiator either — measured pooled Brier/ECE: GBM 0.0183/0.0086 vs
+> random forest **0.0174/0.0068** (`calibration_metrics.json`). What keeps
+> the GBM: the **pooled-AUC edge**, **inference speed**, **native NaN
+> handling**, and that it yields a **permutation-importance ranking** at all
+> (the "severity ≫ direction" reading of that ranking is withdrawn — see
+> above). Values reproduce via `scripts/ml_baselines.py`
 > ([`docs/baselines.md`](docs/baselines.md)).
 
 ### System architecture (high level)
