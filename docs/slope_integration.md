@@ -166,8 +166,10 @@ distance-min (42 → 43); on the reverted field it moved none.
 
 Switching `naive_route` to `time_min` does **not** make the two routers the
 same. `future_aware_route` minimises cumulative **exposure** on a time-expanded
-graph and breaks ties on arrival time; the status-quo router minimises one
-scalar and is **blind to the fire**. So `naive_into_FA_safe` still means *the
+graph and breaks ties on arrival time (⚠ precisely: it minimises a
+rounded-bin approximation of that exposure, which is not the same estimator
+the reports print — `routing_limitations.md` §2; contrasts are unaffected);
+the status-quo router minimises one scalar and is **blind to the fire**. So `naive_into_FA_safe` still means *the
 fire-blind route enters the predicted hazard and the future-aware one does not*.
 What changes is which fire-blind route is under test — the shortest one, or the
 fastest one. Both are fire-blind, and that is the whole comparison.

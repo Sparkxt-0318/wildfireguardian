@@ -54,9 +54,11 @@ def test_600min_counts_are_unchanged_by_the_new_category():
     assert c["both_enter"] == 0
     assert c["naive_unreachable"] == 0
     assert c[NEW_CATEGORY] == 0, (
-        "at a 600-minute budget the future-aware router always finishes, so the "
-        "new category must be empty — a non-zero value means it is capturing "
-        "origins that previously belonged to one of the five")
+        "on THIS committed field the category is empty at a 600-minute budget "
+        "— a non-zero value means the artifact moved. (This pins the committed "
+        "count, not a law: the bucket's code condition does not establish the "
+        "budget as the cause, and time-discretisation can populate it at any "
+        "budget — docs/routing_limitations.md §1.)")
     assert c["unclassified"] == 0
 
 

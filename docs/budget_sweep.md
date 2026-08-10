@@ -35,6 +35,10 @@ more nodes start at or above `p_cut`).
 
 ### The 600-minute budget still does not bind
 
+⚠ *Scope note (2026-08-10): the bucket's code condition does not establish the
+budget as the cause — see `routing_limitations.md` §1. On the committed fields
+the statements below hold as measured.*
+
 `fa_exceeds_budget` is **0 at 600 minutes on the canonical field too**, and the
 "차이" column is unchanged at +1 / +4 / +2 / +3. That is not a coincidence: a
 budget failure is a **walk-time** failure, and walk time is a property of the

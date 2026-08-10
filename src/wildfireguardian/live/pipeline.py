@@ -96,10 +96,16 @@ class RoutingCancelled(RuntimeError):
 
 
 #: Bucket -> (is_unreachable, Korean reason / route note).
+#: ⚠ `fa_exceeds_budget`'s sentence must not assert the BUDGET as the cause.
+#: The code condition is only "the direct route avoids the fire AND the
+#: future-aware search reached no refuge" — time-discretisation (the
+#: ceil-rounded hazard bin blocking every detour) produces the same bucket
+#: with the budget nowhere near binding, reproduced at 600 min. The sheet
+#: states what is established and no more. docs/routing_limitations.md §1.
 BUCKET_TEXT: dict[str, tuple[bool, str]] = {
     "naive_into_FA_safe": (False, "최단 경로는 화재 통과 — 우회 경로 필요"),
     "no_safe_route": (True, "예산 내 안전한 보행 경로가 없음(우회 포함)"),
-    "fa_exceeds_budget": (True, "보행 경로는 있으나 대피 시간 예산 초과"),
+    "fa_exceeds_budget": (True, "직행 경로는 화재를 지나지 않으나 예산 내 안전 도달은 확인되지 않음"),
     "both_enter": (True, "우회 경로도 화재를 통과함"),
     "naive_unreachable": (True, "대피처까지 연결된 경로 없음"),
 }
