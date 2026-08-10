@@ -388,7 +388,16 @@ svg{display:block;width:100%;height:100%}
 #calc{display:none;padding:9px 12px;background:#78350f;color:#fed7aa;
   font-size:13px;font-weight:700;border-bottom:1px solid #1f2a37;flex:0 0 auto}
 #calc.on{display:block}
-#tablewrap{flex:1 1 auto;overflow:hidden;min-height:0}
+/* overflow-y auto, NOT hidden: MAX_ROWS is measured for the 1920x1080 design
+   viewport, and on a 1366x768 or 1280x720 projector `hidden` silently cut the
+   bottom rows AND the 「외 N곳」 honesty line with no scrollbar and no
+   ellipsis — the list just appeared to end. At the design resolution the
+   content fits and nothing changes; below it, a scrollbar appears and every
+   row stays reachable. The console's runtime fitRows() is deliberately NOT
+   ported here: this screen's visible-row count is part of its exact-state
+   reconstruction property (the fill beat spans a fixed cap), and making the
+   cap viewport-dependent would make replay state viewport-dependent. */
+#tablewrap{flex:1 1 auto;overflow-y:auto;overflow-x:hidden;min-height:0}
 table{width:100%;border-collapse:collapse;font-size:12px;
   font-variant-numeric:tabular-nums}
 th{position:sticky;top:0;background:#16202b;color:#94a3b8;font-size:10.5px;
