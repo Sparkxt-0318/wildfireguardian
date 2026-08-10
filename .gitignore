@@ -190,6 +190,14 @@ data/processed/**
 # Rescue capacity / triage demand–supply sweep (small JSON; PoC capacity params;
 # regenerable via scripts/verify_rescue_routing.py --sweep capacity).
 !data/processed/rescue_capacity.json
+# PHASE 23 dispatch-ordering comparison: contribution ② against three alternative
+# orderings over 270 configurations, three arms, plus the measured proof that the
+# SHIPPED capacity model is ordering-blind on the Yeongdeok list. Regenerable via
+# scripts/run_dispatch_ordering.py from the snapshot store and the committed
+# hazard npz files (no network I/O, seeds pinned), but it must be in-tree because
+# five NUMBERS.json entries read from it and would otherwise be uncheckable on a
+# fresh clone.
+!data/processed/dispatch_ordering_comparison.json
 # Pre-flip SYNTHETIC baseline snapshot of the four rescue JSONs, kept in-tree so
 # the Round-2 report's OLD(synthetic) column is verifiable alongside the NEW(real)
 # outputs in one commit. Regenerable with the scripts' --synthetic flag.

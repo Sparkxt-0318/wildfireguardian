@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "title": "Korean baseline freeze — PHASE 13 PHASE 0",
-  "frozen_utc": "2026-08-10T02:03:11Z",
-  "git_commit": "0ce28cd0e745278bac7fe9b06f132aaa12b54d07",
+  "frozen_utc": "2026-08-10T08:10:57Z",
+  "git_commit": "c0bd5603345eb9bae3453259ae27332dbc23cd78",
   "config_hash": "f21177ab83cbccc24b4bede3d134630aac4e90943e3e131a2b326b2bf7f6cc80",
-  "registry_entries": 136,
+  "registry_entries": 141,
   "lofo_shape": {
     "n_rows": 151904,
     "n_positives": 2989,
@@ -43,6 +43,7 @@
     "data/processed/dem_negative_elevation_audit.json": "a2c059643b014dd7d8efe75650e4ee2c37c86a129da4d012d056176dd4713a52",
     "data/processed/demo_data.json": "83dcaf7f8e69b6601ed687d2bc86035a3c86d0120cb200573585a2df8ce21b06",
     "data/processed/dilation_perturbation.json": "274e52dd9344028b6758616f8131f419da0c2a23b980cc291c5af5edff3fb034",
+    "data/processed/dispatch_ordering_comparison.json": "b2c395a5c95e990247afa271199eea928dee8a774c608915b30cfc6e8cefe65b",
     "data/processed/forecast_robustness.json": "f3d196d06b348726375f6450ae53c3d08b5dab24aa67258431e2418cf38f9a4c",
     "data/processed/forward_sim_regions.json": "b666a07917ad78fc158b55e8569f8557eb10fca7af167140178d1037d591bd50",
     "data/processed/hazard_uiseong_andong_2025.npz": "4016c2e6ef8e27eb12310a816a416b6d1a6bf54d0187d6ac8fbc4ad4f747e3cd",

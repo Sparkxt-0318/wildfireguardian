@@ -11,8 +11,8 @@ Both were investigated and deliberately stopped.**
 | branch (historical) | `round3-dev` (tracked `origin/round3-dev`), HEAD `fb1d011` at the time §1–§14 were written |
 | baseline tag | **`round2-submitted`** = `4e9dfe3` — the submitted state |
 | environment | conda env **`wfg311`**, Python 3.11.15 — see [`ENVIRONMENT.md`](ENVIRONMENT.md) |
-| suite | **1,021 passed, 3 skipped, 0 failed** (measured 2026-08-10, after PHASE 5 committed `calibration_metrics.json` and its regeneration gate ran for the first time; skips = 2 by design + the closed-DEM-gap gate). Historical: 743/2 at `fb1d011`, 544 at PHASE 5. |
-| registry | [`NUMBERS.json`](NUMBERS.json) — **136 entries, 120 reproducible** (PHASE 13 registered the 15 OSM-completeness covariates that §5 rule 12 names) |
+| suite | **1,033 passed, 3 skipped, 0 failed** (measured 2026-08-10 on `dispatch-ordering`, after PHASE 23 added `tests/test_dispatch_ordering.py`; skips = 2 by design + the closed-DEM-gap gate). Historical: 1,021/3 before PHASE 23, 743/2 at `fb1d011`, 544 at PHASE 5. |
+| registry | [`NUMBERS.json`](NUMBERS.json) — **141 entries, 125 reproducible** (PHASE 23 added the 5 `dispatch_order_*` entries; PHASE 13 registered the 15 OSM-completeness covariates that §5 rule 12 names) |
 | OSM regions | 3 acquired + snapshotted (`MANIFEST.json`, **74 entries** as of 2026-08-10; was 68 — 64 + 4 FIRMS NRT polls — when this file was first written) |
 | config hash | `8e29a6cc4a99…` — moved from `05c6feae1dff…` by PURE ADDITION (the PHASE-13 `fuel:` block; a rebuild moved **0** registered values). Earlier lineage below. Superseded text: `05c6feae1dff…` — moved from `faf90a81b7e6…` by PURE ADDITION (the PHASE-6 `live:` block; no existing value changed, and re-running `build_numbers.py` moved **only** the per-entry `config_hash` stamp, 0 values). Earlier lineage: `0b6eb481177a…` → `51ec446843b6…` at `cc41f12`. `NUMBERS.json.config_hash_note` records why this is expected. |
 
@@ -139,6 +139,68 @@ state as of 2026-08-06 and is kept as the record of what PHASE 21 itself did
 not do: nothing had been built then beyond `demo/operator_screen.html`
 (PHASE 8, replay-only, no solver) and the service layer underneath.
 
+
+### 1.2-c PHASE 23 — the dispatch ordering, measured against alternatives
+
+⚠ **The one finding in this file that goes against a headline contribution.**
+Contribution ② is "배차 목록을 시한이 임박한 순서로 정렬한다". It had never been
+compared with any other ordering. It now has been, over 270 configurations
+(4 arms × 2 windows × 3 service times × 3 delays × 5 team counts), against
+nearest-first, closure-first, the unsorted scan order and 200 seeded shuffles.
+
+**It wins 3.6 % of the time, ties 36.7 %, loses 59.7 % — and at the committed
+75-minute responder window it wins 0 of 180.** All thirteen wins sit at an
+exploratory 240-minute window. The mechanism is measured, not guessed: at
+W = 75 the operational window shuts before the corridors do, so the homes share
+one deadline (영덕 합성 6 distinct deadlines over 142 homes, 영덕 real **2** over
+124, 울진·삼척 real **2** over 116) and the sort key carries almost no
+information, while nearest-first saves 6–13 minutes per round trip and converts
+that into extra trips.
+
+⚠ **One arm was approved for exclusion and then not excluded.** STEP 0
+recommended dropping 영덕 real for zero power, on the branch-only closure
+measurement at `vehicle_cutoff` **0.30** (40/40 closures at t=0, one distinct
+time). At `Main`'s **0.70** the profile is 42 at t=0 **and 3 at t=180** — two
+distinct times, not one. Dropping an arm on a premise that shifted under a
+different threshold is the §4-B failure, so it was run. It then produced the
+worst result for the shipped ordering of any arm: 13 rescues at 8 teams against
+nearest-first's 24, below both the unsorted order (16) and the random mean
+(15.7).
+
+Two things this does NOT do. It does not change `rescue.py::capacity_triage`,
+which is still the shipped model, and it does not move
+`rescue_capacity.json` — 8 teams / 14.4 %, unreachable 6/24/66 are unchanged.
+It does introduce a **travel-aware occupancy rule** in a new file, because the
+shipped rule (`free_at = departure + service`) makes travel free and is
+therefore ordering-blind on the Yeongdeok list.
+
+**⚠ Contribution ②, restated — SETTLED 2026-08-10. Use this wording.**
+
+> **기여 ② 는 「어느 진입로가 언제 닫히는지를 계산해 제시하는 것」입니다.**
+> 그 정보로 배차 목록을 정렬하는 것은 **운용 창이 회랑 폐쇄 시각을 넘어설
+> 때에만** 유효하며, **커밋된 W = 75분은 그 조건을 만족하지 않습니다.**
+
+The information is the contribution: `ingress_survival_time_min` per home is a
+value nothing else in this project — or in the systems it is compared against —
+computes, and it separates the regions sharply (영덕 real 45 closures, 42 of them
+at t=0; 울진·삼척 real 7 closures, 5 of them stepping through 180/360/540 min).
+The *ordering* built on it is conditional, and the condition is measurable: 13 of
+360 cells favour it and **all thirteen are at W = 240**.
+
+⚠ **Never quote ② without the condition.** The accurate sentence is not "our
+ordering is best" but "it holds only under this condition, and the current
+configuration is not that condition". Dropping the conditional clause re-asserts
+exactly what this experiment refuted; the registered `dispatch_order_*` forbidden
+phrasings block the "검증되었다 / 최적" family.
+
+⚠ **The output ordering was NOT changed, and is not to be.** Nearest-first
+rescues more in all four arms at the committed cell (24 vs 19 / 19 / 16 / 13),
+but changing the sort would move the print order of every A4 sheet, SMS draft and
+마을방송 script and desynchronise them from the committed `outputs/dispatch*`.
+`printable.py::DISPATCH_HEADING` and `live/pipeline.py::WALK_DISPATCH_HEADING`
+stay as they are. What this phase licenses is **stating the condition in the
+documents and the presentation**, not re-sorting the shipped output.
+[`dispatch_ordering.md`](dispatch_ordering.md) §8.
 
 ### 1.3 The numbers that are new in Round 3
 
@@ -622,6 +684,8 @@ fire_station이 없으며, 더 넓은 3,926 km² 범위에는 6곳이 있습니�
 | `routing_demo.npz` not reproducible | Cause fully identified and **recoverable** — pin the grid to `bbox.fire_acquisition`. Not done: it would change results. |
 | 407-run directionality | Uses `abs(dz)` (conservative). Documented, not changed. |
 | `unclassified` in tight-budget buckets | Fixed by `fa_exceeds_budget`. No action. |
+| **PHASE 16 findings are branch-only** | The whole dispatch-degeneracy investigation lives on **`hazard-resolution`** (11 ahead of `Main`, 58 behind, never merged): 32 files, ~38.5k insertions — 4 docs (`hazard_time_resolution.md`, `impassability_threshold.md`, `threshold_provenance.md`), 7 scripts, 4 test files, a new `routing/impassability.py`, `rescue.py` +97, and ~994 lines of registry. **What it established, and `Main` records nowhere:** the Yeongdeok real field's dispatch key degenerates because every closing corridor closes at t=0; time resolution (`6ed4edd`), the impassability threshold (`1c16630`) and a short horizon (`1b166fc`) were each tested and ruled out; the **corridor definition** is the cause (`1b166fc`); and the non-circular replacement `T_close` = latest feasible departure was built, validated and **shipped as an OPT-IN with the default unchanged** (`eeca0c6`). **Why the alternative was not adopted IS recorded** — in the `1b166fc` and `eeca0c6` commit bodies and in that branch's `hazard_time_resolution.md`: key B's survival is biased upward because `rescuer_route` selects a corridor *for* surviving (circular), key B conflates "when the fire cuts this approach" with "how much detour the network offered", and switching the default would re-order every committed dispatch list. ⚠ **Not merged here, and it should not be merged wholesale**: the branch also *adopts* `p_cut = 0.30` (`9ce563f`) and carries re-run `*_pcut030` artifacts, which is a routing-behaviour change to Round-2/3 numbers and is the user's decision. **DECIDED 2026-08-10** — (a) carry the *record* only: this row plus [`dispatch_ordering.md`](dispatch_ordering.md) §3, **prose, no numbers imported**. Done. (b) **DO NOT import** `closure_time_distribution.json` / `hazard_time_resolution.json` as registered artifacts. They were produced at cutoff **0.30** while `Main`'s config is **0.70**, and a registry holding two cutoffs' numbers side by side is the failure mode this repository has hit repeatedly. Any figure from that branch must be quoted with its branch AND its cutoff, or not at all. (c) the `p_cut = 0.30` adoption, `impassability.py` and the `ingress_deadline_mode` opt-in stay out until separately approved. |
+| **The T_close deadline key is untested against ordering** | PHASE 23 compared four orderings under the **committed** deadline key (`ingress_survival − responder_ETA`, shortest-corridor mode). The `hazard-resolution` branch also built a non-circular alternative — `RescueConfig.ingress_deadline_mode = "latest_feasible_departure"`, T_close = the latest departure at which some depot still has a hazard-free route in (`eeca0c6`, opt-in, default unchanged). **Whether the ordering comparison comes out differently under that key has never been measured**, and the code is not on `Main`, so PHASE 23 did not test it. ⚠ Recorded, deliberately NOT done now. It is the natural next question only if (c) above is ever approved — testing it first would mean importing branch code to answer a question about a key this repository does not ship. |
 | ~~Yeongdeok walk-bbox coverage~~ | **CLOSED 2026-08-03.** It is **32.6 %** on the canonical field (the superseded 50.4 % was measured against the reverted run's four-times-smaller core). Accepted, reported as a covariate, and carried by every absolute Yeongdeok rate. Not fixed, and not to be fixed — §2-A. |
 
 ---
@@ -711,6 +775,54 @@ protected digests. Those catch a *retired* number being re-quoted. They cannot
 catch a citation whose event **never happened**, because there is nothing on
 file to match against. The §4-B rule — look the citation up before building on
 it — is the only defence for this class, and it is what caught it.
+
+### ⚠ Round-4 addendum (2026-08-10): a branch-only artifact quoted as a Main fact
+
+PHASE 23 opened with this premise, carried across several turns:
+
+> 「회랑 폐쇄 시각 분포 — 영덕: t=0 에 0 %, 중앙값 360분으로 이미 측정됨」
+
+**The measurement exists. It is not Yeongdeok's, and it is not on `Main`.**
+
+`data/processed/closure_time_distribution.json` (`run_closure_time_distribution.py`,
+commit `6491386`) lives **only on the `hazard-resolution` branch** — 11 commits
+ahead of `Main`, 58 behind, never merged. Neither the artifact, the script nor
+`docs/impassability_threshold.md` is in the working tree. What it measured, at
+`vehicle_cutoff = 0.30` (a threshold adopted on that branch; `Main`'s config is
+0.70):
+
+| region / field | corridors | closed | at t=0 | after t=0 | never | t=0 share | closure times |
+|---|---:|---:|---:|---:|---:|---:|---|
+| **Yeongdeok REAL** | 118 | 40 | **40** | **0** | 78 | **100.0 %** | one value: 0.0 |
+| Yeongdeok synthetic | 105 | 105 | 39 | 66 | 0 | 37.1 % | 0…150 min, 7 values |
+| **Uljin-Samcheok REAL** | 114 | 17 | 1 | 16 | 97 | **5.9 %** | 0/180/360/540 → **median 360** |
+| Uljin-Samcheok synthetic | 107 | 107 | 0 | 107 | 0 | **0.0 %** | 15…150 min, 7 values |
+| Uiseong-Andong | — | — | — | — | — | N/A | zero mapped fire stations |
+
+The cited profile — 0 % at t=0, median 360 — is **Uljin-Samcheok**. Yeongdeok's
+real field is its exact opposite: every closure lands at t=0, one distinct
+closure time, `sequential_closure_supported = false`. Two errors compounded —
+the wrong region, and a branch-only result treated as an established Main fact.
+
+**This is a new failure mode, distinct from the VPD one above.** There the cited
+event never happened anywhere. Here it did happen, was measured carefully, and
+was written down — on a branch that was never merged. `git log --all` finds it;
+`ls` and `grep` over the working tree do not. So the §4-B check has to be
+`git log --all` / `git branch -a --contains`, not just a working-tree grep, and
+the answer must carry **which branch** and **under which config** the number was
+produced.
+
+It was caught before any work was built on it, and it changed the experiment:
+Uljin-Samcheok was added as the second arm. **The exclusion it seemed to justify
+did not survive re-measurement either** — at `Main`'s cutoff of 0.70 Yeongdeok's
+real field has 42 closures at t=0 *and 3 at t=180*, two distinct times rather
+than one, so the arm was run instead of dropped. That is the same lesson twice:
+a number produced under a different config is a different number.
+[`dispatch_ordering.md`](dispatch_ordering.md) §3.
+
+⚠ **Also open, and separate:** that whole PHASE-16 investigation — the dispatch
+degeneracy, its cause, and the alternative key that was reported but not adopted
+— exists nowhere on `Main`. See §4 「PHASE 16 findings are branch-only」.
 
 ## 5. ⚠ Never do these
 
@@ -941,6 +1053,7 @@ Override the interpreter with `make verify PYTHON=/path/to/python`.
 | [`screen_gate_scope.md`](screen_gate_scope.md) | **what the dash gate covers and why; ⚠ both of its original reasons were measured and found wrong, and it cannot see strings that arrive as JSON payload** |
 | [`region_literals.md`](region_literals.md) | **⚠ READ §0. One region's values typed into text every region reads — the same defect three times, why single-region verification cannot reveal it, and the check now in `make verify`** |
 | [`routing_limitations.md`](routing_limitations.md) | **Round-4 (2026-08-10): five measured limits of the routing layer — the bucket that names a cause the code does not establish, the objective-vs-report estimator gap, the slice-quantised 남은 시간, the non-Markov clock, the row-weighted importance. Recorded, deliberately not fixed; paired contrasts unaffected.** |
+| [`dispatch_ordering.md`](dispatch_ordering.md) | **⚠ PHASE 23 (2026-08-10) — contribution ② measured against three alternative orderings over 360 configurations, four arms. The result is largely NEGATIVE: 시한 임박 순 beats 가까운 순 in 3.6 % of cells and in **0 of 180** at the committed 75-minute window. §3 records the arm that was approved for exclusion and then run anyway; §6 has the measured mechanism; §8 the three ways the claim can honestly be restated. Read it before writing contribution ② into any submission text.** |
 | [`weather_dependency.md`](weather_dependency.md) | **PHASE 14 — how much of the model's skill is instantaneous weather, and the ceiling on a forecast-source swap** |
 | [`baseline_phase13.json`](baseline_phase13.json) | **the frozen Korean baseline — every `data/processed` digest, the four PROTECTED paths, the LOFO shape, and the sha256 of the git-ignored `fire_manifest.json`. `make baseline-verify`.** |
 | **§13 of this file** | **PHASE 13 — the portability investigation, the four defects it found, why McKinney 2022, the four-arm design, and the resume condition** |

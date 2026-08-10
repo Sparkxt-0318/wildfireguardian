@@ -61,6 +61,7 @@ OBJBUD_CANON = "data/processed/objective_budget_canonical.json"  # step 3
 BBOX_EST = "data/processed/yeongdeok_bbox_reacquisition_estimate.json"  # step 4
 BLD_ROUTE = "data/processed/building_origin_routing.json"      # PHASE 18
 BLD_BIAS = "data/processed/building_spatial_bias.json"         # PHASE 18
+ORDER = "data/processed/dispatch_ordering_comparison.json"     # PHASE 23
 
 # Reproducibility is MEASURED, not assumed. Each artifact was re-run on
 # 2026-08-01 into a scratch directory and diffed against the committed copy.
@@ -201,6 +202,15 @@ REPRO = {
                     "pinned to 2.0.7. Every input is hash-verified in MANIFEST.json, "
                     "the routing is deterministic, and the resampling seed is pinned "
                     "in config (building_origins.sample_seed).",
+        "blocked_by": None,
+    },
+    ORDER: {
+        "status": "reproducible",
+        "evidence": "built 2026-08-10 from the snapshot store and the committed "
+                    "hazard npz files; scripts/run_dispatch_ordering.py re-derives "
+                    "every dispatch list from those inputs, asserts the Yeongdeok "
+                    "arm reproduces drift arm B (441/174/32/142), and pins the "
+                    "random arm to seeds 0..199. No network I/O, no sampling.",
         "blocked_by": None,
     },
     BLD_BIAS: {
@@ -1795,6 +1805,118 @@ def main() -> int:
                             "c": op(BLD_ROUTE,
                                     "regions.2.building_level_counts.unclassified")},
                "expr": "a + b + c", "tolerance": 0.0},
+    )
+
+    # ------------------------------- PHASE 23: dispatch ORDERING ------------
+    # ⚠ These measure contribution ② itself and the answer is largely NEGATIVE.
+    # They belong to a NEW occupancy model (travel-aware); the committed
+    # rescue_capacity.json numbers are unchanged and are not restated here.
+    _ORD_CELL = "grid.depot_return|W75|s25p0|d30"
+    N["dispatch_order_deadline_wins_pct"] = entry(
+        value=3.6, unit="% of cells", source_file=ORDER,
+        json_path="summary.deadline_beats_nearest.pct",
+        derivation=("share of the 360 headline cells (4 arms x 2 windows x 3 service "
+                    "times x 3 delays x 5 team counts, depot-return occupancy) in "
+                    "which 시한 임박 순 rescues MORE than 가까운 순"),
+        sample="360개 구성",
+        caveat=("⚠ THE SHIPPED ORDERING LOSES. It ties in 36.7 % of cells and loses "
+                "in 59.7 %. Every one of the 13 wins is at W = 240 min, an "
+                "EXPLORATORY window 3.2x the committed 75 min; at the committed "
+                "window it wins 0 of 180. Measured under a TRAVEL-AWARE occupancy "
+                "rule that the shipped capacity_triage does not use, on the "
+                "Yeongdeok DRIFT ARM B lists and two Uljin-Samcheok lists — never on "
+                "the committed 439 series. Reports the ORDERING contrast only; it is "
+                "not a rescue-capacity forecast and carries no 'lives saved' reading."),
+        forbidden_phrasings=["우선순위 정렬이 더 많이 구한다",
+                             "deadline-first rescues more",
+                             "시한 임박 순이 최적", "우선순위가 검증되었다",
+                             "priority ordering validated"],
+        check={"kind": "json_path",
+               "operands": {"a": op(ORDER, "summary.deadline_beats_nearest.pct")},
+               "expr": "a", "tolerance": 0.0},
+        notes=("scripts/run_dispatch_ordering.py. Routing logic untouched: every "
+               "responder_eta_min and ingress_survival_time_min comes from the "
+               "committed pipeline. docs/dispatch_ordering.md."),
+    )
+    N["dispatch_order_deadline_wins_at_committed_window"] = entry(
+        value=0, unit="cells of 180", source_file=ORDER,
+        json_path="summary.by_window.W75.deadline_wins",
+        derivation=("cells at the COMMITTED responder window W = 75 min in which "
+                    "시한 임박 순 beats 가까운 순 (88 ties, 92 losses)"),
+        sample="커밋된 W=75 구성 180개",
+        caveat=("ZERO. At the window the system actually ships, deadline-first never "
+                "rescues more than nearest-first. The measured mechanism is in the "
+                "same artifact: at W = 75 the operational window closes before most "
+                "corridors do, so homes share one deadline and the sort key carries "
+                "almost no information — 영덕 합성 6 distinct deadlines over 142 homes, "
+                "영덕 real 2 over 124, 울진·삼척 real 2 over 116."),
+        forbidden_phrasings=["시한 정렬은 W=75에서도 유효", "deadline ordering holds at W=75"],
+        check={"kind": "json_path",
+               "operands": {"a": op(ORDER, "summary.by_window.W75.deadline_wins")},
+               "expr": "a", "tolerance": 0.0},
+    )
+    N["dispatch_order_committed_cell_gap"] = entry(
+        value=-5, unit="rescues", source_file=ORDER,
+        json_path=f"arms.yeongdeok_2025|synthetic.{_ORD_CELL}",
+        derivation=("deadline_closing_window.8 − nearest_eta.8 at the primary arm's "
+                    "committed cell (W = 75, service = 25 min, delay = 30 min, "
+                    "8 teams): 19 − 24"),
+        sample="영덕 합성 포락면, 8팀",
+        caveat=("The single most operationally relevant cell, and the shipped "
+                "ordering is 5 rescues BEHIND nearest-first. Same cell, 목록 순 "
+                "(no sort at all) = 16 and 무작위 200회 = 16.49 ± 1.69, so the sort "
+                "does beat no-sort here — it is nearest-first it loses to. Drift arm "
+                "B, NOT the committed 439 series. Absolute counts are illustrative: "
+                "service time and team count are PoC parameters, not measured "
+                "영덕 fire-service capacity."),
+        forbidden_phrasings=["19명을 구했다", "we rescue 19", "24명 구조",
+                             "구조 인원 24명"],
+        check={"kind": "expression",
+               "operands": {
+                   "a": op(ORDER, f"arms.yeongdeok_2025|synthetic.{_ORD_CELL}"
+                                  ".deadline_closing_window.8"),
+                   "b": op(ORDER, f"arms.yeongdeok_2025|synthetic.{_ORD_CELL}"
+                                  ".nearest_eta.8")},
+               "expr": "a - b", "tolerance": 0.0},
+    )
+    N["dispatch_order_largest_gap_against_deadline"] = entry(
+        value=-31, unit="rescues", source_file=ORDER,
+        json_path="summary.largest_gap_against_deadline.deadline_minus_nearest",
+        derivation=("the worst cell for the shipped ordering across all 360: "
+                    "울진·삼척 합성, W = 240, service = 12.5 min, delay = 30 min, "
+                    "5 teams — deadline 24 vs nearest 55"),
+        sample="최악 구성 1개",
+        caveat=("In that same cell 목록 순 (37) and 무작위 평균 (37.47 ± 2.62) also "
+                "beat the shipped ordering, so it is not merely losing to a better "
+                "rule — it is below an arbitrary order. Pair it with "
+                "dispatch_order_largest_gap_for_deadline (+25, same arm, delay 60, "
+                "8 teams) or the spread is misread as one-directional."),
+        forbidden_phrasings=["31명을 더 구한다", "31 more rescued"],
+        check={"kind": "json_path",
+               "operands": {"a": op(ORDER,
+                                    "summary.largest_gap_against_deadline"
+                                    ".deadline_minus_nearest")},
+               "expr": "a", "tolerance": 0.0},
+    )
+    N["dispatch_order_uljin_real_distinct_deadlines"] = entry(
+        value=2, unit="distinct deadlines", source_file=ORDER,
+        json_path=(f"arms.uljin_samcheok_2022|real.{_ORD_CELL}"
+                   ".binding_constraint.n_distinct_deadlines"),
+        derivation=("distinct values of min(ingress_survival, delay + W) over the 116 "
+                    "dispatch homes at the committed W = 75 / delay = 30; 114 of 116 "
+                    "take the window value"),
+        sample="울진·삼척 real, 배차 116곳",
+        caveat=("This is WHY the ordering cannot help. With two distinct deadlines "
+                "the urgency key is very nearly constant, so any sort of it is a sort "
+                "of noise. The corresponding 영덕 합성 figure is 6 over 142 homes. "
+                "It is a property of the window relative to the closure times, not a "
+                "defect in the sort."),
+        forbidden_phrasings=[],
+        check={"kind": "json_path",
+               "operands": {"a": op(ORDER,
+                                    f"arms.uljin_samcheok_2022|real.{_ORD_CELL}"
+                                    ".binding_constraint.n_distinct_deadlines")},
+               "expr": "a", "tolerance": 0.0},
     )
 
     doc = {
