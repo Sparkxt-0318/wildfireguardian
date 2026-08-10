@@ -416,6 +416,31 @@ def test_the_console_still_fails_the_strict_rule_and_that_is_expected():
 
 
 @console_only
+def test_the_cli_can_check_the_console_and_still_holds_the_demo_strict():
+    """--console makes the CLI usable as a pre-stage check of the console.
+
+    Before the flag existed the CLI always ran the strict rule, so checking
+    web/console.html always exited 1 on its 7 legitimate /api/ calls — a
+    pre-stage checklist step that can only fail is one nobody runs. Both
+    directions are pinned: with the flag the console passes, without it the
+    strict rule still fires (the relaxation must stay opt-in per invocation).
+    """
+    import subprocess
+
+    script = str(REPO / "scripts" / "check_screen_assets.py")
+    relaxed = subprocess.run(
+        [sys.executable, script, "--console", str(CONSOLE)],
+        capture_output=True, text=True, timeout=60, cwd=REPO)
+    assert relaxed.returncode == 0, relaxed.stdout[-400:]
+    strict = subprocess.run(
+        [sys.executable, script, str(CONSOLE)],
+        capture_output=True, text=True, timeout=60, cwd=REPO)
+    assert strict.returncode == 1, (
+        "the strict rule no longer fires without --console — the relaxation "
+        "has become the default")
+
+
+@console_only
 def test_the_console_carries_no_banned_dash_anywhere_it_shows():
     src = CONSOLE.read_text(encoding="utf-8")
     found = check_dashes(src) + check_dashes_in_scripts(src)

@@ -416,10 +416,12 @@ def palette_report(pairs: list[ContrastPair] = CURRENT_PALETTE) -> dict:
 # ---------------------------------------------------------------------------
 
 
-def check_file(path: Path, *, pairs: list[ContrastPair] | None = None) -> list[Finding]:
+def check_file(path: Path, *, pairs: list[ContrastPair] | None = None,
+               allow_same_origin_fetch: bool = False) -> list[Finding]:
     text = path.read_text(encoding="utf-8")
     html = path.suffix.lower() in (".html", ".htm")
-    found = check_offline(text) + check_dashes(text, html=html)
+    found = (check_offline(text, allow_same_origin_fetch=allow_same_origin_fetch)
+             + check_dashes(text, html=html))
     if html:
         found += check_dashes_in_scripts(text)
     if pairs:
@@ -434,6 +436,15 @@ def main() -> int:
                     help="screen assets to check (HTML/CSS/JS)")
     ap.add_argument("--report", action="store_true",
                     help="print the palette contrast audit and exit")
+    ap.add_argument("--console", action="store_true",
+                    help="apply the console's narrow relaxation: literal "
+                         "same-origin fetch('/api/…') is permitted, absolute "
+                         "URLs and every other network construct stay banned. "
+                         "ONLY for web/console.html — without this flag the "
+                         "console's 7 legitimate /api/ calls made every CLI "
+                         "check of it exit 1, so it could not be used as a "
+                         "pre-stage check at all. Never use it on demo/*.html: "
+                         "those screens replay, and a fetch in one is a bug.")
     ap.add_argument("--json", action="store_true")
     args = ap.parse_args()
 
@@ -462,7 +473,7 @@ def main() -> int:
 
     all_found: list[Finding] = []
     for p in args.paths:
-        found = check_file(p)
+        found = check_file(p, allow_same_origin_fetch=args.console)
         all_found += found
         status = "PASS" if not found else f"{len(found)} finding(s)"
         print(f"{p}: {status}")
