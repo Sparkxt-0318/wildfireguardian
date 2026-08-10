@@ -53,7 +53,7 @@
 - 예측 오차 하 경로 강건성 — 미래 인지 경로의 노출이 더 낮은 경우 **86 %**, 공간 오차 **125–530 m**에서 파단 → [`docs/forecast_robustness.md`](docs/forecast_robustness.md)
 - 형태학적 팽창 교란 — 약 **122 m**에서 파단하며 공간 이동 축과 동일 거리 → [`docs/dilation_perturbation.md`](docs/dilation_perturbation.md)
 - 취득 파라미터 문서화 — [`docs/data_provenance/`](docs/data_provenance/) (6개 화재 매니페스트 + 5개 화재 취득 기록)
-- 재현성 실측 — 도로망 재취득 시 출발지 **439→441**, 보행 실패율 **11.4 % → 13.6 %**로 변화. 그래프 스냅샷 미보존이 원인이며 한계로 기록 → [`docs/real_roads_real_hazard.md`](docs/real_roads_real_hazard.md)
+- 재현성 실측 — 도로망 재취득 시 출발지 **439→441**, 도달 불가 **24→32 (+33 %)**; 짝지어진 노출 대비는 **0.56 %p**만 이동(이진 판정은 망에 민감, 대비는 강건). 그래프 스냅샷 미보존이 원인이며 한계로 기록 → [`docs/network_drift.md`](docs/network_drift.md) *(이전 판이 여기 인용한 보행 실패율 변화 수치는 근거 산출물이 저장소에 없어 제거)*
 
 ---
 
@@ -108,6 +108,11 @@ Round 3 은 새 기능을 얹기 전에 **기존 수치가 아직 참인지 확�
 함께 움직입니다 ([`docs/multi_region.md`](docs/multi_region.md) §8). 영덕의 절대 비율은
 모두 **커버리지 32.6 %** 위의 값입니다.
 
+⚠ **3-구분을 더해도 주사 출발지와 일치하지 않는 지역이 있습니다** — 의성·안동
+263+91+12=366≠368, 울진·삼척 377+3+10=390≠393. 차이는 이 표가 생략한 넷째 버킷
+**예산 초과(`fa_exceeds_budget`)** 각 2곳·3곳입니다(영덕은 0). 완전한 분할은
+[`docs/multi_region.md`](docs/multi_region.md) §3 표에 있습니다.
+
 ⚠ **의성·안동은 919 km² 보행 bbox 안에 OSM 에 매핑된 `amenity=fire_station` 이 없어**
 구조자 측 산출이 불가합니다(더 넓은 3,926 km² 범위에는 6곳). 「소방서가 없다」가
 **아니라** OSM 매핑의 성질이며, 산출물은 이를 *0건*이 아니라 *해당 없음*으로 기록합니다.
@@ -157,7 +162,9 @@ Round 3 은 새 기능을 얹기 전에 **기존 수치가 아직 참인지 확�
 - **화면 게이트 3종** (`scripts/check_screen_assets.py`) — 오프라인(외부 요청 0),
   대시, WCAG 대비. ⚠ 이 게이트는 **JSON 페이로드로 도착하는 문자열을 보지 못합니다**;
   그 한계는 [`docs/screen_gate_scope.md`](docs/screen_gate_scope.md) 에 기록돼 있습니다.
-- **테스트 996개 통과 / 4개 건너뜀.**
+- **테스트 1,018개 통과 / 4개 건너뜀** (2026-08-10 실측; 수집 1,022개. 건너뜀
+  4 = 설계상 2 + `calibration_metrics.json` 미생성 1 + DEM 격차 해소로 무의미해진
+  게이트 1).
 
 ---
 
@@ -204,13 +211,18 @@ Round 3 은 새 기능을 얹기 전에 **기존 수치가 아직 참인지 확�
   ⚠ **「풍향이 중요하지 않다」는 뜻이 아닙니다.** 이 장비로는 볼 수 없다는 뜻입니다.
 - ⚠ **그리고 1위 특징은 폴드 밖에서 모델을 악화시킵니다.** `days_since_rain` 은
   순열 중요도 1위(**+0.077**)이지만, *제거하면* 폴드평균 AUC 가 **+0.0270**,
-  원거리대가 **+0.0533** 올라갑니다. 6개 산불 중 3개에서 이 값이 ERA5 창 길이와
-  정확히 같아, 일부는 산불별 지문입니다. PHASE 14,
-  [`docs/weather_dependency.md`](docs/weather_dependency.md) §②.
+  원거리대가 **+0.0533** 올라갑니다. 6개 산불 중 3개는 ERA5 창에 습윤 표본이
+  **0개**라 이 값이 비가 아니라 **취득 창 시작점**에 고정됩니다 — 학습 자료의
+  절반에서 취득 파라미터를 재는 셈입니다. *(「창 길이와 정확히 같다」던 이전
+  서술은 학습 테이블 실측과 달라 2026-08-10 정정 — 실측값은
+  [`docs/weather_dependency.md`](docs/weather_dependency.md) §②.)* PHASE 14.
 - **규모**: 16개 특징, 151,904행 / 양성 2,989(약 1.97 %), 시드 20250603,
   좌표계 EPSG:5179.
 - **원거리(>3 km) 폴드 평균 AUC = 0.925** (n=3; 화선의 *도달* 예측력), 통합 pooled
-  0.877. 순방향 모의 화선 **footprint IoU ≈ 0.40** (영덕, 3–12시간) — 물리(Rothermel)
+  0.877 — ⚠ 정정 DEM 재실행에서는 pooled 원거리대가 **0.8408**로 내려갑니다.
+  0.877 을 인용할 때는 이 캐비앗을 함께 제시하십시오
+  ([`docs/MODEL_CARD.md`](docs/MODEL_CARD.md) DEM 정정 절). 순방향 모의 화선
+  **footprint IoU ≈ 0.40** (영덕, 3–12시간) — 물리(Rothermel)
   표면 모델 **~0.09** 대비 약 **4배**로, 표면물리가 놓치는 수관화·비화(crown/spotting)
   영역을 포착합니다.
 
@@ -442,12 +454,17 @@ probability `P(ignites by the next satellite overpass)`.
 - ⚠ **And the top-ranked feature makes the model WORSE out-of-fold.**
   `days_since_rain` ranks first at **+0.077**, but *dropping* it **raises**
   mean-of-folds AUC by **+0.0270** and far-band by **+0.0533**. For three of six
-  fires it equals the ERA5 window length exactly, i.e. it is partly a per-fire
-  fingerprint. PHASE 14, [`docs/weather_dependency.md`](docs/weather_dependency.md) §②.
+  fires the ERA5 window holds **zero** wet samples, so the feature anchors to the
+  window START — an acquisition parameter, not rain — for half the training set.
+  *(An earlier revision said it "equals the window length exactly"; the canonical
+  table measures otherwise — corrected 2026-08-10, measured values in
+  [`docs/weather_dependency.md`](docs/weather_dependency.md) §②.)* PHASE 14.
 - **Scale**: 16 features, 151,904 rows / 2,989 positives (~1.97 %), seed 20250603,
   EPSG:5179.
 - **Far-band (>3 km) mean-of-folds AUC = 0.925** (n=3; the "can it predict *reach*?"
-  question), pooled 0.877. Forward-simulated **footprint IoU ≈ 0.40** (Yeongdeok,
+  question), pooled 0.877 — ⚠ the corrected-DEM re-run reads **0.8408** pooled;
+  quote 0.877 only with that caveat ([`docs/MODEL_CARD.md`](docs/MODEL_CARD.md),
+  DEM-correction section). Forward-simulated **footprint IoU ≈ 0.40** (Yeongdeok,
   3–12 h) — roughly **4×** the Rothermel surface model's **~0.09**, i.e. it captures
   the crown-fire / spotting regime that surface physics misses.
 
@@ -542,9 +559,10 @@ This repository provides:
 - **Rothermel physics fire-spread model** — preserved as the *initial* approach
   (see [Research log](#research-log--superseded-approaches-physics-model)).
 
-**Unit tests**: the full suite passes — **377 passed, 2 skipped** in a run with the
-data bundle absent (the only skips are real-data-dependent: FIRMS/SRTM bundles not
-present in a fresh clone), across 31 test modules.
+**Unit tests**: the full suite passes — **1,018 passed, 4 skipped** (measured
+2026-08-10 with the full data bundle present; data-dependent tests self-skip on
+a fresh clone, so a bundle-absent run passes with more skips). *(An earlier
+revision of this line carried the Round-2 count, 377/2.)*
 
 This is **not** production software. It is a single-fire (영덕) downstream PoC with
 synthetic-and-tagged auxiliary routing data, and must never be the sole input to a
@@ -735,8 +753,12 @@ An earlier project brief cited **0.834 / 0.80 / 0.32** (ROC-AUC / far-band /  <!
 footprint IoU) from a **different reconstruction** ("Build A": different fire set,
 19 features, seed 42). Build A and the canonical Build B are **two independent
 reconstructions and are not a like-for-like comparison** — the 0.834-vs-0.905 gap  <!-- forbidden-ok: 0.834 -->
-must **not** be read as "B is better". Both nonetheless corroborate the central
-finding (fire-weather *severity* ≫ wind *direction*). The full old→new correction
+must **not** be read as "B is better". ⚠ *A sentence here used to add that both
+builds "corroborate the central finding (severity ≫ direction)" — that finding
+is WITHDRAWN as not established (see the permutation-importance note above), and
+what the two builds jointly show is only that the measured ratio reproduces
+across implementations; both share the same 0.25° weather product, which is one
+of the withdrawal's reasons.* The full old→new correction
 mapping is in [`docs/MODEL_CARD.md`](docs/MODEL_CARD.md).
 
 ### spread_v2_xgb — superseded XGBoost re-train (legacy)
