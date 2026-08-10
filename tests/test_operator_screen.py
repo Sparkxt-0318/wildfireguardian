@@ -32,6 +32,14 @@ UA = REPO / "data" / "processed" / "real_roads_real_hazard_uiseong_andong_2025.j
 #: screen is a sibling file and is covered by tests/test_manual_trigger.py.
 ALL = sorted(SCREENS.glob("*/operator_screen.html")) if SCREENS.exists() else []
 
+#: The two TOP-LEVEL siblings the per-region glob does not see. DEMO is the
+#: four-minute-talk variant (--start-at 47 --paused-on-load); MANUAL is the
+#: manual-trigger screen, whose trigger semantics test_manual_trigger.py owns.
+#: Both shipped for months with pre-PHASE-21 EN-dash band labels because every
+#: glob here and in test_screen_checks.py missed the top level.
+DEMO = SCREENS / "uiseong_andong_2025_demo.html"
+MANUAL = SCREENS / "yeongdeok_2025_manual.html"
+
 pytestmark = pytest.mark.skipif(
     not SCREEN.exists() or not ALL,
     reason="operator screens not built (scripts/build_operator_screen.py)")
@@ -171,8 +179,23 @@ def test_the_hazard_surface_is_the_canonical_field():
     assert len(d["bands"]) == len(d["grid"]["times_min"]) == 5
 
 
-def test_the_probability_bands_are_discrete_and_labelled():
-    d = payload()
+def _every_built_screen() -> list:
+    """Every screen file on disk, INCLUDING the two top-level siblings.
+
+    ALL is the per-region list and stays that way (by_region() needs one
+    payload per region); this list exists for the checks that are about a
+    FILE's typography rather than a region's numbers.
+    """
+    extras = [p for p in (SCREEN, DEMO, MANUAL) if p.exists()]
+    return sorted(set(ALL) | set(extras))
+
+
+@pytest.mark.parametrize("screen", _every_built_screen(),
+                         ids=lambda p: p.stem if p.name != "operator_screen.html"
+                         else (p.parent.name if p.parent != SCREEN.parent
+                               else "demo-copy"))
+def test_the_probability_bands_are_discrete_and_labelled(screen):
+    d = payload(screen)
     assert len(d["band_labels"]) == len(d["band_fills"]) == 4
     # PHASE 21: the separator is a TILDE, not an EN dash. Two reasons, and the
     # second is the one that would have bitten in the hall:
@@ -353,7 +376,7 @@ def test_skip_preroll_variant_starts_at_detection():
 # 9. Demo window: --start-at, --paused-on-load, and exact state reconstruction
 # ---------------------------------------------------------------------------
 
-DEMO = SCREENS / "uiseong_andong_2025_demo.html"
+# DEMO and MANUAL are defined at the top of the file, beside ALL.
 
 
 def _run_json(region: str) -> dict:
@@ -418,8 +441,12 @@ def test_the_demo_screen_opens_thirty_seconds_before_the_trigger_and_paused():
 def test_the_demo_screen_is_the_same_region_and_data_as_the_full_one():
     """A separate start point must not mean separate numbers."""
     a, b = payload(DEMO), by_region()["uiseong_andong_2025"]
+    # band_labels/band_fills/responder are in this list because their absence
+    # is how a stale demo build carrying retired EN-dash labels passed while
+    # the full screen had already been rebuilt without them.
     for k in ("region", "counts", "origins", "actionable", "routes", "bands",
-              "hotspots", "triggers", "coverage_pct", "npz_sha256"):
+              "hotspots", "triggers", "coverage_pct", "npz_sha256",
+              "band_labels", "band_fills", "responder"):
         assert a[k] == b[k], k
 
 

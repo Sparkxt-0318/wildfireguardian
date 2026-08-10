@@ -39,9 +39,15 @@ from check_screen_assets import (  # noqa: E402
 #: PAPER, in whatever full font the PDF renderer uses, as a section heading with
 #: no numeric column to misalign. Neither half of the dash rule's rationale
 #: applies there. See `docs/screen_gate_scope.md`.
+#: ⚠ Both globs, not one. `*/*.html` alone matched only the per-region
+#: directories and silently excluded the two TOP-LEVEL siblings — the
+#: four-minute-talk demo variant and the manual-trigger screen — which is
+#: exactly how both shipped for months with pre-PHASE-21 EN-dash band labels
+#: while "every shipped screen passes the dash gate" was true of the list.
 SHIPPED_SCREENS = sorted(
     list((REPO / "demo").glob("*.html"))
-    + list((REPO / "outputs" / "live" / "screens").glob("*/*.html")))
+    + list((REPO / "outputs" / "live" / "screens").glob("*/*.html"))
+    + list((REPO / "outputs" / "live" / "screens").glob("*.html")))
 
 
 # ---------------------------------------------------------------------------

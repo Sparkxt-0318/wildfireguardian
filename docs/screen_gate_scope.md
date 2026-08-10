@@ -94,15 +94,27 @@ Fixed at their sources — `live/pipeline.py` uses a full stop, `BAND_LABELS` us
 `~` — and re-measured across **every payload string in every shipped screen and
 the console**:
 
+⚠ **The first version of this table (9,089 strings across six files) was
+measured over a list that silently excluded the two TOP-LEVEL screen files** —
+`uiseong_andong_2025_demo.html` and `yeongdeok_2025_manual.html` — because both
+the measurement and every test glob matched only `screens/*/*.html`. Both
+excluded files were stale pre-PHASE-21 builds still carrying EN-dash band
+labels, so "every shipped screen: 0 dashes" was true of the list and false of
+the tree. Rebuilt 2026-08-10, globs widened (`tests/test_screen_checks.py`
+`SHIPPED_SCREENS`, `tests/test_operator_screen.py`), and re-measured over all
+eight files:
+
 | file | payload strings | banned dashes |
 |---|---|---|
 | `outputs/live/screens/uiseong_andong_2025/operator_screen.html` | 848 | **0** |
 | `…/operator_screen_nopreroll.html` | 848 | **0** |
+| `outputs/live/screens/uiseong_andong_2025_demo.html` | 848 | **0** |
 | `outputs/live/screens/uljin_samcheok_2022/operator_screen.html` | 909 | **0** |
 | `outputs/live/screens/yeongdeok_2025/operator_screen.html` | 2,326 | **0** |
+| `outputs/live/screens/yeongdeok_2025_manual.html` | 632 | **0** |
 | `demo/operator_screen.html` | 2,326 | **0** |
 | `web/console.html` | 1,732 | **0** |
-| | **9,089** | **0** |
+| | **10,469** | **0** |
 
 Rendered confirmation on the 의성·안동 demonstration screen: **0 visible dashes**,
 with 919 km², 3,926 km², 6곳 and 「OSM에 매핑된」 all intact.
