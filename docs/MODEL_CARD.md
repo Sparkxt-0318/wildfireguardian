@@ -14,7 +14,7 @@
 |---|---|---|
 | build | **Build B** (`src/wildfireguardian/spread_v2`) | — |
 | task | per-cell `P(ignites by next satellite overpass)`, sklearn `HistGradientBoostingClassifier` | `spread_v2/model.py` |
-| grid / CRS | 375 m / EPSG:5179 | `run_routing_integration.py` |
+| grid / CRS | hazard **500 m**, routing 750 m / EPSG:5179 — ⚠ not 375 m: this card's LOFO numbers (151,904 rows) and the canonical hazard fields are 500 m products; 375 m is the RESCUE layer's own grid (`grid.hazard_cell_m`, `rescue.py`) | `run_routing_integration.py` (`grid.routing_integration_hazard_cell_m`) |
 | seed | **20250603** | `spread_v2_lofo.json/seed` |
 | evaluation | leave-one-fire-out (LOFO), hold out whole fires | `model.py::leave_one_fire_out` |
 | n features | **16** | `spread_v2/features.py::FEATURE_COLUMNS` |
@@ -76,6 +76,33 @@ statistics unit-tested in `tests/test_auc_stats.py`.
   far-band comes from the gated `scripts/auc_intervals.py` re-run (which also
   persists the per-fire far-band AUCs); the pooled scalars are stored.
   `[pooled src: spread_v2_lofo.json/far_band_auc, mid_band_auc; mean-of-folds: scripts/auc_intervals.py]`
+  ⚠ On the corrected DEMs the pooled far-band reads **0.8408** — see the
+  DEM-correction section below before quoting 0.877 anywhere.
+
+## The 2026-08-02 DEM correction — what moved, what did not
+
+The Uljin-Samcheok raster in the training bundle **filled the East Sea with a
+ramp to −497 m** across 49 % of its extent, and LOFO trains every fold on the
+one shared dataset, so every number on this card was measured with that raster
+in the training set (`docs/dem_defect_2026-08-02.md`). The corrected re-run is
+committed as
+[`spread_v2_lofo_dem_corrected.json`](../data/processed/spread_v2_lofo_dem_corrected.json);
+its control arm reproduces the committed values exactly on the pre-fix rasters,
+which is what makes the deltas attributable to the DEM alone.
+
+| quantity | committed (this card) | corrected DEMs | reading |
+|---|---:|---:|---|
+| mean-of-folds AUC | 0.8895 | 0.8943 | **+0.0048 — headline effectively unaffected** |
+| pooled AUC | 0.9053 | 0.9036 | −0.0017 — same |
+| **pooled far-band AUC** | **0.8766** | **0.8408** | **−0.0357 — a real change; carry this caveat with every far-band quote** |
+| `elev_above_source_m` importance rank | 8 | 15 | the other real change |
+| `vpd_kpa` importance | 0.00097 (rank 12) | 0.0015 (rank 11) | pre- vs post-DEM-fix values — there was never a "VPD unit fix" (HANDOFF §4-B) |
+
+The corrected file declares `does_not_supersede`: the committed values remain
+the reported ones **by recorded decision** (README §Round 3 — re-running the
+committed artifacts would move figures the submission cites). What that decision
+costs is exactly this section: the committed far-band is quotable only with the
+corrected value beside it.
 
 ## Footprint IoU — honest figure
 
@@ -122,10 +149,17 @@ quote these limits with it.
 ⚠ **AND THE TOP-RANKED FEATURE MAKES THE MODEL WORSE OUT-OF-FOLD.** *Dropping*
 `days_since_rain` — rank 1 at +0.07726 — **raises** mean-of-folds AUC by
 **+0.0270** and far-band AUC by **+0.0533**, while lowering pooled by −0.0143;
-`gangneung_2023` alone moves **+0.1705**. For **three of the six fires** the
-feature equals the ERA5 window length exactly, because those windows contain zero
-wet samples — for half the training set the top feature is a per-fire constant
-equal to an acquisition parameter. PHASE 14, `docs/weather_dependency.md` §②.
+`gangneung_2023` alone moves **+0.1705**. For **three of the six fires**
+(gangneung_2023, uiseong_andong_2025, yeongdeok_2025) the ERA5 window contains
+**zero** wet samples, so the feature anchors to the window START — an
+acquisition parameter — and carries no rain information for half the training
+set. *(Corrected 2026-08-10: an earlier revision said it "equals the window
+length exactly" and is a "per-fire constant"; measured against the canonical
+training table it is neither — it is elapsed time since acquisition start,
+evaluated at overpass times, one value per overpass: gangneung a single 0.125 d,
+uiseong_andong 17 values 0.25–5.25 d, yeongdeok 5 values 3.5–4.75 d. The A4
+ablation deltas above are measured and unaffected.)* PHASE 14,
+`docs/weather_dependency.md` §②.
 **"Top-ranked by permutation importance" and "good for generalisation" are not
 the same property**, and here they point in opposite directions.
 
@@ -174,34 +208,44 @@ non-comparability reasons:
 4. **Different evaluation code / package** (Build A = `scripts/spread_v2/` feature
    table; Build B = `src/wildfireguardian/spread_v2`).
 
-Despite these differences, **both builds independently corroborate the central
-finding** (fire-weather *severity* ≫ wind *direction* for far-field skill). No
-across-the-board "improvement" of B over A is claimed here; B is canonical purely
-**by consistency** — it is the model that produced every downstream result, and it
-is strong (0.88–0.97 ROC-AUC) on the five fires shared with Build A.
+⚠ *A sentence used to stand here saying both builds "independently corroborate
+the central finding (severity ≫ direction)". That finding is WITHDRAWN as not
+established (see the permutation-importance section above), and a withdrawn
+conclusion does not become established by appearing in two builds — both share
+the same 0.25° weather product, which is limitation 2 in the withdrawal.* What
+the two builds do jointly show is only that the **measured ratio** reproduces
+across implementations. No across-the-board "improvement" of B over A is claimed
+here; B is canonical purely **by consistency** — it is the model that produced
+every downstream result, and it is strong (0.88–0.97 ROC-AUC) on the five fires
+shared with Build A.
 
 ## Downstream: rescue capacity / triage (PoC)
 
 The rescue-routing layer that consumes this model's hazard surfaces now reports a
-**demand–supply** split, not just demand. Of N = 452 영덕 origins, **264 need a  <!-- forbidden-ok: 264, 452 -->
-rescuer** = **244 dispatch-reachable** + **20 geometry-unreachable** (no surviving
-ingress). A parameterized capacity model (`RescueCapacityConfig`,
-`rescue.py::capacity_triage`, `--sweep capacity`) partitions the 264 into  <!-- forbidden-ok: 264 -->
+**demand–supply** split, not just demand. Of N = **439** 영덕 origins, **167 need
+a rescuer** = **143 dispatch-reachable** + **24 geometry-unreachable** (no
+surviving ingress). A parameterized capacity model (`RescueCapacityConfig`,
+`rescue.py::capacity_triage`, `--sweep capacity`) partitions the 167 into
 **rescued_in_time / capacity_deferred / geometry_unreachable** using the existing
-priority order (closing window) as the triage rule:
+priority order (closing window) as the triage rule
+(`data/processed/rescue_capacity.json`, baseline 30-min dispatch delay):
 
 | rescue units | rescued_in_time | capacity_deferred | geometry_unreachable | % demand met |
 |---:|---:|---:|---:|---:|
-| 1 | 3 | 241 | 20 | 1.1 % |
-| 3 (baseline) | 9 | 235 | 20 | 3.4 % |
-| 8 | 24 | 220 | 20 | 9.1 % |
+| 1 | 3 | 140 | 24 | 1.8 % |
+| 3 (baseline) | 9 | 134 | 24 | 5.4 % |
+| 8 | 24 | 119 | 24 | 14.4 % |
+
+*(A previous revision of this table quoted a retired 452-origin / 264-demand series that
+matches no committed artifact — pre-canonical values. Every number
+above is read from `rescue_capacity.json`.)*
 
 Timely-rescue supply ≈ `units × ⌊W/service⌋` (3 per unit at W = 75 min, service =
-25 min) is far below the 244 reachable demand — the quantitative case for
+25 min) is far below the 143 reachable demand — the quantitative case for
 pre-positioning + triage. **Capacity here is a PoC parameter, NOT measured 영덕
 fire-service capacity**; report the curve, not a single "X rescued"/"lives saved".
 At unlimited units `capacity_deferred → 0` and the honest geometry-unreachable set
-(20) is recovered (asserted). Detail + figure: `docs/rescue_routing.md` §4c,
+(24) is recovered (asserted). Detail + figure: `docs/rescue_routing.md` §4c,
 `docs/figures/rescue_capacity.png`, `data/processed/rescue_capacity.json`.
 
 ## Caveats
@@ -226,7 +270,7 @@ The 작품설명서 is **not in this repo** — apply these old→new correction
 | field | old (Build A / brief) | new (Build B, canonical) |
 |---|---|---|
 | ROC-AUC (headline) | 0.83 / 0.834 | **0.89 (LOFO mean-of-folds, range 0.68–0.97)**; pooled 0.905 if labeled "pooled" |  <!-- forbidden-ok: 0.834 -->
-| far-band (>3 km) AUC | ~0.80 | **0.925 (mean-of-folds, n=3); 0.877 pooled** |
+| far-band (>3 km) AUC | ~0.80 | **0.925 (mean-of-folds, n=3); 0.877 pooled** — ⚠ corrected-DEM re-run reads 0.8408 pooled; quote with the DEM-correction caveat (§ above) |
 | footprint IoU | 0.32 | **~0.40 (forward-sim envelope, 3–12 h)** — do not use 0.874 |  <!-- forbidden-ok: 0.874 -->
 | feature count | 19 | **16** |
 
