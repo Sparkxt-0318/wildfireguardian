@@ -760,11 +760,23 @@ def write_viz(out_dir: Path, res: Resources, *, points: list[dict],
             # (`check_screen_assets.PAYLOAD_BLIND_SPOT`). Fixing it here does
             # not close that hole; the hole is recorded separately and stays.
             "status_ko": responder_status_ko(res.region, res.n_depot_pois),
+            # ⚠ REGION-CONDITIONAL, AND GENERIC. This rule exists for regions
+            # whose walk bbox holds zero mapped fire stations. The first
+            # version wrote Uiseong-Andong's measured facts (its bbox
+            # descriptor and its spelled-out wider-area depot count) into
+            # EVERY region's record — the fourth instance of the
+            # region-literal defect class, in an artifact instead of on a
+            # screen, self-contradicted beside a status_ko reporting four
+            # mapped depots. Absolute counts belong to status_ko, which is
+            # derived per region from osm_completeness.json; this rule
+            # carries none.
             "phrasing_rule": (
-                "NEVER write 'this region has no fire stations'. The statement "
-                "is that no amenity=fire_station is MAPPED IN OSM inside the "
-                "ignition-centred walk bbox; the wider manifest bbox contains "
-                "six. HANDOFF_ROUND3.md rule 11."),
+                "NEVER write 'this region has no fire stations'. The "
+                "statement is that no amenity=fire_station is MAPPED IN OSM "
+                "inside this region's registered walk bbox; wider areas can "
+                "hold stations OSM has not mapped there. Absolute counts "
+                "belong to status_ko. HANDOFF_ROUND3.md rule 11."
+            ) if not res.n_depot_pois else None,
             "note": "The 459 series is RESIDENT-SIDE for every region, "
                     "Yeongdeok included: it contrasts a fire-blind walking "
                     "route with a future-aware one and never dispatches a "
@@ -774,10 +786,15 @@ def write_viz(out_dir: Path, res: Resources, *, points: list[dict],
         "refuges": [{"name": d["name"], "x": round(d["x"], 1),
                      "y": round(d["y"], 1)} for d in res.destinations],
         "origins": geo,
+        # ⚠ Every count in this sentence is COMPUTED. The static half used to
+        # carry Yeongdeok's 44/458 into every region's viz.json — the fifth
+        # instance of the region-literal class, an English note the Korean-
+        # gated checker could not see (its scope is widened to match).
         "origins_note": (
             f"ALL {len(geo)} scanned origins, so the three outcomes can be "
-            "coloured against each other. Plotting only the 44 that need "
-            "something would read as 44-of-44 rather than 44-of-458."),
+            f"coloured against each other. Plotting only the {len(points)} "
+            f"that need something would read as {len(points)}-of-{len(points)} "
+            f"rather than {len(points)}-of-{len(geo)}."),
         "actionable": [{"x": round(p["x"], 1), "y": round(p["y"], 1),
                         "label": p.get("label"), "bucket": p["bucket"],
                         "unreachable": p["unreachable"],

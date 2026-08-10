@@ -797,6 +797,15 @@ THE_THREE_DEFECTS: dict[str, tuple[str, str]] = {
     "scope coverage caveat": (
         '    "영덕 수치는 정본 화재 핵심의 32.6 %만 덮는 보행망에서 '
         '산출되었습니다. "', ".py"),
+    # ⚠ The FOURTH instance wore English. write_viz's origins_note carried
+    # Yeongdeok's 44/458 into every region's viz.json, and the checker's
+    # numeric branch was gated on Korean text, so it looked straight past it
+    # (Round-4 A3-2). Reproduced as committed; the numeric branch is no
+    # longer Korean-gated, which is what makes this entry catchable.
+    "pipeline origins_note (English)": (
+        '            "coloured against each other. Plotting only the 44 that '
+        'need something would read as 44-of-44 rather than 44-of-458."),',
+        ".py"),
 }
 
 
@@ -805,7 +814,8 @@ def test_the_region_literal_check_catches_all_three(name):
     """⚠ The bar this checker was built to clear.
 
     It is not complete and does not try to be. It has to catch the shape these
-    three had; anything beyond that is a bonus.
+    three had — now four, since the fourth wore English and forced the numeric
+    branch off its Korean gate; anything beyond that is a bonus.
     """
     line, suffix = THE_THREE_DEFECTS[name]
     found = check_text(line, "probe" + suffix, suffix=suffix)

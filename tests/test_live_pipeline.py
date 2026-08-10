@@ -520,3 +520,32 @@ def test_no_module_in_the_live_package_calls_send():
 def test_demo_mode_is_still_on_by_default(monkeypatch):
     monkeypatch.delenv(sms.DEMO_MODE_ENV, raising=False)
     assert sms.demo_mode() is True
+
+
+def test_write_viz_notes_carry_no_single_regions_facts():
+    """⚠ Round-4 A3-1/A3-2: the fourth and fifth region-literal instances.
+
+    write_viz's phrasing_rule wrote Uiseong-Andong's measured depot facts
+    ("ignition-centred", "contains six") into EVERY region's viz.json —
+    self-contradicted beside a status_ko reporting four mapped depots — and
+    origins_note carried Yeongdeok's 44/458 in an English sentence the
+    region-literal checker's Korean-gated numeric branch could not see.
+    Pinned at the source: the rule must be conditional on the region actually
+    having zero mapped depots, and neither note may state a count as a
+    literal.
+    """
+    src = inspect.getsource(pipeline.write_viz)
+    # The rule exists only for zero-depot regions, and carries no region's
+    # measured facts.
+    assert "if not res.n_depot_pois else None" in src, (
+        "phrasing_rule must be emitted only for regions with zero mapped "
+        "depots — unconditional emission is how Uiseong-Andong's facts "
+        "reached every region's record")
+    for fact in ("contains six", "ignition-centred", "3,926", "919"):
+        assert fact not in src, (
+            f"a single region's measured fact {fact!r} is back in write_viz")
+    # origins_note computes every count it states.
+    assert "44-of-458" not in src and '"44' not in src, (
+        "Yeongdeok's actionable/origin counts are literals again")
+    assert "{len(points)}" in src and "{len(geo)}" in src, (
+        "origins_note must derive its counts from the data it describes")

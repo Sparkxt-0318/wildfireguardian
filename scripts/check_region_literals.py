@@ -18,6 +18,14 @@ and every instance had the same shape:
 3. ``live/scope.py`` — ``COVERAGE_CAVEAT_KO`` named 영덕 and 32.6 % and went out
    on **273** A4 dispatch sheets belonging to the other two regions, neither of
    which carried its own coverage figure anywhere.
+4. (Round-4, 2026-08-10) ``live/pipeline.py write_viz`` — TWO more, in
+   ARTIFACTS rather than on screens: ``origins_note`` carried Yeongdeok's
+   44/458 into every region's viz.json in an ENGLISH sentence the
+   Korean-gated numeric branch could not see (the gate is dropped for the
+   numeric branch because of it), and ``phrasing_rule`` wrote
+   Uiseong-Andong's measured depot facts into every region's record, beside
+   a status_ko saying the opposite (guarded by a write_viz test, since it
+   carries no digit this scanner could hold on to).
 
 ⚠ **Every one of them was correct on Yeongdeok.** That is what made all three
 survive review: the author checks the screen they are looking at, and the screen
@@ -138,6 +146,15 @@ KNOWN_REGION_LITERALS: dict[str, int] = {
     # docs/console_regions.md §10 rather than fixed, on the same call as
     # build_console.py's `차고지 0곳` stdout literal.
     "scripts/console.template.html": 1,
+    # `weather_basis: str  # e.g. "2025-03-25 12:25 UTC"` — a dataclass field
+    # whose TRAILING COMMENT gives Yeongdeok's timestamp as an example. The
+    # value itself is always derived (pipeline.weather_basis re-clusters the
+    # detections CSV; a test asserts the literal date is absent from that
+    # function). The widened numeric branch (no Korean gate, Round-4 A3-2)
+    # sees the quotes inside the comment; the comment-skip only covers lines
+    # that START with #. Looked at, harmless: an example label on a field
+    # that cannot drift, not a value any region reads.
+    "src/wildfireguardian/live/scope.py": 1,
 }
 
 
@@ -167,8 +184,15 @@ def check_text(text: str, path: str, *, suffix: str) -> list[Finding]:
         if not line.strip() or _is_comment(line, suffix):
             continue
         # Only strings a person could read. A bare number in arithmetic is not
-        # this defect; a number inside a Korean sentence is.
-        if not (_KOREAN.search(line) and _STRING.search(line)):
+        # this defect; a number inside a sentence is.
+        # ⚠ The Korean gate applies to the REGION-NAME branch only. The first
+        # version required Korean for the numeric branch too, and that is how
+        # Yeongdeok's 44/458 sat inside an ENGLISH note string in
+        # live/pipeline.py's write_viz — shipped in every region's viz.json —
+        # while this checker looked straight past it (Round-4 A3-2). A
+        # per-region number inside ANY string literal in these files is the
+        # defect, whatever language the sentence around it speaks.
+        if not _STRING.search(line):
             continue
         if _REGION_KEY.search(line):
             continue                      # a per-region table entry: the fix
@@ -179,11 +203,13 @@ def check_text(text: str, path: str, *, suffix: str) -> list[Finding]:
         # — `"coverage_pct": 32.6` both names the field and states the value.
         # A line that READS a value has no literal in it, so the literal test is
         # sufficient on its own and the exemption only created a blind spot.
-        for word in REGION_WORDS:
-            if word in line:
-                out.append(Finding(path, i, f"region name {word!r} in a "
-                                            "user-visible string", line.strip()[:110]))
-                break
+        if _KOREAN.search(line):
+            for word in REGION_WORDS:
+                if word in line:
+                    out.append(Finding(path, i, f"region name {word!r} in a "
+                                                "user-visible string",
+                                       line.strip()[:110]))
+                    break
         for pat, why in PER_REGION_NUMBERS.items():
             if re.search(pat, line):
                 out.append(Finding(path, i, f"per-region value: {why}",
