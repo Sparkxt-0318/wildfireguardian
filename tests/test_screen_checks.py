@@ -893,6 +893,14 @@ def test_the_ratio_pattern_excludes_the_physics_models_different_ratios():
     silently passed the MODEL_CARD line it was written for.
     """
     rx = pattern_for("44×", "ratio")
+    # Digit variants are the same withdrawn ratio: 43.69 is the measured
+    # value, and the 44-only pattern let it sit uncaveated in REPRODUCE.md.
+    assert rx.search("severity ÷ direction importance | 43.69×"), (
+        "the measured-value spelling of the withdrawn ratio must match")
+    assert rx.search("about 43.7× in permutation importance")
+    # A DIMENSION is two numbers around ×, not a ratio.
+    assert not rx.search("a 43.5 × 22.5 km strip within the grid"), (
+        "the walk-bbox grid dimension is not the withdrawn ratio")
     assert rx.search("importance 0.0023 — a **44×**"), (
         "the × form must match; a trailing \\b breaks it")
     assert rx.search("a 44x ratio"), "the ASCII form must match too"

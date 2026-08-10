@@ -223,9 +223,16 @@ def pattern_for(token: str, kind: str) -> re.Pattern:
         # for the "44×" form: × is not a word character, so \\b between × and
         # the following "*" (in "**44×**") can never hold. It silently passed
         # the MODEL_CARD line it was written for, and only the ASCII "44x"
-        # spelling ever matched. The lookbehind alone does the whole job —
-        # it is what excludes 1.44× and 18.3×.
-        return re.compile(r"(?<![\d.])44\s*[×x]")
+        # spelling ever matched.
+        #
+        # ⚠ DIGIT VARIANTS ARE THE SAME RATIO. The measured value is 43.69,
+        # so "43.69×", "43.7×" and "44×" are one claim in three roundings —
+        # and the 44-only pattern let `43.69×` sit uncaveated in
+        # docs/REPRODUCE.md's expected-results table for months (Round-4
+        # A4-3). `4[34](?:\.\d+)?` covers the roundings; the trailing
+        # `(?!\s*\d)` keeps out DIMENSIONS, where × separates two numbers —
+        # walk_bbox_coverage.md's "43.5 × 22.5 km" grid is not a ratio.
+        return re.compile(r"(?<![\d.])4[34](?:\.\d+)?\s*[×x](?!\s*\d)")
     if kind == "sevdir":
         # Both orderings and both languages, with any of the comparison glyphs.
         return re.compile(

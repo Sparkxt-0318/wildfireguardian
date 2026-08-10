@@ -11,13 +11,27 @@ consumes, then run it and confirm the headline number.
 > [`data/processed/spread_v2_lofo.json`](../data/processed/spread_v2_lofo.json)
 > under `seed = 20250603`, and it is what every other document in the repo
 > (`README.md`, `docs/MODEL_CARD.md`) reports. The pipeline is byte-deterministic
-> under this seed.
+> under this seed **and this bundle**.
+>
+> ⚠ **DEM lineage — read before comparing your number to 0.9053.** The committed
+> value was measured on the original DEM bundle, whose Uljin-Samcheok raster
+> filled the East Sea with a ramp to −497 m
+> ([`dem_defect_2026-08-02.md`](dem_defect_2026-08-02.md)); every LOFO fold
+> trained on it. A **fresh** §4c acquisition downloads corrected rasters, and on
+> those the same pipeline measures **pooled `0.9036468798222611`** and
+> mean-of-folds `0.8942952720564279` — both arms are committed in
+> [`spread_v2_lofo_dem_corrected.json`](../data/processed/spread_v2_lofo_dem_corrected.json),
+> whose control arm reproduces the committed 0.9053 exactly when run against the
+> pre-fix rasters. So: **if your freshly-acquired bundle lands near 0.9036, the
+> reproduction has SUCCEEDED** — that is the corrected-DEM value, not a broken
+> bundle. Landing anywhere else is the real drift signal. (The committed 0.9053
+> remains the reported headline by recorded decision; see README §Round 3.)
 >
 > `scripts/calibration_metrics.py` re-derives the same LOFO out-of-fold
 > predictions and **gates** the regenerated GBM pooled AUC against this committed
-> `0.9053277489374548` (tolerance 1e-4) — if your fresh run disagrees, the script
-> prints a drift warning, which is the signal to reconcile your bundle before
-> trusting downstream numbers.
+> `0.9053277489374548` (tolerance 1e-4). On a fresh acquisition that warning is
+> therefore **expected** (0.9036 vs 0.9053 exceeds 1e-4 by construction); it
+> means your bundle is the corrected lineage, not that it is wrong.
 
 Everything here is **public** data. The repository distributes **no** raw
 geospatial data; the raw bundle and bulk rasters are git-ignored (see
@@ -240,15 +254,34 @@ python scripts/calibration_metrics.py
 
 ### Expected results (from the committed JSONs)
 
+⚠ **Three caveats travel with this table.**
+
+1. **DEM lineage.** Every `spread_v2_lofo.json` row is the pre-correction-DEM
+   value (see the headline block above). On a freshly-acquired bundle expect
+   pooled ≈ 0.9036 and far-band ≈ **0.8408** — the corrected-lineage values in
+   `spread_v2_lofo_dem_corrected.json` — not the committed cells below.
+2. **The 43.69× row is a measurement whose CONCLUSION is withdrawn.** The
+   number itself is real and reproducible (six summed severity features ÷ one
+   direction variable), but `docs/MODEL_CARD.md` withdraws the
+   "severity ≫ direction" reading as NOT ESTABLISHED — do not quote the ratio
+   as a current claim.
+3. **The two `routing_demo.json` rows cannot be reproduced, in principle.**
+   That artifact is the surviving output of a run reverted on 2026-07-21, and
+   the OSM graph behind it was overwritten on 2026-07-24 and is unrecoverable
+   ([`DATA_LOSS_2026-07-24.md`](DATA_LOSS_2026-07-24.md), HANDOFF §2-A). The
+   current lineage is `routing_demo_canonical.npz` (458 origins → 414/42/2).
+   The rows stay in this table as a record of what the committed file holds,
+   never as a target your run should hit.
+
 | Artifact | Key number | Committed value |
 |---|---|---|
-| `spread_v2_lofo.json` | pooled OOF AUC | **0.9053277489374548** |
+| `spread_v2_lofo.json` | pooled OOF AUC | **0.9053277489374548** *(fresh bundle: ≈ 0.9036, caveat 1)* |
 | `spread_v2_lofo.json` | mean-of-folds AUC | ≈ 0.890 (per-fire 0.682–0.974) |
-| `spread_v2_lofo.json` | far-band AUC | 0.8765583120330634 |
-| `spread_v2_lofo.json` | severity ÷ direction importance | 43.69× |
+| `spread_v2_lofo.json` | far-band AUC | 0.8765583120330634 *(fresh bundle: ≈ 0.8408, caveat 1)* |
+| `spread_v2_lofo.json` | severity ÷ direction importance | 43.69× *(conclusion WITHDRAWN, caveat 2)* |
 | `yeongdeok_forward_sim.json` | envelope area, step 0 → 4 | 6225 → 27900 ha (5 × 3 h) |
-| `routing_demo.json` | headline exposure reduction | −93.1 % (334.3 → 23.1) |
-| `routing_demo.json` | origins scanned / no-safe-route | 407 / 88 |
+| `routing_demo.json` | headline exposure reduction | −93.1 % (334.3 → 23.1) *(reverted run, unreproducible — caveat 3)* |
+| `routing_demo.json` | origins scanned / no-safe-route | 407 / 88 *(reverted run, unreproducible — caveat 3)* |
 | `calibration_metrics.json` | Brier / ECE (GBM, RF, logistic) | *regenerated — report as it falls* |
 
 ---
@@ -267,6 +300,10 @@ Two built-in guards protect against a silently-wrong bundle:
 
 1. `calibration_metrics.py` re-derives the GBM OOF and **asserts** its pooled AUC
    matches the committed `0.9053277489374548` (Δ ≤ 1e-4), warning on drift.
+   ⚠ On a freshly-acquired (corrected-DEM) bundle this warning is **expected**
+   and the anticipated value is ≈ 0.9036 — see the headline block. The warning
+   means "your bundle is not the pre-correction lineage", which for a fresh
+   clone is the correct state of affairs.
 2. `test_calibration_metrics.py` re-runs `compute_payload` twice and asserts the
    payload is **byte-identical** and reproduces the committed
    `calibration_metrics.json` when both the bundle and that JSON are present.
