@@ -3,7 +3,7 @@
   "_README": "CANONICAL REGISTRY. Every reportable number lives here exactly once. Do not restate a value in prose without citing its key. 'verified' = still matches its artifact; 'reproducible' = re-running the pipeline regenerates that artifact. They are independent — several numbers here are verified but NOT reproducible because the OSM network behind them was overwritten (docs/DATA_LOSS_2026-07-24.md). Run scripts/verify_numbers.py to re-check every entry.",
   "config_hash": "f21177ab83cbccc24b4bede3d134630aac4e90943e3e131a2b326b2bf7f6cc80",
   "config_hash_note": "The per-entry config_hash is re-stamped on every build, so it marks the config a build SAW, not the config a number was PRODUCED under. It moved 0b6eb481177a… -> 51ec446843b6… between the 2026-08-01 build and the 2026-08-02 (PHASE 5 STEP 4) build. That move is PURELY ADDITIVE: `bbox.multi_region_walk_bbox` and `grid.simulation_bbox_extension` were added and NOT ONE existing key changed value (verified key-by-key against config/default.yaml at commit 5fe86db). No Round-2 number is stale as a result. It moved again 05c6feae1dff… -> 8e29a6cc4a99… on 2026-08-03 (PHASE 13), and again PURELY ADDITIVELY: the `fuel:` block (uncovered_land_warn_fraction / uncovered_land_stop_fraction) was added, no existing key changed value, and a rebuild moved 0 of the registered VALUES — only six `sample` labels, which carry the bbox area and therefore inherit the geodesic-area correction described under the mr_* completeness entries.",
-  "built_at_git_commit": "c0bd5603345eb9bae3453259ae27332dbc23cd78",
+  "built_at_git_commit": "0f530a211d525f9c3e6a073ac5c7a513e6cb4a6a",
   "round2_submission_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
   "numbers": {
     "lofo_mean_of_folds_auc": {
@@ -5452,6 +5452,215 @@
         "blocked_by": null
       },
       "reproducible": true
+    },
+    "ordering_boundary_first_window_with_a_win": {
+      "value": 120.0,
+      "unit": "min (operational window W)",
+      "source_file": "data/processed/ordering_boundary.json",
+      "json_path": "boundary.first_window_with_a_win.pooled_min",
+      "derivation": "lowest W on the 12-point axis (60…600) at which 시한 임박 순 out-rescues 가까운 순 in at least one of the 180 headline cells at that W; 60/75/90 are all 0 wins",
+      "config_hash": "f21177ab83cbccc24b4bede3d134630aac4e90943e3e131a2b326b2bf7f6cc80",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "12개 W × 180 셀 = 2,160 셀",
+      "caveat": "⚠ 이것은 부정적 결과의 경계이지 규칙의 유효성이 아닙니다. 커밋된 W = 75 에서는 여전히 180개 셀 중 0승이고, 평균 차이는 12개 W 전부에서 음수입니다. 유효한 조건이 존재한다는 것과 현재 조건이 그 조건이라는 것은 다른 진술입니다. 그리고 W 단독으로 결정되지 않습니다 — 최소 승리 W 는 120 이지만 최대 비승리 W 는 600 으로 두 구간이 완전히 겹칩니다. 그 최초 승리 셀 하나는 나머지 세 축이 전부 유리한 끝값(service 12.5분, 지연 60분, 8팀)입니다. 축이 이산적이므로 이 값은 실제 전이점의 상한입니다.",
+      "forbidden_phrasings": [
+        "임계값은 120분",
+        "the threshold is 120 minutes",
+        "W가 120분이면 유효하다",
+        "정렬이 120분부터 최적",
+        "ordering works above 120 minutes"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/ordering_boundary.json",
+            "json_path": "boundary.first_window_with_a_win.pooled_min"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-11 by scripts/run_ordering_boundary.py, which imports run_dispatch_ordering.py as a module and reuses its model unmodified (only WINDOWS is rebound to the 12-point axis and binding_constraint is wrapped to ADD a deadline_spread block). Same snapshot store, same committed hazard npz, same seeds 0..199, same drift arm-B assertion. It re-verified PHASE 23 in-run: 3744 values at W=75 and W=240 compared cell by cell, 0 differences. No network I/O, no sampling.",
+        "blocked_by": null
+      },
+      "reproducible": true,
+      "notes": "scripts/run_ordering_boundary.py. 커밋된 W = 75 의 1.6배. docs/ordering_boundary.md §5, §7."
+    },
+    "ordering_boundary_loss_rate_over_extended_axis": {
+      "value": 68.7,
+      "unit": "% of cells",
+      "source_file": "data/processed/ordering_boundary.json",
+      "json_path": "summary_phase23_format.deadline_loses_to_nearest.pct",
+      "derivation": "share of all 2,160 headline cells (4 arms x 12 windows x 3 service times x 3 delays x 5 team counts, depot-return occupancy) in which 시한 임박 순 rescues FEWER than 가까운 순",
+      "config_hash": "f21177ab83cbccc24b4bede3d134630aac4e90943e3e131a2b326b2bf7f6cc80",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "2,160개 구성",
+      "caveat": "⚠ 축을 6배로 넓혀도 이 방향은 바뀌지 않습니다. 승 5.3 % / 무 26.0 % / 패 68.7 %. 정렬 없는 「목록 순」을 이기는 셀도 31.5 %, 무작위 평균을 이기는 셀도 37.8 % 로 둘 다 과반 미만입니다. Yeongdeok DRIFT ARM B lists, never the committed 439 series; travel-aware occupancy that the shipped capacity_triage does not use; ORDERING contrast only, no 'lives saved' reading.",
+      "forbidden_phrasings": [
+        "우선순위 정렬이 더 많이 구한다",
+        "deadline-first rescues more",
+        "시한 임박 순이 최적",
+        "우선순위가 검증되었다",
+        "priority ordering validated"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/ordering_boundary.json",
+            "json_path": "summary_phase23_format.deadline_loses_to_nearest.pct"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-11 by scripts/run_ordering_boundary.py, which imports run_dispatch_ordering.py as a module and reuses its model unmodified (only WINDOWS is rebound to the 12-point axis and binding_constraint is wrapped to ADD a deadline_spread block). Same snapshot store, same committed hazard npz, same seeds 0..199, same drift arm-B assertion. It re-verified PHASE 23 in-run: 3744 values at W=75 and W=240 compared cell by cell, 0 differences. No network I/O, no sampling.",
+        "blocked_by": null
+      },
+      "reproducible": true,
+      "notes": "docs/ordering_boundary.md §7."
+    },
+    "ordering_boundary_win_rate_at_longest_window": {
+      "value": 12.2,
+      "unit": "% of cells",
+      "source_file": "data/processed/ordering_boundary.json",
+      "json_path": "boundary.pooled_by_window.W600.win_rate_pct",
+      "derivation": "win rate of 시한 임박 순 vs 가까운 순 at W = 600 min, the longest window on the exploratory axis — 22 wins of 180 cells",
+      "config_hash": "f21177ab83cbccc24b4bede3d134630aac4e90943e3e131a2b326b2bf7f6cc80",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "W = 600 구성 180개",
+      "caveat": "⚠ 이것은 부정적 결과의 경계이지 규칙의 유효성이 아닙니다. 커밋된 W = 75 에서는 여전히 180개 셀 중 0승이고, 평균 차이는 12개 W 전부에서 음수입니다. 유효한 조건이 존재한다는 것과 현재 조건이 그 조건이라는 것은 다른 진술입니다. ⚠ 이 값은 「경계를 넘으면 규칙이 좋아진다」의 반증으로 인용하십시오. 커밋 값의 8배인 창에서조차 승률은 12.2 % 이고 패배율은 75.6 % 입니다. W = 600 은 순전히 탐색용 축이며 이 시스템이 그 창으로 운용된다는 근거가 아닙니다.",
+      "forbidden_phrasings": [
+        "긴 창에서는 정렬이 유효하다",
+        "the ordering works at long windows",
+        "W=600에서 검증되었다"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/ordering_boundary.json",
+            "json_path": "boundary.pooled_by_window.W600.win_rate_pct"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-11 by scripts/run_ordering_boundary.py, which imports run_dispatch_ordering.py as a module and reuses its model unmodified (only WINDOWS is rebound to the 12-point axis and binding_constraint is wrapped to ADD a deadline_spread block). Same snapshot store, same committed hazard npz, same seeds 0..199, same drift arm-B assertion. It re-verified PHASE 23 in-run: 3744 values at W=75 and W=240 compared cell by cell, 0 differences. No network I/O, no sampling.",
+        "blocked_by": null
+      },
+      "reproducible": true,
+      "notes": "docs/ordering_boundary.md §5."
+    },
+    "ordering_boundary_no_distinct_deadline_threshold": {
+      "value": 1580,
+      "unit": "non-winning cells",
+      "source_file": "data/processed/ordering_boundary.json",
+      "json_path": "threshold_verdict.n_distinct_deadlines_cut.n_non_winning_cells_at_or_above_that_value",
+      "derivation": "cells that do NOT win despite having at least as many distinct deadlines (3) as the lowest-scoring winning cell — the evidence that no cut on 「서로 다른 마감 수」 separates wins from non-wins",
+      "config_hash": "f21177ab83cbccc24b4bede3d134630aac4e90943e3e131a2b326b2bf7f6cc80",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "2,160개 중 마감 수 ≥ 3 인 비승리 셀",
+      "caveat": "⚠ 단일 임계값이 존재하지 않는다는 측정입니다. 「마감 수 N 이상이면 이긴다」는 N 은 없습니다 — 관계가 단조롭지 않아 마감 6개·7개 구간의 승률은 0 % 인데 3개 구간은 4.1 % 입니다. 셀 단위 상관은 Spearman +0.244 로 약하고, 차이의 크기와는 −0.022 로 사실상 무관합니다. ⚠ 상관이지 인과가 아닙니다 — 기제는 PHASE 23 §6 이 규명했고 W·마감 수·회랑 결정 비율은 구성상 분리 불가입니다.",
+      "forbidden_phrasings": [
+        "마감 수 임계값",
+        "distinct-deadline threshold",
+        "마감이 N개 이상이면 유효하다"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/ordering_boundary.json",
+            "json_path": "threshold_verdict.n_distinct_deadlines_cut.n_non_winning_cells_at_or_above_that_value"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-11 by scripts/run_ordering_boundary.py, which imports run_dispatch_ordering.py as a module and reuses its model unmodified (only WINDOWS is rebound to the 12-point axis and binding_constraint is wrapped to ADD a deadline_spread block). Same snapshot store, same committed hazard npz, same seeds 0..199, same drift arm-B assertion. It re-verified PHASE 23 in-run: 3744 values at W=75 and W=240 compared cell by cell, 0 differences. No network I/O, no sampling.",
+        "blocked_by": null
+      },
+      "reproducible": true,
+      "notes": "docs/ordering_boundary.md §6, §7."
+    },
+    "ordering_boundary_wins_at_committed_dispatch_delay": {
+      "value": 9,
+      "unit": "cells of 720",
+      "source_file": "data/processed/ordering_boundary.json",
+      "json_path": "threshold_verdict.win_rate_by_delay.d30.deadline_wins",
+      "derivation": "cells at the COMMITTED dispatch delay of 30 min in which 시한 임박 순 beats 가까운 순, over all 12 windows (720 cells). At delay 60 the same tally is 100",
+      "config_hash": "f21177ab83cbccc24b4bede3d134630aac4e90943e3e131a2b326b2bf7f6cc80",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "지연 30분 구성 720개",
+      "caveat": "⚠ 이것은 부정적 결과의 경계이지 규칙의 유효성이 아닙니다. 커밋된 W = 75 에서는 여전히 180개 셀 중 0승이고, 평균 차이는 12개 W 전부에서 음수입니다. 유효한 조건이 존재한다는 것과 현재 조건이 그 조건이라는 것은 다른 진술입니다. ⚠ 승리 115개 중 100개(87 %)가 지연 60분에서 나옵니다 — 커밋된 지연이 아닙니다. 커밋된 30분 구간의 평균 차이 −8.36 은 세 지연 중 가장 나쁩니다. 팀이 1대인 432개 셀에서는 어떤 W 에서도 승리가 없습니다. 지연은 PoC 파라미터이며 측정된 영덕 출동 지연이 아닙니다.",
+      "forbidden_phrasings": [
+        "지연이 길수록 우리 정렬이 좋다",
+        "longer delays validate the ordering"
+      ],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/ordering_boundary.json",
+            "json_path": "threshold_verdict.win_rate_by_delay.d30.deadline_wins"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-11 by scripts/run_ordering_boundary.py, which imports run_dispatch_ordering.py as a module and reuses its model unmodified (only WINDOWS is rebound to the 12-point axis and binding_constraint is wrapped to ADD a deadline_spread block). Same snapshot store, same committed hazard npz, same seeds 0..199, same drift arm-B assertion. It re-verified PHASE 23 in-run: 3744 values at W=75 and W=240 compared cell by cell, 0 differences. No network I/O, no sampling.",
+        "blocked_by": null
+      },
+      "reproducible": true,
+      "notes": "docs/ordering_boundary.md §7 ③."
+    },
+    "ordering_boundary_phase23_reproduction_differences": {
+      "value": 0,
+      "unit": "differing values",
+      "source_file": "data/processed/ordering_boundary.json",
+      "json_path": "⚠ reproduction_of_phase23.cellwise.n_differences",
+      "derivation": "differences found when every PHASE 23 value at W = 75 and W = 240 was re-derived in the PHASE 24 run and compared cell by cell against data/processed/dispatch_ordering_comparison.json — 3,744 values compared across 4 orderings, the random mean and binding_constraint, both occupancy arms",
+      "config_hash": "f21177ab83cbccc24b4bede3d134630aac4e90943e3e131a2b326b2bf7f6cc80",
+      "config_hash_at_production": null,
+      "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
+      "sample": "3,744개 값",
+      "caveat": "This is the check that would have invalidated PHASE 24 had it failed. Headline tallies also match exactly (W75 0/88/92, W240 13/44/123), as do all four arms' pipeline counts and the config hash. It does NOT re-verify PHASE 23's inputs — it verifies that the same inputs still produce the same numbers.",
+      "forbidden_phrasings": [],
+      "check": {
+        "kind": "json_path",
+        "operands": {
+          "a": {
+            "file": "data/processed/ordering_boundary.json",
+            "json_path": "⚠ reproduction_of_phase23.cellwise.n_differences"
+          }
+        },
+        "expr": "a",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "built 2026-08-11 by scripts/run_ordering_boundary.py, which imports run_dispatch_ordering.py as a module and reuses its model unmodified (only WINDOWS is rebound to the 12-point axis and binding_constraint is wrapped to ADD a deadline_spread block). Same snapshot store, same committed hazard npz, same seeds 0..199, same drift arm-B assertion. It re-verified PHASE 23 in-run: 3744 values at W=75 and W=240 compared cell by cell, 0 differences. No network I/O, no sampling.",
+        "blocked_by": null
+      },
+      "reproducible": true,
+      "notes": "docs/ordering_boundary.md §4."
     }
   }
 }

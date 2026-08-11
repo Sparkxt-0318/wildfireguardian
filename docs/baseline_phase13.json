@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "title": "Korean baseline freeze — PHASE 13 PHASE 0",
-  "frozen_utc": "2026-08-10T08:10:57Z",
-  "git_commit": "c0bd5603345eb9bae3453259ae27332dbc23cd78",
+  "frozen_utc": "2026-08-11T15:25:33Z",
+  "git_commit": "0f530a211d525f9c3e6a073ac5c7a513e6cb4a6a",
   "config_hash": "f21177ab83cbccc24b4bede3d134630aac4e90943e3e131a2b326b2bf7f6cc80",
-  "registry_entries": 141,
+  "registry_entries": 147,
   "lofo_shape": {
     "n_rows": 151904,
     "n_positives": 2989,
@@ -54,6 +54,7 @@
     "data/processed/multi_region_comparison.json": "3dbbb8e7aba4fde0690c3af4ad389ab48518832a9878b7df366797282014774c",
     "data/processed/network_drift_experiment.json": "4fb11bb3faacb85c6dfc02dc861b2367a6b7f9756447b10865a6e035a37799ad",
     "data/processed/objective_budget_canonical.json": "2bb9f86884e4fae6129931ce3c75de3a5d23bdc90b542f58d4357ac1c2fde73c",
+    "data/processed/ordering_boundary.json": "16ba2387598a2e4ddbc066513f3c78eb45a3815ddb4335e8f030cbbd4614088a",
     "data/processed/osm_acquisition.json": "f56d9ed77b0f9af0749bb850fe77be96ed501508bb26d260eef2623f36397faa",
     "data/processed/osm_buildings_acquisition.json": "ed4c0dc02ceb0f8cd9e0b58c89838a8c40b1caf19c5add769d4cd2dc862c4809",
     "data/processed/osm_completeness.json": "3287bbf0dc1446a125f3bf5ba1bf023b7a135aa5cf9bd6e9c2d41c08d2d73076",

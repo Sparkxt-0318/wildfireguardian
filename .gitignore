@@ -198,6 +198,18 @@ data/processed/**
 # five NUMBERS.json entries read from it and would otherwise be uncheckable on a
 # fresh clone.
 !data/processed/dispatch_ordering_comparison.json
+# PHASE 24 ordering-boundary map: the same comparison with the W axis filled in
+# from 2 points to 12 (60…600), 2,160 headline cells, plus the deadline-key
+# spread statistics and the in-run re-derivation of every PHASE 23 value at
+# W = 75 and W = 240 (3,744 values, 0 differences). ⚠ 4.5 MB — larger than any
+# other allowlisted artifact here, and deliberately so: the per-cell grid is
+# what six NUMBERS.json entries index into, and the deduplicated view
+# (deadline_statistics_by_arm_and_window) is derived FROM it rather than
+# replacing it. Regenerable via scripts/run_ordering_boundary.py from the
+# snapshot store and the committed hazard npz files (no network I/O, seeds
+# pinned, ~176 s), but it must be in-tree or those entries are uncheckable on a
+# fresh clone.
+!data/processed/ordering_boundary.json
 # Pre-flip SYNTHETIC baseline snapshot of the four rescue JSONs, kept in-tree so
 # the Round-2 report's OLD(synthetic) column is verifiable alongside the NEW(real)
 # outputs in one commit. Regenerable with the scripts' --synthetic flag.
