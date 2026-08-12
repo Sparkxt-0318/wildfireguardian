@@ -97,8 +97,8 @@ def main() -> int:
     dstats = d["deadline_statistics_by_arm_and_window"]
     korean = _setup_font()
 
-    fig, axes = plt.subplots(2, 2, figsize=(13.6, 10.8), sharex=True)
-    fig.subplots_adjust(left=0.072, right=0.928, top=0.815, bottom=0.185,
+    fig, axes = plt.subplots(2, 2, figsize=(13.6, 11.6), sharex=True)
+    fig.subplots_adjust(left=0.072, right=0.928, top=0.822, bottom=0.222,
                         hspace=0.40, wspace=0.30)
 
     for ax, arm in zip(axes.ravel(), ARM_ORDER, strict=True):
@@ -164,10 +164,9 @@ def main() -> int:
                columnspacing=2.4, labelspacing=0.55)
 
     fig.suptitle(
-        "시한 임박 순 배차 정렬은 어디서부터 이기기 시작하는가 — 그리고 그 경계는 "
-        "운용 창에서 얼마나 먼가\n"
-        "Where deadline-first dispatch ordering starts to win, and how far that is "
-        "from the operating window",
+        "배차 정렬의 유효 경계를 찾았으나 — 경계가 아니라 모서리였습니다\n"
+        "We looked for a boundary and found a corner: there is no region in which "
+        "deadline-first ordering works",
         fontsize=12.8, y=0.978, linespacing=1.55)
 
     # ⚠ the loss rate quoted is the one over the WINNING half of the axis, and
@@ -178,29 +177,34 @@ def main() -> int:
             if p_first is not None and _wnum(w) >= p_first]
     lo, hi = (min(past), max(past)) if past else (0.0, 0.0)
     at_committed = pooled[f"W{COMMITTED_W:g}"]["loss_rate_pct"]
+    # ⚠ 확정 서술 — 사용자 승인 문안. 요약해 쓰더라도 「경계가 아니라 모서리이며,
+    #   유효 영역이라 부를 수 있는 것이 존재하지 않습니다」는 반드시 남깁니다.
     foot = (
-        f"※ 커밋된 W = {COMMITTED_W:g}분에서는 네 팔 전부 0승입니다 (180개 셀 중 0승). "
-        f"전체 합산 첫 승리는 W = {p_first:g}분 — 커밋 값의 {p_first / COMMITTED_W:.1f}배.  "
-        f"W별 승리 셀 수(전체 180개 중): {pooled_txt}\n"
+        f"확정 서술 — 마감 기반 정렬이 이기는 셀이 존재하는 조건은 W ≥ {p_first:g}분이나, "
+        f"경계를 넘어도 규칙이 개선되지 않습니다. W = 600에서도 승률 {best:.1f} %, "
+        f"패배율 {lo:.1f}~{hi:.1f} %로 커밋된 창({at_committed:.1f} %)보다 높고, "
+        f"평균 차이는 12개 W 전부 음수입니다.\n"
+        "승리 115개 중 100개가 지연 60분이며, 축 최초 승리 셀은 나머지 세 축이 동시에 "
+        "최유리 끝값입니다.  즉 이것은 경계가 아니라 모서리이며, "
+        "유효 영역이라 부를 수 있는 것이 존재하지 않습니다.\n"
         if p_first is not None else
         f"※ 커밋된 W = {COMMITTED_W:g}분에서는 네 팔 전부 0승입니다\n")
     foot += (
-        f"※ 경계를 넘어도 이 규칙이 좋아지지는 않습니다. 승률은 W = 600분에서도 "
-        f"{best:.1f} % 에 그치고, 승리가 나타나는 구간의 패배율은 {lo:.1f}–{hi:.1f} % "
-        f"로 커밋된 창({at_committed:.1f} %)보다 오히려 높으며, 평균 차이는 12개 W "
-        f"전부에서 음수입니다.\n"
-        "이 그림은 「이 정렬이 유효하다」가 아니라 「무효인 이유의 정량적 경계」입니다. "
-        "유효한 조건이 존재한다는 것과 현재 조건이 그 조건이라는 것은 다른 진술이고, "
-        "커밋된 창은 그 조건이 아닙니다.\n"
-        "This maps the boundary of a NEGATIVE result. A window at which the rule would "
-        "help is not evidence the system runs at that window; W = 75 is an ASSUMED "
-        "parameter (config/default.yaml:365, marked ASSUMED) with no measured basis in "
-        "this repository.\n"
+        f"※ 커밋된 W = {COMMITTED_W:g}분에서는 네 팔 전부 0승(180셀 중 0승)이고, 네 축을 "
+        f"동시에 극단으로 조여 격자의 1.7 %(36셀)로 줄여야 승률이 겨우 50.0 %에 닿습니다. "
+        f"W별 승리 셀 수(180개 중): {pooled_txt}\n"
+        "※ 운용 창 W = 75분은 config/default.yaml:365 에서 「# ASSUMED」로 표시된 "
+        "가정값이며, 저장소에 실측 근거가 없습니다 — 이 실험은 실제 운용이 경계의 어느 "
+        "쪽인지 말할 수 없습니다.\n"
+        "This is a NEGATIVE result: we looked for a boundary and found a corner. "
+        "W = 75 is an ASSUMED parameter (config/default.yaml:365, marked ASSUMED) with no "
+        "measured basis in this repository, so this experiment cannot say which side of "
+        "the corner real operations fall on.\n"
         "영덕 수치는 drift arm B (441/174/32/142), 커밋된 439 계열이 아닙니다 · "
         "점유 규칙 (나) depot_return · 서비스·지연·팀수 전 축 집계 (팔당 45셀/W) · "
         "scripts/run_ordering_boundary.py")
-    fig.text(0.5, 0.011, foot, ha="center", va="bottom", fontsize=7.9,
-             linespacing=1.72, color="#333333")
+    fig.text(0.5, 0.010, foot, ha="center", va="bottom", fontsize=7.7,
+             linespacing=1.70, color="#333333")
 
     FIG.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(FIG, dpi=200, facecolor="white")

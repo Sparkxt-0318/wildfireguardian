@@ -1937,10 +1937,13 @@ def main() -> int:
     # carry the fact that the committed window still wins 0 of 180, because a
     # boundary number quoted alone reads as "the rule works", which is the
     # sentence dispatch_ordering.md §8 exists to prevent.
-    _B_NEG = ("⚠ 이것은 부정적 결과의 경계이지 규칙의 유효성이 아닙니다. "
-              "커밋된 W = 75 에서는 여전히 180개 셀 중 0승이고, 평균 차이는 12개 W "
-              "전부에서 음수입니다. 유효한 조건이 존재한다는 것과 현재 조건이 그 "
-              "조건이라는 것은 다른 진술입니다.")
+    _B_NEG = ("⚠ 경계가 아니라 모서리이며, 유효 영역이라 부를 수 있는 것이 "
+              "존재하지 않습니다. 커밋된 W = 75 에서는 여전히 180개 셀 중 0승이고, "
+              "평균 차이는 12개 W 전부에서 음수이며, 승리 구간의 패배율(68.3–82.8 %)은 "
+              "커밋된 창(51.1 %)보다 오히려 높습니다. 네 축을 동시에 극단으로 조여 "
+              "격자의 1.7 %(36셀)로 줄여야 승률이 겨우 50.0 % 에 닿습니다. "
+              "「조건만 맞추면 유효하다」로 쓰지 마십시오 — PHASE 23 의 결론은 "
+              "약화되는 것이 아니라 강화됩니다.")
     N["ordering_boundary_first_window_with_a_win"] = entry(
         value=120.0, unit="min (operational window W)", source_file=BOUND,
         json_path="boundary.first_window_with_a_win.pooled_min",
@@ -1954,7 +1957,8 @@ def main() -> int:
                 "60분, 8팀)입니다. 축이 이산적이므로 이 값은 실제 전이점의 상한입니다."),
         forbidden_phrasings=["임계값은 120분", "the threshold is 120 minutes",
                              "W가 120분이면 유효하다", "정렬이 120분부터 최적",
-                             "ordering works above 120 minutes"],
+                             "ordering works above 120 minutes",
+                             "조건만 맞추면 유효하다", "유효 영역", "valid region"],
         check={"kind": "json_path",
                "operands": {"a": op(BOUND,
                                     "boundary.first_window_with_a_win.pooled_min")},
@@ -2015,8 +2019,14 @@ def main() -> int:
                 "이긴다」는 N 은 없습니다 — 관계가 단조롭지 않아 마감 6개·7개 구간의 "
                 "승률은 0 % 인데 3개 구간은 4.1 % 입니다. 셀 단위 상관은 Spearman "
                 "+0.244 로 약하고, 차이의 크기와는 −0.022 로 사실상 무관합니다. "
-                "⚠ 상관이지 인과가 아닙니다 — 기제는 PHASE 23 §6 이 규명했고 W·마감 "
-                "수·회랑 결정 비율은 구성상 분리 불가입니다."),
+                "⚠ 상관이지 인과가 아닙니다. ⚠ 그리고 PHASE 23 §6 의 기제는 이 결과를 "
+                "다 설명하지 못합니다 — 바닥(마감 2개 → 465셀 전부 0승)은 설명하지만 "
+                "6·7개 구간의 0 % 는 설명하지 못하고, 마감 수를 고정해도 승률이 계속 "
+                "움직입니다(영덕 real, 3개 고정, 17.8포인트). 마감 수는 자유 변수가 "
+                "아니라 (팔 × W) 의 이름표이므로 이 설계로는 개수·퍼짐·W 를 분리할 수 "
+                "없습니다. 설명이 불완전하다는 것과 무엇이 더 필요한지는 "
+                "docs/ordering_boundary.md §6.3 에 있으며, 억지 설명을 만들지 "
+                "않았습니다."),
         forbidden_phrasings=["마감 수 임계값", "distinct-deadline threshold",
                              "마감이 N개 이상이면 유효하다"],
         check={"kind": "json_path",

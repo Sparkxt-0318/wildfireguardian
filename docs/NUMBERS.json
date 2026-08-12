@@ -3,7 +3,7 @@
   "_README": "CANONICAL REGISTRY. Every reportable number lives here exactly once. Do not restate a value in prose without citing its key. 'verified' = still matches its artifact; 'reproducible' = re-running the pipeline regenerates that artifact. They are independent — several numbers here are verified but NOT reproducible because the OSM network behind them was overwritten (docs/DATA_LOSS_2026-07-24.md). Run scripts/verify_numbers.py to re-check every entry.",
   "config_hash": "f21177ab83cbccc24b4bede3d134630aac4e90943e3e131a2b326b2bf7f6cc80",
   "config_hash_note": "The per-entry config_hash is re-stamped on every build, so it marks the config a build SAW, not the config a number was PRODUCED under. It moved 0b6eb481177a… -> 51ec446843b6… between the 2026-08-01 build and the 2026-08-02 (PHASE 5 STEP 4) build. That move is PURELY ADDITIVE: `bbox.multi_region_walk_bbox` and `grid.simulation_bbox_extension` were added and NOT ONE existing key changed value (verified key-by-key against config/default.yaml at commit 5fe86db). No Round-2 number is stale as a result. It moved again 05c6feae1dff… -> 8e29a6cc4a99… on 2026-08-03 (PHASE 13), and again PURELY ADDITIVELY: the `fuel:` block (uncovered_land_warn_fraction / uncovered_land_stop_fraction) was added, no existing key changed value, and a rebuild moved 0 of the registered VALUES — only six `sample` labels, which carry the bbox area and therefore inherit the geodesic-area correction described under the mr_* completeness entries.",
-  "built_at_git_commit": "0f530a211d525f9c3e6a073ac5c7a513e6cb4a6a",
+  "built_at_git_commit": "c22ee5d9bb83d2b1b255bb00438b162da0e1a2a9",
   "round2_submission_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
   "numbers": {
     "lofo_mean_of_folds_auc": {
@@ -5463,13 +5463,16 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "12개 W × 180 셀 = 2,160 셀",
-      "caveat": "⚠ 이것은 부정적 결과의 경계이지 규칙의 유효성이 아닙니다. 커밋된 W = 75 에서는 여전히 180개 셀 중 0승이고, 평균 차이는 12개 W 전부에서 음수입니다. 유효한 조건이 존재한다는 것과 현재 조건이 그 조건이라는 것은 다른 진술입니다. 그리고 W 단독으로 결정되지 않습니다 — 최소 승리 W 는 120 이지만 최대 비승리 W 는 600 으로 두 구간이 완전히 겹칩니다. 그 최초 승리 셀 하나는 나머지 세 축이 전부 유리한 끝값(service 12.5분, 지연 60분, 8팀)입니다. 축이 이산적이므로 이 값은 실제 전이점의 상한입니다.",
+      "caveat": "⚠ 경계가 아니라 모서리이며, 유효 영역이라 부를 수 있는 것이 존재하지 않습니다. 커밋된 W = 75 에서는 여전히 180개 셀 중 0승이고, 평균 차이는 12개 W 전부에서 음수이며, 승리 구간의 패배율(68.3–82.8 %)은 커밋된 창(51.1 %)보다 오히려 높습니다. 네 축을 동시에 극단으로 조여 격자의 1.7 %(36셀)로 줄여야 승률이 겨우 50.0 % 에 닿습니다. 「조건만 맞추면 유효하다」로 쓰지 마십시오 — PHASE 23 의 결론은 약화되는 것이 아니라 강화됩니다. 그리고 W 단독으로 결정되지 않습니다 — 최소 승리 W 는 120 이지만 최대 비승리 W 는 600 으로 두 구간이 완전히 겹칩니다. 그 최초 승리 셀 하나는 나머지 세 축이 전부 유리한 끝값(service 12.5분, 지연 60분, 8팀)입니다. 축이 이산적이므로 이 값은 실제 전이점의 상한입니다.",
       "forbidden_phrasings": [
         "임계값은 120분",
         "the threshold is 120 minutes",
         "W가 120분이면 유효하다",
         "정렬이 120분부터 최적",
-        "ordering works above 120 minutes"
+        "ordering works above 120 minutes",
+        "조건만 맞추면 유효하다",
+        "유효 영역",
+        "valid region"
       ],
       "check": {
         "kind": "json_path",
@@ -5537,7 +5540,7 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "W = 600 구성 180개",
-      "caveat": "⚠ 이것은 부정적 결과의 경계이지 규칙의 유효성이 아닙니다. 커밋된 W = 75 에서는 여전히 180개 셀 중 0승이고, 평균 차이는 12개 W 전부에서 음수입니다. 유효한 조건이 존재한다는 것과 현재 조건이 그 조건이라는 것은 다른 진술입니다. ⚠ 이 값은 「경계를 넘으면 규칙이 좋아진다」의 반증으로 인용하십시오. 커밋 값의 8배인 창에서조차 승률은 12.2 % 이고 패배율은 75.6 % 입니다. W = 600 은 순전히 탐색용 축이며 이 시스템이 그 창으로 운용된다는 근거가 아닙니다.",
+      "caveat": "⚠ 경계가 아니라 모서리이며, 유효 영역이라 부를 수 있는 것이 존재하지 않습니다. 커밋된 W = 75 에서는 여전히 180개 셀 중 0승이고, 평균 차이는 12개 W 전부에서 음수이며, 승리 구간의 패배율(68.3–82.8 %)은 커밋된 창(51.1 %)보다 오히려 높습니다. 네 축을 동시에 극단으로 조여 격자의 1.7 %(36셀)로 줄여야 승률이 겨우 50.0 % 에 닿습니다. 「조건만 맞추면 유효하다」로 쓰지 마십시오 — PHASE 23 의 결론은 약화되는 것이 아니라 강화됩니다. ⚠ 이 값은 「경계를 넘으면 규칙이 좋아진다」의 반증으로 인용하십시오. 커밋 값의 8배인 창에서조차 승률은 12.2 % 이고 패배율은 75.6 % 입니다. W = 600 은 순전히 탐색용 축이며 이 시스템이 그 창으로 운용된다는 근거가 아닙니다.",
       "forbidden_phrasings": [
         "긴 창에서는 정렬이 유효하다",
         "the ordering works at long windows",
@@ -5572,7 +5575,7 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "2,160개 중 마감 수 ≥ 3 인 비승리 셀",
-      "caveat": "⚠ 단일 임계값이 존재하지 않는다는 측정입니다. 「마감 수 N 이상이면 이긴다」는 N 은 없습니다 — 관계가 단조롭지 않아 마감 6개·7개 구간의 승률은 0 % 인데 3개 구간은 4.1 % 입니다. 셀 단위 상관은 Spearman +0.244 로 약하고, 차이의 크기와는 −0.022 로 사실상 무관합니다. ⚠ 상관이지 인과가 아닙니다 — 기제는 PHASE 23 §6 이 규명했고 W·마감 수·회랑 결정 비율은 구성상 분리 불가입니다.",
+      "caveat": "⚠ 단일 임계값이 존재하지 않는다는 측정입니다. 「마감 수 N 이상이면 이긴다」는 N 은 없습니다 — 관계가 단조롭지 않아 마감 6개·7개 구간의 승률은 0 % 인데 3개 구간은 4.1 % 입니다. 셀 단위 상관은 Spearman +0.244 로 약하고, 차이의 크기와는 −0.022 로 사실상 무관합니다. ⚠ 상관이지 인과가 아닙니다. ⚠ 그리고 PHASE 23 §6 의 기제는 이 결과를 다 설명하지 못합니다 — 바닥(마감 2개 → 465셀 전부 0승)은 설명하지만 6·7개 구간의 0 % 는 설명하지 못하고, 마감 수를 고정해도 승률이 계속 움직입니다(영덕 real, 3개 고정, 17.8포인트). 마감 수는 자유 변수가 아니라 (팔 × W) 의 이름표이므로 이 설계로는 개수·퍼짐·W 를 분리할 수 없습니다. 설명이 불완전하다는 것과 무엇이 더 필요한지는 docs/ordering_boundary.md §6.3 에 있으며, 억지 설명을 만들지 않았습니다.",
       "forbidden_phrasings": [
         "마감 수 임계값",
         "distinct-deadline threshold",
@@ -5607,7 +5610,7 @@
       "config_hash_at_production": null,
       "git_commit": "4e9dfe396a2c9052b9631afba511fe6bd1c0afe4",
       "sample": "지연 30분 구성 720개",
-      "caveat": "⚠ 이것은 부정적 결과의 경계이지 규칙의 유효성이 아닙니다. 커밋된 W = 75 에서는 여전히 180개 셀 중 0승이고, 평균 차이는 12개 W 전부에서 음수입니다. 유효한 조건이 존재한다는 것과 현재 조건이 그 조건이라는 것은 다른 진술입니다. ⚠ 승리 115개 중 100개(87 %)가 지연 60분에서 나옵니다 — 커밋된 지연이 아닙니다. 커밋된 30분 구간의 평균 차이 −8.36 은 세 지연 중 가장 나쁩니다. 팀이 1대인 432개 셀에서는 어떤 W 에서도 승리가 없습니다. 지연은 PoC 파라미터이며 측정된 영덕 출동 지연이 아닙니다.",
+      "caveat": "⚠ 경계가 아니라 모서리이며, 유효 영역이라 부를 수 있는 것이 존재하지 않습니다. 커밋된 W = 75 에서는 여전히 180개 셀 중 0승이고, 평균 차이는 12개 W 전부에서 음수이며, 승리 구간의 패배율(68.3–82.8 %)은 커밋된 창(51.1 %)보다 오히려 높습니다. 네 축을 동시에 극단으로 조여 격자의 1.7 %(36셀)로 줄여야 승률이 겨우 50.0 % 에 닿습니다. 「조건만 맞추면 유효하다」로 쓰지 마십시오 — PHASE 23 의 결론은 약화되는 것이 아니라 강화됩니다. ⚠ 승리 115개 중 100개(87 %)가 지연 60분에서 나옵니다 — 커밋된 지연이 아닙니다. 커밋된 30분 구간의 평균 차이 −8.36 은 세 지연 중 가장 나쁩니다. 팀이 1대인 432개 셀에서는 어떤 W 에서도 승리가 없습니다. 지연은 PoC 파라미터이며 측정된 영덕 출동 지연이 아닙니다.",
       "forbidden_phrasings": [
         "지연이 길수록 우리 정렬이 좋다",
         "longer delays validate the ordering"
