@@ -396,6 +396,8 @@ geometry, not a deployed product:
 | Walk + drive networks | OSMnx `walk`/`drive`, reprojected to EPSG:5179, disk-cached | **SYNTHETIC** 8-connected lattice on the extent (real algorithm) |
 | Refuges (대피소·긴급대피장소) | 행정안전부 / 공공데이터포털 (data.go.kr) GeoJSON/CSV at `cfg.shelters_path`, or OSM POIs | **SYNTHETIC** coastal assembly nodes + inland open-space POIs |
 | Depots (119안전센터) | 소방청 공공데이터포털 / OSM `amenity=fire_station` at `cfg.depots_path` | **SYNTHETIC** near-town nodes |
+| Village-edge origins (Session 8, `rescue_routing_village_edge.json`) | VWorld 건물통합정보 — **attempted 2026-08-29, HTTP 502 on every endpoint** (recorded in the artifact and `BLOCKERS.md`) | **OSM** building snapshot (124 buildings, `source="osm"`; coverage is a small region-dependent fraction — never a building count) |
+| Wildland vegetation (WUI definition, Session 8) | — | **OSM** `natural=wood` / `landuse=forest` polygons, disk-cached (`source="osm"`) |
 
 Every synthetic/assumed input is tagged `source = "synthetic"` (or `assumed`) in
 the outputs (`rescue_routing.json::provenance`) and in `RescueConfig.provenance()`.

@@ -7,6 +7,50 @@ needed to close it out.
 
 ---
 
+## Session 8 (post-interview refactor, 2026-08-29)
+
+### ⚠️ OPEN: VWorld Data API unreachable (502 on every endpoint)
+
+**What's needed**: working access to the VWorld Data API
+(`api.vworld.kr/req/data`, 건물통합정보 layer) so building origins can move
+from the 124-building OSM snapshot to authoritative footprints.
+
+**What was tried (2026-08-29)**: the `VWORLD_API_KEY` in `.env` (found
+concatenated onto the `DEMO_RECIPIENT` line without a newline — fixed this
+session; `.env` is git-ignored). Requests to `req/data` (`LT_C_SPBD`,
+`LT_C_ADSIDO`) and `req/search` all return **HTTP 502 Bad Gateway** (curl) or
+`RemoteDisconnected` (urllib) — the previously-recorded VPN-interference
+failure mode. The outcome is recorded verbatim in
+`data/processed/rescue_routing_village_edge.json::data_path.vworld_attempt`.
+
+**Next action (John)**: retry off-VPN or from another network; if 502
+persists, check the key's approval state at https://www.vworld.kr (콘솔 →
+인증키 관리). The loader seam is `src/wildfireguardian/buildings/`
+(`BuildingSource` protocol) — ingestion is one class once the endpoint
+answers.
+
+**Fallback used (per the session-8 gated plan)**: OSM building snapshot,
+`source = "osm"`, coverage caveat attached everywhere it is quoted.
+
+### ⚠️ ACTION FOR JOHN: GK2A L2 산불탐지(FF) product needs a KMA API-Hub key
+
+See Session 8 Phase 5 (`docs/gk2a_direction_experiment.md`). The sub-daily
+direction experiment's preferred labels are the GK2A AMI L2 FF (산불탐지)
+product served through the KMA API Hub, which requires a personal 인증키.
+
+**Signup URL**: https://apihub.kma.go.kr (회원가입 → 마이페이지 → API 인증키
+발급; the GK2A satellite product list is at
+https://apihub.kma.go.kr/apiList.do?seqApi=6). No key was requested this
+session — authentication is a stop-gate, not something to work around.
+
+**Keyless alternative documented in the plan**: NOAA NODD mirrors GK2A AMI
+**L1B** imagery (not L2 FF) at `s3://noaa-gk2a-pds` (2023-02 → present,
+`--no-sign-request`), which covers the March-2025 fires but would require
+deriving hotspots from L1B radiances ourselves — an added confounder the
+preregistration treats as a fallback arm, not the primary.
+
+---
+
 ## Session 7 (diagnostic) — the crown result was a bug
 
 ### ✅ FIXED: crown foliar-moisture conflation (the "54 %" artifact)

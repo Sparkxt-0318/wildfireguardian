@@ -255,3 +255,53 @@ field view. The 이장-facing A4 sheet keeps its wording — its audience makes
 the resident-notification decision, not the withdrawal decision; changing its
 pinned wording/page-budget contract was judged out of the phase's scope and
 is recorded here rather than silently skipped.
+
+---
+
+## Phase 2 — village-edge (WUI) re-centred scenarios
+
+**Definition (2a).** Radeloff et al. (2005, *Ecological Applications* 15(3))
+WUI; the **interface** form (housing adjacent to, not within, wildland
+vegetation), because the consultation's fatal pattern (마을·계곡 근처 민가
+연소) is adjacency. Building-level parameterisation: centroid distance to the
+nearest OSM wildland polygon ≤ D, D ∈ {50, 100, 200} m (swept; default 100).
+Radeloff's census-block constants (6.17 units/km², 2.4 km) deliberately NOT
+transplanted. Module: `src/wildfireguardian/buildings/wui.py` + 4 tests.
+
+**Data (2b, gated).** ① VWorld attempted with the recovered key —
+`RemoteDisconnected`/HTTP 502 on every endpoint; outcome recorded verbatim in
+the artifact and in `docs/BLOCKERS.md` (action for John: retry off-VPN).
+② Fallback: **OSM** building snapshot
+(`osm-buildings_yeongdeok-2025_20260805`, 124 buildings, `source="osm"`,
+coverage caveat carried). Vegetation: **OSM** `natural=wood`/`landuse=forest`
+(72 polygons, fetched + disk-cached this session, `source="osm"`). ③ The
+synthetic path was not needed. No untagged locations exist anywhere in the
+path.
+
+**Re-run (2c).** `scripts/run_village_edge_routing.py` →
+`data/processed/rescue_routing_village_edge.json`. Same network vintage as
+the arm-B lattice baseline (441-origin {12, 255, 142, 32}); the committed
+arm-A 439-series is quoted only with its vintage label, never overwritten.
+
+| origin set | N | already_safe | saved | no_walk | no_ingress | needs-rescuer share |
+|---|---:|---:|---:|---:|---:|---:|
+| lattice scan (arm B) | 441 | 255 | 12 | 142 | 32 | 39.5 % |
+| WUI-interface D=50 | 14 | 10 | 0 | 4 | 0 | 28.6 % |
+| WUI-interface D=100 | 29 | 19 | 0 | 8 | 2 | 34.5 % |
+| WUI-interface D=200 | 46 | 28 | 2 | 12 | 4 | 34.8 % |
+
+Intermix (within vegetation): 2 of 124 buildings. The numbers moved — that
+is the point of the re-centring. Reading, **direction only** (N is small by
+construction — a 124-building OSM snapshot): on village-edge origins the
+`no_surviving_vehicle_ingress` share is smaller than on the lattice scan
+(0–8.7 % vs 7.3 %… comparable at D=200) and most village-edge homes either
+walk out or are dispatch-reachable — consistent with (not confirming) the
+consultation's impression that the system's value at village edges is
+ordering the many reachable homes rather than flagging rare unreachable
+ones (§5.1 of the consultation). NUMBERS.json: 6 new `s8_*` entries added
+via `build_numbers.py` (old entries untouched; 153 total, all verify).
+
+**Not done / honest gaps.** VWorld ingestion (blocked, seam documented);
+no authoritative 행정리 boundary (pre-existing blocker); vegetation layer is
+OSM, not 임상도 — the WUI distances inherit OSM's vegetation mapping
+completeness, which is unmeasured here.

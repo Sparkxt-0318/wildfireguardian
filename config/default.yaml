@@ -431,6 +431,14 @@ building_origins:
   convergence_sample_sizes: [50, 100, 250, 500, 1000, 2000]
   convergence_repeats: 400
 
+  # --- SESSION 8 (village-edge / WUI re-centred origins) --------------------
+  # Building-level parameterisation of the Radeloff et al. (2005) INTERFACE
+  # concept (adjacent to, not within, wildland vegetation). D is THIS
+  # project's parameter — Radeloff's census-block constants are not
+  # transplanted. Swept; see data/processed/rescue_routing_village_edge.json.
+  wui_interface_distance_m: 100.0            # [src: buildings/wui.py]
+  wui_interface_distance_sweep_m: [50.0, 100.0, 200.0]  # [src: buildings/wui.py]
+
 # -----------------------------------------------------------------------------
 # Synthetic hazard envelope — used ONLY when no real forward-sim field is present
 # -----------------------------------------------------------------------------

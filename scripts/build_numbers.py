@@ -63,6 +63,8 @@ BLD_ROUTE = "data/processed/building_origin_routing.json"      # PHASE 18
 BLD_BIAS = "data/processed/building_spatial_bias.json"         # PHASE 18
 ORDER = "data/processed/dispatch_ordering_comparison.json"     # PHASE 23
 BOUND = "data/processed/ordering_boundary.json"                # PHASE 24
+MSWEEP = "data/processed/margin_sweep.json"                    # SESSION 8 Phase 1
+VEDGE = "data/processed/rescue_routing_village_edge.json"      # SESSION 8 Phase 2
 
 # Reproducibility is MEASURED, not assumed. Each artifact was re-run on
 # 2026-08-01 into a scratch directory and diffed against the committed copy.
@@ -262,6 +264,22 @@ REPRO = {
                       "this is RECOVERABLE: pinning the grid to "
                       "config bbox.fire_acquisition restores the committed extent. "
                       "Not changed here — it would alter results and needs a decision.",
+    },
+    MSWEEP: {
+        "status": "reproducible",
+        "evidence": "built 2026-08-29 (Session 8) on the CURRENT (arm-B vintage) "
+                    "cached OSM graphs; scripts/run_margin_sweep.py regenerates "
+                    "it deterministically under the fixed seed. Its lineage block "
+                    "records that it is NOT the committed arm-A 439-series.",
+        "blocked_by": None,
+    },
+    VEDGE: {
+        "status": "reproducible",
+        "evidence": "built 2026-08-29 (Session 8) from the pinned building "
+                    "snapshot (osm-buildings_yeongdeok-2025_20260805), the cached "
+                    "OSM vegetation layer and the current (arm-B vintage) cached "
+                    "graphs; scripts/run_village_edge_routing.py regenerates it.",
+        "blocked_by": None,
     },
 }
 
@@ -2076,6 +2094,116 @@ def main() -> int:
                                            ".cellwise.n_differences")},
                "expr": "a", "tolerance": 0.0},
         notes="docs/ordering_boundary.md §4.",
+    )
+
+    # ------------------------------------------------- SESSION 8 (2026-08-29) ----
+    # ⚠ Arm-B (current-network) lineage, clearly labelled — these do NOT revise
+    # the committed 439-series values above; they sit beside them.
+    msweep = read(MSWEEP)
+    vedge = read(VEDGE)
+
+    N["s8_margin_dispatch_n_armb"] = entry(
+        value=msweep["cells"]["same_route/t_load=10"]["n_dispatch"],
+        unit="homes",
+        source_file=MSWEEP,
+        json_path="cells.same_route/t_load=10.n_dispatch",
+        derivation="dispatch-reachable homes on the arm-B (current snapshot) "
+                   "network; the margin layer holds this fixed across all cells",
+        sample="영덕 arm-B 네트워크, 441-계 계보",
+        caveat="Arm-B network vintage — NOT the committed 439-series "
+               "(docs/network_drift.md). Synthetic hazard/terrain.",
+        forbidden_phrasings=["142 households rescued", "142 가구 구조"],
+        check={"kind": "json_path",
+               "operands": {"a": op(MSWEEP, "cells.same_route/t_load=10.n_dispatch")},
+               "expr": "a", "tolerance": 0.0},
+        notes="Session 8 Phase 1 (docs/SESSION8_LOG.md).",
+    )
+    N["s8_margin_nonpositive_core"] = entry(
+        value=msweep["cells"]["same_route/t_load=10"]["n_margin_nonpositive"],
+        unit="homes",
+        source_file=MSWEEP,
+        json_path="cells.same_route/t_load=10.n_margin_nonpositive",
+        derivation="dispatch-reachable homes whose ROUND-TRIP margin "
+                   "(ingress + assumed t_load + egress at egress time) is <= 0 "
+                   "at the baseline cell; invariant across every swept t_load "
+                   "and both egress policies (free adds homes, never removes)",
+        sample="영덕 arm-B 네트워크, 441-계 계보",
+        caveat="Direction is the result (one-way dispatchability overstates "
+               "completable missions); the absolute count rides on the ASSUMED "
+               "t_load and the synthetic hazard.",
+        forbidden_phrasings=["62 rescuers lost", "62명"],
+        check={"kind": "json_path",
+               "operands": {"a": op(MSWEEP,
+                                    "cells.same_route/t_load=10.n_margin_nonpositive")},
+               "expr": "a", "tolerance": 0.0},
+        notes="Session 8 Phase 1 (docs/SESSION8_LOG.md).",
+    )
+    N["s8_vedge_intermix_n"] = entry(
+        value=vedge["n_intermix_within_vegetation"],
+        unit="buildings",
+        source_file=VEDGE,
+        json_path="n_intermix_within_vegetation",
+        derivation="OSM snapshot building centroids INSIDE an OSM wildland "
+                   "polygon (Radeloff 2005 intermix form)",
+        sample="영덕 bbox, OSM 건물 스냅샷 124동",
+        caveat="OSM building coverage in rural Korea is a small, "
+               "region-dependent fraction of the real stock — never a "
+               "building count.",
+        forbidden_phrasings=[],
+        check={"kind": "json_path",
+               "operands": {"a": op(VEDGE, "n_intermix_within_vegetation")},
+               "expr": "a", "tolerance": 0.0},
+        notes="Session 8 Phase 2 (docs/SESSION8_LOG.md).",
+    )
+    N["s8_vedge_n_origins_d100"] = entry(
+        value=vedge["runs"]["100"]["n_origins"],
+        unit="origins",
+        source_file=VEDGE,
+        json_path="runs.100.n_origins",
+        derivation="distinct walk nodes of WUI-interface buildings "
+                   "(distance <= 100 m, Radeloff 2005 interface form, "
+                   "building-level parameterisation)",
+        sample="영덕 arm-B 네트워크, OSM 건물 스냅샷",
+        caveat="Small N by construction (124-building OSM snapshot); the "
+               "re-centred split is a direction, not a magnitude.",
+        forbidden_phrasings=["29 households", "29 가구"],
+        check={"kind": "json_path",
+               "operands": {"a": op(VEDGE, "runs.100.n_origins")},
+               "expr": "a", "tolerance": 0.0},
+        notes="Session 8 Phase 2 (docs/SESSION8_LOG.md).",
+    )
+    N["s8_vedge_no_walk_d100"] = entry(
+        value=vedge["runs"]["100"]["four_way_counts"]["no_safe_pedestrian_route"],
+        unit="origins",
+        source_file=VEDGE,
+        json_path="runs.100.four_way_counts.no_safe_pedestrian_route",
+        derivation="four-way class 3 on the village-edge origin set (D=100 m)",
+        sample="영덕 arm-B 네트워크, OSM 건물 스냅샷",
+        caveat="Direction only; synthetic hazard/terrain, small N.",
+        forbidden_phrasings=[],
+        check={"kind": "json_path",
+               "operands": {"a": op(VEDGE,
+                                    "runs.100.four_way_counts.no_safe_pedestrian_route")},
+               "expr": "a", "tolerance": 0.0},
+        notes="Session 8 Phase 2 (docs/SESSION8_LOG.md).",
+    )
+    N["s8_vedge_no_ingress_d100"] = entry(
+        value=vedge["runs"]["100"]["four_way_counts"]["no_surviving_vehicle_ingress"],
+        unit="origins",
+        source_file=VEDGE,
+        json_path="runs.100.four_way_counts.no_surviving_vehicle_ingress",
+        derivation="four-way class 4 on the village-edge origin set (D=100 m)",
+        sample="영덕 arm-B 네트워크, OSM 건물 스냅샷",
+        caveat="Direction only; synthetic hazard/terrain, small N. Consistent "
+               "with the consultation's impression that genuinely unreachable "
+               "homes are rare at village edges — but N=1 testimony and a "
+               "124-building snapshot cannot confirm each other.",
+        forbidden_phrasings=[],
+        check={"kind": "json_path",
+               "operands": {"a": op(VEDGE,
+                                    "runs.100.four_way_counts.no_surviving_vehicle_ingress")},
+               "expr": "a", "tolerance": 0.0},
+        notes="Session 8 Phase 2 (docs/SESSION8_LOG.md).",
     )
 
     doc = {
