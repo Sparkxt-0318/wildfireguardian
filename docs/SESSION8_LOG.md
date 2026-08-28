@@ -400,3 +400,28 @@ render of the committed page).
   point raises `NotImplementedError` pointing at the plan and the blocker.
   No stub data, no placeholder arrays (pinned by
   `tests/test_gk2a_scaffold.py`).
+
+---
+
+## Phase 6 — verification
+
+- Gates: verify-numbers 153/153 PASS · check-forbidden PASS ·
+  check-region-literals PASS · snapshot-verify PASS · env-check PASS ·
+  baseline-verify **initially FAIL, by design**: it listed exactly this
+  session's deliberate additive changes (config hash moved on additive keys
+  only; registry 147 → 153; four NEW tracked artifacts; **no existing
+  artifact overwritten**) → re-frozen via `make baseline-freeze`
+  (deliberate; recorded here and in the commit message), after which PASS.
+- MODEL_CARD contradiction sweep: both items named in the brief (the
+  superseded-Build-A model name; 375 m) were **verified against the code and
+  found already fixed** — the
+  card names `HistGradientBoostingClassifier` and states 500 m with the
+  explicit 375-m-is-the-rescue-grid note; `spread_v2/grid.py
+  DEFAULT_CELL_M = 500.0` agrees. Nothing changed in the file.
+- Process note, disclosed: the first Phase-6 full-suite run was started
+  before the baseline re-freeze and showed 2 failures caused by me mutating
+  `docs/baseline_phase13.json` (and NUMBERS) mid-run; the affected files
+  pass individually and the suite was restarted on the stable tree — the
+  restarted run's count is the recorded one.
+- Final suite count: recorded in `docs/OVERNIGHT_REPORT_SESSION8.md` §Phase 6
+  after the restarted run completed.
