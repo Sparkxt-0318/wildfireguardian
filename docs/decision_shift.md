@@ -262,6 +262,9 @@ core growth **−32.65 pp**.
 
 ### 4.3 ⚠ 저장소가 이 점을 잘못 적고 있었습니다 — 일부만 정정 가능
 
+> ⚠ 아래 인용의 앞 분할은 **철회된**(reverted) 화재장 러닝의 과거 기록이며,
+> 정본 재계산(canonical re-run)의 분할은 414 / 42 / 2 입니다.
+
 [`multi_region.md`](multi_region.md) §1 과 커밋 `815dc02` 는
 「440/17/3 → 414/42/2 는 화재장 **단독** 귀속」이라고 적고 있었습니다. **어느
 입력이 바뀌었는지**로는 맞지만, 그 입력이 한 축이 아니라 세 축이고 분모까지
@@ -334,6 +337,9 @@ naive_mean_time_min · naive_max_time_min` 뿐이고,
 `real_roads_real_hazard_slope_{30,60,90}.json`
 `.three_column_comparison.{col2_jul24_flat, col3_jul24_slope}` 대
 `slope_sweep_canonical.json` `.arms`:
+
+> ⚠ 「전」 열은 **철회된**(reverted) 화재장 러닝의 과거 기록이고, 「후」 열이
+> 정본 재계산(canonical re-run)입니다.
 
 | 간격 | 전 (n=460) | 후 (n=458) | 평지 대비 이동 |
 |---|---|---|---|

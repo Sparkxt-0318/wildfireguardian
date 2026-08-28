@@ -187,7 +187,9 @@ def test_retired_lineage_figures_do_not_appear():
     for token in ("0.867", "0.8667", "0.834", "0.8340", "0.874", "0.8745",
                   "138619", "2731"):
         assert not _has_token(text, token), token
-    for word in ("XGBoost", "Chen", "Guestrin", "multi-scale"):
+    # This IS the scanning list of a test that asserts these words are ABSENT
+    # from the finals screen — hence the pragma on the line itself.
+    for word in ("XGBoost", "Chen", "Guestrin", "multi-scale"):  # forbidden-ok: XGBoost, Chen, Guestrin, multi-scale
         assert word not in text, word
 
 
