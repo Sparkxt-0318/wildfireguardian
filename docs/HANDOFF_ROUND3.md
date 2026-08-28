@@ -825,6 +825,65 @@ a number produced under a different config is a different number.
 degeneracy, its cause, and the alternative key that was reported but not adopted
 — exists nowhere on `Main`. See §4 「PHASE 16 findings are branch-only」.
 
+### ⚠ Round-4 addendum (2026-08-13): a claim counted one measurement nine times
+
+PHASE 25 STEP 0 was a census of every defect this repository found in itself,
+asked for in support of a claim of the form 「one system, three regions, N real
+defects, decision shift measured for the first time」. **All three quantities in
+that sentence were checked, and none survived.**
+
+The census produced 156 confirmed defect records. Nine of them claimed a shift
+in the routing classification. Walking the five commits that touch
+`multi_region_comparison.json` and reading the same JSON path at each shows the
+counts move in exactly **two** places — `9ba83b4` (DEM re-acquisition) and
+`815dc02` (canonical-field switch). **The nine records are nine descriptions of
+two events.** 「Three regions」 fails for a second reason: event 1 moved two
+regions, event 2 moved one, and **no defect moved all three.** Novelty was never
+investigated at all.
+
+⚠ The census counts themselves (156 records, 9 claiming a shift) are a **session
+tally with no committed artifact** — the same shape §8.1 of `decision_shift.md`
+names as uncatchable. Quote them as such or not at all. A "thirty" figure also
+circulates for this project; it is the **2026-08-09 Round-4 review's**
+confirmed-findings count, not a census figure from this pass.
+
+⚠ **This is a new failure mode again, and it is the quietest one yet.** The VPD
+case was a citation whose event never happened. The closure-profile case was a
+real measurement from the wrong branch. Here **every individual record is true**
+— each was verified against an artifact — and the error is only in the
+*aggregation*. Nothing in the registry can catch it: each row checks out, and
+no gate counts distinct root causes. The defence is the same as §4-B's, applied
+one level up: before quoting a count of findings, check whether the findings are
+independent.
+
+The scoped claim, the two caveats that must travel with it, the 7-key partition
+correction and the two-axis distinction are all in
+[`decision_shift.md`](decision_shift.md). The three retired sentence shapes are
+registered in `scripts/check_forbidden.py` as `kind="claim"` rules.
+
+⚠ **One correction this produced, recorded here because it changes a stated
+control:** `multi_region.md` said 440/17/3 → 414/42/2 was "attributable to the
+hazard field **alone**". Only one input changed, but that input is
+simultaneously a different run, a corrected-DEM lineage and a larger canvas, and
+the **denominator moved 460 → 458** because the origin frame is a function of
+the field. Corrected in place; `decision_shift.md` §4.2.
+
+⚠ **And one thing that survives only by luck.** Event 1 fixed three faults in
+one commit — the sea-fill ramp, the 405-node footprint gap and the canvas
+mean-fill — and **no artifact decomposes the Uiseong-Andong routing movement
+into them.** Never attribute that movement to the sea-fill specifically; the
+attribution in the `9ba83b4` body is prose reasoning, not a measurement.
+
+A decomposition is nonetheless still *possible*, because the **defective rasters
+are on disk** — `data/raw/firms_CANONICAL_TEST/uljin_samcheok_2022_dem.tif`
+(`4850941d…`) and `…/uiseong_andong_2025_dem.tif` (`14288109…`), both matching
+`dem_acquisition.json` `.acquisitions[*].replaced.sha256`. ⚠ But `data/raw/**`
+is git-ignored and `data/snapshots/` holds only the *corrected* bytes, so these
+files are **in no commit and would not survive a fresh clone. Do not delete
+them.** (An earlier draft of this addendum said the bytes were unrecoverable and
+the decomposition impossible in principle; both were wrong — `decision_shift.md`
+§7.2, §10.)
+
 ## 5. ⚠ Never do these
 
 1. **Never push to `Main`.** All work stays on `round3-dev`. Merging is the
@@ -885,6 +944,31 @@ degeneracy, its cause, and the alternative key that was reported but not adopted
 21. **Never re-draw Yeongdeok's walk bbox** without re-reading §2-A. It does not
     fit the simulation grid, so it is not a bbox change — it is a full
     re-simulation and a re-run of steps 1–3.
+22. **Never headline a COUNT of defects with a measured decision shift.** Two
+    events move the routing classification, not nine and not thirty; a third and
+    fourth exist on the responder axis and must be labelled as a different
+    classification. **And never write 「three regions」 into that claim** — event
+    1 moved two regions, event 2 moved one, none moved three. Registered as
+    `kind="claim"` rules in `check_forbidden.py`.
+    [`decision_shift.md`](decision_shift.md) §1.
+23. **Never merge the two four-way classifications.** The routing axis
+    (`both_safe` / `naive_into_FA_safe` / `no_safe_route` / `fa_exceeds_budget`,
+    n = 458/368/393) and the responder axis (`rescue_routing.json`
+    `.four_way_counts`, n = 439) have different names, denominators, lineages
+    and hazard fields. Also: it is a **7-key** partition with three keys
+    structurally empty in Korean runs, and `fa_exceeds_budget`'s code condition
+    names no budget. `decision_shift.md` §2.
+24. **Never describe the reverted-field 440/17/3 → 414/42/2 as a single-variable
+    contrast**, and never write "N origins were reclassified" for it. The
+    canonical field differs from the reverted one on three axes at once, and the
+    denominator moved 460 → 458 because the origin frame is a function of the
+    field — so the per-origin ledger that would settle the split does not exist
+    **for this pair**. ⚠ It *does* exist for the DEM event and for the
+    flat-vs-slope contrast (`origin_nodes_by_bucket`,
+    `bucket_movement_vs_flat_control`), so check before assuming either way, and
+    when you do quote a movement count say which definition it is: leaving
+    `both_safe` and changing bucket are different numbers (Uiseong-Andong 83 vs
+    90). `decision_shift.md` §3.2, §4.2.
 
 ---
 
@@ -1001,8 +1085,27 @@ of those artifacts are **irreproducible** ([`DATA_LOSS_2026-07-24.md`](DATA_LOSS
 **The convention, for the duration of the port:**
 
 1. **Never re-run a Korean producing script without an explicit `--out` (or
-   `--npz-out` / `--json-out`) pointing outside `data/processed`.** The scripts
-   all take one; the danger is the default, not the flag.
+   `--npz-out` / `--json-out`) pointing outside `data/processed`.** ⚠ **The
+   second half of this rule used to read "The scripts all take one; the danger
+   is the default, not the flag." That is false, and it was corrected
+   2026-08-13 (PHASE 25 STEP 0).** Eighteen scripts reference `data/processed`
+   and expose no out-flag at all; **ten of them write into it**:
+   `run_forward_sim_region.py` (`forward_sim_regions.json` +
+   `hazard_{fire_id}.npz`, `OUT_DIR` hardcoded at `:65`; its whole argparse
+   surface is `--fires --cell-m --n-steps --step-hours --advance-threshold
+   --p-cut --seed --walk-margin-km --acknowledge-fuel-gap`),
+   `export_demo_data.py` (`demo_data.json` — **no `ArgumentParser` anywhere in
+   the file**, `OUT` hardcoded at `:73`), `measure_weather_dependency.py`,
+   `verify_rescue_routing.py`, `derive_walk_failure.py`, `crown_sensitivity.py`,
+   `diagnose_crown.py`, `waf_sensitivity_sweep.py`, `run_ablation.py`
+   (`yeongdeok_2025_ablation.json`) and `run_yeongdeok_validation.py`
+   (`yeongdeok_2025_validation_results.json`) — the last two also with no
+   `ArgumentParser` at all. For these the danger **is
+   the absence of the flag**, and "re-run it to a scratch `--out`" is not an
+   available path without editing the script first. Three more
+   (`make_rescue_figures.py`, `make_routing_figures.py`,
+   `make_ordering_boundary_figure.py`) write `docs/figures/*.png`, which §5.3
+   forbids regenerating. [`decision_shift.md`](decision_shift.md) §7.2.
 2. **`make baseline-verify` before and after any such run.** It is in
    `make all-checks`, so a full check already covers it.
 3. **A deliberate change is a `make baseline-freeze` plus a sentence in the
@@ -1058,6 +1161,7 @@ Override the interpreter with `make verify PYTHON=/path/to/python`.
 | [`ordering_boundary.md`](ordering_boundary.md) | **⚠ PHASE 24 (2026-08-11) — the W axis of PHASE 23 filled in from 2 points to 12 (60…600), 2,160 cells. It does NOT reopen PHASE 23: that run's W=75 and W=240 values were re-derived cell by cell here, 3,744 values, **0 differences**. ⚠ **확정 서술 (§0, §7): 마감 기반 정렬이 이기는 셀이 존재하는 조건은 W ≥ 120분이나, 경계를 넘어도 규칙이 개선되지 않습니다. W = 600 에서도 승률 12.2 %, 패배율 68.3–82.8 % 로 커밋된 창(51.1 %)보다 높고, 평균 차이는 12개 W 전부 음수입니다. 승리 115개 중 100개가 지연 60분이며, 축 최초 승리 셀은 나머지 세 축이 동시에 최유리 끝값입니다. 즉 이것은 경계가 아니라 모서리이며, 유효 영역이라 부를 수 있는 것이 존재하지 않습니다.** This **strengthens** PHASE 23 rather than softening it: PHASE 23 measured invalidity at one committed point, PHASE 24 measured that opening the window 8× produces no valid region. Never write "조건만 맞추면 유효하다" — it takes all four axes at their extremes, 36 of 2,160 cells (1.7 %), to reach a win rate of even 50.0 %. **No single threshold exists** — not in W (min winning 120, max non-winning 600: the ranges fully overlap) and not in the distinct-deadline count (non-monotone; 1,580 non-winning cells sit at or above the lowest winning value). ⚠ **§6.3: PHASE 23 §6's mechanism is NOT a complete explanation** — it accounts for the floor (2 distinct deadlines → 0 wins in all 465 cells) but not for the 0 % at 6 and 7 distinct deadlines, and the outcome keeps moving (17.8 points, 영덕 real) while the count is frozen. The count is a label for (arm × W), not a free variable; §6.3 lists the three measurements that would be needed and states plainly that none was manufactured. §8.1: `W = 75` is marked `# ASSUMED` at `config/default.yaml:365` with **no measured basis anywhere in the tree** — quote the block there verbatim, and the limit statement is **「이 실험은 실제 운용이 경계의 어느 쪽인지 말할 수 없습니다」**. Read §1 before quoting anything.** |
 | [`weather_dependency.md`](weather_dependency.md) | **PHASE 14 — how much of the model's skill is instantaneous weather, and the ceiling on a forecast-source swap** |
 | [`baseline_phase13.json`](baseline_phase13.json) | **the frozen Korean baseline — every `data/processed` digest, the four PROTECTED paths, the LOFO shape, and the sha256 of the git-ignored `fire_manifest.json`. `make baseline-verify`.** |
+| [`firefighter_consultation.md`](firefighter_consultation.md) | **현직 소방관 1인 비공식 구술 자문 (N = 1, 2026-08-28 작성). 임정호·이양원 교수, 안희영 센터장 자문과 동일한 성격 — 전문가 판단의 기록이지 측정이 아니며, 「현장 실무자 자문」으로만 인용합니다. 수치 0건, 등록 0건, 코드·설정·산출물 변경 0건.** ⚠ **§1 — 「시간 예산」이라는 개념이 현장 의사결정에 존재하지 않음을 확인**했습니다 (「실측값 미확보」로 적지 마십시오). 철수 판단은 경과 시간이 아니라 「살아서 나올 수 있는가」의 실시간 평가입니다. 이는 [`dispatch_ordering.md`](dispatch_ordering.md) 의 **W = 75 에서 마감 기반 정렬 0/180** 과 **독립적인 출처가 같은 방향을 가리키는** 사례이며, `config/default.yaml:365` 의 `# ASSUMED` 인 `W` 에 대응하는 현장 대응물이 없음을 뜻합니다 — ⚠ 두 근거를 하나로 접어 「입증됐다」로 쓰지 마십시오. **§3 — 「지금 불이 안 보이니까」 대피하지 않는다는 진술이, 병목이 탐지·예보가 아니라 전달·구조에 있다는 프로젝트 전제를 현장에서 직접 확인한 가장 강한 증거**입니다. 동시에 §3.2 가 그 반대면을 기록합니다 — 원인은 순응 실패이고 **순응은 본 시스템의 범위 밖**입니다. **§2** 조건부 우회가 현장 관행과 구조적으로 일치(⚠ 축이 다르고 커버리지 단서 필요), **§4** 우리 목적함수는 소방(인명 최소화) 쪽이며 산림청(확산 저지)이 아님, **§5** 실질 가치가 「도달 불가 판정」보다 「다수 가구 우선순위 배정」에 있을 수 있다는 함의(결정 아님), **§7** 대원이 GPS를 쓰지 않으므로 전달 계층 산출물이 좌표가 아니라 도로명·랜드마크여야 한다는 **장비 수준의** 제약. **§8 미확인 — 소속·직급·성함, 익명 처리 동의 여부(기본값 익명), 인터뷰 일시, 시간 범위, 의성 고립 사례의 출처 대조.** |
 | **§13 of this file** | **PHASE 13 — the portability investigation, the four defects it found, why McKinney 2022, the four-arm design, and the resume condition** |
 
 ---

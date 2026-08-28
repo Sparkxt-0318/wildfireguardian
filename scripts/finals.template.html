@@ -1,0 +1,2085 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WildfireGuardian · 본선 시연</title>
+<style>
+/* Vendored fonts, relative paths only (web/assets/fonts). No remote anything. */
+@font-face{font-family:'IBM Plex Sans KR';font-weight:400;font-display:block;
+  src:url('assets/fonts/IBMPlexSansKR-Regular.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Sans KR';font-weight:600;font-display:block;
+  src:url('assets/fonts/IBMPlexSansKR-SemiBold.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-weight:400;font-display:block;
+  src:url('assets/fonts/IBMPlexMono-Regular.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-weight:600;font-display:block;
+  src:url('assets/fonts/IBMPlexMono-SemiBold.woff2') format('woff2')}
+/* IBM Plex lacks U+2192/91/93; the arrow subset carries exactly those three. */
+@font-face{font-family:'Arrow';font-weight:400;font-display:block;
+  unicode-range:U+2192,U+2191,U+2193;
+  src:url('assets/fonts/Pretendard-arrow.subset.woff2') format('woff2')}
+
+:root{
+  --bg:#0a0e13; --bg2:#0d1319; --panel:#101722; --panel2:#141d2a;
+  --hair:#1c2734; --hair2:#27364a;
+  --ink:#e9eef4; --ink2:#94a5b8; --ink3:#6e8095;
+  --safe:#22d3ee; --route:#5ea0f2; --warn:#f59e0b; --closed:#dc2626;
+  --warntext:#fde047; --focus:#fbbf24;
+  --sans:'Arrow','IBM Plex Sans KR',system-ui,sans-serif;
+  --mono:'Arrow','IBM Plex Mono',ui-monospace,monospace;
+  --ease:cubic-bezier(.33,.02,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);
+  font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button{font-family:var(--sans);color:var(--ink2);background:transparent;
+  border:1px solid transparent;border-radius:3px;cursor:pointer;font-size:12px}
+button:hover{color:var(--ink)}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.k{font-size:10.5px;letter-spacing:.13em;color:var(--ink3);font-weight:600}
+.hairline{border:0;border-top:1px solid var(--hair)}
+[hidden]{display:none!important}
+
+/* ---------- app frame ---------------------------------------------------- */
+#app{position:fixed;inset:0;display:flex;flex-direction:column;
+  opacity:0;transition:opacity .5s var(--ease)}
+#app.on{opacity:1}
+header{flex:0 0 52px;display:flex;align-items:center;gap:18px;
+  padding:0 16px;border-bottom:1px solid var(--hair);background:var(--bg2)}
+#brand{display:flex;flex-direction:column;line-height:1.25;min-width:196px}
+#brand b{font-size:13.5px;font-weight:600;letter-spacing:.22em}
+#brand span{font-size:10.5px;color:var(--ink3);letter-spacing:.02em}
+#tabs{display:flex;gap:2px;margin:0 auto;border:1px solid var(--hair);
+  border-radius:4px;padding:2px;background:var(--bg)}
+#tabs button{padding:5px 14px;font-weight:600;font-size:12px;border-radius:3px}
+#tabs button[aria-selected="true"]{background:var(--panel2);color:var(--ink);
+  border-color:var(--hair2)}
+#topright{display:flex;align-items:center;gap:6px;min-width:196px;
+  justify-content:flex-end}
+#topright button{padding:5px 9px;border:1px solid var(--hair)}
+#topright button[aria-pressed="true"]{color:var(--ink);border-color:var(--hair2);
+  background:var(--panel2)}
+#btnGuide{background:#14303f;border-color:#1d4f66!important;color:#9fe3f2;
+  font-weight:600}
+#btnGuide:hover{background:#1a3c50;color:#c8eef8}
+#panel.spot{box-shadow:inset 3px 0 0 var(--safe)}
+.stamp{font-family:var(--mono);font-size:10.5px;fill:#ffb4a1;
+  paint-order:stroke;stroke:#0a0e13;stroke-width:3px}
+
+main{flex:1 1 auto;position:relative;min-height:0}
+.view{position:absolute;inset:0;opacity:0;pointer-events:none;
+  transition:opacity .28s var(--ease)}
+.view.on{opacity:1;pointer-events:auto}
+
+/* ---------- LIVE: map ----------------------------------------------------- */
+#mapbox{position:absolute;left:0;right:340px;top:0;bottom:118px;cursor:default;
+  background:#0f141b}
+#map{display:block;width:100%;height:100%}
+#map .roads path{fill:none;stroke:#3f5266;stroke-linecap:round;
+  transition:stroke .5s var(--ease),opacity .5s var(--ease)}
+#map path.hw0{stroke-width:.6;opacity:.55}
+#map path.hw1{stroke-width:1.05;opacity:.8}
+#map path.hw2{stroke-width:1.7;opacity:.95}
+#map path.st1{stroke:var(--warn);stroke-dasharray:6 3.2}
+#map path.st2{stroke:#e25b3d;stroke-dasharray:1.6 2.6;opacity:.95}
+#map path.flash{stroke:#ff8a68;stroke-width:2.4}
+@keyframes trigPulse{0%{r:6;opacity:.85}100%{r:26;opacity:0}}
+.trigring{animation:trigPulse 2.2s var(--ease) infinite}
+.inclabel{font-family:var(--mono);font-size:11px;letter-spacing:.22em;
+  fill:#fde047}
+#map .dimmed .roads path.st0{opacity:.18}
+#map .quiet path.st1,#map .quiet path.st2{}
+.origin{stroke:#0a0e13;stroke-width:.6;cursor:pointer}
+.origin:hover{stroke:#fff;stroke-width:1}
+.origin.sel{stroke:#fff;stroke-width:1.4}
+#map text{font-family:var(--mono);fill:var(--ink2)}
+.rt-naive{fill:none;stroke:#f87171;stroke-width:2.4;stroke-dasharray:7 5;
+  stroke-linecap:round}
+.rt-fa{fill:none;stroke:var(--safe);stroke-width:2.6;stroke-linecap:round}
+.rt-danger{fill:none;stroke:#ff5a3c;stroke-width:4;stroke-linecap:round}
+.refuge{fill:none;stroke:#9fb2c8;stroke-width:1}
+.hoverbox rect{fill:rgba(10,14,19,.94);stroke:var(--hair2)}
+.hoverbox text{font-size:11px;fill:var(--ink)}
+.hoverbox .sub{fill:var(--ink2);font-size:10px}
+
+#modeline{position:absolute;top:10px;left:50%;transform:translateX(-50%);
+  max-width:min(680px,72%);padding:4px 12px;border:1px solid var(--hair);
+  border-radius:3px;background:rgba(10,14,19,.88);color:var(--ink3);
+  font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* region switcher */
+#regions{position:absolute;left:14px;top:12px;display:flex;
+  flex-direction:column;gap:6px;width:196px}
+#regions button{display:flex;flex-direction:column;align-items:flex-start;
+  gap:2px;padding:8px 11px;border:1px solid var(--hair);border-radius:4px;
+  background:rgba(13,19,25,.9);text-align:left;width:100%}
+#regions button b{font-size:13px;color:var(--ink);font-weight:600}
+#regions button span{font-size:10.5px;color:var(--ink3)}
+#regions button[aria-pressed="true"]{border-color:var(--hair2);
+  background:rgba(20,29,42,.95);box-shadow:inset 2px 0 0 var(--safe)}
+#regions .k{margin-left:2px;margin-bottom:-2px}
+
+/* legend */
+#legend{position:absolute;left:14px;bottom:130px;padding:9px 12px;
+  border:1px solid var(--hair);border-radius:4px;background:rgba(10,14,19,.9);
+  font-size:11px;color:var(--ink2);display:flex;flex-direction:column;gap:3px}
+#legend .row{display:flex;align-items:center;gap:7px}
+#legend svg{flex:0 0 22px}
+#legend .gap{height:4px}
+
+/* right panel */
+#panel{position:absolute;right:0;top:0;bottom:118px;width:340px;
+  border-left:1px solid var(--hair);background:rgba(13,18,25,.94);
+  display:flex;flex-direction:column;min-height:0}
+#panel .head{flex:0 0 auto;padding:12px 16px 9px;border-bottom:1px solid var(--hair)}
+#panel .head b{font-size:13px}
+#panel .body{flex:1 1 auto;overflow-y:auto;padding:12px 16px;min-height:0}
+#panel .foot{flex:0 0 auto;padding:9px 16px;border-top:1px solid var(--hair);
+  color:var(--ink3);font-size:10.5px;line-height:1.55}
+.stat{display:flex;align-items:baseline;gap:8px;margin:2px 0}
+.stat .v{font-family:var(--mono);font-weight:600;font-size:21px}
+.stat .u{color:var(--ink3);font-size:11px}
+.bucketrow{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12.5px}
+.bucketrow .m{width:14px;text-align:center}
+.bucketrow .n{margin-left:auto;font-family:var(--mono);font-weight:600}
+.card{border:1px solid var(--hair);border-radius:4px;padding:11px 12px;
+  margin:9px 0;background:rgba(16,23,34,.6)}
+.card h4{font-size:12px;margin-bottom:6px}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:3px 9px;
+  border-radius:3px;font-size:12px;font-weight:600}
+.cmp{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px}
+.cmp td,.cmp th{padding:3px 4px;border-bottom:1px solid var(--hair);text-align:right}
+.cmp td:first-child,.cmp th:first-child{text-align:left;color:var(--ink2)}
+.cmp .num{font-weight:600}
+.note{color:var(--ink3);font-size:11px;line-height:1.55;margin-top:6px}
+.note.warn{color:var(--warntext)}
+
+/* timeline */
+#timeline{position:absolute;left:0;right:0;bottom:0;height:118px;
+  border-top:1px solid var(--hair);background:rgba(10,14,19,.97);
+  display:flex;align-items:stretch;gap:0}
+#transport{flex:0 0 196px;display:flex;flex-direction:column;
+  justify-content:center;gap:6px;padding:0 14px;border-right:1px solid var(--hair)}
+#transport .row{display:flex;gap:6px}
+#transport button{width:34px;height:30px;border:1px solid var(--hair);
+  display:flex;align-items:center;justify-content:center}
+#transport button:hover{border-color:var(--hair2);background:var(--panel)}
+#transport svg{display:block}
+#tchip{font-family:var(--mono);font-weight:600;font-size:20px}
+#tchip small{font-size:10px;color:var(--ink3);font-weight:400;display:block;
+  letter-spacing:.08em}
+#tlwrap{flex:1 1 auto;position:relative;min-width:0}
+#tl{display:block;width:100%;height:100%;touch-action:none}
+#tlstatus{position:absolute;right:14px;top:7px;font-size:11px;color:var(--ink3)}
+#tlstatus b{color:var(--warntext);font-family:var(--mono)}
+
+/* ---------- guided overlay ------------------------------------------------ */
+#guide{position:absolute;left:0;right:340px;bottom:130px;display:flex;
+  justify-content:center;pointer-events:none;z-index:30}
+#guidecard{pointer-events:auto;max-width:620px;margin:0 12px;
+  border:1px solid var(--hair2);border-radius:6px;background:rgba(10,14,19,.95);
+  padding:14px 18px 12px;box-shadow:0 14px 40px rgba(0,0,0,.5)}
+#guidecard .k{display:flex;gap:10px;align-items:center;margin-bottom:6px}
+#gtitle{font-size:16px;font-weight:600;letter-spacing:.01em}
+#gbody{font-size:13.5px;color:var(--ink2);line-height:1.65;margin-top:2px}
+#gbody b{color:var(--ink);font-weight:600}
+#gmeta{font-family:var(--mono);font-size:11.5px;color:var(--ink3);margin-top:7px}
+#gnav{display:flex;align-items:center;gap:10px;margin-top:11px}
+#gdots{display:flex;gap:5px;margin-right:auto}
+#gdots i{width:18px;height:3px;border-radius:2px;background:var(--hair2)}
+#gdots i.on{background:var(--safe)}
+#gnav button{padding:6px 14px;border:1px solid var(--hair2);font-weight:600}
+#gnav button.primary{background:#173042;border-color:#1d4f66;color:#aee9f6}
+#gnav button.primary:hover{background:#1b3a50}
+
+/* ---------- static views -------------------------------------------------- */
+.page{position:absolute;inset:0;overflow-y:auto;padding:26px 34px 40px}
+.page h2{font-size:17px;font-weight:600;margin-bottom:3px}
+.page .sub{color:var(--ink3);font-size:12px;margin-bottom:20px}
+.grid{display:grid;gap:12px}
+.ev-grid{grid-template-columns:repeat(auto-fit,minmax(300px,1fr));max-width:1460px}
+.evcard{border:1px solid var(--hair);border-radius:5px;background:var(--panel);
+  padding:14px 16px;display:flex;flex-direction:column;gap:6px;min-height:118px}
+.evcard .k{display:flex;justify-content:space-between;align-items:center}
+.evcard .big{font-family:var(--mono);font-weight:600;font-size:30px;line-height:1.1}
+.evcard .big small{font-size:13px;color:var(--ink2);font-weight:400}
+.evcard p{font-size:12px;color:var(--ink2);line-height:1.55}
+.evcard .src{margin-top:auto}
+.srcbtn{font-size:10.5px;color:var(--ink3);border:1px solid var(--hair);
+  padding:2px 8px;border-radius:3px}
+.srcbtn:hover{color:var(--ink);border-color:var(--hair2)}
+.prov{font-family:var(--mono);font-size:10.5px;color:var(--ink3);
+  border-top:1px solid var(--hair);margin-top:8px;padding-top:8px;
+  line-height:1.6;word-break:break-all}
+table.regions{border-collapse:collapse;width:100%;font-size:12.5px}
+table.regions th{font-size:10.5px;letter-spacing:.1em;color:var(--ink3);
+  text-align:right;padding:6px 8px;border-bottom:1px solid var(--hair2)}
+table.regions td{padding:7px 8px;border-bottom:1px solid var(--hair);
+  text-align:right;font-family:var(--mono)}
+table.regions td:first-child,table.regions th:first-child{text-align:left;
+  font-family:var(--sans)}
+
+/* system view */
+#sysflow{display:flex;gap:12px;align-items:stretch;max-width:1460px;
+  margin-top:26px}
+.stage{flex:1 1 0;border:1px solid var(--hair);border-radius:5px;
+  background:var(--panel);padding:18px 16px 15px;cursor:pointer;
+  transition:opacity .25s var(--ease),border-color .25s var(--ease);min-width:0}
+.stage .n{font-family:var(--mono);font-size:10px;color:var(--ink3)}
+.stage h3{font-size:14.5px;margin:10px 0 3px}
+.stage .en{font-size:10px;letter-spacing:.14em;color:var(--ink3)}
+.stage svg{margin-top:10px}
+#sysflow.focus .stage{opacity:.32}
+#sysflow.focus .stage.on{opacity:1}
+.stage.on{border-color:var(--hair2);box-shadow:inset 0 2px 0 var(--safe)}
+.arrowsep{align-self:center;color:var(--ink3);font-family:var(--mono);
+  font-size:16px}
+#sysdetail{max-width:1460px;margin-top:18px;border:1px solid var(--hair);
+  border-radius:5px;background:var(--panel);padding:22px 24px;min-height:118px}
+#sysdetail h3{font-size:16px;margin-bottom:8px}
+#sysdetail p{font-size:14px;color:var(--ink2);line-height:1.7;max-width:920px}
+#syssrc{max-width:1460px;margin-top:18px;display:flex;gap:26px;
+  font-family:var(--mono);font-size:11px;color:var(--ink3);flex-wrap:wrap}
+#syssrc span b{color:var(--ink2);font-weight:600}
+
+/* reliability */
+.rel-grid{grid-template-columns:repeat(auto-fit,minmax(340px,1fr));max-width:1460px}
+.relcard{border:1px solid var(--hair);border-radius:5px;background:var(--panel);
+  padding:14px 16px}
+.relcard h3{font-size:13px;margin-bottom:6px}
+.relcard p{font-size:12px;color:var(--ink2);line-height:1.6}
+.relcard .doc{font-family:var(--mono);font-size:10.5px;color:var(--ink3);
+  margin-top:8px}
+blockquote{border-left:2px solid var(--hair2);padding:2px 0 2px 12px;
+  color:var(--ink);font-size:12.5px;line-height:1.65;margin:8px 0}
+#integrity{max-width:1460px;border:1px solid var(--hair);border-radius:5px;
+  background:var(--panel);padding:14px 16px;margin-bottom:14px}
+#integrity .k{display:flex;gap:14px;align-items:center;margin-bottom:8px}
+.gate{display:flex;gap:10px;align-items:center;font-family:var(--mono);
+  font-size:12px;padding:3px 0}
+.gate .ok{color:#34d399;font-weight:600}
+.gate .fail{color:#f87171;font-weight:600}
+.gate .na{color:var(--ink3)}
+
+/* ---------- intro ---------------------------------------------------------- */
+#intro{position:fixed;inset:0;z-index:60;background:#05070a;display:flex;
+  align-items:center;justify-content:center;overflow:hidden}
+#introMedia,#introFallback{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;opacity:.5}
+#introFallback{background-size:cover;background-position:center;
+  transform:scale(1.04)}
+@keyframes introPan{from{transform:scale(1.04) translateY(0)}
+  to{transform:scale(1.12) translateY(-1.6%)}}
+#intro.live #introFallback{animation:introPan 14s var(--ease) forwards}
+#introScrim{position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 62%,rgba(5,7,10,.25),rgba(5,7,10,.88) 78%)}
+#introText{position:relative;text-align:center;max-width:760px;padding:0 30px}
+#introText .line{opacity:0;transform:translateY(8px);
+  transition:opacity .9s var(--ease),transform .9s var(--ease)}
+#introText .line.on{opacity:1;transform:none}
+#introTag{font-family:var(--mono);font-size:12px;letter-spacing:.34em;
+  color:var(--ink3);margin-bottom:26px}
+.introLead{font-size:23px;font-weight:400;color:var(--ink);margin:10px 0;
+  line-height:1.55}
+#introTitle{margin-top:34px}
+#introTitle b{display:block;font-size:34px;font-weight:600;letter-spacing:.3em;
+  padding-left:.3em}
+#introTitle span{display:block;margin-top:10px;font-size:13px;color:var(--ink2)}
+#introBtns{margin-top:36px;display:flex;gap:12px;justify-content:center}
+#introBtns button{padding:10px 22px;font-size:13px;font-weight:600;
+  border:1px solid var(--hair2)}
+#introBtns .primary{background:#173042;border-color:#2a6d8c;color:#c8eef8}
+#introBtns .primary:hover{background:#1c3d55}
+#skipIntro{position:absolute;right:18px;bottom:16px;color:var(--ink3);
+  font-size:11.5px;padding:6px 12px;border:1px solid var(--hair)}
+
+/* presenter menu */
+#presenter{position:absolute;right:352px;bottom:130px;z-index:40}
+#presBtn{width:34px;height:34px;border:1px solid var(--hair);border-radius:4px;
+  background:rgba(10,14,19,.9);display:flex;align-items:center;justify-content:center}
+#presMenu{position:absolute;right:0;bottom:42px;width:238px;
+  border:1px solid var(--hair2);border-radius:5px;background:rgba(10,14,19,.97);
+  padding:8px;box-shadow:0 14px 40px rgba(0,0,0,.55)}
+#presMenu button{display:flex;width:100%;text-align:left;padding:7px 9px;
+  gap:8px;align-items:center;font-size:12px;justify-content:space-between}
+#presMenu button:hover{background:var(--panel2);color:var(--ink)}
+#presMenu .kbd{font-family:var(--mono);font-size:10px;color:var(--ink3);
+  border:1px solid var(--hair);border-radius:3px;padding:1px 5px}
+#presMenu hr{margin:6px 2px}
+
+@media (prefers-reduced-motion: reduce){
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+
+<div id="intro" hidden>
+  <video id="introMedia" muted playsinline loop hidden></video>
+  <div id="introFallback" hidden></div>
+  <div id="introScrim"></div>
+  <div id="introText">
+    <div class="line" id="iTag"><div id="introTag"></div></div>
+    <div class="line"><p class="introLead" id="iL1"></p></div>
+    <div class="line"><p class="introLead" id="iL2"></p></div>
+    <div class="line"><p class="introLead" id="iL3"></p></div>
+    <div class="line" id="iTitle">
+      <div id="introTitle"><b>WILDFIRE GUARDIAN</b><span id="iSub"></span></div>
+      <div id="introBtns">
+        <button class="primary" id="introGo"></button>
+        <button id="introExplore"></button>
+      </div>
+    </div>
+  </div>
+  <button id="skipIntro"></button>
+</div>
+
+<div id="app">
+<header>
+  <div id="brand"><b>WILDFIRE GUARDIAN</b><span id="brandSub"></span></div>
+  <nav id="tabs" role="tablist" aria-label="화면"></nav>
+  <div id="topright">
+    <button id="btnGuide" title="G"></button>
+    <button id="btnSound" aria-pressed="false"></button>
+    <button id="btnLang" aria-pressed="false">EN</button>
+  </div>
+</header>
+<main>
+
+  <!-- LIVE -->
+  <section class="view on" id="view-live">
+    <div id="mapbox">
+      <svg id="map" preserveAspectRatio="xMidYMid meet" role="img"
+           aria-label="지역 위험면과 도로망, 대피 경로 지도" tabindex="0"></svg>
+    </div>
+    <div id="modeline"></div>
+    <div id="regions" role="group"></div>
+    <div id="legend"></div>
+    <aside id="panel">
+      <div class="head"><b id="panelTitle"></b></div>
+      <div class="body" id="panelBody"></div>
+      <div class="foot" id="panelFoot"></div>
+    </aside>
+    <div id="timeline">
+      <div id="transport">
+        <div id="tchip">t+00:00<small id="tchipsub"></small></div>
+        <div class="row">
+          <button id="btnPlay" title="Space"></button>
+          <button id="btnReset" title="R"></button>
+          <button id="btnNextClosure"></button>
+        </div>
+      </div>
+      <div id="tlwrap"><svg id="tl"></svg><div id="tlstatus"></div></div>
+    </div>
+    <div id="guide" hidden>
+      <div id="guidecard" role="dialog" aria-label="안내 시연">
+        <div class="k"><span class="k" id="gact"></span></div>
+        <div id="gtitle"></div>
+        <div id="gbody"></div>
+        <div id="gmeta"></div>
+        <div id="gnav">
+          <div id="gdots"></div>
+          <button id="gPrev"></button>
+          <button id="gNext" class="primary"></button>
+          <button id="gExit"></button>
+        </div>
+      </div>
+    </div>
+    <div id="presenter">
+      <button id="presBtn" aria-haspopup="true" aria-expanded="false"
+              title="프리젠터 컨트롤">
+        <svg width="15" height="15" viewBox="0 0 15 15" aria-hidden="true">
+          <circle cx="3" cy="7.5" r="1.4" fill="#94a5b8"/>
+          <circle cx="7.5" cy="7.5" r="1.4" fill="#94a5b8"/>
+          <circle cx="12" cy="7.5" r="1.4" fill="#94a5b8"/>
+        </svg>
+      </button>
+      <div id="presMenu" hidden></div>
+    </div>
+  </section>
+
+  <!-- SYSTEM -->
+  <section class="view" id="view-system">
+    <div class="page">
+      <h2 id="sysH"></h2><div class="sub" id="sysSub"></div>
+      <div id="sysflow"></div>
+      <div id="sysdetail"></div>
+    </div>
+  </section>
+
+  <!-- EVIDENCE -->
+  <section class="view" id="view-evidence">
+    <div class="page">
+      <h2 id="evH"></h2><div class="sub" id="evSub"></div>
+      <div class="grid ev-grid" id="evgrid"></div>
+    </div>
+  </section>
+
+  <!-- RELIABILITY -->
+  <section class="view" id="view-reliability">
+    <div class="page">
+      <h2 id="relH"></h2><div class="sub" id="relSub"></div>
+      <div id="integrity"></div>
+      <div class="grid rel-grid" id="relgrid"></div>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<audio id="audAmbient" loop hidden></audio>
+
+<script id="data" type="application/json">/*__DATA__*/</script>
+<script>
+'use strict';
+const DATA = JSON.parse(document.getElementById('data').textContent);
+const SVGNS = 'http://www.w3.org/2000/svg';
+const $ = (id) => document.getElementById(id);
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- strings (KR first; EN toggle) -------------------------------- */
+const STR = {
+  ko: {
+    brandSub: '시간 인지 대피·구조 접근 분석',
+    tabs: ['라이브', '시스템', '근거', '신뢰성'],
+    guideBtn: '안내 시연',
+    sound_on: '소리 켬', sound_off: '소리 꺼짐',
+    panel_region: '지역 요약', panel_origin: '판정',
+    origins: '평가 출발지', shelters: '대피 지점', closedRoads: '통행 불가',
+    coverage: '커버리지', evalArea: '평가 범위 (보행망)',
+    ofNetwork: '전체', roadState: ['통행 가능', '위험 대역', '통행 불가'],
+    roadStateSub: ['p < 0.30', '0.30~0.50', 'p ≥ 0.50'],
+    legendHaz: '점화 확률(시점 t)', legendRoads: '도로 구간 상태',
+    legendPts: '출발지 판정',
+    hoverRoad: '도로 구간', hoverClosedAt: '통행 불가', hoverRiskAt: '위험 대역',
+    hoverOpen: '지평 내 임계 도달 없음', refuge: '대피 지점',
+    trigger: '위성 화점', walk: '도보', remain: '남은 시간', na: '해당 없음',
+    naive: '화재 무시 직행', fa: '시간 인지 경로',
+    entersHaz: '위험면 진입', noEnter: '위험면 진입 없음',
+    distance: '거리', duration: '소요',
+    decision: '판정', reason: '근거',
+    seeOnTl: '아래 타임라인으로 시각을 움직여 보십시오.',
+    clickOrigin: '지도의 출발지를 클릭하면 판정 근거가 여기 표시됩니다.',
+    routeStored: '이 출발지는 경로 폴리라인이 보존된 표본입니다.',
+    routeNotStored: '이 출발지의 개별 경로 폴리라인은 화면용으로 보존되지 않았습니다. 구분 판정은 정본 산출물의 값입니다.',
+    closesAt: '최초 임계 도달', never: '지평 내 없음',
+    tlHint: '드래그·클릭으로 시각 이동',
+    tlClosed: '통행 불가 구간',
+    play: '재생', pause: '정지', reset: '리셋', nextClosure: '다음 폐쇄',
+    static: '고정 시점', timeaware: '시간 인지',
+    guided: {
+      acts: ['1막 · 발견', '2막 · 시간과 도로망', '3막 · 경로 비교', '4막 · 판단'],
+      exit: '종료', next: '다음 →', prev: '← 이전', explore: '자유 탐색',
+    },
+    sys_h: '시스템 구조', sys_sub: '정보가 판단이 되기까지의 흐름 · 단계를 클릭하십시오',
+    ev_h: '측정된 근거', ev_sub: '모든 수치는 커밋된 산출물에서 빌드 시점에 읽어 왔습니다 · 「근거」를 클릭하면 출처가 열립니다',
+    rel_h: '신뢰성과 한계', rel_sub: '판단 시스템은 자기 근거가 어디까지 약한지 알아야 합니다',
+    src: '근거', srcClose: '닫기',
+    intro_tag: 'MARCH 2025 · GYEONGSANGBUK-DO',
+    intro_l1: '산불은 이미 발견되었습니다.',
+    intro_l2: '대피 경보도 발령되었습니다.',
+    intro_l3: '그러나 탐지는 마지막 판단이 아닙니다.',
+    intro_sub: '어느 길이, 언제까지 열려 있는가 · Time-aware evacuation & responder access',
+    intro_go: '시연 시작', intro_explore: '바로 탐색', intro_skip: '건너뛰기 (Esc)',
+    pres: {
+      restart: '안내 시연 재시작', act: '막', resetAll: '시나리오 리셋',
+      audio: '오디오 토글', region: '기본 지역으로', full: '전체 화면',
+      intro: '인트로 재생', annot: '주석 표시',
+    },
+  },
+  en: {
+    brandSub: 'Time-aware evacuation & responder access',
+    tabs: ['LIVE', 'SYSTEM', 'EVIDENCE', 'RELIABILITY'],
+    guideBtn: 'Guided demo',
+    sound_on: 'Sound on', sound_off: 'Sound off',
+    panel_region: 'Region summary', panel_origin: 'Decision',
+    origins: 'origins evaluated', shelters: 'refuge points', closedRoads: 'impassable',
+    coverage: 'coverage', evalArea: 'evaluated area (walk network)',
+    ofNetwork: 'of network', roadState: ['Open', 'Risk band', 'Impassable'],
+    roadStateSub: ['p < 0.30', '0.30~0.50', 'p ≥ 0.50'],
+    legendHaz: 'Ignition probability (at t)', legendRoads: 'Road segment state',
+    legendPts: 'Origin classification',
+    hoverRoad: 'Road segment', hoverClosedAt: 'impassable', hoverRiskAt: 'risk band',
+    hoverOpen: 'no threshold crossing in horizon', refuge: 'Refuge',
+    trigger: 'Satellite hotspot', walk: 'walk', remain: 'time left', na: 'n/a',
+    naive: 'Fire-blind direct route', fa: 'Time-aware route',
+    entersHaz: 'enters hazard', noEnter: 'no hazard entry',
+    distance: 'distance', duration: 'duration',
+    decision: 'Decision', reason: 'Basis',
+    seeOnTl: 'Scrub the timeline below to move through time.',
+    clickOrigin: 'Click an origin on the map to see its decision basis here.',
+    routeStored: 'This origin is one of the samples whose route polylines were retained.',
+    routeNotStored: 'Individual route polylines were not retained for this origin; its classification is the canonical artifact value.',
+    closesAt: 'first threshold crossing', never: 'none within horizon',
+    tlHint: 'drag or click to move time',
+    tlClosed: 'impassable segments',
+    play: 'Play', pause: 'Pause', reset: 'Reset', nextClosure: 'Next closure',
+    static: 'STATIC VIEW', timeaware: 'TIME-AWARE',
+    guided: {
+      acts: ['ACT 1 · Detection', 'ACT 2 · Time vs the network',
+             'ACT 3 · Route comparison', 'ACT 4 · Decision'],
+      exit: 'Exit', next: 'Next →', prev: '← Back', explore: 'Explore freely',
+    },
+    sys_h: 'System anatomy', sys_sub: 'How information becomes a decision · click a stage',
+    ev_h: 'Measured evidence', ev_sub: 'Every figure is read from committed artifacts at build time · click "source" for provenance',
+    rel_h: 'Reliability & limits', rel_sub: 'A decision system must know where its evidence is fragile',
+    src: 'source', srcClose: 'close',
+    intro_tag: 'MARCH 2025 · GYEONGSANGBUK-DO',
+    intro_l1: 'The fire was already detected.',
+    intro_l2: 'The evacuation warning was already issued.',
+    intro_l3: 'But detection is not the final decision.',
+    intro_sub: '어느 길이, 언제까지 열려 있는가 · Which roads remain usable, and for how long?',
+    intro_go: 'Start the demo', intro_explore: 'Explore', intro_skip: 'Skip (Esc)',
+    pres: {
+      restart: 'Restart guided demo', act: 'Act', resetAll: 'Reset scenario',
+      audio: 'Toggle audio', region: 'Default region', full: 'Fullscreen',
+      intro: 'Replay intro', annot: 'Annotations',
+    },
+  },
+};
+
+/* ---------- state ---------------------------------------------------------- */
+const state = {
+  lang: 'ko', view: 'live', region: DATA.default_region,
+  t: 0, playing: false, sound: false, annot: true,
+  sel: null,            // origin index or null
+  selRoute: null,       // index into region.routes or null
+  compare: null,        // null | 'static' | 'aware'  (act 3)
+  guided: null,         // null | {act, step}
+  hoverEdge: null,
+};
+const T = (k) => {
+  const v = STR[state.lang][k];
+  return v === undefined ? STR.ko[k] : v;
+};
+const R = () => DATA.regions[state.region];
+const EN_BUCKET = { both_safe: 'Self-evacuation', naive_into_FA_safe: 'Assistance needed',
+  no_safe_route: 'Unreachable', fa_exceeds_budget: 'Budget exceeded' };
+const bucketLabel = (b) => state.lang === 'ko' ? b.ko : (EN_BUCKET[b.key] || b.ko);
+const fmtT = (m) => {
+  const h = Math.floor(m / 60), mm = Math.round(m % 60);
+  return 't+' + String(h).padStart(2, '0') + ':' + String(mm).padStart(2, '0');
+};
+const fmtMin = (m) => (m === null || m === undefined) ? T('na')
+  : (m >= 60 ? Math.floor(m / 60) + '시간 ' + Math.round(m % 60) + '분'
+             : Math.round(m) + '분');
+const fmtKm = (m) => (m / 1000).toFixed(1) + ' km';
+
+/* ---------- tiny DOM/SVG helpers ------------------------------------------ */
+function el(tag, attrs, parent) {
+  const node = document.createElementNS(SVGNS, tag);
+  for (const k in attrs) node.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(node);
+  return node;
+}
+function hel(tag, cls, parent, text) {
+  const node = document.createElement(tag);
+  if (cls) node.className = cls;
+  if (text !== undefined) node.textContent = text;
+  if (parent) parent.appendChild(node);
+  return node;
+}
+function markPath(shape, x, y, s) {
+  if (shape === 'circle') return `M${x - s},${y}a${s},${s} 0 1,0 ${2 * s},0a${s},${s} 0 1,0 ${-2 * s},0`;
+  if (shape === 'triangle') return `M${x},${y - s}L${x + s},${y + s}L${x - s},${y + s}Z`;
+  if (shape === 'square') return `M${x - s},${y - s}h${2 * s}v${2 * s}h${-2 * s}Z`;
+  return `M${x},${y - s}L${x + s},${y}L${x},${y + s}L${x - s},${y}Z`;
+}
+
+/* ---------- audio manager -------------------------------------------------- */
+const AUDIO = (() => {
+  const files = {
+    click: 'demo-media/ui-soft-click.wav',
+    ping: 'demo-media/ui-map-ping.wav',
+    confirm: 'demo-media/ui-route-confirm.wav',
+    closure: 'demo-media/ui-closure-soft.wav',
+    transition: 'demo-media/ui-transition.wav',
+  };
+  const pool = {}; const missing = {};
+  function get(name) {
+    if (missing[name]) return null;
+    if (!pool[name]) {
+      const a = new Audio();
+      a.src = files[name]; a.volume = 0.22;
+      a.addEventListener('error', () => { missing[name] = true; });
+      pool[name] = a;
+    }
+    return pool[name];
+  }
+  const ambient = $('audAmbient');
+  ambient.src = 'demo-media/ambient-documentary.mp3';
+  ambient.volume = 0.12;
+  let ambientDead = false;
+  ambient.addEventListener('error', () => { ambientDead = true; });
+  return {
+    cue(name) {
+      if (!state.sound) return;
+      const a = get(name);
+      if (a) { try { a.currentTime = 0; a.play().catch(() => {}); } catch (e) {} }
+    },
+    setSound(on) {
+      state.sound = on;
+      if (on && !ambientDead) ambient.play().catch(() => {});
+      if (!on) ambient.pause();
+    },
+  };
+})();
+
+/* ---------- projection + map mount ----------------------------------------- */
+const map = $('map');
+let L = {};            // svg layer groups
+let edgeEls = [];      // per-edge path elements
+let edgeState = null;  // Int8Array of current visual state
+let originEls = [];
+
+function mountRegion(id, keepT) {
+  state.region = id;
+  const r = R();
+  if (!keepT) { state.t = 0; state.playing = false; }
+  state.sel = null; state.selRoute = null; state.compare = null;
+  map.setAttribute('viewBox', `0 0 1000 ${r.view.vh}`);
+  map.innerHTML = '';
+  L = {};
+  L.hill = el('g', {}, map);
+  if (r.hill) {
+    const img = el('image', { x: r.hill.x ?? 0, y: r.hill.y ?? 0,
+      width: r.hill.w, height: r.hill.h,
+      preserveAspectRatio: 'none' }, L.hill);
+    img.setAttribute('href', r.hill.png);
+  } else {
+    el('rect', { x: -600, y: -300, width: 2200, height: r.view.vh + 600,
+      fill: '#0f141b' }, L.hill);
+  }
+  // hazard: one group per slice, 4 band paths each; crossfade on t
+  L.haz = el('g', { opacity: 0.8 }, map);
+  L.hazSlices = [];
+  const hz = r.haz;
+  for (let s = 0; s < hz.bands.length; s++) {
+    const g = el('g', { opacity: s === 0 ? 1 : 0 }, L.haz);
+    for (let b = 0; b < 4; b++) {
+      let d = '';
+      for (const run of hz.bands[s][b]) {
+        const x = hz.ox + run[1] * hz.cell, y = hz.oy + run[0] * hz.cell;
+        d += `M${x.toFixed(1)},${y.toFixed(1)}h${(run[2] * hz.cell).toFixed(1)}v${hz.cell}h${(-run[2] * hz.cell).toFixed(1)}Z`;
+      }
+      el('path', { d, fill: DATA.band_fills[b],
+        'fill-opacity': (b === 0 ? 0.1 : 0.1 + 0.15 * b) }, g);
+    }
+    L.hazSlices.push(g);
+  }
+  // evaluated area: the walk bbox, dashed (what "coverage" is measured against)
+  L.bbox = el('g', {}, map);
+  if (r.bbox) {
+    const d = 'M' + r.bbox.map((p) => p[0] + ',' + p[1]).join('L') + 'Z';
+    el('path', { d, fill: 'none', stroke: '#7c8ba1', 'stroke-width': 1,
+      'stroke-dasharray': '7 6', opacity: 0.5 }, L.bbox);
+  }
+  // roads
+  L.roads = el('g', { class: 'roads' }, map);
+  edgeEls = []; edgeState = new Int8Array(r.roads.lens.length).fill(-1);
+  {
+    const pts = r.roads.pts, lens = r.roads.lens;
+    let p = 0;
+    for (let i = 0; i < lens.length; i++) {
+      let d = `M${pts[p]},${pts[p + 1]}`;
+      for (let j = 1; j < lens[i]; j++) d += `L${pts[p + 2 * j]},${pts[p + 2 * j + 1]}`;
+      p += 2 * lens[i];
+      const path = el('path', { d, class: 'hw' + r.roads.hw[i] + ' st0' }, L.roads);
+      path.style.pointerEvents = 'none';
+      edgeEls.push(path);
+    }
+  }
+  // routes layer (selected pair)
+  L.routes = el('g', {}, map);
+  // origins: quiet marks first, urgent buckets on top and larger
+  L.orig = el('g', {}, map);
+  originEls = new Array(r.origins.length);
+  const zorder = [0, 3, 1, 2];   // both_safe, fa_exceeds, FA-only, no_safe
+  for (const bi of zorder) {
+    r.origins.forEach((o, i) => {
+      if (o[2] !== bi) return;
+      const b = DATA.buckets[bi];
+      const urgent = bi === 1 || bi === 2;
+      const path = el('path', {
+        d: markPath(b.shape, o[0], o[1], urgent ? 4.6 : 3.3),
+        fill: b.fill, class: 'origin', 'data-i': i, tabindex: -1,
+        opacity: urgent ? 1 : 0.82,
+      }, L.orig);
+      path.addEventListener('click', (ev) => { ev.stopPropagation(); selectOrigin(i); });
+      path.addEventListener('pointerenter', () => {
+        const a = r.act[String(i)];
+        showHoverBox([o[0], o[1]], b.mark + ' ' + bucketLabel(b),
+          a && a.l ? a.l : (a && a.w != null ? Math.round(a.w) + '분 ' + T('walk') : ''));
+      });
+      path.addEventListener('pointerleave', clearHover);
+      originEls[i] = path;
+    });
+  }
+  // refuges + trigger
+  L.poi = el('g', {}, map);
+  for (const s of r.refuges) {
+    const rp = el('path', { d: markPath('square', s.p[0], s.p[1], 3.2),
+      class: 'refuge' }, L.poi);
+    rp.style.pointerEvents = 'visiblePainted';
+    rp.addEventListener('pointerenter', () =>
+      showHoverBox(s.p, '□ ' + T('refuge'), s.n));
+    rp.addEventListener('pointerleave', clearHover);
+  }
+  if (r.trigger) {
+    const [tx, ty] = r.trigger.p;
+    const g = el('g', { class: 'trig' }, L.poi);
+    el('circle', { cx: tx, cy: ty, r: 3, fill: '#fde047' }, g);
+    el('circle', { cx: tx, cy: ty, r: 7.5, fill: 'none', stroke: '#fde047',
+      'stroke-width': 0.9, opacity: 0.75 }, g);
+    L.trig = g;
+  }
+  // annotations layer
+  L.anno = el('g', { style: 'pointer-events:none' }, map);
+  buildHitGrid(r);
+  applyTime(true);
+  renderRegions();
+  renderLegend();
+  renderPanel();
+  renderTimeline(true);
+  $('modeline').textContent = r.mode_banner || '';
+  map.setAttribute('aria-label', r.label + ' · ' + T('legendHaz'));
+}
+
+/* ---------- roads over time ------------------------------------------------ */
+function edgeStateAt(r, i, t) {
+  const tc = r.roads.tc[i], tr = r.roads.tr[i];
+  if (tc >= 0 && t >= tc) return 2;
+  if (tr >= 0 && t >= tr) return 1;
+  return 0;
+}
+function applyTime(force) {
+  const r = R();
+  const t = state.t;
+  // hazard slice crossfade
+  const times = r.haz.times;
+  let s = 0;
+  while (s < times.length - 1 && t > times[s + 1]) s++;
+  const f = (s >= times.length - 1) ? 0
+    : Math.max(0, Math.min(1, (t - times[s]) / (times[s + 1] - times[s])));
+  L.hazSlices.forEach((g, i) => {
+    const o = (i === s) ? 1 - f : (i === s + 1 ? f : 0);
+    g.setAttribute('opacity', o.toFixed(3));
+  });
+  // road states (update only changes)
+  let newlyClosed = 0;
+  for (let i = 0; i < edgeEls.length; i++) {
+    const st = edgeStateAt(r, i, t);
+    if (st !== edgeState[i] || force) {
+      if (st === 2 && edgeState[i] !== 2 && edgeState[i] !== -1 && !REDUCED) {
+        const elp = edgeEls[i];
+        elp.classList.add('flash'); newlyClosed++;
+        setTimeout(() => elp.classList.remove('flash'), 850);
+      }
+      edgeEls[i].classList.remove('st0', 'st1', 'st2');
+      edgeEls[i].classList.add('st' + st);
+      edgeState[i] = st;
+    }
+  }
+  if (newlyClosed > 0) AUDIO.cue('closure');
+  // route danger reveal in compare mode
+  updateRouteDanger();
+  // chips + timeline + status
+  $('tchip').firstChild.textContent = fmtT(t);
+  updateTlStatus();
+  moveTlPlayhead();
+}
+function lossAt(t) {
+  const r = R(), i = Math.min(r.loss.t.length - 1, Math.floor(t / 10));
+  return { n: r.loss.n[i], km: r.loss.km[i] };
+}
+function updateTlStatus() {
+  const { n, km } = lossAt(state.t);
+  const elx = $('tlstatus');
+  elx.innerHTML = '';
+  const s = hel('span', null, elx);
+  s.append(T('tlClosed') + ' ');
+  hel('b', null, s, String(n));
+  s.append(' · ' + km.toFixed(0) + ' km');
+}
+
+/* ---------- time engine ----------------------------------------------------- */
+// rAF for smoothness, plus an interval watchdog so playback still advances
+// when the browser throttles animation frames (background tab, embedded pane)
+let rafId = null, lastTs = null, watchdog = null;
+const PLAY_RATE = 720 / 26;   // minutes per second: full horizon in ~26 s
+function stepClock(now) {
+  if (!state.playing) return;
+  if (lastTs === null) lastTs = now;
+  const dt = (now - lastTs) / 1000; lastTs = now;
+  state.t = Math.min(720, state.t + dt * PLAY_RATE);
+  applyTime();
+  if (state.t >= 720) setPlaying(false);
+}
+function tick(ts) {
+  if (!state.playing) return;
+  stepClock(ts);
+  if (state.playing) rafId = requestAnimationFrame(tick);
+}
+function setPlaying(on) {
+  if (on === state.playing) return;
+  state.playing = on; lastTs = null;
+  renderTransport();
+  if (on) {
+    rafId = requestAnimationFrame(tick);
+    watchdog = setInterval(() => {
+      const now = performance.now();
+      if (state.playing && now - (lastTs ?? 0) > 260) stepClock(now);
+    }, 200);
+  } else {
+    if (rafId) cancelAnimationFrame(rafId);
+    if (watchdog) { clearInterval(watchdog); watchdog = null; }
+  }
+}
+function setT(t, silent) {
+  state.t = Math.max(0, Math.min(720, t));
+  applyTime();
+  if (!silent) setPlaying(false);
+}
+
+/* ---------- hit grid + hover ----------------------------------------------- */
+let hitGrid = null;
+function buildHitGrid(r) {
+  const cell = 22; // viewBox units
+  const grid = new Map();
+  const pts = r.roads.pts, lens = r.roads.lens;
+  let p = 0;
+  for (let i = 0; i < lens.length; i++) {
+    for (let j = 0; j < lens[i] - 1; j++) {
+      const x = (pts[p + 2 * j] + pts[p + 2 * j + 2]) / 2;
+      const y = (pts[p + 2 * j + 1] + pts[p + 2 * j + 3]) / 2;
+      const key = (x / cell | 0) + ',' + (y / cell | 0);
+      if (!grid.has(key)) grid.set(key, []);
+      grid.get(key).push([x, y, i]);
+    }
+    p += 2 * lens[i];
+  }
+  hitGrid = { grid, cell };
+}
+function nearestEdge(x, y, maxD) {
+  const { grid, cell } = hitGrid;
+  let best = null, bd = maxD * maxD;
+  const cx = x / cell | 0, cy = y / cell | 0;
+  for (let dx = -1; dx <= 1; dx++) for (let dy = -1; dy <= 1; dy++) {
+    const arr = grid.get((cx + dx) + ',' + (cy + dy));
+    if (!arr) continue;
+    for (const [px, py, i] of arr) {
+      const d = (px - x) * (px - x) + (py - y) * (py - y);
+      if (d < bd) { bd = d; best = i; }
+    }
+  }
+  return best;
+}
+function svgPoint(ev) {
+  const pt = map.createSVGPoint();
+  pt.x = ev.clientX; pt.y = ev.clientY;
+  const m = map.getScreenCTM();
+  if (!m) return null;
+  const p = pt.matrixTransform(m.inverse());
+  return [p.x, p.y];
+}
+let hoverBox = null, hoverHi = null;
+function showHoverBox(p, line1, line2) {
+  clearHover();
+  state.hoverEdge = null;
+  hoverBox = el('g', { class: 'hoverbox', style: 'pointer-events:none' }, L.anno);
+  const w = Math.max(line1.length, (line2 || '').length) * 6.6 + 18;
+  el('rect', { x: 0, y: 0, width: w, height: line2 ? 34 : 22, rx: 3 }, hoverBox);
+  el('text', { x: 9, y: 14 }, hoverBox).textContent = line1;
+  if (line2) {
+    const t2 = el('text', { x: 9, y: 27, class: 'sub' }, hoverBox);
+    t2.textContent = line2;
+  }
+  positionHover(p);
+}
+map.addEventListener('pointermove', (ev) => {
+  if (ev.target && ev.target.classList &&
+      (ev.target.classList.contains('origin') ||
+       ev.target.classList.contains('refuge'))) return;
+  const p = svgPoint(ev);
+  if (!p) return;
+  const r = R();
+  const i = nearestEdge(p[0], p[1], 9);
+  if (i === state.hoverEdge) { if (hoverBox) positionHover(p); return; }
+  state.hoverEdge = i;
+  clearHover();
+  if (i === null) return;
+  // highlight copy of the edge
+  hoverHi = el('path', { d: edgeEls[i].getAttribute('d'), fill: 'none',
+    stroke: '#ffffff', 'stroke-width': 1.6, opacity: 0.5,
+    style: 'pointer-events:none' }, L.anno);
+  const name = r.roads.nm[i] >= 0 ? r.roads.names[r.roads.nm[i]] : T('hoverRoad');
+  const tc = r.roads.tc[i], tr = r.roads.tr[i];
+  let line2;
+  if (tc >= 0) line2 = fmtT(tc) + ' ' + T('hoverClosedAt') + ' (p ≥ ' + DATA.p_closed.toFixed(2) + ')';
+  else if (tr >= 0) line2 = fmtT(tr) + ' ' + T('hoverRiskAt');
+  else line2 = T('hoverOpen');
+  hoverBox = el('g', { class: 'hoverbox', style: 'pointer-events:none' }, L.anno);
+  const w = Math.max(name.length, line2.length) * 6.4 + 18;
+  el('rect', { x: 0, y: 0, width: w, height: 34, rx: 3 }, hoverBox);
+  el('text', { x: 9, y: 14 }, hoverBox).textContent = name;
+  const t2 = el('text', { x: 9, y: 27, class: 'sub' }, hoverBox);
+  t2.textContent = line2;
+  positionHover(p);
+});
+function positionHover(p) {
+  if (!hoverBox) return;
+  const r = R();
+  const x = Math.min(p[0] + 10, 1000 - 190), y = Math.max(8, p[1] - 44);
+  hoverBox.setAttribute('transform', `translate(${x},${y})`);
+}
+function clearHover() {
+  if (hoverBox) { hoverBox.remove(); hoverBox = null; }
+  if (hoverHi) { hoverHi.remove(); hoverHi = null; }
+}
+map.addEventListener('pointerleave', () => { state.hoverEdge = null; clearHover(); });
+
+/* ---------- selection + routes ---------------------------------------------- */
+function routeForOrigin(i) {
+  const r = R();
+  for (let k = 0; k < r.routes.length; k++) if (r.routes[k].o === i) return k;
+  return null;
+}
+function selectOrigin(i, opts) {
+  const r = R();
+  state.sel = i;
+  state.selRoute = routeForOrigin(i);
+  originEls.forEach((p, j) => p.classList.toggle('sel', j === i));
+  L.orig.setAttribute('opacity', 0.45);
+  originEls[i].setAttribute('opacity', 1);
+  drawRoutes(opts || {});
+  renderPanel();
+  AUDIO.cue('confirm');
+}
+function clearSelection() {
+  state.sel = null; state.selRoute = null; state.compare = null;
+  originEls.forEach((p) => p.classList.remove('sel'));
+  L.orig.setAttribute('opacity', 1);
+  L.routes.innerHTML = '';
+  map.classList.remove('dimmed');
+  renderPanel();
+}
+map.addEventListener('click', () => { if (state.guided === null) clearSelection(); });
+
+function polyD(flat) {
+  let d = `M${flat[0]},${flat[1]}`;
+  for (let i = 2; i < flat.length; i += 2) d += `L${flat[i]},${flat[i + 1]}`;
+  return d;
+}
+function drawRoutes(opts) {
+  L.routes.innerHTML = '';
+  map.classList.add('dimmed');
+  const r = R();
+  if (state.selRoute === null) return;
+  const rt = r.routes[state.selRoute];
+  const showFa = opts.faOnlyAfter ? false : true;
+  const naive = el('path', { d: polyD(rt.naive.pts), class: 'rt-naive' }, L.routes);
+  animateDraw(naive);
+  if (showFa) {
+    const fa = el('path', { d: polyD(rt.fa.pts), class: 'rt-fa' }, L.routes);
+    animateDraw(fa, 250);
+  }
+  updateRouteDanger();
+}
+function animateDraw(path, delay) {
+  if (REDUCED) return;
+  const len = path.getTotalLength();
+  path.style.strokeDasharray = path.classList.contains('rt-naive')
+    ? '7 5' : 'none';
+  path.style.transition = 'none';
+  path.style.strokeDashoffset = '0';
+  // draw-on via a temporary dash pattern overlay trick: use opacity sweep for
+  // dashed paths (dashoffset animation would fight the dash pattern)
+  path.style.opacity = '0';
+  setTimeout(() => {
+    path.style.transition = 'opacity .7s var(--ease)';
+    path.style.opacity = '1';
+  }, delay || 0);
+}
+function updateRouteDanger() {
+  // highlight the portion of the naive route whose cells have reached p_cut
+  // BY the current time (derived at build time along the stored polyline)
+  const old = L.routes && L.routes.querySelector('.rt-danger');
+  if (old) old.remove();
+  if (state.selRoute === null) return;
+  const r = R();
+  const rt = r.routes[state.selRoute];
+  const tcs = rt.naive.tc, pts = rt.naive.pts;
+  let d = '', open = false;
+  for (let i = 0; i < tcs.length; i++) {
+    const hot = tcs[i] >= 0 && tcs[i] <= state.t;
+    if (hot && !open) { d += `M${pts[2 * i]},${pts[2 * i + 1]}`; open = true; }
+    else if (hot) d += `L${pts[2 * i]},${pts[2 * i + 1]}`;
+    else open = false;
+  }
+  if (d) {
+    el('path', { d, class: 'rt-danger', style: 'pointer-events:none' }, L.routes);
+    // a small honest stamp at the first point past the threshold
+    let first = -1, minTc = Infinity;
+    for (let i = 0; i < tcs.length; i++)
+      if (tcs[i] >= 0 && tcs[i] <= state.t && tcs[i] < minTc) { minTc = tcs[i]; first = i; }
+    if (first >= 0) {
+      const sx = pts[2 * first], sy = pts[2 * first + 1];
+      const txt = el('text', { x: Math.min(sx + 8, 900), y: Math.max(12, sy - 8),
+        class: 'stamp', style: 'pointer-events:none' }, L.routes);
+      txt.textContent = fmtT(minTc) + ' ' + T('hoverClosedAt');
+    }
+  }
+}
+
+/* ---------- panels ----------------------------------------------------------- */
+function bucketOf(i) { return DATA.buckets[R().origins[i][2]]; }
+function renderPanel() {
+  const r = R();
+  const body = $('panelBody');
+  body.innerHTML = '';
+  if (state.sel === null) {
+    $('panelTitle').textContent = T('panel_region') + ' · ' + r.label;
+    const s1 = hel('div', 'stat', body);
+    hel('span', 'v num', s1, String(r.n_scanned));
+    hel('span', 'u', s1, T('origins'));
+    for (const b of DATA.buckets) {
+      const row = hel('div', 'bucketrow', body);
+      const m = hel('span', 'm', row, b.mark); m.style.color = b.fill;
+      hel('span', null, row, bucketLabel(b));
+      hel('span', 'n num', row, String(r.counts[b.key] ?? 0));
+    }
+    hel('hr', 'hairline', body);
+    const cov = hel('p', 'note', body);
+    cov.textContent = r.coverage_note ||
+      ('보행망 커버리지 ' + r.coverage_pct.toFixed(1) + '%');
+    if (r.coverage_pct < 50) cov.classList.add('warn');
+    const hint = hel('p', 'note', body, T('clickOrigin'));
+    hint.style.marginTop = '10px';
+  } else {
+    $('panelTitle').textContent = T('panel_origin');
+    const i = state.sel, b = bucketOf(i);
+    const bad = hel('div', 'badge', body, b.mark + ' ' + bucketLabel(b));
+    bad.style.background = b.fill + '22';
+    bad.style.color = b.fill;
+    bad.style.border = '1px solid ' + b.fill + '55';
+    const a = r.act[String(i)];
+    if (a && a.l) hel('p', 'note', body, a.l).style.marginTop = '7px';
+    if (a) {
+      const t1 = hel('div', 'stat', body);
+      hel('span', 'v num', t1, a.w != null ? Math.round(a.w) + '분' : T('na'));
+      hel('span', 'u', t1, T('walk'));
+      const t2 = hel('div', 'stat', body);
+      hel('span', 'v num', t2, a.c != null ? Math.round(a.c) + '분' : T('na'));
+      hel('span', 'u', t2, T('remain'));
+    }
+    if (state.selRoute !== null) {
+      const rt = r.routes[state.selRoute];
+      const card = hel('div', 'card', body);
+      hel('h4', null, card, T('naive') + ' vs ' + T('fa'));
+      const tb = hel('table', 'cmp', card);
+      const mk = (label, va, vb, numeric) => {
+        const tr = hel('tr', null, tb);
+        hel('td', null, tr, label);
+        hel('td', numeric ? 'num' : null, tr, va);
+        hel('td', numeric ? 'num' : null, tr, vb);
+      };
+      const h = hel('tr', null, tb);
+      hel('th', null, h, '');
+      hel('th', null, h, T('naive'));
+      hel('th', null, h, T('fa'));
+      mk(T('distance'), fmtKm(rt.naive.dist_m), fmtKm(rt.fa.dist_m), true);
+      mk(T('duration'), Math.round(rt.naive.t_min) + '분',
+         Math.round(rt.fa.t_min) + '분', true);
+      const ntc = rt.naive.tc.filter((t) => t >= 0);
+      mk(T('closesAt'), ntc.length ? fmtT(Math.min(...ntc)) : T('never'),
+         rt.fa.tc.some((t) => t >= 0)
+           ? fmtT(Math.min(...rt.fa.tc.filter((t) => t >= 0))) : T('never'), true);
+      const vr = hel('tr', null, tb);
+      hel('td', null, vr, T('decision'));
+      const c1 = hel('td', null, vr, rt.naive.enters ? T('entersHaz') : T('noEnter'));
+      c1.style.color = rt.naive.enters ? '#f87171' : 'var(--safe)';
+      const c2 = hel('td', null, vr, rt.fa.enters ? T('entersHaz') : T('noEnter'));
+      c2.style.color = rt.fa.enters ? '#f87171' : 'var(--safe)';
+      hel('p', 'note', card, T('routeStored'));
+      hel('p', 'note', card, T('seeOnTl'));
+    } else {
+      hel('p', 'note', body, T('routeNotStored')).style.marginTop = '9px';
+    }
+  }
+  const foot = $('panelFoot');
+  foot.innerHTML = '';
+  hel('div', null, foot, r.detect_line);
+  hel('div', null, foot, r.weather_line);
+}
+
+function renderRegions() {
+  const box = $('regions');
+  box.innerHTML = '';
+  hel('span', 'k', box, 'REGION');
+  for (const id of DATA.region_order) {
+    const r = DATA.regions[id];
+    const btn = hel('button', null, box);
+    btn.setAttribute('aria-pressed', String(id === state.region));
+    hel('b', null, btn, r.label);
+    hel('span', null, btn,
+      T('origins') + ' ' + r.n_scanned + ' · ' +
+      T('coverage') + ' ' + r.coverage_pct.toFixed(1) + '%');
+    hel('span', null, btn,
+      '12h ' + T('closedRoads') + ' ' +
+      r.loss.n[r.loss.n.length - 1] + ' / ' + r.loss.total_n);
+    btn.addEventListener('click', () => {
+      if (id !== state.region) { AUDIO.cue('click'); switchRegion(id); }
+    });
+  }
+}
+function switchRegion(id) {
+  if (GUIDED.active()) GUIDED.exit();
+  const mb = $('mapbox');
+  mb.style.transition = 'opacity .18s var(--ease)';
+  mb.style.opacity = '0';
+  setTimeout(() => {
+    mountRegion(id);
+    mb.style.opacity = '1';
+  }, REDUCED ? 0 : 190);
+}
+
+function renderLegend() {
+  const r = R();
+  const lg = $('legend');
+  lg.innerHTML = '';
+  hel('span', 'k', lg, T('legendRoads'));
+  const states = [
+    ['#4d6377', 'none', 0], ['#f59e0b', '6 3.2', 1], ['#e25b3d', '1.6 2.6', 2],
+  ];
+  states.forEach(([color, dash], i) => {
+    const row = hel('div', 'row', lg);
+    const svg = el('svg', { width: 22, height: 8, viewBox: '0 0 22 8' });
+    row.appendChild(svg);
+    el('line', { x1: 1, y1: 4, x2: 21, y2: 4, stroke: color,
+      'stroke-width': 2, ...(dash !== 'none' ? { 'stroke-dasharray': dash } : {}) }, svg);
+    hel('span', null, row,
+      T('roadState')[i] + ' · ' + T('roadStateSub')[i]);
+  });
+  {
+    const row = hel('div', 'row', lg);
+    const svg = el('svg', { width: 22, height: 10, viewBox: '0 0 22 10' });
+    row.appendChild(svg);
+    el('rect', { x: 2, y: 1, width: 18, height: 8, fill: 'none',
+      stroke: '#7c8ba1', 'stroke-dasharray': '4 3', 'stroke-width': 1 }, svg);
+    hel('span', null, row, T('evalArea'));
+  }
+  hel('div', 'gap', lg);
+  hel('span', 'k', lg, T('legendPts'));
+  for (const b of DATA.buckets) {
+    if (!R().counts[b.key]) continue;
+    const row = hel('div', 'row', lg);
+    const svg = el('svg', { width: 22, height: 10, viewBox: '0 0 22 10' });
+    row.appendChild(svg);
+    el('path', { d: markPath(b.shape, 11, 5, 3.6), fill: b.fill }, svg);
+    hel('span', null, row, bucketLabel(b));
+  }
+}
+
+/* ---------- timeline --------------------------------------------------------- */
+const tl = $('tl');
+let tlW = 600, tlH = 118, tlPad = 26;
+function tlX(t) { return tlPad + (t / 720) * (tlW - 2 * tlPad); }
+function tlT(x) { return Math.max(0, Math.min(720, (x - tlPad) / (tlW - 2 * tlPad) * 720)); }
+function renderTimeline() {
+  const r = R();
+  const rect = $('tlwrap').getBoundingClientRect();
+  tlW = Math.max(320, rect.width); tlH = rect.height;
+  tl.setAttribute('viewBox', `0 0 ${tlW} ${tlH}`);
+  tl.innerHTML = '';
+  const baseY = tlH - 34;
+  // network-loss area (quiet)
+  const maxN = Math.max(1, r.loss.n[r.loss.n.length - 1]);
+  let d = `M${tlX(0)},${baseY}`;
+  for (let i = 0; i < r.loss.t.length; i++) {
+    const y = baseY - (r.loss.n[i] / maxN) * (tlH - 62);
+    d += `L${tlX(r.loss.t[i])},${y}`;
+  }
+  d += `L${tlX(720)},${baseY}Z`;
+  el('path', { d, fill: '#e04b32', opacity: 0.07 }, tl);
+  el('path', { d: d.replace(/Z$/, ''), fill: 'none', stroke: '#e04b32',
+    opacity: 0.28, 'stroke-width': 1 }, tl);
+  // base track
+  el('line', { x1: tlX(0), y1: baseY, x2: tlX(720), y2: baseY,
+    stroke: '#27364a', 'stroke-width': 2 }, tl);
+  // slice ticks
+  for (const t of r.haz.times) {
+    el('line', { x1: tlX(t), y1: baseY - 5, x2: tlX(t), y2: baseY + 5,
+      stroke: '#3a4c63', 'stroke-width': 1.4 }, tl);
+    const lbl = el('text', { x: tlX(t), y: baseY + 20, 'text-anchor': 'middle',
+      'font-size': 10.5, fill: '#6e8095',
+      'font-family': 'var(--mono)' }, tl);
+    lbl.textContent = 't+' + (t / 60) + 'h';
+  }
+  // closure event ticks (60-min bins, quiet)
+  const bins = new Map();
+  for (const tc of r.roads.tc) {
+    if (tc <= 0) continue;
+    const b = Math.max(1, Math.ceil(tc / 60)) * 60;
+    bins.set(b, (bins.get(b) || 0) + 1);
+  }
+  for (const [t, n] of bins) {
+    const h = Math.min(12, 3 + Math.log2(1 + n) * 2.4);
+    el('line', { x1: tlX(t), y1: baseY - h, x2: tlX(t), y2: baseY - 1,
+      stroke: '#f59e0b', 'stroke-width': 2, opacity: 0.55 }, tl);
+  }
+  // route event marker for selection
+  if (state.selRoute !== null) {
+    const rt = r.routes[state.selRoute];
+    const ntc = rt.naive.tc.filter((t) => t >= 0);
+    if (ntc.length) {
+      const t = Math.min(...ntc);
+      el('path', { d: markPath('diamond', tlX(t), baseY - 20, 4),
+        fill: '#f87171' }, tl);
+    }
+  }
+  // playhead
+  const ph = el('g', { id: 'playhead' }, tl);
+  el('line', { x1: 0, y1: 14, x2: 0, y2: baseY + 6, stroke: '#e9eef4',
+    'stroke-width': 1.2, opacity: 0.9 }, ph);
+  el('circle', { cx: 0, cy: baseY, r: 5, fill: '#e9eef4' }, ph);
+  const phl = el('text', { x: 0, y: 10, 'text-anchor': 'middle',
+    'font-size': 10.5, fill: '#94a5b8', 'font-family': 'var(--mono)',
+    id: 'phlabel' }, ph);
+  phl.textContent = fmtT(state.t);
+  moveTlPlayhead();
+  renderTransport();
+}
+function moveTlPlayhead() {
+  const ph = tl.querySelector('#playhead');
+  if (!ph) return;
+  ph.setAttribute('transform', `translate(${tlX(state.t)},0)`);
+  const lbl = tl.querySelector('#phlabel');
+  if (lbl) lbl.textContent = fmtT(state.t);
+}
+let scrubbing = false;
+tl.addEventListener('pointerdown', (ev) => {
+  scrubbing = true; tl.setPointerCapture(ev.pointerId);
+  const x = ev.clientX - tl.getBoundingClientRect().left;
+  setT(tlT(x * (tlW / tl.getBoundingClientRect().width)));
+});
+tl.addEventListener('pointermove', (ev) => {
+  if (!scrubbing) return;
+  const x = ev.clientX - tl.getBoundingClientRect().left;
+  setT(tlT(x * (tlW / tl.getBoundingClientRect().width)));
+});
+tl.addEventListener('pointerup', () => { scrubbing = false; });
+tl.setAttribute('role', 'slider');
+tl.setAttribute('aria-label', '시뮬레이션 시각');
+tl.setAttribute('tabindex', '0');
+tl.addEventListener('keydown', (ev) => {
+  if (ev.key === 'ArrowRight') { setT(state.t + 10); ev.preventDefault(); }
+  if (ev.key === 'ArrowLeft') { setT(state.t - 10); ev.preventDefault(); }
+});
+
+function iconSvg(kind) {
+  const svg = el('svg', { width: 13, height: 13, viewBox: '0 0 13 13',
+    'aria-hidden': 'true' });
+  const c = '#c6d2df';
+  if (kind === 'play') el('path', { d: 'M2.5,1.5L11,6.5L2.5,11.5Z', fill: c }, svg);
+  if (kind === 'pause') {
+    el('rect', { x: 2.4, y: 1.6, width: 2.8, height: 9.8, fill: c }, svg);
+    el('rect', { x: 7.6, y: 1.6, width: 2.8, height: 9.8, fill: c }, svg);
+  }
+  if (kind === 'reset') {
+    el('path', { d: 'M6.5,1.8a4.7,4.7 0 1,1 -4.4,3', fill: 'none',
+      stroke: c, 'stroke-width': 1.6 }, svg);
+    el('path', { d: 'M1.2,1.2L2.4,5.4L6.4,4Z', fill: c }, svg);
+  }
+  if (kind === 'next') {
+    el('path', { d: 'M1.8,1.5L8,6.5L1.8,11.5Z', fill: c }, svg);
+    el('rect', { x: 9.4, y: 1.6, width: 2, height: 9.8, fill: c }, svg);
+  }
+  return svg;
+}
+function renderTransport() {
+  const bp = $('btnPlay');
+  bp.innerHTML = ''; bp.appendChild(iconSvg(state.playing ? 'pause' : 'play'));
+  bp.setAttribute('aria-label', state.playing ? T('pause') : T('play'));
+  const br = $('btnReset');
+  br.innerHTML = ''; br.appendChild(iconSvg('reset'));
+  br.setAttribute('aria-label', T('reset'));
+  const bn = $('btnNextClosure');
+  bn.innerHTML = ''; bn.appendChild(iconSvg('next'));
+  bn.setAttribute('aria-label', T('nextClosure'));
+  $('tchipsub').textContent = 'p_cut ' + DATA.p_closed.toFixed(2) + ' · 10 min';
+}
+$('btnPlay').addEventListener('click', () => setPlaying(!state.playing));
+$('btnReset').addEventListener('click', () => { setT(0); });
+$('btnNextClosure').addEventListener('click', () => {
+  const r = R();
+  let next = null;
+  for (const tc of r.roads.tc)
+    if (tc > state.t && (next === null || tc < next)) next = tc;
+  if (next !== null) setT(next);
+});
+
+/* ---------- guided demo -------------------------------------------------------- */
+let incidentG = null;
+function showIncident() {
+  const r = R();
+  if (!r.trigger || !L.trig) return;
+  const [tx, ty] = r.trigger.p;
+  incidentG = el('g', { style: 'pointer-events:none' }, L.anno);
+  if (!REDUCED) {
+    for (let i = 0; i < 2; i++) {
+      const c = el('circle', { cx: tx, cy: ty, r: 6, fill: 'none',
+        stroke: '#fde047', 'stroke-width': 1.1, class: 'trigring' }, incidentG);
+      c.style.animationDelay = (i * 1.1) + 's';
+    }
+  }
+  const label = state.lang === 'ko' ? 'INCIDENT DETECTED · 화점 탐지' : 'INCIDENT DETECTED';
+  const tx2 = Math.min(tx + 14, 760), ty2 = Math.max(16, ty - 14);
+  el('text', { x: tx2, y: ty2, class: 'inclabel' }, incidentG).textContent = label;
+}
+function clearIncident() {
+  if (incidentG) { incidentG.remove(); incidentG = null; }
+}
+const GUIDED = (() => {
+  let acts = [];
+  function captions() {
+    const r = R();
+    const rt = r.routes[r.flagship];
+    const ntc = rt ? rt.naive.tc.filter((t) => t >= 0) : [];
+    const closeT = ntc.length ? Math.min(...ntc) : null;
+    const lastLoss = r.loss.n[r.loss.n.length - 1];
+    const ko = state.lang === 'ko';
+    return [
+      {
+        title: ko ? '화점이 탐지되었습니다' : 'An ignition is detected',
+        body: ko
+          ? '위성이 화점을 보고했습니다. <b>발견 자체는 끝이 아니라 질문의 시작입니다:</b> 어느 길이, 언제까지 열려 있는가?'
+          : 'A satellite reported a hotspot. <b>Detection is not the end. It opens the question:</b> which roads remain usable, and for how long?',
+        meta: r.trigger ? (r.trigger.sat + ' · ' + r.trigger.utc +
+          (r.trigger.frp != null ? ' · FRP ' + r.trigger.frp : '')) : '',
+      },
+      {
+        title: ko ? '시간이 도로망을 바꿉니다' : 'Time rewrites the road network',
+        body: ko
+          ? '사전 계산된 위험면이 3시간 간격으로 확장됩니다. 점화 확률이 <b>0.50</b>을 넘는 순간 그 도로 구간은 <b>통행 불가</b>로 처리됩니다. 12시간 뒤, 이 지역에서는 <b>' + lastLoss + '개 구간</b>이 사라집니다.'
+          : 'The precomputed hazard field advances in 3-hour slices. The moment a cell passes <b>0.50</b>, its road segment becomes <b>impassable</b>. Twelve hours out, <b>' + lastLoss + ' segments</b> of this network are gone.',
+        meta: '',
+      },
+      (() => {
+        // two sub-steps: STATIC VIEW, then TIME-AWARE VIEW. The static-view
+        // sentence must match this region's actual case: in some regions the
+        // fire-blind route is already inside the field at t+0.
+        const later = closeT !== null && closeT > 0;
+        return {
+          title: ko ? '같은 출발지, 두 개의 답' : 'One origin, two answers',
+          bodyA: ko
+            ? (later
+              ? 'STATIC VIEW · 고정 시점. 거리 기준 직행 경로는 <b>지금(t+0)은</b> 통과 가능해 보입니다. 지도가 지금 이 순간만 본다면, 이 경로를 권했을 것입니다.'
+              : 'STATIC VIEW · 고정 시점. 이 지역에서는 거리 기준 직행 경로가 <b>t+0부터 이미</b> 위험면과 겹칩니다. 화재를 모르는 지도는 그래도 이 경로를 그렸을 것입니다.')
+            : (later
+              ? 'STATIC VIEW. The distance-ranked direct route looks fine <b>right now (t+0)</b>. A map that only sees the present would recommend it.'
+              : 'STATIC VIEW. In this region the distance-ranked direct route overlaps the hazard field <b>already at t+0</b>. A fire-blind map would still draw it.'),
+          bodyB: ko
+            ? 'TIME-AWARE VIEW · 시간 인지.' + (later ? ' 그 길목은 <b>' + fmtT(closeT) + '</b>에 위험 확률 0.5를 넘습니다.' : ' 위험 확률 0.5를 넘는 구간이 경로 위에 강조되어 있습니다.') + ' 시간 인지 경로는 폐쇄를 미리 피해 우회합니다.'
+            : 'TIME-AWARE VIEW.' + (later ? ' That corridor passes 0.5 ignition probability at <b>' + fmtT(closeT) + '</b>.' : ' The stretch past 0.5 ignition probability is highlighted on the route.') + ' The time-aware route detours around the closure in advance.',
+          meta: rt ? (T('naive') + ' ' + fmtKm(rt.naive.dist_m) + ' → ' +
+            T('fa') + ' ' + fmtKm(rt.fa.dist_m)) : '',
+        };
+      })(),
+      {
+        title: ko ? '예측을 행동 가능한 판단으로' : 'Prediction becomes a decision',
+        body: ko
+          ? '출발지마다 네 가지 판정 중 하나가 내려지고, 운영자는 마을 단위 출동 목록과 전달문을 받습니다. <b>최종 판단은 언제나 사람이 내립니다.</b>'
+          : 'Every origin receives one of four decisions; the operator gets a village-level dispatch list and delivery drafts. <b>The final call is always human.</b>',
+        meta: '',
+      },
+    ];
+  }
+  function enter(act, step) {
+    step = step || 0;
+    const r = R();
+    const cap = captions()[act];
+    $('gact').textContent = T('guided').acts[act];
+    $('gtitle').textContent = cap.title;
+    $('gbody').innerHTML = cap.bodyA !== undefined
+      ? (step === 0 ? cap.bodyA : cap.bodyB) : cap.body;
+    $('gmeta').textContent = (act === 2 && step === 0) ? '' : cap.meta;
+    const dots = $('gdots');
+    dots.innerHTML = '';
+    for (let i = 0; i < 4; i++) hel('i', i <= act ? 'on' : null, dots);
+    $('gPrev').disabled = act === 0;
+    $('gNext').textContent = act === 3 ? T('guided').explore : T('guided').next;
+    AUDIO.cue('transition');
+    // scene state per act
+    clearIncident();
+    if (act === 0) {
+      clearSelection(); setT(0);
+      L.orig.setAttribute('opacity', 0.15);
+      L.roads.setAttribute('opacity', 0.4);
+      showIncident();
+      AUDIO.cue('ping');
+    } else if (act === 1) {
+      clearSelection();
+      L.orig.setAttribute('opacity', 0.35);
+      L.roads.setAttribute('opacity', 1);
+      setT(0, true); setPlaying(true);
+    } else if (act === 2) {
+      setPlaying(false);
+      L.roads.setAttribute('opacity', 1);
+      const rt = r.routes[r.flagship];
+      if (step === 0) {
+        // STATIC VIEW: t frozen at 0, only the fire-blind route on screen
+        setT(0);
+        if (rt && rt.o !== null) selectOrigin(rt.o, { faOnlyAfter: true });
+        else if (rt) { state.selRoute = r.flagship; drawRoutes({ faOnlyAfter: true }); }
+      } else {
+        // TIME-AWARE VIEW: scrub to the closure, reveal the detour
+        if (state.selRoute === null && rt) {
+          if (rt.o !== null) selectOrigin(rt.o); else state.selRoute = r.flagship;
+        }
+        drawRoutes({});
+        const ntc = rt ? rt.naive.tc.filter((t) => t >= 0) : [];
+        if (ntc.length) setT(Math.min(...ntc) + 10);
+        AUDIO.cue('confirm');
+      }
+    } else if (act === 3) {
+      setPlaying(false);
+      L.orig.setAttribute('opacity', 0.5);
+      $('panel').classList.add('spot');
+    }
+    if (act !== 3) $('panel').classList.remove('spot');
+  }
+  return {
+    start(act) {
+      state.guided = { act: act || 0, step: 0 };
+      $('guide').hidden = false;
+      $('gPrev').textContent = T('guided').prev;
+      $('gExit').textContent = T('guided').exit;
+      enter(state.guided.act, 0);
+    },
+    next() {
+      if (!state.guided) return;
+      if (state.guided.act === 2 && state.guided.step === 0) {
+        state.guided.step = 1; enter(2, 1); return;
+      }
+      if (state.guided.act >= 3) { this.exit(); return; }
+      state.guided.act++; state.guided.step = 0;
+      enter(state.guided.act, 0);
+    },
+    prev() {
+      if (!state.guided) return;
+      if (state.guided.act === 2 && state.guided.step === 1) {
+        state.guided.step = 0; enter(2, 0); return;
+      }
+      if (state.guided.act === 0) return;
+      state.guided.act--; state.guided.step = 0;
+      enter(state.guided.act, 0);
+    },
+    jump(act) {
+      if (!state.guided) this.start(act);
+      else { state.guided.act = act; state.guided.step = 0; enter(act, 0); }
+    },
+    exit() {
+      state.guided = null;
+      $('guide').hidden = true;
+      clearIncident();
+      $('panel').classList.remove('spot');
+      L.orig.setAttribute('opacity', 1);
+      L.roads.setAttribute('opacity', 1);
+      clearSelection();
+    },
+    active: () => state.guided !== null,
+  };
+})();
+$('gNext').addEventListener('click', () => GUIDED.next());
+$('gPrev').addEventListener('click', () => GUIDED.prev());
+$('gExit').addEventListener('click', () => GUIDED.exit());
+
+/* ---------- views: tabs -------------------------------------------------------- */
+const VIEWS = ['live', 'system', 'evidence', 'reliability'];
+function renderTabs() {
+  const tabs = $('tabs');
+  tabs.innerHTML = '';
+  VIEWS.forEach((v, i) => {
+    const b = hel('button', null, tabs, T('tabs')[i]);
+    b.setAttribute('role', 'tab');
+    b.setAttribute('aria-selected', String(state.view === v));
+    b.addEventListener('click', () => setView(v));
+  });
+}
+function setView(v) {
+  state.view = v;
+  if (v !== 'live' && GUIDED.active()) GUIDED.exit();
+  for (const x of VIEWS)
+    $('view-' + x).classList.toggle('on', x === v);
+  renderTabs();
+  if (v === 'system') renderSystem();
+  if (v === 'evidence') renderEvidence();
+  if (v === 'reliability') renderReliability();
+  AUDIO.cue('click');
+}
+
+/* ---------- SYSTEM view --------------------------------------------------------- */
+const SYS = [
+  { ko: '감지', en: 'TRIGGER',
+    d_ko: 'FIRMS 위성 화점, 119 신고 좌표, 신고 사진의 EXIF 좌표가 트리거가 됩니다. 탐지는 실시간이며, 여기서 판단이 시작됩니다.',
+    d_en: 'A FIRMS satellite hotspot, a call-center coordinate, or a photo EXIF fix triggers the run. Detection is real time; the decision starts here.' },
+  { ko: '시간 위험면', en: 'HAZARD OVER TIME',
+    d_ko: '검증된 확산 모델이 만든 사전 계산 점화 확률면 5장이 0~12시간을 덮습니다. 500 m 격자, 3시간 간격. 기상 자료는 고정 기준 시각의 것입니다.',
+    d_en: 'Five precomputed ignition-probability surfaces from the validated spread model cover 0~12 h at 500 m, one slice per 3 h. Weather inputs are from a fixed basis time.' },
+  { ko: '시간 확장 도로망', en: 'TIME-EXPANDED NETWORK',
+    d_ko: '보행 도로 그래프가 시간 축으로 확장됩니다. 확률이 0.50을 넘은 시각 이후 그 구간은 통행 불가로 다뤄집니다. 도로망 자체가 시간의 함수가 됩니다.',
+    d_en: 'The pedestrian graph is expanded over time. Once a cell passes 0.50, its segment is treated as impassable from that minute on. The network itself becomes a function of time.' },
+  { ko: '경로 판정', en: 'ROUTE FEASIBILITY',
+    d_ko: '모든 출발지에서 화재 무시 직행 경로와 시간 인지 경로를 비교해 네 가지로 분류합니다. 이 판정이 화면의 점 하나하나입니다.',
+    d_en: 'Every origin is classified by comparing its fire-blind direct route with its time-aware route. Those decisions are the dots on the map.' },
+  { ko: '운영자 판단', en: 'OPERATOR DECISION',
+    d_ko: '결과는 마을 단위 출동 목록과 A4 전달물로 정리됩니다. 이 시스템의 사용자는 운영자이고, 수혜자는 주민, 특히 고령 주민입니다. 주민에게 앱을 요구하지 않습니다.',
+    d_en: 'Results become a village-level dispatch list and printable sheets. The user is an operator; the beneficiaries are residents, above all elderly residents. No app is required of them.' },
+  { ko: '전달', en: 'COMMUNICATION',
+    d_ko: '전달 문구는 자동으로 발송되지 않습니다. 승인 권한을 가진 사람이 명시적으로 확인한 뒤에만 발송됩니다.',
+    d_en: 'Nothing is sent automatically. Delivery requires an explicit confirmation by a person holding the approval token.' },
+];
+function sysGlyph(i) {
+  const svg = el('svg', { width: 38, height: 38, viewBox: '0 0 30 30',
+    'aria-hidden': 'true' });
+  const s = { stroke: '#7d93ab', 'stroke-width': 1.5, fill: 'none' };
+  if (i === 0) {
+    el('circle', { cx: 15, cy: 17, r: 2.4, fill: '#fde047' }, svg);
+    el('path', { d: 'M8,10a10,10 0 0,1 14,0', ...s }, svg);
+    el('path', { d: 'M10.5,13a6.5,6.5 0 0,1 9,0', ...s }, svg);
+  } else if (i === 1) {
+    el('path', { d: 'M4,22l7,-4l8,4l7,-4', ...s }, svg);
+    el('path', { d: 'M4,16l7,-4l8,4l7,-4', ...s, opacity: 0.65 }, svg);
+    el('path', { d: 'M4,10l7,-4l8,4l7,-4', ...s, opacity: 0.35 }, svg);
+  } else if (i === 2) {
+    el('path', { d: 'M5,24L13,15L7,7M13,15L24,12M13,15L18,24', ...s }, svg);
+    el('circle', { cx: 13, cy: 15, r: 2, fill: '#7d93ab' }, svg);
+  } else if (i === 3) {
+    el('path', { d: 'M6,24C10,18 10,12 15,9', ...s, stroke: '#f87171',
+      'stroke-dasharray': '3 2.4' }, svg);
+    el('path', { d: 'M6,24C13,21 18,16 24,7', ...s, stroke: '#22d3ee' }, svg);
+  } else if (i === 4) {
+    el('rect', { x: 6, y: 5, width: 18, height: 20, rx: 1.5, ...s }, svg);
+    el('line', { x1: 9, y1: 10, x2: 21, y2: 10, ...s }, svg);
+    el('line', { x1: 9, y1: 14, x2: 21, y2: 14, ...s }, svg);
+    el('line', { x1: 9, y1: 18, x2: 16, y2: 18, ...s }, svg);
+  } else {
+    el('path', { d: 'M5,15L25,7L19,25L13,18Z', ...s }, svg);
+  }
+  return svg;
+}
+let sysBuilt = false;
+function renderSystem() {
+  $('sysH').textContent = T('sys_h');
+  $('sysSub').textContent = T('sys_sub');
+  const flow = $('sysflow');
+  flow.innerHTML = '';
+  SYS.forEach((st, i) => {
+    if (i) hel('span', 'arrowsep', flow, '→');
+    const card = hel('div', 'stage', flow);
+    card.setAttribute('tabindex', '0');
+    hel('span', 'n', card, String(i + 1).padStart(2, '0'));
+    card.appendChild(sysGlyph(i));
+    hel('h3', null, card, st.ko);
+    hel('div', 'en', card, st.en);
+    const act = (fromUser) => {
+      if (fromUser) flow.classList.add('focus');
+      flow.querySelectorAll('.stage').forEach((c) => c.classList.remove('on'));
+      card.classList.add('on');
+      $('sysdetail').innerHTML = '';
+      hel('h3', null, $('sysdetail'), st.ko + ' · ' + st.en);
+      hel('p', null, $('sysdetail'),
+        state.lang === 'ko' ? st.d_ko : st.d_en);
+    };
+    card.addEventListener('mouseenter', () => act(true));
+    card.addEventListener('focus', () => act(true));
+    card.addEventListener('click', () => act(true));
+    if (i === 0 && !sysBuilt) act(false);
+  });
+  flow.addEventListener('mouseleave', () => flow.classList.remove('focus'));
+  if (!sysBuilt) {
+    const page = $('view-system').querySelector('.page');
+    const src = hel('div', null, page);
+    src.id = 'syssrc';
+    const mk = (label, value) => {
+      const sp = hel('span', null, src);
+      hel('b', null, sp, label + ' ');
+      sp.append(value);
+    };
+    mk('DETECTION', 'NASA FIRMS (VIIRS·MODIS)');
+    mk('WEATHER', 'ERA5 (약 5일 지연 발행 · 고정 기준 시각)');
+    mk('TERRAIN', 'SRTM 30 m');
+    mk('LANDCOVER', 'ESA WorldCover');
+    mk('NETWORK·POI', 'OpenStreetMap (스냅숏 고정)');
+    const note = hel('p', 'note', page);
+    note.style.cssText = 'max-width:1460px;margin-top:16px';
+    note.textContent = state.lang === 'ko'
+      ? '이 시스템의 사용자는 운영자입니다. 수혜자는 주민, 특히 고령 주민이며, 주민에게 앱 사용을 요구하지 않습니다.'
+      : 'The user of this system is an operator. The beneficiaries are residents, above all elderly residents; no app is required of them.';
+    sysBuilt = true;
+  }
+}
+
+/* ---------- EVIDENCE view --------------------------------------------------------- */
+function provBlock(parent, lines) {
+  const box = hel('div', 'prov', parent);
+  box.hidden = true;
+  for (const l of lines) hel('div', null, box, l);
+  return box;
+}
+function evCard(grid, kicker, big, small, text, provLines) {
+  const c = hel('div', 'evcard', grid);
+  const k = hel('div', 'k', c);
+  hel('span', null, k, kicker);
+  let prov = null;
+  if (provLines && provLines.length) {
+    const btn = hel('button', 'srcbtn', k, T('src'));
+    btn.addEventListener('click', () => {
+      prov.hidden = !prov.hidden;
+      btn.textContent = prov.hidden ? T('src') : T('srcClose');
+    });
+  }
+  if (big) {
+    const bigEl = hel('div', 'big', c);
+    bigEl.append(big);
+    if (small) hel('small', null, bigEl, ' ' + small);
+  }
+  if (text) hel('p', null, c, text);
+  prov = provBlock(c, provLines || []);
+  return c;
+}
+function regEntry(key) { return DATA.registry.entries[key]; }
+function regProv(key) {
+  const e = regEntry(key);
+  return e ? ['NUMBERS.json :: ' + key, e.source + ' :: ' + e.path,
+              e.caveat].filter(Boolean) : [];
+}
+let evBuilt = false;
+function renderEvidence() {
+  $('evH').textContent = T('ev_h');
+  $('evSub').textContent = T('ev_sub');
+  if (evBuilt) return;
+  evBuilt = true;
+  const g = $('evgrid');
+  const M = DATA.model;
+  const ko = state.lang === 'ko';
+
+  // model skill
+  const c1 = evCard(g, '확산 모델 · LOFO 교차검증',
+    M.mean_folds.mean.toFixed(2) + ' ± ' + M.mean_folds.sd.toFixed(2),
+    'AUC (폴드 평균, 6개 산불)',
+    'pooled ' + M.pooled_auc.toFixed(3) + ' (부트스트랩 CI ' +
+    M.pooled_ci[0].toFixed(3) + '~' + M.pooled_ci[1].toFixed(3) +
+    '). 한 산불씩 제외하고 학습해 그 산불로 검증한 값입니다. 폴드 평균과 pooled는 서로 다른 지표입니다.',
+    ['lineage: ' + M.mean_folds.lineage, M.sources.lofo, M.sources.intervals,
+     ...regProv('lofo_mean_of_folds_auc').slice(2, 3)]);
+  // fold interval chart
+  {
+    const svg = el('svg', { width: '100%', height: 74,
+      viewBox: '0 0 300 74', 'aria-label': '산불별 AUC 신뢰구간' });
+    c1.insertBefore(svg, c1.querySelector('.prov'));
+    const x = (v) => 30 + (v - 0.5) * 500;
+    el('line', { x1: x(0.5), y1: 64, x2: x(1.0), y2: 64,
+      stroke: '#27364a' }, svg);
+    [0.5, 0.75, 1.0].forEach((v) => {
+      el('text', { x: x(v), y: 73, 'text-anchor': 'middle', 'font-size': 8,
+        fill: '#6e8095', 'font-family': 'var(--mono)' }, svg)
+        .textContent = v.toFixed(2);
+    });
+    M.folds.forEach((fd, i) => {
+      const y = 8 + i * 9;
+      el('line', { x1: x(fd.lo), y1: y, x2: x(fd.hi), y2: y,
+        stroke: '#5ea0f2', 'stroke-width': 2, opacity: 0.55 }, svg);
+      el('circle', { cx: x(fd.auc), cy: y, r: 2.2, fill: '#9cc3f7' }, svg);
+    });
+  }
+
+  // honest validation metric
+  evCard(g, '검증의 정직한 지표 · footprint IoU',
+    Math.min(...M.iou_steps).toFixed(2) + '~' + Math.max(...M.iou_steps).toFixed(2),
+    '3~12시간 전방 외피',
+    '관측 화재 발자국과의 IoU: ' + M.iou_steps.map((v) => v.toFixed(2)).join(' · ') +
+    '. 더 후해 보이는 단일 스텝 지표는 이미 탄 면적이 지배해 보고를 차단했습니다.',
+    [M.sources.forward_sim + ' :: drift[1:].iou']);
+
+  // calibration
+  evCard(g, '보정 · 라우터가 소비하는 확률',
+    M.brier.gbm.toFixed(3), 'Brier (pooled OOF)',
+    '라우터는 잘 보정된 점화 확률을 소비합니다. 다만 보정은 채택 모델만의 강점이 아닙니다: 랜덤 포레스트 ' +
+    M.brier.rf.toFixed(3) + ', 로지스틱 ' + M.brier.logistic.toFixed(3) +
+    '. 있는 그대로 보고합니다.',
+    [M.sources.calibration + ' :: models.*.pooled.brier',
+     M.sources.baselines + ' :: gbm_minus_rf_mean_of_folds = ' +
+     M.baseline_auc.gbm_minus_rf]);
+
+  // region table
+  {
+    const c = hel('div', 'evcard', g);
+    c.style.gridColumn = '1 / -1';
+    const k = hel('div', 'k', c);
+    hel('span', null, k, '지역별 비교 · 동일 규칙, 동일 파라미터');
+    const tb = hel('table', 'regions', c);
+    const hr = hel('tr', null, tb);
+    ['지역', '평가 출발지', '자력 대피', '시간 인지만 안전', '도달 불가',
+     '시간 인지만 안전 비율', '보행망 커버리지', '대피 지점'].forEach((h) =>
+      hel('th', null, hr, h));
+    for (const id of DATA.region_order) {
+      const r = DATA.regions[id];
+      const tr = hel('tr', null, tb);
+      hel('td', null, tr, r.label);
+      hel('td', null, tr, String(r.n_scanned));
+      hel('td', null, tr, String(r.counts.both_safe));
+      hel('td', null, tr, String(r.counts.naive_into_FA_safe));
+      hel('td', null, tr, String(r.counts.no_safe_route));
+      hel('td', null, tr, r.fa_only_pct.toFixed(2) + '%');
+      hel('td', null, tr, r.coverage_pct.toFixed(1) + '%');
+      hel('td', null, tr, String(r.shelter_pois));
+    }
+    hel('p', 'note', c,
+      '커버리지·대피소 밀도 같은 공변량이 지역마다 다르므로 이 표는 순위가 아닙니다. 커버리지가 낮은 행의 절대 수치는 그 커버리지 안에서의 값입니다.');
+    provBlock(c, ['data/processed/multi_region_comparison.json :: regions[*]',
+      'data/processed/real_roads_real_hazard_*.json :: arms.slope_digraph_canonical.counts']);
+    const btn = hel('button', 'srcbtn', k, T('src'));
+    const prov = c.querySelector('.prov');
+    btn.addEventListener('click', () => {
+      prov.hidden = !prov.hidden;
+      btn.textContent = prov.hidden ? T('src') : T('srcClose');
+    });
+  }
+
+  // responder exposure
+  {
+    const e = regEntry('responder_exposure_reduction_pct');
+    const sp = regEntry('responder_exposure_shortest_path_mean');
+    const sa = regEntry('responder_exposure_survival_aware_mean');
+    const nD = regEntry('rescue_dispatch_count');
+    if (e && sp && sa) {
+      const c = evCard(g, '구조자 측 · 위험 노출 대비',
+        sp.value.toFixed(2) + ' → ' + sa.value.toFixed(2), 'prob·min (평균)',
+        (nD ? nD.value : '') + '개 동일 출발지에 대한 짝지은 대비로, 생존 인지 경로가 최단 경로 대비 노출을 ' +
+        e.value.toFixed(1) + '% 줄입니다. 정책 간 상대 비교이며 절대 안전 보장이 아닙니다.',
+        regProv('responder_exposure_reduction_pct'));
+      const warnEl = hel('p', 'note warn', c,
+        '합성 위험면 기반 · 짝지은 대비만 유효 · 도로망과 시설 위치는 실측 OSM');
+      c.insertBefore(warnEl, c.querySelector('.prov'));
+    }
+  }
+
+  // terrain
+  {
+    const e = regEntry('slope_walk_time_increase_pct');
+    const routesChanged = regEntry('slope_canonical_fa_routes_changed_60m');
+    const saving = regEntry('objective_canonical_longest_walk_saving_min');
+    if (e) {
+      evCard(g, '지형 보정 · 경사가 걸음을 바꿉니다',
+        '+' + e.value.toFixed(1) + '%', '보행 시간 (60 m 표집)',
+        '경사를 반영하면 전체 보행 시간이 늘고' +
+        (routesChanged ? ', 시간 인지 경로 ' + routesChanged.value + '건의 형태가 바뀝니다' : '') +
+        (saving ? '. 최악 사례 1건에서 최장 도보가 ' + saving.value.toFixed(0) + '분 줄었습니다' : '') +
+        '. 표집 간격에 민감한 값이라 간격을 항상 함께 적습니다.',
+        regProv('slope_walk_time_increase_pct'));
+    }
+  }
+
+  // runtime
+  {
+    const parts = [];
+    for (const id of DATA.region_order) {
+      const r = DATA.regions[id];
+      if (r.prov.warm_s != null)
+        parts.push(r.label + ' ' + r.prov.warm_s.toFixed(1) + 's');
+    }
+    evCard(g, '실행 시간 · 트리거에서 출동 목록까지',
+      parts.length ? parts[0].split(' ').pop() : '', '(재생 런 실측)',
+      '사전 적재된 상태에서 좌표 입력부터 전 지역 출동 목록·전달문 생성까지의 실측값: ' +
+      parts.join(' · ') + '. 지역 간 순위가 아닙니다.',
+      DATA.region_order.map((id) =>
+        'outputs/live/replay run ' + DATA.regions[id].prov.run + ' :: timings_s'));
+  }
+
+  // registry
+  evCard(g, '검증 레지스트리',
+    DATA.registry.n_entries + '', '항목 · 재현 가능 ' + DATA.registry.n_reproducible,
+    '화면과 문서의 주요 수치는 레지스트리에 등록되어 산출물과 자동 대조됩니다. 「재현 불가」는 「틀림」이 아니라, 출처는 검증되었으나 입력 자료가 더 이상 재생성될 수 없음을 뜻합니다.',
+    ['docs/NUMBERS.json :: numbers (config ' + DATA.registry.config_hash + ')',
+     'built at commit ' + DATA.registry.built_at_commit]);
+}
+
+/* ---------- RELIABILITY view -------------------------------------------------------- */
+let relBuilt = false;
+function renderReliability() {
+  $('relH').textContent = T('rel_h');
+  $('relSub').textContent = T('rel_sub');
+  if (relBuilt) return;
+  relBuilt = true;
+
+  // integrity strip
+  const box = $('integrity');
+  box.innerHTML = '';
+  const k = hel('div', 'k', box);
+  hel('span', 'k', k, 'SYSTEM INTEGRITY');
+  hel('span', null, k, 'build ' + DATA.built_utc + ' · commit ' + DATA.git).style.cssText =
+    'font-family:var(--mono);font-size:11px;color:var(--ink3)';
+  const IG = DATA.integrity;
+  if (IG.verified && IG.gates.length) {
+    for (const gate of IG.gates) {
+      const row = hel('div', 'gate', box);
+      hel('span', gate.ok ? 'ok' : 'fail', row, gate.ok ? 'PASS' : 'FAIL');
+      hel('span', null, row, gate.name);
+      hel('span', null, row, gate.line).style.color = 'var(--ink3)';
+      hel('span', null, row, gate.seconds + 's').style.color = 'var(--ink3)';
+    }
+  } else {
+    const row = hel('div', 'gate', box);
+    hel('span', 'na', row, 'NOT RUN');
+    hel('span', null, row,
+      '이 빌드는 게이트를 실행하지 않았습니다. make finals 는 --verify 로 실행 결과를 기록합니다.');
+  }
+  for (const id of DATA.region_order) {
+    const r = DATA.regions[id];
+    const row = hel('div', 'gate', box);
+    hel('span', 'na', row, 'DATA');
+    hel('span', null, row, r.label);
+    hel('span', null, row, r.prov.npz + ' (sha ' + r.prov.npz_sha16 + ') · run ' +
+      r.prov.run).style.color = 'var(--ink3)';
+  }
+
+  const g = $('relgrid');
+  function rel(title, body, doc, quote) {
+    const c = hel('div', 'relcard', g);
+    hel('h3', null, c, title);
+    if (quote) hel('blockquote', null, c, quote);
+    hel('p', null, c, body);
+    if (doc) hel('div', 'doc', c, doc);
+    return c;
+  }
+
+  const yd = DATA.regions[DATA.region_order[0]];
+  rel('보행망 커버리지',
+    '커버리지가 가장 낮은 지역의 절대 수치는 덮인 범위 안에서의 값이며, 나머지 범위의 거동은 측정되지 않았고 편향의 방향도 알 수 없습니다. 짝지은 대비는 두 경로가 같은 출발지를 쓰므로 이 한계의 영향을 받지 않습니다.',
+    'docs/walk_bbox_coverage.md · multi_region_comparison.json',
+    yd.coverage_note || null);
+
+  rel('입력 민감도',
+    '보행망 노드의 0.05% 미만 변화가 이진 판정(도달 가능 여부) 건수를 크게 움직인 사례가 기록되어 있습니다. 같은 실험에서 짝지은 노출 대비는 1%p 미만으로 움직였습니다. 그래서 이 화면의 강조는 대비에 있습니다.',
+    'docs/network_drift.md');
+
+  rel('운영용 소프트웨어가 아닙니다',
+    '실무자 평가를 거치지 않았고, 전문가 검토 없이 공식 대피 명령의 유일한 근거로 사용해서는 안 됩니다. 보행 속도·차량 속도·운용 창 등 핵심 파라미터는 가정값이며 저장소에 실측 근거가 없습니다.',
+    'README 현재 상태 · config/default.yaml (# ASSUMED)');
+
+  rel('대피 지점 레이어의 실체',
+    '대피 지점의 다수는 OSM의 공원·정자류 태그입니다. 하류 필터링은 하지 않습니다. 지역 간 「대피소 밀도」 차이는 상당 부분 지도 제작 관행의 차이입니다.',
+    'docs/multi_region.md §3.2');
+
+  rel('화재 경계 검증의 한계',
+    '전방 시뮬레이션 외피의 면적 편향은 지역에 따라 과대·과소로 부호가 바뀌므로 하나의 보정으로 제거할 수 없습니다. 정직한 발자국 지표(IoU 약 0.40)를 함께 표기하는 이유입니다. 위험면의 시간 해상도는 3시간, 공간 해상도는 500 m 입니다.',
+    'docs/HANDOFF_ROUND3.md §2 · yeongdeok_forward_sim.json');
+
+  rel('기상 입력의 한계',
+    'ERA5는 약 5일 지연 발행되므로 위험면은 고정 기준 시각의 기상으로 계산됩니다. 순간 기상을 예보로 교체할 때의 성능 저하 상한은 측정되어 있으나, 실제 전환은 실측되지 않았습니다. 완전한 실시간 운영이 아닙니다.',
+    'docs/weather_dependency.md §5');
+
+  {
+    const e1 = regEntry('dispatch_order_deadline_wins_pct');
+    const e2 = regEntry('ordering_boundary_first_window_with_a_win');
+    rel('부정 결과도 결과입니다 · 배차 정렬',
+      '마감 임박 순 배차 정렬을 대안 3종과 비교 실측한 결과, 이길 수 있는 조건은 존재하지 않는 것으로 판정했습니다' +
+      (e1 ? ' (전체 셀의 ' + e1.value + '%에서만 우세' : '') +
+      (e2 ? ', 최초 승리 창 W ≥ ' + e2.value + '분, 커밋된 창은 그보다 짧음)' : ')') +
+      '. 시스템이 제시하는 것은 정렬이 아니라 각 진입로가 언제 닫히는지의 계산입니다.',
+      'docs/ordering_boundary.md §0',
+      '이것은 경계가 아니라 모서리이며, 유효 영역이라 부를 수 있는 것이 존재하지 않습니다.');
+  }
+
+  rel('자료 결함이 판정을 얼마나 움직였는가',
+    '자체 발견·정정된 두 건의 실제 자료 결함에 대해 운영 판정(출발지 분류)의 이동량을 지역별로 실측했습니다. 두 사건은 서로 다른 지역 집합을 움직였고, 증상이 관측된 지역이 판정이 움직인 지역이 아니었습니다: 결함이 보이지 않던 지역에서 90개 출발지의 판정이 바뀌었고, 결함이 보이던 지역에서는 1개였습니다.',
+    'docs/decision_shift.md §1');
+
+  rel('재현성',
+    DATA.registry.n_entries + '개 등록 수치 중 ' + DATA.registry.n_reproducible +
+    '개가 재현 가능합니다. 나머지는 검증되었으나 입력 자료가 소실되어 재생성할 수 없음이 기록되어 있습니다. 외부 자료는 스냅숏과 sha256으로 고정됩니다.',
+    'docs/DATA_LOSS_2026-07-24.md · data/snapshots/MANIFEST.json');
+}
+
+/* ---------- presenter menu -------------------------------------------------------- */
+function renderPresenter() {
+  const m = $('presMenu');
+  m.innerHTML = '';
+  const P = T('pres');
+  const add = (label, kbd, fn) => {
+    const b = hel('button', null, m);
+    hel('span', null, b, label);
+    if (kbd) hel('span', 'kbd', b, kbd);
+    b.addEventListener('click', () => { fn(); togglePres(false); });
+  };
+  add(P.restart, 'G', () => { setView('live'); GUIDED.start(0); });
+  for (let i = 0; i < 4; i++)
+    add(P.act + ' ' + (i + 1), String(i + 1),
+      () => { setView('live'); GUIDED.jump(i); });
+  hel('hr', 'hairline', m);
+  add(P.resetAll, 'R', resetScenario);
+  add(P.region, null, () => switchRegion(DATA.default_region));
+  add(P.audio, 'M', () => setSound(!state.sound));
+  add(P.full, 'F', toggleFullscreen);
+  add(P.intro, null, showIntro);
+}
+function togglePres(open) {
+  const menu = $('presMenu');
+  const willOpen = open === undefined ? menu.hidden : open;
+  menu.hidden = !willOpen;
+  $('presBtn').setAttribute('aria-expanded', String(willOpen));
+  if (willOpen) renderPresenter();
+}
+$('presBtn').addEventListener('click', () => togglePres());
+function resetScenario() {
+  GUIDED.exit();
+  setPlaying(false);
+  mountRegion(state.region);
+}
+function toggleFullscreen() {
+  if (document.fullscreenElement) document.exitFullscreen();
+  else document.documentElement.requestFullscreen().catch(() => {});
+}
+function setSound(on) {
+  AUDIO.setSound(on);
+  $('btnSound').setAttribute('aria-pressed', String(on));
+  $('btnSound').textContent = on ? T('sound_on') : T('sound_off');
+}
+
+/* ---------- intro -------------------------------------------------------------- */
+let introTimer = [];
+function showIntro() {
+  const intro = $('intro');
+  intro.hidden = false;
+  intro.classList.add('live');
+  $('app').classList.remove('on');
+  $('introTag').textContent = T('intro_tag');
+  $('iL1').textContent = T('intro_l1');
+  $('iL2').textContent = T('intro_l2');
+  $('iL3').textContent = T('intro_l3');
+  $('iSub').textContent = T('intro_sub');
+  $('introGo').textContent = T('intro_go');
+  $('introExplore').textContent = T('intro_explore');
+  $('skipIntro').textContent = T('intro_skip');
+  // media: try video; on error fall back to terrain still
+  const vid = $('introMedia');
+  const fb = $('introFallback');
+  vid.hidden = true; fb.hidden = true;
+  const r = DATA.regions[DATA.default_region];
+  const useFallback = () => {
+    vid.hidden = true;
+    if (r.hill) { fb.style.backgroundImage = `url(${r.hill.png})`; fb.hidden = false; }
+  };
+  vid.onerror = useFallback;
+  vid.src = 'demo-media/intro-forest-loop.mp4';
+  vid.setAttribute('poster', 'demo-media/intro-poster.webp');
+  vid.oncanplay = () => { vid.hidden = false; fb.hidden = true; vid.play().catch(useFallback); };
+  useFallback(); // show terrain immediately; video replaces it if it loads
+  // staged lines
+  const lines = intro.querySelectorAll('#introText .line');
+  lines.forEach((l) => l.classList.remove('on'));
+  introTimer.forEach(clearTimeout); introTimer = [];
+  const delays = REDUCED ? [0, 0, 0, 0, 0] : [300, 1400, 2900, 4400, 6200];
+  lines.forEach((l, i) => {
+    introTimer.push(setTimeout(() => l.classList.add('on'), delays[i]));
+  });
+}
+function hideIntro(startGuided) {
+  introTimer.forEach(clearTimeout);
+  const vid = $('introMedia');
+  vid.pause?.(); vid.removeAttribute('src');
+  $('intro').hidden = true;
+  $('app').classList.add('on');
+  renderTimeline();
+  if (startGuided) { setView('live'); GUIDED.start(0); }
+}
+$('introGo').addEventListener('click', () => hideIntro(true));
+$('introExplore').addEventListener('click', () => hideIntro(false));
+$('skipIntro').addEventListener('click', () => hideIntro(false));
+
+/* ---------- keyboard -------------------------------------------------------------- */
+document.addEventListener('keydown', (ev) => {
+  if (ev.target && /INPUT|TEXTAREA/.test(ev.target.tagName)) return;
+  if (!$('intro').hidden) {
+    if (ev.key === 'Escape' || ev.key === 'Enter') hideIntro(ev.key === 'Enter');
+    return;
+  }
+  switch (ev.key) {
+    case ' ': setPlaying(!state.playing); ev.preventDefault(); break;
+    case 'g': case 'G': setView('live'); GUIDED.start(0); break;
+    case 'r': case 'R': resetScenario(); break;
+    case 'f': case 'F': toggleFullscreen(); break;
+    case 'm': case 'M': setSound(!state.sound); break;
+    case 'Escape':
+      if (GUIDED.active()) GUIDED.exit();
+      else if (!$('presMenu').hidden) togglePres(false);
+      else clearSelection();
+      break;
+    case 'ArrowRight': if (GUIDED.active()) GUIDED.next(); break;
+    case 'ArrowLeft': if (GUIDED.active()) GUIDED.prev(); break;
+    case '1': case '2': case '3': case '4':
+      if (state.view === 'live') GUIDED.jump(Number(ev.key) - 1);
+      break;
+  }
+});
+
+/* ---------- language ---------------------------------------------------------------- */
+function setLang(lang) {
+  state.lang = lang;
+  $('btnLang').setAttribute('aria-pressed', String(lang === 'en'));
+  $('btnLang').textContent = lang === 'ko' ? 'EN' : 'KO';
+  $('brandSub').textContent = T('brandSub');
+  $('btnGuide').textContent = T('guideBtn');
+  setSound(state.sound);
+  renderTabs();
+  renderRegions();
+  renderLegend();
+  renderPanel();
+  renderTransport();
+  evBuilt = false; relBuilt = false; sysBuilt = false;
+  if (state.view === 'system') renderSystem();
+  if (state.view === 'evidence') renderEvidence();
+  if (state.view === 'reliability') renderReliability();
+  if (GUIDED.active()) GUIDED.jump(state.guided.act);
+}
+$('btnLang').addEventListener('click', () =>
+  setLang(state.lang === 'ko' ? 'en' : 'ko'));
+$('btnSound').addEventListener('click', () => setSound(!state.sound));
+$('btnGuide').addEventListener('click', () => { setView('live'); GUIDED.start(0); });
+
+/* ---------- boot ---------------------------------------------------------------------- */
+window.addEventListener('resize', () => renderTimeline());
+setLang('ko');
+mountRegion(DATA.default_region);
+renderTabs();
+// deep links for the booth and for scripted screenshots:
+//   #act1..#act4 (guided acts), #live/#system/#evidence/#reliability,
+//   optional ",t=<minutes>" freezes the clock, ",region=<id>" switches first
+(() => {
+  const hash = decodeURIComponent(location.hash.replace('#', ''));
+  if (!hash) { showIntro(); return; }
+  $('intro').hidden = true;
+  $('app').classList.add('on');
+  const parts = hash.split(',');
+  const opts = {};
+  for (const p of parts.slice(1)) {
+    const [k, v] = p.split('=');
+    opts[k] = v;
+  }
+  if (opts.region && DATA.regions[opts.region]) mountRegion(opts.region);
+  renderTimeline();
+  const head = parts[0];
+  if (/^act[1-4]$/.test(head)) {
+    setView('live');
+    GUIDED.start(Number(head[3]) - 1);
+  } else if (VIEWS.includes(head)) {
+    setView(head);
+  }
+  if (opts.t !== undefined) { setPlaying(false); setT(Number(opts.t) || 0); }
+})();
+</script>
+</body>
+</html>

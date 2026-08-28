@@ -12,7 +12,8 @@ SCRIPTS := scripts
 .DEFAULT_GOAL := help
 .PHONY: help verify verify-numbers check-forbidden check-region-literals \
 	snapshot snapshot-verify \
-        env-check config-hash test baseline-verify baseline-freeze all-checks
+        env-check config-hash test baseline-verify baseline-freeze all-checks \
+        finals
 
 help:
 	@echo "WildfireGuardian — verification targets"
@@ -28,6 +29,7 @@ help:
 	@echo "                        manifests, against docs/baseline_phase13.json"
 	@echo "  make baseline-freeze  RE-record that baseline (deliberate)"
 	@echo "  make config-hash      print the current config hash"
+	@echo "  make finals           rebuild web/finals.html and record the gates"
 	@echo "  make test             pytest"
 	@echo "  make all-checks       everything above except snapshot"
 	@echo
@@ -87,6 +89,26 @@ baseline-freeze:
 
 config-hash:
 	@$(PYTHON) -m wildfireguardian.config
+
+# --- the finals presentation screen -----------------------------------------
+# `--verify` runs the fast gates and records their real results in the screen's
+# SYSTEM INTEGRITY panel. Without it the panel lists the commands and claims no
+# result, which is the honest rendering of a build that checked nothing.
+# The preflight exists because the failure it replaces is a 30-line traceback
+# from deep inside the package import chain, and the real cause is one line:
+# `python` resolved to an interpreter without the geospatial stack. That is the
+# wrong thing to read on a competition morning.
+finals:
+	@$(PYTHON) -c "import networkx, numpy, pyproj, rasterio, PIL" 2>/dev/null \
+	  || { echo "$(PYTHON) lacks the geospatial stack (networkx/pyproj/rasterio/PIL)."; \
+	       echo "Use the reference environment (docs/ENVIRONMENT.md):"; \
+	       echo "    conda activate wfg311 && make finals"; \
+	       echo "or point this target straight at it:"; \
+	       echo "    make finals PYTHON=\$$(conda run -n wfg311 which python)"; \
+	       exit 1; }
+	@echo "=== building web/finals.html ==="
+	@$(PYTHON) $(SCRIPTS)/build_finals.py --verify
+	@$(PYTHON) $(SCRIPTS)/check_screen_assets.py web/finals.html
 
 test:
 	@$(PYTHON) -m pytest -q

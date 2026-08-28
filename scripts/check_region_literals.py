@@ -77,6 +77,12 @@ REPO = Path(__file__).resolve().parents[1]
 #: these because a literal only becomes this defect when a second region reads
 #: it; analysis scripts that quote Yeongdeok are doing so deliberately.
 SCOPE: tuple[str, ...] = (
+    # ⚠ The finals screen is in scope for the same reason the console is: it is
+    # a builder that emits operator-facing text and reads all three regions from
+    # one payload, which is exactly the shape this check exists to catch. Added
+    # with the file, not after the first defect.
+    "scripts/build_finals.py",
+    "scripts/finals.template.html",
     "scripts/build_console.py",
     "scripts/build_operator_screen.py",
     "scripts/console.template.html",

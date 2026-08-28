@@ -61,7 +61,32 @@ identified as the output of a 2026-07-20 run reverted the next day — a field
 whose own validation figures are HARD-forbidden retired values. The table now
 uses [`real_roads_real_hazard_canonical.json`](../data/processed/real_roads_real_hazard_canonical.json),
 run on the **same** 2026-07-24 snapshot network with the **same** parameters, so
-440 / 17 / 3 → 414 / 42 / 2 is attributable to the hazard field alone.
+440 / 17 / 3 → 414 / 42 / 2 is attributable to the **hazard field** — the network
+and the parameters are held fixed.
+
+> ⚠ **Corrected 2026-08-13 (PHASE 25 STEP 0).** This sentence used to end
+> "attributable to the hazard field **alone**", and that overstates it in two
+> ways that matter to anyone quoting the pair as a controlled contrast.
+>
+> **It is not a single-variable comparison.** Only one *input* changed, but that
+> input differs on three axes at once: it is the canonical-dataset run rather
+> than the reverted 2026-07-20 one, it was built **on the corrected DEMs**
+> (`9ba83b4` is an ancestor of `05fbfca`, checked with
+> `git merge-base --is-ancestor`), and its canvas grew 181×147 → 181×156
+> (`canonical_hazard.json` `.canvas.extension_search`). So the DEM correction's
+> effect on Yeongdeok is folded inside this pair and cannot be extracted;
+> `9ba83b4`'s own body says so — "the effect is unmeasured".
+>
+> **And the denominator moved, 460 → 458.** `candidate_origins()`
+> (`run_real_roads_real_hazard_slope.py:79-98`) selects origins on the t=0 core
+> and a band around its centroid, so the **sampling frame is a function of the
+> field**. The t=0 core grew 241 → 249 cells and two origins left the frame.
+> Any sentence of the form "26 origins were reclassified out of `both_safe`" is
+> therefore **UNVERIFIED** — the per-origin ledger that would settle the split
+> does not exist for this pair. (It does exist for the flat-vs-slope contrast,
+> at `slope_sweep_canonical.json` `.bucket_movement_vs_flat_control`.)
+>
+> [`decision_shift.md`](decision_shift.md) §4.2 is the record.
 
 Two superseded Yeongdeok readings are carried in the artifact as
 `role: context`: that slope-60 arm, and the originally committed
@@ -190,9 +215,23 @@ does not survive it.
 
 On the canonical field slope moves one Yeongdeok origin out of `both_safe` into
 FA-only. One origin is not a result, but it is not zero either, and the
-committed null was exactly zero. **The 30 / 60 / 90 m slope experiments have NOT
-been re-run on the canonical field**; until they are, `slope_integration.md`'s
-null result should be read as a property of the reverted field.
+committed null was exactly zero.
+
+> ⚠ **Corrected 2026-08-13 (PHASE 25 STEP 0).** This paragraph used to end "**The
+> 30 / 60 / 90 m slope experiments have NOT been re-run on the canonical
+> field**". They have been, and the artifact is committed and in the baseline
+> freeze: `slope_sweep_canonical.json` (`.arms.slope_{30,60,90}`), together with
+> `objective_budget_canonical.json` for the objective 2×2 and the budget sweep.
+> `HANDOFF_ROUND3.md` §2-A steps 2–3 report both re-runs.
+>
+> What they found: the three spacings give **three different vectors** —
+> 413/42/3, 414/42/2, 415/41/2 against a flat control of 415/41/2 — so the
+> *literal* null ("identical at 30, 60 and 90 m") does **not** survive. The
+> *substantive* null does, and on stronger evidence:
+> `.bucket_movement_vs_flat_control.moved_at_all_spacings` is **empty** — no
+> origin changes bucket at every spacing — and the movement is monotone in the
+> sampling-induced time penalty. The artifact's own verdict is
+> `inconsistent_across_spacings`. [`decision_shift.md`](decision_shift.md) §5.3–5.4.
 
 **It is not because the new regions are steeper.** They are not:
 
@@ -527,6 +566,14 @@ true of their own moment. A silent "ok" would have been the bug.
 10. **Never repeat "the core is quasi-static (241 → 244)".** That is a property
     of the reverted 2026-07-20 field, not of the Yeongdeok fire; on the
     canonical field the same fire's core quadruples.
-11. **The PHASE-2 slope null result and the PHASE-2-C objective and budget
-    sweeps have NOT been re-run on the canonical field.** Do not present them
-    beside this table as though they had.
+11. ⚠ **Corrected 2026-08-13.** This rule read "**The PHASE-2 slope null result
+    and the PHASE-2-C objective and budget sweeps have NOT been re-run on the
+    canonical field.**" They *have* — `slope_sweep_canonical.json` and
+    `objective_budget_canonical.json`, both committed and in the baseline
+    freeze. The rule that replaces it: **quote the canonical-field re-runs, not
+    the reverted-field originals, and never mix the two in one row.** On the
+    canonical field the literal spacing null is broken (three spacings, three
+    vectors) while the substantive one holds (`moved_at_all_spacings` empty);
+    the objective 2×2 is no longer a complete null (slope/time 413/43/2); and
+    the budget sweep's `no_safe_route` runs 1.7–2.4× higher at every tight
+    budget. [`decision_shift.md`](decision_shift.md) §5.

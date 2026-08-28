@@ -64,6 +64,34 @@ HARD: list[tuple[str, str, str]] = [
     ("Guestrin", "word", "XGBoost citation — see Chen"),  # forbidden-ok: Chen, Guestrin, XGBoost
     ("multi-scale", "word", "the model is single-scale (one 375 m / 500 m grid)"),  # forbidden-ok: multi-scale
     ("Multi-scale", "word", "see multi-scale"),  # forbidden-ok: multi-scale, Multi-scale
+    # ------------------------------------------------------------------
+    # CLAIM FORMS — PHASE 25 STEP 0 (2026-08-13). Not retired NUMBERS but
+    # retired SENTENCE SHAPES. The decision-shift measurement was scoped down
+    # after a census: the defect COUNT, the region COUNT and the novelty claim
+    # were each checked and none is supported. docs/decision_shift.md §1.
+    #
+    # ⚠ These are `kind="claim"`: the token IS the regex, and like every
+    # non-word rule they apply to authored prose (.md) only.
+    #
+    # ⚠ VALIDATED BEFORE ADDING, both directions — the bar this repository
+    # sets in docs/region_literals.md §5 ("a detector that always fires is as
+    # useless as one that never does"). Against the tracked .md tree: 0
+    # matches for all five. Against the six overclaim spellings they exist to
+    # stop: 6/6 caught. Against five legitimate neighbours — "두 건의 …
+    # 결함", "세 지역의 커버리지 공변량", "처음 보는 사람도", "the first
+    # slice of the hazard field", "n = 3" — 0/5 fired.
+    (r"(?<![\d.,])(?:30|29|31)\s*건[^\n]{0,25}결함", "claim",
+     "the defect COUNT as a headline. 156 census records collapse to 2 events "
+     "with a measured decision shift — docs/decision_shift.md §1"),
+    (r"(?i)\bN\s*=\s*30\b", "claim", "see the 30건 rule"),
+    (r"세\s*지역[^\n]{0,40}(?:판정|이동)[^\n]{0,20}(?:실측|측정)", "claim",
+     "NO defect moved all three regions. Event 1 moved two, event 2 moved one "
+     "— docs/decision_shift.md §3"),
+    (r"(?:처음|최초)[^\n]{0,40}(?:체계적으로\s*)?실측", "claim",
+     "novelty is UNVERIFIED. Li et al. 2025 supports that the gap exists, not "
+     "that this is the first work in it — docs/decision_shift.md §6"),
+    (r"(?i)\bfirst\b[^\n]{0,40}\bsystematic(?:ally)?\b[^\n]{0,30}\bmeasur",
+     "claim", "see the 처음/최초 rule"),
 ]
 
 #: token -> regex that, if present on the line, counts as an adequate label.
@@ -219,6 +247,14 @@ PRAGMA = re.compile(r"(?:#|//|<!--)\s*forbidden-ok:\s*(.*?)\s*(?:-->|$)")
 
 
 def pattern_for(token: str, kind: str) -> re.Pattern:
+    if kind == "claim":
+        # ⚠ The token IS the pattern. Claim rules match a SENTENCE SHAPE, not a
+        # value, so there is nothing to escape and nothing to boundary-wrap.
+        # They are deliberately narrow: each was measured against the tracked
+        # tree (0 hits) and against its own overclaim spellings (all caught)
+        # before being added. A claim rule that fires on ordinary prose would
+        # be retired within a week and take the real ones with it.
+        return re.compile(token)
     if kind == "ratio":
         # ⚠ "44×" must not match "1.44×" or "18.3×". The lookbehind rejects a
         # preceding digit or decimal point, which is what separates the withdrawn
