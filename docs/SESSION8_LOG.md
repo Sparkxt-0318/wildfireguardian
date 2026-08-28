@@ -29,7 +29,7 @@ derives from that interview.
 | gate | result |
 |---|---|
 | `verify-numbers` | **PASS** — every registered number matches its artifact |
-| `check-forbidden` | **FAIL — 3 hard violations**, all `tests/test_finals_screen.py:190` (tokens `XGBoost`/`Chen`/`Guestrin`/`multi-scale` appear in the *scanning list of a test that asserts their absence* from the finals screen — a self-referential hit in checkpoint-committed WIP, not a prose overclaim). See §0.5. |
+| `check-forbidden` | **FAIL — 3 hard violations**, all `tests/test_finals_screen.py:190` (tokens `XGBoost`/`Chen`/`Guestrin`/`multi-scale` appear in the *scanning list of a test that asserts their absence* from the finals screen — a self-referential hit in checkpoint-committed WIP, not a prose overclaim). See §0.5. | <!-- forbidden-ok: XGBoost, Chen, Guestrin, multi-scale -->
 | `check-region-literals` | **PASS** — no NEW region literal (2 known and recorded) |
 | `baseline-verify` | **PASS** |
 | `snapshot-verify` | **PASS** |
@@ -202,3 +202,56 @@ stash, and pushing even a transient entry shifted indices while it existed.
   (env-check PASS).
 
 **GATE: green. Session proceeds.**
+
+---
+
+## Phase 1 — round-trip margins, trigger lines, advisory output
+
+**Implemented.** `src/wildfireguardian/routing/margins.py` (new):
+`round_trip_margin` (`M = S − (ETA_in + t_load + ETA_out)`, egress leg
+evaluated at the egress departure time; `egress_policy` same_route|free),
+`withdrawal_trigger_line` (hazard isochrone at the latest safe commitment
+time, snapped down to the containing forecast slice), `margin_band` (spread
+over the committed §4a vehicle-cutoff sweep axis, or null), `recommend`
+(진입 권장 / 진입 보류 권장 / 철수 권장 — never 불가), `advisory` (record with
+auditable `basis`). Wired additively into `run_pipeline`
+(`RescueResults.advisories`) and `run_rescue_routing.py`
+(`margin_advisories` key). New config: `responder.t_load_min = 10.0`
+(**ASSUMED**, swept), `responder.t_load_sweep`, `responder.egress_policy =
+"same_route"` (doctrine per the N = 1 consultation — a statement, not a
+measurement), `responder.vehicle_cutoff_sweep` (same literals as
+`verify_rescue_routing.py:69`). Tests: `tests/test_margins.py`, 10 tests, incl.
+the pinned survivable-at-ingress-closed-at-egress → negative-margin case.
+Routing test files after wiring: 41 passed.
+
+**Artifacts.** `data/processed/margin_sweep.json` (t_load × egress_policy,
+2 × 4 grid) and `data/processed/margin_advisories.json` (baseline advisory
+feed; trigger-line cells for the top-20). ⚠ Both are **current-tree (arm B,
+441-series) lineage**: the committed `rescue_routing.json` is the
+2026-07-19 arm-A network vintage, unreproducible since the 2026-07-24 OSM
+cache loss (`docs/network_drift.md`) — regeneration today yields
+441 / {12, 255, 142, 32} for a reason **unrelated to this phase** (verified:
+margins never touch classification; the synthetic pipeline's four-way is
+byte-identical to its committed values). The committed artifact was therefore
+left untouched and the advisory feed carries its own lineage block.
+
+**STOP-GATE check (four-way split).** Unchanged by construction and by
+measurement: the margin layer runs after classification and mutates nothing.
+Synthetic four-way before/after wiring (the pre-flip **synthetic** baseline
+build, quoted only as an identity check): {154, 34, 244, 20} — identical. <!-- forbidden-ok: 154 -->
+
+**Sweep results (direction vs point estimate, §4a/§4b style).**
+
+| quantity | verdict | basis |
+|---|---|---|
+| 62 / 142 dispatch-reachable homes (arm B) have **non-positive round-trip margin** at baseline — the one-way "dispatchable" verdict overstates completable missions once the return leg is priced | **robust direction** — the 62-home core is invariant across all 4 t_load values and both egress policies (free adds 19 more at t_load ≥ 10, never fewer) | `margin_sweep.json` cells |
+| the 진입 권장 vs 진입 보류 권장 split among positive-margin homes | **assumption-driven** — moves with `t_load` (80/0 at t_load ≤ 10 → 56/24 at 20, same_route) | same |
+| free-egress margins ≤ same-route margins | **direction (conservatism, expected)** — the time-expanded router's bin-rounding and arrival-time gating are stricter than the corridor-level cut-time check; free is never more optimistic here | same |
+| any absolute margin value | **point estimate on assumed inputs** — t_load ASSUMED, synthetic hazard, arm-B network | — |
+
+**Scope note (1c).** The categorical→advisory replacement is implemented in
+the commander-facing outputs: the `margin_advisories` feed and (Phase 4) the
+field view. The 이장-facing A4 sheet keeps its wording — its audience makes
+the resident-notification decision, not the withdrawal decision; changing its
+pinned wording/page-budget contract was judged out of the phase's scope and
+is recorded here rather than silently skipped.

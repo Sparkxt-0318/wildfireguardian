@@ -105,6 +105,50 @@ A tightly-scoped layer **on top of** the existing future-aware evacuation router
   `no_safe_pedestrian_route` / `no_surviving_vehicle_ingress` counts therefore
   equal the dispatch / unreachable split exactly.
 
+### 3a. Round-trip margin, trigger line, advisory output (Session 8, additive)
+
+Motivated by a 현장 실무자 자문 (N = 1, qualitative —
+`firefighter_consultation.md`; a statement of practice, never a data source):
+a categorical 「구조대가 갈 수 없습니다」 is the wrong shape for field use, and
+withdrawal is a spatial judgment, not a clock. Cova, Dennison, Kim & Moritz
+(2005, *Transactions in GIS* 9(4)) formalise the spatial form as evacuation
+**trigger points**. Implementation: `routing/margins.py`, additive on top of
+everything above — the 7-key classification, the four-way split and the
+dispatch ranking are unchanged.
+
+- **Round-trip margin.** The committed urgency is one-way
+  (`ingress_survival − responder_ETA`). The margin extends it to the full
+  mission: `M = S − (ETA_in + t_load + ETA_out)`, with the egress leg
+  evaluated **at the egress departure time** `ETA_in + t_load` — the same
+  corridor at ingress time and at egress time is a different edge of the
+  time-expanded graph. A corridor survivable at ingress but closed at egress
+  produces a **negative** margin (pinned by
+  `tests/test_margins.py::test_ingress_ok_egress_closed_gives_negative_margin`).
+  `t_load` (on-scene pickup) is a **new ASSUMED config value**
+  (`responder.t_load_min`), swept in `scripts/run_margin_sweep.py`; it is
+  never presented as measured. `egress_policy = "same_route"` (default;
+  doctrine per the consultation — 「들어가서 그 길로 나오는 게 원칙」, N = 1)
+  vs `"free"` (survival-aware router picks a fresh egress route at the egress
+  departure time) is likewise config + swept.
+- **Withdrawal trigger line.** The spatial dual: the hazard-field isochrone
+  whose arrival time equals the mission's latest safe commitment time (where
+  `M(t) → 0`), snapped **down** to the containing forecast slice
+  (conservative). Emitted per mission with the arrival time and hazard slice
+  index it was derived from. ⚠ Hazard time resolution is overpass-scale
+  (hours), so trigger lines are **planning-scale, not tactical** (see §5 —
+  same constraint, same wording).
+- **Advisory output (human-facing only).** Per dispatch/unreachable home:
+  `margin_minutes` (signed, round-trip); `margin_band` — the margin's spread
+  over the committed §4a `vehicle_cutoff` sweep axis {0.5…0.9}, or `null`
+  when no swept cutoff yields a finite margin (an interval is never
+  invented); `recommendation` ∈ {진입 권장, 진입 보류 권장, 철수 권장} —
+  advisory wording, never 불가; `trigger_line`; and `basis` — every field the
+  recommendation was computed from, so a human commander can audit it.
+  Emitted as the **additive** `margin_advisories` key of
+  `rescue_routing.json`. Machine-facing keys (the 7-key classification, the
+  four-way split, `dispatch_top20`, `unreachable_homes`) are unchanged — they
+  are what the tests and NUMBERS.json trace to.
+
 ## 4. The four-way split (must sum to N)
 
 Each origin (an elderly home) lands in exactly one class:
@@ -334,7 +378,15 @@ geometry, not a deployed product:
   dispatch / unreachable accounting, where the survival-aware route materially
   lowers ingress exposure versus a fire-blind shortest path.
 - **Time resolution is overpass-scale (hours).** Rules out tactical (minute-scale)
-  use, exactly as the parent routing report states.
+  use, exactly as the parent routing report states. This constraint carries
+  unchanged into the §3a withdrawal trigger lines: they are **planning-scale,
+  not tactical** — a line derived from hour-resolution hazard slices cannot
+  time a minute-scale withdrawal.
+- **The round-trip margin's `t_load` is assumed, and same-route egress is
+  doctrine reported by one practitioner (N = 1), not a measurement.** Both are
+  swept (`scripts/run_margin_sweep.py`, `data/processed/margin_sweep.json`);
+  conclusions that move under that sweep are reported as directions, not
+  point estimates.
 
 ## 6. Data provenance (real vs synthetic)
 

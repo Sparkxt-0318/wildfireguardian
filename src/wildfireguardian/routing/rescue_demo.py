@@ -35,6 +35,7 @@ from ..utils import regions
 from .evacuation import build_evacuation_network, future_aware_route, naive_route
 from .future_front import RoadNetwork
 from .hazard import HazardSequence
+from .margins import advisory as _margin_advisory
 from .rescue import (
     FOUR_WAY_CLASSES,
     Depot,
@@ -410,6 +411,10 @@ class RescueResults:
     responder_exposure: dict                    # survival-aware vs shortest-path
     examples: dict = field(default_factory=dict)
     provenance: dict = field(default_factory=dict)
+    # SESSION 8 Phase 1 — ADDITIVE. Human-facing margin advisories (margin,
+    # band, recommendation, trigger line, basis) for the dispatch and
+    # unreachable homes. The machine-facing keys above are unchanged.
+    advisories: list = field(default_factory=list)
 
 
 def _refuge_node_sets(scenario: RescueScenario, cfg: RescueConfig):
@@ -525,6 +530,32 @@ def run_pipeline(scenario: RescueScenario, cfg: RescueConfig | None = None) -> R
         "route_type": "vehicle",
     }
 
+    # --- SESSION 8 Phase 1: margin advisories (ADDITIVE, human-facing) ------
+    # The 7-key classification and the four-way split above are untouched; the
+    # advisory replaces the categorical verdict only in what a commander reads.
+    # Trigger-line CELLS are emitted for the top-20 dispatch entries only (the
+    # committed dispatch_top20 slice) to keep the committed JSON small; every
+    # advisory still carries margin, band, recommendation and basis.
+    advisories: list[dict] = []
+    for rank, e in enumerate(dispatch):
+        a = _margin_advisory(
+            scenario.drive, depot_nodes[e.depot_index], e.home_node,
+            scenario.hazard, cfg, depot_index=e.depot_index,
+            with_trigger=(rank < 20))
+        a["four_way_class"] = "no_safe_pedestrian_route"
+        advisories.append(a)
+    for h in unreachable:
+        di = h.get("nearest_depot_index")
+        dn = depot_nodes[di] if di is not None and di < len(depot_nodes) else \
+            (depot_nodes[0] if depot_nodes else None)
+        if dn is None:
+            continue
+        a = _margin_advisory(scenario.drive, dn, h["home_node"],
+                             scenario.hazard, cfg, depot_index=di,
+                             with_trigger=False)
+        a["four_way_class"] = "no_surviving_vehicle_ingress"
+        advisories.append(a)
+
     examples = _figure_examples(scenario, cfg, depot_nodes, all_walk, rr_walk,
                                 dispatch, saved_examples)
 
@@ -576,7 +607,7 @@ def run_pipeline(scenario: RescueScenario, cfg: RescueConfig | None = None) -> R
         dest_assessments=assessments, n_refuges_rescue_reachable=n_rr,
         resident_exposure=resident_exposure, dispatch=dispatch,
         unreachable_homes=unreachable, responder_exposure=responder_exposure,
-        examples=examples, provenance=prov,
+        examples=examples, provenance=prov, advisories=advisories,
     )
 
 
