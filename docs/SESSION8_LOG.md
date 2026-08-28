@@ -336,3 +336,35 @@ arm-B vintage; landmark names are real OSM POI-derived cluster names).
 `alert_loop.md` §4 quotes them verbatim. Scope honesty carried from the
 consultation: compliance is NOT modelled and no compliance-improvement claim
 is made anywhere.
+
+---
+
+## Phase 4 — field view mock in the offline console
+
+**Built**: `scripts/build_field_view.py` → `web/field_view.html`, served at
+`GET /field` (new route in `api/app.py`, same 503-with-build-instructions
+pattern as `/`). One glanceable SVG screen: mock GPS position (labelled
+모의 GPS on the screen itself), 화점, current fire front, 30/60/90-min
+isochrones from the hazard sequence, the Phase-1b withdrawal trigger line
+(purple dashed), and the Phase-1a margin panel with a minutes-only countdown
+(planning-scale caveat printed beside it). Fully offline: inline SVG/CSS/JS,
+no tile server, no CDN, no external font, no live API — pinned by
+`tests/test_field_view.py` (5 tests: no fetchable reference incl.
+protocol-relative, SVG-only, required elements, wording discipline, and the
+`/field` route through the app).
+
+**Displayed mission**: the most urgent dispatch entry whose round-trip
+margin is still positive (rank stated on screen — rank 63, margin +13 min,
+32 trigger cells this build). Rank 1 outright has margin −138 min — showing
+a screen whose whole subject is the trigger line requires a mission that
+still has one; the selection rule is printed in the header, not hidden.
+
+**Framing**: LCES (Gleason 1991) — the screen automates the synthetic
+**lookout** and the **escape-route** monitor; Communications stays the
+PS-LTE rail responders already carry, Safety zones stay human. Wording
+discipline everywhere: 「재난안전통신망 연동을 상정하여 설계하였습니다」 —
+never integrated/connected/deployed, and the test asserts the claim-forms'
+absence.
+
+**Screenshot**: `docs/figures/field_view_session8.png` (headless Chrome
+render of the committed page).

@@ -346,6 +346,25 @@ def create_app(*, runner: JobRunner | None = None,
             })
         return FileResponse(page, media_type="text/html")
 
+    # -- the field view (SESSION 8 Phase 4) --------------------------------
+    @app.get("/field", include_in_schema=False)
+    def field_view():
+        """The offline FIELD VIEW mock (SVG-only, self-contained).
+
+        재난안전통신망 연동을 상정하여 설계하였습니다 — the page mocks a feed
+        for the PS-LTE rail responders already carry; it is not integrated,
+        connected or deployed, and it fetches nothing (same offline contract
+        as the console). Built by ``scripts/build_field_view.py``.
+        """
+        page = WEB_ROOT / "field_view.html"
+        if not page.is_file():
+            raise HTTPException(503, {
+                "error": "field_view_not_built",
+                "detail_ko": "현장 보기 화면이 아직 빌드되지 않았습니다.",
+                "build": "python scripts/build_field_view.py",
+            })
+        return FileResponse(page, media_type="text/html")
+
     # -- static ------------------------------------------------------------
     # Mounted LAST so it cannot shadow /api or /. Serves the vendored fonts,
     # which is the whole reason the screen needs no network.
