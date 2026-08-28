@@ -368,3 +368,35 @@ absence.
 
 **Screenshot**: `docs/figures/field_view_session8.png` (headless Chrome
 render of the committed page).
+
+---
+
+## Phase 5 — GK2A sub-daily direction experiment (scaffold + feasibility ONLY)
+
+**Produced: a plan, a scaffold, and a blocker. No results, by design.**
+
+- **Access investigated (2026-08-29).** Primary: GK2A AMI **L2 FF
+  (산불탐지)** via the KMA API Hub (https://apihub.kma.go.kr, product list
+  `apiList.do?seqApi=6`, `authKey` parameter) — **requires a personal 인증키
+  → STOP.** Blocker filed for John in `docs/BLOCKERS.md` with the signup
+  URL; no key requested, no authentication worked around. Fallback
+  (documented, not chosen): NOAA NODD `s3://noaa-gk2a-pds` AMI **L1B**
+  (keyless; bucket listing verified 2026-08-29; coverage **2023-02 →
+  present** — includes the four 2023+/2025 LOFO fires, excludes
+  miryang_2022 and uljin_samcheok_2022) with an in-house hotspot derivation
+  as an added confounder.
+- **Preregistration**: `docs/gk2a_direction_experiment.md` — hypothesis
+  (daily cumulative FIRMS labels smear intra-day wind shifts), 3-h window
+  label construction on the unchanged 500 m grid, the single-feature
+  `wind_alignment` readout (never a group sum — the MODEL_CARD's recorded
+  lesson; the withdrawn 「severity ≫ direction」 conclusion is not
+  resurrected), the exact daily-vs-sub-daily comparison on the same fire
+  subset, a success criterion fixed in advance (≥5× importance AND
+  fold-bootstrap ablation CI excluding zero), and six recorded confounders
+  (2 km vs 500 m; cloud masking; geostationary geometry at 36–37° N;
+  unchanged 0.25° ERA5 wind; fallback-arm algorithm validity; subset
+  non-representativeness).
+- **Scaffold**: `src/wildfireguardian/fire_detection/gk2a.py` — every entry
+  point raises `NotImplementedError` pointing at the plan and the blocker.
+  No stub data, no placeholder arrays (pinned by
+  `tests/test_gk2a_scaffold.py`).
