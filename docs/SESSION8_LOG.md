@@ -305,3 +305,34 @@ via `build_numbers.py` (old entries untouched; 153 total, all verify).
 no authoritative 행정리 boundary (pre-existing blocker); vegetation layer is
 OSM, not 임상도 — the WUI distances inherit OSM's vegetation mapping
 completeness, which is unmeasured here.
+
+---
+
+## Phase 3 — alert / notification loop
+
+**Design doc first**: `docs/alert_loop.md` — escalation ladder (재난문자 →
+TTS 자동전화 → 이장 마을방송 → door-knock list ordered by the Layer-3
+dispatch priority), each rung mapped to an EXISTING Layer-4 artifact (no new
+channel — consultation §7.2); message template spec (landmark +
+time-to-arrival + instruction + counter-cue 「연기가 보이면 이미 늦습니다」,
+합니다체; PADM/Lindell & Perry 2012 + Mileti & Sorensen 1990 as mechanism
+citations); and the precisely-specified confirmation loop with its failure
+modes (no answer ≠ refusal; false confirmation → physical verification;
+confirmation only LOWERS priority, never marks safe; the door-knock
+non-evacuation event is the single upward transition and restores the
+original key).
+
+**Implemented**: `delivery/alert_loop.py` (template builders with per-rung
+caps incl. SMS compaction + broadcast word-wrapping for long landmarks;
+`ConfirmationEvent` with enforced `source="synthetic"`; deterministic
+RNG-free partition `apply_confirmations`; seeded simulator). 13 tests in
+`tests/test_alert_loop.py` pin all §3 invariants. **No telephony/SMS service
+integrated** — out of scope by design, and stated so.
+
+**Filled examples generated, not hand-written**:
+`scripts/generate_alert_examples.py` → `data/processed/alert_examples.json`
+(3 clusters; arrival minutes are model output on labelled-synthetic hazard,
+arm-B vintage; landmark names are real OSM POI-derived cluster names).
+`alert_loop.md` §4 quotes them verbatim. Scope honesty carried from the
+consultation: compliance is NOT modelled and no compliance-improvement claim
+is made anywhere.
