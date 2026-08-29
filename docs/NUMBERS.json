@@ -39,7 +39,8 @@
         "blocked_by": null
       },
       "reproducible": true,
-      "notes": "Produced by scripts/run_routing_integration.py. The superseded Build-A artifact data/processed/spread_v2/lofo_metrics.json holds a DIFFERENT mean (0.8309) over a DIFFERENT fire set — do not cite it."
+      "notes": "Produced by scripts/run_routing_integration.py. The superseded Build-A artifact data/processed/spread_v2/lofo_metrics.json holds a DIFFERENT mean (0.8309) over a DIFFERENT fire set — do not cite it.",
+      "arm": "A"
     },
     "wxdep_shuffle_far_band_delta": {
       "value": -0.0344,
@@ -81,7 +82,8 @@
         "blocked_by": null
       },
       "reproducible": true,
-      "notes": "PHASE 14 stopped here. The archive question was already settled affirmatively (AWS noaa-gfs-bdp-pds, GFS 0.25 deg full forecasts from 2021-01-02, measured publication lag +3h34m..+3h51m), so the experiment was runnable and was not run."
+      "notes": "PHASE 14 stopped here. The archive question was already settled affirmatively (AWS noaa-gfs-bdp-pds, GFS 0.25 deg full forecasts from 2021-01-02, measured publication lag +3h34m..+3h51m), so the experiment was runnable and was not run.",
+      "arm": "A"
     },
     "wxdep_drop_far_band_delta": {
       "value": -0.1127,
@@ -118,7 +120,8 @@
         "evidence": "tested 2026-08-03: re-ran scripts/measure_weather_dependency.py; the dataset rebuilds to the canonical (151904, 2989) and every arm reproduces to 4 dp. Deterministic given seed 20250603.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "wxdep_drop_days_since_rain_mean_delta": {
       "value": 0.027,
@@ -156,7 +159,8 @@
         "evidence": "tested 2026-08-03: re-ran scripts/measure_weather_dependency.py; the dataset rebuilds to the canonical (151904, 2989) and every arm reproduces to 4 dp. Deterministic given seed 20250603.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "wxdep_drop_all_weather_far_band": {
       "value": 0.6124,
@@ -189,7 +193,8 @@
         "evidence": "tested 2026-08-03: re-ran scripts/measure_weather_dependency.py; the dataset rebuilds to the canonical (151904, 2989) and every arm reproduces to 4 dp. Deterministic given seed 20250603.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "lofo_fold_auc_sd": {
       "value": 0.107,
@@ -222,7 +227,8 @@
         "evidence": "tested 2026-08-01: re-ran scripts/run_routing_integration.py; per_fire_auc, pooled_auc, mid/far-band AUC, n_rows and n_positives are all BIT-IDENTICAL to the committed artifact.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "rescue_n_origins": {
       "value": 439,
@@ -256,7 +262,8 @@
         "evidence": "tested 2026-08-01: re-ran scripts/run_rescue_routing.py with the same seed (20250603) and identical assumed parameters. N moved 439->441, no_surviving_vehicle_ingress 24->32, no_safe_pedestrian_route 143->142, exposure reduction 72.03%->72.59%.",
         "blocked_by": "OSM walk/drive network overwritten 2026-07-24; unrecoverable."
       },
-      "reproducible": false
+      "reproducible": false,
+      "arm": "A"
     },
     "rescue_self_sufficient_count": {
       "value": 272,
@@ -293,7 +300,8 @@
         "evidence": "tested 2026-08-01: re-ran scripts/run_rescue_routing.py with the same seed (20250603) and identical assumed parameters. N moved 439->441, no_surviving_vehicle_ingress 24->32, no_safe_pedestrian_route 143->142, exposure reduction 72.03%->72.59%.",
         "blocked_by": "OSM walk/drive network overwritten 2026-07-24; unrecoverable."
       },
-      "reproducible": false
+      "reproducible": false,
+      "arm": "A"
     },
     "rescue_needs_rescuer_count": {
       "value": 167,
@@ -335,7 +343,8 @@
         "evidence": "tested 2026-08-01: re-ran scripts/run_rescue_routing.py with the same seed (20250603) and identical assumed parameters. N moved 439->441, no_surviving_vehicle_ingress 24->32, no_safe_pedestrian_route 143->142, exposure reduction 72.03%->72.59%.",
         "blocked_by": "OSM walk/drive network overwritten 2026-07-24; unrecoverable."
       },
-      "reproducible": false
+      "reproducible": false,
+      "arm": "A"
     },
     "rescue_partition_identity": {
       "value": true,
@@ -381,7 +390,8 @@
         "evidence": "tested 2026-08-01: re-ran scripts/run_rescue_routing.py with the same seed (20250603) and identical assumed parameters. N moved 439->441, no_surviving_vehicle_ingress 24->32, no_safe_pedestrian_route 143->142, exposure reduction 72.03%->72.59%.",
         "blocked_by": "OSM walk/drive network overwritten 2026-07-24; unrecoverable."
       },
-      "reproducible": false
+      "reproducible": false,
+      "arm": "A"
     },
     "rescue_dispatch_count": {
       "value": 143,
@@ -411,7 +421,8 @@
         "evidence": "tested 2026-08-01: re-ran scripts/run_rescue_routing.py with the same seed (20250603) and identical assumed parameters. N moved 439->441, no_surviving_vehicle_ingress 24->32, no_safe_pedestrian_route 143->142, exposure reduction 72.03%->72.59%.",
         "blocked_by": "OSM walk/drive network overwritten 2026-07-24; unrecoverable."
       },
-      "reproducible": false
+      "reproducible": false,
+      "arm": "A"
     },
     "rescue_unreachable_count": {
       "value": 24,
@@ -444,7 +455,8 @@
         "evidence": "tested 2026-08-01: re-ran scripts/run_rescue_routing.py with the same seed (20250603) and identical assumed parameters. N moved 439->441, no_surviving_vehicle_ingress 24->32, no_safe_pedestrian_route 143->142, exposure reduction 72.03%->72.59%.",
         "blocked_by": "OSM walk/drive network overwritten 2026-07-24; unrecoverable."
       },
-      "reproducible": false
+      "reproducible": false,
+      "arm": "A"
     },
     "responder_shortest_path_enters_hazard_count": {
       "value": 57,
@@ -477,7 +489,8 @@
         "evidence": "tested 2026-08-01: re-ran scripts/run_rescue_routing.py with the same seed (20250603) and identical assumed parameters. N moved 439->441, no_surviving_vehicle_ingress 24->32, no_safe_pedestrian_route 143->142, exposure reduction 72.03%->72.59%.",
         "blocked_by": "OSM walk/drive network overwritten 2026-07-24; unrecoverable."
       },
-      "reproducible": false
+      "reproducible": false,
+      "arm": "A"
     },
     "responder_exposure_shortest_path_mean": {
       "value": 6.11732626055555,
@@ -507,7 +520,8 @@
         "evidence": "tested 2026-08-01: re-ran scripts/run_rescue_routing.py with the same seed (20250603) and identical assumed parameters. N moved 439->441, no_surviving_vehicle_ingress 24->32, no_safe_pedestrian_route 143->142, exposure reduction 72.03%->72.59%.",
         "blocked_by": "OSM walk/drive network overwritten 2026-07-24; unrecoverable."
       },
-      "reproducible": false
+      "reproducible": false,
+      "arm": "A"
     },
     "responder_exposure_survival_aware_mean": {
       "value": 1.7112264016498908,
@@ -537,7 +551,8 @@
         "evidence": "tested 2026-08-01: re-ran scripts/run_rescue_routing.py with the same seed (20250603) and identical assumed parameters. N moved 439->441, no_surviving_vehicle_ingress 24->32, no_safe_pedestrian_route 143->142, exposure reduction 72.03%->72.59%.",
         "blocked_by": "OSM walk/drive network overwritten 2026-07-24; unrecoverable."
       },
-      "reproducible": false
+      "reproducible": false,
+      "arm": "A"
     },
     "responder_exposure_reduction_pct": {
       "value": 72.0,
@@ -576,7 +591,8 @@
         "evidence": "tested 2026-08-01: re-ran scripts/run_rescue_routing.py with the same seed (20250603) and identical assumed parameters. N moved 439->441, no_surviving_vehicle_ingress 24->32, no_safe_pedestrian_route 143->142, exposure reduction 72.03%->72.59%.",
         "blocked_by": "OSM walk/drive network overwritten 2026-07-24; unrecoverable."
       },
-      "reproducible": false
+      "reproducible": false,
+      "arm": "A"
     },
     "walk_failure_rate_pct": {
       "value": 11.4,
@@ -610,7 +626,8 @@
         "evidence": "derived by pure arithmetic from the same four-way counts as rescue_routing.json (scripts/derive_walk_failure.py performs no re-run), so it inherits that artifact's status exactly.",
         "blocked_by": "OSM walk/drive network overwritten 2026-07-24; unrecoverable."
       },
-      "reproducible": false
+      "reproducible": false,
+      "arm": "A"
     },
     "real_roads_both_safe": {
       "value": 438,
@@ -640,7 +657,8 @@
         "evidence": "NOT yet re-run as of this build. Shares the OSM walk graph with rescue_routing.json, which was tested and does not reproduce; the snapshot graph also differs from this artifact's recorded counts (8443 vs 8439 nodes, 11020 vs 11015 collapsed edges). PHASE 2 measures this directly as the middle column of its 3-way table.",
         "blocked_by": "OSM walk network overwritten 2026-07-24; unrecoverable."
       },
-      "reproducible": false
+      "reproducible": false,
+      "arm": "A"
     },
     "real_roads_future_aware_only_safe": {
       "value": 18,
@@ -670,7 +688,8 @@
         "evidence": "NOT yet re-run as of this build. Shares the OSM walk graph with rescue_routing.json, which was tested and does not reproduce; the snapshot graph also differs from this artifact's recorded counts (8443 vs 8439 nodes, 11020 vs 11015 collapsed edges). PHASE 2 measures this directly as the middle column of its 3-way table.",
         "blocked_by": "OSM walk network overwritten 2026-07-24; unrecoverable."
       },
-      "reproducible": false
+      "reproducible": false,
+      "arm": "A"
     },
     "real_roads_no_safe_route": {
       "value": 3,
@@ -700,7 +719,8 @@
         "evidence": "NOT yet re-run as of this build. Shares the OSM walk graph with rescue_routing.json, which was tested and does not reproduce; the snapshot graph also differs from this artifact's recorded counts (8443 vs 8439 nodes, 11020 vs 11015 collapsed edges). PHASE 2 measures this directly as the middle column of its 3-way table.",
         "blocked_by": "OSM walk network overwritten 2026-07-24; unrecoverable."
       },
-      "reproducible": false
+      "reproducible": false,
+      "arm": "A"
     },
     "real_roads_n_origins_scanned": {
       "value": 459,
@@ -745,7 +765,8 @@
         "evidence": "NOT yet re-run as of this build. Shares the OSM walk graph with rescue_routing.json, which was tested and does not reproduce; the snapshot graph also differs from this artifact's recorded counts (8443 vs 8439 nodes, 11020 vs 11015 collapsed edges). PHASE 2 measures this directly as the middle column of its 3-way table.",
         "blocked_by": "OSM walk network overwritten 2026-07-24; unrecoverable."
       },
-      "reproducible": false
+      "reproducible": false,
+      "arm": "A"
     },
     "hazard_npz_sha256": {
       "value": "5bed502661afa8e33335c342ddc468c2df6858267ea4f769a659f970e918da58",
@@ -779,7 +800,8 @@
         "file": "data/processed/real_roads_real_hazard.json",
         "json_path": "hazard_source.npz_sha256",
         "must_equal": "hazard_npz_sha256.value"
-      }
+      },
+      "arm": "A"
     },
     "network_drift_unreachable_delta_pct": {
       "value": 33.3333,
@@ -813,7 +835,8 @@
         "evidence": "arm B is regenerable from the snapshotted 2026-07-24 network (data/snapshots/osm-walk_…2bff8d85); arm A is quoted from the committed artifact. Re-running scripts/run_network_drift_experiment.py reproduces the comparison.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "network_drift_exposure_reduction_delta_pp": {
       "value": 0.5614,
@@ -847,7 +870,8 @@
         "evidence": "arm B is regenerable from the snapshotted 2026-07-24 network (data/snapshots/osm-walk_…2bff8d85); arm A is quoted from the committed artifact. Re-running scripts/run_network_drift_experiment.py reproduces the comparison.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "network_drift_walk_node_delta_pct": {
       "value": 0.0474,
@@ -877,7 +901,8 @@
         "evidence": "arm B is regenerable from the snapshotted 2026-07-24 network (data/snapshots/osm-walk_…2bff8d85); arm A is quoted from the committed artifact. Re-running scripts/run_network_drift_experiment.py reproduces the comparison.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "slope_walk_time_increase_pct": {
       "value": 26.594,
@@ -910,7 +935,8 @@
         "evidence": "built 2026-08-01 from the SNAPSHOT walk graph (data/snapshots/osm-walk_…2bff8d85.graphml.gz) plus the intact SRTM raster, with osmnx pinned to 2.0.7 to match the snapshot's created_with. Both inputs are hash-verified, so re-running scripts/run_real_roads_real_hazard_slope.py regenerates it.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "slope_directional_asymmetry_mean": {
       "value": 0.1996,
@@ -943,7 +969,8 @@
         "evidence": "built 2026-08-01 from the SNAPSHOT walk graph (data/snapshots/osm-walk_…2bff8d85.graphml.gz) plus the intact SRTM raster, with osmnx pinned to 2.0.7 to match the snapshot's created_with. Both inputs are hash-verified, so re-running scripts/run_real_roads_real_hazard_slope.py regenerates it.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "slope_mean_abs_slope": {
       "value": 0.0818,
@@ -976,7 +1003,8 @@
         "evidence": "built 2026-08-01 from the SNAPSHOT walk graph (data/snapshots/osm-walk_…2bff8d85.graphml.gz) plus the intact SRTM raster, with osmnx pinned to 2.0.7 to match the snapshot's created_with. Both inputs are hash-verified, so re-running scripts/run_real_roads_real_hazard_slope.py regenerates it.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "slope_counts_unchanged_vs_flat": {
       "value": true,
@@ -1014,7 +1042,8 @@
         "evidence": "built 2026-08-01 from the SNAPSHOT walk graph (data/snapshots/osm-walk_…2bff8d85.graphml.gz) plus the intact SRTM raster, with osmnx pinned to 2.0.7 to match the snapshot's created_with. Both inputs are hash-verified, so re-running scripts/run_real_roads_real_hazard_slope.py regenerates it.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "objective_routes_changed_frac": {
       "value": 0.3261,
@@ -1047,7 +1076,8 @@
         "evidence": "built 2026-08-01 from the hash-verified snapshot graph and SRTM raster with osmnx pinned to 2.0.7; scripts/run_routing_objective_experiment.py regenerates it.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "objective_longest_walk_saving_min": {
       "value": 91.3,
@@ -1084,7 +1114,8 @@
         "evidence": "built 2026-08-01 from the hash-verified snapshot graph and SRTM raster with osmnx pinned to 2.0.7; scripts/run_routing_objective_experiment.py regenerates it.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "objective_counts_still_unchanged": {
       "value": true,
@@ -1121,7 +1152,8 @@
         "evidence": "built 2026-08-01 from the hash-verified snapshot graph and SRTM raster with osmnx pinned to 2.0.7; scripts/run_routing_objective_experiment.py regenerates it.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "budget_30min_walk_failure_rate": {
       "value": 0.55,
@@ -1155,7 +1187,8 @@
         "evidence": "built 2026-08-01 from the hash-verified snapshot graph and SRTM raster with osmnx pinned to 2.0.7; scripts/run_budget_sweep_experiment.py regenerates it.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "budget_60min_walk_failure_rate": {
       "value": 0.3826,
@@ -1189,7 +1222,8 @@
         "evidence": "built 2026-08-01 from the hash-verified snapshot graph and SRTM raster with osmnx pinned to 2.0.7; scripts/run_budget_sweep_experiment.py regenerates it.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "budget_90min_walk_failure_rate": {
       "value": 0.2609,
@@ -1223,7 +1257,8 @@
         "evidence": "built 2026-08-01 from the hash-verified snapshot graph and SRTM raster with osmnx pinned to 2.0.7; scripts/run_budget_sweep_experiment.py regenerates it.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "budget_120min_walk_failure_rate": {
       "value": 0.1978,
@@ -1257,7 +1292,8 @@
         "evidence": "built 2026-08-01 from the hash-verified snapshot graph and SRTM raster with osmnx pinned to 2.0.7; scripts/run_budget_sweep_experiment.py regenerates it.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "budget_600min_walk_failure_rate": {
       "value": 0.0435,
@@ -1291,7 +1327,8 @@
         "evidence": "built 2026-08-01 from the hash-verified snapshot graph and SRTM raster with osmnx pinned to 2.0.7; scripts/run_budget_sweep_experiment.py regenerates it.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "baseline_hazard_entry_increase": {
       "value": 3,
@@ -1327,7 +1364,8 @@
         "evidence": "built 2026-08-01 from the hash-verified snapshot graph and SRTM raster with osmnx pinned to 2.0.7; scripts/run_budget_sweep_experiment.py regenerates it.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "partition_sixth_category_empty_at_600min": {
       "value": true,
@@ -1360,7 +1398,8 @@
         "evidence": "built 2026-08-01 from the hash-verified snapshot graph and SRTM raster with osmnx pinned to 2.0.7; scripts/run_budget_sweep_experiment.py regenerates it.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "full_rerun_n_origins": {
       "value": 441,
@@ -1397,7 +1436,8 @@
         "evidence": "built 2026-08-01 from the hash-verified 2026-07-24 snapshot graphs (data/cache/ never read) with osmnx pinned to 2.0.7; scripts/run_rescue_routing_full.py regenerates it and asserts the drift arm-B figures.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "full_rerun_n_need_rescue": {
       "value": 174,
@@ -1434,7 +1474,8 @@
         "evidence": "built 2026-08-01 from the hash-verified 2026-07-24 snapshot graphs (data/cache/ never read) with osmnx pinned to 2.0.7; scripts/run_rescue_routing_full.py regenerates it and asserts the drift arm-B figures.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "full_rerun_n_unreachable": {
       "value": 32,
@@ -1471,7 +1512,8 @@
         "evidence": "built 2026-08-01 from the hash-verified 2026-07-24 snapshot graphs (data/cache/ never read) with osmnx pinned to 2.0.7; scripts/run_rescue_routing_full.py regenerates it and asserts the drift arm-B figures.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "full_rerun_origins_serialized": {
       "value": 441,
@@ -1508,7 +1550,8 @@
         "evidence": "built 2026-08-01 from the hash-verified 2026-07-24 snapshot graphs (data/cache/ never read) with osmnx pinned to 2.0.7; scripts/run_rescue_routing_full.py regenerates it and asserts the drift arm-B figures.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "sparsity_singleton_fraction_at_500m": {
       "value": 0.6916,
@@ -1544,7 +1587,8 @@
         "evidence": "pure geometry over rescue_routing_full.json; scripts/analyse_cluster_sparsity.py regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "sparsity_min_singleton_fraction_usable_eps": {
       "value": 0.4516,
@@ -1582,7 +1626,8 @@
         "evidence": "pure geometry over rescue_routing_full.json; scripts/analyse_cluster_sparsity.py regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "sparsity_rescue_dispersion_ratio": {
       "value": 2.131,
@@ -1620,7 +1665,8 @@
         "evidence": "pure geometry over rescue_routing_full.json; scripts/analyse_cluster_sparsity.py regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_yeongdeok_n_origins": {
       "value": 458,
@@ -1665,7 +1711,8 @@
         "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, with osmnx pinned to 2.0.7. It re-runs the 459-series scan on the CANONICAL hazard field; the committed real_roads_real_hazard.json (2026-07-23 network, reverted-run hazard) is untouched and remains not reproducible.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_yeongdeok_both_safe": {
       "value": 414,
@@ -1710,7 +1757,8 @@
         "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, with osmnx pinned to 2.0.7. It re-runs the 459-series scan on the CANONICAL hazard field; the committed real_roads_real_hazard.json (2026-07-23 network, reverted-run hazard) is untouched and remains not reproducible.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_yeongdeok_future_aware_only_safe": {
       "value": 42,
@@ -1755,7 +1803,8 @@
         "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, with osmnx pinned to 2.0.7. It re-runs the 459-series scan on the CANONICAL hazard field; the committed real_roads_real_hazard.json (2026-07-23 network, reverted-run hazard) is untouched and remains not reproducible.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_yeongdeok_no_safe_route": {
       "value": 2,
@@ -1800,7 +1849,8 @@
         "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, with osmnx pinned to 2.0.7. It re-runs the 459-series scan on the CANONICAL hazard field; the committed real_roads_real_hazard.json (2026-07-23 network, reverted-run hazard) is untouched and remains not reproducible.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_yeongdeok_fa_exceeds_budget": {
       "value": 0,
@@ -1845,7 +1895,8 @@
         "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, with osmnx pinned to 2.0.7. It re-runs the 459-series scan on the CANONICAL hazard field; the committed real_roads_real_hazard.json (2026-07-23 network, reverted-run hazard) is untouched and remains not reproducible.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_yeongdeok_fa_only_pct": {
       "value": 9.17,
@@ -1890,7 +1941,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uiseong_n_origins": {
       "value": 368,
@@ -1930,7 +1982,8 @@
         "evidence": "built 2026-08-02 from the hash-verified snapshot walk graph, the STEP 2-1 hazard npz and the SRTM raster, with osmnx pinned to 2.0.7; re-running scripts/run_multi_region_routing.py into a scratch directory reproduced every bucket count exactly. Unlike the Yeongdeok 459 series, this region's network was NEVER overwritten.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uiseong_both_safe": {
       "value": 263,
@@ -1970,7 +2023,8 @@
         "evidence": "built 2026-08-02 from the hash-verified snapshot walk graph, the STEP 2-1 hazard npz and the SRTM raster, with osmnx pinned to 2.0.7; re-running scripts/run_multi_region_routing.py into a scratch directory reproduced every bucket count exactly. Unlike the Yeongdeok 459 series, this region's network was NEVER overwritten.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uiseong_future_aware_only_safe": {
       "value": 91,
@@ -2010,7 +2064,8 @@
         "evidence": "built 2026-08-02 from the hash-verified snapshot walk graph, the STEP 2-1 hazard npz and the SRTM raster, with osmnx pinned to 2.0.7; re-running scripts/run_multi_region_routing.py into a scratch directory reproduced every bucket count exactly. Unlike the Yeongdeok 459 series, this region's network was NEVER overwritten.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uiseong_no_safe_route": {
       "value": 12,
@@ -2050,7 +2105,8 @@
         "evidence": "built 2026-08-02 from the hash-verified snapshot walk graph, the STEP 2-1 hazard npz and the SRTM raster, with osmnx pinned to 2.0.7; re-running scripts/run_multi_region_routing.py into a scratch directory reproduced every bucket count exactly. Unlike the Yeongdeok 459 series, this region's network was NEVER overwritten.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uiseong_fa_exceeds_budget": {
       "value": 2,
@@ -2090,7 +2146,8 @@
         "evidence": "built 2026-08-02 from the hash-verified snapshot walk graph, the STEP 2-1 hazard npz and the SRTM raster, with osmnx pinned to 2.0.7; re-running scripts/run_multi_region_routing.py into a scratch directory reproduced every bucket count exactly. Unlike the Yeongdeok 459 series, this region's network was NEVER overwritten.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uiseong_fa_only_pct": {
       "value": 24.73,
@@ -2130,7 +2187,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uljin_n_origins": {
       "value": 393,
@@ -2170,7 +2228,8 @@
         "evidence": "built 2026-08-02 from the hash-verified snapshot walk graph, the STEP 2-1 hazard npz and the SRTM raster, with osmnx pinned to 2.0.7; re-running scripts/run_multi_region_routing.py into a scratch directory reproduced every bucket count exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uljin_both_safe": {
       "value": 377,
@@ -2210,7 +2269,8 @@
         "evidence": "built 2026-08-02 from the hash-verified snapshot walk graph, the STEP 2-1 hazard npz and the SRTM raster, with osmnx pinned to 2.0.7; re-running scripts/run_multi_region_routing.py into a scratch directory reproduced every bucket count exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uljin_future_aware_only_safe": {
       "value": 3,
@@ -2250,7 +2310,8 @@
         "evidence": "built 2026-08-02 from the hash-verified snapshot walk graph, the STEP 2-1 hazard npz and the SRTM raster, with osmnx pinned to 2.0.7; re-running scripts/run_multi_region_routing.py into a scratch directory reproduced every bucket count exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uljin_no_safe_route": {
       "value": 10,
@@ -2290,7 +2351,8 @@
         "evidence": "built 2026-08-02 from the hash-verified snapshot walk graph, the STEP 2-1 hazard npz and the SRTM raster, with osmnx pinned to 2.0.7; re-running scripts/run_multi_region_routing.py into a scratch directory reproduced every bucket count exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uljin_fa_exceeds_budget": {
       "value": 3,
@@ -2330,7 +2392,8 @@
         "evidence": "built 2026-08-02 from the hash-verified snapshot walk graph, the STEP 2-1 hazard npz and the SRTM raster, with osmnx pinned to 2.0.7; re-running scripts/run_multi_region_routing.py into a scratch directory reproduced every bucket count exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uljin_fa_only_pct": {
       "value": 0.76,
@@ -2370,7 +2433,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_yeongdeok_envelope_coverage": {
       "value": 0.326,
@@ -2417,7 +2481,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_yeongdeok_envelope_area_ha": {
       "value": 25900.0,
@@ -2464,7 +2529,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_yeongdeok_fa_rescue_rate": {
       "value": 0.955,
@@ -2511,7 +2577,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uiseong_envelope_coverage": {
       "value": 0.992,
@@ -2553,7 +2620,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uiseong_envelope_area_ha": {
       "value": 3275.0,
@@ -2595,7 +2663,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uiseong_fa_rescue_rate": {
       "value": 0.883,
@@ -2637,7 +2706,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uljin_envelope_coverage": {
       "value": 0.815,
@@ -2679,7 +2749,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uljin_envelope_area_ha": {
       "value": 7300.0,
@@ -2721,7 +2792,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uljin_fa_rescue_rate": {
       "value": 0.231,
@@ -2763,7 +2835,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uiseong_mean_abs_slope": {
       "value": 0.0636,
@@ -2805,7 +2878,8 @@
         "evidence": "built 2026-08-02 from the hash-verified snapshot walk graph, the STEP 2-1 hazard npz and the SRTM raster, with osmnx pinned to 2.0.7; re-running scripts/run_multi_region_routing.py into a scratch directory reproduced every bucket count exactly. Unlike the Yeongdeok 459 series, this region's network was NEVER overwritten.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uiseong_walk_time_increase_pct": {
       "value": 15.14,
@@ -2847,7 +2921,8 @@
         "evidence": "built 2026-08-02 from the hash-verified snapshot walk graph, the STEP 2-1 hazard npz and the SRTM raster, with osmnx pinned to 2.0.7; re-running scripts/run_multi_region_routing.py into a scratch directory reproduced every bucket count exactly. Unlike the Yeongdeok 459 series, this region's network was NEVER overwritten.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uljin_mean_abs_slope": {
       "value": 0.0806,
@@ -2889,7 +2964,8 @@
         "evidence": "built 2026-08-02 from the hash-verified snapshot walk graph, the STEP 2-1 hazard npz and the SRTM raster, with osmnx pinned to 2.0.7; re-running scripts/run_multi_region_routing.py into a scratch directory reproduced every bucket count exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uljin_walk_time_increase_pct": {
       "value": 23.67,
@@ -2931,7 +3007,8 @@
         "evidence": "built 2026-08-02 from the hash-verified snapshot walk graph, the STEP 2-1 hazard npz and the SRTM raster, with osmnx pinned to 2.0.7; re-running scripts/run_multi_region_routing.py into a scratch directory reproduced every bucket count exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_yeongdeok_bbox_area_km2": {
       "value": 895.3,
@@ -2979,7 +3056,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_yeongdeok_road_density_km_per_km2": {
       "value": 1.803,
@@ -3027,7 +3105,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_yeongdeok_node_density_per_km2": {
       "value": 9.43,
@@ -3075,7 +3154,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_yeongdeok_shelter_density_per_100km2": {
       "value": 5.58,
@@ -3127,7 +3207,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_yeongdeok_depot_density_per_100km2": {
       "value": 0.45,
@@ -3181,7 +3262,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uiseong_bbox_area_km2": {
       "value": 896.5,
@@ -3224,7 +3306,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uiseong_road_density_km_per_km2": {
       "value": 2.39,
@@ -3267,7 +3350,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uiseong_node_density_per_km2": {
       "value": 7.45,
@@ -3310,7 +3394,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uiseong_shelter_density_per_100km2": {
       "value": 3.79,
@@ -3357,7 +3442,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uiseong_depot_density_per_100km2": {
       "value": 0.0,
@@ -3406,7 +3492,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uljin_bbox_area_km2": {
       "value": 889.5,
@@ -3449,7 +3536,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uljin_road_density_km_per_km2": {
       "value": 1.663,
@@ -3492,7 +3580,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uljin_node_density_per_km2": {
       "value": 8.21,
@@ -3535,7 +3624,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uljin_shelter_density_per_100km2": {
       "value": 2.92,
@@ -3582,7 +3672,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uljin_depot_density_per_100km2": {
       "value": 0.45,
@@ -3631,7 +3722,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_yeongdeok_shelter_pois": {
       "value": 50,
@@ -3680,7 +3772,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uiseong_shelter_pois": {
       "value": 34,
@@ -3724,7 +3817,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uljin_shelter_pois": {
       "value": 26,
@@ -3768,7 +3862,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_envelope_area_spread": {
       "value": 7.91,
@@ -3801,7 +3896,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_core_growth_vs_fa_only_rho": {
       "value": -0.5,
@@ -3837,7 +3933,8 @@
         "evidence": "pure arithmetic over committed artifacts; scripts/build_multi_region_comparison.py re-runs nothing and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "mr_uljin_walk_nodes_outside_dem": {
       "value": 0,
@@ -3870,7 +3967,8 @@
         "evidence": "built 2026-08-02 from the hash-verified snapshot walk graph, the STEP 2-1 hazard npz and the SRTM raster, with osmnx pinned to 2.0.7; re-running scripts/run_multi_region_routing.py into a scratch directory reproduced every bucket count exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "slope_canonical_30m_both_safe": {
       "value": 413,
@@ -3910,7 +4008,8 @@
         "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, osmnx pinned to 2.0.7. Deterministic: no sampling, no fit.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "slope_canonical_30m_fa_only": {
       "value": 42,
@@ -3950,7 +4049,8 @@
         "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, osmnx pinned to 2.0.7. Deterministic: no sampling, no fit.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "slope_canonical_30m_no_safe": {
       "value": 3,
@@ -3990,7 +4090,8 @@
         "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, osmnx pinned to 2.0.7. Deterministic: no sampling, no fit.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "slope_canonical_60m_both_safe": {
       "value": 414,
@@ -4030,7 +4131,8 @@
         "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, osmnx pinned to 2.0.7. Deterministic: no sampling, no fit.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "slope_canonical_60m_fa_only": {
       "value": 42,
@@ -4070,7 +4172,8 @@
         "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, osmnx pinned to 2.0.7. Deterministic: no sampling, no fit.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "slope_canonical_60m_no_safe": {
       "value": 2,
@@ -4110,7 +4213,8 @@
         "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, osmnx pinned to 2.0.7. Deterministic: no sampling, no fit.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "slope_canonical_90m_both_safe": {
       "value": 415,
@@ -4150,7 +4254,8 @@
         "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, osmnx pinned to 2.0.7. Deterministic: no sampling, no fit.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "slope_canonical_90m_fa_only": {
       "value": 41,
@@ -4190,7 +4295,8 @@
         "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, osmnx pinned to 2.0.7. Deterministic: no sampling, no fit.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "slope_canonical_90m_no_safe": {
       "value": 2,
@@ -4230,7 +4336,8 @@
         "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, osmnx pinned to 2.0.7. Deterministic: no sampling, no fit.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "slope_canonical_flat_control_fa_only": {
       "value": 41,
@@ -4270,7 +4377,8 @@
         "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, osmnx pinned to 2.0.7. Deterministic: no sampling, no fit.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "slope_canonical_origins_moved_at_all_spacings": {
       "value": 0,
@@ -4307,7 +4415,8 @@
         "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, osmnx pinned to 2.0.7. Deterministic: no sampling, no fit.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "slope_canonical_fa_routes_changed_60m": {
       "value": 179,
@@ -4344,7 +4453,8 @@
         "evidence": "built 2026-08-02 from the hash-verified 2026-07-24 snapshot walk graph, the SRTM raster and routing_demo_canonical.npz, osmnx pinned to 2.0.7. Deterministic: no sampling, no fit.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "budget_canonical_30min_w": {
       "value": 0.5655,
@@ -4384,7 +4494,8 @@
         "evidence": "built 2026-08-02 from the hash-verified snapshot graph, the SRTM raster and routing_demo_canonical.npz, osmnx 2.0.7. Deterministic. w, route_hilliness and the origin rule are IMPORTED from the committed scripts, not restated.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "budget_canonical_60min_w": {
       "value": 0.4017,
@@ -4424,7 +4535,8 @@
         "evidence": "built 2026-08-02 from the hash-verified snapshot graph, the SRTM raster and routing_demo_canonical.npz, osmnx 2.0.7. Deterministic. w, route_hilliness and the origin rule are IMPORTED from the committed scripts, not restated.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "budget_canonical_120min_w": {
       "value": 0.2227,
@@ -4464,7 +4576,8 @@
         "evidence": "built 2026-08-02 from the hash-verified snapshot graph, the SRTM raster and routing_demo_canonical.npz, osmnx 2.0.7. Deterministic. w, route_hilliness and the origin rule are IMPORTED from the committed scripts, not restated.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "budget_canonical_600min_w": {
       "value": 0.0961,
@@ -4504,7 +4617,8 @@
         "evidence": "built 2026-08-02 from the hash-verified snapshot graph, the SRTM raster and routing_demo_canonical.npz, osmnx 2.0.7. Deterministic. w, route_hilliness and the origin rule are IMPORTED from the committed scripts, not restated.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "budget_canonical_w_ratio": {
       "value": 5.89,
@@ -4542,7 +4656,8 @@
         "evidence": "built 2026-08-02 from the hash-verified snapshot graph, the SRTM raster and routing_demo_canonical.npz, osmnx 2.0.7. Deterministic. w, route_hilliness and the origin rule are IMPORTED from the committed scripts, not restated.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "budget_canonical_fa_exceeds_budget_at_600min": {
       "value": 0,
@@ -4580,7 +4695,8 @@
         "evidence": "built 2026-08-02 from the hash-verified snapshot graph, the SRTM raster and routing_demo_canonical.npz, osmnx 2.0.7. Deterministic. w, route_hilliness and the origin rule are IMPORTED from the committed scripts, not restated.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "budget_canonical_baseline_hazard_entries": {
       "value": 44,
@@ -4619,7 +4735,8 @@
         "evidence": "built 2026-08-02 from the hash-verified snapshot graph, the SRTM raster and routing_demo_canonical.npz, osmnx 2.0.7. Deterministic. w, route_hilliness and the origin rule are IMPORTED from the committed scripts, not restated.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "objective_canonical_routes_changed": {
       "value": 150,
@@ -4652,7 +4769,8 @@
         "evidence": "built 2026-08-02 from the hash-verified snapshot graph, the SRTM raster and routing_demo_canonical.npz, osmnx 2.0.7. Deterministic. w, route_hilliness and the origin rule are IMPORTED from the committed scripts, not restated.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "objective_canonical_longest_walk_saving_min": {
       "value": 91.3,
@@ -4685,7 +4803,8 @@
         "evidence": "built 2026-08-02 from the hash-verified snapshot graph, the SRTM raster and routing_demo_canonical.npz, osmnx 2.0.7. Deterministic. w, route_hilliness and the origin rule are IMPORTED from the committed scripts, not restated.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "yeongdeok_canonical_envelope_coverage": {
       "value": 0.326,
@@ -4720,7 +4839,8 @@
         "evidence": "pure arithmetic over committed artifacts; the script performs no network I/O and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "yeongdeok_reacquisition_bbox_area_km2": {
       "value": 1992.6,
@@ -4753,7 +4873,8 @@
         "evidence": "pure arithmetic over committed artifacts; the script performs no network I/O and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "yeongdeok_reacquisition_projected_origins": {
       "value": 980,
@@ -4786,7 +4907,8 @@
         "evidence": "pure arithmetic over committed artifacts; the script performs no network I/O and regenerates it exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "bld_yeongdeok_n_mapped": {
       "value": 124,
@@ -4819,7 +4941,8 @@
         "evidence": "built 2026-08-05 from the SNAPSHOT walk graphs, the snapshotted building layers and the committed hazard fields, with osmnx pinned to 2.0.7. Every input is hash-verified in MANIFEST.json, the routing is deterministic, and the resampling seed is pinned in config (building_origins.sample_seed).",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "bld_yeongdeok_fa_only_pct": {
       "value": 8.4,
@@ -4854,7 +4977,8 @@
         "evidence": "built 2026-08-05 from the SNAPSHOT walk graphs, the snapshotted building layers and the committed hazard fields, with osmnx pinned to 2.0.7. Every input is hash-verified in MANIFEST.json, the routing is deterministic, and the resampling seed is pinned in config (building_origins.sample_seed).",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "bld_yeongdeok_settlement_beyond_150m_gap_pp": {
       "value": 7.49,
@@ -4888,7 +5012,8 @@
         "evidence": "built 2026-08-05 from the snapshotted building layers, the snapshot walk graphs and the committed ESA WorldCover rasters. No sampling and no network I/O; regenerates exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "bld_yeongdeok_settled_quadrats_without_a_building_pct": {
       "value": 91.5,
@@ -4922,7 +5047,8 @@
         "evidence": "built 2026-08-05 from the snapshotted building layers, the snapshot walk graphs and the committed ESA WorldCover rasters. No sampling and no network I/O; regenerates exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "bld_uiseong_n_mapped": {
       "value": 339,
@@ -4955,7 +5081,8 @@
         "evidence": "built 2026-08-05 from the SNAPSHOT walk graphs, the snapshotted building layers and the committed hazard fields, with osmnx pinned to 2.0.7. Every input is hash-verified in MANIFEST.json, the routing is deterministic, and the resampling seed is pinned in config (building_origins.sample_seed).",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "bld_uiseong_fa_only_pct": {
       "value": 17.13,
@@ -4990,7 +5117,8 @@
         "evidence": "built 2026-08-05 from the SNAPSHOT walk graphs, the snapshotted building layers and the committed hazard fields, with osmnx pinned to 2.0.7. Every input is hash-verified in MANIFEST.json, the routing is deterministic, and the resampling seed is pinned in config (building_origins.sample_seed).",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "bld_uiseong_settlement_beyond_150m_gap_pp": {
       "value": 18.35,
@@ -5024,7 +5152,8 @@
         "evidence": "built 2026-08-05 from the snapshotted building layers, the snapshot walk graphs and the committed ESA WorldCover rasters. No sampling and no network I/O; regenerates exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "bld_uiseong_settled_quadrats_without_a_building_pct": {
       "value": 91.9,
@@ -5058,7 +5187,8 @@
         "evidence": "built 2026-08-05 from the snapshotted building layers, the snapshot walk graphs and the committed ESA WorldCover rasters. No sampling and no network I/O; regenerates exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "bld_uljin_n_mapped": {
       "value": 1220,
@@ -5091,7 +5221,8 @@
         "evidence": "built 2026-08-05 from the SNAPSHOT walk graphs, the snapshotted building layers and the committed hazard fields, with osmnx pinned to 2.0.7. Every input is hash-verified in MANIFEST.json, the routing is deterministic, and the resampling seed is pinned in config (building_origins.sample_seed).",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "bld_uljin_fa_only_pct": {
       "value": 0.0,
@@ -5126,7 +5257,8 @@
         "evidence": "built 2026-08-05 from the SNAPSHOT walk graphs, the snapshotted building layers and the committed hazard fields, with osmnx pinned to 2.0.7. Every input is hash-verified in MANIFEST.json, the routing is deterministic, and the resampling seed is pinned in config (building_origins.sample_seed).",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "bld_uljin_settlement_beyond_150m_gap_pp": {
       "value": 5.02,
@@ -5160,7 +5292,8 @@
         "evidence": "built 2026-08-05 from the snapshotted building layers, the snapshot walk graphs and the committed ESA WorldCover rasters. No sampling and no network I/O; regenerates exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "bld_uljin_settled_quadrats_without_a_building_pct": {
       "value": 83.1,
@@ -5194,7 +5327,8 @@
         "evidence": "built 2026-08-05 from the snapshotted building layers, the snapshot walk graphs and the committed ESA WorldCover rasters. No sampling and no network I/O; regenerates exactly.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "bld_unsnappable_total_at_500m": {
       "value": 5,
@@ -5236,7 +5370,8 @@
         "evidence": "built 2026-08-05 from the SNAPSHOT walk graphs, the snapshotted building layers and the committed hazard fields, with osmnx pinned to 2.0.7. Every input is hash-verified in MANIFEST.json, the routing is deterministic, and the resampling seed is pinned in config (building_origins.sample_seed).",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "bld_unclassified_total": {
       "value": 0,
@@ -5279,7 +5414,8 @@
         "evidence": "built 2026-08-05 from the SNAPSHOT walk graphs, the snapshotted building layers and the committed hazard fields, with osmnx pinned to 2.0.7. Every input is hash-verified in MANIFEST.json, the routing is deterministic, and the resampling seed is pinned in config (building_origins.sample_seed).",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "dispatch_order_deadline_wins_pct": {
       "value": 3.6,
@@ -5316,7 +5452,8 @@
         "blocked_by": null
       },
       "reproducible": true,
-      "notes": "scripts/run_dispatch_ordering.py. Routing logic untouched: every responder_eta_min and ingress_survival_time_min comes from the committed pipeline. docs/dispatch_ordering.md."
+      "notes": "scripts/run_dispatch_ordering.py. Routing logic untouched: every responder_eta_min and ingress_survival_time_min comes from the committed pipeline. docs/dispatch_ordering.md.",
+      "arm": "A"
     },
     "dispatch_order_deadline_wins_at_committed_window": {
       "value": 0,
@@ -5349,7 +5486,8 @@
         "evidence": "built 2026-08-10 from the snapshot store and the committed hazard npz files; scripts/run_dispatch_ordering.py re-derives every dispatch list from those inputs, asserts the Yeongdeok arm reproduces drift arm B (441/174/32/142), and pins the random arm to seeds 0..199. No network I/O, no sampling.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "dispatch_order_committed_cell_gap": {
       "value": -5,
@@ -5388,7 +5526,8 @@
         "evidence": "built 2026-08-10 from the snapshot store and the committed hazard npz files; scripts/run_dispatch_ordering.py re-derives every dispatch list from those inputs, asserts the Yeongdeok arm reproduces drift arm B (441/174/32/142), and pins the random arm to seeds 0..199. No network I/O, no sampling.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "dispatch_order_largest_gap_against_deadline": {
       "value": -31,
@@ -5421,7 +5560,8 @@
         "evidence": "built 2026-08-10 from the snapshot store and the committed hazard npz files; scripts/run_dispatch_ordering.py re-derives every dispatch list from those inputs, asserts the Yeongdeok arm reproduces drift arm B (441/174/32/142), and pins the random arm to seeds 0..199. No network I/O, no sampling.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "dispatch_order_uljin_real_distinct_deadlines": {
       "value": 2,
@@ -5451,7 +5591,8 @@
         "evidence": "built 2026-08-10 from the snapshot store and the committed hazard npz files; scripts/run_dispatch_ordering.py re-derives every dispatch list from those inputs, asserts the Yeongdeok arm reproduces drift arm B (441/174/32/142), and pins the random arm to seeds 0..199. No network I/O, no sampling.",
         "blocked_by": null
       },
-      "reproducible": true
+      "reproducible": true,
+      "arm": "A"
     },
     "ordering_boundary_first_window_with_a_win": {
       "value": 120.0,
@@ -5491,7 +5632,8 @@
         "blocked_by": null
       },
       "reproducible": true,
-      "notes": "scripts/run_ordering_boundary.py. 커밋된 W = 75 의 1.6배. docs/ordering_boundary.md §5, §7."
+      "notes": "scripts/run_ordering_boundary.py. 커밋된 W = 75 의 1.6배. docs/ordering_boundary.md §5, §7.",
+      "arm": "A"
     },
     "ordering_boundary_loss_rate_over_extended_axis": {
       "value": 68.7,
@@ -5528,7 +5670,8 @@
         "blocked_by": null
       },
       "reproducible": true,
-      "notes": "docs/ordering_boundary.md §7."
+      "notes": "docs/ordering_boundary.md §7.",
+      "arm": "A"
     },
     "ordering_boundary_win_rate_at_longest_window": {
       "value": 12.2,
@@ -5563,7 +5706,8 @@
         "blocked_by": null
       },
       "reproducible": true,
-      "notes": "docs/ordering_boundary.md §5."
+      "notes": "docs/ordering_boundary.md §5.",
+      "arm": "A"
     },
     "ordering_boundary_no_distinct_deadline_threshold": {
       "value": 1580,
@@ -5598,7 +5742,8 @@
         "blocked_by": null
       },
       "reproducible": true,
-      "notes": "docs/ordering_boundary.md §6, §7."
+      "notes": "docs/ordering_boundary.md §6, §7.",
+      "arm": "A"
     },
     "ordering_boundary_wins_at_committed_dispatch_delay": {
       "value": 9,
@@ -5632,7 +5777,8 @@
         "blocked_by": null
       },
       "reproducible": true,
-      "notes": "docs/ordering_boundary.md §7 ③."
+      "notes": "docs/ordering_boundary.md §7 ③.",
+      "arm": "A"
     },
     "ordering_boundary_phase23_reproduction_differences": {
       "value": 0,
@@ -5663,7 +5809,8 @@
         "blocked_by": null
       },
       "reproducible": true,
-      "notes": "docs/ordering_boundary.md §4."
+      "notes": "docs/ordering_boundary.md §4.",
+      "arm": "A"
     },
     "s8_margin_dispatch_n_armb": {
       "value": 142,
@@ -5697,7 +5844,8 @@
         "blocked_by": null
       },
       "reproducible": true,
-      "notes": "Session 8 Phase 1 (docs/SESSION8_LOG.md)."
+      "notes": "Session 8 Phase 1 (docs/SESSION8_LOG.md).",
+      "arm": "A"
     },
     "s8_margin_nonpositive_core": {
       "value": 62,
@@ -5731,7 +5879,8 @@
         "blocked_by": null
       },
       "reproducible": true,
-      "notes": "Session 8 Phase 1 (docs/SESSION8_LOG.md)."
+      "notes": "Session 8 Phase 1 (docs/SESSION8_LOG.md).",
+      "arm": "A"
     },
     "s8_margin_nonpositive_tload0": {
       "value": 62,
@@ -5765,7 +5914,8 @@
         "blocked_by": null
       },
       "reproducible": true,
-      "notes": "Session 8 follow-up, Task C (docs/SESSION8_FOLLOWUP.md §3)."
+      "notes": "Session 8 follow-up, Task C (docs/SESSION8_FOLLOWUP.md §3).",
+      "arm": "A"
     },
     "s8_vedge_intermix_n": {
       "value": 2,
@@ -5796,7 +5946,8 @@
         "blocked_by": null
       },
       "reproducible": true,
-      "notes": "Session 8 Phase 2 (docs/SESSION8_LOG.md)."
+      "notes": "Session 8 Phase 2 (docs/SESSION8_LOG.md).",
+      "arm": "A"
     },
     "s8_vedge_n_origins_d100": {
       "value": 29,
@@ -5830,7 +5981,8 @@
         "blocked_by": null
       },
       "reproducible": true,
-      "notes": "Session 8 Phase 2 (docs/SESSION8_LOG.md)."
+      "notes": "Session 8 Phase 2 (docs/SESSION8_LOG.md).",
+      "arm": "A"
     },
     "s8_vedge_no_walk_d100": {
       "value": 8,
@@ -5861,7 +6013,8 @@
         "blocked_by": null
       },
       "reproducible": true,
-      "notes": "Session 8 Phase 2 (docs/SESSION8_LOG.md)."
+      "notes": "Session 8 Phase 2 (docs/SESSION8_LOG.md).",
+      "arm": "A"
     },
     "s8_vedge_no_ingress_d100": {
       "value": 2,
@@ -5892,7 +6045,8 @@
         "blocked_by": null
       },
       "reproducible": true,
-      "notes": "Session 8 Phase 2 (docs/SESSION8_LOG.md)."
+      "notes": "Session 8 Phase 2 (docs/SESSION8_LOG.md).",
+      "arm": "A"
     }
   }
 }
