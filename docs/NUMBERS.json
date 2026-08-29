@@ -6437,6 +6437,162 @@
         }
       },
       "arm": "A_disclosure"
+    },
+    "label_geometry_R_pooled": {
+      "value": 0.601063,
+      "unit": "resultant length (concentration)",
+      "source_file": "docs/label_geometry.json",
+      "json_path": "pooled.R_centroid_mean",
+      "derivation": "Mean over usable steps of |mean unit vector| of newly-burnt cell bearings from the previous footprint's centroid. 1 = one direction, 0 = isotropic. Regenerate: python scripts/label_geometry.py --write",
+      "sample": "6개 화재, 사용 가능 라벨 스텝 36개",
+      "caveat": "DIRECTIONAL SIGNAL IS PRESENT IN THE LABELS. 0.601 (sd 0.294) is far from isotropic, so the two Session 10 nulls are NOT explained by an isotropic target. Frame-dependent: the perimeter frame the model actually sees is consistently less directional.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Label-geometry disclosure. No model, target or Arm A artifact was modified. 36 of 58 label steps are usable (a step with <5 newly-burnt cells cannot support a bearing). Circular statistics on 3-17 steps per fold are noisy and biased; the wind correlation exists for 4 folds, persistence for 2.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/label_geometry.json",
+            "json_path": "pooled.R_centroid_mean"
+          }
+        }
+      },
+      "arm": "A_disclosure"
+    },
+    "label_geometry_corr_R_vs_step_hours": {
+      "value": 0.1703,
+      "unit": "Pearson r",
+      "source_file": "docs/label_geometry.json",
+      "json_path": "pooled.corr_R_vs_dt_hours",
+      "derivation": "Correlation between per-step anisotropy R and step duration in hours. Regenerate: python scripts/label_geometry.py --write",
+      "sample": "6개 화재, 사용 가능 라벨 스텝 36개",
+      "caveat": "THE INTEGRATION-OUT HYPOTHESIS IS NOT SUPPORTED. It predicted a NEGATIVE correlation (short steps anisotropic, long steps isotropic). The measured sign is positive. The mechanism was not demonstrated.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Label-geometry disclosure. No model, target or Arm A artifact was modified. 36 of 58 label steps are usable (a step with <5 newly-burnt cells cannot support a bearing). Circular statistics on 3-17 steps per fold are noisy and biased; the wind correlation exists for 4 folds, persistence for 2.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/label_geometry.json",
+            "json_path": "pooled.corr_R_vs_dt_hours"
+          }
+        }
+      },
+      "arm": "A_disclosure"
+    },
+    "label_geometry_circ_corr_obs_vs_wind": {
+      "value": -0.053,
+      "unit": "circular correlation (Jammalamadaka-Sarma)",
+      "source_file": "docs/label_geometry.json",
+      "json_path": "pooled.circ_corr_obs_vs_wind",
+      "derivation": "Between the observed dominant spread bearing and the ERA5 wind-toward bearing at each step's start. Regenerate: python scripts/label_geometry.py --write",
+      "sample": "6개 화재, 사용 가능 라벨 스텝 36개",
+      "caveat": "The direction the labels DO have does not track ERA5 wind. Fold level: 4 measurable folds, mean -0.260 sd 0.200, all negative — the consistent sign is UNEXPLAINED and is not interpreted. This is the gap a better-resolved wind field would have to close, now measured rather than assumed.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Label-geometry disclosure. No model, target or Arm A artifact was modified. 36 of 58 label steps are usable (a step with <5 newly-burnt cells cannot support a bearing). Circular statistics on 3-17 steps per fold are noisy and biased; the wind correlation exists for 4 folds, persistence for 2.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/label_geometry.json",
+            "json_path": "pooled.circ_corr_obs_vs_wind"
+          }
+        }
+      },
+      "arm": "A_disclosure"
+    },
+    "label_geometry_mean_abs_angle_obs_vs_wind_deg": {
+      "value": 75.45,
+      "unit": "degrees",
+      "source_file": "docs/label_geometry.json",
+      "json_path": "pooled.mean_abs_angle_obs_minus_wind_deg",
+      "derivation": "Mean |observed dominant bearing - ERA5 wind-toward bearing| across usable steps. Regenerate: python scripts/label_geometry.py --write",
+      "sample": "6개 화재, 사용 가능 라벨 스텝 36개",
+      "caveat": "90 degrees is what an unrelated pair of bearings gives. 75.45 is 15 degrees better than that.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Label-geometry disclosure. No model, target or Arm A artifact was modified. 36 of 58 label steps are usable (a step with <5 newly-burnt cells cannot support a bearing). Circular statistics on 3-17 steps per fold are noisy and biased; the wind correlation exists for 4 folds, persistence for 2.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/label_geometry.json",
+            "json_path": "pooled.mean_abs_angle_obs_minus_wind_deg"
+          }
+        }
+      },
+      "arm": "A_disclosure"
+    },
+    "label_geometry_bearing_persistence_pooled": {
+      "value": -0.1947,
+      "unit": "circular correlation (Jammalamadaka-Sarma)",
+      "source_file": "docs/label_geometry.json",
+      "json_path": "bearing_persistence.pooled_circ_corr",
+      "derivation": "Between the dominant bearing at step k and at step k+1, over 21 consecutive step pairs. Regenerate: python scripts/label_geometry.py --write",
+      "sample": "6개 화재, 사용 가능 라벨 스텝 36개",
+      "caveat": "EXPLAINS ARM D. obs_alignment assumed the previous step's direction carries into the next one. Pooled persistence is slightly negative and the two measurable folds disagree (+0.431, +0.050). 'The labels have a direction' and 'that direction is predictable from the previous step' are different claims; only the first holds.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Label-geometry disclosure. No model, target or Arm A artifact was modified. 36 of 58 label steps are usable (a step with <5 newly-burnt cells cannot support a bearing). Circular statistics on 3-17 steps per fold are noisy and biased; the wind correlation exists for 4 folds, persistence for 2.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/label_geometry.json",
+            "json_path": "bearing_persistence.pooled_circ_corr"
+          }
+        }
+      },
+      "arm": "A_disclosure"
+    },
+    "label_geometry_mean_abs_bearing_change_deg": {
+      "value": 43.26,
+      "unit": "degrees",
+      "source_file": "docs/label_geometry.json",
+      "json_path": "bearing_persistence.mean_abs_bearing_change_deg",
+      "derivation": "Mean |bearing change| between consecutive usable label steps. Regenerate: python scripts/label_geometry.py --write",
+      "sample": "6개 화재, 사용 가능 라벨 스텝 36개",
+      "caveat": "The fire's direction of travel reorients by this much between looks, at a 6-16 h cadence. Not a claim about the true reorientation rate — it is the reorientation VISIBLE at this observation cadence.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Label-geometry disclosure. No model, target or Arm A artifact was modified. 36 of 58 label steps are usable (a step with <5 newly-burnt cells cannot support a bearing). Circular statistics on 3-17 steps per fold are noisy and biased; the wind correlation exists for 4 folds, persistence for 2.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/label_geometry.json",
+            "json_path": "bearing_persistence.mean_abs_bearing_change_deg"
+          }
+        }
+      },
+      "arm": "A_disclosure"
     }
   }
 }
