@@ -9,7 +9,62 @@ needed to close it out.
 
 ## Session 8 (post-interview refactor, 2026-08-29)
 
-### ⚠️ OPEN: VWorld Data API unreachable (502 on every endpoint)
+### ⚠️ OPEN — ACTION FOR JOHN: 도로명주소 건물 데이터 needs a manual, logged-in download
+
+**Why this replaced the VWorld path**: the follow-up session retried VWorld
+(below) and it still fails, so the government building layer is now the
+primary route to real rural building coverage. It is a **portal download,
+not an anonymous file URL** — this session could not fetch it and stopped
+rather than working around the login.
+
+**Exact steps (2026-08-29, verified against the portal pages)**:
+
+1. 주소기반산업지원서비스 — https://business.juso.go.kr/jst/jstAddressDownload
+   (「주소정보 다운로드」). Requires a member account (회원가입) and login.
+2. For building **polygons/points** with coordinates, the layer is the
+   전자지도 building layer:
+   https://business.juso.go.kr/addrlink/elctrnMapProvd/geoDBDwldList.do?menu=건물
+   — 11 layers are offered (건물, 건물군, 도로구간, 실폭도로, 기초구간,
+   출입구, 기초구역, 행정구역). ⚠ The portal states that downloads are
+   released **according to approval by the agency managing the requested
+   area**, so a 신청 → 승인 step stands between the account and the file.
+   Request 경상북도 (or 영덕군) only; the national file is unnecessary.
+3. Alternative, coarser: 공공데이터포털 entry **15050424**
+   「행정안전부_도로명주소 건물DB」 —
+   https://www.data.go.kr/data/15050424/fileData.do — but its 제공형태 is
+   「기관자체에서 다운로드」 and its URL redirects to juso.go.kr (menuId=DT06),
+   i.e. the same portal, and the TXT product is address records rather than
+   footprint geometry.
+4. Place the downloaded file under `data/raw/juso_buildings/` and tell the
+   next session; the loader seam is
+   `src/wildfireguardian/buildings/` (`BuildingSource` protocol) — a new
+   `JusoBuildingSource` class tagged `source = "juso"` is the whole change.
+
+**Until then**: Phase 2 counts stay on the 124-building OSM snapshot and are
+labelled provisional everywhere they appear (`docs/rescue_routing.md` §6).
+
+### ⚠️ OPEN: VWorld Data API unreachable — retried 2026-08-29, still failing
+
+**Retry result (follow-up session)**: unchanged. Measured with curl from the
+same machine:
+
+| target | result |
+|---|---|
+| `https://api.vworld.kr/req/data?...&data=LT_C_SPBD&...` (with key) | connection failed, `http_code = 000` |
+| `https://api.vworld.kr/req/search?...` (with key) | **HTTP 502** |
+| `https://api.vworld.kr/req/data` (no key at all) | **HTTP 502** |
+| `https://api.vworld.kr/` (root) | **HTTP 502** |
+| `https://www.vworld.kr/` (root) | connection failed, `http_code = 000` |
+| `https://business.juso.go.kr/addrlink/main.do` (control, unrelated .go.kr) | connection failed, `http_code = 000` |
+
+⚠ **The control matters**: an unrelated Korean government host fails the same
+way, and a keyless VWorld request fails identically to a keyed one. So this
+is **not** an API outage or a bad key — the path from this machine to
+`*.go.kr` / `vworld.kr` is blocked or intercepted (a 502 from an
+intermediary, not from VWorld's application). Retrying from a different
+network is still the first thing to try.
+
+### ⚠️ OPEN: VWorld Data API unreachable (502 on every endpoint) — original entry, 2026-08-29
 
 **What's needed**: working access to the VWorld Data API
 (`api.vworld.kr/req/data`, 건물통합정보 layer) so building origins can move

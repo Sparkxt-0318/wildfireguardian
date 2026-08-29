@@ -2138,6 +2138,28 @@ def main() -> int:
                "expr": "a", "tolerance": 0.0},
         notes="Session 8 Phase 1 (docs/SESSION8_LOG.md).",
     )
+    N["s8_margin_nonpositive_tload0"] = entry(
+        value=msweep["cells"]["same_route/t_load=0"]["n_margin_nonpositive"],
+        unit="homes",
+        source_file=MSWEEP,
+        json_path="cells.same_route/t_load=0.n_margin_nonpositive",
+        derivation="the ADVERSARIAL cell: on-scene load time set to ZERO, so "
+                   "the round-trip margin is charged only for ingress + "
+                   "egress-at-egress-time. Added in the Session-8 follow-up "
+                   "because the original sweep started at t_load=5 and could "
+                   "not answer 'does the direction survive a free pickup?'",
+        sample="영덕 arm-B 네트워크, 441-계 계보",
+        caveat="Equal to the t_load=5..20 cells and to the free-policy "
+               "t_load=0 cell — the finding is carried by egress TIMING, not "
+               "by the assumed load time or the egress policy. Synthetic "
+               "hazard/terrain; arm-B network vintage.",
+        forbidden_phrasings=["62 homes lost", "62 가구 사망"],
+        check={"kind": "json_path",
+               "operands": {"a": op(MSWEEP,
+                                    "cells.same_route/t_load=0.n_margin_nonpositive")},
+               "expr": "a", "tolerance": 0.0},
+        notes="Session 8 follow-up, Task C (docs/SESSION8_FOLLOWUP.md §3).",
+    )
     N["s8_vedge_intermix_n"] = entry(
         value=vedge["n_intermix_within_vegetation"],
         unit="buildings",

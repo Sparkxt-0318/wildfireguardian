@@ -1,5 +1,14 @@
 # Overnight report — Session 8 (post-interview refactor, 2026-08-29)
 
+> ⚠ **CORRECTIONS FILED — read `docs/SESSION8_FOLLOWUP.md` §6 with this
+> report.** A follow-up session audited six claims below. Two are imprecise
+> as written (the `HEAD~1` verification sentence in §Phase 0 overstates what
+> was executed; the Phase-1 sweep table predates the adversarial `t_load = 0`
+> cell), one needed a mechanism it did not give (the `free`-policy 19 are
+> −∞ margins, not slightly-negative ones), and the Phase-2 counts are now
+> labelled **provisional** at the provenance table. Nothing below was found
+> false; the corrections are listed, with evidence, in the follow-up.
+
 Brief: `COWORK_OVERNIGHT_SESSION8.md` (five work items motivated by the
 현직 소방관 구술 자문, N = 1 — cited only as 「현장 실무자 자문」, never as a
 data source; no number in this session derives from it). Working log with
@@ -67,7 +76,7 @@ byte-identical before/after).
 
 | quantity | verdict |
 |---|---|
-| 62/142 arm-B dispatch-reachable homes have non-positive round-trip margin — one-way dispatchability overstates completable missions | **robust direction** (invariant across all swept t_load × both egress policies; free adds, never removes) |
+| 62/142 arm-B dispatch-reachable homes have non-positive round-trip margin — one-way dispatchability overstates completable missions | **robust direction** — **at least** 62 under every swept combination; exactly 62 at `t_load` 0–20 under `same_route` and at `t_load` ≤ 5 under `free`, rising to 81 for `free` at `t_load` ≥ 10 (those 19 are −∞: no safe egress route at all). ⚠ The sweep now includes the adversarial `t_load = 0`, added in the follow-up session — see `SESSION8_FOLLOWUP.md` §3.3–3.4. |
 | 진입 권장 vs 보류 split | **assumption-driven** (moves with t_load) |
 | any absolute margin | **point estimate on assumed inputs** (t_load ASSUMED; synthetic hazard; arm-B network) |
 

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "title": "t_load × egress_policy margin sweep (Session 8 Phase 1d)",
-  "config_hash": "e6977c615e38eed7c8ea55e57f22d2f1b5d43cb806de1aabd71afa233cba3de7",
+  "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
   "baseline": {
     "t_load_min": 10.0,
     "egress_policy": "same_route",
@@ -18,6 +18,22 @@
   "n_origins": 441,
   "provenance_note": "t_load_min is ASSUMED (no measured value exists); egress_policy same_route follows an N = 1 field consultation's stated doctrine (docs/firefighter_consultation.md §2 — a statement, not a measurement). The four-way split and dispatch membership are margin-independent by construction and held fixed across cells.",
   "cells": {
+    "same_route/t_load=0": {
+      "egress_policy": "same_route",
+      "t_load_min": 0.0,
+      "n_dispatch": 142,
+      "recommendations": {
+        "철수 권장": 62,
+        "진입 권장": 80
+      },
+      "n_margin_nonpositive": 62,
+      "margin_finite": {
+        "n": 142,
+        "median_min": 26.50599393356168,
+        "min_min": -128.33334928028884,
+        "max_min": 206.9826235800399
+      }
+    },
     "same_route/t_load=5": {
       "egress_policy": "same_route",
       "t_load_min": 5.0,
@@ -82,6 +98,22 @@
         "median_min": 6.505993933561676,
         "min_min": -148.33334928028884,
         "max_min": 186.9826235800399
+      }
+    },
+    "free/t_load=0": {
+      "egress_policy": "free",
+      "t_load_min": 0.0,
+      "n_dispatch": 142,
+      "recommendations": {
+        "철수 권장": 62,
+        "진입 권장": 80
+      },
+      "n_margin_nonpositive": 62,
+      "margin_finite": {
+        "n": 126,
+        "median_min": 28.07738047972148,
+        "min_min": -79.16667464014442,
+        "max_min": 206.9826235800399
       }
     },
     "free/t_load=5": {

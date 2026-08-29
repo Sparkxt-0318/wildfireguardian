@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "title": "margin advisory feed (Session 8 Phase 1c, human-facing)",
-  "config_hash": "e6977c615e38eed7c8ea55e57f22d2f1b5d43cb806de1aabd71afa233cba3de7",
+  "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
   "lineage": {
     "network_vintage": "current tree (arm B snapshot, 441-series); NOT the committed 439-series arm-A artifact — see docs/network_drift.md",
     "four_way_counts": {

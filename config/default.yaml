@@ -374,7 +374,9 @@ responder:
   # 현장 체류(승차·수용) 시간. ASSUMED — 측정값이 아니며, t_load 스윕
   # (scripts/run_margin_sweep.py) 이 이 가정에 대한 강건성을 보고합니다.
   t_load_min: 10.0                 # ASSUMED [src: rescue.py RescueConfig.t_load_min]
-  t_load_sweep: [5.0, 10.0, 15.0, 20.0]        # [src: data/processed/margin_sweep.json grid]
+  # ⚠ 0.0 은 적대적 하한입니다 — 현장 체류가 공짜라고 가정해도 결론이 유지되는지
+  # 확인하기 위한 값이며, 현실적인 값이 아닙니다 (follow-up session, Task C).
+  t_load_sweep: [0.0, 5.0, 10.0, 15.0, 20.0]   # [src: data/processed/margin_sweep.json grid]
   # 복귀 경로 정책. "same_route" 는 진입로 그대로 복귀 (현장 실무자 자문의
   # 「들어가서 그 길로 나오는 게 원칙」 — docs/firefighter_consultation.md §2,
   # N = 1 구술이며 측정이 아님). "free" 는 생존 인지 라우터가 복귀로를 새로 탐색.

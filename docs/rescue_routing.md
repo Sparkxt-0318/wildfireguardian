@@ -396,8 +396,22 @@ geometry, not a deployed product:
 | Walk + drive networks | OSMnx `walk`/`drive`, reprojected to EPSG:5179, disk-cached | **SYNTHETIC** 8-connected lattice on the extent (real algorithm) |
 | Refuges (대피소·긴급대피장소) | 행정안전부 / 공공데이터포털 (data.go.kr) GeoJSON/CSV at `cfg.shelters_path`, or OSM POIs | **SYNTHETIC** coastal assembly nodes + inland open-space POIs |
 | Depots (119안전센터) | 소방청 공공데이터포털 / OSM `amenity=fire_station` at `cfg.depots_path` | **SYNTHETIC** near-town nodes |
-| Village-edge origins (Session 8, `rescue_routing_village_edge.json`) | VWorld 건물통합정보 — **attempted 2026-08-29, HTTP 502 on every endpoint** (recorded in the artifact and `BLOCKERS.md`) | **OSM** building snapshot (124 buildings, `source="osm"`; coverage is a small region-dependent fraction — never a building count) |
-| Wildland vegetation (WUI definition, Session 8) | — | **OSM** `natural=wood` / `landuse=forest` polygons, disk-cached (`source="osm"`) |
+| Village-edge origins (Session 8, `rescue_routing_village_edge.json`) | ① VWorld 건물통합정보 — **attempted twice (2026-08-29, and again in the follow-up session): connection failure / HTTP 502 on every endpoint, keyed and keyless alike.** ② 도로명주소 건물 데이터 (주소기반산업지원서비스) — **portal download requiring login + agency approval; not obtainable unattended, steps filed in `BLOCKERS.md`** | **OSM** building snapshot (124 buildings, `source="osm"`) — **PROVISIONAL**, see the coverage caveat below |
+| Wildland vegetation (WUI definition, Session 8) | 산림청 임상도 (not acquired) | **OSM** `natural=wood` / `landuse=forest` polygons, disk-cached (`source="osm"`) |
+
+> ⚠ **OSM RURAL BUILDING COVERAGE IN KOREA IS INCOMPLETE AND UNQUANTIFIED.**
+> The Session-8 village-edge run stands on **124** OSM building footprints in
+> the 영덕 bbox. Nobody in this project has measured what fraction of the real
+> rural building stock that is, and OSM's Korean building coverage is known to
+> vary by region — so the fraction cannot be assumed constant, or transferred
+> from another region, or treated as a random sample. **Therefore every Phase-2
+> village-edge count (N per threshold, the four-way split, the interface and
+> intermix counts) is PROVISIONAL and supports a direction at most; none of
+> them supports a per-household or per-village statement about 영덕.** The
+> committed lattice-scan origin counts are unaffected — they sample the walk
+> graph, not buildings. This caveat is removed only when a source with
+> characterised coverage (VWorld 건물통합정보 or 도로명주소 건물 데이터)
+> replaces OSM, and its coverage is stated as a number.
 
 Every synthetic/assumed input is tagged `source = "synthetic"` (or `assumed`) in
 the outputs (`rescue_routing.json::provenance`) and in `RescueConfig.provenance()`.
