@@ -9,9 +9,18 @@
 PYTHON ?= python
 SCRIPTS := scripts
 
+# A pipeline's exit status is its LAST command's. Session 10 ran the gates as
+# `gate | tail` inside an && chain, the shell read tail's zero, and a commit
+# landed on top of a red gate. `pipefail` makes a recipe fail on the gate
+# instead of on the tail of the pipe; `-e` stops the recipe at the first
+# failing command. `-u` is deliberately NOT set: recipes here legitimately
+# reference variables that may be empty.
+SHELL := /bin/bash
+.SHELLFLAGS := -o pipefail -e -c
+
 .DEFAULT_GOAL := help
 .PHONY: help verify verify-numbers check-forbidden check-region-literals \
-	snapshot snapshot-verify \
+	snapshot snapshot-verify check-arm-isolation check-gate-invocations \
         env-check config-hash test baseline-verify baseline-freeze all-checks \
         finals
 
@@ -38,7 +47,8 @@ help:
 # --- the headline gate -------------------------------------------------------
 # Every registered number is re-derived from its artifact, then the prose is
 # scanned for retired values. Either failing is a hard stop.
-verify: verify-numbers check-forbidden check-region-literals
+verify: verify-numbers check-forbidden check-region-literals \
+        check-arm-isolation check-gate-invocations
 	@echo
 	@echo "=== make verify: PASSED ==="
 
@@ -55,6 +65,17 @@ check-region-literals:
 	@echo
 	@echo "=== region literals in user-visible text ==="
 	@$(PYTHON) $(SCRIPTS)/check_region_literals.py
+
+# --- arm isolation and gate hygiene (Session 10) -----------------------------
+check-arm-isolation:
+	@echo
+	@echo "=== Arm A entries unchanged ==="
+	@$(PYTHON) $(SCRIPTS)/check_arm_isolation.py
+
+check-gate-invocations:
+	@echo
+	@echo "=== no gate piped without pipefail ==="
+	@$(PYTHON) $(SCRIPTS)/check_gate_invocations.py
 
 # --- provenance --------------------------------------------------------------
 snapshot:
