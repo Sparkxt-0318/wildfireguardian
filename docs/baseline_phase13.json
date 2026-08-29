@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "title": "Korean baseline freeze — PHASE 13 PHASE 0",
-  "frozen_utc": "2026-08-29T16:12:44Z",
-  "git_commit": "cd1c711786dfed214dbb432ae6298a1f5dab2f43",
+  "frozen_utc": "2026-08-29T16:42:31Z",
+  "git_commit": "b93da811d928531b9e226cb87bdfcefe420ebd56",
   "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
-  "registry_entries": 175,
+  "registry_entries": 185,
   "lofo_shape": {
     "n_rows": 151904,
     "n_positives": 2989,

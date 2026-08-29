@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "_README": "CANONICAL REGISTRY. Every reportable number lives here exactly once. Do not restate a value in prose without citing its key. 'verified' = still matches its artifact; 'reproducible' = re-running the pipeline regenerates that artifact. They are independent — several numbers here are verified but NOT reproducible because the OSM network behind them was overwritten (docs/DATA_LOSS_2026-07-24.md). Run scripts/verify_numbers.py to re-check every entry. REPORTABLE PRECISION: pooled ROC-AUC is reportable to THREE significant figures (0.905). The fourth digit is not stable across platforms — see platform_drift_pooled_auc — and must not be compared, ranked or differenced. Stored values keep full precision so the artifact check stays exact; the RULE governs what may be written in prose, a poster or a slide.",
+  "_README": "CANONICAL REGISTRY. Every reportable number lives here exactly once. Do not restate a value in prose without citing its key. 'verified' = still matches its artifact; 'reproducible' = re-running the pipeline regenerates that artifact. They are independent — several numbers here are verified but NOT reproducible because the OSM network behind them was overwritten (docs/DATA_LOSS_2026-07-24.md). Run scripts/verify_numbers.py to re-check every entry. REPORTABLE PRECISION: pooled ROC-AUC is reportable to THREE significant figures (0.905). The fourth digit is not stable across platforms — see platform_drift_pooled_auc — and must not be compared, ranked or differenced. Stored values keep full precision so the artifact check stays exact; the RULE governs what may be written in prose, a poster or a slide. ANGULAR PRECISION: circular quantities are NOT AUCs and take a different rule. With n=36 usable steps and a per-step spread of ~56 deg, the standard error of a mean angular difference is ~9 deg, so mean angles are reportable to ONE decimal place and differences smaller than ~19 deg (2 SE) are NOT established. Circular correlations have an approximate SE of 1/sqrt(n) = 0.17 here, so they are reportable to TWO decimals and |r| below ~0.33 is not distinguishable from zero. These are rules of thumb from the observed spread, not exact tests; the fold-level spread (sd ~47-50 deg on 6 folds) is wider still and governs any per-fire claim.",
   "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
   "config_hash_note": "The per-entry config_hash is re-stamped on every build, so it marks the config a build SAW, not the config a number was PRODUCED under. It moved 0b6eb481177a… -> 51ec446843b6… between the 2026-08-01 build and the 2026-08-02 (PHASE 5 STEP 4) build. That move is PURELY ADDITIVE: `bbox.multi_region_walk_bbox` and `grid.simulation_bbox_extension` were added and NOT ONE existing key changed value (verified key-by-key against config/default.yaml at commit 5fe86db). No Round-2 number is stale as a result. It moved again 05c6feae1dff… -> 8e29a6cc4a99… on 2026-08-03 (PHASE 13), and again PURELY ADDITIVELY: the `fuel:` block (uncovered_land_warn_fraction / uncovered_land_stop_fraction) was added, no existing key changed value, and a rebuild moved 0 of the registered VALUES — only six `sample` labels, which carry the bbox area and therefore inherit the geodesic-area correction described under the mr_* completeness entries.",
   "built_at_git_commit": "41498efbf0679276c140b3cbfc0819e5265e7733",
@@ -6593,6 +6593,266 @@
         }
       },
       "arm": "A_disclosure"
+    },
+    "dirdrv_wind_angle_vector_mean_deg": {
+      "value": 83.4594,
+      "unit": "degrees",
+      "source_file": "docs/direction_drivers.json",
+      "json_path": "rowsets.all.pooled.drivers.wind_vector_mean.mean_abs_angle_deg",
+      "derivation": "Mean |observed spread bearing - ERA5 wind bearing|, wind taken as the VECTOR mean of u and v over each step. Regenerate: python scripts/direction_drivers.py --write",
+      "sample": "6개 화재, 사용 가능 라벨 스텝 36개 (전체 셀 행 집합)",
+      "caveat": "SUPERSEDES the 75.45 deg figure, which sampled wind at step start only. The correction makes the gap LARGER, not smaller — the single-sample method was flattering the wind. 90 deg is what unrelated bearings give. Report to 1 dp; differences below ~19 deg are not established.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 11 direction-driver measurement. No model, target, threshold or Arm A artifact was changed. The generating script reproduces every Session 10 label-geometry number under Session 10's settings and exits non-zero if it does not.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/direction_drivers.json",
+            "json_path": "rowsets.all.pooled.drivers.wind_vector_mean.mean_abs_angle_deg"
+          }
+        }
+      },
+      "arm": "A_geometry"
+    },
+    "dirdrv_wind_circ_corr_vector_mean": {
+      "value": 0.0411,
+      "unit": "circular correlation",
+      "source_file": "docs/direction_drivers.json",
+      "json_path": "rowsets.all.pooled.drivers.wind_vector_mean.circ_corr",
+      "derivation": "Between observed spread bearing and the step's vector-mean ERA5 wind bearing. Regenerate: python scripts/direction_drivers.py --write",
+      "sample": "6개 화재, 사용 가능 라벨 스텝 36개 (전체 셀 행 집합)",
+      "caveat": "The SIGN FLIPS against Session 10's -0.053 under a better wind sampling, which vindicates the earlier refusal to interpret that sign. Both values are inside the ~0.33 band that is indistinguishable from zero at this n.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 11 direction-driver measurement. No model, target, threshold or Arm A artifact was changed. The generating script reproduces every Session 10 label-geometry number under Session 10's settings and exits non-zero if it does not.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/direction_drivers.json",
+            "json_path": "rowsets.all.pooled.drivers.wind_vector_mean.circ_corr"
+          }
+        }
+      },
+      "arm": "A_geometry"
+    },
+    "dirdrv_upslope1500_angle_deg": {
+      "value": 70.1344,
+      "unit": "degrees",
+      "source_file": "docs/direction_drivers.json",
+      "json_path": "rowsets.all.pooled.drivers.upslope_smooth1500.mean_abs_angle_deg",
+      "derivation": "Mean |observed spread bearing - DEM upslope bearing|, gradient over a 1.5 km (3-cell) boxcar. Regenerate: python scripts/direction_drivers.py --write",
+      "sample": "6개 화재, 사용 가능 라벨 스텝 36개 (전체 셀 행 집합)",
+      "caveat": "Better than wind POOLED, worse than wind FOLD-AVERAGED — see dirdrv_fold_mean_angle_upslope1500. Strongly dependent on the smoothing window (73.2 deg unsmoothed to 50.8 deg at 5.5 km) while the circular correlation does NOT improve monotonically, so the large-window gain is likely a bias toward a regional trend rather than step-by-step covariation.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 11 direction-driver measurement. No model, target, threshold or Arm A artifact was changed. The generating script reproduces every Session 10 label-geometry number under Session 10's settings and exits non-zero if it does not.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/direction_drivers.json",
+            "json_path": "rowsets.all.pooled.drivers.upslope_smooth1500.mean_abs_angle_deg"
+          }
+        }
+      },
+      "arm": "A_geometry"
+    },
+    "dirdrv_fold_mean_angle_wind_vector_mean": {
+      "value": 76.2217,
+      "unit": "degrees",
+      "source_file": "docs/direction_drivers.json",
+      "json_path": "rowsets.all.pooled.fold_spread_of_mean_angle.wind_vector_mean.mean",
+      "derivation": "Mean over the 6 fires of each fire's mean wind angular difference (one vote per fire). Regenerate: python scripts/direction_drivers.py --write",
+      "sample": "6개 화재, 사용 가능 라벨 스텝 36개 (전체 셀 행 집합)",
+      "caveat": "Fold sd is 47.1 deg on 6 folds. Pair with dirdrv_fold_mean_angle_upslope1500: pooled says terrain wins, fold-averaged says wind wins. Neither is established.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 11 direction-driver measurement. No model, target, threshold or Arm A artifact was changed. The generating script reproduces every Session 10 label-geometry number under Session 10's settings and exits non-zero if it does not.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/direction_drivers.json",
+            "json_path": "rowsets.all.pooled.fold_spread_of_mean_angle.wind_vector_mean.mean"
+          }
+        }
+      },
+      "arm": "A_geometry"
+    },
+    "dirdrv_fold_mean_angle_upslope1500": {
+      "value": 104.3096,
+      "unit": "degrees",
+      "source_file": "docs/direction_drivers.json",
+      "json_path": "rowsets.all.pooled.fold_spread_of_mean_angle.upslope_smooth1500.mean",
+      "derivation": "Mean over the 6 fires of each fire's mean upslope angular difference (one vote per fire). Regenerate: python scripts/direction_drivers.py --write",
+      "sample": "6개 화재, 사용 가능 라벨 스텝 36개 (전체 셀 행 집합)",
+      "caveat": "THE REVERSAL. 104.3 deg fold-averaged against 70.1 deg pooled, because uljin_samcheok_2022 (17 steps) and uiseong_andong_2025 (11) supply 28 of 36 steps and are the two fires where upslope does well. Same fold-weighting problem documented in docs/fold_sizes.md. Fold sd 50.4 deg.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 11 direction-driver measurement. No model, target, threshold or Arm A artifact was changed. The generating script reproduces every Session 10 label-geometry number under Session 10's settings and exits non-zero if it does not.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/direction_drivers.json",
+            "json_path": "rowsets.all.pooled.fold_spread_of_mean_angle.upslope_smooth1500.mean"
+          }
+        }
+      },
+      "arm": "A_geometry"
+    },
+    "dirdrv_slope_gentle_half_angle_deg": {
+      "value": 88.43,
+      "unit": "degrees",
+      "source_file": "docs/direction_drivers.json",
+      "json_path": "rowsets.all.slope_conditioning.gentler_half.mean_abs_angle_deg",
+      "derivation": "Mean observed-vs-upslope angular difference on steps whose mean slope is at or below the median (5.37 deg). Regenerate: python scripts/direction_drivers.py --write",
+      "sample": "6개 화재, 사용 가능 라벨 스텝 36개 (전체 셀 행 집합)",
+      "caveat": "Indistinguishable from the 90 deg chance level: on gentle terrain the upslope direction does NOT explain where the fire went.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 11 direction-driver measurement. No model, target, threshold or Arm A artifact was changed. The generating script reproduces every Session 10 label-geometry number under Session 10's settings and exits non-zero if it does not.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/direction_drivers.json",
+            "json_path": "rowsets.all.slope_conditioning.gentler_half.mean_abs_angle_deg"
+          }
+        }
+      },
+      "arm": "A_geometry"
+    },
+    "dirdrv_slope_steep_half_angle_deg": {
+      "value": 51.84,
+      "unit": "degrees",
+      "source_file": "docs/direction_drivers.json",
+      "json_path": "rowsets.all.slope_conditioning.steeper_half.mean_abs_angle_deg",
+      "derivation": "Same, on steps above the median slope. Regenerate: python scripts/direction_drivers.py --write",
+      "sample": "6개 화재, 사용 가능 라벨 스텝 36개 (전체 셀 행 집합)",
+      "caveat": "THE ONE ROBUST RESULT of Session 11. Terciles are monotone (96.7 / 60.5 / 53.2 deg) and the within-fire control passes in uljin_samcheok_2022 (r=-0.47, 17 steps) though it is ambiguous in uiseong_andong_2025 (r=+0.26, 11 steps) and untestable in the other four. Terrain explains direction WHERE TERRAIN IS STEEP, and not where it is flat.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 11 direction-driver measurement. No model, target, threshold or Arm A artifact was changed. The generating script reproduces every Session 10 label-geometry number under Session 10's settings and exits non-zero if it does not.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/direction_drivers.json",
+            "json_path": "rowsets.all.slope_conditioning.steeper_half.mean_abs_angle_deg"
+          }
+        }
+      },
+      "arm": "A_geometry"
+    },
+    "dirdrv_slope_vs_angle_corr": {
+      "value": -0.3671,
+      "unit": "Pearson r",
+      "source_file": "docs/direction_drivers.json",
+      "json_path": "rowsets.all.slope_conditioning.corr_slope_vs_angle",
+      "derivation": "Correlation between a step's mean slope and its observed-vs-upslope angular difference. Regenerate: python scripts/direction_drivers.py --write",
+      "sample": "6개 화재, 사용 가능 라벨 스텝 36개 (전체 셀 행 집합)",
+      "caveat": "Negative = agreement improves as terrain steepens, the physical consistency check the two nulls lacked. Confounded with fire identity at the pooled level; see the within-fire control.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 11 direction-driver measurement. No model, target, threshold or Arm A artifact was changed. The generating script reproduces every Session 10 label-geometry number under Session 10's settings and exits non-zero if it does not.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/direction_drivers.json",
+            "json_path": "rowsets.all.slope_conditioning.corr_slope_vs_angle"
+          }
+        }
+      },
+      "arm": "A_geometry"
+    },
+    "dirdrv_valley_axis_axial_angle_deg": {
+      "value": 60.7556,
+      "unit": "degrees (AXIAL, 0-90)",
+      "source_file": "docs/direction_drivers.json",
+      "json_path": "rowsets.all.pooled.valley_axis.mean_abs_axial_deg",
+      "derivation": "Mean axial difference between observed bearing and the structure-tensor valley/ridge axis. Regenerate: python scripts/direction_drivers.py --write",
+      "sample": "6개 화재, 사용 가능 라벨 스텝 36개 (전체 셀 행 집합)",
+      "caveat": "REJECTED AS A DRIVER. This is an AXIAL scale where chance is 45 deg, not 90 — the valley axis has no head or tail — so 60.8 deg is WORSE than chance. Local terrain anisotropy is also low (0.29 +/- 0.13). Rejects this derivation, not terrain channeling as such; a flow-accumulation derivation was not attempted.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 11 direction-driver measurement. No model, target, threshold or Arm A artifact was changed. The generating script reproduces every Session 10 label-geometry number under Session 10's settings and exits non-zero if it does not.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/direction_drivers.json",
+            "json_path": "rowsets.all.pooled.valley_axis.mean_abs_axial_deg"
+          }
+        }
+      },
+      "arm": "A_geometry"
+    },
+    "dirdrv_rowset_model_R_centroid": {
+      "value": 0.6024,
+      "unit": "resultant length",
+      "source_file": "docs/direction_drivers.json",
+      "json_path": "rowsets.model.pooled.R_centroid.mean",
+      "derivation": "Anisotropy R computed on the MODEL's positive rows (6,000 m buffer + burnable filter) rather than all newly-burnt cells. Regenerate: python scripts/direction_drivers.py --write",
+      "sample": "6개 화재, 사용 가능 라벨 스텝 36개 (전체 셀 행 집합)",
+      "caveat": "CLOSES the row-set caveat. 0.6024 against 0.6011 for all cells; every quantity differs by two orders of magnitude less than the fold spread. The geometry analysis and the model describe the same object, so downstream claims need not name a row set.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 11 direction-driver measurement. No model, target, threshold or Arm A artifact was changed. The generating script reproduces every Session 10 label-geometry number under Session 10's settings and exits non-zero if it does not.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/direction_drivers.json",
+            "json_path": "rowsets.model.pooled.R_centroid.mean"
+          }
+        }
+      },
+      "arm": "A_geometry"
     }
   }
 }

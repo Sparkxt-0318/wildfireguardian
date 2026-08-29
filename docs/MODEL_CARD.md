@@ -149,6 +149,26 @@ Two consequences, stated so neither is applied silently:
 They carry `arm: A_replication` in the registry precisely so that confusion
 fails the isolation gate.
 
+### Angular quantities take a different rule
+
+Bearings and circular correlations are not AUCs, and the three-significant-figure
+rule above does not transfer to them. Their precision is set by sampling spread,
+not by platform drift.
+
+> **Mean angular differences are reportable to ONE decimal place**, and
+> differences smaller than **~19°** are not established.
+> **Circular correlations are reportable to TWO decimals**, and **|r| below
+> ~0.33** is not distinguishable from zero.
+
+Derivation: n = 36 usable label steps with a per-step spread of ~56°, so the
+standard error of a mean angular difference is ~9.3°, and 2 SE ≈ 19°. For a
+circular correlation at this n the approximate standard error is
+1/√36 ≈ 0.17, so 2 SE ≈ 0.33. These are **rules of thumb read off the observed
+spread, not exact tests** — the appropriate reference distribution for a
+circular correlation at n = 36 was not derived. The fold-level spread is wider
+still (sd ≈ 47–50° across 6 fires), and it, not the pooled SE, governs any
+per-fire claim. `[src: docs/direction_drivers.json]`
+
 ## The 2026-08-02 DEM correction — what moved, what did not
 
 The Uljin-Samcheok raster in the training bundle **filled the East Sea with a
