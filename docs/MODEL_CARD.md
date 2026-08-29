@@ -41,6 +41,18 @@ wind_alignment` `[src: features.py/FEATURE_COLUMNS]`.
 - Excluding the tiny `gangneung_2023` fold, the other five fires average **0.931 ±
   0.036**, 95 % t-CI [0.887, 0.976] (n=5) — recomputed from the same file.
 
+> ⚠ **Mean-of-folds is computed over folds of highly unequal size, and must
+> always be reported alongside [`docs/fold_sizes.md`](fold_sizes.md).**
+> The largest fold carries **208.9×** the rows of the smallest
+> (`uiseong_andong_2025` 82,736 rows / 54.47 % of the evidence;
+> `gangneung_2023` 396 rows / 8 positive cells / **0.26 %** of the evidence).
+> Every fold casts the same one-sixth vote regardless.
+> **Pooled AUC is the primary metric** because it weights each row exactly once.
+> Permutation importance is unaffected by this imbalance — it is aggregated as a
+> ROW-weighted average (`spread_v2/model.py::leave_one_fire_out`).
+> `[src: fold_sizes.json; keys lofo_fold_rows_max_over_min,
+> lofo_smallest_fold_share_of_rows]`
+
 ### Per-fire ROC-AUC
 
 | fire | ROC-AUC | DeLong 95 % CI | note |
@@ -90,6 +102,52 @@ where the FIRMS/ERA5/DEM bundle is absent (e.g. a fresh clone), and **STOPs
   mean-of-folds is a pre-correction re-run that was never committed; the
   **committed** artifact (`auc_intervals.json`, corrected lineage) reads
   **0.904 ± 0.100** (n=3). Quote whichever you can point at, with its lineage.
+
+## Reference environment and reportable precision
+
+**The reference environment is `wfg311`** — macOS, Apple Silicon (arm64),
+Python 3.11.15, conda-forge (`docs/ENVIRONMENT.md`). **Every committed headline
+value in this card was produced there.** That is not a footnote about tooling;
+it bounds how precisely any of these numbers may be read.
+
+Session 10 measured the bound directly. Arm A's own 16 columns, its seed
+(20250603), its folds and its protocol were re-run on Linux/aarch64 with PyPI
+manylinux wheels — same pinned versions, `make env-check` passing, dataset
+identical at 151,904 rows / 2,989 positives. What moved:
+
+| metric | reference `wfg311` | second platform | drift | registry key |
+|---|---:|---:|---:|---|
+| Pooled OOF AUC | 0.9053 | 0.8989 | **0.0064** | `platform_drift_pooled_auc` |
+| Mid-band AUC | 0.8698 | 0.8515 | 0.0183 | `platform_drift_mid_band_auc` |
+| Far-band AUC (>3 km) | 0.8766 | 0.8458 | **0.0307** | `platform_drift_far_band_auc` |
+
+**Cause:** floating-point accumulation order, and the placement of the
+early-stopping validation split, differ between the conda-forge macOS/arm64
+build and the PyPI manylinux aarch64 build of
+`HistGradientBoostingClassifier`. The estimator, its hyperparameters and its
+seed are identical. `[src: docs/platform_drift.json]`
+
+### The rule
+
+> **Pooled ROC-AUC is reportable to THREE significant figures — `0.905`.**
+> The fourth digit is not stable across platforms and must not be compared,
+> ranked or differenced.
+
+Two consequences, stated so neither is applied silently:
+
+1. **Stored values keep full precision.** `NUMBERS.json` holds the artifact's
+   exact float so `make verify` stays an exact check. The rule governs what may
+   be written in prose, on a poster or on a slide — **nothing is silently
+   rounded anywhere.**
+2. **Any comparison below the floor is not a measurement.** Far-band needs more
+   headroom than pooled (0.0307 vs 0.0064) because it holds fewer rows and
+   fewer positives. Session 10's Arm D pooled delta of −0.0070 sat inside the
+   pooled floor and was reported as unmeasurable rather than as a degradation
+   (`docs/SESSION10_REPORT.md` §1.1).
+
+⚠ These drift figures are **not Arm A values** and must never be cited as one.
+They carry `arm: A_replication` in the registry precisely so that confusion
+fails the isolation gate.
 
 ## The 2026-08-02 DEM correction — what moved, what did not
 

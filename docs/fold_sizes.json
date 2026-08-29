@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "title": "LOGO-CV fold sizes — disclosure of fold-weight heterogeneity",
+  "provenance": "derived (counts) + copied (fold AUCs)",
+  "arm": "A_disclosure",
+  "generated_by": "scripts/fold_sizes.py",
+  "fold_auc_source": "data/processed/spread_v2_lofo.json :: per_fire_auc (COPIED, not recomputed)",
+  "n_folds": 6,
+  "n_rows_total": 151904,
+  "n_positives_total": 2989,
+  "matches_committed_shape": true,
+  "largest_over_smallest_rows": 208.9,
+  "folds": [
+    {
+      "fire_id": "gangneung_2023",
+      "rows": 396,
+      "positive_cells": 8,
+      "n_overpasses": 2,
+      "n_transitions": 1,
+      "fold_auc_committed": 0.6820231958762887,
+      "share_of_rows": 0.002607,
+      "share_of_positives": 0.002676,
+      "vote_in_mean_of_folds": 0.166667
+    },
+    {
+      "fire_id": "miryang_2022",
+      "rows": 3019,
+      "positive_cells": 24,
+      "n_overpasses": 5,
+      "n_transitions": 4,
+      "fold_auc_committed": 0.973692264885921,
+      "share_of_rows": 0.019874,
+      "share_of_positives": 0.008029,
+      "vote_in_mean_of_folds": 0.166667
+    },
+    {
+      "fire_id": "hongseong_2023",
+      "rows": 3353,
+      "positive_cells": 34,
+      "n_overpasses": 5,
+      "n_transitions": 4,
+      "fold_auc_committed": 0.9448983570529749,
+      "share_of_rows": 0.022073,
+      "share_of_positives": 0.011375,
+      "vote_in_mean_of_folds": 0.166667
+    },
+    {
+      "fire_id": "yeongdeok_2025",
+      "rows": 20749,
+      "positive_cells": 769,
+      "n_overpasses": 6,
+      "n_transitions": 5,
+      "fold_auc_committed": 0.9407755935389225,
+      "share_of_rows": 0.136593,
+      "share_of_positives": 0.257277,
+      "vote_in_mean_of_folds": 0.166667
+    },
+    {
+      "fire_id": "uljin_samcheok_2022",
+      "rows": 41651,
+      "positive_cells": 652,
+      "n_overpasses": 27,
+      "n_transitions": 26,
+      "fold_auc_committed": 0.9180778687255129,
+      "share_of_rows": 0.274193,
+      "share_of_positives": 0.218133,
+      "vote_in_mean_of_folds": 0.166667
+    },
+    {
+      "fire_id": "uiseong_andong_2025",
+      "rows": 82736,
+      "positive_cells": 1502,
+      "n_overpasses": 19,
+      "n_transitions": 18,
+      "fold_auc_committed": 0.8776874123436931,
+      "share_of_rows": 0.54466,
+      "share_of_positives": 0.502509,
+      "vote_in_mean_of_folds": 0.166667
+    }
+  ],
+  "reading": "Every fold casts an equal vote in mean-of-folds while carrying wildly unequal evidence. Pooled AUC is the primary metric because it weights each row once. Mean-of-folds must always be reported with this table beside it."
+}

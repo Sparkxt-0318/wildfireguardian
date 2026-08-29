@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "_README": "CANONICAL REGISTRY. Every reportable number lives here exactly once. Do not restate a value in prose without citing its key. 'verified' = still matches its artifact; 'reproducible' = re-running the pipeline regenerates that artifact. They are independent — several numbers here are verified but NOT reproducible because the OSM network behind them was overwritten (docs/DATA_LOSS_2026-07-24.md). Run scripts/verify_numbers.py to re-check every entry.",
+  "_README": "CANONICAL REGISTRY. Every reportable number lives here exactly once. Do not restate a value in prose without citing its key. 'verified' = still matches its artifact; 'reproducible' = re-running the pipeline regenerates that artifact. They are independent — several numbers here are verified but NOT reproducible because the OSM network behind them was overwritten (docs/DATA_LOSS_2026-07-24.md). Run scripts/verify_numbers.py to re-check every entry. REPORTABLE PRECISION: pooled ROC-AUC is reportable to THREE significant figures (0.905). The fourth digit is not stable across platforms — see platform_drift_pooled_auc — and must not be compared, ranked or differenced. Stored values keep full precision so the artifact check stays exact; the RULE governs what may be written in prose, a poster or a slide.",
   "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
   "config_hash_note": "The per-entry config_hash is re-stamped on every build, so it marks the config a build SAW, not the config a number was PRODUCED under. It moved 0b6eb481177a… -> 51ec446843b6… between the 2026-08-01 build and the 2026-08-02 (PHASE 5 STEP 4) build. That move is PURELY ADDITIVE: `bbox.multi_region_walk_bbox` and `grid.simulation_bbox_extension` were added and NOT ONE existing key changed value (verified key-by-key against config/default.yaml at commit 5fe86db). No Round-2 number is stale as a result. It moved again 05c6feae1dff… -> 8e29a6cc4a99… on 2026-08-03 (PHASE 13), and again PURELY ADDITIVELY: the `fuel:` block (uncovered_land_warn_fraction / uncovered_land_stop_fraction) was added, no existing key changed value, and a rebuild moved 0 of the registered VALUES — only six `sample` labels, which carry the bbox area and therefore inherit the geodesic-area correction described under the mr_* completeness entries.",
   "built_at_git_commit": "41498efbf0679276c140b3cbfc0819e5265e7733",
@@ -6307,6 +6307,136 @@
         }
       },
       "arm": "D"
+    },
+    "platform_drift_pooled_auc": {
+      "value": 0.006428,
+      "unit": "ROC-AUC (abs drift)",
+      "source_file": "docs/platform_drift.json",
+      "json_path": "drift.pooled_auc.abs_drift",
+      "derivation": "|committed pooled AUC − same protocol re-run on a second platform|. Regenerate: python scripts/arm_d_lofo.py --features A && python scripts/arm_d_lofo.py --features A --aggregate && python scripts/platform_drift.py --write",
+      "sample": "6개 화재 LOFO, 151,904행 / 2,989 양성 (양 플랫폼 동일)",
+      "caveat": "THE MEASUREMENT FLOOR. Any arm-to-arm pooled-AUC difference smaller than this is not a measurement. Session 10's Arm D pooled delta was -0.0070 against this 0.0064, which is why that delta was reported as unmeasurable rather than as a degradation. This is NOT an Arm A value and must never be cited as one.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Reference environment: macOS/arm64 conda-forge wfg311, Python 3.11.15. Second platform: Linux/aarch64, PyPI manylinux wheels, Python 3.11.16. Seed 20250603, identical folds, identical dataset shape. Cause: float accumulation order and early-stopping validation-split placement in HistGradientBoostingClassifier.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-09,
+        "operands": {
+          "a": {
+            "file": "docs/platform_drift.json",
+            "json_path": "drift.pooled_auc.abs_drift"
+          }
+        }
+      },
+      "arm": "A_replication"
+    },
+    "platform_drift_far_band_auc": {
+      "value": 0.030715,
+      "unit": "ROC-AUC (abs drift)",
+      "source_file": "docs/platform_drift.json",
+      "json_path": "drift.far_band_auc.abs_drift",
+      "derivation": "|committed far-band AUC − same protocol re-run on a second platform|. Regenerate: python scripts/arm_d_lofo.py --features A && python scripts/arm_d_lofo.py --features A --aggregate && python scripts/platform_drift.py --write",
+      "sample": "6개 화재 LOFO, 151,904행 / 2,989 양성 (양 플랫폼 동일)",
+      "caveat": "Far-band (>3 km) drifts ~5x as much as pooled, because the far band holds fewer rows and fewer positives. Far-band comparisons need correspondingly more headroom.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Reference environment: macOS/arm64 conda-forge wfg311, Python 3.11.15. Second platform: Linux/aarch64, PyPI manylinux wheels, Python 3.11.16. Seed 20250603, identical folds, identical dataset shape. Cause: float accumulation order and early-stopping validation-split placement in HistGradientBoostingClassifier.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-09,
+        "operands": {
+          "a": {
+            "file": "docs/platform_drift.json",
+            "json_path": "drift.far_band_auc.abs_drift"
+          }
+        }
+      },
+      "arm": "A_replication"
+    },
+    "platform_drift_mid_band_auc": {
+      "value": 0.01833,
+      "unit": "ROC-AUC (abs drift)",
+      "source_file": "docs/platform_drift.json",
+      "json_path": "drift.mid_band_auc.abs_drift",
+      "derivation": "|committed mid-band AUC − same protocol re-run on a second platform|. Regenerate: python scripts/arm_d_lofo.py --features A && python scripts/arm_d_lofo.py --features A --aggregate && python scripts/platform_drift.py --write",
+      "sample": "6개 화재 LOFO, 151,904행 / 2,989 양성 (양 플랫폼 동일)",
+      "caveat": "Sits between the pooled and far-band floors, consistent with the band's row count.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Reference environment: macOS/arm64 conda-forge wfg311, Python 3.11.15. Second platform: Linux/aarch64, PyPI manylinux wheels, Python 3.11.16. Seed 20250603, identical folds, identical dataset shape. Cause: float accumulation order and early-stopping validation-split placement in HistGradientBoostingClassifier.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-09,
+        "operands": {
+          "a": {
+            "file": "docs/platform_drift.json",
+            "json_path": "drift.mid_band_auc.abs_drift"
+          }
+        }
+      },
+      "arm": "A_replication"
+    },
+    "lofo_fold_rows_max_over_min": {
+      "value": 208.9,
+      "unit": "ratio (rows)",
+      "source_file": "docs/fold_sizes.json",
+      "json_path": "largest_over_smallest_rows",
+      "derivation": "rows(uiseong_andong_2025) / rows(gangneung_2023), counts only. Regenerate: python scripts/fold_sizes.py --write",
+      "sample": "6개 LOGO-CV 폴드",
+      "caveat": "A DISCLOSURE about fold weighting, NOT a skill metric and NOT a severity-style ratio between features. Mean-of-folds gives every fold an equal vote across folds this unequal, which is why pooled AUC is the primary metric and mean-of-folds must always be shown with docs/fold_sizes.md.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Counts are computed; the fold AUCs in the same artifact are COPIED from data/processed/spread_v2_lofo.json.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.05,
+        "operands": {
+          "a": {
+            "file": "docs/fold_sizes.json",
+            "json_path": "largest_over_smallest_rows"
+          }
+        }
+      },
+      "arm": "A_disclosure"
+    },
+    "lofo_smallest_fold_share_of_rows": {
+      "value": 0.002607,
+      "unit": "fraction of LOFO rows",
+      "source_file": "docs/fold_sizes.json",
+      "json_path": "folds.0.share_of_rows",
+      "derivation": "rows(gangneung_2023) / 151,904. Regenerate: python scripts/fold_sizes.py --write",
+      "sample": "gangneung_2023 — 396행 / 8개 양성 셀 / 2회 오버패스",
+      "caveat": "This fold carries this share of the evidence and one sixth of mean-of-folds. It is also the fold that supplied the bulk of the reported fold spread, and in Session 10 it was the only fold where Arm D appeared to help. Read any per-fold movement here against this share.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Disclosure only. No metric was recomputed or reweighted.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-09,
+        "operands": {
+          "a": {
+            "file": "docs/fold_sizes.json",
+            "json_path": "folds.0.share_of_rows"
+          }
+        }
+      },
+      "arm": "A_disclosure"
     }
   }
 }
