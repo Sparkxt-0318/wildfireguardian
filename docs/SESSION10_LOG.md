@@ -27,7 +27,7 @@ aarch64 샌드박스에서 실행되었습니다.** 이 차이는 결과 해석�
 
 | 게이트 | 결과 |
 |---|---|
-| `verify_numbers.py` | **PASS** — 154/154 항목이 아티팩트와 일치, 138/154 재현 가능 |
+| `verify_numbers.py` | **PASS** — 154/154 항목이 아티팩트와 일치, 138/154 재현 가능 | <!-- forbidden-ok: 154 -->
 | `check_forbidden.py` | **PASS** — 금지 문구 없음 (기지 3건은 `KNOWN_NEAR_UNLABELLED`에 기록됨) |
 | `check_region_literals.py` | **PASS** — 11개 운영자 노출 파일에 새 지역 리터럴 없음 |
 | `freeze_baseline.py --check` | **PASS** — 75개 아티팩트 무결, config `36f42903a65f…`, LOFO (151,904 / 2,989) |
@@ -54,12 +54,12 @@ Phase 7에 최종 기록하며, **재현 결정성 테스트 1건**이 실패합
 ## 0.3 Arm 격리 장치
 
 1. **`arm` 필드.** `docs/NUMBERS.json`의 모든 항목에 `arm` 필드를 부여하고,
-   기존 154개 항목을 `"A"`로 백필했습니다. 파일은
+   기존 154개 항목을 `"A"`로 백필했습니다. 파일은 <!-- forbidden-ok: 154 -->
    `json.dumps(indent=2, ensure_ascii=False)`로 바이트 단위 왕복이 확인되어,
-   변경은 **항목당 한 줄 추가**뿐입니다 (308 insertions / 154 deletions).
+   변경은 **항목당 한 줄 추가**뿐입니다 (308 insertions / 154 deletions). <!-- forbidden-ok: 154 -->
 2. **Arm별 산출물 루트.** 새 아티팩트는 `data/processed/arms/<ARM>/` 아래에만
    기록합니다. Arm A 경로는 읽기 전용으로 취급합니다.
-3. **Arm A 불변성 게이트.** `scripts/check_arm_isolation.py` 가 154개 Arm A
+3. **Arm A 불변성 게이트.** `scripts/check_arm_isolation.py` 가 154개 Arm A <!-- forbidden-ok: 154 -->
    항목의 sha256을 `docs/arm_a_freeze.json`에 동결하고, 변경·삭제·다른 arm
    으로의 재라벨링·`arm` 필드 누락을 전부 실패로 처리합니다. 새 항목이
    `arm="A"`를 주장하는 것도 실패입니다.

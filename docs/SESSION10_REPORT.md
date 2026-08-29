@@ -254,8 +254,8 @@ null을 함의하지는 않습니다. **Arm C는 여전히 실행할 가치가 �
 
 **Arm A 아티팩트·숫자·설정 기본값은 하나도 변경되지 않았습니다.**
 
-- `scripts/check_arm_isolation.py` → `OK — 154 Arm A entries unchanged;
-  10 entries in other arms (A_replication, D).` 154개 Arm A 항목의 sha256을
+- `scripts/check_arm_isolation.py` → `OK — 154 Arm A entries unchanged; <!-- forbidden-ok: 154 -->
+  10 entries in other arms (A_replication, D).` 154개 Arm A 항목의 sha256을 <!-- forbidden-ok: 154 -->
   `docs/arm_a_freeze.json`에 동결하고, 변경·삭제·타 arm 재라벨링·`arm` 필드
   누락·신규 항목의 `arm="A"` 주장을 전부 실패 처리합니다.
 - `scripts/verify_numbers.py` → **164/164** 항목이 아티팩트와 일치.
@@ -267,14 +267,14 @@ null을 함의하지는 않습니다. **Arm C는 여전히 실행할 가치가 �
   **151,904행 / 2,989 양성**이 베이스라인 동결값과 정확히 일치합니다.
 
 **베이스라인 재동결(deliberate).** Arm D 항목 10개 등록으로
-`registry_entries`가 154 → 164가 되어 `baseline-verify`가 그 한 가지
+`registry_entries`가 154 → 164가 되어 `baseline-verify`가 그 한 가지 <!-- forbidden-ok: 154 -->
 차이를 보고했습니다. 재동결 후 동결 파일 전체를 필드 단위로 비교한
 결과 **91개 필드 중 3개만** 이동했습니다:
 
 ```
 frozen_utc        2026-08-29T09:13:48Z -> 2026-08-29T14:40:00Z
 git_commit        41498efbf067…        -> bb0697654067…
-registry_entries  154                  -> 164
+registry_entries  154                  -> 164  # forbidden-ok: 154
 ```
 
 **75개 아티팩트 해시, config_hash, LOFO 형상, protected/untracked 계약
@@ -291,7 +291,7 @@ registry_entries  154                  -> 164
 | `freeze_baseline.py --check` | PASS — 75 아티팩트, LOFO (151,904, 2,989) |
 | `snapshot_external.py --verify` | PASS |
 | `env_check.py` | PASS — `requirements.txt`와 일치 |
-| `check_arm_isolation.py` *(신규, 7번째)* | PASS — Arm A 154개 불변 |
+| `check_arm_isolation.py` *(신규, 7번째)* | PASS — Arm A 154개 불변 | <!-- forbidden-ok: 154 -->
 
 **테스트: 1,095 passed / 3 skipped / 1 failed** (기준선 1,085 / 3 / 0).
 
