@@ -7,6 +7,76 @@ needed to close it out.
 
 ---
 
+## Session 10 (wind downscaling / front assimilation, 2026-08-29)
+
+### ⛔ ARM C DEFERRED — WindNinja has no build for this session's CPU architecture
+
+**This is not a verdict on WindNinja.** It is a fact about where Session 10
+ran. Arm C is deferred, not stopped, and the path that will work is below.
+
+**The four options in the brief, in order, and what each returned:**
+
+1. **conda-forge package — EXISTS.** `windninja 3.13.0.1` is published on
+   conda-forge (MIT, `conda install conda-forge::windninja`). All **15**
+   files on the channel are `osx-64` or `linux-64`. There is **no
+   `osx-arm64` build and no `linux-aarch64` build** — checked against the
+   channel's own file listing, not inferred.
+2. **Prebuilt binary / release — not usable here.** The upstream project
+   ships installers for Windows; the wiki states that Linux and macOS
+   require building from source. Neither route produces an aarch64 binary.
+3. **Docker image — unavailable.** No Docker in this environment, and the
+   `linux-64` image could only run under qemu/binfmt emulation, which
+   needs root. This session has no root (`sudo` is blocked by the
+   no-new-privileges flag).
+4. **Build from source — unavailable.** WindNinja is C++ over GDAL, Boost,
+   NetCDF and Qt. Without root there is no `apt-get install`, and the
+   sandbox has no cmake, no GDAL headers and no conda to supply them.
+
+**Session 10 ran on Linux aarch64**, so all four are closed. Per the
+brief's stop-gate, Arm C was not attempted and **no hand-rolled terrain
+adjustment was substituted** — an unvalidated approximation presented as a
+validated model is worse than the missing arm.
+
+#### ACTION FOR JOHN — the path that should work on your Mac
+
+Apple Silicon has no native WindNinja either, but it can run the `osx-64`
+build under Rosetta 2. The standard conda mechanism is an x86-64 subdir env:
+
+```bash
+CONDA_SUBDIR=osx-64 conda create -n wnj -c conda-forge python=3.11 -y
+conda activate wnj
+conda config --env --set subdir osx-64      # keep later installs on osx-64
+conda install -c conda-forge windninja -y
+WindNinja_cli --help                        # confirms the CLI is on PATH
+```
+
+⚠ **Untested from here** — this session could not run macOS. Two things to
+check before building any pipeline on it: that Rosetta 2 is installed
+(`softwareupdate --install-rosetta`), and that the first `WindNinja_cli`
+call actually returns (Rosetta's first-run translation is slow, and a hang
+is easy to mistake for a crash).
+
+Phase 1's remaining questions — does the output field vary spatially, does
+direction deviate in valleys and on lee slopes, what is the speed-ratio
+range, and what is the wall-clock cost of `hours × 6 fires` — are all
+**unanswered** and stay unanswered. Nothing in Session 10 estimated them.
+
+#### What Arm D says about Arm C's premise
+
+Worth reading before spending a session on Rosetta. The direction claim was
+withdrawn partly because ERA5's 0.25° (~28 km) grid cannot resolve the wind
+the model was asked to learn direction from. Arm D tested a directional
+signal with **no resolution problem at all** — the fire's own observed
+direction of travel, from its own detections — and it ranked 17th of 23
+features at +0.00005 AUC drop with a fold sd of 0.0025.
+
+That does not refute the WindNinja hypothesis: terrain-resolved wind is a
+different quantity from observed front motion, and 6–16 h between usable
+overpasses is coarse for estimating a direction of travel. But it does mean
+Arm C should be entered expecting a null, not a rescue.
+
+---
+
 ## Session 8 (post-interview refactor, 2026-08-29)
 
 ### ⚠️ OPEN — ACTION FOR JOHN: 도로명주소 건물 데이터 needs a manual, logged-in download
