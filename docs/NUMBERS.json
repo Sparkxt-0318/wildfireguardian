@@ -6047,6 +6047,266 @@
       "reproducible": true,
       "notes": "Session 8 Phase 2 (docs/SESSION8_LOG.md).",
       "arm": "A"
+    },
+    "armd_pooled_auc": {
+      "value": 0.8918698503315836,
+      "unit": "ROC-AUC",
+      "source_file": "data/processed/arms/D/lofo_arm_D.json",
+      "json_path": "pooled_auc",
+      "derivation": "Pooled out-of-fold ROC-AUC, 23 features (16 Arm A + 7 assimilation), LOGO-CV over the same 6 fires, seed 20250603. Regenerate: python scripts/arm_d_build.py && python scripts/arm_d_build.py --merge && python scripts/arm_d_lofo.py --features D && python scripts/arm_d_lofo.py --features D --aggregate",
+      "sample": "6개 화재 LOFO, 151,904행",
+      "caveat": "PLATFORM NOISE FLOOR: this session ran on Linux aarch64, not the reference macOS/conda wfg311. Re-running Arm A's own protocol here gives pooled 0.8989 vs the committed 0.9053 and far-band 0.8458 vs 0.8766. Any Arm-A-vs-Arm-D delta smaller than that gap is NOT measurable in this session.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Artifact lives under data/processed/arms/, which .gitignore excludes; it is regenerable from committed scripts and is NOT part of the Arm A baseline freeze.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-12,
+        "operands": {
+          "a": {
+            "file": "data/processed/arms/D/lofo_arm_D.json",
+            "json_path": "pooled_auc"
+          }
+        }
+      },
+      "arm": "D"
+    },
+    "armd_mean_of_folds_auc": {
+      "value": 0.9113262789033332,
+      "unit": "ROC-AUC",
+      "source_file": "data/processed/arms/D/lofo_arm_D.json",
+      "json_path": "mean_of_folds_auc",
+      "derivation": "mean(per_fire_auc.values()); N=6. Regenerate: python scripts/arm_d_build.py && python scripts/arm_d_build.py --merge && python scripts/arm_d_lofo.py --features D && python scripts/arm_d_lofo.py --features D --aggregate",
+      "sample": "6개 폴드 평균",
+      "caveat": "MEAN-OF-FOLDS, not pooled. The gain over the Arm A replication (+0.0362) is carried almost entirely by gangneung_2023 (+0.2639), a 396-row/8-positive fold that is 100% cold-start (2 overpasses total, so every Arm D feature there is NaN or near-NaN). It is not evidence that assimilation information helped.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Artifact lives under data/processed/arms/, which .gitignore excludes; it is regenerable from committed scripts and is NOT part of the Arm A baseline freeze.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-12,
+        "operands": {
+          "a": {
+            "file": "data/processed/arms/D/lofo_arm_D.json",
+            "json_path": "mean_of_folds_auc"
+          }
+        }
+      },
+      "arm": "D"
+    },
+    "armd_fold_auc_sd": {
+      "value": 0.04717054887839968,
+      "unit": "ROC-AUC",
+      "source_file": "data/processed/arms/D/lofo_arm_D.json",
+      "json_path": "fold_auc_sd",
+      "derivation": "sample sd (ddof=1) of the 6 per-fire AUCs. Regenerate: python scripts/arm_d_build.py && python scripts/arm_d_build.py --merge && python scripts/arm_d_lofo.py --features D && python scripts/arm_d_lofo.py --features D --aggregate",
+      "sample": "6개 폴드",
+      "caveat": "Arm D folds are more uniform than the Arm A replication (0.0472 vs 0.1362), which is a statement about spread, not about skill.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Artifact lives under data/processed/arms/, which .gitignore excludes; it is regenerable from committed scripts and is NOT part of the Arm A baseline freeze.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-12,
+        "operands": {
+          "a": {
+            "file": "data/processed/arms/D/lofo_arm_D.json",
+            "json_path": "fold_auc_sd"
+          }
+        }
+      },
+      "arm": "D"
+    },
+    "armd_far_band_auc": {
+      "value": 0.7957614962537949,
+      "unit": "ROC-AUC",
+      "source_file": "data/processed/arms/D/lofo_arm_D.json",
+      "json_path": "far_band_auc",
+      "derivation": "Pooled OOF AUC on rows >3 km from the active front. Regenerate: python scripts/arm_d_build.py && python scripts/arm_d_build.py --merge && python scripts/arm_d_lofo.py --features D && python scripts/arm_d_lofo.py --features D --aggregate",
+      "sample": "원거리대(>3km) 행",
+      "caveat": "Lower than the Arm A replication (0.7958 vs 0.8458). The gap exceeds the measured platform noise floor on far-band (0.0307) but is the same order of magnitude, so it is suggestive, not established. PLATFORM NOISE FLOOR: this session ran on Linux aarch64, not the reference macOS/conda wfg311. Re-running Arm A's own protocol here gives pooled 0.8989 vs the committed 0.9053 and far-band 0.8458 vs 0.8766. Any Arm-A-vs-Arm-D delta smaller than that gap is NOT measurable in this session.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Artifact lives under data/processed/arms/, which .gitignore excludes; it is regenerable from committed scripts and is NOT part of the Arm A baseline freeze.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-12,
+        "operands": {
+          "a": {
+            "file": "data/processed/arms/D/lofo_arm_D.json",
+            "json_path": "far_band_auc"
+          }
+        }
+      },
+      "arm": "D"
+    },
+    "armd_cold_start_auc_early": {
+      "value": 0.8590398326733861,
+      "unit": "ROC-AUC",
+      "source_file": "data/processed/arms/D/lofo_arm_D.json",
+      "json_path": "cold_start_pooled.auc_early",
+      "derivation": "Pooled OOF AUC on slices with <=1 prior overpass. Regenerate: python scripts/arm_d_build.py && python scripts/arm_d_build.py --merge && python scripts/arm_d_lofo.py --features D && python scripts/arm_d_lofo.py --features D --aggregate",
+      "sample": "선행 오버패스 <=1인 18,583행",
+      "caveat": "Assimilation features are undefined or single-observation here — the regime the system is most needed in. Arm D is WORSE than the Arm A replication in this regime (0.8590 vs 0.8760).",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Artifact lives under data/processed/arms/, which .gitignore excludes; it is regenerable from committed scripts and is NOT part of the Arm A baseline freeze.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-12,
+        "operands": {
+          "a": {
+            "file": "data/processed/arms/D/lofo_arm_D.json",
+            "json_path": "cold_start_pooled.auc_early"
+          }
+        }
+      },
+      "arm": "D"
+    },
+    "armd_cold_start_auc_late": {
+      "value": 0.8758378979919513,
+      "unit": "ROC-AUC",
+      "source_file": "data/processed/arms/D/lofo_arm_D.json",
+      "json_path": "cold_start_pooled.auc_late",
+      "derivation": "Pooled OOF AUC on slices with >1 prior overpass. Regenerate: python scripts/arm_d_build.py && python scripts/arm_d_build.py --merge && python scripts/arm_d_lofo.py --features D && python scripts/arm_d_lofo.py --features D --aggregate",
+      "sample": "선행 오버패스 >1인 133,321행",
+      "caveat": "Arm D is also worse than the Arm A replication once a fire is established (0.8758 vs 0.8841), so the cold start is not the only place assimilation fails to pay.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Artifact lives under data/processed/arms/, which .gitignore excludes; it is regenerable from committed scripts and is NOT part of the Arm A baseline freeze.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-12,
+        "operands": {
+          "a": {
+            "file": "data/processed/arms/D/lofo_arm_D.json",
+            "json_path": "cold_start_pooled.auc_late"
+          }
+        }
+      },
+      "arm": "D"
+    },
+    "arma_replication_pooled_auc": {
+      "value": 0.8989002305704359,
+      "unit": "ROC-AUC",
+      "source_file": "data/processed/arms/A_replication/lofo_arm_A.json",
+      "json_path": "pooled_auc",
+      "derivation": "Arm A's own 16 columns re-run through the Session 10 fold runner on this platform. Regenerate: python scripts/arm_d_build.py && python scripts/arm_d_build.py --merge && python scripts/arm_d_lofo.py --features A && python scripts/arm_d_lofo.py --features A --aggregate",
+      "sample": "6개 화재 LOFO, 151,904행",
+      "caveat": "NOT an Arm A number and must never be cited as one. It exists to measure this platform's reproduction gap against the committed 0.9053. Arm A's registered values are untouched.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Artifact lives under data/processed/arms/, which .gitignore excludes; it is regenerable from committed scripts and is NOT part of the Arm A baseline freeze.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-12,
+        "operands": {
+          "a": {
+            "file": "data/processed/arms/A_replication/lofo_arm_A.json",
+            "json_path": "pooled_auc"
+          }
+        }
+      },
+      "arm": "A_replication"
+    },
+    "arma_replication_far_band_auc": {
+      "value": 0.8458435014001401,
+      "unit": "ROC-AUC",
+      "source_file": "data/processed/arms/A_replication/lofo_arm_A.json",
+      "json_path": "far_band_auc",
+      "derivation": "As above, far-band (>3 km). Regenerate: python scripts/arm_d_build.py && python scripts/arm_d_build.py --merge && python scripts/arm_d_lofo.py --features A && python scripts/arm_d_lofo.py --features A --aggregate",
+      "sample": "원거리대(>3km) 행",
+      "caveat": "Committed Arm A far-band is 0.8766; this platform reproduces 0.8458. That 0.0307 gap is the far-band noise floor for this session.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Artifact lives under data/processed/arms/, which .gitignore excludes; it is regenerable from committed scripts and is NOT part of the Arm A baseline freeze.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-12,
+        "operands": {
+          "a": {
+            "file": "data/processed/arms/A_replication/lofo_arm_A.json",
+            "json_path": "far_band_auc"
+          }
+        }
+      },
+      "arm": "A_replication"
+    },
+    "armd_obs_alignment_importance": {
+      "value": 5.433726742859649e-05,
+      "unit": "ROC-AUC drop (permutation)",
+      "source_file": "data/processed/arms/D/lofo_arm_D.json",
+      "json_path": "importance_ranking.16.weighted_mean_auc_drop",
+      "derivation": "Row-weighted mean permutation-importance AUC drop of obs_alignment, rank 17/23. Regenerate: python scripts/arm_d_build.py && python scripts/arm_d_build.py --merge && python scripts/arm_d_lofo.py --features D && python scripts/arm_d_lofo.py --features D --aggregate",
+      "sample": "6개 폴드, 행 가중",
+      "caveat": "THE SESSION'S CENTRAL NUMBER. obs_alignment is the cosine between each cell's bearing from the nearest prior detection and the fire's OWN observed direction of travel — direction with no ERA5 resolution problem at all. Its fold sd is 0.0025, ~50x the mean, so it is indistinguishable from zero. Report it with its spread; NEVER as a ratio against any other feature.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Artifact lives under data/processed/arms/, which .gitignore excludes; it is regenerable from committed scripts and is NOT part of the Arm A baseline freeze.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-12,
+        "operands": {
+          "a": {
+            "file": "data/processed/arms/D/lofo_arm_D.json",
+            "json_path": "importance_ranking.16.weighted_mean_auc_drop"
+          }
+        }
+      },
+      "arm": "D"
+    },
+    "armd_obs_alignment_importance_fold_sd": {
+      "value": 0.0025459672076178284,
+      "unit": "ROC-AUC drop (sd across folds)",
+      "source_file": "data/processed/arms/D/lofo_arm_D.json",
+      "json_path": "importance_ranking.16.fold_sd",
+      "derivation": "Sample sd (ddof=1) of obs_alignment's per-fold AUC drop across the 6 folds. Regenerate: python scripts/arm_d_build.py && python scripts/arm_d_build.py --merge && python scripts/arm_d_lofo.py --features D && python scripts/arm_d_lofo.py --features D --aggregate",
+      "sample": "6개 폴드",
+      "caveat": "Larger than the mean it accompanies. This is the spread whose absence made an earlier point estimate readable as a finding.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Artifact lives under data/processed/arms/, which .gitignore excludes; it is regenerable from committed scripts and is NOT part of the Arm A baseline freeze.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-12,
+        "operands": {
+          "a": {
+            "file": "data/processed/arms/D/lofo_arm_D.json",
+            "json_path": "importance_ranking.16.fold_sd"
+          }
+        }
+      },
+      "arm": "D"
     }
   }
 }
