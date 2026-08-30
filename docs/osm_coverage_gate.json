@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "title": "OSM coverage gate for the vulnerability layer",
+  "provenance": "external (Overpass API, live query)",
+  "arm": "L0_vulnerability",
+  "generated_by": "scripts/osm_coverage_gate.py",
+  "min_buildings_threshold": 124,
+  "threshold_rationale": "Set to the building count of the Korean reference site, so the bar is 'at least as well mapped as the site this layer was built on' rather than an invented number.",
+  "queried_utc": "2026-08-30T11:38:34Z",
+  "candidates": {
+    "paradise_ca_2018": {
+      "bbox": [
+        39.73,
+        -121.665,
+        39.79,
+        -121.575
+      ],
+      "event": "Camp Fire, 8 Nov 2018",
+      "why": "A documented evacuation failure: 86 deaths; two of the three escape routes were closed by fire leaving one; 17 burnovers were identified, 12 of them on major evacuation roadways.",
+      "sources": [
+        "Britannica, Camp Fire of 2018",
+        "Burnover events identified during the 2018 Camp Fire (nwfirescience.org)"
+      ],
+      "buildings": 988,
+      "buildings_seconds": 6.8,
+      "highways": null,
+      "highways_error": "HTTPError: HTTP Error 504: Gateway Timeout",
+      "refuge_pois": null,
+      "refuge_pois_error": "HTTPError: HTTP Error 504: Gateway Timeout",
+      "passes_gate": true
+    },
+    "mati_gr_2018": {
+      "bbox": [
+        38.03,
+        23.96,
+        38.075,
+        24.02
+      ],
+      "event": "Attica wildfires, 23 Jul 2018",
+      "why": "Coastal settlement; residents trapped between fire and sea.",
+      "sources": [
+        "not verified in this session — see report"
+      ],
+      "buildings": 1763,
+      "buildings_seconds": 1.6,
+      "highways": 1150,
+      "highways_seconds": 5.5,
+      "refuge_pois": 16,
+      "refuge_pois_seconds": 1.5,
+      "passes_gate": true
+    },
+    "pedrogao_pt_2017": {
+      "bbox": [
+        39.9,
+        -8.22,
+        39.98,
+        -8.1
+      ],
+      "event": "Pedrógão Grande, 17 Jun 2017",
+      "why": "Deaths concentrated on a road during escape.",
+      "sources": [
+        "not verified in this session — see report"
+      ],
+      "buildings": 700,
+      "buildings_seconds": 5.0,
+      "highways": 1925,
+      "highways_seconds": 7.3,
+      "refuge_pois": 3,
+      "refuge_pois_seconds": 7.5,
+      "passes_gate": true
+    },
+    "yeongdeok_kr_2025": {
+      "bbox": [
+        36.38,
+        129.32,
+        36.48,
+        129.43
+      ],
+      "event": "reference — the Korean site this layer was built on",
+      "why": "Included so every foreign count has a familiar yardstick.",
+      "sources": [
+        "repo snapshot data/snapshots/osm-buildings"
+      ],
+      "buildings": 74,
+      "buildings_seconds": 4.3,
+      "highways": 1794,
+      "highways_seconds": 3.8,
+      "refuge_pois": null,
+      "refuge_pois_error": "HTTPError: HTTP Error 429: Too Many Requests",
+      "passes_gate": false
+    }
+  }
+}

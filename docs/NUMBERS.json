@@ -7383,6 +7383,136 @@
         }
       },
       "arm": "E_redundancy"
+    },
+    "l0_yeongdeok_vulnerability_mean": {
+      "value": 0.0,
+      "unit": "fraction of scenarios",
+      "source_file": "data/processed/vulnerability/vulnerability_yeongdeok_2025.json",
+      "json_path": "vulnerability_mean",
+      "derivation": "Mean over 124 households of the fraction of sampled (ignition, weather) scenarios with no survivable route or a clearance margin under 10 min. Regenerate: python scripts/vulnerability_layer.py --region yeongdeok_2025",
+      "sample": "영덕 124 OSM 건물 / Paradise 989 OSM 건물",
+      "caveat": "ZERO — and reported as zero rather than tuned away. With 50 refuge POIs, a moderate physical hazard and a 4 h horizon, every 영덕 household escapes every sampled scenario, median clearance margin 170 min. The surface has NO variance, so there is no household ranking here and the sweep's stability question is vacuous. The binding constraint is refuge density, not fire behaviour.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 14 Layer 0. No spread-model feature set changed, no threshold or target changed, Arm A untouched. Artifacts under data/processed/vulnerability/ are gitignored and regenerable from committed scripts.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/vulnerability/vulnerability_yeongdeok_2025.json",
+            "json_path": "vulnerability_mean"
+          }
+        }
+      },
+      "arm": "L0_vulnerability"
+    },
+    "l0_yeongdeok_margin_median_min": {
+      "value": 170.0,
+      "unit": "minutes",
+      "source_file": "data/processed/vulnerability/vulnerability_yeongdeok_2025.json",
+      "json_path": "margin_median_of_households",
+      "derivation": "Median across households of the per-household median clearance margin. Same command.",
+      "sample": "영덕 124 OSM 건물 / Paradise 989 OSM 건물",
+      "caveat": "170 minutes of slack against a 240 min horizon. This is what makes the vulnerability score zero, and it is the number to attack if the layer is to discriminate here — by a harsher hazard, a longer horizon, or a refuge set that reflects which refuges are actually usable.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 14 Layer 0. No spread-model feature set changed, no threshold or target changed, Arm A untouched. Artifacts under data/processed/vulnerability/ are gitignored and regenerable from committed scripts.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/vulnerability/vulnerability_yeongdeok_2025.json",
+            "json_path": "margin_median_of_households"
+          }
+        }
+      },
+      "arm": "L0_vulnerability"
+    },
+    "l0_warm_start_speedup": {
+      "value": 626.5,
+      "unit": "ratio",
+      "source_file": "data/processed/vulnerability/warm_start.json",
+      "json_path": "speedup",
+      "derivation": "Cold start (grid, rasters, walk network, refuge assignment, household snap) divided by warm start from the precomputed cache. Regenerate: python scripts/vulnerability_layer.py --warm-start",
+      "sample": "영덕 124 OSM 건물 / Paradise 989 OSM 건물",
+      "caveat": "3.56 s cold against 0.006 s warm. ⚠ The cold number is already small because 영덕 is one district with a 2,372-node-class network; the operationally relevant claim is that the ignition-independent work CAN be hoisted before ignition, not that 3.5 s was ever the bottleneck. The walk network is 2.54 s of the 3.56 s.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 14 Layer 0. No spread-model feature set changed, no threshold or target changed, Arm A untouched. Artifacts under data/processed/vulnerability/ are gitignored and regenerable from committed scripts.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/vulnerability/warm_start.json",
+            "json_path": "speedup"
+          }
+        }
+      },
+      "arm": "L0_vulnerability"
+    },
+    "l0_paradise_households_no_route": {
+      "value": 53,
+      "unit": "households",
+      "source_file": "data/processed/vulnerability/portability_paradise_ca_2018.json",
+      "json_path": "n_households_ever_no_route",
+      "derivation": "Households at Paradise, California with at least one sampled scenario in which no survivable route exists, out of 989 OSM building footprints. Regenerate: python scripts/vulnerability_portability_run.py --site paradise_ca_2018 --write",
+      "sample": "영덕 124 OSM 건물 / Paradise 989 OSM 건물",
+      "caveat": "NON-ZERO where 영덕 was flat zero, on 16 refuge POIs for 989 households against 영덕's 50 for 124. ⚠ NOT A VALIDATION of the 2018 outcome: run without terrain and without land cover, with an assumed ignition prior and an approximate hazard, on one site. Any correspondence with actual fatalities would be an observation requiring validation, never a result.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 14 Layer 0. No spread-model feature set changed, no threshold or target changed, Arm A untouched. Artifacts under data/processed/vulnerability/ are gitignored and regenerable from committed scripts.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/vulnerability/portability_paradise_ca_2018.json",
+            "json_path": "n_households_ever_no_route"
+          }
+        }
+      },
+      "arm": "L0_vulnerability"
+    },
+    "l0_paradise_osm_buildings": {
+      "value": 988,
+      "unit": "count",
+      "source_file": "docs/osm_coverage_gate.json",
+      "json_path": "candidates.paradise_ca_2018.buildings",
+      "derivation": "Live Overpass count of building ways and relations in the Paradise extent. Regenerate: python scripts/osm_coverage_gate.py --write",
+      "sample": "영덕 124 OSM 건물 / Paradise 989 OSM 건물",
+      "caveat": "8x the Korean reference site's count in the same style of query (74). All three foreign candidates are better mapped than the Korean site: Mati 1,763, Paradise 988, Pedrógão 700. OSM coverage is not the barrier to running this abroad. ⚠ bounding boxes differ per site, so read as an order-of-magnitude comparison, not an exact one.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 14 Layer 0. No spread-model feature set changed, no threshold or target changed, Arm A untouched. Artifacts under data/processed/vulnerability/ are gitignored and regenerable from committed scripts.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1.0,
+        "operands": {
+          "a": {
+            "file": "docs/osm_coverage_gate.json",
+            "json_path": "candidates.paradise_ca_2018.buildings"
+          }
+        }
+      },
+      "arm": "L0_vulnerability"
     }
   }
 }
