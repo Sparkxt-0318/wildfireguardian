@@ -6853,6 +6853,250 @@
         }
       },
       "arm": "A_geometry"
+    },
+    "slope_attenuation_500m_vs_native": {
+      "value": 3.01,
+      "unit": "ratio",
+      "source_file": "docs/slope_resolution.json",
+      "json_path": "pooled_over_fires.attenuation_factor_effective_over_500m",
+      "derivation": "Native ~30 m SRTM effective slope (arctan(sqrt(mean(tan^2))) over 16x16 sub-cells) divided by the 500 m-baseline slope, pooled over 6 fires. Regenerate: python scripts/slope_resolution.py --write",
+      "sample": "6개 화재 LOFO, 151,904행 / 2,989 양성",
+      "caveat": "THE 500 m GRID WAS HIDING TWO THIRDS OF THE SLOPE. Per fire the factor runs 2.39x (miryang) to 3.64x (hongseong). Arm A's slope_deg is unchanged — this measures what it omits, it does not replace it.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 12. No model default, target, threshold or Arm A artifact was changed. Arm E adds columns beside Arm A's 16; it never replaces one.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/slope_resolution.json",
+            "json_path": "pooled_over_fires.attenuation_factor_effective_over_500m"
+          }
+        }
+      },
+      "arm": "A_geometry"
+    },
+    "slope_native_effective_mean_deg": {
+      "value": 17.256,
+      "unit": "degrees",
+      "source_file": "docs/slope_resolution.json",
+      "json_path": "pooled_over_fires.slope_native_effective_mean_deg",
+      "derivation": "Pooled mean over 6 fires of the per-cell native effective slope on land cells. Regenerate: python scripts/slope_resolution.py --write",
+      "sample": "6개 화재 LOFO, 151,904행 / 2,989 양성",
+      "caveat": "CORRECTS THE BRIEF ON ROTHERMEL'S RANGE. Every 500 m slope (pooled 5.73 deg) sits below Rothermel's lowest calibrated angle of 14.0 deg, but this native mean is 1.23x that angle. hongseong_2023 and gangneung_2023 remain below it and no fire's mean reaches the upper two calibration angles (26.6, 36.9 deg), so the downward extrapolation is smaller, not gone.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 12. No model default, target, threshold or Arm A artifact was changed. Arm E adds columns beside Arm A's 16; it never replaces one.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/slope_resolution.json",
+            "json_path": "pooled_over_fires.slope_native_effective_mean_deg"
+          }
+        }
+      },
+      "arm": "A_geometry"
+    },
+    "slope_conditioning_native_corr": {
+      "value": -0.4781,
+      "unit": "Pearson r",
+      "source_file": "docs/slope_resolution.json",
+      "json_path": "slope_conditioning_recomputed.slope_native_effective.slope_conditioning.corr_slope_vs_angle",
+      "derivation": "Session 11 slope conditioning re-run on the same 36 label steps using native effective slope. Regenerate: python scripts/slope_resolution.py --write",
+      "sample": "6개 화재 LOFO, 151,904행 / 2,989 양성",
+      "caveat": "SURVIVES AND STRENGTHENS: -0.37 at 500 m becomes -0.48 native, terciles sharpen to 100.5/59.2/50.7, and the ambiguous within-fire sign in uiseong_andong_2025 weakens from +0.26 to +0.20. Still only 2 of 6 fires have enough steps for a within-fire control.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 12. No model default, target, threshold or Arm A artifact was changed. Arm E adds columns beside Arm A's 16; it never replaces one.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/slope_resolution.json",
+            "json_path": "slope_conditioning_recomputed.slope_native_effective.slope_conditioning.corr_slope_vs_angle"
+          }
+        }
+      },
+      "arm": "A_geometry"
+    },
+    "arme_pooled_auc": {
+      "value": 0.9048475036678545,
+      "unit": "ROC-AUC",
+      "source_file": "data/processed/arms/E/lofo_arm_E.json",
+      "json_path": "pooled_auc",
+      "derivation": "Pooled OOF ROC-AUC, 18 features (16 Arm A + upslope_alignment + slope_forcing), LOGO-CV over the same 6 fires, seed 20250603. Regenerate: python scripts/arm_e_build.py && --merge && python scripts/arm_e_lofo.py --features E && --aggregate",
+      "sample": "6개 화재 LOFO, 151,904행 / 2,989 양성",
+      "caveat": "Report to 3 significant figures (0.905). The delta against a same-platform Arm A replication is +0.0059, INSIDE the 0.0064 platform floor, and a pure-noise control moves it FURTHER (+0.0082). Not evidence of a directional slope signal.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 12. No model default, target, threshold or Arm A artifact was changed. Arm E adds columns beside Arm A's 16; it never replaces one.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-09,
+        "operands": {
+          "a": {
+            "file": "data/processed/arms/E/lofo_arm_E.json",
+            "json_path": "pooled_auc"
+          }
+        }
+      },
+      "arm": "E"
+    },
+    "arme_upslope_alignment_importance": {
+      "value": 0.0007220440350867628,
+      "unit": "ROC-AUC drop (permutation)",
+      "source_file": "data/processed/arms/E/lofo_arm_E.json",
+      "json_path": "importance_ranking.14.weighted_mean_auc_drop",
+      "derivation": "Row-weighted permutation importance of upslope_alignment, rank 15/18. Regenerate: python scripts/arm_e_build.py && --merge && python scripts/arm_e_lofo.py --features E && --aggregate",
+      "sample": "6개 화재 LOFO, 151,904행 / 2,989 양성",
+      "caveat": "THE SESSION'S CENTRAL NUMBER. Fold sd is 0.0027, ~3.8x the mean, so indistinguishable from zero — and a column of Gaussian noise ranks in the same place at +0.00061 (armn_noise_a_importance). A directional slope feature is worth what a random number is worth here. Never report as a ratio against any other feature.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 12. No model default, target, threshold or Arm A artifact was changed. Arm E adds columns beside Arm A's 16; it never replaces one.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-09,
+        "operands": {
+          "a": {
+            "file": "data/processed/arms/E/lofo_arm_E.json",
+            "json_path": "importance_ranking.14.weighted_mean_auc_drop"
+          }
+        }
+      },
+      "arm": "E"
+    },
+    "arme_upslope_alignment_importance_fold_sd": {
+      "value": 0.0026726467936978608,
+      "unit": "ROC-AUC drop (sd across folds)",
+      "source_file": "data/processed/arms/E/lofo_arm_E.json",
+      "json_path": "importance_ranking.14.fold_sd",
+      "derivation": "Sample sd (ddof=1) of upslope_alignment's per-fold AUC drop across the 6 folds. Regenerate: python scripts/arm_e_build.py && --merge && python scripts/arm_e_lofo.py --features E && --aggregate",
+      "sample": "6개 화재 LOFO, 151,904행 / 2,989 양성",
+      "caveat": "Larger than the mean it accompanies.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 12. No model default, target, threshold or Arm A artifact was changed. Arm E adds columns beside Arm A's 16; it never replaces one.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-09,
+        "operands": {
+          "a": {
+            "file": "data/processed/arms/E/lofo_arm_E.json",
+            "json_path": "importance_ranking.14.fold_sd"
+          }
+        }
+      },
+      "arm": "E"
+    },
+    "armn_noise_pooled_delta": {
+      "value": 0.008172939,
+      "unit": "ROC-AUC",
+      "source_file": "data/processed/arms/N_noise_control/lofo_arm_N.json",
+      "json_path": null,
+      "derivation": "Arm N pooled_auc minus the same-platform Arm A replication pooled_auc. Regenerate: python scripts/arm_e_lofo.py --features N && --aggregate",
+      "sample": "6개 화재 LOFO, 151,904행 / 2,989 양성",
+      "caveat": "THE NULL CONTROL. Two columns of deterministic Gaussian noise added to Arm A's 16 move pooled AUC by MORE than Arm E's real features do (+0.0082 vs +0.0059), and by more in the steep stratum (+0.0086 vs +0.0029) where slope should help most. Adding any two columns perturbs the early-stopping split and the tree structure; that perturbation, not slope, is what moved Arm E.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 12. No model default, target, threshold or Arm A artifact was changed. Arm E adds columns beside Arm A's 16; it never replaces one.",
+      "check": {
+        "kind": "expression",
+        "expr": "a - b",
+        "tolerance": 1e-09,
+        "operands": {
+          "a": {
+            "file": "data/processed/arms/N_noise_control/lofo_arm_N.json",
+            "json_path": "pooled_auc"
+          },
+          "b": {
+            "file": "data/processed/arms/A_replication_e/lofo_arm_A.json",
+            "json_path": "pooled_auc"
+          }
+        }
+      },
+      "arm": "N_control"
+    },
+    "armn_far_band_delta_vs_a": {
+      "value": 0.040283328,
+      "unit": "ROC-AUC",
+      "source_file": "data/processed/arms/N_noise_control/lofo_arm_N.json",
+      "json_path": null,
+      "derivation": "Arm N far_band_auc minus the same-platform Arm A replication far_band_auc. Regenerate: python scripts/arm_e_lofo.py --features N && --aggregate",
+      "sample": "6개 화재 LOFO, 151,904행 / 2,989 양성",
+      "caveat": "THE COLUMN-ADDITION ENVELOPE, and it is larger than the platform floor. Pure noise moves far-band AUC by +0.0403 against a far-band platform floor of 0.0307. Any arm comparison on far-band AUC in this project needs a noise control, not just the platform floor.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 12. No model default, target, threshold or Arm A artifact was changed. Arm E adds columns beside Arm A's 16; it never replaces one.",
+      "check": {
+        "kind": "expression",
+        "expr": "a - b",
+        "tolerance": 1e-09,
+        "operands": {
+          "a": {
+            "file": "data/processed/arms/N_noise_control/lofo_arm_N.json",
+            "json_path": "far_band_auc"
+          },
+          "b": {
+            "file": "data/processed/arms/A_replication_e/lofo_arm_A.json",
+            "json_path": "far_band_auc"
+          }
+        }
+      },
+      "arm": "N_control"
+    },
+    "armn_noise_a_importance": {
+      "value": 0.0006098432226704572,
+      "unit": "ROC-AUC drop (permutation)",
+      "source_file": "data/processed/arms/N_noise_control/lofo_arm_N.json",
+      "json_path": "importance_ranking.14.weighted_mean_auc_drop",
+      "derivation": "Row-weighted permutation importance of a Gaussian-noise column, rank 15/18. Regenerate: python scripts/arm_e_lofo.py --features N && --aggregate",
+      "sample": "6개 화재 LOFO, 151,904행 / 2,989 양성",
+      "caveat": "The yardstick for reading any small importance in this project: a column of random numbers scores this much. upslope_alignment scores +0.00072 at the same rank.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 12. No model default, target, threshold or Arm A artifact was changed. Arm E adds columns beside Arm A's 16; it never replaces one.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-09,
+        "operands": {
+          "a": {
+            "file": "data/processed/arms/N_noise_control/lofo_arm_N.json",
+            "json_path": "importance_ranking.14.weighted_mean_auc_drop"
+          }
+        }
+      },
+      "arm": "N_control"
     }
   }
 }
