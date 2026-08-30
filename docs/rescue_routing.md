@@ -357,10 +357,82 @@ geometry, not a deployed product:
 > placeholders (○○○), filled from the operator's resident registry in a
 > deployment.
 
+## 4e. Where network routing and the gait model do NOT earn their keep (Session 17)
+
+This section exists because a measured negative belongs next to the positive
+result it does not contradict, rather than buried in a session report. **Read
+the scope line before the finding — the two layers are different questions and
+the answer differs between them.**
+
+### The finding — Layer 0's RANKING only
+
+For the **pre-ignition vulnerability layer's household ranking at 영덕**, network
+routing and the elderly gait model contribute little beyond straight-line
+distance:
+
+| pair | Spearman |
+|---|---:|
+| network distance ↔ straight-line distance | **0.987** |
+| network distance → vulnerability | 0.3013 |
+| walking time → vulnerability | 0.3068 |
+| straight-line distance → vulnerability | 0.3035 |
+
+Three predictors, three effectively identical rankings. In 영덕's terrain the
+detour factor is near-constant across households and the slope correction does
+not reorder them, so the shortest-path machinery and the 0.7 m/s gait model
+reproduce a ranking that a ruler on a map would have produced.
+
+Session 17 sharpens this further: routing the same households against a hazard
+that is **identically zero everywhere** produces the **identical failing set** at
+all six horizons, so at this layer neither the routing, nor the gait model, nor
+the fire changes *who* fails — only the horizon does
+(`docs/SESSION17_REPORT.md`, `data/processed/vulnerability/tautology_decomposition.json`).
+
+### The scope — this says nothing about Layer 2
+
+> **This is a statement about the vulnerability layer's RANKING output. It is
+> NOT a statement about the response-time routing this document describes.**
+
+At Layer 2 the same machinery does measurable, sign-changing work: **62 of the
+142** dispatch-reachable homes have a **non-positive round-trip margin** once the
+egress leg is evaluated at the egress departure time rather than at ingress time
+(`s8_margin_nonpositive_core`), and that count is **unchanged at 62 with
+`t_load = 0`** (`s8_margin_nonpositive_tload0`) — so it is the corridor timing,
+not the assumed load time, producing it. A straight-line proxy cannot represent
+a corridor that is open on the way in and closed on the way out; the
+time-expanded graph is what makes that visible at all. §3a and
+`tests/test_margins.py::test_ingress_ok_egress_closed_gives_negative_margin`
+pin the behaviour.
+
+### Why the gait model stays
+
+**It is not removed, and removing it would be wrong.** Ranking invariance is not
+irrelevance:
+
+- **Absolute times are the actionable output.** "271 minutes to the nearest
+  surviving refuge" is what a 읍사무소 planner acts on. Substituting an
+  able-bodied walking speed would shorten every one of those numbers by roughly
+  a factor of 1.9 (1.34 vs 0.7 m/s) and would move households across the horizon
+  threshold — changing *how many* fail even where it does not change *which are
+  worst*. The failing count is horizon-determined (Session 17), so a speed
+  change acts exactly like a horizon change.
+- **The invariance is one site's terrain, not a law.** 영덕 is coastal-rural with
+  a fairly regular road grid. A site with a river crossing, a single bridge, or
+  a steep one-way climb would break the 0.987 agreement, and there is no
+  measurement here saying otherwise. ⚠ This was tested at **N = 1 site**.
+- **It is the demographically correct constant for this population.** Korean
+  rural 고령 인구 is the modelled evacuee; 0.7 m/s is a stated, swept assumption
+  (§4b), not a tuning knob.
+
 ## 5. Honest limitations
 
 - **Single-fire (영덕) proof-of-concept.** Not multi-fire validated; not an
   operational system.
+- **For the Layer 0 vulnerability RANKING, the routing and gait machinery is
+  near-redundant with straight-line distance** (§4e, mutual ρ = 0.987 at 영덕,
+  N = 1 site). This is scoped to that ranking and does not transfer to the
+  response-time routing above, where corridor timing flips 62 of 142 round-trip
+  margins.
 - **Rescue capacity is a PoC parameter, not a measured 영덕 fire-service value**
   (§4c). The `n_rescue_units` × `service_time` supply model is illustrative; the
   result is the demand–supply **curve** and the **direction** (supply far below

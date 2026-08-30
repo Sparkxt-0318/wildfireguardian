@@ -82,6 +82,44 @@ failing set at 영덕 (see `docs/SESSION17_REPORT.md`).
 ⚠ **Still explicitly NOT built:** the ignition-likelihood layer from 발생원인 /
 발생장소. Design only, pending the file.
 
+### 📌 FUTURE WORK — raised by the Session 17 decomposition, deliberately NOT pursued
+
+Task 1 answered its question and opened three new ones. The brief said to record
+rather than chase them, and work now moves to 본선 deliverables, so they are
+parked here with what is already known about each.
+
+**1. The clearance-margin threshold never fires — and the cause is unknown.**
+Zero of 2,496 failure events came from `MARGIN_FAIL_MIN = 10.0`. Two candidate
+causes were **not** separated:
+ - the elliptical hazard's reach is small relative to household spread, so no
+   route ever passes near burning ground; or
+ - `clearance` is finite only when some point on the route reaches the cutoff
+   *within the horizon* (`_evaluate_path` skips infinite `time_to_cutoff`), so
+   the threshold may be near-dead by construction.
+ If the second, the margin component of the vulnerability score is a design
+ defect, not a tuning value — and `MARGIN_FAIL_MIN` has been carried since
+ Session 14 as though it did work. **Diagnostic:** count how often
+ `clearance_margin_min` is non-`None` at all, per horizon.
+
+**2. What would make the fire actually bite.** The null-hazard control says the
+elliptical hazard at 영덕 is outside the regime where it can change the failing
+set. Four candidates, none tried: a stronger spread scenario; an ignition prior
+seeded *inside* the household distribution rather than at human-proximity peaks;
+the arrival-time survival buffer (open item 1 in every report since Session 14 —
+this is the most likely of the four, since refuge non-survival is currently
+0 events); or a site where refuges genuinely burn.
+
+**3. The control was run at ONE site with ONE hazard.** 영덕, elliptical,
+human-proximity prior, 4 ignitions, corrected refuge set. It was **not** run at
+Paradise and **not** run with `TrainedModelHazard`. "The fire contributes
+nothing" is a measurement about that configuration and must not be generalised.
+
+⚠ Also unmeasured: why the free-flow proxy and the null-hazard control disagree
+for 6 households at H=240. Five-minute time-bin rounding and the
+exposure-minimising tie-break are both candidates; neither was quantified. The
+control settled the verdict, so the decomposition did not need it — but it is
+not known.
+
 ---
 
 ## Session 16 (vulnerability drivers, 2026-08-30)
