@@ -7,9 +7,90 @@ needed to close it out.
 
 ---
 
+## Session 17 (tautology decomposition, 2026-08-31)
+
+### ⛔ STOP-GATE — ACTION FOR JOHN: the page now loads, the FILE still does not
+
+**This entry CORRECTS the Session 16 diagnosis below. Read this one first.**
+
+**Attempt 2 of 2 (the agreed limit), 2026-08-31.** Retried
+`https://www.data.go.kr/data/15121380/fileData.do`. **It succeeded.** The full
+dataset page returned, HTTP 200, `text/html;charset=UTF-8`.
+
+> ⚠ **Session 16 was wrong about the cause.** That entry concluded a
+> "host-specific path issue" from a TLS handshake timeout while four other hosts
+> answered in the same run. The evidence was real, but the inference was not:
+> **the same host answers normally today from the same sandbox with the same
+> tooling.** The failure was transient, not structural. Session 16's diagnosis
+> table is left in place below as the record of what was measured, but its
+> conclusion is withdrawn.
+
+**The remaining blocker is a different one, and it is not a network problem.**
+The CSV has **no published direct download URL**:
+
+| source | field | value |
+|---|---|---|
+| DCAT `https://www.data.go.kr/biz/dcat/metadata/15121380.do` | `dct:accessURL` | **empty** |
+| DCAT | `dcat:distribution / dcat:format` | `csv` |
+| Schema.org `https://www.data.go.kr/catalog/15121380/fileData.json` | `distribution` | **absent** |
+
+The portal serves the file through an in-page JavaScript download control, and
+the page carries a 자동등록방지 (CAPTCHA) widget. **No attempt was made to drive
+that flow, guess internal endpoint parameters, or solve the CAPTCHA**, and none
+should be: bypassing bot protection is out of bounds regardless of the data
+being public. Two attempts is the agreed limit and both are now spent.
+
+**What WAS recovered, and it is worth having.** The dataset page carries the
+authoritative 컬럼 정의서, so the future ignition layer can now be designed
+against verified column names instead of prose:
+
+| 항목명 | 타입 | 최대길이 |
+|---|---|---:|
+| `발생일시_년` / `_월` / `_일` / `_시간` / `_요일` | VARCHAR | 4 / 2 / 2 / 5 / 1 |
+| `진화종료시간_년` / `_월` / `_일` / `_시간` | VARCHAR | 4 / 2 / 2 / 5 |
+| `발생장소_관서` / `_시도` / `_시군구` / `_읍면` / `_동리` | VARCHAR | 100 each |
+| `발생원인_구분` / `_세부원인` / `_기타` | VARCHAR | 100 each |
+| `피해면적_합계` (ha) | VARCHAR | 100 |
+
+Also verified from the page: **2,020 rows**, coverage **2022년 ~ 2024년 9월**,
+전국, CSV, **이용허락범위 제한 없음**, 연간 갱신, 차기 등록 예정일 2026-11-30,
+제공기관 산림청 산림재난총괄과 (042-481-4258).
+
+⚠ Every field above is read from the **dataset page**, not from the file. Row
+count, coverage and column names are the portal's claims about its own file and
+have not been checked against it. In particular, **nothing here says how many of
+the 2,020 rows have a non-null 진화종료시간** — a containment-time distribution
+computed on a partly-empty column would be silently biased toward short fires.
+Check that first when the file arrives.
+
+**What would close it — ACTION FOR JOHN, about two minutes:**
+
+1. Open `https://www.data.go.kr/data/15121380/fileData.do` in a normal browser.
+2. Press the CSV **다운로드** button in the 파일데이터 정보 panel (no login
+   required; complete the 자동등록방지 CAPTCHA if it appears).
+3. Drop the file at `data/raw/kfs_fire_statistics/` (any filename).
+
+Then the horizon can be grounded: 진화종료시간 − 발생일시 per event, reported as
+a distribution (median and the 240-minute quantile), with the null-rate stated.
+
+**Consequence, unchanged and stated plainly.** The 240-minute horizon remains
+**ungrounded — arbitrary-but-swept**. No distribution was guessed or
+substituted. Session 17 makes this materially more important, not less: the
+null-hazard control shows the horizon is the **only** thing that decides the
+failing set at 영덕 (see `docs/SESSION17_REPORT.md`).
+
+⚠ **Still explicitly NOT built:** the ignition-likelihood layer from 발생원인 /
+발생장소. Design only, pending the file.
+
+---
+
 ## Session 16 (vulnerability drivers, 2026-08-30)
 
 ### ⛔ STOP-GATE — ACTION FOR JOHN: 산불통계데이터 download is unreachable from here
+
+> ⚠ **SUPERSEDED BY THE SESSION 17 ENTRY ABOVE.** The host is reachable; the
+> diagnosis below was drawn from a transient failure. Kept as the record of
+> what was measured on 2026-08-30, not as a current statement of the cause.
 
 **What was needed.** Per-event 발생일시 and 진화종료시간 to compute the
 containment-time distribution and ground the vulnerability layer's 240-minute
