@@ -7877,6 +7877,110 @@
         }
       },
       "arm": "L0_vulnerability"
+    },
+    "l0_households_failing_only_with_fire": {
+      "value": 0,
+      "unit": "households",
+      "source_file": "data/processed/vulnerability/tautology_decomposition.json",
+      "json_path": "verdict.n_households_failing_only_with_fire_summed_over_horizons",
+      "derivation": "Households that fail the vulnerability layer WITH the elliptical hazard but not against a null hazard, summed over all six horizons. The null hazard is identically zero everywhere and at every time, so nothing is impassable and every refuge survives. Regenerate: python scripts/vulnerability_tautology.py --null-hazard --collect",
+      "sample": "영덕 124 OSM 건물, 발화 4개, 지평 30/60/120/180/240/360분",
+      "caveat": "THE DECISIVE NUMBER OF SESSION 17, AND IT IS ZERO. The failing set is IDENTICAL with and without fire at all six horizons (63/50/36/27/24/8). The fire contributes nothing to WHO fails at 영덕. The Session 16 distance result is therefore a RESTATEMENT of the router's success criterion, not evidence that distance explains fire vulnerability. The phrase 'distance drives vulnerability' is withdrawn.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 17. No spread-model feature set changed, no threshold or target changed, Arm A untouched. Artifacts under data/processed/vulnerability/ are gitignored and regenerable from scripts/vulnerability_tautology.py.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/vulnerability/tautology_decomposition.json",
+            "json_path": "verdict.n_households_failing_only_with_fire_summed_over_horizons"
+          }
+        }
+      },
+      "arm": "L0_vulnerability"
+    },
+    "l0_tautology_horizons_with_identical_failing_sets": {
+      "value": 6,
+      "unit": "horizons",
+      "source_file": "data/processed/vulnerability/tautology_decomposition.json",
+      "json_path": "verdict.n_horizons_with_identical_failing_sets_no_fire",
+      "derivation": "Number of swept horizons at which the with-fire and no-fire failing household sets are identical as SETS, not merely equal in count.",
+      "sample": "영덕 124 OSM 건물, 발화 4개, 지평 30/60/120/180/240/360분",
+      "caveat": "6 of 6. Set identity is checked, not just cardinality, so this is not a coincidence of counts. ⚠ Measured at 영덕 with the elliptical hazard and the human-proximity ignition prior only; it was not re-run at Paradise, and it does not license the claim that fire could never matter under a different hazard, refuge set or site.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 17. No spread-model feature set changed, no threshold or target changed, Arm A untouched. Artifacts under data/processed/vulnerability/ are gitignored and regenerable from scripts/vulnerability_tautology.py.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/vulnerability/tautology_decomposition.json",
+            "json_path": "verdict.n_horizons_with_identical_failing_sets_no_fire"
+          }
+        }
+      },
+      "arm": "L0_vulnerability"
+    },
+    "l0_tautology_tight_margin_events": {
+      "value": 0,
+      "unit": "failure events",
+      "source_file": "data/processed/vulnerability/tautology_decomposition.json",
+      "json_path": "verdict.total_events_tight_margin",
+      "derivation": "Failure events attributed to the 10-minute clearance-margin threshold rather than to no route existing, summed over 2,496 (household x scenario x horizon) failure events.",
+      "sample": "영덕 124 OSM 건물, 발화 4개, 지평 30/60/120/180/240/360분",
+      "caveat": "ZERO, at every horizon. The margin threshold — the one component of the score that can only fire when a route exists AND the fire nearly catches it — never activates at 영덕. Every one of the 2,496 failure events is 'no route within the horizon'. This is the mechanism-level confirmation of the null-hazard control.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 17. No spread-model feature set changed, no threshold or target changed, Arm A untouched. Artifacts under data/processed/vulnerability/ are gitignored and regenerable from scripts/vulnerability_tautology.py.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/vulnerability/tautology_decomposition.json",
+            "json_path": "verdict.total_events_tight_margin"
+          }
+        }
+      },
+      "arm": "L0_vulnerability"
+    },
+    "l0_group_b_max_slack_min": {
+      "value": 6.2,
+      "unit": "minutes",
+      "source_file": "data/processed/vulnerability/tautology_decomposition.json",
+      "json_path": "verdict.max_group_b_slack_min_h240",
+      "derivation": "Largest gap between the horizon (240 min) and the free-flow walking time of the six households the free-flow proxy nominated as informative at H=240.",
+      "sample": "영덕 124 OSM 건물, 발화 4개, 지평 30/60/120/180/240/360분",
+      "caveat": "The free-flow proxy nominated 6 of 24 failing households as group (b) at H=240 and 0 at the other five horizons. All six clear the horizon by at most 6.2 minutes and ALL SIX ALSO FAIL WITH NO FIRE AT ALL, so the proxy is measuring its own slack — free-flow time is a strict lower bound on the router's time — rather than a fire mechanism. Group (b) is empty. The within-(b) Spearman of -0.2571 on n=6 is reported in the artifact but is not interpretable and no conclusion rests on it.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 17. No spread-model feature set changed, no threshold or target changed, Arm A untouched. Artifacts under data/processed/vulnerability/ are gitignored and regenerable from scripts/vulnerability_tautology.py.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/vulnerability/tautology_decomposition.json",
+            "json_path": "verdict.max_group_b_slack_min_h240"
+          }
+        }
+      },
+      "arm": "L0_vulnerability"
     }
   }
 }
