@@ -311,7 +311,15 @@ def geometry_for_cells(rows, cols, active, cell_m) -> dict:
     }
 
 
-def analyse_fire(fid: str, model_pos: dict) -> dict:
+def analyse_fire(fid: str, model_pos: dict, slope_field: np.ndarray | None = None) -> dict:
+    """One fire's per-step geometry.
+
+    ``slope_field`` overrides the per-cell slope used for ``mean_slope_deg``
+    and therefore for slope stratification. It changes NOTHING else — bearings,
+    upslope directions and the valley axis are untouched. Default None keeps
+    the 500 m-baseline slope, so the committed artifact regenerates identically
+    and the Session 10 consistency check still passes.
+    """
     from wildfireguardian.spread_v2 import data as datamod
     from wildfireguardian.spread_v2 import grid as gridmod
     from wildfireguardian.spread_v2.weather import weather_series_from_event
@@ -323,7 +331,7 @@ def analyse_fire(fid: str, model_pos: dict) -> dict:
     cs = g.cell_size_m
 
     elev = gridmod.elevation_on_grid(ev, g)
-    slope = gridmod.slope_deg(elev, cs)
+    slope = gridmod.slope_deg(elev, cs) if slope_field is None else slope_field
     upslope = {w: upslope_field(elev, cs, w) for w in SMOOTH_WINDOWS_M}
 
     steps = []

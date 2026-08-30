@@ -1,0 +1,778 @@
+{
+  "schema_version": 1,
+  "title": "Slope resolution — 500 m baseline vs native ~30 m SRTM",
+  "provenance": "derived",
+  "arm": "A_geometry",
+  "generated_by": "scripts/slope_resolution.py",
+  "aggregation_choice": {
+    "primary": "slope_native_effective",
+    "definition": "arctan(sqrt(mean(tan(phi)^2))) over the sub-cells",
+    "justification": "Rothermel's slope factor is quadratic in tan(phi), so by Jensen's inequality the MEAN slope of a heterogeneous cell understates that cell's mean slope forcing. The effective slope is the single angle whose forcing equals the cell's mean forcing, so it is the aggregate that preserves the physics. Mean, median, IQR, p90 and max are all reported so the choice is visible rather than buried.",
+    "not_max_because": "The maximum of ~256 sub-cells is an extreme-value statistic: it rises with subdivision count and is dominated by DEM noise, so it measures the sampling rather than the terrain."
+  },
+  "rothermel_calibration_deg": [
+    14.0,
+    26.6,
+    36.9
+  ],
+  "calibration_warning": "Rothermel (1972) derived phi_s from 12 laboratory fires at 14.0, 26.6 and 36.9 deg. EVERY slope measured here, at either resolution, sits BELOW the lowest calibrated angle, so the slope function is extrapolated downward throughout. This bounds how much slope forcing can be expected at all.",
+  "pooled_over_fires": {
+    "slope_500m_baseline_mean_deg": 5.734,
+    "slope_native_effective_mean_deg": 17.256,
+    "slope_native_max_mean_deg": 30.912,
+    "attenuation_factor_effective_over_500m": 3.01,
+    "fraction_of_lowest_rothermel_angle": 1.233
+  },
+  "fires": [
+    {
+      "fire_id": "gangneung_2023",
+      "grid": {
+        "nrows": 57,
+        "ncols": 54,
+        "cell_size_m": 500.0,
+        "subdivision": 16,
+        "fine_cell_m": 31.25
+      },
+      "n_land_cells": 1433,
+      "slope_500m_baseline": {
+        "n": 1433,
+        "mean": 4.176,
+        "median": 2.637,
+        "iqr": 4.889,
+        "p25": 1.287,
+        "p75": 6.176,
+        "p90": 10.403,
+        "max": 21.313
+      },
+      "slope_native_mean": {
+        "n": 1433,
+        "mean": 10.177,
+        "median": 9.103,
+        "iqr": 8.615,
+        "p25": 5.708,
+        "p75": 14.323,
+        "p90": 18.508,
+        "max": 29.306
+      },
+      "slope_native_median": {
+        "n": 1433,
+        "mean": 9.339,
+        "median": 8.403,
+        "iqr": 8.676,
+        "p25": 4.701,
+        "p75": 13.377,
+        "p90": 17.996,
+        "max": 29.786
+      },
+      "slope_native_p90": {
+        "n": 1433,
+        "mean": 19.095,
+        "median": 15.08,
+        "iqr": 11.973,
+        "p25": 10.119,
+        "p75": 22.092,
+        "p90": 30.035,
+        "max": 86.367
+      },
+      "slope_native_max": {
+        "n": 1433,
+        "mean": 25.681,
+        "median": 21.743,
+        "iqr": 14.59,
+        "p25": 15.512,
+        "p75": 30.101,
+        "p90": 39.417,
+        "max": 87.465
+      },
+      "slope_native_effective": {
+        "n": 1433,
+        "mean": 13.893,
+        "median": 10.359,
+        "iqr": 9.603,
+        "p25": 6.635,
+        "p75": 16.238,
+        "p90": 23.541,
+        "max": 80.253
+      },
+      "within_cell_iqr": {
+        "n": 1433,
+        "mean": 6.404,
+        "median": 5.864,
+        "iqr": 3.514,
+        "p25": 4.184,
+        "p75": 7.699,
+        "p90": 10.013,
+        "max": 34.507
+      },
+      "attenuation_vs_native_mean": {
+        "native_over_500m": 2.437,
+        "difference_deg": 6.001
+      },
+      "attenuation_vs_native_effective": {
+        "native_over_500m": 3.327,
+        "difference_deg": 9.717
+      },
+      "attenuation_vs_native_p90": {
+        "native_over_500m": 4.573,
+        "difference_deg": 14.919
+      },
+      "attenuation_vs_native_max": {
+        "native_over_500m": 6.15,
+        "difference_deg": 21.505
+      }
+    },
+    {
+      "fire_id": "hongseong_2023",
+      "grid": {
+        "nrows": 90,
+        "ncols": 73,
+        "cell_size_m": 500.0,
+        "subdivision": 16,
+        "fine_cell_m": 31.25
+      },
+      "n_land_cells": 5979,
+      "slope_500m_baseline": {
+        "n": 5979,
+        "mean": 2.485,
+        "median": 1.536,
+        "iqr": 2.457,
+        "p25": 0.762,
+        "p75": 3.219,
+        "p90": 5.947,
+        "max": 17.372
+      },
+      "slope_native_mean": {
+        "n": 5979,
+        "mean": 7.764,
+        "median": 6.41,
+        "iqr": 7.194,
+        "p25": 3.576,
+        "p75": 10.77,
+        "p90": 15.376,
+        "max": 28.1
+      },
+      "slope_native_median": {
+        "n": 5979,
+        "mean": 7.223,
+        "median": 5.624,
+        "iqr": 7.548,
+        "p25": 2.875,
+        "p75": 10.423,
+        "p90": 15.177,
+        "max": 28.38
+      },
+      "slope_native_p90": {
+        "n": 5979,
+        "mean": 13.373,
+        "median": 12.281,
+        "iqr": 11.808,
+        "p25": 6.643,
+        "p75": 18.45,
+        "p90": 24.254,
+        "max": 72.699
+      },
+      "slope_native_max": {
+        "n": 5979,
+        "mean": 20.064,
+        "median": 19.218,
+        "iqr": 14.877,
+        "p25": 11.89,
+        "p75": 26.767,
+        "p90": 33.592,
+        "max": 81.414
+      },
+      "slope_native_effective": {
+        "n": 5979,
+        "mean": 9.048,
+        "median": 7.793,
+        "iqr": 8.17,
+        "p25": 4.327,
+        "p75": 12.497,
+        "p90": 17.111,
+        "max": 54.745
+      },
+      "within_cell_iqr": {
+        "n": 5979,
+        "mean": 5.286,
+        "median": 5.115,
+        "iqr": 4.712,
+        "p25": 2.648,
+        "p75": 7.36,
+        "p90": 9.138,
+        "max": 28.659
+      },
+      "attenuation_vs_native_mean": {
+        "native_over_500m": 3.124,
+        "difference_deg": 5.279
+      },
+      "attenuation_vs_native_effective": {
+        "native_over_500m": 3.641,
+        "difference_deg": 6.563
+      },
+      "attenuation_vs_native_p90": {
+        "native_over_500m": 5.381,
+        "difference_deg": 10.888
+      },
+      "attenuation_vs_native_max": {
+        "native_over_500m": 8.074,
+        "difference_deg": 17.579
+      }
+    },
+    {
+      "fire_id": "miryang_2022",
+      "grid": {
+        "nrows": 79,
+        "ncols": 74,
+        "cell_size_m": 500.0,
+        "subdivision": 16,
+        "fine_cell_m": 31.25
+      },
+      "n_land_cells": 5727,
+      "slope_500m_baseline": {
+        "n": 5727,
+        "mean": 9.288,
+        "median": 8.872,
+        "iqr": 8.064,
+        "p25": 4.969,
+        "p75": 13.032,
+        "p90": 16.729,
+        "max": 28.4
+      },
+      "slope_native_mean": {
+        "n": 5727,
+        "mean": 19.086,
+        "median": 20.691,
+        "iqr": 10.84,
+        "p25": 14.109,
+        "p75": 24.949,
+        "p90": 28.12,
+        "max": 37.374
+      },
+      "slope_native_median": {
+        "n": 5727,
+        "mean": 18.599,
+        "median": 20.662,
+        "iqr": 12.018,
+        "p25": 13.277,
+        "p75": 25.295,
+        "p90": 28.686,
+        "max": 36.469
+      },
+      "slope_native_p90": {
+        "n": 5727,
+        "mean": 29.663,
+        "median": 30.809,
+        "iqr": 10.774,
+        "p25": 24.417,
+        "p75": 35.191,
+        "p90": 38.79,
+        "max": 85.191
+      },
+      "slope_native_max": {
+        "n": 5727,
+        "mean": 38.334,
+        "median": 39.237,
+        "iqr": 10.495,
+        "p25": 33.067,
+        "p75": 43.562,
+        "p90": 48.037,
+        "max": 86.374
+      },
+      "slope_native_effective": {
+        "n": 5727,
+        "mean": 22.236,
+        "median": 23.152,
+        "iqr": 10.143,
+        "p25": 17.204,
+        "p75": 27.347,
+        "p90": 30.808,
+        "max": 77.207
+      },
+      "within_cell_iqr": {
+        "n": 5727,
+        "mean": 9.74,
+        "median": 9.524,
+        "iqr": 3.456,
+        "p25": 7.926,
+        "p75": 11.381,
+        "p90": 14.061,
+        "max": 36.678
+      },
+      "attenuation_vs_native_mean": {
+        "native_over_500m": 2.055,
+        "difference_deg": 9.798
+      },
+      "attenuation_vs_native_effective": {
+        "native_over_500m": 2.394,
+        "difference_deg": 12.948
+      },
+      "attenuation_vs_native_p90": {
+        "native_over_500m": 3.194,
+        "difference_deg": 20.375
+      },
+      "attenuation_vs_native_max": {
+        "native_over_500m": 4.127,
+        "difference_deg": 29.046
+      }
+    },
+    {
+      "fire_id": "uiseong_andong_2025",
+      "grid": {
+        "nrows": 124,
+        "ncols": 128,
+        "cell_size_m": 500.0,
+        "subdivision": 16,
+        "fine_cell_m": 31.25
+      },
+      "n_land_cells": 15872,
+      "slope_500m_baseline": {
+        "n": 15872,
+        "mean": 4.702,
+        "median": 4.069,
+        "iqr": 4.231,
+        "p25": 2.258,
+        "p75": 6.489,
+        "p90": 9.059,
+        "max": 22.276
+      },
+      "slope_native_mean": {
+        "n": 15872,
+        "mean": 14.799,
+        "median": 15.224,
+        "iqr": 8.905,
+        "p25": 10.379,
+        "p75": 19.284,
+        "p90": 22.391,
+        "max": 34.474
+      },
+      "slope_native_median": {
+        "n": 15872,
+        "mean": 14.833,
+        "median": 15.422,
+        "iqr": 9.699,
+        "p25": 10.059,
+        "p75": 19.758,
+        "p90": 23.079,
+        "max": 36.675
+      },
+      "slope_native_p90": {
+        "n": 15872,
+        "mean": 22.226,
+        "median": 22.98,
+        "iqr": 10.22,
+        "p25": 17.35,
+        "p75": 27.571,
+        "p90": 31.378,
+        "max": 45.909
+      },
+      "slope_native_max": {
+        "n": 15872,
+        "mean": 28.92,
+        "median": 29.419,
+        "iqr": 10.881,
+        "p25": 23.7,
+        "p75": 34.58,
+        "p90": 39.066,
+        "max": 70.531
+      },
+      "slope_native_effective": {
+        "n": 15872,
+        "mean": 16.277,
+        "median": 16.719,
+        "iqr": 8.856,
+        "p25": 11.876,
+        "p75": 20.732,
+        "p90": 23.979,
+        "max": 35.904
+      },
+      "within_cell_iqr": {
+        "n": 15872,
+        "mean": 8.095,
+        "median": 7.821,
+        "iqr": 3.222,
+        "p25": 6.293,
+        "p75": 9.515,
+        "p90": 11.757,
+        "max": 30.893
+      },
+      "attenuation_vs_native_mean": {
+        "native_over_500m": 3.147,
+        "difference_deg": 10.097
+      },
+      "attenuation_vs_native_effective": {
+        "native_over_500m": 3.462,
+        "difference_deg": 11.575
+      },
+      "attenuation_vs_native_p90": {
+        "native_over_500m": 4.727,
+        "difference_deg": 17.524
+      },
+      "attenuation_vs_native_max": {
+        "native_over_500m": 6.151,
+        "difference_deg": 24.218
+      }
+    },
+    {
+      "fire_id": "uljin_samcheok_2022",
+      "grid": {
+        "nrows": 135,
+        "ncols": 92,
+        "cell_size_m": 500.0,
+        "subdivision": 16,
+        "fine_cell_m": 31.25
+      },
+      "n_land_cells": 6127,
+      "slope_500m_baseline": {
+        "n": 6127,
+        "mean": 7.54,
+        "median": 7.104,
+        "iqr": 6.411,
+        "p25": 4.078,
+        "p75": 10.489,
+        "p90": 13.571,
+        "max": 26.928
+      },
+      "slope_native_mean": {
+        "n": 6127,
+        "mean": 19.85,
+        "median": 20.718,
+        "iqr": 8.537,
+        "p25": 15.852,
+        "p75": 24.389,
+        "p90": 27.096,
+        "max": 36.199
+      },
+      "slope_native_median": {
+        "n": 6127,
+        "mean": 20.145,
+        "median": 21.055,
+        "iqr": 9.301,
+        "p25": 15.864,
+        "p75": 25.164,
+        "p90": 27.973,
+        "max": 37.125
+      },
+      "slope_native_p90": {
+        "n": 6127,
+        "mean": 28.247,
+        "median": 29.287,
+        "iqr": 9.413,
+        "p25": 23.93,
+        "p75": 33.343,
+        "p90": 36.253,
+        "max": 47.046
+      },
+      "slope_native_max": {
+        "n": 6127,
+        "mean": 35.402,
+        "median": 36.168,
+        "iqr": 10.011,
+        "p25": 30.64,
+        "p75": 40.651,
+        "p90": 44.419,
+        "max": 61.569
+      },
+      "slope_native_effective": {
+        "n": 6127,
+        "mean": 21.466,
+        "median": 22.245,
+        "iqr": 8.575,
+        "p25": 17.418,
+        "p75": 25.994,
+        "p90": 28.789,
+        "max": 37.502
+      },
+      "within_cell_iqr": {
+        "n": 6127,
+        "mean": 9.234,
+        "median": 8.889,
+        "iqr": 2.881,
+        "p25": 7.551,
+        "p75": 10.433,
+        "p90": 12.367,
+        "max": 31.06
+      },
+      "attenuation_vs_native_mean": {
+        "native_over_500m": 2.633,
+        "difference_deg": 12.31
+      },
+      "attenuation_vs_native_effective": {
+        "native_over_500m": 2.847,
+        "difference_deg": 13.926
+      },
+      "attenuation_vs_native_p90": {
+        "native_over_500m": 3.746,
+        "difference_deg": 20.707
+      },
+      "attenuation_vs_native_max": {
+        "native_over_500m": 4.695,
+        "difference_deg": 27.862
+      }
+    },
+    {
+      "fire_id": "yeongdeok_2025",
+      "grid": {
+        "nrows": 125,
+        "ncols": 119,
+        "cell_size_m": 500.0,
+        "subdivision": 16,
+        "fine_cell_m": 31.25
+      },
+      "n_land_cells": 10448,
+      "slope_500m_baseline": {
+        "n": 10448,
+        "mean": 6.211,
+        "median": 5.523,
+        "iqr": 4.856,
+        "p25": 3.38,
+        "p75": 8.235,
+        "p90": 11.37,
+        "max": 36.087
+      },
+      "slope_native_mean": {
+        "n": 10448,
+        "mean": 17.967,
+        "median": 18.459,
+        "iqr": 7.747,
+        "p25": 14.283,
+        "p75": 22.03,
+        "p90": 25.277,
+        "max": 34.52
+      },
+      "slope_native_median": {
+        "n": 10448,
+        "mean": 17.709,
+        "median": 18.483,
+        "iqr": 8.356,
+        "p25": 13.987,
+        "p75": 22.343,
+        "p90": 25.699,
+        "max": 35.211
+      },
+      "slope_native_p90": {
+        "n": 10448,
+        "mean": 28.022,
+        "median": 27.987,
+        "iqr": 9.362,
+        "p25": 23.16,
+        "p75": 32.523,
+        "p90": 36.438,
+        "max": 84.934
+      },
+      "slope_native_max": {
+        "n": 10448,
+        "mean": 37.072,
+        "median": 36.904,
+        "iqr": 10.409,
+        "p25": 31.594,
+        "p75": 42.003,
+        "p90": 46.599,
+        "max": 86.581
+      },
+      "slope_native_effective": {
+        "n": 10448,
+        "mean": 20.613,
+        "median": 20.492,
+        "iqr": 7.99,
+        "p25": 16.331,
+        "p75": 24.32,
+        "p90": 27.916,
+        "max": 76.883
+      },
+      "within_cell_iqr": {
+        "n": 10448,
+        "mean": 10.029,
+        "median": 9.74,
+        "iqr": 3.294,
+        "p25": 8.231,
+        "p75": 11.526,
+        "p90": 13.606,
+        "max": 39.682
+      },
+      "attenuation_vs_native_mean": {
+        "native_over_500m": 2.893,
+        "difference_deg": 11.756
+      },
+      "attenuation_vs_native_effective": {
+        "native_over_500m": 3.319,
+        "difference_deg": 14.402
+      },
+      "attenuation_vs_native_p90": {
+        "native_over_500m": 4.512,
+        "difference_deg": 21.811
+      },
+      "attenuation_vs_native_max": {
+        "native_over_500m": 5.969,
+        "difference_deg": 30.861
+      }
+    }
+  ],
+  "slope_conditioning_recomputed": {
+    "slope_500m_baseline": {
+      "pooled_mean_slope_deg": {
+        "n": 36,
+        "mean": 6.2763,
+        "sd": 2.9523
+      },
+      "slope_conditioning": {
+        "smoothing_m": 1500.0,
+        "n": 36,
+        "median_slope_deg": 5.37,
+        "within_fire_control": {
+          "gangneung_2023": {
+            "n": 1,
+            "note": "too few usable steps"
+          },
+          "hongseong_2023": {
+            "n": 3,
+            "note": "too few usable steps"
+          },
+          "miryang_2022": {
+            "n": 1,
+            "note": "too few usable steps"
+          },
+          "uiseong_andong_2025": {
+            "n": 11,
+            "median_slope_deg": 5.02,
+            "gentler_half_mean_angle_deg": 76.56,
+            "steeper_half_mean_angle_deg": 64.13,
+            "corr_slope_vs_angle": 0.2577
+          },
+          "uljin_samcheok_2022": {
+            "n": 17,
+            "median_slope_deg": 8.06,
+            "gentler_half_mean_angle_deg": 61.82,
+            "steeper_half_mean_angle_deg": 40.25,
+            "corr_slope_vs_angle": -0.4664
+          },
+          "yeongdeok_2025": {
+            "n": 3,
+            "note": "too few usable steps"
+          }
+        },
+        "gentler_half": {
+          "n": 18,
+          "mean_abs_angle_deg": 88.43
+        },
+        "steeper_half": {
+          "n": 18,
+          "mean_abs_angle_deg": 51.84
+        },
+        "terciles": [
+          {
+            "tercile": 1,
+            "slope_range_deg": [
+              1.26,
+              4.94
+            ],
+            "n": 12,
+            "mean_abs_angle_deg": 96.74
+          },
+          {
+            "tercile": 2,
+            "slope_range_deg": [
+              5.02,
+              6.68
+            ],
+            "n": 12,
+            "mean_abs_angle_deg": 60.48
+          },
+          {
+            "tercile": 3,
+            "slope_range_deg": [
+              6.87,
+              13.34
+            ],
+            "n": 12,
+            "mean_abs_angle_deg": 53.18
+          }
+        ],
+        "corr_slope_vs_angle": -0.3671,
+        "reading": "A NEGATIVE correlation means agreement improves as terrain steepens, which is the physical consistency check."
+      }
+    },
+    "slope_native_effective": {
+      "pooled_mean_slope_deg": {
+        "n": 36,
+        "mean": 19.3204,
+        "sd": 4.7442
+      },
+      "slope_conditioning": {
+        "smoothing_m": 1500.0,
+        "n": 36,
+        "median_slope_deg": 18.66,
+        "within_fire_control": {
+          "gangneung_2023": {
+            "n": 1,
+            "note": "too few usable steps"
+          },
+          "hongseong_2023": {
+            "n": 3,
+            "note": "too few usable steps"
+          },
+          "miryang_2022": {
+            "n": 1,
+            "note": "too few usable steps"
+          },
+          "uiseong_andong_2025": {
+            "n": 11,
+            "median_slope_deg": 17.86,
+            "gentler_half_mean_angle_deg": 75.51,
+            "steeper_half_mean_angle_deg": 65.4,
+            "corr_slope_vs_angle": 0.1995
+          },
+          "uljin_samcheok_2022": {
+            "n": 17,
+            "median_slope_deg": 22.36,
+            "gentler_half_mean_angle_deg": 59.79,
+            "steeper_half_mean_angle_deg": 42.52,
+            "corr_slope_vs_angle": -0.4765
+          },
+          "yeongdeok_2025": {
+            "n": 3,
+            "note": "too few usable steps"
+          }
+        },
+        "gentler_half": {
+          "n": 18,
+          "mean_abs_angle_deg": 89.44
+        },
+        "steeper_half": {
+          "n": 18,
+          "mean_abs_angle_deg": 50.83
+        },
+        "terciles": [
+          {
+            "tercile": 1,
+            "slope_range_deg": [
+              6.56,
+              17.57
+            ],
+            "n": 12,
+            "mean_abs_angle_deg": 100.52
+          },
+          {
+            "tercile": 2,
+            "slope_range_deg": [
+              17.86,
+              20.87
+            ],
+            "n": 12,
+            "mean_abs_angle_deg": 59.21
+          },
+          {
+            "tercile": 3,
+            "slope_range_deg": [
+              21.5,
+              27.49
+            ],
+            "n": 12,
+            "mean_abs_angle_deg": 50.67
+          }
+        ],
+        "corr_slope_vs_angle": -0.4781,
+        "reading": "A NEGATIVE correlation means agreement improves as terrain steepens, which is the physical consistency check."
+      }
+    }
+  }
+}
