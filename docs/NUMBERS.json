@@ -6939,7 +6939,7 @@
       "json_path": "pooled_auc",
       "derivation": "Pooled OOF ROC-AUC, 18 features (16 Arm A + upslope_alignment + slope_forcing), LOGO-CV over the same 6 fires, seed 20250603. Regenerate: python scripts/arm_e_build.py && --merge && python scripts/arm_e_lofo.py --features E && --aggregate",
       "sample": "6개 화재 LOFO, 151,904행 / 2,989 양성",
-      "caveat": "Report to 3 significant figures (0.905). The delta against a same-platform Arm A replication is +0.0059, INSIDE the 0.0064 platform floor, and a pure-noise control moves it FURTHER (+0.0082). Not evidence of a directional slope signal.",
+      "caveat": "Report to 3 significant figures (0.905). The delta against a same-platform Arm A replication is +0.0059, inside the 0.0064 platform floor AND inside the column-addition null, where it sits at the 66.7th percentile of 60 noise draws (docs/column_addition_envelope.json). ⚠ Session 12 said a noise control moved it further (+0.0082); the envelope places that single draw at the 85th percentile of the null, whose mean is +0.0041. The verdict is unchanged and now quantified.",
       "reproducible": true,
       "reproducibility": {
         "blocked_by": null
@@ -6965,7 +6965,7 @@
       "json_path": "importance_ranking.14.weighted_mean_auc_drop",
       "derivation": "Row-weighted permutation importance of upslope_alignment, rank 15/18. Regenerate: python scripts/arm_e_build.py && --merge && python scripts/arm_e_lofo.py --features E && --aggregate",
       "sample": "6개 화재 LOFO, 151,904행 / 2,989 양성",
-      "caveat": "THE SESSION'S CENTRAL NUMBER. Fold sd is 0.0027, ~3.8x the mean, so indistinguishable from zero — and a column of Gaussian noise ranks in the same place at +0.00061 (armn_noise_a_importance). A directional slope feature is worth what a random number is worth here. Never report as a ratio against any other feature.",
+      "caveat": "THE SESSION'S CENTRAL NUMBER. Fold sd is 0.0027, ~3.8x the mean, so it is unstable across folds. ⚠ SUPERSEDED IN PART BY SESSION 13: this entry originally said the feature was indistinguishable from a random column. That comparison used ONE noise draw (+0.00061) which the 60-draw envelope later placed at the 99.2nd percentile of noise magnitudes. Against the distribution (mean -0.00004, sd 0.00028) this value is +2.79 sd, i.e. NOT noise — small but detectable. See arme_upslope_alignment_percentile_of_noise. Never report as a ratio against another feature.",
       "reproducible": true,
       "reproducibility": {
         "blocked_by": null
@@ -7017,7 +7017,7 @@
       "json_path": null,
       "derivation": "Arm N pooled_auc minus the same-platform Arm A replication pooled_auc. Regenerate: python scripts/arm_e_lofo.py --features N && --aggregate",
       "sample": "6개 화재 LOFO, 151,904행 / 2,989 양성",
-      "caveat": "THE NULL CONTROL. Two columns of deterministic Gaussian noise added to Arm A's 16 move pooled AUC by MORE than Arm E's real features do (+0.0082 vs +0.0059), and by more in the steep stratum (+0.0086 vs +0.0029) where slope should help most. Adding any two columns perturbs the early-stopping split and the tree structure; that perturbation, not slope, is what moved Arm E.",
+      "caveat": "ONE DRAW, and the envelope says an unusually high one: +0.0082 sits at the 85th percentile of the 60-draw null whose mean is +0.0041 (docs/column_addition_envelope.json). Session 12's reading that 'noise beats Arm E' held for this draw but is NOT a property of the null — Arm E's +0.0059 is itself above the null mean. What survives is the principle the draw was made to establish: adding any two columns moves the fit, so an arm changing feature count needs a matched control.",
       "reproducible": true,
       "reproducibility": {
         "blocked_by": null
@@ -7048,7 +7048,7 @@
       "json_path": null,
       "derivation": "Arm N far_band_auc minus the same-platform Arm A replication far_band_auc. Regenerate: python scripts/arm_e_lofo.py --features N && --aggregate",
       "sample": "6개 화재 LOFO, 151,904행 / 2,989 양성",
-      "caveat": "THE COLUMN-ADDITION ENVELOPE, and it is larger than the platform floor. Pure noise moves far-band AUC by +0.0403 against a far-band platform floor of 0.0307. Any arm comparison on far-band AUC in this project needs a noise control, not just the platform floor.",
+      "caveat": "ONE DRAW at the 91.7th percentile of the null (mean +0.0093, sd 0.0273, p5-p95 -0.0363 to +0.0425). The point stands and is now quantified: far-band AUC moves more under pure column addition than the 0.0307 platform floor allows for, so far-band arm comparisons need the envelope. See column_addition_floor_far_band_p95.",
       "reproducible": true,
       "reproducibility": {
         "blocked_by": null
@@ -7079,7 +7079,7 @@
       "json_path": "importance_ranking.14.weighted_mean_auc_drop",
       "derivation": "Row-weighted permutation importance of a Gaussian-noise column, rank 15/18. Regenerate: python scripts/arm_e_lofo.py --features N && --aggregate",
       "sample": "6개 화재 LOFO, 151,904행 / 2,989 양성",
-      "caveat": "The yardstick for reading any small importance in this project: a column of random numbers scores this much. upslope_alignment scores +0.00072 at the same rank.",
+      "caveat": "⚠ NOT a typical noise column: the 60-draw envelope places this value at the 99.2nd percentile of 120 noise-column importances (mean -0.00004, sd 0.00028). Session 12 used it as the yardstick for reading upslope_alignment and thereby compared a feature to an extreme draw. Use noise_importance_magnitude_sd as the yardstick instead.",
       "reproducible": true,
       "reproducibility": {
         "blocked_by": null
@@ -7093,6 +7093,188 @@
           "a": {
             "file": "data/processed/arms/N_noise_control/lofo_arm_N.json",
             "json_path": "importance_ranking.14.weighted_mean_auc_drop"
+          }
+        }
+      },
+      "arm": "N_control"
+    },
+    "column_addition_floor_pooled_p95": {
+      "value": 0.009309,
+      "unit": "ROC-AUC (delta)",
+      "source_file": "docs/column_addition_envelope.json",
+      "json_path": "metrics.pooled_auc.null_p95_delta",
+      "derivation": "95th percentile of the change in pooled OOF AUC when two columns of pure noise are added to Arm A's sixteen. Regenerate: python scripts/noise_envelope.py --run --seeds 60 && --aggregate",
+      "sample": "60 draws x 6-fire LOFO, 151,904행",
+      "caveat": "THE COLUMN-ADDITION FLOOR, and it is separate from the Session 10 platform floor (0.0064). An arm that changes the feature count must clear THIS to claim a pooled gain. Null mean is +0.0041, sd 0.0040: adding two columns raises pooled AUC on average even when the columns are meaningless.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 13. 60 draws, 6-fire LOGO-CV each, estimator seed fixed at 20250603 so only the noise content varies. No model default, target, threshold or Arm A artifact was changed.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/column_addition_envelope.json",
+            "json_path": "metrics.pooled_auc.null_p95_delta"
+          }
+        }
+      },
+      "arm": "N_control"
+    },
+    "column_addition_floor_far_band_p95": {
+      "value": 0.042485,
+      "unit": "ROC-AUC (delta)",
+      "source_file": "docs/column_addition_envelope.json",
+      "json_path": "metrics.far_band_auc.null_p95_delta",
+      "derivation": "95th percentile of the change in far-band AUC under the same null. Regenerate: python scripts/noise_envelope.py --run --seeds 60 && --aggregate",
+      "sample": "60 draws x 6-fire LOFO, 151,904행",
+      "caveat": "FAR-BAND IS WILDLY UNSTABLE TO COLUMN COUNT: null sd 0.0273 and a p5-p95 span of -0.0363 to +0.0425, far exceeding the 0.0307 platform floor. Far-band comparisons between arms in this project are not interpretable without this envelope.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 13. 60 draws, 6-fire LOGO-CV each, estimator seed fixed at 20250603 so only the noise content varies. No model default, target, threshold or Arm A artifact was changed.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/column_addition_envelope.json",
+            "json_path": "metrics.far_band_auc.null_p95_delta"
+          }
+        }
+      },
+      "arm": "N_control"
+    },
+    "arme_pooled_percentile_of_null": {
+      "value": 66.7,
+      "unit": "percentile",
+      "source_file": "docs/column_addition_envelope.json",
+      "json_path": "metrics.pooled_auc.arm_E_percentile_of_null",
+      "derivation": "Percentile at which Arm E's observed pooled delta (+0.0059) falls in the 60-draw column-addition null. Regenerate: python scripts/noise_envelope.py --run --seeds 60 && --aggregate",
+      "sample": "60 draws x 6-fire LOFO, 151,904행",
+      "caveat": "THE QUANTIFIED ARM E VERDICT. Inside the null, not beyond it — the pooled gain is what adding two columns does anyway. Supersedes Session 12's single-draw comparison.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 13. 60 draws, 6-fire LOGO-CV each, estimator seed fixed at 20250603 so only the noise content varies. No model default, target, threshold or Arm A artifact was changed.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/column_addition_envelope.json",
+            "json_path": "metrics.pooled_auc.arm_E_percentile_of_null"
+          }
+        }
+      },
+      "arm": "N_control"
+    },
+    "arme_steep_percentile_of_null": {
+      "value": 40.0,
+      "unit": "percentile",
+      "source_file": "docs/column_addition_envelope.json",
+      "json_path": "metrics.steep_auc.arm_E_percentile_of_null",
+      "derivation": "Percentile of Arm E's steep-stratum delta (+0.0029) in the null. Regenerate: python scripts/noise_envelope.py --run --seeds 60 && --aggregate",
+      "sample": "60 draws x 6-fire LOFO, 151,904행",
+      "caveat": "The pre-registered expectation was that a directional slope feature helps on STEEP ground. At the 40th percentile of the null it does not — this is the cleanest disconfirmation in the session.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 13. 60 draws, 6-fire LOGO-CV each, estimator seed fixed at 20250603 so only the noise content varies. No model default, target, threshold or Arm A artifact was changed.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/column_addition_envelope.json",
+            "json_path": "metrics.steep_auc.arm_E_percentile_of_null"
+          }
+        }
+      },
+      "arm": "N_control"
+    },
+    "arme_mean_of_folds_percentile_of_null": {
+      "value": 100.0,
+      "unit": "percentile",
+      "source_file": "docs/column_addition_envelope.json",
+      "json_path": "metrics.mean_of_folds_auc.arm_E_percentile_of_null",
+      "derivation": "Percentile of Arm E's mean-of-folds delta (+0.0164) in the null. Regenerate: python scripts/noise_envelope.py --run --seeds 60 && --aggregate",
+      "sample": "60 draws x 6-fire LOFO, 151,904행",
+      "caveat": "THE ONE EXCEEDANCE: Arm E beats all 60 noise draws on mean-of-folds. Read with docs/fold_sizes.md — mean-of-folds gives gangneung_2023 (396 rows, 8 positive cells, 0.26% of the evidence) an equal vote, and that fold supplies the gain (+0.0767). Pooled AUC is the primary metric and there Arm E sits at the 66.7th percentile.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 13. 60 draws, 6-fire LOGO-CV each, estimator seed fixed at 20250603 so only the noise content varies. No model default, target, threshold or Arm A artifact was changed.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/column_addition_envelope.json",
+            "json_path": "metrics.mean_of_folds_auc.arm_E_percentile_of_null"
+          }
+        }
+      },
+      "arm": "N_control"
+    },
+    "noise_importance_magnitude_sd": {
+      "value": 0.000275,
+      "unit": "ROC-AUC drop (sd)",
+      "source_file": "docs/column_addition_envelope.json",
+      "json_path": "noise_importance_envelope.magnitude_sd",
+      "derivation": "Standard deviation of the row-weighted permutation importance of a pure-noise column across 120 observed noise columns (60 draws x 2). Regenerate: python scripts/noise_envelope.py --run --seeds 60 && --aggregate",
+      "sample": "60 draws x 6-fire LOFO, 151,904행",
+      "caveat": "THE YARDSTICK FOR SMALL IMPORTANCES. Noise-column importance is centred at -0.00004 with this sd and ranks 13-18 of 18 (median 16). Any importance in this project below about 0.0006 is inside the noise band.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 13. 60 draws, 6-fire LOGO-CV each, estimator seed fixed at 20250603 so only the noise content varies. No model default, target, threshold or Arm A artifact was changed.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/column_addition_envelope.json",
+            "json_path": "noise_importance_envelope.magnitude_sd"
+          }
+        }
+      },
+      "arm": "N_control"
+    },
+    "arme_upslope_alignment_percentile_of_noise": {
+      "value": 99.2,
+      "unit": "percentile",
+      "source_file": "docs/column_addition_envelope.json",
+      "json_path": "noise_importance_envelope.upslope_alignment.percentile_of_noise_magnitudes",
+      "derivation": "Percentile at which upslope_alignment's importance (+0.00072) falls among 120 pure-noise column importances. Regenerate: python scripts/noise_envelope.py --run --seeds 60 && --aggregate",
+      "sample": "60 draws x 6-fire LOFO, 151,904행",
+      "caveat": "CORRECTS SESSION 12. That session compared upslope_alignment to a SINGLE noise column (+0.00061) and concluded the feature was worth what a random number is worth. Against the distribution that single column was itself at the 99.2nd percentile. upslope_alignment sits +2.79 sd above the noise mean, so the feature is NOT noise — it carries a small, detectable signal. Its fold sd (0.0027) is still ~3.8x its own mean, so it is unstable across folds, and it is far too small to move model-level AUC out of the null.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 13. 60 draws, 6-fire LOGO-CV each, estimator seed fixed at 20250603 so only the noise content varies. No model default, target, threshold or Arm A artifact was changed.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/column_addition_envelope.json",
+            "json_path": "noise_importance_envelope.upslope_alignment.percentile_of_noise_magnitudes"
           }
         }
       },
