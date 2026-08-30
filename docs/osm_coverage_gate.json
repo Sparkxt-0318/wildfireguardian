@@ -6,7 +6,7 @@
   "generated_by": "scripts/osm_coverage_gate.py",
   "min_buildings_threshold": 124,
   "threshold_rationale": "Set to the building count of the Korean reference site, so the bar is 'at least as well mapped as the site this layer was built on' rather than an invented number.",
-  "queried_utc": "2026-08-30T11:38:34Z",
+  "queried_utc": "2026-08-30T14:35:54Z",
   "candidates": {
     "paradise_ca_2018": {
       "bbox": [
@@ -22,11 +22,15 @@
         "Burnover events identified during the 2018 Camp Fire (nwfirescience.org)"
       ],
       "buildings": 988,
-      "buildings_seconds": 6.8,
-      "highways": null,
-      "highways_error": "HTTPError: HTTP Error 504: Gateway Timeout",
-      "refuge_pois": null,
-      "refuge_pois_error": "HTTPError: HTTP Error 504: Gateway Timeout",
+      "buildings_seconds": 12.1,
+      "buildings_attempts": 1,
+      "highways": 1532,
+      "highways_seconds": 10.6,
+      "highways_attempts": 1,
+      "refuge_pois": 9,
+      "refuge_pois_seconds": 33.3,
+      "refuge_pois_attempts": 2,
+      "all_subqueries_returned": true,
       "passes_gate": true
     },
     "mati_gr_2018": {
@@ -37,16 +41,21 @@
         24.02
       ],
       "event": "Attica wildfires, 23 Jul 2018",
-      "why": "Coastal settlement; residents trapped between fire and sea.",
+      "why": "A documented evacuation failure: 104 deaths. People burned to death in cars caught in traffic jams while fleeing; others drowned after wading into the sea. Six officials were convicted over the response in 2024.",
       "sources": [
-        "not verified in this session — see report"
+        "VOA News (2024)",
+        "ABC News (2024)"
       ],
       "buildings": 1763,
-      "buildings_seconds": 1.6,
+      "buildings_seconds": 8.2,
+      "buildings_attempts": 1,
       "highways": 1150,
-      "highways_seconds": 5.5,
+      "highways_seconds": 23.8,
+      "highways_attempts": 2,
       "refuge_pois": 16,
-      "refuge_pois_seconds": 1.5,
+      "refuge_pois_seconds": 2.4,
+      "refuge_pois_attempts": 1,
+      "all_subqueries_returned": true,
       "passes_gate": true
     },
     "pedrogao_pt_2017": {
@@ -57,16 +66,21 @@
         -8.1
       ],
       "event": "Pedrógão Grande, 17 Jun 2017",
-      "why": "Deaths concentrated on a road during escape.",
+      "why": "A documented evacuation failure: at least 66 deaths in the June 2017 fires, the majority in Pedrógão Grande, where 47 people died in their cars on a road while fleeing.",
       "sources": [
-        "not verified in this session — see report"
+        "Wikipedia, 'June 2017 Portugal wildfires'",
+        "International Association of Wildland Fire, 'The Open Wounds of Pedrógão Grande'"
       ],
       "buildings": 700,
-      "buildings_seconds": 5.0,
+      "buildings_seconds": 1.3,
+      "buildings_attempts": 1,
       "highways": 1925,
-      "highways_seconds": 7.3,
+      "highways_seconds": 5.0,
+      "highways_attempts": 1,
       "refuge_pois": 3,
-      "refuge_pois_seconds": 7.5,
+      "refuge_pois_seconds": 14.5,
+      "refuge_pois_attempts": 1,
+      "all_subqueries_returned": true,
       "passes_gate": true
     },
     "yeongdeok_kr_2025": {
@@ -82,12 +96,17 @@
         "repo snapshot data/snapshots/osm-buildings"
       ],
       "buildings": 74,
-      "buildings_seconds": 4.3,
+      "buildings_seconds": 2.4,
+      "buildings_attempts": 1,
       "highways": 1794,
-      "highways_seconds": 3.8,
-      "refuge_pois": null,
-      "refuge_pois_error": "HTTPError: HTTP Error 429: Too Many Requests",
+      "highways_seconds": 1.8,
+      "highways_attempts": 1,
+      "refuge_pois": 17,
+      "refuge_pois_seconds": 1.5,
+      "refuge_pois_attempts": 1,
+      "all_subqueries_returned": true,
       "passes_gate": false
     }
-  }
+  },
+  "threshold_note": "⚠ The Korean reference site FAILS a threshold derived from its own repo snapshot count (124): the same-style bbox query returns 74 buildings for 영덕. The snapshot and this query cover different extents, so the threshold and the measurement are not on the same footing. Read the table as an order-of-magnitude comparison."
 }

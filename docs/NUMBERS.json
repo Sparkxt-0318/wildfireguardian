@@ -7391,7 +7391,7 @@
       "json_path": "vulnerability_mean",
       "derivation": "Mean over 124 households of the fraction of sampled (ignition, weather) scenarios with no survivable route or a clearance margin under 10 min. Regenerate: python scripts/vulnerability_layer.py --region yeongdeok_2025",
       "sample": "영덕 124 OSM 건물 / Paradise 989 OSM 건물",
-      "caveat": "ZERO — and reported as zero rather than tuned away. With 50 refuge POIs, a moderate physical hazard and a 4 h horizon, every 영덕 household escapes every sampled scenario, median clearance margin 170 min. The surface has NO variance, so there is no household ranking here and the sweep's stability question is vacuous. The binding constraint is refuge density, not fire behaviour.",
+      "caveat": "⚠ SUPERSEDED by l0_yeongdeok_vulnerability_corrected_refuges (0.194). This zero was a TAGGING ARTEFACT of the committed shelter snapshot, which counted 33 parks and 17 정자 (wooden pavilions) as refuges and missed all 46 schools/townhalls/hospitals OSM carries at 영덕. Retained as the record of what the uncorrected query produced.",
       "reproducible": true,
       "reproducibility": {
         "blocked_by": null
@@ -7509,6 +7509,84 @@
           "a": {
             "file": "docs/osm_coverage_gate.json",
             "json_path": "candidates.paradise_ca_2018.buildings"
+          }
+        }
+      },
+      "arm": "L0_vulnerability"
+    },
+    "l0_yeongdeok_vulnerability_corrected_refuges": {
+      "value": 0.193548,
+      "unit": "fraction of scenarios",
+      "source_file": "data/processed/vulnerability/refuge_audit_yeongdeok.json",
+      "json_path": "runs.0.vulnerability_mean",
+      "derivation": "영덕 vulnerability with the CORRECTED refuge set (schools/townhalls/hospitals), horizon 240 min, refuge survival buffer 0. Regenerate: see docs/SESSION14_FOLLOWUP.md.",
+      "sample": "영덕 124 OSM 건물 / Paradise 989 OSM 건물",
+      "caveat": "SUPERSEDES l0_yeongdeok_vulnerability_mean (0.000). The flat zero was a TAGGING ARTEFACT: the committed shelter snapshot asked OSM for amenity=shelter|community_centre and leisure=park, returning 33 parks and 17 정자 (open-sided wooden pavilions, i.e. fuel) and ZERO of the 33 마을회관, 11 schools and 2 hospitals OSM actually carries there — because Korean OSM tags 마을회관 as amenity=townhall. Correcting the query gives 0.194: 24 of 124 households have at least one scenario with no route.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 14 follow-up. No spread-model feature set changed, no threshold or target changed, Arm A untouched. Artifacts under data/processed/vulnerability/ are gitignored and regenerable from committed scripts.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/vulnerability/refuge_audit_yeongdeok.json",
+            "json_path": "runs.0.vulnerability_mean"
+          }
+        }
+      },
+      "arm": "L0_vulnerability"
+    },
+    "l0_yeongdeok_vulnerability_60min_horizon": {
+      "value": 0.403226,
+      "unit": "fraction of scenarios",
+      "source_file": "data/processed/vulnerability/refuge_audit_yeongdeok.json",
+      "json_path": "runs.2.vulnerability_mean",
+      "derivation": "Same, with the horizon cut from 240 min to 60 min and the refuge survival buffer at 60 min.",
+      "sample": "영덕 124 OSM 건물 / Paradise 989 OSM 건물",
+      "caveat": "The 240-minute horizon was doing real work and had never been swept. At 60 minutes vulnerability doubles to 0.403 and 50 of 124 households fail at least one scenario. The horizon is a first-order assumption, not a detail.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 14 follow-up. No spread-model feature set changed, no threshold or target changed, Arm A untouched. Artifacts under data/processed/vulnerability/ are gitignored and regenerable from committed scripts.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/vulnerability/refuge_audit_yeongdeok.json",
+            "json_path": "runs.2.vulnerability_mean"
+          }
+        }
+      },
+      "arm": "L0_vulnerability"
+    },
+    "l0_yeongdeok_degraded_vulnerability": {
+      "value": 0.193548,
+      "unit": "fraction of scenarios",
+      "source_file": "data/processed/vulnerability/matched_comparison.json",
+      "json_path": "yeongdeok_degraded.vulnerability_mean",
+      "derivation": "영덕 re-run in Paradise's exact degraded configuration: no DEM, all cells burnable, elliptical hazard, identical scenarios, horizon and thresholds.",
+      "sample": "영덕 124 OSM 건물 / Paradise 989 OSM 건물",
+      "caveat": "IDENTICAL to the full-data 영덕 run (0.193548 both). The DEM and land-cover substitutions change NOTHING here, so the 영덕/Paradise difference is not a substitution artefact. ⚠ But it also OVERTURNS the refuge-density hypothesis from Session 14: with corrected refuges 영덕 is 0.194 against Paradise's 0.0089, i.e. MORE vulnerable, while having 46 refuge POIs for 124 households against Paradise's 16 for 989. Density predicts the opposite ordering. The hypothesis is NOT supported.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 14 follow-up. No spread-model feature set changed, no threshold or target changed, Arm A untouched. Artifacts under data/processed/vulnerability/ are gitignored and regenerable from committed scripts.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/vulnerability/matched_comparison.json",
+            "json_path": "yeongdeok_degraded.vulnerability_mean"
           }
         }
       },
