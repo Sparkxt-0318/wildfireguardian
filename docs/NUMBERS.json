@@ -7721,6 +7721,162 @@
         }
       },
       "arm": "L0_vulnerability"
+    },
+    "l0_walk_time_to_refuge_failing_median_min": {
+      "value": 271.3,
+      "unit": "minutes",
+      "source_file": "data/processed/vulnerability/refuge_distance.json",
+      "json_path": "yeongdeok.failing_set.median_walk_min_failing",
+      "derivation": "Median elderly-gait walking time to the nearest surviving refuge, over the 24 영덕 households with at least one failing scenario. Regenerate: python scripts/vulnerability_drivers.py --distance",
+      "sample": "영덕 124 OSM 건물, 발화 4개, 지평 240분",
+      "caveat": "THE EXPLANATION THE LAYER WAS MISSING. 271.3 minutes EXCEEDS the 240-minute horizon: these households cannot reach any refuge in the evaluated window at 0.7 m/s, whatever the fire does. Safe households sit at 9.5 minutes — a 29x separation. This unifies three earlier nulls: the hazard model cannot matter if you cannot arrive in time, refuge DENSITY cannot matter because only the nearest one counts, and extra network paths cannot matter if all of them are too long.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 16. No spread-model feature set changed, no threshold or target changed, Arm A untouched. Artifacts under data/processed/vulnerability/ are gitignored and regenerable from scripts/vulnerability_drivers.py.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/vulnerability/refuge_distance.json",
+            "json_path": "yeongdeok.failing_set.median_walk_min_failing"
+          }
+        }
+      },
+      "arm": "L0_vulnerability"
+    },
+    "l0_walk_time_to_refuge_safe_median_min": {
+      "value": 9.5,
+      "unit": "minutes",
+      "source_file": "data/processed/vulnerability/refuge_distance.json",
+      "json_path": "yeongdeok.failing_set.median_walk_min_safe",
+      "derivation": "Same, over the 100 영덕 households with no failing scenario.",
+      "sample": "영덕 124 OSM 건물, 발화 4개, 지평 240분",
+      "caveat": "9.5 minutes against 271.3 for the failing set.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 16. No spread-model feature set changed, no threshold or target changed, Arm A untouched. Artifacts under data/processed/vulnerability/ are gitignored and regenerable from scripts/vulnerability_drivers.py.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/vulnerability/refuge_distance.json",
+            "json_path": "yeongdeok.failing_set.median_walk_min_safe"
+          }
+        }
+      },
+      "arm": "L0_vulnerability"
+    },
+    "l0_furthest_k_matches_failing_k": {
+      "value": 0.9583,
+      "unit": "fraction",
+      "source_file": "data/processed/vulnerability/refuge_distance.json",
+      "json_path": "yeongdeok.furthest_k_matches_failing_k.share",
+      "derivation": "Taking the k=24 households furthest from a refuge by network distance and comparing that set to the 24 households that actually fail at least one scenario.",
+      "sample": "영덕 124 OSM 건물, 발화 4개, 지평 240분",
+      "caveat": "23 of 24 — distance alone identifies the failing set almost exactly. ⚠ The Spearman on the SAME data is only 0.30, because 100 of 124 households have vulnerability exactly 0 and the rank correlation is diluted by that tie block. The classification result is the real measurement; the rank correlation understates the association.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 16. No spread-model feature set changed, no threshold or target changed, Arm A untouched. Artifacts under data/processed/vulnerability/ are gitignored and regenerable from scripts/vulnerability_drivers.py.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/vulnerability/refuge_distance.json",
+            "json_path": "yeongdeok.furthest_k_matches_failing_k.share"
+          }
+        }
+      },
+      "arm": "L0_vulnerability"
+    },
+    "l0_spearman_walk_time_vs_vulnerability": {
+      "value": 0.3068,
+      "unit": "Spearman rho",
+      "source_file": "data/processed/vulnerability/refuge_distance.json",
+      "json_path": "yeongdeok.spearman_walking_time_vs_vulnerability",
+      "derivation": "Within-영덕 rank correlation between walking time to the nearest surviving refuge and the vulnerability score.",
+      "sample": "영덕 124 OSM 건물, 발화 4개, 지평 240분",
+      "caveat": "0.31, and LOW FOR A MECHANICAL REASON: 100 of 124 households are tied at vulnerability 0, so ranks within the safe group are arbitrary. Reported alongside the classification result (23/24) rather than instead of it. Network distance (0.30) and straight-line distance (0.30) score the same, so detour and terrain add nothing detectable here.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 16. No spread-model feature set changed, no threshold or target changed, Arm A untouched. Artifacts under data/processed/vulnerability/ are gitignored and regenerable from scripts/vulnerability_drivers.py.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/vulnerability/refuge_distance.json",
+            "json_path": "yeongdeok.spearman_walking_time_vs_vulnerability"
+          }
+        }
+      },
+      "arm": "L0_vulnerability"
+    },
+    "l0_network_matched_yeongdeok_degree1_share": {
+      "value": 0.2307,
+      "unit": "fraction",
+      "source_file": "data/processed/vulnerability/network_matched.json",
+      "json_path": "yeongdeok_matched.share_degree_1",
+      "derivation": "Share of degree-1 (dead-end) walk nodes at 영덕 when the network is built through the SAME code path as Paradise (raw OSM MultiDiGraph collapsed to a simple Graph), instead of through build_walk_network. Regenerate: python scripts/vulnerability_drivers.py --network",
+      "sample": "영덕 124 OSM 건물, 발화 4개, 지평 240분",
+      "caveat": "CORRECTS SESSION 15. That session reported 0.0% dead-ends at 영덕; it was an ARTEFACT of build_walk_network's parallel-edge merge and 60 m resampling. Matched construction gives 23.1%. The ORDERING survives (Paradise 33.3% is still worse) and — decisively — the egress-path counts and the within-site correlation are UNCHANGED, because subdividing an edge does not change edge connectivity. The network hypothesis stays dead on the same evidence.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 16. No spread-model feature set changed, no threshold or target changed, Arm A untouched. Artifacts under data/processed/vulnerability/ are gitignored and regenerable from scripts/vulnerability_drivers.py.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/vulnerability/network_matched.json",
+            "json_path": "yeongdeok_matched.share_degree_1"
+          }
+        }
+      },
+      "arm": "L0_vulnerability"
+    },
+    "l0_ignition_count_ranking_spearman_16_vs_4": {
+      "value": 0.9494,
+      "unit": "Spearman rho",
+      "source_file": "data/processed/vulnerability/ignition_count_sweep.json",
+      "json_path": "ranking_spearman_vs_4.16",
+      "derivation": "영덕 household ranking correlation between a 16-ignition run and the 4-ignition baseline, everything else fixed. Regenerate: python scripts/vulnerability_drivers.py --ignitions",
+      "sample": "영덕 124 OSM 건물, 발화 4개, 지평 240분",
+      "caveat": "CLOSES THE MOST-CARRIED ASSUMPTION. 4 and 8 ignitions are IDENTICAL (0.193548, 24 households); 16 gives 0.194052 and 25 households at rho 0.949. Four ignitions is sufficient for the RANKING, which is what the layer is used for. Cost is linear at about 11 s per ignition (44.9 / 95.4 / 186.2 s). ⚠ This closes the assumption for 영덕 at this horizon and prior; it was not re-tested at Paradise.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 16. No spread-model feature set changed, no threshold or target changed, Arm A untouched. Artifacts under data/processed/vulnerability/ are gitignored and regenerable from scripts/vulnerability_drivers.py.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/vulnerability/ignition_count_sweep.json",
+            "json_path": "ranking_spearman_vs_4.16"
+          }
+        }
+      },
+      "arm": "L0_vulnerability"
     }
   }
 }

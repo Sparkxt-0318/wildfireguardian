@@ -7,6 +7,63 @@ needed to close it out.
 
 ---
 
+## Session 16 (vulnerability drivers, 2026-08-30)
+
+### ⛔ STOP-GATE — ACTION FOR JOHN: 산불통계데이터 download is unreachable from here
+
+**What was needed.** Per-event 발생일시 and 진화종료시간 to compute the
+containment-time distribution and ground the vulnerability layer's 240-minute
+horizon, which is currently the layer's single largest assumption (household
+ranking correlation between a 30-minute and a 240-minute horizon is only
+**0.333**).
+
+**Exact URL:** `https://www.data.go.kr/data/15121380/fileData.do`
+(산림청_산불통계데이터_20250911, 공공데이터포털)
+
+**Exact failure.** The host is reachable at the TCP level and then the TLS
+handshake never completes:
+
+```
+www.data.go.kr    dns=ok 27.101.236.55   tcp443=ok   https=FAIL URLError:
+                  <urlopen error _ssl.c:999: The handshake operation timed out>
+```
+
+**This is host-specific, not a general network restriction.** Measured in the
+same run, from the same sandbox:
+
+| host | DNS | TCP 443 | HTTPS |
+|---|---|---|---|
+| `www.data.go.kr` | ok | ok | **TLS handshake timeout** |
+| `www.forest.go.kr` | ok | ok | ok (200, 0.5 s) |
+| `fd.forest.go.kr` | ok | ok | ok (200, 0.9 s) |
+| `overpass-api.de` | ok | ok | ok (200, 1.0 s) |
+| `pypi.org` | ok | ok | ok (200, 0.3 s) |
+
+**The reachable alternative was tried and does not carry the data.**
+`fd.forest.go.kr/ffas/pubConn/movePage/sub3.do` and two `forest.go.kr`
+statistics pages return HTTP 200 but are JavaScript shells: a raw-HTML scan for
+진화종료 / 진화시간 / 진화완료 / 평균진화 / 소요시간 found **zero** occurrences in
+any of them. No further fetch method was attempted.
+
+**Consequence, recorded rather than papered over.** The 240-minute horizon
+remains **ungrounded — arbitrary-but-swept**. No distribution was guessed or
+substituted. The full horizon sweep (30/60/120/180/240/360 min at both sites)
+is reported beside the default in every report that cites it.
+
+**What would close it:** download the file on a machine that can reach
+data.go.kr — a normal browser session should suffice, the dataset is a public
+file download — and drop it at `data/raw/kfs_fire_statistics/`. The columns
+needed are 발생일시 and 진화종료시간.
+
+⚠ **Also worth noting for later, NOT built here:** the same file carries
+발생원인 (구분·세부원인) and 발생장소 (관서·시도·시군구·읍면·동리). That is a
+label source for a future ignition-likelihood layer, which would replace the
+current assumed ignition prior. The columns were named from the dataset
+description page, **not** verified against the file, because the file could not
+be downloaded.
+
+---
+
 ## Session 10 (wind downscaling / front assimilation, 2026-08-29)
 
 ### ⛔ ARM C DEFERRED — WindNinja has no build for this session's CPU architecture
