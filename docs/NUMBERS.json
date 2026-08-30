@@ -7279,6 +7279,110 @@
         }
       },
       "arm": "N_control"
+    },
+    "redundancy_upslope_rise_in_fold_sd": {
+      "value": 0.018,
+      "unit": "multiples of fold sd",
+      "source_file": "docs/redundancy_decomposition.json",
+      "json_path": "upslope_alignment.rise_in_units_of_its_own_fold_sd",
+      "derivation": "Rise in upslope_alignment's row-weighted permutation importance when the correlated elev_above_source_m (r=0.243) is removed, in units of the feature's own fold spread. Regenerate: python scripts/redundancy_decomposition.py --run --draws 30 && --aggregate",
+      "sample": "6개 화재 LOFO, 151,904행; 17열 귀무 30 추출",
+      "caveat": "THE REDUNDANCY VERDICT: NOT redundancy. Removing the correlated feature moves the importance by +0.00005, which is 0.018x its own fold sd — no meaningful recovery of stolen credit. Rank goes 15/18 to 13/17, the same relative position. The Arm E null is clean and therefore stronger than before.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 13 Phase 2. Four configurations so a feature substitution is not confounded with a column-count change, each read against its own matched noise null. No model default, target, threshold or Arm A artifact was changed.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/redundancy_decomposition.json",
+            "json_path": "upslope_alignment.rise_in_units_of_its_own_fold_sd"
+          }
+        }
+      },
+      "arm": "E_redundancy"
+    },
+    "redundancy_e17_pooled_percentile_of_null": {
+      "value": 56.7,
+      "unit": "percentile",
+      "source_file": "docs/redundancy_decomposition.json",
+      "json_path": "E17_placed_in_matched_null.pooled_auc.percentile_of_null",
+      "derivation": "Percentile at which the 17-column Arm E (elev_above_source_m removed) falls in its own matched 17-column noise null, against the 15-column Arm A baseline. Regenerate: python scripts/redundancy_decomposition.py --run --draws 30 && --aggregate",
+      "sample": "6개 화재 LOFO, 151,904행; 17열 귀무 30 추출",
+      "caveat": "Replicates the 18-column result: 56.7th percentile against 66.7th. Pooled AUC stays inside the null under both feature sets, so the null does not depend on the presence of the correlated feature.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 13 Phase 2. Four configurations so a feature substitution is not confounded with a column-count change, each read against its own matched noise null. No model default, target, threshold or Arm A artifact was changed.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/redundancy_decomposition.json",
+            "json_path": "E17_placed_in_matched_null.pooled_auc.percentile_of_null"
+          }
+        }
+      },
+      "arm": "E_redundancy"
+    },
+    "arme_mof_gain_without_smallest_fold": {
+      "value": -0.000206,
+      "unit": "ROC-AUC (delta)",
+      "source_file": "docs/redundancy_decomposition.json",
+      "json_path": "mean_of_folds_excluding_smallest_fold.E17_minus_A15_five",
+      "derivation": "Arm E's mean-of-folds gain recomputed over the five fires excluding gangneung_2023, in the 17-column configuration. Regenerate: python scripts/redundancy_decomposition.py --run --draws 30 && --aggregate",
+      "sample": "6개 화재 LOFO, 151,904행; 17열 귀무 30 추출",
+      "caveat": "THIS CLOSES THE ONE EXCEEDANCE. Mean-of-folds was the single metric where Arm E beat all noise draws (100th percentile in both configurations). Excluding gangneung_2023 — 396 rows, 8 positive cells, 0.26% of the evidence, one sixth of the mean-of-folds vote — the gain is -0.0002 in the 17-column configuration and +0.0044 in the 18-column one. The exceedance was a fold, not a finding. See docs/fold_sizes.md.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 13 Phase 2. Four configurations so a feature substitution is not confounded with a column-count change, each read against its own matched noise null. No model default, target, threshold or Arm A artifact was changed.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/redundancy_decomposition.json",
+            "json_path": "mean_of_folds_excluding_smallest_fold.E17_minus_A15_five"
+          }
+        }
+      },
+      "arm": "E_redundancy"
+    },
+    "redundancy_dropping_elev_above_source_pooled": {
+      "value": 0.004113,
+      "unit": "ROC-AUC (delta)",
+      "source_file": "docs/redundancy_decomposition.json",
+      "json_path": "dropping_elev_above_source_costs.pooled_auc",
+      "derivation": "Change in pooled OOF AUC when elev_above_source_m is removed from Arm A's 16 features, on a same-platform replication. Regenerate: python scripts/redundancy_decomposition.py --run --draws 30 && --aggregate",
+      "sample": "6개 화재 LOFO, 151,904행; 17열 귀무 30 추출",
+      "caveat": "POSITIVE: removing the feature RAISES pooled AUC by 0.0041. That is inside the column-count null, so it is not established, but it points the same way as the feature's low rank (8/18, +0.00217). A MEASUREMENT ON A REPLICATION, NOT a proposal to change Arm A, which stays frozen.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 13 Phase 2. Four configurations so a feature substitution is not confounded with a column-count change, each read against its own matched noise null. No model default, target, threshold or Arm A artifact was changed.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "docs/redundancy_decomposition.json",
+            "json_path": "dropping_elev_above_source_costs.pooled_auc"
+          }
+        }
+      },
+      "arm": "E_redundancy"
     }
   }
 }

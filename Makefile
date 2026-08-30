@@ -21,6 +21,7 @@ SHELL := /bin/bash
 .DEFAULT_GOAL := help
 .PHONY: help verify verify-numbers check-forbidden check-region-literals \
 	snapshot snapshot-verify check-arm-isolation check-gate-invocations \
+	check-arm-controls \
         env-check config-hash test baseline-verify baseline-freeze all-checks \
         finals
 
@@ -48,7 +49,7 @@ help:
 # Every registered number is re-derived from its artifact, then the prose is
 # scanned for retired values. Either failing is a hard stop.
 verify: verify-numbers check-forbidden check-region-literals \
-        check-arm-isolation check-gate-invocations
+        check-arm-isolation check-gate-invocations check-arm-controls
 	@echo
 	@echo "=== make verify: PASSED ==="
 
@@ -76,6 +77,11 @@ check-gate-invocations:
 	@echo
 	@echo "=== no gate piped without pipefail ==="
 	@$(PYTHON) $(SCRIPTS)/check_gate_invocations.py
+
+check-arm-controls:
+	@echo
+	@echo "=== every feature-count change has a matched control ==="
+	@$(PYTHON) $(SCRIPTS)/check_arm_controls.py
 
 # --- provenance --------------------------------------------------------------
 snapshot:

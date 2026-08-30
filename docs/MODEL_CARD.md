@@ -169,6 +169,59 @@ circular correlation at n = 36 was not derived. The fold-level spread is wider
 still (sd ≈ 47–50° across 6 fires), and it, not the pooled SE, governs any
 per-fire claim. `[src: docs/direction_drivers.json]`
 
+## Terrain is attenuated by the 500 m grid — a limitation of THIS model
+
+**`slope_deg` in the committed baseline is a roughly 3× attenuated version of
+physical slope.** This is a property of the reported model, not only of the
+direction experiments that measured it.
+
+Two smoothing steps stack. `elevation_on_grid` **averages** ~30 m SRTM into
+500 m cells, and `slope_deg` then differences that already-smoothed surface over
+a **500 m baseline**. Session 12 measured what the pair removes, by recomputing
+slope at native resolution over 16×16 sub-cells per 500 m cell:
+
+| fire | `slope_deg` (500 m) | native effective | attenuation |
+|---|---:|---:|---:|
+| `gangneung_2023` | 4.18° | 13.89° | ×3.33 |
+| `hongseong_2023` | 2.49° | 9.05° | ×3.64 |
+| `miryang_2022` | 9.29° | 22.24° | ×2.39 |
+| `uiseong_andong_2025` | 4.70° | 16.28° | ×3.46 |
+| `uljin_samcheok_2022` | 7.54° | 21.47° | ×2.85 |
+| `yeongdeok_2025` | 6.21° | 20.61° | ×3.32 |
+| **pooled** | **5.73°** | **17.26°** | **×3.01** |
+
+`[src: docs/slope_resolution.json; keys slope_attenuation_500m_vs_native,
+slope_native_effective_mean_deg]`
+
+**The aggregate is the effective slope, not the mean:**
+`slope_effective = arctan(sqrt(mean(tan²φ)))`. Rothermel's slope factor
+`φ_s = 5.275 β^(−0.3)(tan φ)²` is **quadratic in `tan φ`**, so by Jensen's
+inequality `E[tan²φ] ≥ (E[tan φ])²` — the mean slope of a heterogeneous cell
+systematically **understates that cell's mean slope forcing**, and the
+understatement grows with within-cell roughness. The effective slope is the
+single angle whose forcing equals the cell's mean forcing, so it is the
+aggregate that preserves the physics. The maximum is deliberately not used: over
+256 sub-cells it is an extreme-value statistic that grows with the subdivision
+count and measures the sampling rather than the terrain.
+
+### What this means, stated plainly
+
+- **The model's terrain representation is attenuated.** Slope enters Arm A only
+  as a scalar magnitude (`slope_deg`, plus `elev_above_source_m`), and that
+  magnitude is about a third of the physical slope of the same ground.
+- **Calibration range moves with resolution.** Every 500 m slope sits below
+  Rothermel's lowest calibrated angle (14.0°; his 12 laboratory fires were at
+  14.0 / 26.6 / 36.9°). The native effective pooled mean of 17.26° does **not** —
+  it is 1.23× that angle. `hongseong_2023` and `gangneung_2023` remain below it,
+  and no fire's mean reaches the upper two angles. The downward extrapolation is
+  **smaller, not gone.**
+- **`slope_deg` has NOT been changed and Arm A has NOT been retrained.** This is
+  a disclosure of a limitation in the committed model. Session 12's Arm E added
+  native-resolution terrain features *beside* the frozen ones and did not
+  displace them; its result is a null (see `docs/direction_findings.md`).
+- **Unmeasured:** whether Arm A trained on native-resolution slope would perform
+  differently. That experiment was not run.
+
 ## The 2026-08-02 DEM correction — what moved, what did not
 
 The Uljin-Samcheok raster in the training bundle **filled the East Sea with a

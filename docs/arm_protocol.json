@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "title": "Arm protocol — declared feature counts and their required controls",
+  "note": "Machine-checked by scripts/check_arm_controls.py, a leg of `make verify`. Any arm whose feature count differs from Arm A's baseline must name a control arm and a registered number that places it against that control's null. Adding columns raises pooled AUC on average even when the columns are meaningless (docs/column_addition_envelope.json), so an uncontrolled feature-count change cannot support a claim. An arm marked is_control is exempt from needing a control of its own — the exemption is explicit and named rather than achieved by setting control_required=false, which would silently weaken the rule for every arm.",
+  "baseline_arm": "A",
+  "baseline_n_features": 16,
+  "arms": {
+    "A": {
+      "n_features": 16,
+      "role": "frozen baseline; the 본선 posters cite it",
+      "control_required": false,
+      "reason_no_control": "It IS the baseline. Its own cross-platform floor is registered as platform_drift_pooled_auc."
+    },
+    "A_replication": {
+      "n_features": 16,
+      "role": "Arm A re-run on a second platform to measure reproduction drift",
+      "control_required": false,
+      "reason_no_control": "No feature-count change; the whole point is that only the platform differs."
+    },
+    "D": {
+      "n_features": 23,
+      "role": "observed fire-front assimilation (Session 10)",
+      "control_required": true,
+      "control_arm": "N_control",
+      "control_number_key": "column_addition_floor_pooled_p95",
+      "status": "RETROSPECTIVE",
+      "note": "Arm D predates the envelope. Its pooled delta of -0.0070 sits inside the column-addition null (mean +0.0041, sd 0.0040, p5 -0.0035), so its null verdict is unchanged and reinforced. Arm D added SEVEN columns, not two, and no seven-column null was drawn — the two-column envelope is used as the nearest available reference and that substitution is not exact."
+    },
+    "E": {
+      "n_features": 18,
+      "role": "static upslope alignment + Rothermel slope forcing (Session 12)",
+      "control_required": true,
+      "control_arm": "N_control",
+      "control_number_key": "arme_pooled_percentile_of_null",
+      "status": "CONTROLLED"
+    },
+    "E_redundancy": {
+      "n_features": 17,
+      "role": "Arm E with elev_above_source_m removed (Session 13)",
+      "control_required": true,
+      "control_arm": "N_control",
+      "control_number_key": "redundancy_e17_pooled_percentile_of_null",
+      "status": "CONTROLLED",
+      "note": "Read against a 15-column Arm A baseline with its own 17-column noise null, so the substitution is not confounded with the column-count change."
+    },
+    "N_control": {
+      "n_features": 18,
+      "role": "the null itself: Arm A's 16 plus two columns of pure noise",
+      "control_required": false,
+      "reason_no_control": "It IS the control: its two added columns are pure noise, so it defines the null that other feature-count changes are measured against. Requiring it to have a control would be circular.",
+      "is_control": true
+    },
+    "A_geometry": {
+      "n_features": null,
+      "role": "measurement on labels and terrain; trains no model",
+      "control_required": false,
+      "reason_no_control": "No model is fitted, so there is no feature count to control."
+    },
+    "A_disclosure": {
+      "n_features": null,
+      "role": "disclosure of properties of the committed baseline; trains no model",
+      "control_required": false,
+      "reason_no_control": "No model is fitted."
+    }
+  }
+}
