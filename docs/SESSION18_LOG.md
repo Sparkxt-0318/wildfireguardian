@@ -133,3 +133,131 @@ import 문에도 이름이 등장하지 않으므로** AST 임포트 순회만�
 
 **41개 NUMBERS 항목이 저장소에 없는 파일을 가리키고 있었습니다.** 이것이
 Phase 2 가 고칠 것입니다.
+
+---
+
+## Phase 1 — 빈 클론 오프라인 부팅
+
+### 수정 전 상태에서 실제로 재현한 실패 (verbatim)
+
+선언된 의존성만으로 설치한 뒤:
+
+```
+$ python -c 'import xarray as xr, io; xr.open_dataset(io.BytesIO(...), engine="h5netcdf")'
+ModuleNotFoundError: No module named 'h5netcdf'
+```
+
+그리고 API 를 lifespan 과 함께 기동했을 때:
+
+```
+  File "/tmp/bootclone/src/wildfireguardian/api/app.py", line 110, in lifespan
+    state["runner"] = build_runner(regions=regions,
+  File "/tmp/bootclone/src/wildfireguardian/service/jobs.py", line 394, in build_runner
+    cache.preload(regions, params or RoutingParams.from_config())
+  File "/tmp/bootclone/src/wildfireguardian/service/resources.py", line 248, in preload
+    _res, cached, entry = self.get(r, params)
+  File "/tmp/bootclone/src/wildfireguardian/service/resources.py", line 207, in _load
+    raise ResourceError(
+wildfireguardian.service.resources.ResourceError: could not load resources for
+yeongdeok_2025: RasterioIOError:
+/tmp/bootclone/data/raw/firms_data/yeongdeok_2025_dem.tif: No such file or directory
+```
+
+⚠ **두 번째 실패는 브리프가 예고하지 않은 것이고, 더 심각합니다.**
+`data/raw/` 는 **1.3 GB** 로 저장소에 없는 것이 정상인데, 그 부재가
+**서비스 전체 기동을 죽였습니다.** 콘솔과 `/field` 는 완성된 HTML 이라 지역
+데이터를 전혀 읽지 않는데도 **띄울 수가 없었습니다.**
+
+⚠ 그리고 첫 수정 시도가 틀렸습니다. `except ResourceError` 만 잡도록 썼는데,
+없는 지역은 DEM 보다 먼저 `check_npz` 에서 **`ParameterError`** 로 실패합니다.
+`_MISSING_INPUT_ERRORS` 가 한 클래스가 아니라 계열
+`(ResourceError, ParameterError, OSError)` 을 열거하는 이유입니다. 그 밖의
+타입은 여전히 기동을 중단시킵니다 — 예상 밖 예외는 누락이 아니라 버그입니다.
+
+### 수정 후 — 부팅 전문 (verbatim)
+
+```
+############ CLEAN-CLONE OFFLINE BOOT — Session 18 ############
+### host: Linux aarch64   date: 2026-08-31T00:29:43Z
+
+$ git clone <repo> /tmp/bootclone2
+HEAD: 86203f1 phase 1: declare seven runtime imports, and stop a missing data
+              bundle from killing boot
+
+$ python3.11 -m venv .venv   [uv venv, same result]
+  Using CPython 3.11.16
+  Creating virtual environment at: /tmp/bootvenv2
+
+$ pip install -r requirements.txt
+   + threadpoolctl==3.6.0
+   + typing-extensions==4.16.0
+   + typing-inspection==0.4.4
+   + urllib3==2.7.0
+   + uvicorn==0.52.1
+   + xarray==2026.7.0
+  exit=0
+
+$ pip install -e . --no-deps
+  Installed 1 package in 0.48ms
+   + wildfireguardian==0.1.0a0 (from file:///tmp/bootclone2)
+  exit=0
+
+### the four packages that were undeclared before this session
+  affine       == 3.0.1
+  h5netcdf     == 1.8.1
+  h5py         == 3.16.0
+  fonttools    == 4.63.0
+  netCDF4      ABSENT (optional group, not core)
+  cdsapi       ABSENT (optional group, not core)
+  twilio       ABSENT (optional group, not core)
+
+### data bundle deliberately ABSENT:
+  data/raw/ present but empty (.gitkeep only)
+  clone size: 307M
+
+############ part 2 — the demo path (no data bundle) ############
+$ python scripts/build_console.py
+  exit=0
+    -> web/console.html  (158.5 KiB, 3 regions inline)
+
+$ python scripts/build_field_view.py
+  exit=0
+  [1/3] building REAL scenario (arm-B networks; synthetic hazard) ...
+  [3/3] wrote web/field_view.html  {"mission_home_node": 11976273345,
+        "margin_minutes": 13.03, "trigger_cells": 32, "front_slice_min": 0.0}
+
+############ part 2b — served with OUTBOUND NETWORK BLOCKED ############
+  network blocked: getaddrinfo, create_connection, non-loopback connect()
+  GET /api/health   -> HTTP 200
+     preloaded_regions      : []
+     preload_failed_regions : ['yeongdeok_2025', 'uiseong_andong_2025',
+                               'uljin_samcheok_2022']
+  GET /               -> HTTP 200   162347 bytes
+  GET /field          -> HTTP 200   144906 bytes
+  GET /console.html   -> HTTP 200   162347 bytes
+  GET /api/regions    -> HTTP 200      522 bytes
+     external http refs in /       : 0 []
+     external http refs in /field  : 0 []
+  NO OUTBOUND CONNECTION WAS MADE — any attempt raises OSError above.
+
+############ part 3 — gates a judge can run on the bare clone ############
+  scripts/check_declared_deps.py  exit=0  :: OK — 24 third-party modules
+                                              imported across 274 files;
+                                              all declared.
+  scripts/env_check.py            exit=0  :: OK — the environment matches
+                                              requirements.txt.
+############ BOOT TRANSCRIPT COMPLETE ############
+```
+
+### 오프라인 검증 방법에 대한 정직한 기록
+
+네트워크 차단은 **DNS(`getaddrinfo`, `gethostbyname`), `create_connection`,
+그리고 루프백이 아닌 주소로의 `socket.connect`** 를 예외로 만들어 구현했습니다.
+`socket.socketpair()` 는 허용합니다 — **첫 시도에서 `socket.socket` 자체를
+막았다가 asyncio 이벤트 루프가 자기 self-pipe 를 만들지 못해 실패했고**, 그것은
+네트워크와 무관한 이유로 테스트가 깨진 것이었습니다.
+
+⚠ **이것은 진짜 에어갭이 아니라 프로세스 내부 차단입니다.** 파이썬 소켓
+계층을 우회하는 호출(예: 서브프로세스, C 확장이 직접 여는 소켓)은 이 방법으로
+잡히지 않습니다. 함께 확인한 것은 **서빙된 HTML 안의 절대 http(s) 참조가
+0건**이라는 정적 사실이며, 두 증거는 서로 다른 종류입니다.
