@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "da2c5689660b120134a11397dae698b6de2ad7ee",
-  "n_artifacts": 89,
-  "total_bytes": 14411301,
-  "total_mib": 13.74,
-  "n_git_tracked": 89,
+  "generated_at_git_commit": "093bc865050f46efe66ab269e7ec57027f12c70d",
+  "n_artifacts": 91,
+  "total_bytes": 14419507,
+  "total_mib": 13.75,
+  "n_git_tracked": 91,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 8,
   "artifacts": [
@@ -234,6 +234,31 @@
       "regenerate": "python scripts/build_demo_html.py"
     },
     {
+      "path": "data/processed/detection/gk2a_detection_floor.json",
+      "bytes": 5880,
+      "sha256": "ba6733392d1e9f546e3d97c984af77d36403b6d72ab9ac4f2b4b35fa8f21e502",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 7,
+      "cited_by_docs": [
+        "docs/detection_floor.md"
+      ],
+      "regenerate": "python scripts/gk2a_detection.py"
+    },
+    {
+      "path": "data/processed/detection/yeongdeok_background_contamination.json",
+      "bytes": 2326,
+      "sha256": "0c58f5696ca1f04dd06d0e96a32ebbd52c74427401d31c4dc9c3f7b1431ab588",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 3,
+      "cited_by_docs": [
+        "docs/SESSION19_REPORT.md",
+        "docs/detection_floor.md"
+      ],
+      "regenerate": "python scripts/gk2a_yeongdeok_diagnostic.py"
+    },
+    {
       "path": "data/processed/dilation_perturbation.json",
       "bytes": 13095,
       "sha256": "274e52dd9344028b6758616f8131f419da0c2a23b980cc291c5af5edff3fb034",
@@ -394,7 +419,8 @@
       "git_tracked": true,
       "n_registry_entries": 6,
       "cited_by_docs": [
-        "docs/MODEL_CARD.md"
+        "docs/MODEL_CARD.md",
+        "docs/SESSION18_REPORT.md"
       ],
       "regenerate": "python scripts/oof_metrics.py"
     },
@@ -790,7 +816,8 @@
       "git_tracked": true,
       "n_registry_entries": 0,
       "cited_by_docs": [
-        "docs/MODEL_CARD.md"
+        "docs/MODEL_CARD.md",
+        "docs/SESSION18_REPORT.md"
       ],
       "regenerate": "python scripts/oof_metrics.py"
     },

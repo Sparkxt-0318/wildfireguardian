@@ -8215,6 +8215,266 @@
           }
         }
       }
+    },
+    "det_gk2a_delay_uiseong_andong_min": {
+      "value": 22.0,
+      "unit": "minutes",
+      "source_file": "data/processed/detection/gk2a_detection_floor.json",
+      "json_path": "per_fire.uiseong_andong_2025.delay_min",
+      "derivation": "Minutes from the recorded 발생일시 to the first GK2A pixel clearing the 4-sigma contextual test.",
+      "sample": "GK2A AMI LA 2 km, 2-minute cadence, sw038 vs ir112, K=4 contextual",
+      "caveat": "⚠ RELATIVE TO THE RECORDED 발생일시, WHICH IS A REPORT TIME, NOT OBSERVED IGNITION. For an eyewitness-reported fire that timestamp is derived from the report itself, so this is detection-relative-to-report and is a LOWER BOUND on the satellite's lag behind the real fire. The FASTEST of the three detections and the weakest signal (ΔT 22.9 K, 1 pixel). FIRMS took 117 min on the same fire.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 19. MEASUREMENT ON NEW OBSERVATIONAL DATA (GK2A AMI L1B, NOAA GK2A PDS on AWS Open Data, anonymous access). No model, threshold or target changed; nothing retrained; Arm A untouched. Regenerate: python scripts/gk2a_detection.py --fire <id> --before 2 --after 4, then --control <id>, then --collect",
+      "arm": "detection",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/detection/gk2a_detection_floor.json",
+            "json_path": "per_fire.uiseong_andong_2025.delay_min"
+          }
+        }
+      }
+    },
+    "det_gk2a_delay_gangneung_2023_min": {
+      "value": 34.0,
+      "unit": "minutes",
+      "source_file": "data/processed/detection/gk2a_detection_floor.json",
+      "json_path": "per_fire.gangneung_2023.delay_min",
+      "derivation": "Same measurement at 강릉 2023.",
+      "sample": "GK2A AMI LA 2 km, 2-minute cadence, sw038 vs ir112, K=4 contextual",
+      "caveat": "⚠ RELATIVE TO THE RECORDED 발생일시, WHICH IS A REPORT TIME, NOT OBSERVED IGNITION. For an eyewitness-reported fire that timestamp is derived from the report itself, so this is detection-relative-to-report and is a LOWER BOUND on the satellite's lag behind the real fire. ⚠ 40 % of target pixels were below 273 K at detection — partial cloud — and the threshold there was 62.1 K, by far the highest of the three. A clear-sky 강릉 might have been detected earlier; that difference was NOT measured.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 19. MEASUREMENT ON NEW OBSERVATIONAL DATA (GK2A AMI L1B, NOAA GK2A PDS on AWS Open Data, anonymous access). No model, threshold or target changed; nothing retrained; Arm A untouched. Regenerate: python scripts/gk2a_detection.py --fire <id> --before 2 --after 4, then --control <id>, then --collect",
+      "arm": "detection",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/detection/gk2a_detection_floor.json",
+            "json_path": "per_fire.gangneung_2023.delay_min"
+          }
+        }
+      }
+    },
+    "det_gk2a_delay_hongseong_2023_min": {
+      "value": 64.0,
+      "unit": "minutes",
+      "source_file": "data/processed/detection/gk2a_detection_floor.json",
+      "json_path": "per_fire.hongseong_2023.delay_min",
+      "derivation": "Same measurement at 홍성 2023.",
+      "sample": "GK2A AMI LA 2 km, 2-minute cadence, sw038 vs ir112, K=4 contextual",
+      "caveat": "⚠ RELATIVE TO THE RECORDED 발생일시, WHICH IS A REPORT TIME, NOT OBSERVED IGNITION. For an eyewitness-reported fire that timestamp is derived from the report itself, so this is detection-relative-to-report and is a LOWER BOUND on the satellite's lag behind the real fire. The SLOWEST detection and the only fire where FIRMS beat GK2A (17 min vs 64), because a VIIRS overpass happened to fall there. The trade is decided per event by overpass luck.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 19. MEASUREMENT ON NEW OBSERVATIONAL DATA (GK2A AMI L1B, NOAA GK2A PDS on AWS Open Data, anonymous access). No model, threshold or target changed; nothing retrained; Arm A untouched. Regenerate: python scripts/gk2a_detection.py --fire <id> --before 2 --after 4, then --control <id>, then --collect",
+      "arm": "detection",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/detection/gk2a_detection_floor.json",
+            "json_path": "per_fire.hongseong_2023.delay_min"
+          }
+        }
+      }
+    },
+    "det_gk2a_yeongdeok_best_delta_k": {
+      "value": 11.611,
+      "unit": "kelvin",
+      "source_file": "data/processed/detection/gk2a_detection_floor.json",
+      "json_path": "per_fire.yeongdeok_2025.best_target_delta_k",
+      "derivation": "Largest 3.8-11.2 um contrast anywhere within 15 km of 영덕's recorded ignition point over -2 h to +8 h.",
+      "sample": "GK2A AMI LA 2 km, 2-minute cadence, sw038 vs ir112, K=4 contextual",
+      "caveat": "영덕 WAS NOT DETECTED. 11.6 K against a robust threshold of 22.0 K — and not only a threshold artefact: the target region's OWN statistics give 8.65 K and the maximum is 7.34 K. ⚠ FIRMS also saw nothing there for 81 hours, and the manifest flags this fire's bbox as RECONSTRUCTED. Whether the fire, the coordinates or the timestamp is at fault was NOT separated.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 19. MEASUREMENT ON NEW OBSERVATIONAL DATA (GK2A AMI L1B, NOAA GK2A PDS on AWS Open Data, anonymous access). No model, threshold or target changed; nothing retrained; Arm A untouched. Regenerate: python scripts/gk2a_detection.py --fire <id> --before 2 --after 4, then --control <id>, then --collect",
+      "arm": "detection",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/detection/gk2a_detection_floor.json",
+            "json_path": "per_fire.yeongdeok_2025.best_target_delta_k"
+          }
+        }
+      }
+    },
+    "det_false_alarm_steps": {
+      "value": 0.0,
+      "unit": "steps",
+      "source_file": "data/processed/detection/gk2a_detection_floor.json",
+      "json_path": "false_alarms.n_steps_with_a_flagged_pixel",
+      "derivation": "Control steps in which any pixel cleared the same detector, over the same four extents and clock windows 14 days earlier.",
+      "sample": "GK2A AMI LA 2 km, 2-minute cadence, sw038 vs ir112, K=4 contextual",
+      "caveat": "ZERO. ⚠ NOT 'no false alarms' — an UPPER BOUND. Zero in 709 trials puts the 95 % upper limit near 0.4 % per step, which at 2-minute cadence is of order 3 per day. Measured at four sites in one season, not nationwide or year-round.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 19. MEASUREMENT ON NEW OBSERVATIONAL DATA (GK2A AMI L1B, NOAA GK2A PDS on AWS Open Data, anonymous access). No model, threshold or target changed; nothing retrained; Arm A untouched. Regenerate: python scripts/gk2a_detection.py --fire <id> --before 2 --after 4, then --control <id>, then --collect",
+      "arm": "detection",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/detection/gk2a_detection_floor.json",
+            "json_path": "false_alarms.n_steps_with_a_flagged_pixel"
+          }
+        }
+      }
+    },
+    "det_control_steps": {
+      "value": 709.0,
+      "unit": "steps",
+      "source_file": "data/processed/detection/gk2a_detection_floor.json",
+      "json_path": "false_alarms.n_steps",
+      "derivation": "Total no-fire control steps across the four extents — the denominator for the false-alarm bound.",
+      "sample": "GK2A AMI LA 2 km, 2-minute cadence, sw038 vs ir112, K=4 contextual",
+      "caveat": "Same geometry, same time of day, 14 days earlier, so season, solar elevation, terrain and coastline are held fixed and only the fire is removed.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 19. MEASUREMENT ON NEW OBSERVATIONAL DATA (GK2A AMI L1B, NOAA GK2A PDS on AWS Open Data, anonymous access). No model, threshold or target changed; nothing retrained; Arm A untouched. Regenerate: python scripts/gk2a_detection.py --fire <id> --before 2 --after 4, then --control <id>, then --collect",
+      "arm": "detection",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/detection/gk2a_detection_floor.json",
+            "json_path": "false_alarms.n_steps"
+          }
+        }
+      }
+    },
+    "det_size_floor_ha_tf750": {
+      "value": 0.1939,
+      "unit": "hectares",
+      "source_file": "data/processed/detection/gk2a_detection_floor.json",
+      "json_path": "per_fire.uiseong_andong_2025.sub_pixel_area.Tf_750K.fire_area_ha",
+      "derivation": "Sub-pixel fire area implied by the WEAKEST detection (의성, ΔT 22.9 K), from a Dozier (1981) two-component split of a 4 km² pixel at an assumed 750 K flaming temperature.",
+      "sample": "GK2A AMI LA 2 km, 2-minute cadence, sw038 vs ir112, K=4 contextual",
+      "caveat": "⚠ ORDER OF MAGNITUDE ONLY, AND THE DECIMALS ARE NOT MEANINGFUL — they are stored to match the artifact exactly, not because the method resolves them. The flaming temperature is ASSUMED, not measured, and it alone moves the answer by more than 8x: 0.6892 ha at 600 K, 0.1939 at 750 K, 0.0828 at 900 K. READ THE FLOOR AS ROUGHLY 0.1-1 ha. Three detections, a two-component Dozier split with no smouldering term, one pixel each.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 19. MEASUREMENT ON NEW OBSERVATIONAL DATA (GK2A AMI L1B, NOAA GK2A PDS on AWS Open Data, anonymous access). No model, threshold or target changed; nothing retrained; Arm A untouched. Regenerate: python scripts/gk2a_detection.py --fire <id> --before 2 --after 4, then --control <id>, then --collect",
+      "arm": "detection",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/detection/gk2a_detection_floor.json",
+            "json_path": "per_fire.uiseong_andong_2025.sub_pixel_area.Tf_750K.fire_area_ha"
+          }
+        }
+      }
+    },
+    "det_yeongdeok_bg_ring_median_k": {
+      "value": 8.328,
+      "unit": "kelvin",
+      "source_file": "data/processed/detection/yeongdeok_background_contamination.json",
+      "json_path": "strongest_anomaly.bg_delta_median_k",
+      "derivation": "Median 3.8-11.2 um contrast in 영덕's 30-80 km background annulus at the step carrying the strongest target anomaly (2025-03-22T03:42Z).",
+      "sample": "영덕 2025, GK2A LA 2분 스텝 301개 중 배경통계 있는 283개",
+      "caveat": "WHY 영덕 DID NOT FLAG. A clean Korean night scene sits at 1.13 K, so the ring was 7.4x its clean value — 의성·안동 was burning 66 km away, INSIDE 영덕's own annulus, at dT ~ 67 K. The contextual threshold rose to 21.964 K and suppressed an 11.611 K target anomaly. ⚠ CORRECTS THIS SESSION'S OWN DRAFT, which claimed the threshold was not responsible and cited target-zone statistics (5.09/0.89/8.65/7.34 K) that appear in NO committed artifact. Those four numbers are withdrawn.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 19 follow-up. Derived from the committed per-step records only (no download, no model, no Arm A change). Regenerate: python scripts/gk2a_yeongdeok_diagnostic.py",
+      "arm": "detection",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/detection/yeongdeok_background_contamination.json",
+            "json_path": "strongest_anomaly.bg_delta_median_k"
+          }
+        }
+      }
+    },
+    "det_yeongdeok_best_anomaly_minutes_after_report": {
+      "value": 28.0,
+      "unit": "minutes",
+      "source_file": "data/processed/detection/yeongdeok_background_contamination.json",
+      "json_path": "strongest_anomaly.minutes_after_reference",
+      "derivation": "Minutes between 영덕's recorded 발생일시 and the step carrying the strongest target-zone anomaly (11.611 K).",
+      "sample": "영덕 2025, GK2A LA 2분 스텝 301개 중 배경통계 있는 283개",
+      "caveat": "⚠ NOT A DETECTION AND NOT COUNTED AS ONE. 영덕 is classed CONFOUNDED and excluded from the evidence base — neither a detection nor a miss. The anomaly is NOT identified as the fire: against a clean-background threshold 217 of 283 steps clear, including steps hours BEFORE the report, so clearing is not evidence of fire. Recorded because even read at its most favourable this is +28 min, still AFTER the human report — the verdict does not depend on how 영덕 is read.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 19 follow-up. Derived from the committed per-step records only (no download, no model, no Arm A change). Regenerate: python scripts/gk2a_yeongdeok_diagnostic.py",
+      "arm": "detection",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/detection/yeongdeok_background_contamination.json",
+            "json_path": "strongest_anomaly.minutes_after_reference"
+          }
+        }
+      }
+    },
+    "det_yeongdeok_steps_clearing_clean_threshold": {
+      "value": 217.0,
+      "unit": "steps",
+      "source_file": "data/processed/detection/yeongdeok_background_contamination.json",
+      "json_path": "counterfactual_clean_background.n_steps_clearing_clean_threshold",
+      "derivation": "Steps whose peak target anomaly exceeds a clean-background threshold (3.09 K), of 283 with background statistics.",
+      "sample": "영덕 2025, GK2A LA 2분 스텝 301개 중 배경통계 있는 283개",
+      "caveat": "REGISTERED AS THE REASON NOT TO OVERCLAIM. 217/283 clearing — including pre-report steps — shows a 3.09 K threshold is far too permissive for a daytime scene, where solar reflection alone puts background contrast at +6 to +8 K. This number exists to block the inference 'a clean background would have detected 영덕'.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 19 follow-up. Derived from the committed per-step records only (no download, no model, no Arm A change). Regenerate: python scripts/gk2a_yeongdeok_diagnostic.py",
+      "arm": "detection",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/detection/yeongdeok_background_contamination.json",
+            "json_path": "counterfactual_clean_background.n_steps_clearing_clean_threshold"
+          }
+        }
+      }
     }
   }
 }
