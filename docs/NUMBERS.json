@@ -8137,6 +8137,84 @@
         }
       },
       "arm": "A_classification"
+    },
+    "l0_clearance_finite_routes": {
+      "value": 2.0,
+      "unit": "routes",
+      "source_file": "data/processed/vulnerability/clearance_diagnostic.json",
+      "json_path": "totals.n_clearance_finite",
+      "derivation": "Successful routes whose clearance_margin_min took a FINITE value, summed over six horizons (30/60/120/180/240/360 min) at 영덕.",
+      "sample": "영덕 124 OSM 건물, 발화 4개, 시나리오 3개, 지평 6종",
+      "caveat": "2 of 5,664 successful routes — 0.035 %. ZERO at five of six horizons; both finite values occur at 360 min and are 118.8 and 208.8 minutes, so NONE approaches the 10-minute threshold. This is why tight_margin fired 0 times in Session 17: the score's second clause is INERT at 영덕.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 18 Phase 5. DIAGNOSTIC ONLY — the router, the margin threshold and the hazard were not modified, and no previously reported number moved. Regenerate: python scripts/clearance_diagnostic.py --horizon <H> for each of 30/60/120/180/240/360, then --collect",
+      "arm": "L0_vulnerability",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/vulnerability/clearance_diagnostic.json",
+            "json_path": "totals.n_clearance_finite"
+          }
+        }
+      }
+    },
+    "l0_clearance_below_threshold_routes": {
+      "value": 0.0,
+      "unit": "routes",
+      "source_file": "data/processed/vulnerability/clearance_diagnostic.json",
+      "json_path": "totals.n_below_margin_threshold",
+      "derivation": "Successful routes whose finite clearance fell below MARGIN_FAIL_MIN = 10 minutes, over all six horizons.",
+      "sample": "영덕 124 OSM 건물, 발화 4개, 시나리오 3개, 지평 6종",
+      "caveat": "ZERO of 5,664. The vulnerability score is documented as 'no survivable route OR margin < 10 min' and must be READ AS IF IT SAID ONLY THE FIRST CLAUSE at 영덕. ⚠ Structural, not a quiet hazard: a finite margin needs a node ON THE ROUTE to burn inside the horizon, and a route that successfully flees tends to have none — success and a finite margin pull against each other. ⚠ NOT a dead code path: 5 of 8 clearance values in committed Layer 2 routing artifacts ARE finite, including −493.9, because vehicles drive toward the fire. Inert in this regime, not broken.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 18 Phase 5. DIAGNOSTIC ONLY — the router, the margin threshold and the hazard were not modified, and no previously reported number moved. Regenerate: python scripts/clearance_diagnostic.py --horizon <H> for each of 30/60/120/180/240/360, then --collect",
+      "arm": "L0_vulnerability",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/vulnerability/clearance_diagnostic.json",
+            "json_path": "totals.n_below_margin_threshold"
+          }
+        }
+      }
+    },
+    "l0_clearance_reached_routes": {
+      "value": 5664.0,
+      "unit": "routes",
+      "source_file": "data/processed/vulnerability/clearance_diagnostic.json",
+      "json_path": "totals.n_reached",
+      "derivation": "Successful (reached) route evaluations across six horizons, four ignitions and three scenarios at 영덕 — the denominator for the two entries above.",
+      "sample": "영덕 124 OSM 건물, 발화 4개, 시나리오 3개, 지평 6종",
+      "caveat": "Route EVALUATIONS, not households: 110 distinct origin nodes x 12 (ignition, scenario) pairs x 6 horizons, minus the evaluations that found no route. Do not read it as a household count.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 18 Phase 5. DIAGNOSTIC ONLY — the router, the margin threshold and the hazard were not modified, and no previously reported number moved. Regenerate: python scripts/clearance_diagnostic.py --horizon <H> for each of 30/60/120/180/240/360, then --collect",
+      "arm": "L0_vulnerability",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/vulnerability/clearance_diagnostic.json",
+            "json_path": "totals.n_reached"
+          }
+        }
+      }
     }
   }
 }

@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "title": "Korean baseline freeze — PHASE 13 PHASE 0",
-  "frozen_utc": "2026-08-31T00:52:42Z",
-  "git_commit": "424e7097364d7c75e6842e5c21db049771c4a384",
+  "frozen_utc": "2026-08-31T00:59:06Z",
+  "git_commit": "da2c5689660b120134a11397dae698b6de2ad7ee",
   "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
-  "registry_entries": 234,
+  "registry_entries": 237,
   "lofo_shape": {
     "n_rows": 151904,
     "n_positives": 2989,
@@ -109,6 +109,7 @@
     "data/processed/spread_v2_lofo_dem_corrected.json": "22088693df716ab227255ad64dc208876f0cc9a00342cddebea04a15b258f6ba",
     "data/processed/spread_v2_lofo_oof.csv.gz": "75fd7c9229e9415b7e5f9bbdc5c7fcfec96872ca4e5e4b53cd88b7d0aaec604b",
     "data/processed/spread_v2_lofo_oof_cells.csv.gz": "dd8134d4eb6153c3cfa662dc627a08ffa874d295234431b7de0eb7b6d1ab1697",
+    "data/processed/vulnerability/clearance_diagnostic.json": "370493a2b3f00699e02c3c7b9aa256d41a6cadd3d92414a400531fbf879c33f3",
     "data/processed/vulnerability/hazard_sensitivity.json": "4e0a6b5e21ea93ec403caa30daa97d3f5b6aeb786f88c62fbba82a4626ed5fd7",
     "data/processed/vulnerability/horizon_sweep_paradise.json": "b793bdf31746cce6ad90325b62fe0128c5df8e4b90288bad7e8777c1ece178de",
     "data/processed/vulnerability/horizon_sweep_yeongdeok.json": "36a5d312125ca6e58a821e7d81d30d34c70375c1b032358ae601ad4ad9d37b14",

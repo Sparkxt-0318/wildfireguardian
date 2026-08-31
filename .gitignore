@@ -250,6 +250,8 @@ data/processed/vulnerability/refuges/
 # entries read from.
 !data/processed/spread_v2_lofo_oof_cells.csv.gz
 !data/processed/oof_classification_metrics.json
+# Phase 5: evidence that the vulnerability score's margin clause is inert.
+!data/processed/vulnerability/clearance_diagnostic.json
 
 # Validation-case manifest JSON files ARE committed (they're stubs, not
 # bulk data).
