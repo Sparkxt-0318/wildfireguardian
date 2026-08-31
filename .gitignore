@@ -253,6 +253,15 @@ data/processed/vulnerability/refuges/
 # Phase 5: evidence that the vulnerability score's margin clause is inert.
 !data/processed/vulnerability/clearance_diagnostic.json
 
+# --- SESSION 19: GK2A detection floor ----------------------------------------
+# 1.1 MB of small text JSON. The per-step traces are kept, not just the summary,
+# because the finding is partly a NON-detection (영덕) and a reader has to be
+# able to see every step that did not fire, not take the absence on trust.
+!data/processed/detection/
+!data/processed/detection/*.json
+!data/processed/detection/steps/
+!data/processed/detection/steps/*.json
+
 # Validation-case manifest JSON files ARE committed (they're stubs, not
 # bulk data).
 !data/validation_cases/**
