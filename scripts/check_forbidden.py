@@ -299,9 +299,29 @@ def pragma_tokens(line: str) -> set[str]:
 
 
 def tracked_files() -> list[Path]:
+    """Tracked files, PLUS files staged for the commit about to be made.
+
+    ⚠ SESSION 19 FIX FOR A VACUOUS GATE. This used ``git ls-files`` alone, which
+    lists only ALREADY-tracked files. A brand-new document was therefore
+    invisible to this gate until the commit that added it had already been
+    made — so the habit of running the gates and then ``git add -A && git
+    commit`` checked everything EXCEPT the files the commit was introducing.
+    Every Session 18 commit's "all gates green" line was, for its new files,
+    true of nothing. The gate was not wrong about what it saw; it simply could
+    not see the thing most likely to be wrong.
+
+    Adding ``git diff --cached --name-only`` makes the gate correct under BOTH
+    orderings — stage-then-gate and gate-then-stage — instead of relying on the
+    author remembering which one is safe.
+    """
     try:
         out = subprocess.check_output(["git", "ls-files"], cwd=REPO).decode()
-        files = [REPO / f for f in out.splitlines() if f]
+        names = {f for f in out.splitlines() if f}
+        staged = subprocess.check_output(
+            ["git", "diff", "--cached", "--name-only", "--diff-filter=d"],
+            cwd=REPO).decode()
+        names |= {f for f in staged.splitlines() if f}
+        files = [REPO / f for f in sorted(names) if (REPO / f).is_file()]
     except Exception:  # noqa: BLE001
         files = [p for p in REPO.rglob("*") if p.is_file()]
     keep = []

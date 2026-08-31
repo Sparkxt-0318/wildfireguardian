@@ -116,12 +116,22 @@ def _git_files() -> list[str]:
     it is what the registry is checked AGAINST, so a number in it disagreeing
     with a rounded prose figure is expected, not a collision.
     """
+    env = {"GIT_DISCOVERY_ACROSS_FILESYSTEM": "1",
+           "PATH": "/usr/bin:/bin:/usr/local/bin"}
     r = subprocess.run(["git", "ls-files", "*.md", "*.py"], cwd=REPO,
-                       capture_output=True, text=True,
-                       env={"GIT_DISCOVERY_ACROSS_FILESYSTEM": "1",
-                            "PATH": "/usr/bin:/bin:/usr/local/bin"})
-    return [f for f in r.stdout.split()
-            if not f.startswith("data/") and f != "docs/NUMBERS.json"]
+                       capture_output=True, text=True, env=env)
+    names = set(r.stdout.split())
+    # ⚠ SESSION 19: also the files STAGED for the commit being made. `git
+    # ls-files` alone lists only already-tracked files, so a new document was
+    # invisible to this gate until after the commit that added it — see the
+    # note in check_forbidden.py::tracked_files.
+    s = subprocess.run(["git", "diff", "--cached", "--name-only",
+                        "--diff-filter=d"], cwd=REPO,
+                       capture_output=True, text=True, env=env)
+    names |= {f for f in s.stdout.split() if f.endswith((".md", ".py"))}
+    return [f for f in sorted(names)
+            if not f.startswith("data/") and f != "docs/NUMBERS.json"
+            and (REPO / f).is_file()]
 
 
 def _prose_lines(rel: str) -> list[str]:
