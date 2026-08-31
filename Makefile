@@ -50,7 +50,7 @@ help:
 # scanned for retired values. Either failing is a hard stop.
 verify: verify-numbers check-forbidden check-region-literals \
         check-arm-isolation check-gate-invocations check-arm-controls \
-        check-declared-deps check-artifact-manifest
+        check-declared-deps check-artifact-manifest check-number-collisions
 	@echo
 	@echo "=== make verify: PASSED ==="
 
@@ -102,6 +102,14 @@ check-artifact-manifest:
 	@echo
 	@echo "=== cited artifacts match the manifest ==="
 	@$(PYTHON) $(SCRIPTS)/build_artifact_manifest.py --check
+
+# A registered quantity appearing elsewhere with a DIFFERENT value and nothing
+# saying which superseded which. check-forbidden holds a curated list of retired
+# values; this one is registry-anchored and finds collisions nobody has curated.
+check-number-collisions:
+	@echo
+	@echo "=== no registered quantity contradicts itself ==="
+	@$(PYTHON) $(SCRIPTS)/check_number_collisions.py
 
 # --- provenance --------------------------------------------------------------
 snapshot:

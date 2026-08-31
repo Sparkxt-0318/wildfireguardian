@@ -90,6 +90,7 @@ candidate-cell rows, 2,989 positives (~2%).
 
 | rank | feature | AUC drop | group |
 |---:|---|---:|---|
+<!-- collision-ok: 0.077 — permutation IMPORTANCE, not the drop-delta (0.027). -->
 | 1 | **days_since_rain** | **0.077** | fire-weather **severity** |
 | 2 | dist_to_fire_m | 0.060 | geometry |
 | 3 | **wind_speed_ms** | 0.021 | severity |

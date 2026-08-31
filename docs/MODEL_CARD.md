@@ -263,6 +263,7 @@ information), but it measures an easier task; the honest figure is **~0.40**.
 
 ## Permutation importance — what it measures, and what it does NOT establish
 
+<!-- collision-ok: 0.077 — permutation IMPORTANCE of days_since_rain, not wxdep_drop_days_since_rain_mean_delta (0.027), which is the mean-of-folds AUC change from DROPPING it. -->
 Permutation importance: `days_since_rain` 0.077 is the top-ranked feature; summed
 fire-weather **severity** importance 0.102 vs `wind_alignment` 0.0023 — a **44×**
 ratio. `[src: spread_v2_lofo.json/permutation_importance]`

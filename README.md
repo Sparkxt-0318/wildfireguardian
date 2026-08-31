@@ -524,6 +524,7 @@ probability `P(ignites by the next satellite overpass)`.
   **It does not mean wind direction is unimportant** — it means this instrument
   cannot see it.
 - ⚠ **And the top-ranked feature makes the model WORSE out-of-fold.**
+<!-- collision-ok: 0.077 — permutation IMPORTANCE of days_since_rain, not the drop-delta wxdep_drop_days_since_rain_mean_delta (0.027). Different measurements of the same feature. -->
   `days_since_rain` ranks first at **+0.077**, but *dropping* it **raises**
   mean-of-folds AUC by **+0.0270** and far-band by **+0.0533**. For three of six
   fires the ERA5 window holds **zero** wet samples, so the feature anchors to the

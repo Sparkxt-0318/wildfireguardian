@@ -56,6 +56,7 @@ Round 2 에서 "심각도가 방향보다 중요하다"는 읽기가 제시되�
 
 | 측정 | 값 | 아티팩트 |
 |---|---|---|
+<!-- collision-ok: 0.170 — corr(R, step length), not label_geometry_circ_corr_obs_vs_wind (−0.053). -->
 | `R` 과 스텝 길이의 상관 | **+0.170** (예측과 **반대 부호**) | `docs/label_geometry.json :: pooled.corr_R_vs_dt_hours` |
 
 **가설은 지지되지 않았습니다.** 적분되어 사라지는 기전은 시연되지
