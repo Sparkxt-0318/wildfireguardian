@@ -49,7 +49,8 @@ help:
 # Every registered number is re-derived from its artifact, then the prose is
 # scanned for retired values. Either failing is a hard stop.
 verify: verify-numbers check-forbidden check-region-literals \
-        check-arm-isolation check-gate-invocations check-arm-controls
+        check-arm-isolation check-gate-invocations check-arm-controls \
+        check-declared-deps
 	@echo
 	@echo "=== make verify: PASSED ==="
 
@@ -82,6 +83,16 @@ check-arm-controls:
 	@echo
 	@echo "=== every feature-count change has a matched control ==="
 	@$(PYTHON) $(SCRIPTS)/check_arm_controls.py
+
+# --- clean-clone boot (Session 18) -------------------------------------------
+# Catches the failure that only appears on a laptop that has never seen this
+# repo: a module imported at runtime and declared in no dependency file. Also
+# scans engine=/driver= literals, because h5netcdf and h5py were reached only
+# through xr.open_dataset(engine="h5netcdf") and appear in no import statement.
+check-declared-deps:
+	@echo
+	@echo "=== every runtime import is declared ==="
+	@$(PYTHON) $(SCRIPTS)/check_declared_deps.py
 
 # --- provenance --------------------------------------------------------------
 snapshot:

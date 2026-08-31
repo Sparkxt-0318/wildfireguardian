@@ -50,9 +50,47 @@ rich==15.0.0          # lazy imports inside the demo CLIs' main()
 # pipeline parameter (see src/wildfireguardian/config.py).
 PyYAML==6.0.3
 
+# --- Undeclared runtime imports, found mechanically in Session 18 -------------
+# `scripts/check_declared_deps.py` walks every tracked .py with `ast` and diffs
+# the result against this file and pyproject.toml. These four were imported at
+# runtime and declared NOWHERE. Each was present only as a TRANSITIVE of
+# something else (affine <- rasterio, fonttools <- matplotlib) or as a
+# conda-only package named in docs/ENVIRONMENT.md but never in a dependency
+# file (h5netcdf, and h5py beneath it). A transitive is not a declaration: the
+# intermediate package is free to drop it in any release.
+#
+# ⚠ h5netcdf and h5py are STRING-DISPATCHED, not imported by name.
+# `src/wildfireguardian/spread_v2/data.py` calls
+# `xr.open_dataset(..., engine="h5netcdf")`, so no import statement mentions
+# either package and no import-graph walk alone can see them. They are the
+# reason `check_declared_deps.py` also scans `engine=`/`driver=` literals.
+#
+# ⚠ PIN PROVENANCE. These four versions are the ones verified in the Session 18
+# working environment (Linux aarch64, PyPI wheels, Python 3.11) — NOT read off
+# the macOS/conda `wfg311` reference environment, which could not be queried
+# from here. Every OTHER pin in this file predates Session 18 and is unchanged.
+# Nothing was upgraded.
+affine==3.0.1         # spread_v2/grid.py GridSpec.transform (lazy import)
+h5netcdf==1.8.1       # xarray engine for the ERA5 read; NOT imported by name
+h5py==3.16.0          # the HDF5 backend h5netcdf itself drives
+fonttools==4.63.0     # scripts/measure_fonts.py, tests/test_screen_checks.py
+
 # --- Testing / dev ---
 pytest==9.1.1
 
+# --- Optional extras: declared in pyproject.toml, NOT pinned here -----------
+# Three more undeclared runtime imports were found in Session 18 that are NOT
+# core, so they live in pyproject.toml optional-dependency groups instead of
+# being pinned here. Pinning them here would make `env_check.py` demand them on
+# every machine, including a booth laptop that needs none of them.
+#   netCDF4   -> [legacy]        engine="netcdf4" in spread_v2_xgb/era5.py
+#   cdsapi    -> [acquisition]   scripts/get_era5.py (ERA5 download, not demo)
+#   twilio    -> [sms]           delivery/sms.py, imported ONLY after provider
+#                                credentials are found in the environment;
+#                                without them the function returns
+#                                {"sent": False, "reason": "provider
+#                                credentials absent"} and never imports it
+#
 # --- Optional extra: `legacy` (pip install -e ".[legacy]") ------------------
 # xgboost is required ONLY by the abandoned spread_v2_xgb (Build A) and the LFMC
 # scaffold, NOT by the canonical spread_v2 model. It is NOT a core dependency.

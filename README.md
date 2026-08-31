@@ -353,7 +353,55 @@ Round 3 은 새 기능을 얹기 전에 **기존 수치가 아직 참인지 확�
 
 전체 데이터 카탈로그(라이선스·접근 포함)는 [`docs/data_sources.md`](docs/data_sources.md).
 
+### 처음 보는 노트북에서 데모 띄우기 (본선 · 오프라인)
+
+**아래 그대로 붙여넣으면 됩니다.** 인터넷 없이 동작하며, 1.3 GB 데이터 번들도
+필요 없습니다 — 콘솔과 `/field` 는 완성된 HTML 이라 지역 데이터를 읽지
+않습니다. Session 18 에서 빈 클론·빈 가상환경으로 실제로 실행해 확인했습니다
+(전문은 `docs/SESSION18_LOG.md`).
+
+```bash
+# 1. 클론
+git clone https://github.com/sparkxt-0318/wildfireguardian.git
+cd wildfireguardian
+
+# 2. 가상환경 (Python 3.11)
+python3.11 -m venv .venv && source .venv/bin/activate
+
+# 3. 선언된 의존성만 설치. h5netcdf/h5py 를 따로 치던 줄은 필요 없습니다 —
+#    Session 18 에서 requirements.txt 에 정식 선언했습니다.
+pip install -r requirements.txt
+pip install -e . --no-deps
+
+# 4. 여기서 이미 데모가 뜹니다 — 브라우저로 파일을 직접 열면 됩니다.
+#    web/console.html   운영 콘솔 (3개 지역 인라인)
+#    web/field_view.html 현장 화면
+#    외부 요청 0건: CDN·타일·API 를 일절 부르지 않습니다.
+
+# 5. 서비스로 띄우려면 (선택)
+python -m uvicorn --app-dir src --factory wildfireguardian.api.app:create_app --port 8000
+#    -> http://127.0.0.1:8000/        콘솔
+#    -> http://127.0.0.1:8000/field   현장 화면
+#    -> http://127.0.0.1:8000/api/health
+#    ⚠ 데이터 번들이 없으면 지역 preload 는 실패하지만 서비스는 정상 기동하고,
+#      /api/health 의 preload_failed_regions 가 무엇이 없는지 알려줍니다.
+#      (Session 18 이전에는 여기서 전체 기동이 죽었습니다.)
+
+# 6. 화면 두 개를 다시 빌드하고 싶다면 (선택, 데이터 번들 불필요)
+python scripts/build_console.py
+python scripts/build_field_view.py
+```
+
+**게이트로 확인:** `python scripts/check_declared_deps.py` 는 선언되지 않은
+런타임 임포트가 하나라도 생기면 exit 1 입니다. `import` 문뿐 아니라
+`engine=` / `driver=` 문자열도 훑습니다 — `h5netcdf` 와 `h5py` 는 어떤 import
+문에도 이름이 없고 `xr.open_dataset(engine="h5netcdf")` 로만 불려서, 임포트
+순회만으로는 원리적으로 찾을 수 없기 때문입니다.
+
 ### 재현 (Reproduce)
+
+전체 분석을 다시 돌리려면 데이터 번들이 필요합니다. 데모만 볼 때는 위 절차로
+충분합니다.
 
 ```bash
 git clone https://github.com/sparkxt-0318/wildfireguardian.git
@@ -364,7 +412,7 @@ python -m venv .venv && source .venv/bin/activate
 # scikit-learn / xgboost / xarray / pyproj / rasterio 등이 빠집니다.)
 pip install -e ".[ml,geospatial]"     # numpy scipy pandas shapely matplotlib pydantic
                                       #  + scikit-learn xgboost xarray pyproj rasterio ...
-pip install h5netcdf h5py             # ERA5 NetCDF 리더 (extras·requirements.txt 누락분)
+                                      #  h5netcdf/h5py 는 이제 코어 의존성입니다
 
 # 데이터 번들 배치 (저장소에 없음 — git-ignore):
 unzip firms_data.zip -d data/raw/     # 또는: export WFG_FIRMS_DIR=/path/to/firms

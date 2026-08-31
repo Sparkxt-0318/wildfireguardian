@@ -42,7 +42,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from ..live import pipeline as _pipeline
-from .params import RoutingParams, check_npz, npz_for_region
+from .params import ParameterError, RoutingParams, check_npz, npz_for_region
 
 REPO = Path(__file__).resolve().parents[3]
 
@@ -56,6 +56,12 @@ def _peak_rss_bytes() -> int:
 
 class ResourceError(RuntimeError):
     """A region's inputs could not be loaded. Raised, never printed."""
+
+
+#: The exception types a MISSING INPUT can arrive as. See the note above
+#: ``ResourceCache.resident_regions`` for why this is enumerated rather than a
+#: bare ``except Exception``.
+_MISSING_INPUT_ERRORS = (ResourceError, ParameterError, OSError)
 
 
 @dataclass(frozen=True)
@@ -230,7 +236,8 @@ class ResourceCache:
             del self._entries[victim]
             self._evictions += 1
 
-    def preload(self, regions: list[str], params: RoutingParams) -> list[dict]:
+    def preload(self, regions: list[str], params: RoutingParams,
+                *, strict: bool = True) -> list[dict]:
         """Warm the cache for several regions at start-up.
 
         Refuses to load more regions than the cache can hold, rather than
@@ -245,8 +252,27 @@ class ResourceCache:
                 "last load evict the first.")
         out = []
         for r in regions:
-            _res, cached, entry = self.get(r, params)
-            out.append({**entry.as_dict(), "already_resident": cached})
+            try:
+                _res, cached, entry = self.get(r, params)
+            except _MISSING_INPUT_ERRORS as exc:
+                if strict:
+                    raise
+                # SESSION 18, clean-clone boot. `data/raw/` is 1.3 GB and is
+                # deliberately not in the repository, so on a fresh clone every
+                # region's DEM is absent and a strict preload takes the whole
+                # API down at start-up — the pre-built console and /field pages
+                # serve fine, but `uvicorn` never comes up to serve them.
+                # With strict=False the region is recorded as unavailable and
+                # the service starts; /api/regions already carries `ready` and
+                # `not_ready_reason` for exactly this state.
+                # ⚠ Default stays strict=True so no existing caller changes
+                # behaviour: a preload that silently half-succeeds is worse
+                # than one that fails, everywhere except at boot.
+                out.append({"region": r, "loaded": False,
+                            "error": f"{type(exc).__name__}: {exc}"})
+                continue
+            out.append({**entry.as_dict(), "already_resident": cached,
+                        "loaded": True})
         return out
 
     def evict(self, region: str | None = None) -> int:
@@ -260,6 +286,25 @@ class ResourceCache:
             return len(keys)
 
     # -- reporting ---------------------------------------------------------
+    # ⚠ The exception types a MISSING INPUT can arrive as, named rather than a
+    # bare ``except Exception``. Two were observed on a real clean clone:
+    # ``ResourceError`` (the DEM read, which wraps RasterioIOError) and
+    # ``ParameterError`` (``check_npz`` refusing an absent hazard field).
+    # ``OSError`` covers a raw filesystem failure that reaches here unwrapped.
+    # Anything OUTSIDE this tuple still propagates and still takes start-up
+    # down, because an unexpected exception type at boot is a bug, not a
+    # missing file, and hiding it would be the wrong trade.
+
+    def resident_regions(self) -> set[str]:
+        """Which regions are actually loaded right now.
+
+        Added in Session 18 so the API can report a partial preload instead of
+        reaching into ``_entries``. On a clean clone with no ``data/raw``
+        bundle this is empty and every region is reported not-ready.
+        """
+        with self._registry_lock:
+            return {k.region for k in self._entries}
+
     def stats(self) -> dict:
         with self._registry_lock:
             entries = [e.as_dict() for e in self._entries.values()]

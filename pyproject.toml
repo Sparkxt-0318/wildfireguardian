@@ -42,6 +42,17 @@ dependencies = [
     "pydantic>=2.0",
     "tqdm>=4.65",
     "rich>=13.0",
+    "PyYAML>=6.0",
+    # --- Session 18: undeclared runtime imports, found mechanically ----------
+    # scripts/check_declared_deps.py walks every tracked .py with `ast`.
+    # `affine` is imported lazily inside spread_v2/grid.py; it was present only
+    # as a rasterio transitive, and a transitive is not a declaration.
+    "affine>=2.3",
+    # h5netcdf/h5py are STRING-DISPATCHED — spread_v2/data.py calls
+    # xr.open_dataset(..., engine="h5netcdf"), so neither name appears in any
+    # import statement. Nothing but an `engine=` scan can find them.
+    "h5netcdf>=1.0",
+    "h5py>=3.0",
 ]
 
 [project.optional-dependencies]
@@ -64,11 +75,27 @@ routing = [
 # Kept out of `ml` so installing the canonical stack does not pull it in.
 legacy = [
     "xgboost>=2.0",
+    # engine="netcdf4" in spread_v2_xgb/era5.py — string-dispatched, Build A only
+    "netCDF4>=1.6",
 ]
 dev = [
     "pytest>=7.4",
     "jupyter>=1.0",
     "pillow>=10.0",
+    # scripts/measure_fonts.py and tests/test_screen_checks.py; was present only
+    # as a matplotlib transitive
+    "fonttools>=4.40",
+]
+# ERA5 download only. NOT needed to run the demo, which reads committed
+# snapshots — scripts/get_era5.py is how those snapshots were made.
+acquisition = [
+    "cdsapi>=0.7",
+]
+# Real SMS delivery. delivery/sms.py imports twilio ONLY after finding provider
+# credentials in the environment; with none present it returns
+# {"sent": False, "reason": "provider credentials absent"} without importing.
+sms = [
+    "twilio>=9.0",
 ]
 
 [project.urls]

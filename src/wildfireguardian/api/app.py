@@ -97,7 +97,8 @@ def create_app(*, runner: JobRunner | None = None,
                preload: tuple[str, ...] | None = None) -> FastAPI:
     """Build the app. ``runner`` is injectable so tests need no real preload."""
     state: dict[str, Any] = {"runner": runner, "started": None,
-                             "preloaded": [], "owns_runner": runner is None}
+                             "preloaded": [], "preload_failed": [],
+                             "owns_runner": runner is None}
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
@@ -107,10 +108,21 @@ def create_app(*, runner: JobRunner | None = None,
             # The whole point of the cache: pay the load once, at start-up,
             # where nobody is waiting, instead of on the first operator's
             # request. PHASE 19 measured ~1.4-2.7 s per region.
+            # ⚠ strict_preload=False (SESSION 18). data/raw/ is 1.3 GB and is
+            # not in the repository, so on a clean clone every region's DEM is
+            # missing. A strict preload raised ResourceError inside the
+            # lifespan and the service never started AT ALL — the pre-built
+            # console and /field pages were fine, but uvicorn could not come up
+            # to serve them. The service now starts with those regions marked
+            # not-ready; /api/regions already reports `ready` and
+            # `not_ready_reason`, and /api/health lists what failed to preload.
             state["runner"] = build_runner(regions=regions,
                                            capacity=max(1, len(regions)),
-                                           max_workers=1)
-            state["preloaded"] = regions
+                                           max_workers=1,
+                                           strict_preload=False)
+            resident = state["runner"].cache.resident_regions()
+            state["preloaded"] = [r for r in regions if r in resident]
+            state["preload_failed"] = [r for r in regions if r not in resident]
         state["started"] = time.monotonic() - t0
         try:
             yield
@@ -136,6 +148,10 @@ def create_app(*, runner: JobRunner | None = None,
             "ok": True,
             "startup_seconds": round(state["started"] or 0.0, 3),
             "preloaded_regions": state["preloaded"],
+            # SESSION 18: regions whose resources are absent (typically a clean
+            # clone without the 1.3 GB data/raw bundle). Listed rather than
+            # fatal, so the service starts and says what is missing.
+            "preload_failed_regions": state["preload_failed"],
             "runner": r.stats(),
         }, where="GET /api/health")
 

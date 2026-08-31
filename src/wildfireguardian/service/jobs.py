@@ -381,7 +381,8 @@ def _now() -> str:
 
 def build_runner(*, regions: list[str] | None = None, capacity: int = 1,
                  max_workers: int = 1,
-                 params: RoutingParams | None = None) -> JobRunner:
+                 params: RoutingParams | None = None,
+                 strict_preload: bool = True) -> JobRunner:
     """A runner with its cache already warm. What a service does at start-up.
 
     Preloading is the difference between the first operator of the day waiting
@@ -391,7 +392,8 @@ def build_runner(*, regions: list[str] | None = None, capacity: int = 1,
     cache = ResourceCache(capacity=max(capacity, len(regions or [])))
     runner = JobRunner(cache=cache, max_workers=max_workers)
     if regions:
-        cache.preload(regions, params or RoutingParams.from_config())
+        cache.preload(regions, params or RoutingParams.from_config(),
+                      strict=strict_preload)
     return runner
 
 
