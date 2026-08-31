@@ -67,6 +67,12 @@
       "role": "Layer 0 pre-ignition evacuation vulnerability; trains no spread model",
       "control_required": false,
       "reason_no_control": "No model is fitted and no spread-model feature set changed. The layer consumes the existing routing stack through the HazardSequence interface; the Session 13 column-addition control applies to arms that change a trained model's feature count, and this arm changes none."
+    },
+    "A_classification": {
+      "n_features": null,
+      "role": "Session 18. Cell-level recall / precision / F1 and a PR curve, computed FROM Arm A's committed leave-one-fire-out probabilities (data/processed/spread_v2_lofo_oof.csv.gz). A re-scoring of an existing run at a threshold, not a new model.",
+      "control_required": false,
+      "reason_no_control": "No model is fitted and the feature count does not change, so there is nothing for a noise null to be matched against. The probabilities are byte-identical to the ones Arm A's AUC entries already read. ⚠ Tagged separately from 'A' rather than added to it because Arm A is FROZEN at 154 entries and check_arm_isolation verifies that count and their digests; adding to it would break the freeze it exists to protect."
     }
   }
 }

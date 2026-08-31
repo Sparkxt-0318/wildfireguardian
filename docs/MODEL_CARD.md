@@ -26,6 +26,27 @@ n_active_adjacent, elevation_m, slope_deg, elev_above_source_m, burnable_frac,
 wind_speed_ms, temp_c, rh_pct, vpd_kpa, days_since_rain, precip_24h_mm, dt_hours,
 wind_alignment` `[src: features.py/FEATURE_COLUMNS]`.
 
+## ⚠ Read this before comparing any number in this card to a published benchmark
+
+**The ROC-AUC, the IoU and the recall in this card are NOT comparable to NDWS
+PR-AUC or WSTS AP figures.** Three reasons, any one of which is on its own
+sufficient:
+
+1. **Different label.** The target here is *"this 500 m cell ignites by the
+   **next satellite overpass**"* at overpass cadence (a variable gap, gated at
+   90 minutes). NDWS-style benchmarks predict **next-day** fire pixels on a
+   fixed daily grid. A different time base is a different problem.
+2. **Different geometry for IoU.** The IoU below is over the **cumulative
+   burned-area envelope**, not over next-day fire pixels.
+3. **Different prevalence.** This set is **1.97 %** positive. PR-AUC and AP move
+   with prevalence *by construction* — the identical model scores differently on
+   a differently balanced set, so the numbers are not on a common scale.
+
+This note exists so the comparison cannot be made by accident later. If a
+comparison is ever wanted, it has to be built: same label definition, same grid,
+same evaluation protocol, on a shared dataset. **This project has not done
+that and does not claim it.**
+
 ## Headline metric — generalization (mean-of-folds, with spread)
 
 > **LOFO ROC-AUC = 0.89 (range 0.68–0.97 across 6 fires; the 0.68 fold,
@@ -102,6 +123,69 @@ where the FIRMS/ERA5/DEM bundle is absent (e.g. a fresh clone), and **STOPs
   mean-of-folds is a pre-correction re-run that was never committed; the
   **committed** artifact (`auc_intervals.json`, corrected lineage) reads
   **0.904 ± 0.100** (n=3). Quote whichever you can point at, with its lineage.
+
+## Cell-level recall, precision and F1 at the operating threshold (Session 18)
+
+AUC scores a **ranking**. It does not say what the model actually flags. This
+section answers the question a technical reader asks next, and the answer is
+unflattering — which is why it is here rather than only in a session report.
+
+> **At the operating threshold 0.3: pooled recall 0.138, precision 0.308,
+> F1 0.190.** 412 true positives, 925 false positives, 2,577 missed, over
+> 151,904 cells and 2,989 actual ignitions.
+
+**The operating threshold is `config/default.yaml :: forward_sim_advance_threshold`
+= 0.3 — a DEFAULT, not a tuned value.** It was never optimised on these
+probabilities by F1, Youden's J, or any cost model. It is reported because it is
+the number the forward simulation and the routing layer actually consume.
+
+| | value |
+|---|---:|
+| pooled recall | **0.138** |
+| pooled precision | **0.308** |
+| pooled F1 | **0.190** |
+| mean-of-folds recall | **0.0867** (range 0.0–0.456, sd 0.182) |
+| average precision (full ranking) | **0.169** |
+| prevalence (PR no-skill baseline) | **0.0197** |
+
+**ROC-AUC 0.905 and recall 0.138 are both true and do not conflict.** AUC
+measures how well the model *orders* cells; at ~2 % prevalence a well-ordered
+model still flags few positives at a 0.3 cut. The honest summary of the ranking
+is the average precision against its baseline: **0.169 vs 0.0197, i.e. 8.6× no
+skill.**
+
+⚠ **Mean-of-folds recall (0.0867) is far below pooled (0.138), and the reason is
+structural.** Three of six folds have **exactly zero true positives** at 0.3:
+
+| fold | rows | positives | recall | TP |
+|---|---:|---:|---:|---:|
+| `gangneung_2023` | 396 | 8 | **0.0** | 0 |
+| `hongseong_2023` | 3,353 | 34 | **0.0** | 0 |
+| `miryang_2022` | 3,019 | 24 | **0.0** | 0 |
+| `uiseong_andong_2025` | 82,736 | 1,502 | 0.0226 | 34 |
+| `uljin_samcheok_2022` | 41,651 | 652 | 0.0414 | 27 |
+| `yeongdeok_2025` | 20,749 | 769 | **0.456** | 351 |
+
+An unweighted mean gives the 396-row fold the same weight as the 82,736-row
+fold. This is the **fold-size heterogeneity disclosed in Session 10** appearing
+in a metric where it bites hard, and it means nearly all recall comes from
+`yeongdeok_2025`.
+
+⚠ F1 peaks at threshold **0.14 (F1 0.218)** on this same data. That is recorded
+in the artifact as `f1_maximising_threshold_NOT_ADOPTED` and **is not adopted**:
+a threshold chosen on the very probabilities it is then scored on is
+optimistically biased. **No threshold was changed by this session.**
+
+**No model was fitted to produce any of this.** The probabilities are the
+committed LOGO-CV out-of-fold values (`spread_v2_lofo_oof.csv.gz`, written by
+`scripts/auc_intervals.py`); refitting to add a column would mean the reported
+recall came from a different run than the reported AUC. Cell identity
+(`fire_id, op_from, row, col`) was attached by rebuilding the **dataset only**
+and verifying the positional join row-for-row on four columns across all 151,904
+rows — `scripts/oof_metrics.py` refuses to write if that check fails.
+
+Artifacts: `data/processed/oof_classification_metrics.json` (metrics + a 51-point
+PR curve), `data/processed/spread_v2_lofo_oof_cells.csv.gz` (per-cell OOF).
 
 ## Reference environment and reportable precision
 

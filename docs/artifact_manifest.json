@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "3896f6e799c73d13cc4fb18c1dc4cb3d0f9cc28d",
-  "n_artifacts": 86,
-  "total_bytes": 12418415,
-  "total_mib": 11.84,
-  "n_git_tracked": 86,
+  "generated_at_git_commit": "424e7097364d7c75e6842e5c21db049771c4a384",
+  "n_artifacts": 88,
+  "total_bytes": 14407989,
+  "total_mib": 13.74,
+  "n_git_tracked": 88,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 8,
   "artifacts": [
@@ -385,6 +385,18 @@
         "docs/slope_integration.md"
       ],
       "regenerate": "python scripts/build_numbers.py"
+    },
+    {
+      "path": "data/processed/oof_classification_metrics.json",
+      "bytes": 12710,
+      "sha256": "7c3a72f037fb6a63c8e39ce6b655ae71f4730704798c945704bf8134902eaf01",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 6,
+      "cited_by_docs": [
+        "docs/MODEL_CARD.md"
+      ],
+      "regenerate": "python scripts/oof_metrics.py"
     },
     {
       "path": "data/processed/ordering_boundary.json",
@@ -768,7 +780,19 @@
         "docs/REPORT_ROUND2_P2.md",
         "docs/REPRODUCE.md"
       ],
-      "regenerate": "python scripts/calibration_metrics.py"
+      "regenerate": "python scripts/oof_metrics.py"
+    },
+    {
+      "path": "data/processed/spread_v2_lofo_oof_cells.csv.gz",
+      "bytes": 1976864,
+      "sha256": "dd8134d4eb6153c3cfa662dc627a08ffa874d295234431b7de0eb7b6d1ab1697",
+      "kind": "binary",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/MODEL_CARD.md"
+      ],
+      "regenerate": "python scripts/oof_metrics.py"
     },
     {
       "path": "data/processed/vulnerability/hazard_sensitivity.json",

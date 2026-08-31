@@ -7981,6 +7981,162 @@
         }
       },
       "arm": "L0_vulnerability"
+    },
+    "oof_pooled_recall_at_operating_threshold": {
+      "value": 0.138,
+      "unit": "fraction",
+      "source_file": "data/processed/oof_classification_metrics.json",
+      "json_path": "pooled.recall",
+      "derivation": "Cell-level recall over all six pooled out-of-fold folds at the operating threshold 0.3: 412 true positives of 2,989 actual ignitions.",
+      "sample": "LOGO-CV 6 fires, 151,904 rows / 2,989 positives, seed 20250603",
+      "caveat": "THE NUMBER A TECHNICAL JUDGE ASKS FOR, AND IT IS LOW. ROC-AUC 0.905 and recall 0.138 are both true and are not in conflict: AUC scores the RANKING, and at 1.97 % prevalence a well-ranked model still flags few positives at a threshold of 0.3. ⚠ The threshold is config/default.yaml's forward_sim_advance_threshold DEFAULT and was never tuned on these probabilities. The full PR curve is in the same artifact.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 18 Phase 4. NO MODEL WAS FITTED: computed from the committed LOGO-CV out-of-fold probabilities (data/processed/spread_v2_lofo_oof.csv.gz, written by scripts/auc_intervals.py). No feature set, threshold or target changed; Arm A untouched. Regenerate: python scripts/oof_metrics.py --attach-cells --metrics",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/oof_classification_metrics.json",
+            "json_path": "pooled.recall"
+          }
+        }
+      },
+      "arm": "A_classification"
+    },
+    "oof_pooled_precision_at_operating_threshold": {
+      "value": 0.308,
+      "unit": "fraction",
+      "source_file": "data/processed/oof_classification_metrics.json",
+      "json_path": "pooled.precision",
+      "derivation": "Cell-level precision at threshold 0.3: 412 true positives of 1,337 cells flagged.",
+      "sample": "LOGO-CV 6 fires, 151,904 rows / 2,989 positives, seed 20250603",
+      "caveat": "Roughly one in three flagged cells actually ignites. Reported beside recall because either alone is misleading at this prevalence.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 18 Phase 4. NO MODEL WAS FITTED: computed from the committed LOGO-CV out-of-fold probabilities (data/processed/spread_v2_lofo_oof.csv.gz, written by scripts/auc_intervals.py). No feature set, threshold or target changed; Arm A untouched. Regenerate: python scripts/oof_metrics.py --attach-cells --metrics",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/oof_classification_metrics.json",
+            "json_path": "pooled.precision"
+          }
+        }
+      },
+      "arm": "A_classification"
+    },
+    "oof_pooled_f1_at_operating_threshold": {
+      "value": 0.19,
+      "unit": "F1",
+      "source_file": "data/processed/oof_classification_metrics.json",
+      "json_path": "pooled.f1",
+      "derivation": "Harmonic mean of pooled precision and recall at threshold 0.3.",
+      "sample": "LOGO-CV 6 fires, 151,904 rows / 2,989 positives, seed 20250603",
+      "caveat": "⚠ The F1-maximising threshold on this same data is 0.14 (F1 0.218), so the untuned 0.3 default is close to but not at the peak. That 0.14 is recorded in the artifact as f1_maximising_threshold_NOT_ADOPTED and is NOT adopted: it is chosen on the very probabilities it is scored on and is therefore optimistically biased.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 18 Phase 4. NO MODEL WAS FITTED: computed from the committed LOGO-CV out-of-fold probabilities (data/processed/spread_v2_lofo_oof.csv.gz, written by scripts/auc_intervals.py). No feature set, threshold or target changed; Arm A untouched. Regenerate: python scripts/oof_metrics.py --attach-cells --metrics",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/oof_classification_metrics.json",
+            "json_path": "pooled.f1"
+          }
+        }
+      },
+      "arm": "A_classification"
+    },
+    "oof_mean_of_folds_recall_at_operating_threshold": {
+      "value": 0.0867,
+      "unit": "fraction",
+      "source_file": "data/processed/oof_classification_metrics.json",
+      "json_path": "mean_of_folds.recall",
+      "derivation": "Unweighted mean of the six per-fold recalls at threshold 0.3.",
+      "sample": "LOGO-CV 6 fires, 151,904 rows / 2,989 positives, seed 20250603",
+      "caveat": "MUCH LOWER THAN POOLED (0.138) FOR A STRUCTURAL REASON. Three of six folds have EXACTLY ZERO true positives at 0.3 — gangneung_2023 (396 rows, 8 positives), hongseong_2023 (3,353 / 34) and miryang_2022 (3,019 / 24) — and an unweighted mean gives each the same weight as uiseong_andong_2025 (82,736 rows). This is the fold-size heterogeneity disclosed in Session 10 showing up in a metric where it bites hard. Fold spread: 0.0 to 0.456, sd 0.182.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 18 Phase 4. NO MODEL WAS FITTED: computed from the committed LOGO-CV out-of-fold probabilities (data/processed/spread_v2_lofo_oof.csv.gz, written by scripts/auc_intervals.py). No feature set, threshold or target changed; Arm A untouched. Regenerate: python scripts/oof_metrics.py --attach-cells --metrics",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/oof_classification_metrics.json",
+            "json_path": "mean_of_folds.recall"
+          }
+        }
+      },
+      "arm": "A_classification"
+    },
+    "oof_average_precision": {
+      "value": 0.169,
+      "unit": "average precision",
+      "source_file": "data/processed/oof_classification_metrics.json",
+      "json_path": "pr_curve.average_precision",
+      "derivation": "Area under the precision-recall curve over the full out-of-fold ranking.",
+      "sample": "LOGO-CV 6 fires, 151,904 rows / 2,989 positives, seed 20250603",
+      "caveat": "Read against the PREVALENCE (0.0197), which is a PR curve's no-skill baseline — 8.6x better than chance. ⚠ NOT COMPARABLE to NDWS PR-AUC or WSTS AP: different label definition (next satellite overpass, not next day), different geometry (cumulative burned area for IoU), and different prevalence, which moves AP by construction.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 18 Phase 4. NO MODEL WAS FITTED: computed from the committed LOGO-CV out-of-fold probabilities (data/processed/spread_v2_lofo_oof.csv.gz, written by scripts/auc_intervals.py). No feature set, threshold or target changed; Arm A untouched. Regenerate: python scripts/oof_metrics.py --attach-cells --metrics",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/oof_classification_metrics.json",
+            "json_path": "pr_curve.average_precision"
+          }
+        }
+      },
+      "arm": "A_classification"
+    },
+    "oof_prevalence": {
+      "value": 0.0197,
+      "unit": "fraction",
+      "source_file": "data/processed/oof_classification_metrics.json",
+      "json_path": "pr_curve.prevalence",
+      "derivation": "Positive rate across the pooled out-of-fold set: 2,989 of 151,904 cells.",
+      "sample": "LOGO-CV 6 fires, 151,904 rows / 2,989 positives, seed 20250603",
+      "caveat": "The no-skill baseline for the PR curve above. Also the reason recall at a 0.3 threshold is low while ROC-AUC is high.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 18 Phase 4. NO MODEL WAS FITTED: computed from the committed LOGO-CV out-of-fold probabilities (data/processed/spread_v2_lofo_oof.csv.gz, written by scripts/auc_intervals.py). No feature set, threshold or target changed; Arm A untouched. Regenerate: python scripts/oof_metrics.py --attach-cells --metrics",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/oof_classification_metrics.json",
+            "json_path": "pr_curve.prevalence"
+          }
+        }
+      },
+      "arm": "A_classification"
     }
   }
 }

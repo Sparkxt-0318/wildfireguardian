@@ -242,6 +242,15 @@ data/processed/vulnerability/precompute/
 data/processed/vulnerability/portability_cache/
 data/processed/vulnerability/refuges/
 
+# --- SESSION 18 Phase 4: cell-level classification metrics -------------------
+# The OOF probabilities with cell identity attached (fire_id, op_from, row, col)
+# so recall, precision or any per-location metric can be recomputed later
+# WITHOUT re-running the model — 1.9 MB, the same class as the three .csv.gz
+# OOF files already allowlisted above. And the metrics JSON six registry
+# entries read from.
+!data/processed/spread_v2_lofo_oof_cells.csv.gz
+!data/processed/oof_classification_metrics.json
+
 # Validation-case manifest JSON files ARE committed (they're stubs, not
 # bulk data).
 !data/validation_cases/**
