@@ -9,6 +9,37 @@ needed to close it out.
 
 ## Session 20 (horizon grounding, 2026-08-31)
 
+### ✅ CLOSED — the CSV arrived, and every figure reproduced
+
+**John placed the file at `data/raw/kfs_fire_statistics/`.** sha256 and byte
+count match exactly; it decodes as CP949 and UTF-8 fails, as it must.
+
+`scripts/ingest_kfs_statistics.py` recomputed all **36 checks** and every one
+agrees with the figures supplied in the brief — no percentile-convention
+differences, no data differences. The 240-minute horizon is now **grounded**:
+79.23 % of 2,008 Korean wildfires are contained within it, while fires of
+10–100 ha take a median 1,374 min (5.7x) and fires ≥ 100 ha 4,025 min (16.8x),
+which confirms the horizon as a **behavioural** window rather than a
+fire-lifetime one. Full argument: `docs/horizon_grounding.md`.
+
+**This closes the Session 16 and Session 17 stop-gates below.** The horizon
+default is unchanged at 240 minutes; only its justification moved, and the
+ranking-instability finding (ρ = 0.333 between 30 and 240 min) still governs
+how the layer may be used.
+
+⚠ **Two things did NOT close.** (1) 발생일시 is a *reported* start time, so the
+distribution is report-to-containment, not ignition-to-containment — the same
+limitation Session 19's GK2A delays carry, and no dataset here fixes it.
+(2) The 12 negative durations are excluded and reported, but their cause
+(midnight rollover, year typo, swapped order) was not diagnosed.
+
+⚠ **The ignition-likelihood layer is still NOT built**, and the constraint on it
+turned out to be *looser* than recorded — see `docs/horizon_grounding.md` §5:
+~1,711 usable cause labels, not ~540, with 454 free-text strings to normalise.
+
+<details>
+<summary>Original stop-gate entry, kept for the audit trail</summary>
+
 ### ⛔ STOP-GATE — ACTION FOR JOHN: the CSV did not reach this environment
 
 **Supersedes the Session 17 entry below as the current state of this blocker.**
@@ -82,9 +113,14 @@ arbitrary-but-swept**. The full sweep (30/60/120/180/240/360 min) and the
 ranking-instability finding (ρ = 0.333 between 30 and 240 min) continue to
 govern how the layer may be used, exactly as before.
 
+</details>
+
 ---
 
 ## Session 17 (tautology decomposition, 2026-08-31)
+
+> ✅ **CLOSED by Session 20** — the file arrived and the horizon is grounded.
+> See the Session 20 entry above. Kept for the audit trail.
 
 ### ⛔ STOP-GATE — ACTION FOR JOHN: the page now loads, the FILE still does not
 

@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "97ba901c39e1fa8cbdcf3f587ca6cf576d0cff1c",
-  "n_artifacts": 91,
-  "total_bytes": 14419507,
-  "total_mib": 13.75,
-  "n_git_tracked": 91,
+  "generated_at_git_commit": "11ed5cdeeb5e8d6657421a18ddfe24f06fe57f71",
+  "n_artifacts": 92,
+  "total_bytes": 14427187,
+  "total_mib": 13.76,
+  "n_git_tracked": 92,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 8,
   "artifacts": [
@@ -244,6 +244,19 @@
         "docs/detection_floor.md"
       ],
       "regenerate": "python scripts/gk2a_detection.py"
+    },
+    {
+      "path": "data/processed/detection/kfs_containment_duration.json",
+      "bytes": 7680,
+      "sha256": "e47f93c11bb31714d0a6eed7b91947cec9853770314b1774fb785432ff27071e",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 7,
+      "cited_by_docs": [
+        "docs/SESSION20_REPORT.md",
+        "docs/horizon_grounding.md"
+      ],
+      "regenerate": "python scripts/ingest_kfs_statistics.py"
     },
     {
       "path": "data/processed/detection/yeongdeok_background_contamination.json",

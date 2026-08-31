@@ -59,6 +59,14 @@ htmlcov/
 # and are tracked selectively.
 data/raw/**
 !data/raw/.gitkeep
+# --- SESSION 20: the 산불통계데이터 source file ------------------------
+# 196 KB of public-domain CSV (공공데이터포털, 이용허락범위 제한 없음).
+# Committed rather than manifest-only because seven registry entries are
+# derived from it and it is small; data/raw is otherwise 1.3 GB and stays
+# ignored. Blocked Sessions 16 and 17; John downloaded it manually.
+!data/raw/kfs_fire_statistics/
+!data/raw/kfs_fire_statistics/*.csv
+
 data/cache/**
 !data/cache/.gitkeep
 # OSMnx's default HTTP response cache (./cache) — transient, never committed.

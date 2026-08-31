@@ -79,6 +79,12 @@
       "role": "Session 19. Satellite detection floor for Korea, measured from GK2A AMI L1B observations. Fits no model and reads no model output.",
       "control_required": false,
       "reason_no_control": "No model is fitted and no feature count changes, so a noise null has nothing to be matched against. The detector's own threshold IS controlled, by a 709-step no-fire false-alarm measurement over the same extents — recorded as det_false_alarm_steps / det_control_steps."
+    },
+    "horizon": {
+      "n_features": null,
+      "role": "Session 20. Empirical grounding of the Layer 0 evaluation horizon from 산림청 산불통계데이터 (2022-2025, n = 2,008 usable events). Descriptive statistics on an external dataset; fits no model.",
+      "control_required": false,
+      "reason_no_control": "No model is fitted and no feature count changes, so there is nothing for a noise null to be matched against. ⚠ The horizon DEFAULT did not move — it was 240 min before this arm existed and is 240 min after. Only its justification changed, from arbitrary-but-swept to grounded."
     }
   }
 }

@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "title": "Korean baseline freeze — PHASE 13 PHASE 0",
-  "frozen_utc": "2026-08-31T06:52:06Z",
-  "git_commit": "093bc865050f46efe66ab269e7ec57027f12c70d",
+  "frozen_utc": "2026-08-31T08:03:41Z",
+  "git_commit": "11ed5cdeeb5e8d6657421a18ddfe24f06fe57f71",
   "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
-  "registry_entries": 247,
+  "registry_entries": 254,
   "lofo_shape": {
     "n_rows": 151904,
     "n_positives": 2989,
@@ -55,6 +55,7 @@
     "data/processed/demo_data.json": "83dcaf7f8e69b6601ed687d2bc86035a3c86d0120cb200573585a2df8ce21b06",
     "data/processed/detection/firms_first_detection.json": "b215c74f4dae3e1ea2e5a671a3d8b8a07e80af1dcc9821d7769f131f4fa8cd1b",
     "data/processed/detection/gk2a_detection_floor.json": "ba6733392d1e9f546e3d97c984af77d36403b6d72ab9ac4f2b4b35fa8f21e502",
+    "data/processed/detection/kfs_containment_duration.json": "e47f93c11bb31714d0a6eed7b91947cec9853770314b1774fb785432ff27071e",
     "data/processed/detection/steps/control_gangneung_2023.json": "44852373b5a4a65ffd5ccc1892497056040ade46657399d4d77ca4090cefe6f4",
     "data/processed/detection/steps/control_hongseong_2023.json": "0e7fe82fa85a541d1f3a9b29a787bd6eef5fc303a3051feb70b2926e4b2dc2c9",
     "data/processed/detection/steps/control_uiseong_andong_2025.json": "053e0344f99a4ce0845830ddfb62ed9278f0ce10716c3fe913434d50dd23702f",

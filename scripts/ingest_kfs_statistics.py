@@ -71,17 +71,48 @@ EXPECTED = {
     "area_10_100_median_min": 1374,
     "area_ge_100_n": 25,
     "area_ge_100_median_min": 4025,
-    "cause_기타": 831,
-    "cause_입산자": 515,
-    "cause_쓰레기소각": 209,
-    "cause_담뱃불": 171,
+    # ⚠ 발생원인_구분 STORES SINGLE-CHARACTER CODES, not the full labels the
+    # brief spells out. The counts match the brief exactly, so the brief's
+    # author read this same file and expanded the codes in prose. The
+    # expansions are confirmed BY THE DATA, not assumed — see CAUSE_CODES.
+    "cause_기": 831,
+    "cause_입": 515,
+    "cause_쓰": 209,
+    "cause_담": 171,
     "cause_null": 294,
     "detail_free_text": 1479,
     "null_읍면": 307,
     "month_3": 529,
     "month_4": 434,
     "month_2": 339,
+    # ⚠ THE BRIEF'S PHASE 4 CLAIM IS WRONG, and in the direction that MATTERS
+    # for design. It says "only ~540 events carry a specific cause", counting
+    # 세부원인 alone. But a THIRD column, 발생원인_기타, is populated on all
+    # 2,020 rows with 454 distinct values, and it carries the real cause
+    # whenever 세부원인 is the placeholder "기타(직접입력)".
+    "detail_specific": 541,          # 세부원인 is itself specific
+    "freetext_real_cause": 1170,     # 기타(직접입력) but 발생원인_기타 is a cause
+    "freetext_unknown": 309,         # 미상 / 원인미상 / 조사중 / 불명
+    "total_specific_cause": 1711,    # 84.7 %, NOT ~540
+    "gita_column_populated": 2020,
+    "gita_distinct": 454,
 }
+
+#: Expansion of the single-character 발생원인_구분 codes, and the EVIDENCE for
+#: each. Recorded rather than assumed: three of four are confirmed directly by
+#: the free-text 발생원인_기타 column on the same rows.
+CAUSE_CODES = {
+    "입": ("입산자", "507 of 515 rows carry '입산자' in 발생원인_기타 (98.4 %); "
+                   "only 3 rows outside this code mention it"),
+    "담": ("담뱃불", "168 of 171 rows carry '담뱃불' in 발생원인_기타 (98.2 %)"),
+    "쓰": ("쓰레기소각", "201 of 209 rows carry '쓰레기소각' in 발생원인_기타 (96.2 %)"),
+    "기": ("기타", "the residual category: 0 of 831 say '기타' in 발생원인_기타, "
+                  "because that column holds the ACTUAL cause instead "
+                  "(성묘객실화, 작업장실화, 방화...). Consistent, as expected."),
+}
+
+#: Strings in 발생원인_기타 that mean "cause not established".
+UNKNOWN_CAUSE = r"미상|조사중|불명|확인중|불상"
 
 #: Percentiles are convention-sensitive. Reported with numpy's default
 #: (linear), with the alternatives printed only when something disagrees.
@@ -217,14 +248,37 @@ def main() -> int:
 
     # cause / seasonality (documentation only — no model is built from these)
     cause = df["발생원인_구분"].astype("string").str.strip()
-    for label in ("기타", "입산자", "쓰레기소각", "담뱃불"):
-        rows.append(check(f"cause_{label}", int((cause == label).sum()),
-                          EXPECTED[f"cause_{label}"]))
+    for code, (label, evidence) in CAUSE_CODES.items():
+        rows.append(check(f"cause_{code}", int((cause == code).sum()),
+                          EXPECTED[f"cause_{code}"],
+                          notes=f"code {code!r} = {label}: {evidence}"))
     rows.append(check("cause_null", int(cause.isna().sum()), EXPECTED["cause_null"]))
     detail = df["발생원인_세부원인"].astype("string").str.strip()
     rows.append(check("detail_free_text",
-                      int(detail.str.contains("기타", na=False).sum()),
+                      int((detail == "기타(직접입력)").sum()),
                       EXPECTED["detail_free_text"]))
+
+    # The third cause column, which the brief's "~540 usable labels" overlooks.
+    gita = df["발생원인_기타"].astype("string").str.strip()
+    free = detail == "기타(직접입력)"
+    unknown = gita.str.contains(UNKNOWN_CAUSE, na=False, regex=True)
+    rows.append(check("detail_specific", int((~free).sum()),
+                      EXPECTED["detail_specific"]))
+    rows.append(check("freetext_real_cause", int((free & ~unknown).sum()),
+                      EXPECTED["freetext_real_cause"]))
+    rows.append(check("freetext_unknown", int((free & unknown).sum()),
+                      EXPECTED["freetext_unknown"]))
+    rows.append(check("total_specific_cause",
+                      int(((~free) | (free & ~unknown)).sum()),
+                      EXPECTED["total_specific_cause"],
+                      notes="⚠ 84.7 %, NOT the ~540 the brief states — "
+                            "발생원인_기타 carries the cause when 세부원인 is "
+                            "the placeholder. The binding constraint is "
+                            "NORMALISING 454 free-text strings, not label count."))
+    rows.append(check("gita_column_populated", int(gita.notna().sum()),
+                      EXPECTED["gita_column_populated"]))
+    rows.append(check("gita_distinct", int(gita.nunique()),
+                      EXPECTED["gita_distinct"]))
     rows.append(check("null_읍면",
                       int(df["발생장소_읍면"].isna().sum()), EXPECTED["null_읍면"]))
     month = pd.to_numeric(df["발생일시_월"], errors="coerce")

@@ -8475,6 +8475,188 @@
           }
         }
       }
+    },
+    "kfs_n_usable_events": {
+      "value": 2008.0,
+      "unit": "events",
+      "source_file": "data/processed/detection/kfs_containment_duration.json",
+      "json_path": "checks.6.computed",
+      "derivation": "Events with a non-negative report-to-containment duration, of 2,020 rows.",
+      "sample": "산불통계데이터 2022–2025-09-11, 2,020행 중 사용 가능 2,008행",
+      "caveat": "12 negative durations excluded and reported as an exclusion, not dropped silently. Zero nulls in 진화종료시간. ⚠ 발생일시 is a REPORTED start time, not observed ignition, so this is REPORT-to-containment, not ignition-to-containment. The true burn is longer by an unknown amount. Same limitation as Session 19's GK2A delays — both rest on the same reported clock.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 20. Computed from the committed 산림청 산불통계데이터 CSV by scripts/ingest_kfs_statistics.py, which verifies every figure against the values supplied in the brief and exits non-zero on any mismatch. No model, no threshold, no target changed; the 240-minute horizon DEFAULT IS UNCHANGED — only its justification. Regenerate: python scripts/ingest_kfs_statistics.py --write",
+      "arm": "horizon",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/detection/kfs_containment_duration.json",
+            "json_path": "checks.6.computed"
+          }
+        }
+      }
+    },
+    "kfs_containment_median_min": {
+      "value": 120.0,
+      "unit": "minutes",
+      "source_file": "data/processed/detection/kfs_containment_duration.json",
+      "json_path": "checks.8.computed",
+      "derivation": "Median report-to-containment duration across 2,008 Korean wildfires.",
+      "sample": "산불통계데이터 2022–2025-09-11, 2,020행 중 사용 가능 2,008행",
+      "caveat": "⚠ THE MEAN IS NEVER REPORTED. One row carries a year-field error giving a duration of 105,189,303 minutes (~73,048 days), which drags the mean to roughly 60,557 min. Medians and percentiles only, everywhere. ⚠ 발생일시 is a REPORTED start time, not observed ignition, so this is REPORT-to-containment, not ignition-to-containment. The true burn is longer by an unknown amount. Same limitation as Session 19's GK2A delays — both rest on the same reported clock.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 20. Computed from the committed 산림청 산불통계데이터 CSV by scripts/ingest_kfs_statistics.py, which verifies every figure against the values supplied in the brief and exits non-zero on any mismatch. No model, no threshold, no target changed; the 240-minute horizon DEFAULT IS UNCHANGED — only its justification. Regenerate: python scripts/ingest_kfs_statistics.py --write",
+      "arm": "horizon",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/detection/kfs_containment_duration.json",
+            "json_path": "checks.8.computed"
+          }
+        }
+      }
+    },
+    "kfs_cum_le_240_pct": {
+      "value": 79.23,
+      "unit": "percent",
+      "source_file": "data/processed/detection/kfs_containment_duration.json",
+      "json_path": "checks.14.computed",
+      "derivation": "Share of events contained within 240 minutes of the reported start.",
+      "sample": "산불통계데이터 2022–2025-09-11, 2,020행 중 사용 가능 2,008행",
+      "caveat": "PART ONE OF THE HORIZON GROUNDING. 240 minutes is a plausible operational window rather than an arbitrary one. ⚠ It is NOT 'the median equals the horizon' — the median is 120 min. Part two (the fires that threaten households outlast it) is the other half and neither half stands alone. ⚠ 발생일시 is a REPORTED start time, not observed ignition, so this is REPORT-to-containment, not ignition-to-containment. The true burn is longer by an unknown amount. Same limitation as Session 19's GK2A delays — both rest on the same reported clock.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 20. Computed from the committed 산림청 산불통계데이터 CSV by scripts/ingest_kfs_statistics.py, which verifies every figure against the values supplied in the brief and exits non-zero on any mismatch. No model, no threshold, no target changed; the 240-minute horizon DEFAULT IS UNCHANGED — only its justification. Regenerate: python scripts/ingest_kfs_statistics.py --write",
+      "arm": "horizon",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/detection/kfs_containment_duration.json",
+            "json_path": "checks.14.computed"
+          }
+        }
+      }
+    },
+    "kfs_area_10_100ha_median_min": {
+      "value": 1374.0,
+      "unit": "minutes",
+      "source_file": "data/processed/detection/kfs_containment_duration.json",
+      "json_path": "checks.20.computed",
+      "derivation": "Median containment for fires of 10–100 ha damage area (n = 53).",
+      "sample": "산불통계데이터 2022–2025-09-11, 2,020행 중 사용 가능 2,008행",
+      "caveat": "PART TWO OF THE GROUNDING: 5.7x the 240-minute horizon. The fires large enough to threaten households outlast the window by a wide margin, which is why the horizon is correctly a BEHAVIOURAL window — how long walking self-evacuation stays the right action — not a fire-lifetime window. ⚠ 발생일시 is a REPORTED start time, not observed ignition, so this is REPORT-to-containment, not ignition-to-containment. The true burn is longer by an unknown amount. Same limitation as Session 19's GK2A delays — both rest on the same reported clock.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 20. Computed from the committed 산림청 산불통계데이터 CSV by scripts/ingest_kfs_statistics.py, which verifies every figure against the values supplied in the brief and exits non-zero on any mismatch. No model, no threshold, no target changed; the 240-minute horizon DEFAULT IS UNCHANGED — only its justification. Regenerate: python scripts/ingest_kfs_statistics.py --write",
+      "arm": "horizon",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/detection/kfs_containment_duration.json",
+            "json_path": "checks.20.computed"
+          }
+        }
+      }
+    },
+    "kfs_area_ge100ha_median_min": {
+      "value": 4025.0,
+      "unit": "minutes",
+      "source_file": "data/processed/detection/kfs_containment_duration.json",
+      "json_path": "checks.22.computed",
+      "derivation": "Median containment for fires of 100 ha or more (n = 25).",
+      "sample": "산불통계데이터 2022–2025-09-11, 2,020행 중 사용 가능 2,008행",
+      "caveat": "16.8x the horizon. Confirms the behavioural reading rather than overturning it. ⚠ n = 25; a median on 25 events is not a precise number. ⚠ 발생일시 is a REPORTED start time, not observed ignition, so this is REPORT-to-containment, not ignition-to-containment. The true burn is longer by an unknown amount. Same limitation as Session 19's GK2A delays — both rest on the same reported clock.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 20. Computed from the committed 산림청 산불통계데이터 CSV by scripts/ingest_kfs_statistics.py, which verifies every figure against the values supplied in the brief and exits non-zero on any mismatch. No model, no threshold, no target changed; the 240-minute horizon DEFAULT IS UNCHANGED — only its justification. Regenerate: python scripts/ingest_kfs_statistics.py --write",
+      "arm": "horizon",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/detection/kfs_containment_duration.json",
+            "json_path": "checks.22.computed"
+          }
+        }
+      }
+    },
+    "kfs_gyeongbuk_median_min": {
+      "value": 145.0,
+      "unit": "minutes",
+      "source_file": "data/processed/detection/kfs_containment_duration.json",
+      "json_path": "checks.17.computed",
+      "derivation": "Median containment for 경북 events (n = 273), the province of four of the six training fires.",
+      "sample": "산불통계데이터 2022–2025-09-11, 2,020행 중 사용 가능 2,008행",
+      "caveat": "Slightly above the national 120 min. p90 is 756.8 min. Reported because 경북 is where this project's sites are, not as a claim that 경북 differs. ⚠ 발생일시 is a REPORTED start time, not observed ignition, so this is REPORT-to-containment, not ignition-to-containment. The true burn is longer by an unknown amount. Same limitation as Session 19's GK2A delays — both rest on the same reported clock.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 20. Computed from the committed 산림청 산불통계데이터 CSV by scripts/ingest_kfs_statistics.py, which verifies every figure against the values supplied in the brief and exits non-zero on any mismatch. No model, no threshold, no target changed; the 240-minute horizon DEFAULT IS UNCHANGED — only its justification. Regenerate: python scripts/ingest_kfs_statistics.py --write",
+      "arm": "horizon",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/detection/kfs_containment_duration.json",
+            "json_path": "checks.17.computed"
+          }
+        }
+      }
+    },
+    "kfs_total_specific_cause": {
+      "value": 1711.0,
+      "unit": "events",
+      "source_file": "data/processed/detection/kfs_containment_duration.json",
+      "json_path": "checks.32.computed",
+      "derivation": "Events carrying a specific, non-unknown cause once 발생원인_기타 is read alongside 발생원인_세부원인.",
+      "sample": "산불통계데이터 2022–2025-09-11, 2,020행 중 사용 가능 2,008행",
+      "caveat": "⚠ CORRECTS THE BRIEF. The brief states only ~540 events carry a specific cause, counting 세부원인 alone. A THIRD column, 발생원인_기타, is populated on all 2,020 rows with 454 distinct values and holds the real cause whenever 세부원인 is the placeholder '기타(직접입력)'. 541 + 1,170 = 1,711 (84.7 %); only 309 are genuinely 미상/조사중. The binding constraint on a future cause-conditioned model is NORMALISING 454 free-text strings, not a shortage of labels. NOTHING IS BUILT ON THIS — documentation only. ⚠ 발생일시 is a REPORTED start time, not observed ignition, so this is REPORT-to-containment, not ignition-to-containment. The true burn is longer by an unknown amount. Same limitation as Session 19's GK2A delays — both rest on the same reported clock.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 20. Computed from the committed 산림청 산불통계데이터 CSV by scripts/ingest_kfs_statistics.py, which verifies every figure against the values supplied in the brief and exits non-zero on any mismatch. No model, no threshold, no target changed; the 240-minute horizon DEFAULT IS UNCHANGED — only its justification. Regenerate: python scripts/ingest_kfs_statistics.py --write",
+      "arm": "horizon",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/detection/kfs_containment_duration.json",
+            "json_path": "checks.32.computed"
+          }
+        }
+      }
     }
   }
 }
