@@ -7,6 +7,83 @@ needed to close it out.
 
 ---
 
+## Session 20 (horizon grounding, 2026-08-31)
+
+### ⛔ STOP-GATE — ACTION FOR JOHN: the CSV did not reach this environment
+
+**Supersedes the Session 17 entry below as the current state of this blocker.**
+
+The Session 20 brief states that `산림청_산불통계데이터_20250911.csv` was
+downloaded manually and "is now available for ingestion". **It is not present in
+this environment.** No figure from the brief was adopted, no document was
+rewritten, and no number was registered.
+
+**Exactly what was searched, and what was found:**
+
+| where | result |
+|---|---|
+| `data/raw/kfs_fire_statistics/` | directory does not exist |
+| `data/raw/` | `dem`, `firms_*`, `vworld` only |
+| the uploads folder | **empty** |
+| the whole connected folder, every `*.csv` | 31 files, all FIRMS detections or skill fixtures |
+| the whole connected folder, `*산불통계*` / `*15121380*` | **0 matches** |
+| every file 150–400 KB anywhere under the mount | no CSV; PDFs, PNGs, `.so` libraries |
+| everything modified since 2026-08-29 | project cache and repo files only |
+
+The likely cause is mundane: the file was downloaded to the Mac (probably
+`~/Downloads`), and **only `~/Desktop/Korea Code Fair` is connected to this
+session.** Nothing outside that folder is visible here.
+
+**WHY THIS IS A HARD STOP RATHER THAN A DEGRADED RUN.** The brief's own
+instruction is that the Phase 2 figures "were computed outside the repo and must
+not be trusted until your own script reproduces them." Without the file there is
+nothing to reproduce them from. Writing those numbers into
+`docs/label_geometry_analysis.md`, the vulnerability score definition or
+`NUMBERS.json` on trust would put ~30 unverified values into the frozen
+registry — the exact failure this project self-reported in Session 19, where
+four numbers in prose turned out to exist in no artifact.
+
+**WHAT WAS BUILT INSTEAD — the work is ready, only the file is missing.**
+`scripts/ingest_kfs_statistics.py` performs the whole of Phases 1, 2 and 4 in
+one command and **verifies rather than assumes**:
+
+- checks sha256 against `ae3e8426…a92c153` and size against 195,891 bytes;
+- confirms the file decodes as CP949/EUC-KR **and that UTF-8 fails**, since a
+  successful UTF-8 decode would mean a different or re-encoded file arrived;
+- recomputes all ~30 figures — counts, p25/median/p75/p90/p95, the four
+  cumulative shares, 경북, both damage-area bands, cause counts, the free-text
+  share, seasonality;
+- prints computed vs claimed **side by side** and **exits non-zero on any
+  mismatch**, printing the five percentile conventions when a percentile
+  disagrees so a convention difference can be told apart from a data difference;
+- **refuses to write any artifact while any figure disagrees**; and
+- never computes a mean, because one row's year-field error dominates it.
+
+**ACTION FOR JOHN — one command:**
+
+```bash
+mkdir -p ~/Desktop/"Korea Code Fair"/wildfireguardian/data/raw/kfs_fire_statistics
+mv ~/Downloads/산림청_산불통계데이터_20250911.csv \
+   ~/Desktop/"Korea Code Fair"/wildfireguardian/data/raw/kfs_fire_statistics/
+```
+
+Then the next session runs:
+
+```bash
+python scripts/ingest_kfs_statistics.py --write
+```
+
+⚠ If the filename differs after the browser download (the portal sometimes
+appends a suffix), pass it explicitly with `--csv <path>`; the sha256 check is
+what confirms identity, not the name.
+
+**Consequence, unchanged:** the 240-minute horizon remains **ungrounded —
+arbitrary-but-swept**. The full sweep (30/60/120/180/240/360 min) and the
+ranking-instability finding (ρ = 0.333 between 30 and 240 min) continue to
+govern how the layer may be used, exactly as before.
+
+---
+
 ## Session 17 (tautology decomposition, 2026-08-31)
 
 ### ⛔ STOP-GATE — ACTION FOR JOHN: the page now loads, the FILE still does not
