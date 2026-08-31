@@ -50,7 +50,7 @@ help:
 # scanned for retired values. Either failing is a hard stop.
 verify: verify-numbers check-forbidden check-region-literals \
         check-arm-isolation check-gate-invocations check-arm-controls \
-        check-declared-deps
+        check-declared-deps check-artifact-manifest
 	@echo
 	@echo "=== make verify: PASSED ==="
 
@@ -93,6 +93,15 @@ check-declared-deps:
 	@echo
 	@echo "=== every runtime import is declared ==="
 	@$(PYTHON) $(SCRIPTS)/check_declared_deps.py
+
+# Every artifact a document or NUMBERS.json cites must be IN the repository —
+# tracked, or carried in docs/artifact_manifest.json with a digest and a
+# regeneration command. A cited number whose artifact exists only on one laptop
+# cannot be checked by anyone else.
+check-artifact-manifest:
+	@echo
+	@echo "=== cited artifacts match the manifest ==="
+	@$(PYTHON) $(SCRIPTS)/build_artifact_manifest.py --check
 
 # --- provenance --------------------------------------------------------------
 snapshot:

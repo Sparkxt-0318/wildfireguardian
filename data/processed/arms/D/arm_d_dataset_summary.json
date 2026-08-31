@@ -1,0 +1,210 @@
+{
+  "arm": "D",
+  "provenance": "derived",
+  "n_rows": 151904,
+  "n_positives": 2989,
+  "fires_used": [
+    "gangneung_2023",
+    "hongseong_2023",
+    "miryang_2022",
+    "uiseong_andong_2025",
+    "uljin_samcheok_2022",
+    "yeongdeok_2025"
+  ],
+  "feature_columns": [
+    "dist_to_fire_m",
+    "active_frac_1500m",
+    "active_frac_3000m",
+    "n_active_adjacent",
+    "elevation_m",
+    "slope_deg",
+    "elev_above_source_m",
+    "burnable_frac",
+    "wind_speed_ms",
+    "temp_c",
+    "rh_pct",
+    "vpd_kpa",
+    "days_since_rain",
+    "precip_24h_mm",
+    "dt_hours",
+    "wind_alignment",
+    "obs_spread_dist_m",
+    "obs_spread_speed_mps",
+    "obs_alignment",
+    "obs_staleness_h",
+    "dist_to_prior_active_m",
+    "obs_front_persistence",
+    "n_prior_overpasses"
+  ],
+  "n_features": 23,
+  "arm_d_feature_definedness": {
+    "obs_spread_dist_m": {
+      "n_defined": 133321,
+      "share_defined": 0.877666
+    },
+    "obs_spread_speed_mps": {
+      "n_defined": 133321,
+      "share_defined": 0.877666
+    },
+    "obs_alignment": {
+      "n_defined": 126847,
+      "share_defined": 0.835047
+    },
+    "obs_staleness_h": {
+      "n_defined": 142964,
+      "share_defined": 0.941147
+    },
+    "dist_to_prior_active_m": {
+      "n_defined": 142964,
+      "share_defined": 0.941147
+    },
+    "obs_front_persistence": {
+      "n_defined": 142964,
+      "share_defined": 0.941147
+    },
+    "n_prior_overpasses": {
+      "n_defined": 151904,
+      "share_defined": 1.0
+    }
+  },
+  "rows_by_n_prior_overpasses": {
+    "0": 8940,
+    "1": 9643,
+    "2": 10088,
+    "3": 10330,
+    "4": 8660,
+    "5": 4545,
+    "6": 4602,
+    "7": 4627,
+    "8": 5521,
+    "9": 5845,
+    "10": 5910,
+    "11": 6091,
+    "12": 9075,
+    "13": 8828,
+    "14": 8801,
+    "15": 8818,
+    "16": 8843,
+    "17": 8846,
+    "18": 1701,
+    "19": 1721,
+    "20": 1737,
+    "21": 1738,
+    "22": 1740,
+    "23": 1740,
+    "24": 1755,
+    "25": 1759
+  },
+  "overpass_cadence_by_fire": {
+    "gangneung_2023": {
+      "n_overpasses": 2,
+      "gaps_h": [
+        2.183
+      ],
+      "median_gap_h": 2.183,
+      "span_h": 2.183
+    },
+    "hongseong_2023": {
+      "n_overpasses": 5,
+      "gaps_h": [
+        7.683,
+        5.1,
+        10.483,
+        12.333
+      ],
+      "median_gap_h": 9.083,
+      "span_h": 35.6
+    },
+    "miryang_2022": {
+      "n_overpasses": 5,
+      "gaps_h": [
+        24.2,
+        7.767,
+        4.933,
+        23.683
+      ],
+      "median_gap_h": 15.725,
+      "span_h": 60.583
+    },
+    "uiseong_andong_2025": {
+      "n_overpasses": 19,
+      "gaps_h": [
+        6.433,
+        6.3,
+        7.333,
+        2.717,
+        1.867,
+        6.433,
+        5.567,
+        11.117,
+        12.717,
+        7.267,
+        4.567,
+        6.45,
+        5.55,
+        11.2,
+        7.917,
+        5.533,
+        10.233,
+        36.033
+      ],
+      "median_gap_h": 6.442,
+      "span_h": 155.233
+    },
+    "uljin_samcheok_2022": {
+      "n_overpasses": 27,
+      "gaps_h": [
+        7.65,
+        5.083,
+        10.5,
+        9.133,
+        4.367,
+        7.65,
+        3.383,
+        7.683,
+        4.667,
+        11.333,
+        8.7,
+        4.467,
+        7.567,
+        3.8,
+        12.333,
+        11.35,
+        12.333,
+        11.383,
+        9.283,
+        3.85,
+        8.183,
+        3.183,
+        7.867,
+        4.467,
+        11.35,
+        60.533
+      ],
+      "median_gap_h": 7.775,
+      "span_h": 252.1
+    },
+    "yeongdeok_2025": {
+      "n_overpasses": 6,
+      "gaps_h": [
+        5.55,
+        11.2,
+        7.917,
+        5.533,
+        9.85
+      ],
+      "median_gap_h": 7.917,
+      "span_h": 40.05
+    }
+  },
+  "build_seconds_by_fire": {
+    "gangneung_2023": 0.14,
+    "gangneung_donghae_2022": 0.0,
+    "goseong_2019": 0.05,
+    "hongseong_2023": 0.26,
+    "miryang_2022": 0.21,
+    "uiseong_andong_2025": 0.67,
+    "uljin_samcheok_2022": 1.17,
+    "yeongdeok_2025": 1.42
+  }
+}

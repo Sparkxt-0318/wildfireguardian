@@ -1,0 +1,558 @@
+{
+  "arm": "A_replication_e",
+  "provenance": "derived",
+  "seed": 20250603,
+  "protocol": "leave-one-fire-out over 6 fires, HistGradientBoostingClassifier, spread_v2 hyperparameters unchanged",
+  "steep_split_deg": 18.66,
+  "slope_source": "native ~30 m SRTM -> 500 m effective slope",
+  "n_features": 16,
+  "feature_columns": [
+    "dist_to_fire_m",
+    "active_frac_1500m",
+    "active_frac_3000m",
+    "n_active_adjacent",
+    "elevation_m",
+    "slope_deg",
+    "elev_above_source_m",
+    "burnable_frac",
+    "wind_speed_ms",
+    "temp_c",
+    "rh_pct",
+    "vpd_kpa",
+    "days_since_rain",
+    "precip_24h_mm",
+    "dt_hours",
+    "wind_alignment"
+  ],
+  "n_oof_rows": 151904,
+  "n_oof_positives": 2989,
+  "pooled_auc": 0.8989002305704359,
+  "far_band_auc": 0.8458435014001401,
+  "mid_band_auc": 0.8514855219201246,
+  "per_fire_auc": {
+    "gangneung_2023": 0.6072809278350515,
+    "hongseong_2023": 0.9401130744554526,
+    "miryang_2022": 0.9792292710072343,
+    "uiseong_andong_2025": 0.8681497849073514,
+    "uljin_samcheok_2022": 0.916284412593035,
+    "yeongdeok_2025": 0.9399913567663892
+  },
+  "mean_of_folds_auc": 0.8751748045940855,
+  "fold_auc_sd": 0.13619983574514957,
+  "fold_auc_min": 0.6072809278350515,
+  "fold_auc_max": 0.9792292710072343,
+  "importance_ranking": [
+    {
+      "feature": "days_since_rain",
+      "weighted_mean_auc_drop": 0.09048790130222999,
+      "fold_mean": 0.0498372739560316,
+      "fold_sd": 0.05635964261618894,
+      "fold_min": -0.0009321090706733148,
+      "fold_max": 0.12514491084061963,
+      "n_folds": 6,
+      "rank": 1
+    },
+    {
+      "feature": "dist_to_fire_m",
+      "weighted_mean_auc_drop": 0.07710587587351059,
+      "fold_mean": 0.0006731880471816017,
+      "fold_sd": 0.1148798953177372,
+      "fold_min": -0.22197164948453607,
+      "fold_max": 0.11188273904320134,
+      "n_folds": 6,
+      "rank": 2
+    },
+    {
+      "feature": "active_frac_3000m",
+      "weighted_mean_auc_drop": 0.02414692144750471,
+      "fold_mean": 0.01746329025312282,
+      "fold_sd": 0.026425506636002967,
+      "fold_min": -0.03125,
+      "fold_max": 0.046364071389326966,
+      "n_folds": 6,
+      "rank": 3
+    },
+    {
+      "feature": "wind_speed_ms",
+      "weighted_mean_auc_drop": 0.020250046818460276,
+      "fold_mean": 0.011350334360322659,
+      "fold_sd": 0.010741798670693864,
+      "fold_min": 0.0,
+      "fold_max": 0.02244220904983918,
+      "n_folds": 6,
+      "rank": 4
+    },
+    {
+      "feature": "active_frac_1500m",
+      "weighted_mean_auc_drop": 0.008177033812157584,
+      "fold_mean": 0.0071260678519539655,
+      "fold_sd": 0.015562258679817757,
+      "fold_min": -0.022873711340206215,
+      "fold_max": 0.018475236505286596,
+      "n_folds": 6,
+      "rank": 5
+    },
+    {
+      "feature": "dt_hours",
+      "weighted_mean_auc_drop": 0.0072590289579047215,
+      "fold_mean": 0.00806978454756685,
+      "fold_sd": 0.0061134948477354475,
+      "fold_min": 0.0,
+      "fold_max": 0.014958438934477014,
+      "n_folds": 6,
+      "rank": 6
+    },
+    {
+      "feature": "burnable_frac",
+      "weighted_mean_auc_drop": 0.002111836064697297,
+      "fold_mean": 0.004608071634322568,
+      "fold_sd": 0.004022048603019363,
+      "fold_min": -7.998896165350988e-05,
+      "fold_max": 0.010309278350515427,
+      "n_folds": 6,
+      "rank": 7
+    },
+    {
+      "feature": "n_active_adjacent",
+      "weighted_mean_auc_drop": 0.0020451257778274687,
+      "fold_mean": 0.0007156816495359486,
+      "fold_sd": 0.0030727739365200043,
+      "fold_min": -0.0038659793814432852,
+      "fold_max": 0.004527867431152299,
+      "n_folds": 6,
+      "rank": 8
+    },
+    {
+      "feature": "wind_alignment",
+      "weighted_mean_auc_drop": 0.0016428021909956432,
+      "fold_mean": -0.006336343643806197,
+      "fold_sd": 0.029059215350748072,
+      "fold_min": -0.06411082474226815,
+      "fold_max": 0.01831699838718248,
+      "n_folds": 6,
+      "rank": 9
+    },
+    {
+      "feature": "elev_above_source_m",
+      "weighted_mean_auc_drop": 0.001438445786980067,
+      "fold_mean": 0.00025686677735540603,
+      "fold_sd": 0.006793996582504524,
+      "fold_min": -0.013208762886598002,
+      "fold_max": 0.005383973288814681,
+      "n_folds": 6,
+      "rank": 10
+    },
+    {
+      "feature": "elevation_m",
+      "weighted_mean_auc_drop": 0.001411101051673078,
+      "fold_mean": -0.012790432860223836,
+      "fold_sd": 0.03978222476395278,
+      "fold_min": -0.0934278350515465,
+      "fold_max": 0.0076634930643975085,
+      "n_folds": 6,
+      "rank": 11
+    },
+    {
+      "feature": "precip_24h_mm",
+      "weighted_mean_auc_drop": 0.0013180658684460698,
+      "fold_mean": 0.0010261683492847988,
+      "fold_sd": 0.0020488481390599123,
+      "fold_min": -0.0001392746822944657,
+      "fold_max": 0.0050802427915562776,
+      "n_folds": 6,
+      "rank": 12
+    },
+    {
+      "feature": "vpd_kpa",
+      "weighted_mean_auc_drop": 0.000674723526860642,
+      "fold_mean": 0.0007579628594388543,
+      "fold_sd": 0.00138758091266638,
+      "fold_min": -0.0008100788632132705,
+      "fold_max": 0.003319964958456434,
+      "n_folds": 6,
+      "rank": 13
+    },
+    {
+      "feature": "temp_c",
+      "weighted_mean_auc_drop": 0.0005322899222076985,
+      "fold_mean": 0.0013843934970256822,
+      "fold_sd": 0.00450867187864512,
+      "fold_min": -0.003809624524400812,
+      "fold_max": 0.009398721680627498,
+      "n_folds": 6,
+      "rank": 14
+    },
+    {
+      "feature": "rh_pct",
+      "weighted_mean_auc_drop": 0.0004276162455477384,
+      "fold_mean": 0.0017665840701216833,
+      "fold_sd": 0.0024328801055780304,
+      "fold_min": -0.001457646462437956,
+      "fold_max": 0.005370061213132993,
+      "n_folds": 6,
+      "rank": 15
+    },
+    {
+      "feature": "slope_deg",
+      "weighted_mean_auc_drop": -0.0009385555379209863,
+      "fold_mean": -0.006845911138038359,
+      "fold_sd": 0.014647479363917559,
+      "fold_min": -0.03672680412371143,
+      "fold_max": -0.0003478018920421988,
+      "n_folds": 6,
+      "rank": 16
+    }
+  ],
+  "stratified": {
+    "gentle": {
+      "n": 86676,
+      "positives": 1611,
+      "pooled_auc": 0.894861051776122,
+      "per_fire_auc": {
+        "gangneung_2023": 0.6052461139896372,
+        "hongseong_2023": 0.934850335980452,
+        "miryang_2022": 0.9338607594936709,
+        "uiseong_andong_2025": 0.8674357458485833,
+        "uljin_samcheok_2022": 0.9012843117834023,
+        "yeongdeok_2025": 0.9336466770313532
+      },
+      "importance_ranking": [
+        {
+          "feature": "days_since_rain",
+          "weighted_mean_auc_drop": 0.09260584389420035,
+          "fold_mean": 0.05745599633809426,
+          "fold_sd": 0.06325551206273702,
+          "fold_min": 0.0,
+          "fold_max": 0.1469301407591297,
+          "n_folds": 6,
+          "rank": 1
+        },
+        {
+          "feature": "dist_to_fire_m",
+          "weighted_mean_auc_drop": 0.08749964066027582,
+          "fold_mean": -0.0005618218126903218,
+          "fold_sd": 0.12977970202420747,
+          "fold_min": -0.25291450777202074,
+          "fold_max": 0.12381788015631345,
+          "n_folds": 6,
+          "rank": 2
+        },
+        {
+          "feature": "active_frac_3000m",
+          "weighted_mean_auc_drop": 0.030133393867645387,
+          "fold_mean": 0.047595304634626114,
+          "fold_sd": 0.052385232597799085,
+          "fold_min": -0.00032383419689119286,
+          "fold_max": 0.11471518987341767,
+          "n_folds": 6,
+          "rank": 3
+        },
+        {
+          "feature": "wind_speed_ms",
+          "weighted_mean_auc_drop": 0.02356808408095806,
+          "fold_mean": 0.014031986764104961,
+          "fold_sd": 0.02276461359443237,
+          "fold_min": -0.008386075949367133,
+          "fold_max": 0.05365590652631702,
+          "n_folds": 6,
+          "rank": 4
+        },
+        {
+          "feature": "dt_hours",
+          "weighted_mean_auc_drop": 0.008709478374814892,
+          "fold_mean": 0.009084185761056999,
+          "fold_sd": 0.007835921369230463,
+          "fold_min": 0.0,
+          "fold_max": 0.022907758094074415,
+          "n_folds": 6,
+          "rank": 5
+        },
+        {
+          "feature": "burnable_frac",
+          "weighted_mean_auc_drop": 0.0041510530855523925,
+          "fold_mean": 0.0035552251787562827,
+          "fold_sd": 0.008439252603795239,
+          "fold_min": -0.010362694300518172,
+          "fold_max": 0.012787619629403335,
+          "n_folds": 6,
+          "rank": 6
+        },
+        {
+          "feature": "active_frac_1500m",
+          "weighted_mean_auc_drop": 0.0036763394141672485,
+          "fold_mean": 0.004854473151575112,
+          "fold_sd": 0.023584141354984493,
+          "fold_min": -0.03076424870466332,
+          "fold_max": 0.04066455696202542,
+          "n_folds": 6,
+          "rank": 7
+        },
+        {
+          "feature": "elev_above_source_m",
+          "weighted_mean_auc_drop": 0.0017551993699282432,
+          "fold_mean": 0.004551831451426069,
+          "fold_sd": 0.009394018096841737,
+          "fold_min": -0.0019430051813472682,
+          "fold_max": 0.023417721518987356,
+          "n_folds": 6,
+          "rank": 8
+        },
+        {
+          "feature": "precip_24h_mm",
+          "weighted_mean_auc_drop": 0.0017109812327713622,
+          "fold_mean": 0.00093068673986794,
+          "fold_sd": 0.0016826002965631926,
+          "fold_min": -0.00041837815163825454,
+          "fold_max": 0.0037637290303166315,
+          "n_folds": 6,
+          "rank": 9
+        },
+        {
+          "feature": "n_active_adjacent",
+          "weighted_mean_auc_drop": 0.0013758495084752406,
+          "fold_mean": 0.001711017975744411,
+          "fold_sd": 0.004346643396854782,
+          "fold_min": -0.0038860103626944253,
+          "fold_max": 0.009493670886076,
+          "n_folds": 6,
+          "rank": 10
+        },
+        {
+          "feature": "vpd_kpa",
+          "weighted_mean_auc_drop": 0.0009762935784085575,
+          "fold_mean": 0.0014917157921249997,
+          "fold_sd": 0.002628162006438607,
+          "fold_min": -0.002195939585467266,
+          "fold_max": 0.005063291139240422,
+          "n_folds": 6,
+          "rank": 11
+        },
+        {
+          "feature": "wind_alignment",
+          "weighted_mean_auc_drop": 0.0007704601894990937,
+          "fold_mean": -0.005953419553615336,
+          "fold_sd": 0.026462726765797945,
+          "fold_min": -0.05796632124352341,
+          "fold_max": 0.01856037466911009,
+          "n_folds": 6,
+          "rank": 12
+        },
+        {
+          "feature": "temp_c",
+          "weighted_mean_auc_drop": 0.0004233626880842773,
+          "fold_mean": 0.0018149135335196465,
+          "fold_sd": 0.007408762638082096,
+          "fold_min": -0.004596944707013995,
+          "fold_max": 0.015651071893919677,
+          "n_folds": 6,
+          "rank": 13
+        },
+        {
+          "feature": "rh_pct",
+          "weighted_mean_auc_drop": 4.068632791711705e-05,
+          "fold_mean": 0.001652072618433457,
+          "fold_sd": 0.004187165084744458,
+          "fold_min": -0.0028241226812557585,
+          "fold_max": 0.008764385614412729,
+          "n_folds": 6,
+          "rank": 14
+        },
+        {
+          "feature": "elevation_m",
+          "weighted_mean_auc_drop": 7.529221959597534e-06,
+          "fold_mean": -0.01635541148592636,
+          "fold_sd": 0.04274574475372725,
+          "fold_min": -0.10297927461139911,
+          "fold_max": 0.008104255752392486,
+          "n_folds": 6,
+          "rank": 15
+        },
+        {
+          "feature": "slope_deg",
+          "weighted_mean_auc_drop": -0.00011099314735821124,
+          "fold_mean": -0.00040932934331489035,
+          "fold_sd": 0.004702864419236587,
+          "fold_min": -0.007448186528497436,
+          "fold_max": 0.007278481012658267,
+          "n_folds": 6,
+          "rank": 16
+        }
+      ]
+    },
+    "steep": {
+      "n": 65228,
+      "positives": 1378,
+      "pooled_auc": 0.9049305111194712,
+      "per_fire_auc": {
+        "gangneung_2023": null,
+        "hongseong_2023": 0.9611111111111111,
+        "miryang_2022": 0.9815547703180213,
+        "uiseong_andong_2025": 0.874266936903385,
+        "uljin_samcheok_2022": 0.9291499211591862,
+        "yeongdeok_2025": 0.9515643624395012
+      },
+      "importance_ranking": [
+        {
+          "feature": "days_since_rain",
+          "weighted_mean_auc_drop": 0.0805175702694011,
+          "fold_mean": 0.05156168761088233,
+          "fold_sd": 0.04727281655573565,
+          "fold_min": -0.0018021201413427335,
+          "fold_max": 0.10328021018317435,
+          "n_folds": 5,
+          "rank": 1
+        },
+        {
+          "feature": "dist_to_fire_m",
+          "weighted_mean_auc_drop": 0.07239487122364957,
+          "fold_mean": 0.07401993640640506,
+          "fold_sd": 0.06842291789476419,
+          "fold_min": 0.00904593639575979,
+          "fold_max": 0.17222222222222217,
+          "n_folds": 5,
+          "rank": 2
+        },
+        {
+          "feature": "active_frac_3000m",
+          "weighted_mean_auc_drop": 0.02139758538948592,
+          "fold_mean": 0.012571375112283057,
+          "fold_sd": 0.012149451894354582,
+          "fold_min": -0.005555555555555536,
+          "fold_max": 0.023829784916696628,
+          "n_folds": 5,
+          "rank": 3
+        },
+        {
+          "feature": "active_frac_1500m",
+          "weighted_mean_auc_drop": 0.016051174394962425,
+          "fold_mean": 0.022422789496552253,
+          "fold_sd": 0.017893867501970473,
+          "fold_min": -0.001127431480145602,
+          "fold_max": 0.0444444444444444,
+          "n_folds": 5,
+          "rank": 4
+        },
+        {
+          "feature": "wind_speed_ms",
+          "weighted_mean_auc_drop": 0.01284212166743614,
+          "fold_mean": 0.009513383144824018,
+          "fold_sd": 0.01109278799363284,
+          "fold_min": -0.0017786919761255682,
+          "fold_max": 0.025274048752158995,
+          "n_folds": 5,
+          "rank": 5
+        },
+        {
+          "feature": "dt_hours",
+          "weighted_mean_auc_drop": 0.006506660354952897,
+          "fold_mean": 0.0047801199644121,
+          "fold_sd": 0.007990263775505197,
+          "fold_min": -0.005555555555555536,
+          "fold_max": 0.01614779252293852,
+          "n_folds": 5,
+          "rank": 6
+        },
+        {
+          "feature": "n_active_adjacent",
+          "weighted_mean_auc_drop": 0.0027099482011128037,
+          "fold_mean": 0.0028268061853047753,
+          "fold_sd": 0.002841636430082748,
+          "fold_min": -9.114527034770337e-05,
+          "fold_max": 0.006180637419689439,
+          "n_folds": 5,
+          "rank": 7
+        },
+        {
+          "feature": "elevation_m",
+          "weighted_mean_auc_drop": 0.002084295675596431,
+          "fold_mean": 0.007567102034935691,
+          "fold_sd": 0.011555222102625043,
+          "fold_min": -0.00017212310934222597,
+          "fold_max": 0.02777777777777779,
+          "n_folds": 5,
+          "rank": 8
+        },
+        {
+          "feature": "wind_alignment",
+          "weighted_mean_auc_drop": 0.0016970462784789754,
+          "fold_mean": 0.00146892332297055,
+          "fold_sd": 0.0009086098631522286,
+          "fold_min": 0.0,
+          "fold_max": 0.002190812720848201,
+          "n_folds": 5,
+          "rank": 9
+        },
+        {
+          "feature": "rh_pct",
+          "weighted_mean_auc_drop": 0.0009616383731703509,
+          "fold_mean": 0.0039652945387882,
+          "fold_sd": 0.0050829809144858126,
+          "fold_min": -0.002255021574736893,
+          "fold_max": 0.011111111111111183,
+          "n_folds": 5,
+          "rank": 10
+        },
+        {
+          "feature": "precip_24h_mm",
+          "weighted_mean_auc_drop": 0.0008927603406346764,
+          "fold_mean": 0.0009404773719159376,
+          "fold_sd": 0.0019115116670185865,
+          "fold_min": 0.0,
+          "fold_max": 0.004350685364391538,
+          "n_folds": 5,
+          "rank": 11
+        },
+        {
+          "feature": "vpd_kpa",
+          "weighted_mean_auc_drop": 0.0005074525447515637,
+          "fold_mean": 0.0018470472279311424,
+          "fold_sd": 0.0025674581460074287,
+          "fold_min": -0.0006577605188921032,
+          "fold_max": 0.005555555555555536,
+          "n_folds": 5,
+          "rank": 12
+        },
+        {
+          "feature": "elev_above_source_m",
+          "weighted_mean_auc_drop": 0.00044202443009223625,
+          "fold_mean": 0.00505452324310256,
+          "fold_sd": 0.009766228983332582,
+          "fold_min": -0.0019888929705673686,
+          "fold_max": 0.022222222222222254,
+          "n_folds": 5,
+          "rank": 13
+        },
+        {
+          "feature": "temp_c",
+          "weighted_mean_auc_drop": 0.00042148770534750974,
+          "fold_mean": 0.0005533365885889374,
+          "fold_sd": 0.003025941070118673,
+          "fold_min": -0.0034407438636828713,
+          "fold_max": 0.005065987098045177,
+          "n_folds": 5,
+          "rank": 14
+        },
+        {
+          "feature": "burnable_frac",
+          "weighted_mean_auc_drop": 0.0002714619392266666,
+          "fold_mean": 0.001748576160600379,
+          "fold_sd": 0.0023214168619316,
+          "fold_min": -4.2799464602283344e-05,
+          "fold_max": 0.005555555555555647,
+          "n_folds": 5,
+          "rank": 15
+        },
+        {
+          "feature": "slope_deg",
+          "weighted_mean_auc_drop": 5.070169024532217e-06,
+          "fold_mean": 0.0005154060159731743,
+          "fold_sd": 0.0011812380184000758,
+          "fold_min": -0.0008252973967987076,
+          "fold_max": 0.0023674911660778175,
+          "n_folds": 5,
+          "rank": 16
+        }
+      ]
+    }
+  }
+}

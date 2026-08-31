@@ -30,6 +30,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -82,6 +83,19 @@ def equal(expected, got, tol: float) -> bool:
     return expected == got
 
 
+def _cited_files(entry: dict) -> set[str]:
+    """Every repo-relative path one registry entry reads from."""
+    out: set[str] = set()
+    if entry.get("source_file"):
+        out.add(entry["source_file"])
+    for op in (entry.get("check", {}).get("operands", {}) or {}).values():
+        if isinstance(op, dict) and op.get("file"):
+            out.add(op["file"])
+    if (entry.get("cross_check") or {}).get("file"):
+        out.add(entry["cross_check"]["file"])
+    return out
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -93,6 +107,38 @@ def main() -> int:
     nums = doc["numbers"]
     fails: list[str] = []
     n_ok = 0
+
+    # -- SESSION 18: nothing may cite a path that exists only on this machine --
+    # A number whose artifact is not in the repository cannot be checked by
+    # anyone else. Before this, 41 entries pointed at gitignored files under
+    # data/processed/. Every cited path must now be EITHER git-tracked OR
+    # carried in docs/artifact_manifest.json with a digest and a regeneration
+    # command — the second branch is what a file too large to commit uses.
+    tracked = set(subprocess.run(
+        ["git", "ls-files"], cwd=REPO, capture_output=True, text=True,
+        env={"GIT_DISCOVERY_ACROSS_FILESYSTEM": "1",
+             "PATH": "/usr/bin:/bin:/usr/local/bin"}).stdout.split())
+    man_path = REPO / "docs" / "artifact_manifest.json"
+    manifest = ({a["path"]: a for a in
+                 json.loads(man_path.read_text(encoding="utf-8"))["artifacts"]}
+                if man_path.exists() else {})
+    if not tracked:
+        print("  ⚠ git ls-files returned nothing; the in-repo check is SKIPPED "
+              "rather than passed vacuously\n")
+    else:
+        n_unresolved = 0
+        for key, e in nums.items():
+            for p in _cited_files(e):
+                if p in tracked or p in manifest:
+                    continue
+                n_unresolved += 1
+                fails.append(f"{key}: cites {p}, which is neither git-tracked "
+                             f"nor in docs/artifact_manifest.json")
+                print(f"  NOT-IN-REPO {key}: {p}")
+        if not n_unresolved:
+            print(f"  every cited artifact resolves in-repo "
+                  f"({len(tracked)} tracked files, "
+                  f"{len(manifest)} manifest entries)\n")
 
     print(f"verifying {len(nums)} entries in "
           f"{Path(args.numbers).relative_to(REPO)} "

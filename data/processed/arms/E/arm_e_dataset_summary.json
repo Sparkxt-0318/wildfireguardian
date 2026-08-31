@@ -1,0 +1,80 @@
+{
+  "arm": "E",
+  "provenance": "derived",
+  "slope_source": "native ~30 m SRTM -> 500 m effective slope (arctan(sqrt(mean(tan^2))))",
+  "n_rows": 151904,
+  "n_positives": 2989,
+  "fires_used": [
+    "gangneung_2023",
+    "hongseong_2023",
+    "miryang_2022",
+    "uiseong_andong_2025",
+    "uljin_samcheok_2022",
+    "yeongdeok_2025"
+  ],
+  "feature_columns": [
+    "dist_to_fire_m",
+    "active_frac_1500m",
+    "active_frac_3000m",
+    "n_active_adjacent",
+    "elevation_m",
+    "slope_deg",
+    "elev_above_source_m",
+    "burnable_frac",
+    "wind_speed_ms",
+    "temp_c",
+    "rh_pct",
+    "vpd_kpa",
+    "days_since_rain",
+    "precip_24h_mm",
+    "dt_hours",
+    "wind_alignment",
+    "upslope_alignment",
+    "slope_forcing"
+  ],
+  "n_features": 18,
+  "definedness": {
+    "upslope_alignment": {
+      "n_defined": 151904,
+      "share_defined": 1.0
+    },
+    "slope_forcing": {
+      "n_defined": 151904,
+      "share_defined": 1.0
+    },
+    "native_slope_deg": {
+      "n_defined": 151904,
+      "share_defined": 1.0
+    }
+  },
+  "upslope_alignment_correlations": {
+    "slope_deg": 0.0434,
+    "elev_above_source_m": 0.2426,
+    "wind_alignment": 0.0113,
+    "dist_to_fire_m": 0.0206,
+    "native_slope_deg": 0.076,
+    "slope_forcing": 0.0354
+  },
+  "smoothing_columns": [
+    "upslope_alignment_s0",
+    "upslope_alignment_s1500",
+    "upslope_alignment_s2500",
+    "upslope_alignment_s3500",
+    "upslope_alignment_s5500"
+  ],
+  "native_slope_deg_distribution": {
+    "mean": 17.236,
+    "median": 17.631,
+    "p25": 13.059,
+    "p75": 21.635,
+    "max": 71.386
+  },
+  "build_seconds_by_fire": {
+    "gangneung_2023": 0.6,
+    "hongseong_2023": 0.8,
+    "miryang_2022": 0.64,
+    "uiseong_andong_2025": 1.96,
+    "uljin_samcheok_2022": 1.22,
+    "yeongdeok_2025": 1.5
+  }
+}
