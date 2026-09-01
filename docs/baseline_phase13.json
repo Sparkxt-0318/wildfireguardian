@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "title": "Korean baseline freeze — PHASE 13 PHASE 0",
-  "frozen_utc": "2026-08-31T08:03:41Z",
-  "git_commit": "11ed5cdeeb5e8d6657421a18ddfe24f06fe57f71",
+  "frozen_utc": "2026-09-01T16:15:26Z",
+  "git_commit": "d1d5854923004bf6410970b1c3522ae46aa7c4c0",
   "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
-  "registry_entries": 254,
+  "registry_entries": 260,
   "lofo_shape": {
     "n_rows": 151904,
     "n_positives": 2989,
@@ -133,6 +133,7 @@
     "data/processed/vulnerability/portability_paradise_ca_2018.json": "5c4e75d594eba90202dcadb0cc7fe71749f70b3775f0ef242216fc5f494c5b0a",
     "data/processed/vulnerability/refuge_audit_yeongdeok.json": "481990534ac762074fb8432653e540bec51bffe23156d7f3afc5eaf88fec7a72",
     "data/processed/vulnerability/refuge_distance.json": "70c422b023767111ccb2aa5998265edb8d305c3d019b507baa242b6813295a4f",
+    "data/processed/vulnerability/refuge_placement.json": "11cb8a7f640b1958e12421125f70af76c9e9393ec689b5f7c865a9ad08225058",
     "data/processed/vulnerability/tautology_decomposition.json": "fa27a6e6d123a0230e87f52c4af3a0f3377126eee95bb43eb0bae5938f9a001e",
     "data/processed/vulnerability/vulnerability_yeongdeok_2025.json": "94422cfce45d5d2ae72247721233447a266d5b778b6911cac4ed75fad340022f",
     "data/processed/vulnerability/warm_start.json": "f0eb2ce8698fe0e97e663c12dd98dd979631f1c1057483beed83323ac04571b3",

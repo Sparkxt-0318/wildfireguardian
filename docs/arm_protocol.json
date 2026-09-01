@@ -85,6 +85,12 @@
       "role": "Session 20. Empirical grounding of the Layer 0 evaluation horizon from 산림청 산불통계데이터 (2022-2025, n = 2,008 usable events). Descriptive statistics on an external dataset; fits no model.",
       "control_required": false,
       "reason_no_control": "No model is fitted and no feature count changes, so there is nothing for a noise null to be matched against. ⚠ The horizon DEFAULT did not move — it was 240 min before this arm existed and is 240 min after. Only its justification changed, from arbitrary-but-swept to grounded."
+    },
+    "L0_intervention": {
+      "n_features": null,
+      "role": "Session 22. Refuge-placement optimiser over the Layer 0 vulnerability layer: which single site converts the most failing households. Shortest-path search on the committed walk network; fits no model.",
+      "control_required": false,
+      "reason_no_control": "No model is fitted and no feature count changes, so there is nothing for a noise null to be matched against. The search's own control is the FULL-LAYER VERIFICATION: the top candidate was re-run through the real elliptical hazard with 4 ignitions x 3 scenarios and the saved-household set agreed exactly."
     }
   }
 }

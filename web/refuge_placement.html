@@ -1,0 +1,187 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>임시 대피소 배치 권장 — 영덕</title>
+<style>
+ body{font:15px/1.65 system-ui,-apple-system,"Noto Sans KR",sans-serif;
+      max-width:900px;margin:0 auto;padding:28px 20px;color:#16202a}
+ h1{font-size:24px;margin:0 0 6px} h2{font-size:19px;margin:0 0 12px}
+ h3{font-size:15px;margin:20px 0 6px}
+ .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px}
+ .rec{border:1px solid #d3dae2;border-radius:10px;padding:20px;margin:22px 0}
+ .headline{background:#eef4fb;border-left:4px solid #2f6fb5;padding:14px 16px;
+           margin:16px 0;font-size:16px;line-height:1.9}
+ table{border-collapse:collapse;width:100%;margin:8px 0}
+ td,th{border:1px solid #dde3ea;padding:6px 9px;text-align:left;font-size:13px;
+       vertical-align:top}
+ th{background:#f5f8fb;font-weight:600;white-space:nowrap}
+ .kv th{width:170px}
+ .warn{background:#fff6e6;border-left:4px solid #d98b13;padding:12px 14px;
+       margin:14px 0;font-size:13.5px}
+ .stop{background:#fdecec;border-left:4px solid #c0392b;padding:14px 16px;
+       margin:18px 0}
+ .assume{background:#f6f7f9;border:1px dashed #c6ced8;padding:12px 14px;
+         margin:14px 0;font-size:13px}
+ footer{margin-top:34px;padding-top:14px;border-top:1px solid #dde3ea;
+        font-size:12.5px;color:#5b6773}
+</style>
+
+<h1>임시 대피소 배치 권장 — 영덕</h1>
+<p>현재 <b>124가구 중 24가구</b>가 평가
+지평 안에 어떤 생존 대피소에도 도달하지 못합니다. 기존 대피소는
+43곳입니다.</p>
+
+<div class=stop>
+ <b>⚠ 이것은 도달 가능성 최적화이지 화재 안전 최적화가 아닙니다.</b><br>
+ 목적함수는 <b>“이 가구들이 창 안에 걸어서 도착할 수 있는가”</b> 하나뿐이며,
+ <b>그 대피소가 불을 견디는지는 묻지 않습니다.</b> 불이 도달하는 자리에 놓인
+ 대피소는 없느니만 못합니다. 생존 여부는 아래에서 <b>따로</b> 검사했습니다.
+</div>
+
+<div class=stop>
+ <b>⚠ 이것은 기하학적 권장이지 입지 결정이 아닙니다.</b><br>
+ 토지 소유, 시공 가능성, 건축 기준, 예산, 수용 인원, 상주 인력, 개방 시간은
+ <b>하나도 모형에 없습니다.</b> 말할 수 있는 것은 딱 이것입니다 —
+ <i>“현재 가정 하에서, 이 위치에 임시 대피소를 두면 N가구가 도보 대피 가능
+ 범위 안으로 들어옵니다.”</i>
+</div>
+
+<div class=warn>
+ <b>⚠ 모든 가구 수는 잠정입니다.</b> 실제 건물 데이터(도로명주소)가 아니라
+ <b>OSM 124동 스냅숏</b> 위의 값입니다. 같은 질의가 Mati 에서 1,763동,
+ Paradise 에서 988동을 돌려주는 데 비해 영덕은 74–124동으로, 농촌 한국에서
+ OSM 건물 커버리지는 희소합니다. 실제 footprint 가 들어오면 <b>모든 수치가
+ 움직입니다.</b>
+</div>
+
+
+<section class=rec>
+  <h2>권장 임시 대피소 위치 #1</h2>
+  <table class=kv>
+    <tr><th>좌표 (WGS84)</th><td class=mono>36.545471, 129.409836</td></tr>
+    <tr><th>좌표 (EPSG:5179)</th><td class=mono>1170945.1, 1840333.8</td></tr>
+    <tr><th>현재 상태</th><td>open low-fuel ground · 산림 연료까지
+        <b>318 m</b> · 가장 가까운 건물까지
+        479 m · 기존 대피소까지
+        <b>8.0 km</b></td></tr>
+    <tr><th>동등 후보 지점</th><td>285곳 — 같은 가구를
+        구하는 인접 지점이 그만큼 있어 <b>배치 여유가 있습니다</b></td></tr>
+  </table>
+
+  <div class=headline>
+    이 위치를 개설하면<br>
+    대피 불가 가구 <b>24 → 4</b>
+    (<b>20가구 개선</b>)<br>
+    개선 가구 도보 시간 중앙값
+    <b>264분 → 59분</b>
+  </div>
+
+  <h3>개선되는 가구 20곳</h3>
+  <p class=warn">⚠ 주소가 아니라 OSM 건물 ID 와 좌표입니다. 실제 주소는
+     도로명주소 건물 데이터가 들어와야 붙습니다(Session 21, 미완).</p>
+  <table class=hh><tr><th>가구 index</th><th>건물 ID</th><th>좌표</th></tr>
+  <tr><td>48</td><td class=mono>OSM 1263116405</td><td class=mono>36.57252, 129.41844</td></tr><tr><td>49</td><td class=mono>OSM 1265243318</td><td class=mono>36.56103, 129.42520</td></tr><tr><td>51</td><td class=mono>OSM 1265682723</td><td class=mono>36.54153, 129.40622</td></tr><tr><td>52</td><td class=mono>OSM 1265682728</td><td class=mono>36.54005, 129.40501</td></tr><tr><td>53</td><td class=mono>OSM 1265682734</td><td class=mono>36.54007, 129.40614</td></tr><tr><td>54</td><td class=mono>OSM 1265981561</td><td class=mono>36.53954, 129.40456</td></tr><tr><td>55</td><td class=mono>OSM 1265981589</td><td class=mono>36.54134, 129.41142</td></tr><tr><td>56</td><td class=mono>OSM 1266004262</td><td class=mono>36.53852, 129.40312</td></tr><tr><td>57</td><td class=mono>OSM 1266004301</td><td class=mono>36.53848, 129.41021</td></tr><tr><td>60</td><td class=mono>OSM 1266349005</td><td class=mono>36.53908, 129.41342</td></tr><tr><td>61</td><td class=mono>OSM 1266585405</td><td class=mono>36.54547, 129.34869</td></tr><tr><td>62</td><td class=mono>OSM 1266585406</td><td class=mono>36.54627, 129.34826</td></tr><tr><td>63</td><td class=mono>OSM 1266585407</td><td class=mono>36.54608, 129.34784</td></tr><tr><td>64</td><td class=mono>OSM 1267017116</td><td class=mono>36.50727, 129.44658</td></tr><tr><td>65</td><td class=mono>OSM 1267017125</td><td class=mono>36.50755, 129.44375</td></tr><tr><td>66</td><td class=mono>OSM 1267017149</td><td class=mono>36.50542, 129.44190</td></tr><tr><td>67</td><td class=mono>OSM 1268814315</td><td class=mono>36.54621, 129.34941</td></tr><tr><td>68</td><td class=mono>OSM 1268814332</td><td class=mono>36.54550, 129.34212</td></tr><tr><td>119</td><td class=mono>OSM 1347732406</td><td class=mono>36.53833, 129.39658</td></tr><tr><td>120</td><td class=mono>OSM 1347732408</td><td class=mono>36.54250, 129.39608</td></tr>
+  </table>
+</section>
+<section class=rec>
+  <h2>권장 임시 대피소 위치 #2</h2>
+  <table class=kv>
+    <tr><th>좌표 (WGS84)</th><td class=mono>36.538042, 129.403512</td></tr>
+    <tr><th>좌표 (EPSG:5179)</th><td class=mono>1170395.3, 1839498.4</td></tr>
+    <tr><th>현재 상태</th><td>open low-fuel ground · 산림 연료까지
+        <b>421 m</b> · 가장 가까운 건물까지
+        64 m · 기존 대피소까지
+        <b>7.1 km</b></td></tr>
+    <tr><th>동등 후보 지점</th><td>61곳 — 같은 가구를
+        구하는 인접 지점이 그만큼 있어 <b>배치 여유가 있습니다</b></td></tr>
+  </table>
+
+  <div class=headline>
+    이 위치를 개설하면<br>
+    대피 불가 가구 <b>24 → 5</b>
+    (<b>19가구 개선</b>)<br>
+    개선 가구 도보 시간 중앙값
+    <b>259분 → 26분</b>
+  </div>
+
+  <h3>개선되는 가구 19곳</h3>
+  <p class=warn">⚠ 주소가 아니라 OSM 건물 ID 와 좌표입니다. 실제 주소는
+     도로명주소 건물 데이터가 들어와야 붙습니다(Session 21, 미완).</p>
+  <table class=hh><tr><th>가구 index</th><th>건물 ID</th><th>좌표</th></tr>
+  <tr><td>48</td><td class=mono>OSM 1263116405</td><td class=mono>36.57252, 129.41844</td></tr><tr><td>49</td><td class=mono>OSM 1265243318</td><td class=mono>36.56103, 129.42520</td></tr><tr><td>51</td><td class=mono>OSM 1265682723</td><td class=mono>36.54153, 129.40622</td></tr><tr><td>52</td><td class=mono>OSM 1265682728</td><td class=mono>36.54005, 129.40501</td></tr><tr><td>53</td><td class=mono>OSM 1265682734</td><td class=mono>36.54007, 129.40614</td></tr><tr><td>54</td><td class=mono>OSM 1265981561</td><td class=mono>36.53954, 129.40456</td></tr><tr><td>55</td><td class=mono>OSM 1265981589</td><td class=mono>36.54134, 129.41142</td></tr><tr><td>56</td><td class=mono>OSM 1266004262</td><td class=mono>36.53852, 129.40312</td></tr><tr><td>57</td><td class=mono>OSM 1266004301</td><td class=mono>36.53848, 129.41021</td></tr><tr><td>60</td><td class=mono>OSM 1266349005</td><td class=mono>36.53908, 129.41342</td></tr><tr><td>61</td><td class=mono>OSM 1266585405</td><td class=mono>36.54547, 129.34869</td></tr><tr><td>62</td><td class=mono>OSM 1266585406</td><td class=mono>36.54627, 129.34826</td></tr><tr><td>63</td><td class=mono>OSM 1266585407</td><td class=mono>36.54608, 129.34784</td></tr><tr><td>64</td><td class=mono>OSM 1267017116</td><td class=mono>36.50727, 129.44658</td></tr><tr><td>65</td><td class=mono>OSM 1267017125</td><td class=mono>36.50755, 129.44375</td></tr><tr><td>67</td><td class=mono>OSM 1268814315</td><td class=mono>36.54621, 129.34941</td></tr><tr><td>68</td><td class=mono>OSM 1268814332</td><td class=mono>36.54550, 129.34212</td></tr><tr><td>119</td><td class=mono>OSM 1347732406</td><td class=mono>36.53833, 129.39658</td></tr><tr><td>120</td><td class=mono>OSM 1347732408</td><td class=mono>36.54250, 129.39608</td></tr>
+  </table>
+</section>
+<section class=rec>
+  <h2>권장 임시 대피소 위치 #3</h2>
+  <table class=kv>
+    <tr><th>좌표 (WGS84)</th><td class=mono>36.535213, 129.405912</td></tr>
+    <tr><th>좌표 (EPSG:5179)</th><td class=mono>1170616.4, 1839188.7</td></tr>
+    <tr><th>현재 상태</th><td>open low-fuel ground · 산림 연료까지
+        <b>430 m</b> · 가장 가까운 건물까지
+        240 m · 기존 대피소까지
+        <b>6.8 km</b></td></tr>
+    <tr><th>동등 후보 지점</th><td>11곳 — 같은 가구를
+        구하는 인접 지점이 그만큼 있어 <b>배치 여유가 있습니다</b></td></tr>
+  </table>
+
+  <div class=headline>
+    이 위치를 개설하면<br>
+    대피 불가 가구 <b>24 → 5</b>
+    (<b>19가구 개선</b>)<br>
+    개선 가구 도보 시간 중앙값
+    <b>259분 → 36분</b>
+  </div>
+
+  <h3>개선되는 가구 19곳</h3>
+  <p class=warn">⚠ 주소가 아니라 OSM 건물 ID 와 좌표입니다. 실제 주소는
+     도로명주소 건물 데이터가 들어와야 붙습니다(Session 21, 미완).</p>
+  <table class=hh><tr><th>가구 index</th><th>건물 ID</th><th>좌표</th></tr>
+  <tr><td>48</td><td class=mono>OSM 1263116405</td><td class=mono>36.57252, 129.41844</td></tr><tr><td>49</td><td class=mono>OSM 1265243318</td><td class=mono>36.56103, 129.42520</td></tr><tr><td>51</td><td class=mono>OSM 1265682723</td><td class=mono>36.54153, 129.40622</td></tr><tr><td>52</td><td class=mono>OSM 1265682728</td><td class=mono>36.54005, 129.40501</td></tr><tr><td>53</td><td class=mono>OSM 1265682734</td><td class=mono>36.54007, 129.40614</td></tr><tr><td>54</td><td class=mono>OSM 1265981561</td><td class=mono>36.53954, 129.40456</td></tr><tr><td>55</td><td class=mono>OSM 1265981589</td><td class=mono>36.54134, 129.41142</td></tr><tr><td>56</td><td class=mono>OSM 1266004262</td><td class=mono>36.53852, 129.40312</td></tr><tr><td>57</td><td class=mono>OSM 1266004301</td><td class=mono>36.53848, 129.41021</td></tr><tr><td>60</td><td class=mono>OSM 1266349005</td><td class=mono>36.53908, 129.41342</td></tr><tr><td>61</td><td class=mono>OSM 1266585405</td><td class=mono>36.54547, 129.34869</td></tr><tr><td>62</td><td class=mono>OSM 1266585406</td><td class=mono>36.54627, 129.34826</td></tr><tr><td>63</td><td class=mono>OSM 1266585407</td><td class=mono>36.54608, 129.34784</td></tr><tr><td>65</td><td class=mono>OSM 1267017125</td><td class=mono>36.50755, 129.44375</td></tr><tr><td>66</td><td class=mono>OSM 1267017149</td><td class=mono>36.50542, 129.44190</td></tr><tr><td>67</td><td class=mono>OSM 1268814315</td><td class=mono>36.54621, 129.34941</td></tr><tr><td>68</td><td class=mono>OSM 1268814332</td><td class=mono>36.54550, 129.34212</td></tr><tr><td>119</td><td class=mono>OSM 1347732406</td><td class=mono>36.53833, 129.39658</td></tr><tr><td>120</td><td class=mono>OSM 1347732408</td><td class=mono>36.54250, 129.39608</td></tr>
+  </table>
+</section>
+
+<h2>대피소를 하나 더 지으면?</h2>
+<table><tr><th>지평</th><th>현재 실패</th><th>1개로 개선</th>
+<th>1개 → 2개</th><th>어떤 배치로도 불가</th></tr><tr><td>60분</td><td>50</td><td>13</td><td>13 → 26</td><td>4</td></tr><tr><td>120분</td><td>36</td><td>18</td><td>18 → 25</td><td>2</td></tr><tr><td>240분</td><td>24</td><td>20</td><td>20 → 24</td><td>0</td></tr></table>
+<p><b>지평 240분에서 1개가 20가구, 2개가 24가구 전부</b>를 커버하고
+<b>3번째는 0가구</b>를 더합니다. 한 곳만 잘 놓아도 대부분이 해결된다는 뜻입니다.</p>
+
+<div class=warn>
+ <b>⚠ 권장 위치는 지평에 따라 달라집니다.</b> 60·120·240분에서 최적 지점이
+ 서로 다르고, 구하는 가구 집합의 Jaccard 는 60분 대 240분에서 <b>0.435</b>에
+ 그칩니다. <b>이 권장은 “240분 지평에서의 권장”이며 지평과 분리해 인용할 수
+ 없습니다.</b>
+</div>
+
+<h2>“산에서 멀리” 기준을 바꾸면?</h2>
+<table><tr><th>산림 연료 이격</th><th>후보 지점</th><th>1개로 개선</th></tr>
+<tr><td>0 m</td><td>7651</td><td>20</td></tr><tr><td>150 m</td><td>6614</td><td>20</td></tr><tr><td>300 m</td><td>2218</td><td>20</td></tr><tr><td>500 m</td><td>498</td><td>20</td></tr></table>
+<p>이격 기준을 0 m 에서 500 m 까지 올리면 후보는 7,651 → 498곳으로 줄지만
+<b>1순위 권장이 구하는 가구 집합은 네 기준에서 모두 동일</b>합니다. 답이
+기준선 위치의 산물이 아니라는 뜻입니다.</p>
+
+<h2>검증</h2>
+<ul>
+ <li><b>빠른 탐색이 전체 층과 일치합니다.</b> 1순위 후보를 실제 위험원
+     (타원, 발화 4개 × 시나리오 3개)으로 다시 돌린 결과 구해지는 가구 집합이
+     <b>완전히 동일</b>했습니다(차집합 양쪽 0). 취약도 평균
+     0.193548 →
+     0.032258.</li>
+ <li><b>불이 권장 지점에 도달하는가 — 120회
+     평가 중 0회.</b> 즉 <b>생존 필터가 구속하지
+     않습니다.</b> ⚠ 이것은 “안전하다”는 보증이 아니라 <b>이 시나리오
+     집합에서 이 필터가 아무것도 걸러내지 않았다</b>는 사실입니다.</li>
+</ul>
+
+<div class=assume>
+ <b>전제</b> — 평가 지평 <b>240분</b>(산불통계 2,008건 근거, 기본값 불변) ·
+ 보행 속도 <b>고령자 0.7 m/s</b>(경사 보정) · 대피소 <b>상시 개방·수용 가능</b>
+ 가정 · 발화 4곳 × 기상 시나리오 3종 · 대피소 생존 판정 p_cut 0.5 ·
+ 도보 이동만(차량 없음).
+</div>
+
+<footer>
+WildfireGuardian · Session 22 · 영덕 2025 · 이 페이지는 외부 요청을 하지
+않습니다(오프라인 동작). 산출:
+<span class=mono>data/processed/vulnerability/placement_cache/</span> ·
+재현: <span class=mono>python scripts/refuge_placement.py --optimize</span>
+</footer>

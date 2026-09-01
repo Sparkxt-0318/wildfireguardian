@@ -7729,7 +7729,7 @@
       "json_path": "yeongdeok.failing_set.median_walk_min_failing",
       "derivation": "Median elderly-gait walking time to the nearest surviving refuge, over the 24 영덕 households with at least one failing scenario. Regenerate: python scripts/vulnerability_drivers.py --distance",
       "sample": "영덕 124 OSM 건물, 발화 4개, 지평 240분",
-      "caveat": "THE EXPLANATION THE LAYER WAS MISSING. 271.3 minutes EXCEEDS the 240-minute horizon: these households cannot reach any refuge in the evaluated window at 0.7 m/s, whatever the fire does. Safe households sit at 9.5 minutes — a 29x separation. This unifies three earlier nulls: the hazard model cannot matter if you cannot arrive in time, refuge DENSITY cannot matter because only the nearest one counts, and extra network paths cannot matter if all of them are too long.",
+      "caveat": "THE EXPLANATION THE LAYER WAS MISSING. 271.3 minutes EXCEEDS the 240-minute horizon: these households cannot reach any refuge in the evaluated window at 0.7 m/s, whatever the fire does. Safe households sit at 9.5 minutes — a 29x separation. This unifies three earlier nulls: the hazard model cannot matter if you cannot arrive in time, refuge DENSITY cannot matter because only the nearest one counts, and extra network paths cannot matter if all of them are too long. ⚠⚠ SESSION 22 CORRECTION — THE METHOD BEHIND THIS NUMBER WAS WRONG, AND THE VALUE IS LEFT UNCHANGED UNDER THE SESSION 18 FREEZE. scripts/vulnerability_drivers.py::_distances built its graph with nx.Graph(G), but net.graph is a DiGraph whose time_min is SLOPE-ASYMMETRIC — 16,314 of 21,982 reciprocal edge pairs carry different times (median 0.34 min, max 28.4 min), because uphill and downhill walking speeds differ. The undirected collapse keeps one direction arbitrarily, and the virtual-source Dijkstra then measured REFUGE->HOUSEHOLD while the evacuation router walks HOUSEHOLD->REFUGE. Session 22 recomputed it directed and it reproduces the router's failing counts EXACTLY at all six horizons (63/50/36/27/24/8); the reversed direction gives 63/53/36/27/18/8 — wrong at 60 min and at the 240 min DEFAULT. So this figure describes an arbitrarily symmetrised graph traversed backwards, not what the layer does. Session 22's own numbers use the directed computation and are registered separately under arm L0_intervention.",
       "reproducible": true,
       "reproducibility": {
         "blocked_by": null
@@ -7755,7 +7755,7 @@
       "json_path": "yeongdeok.failing_set.median_walk_min_safe",
       "derivation": "Same, over the 100 영덕 households with no failing scenario.",
       "sample": "영덕 124 OSM 건물, 발화 4개, 지평 240분",
-      "caveat": "9.5 minutes against 271.3 for the failing set.",
+      "caveat": "9.5 minutes against 271.3 for the failing set. ⚠⚠ SESSION 22 CORRECTION — THE METHOD BEHIND THIS NUMBER WAS WRONG, AND THE VALUE IS LEFT UNCHANGED UNDER THE SESSION 18 FREEZE. scripts/vulnerability_drivers.py::_distances built its graph with nx.Graph(G), but net.graph is a DiGraph whose time_min is SLOPE-ASYMMETRIC — 16,314 of 21,982 reciprocal edge pairs carry different times (median 0.34 min, max 28.4 min), because uphill and downhill walking speeds differ. The undirected collapse keeps one direction arbitrarily, and the virtual-source Dijkstra then measured REFUGE->HOUSEHOLD while the evacuation router walks HOUSEHOLD->REFUGE. Session 22 recomputed it directed and it reproduces the router's failing counts EXACTLY at all six horizons (63/50/36/27/24/8); the reversed direction gives 63/53/36/27/18/8 — wrong at 60 min and at the 240 min DEFAULT. So this figure describes an arbitrarily symmetrised graph traversed backwards, not what the layer does. Session 22's own numbers use the directed computation and are registered separately under arm L0_intervention.",
       "reproducible": true,
       "reproducibility": {
         "blocked_by": null
@@ -7781,7 +7781,7 @@
       "json_path": "yeongdeok.furthest_k_matches_failing_k.share",
       "derivation": "Taking the k=24 households furthest from a refuge by network distance and comparing that set to the 24 households that actually fail at least one scenario.",
       "sample": "영덕 124 OSM 건물, 발화 4개, 지평 240분",
-      "caveat": "23 of 24 — distance alone identifies the failing set almost exactly. ⚠ The Spearman on the SAME data is only 0.30, because 100 of 124 households have vulnerability exactly 0 and the rank correlation is diluted by that tie block. The classification result is the real measurement; the rank correlation understates the association.",
+      "caveat": "23 of 24 — distance alone identifies the failing set almost exactly. ⚠ The Spearman on the SAME data is only 0.30, because 100 of 124 households have vulnerability exactly 0 and the rank correlation is diluted by that tie block. The classification result is the real measurement; the rank correlation understates the association. ⚠⚠ SESSION 22 CORRECTION — THE METHOD BEHIND THIS NUMBER WAS WRONG, AND THE VALUE IS LEFT UNCHANGED UNDER THE SESSION 18 FREEZE. scripts/vulnerability_drivers.py::_distances built its graph with nx.Graph(G), but net.graph is a DiGraph whose time_min is SLOPE-ASYMMETRIC — 16,314 of 21,982 reciprocal edge pairs carry different times (median 0.34 min, max 28.4 min), because uphill and downhill walking speeds differ. The undirected collapse keeps one direction arbitrarily, and the virtual-source Dijkstra then measured REFUGE->HOUSEHOLD while the evacuation router walks HOUSEHOLD->REFUGE. Session 22 recomputed it directed and it reproduces the router's failing counts EXACTLY at all six horizons (63/50/36/27/24/8); the reversed direction gives 63/53/36/27/18/8 — wrong at 60 min and at the 240 min DEFAULT. So this figure describes an arbitrarily symmetrised graph traversed backwards, not what the layer does. Session 22's own numbers use the directed computation and are registered separately under arm L0_intervention.",
       "reproducible": true,
       "reproducibility": {
         "blocked_by": null
@@ -7807,7 +7807,7 @@
       "json_path": "yeongdeok.spearman_walking_time_vs_vulnerability",
       "derivation": "Within-영덕 rank correlation between walking time to the nearest surviving refuge and the vulnerability score.",
       "sample": "영덕 124 OSM 건물, 발화 4개, 지평 240분",
-      "caveat": "0.31, and LOW FOR A MECHANICAL REASON: 100 of 124 households are tied at vulnerability 0, so ranks within the safe group are arbitrary. Reported alongside the classification result (23/24) rather than instead of it. Network distance (0.30) and straight-line distance (0.30) score the same, so detour and terrain add nothing detectable here.",
+      "caveat": "0.31, and LOW FOR A MECHANICAL REASON: 100 of 124 households are tied at vulnerability 0, so ranks within the safe group are arbitrary. Reported alongside the classification result (23/24) rather than instead of it. Network distance (0.30) and straight-line distance (0.30) score the same, so detour and terrain add nothing detectable here. ⚠⚠ SESSION 22 CORRECTION — THE METHOD BEHIND THIS NUMBER WAS WRONG, AND THE VALUE IS LEFT UNCHANGED UNDER THE SESSION 18 FREEZE. scripts/vulnerability_drivers.py::_distances built its graph with nx.Graph(G), but net.graph is a DiGraph whose time_min is SLOPE-ASYMMETRIC — 16,314 of 21,982 reciprocal edge pairs carry different times (median 0.34 min, max 28.4 min), because uphill and downhill walking speeds differ. The undirected collapse keeps one direction arbitrarily, and the virtual-source Dijkstra then measured REFUGE->HOUSEHOLD while the evacuation router walks HOUSEHOLD->REFUGE. Session 22 recomputed it directed and it reproduces the router's failing counts EXACTLY at all six horizons (63/50/36/27/24/8); the reversed direction gives 63/53/36/27/18/8 — wrong at 60 min and at the 240 min DEFAULT. So this figure describes an arbitrarily symmetrised graph traversed backwards, not what the layer does. Session 22's own numbers use the directed computation and are registered separately under arm L0_intervention.",
       "reproducible": true,
       "reproducibility": {
         "blocked_by": null
@@ -8654,6 +8654,162 @@
           "a": {
             "file": "data/processed/detection/kfs_containment_duration.json",
             "json_path": "checks.32.computed"
+          }
+        }
+      }
+    },
+    "l0i_best_single_refuge_saved": {
+      "value": 20.0,
+      "unit": "households",
+      "source_file": "data/processed/vulnerability/refuge_placement.json",
+      "json_path": "optimum_h240.marginal_curve.k1_saved",
+      "derivation": "Currently-failing households brought inside the 240-minute horizon by ONE optimally placed temporary refuge, over 2,218 enumerated candidate sites.",
+      "sample": "영덕 2025, OSM 건물 124동(잠정), 기존 대피소 43곳, 지평 240분",
+      "caveat": "20 of 24. ⚠ REACHABILITY ONLY — the objective asks whether households can WALK there in time and does NOT ask whether the refuge survives the fire. Session 17's zero-hazard control showed this layer's failure set is set-identical with no fire at all, so the quantity maximised here is geometric. Verified against the FULL layer (elliptical hazard, 4 ignitions x 3 scenarios): the saved set agreed exactly, both difference sets empty. ⚠ PROVISIONAL — rests on the 124-building OSM snapshot, not real 도로명주소 footprints (Session 21 blocked on a logged-in download). The same Overpass query returns 1,763 buildings for Mati and 988 for Paradise against 74-124 for 영덕, so rural Korean OSM coverage is sparse and every household count here will move.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 22. GEOMETRIC RECOMMENDATION under stated assumptions, not a siting decision. No model, threshold or target changed; Arm A untouched. Regenerate: python scripts/refuge_placement.py --optimize --horizons --sweep --verify",
+      "arm": "L0_intervention",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/vulnerability/refuge_placement.json",
+            "json_path": "optimum_h240.marginal_curve.k1_saved"
+          }
+        }
+      }
+    },
+    "l0i_best_pair_saved": {
+      "value": 24.0,
+      "unit": "households",
+      "source_file": "data/processed/vulnerability/refuge_placement.json",
+      "json_path": "optimum_h240.marginal_curve.k2_saved",
+      "derivation": "Households saved by the best PAIR of refuge sites; exact over 41 distinct coverage sets, not greedy.",
+      "sample": "영덕 2025, OSM 건물 124동(잠정), 기존 대피소 43곳, 지평 240분",
+      "caveat": "ALL 24. The marginal curve is sharply diminishing — 20, then 24, then 24 — so a THIRD refuge adds ZERO. One well-placed site does most of the work, which is a stronger policy message than 'build many'. ⚠ PROVISIONAL — rests on the 124-building OSM snapshot, not real 도로명주소 footprints (Session 21 blocked on a logged-in download). The same Overpass query returns 1,763 buildings for Mati and 988 for Paradise against 74-124 for 영덕, so rural Korean OSM coverage is sparse and every household count here will move.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 22. GEOMETRIC RECOMMENDATION under stated assumptions, not a siting decision. No model, threshold or target changed; Arm A untouched. Regenerate: python scripts/refuge_placement.py --optimize --horizons --sweep --verify",
+      "arm": "L0_intervention",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/vulnerability/refuge_placement.json",
+            "json_path": "optimum_h240.marginal_curve.k2_saved"
+          }
+        }
+      }
+    },
+    "l0i_third_refuge_gain": {
+      "value": 0.0,
+      "unit": "households",
+      "source_file": "data/processed/vulnerability/refuge_placement.json",
+      "json_path": "optimum_h240.marginal_curve.k3_gain_over_k2",
+      "derivation": "Additional households saved by a third refuge beyond the best pair.",
+      "sample": "영덕 2025, OSM 건물 124동(잠정), 기존 대피소 43곳, 지평 240분",
+      "caveat": "Zero. Combinations never reuse the same coverage set, so this is three genuinely distinct sites, not one site counted twice. ⚠ PROVISIONAL — rests on the 124-building OSM snapshot, not real 도로명주소 footprints (Session 21 blocked on a logged-in download). The same Overpass query returns 1,763 buildings for Mati and 988 for Paradise against 74-124 for 영덕, so rural Korean OSM coverage is sparse and every household count here will move.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 22. GEOMETRIC RECOMMENDATION under stated assumptions, not a siting decision. No model, threshold or target changed; Arm A untouched. Regenerate: python scripts/refuge_placement.py --optimize --horizons --sweep --verify",
+      "arm": "L0_intervention",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/vulnerability/refuge_placement.json",
+            "json_path": "optimum_h240.marginal_curve.k3_gain_over_k2"
+          }
+        }
+      }
+    },
+    "l0i_unsavable_at_240": {
+      "value": 0.0,
+      "unit": "households",
+      "source_file": "data/processed/vulnerability/refuge_placement.json",
+      "json_path": "optimum_h240.ceiling.n_unsavable",
+      "derivation": "Failing households that NO refuge at ANY of the 2,218 candidate sites can bring inside the 240-minute horizon.",
+      "sample": "영덕 2025, OSM 건물 124동(잠정), 기존 대피소 43곳, 지평 240분",
+      "caveat": "Zero at 240 min — but ⚠ NOT zero at shorter horizons: 2 at 120 min and 4 at 60 min. The ceiling is horizon-dependent, and households in it cannot be helped by refuge placement at all — they need vehicle-assisted evacuation, pre-emptive relocation, or road work. ⚠ PROVISIONAL — rests on the 124-building OSM snapshot, not real 도로명주소 footprints (Session 21 blocked on a logged-in download). The same Overpass query returns 1,763 buildings for Mati and 988 for Paradise against 74-124 for 영덕, so rural Korean OSM coverage is sparse and every household count here will move.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 22. GEOMETRIC RECOMMENDATION under stated assumptions, not a siting decision. No model, threshold or target changed; Arm A untouched. Regenerate: python scripts/refuge_placement.py --optimize --horizons --sweep --verify",
+      "arm": "L0_intervention",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/vulnerability/refuge_placement.json",
+            "json_path": "optimum_h240.ceiling.n_unsavable"
+          }
+        }
+      }
+    },
+    "l0i_candidates_enumerated": {
+      "value": 2218.0,
+      "unit": "sites",
+      "source_file": "data/processed/vulnerability/refuge_placement.json",
+      "json_path": "optimum_h240.constraints.n_candidates_after_filter",
+      "derivation": "Candidate sites surviving the constraint filter, of 8,443 walk-network nodes. Candidates ARE network nodes, so this is an enumeration.",
+      "sample": "영덕 2025, OSM 건물 124동(잠정), 기존 대피소 43곳, 지평 240분",
+      "caveat": "NOTHING IS SAMPLED, so there is no sampling density to sweep. Constraints: reachable by construction; >300 m from any grid cell with burnable fraction >= 0.5 (행안부's 산에서 멀리 떨어진); and a plausible host — an existing building within 60 m or open low-fuel ground. ⚠ The clearance threshold is a CHOICE and was swept 0/150/300/500 m: candidates fall 7,651 -> 498 but the best site's saved-household SET is identical at all four, so the answer is not an artefact of where that line was drawn. ⚠ PROVISIONAL — rests on the 124-building OSM snapshot, not real 도로명주소 footprints (Session 21 blocked on a logged-in download). The same Overpass query returns 1,763 buildings for Mati and 988 for Paradise against 74-124 for 영덕, so rural Korean OSM coverage is sparse and every household count here will move.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 22. GEOMETRIC RECOMMENDATION under stated assumptions, not a siting decision. No model, threshold or target changed; Arm A untouched. Regenerate: python scripts/refuge_placement.py --optimize --horizons --sweep --verify",
+      "arm": "L0_intervention",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/vulnerability/refuge_placement.json",
+            "json_path": "optimum_h240.constraints.n_candidates_after_filter"
+          }
+        }
+      }
+    },
+    "l0i_survival_check_reached_by_fire": {
+      "value": 0.0,
+      "unit": "site-scenario evaluations",
+      "source_file": "data/processed/vulnerability/refuge_placement.json",
+      "json_path": "verification.survival_check.n_reached_by_fire",
+      "derivation": "Recommended sites reached by fire under the tested scenarios: 10 sites x 12 (ignition, scenario) pairs = 120 evaluations.",
+      "sample": "영덕 2025, OSM 건물 124동(잠정), 기존 대피소 43곳, 지평 240분",
+      "caveat": "ZERO of 120 — the refuge-survival filter is NOT BINDING on these recommendations, matching the 43/43 survival seen previously at 영덕. ⚠ THIS IS NOT A SAFETY ENDORSEMENT. It says the filter caught nothing under THIS scenario set with THIS elliptical hazard; it does not say a refuge at these sites would survive a real fire. The survival check is deliberately NOT part of the objective. ⚠ PROVISIONAL — rests on the 124-building OSM snapshot, not real 도로명주소 footprints (Session 21 blocked on a logged-in download). The same Overpass query returns 1,763 buildings for Mati and 988 for Paradise against 74-124 for 영덕, so rural Korean OSM coverage is sparse and every household count here will move.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "Session 22. GEOMETRIC RECOMMENDATION under stated assumptions, not a siting decision. No model, threshold or target changed; Arm A untouched. Regenerate: python scripts/refuge_placement.py --optimize --horizons --sweep --verify",
+      "arm": "L0_intervention",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/vulnerability/refuge_placement.json",
+            "json_path": "verification.survival_check.n_reached_by_fire"
           }
         }
       }
