@@ -91,15 +91,18 @@ are the ones the loop meets daily), from the KCF 운영요강, and from safety.
 Time-box: finish cleanly inside about two hours of wall-clock; a half-done change
 is worse than no change. Every step leaves the tree consistent.
 
-**Session mechanics, learned on the first lap (2026-09-03).** A cloud routine is
-a single-turn session: it ends the moment the agent ends its turn, and no
-background-task notification ever wakes it again. The first lap put the
-12-minute gate run in the background, "paused to wait", and the session simply
-ended: no report, no push. So: run `gates.py`, pytest and every long command in
-the foreground with a long timeout (30 min is fine); never wait for CI or a
-notification; write the report, commit and push before the final message. A lap
-that ends without a pushed report is a failed lap and the next lap treats the
-row as still `todo`.
+**Session mechanics, learned on the first lap (2026-09-03).** The first lap put
+the gate run in the background and ended its turn to "wait for the
+notification"; the run log showed the session as finished, and it was only
+minutes later that the worker resumed on the background task's completion.
+Whether a routine is woken that way is not something to rely on: run
+`gates.py`, pytest and every long command in the foreground with a long timeout
+(30 min is fine); never end a turn to wait for CI or a notification; write the
+report, commit and push before the final message. A lap that ends without a
+pushed report is a failed lap and the next lap treats the row as still `todo`.
+When two laps overlap on the same row (the first lap's marker never reached
+`origin`), the one that pushes second rebases; if the rebase conflicts, it
+parks its work on `auto/red/<stamp>` and reports instead of forcing.
 
 **Sandbox facts.** Linux x86_64, Python 3.11, pip-only bootstrap in about one
 minute (`pins_ok: true`). `data/raw/**` is git-ignored, so the FIRMS/ERA5/DEM
