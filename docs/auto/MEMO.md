@@ -310,3 +310,16 @@ mood) · evidence.
   buys the appearance of verification and loses the provenance. Documented
   literal + committed carrier + a test that forces prose to match it, and a test
   pinning the non-registration so reversing it must be deliberate.
+- 2026-09-03 · dev · **`Path.relative_to` on a path the caller chose turns a
+  successful run into a reported failure.** Hit twice in one lap, in two files:
+  `scripts/extract_survey_evidence.py` raised `ValueError` when `--out` pointed
+  outside the repository — which is exactly how the independent reviewer re-runs
+  a script to diff its output — and `scripts/auto/report.py:114` raised the same
+  way on a *relative* `.auto/email.html`. In both cases the work was already
+  done and the file already written; only the cosmetic "wrote <path>" line
+  failed, so the script exited non-zero after succeeding. **Gate:** a
+  pretty-printing call belongs in a `try`, or after the exit code is decided,
+  never between the write and the return — for a loop whose whole discipline is
+  that exit codes mean something, a false red costs a lap the time to diagnose
+  it. Fixed in the extractor this lap; `report.py:114` is untouched and is a
+  one-line fix for whoever owns that script.
