@@ -69,7 +69,8 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-039 | P1 | infra | The test suite downloads an 8.4 MB (gzipped; 25.9 MB on disk) SRTM tile mid-run, so first-run and re-run pass/skip counts differ by six — make the download opt-in (**this is the cause of WFG-038's symptom**) | todo | true | hours | 데이터 해석 (재현) |
 | WFG-044 | P1 | infra | `scripts/auto/report.py` has no `paper` kind, so the paper routine files its report as `manual` and overwrites `STATE.json` → `last_report_kind` with it (critic 20260903T1947Z) | todo | true | minutes | 데이터 해석 (재현) |
 | WFG-045 | P1 | IEEE | `paper/manuscript.md` cites 21 works and has no `## References` section, and `check_paper.py` checks no section at all against CHARTER §12 (critic 20260903T1947Z) | todo | true | hours | 제출 자료 (출처) |
-| WFG-046 | P0 | infra | Every lap pushes one file no gate has read: `report.py` writes the report *after* step 5's gates run, so a report's own prose can push `auto/dev` red (it did, `24751fa`). Make `report.py` run the prose gates over what it just wrote and exit non-zero when they fail | todo | true | hours | 데이터 해석 (재현) |
+| WFG-046 | P0 | infra | Every lap pushes commits no gate has read: `gates.py` runs at step 5 and everything after it (the report, and any post-review fix) is unchecked, so `auto/dev` has gone red twice this way (`24751fa`, `8d1decf`). **Widened by critic 20260903T2147Z (F14):** not just the report. Make `report.py` gate its own prose AND add a `--assert-head` check that refuses a push when `.auto/gates.json` → `git_head` is not `HEAD` | todo | true | hours | 데이터 해석 (재현) |
+| WFG-047 | P0 | infra | `in-progress` is written as a lock with no release, so a row a lap left unfinished is invisible to every later lap: WFG-021 (a)+(c) and WFG-016 are stranded, and `KCF_READINESS` R2 depends on WFG-021 (a) (critic 20260903T2147Z) | todo | true | minutes | 데이터 해석 (재현) |
 | WFG-011 | P2 | ISEF | ISEF plan memo (**revise**: route-existence questions, SFTD base rate, age rule, hand-written documents) | todo | true | one lap | — |
 | WFG-032 | P2 | science | Leak-free 영덕 fold + hindsight-oracle routing arm (agent writes the script; student runs on the Mac) | todo | partial | one lap + one Mac day | 데이터 해석 · IEEE Table V |
 | WFG-033 | P2 | science | Coupling-ablation routing-only arms on committed hazard fields (fire-blind / static perimeter + buffer / spread_v2), three regions (absorbs WFG-012) | todo | true | two laps | 설계와 방법론 · 데이터 해석 |
@@ -636,6 +637,53 @@ carrying forward.
   `check_paper.py` does not count the new section into it, or the paper fails its own gate.
 - **Done when:** `check_paper.py` exits 0 with the section assertion in place, removing any
   required heading fails it, and the rendered bibliography lists all 21 entries.
+
+### WFG-046 · P0 · infra · The commit you push is not the commit the gates read
+- **What:** CHARTER §4 runs `gates.py` at step 5 and `report.py` at step 7, so every lap's
+  report is tracked prose no gate has read. That is how critic #2 pushed `24751fa` red.
+  **The 2053Z lap then showed the diagnosis was one step too narrow.** Its gate run was at
+  `f5f8498` 20:39:36Z and it pushed `8d1decf` 20:57:29Z, and in between `e431696` rewrote
+  162 lines of `tests/test_gk2a_detector.py` and 41 lines of `docs/detection_floor.md` (the
+  reviewer-block fixes) as well as adding the report. `auto/dev` was red again. So the
+  unchecked file is not "the report", it is **everything committed after the gate run**,
+  and a report-only gate would not have caught the larger half.
+- **Do:** two things, the second of which subsumes the first.
+  (a) `report.py`, after writing, runs `make check-forbidden` and
+  `pytest tests/test_rescue_lineage_ssot.py` over what it wrote and exits non-zero on
+  failure, so the lap cannot commit an unreadable report.
+  (b) `gates.py --assert-head` (or `scripts/auto/check_gates_current.py`, five lines):
+  read `.auto/gates.json`, and exit non-zero unless `git_head` equals
+  `git rev-parse --short HEAD`, `git status --porcelain` is empty, and `passed` is true.
+  CHARTER §4 step 8 then becomes one command instead of a list a tired lap can skip.
+- **Effort:** hours. **agent_doable:** true.
+- **Constraints:** `.auto/` is git-ignored, so `--assert-head` must fail loudly when
+  `.auto/gates.json` is absent rather than passing vacuously. Do not make `report.py`
+  run the full suite; the prose gates are seconds, the suite is three minutes, and a
+  report step that costs three minutes will be worked around.
+- **Done when:** deleting the lineage label from a report makes `report.py` exit non-zero;
+  committing anything after a green `gates.py` and running `--assert-head` exits non-zero;
+  CHARTER §4 step 8 names the one command.
+
+### WFG-047 · P0 · infra · `in-progress` has no release, so an unfinished row is stranded
+- **What:** CHARTER §4 step 3 tells a lap to take the highest-priority row that is `todo`
+  and **not `in-progress` by another lap**. Nothing tells a lap what to do with its row
+  when it ends without finishing it. The 2053Z lap left `docs/auto/BACKLOG.md:44` reading
+  `in-progress(20260903T2050Z) — (b) done(f5f8498), (a) card + JUDGE_QA block outstanding,
+  (c) not attempted`, which is exactly the right residue note and exactly the wrong status
+  word: no lap holds that claim any more, and no future lap may take the row. `WFG-016`
+  has been `in-progress(kickoff seed)` since the kickoff for the same reason. Both are P0.
+  `KCF_READINESS` R2 names WFG-021 (a), the detection-floor evidence card on the finals
+  screen, so a readiness line is blocked by a status word inside a twelve-day sprint whose
+  plan dated WFG-021 to 09-05.
+- **Do:** add one sentence to CHARTER §5: *a lap that ends without finishing its row sets
+  the row back to `todo` and appends what it did as a residue note; `in-progress` is only
+  ever held by a lap that is still running.* Then set WFG-021 and WFG-016 to `todo`,
+  keeping their residue text verbatim.
+- **Effort:** minutes. **agent_doable:** true.
+- **Constraints:** do not delete or reword the residue notes; they are what makes the rows
+  restartable by a fresh agent (CHARTER §5). Do not mark WFG-021 `done`: only part (b) is.
+- **Done when:** no row in the table is `in-progress` without a lap running, CHARTER §5
+  states the release rule, and WFG-021's remaining (a) and (c) are pickable.
 
 ### WFG-038 · P1 · infra · The suite's own count is not gated
 - **What:** `scripts/auto/gates.py` runs the full suite and writes the summary line
