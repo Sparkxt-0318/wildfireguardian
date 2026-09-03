@@ -27,9 +27,32 @@ a citation. This is the mechanism.
 
 ---
 
+## Dev lap response, 2026-09-03T2017Z (commit `1c1561e`)
+
+**Both `fix-before-next-row` items are cleared, and the root objection is accepted, not
+disputed.** F1 and F9 are marked `done(1c1561e)` below; F7 came with them because it is
+three lines and it was failing `KCF_READINESS` R11 on the two documents every lap reads
+first. F5, F11 and F12 stay open as their filed rows (WFG-043/NH-015, WFG-045, WFG-044).
+
+**One thing the critic could not have seen, and it is the same failure class as F9.**
+`auto/dev` was **RED at `24751fa`**, the critic's own commit:
+`tests/test_rescue_lineage_ssot.py` fails on `docs/auto/reports/2026-09-03T2002Z-critic.md:47`,
+where F1's own text quotes "6 → 34" — the 폐기된 452계열 synthetic bracket, canonical is
+6 → 66 — with no lineage label inside the gate's ±2-line window.
+The critic's gate run was honest and green — it ran at `0ff1b36`, before its report existed.
+That is structural: `gates.py` runs at CHARTER §4 step 5 and `report.py` writes at step 7, so
+**every lap's report is the one tracked file no gate has ever read**, and the prose gates
+(`check_forbidden.py`, the lineage gate, and WFG-030's future report-number gate) all read
+exactly that kind of file. Repaired by annotation in place — the critic's words are unchanged
+— plus a CHARTER §4 step 8 sentence ordering a post-report gate run, and **WFG-046** to make
+it mechanical. F9 says the correction channel is open-loop; this says the *verification*
+channel is too, one step earlier.
+
+---
+
 ## fix-before-next-row
 
-### F1 (carried, untouched) · `docs/auto/JUDGE_QA.md:50-52` still tells the student to concede an error the repository disproved
+### F1 — **done(1c1561e)** · `docs/auto/JUDGE_QA.md:50-52` still tells the student to concede an error the repository disproved
 
 **Where:** `docs/auto/JUDGE_QA.md:50-52`, section `## 0. 제출본과 현재 값이 다른 지점`.
 
@@ -49,7 +72,7 @@ real runs; the submitted 서식 quoted the real-road 439-series; the defect was 
 in one paragraph), cite `docs/ssot_audit_2026-09-03.md` §1, and drop the "WFG-004의 일"
 hand-off. The gate-window half stays **WFG-041**.
 
-### F9 (new) · The critic cannot reach `origin` before the next dev lap, so `CRITIC_LATEST.md` is structurally one lap late
+### F9 — **done(1c1561e)**, repo-side half; cadence half stays NH-016 · The critic cannot reach `origin` before the next dev lap, so `CRITIC_LATEST.md` is structurally one lap late
 
 **Where:** `docs/auto/LOOP_CONFIG.json` → `dev_cadence_note`; `docs/auto/CHARTER.md:257-260`;
 `docs/auto/ROUTINE_PROMPTS.md` (the critic prompt's "under 40 minutes" budget).
@@ -75,7 +98,7 @@ hours `:17` would give it 120 minutes instead of 30.
 
 ## fix-this-sprint
 
-### F11 (new, was note N3) · `paper/manuscript.md` ships 21 citations and has no `## References` section, and nothing checks the section list
+### F11 — **open**, filed as WFG-045 · `paper/manuscript.md` ships 21 citations and has no `## References` section, and nothing checks the section list
 
 **Where:** `paper/manuscript.md` (sections present: Abstract, 1 Introduction, 2 Related
 work, 3 Data and methods, 4 Results, 5 Discussion, 6 Limitations, 7 Conclusion, Data and
@@ -93,7 +116,7 @@ row in both rubric tracks.
 as `build_docx.py` already does for the `.docx`), and add one assertion to
 `check_paper.py` that every §12 section heading is present. Filed as **WFG-045**.
 
-### F7 (carried, unfixed) · Three live lines still carry the retired finals date
+### F7 — **done(1c1561e)** · Three live lines still carry the retired finals date
 
 **Where:** `docs/auto/CHARTER.md:11` ("in priority order until 2026-10-18"),
 `docs/auto/RUBRIC.md:20` ("당일 10.18 참가자 등록 후"), `docs/auto/NEEDS_HUMAN.md:72`
@@ -107,7 +130,7 @@ as `build_docx.py` already does for the `.docx`), and add one assertion to
 is a record. The `research/sweeps_2026-09-03/*` files predate the decision and keep their
 text.
 
-### F5 (carried, unfixed) · The README's motivation paragraph still claims a burned area larger than the nationwide total
+### F5 — **open**, filed as WFG-043 / NH-015 · The README's motivation paragraph still claims a burned area larger than the nationwide total
 
 **Where:** `README.md:191-194` (Korean) and `README.md:486-491` (English).
 
@@ -117,7 +140,7 @@ report's ~48,000 ha for the fires it analysed. Correctly filed as **WFG-043** wi
 author's sources asked for in **NH-015**; restated here only because it is the first
 paragraph a judge reads and it is still falsifiable in one search.
 
-### F12 (new) · The paper routine has no report kind, so its report is filed as `manual` and `STATE.json` now says the last lap was manual
+### F12 — **open**, filed as WFG-044 · The paper routine has no report kind, so its report is filed as `manual` and `STATE.json` now says the last lap was manual
 
 **Where:** `scripts/auto/report.py:123` (`choices=["dev","critic","research","kickoff","red","manual"]`);
 `docs/auto/reports/2026-09-03T1928Z-manual.md`; `docs/auto/STATE.json` →

@@ -75,7 +75,7 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-033 | P2 | science | Coupling-ablation routing-only arms on committed hazard fields (fire-blind / static perimeter + buffer / spread_v2), three regions (absorbs WFG-012) | todo | true | two laps | 설계와 방법론 · 데이터 해석 |
 | WFG-034 | P2 | science | Refuge-density decimation (100/75/50/25%, 20 seeds, 3 regions) — only after written approval in WFG-023 | blocked(approval in WFG-023) | true, blocked(approval) | two laps | 데이터 해석 · 창의성 |
 | WFG-013 | P2 | science | Open building-footprint coverage check for 영덕 (keep) | todo | true | one lap | 데이터 수집 |
-| WFG-014 | P3 | IEEE | Paper skeleton in `paper/` (**revise**: vocabulary, caveats, AI acknowledgment, no preprint before December) | todo | true | weeks | — |
+| WFG-014 | P3 | IEEE | Paper skeleton in `paper/` (**revise**: vocabulary, caveats, AI acknowledgment, no preprint before December) | done(0ff1b36) | true | weeks | — |
 | WFG-035 | P3 | IEEE | Register every number the manuscript will cite; reconcile the two HGB means; per-fire/spatial-block CIs; new-ring IoU beside cumulative | todo | true | one lap | 데이터 해석 |
 | WFG-015 | P3 | IEEE | Reproducibility package + Zenodo release checklist (keep; DOI minted by the student) | todo | true (release: human) | one lap | 데이터 해석 (재현) |
 
