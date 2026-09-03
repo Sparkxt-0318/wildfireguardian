@@ -91,6 +91,22 @@ are the ones the loop meets daily), from the KCF 운영요강, and from safety.
 Time-box: finish cleanly inside about two hours of wall-clock; a half-done change
 is worse than no change. Every step leaves the tree consistent.
 
+**Session mechanics, learned on the first lap (2026-09-03).** A cloud routine is
+a single-turn session: it ends the moment the agent ends its turn, and no
+background-task notification ever wakes it again. The first lap put the
+12-minute gate run in the background, "paused to wait", and the session simply
+ended: no report, no push. So: run `gates.py`, pytest and every long command in
+the foreground with a long timeout (30 min is fine); never wait for CI or a
+notification; write the report, commit and push before the final message. A lap
+that ends without a pushed report is a failed lap and the next lap treats the
+row as still `todo`.
+
+**Sandbox facts.** Linux x86_64, Python 3.11, pip-only bootstrap in about one
+minute (`pins_ok: true`). `data/raw/**` is git-ignored, so the FIRMS/ERA5/DEM
+bundle and the two acquisition manifests never reach a fresh clone; work from
+`data/snapshots/` and `data/processed/`. A GitHub MCP is available in the
+sandbox for reading Actions runs and pull requests.
+
 0. **Bootstrap.** `git fetch origin && git checkout -B auto/dev origin/auto/dev`
    (create from `origin/Main` only if `auto/dev` does not exist yet). Then
    `bash scripts/auto/bootstrap.sh` and use `.auto/venv/bin/python` for everything.
