@@ -61,7 +61,14 @@ def main() -> int:
 
     steps = [run("verify", make + ["verify"])]
     if args.mode == "full":
-        steps.append(run("baseline-verify", make + ["baseline-verify"]))
+        # freeze_baseline.py --check also digests two git-ignored manifests under
+        # data/raw/firms_data/ that exist only on the author's laptop (the
+        # acquisition record, HANDOFF §5.9). In a clean clone they are MISSING by
+        # construction, so the gate is hard only where they exist; elsewhere it
+        # still runs and is recorded, but as a warning. The tracked-artifact
+        # digests it also checks are covered by verify + snapshot-verify.
+        manifest = REPO / "data" / "raw" / "firms_data" / "fire_manifest.json"
+        steps.append(run("baseline-verify", make + ["baseline-verify"], hard=manifest.exists()))
         steps.append(run("snapshot-verify", make + ["snapshot-verify"]))
         steps.append(run("env-check", make + ["env-check"], hard=args.strict))
         steps.append(run("pytest-full", [py, "-m", "pytest", "-q", "-p", "no:cacheprovider", "--durations=15"]))

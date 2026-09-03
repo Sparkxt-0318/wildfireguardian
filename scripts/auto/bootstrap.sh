@@ -56,10 +56,18 @@ PY="$VENV/bin/python"
 
 PINS_OK=true
 if ! "$PY" -m pip install -q -r requirements.txt; then
-  PINS_OK=false
-  note "pinned install failed; falling back to the unpinned extras (env-check will report drift)"
-  "$PY" -m pip install -q -e ".[geospatial,ml,routing,dev]"
+  # one retry for a transient PyPI failure before relaxing anything
+  if ! "$PY" -m pip install -q -r requirements.txt; then
+    PINS_OK=false
+    note "pinned install failed twice; falling back to the unpinned extras (env-check will report drift)"
+    # fastapi/uvicorn/httpx live only in requirements.txt (no extra); without them
+    # tests/test_api.py importorskips silently, the Round-2 failure mode.
+    "$PY" -m pip install -q -e ".[geospatial,ml,routing,dev]" fastapi uvicorn httpx "osmnx==2.0.7"
+  fi
 fi
+# fontTools reads the vendored .woff2 fonts (tests/test_screen_checks.py) only with
+# brotli, which no pin pulls in; conda's wfg311 had it by accident.
+"$PY" -m pip install -q brotli
 "$PY" -m pip install -q -e . --no-deps
 
 STACK_OK=true
