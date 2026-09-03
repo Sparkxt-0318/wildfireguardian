@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "5ed83cc99b25e7bad9e8f6553d86847e1ac735b1",
-  "n_artifacts": 95,
-  "total_bytes": 14468088,
+  "generated_at_git_commit": "633c3db43cb06312c624e490c2d1358c107c8eea",
+  "n_artifacts": 96,
+  "total_bytes": 14468697,
   "total_mib": 13.8,
-  "n_git_tracked": 95,
+  "n_git_tracked": 96,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 10,
   "artifacts": [
@@ -235,6 +235,18 @@
       "regenerate": "python scripts/build_demo_html.py"
     },
     {
+      "path": "data/processed/detection/firms_first_detection.json",
+      "bytes": 609,
+      "sha256": "b215c74f4dae3e1ea2e5a671a3d8b8a07e80af1dcc9821d7769f131f4fa8cd1b",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/auto/BACKLOG.md"
+      ],
+      "regenerate": "python scripts/gk2a_detection.py"
+    },
+    {
       "path": "data/processed/detection/gk2a_detection_floor.json",
       "bytes": 5880,
       "sha256": "ba6733392d1e9f546e3d97c984af77d36403b6d72ab9ac4f2b4b35fa8f21e502",
@@ -243,6 +255,7 @@
       "n_registry_entries": 7,
       "cited_by_docs": [
         "docs/auto/BACKLOG.md",
+        "docs/auto/finals/DETECTION_FLOOR_CARD.md",
         "docs/auto/research/BACKLOG_PROPOSAL_2026-09-03.md",
         "docs/detection_floor.md"
       ],
@@ -270,6 +283,8 @@
       "n_registry_entries": 3,
       "cited_by_docs": [
         "docs/SESSION19_REPORT.md",
+        "docs/auto/JUDGE_QA.md",
+        "docs/auto/finals/DETECTION_FLOOR_CARD.md",
         "docs/detection_floor.md"
       ],
       "regenerate": "python scripts/gk2a_yeongdeok_diagnostic.py"
@@ -307,6 +322,8 @@
       "n_registry_entries": 0,
       "cited_by_docs": [
         "docs/auto/JUDGE_QA.md",
+        "docs/auto/SCORECARD.md",
+        "docs/auto/reports/2026-09-03T1851Z-dev.md",
         "docs/evidence/greenpeace_2026_survey.md"
       ],
       "regenerate": "python scripts/extract_survey_evidence.py"
@@ -609,7 +626,10 @@
       "cited_by_docs": [
         "README.md",
         "docs/auto/BACKLOG.md",
+        "docs/auto/CRITIC_LATEST.md",
+        "docs/auto/JUDGE_QA.md",
         "docs/auto/reports/2026-09-03T1724Z-dev.md",
+        "docs/auto/reports/2026-09-03T2002Z-critic.md",
         "docs/auto/research/sweeps_2026-09-03/R7_rubric_gap.md",
         "docs/forbidden_check_scope.md",
         "docs/ssot_audit_2026-09-03.md",
