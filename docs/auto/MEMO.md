@@ -141,3 +141,66 @@ mood) · evidence.
   `report-email` workflow (NH-001's three secrets), which also could not have run
   until this lap's `report.py` fix. Evidence: this lap's send, and the truncated
   read of the base64 file.
+- 2026-09-03 · dev · **The full suite reports two different (passed, skipped)
+  pairs on the same commit, and the gate is GREEN for both.** This lap read
+  **1,098 passed / 60 skipped** on its first `gates.py --mode full` and
+  **1,104 / 54** on the second, third and fourth runs — same tree, same commit
+  `682aeb3`, same flags (`-q -p no:cacheprovider --durations=15`), 1,158
+  outcomes either way. The delta is exactly six tests moving between passed and
+  skipped. This is the **second** sighting: the previous lap recorded
+  1,071/60 against 1,077/54 and could not reproduce it. That lap's hypothesis
+  (a `pytest.skip` on a module-scoped fixture) is not the whole story, and this
+  lap ruled out the obvious successor: the six git-ignored `data/cache/*.nc`
+  files are written during the first full run, but moving them aside and
+  re-running still gives 1,104/54, because they are regenerated before the
+  guarded tests execute. **What is established:** the drift is real, it
+  recurs across laps, it appears on the first full run in a fresh container,
+  and it is invisible because both readings pass. **What is not:** which six.
+  **Anti-pattern:** treating "ALL GREEN" as the reading. A suite whose skip
+  count moves by six between two runs of one commit has six tests whose result
+  is unfalsifiable, and the summary line is the only place it shows. **Gate,
+  filed as WFG-038:** `gates.py` already writes the pytest summary into
+  `.auto/gates.json`; make it parse the triple, compare against a committed
+  baseline, and WARN when the skip count moves — a drift that is printed is a
+  drift somebody can chase. Evidence: this lap's four full-suite readings and
+  `.auto/gates.json`.
+- 2026-09-03 · dev · **A number inherited from the previous version of a
+  document is not a sourced number.** The v1 Q&A bank answered "are any of
+  these designated shelters?" with "fifty OSM POIs at Yeongdeok, **46 snapped
+  to the network**". The 50 registers (`mr_yeongdeok_shelter_pois`); the 46
+  appears nowhere in the tree — the only "46개" in the docs is
+  `global_portability.md`'s count of POIs the query *missed*, a different
+  quantity. It survived a rewrite because it sat beside a number that was
+  true. This is HANDOFF §4-B's class (a citation with nothing on file to match
+  against), reached by inheritance rather than by conversation, and no gate
+  catches it: `check_number_collisions.py` only fires when a *registered*
+  quantity appears with a second value. **Gate for the next lap:** when
+  rewriting a document, every number that survives the rewrite gets looked up
+  again, not carried. The replacement here was better than the original — the
+  committed tag breakdown (33 `leisure=park`, 17 `amenity=shelter` of which 16
+  are `shelter_type=gazebo`, `amenity=community_centre` = 0 in two of three
+  regions) answers the judge's actual question. Evidence:
+  `docs/multi_region.md` §"Split by tag", `docs/auto/JUDGE_QA.md` Q18.
+- 2026-09-03 · dev · **A purge list retyped into a test is checked against
+  nothing.** WFG-002's row ordered eight phrasings removed from the Q&A bank.
+  The lap wrote them into a `PURGED` dict and parametrized a test over it, and
+  the test passed — against the same author's own document, with no external
+  referent. The independent reviewer found that the dict held eight entries and
+  the 40-minute 안동→영덕 factoid was not one of them, while the report claimed
+  it was gated. Of the whole purge list that factoid is the single item the
+  research brief marks **"(no source)"** — every other entry is a superseded
+  number, this one is an event that never happened — so the one item that most
+  needed the gate was the one the hand-copy dropped. **This is the same failure
+  the same lap had just diagnosed elsewhere** (the unsourced "46 snapped to the
+  network", carried across a rewrite instead of looked up again), recurring
+  inside the report about the fix, which is the argument for making it
+  mechanical rather than resolving to be careful. **Gate:** derive a checklist
+  from the committed file that ordered it, never retype it — here,
+  `test_the_purge_list_covers_what_the_row_actually_ordered` parses the quoted
+  phrases out of `RESEARCH_BRIEF_2026-09-03.md`'s "Deprecated Q&A material" line
+  and `BACKLOG_PROPOSAL_2026-09-03.md`'s "Purge:" clause and asserts every one
+  is covered. **Corollary:** use regexes, not literals, when a retired phrase
+  shares digits with a live one — "40분" is a substring of the legitimate
+  "240분", so the literal check that would have been written is the check that
+  could not have been written. Evidence: this lap's reviewer verdict, and the
+  two mutation runs that fail the purge test and the coverage test respectively.

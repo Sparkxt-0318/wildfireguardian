@@ -38,7 +38,7 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-023 | P0 | infra | Protect `Main`; ratify `auto/dev`; decide the two HANDOFF §4 items; approve/veto decimation; close NH-001/002/006 | blocked(human) | **false** | hours | — |
 | WFG-018 | P0 | KCF | 제출본 대비 정본 reconciliation sheet as NEAR-labelled prose (Korean, one page) | done(20260903T0653Z) | true | hours | 제출 자료 · 데이터 해석 |
 | WFG-019 | P0 | science | Operating-point evidence package: per-fire recall/FNR at 0.3, PR curve, nested LOFO threshold calibration as a negative result, MODEL_CARD appendix | done(20260903T1224Z) | true | one lap | 데이터 수집·분석·해석 · 설계와 방법론 |
-| WFG-002 | P0 | KCF | Judge Q&A bank v2 (**revise**: corrected numbers, four new questions, deprecated phrasings purged) | in-progress(20260903T1536Z) | true | one lap | 연구 목적 · 설계와 방법론 · 데이터 해석 |
+| WFG-002 | P0 | KCF | Judge Q&A bank v2 (**revise**: corrected numbers, four new questions, deprecated phrasings purged) | done(20260903T1536Z) | true | one lap | 연구 목적 · 설계와 방법론 · 데이터 해석 |
 | WFG-004 | P0 | KCF | SSOT sweep (**revise**: fix README:731, reconcile `fold_sizes.md` vs `NUMBERS.json` on the primary AUC, annotate superseded values) | in-progress(20260903T1622Z) | true | one lap | 제출 자료 |
 | WFG-020 | P0 | KCF | Greenpeace 2026 survivor survey registered as evidence + the "85% drove" answer | todo | true (fallback NH) | hours | 연구 목적 · 데이터 수집 |
 | WFG-021 | P0 | KCF | Detection-floor panel (Session 19 as recorded) + tests for `src/wildfireguardian/detection/gk2a.py` | todo | true | one lap | 데이터 수집·분석·해석 · 설계와 방법론 |
@@ -62,6 +62,7 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-030 | P1 | infra | Report-number check: every number in `docs/auto/reports/*.md` and `JUDGE_QA.md` must grep to a registry key or artifact | todo | true | hours | 데이터 해석 (재현) |
 | WFG-031 | P1 | infra | `CITATION.cff` with true fields (no fabricated dates) | todo | true | minutes | 제출 자료 (출처) |
 | WFG-036 | P1 | infra | `scripts/build_numbers.py` overwrites the registry with 65 of its 278 entries — make it refuse, or make it merge | todo | true | hours | 데이터 해석 (재현) |
+| WFG-038 | P1 | infra | The full suite reports two different skip counts on one commit and the gate is green for both — make the (collected, passed, skipped) triple a gate | todo | true | hours | 데이터 해석 (재현) |
 | WFG-011 | P2 | ISEF | ISEF plan memo (**revise**: route-existence questions, SFTD base rate, age rule, hand-written documents) | todo | true | one lap | — |
 | WFG-032 | P2 | science | Leak-free 영덕 fold + hindsight-oracle routing arm (agent writes the script; student runs on the Mac) | todo | partial | one lap + one Mac day | 데이터 해석 · IEEE Table V |
 | WFG-033 | P2 | science | Coupling-ablation routing-only arms on committed hazard fields (fire-blind / static perimeter + buffer / spread_v2), three regions (absorbs WFG-012) | todo | true | two laps | 설계와 방법론 · 데이터 해석 |
@@ -257,6 +258,41 @@ collide with each other when a 출처 table lists key and value on one line.
 - **Constraints:** no number not in `NUMBERS.json` or a committed artifact; `check_number_collisions.py --report` clean (the 24.73% share must stay marked as its own quantity, commit 953eb6c); Korean.
 - **Done when:** ≥ 30 questions; a grep for the purged strings returns nothing; the critic lap's drill finds no P0 question without a file; the student has been told which answers are drafts.
 
+**Lap 20260903T1536Z — done.** `docs/auto/JUDGE_QA.md` is now a **33-question Korean
+bank** grouped by judge type (ML·통계 8, 산불 과학자 7, 재난대응 실무자 7, 소프트웨어 교수 6,
+출처·규정·AI 5) and **tiered** T0 ×14 / T1 ×13 / T2 ×6 with a drill table in §6. Every
+answer carries a `근거:` line (path or registry key) and a `없는 것:` line.
+`tests/test_judge_qa_bank.py` (18 tests) gates it; `gates.py --mode full` exit 0
+(1,106 passed / 54 skipped). Four things worth carrying forward:
+
+1. **The count was the wrong done-when, and the fix was tiers plus tests.** A 30-answer
+   document is more for the student to explain, not less — the opposite of CHARTER §9.
+   Two of the three done-when clauses are now mechanical rather than the critic's
+   opinion: `test_every_t0_question_points_at_something_that_exists` ("no P0 question
+   without a file") and `test_the_stated_tier_counts_match_the_tags` (the anti-padding
+   guard — adding a question forces the header's numbers to move).
+2. **`test_every_registry_key_named_in_the_bank_exists`** is the strongest one: all 66
+   backticked key-candidates on 근거 lines resolve in `docs/NUMBERS.json`. A key that
+   reads plausibly and does not exist is HANDOFF §4-B's class and nothing else catches it.
+3. **A number inherited from v1 had no source.** "46 snapped to the network" (beside the
+   real `mr_yeongdeok_shelter_pois` = 50) appears nowhere in the tree; the only "46개" in
+   the docs is `global_portability.md`'s *missed*-POI count. Replaced with
+   `docs/multi_region.md`'s committed tag breakdown, which answers the judge's question
+   better: 33 `leisure=park` + 17 `amenity=shelter` of which 16 are `shelter_type=gazebo`,
+   and `amenity=community_centre` = 0 in two of three regions.
+4. **The purge list must be derived, not retyped.** The independent reviewer blocked: the
+   hand-copied `PURGED` dict had dropped the 40-minute 안동→영덕 factoid — the one item on
+   the list the research brief marks "(no source)", i.e. the fabricated event rather than
+   a superseded number — while the report claimed it was gated. Fixed with regexes (the
+   literal "40분" is a substring of the legitimate "240분") plus
+   `test_the_purge_list_covers_what_the_row_actually_ordered`, which parses the quoted
+   phrases out of `RESEARCH_BRIEF_2026-09-03.md` and `BACKLOG_PROPOSAL_2026-09-03.md` and
+   asserts each is covered. Both new gates confirmed by mutation.
+
+Left for WFG-020: the Greenpeace survey figures in Q17 are labelled 「미등록」 in the
+document itself, with the instruction to cite the report by name at the booth rather than
+present them as repository-derived, until that row registers them with a sha256.
+
 ### WFG-004 · P0 · KCF · SSOT sweep — revise
 - **What:** as written, plus: fix `README.md:731` "6 → 34" to the [6, 11, 24, 51, 66] row from `rescue_verify.json` (registered `rescue_unreachable_count` covers 24; register the delay row if not already); reconcile `docs/fold_sizes.md` ("pooled AUC is the primary indicator") with `docs/NUMBERS.json`'s note ("MEAN-OF-FOLDS, not pooled … never present one as the other") — one statement of which is primary, annotated in both; confirm README lines 197/494 say SFTD (done at 30ed00a); annotate the two HGB means (0.890 ± 0.107 in `spread_v2_lofo.json` vs 0.894 ± 0.092 in `ml_baselines.json`) with why they differ — **answered by WFG-018**: `ml_baselines.json`'s `hist_gbm` row IS the corrected-DEM lineage (it equals that file's own `dem_corrected_reference.mean_of_folds`), so they are two lineages, not two readings of one; both are now registered (`mlbase_hgb_mean_of_folds_auc`, `lofo_mean_of_folds_auc`) and `docs/submission_reconciliation.md` §"헷갈리기 쉬운 세 지점" states it. **Found by the WFG-018 lap, still open, not fixed there:** `docs/HANDOFF_ROUND3.md` §1.3 says the 의성·안동 time-aware-only share is "nearly **seven times** Yeongdeok's" — that ratio is 24.73/3.70 = 6.7 on the RETIRED share; against the canonical 9.17 % it is 2.7×. The same deprecated phrasing sits in `docs/auto/JUDGE_QA.md` Q7 (already on WFG-002's purge list). HANDOFF is not, so fix it here.
 - **Effort:** one lap. **agent_doable:** true.
@@ -356,6 +392,34 @@ collide with each other when a 출처 table lists key and value on one line.
   whichever option is taken, CHARTER §3's sentence must be corrected in the same commit.
 - **Done when:** running the script on a clean tree cannot reduce the entry count; a test
   asserts that; `make verify` green; CHARTER §3 says what the registration path actually is.
+
+### WFG-038 · P1 · infra · The suite's own count is not gated
+- **What:** `scripts/auto/gates.py` runs the full suite and writes the summary line
+  into `.auto/gates.json`, but nothing reads the numbers in it. On 2026-09-03 one lap
+  read **1,098 passed / 60 skipped** and then **1,104 / 54** from the same commit
+  (`682aeb3`), same flags, minutes apart — 1,158 outcomes both times, six tests moving
+  between passed and skipped, `ALL GREEN` printed for both. The previous lap saw the
+  same six-test signature (1,071/60 vs 1,077/54) and could not reproduce it. So six
+  tests in this suite have a result that no gate can distinguish from a regression,
+  and the only place it is visible is a summary line nobody compares.
+- **What was already ruled out:** the six git-ignored `data/cache/*.nc` files are
+  written during the first full run of a fresh container, but moving them aside and
+  re-running still gives 1,104/54 — they are regenerated before the guarded tests
+  run. The identity of the six is open.
+- **Do:** (a) parse `collected / passed / skipped / xfailed` out of the pytest summary
+  in `gates.py` and store them as fields, not just the raw line; (b) commit a baseline
+  (`docs/auto/suite_baseline.json`) holding the triple and the sorted list of skip
+  reasons with counts, produced with `-rs`; (c) WARN in `--mode quick` and fail in the
+  critic lap when the skip count or the reason multiset moves without the baseline
+  being updated in the same commit; (d) with (b) in hand, run the suite once in a cold
+  container and once warm, diff the two reason lists, and name the six in the MEMO.
+- **Effort:** hours. **agent_doable:** true.
+- **Constraints:** never fix a drift by widening a `skipif`; the point of the gate is
+  to make the six findable. A skip on a git-TRACKED path is a defect, not a guard
+  (MEMO 2026-09-03).
+- **Done when:** the baseline file exists, `gates.py` compares against it, a test
+  asserts the comparison fires on a seeded mismatch, and the six drifting tests are
+  either named or the gate proves the drift no longer occurs.
 
 ### WFG-011 · P2 · ISEF · ISEF plan memo — revise
 - **What:** `docs/auto/research/ISEF_PLAN.md`: route-existence questions and their answers (KCF 은상/동상 → delegation; interview date; eligibility of a student enrolled outside Korea — all UNVERIFIED until the 사무국 answers); category recommendation SFTD (Algorithms/HMC) with the base rate stated (applied decision-support pipelines in SOFT/SFTD 2023–2026: 8 of 10 unplaced; SFTD059T unplaced) and EAEV as non-target (FireChain unplaced); 12-month window (start 2026-05-27; freeze ~2027-05-01; ISEF 2027 LA 8–14 May); Form 2A; Display & Safety (no internet, no URLs/QR, ≤ 100 Wh, frozen digital demo, attribution lines for OSM/ERA5/FIRMS/SRTM/WorldCover, "created by Finalist using …"); human-participants position (no study this cycle; consultations as expert feedback); age rule 만 15세 이상 19세 미만 (namu wiki; UNVERIFIED against the affiliate); the "hand-written only" list; what the loop may and may not do after the affiliate selection (no new variables or procedures).

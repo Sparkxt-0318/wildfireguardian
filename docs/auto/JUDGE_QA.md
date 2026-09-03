@@ -1,87 +1,642 @@
-# Judge Q&A bank — v2 seed (2026-09-03)
+# 심사 예상 질의응답 (Judge Q&A bank) — v2
 
-**Status: DRAFT written by the research sweep (agent), for the student to rehearse,
-rewrite in their own words, and confirm against the artifacts.** The 2026-07-23
-예상질의 notes (outside the repository) cover number provenance, retired numbers,
-Build A, 38 %/11 %, f = 0.3, the Monte Carlo, DNN choice, physics vs data, the
-three routing configurations, the two bboxes and the 국가산불위험예보 contrast.
-Everything below is new ground since Round 3 (canonical field, multi-region,
-dispatch ordering, recall at threshold, vulnerability layer, GK2A, horizon
-grounding, refuge placement). Each answer names the file that proves it or says
-plainly that the evidence does not exist yet; those gaps are backlog rows.
+**Status: DRAFT. 이 문서의 모든 답변은 초안입니다.** 루프(에이전트)가 저장소의 아티팩트에서
+뽑아 정리한 것이고, 학생이 자기 말로 다시 쓰고 아티팩트와 대조해 확인해야 부스에서 쓸 수
+있습니다 (`docs/auto/CHARTER.md` §9, `docs/auto/AI_DISCLOSURE.md` 규칙 3). 초안을 그대로
+외워서 말하면 대리작 심사 항목에서 정확히 문제가 되는 형태가 됩니다. 외우지 말고, 근거 파일을
+열어 보고, 자기 문장으로 바꾸십시오.
 
-Rules for this file (docs/auto/CHARTER.md §9): answers are drafts until the
-student has rewritten them; never quote a number here that is not in
-`docs/NUMBERS.json` or a committed artifact; the critic lap adds questions it
-could not answer from a file and marks them "no evidence yet".
+**이 파일의 규칙**
+1. `docs/NUMBERS.json`에 등록되지 않았거나 커밋된 아티팩트에 없는 숫자는 쓰지 않습니다.
+   등록되지 않은 값이 불가피하게 들어갈 때는 그 자리에 「미등록」이라고 적습니다.
+2. 모든 답변에는 **근거**(파일 경로 또는 레지스트리 키)와 **없는 것**(이 답변이 증명하지
+   못하는 것)이 함께 붙습니다. 「없는 것」이 없는 답변은 이 파일에 넣지 않습니다.
+3. 「검증」, 「최초」, 「모든 화재」는 쓰지 않습니다 (`scripts/check_forbidden.py`).
+4. 크리틱 랩이 파일로 답할 수 없는 질문을 발견하면 여기에 추가하고 "근거 없음"으로 표시합니다.
 
-## 0. The superseded-number list a judge can trip over (서식2 as submitted → repo now)
+**드릴 등급.** 33개를 한 번에 외우는 것은 불가능하고, 외우려 하면 아무것도 외워지지 않습니다.
+등급 순서대로 연습하십시오.
 
-**The table lives in one place: [`docs/submission_reconciliation.md`](../submission_reconciliation.md)** —
-Korean, one printable A4 page, eleven rows, each with the submitted value, the current
-canonical value, why it moved, what did *not* move, and a 30-second spoken version to
-recite at the booth. It is the sheet to print and carry. Do not restate its rows here;
-a second copy is a second thing to keep in sync, and this file has already drifted from
-it once (WFG-018).
+- **T0 (14개)** — 나올 확률이 높고, 못 답하면 그 심사위원 한 명을 잃습니다. 이것만 완전히
+  자기 말로 만드십시오.
+- **T1 (13개)** — 나올 수 있고, 답의 뼈대(어느 파일에 답이 있는가)만 알면 됩니다.
+- **T2 (6개)** — 확률은 낮지만 준비 없이 맞으면 치명적입니다. 「그건 측정하지 않았습니다」가
+  정답인 경우가 많습니다.
 
-Two things that page settles and that a judge is most likely to probe:
-
-- **459-series split** — 459 · 438 / 18 / 3 as submitted (제출 시점 기록, `routing_demo.npz`)
-  against 458 · **414 / 42 / 2** on the canonical field. There is no per-origin ledger for
-  that pair, so never say "N origins were reclassified" (HANDOFF §5.24), and 18/459 is
-  **3.92 %**, not the 3.70 % that belongs to a different retired run.
-- **README.md:731 is the one place where the repository, not the 서식, is wrong**: it
-  states the delay row as "6 → 34" where `rescue_verify.json` carries
-  `[6, 11, 24, 51, 66]` (registered as `rescue_unreachable_delay_row_cutoff_0p7`).
-  Fixing that line is WFG-004.
-
-None of these contradicts the submitted *purpose/theme*; all are corrections in the direction the 서식 itself invites (Ⅴ-4 lists most of them as future work). But the student must be able to recite that sheet without notes, or a judge will conclude the documents were not written by the person at the booth.
+부스에서 모르는 것을 만나면 지어내지 말고 "그건 측정하지 않았습니다"라고 말하십시오. 이
+프로젝트의 유일한 자산은 숫자를 되짚을 수 있다는 것이고, 지어낸 한 문장이 그것을 통째로
+없앱니다.
 
 ---
 
----
+## 0. 제출본과 현재 값이 다른 지점
 
-## 1. The hardest questions the 예상질의 notes do not answer well
+**표는 한 곳에만 있습니다: [`docs/submission_reconciliation.md`](../submission_reconciliation.md)** —
+한국어, A4 한 장, 열한 개 행, 각 행마다 제출값 · 현재 정본값 · 왜 움직였는가 · 무엇은 움직이지
+않았는가, 그리고 부스에서 읊을 30초 구술본이 붙어 있습니다. 인쇄해서 들고 갈 종이는 그것입니다.
+여기에 다시 옮기지 마십시오. 사본이 하나 더 생기면 동기화할 것이 하나 더 생기고, 이 파일은 이미
+한 번 그렇게 어긋났습니다 (WFG-018).
 
-The notes (A-1…F) cover: number provenance, retired numbers, Build A, 38 %/11 %, f = 0.3, Monte Carlo 21 %/86 %, probability-scale null, MC lineage, DNN choice, physics-vs-data, IoU table removal, the three routing configurations, 9-hour fixed observed area, forward-sim drift, two bboxes, acquisition automation, why-needed vs 국가산불위험예보, the 0-change rescue constraint, where future-aware is validated, unverified assumptions. They were written 2026-07-23, **before** Round 3–5 (canonical field, multi-region, dispatch ordering, recall at threshold, vulnerability layer, GK2A, horizon grounding, refuge placement). Everything below is new ground.
+그 종이가 정리하는 것 중 심사위원이 가장 먼저 건드릴 두 가지만 적어 둡니다.
 
-**Q1 (ML researcher / statistician). "AUC 0.89 is a ranking score. At the threshold your simulator and router actually use, what fraction of real ignitions does the model catch?"**
-Answer to give: "0.138 pooled; 0.087 mean-of-folds; three of six held-out fires have zero true positives at 0.3, and almost all recall comes from 영덕 (0.456) — 351 of the 412 pooled true positives. Two of those three folds cannot produce a true *or* a false positive at 0.3 at all, because no cell in them reaches it: the ceiling is 0.0241 on 강릉 and 0.296 on 홍성. The remaining folds' false-negative rates are 0.977 (의성·안동), 0.959 (울진·삼척), 0.544 (영덕). We report it in the model card above the AUC. **Two different thresholds:** 0.3 is `forward_sim_advance_threshold`, applied per simulation step, so the hazard field's *extent* inherits it; the router cuts the *cumulative* survival-accumulated field at `walk_cutoff_p` = 0.5. Recall at 0.3 is therefore not the routing field's miss rate. The honest ranking summary is average precision 0.169 against a 0.0197 no-skill baseline, 8.6×. The threshold was never tuned; the F1-optimal cut (0.14 → F1 0.218) is recorded and deliberately not adopted because choosing it on the scored probabilities is optimistic."
-**If pushed — "then calibrate a threshold that guarantees a miss rate":** "We ran it and it is a negative result. Nested leave-one-fire-out with a 0.20 false-negative budget: without a finite-sample term the bound breaks on 3 of 6 held-out fires, worst case 0.750. With the leave-one-out correction 1/(n+1) — at n = 5 calibration fires that is 0.167, which eats 83 % of a 0.20 budget — the bound holds on 6 of 6 and a bound-satisfying threshold flags 26–46 % of every cell on the map, against a 1.97 % prevalence. For this model at six fires you can have the guarantee or a usable hazard field, not both, so we keep the ranking-driven forward simulation at an untuned default and say why. We are careful about which half is which: the 83 % is arithmetic in the fire count and holds for any model, but the 26–46 % is this model's probability distribution, and we did not run the control that would separate 'too few fires' from 'probabilities too compressed'. And neither column is a real guarantee: the held-out fire's probabilities come from a model trained on the calibration fires, and 1/(n+1) is a fire-level term applied to a cell-level quantile — it is an optimistic bound, and even the optimistic version is unusable."
-Proof: [`docs/operating_point.md`](../operating_point.md), `docs/MODEL_CARD.md` appendix (WFG-019), `data/processed/operating_point/per_fire_recall.json`, `data/processed/oof_classification_metrics.json`, `docs/SESSION18_REPORT.md` Phase 4. Registry keys: `optpoint_gangneung_ceiling_probability`, `optpoint_hongseong_ceiling_probability`, `optpoint_uiseong_fnr_advance_cut`, `optpoint_uljin_fnr_advance_cut`, `optpoint_yeongdeok_fnr_advance_cut`, `optpoint_zero_truepositive_fold_tally`, `lofocal_finite_sample_correction`, `lofocal_correction_share_of_budget`, `lofocal_uncorrected_bound_upheld_tally`, `lofocal_uncorrected_heldout_fnr_worst`, `lofocal_corrected_flagged_share_floor`, `lofocal_corrected_flagged_share_ceiling`. What does not exist: any experiment showing how bucket counts move if the advance threshold changes (see improvement #4/#5).
+- **459 계열 분할** — 제출 시점 기록은 `routing_demo.npz`의 438 / 18 / 3, 정본 필드는
+  `routing_demo_canonical.npz`의 414 / 42 / 2입니다. 이 둘 사이에는 원점별 대조표가 없으므로
+  "N개가 재분류되었다"고 절대 말하지 마십시오 (HANDOFF §5.24). 18/459는 3.92 %이며,
+  3.70 %는 다른 폐기된 실행에 속한 값입니다.
+- **`README.md:731`은 서식이 아니라 저장소 쪽이 틀린 유일한 자리입니다** — 지연 행을 "6 → 34"로
+  적었지만 `rescue_verify.json`의 값은 `rescue_unreachable_delay_row_cutoff_0p7`입니다. 고치는
+  것은 WFG-004의 일입니다.
 
-**Q2 (fire scientist). "ERA5 is 0.25° and published with ~5 days' delay. Your 'live trigger' cannot be using real weather. What field does it route on?"**
-Answer: "A pre-computed field at a fixed reference time. We measured the upper bound of the loss from swapping instantaneous weather for a forecast-like proxy — mean-of-folds −0.020 — but the real substitution was never run; PHASE 14 stopped there and we say so on the RELIABILITY tab: '완전한 실시간 운영이 아닙니다'. LDAPS is recorded, not used." Proof: `docs/weather_dependency.md`, `docs/live_pipeline.md`, HANDOFF §14. Evidence that a real-time weather source would help: **does not exist**.
-
-**Q3 (statistician). "Your top permutation feature, days-since-rain, is pinned to the download-window start for half your fires, and removing it *improves* out-of-fold AUC. Isn't the model partly learning how you built the dataset?"**
-Answer: "Yes, for that feature, and we measured it rather than hid it: +0.027 mean-of-folds, +0.053 far-band when dropped. We did not retrain the committed model because every downstream number would move and the submission's lineage would break; the corrected re-run exists as a separate file. The routing layer consumes the committed field. The lesson is registered: an acquisition parameter leaked into a feature." Proof: `docs/weather_dependency.md` §②, README. What does not exist: a *committed* canonical retrain without the feature (frozen by §5 rule 2; a user decision).
-
-**Q4 (emergency-management official). "Your submitted contribution ② is a deadline-sorted dispatch list. You then measured it against nearest-first and it never wins at your own 75-minute window. So what exactly is the contribution?"**
-Answer: "The per-home quantity `ingress_survival_time_min` — when each approach road closes — which nothing in the compared systems computes. Sorting on it is only informative when the operating window outlasts corridor closure; at W = 75 all homes share ~2 deadlines and the sort carries no information, so nearest-first wins by saving 6–13 min per trip. We left the shipped order unchanged and state the condition. A serving firefighter told us independently that a fixed time budget does not exist in field decisions — the decision is 'can we get out alive', which is our survival term, not our clock term." Proof: `docs/dispatch_ordering.md` §0/§6, `docs/firefighter_consultation.md` §1.2–1.3. Do not say "verified" — N = 1 and the two sources are independent, not mutually confirming.
-
-**Q5 (fire scientist). "Your household vulnerability and refuge-placement layer: you showed the failing set is identical with the fire removed. So the fire contributes nothing there — is this a wildfire result at all?"**
-Answer: "For that layer, at 영덕, with the elliptical hazard: correct, and we retracted 'distance drives vulnerability' to 'this is a reachability restatement'. The fire *does* bind on the routing axis — 42 of 458 origins at 영덕 and 91 of 368 at 의성·안동 reach a refuge only on the time-aware route — but the household layer sits on a hazard that never reaches the refuges (0/120 survival-filter hits). We kept the survival check outside the objective and labelled the placement result 'geometric recommendation under stated assumptions'. What would make the fire bite there is listed and untried: stronger scenario, ignition prior inside the household cluster, arrival-time survival buffer, a site whose refuges actually burn." Proof: `docs/SESSION17_REPORT.md`, `docs/SESSION22_REPORT.md` §Phase 3, `BLOCKERS.md` Session 17 future work. Evidence of a fire-conditional household result: **does not exist**.
-
-**Q6 (fire scientist / modeller). "Why is 'ignition probability ≥ 0.5 by the next satellite overpass' the definition of an impassable road? Ignition in a 375 m cell is not flame on the road."**
-Answer: "It is a threshold we chose, not one we derived; we treat it as a controlled variable with p_cut swept 0.4–0.6 for walking and 0.5–0.9 for vehicles in the 439 series, and the honest statement is that a probability of detection-by-next-overpass is a proxy for 'the fire will be there', coarse in both space (375/500 m) and time (3-hour slices). A branch adopted 0.30 and re-ran everything; we did not merge it because it would change every committed count and the registry would hold two cutoffs." Proof: 서식2 Ⅱ-3 (조작 변수), HANDOFF §4 (hazard-resolution branch, `p_cut = 0.30`), `docs/routing_limitations.md` §3. A physically grounded impassability criterion (flame length, radiant flux): **does not exist**.
-
-**Q7 (statistician). "Your walk bbox covers 32.6 % of the demonstration fire's core; the other two regions cover 99 % and 82 %. Isn't 영덕 — the fire you built the story on — the least valid case?"**
-<!-- collision-ok: 24.7 — the 의성·안동 time-aware-only share (91 of 368), not the core-growth correlation -->
-Answer: "Its absolute rates are rates on the covered third, and every one carries that caveat; the paired contrasts (same origin, two routes) do not depend on the frame. The fix is not a bbox edit — the bbox is coupled to the simulation canvas, so it is a full re-simulation, and we recorded the decision not to. On the region with 99 % coverage and an advancing front, the same method gives a time-aware-only share of 24.7 %, seven times 영덕's. We do not rank the three regions: n = 3, and coverage, core growth and envelope area move together." Proof: HANDOFF §2-A, §5 rules 14/19, README Round-3 table, `docs/multi_region.md` §8.
-
-**Q8 (emergency-management official). "What are your 'refuges'? Are any of them designated 대피소?"**
-Answer: "Fifty OSM POIs at 영덕, 46 snapped to the network; the RELIABILITY tab says it plainly — most are `leisure=park`/정자-type tags, unverified against 행안부 지정 대피소. The 공공데이터포털 national shelter file has a loader with a labelled synthetic fallback, but the committed runs use OSM. Between-region 'shelter density' differences are partly mapping practice. Refuge *survival* under the fire is a separate filter and never bound in these runs." Proof: 서식2 Ⅲ-9-1, `finals.html` RELIABILITY strings ("대피 지점의 다수는 OSM의 공원·정자류 태그입니다"), `docs/global_portability.md` §3b. A cross-check against the official shelter list: **does not exist** (portal download is JS/CAPTCHA-gated; see student list).
-
-**Q9 (fire scientist / official). "The 2025 fire reached 영덕 from 안동 in about 40 minutes. Your hazard slices are 3 hours apart and satellites pass every 6–16 hours. Can this system say anything on the timescale that killed people?"**
-Answer: "Not at minute resolution, and the A4 sheet's 「남은 시간」 can only read 180/360/540/720/확인 불가 on this field; the '< 30 min → 긴급' tag is structurally unreachable. We measured the detection floor too: with GK2A at 2-minute cadence, a satellite trigger would still have fired 22–64 minutes *after* the human report in every fire we could test, so the trigger interface is designed report-first, satellite-confirm. What the system is for is the 4-hour behavioural window — 79 % of Korean fires are contained within 240 min of report (n = 2,008), while fires ≥ 100 ha run a median 67 hours — so 'act now on foot' vs 'send a vehicle' is the decision it informs, not 'run left or right in the next ten minutes'." Proof: `docs/routing_limitations.md` §3, `docs/SESSION19_REPORT.md` / `detection_floor.md`, `docs/horizon_grounding.md`. Finer-slice re-run of the routing axis: **does not exist** (PHASE 2-C-3 never started).
-
-**Q10 (software engineer / any judge). "You publish 24 'never do' rules, a registry of retired numbers and a record of five fabricated citations caught in one week. Why should I trust *today's* numbers, and which numbers in your submitted 서식 are wrong now?"**
-Answer: "Because you can check them: 261 of 295 registered values re-derive from committed artifacts under `make verify`, the other 34 are labelled 'verified, not reproducible' — 16 because the OSM graph behind them was overwritten on 2026-07-24, and 18 because they are values from earlier runs registered so the reconciliation sheet resolves. The gates catch a retired number being re-quoted and a region literal; they cannot catch a number that was never registered or an event that never happened — that class was caught by looking things up, and we wrote the failure mode down. Here is the list of what moved since submission —" and then the reconciliation sheet, from memory, in its own order. Proof: [`docs/submission_reconciliation.md`](../submission_reconciliation.md), HANDOFF §1.1, §4-B, `docs/NUMBERS.json`, `scripts/verify_numbers.py`.
-
-Three more, lower probability but lethal if unprepared:
-
-- **Q11 (official). "Elderly residents don't leave because they can't see the fire. Which line of your system changes that?"** → None; compliance is out of scope; the only link is a hypothesis that showing *future* closure time addresses the perception gap; unmeasured. `firefighter_consultation.md` §3.2–3.3.
-- **Q12 (any). "Who from the field validated this?"** → One serving firefighter, informal oral, N = 1, affiliation/date/consent **unrecorded** (§8 of that doc); three academic advisers named in HANDOFF §8 with the same "judgment, not measurement" status. Never say "현장에서 검증".
-- **Q13 (software engineer). "Your Dijkstra minimises a different quantity from the one you report and isn't provably optimal. Why trust the routes?"** → Contrasts are valid (both arms scored by `_evaluate_path`), absolute exposures should not be quoted as minimised, no counterexample constructed at 10-min bins, results are deterministic and reproduce. `routing_limitations.md` §2/§4. A fixed router: **does not exist**, on purpose (would move every committed count).
+이 중 어느 것도 제출한 **목적·주제**를 바꾸지 않습니다. 전부 서식 Ⅴ-4가 스스로 향후 과제로
+적어 둔 방향의 수정입니다. 다만 학생이 저 종이를 보지 않고 읊을 수 있어야 합니다. 그러지
+못하면 심사위원은 서류를 쓴 사람이 부스에 없다고 결론 냅니다.
 
 ---
+
+## 1. ML 리뷰어 · 통계학자
+
+**Q1 · T0. "AUC 0.89는 순위 점수입니다. 시뮬레이터와 라우터가 실제로 쓰는 임계값에서, 실제
+발화의 몇 퍼센트를 잡습니까?"**
+
+답변(초안): "풀드 재현율 0.138, 폴드 평균 0.0867입니다. 여섯 개 홀드아웃 화재 중 셋은 0.3에서
+참양성이 하나도 없고, 재현율의 거의 전부가 영덕에서 나옵니다. 그 셋 중 둘은 0.3에서 참양성도
+거짓양성도 만들 수 없습니다. 그 폴드의 최대 확률 자체가 0.3에 못 미치기 때문입니다.
+나머지 폴드의 위음성률은 0.977(의성·안동), 0.959(울진·삼척), 0.544(영덕)입니다. 이걸 모델
+카드에서 AUC보다 위에 적었습니다. 그리고 임계값이 두 개라는 점이 중요합니다. 0.3은
+`forward_sim_advance_threshold`로 시뮬레이션 매 스텝에 적용되어 위험도 필드의 **범위**를
+결정하고, 라우터는 누적 생존 필드를 `walk_cutoff_p`에서 자릅니다. 그래서 0.3에서의 재현율은
+라우팅 필드의 실패율이 아닙니다. 정직한 요약은 평균 정밀도 0.169이고, 무작위 기준선
+0.0197 대비 약 8.6배입니다. 임계값은 튜닝한 적이 없고, F1 최적 절단은 기록만 하고 채택하지
+않았습니다. 채점된 확률 위에서 고르는 것은 낙관적이기 때문입니다."
+
+근거: `docs/operating_point.md`, `docs/MODEL_CARD.md` 부록, `data/processed/operating_point/per_fire_recall.json`,
+`data/processed/oof_classification_metrics.json`. 키: `oof_pooled_recall_at_operating_threshold`,
+`oof_mean_of_folds_recall_at_operating_threshold`, `optpoint_zero_truepositive_fold_tally`,
+`optpoint_uiseong_fnr_advance_cut`, `optpoint_uljin_fnr_advance_cut`, `optpoint_yeongdeok_fnr_advance_cut`,
+`optpoint_gangneung_ceiling_probability`, `optpoint_hongseong_ceiling_probability`,
+`optpoint_miryang_ceiling_probability`, `oof_average_precision`, `oof_prevalence`.
+
+없는 것: advance threshold를 바꾸면 버킷 개수가 어떻게 움직이는지 보인 실험은 없습니다.
+
+---
+
+**Q2 · T0. "그러면 위음성률을 보장하는 임계값을 보정하십시오."**
+
+답변(초안): "해 봤고, 음성 결과입니다. 화재 단위 중첩 leave-one-out으로 위음성 예산 0.20을
+걸었습니다. 유한표본 항 없이 보정하면 다섯 개 보정 화재에서는 경계가 지켜지지만 홀드아웃
+여섯 중 셋에서 깨지고, 최악은 0.75입니다. leave-one-out 보정항 1/(n+1)을 넣으면 — 보정 화재가
+다섯일 때 이 값은 0.167이고, 0.20 예산의 83 %를 먹습니다 — 여섯 중 여섯에서 경계가 지켜지지만
+경계를 만족하는 임계값은 전체 셀의 26~46 %를 위험으로 칠합니다. 유병률은 1.97 %입니다. 즉 화재
+여섯 개에서는 보장을 갖거나 쓸 수 있는 위험도 필드를 갖거나 둘 중 하나이고, 둘 다는 안 됩니다.
+그래서 순위 기반 전방 시뮬레이션을 튜닝하지 않은 기본값에 두고 그 이유를 적었습니다. 어느
+쪽이 무엇인지도 구분해서 말씀드립니다. 83 %는 화재 개수의 산술이라 어떤 모델에서도 성립하고,
+26~46 %는 이 모델의 확률 분포 성질입니다. 「화재가 너무 적다」와 「확률이 너무 눌려 있다」를
+가르는 대조는 돌리지 않았습니다. 그리고 두 열 중 어느 것도 진짜 보장은 아닙니다. 홀드아웃
+화재의 확률이 보정 화재로 학습한 모델에서 나오고, 1/(n+1)은 화재 수준 항을 셀 수준 분위수에
+적용한 것이라 교환가능성이 두 번 깨집니다. 낙관적인 상한이고, 그 낙관적인 쪽조차 쓸 수 없다는
+것이 결론입니다."
+
+근거: `docs/operating_point.md`, `docs/MODEL_CARD.md` 부록. 키: `lofocal_finite_sample_correction`,
+`lofocal_correction_share_of_budget`, `lofocal_uncorrected_bound_upheld_tally`,
+`lofocal_uncorrected_heldout_fnr_worst`, `lofocal_corrected_bound_upheld_tally`,
+`lofocal_corrected_flagged_share_floor`, `lofocal_corrected_flagged_share_ceiling`.
+
+없는 것: 「화재 수 부족」과 「확률 압축」을 분리하는 통제 실험은 하지 않았습니다. 어떤 임계값도
+채택하지 않았습니다.
+
+---
+
+**Q3 · T0. "최상위 순열 중요도 특징인 days_since_rain이 화재 절반에서 다운로드 창 시작일에
+고정되어 있고, 그걸 빼면 out-of-fold AUC가 오릅니다. 모델이 데이터 만든 방식을 배운 것
+아닙니까?"**
+
+답변(초안): "그 특징에 대해서는 맞고, 숨기지 않고 측정했습니다. 빼면 폴드 평균 AUC가 0.027
+오릅니다. 커밋된 모델을 재학습하지는 않았습니다. 그러면 하류의 모든 숫자가 움직이고 제출본의
+계보가 끊어지기 때문입니다. 보정 재실행은 별도 파일로 존재하고, 라우팅 계층은 커밋된 필드를
+씁니다. 교훈은 등록해 두었습니다. 데이터 수집 파라미터가 특징으로 새어 들어왔다는 것입니다."
+
+근거: `docs/weather_dependency.md` §②, `README.md`. 키: `wxdep_drop_days_since_rain_mean_delta`.
+
+없는 것: 그 특징을 뺀 **커밋된** 정본 재학습본은 없습니다 (§5 규칙 2로 동결, 사용자 결정 사항).
+
+---
+
+**Q4 · T0. "영덕 폴드는 60 km 떨어진 같은 주의 의성·안동 행으로 학습합니다. 여기서
+leave-one-fire-out이 정직한 프로토콜입니까?"**
+
+답변(초안): "사건이 여섯 개일 때 쓸 수 있는 유일하게 정직한 프로토콜이지만, 「본 적 없는
+화재」라는 표현은 이 폴드에 대해서는 과장입니다. 의성·안동과 영덕은 2025년 3월의 같은
+복합 화재이고 두 bbox가 경도상 겹칩니다. 그래서 정직한 서술은 「독립 사건 다섯 개와 같은
+자리에 붙은 한 쌍」입니다. `uiseong_andong_2025`를 학습에서 뺀 영덕 폴드 재적합은 스크립트로
+써 두었지만 아직 돌리지 않았습니다. 원본 번들이 git-ignore되어 있어 맥에서만 돌아갑니다.
+폴드 표를 보시면 AUC 범위가 왜 넓은지도 같이 보입니다. 화재 셋이 각각 양성 8·24·34개만
+기여하고, 가장 큰 폴드와 가장 작은 폴드의 행 수 비가 208.9배입니다."
+
+근거: `docs/fold_sizes.md`, `docs/auc_intervals.md`, 백로그 WFG-032. 키: `lofo_fold_rows_max_over_min`,
+`lofo_smallest_fold_share_of_rows`, `lofo_fold_auc_sd`.
+
+없는 것: 누출 없는 영덕 폴드의 결과는 아직 없습니다. 42라는 수가 그 재적합에서 살아남는지는
+모릅니다.
+
+---
+
+**Q5 · T1. "화재 여섯 개, 폴드 하나는 양성이 여덟 개입니다. 이 표본으로 무엇을 주장할 수
+있습니까?"**
+
+답변(초안): "순위 성능의 폴드 간 편차가 크다는 것, 그리고 그 편차의 원인이 폴드 크기라는 것을
+보일 수 있습니다. 폴드 표준편차가 0.107이고, 이건 노이즈가 아니라 표본 구조입니다. 주장할 수
+없는 것은 일반화입니다. 그래서 far-band 평가를 따로 두고, 세 지역을 순위 매기지 않으며, 어떤
+절대 비율도 커버리지 주석 없이 인용하지 않습니다. 최신 문헌이 화재 607건으로 하는 일을 여섯
+건으로 하겠다고 말하지 않습니다."
+
+근거: `docs/fold_sizes.md`, `docs/auc_intervals.md`, `docs/MODEL_CARD.md`. 키: `lofo_fold_auc_sd`,
+`farband_mean_of_folds_auc`.
+
+없는 것: 이 표본에서 일반화 주장을 할 근거는 없습니다.
+
+---
+
+**Q6 · T1. "풀드 AUC와 폴드 평균 AUC 중 무엇이 주지표입니까?"**
+
+답변(초안): "폴드 평균이 주지표입니다. 화재마다 행 수가 208.9배까지 차이 나서 풀드 값은 큰
+화재의 값에 가깝게 끌려갑니다. 다만 저장소 안에서 이 문장이 두 군데에 다르게 적혀 있고, 그건
+아직 정리 중인 항목입니다. `docs/fold_sizes.md`는 풀드를 주지표라고 적었고 레지스트리 주석은
+폴드 평균이라고 적었습니다. 두 값을 서로 바꿔 부르지 않는다는 규칙만은 어디서나 지켜집니다."
+
+근거: `docs/fold_sizes.md`, `docs/NUMBERS.json`의 `lofo_mean_of_folds_auc` 주석, 백로그 WFG-004.
+
+없는 것: 두 문서 사이의 최종 정리는 아직 안 됐습니다. 이 질문이 나오면 그 사실을 그대로
+말하는 것이 맞습니다.
+
+---
+
+**Q7 · T1. "랜덤 포레스트와 로지스틱 회귀가 폴드 평균에서 더 높은데 왜 그래디언트 부스팅을
+씁니까?"**
+
+답변(초안): "AUC만 보면 그렇습니다. 랜덤 포레스트가 0.9142, 로지스틱이 0.9028, HGB가
+0.8943입니다. 다만 세 값의 폴드 간 표준편차가 각각 0.0437 / 0.0605 / 0.0924이고, 화재 여섯
+개에서 이 차이는 통계적으로 서로 구분되지 않습니다. 그래서 「제일 좋은 모델」이라고 말하지
+않습니다. 커밋된 계보가 HGB인 것은 그 위에서 하류 전체가 계산되었기 때문이고, 베이스라인 표를
+지운 것이 아니라 같이 등록해 두었습니다. 확률의 품질도 따로 봤습니다. Brier 0.0183, ECE
+0.0086입니다."
+
+근거: `data/processed/ml_baselines.json`, `docs/baselines.md`, `docs/MODEL_CARD.md`. 키:
+`mlbase_rf_mean_of_folds_auc`, `mlbase_logistic_mean_of_folds_auc`, `mlbase_hgb_mean_of_folds_auc`,
+`mlbase_rf_fold_sd`, `mlbase_logistic_fold_sd`, `mlbase_hgb_fold_sd`, `calib_hgb_pooled_brier`,
+`calib_hgb_pooled_ece`.
+
+없는 것: 모델 선택을 정당화하는 검정력 있는 비교는 없습니다. 여섯 화재로는 불가능합니다.
+
+---
+
+**Q8 · T2. "셀 단위 DeLong 신뢰구간을 보고하셨는데, 인접 셀은 독립이 아닙니다."**
+
+답변(초안): "맞습니다. 셀은 공간적으로 자기상관이 있어서 셀 단위 구간은 정밀도를 과대평가
+합니다. 지금 보고된 폭은 그 의미에서 하한이고, 화재 단위 또는 공간 블록 방식의 구간을 옆에
+같이 두는 것이 옳습니다. 그건 논문 쪽 작업 목록에 있고 아직 안 했습니다."
+
+근거: `docs/auc_intervals.md`, 백로그 WFG-035.
+
+없는 것: 화재 단위 또는 공간 블록 부트스트랩 구간은 아직 계산하지 않았습니다.
+
+---
+
+## 2. 산불 과학자
+
+**Q9 · T0. "ERA5는 0.25도 격자이고 약 5일 지연 발행됩니다. 실시간 트리거가 실제 기상을 쓸
+수 없습니다. 무슨 필드 위에서 경로를 냅니까?"**
+
+답변(초안): "고정된 기준 시각에 미리 계산해 둔 필드입니다. 순간 기상을 예보형 대체물로 바꿨을
+때 잃는 성능의 상한만 측정했고, 실제 대체는 돌리지 않았습니다. PHASE 14가 거기서 멈췄고
+화면의 신뢰성 탭에 「완전한 실시간 운영이 아닙니다」라고 그대로 적혀 있습니다. LDAPS는 기록만
+되어 있고 쓰지 않습니다."
+
+근거: `docs/weather_dependency.md`, `docs/live_pipeline.md`, HANDOFF §14, `web/finals.html` 신뢰성 탭.
+
+없는 것: 실시간 기상원이 도움이 된다는 증거는 없습니다.
+
+---
+
+**Q10 · T0. "위험도 슬라이스가 3시간 간격이고 위성은 6~16시간마다 지납니다. 사람이 죽는
+시간 규모에서 이 시스템이 할 말이 있습니까?"**
+
+답변(초안): "분 단위로는 없습니다. A4 시트의 「남은 시간」은 이 필드 위에서 180 / 360 / 540 /
+720 / 확인 불가만 읽을 수 있고, 「30분 미만 → 긴급」 태그는 구조적으로 도달 불가능합니다.
+탐지 하한도 측정했습니다. 키 없이 받을 수 있는 GK2A 아카이브로 검증 가능한 화재 셋에서 —
+의성·안동, 강릉 2023, 홍성 2023 — 위성 트리거는 사람 신고보다 각각 22분, 34분, 64분 **뒤에**
+울렸을 것입니다. 영덕 2025는 의성 화재의 배경 링에 오염되어 제외했고, 2022년 화재들은
+아카이브보다 앞섭니다. 그래서 트리거 설계가 신고 우선, 위성 확인입니다. 「GK2A가 시간을
+벌어준다」고 주장하지 않습니다. 이 시스템이 겨냥하는 것은 4시간 규모의 행동 창입니다. 한국
+산불 2,008건 중 79.23 %가 신고 후 240분 안에 진화되었고, 100 ha 이상은 중앙값이 4,025분입니다.
+즉 「지금 걸어서 나갈 것인가, 차를 보낼 것인가」에 답하는 것이지 「10분 안에 왼쪽인가
+오른쪽인가」가 아닙니다."
+
+근거: `docs/routing_limitations.md` §3, `docs/detection_floor.md` §9–10, `docs/horizon_grounding.md`.
+키: `det_gk2a_delay_uiseong_andong_min`, `det_gk2a_delay_gangneung_2023_min`,
+`det_gk2a_delay_hongseong_2023_min`, `kfs_cum_le_240_pct`, `kfs_n_usable_events`,
+`kfs_area_ge100ha_median_min`, `kfs_containment_median_min`.
+
+없는 것: 더 촘촘한 슬라이스로 라우팅 축을 다시 돌린 결과는 없습니다 (PHASE 2-C-3 미시작).
+검증 가능했던 화재는 여섯 중 셋입니다. 「모든 화재」라고 말하지 마십시오.
+
+---
+
+**Q11 · T0. "다음 위성 통과까지 발화 확률 0.5 이상을 도로 통행 불가의 정의로 쓰셨습니다.
+375 m 셀의 발화는 도로 위의 화염이 아닙니다."**
+
+답변(초안): "고른 임계값이지 유도한 임계값이 아닙니다. 그래서 통제 변수로 다뤘고, 439 계열에서
+보행은 0.4~0.6, 차량은 0.5~0.9로 훑었습니다. 정직한 문장은 이것입니다. 「다음 통과까지 탐지될
+확률」은 「불이 거기 있을 것이다」의 대리 지표이고, 공간(375/500 m)과 시간(3시간 슬라이스)
+양쪽에서 거칩니다. 0.30을 채택해 전부 다시 돌린 브랜치가 있지만 병합하지 않았습니다. 커밋된
+모든 개수가 바뀌고 레지스트리가 절단값 두 개를 갖게 되기 때문입니다."
+
+근거: 서식2 Ⅱ-3(조작 변수), HANDOFF §4(hazard-resolution 브랜치), `docs/routing_limitations.md` §3,
+`docs/budget_sweep.md`.
+
+없는 것: 화염 길이나 복사 열유속 같은 물리적으로 근거 있는 통행 불가 기준은 없습니다.
+
+---
+
+**Q12 · T0. "제출한 서식1 §4는 화재-기상 심각도 특징군의 기여가 풍향 정렬을 약 44배
+상회한다고 적었습니다. 모델 카드는 그걸 철회했습니다. 어느 쪽이 맞습니까?"**
+
+<!-- forbidden-ok: 44× -->
+
+답변(초안): "철회한 쪽이 맞습니다. 그 비는 여섯 개 특징의 합을 단일 변수 하나와 비교한 것이고,
+바탕 기상은 ERA5로 약 28 km 격자입니다. 양강지풍 규모의 바람을 그 격자가 해상할 수 없으므로
+비교 자체가 성립하지 않습니다. 모델 카드에 철회를 기록했고, 방향 민감도를 제대로 특성화할
+사전등록 실험 — 준일 단위 라벨을 쓰는 설계 — 은 KMA 키가 없어 막혀 있습니다. 이건 서식
+Ⅴ-4가 스스로 향후 과제로 적어 둔 방향의 수정입니다."
+
+근거: `docs/MODEL_CARD.md`, `docs/gk2a_direction_experiment.md`, `docs/direction_findings.md`.
+
+없는 것: 방향 민감도의 측정값은 없습니다. 철회는 「반대가 참이다」가 아니라 「그 수는 그 질문에
+답하지 않는다」입니다.
+
+---
+
+**Q13 · T1. "왜 Rothermel 같은 물리 모델이 아니라 학습 모델입니까?"**
+
+답변(초안): "둘이 답하는 질문이 다릅니다. 물리 모델은 연료·경사·바람이 주어졌을 때의 확산
+속도를 계산하고, 우리에게 필요한 것은 위성이 볼 수 있는 해상도에서 「다음 통과까지 여기에
+불이 있을 확률」입니다. 후자는 라벨이 관측(FIRMS 탐지)이라서 학습 문제로 두는 편이 자연스럽고,
+관측 라벨의 편향도 같이 측정할 수 있습니다. 물리 하이브리드는 하지 않기로 기록해 둔
+선택이고, 그 이유는 우리가 가진 연료 지도의 해상도가 물리 모델의 입력 요구를 만족하지
+못하기 때문입니다."
+
+근거: `docs/MODEL_CARD.md`, `docs/architecture.md`, `docs/data_sources.md`.
+
+없는 것: 물리 모델과의 직접 비교는 없습니다. 「학습 모델이 더 낫다」고 말하지 마십시오.
+
+---
+
+**Q14 · T1. "관측된 확산 방향과 바람 방향의 상관은 얼마입니까?"**
+
+답변(초안): "거의 0입니다. 원형 상관이 -0.053이고, 관측 방향과 바람 방향의 평균 절대각 차이가
+75.45도입니다. 이건 바람이 산불에 무관하다는 뜻이 아니라 ERA5 격자의 바람 벡터가 이 규모의
+확산 방향을 설명하지 못한다는 뜻입니다. 경사 쪽은 조금 다르게 나옵니다. 완만한 지형에서 88.43도,
+급한 지형에서 51.84도로, 경사가 급할수록 확산 방향이 사면 방향에 붙습니다."
+
+근거: `docs/label_geometry_analysis.md`, `docs/direction_drivers.md`. 키:
+`label_geometry_circ_corr_obs_vs_wind`, `label_geometry_mean_abs_angle_obs_vs_wind_deg`,
+`dirdrv_slope_gentle_half_angle_deg`, `dirdrv_slope_steep_half_angle_deg`.
+
+없는 것: 이 관측이 인과를 말하지는 않습니다. 라벨 기하 자체가 위성 탐지 편향을 안고 있습니다.
+
+---
+
+**Q15 · T2. "다른 나라, 다른 위성 플랫폼으로 옮기면 어떻게 됩니까?"**
+
+답변(초안): "플랫폼 드리프트는 작게 나왔습니다. 풀드 AUC 기준 0.0064, far-band에서 0.0307
+입니다. 국가 전이는 다릅니다. 미국 데이터로의 zero-shot 전이는 무너졌고 그 사실을 기록해
+두었습니다. 그래서 이 시스템은 한국 농촌 지형에 대한 시스템이라고 말하지, 이식 가능하다고
+말하지 않습니다."
+
+근거: `docs/global_portability.md`, `docs/forecast_robustness.md`. 키: `platform_drift_pooled_auc`,
+`platform_drift_far_band_auc`.
+
+없는 것: 재학습을 포함한 이식 실험은 없습니다.
+
+---
+
+## 3. 재난대응 실무자
+
+**Q16 · T0. "제출한 기여 ②는 위험 시한 순 트리아지 목록입니다. 그런데 본인들이 정한 75분
+운용 창에서 그 정렬이 최근접 우선에 한 번도 이기지 못한다고 측정하셨습니다. 그러면 기여가
+무엇입니까?"**
+
+답변(초안): "가구 단위 폐쇄 시각 `ingress_survival_time_min` 자체입니다. 각 진입 도로가 언제
+막히는가라는 양이고, 비교한 어느 시스템도 이 값을 계산하지 않습니다. 그 값으로 정렬하는 것이
+정보를 갖는 조건은 운용 창이 도로 폐쇄보다 길 때인데, W = 75에서는 모든 가구가 사실상 두 개의
+마감시각을 공유해서 정렬이 정보를 담지 못하고 최근접 우선이 이동시간을 아낍니다. 창을 120분까지
+늘리면 그때부터 승리 사례가 나타나기 시작하고, 가장 긴 창에서도 승률은 12.2 %입니다. 그래서
+출하되는 정렬은 바꾸지 않았고 조건을 명시했습니다. 현직 소방관 한 분이 독립적으로 같은 말을
+했습니다. 현장 결정에 고정된 시간 예산이라는 것은 없고, 실제 질문은 「살아서 나올 수 있는가」
+라는 것입니다. 그건 우리 쪽의 생존 항이지 시계 항이 아닙니다."
+
+**WFG-022(사무국 답변)가 오기 전에는 여기까지만 말하십시오.** 「기여를 재정의했다」는 문장은
+운영요강 p.9의 주제·목적 변경 판정과 직접 닿아 있어서, 사무국이 허용 범위라고 답한 뒤에만
+쓰십시오. 그 전까지의 안전한 문장은 "목적은 그대로입니다. 어디에 불이 갈 것인지를 보고 누구에게
+먼저 가야 하는가에 답하는 것이고, 그 안에서 어느 양이 실제로 정보를 갖는지를 측정했습니다"
+입니다.
+
+근거: `docs/dispatch_ordering.md` §0/§6, `docs/ordering_boundary.md`, `docs/firefighter_consultation.md` §1.2–1.3.
+키: `dispatch_order_deadline_wins_at_committed_window`, `dispatch_order_uljin_real_distinct_deadlines`,
+`ordering_boundary_first_window_with_a_win`, `ordering_boundary_win_rate_at_longest_window`.
+
+없는 것: 「검증」이라고 말하지 마십시오. 소방관은 N = 1이고, 두 근거는 독립이지 상호 확증이
+아닙니다.
+
+---
+
+**Q17 · T0. "2025년 생존자 조사에서 84.5 %가 차로 대피했고 걸어서 나온 사람은 3.1 %입니다.
+왜 보행 경로를 냅니까?"**
+
+답변(초안): "보행 계층은 「걸어서 나올 수 있는가」를 가르는 분류기이고, 그 출력이 구조·출동
+계층과 이장용 A4 시트로 들어갑니다. 그 조사가 보여주는, 실제로 작동한 전달 채널이 바로
+마을방송과 주민이었습니다. 서식1 §1이 던진 질문 자체가 이것입니다. 「걸어서 빠져나올 수
+있는가, 없다면 누구에게 먼저 구조대를 보내야 하는가」. 그리고 이건 생존자 표본이라는 점을
+말씀드려야 합니다. 사망자는 이 표본에 없습니다. 한 가지는 분명히 하지 않겠습니다. 「자기 차가
+없는 비율」을 거동 불가율의 상한처럼 쓰지 않습니다. 차가 없는 것과 거동이 불가한 것은 다른
+집합이고, 거동 불가에 대한 우리 답은 서식1 §4의 f = 0.15 / 0.30 / 0.45 민감도 분석입니다."
+
+근거: Greenpeace Korea 2025 영남 초대형 산불 피해 실태조사 최종보고서(2026-03, n = 300),
+`docs/auto/research/RESEARCH_BRIEF_2026-09-03.md` §(c) Q5에 URL. 서식1 §4(민감도).
+
+없는 것: **이 조사의 수치는 아직 레지스트리에 등록되지 않았습니다(미등록).** sha256과 함께
+`docs/evidence/`에 등록하는 것이 백로그 WFG-020입니다. 그때까지 이 숫자들은 부스에서 인용할 때
+"그린피스 2026년 3월 보고서"라고 출처를 붙여 말하고, 저장소가 재현한 값처럼 말하지 마십시오.
+
+---
+
+**Q18 · T0. "여기서 말하는 대피 지점이 무엇입니까? 그중 지정 대피소가 있습니까?"**
+
+답변(초안): "지정 대피소는 없습니다. 영덕 기준 OSM POI 50개인데, 태그를 열어 보면 33개가
+`leisure=park`이고 17개가 `amenity=shelter`입니다. 그리고 그 17개 중 16개는 `shelter_type`이
+`gazebo`, 즉 정자입니다. 사람이 안으로 들어갈 수 있는 건물을 뜻하는 `amenity=community_centre`는
+영덕과 울진·삼척에서 0개입니다. 그래서 이 계층은 이름이 시사하는 것을 뜻하지 않고, 화면의
+신뢰성 탭에 그대로 적어 두었습니다. 행정안전부 지정 대피소 목록과 대조하지 않았습니다.
+하류에서 걸러내는 것도 없습니다. 파일 안의 모든 피처가 그대로 목적지가 됩니다. 그래서 지역 간
+「대피소 밀도」 차이의 일부는 실제 시설 차이가 아니라 지도 작성 관행의 차이입니다. 대피 지점이
+불에 견디는지는 별도의 필터이고, 이 실행들에서는 한 번도 구속하지 않았습니다."
+
+근거: 서식2 Ⅲ-9-1, `docs/multi_region.md`(태그 분해표와 `shelter_type` 내역),
+`web/finals.html` 신뢰성 탭, `docs/global_portability.md` §3b.
+키: `mr_yeongdeok_shelter_pois`, `mr_uiseong_shelter_pois`, `mr_uljin_shelter_pois`.
+
+없는 것: 공식 지정 대피소 목록과의 대조는 **없습니다**. 포털 다운로드가 로그인·CAPTCHA로 막혀
+있고 NH-012에 학생 작업으로 올라가 있습니다.
+
+---
+
+**Q19 · T1. "가구 취약도 계층은 불을 빼도 같은 24가구가 실패합니다. 이게 산불 결과입니까?"**
+
+답변(초안): "그 계층에서, 영덕에서, 240분 지평에서는 아닙니다. 그래서 「거리가 취약도를
+만든다」를 철회하고 「이건 도달성의 재진술이다」로 바꿔 적었습니다. 세션 15에서 학습된 위험도로
+돌린 결과가 25 대 24였고 순위 상관이 0.9915였습니다. 세션 17의 널 위험도 통제, DEM 없는 대조,
+발화 사전확률과 발화 개수 훑기 모두 같은 집합을 줍니다. 실패의 18/24는 보행 시간이 지평보다
+길어서입니다. 예보가 결정을 바꾸는 축은 다른 곳입니다. 도로를 따라가는 경로 선택이고, 영덕에서
+458개 원점 중 42개, 의성·안동에서 368개 중 91개가 시간 인지 경로에서만 대피 지점에 닿습니다.
+두 질문은 모집단도 다릅니다. 한쪽은 보행 도로망 노드이고 다른 쪽은 OSM 건물 124개입니다.
+한 축에 올려놓고 비교하지 않습니다."
+
+근거: `docs/SESSION15_REPORT.md` 과제1, `docs/SESSION17_REPORT.md`, `data/processed/vulnerability/*.json`,
+HANDOFF §5.23/24. 키: `mr_yeongdeok_future_aware_only_safe`, `mr_yeongdeok_n_origins`,
+`mr_uiseong_future_aware_only_safe`, `mr_uiseong_n_origins`, `bld_yeongdeok_n_mapped`.
+
+없는 것: 화재 조건부 가구 결과는 **없습니다**. 무엇이 그 계층에서 불을 물게 할지는 목록으로만
+있고 시도하지 않았습니다.
+
+---
+
+**Q20 · T1. "구조가 필요한 가구를 어떻게 세었습니까?"**
+
+답변(초안): "439개 원점 축에서, 자력 대피 가능 272, 구조 필요 167, 그중 출동 대상 143,
+도달 불가 24로 나뉩니다. 이 넷은 서로 겹치지 않고 합이 전체와 같다는 것을 테스트가 강제합니다.
+도달 불가 24는 출동 지연을 늘리면 커집니다. 지연 행을 레지스트리에 등록해 두었습니다.
+거동 불가율 f는 우리가 관측한 값이 아니라 가정이고, 그래서 0.15 / 0.30 / 0.45 세 값으로
+민감도를 냅니다."
+
+근거: `data/processed/rescue_verify.json`, `docs/rescue_routing.md`, 서식1 §4. 키:
+`rescue_n_origins`, `rescue_self_sufficient_count`, `rescue_needs_rescuer_count`,
+`rescue_dispatch_count`, `rescue_unreachable_count`, `rescue_unreachable_delay_row_cutoff_0p7`,
+`rescue_partition_identity`.
+
+없는 것: 실제 가구 대장이 없습니다. 원점은 보행 도로망 노드 표본이고, 건물 발자국은 OSM
+124동이 상한입니다 (NH-005).
+
+---
+
+**Q21 · T1. "재난문자를 못 받는 사람에게 이걸 어떻게 전달합니까?"**
+
+답변(초안): "전달 계층은 이장에게 가는 A4 출동 시트와 마을방송 원고입니다. 스마트폰을 전제하지
+않는 경로를 일부러 골랐습니다. 다만 여기서 정확히 말씀드려야 합니다. 저장소의 이메일·SMS 발신
+경로는 전부 dry-run이고, 실제 발송이 한 번도 기록된 적이 없습니다. 서식2의 「SMS 전달은
+모사」라는 문장이 지금도 맞습니다. 재난문자 시스템과 연동한다고 말하지 않습니다."
+
+근거: `docs/delivery_channels.md`, `outputs/dispatch/`, `outputs/dispatch_full/`,
+`scripts/send_dispatch_email.py`(dry-run 잠금), `delivery/sms.py`.
+
+없는 것: 기록된 실제 발송은 **없습니다** (NH-011, 백로그 WFG-029).
+
+---
+
+**Q22 · T2. "고령자는 불이 보이지 않아서 안 나갑니다. 이 시스템의 어느 줄이 그걸 바꿉니까?"**
+
+답변(초안): "어느 줄도 바꾸지 않습니다. 대피 순응은 이 프로젝트의 범위 밖이고, 유일한 연결
+고리는 「미래의 폐쇄 시각을 보여주면 지각 격차가 줄어들 것」이라는 가설인데 측정하지
+않았습니다. 소방관 면담에서 나온 이야기이지 우리가 잰 것이 아닙니다."
+
+근거: `docs/firefighter_consultation.md` §3.2–3.3.
+
+없는 것: 순응에 대한 어떤 측정도 없습니다.
+
+---
+
+## 4. 소프트웨어 전공 교수
+
+**Q23 · T0. "다익스트라가 최소화하는 양과 보고하는 양이 다릅니다. 그리고 최적성이 증명되어
+있지 않습니다. 왜 그 경로를 믿습니까?"**
+
+답변(초안): "대조는 유효하고 절대값은 조심해야 합니다. 두 팔 모두 같은 `_evaluate_path`로
+채점하므로 「시간 인지 경로가 fire-blind 경로보다 노출을 줄인다」는 비교는 성립합니다. 반면
+절대 노출값을 「최소화된 값」이라고 인용하면 안 됩니다. 10분 빈에서 반례를 구성해 보지는
+않았습니다. 결과가 결정적이고 재현된다는 것은 확인했습니다. 라우터를 고치지 않은 것은 의도적
+입니다. 고치면 커밋된 모든 개수가 움직입니다."
+
+근거: `docs/routing_limitations.md` §2/§4, `src/wildfireguardian/routing/`.
+
+없는 것: 반례도, 고쳐진 라우터도 **없습니다**. 후자는 의도적입니다.
+
+---
+
+**Q24 · T1. "트리거에서 출동 시트까지 몇 초 걸립니까?"**
+
+답변(초안): "약 25초입니다. 이건 시연 파이프라인의 실측이고, 화면의 시스템 무결성 패널이 그
+실행을 기록합니다. 이보다 짧은 수치를 말하지 마십시오. 초기 세션의 부분 측정이었고 지금 파이프
+라인의 값이 아닙니다."
+
+근거: HANDOFF §9, `docs/service_layer.md`, `docs/FINALS_DEMO.md`.
+
+없는 것: 실제 운영 환경의 지연 측정은 없습니다. 이건 노트북 한 대에서의 시연 시간입니다.
+
+---
+
+**Q25 · T1. "부스 화면은 인터넷 없이 도는데, 그럼 실시간이라는 말은 무엇입니까?"**
+
+답변(초안): "화면은 오프라인 재생입니다. 커밋된 스냅샷을 재생하고, 게이트가 외부 요청을 아예
+금지합니다. `fetch(`나 외부 URL이 파일에 있으면 `scripts/check_screen_assets.py`가 빌드를
+막습니다. 라이브 트리거는 FIRMS 폴링 경로로 따로 있고 키가 필요합니다. 부스에서 보시는 것은
+라이브가 아니라 재생이라는 것을 화면 자체가 적어 두고 있습니다."
+
+근거: `docs/finals_demo_plan.md` §1, `scripts/check_screen_assets.py`, `docs/live_pipeline.md`,
+`docs/manual_trigger.md`.
+
+없는 것: 부스에서 라이브 데이터를 받는 경로는 없고, 그렇게 만들 계획도 없습니다.
+
+---
+
+**Q26 · T1. "OSM 도로망이 바뀌면 결과가 얼마나 흔들립니까?"**
+
+답변(초안): "이건 우리가 사고로 배운 것입니다. 보행 노드가 0.047 % 바뀌었을 때 이진 판정의
+33 %가 뒤집혔습니다. 노출 감소량 같은 연속량은 0.56 퍼센트포인트만 움직였습니다. 그래서
+이진 개수 — 42, 2 같은 수 — 는 도로망 판본에 붙은 값으로 읽어야 하고, 이 사실을 문서에
+적어 두었습니다. 2026년 7월 24일에 그래프가 덮어써진 사건도 별도 문서로 남겨 두었고, 그
+때문에 재현 불가로 표시된 등록값이 16개 있습니다."
+
+근거: `docs/network_drift.md`, `docs/DATA_LOSS_2026-07-24.md`. 키: `network_drift_walk_node_delta_pct`,
+`network_drift_unreachable_delta_pct`, `network_drift_exposure_reduction_delta_pp`.
+
+없는 것: 도로망 판본을 통제한 반복 실험은 없습니다. 관측 한 건입니다.
+
+---
+
+**Q27 · T2. "게이트와 테스트가 실제로 무엇을 막습니까?"**
+
+답변(초안): "네 가지를 기계적으로 막습니다. 등록된 숫자가 아티팩트에서 다시 나오지 않으면
+`make verify`가 막고, 폐기된 수치를 다시 인용하면 `check_forbidden.py`가 막고, 같은 양이 두
+값으로 문서에 있으면 `check_number_collisions.py`가 막고, 지역 이름을 템플릿에 하드코딩하면
+`region_literals` 검사가 막습니다. 막지 **못하는** 것도 분명합니다. 애초에 등록된 적이 없는
+숫자와, 일어난 적이 없는 사건에 대한 인용입니다. 그 부류는 게이트가 아니라 사람이 찾아봐서
+잡았고, 그 실패 양식을 문서로 남겼습니다."
+
+근거: `scripts/auto/gates.py`, `docs/clean_clone_gates.md`, `docs/forbidden_check_scope.md`,
+HANDOFF §4-B.
+
+없는 것: 존재한 적 없는 인용을 자동으로 잡는 게이트는 없습니다. 원리적으로 대조할 대상이
+없습니다.
+
+---
+
+**Q28 · T2. "낯선 사람이 이걸 다시 돌릴 수 있습니까?"**
+
+답변(초안): "부분적으로 가능합니다. 커밋된 스냅샷 위에서 도는 부분은 깨끗한 리눅스 클론에서
+전체 게이트가 초록이고, 그게 매 푸시마다 CI에서 다시 돌아갑니다. 다시 돌릴 수 **없는** 부분은
+원본 취득이 필요한 부분입니다. FIRMS·ERA5·DEM 번들이 git-ignore되어 있어서 클론에는 오지
+않고, 그 입력을 필요로 하는 테스트는 이유를 적은 채로 건너뜁니다. 그래서 깨끗한 클론의 초록은
+「재현」이 아니라 「일관성」의 증거입니다. 그 구분을 문서에 적어 두었습니다."
+
+근거: `docs/clean_clone_gates.md`, `docs/REPRODUCE.md`, `.github/workflows/auto-gates.yml`.
+
+없는 것: 원본 취득부터의 전체 재현을 낯선 사람이 실행한 기록은 없습니다.
+
+---
+
+## 5. 출처 · 심사 규정 · AI 사용
+
+**Q29 · T0. "무엇을 직접 만들었습니까?"**
+
+답변(초안): "연구 설계, 문제 설정, 철회한 주장의 기록, 노트북에서의 데이터 취득, 소방관 면담,
+그리고 제출 서식은 제가 했습니다. 2026년 5월 이후 구현의 상당 부분은 제가 쓴 브리프로 지시한
+에이전트 세션에서 작성되었고, 저는 그것을 검토하고 실행하고 제출했습니다. 그 사실을 감추지
+않고 대장으로 관리합니다. 에이전트가 만든 커밋에는 전부 `Co-Authored-By` 트레일러가 붙어
+있어서 `git log --grep`으로 목록이 나오고, 세 개 클라우드 루틴의 지시문은 그대로 저장소에
+기록되어 있으며, 랩마다 무엇을 왜 했는지 보고서가 남습니다. ISEF Form 2A 초안도 그 대장에서
+나옵니다. 제 손으로만 쓰는 것도 정해 두었습니다. 연구 계획서, 초록, 포스터, 인용은 루프가
+초안조차 만들지 않습니다."
+
+근거: `docs/auto/AI_DISCLOSURE.md`, `docs/auto/ROUTINE_PROMPTS.md`, `docs/auto/CHARTER.md` §9,
+`docs/auto/reports/`.
+
+없는 것: 한국코드페어가 AI 보조 개발을 **어떤 형식으로** 공시하기를 요구하는지는 아직 사무국
+답을 못 받았습니다 (NH-008, 백로그 WFG-022). 그 답이 오기 전에는 이 답변을 위 사실관계까지만
+말하고, 규정 해석을 덧붙이지 마십시오.
+
+---
+
+**Q30 · T0. "24개의 금지 규칙과 폐기된 숫자 목록을 공개하고 계십니다. 그러면 오늘의 숫자는
+왜 믿습니까? 그리고 제출한 서식 중 지금 틀린 숫자는 무엇입니까?"**
+
+답변(초안): "확인하실 수 있기 때문입니다. 등록된 값 295개 중 261개가 커밋된 아티팩트에서
+`make verify`로 다시 계산되고, 나머지 34개는 「확인됨, 재현 불가」로 라벨이 붙어 있습니다.
+16개는 뒤에 있는 OSM 그래프가 2026년 7월 24일에 덮어써졌기 때문이고, 18개는 제출본 대조표가
+풀리도록 등록해 둔 과거 실행의 값입니다. 게이트가 잡는 것과 못 잡는 것도 말씀드릴 수
+있습니다. 그리고 제출본 중 지금 움직인 값은 여기 한 장에 있습니다" — 그리고 대조표를, 종이
+없이, 그 순서대로 읊습니다.
+
+근거: [`docs/submission_reconciliation.md`](../submission_reconciliation.md), `docs/NUMBERS.json`,
+`scripts/verify_numbers.py`, HANDOFF §1.1, `docs/DATA_LOSS_2026-07-24.md`.
+
+없는 것: 등록된 적이 없는 숫자는 게이트가 잡지 못합니다. 그 부류는 사람이 찾아봐야 합니다.
+
+---
+
+**Q31 · T1. "현장에서 누가 이걸 검증했습니까?"**
+
+답변(초안): "「검증」이라고 말할 수 있는 사람은 없습니다. 현직 소방관 한 분과 비공식 구술
+면담을 했고, N = 1이며, 소속·계급·날짜·인용 동의가 아직 기록되지 않았습니다. 그 공란이
+문서에 공란으로 남아 있습니다. 학계 자문 세 분이 있고 같은 성격입니다. 판단이지 측정이
+아닙니다. 「현장에서 검증」이라는 표현은 쓰지 않습니다."
+
+근거: `docs/firefighter_consultation.md` §0/§8, HANDOFF §8.
+
+없는 것: 구조화된 현장 검증은 없습니다. 추가 면담은 NH-010에 학생 작업으로 올라가 있습니다.
+
+---
+
+**Q32 · T1. "인용을 잘못한 적이 있다고 스스로 적어 두셨던데, 무슨 일이었습니까?"**
+
+답변(초안): "두 부류였고 둘 다 기록해 두었습니다. 첫째, PHASE 19~21 구간에서 **저장소에
+존재하지 않는 발견·측정·완료 작업을 기정사실로 인용한 지시가 다섯 건** 있었습니다. 각각이
+선의로 승인되었고, 두 건은 문서에까지 들어갔다가 그 자리에서 철회되었습니다. 둘째, 「VPD 단위
+결함」과 「순열 중요도 11위→3위」라는 두 주장이 여러 세션에 걸쳐 전제로 쓰였는데, 확인해 보니
+다섯 갈래 증거가 전부 음성이었습니다. 지목된 코드 줄이 존재한 적이 없었습니다. 그래서 규칙을
+세웠습니다. 인용된 수치나 이전 작업은 저장소에서 확인되지 않으면 진행하지 않고 그 사실을
+보고합니다. 그리고 이 부류는 게이트가 못 잡습니다. 대조할 대상이 없기 때문입니다."
+
+근거: HANDOFF §4-B와 그 Round-4 추가분, `docs/service_layer.md` §5(그 자리 철회 기록).
+
+없는 것: 이 실패 양식을 자동으로 막는 장치는 없습니다. 확인하는 습관이 유일한 방어입니다.
+
+---
+
+**Q33 · T2. "제출 이후에 작품을 고치셨습니까? 운영요강은 주제·목적을 벗어나는 변경을 제한
+합니다."**
+
+답변(초안): "목적과 주제는 그대로입니다. 확산 예측 위에 대피 경로와 구조 출동 판단을 올리는
+구조이고, 대상도 농촌 고령 주민 그대로입니다. 바뀐 것은 같은 목적 안에서의 수치와 서술의
+정확도입니다. 제출 이후 계보가 정리되어 숫자가 움직인 곳은 한 장으로 만들어 두었고, 서식
+Ⅴ-4가 스스로 향후 과제로 적어 둔 항목들입니다. 새 주제를 붙이거나 계층을 늘리지 않았습니다."
+
+근거: [`docs/submission_reconciliation.md`](../submission_reconciliation.md), `docs/auto/CHARTER.md` §3
+규칙 4, `docs/auto/RUBRIC.md`.
+
+없는 것: 이 판단은 저희 판단이고 사무국 확인이 아닙니다. 사무국에 질의한 항목이 NH-008입니다.
+
+---
+
+## 6. 드릴 순서
+
+| 회차 | 무엇 | 목표 |
+|---|---|---|
+| 1 | T0 14개 (Q1, Q2, Q3, Q4, Q9, Q10, Q11, Q12, Q16, Q17, Q18, Q23, Q29, Q30) | 자기 문장으로, 종이 없이 |
+| 2 | 대조표(`docs/submission_reconciliation.md`) | 순서대로, 종이 없이 |
+| 3 | T1 13개 (Q5, Q6, Q7, Q13, Q14, Q19, Q20, Q21, Q24, Q25, Q26, Q31, Q32) | 「어느 파일에 답이 있는가」만 |
+| 4 | T2 6개 (Q8, Q15, Q22, Q27, Q28, Q33) | 「그건 측정하지 않았습니다」를 말하는 연습 |
+
+각 답변의 마지막 줄(「없는 것」)이 가장 중요합니다. 심사위원이 기억하는 것은 대개 자신이 파고든
+지점에서 학생이 한계를 먼저 말했는가입니다.
+
+**아직 답이 없는 질문(크리틱 랩이 채웁니다):** 지금 이 파일의 모든 질문은 파일이나 레지스트리
+키로 답이 닿습니다. 닿지 않는 질문이 발견되면 여기에 "근거 없음"으로 추가하고 백로그 행을
+만듭니다.
