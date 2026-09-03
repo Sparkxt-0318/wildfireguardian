@@ -73,6 +73,13 @@ routing = [
 # xgboost is required ONLY by the abandoned spread_v2_xgb (Build A) and the LFMC
 # scaffold — NOT by the canonical spread_v2 model (sklearn HistGradientBoosting).
 # Kept out of `ml` so installing the canonical stack does not pull it in.
+# WFG-020: re-extracting the third-party survey figures from their source PDF
+# (scripts/extract_survey_evidence.py). Needed ONLY to regenerate that one
+# transcription; the resulting JSON is committed, so neither the tests nor any
+# gate requires this extra to be installed.
+evidence = [
+    "pypdf>=6.0",
+]
 legacy = [
     "xgboost>=2.0",
     # engine="netcdf4" in spread_v2_xgb/era5.py — string-dispatched, Build A only

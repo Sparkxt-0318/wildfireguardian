@@ -278,6 +278,13 @@ data/processed/vulnerability/refuges/
 !data/processed/operating_point/
 !data/processed/operating_point/*.json
 
+# WFG-020: figures transcribed from a third-party survey report. The 3.4 MB PDF
+# itself stays out (data/raw/**, and it is not ours to redistribute); this JSON
+# is the committed carrier, so the numbers travel with their sha256, their table
+# and page references, and the note that this project did not measure them.
+!data/processed/evidence/
+!data/processed/evidence/*.json
+
 # Validation-case manifest JSON files ARE committed (they're stubs, not
 # bulk data).
 !data/validation_cases/**

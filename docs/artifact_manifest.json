@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "147ed72f2dfe017658330eb34e7780559a4d0492",
-  "n_artifacts": 94,
-  "total_bytes": 14452388,
-  "total_mib": 13.78,
-  "n_git_tracked": 94,
+  "generated_at_git_commit": "5ed83cc99b25e7bad9e8f6553d86847e1ac735b1",
+  "n_artifacts": 95,
+  "total_bytes": 14468088,
+  "total_mib": 13.8,
+  "n_git_tracked": 95,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 10,
   "artifacts": [
@@ -299,6 +299,19 @@
       "regenerate": "python scripts/build_numbers.py"
     },
     {
+      "path": "data/processed/evidence/greenpeace_2026_survey.json",
+      "bytes": 15700,
+      "sha256": "2d86a83492be4948140be2fb58ecbe0d1105af175b61078ecc5252820bed1c86",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/auto/JUDGE_QA.md",
+        "docs/evidence/greenpeace_2026_survey.md"
+      ],
+      "regenerate": "python scripts/extract_survey_evidence.py"
+    },
+    {
       "path": "data/processed/forecast_robustness.json",
       "bytes": 9942,
       "sha256": "f3d196d06b348726375f6450ae53c3d08b5dab24aa67258431e2418cf38f9a4c",
@@ -384,6 +397,7 @@
       "cited_by_docs": [
         "README.md",
         "docs/MODEL_CARD.md",
+        "docs/auto/JUDGE_QA.md",
         "docs/baselines.md"
       ],
       "regenerate": "python scripts/build_finals.py"
@@ -455,7 +469,11 @@
       "git_tracked": true,
       "n_registry_entries": 17,
       "cited_by_docs": [
+        "docs/MODEL_CARD.md",
         "docs/auto/BACKLOG.md",
+        "docs/auto/JUDGE_QA.md",
+        "docs/auto/reports/2026-09-03T1300Z-dev.md",
+        "docs/auto/reports/2026-09-03T1622Z-dev.md",
         "docs/auto/research/BACKLOG_PROPOSAL_2026-09-03.md",
         "docs/auto/research/RESEARCH_BRIEF_2026-09-03.md",
         "docs/operating_point.md"
@@ -589,7 +607,13 @@
       "git_tracked": true,
       "n_registry_entries": 0,
       "cited_by_docs": [
-        "docs/forbidden_check_scope.md"
+        "README.md",
+        "docs/auto/BACKLOG.md",
+        "docs/auto/reports/2026-09-03T1724Z-dev.md",
+        "docs/auto/research/sweeps_2026-09-03/R7_rubric_gap.md",
+        "docs/forbidden_check_scope.md",
+        "docs/ssot_audit_2026-09-03.md",
+        "docs/submission_reconciliation.md"
       ],
       "regenerate": "python scripts/verify_rescue_routing.py"
     },
@@ -619,6 +643,7 @@
         "docs/REPORT_ROUND2_P1.md",
         "docs/SESSION8_LOG.md",
         "docs/network_drift.md",
+        "docs/ssot_audit_2026-09-03.md",
         "outputs/dispatch/README.md"
       ],
       "regenerate": "python scripts/build_numbers.py"
@@ -658,8 +683,11 @@
       "git_tracked": true,
       "n_registry_entries": 1,
       "cited_by_docs": [
+        "README.md",
+        "docs/auto/JUDGE_QA.md",
         "docs/auto/research/RESEARCH_BRIEF_2026-09-03.md",
-        "docs/rescue_routing.md"
+        "docs/rescue_routing.md",
+        "docs/ssot_audit_2026-09-03.md"
       ],
       "regenerate": "python scripts/verify_rescue_routing.py"
     },
@@ -799,7 +827,7 @@
       "sha256": "bb2eb74bc2c9419e66882c2db598d37fa735f16d19ca7db67e03dcd9e9a3ba6a",
       "kind": "text",
       "git_tracked": true,
-      "n_registry_entries": 4,
+      "n_registry_entries": 5,
       "cited_by_docs": [
         "README.md",
         "data/processed/spread_v2/LEGACY_DO_NOT_CITE.md",
@@ -815,6 +843,7 @@
         "docs/dem_defect_2026-08-02.md",
         "docs/fold_sizes.md",
         "docs/results_rescue_draft.md",
+        "docs/ssot_audit_2026-09-03.md",
         "docs/weather_dependency.md"
       ],
       "regenerate": "python scripts/arm_d_lofo.py"
