@@ -35,7 +35,7 @@ no local files, no secrets) plus GitHub Actions as an independent gate:
 | routine | cadence | job |
 |---|---|---|
 | `wfg-autoloop-dev` | every 6 h | one build lap: pick the top backlog item, build it, prove it, report |
-| `wfg-autoloop-critic` | daily | attack the last 24 h like a hostile judge; file findings into the backlog |
+| `wfg-autoloop-critic` | 90 min after every dev lap | attack the last lap like a hostile judge; `CRITIC_LATEST.md` is the next lap's first job |
 | `wfg-autoloop-research` | weekly (sprint: 09-04, 09-10) | literature and competitor scan; IEEE plan; new backlog candidates |
 | `wfg-autoloop-paper` | every 6 h, only when the code moved | keeps the English manuscript current: prose, figures, references, the .docx (§12) |
 | `auto-gates` (Actions) | every push | re-run all gates on a clean machine |
@@ -255,7 +255,11 @@ The author asked that all primary work land in twelve days, with laps as close
 together as the platform allows, and that at the end there is a **full final
 product** ready to take to the booth. So, for the sprint:
 
-- Cadence: dev every 2 hours, critic daily, research on 09-04 and 09-10.
+- Cadence: dev every 2 hours (even hours :17 UTC); **critic 90 minutes after every
+  dev lap** (odd hours :47), writing `docs/auto/CRITIC_LATEST.md`; the next dev lap
+  clears every `fix-before-next-row` item there before it claims a new row, so a
+  wrong turn is caught within one lap instead of a day. Research on 09-04 and 09-10;
+  paper every 6 h when the code moved.
 - Order of work is the backlog table order; the sprint plan at the top of
   `docs/auto/BACKLOG.md` names the day each P0 row should be done by. A lap that
   finishes its row early takes the next one; it never idles.
