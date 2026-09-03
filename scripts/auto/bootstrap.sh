@@ -69,6 +69,8 @@ fi
 # brotli, which no pin pulls in; conda's wfg311 had it by accident.
 "$PY" -m pip install -q brotli
 "$PY" -m pip install -q -e . --no-deps
+# the paper loop builds paper/*.docx with python-docx (pure Python, small); no pandoc
+"$PY" -m pip install -q "python-docx>=1.1" >/dev/null 2>&1 || note "python-docx not installed; paper build will skip"
 
 STACK_OK=true
 if ! "$PY" -c "$STACK"; then STACK_OK=false; fi

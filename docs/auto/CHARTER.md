@@ -36,7 +36,8 @@ no local files, no secrets) plus GitHub Actions as an independent gate:
 |---|---|---|
 | `wfg-autoloop-dev` | every 6 h | one build lap: pick the top backlog item, build it, prove it, report |
 | `wfg-autoloop-critic` | daily | attack the last 24 h like a hostile judge; file findings into the backlog |
-| `wfg-autoloop-research` | weekly | literature and competitor scan; IEEE plan; new backlog candidates |
+| `wfg-autoloop-research` | weekly (sprint: 09-04, 09-10) | literature and competitor scan; IEEE plan; new backlog candidates |
+| `wfg-autoloop-paper` | every 6 h, only when the code moved | keeps the English manuscript current: prose, figures, references, the .docx (§12) |
 | `auto-gates` (Actions) | every push | re-run all gates on a clean machine |
 | `report-email` (Actions) | on report | email the report (needs secrets, NH-001) |
 
@@ -269,3 +270,33 @@ product** ready to take to the booth. So, for the sprint:
 - What is deliberately left for after the sprint: P2 (ISEF) and P3 (IEEE) rows,
   anything needing the raw bundle on the laptop, and the author-only items
   (rehearsal, printing, consultations, portal downloads).
+
+## 12. The paper loop
+
+A fourth routine, `wfg-autoloop-paper`, writes the research paper alongside the
+code and touches nothing outside `paper/` (plus its own report). It is
+independent of the dev laps: it wakes every six hours, compares
+`paper/STATE.json` → `last_incorporated_commit` with `origin/auto/dev`, and
+exits at once if nothing outside `paper/` and `docs/auto/` changed.
+
+What it keeps true, every lap it runs:
+
+- `paper/manuscript.md` is a complete, publication-register English manuscript
+  under 20 pages including title page and references (`check_paper.py` budget:
+  7,000 words of body text, hard fail at 7,500), author **Siyeong Park (박시영)**.
+  Sections: Abstract, Introduction, Related work, Data and methods, Results,
+  Discussion, Limitations, Conclusion, Data and code availability, References.
+- Every number in it is a registry key or a committed artifact value; the
+  collision and forbidden-string gates scan it like any other prose. Withdrawn
+  claims stay withdrawn; the model card's caveats travel with their numbers.
+- Every figure is drawn by `paper/make_figures.py` from committed artifacts in
+  the one style (`paper/style.py`): aligned, labelled, colour-blind-safe, 300 dpi,
+  no chart junk, no hand edits. A diagram is drawn on a fixed grid so nothing is
+  misaligned or deformed; the lap looks at each new figure once before it ships.
+- Every citation was opened at its URL by the lap that added it and carries a
+  `verified` note in `references.bib`; a paper the lap could not open is not cited.
+- Anything the artifacts cannot yet support is a `[GAP: …]` marker mirrored in
+  `paper/GAPS.md` with what closes it and whether that is after the sprint.
+- `paper/WildfireGuardian_Park_2026.docx` is rebuilt by `paper/build_docx.py`
+  and committed; the report email links it. The student rewrites the abstract
+  and discussion in their own words before any submission (`paper/AUTHORSHIP.md`).

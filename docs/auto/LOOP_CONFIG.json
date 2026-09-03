@@ -13,5 +13,13 @@
     "end": "2026-09-15T23:59Z",
     "_readme": "The author asked for all primary work to land inside this window, with laps as close together as the platform allows. After `end`, a lap writes a one-paragraph 'sprint over' report and exits without building; the one-time handover routine writes the post-sprint list. The author pauses the routines on claude.ai/code/routines afterwards."
   },
-  "dev_cadence_note": "dev every 2 h (cron 17 */2 * * * UTC) during the sprint; critic daily; research on Sep 4 and Sep 10."
+  "dev_cadence_note": "dev every 2 h (cron 17 */2 * * * UTC) during the sprint; critic daily; research on Sep 4 and Sep 10.",
+  "paper": {
+    "enabled": true,
+    "author": "Siyeong Park (박시영)",
+    "body_words_target": 7000,
+    "body_words_max": 7500,
+    "docx": "paper/WildfireGuardian_Park_2026.docx",
+    "cadence_note": "every 6 h, exits early when no code moved since paper/STATE.json"
+  }
 }
