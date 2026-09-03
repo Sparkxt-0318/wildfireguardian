@@ -135,19 +135,37 @@ sandbox for reading Actions runs and pull requests.
    a `docs/<topic>.md` that states method, result, caveats and what it does NOT
    show, tests under `tests/`. Drive the real surface: run the script end to end
    on the committed snapshots; for screens run `scripts/check_screen_assets.py`.
-5. **Prove.** `python scripts/auto/gates.py --mode full`. Also `sip` the docs you
-   wrote (`shower`, `factchk` for any world claim, `mandela` for any eval).
+5. **Prove.** `python scripts/auto/gates.py --mode full` (read its exit code; never
+   pipe it). Also `sip` the docs you wrote (`shower`, `factchk` for any world
+   claim, `mandela` for any eval). Then the **independent review** set by
+   `docs/auto/LOOP_CONFIG.json` → `review`: with `subagent` (default) spawn a
+   fresh reviewer agent that has not seen the work being made; give it only the
+   diff (`git diff <claim commit>..HEAD`), the row, and the claims you make in
+   your summary; it runs `hate`, `factchk` and `mandela` and returns
+   `{verdict: pass|block, root_objection, first_nail}`. A `block` means you fix
+   or park the work on `auto/red/<stamp>`; it never means you argue. Record
+   `Reviewed by: subagent (pass|block)` in the report. With `self`, skip the
+   spawn and say so; with `critic-only`, the daily critic is the only reviewer.
 6. **Learn** (`re0-memo`): append to `docs/auto/MEMO.md` — one lesson, one
    anti-pattern or one gate that changes the next lap. No changelog.
-7. **Report.** Write `.auto/summary.md` (what, why, evidence, what did not work,
-   next), then `python scripts/auto/report.py --kind dev --summary .auto/summary.md`.
-   Update the backlog row (`done`, `blocked`, or back to `todo` with a note).
+7. **Report.** Write `.auto/summary.md`: the technical account (what, why,
+   evidence, what did not work, the reviewer's verdict, next), then a section
+   headed exactly `## In plain terms` for the author, three short lines: what
+   changed for the project, why it matters to the judges or the science, what
+   the author should do. Then `python scripts/auto/report.py --kind dev
+   --summary .auto/summary.md`, which also rebuilds `docs/auto/dashboard.html`,
+   renders the five images into `docs/auto/images/<stamp>/`, and writes the
+   HTML email body to `.auto/email.html`. Update the backlog row (`done`,
+   `blocked`, or back to `todo` with a note).
 8. **Commit and push.** Commit messages in commit-economy form (`re0-git` style:
    subject states the durable truth, body says why). `git pull --rebase origin
    auto/dev` then `git push origin auto/dev`. Green only; red → `auto/red/<stamp>`.
-9. **Email**, if an email/Gmail tool is available in the session: send the report
-   body to siyeong0318@gmail.com with the report title as subject. If not, the
-   GitHub workflow delivers it once NH-001 is closed. Never email anyone else.
+9. **Email**, if a Gmail tool is available in the session and only AFTER the
+   push has landed: send to siyeong0318@gmail.com with the report title as
+   subject and the contents of `.auto/email.html` as `htmlBody` (the images in
+   it are GitHub raw URLs of this lap's files, so no attachment is needed and
+   none is sent; hand-typed base64 attachments are forbidden, MEMO 2026-09-03).
+   Never email anyone else.
 
 The **critic** lap runs steps 0–1, then reads the diff of the last 24 h and the
 latest reports, runs `prism` with lenses {KCF judge (software professor), KCF
@@ -208,3 +226,23 @@ student's own voice (abstract, poster text, Q&A answers) are labelled drafts.
 The student must be able to explain every artifact at the booth; a lap that
 produces something the student could not explain in two minutes produces a
 `docs/<topic>.md` that makes it explainable, or does not ship it.
+
+## 10. Who checks what, and how the author changes it
+
+| layer | what it checks | who | how to change |
+|---|---|---|---|
+| gates (`scripts/auto/gates.py`) | numbers re-derive from artifacts, no retired claims, no collisions, declared deps, snapshots intact, full test suite | mechanical, every lap and every push (Actions) | edit the gate scripts; never bypass |
+| self-check (`hate`, `sip`) | the building agent attacks its own plan and cold-reads its own docs | the lap's own agent | always on |
+| independent review | a fresh agent that did not build the work reads the diff and the claims, runs `hate` + `factchk` + `mandela`, can block the push | a subagent spawned inside the lap | `docs/auto/LOOP_CONFIG.json` → `review`: `subagent` (default) / `self` / `critic-only` |
+| daily critic | five judging lenses over the last 24 h, scorecard, judge drill, findings to the backlog | the `wfg-autoloop-critic` routine | pause or reschedule it on claude.ai/code/routines |
+| the author | decisions in `NEEDS_HUMAN.md`, merges to `Main`, everything in §6 | you | edit the files, reply to a report, or comment on PR #31 |
+
+**Model and cadence.** All three routines run `claude-opus-5` (chosen for the
+build and review work; the loop was set up by a different model in a local
+session). Cadence: dev every 6 h, critic daily 19:41 UTC, research Mondays
+21:23 UTC. Both live on the routine, not in this repository: open
+https://claude.ai/code/routines, pick the routine, and change the model or the
+schedule; the change applies from the next run. A faster, cheaper model
+(`claude-sonnet-5`) is a reasonable choice for the research routine; keep the
+dev and critic routines on the strongest model available, because they change
+code and judge claims.

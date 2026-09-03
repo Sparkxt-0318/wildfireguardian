@@ -14,6 +14,9 @@ Recorded 2026-09-03 for the AI ledger (`docs/auto/AI_DISCLOSURE.md`). The live c
 > (2) every summary ends with a `## In plain terms` section for the author, and the
 > email attaches `docs/auto/dashboard.html`. The live prompts on claude.ai/code/routines
 > are authoritative; this record shows the first version.
+> **2026-09-03 (evening):** emails now carry `.auto/email.html` as the HTML body (images by
+> GitHub raw URL, no attachments) and laps run the independent review set in
+> `docs/auto/LOOP_CONFIG.json`.
 
 ## wfg-autoloop-dev
 

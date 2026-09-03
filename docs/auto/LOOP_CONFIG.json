@@ -1,0 +1,11 @@
+{
+  "_readme": "Author-editable switches the routines read at the start of every lap. Change a value, commit to auto/dev, and the next lap obeys. Model and cadence are NOT here: they live on the routine itself (https://claude.ai/code/routines) because the repository cannot change what runs it; see docs/auto/CHARTER.md section 10.",
+  "review": "subagent",
+  "_review_options": {
+    "self": "the building agent runs hate + sip on its own work, then the gates. Cheapest; weakest independence.",
+    "subagent": "after building and before pushing, the lap spawns a fresh reviewer agent that has NOT seen the work being made; it reads only the diff and the claims, runs hate + factchk + mandela, and can block the push. Default.",
+    "critic-only": "no per-lap review beyond gates; the daily critic routine is the only independent reviewer."
+  },
+  "email_images": true,
+  "plain_terms_required": true
+}

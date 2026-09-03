@@ -156,3 +156,13 @@ writing. **Why only you:** credentials and network.
 which answers "are any of the refuges designated 대피소?"; (c) a KMA API Hub key
 only if the post-finals sub-daily GK2A label experiment is wanted. **Why only
 you:** login and CAPTCHA.
+
+## NH-013 · FYI · open · Optional: a stable web address for the visual board
+
+**What:** Report emails now embed this lap's five images by GitHub raw URL and
+link the board through htmlpreview.github.io, which needs no setting. If you
+would rather have a permanent address (for example to open on your phone
+without the preview proxy), enable GitHub Pages on the repository: Settings →
+Pages → Source "Deploy from a branch" → branch `auto/dev`, folder `/docs`. The
+board would then be at `https://sparkxt-0318.github.io/wildfireguardian/auto/dashboard.html`.
+The repository is already public, so this exposes nothing new. Not required.
