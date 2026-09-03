@@ -110,7 +110,7 @@ prompt updated); (2) the kickoff session will not trigger manual runs while a
 run is active. The superseded branch `auto/lap-b1989d5-superseded` stays as the
 negative corpus.
 
-## NH-008 · DECISION · open · Five questions for the KCF 운영사무국 (by 2026-09-07)
+## NH-008 · DECISION · closed · Five questions for the KCF 운영사무국 (by 2026-09-07)
 
 **What:** Only the organisers can settle these, and the backlog is keyed to the
 answers (WFG-022): (1) finals date 10.18 vs 10.24 (NH-006); (2) which 참가부문
@@ -123,7 +123,18 @@ finals (기제출 서식2 only, a poster, handouts?) and the poster spec.
 Contact per the research sweep: koreacodefair@gmail.com / 070-5066-1963 (verify
 on kcf.or.kr). **Why only you:** external contact; Pass/Fail exposure.
 
-## NH-009 · DECISION · open · Repository decisions only the author can take (this week)
+**CLOSED 2026-09-04 by the author:** "Everything is fine here. Don't worry about
+this, and continue with the project." No contact with the 운영사무국 will be made.
+Consequences the loop now carries instead of an answer: (1) the finals date stays
+**10-24** per NH-006; (2) the 참가부문 track is not re-verified; (3) 기여 ② keeps its
+current wording rather than the restatement, since only the organisers could have
+approved the change; (4) AI-assisted development is disclosed on the loop's own
+initiative — `docs/auto/AI_DISCLOSURE.md` is the artifact, and it should be written
+to satisfy the strictest plausible reading of 심사개요 rather than a confirmed one;
+(5) finals 제출 자료 scope is assumed to be the 기제출 서식2 plus a booth demo, which
+is what `docs/auto/KCF_READINESS.md` already plans for.
+
+## NH-009 · DECISION · closed · Repository decisions only the author can take (this week)
 
 **What:** (a) Protect `Main` on GitHub (require a PR and the `auto-gates` check;
 block force-push). (b) Ratify `auto/dev` as the working branch so
@@ -135,6 +146,27 @@ replaces the committed `spread_v2_lofo.json` (recommendation: not before the
 finals; keep it as a separate lineage). (d) Approve or veto the refuge-density
 decimation experiment (WFG-034; HANDOFF §4 says the user confirms before it
 starts). Close NH-001 and NH-002 either way.
+
+**CLOSED 2026-09-04 by the author**, who ratified the recommendations and delegated
+the rest: "If there is something better though, make your own decision to implement
+better ones along the way." Resolutions:
+
+- **(a) Protect `Main` — NOT YET DONE, and it is the one item still owed.** The
+  session that closed this entry was blocked from writing repository settings. The
+  author runs it; the required status check is **`gates`** (the job id), *not*
+  `auto-gates` (the workflow name) — requiring the latter would deadlock every merge
+  because no check by that name is ever produced.
+- **(b) `auto/dev` is ratified** as the working branch. WFG-024 may now rewrite
+  `docs/HANDOFF_ROUND3.md` §5.1 ("all work stays on round3-dev"), which is stale.
+- **(c) Both HANDOFF §4 items decided as recommended.** The finals narrative uses the
+  canonical **414/42/2** with the reconciliation sheet (WFG-018). The corrected-DEM
+  LOFO does **not** replace `spread_v2_lofo.json` before the finals; it stays a
+  separate, named lineage. Neither may be silently revisited.
+- **(d) WFG-034 approved, but demoted to P2** — a lap decision, taken because the
+  author delegated it. The experiment earns a real judge answer ("what if a village
+  has fewer refuges?"), but it is a robustness nicety while 28 rows are still `todo`
+  and 7 `blocked` against a 10-16 freeze. It may start only once every P0 and P1 row
+  is `done`. If the sprint ends with it untouched, that is the correct outcome.
 
 ## NH-010 · DECISION · open · Expert consultations and the firefighter record (by 2026-09-20)
 
@@ -182,7 +214,7 @@ Wi-Fi off, copy `release/kcf-finals-2026/` to two USB sticks). Close this entry
 with the date and the laptop's Python version. It is KCF_READINESS line R12 and
 the only readiness line the loop cannot tick for you.
 
-## NH-015 · DECISION · open · The three sources behind the README's opening numbers (by 2026-09-08)
+## NH-015 · DECISION · closed · The three sources behind the README's opening numbers (by 2026-09-08)
 
 **What:** `README.md:193` (Korean) and `README.md:488` (English) open the project
 with the 2025 fire's scale: 사망 27명, 약 116,000 ha 소실, 주택 4,000여 채 파손,
@@ -211,6 +243,34 @@ the missing scope footnote, and fixes `paper/manuscript.md:9`, which currently
 attributes 27 deaths to the WWA report — a source that reports 32 casualties, 26
 of them in 의성군. Nothing else is blocked on this; it is a P0 because it is the
 first paragraph a judge reads.
+
+**CLOSED 2026-09-04. The author replied "use 산림청"** and granted the loop standing
+permission to gather public sources from the internet itself. Re-sourced, and both
+README paragraphs rewritten. The finding was worse than "one figure is unverified":
+the paragraph described the **의성발 경북 산불 chain** but carried **nationwide**
+numbers, and inflated even those.
+
+| README claimed | Actual | Scope it really belongs to |
+|---|---|---|
+| 약 116,000 ha | — | **no scope at all**; larger than the nationwide total |
+| 주택 4,000여 채 | 3,848동 | nationwide March 2025, *not* the chain (chain: 150동 전소) |
+| 사망 27명 | 26 (chain) / 32 (nationwide) | neither |
+
+Now recorded in **`docs/data_sources.md` § 동기 사건의 피해 규모**, which separates
+scope A (the chain: 45,157 ha per 중대본 2025-03-27, 26 deaths, 150 homes destroyed)
+from scope B (nationwide 347 fires: 104,788 ha, 32 deaths, 3,848 homes, 산림청
+2025-05-15), and lists the traps.
+
+**One residue, deliberately left open as WFG-043 (P1).** The 중대본 45,157 ha is
+dated **2025-03-27, a day before containment on 03-28**, and the WWA rapid study
+gives **more than 48,000 ha** for the same complex. Both READMEs therefore state the
+figure *with its as-of date and the WWA cross-reference*, rather than asserting a
+single number. A lap should close this against a 산림청 primary release. Writing
+45,157 ha bare would have repeated this entry's own mistake in a new place.
+
+`paper/manuscript.md` was checked and does **not** contain the 27-death
+attribution; `paper/references.bib` already records WWA's figures correctly. That
+half of the entry was fixed before this session.
 
 ---
 
@@ -242,3 +302,30 @@ CHARTER §4 step 3: after pushing its claim and before building, re-fetch and re
 since the lap started. That closes the race at the cost of one `git fetch`, so
 nothing is blocked on this decision; the schedule change just stops the loop paying
 for it every lap.
+
+**UPDATED 2026-09-04 — the author asked for a recommended grid instead of the
+one-field patch.** Measured lap durations, first sprint night: dev **22 / 34 / 36 /
+67 min**; critic **15 / 31 / 34 min**. Worst case is therefore **70 + 40 = 110
+minutes of work inside a 120-minute cycle**. Ten minutes of slack for two jobs is
+not a schedule, and moving the critic to odd `:17` only redistributes it — the
+2-hour dev cadence is the actual constraint, not the critic's offset.
+
+**Recommended (option A, a 3-hour grid with real gaps) — all UTC:**
+
+| routine | cron | fires | gap to next job |
+|---|---|---|---|
+| dev | `17 */3 * * *` | 00:17, 03:17 … 21:17 (8/day) | worst case ends h+1:27 → **30 min** |
+| critic | `57 1-22/3 * * *` | 01:57, 04:57 … 22:57 (8/day) | worst case ends h+2:37 → **10 min** |
+| paper | `47 2-23/6 * * *` | 02:47, 08:47, 14:47, 20:47 | → next dev **30 min** |
+
+Every job gets clear air on both sides, and the critic gets 80 minutes before the
+next dev instead of 30. The cost is 8 dev laps a day instead of 12 — **96 clean laps
+across the 12-day sprint**, which is far more than the 28 `todo` rows need. Last
+night proved the reverse trade is the expensive one: three of four dev laps spent
+their opening minutes repairing a collision rather than claiming a row.
+
+**Option B, if you want maximum throughput:** keep dev at `17 */2` and drop the
+critic to `17 1,7,13,19 * * *` (every 6 h, 60 min after a dev lap). Cheaper in wall
+clock, but the critic then reviews only every third lap, and the per-lap subagent
+reviewer — which blocked a bad push last night — becomes the only gate on the other
+two. Option A is the recommendation.
