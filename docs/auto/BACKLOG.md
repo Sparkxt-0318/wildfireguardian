@@ -89,6 +89,35 @@ and therefore ERRORS on a clean clone. The guard was added at
 `tests/test_spread_v2_xgb.py:222` and it skips. The note now says so, and records
 the module-level collection effect above.
 
+**Lap 20260903T0534Z — the same two findings, reached independently, plus one
+change.** This lap read `auto-gates` run
+[33718108879](https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/33718108879)
+directly and diagnosed the count gap the same way, before seeing that the lap
+above had already written both up; nothing above is superseded. What it adds:
+
+- [`docs/clean_clone_gates.md`](../clean_clone_gates.md) — the standing artifact
+  for this row: method, gate table, the 54 skips grouped by cause, the
+  1,115 + 1 = 1,116 vs 1,120 arithmetic, and a caveats section saying what a
+  green clean clone does NOT show (the 37 data-gated skips are exactly the tests
+  that re-derive numbers from raw inputs, so it proves consistency, not
+  reproduction).
+- One test split. `test_weather_basis_is_derived_from_committed_data_not_a_literal`
+  asserted both that the basis is *derived* from the git-ignored archive and that
+  it is *never typed into the source*; a single `skipif` took the second out of
+  every clean clone, which is exactly where hard-coding the date is the tempting
+  fix. Now two tests, and the guard runs everywhere (+1 collected).
+- `scripts/auto/report.py`'s backlog counter matched only a bare status word, so
+  every row the loop had started or finished vanished from the counts in its own
+  report.
+
+⚠ **This lap and the one above overlapped almost entirely.** Both fetched
+`auto/dev` at `017c9ec` and both fixed the same five tests. This one discarded
+its duplicate (preserved at `auto/lap-b1989d5-superseded`, nothing deleted)
+because the landed fixes are better: they keep the old-flat-path and tamper
+assertions running in CI rather than blanket-skipping. Filed as **NH-007** —
+the charter's "the later lap takes the next row" cannot work while a row is
+claimed only by the commit a lap pushes at the end.
+
 ### WFG-002 — Judge Q&A bank v2
 Start from `docs/auto/research/RESEARCH_BRIEF_2026-09-03.md` §(c) and the author's
 예상질의 notes (outside the repo; summarised in the brief). Each entry: the

@@ -70,3 +70,26 @@ backlog priorities and the 10-10 freeze are set against 10.18; if the fair moved
 to 10.24 the freeze can slide to 10-16. Reply with the confirmed date (or
 close this entry with the date) and the loop will re-plan. Nothing else depends
 on it.
+
+## NH-007 · DECISION · open · Two dev laps ran at once and duplicated a row
+
+**What:** On 2026-09-03 two `wfg-autoloop-dev` sessions overlapped almost
+entirely (`session_01Xi39Zu…` reported at 05:14Z; this one bootstrapped at
+05:04Z and reported at 05:34Z).
+Both fetched `auto/dev` at `017c9ec`, both claimed WFG-001, and both fixed the
+same five tests. The second discarded its duplicate (preserved at
+`auto/lap-b1989d5-superseded`) and salvaged the one change that was additive,
+but roughly a lap's worth of sandbox time went into work that already existed.
+
+**Why it needs you:** the charter says "if two laps overlap, the later one takes
+the next row" (§4.3), and that rule cannot work as written — a lap marks its row
+`in-progress` only in a commit it pushes at the END, so a concurrent lap sees a
+`todo` row for the whole of its run. The loop cannot fix the schedule itself.
+Either (a) confirm one dev routine on a 6-hour cadence and cancel any duplicate
+on https://claude.ai/code/routines, or (b) keep two and say so, in which case the
+next infra row should add a real claim mechanism (a lightweight lock pushed to
+`auto/dev` before the build, not after).
+
+**Until then:** the loop re-fetches `origin/auto/dev` immediately before
+claiming a row and again before its first commit (MEMO 2026-09-03), which
+narrows the window but does not close it.

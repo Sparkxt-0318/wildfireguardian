@@ -79,13 +79,24 @@ def test_replay_and_live_banners_are_distinguishable():
     assert r != live
 
 
+def test_the_weather_basis_is_never_typed_into_the_source():
+    """The half of the guard that reads no data, so it runs in every clone.
+
+    ⚠ Split out on purpose. The derivation below needs the git-ignored
+    detections archive and can only skip without it — and if both assertions
+    shared one test, the one that catches the regression would skip with it,
+    in exactly the environment where hard-coding the date is the tempting fix.
+    A skipif belongs on a test whose assertions ALL need the absent input.
+    """
+    src = inspect.getsource(pipeline.weather_basis)
+    assert "2025-03-25" not in src, "the basis must be read, never typed"
+
+
 @pytest.mark.skipif(not ARCHIVE.exists(), reason="detections archive not present")
 def test_weather_basis_is_derived_from_committed_data_not_a_literal():
     basis, meta = pipeline.weather_basis("yeongdeok_2025", repo=REPO)
     assert basis == "2025-03-25 12:25 UTC"
     assert meta["derived_from"].endswith("yeongdeok_2025_detections.csv")
-    src = inspect.getsource(pipeline.weather_basis)
-    assert "2025-03-25" not in src, "the basis must be read, never typed"
 
 
 # ---------------------------------------------------------------------------

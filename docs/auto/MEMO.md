@@ -32,3 +32,26 @@ mood) · evidence.
   `check_gate_invocations.py` cannot see a command typed into a session.
   Gate: capture `gates.py` into a file, read `$?`, and push only on 0; never
   pipe it. Evidence: commits `14f6870` (red) and `953eb6c` (fix).
+- 2026-09-03 · dev · **`git fetch` at step 0 is a snapshot, not a lock — re-fetch
+  before you build.** Two dev laps fetched `auto/dev` at `017c9ec` minutes apart
+  and both fixed the same five tests; the second discovered the first's
+  `c42287e` only when it checked GitHub Actions, after a full build and two
+  20-minute gate runs. **Gate for the next lap:** re-run `git fetch origin` and
+  compare `origin/auto/dev` immediately BEFORE claiming a row and again before
+  the first commit — a row marked `in-progress` by a lap that has already ended
+  is not a reservation, and the remote is the only reservation there is.
+  Evidence: `auto/lap-b1989d5-superseded`, and BACKLOG WFG-001's lap notes.
+- 2026-09-03 · dev · **A module-level `importorskip` is a COLLECTION-time skip:
+  one reported outcome standing in for every test in the file.** That is the
+  whole of the sandbox-vs-laptop 1116/1120 gap the previous lap left open —
+  `tests/test_empirical_interaction.py` holds five tests behind one line-12
+  guard. **Anti-pattern:** reconciling suite counts by comparing pass totals.
+  Compare `--collect-only` counts, then add the collection-level skips back.
+  Evidence: `docs/clean_clone_gates.md` §"The four missing outcomes".
+- 2026-09-03 · dev · **A `skipif` belongs on a test whose assertions ALL need
+  the absent input.** `test_weather_basis_is_derived_from_committed_data_not_a_literal`
+  asserted both that the basis is derived (needs the git-ignored archive) and
+  that it is never typed into the source (needs nothing); one `skipif` took both
+  out of every clean clone, which is exactly where hard-coding the date is the
+  tempting fix. Split, and the guard survives. Evidence:
+  `tests/test_live_pipeline.py::test_the_weather_basis_is_never_typed_into_the_source`.
