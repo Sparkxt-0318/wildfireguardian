@@ -129,3 +129,15 @@ mood) · evidence.
   byte-compile them (`python -m compileall -q scripts/auto`) before relying on
   a lap's report. Evidence: this lap's first `report.py` invocation, and the
   two hoisted-variable fixes.
+- 2026-09-03 · dev · **A cloud lap cannot reliably attach the board to its own
+  email, and should stop pretending it can.** The routine prompt asks for
+  `docs/auto/dashboard.html` attached as base64. The Gmail tool takes attachment
+  content only as an inline string, so the agent must hand-copy ~42 KB of base64
+  through a tool call, with no way to verify the result afterwards — and one
+  wrong character corrupts everything after it, silently. This lap sent the full
+  report and a pointer to the committed board instead, and said why in the email.
+  **Gate:** attach from an agent turn only what can be verified after sending, or
+  what is small enough to re-derive by eye. The deterministic path is the
+  `report-email` workflow (NH-001's three secrets), which also could not have run
+  until this lap's `report.py` fix. Evidence: this lap's send, and the truncated
+  read of the base64 file.
