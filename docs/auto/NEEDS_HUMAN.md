@@ -59,3 +59,14 @@ https://business.juso.go.kr (도로명주소 전자지도 → 건물) and place 
 `data/raw/juso_buildings/`, the loop can run the real-footprint replacement it
 already scripted. The loop will first check whether an open global dataset covers
 the area (see backlog WFG-013) so this may close itself.
+
+## NH-006 · DECISION · open · Confirm the finals date: 10.18 (your notice) vs 10.24 (June schedule post)
+
+**What:** The finals notice you supplied says booth setup is on the day itself,
+**10.18**, with judging from 10:30 and close at 18:00. The research sweep found a
+KCF "전체 일정 공지" post dated 2026-06-24 (kcf.or.kr/84, idx 171991931) that lists
+the finals as **10.24 (Sat), 김대중컨벤션센터**, results 10.30 14:00. The charter,
+backlog priorities and the 10-10 freeze are set against 10.18; if the fair moved
+to 10.24 the freeze can slide to 10-16. Reply with the confirmed date (or
+close this entry with the date) and the loop will re-plan. Nothing else depends
+on it.
