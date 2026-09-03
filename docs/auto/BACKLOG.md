@@ -15,7 +15,7 @@ proposal demoted keep their IDs so earlier reports still resolve.
 |---|---|---|---|---|---|---|---|
 | WFG-022 | P0 | KCF | Five questions to the KCF 운영사무국 (date, track, 기여 ② restatement, AI disclosure, 제출 자료 scope) | blocked(human) | **false** | hours | Pass/Fail · all rows |
 | WFG-023 | P0 | infra | Protect `Main`; ratify `auto/dev`; decide the two HANDOFF §4 items; approve/veto decimation; close NH-001/002/006 | blocked(human) | **false** | hours | — |
-| WFG-018 | P0 | KCF | 제출본 대비 정본 reconciliation sheet as NEAR-labelled prose (Korean, one page) | in-progress(20260903T0624Z) | true | hours | 제출 자료 · 데이터 해석 |
+| WFG-018 | P0 | KCF | 제출본 대비 정본 reconciliation sheet as NEAR-labelled prose (Korean, one page) | done(20260903T0653Z) | true | hours | 제출 자료 · 데이터 해석 |
 | WFG-019 | P0 | science | Operating-point evidence package: per-fire recall/FNR at 0.3, PR curve, nested LOFO threshold calibration as a negative result, MODEL_CARD appendix | todo | true | one lap | 데이터 수집·분석·해석 · 설계와 방법론 |
 | WFG-002 | P0 | KCF | Judge Q&A bank v2 (**revise**: corrected numbers, four new questions, deprecated phrasings purged) | todo | true | one lap | 연구 목적 · 설계와 방법론 · 데이터 해석 |
 | WFG-004 | P0 | KCF | SSOT sweep (**revise**: fix README:731, reconcile `fold_sizes.md` vs `NUMBERS.json` on the primary AUC, annotate superseded values) | todo | true | one lap | 제출 자료 |
@@ -38,6 +38,7 @@ proposal demoted keep their IDs so earlier reports still resolve.
 | WFG-029 | P1 | KCF | One recorded email send from a Shanghai-workable path (agent builds Gmail-API/OAuth adapter; student authorises once) | todo | partial | hours | 구현 및 유용성 · 제출 자료 |
 | WFG-030 | P1 | infra | Report-number check: every number in `docs/auto/reports/*.md` and `JUDGE_QA.md` must grep to a registry key or artifact | todo | true | hours | 데이터 해석 (재현) |
 | WFG-031 | P1 | infra | `CITATION.cff` with true fields (no fabricated dates) | todo | true | minutes | 제출 자료 (출처) |
+| WFG-036 | P1 | infra | `scripts/build_numbers.py` overwrites the registry with 65 of its 278 entries — make it refuse, or make it merge | todo | true | hours | 데이터 해석 (재현) |
 | WFG-011 | P2 | ISEF | ISEF plan memo (**revise**: route-existence questions, SFTD base rate, age rule, hand-written documents) | todo | true | one lap | — |
 | WFG-032 | P2 | science | Leak-free 영덕 fold + hindsight-oracle routing arm (agent writes the script; student runs on the Mac) | todo | partial | one lap + one Mac day | 데이터 해석 · IEEE Table V |
 | WFG-033 | P2 | science | Coupling-ablation routing-only arms on committed hazard fields (fire-blind / static perimeter + buffer / spread_v2), three regions (absorbs WFG-012) | todo | true | two laps | 설계와 방법론 · 데이터 해석 |
@@ -159,6 +160,26 @@ claimed only by the commit a lap pushes at the end.
 - **Constraints:** every retired literal must carry a `scripts/check_forbidden.py` NEAR label or the file fails `make check-forbidden`; do NOT register retired values in `NUMBERS.json` (§5.5, §5.20; `check_number_collisions.py` has no "submitted lineage" class); do NOT put reverted-field figures on `web/finals.html` unless the student changes gate policy in writing; do not edit the 서식 files (outside the repo). Every 영덕 rate carries the 32.6% caveat.
 - **Done when:** the file exists in Korean, `make verify` and `make check-forbidden` pass, every current value in it greps to a `NUMBERS.json` key, and `docs/auto/JUDGE_QA.md` §0 links to it instead of duplicating the table.
 
+**Lap 20260903T0653Z — done.** `docs/submission_reconciliation.md` (Korean, printable as
+one double-sided sheet: eleven-row table on the front, 30-second spoken lines on the back),
+`tests/test_submission_reconciliation.py` (4 tests), JUDGE_QA §0 repointed, `gates.py
+--mode full` exit 0. Four things worth carrying forward:
+
+1. **18 values registered** to make the done-when's "every current value greps to a key"
+   true: `mlbase_*` ×6, `farband_*` ×4, `calib_*` ×4, `canonhaz_core_growth_pct`,
+   `demcorr_mean_of_folds_delta` / `_pooled_delta`,
+   `rescue_unreachable_delay_row_cutoff_0p7`. Registry 260 → 278. Retired values are NOT
+   registered, per the constraint.
+2. **A new arm, `A_reconciliation`**, declared in `docs/arm_protocol.json`. Registering
+   already-computed values still needs an arm, and it cannot be `A` — that one is frozen
+   and `check_arm_isolation` stops a new key claiming it.
+3. **249 → 1,036 core cells cannot be registered.** Their key is `cells_ge_0.5_per_slice`
+   and the registry's path resolver splits on `.`. The growth percentage registers; the
+   counts are cited to the artifact and the limitation is stated in the sheet.
+4. **A key name is part of the collision gate.** `farband_pooled_auc_committed` turned
+   three unrelated lines red on the anchor words "committed / pooled / auc"; renaming it
+   `farband_pooled_auc_precorrection` cleared them without editing a document.
+
 ### WFG-019 · P0 · science · Operating-point evidence package (incl. the threshold-guarantee negative result)
 - **What:** new script `scripts/operating_point_evidence.py` reading `data/processed/spread_v2_lofo_oof_cells.csv.gz` (151,904 rows, 2,989 positives; per-fire positives 8/24/34/652/769/1,502) and `data/processed/oof_classification_metrics.json` (51-point PR curve). Compute and write `data/processed/operating_point/per_fire_recall.json`: per fire, `n_positive`, recall/FNR at the committed 0.3 (expected 1.000/1.000/1.000/0.977/0.959/0.544 for gangneung/hongseong/miryang/uiseong/uljin/yeongdeok — recompute, do not copy), max OOF probability per fire (expected 0.024/0.296/0.369 on the three small fires), pooled recall 0.138 and mean-of-folds 0.0867 cross-checked against the existing keys `oof_pooled_recall_at_operating_threshold` / `oof_mean_of_folds_recall_at_operating_threshold`. Then the nested leave-one-fire-out threshold-calibration table: for each held-out fire, λ chosen so the other five fires' OOF FNR ≤ 0.2 (a) without and (b) with the conformal finite-sample correction 1/(n+1) with n = 5 (Angelopoulos et al. 2024, https://proceedings.iclr.cc/paper_files/paper/2024/file/f3549ef9b5ff520a7e41ff3cc306ab2b-Paper-Conference.pdf), reporting held-out FNR and the fraction of all cells flagged (prevalence 1.97%). State the leakage caveat (OOF probabilities for fire g come from models that saw fire f). Write `docs/operating_point.md`: "AUC ranks, recall counts"; the per-step `advance_threshold` (forward simulation) vs cumulative-field `p_cut` (router) distinction so recall is not misread as the routing field's miss rate; and the conclusion as a negative result: no finite-sample FNR guarantee is possible at n = 6 and any bound-satisfying λ turns the hazard field into a near-blanket mask; the operating point stays a ranking-driven forward simulation and 0.3 stays unchanged. Append the same section to `docs/MODEL_CARD.md` (append only; no committed value edited). Draw the PR-curve figure with the 0.3 point and the F1-optimal 0.14 point to a NEW path (e.g. `docs/figures/auto/pr_curve_operating_point.png`; §5.3 forbids regenerating existing figures, not adding). One test with a synthetic OOF frame.
 - **Rubric rows:** 데이터 수집·분석·해석 (수학·통계의 적절한 적용, 논리적 해석), 설계와 방법론.
@@ -174,7 +195,7 @@ claimed only by the commit a lap pushes at the end.
 - **Done when:** ≥ 30 questions; a grep for the purged strings returns nothing; the critic lap's drill finds no P0 question without a file; the student has been told which answers are drafts.
 
 ### WFG-004 · P0 · KCF · SSOT sweep — revise
-- **What:** as written, plus: fix `README.md:731` "6 → 34" to the [6, 11, 24, 51, 66] row from `rescue_verify.json` (registered `rescue_unreachable_count` covers 24; register the delay row if not already); reconcile `docs/fold_sizes.md` ("pooled AUC is the primary indicator") with `docs/NUMBERS.json`'s note ("MEAN-OF-FOLDS, not pooled … never present one as the other") — one statement of which is primary, annotated in both; confirm README lines 197/494 say SFTD (done at 30ed00a); annotate the two HGB means (0.890 ± 0.107 in `spread_v2_lofo.json` vs 0.894 ± 0.092 in `ml_baselines.json`) with why they differ.
+- **What:** as written, plus: fix `README.md:731` "6 → 34" to the [6, 11, 24, 51, 66] row from `rescue_verify.json` (registered `rescue_unreachable_count` covers 24; register the delay row if not already); reconcile `docs/fold_sizes.md` ("pooled AUC is the primary indicator") with `docs/NUMBERS.json`'s note ("MEAN-OF-FOLDS, not pooled … never present one as the other") — one statement of which is primary, annotated in both; confirm README lines 197/494 say SFTD (done at 30ed00a); annotate the two HGB means (0.890 ± 0.107 in `spread_v2_lofo.json` vs 0.894 ± 0.092 in `ml_baselines.json`) with why they differ — **answered by WFG-018**: `ml_baselines.json`'s `hist_gbm` row IS the corrected-DEM lineage (it equals that file's own `dem_corrected_reference.mean_of_folds`), so they are two lineages, not two readings of one; both are now registered (`mlbase_hgb_mean_of_folds_auc`, `lofo_mean_of_folds_auc`) and `docs/submission_reconciliation.md` §"헷갈리기 쉬운 세 지점" states it. **Found by the WFG-018 lap, still open, not fixed there:** `docs/HANDOFF_ROUND3.md` §1.3 says the 의성·안동 time-aware-only share is "nearly **seven times** Yeongdeok's" — that ratio is 24.73/3.70 = 6.7 on the RETIRED share; against the canonical 9.17 % it is 2.7×. The same deprecated phrasing sits in `docs/auto/JUDGE_QA.md` Q7 (already on WFG-002's purge list). HANDOFF is not, so fix it here.
 - **Effort:** one lap. **agent_doable:** true.
 - **Constraints:** annotate, never delete; README Round-2 section untouched; `make verify` after every prose edit.
 - **Done when:** `check_number_collisions.py --report` shows 0 unmarked hits; an `ssotize` audit report is committed listing every quantity with its single home.
@@ -251,6 +272,27 @@ claimed only by the commit a lap pushes at the end.
 ### WFG-031 · P1 · infra · `CITATION.cff`
 - **What:** cff-version 1.2.0; title, `type: software`, author Park, Siyeong (Shanghai American School Puxi), repository-code URL, license as in `LICENSE`, keywords; `version`/`date-released` set only at the freeze tag (no invented date); `doi` added after the student mints it (WFG-015).
 - **Effort:** minutes. **agent_doable:** true. **Done when:** file validates (`cffconvert --validate` or the GitHub citation widget renders).
+
+### WFG-036 · P1 · infra · `build_numbers.py` would destroy the registry it claims to build
+- **What:** `scripts/build_numbers.py` defines **65** entries and ends with an
+  unconditional `OUT.write_text(...)` over `docs/NUMBERS.json`, which currently holds
+  **278**. Every entry added since roughly Session 12 went into the JSON directly and is
+  gated by `verify_numbers.py`'s per-entry `check` block, not by the builder. So the one
+  command CHARTER §3 names as the registration path silently deletes ~77 % of the
+  registry, and `make verify` would then pass on the survivors. Found by the WFG-018 lap,
+  which needed to register 18 values and had to establish the real path first.
+- **Options (pick one, in writing):** (a) make it **refuse** — read the existing file, and
+  exit non-zero if it would drop any key, so it becomes a checker rather than a builder;
+  (b) make it **merge** — keep hand-added entries and rebuild only the keys it owns,
+  which needs a marker on the entries it owns; (c) **retire** it to `scripts/legacy/` with
+  a header saying what replaced it, and correct CHARTER §3 to describe the real path.
+  (a) is the cheapest and loses nothing: the builder's value now is as a second derivation
+  of the 65 oldest numbers.
+- **Effort:** hours. **agent_doable:** true.
+- **Constraints:** never run it as-is; do not delete it (CHARTER §3 rule 7 — archive);
+  whichever option is taken, CHARTER §3's sentence must be corrected in the same commit.
+- **Done when:** running the script on a clean tree cannot reduce the entry count; a test
+  asserts that; `make verify` green; CHARTER §3 says what the registration path actually is.
 
 ### WFG-011 · P2 · ISEF · ISEF plan memo — revise
 - **What:** `docs/auto/research/ISEF_PLAN.md`: route-existence questions and their answers (KCF 은상/동상 → delegation; interview date; eligibility of a student enrolled outside Korea — all UNVERIFIED until the 사무국 answers); category recommendation SFTD (Algorithms/HMC) with the base rate stated (applied decision-support pipelines in SOFT/SFTD 2023–2026: 8 of 10 unplaced; SFTD059T unplaced) and EAEV as non-target (FireChain unplaced); 12-month window (start 2026-05-27; freeze ~2027-05-01; ISEF 2027 LA 8–14 May); Form 2A; Display & Safety (no internet, no URLs/QR, ≤ 100 Wh, frozen digital demo, attribution lines for OSM/ERA5/FIRMS/SRTM/WorldCover, "created by Finalist using …"); human-participants position (no study this cycle; consultations as expert feedback); age rule 만 15세 이상 19세 미만 (namu wiki; UNVERIFIED against the affiliate); the "hand-written only" list; what the loop may and may not do after the affiliate selection (no new variables or procedures).

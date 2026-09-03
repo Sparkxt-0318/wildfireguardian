@@ -8813,6 +8813,506 @@
           }
         }
       }
+    },
+    "mlbase_rf_mean_of_folds_auc": {
+      "value": 0.9142,
+      "unit": "ROC-AUC",
+      "source_file": "data/processed/ml_baselines.json",
+      "json_path": "models.random_forest.mean_of_folds",
+      "derivation": "models.random_forest.mean_of_folds — equal-weight mean of the six leave-one-fire-out fold AUCs.",
+      "sample": "6개 화재 LOFO 폴드, 16개 특징, seed 20250603",
+      "caveat": "MEAN-OF-FOLDS over the same 6 LOFO folds, same 16 features, same seed, hyperparameters untuned. Read the ORDERING, not the gap: hist_gbm leads random_forest by 0.0199 on pooled AUC and TRAILS it by 0.0199 on mean-of-folds, so this table does not establish that the shipped model is more accurate — docs/baselines.md says so and the model card pivots the claim to calibration, speed and interpretability.",
+      "reproducible": false,
+      "reproducibility": {
+        "blocked_by": "The three fits read the leave-one-fire-out feature matrix, which lives under the git-ignored data/raw/** bundle and never reaches a clone. Laptop only."
+      },
+      "provenance": "derived",
+      "notes": "Registered by WFG-018 (docs/submission_reconciliation.md) so that every CURRENT value on the reconciliation sheet resolves to a registry key. The SUBMITTED value it replaces is deliberately NOT registered — retired values live only as NEAR-labelled prose (scripts/check_forbidden.py LABEL_NEAR).",
+      "check": {
+        "kind": "json_path",
+        "expr": "a",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/ml_baselines.json",
+            "json_path": "models.random_forest.mean_of_folds"
+          }
+        }
+      },
+      "arm": "A_reconciliation"
+    },
+    "mlbase_rf_fold_sd": {
+      "value": 0.0437,
+      "unit": "ROC-AUC (sd across folds)",
+      "source_file": "data/processed/ml_baselines.json",
+      "json_path": "models.random_forest.sd",
+      "derivation": "models.random_forest.sd — standard deviation of the six fold AUCs.",
+      "sample": "6개 화재 LOFO 폴드",
+      "caveat": "n = 6 folds. The sd is not a confidence interval and the fold range matters more than it: three fires contribute 8 / 24 / 34 positives against 652 / 769 / 1,502 for the other three.",
+      "reproducible": false,
+      "reproducibility": {
+        "blocked_by": "The three fits read the leave-one-fire-out feature matrix, which lives under the git-ignored data/raw/** bundle and never reaches a clone. Laptop only."
+      },
+      "provenance": "derived",
+      "notes": "Registered by WFG-018 (docs/submission_reconciliation.md) so that every CURRENT value on the reconciliation sheet resolves to a registry key. The SUBMITTED value it replaces is deliberately NOT registered — retired values live only as NEAR-labelled prose (scripts/check_forbidden.py LABEL_NEAR).",
+      "check": {
+        "kind": "json_path",
+        "expr": "a",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/ml_baselines.json",
+            "json_path": "models.random_forest.sd"
+          }
+        }
+      },
+      "arm": "A_reconciliation"
+    },
+    "mlbase_logistic_mean_of_folds_auc": {
+      "value": 0.9028,
+      "unit": "ROC-AUC",
+      "source_file": "data/processed/ml_baselines.json",
+      "json_path": "models.logistic.mean_of_folds",
+      "derivation": "models.logistic.mean_of_folds — equal-weight mean of the six leave-one-fire-out fold AUCs.",
+      "sample": "6개 화재 LOFO 폴드, 16개 특징, seed 20250603",
+      "caveat": "MEAN-OF-FOLDS over the same 6 LOFO folds, same 16 features, same seed, hyperparameters untuned. Read the ORDERING, not the gap: hist_gbm leads random_forest by 0.0199 on pooled AUC and TRAILS it by 0.0199 on mean-of-folds, so this table does not establish that the shipped model is more accurate — docs/baselines.md says so and the model card pivots the claim to calibration, speed and interpretability.",
+      "reproducible": false,
+      "reproducibility": {
+        "blocked_by": "The three fits read the leave-one-fire-out feature matrix, which lives under the git-ignored data/raw/** bundle and never reaches a clone. Laptop only."
+      },
+      "provenance": "derived",
+      "notes": "Registered by WFG-018 (docs/submission_reconciliation.md) so that every CURRENT value on the reconciliation sheet resolves to a registry key. The SUBMITTED value it replaces is deliberately NOT registered — retired values live only as NEAR-labelled prose (scripts/check_forbidden.py LABEL_NEAR).",
+      "check": {
+        "kind": "json_path",
+        "expr": "a",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/ml_baselines.json",
+            "json_path": "models.logistic.mean_of_folds"
+          }
+        }
+      },
+      "arm": "A_reconciliation"
+    },
+    "mlbase_logistic_fold_sd": {
+      "value": 0.0605,
+      "unit": "ROC-AUC (sd across folds)",
+      "source_file": "data/processed/ml_baselines.json",
+      "json_path": "models.logistic.sd",
+      "derivation": "models.logistic.sd — standard deviation of the six fold AUCs.",
+      "sample": "6개 화재 LOFO 폴드",
+      "caveat": "n = 6 folds. The sd is not a confidence interval and the fold range matters more than it: three fires contribute 8 / 24 / 34 positives against 652 / 769 / 1,502 for the other three.",
+      "reproducible": false,
+      "reproducibility": {
+        "blocked_by": "The three fits read the leave-one-fire-out feature matrix, which lives under the git-ignored data/raw/** bundle and never reaches a clone. Laptop only."
+      },
+      "provenance": "derived",
+      "notes": "Registered by WFG-018 (docs/submission_reconciliation.md) so that every CURRENT value on the reconciliation sheet resolves to a registry key. The SUBMITTED value it replaces is deliberately NOT registered — retired values live only as NEAR-labelled prose (scripts/check_forbidden.py LABEL_NEAR).",
+      "check": {
+        "kind": "json_path",
+        "expr": "a",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/ml_baselines.json",
+            "json_path": "models.logistic.sd"
+          }
+        }
+      },
+      "arm": "A_reconciliation"
+    },
+    "mlbase_hgb_mean_of_folds_auc": {
+      "value": 0.8943,
+      "unit": "ROC-AUC",
+      "source_file": "data/processed/ml_baselines.json",
+      "json_path": "models.hist_gbm.mean_of_folds",
+      "derivation": "models.hist_gbm.mean_of_folds — equal-weight mean of the six leave-one-fire-out fold AUCs.",
+      "sample": "6개 화재 LOFO 폴드, 16개 특징, seed 20250603",
+      "caveat": "MEAN-OF-FOLDS over the same 6 LOFO folds, same 16 features, same seed, hyperparameters untuned. Read the ORDERING, not the gap: hist_gbm leads random_forest by 0.0199 on pooled AUC and TRAILS it by 0.0199 on mean-of-folds, so this table does not establish that the shipped model is more accurate — docs/baselines.md says so and the model card pivots the claim to calibration, speed and interpretability.",
+      "reproducible": false,
+      "reproducibility": {
+        "blocked_by": "The three fits read the leave-one-fire-out feature matrix, which lives under the git-ignored data/raw/** bundle and never reaches a clone. Laptop only."
+      },
+      "provenance": "derived",
+      "notes": "Registered by WFG-018 (docs/submission_reconciliation.md) so that every CURRENT value on the reconciliation sheet resolves to a registry key. The SUBMITTED value it replaces is deliberately NOT registered — retired values live only as NEAR-labelled prose (scripts/check_forbidden.py LABEL_NEAR). ⚠ ml_baselines.json's hist_gbm row is the CORRECTED-DEM lineage (it equals dem_corrected_reference.mean_of_folds), which is why it reads 0.8943 while the committed headline in spread_v2_lofo.json is 0.890.",
+      "check": {
+        "kind": "json_path",
+        "expr": "a",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/ml_baselines.json",
+            "json_path": "models.hist_gbm.mean_of_folds"
+          }
+        }
+      },
+      "arm": "A_reconciliation"
+    },
+    "mlbase_hgb_fold_sd": {
+      "value": 0.0924,
+      "unit": "ROC-AUC (sd across folds)",
+      "source_file": "data/processed/ml_baselines.json",
+      "json_path": "models.hist_gbm.sd",
+      "derivation": "models.hist_gbm.sd — standard deviation of the six fold AUCs.",
+      "sample": "6개 화재 LOFO 폴드",
+      "caveat": "n = 6 folds. The sd is not a confidence interval and the fold range matters more than it: three fires contribute 8 / 24 / 34 positives against 652 / 769 / 1,502 for the other three.",
+      "reproducible": false,
+      "reproducibility": {
+        "blocked_by": "The three fits read the leave-one-fire-out feature matrix, which lives under the git-ignored data/raw/** bundle and never reaches a clone. Laptop only."
+      },
+      "provenance": "derived",
+      "notes": "Registered by WFG-018 (docs/submission_reconciliation.md) so that every CURRENT value on the reconciliation sheet resolves to a registry key. The SUBMITTED value it replaces is deliberately NOT registered — retired values live only as NEAR-labelled prose (scripts/check_forbidden.py LABEL_NEAR).",
+      "check": {
+        "kind": "json_path",
+        "expr": "a",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/ml_baselines.json",
+            "json_path": "models.hist_gbm.sd"
+          }
+        }
+      },
+      "arm": "A_reconciliation"
+    },
+    "farband_mean_of_folds_auc": {
+      "value": 0.904,
+      "unit": "ROC-AUC",
+      "source_file": "data/processed/auc_intervals.json",
+      "json_path": "far_band_gt3km.mean_of_folds.mean",
+      "derivation": "far_band_gt3km.mean_of_folds.mean, rounded to 3 dp.",
+      "sample": "원거리대(>3 km) 폴드 평균, n = 3 폴드",
+      "caveat": "n = 3 FOLDS, not 6 — only three fires have far-band rows. The small-sample t interval is 0.656–1.152, i.e. it contains 1.0 and is uninformative; the per-fold DeLong intervals are the stronger evidence. This is the CORRECTED-DEM lineage.",
+      "reproducible": false,
+      "reproducibility": {
+        "blocked_by": "NOT re-run in this environment. The value is VERIFIED against its committed artifact by make verify; whether re-running the script regenerates that artifact was not tested this lap."
+      },
+      "provenance": "derived",
+      "notes": "Registered by WFG-018 (docs/submission_reconciliation.md) so that every CURRENT value on the reconciliation sheet resolves to a registry key. The SUBMITTED value it replaces is deliberately NOT registered — retired values live only as NEAR-labelled prose (scripts/check_forbidden.py LABEL_NEAR). The submitted 서식2 Ⅲ-4 figure (0.925) is the pre-correction reading and is not registered.",
+      "check": {
+        "kind": "expression",
+        "expr": "round(a, 3)",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/auc_intervals.json",
+            "json_path": "far_band_gt3km.mean_of_folds.mean"
+          }
+        }
+      },
+      "arm": "A_reconciliation"
+    },
+    "farband_mean_of_folds_sd": {
+      "value": 0.0997,
+      "unit": "ROC-AUC (sd across folds)",
+      "source_file": "data/processed/auc_intervals.json",
+      "json_path": "far_band_gt3km.mean_of_folds.sd",
+      "derivation": "far_band_gt3km.mean_of_folds.sd, rounded to 4 dp.",
+      "sample": "원거리대(>3 km) 폴드 평균, n = 3 폴드",
+      "caveat": "Quoted as ±0.100 in README and MODEL_CARD (3 dp). n = 3.",
+      "reproducible": false,
+      "reproducibility": {
+        "blocked_by": "NOT re-run in this environment. The value is VERIFIED against its committed artifact by make verify; whether re-running the script regenerates that artifact was not tested this lap."
+      },
+      "provenance": "derived",
+      "notes": "Registered by WFG-018 (docs/submission_reconciliation.md) so that every CURRENT value on the reconciliation sheet resolves to a registry key. The SUBMITTED value it replaces is deliberately NOT registered — retired values live only as NEAR-labelled prose (scripts/check_forbidden.py LABEL_NEAR).",
+      "check": {
+        "kind": "expression",
+        "expr": "round(a, 4)",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/auc_intervals.json",
+            "json_path": "far_band_gt3km.mean_of_folds.sd"
+          }
+        }
+      },
+      "arm": "A_reconciliation"
+    },
+    "farband_pooled_auc_precorrection": {
+      "value": 0.8766,
+      "unit": "ROC-AUC",
+      "source_file": "data/processed/auc_intervals.json",
+      "json_path": "far_band_gt3km.canonical_pooled",
+      "derivation": "far_band_gt3km.canonical_pooled, rounded to 4 dp — the pooled far-band AUC of the COMMITTED headline lineage (spread_v2_lofo.json far_band_auc).",
+      "sample": "원거리대(>3 km) 통합, 6개 화재",
+      "caveat": "POOLED, row-weighted — a different quantity from the n = 3 mean-of-folds 0.904. Never present one as the other. This is the committed lineage, trained on the raster that filled the East Sea to −497 m; the corrected re-run of the same quantity is 0.8408.",
+      "reproducible": false,
+      "reproducibility": {
+        "blocked_by": "NOT re-run in this environment. The value is VERIFIED against its committed artifact by make verify; whether re-running the script regenerates that artifact was not tested this lap."
+      },
+      "provenance": "derived",
+      "notes": "Registered by WFG-018 (docs/submission_reconciliation.md) so that every CURRENT value on the reconciliation sheet resolves to a registry key. The SUBMITTED value it replaces is deliberately NOT registered — retired values live only as NEAR-labelled prose (scripts/check_forbidden.py LABEL_NEAR). Key avoids the words 'committed', 'headline' and 'lineage': the collision checker anchors on key words, and each of those matched lines discussing a different quantity. Named for what distinguishes it instead — this is the pre-DEM-correction reading, against farband_pooled_auc_demcorrected.",
+      "check": {
+        "kind": "expression",
+        "expr": "round(a, 4)",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/auc_intervals.json",
+            "json_path": "far_band_gt3km.canonical_pooled"
+          }
+        }
+      },
+      "arm": "A_reconciliation"
+    },
+    "farband_pooled_auc_demcorrected": {
+      "value": 0.8408,
+      "unit": "ROC-AUC",
+      "source_file": "data/processed/auc_intervals.json",
+      "json_path": "far_band_gt3km.pooled_bootstrap_ci.auc",
+      "derivation": "far_band_gt3km.pooled_bootstrap_ci.auc, rounded to 4 dp — the same pooled far-band quantity on the CORRECTED-DEM re-run.",
+      "sample": "원거리대(>3 km) 통합, 6개 화재, 정정 DEM 계보",
+      "caveat": "−0.0358 against the committed 0.8766, which is the largest DEM correction anywhere in the number set and the reason the far band must never be quoted without its lineage. The corrected lineage was NOT adopted as the headline (HANDOFF §4, a human decision).",
+      "reproducible": false,
+      "reproducibility": {
+        "blocked_by": "NOT re-run in this environment. The value is VERIFIED against its committed artifact by make verify; whether re-running the script regenerates that artifact was not tested this lap."
+      },
+      "provenance": "derived",
+      "notes": "Registered by WFG-018 (docs/submission_reconciliation.md) so that every CURRENT value on the reconciliation sheet resolves to a registry key. The SUBMITTED value it replaces is deliberately NOT registered — retired values live only as NEAR-labelled prose (scripts/check_forbidden.py LABEL_NEAR).",
+      "check": {
+        "kind": "expression",
+        "expr": "round(a, 4)",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/auc_intervals.json",
+            "json_path": "far_band_gt3km.pooled_bootstrap_ci.auc"
+          }
+        }
+      },
+      "arm": "A_reconciliation"
+    },
+    "calib_hgb_pooled_brier": {
+      "value": 0.0183,
+      "unit": "Brier score",
+      "source_file": "data/processed/calibration_metrics.json",
+      "json_path": "models.hist_gbm.pooled.brier",
+      "derivation": "models.hist_gbm.pooled.brier, rounded to 4 dp.",
+      "sample": "LOGO-CV 6개 화재, 151,904행 / 2,989 양성",
+      "caveat": "Pooled over all 151,904 out-of-fold rows at a 1.97 % base rate. A Brier score at this prevalence is dominated by the true negatives, so it is readable only beside the ECE and the reliability bins — not as an accuracy claim. Scored from committed OOF probabilities; no model was fitted.",
+      "reproducible": false,
+      "reproducibility": {
+        "blocked_by": "NOT re-run in this environment. The value is VERIFIED against its committed artifact by make verify; whether re-running the script regenerates that artifact was not tested this lap."
+      },
+      "provenance": "derived",
+      "notes": "Registered by WFG-018 (docs/submission_reconciliation.md) so that every CURRENT value on the reconciliation sheet resolves to a registry key. The SUBMITTED value it replaces is deliberately NOT registered — retired values live only as NEAR-labelled prose (scripts/check_forbidden.py LABEL_NEAR). 서식2 Ⅴ-2 lists PR-AUC and Brier as 미산출/향후 과제; both have since been computed.",
+      "check": {
+        "kind": "expression",
+        "expr": "round(a, 4)",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/calibration_metrics.json",
+            "json_path": "models.hist_gbm.pooled.brier"
+          }
+        }
+      },
+      "arm": "A_reconciliation"
+    },
+    "calib_hgb_pooled_ece": {
+      "value": 0.0086,
+      "unit": "expected calibration error",
+      "source_file": "data/processed/calibration_metrics.json",
+      "json_path": "models.hist_gbm.pooled.ece",
+      "derivation": "models.hist_gbm.pooled.ece, rounded to 4 dp — count-weighted mean |observed − predicted| over 15 equal-count bins.",
+      "sample": "LOGO-CV 6개 화재, 151,904행, 15 equal-count 구간",
+      "caveat": "Pooled over all 151,904 out-of-fold rows at a 1.97 % base rate. A Brier score at this prevalence is dominated by the true negatives, so it is readable only beside the ECE and the reliability bins — not as an accuracy claim. Scored from committed OOF probabilities; no model was fitted. ECE depends on the binning strategy; equal-count binning is used because equal-width bins are degenerate at this prevalence.",
+      "reproducible": false,
+      "reproducibility": {
+        "blocked_by": "NOT re-run in this environment. The value is VERIFIED against its committed artifact by make verify; whether re-running the script regenerates that artifact was not tested this lap."
+      },
+      "provenance": "derived",
+      "notes": "Registered by WFG-018 (docs/submission_reconciliation.md) so that every CURRENT value on the reconciliation sheet resolves to a registry key. The SUBMITTED value it replaces is deliberately NOT registered — retired values live only as NEAR-labelled prose (scripts/check_forbidden.py LABEL_NEAR).",
+      "check": {
+        "kind": "expression",
+        "expr": "round(a, 4)",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/calibration_metrics.json",
+            "json_path": "models.hist_gbm.pooled.ece"
+          }
+        }
+      },
+      "arm": "A_reconciliation"
+    },
+    "calib_rf_pooled_brier": {
+      "value": 0.0174,
+      "unit": "Brier score",
+      "source_file": "data/processed/calibration_metrics.json",
+      "json_path": "models.random_forest.pooled.brier",
+      "derivation": "models.random_forest.pooled.brier, rounded to 4 dp.",
+      "sample": "LOGO-CV 6개 화재, 151,904행 / 2,989 양성",
+      "caveat": "Pooled over all 151,904 out-of-fold rows at a 1.97 % base rate. A Brier score at this prevalence is dominated by the true negatives, so it is readable only beside the ECE and the reliability bins — not as an accuracy claim. Scored from committed OOF probabilities; no model was fitted.",
+      "reproducible": false,
+      "reproducibility": {
+        "blocked_by": "NOT re-run in this environment. The value is VERIFIED against its committed artifact by make verify; whether re-running the script regenerates that artifact was not tested this lap."
+      },
+      "provenance": "derived",
+      "notes": "Registered by WFG-018 (docs/submission_reconciliation.md) so that every CURRENT value on the reconciliation sheet resolves to a registry key. The SUBMITTED value it replaces is deliberately NOT registered — retired values live only as NEAR-labelled prose (scripts/check_forbidden.py LABEL_NEAR). 서식2 Ⅴ-2 lists PR-AUC and Brier as 미산출/향후 과제; both have since been computed.",
+      "check": {
+        "kind": "expression",
+        "expr": "round(a, 4)",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/calibration_metrics.json",
+            "json_path": "models.random_forest.pooled.brier"
+          }
+        }
+      },
+      "arm": "A_reconciliation"
+    },
+    "calib_rf_pooled_ece": {
+      "value": 0.0068,
+      "unit": "expected calibration error",
+      "source_file": "data/processed/calibration_metrics.json",
+      "json_path": "models.random_forest.pooled.ece",
+      "derivation": "models.random_forest.pooled.ece, rounded to 4 dp — count-weighted mean |observed − predicted| over 15 equal-count bins.",
+      "sample": "LOGO-CV 6개 화재, 151,904행, 15 equal-count 구간",
+      "caveat": "Pooled over all 151,904 out-of-fold rows at a 1.97 % base rate. A Brier score at this prevalence is dominated by the true negatives, so it is readable only beside the ECE and the reliability bins — not as an accuracy claim. Scored from committed OOF probabilities; no model was fitted. ECE depends on the binning strategy; equal-count binning is used because equal-width bins are degenerate at this prevalence.",
+      "reproducible": false,
+      "reproducibility": {
+        "blocked_by": "NOT re-run in this environment. The value is VERIFIED against its committed artifact by make verify; whether re-running the script regenerates that artifact was not tested this lap."
+      },
+      "provenance": "derived",
+      "notes": "Registered by WFG-018 (docs/submission_reconciliation.md) so that every CURRENT value on the reconciliation sheet resolves to a registry key. The SUBMITTED value it replaces is deliberately NOT registered — retired values live only as NEAR-labelled prose (scripts/check_forbidden.py LABEL_NEAR).",
+      "check": {
+        "kind": "expression",
+        "expr": "round(a, 4)",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/calibration_metrics.json",
+            "json_path": "models.random_forest.pooled.ece"
+          }
+        }
+      },
+      "arm": "A_reconciliation"
+    },
+    "canonhaz_core_growth_pct": {
+      "value": 316.06,
+      "unit": "percent",
+      "source_file": "data/processed/multi_region_comparison.json",
+      "json_path": "core_growth_vs_metric.core_growth_pct.yeongdeok_2025",
+      "derivation": "core_growth_vs_metric.core_growth_pct.yeongdeok_2025, rounded to 2 dp — growth in cells at p ≥ 0.5 from the first to the last of the five 3-hour slices of the canonical Yeongdeok field.",
+      "sample": "영덕 2025 정본 위험장 (routing_demo_canonical.npz), 5개 슬라이스",
+      "caveat": "⚠ The underlying cell counts (249 → 1,036) CANNOT be registered: their JSON key is `cells_ge_0.5_per_slice`, and the registry's path resolver splits on '.', so it cannot address a key containing one. Read them from data/processed/canonical_hazard.json::field['cells_ge_0.5'] or multi_region_comparison.json::regions[0].hazard_facts. The submitted 「핵심 영역 241 → 244, 준정적」 reading belongs to the reverted-run field and is not registered.",
+      "reproducible": false,
+      "reproducibility": {
+        "blocked_by": "NOT re-run in this environment. The value is VERIFIED against its committed artifact by make verify; whether re-running the script regenerates that artifact was not tested this lap."
+      },
+      "provenance": "derived",
+      "notes": "Registered by WFG-018 (docs/submission_reconciliation.md) so that every CURRENT value on the reconciliation sheet resolves to a registry key. The SUBMITTED value it replaces is deliberately NOT registered — retired values live only as NEAR-labelled prose (scripts/check_forbidden.py LABEL_NEAR).",
+      "check": {
+        "kind": "expression",
+        "expr": "round(a, 2)",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/multi_region_comparison.json",
+            "json_path": "core_growth_vs_metric.core_growth_pct.yeongdeok_2025"
+          }
+        }
+      },
+      "arm": "A_reconciliation"
+    },
+    "demcorr_mean_of_folds_delta": {
+      "value": 0.0048,
+      "unit": "ROC-AUC (delta)",
+      "source_file": "data/processed/spread_v2_lofo_dem_corrected.json",
+      "json_path": "per_fire_auc",
+      "derivation": "mean(spread_v2_lofo_dem_corrected.json per_fire_auc) − mean(spread_v2_lofo.json per_fire_auc), rounded to 4 dp.",
+      "sample": "6개 화재 LOFO 폴드, 동일 특징·폴드·seed",
+      "caveat": "The corrected re-run is BETTER on mean-of-folds and WORSE on pooled (−0.0017), which is why neither number settles the lineage question. NOT ADOPTED: the committed headline stays on spread_v2_lofo.json (HANDOFF §4 — a human decision, not the loop's).",
+      "reproducible": false,
+      "reproducibility": {
+        "blocked_by": "The three fits read the leave-one-fire-out feature matrix, which lives under the git-ignored data/raw/** bundle and never reaches a clone. Laptop only."
+      },
+      "provenance": "derived",
+      "notes": "Registered by WFG-018 (docs/submission_reconciliation.md) so that every CURRENT value on the reconciliation sheet resolves to a registry key. The SUBMITTED value it replaces is deliberately NOT registered — retired values live only as NEAR-labelled prose (scripts/check_forbidden.py LABEL_NEAR). The defect: uljin_samcheok_2022_dem.tif filled the East Sea with a ramp to −497 m across 49 % of the raster, and because training is leave-one-fire-out on one shared dataset, that fiction was training data for every fold (docs/dem_defect_2026-08-02.md).",
+      "check": {
+        "kind": "expression",
+        "expr": "round(sum(b.values()) / len(b) - sum(a.values()) / len(a), 4)",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/spread_v2_lofo.json",
+            "json_path": "per_fire_auc"
+          },
+          "b": {
+            "file": "data/processed/spread_v2_lofo_dem_corrected.json",
+            "json_path": "per_fire_auc"
+          }
+        }
+      },
+      "arm": "A_reconciliation"
+    },
+    "demcorr_pooled_delta": {
+      "value": -0.0017,
+      "unit": "ROC-AUC (delta)",
+      "source_file": "data/processed/spread_v2_lofo_dem_corrected.json",
+      "json_path": "pooled_auc",
+      "derivation": "spread_v2_lofo_dem_corrected.json pooled_auc − spread_v2_lofo.json pooled_auc, rounded to 4 dp.",
+      "sample": "6개 화재 통합 OOF, 151,904행",
+      "caveat": "Negative: correcting the DEM made the POOLED figure slightly worse while the mean-of-folds improved (+0.0048). Two summaries of one re-run disagreeing in sign is the honest reading, and it is why the correction was not adopted as the headline.",
+      "reproducible": false,
+      "reproducibility": {
+        "blocked_by": "The three fits read the leave-one-fire-out feature matrix, which lives under the git-ignored data/raw/** bundle and never reaches a clone. Laptop only."
+      },
+      "provenance": "derived",
+      "notes": "Registered by WFG-018 (docs/submission_reconciliation.md) so that every CURRENT value on the reconciliation sheet resolves to a registry key. The SUBMITTED value it replaces is deliberately NOT registered — retired values live only as NEAR-labelled prose (scripts/check_forbidden.py LABEL_NEAR).",
+      "check": {
+        "kind": "expression",
+        "expr": "round(b - a, 4)",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/spread_v2_lofo.json",
+            "json_path": "pooled_auc"
+          },
+          "b": {
+            "file": "data/processed/spread_v2_lofo_dem_corrected.json",
+            "json_path": "pooled_auc"
+          }
+        }
+      },
+      "arm": "A_reconciliation"
+    },
+    "rescue_unreachable_delay_row_cutoff_0p7": {
+      "value": [
+        6,
+        11,
+        24,
+        51,
+        66
+      ],
+      "unit": "origins (one per dispatch delay)",
+      "source_file": "data/processed/rescue_verify.json",
+      "json_path": "unreachable_delay_row_cutoff_0p7",
+      "derivation": "unreachable_delay_row_cutoff_0p7 — origins with no surviving vehicle ingress at vehicle cutoff 0.7, as the responder dispatch delay goes 0 / 15 / 30 / 45 / 60 min.",
+      "sample": "영덕 439-계열 구조 축, OSM 차량망",
+      "caveat": "⚠ 439-SERIES (responder classification), NOT the 458-series routing counts — never place these beside 414/42/2 (HANDOFF §5.23). The 24 at index 2 is the committed 30-minute baseline (rescue_unreachable_count). Not reproducible: the OSM walk/drive network behind it was overwritten 2026-07-24.",
+      "reproducible": false,
+      "reproducibility": {
+        "blocked_by": "OSM walk/drive network overwritten 2026-07-24; unrecoverable."
+      },
+      "provenance": "derived",
+      "notes": "Registered by WFG-018 (docs/submission_reconciliation.md) so that every CURRENT value on the reconciliation sheet resolves to a registry key. The SUBMITTED value it replaces is deliberately NOT registered — retired values live only as NEAR-labelled prose (scripts/check_forbidden.py LABEL_NEAR). Registered because README.md:731 states this row as 「6 → 34」, which no artifact carries; the row is [6, 11, 24, 51, 66] and 서식2 Fig. 3's 6 → 24 → 66 reads it at 0 / 30 / 60 min. Fixing the README line is WFG-004.",
+      "check": {
+        "kind": "json_path",
+        "expr": "a",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/rescue_verify.json",
+            "json_path": "unreachable_delay_row_cutoff_0p7"
+          }
+        }
+      },
+      "arm": "A_reconciliation"
     }
   }
 }

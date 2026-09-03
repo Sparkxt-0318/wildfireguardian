@@ -91,6 +91,12 @@
       "role": "Session 22. Refuge-placement optimiser over the Layer 0 vulnerability layer: which single site converts the most failing households. Shortest-path search on the committed walk network; fits no model.",
       "control_required": false,
       "reason_no_control": "No model is fitted and no feature count changes, so there is nothing for a noise null to be matched against. The search's own control is the FULL-LAYER VERIFICATION: the top candidate was re-run through the real elliptical hazard with 4 ignitions x 3 scenarios and the saved-household set agreed exactly."
+    },
+    "A_reconciliation": {
+      "n_features": null,
+      "role": "WFG-018 (2026-09-03). Registration of values that were ALREADY computed and committed, so that every current value on docs/submission_reconciliation.md resolves to a registry key. Reads committed artifacts only; fits nothing, re-runs nothing, and changes no default.",
+      "control_required": false,
+      "reason_no_control": "Nothing is estimated, so there is no quantity for a noise null to be matched against — each entry's `check` block re-reads the same number from the same committed artifact that already carried it. ⚠ Tagged separately from 'A' rather than added to it because Arm A is FROZEN and check_arm_isolation verifies its entry count and digests; a new key claiming 'A' is exactly what that gate exists to stop, and it did stop this one. ⚠ RETIRED values (the submitted 438/18/3, 440/17/3, 3.70 %, +1.2 %, 44x) are deliberately NOT registered under this or any arm — they live only as NEAR-labelled prose."
     }
   }
 }

@@ -17,19 +17,25 @@ could not answer from a file and marks them "no evidence yet".
 
 ## 0. The superseded-number list a judge can trip over (서식2 as submitted → repo now)
 
-| Item in 서식2 | Submitted value | Current canonical value | Source |
-|---|---|---|---|
-| Ⅲ-9 459-series split | 459 · 438 / 18 / 3 (`routing_demo.npz`, sha 5bed5026…) | 458 · **414 / 42 / 2** on `routing_demo_canonical.npz` (sha 81b4e4d1…); FA-only 3.70 % → **9.17 %** | HANDOFF §1.1, §2-A; `decision_shift.md` §3.3 (no per-origin ledger for this pair) |
-| Ⅲ-9 "핵심 영역 241→244 셀, 거의 변화 없음" | quasi-static core | core growth **+316 %** (249 → 1,036 cells); the quasi-static reading was a property of the reverted field | HANDOFF §1.1 |
-| Ⅲ-9 잔여 한계 "OSM 간선에 DEM 경사를 적용하지 않아" | not applied | **applied** at 60 m sampling (+26.6 % traversal time), null on buckets | HANDOFF PHASE 2 |
-| Ⅲ-11 ML baseline table | RF 0.920 ± 0.036, LR 0.903, GBM 0.889 ± 0.107 | committed `ml_baselines.json`: RF **0.914 ± 0.044**, LR 0.903 ± 0.060, GBM **0.894 ± 0.092** (ordering unchanged) | README |
-| Ⅲ-4 far-band AUC 0.925 (n=3) | 0.925 | committed `auc_intervals.json` **0.904 ± 0.100**; corrected-DEM pooled far-band 0.8408 (vs 0.877) | README, MODEL_CARD |
-| Ⅴ-2 "PR-AUC·Brier 미산출, 향후 과제" | not computed | **computed**: AP 0.169 vs 0.0197 baseline; Brier 0.0183, ECE 0.0086 (RF 0.0174/0.0068) | `oof_classification_metrics.json`, `calibration_metrics.json` |
-| Ⅲ-6-2 / Fig. 3 "0/30/60분 → 6/24/66곳" | 6→24→66 | README §rescue routing says "6 → 34 as delay goes 0 → 60 min" — **internal inconsistency inside the repo**, UNRESOLVED (which artifact is 34?) | README vs 서식2/개정대조표 |
-| Ⅲ-4 "DEM" lineage of the headline AUC | 0.890 mean-of-folds | unchanged as headline, but trained on a raster with the sea at −497 m; corrected re-run +0.0048 mean-of-folds (not adopted) | HANDOFF §4 |
-| Ⅱ-2 contribution ② "여유 오름차순 우선 출동 배정 목록" | ordering is the contribution | **restated 2026-08-10**: the *information* (`ingress_survival_time_min`) is the contribution; the ordering is only valid when W exceeds corridor closure, and W=75 does not | `dispatch_ordering.md` §0 |
+**The table lives in one place: [`docs/submission_reconciliation.md`](../submission_reconciliation.md)** —
+Korean, one printable A4 page, eleven rows, each with the submitted value, the current
+canonical value, why it moved, what did *not* move, and a 30-second spoken version to
+recite at the booth. It is the sheet to print and carry. Do not restate its rows here;
+a second copy is a second thing to keep in sync, and this file has already drifted from
+it once (WFG-018).
 
-None of these contradicts the submitted *purpose/theme*; all are corrections in the direction the 서식 itself invites (Ⅴ-4 lists most of them as future work). But the student must be able to recite this table without notes, or a judge will conclude the documents were not written by the person at the booth.
+Two things that page settles and that a judge is most likely to probe:
+
+- **459-series split** — 459 · 438 / 18 / 3 as submitted (제출 시점 기록, `routing_demo.npz`)
+  against 458 · **414 / 42 / 2** on the canonical field. There is no per-origin ledger for
+  that pair, so never say "N origins were reclassified" (HANDOFF §5.24), and 18/459 is
+  **3.92 %**, not the 3.70 % that belongs to a different retired run.
+- **README.md:731 is the one place where the repository, not the 서식, is wrong**: it
+  states the delay row as "6 → 34" where `rescue_verify.json` carries
+  `[6, 11, 24, 51, 66]` (registered as `rescue_unreachable_delay_row_cutoff_0p7`).
+  Fixing that line is WFG-004.
+
+None of these contradicts the submitted *purpose/theme*; all are corrections in the direction the 서식 itself invites (Ⅴ-4 lists most of them as future work). But the student must be able to recite that sheet without notes, or a judge will conclude the documents were not written by the person at the booth.
 
 ---
 
@@ -68,7 +74,7 @@ Answer: "Fifty OSM POIs at 영덕, 46 snapped to the network; the RELIABILITY ta
 Answer: "Not at minute resolution, and the A4 sheet's 「남은 시간」 can only read 180/360/540/720/확인 불가 on this field; the '< 30 min → 긴급' tag is structurally unreachable. We measured the detection floor too: with GK2A at 2-minute cadence, a satellite trigger would still have fired 22–64 minutes *after* the human report in every fire we could test, so the trigger interface is designed report-first, satellite-confirm. What the system is for is the 4-hour behavioural window — 79 % of Korean fires are contained within 240 min of report (n = 2,008), while fires ≥ 100 ha run a median 67 hours — so 'act now on foot' vs 'send a vehicle' is the decision it informs, not 'run left or right in the next ten minutes'." Proof: `docs/routing_limitations.md` §3, `docs/SESSION19_REPORT.md` / `detection_floor.md`, `docs/horizon_grounding.md`. Finer-slice re-run of the routing axis: **does not exist** (PHASE 2-C-3 never started).
 
 **Q10 (software engineer / any judge). "You publish 24 'never do' rules, a registry of retired numbers and a record of five fabricated citations caught in one week. Why should I trust *today's* numbers, and which numbers in your submitted 서식 are wrong now?"**
-Answer: "Because you can check them: 244 of 260 registered values re-derive from committed artifacts under `make verify`, the other 16 are labelled 'verified, not reproducible' because the OSM graph behind them was overwritten on 2026-07-24. The gates catch a retired number being re-quoted and a region literal; they cannot catch a number that was never registered or an event that never happened — that class was caught by looking things up, and we wrote the failure mode down. Here is the list of what moved since submission —" and then §1.4 above, from memory, in this order: 438/18/3 → 414/42/2 (why: reverted-run field, corrected DEM), RF 0.920 → 0.914, far-band 0.925 → 0.904, slope now applied, PR/Brier now computed, contribution ② restated. Proof: HANDOFF §1.1, §4-B, `docs/NUMBERS.json`, `scripts/verify_numbers.py`.
+Answer: "Because you can check them: 244 of 260 registered values re-derive from committed artifacts under `make verify`, the other 16 are labelled 'verified, not reproducible' because the OSM graph behind them was overwritten on 2026-07-24. The gates catch a retired number being re-quoted and a region literal; they cannot catch a number that was never registered or an event that never happened — that class was caught by looking things up, and we wrote the failure mode down. Here is the list of what moved since submission —" and then the reconciliation sheet, from memory, in its own order. Proof: [`docs/submission_reconciliation.md`](../submission_reconciliation.md), HANDOFF §1.1, §4-B, `docs/NUMBERS.json`, `scripts/verify_numbers.py`.
 
 Three more, lower probability but lethal if unprepared:
 

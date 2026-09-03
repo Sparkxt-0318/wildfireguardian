@@ -55,3 +55,33 @@ mood) · evidence.
   out of every clean clone, which is exactly where hard-coding the date is the
   tempting fix. Split, and the guard survives. Evidence:
   `tests/test_live_pipeline.py::test_the_weather_basis_is_never_typed_into_the_source`.
+- 2026-09-03 · dev · **A registry KEY NAME is part of the gate, not a label.**
+  `check_number_collisions.py` builds its anchors from the words in a key, so
+  registering `farband_pooled_auc_committed` armed the words "committed",
+  "pooled" and "auc" against the whole tree and turned three unrelated lines
+  red — lines discussing a different pooled AUC entirely. Renaming it to
+  `farband_pooled_auc_precorrection` (named for what *distinguishes* it, with
+  no generic word in it) cleared all three without annotating one document.
+  **Gate for the next lap:** before adding a key, read it as a set of anchor
+  words and ask what else in the tree carries three of them; prefer a
+  distinguishing noun over a generic one (`precorrection`, not `committed`).
+  Evidence: this lap's `check_number_collisions.py` runs, and the entry's own
+  `notes`.
+- 2026-09-03 · dev · **A registry `json_path` cannot address a JSON key that
+  contains a dot.** Both `build_numbers.dig` and `verify_numbers.dig` split the
+  path on `.`, so `field.cells_ge_0.5.0` resolves to `field["cells_ge_0"]` and
+  raises `KeyError`. The canonical field's core-cell counts (249 → 1,036) are
+  stored under `cells_ge_0.5_per_slice` and are therefore **unregisterable as
+  written** — the growth percentage beside them registers fine. Anti-pattern:
+  assuming any artifact value can be registered on demand; check the key
+  spelling before promising a number a home. Evidence:
+  `canonhaz_core_growth_pct`'s caveat.
+- 2026-09-03 · dev · **`scripts/build_numbers.py` no longer builds the
+  registry, and running it would destroy most of it.** It defines 65 entries
+  and ends with an unconditional `OUT.write_text(...)`; the tree holds 278.
+  Every entry since roughly Session 12 was added to `docs/NUMBERS.json`
+  directly, gated by `verify_numbers.py`'s `check` blocks rather than by a
+  builder. The CHARTER §3 rule "registered through `scripts/build_numbers.py`"
+  describes a path that is now a landmine. **Do not run it.** Add entries to
+  the JSON with a `check` block and let `make verify` be the gate. Filed for a
+  fix as part of the next infra row.
