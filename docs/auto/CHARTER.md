@@ -123,9 +123,12 @@ sandbox for reading Actions runs and pull requests.
    report, and stop.
 3. **Choose one item** (`nba`): the highest-priority backlog row that is
    `todo`, `agent_doable: yes`, unblocked, and not `in-progress` by another lap.
-   Set it `in-progress` with the lap stamp. If two laps overlap, the later one
-   takes the next row. Before building, run `readchk` on the row and `hate` on
-   your plan for it; record the root objection in the report.
+   **Claim it immediately:** set it `in-progress(<stamp>)`, commit only that
+   change, `git pull --rebase origin auto/dev`, push. If the rebase shows another
+   lap claimed the same row first, take the next row. A claim that is not pushed
+   is not a claim (NH-007: two laps built the same row because the marker only
+   travelled with the final commit). Before building, run `readchk` on the row
+   and `hate` on your plan for it; record the root objection in the report.
 4. **Build** (`re0-loop` FRAME → BUILD → DRIVE). Follow the repository's own
    discipline: config in `config/default.yaml`; new experiment → new script under
    `scripts/`, new artifact under `data/processed/<topic>/`, registered numbers,

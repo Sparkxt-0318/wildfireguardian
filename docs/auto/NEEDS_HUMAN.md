@@ -71,7 +71,7 @@ to 10.24 the freeze can slide to 10-16. Reply with the confirmed date (or
 close this entry with the date) and the loop will re-plan. Nothing else depends
 on it.
 
-## NH-007 · DECISION · open · Two dev laps ran at once and duplicated a row
+## NH-007 · DECISION · closed · Two dev laps ran at once and duplicated a row
 
 **What:** On 2026-09-03 two `wfg-autoloop-dev` sessions overlapped almost
 entirely (`session_01Xi39Zu…` reported at 05:14Z; this one bootstrapped at
@@ -93,3 +93,66 @@ next infra row should add a real claim mechanism (a lightweight lock pushed to
 **Until then:** the loop re-fetches `origin/auto/dev` immediately before
 claiming a row and again before its first commit (MEMO 2026-09-03), which
 narrows the window but does not close it.
+
+**Closed 2026-09-03 by the kickoff session.** Cause: the kickoff session
+triggered a manual run of `wfg-autoloop-dev` while the first run was still
+alive (its worker had resumed on a background-task notification). Two loop-side
+fixes, no author action needed: (1) the dev routine now pushes its
+`in-progress(<stamp>)` marker to `auto/dev` the moment it picks a row, before
+building, so a concurrent lap sees the claim (CHARTER §4 step 3, routine
+prompt updated); (2) the kickoff session will not trigger manual runs while a
+run is active. The superseded branch `auto/lap-b1989d5-superseded` stays as the
+negative corpus.
+
+## NH-008 · DECISION · open · Five questions for the KCF 운영사무국 (by 2026-09-07)
+
+**What:** Only the organisers can settle these, and the backlog is keyed to the
+answers (WFG-022): (1) finals date 10.18 vs 10.24 (NH-006); (2) which 참가부문
+track this entry is registered under (Track A application vs Track B SW 연구);
+(3) whether restating 기여 ② from "deadline-sorted dispatch list" to "per-home
+closure time" stays within 운영요강 p.9 (작품 목적·주제에 반하지 않는 범위);
+(4) how AI-assisted / autonomous-agent development must be disclosed, given
+심사개요 "대리(표절)작 판정 시 심사 제외 가능"; (5) what 제출 자료 is scored at the
+finals (기제출 서식2 only, a poster, handouts?) and the poster spec.
+Contact per the research sweep: koreacodefair@gmail.com / 070-5066-1963 (verify
+on kcf.or.kr). **Why only you:** external contact; Pass/Fail exposure.
+
+## NH-009 · DECISION · open · Repository decisions only the author can take (this week)
+
+**What:** (a) Protect `Main` on GitHub (require a PR and the `auto-gates` check;
+block force-push). (b) Ratify `auto/dev` as the working branch so
+`docs/HANDOFF_ROUND3.md` §5.1 ("all work stays on round3-dev") can be rewritten
+(WFG-024). (c) Decide in writing the two open HANDOFF §4 items: which routing
+field the finals narrative uses (the brief recommends the canonical 414/42/2 with
+the reconciliation sheet, WFG-018) and whether the corrected-DEM LOFO ever
+replaces the committed `spread_v2_lofo.json` (recommendation: not before the
+finals; keep it as a separate lineage). (d) Approve or veto the refuge-density
+decimation experiment (WFG-034; HANDOFF §4 says the user confirms before it
+starts). Close NH-001 and NH-002 either way.
+
+## NH-010 · DECISION · open · Expert consultations and the firefighter record (by 2026-09-20)
+
+**What:** Two or three structured consultations by phone or video (이장, 119
+상황실 dispatcher, 사회복지사) using the protocol the loop drafts (WFG-028); close
+the blanks in `docs/firefighter_consultation.md` §8 (affiliation/rank, date,
+written consent for anonymous vs named attribution); ask the three academic
+advisers whether a one-line quoted judgment may be shown at the booth. No
+numbers derived, no data about persons. **Why only you:** contacting people;
+consent.
+
+## NH-011 · DECISION · open · One real, recorded email send from a network that works in Shanghai (by 2026-09-20)
+
+**What:** The email channel's verification send never completed (outbound SMTP
+blocked on the working network; `docs/delivery_channels.md`). Either send once
+over a VPN-routed SMTP path, recording the path in `email_sent.json`, or
+authorise the Gmail-API adapter the loop builds (WFG-029) one time. Do not touch
+Twilio or pursue SMS unless individual 발신번호 registration is confirmed in
+writing. **Why only you:** credentials and network.
+
+## NH-012 · DECISION · open · Portal downloads the loop cannot do (by 2026-10-01)
+
+**What:** (a) 도로명주소 건물 layer for 영덕 from business.juso.go.kr into
+`data/raw/juso_buildings/` (NH-005); (b) the 공공데이터포털 national shelter file,
+which answers "are any of the refuges designated 대피소?"; (c) a KMA API Hub key
+only if the post-finals sub-daily GK2A label experiment is wanted. **Why only
+you:** login and CAPTCHA.

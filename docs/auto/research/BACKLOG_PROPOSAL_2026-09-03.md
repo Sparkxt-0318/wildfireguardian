@@ -1,143 +1,52 @@
-# Backlog — what the loop works on, in order
+# Backlog proposal for the autonomous loop (2026-09-03)
 
-Conventions: `docs/auto/CHARTER.md` §5. **P0** ships before the freeze (2026-10-10, or
-10-16 if the fair is 10.24; NH-006), **P1** before the finals, **P2** after the finals
-(ISEF), **P3** for the IEEE paper. Status: `todo | in-progress(<stamp>) | done(<commit>)
-| blocked(<why>) | parked(<why>)`. The dev routine takes the first `todo` row in table
-order that is agent-doable and unblocked; `blocked(human)` rows are the author's and are
-mirrored in `docs/auto/NEEDS_HUMAN.md`. This table was re-keyed on 2026-09-03 from the
-research brief (`docs/auto/research/RESEARCH_BRIEF_2026-09-03.md`) and its backlog
-proposal (`BACKLOG_PROPOSAL_2026-09-03.md`), which explain every priority change; the
-eight sweeps behind them are under `docs/auto/research/sweeps_2026-09-03/`. Rows the
-proposal demoted keep their IDs so earlier reports still resolve.
+Derived from `RESEARCH_BRIEF.md` (same directory). Intended to replace/extend `docs/auto/BACKLOG.md` on `auto/dev`, keeping its conventions (`docs/auto/CHARTER.md` §5): `ID | P | goal | title | status | rubric rows | done when | constraints`. Existing IDs are kept with their meaning; rows marked **revise** change scope or priority; new rows start at WFG-017. Priorities: **P0** ships before the 2026-10-10 freeze (10-16 if the fair is confirmed as 10.24), **P1** before the finals, **P2** after the finals for ISEF, **P3** for the IEEE paper. `agent_doable: false` rows are human items the loop must not start; it may only draft.
 
-| ID | P | goal | title | status | agent-doable | effort | rubric rows |
-|---|---|---|---|---|---|---|---|
-| WFG-022 | P0 | KCF | Five questions to the KCF 운영사무국 (date, track, 기여 ② restatement, AI disclosure, 제출 자료 scope) | blocked(human) | **false** | hours | Pass/Fail · all rows |
-| WFG-023 | P0 | infra | Protect `Main`; ratify `auto/dev`; decide the two HANDOFF §4 items; approve/veto decimation; close NH-001/002/006 | blocked(human) | **false** | hours | — |
-| WFG-018 | P0 | KCF | 제출본 대비 정본 reconciliation sheet as NEAR-labelled prose (Korean, one page) | todo | true | hours | 제출 자료 · 데이터 해석 |
-| WFG-019 | P0 | science | Operating-point evidence package: per-fire recall/FNR at 0.3, PR curve, nested LOFO threshold calibration as a negative result, MODEL_CARD appendix | todo | true | one lap | 데이터 수집·분석·해석 · 설계와 방법론 |
-| WFG-002 | P0 | KCF | Judge Q&A bank v2 (**revise**: corrected numbers, four new questions, deprecated phrasings purged) | todo | true | one lap | 연구 목적 · 설계와 방법론 · 데이터 해석 |
-| WFG-004 | P0 | KCF | SSOT sweep (**revise**: fix README:731, reconcile `fold_sizes.md` vs `NUMBERS.json` on the primary AUC, annotate superseded values) | todo | true | one lap | 제출 자료 |
-| WFG-020 | P0 | KCF | Greenpeace 2026 survivor survey registered as evidence + the "85% drove" answer | todo | true (fallback NH) | hours | 연구 목적 · 데이터 수집 |
-| WFG-021 | P0 | KCF | Detection-floor panel (Session 19 as recorded) + tests for `src/wildfireguardian/detection/gk2a.py` | todo | true | one lap | 데이터 수집·분석·해석 · 설계와 방법론 |
-| WFG-017 | P0 | KCF | `web/finals.html` refresh v2: evidence cards for operating point, detection floor, horizon grounding, refuge placement, reconciliation; rebuilt with `--verify` | todo | true (fallback: student runs `make finals`) | one lap | 제출 자료 · 구현 및 유용성 |
-| WFG-003 | P0 | KCF | Finals screen audit + 5-minute demo script (keep) | todo | true | one lap | 제출 자료 · 구현 및 유용성 |
-| WFG-016 | P0 | ISEF | AI ledger current (**revise**: add IEEE acknowledgment draft; hand-written-only list) | in-progress(kickoff seed) | true | hours | 제출 자료 · ISEF independence |
-| WFG-024 | P0 | infra | Re-key branch name and dates after WFG-023/022 (HANDOFF §5.1 → `auto/dev`; STATE/CHARTER dates; BACKLOG brief path) | blocked(WFG-022, WFG-023) | true, blocked(WFG-023) | hours | — |
-| WFG-005 | P2 | science | Decision-level uncertainty (**revise**: demote to P2, blocked — needs the raw bundle and forward simulation; Mac-only; human-approved) | blocked(raw bundle, Mac-only; P2) | false in sandbox | — | — |
-| WFG-006 | P2 | science | Wind-direction sensitivity (**revise**: demote to P2, blocked — forward simulation needs the raw bundle; Mac-only) | blocked(raw bundle, Mac-only; P2) | false in sandbox | — | — |
-| WFG-008 | P3 | science | Ignition-likelihood layer (**revise**: park to P3 — pre-ignition risk forecasting is what 서식1 says the project is not; theme-drift risk) | parked(theme-drift risk; P3) | — | — | — |
-| WFG-007 | P1 | KCF | Rehearsal aids + booth checklist (**revise**: `web/` is a directory, two USBs, affine drift on the booth laptop) | todo | true (print/laptop: human) | hours | 제출 자료 |
-| WFG-009 | P1 | infra | Playwright smoke of `web/finals.html` (**revise**: `document.fonts.check` per family; package `web/` whole) | todo | true | one lap | 구현 및 유용성 |
-| WFG-025 | P1 | science | Two clean single-variable sweeps: pre-movement delay (routing axis, 3 regions) and walking speed (vulnerability layer, 영덕) | todo | true (verify dry run first) | one to two laps | 설계와 방법론 (변수 통제) · 데이터 해석 |
-| WFG-026 | P1 | KCF | Related-work table with Crossref-resolved DOIs only + one-panel differentiation from ISEF 2026 SFTD059T | todo | true | one lap | 설계와 방법론 (기존 연구와의 차별점) |
-| WFG-027 | P1 | KCF | Schedule & roles timeline from `git log` (Korean; AI-assisted sessions disclosed pending WFG-022) | todo | true | hours | 설계와 방법론 (일정·역할) |
-| WFG-010 | P1 | KCF | README Round-4 section + English abstract draft (**revise**: vocabulary and caveat rules) | todo | true | hours | 제출 자료 · 연구 목적 |
-| WFG-028 | P1 | KCF | Two or three structured expert consultations (이장, 119 상황실, 사회복지사) + close firefighter §8 blanks | blocked(human) | **false** (agent drafts protocol) | hours each | 개발/연구 목적 · Q&A |
-| WFG-029 | P1 | KCF | One recorded email send from a Shanghai-workable path (agent builds Gmail-API/OAuth adapter; student authorises once) | todo | partial | hours | 구현 및 유용성 · 제출 자료 |
-| WFG-030 | P1 | infra | Report-number check: every number in `docs/auto/reports/*.md` and `JUDGE_QA.md` must grep to a registry key or artifact | todo | true | hours | 데이터 해석 (재현) |
-| WFG-031 | P1 | infra | `CITATION.cff` with true fields (no fabricated dates) | todo | true | minutes | 제출 자료 (출처) |
-| WFG-011 | P2 | ISEF | ISEF plan memo (**revise**: route-existence questions, SFTD base rate, age rule, hand-written documents) | todo | true | one lap | — |
-| WFG-032 | P2 | science | Leak-free 영덕 fold + hindsight-oracle routing arm (agent writes the script; student runs on the Mac) | todo | partial | one lap + one Mac day | 데이터 해석 · IEEE Table V |
-| WFG-033 | P2 | science | Coupling-ablation routing-only arms on committed hazard fields (fire-blind / static perimeter + buffer / spread_v2), three regions (absorbs WFG-012) | todo | true | two laps | 설계와 방법론 · 데이터 해석 |
-| WFG-034 | P2 | science | Refuge-density decimation (100/75/50/25%, 20 seeds, 3 regions) — only after written approval in WFG-023 | blocked(approval in WFG-023) | true, blocked(approval) | two laps | 데이터 해석 · 창의성 |
-| WFG-013 | P2 | science | Open building-footprint coverage check for 영덕 (keep) | todo | true | one lap | 데이터 수집 |
-| WFG-014 | P3 | IEEE | Paper skeleton in `paper/` (**revise**: vocabulary, caveats, AI acknowledgment, no preprint before December) | todo | true | weeks | — |
-| WFG-035 | P3 | IEEE | Register every number the manuscript will cite; reconcile the two HGB means; per-fire/spatial-block CIs; new-ring IoU beside cumulative | todo | true | one lap | 데이터 해석 |
-| WFG-015 | P3 | IEEE | Reproducibility package + Zenodo release checklist (keep; DOI minted by the student) | todo | true (release: human) | one lap | 데이터 해석 (재현) |
+Standing constraints on every row (HANDOFF §5, CHARTER §3): work on `auto/dev`; never push `Main`; never modify a committed artifact (new filenames); never regenerate `docs/figures/*.png`; every number registered via `scripts/build_numbers.py` → `docs/NUMBERS.json` and `make verify` green; retired values only as NEAR-labelled prose; 32.6% caveat on every absolute 영덕 rate; never mix the 439 and 458 lineages; never change a default (`p_cut`, `W`, `HORIZON_MIN`, walking speed, `advance_threshold`); the raw bundle (`data/raw/**`) is absent in the sandbox; no secrets, no contact, no human participants; the KCF purpose (spread forecast → household-level evacuation/rescue decision for rural elderly) is not moved.
+
+## Summary table (P0 first)
+
+| ID | P | goal | title | agent_doable | effort | rubric rows |
+|---|---|---|---|---|---|---|
+| WFG-022 | P0 | KCF | Five questions to the KCF 운영사무국 (date, track, 기여 ② restatement, AI disclosure, 제출 자료 scope) | **false** | hours | Pass/Fail · all rows |
+| WFG-023 | P0 | infra | Protect `Main`; ratify `auto/dev`; decide the two HANDOFF §4 items; approve/veto decimation; close NH-001/002/006 | **false** | hours | — |
+| WFG-018 | P0 | KCF | 제출본 대비 정본 reconciliation sheet as NEAR-labelled prose (Korean, one page) | true | hours | 제출 자료 · 데이터 해석 |
+| WFG-019 | P0 | science | Operating-point evidence package: per-fire recall/FNR at 0.3, PR curve, nested LOFO threshold calibration as a negative result, MODEL_CARD appendix | true | one lap | 데이터 수집·분석·해석 · 설계와 방법론 |
+| WFG-002 | P0 | KCF | Judge Q&A bank v2 (**revise**: corrected numbers, four new questions, deprecated phrasings purged) | true | one lap | 연구 목적 · 설계와 방법론 · 데이터 해석 |
+| WFG-004 | P0 | KCF | SSOT sweep (**revise**: fix README:731, reconcile `fold_sizes.md` vs `NUMBERS.json` on the primary AUC, annotate superseded values) | true | one lap | 제출 자료 |
+| WFG-020 | P0 | KCF | Greenpeace 2026 survivor survey registered as evidence + the "85% drove" answer | true (fallback NH) | hours | 연구 목적 · 데이터 수집 |
+| WFG-021 | P0 | KCF | Detection-floor panel (Session 19 as recorded) + tests for `src/wildfireguardian/detection/gk2a.py` | true | one lap | 데이터 수집·분석·해석 · 설계와 방법론 |
+| WFG-017 | P0 | KCF | `web/finals.html` refresh v2: evidence cards for operating point, detection floor, horizon grounding, refuge placement, reconciliation; rebuilt with `--verify` | true (fallback: student runs `make finals`) | one lap | 제출 자료 · 구현 및 유용성 |
+| WFG-003 | P0 | KCF | Finals screen audit + 5-minute demo script (keep) | true | one lap | 제출 자료 · 구현 및 유용성 |
+| WFG-016 | P0 | ISEF | AI ledger current (**revise**: add IEEE acknowledgment draft; hand-written-only list) | true | hours | 제출 자료 · ISEF independence |
+| WFG-024 | P0 | infra | Re-key branch name and dates after WFG-023/022 (HANDOFF §5.1 → `auto/dev`; STATE/CHARTER dates; BACKLOG brief path) | true, blocked(WFG-023) | hours | — |
+| WFG-005 | — | science | Decision-level uncertainty (**revise**: demote to P2, blocked — needs the raw bundle and forward simulation; Mac-only; human-approved) | false in sandbox | — | — |
+| WFG-006 | — | science | Wind-direction sensitivity (**revise**: demote to P2, blocked — forward simulation needs the raw bundle; Mac-only) | false in sandbox | — | — |
+| WFG-008 | — | science | Ignition-likelihood layer (**revise**: park to P3 — pre-ignition risk forecasting is what 서식1 says the project is not; theme-drift risk) | — | — | — |
+| WFG-007 | P1 | KCF | Rehearsal aids + booth checklist (**revise**: `web/` is a directory, two USBs, affine drift on the booth laptop) | true (print/laptop: human) | hours | 제출 자료 |
+| WFG-009 | P1 | infra | Playwright smoke of `web/finals.html` (**revise**: `document.fonts.check` per family; package `web/` whole) | true | one lap | 구현 및 유용성 |
+| WFG-025 | P1 | science | Two clean single-variable sweeps: pre-movement delay (routing axis, 3 regions) and walking speed (vulnerability layer, 영덕) | true (verify dry run first) | one to two laps | 설계와 방법론 (변수 통제) · 데이터 해석 |
+| WFG-026 | P1 | KCF | Related-work table with Crossref-resolved DOIs only + one-panel differentiation from ISEF 2026 SFTD059T | true | one lap | 설계와 방법론 (기존 연구와의 차별점) |
+| WFG-027 | P1 | KCF | Schedule & roles timeline from `git log` (Korean; AI-assisted sessions disclosed pending WFG-022) | true | hours | 설계와 방법론 (일정·역할) |
+| WFG-010 | P1 | KCF | README Round-4 section + English abstract draft (**revise**: vocabulary and caveat rules) | true | hours | 제출 자료 · 연구 목적 |
+| WFG-028 | P1 | KCF | Two or three structured expert consultations (이장, 119 상황실, 사회복지사) + close firefighter §8 blanks | **false** (agent drafts protocol) | hours each | 개발/연구 목적 · Q&A |
+| WFG-029 | P1 | KCF | One recorded email send from a Shanghai-workable path (agent builds Gmail-API/OAuth adapter; student authorises once) | partial | hours | 구현 및 유용성 · 제출 자료 |
+| WFG-030 | P1 | infra | Report-number check: every number in `docs/auto/reports/*.md` and `JUDGE_QA.md` must grep to a registry key or artifact | true | hours | 데이터 해석 (재현) |
+| WFG-031 | P1 | infra | `CITATION.cff` with true fields (no fabricated dates) | true | minutes | 제출 자료 (출처) |
+| WFG-011 | P2 | ISEF | ISEF plan memo (**revise**: route-existence questions, SFTD base rate, age rule, hand-written documents) | true | one lap | — |
+| WFG-032 | P2 | science | Leak-free 영덕 fold + hindsight-oracle routing arm (agent writes the script; student runs on the Mac) | partial | one lap + one Mac day | 데이터 해석 · IEEE Table V |
+| WFG-033 | P2 | science | Coupling-ablation routing-only arms on committed hazard fields (fire-blind / static perimeter + buffer / spread_v2), three regions (absorbs WFG-012) | true | two laps | 설계와 방법론 · 데이터 해석 |
+| WFG-034 | P2 | science | Refuge-density decimation (100/75/50/25%, 20 seeds, 3 regions) — only after written approval in WFG-023 | true, blocked(approval) | two laps | 데이터 해석 · 창의성 |
+| WFG-013 | P2 | science | Open building-footprint coverage check for 영덕 (keep) | true | one lap | 데이터 수집 |
+| WFG-014 | P3 | IEEE | Paper skeleton in `paper/` (**revise**: vocabulary, caveats, AI acknowledgment, no preprint before December) | true | weeks | — |
+| WFG-035 | P3 | IEEE | Register every number the manuscript will cite; reconcile the two HGB means; per-fire/spatial-block CIs; new-ring IoU beside cumulative | true | one lap | 데이터 해석 |
+| WFG-015 | P3 | IEEE | Reproducibility package + Zenodo release checklist (keep; DOI minted by the student) | true (release: human) | one lap | 데이터 해석 (재현) |
+
+Dropped or not added (with the reason a fresh agent needs): p_cut sweep (moves the origin frame with the cutoff; HANDOFF §4 hazard-resolution decision, §5.18/§5.24); hazard time-resolution re-run (tested and ruled out on branch `hazard-resolution` at 6ed4edd); conformal-risk-control threshold as a method (vacuous at n = 6 — becomes the negative result in WFG-019); GK2A "second trigger" (already measured, Session 19; conclusion is that satellites never beat the human report); any hardware, LED table, sensor, drone; any usability or walking-speed study with participants; Twilio/SOLAPI SMS; GitHub Issues backlog, second CI, second `@claude` workflow, MLflow/W&B/DVC; a "Rothermel hybrid", US transfer arm, GFS/LDAPS acquisition before the finals; a `w(t)` 30/60/90 item — `data/processed/objective_budget_canonical.json` already holds 56.55/40.17/28.38/22.27/9.61% at 30/60/90/120/600 min; before adding any such item, grep for the artifact (HANDOFF §4-B).
+
+---
 
 ## Details
-
-### WFG-001 — Clean-Linux green
-Run `bash scripts/auto/bootstrap.sh` then `python scripts/auto/gates.py --mode full`
-in the sandbox. Record skips with reasons (`--rs`). If a test needs a git-ignored
-input, mark it `skipif` with the reason, never delete it. Compare the pass/skip
-counts to the laptop baseline recorded in the kickoff report.
-
-**Lap 20260903T0513Z (first cloud dev lap).** The sandbox half is green:
-`1062 passed, 54 skipped, 0 failed, 0 errors` at `017c9ec`. It took two rounds.
-
-The first full run was RED with 17 items, which resolved to exactly two causes,
-neither of them a defect in the project's own code and neither touching an
-artifact:
-
-1. **`brotli` was declared nowhere.** `fonttools==4.63.0` is pinned, but its
-   WOFF2 decoder needs the Brotli extension to open the vendored `.woff2`
-   faces. Fixed upstream in `e1588b4` (`bootstrap.sh` installs it); that alone
-   cleared all five `test_screen_checks` failures, 17 red → 12.
-2. **Git-ignored inputs absent from a fresh clone, with guards that did not
-   fire.** All 12 survivors. `data/raw/**` is ignored at `.gitignore:60`, so
-   `firms_data/` never reaches a clone at all.
-   - `test_photo_exif` (7, reported as ERRORS): the module-scoped `client`
-     fixture builds a runner that opens `yeongdeok_2025_dem.tif`. No guard.
-   - `test_osm_cache_isolation` (2): the guard read `if not d.exists(): skip`,
-     but `data/cache/osm/yeongdeok_2025/` is **tracked** (it holds
-     `vegetation.geojson`) while the four graphs in it are ignored — so the
-     directory always exists and the skip never fired.
-   - `test_baseline_freeze` (2) and `test_live_pipeline` (1): need the
-     laptop-only acquisition manifests / detections CSV.
-
-   All 12 now skip with a stated reason. Two deliberate scoping choices:
-   `test_the_migrated_yeongdeok_cache_is_where_the_loader_looks` keeps its
-   old-flat-path assertion running everywhere (it needs no ignored input), and
-   `test_a_moved_artifact_is_actually_detected` runs its tampering assertions
-   in every clone and skips only the final two, so the guard is still exercised
-   in CI rather than blanket-skipped.
-
-**Both halves of "done when" are now satisfied.** The CI half settled after the
-push: `auto-gates` **run 8** on `c42287e` concluded `success` at 2026-09-03
-05:17:52Z — the first green run this workflow has ever had. Before it, runs
-1/2/3/5 were cancelled by the concurrency rule as pushes stacked, and runs 4 and
-7 concluded `failure`; run 7 on `017c9ec` is the clean-machine confirmation that
-the twelve guards were the remaining blocker.
-
-**The count gap is explained, and it is benign.** The sandbox reports **1116**
-test outcomes against the laptop baseline's **1120**
-(1116 passed / 3 skipped / 1 xpassed). Cause:
-`tests/test_empirical_interaction.py` calls `pytest.importorskip("xgboost")` at
-**module level**, so without the optional `legacy` extra its **five** tests are
-never collected and the module contributes one skip instead — 1115 collected + 1
-module skip = 1116, and the shortfall of 4 is exactly those 5 tests minus the 1
-skip. `xgboost` is deliberately not a core pin (`requirements.txt` keeps
-`xgboost==3.2.0` commented; it lives in the `legacy` extra), so the sandbox is
-behaving as designed and no test is silently lost.
-
-While confirming that, a stale note in `requirements.txt` was corrected: it
-warned that `test_lofo_holds_out_whole_fire` imports xgboost *without* a guard
-and therefore ERRORS on a clean clone. The guard was added at
-`tests/test_spread_v2_xgb.py:222` and it skips. The note now says so, and records
-the module-level collection effect above.
-
-**Lap 20260903T0534Z — the same two findings, reached independently, plus one
-change.** This lap read `auto-gates` run
-[33718108879](https://github.com/Sparkxt-0318/wildfireguardian/actions/runs/33718108879)
-directly and diagnosed the count gap the same way, before seeing that the lap
-above had already written both up; nothing above is superseded. What it adds:
-
-- [`docs/clean_clone_gates.md`](../clean_clone_gates.md) — the standing artifact
-  for this row: method, gate table, the 54 skips grouped by cause, the
-  1,115 + 1 = 1,116 vs 1,120 arithmetic, and a caveats section saying what a
-  green clean clone does NOT show (the 37 data-gated skips are exactly the tests
-  that re-derive numbers from raw inputs, so it proves consistency, not
-  reproduction).
-- One test split. `test_weather_basis_is_derived_from_committed_data_not_a_literal`
-  asserted both that the basis is *derived* from the git-ignored archive and that
-  it is *never typed into the source*; a single `skipif` took the second out of
-  every clean clone, which is exactly where hard-coding the date is the tempting
-  fix. Now two tests, and the guard runs everywhere (+1 collected).
-- `scripts/auto/report.py`'s backlog counter matched only a bare status word, so
-  every row the loop had started or finished vanished from the counts in its own
-  report.
-
-⚠ **This lap and the one above overlapped almost entirely.** Both fetched
-`auto/dev` at `017c9ec` and both fixed the same five tests. This one discarded
-its duplicate (preserved at `auto/lap-b1989d5-superseded`, nothing deleted)
-because the landed fixes are better: they keep the old-flat-path and tamper
-assertions running in CI rather than blanket-skipping. Filed as **NH-007** —
-the charter's "the later lap takes the next row" cannot work while a row is
-claimed only by the commit a lap pushes at the end.
-
 
 ### WFG-022 · P0 · KCF · Five questions to the KCF 운영사무국 — human
 - **What:** one call (070-5066-1963) or email (koreacodefair@gmail.com): (1) finals date — the student's notice says 10.18 with 10:30 judging start; https://www.kcf.or.kr/84/?bmode=view&idx=171991931 (2026-06-24) says 본선 10.24 (토) 김대중컨벤션센터, 결과 10.30; (2) the 참가부문 (애플리케이션/실생활 도구 vs SW 연구) this entry is registered under; (3) whether restating 기여 ② from "위험 시한 순 트리아지 목록" (서식1 line 13) to the per-home closure time `ingress_survival_time_min` is within 운영요강 p.9 (첫 제출 당시의 작품 목적·주제에 반하지 않는 범위); (4) how AI-assisted / autonomous-agent development must be disclosed given 심사개요 "대리(표절)작 판정 시 심사 제외 가능" and p.18 "허가받지 않은 제3자의 참여나 개입"; (5) what 제출 자료 is scored at the finals (기제출 서식2 only, poster, handouts) and the poster specification.
@@ -282,4 +191,3 @@ claimed only by the commit a lap pushes at the end.
 
 ### WFG-015 · P3 · IEEE · Reproducibility package — keep
 - As written; the Zenodo DOI is minted by the student from a GitHub Release after the finals (needs a Zenodo login); `docs/REPRODUCE.md` verified by a fresh-clone CI run on committed snapshots; the 16 verified-but-unreproducible values stated as such with the 2026-07-24 graph-loss reason.
-
