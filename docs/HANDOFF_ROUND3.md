@@ -230,8 +230,11 @@ distance objective, 600-min budget, stride 18, `osmnx` 2.0.7):
 Envelope-area spread **7.91×**. ⚠ Never rank the regions on the FA-only column
 (rule 14) — n = 3 and three covariates move together. What **is** established:
 on a field that actually advances, the same method and parameters give a
-future-aware-only share nearly **seven times** Yeongdeok's, so the quasi-static
-limitation was real and understated the benefit. What is **not**: that the
+future-aware-only share **2.7×** Yeongdeok's, so the quasi-static
+limitation was real and understated the benefit. ⚠ This sentence read "nearly
+**seven times**" until 2026-09-03: that ratio was computed against the **retired**
+영덕 share from the reverted run, not the canonical one. On the canonical field the
+ratio is 2.7× (`docs/ssot_audit_2026-09-03.md` §2). What is **not**: that the
 benefit rises with fire speed — 울진·삼척 advances fastest and benefits least.
 
 **Measured operational timings** — all on the reference machine, A4 PDF
@@ -481,9 +484,13 @@ Four things that did **not** carry over from Yeongdeok:
    On the canonical lineage: growth **+316.1** / +147.2 / +183.5 % against
    FA-only **9.17** / 24.73 / 0.76 %. Two regions support it, one contradicts it
    strongly. What IS established: on a field that actually advances, the same
-   method and parameters give a future-aware-only share nearly **seven times**
+   method and parameters give a future-aware-only share **2.7×**
    Yeongdeok's, so the "quasi-static core" limitation was real and understated
-   the benefit. What is NOT established: that the benefit rises with fire speed —
+   the benefit. ⚠ This sentence read "nearly **seven times**" until 2026-09-03,
+   which is the ratio against the **retired** 영덕 share from the reverted run —
+   inconsistent with the canonical shares listed two lines above, whose ratio is
+   2.7× (`docs/ssot_audit_2026-09-03.md` §2).
+   What is NOT established: that the benefit rises with fire speed —
    Uljin-Samcheok advances fastest and benefits least.
    ⚠ The earlier reading (ρ = −1, "fire-blind risk is flat at 4.35/3.53/3.31 %")
    was an artifact of the defective DEM. On the canonical lineage it reads
@@ -543,7 +550,8 @@ artifacts are current.
 |---|---|
 | **Yeongdeok 459-series counts** | **CHANGED.** 440 / 17 / 3 → **414 / 42 / 2**. FA-only share 3.70 % → **9.17 %**. Same network, same parameters — the hazard field alone. |
 | **Yeongdeok core growth** | **CHANGED.** +1.2 % → **+316.1 %**. The "quasi-static core" limitation was a property of the reverted field, not of the fire. |
-| **headline AUC 0.890** | **UNAFFECTED.** Correcting the DEMs moves mean-of-folds +0.0048 and pooled −0.0017. The `elev_above_source_m` importance rank falls 8 → 15 and far-band AUC falls 0.0357; those are the real changes. `spread_v2_lofo_dem_corrected.json`. |
+| **headline AUC 0.890** | **UNAFFECTED.** Correcting the DEMs moves mean-of-folds +0.0048 and pooled −0.0017. The `elev_above_source_m` importance rank falls 8 → 15 and far-band AUC falls 0.0357; those are the real changes. `spread_v2_lofo_dem_corrected.json`. | <!-- collision-ok: 0.89 — the MEAN-OF-FOLDS headline (lofo_mean_of_folds_auc), not the pooled 0.905 (lofo_rowweighted_pooled_auc); this row's job is to report the DEM correction's effect on both, so both words appear. -->
+
 | **the "sea cells inflate the AUC" hypothesis** | **REFUTED.** Only 99 of 151,904 rows have elevation < 0, minimum −6.9 m, none positive — candidates are drawn within 6 km of the fire, so open ocean is never sampled. Removing them *raises* the AUC; they were hard negatives. |
 | **the 439 series** | **UNAFFECTED.** 439/167/24, w ≈ 11.4 %, the 72.0 % exposure reduction and the dispatch outputs come from a different pipeline on a synthetic hazard envelope. Different denominator, lineage and field. |
 | **network and terrain quantities** | **UNAFFECTED.** Traversal time +26.594 %, mean \|slope\| 8.18 %, 150 changed routes, the 91.3-minute longest-walk saving — all reproduce to three significant figures, because none depends on the fire. |

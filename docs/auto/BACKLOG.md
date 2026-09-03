@@ -39,7 +39,7 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-018 | P0 | KCF | 제출본 대비 정본 reconciliation sheet as NEAR-labelled prose (Korean, one page) | done(20260903T0653Z) | true | hours | 제출 자료 · 데이터 해석 |
 | WFG-019 | P0 | science | Operating-point evidence package: per-fire recall/FNR at 0.3, PR curve, nested LOFO threshold calibration as a negative result, MODEL_CARD appendix | done(20260903T1224Z) | true | one lap | 데이터 수집·분석·해석 · 설계와 방법론 |
 | WFG-002 | P0 | KCF | Judge Q&A bank v2 (**revise**: corrected numbers, four new questions, deprecated phrasings purged) | done(20260903T1536Z) | true | one lap | 연구 목적 · 설계와 방법론 · 데이터 해석 |
-| WFG-004 | P0 | KCF | SSOT sweep (**revise**: fix README:731, reconcile `fold_sizes.md` vs `NUMBERS.json` on the primary AUC, annotate superseded values) | in-progress(20260903T1622Z) | true | one lap | 제출 자료 |
+| WFG-004 | P0 | KCF | SSOT sweep (**revise**: fix README:731, reconcile `fold_sizes.md` vs `NUMBERS.json` on the primary AUC, annotate superseded values) | done(20260903T1622Z) | true | one lap | 제출 자료 |
 | WFG-020 | P0 | KCF | Greenpeace 2026 survivor survey registered as evidence + the "85% drove" answer | todo | true (fallback NH) | hours | 연구 목적 · 데이터 수집 |
 | WFG-021 | P0 | KCF | Detection-floor panel (Session 19 as recorded) + tests for `src/wildfireguardian/detection/gk2a.py` | todo | true | one lap | 데이터 수집·분석·해석 · 설계와 방법론 |
 | WFG-017 | P0 | KCF | `web/finals.html` refresh v2: evidence cards for operating point, detection floor, horizon grounding, refuge placement, reconciliation; rebuilt with `--verify` | todo | true (fallback: student runs `make finals`) | one lap | 제출 자료 · 구현 및 유용성 |
@@ -63,6 +63,7 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-031 | P1 | infra | `CITATION.cff` with true fields (no fabricated dates) | todo | true | minutes | 제출 자료 (출처) |
 | WFG-036 | P1 | infra | `scripts/build_numbers.py` overwrites the registry with 65 of its 278 entries — make it refuse, or make it merge | todo | true | hours | 데이터 해석 (재현) |
 | WFG-038 | P1 | infra | The full suite reports two different skip counts on one commit and the gate is green for both — make the (collected, passed, skipped) triple a gate | todo | true | hours | 데이터 해석 (재현) |
+| WFG-039 | P1 | infra | The test suite downloads an 8.4 MB SRTM tile mid-run, so first-run and re-run pass/skip counts differ by six — make the download opt-in (**the cause of WFG-038's symptom**) | todo | true | hours | 데이터 해석 (재현) |
 | WFG-011 | P2 | ISEF | ISEF plan memo (**revise**: route-existence questions, SFTD base rate, age rule, hand-written documents) | todo | true | one lap | — |
 | WFG-032 | P2 | science | Leak-free 영덕 fold + hindsight-oracle routing arm (agent writes the script; student runs on the Mac) | todo | partial | one lap + one Mac day | 데이터 해석 · IEEE Table V |
 | WFG-033 | P2 | science | Coupling-ablation routing-only arms on committed hazard fields (fire-blind / static perimeter + buffer / spread_v2), three regions (absorbs WFG-012) | todo | true | two laps | 설계와 방법론 · 데이터 해석 |
@@ -298,6 +299,68 @@ present them as repository-derived, until that row registers them with a sha256.
 - **Effort:** one lap. **agent_doable:** true.
 - **Constraints:** annotate, never delete; README Round-2 section untouched; `make verify` after every prose edit.
 - **Done when:** `check_number_collisions.py --report` shows 0 unmarked hits; an `ssotize` audit report is committed listing every quantity with its single home.
+
+**Lap 20260903T1622Z — done.** `docs/ssot_audit_2026-09-03.md` is the audit report;
+`make verify` exit 0 (collisions 0 unmarked); `tests/test_rescue_lineage_ssot.py`
+(6 tests) is the new gate. Registry 295 → 296. Four things worth carrying forward,
+two of which contradict this row as written:
+
+1. **"README:731 is a typo" was false, and the row inherited the error.** `6 → 34`
+   is the real bracket of the superseded pre-flip **452-series** baseline
+   (`data/processed/rescue_baseline_synthetic/rescue_verify.json` →
+   `[6, 15, 20, 25, 34]`, superseded N = 452). The defect was a **lineage mix**: that value
+   sat in a paragraph whose other figures (143 origins, 6.12 → 1.71) are
+   439-series. `docs/rescue_routing.md` (do-not-cite banner, superseded N = 452) and
+   `docs/REPORT_ROUND2_P1.md` ("synthetic lattice" vs "real roads") were **right
+   all along** — exactly two documents broke the rule, and one of them was
+   WFG-018's own reconciliation sheet, which had hardened the typo theory into
+   「34는 어느 산출물에도 없습니다」 plus a spoken booth line. Corrected in all four
+   places, including the two research files that carried the misdiagnosis.
+2. **The row's second premise was also wrong, and the real conflict is sharper.**
+   `docs/fold_sizes.md` and `docs/NUMBERS.json` do **not** disagree — both say
+   pooled AUC is primary. The contradiction is `docs/MODEL_CARD.md`, which calls
+   pooling "**not** the generalization estimate". Both are right about different
+   questions (discrimination over the evidence vs generalization to an unseen
+   fire); §3 of the audit is now the single home for that, and both files point at
+   it. Found while fixing it: **the metric three documents call primary had no
+   registry key at all** — pooled 0.905 lived only in prose and inside other
+   entries' caveat strings, while the non-primary mean-of-folds was the registered
+   headline. Now `lofo_rowweighted_pooled_auc` on new arm `A_ssot`. **No headline
+   moved**; which metric leads is the author's call (CHARTER §6).
+3. **HANDOFF's "nearly seven times" was self-contradicting.** Both occurrences sat
+   two lines below the canonical shares they contradicted: 24.73 / 9.17 = **2.7×**,
+   while 6.7× is 24.73 / **3.70** on the retired share. Direction unchanged.
+4. **The collision gate structurally cannot see this failure class** and was green
+   over README:731 at this lap's baseline. Hence the lineage test, which found two
+   more instances the moment it was switched on. Generalising it is WFG-030's job.
+
+### WFG-038 · P1 · infra · The suite's own counts depend on whether it has run before
+- **What:** `tests/test_srtm_dem.py` documents that if `data/raw/dem/srtm/N36E129.hgt`
+  is absent "the network-download step in `data_io.raster._download_srtm_tile` will
+  fetch" it — and something in the suite does, from
+  `elevation-tiles-prod.s3.amazonaws.com`, 8.4 MB, during the run. The path is
+  git-ignored, so in a fresh clone six tests skip on the first run
+  (`test_srtm_dem.py` ×4, `test_validation_robustness.py:57`,
+  `test_validation_session3.py:171`) and pass on every run after it. Measured this
+  lap: 1,088 passed / 60 skipped on the first `gates.py --mode full`, then
+  1,094 / 54 on three consecutive full runs, with total outcomes 1,148 in all four.
+- **Why it matters:** (a) every suite count this project has recorded is an
+  unlabelled mixture of first-run and re-run readings, so cross-lap count
+  comparisons — the check the loop uses to prove no test was lost — have been
+  comparing different quantities; (b) an unattended loop and the `auto-gates` runner
+  make a live network fetch nobody declared, which contradicts NH-004's "the loop
+  works from committed snapshots"; (c) on the booth laptop with Wi-Fi off (the
+  finals condition, R3) those six will skip, and nobody has recorded that as
+  expected.
+- **Options:** make the download explicit — an opt-in marker or env flag, default
+  off, so a clean run skips deterministically and states why; or vendor the tile as
+  a snapshot if its licence allows. Do **not** delete the tests.
+- **Effort:** hours. **agent_doable:** true.
+- **Constraints:** no committed artifact regenerated; `data/raw/**` stays
+  git-ignored; the six tests keep their assertions (CHARTER §3.7, never delete).
+- **Done when:** two consecutive full runs in a fresh clone report identical
+  pass/skip counts; the expected clean-clone count is written down with the word
+  FIRST-RUN or RE-RUN beside it; `docs/clean_clone_gates.md` updated.
 
 ### WFG-020 · P0 · KCF · Greenpeace 2026 survivor survey as evidence + the "85% drove" answer
 - **What:** fetch the Greenpeace Korea 2025 영남 초대형 산불 피해 실태조사 최종보고서 (2026-03) PDF (URL in `RESEARCH_BRIEF.md` §(c) Q5); record its sha256 and the quoted figures with table/page references in `docs/evidence/greenpeace_2026_survey.md`: n = 300 (296–299 answering), 63.9% aged 60–79 and 17.9% ≥ 80, 90.0% evacuated (영덕 98.0%), car 84.5% (246/291), foot 3.1% (9), boat 2.7% (8), own car 60.1% of 278 car users, neighbour ~17%, relatives 15.1%, 재난문자 received 62.3% (영덕 48.0%), 마을방송+주민 237 vs 문자 112 mentions, 87% felt life threatened, 영덕 36% living alone, 영덕 foot 1.0% / boat 8.2%, 영덕 deaths 10 (mean age 84). If `scripts/build_numbers.py` supports literal/evidence entries, register them as such; otherwise keep them as documented literals with the sha256. Write the one-paragraph answer: the walking layer is a classifier for who cannot self-evacuate feeding the rescue layer and the 이장/마을방송 channel the survey shows worked; consistent with 서식1 §1's own question. Explicitly do NOT present "40% no own car" as a bracket on the 0.30 immobility rate (car-less ≠ immobile; 60.1% is a share of car users); the immobility answer remains 서식1 §4's f = 0.15/0.30/0.45 sensitivity. State survivor bias.

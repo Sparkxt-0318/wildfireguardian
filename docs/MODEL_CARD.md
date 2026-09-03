@@ -112,8 +112,15 @@ where the FIRMS/ERA5/DEM bundle is absent (e.g. a fresh clone), and **STOPs
 
 - **Pooled** out-of-fold ROC-AUC = **0.905** — one ROC over *all* held-out folds'
   predictions concatenated (`model.py:184–186`). Pooling is flattered by the
-  larger/easier folds; it is **not** the generalization estimate (it sits only
+  larger/easier folds; it is **not** the generalization estimate (it sits only <!-- collision-ok: 0.016 — a DELTA between the two summaries (0.905 − 0.890), not the pooled AUC itself (lofo_rowweighted_pooled_auc = 0.905). -->
   +0.016 above the mean-of-folds here). `[src: spread_v2_lofo.json/pooled_auc]`
+  ⚠ "not the generalization estimate" is scoped to *generalization to an unseen
+  fire*, and does **not** contradict `docs/fold_sizes.md` §"읽는 법", which calls
+  pooled AUC the primary indicator for *discrimination over the evidence*. The two
+  summaries answer different questions and neither is a substitute for the other;
+  the single statement of which leads for which purpose is
+  [`docs/ssot_audit_2026-09-03.md`](ssot_audit_2026-09-03.md) §3. The committed
+  headline is unchanged: mean-of-folds **0.890**.
 - **Far-band (>3 km) mean-of-folds** ROC-AUC = **0.925** (n=3 fires with far-band
   positives); **pooled far-band 0.877**, mid-band (1–3 km) 0.870. The pooled
   scalars are the committed `spread_v2_lofo.json` values.

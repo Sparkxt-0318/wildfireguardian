@@ -92,6 +92,12 @@
       "control_required": false,
       "reason_no_control": "No model is fitted and no feature count changes, so there is nothing for a noise null to be matched against. The search's own control is the FULL-LAYER VERIFICATION: the top candidate was re-run through the real elliptical hazard with 4 ignitions x 3 scenarios and the saved-household set agreed exactly."
     },
+    "A_ssot": {
+      "n_features": null,
+      "role": "WFG-004 (2026-09-03). SSOT sweep. Gives the LOFO POOLED AUC — the metric docs/fold_sizes.md and two NUMBERS.json caveats all name as the PRIMARY indicator — its first registry key. It was previously homeless: it existed only inside prose (README) and inside other entries' caveat strings, while the non-primary mean-of-folds was the registered headline. Reads the committed artifact only; fits nothing, re-runs nothing, changes no default and moves no headline.",
+      "control_required": false,
+      "reason_no_control": "Nothing is estimated — the `check` block re-reads pooled_auc from the same committed data/processed/spread_v2_lofo.json that already carried it, the same file the registered mean-of-folds comes from. ⚠ Tagged separately from 'A' because Arm A is FROZEN and check_arm_isolation verifies its entry count and digests (WFG-018's lesson). ⚠ Registering the primary metric does NOT promote it: the project's committed headline remains the mean-of-folds 0.890, and which metric leads the narrative is the author's call, not the loop's (CHARTER §6). This arm records the pair, it does not choose between them."
+    },
     "A_reconciliation": {
       "n_features": null,
       "role": "WFG-018 (2026-09-03). Registration of values that were ALREADY computed and committed, so that every current value on docs/submission_reconciliation.md resolves to a registry key. Reads committed artifacts only; fits nothing, re-runs nothing, and changes no default.",

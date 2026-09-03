@@ -42,6 +42,39 @@
       "notes": "Produced by scripts/run_routing_integration.py. The superseded Build-A artifact data/processed/spread_v2/lofo_metrics.json holds a DIFFERENT mean (0.8309) over a DIFFERENT fire set — do not cite it.",
       "arm": "A"
     },
+    "lofo_rowweighted_pooled_auc": {
+      "value": 0.905,
+      "unit": "ROC-AUC",
+      "source_file": "data/processed/spread_v2_lofo.json",
+      "json_path": "pooled_auc",
+      "derivation": "pooled_auc — one ROC over all 151,904 out-of-fold rows, each row weighted exactly once, from the same committed leave-one-fire-out run as lofo_mean_of_folds_auc.",
+      "sample": "6개 화재 LOFO, 통합 151,904행",
+      "caveat": "POOLED and row-weighted — a DIFFERENT quantity from the mean-of-folds 0.890; never present one as the other. ⚠ This is the metric docs/fold_sizes.md §'읽는 법' and two other NUMBERS.json caveats all call the PRIMARY indicator, and until 2026-09-03 it had NO registry key: it lived only in README prose and inside other entries' caveat strings, while the non-primary mean-of-folds was the registered headline. Registering it does NOT promote it — the committed headline is unchanged and which metric leads the narrative is the author's decision (WFG-004, docs/ssot_audit_2026-09-03.md §3). Being row-weighted, it is dominated by the two largest folds: uiseong_andong_2025 and yeongdeok_2025 supply 54.47% and 32.6% of the rows, so a pooled figure hides the fold that barely beats chance (gangneung_2023 = 0.682, 396 rows). Trained on the raster that filled the East Sea to −497 m; the corrected re-run of this same quantity is −0.0017 lower and was NOT adopted.",
+      "forbidden_phrasings": [
+        "정확도 90.5%",
+        "90.5% accurate",
+        "mean-of-folds AUC 0.905"
+      ],
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/spread_v2_lofo.json",
+            "json_path": "pooled_auc"
+          }
+        },
+        "expr": "round(a, 3)",
+        "tolerance": 0.0
+      },
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "same artifact and same run as lofo_mean_of_folds_auc, whose 2026-08-01 re-run recorded pooled_auc as BIT-IDENTICAL to the committed value.",
+        "blocked_by": null
+      },
+      "reproducible": true,
+      "notes": "Registered by WFG-004's SSOT sweep. No value was edited and no artifact was regenerated; this key gives an already-committed number its first home.",
+      "arm": "A_ssot"
+    },
     "wxdep_shuffle_far_band_delta": {
       "value": -0.0344,
       "unit": "ROC-AUC (delta)",

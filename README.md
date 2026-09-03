@@ -728,8 +728,19 @@ assumed immobility rate of 0.30, not an observed population characteristic.
 A verification pass
 (`scripts/verify_rescue_routing.py`) re-derives the split and runs a full-N 2-D
 sweep whose baseline cell equals the headline (asserted); the robust finding is that
-**unreachable starts rise monotonically with dispatch delay** (6 → 34 as delay goes
-0 → 60 min). The downstream capacity/triage is a **PoC parameter, not measured 영덕
+**unreachable starts rise monotonically with dispatch delay** (**6 → 66** as delay
+goes 0 → 60 min; `rescue_unreachable_delay_row_cutoff_0p7` = [6, 11, 24, 51, 66] in
+`data/processed/rescue_verify.json`, the same **439-series** run as the 143 origins
+and 6.12 → 1.71 above, all on **real roads**). ⚠ Until 2026-09-03 this line read
+**6 → 34**, which is the same bracket on the **pre-flip synthetic baseline**
+— the superseded 452-series: [6, 15, 20, 25, 34], N = 452, unreachable 20 — preserved at
+`data/processed/rescue_baseline_synthetic/rescue_verify.json` — the lineage
+[`docs/rescue_routing.md`](docs/rescue_routing.md) documents behind its do-not-cite
+banner. Both brackets are real runs of the same script and
+[`docs/REPORT_ROUND2_P1.md`](docs/REPORT_ROUND2_P1.md) reports them side by side;
+neither is a typo, and this paragraph is real-roads throughout. See
+[`docs/ssot_audit_2026-09-03.md`](docs/ssot_audit_2026-09-03.md) §1.
+The downstream capacity/triage is a **PoC parameter, not measured 영덕
 fire-service capacity** — report the curve, not a single "X rescued". Full methods +
 data provenance: [`docs/rescue_routing.md`](docs/rescue_routing.md).
 

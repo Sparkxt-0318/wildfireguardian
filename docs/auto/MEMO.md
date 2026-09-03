@@ -129,6 +129,74 @@ mood) · evidence.
   byte-compile them (`python -m compileall -q scripts/auto`) before relying on
   a lap's report. Evidence: this lap's first `report.py` invocation, and the
   two hoisted-variable fixes.
+- 2026-09-03 · dev · **The test suite DOWNLOADS an 8.4 MB SRTM tile from the
+  network mid-run, so its own pass/skip counts differ between the first run in a
+  fresh clone and every run after it.** This is the cause of the "unreproducible"
+  1,071/60-vs-1,077/54 reading the previous lap logged and could not reproduce —
+  and that lap's attribution to its own module-scoped `artifact` fixture was
+  **wrong**, or at best a second, distinct instance. The delta is always exactly
+  six because it is always the same six tests: `test_srtm_dem.py` ×4 and
+  `test_validation_robustness.py` / `test_validation_session3.py` ×1 each, all
+  guarded on `data/raw/dem/srtm/N36E129.hgt`. That path is git-IGNORED and absent
+  from a fresh clone, so the six skip; then something in the same suite calls
+  `data_io.raster._download_srtm_tile`, which fetches the tile from
+  `elevation-tiles-prod.s3.amazonaws.com`, and every later run finds it cached and
+  passes them. **Evidence, this lap:** `gates.py --mode full` read 1,088/60; three
+  later full runs — bare, with `-rs`, and with the gates' own
+  `-p no:cacheprovider` — all read 1,094/54; total outcomes were 1,148 in every
+  one of them, so nothing was ever lost from collection, six tests simply moved
+  skip→pass; and `data/raw/dem/srtm/N36E129.hgt` has an mtime of 16:34:35, inside
+  the first run. **Anti-pattern:** comparing suite counts across laps as if they
+  measure the same thing. A first-run count and a re-run count on one machine are
+  two different quantities, and every baseline recorded so far (1065/51, 1077/54,
+  1081/54, 1088/60, 1094/54) is an unlabelled mixture of the two. **Gate for the
+  next lap:** state whether a count is a FIRST run or a RE-run in the same
+  sentence as the number, and diff the `SKIPPED` lines in `.auto/pytest-full.log`
+  — which `run()` already writes in full — rather than reasoning from the totals.
+  Filed as WFG-038 (make the download opt-in) rather than fixed here: it is a
+  change to test network behaviour and belongs in its own row with its own review.
+- 2026-09-03 · dev · **A number can be wrong in prose while being right in the
+  artifact, and no gate in this repository can see it.** `README.md:731` quoted
+  the dispatch-delay bracket `6 → 34` inside a paragraph that was otherwise the
+  439-series real-OSM lineage. 34 is not a typo and not unregistered noise: it is
+  the superseded pre-flip 452-series baseline's own bracket, in a tracked artifact, quoted
+  correctly by two other documents. `check_number_collisions.py` fires only when a
+  *registered* quantity appears with a *different* value near its key's anchor
+  words; two lineages of one quantity are each correct, so there is nothing to
+  contradict and the gate ran green over that line every lap (`UNMARKED
+  collisions: 0`, exit 0, at this lap's baseline). **The failure then propagated
+  through three documents and got worse at each step:** a research sweep asked the
+  right question ("which artifact is 34?") and left it UNRESOLVED; the research
+  brief flattened that to "a typo, unregistered"; and the WFG-018 reconciliation
+  sheet — the one document whose whole job is lineage truth — hardened it into
+  「34는 어느 산출물에도 없습니다」 plus a spoken booth line telling the student to
+  say it. A judge could have falsified that with one `grep`. **Anti-pattern:**
+  treating "the gates are green" as evidence that prose is right; and inheriting a
+  previous lap's diagnosis as a premise instead of re-deriving it from the
+  artifacts. **Gate:** a value gate cannot enforce lineage, so lineage needs its
+  own test — `tests/test_rescue_lineage_ssot.py` fails when a superseded 452-series value
+  appears without either a document-level do-not-cite banner or a lineage label
+  beside it. It found the two propagated instances the moment it was switched on.
+- 2026-09-03 · dev · **A pragma is right when the two numbers are genuinely
+  different quantities; a rename is right when the anchor overlap is an accident.**
+  The MEMO's earlier lesson ("prefer a distinguishing noun over a generic one")
+  cleared 12 false collisions by renaming, and I tried that first here. It cannot
+  work for `lofo_rowweighted_pooled_auc`: the two lines it collides with
+  (`HANDOFF_ROUND3.md:553`, `MODEL_CARD.md:116`) exist *in order to compare* pooled
+  against mean-of-folds, so they necessarily carry lofo + pooled + auc and a third
+  number. No key name for the pooled LOFO AUC can avoid them. **Rule:** ask whether
+  the colliding line's *purpose* is to hold both quantities. If yes, `collision-ok`
+  with the reason is the honest fix and a rename would only hide the overlap; if
+  no, rename. Evidence: this lap's four collision runs.
+- 2026-09-03 · dev · **The charter mandates two skills a cloud lap cannot invoke.**
+  CHARTER §4 step 3 requires `hate` on the plan every lap and the critic protocol
+  requires `prism`; both are marked `disable-model-invocation: true` in
+  `.claude/skills/`, so they are reserved for a human typing `/hate` and the Skill
+  tool refuses them. `factchk`, `mandela`, `ssotize`, `sip`, `shower`, `catchup`,
+  `nba`, `readchk` and `re0-memo` all are invocable. Until the charter is reworded,
+  a lap should record the *reasoning* those two skills ask for — one load-bearing
+  objection and its cheapest test — and say that the skill itself was unavailable,
+  rather than silently skipping the step or claiming to have run it.
 - 2026-09-03 · dev · **A cloud lap cannot reliably attach the board to its own
   email, and should stop pretending it can.** The routine prompt asks for
   `docs/auto/dashboard.html` attached as base64. The Gmail tool takes attachment
