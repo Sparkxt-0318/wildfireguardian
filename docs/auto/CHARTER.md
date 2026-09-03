@@ -8,7 +8,7 @@ Written 2026-09-03; the loop may edit it, but only to make it truer.
 
 WildfireGuardian forecasts where an already-burning Korean wildfire will be next and
 turns that forecast into household-level evacuation and rescue-dispatch decisions for
-rural elderly residents. Three goals, in priority order until 2026-10-18:
+rural elderly residents. Three goals, in priority order until 2026-10-24:
 
 1. **Win the 2026 Korea Code Fair (한국코드페어) finals** — 2026-10-24 (Sat), 김대중컨벤션센터, Gwangju,
    offline booth, five judges × (≈5 min demo + ≈5 min Q&A). 은상 or higher earns the
@@ -129,8 +129,15 @@ sandbox for reading Actions runs and pull requests.
    change, `git pull --rebase origin auto/dev`, push. If the rebase shows another
    lap claimed the same row first, take the next row. A claim that is not pushed
    is not a claim (NH-007: two laps built the same row because the marker only
-   travelled with the final commit). Before building, run `readchk` on the row
-   and `hate` on your plan for it; record the root objection in the report.
+   travelled with the final commit). **After pushing the claim and before
+   building, re-fetch `origin/auto/dev` and re-read `docs/auto/CRITIC_LATEST.md`;
+   if it changed since the lap started, clear its `fix-before-next-row` items
+   first.** The critic's window is 30 minutes wide and the dev lap's claim can
+   land inside it (critic #2's root objection: 13 seconds separated one claim
+   from the finding it should have read), so the re-fetch, not the schedule, is
+   what makes CHARTER §11's "caught within one lap" true. Before building, run
+   `readchk` on the row and `hate` on your plan for it; record the root
+   objection in the report.
 4. **Build** (`re0-loop` FRAME → BUILD → DRIVE). Follow the repository's own
    discipline: config in `config/default.yaml`; new experiment → new script under
    `scripts/`, new artifact under `data/processed/<topic>/`, registered numbers,
@@ -159,7 +166,16 @@ sandbox for reading Actions runs and pull requests.
    renders the five images into `docs/auto/images/<stamp>/`, and writes the
    HTML email body to `.auto/email.html`. Update the backlog row (`done`,
    `blocked`, or back to `todo` with a note).
-8. **Commit and push.** Commit messages in commit-economy form (`re0-git` style:
+8. **Commit and push.** **Re-run the prose gates after the report exists.** Step 5's
+   `gates.py` run happens before `report.py` writes anything, so the report — which
+   is tracked prose the prose gates read — is the one file in every lap that no gate
+   has ever seen. On 2026-09-03 critic #2 pushed `24751fa` with `gates.py --mode full`
+   green at `0ff1b36`, and its own report quoted the superseded rescue bracket without
+   a lineage label: `auto/dev` sat RED until the next dev lap found it. So after
+   `report.py`, run at least `make check-forbidden` and
+   `pytest tests/test_rescue_lineage_ssot.py`, or `gates.py --mode full` again if the
+   clock allows; only then commit. WFG-046 makes this mechanical.
+   Commit messages in commit-economy form (`re0-git` style:
    subject states the durable truth, body says why). `git pull --rebase origin
    auto/dev` then `git push origin auto/dev`. Green only; red → `auto/red/<stamp>`.
 9. **Email**, if a Gmail tool is available in the session and only AFTER the

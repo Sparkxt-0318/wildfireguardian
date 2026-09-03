@@ -17,7 +17,8 @@ separately. Everything the autonomous loop builds is aimed at these rows.
 
 ## 주의사항 — venue constraints that shape the demo
 
-- 작품·포스터 설치는 허용 시간 이내에만 (당일 10.18 참가자 등록 후). 설치 미완료 시 감점.
+- 작품·포스터 설치는 허용 시간 이내에만 (당일 10.24 참가자 등록 후). 설치 미완료 시 감점.
+  (날짜는 NH-006에서 저자가 2026-10-24로 확정. 이전 공지본의 10.18은 폐기된 값입니다.)
 - 유·무선 네트워크 미제공 → 완전 오프라인 시연 (`web/finals.html` is offline by gate).
 - 팀원 전원 참석; 10:30 이후 입장 불가; 허가 외 퇴장 시 재입장 불가; 심사 종료 18:00.
 - 타 작품 촬영·접촉 금지.

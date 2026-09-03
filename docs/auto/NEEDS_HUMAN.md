@@ -65,7 +65,10 @@ the area (see backlog WFG-013) so this may close itself.
 **Decided 2026-09-03 by the author: the finals are 2026-10-24.** Freeze moved to
 2026-10-16; STATE.json, CHARTER §1, LOOP_CONFIG and the backlog header now say so.
 
-**What:** The finals notice you supplied says booth setup is on the day itself,
+**What (the question as it stood on 2026-09-03; a record, superseded by the
+decision above — every 10.18 and 10-10 below is the retired reading, kept
+because §3.7 annotates rather than deletes):** The finals notice you supplied
+says booth setup is on the day itself,
 **10.18**, with judging from 10:30 and close at 18:00. The research sweep found a
 KCF "전체 일정 공지" post dated 2026-06-24 (kcf.or.kr/84, idx 171991931) that lists
 the finals as **10.24 (Sat), 김대중컨벤션센터**, results 10.30 14:00. The charter,
