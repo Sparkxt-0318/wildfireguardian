@@ -194,7 +194,7 @@ Round 3 은 새 기능을 얹기 전에 **기존 수치가 아직 참인지 확�
 개선을 동기로 삼습니다. 〔출처: 한겨레·세계일보·서울환경연합〕 ("30명 이상"은 2025년
 *전국* 산불 전체 사망자 합계로, 범위가 다른 수치입니다.)
 
-**대회**: 2026 대한민국 학생 SW공모전(Korea Code Fair) → ISEF (Systems Software)
+**대회**: 2026 대한민국 학생 SW공모전(Korea Code Fair) → ISEF (Software Design, SFTD)
 출전을 목표로 합니다.
 
 ### 현재 모델과 결과 (Build B — `spread_v2`, 데이터 기반)
@@ -491,7 +491,7 @@ are among the six fires the current model is validated on. (The widely-quoted "3
 figure is the *nationwide* 2025 all-fires death toll — a broader, different scope.)
 
 **Target venue**: 2026 Korea Code Fair SW공모전 (Korean student SW competition),
-with the stretch goal of qualifying for ISEF in the Systems Software category.
+with the stretch goal of qualifying for ISEF in the Software Design (SFTD) category.
 
 ### Current model & results (Build B — `spread_v2`)
 

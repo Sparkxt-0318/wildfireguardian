@@ -190,3 +190,15 @@ Documents that face judges are in Korean with the repository's existing tone
 (direct, caveats first, numbers with sources); code, commit messages and reports
 to the author are in English. No em-dashes in shipped screens (font subset). Keep
 the README's Round-2 section untouched; add Round-4 material below Round 3.
+
+## 9. The AI ledger (ISEF Form 2A, KCF 대리작 rule)
+
+ISEF 2026–27 accepts AI-generated code only with an explicit citation of which
+portions were AI-generated and a prompt log; the Korea Code Fair excludes work
+judged to be 대리작. The loop keeps `docs/auto/AI_DISCLOSURE.md` true: every
+agent commit carries the `Co-Authored-By` trailer, every lap writes its report,
+every experiment doc says who proposed the method, and drafts meant for the
+student's own voice (abstract, poster text, Q&A answers) are labelled drafts.
+The student must be able to explain every artifact at the booth; a lap that
+produces something the student could not explain in two minutes produces a
+`docs/<topic>.md` that makes it explainable, or does not ship it.
