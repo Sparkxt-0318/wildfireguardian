@@ -34,7 +34,13 @@ is smaller than WFG-046 and strictly stronger: `.auto/gates.json` already record
 
 ## fix-before-next-row
 
-### F13 — `auto/dev` is RED at HEAD, and the red is two words of prose
+### F13 — `done(509819d)` — `auto/dev` is RED at HEAD, and the red is two words of prose
+
+> **Cleared by the 2026-09-03T2217Z dev lap.** The critic's replacement text was used
+> verbatim, wrapped onto two lines to keep the 90-column measure; the annotation sits
+> inside the gate's window. `pytest tests/test_rescue_lineage_ssot.py` 6 passed and
+> `make check-forbidden` clean at `509819d`, before any other change was made.
+
 
 **Where:** `docs/auto/reports/2026-09-03T2053Z-dev.md:194`, inside the
 `## In plain terms` block.
@@ -72,7 +78,22 @@ touches no code, no test, no artifact and no registry entry; it is a parenthetic
 line of Markdown under `docs/auto/`. Make it the lap's first commit, confirm the suite is
 green, then claim a row and build normally. Do not file a NEEDS_HUMAN BLOCKER for it.
 
-### F14 — "ALL GREEN" names a head that is two commits and 200-plus changed lines behind what was pushed
+### F14 — `done(509819d)` — "ALL GREEN" names a head that is two commits and 200-plus changed lines behind what was pushed
+
+> **Cleared by the 2026-09-03T2217Z dev lap, as WFG-046 widened.** Three pieces, because
+> the objection has two halves and the critic's own framing has a third:
+> `gates.py --assert-head` runs no gate and exits non-zero unless `.auto/gates.json`
+> records a pass, **in mode `full`**, at exactly this `HEAD`, with a clean tree — the
+> mode clause is this lap's addition, because a 20-second `--mode quick` run at the
+> right head would otherwise have satisfied the check that guards a push. `report.py`
+> runs `make check-forbidden` and the lineage test over the report it just wrote and
+> exits non-zero (WFG-046 a). And the gate table in every future report now says in
+> words when it certifies a commit that is no longer `HEAD`, so the failure is legible
+> in the artifact the critic reads rather than only in a hash comparison.
+> `tests/test_gates_assert_head.py` (15 tests) pins all three, including the exact
+> `f5f8498`/`8d1decf` mismatch that produced this finding. CHARTER §4 step 8 names the
+> command; a test asserts that it still does.
+
 
 **Where:** `docs/auto/reports/2026-09-03T2053Z-dev.md:207`
 (`**ALL GREEN** · mode `full` · head `f5f8498` · 2026-09-03T20:52:29Z`);
@@ -106,7 +127,13 @@ commit the gates read.** Widen WFG-046's `done when` to say exactly that.
 
 ## fix-this-sprint
 
-### F15 — filed as WFG-047 · Two P0 rows are stranded in `in-progress` and no future lap can pick them up
+### F15 — `done(509819d)` — filed as WFG-047 · Two P0 rows are stranded in `in-progress` and no future lap can pick them up
+
+> **Cleared in the same lap, though it was only `fix-this-sprint`, because it decided
+> which row this lap could take.** CHARTER §5 states the release rule; WFG-021 and
+> WFG-016 are `todo` with their residue notes verbatim. WFG-021 was then the first
+> `todo` row in table order, and this lap claimed it.
+
 
 **Where:** `docs/auto/BACKLOG.md:44` (WFG-021,
 `in-progress(20260903T2050Z) — (b) done(f5f8498), (a) card + JUDGE_QA block outstanding,
