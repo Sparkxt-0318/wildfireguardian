@@ -23,3 +23,12 @@ mood) · evidence.
   fixture built a runner that opens a git-ignored DEM. An unguarded fixture turns
   one missing file into a suite that looks broken, which is indistinguishable
   from a real regression at a glance. Guard the fixture, not each test.
+- 2026-09-03 · kickoff (human-run lap) · **A gate's exit code must be the thing
+  the push depends on, even in an ad-hoc shell.** The kickoff session ran
+  `gates.py --mode quick | tail -2 && git push`: the pipe returned tail's zero,
+  the gate was RED (one collision-check hit in the new JUDGE_QA.md), and the
+  push went through; fixed within minutes, but it is the Session 10 mistake
+  again, made by the same tooling this repository was built to stop.
+  `check_gate_invocations.py` cannot see a command typed into a session.
+  Gate: capture `gates.py` into a file, read `$?`, and push only on 0; never
+  pipe it. Evidence: commits `14f6870` (red) and `953eb6c` (fix).
