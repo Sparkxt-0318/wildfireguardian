@@ -10,7 +10,7 @@ WildfireGuardian forecasts where an already-burning Korean wildfire will be next
 turns that forecast into household-level evacuation and rescue-dispatch decisions for
 rural elderly residents. Three goals, in priority order until 2026-10-18:
 
-1. **Win the 2026 Korea Code Fair (한국코드페어) finals** — 2026-10-18, Gwangju,
+1. **Win the 2026 Korea Code Fair (한국코드페어) finals** — 2026-10-24 (Sat), 김대중컨벤션센터, Gwangju,
    offline booth, five judges × (≈5 min demo + ≈5 min Q&A). 은상 or higher earns the
    ISEF Korea-delegation selection interview. Rubric: `docs/auto/RUBRIC.md`.
 2. **Be a genuine scientific and engineering contribution** to wildfire response,
@@ -20,8 +20,9 @@ rural elderly residents. Three goals, in priority order until 2026-10-18:
 
 | date | what |
 |---|---|
-| 2026-10-10 | **freeze** — after this, only bug fixes, demo polish, Q&A material |
-| 2026-10-18 | finals (booth setup that morning after registration; no wifi) |
+| 2026-09-04 → 09-15 | **the sprint** — all primary work lands here (§11) |
+| 2026-10-16 | **freeze** — after this, only bug fixes, demo polish, Q&A material |
+| 2026-10-24 | finals (booth setup that morning after registration; no wifi); results 10-30 |
 | 2026-12 | KCF awards; ISEF delegation interview follows for 은상 이상 |
 | 2027-01 → 05 | ISEF 12-month research window and ISEF 2027 |
 | after 2026-12 | IEEE submission (docs/auto/research/ carries the plan) |
@@ -182,7 +183,7 @@ proposes backlog rows with evidence, and writes a `research` report.
 
 `docs/auto/BACKLOG.md` is a table plus a details section per row. Columns:
 `ID | P | goal | title | status | rubric rows | done when | constraints`.
-Priorities: **P0** ships before the 2026-10-10 freeze; **P1** before 2026-10-18;
+Priorities: **P0** ships inside the sprint (by 2026-09-15); **P1** before the 2026-10-16 freeze;
 **P2** after the finals, for ISEF; **P3** for the IEEE paper. Status:
 `todo | in-progress(<stamp>) | done(<commit>) | blocked(NH-###) | dropped(why)`.
 Goals: `KCF | ISEF | science | IEEE | infra`. Rows are concrete enough that a
@@ -246,3 +247,25 @@ schedule; the change applies from the next run. A faster, cheaper model
 (`claude-sonnet-5`) is a reasonable choice for the research routine; keep the
 dev and critic routines on the strongest model available, because they change
 code and judge claims.
+
+## 11. The sprint: 2026-09-04 to 2026-09-15
+
+The author asked that all primary work land in twelve days, with laps as close
+together as the platform allows, and that at the end there is a **full final
+product** ready to take to the booth. So, for the sprint:
+
+- Cadence: dev every 2 hours, critic daily, research on 09-04 and 09-10.
+- Order of work is the backlog table order; the sprint plan at the top of
+  `docs/auto/BACKLOG.md` names the day each P0 row should be done by. A lap that
+  finishes its row early takes the next one; it never idles.
+- **The final product is a backlog row (WFG-036), not an afterthought.** Its
+  definition of done is `docs/auto/KCF_READINESS.md`: a checklist the critic
+  ticks with evidence every day. When every box is ticked the product is
+  ready; until then it is not, whatever the backlog says.
+- After `LOOP_CONFIG.json` → `sprint.end`, a lap writes a one-paragraph
+  "sprint over" report and exits without building. The one-time handover
+  routine (09-16) writes `docs/auto/HANDOVER_2026-09-16.md`: what shipped,
+  what the checklist still lacks, and the post-sprint list for the author.
+- What is deliberately left for after the sprint: P2 (ISEF) and P3 (IEEE) rows,
+  anything needing the raw bundle on the laptop, and the author-only items
+  (rehearsal, printing, consultations, portal downloads).

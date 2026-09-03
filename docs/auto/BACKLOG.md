@@ -1,8 +1,8 @@
 # Backlog — what the loop works on, in order
 
-Conventions: `docs/auto/CHARTER.md` §5. **P0** ships before the freeze (2026-10-10, or
-10-16 if the fair is 10.24; NH-006), **P1** before the finals, **P2** after the finals
-(ISEF), **P3** for the IEEE paper. Status: `todo | in-progress(<stamp>) | done(<commit>)
+Conventions: `docs/auto/CHARTER.md` §5 and §11. **P0** ships inside the sprint (by
+2026-09-15), **P1** before the freeze (2026-10-16), **P2** after the finals (2026-10-24;
+ISEF), **P3** for the IEEE paper. Status: `todo | in-progress(<stamp>) | done(<commit>)
 | blocked(<why>) | parked(<why>)`. The dev routine takes the first `todo` row in table
 order that is agent-doable and unblocked; `blocked(human)` rows are the author's and are
 mirrored in `docs/auto/NEEDS_HUMAN.md`. This table was re-keyed on 2026-09-03 from the
@@ -10,6 +10,27 @@ research brief (`docs/auto/research/RESEARCH_BRIEF_2026-09-03.md`) and its backl
 proposal (`BACKLOG_PROPOSAL_2026-09-03.md`), which explain every priority change; the
 eight sweeps behind them are under `docs/auto/research/sweeps_2026-09-03/`. Rows the
 proposal demoted keep their IDs so earlier reports still resolve.
+
+## Sprint plan, 2026-09-04 to 09-15 (CHARTER §11)
+
+Table order below is the order of work. Target days are for the critic to
+measure slippage against, not deadlines a lap may skip past.
+
+| by | rows | what the author sees at the end of that day |
+|---|---|---|
+| 09-04 | WFG-002, WFG-004 | Q&A bank v2 done; one value per quantity across judge-facing docs |
+| 09-05 | WFG-020, WFG-021 | survivor-survey evidence registered; detection-floor panel + GK2A tests |
+| 09-07 | WFG-017, WFG-003 | finals screen v2 with the evidence cards; 5-minute script and screen audit |
+| 09-08 | WFG-016, WFG-024 | AI ledger + Form 2A draft; dates and branch re-keyed everywhere (R11) |
+| 09-10 | WFG-036 | **final product bundle v1** (`release/kcf-finals-2026/`, R9) |
+| 09-11 | WFG-007, WFG-030, WFG-031 | booth checklist + printables as PDF; report-number gate; CITATION.cff |
+| 09-12 | WFG-026, WFG-027, WFG-010 | related-work + SFTD059T panel; schedule/roles timeline; README Round-4 + abstract |
+| 09-13 | WFG-025, WFG-009 | the two clean single-variable sweeps; Playwright smoke of the screen |
+| 09-14 | WFG-036 v2 | bundle rebuilt with everything above; every KCF_READINESS line ticked except R12 |
+| 09-15 | buffer | slippage, critic findings, MEMO; the 09-16 handover writes the post-sprint list |
+
+Left for after the sprint by design: P2 and P3 rows, anything needing the
+laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 
 | ID | P | goal | title | status | agent-doable | effort | rubric rows |
 |---|---|---|---|---|---|---|---|
@@ -24,6 +45,8 @@ proposal demoted keep their IDs so earlier reports still resolve.
 | WFG-017 | P0 | KCF | `web/finals.html` refresh v2: evidence cards for operating point, detection floor, horizon grounding, refuge placement, reconciliation; rebuilt with `--verify` | todo | true (fallback: student runs `make finals`) | one lap | 제출 자료 · 구현 및 유용성 |
 | WFG-003 | P0 | KCF | Finals screen audit + 5-minute demo script (keep) | todo | true | one lap | 제출 자료 · 구현 및 유용성 |
 | WFG-016 | P0 | ISEF | AI ledger current (**revise**: add IEEE acknowledgment draft; hand-written-only list) | in-progress(kickoff seed) | true | hours | 제출 자료 · ISEF independence |
+| WFG-036 | P0 | KCF | **Final product bundle** `release/kcf-finals-2026/`: `web/` whole (finals + console + field view), printables PDF, `README_KO.md` 10-line run recipe, `CITATION.cff`, `make finals-bundle` byte-identical rebuild; definition of done = `docs/auto/KCF_READINESS.md` R1–R11 | todo | true | two laps (v1 by 09-10, v2 by 09-14) | 구현 및 유용성 · 제출 자료 |
+| WFG-037 | P0 | KCF | Booth recipe `docs/auto/finals/BOOTH_SETUP.md`: exact steps for the judged laptop (env, `make all-checks`, open `file://` with Wi-Fi off, key bindings, two USB copies, fallback if the laptop dies), plus NH-014 asking the author to run it once | todo | true | hours | 구현 및 유용성 |
 | WFG-024 | P0 | infra | Re-key branch name and dates after WFG-023/022 (HANDOFF §5.1 → `auto/dev`; STATE/CHARTER dates; BACKLOG brief path) | blocked(WFG-022, WFG-023) | true, blocked(WFG-023) | hours | — |
 | WFG-005 | P2 | science | Decision-level uncertainty (**revise**: demote to P2, blocked — needs the raw bundle and forward simulation; Mac-only; human-approved) | blocked(raw bundle, Mac-only; P2) | false in sandbox | — | — |
 | WFG-006 | P2 | science | Wind-direction sensitivity (**revise**: demote to P2, blocked — forward simulation needs the raw bundle; Mac-only) | blocked(raw bundle, Mac-only; P2) | false in sandbox | — | — |

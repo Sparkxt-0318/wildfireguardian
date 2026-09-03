@@ -7,5 +7,11 @@
     "critic-only": "no per-lap review beyond gates; the daily critic routine is the only independent reviewer."
   },
   "email_images": true,
-  "plain_terms_required": true
+  "plain_terms_required": true,
+  "sprint": {
+    "start": "2026-09-04T00:00Z",
+    "end": "2026-09-15T23:59Z",
+    "_readme": "The author asked for all primary work to land inside this window, with laps as close together as the platform allows. After `end`, a lap writes a one-paragraph 'sprint over' report and exits without building; the one-time handover routine writes the post-sprint list. The author pauses the routines on claude.ai/code/routines afterwards."
+  },
+  "dev_cadence_note": "dev every 2 h (cron 17 */2 * * * UTC) during the sprint; critic daily; research on Sep 4 and Sep 10."
 }

@@ -60,7 +60,10 @@ https://business.juso.go.kr (도로명주소 전자지도 → 건물) and place 
 already scripted. The loop will first check whether an open global dataset covers
 the area (see backlog WFG-013) so this may close itself.
 
-## NH-006 · DECISION · open · Confirm the finals date: 10.18 (your notice) vs 10.24 (June schedule post)
+## NH-006 · DECISION · closed · Confirm the finals date: 10.18 (your notice) vs 10.24 (June schedule post)
+
+**Decided 2026-09-03 by the author: the finals are 2026-10-24.** Freeze moved to
+2026-10-16; STATE.json, CHARTER §1, LOOP_CONFIG and the backlog header now say so.
 
 **What:** The finals notice you supplied says booth setup is on the day itself,
 **10.18**, with judging from 10:30 and close at 18:00. The research sweep found a
@@ -166,3 +169,12 @@ without the preview proxy), enable GitHub Pages on the repository: Settings →
 Pages → Source "Deploy from a branch" → branch `auto/dev`, folder `/docs`. The
 board would then be at `https://sparkxt-0318.github.io/wildfireguardian/auto/dashboard.html`.
 The repository is already public, so this exposes nothing new. Not required.
+
+## NH-014 · DECISION · open · Run the booth recipe once on the real laptop (after 09-10, before 10-16)
+
+**What:** When WFG-037 lands, `docs/auto/finals/BOOTH_SETUP.md` gives the exact
+steps for the judged machine. Run it once on the laptop you will carry to
+Gwangju (env, `make all-checks`, open `web/finals.html` from `file://` with
+Wi-Fi off, copy `release/kcf-finals-2026/` to two USB sticks). Close this entry
+with the date and the laptop's Python version. It is KCF_READINESS line R12 and
+the only readiness line the loop cannot tick for you.
