@@ -41,7 +41,7 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-002 | P0 | KCF | Judge Q&A bank v2 (**revise**: corrected numbers, four new questions, deprecated phrasings purged) | done(20260903T1536Z) | true | one lap | 연구 목적 · 설계와 방법론 · 데이터 해석 |
 | WFG-004 | P0 | KCF | SSOT sweep (**revise**: fix README:731, reconcile `fold_sizes.md` vs `NUMBERS.json` on the primary AUC, annotate superseded values) | done(20260903T1622Z) | true | one lap | 제출 자료 |
 | WFG-020 | P0 | KCF | Greenpeace 2026 survivor survey registered as evidence + the "85% drove" answer | done(20260903T1821Z) | true (fallback NH) | hours | 연구 목적 · 데이터 수집 |
-| WFG-021 | P0 | KCF | Detection-floor panel (Session 19 as recorded) + tests for `src/wildfireguardian/detection/gk2a.py` | in-progress(20260903T2217Z) — **(b) done(f5f8498)**, (a) card + JUDGE_QA block outstanding, (c) not attempted | true | one lap | 데이터 수집·분석·해석 · 설계와 방법론 |
+| WFG-021 | P0 | KCF | Detection-floor panel (Session 19 as recorded) + tests for `src/wildfireguardian/detection/gk2a.py` | todo — **(a) done(<C3>)**, **(b) done(f5f8498)**, (c) not attempted (needs the NOAA archive at run time; see the residue note) | true | one lap | 데이터 수집·분석·해석 · 설계와 방법론 |
 | WFG-017 | P0 | KCF | `web/finals.html` refresh v2: evidence cards for operating point, detection floor, horizon grounding, refuge placement, reconciliation; rebuilt with `--verify` | todo | true (fallback: student runs `make finals`) | one lap | 제출 자료 · 구현 및 유용성 |
 | WFG-003 | P0 | KCF | Finals screen audit + 5-minute demo script (keep) | todo | true | one lap | 제출 자료 · 구현 및 유용성 |
 | WFG-016 | P0 | ISEF | AI ledger current (**revise**: add IEEE acknowledgment draft; hand-written-only list) | todo — never started; the kickoff seed marked it `in-progress` and no lap has held it since (released by WFG-047) | true | hours | 제출 자료 · ISEF independence |
@@ -71,6 +71,7 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-045 | P1 | IEEE | `paper/manuscript.md` cites 21 works and has no `## References` section, and `check_paper.py` checks no section at all against CHARTER §12 (critic 20260903T1947Z) | todo | true | hours | 제출 자료 (출처) |
 | WFG-046 | P0 | infra | Every lap pushes commits no gate has read: `gates.py` runs at step 5 and everything after it (the report, and any post-review fix) is unchecked, so `auto/dev` has gone red twice this way (`24751fa`, `8d1decf`). **Widened by critic 20260903T2147Z (F14):** not just the report. Make `report.py` gate its own prose AND add a `--assert-head` check that refuses a push when `.auto/gates.json` → `git_head` is not `HEAD` | done(509819d) | true | hours | 데이터 해석 (재현) |
 | WFG-047 | P0 | infra | `in-progress` is written as a lock with no release, so a row a lap left unfinished is invisible to every later lap: WFG-021 (a)+(c) and WFG-016 are stranded, and `KCF_READINESS` R2 depends on WFG-021 (a) (critic 20260903T2147Z) | done(509819d) | true | minutes | 데이터 해석 (재현) |
+| WFG-048 | P1 | infra | The three FIRMS first-detection delays that `docs/detection_floor.md` §4 and §8 put beside the GK2A delays (+117 / +151 / +17 min, from `data/processed/detection/firms_first_detection.json` → `delay_h` 1.95 / 2.52 / 0.28) have no registry key, so the one comparison a judge is most likely to ask about is the one number on that page that `make verify` cannot re-derive (dev lap 20260903T2217Z, while writing WFG-021 a) | todo | true | hours | 데이터 해석 (재현) |
 | WFG-011 | P2 | ISEF | ISEF plan memo (**revise**: route-existence questions, SFTD base rate, age rule, hand-written documents) | todo | true | one lap | — |
 | WFG-032 | P2 | science | Leak-free 영덕 fold + hindsight-oracle routing arm (agent writes the script; student runs on the Mac) | todo | partial | one lap + one Mac day | 데이터 해석 · IEEE Table V |
 | WFG-033 | P2 | science | Coupling-ablation routing-only arms on committed hazard fields (fire-blind / static perimeter + buffer / spread_v2), three regions (absorbs WFG-012) | todo | true | two laps | 설계와 방법론 · 데이터 해석 |
@@ -442,6 +443,25 @@ carrying forward.
   switch is `WFG_GK2A_NETWORK_TESTS=1`.
 - **Constraints:** never say "every fire" (3 of 6); never rewrite the KMA-key direction experiment (`docs/gk2a_direction_experiment.md`) as a trigger item; the confabulated "1.28 ± 0.79 km" figure must not appear.
 - **Done when:** tests exist and pass in the sandbox; the card text is in `docs/auto/finals/` and JUDGE_QA; registry keys cited.
+- **2026-09-03T2217Z dev lap — (a) is done, and the row goes back to `todo` for (c).**
+  `docs/auto/finals/DETECTION_FLOOR_CARD.md` states Session 19 as recorded: the three
+  GK2A delays, the 영덕 교란 classification with the four numbers that justify it, the
+  0-of-709 false-alarm **bound**, the 0.1939 ha size floor, the 신고 > GK2A > FIRMS
+  priority, and an explicit "not claimed: GK2A buys time". `JUDGE_QA.md` gains Q10a
+  (why 영덕 is excluded rather than counted as a miss) and Q10b (the false alarm rate is
+  a bound, not 0 %). `tests/test_detection_floor_card.py` (14 tests) reads every figure
+  on the card back out of `docs/NUMBERS.json` and fails on a drifted digit, and its last
+  test refuses any bare number on the card that has neither a registry key nor an
+  in-place definition. **The FIRMS values named in this row's `What` were deliberately
+  NOT copied onto the card: they are unregistered** (WFG-048), and CHARTER §3 rule 3
+  says a number you cannot register you do not write. The card points at
+  `docs/detection_floor.md` §8 instead.
+- **(c) is still not attempted, and the reason is time, not reachability.** SESSION19
+  items 10 and 12 need granules fetched from the NOAA GK2A archive at run time; the
+  needed intermediates are not committed under `data/processed/detection/`. The 2017Z
+  reviewer established the archive IS reachable anonymously, so this is agent-doable in
+  a lap that budgets the download. It stays out of the default suite for WFG-039's
+  reason (`WFG_GK2A_NETWORK_TESTS=1`).
 
 ### WFG-017 · P0 · KCF · `web/finals.html` refresh v2
 - **What:** the committed screen was built 2026-08-15 at `c22ee5d9` and carries no Session 19/20/22 content. Add EVIDENCE/RELIABILITY cards, each with a 「근거」 pointer: operating point (WFG-019: PR curve, recall 0.138/0.0867, three folds at TP = 0 with `n_positive` shown so it reads as prevalence); detection floor (WFG-021); horizon grounding (Session 20: 79.23% of 2,008 fires contained ≤ 240 min; ≥ 100 ha median 4,025 min; `docs/horizon_grounding.md`); refuge placement (Session 22: one refuge covers 20/24 failing OSM-building "households", two cover 24/24 — with all three red caveats: OSM 124-building proxy, reachability-not-safety objective, 0/120 survival-filter events, counts 잠정 pending footprints); the reconciliation sheet as a RELIABILITY card only in the NEAR-labelled prose form permitted by WFG-018's constraints. Rebuild with `scripts/build_finals.py --verify` so the SYSTEM INTEGRITY panel records the gates; run `scripts/check_screen_assets.py web/finals.html` and the 17 tests in `tests/test_finals_screen.py`. No em-dashes (font subset). Region literals forbidden in the template.
@@ -744,3 +764,24 @@ carrying forward.
 ### WFG-015 · P3 · IEEE · Reproducibility package — keep
 - As written; the Zenodo DOI is minted by the student from a GitHub Release after the finals (needs a Zenodo login); `docs/REPRODUCE.md` verified by a fresh-clone CI run on committed snapshots; the 16 verified-but-unreproducible values stated as such with the 2026-07-24 graph-loss reason.
 
+### WFG-048 · P1 · infra · The FIRMS half of the detection-floor comparison is unregistered
+- **What:** `docs/detection_floor.md` §4 prints `+117분`, `+151분`, `+17분` for FIRMS beside
+  the three registered GK2A delays, and §8 repeats them as the headline trade-off line
+  (`+22 / +34 / +64분` vs `+117 / +151 / **+17**분`) together with a derived "95분·117분
+  앞섬" and "47분 빨랐습니다". None of those has a `docs/NUMBERS.json` key. The values are
+  read from a committed artifact — `data/processed/detection/firms_first_detection.json`
+  → `<fire>.delay_h` = 1.95 / 2.52 / 0.28 h — so they are traceable by hand and NOT
+  re-derivable by `make verify`, which is the gap CHARTER §3 rule 3 exists to close.
+- **Do:** register three `json_path` entries in hours (the artifact's own unit) plus, if the
+  minute form is wanted on judge-facing prose, three `expression` entries with
+  `expr = "a * 60"`; then cite them from §4, §8 and the finals card. Check first whether
+  `scripts/build_numbers.py` would drop them on its next run (WFG-040) — the existing
+  `det_*` keys are not produced by it either, which is the same latent problem.
+- **Effort:** hours. **agent_doable:** true.
+- **Constraints:** never edit a registered value (§3 rule 2); the derived "95분·117분
+  앞섬"/"47분" sentences in §8 must either become registered expressions or be rewritten to
+  read off the registered pairs. Do not restate the FIRMS numbers anywhere new until they
+  are registered.
+- **Done when:** `make verify` re-derives every FIRMS figure that appears in prose, and
+  `docs/auto/finals/DETECTION_FLOOR_CARD.md` can state the comparison instead of pointing
+  at §8.

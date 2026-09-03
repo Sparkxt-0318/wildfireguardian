@@ -249,6 +249,43 @@ leave-one-fire-out이 정직한 프로토콜입니까?"**
 
 ---
 
+**Q10a · T1 (WFG-021 a). "영덕은 위성이 놓친 겁니까? 그럼 실패 사례 아닙니까?"**
+
+답변(초안): "실패로도, 성공으로도 세지 않습니다. 「교란」으로 분류하고 증거에서 뺐습니다.
+이유는 하나입니다. 66 km 떨어진 의성 화재가 영덕의 배경 고리 안에 들어와 배경 자체가
+올라갔고, 문턱이 3 K 대신 22 K 가 됐습니다 — 배경 고리 중앙값 초과분이 8.328 K 입니다.
+영덕에서 가장 강한 이상은 11.611 K 로 그 문턱 아래입니다. 오염되지 않은 배경을 가정한
+반사실에서는 217 스텝이 깨끗한 문턱을 넘습니다. 그래서 「문턱이 올라간 것이 원인」이라는
+증거이지 「영덕이 탐지됐다」는 뜻이 아닙니다. 그리고 설령 그 이상이 진짜 화재였다 해도
+시각은 신고 +28분이라 결론은 어느 쪽으로 읽어도 같습니다. 위성이 사람보다 앞서지
+않습니다."
+
+근거: `docs/auto/finals/DETECTION_FLOOR_CARD.md`, `docs/detection_floor.md` §4,
+산출물 `data/processed/detection/yeongdeok_background_contamination.json`.
+키: `det_yeongdeok_bg_ring_median_k`, `det_gk2a_yeongdeok_best_delta_k`,
+`det_yeongdeok_steps_clearing_clean_threshold`,
+`det_yeongdeok_best_anomaly_minutes_after_report`.
+
+없는 것: 영덕에서 실제로 무엇이 탔는지에 대한 위성 증거는 없습니다. 이 초고의 첫 설명은
+커밋된 산출물에 없는 네 숫자에 기대고 있었고, `docs/detection_floor.md` §4 에서 철회했습니다.
+
+---
+
+**Q10b · T1 (WFG-021 a). "오경보는 몇 %입니까?"**
+
+답변(초안): "0 % 라고 말하지 않겠습니다. 분자가 0이라 비율이 아니라 상한입니다. 불이 없는
+대조 구간 709 스텝에서 발화된 화소가 0건이었고, 여기서 나오는 것은 95 % 상한으로 스텝당
+약 0.4 %, 2분 주기면 하루 3건 규모입니다. 네 구역, 한 계절에서 잰 값입니다. 대조 구간은
+같은 기하·같은 시각·14일 전이라 계절·태양고도·지형·해안선을 고정하고 불만 뺀 것입니다.
+표본을 늘리기 전에는 이 상한보다 강하게 말할 근거가 없습니다."
+
+근거: `docs/auto/finals/DETECTION_FLOOR_CARD.md`, `docs/detection_floor.md` §5.
+키: `det_false_alarm_steps`, `det_control_steps`.
+
+없는 것: 다른 계절·다른 지역의 오경보율은 측정하지 않았습니다.
+
+---
+
 **Q11 · T0. "다음 위성 통과까지 발화 확률 0.5 이상을 도로 통행 불가의 정의로 쓰셨습니다.
 375 m 셀의 발화는 도로 위의 화염이 아닙니다."**
 

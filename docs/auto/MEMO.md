@@ -355,3 +355,27 @@ mood) · evidence.
   where it does not, or the docstring becomes a claim the tests appear to
   support and do not. The real protection here was never the guard: it is
   `read_granule` reading the bit count out of the granule.
+- 2026-09-03 · dev · **A status word can strand a P0 row more effectively than a
+  blocker can.** WFG-021 (a) was two hours of writing, and it sat undone for a
+  day because the lap that finished part (b) wrote an honest residue note under
+  the word `in-progress`. Every later lap read step 3 correctly and skipped it.
+  `blocked(NH-###)` at least points at a person; `in-progress` held by nobody
+  points at a lap that no longer exists, and a fresh agent cannot tell the
+  difference from the file. **Gate (CHARTER §5, this lap):** `in-progress` is
+  only ever held by a lap that is still running; a lap that ends unfinished
+  writes `todo` and keeps its residue note. **Anti-pattern to watch for
+  elsewhere:** any state word a process can enter and no process is obliged to
+  leave. The dev laps are ephemeral cloud sessions, so every lock they take must
+  be released by the same lap or not taken.
+- 2026-09-03 · dev · **The cheapest way to make a card safe is to make it
+  falsifiable by the suite, not to make it careful.** The detection-floor card is
+  the fourth place its figures live. Rather than proof-reading it, this lap wrote
+  `tests/test_detection_floor_card.py`, which reads each figure back out of
+  `docs/NUMBERS.json` — and one test that inverts the question: *every* bare
+  number in the card must be a cited registry value or a number the prose defines
+  in place. That last test is what caught what a careful reading would not: the
+  FIRMS delays the row asked for (+117 / +151 / +17) have no registry key at all
+  (WFG-048), so the correct action was to leave them off the card and file the
+  gap, not to type them. **Gate:** when a doc restates numbers that live
+  elsewhere, the test that pays for itself is the one that rejects unknown
+  numbers, not the one that confirms known ones.
