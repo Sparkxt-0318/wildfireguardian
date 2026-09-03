@@ -32,16 +32,22 @@ jobs:
             f="$(git diff --name-only "$before" "${{ github.sha }}" -- docs/auto/reports | grep -v README | sort | tail -n 1 || true)"
           fi
           if [ -z "$f" ]; then
-            f="$(ls docs/auto/reports/*.md | grep -v README | sort | tail -n 1)"
+            f="$(ls docs/auto/reports/*.md 2>/dev/null | grep -v README | sort | tail -n 1 || true)"
+          fi
+          if [ -z "$f" ]; then
+            echo "no report file in this push (README only); nothing to send"
+            echo "file=" >> "$GITHUB_OUTPUT"
+            echo "subject=" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
           echo "file=$f" >> "$GITHUB_OUTPUT"
           echo "subject=$(head -n 1 "$f" | sed 's/^# *//')" >> "$GITHUB_OUTPUT"
           echo "picked $f"
       - name: No SMTP secrets — skipping delivery
-        if: env.HAS_SMTP != 'true'
+        if: env.HAS_SMTP != 'true' && steps.pick.outputs.file != ''
         run: echo "Add SMTP_USERNAME / SMTP_PASSWORD / REPORT_TO secrets to receive ${{ steps.pick.outputs.file }} by email."
       - name: Send
-        if: env.HAS_SMTP == 'true'
+        if: env.HAS_SMTP == 'true' && steps.pick.outputs.file != ''
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: ${{ vars.SMTP_HOST || 'smtp.gmail.com' }}
