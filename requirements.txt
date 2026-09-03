@@ -94,9 +94,13 @@ pytest==9.1.1
 # --- Optional extra: `legacy` (pip install -e ".[legacy]") ------------------
 # xgboost is required ONLY by the abandoned spread_v2_xgb (Build A) and the LFMC
 # scaffold, NOT by the canonical spread_v2 model. It is NOT a core dependency.
-# Note: tests/test_spread_v2_xgb.py::test_lofo_holds_out_whole_fire imports
-# xgboost WITHOUT a pytest.importorskip guard (unlike tests/test_lfmc_retrieval.py),
-# so it ERRORS rather than skips when the legacy extra is absent.
+# Note: every test that needs xgboost now guards with pytest.importorskip, so
+# without the legacy extra they SKIP rather than error — the ERROR this note used
+# to warn about was fixed at tests/test_spread_v2_xgb.py:222.
+# One consequence worth knowing before you compare suite counts:
+# tests/test_empirical_interaction.py guards at MODULE level, so its five tests
+# are not COLLECTED at all without the extra. A clean clone therefore reports
+# 1116 test outcomes where a machine carrying the legacy extra reports 1120.
 # xgboost==3.2.0
 
 # --- Declared in Round 2 but imported nowhere in src/, scripts/ or tests/ ----

@@ -10,7 +10,7 @@ from `docs/HANDOFF_ROUND3.md` §4, and from every critic lap.
 
 | ID | P | goal | title | status | rubric rows | done when | constraints |
 |---|---|---|---|---|---|---|---|
-| WFG-001 | P0 | infra | Clean-Linux green: bootstrap + full gates pass in the sandbox and in `auto-gates.yml` | in-progress(20260903T0513Z) | 데이터 수집·분석·해석 (재현 가능성) | `.auto/gates.json` passed=true from a cloud lap and a green Actions run on `auto/dev` | no artifact changes; env fixes only |
+| WFG-001 | P0 | infra | Clean-Linux green: bootstrap + full gates pass in the sandbox and in `auto-gates.yml` | done(c42287e) | 데이터 수집·분석·해석 (재현 가능성) | `.auto/gates.json` passed=true from a cloud lap and a green Actions run on `auto/dev` | no artifact changes; env fixes only |
 | WFG-002 | P0 | KCF | Judge Q&A bank v2 (`docs/auto/JUDGE_QA.md`): the hardest hostile questions, each answered with the artifact that proves it or an honest "not measured" | todo | 연구 목적 · 설계와 방법론 · 데이터 해석 | ≥ 30 questions, every answer cites a file path or NUMBERS key; critic lap finds no unanswered P0 question | Korean; no new numbers |
 | WFG-003 | P0 | KCF | Finals screen audit: every number, label and legend on `web/finals.html` traces to `docs/NUMBERS.json`; 5-minute demo script (`docs/auto/DEMO_SCRIPT_5MIN.md`) with per-act timings and the sentence to say when each judge type interrupts | todo | 제출 자료 · 구현 및 유용성 | script exists; `scripts/check_screen_assets.py web/finals.html` green; a table maps every on-screen figure to a registry key | do not rebuild screens from changed artifacts; `make finals` only if data unchanged |
 | WFG-004 | P0 | KCF | SSOT sweep of judge-facing docs (README, MODEL_CARD, HANDOFF, session reports): one value per quantity, superseded values annotated, no contradiction a judge can find in a minute | todo | 제출 자료 | `check_number_collisions.py --report` shows 0 unmarked hits; `ssotize` audit report committed | annotate, never delete |
@@ -65,13 +65,29 @@ artifact:
    in every clone and skips only the final two, so the guard is still exercised
    in CI rather than blanket-skipped.
 
-⚠ **Two things this lap did NOT establish.** (a) The CI half of "done when" is
-unverified — `auto-gates` had never once concluded green before this lap (runs
-1/2/3/5 cancelled by the concurrency rule as pushes stacked, run 4 `failure`).
-(b) The sandbox collects **1116** tests against the laptop baseline's **1120**
-(1116 passed / 3 skipped / 1 xpassed). Four tests are not collected here and the
-cause is not diagnosed; `xgboost` is absent in the sandbox but reports as a
-skip, not as an uncollected test, so it does not obviously account for them.
+**Both halves of "done when" are now satisfied.** The CI half settled after the
+push: `auto-gates` **run 8** on `c42287e` concluded `success` at 2026-09-03
+05:17:52Z — the first green run this workflow has ever had. Before it, runs
+1/2/3/5 were cancelled by the concurrency rule as pushes stacked, and runs 4 and
+7 concluded `failure`; run 7 on `017c9ec` is the clean-machine confirmation that
+the twelve guards were the remaining blocker.
+
+**The count gap is explained, and it is benign.** The sandbox reports **1116**
+test outcomes against the laptop baseline's **1120**
+(1116 passed / 3 skipped / 1 xpassed). Cause:
+`tests/test_empirical_interaction.py` calls `pytest.importorskip("xgboost")` at
+**module level**, so without the optional `legacy` extra its **five** tests are
+never collected and the module contributes one skip instead — 1115 collected + 1
+module skip = 1116, and the shortfall of 4 is exactly those 5 tests minus the 1
+skip. `xgboost` is deliberately not a core pin (`requirements.txt` keeps
+`xgboost==3.2.0` commented; it lives in the `legacy` extra), so the sandbox is
+behaving as designed and no test is silently lost.
+
+While confirming that, a stale note in `requirements.txt` was corrected: it
+warned that `test_lofo_holds_out_whole_fire` imports xgboost *without* a guard
+and therefore ERRORS on a clean clone. The guard was added at
+`tests/test_spread_v2_xgb.py:222` and it skips. The note now says so, and records
+the module-level collection effect above.
 
 ### WFG-002 — Judge Q&A bank v2
 Start from `docs/auto/research/RESEARCH_BRIEF_2026-09-03.md` §(c) and the author's
