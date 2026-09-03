@@ -9,6 +9,12 @@ Recorded 2026-09-03 for the AI ledger (`docs/auto/AI_DISCLOSURE.md`). The live c
 | wfg-autoloop-research | trig_01KrMBrWP1U5eSB8Bmd6XLoq | `23 21 * * 1` |
 
 
+> **2026-09-03 (later):** all three prompts were updated in two ways after this record
+> was written: (1) the chosen row is claimed by an immediate pushed commit (NH-007);
+> (2) every summary ends with a `## In plain terms` section for the author, and the
+> email attaches `docs/auto/dashboard.html`. The live prompts on claude.ai/code/routines
+> are authoritative; this record shows the first version.
+
 ## wfg-autoloop-dev
 
 ```text
