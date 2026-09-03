@@ -99,16 +99,46 @@ def test_readme_quotes_the_canonical_bracket_in_its_canonical_paragraph() -> Non
 #: an explicit lineage word, the artifact path, or the canonical bracket shown
 #: next to it (side-by-side old-vs-new IS the label -- that is how
 #: docs/REPORT_ROUND2_P1.md reports the pair).
-LINEAGE_LABEL = (r"(452|synthetic|pre-?flip|superseded|retired|legacy|"
-                 r"baseline_synthetic|이전|폐기|정본|6\s*→\s*\*?\*?66|"
-                 r"6\s*->\s*66)")
+#:
+#: ⚠ DELIBERATELY EXCLUDED: bare 이전 and 정본. They are ordinary Korean for
+#: "previous" and "canonical", so accepting them let a sentence that
+#: MIS-attributes the synthetic bracket to the canonical lineage pass *because*
+#: it said 정본 -- the exact error this gate exists to catch, excused by its own
+#: label list. Found by the independent reviewer, 2026-09-03. A Korean label
+#: must name the lineage (452계열, 합성, pre-flip) or say superseded.
+LINEAGE_LABEL = (r"(452|synthetic|합성|pre-?flip|superseded|retired|legacy|"
+                 r"baseline_synthetic|폐기|6\s*→\s*\*?\*?66|6\s*->\s*66)")
 
-#: A document whose first lines carry one of these is marked as a whole.
-BANNER = r"(DO NOT CITE|제출·인용 금지|SUPERSEDED|인용 금지)"
-BANNER_LINES = 20
+#: ⚠ NOT a keyword scan of the first N lines. An earlier version exempted any
+#: document whose first 20 lines contained "SUPERSEDED" or "DO NOT CITE"
+#: case-insensitively, which silently exempted **15 tracked files** -- among them
+#: `docs/auto/JUDGE_QA.md` (on a heading that happens to read "the
+#: superseded-number list a judge can trip over") and `docs/HANDOFF_ROUND3.md`
+#: (on a config-hash note reading "Superseded text:"). The two most judge-facing
+#: documents in the repository were blind to this gate on an incidental word.
+#:
+#: So the exemption is now an explicit ratchet, in the style of
+#: `check_forbidden.KNOWN_NEAR_UNLABELLED`: a file is exempt only by being named
+#: here, with its reason. Adding a name is a deliberate act someone can review.
+WHOLLY_SUPERSEDED_LINEAGE: dict[str, str] = {
+    # Its header is a do-not-cite banner naming N = 452 and the preserved path;
+    # every count in the note is the pre-flip baseline's by construction.
+    "docs/rescue_routing.md": (
+        "methods note for the 452-series itself; banner at the top of the file"),
+    # Same: two stacked banners, the first naming N = 452 and the four-way
+    # 154/34/244/20 as pre-flip and pointing at REPORT_ROUND2_P1.md instead.
+    # ⚠ Its line 29 cites `rescue_verify.json / robustness_verdict...` -- a key
+    # the CANONICAL file does not have and the synthetic one does, so the
+    # citation resolves only under this document's own banner. Left as the
+    # dated draft it is; the banner is what makes it safe.
+    "docs/results_rescue_draft.md": (
+        "superseded results draft; banner names the 452-series and redirects"),
+}
 
-#: Matches "6 → 34" / "6->34" / "6 → **34**" and the spaced variants.
-SYNTHETIC_MENTION = re.compile(r"6\s*(?:→|->)\s*\*{0,2}34\b")
+#: Matches the bracket in the forms the repository actually writes it:
+#: "6 → 34", "6->34", "6 → **34**", "6 to 34", and the Korean "34곳".
+SYNTHETIC_MENTION = re.compile(
+    r"(?:6\s*(?:→|->|~|to)\s*\*{0,2}34\b|\b34곳)")
 
 
 def _tracked_markdown() -> list[Path]:
@@ -123,9 +153,9 @@ def test_every_prose_mention_of_the_synthetic_bracket_names_its_lineage() -> Non
     unlabelled: list[str] = []
 
     for path in _tracked_markdown():
+        if str(path.relative_to(REPO)) in WHOLLY_SUPERSEDED_LINEAGE:
+            continue  # named, with a reason, in the ratchet above
         lines = path.read_text().splitlines()
-        if _matches(BANNER, "\n".join(lines[:BANNER_LINES])):
-            continue  # the whole document is marked do-not-cite
         for i, line in enumerate(lines):
             if not SYNTHETIC_MENTION.search(line):
                 continue

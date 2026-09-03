@@ -129,7 +129,7 @@ mood) · evidence.
   byte-compile them (`python -m compileall -q scripts/auto`) before relying on
   a lap's report. Evidence: this lap's first `report.py` invocation, and the
   two hoisted-variable fixes.
-- 2026-09-03 · dev · **The test suite DOWNLOADS an 8.4 MB SRTM tile from the
+- 2026-09-03 · dev · **The test suite DOWNLOADS an 8.4 MB (gzipped; 25.9 MB on disk) SRTM tile from the
   network mid-run, so its own pass/skip counts differ between the first run in a
   fresh clone and every run after it.** This is the cause of the "unreproducible"
   1,071/60-vs-1,077/54 reading the previous lap logged and could not reproduce —
@@ -175,8 +175,17 @@ mood) · evidence.
   previous lap's diagnosis as a premise instead of re-deriving it from the
   artifacts. **Gate:** a value gate cannot enforce lineage, so lineage needs its
   own test — `tests/test_rescue_lineage_ssot.py` fails when a superseded 452-series value
-  appears without either a document-level do-not-cite banner or a lineage label
-  beside it. It found the two propagated instances the moment it was switched on.
+  appears without a lineage label beside it. It found the two propagated instances
+  the moment it was switched on, and two more after the independent reviewer made
+  me tighten it. **The tightening is the lesson.** My first version exempted any
+  file whose first 20 lines contained "SUPERSEDED" case-insensitively, which
+  silently exempted 15 tracked files — including `docs/auto/JUDGE_QA.md` and
+  `docs/HANDOFF_ROUND3.md`, the two most judge-facing documents in the repository,
+  each on an incidental word — and its label list accepted bare 이전/정본, so a
+  sentence MIS-attributing the synthetic bracket to the canonical lineage passed
+  *because* it said 정본. **Gate: an exemption must be a named list with reasons
+  (a ratchet), never a keyword scan; and a label token must name the thing it
+  labels, never be a word the surrounding prose would contain anyway.**
 - 2026-09-03 · dev · **A pragma is right when the two numbers are genuinely
   different quantities; a rename is right when the anchor overlap is an accident.**
   The MEMO's earlier lesson ("prefer a distinguishing noun over a generic one")

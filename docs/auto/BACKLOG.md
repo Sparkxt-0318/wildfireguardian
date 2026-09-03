@@ -63,7 +63,7 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-031 | P1 | infra | `CITATION.cff` with true fields (no fabricated dates) | todo | true | minutes | 제출 자료 (출처) |
 | WFG-036 | P1 | infra | `scripts/build_numbers.py` overwrites the registry with 65 of its 278 entries — make it refuse, or make it merge | todo | true | hours | 데이터 해석 (재현) |
 | WFG-038 | P1 | infra | The full suite reports two different skip counts on one commit and the gate is green for both — make the (collected, passed, skipped) triple a gate | todo | true | hours | 데이터 해석 (재현) |
-| WFG-039 | P1 | infra | The test suite downloads an 8.4 MB SRTM tile mid-run, so first-run and re-run pass/skip counts differ by six — make the download opt-in (**the cause of WFG-038's symptom**) | todo | true | hours | 데이터 해석 (재현) |
+| WFG-039 | P1 | infra | The test suite downloads an 8.4 MB (gzipped; 25.9 MB on disk) SRTM tile mid-run, so first-run and re-run pass/skip counts differ by six — make the download opt-in (**this is the cause of WFG-038's symptom**) | todo | true | hours | 데이터 해석 (재현) |
 | WFG-011 | P2 | ISEF | ISEF plan memo (**revise**: route-existence questions, SFTD base rate, age rule, hand-written documents) | todo | true | one lap | — |
 | WFG-032 | P2 | science | Leak-free 영덕 fold + hindsight-oracle routing arm (agent writes the script; student runs on the Mac) | todo | partial | one lap + one Mac day | 데이터 해석 · IEEE Table V |
 | WFG-033 | P2 | science | Coupling-ablation routing-only arms on committed hazard fields (fire-blind / static perimeter + buffer / spread_v2), three regions (absorbs WFG-012) | todo | true | two laps | 설계와 방법론 · 데이터 해석 |
@@ -332,13 +332,18 @@ two of which contradict this row as written:
    while 6.7× is 24.73 / **3.70** on the retired share. Direction unchanged.
 4. **The collision gate structurally cannot see this failure class** and was green
    over README:731 at this lap's baseline. Hence the lineage test, which found two
-   more instances the moment it was switched on. Generalising it is WFG-030's job.
+   more instances the moment it was switched on — and two further ones
+   (`BACKLOG_PROPOSAL_2026-09-03.md`, `results_rescue_draft.md`) after the
+   independent reviewer showed the first version was far weaker than described:
+   its banner exemption let 15 files through on an incidental word, and its label
+   list accepted bare 이전/정본. Now a named 2-file ratchet with reasons.
+   Generalising it beyond this one quantity is WFG-030's job, not done here.
 
 ### WFG-038 · P1 · infra · The suite's own counts depend on whether it has run before
 - **What:** `tests/test_srtm_dem.py` documents that if `data/raw/dem/srtm/N36E129.hgt`
   is absent "the network-download step in `data_io.raster._download_srtm_tile` will
   fetch" it — and something in the suite does, from
-  `elevation-tiles-prod.s3.amazonaws.com`, 8.4 MB, during the run. The path is
+  `elevation-tiles-prod.s3.amazonaws.com`, 8,473,868 bytes gzipped and 25,934,402 on disk, during the run. The path is
   git-ignored, so in a fresh clone six tests skip on the first run
   (`test_srtm_dem.py` ×4, `test_validation_robustness.py:57`,
   `test_validation_session3.py:171`) and pass on every run after it. Measured this
