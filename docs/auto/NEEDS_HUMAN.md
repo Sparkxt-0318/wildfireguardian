@@ -178,3 +178,33 @@ Gwangju (env, `make all-checks`, open `web/finals.html` from `file://` with
 Wi-Fi off, copy `release/kcf-finals-2026/` to two USB sticks). Close this entry
 with the date and the laptop's Python version. It is KCF_READINESS line R12 and
 the only readiness line the loop cannot tick for you.
+
+## NH-015 · DECISION · open · The three sources behind the README's opening numbers (by 2026-09-08)
+
+**What:** `README.md:193` (Korean) and `README.md:488` (English) open the project
+with the 2025 fire's scale: 사망 27명, 약 116,000 ha 소실, 주택 4,000여 채 파손,
+sourced to 「한겨레·세계일보·서울환경연합」 with no link. You supplied those three
+sources; the loop cannot open them without knowing which articles they are.
+
+**Why it matters now.** The hectare figure is the one a judge can falsify in a
+single search. Public reporting puts the **nationwide** March–May 2025 total
+(347 fires) near 104,788 ha, and the World Weather Attribution report on these
+fires gives about 48,000 ha for the fires it analysed. Your line attributes
+~116,000 ha to the 의성→안동→청송→영양→영덕 chain **alone**, which is larger than
+every national figure available. Either the figure means something wider than
+the sentence says (2025 전국 전체? 산불 피해면적 including non-forest?), or it is
+wrong. The same paragraph already footnotes the 27-vs-"30명 이상" scope
+difference and carries no footnote for the area — so the paragraph shows it
+knows this trap exists and steps into it one number later.
+
+**What I need from you:** the three article URLs (or their titles and dates), so
+the loop can record what each one actually says and the scope it says it for.
+If they are not to hand, reply "use 산림청" and the loop will re-source all three
+figures from 산림청 / 행정안전부 published totals and state the scope explicitly
+instead.
+
+**What happens either way:** WFG-043 registers each figure with its scope, adds
+the missing scope footnote, and fixes `paper/manuscript.md:9`, which currently
+attributes 27 deaths to the WWA report — a source that reports 32 casualties, 26
+of them in 의성군. Nothing else is blocked on this; it is a P0 because it is the
+first paragraph a judge reads.

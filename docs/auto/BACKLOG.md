@@ -61,7 +61,10 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-029 | P1 | KCF | One recorded email send from a Shanghai-workable path (agent builds Gmail-API/OAuth adapter; student authorises once) | todo | partial | hours | 구현 및 유용성 · 제출 자료 |
 | WFG-030 | P1 | infra | Report-number check: every number in `docs/auto/reports/*.md` and `JUDGE_QA.md` must grep to a registry key or artifact | todo | true | hours | 데이터 해석 (재현) |
 | WFG-031 | P1 | infra | `CITATION.cff` with true fields (no fabricated dates) | todo | true | minutes | 제출 자료 (출처) |
-| WFG-036 | P1 | infra | `scripts/build_numbers.py` overwrites the registry with 65 of its 278 entries — make it refuse, or make it merge | todo | true | hours | 데이터 해석 (재현) |
+| WFG-040 | P1 | infra | `scripts/build_numbers.py` overwrites the registry with 65 of its 278 entries — make it refuse, or make it merge (**renumbered** from a duplicate `WFG-036`, critic 20260903T1748Z) | todo | true | hours | 데이터 해석 (재현) |
+| WFG-041 | P1 | infra | The lineage gate's ±2-line label window is satisfied by an unrelated keyword, so `JUDGE_QA.md:46` passes it | todo | true | hours | 데이터 해석 (재현) |
+| WFG-042 | P1 | IEEE | A `verified` citation in `references.bib` can disagree with the paper at its URL, and `check_paper.py` cannot tell | todo | true | hours | 제출 자료 (출처) |
+| WFG-043 | P0 | KCF | Source and register the 2025 fire's scale figures (deaths, burned area, homes) that open the README | todo | true (author holds the sources, NH-015) | hours | 연구 목적 · 제출 자료 (출처) |
 | WFG-038 | P1 | infra | The full suite reports two different skip counts on one commit and the gate is green for both — make the (collected, passed, skipped) triple a gate | todo | true | hours | 데이터 해석 (재현) |
 | WFG-039 | P1 | infra | The test suite downloads an 8.4 MB (gzipped; 25.9 MB on disk) SRTM tile mid-run, so first-run and re-run pass/skip counts differ by six — make the download opt-in (**this is the cause of WFG-038's symptom**) | todo | true | hours | 데이터 해석 (재현) |
 | WFG-011 | P2 | ISEF | ISEF plan memo (**revise**: route-existence questions, SFTD base rate, age rule, hand-written documents) | todo | true | one lap | — |
@@ -448,7 +451,15 @@ two of which contradict this row as written:
 - **What:** cff-version 1.2.0; title, `type: software`, author Park, Siyeong (Shanghai American School Puxi), repository-code URL, license as in `LICENSE`, keywords; `version`/`date-released` set only at the freeze tag (no invented date); `doi` added after the student mints it (WFG-015).
 - **Effort:** minutes. **agent_doable:** true. **Done when:** file validates (`cffconvert --validate` or the GitHub citation widget renders).
 
-### WFG-036 · P1 · infra · `build_numbers.py` would destroy the registry it claims to build
+### WFG-040 · P1 · infra · `build_numbers.py` would destroy the registry it claims to build
+
+> ⚠ **Renumbered from `WFG-036` by the critic lap 20260903T1748Z.** Two live rows carried
+> the ID `WFG-036`: this one (added by the research re-key `d88c85b`) and the P0 final
+> product bundle (added by the sprint commit `42818ec`). `WFG-036` stays with the final
+> product because `CHARTER.md` §11, `KCF_READINESS.md` R5/R9 and the sprint plan table all
+> hard-reference it there. `docs/auto/reports/2026-09-03T0653Z-dev.md` still calls this row
+> `WFG-036`; reports are records and are not edited.
+
 - **What:** `scripts/build_numbers.py` defines **65** entries and ends with an
   unconditional `OUT.write_text(...)` over `docs/NUMBERS.json`, which currently holds
   **278**. Every entry added since roughly Session 12 went into the JSON directly and is
@@ -468,6 +479,74 @@ two of which contradict this row as written:
   whichever option is taken, CHARTER §3's sentence must be corrected in the same commit.
 - **Done when:** running the script on a clean tree cannot reduce the entry count; a test
   asserts that; `make verify` green; CHARTER §3 says what the registration path actually is.
+
+### WFG-041 · P1 · infra · The lineage gate's label window admits an unrelated keyword
+- **What:** `tests/test_rescue_lineage_ssot.py::test_every_prose_mention_of_the_synthetic_bracket_names_its_lineage`
+  finds a `6 → 34` mention, then searches a **±2-line window** for `LINEAGE_LABEL`. At
+  `docs/auto/JUDGE_QA.md:46` the label that satisfies it is the word 폐기 on line 45, which
+  belongs to a different bullet about a different quantity (the 459-series 438/18/3 split).
+  So the gate is green on the single most judge-facing occurrence of the exact sentence it
+  was written to catch. Reproduced by the critic lap 20260903T1748Z: replace 폐기된 with
+  버려진 on line 45, touch nothing else, and the gate fails naming line 46.
+  This is the reviewer's 1724Z block ("a judge-facing file exempted by an incidental
+  keyword") recurring at a finer granularity.
+- **Do:** require the label on the mention's **own line**, or on an adjacent line that also
+  carries the bracket; keep the ratchet in `WHOLLY_SUPERSEDED_LINEAGE` for whole-file
+  exemptions, which is the reviewable mechanism. Add `JUDGE_QA.md:46` as a seeded
+  regression case so the narrowing is proved, not asserted.
+- **Effort:** hours. **agent_doable:** true.
+- **Constraints:** do not widen `WHOLLY_SUPERSEDED_LINEAGE` to make the failure go away —
+  `JUDGE_QA.md` is exactly the file the gate must see. Fix the F1 content defect first or in
+  the same commit, or the tightened gate is red on landing.
+- **Done when:** the window is narrowed, a seeded mutation of `JUDGE_QA.md:46` fails the
+  gate, an unrelated keyword two lines away does not rescue it, and `gates.py --mode full`
+  is green.
+
+### WFG-042 · P1 · IEEE · A `verified` citation can disagree with the paper at its URL
+- **What:** `paper/references.bib` requires a `note` containing "verified" and
+  `check_paper.py` checks only that the word is present. The entry `wildfirespreadts2025`
+  carries that note while its title and authors ("WildfireSpreadTS…", Gerard/Zhao/Sullivan)
+  belong to arXiv:2406.04759, not to its own `url` arXiv:2502.12003, which is "Improved
+  Wildfire Spread Prediction with Time-Series Data and the WSTS+ Benchmark" by Lahrichi,
+  Bova, Johnson and Malof (WACV 2026). Opened and confirmed by the critic lap 20260903T1748Z.
+  CHARTER §5 forbids fabricated citations; the gate that is supposed to enforce it cannot.
+- **Do:** (a) correct the entry to whichever paper `manuscript.md:13` actually means, with
+  the metadata as fetched; (b) make the `note` carry the **fetched title** and the fetch
+  date, and have `check_paper.py` assert the note's title matches the entry's `title` field,
+  so a mismatch is a gate failure rather than a reading exercise; (c) sweep the other three
+  entries the same way. A network fetch inside the gate is not required and should not be
+  added — the assertion is between two fields the lap that cited the paper had to fill in.
+- **Effort:** hours. **agent_doable:** true.
+- **Constraints:** never delete a citation to make the gate pass; correct it. Do not add a
+  network call to `check_paper.py` (it runs on a clean machine in CI).
+- **Done when:** every entry's `note` names the title as fetched, `check_paper.py` fails on
+  a seeded mismatch, and the four current entries pass.
+
+### WFG-043 · P0 · KCF · The 2025 fire's scale figures have no source and no key
+- **What:** `README.md:193` (Korean) and `README.md:488` (English) open the project with
+  27 deaths, **~116,000 ha** burned and 4,000+ homes destroyed for the
+  의성→안동→청송→영양→영덕 chain, sourced to "한겨레·세계일보·서울환경연합" with no URL. None
+  of the three has a `docs/NUMBERS.json` key. The hectare figure is the exposed one: public
+  reporting puts the **nationwide** March–May 2025 total (347 fires) near 104,788 ha, and
+  the WWA attribution report gives ~48,000 ha for the fires it analysed — so the sub-scope
+  figure exceeds every national figure available. The same paragraph already carries a
+  scope footnote for 27 vs "30명 이상" and none for the area. `paper/manuscript.md:9` then
+  attributes 27 to `[@wwa2025korea]`, which reports 32 casualties (26 in 의성).
+- **Do:** open the three named sources (NH-015 asks the author for the URLs; if they do not
+  arrive, use 산림청 / 행정안전부 published figures and say which), record for each figure
+  its value **and its scope** (this fire chain / 경북 / nationwide / date range), register
+  them, add the scope footnote the death toll already has, fix `manuscript.md:9` to cite a
+  source that carries its number, and add the drill question recorded in `CRITIC_LATEST.md`
+  to `JUDGE_QA.md` with its 근거 line — updating the tier counts and the §6 drill table in
+  the same commit, because `tests/test_judge_qa_bank.py` pins all of them.
+- **Effort:** hours. **agent_doable:** true; the author's own sources are NH-015.
+- **Constraints:** annotate, never delete, if a figure moves (CHARTER §3). Do not quietly
+  swap 116,000 for another number without stating the scope both belong to — the scope is
+  the finding, not the digit. `README.md`'s Round-2 section stays untouched; both lines are
+  in Round 3.
+- **Done when:** each of the three figures has a registered key with its scope in the
+  caveat, both README lines and `manuscript.md:9` cite a source that carries the value they
+  state, and `make verify` plus `check_number_collisions.py` are green.
 
 ### WFG-038 · P1 · infra · The suite's own count is not gated
 - **What:** `scripts/auto/gates.py` runs the full suite and writes the summary line
