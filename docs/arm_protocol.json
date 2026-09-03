@@ -97,6 +97,12 @@
       "role": "WFG-018 (2026-09-03). Registration of values that were ALREADY computed and committed, so that every current value on docs/submission_reconciliation.md resolves to a registry key. Reads committed artifacts only; fits nothing, re-runs nothing, and changes no default.",
       "control_required": false,
       "reason_no_control": "Nothing is estimated, so there is no quantity for a noise null to be matched against — each entry's `check` block re-reads the same number from the same committed artifact that already carried it. ⚠ Tagged separately from 'A' rather than added to it because Arm A is FROZEN and check_arm_isolation verifies its entry count and digests; a new key claiming 'A' is exactly what that gate exists to stop, and it did stop this one. ⚠ RETIRED values (the submitted 438/18/3, 440/17/3, 3.70 %, +1.2 %, 44x) are deliberately NOT registered under this or any arm — they live only as NEAR-labelled prose."
+    },
+    "A_operating_point": {
+      "n_features": null,
+      "role": "WFG-019 (2026-09-03). Per-fire recall/FNR at the committed operating threshold, the ceiling probability of each held-out fold, and the nested leave-one-fire-out threshold-calibration table reported as a NEGATIVE result. Re-scores Arm A's committed leave-one-fire-out probabilities (data/processed/spread_v2_lofo_oof_cells.csv.gz); fits nothing, retrains nothing, and adopts no lambda.",
+      "control_required": false,
+      "reason_no_control": "No model is fitted and the feature count does not change, so there is nothing for a noise null to be matched against — the probabilities are byte-identical to the ones Arm A's AUC entries and Arm A_classification's recall entries already read. ⚠ Tagged separately from 'A' rather than added to it because Arm A is FROZEN and check_arm_isolation verifies its entry count and digests. ⚠ Tagged separately from 'A_classification' too: that arm is the Session 18 re-scoring at one threshold, while this arm SEARCHES over thresholds. The search is exactly the step whose validity the entries' own caveats deny (exchangeability is broken twice), so it must not inherit A_classification's 'a re-scoring, not a new analysis' exemption by sharing its name."
     }
   }
 }

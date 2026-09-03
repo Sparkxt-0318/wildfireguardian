@@ -107,6 +107,18 @@ def main() -> int:
                       f"| step | result | time | last line |\n|---|---|---|---|\n{rows}")
     boot_line = (f"python {boot.get('python_version')} · pins_ok={boot.get('pins_ok')} · stack_ok={boot.get('stack_ok')} · {boot.get('platform')}" if boot else "(no bootstrap record)")
 
+    # ⚠ Hoisted out of the body f-string ON PURPOSE. Python 3.11 — the sandbox
+    # and CI interpreter — rejects a backslash anywhere inside an f-string
+    # EXPRESSION, so the "\n" in this fallback was a SyntaxError at import time:
+    # report.py could not run at all, and a lap that cannot write its report is
+    # a failed lap. The relaxation landed in 3.12 (PEP 701), which is why this
+    # parsed on the machine it was written on.
+    plain_terms_fallback = "" if "## In plain terms" in summary else (
+        "## In plain terms\n\n(The lap did not write this section. It should "
+        "say, in three lines for the author: what changed for the project, why "
+        "it matters to the judges, what you should do.)"
+    )
+
     body = f"""# {title}
 
 | | |
@@ -121,7 +133,7 @@ def main() -> int:
 
 {summary}
 
-{"" if "## In plain terms" in summary else "## In plain terms\n\n(The lap did not write this section. It should say, in three lines for the author: what changed for the project, why it matters to the judges, what you should do.)"}
+{plain_terms_fallback}
 
 ## Gates
 

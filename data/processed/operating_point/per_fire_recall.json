@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "title": "Operating-point evidence — per-fire recall at 0.3 and the nested leave-one-fire-out threshold calibration",
+  "source_file": "data/processed/spread_v2_lofo_oof_cells.csv.gz",
+  "n_rows": 151904,
+  "n_positive": 2989,
+  "prevalence": 0.0197,
+  "operating_threshold": 0.3,
+  "operating_threshold_origin": "config/default.yaml :: time.forward_sim_advance_threshold. Applied PER SIMULATION STEP to a per-step ignition probability. NOT the router's cut: the router thresholds the CUMULATIVE survival-accumulated field at pedestrian.walk_cutoff_p = 0.5. Neither was tuned on these probabilities.",
+  "router_p_cut": 0.5,
+  "no_model_was_fitted": "Probabilities are read from the committed LOGO-CV out-of-fold file; nothing was retrained and no default was changed.",
+  "per_fire": {
+    "gangneung_2023": {
+      "n_cells": 396,
+      "n_positive": 8,
+      "true_positives_at_threshold": 0,
+      "recall": 0.0,
+      "false_negative_rate": 1.0,
+      "max_prob_any_cell": 0.0241,
+      "max_prob_positive_cell": 0.0104,
+      "threshold_is_reachable": false
+    },
+    "hongseong_2023": {
+      "n_cells": 3353,
+      "n_positive": 34,
+      "true_positives_at_threshold": 0,
+      "recall": 0.0,
+      "false_negative_rate": 1.0,
+      "max_prob_any_cell": 0.296,
+      "max_prob_positive_cell": 0.296,
+      "threshold_is_reachable": false
+    },
+    "miryang_2022": {
+      "n_cells": 3019,
+      "n_positive": 24,
+      "true_positives_at_threshold": 0,
+      "recall": 0.0,
+      "false_negative_rate": 1.0,
+      "max_prob_any_cell": 0.369,
+      "max_prob_positive_cell": 0.22,
+      "threshold_is_reachable": true
+    },
+    "uiseong_andong_2025": {
+      "n_cells": 82736,
+      "n_positive": 1502,
+      "true_positives_at_threshold": 34,
+      "recall": 0.0226,
+      "false_negative_rate": 0.977,
+      "max_prob_any_cell": 0.72,
+      "max_prob_positive_cell": 0.563,
+      "threshold_is_reachable": true
+    },
+    "uljin_samcheok_2022": {
+      "n_cells": 41651,
+      "n_positive": 652,
+      "true_positives_at_threshold": 27,
+      "recall": 0.0414,
+      "false_negative_rate": 0.959,
+      "max_prob_any_cell": 0.783,
+      "max_prob_positive_cell": 0.783,
+      "threshold_is_reachable": true
+    },
+    "yeongdeok_2025": {
+      "n_cells": 20749,
+      "n_positive": 769,
+      "true_positives_at_threshold": 351,
+      "recall": 0.456,
+      "false_negative_rate": 0.544,
+      "max_prob_any_cell": 0.85,
+      "max_prob_positive_cell": 0.85,
+      "threshold_is_reachable": true
+    }
+  },
+  "pooled_recall": 0.138,
+  "mean_of_folds_recall": 0.0867,
+  "cross_check": {
+    "note": "Recomputed here from the cell-level file; must agree with the Session 18 values in oof_classification_metrics.json.",
+    "pooled_recall_in_metrics_file": 0.138,
+    "mean_of_folds_recall_in_metrics_file": 0.0867,
+    "pooled_agrees": true,
+    "mean_of_folds_agrees": true
+  },
+  "threshold_calibration": {
+    "budget_fnr": 0.2,
+    "n_fires": 6,
+    "n_calibration_fires": 5,
+    "finite_sample_correction": 0.167,
+    "correction_share_of_budget": 0.833,
+    "conventions": {
+      "naive": {
+        "target_fnr_on_calibration_fires": 0.2,
+        "per_held_out_fire": {
+          "gangneung_2023": {
+            "lambda": 0.00758,
+            "calibration_fnr": 0.2,
+            "held_out_fnr": 0.75,
+            "held_out_bound_holds": false,
+            "flagged_fraction_held_out": 0.152,
+            "flagged_fraction_all_cells": 0.157
+          },
+          "hongseong_2023": {
+            "lambda": 0.00754,
+            "calibration_fnr": 0.2,
+            "held_out_fnr": 0.206,
+            "held_out_bound_holds": false,
+            "flagged_fraction_held_out": 0.106,
+            "flagged_fraction_all_cells": 0.157
+          },
+          "miryang_2022": {
+            "lambda": 0.00745,
+            "calibration_fnr": 0.2,
+            "held_out_fnr": 0.0417,
+            "held_out_bound_holds": true,
+            "flagged_fraction_held_out": 0.0454,
+            "flagged_fraction_all_cells": 0.158
+          },
+          "uiseong_andong_2025": {
+            "lambda": 0.0174,
+            "calibration_fnr": 0.2,
+            "held_out_fnr": 0.592,
+            "held_out_bound_holds": false,
+            "flagged_fraction_held_out": 0.0784,
+            "flagged_fraction_all_cells": 0.0992
+          },
+          "uljin_samcheok_2022": {
+            "lambda": 0.00693,
+            "calibration_fnr": 0.2,
+            "held_out_fnr": 0.156,
+            "held_out_bound_holds": true,
+            "flagged_fraction_held_out": 0.176,
+            "flagged_fraction_all_cells": 0.163
+          },
+          "yeongdeok_2025": {
+            "lambda": 0.00525,
+            "calibration_fnr": 0.2,
+            "held_out_fnr": 0.013,
+            "held_out_bound_holds": true,
+            "flagged_fraction_held_out": 0.266,
+            "flagged_fraction_all_cells": 0.185
+          }
+        },
+        "n_held_out_bound_holds": 3,
+        "held_out_fnr_max": 0.75,
+        "flagged_fraction_all_cells_min": 0.0992,
+        "flagged_fraction_all_cells_max": 0.185
+      },
+      "conformal": {
+        "target_fnr_on_calibration_fires": 0.0333,
+        "per_held_out_fire": {
+          "gangneung_2023": {
+            "lambda": 0.000784,
+            "calibration_fnr": 0.0332,
+            "held_out_fnr": 0.0,
+            "held_out_bound_holds": true,
+            "flagged_fraction_held_out": 0.505,
+            "flagged_fraction_all_cells": 0.396
+          },
+          "hongseong_2023": {
+            "lambda": 0.000779,
+            "calibration_fnr": 0.0332,
+            "held_out_fnr": 0.0,
+            "held_out_bound_holds": true,
+            "flagged_fraction_held_out": 0.386,
+            "flagged_fraction_all_cells": 0.397
+          },
+          "miryang_2022": {
+            "lambda": 0.000784,
+            "calibration_fnr": 0.0331,
+            "held_out_fnr": 0.0417,
+            "held_out_bound_holds": true,
+            "flagged_fraction_held_out": 0.243,
+            "flagged_fraction_all_cells": 0.396
+          },
+          "uiseong_andong_2025": {
+            "lambda": 0.00234,
+            "calibration_fnr": 0.033,
+            "held_out_fnr": 0.108,
+            "held_out_bound_holds": true,
+            "flagged_fraction_held_out": 0.25,
+            "flagged_fraction_all_cells": 0.26
+          },
+          "uljin_samcheok_2022": {
+            "lambda": 0.000647,
+            "calibration_fnr": 0.0329,
+            "held_out_fnr": 0.0138,
+            "held_out_bound_holds": true,
+            "flagged_fraction_held_out": 0.361,
+            "flagged_fraction_all_cells": 0.427
+          },
+          "yeongdeok_2025": {
+            "lambda": 0.000546,
+            "calibration_fnr": 0.0333,
+            "held_out_fnr": 0.0,
+            "held_out_bound_holds": true,
+            "flagged_fraction_held_out": 0.54,
+            "flagged_fraction_all_cells": 0.456
+          }
+        },
+        "n_held_out_bound_holds": 6,
+        "held_out_fnr_max": 0.108,
+        "flagged_fraction_all_cells_min": 0.26,
+        "flagged_fraction_all_cells_max": 0.456
+      }
+    }
+  },
+  "leakage_caveat": "The out-of-fold probability for a cell in fire g comes from a model trained on the other five fires, so the calibration fires are not exchangeable with the held-out fire and the conformal correction does not deliver a valid finite-sample guarantee here. It is a fire-level term applied to a cell-level quantile besides. Both columns are reported as evidence about the threshold, not as a bound on it.",
+  "what_this_does_not_show": "It does not show the routing field's miss rate (different surface, different cut); it does not rank the six fires on model quality (three of them contribute 8, 24 and 34 positives); and it does not license any lambda computed here as an operating point."
+}

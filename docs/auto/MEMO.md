@@ -85,3 +85,47 @@ mood) · evidence.
   describes a path that is now a landmine. **Do not run it.** Add entries to
   the JSON with a `check` block and let `make verify` be the gate. Filed for a
   fix as part of the next infra row.
+- 2026-09-03 · dev · **"An absent input skips" applies to git-IGNORED inputs
+  only; on a git-TRACKED artifact a skip hides a defect inside a green summary
+  line.** WFG-019's test file guarded its module-scoped `artifact` fixture with
+  `pytest.skip` out of habit from the earlier lesson. One full-suite run then
+  reported **1,071 passed / 60 skipped** where the three runs around it — same
+  tree, same commit, same flags — reported **1,077 / 54**; the delta was exactly
+  the six tests behind that fixture, and the gate stayed GREEN through it. The
+  cause of the momentary absence was never reproduced, which is the point: a
+  skip made it unfalsifiable. **Gate for the next lap:** a `skipif`/`pytest.skip`
+  guard is legitimate only when `.gitignore` actually excludes the file. If the
+  path is tracked (or has an explicit `!` negation), `assert path.exists()` with
+  the regeneration command in the message. Evidence:
+  `tests/test_operating_point_evidence.py::artifact`, and this lap's four
+  pytest readings.
+- 2026-09-03 · dev · **Sibling registry keys collide with each other when a
+  document lists key and value on one line.** WFG-019 registered 17 keys whose
+  names necessarily share anchor words (`optpoint_*_fnr_advance_cut` ×3,
+  `lofocal_*_flagged_share_*` ×4), and the doc's 출처 table put each key beside
+  its number — so every row carried 3+ anchors of its siblings and 12 false
+  collisions appeared at once. The MEMO's earlier lesson was about a key
+  colliding with the REST of the tree; this is the same gate firing *within one
+  new key family*. Fix was not pragmas: the 출처 table's value column was
+  redundant (the values already live in the document's own result tables), so
+  removing it left one home per number and cleared 12 of 13 hits. **Gate:** a
+  key-listing table lists keys, not keys-and-values; one number, one home.
+  Evidence: `docs/operating_point.md` §5, this lap's collision runs.
+- 2026-09-03 · dev · **`report.py` and `dashboard.py` were both unparseable on
+  Python 3.11, so no lap could have written a report.** Python 3.11 rejects a
+  backslash anywhere inside an f-string *expression*; PEP 701 relaxed that in
+  3.12. Commit `94937ab` added an `"...\n\n..."` fallback string inside a body
+  f-string in `report.py` and an escaped-quote chip inside one in
+  `dashboard.py`. Both parse on a 3.12+ machine and neither parses in the
+  sandbox or on the `auto-gates` runner — a `SyntaxError` at import, before any
+  logic runs. This lap was the first to call them and lost the report step to
+  it. **What made it invisible:** no gate imports `scripts/auto/*`. `make
+  verify` reads them as text, `pytest` never collects them, and
+  `check_declared_deps` parses with `ast` but tolerates a file it cannot
+  parse. So the loop's own reporting tooling is the one code path in this
+  repository with no gate on it. **Gate for the next lap:** add a test that
+  `ast.parse`s every file under `scripts/auto/`, or better, one that runs
+  `report.py --kind dev` against a fixture summary in a tmp dir. Until then,
+  byte-compile them (`python -m compileall -q scripts/auto`) before relying on
+  a lap's report. Evidence: this lap's first `report.py` invocation, and the
+  two hoisted-variable fixes.

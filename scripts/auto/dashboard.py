@@ -200,6 +200,12 @@ def build() -> str:
     svg_score = f'<svg viewBox="0 0 {sw} {sh}" role="img" aria-label="rubric scorecard">' + "".join(sp) + "</svg>"
 
     # ---- backlog board ---------------------------------------------------------
+    # ⚠ Hoisted out of the f-string below ON PURPOSE. Python 3.11 — the sandbox
+    # and CI interpreter — rejects a backslash anywhere inside an f-string
+    # EXPRESSION, so the escaped quotes in this chip were a SyntaxError at
+    # import time. The relaxation landed in 3.12 (PEP 701), which is why this
+    # parsed on the machine it was written on.
+    who_chip = '<span class="chip who">you</span>'
     cols = []
     for p in ("P0", "P1", "P2", "P3"):
         items = [r for r in rows if r["p"] == p]
@@ -207,7 +213,7 @@ def build() -> str:
             f'<li class="row {r["kind"]}{" human" if r["human"] else ""}"><span class="rid">{r["id"]}</span>'
             f'<span class="rtitle">{esc(re.sub(r"[*`]", "", r["title"]))}</span>'
             f'<span class="chip {r["kind"]}">{esc(r["status"].split("(")[0])}</span>'
-            f'{"<span class=\"chip who\">you</span>" if r["human"] else ""}</li>'
+            f'{who_chip if r["human"] else ""}</li>'
             for r in items)
         cols.append(f'<section class="col"><h3>{esc(PRIO_LABEL[p])} <span class="count">{len(items)}</span></h3><ul>{li}</ul></section>')
 

@@ -9313,6 +9313,457 @@
         }
       },
       "arm": "A_reconciliation"
+    },
+    "optpoint_uiseong_fnr_advance_cut": {
+      "value": 0.977,
+      "unit": "fraction",
+      "source_file": "data/processed/operating_point/per_fire_recall.json",
+      "json_path": "per_fire.uiseong_andong_2025.false_negative_rate",
+      "derivation": "1 - recall at 0.3 on the uiseong_andong_2025 held-out fold: 1468 of 1502 igniting cells missed.",
+      "sample": "LOGO-CV 6 fires, 151,904 rows / 2,989 positives, seed 20250603",
+      "caveat": "⚠ Computed at forward_sim_advance_threshold = 0.3, applied PER SIMULATION STEP. It is NOT the router's miss rate: the router cuts the CUMULATIVE survival-accumulated field at walk_cutoff_p = 0.5. Read beside n_positive = 1502: a rate without the count invites the wrong reading. The threshold is a DEFAULT and was never tuned on these probabilities.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "WFG-019 (docs/operating_point.md). NO MODEL WAS FITTED: recomputed from the committed LOGO-CV out-of-fold cell file (data/processed/spread_v2_lofo_oof_cells.csv.gz). No feature set, threshold or default changed. Regenerate: python scripts/operating_point_evidence.py --figure",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/operating_point/per_fire_recall.json",
+            "json_path": "per_fire.uiseong_andong_2025.false_negative_rate"
+          }
+        }
+      },
+      "arm": "A_operating_point"
+    },
+    "optpoint_uljin_fnr_advance_cut": {
+      "value": 0.959,
+      "unit": "fraction",
+      "source_file": "data/processed/operating_point/per_fire_recall.json",
+      "json_path": "per_fire.uljin_samcheok_2022.false_negative_rate",
+      "derivation": "1 - recall at 0.3 on the uljin_samcheok_2022 held-out fold: 625 of 652 igniting cells missed.",
+      "sample": "LOGO-CV 6 fires, 151,904 rows / 2,989 positives, seed 20250603",
+      "caveat": "⚠ Computed at forward_sim_advance_threshold = 0.3, applied PER SIMULATION STEP. It is NOT the router's miss rate: the router cuts the CUMULATIVE survival-accumulated field at walk_cutoff_p = 0.5. Read beside n_positive = 652: a rate without the count invites the wrong reading. The threshold is a DEFAULT and was never tuned on these probabilities.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "WFG-019 (docs/operating_point.md). NO MODEL WAS FITTED: recomputed from the committed LOGO-CV out-of-fold cell file (data/processed/spread_v2_lofo_oof_cells.csv.gz). No feature set, threshold or default changed. Regenerate: python scripts/operating_point_evidence.py --figure",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/operating_point/per_fire_recall.json",
+            "json_path": "per_fire.uljin_samcheok_2022.false_negative_rate"
+          }
+        }
+      },
+      "arm": "A_operating_point"
+    },
+    "optpoint_yeongdeok_fnr_advance_cut": {
+      "value": 0.544,
+      "unit": "fraction",
+      "source_file": "data/processed/operating_point/per_fire_recall.json",
+      "json_path": "per_fire.yeongdeok_2025.false_negative_rate",
+      "derivation": "1 - recall at 0.3 on the yeongdeok_2025 held-out fold: 418 of 769 igniting cells missed.",
+      "sample": "LOGO-CV 6 fires, 151,904 rows / 2,989 positives, seed 20250603",
+      "caveat": "⚠ Computed at forward_sim_advance_threshold = 0.3, applied PER SIMULATION STEP. It is NOT the router's miss rate: the router cuts the CUMULATIVE survival-accumulated field at walk_cutoff_p = 0.5. Read beside n_positive = 769: a rate without the count invites the wrong reading. The threshold is a DEFAULT and was never tuned on these probabilities.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "WFG-019 (docs/operating_point.md). NO MODEL WAS FITTED: recomputed from the committed LOGO-CV out-of-fold cell file (data/processed/spread_v2_lofo_oof_cells.csv.gz). No feature set, threshold or default changed. Regenerate: python scripts/operating_point_evidence.py --figure",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/operating_point/per_fire_recall.json",
+            "json_path": "per_fire.yeongdeok_2025.false_negative_rate"
+          }
+        }
+      },
+      "arm": "A_operating_point"
+    },
+    "optpoint_gangneung_ceiling_probability": {
+      "value": 0.0241,
+      "unit": "probability",
+      "source_file": "data/processed/operating_point/per_fire_recall.json",
+      "json_path": "per_fire.gangneung_2023.max_prob_any_cell",
+      "derivation": "The largest out-of-fold probability over ALL 396 cells of the gangneung_2023 held-out fold.",
+      "sample": "LOGO-CV 6 fires, 151,904 rows / 2,989 positives, seed 20250603",
+      "caveat": "BELOW 0.3, so on this fold the operating threshold can produce neither a true nor a false positive — a stronger statement than zero recall. ⚠ This fold has 8 igniting cells in total.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "WFG-019 (docs/operating_point.md). NO MODEL WAS FITTED: recomputed from the committed LOGO-CV out-of-fold cell file (data/processed/spread_v2_lofo_oof_cells.csv.gz). No feature set, threshold or default changed. Regenerate: python scripts/operating_point_evidence.py --figure",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/operating_point/per_fire_recall.json",
+            "json_path": "per_fire.gangneung_2023.max_prob_any_cell"
+          }
+        }
+      },
+      "arm": "A_operating_point"
+    },
+    "optpoint_hongseong_ceiling_probability": {
+      "value": 0.296,
+      "unit": "probability",
+      "source_file": "data/processed/operating_point/per_fire_recall.json",
+      "json_path": "per_fire.hongseong_2023.max_prob_any_cell",
+      "derivation": "The largest out-of-fold probability over ALL 3353 cells of the hongseong_2023 held-out fold.",
+      "sample": "LOGO-CV 6 fires, 151,904 rows / 2,989 positives, seed 20250603",
+      "caveat": "BELOW 0.3, so on this fold the operating threshold can produce neither a true nor a false positive — a stronger statement than zero recall. ⚠ This fold has 34 igniting cells in total.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "WFG-019 (docs/operating_point.md). NO MODEL WAS FITTED: recomputed from the committed LOGO-CV out-of-fold cell file (data/processed/spread_v2_lofo_oof_cells.csv.gz). No feature set, threshold or default changed. Regenerate: python scripts/operating_point_evidence.py --figure",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/operating_point/per_fire_recall.json",
+            "json_path": "per_fire.hongseong_2023.max_prob_any_cell"
+          }
+        }
+      },
+      "arm": "A_operating_point"
+    },
+    "optpoint_miryang_ceiling_probability": {
+      "value": 0.369,
+      "unit": "probability",
+      "source_file": "data/processed/operating_point/per_fire_recall.json",
+      "json_path": "per_fire.miryang_2022.max_prob_any_cell",
+      "derivation": "The largest out-of-fold probability over ALL 3019 cells of the miryang_2022 held-out fold.",
+      "sample": "LOGO-CV 6 fires, 151,904 rows / 2,989 positives, seed 20250603",
+      "caveat": "ABOVE 0.3, but only on cells that did not ignite (2 false positives, 0 true), so recall is still 0. ⚠ This fold has 24 igniting cells in total.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "WFG-019 (docs/operating_point.md). NO MODEL WAS FITTED: recomputed from the committed LOGO-CV out-of-fold cell file (data/processed/spread_v2_lofo_oof_cells.csv.gz). No feature set, threshold or default changed. Regenerate: python scripts/operating_point_evidence.py --figure",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/operating_point/per_fire_recall.json",
+            "json_path": "per_fire.miryang_2022.max_prob_any_cell"
+          }
+        }
+      },
+      "arm": "A_operating_point"
+    },
+    "optpoint_zero_truepositive_fold_tally": {
+      "value": 3,
+      "unit": "folds",
+      "source_file": "data/processed/operating_point/per_fire_recall.json",
+      "json_path": null,
+      "derivation": "Held-out folds with zero true positives at 0.3: gangneung_2023, hongseong_2023, miryang_2022. Counted from the per_fire block.",
+      "sample": "LOGO-CV 6 fires, 151,904 rows / 2,989 positives, seed 20250603",
+      "caveat": "The structural reason mean-of-folds recall (0.0867) sits below pooled (0.138). ⚠ These three folds carry 8, 34 and 24 igniting cells; the count is not a statement about model quality on them.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "WFG-019 (docs/operating_point.md). NO MODEL WAS FITTED: recomputed from the committed LOGO-CV out-of-fold cell file (data/processed/spread_v2_lofo_oof_cells.csv.gz). No feature set, threshold or default changed. Regenerate: python scripts/operating_point_evidence.py --figure",
+      "check": {
+        "kind": "expression",
+        "expr": "(a == 0) + (b == 0) + (c == 0)",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/operating_point/per_fire_recall.json",
+            "json_path": "per_fire.gangneung_2023.true_positives_at_threshold"
+          },
+          "b": {
+            "file": "data/processed/operating_point/per_fire_recall.json",
+            "json_path": "per_fire.hongseong_2023.true_positives_at_threshold"
+          },
+          "c": {
+            "file": "data/processed/operating_point/per_fire_recall.json",
+            "json_path": "per_fire.miryang_2022.true_positives_at_threshold"
+          }
+        }
+      },
+      "arm": "A_operating_point"
+    },
+    "lofocal_finite_sample_correction": {
+      "value": 0.167,
+      "unit": "fraction",
+      "source_file": "data/processed/operating_point/per_fire_recall.json",
+      "json_path": "threshold_calibration.finite_sample_correction",
+      "derivation": "1/(n+1) with n = 5 calibration fires (Angelopoulos, Bates, Fisch, Lei & Schuster, Conformal Risk Control, ICLR 2024).",
+      "sample": "LOGO-CV 6 fires, 151,904 rows / 2,989 positives, seed 20250603",
+      "caveat": "⚠ NOT A GUARANTEE. Exchangeability breaks twice: the held-out fire's out-of-fold probabilities come from a model trained on the very fires used to calibrate, and 1/(n+1) is a FIRE-level finite-sample term applied to a CELL-level quantile. Reported as evidence about the threshold, not as a bound on it. No lambda computed here is adopted anywhere; the operating point stays 0.3.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "WFG-019 (docs/operating_point.md). NO MODEL WAS FITTED: recomputed from the committed LOGO-CV out-of-fold cell file (data/processed/spread_v2_lofo_oof_cells.csv.gz). No feature set, threshold or default changed. Regenerate: python scripts/operating_point_evidence.py --figure",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0005,
+        "operands": {
+          "a": {
+            "file": "data/processed/operating_point/per_fire_recall.json",
+            "json_path": "threshold_calibration.finite_sample_correction"
+          }
+        }
+      },
+      "arm": "A_operating_point"
+    },
+    "lofocal_correction_share_of_budget": {
+      "value": 0.833,
+      "unit": "fraction",
+      "source_file": "data/processed/operating_point/per_fire_recall.json",
+      "json_path": "threshold_calibration.correction_share_of_budget",
+      "derivation": "0.167 / 0.20 — the share of a 0.20 false-negative-rate budget consumed by the finite-sample correction alone at six fires.",
+      "sample": "LOGO-CV 6 fires, 151,904 rows / 2,989 positives, seed 20250603",
+      "caveat": "THE FINDING IN ONE NUMBER: at n = 6 the correction is not a nuisance term, it is most of the budget. ⚠ NOT A GUARANTEE. Exchangeability breaks twice: the held-out fire's out-of-fold probabilities come from a model trained on the very fires used to calibrate, and 1/(n+1) is a FIRE-level finite-sample term applied to a CELL-level quantile. Reported as evidence about the threshold, not as a bound on it. No lambda computed here is adopted anywhere; the operating point stays 0.3.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "WFG-019 (docs/operating_point.md). NO MODEL WAS FITTED: recomputed from the committed LOGO-CV out-of-fold cell file (data/processed/spread_v2_lofo_oof_cells.csv.gz). No feature set, threshold or default changed. Regenerate: python scripts/operating_point_evidence.py --figure",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0005,
+        "operands": {
+          "a": {
+            "file": "data/processed/operating_point/per_fire_recall.json",
+            "json_path": "threshold_calibration.correction_share_of_budget"
+          }
+        }
+      },
+      "arm": "A_operating_point"
+    },
+    "lofocal_uncorrected_bound_upheld_tally": {
+      "value": 3,
+      "unit": "fires",
+      "source_file": "data/processed/operating_point/per_fire_recall.json",
+      "json_path": "threshold_calibration.conventions.naive.n_held_out_bound_holds",
+      "derivation": "Held-out fires (of 6) whose FNR stayed within the 0.20 budget under the naive convention.",
+      "sample": "LOGO-CV 6 fires, 151,904 rows / 2,989 positives, seed 20250603",
+      "caveat": "⚠ NOT A GUARANTEE. Exchangeability breaks twice: the held-out fire's out-of-fold probabilities come from a model trained on the very fires used to calibrate, and 1/(n+1) is a FIRE-level finite-sample term applied to a CELL-level quantile. Reported as evidence about the threshold, not as a bound on it. No lambda computed here is adopted anywhere; the operating point stays 0.3.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "WFG-019 (docs/operating_point.md). NO MODEL WAS FITTED: recomputed from the committed LOGO-CV out-of-fold cell file (data/processed/spread_v2_lofo_oof_cells.csv.gz). No feature set, threshold or default changed. Regenerate: python scripts/operating_point_evidence.py --figure",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/operating_point/per_fire_recall.json",
+            "json_path": "threshold_calibration.conventions.naive.n_held_out_bound_holds"
+          }
+        }
+      },
+      "arm": "A_operating_point"
+    },
+    "lofocal_uncorrected_heldout_fnr_worst": {
+      "value": 0.75,
+      "unit": "fraction",
+      "source_file": "data/processed/operating_point/per_fire_recall.json",
+      "json_path": "threshold_calibration.conventions.naive.held_out_fnr_max",
+      "derivation": "Worst false-negative rate on a fire the calibration never saw, naive convention.",
+      "sample": "LOGO-CV 6 fires, 151,904 rows / 2,989 positives, seed 20250603",
+      "caveat": "⚠ NOT A GUARANTEE. Exchangeability breaks twice: the held-out fire's out-of-fold probabilities come from a model trained on the very fires used to calibrate, and 1/(n+1) is a FIRE-level finite-sample term applied to a CELL-level quantile. Reported as evidence about the threshold, not as a bound on it. No lambda computed here is adopted anywhere; the operating point stays 0.3.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "WFG-019 (docs/operating_point.md). NO MODEL WAS FITTED: recomputed from the committed LOGO-CV out-of-fold cell file (data/processed/spread_v2_lofo_oof_cells.csv.gz). No feature set, threshold or default changed. Regenerate: python scripts/operating_point_evidence.py --figure",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/operating_point/per_fire_recall.json",
+            "json_path": "threshold_calibration.conventions.naive.held_out_fnr_max"
+          }
+        }
+      },
+      "arm": "A_operating_point"
+    },
+    "lofocal_uncorrected_flagged_share_floor": {
+      "value": 0.0992,
+      "unit": "fraction",
+      "source_file": "data/processed/operating_point/per_fire_recall.json",
+      "json_path": "threshold_calibration.conventions.naive.flagged_fraction_all_cells_min",
+      "derivation": "Smallest share of all 151,904 cells flagged by a bound-satisfying lambda, naive convention.",
+      "sample": "LOGO-CV 6 fires, 151,904 rows / 2,989 positives, seed 20250603",
+      "caveat": "Read against the 0.0197 prevalence: this is how much of the map a threshold guarantee would have to paint. ⚠ NOT A GUARANTEE. Exchangeability breaks twice: the held-out fire's out-of-fold probabilities come from a model trained on the very fires used to calibrate, and 1/(n+1) is a FIRE-level finite-sample term applied to a CELL-level quantile. Reported as evidence about the threshold, not as a bound on it. No lambda computed here is adopted anywhere; the operating point stays 0.3.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "WFG-019 (docs/operating_point.md). NO MODEL WAS FITTED: recomputed from the committed LOGO-CV out-of-fold cell file (data/processed/spread_v2_lofo_oof_cells.csv.gz). No feature set, threshold or default changed. Regenerate: python scripts/operating_point_evidence.py --figure",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/operating_point/per_fire_recall.json",
+            "json_path": "threshold_calibration.conventions.naive.flagged_fraction_all_cells_min"
+          }
+        }
+      },
+      "arm": "A_operating_point"
+    },
+    "lofocal_uncorrected_flagged_share_ceiling": {
+      "value": 0.185,
+      "unit": "fraction",
+      "source_file": "data/processed/operating_point/per_fire_recall.json",
+      "json_path": "threshold_calibration.conventions.naive.flagged_fraction_all_cells_max",
+      "derivation": "Largest share of all 151,904 cells flagged by a bound-satisfying lambda, naive convention.",
+      "sample": "LOGO-CV 6 fires, 151,904 rows / 2,989 positives, seed 20250603",
+      "caveat": "Read against the 0.0197 prevalence: this is how much of the map a threshold guarantee would have to paint. ⚠ NOT A GUARANTEE. Exchangeability breaks twice: the held-out fire's out-of-fold probabilities come from a model trained on the very fires used to calibrate, and 1/(n+1) is a FIRE-level finite-sample term applied to a CELL-level quantile. Reported as evidence about the threshold, not as a bound on it. No lambda computed here is adopted anywhere; the operating point stays 0.3.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "WFG-019 (docs/operating_point.md). NO MODEL WAS FITTED: recomputed from the committed LOGO-CV out-of-fold cell file (data/processed/spread_v2_lofo_oof_cells.csv.gz). No feature set, threshold or default changed. Regenerate: python scripts/operating_point_evidence.py --figure",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/operating_point/per_fire_recall.json",
+            "json_path": "threshold_calibration.conventions.naive.flagged_fraction_all_cells_max"
+          }
+        }
+      },
+      "arm": "A_operating_point"
+    },
+    "lofocal_corrected_bound_upheld_tally": {
+      "value": 6,
+      "unit": "fires",
+      "source_file": "data/processed/operating_point/per_fire_recall.json",
+      "json_path": "threshold_calibration.conventions.conformal.n_held_out_bound_holds",
+      "derivation": "Held-out fires (of 6) whose FNR stayed within the 0.20 budget under the conformal convention.",
+      "sample": "LOGO-CV 6 fires, 151,904 rows / 2,989 positives, seed 20250603",
+      "caveat": "⚠ NOT A GUARANTEE. Exchangeability breaks twice: the held-out fire's out-of-fold probabilities come from a model trained on the very fires used to calibrate, and 1/(n+1) is a FIRE-level finite-sample term applied to a CELL-level quantile. Reported as evidence about the threshold, not as a bound on it. No lambda computed here is adopted anywhere; the operating point stays 0.3.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "WFG-019 (docs/operating_point.md). NO MODEL WAS FITTED: recomputed from the committed LOGO-CV out-of-fold cell file (data/processed/spread_v2_lofo_oof_cells.csv.gz). No feature set, threshold or default changed. Regenerate: python scripts/operating_point_evidence.py --figure",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/operating_point/per_fire_recall.json",
+            "json_path": "threshold_calibration.conventions.conformal.n_held_out_bound_holds"
+          }
+        }
+      },
+      "arm": "A_operating_point"
+    },
+    "lofocal_corrected_heldout_fnr_worst": {
+      "value": 0.108,
+      "unit": "fraction",
+      "source_file": "data/processed/operating_point/per_fire_recall.json",
+      "json_path": "threshold_calibration.conventions.conformal.held_out_fnr_max",
+      "derivation": "Worst false-negative rate on a fire the calibration never saw, conformal convention.",
+      "sample": "LOGO-CV 6 fires, 151,904 rows / 2,989 positives, seed 20250603",
+      "caveat": "⚠ NOT A GUARANTEE. Exchangeability breaks twice: the held-out fire's out-of-fold probabilities come from a model trained on the very fires used to calibrate, and 1/(n+1) is a FIRE-level finite-sample term applied to a CELL-level quantile. Reported as evidence about the threshold, not as a bound on it. No lambda computed here is adopted anywhere; the operating point stays 0.3.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "WFG-019 (docs/operating_point.md). NO MODEL WAS FITTED: recomputed from the committed LOGO-CV out-of-fold cell file (data/processed/spread_v2_lofo_oof_cells.csv.gz). No feature set, threshold or default changed. Regenerate: python scripts/operating_point_evidence.py --figure",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/operating_point/per_fire_recall.json",
+            "json_path": "threshold_calibration.conventions.conformal.held_out_fnr_max"
+          }
+        }
+      },
+      "arm": "A_operating_point"
+    },
+    "lofocal_corrected_flagged_share_floor": {
+      "value": 0.26,
+      "unit": "fraction",
+      "source_file": "data/processed/operating_point/per_fire_recall.json",
+      "json_path": "threshold_calibration.conventions.conformal.flagged_fraction_all_cells_min",
+      "derivation": "Smallest share of all 151,904 cells flagged by a bound-satisfying lambda, conformal convention.",
+      "sample": "LOGO-CV 6 fires, 151,904 rows / 2,989 positives, seed 20250603",
+      "caveat": "Read against the 0.0197 prevalence: this is how much of the map a threshold guarantee would have to paint. ⚠ NOT A GUARANTEE. Exchangeability breaks twice: the held-out fire's out-of-fold probabilities come from a model trained on the very fires used to calibrate, and 1/(n+1) is a FIRE-level finite-sample term applied to a CELL-level quantile. Reported as evidence about the threshold, not as a bound on it. No lambda computed here is adopted anywhere; the operating point stays 0.3.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "WFG-019 (docs/operating_point.md). NO MODEL WAS FITTED: recomputed from the committed LOGO-CV out-of-fold cell file (data/processed/spread_v2_lofo_oof_cells.csv.gz). No feature set, threshold or default changed. Regenerate: python scripts/operating_point_evidence.py --figure",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/operating_point/per_fire_recall.json",
+            "json_path": "threshold_calibration.conventions.conformal.flagged_fraction_all_cells_min"
+          }
+        }
+      },
+      "arm": "A_operating_point"
+    },
+    "lofocal_corrected_flagged_share_ceiling": {
+      "value": 0.456,
+      "unit": "fraction",
+      "source_file": "data/processed/operating_point/per_fire_recall.json",
+      "json_path": "threshold_calibration.conventions.conformal.flagged_fraction_all_cells_max",
+      "derivation": "Largest share of all 151,904 cells flagged by a bound-satisfying lambda, conformal convention.",
+      "sample": "LOGO-CV 6 fires, 151,904 rows / 2,989 positives, seed 20250603",
+      "caveat": "Read against the 0.0197 prevalence: this is how much of the map a threshold guarantee would have to paint. ⚠ NOT A GUARANTEE. Exchangeability breaks twice: the held-out fire's out-of-fold probabilities come from a model trained on the very fires used to calibrate, and 1/(n+1) is a FIRE-level finite-sample term applied to a CELL-level quantile. Reported as evidence about the threshold, not as a bound on it. No lambda computed here is adopted anywhere; the operating point stays 0.3.",
+      "reproducible": true,
+      "reproducibility": {
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "notes": "WFG-019 (docs/operating_point.md). NO MODEL WAS FITTED: recomputed from the committed LOGO-CV out-of-fold cell file (data/processed/spread_v2_lofo_oof_cells.csv.gz). No feature set, threshold or default changed. Regenerate: python scripts/operating_point_evidence.py --figure",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/operating_point/per_fire_recall.json",
+            "json_path": "threshold_calibration.conventions.conformal.flagged_fraction_all_cells_max"
+          }
+        }
+      },
+      "arm": "A_operating_point"
     }
   }
 }

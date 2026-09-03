@@ -16,7 +16,7 @@ proposal demoted keep their IDs so earlier reports still resolve.
 | WFG-022 | P0 | KCF | Five questions to the KCF 운영사무국 (date, track, 기여 ② restatement, AI disclosure, 제출 자료 scope) | blocked(human) | **false** | hours | Pass/Fail · all rows |
 | WFG-023 | P0 | infra | Protect `Main`; ratify `auto/dev`; decide the two HANDOFF §4 items; approve/veto decimation; close NH-001/002/006 | blocked(human) | **false** | hours | — |
 | WFG-018 | P0 | KCF | 제출본 대비 정본 reconciliation sheet as NEAR-labelled prose (Korean, one page) | done(20260903T0653Z) | true | hours | 제출 자료 · 데이터 해석 |
-| WFG-019 | P0 | science | Operating-point evidence package: per-fire recall/FNR at 0.3, PR curve, nested LOFO threshold calibration as a negative result, MODEL_CARD appendix | in-progress(20260903T1224Z) | true | one lap | 데이터 수집·분석·해석 · 설계와 방법론 |
+| WFG-019 | P0 | science | Operating-point evidence package: per-fire recall/FNR at 0.3, PR curve, nested LOFO threshold calibration as a negative result, MODEL_CARD appendix | done(20260903T1224Z) | true | one lap | 데이터 수집·분석·해석 · 설계와 방법론 |
 | WFG-002 | P0 | KCF | Judge Q&A bank v2 (**revise**: corrected numbers, four new questions, deprecated phrasings purged) | todo | true | one lap | 연구 목적 · 설계와 방법론 · 데이터 해석 |
 | WFG-004 | P0 | KCF | SSOT sweep (**revise**: fix README:731, reconcile `fold_sizes.md` vs `NUMBERS.json` on the primary AUC, annotate superseded values) | todo | true | one lap | 제출 자료 |
 | WFG-020 | P0 | KCF | Greenpeace 2026 survivor survey registered as evidence + the "85% drove" answer | todo | true (fallback NH) | hours | 연구 목적 · 데이터 수집 |
@@ -186,6 +186,46 @@ one double-sided sheet: eleven-row table on the front, 30-second spoken lines on
 - **Effort:** one lap. **agent_doable:** true.
 - **Constraints:** new filenames only; register every number; the two R3 verdicts disagree on the exact λ and held-out FNR values (different calibration conventions) — state the convention used and let the artifact be the source; never adopt any λ.
 - **Done when:** artifact + registered keys + doc + MODEL_CARD appendix + figure + test; `make verify` green; JUDGE_QA question 1 cites the new keys.
+
+**Lap 20260903T1224Z — done.** Everything the row asked for exists and the whole
+done-when clause holds. New: `scripts/operating_point_evidence.py`,
+`data/processed/operating_point/per_fire_recall.json` (git-tracked; `.gitignore`
+carries an explicit negation), `docs/operating_point.md` (Korean),
+`docs/figures/auto/pr_curve_operating_point.png`, a `MODEL_CARD.md` appendix
+(append-only, nothing above the rule edited), 17 registry entries on a new arm
+`A_operating_point`, and `tests/test_operating_point_evidence.py` (10 tests, a
+synthetic three-fire frame pinning the lambda convention).
+
+Every expected value reproduced exactly from the committed OOF file: per-fire
+FNR at 0.3 of 1.000/1.000/1.000/0.977/0.959/0.544 and ceiling probabilities
+0.0241/0.296/0.369 on the three small fires. The script refuses to write if its
+recomputed pooled and mean-of-folds recall disagree with Session 18's
+`oof_classification_metrics.json`.
+
+**The calibration result came out sharper than the row expected, and in a
+different shape.** The row (and the brief) anticipated "any bound-satisfying
+lambda turns the field into a near-blanket mask". That is true of the corrected
+column only. The pair is the result: *without* the finite-sample term the bound
+is met on the five calibration fires and then **broken on 3 of 6 held-out
+fires** (worst 0.750), so naive calibration does not deliver what it claims;
+*with* `1/(n+1)` = 0.167 — which at n = 5 calibration fires eats **83 % of a
+0.20 budget** — the bound holds 6 of 6 and a feasible lambda flags **26–46 % of
+all cells** against a 1.97 % prevalence. So: the guarantee or a usable field,
+not both, at n = 6. Neither column is a valid guarantee (exchangeability breaks
+twice; stated in the artifact, the doc and the MODEL_CARD appendix), which makes
+the corrected column an optimistic bound — and even the optimistic version is
+unusable, which is why the conclusion stands.
+
+Convention stated as the row required (the two R3 verdicts differed here):
+strict comparison, largest feasible lambda. No lambda was adopted; no default
+moved. This lap's numbers therefore differ from both verdicts' lambda figures
+and the artifact is the source.
+
+Two gate lessons went to `docs/auto/MEMO.md`: a `pytest.skip` guard on a
+git-TRACKED artifact hides a defect in a green summary line (one full-suite run
+read 1,071/60 against three neighbours at 1,077/54, delta exactly the six tests
+behind the guarded fixture; the fixture now asserts), and sibling registry keys
+collide with each other when a 출처 table lists key and value on one line.
 
 ### WFG-002 · P0 · KCF · Judge Q&A bank v2 — revise
 <!-- forbidden-ok: 44× -->

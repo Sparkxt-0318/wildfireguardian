@@ -522,3 +522,89 @@ Suggested replacement sentence (formal 합니다체):
 *Build comparison note for the author: the earlier 0.834 / 0.80 / 0.32 came from a  <!-- forbidden-ok: 0.834 -->
 different build (different fire set, 19 features, seed 42) and is not a like-for-like
 comparison; report the canonical Build B numbers above.*
+
+---
+
+## Appendix (WFG-019) — the operating point per fire, and why no threshold guarantee exists
+
+Appended 2026-09-03. **Nothing above this line was edited.** No model was fitted,
+no default was changed, and no threshold computed here is adopted anywhere. Full
+document: [`docs/operating_point.md`](operating_point.md). Artifact:
+`data/processed/operating_point/per_fire_recall.json`. Figure:
+`docs/figures/auto/pr_curve_operating_point.png`.
+
+### A1. Two thresholds, two surfaces
+
+The Session 18 section above reports recall at 0.3. That 0.3 is
+`time.forward_sim_advance_threshold`, applied **per simulation step** to a
+per-step ignition probability. It is **not** the cut the router applies: the
+router thresholds the **cumulative, survival-accumulated** hazard field at
+`pedestrian.walk_cutoff_p` = **0.5**. A sentence that reads the recall above as
+the routing field's miss rate is wrong in both directions — the recall bounds how
+fast the simulated hazard *extent* grows, and the router then reads the
+accumulated field that extent produced.
+
+### A2. What the zero-recall folds actually say
+
+The three folds with zero true positives fail for two different reasons, and the
+distinction is stronger than "recall 0":
+
+| fold | positives | max OOF probability over ALL cells | can 0.3 fire at all? |
+|---|---:|---:|---|
+| `gangneung_2023` | 8 | **0.0241** | **no** — no cell reaches 0.3 |
+| `hongseong_2023` | 34 | **0.296** | **no** — no cell reaches 0.3 |
+| `miryang_2022` | 24 | **0.369** | yes, on 2 non-igniting cells only |
+
+On two of six held-out fires the operating threshold can produce neither a true
+nor a false positive. The remaining folds' false-negative rates at 0.3 are
+`uiseong_andong_2025` **0.977**, `uljin_samcheok_2022` **0.959**,
+`yeongdeok_2025` **0.544** — so 351 of the 412 pooled true positives (85 %) come
+from `yeongdeok_2025`, which is also the fold whose training set contains
+same-week rows from `uiseong_andong_2025`.
+
+### A3. The threshold-calibration negative result
+
+Nested leave-one-fire-out: calibrate a lambda on five fires so their pooled
+false-negative rate is within a **0.20** budget, then measure it on the sixth.
+Convention (stated because the two Round-3 verdicts differed and got different
+lambdas): strict comparison, and the **largest** feasible lambda.
+
+| convention | target FNR on the 5 | held-out bound holds | worst held-out FNR | share of all cells flagged |
+|---|---:|:--:|---:|---:|
+| no finite-sample term | 0.200 | **3 of 6** | **0.750** | 0.0992 – 0.185 |
+| minus `1/(n+1)`, n = 5 | 0.0333 | 6 of 6 | 0.108 | **0.260 – 0.456** |
+
+**At six fires the correction `1/(n+1)` = 0.167 consumes 83 % of a 0.20 budget.**
+That single arithmetic fact is the finding. Without it the bound breaks on the
+fires the calibration never saw; with it the bound holds and a bound-satisfying
+lambda paints **26 – 46 % of the map** against a **1.97 %** prevalence, which is
+not a hazard field a pedestrian route can be planned on. **For this model, at
+n = 6, you can have the guarantee or a usable field, not both.** The operating
+point therefore stays what it already was: a ranking-driven forward simulation at
+an untuned default, not a classifier carrying a guarantee.
+
+⚠ **The two halves of that sentence rest on different evidence, and a leakage
+audit of the experiment (`mandela`) flagged the conflation.** "The correction
+consumes 83 % of the budget" is arithmetic in `n` alone — model-independent, true
+for any model at six fires. "26 – 46 % of cells flagged" is a property of *this
+model's* probability distribution: lambda has to fall to 0.0005 partly because
+the budget is narrow and partly because the igniting cells of the three small
+fires sit near the floor of the probability range. **The experiment does not
+separate those two causes** — that would need a control with the same marginal
+probability distribution and the fire-to-fire structure destroyed, which does not
+exist. So the defensible claim is "this model, calibrated on these six fires,
+gives an unusable threshold, and the budget arithmetic alone is about the fire
+count" — not "no threshold guarantee is possible in principle". Two smaller
+notes: the calibration-set FNR column is a construction check (lambda is *defined*
+to meet it), not a result; and the "largest feasible lambda" convention
+*minimises* the flagged fraction, so it works against this conclusion rather than
+for it. Finally `uiseong_andong_2025` and `yeongdeok_2025` are one March-2025
+complex with overlapping bounding boxes, so n = 5 calibration fires is itself
+optimistic and the correction is if anything too small (WFG-032).
+
+⚠ **Neither row above is a valid guarantee**, and the artifact says so. Exchangeability
+breaks twice: the held-out fire's out-of-fold probabilities come from a model
+trained on the very fires used to calibrate, and `1/(n+1)` is a **fire-level**
+finite-sample term applied to a **cell-level** quantile. The corrected row is an
+*optimistic* bound on what a real guarantee would cost. It is reported because
+even the optimistic version is unusable.

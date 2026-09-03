@@ -270,6 +270,14 @@ data/processed/vulnerability/refuges/
 !data/processed/detection/steps/
 !data/processed/detection/steps/*.json
 
+# --- WFG-019: the operating-point evidence package ---------------------------
+# ~9 KB of text JSON. Committed because seventeen registry entries read it and
+# because the threshold-calibration table is a NEGATIVE result — the per-fire
+# rows are the evidence that the calibration fails, so a reader has to be able
+# to see every held-out fire, not take the summary on trust.
+!data/processed/operating_point/
+!data/processed/operating_point/*.json
+
 # Validation-case manifest JSON files ARE committed (they're stubs, not
 # bulk data).
 !data/validation_cases/**

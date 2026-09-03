@@ -1,12 +1,12 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "d1d5854923004bf6410970b1c3522ae46aa7c4c0",
-  "n_artifacts": 93,
-  "total_bytes": 14444540,
+  "generated_at_git_commit": "147ed72f2dfe017658330eb34e7780559a4d0492",
+  "n_artifacts": 94,
+  "total_bytes": 14452388,
   "total_mib": 13.78,
-  "n_git_tracked": 93,
+  "n_git_tracked": 94,
   "n_untracked_manifest_only": 0,
-  "n_regenerate_unknown": 9,
+  "n_regenerate_unknown": 10,
   "artifacts": [
     {
       "path": "data/processed/.gitkeep",
@@ -102,7 +102,7 @@
       "sha256": "18a511a8b48c08cfbfd8fa45cf5740aa1fcd3a0d5fe40ead2bc099135b99c5ba",
       "kind": "text",
       "git_tracked": true,
-      "n_registry_entries": 0,
+      "n_registry_entries": 4,
       "cited_by_docs": [
         "docs/MODEL_CARD.md",
         "docs/auc_intervals.md"
@@ -164,7 +164,7 @@
       "sha256": "6ae03c4e18cc7589ac07aa195f3fe07467e95d986166ab2273959ed246aa6078",
       "kind": "text",
       "git_tracked": true,
-      "n_registry_entries": 0,
+      "n_registry_entries": 4,
       "cited_by_docs": [
         "docs/MODEL_CARD.md",
         "docs/REPORT_ROUND2_P2.md",
@@ -181,7 +181,8 @@
       "git_tracked": true,
       "n_registry_entries": 0,
       "cited_by_docs": [
-        "docs/HANDOFF_ROUND3.md"
+        "docs/HANDOFF_ROUND3.md",
+        "docs/submission_reconciliation.md"
       ],
       "regenerate": "python scripts/build_canonical_hazard.py"
     },
@@ -241,6 +242,8 @@
       "git_tracked": true,
       "n_registry_entries": 7,
       "cited_by_docs": [
+        "docs/auto/BACKLOG.md",
+        "docs/auto/research/BACKLOG_PROPOSAL_2026-09-03.md",
         "docs/detection_floor.md"
       ],
       "regenerate": "python scripts/gk2a_detection.py"
@@ -377,7 +380,7 @@
       "sha256": "dfca0a79516d7eb8799eaeada239773155bf1b1e97cf5b3059d9411bb870794b",
       "kind": "text",
       "git_tracked": true,
-      "n_registry_entries": 0,
+      "n_registry_entries": 6,
       "cited_by_docs": [
         "README.md",
         "docs/MODEL_CARD.md",
@@ -391,7 +394,7 @@
       "sha256": "3dbbb8e7aba4fde0690c3af4ad389ab48518832a9878b7df366797282014774c",
       "kind": "text",
       "git_tracked": true,
-      "n_registry_entries": 47,
+      "n_registry_entries": 48,
       "cited_by_docs": [
         "docs/console_regions.md",
         "docs/finals_demo_plan.md",
@@ -419,6 +422,7 @@
       "git_tracked": true,
       "n_registry_entries": 9,
       "cited_by_docs": [
+        "docs/auto/research/BACKLOG_PROPOSAL_2026-09-03.md",
         "docs/budget_sweep.md",
         "docs/slope_integration.md"
       ],
@@ -433,9 +437,30 @@
       "n_registry_entries": 6,
       "cited_by_docs": [
         "docs/MODEL_CARD.md",
-        "docs/SESSION18_REPORT.md"
+        "docs/SESSION18_REPORT.md",
+        "docs/auto/BACKLOG.md",
+        "docs/auto/JUDGE_QA.md",
+        "docs/auto/research/BACKLOG_PROPOSAL_2026-09-03.md",
+        "docs/auto/research/RESEARCH_BRIEF_2026-09-03.md",
+        "docs/auto/research/sweeps_2026-09-03/R7_rubric_gap.md",
+        "docs/operating_point.md"
       ],
-      "regenerate": "python scripts/oof_metrics.py"
+      "regenerate": "UNKNOWN"
+    },
+    {
+      "path": "data/processed/operating_point/per_fire_recall.json",
+      "bytes": 7848,
+      "sha256": "5641beae1f66835a1bf0dbb4346c1226befe322a5f65a97609a81611b88fcb21",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 17,
+      "cited_by_docs": [
+        "docs/auto/BACKLOG.md",
+        "docs/auto/research/BACKLOG_PROPOSAL_2026-09-03.md",
+        "docs/auto/research/RESEARCH_BRIEF_2026-09-03.md",
+        "docs/operating_point.md"
+      ],
+      "regenerate": "python scripts/operating_point_evidence.py"
     },
     {
       "path": "data/processed/ordering_boundary.json",
@@ -484,6 +509,7 @@
       "cited_by_docs": [
         "data/snapshots/README.md",
         "docs/DATA_LOSS_2026-07-24.md",
+        "docs/auto/research/sweeps_2026-09-03/R8_cloud_readiness.md",
         "docs/real_roads_real_hazard.md"
       ],
       "regenerate": "python scripts/build_multi_region_comparison.py"
@@ -630,8 +656,9 @@
       "sha256": "8fb4f4e9a530f157cb4b015db1821acfa35a528f80257259763fa70ba1c9f909",
       "kind": "text",
       "git_tracked": true,
-      "n_registry_entries": 0,
+      "n_registry_entries": 1,
       "cited_by_docs": [
+        "docs/auto/research/RESEARCH_BRIEF_2026-09-03.md",
         "docs/rescue_routing.md"
       ],
       "regenerate": "python scripts/verify_rescue_routing.py"
@@ -772,7 +799,7 @@
       "sha256": "bb2eb74bc2c9419e66882c2db598d37fa735f16d19ca7db67e03dcd9e9a3ba6a",
       "kind": "text",
       "git_tracked": true,
-      "n_registry_entries": 2,
+      "n_registry_entries": 4,
       "cited_by_docs": [
         "README.md",
         "data/processed/spread_v2/LEGACY_DO_NOT_CITE.md",
@@ -798,7 +825,7 @@
       "sha256": "22088693df716ab227255ad64dc208876f0cc9a00342cddebea04a15b258f6ba",
       "kind": "text",
       "git_tracked": true,
-      "n_registry_entries": 0,
+      "n_registry_entries": 2,
       "cited_by_docs": [
         "README.md",
         "docs/MODEL_CARD.md",
@@ -830,9 +857,13 @@
       "n_registry_entries": 0,
       "cited_by_docs": [
         "docs/MODEL_CARD.md",
-        "docs/SESSION18_REPORT.md"
+        "docs/SESSION18_REPORT.md",
+        "docs/auto/BACKLOG.md",
+        "docs/auto/research/BACKLOG_PROPOSAL_2026-09-03.md",
+        "docs/auto/research/RESEARCH_BRIEF_2026-09-03.md",
+        "docs/operating_point.md"
       ],
-      "regenerate": "python scripts/oof_metrics.py"
+      "regenerate": "python scripts/operating_point_evidence.py"
     },
     {
       "path": "data/processed/vulnerability/clearance_diagnostic.json",
