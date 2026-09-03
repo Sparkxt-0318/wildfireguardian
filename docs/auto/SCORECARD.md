@@ -16,12 +16,14 @@ commit to point at is a defect in the scoring, not evidence of progress.
 | date | window head | 연구 목적 | 설계와 방법론 | 데이터 수집·분석·해석 | 창의성 | 제출 자료 | /100 | what moved |
 |---|---|---:|---:|---:|---:|---:|---:|---|
 | 2026-09-03 | `1113388` | 15 | 15 | 16 | 15 | 11 | **72** | baseline (first critic lap) |
+| 2026-09-03 | `0ff1b36` | 15 | 15 | 17 | 15 | 13 | **75** | +1 데이터: the survey evidence card, digest-gated extractor and doc-to-artifact tests. +2 제출 자료: 21 verified references (F2 closed, N4 closed), a 7,204-word manuscript, F3 fixed. 연구 목적 held at 15 by F5, still open |
 
 ## Track A — 애플리케이션 / 실생활 도구
 
 | date | window head | 개발 목적 | 설계와 방법론 | 구현 및 유용성 | 창의성 | 제출 자료 | /100 | what moved |
 |---|---|---:|---:|---:|---:|---:|---:|---|
 | 2026-09-03 | `1113388` | 15 | 15 | 11 | 15 | 11 | **67** | baseline (first critic lap) |
+| 2026-09-03 | `0ff1b36` | 15 | 15 | 11 | 15 | 12 | **68** | +1 제출 자료 only: the survey card gives Q17 a file to point at. 구현 및 유용성 does not move, because nothing in this window touched the screen, the printables or the bundle (R1, R2, R7, R9 all still ☐) |
 
 ## 2026-09-03 · `25f1e14..1113388` — why these numbers
 
@@ -63,3 +65,38 @@ in its finals form yet. It should move most between 09-07 and 09-14.
 
 **Not scored here:** the two Pass/Fail rows (서류 구비, 위험성 검토). 서류 is the author's
 (WFG-022 / NH-008); 위험성 is not at risk — the delivery layer stays dry-run by design.
+
+## 2026-09-03 · `a278a56..0ff1b36` — why these numbers moved (critic #2)
+
+Two rows moved and three did not. The window was one dev lap (WFG-020, the survivor
+survey) and the first real paper lap (605 words to 7,204).
+
+**데이터 수집·분석·해석 · 16 → 17.** `docs/evidence/greenpeace_2026_survey.md` plus
+`data/processed/evidence/greenpeace_2026_survey.json` plus
+`scripts/extract_survey_evidence.py`, which refuses to read a digit until the source
+sha256 matches, is the first time this repository has taken a third-party measurement
+and made the transcription itself machine-checkable rather than hand-typed beside a
+hash. `tests/test_greenpeace_evidence.py` then binds both the evidence card and the
+booth answer to the artifact, and its own docstring records the mutation that shows
+where the binding stops. That is the behaviour the row scores. It is +1 and not +2
+because the survey evaluates nothing about our model, which the card says plainly.
+
+**제출 자료 · 11 → 13 (Track B), 11 → 12 (Track A).** 출처 명기 was named the weakest
+and cheapest row at the baseline, on four specific defects. Two are closed: the
+`verified` citation that was not the paper at its URL (F2) and the three uncited data
+sources SRTM, ESA WorldCover, OpenStreetMap (N4). `references.bib` is now 21 entries,
+each opened at its URL by the lap that added it. The manuscript is a real artifact a
+judge can be handed. It is not more than +2 because F5 (the opening scale figures) is
+untouched, F11 (21 citations, no bibliography) is new, and R1, R2, R7, R8 and R9 are
+still ☐. Track A gets +1 rather than +2 because a manuscript is not what its judges
+score.
+
+**연구 목적 / 개발 목적 · 15, held.** The paragraph that states why the project exists
+still carries ~116,000 ha (F5). One search, in the first thing a judge reads.
+
+**설계와 방법론 · 15, held; 창의성 · 15, held.** Nothing in this window changed a method
+or the coupling. The paper *describes* them better, which is the 제출 자료 row.
+
+**구현 및 유용성 · 11, held (Track A).** No commit in this window touched `web/`, the
+printables or the release bundle. Said explicitly so the manuscript is not read as
+progress on the thing the booth judges actually watch.

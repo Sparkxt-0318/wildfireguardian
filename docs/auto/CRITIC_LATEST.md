@@ -3,226 +3,202 @@
 Overwritten by every critic lap (history is in `docs/auto/reports/*-critic.md`). The
 next dev lap clears every `fix-before-next-row` item here before claiming a row.
 
-**Lap: 2026-09-03T1748Z (critic #1).** Scope: no previous critic report exists, so the
-window is the last 26 hours — `25f1e14..1113388`, 33 commits, six dev reports, one
-research brief, the new `paper/` tree. Gates re-run independently: `gates.py --mode
-full` **exit 0** (verify PASS, snapshot-verify PASS, env-check PASS, pytest 1108
-passed / 60 skipped, `baseline-verify` WARN as expected off-laptop). `paper/check_paper.py`
-**exit 0**. The dev laps' green claims are true. Every finding below is something the
-gates cannot see.
+**Lap: 2026-09-03T1947Z (critic #2).** Scope: `a278a56..0ff1b36`, the four commits since
+critic #1's report landed, which is the WFG-020 dev lap (1851Z) and the first real paper
+lap (1928Z, filed as `manual`). Gates re-run independently at `0ff1b36`:
+`gates.py --mode full` **exit 0** (verify PASS, snapshot-verify PASS, env-check PASS,
+pytest 1121 passed / 61 skipped COLD, `baseline-verify` WARN as expected off-laptop).
+`paper/check_paper.py` **exit 0** (`body_words 7204, figures 7, tables 2, references 21,
+gaps 4`). Both reports in the window record a `Reviewed by:` verdict (1851Z `subagent
+(pass)`, 1928Z `subagent (block)` acted on). **Every green claim the two laps made is
+true.** Critic #1's F2, F3, F4 and F6 are closed, and so are notes N2 and N4.
 
-**Root objection (the one that makes the others moot).** The project's headline claim
-is that every number traces to a committed artifact. That claim is enforced only where
-a registry key exists — and the numbers that *frame the project to a judge*, in the
-first paragraph a judge reads, have no key, no URL and no gate. `README.md:192-194`
-and `README.md:486-491` assert 27 deaths, ~116,000 ha burned and 4,000+ homes destroyed,
-sourced to "한겨레·세계일보·서울환경연합" with no link. None of the three resolves against
-`docs/NUMBERS.json`. One of them is falsifiable in a single search (F5). The most
-audited repository in the fair opens with its least audited numbers.
+**Root objection (the one that makes the others moot).** The loop's correction channel is
+open-loop. Critic #1's first and largest finding, F1, is still on disk untouched, and the
+reason is not negligence: the dev lap claimed its row at **18:21:07** and critic #1 pushed
+its verdict at **18:21:20**, thirteen seconds later (`git log --date=iso-strict`). At the
+configured cadence that is not bad luck, it is arithmetic. The dev routine fires at even
+hours `:17` and the critic at odd hours `:47`, so the critic has **30 minutes** to read a
+window, run the full gates and push before the next dev lap starts; critic #1 took 34, and
+this lap's own prompt budgets 40. CHARTER §11 promises "a wrong turn is caught within one
+lap"; on the current clock the promise cannot be kept, and the loop has now produced one
+lap's worth of evidence that it is not being kept. Everything else below is a sentence or
+a citation. This is the mechanism.
 
 ---
 
 ## fix-before-next-row
 
-### F1 · `docs/auto/JUDGE_QA.md:46` still tells the student to concede an error the last lap disproved — and the new lineage gate passes it by accident
+### F1 (carried, untouched) · `docs/auto/JUDGE_QA.md:50-52` still tells the student to concede an error the repository disproved
 
-**Where:** `docs/auto/JUDGE_QA.md:46-48`; gate at `tests/test_rescue_lineage_ssot.py:104-179`.
+**Where:** `docs/auto/JUDGE_QA.md:50-52`, section `## 0. 제출본과 현재 값이 다른 지점`.
 
-**What is wrong.** The 1724Z lap established that `README.md:731`'s "6 → 34" is a real
-committed value of the superseded 452-series, not a typo, and corrected that in four
-places: `README.md`, `docs/submission_reconciliation.md` (row 8 and the spoken line),
-`docs/HANDOFF_ROUND3.md` ×2, and the two research files. **`JUDGE_QA.md` was missed.**
-Its §0 — the section headed "제출본과 현재 값이 다른 지점", the two things it tells the
-student a judge will touch first — still reads (the bracket quoted below belongs to the
-superseded, pre-flip **452-series** synthetic baseline; canonical real-road run is 6 → 66):
+**What is wrong.** Unchanged from critic #1. The bullet still reads that `README.md:731`
+is "서식이 아니라 저장소 쪽이 틀린 유일한 자리", and still hands the fix off to WFG-004,
+which is `done(20260903T1622Z)`. The 1724Z lap established that the "6 → 34" bracket is a
+real committed value of the superseded 452-series, not a typo. This is the first section
+of the file the student speaks from at the booth, and it is false.
 
-> **`README.md:731`은 서식이 아니라 저장소 쪽이 틀린 유일한 자리입니다** — 지연 행을 "6 → 34"로
-> 적었지만 `rescue_verify.json`의 값은 `rescue_unreachable_delay_row_cutoff_0p7`입니다. 고치는
-> 것은 WFG-004의 일입니다.
+**Why it survived.** Not the 1851Z lap's fault: it claimed its row 13 seconds before the
+finding existed on `origin` (see the root objection). It is nonetheless the first thing
+the next lap fixes, because a booth answer that concedes a defect the audit disproved is
+the single cheapest way to lose 데이터 해석 points.
 
-Two defects in three lines. It asserts the repository was wrong where it was not, in the
-one document whose job is to prepare spoken booth answers; and it hands off to WFG-004,
-which is `done(20260903T1622Z)`.
+**Smallest fix.** Rewrite the bullet to say what the audit established (both brackets are
+real runs; the submitted 서식 quoted the real-road 439-series; the defect was a lineage mix
+in one paragraph), cite `docs/ssot_audit_2026-09-03.md` §1, and drop the "WFG-004의 일"
+hand-off. The gate-window half stays **WFG-041**.
 
-**Why no gate caught it.** `test_every_prose_mention_of_the_synthetic_bracket_names_its_lineage`
-does match this line — `SYNTHETIC_MENTION` fires on `"6 → 34"`. It then accepts the line
-because `LINEAGE_LABEL` is searched over a **±2-line window**, and line 45, in a *different
-bullet about a different quantity* (the 459-series 438/18/3 split), happens to contain the
-word **폐기**. Verified by mutation this lap: change 폐기된 → 버려진 on line 45, leaving line
-46 untouched, and the gate fails naming `docs/auto/JUDGE_QA.md:46`. Restore it and the gate
-goes green again. This is the same failure the independent reviewer blocked at 1724Z — a
-judge-facing file exempted by an incidental keyword — surviving at a different granularity,
-in the same file the gate's own comment names as the one that used to slip through.
+### F9 (new) · The critic cannot reach `origin` before the next dev lap, so `CRITIC_LATEST.md` is structurally one lap late
 
-**Smallest fix.** Rewrite the `README.md:731` bullet in `JUDGE_QA.md` §0 to say what the
-audit established (both brackets are real runs; the submitted form quoted the real-road
-439-series; the defect was a lineage mix in one paragraph), citing
-`docs/ssot_audit_2026-09-03.md` §1, and drop the "WFG-004의 일" hand-off. The gate-window
-half is bigger than a fix and is filed as **WFG-041**.
+**Where:** `docs/auto/LOOP_CONFIG.json` → `dev_cadence_note`; `docs/auto/CHARTER.md:257-260`;
+`docs/auto/ROUTINE_PROMPTS.md` (the critic prompt's "under 40 minutes" budget).
 
-### F2 · `paper/references.bib` marks a citation `verified` whose title and authors are not the paper at that URL
+**What is wrong.** `dev` at `17 */2` and `critic` at `47 1-23/2` put the critic's start 90
+minutes after a dev lap and **30 minutes** before the next one. A critic lap that runs the
+full gates (2 minutes), re-runs pytest for a census reading (2 minutes), reads a window and
+writes findings does not finish in 30 minutes: critic #1 took 34, this lap started 19:47
+against a 20:17 dev lap, and the prompt's own instruction ("keep the whole lap under 40
+minutes so your findings are on `auto/dev` before the next dev lap starts at the next even
+hour :17") is self-contradictory, since 19:47 + 40 = 20:27. CHARTER §11's guarantee rests
+on this margin.
 
-**Where:** `paper/references.bib:4-11`; used at `paper/manuscript.md:13`.
-
-**What is wrong.** The entry `wildfirespreadts2025` gives title *"WildfireSpreadTS: A
-dataset of multi-modal time series for wildfire spread prediction"*, authors Gerard, Zhao
-and Sullivan, `url = https://arxiv.org/abs/2502.12003`, and `note = {verified 2026-09-03
-(research sweep R3)}`. Opened this lap: **arXiv:2502.12003 is "Improved Wildfire Spread
-Prediction with Time-Series Data and the WSTS+ Benchmark", by Lahrichi, Bova, Johnson and
-Malof (WACV 2026)** — a different paper by different authors, which *builds on* WSTS rather
-than introducing it. The WildfireSpreadTS dataset paper is arXiv:2406.04759 (NeurIPS 2024
-Datasets & Benchmarks).
-
-This is the failure mode CHARTER §5 names first ("no fabricated citations"), inside the
-only related-work citation the manuscript has, carrying a `verified` note. `check_paper.py`
-cannot catch it: it checks that the key exists and that the note contains the word
-"verified" — never that the metadata matches the URL. An ML reviewer or a KCF 제출 자료
-row (출처 명기) would find it by clicking once.
-
-**Smallest fix.** Either correct the entry to arXiv:2406.04759 with the Gerard/Zhao/Sullivan
-metadata, or keep 2502.12003 with the Lahrichi et al. title and authors — whichever the
-sentence at `manuscript.md:13` actually means. Re-open the URL and put the fetched title in
-the `note`. The gate half is filed as **WFG-042**.
-
-### F3 · `paper/manuscript.md:9` attributes a death toll to a source that gives a different one
-
-**Where:** `paper/manuscript.md:9`.
-
-**What is wrong.** "The March 2025 Gyeongbuk wildfires killed 27 people … [@wwa2025korea]".
-The World Weather Attribution report at that URL, opened this lap, says: *"With 32
-casualties, the fires are also South Korea's deadliest wildfires on record"*, with 26 of
-those in 의성군, ~48,000 ha burned and ~5,000 buildings lost. It does not carry 27. The
-repository's own README sources 27 to 한겨레·세계일보·서울환경연합 — three sources the
-manuscript does not cite — and carefully footnotes that "30명 이상" is the different,
-nationwide scope. The manuscript drops that footnote and pins the narrower number to a
-source that reports the wider one.
-
-**Smallest fix.** Move `[@wwa2025korea]` to a clause it supports (the climate-attribution
-statement), and cite 27 to the sources the README names once they carry URLs (F5 /
-**WFG-043**). Carry the README's scope footnote into the manuscript.
-
-### F4 · Two live backlog rows share the ID `WFG-036`, and they are different work
-
-**Where:** `docs/auto/BACKLOG.md:48` and `:64`; details at `:451`. Referenced as the final
-product by `CHARTER.md:266`, `KCF_READINESS.md:5,18`, `BACKLOG.md:25,29`.
-
-**What is wrong.** `WFG-036` is simultaneously **P0 · KCF · Final product bundle
-`release/kcf-finals-2026/`** (added by the sprint commit `42818ec`) and **P1 · infra ·
-`build_numbers.py` would destroy the registry it claims to build** (added by the research
-re-key `d88c85b`). The only `### WFG-036` details section in the file is the *infra* one.
-So the sprint plan's "09-10 | WFG-036 | final product bundle v1" resolves, for any lap that
-reads the details section, to the `build_numbers.py` fix. The 1724Z lap resolved the
-WFG-037/038 collision and did not see this one.
-
-**Fixed this lap**, because a duplicate ID is the one thing this file is supposed not to
-contain: the **infra** row is renumbered **WFG-040**, keeping `WFG-036` for the final
-product, which is hard-referenced in three other files. One stale back-reference remains in
-`docs/auto/reports/2026-09-03T0653Z-dev.md`, which is a historical record and is not edited.
+**Smallest fix, repo-side and available to the next dev lap.** Add one sentence to
+CHARTER §4 step 3: *after pushing the claim and before building, re-fetch and re-read
+`docs/auto/CRITIC_LATEST.md`; if it changed since the lap started, clear its
+`fix-before-next-row` items first.* That closes the race without touching the schedule and
+costs the dev lap one `git fetch`. The cadence half is author-only (the cron lives on the
+routine, not in this repository) and is filed as **NH-016**; moving the critic to odd
+hours `:17` would give it 120 minutes instead of 30.
 
 ---
 
 ## fix-this-sprint
 
-### F5 · The README's motivation paragraph claims a burned area larger than the nationwide total
+### F11 (new, was note N3) · `paper/manuscript.md` ships 21 citations and has no `## References` section, and nothing checks the section list
 
-**Where:** `README.md:193` (Korean) and `README.md:488` (English) — both inside the Round-3
-section, so both editable; the Round-2 record is untouched.
+**Where:** `paper/manuscript.md` (sections present: Abstract, 1 Introduction, 2 Related
+work, 3 Data and methods, 4 Results, 5 Discussion, 6 Limitations, 7 Conclusion, Data and
+code availability); `paper/check_paper.py`.
 
-**What is wrong.** Both lines attribute **~116,000 ha** to the 의성→안동→청송→영양→영덕 chain
-alone. Public reporting puts the **nationwide** March–May 2025 total (347 fires) at about
-**104,788 ha**, and the WWA report gives ~48,000 ha for the fires it analysed. A sub-scope
-figure larger than every national figure available is falsifiable by a judge in one search,
-in the paragraph that states why the project exists. The same paragraph already carries a
-careful scope footnote for the 27-vs-30+ death toll and none for the hectares. None of the
-three figures (27 / 116,000 ha / 4,000+ homes) has a registry key or a URL.
+**What is wrong.** CHARTER §12 lists the required sections and ends the list with
+"References". The manuscript has none. `check_paper.py` counts words, figures, tables,
+references and gaps, and contains no section check at all (`grep -n 'References\|sections'
+paper/check_paper.py` returns nothing), so the gate that exists to hold §12 true has never
+looked at the one structural requirement §12 states. A 7,204-word manuscript that cites 21
+works and prints no bibliography is not a submittable artifact, and 출처 명기 is a scored
+row in both rubric tracks.
 
-**Smallest fix.** Open the three named sources, record which figure each gives and its
-scope, register the values, and add the scope footnote the death-toll pair already has —
-or replace with the 산림청 figure and say so. Filed as **WFG-043**; the author's own
-sources are asked for in **NH-015**.
+**Smallest fix.** Add `## References` to the manuscript (rendered from `references.bib`,
+as `build_docx.py` already does for the `.docx`), and add one assertion to
+`check_paper.py` that every §12 section heading is present. Filed as **WFG-045**.
 
-### F6 · `paper/STATE.json` states counts that its own gate contradicts
+### F7 (carried, unfixed) · Three live lines still carry the retired finals date
 
-**Where:** `paper/STATE.json`.
+**Where:** `docs/auto/CHARTER.md:11` ("in priority order until 2026-10-18"),
+`docs/auto/RUBRIC.md:20` ("당일 10.18 참가자 등록 후"), `docs/auto/NEEDS_HUMAN.md:72`
+("the 10-10 freeze are set against 10.18").
 
-**What is wrong.** It reads `last_incorporated_commit: null`, `body_words: 0`, `figures: 0`,
-`references: 0`, `gaps: 0`. `check_paper.py` on the same tree prints `body_words: 605,
-figures: 2, references: 4, gaps: 12`. The paper scaffolding was committed at `fec353e`
-and the state file was never written. CHARTER §12 makes this file the paper lap's early-exit
-test, so it is not decoration: it is the loop's record of what has been incorporated, and it
-is false. Nothing gates it.
+**What is wrong.** Unchanged from critic #1, verified again this lap. NH-006 is closed on
+10-24 / 10-16. `KCF_READINESS` R11 requires every date in `docs/auto/` to read 10-16 and
+10-24, so R11 fails today on the two documents every lap is told to read first.
 
-**Smallest fix.** Have `check_paper.py` (or the paper lap) write `STATE.json` from the same
-`info` dict it already computes, and set `last_incorporated_commit` to the head it ran on.
+**Smallest fix.** Correct the three lines; annotate rather than delete inside NH-006, which
+is a record. The `research/sweeps_2026-09-03/*` files predate the decision and keep their
+text.
 
-### F7 · `docs/auto/CHARTER.md:11` and `docs/auto/RUBRIC.md:20` still carry the retired finals date
+### F5 (carried, unfixed) · The README's motivation paragraph still claims a burned area larger than the nationwide total
 
-**Where:** `CHARTER.md:11` ("in priority order until 2026-10-18"), `RUBRIC.md:20`
-("당일 10.18 참가자 등록 후"), and `NEEDS_HUMAN.md:72` ("the 10-10 freeze are set against 10.18").
+**Where:** `README.md:191-194` (Korean) and `README.md:486-491` (English).
 
-**What is wrong.** NH-006 is closed: the author decided **2026-10-24**, freeze **2026-10-16**.
-The charter's own §1 table says 10-24 two lines below §1's prose saying 10-18. `KCF_READINESS`
-R11 requires every date in `docs/auto/` to read 10-16 and 10-24, so these three lines are R11
-failing today, in the two documents every lap is told to read first.
+**What is wrong.** Unchanged. Both still attribute ~116,000 ha to the 의성→안동→청송→영양→영덕
+chain alone, against a nationwide March-May 2025 figure of about 104,788 ha and the WWA
+report's ~48,000 ha for the fires it analysed. Correctly filed as **WFG-043** with the
+author's sources asked for in **NH-015**; restated here only because it is the first
+paragraph a judge reads and it is still falsifiable in one search.
 
-**Smallest fix.** Correct the three lines; annotate rather than delete inside NH-006, which is
-a record. The `docs/auto/research/sweeps_2026-09-03/*` files are dated artifacts of a scan run
-before the decision and should keep their text.
+### F12 (new) · The paper routine has no report kind, so its report is filed as `manual` and `STATE.json` now says the last lap was manual
 
-### F8 · Every suite baseline the loop has recorded is an unlabelled mixture of two quantities
+**Where:** `scripts/auto/report.py:123` (`choices=["dev","critic","research","kickoff","red","manual"]`);
+`docs/auto/reports/2026-09-03T1928Z-manual.md`; `docs/auto/STATE.json` →
+`"last_report_kind": "dev"` was overwritten to `manual` by that run.
 
-**Where:** `docs/auto/BACKLOG.md` WFG-038 / WFG-039; readings in all six dev reports.
+**What is wrong.** CHARTER §2 and §12 define a fourth routine whose reports the loop reads,
+and the reporting tool cannot name it. Consequences already visible: the report file is
+`*-manual.md` while its own title line says `· paper ·`; a lap resolving its predecessor by
+kind (this critic prompt's own `SINCE=$(git log --grep='critic' -- docs/auto/reports)`
+pattern) cannot find paper laps at all; and the dashboard timeline labels a paper lap
+"manual". The same report's title stamp (`2026-09-03T1955Z`) disagrees with its own `when`
+row (19:28 UTC) and its filename (`1928Z`), so three timestamps for one lap are committed.
 
-**What is wrong.** WFG-039 established the cause (an SRTM tile downloaded mid-run, so six
-tests skip on a cold container and pass on every run after). The consequence is broader than
-the row states and is worth naming plainly: the recorded baselines 1065/51, 1077/54, 1081/54,
-1088/60, 1094/54, 1106/54 and this lap's 1108/60 are a mixture of first-run and re-run
-readings, so the cross-lap count comparison the loop uses as its "no test was lost" evidence
-has been comparing different quantities the whole time. This is an internal-validity hole in
-the loop's own instrument, not a nuisance. The rows are correctly filed and correctly
-prioritised; this entry exists so the next lap does not cite a raw count as evidence until
-they land.
-
-**Smallest fix.** None here — WFG-038 and WFG-039 are the fix. Until then, reports state
-whether a reading is cold or warm.
+**Smallest fix.** Add `"paper"` to the `--kind` choices and let the paper lap pass it; let
+the title default to the same stamp the filename uses instead of accepting a hand-typed
+one. Filed as **WFG-044**.
 
 ---
 
 ## note
 
-- **N1 · `KCF_READINESS.md` R5 names a test file that does not exist.** It cites
-  `tests/test_judge_qa.py`; the file is `tests/test_judge_qa_bank.py`. Corrected this lap.
-- **N2 · `paper/figures/F3_regions.png` is built and committed but referenced by nothing.**
-  `make_figures.py:128` produces it; `manuscript.md` never uses it. `check_paper.py` verifies
-  that referenced figures exist, not that committed figures are referenced. Harmless today;
-  it becomes a 제출 자료 finding if it ships in the bundle unexplained.
-- **N3 · `paper/manuscript.md` has no `## References` section**, which CHARTER §12 lists among
-  the required sections. The `.docx` build may render the bibliography; the markdown does not.
-- **N4 · SRTM, ESA WorldCover and OpenStreetMap are named in `manuscript.md:19` with no bib
-  entries**, while FIRMS and ERA5 have them. 출처 명기 is a scored row in both rubric tracks.
-- **N5 · `docs/auto/BACKLOG.md` WFG-014 ("Paper skeleton in `paper/`") is still `todo`** though
-  `fec353e` built it. Not a defect in the work, but the backlog is the loop's own state.
-- **N6 · Reports before `a131daf` carry no `Reviewed by:` line, and that is correct.** The
-  `review: subagent` key did not exist until that commit. Both reports written after it
-  (1622Z, 1724Z) record a verdict, and both verdicts were `block` acted on rather than argued.
-  The independent review is working; this note exists so a later lap does not read the four
-  earlier reports as skipped verdicts.
+- **N7 (new) · The suite census, measured cold and warm on one tree, and what it makes
+  cheap.** At `0ff1b36`: COLD `1121 passed / 61 skipped`, WARM re-run `1127 passed / 55
+  skipped`, **collected 1182 in both**. The delta is exactly the six SRTM-gated tests
+  WFG-039 names. Two things follow for **WFG-038**, which asks for a `(collected, passed,
+  skipped)` triple as a gate: `collected` is the component that is actually invariant, so
+  gating on it alone is both cheap and sufficient for "no test was lost"; and `passed` is
+  not even portable across environments, since this lap's cold run also skips
+  `test_the_committed_digest_still_matches_the_pdf` (the survey PDF lives under the
+  git-ignored `data/raw/`), which passed for the 1851Z lap that had downloaded it. That is
+  why this lap reads 1127/55 where the 1851Z gate read 1128/54 on the same suite.
+- **N9 (new, correcting critic #1) · F2's remedy text was wrong and must not be applied.**
+  Critic #1 wrote that "the WildfireSpreadTS dataset paper is arXiv:2406.04759 (NeurIPS
+  2024 Datasets & Benchmarks)". Verified this lap at the NeurIPS proceedings: it is
+  **NeurIPS 2023** Datasets & Benchmarks, *Advances in Neural Information Processing
+  Systems* 36:74515-74529
+  (`proceedings.neurips.cc/paper_files/paper/2023/hash/ebd545176bdaa9cd5d45954947bd74b7-Abstract-Datasets_and_Benchmarks.html`).
+  The paper lap's committed entry (`paper/references.bib:16-22`, `year = {2023}`, Crossref
+  DOI `10.52202/075280-3258`) is **correct**. This note exists so no later lap "fixes" a
+  right entry back to a wrong one. One cosmetic residue: the key is `wildfirespreadts2024`
+  while its own `year` is 2023; rename to `wildfirespreadts2023` when the file is next
+  touched.
+- **N2 and N4 are closed.** `F3_regions.png` is now referenced once in `manuscript.md`, and
+  SRTM (`farr2007`), ESA WorldCover (`worldcover`) and OpenStreetMap (`osm`) all have bib
+  entries. `references.bib` is 21 entries, each carrying a `verified` note.
+- **N5 (carried) · `docs/auto/BACKLOG.md` WFG-014 ("Paper skeleton in `paper/`") is still
+  `todo`** while the manuscript it describes is 7,204 words with 7 figures. It was stale
+  after `fec353e`; after `0ff1b36` it is plainly wrong. Mark it `done(0ff1b36)`.
+- **N10 (new) · `paper/STATE.json` → `last_incorporated_commit: e558ebd` is correct and
+  should not be "corrected".** The paper lap built on `fc09db7` but genuinely did not
+  incorporate the WFG-020 survey evidence, so the next paper lap will correctly see work to
+  do. Recorded because the value looks like a stale-head bug and is not one.
+- **N11 (new) · The Greenpeace evidence card is the strongest artifact this loop has
+  produced, and its own gate says so honestly.**
+  `tests/test_greenpeace_evidence.py:150-171` documents, with the mutation that shows it,
+  that membership-in-any-cell is weaker than membership-in-the-cited-cell (48.0 → 47.0
+  survives, because 47.0 is a real cell in 표 1-5). Every arithmetic relation in
+  `docs/evidence/greenpeace_2026_survey.md` §3 re-derives independently this lap
+  (291 = 246+9+8+7+21; 269/299 = 90.0 %; 185/297 = 62.3 %; 53/296 = 17.9 %; 표 1-1's four
+  regional rows sum to the 전체 row). The one figure quoted in §4 and in JUDGE_QA Q17 that
+  §3's "인용하는 수치" table does not list is 영덕's 80세 이상 **34.0 %**; it is in the
+  artifact (`표 1-1` 영덕 34/100) and pinned by the bare-percent test, so this is a
+  completeness nit in §3, not a traceability hole.
 
 ---
 
-## The judge drill, and the one question I did not add to the bank
+## The judge drill
 
-`JUDGE_QA.md` changed this window, so the drill ran. It produced one question the bank
-cannot currently answer:
+`JUDGE_QA.md` changed this window (Q17's answer was rewritten onto the new artifact), so
+the drill ran against the changed block.
 
-> "README 첫 문단은 경북 산불 피해면적을 약 116,000 ha로 적었습니다. 2025년 3월–5월 **전국**
-> 산불 피해면적 합계로 공개된 값은 약 104,788 ha입니다. 어느 쪽이 맞습니까?"
-
-I did **not** add it to the bank. An answer requires a sourced value that does not exist yet
-(F5), and CHARTER §5 forbids writing one that cannot be registered. Adding it would also
-collide with the §0 rewrite F1 asks for. The lap that closes WFG-043 should add it then, with
-its 근거 line, and update the tier counts and the §6 drill table together — the four
-`test_judge_qa_bank.py` invariants pin all of them.
+- **"영덕 응답자의 34 %가 80세 이상이라고 하셨는데, 그 표는 근거 문서 §3에 없습니다."** The
+  answer exists (`data/processed/evidence/greenpeace_2026_survey.json`, 표 1-1, 영덕 34/100,
+  base 100) but the student would have to open the JSON to find it, because the evidence
+  card's own citation table stops at the 전체 row. Add the 표 1-1 regional row to §3. Not
+  added to the bank: it is a documentation nit, not a question a judge can win on.
+- **"이 조사 수치는 왜 레지스트리에 없습니까?"** Answered, well, at
+  `docs/evidence/greenpeace_2026_survey.md` §6 and in Q17's "없는 것" block. The bank needs
+  no new entry.
+- The question critic #1 declined to add (116,000 ha vs 104,788 ha) is **still unanswerable**
+  and still correctly withheld. It becomes addable the lap WFG-043 closes.
 
 ---
 
@@ -230,22 +206,20 @@ its 근거 line, and update the tier counts and the §6 drill table together —
 
 | lens | verdict | the one load-bearing reason |
 |---|---|---|
-| KCF judge · SW professor | pass, with reservation | The gate discipline is real and unusual for this level; the newest gate is green for an accidental reason (F1). |
-| KCF judge · 재난 대응 공무원 | **fail** | The document that prepares spoken booth answers still instructs a concession that is false (F1). |
-| fire-behaviour scientist | **fail** | The sentence that frames why the project exists carries a burned area larger than the national total (F5). |
-| ML reviewer (leakage, baselines) | mixed | The evaluation is genuinely event-held-out and the negative results are kept; the only related-work citation is not the paper at its URL (F2). |
-| statistician | pass | n = 6 is treated honestly throughout — zero-TP folds, pooled vs mean-of-folds, no threshold guarantee; the exposure is the loop's own suite instrument (F8). |
+| KCF judge · SW professor | pass | The window's two laps each took an independent reviewer's block or objection and fixed it rather than arguing; the census is now labelled cold vs warm. The loop's weakness is its clock (F9), not its judgement. |
+| KCF judge · 재난 대응 공무원 | **fail**, unchanged | The booth script's first section still concedes a false error (F1). Second lap in a row. |
+| fire-behaviour scientist | **fail**, unchanged | The sentence that frames why the project exists still carries a burned area larger than the national total (F5). |
+| ML reviewer (leakage, baselines) | pass, with reservation | The paper lap's reviewer found the real hole (the 42-of-458 shift is graded against the system's own predicted field) and it is now the first paragraph of Limitations with G4 naming the arm that settles it. Nothing here is oversold. The reservation is F11: 21 citations, no bibliography. |
+| statistician | pass | The survey card refuses to attach confidence intervals to a non-probability sample, names the survivor-selection structure, refuses the car-less-equals-immobile reading, and its gate's docstring states its own limit. This is the most statistically careful document in the repository. |
 
-**Where they agree:** the substance is stronger than the labels on it. Every failing verdict
-is about a sentence or a citation, not about a method or a result. Nothing found this window
-requires an experiment to be redone.
+**Where they agree:** nothing found this window requires an experiment to be redone, and
+neither failing verdict is new. Both failures are *carried* items, which is the point of
+the root objection: the loop is producing good work and failing to close its own loop.
 
-**Where they split:** L1 calls the gates the project's strongest asset; L4 and L5 say two of
-them are green for reasons unrelated to the property they name (F1, F8).
+**Where they split:** L1 credits the reviewer mechanism; L2 and L3 observe that the two
+findings the mechanism produced first are the two still open.
 
-**The question that resolves the split:** *for each gate the loop cites as evidence, does a
-seeded counterexample actually fail it?* The 1622Z lap answered yes for the purge gate by
-running two mutations. The 1724Z lap answered yes for the lineage gate against the reviewer's
-two counterexamples — but not against the file its own comment names, which is where it fails
-(F1). Making a seeded-mutation proof mandatory for every new gate, recorded in the report, is
-the single change that would close this.
+**The question that resolves the split:** *does a `fix-before-next-row` item ever reach a
+dev lap before that lap picks its row?* One data point exists and it is negative. F9's
+one-sentence charter fix is the cheapest way to make the answer yes, and the next lap can
+make it while it is fixing F1.

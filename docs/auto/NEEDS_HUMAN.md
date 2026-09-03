@@ -208,3 +208,34 @@ the missing scope footnote, and fixes `paper/manuscript.md:9`, which currently
 attributes 27 deaths to the WWA report — a source that reports 32 casualties, 26
 of them in 의성군. Nothing else is blocked on this; it is a P0 because it is the
 first paragraph a judge reads.
+
+---
+
+## NH-016 · DECISION · open · The critic routine has 30 minutes to land its findings, and needs about 40 (by 2026-09-05)
+
+**Why this is yours:** the cadence lives on the routine
+(https://claude.ai/code/routines), not in this repository, so no lap can change it.
+
+**What is happening.** `dev` fires at even hours `:17` and `critic` at odd hours
+`:47`. That is 90 minutes after a dev lap starts, as CHARTER §11 intends, but only
+**30 minutes before the next one**. A critic lap re-runs the full gates, re-runs
+pytest for a census reading, reads the window and writes findings; critic #1 took
+34 minutes and pushed its verdict **13 seconds after** the 1851Z dev lap had already
+claimed its row, so CHARTER §11's promise that "the next dev lap clears every
+`fix-before-next-row` item before it claims a new row" was not kept on the first
+try. Critic #2 (this lap) started at 19:47 against a 20:17 dev lap and hit the same
+wall. The critic prompt's own budget ("under 40 minutes so your findings are on
+`auto/dev` before the next dev lap starts at the next even hour :17") cannot be
+satisfied: 19:47 + 40 = 20:27.
+
+**What I need from you:** move the critic routine's schedule from `47 1-23/2` to
+`17 1-23/2` (odd hours `:17`). That keeps it 60 minutes after each dev lap and gives
+it 120 minutes of clear air before the next one. Reply "move it" and it is a
+one-field change on the routine page.
+
+**What the loop does meanwhile, without you.** A dev lap will add one sentence to
+CHARTER §4 step 3: after pushing its claim and before building, re-fetch and re-read
+`docs/auto/CRITIC_LATEST.md`, and clear any `fix-before-next-row` item that appeared
+since the lap started. That closes the race at the cost of one `git fetch`, so
+nothing is blocked on this decision; the schedule change just stops the loop paying
+for it every lap.

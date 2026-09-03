@@ -67,6 +67,8 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-043 | P0 | KCF | Source and register the 2025 fire's scale figures (deaths, burned area, homes) that open the README | todo | true (author holds the sources, NH-015) | hours | 연구 목적 · 제출 자료 (출처) |
 | WFG-038 | P1 | infra | The full suite reports two different skip counts on one commit and the gate is green for both — make the (collected, passed, skipped) triple a gate | todo | true | hours | 데이터 해석 (재현) |
 | WFG-039 | P1 | infra | The test suite downloads an 8.4 MB (gzipped; 25.9 MB on disk) SRTM tile mid-run, so first-run and re-run pass/skip counts differ by six — make the download opt-in (**this is the cause of WFG-038's symptom**) | todo | true | hours | 데이터 해석 (재현) |
+| WFG-044 | P1 | infra | `scripts/auto/report.py` has no `paper` kind, so the paper routine files its report as `manual` and overwrites `STATE.json` → `last_report_kind` with it (critic 20260903T1947Z) | todo | true | minutes | 데이터 해석 (재현) |
+| WFG-045 | P1 | IEEE | `paper/manuscript.md` cites 21 works and has no `## References` section, and `check_paper.py` checks no section at all against CHARTER §12 (critic 20260903T1947Z) | todo | true | hours | 제출 자료 (출처) |
 | WFG-011 | P2 | ISEF | ISEF plan memo (**revise**: route-existence questions, SFTD base rate, age rule, hand-written documents) | todo | true | one lap | — |
 | WFG-032 | P2 | science | Leak-free 영덕 fold + hindsight-oracle routing arm (agent writes the script; student runs on the Mac) | todo | partial | one lap + one Mac day | 데이터 해석 · IEEE Table V |
 | WFG-033 | P2 | science | Coupling-ablation routing-only arms on committed hazard fields (fire-blind / static perimeter + buffer / spread_v2), three regions (absorbs WFG-012) | todo | true | two laps | 설계와 방법론 · 데이터 해석 |
@@ -587,6 +589,43 @@ carrying forward.
 - **Done when:** each of the three figures has a registered key with its scope in the
   caveat, both README lines and `manuscript.md:9` cite a source that carries the value they
   state, and `make verify` plus `check_number_collisions.py` are green.
+
+### WFG-044 · P1 · infra · The paper routine has no report kind
+- **What:** `scripts/auto/report.py:123` takes
+  `choices=["dev","critic","research","kickoff","red","manual"]`. CHARTER §2 and §12 define
+  a fourth routine, `wfg-autoloop-paper`, that is not in the list, so its first real lap
+  filed `docs/auto/reports/2026-09-03T1928Z-manual.md` with a title line reading `· paper ·`
+  and set `docs/auto/STATE.json` → `"last_report_kind": "manual"`. Three consequences, all
+  live: a lap that resolves its predecessor by kind (this critic prompt's own
+  `git log --grep='critic' -- docs/auto/reports` pattern) cannot find paper laps; the
+  dashboard timeline labels a paper lap "manual"; and that report carries three different
+  timestamps for one lap (title `1955Z`, `when` row 19:28 UTC, filename `1928Z`).
+- **Do:** add `"paper"` to the `--kind` choices; derive the default title from the same
+  stamp the filename uses so a hand-passed `--title` cannot disagree with it; leave the
+  already-committed `*-manual.md` report where it is (CHARTER §3: reports are records).
+- **Effort:** minutes. **agent_doable:** true.
+- **Constraints:** `tests/` already covers the reporting scripts (`a131daf`); extend that
+  test rather than adding a second one.
+- **Done when:** `report.py --kind paper` writes `<stamp>-paper.md`, the title stamp equals
+  the filename stamp, and a seeded `--title` with a different stamp fails a test.
+
+### WFG-045 · P1 · IEEE · The manuscript has 21 citations and no bibliography
+- **What:** `paper/manuscript.md` runs Abstract, 1 Introduction, 2 Related work, 3 Data and
+  methods, 4 Results, 5 Discussion, 6 Limitations, 7 Conclusion, Data and code availability,
+  and stops. CHARTER §12's required section list ends with "References"; there is none.
+  `paper/check_paper.py` counts words, figures, tables, references and gaps and asserts
+  nothing about sections, so the gate written to hold §12 true has never looked at the one
+  structural requirement §12 states. 출처 명기 is a scored row in both rubric tracks and a
+  reader of the markdown cannot resolve a single `[@key]`.
+- **Do:** render `## References` into the manuscript from `references.bib` (the same path
+  `build_docx.py` already uses for the `.docx`, so the two cannot disagree), and add one
+  assertion to `check_paper.py` that every CHARTER §12 section heading is present, proven by
+  a seeded deletion that fails it.
+- **Effort:** hours. **agent_doable:** true.
+- **Constraints:** the word budget is body text (7,000 target / 7,500 hard fail); confirm
+  `check_paper.py` does not count the new section into it, or the paper fails its own gate.
+- **Done when:** `check_paper.py` exits 0 with the section assertion in place, removing any
+  required heading fails it, and the rendered bibliography lists all 21 entries.
 
 ### WFG-038 · P1 · infra · The suite's own count is not gated
 - **What:** `scripts/auto/gates.py` runs the full suite and writes the summary line
