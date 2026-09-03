@@ -3,11 +3,11 @@
 # own gates on a clean Linux checkout with pip-only dependencies, so a change the
 # cloud agent believed green is re-checked by a machine that shares nothing with it.
 name: auto-gates
+# Push-triggered only: the check attaches to the commit, so the standing PR
+# auto/dev → Main shows it without a second, identical pull_request run.
 on:
   push:
     branches: ['auto/**', 'Main']
-  pull_request:
-    branches: ['Main', 'auto/dev']
   workflow_dispatch:
 concurrency:
   group: gates-${{ github.ref }}
