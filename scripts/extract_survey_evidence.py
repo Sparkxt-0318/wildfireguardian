@@ -405,7 +405,14 @@ def main() -> int:
 
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(out, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(f"wrote {args.out.relative_to(REPO)}")
+    # --out may point outside the repository (a scratch path, which is how an
+    # independent reviewer re-runs this and diffs the result); relative_to would
+    # raise there and report failure for a run that wrote the file correctly.
+    try:
+        shown = args.out.relative_to(REPO)
+    except ValueError:
+        shown = args.out
+    print(f"wrote {shown}")
     print(f"  source sha256 {digest}")
     print(f"  {len(TABLES)} answer tables, {len(COUNT_TABLE)} count table, all pins agree")
     return 0

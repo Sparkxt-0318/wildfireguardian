@@ -131,6 +131,69 @@ def test_every_figure_in_the_doc_exists_in_the_artifact(doc_text, survey):
     assert len(printed) >= 15, f"only {len(printed)} figures parsed; the doc changed shape"
 
 
+#: Percentages that legitimately appear in prose without being a table cell.
+#: Each needs a reason; this set is the only escape from the bare-percent gate.
+NON_TABLE_PERCENTS = {
+    100.0: "the 사례수 column header every table prints",
+    0.1: "the 0.1%p tolerance the extractor allows",
+    39.9: "stated in §5.5 as the derived complement of 60.1%, to name the misreading",
+    44.9: "표 3-4 영덕 본인의 차, a table cell (kept explicit for clarity)",
+}
+
+
+def _bare_percents(text: str) -> set[float]:
+    """Every 'NN.N %' in prose, however it is punctuated. The `N (P%)` gate above
+    misses these entirely: bare 48.0%, no-space 189명(63.9%), spaced 84.5 %."""
+    return {float(m) for m in re.findall(r"(\d+\.\d)\s*%", text)}
+
+
+def test_every_bare_percentage_in_the_doc_is_a_real_table_cell(doc_text, survey):
+    """The gate the first version of this file did not have.
+
+    Most of the doc's judge-facing figures (48.0, 36.0, 34.0, 60.1) are written as
+    bare percentages, so matching only the '246 (84.5%)' shape left them free to
+    drift. Percentages are the drift-prone half: a count is usually copied with its
+    percent, but a percent is quoted alone.
+
+    WHAT THIS DOES NOT CATCH, measured by mutation rather than assumed: it checks
+    membership in the set of ALL cells, not that a figure belongs to the table it
+    cites. Changing 영덕's 재난문자 48.0% to 47.0% does NOT fail this test, because
+    47.0 is a real cell elsewhere (표 1-5 전체 '1명', 141/300). A wrong number that
+    collides with an unrelated cell survives. Binding each prose figure to its own
+    table would need the prose to name the cell, which is heavier than this doc
+    warrants; the value here is catching invented and stale figures, which is the
+    common case. Said plainly so the gate is not read as stronger than it is."""
+    known = {c["percent"] for *_, c in _cells(survey)} | set(NON_TABLE_PERCENTS)
+    stray = _bare_percents(doc_text) - known
+    assert not stray, (
+        f"percentages in the doc that match no table cell: {sorted(stray)}. "
+        "Add the table cell, or a reason in NON_TABLE_PERCENTS."
+    )
+
+
+def test_the_judge_answer_is_tied_to_the_artifact_too():
+    """docs/auto/JUDGE_QA.md is the file that gets spoken at the booth, so it is
+    the one that most needs the tie — and it is a different file from the evidence
+    doc, so the test above does not reach it."""
+    qa = (REPO / "docs" / "auto" / "JUDGE_QA.md").read_text(encoding="utf-8")
+    start = qa.index("**Q17 ·")
+    block = qa[start:qa.index("\n---", start)]
+
+    survey = json.loads(ARTIFACT.read_text(encoding="utf-8"))
+    known = {c["percent"] for *_, c in _cells(survey)} | set(NON_TABLE_PERCENTS)
+    stray = _bare_percents(block) - known
+    assert not stray, f"Q17 quotes percentages that are in no table: {sorted(stray)}"
+
+    # the two counts Q17 states in words, checked against 표 3-2 rather than trusted
+    rows = survey["count_tables"]["표 3-2"]["rows"]
+    cols = survey["count_tables"]["표 3-2"]["columns"]
+    idx = {name: i for i, name in enumerate(cols)}
+    broadcast = rows["영덕"][idx["마을 방송"]] + rows["영덕"][idx["마을 주민"]]
+    assert f"{broadcast}건" in block, f"Q17 should say 마을 방송·주민 {broadcast}건"
+    assert f"{rows['영덕'][idx['재난 문자']]}건" in block
+    assert "278명" in block, "the 60.1% denominator must be named where it is quoted"
+
+
 def test_the_doc_carries_the_caveats_that_make_it_quotable(doc_text):
     for needle, why in [
         ("생존자 표본", "survivor bias is the load-bearing caveat"),

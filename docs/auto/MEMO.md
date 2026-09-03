@@ -284,3 +284,29 @@ mood) · evidence.
   "240분", so the literal check that would have been written is the check that
   could not have been written. Evidence: this lap's reviewer verdict, and the
   two mutation runs that fail the purge test and the coverage test respectively.
+- 2026-09-03 · dev · **A checksum authenticates the document, not the
+  transcription.** WFG-020 asked for a third-party survey to be registered as
+  evidence "with its sha256". The obvious build — write the figures the backlog
+  row lists into a doc, digest the PDF, put the two side by side — produces a
+  number that reads as sourced while nothing has actually compared it to the
+  source. The row's own figures had reached the repository through a scratchpad
+  text extraction that no longer exists in the tree, so the hash would have
+  certified a PDF that no step in the chain ever re-read. **This is HANDOFF
+  §4-B's class wearing the costume of provenance**, and it is worse than a bare
+  unsourced number because the checksum suppresses the doubt that would
+  otherwise attach to it. **Gate:** when quoting a document this project did not
+  produce, a program reads the document — verify the digest *before* parsing,
+  parse the source's own tables, and refuse to write when the parse disagrees
+  with either the claimed value or the source's internal arithmetic
+  (`scripts/extract_survey_evidence.py`; both refusals confirmed by mutation).
+  The three findings that only appeared once the report was actually read, none
+  of them in the row: the sample is 임의·유의·눈덩이표집 and therefore carries no
+  interval; "전체" is a 100/100/100 equal allocation and not a regional rate; and
+  the 영덕 death toll is the report re-citing 영덕군, not a survey result. A
+  hand-copy would have shipped all three wrong, and every one of them is the
+  kind of thing a statistician judge asks about. **Corollary:** the registry is
+  the wrong home for someone else's measurement. `docs/NUMBERS.json` means "this
+  project derived this from its own artifact"; putting a transcription there
+  buys the appearance of verification and loses the provenance. Documented
+  literal + committed carrier + a test that forces prose to match it, and a test
+  pinning the non-registration so reversing it must be deliberate.

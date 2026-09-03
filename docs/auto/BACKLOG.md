@@ -40,7 +40,7 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-019 | P0 | science | Operating-point evidence package: per-fire recall/FNR at 0.3, PR curve, nested LOFO threshold calibration as a negative result, MODEL_CARD appendix | done(20260903T1224Z) | true | one lap | 데이터 수집·분석·해석 · 설계와 방법론 |
 | WFG-002 | P0 | KCF | Judge Q&A bank v2 (**revise**: corrected numbers, four new questions, deprecated phrasings purged) | done(20260903T1536Z) | true | one lap | 연구 목적 · 설계와 방법론 · 데이터 해석 |
 | WFG-004 | P0 | KCF | SSOT sweep (**revise**: fix README:731, reconcile `fold_sizes.md` vs `NUMBERS.json` on the primary AUC, annotate superseded values) | done(20260903T1622Z) | true | one lap | 제출 자료 |
-| WFG-020 | P0 | KCF | Greenpeace 2026 survivor survey registered as evidence + the "85% drove" answer | in-progress(20260903T1821Z) | true (fallback NH) | hours | 연구 목적 · 데이터 수집 |
+| WFG-020 | P0 | KCF | Greenpeace 2026 survivor survey registered as evidence + the "85% drove" answer | done(20260903T1821Z) | true (fallback NH) | hours | 연구 목적 · 데이터 수집 |
 | WFG-021 | P0 | KCF | Detection-floor panel (Session 19 as recorded) + tests for `src/wildfireguardian/detection/gk2a.py` | todo | true | one lap | 데이터 수집·분석·해석 · 설계와 방법론 |
 | WFG-017 | P0 | KCF | `web/finals.html` refresh v2: evidence cards for operating point, detection floor, horizon grounding, refuge placement, reconciliation; rebuilt with `--verify` | todo | true (fallback: student runs `make finals`) | one lap | 제출 자료 · 구현 및 유용성 |
 | WFG-003 | P0 | KCF | Finals screen audit + 5-minute demo script (keep) | todo | true | one lap | 제출 자료 · 구현 및 유용성 |
@@ -383,6 +383,46 @@ two of which contradict this row as written:
 - **Effort:** hours. **agent_doable:** true if the PDF is reachable through the sandbox proxy (greenpeace.org is not on the trusted allowlist — UNVERIFIED); fallback: NEEDS_HUMAN asking the student to drop the PDF under `data/raw/evidence/` (the scratchpad copy `research/greenpeace_2025.txt` is a text extraction, not the PDF).
 - **Constraints:** no number derived beyond the quoted ones; the KCF purpose is unchanged.
 - **Done when:** evidence doc with sha256 exists; JUDGE_QA carries the answer with the 영덕-specific figures; `make verify` green.
+
+**Lap 20260903T1821Z — done.** The PDF was reachable from the sandbox (HTTP 200,
+3,406,169 bytes), so the row's NEEDS_HUMAN fallback was not used. Everything the
+done-when asked for exists: `docs/evidence/greenpeace_2026_survey.md` (Korean, with
+the sha256), JUDGE_QA Q17 carrying the 영덕-specific figures, and `make verify` green.
+`gates.py --mode full` exit 0 (1,128 passed / 54 skipped, RE-RUN). Five things worth
+carrying forward.
+
+1. **The row's own figures had never been checked against the report.** They reached
+   the repository through a scratchpad text extraction that no longer exists in the
+   tree. Writing them down beside the PDF's sha256 would have produced a number that
+   reads as sourced while the checksum authenticates the PDF and not the
+   transcription — HANDOFF §4-B's class wearing the costume of provenance. So
+   `scripts/extract_survey_evidence.py` does the transcription: digest first, then
+   parse the report's own answer tables, then refuse to write unless the parse agrees
+   with both the claimed value and the table's internal arithmetic. Both refusals
+   confirmed by mutation.
+2. **Reading the source changed three claims, none of them in the row.** The sample is
+   임의·유의·눈덩이표집, so no interval belongs on any of these figures and the report
+   asks to be read as 탐색적 자료; 「전체」 is a 100/100/100 equal allocation, not a
+   영남-wide rate; and the 영덕 death toll (10, mean age 84) is the report re-citing
+   영덕군's notice (p.9 fn.2), not a survey finding — it lives under
+   `secondary_citation` so it cannot be read as one.
+3. **Two things the repository had already written about this survey were wrong**, both
+   in `research/sweeps_2026-09-03/R3_science_gaps.md`: "the 8 Yeongdeok dead" (it is
+   10), and "≈40 % had no own car" offered as an empirical bracket on the 0.30
+   immobility rate — the exact misreading this row was written to forbid. 60.1 % is a
+   share of the 278 who evacuated *by vehicle*. Both annotated in place, not deleted.
+   Also: neighbour's car is 16.5 %, not the "~17 %" the row carried.
+4. **The figures are deliberately NOT in `docs/NUMBERS.json`.** No literal/evidence
+   check kind exists (`json_path` / `expression` / `file_sha256`), so the row's own
+   fallback applies. Registering someone else's measurement under a schema meaning
+   "this project derived this from its own artifact" would buy the appearance of
+   verification and lose the provenance. `test_the_survey_figures_did_not_leak_into
+   _the_registry` pins the decision so a reversal must be deliberate.
+5. **The anti-drift test is weaker than its name, and says so.** It checks a prose
+   figure against the set of ALL table cells, not the table it cites: mutating 영덕's
+   48.0 % to 47.0 % does not fail it, because 47.0 is a real cell elsewhere (표 1-5
+   전체 '1명'). It does fire on a value in no table. The limitation is written into the
+   docstring with the mutation that demonstrates it rather than left implied.
 
 ### WFG-021 · P0 · KCF · Detection-floor panel + tests for the GK2A detector
 - **What:** (a) a finals card / Q&A block that states Session 19 exactly as recorded in `docs/detection_floor.md` §4, §9–10: reference = report time; 의성·안동 +22 min (FIRMS +117), 강릉 2023 +34 (FIRMS +151), 홍성 2023 +64 (FIRMS +17); 영덕 2025 excluded as confounded by the 의성 fire's background ring; 2022 fires predate the archive; false-alarm control 0/709 steps; conclusion: 사람 신고 > GK2A > FIRMS, the `manual` trigger is primary, "GK2A buys time" is not claimed. Registry keys: `det_gk2a_delay_uiseong_andong_min`, `det_gk2a_delay_gangneung_2023_min`, `det_gk2a_delay_hongseong_2023_min`, `det_gk2a_yeongdeok_best_delta_k`. (b) Unit tests for `src/wildfireguardian/detection/gk2a.py` (SESSION19 item 11: "새 코드에 테스트가 하나도 없습니다") using a tiny synthetic granule fixture: bit-width/units checks, the K = 4 contextual rule, the 15 km target / 30–80 km ring geometry, and a regression pin on `data/processed/detection/gk2a_detection_floor.json` values. (c) SESSION19 items 10 (FD-vs-LA cadence check) and 12 (cross-fire background contamination for 강릉/홍성) only if the needed intermediates are committed under `data/processed/detection/`; otherwise file a NEEDS_HUMAN (NOAA S3 is not reachable from the sandbox proxy).
