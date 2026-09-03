@@ -15,7 +15,7 @@ proposal demoted keep their IDs so earlier reports still resolve.
 |---|---|---|---|---|---|---|---|
 | WFG-022 | P0 | KCF | Five questions to the KCF 운영사무국 (date, track, 기여 ② restatement, AI disclosure, 제출 자료 scope) | blocked(human) | **false** | hours | Pass/Fail · all rows |
 | WFG-023 | P0 | infra | Protect `Main`; ratify `auto/dev`; decide the two HANDOFF §4 items; approve/veto decimation; close NH-001/002/006 | blocked(human) | **false** | hours | — |
-| WFG-018 | P0 | KCF | 제출본 대비 정본 reconciliation sheet as NEAR-labelled prose (Korean, one page) | todo | true | hours | 제출 자료 · 데이터 해석 |
+| WFG-018 | P0 | KCF | 제출본 대비 정본 reconciliation sheet as NEAR-labelled prose (Korean, one page) | in-progress(20260903T0624Z) | true | hours | 제출 자료 · 데이터 해석 |
 | WFG-019 | P0 | science | Operating-point evidence package: per-fire recall/FNR at 0.3, PR curve, nested LOFO threshold calibration as a negative result, MODEL_CARD appendix | todo | true | one lap | 데이터 수집·분석·해석 · 설계와 방법론 |
 | WFG-002 | P0 | KCF | Judge Q&A bank v2 (**revise**: corrected numbers, four new questions, deprecated phrasings purged) | todo | true | one lap | 연구 목적 · 설계와 방법론 · 데이터 해석 |
 | WFG-004 | P0 | KCF | SSOT sweep (**revise**: fix README:731, reconcile `fold_sizes.md` vs `NUMBERS.json` on the primary AUC, annotate superseded values) | todo | true | one lap | 제출 자료 |
