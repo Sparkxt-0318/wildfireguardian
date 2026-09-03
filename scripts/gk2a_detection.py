@@ -139,6 +139,30 @@ def _masks(lat, lon, ign_lat, ign_lon):
             (km >= BG_INNER_KM) & (km <= BG_OUTER_KM), km)
 
 
+def contextual_flag(mir_bt, delta, target_mask,
+                    m_mu: float, m_sd: float,
+                    d_mu: float, d_sd: float):
+    """The detection rule, as a conjunction of three independent conditions.
+
+    A pixel is flagged only if it is inside the target disc AND its 3.8 um
+    brightness temperature clears ``m_mu + K*m_sd`` AND its MIR-TIR difference
+    clears ``d_mu + K*d_sd`` AND that difference also clears the absolute floor
+    ``DELTA_FLOOR_K``.
+
+    Extracted from ``analyse_step``'s inner ``_flag`` (WFG-021, 2026-09-03) with
+    no change of semantics, so the rule can be exercised on synthetic arrays
+    without an S3 fetch. ``analyse_step`` calls this and nothing else.
+
+    The absolute floor is the half that makes the rule refuse to be gamed by a
+    quiet background: a scene with ``d_sd -> 0`` would otherwise flag any pixel
+    a few hundredths of a kelvin above the background median.
+    """
+    return (target_mask
+            & (mir_bt > m_mu + K_SIGMA * m_sd)
+            & (delta > d_mu + K_SIGMA * d_sd)
+            & (delta > DELTA_FLOOR_K))
+
+
 def analyse_step(when: dt.datetime, ign_lat: float, ign_lon: float,
                  geom: dict) -> dict | None:
     pm, pt = _fetch(MIR_CHANNEL, when), _fetch(TIR_CHANNEL, when)
@@ -172,10 +196,7 @@ def analyse_step(when: dt.datetime, ign_lat: float, ign_lon: float,
     rmu_d, rsd_d = _robust(delta[bgm])
 
     def _flag(m_mu, m_sd, d_mu, d_sd):
-        return (tgm
-                & (mir.bt > m_mu + K_SIGMA * m_sd)
-                & (delta > d_mu + K_SIGMA * d_sd)
-                & (delta > DELTA_FLOOR_K))
+        return contextual_flag(mir.bt, delta, tgm, m_mu, m_sd, d_mu, d_sd)
 
     hit_decl = _flag(mu_m, sd_m, mu_d, sd_d)
     hit = _flag(rmu_m, rsd_m, rmu_d, rsd_d)          # primary: robust
