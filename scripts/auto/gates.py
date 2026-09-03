@@ -8,6 +8,16 @@ status is read, not a shell pipeline.
 
     python scripts/auto/gates.py --mode quick     # make verify + boot/smoke tests
     python scripts/auto/gates.py --mode full      # + baseline, snapshot, env, full pytest
+    python scripts/auto/gates.py --assert-head    # run nothing; answer one question
+
+``--assert-head`` runs no gate. It reads the record the last run left and answers
+the only question CHARTER §4 step 8 actually cares about: **is the commit you are
+about to push the commit the gates read?** It exits 0 only when ``.auto/gates.json``
+says ``passed``, was written in the required mode (``full`` unless ``--mode quick``
+says otherwise), names the current ``HEAD``, and the working tree is clean. Twice in
+the loop's first three laps a lap ran the gates, then committed 200-plus more lines,
+then pushed under an ALL GREEN headline (critic #3, F14); this is the check that
+makes that impossible rather than merely discouraged.
 
 Writes .auto/gates.json and .auto/<step>.log. ``env-check`` is SOFT: recorded,
 reported as a warning, but it does not fail the run — a sandbox that had to fall
@@ -43,12 +53,58 @@ def run(name: str, cmd: list[str], hard: bool = True) -> dict:
             "hard": hard, "passed": ok, "tail": tail, "log": str(log.relative_to(REPO))}
 
 
+def git(*args: str) -> str:
+    return subprocess.run(["git", *args], cwd=REPO, capture_output=True, text=True).stdout.strip()
+
+
+def assert_head(required_mode: str) -> int:
+    """Exit 0 only if the last gate run passed, in `required_mode`, at this exact tree.
+
+    Reads only .auto/gates.json and git. Runs nothing, so it costs a second and
+    can sit immediately before every push.
+    """
+    record = AUTO / "gates.json"
+    if not record.exists():
+        print("[gates] ASSERT-HEAD FAIL: no .auto/gates.json — the gates have not run in this sandbox.")
+        return 1
+    try:
+        g = json.loads(record.read_text())
+    except json.JSONDecodeError as exc:
+        print(f"[gates] ASSERT-HEAD FAIL: .auto/gates.json is not readable JSON ({exc}).")
+        return 1
+
+    head, dirty = git("rev-parse", "--short", "HEAD"), git("status", "--porcelain")
+    problems = []
+    if not g.get("passed"):
+        problems.append(f"the recorded run did not pass (mode {g.get('mode')!r}, head {g.get('git_head')!r})")
+    if g.get("mode") != required_mode:
+        problems.append(f"the recorded run was mode {g.get('mode')!r}, not {required_mode!r}")
+    if g.get("git_head") != head:
+        problems.append(f"the gates read {g.get('git_head')!r}; HEAD is {head!r}")
+    if dirty:
+        n = len(dirty.splitlines())
+        problems.append(f"the working tree has {n} uncommitted change(s), so HEAD is not what was tested")
+    if problems:
+        print("[gates] ASSERT-HEAD FAIL — do not push:")
+        for p in problems:
+            print(f"  - {p}")
+        print(f"  fix: re-run `python scripts/auto/gates.py --mode {required_mode}` on the commit you mean to push.")
+        return 1
+    print(f"[gates] ASSERT-HEAD OK  mode={required_mode} head={head} written_at={g.get('written_at_utc')}")
+    return 0
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--mode", choices=["quick", "full"], default="full")
     ap.add_argument("--python", default=None, help="interpreter for make/pytest (default .auto/venv or this one)")
     ap.add_argument("--strict", action="store_true", help="make env-check a hard gate")
+    ap.add_argument("--assert-head", action="store_true",
+                    help="run no gate; exit 0 only if .auto/gates.json records a pass in --mode at this exact HEAD with a clean tree")
     args = ap.parse_args()
+
+    if args.assert_head:
+        return assert_head(args.mode)
 
     py = args.python
     if py is None:
@@ -78,8 +134,7 @@ def main() -> int:
 
     passed = all(s["passed"] or not s["hard"] for s in steps)
     pytest_line = next((s["tail"][-1] for s in steps if s["name"].startswith("pytest") and s["tail"]), "")
-    head = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=REPO, capture_output=True, text=True).stdout.strip()
-    branch = subprocess.run(["git", "rev-parse", "--abbrev-ref", "HEAD"], cwd=REPO, capture_output=True, text=True).stdout.strip()
+    head, branch = git("rev-parse", "--short", "HEAD"), git("rev-parse", "--abbrev-ref", "HEAD")
     result = {
         "written_at_utc": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "mode": args.mode, "python": py, "git_head": head, "git_branch": branch,

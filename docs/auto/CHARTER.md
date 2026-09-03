@@ -166,16 +166,26 @@ sandbox for reading Actions runs and pull requests.
    renders the five images into `docs/auto/images/<stamp>/`, and writes the
    HTML email body to `.auto/email.html`. Update the backlog row (`done`,
    `blocked`, or back to `todo` with a note).
-8. **Commit and push.** **Re-run the prose gates after the report exists.** Step 5's
-   `gates.py` run happens before `report.py` writes anything, so the report — which
-   is tracked prose the prose gates read — is the one file in every lap that no gate
-   has ever seen. On 2026-09-03 critic #2 pushed `24751fa` with `gates.py --mode full`
-   green at `0ff1b36`, and its own report quoted the superseded rescue bracket without
-   a lineage label: `auto/dev` sat RED until the next dev lap found it. So after
-   `report.py`, run at least `make check-forbidden` and
-   `pytest tests/test_rescue_lineage_ssot.py`, or `gates.py --mode full` again if the
-   clock allows; only then commit. WFG-046 makes this mechanical.
-   Commit messages in commit-economy form (`re0-git` style:
+8. **Commit and push.** **The commit you push is the commit the gates read** — that
+   is the whole of this step, and the loop got it wrong twice in its first three laps.
+   Step 5's `gates.py` run happens before `report.py` writes anything, so the report
+   is tracked prose that no gate has seen; and anything else you commit after step 5
+   (critic #3 found 162 lines of a test file and 41 of a doc) is unseen the same way,
+   which is the more dangerous half because it can change behaviour rather than prose.
+   On 2026-09-03 critic #2 pushed `24751fa` green at `0ff1b36`, and the 2053Z lap
+   pushed `8d1decf` green at `f5f8498`; both branches sat RED until a later lap found
+   it. So: commit everything, then re-run `gates.py --mode full` (or, when the clock
+   forbids it, at least `make check-forbidden` and
+   `pytest tests/test_rescue_lineage_ssot.py`), commit any fix, and then, immediately
+   before the push, run
+
+       .auto/venv/bin/python scripts/auto/gates.py --assert-head
+
+   which runs no gate: it exits non-zero unless `.auto/gates.json` records a `full`
+   pass at exactly this `HEAD` with a clean tree. If it fails, you do not push; you
+   re-run the gates on the commit you actually mean to push. The lap's report says the
+   same thing in prose — `report.py` marks a gate table **stale** when it does not
+   name `HEAD`. Commit messages in commit-economy form (`re0-git` style:
    subject states the durable truth, body says why). `git pull --rebase origin
    auto/dev` then `git push origin auto/dev`. Green only; red → `auto/red/<stamp>`.
 9. **Email**, if a Gmail tool is available in the session and only AFTER the
@@ -203,6 +213,12 @@ proposes backlog rows with evidence, and writes a `research` report.
 Priorities: **P0** ships inside the sprint (by 2026-09-15); **P1** before the 2026-10-16 freeze;
 **P2** after the finals, for ISEF; **P3** for the IEEE paper. Status:
 `todo | in-progress(<stamp>) | done(<commit>) | blocked(NH-###) | dropped(why)`.
+**`in-progress` is only ever held by a lap that is still running.** A lap that ends
+without finishing its row sets the row back to `todo` and appends what it did as a
+residue note (`todo — (b) done(<commit>), (a) outstanding, (c) not attempted`);
+`in-progress` written by a lap that has ended is a lock with no key, and step 3 tells
+every later lap to skip it. Two P0 rows were stranded that way for a day inside a
+twelve-day sprint (critic #3, F15).
 Goals: `KCF | ISEF | science | IEEE | infra`. Rows are concrete enough that a
 fresh agent with no memory can start them; a row that is not, gets rewritten
 before it is started. Anything the loop discovers goes in as a row, never as a
