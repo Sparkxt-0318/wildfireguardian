@@ -79,6 +79,7 @@ def test_replay_and_live_banners_are_distinguishable():
     assert r != live
 
 
+@pytest.mark.skipif(not ARCHIVE.exists(), reason="detections archive not present")
 def test_weather_basis_is_derived_from_committed_data_not_a_literal():
     basis, meta = pipeline.weather_basis("yeongdeok_2025", repo=REPO)
     assert basis == "2025-03-25 12:25 UTC"

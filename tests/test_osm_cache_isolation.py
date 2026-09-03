@@ -86,17 +86,25 @@ def test_writing_one_region_leaves_the_other_untouched(tmp_path):
 def test_the_migrated_yeongdeok_cache_is_where_the_loader_looks():
     cfg = RescueConfig()
     d = REPO / cfg.osm_cache_path
-    if not d.exists():
-        pytest.skip("OSM cache absent in this checkout")
-    for f in ("walk.graphml", "drive.graphml", "shelters.geojson", "depots.geojson"):
-        assert (d / f).exists(), f"{f} missing from {d}"
-    # And nothing is left at the old flat location, which would shadow nothing
-    # but would certainly confuse the next reader.
+    # Nothing is left at the old flat location, which would shadow nothing but
+    # would certainly confuse the next reader. This half needs no cache of its
+    # own, so it still runs in a fresh clone — and it is the half that would
+    # catch a regression of the migration itself.
     flat = REPO / "data" / "cache" / "osm"
     for f in CACHE_FILES:
         assert not (flat / f).exists(), (
             f"{f} still sits at the old flat path {flat}; the migration is "
             "incomplete and a future region fetch could still collide")
+    # The cached graphs are git-ignored. The DIRECTORY is not a proxy for their
+    # presence: vegetation.geojson is tracked and lives in it, so in a fresh
+    # clone the directory exists and holds nothing this test wants. Guard on the
+    # files. All absent is a clean clone and skips; some absent is a broken
+    # cache and still fails, which is the case worth hearing about.
+    graphs = ("walk.graphml", "drive.graphml", "shelters.geojson", "depots.geojson")
+    if not any((d / f).exists() for f in graphs):
+        pytest.skip("OSM cache graphs absent in this checkout (git-ignored)")
+    for f in graphs:
+        assert (d / f).exists(), f"{f} missing from {d}"
 
 
 def test_migrated_cache_still_matches_the_snapshot_store():
@@ -104,8 +112,10 @@ def test_migrated_cache_still_matches_the_snapshot_store():
     cfg = RescueConfig()
     d = REPO / cfg.osm_cache_path
     man_path = REPO / "data" / "snapshots" / "MANIFEST.json"
-    if not (d.exists() and man_path.exists()):
-        pytest.skip("cache or snapshot manifest absent")
+    # d.exists() is true in a fresh clone (tracked vegetation.geojson) while
+    # every file this test digests is git-ignored, so ask for the files.
+    if not man_path.exists() or not any((d / f).exists() for f in CACHE_FILES):
+        pytest.skip("cache graphs or snapshot manifest absent (git-ignored)")
     man = json.loads(man_path.read_text())
     by_origin = {e["origin_path"]: e for e in man["snapshots"]}
     checked = 0

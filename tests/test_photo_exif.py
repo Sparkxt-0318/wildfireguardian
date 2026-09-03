@@ -315,8 +315,18 @@ def test_no_operator_sentence_carries_a_dash_the_shipped_font_cannot_draw():
 # ---------------------------------------------------------------------------
 
 
+#: The runner loads the region's real DEM, which lives under the git-ignored
+#: data/raw/firms_data/ (HANDOFF §5.9). Without it the fixture raises and all
+#: seven client tests report as ERRORS, which in a clean clone reads as a broken
+#: suite rather than as an absent input. The EXIF-reading tests above build
+#: their own fixtures from Pillow and need no such file, so they still run.
+REGION_DEM = REPO / "data" / "raw" / "firms_data" / "yeongdeok_2025_dem.tif"
+
+
 @pytest.fixture(scope="module")
 def client():
+    if not REGION_DEM.exists():
+        pytest.skip("region DEM absent in this checkout (git-ignored)")
     from fastapi.testclient import TestClient
     from wildfireguardian.api.app import create_app
     from wildfireguardian.service import build_runner

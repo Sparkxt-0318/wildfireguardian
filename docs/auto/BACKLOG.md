@@ -10,7 +10,7 @@ from `docs/HANDOFF_ROUND3.md` §4, and from every critic lap.
 
 | ID | P | goal | title | status | rubric rows | done when | constraints |
 |---|---|---|---|---|---|---|---|
-| WFG-001 | P0 | infra | Clean-Linux green: bootstrap + full gates pass in the sandbox and in `auto-gates.yml` | todo | 데이터 수집·분석·해석 (재현 가능성) | `.auto/gates.json` passed=true from a cloud lap and a green Actions run on `auto/dev` | no artifact changes; env fixes only |
+| WFG-001 | P0 | infra | Clean-Linux green: bootstrap + full gates pass in the sandbox and in `auto-gates.yml` | in-progress(20260903T0513Z) | 데이터 수집·분석·해석 (재현 가능성) | `.auto/gates.json` passed=true from a cloud lap and a green Actions run on `auto/dev` | no artifact changes; env fixes only |
 | WFG-002 | P0 | KCF | Judge Q&A bank v2 (`docs/auto/JUDGE_QA.md`): the hardest hostile questions, each answered with the artifact that proves it or an honest "not measured" | todo | 연구 목적 · 설계와 방법론 · 데이터 해석 | ≥ 30 questions, every answer cites a file path or NUMBERS key; critic lap finds no unanswered P0 question | Korean; no new numbers |
 | WFG-003 | P0 | KCF | Finals screen audit: every number, label and legend on `web/finals.html` traces to `docs/NUMBERS.json`; 5-minute demo script (`docs/auto/DEMO_SCRIPT_5MIN.md`) with per-act timings and the sentence to say when each judge type interrupts | todo | 제출 자료 · 구현 및 유용성 | script exists; `scripts/check_screen_assets.py web/finals.html` green; a table maps every on-screen figure to a registry key | do not rebuild screens from changed artifacts; `make finals` only if data unchanged |
 | WFG-004 | P0 | KCF | SSOT sweep of judge-facing docs (README, MODEL_CARD, HANDOFF, session reports): one value per quantity, superseded values annotated, no contradiction a judge can find in a minute | todo | 제출 자료 | `check_number_collisions.py --report` shows 0 unmarked hits; `ssotize` audit report committed | annotate, never delete |
@@ -33,6 +33,44 @@ Run `bash scripts/auto/bootstrap.sh` then `python scripts/auto/gates.py --mode f
 in the sandbox. Record skips with reasons (`--rs`). If a test needs a git-ignored
 input, mark it `skipif` with the reason, never delete it. Compare the pass/skip
 counts to the laptop baseline recorded in the kickoff report.
+
+**Lap 20260903T0513Z (first cloud dev lap).** The sandbox half is green:
+`1062 passed, 54 skipped, 0 failed, 0 errors` at `017c9ec`. It took two rounds.
+
+The first full run was RED with 17 items, which resolved to exactly two causes,
+neither of them a defect in the project's own code and neither touching an
+artifact:
+
+1. **`brotli` was declared nowhere.** `fonttools==4.63.0` is pinned, but its
+   WOFF2 decoder needs the Brotli extension to open the vendored `.woff2`
+   faces. Fixed upstream in `e1588b4` (`bootstrap.sh` installs it); that alone
+   cleared all five `test_screen_checks` failures, 17 red → 12.
+2. **Git-ignored inputs absent from a fresh clone, with guards that did not
+   fire.** All 12 survivors. `data/raw/**` is ignored at `.gitignore:60`, so
+   `firms_data/` never reaches a clone at all.
+   - `test_photo_exif` (7, reported as ERRORS): the module-scoped `client`
+     fixture builds a runner that opens `yeongdeok_2025_dem.tif`. No guard.
+   - `test_osm_cache_isolation` (2): the guard read `if not d.exists(): skip`,
+     but `data/cache/osm/yeongdeok_2025/` is **tracked** (it holds
+     `vegetation.geojson`) while the four graphs in it are ignored — so the
+     directory always exists and the skip never fired.
+   - `test_baseline_freeze` (2) and `test_live_pipeline` (1): need the
+     laptop-only acquisition manifests / detections CSV.
+
+   All 12 now skip with a stated reason. Two deliberate scoping choices:
+   `test_the_migrated_yeongdeok_cache_is_where_the_loader_looks` keeps its
+   old-flat-path assertion running everywhere (it needs no ignored input), and
+   `test_a_moved_artifact_is_actually_detected` runs its tampering assertions
+   in every clone and skips only the final two, so the guard is still exercised
+   in CI rather than blanket-skipped.
+
+⚠ **Two things this lap did NOT establish.** (a) The CI half of "done when" is
+unverified — `auto-gates` had never once concluded green before this lap (runs
+1/2/3/5 cancelled by the concurrency rule as pushes stacked, run 4 `failure`).
+(b) The sandbox collects **1116** tests against the laptop baseline's **1120**
+(1116 passed / 3 skipped / 1 xpassed). Four tests are not collected here and the
+cause is not diagnosed; `xgboost` is absent in the sandbox but reports as a
+skip, not as an uncollected test, so it does not obviously account for them.
 
 ### WFG-002 — Judge Q&A bank v2
 Start from `docs/auto/research/RESEARCH_BRIEF_2026-09-03.md` §(c) and the author's
