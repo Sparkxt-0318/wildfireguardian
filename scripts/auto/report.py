@@ -63,7 +63,11 @@ def backlog_counts() -> dict:
         return {}
     counts: dict[str, int] = {}
     for line in BACKLOG.read_text().splitlines():
-        m = re.match(r"^\|\s*WFG-\d+\s*\|[^|]*\|[^|]*\|[^|]*\|\s*([a-z\-]+)\s*\|", line)
+        # The status word may carry a parenthesised argument — `in-progress(<stamp>)`,
+        # `done(<commit>)`, `blocked(NH-###)`, `dropped(why)` (CHARTER §5). Without
+        # the optional group only bare `todo` matched, so every row the loop ever
+        # finished would have vanished from the counts in this report.
+        m = re.match(r"^\|\s*WFG-\d+\s*\|[^|]*\|[^|]*\|[^|]*\|\s*([a-z\-]+)(?:\([^)|]*\))?\s*\|", line)
         if m:
             counts[m.group(1)] = counts.get(m.group(1), 0) + 1
     return counts

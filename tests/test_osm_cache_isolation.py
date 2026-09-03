@@ -83,11 +83,25 @@ def test_writing_one_region_leaves_the_other_untouched(tmp_path):
         assert (second.osm_cache_path / f).read_bytes().startswith(b"UISEONG-")
 
 
+def _acquired_cache() -> Path | None:
+    """The cache directory, or None when this checkout never acquired one.
+
+    ⚠ Directory existence is NOT the test. ``data/cache/**`` is git-ignored with
+    one force-added exception — ``osm/yeongdeok_2025/vegetation.geojson`` — so
+    the directory is present in every clone while the acquired graphs are
+    present in none. Guarding on the directory therefore made these two tests
+    fail on any machine but the author's laptop, which is how a clean-clone run
+    went red on a checkout where nothing was wrong. Guard on the graph.
+    """
+    d = REPO / RescueConfig().osm_cache_path
+    return d if (d / "walk.graphml").exists() else None
+
+
 def test_the_migrated_yeongdeok_cache_is_where_the_loader_looks():
     cfg = RescueConfig()
-    d = REPO / cfg.osm_cache_path
-    if not d.exists():
-        pytest.skip("OSM cache absent in this checkout")
+    d = _acquired_cache()
+    if d is None:
+        pytest.skip("OSM cache not acquired in this checkout")
     for f in ("walk.graphml", "drive.graphml", "shelters.geojson", "depots.geojson"):
         assert (d / f).exists(), f"{f} missing from {d}"
     # And nothing is left at the old flat location, which would shadow nothing
@@ -102,10 +116,10 @@ def test_the_migrated_yeongdeok_cache_is_where_the_loader_looks():
 def test_migrated_cache_still_matches_the_snapshot_store():
     """The move must have preserved bytes, not just filenames."""
     cfg = RescueConfig()
-    d = REPO / cfg.osm_cache_path
+    d = _acquired_cache()
     man_path = REPO / "data" / "snapshots" / "MANIFEST.json"
-    if not (d.exists() and man_path.exists()):
-        pytest.skip("cache or snapshot manifest absent")
+    if d is None or not man_path.exists():
+        pytest.skip("cache not acquired, or snapshot manifest absent")
     man = json.loads(man_path.read_text())
     by_origin = {e["origin_path"]: e for e in man["snapshots"]}
     checked = 0

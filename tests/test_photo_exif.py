@@ -314,9 +314,18 @@ def test_no_operator_sentence_carries_a_dash_the_shipped_font_cannot_draw():
 # 4. The transport, and the ONE gate
 # ---------------------------------------------------------------------------
 
+#: ``build_runner`` preloads the region's routing resources, and that reads the
+#: DEM raster. ``data/raw/**`` is git-ignored (`.gitignore`), so on any
+#: machine but the author's laptop this file is absent and the fixture raises
+#: ``ResourceError`` at setup. Everything above this line is transport-free and
+#: still runs everywhere; only the seven HTTP tests need the raster.
+DEM = REPO / "data" / "raw" / "firms_data" / "yeongdeok_2025_dem.tif"
+
 
 @pytest.fixture(scope="module")
 def client():
+    if not DEM.exists():
+        pytest.skip(f"{DEM.name} absent — the runner cannot preload the region")
     from fastapi.testclient import TestClient
     from wildfireguardian.api.app import create_app
     from wildfireguardian.service import build_runner

@@ -36,6 +36,34 @@ sys.path.insert(0, str(REPO / "scripts"))
 
 RECORD = REPO / "docs" / "baseline_phase13.json"
 
+#: Every line `freeze_baseline.diff` can emit starts with the group it belongs
+#: to, so the `--check` CLI's problem lines can be told from its closing advice.
+_GROUPS = ("config_hash", "registry_entries", "lofo_shape", "protected",
+           "untracked_contracts", "tracked_processed")
+
+
+def _forgiven() -> set[str]:
+    """Problems that are this environment rather than a moved artifact.
+
+    ⚠ ONLY absence, and only of the two acquisition manifests. `data/raw/**` is
+    git-ignored (`.gitignore`), so neither manifest reaches a clean clone
+    and `--check` reports both MISSING and exits 1 on every machine but the
+    author's laptop. A manifest that IS present and whose sha256 has MOVED still
+    fails here, which is the entire point of the contract — and every tracked
+    artifact is checked exactly as hard as before, because those are all in the
+    clone. `scripts/auto/gates.py` makes the same distinction for the same
+    reason; this is the test-side half of it.
+    """
+    import freeze_baseline as fb
+
+    return {f"untracked_contracts: MISSING {p}"
+            for p in fb.UNTRACKED_CONTRACTS if not (REPO / p).exists()}
+
+
+def _reported_problems(stderr: str) -> list[str]:
+    return [ln.strip() for ln in stderr.splitlines()
+            if ln.startswith("  ") and ln.strip().startswith(_GROUPS)]
+
 
 @pytest.fixture(scope="module")
 def frozen() -> dict:
@@ -56,7 +84,15 @@ def test_the_live_tree_matches_the_record():
     r = subprocess.run(
         [sys.executable, str(REPO / "scripts" / "freeze_baseline.py"), "--check"],
         cwd=REPO, capture_output=True, text=True)
-    assert r.returncode == 0, f"baseline moved:\n{r.stderr}"
+    forgiven = _forgiven()
+    if not forgiven:
+        assert r.returncode == 0, f"baseline moved:\n{r.stderr}"
+        return
+    unexpected = [p for p in _reported_problems(r.stderr) if p not in forgiven]
+    assert not unexpected, "baseline moved:\n  " + "\n  ".join(unexpected)
+    assert r.returncode == 1, (
+        "the CLI must still report the absent contracts and exit non-zero; "
+        f"got {r.returncode}")
 
 
 def test_the_four_protected_paths_are_all_covered(frozen):
@@ -144,7 +180,8 @@ def test_a_moved_artifact_is_actually_detected(tmp_path, frozen):
     tampered3["untracked_contracts"][m] = "0" * 64
     assert any(m in p for p in fb.diff(tampered3, live))
 
-    assert fb.diff(frozen, live) == [], "the untampered record must still match"
+    remaining = [p for p in fb.diff(frozen, live) if p not in _forgiven()]
+    assert remaining == [], "the untampered record must still match"
 
 
 def test_all_checks_runs_the_baseline_gate():
