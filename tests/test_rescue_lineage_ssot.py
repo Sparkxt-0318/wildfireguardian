@@ -140,6 +140,15 @@ WHOLLY_SUPERSEDED_LINEAGE: dict[str, str] = {
 SYNTHETIC_MENTION = re.compile(
     r"(?:6\s*(?:→|->|~|to)\s*\*{0,2}34\b|\b34곳)")
 
+#: ⚠ One exclusion, and it is narrow on purpose. `scripts/auto/report.py` lists
+#: "commits since the previous report" as `- <short-sha> <subject>` lines, so a
+#: commit whose SUBJECT discusses this very finding reappears in every future
+#: report and trips the gate forever. A commit subject quoted back by a generator
+#: is a record that the subject exists, not a prose assertion of the value, and
+#: the report cannot annotate it. Only that exact shape is skipped; ordinary
+#: prose in the same report is still checked.
+GIT_LOG_LINE = re.compile(r"^\s*[-*]\s+[0-9a-f]{7,40}\s")
+
 
 def _tracked_markdown() -> list[Path]:
     out = subprocess.run(
@@ -158,6 +167,8 @@ def test_every_prose_mention_of_the_synthetic_bracket_names_its_lineage() -> Non
         lines = path.read_text().splitlines()
         for i, line in enumerate(lines):
             if not SYNTHETIC_MENTION.search(line):
+                continue
+            if GIT_LOG_LINE.match(line):
                 continue
             # the line itself, plus two either side
             near = "\n".join(lines[max(0, i - 2):i + 3])

@@ -339,7 +339,15 @@ two of which contradict this row as written:
    list accepted bare 이전/정본. Now a named 2-file ratchet with reasons.
    Generalising it beyond this one quantity is WFG-030's job, not done here.
 
-### WFG-038 · P1 · infra · The suite's own counts depend on whether it has run before
+### WFG-039 · P1 · infra · The suite's own counts depend on whether it has run before
+> **This answers the open question in WFG-038.** That row recorded the same
+> six-test signature (1,158 outcomes both times, six moving between passed and
+> skipped, ALL GREEN printed for both) and said plainly: "The identity of the
+> six is open." They are `test_srtm_dem.py` ×4 plus
+> `test_validation_robustness.py:57` and `test_validation_session3.py:171`, all
+> guarded on `data/raw/dem/srtm/N36E129.hgt`. WFG-038's ruled-out hypothesis
+> (`data/cache/*.nc`) was the wrong cache. Both rows should be worked together:
+> WFG-038 makes the drift visible, WFG-039 removes its cause.
 - **What:** `tests/test_srtm_dem.py` documents that if `data/raw/dem/srtm/N36E129.hgt`
   is absent "the network-download step in `data_io.raster._download_srtm_tile` will
   fetch" it — and something in the suite does, from

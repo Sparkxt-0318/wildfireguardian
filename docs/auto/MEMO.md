@@ -153,7 +153,10 @@ mood) · evidence.
   next lap:** state whether a count is a FIRST run or a RE-run in the same
   sentence as the number, and diff the `SKIPPED` lines in `.auto/pytest-full.log`
   — which `run()` already writes in full — rather than reasoning from the totals.
-  Filed as WFG-038 (make the download opt-in) rather than fixed here: it is a
+  **This answers the concurrent lap's WFG-038, which recorded the same six-test
+  signature and wrote "the identity of the six is open"; its ruled-out
+  hypothesis (`data/cache/*.nc`) was the wrong cache.**
+  Filed as WFG-039 (make the download opt-in) rather than fixed here: it is a
   change to test network behaviour and belongs in its own row with its own review.
 - 2026-09-03 · dev · **A number can be wrong in prose while being right in the
   artifact, and no gate in this repository can see it.** `README.md:731` quoted
