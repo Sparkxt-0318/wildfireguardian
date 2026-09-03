@@ -7,15 +7,16 @@ the author.
 
 | # | where | what is missing | closes when | after sprint? |
 |---|---|---|---|---|
-| G1 | manuscript | abstract to be written from registered numbers once Results 4.1–4.4 are final; the student rewrites it in their own words before any submission | prose or artifact lands | no |
-| G2 | manuscript | related-work table (WFG-026): time-expanded evacuation routing, WUI evacuation simulation, shelter placement, geostationary detection latency; every entry opened at its URL before it is cited | prose or artifact lands | no |
-| G3 | manuscript | Methods 3.3 prose from docs/rescue_routing.md, docs/routing_limitations.md and docs/decision_shift.md: edge costs from the time-sliced field, the closure time of a corridor, the rescue-ingress survival term, and the three-way partition of origins | prose or artifact lands | no |
-| G4 | manuscript | walking-speed and pre-movement-delay sweeps (WFG-025) and the network-drift control; until then only the committed forecast-robustness and dilation perturbation results are cited | prose or artifact lands | no |
-| G5 | manuscript | Results 4.1 prose with the registered mean-of-folds and pooled values and the small-fold caveat for Gangneung 2023 | prose or artifact lands | no |
-| G6 | manuscript | Results 4.2 from real_roads_real_hazard_canonical.json and docs/decision_shift.md: the three-way partition on the canonical Yeongdeok field with the walk-coverage caveat, and the three-region table | prose or artifact lands | no |
-| G7 | manuscript | operating-point table from data/processed/operating_point/ once WFG-019's figure is drawn in paper style | prose or artifact lands | no |
-| G8 | manuscript | Results (dispatch ordering) from docs/dispatch_ordering.md and docs/ordering_boundary.md, including the negative result that the deadline-first ordering does not beat the alternatives | prose or artifact lands | no |
-| G9 | manuscript | leak-free Yeongdeok fold and hindsight-oracle arm (WFG-032) | prose or artifact lands | yes |
-| G10 | manuscript | discussion: what the coupling adds over a spread map alone; why n = 6 forbids a threshold guarantee; the withdrawn severity-versus-direction claim; the 32.6 % coverage caveat; expert consultation quotes with consent (NH-009) | prose or artifact lands | yes |
-| G11 | manuscript | limitations from docs/routing_limitations.md and the model card: ERA5 resolution, six fires, sampled origins rather than households, OSM refuge semantics, no live weather | prose or artifact lands | no |
-| G12 | manuscript | conclusion after 4.1–4.4 are final | prose or artifact lands | no |
+| G1 | §1 Introduction | the age composition of the March 2025 casualties — the motivating fact that most were rural residents in their sixties to eighties. The repository sources it to three Korean press outlets that the manuscript cannot cite with a stable, openable URL, and the WWA report cited beside it does not carry the figure | the author supplies citable sources (backlog WFG-043 / NEEDS_HUMAN NH-015), or the figure is dropped from the manuscript | no |
+| G2 | §5 Discussion | structured expert consultations (fire-service duty officer, village head, social worker) in the project's consultation format, as design feedback rather than collected data; any quotation needs the author's consent handling first | the consultations happen and the author clears the quotations (NH-009) | yes |
+| G3 | §6 Limitations | the leak-free Yeongdeok fold: refit the Yeongdeok LOFO fold with the co-located Uiseong-Andong fire excluded, re-simulate the canonical field, and route the same 458 origins, reporting the three-bucket counts as new filenames | the raw acquisition bundle on the author's laptop is available and WFG-032 runs | yes |
+| G4 | §6 Limitations | **the hindsight-field routing arm — the single most load-bearing gap in the paper.** A third pass over the same 458 origins on a field rasterised from the *observed* FIRMS detections for Yeongdeok 2025, reporting how many of the 42 fire-blind routes actually intersect observed burn inside the walker's arrival window, and how many forecast-aware routes cross observed burn the model never flagged. Until it runs, "saved" means "re-routed around a model-flagged cell", not "away from where the fire went", and with pooled recall 0.138 that distinction is not cosmetic | the observed detections are available. ⚠ Checked 2026-09-03: `data/snapshots/firms-manifest_yeongdeok-2025_20260723_1aa75824.json` is committed and records 2,290 detections spanning 2025-03-25T12:25 to 2025-03-27T04:28, but the detections themselves (`yeongdeok_2025_detections.csv`) live under the git-ignored `data/raw/firms_data/`, which is absent from a fresh clone. So this arm needs the author's laptop too — it is cheaper than G3 (no refit, no re-simulation, reuses the committed walk graph and origin list) but it is not runnable in the cloud sandbox | yes |
+
+## Notes on gaps that were closed this lap
+
+- The abstract, Related work, Methods §3.3–§3.5, Results §4.1–§4.6, Discussion,
+  Limitations and Conclusion were all `[GAP]` markers before 2026-09-03 and are
+  now prose backed by committed artifacts.
+- The `References` section is generated by `build_docx.py` from
+  `references.bib` at build time and therefore does not appear as a heading in
+  `manuscript.md`; it is present in the built `.docx`.

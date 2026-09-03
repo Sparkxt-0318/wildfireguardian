@@ -1,8 +1,9 @@
 {
-  "last_incorporated_commit": null,
-  "last_build_utc": null,
-  "body_words": 0,
-  "figures": 0,
-  "references": 0,
-  "gaps": 0
+  "last_incorporated_commit": "e558ebd7f80ec0a5ab6f359fe7dc0baa94414155",
+  "last_build_utc": "2026-09-03T19:50:00Z",
+  "body_words": 7204,
+  "figures": 7,
+  "tables": 2,
+  "references": 21,
+  "gaps": 4
 }
