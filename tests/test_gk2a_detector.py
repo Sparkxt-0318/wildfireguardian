@@ -1,4 +1,4 @@
-"""The Session-19 GK2A detector had no tests. WFG-021 gives it four kinds.
+"""The Session-19 GK2A detector had no tests. WFG-021 gives it five kinds.
 
 `src/wildfireguardian/detection/gk2a.py` and `scripts/gk2a_detection.py` were
 written in Session 19 and shipped three numbers the finals screen and the Q&A
@@ -24,15 +24,28 @@ What is pinned here, and why each one:
 4. **A regression pin on the committed artifact**, tied to the registry keys, so
    the three delays and the 0/709 false-alarm control cannot drift under the
    prose that cites them.
+5. **A real granule**, opt-in, read from the public archive. See below.
 
-⚠ WHAT THIS FILE DOES NOT DO. It does not validate the detector against any
-outside truth. Every array here is synthetic and every constant in the fixture
-was chosen by this test, not read from a granule: the NOAA GK2A archive is not
-reachable from the sandbox (no `data/raw/` bundle, and the proxy does not reach
-`noaa-gk2a-pds`), so nothing here confirms that the module reads a REAL file
-correctly. It confirms internal consistency and that the module's stated guards
-actually fire. The evidence that the reader works on real granules is the
-committed artifact and Session 19's own record, not this file.
+⚠ WHAT MOST OF THIS FILE DOES NOT DO. Groups 1-3 validate no arithmetic against
+outside truth: every array is synthetic and every calibration constant was
+chosen by this test, not read from a granule. They confirm internal consistency
+and that the module's stated guards fire. That is not nothing, but it is not
+evidence that the reader handles a REAL granule.
+
+**An earlier draft of this file said the real granule was out of reach from the
+sandbox. That was false, and it was never checked** — the independent reviewer
+of 2026-09-03 fetched
+`AMI/L1B/LA/202503/22/02/gk2a_ami_le1b_sw038_la020ge_202503220224.nc`
+anonymously from `noaa-gk2a-pds` in about three seconds, and this lap reproduced
+it (458,172 bytes, HTTP 200). The unreachability claim was the excuse for every
+synthetic fixture below, so it is corrected here rather than quietly deleted.
+Group 5 is the test it was standing in the way of: it reads that granule and
+checks the things the synthetic fixtures can only assume.
+
+Group 5 is **opt-in** (`WFG_GK2A_NETWORK_TESTS=1`), for the reason WFG-039
+exists: a suite that downloads half a megabyte mid-run has a different pass/skip
+count on a warm machine than on a cold one, and this project's gates read those
+counts. Reachable is not the same as belonging in the default run.
 """
 
 from __future__ import annotations
@@ -40,6 +53,7 @@ from __future__ import annotations
 import importlib.util
 import json
 import math
+import os
 import sys
 from pathlib import Path
 
@@ -52,6 +66,7 @@ sys.path.insert(0, str(REPO / "scripts"))
 from wildfireguardian.detection.gk2a import (  # noqa: E402
     BT_MEDIAN_SANITY_K,
     BT_SANITY_K,
+    DEFAULT_VALID_BITS,
     MIR_CHANNEL,
     TIR_CHANNEL,
     brightness_temperature,
@@ -346,23 +361,49 @@ def test_a_quiet_background_cannot_manufacture_a_detection():
                              m_mu=290.0, m_sd=0.0, d_mu=0.0, d_sd=0.0).all()
 
 
-def test_a_contaminated_background_raises_the_bar_rather_than_lowering_it():
-    """The 영덕 mechanism, in three lines.
+def _yeongdeok_ring(diag: dict) -> tuple[float, float]:
+    s = diag["strongest_anomaly"]
+    return float(s["bg_delta_median_k"]), float(s["bg_delta_mad_sd_k"])
 
-    `docs/detection_floor.md` explains 영덕's non-detection as the 의성 fire
-    sitting in 영덕's 30-80 km annulus and lifting its spread, so the 4-sigma bar
-    climbs past what any plausible fire could clear. The rule must behave that
-    way by construction, not by coincidence.
+
+def test_a_contaminated_background_reproduces_the_recorded_yeongdeok_threshold():
+    """Why 영덕 is 교란 (disturbed) and not counted either way.
+
+    `docs/detection_floor.md` §4 is careful about this and so is the registry:
+    영덕 is classified 교란 and counted NEITHER as a detection NOR as a fire the
+    satellite missed, and whether the fire, the coordinates or the timestamp is
+    at fault was NOT separated. What IS measured is the arithmetic: the best
+    step's anomaly was 11.611 K against a contextual threshold of 21.964 K, on a
+    background ring whose median was 8.328 K with a MAD-sd of 3.409 K, where a
+    clean Korean night scene reads 1.13 / 0.49.
+
+    Every number below is the committed artifact's, read from it here rather
+    than typed, so the rule must reproduce the recorded threshold to the third
+    decimal. That is the part an outside fact decides; the rest of this file
+    only asks the code to agree with itself.
     """
     m = _detection_module()
-    target = np.array([[True]])
-    mir, delta = np.array([[330.0]]), np.array([[11.611]])
+    art = json.loads(ARTIFACT.read_text(encoding="utf-8"))["per_fire"]["yeongdeok_2025"]
+    diag = json.loads((REPO / "data" / "processed" / "detection" /
+                       "yeongdeok_background_contamination.json").read_text())
+    best = float(art["best_target_delta_k"])
+    recorded_threshold = float(art["threshold_at_best_k"])
 
+    bg_med, bg_sd = _yeongdeok_ring(diag)
+    assert bg_med + m.K_SIGMA * bg_sd == pytest.approx(recorded_threshold, abs=5e-3), (
+        "the K = 4 rule no longer reproduces the threshold the artifact "
+        "recorded for 영덕's best step; one of the two moved")
+
+    target = np.array([[True]])
+    mir, delta = np.array([[330.0]]), np.array([[best]])
+    contaminated = m.contextual_flag(mir, delta, target,
+                                     m_mu=290.0, m_sd=1.0,
+                                     d_mu=bg_med, d_sd=bg_sd)
     clean = m.contextual_flag(mir, delta, target,
                               m_mu=290.0, m_sd=1.0, d_mu=1.13, d_sd=0.49)
-    contaminated = m.contextual_flag(mir, delta, target,
-                                     m_mu=290.0, m_sd=1.0, d_mu=8.328, d_sd=4.0)
-    assert clean.all() and not contaminated.any()
+    assert not contaminated.any() and clean.all(), (
+        "a contaminated ring must RAISE the bar; if this ever inverts, 영덕's "
+        "classification rests on nothing")
 
 
 # --------------------------------------------------------------------------
@@ -407,12 +448,24 @@ def test_the_detector_settings_in_the_artifact_are_the_settings_in_the_code():
     assert det["cadence_min"] == m.STEP_MIN
 
 
-def test_yeongdeok_is_recorded_as_a_non_detection_and_never_as_a_delay():
-    """Three of six, not six of six. The row's constraint, as a gate."""
+def test_yeongdeok_carries_no_delay_and_is_counted_in_neither_direction():
+    """Three fires with a delay, not six. And 영덕 is 교란, not a miss.
+
+    `docs/detection_floor.md` §4 refuses both readings of 영덕 in bold: it is
+    「교란」, 「탐지로도 세지 않고, 위성이 못 본 사례로도 세지 않습니다」. The
+    artifact's `detected: false` is therefore the absence of a delay, NOT a
+    finding that the satellite failed to see the fire, and no prose may promote
+    it to one.
+    """
     art = json.loads(ARTIFACT.read_text(encoding="utf-8"))
     y = art["per_fire"]["yeongdeok_2025"]
     assert y["detected"] is False
     assert y.get("delay_min") is None
+    assert "no pixel cleared the contextual threshold" in y["note"]
+
+    doc = (REPO / "docs" / "detection_floor.md").read_text(encoding="utf-8")
+    assert "탐지로도 세지 않고, 위성이 못 본 사례로도 세지 않습니다" in doc, (
+        "the sentence that refuses both readings of 영덕 left the document")
     detected = [k for k, v in art["per_fire"].items() if v.get("detected")]
     assert sorted(detected) == ["gangneung_2023", "hongseong_2023",
                                 "uiseong_andong_2025"]
@@ -427,3 +480,66 @@ def test_the_control_is_the_same_extent_and_clock_two_weeks_earlier():
     assert all(s["n_steps_flagged"] == 0 for s in fa["per_site"].values())
     assert fa["false_alarm_rate_per_step"] == 0.0
     assert m.CONTROL_DAYS_BEFORE == 14
+
+
+# --------------------------------------------------------------------------
+# 5. the real granule (opt-in)
+# --------------------------------------------------------------------------
+
+#: One granule the archive is known to hold: the 02:24 UTC sw038 scene on the
+#: day of the 영덕 fire's report, which is the key `s3_key` is tested against
+#: above. Anonymous, no credentials, about 0.45 MB.
+REAL_GRANULE_URL = (
+    "https://noaa-gk2a-pds.s3.amazonaws.com/AMI/L1B/LA/202503/22/02/"
+    "gk2a_ami_le1b_sw038_la020ge_202503220224.nc")
+
+network = pytest.mark.skipif(
+    os.environ.get("WFG_GK2A_NETWORK_TESTS") != "1",
+    reason="opt-in: downloads ~0.45 MB from noaa-gk2a-pds. The archive IS "
+           "reachable from a clean sandbox (verified 2026-09-03); this is "
+           "gated so the default suite has one pass/skip count on a cold "
+           "machine and a warm one (WFG-039). Set WFG_GK2A_NETWORK_TESTS=1.")
+
+
+@network
+def test_the_reader_decodes_a_real_granule_and_takes_its_bit_count_from_it(tmp_path):
+    """The one test the synthetic fixtures above cannot substitute for.
+
+    Everything before this asks the code to agree with itself. This asks the
+    archive. It is the reason the earlier "unreachable" claim mattered: it was
+    standing between this project and the only external check it can make of a
+    reader whose calibration constants all come out of the file.
+    """
+    import urllib.request
+
+    import xarray as xr
+
+    from wildfireguardian.detection.gk2a import read_granule
+
+    path = tmp_path / "granule.nc"
+    with urllib.request.urlopen(REAL_GRANULE_URL, timeout=120) as r:
+        path.write_bytes(r.read())
+
+    with xr.open_dataset(path, engine="h5netcdf") as ds:
+        var = ds["image_pixel_values"]
+        bits = int(var.attrs["number_of_valid_bits_per_pixel"])
+        gain = float(ds.attrs["DN_to_Radiance_Gain"])
+
+    # This is the whole argument of the module's DEFAULT_VALID_BITS comment:
+    # sw038 is 14, the default is 13, so a reader that trusts the default is
+    # wrong on this channel. `read_granule` reads it from the file.
+    assert bits == 14 and bits != DEFAULT_VALID_BITS
+
+    # And the decreasing gain the synthetic fixture had to argue for from a
+    # docstring is simply what the instrument ships.
+    assert gain < 0.0
+
+    g = read_granule(path)
+    assert g.channel == MIR_CHANNEL
+    assert 3.7 <= g.wavelength_um <= 3.9
+    med = float(np.median(g.bt))
+    assert BT_MEDIAN_SANITY_K[0] < med < BT_MEDIAN_SANITY_K[1], (
+        "a real Korean scene must land inside the window the module defends; "
+        "if it does not, the module's empirical radiance unit is wrong")
+    assert BT_SANITY_K[0] < float(g.bt.min())
+    assert float(g.bt.max()) < BT_SANITY_K[1]

@@ -323,3 +323,35 @@ mood) · evidence.
   that exit codes mean something, a false red costs a lap the time to diagnose
   it. Fixed in the extractor this lap; `report.py:114` is untouched and is a
   one-line fix for whoever owns that script.
+- 2026-09-03 · dev · **The report is the one file in every lap that no gate has
+  read.** `auto/dev` was RED at `24751fa` and nobody knew: critic #2 ran
+  `gates.py --mode full` at `0ff1b36`, green and honest, then `report.py` wrote
+  its report, and the report's own F1 text quoted the 폐기된 452계열 bracket
+  "6 → 34" with no lineage label inside the ±2-line window that
+  `tests/test_rescue_lineage_ssot.py` reads. The gate the 1622Z lap installed
+  for exactly that failure fired on the report *about* the finding, one commit
+  after every gate had finished running. This is structural, not a slip:
+  CHARTER §4 puts the gates at step 5 and the report at step 7, and the prose
+  gates (`check_forbidden.py`, the lineage gate, WFG-030's future report-number
+  gate) all read tracked markdown — which is what a report is. **Gate:** re-run
+  the prose gates AFTER `report.py`, before the commit (CHARTER §4 step 8 now
+  says so; WFG-046 makes it mechanical inside `report.py`). **Corollary, and it
+  is the sharper half:** a lap that writes prose *about* a retired number is the
+  most likely prose in the repository to trip a retired-number gate, so the
+  files most exposed to these gates are exactly the ones written last and
+  checked never. This lap's own CRITIC_LATEST.md response paragraph tripped the
+  same gate while describing it.
+- 2026-09-03 · dev · **A sanity guard is not a checksum, and a test that only
+  shows the guard firing oversells it.** `detection/gk2a.py` carries two
+  windows (pixel 150–400 K, scene median 180–330 K) and a docstring saying the
+  median one catches a wrong bit mask. Writing only the test where it fires
+  would have been true and misleading. Which way a dropped top bit moves the
+  temperature is **the sign of the gain**: decreasing (the shape the module's
+  own recorded 376 K failure implies) overshoots and is caught; increasing lands
+  a 13-bit read of a 290 K scene near 266 K and passes both windows. So the
+  suite pins both — `test_the_wrong_bit_mask_is_caught_by_the_scene_median...`
+  and `test_a_mask_error_small_enough_to_pass_both_guards_exists`. **Gate:** for
+  every guard a module advertises, write the case where it fires AND the case
+  where it does not, or the docstring becomes a claim the tests appear to
+  support and do not. The real protection here was never the guard: it is
+  `read_granule` reading the bit count out of the granule.

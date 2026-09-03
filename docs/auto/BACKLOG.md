@@ -41,7 +41,7 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-002 | P0 | KCF | Judge Q&A bank v2 (**revise**: corrected numbers, four new questions, deprecated phrasings purged) | done(20260903T1536Z) | true | one lap | 연구 목적 · 설계와 방법론 · 데이터 해석 |
 | WFG-004 | P0 | KCF | SSOT sweep (**revise**: fix README:731, reconcile `fold_sizes.md` vs `NUMBERS.json` on the primary AUC, annotate superseded values) | done(20260903T1622Z) | true | one lap | 제출 자료 |
 | WFG-020 | P0 | KCF | Greenpeace 2026 survivor survey registered as evidence + the "85% drove" answer | done(20260903T1821Z) | true (fallback NH) | hours | 연구 목적 · 데이터 수집 |
-| WFG-021 | P0 | KCF | Detection-floor panel (Session 19 as recorded) + tests for `src/wildfireguardian/detection/gk2a.py` | in-progress(20260903T2050Z) | true | one lap | 데이터 수집·분석·해석 · 설계와 방법론 |
+| WFG-021 | P0 | KCF | Detection-floor panel (Session 19 as recorded) + tests for `src/wildfireguardian/detection/gk2a.py` | in-progress(20260903T2050Z) — **(b) done(f5f8498)**, (a) card + JUDGE_QA block outstanding, (c) not attempted | true | one lap | 데이터 수집·분석·해석 · 설계와 방법론 |
 | WFG-017 | P0 | KCF | `web/finals.html` refresh v2: evidence cards for operating point, detection floor, horizon grounding, refuge placement, reconciliation; rebuilt with `--verify` | todo | true (fallback: student runs `make finals`) | one lap | 제출 자료 · 구현 및 유용성 |
 | WFG-003 | P0 | KCF | Finals screen audit + 5-minute demo script (keep) | todo | true | one lap | 제출 자료 · 구현 및 유용성 |
 | WFG-016 | P0 | ISEF | AI ledger current (**revise**: add IEEE acknowledgment draft; hand-written-only list) | in-progress(kickoff seed) | true | hours | 제출 자료 · ISEF independence |
@@ -430,6 +430,15 @@ carrying forward.
 ### WFG-021 · P0 · KCF · Detection-floor panel + tests for the GK2A detector
 - **What:** (a) a finals card / Q&A block that states Session 19 exactly as recorded in `docs/detection_floor.md` §4, §9–10: reference = report time; 의성·안동 +22 min (FIRMS +117), 강릉 2023 +34 (FIRMS +151), 홍성 2023 +64 (FIRMS +17); 영덕 2025 excluded as confounded by the 의성 fire's background ring; 2022 fires predate the archive; false-alarm control 0/709 steps; conclusion: 사람 신고 > GK2A > FIRMS, the `manual` trigger is primary, "GK2A buys time" is not claimed. Registry keys: `det_gk2a_delay_uiseong_andong_min`, `det_gk2a_delay_gangneung_2023_min`, `det_gk2a_delay_hongseong_2023_min`, `det_gk2a_yeongdeok_best_delta_k`. (b) Unit tests for `src/wildfireguardian/detection/gk2a.py` (SESSION19 item 11: "새 코드에 테스트가 하나도 없습니다") using a tiny synthetic granule fixture: bit-width/units checks, the K = 4 contextual rule, the 15 km target / 30–80 km ring geometry, and a regression pin on `data/processed/detection/gk2a_detection_floor.json` values. (c) SESSION19 items 10 (FD-vs-LA cadence check) and 12 (cross-fire background contamination for 강릉/홍성) only if the needed intermediates are committed under `data/processed/detection/`; otherwise file a NEEDS_HUMAN (NOAA S3 is not reachable from the sandbox proxy).
 - **Effort:** one lap. **agent_doable:** true for (a)(b); (c) conditional.
+- **2026-09-03T2017Z, and it changes (c).** (b) is `done(f5f8498)`; (a) is not started.
+  The independent reviewer of this lap disproved the row's own premise that
+  "NOAA S3 is not reachable from the sandbox proxy": an anonymous HTTPS GET of
+  `AMI/L1B/LA/202503/22/02/gk2a_ami_le1b_sw038_la020ge_202503220224.nc` returns
+  200 and 458,172 bytes, and `read_granule` decodes it (14 valid bits, gain
+  -0.00108296517282724, BT median 286.69 K). **(c) is therefore agent-doable**,
+  and so is any future arm that needs the archive. It stays out of the default
+  test run for WFG-039's reason, not for a reachability reason: the opt-in
+  switch is `WFG_GK2A_NETWORK_TESTS=1`.
 - **Constraints:** never say "every fire" (3 of 6); never rewrite the KMA-key direction experiment (`docs/gk2a_direction_experiment.md`) as a trigger item; the confabulated "1.28 ± 0.79 km" figure must not appear.
 - **Done when:** tests exist and pass in the sandbox; the card text is in `docs/auto/finals/` and JUDGE_QA; registry keys cited.
 
