@@ -1,0 +1,42 @@
+# Optional: direct the loop from GitHub itself. Comment "@claude <instruction>" on any
+# issue or pull request and Claude Code acts on it in CI. Needs the repository secret
+# ANTHROPIC_API_KEY; without it the job is skipped. The Claude GitHub App must also be
+# installed on the repository (https://github.com/apps/claude).
+name: claude
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+  issues:
+    types: [opened, assigned]
+  pull_request_review:
+    types: [submitted]
+jobs:
+  claude:
+    if: |
+      (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude')) ||
+      (github.event_name == 'issues' && (contains(github.event.issue.body, '@claude') || contains(github.event.issue.title, '@claude')))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
+    env:
+      HAS_KEY: ${{ secrets.ANTHROPIC_API_KEY != '' }}
+    steps:
+      - name: No ANTHROPIC_API_KEY — skipping
+        if: env.HAS_KEY != 'true'
+        run: echo "Add the ANTHROPIC_API_KEY secret to enable @claude on issues and PRs."
+      - uses: actions/checkout@v4
+        if: env.HAS_KEY == 'true'
+        with:
+          fetch-depth: 1
+      - uses: anthropics/claude-code-action@v1
+        if: env.HAS_KEY == 'true'
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_args: '--allowed-tools "Bash,Read,Edit,Write,Glob,Grep" --append-system-prompt "Read docs/auto/CHARTER.md before acting. Never push to Main. Never modify a committed artifact under data/processed or docs/figures."'

@@ -385,3 +385,6 @@ outputs/live/**/state_*.json
 
 # scratch dataset cache for scripts/measure_weather_dependency.py
 .cache_weather_dependency.pkl
+
+# --- autonomous loop scratch (scripts/auto/) ---
+.auto/

@@ -1,0 +1,41 @@
+# Safety gate for the autonomous loop (docs/auto/CHARTER.md).
+# Every push to auto/** and every PR into Main or auto/dev re-runs the repository's
+# own gates on a clean Linux checkout with pip-only dependencies, so a change the
+# cloud agent believed green is re-checked by a machine that shares nothing with it.
+name: auto-gates
+on:
+  push:
+    branches: ['auto/**', 'Main']
+  pull_request:
+    branches: ['Main', 'auto/dev']
+  workflow_dispatch:
+concurrency:
+  group: gates-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - name: Bootstrap (pip-only, pinned)
+        run: bash scripts/auto/bootstrap.sh
+      - name: Gates (make verify, baseline, snapshot, env, full pytest)
+        run: .auto/venv/bin/python scripts/auto/gates.py --mode full
+      - name: Keep the gate record
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gates-${{ github.sha }}
+          path: |
+            .auto/gates.json
+            .auto/bootstrap.json
+            .auto/*.log
+          retention-days: 30

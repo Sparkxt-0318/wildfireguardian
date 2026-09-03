@@ -1,0 +1,56 @@
+# Delivers each loop report to the project owner by email.
+# Requires three repository secrets (Settings → Secrets and variables → Actions):
+#   SMTP_USERNAME  the Gmail address that sends (e.g. the owner's own address)
+#   SMTP_PASSWORD  a Gmail App Password (Google Account → Security → 2-Step → App passwords)
+#   REPORT_TO      recipient address
+# Optional variables: SMTP_HOST (default smtp.gmail.com), SMTP_PORT (default 465).
+# Without the secrets the job exits quietly: the report is still committed under
+# docs/auto/reports/ and visible on GitHub.
+name: report-email
+on:
+  push:
+    branches: ['auto/**']
+    paths: ['docs/auto/reports/**']
+  workflow_dispatch:
+jobs:
+  email:
+    runs-on: ubuntu-latest
+    env:
+      HAS_SMTP: ${{ secrets.SMTP_PASSWORD != '' && secrets.SMTP_USERNAME != '' && secrets.REPORT_TO != '' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Pick the newest report in this push
+        id: pick
+        shell: bash
+        run: |
+          set -euo pipefail
+          before='${{ github.event.before }}'
+          f=""
+          if [ -n "$before" ] && [ "$before" != "0000000000000000000000000000000000000000" ] && git cat-file -e "$before" 2>/dev/null; then
+            f="$(git diff --name-only "$before" "${{ github.sha }}" -- docs/auto/reports | grep -v README | sort | tail -n 1 || true)"
+          fi
+          if [ -z "$f" ]; then
+            f="$(ls docs/auto/reports/*.md | grep -v README | sort | tail -n 1)"
+          fi
+          echo "file=$f" >> "$GITHUB_OUTPUT"
+          echo "subject=$(head -n 1 "$f" | sed 's/^# *//')" >> "$GITHUB_OUTPUT"
+          echo "picked $f"
+      - name: No SMTP secrets — skipping delivery
+        if: env.HAS_SMTP != 'true'
+        run: echo "Add SMTP_USERNAME / SMTP_PASSWORD / REPORT_TO secrets to receive ${{ steps.pick.outputs.file }} by email."
+      - name: Send
+        if: env.HAS_SMTP == 'true'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: ${{ vars.SMTP_HOST || 'smtp.gmail.com' }}
+          server_port: ${{ vars.SMTP_PORT || 465 }}
+          secure: true
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: ${{ steps.pick.outputs.subject }}
+          to: ${{ secrets.REPORT_TO }}
+          from: WildfireGuardian autoloop <${{ secrets.SMTP_USERNAME }}>
+          body: file://${{ steps.pick.outputs.file }}
+          convert_markdown: true
