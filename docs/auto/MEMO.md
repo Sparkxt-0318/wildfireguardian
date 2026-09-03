@@ -371,9 +371,13 @@ mood) · evidence.
   falsifiable by the suite, not to make it careful.** The detection-floor card is
   the fourth place its figures live. Rather than proof-reading it, this lap wrote
   `tests/test_detection_floor_card.py`, which reads each figure back out of
-  `docs/NUMBERS.json` — and one test that inverts the question: *every* bare
-  number in the card must be a cited registry value or a number the prose defines
-  in place. That last test is what caught what a careful reading would not: the
+  `docs/NUMBERS.json`, each in its own table row so a swapped attribution fails
+  too — and one test that inverts the question: a bare number in the card must be
+  a cited registry value or appear on a hand-maintained escape list that says why
+  it is admissible. **That inverting test is weaker than it first reads** (the
+  escape list is written by the same lap, so it enforces nothing about the numbers
+  already there; its power is over numbers a later lap adds), and it is still what
+  caught what a careful reading would not: the
   FIRMS delays the row asked for (+117 / +151 / +17) have no registry key at all
   (WFG-048), so the correct action was to leave them off the card and file the
   gap, not to type them. **Gate:** when a doc restates numbers that live

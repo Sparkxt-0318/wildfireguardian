@@ -449,10 +449,11 @@ carrying forward.
   0-of-709 false-alarm **bound**, the 0.1939 ha size floor, the 신고 > GK2A > FIRMS
   priority, and an explicit "not claimed: GK2A buys time". `JUDGE_QA.md` gains Q10a
   (why 영덕 is excluded rather than counted as a miss) and Q10b (the false alarm rate is
-  a bound, not 0 %). `tests/test_detection_floor_card.py` (14 tests) reads every figure
-  on the card back out of `docs/NUMBERS.json` and fails on a drifted digit, and its last
-  test refuses any bare number on the card that has neither a registry key nor an
-  in-place definition. **The FIRMS values named in this row's `What` were deliberately
+  a bound, not 0 %). `tests/test_detection_floor_card.py` (17 tests) reads every figure
+  on the card back out of `docs/NUMBERS.json`, binds each fire's delay inside its own
+  table row so a swapped attribution fails, and keeps a tripwire over any new bare digit
+  (a hand-maintained escape list, which the file itself says enforces nothing about the
+  numbers already on it). **The FIRMS values named in this row's `What` were deliberately
   NOT copied onto the card: they are unregistered** (WFG-048), and CHARTER §3 rule 3
   says a number you cannot register you do not write. The card points at
   `docs/detection_floor.md` §8 instead.
