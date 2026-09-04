@@ -76,6 +76,8 @@ the area (see backlog WFG-013) so this may close itself.
 
 **2026-09-04, later the same session:** the author attached 사물주소도형(경상북도) and 민원행정기관전자지도 from 주소정보누리집. Ingested (`docs/juso_yeongdeok.md`, WFG-073/074). Neither is the 도로명주소 **건물** layer, so this entry stays open for that file only: on business.juso.go.kr choose 도로명주소 전자지도 → 건물 (경상북도 or 영덕군), place the zip under `data/raw/juso/`, and say so in a session.
 
+**AMENDMENT 2026-09-04 (WFG-075).** The sentence above is wrong where it implies the ingested subset is 영덕's. It was cut on 시군구 code 47920 and its geometry lies wholly outside this repository's 영덕 box, about 45 km away; the county identity is unverified and is not guessed (NH-022, WFG-066). Nothing in that subset may be used as 영덕 data until it is re-cut on the laptop. **This entry's own ask is unchanged and still open:** the 도로명주소 **건물** layer was never in either zip, so household counts stay provisional on the 124 OSM buildings whatever NH-022 decides.
+
 ## NH-006 · DECISION · closed · Confirm the finals date: 10.18 (your notice) vs 10.24 (June schedule post)
 
 **Decided 2026-09-03 by the author: the finals are 2026-10-24.** Freeze moved to
@@ -224,6 +226,8 @@ you:** login and CAPTCHA.
 **CLOSED 2026-09-04 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-04 · ref: claude-code-session-7da6bf25#NH-012 · verbatim: "Deferred — keep (b) the national shelter file and (c) the KMA API Hub key under a later priority (post-finals); re-open when there is time."
 
 **2026-09-04 note:** part (b) is narrowed by the author's 사물주소 download — 영덕's designated 지진옥외대피장소 and 무더위쉼터 are now in the repository (`docs/juso_yeongdeok.md`); whether any is a designated *wildfire* 대피소 is still unknown and stays post-finals with this entry.
+
+**AMENDMENT 2026-09-04 (WFG-075): the note above is withdrawn.** Part (b) is **not** narrowed. The 지진옥외대피장소 and 무더위쉼터 points that arrived on 2026-09-04 are not established to be 영덕's: the subset was cut on 시군구 code 47920 and every one of its 239 points falls outside this repository's 영덕 box, about 45 km away (NH-022). Until that is re-cut on the laptop, the repository holds **no** agency-designated 대피장소 list for 영덕, and part (b) — the 공공데이터포털 national shelter file — remains exactly as open as it was before the download.
 
 ## NH-013 · FYI · closed · Optional: a stable web address for the visual board
 

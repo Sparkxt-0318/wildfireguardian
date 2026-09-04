@@ -6,6 +6,15 @@
 These are a **record of the lap looking at what it shipped**, not a test. The
 automated smoke of this screen is backlog row WFG-009.
 
+**2026-09-04 (WFG-067).** `a562045` above, and the same id visible in the
+SYSTEM INTEGRITY panel of `4_reliability.png`, **does not resolve in this
+repository**: it is a pre-rebase hash that `git pull --rebase` orphaned before
+the build was pushed. These PNGs are left exactly as taken, because their job is
+to record what the screen showed, and what it showed was that id. The screen
+itself was rebuilt at `d5e2562` and `tests/test_finals_screen.py` now fails
+whenever the stamp is not reachable from HEAD, so the next set of screenshots
+will carry an id a judge can check.
+
 | file | what |
 |---|---|
 | `1_live.png` | LIVE (act 1) |

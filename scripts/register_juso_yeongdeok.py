@@ -24,6 +24,31 @@ ARTIFACT = "data/processed/external/juso_yeongdeok/manifest.json"
 PREFIX = "juso_yeongdeok_"
 
 
+# WFG-075 (2026-09-04). The subset was cut on 시군구 code 47920, labelled 영덕군, and the
+# geometry says otherwise: all 239 committed points sit at 128.65-129.15 E / 36.78-37.06 N and
+# `regions.lookup('yeongdeok_2025').bbox_wgs84` is (129.25, 36.30, 129.55, 36.60) -- no overlap
+# on either axis, about 45 km apart. The COUNTS are what they say they are (the filter really
+# selected that many rows); the COUNTY LABEL on them is not established. The wrong label is
+# deliberately left in `scope`, `sample` and `derivation` as the record of what was claimed --
+# CHARTER 3.2/3.3 annotate, never edit -- and every entry now carries the correction below.
+# The correct code must be read off 행정표준코드 by whoever re-cuts (NH-022, WFG-066); this
+# script does not guess it.
+SCOPE_CORRECTION = (
+    "SCOPE WRONG, DO NOT USE AS 영덕 DATA (2026-09-04, WFG-075 / NH-022). The 시군구 filter "
+    "47920 is labelled 영덕군 and the extracted geometry lies wholly outside this repository's "
+    "영덕 box (129.25-129.55 E / 36.30-36.60): every point is at 128.65-129.15 E / "
+    "36.78-37.06 N, about 45 km away, and the 지진해일긴급대피장소 layer came back empty, which "
+    "a coastal county's would not. The count itself is the number of rows the filter matched; "
+    "which county those rows belong to is UNVERIFIED and is not guessed here. Re-cut is "
+    "laptop-only (NH-022)."
+)
+SCOPE_FORBIDDEN = [
+    "영덕의 지정 대피장소", "영덕군 무더위쉼터", "영덕의 119안전센터",
+    "designated evacuation sites in Yeongdeok", "Yeongdeok cooling centres",
+    "영덕 대피장소 27곳", "영덕 무더위쉼터 99곳",
+]
+
+
 def build_entries(man: dict, head: str, doc_hash: str) -> dict:
     out = {}
     for layer, info in man["layers"].items():
@@ -36,10 +61,11 @@ def build_entries(man: dict, head: str, doc_hash: str) -> dict:
                            + (man["samul_filter"] if layer.startswith("samul_") else "시군구코드 == 47920")),
             "config_hash": doc_hash, "config_hash_at_production": None, "git_commit": head,
             "sample": "영덕군", 
-            "caveat": ("Administrative inventory as published; not a survey of what stands today. The 사물주소 "
-                       "shapefiles carry no .prj and were assigned EPSG:5179 (see manifest crs_note). This is NOT "
-                       "the 도로명주소 건물 layer (NH-005 stays open)."),
-            "forbidden_phrasings": [],
+            "caveat": (SCOPE_CORRECTION + " -- Administrative inventory as published; not a survey of what "
+                       "stands today. The 사물주소 shapefiles carry no .prj and were assigned EPSG:5179 (see "
+                       "manifest crs_note). This is NOT the 도로명주소 건물 layer (NH-005 stays open)."),
+            "scope_status": "wrong (WFG-075, 2026-09-04; county identity unverified, NH-022)",
+            "forbidden_phrasings": list(SCOPE_FORBIDDEN),
             "reproducible": False,
             "reproducibility": {"status": "external",
                                 "evidence": "re-run scripts/extract_juso_yeongdeok.py on the two zips (sha256 in the manifest)",

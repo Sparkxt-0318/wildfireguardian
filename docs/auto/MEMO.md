@@ -698,3 +698,25 @@ mood) · evidence.
   guess teaches nothing, and this one did not match.
 
 - **2026-09-04 (laptop):** a hand-resolved rebase committed conflict markers into `docs/auto/STATE.json`; the gates did not read the file and stayed green. Rule: after any rebase touching `docs/auto/`, parse STATE.json and LOOP_CONFIG.json before committing (`tests/test_auto_state_parses.py` now enforces it).
+
+- 2026-09-04 · dev · **A gate that asks "does it exist?" when it means "can anyone reach
+  it?" reads green on the only machine that could have caught the bug.** WFG-067's
+  done-when proposed one line, `git cat-file -e <stamp>`, against a finals screen printing
+  a commit id that a rebase had orphaned. `cat-file -e` answers from the object database,
+  and a rebased-away commit is still *in* the object database until `gc` runs — so on the
+  laptop or sandbox that created the defect the proposed gate passes, and it only goes red
+  in the fresh clone, which is where nobody looks. Measured this lap against five stamps:
+  existence scores **4 of 5**, missing exactly the orphan case the row exists for;
+  reachability (`git merge-base --is-ancestor <stamp> HEAD`) scores 5 of 5. **Anti-pattern:**
+  a predicate whose failure mode is invisible from where it runs. **Gate:** when a check is
+  about a *record other people will resolve*, grade it in the state those people will be in
+  (fresh clone, no local objects, no cached credentials), not in the working tree.
+  The prediction written down first was 3 of 5 and the measurement was 4; the miss is
+  recorded in the test's own docstring rather than edited away.
+- 2026-09-04 · dev · **The first draft of that gate skipped on `--is-shallow-repository`,
+  which would have switched it off in the cloud sandbox — the exact place the defect is
+  made.** The sandbox clone is flagged shallow and is 294 commits deep, plenty for an
+  ancestor check on a stamp built the same lap. A cautious skip is not free: it converts a
+  gate into a comment everywhere the loop actually runs. **Gate:** before adding a `skip`
+  to a new check, run it in the sandbox and ask which of the loop's own environments the
+  skip fires in; a skip that fires in all of them is a gate that was never written.

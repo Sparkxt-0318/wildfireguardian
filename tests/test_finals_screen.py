@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import json
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -484,3 +485,118 @@ def test_provenance_is_on_screen():
         assert rp["prov"]["run"], region
         assert rp["prov"]["npz_sha16"], region
         assert rp["prov"]["walk_snap"].startswith("osm-walk_"), region
+
+
+# ---------------------------------------------------------------------------
+# WFG-067 · the integrity panel's commit id must resolve, and be reachable
+# ---------------------------------------------------------------------------
+#
+# The panel a judge is invited to verify the build with carried "a562045" for
+# four critic windows; `git cat-file -t a562045` answers "Not a valid object
+# name" in a fresh clone. It is a pre-rebase hash: the WFG-017 lap built the
+# screen, then `git pull --rebase` rewrote its commits and the stamp inside the
+# built HTML kept pointing at the object the rebase discarded.
+#
+# The row's own done-when proposes `git cat-file -e <stamp>`, one line. THIS LAP
+# MEASURED THAT AND IT IS NOT ENOUGH, and that is the objection this gate is
+# built on. `cat-file -e` asks the object database whether the object exists,
+# and a rebased-away commit still exists there, unreachable, until gc runs. So
+# on the very machine that creates this defect the proposed gate stays green;
+# it only goes red in the fresh clone, which is where nobody is looking. The
+# predicate has to be REACHABILITY from HEAD, not existence:
+# `git merge-base --is-ancestor <stamp> HEAD`.
+#
+# It must not be equality with HEAD: the commit that carries a build is always
+# one later than the commit it was built at, so an equality gate is
+# unsatisfiable and the next lap would weaken it (the row says so explicitly).
+
+def _git(*args: str) -> subprocess.CompletedProcess:
+    return subprocess.run(["git", *args], cwd=REPO, capture_output=True, text=True)
+
+
+def _stamp_is_reachable(stamp: str) -> bool:
+    """The gate's whole predicate, factored out so it can be graded below."""
+    if not stamp or stamp == "unknown":
+        return False
+    if _git("cat-file", "-e", f"{stamp}^{{commit}}").returncode != 0:
+        return False
+    return _git("merge-base", "--is-ancestor", stamp, "HEAD").returncode == 0
+
+
+def _needs_git_history():
+    """Only a missing work tree skips this gate.
+
+    The first draft of this helper also skipped on `--is-shallow-repository`,
+    which would have switched the gate off in exactly the place the loop runs:
+    the cloud sandbox clones shallow (294 commits deep, but flagged shallow).
+    A gate that skips where the defect is created is the hole it was written to
+    close. The limit it really has is narrow and safe: a stamp older than the
+    shallow boundary would fail `cat-file -e` and read as "rebuild the screen",
+    which is a red gate asking for a rebuild, not a wrong screen shipped.
+    """
+    if _git("rev-parse", "--is-inside-work-tree").stdout.strip() != "true":
+        pytest.skip("not a git work tree")
+
+
+def test_the_integrity_panel_names_a_commit_this_repository_has():
+    """WFG-067. Fails on the a562045 class: a stamp orphaned by a rebase."""
+    _needs_git_history()
+    stamp = _payload()["git"]
+    assert stamp and stamp != "unknown", (
+        "build_finals.py could not read HEAD; the panel would print 'unknown'")
+    assert _git("cat-file", "-e", f"{stamp}^{{commit}}").returncode == 0, (
+        f"web/finals.html names commit {stamp}, which is not an object in this "
+        "repository. Rebuild the screen (make finals) on the commit you are pushing.")
+    assert _git("merge-base", "--is-ancestor", stamp, "HEAD").returncode == 0, (
+        f"web/finals.html names commit {stamp}, which exists but is NOT reachable "
+        "from HEAD: a rebase moved the build commit and the stamp was not rebuilt. "
+        "A lap that rebases after building rebuilds before it pushes.")
+
+
+def test_the_stamp_gate_is_graded_against_the_ways_a_stamp_goes_wrong():
+    """The catch rate, measured rather than asserted (MEMO 2026-09-04).
+
+    Five cases, four of them failures the panel has actually shown or could show.
+
+    **This lap wrote its prediction down first and it was wrong.** It predicted
+    `git cat-file -e` -- the one-line gate WFG-067's done-when proposes -- would
+    score 3 of 5, having forgotten that the literal string "unknown" is not an
+    object either, so existence rejects it correctly. The measurement is 4 of 5.
+    The objection survives the correction and is sharpened by it: the proposed
+    gate is right about almost everything and wrong about the single case the row
+    was filed for, which is the shape of a gate that reads green for four windows
+    while the defect ships. Recorded rather than quietly edited, because a rate
+    that matches the guess teaches nothing and this one did not match.
+    """
+    _needs_git_history()
+    head = _git("rev-parse", "HEAD").stdout.strip()
+    parent = _git("rev-parse", "HEAD~1").stdout.strip()
+    # A real commit object that no branch reaches: exactly what a rebase leaves.
+    orphan = _git("commit-tree", f"{head}^{{tree}}", "-p", head,
+                  "-m", "unreachable probe for the WFG-067 gate").stdout.strip()
+    assert orphan, "could not build the orphan probe"
+
+    cases = [
+        ("built at HEAD",            head[:7],   True),
+        ("built at HEAD's parent",   parent[:7], True),
+        ("orphaned by a rebase",     orphan[:7], False),
+        ("a562045, the shipped bug", "a562045",  False),
+        ("git was unavailable",      "unknown",  False),
+    ]
+    graded = [(label, _stamp_is_reachable(stamp) is expected) for label, stamp, expected in cases]
+    assert all(ok for _, ok in graded), [label for label, ok in graded if not ok]
+
+    # And the measurement that decided the design: existence alone scores 4/5,
+    # missing only the one case this row exists for.
+    existence_only = [
+        (_git("cat-file", "-e", f"{stamp}^{{commit}}").returncode == 0) is expected
+        for _, stamp, expected in cases
+    ]
+    assert sum(existence_only) == 4, (
+        "`git cat-file -e` was expected to misgrade the orphan case and be right "
+        f"on the other 4 of 5; it scored {sum(existence_only)}. If this changed, "
+        "the objection in the comment above needs re-measuring, not deleting.")
+    orphan_case = next(i for i, (label, _, _) in enumerate(cases)
+                       if label == "orphaned by a rebase")
+    assert existence_only[orphan_case] is False, (
+        "the whole objection is that existence passes the orphan case")
