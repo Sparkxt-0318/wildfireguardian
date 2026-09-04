@@ -32,4 +32,4 @@ capacity, or whether any site is a designated *wildfire* 대피소 — the 사�
 earthquake, tsunami and heat. That question (NH-012 b) is narrowed, not answered.
 
 **Next (backlog).** WFG-073 compares the router's current refuges with the designated sites;
-WFG-073 wires the 119 centres, 파출소 and 읍면동 offices in as depots and notification targets.
+WFG-074 wires the 119 centres, 파출소 and 읍면동 offices in as depots and notification targets.

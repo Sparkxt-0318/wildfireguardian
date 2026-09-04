@@ -24,7 +24,8 @@ Moreno, M., Steger, S., Bozzoli, L., Terzi, S., Trucchia, A., van Westen, C., Lo
 
 - `paper/style.py` — `PALETTE` (fire, blue, grey, mauve, teal, brown, slate, sky, yellow), boxed axes, hairline patch edges, framed legends, YlOrRd default map, `label_panels(axes)` (letters just above the frame's left edge so they never cover data; `inside=True` puts them inside as Moreno does), `boxed_legend(ax)`, `EXCEEDANCE` four-class ramp. The legacy `OKABE[...]` names are kept as aliases so older figure code still runs, but they now resolve to the new palette.
 - `paper/make_figures.py` — every multi-panel figure calls `style.label_panels`; bar figures keep in-bar value labels; the grid is off by default and switched on only where a value must be read off an axis.
-- What is **not** done yet and needs its own backlog row: a Moreno-Fig.-1 style **study-area map** of the six fires (hillshade from the DEM already in `data/`, graded circles by burned area, graticule, scale bar). The build must stay offline — no tile fetch at figure time.
+- **Done 2026-09-04 (WFG-060, first half):** `F8_routing_map` — the canonical Yeongdeok case on the SRTM hillshade, YlOrRd forecast field, 0.5 isolines, refuges, all scanned origins classed, three example origins with fire-blind vs forecast-aware routes, WGS84 graticule, scale bars, boxed legend; fully offline from the committed snapshots.
+- **Blocked:** the Moreno-Fig.-1 style six-fire **study-area map** needs per-fire burned-area registry keys and the other five fires' DEMs, which are laptop-only; it waits for those (see WFG-060).
 
 ## 4. Things we deliberately do not copy
 

@@ -74,7 +74,7 @@ the area (see backlog WFG-013) so this may close itself.
 
 **Author reply 2026-09-04 (Claude Code session, AskUserQuestion, verbatim: "I will attach it later this week").** Stays open; the next report asks again. Until the layer is under `data/raw/juso_buildings/`, provisional OSM counts stand, labelled as such.
 
-**2026-09-04, later the same session:** the author attached 사물주소도형(경상북도) and 민원행정기관전자지도 from 주소정보누리집. Ingested (`docs/juso_yeongdeok.md`, WFG-073/073). Neither is the 도로명주소 **건물** layer, so this entry stays open for that file only: on business.juso.go.kr choose 도로명주소 전자지도 → 건물 (경상북도 or 영덕군), place the zip under `data/raw/juso/`, and say so in a session.
+**2026-09-04, later the same session:** the author attached 사물주소도형(경상북도) and 민원행정기관전자지도 from 주소정보누리집. Ingested (`docs/juso_yeongdeok.md`, WFG-073/074). Neither is the 도로명주소 **건물** layer, so this entry stays open for that file only: on business.juso.go.kr choose 도로명주소 전자지도 → 건물 (경상북도 or 영덕군), place the zip under `data/raw/juso/`, and say so in a session.
 
 ## NH-006 · DECISION · closed · Confirm the finals date: 10.18 (your notice) vs 10.24 (June schedule post)
 

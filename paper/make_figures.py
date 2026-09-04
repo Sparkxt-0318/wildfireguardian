@@ -386,8 +386,306 @@ def F7_dispatch_ordering(out: Path) -> bool:
     return True
 
 
+# ---------------------------------------------------------------------------
+# F8: the routing map. Everything below reads committed snapshots and artifacts
+# only (data/snapshots/*, data/processed/*) and recomputes the two example routes
+# with the repository's own router; nothing is fetched at figure time.
+# ---------------------------------------------------------------------------
+_F8_NPZ = "data/processed/routing_demo_canonical.npz"
+_F8_JSON = "data/processed/real_roads_real_hazard_canonical.json"
+_F8_MANIFEST = "data/snapshots/MANIFEST.json"
+
+
+def _snapshot(source: str, region: str) -> Path | None:
+    """Resolve one stored snapshot from data/snapshots/MANIFEST.json, or None."""
+    man = load(_F8_MANIFEST)
+    if not man:
+        return None
+    hits = [s for s in man.get("snapshots", []) if s.get("source") == source
+            and s.get("region") == region and s.get("stored_file")]
+    if len(hits) != 1:
+        return None
+    p = REPO / "data" / "snapshots" / hits[0]["stored_file"]
+    return p if p.exists() else None
+
+
+def _graticule(ax, to_ll, to_xy, step_deg: float, fmt_lon="{:.1f}°E", fmt_lat="{:.1f}°N"):
+    """Lat/lon graticule on a projected (EPSG:5179) panel: thin grey lines inside the
+    frame, tick labels where each meridian meets the bottom edge and each parallel
+    meets the left edge, so the labels sit on the outer edges as in Moreno et al."""
+    import numpy as np
+    x0, x1 = ax.get_xlim(); y0, y1 = ax.get_ylim()
+    cx = np.array([x0, x1, x1, x0]); cy = np.array([y0, y0, y1, y1])
+    lon_c, lat_c = to_ll.transform(cx, cy)
+    lons = np.arange(np.floor(lon_c.min() / step_deg) * step_deg, lon_c.max() + step_deg, step_deg)
+    lats = np.arange(np.floor(lat_c.min() / step_deg) * step_deg, lat_c.max() + step_deg, step_deg)
+    xt, xl, yt, yl = [], [], [], []
+    for lon in lons:
+        la = np.linspace(lat_c.min() - 0.1, lat_c.max() + 0.1, 200)
+        gx, gy = to_xy.transform(np.full_like(la, lon), la)
+        ax.plot(gx, gy, color="white", lw=0.5, alpha=0.75, zorder=6)
+        ax.plot(gx, gy, color=style.INK, lw=0.3, alpha=0.55, zorder=6)
+        # where the meridian crosses the bottom edge
+        k = np.argsort(gy); xb = np.interp(y0, gy[k], gx[k])
+        if x0 < xb < x1:
+            xt.append(xb); xl.append(fmt_lon.format(lon))
+    for lat in lats:
+        lo = np.linspace(lon_c.min() - 0.1, lon_c.max() + 0.1, 200)
+        gx, gy = to_xy.transform(lo, np.full_like(lo, lat))
+        ax.plot(gx, gy, color="white", lw=0.5, alpha=0.75, zorder=6)
+        ax.plot(gx, gy, color=style.INK, lw=0.3, alpha=0.55, zorder=6)
+        k = np.argsort(gx); yb = np.interp(x0, gx[k], gy[k])
+        if y0 < yb < y1:
+            yt.append(yb); yl.append(fmt_lat.format(lat))
+    ax.set_xticks(xt); ax.set_xticklabels(xl, fontsize=7)
+    ax.set_yticks(yt); ax.set_yticklabels(yl, fontsize=7, rotation=90, va="center")
+    ax.set_xlim(x0, x1); ax.set_ylim(y0, y1)
+
+
+def _scale_bar(ax, km: float, loc=(0.04, 0.035)):
+    """A two-segment black/white scale bar in a small white box, bottom-left."""
+    x0, x1 = ax.get_xlim(); y0, y1 = ax.get_ylim()
+    w, h = x1 - x0, y1 - y0
+    bx, by = x0 + loc[0] * w, y0 + loc[1] * h
+    L = km * 1000.0; t = 0.012 * h
+    ax.add_patch(mpatches.Rectangle((bx - 0.012 * w, by - 0.02 * h), L + 0.024 * w, t + 0.055 * h,
+                                    facecolor="white", edgecolor=style.INK, linewidth=0.5, zorder=20))
+    ax.add_patch(mpatches.Rectangle((bx, by), L / 2, t, facecolor=style.INK, edgecolor=style.INK, linewidth=0.5, zorder=21))
+    ax.add_patch(mpatches.Rectangle((bx + L / 2, by), L / 2, t, facecolor="white", edgecolor=style.INK, linewidth=0.5, zorder=21))
+    for v, xx in ((0, bx), (km / 2, bx + L / 2), (km, bx + L)):
+        ax.text(xx, by + t + 0.006 * h, f"{v:g}" + (" km" if v == km else ""), ha="center", va="bottom",
+                fontsize=6.5, color=style.INK, zorder=22)
+
+
+def _hillshade(dem_path: Path, extent, res_m: float):
+    """Reproject the committed SRTM GeoTIFF onto an EPSG:5179 grid covering `extent`
+    and return (hillshade array, imshow extent). Offline; rasterio only."""
+    import numpy as np
+    import rasterio
+    from rasterio.enums import Resampling
+    from rasterio.transform import from_origin
+    from rasterio.warp import reproject
+    from matplotlib.colors import LightSource
+    x0, y0, x1, y1 = extent
+    ncol, nrow = int(round((x1 - x0) / res_m)), int(round((y1 - y0) / res_m))
+    dst = np.full((nrow, ncol), np.nan, dtype="float32")
+    with rasterio.open(dem_path) as src:
+        reproject(rasterio.band(src, 1), dst, dst_transform=from_origin(x0, y1, res_m, res_m),
+                  dst_crs="EPSG:5179", dst_nodata=np.nan, resampling=Resampling.bilinear)
+    dem = np.where(np.isfinite(dst), dst, np.nan)
+    filled = np.where(np.isfinite(dem), dem, np.nanmin(dem))
+    hs = LightSource(azdeg=315, altdeg=45).hillshade(filled, vert_exag=1.5, dx=res_m, dy=res_m)
+    hs = np.where(np.isfinite(dem), hs, np.nan)
+    return hs, (x0, x1, y0, y1)
+
+
+def _route_xy(Gp, route, net):
+    """Stitch a node route into a polyline using the OSM edge geometries (EPSG:5179);
+    straight segments where an edge carries none."""
+    import numpy as np
+    from shapely.geometry import LineString
+    pts = []
+    for u, v in zip(route[:-1], route[1:]):
+        geom = None
+        for a, b, rev in ((u, v, False), (v, u, True)):
+            if Gp.has_edge(a, b):
+                data = min(Gp[a][b].values(), key=lambda d: d.get("length", 0.0))
+                g = data.get("geometry")
+                if g is None:
+                    g = LineString([(Gp.nodes[a]["x"], Gp.nodes[a]["y"]), (Gp.nodes[b]["x"], Gp.nodes[b]["y"])])
+                geom = list(g.coords)[::-1] if rev else list(g.coords)
+                break
+        if geom is None:
+            geom = [net.node_xy(u), net.node_xy(v)]
+        pts.extend(geom if not pts else geom[1:])
+    return np.asarray(pts)
+
+
+def F8_routing_map(out: Path) -> bool:
+    """Canonical Yeongdeok 2025 on a hillshaded ground: (a) the forecast hazard field
+    at the 720-minute horizon over the simulation canvas, with the walk-network box;
+    (b) the walk network, refuges, the 458 scanned origins classed by outcome, and
+    example origins whose fire-blind route enters the forecast while a forecast-aware
+    route stays clear. Routes are recomputed with the repository router from the
+    committed snapshots, so the figure carries no stored geometry of its own."""
+    import numpy as np
+    canon = load(_F8_JSON)
+    npz_p = REPO / _F8_NPZ
+    dem_p = _snapshot("srtm-dem", "yeongdeok-2025")
+    walk_p = _snapshot("osm-walk", "yeongdeok-2025")
+    shel_p = _snapshot("osm-shelters", "yeongdeok-2025")
+    if not canon or not npz_p.exists() or not (dem_p and walk_p and shel_p):
+        return False
+    try:
+        import osmnx as ox
+        from pyproj import Transformer
+        sys.path.insert(0, str(REPO / "src")); sys.path.insert(0, str(REPO / "scripts"))
+        from wildfireguardian.routing.evacuation import future_aware_route, naive_route
+        from wildfireguardian.routing.hazard import HazardSequence
+        from wildfireguardian.routing.slope import build_walk_network, load_snapshot_graph
+        from wildfireguardian.spread_v2.grid import CoarseGrid
+        from run_real_roads_real_hazard_slope import candidate_origins
+        from run_multi_region_routing import read_poi_snapshot
+    except Exception as e:  # noqa: BLE001
+        print(f"[figures] F8 skipped: {e}", file=sys.stderr)
+        return False
+    to_ll = Transformer.from_crs("EPSG:5179", "EPSG:4326", always_xy=True)
+    to_xy = Transformer.from_crs("EPSG:4326", "EPSG:5179", always_xy=True)
+
+    # --- hazard field (committed npz) and the scan's parameters (committed json)
+    z = np.load(npz_p)
+    haz = z["haz_stack"].astype(np.float32); times = np.asarray(z["haz_times"], float)
+    xmin, ymin, xmax, ymax, cell = [float(v) for v in z["grid_extent"]]
+    grid = CoarseGrid(minx=xmin, miny=ymin, maxx=xmax, maxy=ymax, cell_size_m=cell, nrows=haz.shape[1], ncols=haz.shape[2])
+    hazard = HazardSequence(grid=grid, times_min=times, surfaces=[haz[i] for i in range(haz.shape[0])])
+    prm = canon["parameters"]; arm = canon["arms"]["slope_digraph_canonical"]
+    p_cut = float(prm["p_cut"]); horizon = int(times[-1])
+    rb = canon["preflight"]["routing_bbox_5179"]
+
+    # --- walk network (snapshot), slope timing from the snapshot DEM, refuges (snapshot)
+    G = load_snapshot_graph(walk_p)
+    net, _ = build_walk_network(G, dem_p, sampling_m=float(prm["slope_sampling_m"]),
+                                max_abs_slope=float(prm["max_abs_slope"]), directed=True, apply_slope=True)
+    dests, n_pois = read_poi_snapshot(shel_p, kind="shelter")
+    net.shelters = {net.nearest_node(d.x, d.y) for d in dests}
+    Gp = ox.project_graph(G, to_crs="EPSG:5179")
+    edges = ox.graph_to_gdfs(Gp, nodes=False, edges=True)
+
+    # --- the scan itself, in the committed order, with the committed classification
+    cand, _ = candidate_origins(net, hazard, haz, (xmin, ymin, xmax, ymax, cell), p_cut)
+    classes = {"both_safe": [], "naive_into_FA_safe": [], "no_safe_route": [], "other": []}
+    routes = {}
+    for n in cand:
+        nv = naive_route(net, n, hazard, departure_min=0.0, p_cut=p_cut, objective="length_m")
+        fa = future_aware_route(net, n, hazard, departure_min=0.0, time_budget_min=float(prm["time_budget_min"]),
+                                p_cut=p_cut, time_step_min=float(prm["time_step_min"]))
+        if nv.reached and nv.enters_hazard and fa.reached and not fa.enters_hazard:
+            classes["naive_into_FA_safe"].append(n); routes[n] = (nv, fa)
+        elif nv.reached and nv.enters_hazard and not fa.reached:
+            classes["no_safe_route"].append(n)
+        elif nv.reached and not nv.enters_hazard and fa.reached and not fa.enters_hazard:
+            classes["both_safe"].append(n)
+        else:
+            classes["other"].append(n)
+    counts_ok = all(len(classes[k]) == arm["counts"][k] for k in ("both_safe", "naive_into_FA_safe", "no_safe_route")) \
+        and len(cand) == arm["n_origins_scanned"]
+    if not counts_ok:
+        print("[figures] F8: recomputed partition differs from the committed artifact; counts left off the legend", file=sys.stderr)
+    # Example origins: walk the fire-blind-fails origins in scan order and keep one
+    # whenever it lies at least 4 km from every origin already kept (so the examples
+    # do not overprint), up to three.
+    examples = []
+    for n in classes["naive_into_FA_safe"]:
+        x, y = net.node_xy(n)
+        if all(np.hypot(x - ex[1], y - ex[2]) >= 4000 for ex in examples):
+            examples.append((n, x, y))
+        if len(examples) == 3:
+            break
+
+    # --- figure: (a) canvas context, (b) the walk box
+    a_ext = (1130400.0, 1802400.0, 1187400.0, 1862300.0)   # inner rectangle of the snapshot DEM in EPSG:5179
+    m = 1200.0
+    b_ext = (rb[0] - m, rb[1] - m, rb[2] + m, rb[3] + m)
+    fig = plt.figure(figsize=(7.0, 4.75))
+    gs = fig.add_gridspec(1, 2, width_ratios=[(a_ext[2] - a_ext[0]) / (a_ext[3] - a_ext[1]),
+                                              (b_ext[2] - b_ext[0]) / (b_ext[3] - b_ext[1])], wspace=0.16)
+    ax, bx = fig.add_subplot(gs[0]), fig.add_subplot(gs[1])
+    seq = plt.get_cmap(style.SEQ_CMAP)
+    hz_ext = (xmin, xmax, ymin, ymax)
+    for a, ext, res in ((ax, a_ext, 90.0), (bx, b_ext, 45.0)):
+        hs, hs_ext = _hillshade(dem_p, ext, res)
+        a.imshow(hs, extent=hs_ext, cmap="gray", vmin=-0.1, vmax=1.15, origin="upper", zorder=1, interpolation="bilinear")
+        a.set_xlim(ext[0], ext[2]); a.set_ylim(ext[1], ext[3]); a.set_aspect("equal")
+    # (a): the P(ignite) field at the horizon, masked below 0.05, and the 0.5 isolines
+    field = np.ma.masked_less(haz[-1], 0.05)
+    im = ax.imshow(field, extent=hz_ext, cmap=seq, vmin=0, vmax=1, alpha=0.8, origin="upper", zorder=3, interpolation="nearest")
+    # The horizon's 0.5 isoline is drawn on a one-cell Gaussian smoothing of the slice,
+    # for display only: the field itself is cell-wise and drawn as such above, and a
+    # contour traced through it cell by cell dissolves into hundreds of one-cell rings.
+    # The 0-minute slice is binary and its cells are scattered, so no isoline can trace
+    from scipy.ndimage import gaussian_filter
+    from matplotlib.colors import ListedColormap
+    xs = xmin + (np.arange(haz.shape[2]) + 0.5) * cell; ys = ymax - (np.arange(haz.shape[1]) + 0.5) * cell
+    # it; those cells are drawn filled, in (a) only so that (b) stays legible.
+    t0 = np.ma.masked_less(haz[0], p_cut)
+    ax.imshow(t0, extent=hz_ext, cmap=ListedColormap([style.PALETTE["teal"]]), alpha=0.9, origin="upper", zorder=5,
+              interpolation="nearest")
+    for a in (ax, bx):
+        a.contour(xs, ys, gaussian_filter(haz[-1], 1.0), levels=[p_cut], colors=[style.PALETTE["blue"]], linewidths=1.1,
+                  linestyles="dashed", zorder=7)
+    ax.plot(*z["ign_xy"], marker="*", ms=9, color=style.PALETTE["yellow"], mec=style.INK, mew=0.5, ls="none", zorder=9)
+    ax.add_patch(mpatches.Rectangle((rb[0], rb[1]), rb[2] - rb[0], rb[3] - rb[1], facecolor="none",
+                                    edgecolor=style.INK, linewidth=1.0, zorder=8))
+    ax.text(rb[0] + 0.5 * (rb[2] - rb[0]), rb[3] + 900, "walk network (panel b)", ha="center", va="bottom", fontsize=6.5,
+            color=style.INK, zorder=9, bbox=dict(facecolor="white", edgecolor="none", pad=0.6, alpha=0.85))
+    # (b): walk network, refuges, classed origins, example routes
+    edges.plot(ax=bx, color="#6E6E6E", linewidth=0.22, alpha=0.9, zorder=4)
+    bx.imshow(field, extent=hz_ext, cmap=seq, vmin=0, vmax=1, alpha=0.35, origin="upper", zorder=3, interpolation="nearest")
+    for key, col, mk, ms_, zo in (("both_safe", "#F2F2F2", "o", 2.6, 8), ("naive_into_FA_safe", style.PALETTE["brown"], "o", 4.0, 9),
+                                  ("no_safe_route", style.INK, "x", 5.0, 10)):
+        pts = np.array([net.node_xy(n) for n in classes[key]]) if classes[key] else np.empty((0, 2))
+        if len(pts):
+            bx.plot(pts[:, 0], pts[:, 1], ls="none", marker=mk, ms=ms_, mfc=col, mec=style.INK if mk == "o" else col,
+                    mew=0.35 if mk == "o" else 1.0, zorder=zo)
+    sx = np.array([net.node_xy(n) for n in sorted(net.shelters)])
+    bx.plot(sx[:, 0], sx[:, 1], ls="none", marker="^", ms=5.0, mfc=style.PALETTE["blue"], mec=style.INK, mew=0.4, zorder=11)
+    for i, (n, x, y) in enumerate(examples, start=1):
+        nv, fa = routes[n]
+        # Each route is cased in white so it reads over the hillshade and the field.
+        p = _route_xy(Gp, nv.route, net)
+        bx.plot(p[:, 0], p[:, 1], color="white", lw=3.2, zorder=12)
+        bx.plot(p[:, 0], p[:, 1], color=style.PALETTE["grey"], lw=1.8, ls=(0, (3, 1.5)), zorder=12.5)
+        p = _route_xy(Gp, fa.route, net)
+        bx.plot(p[:, 0], p[:, 1], color="white", lw=3.2, zorder=13)
+        bx.plot(p[:, 0], p[:, 1], color=style.PALETTE["fire"], lw=1.8, zorder=13.5)
+        bx.plot(x, y, marker="o", ms=6.5, mfc="white", mec=style.INK, mew=0.8, ls="none", zorder=14)
+        bx.text(x, y, str(i), ha="center", va="center", fontsize=5.5, color=style.INK, zorder=15)
+    # graticule, scale bars, panel letters
+    _graticule(ax, to_ll, to_xy, 0.2); _graticule(bx, to_ll, to_xy, 0.1)
+    _scale_bar(ax, 10); _scale_bar(bx, 5)
+    for a, letter in ((ax, "a"), (bx, "b")):
+        a.text(0.02, 0.975, f"{letter})", transform=a.transAxes, ha="left", va="top", fontsize=9, color=style.INK, zorder=30,
+               bbox=dict(facecolor="white", edgecolor="none", pad=1.2, alpha=0.9))
+    # colour bar for (a), boxed inside the panel
+    cax = ax.inset_axes([0.585, 0.905, 0.36, 0.028])
+    cb = fig.colorbar(im, cax=cax, orientation="horizontal", ticks=[0, 0.5, 1])
+    cb.ax.tick_params(labelsize=6.5, length=2, width=0.5, pad=1.5); cb.outline.set_linewidth(0.5)
+    cax.set_title(f"P(ignite) at {horizon} min", fontsize=6.5, pad=2)
+    ax.add_patch(mpatches.Rectangle((0.545, 0.865), 0.435, 0.12, transform=ax.transAxes, facecolor="white",
+                                    edgecolor=style.INK, linewidth=0.5, zorder=cax.get_zorder() - 1, alpha=0.95))
+    # legend, boxed, below both panels
+    from matplotlib.lines import Line2D
+    n_or = arm["n_origins_scanned"]; c = arm["counts"]
+    lab = (lambda k, s: f"{s} ({c[k]})" if counts_ok else s)
+    handles = [
+        mpatches.Patch(facecolor=style.PALETTE["teal"], edgecolor=style.INK, linewidth=0.4, label=f"P(ignite) ≥ {p_cut:g} at 0 min"),
+        Line2D([], [], color=style.PALETTE["blue"], lw=1.1, ls="--", label=f"P(ignite) ≥ {p_cut:g} at {horizon} min"),
+        Line2D([], [], marker="*", ms=8, mfc=style.PALETTE["yellow"], mec=style.INK, mew=0.5, ls="none", label="reported ignition"),
+        Line2D([], [], marker="^", ms=5, mfc=style.PALETTE["blue"], mec=style.INK, mew=0.4, ls="none", label=f"refuge ({n_pois} OSM POIs)"),
+        Line2D([], [], marker="o", ms=3, mfc="#F2F2F2", mec=style.INK, mew=0.35, ls="none", label=lab("both_safe", "origin: safe on both routes")),
+        Line2D([], [], marker="o", ms=4, mfc=style.PALETTE["brown"], mec=style.INK, mew=0.35, ls="none",
+               label=lab("naive_into_FA_safe", "origin: safe only forecast-aware")),
+        Line2D([], [], marker="x", ms=5, color=style.INK, mew=1.0, ls="none", label=lab("no_safe_route", "origin: no safe walking route")),
+        Line2D([], [], color=style.PALETTE["grey"], lw=1.6, ls=(0, (3, 1.5)), label="fire-blind route (shortest)"),
+        Line2D([], [], color=style.PALETTE["fire"], lw=1.6, label="forecast-aware route"),
+    ]
+    if counts_ok:
+        bx.text(0.975, 0.03, f"n = {n_or} scanned origins", transform=bx.transAxes, ha="right", va="bottom", fontsize=6.5,
+                color=style.INK, zorder=30, bbox=dict(facecolor="white", edgecolor=style.INK, linewidth=0.5, pad=2.0))
+    fig.subplots_adjust(left=0.06, right=0.985, top=0.985, bottom=0.215)
+    # Equal-aspect panels end up shorter than their slot, so the legend is anchored
+    # to the drawn frame's bottom edge (measured after layout) instead of the figure's.
+    fig.canvas.draw()
+    lo = min(ax.get_position().y0, bx.get_position().y0)
+    lg = fig.legend(handles=handles, loc="upper center", ncol=3, fontsize=6.8, frameon=True, bbox_to_anchor=(0.52, lo - 0.055),
+                    handlelength=1.6, columnspacing=1.2, handletextpad=0.6, borderaxespad=0.2)
+    lg.get_frame().set_linewidth(0.5); lg.get_frame().set_edgecolor(style.INK)
+    style.finish(fig, out / "F8_routing_map.png")
+    return True
+
+
 FIGURES = [F1_system, F2_lofo_auc, F3_regions, F4_operating_point, F5_decision_shift,
-           F6_sensitivity, F7_dispatch_ordering]
+           F6_sensitivity, F7_dispatch_ordering, F8_routing_map]
 
 
 def main() -> int:
