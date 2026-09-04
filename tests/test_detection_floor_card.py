@@ -185,6 +185,13 @@ def test_the_card_carries_no_number_this_test_has_not_been_shown(card: str):
                   # block (`first hit (2025-03-25) lags the 2025-03-22 ignition by
                   # days`). Provenance quoted from the artifact, not a measurement.
         "053",    # WFG-053, the row that narrowed this card
+        # --- added 2026-09-04 by WFG-063 ---
+        # ⚠ "99" is STILL NOT HERE, and this row is why. WFG-063 removed the last
+        # judge-facing sentence that leaned on 「신고의 99 %가 목격 신고」, so the card's
+        # new 「보여주지 않는 것」 bullet names the statistic in WORDS (목격-신고 비율
+        # 통계) rather than reprinting the figure. A withdrawal note is not a licence to
+        # put the number back on an A4 sheet a judge holds.
+        "063",    # WFG-063, the row that removed the primacy claim from this card
         "019",    # NH-019, the open entry that would let the ordering be stated again
     }
     bare = set(re.findall(r"\d+(?:\.\d+)?", card))

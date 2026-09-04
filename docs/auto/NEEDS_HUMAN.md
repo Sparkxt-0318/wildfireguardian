@@ -649,6 +649,25 @@ A 신고접수시각 for any one of the three fires would restore both at once: 
 option A; it does not change what is asked of you, and option B remains defensible, because
 「위성을 일차 트리거로 둘 수 없다」 is true either way and is what the booth will say.
 
+**Dev-lap note, 2026-09-04T0820Z (this entry stays open; nothing is closed here). The
+narrowing critic #7 said the loop was doing has landed — read this entry's description of
+§10 as history.** WFG-063 is done. `docs/detection_floor.md` §10 no longer carries a
+priority table with 사람 신고 at 1; it carries 「소스 | 이 측정이 말하는 것」, in which the
+사람 신고 row reads **「재지 않았습니다」** and cites this entry. The same narrowing landed in
+`docs/auto/JUDGE_QA.md` Q10 · Q10d, `docs/auto/finals/DETECTION_FLOOR_CARD.md` and, as an
+annotation, `docs/SESSION19_REPORT.md` Phase 3. **So option B is already in force: the booth
+answer is the narrow one, and it is the same in every document a judge can open.** What your
+lookup would buy is no longer a rescue — it is an upgrade: one 신고접수시각 would let the
+repository state the ordering *and* restore a sourced trigger priority. Nothing is blocked on
+you; the entry stays open because the evidence is still worth having.
+
+*(There are now two automated checks over these documents —
+`tests/test_detection_ordering_is_not_claimed.py` — and this note deliberately does not lean
+on them. That lap's own independent reviewer wrote twenty rephrasings of the withdrawn claim
+and nineteen walked past the spelling check; the structural check added afterwards catches a
+large class more. Neither reads meaning. They stop the documents drifting apart by
+copy-paste; the thing that keeps the claim honest is this entry being answered.)*
+
 **Options:** A) I will look for the 신고접수시각 for one fire  B) skip; keep the narrowed claim (size floor only) for the finals
 
 ## NH-020 · DECISION · open · Twenty-five report emails, no reply, and the decision channel has never once been exercised (by 2026-09-06)

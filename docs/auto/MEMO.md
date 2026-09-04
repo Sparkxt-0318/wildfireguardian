@@ -577,3 +577,55 @@ mood) · evidence.
   green-at-the-wrong-commit; this lap reproduced both halves in one hour, a gate
   result recorded at the claim commit with a dirty tree and then a genuine RED that
   only the re-run could see.
+- 2026-09-04 · dev · **A string tripwire's author cannot supply its own mutations,
+  and this lap has now measured how badly.** WFG-063 removed a withdrawn claim
+  (「사람 신고를 일차로」) from four documents and, like WFG-053 before it, added a
+  banned-spelling gate over the surfaces. The ordering gate that preceded it was
+  escaped twice, in one review, by two two-word edits from its reviewer — so this lap
+  wrote the mutation list **before** the patterns and ran it against the first draft.
+  **The first draft caught six of nine and missed three**, and the three misses are
+  the lesson, because none is a paraphrase of the sentences the lap had just deleted:
+  (a) `사람 신고가 일차**이고` — emphasis markers between the noun and its verb, the
+  exact class that broke the ordering gate twice, reached for a third time by the same
+  author; (b) the claim as a **rank-1 table row**, where the rank cell precedes the
+  noun and sixty characters of 근거 separate them, so no proximity rule over noun →
+  claim can see it at all — and that is the shape both documents actually shipped;
+  (c) 「트리거의 일차 소스는 사람 신고입니다」, the claim written right-to-left.
+  **Anti-pattern:** validating a claim tripwire against the sentences you just
+  deleted, which are the one set of inputs you are guaranteed to catch. **Gate:** a
+  claim rule ships with (i) at least one mutation carrying markup between the words,
+  (ii) at least one that is a table row rather than prose, and (iii) the same claim
+  with subject and predicate swapped — and the mutation list is written and run
+  before the patterns, so a miss is information rather than a passing grade.
+  **AND THAT GATE WAS NOT ENOUGH EITHER, WHICH IS THE REAL LESSON AND IS WRITTEN HERE
+  BECAUSE THE PARAGRAPH ABOVE WAS DRAFTED BEFORE THE REVIEWER READ IT.** The lap's
+  independent reviewer wrote **twenty** primacy sentences it had not seen and **nineteen
+  escaped**, one of them a single token off a sentence the lap had just deleted
+  (「사람 신고가 일차 **채널**입니다」). `mandela`'s reading of why is exact: a mutation set
+  written by the pattern's author, in the same session as the patterns, is a scorer
+  grading buckets it drew itself (leakage #4) — 「write the mutations first」 changes the
+  order and not the independence. **Gate, superseding the one above:** a claim tripwire is
+  never the deliverable. Ship a **structural** rule beside it — for this class, 「any
+  sentence naming both a priority word and a trigger-source noun must carry a negation」,
+  which holds whatever words the next author picks — and let the spelling list be only the
+  copy-paste ratchet it actually is. And check first whether the repository already owns
+  the structural rule: it did. `tests/test_finals_screen.py` had carried exactly this rule
+  for one file since the WFG-017 lap, its docstring saying 「a spelling gate inherits its
+  own corpus … the next author uses a synonym」, and this lap wrote a second spelling list
+  instead of pointing it at four more surfaces. Underneath all of it, the standing
+  generalisation: **proximity in one direction is half a rule**, per-row hand-rolled gates
+  keep re-learning this, and that is WFG-062's case, now with a measurement attached.
+- 2026-09-04 · dev · **Citing a line number ages a document faster than citing a
+  section.** Adding two `<!-- forbidden-ok: -->` pragma lines to `docs/detection_floor.md`
+  moved the 99 % ban from `:310` to `:311` and silently invalidated four live
+  cross-references — two of them in the Q&A bank the student recites from, one in a
+  test docstring. Nothing failed; the references simply began pointing one line above
+  the paragraph they name. **Anti-pattern:** `file.md:NNN` in prose that will outlive
+  the edit that produced it. **Gate:** judge-facing prose and test docstrings cite a
+  **section** (`docs/detection_floor.md` §10); a line number is for a report, a backlog
+  row or a critic finding, which are records of a moment and are expected to age.
+  Corollary from the same lap: a pragma is a comment, and an HTML comment on its own
+  line **inside** a paragraph, or between a table separator and its first row, splits
+  the block when the document is rendered. These are documents a student reads on
+  paper — a mid-block pragma goes inline at end of line, where it is invisible in both
+  the raw file and the rendered page.
