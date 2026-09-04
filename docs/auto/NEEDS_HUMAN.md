@@ -516,7 +516,7 @@ What is left for you: item 1, and saying whether you agree with the reading. If 
 reply `NH-018: <your decision>` and a lap will restore whatever you ask, verbatim.
 ---
 
-**Options:** A) keep the 0100Z scope note as it stands (prints no share)  B) remove the "약 43 %" / "about 43 %" sentence, keep the rest  C) also restate the season toll (32 deaths) in the scope note
+**Options:** A) keep the 0100Z scope note as it stands (prints no share)  B) remove the "약 43 %" / "about 43 %" sentence, keep the rest — **already done 2026-09-04T0255Z on evidence, per critic #5 F21; reply B only to confirm, or A to have it put back**  C) also restate the season toll (32 deaths) in the scope note
 
 
 ## NH-019 · DECISION · open · One report time, for one fire, decides what the detection result is allowed to say (by 2026-09-08)
