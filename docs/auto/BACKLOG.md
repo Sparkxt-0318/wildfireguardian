@@ -1727,6 +1727,12 @@ states what is and is not known about the county identity; (c) NH-005's and NH-0
 `sigungu_cd == "47920"` as correct and instead asserts the artifact is where its label says
 (that assertion is WFG-076's, so this row may mark the test `xfail` with a reason pointing at
 NH-022, and must not delete it).
+**Correction 2026-09-04 (the closing lap, after independent review):** the 「about 45 km」 in
+this row's own paragraph above is not a computed figure. Measured over the 239 committed points
+against the box, the nearest is 30.5 km and the farthest 65.6 km. The row's claim needs no
+distance and stands without one: 0 of 239 inside, no overlap on either axis. No kilometre figure
+was written into the registry or into any judge-facing document.
+
 **Constraints:** the loop cannot re-cut the data — `data/raw/juso/` is git-ignored and
 laptop-only, and `extract_juso_yeongdeok.py` returns early without it. Do **not** guess the
 correct 시군구 code from memory; WFG-066 is the standing rule that an identifier not read off a

@@ -76,7 +76,7 @@ the area (see backlog WFG-013) so this may close itself.
 
 **2026-09-04, later the same session:** the author attached 사물주소도형(경상북도) and 민원행정기관전자지도 from 주소정보누리집. Ingested (`docs/juso_yeongdeok.md`, WFG-073/074). Neither is the 도로명주소 **건물** layer, so this entry stays open for that file only: on business.juso.go.kr choose 도로명주소 전자지도 → 건물 (경상북도 or 영덕군), place the zip under `data/raw/juso/`, and say so in a session.
 
-**AMENDMENT 2026-09-04 (WFG-075).** The sentence above is wrong where it implies the ingested subset is 영덕's. It was cut on 시군구 code 47920 and its geometry lies wholly outside this repository's 영덕 box, about 45 km away; the county identity is unverified and is not guessed (NH-022, WFG-066). Nothing in that subset may be used as 영덕 data until it is re-cut on the laptop. **This entry's own ask is unchanged and still open:** the 도로명주소 **건물** layer was never in either zip, so household counts stay provisional on the 124 OSM buildings whatever NH-022 decides.
+**AMENDMENT 2026-09-04 (WFG-075).** The sentence above is wrong where it implies the ingested subset is 영덕's. It was cut on 시군구 code 47920 and its geometry lies wholly outside this repository's 영덕 box, overlapping it on neither axis; the county identity is unverified and is not guessed (NH-022, WFG-066). Nothing in that subset may be used as 영덕 data until it is re-cut on the laptop. **This entry's own ask is unchanged and still open:** the 도로명주소 **건물** layer was never in either zip, so household counts stay provisional on the 124 OSM buildings whatever NH-022 decides.
 
 ## NH-006 · DECISION · closed · Confirm the finals date: 10.18 (your notice) vs 10.24 (June schedule post)
 
@@ -227,7 +227,7 @@ you:** login and CAPTCHA.
 
 **2026-09-04 note:** part (b) is narrowed by the author's 사물주소 download — 영덕's designated 지진옥외대피장소 and 무더위쉼터 are now in the repository (`docs/juso_yeongdeok.md`); whether any is a designated *wildfire* 대피소 is still unknown and stays post-finals with this entry.
 
-**AMENDMENT 2026-09-04 (WFG-075): the note above is withdrawn.** Part (b) is **not** narrowed. The 지진옥외대피장소 and 무더위쉼터 points that arrived on 2026-09-04 are not established to be 영덕's: the subset was cut on 시군구 code 47920 and every one of its 239 points falls outside this repository's 영덕 box, about 45 km away (NH-022). Until that is re-cut on the laptop, the repository holds **no** agency-designated 대피장소 list for 영덕, and part (b) — the 공공데이터포털 national shelter file — remains exactly as open as it was before the download.
+**AMENDMENT 2026-09-04 (WFG-075): the note above is withdrawn.** Part (b) is **not** narrowed. The 지진옥외대피장소 and 무더위쉼터 points that arrived on 2026-09-04 are not established to be 영덕's: the subset was cut on 시군구 code 47920 and every one of its 239 points falls outside this repository's 영덕 box, on both axes (NH-022). Until that is re-cut on the laptop, the repository holds **no** agency-designated 대피장소 list for 영덕, and part (b) — the 공공데이터포털 national shelter file — remains exactly as open as it was before the download.
 
 ## NH-013 · FYI · closed · Optional: a stable web address for the visual board
 
@@ -829,4 +829,21 @@ If they do not, the filter field itself is wrong and not just the constant, and 
 saying rather than adjusting until something passes.
 
 **Options:** A) I will re-cut it on the laptop with the correct code  B) drop the 주소정보누리집 subset for the finals; keep the OSM refuges and the synthetic depots, and archive the mis-cut artifact with its correction note  C) keep the mis-cut data as a deliberately labelled 봉화 control set (it is a real agency inventory of a real county) and re-cut 영덕 separately
+
+**AMENDMENT 2026-09-04 (WFG-075, after independent review).** Two corrections to this entry,
+neither of which changes what it asks of you.
+
+1. **「about 45 km apart」 above is not a computed figure and is withdrawn.** Measured from the
+   239 committed points against the 영덕 box: the nearest point is **30.5 km** from the box and
+   the farthest **65.6 km**; no construction over these files yields 45. The claim this entry
+   rests on needs no distance at all and is unchanged: **0 of 239 points are inside the box,
+   and the two do not overlap on either axis** (lon gap 0.102°, lat gap 0.185°). Nothing was
+   written into `docs/NUMBERS.json` or any judge-facing document with a kilometre figure.
+2. **「The centre of the extracted set is next to 봉화읍」 is an inference, not a reading**, and
+   is kept here only because this entry is where inferences are allowed to be labelled as such.
+   For what it is worth as a lead and not as a fact: **74 of the committed `minwon_agencies`
+   road-address fields contain 봉화군**. That is a field in the data rather than a code read
+   off 행정표준코드, so it still does not settle the identity, and option C below should not be
+   taken on it alone.
+
 

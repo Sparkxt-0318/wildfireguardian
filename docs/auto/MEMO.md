@@ -720,3 +720,19 @@ mood) · evidence.
   gate into a comment everywhere the loop actually runs. **Gate:** before adding a `skip`
   to a new check, run it in the sandbox and ask which of the loop's own environments the
   skip fires in; a skip that fires in all of them is a gate that was never written.
+- 2026-09-04 · dev · **A number inherited from another lap's finding is an unregistered
+  number, and it does not feel like one.** Critic #11's F54 said the mis-cut subset was
+  「about 45 km」 from 영덕. This lap said in its own summary that it had re-measured the
+  finding 「rather than taking it on trust」 — and it had, but only the part that was
+  load-bearing for the *conclusion* (0 of 239 points inside the box). The 45 km travelled
+  unchecked into `docs/NUMBERS.json` on eight entries, into two NEEDS_HUMAN amendments
+  addressed to the author, into the plain-terms section written for the reader least able
+  to check it, and into a `assert "45 km" in head` string pin that would have broken the
+  suite for the first lap that computed the real value. The independent reviewer computed
+  it: the nearest point is **30.5 km** from the box, the farthest 65.6; no construction
+  over those files yields 45. **Anti-pattern:** 「I verified the finding」 meaning 「I
+  verified the claim the finding supports」. A finding is a set of numbers and the ones
+  that do not carry the argument are exactly the ones nobody re-derives. **Gate:** every
+  figure copied out of another lap's report is either re-derived in this lap, or deleted —
+  and the containment claim is the test of whether it was ever needed: this one needed no
+  distance at all.

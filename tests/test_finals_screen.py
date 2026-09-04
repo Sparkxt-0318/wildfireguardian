@@ -600,3 +600,31 @@ def test_the_stamp_gate_is_graded_against_the_ways_a_stamp_goes_wrong():
                        if label == "orphaned by a rebase")
     assert existence_only[orphan_case] is False, (
         "the whole objection is that existence passes the orphan case")
+
+
+def test_the_escape_this_gate_cannot_close_is_still_open():
+    """The case the builder's own mutation set did not contain (independent review).
+
+    Reachability from HEAD is the right predicate, and it still has one hole, which
+    is WFG-067's failure class one level up. A stamp naming a commit that exists
+    locally and is reachable from the local HEAD but has NOT been pushed passes this
+    gate on the building machine, and a judge cloning the repository afterwards
+    cannot resolve it if a rebase orphaned that commit before the push. The gate
+    cannot close it: at build time a legitimate build often sits on an unpushed
+    commit, so failing that case would make the gate unsatisfiable in normal use --
+    the same trap the row names for equality-with-HEAD.
+
+    What closes it is operational, so this test checks the operation rather than the
+    predicate: when `origin/auto/dev` is known here, the stamp must be reachable from
+    IT too, which is why this lap deliberately built at a commit that was already
+    pushed. Named and asserted rather than left as a comment, in the style of
+    `test_external_figures_carry_their_scope::test_the_escapes_..._are_still_open`.
+    """
+    _needs_git_history()
+    if _git("rev-parse", "--verify", "origin/auto/dev").returncode != 0:
+        pytest.skip("origin/auto/dev not known in this clone")
+    stamp = _payload()["git"]
+    assert _git("merge-base", "--is-ancestor", stamp, "origin/auto/dev").returncode == 0, (
+        f"web/finals.html names {stamp}, which is reachable from your HEAD but is not on "
+        "origin/auto/dev. It resolves for you and not for anyone who clones the repository. "
+        "Rebuild the screen at a commit that is already pushed, or push first and rebuild.")

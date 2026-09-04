@@ -26,8 +26,12 @@ PREFIX = "juso_yeongdeok_"
 
 # WFG-075 (2026-09-04). The subset was cut on 시군구 code 47920, labelled 영덕군, and the
 # geometry says otherwise: all 239 committed points sit at 128.65-129.15 E / 36.78-37.06 N and
-# `regions.lookup('yeongdeok_2025').bbox_wgs84` is (129.25, 36.30, 129.55, 36.60) -- no overlap
-# on either axis, about 45 km apart. The COUNTS are what they say they are (the filter really
+# `regions.lookup('yeongdeok_2025').bbox_wgs84` is (129.25, 36.30, 129.55, 36.60) -- the two do
+# not overlap on either axis. NO DISTANCE IN KILOMETRES IS WRITTEN HERE: the containment claim
+# does not need one, and the figure in circulation ("about 45 km", critic #11) reproduces from
+# no construction over these files -- measured, the nearest point is 30.5 km from the box, the
+# farthest 65.6 km. An unregistered number is not written down (CHARTER 3.3).
+# The COUNTS are what they say they are (the filter really
 # selected that many rows); the COUNTY LABEL on them is not established. The wrong label is
 # deliberately left in `scope`, `sample` and `derivation` as the record of what was claimed --
 # CHARTER 3.2/3.3 annotate, never edit -- and every entry now carries the correction below.
@@ -36,9 +40,10 @@ PREFIX = "juso_yeongdeok_"
 SCOPE_CORRECTION = (
     "SCOPE WRONG, DO NOT USE AS 영덕 DATA (2026-09-04, WFG-075 / NH-022). The 시군구 filter "
     "47920 is labelled 영덕군 and the extracted geometry lies wholly outside this repository's "
-    "영덕 box (129.25-129.55 E / 36.30-36.60): every point is at 128.65-129.15 E / "
-    "36.78-37.06 N, about 45 km away, and the 지진해일긴급대피장소 layer came back empty, which "
-    "a coastal county's would not. The count itself is the number of rows the filter matched; "
+    "영덕 box (129.25-129.55 E / 36.30-36.60): all 239 points are at 128.65-129.15 E / "
+    "36.78-37.06 N, overlapping it on neither axis, and the 지진해일긴급대피장소 layer came back "
+    "empty, which a coastal county's would not. The count itself is the number of rows the "
+    "filter matched; "
     "which county those rows belong to is UNVERIFIED and is not guessed here. Re-cut is "
     "laptop-only (NH-022)."
 )
@@ -88,6 +93,13 @@ def main() -> int:
     head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=REPO, capture_output=True, text=True).stdout.strip()
     new = build_entries(man, head, doc["config_hash"])
     cur = doc["numbers"]
+    # `git_commit` records the commit the artifact was produced at, not the commit that
+    # last re-ran this script. Re-stamping it while the value is unchanged would assert a
+    # production commit at which these GeoJSONs did not exist, so carry the old one
+    # forward (independent review, 2026-09-04, WFG-075).
+    for k, e in new.items():
+        if k in cur and cur[k]["value"] == e["value"] and cur[k].get("git_commit"):
+            e["git_commit"] = cur[k]["git_commit"]
     stale = [k for k, e in new.items() if k not in cur or cur[k]["value"] != e["value"]]
     if args.check:
         print(f"[juso] {len(new)} keys, {len(stale)} stale")

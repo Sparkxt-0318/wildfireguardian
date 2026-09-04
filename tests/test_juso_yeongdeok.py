@@ -2,13 +2,17 @@
 
 **WFG-075, 2026-09-04.** This file used to assert `man["sigungu_cd"] == "47920"` as a
 correctness property of a subset labelled 영덕. It passed, every lap, on data that is not
-영덕's: the filter constant was mis-labelled and the geometry sits about 45 km away. The
-assertion is kept and marked `xfail`, not deleted, so the record of what was enforced
-survives; it flips back to a passing assertion when NH-022 re-cuts the subset with a code
-read off 행정표준코드. The tests below it are the containment: they fail if the correction
-is ever dropped from the registry or the document.
+영덕's: the filter constant was mis-labelled and the geometry is outside the 영덕 box on both
+axes.
+
+The property the suite ought to have held -- that the subset is *in* 영덕 -- is written here as
+its own `xfail(strict=True)` test, so the record of what was and was not enforced survives and
+a correct re-cut (NH-022) turns it green and the suite red. The manifest/extractor agreement it
+used to be bundled with stays a passing test, because that one was never broken. The rest are
+the containment: they fail if the correction is dropped from the registry or the document.
 """
 import json
+import re
 from pathlib import Path
 
 import pytest
@@ -23,16 +27,31 @@ def _manifest() -> dict:
     return json.loads((OUT / "manifest.json").read_text(encoding="utf-8"))
 
 
+def test_the_manifest_records_the_code_the_subset_was_actually_cut_on():
+    """Still enforced, and deliberately not folded into the xfail below.
+
+    The first draft of this fix appended the (failing) geometry assertion to this
+    (passing) one and xfailed the pair, which silently stopped enforcing a property
+    that was never broken: that the manifest records the same 시군구 code the
+    extractor used. Independent review caught it. The two are separate tests, and
+    this one is written against the script rather than the literal "47920" so a
+    correct re-cut (NH-022) leaves it passing instead of red.
+    """
+    src = (REPO / "scripts" / "extract_juso_yeongdeok.py").read_text(encoding="utf-8")
+    m = re.search(r'^SIGUNGU\s*=\s*"(\d{5})"', src, re.M)
+    assert m, "extract_juso_yeongdeok.py no longer declares SIGUNGU"
+    assert _manifest()["sigungu_cd"] == m.group(1)
+
+
 @pytest.mark.xfail(
     strict=True,
-    reason="WFG-075/NH-022: 47920 is labelled 영덕군 and its geometry is not in 영덕. Kept as "
-           "the record of what this suite enforced; re-cut on the laptop makes it pass again.",
+    reason="WFG-075/NH-022: the subset labelled 영덕 is not inside 영덕. Kept as the record of "
+           "what this suite once asserted. strict=True means a correct re-cut turns this GREEN "
+           "and the suite RED, which is the signal to delete the xfail marker.",
 )
-def test_the_subset_is_cut_on_yeongdeoks_sigungu_code():
-    man = _manifest()
-    assert man["sigungu_cd"] == "47920"
+def test_the_subset_lies_inside_the_yeongdeok_box():
     lo0, la0, lo1, la1 = YEONGDEOK_BBOX
-    for layer in man["layers"]:
+    for layer in _manifest()["layers"]:
         gj = json.loads((OUT / f"{layer}.geojson").read_text(encoding="utf-8"))
         for feat in gj["features"]:
             x, y = feat["geometry"]["coordinates"]
@@ -71,7 +90,8 @@ def test_not_one_point_is_inside_the_yeongdeok_box():
     assert total == 239, f"the committed subset holds 239 points, found {total}"
     assert inside == 0, (
         f"{inside} of {total} points are now inside the 영덕 box. If the subset was re-cut "
-        "(NH-022), delete this test and un-xfail test_the_subset_is_cut_on_yeongdeoks_sigungu_code."
+        "(NH-022), delete this test and the xfail marker on "
+        "test_the_subset_lies_inside_the_yeongdeok_box."
     )
 
 
@@ -101,5 +121,7 @@ def test_the_document_opens_on_the_correction():
     text = (REPO / "docs" / "juso_yeongdeok.md").read_text(encoding="utf-8")
     head = text.split("**What this is.**")[0]
     assert "정정 (2026-09-04, WFG-075)" in head
-    assert "NH-022" in head and "45 km" in head
+    assert "NH-022" in head
+    assert "45 km" not in head.split("킬로미터 거리는 여기에 쓰지 않는다")[0], (
+        "an unregistered distance must not be asserted before the sentence that withdraws it")
     assert "WFG-066" in head, "the document must say why the correct county is not written down"
