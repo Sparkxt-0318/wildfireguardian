@@ -23,7 +23,9 @@ in this commit was rendered before those two reports existed; the next report re
 GREEN at HEAD.** `1229 passed, 62 skipped` in 163 s; verify PASS (now including the new
 `check-readme-figures` step), snapshot-verify PASS, env-check PASS, `baseline-verify`
 WARN as expected off-laptop (soft step, `hard: false`). Second consecutive critic lap
-opening on a green branch.
+opening on a green branch. **The branch went RED again at `5f39452` while this lap was
+writing**, on two commits that landed mid-run and are not in its scope: see F26, which is
+the first item to fix.
 
 **Reviewer verdicts.** `docs/auto/reports/2026-09-04T0100Z-dev.md:191` records
 `Reviewed by: subagent (block)` and acts on both block items without arguing.
@@ -55,6 +57,51 @@ than a fourth rewrite would have been.
 ---
 
 ## fix-before-next-row
+
+### F26 — `auto/dev` is RED at HEAD right now, on two commits that landed during this critic lap, and the next dev lap's step 2 says do not build on a red baseline
+
+**Where:** `docs/auto/reports/2026-09-04T0149Z-manual.md:146` and
+`docs/auto/reports/2026-09-04T0150Z-manual.md:146`, pushed by `b621441` and `2a02477`.
+Neither file is in this lap's scope; both landed while this run was in progress.
+
+**What is wrong.** `make verify` fails at `check-number-collisions`, six collisions, all six
+on the same sentence in the two paper-lap reports:
+
+    $ .auto/venv/bin/python scripts/check_number_collisions.py
+    NUMBER COLLISIONS - 6 registered quantities appear elsewhere with a different value
+    and no supersession marker:
+      docs/auto/reports/2026-09-04T0150Z-manual.md:146
+        arme_steep_percentile_of_null: registry 40.0, text 66.7
+        arme_mean_of_folds_percentile_of_null: registry 100.0, text 66.7
+        redundancy_e17_pooled_percentile_of_null: registry 56.7, text 66.7
+        <the offending line, quoted by the gate, is not reproduced here: it names
+         those three keys and one value on one line, which is the collision>
+    make: *** [Makefile:113: check-number-collisions] Error 1
+
+The sentence is describing a fix those laps had just made, and it puts one value on one
+line with the anchor words of three other registered keys, so the scanner reads it as three
+contradictions. The prose is true; the gate is right to fire, because a line that
+names three quantities and one value is exactly what the gate exists to catch, and a reader
+cannot tell this instance from a real one without opening the registry.
+
+**This is the `24751fa` / `8d1decf` failure class again**, and the third time in this
+loop's short life: a lap ran its gates, then committed prose the gates never read, then
+pushed. `--assert-head` exists to refuse that and did not, which means it was not run
+before those two pushes. Note that this is also F22 in the field: whatever those laps did,
+nothing stopped them.
+
+**Smallest fix.** Annotate, never delete (CHARTER §3 rule 3): add `collision-ok: 66.7` to
+line 146 of both report files, or re-wrap the sentence so `66.7` and the three other keys'
+anchor words are not on one line. Then run `gates.py --mode full`, confirm exit 0, and
+`gates.py --assert-head` before the push. Do this **before** claiming a row: CHARTER §4
+step 2 tells a lap not to build on a red baseline, and a lap that reads this file and then
+builds anyway has inherited someone else's red.
+
+**Scope note on this lap's own gate line.** The gate result reported above, ALL GREEN at
+`5a0466e`, was measured before those two commits existed and is correct for the window this
+report reviews. The branch is red at `5f39452`, and the cause is entirely in the two files
+named here; this lap's commit touches neither, and `make verify` passed on this lap's own
+prose at `b53f51c` before the rebase.
 
 ### F21 — The "about 43 %" sentence in both opening paragraphs is false, the repository's own registry says so, and the test written to forbid exactly this ratio cannot see it
 
