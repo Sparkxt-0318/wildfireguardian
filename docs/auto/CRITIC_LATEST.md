@@ -233,7 +233,12 @@ right. What is left is worse for being smaller:
 - **N51 · WFG-038/039 reproduced a third time, and the comparison is clean again.** One cold
   full-suite pass, quoted as cold: `1273 passed, 62 skipped` against critic #7's cold
   `1261 / 62`. Every census in this series should carry the word until WFG-039 makes the SRTM
-  download opt-in.
+  download opt-in. **And it reproduced inside this lap for the second time:** the push-commit
+  re-run at `d8aec94`, minutes later on the same tree, reports `1279 passed, 56 skipped` —
+  +6 passed and -6 skipped against the cold reading, exactly the six SRTM-gated tests, because
+  the first run downloaded the tile mid-suite. Both runs are green and neither number is
+  wrong, which is the whole problem: 「the suite passed N tests」 is not yet a statement about
+  a commit in this repository.
 
 ---
 
