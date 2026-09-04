@@ -104,6 +104,8 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-014 | P3 | IEEE | Paper skeleton in `paper/` (**revise**: vocabulary, caveats, AI acknowledgment, no preprint before December) | done(0ff1b36) | true | weeks | — |
 | WFG-035 | P3 | IEEE | Register every number the manuscript will cite; reconcile the two HGB means; per-fire/spatial-block CIs; new-ring IoU beside cumulative | todo | true | one lap | 데이터 해석 |
 | WFG-015 | P3 | IEEE | Reproducibility package + Zenodo release checklist (keep; DOI minted by the student) | todo | true (release: human) | one lap | 데이터 해석 (재현) |
+| WFG-073 | P1 | science | Designated sites as refuge candidates for 영덕: the author's 주소정보누리집 download (2026-09-04) gives agency-listed 지진옥외대피장소 and 무더위쉼터 points (`data/processed/external/juso_yeongdeok/`, `docs/juso_yeongdeok.md`). Measure how many of the router's current 영덕 refuges coincide with a designated site (within the walk-network snap distance), how many designated sites are reachable under the canonical forecast, and whether swapping them in changes the decision-shift counts — a new arm, new filenames, no committed artifact modified | todo | true | one lap | 데이터 수집 · 설계와 방법론 |
+| WFG-073 | P1 | product | Responder depots and notification targets from the 민원행정기관 layer: 119안전센터, 파출소 and 읍면동 offices for 영덕 with road addresses and phone numbers (`juso_yeongdeok_minwon_agencies_count`). Load them through the existing `rescue.load_depots` path as a documented alternative to the synthetic depots; the alert sheet names the nearest 읍면동 office. No numbers move; a new arm | todo | true | one lap | 제출 자료 · 창의성 |
 
 ## Details
 
@@ -1668,3 +1670,23 @@ give the author. The record is corrected here rather than the row: what critic #
 raise the row's **evidence**, not its priority.
 
 **NH-021 (author, 2026-09-04):** WFG-062 goes first — raised to P0 and moved to the top of the table so the next dev lap claims it; booth rows resume after.
+
+### WFG-073 · P1 · science · Designated sites as refuge candidates (영덕)
+
+The author attached two 주소정보누리집 downloads on 2026-09-04 (not the building layer; see
+`docs/juso_yeongdeok.md`). For the first time the repository holds agency-designated outdoor
+evacuation sites and cooling centres for 영덕 with coordinates. **Done when:** a new script
+writes `data/processed/refuge_designated_yeongdeok.json` with (a) the snap distance from each
+router refuge to the nearest designated site, (b) reachability of each designated site under the
+canonical forecast and budget, (c) the decision-shift counts with designated sites as the refuge
+set, side by side with the shipped set; a `docs/refuge_designated.md` with method, result, caveats
+(the categories are earthquake and heat, not wildfire); numbers registered additively; tests.
+**Constraints:** no committed artifact modified; the comparison is an arm, not a replacement.
+
+### WFG-073 · P1 · product · Depots and notification targets from the 민원행정기관 layer
+
+**Done when:** `rescue.load_depots` (or its documented equivalent) reads the 119 centres, 파출소
+and 읍면동 offices from `data/processed/external/juso_yeongdeok/minwon_agencies.geojson` as a
+named depot set; the dispatch experiment can be pointed at it by config; the A4 alert sheet
+names the nearest 읍면동 office and its phone number from the same file; docs and tests.
+**Constraints:** a new arm with new filenames; the synthetic depots stay as the control.

@@ -10413,6 +10413,294 @@
         "expr": "round(a / b * 100, 1)",
         "tolerance": 0.0
       }
+    },
+    "juso_yeongdeok_minwon_agencies_count": {
+      "value": 74,
+      "unit": "features",
+      "source_file": "data/processed/external/juso_yeongdeok/manifest.json",
+      "json_path": "layers.minwon_agencies.count",
+      "derivation": "count of 민원행정기관 features with sigungu code 47920 (영덕군) in the 행정안전부 주소정보누리집 (business.juso.go.kr) dataset dated 2024-01-24; filter: 시군구코드 == 47920",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "3ffc1352db6c7e98216f53585eb0514192fed781",
+      "sample": "영덕군",
+      "caveat": "Administrative inventory as published; not a survey of what stands today. The 사물주소 shapefiles carry no .prj and were assigned EPSG:5179 (see manifest crs_note). This is NOT the 도로명주소 건물 layer (NH-005 stays open).",
+      "forbidden_phrasings": [],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "re-run scripts/extract_juso_yeongdeok.py on the two zips (sha256 in the manifest)",
+        "blocked_by": "data/raw/juso/ is a laptop-only bundle"
+      },
+      "provenance": "external",
+      "arm": "external",
+      "figure_status": "final",
+      "agency": "행정안전부 주소정보누리집 (business.juso.go.kr)",
+      "as_of": "2024-01-24",
+      "scope": "영덕군 · 민원행정기관",
+      "source_url": "https://business.juso.go.kr",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/external/juso_yeongdeok/manifest.json",
+            "json_path": "layers.minwon_agencies.count"
+          }
+        }
+      }
+    },
+    "juso_yeongdeok_samul_eqout_point_count": {
+      "value": 27,
+      "unit": "features",
+      "source_file": "data/processed/external/juso_yeongdeok/manifest.json",
+      "json_path": "layers.samul_eqout_point.count",
+      "derivation": "count of 지진옥외대피장소 features with sigungu code 47920 (영덕군) in the 행정안전부 주소정보누리집 (business.juso.go.kr) dataset dated 2025-03-01; filter: OBJ_MNG_NO[5:10] == '47920' (OBJ + kind(2) + sigungu(5) + serial(8))",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "3ffc1352db6c7e98216f53585eb0514192fed781",
+      "sample": "영덕군",
+      "caveat": "Administrative inventory as published; not a survey of what stands today. The 사물주소 shapefiles carry no .prj and were assigned EPSG:5179 (see manifest crs_note). This is NOT the 도로명주소 건물 layer (NH-005 stays open).",
+      "forbidden_phrasings": [],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "re-run scripts/extract_juso_yeongdeok.py on the two zips (sha256 in the manifest)",
+        "blocked_by": "data/raw/juso/ is a laptop-only bundle"
+      },
+      "provenance": "external",
+      "arm": "external",
+      "figure_status": "final",
+      "agency": "행정안전부 주소정보누리집 (business.juso.go.kr)",
+      "as_of": "2025-03-01",
+      "scope": "영덕군 · 지진옥외대피장소",
+      "source_url": "https://business.juso.go.kr",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/external/juso_yeongdeok/manifest.json",
+            "json_path": "layers.samul_eqout_point.count"
+          }
+        }
+      }
+    },
+    "juso_yeongdeok_samul_eqwav_point_count": {
+      "value": 0,
+      "unit": "features",
+      "source_file": "data/processed/external/juso_yeongdeok/manifest.json",
+      "json_path": "layers.samul_eqwav_point.count",
+      "derivation": "count of 지진해일긴급대피장소 features with sigungu code 47920 (영덕군) in the 행정안전부 주소정보누리집 (business.juso.go.kr) dataset dated 2025-03-01; filter: OBJ_MNG_NO[5:10] == '47920' (OBJ + kind(2) + sigungu(5) + serial(8))",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "3ffc1352db6c7e98216f53585eb0514192fed781",
+      "sample": "영덕군",
+      "caveat": "Administrative inventory as published; not a survey of what stands today. The 사물주소 shapefiles carry no .prj and were assigned EPSG:5179 (see manifest crs_note). This is NOT the 도로명주소 건물 layer (NH-005 stays open).",
+      "forbidden_phrasings": [],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "re-run scripts/extract_juso_yeongdeok.py on the two zips (sha256 in the manifest)",
+        "blocked_by": "data/raw/juso/ is a laptop-only bundle"
+      },
+      "provenance": "external",
+      "arm": "external",
+      "figure_status": "final",
+      "agency": "행정안전부 주소정보누리집 (business.juso.go.kr)",
+      "as_of": "2025-03-01",
+      "scope": "영덕군 · 지진해일긴급대피장소",
+      "source_url": "https://business.juso.go.kr",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/external/juso_yeongdeok/manifest.json",
+            "json_path": "layers.samul_eqwav_point.count"
+          }
+        }
+      }
+    },
+    "juso_yeongdeok_samul_coolingcen_point_count": {
+      "value": 99,
+      "unit": "features",
+      "source_file": "data/processed/external/juso_yeongdeok/manifest.json",
+      "json_path": "layers.samul_coolingcen_point.count",
+      "derivation": "count of 무더위쉼터 features with sigungu code 47920 (영덕군) in the 행정안전부 주소정보누리집 (business.juso.go.kr) dataset dated 2025-03-01; filter: OBJ_MNG_NO[5:10] == '47920' (OBJ + kind(2) + sigungu(5) + serial(8))",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "3ffc1352db6c7e98216f53585eb0514192fed781",
+      "sample": "영덕군",
+      "caveat": "Administrative inventory as published; not a survey of what stands today. The 사물주소 shapefiles carry no .prj and were assigned EPSG:5179 (see manifest crs_note). This is NOT the 도로명주소 건물 layer (NH-005 stays open).",
+      "forbidden_phrasings": [],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "re-run scripts/extract_juso_yeongdeok.py on the two zips (sha256 in the manifest)",
+        "blocked_by": "data/raw/juso/ is a laptop-only bundle"
+      },
+      "provenance": "external",
+      "arm": "external",
+      "figure_status": "final",
+      "agency": "행정안전부 주소정보누리집 (business.juso.go.kr)",
+      "as_of": "2025-03-01",
+      "scope": "영덕군 · 무더위쉼터",
+      "source_url": "https://business.juso.go.kr",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/external/juso_yeongdeok/manifest.json",
+            "json_path": "layers.samul_coolingcen_point.count"
+          }
+        }
+      }
+    },
+    "juso_yeongdeok_samul_lifesav_point_count": {
+      "value": 5,
+      "unit": "features",
+      "source_file": "data/processed/external/juso_yeongdeok/manifest.json",
+      "json_path": "layers.samul_lifesav_point.count",
+      "derivation": "count of 인명구조함 features with sigungu code 47920 (영덕군) in the 행정안전부 주소정보누리집 (business.juso.go.kr) dataset dated 2025-03-01; filter: OBJ_MNG_NO[5:10] == '47920' (OBJ + kind(2) + sigungu(5) + serial(8))",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "3ffc1352db6c7e98216f53585eb0514192fed781",
+      "sample": "영덕군",
+      "caveat": "Administrative inventory as published; not a survey of what stands today. The 사물주소 shapefiles carry no .prj and were assigned EPSG:5179 (see manifest crs_note). This is NOT the 도로명주소 건물 layer (NH-005 stays open).",
+      "forbidden_phrasings": [],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "re-run scripts/extract_juso_yeongdeok.py on the two zips (sha256 in the manifest)",
+        "blocked_by": "data/raw/juso/ is a laptop-only bundle"
+      },
+      "provenance": "external",
+      "arm": "external",
+      "figure_status": "final",
+      "agency": "행정안전부 주소정보누리집 (business.juso.go.kr)",
+      "as_of": "2025-03-01",
+      "scope": "영덕군 · 인명구조함",
+      "source_url": "https://business.juso.go.kr",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/external/juso_yeongdeok/manifest.json",
+            "json_path": "layers.samul_lifesav_point.count"
+          }
+        }
+      }
+    },
+    "juso_yeongdeok_samul_firehydr_point_count": {
+      "value": 6,
+      "unit": "features",
+      "source_file": "data/processed/external/juso_yeongdeok/manifest.json",
+      "json_path": "layers.samul_firehydr_point.count",
+      "derivation": "count of 소화전 features with sigungu code 47920 (영덕군) in the 행정안전부 주소정보누리집 (business.juso.go.kr) dataset dated 2025-03-01; filter: OBJ_MNG_NO[5:10] == '47920' (OBJ + kind(2) + sigungu(5) + serial(8))",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "3ffc1352db6c7e98216f53585eb0514192fed781",
+      "sample": "영덕군",
+      "caveat": "Administrative inventory as published; not a survey of what stands today. The 사물주소 shapefiles carry no .prj and were assigned EPSG:5179 (see manifest crs_note). This is NOT the 도로명주소 건물 layer (NH-005 stays open).",
+      "forbidden_phrasings": [],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "re-run scripts/extract_juso_yeongdeok.py on the two zips (sha256 in the manifest)",
+        "blocked_by": "data/raw/juso/ is a laptop-only bundle"
+      },
+      "provenance": "external",
+      "arm": "external",
+      "figure_status": "final",
+      "agency": "행정안전부 주소정보누리집 (business.juso.go.kr)",
+      "as_of": "2025-03-01",
+      "scope": "영덕군 · 소화전",
+      "source_url": "https://business.juso.go.kr",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/external/juso_yeongdeok/manifest.json",
+            "json_path": "layers.samul_firehydr_point.count"
+          }
+        }
+      }
+    },
+    "juso_yeongdeok_samul_emerwat_point_count": {
+      "value": 0,
+      "unit": "features",
+      "source_file": "data/processed/external/juso_yeongdeok/manifest.json",
+      "json_path": "layers.samul_emerwat_point.count",
+      "derivation": "count of 비상급수시설 features with sigungu code 47920 (영덕군) in the 행정안전부 주소정보누리집 (business.juso.go.kr) dataset dated 2025-03-01; filter: OBJ_MNG_NO[5:10] == '47920' (OBJ + kind(2) + sigungu(5) + serial(8))",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "3ffc1352db6c7e98216f53585eb0514192fed781",
+      "sample": "영덕군",
+      "caveat": "Administrative inventory as published; not a survey of what stands today. The 사물주소 shapefiles carry no .prj and were assigned EPSG:5179 (see manifest crs_note). This is NOT the 도로명주소 건물 layer (NH-005 stays open).",
+      "forbidden_phrasings": [],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "re-run scripts/extract_juso_yeongdeok.py on the two zips (sha256 in the manifest)",
+        "blocked_by": "data/raw/juso/ is a laptop-only bundle"
+      },
+      "provenance": "external",
+      "arm": "external",
+      "figure_status": "final",
+      "agency": "행정안전부 주소정보누리집 (business.juso.go.kr)",
+      "as_of": "2025-03-01",
+      "scope": "영덕군 · 비상급수시설",
+      "source_url": "https://business.juso.go.kr",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/external/juso_yeongdeok/manifest.json",
+            "json_path": "layers.samul_emerwat_point.count"
+          }
+        }
+      }
+    },
+    "juso_yeongdeok_samul_busst_point_count": {
+      "value": 28,
+      "unit": "features",
+      "source_file": "data/processed/external/juso_yeongdeok/manifest.json",
+      "json_path": "layers.samul_busst_point.count",
+      "derivation": "count of 버스정류장 features with sigungu code 47920 (영덕군) in the 행정안전부 주소정보누리집 (business.juso.go.kr) dataset dated 2025-03-01; filter: OBJ_MNG_NO[5:10] == '47920' (OBJ + kind(2) + sigungu(5) + serial(8))",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "3ffc1352db6c7e98216f53585eb0514192fed781",
+      "sample": "영덕군",
+      "caveat": "Administrative inventory as published; not a survey of what stands today. The 사물주소 shapefiles carry no .prj and were assigned EPSG:5179 (see manifest crs_note). This is NOT the 도로명주소 건물 layer (NH-005 stays open).",
+      "forbidden_phrasings": [],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "re-run scripts/extract_juso_yeongdeok.py on the two zips (sha256 in the manifest)",
+        "blocked_by": "data/raw/juso/ is a laptop-only bundle"
+      },
+      "provenance": "external",
+      "arm": "external",
+      "figure_status": "final",
+      "agency": "행정안전부 주소정보누리집 (business.juso.go.kr)",
+      "as_of": "2025-03-01",
+      "scope": "영덕군 · 버스정류장",
+      "source_url": "https://business.juso.go.kr",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/external/juso_yeongdeok/manifest.json",
+            "json_path": "layers.samul_busst_point.count"
+          }
+        }
+      }
     }
   }
 }

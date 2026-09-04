@@ -1,12 +1,12 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "fbe71deb495c01bd9c8b2786696dea25fb14673a",
-  "n_artifacts": 97,
-  "total_bytes": 14478145,
-  "total_mib": 13.81,
+  "generated_at_git_commit": "3ffc1352db6c7e98216f53585eb0514192fed781",
+  "n_artifacts": 99,
+  "total_bytes": 14506766,
+  "total_mib": 13.83,
   "n_git_tracked": 97,
-  "n_untracked_manifest_only": 0,
-  "n_regenerate_unknown": 9,
+  "n_untracked_manifest_only": 2,
+  "n_regenerate_unknown": 8,
   "artifacts": [
     {
       "path": "data/processed/.gitkeep",
@@ -258,10 +258,13 @@
       "cited_by_docs": [
         "docs/auto/BACKLOG.md",
         "docs/auto/finals/DETECTION_FLOOR_CARD.md",
+        "docs/auto/reports/2026-09-04T0149Z-manual.md",
+        "docs/auto/reports/2026-09-04T0150Z-manual.md",
         "docs/auto/research/BACKLOG_PROPOSAL_2026-09-03.md",
-        "docs/detection_floor.md"
+        "docs/detection_floor.md",
+        "docs/finals_screen_v2.md"
       ],
-      "regenerate": "python scripts/gk2a_detection.py"
+      "regenerate": "python scripts/build_finals.py"
     },
     {
       "path": "data/processed/detection/kfs_containment_duration.json",
@@ -272,9 +275,11 @@
       "n_registry_entries": 7,
       "cited_by_docs": [
         "docs/SESSION20_REPORT.md",
+        "docs/auto/BACKLOG.md",
+        "docs/finals_screen_v2.md",
         "docs/horizon_grounding.md"
       ],
-      "regenerate": "python scripts/ingest_kfs_statistics.py"
+      "regenerate": "python scripts/build_finals.py"
     },
     {
       "path": "data/processed/detection/yeongdeok_background_contamination.json",
@@ -338,9 +343,36 @@
       "git_tracked": true,
       "n_registry_entries": 16,
       "cited_by_docs": [
+        "docs/auto/BACKLOG.md",
+        "docs/auto/JUDGE_QA.md",
+        "docs/auto/KCF_READINESS.md",
+        "docs/auto/SCORECARD.md",
+        "docs/auto/reports/2026-09-04T0134Z-dev.md",
         "docs/data_sources.md"
       ],
       "regenerate": "python scripts/check_readme_figures.py"
+    },
+    {
+      "path": "data/processed/external/juso_yeongdeok/manifest.json",
+      "bytes": 2985,
+      "sha256": "af1614b745606fb255f4201f5f2ac4fb7c134b71a25aaf1e4af929f47b170660",
+      "kind": "text",
+      "git_tracked": false,
+      "n_registry_entries": 8,
+      "cited_by_docs": [],
+      "regenerate": "python scripts/register_juso_yeongdeok.py"
+    },
+    {
+      "path": "data/processed/external/juso_yeongdeok/minwon_agencies.geojson",
+      "bytes": 25636,
+      "sha256": "fbe4f1efe2fc3a8fbfba4d6e005b382994f36b36773bae26bfa510ea129d6314",
+      "kind": "text",
+      "git_tracked": false,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/auto/BACKLOG.md"
+      ],
+      "regenerate": "python scripts/extract_juso_yeongdeok.py"
     },
     {
       "path": "data/processed/forecast_robustness.json",
@@ -488,6 +520,7 @@
         "docs/auto/research/BACKLOG_PROPOSAL_2026-09-03.md",
         "docs/auto/research/RESEARCH_BRIEF_2026-09-03.md",
         "docs/auto/research/sweeps_2026-09-03/R7_rubric_gap.md",
+        "docs/finals_screen_v2.md",
         "docs/operating_point.md"
       ],
       "regenerate": "UNKNOWN"
@@ -507,9 +540,10 @@
         "docs/auto/reports/2026-09-03T1622Z-dev.md",
         "docs/auto/research/BACKLOG_PROPOSAL_2026-09-03.md",
         "docs/auto/research/RESEARCH_BRIEF_2026-09-03.md",
+        "docs/finals_screen_v2.md",
         "docs/operating_point.md"
       ],
-      "regenerate": "python scripts/operating_point_evidence.py"
+      "regenerate": "python scripts/build_finals.py"
     },
     {
       "path": "data/processed/ordering_boundary.json",
@@ -921,6 +955,7 @@
         "docs/MODEL_CARD.md",
         "docs/SESSION18_REPORT.md",
         "docs/auto/BACKLOG.md",
+        "docs/auto/knowledge/PYROGEOGRAPHY.md",
         "docs/auto/research/BACKLOG_PROPOSAL_2026-09-03.md",
         "docs/auto/research/RESEARCH_BRIEF_2026-09-03.md",
         "docs/operating_point.md"
@@ -1067,9 +1102,10 @@
       "n_registry_entries": 6,
       "cited_by_docs": [
         "docs/SESSION22_LOG.md",
-        "docs/SESSION22_REPORT.md"
+        "docs/SESSION22_REPORT.md",
+        "docs/finals_screen_v2.md"
       ],
-      "regenerate": "UNKNOWN"
+      "regenerate": "python scripts/build_finals.py"
     },
     {
       "path": "data/processed/vulnerability/tautology_decomposition.json",

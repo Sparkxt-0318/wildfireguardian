@@ -407,3 +407,8 @@ outputs/live/**/state_*.json
 # --- external published figures (WFG-049): the README opening numbers with agency, date, scope, URL
 !data/processed/external/
 !data/processed/external/*.json
+
+# --- 영덕 subset of the author's 주소정보누리집 downloads (2026-09-04): small GeoJSON + manifest
+!data/processed/external/juso_yeongdeok/
+!data/processed/external/juso_yeongdeok/*.geojson
+!data/processed/external/juso_yeongdeok/manifest.json

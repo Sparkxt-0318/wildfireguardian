@@ -1,0 +1,91 @@
+{
+  "what": "영덕군 subset of two 행정안전부 주소정보누리집 datasets; NOT the 도로명주소 건물 layer",
+  "agency": "행정안전부 주소정보누리집 (business.juso.go.kr)",
+  "retrieved_by": "the author, 2026-09-04 (downloaded from business.juso.go.kr; the loop cannot log in)",
+  "sigungu_cd": "47920",
+  "crs_note": "민원행정기관 carries EPSG:5179 in its .prj; the 사물주소 shapefiles carry none and were assigned EPSG:5179 because their coordinates fall on the same grid as the agency points for 영덕",
+  "samul_filter": "OBJ_MNG_NO[5:10] == '47920' (OBJ + kind(2) + sigungu(5) + serial(8))",
+  "zips": {
+    "samul": {
+      "file": "사물주소도형_전체분_경상북도.zip",
+      "sha256": "a0d3cf05ad66528969dcd40114ef8ec5ad21bd36eada999a94adcb68f5376fb4",
+      "bytes": 2446813
+    },
+    "minwon": {
+      "file": "민원행정기관전자지도_240124.zip",
+      "sha256": "259f0234fa7e26d442b7d34e765a551d90787406f0c91633b2f4ef96287d59ee",
+      "bytes": 1985466
+    }
+  },
+  "layers": {
+    "minwon_agencies": {
+      "count": 74,
+      "by_type": {
+        "학교": 26,
+        "보건소": 17,
+        "자치단체": 12,
+        "우체국": 10,
+        "경찰서": 6,
+        "소방": 3
+      },
+      "source_zip": "minwon",
+      "data_date": "2024-01-24"
+    },
+    "samul_eqout_point": {
+      "count": 27,
+      "within_20km_of_agency_bbox": 27,
+      "name_ko": "지진옥외대피장소",
+      "name_en": "earthquake outdoor evacuation site",
+      "source_zip": "samul",
+      "data_date": "2025-03-01"
+    },
+    "samul_eqwav_point": {
+      "count": 0,
+      "within_20km_of_agency_bbox": 0,
+      "name_ko": "지진해일긴급대피장소",
+      "name_en": "tsunami emergency evacuation site",
+      "source_zip": "samul",
+      "data_date": "2025-03-01"
+    },
+    "samul_coolingcen_point": {
+      "count": 99,
+      "within_20km_of_agency_bbox": 99,
+      "name_ko": "무더위쉼터",
+      "name_en": "cooling centre",
+      "source_zip": "samul",
+      "data_date": "2025-03-01"
+    },
+    "samul_lifesav_point": {
+      "count": 5,
+      "within_20km_of_agency_bbox": 5,
+      "name_ko": "인명구조함",
+      "name_en": "life-saving equipment box",
+      "source_zip": "samul",
+      "data_date": "2025-03-01"
+    },
+    "samul_firehydr_point": {
+      "count": 6,
+      "within_20km_of_agency_bbox": 6,
+      "name_ko": "소화전",
+      "name_en": "fire hydrant",
+      "source_zip": "samul",
+      "data_date": "2025-03-01"
+    },
+    "samul_emerwat_point": {
+      "count": 0,
+      "within_20km_of_agency_bbox": 0,
+      "name_ko": "비상급수시설",
+      "name_en": "emergency water supply",
+      "source_zip": "samul",
+      "data_date": "2025-03-01"
+    },
+    "samul_busst_point": {
+      "count": 28,
+      "within_20km_of_agency_bbox": 28,
+      "name_ko": "버스정류장",
+      "name_en": "bus stop",
+      "source_zip": "samul",
+      "data_date": "2025-03-01"
+    }
+  }
+}
