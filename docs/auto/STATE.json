@@ -3,10 +3,17 @@
   "working_branch": "auto/dev",
   "finals_date": "2026-10-24",
   "freeze_date": "2026-10-16",
+<<<<<<< HEAD
   "last_report": "docs/auto/reports/2026-09-04T1416Z-critic.md",
   "last_report_commit": "83f49bc435c9338e124ec8d09a0910e9109846a9",
   "last_report_kind": "critic",
   "last_report_at_utc": "2026-09-04T14:16:37Z",
+=======
+  "last_report": "docs/auto/reports/2026-09-04T1419Z-manual.md",
+  "last_report_commit": "83f49bc435c9338e124ec8d09a0910e9109846a9",
+  "last_report_kind": "manual",
+  "last_report_at_utc": "2026-09-04T14:19:36Z",
+>>>>>>> 0037232 (direction: one page the builder reads first, a five-minute critic check, research every second day (CHARTER §14))
   "last_gates_passed": true,
   "open_needs_human": 5,
   "sprint_start": "2026-09-04",

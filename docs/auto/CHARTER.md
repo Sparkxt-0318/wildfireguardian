@@ -126,7 +126,7 @@ sandbox for reading Actions runs and pull requests.
 0. **Bootstrap.** `git fetch origin && git checkout -B auto/dev origin/auto/dev`
    (create from `origin/Main` only if `auto/dev` does not exist yet). Then
    `bash scripts/auto/bootstrap.sh` and use `.auto/venv/bin/python` for everything.
-1. **Catch up** (`catchup`): this file; `docs/auto/BACKLOG.md`;
+1. **Catch up** (`catchup`): this file; `docs/auto/DIRECTION.md` (§14); `docs/auto/BACKLOG.md`;
    `docs/auto/NEEDS_HUMAN.md`; the last three files in `docs/auto/reports/`;
    `docs/auto/MEMO.md`; `git log --oneline -30`; `docs/HANDOFF_ROUND3.md` §3–§5;
    `docs/BLOCKERS.md`. Skim the newest `docs/SESSION*_REPORT.md`.
@@ -330,7 +330,8 @@ product** ready to take to the booth. So, for the sprint:
   **critic 100 minutes after every dev lap** (`57 1-22/3`), writing `docs/auto/CRITIC_LATEST.md`;
   paper every 6 hours (`47 2-23/6`); the next dev lap
   clears every `fix-before-next-row` item there before it claims a new row, so a
-  wrong turn is caught within one lap instead of a day. Research on 09-04 and 09-10;
+  wrong turn is caught within one lap instead of a day. Research every second day at 18:17 UTC
+  (09-06, 08, 10, 12, 14), taking that slot from dev (§14; the author chose this on 2026-09-04);
   paper every 6 h when the code moved.
 - Order of work is the backlog table order; the sprint plan at the top of
   `docs/auto/BACKLOG.md` names the day each P0 row should be done by. A lap that
@@ -399,3 +400,25 @@ not adopted before the finals), and the figure-style reference (Moreno et al. 20
 ### 6b. The author's preferred channel (NH-020, 2026-09-04)
 
 The author decides in an interactive Claude Code session on the laptop, answered with buttons. When the author opens the repository and says `decisions`, the session lists every open DECISION entry as a question with the entry's `**Options:**`, applies each answer with `scripts/auto/decisions.py apply` (channel `Claude Code session (AskUserQuestion on the laptop)`, received date, verbatim text), acts on the consequences, runs the full gates, and pushes. Email replies remain a valid second channel and are still read by step 1b.
+
+## 14. Direction: who decides what comes next, and how often
+
+The author asked on 2026-09-04 whether a research pass should follow every dev lap. The
+answer recorded here: no — the critic already verifies every lap, the literature does not
+move every three hours, and a fourth routine in the 3-hour cycle would recreate the
+collisions NH-016 removed. What was missing was a single page saying where the project is
+going, and someone re-asking after each lap whether the next row still serves it.
+
+- `docs/auto/DIRECTION.md` is that page: the thesis in two sentences, the next three rows
+  and why, what not to do, and the critic's last direction note. One screen, never longer.
+- **Dev** reads it at step 1 and takes the row it names when it names one with a reason;
+  otherwise table order. Dev never writes it.
+- **Critic** runs a five-minute direction check (its step 3b) after every dev lap: at most
+  one reorder per lap, never a P0 row below a non-P0 row, reason written on the page.
+- **Research** runs every second day during the sprint (18:17 UTC on 09-06, 08, 10, 12,
+  14) in place of that slot's dev lap, which exits with `slot ceded to research`. It
+  extends the knowledge base (§13), runs the disciplined ideation, proposes at most three
+  rows, and rewrites DIRECTION.md. After the sprint the author resets it to weekly.
+- Guardrails: research and critic never touch code, data, figures or `docs/NUMBERS.json`;
+  every proposed row cites a source or an artifact; a reorder without a reason is a
+  finding for the next critic.
