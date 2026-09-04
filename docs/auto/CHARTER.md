@@ -453,3 +453,13 @@ each one. The rule from 2026-09-04: **catch it within the hour and fix it before
   uploads `.auto/*.log` (hidden files included), so the email alone is enough to act on.
 - No test may depend on the local clock, the timezone, the network, or files outside the
   repository (§4 step 4).
+
+### 3c. Staging discipline (NH-023, 2026-09-04)
+
+A bare `git add -A` (or `git add .`) is banned in every lap and every session. Stage by
+explicit path (`git add docs/auto/BACKLOG.md paper/figures/F8_routing_map.png ...`), and
+run `git status --short` before every commit to read what is staged. Reason: on 2026-09-04 a
+harvested contact list created by another agent in the same clone rode into a public commit
+on a `git add -A` during a conflict resolution, and the author had to force-push a purge.
+One clone, one agent: a second agent in the same working tree uses its own worktree.
+WFG-077 adds the gate that refuses a staged file with three or more email addresses.

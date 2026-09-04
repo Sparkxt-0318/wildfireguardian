@@ -19,7 +19,7 @@ that need a choice carry an `**Options:** A) … B) …` line; a letter is enoug
 
 ---
 
-**What happened, from the laptop session (2026-09-04):** the two files were created by the author's *other* Claude Code session, using an email-drafting prompt this session had given the author (drafts only, never send). The re-cut lap then staged them with `git add -A` and published them in 6f33eca without noticing. The loop did not plan, request or track the outreach. **Actions:** the files were copied to a private folder outside the repository and removed from the tree; `outreach/` is now git-ignored; on the author's decision above the two files are purged from every commit on `auto/dev` and the branch force-pushed once (the sole recorded exception to §3's no-force-push rule, taken by the author); the author deletes the 29 Gmail drafts personally (the loop never touches drafts). NH-010 stands as closed: no outreach for the finals. `git add -A` is banned in every lap (§3, MEMO). GitHub may keep the old objects cached until its garbage collection; the author can ask GitHub Support to purge them, quoting commit 6f33eca.
+**What happened, from the laptop session (2026-09-04):** the two files were created by the author's *other* Claude Code session, using an email-drafting prompt this session had given the author (drafts only, never send). The re-cut lap then staged them with `git add -A` and published them in c65dc56 without noticing. The loop did not plan, request or track the outreach. **Actions:** the files were copied to a private folder outside the repository and removed from the tree; `outreach/` is now git-ignored; on the author's decision above the two files are purged from every commit on `auto/dev` and the branch force-pushed once (the sole recorded exception to §3's no-force-push rule, taken by the author); the author deletes the 29 Gmail drafts personally (the loop never touches drafts). NH-010 stands as closed: no outreach for the finals. `git add -A` is banned in every lap (§3, MEMO). GitHub may keep the old objects cached until its garbage collection; the author can ask GitHub Support to purge them, quoting commit c65dc56.
 
 ## NH-001 · DECISION · closed · Email delivery needs three repository secrets
 
@@ -205,6 +205,8 @@ numbers derived, no data about persons. **Why only you:** contacting people;
 consent.
 
 **CLOSED 2026-09-04 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-04 · ref: claude-code-session-7da6bf25#NH-010 · verbatim: "Skip for the finals for now. The author will try to reach out, but the loop must not assume anything comes back: no consultation-dependent claim or readiness line may wait on it."
+
+**Update 2026-09-04 (author, Claude Code session):** the author has sent the outreach messages themselves (29 drafts, see NH-023). The loop still assumes nothing comes back; a reply the author reports here is recorded with consent before anything is quoted.
 
 ## NH-011 · DECISION · closed · One real, recorded email send from a network that works in Shanghai (by 2026-09-20)
 
@@ -851,7 +853,7 @@ neither of which changes what it asks of you.
 
 **CLOSED 2026-09-04 by the author** · channel: Claude Code session (laptop, author present) · received: 2026-09-04 · ref: claude-code-session-7da6bf25#NH-022 · verbatim: "Re-cut on the laptop the same day with 시군구 code 47770. Verified empirically rather than from a code table: all 55 민원행정기관 road addresses contain 영덕군, the 지진해일긴급대피장소 layer now has 92 rows, and every layer's centroid lies inside the canonical 영덕 box with 57-84 % of points inside (the county is larger than the routing canvas, so per-point containment is the wrong rule). Same filenames overwritten because the first files were wrong, not superseded; baseline re-frozen deliberately. The extractor and tests/test_juso_yeongdeok.py now carry the address and box checks."
 
-## NH-023 · DECISION · open · Twenty-nine outreach drafts to named strangers, and a contact list published in a public repository, with no record anywhere in the loop (by 2026-09-06)
+## NH-023 · DECISION · closed · Twenty-nine outreach drafts to named strangers, and a contact list published in a public repository, with no record anywhere in the loop (by 2026-09-06)
 
 **Why this is yours:** CHARTER §3 rule 6 forbids the loop sending messages to anyone but
 your report channel, §6 and rule 5b both name **external contact** as escalation-only, and
@@ -859,7 +861,7 @@ NH-010 is closed with your own words: 「Skip for the finals for now. The author
 reach out, but the loop must not assume anything comes back.」 Only you can say whether you
 asked for this, and only you can decide what stays in a public repository.
 
-**What is in the tree.** Commit `6f33eca` added two files:
+**What is in the tree.** Commit `c65dc56` added two files:
 
 - `outreach/recipients.csv` — 29 rows, each a named person or a named office with a
   **working email address**, a road to it (a source URL), a scripted ask, and a suggested
@@ -900,3 +902,5 @@ it is worth saying plainly. Two things are still live:
 remove either file. Deleting is forbidden (§3.7) and this is your call, not mine.
 
 **Options:** A) I asked for this; keep both files, keep the drafts, and record the instruction here so the record matches  B) I asked for this, but move `outreach/` out of the public tree (archive it under `docs/auto/archive/` or a private branch) and keep the drafts  C) I did not ask for this; archive both files with a correction note and delete the 29 drafts myself  D) keep the drafts but say nothing may be sent before the finals, per NH-010
+
+**CLOSED 2026-09-04 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-04 · ref: claude-code-session-7da6bf25#NH-023 · verbatim: "delete it completely. (on the drafts: 'I have sent them. NO need to worry.'; on the clone: this session owns it and the other local agent is paused in this folder)"

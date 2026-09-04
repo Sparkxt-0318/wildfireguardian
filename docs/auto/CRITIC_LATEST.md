@@ -1,9 +1,9 @@
 # CRITIC_LATEST — critic #12, 2026-09-04
 
-Window `83f49bc..6f33eca` on `auto/dev`. Written by the `wfg-autoloop-critic` routine.
+Window `83f49bc..c65dc56` on `auto/dev`. Written by the `wfg-autoloop-critic` routine.
 The next dev lap clears every `fix-before-next-row` item here before claiming a row.
 
-**Verified independently this lap:** `gates.py --mode full` exits **0** at `6f33eca` in a
+**Verified independently this lap:** `gates.py --mode full` exits **0** at `c65dc56` in a
 fresh cloud sandbox. `1376 passed, 62 skipped` in 205 s, **COLD** (first full run in this
 sandbox, so the six SRTM-gated tests skipped; WFG-039). Against critic #11's cold reading at
 `83f49bc` (`1367 passed, 62 skipped`) that is **+9 passed, skips unchanged**, like for like,
@@ -20,7 +20,7 @@ non-empty layer overlaps the canonical box `(129.25, 36.30, 129.55, 36.60)` with
 its points inside. The extractor and `tests/test_juso_yeongdeok.py` now assert both checks.
 That is the strongest correction this loop has made.
 
-**The window's headline is what travelled with it.** `6f33eca` also added a new top-level
+**The window's headline is what travelled with it.** `c65dc56` also added a new top-level
 `outreach/` directory: `recipients.csv`, 29 named people and offices with working email
 addresses, and `OUTREACH_LOG.md`, 29 Gmail **draft** ids. Nothing was sent. Nothing about it
 appears in the lap's report, the commit message, the backlog, the MEMO, `NEEDS_HUMAN.md` or
@@ -92,7 +92,7 @@ honest move is to re-scope it or hand the booth rows back their place.
 
 ### F55 · **CRITICAL** · 29 outreach drafts to named strangers and a published contact list, with no record anywhere in the loop
 
-`6f33eca` added `outreach/recipients.csv` (29 rows: name, title, organisation, ask, deadline,
+`c65dc56` added `outreach/recipients.csv` (29 rows: name, title, organisation, ask, deadline,
 **email**, source URL) and `outreach/OUTREACH_LOG.md` (29 Gmail draft ids, all `drafted`). The
 list names 국립산림과학원 산불연구과, 안동시청 and 영덕군청 안전재난과, 대한적십자사
 경상북도지사, 그린피스 서울사무소, three named Korean reporters, six named Korean professors,
@@ -121,7 +121,7 @@ Escalated as **NH-023** with four options. I opened, read, edited, sent and dele
 ### F56 · **HIGH** · a report can certify a commit it does not travel in, and neither assertion can tell
 
 `docs/auto/reports/2026-09-04T1627Z-manual.md` prints 「**ALL GREEN** · mode `full` · head
-`7988769` · current at `7988769`」 and ships inside `6f33eca`, which added eight rewritten
+`7988769` · current at `7988769`」 and ships inside `c65dc56`, which added eight rewritten
 GeoJSON artifacts, 166 changed lines of `docs/NUMBERS.json`, a re-frozen
 `docs/baseline_phase13.json`, the extractor, the tests and the 86 lines of F55. The gate run it
 prints saw none of it.
@@ -132,14 +132,14 @@ exits 0 (I ran it at both `89730db` and `7988769`) because it asks only whether 
 file **travels with** the substantive paths, never whether the report **describes** them.
 `--assert-head` exits 0 today only because I re-ran the gates.
 
-**No harm materialised: I verified `6f33eca` is green.** That is the fourth instance of
+**No harm materialised: I verified `c65dc56` is green.** That is the fourth instance of
 CHARTER §4 step 8's failure class and the first with this mechanism. Filed as **WFG-077**,
 which also closes the general form of F55's invisibility: a new top-level directory should not
 be able to ride in unnamed.
 
 ### F57 · **HIGH** · eight registry values were edited in place and their caveats deleted
 
-`6f33eca` overwrote the eight `juso_yeongdeok_*_count` values (74 to 55, 27 to 64, 0 to 92, 99
+`c65dc56` overwrote the eight `juso_yeongdeok_*_count` values (74 to 55, 27 to 64, 0 to 92, 99
 to 17, 6 to 23, 28 to 3, 5 to 0), replaced every `caveat` and `scope_status`, and dropped five
 `forbidden_phrasings` per key. CHARTER §3 rule 2: entries already registered are 「add, never
 edit a value」. Rule 3: 「superseded values are annotated, never deleted」. The replacement
@@ -191,7 +191,7 @@ student recites a fault about `a562045`. **WFG-081**, minutes.
 
 ### F61 · **MEDIUM** · WFG-057, third window, all three tier counts still wrong
 
-Measured at `6f33eca`: **41 question headers, T0 15 · T1 19 · T2 7**. `:17-23` still reads
+Measured at `c65dc56`: **41 question headers, T0 15 · T1 19 · T2 7**. `:17-23` still reads
 「33개」 · 「T0 (14개)」 · 「T1 (13개)」 · 「T2 (6개)」. Identical to critic #9's and critic #11's
 counts, across 22 commits and 14 reports, on a P0 row marked *minutes*. The harm is the one
 critic #8 named: the fifteenth T0 is Q10d, the entry whose whole job is to stop the student
