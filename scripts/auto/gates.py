@@ -94,15 +94,59 @@ def assert_head(required_mode: str) -> int:
     return 0
 
 
+#: Paths a lap may push without a report accompanying them: the report machinery's own
+#: outputs, and the backlog claim a lap pushes before it builds (CHARTER §4 step 3).
+REPORT_ONLY = ("docs/auto/reports/", "docs/auto/images/", "docs/auto/STATE.json", "docs/auto/dashboard.html")
+CLAIM_ONLY = ("docs/auto/BACKLOG.md",)
+
+
+def assert_reported(base: str) -> int:
+    """Exit 0 only if every commit about to be pushed is covered by a report.
+
+    12b8ac7 rewrote the judge-facing README in two languages and closed three
+    NEEDS_HUMAN entries with no report, no reviewer and no STATE.json update, and every
+    gate passed on it because the numbers it typed had no key (critic #4, F19; WFG-049).
+    This check reads ``git diff --name-only <base>..HEAD``: if anything outside
+    REPORT_ONLY changed, a new file under docs/auto/reports/ must be part of the same
+    range. A push that only claims a backlog row (BACKLOG.md alone) is allowed, because
+    the claim is pushed before there is anything to report.
+    """
+    changed = [l for l in git("diff", "--name-only", f"{base}..HEAD").splitlines() if l.strip()]
+    if not changed:
+        print(f"[gates] ASSERT-REPORTED OK  nothing to push beyond {base}")
+        return 0
+    substantive = [f for f in changed if not f.startswith(REPORT_ONLY)]
+    reports = [f for f in changed if f.startswith("docs/auto/reports/") and f != "docs/auto/reports/README.md"]
+    if not substantive:
+        print(f"[gates] ASSERT-REPORTED OK  only report machinery changed since {base}")
+        return 0
+    if all(f in CLAIM_ONLY for f in substantive):
+        print(f"[gates] ASSERT-REPORTED OK  a backlog claim only ({', '.join(substantive)})")
+        return 0
+    if reports:
+        print(f"[gates] ASSERT-REPORTED OK  {len(substantive)} substantive path(s) travel with report {reports[-1]}")
+        return 0
+    print(f"[gates] ASSERT-REPORTED FAIL — {len(substantive)} path(s) changed since {base} and no report covers them:")
+    for f in substantive[:40]:
+        print(f"  - {f}")
+    print("  fix: write .auto/summary.md and run scripts/auto/report.py, commit the report with the work, then push.")
+    return 1
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--mode", choices=["quick", "full"], default="full")
     ap.add_argument("--python", default=None, help="interpreter for make/pytest (default .auto/venv or this one)")
     ap.add_argument("--strict", action="store_true", help="make env-check a hard gate")
+    ap.add_argument("--assert-reported", action="store_true",
+                    help="run nothing; fail if commits since --base touch substantive paths with no report")
+    ap.add_argument("--base", default="origin/auto/dev", help="for --assert-reported: the ref already pushed")
     ap.add_argument("--assert-head", action="store_true",
                     help="run no gate; exit 0 only if .auto/gates.json records a pass in --mode at this exact HEAD with a clean tree")
     args = ap.parse_args()
 
+    if args.assert_reported:
+        return assert_reported(args.base)
     if args.assert_head:
         return assert_head(args.mode)
 

@@ -123,8 +123,10 @@ finals (기제출 서식2 only, a poster, handouts?) and the poster spec.
 Contact per the research sweep: koreacodefair@gmail.com / 070-5066-1963 (verify
 on kcf.or.kr). **Why only you:** external contact; Pass/Fail exposure.
 
-**CLOSED 2026-09-04 by the author:** "Everything is fine here. Don't worry about
-this, and continue with the project." No contact with the 운영사무국 will be made.
+**CLOSED 2026-09-04 by the author** · channel: author reply in a Claude Code session ·
+received: 2026-09-04 · verbatim: "Everything is fine here. Don't worry about
+this, and continue with the project." (quoted verbatim; the reply arrived where this
+repository cannot see it, and NH-017 asks the author to confirm it). No contact with the 운영사무국 will be made.
 Consequences the loop now carries instead of an answer: (1) the finals date stays
 **10-24** per NH-006; (2) the 참가부문 track is not re-verified; (3) 기여 ② keeps its
 current wording rather than the restatement, since only the organisers could have
@@ -149,9 +151,11 @@ finals; keep it as a separate lineage). (d) Approve or veto the refuge-density
 decimation experiment (WFG-034; HANDOFF §4 says the user confirms before it
 starts). Close NH-001 and NH-002 either way.
 
-**CLOSED 2026-09-04 by the author**, who ratified the recommendations and delegated
-the rest: "If there is something better though, make your own decision to implement
-better ones along the way." Resolutions:
+**CLOSED 2026-09-04 by the author** · channel: author reply in a Claude Code session ·
+received: 2026-09-04 · verbatim: "If there is something better though, make your own
+decision to implement better ones along the way." (quoted verbatim; the reply arrived
+where this repository cannot see it, and NH-017 asks the author to confirm it). The
+author ratified the recommendations and delegated the rest. Resolutions:
 
 - **(a) Protect `Main` — NOT YET DONE, and it is the one item still owed.** The
   session that closed this entry was blocked from writing repository settings. The
@@ -246,7 +250,9 @@ attributes 27 deaths to the WWA report — a source that reports 32 casualties, 
 of them in 의성군. Nothing else is blocked on this; it is a P0 because it is the
 first paragraph a judge reads.
 
-**CLOSED 2026-09-04, then CORRECTED the same night.** The author replied "use 산림청"
+**CLOSED 2026-09-04, then CORRECTED the same night.** · channel: author reply in a Claude
+Code session · received: 2026-09-04 · verbatim: "use 산림청" (quoted verbatim; the reply
+arrived where this repository cannot see it). The author replied "use 산림청"
 and granted the loop standing permission to source public data itself (now CHARTER §3).
 The first attempt at this fix, commit `12b8ac7`, **was wrong in the opposite direction
 and critic #4 caught it 80 minutes later (F16, F17).** Both the original error and the
@@ -394,3 +400,8 @@ text marked `verbatim`. Where a reply arrived somewhere the repository cannot se
 closure says so in those words rather than reading as a citation.
 
 **Why only you:** you are the only source for what you actually said and where.
+
+**Part (2) done, 2026-09-04 (lap on the laptop):** every closure now carries `channel`,
+`received` and a `verbatim` marker, and NH-008, NH-009 and NH-015 are backfilled as
+"author reply in a Claude Code session, 2026-09-04, verbatim quoted". Part (1), your
+confirmation of the three quotes, is still yours; this entry stays open for it.

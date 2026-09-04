@@ -403,3 +403,7 @@ outputs/live/**/state_*.json
 
 # --- autonomous loop scratch (scripts/auto/) ---
 .auto/
+
+# --- external published figures (WFG-049): the README opening numbers with agency, date, scope, URL
+!data/processed/external/
+!data/processed/external/*.json

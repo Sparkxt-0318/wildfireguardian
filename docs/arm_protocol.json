@@ -109,6 +109,14 @@
       "role": "WFG-019 (2026-09-03). Per-fire recall/FNR at the committed operating threshold, the ceiling probability of each held-out fold, and the nested leave-one-fire-out threshold-calibration table reported as a NEGATIVE result. Re-scores Arm A's committed leave-one-fire-out probabilities (data/processed/spread_v2_lofo_oof_cells.csv.gz); fits nothing, retrains nothing, and adopts no lambda.",
       "control_required": false,
       "reason_no_control": "No model is fitted and the feature count does not change, so there is nothing for a noise null to be matched against — the probabilities are byte-identical to the ones Arm A's AUC entries and Arm A_classification's recall entries already read. ⚠ Tagged separately from 'A' rather than added to it because Arm A is FROZEN and check_arm_isolation verifies its entry count and digests. ⚠ Tagged separately from 'A_classification' too: that arm is the Session 18 re-scoring at one threshold, while this arm SEARCHES over thresholds. The search is exactly the step whose validity the entries' own caveats deny (exchangeability is broken twice), so it must not inherit A_classification's 'a re-scoring, not a new analysis' exemption by sharing its name."
+    },
+    "external": {
+      "role": "published figures for the March 2025 fire that opens the README (WFG-049): burned area, deaths, homes, displaced, nationwide totals, and the interim tallies kept so a gate can refuse them as final",
+      "status": "EXTERNAL",
+      "n_features": 16,
+      "control_required": false,
+      "reason_no_control": "not a model arm: no training data, no features, no fold. Each number is a government or agency figure carried with its agency, as-of date, scope, status and URL in data/processed/external/fire_2025_scale.json and re-verified by opening the URL, not by a null draw.",
+      "note": "Registered 2026-09-04 after the README's opening paragraph was rewritten wrongly twice with every gate green (critic #4 F16-F18). Bound to README.md by scripts/check_readme_figures.py."
     }
   }
 }

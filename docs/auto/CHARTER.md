@@ -191,9 +191,15 @@ sandbox for reading Actions runs and pull requests.
    before the push, run
 
        .auto/venv/bin/python scripts/auto/gates.py --assert-head
+       .auto/venv/bin/python scripts/auto/gates.py --assert-reported
 
-   which runs no gate: it exits non-zero unless `.auto/gates.json` records a `full`
-   pass at exactly this `HEAD` with a clean tree. If it fails, you do not push; you
+   which run no gate: the first exits non-zero unless `.auto/gates.json` records a
+   `full` pass at exactly this `HEAD` with a clean tree; the second exits non-zero
+   when the commits since `origin/auto/dev` touch anything beyond the report
+   machinery (`docs/auto/reports/`, `images/`, `STATE.json`, `dashboard.html`) or a
+   bare backlog claim, and no new report file travels with them. That is the
+   `12b8ac7` case (critic #4, F19; WFG-049): a prose-only commit that rewrote the
+   README, closed three NEEDS_HUMAN entries and was invisible to every gate. If it fails, you do not push; you
    re-run the gates on the commit you actually mean to push. The lap's report says the
    same thing in prose — `report.py` marks a gate table **stale** when it does not
    name `HEAD`. Commit messages in commit-economy form (`re0-git` style:

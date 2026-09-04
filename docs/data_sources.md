@@ -224,10 +224,19 @@ URL을 확인하지 못한 값은 「주의해서 낮춘 값」으로 남기지 
 
 **표에서 뺀 두 값과 그 이유**(값은 지우지 않고 여기 남긴다 — CHARTER §3 rule 3):
 
-- 전국 **사망 32명**: 위 보도자료에서 확인하지 못했다. 이전 판본은 「산림청 2025-05-15」로
+- 전국 **사망 32명 · 부상 54명**: 정책브리핑(korea.kr)에 게재된 같은 보도자료 본문에
+  「**사상자도 86명(사망 32명, 부상 54명)**으로 많은 인명 피해가 발생했다」가 있다
+  ([산림청 보도자료 2025-05-16, 대한민국 정책브리핑](https://m.korea.kr/briefing/pressReleaseView.do?newsId=156689401),
+  2026-09-04 노트북 랩 열람). 등록 키 `fire2025_nationwide_deaths`, `fire2025_nationwide_injured`
+  (기간: 봄철 산불조심기간 전체). README 서두는 이 값을 인용하지 않는다.
+  *(이전 문장 보존)* 위 보도자료에서 확인하지 못했다. 이전 판본은 「산림청 2025-05-15」로
   적었으나 실제 근거는 위키백과 2차 인용이었고, 그 위키백과 문서에는 「347」이라는 숫자
   자체가 없다. 확인 가능한 1차 출처를 찾을 때까지 뺀다.
-- 전국 **주택 피해 3,848동**: 어떤 열람 가능한 출처에서도 확인하지 못했고, A의 3,819동과
+- 전국 **주택 피해 3,848동**: 산림청 보도자료에는 없고, 「2025 영남 초대형 산불 피해 실태조사
+  최종보고서」(2026-03, [공동 발간처 게시 페이지](https://igt.or.kr/bbs/board.php?bo_table=m03_01&wr_id=65))
+  요약이 **영남 초대형 산불(경북·경남·울산)** 기준으로 인용하는 값이다. 전국값도 A값도 아니며
+  2차 출처이므로 `fire2025_yeongnam_homes_damaged_secondary`(status: secondary)로만 등록했다.
+  *(이전 문장 보존)* 어떤 열람 가능한 출처에서도 확인하지 못했고, A의 3,819동과
   혼동된 값일 가능성이 있다.
 
 또한 산림청 산불발생 통계 페이지는 **2025년 연간 459건·105,099.44 ha**를 제시하는데,
@@ -271,3 +280,22 @@ vs 전국 합계), 기간도 다르다(3월 6일간 vs 봄철 전체). 같은 �
    화재를 합쳐 제시한 수치다. 2026-09-04 랩이 저장소에 적혀 있던 URL을 열지 못했고(404),
    같은 랩의 독립 리뷰어가 살아 있는 주소를 찾아 범위를 재확인했다. 범위가 다르다는 것이
    인용하지 않는 이유이며, 「링크가 죽었다」는 부차적 이유다.
+
+### 등록 키와 아티팩트 (2026-09-04, WFG-049)
+
+위 A·B 표의 값은 `data/processed/external/fire_2025_scale.json`에 기관·기준일·범위·상태
+(`final` / `interim` / `secondary`)·열람 URL과 함께 저장되고, `docs/NUMBERS.json`의 `fire2025_*`
+키로 등록된다(`scripts/register_fire2025_figures.py`, 추가 전용). `make verify`의
+`check-readme-figures`는 README 서두 두 문단이 최종값을 등록값 그대로 쓰는지, 잠정치가
+최종값 행세를 하지 않는지, 폐기값이 없는지를 검사하고,
+`tests/test_readme_opening_figures.py`는 두 문단을 키에 묶는다.
+
+| 키 | 값 | 상태 | 열람 URL |
+|---|---|---|---|
+| `fire2025_chain_area_ha` · `_hours_to_containment` · `_homes_damaged` · `_displaced_households` · `_displaced_people` · `_damage_krw_100m` | 99,289 ha · 149시간 · 3,819동 · 2,246세대 · 3,587명 · 1조 505억 원 | final | [경상북도 보도자료 2025-05-07](https://gb.go.kr/Main/governor/page.do?mnu_uid=6792&dept_code=&dept_name=&BD_CODE=bbs_bodo&bdName=&cmd=2&Start=100&B_NUM=503433101&B_STEP=503433100&B_LEVEL=0&key=4&word=&p1=0&p2=0&V_NUM=11584&tbbscode1=bbs_bodo) |
+| `fire2025_chain_deaths` | 26명 | final | [뉴시스 2025-03-29](https://www.newsis.com/view/NISX20250329_0003118385) · [서울신문 2025-03-30](https://www.seoul.co.kr/news/society/accident/2025/03/30/20250330500072) (중대본: 사망 30 = 경북 26 + 경남 4) |
+| `fire2025_chain_deaths_yeongdeok` | 10명 | final | 영덕군 공지 2025-04-29, 실태조사 최종보고서 p.9 재인용 ([게시 페이지](https://igt.or.kr/bbs/board.php?bo_table=m03_01&wr_id=65)); 중대본 03-30 집계 9명은 `earlier_tally`로 병기 |
+| `fire2025_nationwide_fires` · `_area_ha` · `_deaths` · `_injured` | 347건 · 104,788 ha · 32명 · 54명 | final (봄철 산불조심기간 1-24 ~ 5-15) | [산림청 2025-05-16, korea.kr](https://m.korea.kr/briefing/pressReleaseView.do?newsId=156689401) |
+| `fire2025_interim_chain_area_ha_20250327` | 45,157 ha | interim (「산불영향구역」 초기 추정치) | [경향신문 2025-03-28](https://m.khan.co.kr/article/202503280702001) (중대본 03-27 집계; 산불영향구역 기준) |
+| `fire2025_interim_homes_destroyed_20250326` | 150동 | interim | 산림청 2025-03-26 브리핑, 2차 출처(위키백과 「2025년 의성-안동 산불」) |
+| `fire2025_chain_share_of_nationwide_pct` | (등록값 참조) | derived | A의 최종 면적을 B의 면적으로 나눈 산술 기록. 두 랩의 판단이 갈린다(NH-018): 0100Z 랩은 기준·기간이 달라 비율을 쓰지 않기로 했고, README는 현재 어떤 비율도 인용하지 않는다. 키는 기록으로만 남기며 문서에는 인용하지 않는다. |

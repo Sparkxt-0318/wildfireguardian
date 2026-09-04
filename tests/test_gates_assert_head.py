@@ -197,3 +197,54 @@ def test_the_charter_step_that_precedes_a_push_names_the_command():
     """CHARTER §4 step 8 is what a fresh lap follows; the check has to be in it."""
     charter = (REPO / "docs" / "auto" / "CHARTER.md").read_text(encoding="utf-8")
     assert "gates.py --assert-head" in charter
+
+
+# ---------------------------------------------------------------------------
+# --assert-reported: a push must carry a report for whatever it changes (WFG-049, F19)
+# ---------------------------------------------------------------------------
+
+@pytest.fixture()
+def reported_sandbox(monkeypatch):
+    state = {"diff": ""}
+
+    def fake_git(*args: str) -> str:
+        if args[:2] == ("diff", "--name-only"):
+            return state["diff"]
+        raise AssertionError(f"unexpected git call: {args}")
+
+    monkeypatch.setattr(gates, "git", fake_git)
+    return state
+
+
+def test_the_f19_case_a_prose_only_commit_with_no_report_is_refused(reported_sandbox, capsys):
+    # the exact c7b8a66..12b8ac7 path set: README, data_sources, NEEDS_HUMAN, LOOP_CONFIG
+    reported_sandbox["diff"] = "README.md\ndocs/data_sources.md\ndocs/auto/NEEDS_HUMAN.md\ndocs/auto/LOOP_CONFIG.json\n"
+    assert gates.assert_reported("c7b8a66") == 1
+    out = capsys.readouterr().out
+    assert "no report covers them" in out and "README.md" in out
+
+
+def test_a_normal_lap_push_carries_its_report(reported_sandbox):
+    reported_sandbox["diff"] = ("README.md\nscripts/x.py\ndocs/auto/BACKLOG.md\ndocs/auto/STATE.json\n"
+                                "docs/auto/reports/2026-09-04T0100Z-dev.md\ndocs/auto/images/2026-09-04T0100Z/01_full_map.png\n")
+    assert gates.assert_reported("origin/auto/dev") == 0
+
+
+def test_a_backlog_claim_alone_may_be_pushed_before_there_is_anything_to_report(reported_sandbox):
+    reported_sandbox["diff"] = "docs/auto/BACKLOG.md\n"
+    assert gates.assert_reported("origin/auto/dev") == 0
+
+
+def test_report_machinery_alone_needs_no_report(reported_sandbox):
+    reported_sandbox["diff"] = "docs/auto/STATE.json\ndocs/auto/dashboard.html\n"
+    assert gates.assert_reported("origin/auto/dev") == 0
+
+
+def test_nothing_to_push_is_fine(reported_sandbox):
+    reported_sandbox["diff"] = ""
+    assert gates.assert_reported("origin/auto/dev") == 0
+
+
+def test_the_reports_readme_does_not_count_as_a_report(reported_sandbox):
+    reported_sandbox["diff"] = "README.md\ndocs/auto/reports/README.md\n"
+    assert gates.assert_reported("origin/auto/dev") == 1

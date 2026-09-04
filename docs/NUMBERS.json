@@ -9797,6 +9797,622 @@
         }
       },
       "arm": "A_operating_point"
+    },
+    "fire2025_chain_area_ha": {
+      "value": 99289,
+      "unit": "ha",
+      "source_file": "data/processed/external/fire_2025_scale.json",
+      "json_path": "figures.chain_area_ha.value",
+      "derivation": "published figure; agency: 경상북도 (중앙재난안전대책본부 확정 복구계획 보도자료); as of 2025-05-07; scope: chain; status: final; source: https://gb.go.kr/Main/governor/page.do?mnu_uid=6792&dept_code=&dept_name=&BD_CODE=bbs_bodo&bdName=&cmd=2&Start=100&B_NUM=503433101&B_STEP=503433100&B_LEVEL=0&key=4&word=&p1=0&p2=0&V_NUM=11584&tbbscode1=bbs_bodo",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "fbe71deb495c01bd9c8b2786696dea25fb14673a",
+      "sample": "chain",
+      "caveat": "FINAL burned area of the 의성발 경북 chain alone (경상북도, 2025-05-07). Not 116,000 ha (matches no scope) and not 45,157 ha (the 2025-03-27 interim tally). It is about 95 % of the nationwide 104,788 ha; the nationwide figure is NOT a different event.",
+      "forbidden_phrasings": [
+        "116,000 ha",
+        "약 116,000 ha"
+      ],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "not produced by any pipeline; re-verification means opening the URL again. Verified 2026-09-04: page opened 2026-09-04: '피해 면적 9만 9,289ha, 주불 진화 시간 총 149시간이 소요되어 2,246세대, 3,587명의 이재민을 발생시켰다'; largest since statistics began in 1986",
+        "blocked_by": null
+      },
+      "provenance": "external",
+      "arm": "external",
+      "figure_status": "final",
+      "agency": "경상북도 (중앙재난안전대책본부 확정 복구계획 보도자료)",
+      "as_of": "2025-05-07",
+      "scope": "chain",
+      "source_url": "https://gb.go.kr/Main/governor/page.do?mnu_uid=6792&dept_code=&dept_name=&BD_CODE=bbs_bodo&bdName=&cmd=2&Start=100&B_NUM=503433101&B_STEP=503433100&B_LEVEL=0&key=4&word=&p1=0&p2=0&V_NUM=11584&tbbscode1=bbs_bodo",
+      "notes": "README opening paragraph (Korean and English) is bound to this key by scripts/check_readme_figures.py and tests/test_readme_opening_figures.py.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/external/fire_2025_scale.json",
+            "json_path": "figures.chain_area_ha.value"
+          }
+        }
+      }
+    },
+    "fire2025_chain_hours_to_containment": {
+      "value": 149,
+      "unit": "hours",
+      "source_file": "data/processed/external/fire_2025_scale.json",
+      "json_path": "figures.chain_hours_to_containment.value",
+      "derivation": "published figure; agency: 경상북도; as of 2025-05-07; scope: chain; status: final; source: https://gb.go.kr/Main/governor/page.do?mnu_uid=6792&dept_code=&dept_name=&BD_CODE=bbs_bodo&bdName=&cmd=2&Start=100&B_NUM=503433101&B_STEP=503433100&B_LEVEL=0&key=4&word=&p1=0&p2=0&V_NUM=11584&tbbscode1=bbs_bodo",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "fbe71deb495c01bd9c8b2786696dea25fb14673a",
+      "sample": "chain",
+      "caveat": "Ignition 2025-03-22 11:24 to 주불 진화 2025-03-28 17:15.",
+      "forbidden_phrasings": [],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "not produced by any pipeline; re-verification means opening the URL again. Verified 2026-09-04: same page: '주불 진화 시간 총 149시간'",
+        "blocked_by": null
+      },
+      "provenance": "external",
+      "arm": "external",
+      "figure_status": "final",
+      "agency": "경상북도",
+      "as_of": "2025-05-07",
+      "scope": "chain",
+      "source_url": "https://gb.go.kr/Main/governor/page.do?mnu_uid=6792&dept_code=&dept_name=&BD_CODE=bbs_bodo&bdName=&cmd=2&Start=100&B_NUM=503433101&B_STEP=503433100&B_LEVEL=0&key=4&word=&p1=0&p2=0&V_NUM=11584&tbbscode1=bbs_bodo",
+      "notes": "README opening paragraph (Korean and English) is bound to this key by scripts/check_readme_figures.py and tests/test_readme_opening_figures.py.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/external/fire_2025_scale.json",
+            "json_path": "figures.chain_hours_to_containment.value"
+          }
+        }
+      }
+    },
+    "fire2025_chain_deaths": {
+      "value": 26,
+      "unit": "persons",
+      "source_file": "data/processed/external/fire_2025_scale.json",
+      "json_path": "figures.chain_deaths.value",
+      "derivation": "published figure; agency: 중앙재난안전대책본부 (경북 5개 시군 합계); as of 2025-03-30; scope: chain; status: final; source: https://www.newsis.com/view/NISX20250329_0003118385",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "fbe71deb495c01bd9c8b2786696dea25fb14673a",
+      "sample": "chain",
+      "caveat": "경북 5개 시군 합계 (중대본, 2025-03-30). The chain is 26, the whole spring season is 32, and 27 is neither.",
+      "forbidden_phrasings": [
+        "사망 27명",
+        "27 deaths"
+      ],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "not produced by any pipeline; re-verification means opening the URL again. Verified 2026-09-04: 뉴시스 2025-03-29 09:39: '경북 산불, 영양·의성서 사망자 2명 추가…총 26명 숨져'; 서울신문 2025-03-30 (중대본 주불 진화 브리핑): 사망 30명 = 경북 26 + 경남 4. The nationwide 32 (산림청, 2025-05-16) counts the whole spring season.",
+        "blocked_by": null
+      },
+      "provenance": "external",
+      "arm": "external",
+      "figure_status": "final",
+      "agency": "중앙재난안전대책본부 (경북 5개 시군 합계)",
+      "as_of": "2025-03-30",
+      "scope": "chain",
+      "source_url": "https://www.newsis.com/view/NISX20250329_0003118385",
+      "notes": "README opening paragraph (Korean and English) is bound to this key by scripts/check_readme_figures.py and tests/test_readme_opening_figures.py.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/external/fire_2025_scale.json",
+            "json_path": "figures.chain_deaths.value"
+          }
+        }
+      }
+    },
+    "fire2025_chain_deaths_yeongdeok": {
+      "value": 10,
+      "unit": "persons",
+      "source_file": "data/processed/external/fire_2025_scale.json",
+      "json_path": "figures.chain_deaths_yeongdeok.value",
+      "derivation": "published figure; agency: 영덕군 공지 2025-04-29 (재인용: 2026-03 「2025 영남 초대형 산불 피해 실태조사 최종보고서」 p.9; 재인용값이며 조사 결과가 아님); as of 2025-04-29; scope: chain; status: final; source: https://igt.or.kr/bbs/board.php?bo_table=m03_01&wr_id=65",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "fbe71deb495c01bd9c8b2786696dea25fb14673a",
+      "sample": "chain",
+      "caveat": "영덕군 공지 2025-04-29 as re-cited at p.9 of the 2026-03 joint damage survey (재인용값). The 중대본 breakdown of 2025-03-30 said 9 at that date; 8 is the retired pre-f2eecf9 value.",
+      "forbidden_phrasings": [
+        "영덕 8명",
+        "8 of them in 영덕"
+      ],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "not produced by any pipeline; re-verification means opening the URL again. Verified 2026-09-04: repository evidence note under docs/evidence/ (survey evidence, section 7 item 1, extracted by scripts/extract_survey_evidence.py); corrected from 8 at f2eecf9. The 중대본 breakdown of 2025-03-30 gave 영덕 9 at that date; 10 is the later county figure. The survey's own measurements are deliberately NOT registered (the survey-leak test under tests/ pins that); this key is the county's count, re-cited.",
+        "blocked_by": null
+      },
+      "provenance": "external",
+      "arm": "external",
+      "figure_status": "final",
+      "agency": "영덕군 공지 2025-04-29 (재인용: 2026-03 「2025 영남 초대형 산불 피해 실태조사 최종보고서」 p.9; 재인용값이며 조사 결과가 아님)",
+      "as_of": "2025-04-29",
+      "scope": "chain",
+      "source_url": "https://igt.or.kr/bbs/board.php?bo_table=m03_01&wr_id=65",
+      "notes": "README opening paragraph (Korean and English) is bound to this key by scripts/check_readme_figures.py and tests/test_readme_opening_figures.py.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/external/fire_2025_scale.json",
+            "json_path": "figures.chain_deaths_yeongdeok.value"
+          }
+        }
+      }
+    },
+    "fire2025_chain_homes_damaged": {
+      "value": 3819,
+      "unit": "동",
+      "source_file": "data/processed/external/fire_2025_scale.json",
+      "json_path": "figures.chain_homes_damaged.value",
+      "derivation": "published figure; agency: 경상북도; as of 2025-05-07; scope: chain; status: final; source: https://gb.go.kr/Main/governor/page.do?mnu_uid=6792&dept_code=&dept_name=&BD_CODE=bbs_bodo&bdName=&cmd=2&Start=100&B_NUM=503433101&B_STEP=503433100&B_LEVEL=0&key=4&word=&p1=0&p2=0&V_NUM=11584&tbbscode1=bbs_bodo",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "fbe71deb495c01bd9c8b2786696dea25fb14673a",
+      "sample": "chain",
+      "caveat": "FINAL (경상북도, 2025-05-07). 150동 is the 2025-03-26 전소 interim tally; 4,000여 채 was the original README's unsourced value.",
+      "forbidden_phrasings": [
+        "4,000여 채"
+      ],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "not produced by any pipeline; re-verification means opening the URL again. Verified 2026-09-04: same page: '주택은 3,819동'",
+        "blocked_by": null
+      },
+      "provenance": "external",
+      "arm": "external",
+      "figure_status": "final",
+      "agency": "경상북도",
+      "as_of": "2025-05-07",
+      "scope": "chain",
+      "source_url": "https://gb.go.kr/Main/governor/page.do?mnu_uid=6792&dept_code=&dept_name=&BD_CODE=bbs_bodo&bdName=&cmd=2&Start=100&B_NUM=503433101&B_STEP=503433100&B_LEVEL=0&key=4&word=&p1=0&p2=0&V_NUM=11584&tbbscode1=bbs_bodo",
+      "notes": "README opening paragraph (Korean and English) is bound to this key by scripts/check_readme_figures.py and tests/test_readme_opening_figures.py.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/external/fire_2025_scale.json",
+            "json_path": "figures.chain_homes_damaged.value"
+          }
+        }
+      }
+    },
+    "fire2025_chain_displaced_households": {
+      "value": 2246,
+      "unit": "세대",
+      "source_file": "data/processed/external/fire_2025_scale.json",
+      "json_path": "figures.chain_displaced_households.value",
+      "derivation": "published figure; agency: 경상북도; as of 2025-05-07; scope: chain; status: final; source: https://gb.go.kr/Main/governor/page.do?mnu_uid=6792&dept_code=&dept_name=&BD_CODE=bbs_bodo&bdName=&cmd=2&Start=100&B_NUM=503433101&B_STEP=503433100&B_LEVEL=0&key=4&word=&p1=0&p2=0&V_NUM=11584&tbbscode1=bbs_bodo",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "fbe71deb495c01bd9c8b2786696dea25fb14673a",
+      "sample": "chain",
+      "caveat": "경상북도, 2025-05-07.",
+      "forbidden_phrasings": [],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "not produced by any pipeline; re-verification means opening the URL again. Verified 2026-09-04: same page: '2,246세대, 3,587명의 이재민'",
+        "blocked_by": null
+      },
+      "provenance": "external",
+      "arm": "external",
+      "figure_status": "final",
+      "agency": "경상북도",
+      "as_of": "2025-05-07",
+      "scope": "chain",
+      "source_url": "https://gb.go.kr/Main/governor/page.do?mnu_uid=6792&dept_code=&dept_name=&BD_CODE=bbs_bodo&bdName=&cmd=2&Start=100&B_NUM=503433101&B_STEP=503433100&B_LEVEL=0&key=4&word=&p1=0&p2=0&V_NUM=11584&tbbscode1=bbs_bodo",
+      "notes": "README opening paragraph (Korean and English) is bound to this key by scripts/check_readme_figures.py and tests/test_readme_opening_figures.py.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/external/fire_2025_scale.json",
+            "json_path": "figures.chain_displaced_households.value"
+          }
+        }
+      }
+    },
+    "fire2025_chain_displaced_people": {
+      "value": 3587,
+      "unit": "persons",
+      "source_file": "data/processed/external/fire_2025_scale.json",
+      "json_path": "figures.chain_displaced_people.value",
+      "derivation": "published figure; agency: 경상북도; as of 2025-05-07; scope: chain; status: final; source: https://gb.go.kr/Main/governor/page.do?mnu_uid=6792&dept_code=&dept_name=&BD_CODE=bbs_bodo&bdName=&cmd=2&Start=100&B_NUM=503433101&B_STEP=503433100&B_LEVEL=0&key=4&word=&p1=0&p2=0&V_NUM=11584&tbbscode1=bbs_bodo",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "fbe71deb495c01bd9c8b2786696dea25fb14673a",
+      "sample": "chain",
+      "caveat": "경상북도, 2025-05-07.",
+      "forbidden_phrasings": [],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "not produced by any pipeline; re-verification means opening the URL again. Verified 2026-09-04: same page",
+        "blocked_by": null
+      },
+      "provenance": "external",
+      "arm": "external",
+      "figure_status": "final",
+      "agency": "경상북도",
+      "as_of": "2025-05-07",
+      "scope": "chain",
+      "source_url": "https://gb.go.kr/Main/governor/page.do?mnu_uid=6792&dept_code=&dept_name=&BD_CODE=bbs_bodo&bdName=&cmd=2&Start=100&B_NUM=503433101&B_STEP=503433100&B_LEVEL=0&key=4&word=&p1=0&p2=0&V_NUM=11584&tbbscode1=bbs_bodo",
+      "notes": "README opening paragraph (Korean and English) is bound to this key by scripts/check_readme_figures.py and tests/test_readme_opening_figures.py.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/external/fire_2025_scale.json",
+            "json_path": "figures.chain_displaced_people.value"
+          }
+        }
+      }
+    },
+    "fire2025_chain_damage_krw_100m": {
+      "value": 10505,
+      "unit": "억 원",
+      "source_file": "data/processed/external/fire_2025_scale.json",
+      "json_path": "figures.chain_damage_krw_100m.value",
+      "derivation": "published figure; agency: 경상북도 (중앙재난안전대책본부 확정); as of 2025-05-07; scope: chain; status: final; source: https://gb.go.kr/Main/governor/page.do?mnu_uid=6792&dept_code=&dept_name=&BD_CODE=bbs_bodo&bdName=&cmd=2&Start=100&B_NUM=503433101&B_STEP=503433100&B_LEVEL=0&key=4&word=&p1=0&p2=0&V_NUM=11584&tbbscode1=bbs_bodo",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "fbe71deb495c01bd9c8b2786696dea25fb14673a",
+      "sample": "chain",
+      "caveat": "Total damage confirmed by 중대본 (경상북도 release, 2025-05-07); the recovery budget (1조 8,310억 원) is a different quantity.",
+      "forbidden_phrasings": [],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "not produced by any pipeline; re-verification means opening the URL again. Verified 2026-09-04: same page: '1조 505억 원의 막대한 피해'",
+        "blocked_by": null
+      },
+      "provenance": "external",
+      "arm": "external",
+      "figure_status": "final",
+      "agency": "경상북도 (중앙재난안전대책본부 확정)",
+      "as_of": "2025-05-07",
+      "scope": "chain",
+      "source_url": "https://gb.go.kr/Main/governor/page.do?mnu_uid=6792&dept_code=&dept_name=&BD_CODE=bbs_bodo&bdName=&cmd=2&Start=100&B_NUM=503433101&B_STEP=503433100&B_LEVEL=0&key=4&word=&p1=0&p2=0&V_NUM=11584&tbbscode1=bbs_bodo",
+      "notes": "README opening paragraph (Korean and English) is bound to this key by scripts/check_readme_figures.py and tests/test_readme_opening_figures.py.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/external/fire_2025_scale.json",
+            "json_path": "figures.chain_damage_krw_100m.value"
+          }
+        }
+      }
+    },
+    "fire2025_nationwide_fires": {
+      "value": 347,
+      "unit": "fires",
+      "source_file": "data/processed/external/fire_2025_scale.json",
+      "json_path": "figures.nationwide_fires.value",
+      "derivation": "published figure; agency: 산림청 (2025년 봄철 산불조심기간 종료 보도자료); as of 2025-05-16; scope: nationwide; status: final; source: https://m.korea.kr/briefing/pressReleaseView.do?newsId=156689401",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "fbe71deb495c01bd9c8b2786696dea25fb14673a",
+      "sample": "nationwide",
+      "caveat": "Whole 2025 spring season, 2025-01-24 to 2025-05-15 (산림청, 2025-05-16).",
+      "forbidden_phrasings": [],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "not produced by any pipeline; re-verification means opening the URL again. Verified 2026-09-04: page opened 2026-09-04: '올해 산불 발생 건수는 최근 10년 평균(394건)보다 12% 감소한 347건'; period 2025-01-24 to 2025-05-15",
+        "blocked_by": null
+      },
+      "provenance": "external",
+      "arm": "external",
+      "figure_status": "final",
+      "agency": "산림청 (2025년 봄철 산불조심기간 종료 보도자료)",
+      "as_of": "2025-05-16",
+      "scope": "nationwide",
+      "source_url": "https://m.korea.kr/briefing/pressReleaseView.do?newsId=156689401",
+      "notes": "README opening paragraph (Korean and English) is bound to this key by scripts/check_readme_figures.py and tests/test_readme_opening_figures.py.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/external/fire_2025_scale.json",
+            "json_path": "figures.nationwide_fires.value"
+          }
+        }
+      }
+    },
+    "fire2025_nationwide_area_ha": {
+      "value": 104788,
+      "unit": "ha",
+      "source_file": "data/processed/external/fire_2025_scale.json",
+      "json_path": "figures.nationwide_area_ha.value",
+      "derivation": "published figure; agency: 산림청; as of 2025-05-16; scope: nationwide; status: final; source: https://m.korea.kr/briefing/pressReleaseView.do?newsId=156689401",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "fbe71deb495c01bd9c8b2786696dea25fb14673a",
+      "sample": "nationwide",
+      "caveat": "Whole 2025 spring season, 347 fires. The 의성발 chain is 99,289 ha of this, about 95 %: never describe this figure as a different event from the chain.",
+      "forbidden_phrasings": [
+        "belongs to a different event",
+        "다른 사건"
+      ],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "not produced by any pipeline; re-verification means opening the URL again. Verified 2026-09-04: same page: '피해 면적은 104,788헥타르(ha)로 1986년 산불통계 작성 이래 가장 피해가 컸으며'",
+        "blocked_by": null
+      },
+      "provenance": "external",
+      "arm": "external",
+      "figure_status": "final",
+      "agency": "산림청",
+      "as_of": "2025-05-16",
+      "scope": "nationwide",
+      "source_url": "https://m.korea.kr/briefing/pressReleaseView.do?newsId=156689401",
+      "notes": "README opening paragraph (Korean and English) is bound to this key by scripts/check_readme_figures.py and tests/test_readme_opening_figures.py.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/external/fire_2025_scale.json",
+            "json_path": "figures.nationwide_area_ha.value"
+          }
+        }
+      }
+    },
+    "fire2025_nationwide_deaths": {
+      "value": 32,
+      "unit": "persons",
+      "source_file": "data/processed/external/fire_2025_scale.json",
+      "json_path": "figures.nationwide_deaths.value",
+      "derivation": "published figure; agency: 산림청; as of 2025-05-16; scope: nationwide; status: final; source: https://m.korea.kr/briefing/pressReleaseView.do?newsId=156689401",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "fbe71deb495c01bd9c8b2786696dea25fb14673a",
+      "sample": "nationwide",
+      "caveat": "Whole 2025 spring season (산림청, 2025-05-16); the chain alone is 26.",
+      "forbidden_phrasings": [],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "not produced by any pipeline; re-verification means opening the URL again. Verified 2026-09-04: same page: '사상자도 86명(사망 32명, 부상 54명)'",
+        "blocked_by": null
+      },
+      "provenance": "external",
+      "arm": "external",
+      "figure_status": "final",
+      "agency": "산림청",
+      "as_of": "2025-05-16",
+      "scope": "nationwide",
+      "source_url": "https://m.korea.kr/briefing/pressReleaseView.do?newsId=156689401",
+      "notes": "README opening paragraph (Korean and English) is bound to this key by scripts/check_readme_figures.py and tests/test_readme_opening_figures.py.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/external/fire_2025_scale.json",
+            "json_path": "figures.nationwide_deaths.value"
+          }
+        }
+      }
+    },
+    "fire2025_nationwide_injured": {
+      "value": 54,
+      "unit": "persons",
+      "source_file": "data/processed/external/fire_2025_scale.json",
+      "json_path": "figures.nationwide_injured.value",
+      "derivation": "published figure; agency: 산림청; as of 2025-05-16; scope: nationwide; status: final; source: https://m.korea.kr/briefing/pressReleaseView.do?newsId=156689401",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "fbe71deb495c01bd9c8b2786696dea25fb14673a",
+      "sample": "nationwide",
+      "caveat": "Whole 2025 spring season.",
+      "forbidden_phrasings": [],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "not produced by any pipeline; re-verification means opening the URL again. Verified 2026-09-04: same page",
+        "blocked_by": null
+      },
+      "provenance": "external",
+      "arm": "external",
+      "figure_status": "final",
+      "agency": "산림청",
+      "as_of": "2025-05-16",
+      "scope": "nationwide",
+      "source_url": "https://m.korea.kr/briefing/pressReleaseView.do?newsId=156689401",
+      "notes": "README opening paragraph (Korean and English) is bound to this key by scripts/check_readme_figures.py and tests/test_readme_opening_figures.py.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/external/fire_2025_scale.json",
+            "json_path": "figures.nationwide_injured.value"
+          }
+        }
+      }
+    },
+    "fire2025_yeongnam_homes_damaged_secondary": {
+      "value": 3848,
+      "unit": "동",
+      "source_file": "data/processed/external/fire_2025_scale.json",
+      "json_path": "figures.yeongnam_homes_damaged.value",
+      "derivation": "published figure; agency: 공동 실태조사 최종보고서(2026-03) summary citing 산림청 (attribution not confirmed in the 산림청 2025-05-16 release, which carries no 주택 figure); as of 2026-03; scope: yeongnam complex (경북+경남+울산), NOT nationwide and NOT the chain alone; status: secondary; source: https://igt.or.kr/bbs/board.php?bo_table=m03_01&wr_id=65",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "fbe71deb495c01bd9c8b2786696dea25fb14673a",
+      "sample": "yeongnam complex (경북+경남+울산), NOT nationwide and NOT the chain alone",
+      "caveat": "SECONDARY and NOT nationwide: the 산림청 2025-05-16 release carries no housing figure; 3,848동 is the joint damage-survey report's figure for the 영남 초대형 산불 complex. Do not attribute it to 산림청 or to all 347 fires.",
+      "forbidden_phrasings": [],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "not produced by any pipeline; re-verification means opening the URL again. Verified 2026-09-04: 2026-09-04: the 산림청 2025-05-16 press release (korea.kr 156689401) states 347 / 104,788 ha / 32 / 54 and NO housing figure; 3,848동 appears in the joint report's description of the 영남 초대형 산불. Registered so the number cannot be re-described as a 산림청 nationwide figure; docs/data_sources.md table B is annotated accordingly.",
+        "blocked_by": null
+      },
+      "provenance": "external",
+      "arm": "external",
+      "figure_status": "secondary",
+      "agency": "공동 실태조사 최종보고서(2026-03) summary citing 산림청 (attribution not confirmed in the 산림청 2025-05-16 release, which carries no 주택 figure)",
+      "as_of": "2026-03",
+      "scope": "yeongnam complex (경북+경남+울산), NOT nationwide and NOT the chain alone",
+      "source_url": "https://igt.or.kr/bbs/board.php?bo_table=m03_01&wr_id=65",
+      "notes": "README opening paragraph (Korean and English) is bound to this key by scripts/check_readme_figures.py and tests/test_readme_opening_figures.py.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/external/fire_2025_scale.json",
+            "json_path": "figures.yeongnam_homes_damaged.value"
+          }
+        }
+      }
+    },
+    "fire2025_interim_chain_area_ha_20250327": {
+      "value": 45157,
+      "unit": "ha",
+      "source_file": "data/processed/external/fire_2025_scale.json",
+      "json_path": "figures.interim_chain_area_ha_20250327.value",
+      "derivation": "published figure; agency: 중앙재난안전대책본부; as of 2025-03-27; scope: chain (경북 도내 집계); status: interim; source: https://m.khan.co.kr/article/202503280702001",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "fbe71deb495c01bd9c8b2786696dea25fb14673a",
+      "sample": "chain (경북 도내 집계)",
+      "caveat": "INTERIM. 중대본 2025-03-27 경북 도내 집계, one day before 주불 진화; understates the final 99,289 ha by 54,132 ha. Registered so the README gate can refuse it as a final value.",
+      "forbidden_phrasings": [
+        "45,157 ha 소실",
+        "burned 45,157 ha"
+      ],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "not produced by any pipeline; re-verification means opening the URL again. Verified 2026-09-04: 경향신문 2025-03-28 reporting the 중대본 2025-03-27 tally; one day before 주불 진화. NEVER a final value: commit 12b8ac7 wrote it as final and was wrong by 54,132 ha (critic #4, F16).",
+        "blocked_by": null
+      },
+      "provenance": "external",
+      "arm": "external",
+      "figure_status": "interim",
+      "agency": "중앙재난안전대책본부",
+      "as_of": "2025-03-27",
+      "scope": "chain (경북 도내 집계)",
+      "source_url": "https://m.khan.co.kr/article/202503280702001",
+      "notes": "README opening paragraph (Korean and English) is bound to this key by scripts/check_readme_figures.py and tests/test_readme_opening_figures.py.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/external/fire_2025_scale.json",
+            "json_path": "figures.interim_chain_area_ha_20250327.value"
+          }
+        }
+      }
+    },
+    "fire2025_interim_homes_destroyed_20250326": {
+      "value": 150,
+      "unit": "동",
+      "source_file": "data/processed/external/fire_2025_scale.json",
+      "json_path": "figures.interim_homes_destroyed_20250326.value",
+      "derivation": "published figure; agency: 산림청; as of 2025-03-26; scope: chain (경북 5개 시군, 전소); status: interim; source: https://ko.wikipedia.org/wiki/2025%EB%85%84_%EC%9D%98%EC%84%B1-%EC%95%88%EB%8F%99_%EC%82%B0%EB%B6%88",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "fbe71deb495c01bd9c8b2786696dea25fb14673a",
+      "sample": "chain (경북 5개 시군, 전소)",
+      "caveat": "INTERIM. 산림청 2025-03-26 전소 count, two days before containment; the final is 3,819동.",
+      "forbidden_phrasings": [],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "not produced by any pipeline; re-verification means opening the URL again. Verified 2026-09-04: secondary (Korean Wikipedia, citing the 산림청 2025-03-26 briefing): '주택 150채 … 275개소가 전소'. Two days before containment; the final figure is 3,819동.",
+        "blocked_by": null
+      },
+      "provenance": "external",
+      "arm": "external",
+      "figure_status": "interim",
+      "agency": "산림청",
+      "as_of": "2025-03-26",
+      "scope": "chain (경북 5개 시군, 전소)",
+      "source_url": "https://ko.wikipedia.org/wiki/2025%EB%85%84_%EC%9D%98%EC%84%B1-%EC%95%88%EB%8F%99_%EC%82%B0%EB%B6%88",
+      "notes": "README opening paragraph (Korean and English) is bound to this key by scripts/check_readme_figures.py and tests/test_readme_opening_figures.py.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/external/fire_2025_scale.json",
+            "json_path": "figures.interim_homes_destroyed_20250326.value"
+          }
+        }
+      }
+    },
+    "fire2025_chain_share_of_nationwide_pct": {
+      "value": 94.8,
+      "unit": "%",
+      "source_file": "data/processed/external/fire_2025_scale.json",
+      "json_path": "figures.chain_area_ha.value / figures.nationwide_area_ha.value",
+      "derivation": "100 * chain_area_ha / nationwide_area_ha = 100 * 99289 / 104788",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "fbe71deb495c01bd9c8b2786696dea25fb14673a",
+      "sample": "chain vs the whole 2025 spring season",
+      "caveat": "Arithmetic record only: 100 * 99,289 / 104,788 over two final figures from different releases (경상북도 2025-05-07; 산림청 season total 2025-05-16, period 2025-01-24 to 05-15). Whether the share may be printed is disputed between the 0037Z and 0100Z laps (NH-018); the README currently prints no share.",
+      "forbidden_phrasings": [
+        "belongs to a different event",
+        "다른 사건"
+      ],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "arithmetic over two published figures",
+        "blocked_by": null
+      },
+      "provenance": "external",
+      "arm": "external",
+      "figure_status": "derived",
+      "agency": "derived",
+      "as_of": "2025-05-16",
+      "scope": "chain / nationwide",
+      "source_url": "https://m.korea.kr/briefing/pressReleaseView.do?newsId=156689401",
+      "check": {
+        "kind": "expression",
+        "operands": {
+          "a": {
+            "file": "data/processed/external/fire_2025_scale.json",
+            "json_path": "figures.chain_area_ha.value"
+          },
+          "b": {
+            "file": "data/processed/external/fire_2025_scale.json",
+            "json_path": "figures.nationwide_area_ha.value"
+          }
+        },
+        "expr": "round(a / b * 100, 1)",
+        "tolerance": 0.0
+      }
     }
   }
 }

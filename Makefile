@@ -19,7 +19,7 @@ SHELL := /bin/bash
 .SHELLFLAGS := -o pipefail -e -c
 
 .DEFAULT_GOAL := help
-.PHONY: help verify verify-numbers check-forbidden check-region-literals \
+.PHONY: help verify verify-numbers check-forbidden check-region-literals check-readme-figures \
 	snapshot snapshot-verify check-arm-isolation check-gate-invocations \
 	check-arm-controls \
         env-check config-hash test baseline-verify baseline-freeze all-checks \
@@ -50,7 +50,8 @@ help:
 # scanned for retired values. Either failing is a hard stop.
 verify: verify-numbers check-forbidden check-region-literals \
         check-arm-isolation check-gate-invocations check-arm-controls \
-        check-declared-deps check-artifact-manifest check-number-collisions
+        check-declared-deps check-artifact-manifest check-number-collisions \
+        check-readme-figures
 	@echo
 	@echo "=== make verify: PASSED ==="
 
@@ -110,6 +111,17 @@ check-number-collisions:
 	@echo
 	@echo "=== no registered quantity contradicts itself ==="
 	@$(PYTHON) $(SCRIPTS)/check_number_collisions.py
+
+# The README's opening figures (the March 2025 fire's scale) were rewritten wrongly
+# twice with every gate green, because they had no key (WFG-049). Now each is a
+# fire2025_* registry entry read from data/processed/external/fire_2025_scale.json,
+# and this gate refuses a paragraph that omits a final figure, states an interim
+# tally as final, or carries a retired value.
+check-readme-figures:
+	@echo
+	@echo "=== README opening figures <-> registry ==="
+	@$(PYTHON) $(SCRIPTS)/register_fire2025_figures.py --check
+	@$(PYTHON) $(SCRIPTS)/check_readme_figures.py
 
 # --- provenance --------------------------------------------------------------
 snapshot:
