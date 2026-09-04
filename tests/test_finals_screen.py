@@ -220,6 +220,186 @@ def test_media_is_optional_by_construction():
     assert "fetch(" not in text
 
 
+# --------------------------------------------------------------------------
+# the v2 evidence cards (WFG-017)
+# --------------------------------------------------------------------------
+
+
+def _artifact(*parts: str) -> dict:
+    return json.loads((REPO.joinpath(*parts)).read_text(encoding="utf-8"))
+
+
+def test_the_v2_cards_have_every_registry_key_they_read():
+    # a card whose key is missing renders nothing at all and fails silently,
+    # which is the one failure mode a screenshot would not show either
+    entries = _payload()["registry"]["entries"]
+    for key in ("oof_pooled_recall_at_operating_threshold",
+                "oof_mean_of_folds_recall_at_operating_threshold",
+                "oof_average_precision", "oof_prevalence",
+                "det_size_floor_ha_tf750",
+                "det_gk2a_delay_uiseong_andong_min",
+                "det_gk2a_delay_gangneung_2023_min",
+                "det_gk2a_delay_hongseong_2023_min",
+                "det_control_steps", "det_false_alarm_steps",
+                "kfs_cum_le_240_pct", "kfs_n_usable_events",
+                "kfs_containment_median_min", "kfs_area_ge100ha_median_min",
+                "l0i_best_single_refuge_saved", "l0i_best_pair_saved",
+                "l0i_third_refuge_gain", "l0i_candidates_enumerated"):
+        assert key in entries, key
+
+
+def test_the_operating_point_card_matches_the_committed_per_fire_file():
+    got = _payload()["ev2"]["operating_point"]
+    per = _artifact("data", "processed", "operating_point",
+                    "per_fire_recall.json")["per_fire"]
+    misses = [v for v in per.values() if v["false_negative_rate"] >= 1.0]
+    assert got["n_fires"] == len(per)
+    assert got["n_folds_without_a_true_positive"] == len(misses)
+    assert got["n_positive_of_those"] == sorted(v["n_positive"] for v in misses)
+    rest = [v for v in per.values() if v["false_negative_rate"] < 1.0]
+    fnrs = sorted(round(v["false_negative_rate"], 3) for v in rest)
+    assert got["n_folds_with_a_true_positive"] == len(rest)
+    # the range must exclude the perfect-miss folds: the card's sentence says
+    # "the remaining folds", and 1.000 is not one of them
+    assert got["fnr_max_among_folds_with_a_true_positive"] < 1.0
+    assert (got["fnr_min_among_folds_with_a_true_positive"],
+            got["fnr_max_among_folds_with_a_true_positive"]) == (fnrs[0], fnrs[-1])
+    assert (got["n_folds_with_a_true_positive"]
+            + got["n_folds_without_a_true_positive"] == got["n_fires"])
+    # the row's point: the perfect-miss folds must read as prevalence, so the
+    # positive counts have to travel with them
+    assert got["n_folds_without_a_true_positive"] > 0
+    assert all(n > 0 for n in got["n_positive_of_those"])
+
+
+def test_the_refuge_card_matches_the_committed_placement_file():
+    got = _payload()["ev2"]["refuge"]
+    rp = _artifact("data", "processed", "vulnerability", "refuge_placement.json")
+    ver = rp["verification"]["full_layer_verification"]
+    assert got["site"] == rp["site"]
+    assert got["failing_before"] == ver["full_layer_failing_before"]
+    assert got["failing_after"] == ver["full_layer_failing_after"]
+    assert got["horizon_min"] == ver["horizon_min"]
+    assert (got["survival_evaluations"]
+            == rp["verification"]["survival_check"]["n_site_scenario_evaluations"])
+    # the marginal curve the card prints is the registry's, and it must agree
+    entries = _payload()["registry"]["entries"]
+    curve = rp["optimum_h240"]["marginal_curve"]
+    assert entries["l0i_best_single_refuge_saved"]["value"] == curve["k1_saved"]
+    assert entries["l0i_best_pair_saved"]["value"] == curve["k2_saved"]
+    assert entries["l0i_third_refuge_gain"]["value"] == curve["k3_gain_over_k2"]
+
+
+def test_the_refuge_card_never_reads_as_lives_or_as_a_siting_decision():
+    # the artifact's own _README calls itself a geometric recommendation under
+    # stated assumptions; the screen may not promote it past that
+    text = _text()
+    # NOTE the shape of this list: "입지 결정" is NOT bannable, because the
+    # card's own caveat says 「입지 결정이 아닙니다」 and a substring ban would
+    # forbid the sentence that does the work. Ban the assertions, not the noun.
+    for phrase in ("가구를 구", "구조된 가구", "대피소를 지어",
+                   "안전이 보장", "설치하면 안전", "입지 결정입니다"):
+        assert phrase not in text, phrase
+    for required in ("도달 가능해지는 가구 수", "입지 결정이 아닙니다",
+                     "목적함수는 도달 가능성뿐"):
+        assert required in text, required
+
+
+def test_the_detection_card_rules_the_satellite_out_and_nothing_in():
+    # WFG-053 withdrew the ordering claim; critic #7 F35 then found that the
+    # size floor rules the SATELLITE OUT and does not rule the HUMAN CHANNEL
+    # IN. The screen is the fifth judge-facing document and must not repeat it.
+    text = _text()
+    assert "정지궤도 위성을 일차 트리거로 둘 수 없습니다" in text
+    for banned in ("사람 신고가 일차", "사람 신고를 일차",
+                   "신고를 일차 소스", "99 %가 목격", "99%가 목격",
+                   "위성은 사람보다", "사람보다 느", "사람보다 늦",
+                   "사람보다 빠", "신고보다 느", "신고보다 빠"):
+        assert banned not in text, banned
+    # and the delays must be stated against the RECORDED time, not a report time
+    assert "기록된 발생일시 대비" in text
+    assert "먼저였다는 주장은 하지 않습니다" in text
+
+
+TRIGGER_PRIORITY_WORDS = ("일차", "우선", "먼저", "앞서", "앞섭", "앞선",
+                          "최초", "주된", "주 소스")
+TRIGGER_SOURCE_NOUNS = ("신고", "위성", "GK2A", "FIRMS", "감시카메라", "무전")
+NEGATIONS = ("없습니다", "하지 않습니다", "않았습니다", "아닙니다", "못합니다")
+
+
+def test_every_trigger_priority_sentence_on_the_screen_is_a_negation():
+    """A counting gate, because a spelling gate inherits its own corpus.
+
+    ``test_the_detection_card_rules_the_satellite_out_and_nothing_in`` bans
+    the spellings this repository has actually written, and the MEMO entry of
+    2026-09-04 is about exactly that being worth little: the next author uses
+    a synonym. So this one does not read spellings. It asserts that any line
+    naming BOTH a priority word and a trigger source must also carry a
+    negation, which holds whatever words the sentence is built from.
+
+    The source-noun condition is load-bearing, not decoration: without it the
+    rule fires on 「최초 임계 도달」 (a route-timeline label) and 「최초 승리
+    창」 (the ordering-boundary result), neither of which is about triggers.
+
+    Mutation-checked against three phrasings that appear nowhere in the tree:
+    「전화 신고를 우선 소스로 둡니다」, 「최초 인지는 주민 신고입니다」 and
+    「위성보다 신고가 앞섭니다」. All three are caught; all three escape the
+    spelling list. WFG-062 is the row that generalises this beyond one file.
+    """
+    tpl = TEMPLATE.read_text(encoding="utf-8")
+    offenders = []
+    for lineno, line in enumerate(tpl.splitlines(), 1):
+        if not any(w in line for w in TRIGGER_PRIORITY_WORDS):
+            continue
+        if not any(s in line for s in TRIGGER_SOURCE_NOUNS):
+            continue
+        if not any(n in line for n in NEGATIONS):
+            offenders.append((lineno, line.strip()[:90]))
+    assert offenders == [], offenders
+
+
+def test_the_horizon_card_does_not_call_the_recorded_time_a_report_time():
+    # docs/horizon_grounding.md could not confirm what the CSV's time column
+    # means (WFG-061, NH-019); the screen inherits that uncertainty, it does
+    # not resolve it
+    text = _text()
+    assert "기록된 발생일시에서 진화까지" in text
+    assert "확인하지 못했습니다" in text
+    assert "신고 후 240분" not in text
+
+
+def test_the_v2_cards_put_a_caveat_on_every_number_they_show():
+    # each new card carries its own warn line; a card that lost its caveat in
+    # an edit is the failure this pins
+    text = _text()
+    for caveat in (
+            "경로 산출의 놓침 비율로 읽어서는 안 됩니다",   # operating point
+            "어떤 소스가 일차여야 하는지는 재지 않았습니다",  # detection floor
+            "평균은 계산하지 않습니다",                     # horizon
+            "OSM 건물 스냅숏 위의 잠정치"):                 # refuge
+        assert caveat in text, caveat
+
+
+def test_the_reconciliation_card_states_the_lineage_rule_without_retired_values():
+    text = _text()
+    assert "제출본과 정본의 차이" in text
+    assert "docs/submission_reconciliation.md" in text
+    # The constraint on this row: retired-lineage counts never reach the
+    # screen. Scan the TEMPLATE, not the built page: a retired figure gets
+    # onto this screen by being typed into the template, and a bare-digit
+    # scan of the 2 MB artifact payload both false-positives (a canonical
+    # coordinate contains "438") and, when it does, makes pytest render the
+    # whole payload as an assertion diff.
+    # Ban the COMPOSITE spellings, not bare digits: "460" is a CSS max-width
+    # in this very file and "438" is a coordinate. A retired routing lineage
+    # only reaches a screen as its triple or its share, so that is the shape
+    # to hold.
+    tpl = TEMPLATE.read_text(encoding="utf-8")
+    for retired in ("438/18/3", "18/459", "440/17/3", "17/3/460",
+                    "3.70%", "3.70 %", "438개", "459개", "460개"):
+        assert retired not in tpl, retired
+
+
 def test_provenance_is_on_screen():
     payload = _payload()
     for region, rp in payload["regions"].items():

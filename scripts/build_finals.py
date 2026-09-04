@@ -599,6 +599,26 @@ REGISTRY_KEYS = [
     "mr_yeongdeok_walk_time_increase_pct",
     "mr_uiseong_walk_time_increase_pct",
     "mr_uljin_walk_time_increase_pct",
+    # --- v2 evidence cards (WFG-017) -------------------------------------
+    # operating point (WFG-019)
+    "oof_pooled_recall_at_operating_threshold",
+    "oof_mean_of_folds_recall_at_operating_threshold",
+    "oof_pooled_precision_at_operating_threshold",
+    "oof_average_precision", "oof_prevalence",
+    "optpoint_uiseong_fnr_advance_cut", "optpoint_uljin_fnr_advance_cut",
+    "optpoint_yeongdeok_fnr_advance_cut",
+    # detection floor (WFG-021)
+    "det_size_floor_ha_tf750",
+    "det_gk2a_delay_uiseong_andong_min", "det_gk2a_delay_gangneung_2023_min",
+    "det_gk2a_delay_hongseong_2023_min",
+    "det_control_steps", "det_false_alarm_steps",
+    # horizon grounding (Session 20)
+    "kfs_cum_le_240_pct", "kfs_n_usable_events",
+    "kfs_containment_median_min", "kfs_area_ge100ha_median_min",
+    # refuge placement (Session 22)
+    "l0i_best_single_refuge_saved", "l0i_best_pair_saved",
+    "l0i_third_refuge_gain", "l0i_candidates_enumerated",
+    "l0i_survival_check_reached_by_fire",
 ]
 
 
@@ -691,6 +711,61 @@ GATES = (
 )
 
 
+def evidence_v2() -> dict:
+    """Session 19/20/22 facts the registry cannot hold as single keys.
+
+    Everything on the v2 cards that IS a registry key is read through
+    ``regEntry`` in the template. What lands here is the handful of
+    structural facts a key cannot carry: how many LOFO folds have no true
+    positive at all and how few positive cells those folds contain (the row
+    asks for ``n_positive`` beside the perfect-miss folds so the reader sees
+    prevalence, not a broken model), the failing-household denominator the
+    refuge optimiser starts from, and the artifacts' own caveat sentences.
+
+    Read straight from the committed artifacts, the way ``model_evidence``
+    already is, and pinned to them by ``tests/test_finals_screen.py``.
+    """
+    opp = json.loads((REPO / "data" / "processed" / "operating_point" /
+                      "per_fire_recall.json").read_text(encoding="utf-8"))
+    per = opp["per_fire"]
+    misses = [v for v in per.values() if v["false_negative_rate"] >= 1.0]
+    # the range the card prints is over the folds that DO have a true
+    # positive. Taking it over all six would put 1.000 in a sentence that
+    # says "the remaining folds", which is the perfect-miss folds' value.
+    rest = [v for v in per.values() if v["false_negative_rate"] < 1.0]
+    fnrs = sorted(round(v["false_negative_rate"], 3) for v in rest)
+
+    rp = json.loads((REPO / "data" / "processed" / "vulnerability" /
+                     "refuge_placement.json").read_text(encoding="utf-8"))
+    ver = rp["verification"]["full_layer_verification"]
+    surv = rp["verification"]["survival_check"]
+
+    return {
+        "operating_point": {
+            "n_fires": len(per),
+            "n_folds_without_a_true_positive": len(misses),
+            "n_positive_of_those": sorted(v["n_positive"] for v in misses),
+            "n_folds_with_a_true_positive": len(rest),
+            "fnr_min_among_folds_with_a_true_positive": fnrs[0],
+            "fnr_max_among_folds_with_a_true_positive": fnrs[-1],
+            "source": "data/processed/operating_point/per_fire_recall.json",
+        },
+        "refuge": {
+            "site": rp["site"],
+            "failing_before": ver["full_layer_failing_before"],
+            "failing_after": ver["full_layer_failing_after"],
+            "horizon_min": ver["horizon_min"],
+            "survival_evaluations": surv["n_site_scenario_evaluations"],
+            "readme": _dash_safe(str(rp["_README"]))[:600],
+            "source": "data/processed/vulnerability/refuge_placement.json",
+        },
+        "sources": {
+            "detection": "data/processed/detection/gk2a_detection_floor.json",
+            "horizon": "data/processed/detection/kfs_containment_duration.json",
+        },
+    }
+
+
 def run_gates() -> list[dict]:
     results = []
     for name, argv in GATES:
@@ -754,6 +829,7 @@ def main() -> int:
         "p_risk": P_RISK,
         "registry": registry_slice(),
         "model": model_evidence(),
+        "ev2": evidence_v2(),
         "integrity": {
             "verified": bool(gates),
             "gates": gates,
