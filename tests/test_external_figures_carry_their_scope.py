@@ -35,6 +35,26 @@ carries no digits (「신고 거의 전부가 목격 신고였다」).  Nothing 
 should cite this check as proof; it is a ratchet against the shapes that have actually been
 written, not a reader of meaning.
 
+**AND THE SHIPPED VERSION WAS GRADED SEPARATELY, BECAUSE FOLDING THE ESCAPES IN MEANT
+NOBODY HAD GRADED IT.**  The 12-of-20 above was measured against this file's *first draft*;
+six of those eight escapes were then absorbed as cases, which turns an outside measurement
+into an inside one and leaves the version that actually landed ungraded (critic #10, F55).
+Critic #10 therefore wrote **twenty fresh blocks**, none of them in ``INCOMPLETE_BLOCKS``,
+against the shipped patterns: **14 of 20**, against 2 of 20 for the previous family.  Its
+six escapes, recorded here so the rate is not quoted without them:
+
+* ``99％`` — U+FF05, the fullwidth percent a Korean IME produces by default, which the
+  class ``(?:%|퍼센트)`` did not accept.  **Closed by WFG-070**, one character, and it is
+  now a case above credited to critic #10;
+* the share restated as a count (「100건 가운데 99건」);
+* 목격 paraphrased (「눈으로 본 사람의 신고」);
+* three restatements of the camera figure with no digit beside 최초.
+
+The last five are the class this docstring already refuses to claim — a string gate cannot
+enumerate paraphrases — and none of them was closed by widening a pattern.  So the honest
+rate for the instrument as it stands is **15 of the 20 blocks critic #10 wrote**, one
+better than when it shipped, and the five that remain are open.
+
 Two more limits, stated rather than discovered later:
 
 * it does **not** catch a new external figure nobody added to ``EXTERNAL_FIGURES``.  The
@@ -112,9 +132,13 @@ EXTERNAL_FIGURES: tuple[dict[str, object], ...] = (
         # hard-wrapped at ninety columns, so a wrap between the number and its noun was
         # the reviewer's first escape.  60 rather than 24 because the second escape put
         # twenty-six characters of agency names between the two halves.
+        # `％` is U+FF05, the FULLWIDTH PERCENT SIGN a Korean IME produces by default;
+        # `%` is U+0025.  Critic #10's F55 measured 「목격 신고 99％가 …」 walking straight
+        # through the shipped gate, and it is the cheapest escape this file has ever had:
+        # one character in one character class (WFG-070, second fix-before-next-row item).
         "detect": re.compile(
-            r"99(?:\.\d+)?\s*(?:%|퍼센트)[\s\S]{0,60}목격"
-            r"|목격[\s\S]{0,60}99(?:\.\d+)?\s*(?:%|퍼센트)"
+            r"99(?:\.\d+)?\s*(?:[%％]|퍼센트)[\s\S]{0,60}목격"
+            r"|목격[\s\S]{0,60}99(?:\.\d+)?\s*(?:[%％]|퍼센트)"
         ),
         "agency": ("경향신문", "khan.co.kr"),
         "as_of": ("2023-04-28", "2023년 4월 28일"),
@@ -302,6 +326,11 @@ INCOMPLETE_BLOCKS: tuple[tuple[str, str], ...] = (
         "목격에 의해 접수된 신고가 산림청 집계 기준으로 전체의 99 % 였습니다.",
     ),
     ("reviewer #6 · a decimal", "산불 신고의 99.0 %가 목격 신고였습니다."),
+    # Not this file's author and not its reviewer: critic #10 wrote twenty fresh
+    # blocks against the SHIPPED gate (F55) and this was the one cheap escape of the
+    # six.  `％` is U+FF05, what a Korean IME types by default (WFG-070).
+    ("critic #10 F55 · the fullwidth percent a Korean IME types",
+     "산불 신고의 99％가 목격 신고였습니다."),
     (
         "reviewer #7 · the half of the camera figure that carries the meaning",
         "경북의 산불감시카메라가 산불을 최초로 발견한 건수는 0건입니다.",

@@ -45,7 +45,12 @@ nobody mistakes a green run for a guarantee:
 * the same claim with the subjects reversed: 「사람의 신고가 위성보다 22분 빨랐습니다」,
   「사람이 먼저였고 위성이 나중이었습니다」, 「전화가 먼저 울렸고, 위성은 그 뒤였습니다」;
 * the claim without the comparison word at all: 「사람이 신고한 뒤에 울렸습니다」;
-* any of it in English, anywhere — no English pattern is gated.
+* any of it in English, anywhere — ``BANNED`` is Korean-only and stays that way.
+  Since 2026-09-04 (WFG-070) the English spelling of both withdrawn claims has its
+  own rule at the foot of this file, ``english_ordering_violations``, over four
+  English surfaces. It is a separate instrument with separately measured limits
+  (8 of 16 on a set graded after freezing), not an extension of this one, and it
+  deliberately does not cover ``paper/manuscript.md``.
 
 So: a determined or merely differently-worded author walks past this file. What it does
 buy is that the **exact sentences this repository actually shipped** cannot come back by
@@ -329,7 +334,9 @@ def test_each_withdrawn_spelling_is_caught(sentence: str):
 # WHAT THIS DOES NOT DO — the same disclaimer as the ordering gate above, and for the
 # same reason. This is a string tripwire over the spellings this repository actually
 # shipped. It does not read Korean. 「사람의 전화가 먼저 와야 합니다」, 「최초 인지는
-# 주민이 담당합니다」, or any English rendering walk straight past it. The general fix is
+# 주민이 담당합니다」 walk straight past it. An English rendering is caught by
+# `english_ordering_violations` at the foot of this file since WFG-070, on four English
+# surfaces and with its own measured escapes. The general fix is
 # a registry of withdrawn claims any document can be checked against (WFG-062); until
 # that lands, this is a ratchet against regression-by-copying, not a proof.
 #
@@ -520,7 +527,9 @@ def test_each_withdrawn_primacy_spelling_is_caught(sentence: str):
 # * an assertion that merely CONTAINS a negation elsewhere in the same sentence passes,
 #   because the rule counts morphemes, not scope: 「위성은 볼 수 없으므로 사람 신고를
 #   일차로 둡니다」 is caught by `BANNED_PRIMACY` above but not by this;
-# * English passes, here as everywhere in this file;
+# * English is not read by THIS rule. Since WFG-070 it is read by
+#   `english_ordering_violations` at the foot of this file, which is a different
+#   rule over different files and does not make this one bilingual;
 # * and neither rule reads meaning. Together they are a **ratchet**, and the honest
 #   summary is: `BANNED_PRIMACY` stops the six sentences this repository shipped coming
 #   back by copy-paste, and this one stops a large class of rewordings of them. Neither
@@ -715,3 +724,292 @@ def test_the_permitted_sentence_is_not_a_violation():
         "- **어느 채널이 일차여야 하는가.** 크기 바닥은 위성을 배제할 뿐 "
         "사람을 옹립하지 않습니다.\n"
     )
+
+
+# ---------------------------------------------------------------------------
+# WFG-070 · the same two claims, in ENGLISH
+# ---------------------------------------------------------------------------
+#
+# Everything above this line is Korean. Every token in `BANNED`, `BANNED_PRIMACY`,
+# `PRIORITY_WORDS`, `SOURCE_NOUNS` and `NEGATION_MORPHEMES` is a Korean string, and the
+# docstring of each family says so in one clause — 「any of it in English, anywhere — no
+# English pattern is gated」, 「English passes, here as everywhere in this file」. Three
+# laps read those clauses as a scoping decision. They were a hole.
+#
+# Critic #10 found the claim alive at `docs/auto/research/RESEARCH_BRIEF_2026-09-03.md:75`,
+# under the heading 「The ten hardest judge questions, with the answers that survive the
+# verdicts」 — the student's own drill material, which `docs/auto/ROUTINE_PROMPTS.md` tells
+# a routine to read every lap — and at `sweeps_2026-09-03/R3_science_gaps.md:22`. Critic #9
+# had certified the same window with 「grepped every `.md` and `.html` in the tree this lap」.
+# The grep was Korean too.
+#
+# HOW THIS RULE WAS CHOSEN, AND THE NUMBER THAT CHOSE IT. Two candidates were run over the
+# English half of the repository (both research directories, `README.md`, `paper/manuscript.md`)
+# **before anything was annotated**, because a gate whose hit count nobody measured is a
+# gate whose noise nobody knows:
+#
+#   variant A — a direct mirror of `priority_violations` above: a priority word plus ONE
+#               source noun, no negation.                          **37 hits, mostly noise.**
+#               「first ISEF delegation」, 「primary category」, 「before Round 3–5」: the
+#               English priority words are ordinary English, which the Korean ones are not.
+#   variant B — the same, but requiring BOTH SIDES of the comparison in one sentence: a
+#               machine-detection noun AND a human-channel noun.    **4 hits, 3 of them real.**
+#
+# B is what ships. The asymmetry is the finding: this claim is a *comparison*, and demanding
+# that both compared things appear is what separates it from ordinary English prose. The
+# fourth hit is `paper/manuscript.md`, discussed under `EN_GUARDED` below.
+#
+# IT FOUND A THIRD INSTANCE NOBODY HAD SEEN. `sweeps_2026-09-03/R7_rubric_gap.md:109` is a
+# prepared answer to a fire scientist — 「a satellite trigger would still have fired 22–64
+# minutes *after* the human report in every fire we could test, so the trigger interface is
+# designed report-first, satellite-confirm」 — in the same sentence as a 「every fire」 that
+# the same file's preamble forbids. Critic #10's manual grep raised this row on two
+# instances and this rule found a third, which is the only evidence offered here that it
+# beats a reader.
+#
+# WHAT IT DOES NOT DO. The honest list, in the shape the two families above use, and none
+# of these were closed by folding them back in as cases — critic #10's F55 was that the
+# previous lap graded its *first draft* against a reviewer's set and then absorbed the
+# escapes, which converts external ground truth into internal ground truth:
+#
+# * it counts negation morphemes, not scope, exactly like `priority_violations`: a sentence
+#   carrying `not` anywhere passes, so 「the satellite is not fast, so the call comes first」
+#   walks through;
+# * it needs both sides named. 「the trigger is designed report-first」 alone — no satellite
+#   noun — passes, and that half-sentence is quotable;
+# * a claim spread over two sentences passes, since the unit is a sentence;
+# * it reads English and Korean and nothing else, and this repository has prose in both;
+# * `[GAP: …]` markers and other bracketed conditionals are not understood.
+#
+# Measured against a fresh set the author of these patterns wrote only AFTER freezing them
+# (`test_the_english_rule_was_graded_after_it_was_frozen`): **8 of 16**. The lap that wrote
+# them predicted 11 before running it and was wrong by three, which is the whole argument
+# for running it. The eight escapes are listed there as failing-by-design documentation and
+# none of them is fixed by widening a pattern.
+#
+# ONE OF THE EIGHT IS A TRADE-OFF THIS RULE MAKES ON PURPOSE, and it only became visible
+# because the set was graded after freezing. The semicolon split below is what lets the rule
+# see `R3_science_gaps.md:22`, a real instance. It is also why 「Residents call first; the
+# satellite catches up 22 minutes later.」 escapes: splitting on the semicolon leaves one
+# side of the comparison in each half, and a rule that needs both sides then sees neither.
+# So this rule is measurably better on the prose this repository actually wrote and
+# measurably worse on one natural English shape, and neither half of that is hidden.
+
+#: The English judge-facing and drill surfaces. `docs/auto/research/` is here because
+#: `ROUTINE_PROMPTS.md` sends a routine into it every lap and section (c) is the ten-question
+#: drill the student reads before the booth; `README.md` because it is the first English
+#: page anyone opens.
+#:
+#: ⚠ `paper/manuscript.md` IS DELIBERATELY ABSENT, and this is the same call the
+#: `MANUSCRIPT_ANCHORS` block above makes for the same file. Variant B's fourth hit is
+#: `paper/manuscript.md:657`, inside a `[GAP: …]` marker whose own opening clause is 「the
+#: delays cannot be read against either the true ignition or the emergency call」 — the
+#: manuscript refusing the claim, split from its negation by a sentence boundary. It is a
+#: false positive, and licensing it would mean putting an HTML pragma into a file that
+#: `paper/build_docx.py` converts to .docx and that CHARTER §12 gives to another routine.
+#: The manuscript keeps the positive anchors above instead. Recorded rather than hidden:
+#: the English claim is ungated in the manuscript, and `test_the_manuscript_hit_is_still_the
+#: _gap_marker` fails if that one hit ever becomes something else.
+EN_GUARDED: tuple[str, ...] = (
+    "docs/auto/research/RESEARCH_BRIEF_2026-09-03.md",
+    "docs/auto/research/sweeps_2026-09-03/R3_science_gaps.md",
+    "docs/auto/research/sweeps_2026-09-03/R7_rubric_gap.md",
+    "README.md",
+)
+
+#: Ordering AND primacy in one list: 「fired after the report」 and 「the report is primary」
+#: are the two withdrawn claims, and in English they share a vocabulary.
+EN_PRIORITY_WORDS = (
+    "primary", "primarily", "first", "report-first", "satellite-first", "ahead of",
+    "earlier", "sooner", "before", "precede", "preceded", "precedes", "preceding",
+    "rank", "ranked", "leading", "leads", "after", "later", "behind", "lags",
+    "lagged", "beat", "beats", "outpaced", "faster", "slower",
+)
+EN_MACHINE_NOUNS = (
+    "satellite", "satellites", "gk2a", "firms", "viirs", "modis", "geostationary",
+    "camera", "cameras",
+)
+EN_HUMAN_NOUNS = (
+    "human report", "human reports", "report-first", "telephone", "phone call",
+    "emergency call", "119", "eyewitness", "eyewitnesses", "witness", "human",
+    "humans", "resident", "residents", "caller", "call", "calls", "villager",
+    "villagers",
+)
+#: Prefixes, not conjugations — the lesson `NEGATION_MORPHEMES` above records.
+EN_NEGATION_PATTERNS = (
+    r"\bnot\b", r"\bno\b", r"\bnever\b", r"\bcannot\b", r"\bcan't\b", r"n't\b",
+    r"\bwithout\b", r"\bwithdraw", r"\bunsupported\b", r"\brefus", r"\bneither\b",
+    r"\bnothing\b", r"\bunmeasured\b", r"\bunknown\b",
+)
+
+#: Its own pragma token, for the same reason `PRIORITY_PRAGMA` has one: a pragma added for
+#: a Korean spelling must not silently license the English claim as well.
+EN_PRAGMA = "en-ordering"
+
+#: A semicolon ends a clause here where it does not in the Korean rule, and that is not a
+#: style preference. `R3_science_gaps.md:22` is a table row reading 「+22 / +34 / +64 min
+#: after the human report (n = 3); GK2A beat FIRMS in 2/3; "GK2A buys time" is explicitly
+#: not claimed」 — three independent statements, the last carrying a negation that a
+#: whole-row scan would let cover the first. Without the semicolon split this rule misses
+#: one of the three instances it exists for. Measured: adding it caught R3:22 and added
+#: **zero** new hits anywhere else in the English half.
+_EN_CLAUSE_SPLIT = re.compile(r";\s+")
+
+
+def _has_word(text: str, words: tuple[str, ...]) -> bool:
+    return any(re.search(r"\b" + re.escape(w) + r"\b", text) for w in words)
+
+
+def english_ordering_violations(text: str) -> list[tuple[int, str]]:
+    """(first line number, sentence) for every English sentence that compares the machine
+    channel with the human channel on time or on rank, without a negation."""
+    lines = text.splitlines()
+    found: list[tuple[int, str]] = []
+    for block, nums, split in _blocks(text):
+        licensed: set[str] = set()
+        for n in nums:
+            for j in (n - 1, n):
+                if 1 <= j <= len(lines):
+                    licensed |= _pragma_tokens(lines[j - 1])
+        if EN_PRAGMA in licensed:
+            continue
+        parts = _SENTENCE_SPLIT.split(block) if split else [block]
+        for sentence in (c for part in parts for c in _EN_CLAUSE_SPLIT.split(part)):
+            sentence = sentence.strip()
+            low = sentence.lower()
+            if not low:
+                continue
+            if not _has_word(low, EN_PRIORITY_WORDS):
+                continue
+            if not (_has_word(low, EN_MACHINE_NOUNS) and _has_word(low, EN_HUMAN_NOUNS)):
+                continue
+            if any(re.search(p, low) for p in EN_NEGATION_PATTERNS):
+                continue
+            found.append((nums[0], sentence))
+    return found
+
+
+@pytest.mark.parametrize("rel", EN_GUARDED)
+def test_no_english_surface_claims_the_ordering_or_the_primacy(rel: str):
+    """The load-bearing English gate. WFG-070."""
+    path = REPO / rel
+    assert path.is_file(), f"{rel} is missing — the English guard list is stale"
+    hits = english_ordering_violations(path.read_text(encoding="utf-8"))
+    assert not hits, (
+        f"{rel} compares the satellite with the human channel on time or on rank, which no "
+        f"committed artifact supports (WFG-053, WFG-063, WFG-070, NH-019):\n"
+        + "\n".join(f"  {rel}:{n}  {s[:140]}" for n, s in hits)
+        + "\n\nThe delays are measured from a RECORDED OCCURRENCE TIME, not a report; "
+          "`docs/data_provenance/fire_manifest.json` marks that field "
+          "`start/end/reported_ha are provenance only`, and no committed artifact holds a "
+          "신고접수시각. So neither direction can be stated, and the size floor rules the "
+          "SATELLITE OUT rather than the HUMAN IN. If the sentence names the claim in "
+          f"order to withdraw, forbid, quote or record it, put "
+          f"`<!-- forbidden-ok: {EN_PRAGMA} -->` on the line or the line above."
+    )
+
+
+def test_the_manuscript_hit_is_still_the_gap_marker():
+    """`paper/manuscript.md` is out of `EN_GUARDED` on the strength of one measurement, so
+    the measurement is a test rather than a sentence in a docstring.
+
+    Variant B's only hit there is the `[GAP: …]` marker that refuses the claim. If the
+    manuscript ever grows a second English hit, this fails and the exclusion has to be
+    argued again instead of inherited.
+    """
+    hits = english_ordering_violations(
+        (REPO / "paper/manuscript.md").read_text(encoding="utf-8")
+    )
+    assert len(hits) == 1, (
+        f"paper/manuscript.md now has {len(hits)} English ordering hits, not the one "
+        f"known false positive: {[s[:90] for _, s in hits]}. Re-argue the exclusion in "
+        f"EN_GUARDED, or add the file and pragma the GAP marker."
+    )
+    assert "would settle it" in hits[0][1], (
+        f"the manuscript's one hit is no longer the [GAP: ...] marker but: {hits[0][1][:140]}"
+    )
+
+
+@pytest.mark.parametrize(
+    "sentence",
+    [
+        # --- the three instances actually found in this repository ---
+        "Detection floor measured (Session 19): a satellite trigger would have fired "
+        "+22/+34/+64 min after the human report (FIRMS +117/+151/+17).",
+        "GK2A detection floor: +22 / +34 / +64 min **after the human report** (n = 3)",
+        "We measured the detection floor too: with GK2A at 2-minute cadence, a satellite "
+        "trigger would still have fired 22-64 minutes *after* the human report in every "
+        "fire we could test, so the trigger interface is designed report-first, "
+        "satellite-confirm.",
+    ],
+)
+def test_each_english_instance_found_in_the_tree_is_caught(sentence: str):
+    assert english_ordering_violations(sentence), f"the English rule misses: {sentence}"
+
+
+def test_the_english_rule_does_not_fire_on_the_prose_that_withdraws_the_claim():
+    """Negative direction. A detector that always fires is as useless as one that never does."""
+    withdrawn = (
+        "The delays cannot be read against either the true ignition or the emergency "
+        "call, so no comparison with the satellite is available.\n"
+    )
+    assert not english_ordering_violations(withdrawn)
+    ordinary = (
+        "The 240-min horizon is grounded on KFS statistics for 2,008 fires.\n"
+        "Yeongdeok was the first region routed after the canonical field landed.\n"
+        "GK2A has a 2 km pixel and a 2-minute full-disk cadence.\n"
+    )
+    assert not english_ordering_violations(ordinary), (
+        "the English rule fires outside its own claim"
+    )
+
+
+#: Sixteen English sentences written AFTER `EN_PRIORITY_WORDS`, `EN_MACHINE_NOUNS`,
+#: `EN_HUMAN_NOUNS` and `EN_NEGATION_PATTERNS` were frozen, without editing them
+#: afterwards. The point of freezing first is critic #10's F55: the previous gate graded
+#: its first draft against an outside set, then folded six of the eight escapes in as
+#: cases, so the version that actually shipped was graded by nobody. Nothing below is fixed
+#: by widening a pattern. `caught` is what this rule does today.
+_GRADED_AFTER_FREEZING: tuple[tuple[str, bool], ...] = (
+    ("A satellite trigger fires later than the phone call.", True),
+    ("The human report reaches the desk before any satellite pixel does.", True),
+    ("Our eyewitness channel is the primary trigger and GK2A confirms it.", True),
+    # the semicolon split that catches R3:22 puts one side of the comparison in each half
+    ("Residents call first; the satellite catches up 22 minutes later.", False),
+    ("The 119 call precedes the GK2A anomaly in all three testable fires.", True),
+    ("GK2A lags the villagers by roughly half an hour.", True),
+    ("In rank order the trigger sources are: human report, then satellite.", True),
+    ("The camera sees nothing, so the resident is first.", False),   # negation, wrong scope
+    ("Ranked by latency the emergency call beats FIRMS by two hours.", True),
+    ("Detection is human-led and the satellite is a confirmation layer.", False),
+    ("We designed the interface report-first.", False),              # one side only
+    ("The satellite is slower.", False),                             # one side only
+    # "village" is not "villager" and "orbit" is not a machine noun: both sides missed
+    ("Nobody saw the fire from orbit before the village did.", False),
+    ("Timeline: villager 14:02, GK2A 14:24 -- the later of the two is the machine.", True),
+    ("Our trigger begins with the telephone; the satellite is downstream of it.", False),
+    ("A geostationary sensor cannot beat a witness who is standing in the smoke.", False),
+)
+
+
+def test_the_english_rule_was_graded_after_it_was_frozen():
+    """8 of 16, and the number is asserted so it cannot quietly drift.
+
+    This is a MEASUREMENT, not a target, and it is the number the rule actually scored
+    rather than the 11 its author predicted before running it. The eight misses are real
+    and every one is left open: three are the one-side-only limit, one is the semicolon
+    trade-off documented above, one is the negation-scope limit this file has carried
+    since `priority_violations`, and the rest use no word in any list. Raising the score
+    by adding their words is exactly the corpus-fitting MEMO 2026-09-04 and critic #10's
+    F55 both name; a later lap wanting a better number must get its sentences from
+    someone who did not write the patterns.
+    """
+    caught = [s for s, _ in _GRADED_AFTER_FREEZING if english_ordering_violations(s)]
+    expected = [s for s, want in _GRADED_AFTER_FREEZING if want]
+    assert sorted(caught) == sorted(expected), (
+        "the English rule's catch set moved. Expected 8 of 16 with these eight open:\n"
+        + "\n".join(f"  MISS {s}" for s, want in _GRADED_AFTER_FREEZING if not want)
+        + "\n\nIf a change closed one of them, that is good news — move it to True and say "
+          "so in the report. If a change OPENED one, the rule regressed."
+    )
+    assert len(caught) == 8, f"expected 8 of 16, got {len(caught)}"

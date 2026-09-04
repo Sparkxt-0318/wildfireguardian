@@ -90,6 +90,22 @@ Answer: "Its absolute rates are rates on the covered third, and every one carrie
 **Q8 (emergency-management official). "What are your 'refuges'? Are any of them designated 대피소?"**
 Answer: "Fifty OSM POIs at 영덕, 46 snapped to the network; the RELIABILITY tab says it plainly — most are `leisure=park`/정자-type tags, unverified against 행안부 지정 대피소. The 공공데이터포털 national shelter file has a loader with a labelled synthetic fallback, but the committed runs use OSM. Between-region 'shelter density' differences are partly mapping practice. Refuge *survival* under the fire is a separate filter and never bound in these runs." Proof: 서식2 Ⅲ-9-1, `finals.html` RELIABILITY strings ("대피 지점의 다수는 OSM의 공원·정자류 태그입니다"), `docs/global_portability.md` §3b. A cross-check against the official shelter list: **does not exist** (portal download is JS/CAPTCHA-gated; see student list).
 
+<!-- forbidden-ok: en-ordering -->
+> **⚠ WITHDRAWN 2026-09-04 — do not drill answer Q9 as written (WFG-053, WFG-063,
+> WFG-070).** This sweep is a record of what was believed on 2026-09-03 and its prose is
+> not edited. Q9's answer says a satellite trigger 「would still have fired 22–64 minutes
+> *after* the human report in every fire we could test, so the trigger interface is
+> designed report-first, satellite-confirm」. Every clause of that is withdrawn: the
+> delays are measured from a **recorded occurrence time**, not a report
+> (`docs/data_provenance/fire_manifest.json`: `start/end/reported_ha are provenance
+> only`); no committed artifact holds a 신고접수시각, so **neither** direction of the
+> comparison can be stated; 「every fire we could test」 is 3 of 6 and this file's own
+> preamble forbids 「every fire」; and the size floor rules the **satellite out**, not the
+> **human in**. Current wording: `docs/detection_floor.md` §9–§10, `docs/auto/JUDGE_QA.md`
+> Q10 · Q10d. Open question: NH-019. Found by the English claim gate added in WFG-070,
+> not by a reader — this instance was missed by the manual grep that raised the row.
+
+<!-- forbidden-ok: en-ordering -->
 **Q9 (fire scientist / official). "The 2025 fire reached 영덕 from 안동 in about 40 minutes. Your hazard slices are 3 hours apart and satellites pass every 6–16 hours. Can this system say anything on the timescale that killed people?"**
 Answer: "Not at minute resolution, and the A4 sheet's 「남은 시간」 can only read 180/360/540/720/확인 불가 on this field; the '< 30 min → 긴급' tag is structurally unreachable. We measured the detection floor too: with GK2A at 2-minute cadence, a satellite trigger would still have fired 22–64 minutes *after* the human report in every fire we could test, so the trigger interface is designed report-first, satellite-confirm. What the system is for is the 4-hour behavioural window — 79 % of Korean fires are contained within 240 min of report (n = 2,008), while fires ≥ 100 ha run a median 67 hours — so 'act now on foot' vs 'send a vehicle' is the decision it informs, not 'run left or right in the next ten minutes'." Proof: `docs/routing_limitations.md` §3, `docs/SESSION19_REPORT.md` / `detection_floor.md`, `docs/horizon_grounding.md`. Finer-slice re-run of the routing axis: **does not exist** (PHASE 2-C-3 never started).
 
