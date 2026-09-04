@@ -65,6 +65,39 @@ JUDGE_FACING = {
     "docs/ROUTING_INTEGRATION_REPORT.md": ROUTING,
 }
 
+# The two opening paragraphs, located by their labels rather than by line numbers —
+# the same trick `scripts/check_readme_figures.py` uses, and for the same reason:
+# a line-scoped scan of this section has already been fooled once (critic #5 F21).
+_PARAGRAPH_BOUNDS = {
+    "Korean": (r"\*\*보호 대상\*\*", r"\*\*대회\*\*"),
+    "English": (r"\*\*Motivating event\*\*", r"\*\*Target venue\*\*"),
+}
+
+
+def _opening_paragraphs(text: str = README) -> dict[str, str]:
+    """The Korean and English opening paragraphs. A paragraph whose labels are not
+    found is omitted, and its caller asserts on the omission — a renamed label must
+    fail loudly rather than quietly switch the tripwire off."""
+    out: dict[str, str] = {}
+    for name, (start, end) in _PARAGRAPH_BOUNDS.items():
+        m = re.search(start + r"(.*?)" + end, text, flags=re.S)
+        if m:
+            out[name] = m.group(1)
+    return out
+
+
+def _percentages_in_opening_paragraphs(text: str = README) -> dict[str, list[str]]:
+    """Every ``NN %`` in either opening paragraph, link targets stripped first: a
+    percent-encoded URL (``...2025%EB%85%84...``) is a link target, not prose.
+
+    Kept as one function so the tripwire and the test that proves the tripwire fires
+    exercise the same code, instead of two regexes that agree with each other.
+    """
+    share = re.compile(r"\d{1,3}\s*%")
+    link_target = re.compile(r"\]\([^)]*\)")
+    return {name: share.findall(link_target.sub("]()", para))
+            for name, para in _opening_paragraphs(text).items()}
+
 # The chain's final tally: 경상북도 최종 집계, confirmed by 중대본, reported 2025-05-06.
 # https://view.asiae.co.kr/article/2025050610030818823
 #
@@ -218,17 +251,48 @@ def test_the_nationwide_total_is_never_divided_by_the_chain() -> None:
     refuted by 함정 6, and where the 산림청 release is quoted verbatim ("12% 감소한
     347건"), so a blanket ban there would forbid the discussion that prevents the error.
     """
-    share = re.compile(r"\d{1,3}\s*%")
-    link_target = re.compile(r"\]\([^)]*\)")
-    for i, line in enumerate(README.splitlines()):
-        if "104,788" not in line:
-            continue
-        prose = link_target.sub("]()", line)
-        assert not share.search(prose), (
-            f"README.md:{i + 1} states a percentage beside the nationwide total. "
-            "The chain's share is 95 % or 43 % depending on which of its own areas "
-            "you put on top, so it is a choice of framing, not a quantity."
+    found = _percentages_in_opening_paragraphs()
+    assert set(found) == set(_PARAGRAPH_BOUNDS), (
+        f"an opening paragraph was not located by its labels: found {sorted(found)}. "
+        "Renaming a label silently disables this tripwire, so that is a failure too."
+    )
+    for name, pcts in found.items():
+        assert not pcts, (
+            f"the {name} opening paragraph states {pcts} — a percentage. That "
+            "paragraph exists to refuse the ratio; a percentage inside it is either "
+            "the 95 % it withdrew or the 43 % that replaced it, and both divide a "
+            "chain figure by a nationwide total that is not on the same basis."
         )
+
+
+def test_the_tripwire_sees_the_whole_paragraph_not_one_line() -> None:
+    """critic #5 F21: the first version of this tripwire scanned only the lines
+    containing ``104,788``, and both banned ratios sat four lines below it. It passed,
+    in two languages, on the README it was written to forbid, for four commits.
+
+    So the scan is paragraph-wide now, and this test is the evidence that the widened
+    scan actually fires: it puts each withdrawn sentence back into a copy of the
+    README and asserts the *check function* — not a fresh regex written here — reports
+    it. A tripwire nobody has seen fail is a comment.
+    """
+    reinstated = {
+        "Korean": ("**보호 대상**",
+                   "같은 기준(산불영향구역)으로 맞추면 그 비율은 95 %가 아니라 약 43 %가 되며,"),
+        "English": ("**Motivating event**",
+                    "measured like-for-like on 산불영향구역 the share is about 43 %, not 95 %,"),
+    }
+    assert set(reinstated) == set(_PARAGRAPH_BOUNDS)
+    for name, (anchor, sentence) in reinstated.items():
+        assert README.count(anchor) >= 1, f"the {name} anchor {anchor!r} is gone"
+        mutated = README.replace(anchor, f"{anchor} {sentence}", 1)
+        assert _percentages_in_opening_paragraphs(mutated)[name], (
+            f"the check did not fire on the {name} paragraph with its withdrawn "
+            f"ratio put back: {sentence!r}"
+        )
+        # and the mutation is confined to the paragraph it targets
+        assert not _percentages_in_opening_paragraphs(mutated)[
+            "English" if name == "Korean" else "Korean"
+        ]
 
 
 def test_the_nationwide_total_carries_its_period() -> None:

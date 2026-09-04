@@ -205,10 +205,19 @@ def test_the_charter_step_that_precedes_a_push_names_the_command():
 
 @pytest.fixture()
 def reported_sandbox(monkeypatch):
-    state = {"diff": ""}
+    """``diff`` is the plain listing; ``added`` is the ``--diff-filter=A`` listing.
+
+    ``added`` defaults to ``diff`` — every changed path was added — because that is
+    what a lap pushing new work looks like, and it keeps the tests written before
+    critic #5's F22 meaning what they meant. A test that wants the F22 case sets
+    ``added`` explicitly.
+    """
+    state = {"diff": "", "added": None}
 
     def fake_git(*args: str) -> str:
         if args[:2] == ("diff", "--name-only"):
+            if "--diff-filter=A" in args:
+                return state["diff"] if state["added"] is None else state["added"]
             return state["diff"]
         raise AssertionError(f"unexpected git call: {args}")
 
@@ -221,7 +230,7 @@ def test_the_f19_case_a_prose_only_commit_with_no_report_is_refused(reported_san
     reported_sandbox["diff"] = "README.md\ndocs/data_sources.md\ndocs/auto/NEEDS_HUMAN.md\ndocs/auto/LOOP_CONFIG.json\n"
     assert gates.assert_reported("c7b8a66") == 1
     out = capsys.readouterr().out
-    assert "no report covers them" in out and "README.md" in out
+    assert "no NEW report covers them" in out and "README.md" in out
 
 
 def test_a_normal_lap_push_carries_its_report(reported_sandbox):
@@ -248,3 +257,38 @@ def test_nothing_to_push_is_fine(reported_sandbox):
 def test_the_reports_readme_does_not_count_as_a_report(reported_sandbox):
     reported_sandbox["diff"] = "README.md\ndocs/auto/reports/README.md\n"
     assert gates.assert_reported("origin/auto/dev") == 1
+
+
+# critic #5, F22: a MODIFIED report is not a report of new work
+# ---------------------------------------------------------------------------
+
+def test_the_f22_case_appending_to_an_old_report_does_not_license_new_work(reported_sandbox, capsys):
+    """The real range `98557b9..5a0466e`, which passed the first version of the check.
+
+    It changes NEEDS_HUMAN.md substantively and covers it with four lines appended to
+    the *previous* lap's report. Nothing was added, so nothing reports the work.
+    """
+    reported_sandbox["diff"] = ("docs/auto/NEEDS_HUMAN.md\ndocs/auto/STATE.json\n"
+                                "docs/auto/reports/2026-09-04T0134Z-dev.md\n")
+    reported_sandbox["added"] = ""
+    assert gates.assert_reported("98557b9") == 1
+    out = capsys.readouterr().out
+    assert "no NEW report" in out
+    assert "Editing a report does not report new work" in out
+
+
+def test_a_newly_added_report_still_discharges_it(reported_sandbox):
+    """The intended flow must keep working: same range, but the report is new."""
+    reported_sandbox["diff"] = ("docs/auto/NEEDS_HUMAN.md\ndocs/auto/STATE.json\n"
+                                "docs/auto/reports/2026-09-04T0400Z-dev.md\n")
+    reported_sandbox["added"] = "docs/auto/reports/2026-09-04T0400Z-dev.md\n"
+    assert gates.assert_reported("98557b9") == 0
+
+
+def test_the_f19_commit_could_not_have_bought_its_way_past_with_a_stale_report(reported_sandbox):
+    """12b8ac7's own path set, plus an edit to an earlier report — the escape route
+    F22 named. It must still be refused."""
+    reported_sandbox["diff"] = ("README.md\ndocs/data_sources.md\ndocs/auto/NEEDS_HUMAN.md\n"
+                                "docs/auto/reports/2026-09-03T2239Z-dev.md\n")
+    reported_sandbox["added"] = ""
+    assert gates.assert_reported("c7b8a66") == 1

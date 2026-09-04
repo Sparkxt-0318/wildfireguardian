@@ -189,7 +189,6 @@ Round 3 은 새 기능을 얹기 전에 **기존 수치가 아직 참인지 확�
 시스템입니다.
 
 **보호 대상**: 한국 농촌의 고령층(60–80대). 2025년 3월 경북 **의성**에서 발화해
-**보호 대상**: 한국 농촌의 고령층(60–80대). 2025년 3월 경북 **의성**에서 발화해
 **의성→안동→청송→영양→영덕**으로 번진 산불(최종 피해면적 **99,289 ha**로 1986년 통계
 작성 이래 최대, 주불 진화까지 149시간; 사망 **26명**, 그중 **영덕 10명**〈영덕군 공지
 2025-04-29, 그린피스 실태조사 최종보고서 p.9 재인용값; 경상북도 재난안전대책본부
@@ -207,8 +206,9 @@ Round 3 은 새 기능을 얹기 전에 **기존 수치가 아직 참인지 확�
 *2025년 **봄철 산불조심기간**(1월 24일 ~ 5월 15일) 전국 산불 전체*의 합계입니다
 ([산림청 보도자료 2025-05-16](https://www.pcccr.go.kr/base/board/read?boardManagementNo=43&boardNo=5375&menuLevel=2&menuNo=92)).
 ①과는 **기간·주체·집계 기준이 모두** 다르므로 「이 화재군이 전국의 몇 %」 같은 비율은
-쓰지 않습니다. 같은 기준(산불영향구역)으로 맞추면 그 비율은 95 %가 아니라 약 43 %가
-되며, 기준 선택만으로 두 배 달라지는 값은 수치가 아닙니다(`docs/data_sources.md` 함정 6).
+쓰지 않습니다. ②를 분자로 바꿔도 마찬가지입니다. ②는 ①과 나란히 놓을 수 있는 다른
+기준의 값이 아니라 **합동조사가 뒤집은 이전 추정치**이므로, 같은 기준끼리 맞춘 비율은
+이 저장소에 존재하지 않습니다(`docs/data_sources.md` 함정 6).
 출처와 범위 정리는 `docs/data_sources.md` 참조〕
 
 **대회**: 2026 대한민국 학생 SW공모전(Korea Code Fair) → ISEF (Software Design, SFTD)
@@ -524,10 +524,10 @@ quoted alongside is the *nationwide total for the 2025 spring fire-prevention se
 24 January to 15 May*
 ([산림청 press release, 2025-05-16](https://www.pcccr.go.kr/base/board/read?boardManagementNo=43&boardNo=5375&menuLevel=2&menuNo=92)) —
 a different **period**, body and basis, not merely a wider geography. So this repository
-prints no "share of the national total": measured like-for-like on 산불영향구역 the share
-is about 43 %, not 95 %, and a ratio that moves by a factor of two on basis choice is a
-framing, not a quantity. Every figure here, with its agency, scope and URL, is tabulated
-in `docs/data_sources.md`.
+prints no "share of the national total". Putting (2) on top instead does not rescue the
+ratio: (2) is not a parallel basis standing beside (1) but the earlier estimate the joint
+survey overturned, so there is no like-for-like ratio here to print. Every figure here,
+with its agency, scope and URL, is tabulated in `docs/data_sources.md`.
 
 **Target venue**: 2026 Korea Code Fair SW공모전 (Korean student SW competition),
 with the stretch goal of qualifying for ISEF in the Software Design (SFTD) category.

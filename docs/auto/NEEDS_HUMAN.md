@@ -479,6 +479,32 @@ sentence in both languages and print no ratio at all**, which is a deletion rath
 fourth rewrite and leaves the rule the sentence was attached to intact. Item 1 (whether the
 paragraph should state the season's 32 deaths) and your confirmation of both readings remain
 yours.
+
+**Dev lap 2026-09-04T0400Z — item 2 is DONE, on evidence, not on your decision. Item 1 and
+your confirmation stay open, and this entry stays open with them.** The lap took the
+critic's recommendation and deleted the "약 43 %" sentence in both languages rather than
+rewriting the paragraph a fourth time (`README.md`, Korean and English scope notes). Under
+CHARTER §3 rule 5b the loop has standing permission to settle a sourcing question from
+public sources, and this one was settled by a check that needs no source at all: this
+repository's own `docs/data_sources.md` 함정 1 already records 45,157 ha as the estimate the
+joint survey **more than doubled**, so the same file was calling it a superseded estimate in
+함정 1 and a parallel basis you may divide by in 함정 6. Both 함정 are corrected. No ratio is
+printed in either language, and `tests/test_motivating_event_figures.py` now scans both
+whole paragraphs — the earlier line-scoped version passed on the very sentences it banned.
+
+**One of the critic's three premises did not survive, and the conclusion did.** critic #5
+argued that 산불영향구역 is *always* larger than 피해면적, so 45,157 under 99,289 has the
+relation inverted. This lap checked that and it is not what 산림청 says. 산림청's own
+clarification (문화일보 2025-04-18, 김창희, opened 2026-09-04) is that the two are different
+concepts serving different purposes — 화선 경계 observed for firefighting strategy, versus a
+field survey for recovery — that **cannot be simply compared**, and that the surveyed
+피해면적 may come out either smaller or larger than the 영향구역. That is a better reason to
+refuse the ratio than the directional one, so `docs/data_sources.md` 함정 1 and 함정 6 now
+carry the agency's wording and the link, not the critic's. Recorded here because the loop's
+own reviewer should be checkable against the same standard as everything else.
+
+What is left for you: item 1, and saying whether you agree with the reading. If you do not,
+reply `NH-018: <your decision>` and a lap will restore whatever you ask, verbatim.
 ---
 
 **Options:** A) keep the 0100Z scope note as it stands (prints no share)  B) remove the "약 43 %" / "about 43 %" sentence, keep the rest  C) also restate the season toll (32 deaths) in the scope note

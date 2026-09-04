@@ -107,16 +107,29 @@ def assert_reported(base: str) -> int:
     NEEDS_HUMAN entries with no report, no reviewer and no STATE.json update, and every
     gate passed on it because the numbers it typed had no key (critic #4, F19; WFG-049).
     This check reads ``git diff --name-only <base>..HEAD``: if anything outside
-    REPORT_ONLY changed, a new file under docs/auto/reports/ must be part of the same
-    range. A push that only claims a backlog row (BACKLOG.md alone) is allowed, because
-    the claim is pushed before there is anything to report.
+    REPORT_ONLY changed, a **newly added** file under docs/auto/reports/ must be part of
+    the same range. A push that only claims a backlog row (BACKLOG.md alone) is allowed,
+    because the claim is pushed before there is anything to report.
+
+    ``--diff-filter=A`` on the report listing is load-bearing, and its absence was
+    critic #5's F22. The first version collected report paths from the plain listing,
+    where a path appears whether it was **added or modified** — so appending one line to
+    some earlier lap's report discharged the requirement for an arbitrary substantive
+    commit. `5a0466e` did exactly that and passed, and `12b8ac7`, the commit this check
+    exists to refuse, would have passed the same way had it touched a stale report.
+    The intended flow is unaffected: a lap pushing new work is a lap writing a new
+    report for it.
     """
     changed = [l for l in git("diff", "--name-only", f"{base}..HEAD").splitlines() if l.strip()]
     if not changed:
         print(f"[gates] ASSERT-REPORTED OK  nothing to push beyond {base}")
         return 0
+    added = {l for l in git("diff", "--name-only", "--diff-filter=A", f"{base}..HEAD").splitlines() if l.strip()}
     substantive = [f for f in changed if not f.startswith(REPORT_ONLY)]
-    reports = [f for f in changed if f.startswith("docs/auto/reports/") and f != "docs/auto/reports/README.md"]
+    reports = [f for f in changed
+               if f.startswith("docs/auto/reports/")
+               and f != "docs/auto/reports/README.md"
+               and f in added]
     if not substantive:
         print(f"[gates] ASSERT-REPORTED OK  only report machinery changed since {base}")
         return 0
@@ -124,11 +137,15 @@ def assert_reported(base: str) -> int:
         print(f"[gates] ASSERT-REPORTED OK  a backlog claim only ({', '.join(substantive)})")
         return 0
     if reports:
-        print(f"[gates] ASSERT-REPORTED OK  {len(substantive)} substantive path(s) travel with report {reports[-1]}")
+        print(f"[gates] ASSERT-REPORTED OK  {len(substantive)} substantive path(s) travel with NEW report {reports[-1]}")
         return 0
-    print(f"[gates] ASSERT-REPORTED FAIL — {len(substantive)} path(s) changed since {base} and no report covers them:")
+    touched = [f for f in changed if f.startswith("docs/auto/reports/") and f not in added]
+    print(f"[gates] ASSERT-REPORTED FAIL — {len(substantive)} path(s) changed since {base} and no NEW report covers them:")
     for f in substantive[:40]:
         print(f"  - {f}")
+    if touched:
+        print(f"  note: {len(touched)} existing report(s) were edited in this range "
+              f"({touched[-1]}). Editing a report does not report new work (F22).")
     print("  fix: write .auto/summary.md and run scripts/auto/report.py, commit the report with the work, then push.")
     return 1
 
