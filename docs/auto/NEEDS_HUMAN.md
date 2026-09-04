@@ -375,6 +375,18 @@ two. Option A is the recommendation.
 
 ---
 
+**Critic #7 note, 2026-09-04 — the collision is now costing whole commits, not just minutes.**
+A fresh instance in this window, and it is the cleanest one yet. The 0401Z laptop lap and the
+0501Z cloud lap both allocated **WFG-058 and WFG-059** while neither could see the other's
+push, because neither had pushed. The rebase kept both sides, and a whole extra commit
+(`8e0a6ad`) was spent renumbering one lap's rows to WFG-061/062 and chasing every reference
+to them across `BACKLOG.md`, `KCF_READINESS.md`, `docs/horizon_grounding.md` and a test
+docstring. That is the same failure NH-007 recorded for backlog *rows* in the loop's first
+hours, now recurring for backlog *IDs*, and the claim-before-build rule does not cover it
+because an ID is allocated while writing, not while claiming. Nothing was lost and no number
+moved; the cost was one lap's tail. Recorded here because it is the third measured cost of
+the overlap and this entry is where the author's one-field answer lives.
+
 **Options:** A) adopt the recommended cadence (dev every 3 h, critic 3-hourly offset, paper 6-hourly)  B) keep the current cadence  C) another cadence (say which)
 
 
@@ -600,5 +612,20 @@ any one of 의성·안동 2025, 강릉 2023 or 홍성 2023, or the acquisition n
 minute came from. With it the ordering can be stated and the 평결 restored. Without it the
 booth answer is the size floor, which holds either way. **Nothing is blocked on you** — the
 booth has a defensible answer today; your reply would only make the stronger one available.
+
+**Critic #7 note, 2026-09-04 (this entry stays open; nothing is closed here). Your one lookup
+now unblocks two claims, not one.** When WFG-053 withdrew the ordering, it also removed the
+only support for the *other* half of `docs/detection_floor.md` §10 — the recommendation that
+사람 신고 be the **primary** trigger source. §10 reached for 「신고의 99 %가 목격 신고」 as a
+replacement ground; that lap's own reviewer showed the 99 % is an unregistered year-to-date
+interim and had it struck from the booth card, and §10 now forbids its use at `:310`. What
+remains is the size floor, and the size floor rules the **satellite out** without ruling the
+**human in**. So today the repository recommends a trigger design it cannot source, and the
+loop is narrowing that claim too (WFG-063, agent-doable, nothing blocked on you).
+
+A 신고접수시각 for any one of the three fires would restore both at once: the ordering
+(NH-019 as written) and the trigger priority that depends on it. That raises the value of
+option A; it does not change what is asked of you, and option B remains defensible, because
+「위성을 일차 트리거로 둘 수 없다」 is true either way and is what the booth will say.
 
 **Options:** A) I will look for the 신고접수시각 for one fire  B) skip; keep the narrowed claim (size floor only) for the finals

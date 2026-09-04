@@ -44,6 +44,10 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-021 | P0 | KCF | Detection-floor panel (Session 19 as recorded) + tests for `src/wildfireguardian/detection/gk2a.py` | **done for the sprint** — **(a) done(b557e9d)**, **(b) done(f5f8498)**, **(c) parked(needs the NOAA archive at run time; not runnable in the cloud sandbox — parked by critic #6 so this row stops sitting above WFG-017 as a `todo` a lap must first read and reject)** | true | one lap | 데이터 수집·분석·해석 · 설계와 방법론 |
 | WFG-017 | P0 | KCF | `web/finals.html` refresh v2: evidence cards for operating point, detection floor, horizon grounding, refuge placement, reconciliation; rebuilt with `--verify` | todo | true (fallback: student runs `make finals`) | one lap | 제출 자료 · 구현 및 유용성 |
 | WFG-003 | P0 | KCF | Finals screen audit + 5-minute demo script (keep) | todo | true | one lap | 제출 자료 · 구현 및 유용성 |
+| WFG-063 | P0 | KCF | **The trigger recommendation lost its evidence and the T0 answer kept it.** `docs/detection_floor.md` §10 now says in bold that 「신고의 99 %가 목격 신고」 may not carry a conclusion (unregistered, interim), and the booth card dropped it — but `docs/auto/JUDGE_QA.md:240`, a **T0** answer, still names it as one of the two grounds for 신고 우선. And with it gone, nothing left in any judge-facing document supports 「사람 신고를 일차로」: the size floor rules the **satellite out**, it does not rule the **human in**. Restate the claim as the one the measurement carries (「위성을 일차 트리거로 둘 수 없습니다」) in `JUDGE_QA.md` Q10, `detection_floor.md` §10 row 1 and `DETECTION_FLOOR_CARD.md:28,78`, and delete the 99 % clause from Q10 (critic #7, F35) | todo | true | hours | 데이터 해석 · 제출 자료 · 구현 및 유용성 |
+| WFG-064 | P1 | paper | **Two of the seven restyled figures have colliding labels, and the lap that shipped them said all seven were looked at.** `paper/figures/F2_lofo_auc.png`: the `0.878` bar label is struck through by the red 「mean of folds 0.89」 rule, and 「pooled 0.905」 sits on the x-axis over the tick labels. `F7_dispatch_ordering.png`: panel b's 「deadline first wins」 teal is the same teal as panel a's 「nearest first」, two meanings on one colour inside one figure. Nudge the labels (offset a value label that falls within ~1 % of a reference rule; place the pooled label inside the axes) and give panel b its own hue. Rubric row is literally 「그래픽 및 범례의 명확성」 (critic #7, F36) | todo | true | hours | 제출 자료 |
+| WFG-065 | P1 | KCF | **The most quotable fire-behaviour figure about the motivating event is in no judge-facing document.** 8.2 km h⁻¹ forward spread (국가산림위성정보활용센터, from S-NPP/VIIRS thermal detections, 2025-03-22 onward; a Korean record) lives only in `docs/auto/knowledge/PYROGEOGRAPHY.md:45`. It is the first thing a fire-behaviour judge asks about 의성. Register it under CHARTER §3.5b with agency + as-of + scope + the URL a lap opened, add it to `docs/data_sources.md` table A and answer it in `JUDGE_QA.md`, or write down in one line why it stays out (critic #7, F38; the 1.5× / 고성 2019 5.2 km h⁻¹ comparison did **not** verify in this lap's search and must not travel with it) | todo | true | hours | 연구 목적 · 제출 자료 (출처) |
+| WFG-066 | P1 | infra | **A bibliographic record was written from memory in a repository whose rule 5 is 「no fabricated citations」.** `docs/auto/knowledge/PYROGEOGRAPHY.md:169` carries `[UNVERIFIED — not opened; author list from memory]`. Critic #7 checked it: Sullivan, Sharples, Matthews & Plucinski (2014), *Environ. Model. Softw.* **62**: 153–163 is **correct in every field**, confirmed against the FRAMES catalog record (frames.gov/catalog/53980) and the ScienceDirect listing. So replace the tag with `[verified 2026-09-04 · FRAMES catalog + ScienceDirect listing]` and delete the phrase. The row is the rule, not the entry: add to CHARTER §13 that a note may carry `[UNVERIFIED]` for a *claim* it could not open, and may never carry an author list, year, volume or page range that was not read off a record (critic #7, F37) | todo | true | minutes | 제출 자료 (출처) |
 | WFG-016 | — | — | ~~AI ledger current~~ | **withdrawn(2026-09-04)** — author's instruction; organisers require no disclosure artifact (NH-008). Never started, nothing produced | false | — | — |
 | WFG-036 | P0 | KCF | **Final product bundle** `release/kcf-finals-2026/`: `web/` whole (finals + console + field view), printables PDF, `README_KO.md` 10-line run recipe, `CITATION.cff`, `make finals-bundle` byte-identical rebuild; definition of done = `docs/auto/KCF_READINESS.md` R1–R11 | todo | true | two laps (v1 by 09-10, v2 by 09-14) | 구현 및 유용성 · 제출 자료 |
 | WFG-037 | P0 | KCF | Booth recipe `docs/auto/finals/BOOTH_SETUP.md`: exact steps for the judged laptop (env, `make all-checks`, open `file://` with Wi-Fi off, key bindings, two USB copies, fallback if the laptop dies), plus NH-014 asking the author to run it once | todo | true | hours | 구현 및 유용성 |
@@ -1154,3 +1158,95 @@ next free number) drawn offline from the DEM already under `data/` and the six f
 registered burned areas, in `paper/style.py` (`EXCEEDANCE` ramp for classes, `PALETTE["fire"]`
 for events), cited from the Data section, and looked at once. **Constraints:** no tile or
 basemap fetch at build time; every number a registry key.
+
+---
+
+### WFG-063 · P0 · KCF · The trigger recommendation lost its evidence and the T0 answer kept it
+
+**Where.** `docs/auto/JUDGE_QA.md:240` (Q10, **T0** — one of the fourteen the student is
+told to recite); `docs/detection_floor.md:310` (the ban) and `:319` (§10 row 1);
+`docs/auto/finals/DETECTION_FLOOR_CARD.md:28` (front sentence) and `:78` (trigger table).
+
+**What happened, in order, inside one lap.** WFG-053 narrowed every judge-facing document
+off the detection-ordering claim, which was right. The narrowing removed the ordering as the
+ground for 「사람 신고 일차」, so §10 needed a different ground and reached for 「신고의 99 %가
+목격 신고」. That lap's own reviewer then showed the 99 % is an unregistered year-to-date
+interim (경향신문 2023-04-28) and had it struck from the booth card, and §10 gained a bold
+paragraph at `:310` forbidding its use as support. Two things were left behind:
+
+1. **Q10 was not re-read.** Line 240 still says the ground is 「크기 바닥과 「신고의 99 %가
+   목격 신고」라는 통계」 — the exact statistic banned 60 lines away in the file Q10 cites as
+   its 근거. The card and the design doc refuse it; the sentence the student says out loud
+   rests on it.
+2. **The remaining ground does not carry the claim.** The size floor says a 2 km pixel
+   cannot resolve a fire below roughly a hectare. That rules the **satellite out** as an
+   ignition-scale trigger. It says nothing about whether the human channel is fast, complete
+   or primary — that was the 99 %'s entire job. So `detection_floor.md:319`'s
+   「일차 소스로 설계해야 합니다」 and the card's 「사람 신고가 일차」 are now inferences with
+   no support in any judge-facing document in this repository.
+
+This is F27's shape one window later: one question, two documents, and the loop already
+wrote the correction down in one of them.
+
+**Done when:** every judge-facing document states only what the measurement carries —
+「정지궤도 위성을 일차 트리거로 둘 수 없습니다」 — and none asserts 사람 신고 primacy without a
+registered source; the 99 % clause is gone from Q10; `docs/detection_floor.md` §0 may keep
+the statistic as background with its source, as `:310` already provides.
+**Constraints:** no number moves; this is a claim-shape change, exactly like WFG-053.
+`tests/test_detection_ordering_is_not_claimed.py` guards the *ordering* sentence and does
+not see this one, which is WFG-062's case for the general registry.
+
+### WFG-064 · P1 · paper · Two restyled figures have colliding labels
+
+**Where.** `paper/figures/F2_lofo_auc.png`, `paper/figures/F7_dispatch_ordering.png`,
+`paper/style.py`, `paper/make_figures.py`.
+
+The Moreno restyle (WFG-058) is a real improvement and F7 panel a is the best figure in the
+paper. Two defects survived the 「all seven regenerated and looked at」 claim in
+`docs/auto/reports/2026-09-04T0401Z-dev.md`:
+
+- **F2.** Uiseong-Andong's value label `0.878` sits at x ≈ 0.878 and the
+  「mean of folds 0.89」 reference rule at x = 0.89, so the red dashed line runs through the
+  label's last digit. The 「pooled 0.905」 annotation is drawn at the bottom of the axes and
+  overlaps the x-axis line and its tick labels.
+- **F7.** Panel b's 「deadline first wins」 uses the same teal as panel a's
+  「nearest first」. Inside one figure, one colour, two meanings.
+
+**Done when:** a value label whose x falls within about 1 % of a reference rule is offset
+away from it (or the rule label is moved), the pooled annotation is inside the axes, panel b
+has a hue no panel-a series uses, and all seven figures are opened and looked at once after
+the rebuild. **Constraints:** `paper/style.py` only; no figure data changes; the docx is
+rebuilt in the same commit.
+
+### WFG-065 · P1 · KCF · The spread-rate figure is in a knowledge note and nowhere a judge reads
+
+`docs/auto/knowledge/PYROGEOGRAPHY.md:45` carries 8.2 km h⁻¹ forward spread for the 의성 fire
+(국가산림위성정보활용센터, thermal detections from 2025-03-22, described as the highest rate
+reported for a Korean wildfire). It is the first question a fire-behaviour judge asks, and it
+appears in no README paragraph, no `docs/data_sources.md` row, no registry key and no Q&A
+answer. CHARTER §13 is why it has not migrated, and that rule is correct — the fix is to put
+it through the registry, not to quote it from the note.
+
+**Done when:** either 8.2 km h⁻¹ is registered with agency, as-of date, scope, status and the
+URL a lap opened, added to `docs/data_sources.md` table A and answerable from `JUDGE_QA.md`;
+or `docs/data_sources.md` records in one line why it stays out. **Constraints:** critic #7's
+search confirmed the 8.2 km h⁻¹ figure and its 「국내 최고」 framing but did **not** confirm
+the 「1.5× / 고성 2019 의 5.2 km h⁻¹」 comparison the note carries beside it; that half is not
+registrable until a lap opens a page that states it.
+
+### WFG-066 · P1 · infra · No bibliographic record is written from memory
+
+`docs/auto/knowledge/PYROGEOGRAPHY.md:169` tags a reference
+`[UNVERIFIED — not opened; author list from memory]`. Critic #7 verified it and every field is
+right (Sullivan, A. L., Sharples, J. J., Matthews, S., Plucinski, M. P. (2014). *Environ.
+Model. Softw.* 62: 153–163), confirmed against the FRAMES catalog entry
+<https://www.frames.gov/catalog/53980> and the ScienceDirect listing, both opened
+2026-09-04. So nothing is wrong today. It is filed because CHARTER §3 rule 5 is
+「no fabricated citations」 and a remembered author list is a bibliographic record produced
+without a source; the next one may not be right, and the tag would not distinguish the cases.
+
+**Done when:** that entry reads `[verified 2026-09-04 · FRAMES catalog + ScienceDirect
+listing]` with the phrase removed, and CHARTER §13 states the rule: a note may mark a
+**claim** `[UNVERIFIED]`, and may never state an author list, year, volume or page range that
+was not read off a record. **Constraints:** the other nineteen `[UNVERIFIED]` tags in the two
+notes are honest and stay; this row is about one phrase and one rule.
