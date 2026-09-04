@@ -980,8 +980,17 @@ and both are worth recording:
 2. The bare-digit tripwire fired on `2026-09-04`, `WFG-053`, `NH-019` and the `99 %`
    statistic. Its escape list is hand-maintained by design; all five are added with reasons.
 
-**The gate is the deliverable, not the prose.** `tests/test_detection_ordering_is_not_claimed.py`
-(15 tests) bans five spellings of the ordering assertion across the three Korean documents
+**⚠ The gate was oversold by this row's first draft, and its own reviewer proved it twice.**
+`tests/test_detection_ordering_is_not_claimed.py` (21 tests) bans the spellings this repository
+actually shipped, and **that is all it does** — the reviewer escaped it with 「늦었」 for 「느렸」,
+then with 「사람보다 22분 늦었」 against the fix, then reported that most of twelve further
+rewordings (a line-wrap split, 인간/목격자 for 사람, reversed subjects, any English) still pass.
+Both named escapes are closed and are permanent cases; the rest are listed as verified-uncaught
+in the test's own docstring. **Read it as a ratchet against regression-by-copying, not as a
+guarantee**, and note that the load-bearing protection for this claim is still a human reading
+the card. The general fix is WFG-059. The row's own done-when — the documents themselves — is met
+and was verified line by line. Historical note, the gate as first written bans five spellings
+across the three Korean documents
 **and `paper/manuscript.md`**, which is in the list as a regression anchor — it is the half of
 the repository that got this right first, and a later lap "harmonising" it back to the card's
 old wording is the failure this row exists to stop. Withdrawal prose is licensed per line by

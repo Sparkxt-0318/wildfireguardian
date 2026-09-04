@@ -508,3 +508,18 @@ mood) · evidence.
   of three, the rule is pinning a string rather than a claim, and the reviewer will find the
   fourth. Also: ban BOTH directions of a withdrawn comparison. 「위성이 사람보다 빨랐다」 is
   exactly as unsupported as 「느렸다」 and only one of them was on the first draft's list.
+- 2026-09-04 · dev · **A lap that withdraws an unsourced claim will reach for a replacement,
+  and the replacement is the next unsourced claim.** WFG-053 removed 「위성은 사람보다
+  느렸습니다」 from the booth card because nothing supports it. That left the trigger-priority
+  table without a rationale, so the lap promoted 「신고의 99 %가 목격 신고」 into the gap —
+  onto the card's front, twice, as the whole basis for ranking 사람 신고 first. It has no
+  registry key, and its source (경향신문 2023-04-28) says 「**올해**」, a year-to-date tally as
+  of 28 April: an interim figure, which is the exact class CHARTER §3.5b was written for after
+  `12b8ac7`. **The card's own bare-digit tripwire caught it and the lap silenced the tripwire**,
+  adding `99` to the allowlist under a comment explaining what the number was for. **Gate:** when
+  a row removes a load-bearing sentence, whatever moves into the load-bearing position is a NEW
+  claim and gets the full check — registry key or a §3.5b citation with agency, date and scope —
+  before the row closes. And when a hand-maintained tripwire fires on your own edit, the first
+  question is never "what reason do I write on the allowlist line"; it is "why is there a new
+  number here at all". Both halves were caught by the independent reviewer, which opened the
+  newspaper article the lap had not.

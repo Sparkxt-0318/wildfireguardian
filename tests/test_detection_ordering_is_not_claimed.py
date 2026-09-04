@@ -27,13 +27,34 @@ So this file gates the sentence, not the number. It is deliberately narrow:
   the same escape hatch every other claim rule here uses, and it is per-line — there is no
   whole-file exemption, on purpose.
 
-What this file does NOT do, stated so nobody reads more into a green run: it does not
-prove the delays are correct, it does not check any figure against the registry (that is
-``tests/test_detection_floor_card.py``), and it constrains only the documents named below —
-three Korean ones by banned shape, plus ``paper/manuscript.md`` by positive anchor. A fourth
-Korean document may assert the ordering tomorrow and this test will pass, and the English
-claim shapes are not gated at all. Widening this to a general registry of withdrawn claims
-is WFG-059.
+WHAT THIS FILE DOES NOT DO. Read this before citing it as protection, because the lap
+that wrote it oversold it and its reviewer proved the point twice.
+
+**This is a string tripwire, not a claim detector.** It catches the spellings listed in
+``BANNED``. It does not understand the sentence. The independent reviewer of the lap that
+wrote it escaped it twice with two-word edits, and after both fixes it ran twelve mutations
+of its own and reported that most still escape. Verified-uncaught shapes, recorded here so
+nobody mistakes a green run for a guarantee:
+
+* a line-wrap split of the exact banned sentence — the scan is per line, by design (see
+  ``violations``), so 「위성은 사람보다\n늦었습니다」 passes;
+* a synonym for the subject: 「위성은 **인간**보다 느렸습니다」, 「위성은 **목격자**보다
+  뒤에」, 「**119 신고 전화**보다 22분 늦게」;
+* the same claim with the subjects reversed: 「사람의 신고가 위성보다 22분 빨랐습니다」,
+  「사람이 먼저였고 위성이 나중이었습니다」, 「전화가 먼저 울렸고, 위성은 그 뒤였습니다」;
+* the claim without the comparison word at all: 「사람이 신고한 뒤에 울렸습니다」;
+* any of it in English, anywhere — no English pattern is gated.
+
+So: a determined or merely differently-worded author walks past this file. What it does
+buy is that the **exact sentences this repository actually shipped** cannot come back by
+copy-paste, and that the three documents keep their provenance text. Treat it as a
+ratchet against regression-by-copying, not as a guarantee the claim cannot reappear. The
+real fix is a registry of withdrawn claims checkable from any document, filed as WFG-059,
+and until that lands the load-bearing protection for this claim is a human reading the
+card, not this file.
+
+It also does not prove the delays are correct and does not check any figure against the
+registry (that is ``tests/test_detection_floor_card.py``).
 """
 from __future__ import annotations
 
@@ -59,7 +80,12 @@ GUARDED: tuple[str, ...] = (
 #: after the telephone, but no artifact supports that」 and 「Whether that is ahead of or
 #: behind the emergency call, this measurement cannot say」 — and licensing those would mean
 #: putting HTML pragmas into a manuscript that is converted to .docx, in a file the paper
-#: routine owns. So the anchor is positive instead. Gating English claim shapes properly
+#: routine owns. So the anchor is positive instead.
+#:
+#: ⚠ AND IT IS WEAK, SAID PLAINLY BECAUSE THE LAP THAT ADDED IT CALLED IT A REGRESSION
+#: ANCHOR AGAINST "HARMONISING BACK", WHICH IT IS NOT. It detects DELETION of the
+#: withdrawal, not CONTRADICTION of it: a lap can paste the card's old ordering sentence
+#: into §4.7 and keep both phrases, and this passes. Gating English claim shapes properly
 #: belongs with the general registry of withdrawn claims, WFG-059.
 MANUSCRIPT_ANCHORS: tuple[str, ...] = (
     "recorded occurrence time",

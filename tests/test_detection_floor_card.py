@@ -173,9 +173,17 @@ def test_the_card_carries_no_number_this_test_has_not_been_shown(card: str):
         "95",     # ...its confidence level
         "709", "0",  # det_control_steps and det_false_alarm_steps
         # --- added 2026-09-04 by WFG-053; none of these is a measurement ---
-        "99",     # 「신고의 99 %가 목격 신고」, the §0 statistic that now carries the
-                  # trigger ranking in place of the withdrawn ordering claim
+        # ⚠ "99" was here for one draft, for 「신고의 99 %가 목격 신고」, which this lap
+        # briefly promoted to the card's load-bearing rationale. The reviewer opened the
+        # source (경향신문 2023-04-28) and found 「올해」 — a year-to-date tally as of
+        # 28 April, i.e. an INTERIM figure, unregistered, presented bare. CHARTER §3.3
+        # (a number you cannot register, you do not write) and §3.5b (an interim tally is
+        # never presented as a final one). It was removed from the card, not allowlisted;
+        # this comment stays so nobody re-adds it without reading that.
         "2026", "09", "04",  # the withdrawal date on the 「보여주지 않는 것」 line
+        "2025", "03", "22", "25",  # inside the verbatim manifest quote in the caveat
+                  # block (`first hit (2025-03-25) lags the 2025-03-22 ignition by
+                  # days`). Provenance quoted from the artifact, not a measurement.
         "053",    # WFG-053, the row that narrowed this card
         "019",    # NH-019, the open entry that would let the ordering be stated again
     }
