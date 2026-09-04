@@ -29,9 +29,11 @@ So this file gates the sentence, not the number. It is deliberately narrow:
 
 What this file does NOT do, stated so nobody reads more into a green run: it does not
 prove the delays are correct, it does not check any figure against the registry (that is
-``tests/test_detection_floor_card.py``), and it constrains only the four documents named
-below. A fifth document may assert the ordering tomorrow and this test will pass. Widening
-the claim-shape gate to the whole tree is WFG-059.
+``tests/test_detection_floor_card.py``), and it constrains only the documents named below —
+three Korean ones by banned shape, plus ``paper/manuscript.md`` by positive anchor. A fourth
+Korean document may assert the ordering tomorrow and this test will pass, and the English
+claim shapes are not gated at all. Widening this to a general registry of withdrawn claims
+is WFG-059.
 """
 from __future__ import annotations
 
@@ -42,15 +44,26 @@ import pytest
 
 REPO = Path(__file__).resolve().parents[1]
 
-#: The documents a judge meets, and the one that already says it correctly.
-#: `paper/manuscript.md` is here as a REGRESSION anchor: it is the half of the
-#: repository that got this right first, and a later lap "harmonising" it back to the
-#: card's old wording is exactly the failure this row exists to stop.
+#: The Korean documents a judge physically meets: the booth card, the design document
+#: behind it, and the Q&A bank the student memorises. These are checked by banned shape.
 GUARDED: tuple[str, ...] = (
     "docs/detection_floor.md",
     "docs/auto/finals/DETECTION_FLOOR_CARD.md",
     "docs/auto/JUDGE_QA.md",
-    "paper/manuscript.md",
+)
+
+#: `paper/manuscript.md` is guarded differently, and the difference is deliberate.
+#: It is the half of the repository that got this right first, so what needs protecting
+#: there is the WITHDRAWAL, not the absence of a Korean phrase. Banning the English claim
+#: shapes outright would fire on the paper's own careful sentences — 「a satellite arriving
+#: after the telephone, but no artifact supports that」 and 「Whether that is ahead of or
+#: behind the emergency call, this measurement cannot say」 — and licensing those would mean
+#: putting HTML pragmas into a manuscript that is converted to .docx, in a file the paper
+#: routine owns. So the anchor is positive instead. Gating English claim shapes properly
+#: belongs with the general registry of withdrawn claims, WFG-059.
+MANUSCRIPT_ANCHORS: tuple[str, ...] = (
+    "recorded occurrence time",
+    "this measurement cannot say",
 )
 
 #: Documents that must carry the narrow reading in full, i.e. must name the reference
@@ -68,23 +81,34 @@ MUST_STATE_THE_PROVENANCE: tuple[str, ...] = (
 #: added for one claim shape cannot silently license another.
 #:
 #: ⚠ VALIDATED BOTH DIRECTIONS before landing, the bar `scripts/check_forbidden.py`
-#: sets for a `claim` rule. Against the four guarded documents as this row left them:
+#: sets for a `claim` rule. Against the three guarded documents as this row left them:
 #: 0 unpragmaed hits. Against the withdrawn spellings they exist to stop — the card's old
 #: front sentence, §9's old title and verdict, §4's 「신고 대비」 table label, Q10's old
 #: T0 sentence and Q10a's old closing line: all caught. The negative direction is
 #: `test_a_line_that_withdraws_the_claim_is_not_a_violation` plus the mutation tests at
 #: the foot of this file, which put each withdrawn sentence back and require a failure.
+#:
+#: ⚠ THE FIRST DRAFT OF THIS LIST WAS HOLLOW AND THE REVIEWER PROVED IT IN ONE EDIT.
+#: The 사람보다 rule read `느[렸리]` — the exact verb the card happened to use. The
+#: independent reviewer of this lap put 「위성은 사람보다 **늦었**습니다」 on the card's
+#: front line, a synonym any writer might reach for first, and the gate passed. That is
+#: MEMO 2026-09-04's anti-pattern in its purest form: mutation-testing a tripwire with the
+#: mutations its own author chose. The verb classes below are widened accordingly, and
+#: 늦었 is now a mutation case at the foot of this file, credited where it came from.
 BANNED: tuple[tuple[str, str, str], ...] = (
-    (r"위성은?\s*사람보다\s*(?:더\s*)?느[렸리]", "사람보다 느",
-     "the card's withdrawn front sentence 「위성은 사람보다 느렸습니다」"),
-    (r"위성이?\s*사람보다\s*앞서지", "사람보다 앞서지",
-     "§9's withdrawn 「어느 쪽으로 읽어도 위성이 사람보다 앞서지 않습니다」"),
+    (r"사람보다\s*(?:더\s*)?(?:느[렸리린]|늦[었게은는]|뒤[에였])", "사람보다 늦",
+     "the card's withdrawn front sentence 「위성은 사람보다 느렸습니다」, in any verb"),
+    (r"사람보다\s*(?:더\s*)?(?:빠[르른릅]|이르|먼저|앞[서선])", "사람보다 빠",
+     "the OPPOSITE ordering claim. Neither direction is available: the human's clock "
+     "was never measured, so 「위성이 사람보다 빨랐다」 is exactly as unsupported"),
     (r"신고\s*대비", "신고 대비",
      "the delays labelled as report-relative; they are recorded-occurrence-relative"),
     (r"신고보다", "신고보다",
      "any delay or step stated relative to a 신고 time that was never measured"),
     (r"기준\s*시각은\s*(?:「\s*)?신고", "기준 시각은 신고",
      "§1's withdrawn heading 「기준 시각은 신고 시각입니다」"),
+    (r"신고\s*시각\s*(?:대비|기준)", "신고 시각 대비",
+     "the same label one synonym over"),
 )
 
 #: `scripts/check_forbidden.py`'s pragma, deliberately the same one. A rule with its own
@@ -175,7 +199,7 @@ def test_a_line_that_withdraws_the_claim_is_not_a_violation():
     """The negative direction: a detector that always fires is as useless as one that
     never does (`docs/region_literals.md` §5). Withdrawal prose must survive."""
     withdrawn = (
-        "<!-- forbidden-ok: 사람보다 느 -->\n"
+        "<!-- forbidden-ok: 사람보다 늦 -->\n"
         "이전 판은 「위성은 사람보다 느렸습니다」라고 적었고, 철회했습니다.\n"
     )
     assert not violations(withdrawn)
@@ -187,22 +211,45 @@ def test_a_line_that_withdraws_the_claim_is_not_a_violation():
     assert not violations(ordinary), "the gate fires on legitimate neighbouring prose"
 
 
+@pytest.mark.parametrize("phrase", MANUSCRIPT_ANCHORS)
+def test_the_manuscript_keeps_its_withdrawal(phrase: str):
+    """`paper/manuscript.md` got this right first; it must not be harmonised backwards.
+
+    A later lap "making the paper agree with the card" is a real failure mode — it is how
+    this repository ended up with two answers to one question in the first place, only in
+    the other direction. If these sentences leave the manuscript, that is the regression.
+    """
+    text = (REPO / "paper/manuscript.md").read_text(encoding="utf-8")
+    assert phrase in text, (
+        f"paper/manuscript.md no longer contains {phrase!r}. §4.7 is the only place that "
+        "states the reference clock's provenance in full; if it is being rewritten, the "
+        "replacement must still refuse the ordering claim (WFG-053, NH-019)."
+    )
+
+
 @pytest.mark.parametrize(
     "sentence",
     [
+        # --- the exact strings this repository shipped, before WFG-053 ---
         "**위성은 사람보다 느렸습니다.** 검증 가능했던 화재 3건에서",
         "어느 쪽으로 읽어도 위성이 사람보다 앞서지 않습니다.",
         "| 화재 | GK2A 지연 (신고 대비) | 레지스트리 키 |",
         "위성 트리거는 신고보다 각각 +22분 · +34분 · +64분 뒤에 울렸을 것입니다",
         "## ⚠ 1. 가장 중요한 단서 — 기준 시각은 신고 시각입니다",
         "GK2A 기반 트리거는 모든 경우에 사람의 신고보다 뒤에 울렸을 것입니다",
+        # --- mutations this test's author did NOT choose ---
+        # Written onto the card's front line by this lap's independent reviewer, which
+        # the first version of this gate passed. MEMO 2026-09-04: take at least one
+        # mutation from someone who did not write the test.
+        "**위성은 사람보다 늦었습니다.** 2 km 화소는 대략",
+        # the same claim in the other direction, which is equally unsupported
+        "위성이 사람보다 먼저 불을 봤습니다",
+        "GK2A 는 신고 시각 대비 22분이었습니다",
     ],
 )
 def test_each_withdrawn_spelling_is_caught(sentence: str):
-    """Mutation, one per spelling this repository actually shipped.
+    """Mutation, one per spelling this repository shipped or a reviewer reached for.
 
-    These are the exact strings that stood in `DETECTION_FLOOR_CARD.md`,
-    `docs/detection_floor.md` §1/§4/§9 and `docs/auto/JUDGE_QA.md` Q10 before WFG-053.
     Reinstating any of them anywhere in a guarded document must fail.
     """
     assert violations(sentence), f"the gate does not catch: {sentence}"

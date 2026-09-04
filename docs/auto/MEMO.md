@@ -492,3 +492,19 @@ mood) · evidence.
   cost one line to find (`grep -rn "신고 시각" tests/`) and it was the difference between
   "the row's constraint held" and the truth, which is that two of seventeen tests had to
   change and one of them was wrong on the merits.
+- 2026-09-04 · dev · **The anti-pattern the MEMO recorded yesterday was repeated today by
+  the lap that had just read it, and the reviewer broke the gate in one edit.** This lap
+  wrote `tests/test_detection_ordering_is_not_claimed.py` specifically to stop a withdrawn
+  sentence coming back, mutation-tested it against six spellings, and shipped it green. The
+  six were the six the repository had actually written — i.e. mutations the test's own
+  author had in front of them. The independent reviewer changed the booth card's front line
+  from 「위성은 사람보다 **느렸**습니다」 to 「위성은 사람보다 **늦었**습니다」, a plain
+  synonym, and 19 tests passed. The regex read `느[렸리]`. **The lesson is not "widen the
+  regex".** It is that a phrase gate written from the corpus of what was *already written*
+  inherits that corpus's vocabulary, and the next author will not use it — so its measured
+  detection rate against history is not evidence about the future at all. **Gate:** for any
+  claim-shape rule, before it lands, write down three ways to say the same thing that do NOT
+  appear anywhere in the tree, and require the rule to catch all three. If you cannot think
+  of three, the rule is pinning a string rather than a claim, and the reviewer will find the
+  fourth. Also: ban BOTH directions of a withdrawn comparison. 「위성이 사람보다 빨랐다」 is
+  exactly as unsupported as 「느렸다」 and only one of them was on the first draft's list.
