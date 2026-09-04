@@ -966,7 +966,7 @@ actually meets.
   「근거 없음」 banner replaced by a ✅ note making it the repository's standard answer.
 - `docs/SESSION19_REPORT.md` keeps its body verbatim as a record and gains a dated 🛑
   annotation naming the current version; `docs/horizon_grounding.md` loses its false
-  「same weakness in the same data」 cross-reference (filed as WFG-058).
+  「same weakness in the same data」 cross-reference (filed as WFG-061).
 
 **The row's constraint was almost right, and the exception is the finding.** It said the 17
 tests in `tests/test_detection_floor_card.py` must pass untouched. Fifteen did. Two did not,
@@ -988,7 +988,7 @@ rewordings (a line-wrap split, 인간/목격자 for 사람, reversed subjects, a
 Both named escapes are closed and are permanent cases; the rest are listed as verified-uncaught
 in the test's own docstring. **Read it as a ratchet against regression-by-copying, not as a
 guarantee**, and note that the load-bearing protection for this claim is still a human reading
-the card. The general fix is WFG-059. The row's own done-when — the documents themselves — is met
+the card. The general fix is WFG-062. The row's own done-when — the documents themselves — is met
 and was verified line by line. Historical note, the gate as first written bans five spellings
 across the three Korean documents
 **and `paper/manuscript.md`**, which is in the list as a regression anchor — it is the half of

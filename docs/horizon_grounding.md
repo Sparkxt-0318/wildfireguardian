@@ -66,7 +66,7 @@ Session 16·17 에서 두 번 막혔던 파일이며, John 이 자기 네트워�
 > 자료가 다릅니다. 이 표는 산림청 산불통계데이터 CSV 의 `발생일시` 열이고,
 > Session 19 는 `docs/data_provenance/fire_manifest.json` 의 `start` 필드
 > 입니다. 두 시각의 성격은 각각 따로 확인해야 하며, 어느 쪽도 아직 확인되지
-> 않았습니다 (`docs/detection_floor.md` §1, NH-019, 백로그 WFG-058).
+> 않았습니다 (`docs/detection_floor.md` §1, NH-019, 백로그 WFG-061).
 
 | | 분 |
 |---|---:|

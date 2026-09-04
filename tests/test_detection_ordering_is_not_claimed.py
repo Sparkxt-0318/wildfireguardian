@@ -49,7 +49,7 @@ So: a determined or merely differently-worded author walks past this file. What 
 buy is that the **exact sentences this repository actually shipped** cannot come back by
 copy-paste, and that the three documents keep their provenance text. Treat it as a
 ratchet against regression-by-copying, not as a guarantee the claim cannot reappear. The
-real fix is a registry of withdrawn claims checkable from any document, filed as WFG-059,
+real fix is a registry of withdrawn claims checkable from any document, filed as WFG-062,
 and until that lands the load-bearing protection for this claim is a human reading the
 card, not this file.
 
@@ -86,7 +86,7 @@ GUARDED: tuple[str, ...] = (
 #: ANCHOR AGAINST "HARMONISING BACK", WHICH IT IS NOT. It detects DELETION of the
 #: withdrawal, not CONTRADICTION of it: a lap can paste the card's old ordering sentence
 #: into §4.7 and keep both phrases, and this passes. Gating English claim shapes properly
-#: belongs with the general registry of withdrawn claims, WFG-059.
+#: belongs with the general registry of withdrawn claims, WFG-062.
 MANUSCRIPT_ANCHORS: tuple[str, ...] = (
     "recorded occurrence time",
     "this measurement cannot say",
@@ -128,7 +128,7 @@ MUST_STATE_THE_PROVENANCE: tuple[str, ...] = (
 #: 늦었습니다」 — the claim with its magnitude in the middle, which is the more natural
 #: sentence, not the less — and the gate passed a second time. Hence `[^\n]{0,24}?`: any
 #: short run of text between the comparison and the verb. Two escapes from two attempts by
-#: one reviewer is the measurement that matters about this gate, and it is why WFG-059 (a
+#: one reviewer is the measurement that matters about this gate, and it is why WFG-062 (a
 #: general registry of withdrawn claims) is filed rather than treating this file as done.
 BANNED: tuple[tuple[str, str, str], ...] = (
     (r"사람보다[^\n]{0,24}?(?:느[렸리린]|늦[었게은는]|뒤[에였])", "사람보다 늦",
