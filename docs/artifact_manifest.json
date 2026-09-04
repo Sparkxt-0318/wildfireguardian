@@ -1,11 +1,11 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "3ffc1352db6c7e98216f53585eb0514192fed781",
+  "generated_at_git_commit": "89730db89921f8185117da4eac1d16dea43e1a6a",
   "n_artifacts": 99,
-  "total_bytes": 14506766,
+  "total_bytes": 14501376,
   "total_mib": 13.83,
-  "n_git_tracked": 97,
-  "n_untracked_manifest_only": 2,
+  "n_git_tracked": 99,
+  "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 8,
   "artifacts": [
     {
@@ -277,7 +277,8 @@
         "docs/SESSION20_REPORT.md",
         "docs/auto/BACKLOG.md",
         "docs/finals_screen_v2.md",
-        "docs/horizon_grounding.md"
+        "docs/horizon_grounding.md",
+        "paper/GAPS.md"
       ],
       "regenerate": "python scripts/build_finals.py"
     },
@@ -354,20 +355,20 @@
     },
     {
       "path": "data/processed/external/juso_yeongdeok/manifest.json",
-      "bytes": 2985,
-      "sha256": "af1614b745606fb255f4201f5f2ac4fb7c134b71a25aaf1e4af929f47b170660",
+      "bytes": 4191,
+      "sha256": "eca384407d186a7cc7db757698b7c685a6f32bb5861d4ca257c5763be7b7d51a",
       "kind": "text",
-      "git_tracked": false,
+      "git_tracked": true,
       "n_registry_entries": 8,
       "cited_by_docs": [],
       "regenerate": "python scripts/register_juso_yeongdeok.py"
     },
     {
       "path": "data/processed/external/juso_yeongdeok/minwon_agencies.geojson",
-      "bytes": 25636,
-      "sha256": "fbe4f1efe2fc3a8fbfba4d6e005b382994f36b36773bae26bfa510ea129d6314",
+      "bytes": 19040,
+      "sha256": "8037a54415c0f9f1c99f0815e0dad5e2050515f080b296bcd3136c6887449f41",
       "kind": "text",
-      "git_tracked": false,
+      "git_tracked": true,
       "n_registry_entries": 0,
       "cited_by_docs": [
         "docs/auto/BACKLOG.md"
@@ -709,6 +710,10 @@
         "docs/HANDOFF_ROUND3.md",
         "docs/REPORT_ROUND2_P1.md",
         "docs/SESSION8_LOG.md",
+        "docs/auto/CRITIC_LATEST.md",
+        "docs/auto/reports/2026-09-04T1416Z-critic.md",
+        "docs/auto/reports/2026-09-04T1534Z-manual.md",
+        "docs/auto/reports/2026-09-04T1547Z-manual.md",
         "docs/network_drift.md",
         "docs/ssot_audit_2026-09-03.md",
         "outputs/dispatch/README.md"

@@ -3,10 +3,6 @@
 "name": "samul_lifesav_point",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
 "features": [
-{ "type": "Feature", "properties": { "OBJ_MNG_NO": "OBJ094792000006783", "PNT_SP_NO": 233774.0, "OBJ_KND_CD": "OBJ09", "OBJ_COM_DF": "OBJ0901", "PNT_SE": "04", "MAIN_ENTSE": "RM", "ENT_TY": null, "LMTT_HG": 0.0, "MVMN_DE": null, "JOB_SE_CD": null, "layer_ko": "인명구조함", "layer_en": "life-saving equipment box" }, "geometry": { "type": "Point", "coordinates": [ 128.94960948621528, 36.790895418904682 ] } },
-{ "type": "Feature", "properties": { "OBJ_MNG_NO": "OBJ094792000006784", "PNT_SP_NO": 233776.0, "OBJ_KND_CD": "OBJ09", "OBJ_COM_DF": "OBJ0901", "PNT_SE": "04", "MAIN_ENTSE": "RM", "ENT_TY": null, "LMTT_HG": 0.0, "MVMN_DE": null, "JOB_SE_CD": null, "layer_ko": "인명구조함", "layer_en": "life-saving equipment box" }, "geometry": { "type": "Point", "coordinates": [ 128.953935685161269, 36.788250685472718 ] } },
-{ "type": "Feature", "properties": { "OBJ_MNG_NO": "OBJ094792000006785", "PNT_SP_NO": 385175.0, "OBJ_KND_CD": "OBJ09", "OBJ_COM_DF": "OBJ0901", "PNT_SE": "04", "MAIN_ENTSE": "RM", "ENT_TY": null, "LMTT_HG": 0.0, "MVMN_DE": null, "JOB_SE_CD": null, "layer_ko": "인명구조함", "layer_en": "life-saving equipment box" }, "geometry": { "type": "Point", "coordinates": [ 128.729534346040339, 37.00505128901915 ] } },
-{ "type": "Feature", "properties": { "OBJ_MNG_NO": "OBJ094792000006787", "PNT_SP_NO": 385177.0, "OBJ_KND_CD": "OBJ09", "OBJ_COM_DF": "OBJ0901", "PNT_SE": "04", "MAIN_ENTSE": "RM", "ENT_TY": null, "LMTT_HG": 0.0, "MVMN_DE": null, "JOB_SE_CD": null, "layer_ko": "인명구조함", "layer_en": "life-saving equipment box" }, "geometry": { "type": "Point", "coordinates": [ 128.82416462425752, 36.927789831136614 ] } },
-{ "type": "Feature", "properties": { "OBJ_MNG_NO": "OBJ094792000006788", "PNT_SP_NO": 385178.0, "OBJ_KND_CD": "OBJ09", "OBJ_COM_DF": "OBJ0901", "PNT_SE": "04", "MAIN_ENTSE": "RM", "ENT_TY": null, "LMTT_HG": 0.0, "MVMN_DE": null, "JOB_SE_CD": null, "layer_ko": "인명구조함", "layer_en": "life-saving equipment box" }, "geometry": { "type": "Point", "coordinates": [ 128.728648744681294, 37.010953259784422 ] } }
+
 ]
 }

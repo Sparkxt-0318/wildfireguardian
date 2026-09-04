@@ -10415,25 +10415,22 @@
       }
     },
     "juso_yeongdeok_minwon_agencies_count": {
-      "value": 74,
+      "value": 55,
       "unit": "features",
       "source_file": "data/processed/external/juso_yeongdeok/manifest.json",
       "json_path": "layers.minwon_agencies.count",
-      "derivation": "count of 민원행정기관 features with sigungu code 47920 (영덕군) in the 행정안전부 주소정보누리집 (business.juso.go.kr) dataset dated 2024-01-24; filter: 시군구코드 == 47920",
+      "derivation": "count of 민원행정기관 features with sigungu code 47770 (영덕군) in the 행정안전부 주소정보누리집 (business.juso.go.kr) dataset dated 2024-01-24; filter: 시군구코드 == 47770",
       "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
       "config_hash_at_production": null,
-      "git_commit": "3ffc1352db6c7e98216f53585eb0514192fed781",
+      "git_commit": "79887696b961e2397ac9af882a5201696d26066a",
       "sample": "영덕군",
-      "caveat": "SCOPE WRONG, DO NOT USE AS 영덕 DATA (2026-09-04, WFG-075 / NH-022). The 시군구 filter 47920 is labelled 영덕군 and the extracted geometry lies wholly outside this repository's 영덕 box (129.25-129.55 E / 36.30-36.60): all 239 points are at 128.65-129.15 E / 36.78-37.06 N, overlapping it on neither axis, and the 지진해일긴급대피장소 layer came back empty, which a coastal county's would not. The count itself is the number of rows the filter matched; which county those rows belong to is UNVERIFIED and is not guessed here. Re-cut is laptop-only (NH-022). -- Administrative inventory as published; not a survey of what stands today. The 사물주소 shapefiles carry no .prj and were assigned EPSG:5179 (see manifest crs_note). This is NOT the 도로명주소 건물 layer (NH-005 stays open).",
-      "scope_status": "wrong (WFG-075, 2026-09-04; county identity unverified, NH-022)",
+      "caveat": "SCOPE CORRECTED 2026-09-04 (NH-022 closed by the author on the laptop; first cut WFG-075). The first registration (commit 3fdb888) was cut on 시군구 47920, labelled 영덕군, and lay wholly outside this repository's 영덕 box (129.25-129.55 E / 36.30-36.60 N) with an empty 지진해일긴급대피장소 layer. Re-cut on 47770 and verified from the data itself: every 민원행정기관 road address names 영덕군, the tsunami layer is populated, and every non-empty layer's centroid lies inside the box with at least half its points inside (영덕군 is larger than the routing canvas). The wrong first values are kept in git history (3fdb888), not here. -- Administrative inventory as published; not a survey of what stands today. The 사물주소 shapefiles carry no .prj and were assigned EPSG:5179 (see manifest crs_note). This is NOT the 도로명주소 건물 layer (NH-005 stays open).",
+      "scope_status": "corrected (NH-022, 2026-09-04): re-cut on 47770; the first cut (WFG-075) was 47920",
       "forbidden_phrasings": [
-        "영덕의 지정 대피장소",
-        "영덕군 무더위쉼터",
-        "영덕의 119안전센터",
-        "designated evacuation sites in Yeongdeok",
-        "Yeongdeok cooling centres",
         "영덕 대피장소 27곳",
-        "영덕 무더위쉼터 99곳"
+        "영덕 무더위쉼터 99곳",
+        "27 evacuation sites in Yeongdeok",
+        "99 cooling centres in Yeongdeok"
       ],
       "reproducible": false,
       "reproducibility": {
@@ -10460,25 +10457,22 @@
       }
     },
     "juso_yeongdeok_samul_eqout_point_count": {
-      "value": 27,
+      "value": 64,
       "unit": "features",
       "source_file": "data/processed/external/juso_yeongdeok/manifest.json",
       "json_path": "layers.samul_eqout_point.count",
-      "derivation": "count of 지진옥외대피장소 features with sigungu code 47920 (영덕군) in the 행정안전부 주소정보누리집 (business.juso.go.kr) dataset dated 2025-03-01; filter: OBJ_MNG_NO[5:10] == '47920' (OBJ + kind(2) + sigungu(5) + serial(8))",
+      "derivation": "count of 지진옥외대피장소 features with sigungu code 47770 (영덕군) in the 행정안전부 주소정보누리집 (business.juso.go.kr) dataset dated 2025-03-01; filter: OBJ_MNG_NO[5:10] == '47770' (OBJ + kind(2) + sigungu(5) + serial(8))",
       "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
       "config_hash_at_production": null,
-      "git_commit": "3ffc1352db6c7e98216f53585eb0514192fed781",
+      "git_commit": "79887696b961e2397ac9af882a5201696d26066a",
       "sample": "영덕군",
-      "caveat": "SCOPE WRONG, DO NOT USE AS 영덕 DATA (2026-09-04, WFG-075 / NH-022). The 시군구 filter 47920 is labelled 영덕군 and the extracted geometry lies wholly outside this repository's 영덕 box (129.25-129.55 E / 36.30-36.60): all 239 points are at 128.65-129.15 E / 36.78-37.06 N, overlapping it on neither axis, and the 지진해일긴급대피장소 layer came back empty, which a coastal county's would not. The count itself is the number of rows the filter matched; which county those rows belong to is UNVERIFIED and is not guessed here. Re-cut is laptop-only (NH-022). -- Administrative inventory as published; not a survey of what stands today. The 사물주소 shapefiles carry no .prj and were assigned EPSG:5179 (see manifest crs_note). This is NOT the 도로명주소 건물 layer (NH-005 stays open).",
-      "scope_status": "wrong (WFG-075, 2026-09-04; county identity unverified, NH-022)",
+      "caveat": "SCOPE CORRECTED 2026-09-04 (NH-022 closed by the author on the laptop; first cut WFG-075). The first registration (commit 3fdb888) was cut on 시군구 47920, labelled 영덕군, and lay wholly outside this repository's 영덕 box (129.25-129.55 E / 36.30-36.60 N) with an empty 지진해일긴급대피장소 layer. Re-cut on 47770 and verified from the data itself: every 민원행정기관 road address names 영덕군, the tsunami layer is populated, and every non-empty layer's centroid lies inside the box with at least half its points inside (영덕군 is larger than the routing canvas). The wrong first values are kept in git history (3fdb888), not here. -- Administrative inventory as published; not a survey of what stands today. The 사물주소 shapefiles carry no .prj and were assigned EPSG:5179 (see manifest crs_note). This is NOT the 도로명주소 건물 layer (NH-005 stays open).",
+      "scope_status": "corrected (NH-022, 2026-09-04): re-cut on 47770; the first cut (WFG-075) was 47920",
       "forbidden_phrasings": [
-        "영덕의 지정 대피장소",
-        "영덕군 무더위쉼터",
-        "영덕의 119안전센터",
-        "designated evacuation sites in Yeongdeok",
-        "Yeongdeok cooling centres",
         "영덕 대피장소 27곳",
-        "영덕 무더위쉼터 99곳"
+        "영덕 무더위쉼터 99곳",
+        "27 evacuation sites in Yeongdeok",
+        "99 cooling centres in Yeongdeok"
       ],
       "reproducible": false,
       "reproducibility": {
@@ -10505,25 +10499,22 @@
       }
     },
     "juso_yeongdeok_samul_eqwav_point_count": {
-      "value": 0,
+      "value": 92,
       "unit": "features",
       "source_file": "data/processed/external/juso_yeongdeok/manifest.json",
       "json_path": "layers.samul_eqwav_point.count",
-      "derivation": "count of 지진해일긴급대피장소 features with sigungu code 47920 (영덕군) in the 행정안전부 주소정보누리집 (business.juso.go.kr) dataset dated 2025-03-01; filter: OBJ_MNG_NO[5:10] == '47920' (OBJ + kind(2) + sigungu(5) + serial(8))",
+      "derivation": "count of 지진해일긴급대피장소 features with sigungu code 47770 (영덕군) in the 행정안전부 주소정보누리집 (business.juso.go.kr) dataset dated 2025-03-01; filter: OBJ_MNG_NO[5:10] == '47770' (OBJ + kind(2) + sigungu(5) + serial(8))",
       "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
       "config_hash_at_production": null,
-      "git_commit": "3ffc1352db6c7e98216f53585eb0514192fed781",
+      "git_commit": "79887696b961e2397ac9af882a5201696d26066a",
       "sample": "영덕군",
-      "caveat": "SCOPE WRONG, DO NOT USE AS 영덕 DATA (2026-09-04, WFG-075 / NH-022). The 시군구 filter 47920 is labelled 영덕군 and the extracted geometry lies wholly outside this repository's 영덕 box (129.25-129.55 E / 36.30-36.60): all 239 points are at 128.65-129.15 E / 36.78-37.06 N, overlapping it on neither axis, and the 지진해일긴급대피장소 layer came back empty, which a coastal county's would not. The count itself is the number of rows the filter matched; which county those rows belong to is UNVERIFIED and is not guessed here. Re-cut is laptop-only (NH-022). -- Administrative inventory as published; not a survey of what stands today. The 사물주소 shapefiles carry no .prj and were assigned EPSG:5179 (see manifest crs_note). This is NOT the 도로명주소 건물 layer (NH-005 stays open).",
-      "scope_status": "wrong (WFG-075, 2026-09-04; county identity unverified, NH-022)",
+      "caveat": "SCOPE CORRECTED 2026-09-04 (NH-022 closed by the author on the laptop; first cut WFG-075). The first registration (commit 3fdb888) was cut on 시군구 47920, labelled 영덕군, and lay wholly outside this repository's 영덕 box (129.25-129.55 E / 36.30-36.60 N) with an empty 지진해일긴급대피장소 layer. Re-cut on 47770 and verified from the data itself: every 민원행정기관 road address names 영덕군, the tsunami layer is populated, and every non-empty layer's centroid lies inside the box with at least half its points inside (영덕군 is larger than the routing canvas). The wrong first values are kept in git history (3fdb888), not here. -- Administrative inventory as published; not a survey of what stands today. The 사물주소 shapefiles carry no .prj and were assigned EPSG:5179 (see manifest crs_note). This is NOT the 도로명주소 건물 layer (NH-005 stays open).",
+      "scope_status": "corrected (NH-022, 2026-09-04): re-cut on 47770; the first cut (WFG-075) was 47920",
       "forbidden_phrasings": [
-        "영덕의 지정 대피장소",
-        "영덕군 무더위쉼터",
-        "영덕의 119안전센터",
-        "designated evacuation sites in Yeongdeok",
-        "Yeongdeok cooling centres",
         "영덕 대피장소 27곳",
-        "영덕 무더위쉼터 99곳"
+        "영덕 무더위쉼터 99곳",
+        "27 evacuation sites in Yeongdeok",
+        "99 cooling centres in Yeongdeok"
       ],
       "reproducible": false,
       "reproducibility": {
@@ -10550,25 +10541,22 @@
       }
     },
     "juso_yeongdeok_samul_coolingcen_point_count": {
-      "value": 99,
+      "value": 17,
       "unit": "features",
       "source_file": "data/processed/external/juso_yeongdeok/manifest.json",
       "json_path": "layers.samul_coolingcen_point.count",
-      "derivation": "count of 무더위쉼터 features with sigungu code 47920 (영덕군) in the 행정안전부 주소정보누리집 (business.juso.go.kr) dataset dated 2025-03-01; filter: OBJ_MNG_NO[5:10] == '47920' (OBJ + kind(2) + sigungu(5) + serial(8))",
+      "derivation": "count of 무더위쉼터 features with sigungu code 47770 (영덕군) in the 행정안전부 주소정보누리집 (business.juso.go.kr) dataset dated 2025-03-01; filter: OBJ_MNG_NO[5:10] == '47770' (OBJ + kind(2) + sigungu(5) + serial(8))",
       "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
       "config_hash_at_production": null,
-      "git_commit": "3ffc1352db6c7e98216f53585eb0514192fed781",
+      "git_commit": "79887696b961e2397ac9af882a5201696d26066a",
       "sample": "영덕군",
-      "caveat": "SCOPE WRONG, DO NOT USE AS 영덕 DATA (2026-09-04, WFG-075 / NH-022). The 시군구 filter 47920 is labelled 영덕군 and the extracted geometry lies wholly outside this repository's 영덕 box (129.25-129.55 E / 36.30-36.60): all 239 points are at 128.65-129.15 E / 36.78-37.06 N, overlapping it on neither axis, and the 지진해일긴급대피장소 layer came back empty, which a coastal county's would not. The count itself is the number of rows the filter matched; which county those rows belong to is UNVERIFIED and is not guessed here. Re-cut is laptop-only (NH-022). -- Administrative inventory as published; not a survey of what stands today. The 사물주소 shapefiles carry no .prj and were assigned EPSG:5179 (see manifest crs_note). This is NOT the 도로명주소 건물 layer (NH-005 stays open).",
-      "scope_status": "wrong (WFG-075, 2026-09-04; county identity unverified, NH-022)",
+      "caveat": "SCOPE CORRECTED 2026-09-04 (NH-022 closed by the author on the laptop; first cut WFG-075). The first registration (commit 3fdb888) was cut on 시군구 47920, labelled 영덕군, and lay wholly outside this repository's 영덕 box (129.25-129.55 E / 36.30-36.60 N) with an empty 지진해일긴급대피장소 layer. Re-cut on 47770 and verified from the data itself: every 민원행정기관 road address names 영덕군, the tsunami layer is populated, and every non-empty layer's centroid lies inside the box with at least half its points inside (영덕군 is larger than the routing canvas). The wrong first values are kept in git history (3fdb888), not here. -- Administrative inventory as published; not a survey of what stands today. The 사물주소 shapefiles carry no .prj and were assigned EPSG:5179 (see manifest crs_note). This is NOT the 도로명주소 건물 layer (NH-005 stays open).",
+      "scope_status": "corrected (NH-022, 2026-09-04): re-cut on 47770; the first cut (WFG-075) was 47920",
       "forbidden_phrasings": [
-        "영덕의 지정 대피장소",
-        "영덕군 무더위쉼터",
-        "영덕의 119안전센터",
-        "designated evacuation sites in Yeongdeok",
-        "Yeongdeok cooling centres",
         "영덕 대피장소 27곳",
-        "영덕 무더위쉼터 99곳"
+        "영덕 무더위쉼터 99곳",
+        "27 evacuation sites in Yeongdeok",
+        "99 cooling centres in Yeongdeok"
       ],
       "reproducible": false,
       "reproducibility": {
@@ -10595,25 +10583,22 @@
       }
     },
     "juso_yeongdeok_samul_lifesav_point_count": {
-      "value": 5,
+      "value": 0,
       "unit": "features",
       "source_file": "data/processed/external/juso_yeongdeok/manifest.json",
       "json_path": "layers.samul_lifesav_point.count",
-      "derivation": "count of 인명구조함 features with sigungu code 47920 (영덕군) in the 행정안전부 주소정보누리집 (business.juso.go.kr) dataset dated 2025-03-01; filter: OBJ_MNG_NO[5:10] == '47920' (OBJ + kind(2) + sigungu(5) + serial(8))",
+      "derivation": "count of 인명구조함 features with sigungu code 47770 (영덕군) in the 행정안전부 주소정보누리집 (business.juso.go.kr) dataset dated 2025-03-01; filter: OBJ_MNG_NO[5:10] == '47770' (OBJ + kind(2) + sigungu(5) + serial(8))",
       "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
       "config_hash_at_production": null,
-      "git_commit": "3ffc1352db6c7e98216f53585eb0514192fed781",
+      "git_commit": "79887696b961e2397ac9af882a5201696d26066a",
       "sample": "영덕군",
-      "caveat": "SCOPE WRONG, DO NOT USE AS 영덕 DATA (2026-09-04, WFG-075 / NH-022). The 시군구 filter 47920 is labelled 영덕군 and the extracted geometry lies wholly outside this repository's 영덕 box (129.25-129.55 E / 36.30-36.60): all 239 points are at 128.65-129.15 E / 36.78-37.06 N, overlapping it on neither axis, and the 지진해일긴급대피장소 layer came back empty, which a coastal county's would not. The count itself is the number of rows the filter matched; which county those rows belong to is UNVERIFIED and is not guessed here. Re-cut is laptop-only (NH-022). -- Administrative inventory as published; not a survey of what stands today. The 사물주소 shapefiles carry no .prj and were assigned EPSG:5179 (see manifest crs_note). This is NOT the 도로명주소 건물 layer (NH-005 stays open).",
-      "scope_status": "wrong (WFG-075, 2026-09-04; county identity unverified, NH-022)",
+      "caveat": "SCOPE CORRECTED 2026-09-04 (NH-022 closed by the author on the laptop; first cut WFG-075). The first registration (commit 3fdb888) was cut on 시군구 47920, labelled 영덕군, and lay wholly outside this repository's 영덕 box (129.25-129.55 E / 36.30-36.60 N) with an empty 지진해일긴급대피장소 layer. Re-cut on 47770 and verified from the data itself: every 민원행정기관 road address names 영덕군, the tsunami layer is populated, and every non-empty layer's centroid lies inside the box with at least half its points inside (영덕군 is larger than the routing canvas). The wrong first values are kept in git history (3fdb888), not here. -- Administrative inventory as published; not a survey of what stands today. The 사물주소 shapefiles carry no .prj and were assigned EPSG:5179 (see manifest crs_note). This is NOT the 도로명주소 건물 layer (NH-005 stays open).",
+      "scope_status": "corrected (NH-022, 2026-09-04): re-cut on 47770; the first cut (WFG-075) was 47920",
       "forbidden_phrasings": [
-        "영덕의 지정 대피장소",
-        "영덕군 무더위쉼터",
-        "영덕의 119안전센터",
-        "designated evacuation sites in Yeongdeok",
-        "Yeongdeok cooling centres",
         "영덕 대피장소 27곳",
-        "영덕 무더위쉼터 99곳"
+        "영덕 무더위쉼터 99곳",
+        "27 evacuation sites in Yeongdeok",
+        "99 cooling centres in Yeongdeok"
       ],
       "reproducible": false,
       "reproducibility": {
@@ -10640,25 +10625,22 @@
       }
     },
     "juso_yeongdeok_samul_firehydr_point_count": {
-      "value": 6,
+      "value": 23,
       "unit": "features",
       "source_file": "data/processed/external/juso_yeongdeok/manifest.json",
       "json_path": "layers.samul_firehydr_point.count",
-      "derivation": "count of 소화전 features with sigungu code 47920 (영덕군) in the 행정안전부 주소정보누리집 (business.juso.go.kr) dataset dated 2025-03-01; filter: OBJ_MNG_NO[5:10] == '47920' (OBJ + kind(2) + sigungu(5) + serial(8))",
+      "derivation": "count of 소화전 features with sigungu code 47770 (영덕군) in the 행정안전부 주소정보누리집 (business.juso.go.kr) dataset dated 2025-03-01; filter: OBJ_MNG_NO[5:10] == '47770' (OBJ + kind(2) + sigungu(5) + serial(8))",
       "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
       "config_hash_at_production": null,
-      "git_commit": "3ffc1352db6c7e98216f53585eb0514192fed781",
+      "git_commit": "79887696b961e2397ac9af882a5201696d26066a",
       "sample": "영덕군",
-      "caveat": "SCOPE WRONG, DO NOT USE AS 영덕 DATA (2026-09-04, WFG-075 / NH-022). The 시군구 filter 47920 is labelled 영덕군 and the extracted geometry lies wholly outside this repository's 영덕 box (129.25-129.55 E / 36.30-36.60): all 239 points are at 128.65-129.15 E / 36.78-37.06 N, overlapping it on neither axis, and the 지진해일긴급대피장소 layer came back empty, which a coastal county's would not. The count itself is the number of rows the filter matched; which county those rows belong to is UNVERIFIED and is not guessed here. Re-cut is laptop-only (NH-022). -- Administrative inventory as published; not a survey of what stands today. The 사물주소 shapefiles carry no .prj and were assigned EPSG:5179 (see manifest crs_note). This is NOT the 도로명주소 건물 layer (NH-005 stays open).",
-      "scope_status": "wrong (WFG-075, 2026-09-04; county identity unverified, NH-022)",
+      "caveat": "SCOPE CORRECTED 2026-09-04 (NH-022 closed by the author on the laptop; first cut WFG-075). The first registration (commit 3fdb888) was cut on 시군구 47920, labelled 영덕군, and lay wholly outside this repository's 영덕 box (129.25-129.55 E / 36.30-36.60 N) with an empty 지진해일긴급대피장소 layer. Re-cut on 47770 and verified from the data itself: every 민원행정기관 road address names 영덕군, the tsunami layer is populated, and every non-empty layer's centroid lies inside the box with at least half its points inside (영덕군 is larger than the routing canvas). The wrong first values are kept in git history (3fdb888), not here. -- Administrative inventory as published; not a survey of what stands today. The 사물주소 shapefiles carry no .prj and were assigned EPSG:5179 (see manifest crs_note). This is NOT the 도로명주소 건물 layer (NH-005 stays open).",
+      "scope_status": "corrected (NH-022, 2026-09-04): re-cut on 47770; the first cut (WFG-075) was 47920",
       "forbidden_phrasings": [
-        "영덕의 지정 대피장소",
-        "영덕군 무더위쉼터",
-        "영덕의 119안전센터",
-        "designated evacuation sites in Yeongdeok",
-        "Yeongdeok cooling centres",
         "영덕 대피장소 27곳",
-        "영덕 무더위쉼터 99곳"
+        "영덕 무더위쉼터 99곳",
+        "27 evacuation sites in Yeongdeok",
+        "99 cooling centres in Yeongdeok"
       ],
       "reproducible": false,
       "reproducibility": {
@@ -10689,21 +10671,18 @@
       "unit": "features",
       "source_file": "data/processed/external/juso_yeongdeok/manifest.json",
       "json_path": "layers.samul_emerwat_point.count",
-      "derivation": "count of 비상급수시설 features with sigungu code 47920 (영덕군) in the 행정안전부 주소정보누리집 (business.juso.go.kr) dataset dated 2025-03-01; filter: OBJ_MNG_NO[5:10] == '47920' (OBJ + kind(2) + sigungu(5) + serial(8))",
+      "derivation": "count of 비상급수시설 features with sigungu code 47770 (영덕군) in the 행정안전부 주소정보누리집 (business.juso.go.kr) dataset dated 2025-03-01; filter: OBJ_MNG_NO[5:10] == '47770' (OBJ + kind(2) + sigungu(5) + serial(8))",
       "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
       "config_hash_at_production": null,
-      "git_commit": "3ffc1352db6c7e98216f53585eb0514192fed781",
+      "git_commit": "79887696b961e2397ac9af882a5201696d26066a",
       "sample": "영덕군",
-      "caveat": "SCOPE WRONG, DO NOT USE AS 영덕 DATA (2026-09-04, WFG-075 / NH-022). The 시군구 filter 47920 is labelled 영덕군 and the extracted geometry lies wholly outside this repository's 영덕 box (129.25-129.55 E / 36.30-36.60): all 239 points are at 128.65-129.15 E / 36.78-37.06 N, overlapping it on neither axis, and the 지진해일긴급대피장소 layer came back empty, which a coastal county's would not. The count itself is the number of rows the filter matched; which county those rows belong to is UNVERIFIED and is not guessed here. Re-cut is laptop-only (NH-022). -- Administrative inventory as published; not a survey of what stands today. The 사물주소 shapefiles carry no .prj and were assigned EPSG:5179 (see manifest crs_note). This is NOT the 도로명주소 건물 layer (NH-005 stays open).",
-      "scope_status": "wrong (WFG-075, 2026-09-04; county identity unverified, NH-022)",
+      "caveat": "SCOPE CORRECTED 2026-09-04 (NH-022 closed by the author on the laptop; first cut WFG-075). The first registration (commit 3fdb888) was cut on 시군구 47920, labelled 영덕군, and lay wholly outside this repository's 영덕 box (129.25-129.55 E / 36.30-36.60 N) with an empty 지진해일긴급대피장소 layer. Re-cut on 47770 and verified from the data itself: every 민원행정기관 road address names 영덕군, the tsunami layer is populated, and every non-empty layer's centroid lies inside the box with at least half its points inside (영덕군 is larger than the routing canvas). The wrong first values are kept in git history (3fdb888), not here. -- Administrative inventory as published; not a survey of what stands today. The 사물주소 shapefiles carry no .prj and were assigned EPSG:5179 (see manifest crs_note). This is NOT the 도로명주소 건물 layer (NH-005 stays open).",
+      "scope_status": "corrected (NH-022, 2026-09-04): re-cut on 47770; the first cut (WFG-075) was 47920",
       "forbidden_phrasings": [
-        "영덕의 지정 대피장소",
-        "영덕군 무더위쉼터",
-        "영덕의 119안전센터",
-        "designated evacuation sites in Yeongdeok",
-        "Yeongdeok cooling centres",
         "영덕 대피장소 27곳",
-        "영덕 무더위쉼터 99곳"
+        "영덕 무더위쉼터 99곳",
+        "27 evacuation sites in Yeongdeok",
+        "99 cooling centres in Yeongdeok"
       ],
       "reproducible": false,
       "reproducibility": {
@@ -10730,25 +10709,22 @@
       }
     },
     "juso_yeongdeok_samul_busst_point_count": {
-      "value": 28,
+      "value": 3,
       "unit": "features",
       "source_file": "data/processed/external/juso_yeongdeok/manifest.json",
       "json_path": "layers.samul_busst_point.count",
-      "derivation": "count of 버스정류장 features with sigungu code 47920 (영덕군) in the 행정안전부 주소정보누리집 (business.juso.go.kr) dataset dated 2025-03-01; filter: OBJ_MNG_NO[5:10] == '47920' (OBJ + kind(2) + sigungu(5) + serial(8))",
+      "derivation": "count of 버스정류장 features with sigungu code 47770 (영덕군) in the 행정안전부 주소정보누리집 (business.juso.go.kr) dataset dated 2025-03-01; filter: OBJ_MNG_NO[5:10] == '47770' (OBJ + kind(2) + sigungu(5) + serial(8))",
       "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
       "config_hash_at_production": null,
-      "git_commit": "3ffc1352db6c7e98216f53585eb0514192fed781",
+      "git_commit": "79887696b961e2397ac9af882a5201696d26066a",
       "sample": "영덕군",
-      "caveat": "SCOPE WRONG, DO NOT USE AS 영덕 DATA (2026-09-04, WFG-075 / NH-022). The 시군구 filter 47920 is labelled 영덕군 and the extracted geometry lies wholly outside this repository's 영덕 box (129.25-129.55 E / 36.30-36.60): all 239 points are at 128.65-129.15 E / 36.78-37.06 N, overlapping it on neither axis, and the 지진해일긴급대피장소 layer came back empty, which a coastal county's would not. The count itself is the number of rows the filter matched; which county those rows belong to is UNVERIFIED and is not guessed here. Re-cut is laptop-only (NH-022). -- Administrative inventory as published; not a survey of what stands today. The 사물주소 shapefiles carry no .prj and were assigned EPSG:5179 (see manifest crs_note). This is NOT the 도로명주소 건물 layer (NH-005 stays open).",
-      "scope_status": "wrong (WFG-075, 2026-09-04; county identity unverified, NH-022)",
+      "caveat": "SCOPE CORRECTED 2026-09-04 (NH-022 closed by the author on the laptop; first cut WFG-075). The first registration (commit 3fdb888) was cut on 시군구 47920, labelled 영덕군, and lay wholly outside this repository's 영덕 box (129.25-129.55 E / 36.30-36.60 N) with an empty 지진해일긴급대피장소 layer. Re-cut on 47770 and verified from the data itself: every 민원행정기관 road address names 영덕군, the tsunami layer is populated, and every non-empty layer's centroid lies inside the box with at least half its points inside (영덕군 is larger than the routing canvas). The wrong first values are kept in git history (3fdb888), not here. -- Administrative inventory as published; not a survey of what stands today. The 사물주소 shapefiles carry no .prj and were assigned EPSG:5179 (see manifest crs_note). This is NOT the 도로명주소 건물 layer (NH-005 stays open).",
+      "scope_status": "corrected (NH-022, 2026-09-04): re-cut on 47770; the first cut (WFG-075) was 47920",
       "forbidden_phrasings": [
-        "영덕의 지정 대피장소",
-        "영덕군 무더위쉼터",
-        "영덕의 119안전센터",
-        "designated evacuation sites in Yeongdeok",
-        "Yeongdeok cooling centres",
         "영덕 대피장소 27곳",
-        "영덕 무더위쉼터 99곳"
+        "영덕 무더위쉼터 99곳",
+        "27 evacuation sites in Yeongdeok",
+        "99 cooling centres in Yeongdeok"
       ],
       "reproducible": false,
       "reproducibility": {

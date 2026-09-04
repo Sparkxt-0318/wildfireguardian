@@ -790,7 +790,7 @@ backlog table order, which today means the booth rows first and WFG-062 after th
 
 **CLOSED 2026-09-04 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-04 · ref: claude-code-session-7da6bf25#NH-021 · verbatim: "Do WFG-062 now (the withdrawn-claims registry gate first; booth rows resume after)."
 
-## NH-022 · DECISION · open · The 영덕 dataset you sent was cut with the wrong county code, and only your laptop can re-cut it (by 2026-09-08)
+## NH-022 · DECISION · closed · The 영덕 dataset you sent was cut with the wrong county code, and only your laptop can re-cut it (by 2026-09-08)
 
 **What happened.** The two 주소정보누리집 files you downloaded on 2026-09-04 are fine. The
 script that cut the 영덕 subset out of them is not: `scripts/extract_juso_yeongdeok.py:32`
@@ -847,3 +847,4 @@ neither of which changes what it asks of you.
    taken on it alone.
 
 
+**CLOSED 2026-09-04 by the author** · channel: Claude Code session (laptop, author present) · received: 2026-09-04 · ref: claude-code-session-7da6bf25#NH-022 · verbatim: "Re-cut on the laptop the same day with 시군구 code 47770. Verified empirically rather than from a code table: all 55 민원행정기관 road addresses contain 영덕군, the 지진해일긴급대피장소 layer now has 92 rows, and every layer's centroid lies inside the canonical 영덕 box with 57-84 % of points inside (the county is larger than the routing canvas, so per-point containment is the wrong rule). Same filenames overwritten because the first files were wrong, not superseded; baseline re-frozen deliberately. The extractor and tests/test_juso_yeongdeok.py now carry the address and box checks."

@@ -1,4 +1,6 @@
-# A 주소정보누리집 subset cut on 시군구 code 47920, labelled 영덕 and not verified as 영덕 (2026-09-04)
+# 영덕 designated sites and public offices from 주소정보누리집 (2026-09-04, re-cut after NH-022)
+
+> **Re-cut 2026-09-04 (NH-022, on the author's laptop).** The 정정 below records the first cut, which was wrong. The files in this folder are now cut on 시군구 code 47770 and verified from the data itself rather than from a code table (the WFG-066 standard): every 민원행정기관 road address names 영덕군, the 지진해일긴급대피장소 layer is populated, and every non-empty layer's centroid lies inside the canonical 영덕 box with most points inside (the county is larger than the routing canvas). The 정정 is kept as the record.
 
 > ## 정정 (2026-09-04, WFG-075) · this file's original claim was wrong
 >
@@ -53,8 +55,10 @@ registered as `juso_yeongdeok_*_count` by `scripts/register_juso_yeongdeok.py`.
 
 | dataset | data date | what it holds for 영덕 | registry keys |
 |---|---|---|---|
-| 사물주소도형 (경상북도 전체분) | 2025-03-01 | 지진옥외대피장소, 무더위쉼터, 인명구조함, 소화전, 비상급수시설, 버스정류장 points (지진해일대피장소 and 비상급수 have no 영덕 rows) | `juso_yeongdeok_samul_*_count` |
+| 사물주소도형 (경상북도 전체분) | 2025-03-01 | 지진옥외대피장소, 무더위쉼터, 인명구조함, 소화전, 비상급수시설, 버스정류장 points (인명구조함 and 비상급수시설 have no 영덕 rows) | `juso_yeongdeok_samul_*_count` |
 | 민원행정기관 전자지도 | 2024-01-24 | schools, 읍면동 offices, 보건소·보건지소·진료소, 파출소, 119안전센터, post offices | `juso_yeongdeok_minwon_agencies_count` |
+
+**Correction (2026-09-04, NH-022).** The first cut, commit 3fdb888, filtered on 시군구 code 47920, which is 봉화군, not 영덕군; critic #11 caught it from the coordinates alone (every point 45 km inland, no tsunami sites). The subset was re-cut the same day on the laptop with 47770 and the same filenames were overwritten, because the earlier files were wrong rather than superseded. Two checks are now built into the extractor and the test: every agency road address contains 영덕군, and the set sits in the canonical 영덕 box (129.25–129.55 E, 36.30–36.60 N): centroid inside and at least half the points inside, because the county is larger than the routing canvas.
 
 **What this is not.** Neither file is the 도로명주소 **건물** (building footprint) layer that
 NH-005 asks for; household counts stay provisional on the OSM buildings and NH-005 stays open.

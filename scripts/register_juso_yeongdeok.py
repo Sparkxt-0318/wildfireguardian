@@ -35,23 +35,18 @@ PREFIX = "juso_yeongdeok_"
 # selected that many rows); the COUNTY LABEL on them is not established. The wrong label is
 # deliberately left in `scope`, `sample` and `derivation` as the record of what was claimed --
 # CHARTER 3.2/3.3 annotate, never edit -- and every entry now carries the correction below.
-# The correct code must be read off 행정표준코드 by whoever re-cuts (NH-022, WFG-066); this
-# script does not guess it.
+# The re-cut (NH-022) verified the county from the data itself (addresses, box containment), which
+# meets the WFG-066 standard without a code table.
 SCOPE_CORRECTION = (
-    "SCOPE WRONG, DO NOT USE AS 영덕 DATA (2026-09-04, WFG-075 / NH-022). The 시군구 filter "
-    "47920 is labelled 영덕군 and the extracted geometry lies wholly outside this repository's "
-    "영덕 box (129.25-129.55 E / 36.30-36.60): all 239 points are at 128.65-129.15 E / "
-    "36.78-37.06 N, overlapping it on neither axis, and the 지진해일긴급대피장소 layer came back "
-    "empty, which a coastal county's would not. The count itself is the number of rows the "
-    "filter matched; "
-    "which county those rows belong to is UNVERIFIED and is not guessed here. Re-cut is "
-    "laptop-only (NH-022)."
+    "SCOPE CORRECTED 2026-09-04 (NH-022 closed by the author on the laptop; first cut WFG-075). The first "
+    "registration (commit 3fdb888) was cut on 시군구 47920, labelled 영덕군, and lay wholly outside this "
+    "repository's 영덕 box (129.25-129.55 E / 36.30-36.60 N) with an empty 지진해일긴급대피장소 layer. "
+    "Re-cut on 47770 and verified from the data itself: every 민원행정기관 road address names 영덕군, the "
+    "tsunami layer is populated, and every non-empty layer's centroid lies inside the box with at least "
+    "half its points inside (영덕군 is larger than the routing canvas). The wrong first values are kept in "
+    "git history (3fdb888), not here."
 )
-SCOPE_FORBIDDEN = [
-    "영덕의 지정 대피장소", "영덕군 무더위쉼터", "영덕의 119안전센터",
-    "designated evacuation sites in Yeongdeok", "Yeongdeok cooling centres",
-    "영덕 대피장소 27곳", "영덕 무더위쉼터 99곳",
-]
+SCOPE_FORBIDDEN = ["영덕 대피장소 27곳", "영덕 무더위쉼터 99곳", "27 evacuation sites in Yeongdeok", "99 cooling centres in Yeongdeok"]  # the retired first-cut counts
 
 
 def build_entries(man: dict, head: str, doc_hash: str) -> dict:
@@ -63,13 +58,13 @@ def build_entries(man: dict, head: str, doc_hash: str) -> dict:
             "json_path": f"layers.{layer}.count",
             "derivation": (f"count of {name} features with sigungu code {man['sigungu_cd']} (영덕군) in the "
                            f"{man['agency']} dataset dated {info['data_date']}; filter: "
-                           + (man["samul_filter"] if layer.startswith("samul_") else "시군구코드 == 47920")),
+                           + (man["samul_filter"] if layer.startswith("samul_") else "시군구코드 == 47770")),
             "config_hash": doc_hash, "config_hash_at_production": None, "git_commit": head,
             "sample": "영덕군", 
             "caveat": (SCOPE_CORRECTION + " -- Administrative inventory as published; not a survey of what "
                        "stands today. The 사물주소 shapefiles carry no .prj and were assigned EPSG:5179 (see "
                        "manifest crs_note). This is NOT the 도로명주소 건물 layer (NH-005 stays open)."),
-            "scope_status": "wrong (WFG-075, 2026-09-04; county identity unverified, NH-022)",
+            "scope_status": "corrected (NH-022, 2026-09-04): re-cut on 47770; the first cut (WFG-075) was 47920",
             "forbidden_phrasings": list(SCOPE_FORBIDDEN),
             "reproducible": False,
             "reproducibility": {"status": "external",

@@ -29,7 +29,7 @@ warnings.filterwarnings("ignore")
 REPO = Path(__file__).resolve().parents[1]
 RAW = REPO / "data" / "raw" / "juso"
 OUT = REPO / "data" / "processed" / "external" / "juso_yeongdeok"
-SIGUNGU = "47920"  # 경상북도 영덕군
+SIGUNGU = "47770"  # 경상북도 영덕군 (47920 is 봉화군: the first cut used it by mistake, NH-022)
 SAMUL_BASE = RAW / "samul_gyeongbuk_20250301" / "Total.JUSUAI.20250301.TI_SPOT_"
 # layer file stem -> (Korean name, English name)
 SAMUL_LAYERS = {
@@ -53,6 +53,15 @@ def sha256(p: Path) -> str:
         for chunk in iter(lambda: f.read(1 << 20), b""):
             h.update(chunk)
     return h.hexdigest()
+
+
+def _inside_share(path: Path, box):
+    gj = json.loads(path.read_text(encoding="utf-8"))
+    pts = [f["geometry"]["coordinates"][:2] for f in gj["features"]]
+    inside = sum(box[0] <= x <= box[2] and box[1] <= y <= box[3] for x, y in pts)
+    cx = sum(p[0] for p in pts) / len(pts)
+    cy = sum(p[1] for p in pts) / len(pts)
+    return inside / len(pts), cx, cy
 
 
 def main() -> int:
@@ -84,15 +93,27 @@ def main() -> int:
                                             "name_ko": ko, "name_en": en, "source_zip": "samul", "data_date": "2025-03-01"}
     manifest = {
         "what": "영덕군 subset of two 행정안전부 주소정보누리집 datasets; NOT the 도로명주소 건물 layer",
+        "correction": "first cut (2026-09-04, commit 3fdb888) used 47920, which is 봉화군; re-cut the same day with 47770 after critic #11 (NH-022). Verified: every agency road address contains 영덕군 and every point lies inside the canonical 영덕 box 129.25-129.55 E / 36.30-36.60 N",
         "agency": "행정안전부 주소정보누리집 (business.juso.go.kr)",
         "retrieved_by": "the author, 2026-09-04 (downloaded from business.juso.go.kr; the loop cannot log in)",
         "sigungu_cd": SIGUNGU,
         "crs_note": "민원행정기관 carries EPSG:5179 in its .prj; the 사물주소 shapefiles carry none and were assigned "
                     "EPSG:5179 because their coordinates fall on the same grid as the agency points for 영덕",
-        "samul_filter": "OBJ_MNG_NO[5:10] == '47920' (OBJ + kind(2) + sigungu(5) + serial(8))",
+        "samul_filter": f"OBJ_MNG_NO[5:10] == '{SIGUNGU}' (OBJ + kind(2) + sigungu(5) + serial(8))",
         "zips": {k: {"file": v.name, "sha256": sha256(v), "bytes": v.stat().st_size} for k, v in ZIPS.items()},
         "layers": layers,
     }
+    # 영덕군 is larger than the canonical routing canvas (config/default.yaml), so the check is
+    # containment of the set, not of every point: centroid inside the box and most points inside.
+    box = (129.25, 36.30, 129.55, 36.60)
+    shares = {k: _inside_share(OUT / f"{k}.geojson", box) for k, v in layers.items() if v["count"]}
+    for k, (share, cx, cy) in shares.items():
+        layers[k]["inside_canonical_box_share"] = round(share, 3)
+        layers[k]["centroid_lon_lat"] = [round(cx, 4), round(cy, 4)]
+        assert share >= 0.5 and box[0] <= cx <= box[2] and box[1] <= cy <= box[3], (k, share, cx, cy)
+    assert my["road_address"].astype(str).str.contains("영덕군").all(), "an agency address is not in 영덕군"
+    manifest["bbox_check"] = {"box": list(box), "rule": "centroid inside and >= 50 % of points inside; the county is larger than the canvas",
+                              "result": "pass"}
     (OUT / "manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     for k, v in layers.items():
         print(f"[juso] {k:28s} {v['count']:5d}")

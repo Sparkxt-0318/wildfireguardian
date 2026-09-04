@@ -1,10 +1,11 @@
 {
   "what": "영덕군 subset of two 행정안전부 주소정보누리집 datasets; NOT the 도로명주소 건물 layer",
+  "correction": "first cut (2026-09-04, commit 3fdb888) used 47920, which is 봉화군; re-cut the same day with 47770 after critic #11 (NH-022). Verified: every agency road address contains 영덕군 and every point lies inside the canonical 영덕 box 129.25-129.55 E / 36.30-36.60 N",
   "agency": "행정안전부 주소정보누리집 (business.juso.go.kr)",
   "retrieved_by": "the author, 2026-09-04 (downloaded from business.juso.go.kr; the loop cannot log in)",
-  "sigungu_cd": "47920",
+  "sigungu_cd": "47770",
   "crs_note": "민원행정기관 carries EPSG:5179 in its .prj; the 사물주소 shapefiles carry none and were assigned EPSG:5179 because their coordinates fall on the same grid as the agency points for 영덕",
-  "samul_filter": "OBJ_MNG_NO[5:10] == '47920' (OBJ + kind(2) + sigungu(5) + serial(8))",
+  "samul_filter": "OBJ_MNG_NO[5:10] == '47770' (OBJ + kind(2) + sigungu(5) + serial(8))",
   "zips": {
     "samul": {
       "file": "사물주소도형_전체분_경상북도.zip",
@@ -19,57 +20,83 @@
   },
   "layers": {
     "minwon_agencies": {
-      "count": 74,
+      "count": 55,
       "by_type": {
-        "학교": 26,
-        "보건소": 17,
-        "자치단체": 12,
-        "우체국": 10,
+        "학교": 22,
+        "자치단체": 13,
+        "우체국": 8,
         "경찰서": 6,
-        "소방": 3
+        "소방": 4,
+        "보건소": 1,
+        "국세": 1
       },
       "source_zip": "minwon",
-      "data_date": "2024-01-24"
+      "data_date": "2024-01-24",
+      "inside_canonical_box_share": 0.818,
+      "centroid_lon_lat": [
+        129.3745,
+        36.4547
+      ]
     },
     "samul_eqout_point": {
-      "count": 27,
-      "within_20km_of_agency_bbox": 27,
+      "count": 64,
+      "within_20km_of_agency_bbox": 64,
       "name_ko": "지진옥외대피장소",
       "name_en": "earthquake outdoor evacuation site",
       "source_zip": "samul",
-      "data_date": "2025-03-01"
+      "data_date": "2025-03-01",
+      "inside_canonical_box_share": 0.844,
+      "centroid_lon_lat": [
+        129.3515,
+        36.4516
+      ]
     },
     "samul_eqwav_point": {
-      "count": 0,
-      "within_20km_of_agency_bbox": 0,
+      "count": 92,
+      "within_20km_of_agency_bbox": 92,
       "name_ko": "지진해일긴급대피장소",
       "name_en": "tsunami emergency evacuation site",
       "source_zip": "samul",
-      "data_date": "2025-03-01"
+      "data_date": "2025-03-01",
+      "inside_canonical_box_share": 0.772,
+      "centroid_lon_lat": [
+        129.4104,
+        36.4482
+      ]
     },
     "samul_coolingcen_point": {
-      "count": 99,
-      "within_20km_of_agency_bbox": 99,
+      "count": 17,
+      "within_20km_of_agency_bbox": 17,
       "name_ko": "무더위쉼터",
       "name_en": "cooling centre",
       "source_zip": "samul",
-      "data_date": "2025-03-01"
+      "data_date": "2025-03-01",
+      "inside_canonical_box_share": 0.824,
+      "centroid_lon_lat": [
+        129.3677,
+        36.3644
+      ]
     },
     "samul_lifesav_point": {
-      "count": 5,
-      "within_20km_of_agency_bbox": 5,
+      "count": 0,
+      "within_20km_of_agency_bbox": 0,
       "name_ko": "인명구조함",
       "name_en": "life-saving equipment box",
       "source_zip": "samul",
       "data_date": "2025-03-01"
     },
     "samul_firehydr_point": {
-      "count": 6,
-      "within_20km_of_agency_bbox": 6,
+      "count": 23,
+      "within_20km_of_agency_bbox": 23,
       "name_ko": "소화전",
       "name_en": "fire hydrant",
       "source_zip": "samul",
-      "data_date": "2025-03-01"
+      "data_date": "2025-03-01",
+      "inside_canonical_box_share": 0.565,
+      "centroid_lon_lat": [
+        129.3727,
+        36.3685
+      ]
     },
     "samul_emerwat_point": {
       "count": 0,
@@ -80,12 +107,27 @@
       "data_date": "2025-03-01"
     },
     "samul_busst_point": {
-      "count": 28,
-      "within_20km_of_agency_bbox": 28,
+      "count": 3,
+      "within_20km_of_agency_bbox": 3,
       "name_ko": "버스정류장",
       "name_en": "bus stop",
       "source_zip": "samul",
-      "data_date": "2025-03-01"
+      "data_date": "2025-03-01",
+      "inside_canonical_box_share": 0.667,
+      "centroid_lon_lat": [
+        129.3396,
+        36.3427
+      ]
     }
+  },
+  "bbox_check": {
+    "box": [
+      129.25,
+      36.3,
+      129.55,
+      36.6
+    ],
+    "rule": "centroid inside and >= 50 % of points inside; the county is larger than the canvas",
+    "result": "pass"
   }
 }

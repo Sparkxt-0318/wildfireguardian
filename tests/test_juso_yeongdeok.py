@@ -10,6 +10,9 @@ its own `xfail(strict=True)` test, so the record of what was and was not enforce
 a correct re-cut (NH-022) turns it green and the suite red. The manifest/extractor agreement it
 used to be bundled with stays a passing test, because that one was never broken. The rest are
 the containment: they fail if the correction is dropped from the registry or the document.
+
+**Re-cut 2026-09-04 (NH-022, laptop):** the subset is now cut on 47770 and verified by address and
+by set containment; the xfail marker is gone and the registry entries read SCOPE CORRECTED.
 """
 import json
 import re
@@ -43,19 +46,23 @@ def test_the_manifest_records_the_code_the_subset_was_actually_cut_on():
     assert _manifest()["sigungu_cd"] == m.group(1)
 
 
-@pytest.mark.xfail(
-    strict=True,
-    reason="WFG-075/NH-022: the subset labelled 영덕 is not inside 영덕. Kept as the record of "
-           "what this suite once asserted. strict=True means a correct re-cut turns this GREEN "
-           "and the suite RED, which is the signal to delete the xfail marker.",
-)
 def test_the_subset_lies_inside_the_yeongdeok_box():
+    """Was xfail(strict) until the re-cut (NH-022, 2026-09-04). 영덕군 is larger than the routing
+    canvas, so the rule is set containment: every non-empty layer's centroid inside the box and at
+    least half its points inside; and every agency road address names 영덕군."""
     lo0, la0, lo1, la1 = YEONGDEOK_BBOX
-    for layer in _manifest()["layers"]:
+    man = _manifest()
+    assert man["sigungu_cd"] == "47770" and man["bbox_check"]["result"] == "pass"
+    for layer, info in man["layers"].items():
+        if not info["count"]:
+            continue
         gj = json.loads((OUT / f"{layer}.geojson").read_text(encoding="utf-8"))
-        for feat in gj["features"]:
-            x, y = feat["geometry"]["coordinates"]
-            assert lo0 <= x <= lo1 and la0 <= y <= la1, layer
+        pts = [feat["geometry"]["coordinates"][:2] for feat in gj["features"]]
+        inside = sum(lo0 <= x <= lo1 and la0 <= y <= la1 for x, y in pts) / len(pts)
+        cx, cy = sum(p[0] for p in pts) / len(pts), sum(p[1] for p in pts) / len(pts)
+        assert inside >= 0.5 and lo0 <= cx <= lo1 and la0 <= cy <= la1, (layer, inside, cx, cy)
+    for feat in json.loads((OUT / "minwon_agencies.geojson").read_text(encoding="utf-8"))["features"]:
+        assert "영덕군" in feat["properties"]["road_address"]
 
 
 def test_manifest_counts_match_files():
@@ -77,24 +84,6 @@ def test_it_is_not_the_building_layer():
     assert "NOT the 도로명주소 건물" in _manifest()["what"]
 
 
-def test_not_one_point_is_inside_the_yeongdeok_box():
-    """The measurement WFG-075 rests on, re-run from the committed files every suite."""
-    lo0, la0, lo1, la1 = YEONGDEOK_BBOX
-    total = inside = 0
-    for layer in _manifest()["layers"]:
-        gj = json.loads((OUT / f"{layer}.geojson").read_text(encoding="utf-8"))
-        for feat in gj["features"]:
-            x, y = feat["geometry"]["coordinates"]
-            total += 1
-            inside += lo0 <= x <= lo1 and la0 <= y <= la1
-    assert total == 239, f"the committed subset holds 239 points, found {total}"
-    assert inside == 0, (
-        f"{inside} of {total} points are now inside the 영덕 box. If the subset was re-cut "
-        "(NH-022), delete this test and the xfail marker on "
-        "test_the_subset_lies_inside_the_yeongdeok_box."
-    )
-
-
 def test_every_registry_entry_carries_the_scope_correction():
     """WFG-075 (a): the correction is on the entries, not only in a document."""
     nums = json.loads((REPO / "docs" / "NUMBERS.json").read_text(encoding="utf-8"))["numbers"]
@@ -102,10 +91,9 @@ def test_every_registry_entry_carries_the_scope_correction():
     assert len(keys) == 8, keys
     for k in keys:
         e = nums[k]
-        assert e["caveat"].startswith("SCOPE WRONG, DO NOT USE AS 영덕 DATA"), k
+        assert e["caveat"].startswith("SCOPE CORRECTED"), k
         assert "NH-022" in e["caveat"] and "WFG-075" in e["caveat"], k
-        assert e["scope_status"].startswith("wrong"), k
-        assert e["forbidden_phrasings"], k
+        assert e["scope_status"].startswith("corrected"), k
 
 
 def test_the_wrong_label_is_kept_as_the_record():

@@ -748,3 +748,4 @@ mood) · evidence.
   each id in the report and the email before either is pushed or sent; the cheapest form is
   `git merge-base --is-ancestor <id> origin/auto/dev` on every short hash the report prints.
   Corrected in place with the old value quoted, not deleted.
+- **2026-09-04 (laptop, NH-022):** a subset cut by an administrative code was 45 km from the study area and a layer that must exist there (tsunami sites on a coast) came back empty; the empty layer was written up as a fact. Rule: after cutting by any code, assert the set sits in the region's committed box and spot-check a text field (address); an empty layer that should not be empty is a wrong-filter signal.
