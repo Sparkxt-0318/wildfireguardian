@@ -81,6 +81,9 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-055 | P1 | IEEE | `paper/check_paper.py` enforces a word proxy (7,479 of 7,500 used) for a constraint CHARTER §12 states in **pages**, measures no section against the §12 list, and the loop's own recount puts the built `.docx` nearer 21 pages than 20. Get one real page count out of the built document, re-derive the words-per-page constant from it, and add a section gate. Absorbs WFG-045 (critic #6, F29) | todo | true | one lap | 제출 자료 |
 | WFG-056 | P1 | infra | `gates.py --assert-reported` reads `origin/auto/dev` at push time and writes nothing, so no later lap can audit whether a given push actually carried a report — which is the check the critic prompt asks be verified every day and the one thing in this repository that cannot be. Append `{utc, base, head, verdict}` to a committed ledger under `docs/auto/` on every run (critic #6, F32) | todo | true | hours | 데이터 해석 (재현) |
 | WFG-057 | P1 | infra | A question numbered `Q10a` is invisible to every test in `tests/test_judge_qa_bank.py`: `QUESTION_RE` matches `Q(\d+)`, so a lettered question escapes the tier-count anti-padding guard, the contiguity check and the 근거/없는 것 requirement. Four such questions now exist (Q10a, Q10b, and the three this lap added). Widen the pattern to accept a letter suffix and restate the three header counts in the same commit (critic #6, F34) | todo | true | minutes | 제출 자료 |
+| WFG-058 | P1 | paper | Manuscript figures restyled to the look of Moreno et al. (2025), which the author chose on 2026-09-04: framed panels, panel letters, hairline bar edges, framed legends, a warm red / blue / grey palette. `paper/style.py` rewritten, `paper/make_figures.py` labels every multi-panel figure; rules in `docs/auto/knowledge/FIGURE_STYLE_REFERENCE.md` | done (2026-09-04 laptop lap) | true | one lap | 제출 자료 |
+| WFG-059 | P3 | science | Buildings as exposure, not fuel — a Korean BFM-lite **after the finals**: 건축물대장 (needs the author's API key) joined to 도로명주소 건물DB footprints → footprint fraction, structure-separation distance, construction era and structure type per cell; then an ablation in the leave-one-fire-out protocol. The FireDX pipeline the author supplied was read and deliberately not adopted before the freeze; the decision and the four reasons are in `docs/auto/knowledge/WUI_BUILDINGS_AS_FUEL.md` | todo (post-finals) | partly | days | 데이터 수집 · 연구 기여 |
+| WFG-060 | P2 | paper | Study-area map of the six fires in the Moreno Fig. 1 style: DEM hillshade from data already in the repo, one graded circle per fire (size and colour by burned area, five-step legend), lat/lon graticule, scale bar, boxed legend. Offline build only, every burned-area figure from the registry | todo | true | one lap | 제출 자료 |
 | WFG-011 | P2 | ISEF | ISEF plan memo (**revise**: route-existence questions, SFTD base rate, age rule, hand-written documents) | todo | true | one lap | — |
 | WFG-032 | P2 | science | Leak-free 영덕 fold + hindsight-oracle routing arm (agent writes the script; student runs on the Mac) | todo | partial | one lap + one Mac day | 데이터 해석 · IEEE Table V |
 | WFG-033 | P2 | science | Coupling-ablation routing-only arms on committed hazard fields (fire-blind / static perimeter + buffer / spread_v2), three regions (absorbs WFG-012) | todo | true | two laps | 설계와 방법론 · 데이터 해석 |
@@ -1050,3 +1053,52 @@ it.
 
 **Constraints:** the five lettered questions are good questions; this row widens the guard,
 it does not remove them.
+
+### WFG-058 · P1 · paper · Figures in the Moreno look — done
+
+Opened and closed by the 2026-09-04 laptop lap. The author supplied Moreno et al. (2025),
+*Space-time modelling of wildfire initiation* (Trentino–South Tyrol), and asked that the
+manuscript's figures look like its ten. The lap read every figure page, wrote the rules down
+in `docs/auto/knowledge/FIGURE_STYLE_REFERENCE.md`, and rewrote `paper/style.py` to them:
+all four spines as a thin black frame, `a)` `b)` panel letters (`style.label_panels`),
+bars with a hairline edge and in-bar values, framed legends inside the panel, YlOrRd for
+probability fields, and a palette of fire red / steel blue / neutral grey with teal, brown
+and slate for extra categories. The legacy `OKABE[...]` names still resolve, so no figure
+function needed a colour edit; F4–F7 gained panel letters. Figures were regenerated and
+looked at once; `check_paper.py` is green.
+
+**Not done, deliberately:** the manuscript captions and the study-area map (WFG-060).
+
+### WFG-059 · P3 · science · Buildings as exposure, not fuel (post-finals)
+
+The author supplied Theodori et al. (FireDX, 2026 preprint) and asked whether its
+buildings-as-fuel pipeline should inform our forecasting, with the instruction not to
+implement it if it should not. Verdict, recorded in
+`docs/auto/knowledge/WUI_BUILDINGS_AS_FUEL.md`: **not before the finals.** FireDX feeds a
+physics spread solver we do not have and may not add before the freeze; its Building Fuel
+Model needs construction year, stories, occupancy and a hazard-zone overlay that no open
+Korean layer we hold provides; and the authors themselves call the product uncalibrated
+against observed loss.
+
+**Done when (after 2026-10-24):** (a) the author obtains a 공공데이터포털 key for the
+건축물대장 API (NEEDS_HUMAN, author-only); (b) 건물DB footprints for the six study fires are
+downloaded and per-cell footprint fraction, minimum structure-separation distance,
+construction era and structure type (목구조 / 철근콘크리트) are computed as a new
+`data/processed/exposure/` artifact with its own registrar; (c) a leave-one-fire-out ablation
+says whether either descriptor improves held-out discrimination or only in the two fires
+that entered settlements; (d) the descriptors feed the routing objective as a *demand* layer
+(where people are), not as fuel. **Constraints:** a retrain — post-finals only; additive
+registry writes; every attribute from a named agency with a date.
+
+**Related:** WFG-013 (footprints for 영덕 — report footprint fraction and separation
+distance the FireDX way so this row can compare later), the vulnerability layer, IEEE plan.
+
+### WFG-060 · P2 · paper · Study-area map in the Moreno Fig. 1 style
+
+Moreno et al. open with a hillshaded map of the study area, wildfire centroids as circles
+graded by burned area, a graticule with lat/lon labels, a scale bar and a boxed legend. The
+manuscript has no map. **Done when:** `paper/make_figures.py` gains `F0_study_area` (or the
+next free number) drawn offline from the DEM already under `data/` and the six fires'
+registered burned areas, in `paper/style.py` (`EXCEEDANCE` ramp for classes, `PALETTE["fire"]`
+for events), cited from the Data section, and looked at once. **Constraints:** no tile or
+basemap fetch at build time; every number a registry key.

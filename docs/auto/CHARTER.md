@@ -375,3 +375,23 @@ What it keeps true, every lap it runs:
 - `paper/WildfireGuardian_Park_2026.docx` is rebuilt by `paper/build_docx.py`
   and committed; the report email links it. The student rewrites the abstract
   and discussion in their own words before any submission (`paper/AUTHORSHIP.md`).
+
+## 13. The knowledge base
+
+`docs/auto/knowledge/` is where the project keeps its compiled fundamentals, so that a lap,
+the paper routine or the student can look a concept up instead of rediscovering it. Started
+2026-09-04 at the author's request with four notes: pyrogeography, routing mechanisms and
+modelling, buildings as fuel at the wildland–urban interface (FireDX, read and deliberately
+not adopted before the finals), and the figure-style reference (Moreno et al. 2025).
+
+- The research routine extends every note each run (ROUTINE_PROMPTS.md step 2b): dated
+  `## Update` sections, sources with URLs, and a revised "What this means for
+  WildfireGuardian" section. Nothing is deleted; corrections are dated.
+- A dev lap that learns something a note should hold appends it in the same lap, one
+  paragraph, sourced. A dev lap does not restructure a note.
+- Every note ends with backlog candidates tagged **before-freeze**, **after-finals** or
+  **for-the-paper**; the research routine turns the ripe ones into backlog rows.
+- Notes are prose, not registries: figures quoted from papers stay in the note with their
+  source and never migrate into README, manuscript or `docs/NUMBERS.json` without going
+  through the registry rule.
+

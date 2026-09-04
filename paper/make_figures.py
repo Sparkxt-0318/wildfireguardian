@@ -159,6 +159,7 @@ def F4_operating_point(out: Path) -> bool:
         return False
     items = sorted(pf["per_fire"].items(), key=lambda kv: kv[1]["recall"])
     fig, (ax, bx) = plt.subplots(1, 2, figsize=(7.0, 3.2), gridspec_kw={"width_ratios": [1.15, 1.0]})
+    style.label_panels([ax, bx])
     y = list(range(len(items)))
     ax.barh(y, [v["recall"] for _, v in items], color=style.OKABE["blue"], height=0.58)
     ax.set_yticks(y)
@@ -208,6 +209,7 @@ def F5_decision_shift(out: Path) -> bool:
 
     unsafe = fa_only + none_
     fig, (ax, bx) = plt.subplots(1, 2, figsize=(7.0, 3.0), gridspec_kw={"width_ratios": [1.5, 1.0]})
+    style.label_panels([ax, bx])
     segs = [("safe", "reaches a refuge without entering the predicted hazard", style.OKABE["green"], "white"),
             ("enters", "route enters the predicted hazard", style.OKABE["orange"], "white"),
             ("none", "no safe walking route exists", style.OKABE["vermilion"], style.INK)]
@@ -254,6 +256,7 @@ def F6_sensitivity(out: Path) -> bool:
     if not bud or not dil or "budget_sweep" not in bud:
         return False
     fig, (ax, bx, cx) = plt.subplots(1, 3, figsize=(7.0, 2.9))
+    style.label_panels([ax, bx, cx])
 
     rows = sorted(bud["budget_sweep"]["rows"], key=lambda r: r["budget_min"])
     xs = [r["budget_min"] for r in rows]
@@ -317,6 +320,7 @@ def F7_dispatch_ordering(out: Path) -> bool:
     if not cell:
         return False
     fig, (ax, bx) = plt.subplots(1, 2, figsize=(7.0, 3.0), gridspec_kw={"width_ratios": [1.15, 1.0]})
+    style.label_panels([ax, bx])
     teams = sorted(cell["nearest_eta"], key=lambda k: int(k))
     x = [int(t) for t in teams]
     series = [("nearest_eta", "nearest first", style.OKABE["green"], "-", "o"),
@@ -332,7 +336,9 @@ def F7_dispatch_ordering(out: Path) -> bool:
             label="random order (200 seeds)")
     ax.set_xticks(x); ax.set_xlabel("Rescue teams available"); ax.set_ylabel("Homes reached within the window")
     ax.legend(fontsize=7, loc="upper left")
-    ax.set_title("Committed operating cell\n(window 75 min, service 25 min, delay 30 min)", fontsize=8.5, color=style.INK)
+    ax.set_title("Committed operating cell", fontsize=8.5, color=style.INK)
+    ax.text(0.98, 0.03, "window 75 min · service 25 min · delay 30 min", transform=ax.transAxes,
+            ha="right", va="bottom", fontsize=7, color=style.MUTED)
 
     by = d["summary"]["by_window"]
     wins = sorted(by, key=lambda k: int(k[1:]))
