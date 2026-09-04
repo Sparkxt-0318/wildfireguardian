@@ -436,3 +436,46 @@ the laptop lap changed nothing in the paragraph and asks you instead:
 
 **Why only you:** two agents disagree on a framing sentence in the judge-facing paragraph,
 and the rule after two wrong rewrites is that no agent rewrites it a fourth time.
+
+---
+
+## NH-019 · DECISION · open · One report time, for one fire, decides what the detection result is allowed to say (by 2026-09-08)
+
+**What:** every delay in the paper's new detection section — +22, +34 and +64 minutes —
+is measured from `docs/data_provenance/fire_manifest.json`'s `start` field.
+`docs/detection_floor.md` §1 reads that field as the **신고접수시각** and builds its whole
+verdict on the reading: "위성은 사람보다 느렸습니다", and from there §10's recommendation
+that the trigger interface treat 사람 신고 as the primary source and GK2A as 보조.
+
+The reading is not supported anywhere in the repository. The manifest says of that same
+field "start/end/reported_ha are provenance only", gives no source for the times of day
+(11:25 / 12:15 / 11:00 / 08:22), and in its own notes describes the event start as the
+ignition ("first hit 2025-03-22 may lag ignition"). No committed artifact records a
+신고접수시각 for any of these fires. So the delays might be detection-behind-report, in
+which case the verdict stands, or detection-behind-ignition, in which case the human
+report time is simply unmeasured and could fall *after* the satellite — and the safeguard
+sentence, that the bias "flatters the satellite", is only true under the first reading.
+
+**What the paper did about it this lap.** It reverted the claim rather than repeat it. The
+manuscript now states the delays against "the recorded occurrence time", says in Table 3's
+caption and in §6 exactly why that clock is unsourced, and makes no claim about whether a
+satellite trigger precedes the call. `paper/GAPS.md` G5 carries the gap. The size floor
+(0.1–1 ha) is unaffected and is what the paper leans on instead. Found by the lap-2
+independent reviewer, which blocked the push until this was fixed.
+
+**What we need from you:** for **any one** of 의성·안동 2025, 강릉 2023 or 홍성 2023,
+either
+
+- a 산림청 / 119 / 중대본 record giving the 신고접수시각, with its date — one lookup, no
+  rerun, no raw bundle; or
+- the acquisition note saying where that minute came from, if you have it outside the
+  repository.
+
+With that, the value is registered with its agency and the paper can state the ordering.
+Without it, `docs/detection_floor.md`'s verdict and its §10 trigger recommendation are
+resting on an unsourced re-labelling, and the booth answer should be the narrower one:
+a 2 km pixel does not see a fire below roughly a hectare, so a satellite cannot be an
+ignition-scale alarm — which is true either way.
+
+**Why only you:** the repository has no channel to a 신고 record, and the design document
+that asserted the reading does not say where it came from.

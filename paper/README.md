@@ -54,6 +54,17 @@ evidence that anything moved. Vendoring the font into the repository, the way
 `web/assets/fonts/` already does for the screens, would close this; it is not
 done, and it is recorded here rather than hidden.
 
+**This is not only cosmetic, and on 2026-09-04 it had broken F1.** Matplotlib
+neither wraps nor shrinks text to fit a patch, so a diagram label sized against
+Source Sans renders straight through its box border in the wider DejaVu. Four of
+F1's seven boxes were doing exactly that — into the neighbouring box, and in one
+case off the canvas — in the committed PNG and therefore in the built `.docx`.
+Any figure that puts text inside a drawn shape must measure it: `_fit_text()` in
+`make_figures.py` places the label, reads its rendered extent, and steps the font
+size down until it fits its own box, which is deterministic for a given font and
+correct under either family. Use it for every new diagram label; never hand-tune
+a font size against whichever font this machine happens to have.
+
 ## ⚠ Figure numbers in prose are appearance numbers, not F-numbers
 
 `build_docx.py` numbers figures in order of appearance, so `figures/F4_*.png` is

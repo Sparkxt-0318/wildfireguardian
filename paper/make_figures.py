@@ -33,26 +33,50 @@ def load(rel: str):
 
 
 # ---------------------------------------------------------------------------
+def _fit_text(fig, ax, cx, cy, box_w, text, max_fs, color, weight="normal"):
+    """Place centred text and shrink it until its widest line fits `box_w` data units.
+
+    Matplotlib neither wraps nor shrinks text to a patch, so a label that fits in
+    one font renders straight through the box edge in another — the exact failure
+    paper/README.md records for this sandbox's DejaVu fallback. Measuring the drawn
+    extent and stepping the size down is deterministic for a given font and keeps
+    the diagram legible under either family.
+    """
+    fig.canvas.draw()
+    renderer = fig.canvas.get_renderer()
+    x0 = ax.transData.transform((0, 0))[0]
+    limit = ax.transData.transform((box_w, 0))[0] - x0
+    fs = max_fs
+    while True:
+        t = ax.text(cx, cy, text, ha="center", va="center", fontsize=fs,
+                    weight=weight, color=color, linespacing=1.25)
+        if t.get_window_extent(renderer=renderer).width <= limit or fs <= 3.5:
+            return t
+        t.remove()
+        fs -= 0.25
+
+
 def F1_system(out: Path) -> bool:
     """System overview: data → forecast → time-expanded routing → decisions → delivery.
-    Drawn on a fixed grid so boxes align and arrows meet box edges exactly."""
+    Drawn on a fixed grid so boxes align and arrows meet box edges exactly; every
+    label is measured against its own box so nothing overflows."""
     fig, ax = plt.subplots(figsize=(7.0, 2.9))
     ax.set_axis_off(); ax.grid(False)
     ax.set_xlim(0, 100); ax.set_ylim(0, 40)
     boxes = [  # (x, y, w, h, title, sub)
         (1, 22, 18, 13, "Public inputs", "FIRMS · ERA5 · SRTM\nWorldCover · OSM"),
         (21.5, 22, 18, 13, "Spread model", "P(ignite) per cell\nleave-one-fire-out"),
-        (42, 22, 18, 13, "Hazard field", "time-sliced probability\n0 to 720 min"),
-        (62.5, 22, 18, 13, "Routing", "time-expanded walk-out\nroutes avoid future fire"),
+        (42, 22, 18, 13, "Hazard field", "time slices of P(ignite)\n0 to 720 min"),
+        (62.5, 22, 18, 13, "Routing", "walk-out routes that\navoid the future fire"),
         (83, 22, 16, 13, "Decisions", "A4 sheet · broadcast\nscript · SMS draft"),
-        (21.5, 3, 18, 11, "Rescue ingress", "which homes a crew can\nstill reach, until when"),
+        (15, 3, 24.5, 11, "Rescue ingress", "which homes a crew can\nstill reach, and until when"),
         (42, 3, 38.5, 11, "Evidence registry", "every reported number re-derived from its artifact\n(make verify); withdrawn claims kept in the tree"),
     ]
     for x, y, w, h, t, s in boxes:
         ax.add_patch(mpatches.FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0,rounding_size=1.2",
                                              facecolor="white", edgecolor=style.INK, linewidth=0.9))
-        ax.text(x + w / 2, y + h - 3.2, t, ha="center", va="center", fontsize=8, weight="bold", color=style.INK)
-        ax.text(x + w / 2, y + h / 2 - 2.4, s, ha="center", va="center", fontsize=6.5, color=style.MUTED, linespacing=1.25)
+        _fit_text(fig, ax, x + w / 2, y + h - 3.2, w - 2.0, t, 8.0, style.INK, weight="bold")
+        _fit_text(fig, ax, x + w / 2, y + h / 2 - 2.4, w - 2.0, s, 6.5, style.MUTED)
 
     def arrow(x0, y0, x1, y1):
         ax.annotate("", xy=(x1, y1), xytext=(x0, y0),
@@ -62,8 +86,9 @@ def F1_system(out: Path) -> bool:
     arrow(51, 22, 39.5, 14)      # hazard field feeds rescue ingress
     arrow(39.5, 8.5, 42, 8.5)    # rescue ingress → registry
     arrow(71.5, 22, 61.25, 14)   # routing → registry
-    ax.text(50, 0.4, "Solid arrows: data flow for one fire. The registry sits under every reported number.",
-            ha="center", va="bottom", fontsize=7, color=style.MUTED)
+    _fit_text(fig, ax, 50, 1.2, 98,
+              "Solid arrows: data flow for one fire. The registry sits under every reported number.",
+              7.0, style.MUTED)
     style.finish(fig, out / "F1_system.png")
     return True
 
