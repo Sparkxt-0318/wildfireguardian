@@ -95,10 +95,19 @@ MUST_STATE_THE_PROVENANCE: tuple[str, ...] = (
 #: MEMO 2026-09-04's anti-pattern in its purest form: mutation-testing a tripwire with the
 #: mutations its own author chose. The verb classes below are widened accordingly, and
 #: 늦었 is now a mutation case at the foot of this file, credited where it came from.
+#:
+#: ⚠ AND THE WIDENED VERSION WAS BROKEN AGAIN, BY THE SAME REVIEWER, IN ONE MORE EDIT.
+#: The second draft read `사람보다\s*(?:더\s*)?(?:느…|늦…)`, i.e. it allowed only a space
+#: or 「더」 between the noun and the verb. The reviewer wrote 「위성은 사람보다 **22분**
+#: 늦었습니다」 — the claim with its magnitude in the middle, which is the more natural
+#: sentence, not the less — and the gate passed a second time. Hence `[^\n]{0,24}?`: any
+#: short run of text between the comparison and the verb. Two escapes from two attempts by
+#: one reviewer is the measurement that matters about this gate, and it is why WFG-059 (a
+#: general registry of withdrawn claims) is filed rather than treating this file as done.
 BANNED: tuple[tuple[str, str, str], ...] = (
-    (r"사람보다\s*(?:더\s*)?(?:느[렸리린]|늦[었게은는]|뒤[에였])", "사람보다 늦",
+    (r"사람보다[^\n]{0,24}?(?:느[렸리린]|늦[었게은는]|뒤[에였])", "사람보다 늦",
      "the card's withdrawn front sentence 「위성은 사람보다 느렸습니다」, in any verb"),
-    (r"사람보다\s*(?:더\s*)?(?:빠[르른릅]|이르|먼저|앞[서선])", "사람보다 빠",
+    (r"사람보다[^\n]{0,24}?(?:빠[르른릅]|이르|먼저|앞[서선])", "사람보다 빠",
      "the OPPOSITE ordering claim. Neither direction is available: the human's clock "
      "was never measured, so 「위성이 사람보다 빨랐다」 is exactly as unsupported"),
     (r"신고\s*대비", "신고 대비",
@@ -244,6 +253,10 @@ def test_the_manuscript_keeps_its_withdrawal(phrase: str):
         "**위성은 사람보다 늦었습니다.** 2 km 화소는 대략",
         # the same claim in the other direction, which is equally unsupported
         "위성이 사람보다 먼저 불을 봤습니다",
+        # the reviewer's SECOND escape: the magnitude sits between noun and verb, which
+        # is the more natural sentence rather than the less
+        "**위성은 사람보다 22분 늦었습니다.** 2 km 화소는 대략",
+        "위성 트리거가 사람보다 22-64분 뒤에 울렸습니다",
         "GK2A 는 신고 시각 대비 22분이었습니다",
     ],
 )
