@@ -41,7 +41,7 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-002 | P0 | KCF | Judge Q&A bank v2 (**revise**: corrected numbers, four new questions, deprecated phrasings purged) | done(20260903T1536Z) | true | one lap | 연구 목적 · 설계와 방법론 · 데이터 해석 |
 | WFG-004 | P0 | KCF | SSOT sweep (**revise**: fix README:731, reconcile `fold_sizes.md` vs `NUMBERS.json` on the primary AUC, annotate superseded values) | done(20260903T1622Z) | true | one lap | 제출 자료 |
 | WFG-020 | P0 | KCF | Greenpeace 2026 survivor survey registered as evidence + the "85% drove" answer | done(20260903T1821Z) | true (fallback NH) | hours | 연구 목적 · 데이터 수집 |
-| WFG-021 | P0 | KCF | Detection-floor panel (Session 19 as recorded) + tests for `src/wildfireguardian/detection/gk2a.py` | todo — **(a) done(b557e9d)**, **(b) done(f5f8498)**, (c) not attempted (needs the NOAA archive at run time; see the residue note) | true | one lap | 데이터 수집·분석·해석 · 설계와 방법론 |
+| WFG-021 | P0 | KCF | Detection-floor panel (Session 19 as recorded) + tests for `src/wildfireguardian/detection/gk2a.py` | **done for the sprint** — **(a) done(b557e9d)**, **(b) done(f5f8498)**, **(c) parked(needs the NOAA archive at run time; not runnable in the cloud sandbox — parked by critic #6 so this row stops sitting above WFG-017 as a `todo` a lap must first read and reject)** | true | one lap | 데이터 수집·분석·해석 · 설계와 방법론 |
 | WFG-017 | P0 | KCF | `web/finals.html` refresh v2: evidence cards for operating point, detection floor, horizon grounding, refuge placement, reconciliation; rebuilt with `--verify` | todo | true (fallback: student runs `make finals`) | one lap | 제출 자료 · 구현 및 유용성 |
 | WFG-003 | P0 | KCF | Finals screen audit + 5-minute demo script (keep) | todo | true | one lap | 제출 자료 · 구현 및 유용성 |
 | WFG-016 | — | — | ~~AI ledger current~~ | **withdrawn(2026-09-04)** — author's instruction; organisers require no disclosure artifact (NH-008). Never started, nothing produced | false | — | — |
@@ -74,8 +74,13 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-049 | P0 | infra | A commit that carries only unregistered prose is invisible to every gate this repository owns: `12b8ac7` rewrote the judge-facing README in two languages and closed three NEEDS_HUMAN entries with no report, no reviewer and no `STATE.json` update, and `--assert-head`, `report.py`'s prose gate and `make verify` all passed on it (critic 20260903T2347Z, F19) | done(2026-09-04 laptop lap: registry keys fire2025_*, check-readme-figures, --assert-reported) | true | hours | 데이터 해석 (재현) |
 | WFG-048 | P1 | infra | The three FIRMS first-detection delays that `docs/detection_floor.md` §4 and §8 put beside the GK2A delays (+117 / +151 / +17 min, from `data/processed/detection/firms_first_detection.json` → `delay_h` 1.95 / 2.52 / 0.28) have no registry key, so the one comparison a judge is most likely to ask about is the one number on that page that `make verify` cannot re-derive (dev lap 20260903T2217Z, while writing WFG-021 a) | todo | true | hours | 데이터 해석 (재현) |
 | WFG-050 | P1 | infra | The motivating-event figures are pinned by `tests/test_motivating_event_figures.py` against `docs/data_sources.md`, a sibling document the same lap wrote in the same commit — leakage patterns #3/#4/#5, named by the 2026-09-04T0017Z dev lap's own reviewer. Table A's rows carry bare news URLs whose content can change or vanish. Snapshot each cited page (sha256 + retrieval date, the way `docs/evidence/greenpeace_2026_survey.md` already does) and assert README <-> snapshot instead of README <-> sibling doc | todo | true | hours | 데이터 해석 (재현) · 제출 자료 (출처) |
-| WFG-051 | P1 | infra | The `fire2025_*` apparatus binds a figure's **value** to the registry and leaves its **attribution** free: `check_readme_figures.py` only asserts that `agency` / `as_of` / `scope` / `source_url` are non-empty, never that they agree with what the prose says. Three live disagreements: the registry calls 45,157 ha a 중앙재난안전대책본부 figure while `README.md:204-205` and `docs/data_sources.md:194` call it 산림청 (the cited 경향신문 article says 산림청, so the registry is the wrong one); the registry calls 사망 26명 a 중앙재난안전대책본부 count while `docs/data_sources.md:190` calls it 경상북도 재난안전대책본부; and `README.md:193-199` puts 사망 26명 under an 아시아경제 link that carries no death figure at all. Fix the artifact, give 26명 its own citation, and extend the gate to compare the README's inline link and the sources table's 출처 column against the registry's `agency` and `source_url` (critic #5, F23) | todo | true | hours | 제출 자료 (출처) · 데이터 해석 (재현) |
+| WFG-051 | **P0** | infra | The `fire2025_*` apparatus binds a figure's **value** to the registry and leaves its **attribution** free: `check_readme_figures.py` only asserts that `agency` / `as_of` / `scope` / `source_url` are non-empty, never that they agree with what the prose says. Three live disagreements: the registry calls 45,157 ha a 중앙재난안전대책본부 figure while `README.md:204-205` and `docs/data_sources.md:194` call it 산림청 (the cited 경향신문 article says 산림청, so the registry is the wrong one); the registry calls 사망 26명 a 중앙재난안전대책본부 count while `docs/data_sources.md:190` calls it 경상북도 재난안전대책본부; and `README.md:193-199` puts 사망 26명 under an 아시아경제 link that carries no death figure at all. Fix the artifact, give 26명 its own citation, and extend the gate to compare the README's inline link and the sources table's 출처 column against the registry's `agency` and `source_url` (critic #5, F23). **Raised P1 → P0 by critic #6 (F30): the disagreement has now propagated into `paper/manuscript.md:36-38`, which calls 26명 "the provincial disaster headquarters' count" — a third spelling — so the same figure now carries three different agencies across three judge-facing documents, and the README link a judge would click still carries no death figure** | todo | true | hours | 제출 자료 (출처) · 데이터 해석 (재현) |
 | WFG-052 | P1 | infra | No gate reads judge-facing prose for *structural* damage, only for numbers: `d2f314d` left BOTH opening stanzas duplicated verbatim on consecutive lines (`**보호 대상**` and `**Motivating event**`), and they survived the eight commits since, a critic run that read that exact diff, `make verify`, `check_readme_figures.py` and 36 paragraph tests, because every one of them flattens or greps the paragraph and none looks at it as text. The 2026-09-04T0400Z dev lap removed the Korean twin, missed the English one, and its own reviewer found it — which is the row's point twice over. Both removed; that test now asserts each anchor appears exactly once. The general gate is still the row. Cheapest form: fail on two consecutive identical non-empty lines in `README.md` and `docs/*.md` | todo | true | minutes | 제출 자료 |
+| WFG-053 | P0 | KCF | **The booth card, the T0 Q&A answer and the design doc's 평결 all say the satellite rang after the human call; this project's own paper says the measurement cannot say that.** Narrow every judge-facing document to the paper's wording (delays behind the *recorded occurrence time*, no ordering claim), keep the size floor, which is true either way. Agent-doable and needs nothing from the author: the paper already did it (critic #6, F27) | todo | true | one lap | 데이터 해석 · 제출 자료 (출처) · 구현 및 유용성 |
+| WFG-054 | P0 | infra | `scripts/auto/decisions.py apply` appends the Gmail message id to `decisions_seen.json` even when `apply_one` recorded nothing, so an author reply naming an id the file does not carry is written nowhere and the message is never read again. Its own docstring promises the opposite (`recorded, as noted, never guessed at`). Record `seen` only on a real change, write unmapped lines to a committed place, and test both directions (critic #6, F28) | todo | true | hours | 데이터 해석 (재현) |
+| WFG-055 | P1 | IEEE | `paper/check_paper.py` enforces a word proxy (7,479 of 7,500 used) for a constraint CHARTER §12 states in **pages**, measures no section against the §12 list, and the loop's own recount puts the built `.docx` nearer 21 pages than 20. Get one real page count out of the built document, re-derive the words-per-page constant from it, and add a section gate. Absorbs WFG-045 (critic #6, F29) | todo | true | one lap | 제출 자료 |
+| WFG-056 | P1 | infra | `gates.py --assert-reported` reads `origin/auto/dev` at push time and writes nothing, so no later lap can audit whether a given push actually carried a report — which is the check the critic prompt asks be verified every day and the one thing in this repository that cannot be. Append `{utc, base, head, verdict}` to a committed ledger under `docs/auto/` on every run (critic #6, F32) | todo | true | hours | 데이터 해석 (재현) |
+| WFG-057 | P1 | infra | A question numbered `Q10a` is invisible to every test in `tests/test_judge_qa_bank.py`: `QUESTION_RE` matches `Q(\d+)`, so a lettered question escapes the tier-count anti-padding guard, the contiguity check and the 근거/없는 것 requirement. Four such questions now exist (Q10a, Q10b, and the three this lap added). Widen the pattern to accept a letter suffix and restate the three header counts in the same commit (critic #6, F34) | todo | true | minutes | 제출 자료 |
 | WFG-011 | P2 | ISEF | ISEF plan memo (**revise**: route-existence questions, SFTD base rate, age rule, hand-written documents) | todo | true | one lap | — |
 | WFG-032 | P2 | science | Leak-free 영덕 fold + hindsight-oracle routing arm (agent writes the script; student runs on the Mac) | todo | partial | one lap + one Mac day | 데이터 해석 · IEEE Table V |
 | WFG-033 | P2 | science | Coupling-ablation routing-only arms on committed hazard fields (fire-blind / static perimeter + buffer / spread_v2), three regions (absorbs WFG-012) | todo | true | two laps | 설계와 방법론 · 데이터 해석 |
@@ -884,3 +889,164 @@ corrected rows to a new `fire_2025_scale_v2.json` and point the registrar at it.
 
 **Related:** WFG-049 (the value half, done), WFG-050 (the URLs themselves are unpinned;
 snapshot them with sha256), critic #5 F23.
+
+### WFG-053 · P0 · KCF · The booth card says the satellite was slower than the telephone; the paper says we cannot know
+
+**Where the two answers are.** Judge-facing, asserting the ordering:
+
+- `docs/auto/finals/DETECTION_FLOOR_CARD.md:17-19` — the card's front, in bold:
+  「**위성은 사람보다 느렸습니다.** … 위성 트리거는 신고보다 각각 **+22분 · +34분 · +64분**
+  뒤에 울렸을 것입니다」, and `:11-13`, the caveat that the clock is the 신고 시각 and that
+  the delays are therefore written 「실제보다 위성에 유리하게」.
+- `docs/detection_floor.md:29-38` (§1, 「가장 중요한 단서 — 기준 시각은 신고 시각입니다」),
+  `:240-252` (§9 평결), `:262-275` (§10, the trigger-priority table that ranks 사람 신고
+  first *because of* the ordering).
+- `docs/auto/JUDGE_QA.md:234` — inside **Q10, a T0 question the student is told to memorise**:
+  「위성 트리거는 사람 신고보다 각각 22분, 34분, 64분 **뒤에** 울렸을 것입니다」.
+
+Withdrawing it, in the same repository, written the same night:
+
+- `paper/manuscript.md:492-497` and `:533` — 「no artifact supports that and this paper does
+  not claim it」 … 「Whether that is ahead of or behind the emergency call, this measurement
+  cannot say」; Table 3's caption states the clock's provenance in full.
+- `paper/GAPS.md` G5, and `docs/auto/NEEDS_HUMAN.md` NH-019.
+
+**Why the paper is right and the card is wrong, from artifacts only.** No committed artifact
+records a 신고접수시각 for any of these fires. `docs/data_provenance/fire_manifest.json` says
+of the field the delays are measured from, for every one of the four detection fires,
+`start/end/reported_ha are provenance only`, and each entry's own note describes the event
+start as the **ignition** (`first hit … may lag ignition`). For `yeongdeok_2025` it is not
+even ambiguous: `start` is `2025-03-22T12:15:00+09:00` and the same note reads `first hit
+(2025-03-25) lags the 2025-03-22 ignition by days` — the manifest names that date the
+ignition. So the design note's reading is not merely unsourced; the one artifact it cites
+labels the field the other way.
+
+The caveat inherits the error. The card tells a judge the figures flatter the satellite
+*because* the clock is a report time. If the clock is the ignition, there is nothing to
+flatter, and the 평결's 「어느 쪽으로 읽어도 위성이 사람보다 앞서지 않습니다」 has no
+measurement behind it at all, because the human's time was never measured.
+
+**Done when:** every document in the first list states the delays against the **recorded
+occurrence time**, with the manifest's own provenance sentence beside them, and makes no
+claim about whether the satellite preceded the call; the size floor (0.1–1 ha, and 「2 km
+화소는 1 ha 규모 이하의 불을 분해하지 못한다」) carries the booth answer instead, because it
+is true under either reading; §10's trigger-priority table keeps 사람 신고 first but on the
+99 %-목격신고 statistic it already cites, not on the ordering; Q10's T0 answer is rewritten to
+match, and the new Q10c stops being marked 「근거 없음」; NH-019 stays **open** for the
+stronger claim, which still needs one 신고접수시각 from the author.
+
+**Constraints:** this is a narrowing, not a new claim, so no number moves and no registry key
+changes — `tests/test_detection_floor_card.py`'s 17 bindings must still pass untouched. Do
+not delete the 평결 section; rewrite it under CHARTER §3 rule 3 with the superseded reading
+annotated, the way NH-015 was handled. Do not wait on NH-019: the paper did not.
+
+**Why it is P0.** `DETECTION_FLOOR_CARD.md` is the one evidence card the loop has finished,
+it is meant for the booth panel, and Q10 is one of the fourteen answers the student is told
+to know by heart. This is the same failure class as F21 — a value bound to a registry with a
+free sentence around it — moved from a README paragraph to the three artifacts a judge
+actually meets.
+
+### WFG-054 · P0 · infra · A reply the loop cannot map is discarded, and the message is marked read
+
+**Where:** `scripts/auto/decisions.py:100-104` (`cmd_apply` appends `key` to
+`seen["applied"]` unconditionally), `:69-71` (`apply_one` returns the text unchanged and the
+message `no such entry; recorded nowhere`), `:115-119` (`cmd_seen` reports `seen` when any
+key starts with the message ref).
+
+**Reproduced this lap**, in process, against the live `NEEDS_HUMAN.md` without writing it:
+
+    apply_one(text, "NH-020", "yes, do it", …)
+      -> "NH-020: no such entry; recorded nowhere"
+      -> text changed?  False        the author's words appear nowhere?  True
+
+`cmd_apply` then records `<message id>:NH-020` as applied anyway, and CHARTER §6 tells the
+next lap to skip any message `decisions.py seen` reports as seen. So a reply that names an
+id with a typo, or an entry a later lap has not written yet, is lost with no trace — and a
+reply carrying one good line and one bad line marks the whole message read after applying
+only the good one. The module's own docstring at `:15-16` promises `A decision the loop does
+not understand is still recorded, as` noted `, never guessed at`.
+
+This is NH-017's failure class rebuilt in code: the machinery added this window to make the
+author's decisions verifiable can silently drop one.
+
+**Done when:** `cmd_apply` records the seen key only when `apply_one` reports a change;
+everything else is appended verbatim, with its message id and date, to a committed place a
+later lap will read (an `## Unmapped replies` section at the foot of `NEEDS_HUMAN.md` is
+enough and needs no new file); the run's exit code is non-zero when anything went unmapped,
+so a lap cannot miss it; and `tests/test_decisions.py` gains one case per direction —
+an unknown id leaves `decisions_seen.json` untouched and lands in the unmapped section, a
+known id still closes and still records.
+
+**Constraints:** never guess which entry an unmappable line meant (CHARTER §6). The report
+must still quote the line, as this lap's prompt requires; the file record is in addition to
+that, not instead of it.
+
+### WFG-055 · P1 · IEEE · The paper's page limit is enforced by a proxy nobody has calibrated
+
+**Where:** `paper/check_paper.py:26` (`LIMIT = 7500`) and its docstring's
+「the 20-page budget incl. refs + title」; `docs/auto/CHARTER.md` §12 (「under 20 pages
+including title page and references」); `paper/GAPS.md`, the ⚠ Length pressure section the
+paper lap wrote itself.
+
+**What is wrong.** Measured this lap: `check_paper.py` reports `body_words: 7479` against a
+7,500 hard fail — **21 words of headroom**, so the next lap that adds a sentence fails the
+gate. That is the paper lap's own declared state and it is honest. The finding is the layer
+under it: the constraint CHARTER §12 states is *pages*, the gate measures *words*, and the
+conversion has never been checked against the built document. The paper lap's own crude
+recount over the `.docx` (8,909 words including captions, tables and 25 references, plus
+seven full-width figures) lands nearer **21 pages**, so on the loop's own estimate the
+invariant is already breached and no gate can see it. LibreOffice is present in the sandbox
+but refuses to open the built document, so no lap has produced a page count.
+
+`check_paper.py` also checks no section at all against §12's list (Abstract, Introduction,
+Related work, Data and methods, Results, Discussion, Limitations, Conclusion, Data and code
+availability, References) — which is WFG-045's substance, so that row is absorbed here.
+
+**Done when:** one real page count exists for `paper/WildfireGuardian_Park_2026.docx`
+(any route that works in the sandbox: a different converter, a docx page-break count, or a
+PDF); `LIMIT` is re-derived from it or CHARTER §12 is corrected to the true budget, whichever
+the measurement says; `check_paper.py` fails when a §12 section is missing from
+`manuscript.md` or from the built document; and `GAPS.md`'s ⚠ section is replaced by the
+measurement.
+
+**Constraints:** do not cut a number or a caveat to make room (the paper lap's own rule).
+Captions are free space because `build_docx.py` does not count them, which is also why the
+word proxy drifts from the page count — say so in whatever replaces it.
+
+### WFG-056 · P1 · infra · The push check that guards every push leaves no record of any push
+
+**Where:** `scripts/auto/gates.py:103-149` (`assert_reported`).
+
+**What is wrong.** The check is correct now — critic #5's F22 is properly fixed, and
+`--diff-filter=A` is load-bearing and documented in the docstring. But it takes `--base` from
+whatever the caller passes, normally `origin/auto/dev` at push time, and writes nothing.
+After the fact the push boundaries are unrecoverable: this lap tried to verify the critic
+prompt's step 2 (「every push in the window carried a report」) and could not, because
+`<base>..HEAD` cannot be reconstructed from the repository once the branch has moved. The one
+check whose whole purpose is to make pushes auditable is the one thing here that cannot be
+audited.
+
+**Done when:** every `--assert-reported` and `--assert-head` run appends one line
+(`{utc, mode, base, head, verdict}`) to a committed ledger under `docs/auto/`, the ledger is
+in `REPORT_ONLY` so it does not itself demand a report, and a critic lap can read a window's
+push history out of it. A test asserts the line is written on both verdicts.
+
+**Constraints:** append only, never rewrite (CHARTER §3 rule 7). The ledger is a record of
+what a lap ran, not a claim that it was right.
+
+### WFG-057 · P1 · infra · A lettered question is invisible to every test that guards the Q&A bank
+
+**Where:** `tests/test_judge_qa_bank.py` `QUESTION_RE` matches `Q(\d+)`, so `Q10a` and `Q10b`
+— and the three questions critic #6 added this lap — are seen by none of
+`test_the_stated_tier_counts_match_the_tags` (the stated anti-padding guard),
+`test_question_numbers_are_unique_and_contiguous`,
+`test_every_question_states_its_evidence_and_its_gap` or
+`test_every_t0_question_points_at_something_that_exists`.
+
+**Done when:** the pattern accepts an optional letter suffix, the three header counts are
+restated in the same commit so the tier test passes, and the drill table at §6 names the
+lettered questions in their tiers. Verify it fires by deleting one 없는 것 line before fixing
+it.
+
+**Constraints:** the five lettered questions are good questions; this row widens the guard,
+it does not remove them.

@@ -559,3 +559,32 @@ ignition-scale alarm — which is true either way.
 
 **Why only you:** the repository has no channel to a 신고 record, and the design document
 that asserted the reading does not say where it came from.
+
+**Critic #6 note, 2026-09-04 (this entry stays open; nothing is closed here).** Two things
+this entry left open are now settled from artifacts, and neither needs you.
+
+1. **The manifest does not merely fail to support the 신고 reading; for one fire it says the
+   opposite.** Checked this lap in `docs/data_provenance/fire_manifest.json`: all four
+   detection fires carry `start/end/reported_ha are provenance only` and a note whose only
+   description of the event start is the **ignition** (`first hit … may lag ignition`). Not
+   one entry contains the word 신고 or any report-time language. For `yeongdeok_2025` the
+   field is `2025-03-22T12:15:00+09:00` and the same note reads `first hit (2025-03-25) lags
+   the 2025-03-22 ignition by days`, so the manifest names that date the ignition. The
+   caveat inherits the error: `DETECTION_FLOOR_CARD.md:11-13` tells a judge the delays are
+   written 「실제보다 위성에 유리하게」 *because* the clock is a report time, which under the
+   manifest's own reading is not true either.
+2. **The narrowing does not wait on you, and one half of the repository has already done
+   it.** `paper/manuscript.md:492-497` states the delays against the recorded occurrence
+   time and says in as many words that the measurement cannot say whether the satellite
+   preceded the call. `docs/detection_floor.md` §9, §10 and
+   `docs/auto/finals/DETECTION_FLOOR_CARD.md` still assert the ordering, and so does
+   `docs/auto/JUDGE_QA.md` Q10, which is one of the fourteen T0 answers the student is told
+   to know by heart. A judge who reads the card and the paper gets two answers. Filed as
+   **WFG-053**, agent-doable, raised to the next dev lap's first job.
+
+**What is still yours, unchanged:** one 신고접수시각 from a 산림청 / 119 / 중대본 record for
+any one of 의성·안동 2025, 강릉 2023 or 홍성 2023, or the acquisition note saying where that
+minute came from. With it the ordering can be stated and the 평결 restored. Without it the
+booth answer is the size floor, which holds either way.
+
+**Options:** A) I will look for the 신고접수시각 for one fire  B) skip; keep the narrowed claim (size floor only) for the finals
