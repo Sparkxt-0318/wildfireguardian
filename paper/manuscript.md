@@ -78,7 +78,7 @@ evaluation design under which it was built. It fits a per-cell ignition-probabil
 propagates it into a time-sliced hazard field, and consumes that field twice: in a
 time-expanded pedestrian router that refuses nodes whose forecast risk will have crossed a
 cutoff by the time a slow walker arrives, and in a rescue-ingress calculation asking when
-each approach corridor closes to a vehicle. Its outputs are operator documents.
+each approach corridor closes to a vehicle. Its outputs are operator documents (Fig. 1).
 
 We make three claims. The coupling changes decisions, measurably, as a paired contrast:
 both arms of Section 4.3 run over the same origins, network and field, so neither the
@@ -273,7 +273,6 @@ Standard baselines over the same folds, features and seed do not establish the s
 model as the most accurate (Table 1).
 
 Table 1. Baselines over the same six leave-one-fire-out folds, the same sixteen features and the same seed. Hyperparameters are untuned. ⚠ Lineage: these rows were produced on the corrected-DEM bundle, which is why the shipped model reads 0.8943 here against the committed headline's 0.890 in the text — the same model on a different, deliberately not-adopted lineage, not a second estimate of the same quantity. Read the ordering, not the gap: the shipped model leads on pooled AUC (0.9036 against 0.8963) and trails on mean-of-folds, and calibration does not separate it from the random forest either. That pooled gap is 0.0073, barely clear of this project's own 0.0064 platform-drift floor, so it is an ordering that reproduces across both lineages rather than a measured margin.
-
 | model | mean-of-folds AUC | fold sd | pooled Brier | pooled ECE |
 |---|---:|---:|---:|---:|
 | Random forest | 0.9142 | 0.0437 | 0.0174 | 0.0068 |
@@ -342,7 +341,8 @@ now stated rather than defaulted.
 On the canonical Yeongdeok hazard field, 458 origins are scanned; the fire-blind route
 reaches a refuge without entering the predicted hazard for 414 of them and enters the
 hazard for 44. Of those 44, the forecast-aware router brings 42 to a refuge without
-entering the hazard and finds no route at all for 2 (Fig. 4). No origin falls into the
+entering the hazard and finds no route at all for 2 (Fig. 4; the routes and the origins
+themselves are mapped in Fig. 5). No origin falls into the
 budget-exceeded class at 600 minutes, and none enters the hazard under the
 forecast-aware policy, which is structural: the policy refuses any node at or above the
 cutoff.
@@ -368,12 +368,11 @@ no per-origin ledger exists.
 ### 4.4 Three regions under one rule
 
 The same rule, parameters and stride ran over two further regions acquired identically
-(Fig. 5, Table 2).
+(Fig. 6, Table 2).
 
 ![Three-region routing partition, as a share of scanned origins, with each region's walk-network coverage of its own predicted fire core beside its name. The three regions must not be ranked on the orange band alone: n = 3 and the covariates in Table 2 move together.](figures/F3_regions.png)
 
 Table 2. Three regions under one identical rule. The right-hand columns are the covariates that must travel with any cross-region statement: OpenStreetMap mapping density and the share of each region's own predicted fire core that its walk-network box actually contains. Densities are over the geodesic bounding-box area. Depot density is a statement about what OpenStreetMap maps, not about where fire stations are; see the text below on Uiseong-Andong, whose responder side is recorded as not applicable rather than as zero dispatches.
-
 | region | origins | safe on both | safe only forecast-aware | no safe route | over budget | core coverage | core area (ha) | road km/km² | nodes/km² | refuge POIs/100 km² | depot POIs/100 km² |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | Yeongdeok 2025 | 458 | 414 | 42 | 2 | 0 | 32.6 % | 25,900 | 1.803 | 9.43 | 5.58 | 0.45 |
@@ -401,11 +400,11 @@ is recorded as not applicable rather than as zero dispatches.
 ![Sensitivity on the canonical Yeongdeok field. Left: the share of origins whose fire-blind route fails, against the evacuation-time budget, with a flat-timing control. Centre: origins safe only on the forecast-aware route, against the slope-sampling interval, with a flat control. Right: peak P(ignite) along one committed route pair as the forecast field is dilated, with the pedestrian cutoff and the radius at which the forecast-aware route first crosses it. ⚠ Scope: that pair is a real pipeline output but its origin differs from the committed `routing_demo.json` headline case, so both artifacts state their result as robustness of the routing *method* and not a restatement of the headline. The dilation and translation axes and the Monte-Carlo figure quoted in the text come from the committed artifacts `forecast_robustness.json` and `dilation_perturbation.json`, which do not yet carry registry keys of their own; they are flagged here as artifact values rather than registered ones.](figures/F6_sensitivity.png)
 
 **The evacuation-time budget is the binding assumption, not the terrain.** Sweeping the
-budget on the canonical field, the share of origins whose fire-blind route fails rises
-from 0.0961 at 600 minutes to 0.5655 at 30 minutes, a ratio of 5.89; at 120 minutes it
-is 0.2227 and at 60 minutes 0.4017. A short-budget failure share is meaningless without
-its budget attached. The forecast-aware class stays empty here because a budget failure
-is a walk-time failure, and walk time belongs to the graph.
+budget on the canonical field (Fig. 7, left), the share of origins whose fire-blind route
+fails rises from 0.0961 at 600 minutes to 0.5655 at 30 minutes, a ratio of 5.89. A
+short-budget failure share is meaningless without its budget attached. The forecast-aware
+class stays empty here because a budget failure is a walk-time failure, and walk time
+belongs to the graph.
 
 The count of fire-blind routes entering the predicted hazard rises from 20 to 44 between
 the reverted and the canonical fields. That belongs to the **fire-blind baseline**, not to
@@ -414,16 +413,14 @@ fire-blind walk is likelier to walk into a fire four times larger.
 
 **Terrain changes how people walk, not whether they arrive.** Applying real slope to
 edge times raises whole-network traversal time by 26.6 % at Yeongdeok at 60 m sampling
-(15.14 % and 23.67 % in the two other regions), with a mean absolute gradient of 0.0818
-and a mean directional asymmetry of 0.1996 of flat time — which is why the walking graph
-is directed. Yet the classification barely moves: 42 origins are safe only on the
-forecast-aware route at 30 m and 60 m sampling and 41 at 90 m, against 41 in the flat
-control, and the number whose bucket differs from the flat control at all three intervals
-is **zero** — three move at some interval, none at all three — while 179 forecast-aware
-routes, 39.1 %, differ from the flat control at 60 m. Switching the objective from
-distance to time under slope timing
-changes 150 of 458 routes and cuts the longest walk from 444.0 to 352.8 minutes, saving
-91.3 minutes for one worst-case origin; the flat control changes 0 routes, as it must.
+(15.14 % and 23.67 % in the two other regions), with a mean directional asymmetry of
+0.1996 of flat time — which is why the walking graph is directed. Yet the classification
+barely moves (Fig. 7, centre): 42 origins are safe only on the forecast-aware route at
+30 m and 60 m sampling and 41 at 90 m, against 41 in the flat control, and the number
+whose bucket differs from the flat control at all three intervals is **zero**, while 179
+forecast-aware routes, 39.1 %, differ from the flat control at 60 m. Switching the
+objective from distance to time under slope timing changes 150 of 458 routes and cuts the
+longest walk from 444.0 to 352.8 minutes; the flat control changes 0 routes, as it must.
 
 **Forecast error has a characterised failure mode, not robustness.** Under perturbation
 the forecast-aware route's exposure is below the fire-blind route's in 86 % of 2,000
@@ -450,39 +447,41 @@ reduction: a relative contrast between two policies on one synthetic hazard fiel
 hazard, which is what the survival-aware policy avoids.
 
 The dispatch ordering is negative, and reported as such. It carries a different lineage,
-stated in the caption of Fig. 7 and binding on every number below. "Homes" is shorthand
+stated in the caption of Fig. 8 and binding on every number below. "Homes" is shorthand
 for the sampled walk-graph origins of Section 3.3.
 
 ![Dispatch ordering. Left: homes reached within the operational window against the number of rescue teams, at the committed operating cell, for the shipped deadline-first ordering and four alternatives including 200 random permutations. Right: win, tie and loss tally of deadline-first against nearest-first across 180 configuration cells per window. The second window is exploratory and more than three times the committed one. ⚠ Lineage: this grid was measured on a re-acquired network vintage rather than the committed 439-origin series, two of its four arms use a synthetic hazard and terrain, and it runs a travel-aware occupancy rule in which a team stays occupied for its return leg — a rule the shipped triage code does not use, and without which the number rescued is teams times slots and no ordering can differ from any other. What is shown is therefore a contrast between orderings under that rule, on those arms; it is not a rescue-capacity forecast for any region and carries no lives-saved reading.](figures/F7_dispatch_ordering.png)
 
-Across 360 headline configuration cells — four arms by two windows by three service
-times by three dispatch delays by five team counts — the shipped deadline-first ordering
-rescues more than nearest-first in 3.6 % of cells, ties in 36.7 % and loses in 59.7 %.
-All 13 wins occur at the exploratory 240-minute window; at the committed 75-minute window
-it wins **0 of 180** cells, with 88 ties and 92 losses. At the most operationally relevant
-cell — committed window, 25-minute service, 30-minute delay, eight teams — deadline-first
-reaches 19 homes against nearest-first's 24, a gap of -5; unsorted scan order reaches 16
-and 200 random permutations average 16.49 ± 1.69, so the sort beats no sort and loses to
-nearest-first. The worst cell is -31, where it falls below an arbitrary order as well.
+Table 3 tallies deadline-first against nearest-first on two grids: the headline grid of
+Fig. 8, and an exploratory grid that widens the window axis to twelve points to look for
+an operating region where the shipped ordering would pay.
+
+Table 3. Deadline-first against nearest-first, on the headline grid and on a widened window axis. The headline grid is four arms by two windows by three service times by three dispatch delays by five team counts; the widened grid replaces the two windows with twelve points from 60 to 600 minutes. Both carry the lineage stated in the caption of Fig. 8. Each entry is a number of configuration cells and its share of that row's grid; these are cells, not people. Every one of the headline grid's 13 wins falls at the exploratory 240-minute window, so the committed-window row is the operationally relevant one. The per-window cell count on the widened axis is its 2,160 cells over twelve window points.
+| grid | cells | wins | ties | losses |
+|---|---:|---:|---:|---:|
+| Headline, both windows | 360 | 13 (3.6 %) | 132 (36.7 %) | 215 (59.7 %) |
+| Headline, committed 75-min window | 180 | **0** (0.0 %) | 88 (48.9 %) | 92 (51.1 %) |
+| Widened window axis, 60–600 min | 2,160 | 115 (5.3 %) | 561 (26.0 %) | 1,484 (68.7 %) |
+| Widened axis, at the 600-min window | 180 | 22 (12.2 %) | 22 (12.2 %) | 136 (75.6 %) |
+
+At the most operationally relevant cell — committed window, 25-minute service, 30-minute
+delay, eight teams — deadline-first reaches 19 homes against nearest-first's 24, a gap of
+-5; unsorted scan order reaches 16 and 200 random permutations average 16.49 ± 1.69, so
+the sort beats no sort and loses to nearest-first. The worst cell is -31, where it falls
+below an arbitrary order as well. Over the widened axis it beats unsorted order in only
+31.5 % of cells and the random mean in 37.8 %.
 
 The mechanism is measured rather than guessed. The urgency key is corridor closure minus
 responder arrival, and at the committed window the window closes before most corridors do,
 so the distinct deadline values are few: 2 over 116 homes in one arm, 6 over 142 in
 another. With two distinct deadlines the key is nearly constant and sorting it sorts noise
-— a property of the window relative to the closure times, not of the sort.
-
-Widening the window axis does not rescue it. Over 2,160 cells
-on a twelve-point axis from 60 to 600 minutes, deadline-first loses in 68.7 % of cells,
-ties in 26.0 % and wins in 5.3 %; it beats unsorted order in only 31.5 % of cells and the
-random mean in 37.8 %.
-It first wins at a 120-minute window, and even at the longest
-window on the axis it wins only 12.2 % of cells against 75.6 % losses,
-so no window threshold separates the regions; nor does the number
-of distinct deadlines, where 1,580 cells fail to win despite having at least as many as
-the lowest-scoring winning cell. No operating region recommends the shipped ordering, and
-the paper does not construct one. What the analysis does establish positively is
-reproducibility: re-deriving 3,744 values from the earlier run cell by cell produced **0**
-differences.
+— a property of the window relative to the closure times, not of the sort. Widening the
+window does not repair that: the first win comes at 120 minutes, no window threshold
+separates a winning region, and neither does the number of distinct deadlines, where
+1,580 cells fail to win despite having at least as many as the lowest-scoring winning
+cell. No operating region recommends the shipped ordering, and the paper does not
+construct one. What the analysis does establish positively is reproducibility: re-deriving
+3,744 values from the earlier run cell by cell produced **0** differences.
 
 ### 4.7 How early could a satellite have seen these fires?
 
@@ -490,13 +489,12 @@ The system's premise is that detection was not the binding failure. That premise
 partly testable here, once what the test can and cannot support is separated.
 
 Four of the six fires fall inside the GK2A archive and three produced a detection under
-the rule of Section 3.1 (Table 3). In each, the first satellite-detectable anomaly follows
+the rule of Section 3.1 (Table 4). In each, the first satellite-detectable anomaly follows
 the fire's recorded occurrence time by 22 to 64 minutes. **That reference clock is the
 weakest part of the measurement and we do not lean on it**, for the reasons given in the
 caption and in Section 5.
 
-Table 3. First GK2A infrared anomaly at each archived fire, relative to that fire's recorded occurrence time. That reference is the `start` field of the project's fire manifest, which the manifest marks as provenance only, sources to no emergency-call record, and nowhere says what the field is; its relation both to the true ignition and to the emergency call is unestablished, so these are delays behind a recorded time and not detection-behind-report figures. FIRMS delays are for the same events against each event's own recorded report time, which differs from the GK2A reference by one minute at Uiseong-Andong and at Yeongdeok. Yeongdeok is a confounded case, not a miss: see the text.
-
+Table 4. First GK2A infrared anomaly at each archived fire, relative to that fire's recorded occurrence time. That reference is the `start` field of the project's fire manifest, which the manifest marks as provenance only, sources to no emergency-call record, and nowhere says what the field is; its relation both to the true ignition and to the emergency call is unestablished, so these are delays behind a recorded time and not detection-behind-report figures. FIRMS delays are for the same events against each event's own recorded report time, which differs from the GK2A reference by one minute at Uiseong-Andong and at Yeongdeok. Yeongdeok is a confounded case, not a miss: see the text.
 | fire | GK2A | FIRMS | contrast at detection | pixels | contextual threshold |
 |---|---:|---:|---:|---:|---:|
 | Uiseong-Andong 2025 | +22 min | +117 min | 22.9 K | 1 | 12.2 K |
@@ -569,7 +567,13 @@ routing.
 existed: the terrain null because of the flat control, the feature-arm null because of the
 column-addition envelope, and the claim that distance drives vulnerability was
 **withdrawn** because a null-hazard control showed the failing set was set-identical with
-no fire at all.
+no fire at all. The same discipline stopped an input before it reached this paper: a county
+subset of an external designated-site dataset, cut on an administrative code and labelled
+with a county name, was refused when its points proved to lie outside that county's own
+study box — a label checked against the geometry it claims rather than against a code
+table. The code was wrong; the subset was re-cut on the right one, checked the same way,
+and is the inventory Section 6 reports. That whole arc, and not the refusal alone, is what
+the control buys.
 
 [GAP: structured expert consultations with a fire-service duty officer, a village head
 and a social worker are planned in the project's consultation format; they are design
@@ -648,6 +652,25 @@ counts that are proof-of-concept parameters, not measured capacity — the commi
 75-minute window is an assumed constant and nothing here grounds it; and refuge semantics from
 OpenStreetMap tags, which in rural Korea return parks and pavilions unless corrected for
 local village-hall tagging.
+
+**Every refuge in this paper is an OpenStreetMap point, and a designated list now exists
+that no result here uses.** An agency-designated inventory for Yeongdeok-gun entered the
+repository from the 주소정보누리집 address portal of Korea's Ministry of the Interior and
+Safety: on the 2025-03-01 cut, 64 earthquake outdoor evacuation sites, 92 tsunami
+emergency evacuation sites and 17 cooling centres; on the 2024-01-24 cut, 55
+public-service agency points, four of them fire-service and six police — candidate depots
+in a region whose OpenStreetMap depot density Table 2 puts at 0.45 per 100 km². None is a
+*wildfire* refuge: the designated categories here are earthquake, tsunami and heat, and
+this subset is seven of the portal's point layers rather than its whole taxonomy, so it
+narrows the question rather than answering it. The two sets are also not on one extent and
+must not be differenced as they stand: the designated counts are for the whole county,
+between 77 % and 84 % of each layer falling inside the canonical walk box, while the
+router's refuges are counted inside that box alone. [GAP: the router's 50 OpenStreetMap refuge
+points have not been compared against that designated list, so how far the routing results
+depend on refuge provenance is unmeasured. Both inputs are committed, so the comparison is
+runnable now: clip the designated sites to the walk box so the two sets share an extent,
+re-snap the refuges to them, re-run the same 458 origins on the same canonical field, and
+report the three-bucket partition beside the committed one]
 
 **The detection measurement rests on three fires and an unsourced clock.** No night-time
 detection appears in the sample, so night performance is unmeasured. Only the size floor

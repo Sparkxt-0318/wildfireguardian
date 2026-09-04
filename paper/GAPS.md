@@ -7,10 +7,35 @@ the author.
 
 | # | where | what is missing | closes when | after sprint? |
 |---|---|---|---|---|
-| G5 | §4.7 Results | the provenance of the detection reference clock. Every delay in Table 3 is measured from `fire_manifest.json`'s `start` field, which the manifest marks "provenance only" and sources nowhere. **Narrowed 2026-09-04 (paper lap 3), and the repository has now come to the same reading.** Checked this lap against `docs/data_provenance/fire_manifest.json` — the only copy tracked here; the copy the pipeline actually reads, `data/raw/firms_data/fire_manifest.json`, is git-ignored and absent from a fresh clone, so this is the documentation copy and is assumed, not verified, to match. In it: all six entries mark `start/end/reported_ha` as `provenance only`, and **no entry contains 신고 or any word for a report**. That much is solid and is what the manuscript rests on. ⚠ **What this lap first wrote here, and the lap reviewer knocked down**: that exactly one entry says what the field is, namely `yeongdeok_2025`, whose note reads `first hit (2025-03-25) lags the 2025-03-22 ignition by days` against that entry's own `start` of `2025-03-22T12:15+09:00`. That is an inference from a date coincidence, not a statement — the note never mentions `start` — and it is probably the wrong inference: `2025-03-22` is the **parent Uiseong chain's** ignition date (its own `start` is `2025-03-22T11:25`, fifty minutes earlier), while Yeongdeok's first detection is three days later, so the "ignition" that note names is most plausibly the parent fire's, not Yeongdeok's. `docs/detection_floor.md` §1 reads the same five other notes as saying nothing about `start` either. So the honest statement is the weaker one: **no entry says what the field is, in either direction.** The manuscript was corrected to that before this lap pushed. `docs/detection_floor.md` §1 and §9 read the field as a 신고 (report) time and concluded that GK2A rang after the telephone; **that reading was withdrawn on 2026-09-04 (WFG-053) with no number moving**, the manuscript having reached the narrow form first. Until a call time exists the paper cannot say whether the satellite beat the call, in either direction | the author supplies, for at least one of Uiseong-Andong, Gangneung or Hongseong, the KFS / 119 / 중대본 record giving the 신고접수시각, or the acquisition note saying where the minute came from; then it is registered with agency and date and §4.7, §1, §5 and the abstract can state the ordering. Raised by the lap-2 reviewer (NEEDS_HUMAN NH-019) | no |
+| G5 | §4.7 Results | the provenance of the detection reference clock. Every delay in Table 4 is measured from `fire_manifest.json`'s `start` field, which the manifest marks "provenance only" and sources nowhere. **Narrowed 2026-09-04 (paper lap 3), and the repository has now come to the same reading.** Checked this lap against `docs/data_provenance/fire_manifest.json` — the only copy tracked here; the copy the pipeline actually reads, `data/raw/firms_data/fire_manifest.json`, is git-ignored and absent from a fresh clone, so this is the documentation copy and is assumed, not verified, to match. In it: all six entries mark `start/end/reported_ha` as `provenance only`, and **no entry contains 신고 or any word for a report**. That much is solid and is what the manuscript rests on. ⚠ **What this lap first wrote here, and the lap reviewer knocked down**: that exactly one entry says what the field is, namely `yeongdeok_2025`, whose note reads `first hit (2025-03-25) lags the 2025-03-22 ignition by days` against that entry's own `start` of `2025-03-22T12:15+09:00`. That is an inference from a date coincidence, not a statement — the note never mentions `start` — and it is probably the wrong inference: `2025-03-22` is the **parent Uiseong chain's** ignition date (its own `start` is `2025-03-22T11:25`, fifty minutes earlier), while Yeongdeok's first detection is three days later, so the "ignition" that note names is most plausibly the parent fire's, not Yeongdeok's. `docs/detection_floor.md` §1 reads the same five other notes as saying nothing about `start` either. So the honest statement is the weaker one: **no entry says what the field is, in either direction.** The manuscript was corrected to that before this lap pushed. `docs/detection_floor.md` §1 and §9 read the field as a 신고 (report) time and concluded that GK2A rang after the telephone; **that reading was withdrawn on 2026-09-04 (WFG-053) with no number moving**, the manuscript having reached the narrow form first. Until a call time exists the paper cannot say whether the satellite beat the call, in either direction | the author supplies, for at least one of Uiseong-Andong, Gangneung or Hongseong, the KFS / 119 / 중대본 record giving the 신고접수시각, or the acquisition note saying where the minute came from; then it is registered with agency and date and §4.7, §1, §5 and the abstract can state the ordering. Raised by the lap-2 reviewer (NEEDS_HUMAN NH-019) | no |
 | G2 | §5 Discussion | structured expert consultations (fire-service duty officer, village head, social worker) in the project's consultation format, as design feedback rather than collected data; any quotation needs the author's consent handling first | the consultations happen and the author clears the quotations (NH-009) | yes |
 | G3 | §6 Limitations | the leak-free Yeongdeok fold: refit the Yeongdeok LOFO fold with the co-located Uiseong-Andong fire excluded, re-simulate the canonical field, and route the same 458 origins, reporting the three-bucket counts as new filenames | the raw acquisition bundle on the author's laptop is available and WFG-032 runs | yes |
 | G4 | §6 Limitations | **the hindsight-field routing arm — the single most load-bearing gap in the paper.** A third pass over the same 458 origins on a field rasterised from the *observed* FIRMS detections for Yeongdeok 2025, reporting how many of the 42 fire-blind routes actually intersect observed burn inside the walker's arrival window, and how many forecast-aware routes cross observed burn the model never flagged. Until it runs, "saved" means "re-routed around a model-flagged cell", not "away from where the fire went", and with pooled recall 0.138 that distinction is not cosmetic | the observed detections are available. ⚠ Checked 2026-09-03: `data/snapshots/firms-manifest_yeongdeok-2025_20260723_1aa75824.json` is committed and records 2,290 detections spanning 2025-03-25T12:25 to 2025-03-27T04:28, but the detections themselves (`yeongdeok_2025_detections.csv`) live under the git-ignored `data/raw/firms_data/`, which is absent from a fresh clone. So this arm needs the author's laptop too — it is cheaper than G3 (no refit, no re-simulation, reuses the committed walk graph and origin list) but it is not runnable in the cloud sandbox | yes |
+| G6 | §6 Limitations | the refuge-provenance comparison. Every refuge in the paper is an OpenStreetMap point; the 주소정보누리집 designated-site subset for 영덕군 is now committed and correctly scoped, and nothing has been re-routed against it. The question the paper cannot answer is how much of the 458-origin partition is a statement about where refuges actually are rather than about where OpenStreetMap says they are — which bears on every absolute Yeongdeok rate, though not on the paired contrast, both arms of which use the same refuge set | **runnable in the cloud sandbox, unlike G3 and G4**: the designated-site layers are committed under `data/processed/external/juso_yeongdeok/` and counted in that folder's `manifest.json` (64 earthquake outdoor sites, 92 tsunami sites), as are the walk graph and the origin list. ⚠ Only `manifest.json` and `minwon_agencies.geojson` of that folder are listed in `docs/artifact_manifest.json`; the seven 사물주소 `*.geojson` layers are not, though `scripts/register_juso_yeongdeok.py` registers a count for each (seven layer stems in `SAMUL_LAYERS`, seven `samul_*.geojson` files on disk). That is a dev-lap item, not the paper's — this row names the folder rather than a layer file because citing an unlisted one fails `make check-artifact-manifest`. A dev lap re-snaps the refuge nodes to the designated sites, re-runs the same 458 origins on the same canonical field under both policies, and commits the three-bucket partition under a new filename beside the committed one; the paper then reports both. This is backlog WFG-073, which the paper routine cannot run itself (it would be a new artifact outside `paper/`) | no |
+
+## ✅ That input was re-cut and is now in the manuscript (lap 5) — the block below is the record
+
+**Closed 2026-09-04 (paper lap 5).** The author re-cut the subset on the laptop under
+NH-022 and the repository landed it at `79887696`: `sigungu_cd` is now **47770**, and the
+extractor and its test check the label against the data itself rather than against a code
+table — every 민원행정기관 road address contains 영덕군, the 지진해일긴급대피장소 layer is
+populated (92 rows where the wrong cut returned 0), and `manifest.json` → `bbox_check`
+records centroid-inside plus ≥ 50 % of points inside the canonical 영덕 box, result `pass`.
+The eight registry keys carry `scope_status: corrected`.
+
+So §6 now carries the designated-site inventory with its agency, both data dates and its
+scope, and G6 above is the experiment it opens. **The category statement this block
+predicted was written in a weaker form than predicted, on purpose**: the extractor cuts
+seven named 사물주소 point layers out of the zip (`SAMUL_LAYERS` in
+`scripts/extract_juso_yeongdeok.py`), so "no wildfire category exists in the national
+taxonomy" is not checkable from anything committed here — only "none of the designated
+categories in this subset is a wildfire one", which is what the manuscript says. Do not
+strengthen it without an enumeration of the zip's own layer list, which is laptop-only.
+Also written: §5's sentence on the label-versus-geometry check, which is the transferable
+half of the whole episode and belongs to the paper's "the instrument is the contribution"
+argument rather than to its process notes.
+
+### The original block (lap 4), kept as the record
 
 ## ⚠ An input that exists, is registered, and must not enter the manuscript (lap 4)
 
@@ -37,10 +62,32 @@ earns is not a count but a category statement: the 사물주소 designated-site 
 earthquake, tsunami and heat, and holds no wildfire evacuation category at all — which is
 a fact about the national taxonomy, not about the county, and survives the re-cut.
 
-## ⚠ Length pressure, updated 2026-09-04 (paper lap 4)
+## ⚠ Length pressure — and the counting bug lap 5 found underneath it
 
-The body is **7,423 words against a 7,500 hard fail and a 7,000 aim** — 77 words of
-headroom, against lap 3's 92. **Lap 4 did not move this, and should not be read as having
+**Read this before shaving another sentence: 318 of the words every previous lap was
+fighting were table captions, which the builder never meant to count.**
+`build_docx.py` recognises a table caption only when the `Table N.` line is *immediately*
+followed by the `|` row (`m and i + 1 < len(lines) and lines[i + 1].startswith("|")`).
+All three captions had a blank line between them and their table, so each one fell through
+to the paragraph branch: counted as body text, rendered as an ordinary paragraph, and the
+table itself built with the label `Table N. ` and **an empty caption**. Lap 5 deleted the
+three blank lines. The captions now render bold-labelled and attached, and the body count
+dropped 7,423 → 7,105 with not one word of prose removed. Figure captions were never
+affected — that branch has no such condition. **Keep every future `Table N.` line glued to
+its table**; a blank line there silently costs both the caption and the budget. Lap 5
+proved the trap by falling into it: the new Table 3 was written with the habitual blank
+line, built with an empty caption, and was caught only by reading the tables back out of
+the `.docx` with `python-docx`. Do that read-back after adding a table — `check_paper.py`
+counts tables but cannot see that a caption went missing.
+
+Where lap 5 finished: **7,362 words**, 138 of headroom against the hard fail, after adding
+§6's designated-refuge limitation with its G6 marker and §5's label-versus-geometry
+sentence, and after two structural compressions — §4.6's two comparison grids folded into
+Table 3, and §4.5's budget and terrain paragraphs trimmed of the values Fig. 7 already
+plots. So the aim is still not met, but the headroom is now real rather than an artifact
+of miscounting, and the remaining distance is smaller than lap 4's ledger below implies.
+
+Earlier record, lap 4: **Lap 4 did not move this, and should not be read as having
 tried to.** It spent its budget on corrections rather than on new prose: the §5 withdrawal
 record was added, and then the lap reviewer's block forced two caveats back in that cost
 more than the lap had gained — the synthetic-hazard label on the whole 439-origin

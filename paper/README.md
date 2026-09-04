@@ -89,8 +89,28 @@ enough on its own — check these two things by name.
 "Figure 3" in the built document whenever an earlier-numbered file appears later
 in the text. The `F` numbers are stable internal identifiers for
 `make_figures.py`; the `Fig. N` references in `manuscript.md` must match the
-**appearance** order. Current mapping: F1→1, F2→2, F4→3, F5→4, F3→5, F6→6, F7→7.
-Re-check it after moving any figure.
+**appearance** order. Current mapping: F1→1, F2→2, F4→3, F5→4, **F8→5**, F3→6,
+F6→7, F7→8. Re-check it after moving or adding any figure.
+
+⚠ **This table was stale for two laps and the manuscript went with it.** F8 was
+added to §4.3 after the mapping was written, which pushed F3, F6 and F7 down one
+each; nobody re-checked, so §4.4 pointed at "Fig. 5" (the routing map) for the
+three-region partition and §4.6 pointed at "Fig. 7" (the sensitivity panel) for
+the dispatch lineage caveat that binds every number in that section. Both fixed
+on 2026-09-04 (lap 5). Nothing mechanical catches this — `check_paper.py` checks
+that each figure *file* exists, not that a `Fig. N` in prose names the right one.
+Count the `![` lines in order and compare, by hand, after any figure move.
+
+## ⚠ A table caption must touch its table — no blank line
+
+`build_docx.py` treats a `Table N.` line as a caption **only** when the very next
+line starts with `|`. With a blank line between them the caption falls through to
+the paragraph branch: it is counted in `body_words`, rendered as ordinary prose,
+and the table is built with the label `Table N. ` and an empty caption. All three
+captions were written that way and cost 318 words of the length budget until lap 5.
+`check_paper.py` counts tables and cannot see a missing caption, so after adding a
+table read it back out of the built `.docx` with `python-docx` and look at the
+caption. Figure captions are unaffected — that branch has no such condition.
 
 ## ⚠ Two gate behaviours the manuscript has to be written around
 
