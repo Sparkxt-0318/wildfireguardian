@@ -13,7 +13,7 @@
     "end": "2026-09-15T23:59Z",
     "_readme": "The author asked for all primary work to land inside this window, with laps as close together as the platform allows. After `end`, a lap writes a one-paragraph 'sprint over' report and exits without building; the one-time handover routine writes the post-sprint list. The author pauses the routines on claude.ai/code/routines afterwards."
   },
-  "dev_cadence_note": "RECOMMENDED 2026-09-04 (NH-016), pending the author applying it on the routine page: dev 17 */3, critic 57 1-22/3, paper 47 2-23/6 (all UTC). Measured worst case is dev 70 min + critic 40 min, which does not fit a 2-hour cycle. Until applied, the live grid is dev 17 */2 and critic 47 1-23/2, which collides. Research on Sep 4 and Sep 10.",
+  "dev_cadence_note": "APPLIED 2026-09-04 (NH-016, author chose A in a Claude Code session): dev 17 */3, critic 57 1-22/3, paper 47 2-23/6 (all UTC), set on the routine pages by the same session. Research on Sep 4 and Sep 10.",
   "paper": {
     "enabled": true,
     "author": "Siyeong Park (박시영)",

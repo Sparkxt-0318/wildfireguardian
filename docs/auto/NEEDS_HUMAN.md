@@ -19,7 +19,7 @@ that need a choice carry an `**Options:** A) … B) …` line; a letter is enoug
 
 ---
 
-## NH-001 · DECISION · open · Email delivery needs three repository secrets
+## NH-001 · DECISION · closed · Email delivery needs three repository secrets
 
 **What:** Reports are committed under `docs/auto/reports/` on every lap. To also
 receive them at siyeong0318@gmail.com, add repository secrets on GitHub
@@ -32,12 +32,16 @@ them. **Until then:** reports are visible on GitHub and on the routine's page at
 https://claude.ai/code/routines, and the cloud routine sends email itself whenever a
 Gmail connector is attached to it on claude.ai.
 
-## NH-002 · DECISION · open · Optional: `@claude` on GitHub issues and PRs
+**CLOSED 2026-09-04 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-04 · ref: claude-code-session-7da6bf25#NH-001 · verbatim: "Skip — the Gmail connector on the routines is the delivery path; no SMTP secrets will be added."
+
+## NH-002 · DECISION · closed · Optional: `@claude` on GitHub issues and PRs
 
 **What:** `.github/workflows/claude.yml` lets you steer the loop from your phone by
 commenting `@claude do X` on any issue or PR. It needs the `ANTHROPIC_API_KEY`
 repository secret and the Claude GitHub App installed on the repository. Skip if
 the cloud routines are enough.
+
+**CLOSED 2026-09-04 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-04 · ref: claude-code-session-7da6bf25#NH-002 · verbatim: "Skip — the cloud routines are enough; no @claude GitHub app or API key."
 
 ## NH-003 · FYI · open · `Main` is behind the working line by design
 
@@ -67,6 +71,8 @@ the area (see backlog WFG-013) so this may close itself.
 
 **Options:** A) I will download the 도로명주소 건물 layer into data/raw/juso_buildings/ by <date>  B) skip; provisional OSM counts stand for the finals
 
+
+**Author reply 2026-09-04 (Claude Code session, AskUserQuestion, verbatim: "I will attach it later this week").** Stays open; the next report asks again. Until the layer is under `data/raw/juso_buildings/`, provisional OSM counts stand, labelled as such.
 
 ## NH-006 · DECISION · closed · Confirm the finals date: 10.18 (your notice) vs 10.24 (June schedule post)
 
@@ -182,7 +188,7 @@ author ratified the recommendations and delegated the rest. Resolutions:
   and 7 `blocked` against a 10-16 freeze. It may start only once every P0 and P1 row
   is `done`. If the sprint ends with it untouched, that is the correct outcome.
 
-## NH-010 · DECISION · open · Expert consultations and the firefighter record (by 2026-09-20)
+## NH-010 · DECISION · closed · Expert consultations and the firefighter record (by 2026-09-20)
 
 **What:** Two or three structured consultations by phone or video (이장, 119
 상황실 dispatcher, 사회복지사) using the protocol the loop drafts (WFG-028); close
@@ -192,7 +198,9 @@ advisers whether a one-line quoted judgment may be shown at the booth. No
 numbers derived, no data about persons. **Why only you:** contacting people;
 consent.
 
-## NH-011 · DECISION · open · One real, recorded email send from a network that works in Shanghai (by 2026-09-20)
+**CLOSED 2026-09-04 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-04 · ref: claude-code-session-7da6bf25#NH-010 · verbatim: "Skip for the finals for now. The author will try to reach out, but the loop must not assume anything comes back: no consultation-dependent claim or readiness line may wait on it."
+
+## NH-011 · DECISION · closed · One real, recorded email send from a network that works in Shanghai (by 2026-09-20)
 
 **What:** The email channel's verification send never completed (outbound SMTP
 blocked on the working network; `docs/delivery_channels.md`). Either send once
@@ -201,7 +209,9 @@ authorise the Gmail-API adapter the loop builds (WFG-029) one time. Do not touch
 Twilio or pursue SMS unless individual 발신번호 registration is confirmed in
 writing. **Why only you:** credentials and network.
 
-## NH-012 · DECISION · open · Portal downloads the loop cannot do (by 2026-10-01)
+**CLOSED 2026-09-04 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-04 · ref: claude-code-session-7da6bf25#NH-011 · verbatim: "Skip — keep the caveat: the alert-delivery verification send stays 'not verified on this network'; the routine report emails are not that proof and are not claimed as it."
+
+## NH-012 · DECISION · closed · Portal downloads the loop cannot do (by 2026-10-01)
 
 **What:** (a) 도로명주소 건물 layer for 영덕 from business.juso.go.kr into
 `data/raw/juso_buildings/` (NH-005); (b) the 공공데이터포털 national shelter file,
@@ -209,7 +219,9 @@ which answers "are any of the refuges designated 대피소?"; (c) a KMA API Hub 
 only if the post-finals sub-daily GK2A label experiment is wanted. **Why only
 you:** login and CAPTCHA.
 
-## NH-013 · FYI · open · Optional: a stable web address for the visual board
+**CLOSED 2026-09-04 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-04 · ref: claude-code-session-7da6bf25#NH-012 · verbatim: "Deferred — keep (b) the national shelter file and (c) the KMA API Hub key under a later priority (post-finals); re-open when there is time."
+
+## NH-013 · FYI · closed · Optional: a stable web address for the visual board
 
 **What:** Report emails now embed this lap's five images by GitHub raw URL and
 link the board through htmlpreview.github.io, which needs no setting. If you
@@ -221,6 +233,7 @@ The repository is already public, so this exposes nothing new. Not required.
 
 **Options:** A) enable GitHub Pages as described  B) skip; the htmlpreview link is enough
 
+**CLOSED 2026-09-04 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-04 · ref: claude-code-session-7da6bf25#NH-013 · verbatim: "Skip — the htmlpreview link is enough; GitHub Pages not enabled."
 
 ## NH-014 · DECISION · open · Run the booth recipe once on the real laptop (after 09-10, before 10-16)
 
@@ -230,6 +243,8 @@ Gwangju (env, `make all-checks`, open `web/finals.html` from `file://` with
 Wi-Fi off, copy `release/kcf-finals-2026/` to two USB sticks). Close this entry
 with the date and the laptop's Python version. It is KCF_READINESS line R12 and
 the only readiness line the loop cannot tick for you.
+
+**Author reply 2026-09-04 (Claude Code session, AskUserQuestion, verbatim: "Yes, I will run it in that window").** Stays open until the run is reported with the date and the laptop's Python version; the loop keeps `docs/auto/finals/BOOTH_SETUP.md` current and reminds the author around 2026-09-20.
 
 ## NH-015 · DECISION · closed · The three sources behind the README's opening numbers (by 2026-09-08)
 
@@ -317,7 +332,7 @@ which is what critics #1, #2, #3 and #4 have now each said in turn.
 `paper/manuscript.md` was checked and does **not** contain the 27-death attribution;
 `paper/references.bib` records WWA's figures correctly, with WWA's own scope.
 
-## NH-016 · DECISION · open · The critic routine has 30 minutes to land its findings, and needs about 40 (by 2026-09-05)
+## NH-016 · DECISION · closed · The critic routine has 30 minutes to land its findings, and needs about 40 (by 2026-09-05)
 
 **Why this is yours:** the cadence lives on the routine
 (https://claude.ai/code/routines), not in this repository, so no lap can change it.
@@ -389,8 +404,9 @@ the overlap and this entry is where the author's one-field answer lives.
 
 **Options:** A) adopt the recommended cadence (dev every 3 h, critic 3-hourly offset, paper 6-hourly)  B) keep the current cadence  C) another cadence (say which)
 
+**CLOSED 2026-09-04 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-04 · ref: claude-code-session-7da6bf25#NH-016 · verbatim: "A — adopt the recommended 3-hour grid: dev 17 */3, critic 57 1-22/3, paper 47 2-23/6 (UTC). Applied to the routines by the same session."
 
-## NH-017 · DECISION · open · Three entries were closed on replies the repository cannot see, and one of them was wrong (by 2026-09-06)
+## NH-017 · DECISION · closed · Three entries were closed on replies the repository cannot see, and one of them was wrong (by 2026-09-06)
 
 **What:** `12b8ac7` closed NH-008, NH-009 and NH-015 by quoting your replies
 ("Everything is fine here. Don't worry about this, and continue with the project.",
@@ -432,7 +448,9 @@ closure says so in those words rather than reading as a citation.
 "author reply in a Claude Code session, 2026-09-04, verbatim quoted". Part (1), your
 confirmation of the three quotes, is still yours; this entry stays open for it.
 
-## NH-018 · DECISION · open · Two laps read the same primary sources and disagree on two sentences (by 2026-09-08)
+**CLOSED 2026-09-04 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-04 · ref: claude-code-session-7da6bf25#NH-017 · verbatim: "Yes — all three closures (NH-008, NH-009, NH-015) confirmed as recorded; channel was a Claude Code session."
+
+## NH-018 · DECISION · closed · Two laps read the same primary sources and disagree on two sentences (by 2026-09-08)
 
 **What:** The 0100Z cloud lap and the 2026-09-04 laptop lap both sourced the README's
 opening figures from primary pages on the same day. They agree on every figure the
@@ -551,8 +569,9 @@ is the conservative one and ships as it is.
 
 **Options:** A) keep the 0100Z scope note as it stands (prints no share)  B) remove the "약 43 %" / "about 43 %" sentence, keep the rest — **already done 2026-09-04T0255Z on evidence, per critic #5 F21; reply B only to confirm, or A to have it put back**  C) also restate the season toll (32 deaths) in the scope note  D) annotate the two registry caveats so they stop asserting the ~95 % ratio the prose withdrew (dev lap; add-never-edit)
 
+**CLOSED 2026-09-04 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-04 · ref: claude-code-session-7da6bf25#NH-018 · verbatim: "B — confirm the deletion of the '약 43 %' / 'about 43 %' sentence; no ratio printed; do not restate the season toll."
 
-## NH-019 · DECISION · open · One report time, for one fire, decides what the detection result is allowed to say (by 2026-09-08)
+## NH-019 · DECISION · closed · One report time, for one fire, decides what the detection result is allowed to say (by 2026-09-08)
 
 **What:** every delay in the paper's new detection section — +22, +34 and +64 minutes —
 is measured from `docs/data_provenance/fire_manifest.json`'s `start` field.
@@ -670,7 +689,9 @@ copy-paste; the thing that keeps the claim honest is this entry being answered.)
 
 **Options:** A) I will look for the 신고접수시각 for one fire  B) skip; keep the narrowed claim (size floor only) for the finals
 
-## NH-020 · DECISION · open · Twenty-five report emails, no reply, and the decision channel has never once been exercised (by 2026-09-06)
+**CLOSED 2026-09-04 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-04 · ref: claude-code-session-7da6bf25#NH-019 · verbatim: "B — keep the narrowed claim (size floor only) for the finals; no 신고접수시각 lookup."
+
+## NH-020 · DECISION · closed · Twenty-five report emails, no reply, and the decision channel has never once been exercised (by 2026-09-06)
 
 **Why this is yours:** only you can tell the loop whether the email is arriving, whether the
 reply syntax works, and whether you want to keep answering this way.
@@ -724,7 +745,11 @@ volume is the problem, option B is the one that fixes it and it costs you four w
 
 ---
 
-## NH-021 · DECISION · open · Two laps disagree on whether to spend a sprint lap on a gate or on the booth (by 2026-09-06)
+**CLOSED 2026-09-04 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-04 · ref: claude-code-session-7da6bf25#NH-020 · verbatim: "it reached me, but I feel like I should respond in this way, like how I respond to you right now. I think it would be impossible to reply in email, unless you give me like an interactive button to press."
+
+**Consequence of NH-020 (2026-09-04).** The author's channel is an interactive Claude Code session on the laptop, answered with buttons (AskUserQuestion), not an email reply. Reports keep the 「Decisions needed」 block so the author sees what is open, but the block now says: open Claude Code in the repository and say `decisions` — the session lists the open entries as button questions and records each answer with channel, date and verbatim text. Email replies still work and are still read; they are no longer expected.
+
+## NH-021 · DECISION · closed · Two laps disagree on whether to spend a sprint lap on a gate or on the booth (by 2026-09-06)
 
 **Why this is yours:** CHARTER §6 escalates when two laps disagree on direction, and this is
 that. It is also a trade the loop should not settle for you, because the two sides are
@@ -754,3 +779,5 @@ in judge-facing Korean prose, and each has cost about a lap to find and fix.
 backlog table order, which today means the booth rows first and WFG-062 after them.
 
 **Options:** A) `NH-021: booth first` — leave WFG-062 at P1, take WFG-003 / WFG-067 / WFG-037 / WFG-036 in table order, and accept that the next withdrawn claim is found by a critic rather than a gate  B) `NH-021: gate first` — WFG-062 is the next row after WFG-067, and any replacement must publish its catch rate against a mutation set its own author did not write  C) `NH-021: neither, cap it` — no more claim gates at all before the freeze; judge-facing claim sentences must instead each cite a registry key or an artifact (that is WFG-030's shape) and the critic reads the prose by hand until 10-16
+
+**CLOSED 2026-09-04 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-04 · ref: claude-code-session-7da6bf25#NH-021 · verbatim: "Do WFG-062 now (the withdrawn-claims registry gate first; booth rows resume after)."

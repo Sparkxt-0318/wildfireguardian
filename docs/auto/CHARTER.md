@@ -326,8 +326,9 @@ The author asked that all primary work land in twelve days, with laps as close
 together as the platform allows, and that at the end there is a **full final
 product** ready to take to the booth. So, for the sprint:
 
-- Cadence: dev every 2 hours (even hours :17 UTC); **critic 90 minutes after every
-  dev lap** (odd hours :47), writing `docs/auto/CRITIC_LATEST.md`; the next dev lap
+- Cadence (from 2026-09-04, NH-016 option A): dev every 3 hours (`17 */3` UTC);
+  **critic 100 minutes after every dev lap** (`57 1-22/3`), writing `docs/auto/CRITIC_LATEST.md`;
+  paper every 6 hours (`47 2-23/6`); the next dev lap
   clears every `fix-before-next-row` item there before it claims a new row, so a
   wrong turn is caught within one lap instead of a day. Research on 09-04 and 09-10;
   paper every 6 h when the code moved.
@@ -395,3 +396,6 @@ not adopted before the finals), and the figure-style reference (Moreno et al. 20
   source and never migrate into README, manuscript or `docs/NUMBERS.json` without going
   through the registry rule.
 
+### 6b. The author's preferred channel (NH-020, 2026-09-04)
+
+The author decides in an interactive Claude Code session on the laptop, answered with buttons. When the author opens the repository and says `decisions`, the session lists every open DECISION entry as a question with the entry's `**Options:**`, applies each answer with `scripts/auto/decisions.py apply` (channel `Claude Code session (AskUserQuestion on the laptop)`, received date, verbatim text), acts on the consequences, runs the full gates, and pushes. Email replies remain a valid second channel and are still read by step 1b.
