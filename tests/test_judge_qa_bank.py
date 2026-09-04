@@ -146,8 +146,13 @@ def test_question_numbers_are_unique_and_contiguous() -> None:
     * a refining question is inserted beside the one it refines with a letter
       suffix (Q10a..Q10d after Q10), rather than renumbering a bank the student
       is memorising and four other documents cite by number;
-    * Q34 and Q35 were appended by critic laps into the section they belong to,
-      so they sit between Q10d and Q11 in reading order.
+    * Q34 and Q35 were appended by critic laps and sit between Q10d and Q11 in
+      reading order. Q34 (spread rate) belongs to the fire-behaviour run it was
+      added to; Q35 (can this screen be rebuilt from its stamp?) does NOT
+      obviously belong there and would sit better beside Q27/Q28, which are the
+      gates-and-tests questions. That is a placement worth revisiting, not an
+      invariant to assert -- and renumbering it is the one thing that would
+      break four other documents that cite this bank by number.
 
     So document order is not asserted to be sorted -- that would be a false
     invariant, and the check that the reader can actually find every question is
@@ -170,6 +175,49 @@ def test_question_numbers_are_unique_and_contiguous() -> None:
     assert not dangling, (
         "these questions carry a letter suffix but the question they refine is "
         "not in the bank: " + str(dangling)
+    )
+
+
+def test_the_count_is_reached_by_a_second_parser_that_shares_no_code() -> None:
+    """Independence, not agreement: count the headers a deliberately different way.
+
+    The lap reviewer's leakage finding, and it is the right one. Every other
+    check here counts with `QUESTION_RE` and then compares that count to a
+    header the same regex located -- one parser producing both sides, which is a
+    closed loop. It is exactly how 33 · 14 · 13 · 6 stayed green for six windows
+    while the file held 41 · 15 · 19 · 7: the regex could not see eight headers,
+    so the count and the number it was checked against were wrong together and
+    agreed perfectly.
+
+    So this counts by a different route: split the file on its `---` rules and
+    look for a bold run opening with `Q` and carrying a `· T<n>` tag, with no
+    shared regex and no shared helper. If the two disagree, one of them has lost
+    sight of a question, and which one is a question for a human -- that is the
+    point, because the failure mode being guarded is both of them being wrong in
+    the same direction.
+    """
+    blocks = _text().split("\n---\n")
+    independent: dict[str, int] = {"T0": 0, "T1": 0, "T2": 0}
+    for block in blocks:
+        for line in block.splitlines():
+            line = line.strip()
+            if not line.startswith("**Q") or "·" not in line:
+                continue
+            head = line.split("·", 1)[1].lstrip()
+            tier = head[:2]
+            if tier in independent and (len(head) == 2 or not head[2].isdigit()):
+                independent[tier] += 1
+                break
+
+    via_regex: dict[str, int] = {"T0": 0, "T1": 0, "T2": 0}
+    for _, tier, _ in _questions():
+        via_regex[tier] += 1
+
+    assert independent == via_regex, (
+        "two independent counts of this file disagree: the header regex sees "
+        + str(via_regex) + " and a separate scan sees " + str(independent)
+        + ". One of them cannot see a question. Do not adjust the header to "
+        "match either until you know which."
     )
 
 
