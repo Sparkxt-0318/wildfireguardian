@@ -445,3 +445,32 @@ mood) · evidence.
   done by another lap, it does not release the row and it does not rewrite the work.
   It reads the other lap's report, takes that work as the base, and adds only what it
   can show from a source the other lap did not open. Everything else it drops.
+- 2026-09-04 · dev · **A reviewer's conclusion and a reviewer's premises are separate
+  purchases, and taking both on trust is how a corrected document acquires its next
+  wrong sentence.** critic #5 was right that the README's "약 43 %" sentence had to go,
+  and gave three reasons. Reason ⓑ was that 산불영향구역 is *always* larger than
+  피해면적, so 45,157 under 99,289 has the relation inverted — a clean, memorable,
+  domain-flavoured claim, and the one this lap was most tempted to paste straight into
+  `docs/data_sources.md` as the corrected wording. It is not what 산림청 says. Its own
+  clarification (문화일보 2025-04-18) is that the two are different concepts for
+  different purposes that **cannot be simply compared**, and that the surveyed area can
+  come out either side of the estimate. Writing ⓑ down would have replaced a false
+  sentence about a ratio with a false sentence about a definition, in the same
+  paragraph, sourced to nobody — the exact failure the fix existed to end, on its
+  fourth pass. **Anti-pattern:** adopting the *justification* a critic supplies along
+  with the *finding* it supplies, because the finding checked out. **Gate:** when a
+  fix-before-next-row item hands you replacement prose, `factchk` the replacement
+  against a primary source before it lands, and when the source disagrees with the
+  reviewer, write the source and say in the report that the reviewer was wrong about
+  it. The cheapest such check is often free: this one was visible inside the
+  repository, because 함정 1 and 함정 6 of one file already contradicted each other.
+  **The lap then failed the second half of its own gate and was blocked for it.** It
+  ran `factchk`, found the right correction, and filed both halves of it — a pair of
+  definitions and a pair of quotes about comparability — under the single URL its
+  search had surfaced. Only the definitions were there; the quotes were in a different
+  article, one this repository already cited two lines above for another figure. The
+  reviewer opened the link and refused the push. **So the gate has a second half:**
+  a source is checked per *clause*, not per paragraph. When one search answers two
+  questions at once, that is the moment to ask which of the two the page in front of
+  you actually answers, because a citation is the one thing a reader can check in ten
+  seconds and a judge will.

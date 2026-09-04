@@ -494,14 +494,23 @@ whole paragraphs — the earlier line-scoped version passed on the very sentence
 
 **One of the critic's three premises did not survive, and the conclusion did.** critic #5
 argued that 산불영향구역 is *always* larger than 피해면적, so 45,157 under 99,289 has the
-relation inverted. This lap checked that and it is not what 산림청 says. 산림청's own
-clarification (문화일보 2025-04-18, 김창희, opened 2026-09-04) is that the two are different
-concepts serving different purposes — 화선 경계 observed for firefighting strategy, versus a
-field survey for recovery — that **cannot be simply compared**, and that the surveyed
-피해면적 may come out either smaller or larger than the 영향구역. That is a better reason to
+relation inverted. This lap checked that and it is not what 산림청 says. 산림청 told
+경향신문 that 「산불영향구역과 피해면적은 개념이 달라서 **단순 비교할 수 없고**」 and that
+「실제 피해면적은 **줄어들 수도 있고 늘어날 수도 있다**」 — the two are different concepts
+for different purposes, not two sizes of one thing (경향신문 2025-04-17, 김현수·이종섭,
+<https://www.khan.co.kr/article/202504171020011>, opened 2026-09-04; the same article this
+repository already cites for the 99,289 ha figure). The definitions themselves — 화선 경계
+observed for firefighting strategy, versus a field survey for recovery — are 문화일보
+2025-04-18, 김창희, <https://www.munhwa.com/article/11499954>. That is a better reason to
 refuse the ratio than the directional one, so `docs/data_sources.md` 함정 1 and 함정 6 now
-carry the agency's wording and the link, not the critic's. Recorded here because the loop's
-own reviewer should be checkable against the same standard as everything else.
+carry the agency's wording under each of its two sources, not the critic's claim.
+
+Recorded here because the loop's own reviewer should be checkable against the same standard
+as everything else — and because this lap's *first* attempt at this paragraph put both
+quotes under the 문화일보 link, which carries only the definitions. The lap's independent
+reviewer caught it and blocked the push, and the fix was to split the citation. A lap whose
+whole subject is a sentence that shipped with a source that did not carry it does not get to
+ship one of its own.
 
 What is left for you: item 1, and saying whether you agree with the reading. If you do not,
 reply `NH-018: <your decision>` and a lap will restore whatever you ask, verbatim.

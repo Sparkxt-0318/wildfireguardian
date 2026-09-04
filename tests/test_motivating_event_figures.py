@@ -264,6 +264,21 @@ def test_the_nationwide_total_is_never_divided_by_the_chain() -> None:
             "chain figure by a nationwide total that is not on the same basis."
         )
 
+    # The original line-scoped scan is KEPT, not replaced. Widening to the paragraph
+    # is what makes the tripwire see the ratios it was written for; keeping the line
+    # scan is what keeps it watching the rest of the README, where a Round-4 section
+    # could one day print a share beside the nationwide total outside these two
+    # paragraphs. The reviewer of the widening lap named the loss; this is the answer.
+    share = re.compile(r"\d{1,3}\s*%")
+    link_target = re.compile(r"\]\([^)]*\)")
+    for i, line in enumerate(README.splitlines()):
+        if "104,788" not in line:
+            continue
+        assert not share.search(link_target.sub("]()", line)), (
+            f"README.md:{i + 1} states a percentage on the same line as the "
+            "nationwide total."
+        )
+
 
 def test_the_tripwire_sees_the_whole_paragraph_not_one_line() -> None:
     """critic #5 F21: the first version of this tripwire scanned only the lines
@@ -283,7 +298,14 @@ def test_the_tripwire_sees_the_whole_paragraph_not_one_line() -> None:
     }
     assert set(reinstated) == set(_PARAGRAPH_BOUNDS)
     for name, (anchor, sentence) in reinstated.items():
-        assert README.count(anchor) >= 1, f"the {name} anchor {anchor!r} is gone"
+        # exactly one, not at least one: d2f314d duplicated BOTH opening stanzas
+        # verbatim, and the lap that widened this tripwire removed only the Korean
+        # twin. Its own reviewer found the English one still standing inside the
+        # paragraph the tripwire guards, because this line said `>= 1` (WFG-052).
+        assert README.count(anchor) == 1, (
+            f"the {name} anchor {anchor!r} appears {README.count(anchor)} times; "
+            "the opening stanza is printed more than once, or not at all"
+        )
         mutated = README.replace(anchor, f"{anchor} {sentence}", 1)
         assert _percentages_in_opening_paragraphs(mutated)[name], (
             f"the check did not fire on the {name} paragraph with its withdrawn "

@@ -500,8 +500,6 @@ evacuation.
 
 **Motivating event**: the March 2025 wildfire that ignited in 의성 (Uiseong),
 Gyeongbuk and ran 의성→안동→청송→영양→영덕
-**Motivating event**: the March 2025 wildfire that ignited in 의성 (Uiseong),
-Gyeongbuk and ran 의성→안동→청송→영양→영덕
 (Uiseong→Andong→Cheongsong→Yeongyang→Yeongdeok) burned **99,289 ha** — the largest on
 Korean record since statistics began in 1986, and 149 hours to 주불 진화 — killed **26**
 people, **10 of them in 영덕 (Yeongdeok)** (영덕군 notice of 2025-04-29, quoted at p.9 of
