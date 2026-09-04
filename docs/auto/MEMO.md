@@ -383,3 +383,65 @@ mood) · evidence.
   gap, not to type them. **Gate:** when a doc restates numbers that live
   elsewhere, the test that pays for itself is the one that rejects unknown
   numbers, not the one that confirms known ones.
+- 2026-09-04 · dev · **A finding's conclusion and a finding's evidence fail
+  independently, and a lap that clears findings must check both.** critic #4's F16
+  was right that the opening paragraph understated the motivating fire, and this
+  lap fixed it. But two things inside the finding did not survive being checked:
+  the ko.wikipedia article it cited for 99,289 ha actually gives 45,157 ha (the
+  figure it was objecting to), and its "the chain is roughly 95 % of the
+  nationwide total, and that sentence is more impressive" divides a surveyed
+  산림피해 면적 by a nationwide total on a different basis — the very scope error
+  F16 exists to punish. Taking the fix on the citation offered would have shipped
+  a paragraph that fails the next search in turn. **The reason is structural, and
+  it is the finding's own:** these numbers have no artifact and no registry key,
+  so nothing downstream can disagree with them — and that is as true of numbers
+  arriving in a critic report as of numbers arriving in a commit. A critic lap is
+  not a source. **Gate:** clearing a `fix-before-next-row` item means opening the
+  finding's own sources, not just applying its instruction; where they disagree,
+  mark the part `disputed` under it and say why, which CHARTER §4 already allows
+  and which the loop had not yet used.
+- 2026-09-04 · dev · **When two sources disagree and neither is refutable, ship
+  both.** 영덕's death toll is 10 by the county's 2025-04-29 notice and 9 by the
+  province's 2025-03-30 tally; the critic asked for a straight swap to 10. The
+  README states 10 with its 재인용 caveat, names 9 with its date, and asserts
+  neither alone, because collapsing a live disagreement into one confident number
+  is exactly how the paragraph got wrong twice. **Anti-pattern:** "the correction"
+  as a single value, when what was actually learned is a range and a reason.
+- 2026-09-04 · dev · **A new sourcing standard applied only to the rows a finding
+  named is a false assurance, and it is worse than no standard.** This lap wrote
+  the rule "every row in this table carries a URL this lap opened" into
+  `docs/data_sources.md`, re-sourced every row critic #4 pointed at — and left the
+  neighbouring table's scope and citation exactly as inherited. The independent
+  reviewer opened the 산림청 release and found that table B's "2025년 3월 ... 347건"
+  is really the 봄철 산불조심기간 total (2025-01-24 ~ 05-15), and that the
+  ko.wikipedia page cited for it **does not contain 347 at all**. So the document
+  asserted a verification it had not performed, in the same paragraph whose subject
+  is scope discipline. **Gate:** when a lap writes a standard into a document, the
+  standard applies to every row of that document in the same commit, or the
+  sentence claiming it does not get written.
+- 2026-09-04 · dev · **Mutation-test your own tripwire with mutations you did not
+  choose, or you are a scorer grading buckets you drew yourself.** This lap wrote 13
+  tests over the opening paragraph and "verified" them against three mutations — the
+  three defects it had just fixed. All three fired, and the file was still hollow: the
+  reviewer swapped the chain's death toll for the nationwide one, in both languages,
+  and got **13 passed**. Cause: the tally pinned the bare substring `"26"`, satisfied
+  by `"2026"` 35 times over, and a "both figures survive" test asserted `"9" in README`,
+  satisfied 156 times. **Anti-pattern:** pinning a bare number inside a document full
+  of dates, versions and section numbers. **Gate:** pin the full spelling the document
+  uses (`**사망 26명**`), and take at least one mutation from someone who did not write
+  the test — the reviewer subagent is the cheapest source of them, and this is the
+  second consecutive lap where its block was correct.
+- 2026-09-04 · dev · **Two laps repairing the same finding is not a race to be
+  conceded; it is two independent readings, and the merge is worth more than
+  either.** The 0017Z dev lap and an author-directed 0037Z manual session both
+  repaired critic #4's F16/F17/F18 within twenty minutes of each other. The manual
+  lap pushed first and asked the dev lap to release the row rather than "rewrite the
+  paragraph a third time" — correct as a default, because a third blind rewrite is
+  exactly how this paragraph got wrong twice. But the two laps had opened **different
+  sources**, and each had something the other lacked: the manual lap's prose was
+  better (149시간, "1986년 통계 작성 이래 최대"), while the dev lap had opened the
+  산림청 봄철 보도자료 and could show that the comparison figure's **period** was wrong
+  and that the 95 % share mixes two bases. **Gate:** when a lap finds its row already
+  done by another lap, it does not release the row and it does not rewrite the work.
+  It reads the other lap's report, takes that work as the base, and adds only what it
+  can show from a source the other lap did not open. Everything else it drops.

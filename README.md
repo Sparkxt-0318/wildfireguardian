@@ -189,13 +189,27 @@ Round 3 은 새 기능을 얹기 전에 **기존 수치가 아직 참인지 확�
 시스템입니다.
 
 **보호 대상**: 한국 농촌의 고령층(60–80대). 2025년 3월 경북 **의성**에서 발화해
+**보호 대상**: 한국 농촌의 고령층(60–80대). 2025년 3월 경북 **의성**에서 발화해
 **의성→안동→청송→영양→영덕**으로 번진 산불(최종 피해면적 **99,289 ha**로 1986년 통계
 작성 이래 최대, 주불 진화까지 149시간; 사망 **26명**, 그중 **영덕 10명**〈영덕군 공지
-2025-04-29, 그린피스 실태조사 최종보고서 p.9 재인용값〉, 대부분 60–80대 고령자; 주택
-**3,819동** 피해, 이재민 2,246세대 3,587명)의 재발 방지·대응 개선을 동기로 삼습니다.
-〔**범위**: 2025년 3월 전국 동시다발 산불 347건 전체가 **104,788 ha**·사망 32명(산림청
-2025-05-15 기준)이며, **이 산불 하나가 그중 99,289 ha**로 약 95 %를 차지합니다. 출처와
-범위 정리는 `docs/data_sources.md` 참조〕
+2025-04-29, 그린피스 실태조사 최종보고서 p.9 재인용값; 경상북도 재난안전대책본부
+2025-03-30 중간 집계는 9명〉, 대부분 60–80대 고령자; 주택 **3,819동** 피해,
+이재민 2,246세대 3,587명, 재산피해 1조 505억 원)의 재발 방지·대응 개선을 동기로 삼습니다
+([아시아경제 2025-05-06](https://view.asiae.co.kr/article/2025050610030818823),
+경상북도 최종 집계·중앙재난안전대책본부 확인).
+
+〔**범위 주의 — 기준이 다른 값들을 서로 비교하거나 나누지 마십시오.**
+① 위 **99,289 ha**는 관계기관 합동조사를 거친 이 화재군의 **산림피해 면적**입니다
+([경향신문 2025-04-17](https://www.khan.co.kr/article/202504171020011)).
+② 진화 중에 널리 인용된 **45,157 ha**는 같은 화재군의 **「산불영향구역」 초기 추정치**
+(산림청, 2025-03-27)이며, 합동조사 결과는 그 추정치의 두 배를 넘었습니다.
+③ 흔히 함께 인용되는 **104,788 ha**·**347건**은 이 산불 하나가 아니라
+*2025년 **봄철 산불조심기간**(1월 24일 ~ 5월 15일) 전국 산불 전체*의 합계입니다
+([산림청 보도자료 2025-05-16](https://www.pcccr.go.kr/base/board/read?boardManagementNo=43&boardNo=5375&menuLevel=2&menuNo=92)).
+①과는 **기간·주체·집계 기준이 모두** 다르므로 「이 화재군이 전국의 몇 %」 같은 비율은
+쓰지 않습니다. 같은 기준(산불영향구역)으로 맞추면 그 비율은 95 %가 아니라 약 43 %가
+되며, 기준 선택만으로 두 배 달라지는 값은 수치가 아닙니다(`docs/data_sources.md` 함정 6).
+출처와 범위 정리는 `docs/data_sources.md` 참조〕
 
 **대회**: 2026 대한민국 학생 SW공모전(Korea Code Fair) → ISEF (Software Design, SFTD)
 출전을 목표로 합니다.
@@ -486,16 +500,34 @@ evacuation.
 
 **Motivating event**: the March 2025 wildfire that ignited in 의성 (Uiseong),
 Gyeongbuk and ran 의성→안동→청송→영양→영덕
+**Motivating event**: the March 2025 wildfire that ignited in 의성 (Uiseong),
+Gyeongbuk and ran 의성→안동→청송→영양→영덕
 (Uiseong→Andong→Cheongsong→Yeongyang→Yeongdeok) burned **99,289 ha** — the largest on
 Korean record since statistics began in 1986, and 149 hours to 주불 진화 — killed **26**
 people, **10 of them in 영덕 (Yeongdeok)** (영덕군 notice of 2025-04-29, quoted at p.9 of
-the Greenpeace damage survey; a re-cited figure, not a survey result), the majority in
-their 60s–80s living in rural villages, and damaged **3,819 homes**, displacing 3,587
-people from 2,246 households. Two stages of that fire — `uiseong_andong_2025` and
-`yeongdeok_2025` — are among the six fires the current model is validated on.
-**Scope:** the nationwide March 2025 total across 347 fires is **104,788 ha** and 32
-deaths (산림청, as of 2025-05-15); this one chain is **99,289 ha of it, about 95 %**.
-Every figure here, with its agency and scope, is tabulated in `docs/data_sources.md`.
+the Greenpeace damage survey; a re-cited figure, not a survey result, against 9 in the
+province's interim tally of 2025-03-30 — this repository keeps both and asserts neither
+alone), the majority in their 60s–80s living in rural villages, and damaged **3,819
+homes**, displacing 3,587 people from 2,246 households at a cost of ₩1.05 trillion
+(Gyeongsangbuk-do final tally confirmed by 중앙재난안전대책본부;
+[Asiae, 2025-05-06](https://view.asiae.co.kr/article/2025050610030818823)). Two stages of
+that fire — `uiseong_andong_2025` and `yeongdeok_2025` — are among the six fires the
+current model is validated on.
+
+**Scope note — these figures sit on different bases; do not compare or divide them.**
+(1) The **99,289 ha** above is this chain's *surveyed forest damage*, after the joint
+agency survey ([Kyunghyang, 2025-04-17](https://www.khan.co.kr/article/202504171020011)).
+(2) The **45,157 ha** widely quoted while the fire was still burning is the same chain's
+*initial 「산불영향구역」 (fire-affected area) estimate* (산림청, 2025-03-27); the joint
+survey came back at more than double it. (3) The **104,788 ha** across **347 fires** often
+quoted alongside is the *nationwide total for the 2025 spring fire-prevention season,
+24 January to 15 May*
+([산림청 press release, 2025-05-16](https://www.pcccr.go.kr/base/board/read?boardManagementNo=43&boardNo=5375&menuLevel=2&menuNo=92)) —
+a different **period**, body and basis, not merely a wider geography. So this repository
+prints no "share of the national total": measured like-for-like on 산불영향구역 the share
+is about 43 %, not 95 %, and a ratio that moves by a factor of two on basis choice is a
+framing, not a quantity. Every figure here, with its agency, scope and URL, is tabulated
+in `docs/data_sources.md`.
 
 **Target venue**: 2026 Korea Code Fair SW공모전 (Korean student SW competition),
 with the stretch goal of qualifying for ISEF in the Software Design (SFTD) category.

@@ -36,7 +36,8 @@ passed on `12b8ac7`.
 
 ## fix-before-next-row
 
-### F16 — The corrected opening paragraph understates the motivating fire by 54,000 ha, and its scope note points the judge the wrong way
+### F16 — `done(e3e2ec2)`, with two parts of the finding's reasoning `disputed`
+### The corrected opening paragraph understates the motivating fire by 54,000 ha, and its scope note points the judge the wrong way
 
 **Where:** `README.md:193` and `README.md:196-197` (Korean); `README.md:491` and
 `README.md:495-499` (English); `docs/data_sources.md:183`, `:193`, `:199-203`;
@@ -87,7 +88,8 @@ that currently reads `"주택 4,000여 채"는 A가 아니라 B의 값(3,848동)
 two days before containment. The trap bullet as written is backwards, and it is the bullet
 a later lap will trust.
 
-### F17 — The same paragraph reasserts 영덕 사망 8명, which this repository corrected to 10 twelve hours earlier
+### F17 — `done(e3e2ec2)`, and a third copy existed where the finding said it would
+### The same paragraph reasserts 영덕 사망 8명, which this repository corrected to 10 twelve hours earlier
 
 **Where:** `README.md:194` (`그중 **영덕 8명**`) and `README.md:489`
 (`**8 in 영덕 (Yeongdeok) alone**`); `docs/data_sources.md:185` (breakdown
@@ -112,7 +114,8 @@ report p.9, not a survey result). Fix the `docs/data_sources.md:185` breakdown a
 time, or label it as the 2025-03-26 interim it actually is. Then grep the tree for `영덕 8`
 so the third copy does not survive.
 
-### F18 — The entry that existed to put sources under these numbers closed without a single retrievable source
+### F18 — `done(e3e2ec2)`
+### The entry that existed to put sources under these numbers closed without a single retrievable source
 
 **Where:** `docs/data_sources.md:176-208`, the whole new
 `## 동기 사건의 피해 규모` section; `docs/auto/NEEDS_HUMAN.md:247-269` (the NH-015 closure).
@@ -140,6 +143,104 @@ after it.
 ---
 
 ## fix-this-sprint
+
+---
+
+## How the 2026-09-04T0017Z dev lap resolved F16, F17 and F18
+
+**F16 — `done(e3e2ec2)`. The conclusion was right and worth the lap; two supporting
+claims in it are `disputed`, and the difference changes what the fix had to say.**
+
+The finding is upheld: 45,157 ha was the headline and the chain is far larger than that.
+The README now leads with **99,289 ha**, sourced to the 경상북도 최종 집계 confirmed by
+중대본 ([아시아경제 2025-05-06](https://view.asiae.co.kr/article/2025050610030818823),
+opened this lap), corroborated by the 관계기관 합동조사 result of ~99,000 ha announced
+2025-04-17 ([경향신문](https://www.khan.co.kr/article/202504171020011), opened) and by
+the en.wikipedia major-fires table.
+
+Two things the finding says, however, do not survive being checked:
+
+1. **`disputed` — "that is the 경상북도 지역 interim tally on 03-27 (ko.wikipedia,
+   2025년 의성-안동 산불)".** The ko.wikipedia article the finding cites does *not* give
+   99,289 ha. Opened this lap, it gives **45,157 ha** as the area and 150채 전소 — the
+   same figures the finding is objecting to. ko and en Wikipedia disagree with each
+   other, and neither cites a primary source for its number. Had the fix been made on
+   the citation the finding offered, it would have failed the next search in turn. The
+   figure needed a real source, and the news reports of the joint survey are it.
+
+2. **`disputed` — "the chain is roughly 95 % of the nationwide total", and the
+   instruction to write that sentence into the README because it "is more impressive
+   than the one it replaces".** This divides two quantities that are not on the same
+   basis: 99,289 ha is *surveyed 산림피해 면적* for the chain, while 104,788 ha is a
+   나라 전체 total compiled by 산림청 on the 산불영향구역-style basis the same finding
+   correctly identifies as different when it appears as 45,157 ha. A ratio of the two
+   is not a quantity, and "more impressive" is not a reason to print a number. The
+   README instead says, in both languages, that the three figures sit on three bases
+   and must not be compared or divided; `test_the_nationwide_total_is_never_divided_by_the_chain`
+   holds that.
+
+The finding's own diagnosis is what makes both of these possible to catch: these numbers
+have no artifact and no registry key, so nothing downstream can disagree with them —
+which applies to numbers arriving in a critic report exactly as it applies to numbers
+arriving in a commit.
+
+**F17 — `done(e3e2ec2)`, and the finding's last sentence earned its keep.** Both README
+lines and the `docs/data_sources.md` breakdown are corrected. "grep the tree for 영덕 8
+so the third copy does not survive" found the third copy:
+`docs/ROUTING_INTEGRATION_REPORT.md:4`, which also carried the retired ~27 death total.
+Fixed there too.
+
+One refinement, recorded rather than disputed: the sources do not agree on 10. The
+영덕군 공지 of 2025-04-29 re-quoted by the Greenpeace report p.9 gives **10**; the
+경상북도 재난안전대책본부 tally of 2025-03-30 gives **9**
+([대구MBC](https://dgmbc.com/article/bLdh4s3M4pgcSdYI0MZPc), opened this lap). **8 is
+in neither.** So the repository states 10 with its 재인용 caveat, names 9 with its date
+beside it, and asserts neither alone. Collapsing a live disagreement into one confident
+number is the failure mode that produced F16.
+
+**F18 — `done(e3e2ec2)`.** Every row of `docs/data_sources.md` table A now carries a URL
+this lap opened, or an in-repo evidence path; `test_every_figure_row_in_table_a_carries_a_source_link`
+fails if a row loses it. The rule was applied where it costs something, which is the
+only place a sourcing rule means anything:
+
+  * the **WWA "48,000 ha 이상"** row is **removed** — the page 404s and the figure's
+    reported scope is 남동부 한국, not this chain;
+  * the nationwide **주택 3,848동** row is **removed** — the finding's suspicion of a
+    conflation with the chain's own 3,819동 could not be resolved against any openable
+    source, so it is not kept at a lower confidence;
+  * the two remaining nationwide rows are labelled **2차 인용 (위키백과)** in the table
+    itself rather than dressed as 산림청 primary, and the 산림청 official statistics
+    page is cited beside them for what it does say (2025 연간 459건 · 105,099.44 ha,
+    a different scope again).
+
+**The lap's own reviewer blocked this work once before it was pushed, and was right.**
+The first version of the fix mis-scoped table B — it kept the inherited "2025년 3월 ...
+347건" and cited a ko.wikipedia page that does not contain 347 at all, while the lap wrote
+a rule over that same table claiming every URL in it had been opened. The 산림청 release of
+2025-05-16 gives the real scope: 봄철 산불조심기간, **2025-01-24 ~ 05-15**. Table B now
+rests on that release with its sentence quoted verbatim, the unverifiable nationwide death
+toll of 32 was dropped, and 함정 6 records the stronger form of this report's own point:
+the chain's share of the national total is ~95 % or ~43 % depending on which of its two
+areas goes on top, so the ratio moves by a factor of two on framing alone. The reviewer
+also restored a rule-7 nick (the retired citations in `ROUTING_INTEGRATION_REPORT.md`) and
+named a leakage this lap could not close (the tests' ground truth is a sibling document the
+same lap wrote — filed as **WFG-050**).
+
+**The durable half.** `tests/test_motivating_event_figures.py` (21 tests) pins each
+figure in the spelling the document uses, requires the 「산불영향구역」 label within three
+lines of any 45,157, requires both Korean and English paragraphs to carry the area, and
+requires a source link on every table-A row. Verified to fire, not just to pass: six mutations
+— reverting the area to the interim, stripping one table URL, reasserting 영덕 8명,
+substituting the nationwide death toll for the chain's, deleting the 9-vs-10
+disagreement, and reverting the nationwide total's period — each fail the suite by name.
+**The first version of the file passed all thirteen of its own tests under the last
+three**, because it pinned the substring "26" (satisfied by "2026") and asserted
+`"9" in README` (satisfied 156 times); the lap's three self-chosen mutations were the
+three defects it had just fixed. Two of its own assertions were caught being
+over-broad during the lap (a bare `95 %` scan hit bootstrap CIs; a percent scan hit
+percent-encoded URLs) and were narrowed, per `docs/region_literals.md` §5.
+
+---
 
 ### F19 — `12b8ac7` is an unreported, unreviewed commit, and every mechanism this loop built to notice that is looking somewhere else
 

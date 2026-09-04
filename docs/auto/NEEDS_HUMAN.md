@@ -257,7 +257,7 @@ correction are recorded here because the pattern matters more than either number
 | chain burned area | 약 116,000 ha | 45,157 ha (03-27 잠정) | **99,289 ha** (final) |
 | 영덕 deaths | 8명 | 8명 | **10명** (already corrected at `f2eecf9`) |
 | chain housing | 주택 4,000여 채 | 150동 (03-26 잠정) | **3,819동** |
-| scope note | none | "104,788 ha is a different event" | chain is **95 %** of it |
+| scope note | none | "104,788 ha is a different event" | the two are on different bases and different periods; **no ratio is printed** (see below) |
 
 The same sentence was therefore wrong twice: once by overstating (116,000 ha exceeds
 the national total) and once by understating (45,157 ha is a pre-containment provincial
@@ -266,12 +266,32 @@ did not have, and cited WWA's "more than 48,000 ha" — which is WWA's figure fo
 **southeastern Korea**, not this complex.
 
 Corrected at the commit that carries this entry. `docs/data_sources.md` now separates
-scope A (the chain: 99,289 ha, 26 deaths, 영덕 10, 3,819 homes) from scope B (nationwide
-347 fires: 104,788 ha, 32 deaths) and states that **A is about 95 % of B**, which is the
-sentence that survives a judge's search.
+scope A (the chain: 99,289 ha, 26 deaths, 영덕 10, 3,819 homes) from scope B (the
+nationwide 347-fire total: 104,788 ha).
 
-**The real lesson, which is WFG-049, not this entry.** Every gate in this repository
-passed on `12b8ac7`. This paragraph is the only judge-facing prose carrying numbers with
+**AMENDED 2026-09-04 by the 0017Z dev lap, which was building the same fix in parallel.**
+Two claims in the paragraph above were checked against primary sources and did not hold:
+
+1. **"A is about 95 % of B" is withdrawn.** It divides A's *surveyed 산림피해 면적*
+   (99,289 ha) by a nationwide total on a different basis. Measured like-for-like on
+   산불영향구역 the chain is 45,157 ha, i.e. about **43 %** of B. A ratio that moves by a
+   factor of two on basis choice is a framing, not a quantity, so the README prints none.
+2. **B is not a March total.** The 산림청 release of 2025-05-16 gives 347건 / 104,788 ha
+   for the **봄철 산불조심기간, 2025-01-24 to 05-15**
+   (https://www.pcccr.go.kr/base/board/read?boardManagementNo=43&boardNo=5375&menuLevel=2&menuNo=92).
+   The nationwide **32 deaths** figure is not in that release and has been removed from
+   table B until a first-hand source is found; its previous citation was a ko.wikipedia
+   page which does not contain the number 347 at all.
+
+Every row of table A now carries a URL a lap opened. **Nothing here needs the author.**
+
+**The real lesson, which is WFG-049, not this entry — now partly closed for this
+paragraph.** `tests/test_motivating_event_figures.py` (2026-09-04) is the gate these
+figures never had: it pins each one in the spelling the document uses and fails on a
+swapped basis, a lost scope label, a dropped source URL or a collapsed disagreement.
+It constrains *drift*, not *truth* — its ground truth is a sibling document, which is
+the leakage filed as WFG-050. The general WFG-049 class stays open. Every gate in this
+repository passed on `12b8ac7`. This paragraph is the only judge-facing prose carrying numbers with
 no artifact, no registry key and no URL, so it is the only prose that can be rewritten
 wrongly without a gate noticing — in either direction. Registering these figures is
 WFG-049; until it lands, this paragraph stays the softest evidence in the repository,
