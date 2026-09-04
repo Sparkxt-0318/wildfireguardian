@@ -405,3 +405,34 @@ closure says so in those words rather than reading as a citation.
 `received` and a `verbatim` marker, and NH-008, NH-009 and NH-015 are backfilled as
 "author reply in a Claude Code session, 2026-09-04, verbatim quoted". Part (1), your
 confirmation of the three quotes, is still yours; this entry stays open for it.
+
+## NH-018 · DECISION · open · Two laps read the same primary sources and disagree on two sentences (by 2026-09-08)
+
+**What:** The 0100Z cloud lap and the 2026-09-04 laptop lap both sourced the README's
+opening figures from primary pages on the same day. They agree on every figure the
+README now prints (99,289 ha, 149 h, 26, 영덕 10, 3,819동, 2,246세대 / 3,587명, 1조 505억 원,
+347건, 104,788 ha). They disagree on two things, and under the "no fourth rewrite" rule
+the laptop lap changed nothing in the paragraph and asks you instead:
+
+1. **"사망 32명 was not in the 산림청 release."** The 0100Z lap removed the nationwide
+   death toll from `docs/data_sources.md` table B on that ground. The laptop lap opened
+   the same release on 대한민국 정책브리핑 (korea.kr newsId=156689401) and it reads
+   「사상자도 86명(사망 32명, 부상 54명)으로 많은 인명 피해가 발생했다」. The figures are
+   registered (`fire2025_nationwide_deaths`, `fire2025_nationwide_injured`) with that quote;
+   the README does not currently print them. Nothing to decide unless you want the
+   paragraph to state the season's toll again.
+2. **The "약 95 %" share, and the "43 %" counter-example now in the README.** The 0100Z
+   lap withdrew the share as a framing (different period and basis) and wrote into both
+   paragraphs that a like-for-like ratio "on 산불영향구역" would be about 43 %. The laptop
+   lap's reading: 104,788 ha (산림청 2025-05-16) postdates the joint survey and is built on
+   surveyed 피해면적 (99,289 chain + 3,397 경남 + 1,190 울산 + smaller fires ≈ 104,788), so
+   final-over-final is ~95 % and 45,157 / 104,788 = 43 % divides an initial 산불영향구역
+   estimate by a surveyed final, which is the mixed-basis ratio the paragraph warns against.
+   The laptop lap could not open a primary page that states which basis the 104,788 total
+   uses, so it did not touch the sentence. **Your call:** keep the 0100Z scope note as it
+   stands (safe: it prints no share), or ask a lap to remove the "약 43 %" sentence (it is
+   the one line in the paragraph that itself mixes bases). `fire2025_chain_share_of_nationwide_pct`
+   stays registered as an arithmetic record and is not printed anywhere.
+
+**Why only you:** two agents disagree on a framing sentence in the judge-facing paragraph,
+and the rule after two wrong rewrites is that no agent rewrites it a fourth time.
