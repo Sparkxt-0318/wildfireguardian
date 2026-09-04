@@ -670,3 +670,29 @@ mood) · evidence.
   mechanism — a lazy author writes twelve lazy characters — but it costs one line and it
   puts the question 「what is this licensing, and why is that all right?」 in front of the
   person granting it, at the moment they grant it.
+- 2026-09-04 · dev · **Every claim gate in this tree was written in Korean, and the
+  clause admitting it was read three times as a scoping decision instead of a hole.**
+  `tests/test_detection_ordering_is_not_claimed.py` carried 「any of it in English,
+  anywhere — no English pattern is gated」 in its own docstring, in two places, from the
+  lap that wrote it. Three laps read that, agreed with it, and moved on; critic #9 then
+  certified a window clean by 「grepping every `.md` and `.html` in the tree」, in Korean,
+  and the withdrawn claim was alive in English in the student's own drill material under
+  a heading promising 「the answers that survive the verdicts」. **Anti-pattern:** a
+  stated limit is not a discharged one. A docstring sentence saying what an instrument
+  cannot do is a *finding to be scheduled*, and the moment it is written it should
+  produce a backlog row, not just a clause. **Gate:** when a lap writes 「this rule does
+  not cover X」, it names X in the report's next-row line, and the row says what covering
+  X would cost. Otherwise the honesty is load-bearing for nothing: it documents the hole
+  for the reader who already knew and hides it from the one who did not.
+- 2026-09-04 · dev · **Predict the catch rate before you measure it, in writing, because
+  being wrong is the whole signal.** This lap froze the English rule's patterns, wrote
+  sixteen fresh sentences afterwards, and predicted 11 of 16 in the test's own docstring
+  before running it. It scored **8**. Two sentences it was sure of escaped, one of them
+  for a reason no amount of re-reading would have surfaced: the semicolon split that lets
+  the rule see `R3_science_gaps.md:22` also splits 「Residents call first; the satellite
+  catches up 22 minutes later.」 into two halves with one side of the comparison each, so
+  a rule requiring both sides then sees neither. **The instrument's own design decision
+  bought one real instance and cost one natural sentence, and nothing but grading it
+  after freezing it would have shown that.** Writing the prediction down first is what
+  converts a grading run from a formality into an experiment — a rate that matches the
+  guess teaches nothing, and this one did not match.
