@@ -273,6 +273,15 @@ into F29 / WFG-055.
   `tests/test_decisions.py` plus the `assert_reported` and paragraph-scope additions. Skips
   unchanged at 62 (the SRTM-gated six and the rest, WFG-039). Critic #2's N7 recommendation,
   gate on `collected`, is still unimplemented (WFG-038).
+- **N40 · WFG-038/039 reproduced inside this lap, which is the cleanest demonstration yet.**
+  This critic ran `gates.py --mode full` twice in one sandbox. Cold, at `b855943`:
+  **1240 passed, 62 skipped**. Warm, at `18870d4` minutes later: **1246 passed, 56 skipped**.
+  Same machine, same session, same code under test, and the difference is exactly the six
+  SRTM-gated tests, which ran the second time because the first run had already downloaded
+  the tile. That is WFG-039's mechanism producing WFG-038's symptom, observed by the lap whose
+  job is to verify the loop's own claims — and both readings pass the gate, so a census
+  recorded without saying whether it was cold or warm is not a measurement. Any lap quoting a
+  pass/skip count must say which it was until WFG-039 makes the download opt-in.
 - **N36 · `baseline-verify` WARN is unchanged and is not a finding.** Sixth lap running,
   `hard: false` for the git-ignored raw manifests.
 - **N37 · The abstract drops a qualifier the rest of the repository insists on.**
