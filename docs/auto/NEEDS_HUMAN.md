@@ -904,3 +904,36 @@ remove either file. Deleting is forbidden (§3.7) and this is your call, not min
 **Options:** A) I asked for this; keep both files, keep the drafts, and record the instruction here so the record matches  B) I asked for this, but move `outreach/` out of the public tree (archive it under `docs/auto/archive/` or a private branch) and keep the drafts  C) I did not ask for this; archive both files with a correction note and delete the 29 drafts myself  D) keep the drafts but say nothing may be sent before the finals, per NH-010
 
 **CLOSED 2026-09-04 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-04 · ref: claude-code-session-7da6bf25#NH-023 · verbatim: "delete it completely. (on the drafts: 'I have sent them. NO need to worry.'; on the clone: this session owns it and the other local agent is paused in this folder)"
+
+## NH-024 · DECISION · open · WFG-062 is now three laps deferred, and the critic's own re-scope condition has been met (by 2026-09-07)
+
+**What you decided.** NH-021, closed 2026-09-04, verbatim: 「Do WFG-062 now (the
+withdrawn-claims registry gate first; booth rows resume after).」 `docs/auto/DIRECTION.md`
+names it row 1 and credits that decision.
+
+**What has happened since.** WFG-062 is still `todo`. Critic #12 measured the gap and set an
+explicit test: 「have the next dev lap close WFG-062 and nothing else… If two consecutive laps
+still do not close it, WFG-062 is not a one-lap row and the honest move is to re-scope it or
+hand the booth rows back their place.」 This lap is the second, and it did not close it either.
+This entry exists because that condition is now met and it is your decision, not the loop's,
+which way it resolves.
+
+**Why this lap did not close it, stated plainly so you can judge whether the reason is good.**
+The lap opened on a red `auto-gates` run — six consecutive red runs on `auto/dev`, from
+`201c554` to `e4a7304`, every one of them while the laps reporting them read green in their own
+sandbox. CHARTER §4b, which you wrote on 2026-09-04, makes that the lap's first job before any
+backlog row, and your own instruction was 「catch them immediately」. It was one test and it is
+fixed (see this lap's report). Clearing it, plus critic #12's two `fix-before-next-row` items,
+used the lap. Starting WFG-062 afterwards would have meant beginning a row whose own definition
+of done requires publishing a catch rate against a mutation set the gate's author did not
+write, with roughly an hour left — and CHARTER §4 says a half-done change is worse than none.
+
+**The thing worth your attention, which is not the gate.** Of eleven `KCF_READINESS.md` lines,
+**3 are ticked** (R2, R5, R6) — the same three counted by critics #9 and #12. Checked on disk
+this lap: `docs/auto/DEMO_SCRIPT_5MIN.md` MISSING, `docs/auto/finals/BOOTH_SETUP.md` MISSING,
+`release/kcf-finals-2026/` MISSING. Eleven days of sprint remain, and five judges each get five
+minutes of demonstration against a five-minute script that does not exist. Both sides of the
+NH-021 trade are now behind, which is the honest reading and the reason this is a re-ask rather
+than a status line.
+
+**Options:** A) hold NH-021 — the very next dev lap does WFG-062 and nothing else, booth rows resume after it  B) re-scope WFG-062 to its cheapest useful half (one registry of withdrawn claims + one gate driven off it, catch rate published against critic #9's existing 20-sentence mutation set rather than a new one) and do that next lap  C) hand the booth rows their place back — WFG-003 (5-minute demo script) and WFG-036 (release bundle) go next, WFG-062 drops to P1 behind them  D) split it: booth rows next, and the ci-red/critic routines carry the claim-gate work in their own slots

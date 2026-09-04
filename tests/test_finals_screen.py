@@ -572,8 +572,27 @@ def test_the_stamp_gate_is_graded_against_the_ways_a_stamp_goes_wrong():
     head = _git("rev-parse", "HEAD").stdout.strip()
     parent = _git("rev-parse", "HEAD~1").stdout.strip()
     # A real commit object that no branch reaches: exactly what a rebase leaves.
-    # The CI runner has no git identity, so commit-tree returns nothing there and the
-    # gate was red on GitHub for six commits (2026-09-04) while every lap read green.
+    # The probe carries its OWN identity. `commit-tree` writes an object, so git
+    # demands a committer, and a machine that has never been told who it is
+    # cannot auto-detect one when its hostname has no domain: git aborts, writes
+    # nothing to stdout, and this assertion fires on the empty string. That is
+    # what took auto-gates red for six consecutive runs (#86-#91, 2026-09-04)
+    # while every sandbox stayed green, because the sandbox and the laptop both
+    # have user.email configured.
+    #
+    # What was actually observed, kept separate from what was inferred: the
+    # runner's job log shows only `AssertionError: could not build the orphan
+    # probe / assert ''`, because the old code discarded stderr. The diagnosis
+    # comes from reproducing the same condition locally --- `HOME=<empty>
+    # GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_SYSTEM=/dev/null` --- where git
+    # prints "fatal: unable to auto-detect email address (got 'root@vm.(none)')".
+    # The runner's exact wording was never captured; the assertion below now
+    # prints stderr so the next one is read rather than reconstructed.
+    #
+    # The identity is local to this one invocation via `git -c`; it configures
+    # nothing and the object is never reachable, so nothing about the repository
+    # changes. CHARTER §4b: no test may depend on state outside the repository,
+    # and an ambient git identity is exactly that.
     probe = _git("-c", "user.name=wfg-probe", "-c", "user.email=probe@wildfireguardian.invalid",
                  "commit-tree", f"{head}^{{tree}}", "-p", head,
                  "-m", "unreachable probe for the WFG-067 gate")

@@ -41,8 +41,24 @@ REPO = Path(__file__).resolve().parents[1]
 QA = REPO / "docs" / "auto" / "JUDGE_QA.md"
 NUMBERS = REPO / "docs" / "NUMBERS.json"
 
-# A question heading looks like: **Q7 · T1. "..."**
-QUESTION_RE = re.compile(r"^\*\*Q(\d+) · (T[012])\.", re.MULTILINE)
+# A question heading looks like: **Q7 · T1. "..."**, and two variants the first
+# pattern could not see: a letter suffix (**Q10d · T0 ...**), used when a
+# question is inserted beside the one it refines rather than renumbering the
+# bank, and a parenthetical provenance before the period (**Q35 · T1 (크리틱
+# #8). "..."**).
+#
+# WFG-057. The first pattern was `Q(\d+) · (T[012])\.` and it matched 33 of the
+# file's 41 headers. The eight it could not see (Q10a, Q10b, Q10c, Q10d, Q34,
+# Q35, Q30a, Q30b) were therefore invisible to EVERY check built on
+# `_questions()`: the tier counts the header states, the contiguity check, the
+# 근거/없는 것 requirement, the T0-points-at-a-file check and the drill table.
+# The counts stayed self-consistent while being wrong about the file, which is
+# why three critic laps counted 41/15/19/7 by hand against a header saying
+# 33/14/13/6 and nothing went red. The cost the critic named: the fifteenth T0
+# is Q10d, whose whole job is to stop the student asserting the withdrawn
+# ordering claim, and the drill plan sent them home after fourteen.
+QUESTION_RE = re.compile(
+    r"^\*\*Q(\d+[a-z]?) · (T[012])(?:\s*\([^)]*\))?\.", re.MULTILINE)
 
 # Registry keys are written in backticks and are lowercase_with_underscores.
 KEY_RE = re.compile(r"`([a-z][a-z0-9]*(?:_[a-z0-9]+){2,})`")
@@ -92,15 +108,24 @@ def _text() -> str:
     return QA.read_text(encoding="utf-8")
 
 
-def _questions() -> list[tuple[int, str, str]]:
-    """Return (number, tier, body) for every question, body up to the next one."""
+def _questions() -> list[tuple[str, str, str]]:
+    """Return (id, tier, body) for every question, body up to the next one.
+
+    The id is a string because a question may carry a letter suffix ("10d");
+    `_base(id)` is its integer part.
+    """
     text = _text()
     marks = list(QUESTION_RE.finditer(text))
     out = []
     for i, m in enumerate(marks):
         end = marks[i + 1].start() if i + 1 < len(marks) else len(text)
-        out.append((int(m.group(1)), m.group(2), text[m.start():end]))
+        out.append((m.group(1), m.group(2), text[m.start():end]))
     return out
+
+
+def _base(qid: str) -> int:
+    """The integer part of a question id: '10d' -> 10."""
+    return int(re.match(r"\d+", qid).group(0))
 
 
 def test_the_bank_holds_at_least_thirty_questions() -> None:
@@ -112,12 +137,39 @@ def test_the_bank_holds_at_least_thirty_questions() -> None:
 
 
 def test_question_numbers_are_unique_and_contiguous() -> None:
-    numbers = [n for n, _, _ in _questions()]
-    assert numbers == sorted(numbers), "questions are out of order"
-    assert len(set(numbers)) == len(numbers), "a question number is used twice"
-    assert numbers == list(range(1, len(numbers) + 1)), (
+    """Every id is used once, and the numbered spine runs 1..N with no gaps.
+
+    WFG-057 widened this from "the numbers are sorted and equal range(1, N+1)",
+    which held only because the eight headers that break it were invisible.
+    Two things are true of this file and neither is a defect:
+
+    * a refining question is inserted beside the one it refines with a letter
+      suffix (Q10a..Q10d after Q10), rather than renumbering a bank the student
+      is memorising and four other documents cite by number;
+    * Q34 and Q35 were appended by critic laps into the section they belong to,
+      so they sit between Q10d and Q11 in reading order.
+
+    So document order is not asserted to be sorted -- that would be a false
+    invariant, and the check that the reader can actually find every question is
+    `test_the_drill_table_names_the_right_questions`, which is exact. What is
+    asserted is what a renumber would break: ids are unique, the distinct base
+    numbers are exactly 1..N, and no suffixed question dangles off a base that
+    does not exist.
+    """
+    ids = [q for q, _, _ in _questions()]
+    assert len(set(ids)) == len(ids), (
+        "a question id is used twice: "
+        + str(sorted(q for q in set(ids) if ids.count(q) > 1))
+    )
+    bases = sorted({_base(q) for q in ids})
+    assert bases == list(range(1, len(bases) + 1)), (
         "question numbers must run 1..N with no gaps, so the drill table can "
-        "name them"
+        "name them; found " + str(bases)
+    )
+    dangling = sorted(q for q in ids if not q.isdigit() and str(_base(q)) not in ids)
+    assert not dangling, (
+        "these questions carry a letter suffix but the question they refine is "
+        "not in the bank: " + str(dangling)
     )
 
 
@@ -245,9 +297,9 @@ def test_the_draft_label_is_on_the_file() -> None:
 def test_the_drill_table_names_the_right_questions() -> None:
     """Section 6 enumerates every question ID by tier; a renumber must not desync it."""
     text = _text()
-    tiers: dict[str, list[int]] = {"T0": [], "T1": [], "T2": []}
-    for number, tier, _ in _questions():
-        tiers[tier].append(number)
+    tiers: dict[str, list[str]] = {"T0": [], "T1": [], "T2": []}
+    for qid, tier, _ in _questions():
+        tiers[tier].append(qid)
     table = text[text.index("## 6."):]
     for tier, expected in tiers.items():
         row = next(
@@ -256,7 +308,7 @@ def test_the_drill_table_names_the_right_questions() -> None:
             None,
         )
         assert row is not None, "the drill table has no row for " + tier
-        listed = [int(m) for m in re.findall(r"Q(\d+)", row)]
+        listed = re.findall(r"Q(\d+[a-z]?)", row)
         assert listed == expected, (
             "the drill table lists " + tier + " as " + str(listed)
             + " but those tags are on " + str(expected)
