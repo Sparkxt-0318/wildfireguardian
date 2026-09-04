@@ -749,3 +749,5 @@ mood) · evidence.
   `git merge-base --is-ancestor <id> origin/auto/dev` on every short hash the report prints.
   Corrected in place with the old value quoted, not deleted.
 - **2026-09-04 (laptop, NH-022):** a subset cut by an administrative code was 45 km from the study area and a layer that must exist there (tsunami sites on a coast) came back empty; the empty layer was written up as a fact. Rule: after cutting by any code, assert the set sits in the region's committed box and spot-check a text field (address); an empty layer that should not be empty is a wrong-filter signal.
+
+- **2026-09-04 (laptop, NH-023):** `git add -A` swept a contact list another session had left in the working tree into a public commit. **Rule:** a lap stages the exact paths it made (`git add <paths>`), never `-A` or `.`; before every commit, `git status --short` must show only files the lap can name; a CSV or list containing email addresses or phone numbers never enters the repository, and a check for that is WFG-077.

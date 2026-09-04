@@ -27,7 +27,7 @@ SESSION MECHANICS (read twice): this is a single-turn cloud session. It ends the
 
 0. `git fetch origin` then `git checkout -B auto/dev origin/auto/dev` (if `origin/auto/dev` does not exist, create `auto/dev` from `origin/Main`). Run `bash scripts/auto/bootstrap.sh` and use `.auto/venv/bin/python` for every Python command (`make ... PYTHON=.auto/venv/bin/python`). If the current UTC time is between 18:00 and 19:30 on 2026-09-06, 08, 10, 12 or 14, that slot belongs to the research routine (CHARTER §14): write nothing, do not commit, and end with the message 'slot ceded to research'.
 1. Catch up: `docs/auto/CHARTER.md`, `docs/auto/DIRECTION.md` (one screen: where the project is going and the next three rows), `docs/auto/BACKLOG.md`, `docs/auto/NEEDS_HUMAN.md`, the three newest files in `docs/auto/reports/`, `docs/auto/MEMO.md`, `git log --oneline -30`, `docs/HANDOFF_ROUND3.md` §3–§5, `docs/BLOCKERS.md`.
-2. Baseline: `.auto/venv/bin/python scripts/auto/gates.py --mode quick`. If red, do not build; diagnose, fix only environmental causes that touch no artifact, otherwise write a BLOCKER in `docs/auto/NEEDS_HUMAN.md`, a `red` report, commit and push to `auto/red/<UTC stamp>`, and stop.
+2. Baseline: `.auto/venv/bin/python scripts/auto/gates.py --mode quick`; then check GitHub's own run (CHARTER §4b: `curl -s 'https://api.github.com/repos/Sparkxt-0318/wildfireguardian/actions/runs?branch=auto/dev&per_page=6'`; a `failure` on the newest `auto-gates` run is your first job before any row). If red, do not build; diagnose, fix only environmental causes that touch no artifact, otherwise write a BLOCKER in `docs/auto/NEEDS_HUMAN.md`, a `red` report, commit and push to `auto/red/<UTC stamp>`, and stop.
 3. Pick exactly ONE backlog row: the first `todo` row in table order that is agent-doable and unblocked, unless `docs/auto/DIRECTION.md` names a different next row with a reason, in which case take that one. Mark it `in-progress(<stamp>)`. Attack your own plan for it before building (the `hate` skill: one root objection and the cheapest test) and record the objection in your summary.
 4. Build it with the repository's discipline (new results → new filenames; numbers registered via `scripts/build_numbers.py` → `docs/NUMBERS.json`; a `docs/<topic>.md` with method, result, caveats and what it does not show; tests). Never modify a committed artifact, never regenerate `docs/figures/*.png`, never edit `data/raw/firms_data/fire_manifest.json`, never change the project's purpose, never use secrets or paid services, never contact anyone.
 5. Prove: `.auto/venv/bin/python scripts/auto/gates.py --mode full` must exit 0 (full pytest is ~12 minutes; baseline on the author's machine was 1116 passed / 3 skipped / 1 xpassed). Run `sip` on the docs you wrote.
@@ -79,3 +79,13 @@ SESSION MECHANICS (read twice): this is a single-turn cloud session. It ends the
 
 Rules: never push to `Main`; never touch code, data, figures or NUMBERS.json; never fabricate a citation; every claim about the world carries a URL. Your final message is the report.
 ```
+
+## wfg-autoloop-ci-red
+
+Hourly at :05 (`5 * * * *`), created 2026-09-04 at the author's instruction. Polls the GitHub
+Actions API for `auto/dev`; exits immediately if the newest `auto-gates` run is green;
+otherwise reproduces with `gates.py --mode full`, reads the failing step's log, fixes
+test-only or environmental causes within CHARTER §3 (never a number, an artifact or
+judge-facing prose; a real product defect becomes a P0 row and a NEEDS_HUMAN BLOCKER),
+pushes with a manual report titled `ci-red · <sha>`, and emails the author the cause. The
+live prompt is on the routine page; CHARTER §4b is the rule it enforces.

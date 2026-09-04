@@ -432,3 +432,24 @@ bundle) or a red gate; at most one such item per critic lap. Everything else —
 certification, gate-on-gate, commit-id bookkeeping, loop mechanics — is filed as a P1
 row and waits until the readiness lines R1, R3, R4, R7, R8, R9 are ticked. The dev lap
 takes DIRECTION.md's order over the table when the two differ.
+
+### 3c. Staging rule (NH-023, 2026-09-04)
+
+No lap runs `git add -A` or `git add .`. A lap stages the paths it created or changed by name, and reads `git status --short` before committing; an unfamiliar file is left unstaged and reported. Personal contact data (names with email addresses or phone numbers) never enters the repository under any path; `outreach/` is ignored, and WFG-077 adds the pre-commit check.
+
+### 4b. GitHub's own run is a gate too (author's instruction, 2026-09-04)
+
+`.github/workflows/auto-gates.yml` re-runs the gates on a clean Linux clone after every push.
+A red run there while the lap reported green is a real environment difference (UTC clock,
+no raw bundle, no fonts, no local objects), and the author receives a "Run failed" email for
+each one. The rule from 2026-09-04: **catch it within the hour and fix it before any row.**
+
+- `wfg-autoloop-ci-red` (hourly at :05) polls the GitHub Actions API for `auto/dev`, exits at
+  once if the newest `auto-gates` run is green, otherwise reproduces, fixes test-only or
+  environmental causes within §3, pushes with a report, and emails the author the cause.
+- The dev lap checks the same API at step 2 and takes a red run as its first job.
+- The critic reads every run in its window; a red run behind a green report is finding #1.
+- The workflow itself now prints the failing test's name in the job log on failure and
+  uploads `.auto/*.log` (hidden files included), so the email alone is enough to act on.
+- No test may depend on the local clock, the timezone, the network, or files outside the
+  repository (§4 step 4).

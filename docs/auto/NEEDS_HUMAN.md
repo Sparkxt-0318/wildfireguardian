@@ -19,6 +19,8 @@ that need a choice carry an `**Options:** A) … B) …` line; a letter is enoug
 
 ---
 
+**What happened, from the laptop session (2026-09-04):** the two files were created by the author's *other* Claude Code session, using an email-drafting prompt this session had given the author (drafts only, never send). The re-cut lap then staged them with `git add -A` and published them in 6f33eca without noticing. The loop did not plan, request or track the outreach. **Actions:** the files were copied to a private folder outside the repository and removed from the tree; `outreach/` is now git-ignored; on the author's decision above the two files are purged from every commit on `auto/dev` and the branch force-pushed once (the sole recorded exception to §3's no-force-push rule, taken by the author); the author deletes the 29 Gmail drafts personally (the loop never touches drafts). NH-010 stands as closed: no outreach for the finals. `git add -A` is banned in every lap (§3, MEMO). GitHub may keep the old objects cached until its garbage collection; the author can ask GitHub Support to purge them, quoting commit 6f33eca.
+
 ## NH-001 · DECISION · closed · Email delivery needs three repository secrets
 
 **What:** Reports are committed under `docs/auto/reports/` on every lap. To also

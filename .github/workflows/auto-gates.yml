@@ -29,6 +29,20 @@ jobs:
         run: bash scripts/auto/bootstrap.sh
       - name: Gates (make verify, baseline, snapshot, env, full pytest)
         run: .auto/venv/bin/python scripts/auto/gates.py --mode full
+      - name: Name the failure in the job log (so the email is enough to act on)
+        if: failure()
+        run: |
+          echo "=== failed steps (.auto/gates.json) ==="
+          .auto/venv/bin/python - <<'PY'
+          import json, pathlib
+          g = json.load(open(".auto/gates.json"))
+          for s in g.get("steps", []):
+              if not s.get("passed"):
+                  print(f"--- {s['name']} exit={s['exit']} log={s['log']}")
+                  txt = pathlib.Path(s["log"]).read_text(errors="replace")
+                  keep = [l for l in txt.splitlines() if l.startswith(("FAILED", "ERROR", "E  ")) or "short test summary" in l or "Error" in l]
+                  print("\n".join(keep[-40:]) or txt[-3000:])
+          PY
       - name: Keep the gate record
         if: always()
         uses: actions/upload-artifact@v4
@@ -38,4 +52,5 @@ jobs:
             .auto/gates.json
             .auto/bootstrap.json
             .auto/*.log
+          include-hidden-files: true
           retention-days: 30

@@ -412,3 +412,7 @@ outputs/live/**/state_*.json
 !data/processed/external/juso_yeongdeok/
 !data/processed/external/juso_yeongdeok/*.geojson
 !data/processed/external/juso_yeongdeok/manifest.json
+
+# --- private contact material never belongs in this public repository (NH-023, 2026-09-04)
+outreach/
+*_recipients.csv

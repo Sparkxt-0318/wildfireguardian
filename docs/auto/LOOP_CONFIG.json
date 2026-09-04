@@ -22,5 +22,6 @@
     "docx": "paper/WildfireGuardian_Park_2026.docx",
     "cadence_note": "every 6 h, exits early when no code moved since paper/STATE.json"
   },
-  "research_cadence_note": "APPLIED 2026-09-04 (author chose option A in a Claude Code session): research every second day at 18:17 UTC on 2026-09-06, 08, 10, 12, 14 (cron `17 18 6,8,10,12,14 9 *`), taking that slot from dev, which exits with 'slot ceded to research'. It rewrites docs/auto/DIRECTION.md; the critic checks the page after every dev lap. After the sprint the author resets research to weekly on the routine page."
+  "research_cadence_note": "APPLIED 2026-09-04 (author chose option A in a Claude Code session): research every second day at 18:17 UTC on 2026-09-06, 08, 10, 12, 14 (cron `17 18 6,8,10,12,14 9 *`), taking that slot from dev, which exits with 'slot ceded to research'. It rewrites docs/auto/DIRECTION.md; the critic checks the page after every dev lap. After the sprint the author resets research to weekly on the routine page.",
+  "ci_red_note": "2026-09-04: wfg-autoloop-ci-red polls GitHub Actions hourly at :05 and fixes a red auto-gates run on auto/dev within CHARTER §3 (author: 'catch them immediately'). Dev checks the API at step 2; critic treats a red run as finding #1."
 }
