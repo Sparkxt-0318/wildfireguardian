@@ -65,6 +65,24 @@ size down until it fits its own box, which is deterministic for a given font and
 correct under either family. Use it for every new diagram label; never hand-tune
 a font size against whichever font this machine happens to have.
 
+## ⚠ Two figure rules added 2026-09-04 (lap 3), after critic #7 found both broken
+
+Both defects shipped in figures a lap had recorded as "looked at", so looking is not
+enough on its own — check these two things by name.
+
+- **A colour means one thing in one figure.** F7 panel b coloured "deadline first wins"
+  with panel a's *nearest-first* teal, so the same teal carried opposite meanings in two
+  panels an inch apart. Both panels now read: vermilion = deadline-first, teal =
+  nearest-first, and panel b's legend says "ahead" rather than "wins/loses" so the colour
+  and the word agree. Ties take `style.LINE`, which is not a series colour anywhere.
+- **A legend or a value label must not be placed where the data is.** F2's value labels
+  were struck through by the mean-of-folds rule and its "pooled" label sat on the x-axis
+  tick labels; F7 panel a's boxed legend covered the nearest-first line between three and
+  five teams. Value labels now go *inside* the bars (white on the fill, the Moreno
+  reference's own convention), and a legend goes either in a corner that is provably
+  empty — F2's lower right, empty because the bars there are the shortest — or below the
+  axes, as both of F7's now are. Growing series leave no free corner: check.
+
 ## ⚠ Figure numbers in prose are appearance numbers, not F-numbers
 
 `build_docx.py` numbers figures in order of appearance, so `figures/F4_*.png` is

@@ -83,7 +83,9 @@ def F1_system(out: Path) -> bool:
                     arrowprops=dict(arrowstyle="-|>", color=style.INK, lw=0.9, shrinkA=0, shrinkB=0, mutation_scale=9))
     for xa, xb in ((19, 21.5), (39.5, 42), (60, 62.5), (80.5, 83)):
         arrow(xa, 28.5, xb, 28.5)
-    arrow(51, 22, 39.5, 14)      # hazard field feeds rescue ingress
+    arrow(46, 22, 27.25, 14)     # hazard field feeds rescue ingress, meeting its top edge
+                                 # at the centre (39.5, 14 is the box's corner, and an
+                                 # arrowhead on a corner reads as pointing between boxes)
     arrow(39.5, 8.5, 42, 8.5)    # rescue ingress → registry
     arrow(71.5, 22, 61.25, 14)   # routing → registry
     _fit_text(fig, ax, 50, 1.2, 98,
@@ -103,14 +105,20 @@ def F2_lofo_auc(out: Path) -> bool:
     ax.barh(y, [v for _, v in items], color=style.OKABE["blue"], height=0.6)
     ax.set_yticks(list(y)); ax.set_yticklabels([FIRE_LABEL.get(k, k) for k, _ in items])
     ax.set_xlim(0.5, 1.0); ax.set_xlabel("Held-out ROC-AUC (leave-one-fire-out)")
+    # The two reference lines are named in a boxed legend, not in floating text.
+    # Inline labels put "mean of folds" across a bar's value and "pooled" on top of
+    # the x-axis tick labels (critic #7, F36); a legend in the empty lower-right
+    # corner — empty because the bars there are the shortest — can collide with
+    # neither. Values are written inside the bars for the same reason.
     mean = sum(v for _, v in items) / len(items)
-    ax.axvline(mean, color=style.OKABE["vermilion"], lw=1, ls="--")
-    ax.text(mean, len(items) - 0.4, f"mean of folds {mean:.2f}", color=style.OKABE["vermilion"], fontsize=8, ha="right", va="bottom")
+    ax.axvline(mean, color=style.OKABE["vermilion"], lw=1, ls="--",
+               label=f"mean of folds {mean:.3f}")
     if "pooled_auc" in d:
-        ax.axvline(d["pooled_auc"], color=style.MUTED, lw=1, ls=":")
-        ax.text(d["pooled_auc"], -0.6, f"pooled {d['pooled_auc']:.3f}", color=style.MUTED, fontsize=8, ha="left", va="top")
+        ax.axvline(d["pooled_auc"], color=style.MUTED, lw=1, ls=":",
+                   label=f"pooled out-of-fold {d['pooled_auc']:.3f}")
     for i, (_, v) in enumerate(items):
-        ax.text(v + 0.005, i, f"{v:.3f}", va="center", fontsize=8, color=style.INK)
+        ax.text(v - 0.008, i, f"{v:.3f}", va="center", ha="right", fontsize=8, color="white")
+    style.boxed_legend(ax, loc="lower right")
     ax.grid(axis="y", visible=False)
     style.finish(fig, out / "F2_lofo_auc.png")
     return True
@@ -236,6 +244,9 @@ def F5_decision_shift(out: Path) -> bool:
         bx.set_xlabel("Forecast horizon (minutes)")
         bx.set_ylabel("Cells at P(ignite) ≥ 0.5")
         bx.set_xticks(t)
+        # Margin on both axes so the last point's value label, centred over a point that
+        # sits on the right-hand tick, does not run into the panel frame.
+        bx.set_xlim(-0.06 * t[-1], t[-1] * 1.06)
         bx.set_ylim(0, max(slices) * 1.22)
         for tt, vv in zip(t, slices):
             bx.text(tt, vv + max(slices) * 0.045, str(vv), ha="center", fontsize=7.5, color=style.INK)
@@ -335,16 +346,26 @@ def F7_dispatch_ordering(out: Path) -> bool:
     ax.plot(x, [r["mean"] for r in rnd], marker="d", ms=3.5, lw=1.0, ls="-.", color=style.OKABE["purple"],
             label="random order (200 seeds)")
     ax.set_xticks(x); ax.set_xlabel("Rescue teams available"); ax.set_ylabel("Homes reached within the window")
-    ax.legend(fontsize=7, loc="upper left")
+    # Both legends sit below their panel. Inside the panel there is no corner free of
+    # data: every series rises left to right, so an upper-left box crosses the
+    # nearest-first line at the middle team counts and a lower-right box crosses the
+    # scan-order line. The operating cell takes the top-left instead, which is empty
+    # because every series starts near zero there.
+    ax.legend(fontsize=7, ncol=2, loc="upper center", bbox_to_anchor=(0.5, -0.24))
     ax.set_title("Committed operating cell", fontsize=8.5, color=style.INK)
-    ax.text(0.98, 0.03, "window 75 min · service 25 min · delay 30 min", transform=ax.transAxes,
-            ha="right", va="bottom", fontsize=7, color=style.MUTED)
+    ax.text(0.03, 0.97, "window 75 min · service 25 min · delay 30 min", transform=ax.transAxes,
+            ha="left", va="top", fontsize=7, color=style.MUTED)
 
     by = d["summary"]["by_window"]
     wins = sorted(by, key=lambda k: int(k[1:]))
-    cats = [("deadline_wins", "deadline first wins", style.OKABE["green"]),
-            ("ties", "tie", style.OKABE["grey"]),
-            ("deadline_loses", "deadline first loses", style.OKABE["vermilion"])]
+    # Colour means the same thing in both panels: vermilion is deadline-first, teal is
+    # nearest-first. The first version of this panel coloured "deadline first wins" with
+    # panel a's nearest-first teal, so one colour carried two opposite meanings side by
+    # side (critic #7, F36). Ties take the style's neutral rule colour, which is not a
+    # series colour in panel a.
+    cats = [("deadline_wins", "deadline first ahead", style.OKABE["vermilion"]),
+            ("ties", "tie", style.LINE),
+            ("deadline_loses", "nearest first ahead", style.OKABE["green"])]
     left = [0.0] * len(wins)
     for key, lab, col in cats:
         vals = [by[w][key] for w in wins]
@@ -354,6 +375,7 @@ def F7_dispatch_ordering(out: Path) -> bool:
                 bx.text(l + v / 2, i, str(v), ha="center", va="center", fontsize=8,
                         color=style.INK if key == "ties" else "white")
         left = [l + v for l, v in zip(left, vals)]
+    bx.set_xlim(0, max(sum(by[w][k] for k, _, _ in cats) for w in wins) * 1.02)
     bx.set_yticks(range(len(wins)))
     bx.set_yticklabels([f"window {w[1:]} min" + ("\n(committed)" if w == "W75" else "\n(exploratory)") for w in wins], fontsize=8)
     bx.invert_yaxis(); bx.set_xlabel("Configuration cells (of 180 per window)")

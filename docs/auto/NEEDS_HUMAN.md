@@ -528,7 +528,28 @@ What is left for you: item 1, and saying whether you agree with the reading. If 
 reply `NH-018: <your decision>` and a lap will restore whatever you ask, verbatim.
 ---
 
-**Options:** A) keep the 0100Z scope note as it stands (prints no share)  B) remove the "약 43 %" / "about 43 %" sentence, keep the rest — **already done 2026-09-04T0255Z on evidence, per critic #5 F21; reply B only to confirm, or A to have it put back**  C) also restate the season toll (32 deaths) in the scope note
+**Paper lap 3 note, 2026-09-04 (this entry stays open; nothing is closed here). The prose
+stopped printing the ratio; the registry still asserts it, and a gate enforces it.** The
+manuscript now states no share of any nationwide total, and `README.md` and
+`docs/data_sources.md` print none either. But `docs/NUMBERS.json` was never part of that
+correction, and two entries still carry the withdrawn framing in their caveats:
+`fire2025_chain_area_ha` reads "It is about 95 % of the nationwide 104,788 ha" and
+`fire2025_nationwide_area_ha` reads "The 의성발 chain is 99,289 ha of this, about 95 %:
+never describe this figure as a different event from the chain", the latter with
+`forbidden_phrasings` `["belongs to a different event", "다른 사건"]` that a gate enforces
+against any prose. CHARTER §12 says a number's caveats travel with it, so the paper is
+currently declining to repeat a caveat its own registry still carries, and a future lap
+reading the registry rather than the prose would put the ratio back.
+
+This is not the same question as the 43 % sentence, which item 2 settled from sources. No
+source settles this one: whether two totals compiled on different bases over different
+periods may be divided at all is a claim-shape judgment, and it touches gate-enforced
+behaviour. Under CHARTER §3 rule 2 the entries are add-never-edit, so the fix is an
+annotated superseding entry, not a rewrite, and only a dev lap can make it. Raised by the
+paper lap's independent reviewer. **Nothing is blocked on you** — the manuscript's position
+is the conservative one and ships as it is.
+
+**Options:** A) keep the 0100Z scope note as it stands (prints no share)  B) remove the "약 43 %" / "about 43 %" sentence, keep the rest — **already done 2026-09-04T0255Z on evidence, per critic #5 F21; reply B only to confirm, or A to have it put back**  C) also restate the season toll (32 deaths) in the scope note  D) annotate the two registry caveats so they stop asserting the ~95 % ratio the prose withdrew (dev lap; add-never-edit)
 
 
 ## NH-019 · DECISION · open · One report time, for one fire, decides what the detection result is allowed to say (by 2026-09-08)

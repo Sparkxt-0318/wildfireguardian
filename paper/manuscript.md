@@ -36,15 +36,19 @@ plan of 7 May carries the same area [@gyeongbuk2025recovery]).
 
 Those figures must carry their basis and date, because the published ones share neither
 and do not agree. The 26 deaths on the chain are the provincial disaster headquarters'
-count of 30 March 2025; Yeongdeok-gun's notice of 29 April puts 10 of them in Yeongdeok
+count as of 08:30 on 30 March 2025 [@dgmbc2025toll]; Yeongdeok-gun's notice of 29 April
+puts 10 of them in Yeongdeok
 where that count had 9, and this paper keeps both rather than asserting one
 [@greenpeace2026survey]. The nationwide 104,788 hectares over 347 fires is not a March
 figure but the Korea Forest Service's total for the spring fire-watch season, 24 January
 to 15 May. The rapid attribution study of 30 April 2025 places all 26 deaths in Uiseong
 with four more in Sancheong, on "more than 48,000 hectares" over a "southeastern Korea"
 extent [@wwa2025korea]. This paper states the chain's share of any nationwide total
-nowhere, because the two totals are compiled on different bases over different periods and
-the repository's own two readings of that comparison disagree.
+nowhere. The two are compiled on different bases over different periods, and the estimate
+published while the fire still burned does not close the gap: the Korea Forest Service
+has said that a fire-affected area, read off the fire line for suppression planning, and
+a surveyed damage area are different concepts that cannot simply be compared
+[@khan2025area].
 
 The dead were old, and so are the survivors. Yeongdeok-gun's notice gives a mean age of
 84 among its ten dead and a maximum of 101. In a survey of 300 residents of Andong,
@@ -82,11 +86,10 @@ both arms of Section 4.3 run over the same origins, network and field, so the co
 not contaminated by the routing layer's known approximations or by the coverage limit. The
 operating point is weak, and owning that is part of the result, because a high ranking
 score and a low detection rate are both true at this prevalence. And the evaluation design
-is the transferable part — six fires cannot compete with datasets of hundreds
-[@wildfirespreadts2024; @wstsplus2026; @ndws2022] and we do not try, but what six fires
-permit, and a large dataset makes easy to skip, is the discipline of matched controls of
-Section 3.5. The non-claim is the dispatch ordering: against nearest-first it wins 0 of
-180 configuration cells at the operating window, and we report it with its mechanism.
+is the transferable part: what six fires permit, and a large dataset makes easy to skip,
+is the discipline of matched controls of Section 3.5. The non-claim is the dispatch
+ordering: against nearest-first it wins 0 of 180 configuration cells at the operating
+window.
 
 ## 2. Related work
 
@@ -97,9 +100,8 @@ successor [@wildfirespreadts2024], and the WSTS+ extension, which doubles the un
 years of history and reports that time-series inputs beat single-day inputs
 [@wstsplus2026]. Six Korean fires cannot compete on that axis, and the metrics are not
 comparable across these settings anyway: label definition, geometry and above all
-prevalence differ, and prevalence moves average precision by construction. That line of
-work matters here instead as part of a turn toward asking whether a spread model works
-rather than whether it scores well. Physical modelling supplies the alternative framing:
+prevalence differ, and prevalence moves average precision by construction. Physical
+modelling supplies the alternative framing:
 minimum-travel-time fire growth [@finney2002], and an earlier Rothermel-based surface
 model in this project captured a small fraction of the burned area, which motivated the
 move to a data-driven field.
@@ -152,8 +154,7 @@ whose detection times define the prediction target; weather from ERA5 reanalysis
 single levels [@era5]; terrain from SRTM [@farr2007]; fuel from ESA WorldCover at 10 m
 [@worldcover]; and road networks, building footprints and candidate refuge and depot
 points of interest from OpenStreetMap, graph-built with OSMnx [@boeing2017; @osm]. No
-proprietary or paid source is used, and the repository distributes no raw data:
-acquisition scripts and manifests reproduce it.
+proprietary or paid source is used.
 
 One further public input feeds only the detection-timing measurement of Section 4.7:
 GK2A level-1B radiances, read without credentials from the NOAA open-data mirror. The
@@ -162,9 +163,9 @@ contextual test whose rule is a conjunction of three conditions, all referred to
 30–80 km background annulus: the pixel's 3.8 µm brightness temperature exceeds its own
 background median by four robust standard deviations, *and* the contrast exceeds its
 background median by four, *and* the contrast clears an absolute floor of 3 K. The first
-supplies most of the selectivity; the floor stops a quiet background from flagging
-anything a hundredth of a kelvin above its median. The multiplier was fixed at four before
-any fire was examined and never adjusted. The archive begins in February 2023, so the two
+supplies most of the selectivity; the floor stops a quiet background from flagging a
+hundredth of a kelvin above its median. The multiplier was fixed at four before any fire
+was examined and never adjusted. The archive begins in February 2023, so the two
 2022 fires fall outside it and were excluded rather than worked around.
 
 ![System overview. Public inputs feed a per-cell ignition-probability model; its time-sliced hazard field drives a time-expanded pedestrian router and a rescue-ingress calculation; the outputs are operator documents. Every reported number is re-derived from its committed artifact by the registry gate.](figures/F1_system.png)
@@ -188,8 +189,7 @@ each fire one vote and is the generalisation figure. The **pooled out-of-fold** 
 scores one ROC over all 151,904 out-of-fold rows, weighting each row once, and is
 dominated by the two largest folds, at 54.5 % and 27.4 % of the rows. Fold sizes differ by
 a factor of 208.9 and the smallest carries 0.26 % of the rows, so neither summary is
-neutral: mean-of-folds over-weights an eight-positive fold, pooled under-weights it to
-nothing.
+neutral.
 
 Three baselines run through the same folds, features and seed — random forest, logistic
 regression and the shipped model — against the objection that it only beats a bad physics
@@ -407,8 +407,7 @@ because a budget failure is a walk-time failure, and walk time belongs to the gr
 The count of fire-blind routes entering the predicted hazard rises from 20 to 44 between
 the reverted and the canonical fields. That belongs to the **fire-blind baseline**, not to
 the proposed system: the forecast-aware router cannot enter the hazard at all, and a
-fire-blind walk is likelier to walk into a fire four times larger. It is evidence for a
-hazard-aware routing layer, not a cost of one.
+fire-blind walk is likelier to walk into a fire four times larger.
 
 **Terrain changes how people walk, not whether they arrive.** Applying real slope to
 edge times raises whole-network traversal time by 26.6 % at Yeongdeok at 60 m sampling
@@ -418,8 +417,8 @@ is directed. Yet the classification barely moves: 42 origins are safe only on th
 forecast-aware route at 30 m and 60 m sampling and 41 at 90 m, against 41 in the flat
 control, and the number whose bucket differs from the flat control at all three intervals
 is **zero** — three move at some interval, none at all three — while 179 forecast-aware
-routes, 39.1 %, differ from the flat control at 60 m. Terrain does real work on the paths
-and none on the verdicts. Switching the objective from distance to time under slope timing
+routes, 39.1 %, differ from the flat control at 60 m. Switching the objective from
+distance to time under slope timing
 changes 150 of 458 routes and cuts the longest walk from 444.0 to 352.8 minutes, saving
 91.3 minutes for one worst-case origin; the flat control changes 0 routes, as it must, so
 the mechanism is identified rather than inferred.
@@ -438,8 +437,8 @@ robustness.
 network eleven months later changed the walk-graph node count by 0.0474 % and moved the
 count of origins with no surviving vehicle ingress by 33.3 % (24 to 32), while the paired
 exposure-reduction contrast moved by 0.5614 percentage points. Neither network is the
-right one; the reported quantity is sensitivity. Binary verdicts are network-fragile and
-paired contrasts are not.
+right one; the reported quantity is sensitivity, and it says binary verdicts are
+network-fragile where paired contrasts are not.
 
 ### 4.6 Rescue ingress, and a dispatch ordering that does not work
 
@@ -449,9 +448,9 @@ reduction: a relative contrast between two policies on one hazard field on the r
 side only, not an absolute safety guarantee. 57 of the 143 shortest-path routes cross the
 hazard, which is what the survival-aware policy avoids.
 
-The dispatch ordering is a different story and the honest report of it is negative. It
-carries a different lineage, stated in the caption of Fig. 7 and binding on every number
-below. "Homes" is shorthand for the sampled walk-graph origins of Section 3.3.
+The dispatch ordering is negative, and reported as such. It carries a different lineage,
+stated in the caption of Fig. 7 and binding on every number below. "Homes" is shorthand
+for the sampled walk-graph origins of Section 3.3.
 
 ![Dispatch ordering. Left: homes reached within the operational window against the number of rescue teams, at the committed operating cell, for the shipped deadline-first ordering and four alternatives including 200 random permutations. Right: win, tie and loss tally of deadline-first against nearest-first across 180 configuration cells per window. The second window is exploratory and more than three times the committed one. ⚠ Lineage: this grid was measured on a re-acquired network vintage rather than the committed 439-origin series, two of its four arms use a synthetic hazard and terrain, and it runs a travel-aware occupancy rule in which a team stays occupied for its return leg — a rule the shipped triage code does not use, and without which the number rescued is teams times slots and no ordering can differ from any other. What is shown is therefore a contrast between orderings under that rule, on those arms; it is not a rescue-capacity forecast for any region and carries no lives-saved reading.](figures/F7_dispatch_ordering.png)
 
@@ -478,10 +477,10 @@ random mean in 37.8 %.
 It first wins at a 120-minute window and still fails to win at 600,
 so no window threshold separates the regions; nor does the number
 of distinct deadlines, where 1,580 cells fail to win despite having at least as many as
-the lowest-scoring winning cell. There is no operating region in which the shipped
-ordering can be recommended and the paper does not construct one. What the analysis does
-establish positively is reproducibility: re-deriving 3,744 values from the earlier run
-cell by cell produced **0** differences.
+the lowest-scoring winning cell. No operating region recommends the shipped ordering, and
+the paper does not construct one. What the analysis does establish positively is
+reproducibility: re-deriving 3,744 values from the earlier run cell by cell produced **0**
+differences.
 
 ### 4.7 How early could a satellite have seen these fires?
 
@@ -492,11 +491,11 @@ Four of the six fires fall inside the GK2A archive and three produced a detectio
 the rule of Section 3.1 (Table 3). In each, the first satellite-detectable anomaly follows
 the fire's recorded occurrence time by 22 to 64 minutes. **That reference clock is the
 weakest part of the measurement and we do not lean on it**, for the reasons in the
-caption: a repository design note reads it as a report time and so reads these delays as a
-satellite arriving after the telephone, but no artifact supports that and this paper does
-not claim it.
+caption: a repository design note read it as a report time and drew from that a satellite
+arriving after the telephone. No artifact supports that reading, this paper never made
+it, and the note has since been withdrawn with no number moving.
 
-Table 3. First GK2A infrared anomaly at each archived fire, relative to that fire's recorded occurrence time. That reference is the `start` field of the project's fire manifest, which the manifest marks as provenance only, sources to no emergency-call record, and elsewhere describes as the ignition; its relation both to the true ignition and to the emergency call is unestablished, so these are delays behind a recorded time and not detection-behind-report figures. FIRMS delays are for the same events against each event's own recorded report time, which differs from the GK2A reference by one minute at Uiseong-Andong and at Yeongdeok. Yeongdeok is a confounded case, not a miss: see the text.
+Table 3. First GK2A infrared anomaly at each archived fire, relative to that fire's recorded occurrence time. That reference is the `start` field of the project's fire manifest, which the manifest marks as provenance only, sources to no emergency-call record, and nowhere says what the field is; its relation both to the true ignition and to the emergency call is unestablished, so these are delays behind a recorded time and not detection-behind-report figures. FIRMS delays are for the same events against each event's own recorded report time, which differs from the GK2A reference by one minute at Uiseong-Andong and at Yeongdeok. Yeongdeok is a confounded case, not a miss: see the text.
 
 | fire | GK2A | FIRMS | contrast at detection | pixels | contextual threshold |
 |---|---:|---:|---:|---:|---:|
@@ -540,8 +539,7 @@ measurable form of that difference, and one field answers the responder's mirror
 question too. That is why the contribution is a coupling rather than a model. It is not a
 claim that the system knows where the fire will be: the router needs ranking quality, not
 per-cell precision, because it cuts a cumulative, survival-accumulated surface at its own
-threshold — and at any usable per-cell precision the weak operating point rules the
-stronger reading out. That is the first limitation in Section 6.
+threshold. That the surface itself goes unchecked is the first limitation in Section 6.
 
 **Why n = 6 forbids a threshold guarantee.** The intuition that a distribution-free
 method rescues a small-sample setting is wrong in a quantifiable way, and Section 4.2
@@ -552,8 +550,8 @@ method; they get them by having more events.
 sort key when the operational window closes before the corridors do — is itself a finding
 about dispatch in this regime.
 
-**Where the trigger comes from, and where the warning goes.** Section 4.7 constrains a
-design question without settling it. It establishes a floor: a 2 km geostationary pixel
+**Where the trigger comes from, and where the warning goes.** Section 4.7 establishes a
+floor: a 2 km geostationary pixel
 cannot see a fire below roughly a hectare, so a satellite trigger cannot be an
 ignition-scale alarm whatever its cadence, and the system treats it as corroboration. It
 does *not* establish that the satellite arrives after the emergency call — the design
@@ -580,11 +578,10 @@ quotation appears here]
 burn.** This is the objection we would raise first against this paper. An origin counted
 in the 42 is one whose fire-blind route crosses a cell the *model* flagged and whose
 forecast-aware route does not: a statement about two policies read on one surface, not
-that the fire went where the surface said. Given Section 4.2's operating point, the same
-evidence is consistent with some of the 42 being detoured around cells that never burned
-while cells that did burn and were never flagged sit unavoided under both policies. Every
-control here perturbs the predicted field, so none admits external truth: the paired
-contrast controls for the router and leaves the field unchecked. [GAP: settling this needs
+that the fire went where the surface said. At Section 4.2's operating point the same
+evidence is consistent with detours around cells that never burned, and with burned cells
+the model never flagged left unavoided under both policies. Every control here perturbs
+the predicted field, so none admits external truth. [GAP: settling this needs
 a third routing pass over the same 458 origins on a hindsight field rasterised from the
 observed FIRMS detections, reporting how many of the 42 fire-blind routes intersect
 observed burn inside the walker's arrival window. Those detections live under a
@@ -602,9 +599,8 @@ original, leak-free and hindsight fields needs the raw acquisition bundle, which
 repository does not distribute; this is the experiment most likely to move the 42-origin
 result and it is planned before submission]
 
-**Coverage**, restated because every absolute Yeongdeok rate depends on it: the walk
-network contains 32.6 % of that fire's predicted core, the bias is established and its
-direction is not.
+**Coverage**: the walk network contains 32.6 % of Yeongdeok's predicted core, and every
+absolute rate for that fire depends on it; the bias is established, its direction is not.
 
 **Origins are not households.** They are walk-graph nodes at a fixed stride, so their
 distribution reflects road-network structure. Building footprints are no better:
@@ -640,8 +636,7 @@ to the slice grid and are upper bounds. The search is deterministic but not prov
 optimal over exact-clock paths, though no counterexample exists at the bin sizes in use.
 The class named "forecast-aware route exceeds budget" names a cause its code condition
 does not establish; it is empty at Yeongdeok, and elsewhere the search did not complete
-within the scan's constraints. None was fixed, because every committed count came from
-this code, and all divide out of the paired contrasts.
+within the scan's constraints. None was fixed; all divide out of the paired contrasts.
 
 **Assumptions the results ride on.** A fixed 0.7 m/s gait speed with no individual
 variation and no pre-movement delay; an immobile fraction of 0.3; a pedestrian cutoff of
@@ -654,10 +649,13 @@ local village-hall tagging.
 predate the GK2A archive and one is set aside as confounded. No night-time detection
 appears in the sample, so night performance is unmeasured. Only the size floor stands on
 its own. [GAP: the reference times come from a manifest field marked provenance only, with
-no record of how the minute was arrived at, so the delays cannot be read against either
-the true ignition or the emergency call and the sign of the error is unknown in both
-directions. One record of the 신고접수시각 for one of these fires would settle it and
-would let the paper state whether a satellite trigger precedes the call]
+no record of how the minute was arrived at. No entry names a report time, and none says
+what the field is: the one note that calls a date "the ignition" neither names the field
+nor separates that fire's ignition from the parent chain's. So
+the delays cannot be read against either the true ignition or the emergency call and the
+sign of the error is unknown in both directions. One record of the 신고접수시각 for one
+of these fires would settle it and would let the paper state whether a satellite trigger
+precedes the call]
 
 **Operational status.** No trigger has ever fired on a live detection and the messaging
 layer is a dry run: the SMS path is simulated, private cell-broadcast origination is not

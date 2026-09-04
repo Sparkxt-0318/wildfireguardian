@@ -13,6 +13,24 @@
   note = {re-verified 2026-09-04 (paper lap 2) at this URL, correcting the paraphrase this note carried after lap 1. The page states verbatim: "With 32 casualties, the fires are also South Korea's deadliest wildfires on record"; "Uiseong was hardest hit, with 26 deaths, while four occurred in Sancheong"; "More than 48,000 hectares burned"; "Around 5,000 buildings, including homes, factories, and farms, were destroyed"; "displacing about 37,000 residents". The lap-1 note rendered the second of these as "26 of them in Uiseong-gun", which converted a fire attribution into a county one and dropped the four Sancheong deaths — the fact that reconciles 26 with 32. The 48,000 ha is on a "southeastern Korea" extent and disagrees with the 99,289 ha the province gives for the Uiseong chain; see docs/data_sources.md}
 }
 
+@misc{dgmbc2025toll,
+  title = {경북 산불 사망자 26명…영덕 9명},
+  author = {{대구MBC}},
+  year = {2025},
+  howpublished = {대구MBC, 30 March 2025},
+  url = {https://dgmbc.com/article/bLdh4s3M4pgcSdYI0MZPc},
+  note = {verified 2026-09-04 (paper lap 3) at this URL. This is the page that actually carries the figure the manuscript states, and it attributes it to the PROVINCIAL headquarters: "경상북도 재난안전대책본부가 3월 30일 오전 8시 30분을 기준으로 발표한 자료에 따르면 산불로 인한 경북 지역 사망자는 영덕군 9명, 영양군 7명, 안동시와 청송군 각각 4명, 의성군 2명 등 26명입니다." Neither 중대본 nor 중앙재난안전대책본부 appears on the page. ⚠ This contradicts docs/NUMBERS.json, whose fire2025_chain_deaths entry gives the agency as 중앙재난안전대책본부 and cites a 뉴시스 breaking-news stub that names no agency at all, and a 서울신문 page which gives 중대본's two-province total of 30 without any provincial or district split. Paper lap 3 briefly followed the registry's agency field here and was blocked by its own reviewer for it; the openable source wins, which is the same precedent backlog WFG-051 already records. The registry and README halves of that row need a dev lap and are flagged in the lap report; this entry fixes only the manuscript}
+}
+
+@misc{khan2025area,
+  title = {경북 산불 실제 피해 약 10만ha, 산림청 추정치 '2배' 훌쩍…"초기 추산 엉터리" 비판도},
+  author = {김현수 and 이종섭},
+  year = {2025},
+  howpublished = {경향신문 (The Kyunghyang Shinmun), 17 April 2025},
+  url = {https://www.khan.co.kr/article/202504171020011},
+  note = {verified 2026-09-04 (paper lap 3) at this URL. Cited for the Korea Forest Service's own statement that the two area quantities are not commensurable: the page carries verbatim "산불영향구역과 피해면적은 개념이 달라서 단순 비교할 수 없고" (the fire-affected zone and the damage area are different concepts and cannot simply be compared) and, from a Forest Service official, "실제 피해면적은 줄어들 수도 있고 늘어날 수도 있다" (the actual damage area may go down or up). It gives the surveyed figure as 9만9000여 ha. The definitions themselves — the fire-affected zone as the fire-line boundary read off helicopter, drone and ground observation for suppression planning, the damage area as the forest area established by field survey for recovery — are stated by the Korea Forest Service in 문화일보 2025-04-18 (김창희, https://www.munhwa.com/article/11499954), also opened this lap; both are tabulated in docs/data_sources.md}
+}
+
 @misc{gyeongbuk2025recovery,
   title = {경북 초대형 산불, 초고속 회복을 위한 복구계획 최종 확정 [Gyeongbuk mega-wildfire: the recovery plan for a rapid recovery is finalised]},
   author = {{Gyeongsangbuk-do Provincial Government}},
