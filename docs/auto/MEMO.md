@@ -753,3 +753,40 @@ mood) · evidence.
 - **2026-09-04 (laptop, NH-023):** `git add -A` swept a contact list another session had left in the working tree into a public commit. **Rule:** a lap stages the exact paths it made (`git add <paths>`), never `-A` or `.`; before every commit, `git status --short` must show only files the lap can name; a CSV or list containing email addresses or phone numbers never enters the repository, and a check for that is WFG-077.
 
 - **2026-09-04 (laptop, NH-023):** a bare `git add -A` during a conflict resolution swept another agent's harvested contact list into a public commit; the author force-pushed a purge (`6f33eca` → `c65dc56`, `ced9430` → `3d77e01`; every id in `docs/auto/` was remapped the same night). Rules: stage by path, `git status --short` before each commit, one agent per clone (CHARTER §3c).
+
+- 2026-09-04 · ci-red · **The gate written to grade a gate was itself machine-dependent, and
+  it failed in the one place that is supposed to be independent.** `test_finals_screen.py`'s
+  WFG-067 grading test builds an unreachable probe commit with `git commit-tree`. Every other
+  `git` call in that file only READS the object database; that one WRITES, and git will not
+  write a commit without a committer identity. Every machine the loop builds on carries one,
+  so the test was green in the sandbox and on the laptop; `actions/checkout` configures none,
+  auto-detection on a runner yields `runner@<host>.(none)`, and git refuses it. `commit-tree`
+  printed nothing, `assert orphan` failed on `assert ''`, and `auto/dev` sat RED for six
+  consecutive pushes (runs 86-91) on a fact about the machine rather than about the code. The
+  bisect is exact: the test arrived in `deeb147`, which is not an ancestor of `fdab7bc` (run
+  85, last green) and is an ancestor of `201c554` (run 86, first red). Fixed in `21b8740`.
+  The irony is worth keeping: the lap that wrote this test also wrote the MEMO lesson above
+  about a skip that would have fired *in the sandbox*, then shipped a gate that fires *only
+  on CI* — the same blind spot, mirrored. **Anti-pattern:** 「the suite is green here」 read as
+  evidence about a clean machine, when the test consults machine state. **Gate:** a test that
+  shells out to `git` is classified read or write before it is committed; every write supplies
+  its own identity inline (`git -c user.name=… -c user.email=… …`) and never inherits one.
+  More generally, when a new test touches the environment — identity, clock, timezone, locale,
+  hostname, `$HOME` — run it once with that piece removed before pushing. For identity that is
+  one line, and it reproduces this failure exactly:
+  `env GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_SYSTEM=/dev/null GIT_CONFIG_COUNT=1
+  GIT_CONFIG_KEY_0=user.useConfigOnly GIT_CONFIG_VALUE_0=true pytest <file>`.
+
+- 2026-09-04 · ci-red · **Two laps diagnosed the same red and wrote the same fix; the second
+  one had gated it before it learned the first existed.** `origin/auto/dev` was still
+  `e4a7304` when this routine fetched, and still `e4a7304` when it committed; `21b8740`
+  landed during the ~15 minutes of `gates.py --mode full`, and the collision surfaced only at
+  `git pull --rebase`, as a conflict in the one file both had edited. Both fixes were the
+  same fix (identity supplied inline on `commit-tree`), so nothing was lost but the duplicated
+  run. This is NH-007's failure with a new clock: a claim marker cannot help here, because a
+  red CI run is claimed by nobody. **Gate:** a red older than one push is probably already
+  being fixed. Before starting, the ci-red routine re-reads the CI list and stops if a *newer*
+  run is queued or in progress on a *newer* head; and after any gate run longer than a few
+  minutes it re-fetches `origin` before committing, not just before pushing. When the fix is
+  already upstream, the routine verifies it rather than re-landing it — the verification is
+  the contribution, and the duplicate commit is not.
