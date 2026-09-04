@@ -650,3 +650,36 @@ option A; it does not change what is asked of you, and option B remains defensib
 「위성을 일차 트리거로 둘 수 없다」 is true either way and is what the booth will say.
 
 **Options:** A) I will look for the 신고접수시각 for one fire  B) skip; keep the narrowed claim (size floor only) for the finals
+
+## NH-020 · DECISION · open · Twenty-five report emails, no reply, and the decision channel has never once been exercised (by 2026-09-06)
+
+**Why this is yours:** only you can tell the loop whether the email is arriving, whether the
+reply syntax works, and whether you want to keep answering this way.
+
+**What is happening.** `scripts/auto/decisions.py` was built on 2026-09-04 so that a one-line
+reply to a report email (`NH-###: <your decision>`) closes an entry with its channel, date
+and message id. Critic #8 searched the mailbox this lap
+(`from:siyeong0318@gmail.com subject:"WildfireGuardian autoloop" newer_than:14d`, 25 threads,
+every thread fetched) and every thread holds exactly **one** message: the loop's own report.
+PR #31 has **zero** comments. `docs/auto/decisions_seen.json` does not exist, because
+`decisions.py apply` has never recorded anything. The whole decision channel is untested in
+both directions.
+
+Meanwhile **eleven other entries are open**, four of them dated: NH-016 was due 2026-09-05 (that
+is tomorrow), NH-017 by 09-06, NH-018 and NH-019 by 09-08. NH-016 is the cheapest and the
+most expensive to leave: it is a one-field change on the routine page, and until it is made
+the critic routine keeps landing its findings 30 minutes before the next dev lap instead of
+120.
+
+Two possibilities and the loop cannot tell them apart. Either the reports are reaching you
+and you are reading without replying, which is entirely reasonable and means the loop should
+stop asking twelve questions per email and ask one; or they are not reaching you at all
+(spam, a filter, the send-to-self threading), in which case every 「Decisions needed」 block
+written since 2026-09-03 has gone nowhere and the loop has been reporting into a void for
+a full day of a twelve-day sprint.
+
+**What I need from you:** one reply to this email, any words at all. If you want to spend
+thirty seconds rather than five minutes, reply with just the two lines below and the loop
+will act on both immediately.
+
+**Options:** A) reply with `NH-016: move it` and `NH-020: email works, I read them` (the loop keeps the current format and applies the cadence change)  B) reply `NH-020: too many questions` (the loop cuts every report to one decision, the highest-severity open entry, and parks the rest until you ask)  C) reply `NH-020: use PR #31` (the loop moves the decisions block to a comment on the pull request and the email becomes read-only)

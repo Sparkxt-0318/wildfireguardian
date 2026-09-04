@@ -45,9 +45,11 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-017 | P0 | KCF | `web/finals.html` refresh v2: evidence cards for operating point, detection floor, horizon grounding, refuge placement, reconciliation; rebuilt with `--verify` | done(a562045) | true (fallback: student runs `make finals`) | one lap | 제출 자료 · 구현 및 유용성 |
 | WFG-003 | P0 | KCF | Finals screen audit + 5-minute demo script (keep) | todo | true | one lap | 제출 자료 · 구현 및 유용성 |
 | WFG-063 | P0 | KCF | **The trigger recommendation lost its evidence and the T0 answer kept it.** `docs/detection_floor.md` §10 now says in bold that 「신고의 99 %가 목격 신고」 may not carry a conclusion (unregistered, interim), and the booth card dropped it — but `docs/auto/JUDGE_QA.md:240`, a **T0** answer, still names it as one of the two grounds for 신고 우선. And with it gone, nothing left in any judge-facing document supports 「사람 신고를 일차로」: the size floor rules the **satellite out**, it does not rule the **human in**. Restate the claim as the one the measurement carries (「위성을 일차 트리거로 둘 수 없습니다」) in `JUDGE_QA.md` Q10, `detection_floor.md` §10 row 1 and `DETECTION_FLOOR_CARD.md:28,78`, and delete the 99 % clause from Q10 (critic #7, F35) | todo | true | hours | 데이터 해석 · 제출 자료 · 구현 및 유용성 |
-| WFG-064 | P1 | paper | **Two of the seven restyled figures have colliding labels, and the lap that shipped them said all seven were looked at.** `paper/figures/F2_lofo_auc.png`: the `0.878` bar label is struck through by the red 「mean of folds 0.89」 rule, and 「pooled 0.905」 sits on the x-axis over the tick labels. `F7_dispatch_ordering.png`: panel b's 「deadline first wins」 teal is the same teal as panel a's 「nearest first」, two meanings on one colour inside one figure. Nudge the labels (offset a value label that falls within ~1 % of a reference rule; place the pooled label inside the axes) and give panel b its own hue. Rubric row is literally 「그래픽 및 범례의 명확성」 (critic #7, F36) | todo | true | hours | 제출 자료 |
+| WFG-067 | P0 | KCF | **The finals screen's integrity panel prints a commit id that does not exist in this repository.** `web/finals.html` carries `"git":"a562045"` and the RELIABILITY tab renders it as 「SYSTEM INTEGRITY · build 2026-09-04 07:11 UTC · commit a562045」 — the first line of the panel whose entire job is to let a judge verify the build. `git cat-file -t a562045` answers `fatal: Not a valid object name`. `scripts/build_finals.py:815` `git_head()` stamps `git rev-parse --short HEAD` at build time and the lap then rebased, so the hash died between the build and the push; no test in `tests/test_finals_screen.py` asserts the stamp resolves. The same dead id is quoted in `docs/auto/finals/screens_20260904T0630Z/README.md:3` (the provenance line of the nine committed screenshots), in `docs/auto/BACKLOG.md` WFG-017's `done(a562045)` and in three reports. Rebuild after the rebase so the stamp names a real commit, and add the one-line gate that makes it structural: the stamp in the built `web/finals.html` must satisfy `git cat-file -e`. Do **not** try to make the stamp equal `HEAD` — the commit that carries the build is always one later; the requirement is that it resolve (critic #8, F41) | todo | true | hours | 데이터 해석 (재현) · 제출 자료 (출처) |
+| WFG-064 | P1 | paper | **Two of the seven restyled figures have colliding labels, and the lap that shipped them said all seven were looked at.** `paper/figures/F2_lofo_auc.png`: the `0.878` bar label is struck through by the red 「mean of folds 0.89」 rule, and 「pooled 0.905」 sits on the x-axis over the tick labels. `F7_dispatch_ordering.png`: panel b's 「deadline first wins」 teal is the same teal as panel a's 「nearest first」, two meanings on one colour inside one figure. Nudge the labels (offset a value label that falls within ~1 % of a reference rule; place the pooled label inside the axes) and give panel b its own hue. Rubric row is literally 「그래픽 및 범례의 명확성」 (critic #7, F36) | **done(e28377c)** — closed by critic #8, which opened both PNGs at `12bf2d9` and looked: F2 writes every value inside its bar in white with the two reference lines named in a boxed legend in the lower right, and F7 reads vermilion = deadline-first / teal = nearest-first in **both** panels with panel b saying 「ahead」 rather than 「wins/loses」. The paper lap also found and fixed two defects nobody had named (F1's arrow landing on a box corner, F5's last label touching the frame) and wrote both rules into `paper/README.md`. The row could not close itself: CHARTER §12 forbids the paper routine touching `BACKLOG.md` — that mechanism is WFG-068 | true | hours | 제출 자료 |
 | WFG-065 | P1 | KCF | **The most quotable fire-behaviour figure about the motivating event is in no judge-facing document.** 8.2 km h⁻¹ forward spread (국가산림위성정보활용센터, from S-NPP/VIIRS thermal detections, 2025-03-22 onward; a Korean record) lives only in `docs/auto/knowledge/PYROGEOGRAPHY.md:45`. It is the first thing a fire-behaviour judge asks about 의성. Register it under CHARTER §3.5b with agency + as-of + scope + the URL a lap opened, add it to `docs/data_sources.md` table A and answer it in `JUDGE_QA.md`, or write down in one line why it stays out (critic #7, F38; the 1.5× / 고성 2019 5.2 km h⁻¹ comparison did **not** verify in this lap's search and must not travel with it) | todo | true | hours | 연구 목적 · 제출 자료 (출처) |
 | WFG-066 | P1 | infra | **A bibliographic record was written from memory in a repository whose rule 5 is 「no fabricated citations」.** `docs/auto/knowledge/PYROGEOGRAPHY.md:169` carries `[UNVERIFIED — not opened; author list from memory]`. Critic #7 checked it: Sullivan, Sharples, Matthews & Plucinski (2014), *Environ. Model. Softw.* **62**: 153–163 is **correct in every field**, confirmed against the FRAMES catalog record (frames.gov/catalog/53980) and the ScienceDirect listing. So replace the tag with `[verified 2026-09-04 · FRAMES catalog + ScienceDirect listing]` and delete the phrase. The row is the rule, not the entry: add to CHARTER §13 that a note may carry `[UNVERIFIED]` for a *claim* it could not open, and may never carry an author list, year, volume or page range that was not read off a record (critic #7, F37) | todo | true | minutes | 제출 자료 (출처) |
+| WFG-068 | P1 | infra | **The paper routine can do a backlog row's work but cannot mark it done, so a row it finishes stays `todo` and the next dev lap rediscovers it.** CHARTER §12 says the paper lap 「touches nothing outside `paper/` (plus its own report)」, which is the right isolation and also means `BACKLOG.md` is out of reach. WFG-064 is the first instance: the paper lap fixed both halves at `e28377c`, wrote it up under the row's own name, and left the row reading `todo`; critic #8 closed it by opening the two PNGs. Give the routine a write it can make — the cheapest is a committed `paper/BACKLOG_CLAIMS.md` the paper lap appends `{row, commit, what}` to and the next dev or critic lap drains — or state in CHARTER §12 that the paper lap names its completed rows in its report and the daily critic closes them. Either way the rule must be written down, because the failure mode is silent: a `todo` row that is already done costs a whole lap to rediscover (critic #8, F44) | todo | true | minutes | 데이터 해석 (재현) |
 | WFG-016 | — | — | ~~AI ledger current~~ | **withdrawn(2026-09-04)** — author's instruction; organisers require no disclosure artifact (NH-008). Never started, nothing produced | false | — | — |
 | WFG-036 | P0 | KCF | **Final product bundle** `release/kcf-finals-2026/`: `web/` whole (finals + console + field view), printables PDF, `README_KO.md` 10-line run recipe, `CITATION.cff`, `make finals-bundle` byte-identical rebuild; definition of done = `docs/auto/KCF_READINESS.md` R1–R11 | todo | true | two laps (v1 by 09-10, v2 by 09-14) | 구현 및 유용성 · 제출 자료 |
 | WFG-037 | P0 | KCF | Booth recipe `docs/auto/finals/BOOTH_SETUP.md`: exact steps for the judged laptop (env, `make all-checks`, open `file://` with Wi-Fi off, key bindings, two USB copies, fallback if the laptop dies), plus NH-014 asking the author to run it once | todo | true | hours | 구현 및 유용성 |
@@ -84,7 +86,7 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-054 | P0 | infra | `scripts/auto/decisions.py apply` appends the Gmail message id to `decisions_seen.json` even when `apply_one` recorded nothing, so an author reply naming an id the file does not carry is written nowhere and the message is never read again. Its own docstring promises the opposite (`recorded, as noted, never guessed at`). Record `seen` only on a real change, write unmapped lines to a committed place, and test both directions (critic #6, F28) | todo | true | hours | 데이터 해석 (재현) |
 | WFG-055 | P1 | IEEE | `paper/check_paper.py` enforces a word proxy (7,479 of 7,500 used) for a constraint CHARTER §12 states in **pages**, measures no section against the §12 list, and the loop's own recount puts the built `.docx` nearer 21 pages than 20. Get one real page count out of the built document, re-derive the words-per-page constant from it, and add a section gate. Absorbs WFG-045 (critic #6, F29) | todo | true | one lap | 제출 자료 |
 | WFG-056 | P1 | infra | `gates.py --assert-reported` reads `origin/auto/dev` at push time and writes nothing, so no later lap can audit whether a given push actually carried a report — which is the check the critic prompt asks be verified every day and the one thing in this repository that cannot be. Append `{utc, base, head, verdict}` to a committed ledger under `docs/auto/` on every run (critic #6, F32) | todo | true | hours | 데이터 해석 (재현) |
-| WFG-057 | P1 | infra | A question numbered `Q10a` is invisible to every test in `tests/test_judge_qa_bank.py`: `QUESTION_RE` matches `Q(\d+)`, so a lettered question escapes the tier-count anti-padding guard, the contiguity check and the 근거/없는 것 requirement. Four such questions now exist (Q10a, Q10b, and the three this lap added). Widen the pattern to accept a letter suffix and restate the three header counts in the same commit (critic #6, F34) | todo | true | minutes | 제출 자료 |
+| WFG-057 | **P0** | infra | A question numbered `Q10a` is invisible to every test in `tests/test_judge_qa_bank.py`: `QUESTION_RE` matches `Q(\d+)`, so a lettered question escapes the tier-count anti-padding guard, the contiguity check and the 근거/없는 것 requirement. Four such questions now exist (Q10a, Q10b, and the three this lap added). Widen the pattern to accept a letter suffix and restate the three header counts in the same commit (critic #6, F34). **Raised P1 → P0 and the stated fix corrected by critic #8 (F43): widening the pattern for the letter suffix is not enough.** `QUESTION_RE` is `^\*\*Q(\d+) · (T[012])\.` and the escaping headers are `**Q10c · T1 (크리틱 #6).`, `**Q10d · T0 (크리틱 #7).` and `**Q34 · T2 (크리틱 #7).` — the **parenthetical between the tier and the period** defeats the pattern on its own, so `Q34`, which carries no letter at all, escapes too. Six questions are now invisible, not four. The reason this is P0: `JUDGE_QA.md:17-23` tells the student 「T0 (14개) — 이것만 완전히 외우십시오」, the file actually holds **38 questions and 15 T0s**, and the fifteenth T0 is **Q10d**, the entry whose whole job is to stop the student saying a sentence this repository cannot support. The student who obeys the bank's own drill plan memorises the fourteen and never reaches the guard | todo | true | minutes | 제출 자료 |
 | WFG-058 | P1 | paper | Manuscript figures restyled to the look of Moreno et al. (2025), which the author chose on 2026-09-04: framed panels, panel letters, hairline bar edges, framed legends, a warm red / blue / grey palette. `paper/style.py` rewritten, `paper/make_figures.py` labels every multi-panel figure; rules in `docs/auto/knowledge/FIGURE_STYLE_REFERENCE.md` | done (2026-09-04 laptop lap) | true | one lap | 제출 자료 |
 | WFG-059 | P3 | science | Buildings as exposure, not fuel — a Korean BFM-lite **after the finals**: 건축물대장 (needs the author's API key) joined to 도로명주소 건물DB footprints → footprint fraction, structure-separation distance, construction era and structure type per cell; then an ablation in the leave-one-fire-out protocol. The FireDX pipeline the author supplied was read and deliberately not adopted before the freeze; the decision and the four reasons are in `docs/auto/knowledge/WUI_BUILDINGS_AS_FUEL.md` | todo (post-finals) | partly | days | 데이터 수집 · 연구 기여 |
 | WFG-060 | P2 | paper | Study-area map of the six fires in the Moreno Fig. 1 style: DEM hillshade from data already in the repo, one graded circle per fire (size and colour by burned area, five-step legend), lat/lon graticule, scale bar, boxed legend. Offline build only, every burned-area figure from the registry | todo | true | one lap | 제출 자료 |
@@ -932,6 +934,30 @@ corrected rows to a new `fire_2025_scale_v2.json` and point the registrar at it.
 **Related:** WFG-049 (the value half, done), WFG-050 (the URLs themselves are unpinned;
 snapshot them with sha256), critic #5 F23.
 
+**Critic #8 addendum, 2026-09-04T0750Z — the disagreement narrowed to two spellings, and the
+wrong one is the registry.** The paper lap corrected `paper/manuscript.md` this window and
+registered `dgmbc2025toll` in `paper/references.bib` for it. Critic #8 opened that page
+independently (<https://dgmbc.com/article/bLdh4s3M4pgcSdYI0MZPc>, 2026-09-04) and confirms
+it verbatim: 「경상북도 재난안전대책본부가 3월 30일 오전 8시 30분을 기준으로 발표한 자료에
+따르면 산불로 인한 경북 지역 사망자는 영덕군 9명, 영양군 7명, 안동시와 청송군 각각 4명,
+의성군 2명 등 26명입니다」, and **neither 「중앙재난안전대책본부」 nor 「중대본」 appears
+anywhere on the page.** So the only openable source that carries the 26 together with its
+district split attributes it to the **province**, and the two documents still saying
+otherwise are:
+
+- `docs/NUMBERS.json` → `fire2025_chain_deaths`, whose `derivation` reads
+  `agency: 중앙재난안전대책본부 (경북 5개 시군 합계) … source: newsis` — a breaking-news
+  stub that names no agency at all;
+- `README.md:198` 「경상북도 최종 집계·**중앙재난안전대책본부 확인**」 and its English twin
+  at `:510` 「Gyeongsangbuk-do final tally confirmed by 중앙재난안전대책본부」, which assert a
+  confirmation no source in this repository supports, under a link
+  ([아시아경제 2025-05-06](https://view.asiae.co.kr/article/2025050610030818823)) that
+  carries no death figure.
+
+`docs/data_sources.md:190` and `paper/manuscript.md` are now both correct. The row is
+therefore smaller than it was and more embarrassing: the SSOT is the one that is wrong, and
+it is wrong against a page this repository already cites.
+
 ### WFG-053 · P0 · KCF · The booth card says the satellite was slower than the telephone; the paper says we cannot know
 
 **Where the two answers are.** Judge-facing, asserting the ordering:
@@ -1107,6 +1133,18 @@ word proxy drifts from the page count — say so in whatever replaces it.
 
 ### WFG-056 · P1 · infra · The push check that guards every push leaves no record of any push
 
+**Critic #8, 2026-09-04T0750Z — verified, and it is worse than 「leaves no record」.** The
+critic prompt asks this lap to confirm every day that each push in the window carried a
+report, using `gates.py --assert-reported --base <previous push>`. Ran it against eight
+bases spanning the whole 24 hours (`3156459`, `1113388`, `0ff1b36`, `8d1decf`, `12b8ac7`,
+`5a0466e`, `b855943`, `8e0a6ad`). All eight exit 0, and all eight name the **same** report,
+`docs/auto/reports/2026-09-04T0725Z-dev.md`, because the check is satisfied by any one new
+report anywhere in the range. So it cannot answer the question it is asked: a window
+containing ten pushes and one report passes exactly like a window containing one of each.
+The ledger this row asks for is what would make the daily check real; until it exists, that
+line of the critic prompt is unverifiable and this lap says so rather than reporting a pass.
+
+
 **Where:** `scripts/auto/gates.py:103-149` (`assert_reported`).
 
 **What is wrong.** The check is correct now — critic #5's F22 is properly fixed, and
@@ -1126,7 +1164,7 @@ push history out of it. A test asserts the line is written on both verdicts.
 **Constraints:** append only, never rewrite (CHARTER §3 rule 7). The ledger is a record of
 what a lap ran, not a claim that it was right.
 
-### WFG-057 · P1 · infra · A lettered question is invisible to every test that guards the Q&A bank
+### WFG-057 · **P0** · infra · Six questions are invisible to every test that guards the Q&A bank, and one of them is the guard
 
 **Where:** `tests/test_judge_qa_bank.py` `QUESTION_RE` matches `Q(\d+)`, so `Q10a` and `Q10b`
 — and the three questions critic #6 added this lap — are seen by none of
@@ -1229,6 +1267,32 @@ the statistic as background with its source, as `:310` already provides.
 `tests/test_detection_ordering_is_not_claimed.py` guards the *ordering* sentence and does
 not see this one, which is WFG-062's case for the general registry.
 
+**Critic #8 addendum, 2026-09-04T0750Z — the row got worse in two ways in one window, and neither is a new sentence.**
+
+1. **The bank now instructs the student to say, at T0, a sentence the same bank forbids at
+   T0.** `JUDGE_QA.md:240` (Q10, tier **T0**) still reads 「그래서 트리거 설계가 신고 우선,
+   위성 확인입니다 — 근거는 순서가 아니라 크기 바닥과 「신고의 99 %가 목격 신고」라는 통계」.
+   `JUDGE_QA.md:353` (Q10d, tier **T0**, added by critic #7 as the guard) lists that exact
+   sentence among 「❌ 말하면 안 되는 것」: 「신고의 99 %가 목격 신고이므로」,
+   「사람 신고를 일차로 두어야 합니다」. Both are in the fourteen the student is told to
+   memorise word for word. This is no longer a stale sentence in a document; it is one
+   document giving two opposite recitation instructions at the same tier, and the student
+   has no way to tell which one is current.
+2. **The finals screen shipped with the fix and the three documents did not, so the student
+   would now contradict the screen behind them.** `scripts/finals.template.html:1858` and the
+   built `web/finals.html` say 「이 측정이 말하는 것은 위성을 일차로 둘 수 없다는 것까지이며,
+   어떤 소스가 일차여야 하는지는 재지 않았습니다」, which is exactly what this row asks for.
+   `docs/finals_screen_v2.md:81-83` records that the lap wrote the screen in the fixed form
+   deliberately, before the fix reached anywhere else. So the four surfaces are now split
+   three against one, and the one that is right is the one a judge is looking at while the
+   student speaks.
+
+Nothing about the **fix** changes: it is still the same claim-shape edit at
+`JUDGE_QA.md:240`, `docs/detection_floor.md:319` and
+`docs/auto/finals/DETECTION_FLOOR_CARD.md:28,78`, and the screen is already the model
+sentence to copy. What changes is that the cost of not doing it is now a contradiction the
+student carries to the booth rather than a sentence a careful judge might catch.
+
 ### WFG-064 · P1 · paper · Two restyled figures have colliding labels
 
 **Where.** `paper/figures/F2_lofo_auc.png`, `paper/figures/F7_dispatch_ordering.png`,
@@ -1283,3 +1347,51 @@ listing]` with the phrase removed, and CHARTER §13 states the rule: a note may 
 **claim** `[UNVERIFIED]`, and may never state an author list, year, volume or page range that
 was not read off a record. **Constraints:** the other nineteen `[UNVERIFIED]` tags in the two
 notes are honest and stay; this row is about one phrase and one rule.
+
+### WFG-067 · P0 · KCF · The finals screen prints a commit id that does not exist
+
+**Where.** `web/finals.html` (`"git":"a562045"`), rendered on the RELIABILITY tab as
+「SYSTEM INTEGRITY · build 2026-09-04 07:11 UTC · commit a562045」 and visible in the
+committed screenshot `docs/auto/finals/screens_20260904T0630Z/4_reliability.png`. Also
+quoted at `docs/auto/finals/screens_20260904T0630Z/README.md:3`, in this file's WFG-017
+row (`done(a562045)`), and in the three dev reports of 2026-09-04 (0714Z, 0719Z, 0725Z).
+
+**What is wrong.** `git cat-file -t a562045` in a fresh clone of `auto/dev` answers
+`fatal: Not a valid object name a562045`. The id is a pre-rebase hash: the WFG-017 lap
+built the screen, committed, then `git pull --rebase origin auto/dev` rewrote its commits
+(`d0d64fb`, `dc63a06`) and the stamp inside the built HTML kept pointing at the object the
+rebase discarded. `scripts/build_finals.py:815`'s `git_head()` reads
+`git rev-parse --short HEAD` at build time, and nothing afterwards re-reads it.
+
+**Why it is P0 and not cosmetic.** This is the panel a judge is pointed at to check that
+the numbers on the screen came from somewhere. It is also the first thing an ISEF or IEEE
+reproducibility reviewer would type. The screen invites the check and then fails it, in the
+one place the project stakes its credibility. Nothing else on the screen is wrong: the
+three gate lines (`verify-numbers`, `check-forbidden`, `check-region-literals`) really ran
+and really passed, and the three `DATA` rows carry live sha256 prefixes.
+
+**Done when:** `web/finals.html` on `origin/auto/dev` carries a stamp that resolves, and a
+test in `tests/test_finals_screen.py` fails when it does not — `git cat-file -e <stamp>`,
+one line. **Constraints:** the gate must assert that the stamp **resolves**, not that it
+equals `HEAD`; the commit that carries a build is always one later than the commit the
+build was made at, so an equality gate would be unsatisfiable and the next lap would
+weaken it. A lap that rebases after building rebuilds before it pushes.
+
+### WFG-068 · P1 · infra · A routine that can do a row's work but cannot close it
+
+CHARTER §12 confines the paper routine to `paper/` plus its own report. That isolation is
+correct and should stay. Its consequence, unwritten until now, is that a backlog row the
+paper lap completes stays `todo`: the row is in `docs/auto/BACKLOG.md`, which the routine
+may not touch.
+
+WFG-064 is the first case. The paper lap fixed both figures at `e28377c`, wrote the fix up
+under the row's own number, listed two further defects it found and fixed, and left the row
+reading `todo` with the note 「CHARTER §12 stops this routine editing `BACKLOG.md`」. Critic
+#8 closed it by opening the two PNGs. Had no critic run, the next dev lap would have
+claimed a done row and spent a lap discovering that.
+
+**Done when:** the loop has one written mechanism for this and it is in CHARTER §12 —
+either a committed `paper/BACKLOG_CLAIMS.md` the paper lap appends `{row, commit, what}`
+to and the next dev or critic lap drains, or an explicit sentence that the paper lap names
+its completed rows in its report and the daily critic closes them. **Constraints:** do not
+widen the paper routine's write scope to `docs/auto/`; the isolation is the point.
