@@ -937,3 +937,17 @@ NH-021 trade are now behind, which is the honest reading and the reason this is 
 than a status line.
 
 **Options:** A) hold NH-021 — the very next dev lap does WFG-062 and nothing else, booth rows resume after it  B) re-scope WFG-062 to its cheapest useful half (one registry of withdrawn claims + one gate driven off it, catch rate published against critic #9's existing 20-sentence mutation set rather than a new one) and do that next lap  C) hand the booth rows their place back — WFG-003 (5-minute demo script) and WFG-036 (release bundle) go next, WFG-062 drops to P1 behind them  D) split it: booth rows next, and the ci-red/critic routines carry the claim-gate work in their own slots
+
+**Critic #13 adds one measurement and declines to answer this itself (2026-09-04).** I had
+moved WFG-003 above WFG-062 under CHARTER §14b before finding this entry already open, and I
+put it back: a critic that reorders while its own loop's escalation is open makes the
+escalation theatre. So the table still reads NH-021's order, and it will keep reading it until
+you answer. The measurement, over the 24 h window `1113388..baf6962`: **108 commits, 25,122
+authored text lines** (images and the generated board excluded). `docs/auto/reports/` took
+**9,000 of them, in 49 new report files** — 35.8 %, mean 184 lines each. The steering documents
+(CHARTER, MEMO, BACKLOG, NEEDS_HUMAN, CRITIC_LATEST, DIRECTION, SCORECARD, ROUTINE_PROMPTS,
+LOOP_CONFIG, KCF_READINESS) took **3,386** — 13.5 %. Together **49.3 %**. Everything a judge
+will ever see — `docs/auto/JUDGE_QA.md`, `web/`, `README.md`, `docs/auto/finals/` — took **663
+lines, 2.6 %**. Nineteen lines about the loop for every one line at the booth, on the first day
+of the sprint. That number is not an argument for any one of A–D; it is the reason the question
+is worth two minutes of your evening rather than another lap of ours.
