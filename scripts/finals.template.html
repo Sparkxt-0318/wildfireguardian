@@ -1841,10 +1841,13 @@ function renderEvidence() {
     const steps = regEntry('det_control_steps');
     const fa = regEntry('det_false_alarm_steps');
     if (fl && dl.length) {
+      const SF = V2.size_floor;
       const c = evCard(g, '탐지 바닥 · 정지궤도 위성이 볼 수 없는 구간',
-        fl.value.toFixed(2), 'ha (2 km 화소 · 화염 온도 750 K 가정)',
+        SF.ha_min.toFixed(2) + '~' + SF.ha_max.toFixed(2),
+        'ha (2 km 화소 · 가정한 화염 온도 ' + SF.n_assumed_temperatures + '종)',
         '2 km 화소는 이 크기 아래의 불을 구조적으로 분해하지 못합니다. 발화 직후의 불은 수 제곱미터입니다. ' +
-        '따라서 정지궤도 위성을 일차 트리거로 둘 수 없습니다. 가정한 화염 온도에 민감한 값이므로 자릿수로만 읽습니다. ' +
+        '따라서 정지궤도 위성을 일차 트리거로 둘 수 없습니다. 폭이 이렇게 넓은 것은 화염 온도가 측정값이 아니라 가정값이고 그것만으로 답이 8배 넘게 움직이기 때문입니다. 자릿수로만 읽으십시오 (750 K 가정에서 ' +
+        fl.value.toFixed(2) + ' ha). ' +
         '검증된 ' + dl.length + '건에서 지연은 기록된 발생일시 대비 ' +
         Math.min(...dl) + '~' + Math.max(...dl) + '분이었습니다.' +
         (steps && fa ? ' 오경보 대조군은 ' + steps.value + '단계 중 플래그된 단계 ' +
@@ -1874,7 +1877,7 @@ function renderEvidence() {
         [V2.sources.horizon + ' :: checks.*',
          ...regProv('kfs_cum_le_240_pct')]);
       const w = hel('p', 'note warn', c,
-        '평균은 계산하지 않습니다. 한 행의 연도 오기입이 평균을 무의미하게 만들어 중앙값과 백분위만 씁니다. 원자료의 발생일시 열이 신고 접수를 가리키는지 관측된 발화를 가리키는지는 이 저장소가 확인하지 못했습니다.');
+        '평균은 계산하지 않습니다. 한 행의 연도 오기입이 평균을 무의미하게 만들어 중앙값과 백분위만 씁니다. 기준 시각에 대해 이 저장소는 두 가지를 동시에 들고 있습니다: 산출물과 레지스트리는 발생일시를 「신고된 시작 시각」으로 적어 두었고, 그 판독의 상위 출처는 아직 확인되지 않았습니다. 어느 쪽이든 이 분포는 「기록 → 진화」로만 읽습니다 (백로그 WFG-061, NH-019).');
       c.insertBefore(w, c.querySelector('.prov'));
     }
   }
@@ -1898,10 +1901,14 @@ function renderEvidence() {
         '가구 가운데, 대피 지점 한 곳을 더 두면 ' + k1.value +
         '가구가, 두 곳이면 ' + k2.value +
         '가구가 도달 가능해집니다. 세 번째 지점이 더하는 것은 ' + k3.value +
-        '가구입니다. 탐욕적 근사가 아니라 전수 탐색이며, 빠른 탐색의 예측과 전 계층 재계산이 같은 가구 집합에서 일치했습니다.',
+        '가구입니다. 탐욕적 근사가 아니라 전수 탐색입니다.',
         [R.source + ' :: optimum_h240.marginal_curve , verification',
          ...regProv('l0i_best_pair_saved')]);
       const w = hel('p', 'note warn', c,
+        '전 계층 재계산으로 확인한 것은 지점 ' + R.n_sites_full_layer_verified +
+        '곳뿐이고, 그 한 곳에서 빠른 탐색과 같은 가구 집합이 나왔습니다 (' +
+        R.failing_before + '가구 중 ' + R.failing_after +
+        '가구가 남았습니다). 두 곳·세 곳의 값은 그렇게 확인되지 않았습니다. ' +
         '목적함수는 도달 가능성뿐이고 대피 지점이 화재에서 살아남는지는 묻지 않습니다. 생존 점검은 별도이며 ' +
         R.survival_evaluations +
         '건의 지점 대 시나리오 평가에서 화재가 도달한 사례가 없어 그 필터는 구속되지 않았습니다. 모든 가구 수는 OSM 건물 스냅숏 위의 잠정치이고, 이것은 가정 아래의 기하학적 권고이지 입지 결정이 아닙니다.');

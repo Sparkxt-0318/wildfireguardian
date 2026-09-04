@@ -321,6 +321,33 @@ def test_the_detection_card_rules_the_satellite_out_and_nothing_in():
     assert "먼저였다는 주장은 하지 않습니다" in text
 
 
+def test_the_size_floor_is_shown_as_the_span_its_assumption_allows():
+    """A point estimate here is five times narrower than the repo's interval.
+
+    ``det_size_floor_ha_tf750`` is 0.1939 ha, and its own registry caveat says
+    ORDER OF MAGNITUDE ONLY and READ THE FLOOR AS ROUGHLY 0.1-1 ha, because
+    the flaming temperature is assumed rather than measured and moves the
+    answer more than eightfold. A judge reading the card for five seconds
+    should get the span, not the midpoint.
+    """
+    got = _payload()["ev2"]["size_floor"]
+    spa = _artifact("data", "processed", "detection",
+                    "gk2a_detection_floor.json")["per_fire"][
+                        "uiseong_andong_2025"]["sub_pixel_area"]
+    areas = sorted(v["fire_area_ha"] for v in spa.values())
+    assert (got["ha_min"], got["ha_max"]) == (areas[0], areas[-1])
+    assert got["n_assumed_temperatures"] == len(spa) >= 3
+    # the span must actually be wide, or showing it buys nothing
+    assert got["ha_max"] / got["ha_min"] > 5
+    # NOTE the card's headline is composed at render time out of these two
+    # payload numbers, so the formatted span exists nowhere in the source.
+    # Pin the payload, and pin that the template still COMPOSES it rather
+    # than having acquired a hand-typed literal.
+    tpl = TEMPLATE.read_text(encoding="utf-8")
+    assert "SF.ha_min.toFixed(2) + '~' + SF.ha_max.toFixed(2)" in tpl
+    assert "자릿수로만 읽으십시오" in _text()
+
+
 TRIGGER_PRIORITY_WORDS = ("일차", "우선", "먼저", "앞서", "앞섭", "앞선",
                           "최초", "주된", "주 소스")
 TRIGGER_SOURCE_NOUNS = ("신고", "위성", "GK2A", "FIRMS", "감시카메라", "무전")
@@ -358,14 +385,65 @@ def test_every_trigger_priority_sentence_on_the_screen_is_a_negation():
     assert offenders == [], offenders
 
 
-def test_the_horizon_card_does_not_call_the_recorded_time_a_report_time():
-    # docs/horizon_grounding.md could not confirm what the CSV's time column
-    # means (WFG-061, NH-019); the screen inherits that uncertainty, it does
-    # not resolve it
+def test_the_horizon_card_discloses_the_reference_time_disagreement():
+    """The screen may not silently pick a side of an open disagreement.
+
+    An earlier draft of this test banned the phrase 「신고 시각」 from the card
+    and asserted only ``docs/horizon_grounding.md`` §2's position ("we could
+    not confirm what 발생일시 means"). That was wrong on the merits, and the
+    lap's independent reviewer refused the push for it: the committed
+    artifact the card cites says the OPPOSITE in its own header, and so do
+    all four registry entries the card reads. Banning the artifact's own
+    wording from the screen would have made the presentation layer outvote
+    its source, permanently, through a gate.
+
+    So the requirement is disclosure, not a side: the card must name the
+    artifact's reading AND the fact that its upstream source is unconfirmed,
+    and must state the durations in the form that is true under both.
+    Resolving it is WFG-061 / NH-019.
+    """
     text = _text()
     assert "기록된 발생일시에서 진화까지" in text
-    assert "확인하지 못했습니다" in text
-    assert "신고 후 240분" not in text
+    assert "신고된 시작 시각" in text        # the artifact's own reading, stated
+    assert "상위 출처는 아직 확인되지 않았습니다" in text
+    assert "WFG-061" in text
+    # and the sentence that is true either way
+    assert "「기록 → 진화」로만 읽습니다" in text
+
+
+def test_the_artifact_still_says_what_it_says():
+    """A guard on the guard: if the artifact's header ever stops asserting a
+    reported start time, the disclosure above becomes a false description of
+    it and this test is what notices."""
+    art = _artifact("data", "processed", "detection",
+                    "kfs_containment_duration.json")
+    assert "REPORTED start time" in art["⚠_reference_time"]
+
+
+def test_the_refuge_card_claims_only_the_verification_that_was_run():
+    """The full-layer recomputation covers ONE site, and the card said three.
+
+    ``verification.full_layer_verification`` recomputes a single node at
+    k = 1. ``marginal_curve``'s k2 and k3 figures were never put through it,
+    and the verified node is not even the k1 optimum. The first draft of this
+    card closed the k1/k2/k3 sentence with 「빠른 탐색의 예측과 전 계층
+    재계산이 같은 가구 집합에서 일치했습니다」, which is a scope the artifact
+    does not carry. Values alone cannot catch that, so this pins the scope.
+    """
+    got = _payload()["ev2"]["refuge"]
+    rp = _artifact("data", "processed", "vulnerability", "refuge_placement.json")
+    ver = rp["verification"]["full_layer_verification"]
+    assert got["n_sites_full_layer_verified"] == 1
+    assert got["verified_node"] == ver["node"]
+    assert got["verified_k1_node"] == rp["optimum_h240"]["marginal_curve"]["k1_nodes"][0]
+    # the artifact verified a DIFFERENT node from the k1 optimum; if that ever
+    # stops being true the card's careful wording can be relaxed, on purpose
+    assert got["verified_node"] != got["verified_k1_node"]
+    text = _text()
+    assert "두 곳·세 곳의 값은 그렇게 확인되지 않았습니다" in text
+    # and the survivors of that one verification are shown, not hidden
+    assert str(got["failing_after"]) in text
+    assert "빠른 탐색의 예측과 전 계층 재계산이 같은 가구 집합에서 일치했습니다" not in text
 
 
 def test_the_v2_cards_put_a_caveat_on_every_number_they_show():

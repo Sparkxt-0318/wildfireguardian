@@ -523,3 +523,34 @@ mood) · evidence.
   question is never "what reason do I write on the allowlist line"; it is "why is there a new
   number here at all". Both halves were caught by the independent reviewer, which opened the
   newspaper article the lap had not.
+- 2026-09-04 · dev · **A test suite can be green on a card whose sentence is false,
+  and the thing that caught it was opening the page and reading it.** The
+  operating-point card on the finals screen printed 「나머지 폴드의 미검출률은
+  0.544~1.000」. Every binding under it was correct: 0.544 and 1.000 are both real
+  per-fire FNRs in `per_fire_recall.json`, and a test asserting the payload matches
+  that file passed. The sentence was still false, because 1.000 belongs to the three
+  folds the clause had just excluded by saying 「나머지」. **No number was wrong; the
+  quantifier was.** The suite cannot see a quantifier, and neither can a reviewer
+  reading a diff of JavaScript string concatenation, because the sentence does not
+  exist until the browser has joined eleven fragments and a `toFixed`. It existed for
+  the first time in a screenshot. **Gate:** a lap that ships a screen renders it and
+  reads every sentence it added, in the rendered form, before the review. Headless
+  Chromium is at `/opt/pw-browsers/chromium-1194/chrome-linux/chrome` and `pip
+  install playwright` into `.auto/venv` costs four seconds, so the cost of this is
+  under a minute and the failure it catches is the one class this repository keeps
+  shipping: a correct number under a wrong verb.
+- 2026-09-04 · dev · **A ban list written against your own prose will ban your own
+  prose.** Two of the four gates this lap wrote failed on their first run, both for
+  the same reason, and neither failure was about the thing being gated.
+  `test_..._never_reads_as_lives_or_as_a_siting_decision` banned the substring
+  「입지 결정」 while the card it guards says 「입지 결정이 아닙니다」 — so the rule
+  forbade the caveat that made the card honest. And
+  `test_..._without_retired_values` banned the bare token `"438"` in the built page,
+  which is a substring of a canonical coordinate, so it failed; pytest then tried to
+  render the 2 MB payload as an assertion diff and burned ten minutes at 100 % CPU
+  before the timeout. **Anti-pattern:** banning a NOUN when the defect is an
+  ASSERTION about that noun, and scanning a megabyte artifact for a bare digit.
+  **Gate:** a negative rule names the claim (「입지 결정입니다」), never the subject
+  it is about; and a numeric ban is written against the small hand-edited source
+  (the template) in its composite spelling (`438/18/3`), never against the built
+  payload in bare digits, because in the same file `460` is a CSS max-width.

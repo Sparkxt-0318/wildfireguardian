@@ -735,6 +735,16 @@ def evidence_v2() -> dict:
     rest = [v for v in per.values() if v["false_negative_rate"] < 1.0]
     fnrs = sorted(round(v["false_negative_rate"], 3) for v in rest)
 
+    # the size floor is an ORDER OF MAGNITUDE: the assumed flaming temperature
+    # alone moves it more than eightfold, and the registry caveat says to read
+    # it as roughly 0.1 to 1 ha. A single Tf_750K point estimate on the card
+    # would be five times narrower than the repository's own interval, so the
+    # card prints the span across the assumed temperatures instead.
+    det = json.loads((REPO / "data" / "processed" / "detection" /
+                      "gk2a_detection_floor.json").read_text(encoding="utf-8"))
+    spa = det["per_fire"]["uiseong_andong_2025"]["sub_pixel_area"]
+    areas = sorted(v["fire_area_ha"] for v in spa.values())
+
     rp = json.loads((REPO / "data" / "processed" / "vulnerability" /
                      "refuge_placement.json").read_text(encoding="utf-8"))
     ver = rp["verification"]["full_layer_verification"]
@@ -750,11 +760,26 @@ def evidence_v2() -> dict:
             "fnr_max_among_folds_with_a_true_positive": fnrs[-1],
             "source": "data/processed/operating_point/per_fire_recall.json",
         },
+        "size_floor": {
+            "ha_min": areas[0],
+            "ha_max": areas[-1],
+            "n_assumed_temperatures": len(areas),
+            "assumed_temperatures": sorted(spa),
+            "source": "data/processed/detection/gk2a_detection_floor.json",
+        },
         "refuge": {
             "site": rp["site"],
             "failing_before": ver["full_layer_failing_before"],
             "failing_after": ver["full_layer_failing_after"],
             "horizon_min": ver["horizon_min"],
+            # the full-layer recomputation covers ONE site at k = 1, and it is
+            # not even the k1 optimum (marginal_curve.k1_nodes names a
+            # different node). k2 and k3 were never recomputed that way, so
+            # the card may not put the agreement verb after all three.
+            "verified_node": ver["node"],
+            "verified_k1_node": rp["optimum_h240"]["marginal_curve"]["k1_nodes"][0],
+            "n_sites_full_layer_verified": 1,
+            "full_layer_agrees": bool(ver["agree"]),
             "survival_evaluations": surv["n_site_scenario_evaluations"],
             "readme": _dash_safe(str(rp["_README"]))[:600],
             "source": "data/processed/vulnerability/refuge_placement.json",

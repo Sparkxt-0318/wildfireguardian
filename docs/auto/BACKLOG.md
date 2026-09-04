@@ -42,7 +42,7 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-004 | P0 | KCF | SSOT sweep (**revise**: fix README:731, reconcile `fold_sizes.md` vs `NUMBERS.json` on the primary AUC, annotate superseded values) | done(20260903T1622Z) | true | one lap | 제출 자료 |
 | WFG-020 | P0 | KCF | Greenpeace 2026 survivor survey registered as evidence + the "85% drove" answer | done(20260903T1821Z) | true (fallback NH) | hours | 연구 목적 · 데이터 수집 |
 | WFG-021 | P0 | KCF | Detection-floor panel (Session 19 as recorded) + tests for `src/wildfireguardian/detection/gk2a.py` | **done for the sprint** — **(a) done(b557e9d)**, **(b) done(f5f8498)**, **(c) parked(needs the NOAA archive at run time; not runnable in the cloud sandbox — parked by critic #6 so this row stops sitting above WFG-017 as a `todo` a lap must first read and reject)** | true | one lap | 데이터 수집·분석·해석 · 설계와 방법론 |
-| WFG-017 | P0 | KCF | `web/finals.html` refresh v2: evidence cards for operating point, detection floor, horizon grounding, refuge placement, reconciliation; rebuilt with `--verify` | in-progress(20260904T0630Z) | true (fallback: student runs `make finals`) | one lap | 제출 자료 · 구현 및 유용성 |
+| WFG-017 | P0 | KCF | `web/finals.html` refresh v2: evidence cards for operating point, detection floor, horizon grounding, refuge placement, reconciliation; rebuilt with `--verify` | done(a562045) | true (fallback: student runs `make finals`) | one lap | 제출 자료 · 구현 및 유용성 |
 | WFG-003 | P0 | KCF | Finals screen audit + 5-minute demo script (keep) | todo | true | one lap | 제출 자료 · 구현 및 유용성 |
 | WFG-063 | P0 | KCF | **The trigger recommendation lost its evidence and the T0 answer kept it.** `docs/detection_floor.md` §10 now says in bold that 「신고의 99 %가 목격 신고」 may not carry a conclusion (unregistered, interim), and the booth card dropped it — but `docs/auto/JUDGE_QA.md:240`, a **T0** answer, still names it as one of the two grounds for 신고 우선. And with it gone, nothing left in any judge-facing document supports 「사람 신고를 일차로」: the size floor rules the **satellite out**, it does not rule the **human in**. Restate the claim as the one the measurement carries (「위성을 일차 트리거로 둘 수 없습니다」) in `JUDGE_QA.md` Q10, `detection_floor.md` §10 row 1 and `DETECTION_FLOOR_CARD.md:28,78`, and delete the 99 % clause from Q10 (critic #7, F35) | todo | true | hours | 데이터 해석 · 제출 자료 · 구현 및 유용성 |
 | WFG-064 | P1 | paper | **Two of the seven restyled figures have colliding labels, and the lap that shipped them said all seven were looked at.** `paper/figures/F2_lofo_auc.png`: the `0.878` bar label is struck through by the red 「mean of folds 0.89」 rule, and 「pooled 0.905」 sits on the x-axis over the tick labels. `F7_dispatch_ordering.png`: panel b's 「deadline first wins」 teal is the same teal as panel a's 「nearest first」, two meanings on one colour inside one figure. Nudge the labels (offset a value label that falls within ~1 % of a reference rule; place the pooled label inside the axes) and give panel b its own hue. Rubric row is literally 「그래픽 및 범례의 명확성」 (critic #7, F36) | todo | true | hours | 제출 자료 |
@@ -88,7 +88,7 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-058 | P1 | paper | Manuscript figures restyled to the look of Moreno et al. (2025), which the author chose on 2026-09-04: framed panels, panel letters, hairline bar edges, framed legends, a warm red / blue / grey palette. `paper/style.py` rewritten, `paper/make_figures.py` labels every multi-panel figure; rules in `docs/auto/knowledge/FIGURE_STYLE_REFERENCE.md` | done (2026-09-04 laptop lap) | true | one lap | 제출 자료 |
 | WFG-059 | P3 | science | Buildings as exposure, not fuel — a Korean BFM-lite **after the finals**: 건축물대장 (needs the author's API key) joined to 도로명주소 건물DB footprints → footprint fraction, structure-separation distance, construction era and structure type per cell; then an ablation in the leave-one-fire-out protocol. The FireDX pipeline the author supplied was read and deliberately not adopted before the freeze; the decision and the four reasons are in `docs/auto/knowledge/WUI_BUILDINGS_AS_FUEL.md` | todo (post-finals) | partly | days | 데이터 수집 · 연구 기여 |
 | WFG-060 | P2 | paper | Study-area map of the six fires in the Moreno Fig. 1 style: DEM hillshade from data already in the repo, one graded circle per fire (size and colour by burned area, five-step legend), lat/lon graticule, scale bar, boxed legend. Offline build only, every burned-area figure from the registry | todo | true | one lap | 제출 자료 |
-| WFG-061 | P1 | science | `docs/horizon_grounding.md` reads the KFS 산불통계 CSV's `발생일시` column as a 신고 시각 and cites no source for that reading, exactly as `docs/detection_floor.md` §1 did before WFG-053. The two are **different datasets** (public-portal CSV vs `fire_manifest.json`), so the claim that they "share the same weakness in the same data" was wrong and was withdrawn by the WFG-053 lap; the column's own provenance is still unchecked. Find what 산림청 says `발생일시` means in the 산불통계데이터 spec, or state that it is unknown. The 79.23 %/240-min horizon numbers do not move either way (dev lap 20260904T0419Z) | todo | true | hours | 데이터 해석 (재현) · 데이터 수집 |
+| WFG-061 | P1 | science | `docs/horizon_grounding.md` reads the KFS 산불통계 CSV's `발생일시` column as a 신고 시각 and cites no source for that reading, exactly as `docs/detection_floor.md` §1 did before WFG-053. The two are **different datasets** (public-portal CSV vs `fire_manifest.json`), so the claim that they "share the same weakness in the same data" was wrong and was withdrawn by the WFG-053 lap; the column's own provenance is still unchecked. Find what 산림청 says `발생일시` means in the 산불통계데이터 spec, or state that it is unknown. The 79.23 %/240-min horizon numbers do not move either way (dev lap 20260904T0419Z). **Widened by the WFG-017 lap's reviewer (2026-09-04): this is not doc-vs-nothing, it is doc-vs-artifact.** `data/processed/detection/kfs_containment_duration.json`'s own header `⚠_reference_time` states flatly 「`발생일시` is a REPORTED start time, not observed ignition. Every duration is report-to-containment」, and all four registry entries the finals screen reads (`kfs_cum_le_240_pct`, `kfs_n_usable_events`, `kfs_containment_median_min`, `kfs_area_ge100ha_median_min`) carry that caveat, as do `det_gk2a_delay_*_min`. So the artifact asserts what §2 says it could not confirm. The artifact is a committed record and is not edited (§3 rule 2); what this row must produce is either the upstream source (then annotate the entries) or a written statement that the assertion is unsourced. Until then judge-facing prose states BOTH and reads the distribution as 기록 → 진화 only | todo | true | hours | 데이터 해석 (재현) · 데이터 수집 |
 | WFG-062 | P1 | infra | `tests/test_detection_ordering_is_not_claimed.py` gates ONE withdrawn sentence shape over FOUR named documents, and `scripts/check_forbidden.py`'s five `claim` rules are the only other sentence-level gate in the tree. Every other gate reads a value, which is critic #5's and critic #6's shared root objection two windows running. Generalise: a registry of withdrawn CLAIMS (id, banned spellings, the artifact that withdrew it, the pragma token) that any document can be checked against, so a fifth document asserting the ordering tomorrow is caught. Absorbs the per-row hand-rolled gates (dev lap 20260904T0419Z) | todo | true | one lap | 데이터 해석 (재현) · 제출 자료 |
 | WFG-011 | P2 | ISEF | ISEF plan memo (**revise**: route-existence questions, SFTD base rate, age rule, hand-written documents) | todo | true | one lap | — |
 | WFG-032 | P2 | science | Leak-free 영덕 fold + hindsight-oracle routing arm (agent writes the script; student runs on the Mac) | todo | partial | one lap + one Mac day | 데이터 해석 · IEEE Table V |
@@ -487,6 +487,39 @@ carrying forward.
 - **Effort:** one lap. **agent_doable:** true — the sandbox has the geospatial stack via pip; if `build_finals.py` fails on a missing git-ignored input, emit the card payload as JSON under `docs/auto/finals/` with instructions and file a NEEDS_HUMAN for the student to run `make finals` locally.
 - **Constraints:** `docs/finals_demo_plan.md` §1 (offline gate strict; no `fetch(`, no external URL); §5.19 caveat on every 영덕 absolute; never put reverted-field numbers on the screen; `web/finals.html` references `web/assets/fonts/` — do not inline fonts (size) and do not break the paths.
 - **Done when:** rebuilt file with `built_at_commit` on `auto/dev`, gate panel showing the gates ran, `check_screen_assets` and the 17 tests green, a screenshot per act attached to the report.
+
+**Lap 20260904T0630Z — done(a562045).** Every clause of the done-when holds, and the
+row's own headline finding is that **the screen rebuilds in this sandbox in 10
+seconds** — critic #7's root objection was that the cost of the first attempt was
+unknown, and it is now known and small. The fallback the row provided (emit card
+payloads as JSON, file a NEEDS_HUMAN, ask the student to run `make finals`) was not
+needed: `build_finals.py` needs nothing git-ignored.
+
+Shipped: four EVIDENCE cards (운영점 · 탐지 바닥 · 240분 지평 · 대피 지점 배치) and one
+RELIABILITY card (제출본과 정본), each with a 근거 provenance block and its own caveat
+line; 23 registry keys added to `REGISTRY_KEYS` (18 → 41); a new `evidence_v2()` payload for the
+four structural facts a single key cannot hold; `docs/finals_screen_v2.md`;
+`tests/test_finals_screen.py` 17 → 26. Four things worth carrying forward:
+
+1. **Two claim defects were caught by rendering the page, not by the suite.** The
+   operating-point card said 「나머지 폴드의 미검출률은 0.544~1.000」 while 1.000 is the
+   value of the three folds that clause had just excluded. Every binding under it was
+   green. The other is preventive: the detection card is written in **WFG-063's
+   post-fix form ahead of that row** — the size floor rules the satellite OUT and the
+   card says so, and says that which source should be primary was not measured.
+2. **A second, spelling-free claim gate exists for this file.**
+   `test_every_trigger_priority_sentence_on_the_screen_is_a_negation` requires any line
+   naming both a priority word and a trigger source to carry a negation. Mutation-tested
+   against three phrasings absent from the tree; the spelling gate missed all three and
+   this one caught all three. It reads one file, which is why **WFG-062** stays open.
+3. **Two documents called the KFS CSV's reference time a report time**
+   (`horizon_grounding.md:106`, `JUDGE_QA.md:242`), contradicting `horizon_grounding.md`
+   §2's own warning box thirty lines above. Corrected with a dated note; no number
+   moved; the column's provenance is still **WFG-061**. `SESSION20_REPORT.md` keeps the
+   old clause as a record.
+4. **`JUDGE_QA.md:240` was deliberately not touched.** It is WFG-063's row across four
+   documents, and fixing one clause of a two-clause sentence is the failure critic #6
+   and #7 both named. It is the next row.
 
 ### WFG-003 · P0 · KCF · Finals screen audit + 5-minute demo script — keep
 - As in `docs/auto/BACKLOG.md`, run **after** WFG-017 so the mapping table covers the new cards. The script follows `docs/FINALS_DEMO.md`'s four acts and adds one interruption sentence per judge type; it says "about 25 seconds" for trigger→dispatch.
