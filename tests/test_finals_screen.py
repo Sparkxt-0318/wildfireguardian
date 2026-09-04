@@ -572,9 +572,13 @@ def test_the_stamp_gate_is_graded_against_the_ways_a_stamp_goes_wrong():
     head = _git("rev-parse", "HEAD").stdout.strip()
     parent = _git("rev-parse", "HEAD~1").stdout.strip()
     # A real commit object that no branch reaches: exactly what a rebase leaves.
-    orphan = _git("commit-tree", f"{head}^{{tree}}", "-p", head,
-                  "-m", "unreachable probe for the WFG-067 gate").stdout.strip()
-    assert orphan, "could not build the orphan probe"
+    # The CI runner has no git identity, so commit-tree returns nothing there and the
+    # gate was red on GitHub for six commits (2026-09-04) while every lap read green.
+    probe = _git("-c", "user.name=wfg-probe", "-c", "user.email=probe@wildfireguardian.invalid",
+                 "commit-tree", f"{head}^{{tree}}", "-p", head,
+                 "-m", "unreachable probe for the WFG-067 gate")
+    orphan = probe.stdout.strip()
+    assert orphan, f"could not build the orphan probe: {probe.stderr.strip()}"
 
     cases = [
         ("built at HEAD",            head[:7],   True),
