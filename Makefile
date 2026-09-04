@@ -19,7 +19,8 @@ SHELL := /bin/bash
 .SHELLFLAGS := -o pipefail -e -c
 
 .DEFAULT_GOAL := help
-.PHONY: help verify verify-numbers check-forbidden check-region-literals check-readme-figures \
+.PHONY: help verify verify-numbers check-forbidden check-withdrawn-claims \
+	check-region-literals check-readme-figures \
 	snapshot snapshot-verify check-arm-isolation check-gate-invocations \
 	check-arm-controls \
         env-check config-hash test baseline-verify baseline-freeze all-checks \
@@ -31,6 +32,7 @@ help:
 	@echo "  make verify           NUMBERS.json re-derived from artifacts + forbidden-string scan"
 	@echo "  make verify-numbers   just the NUMBERS.json re-derivation"
 	@echo "  make check-forbidden  just the forbidden-string scan"
+	@echo "  make check-withdrawn-claims  every tracked doc vs docs/auto/withdrawn_claims.json"
 	@echo "  make check-region-literals  one region's values typed into shared text"
 	@echo "  make snapshot         preserve external inputs (OSM + FIRMS manifests)"
 	@echo "  make snapshot-verify  re-hash the snapshot store against MANIFEST.json"
@@ -48,7 +50,7 @@ help:
 # --- the headline gate -------------------------------------------------------
 # Every registered number is re-derived from its artifact, then the prose is
 # scanned for retired values. Either failing is a hard stop.
-verify: verify-numbers check-forbidden check-region-literals \
+verify: verify-numbers check-forbidden check-withdrawn-claims check-region-literals \
         check-arm-isolation check-gate-invocations check-arm-controls \
         check-declared-deps check-artifact-manifest check-number-collisions \
         check-readme-figures
@@ -63,6 +65,11 @@ check-forbidden:
 	@echo
 	@echo "=== forbidden strings ==="
 	@$(PYTHON) $(SCRIPTS)/check_forbidden.py
+
+check-withdrawn-claims:
+	@echo
+	@echo "=== withdrawn claims (registry, whole tree) ==="
+	@$(PYTHON) $(SCRIPTS)/check_withdrawn_claims.py
 
 check-region-literals:
 	@echo
