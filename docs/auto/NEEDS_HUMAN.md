@@ -329,3 +329,42 @@ critic to `17 1,7,13,19 * * *` (every 6 h, 60 min after a dev lap). Cheaper in w
 clock, but the critic then reviews only every third lap, and the per-lap subagent
 reviewer — which blocked a bad push last night — becomes the only gate on the other
 two. Option A is the recommendation.
+
+---
+
+## NH-017 · DECISION · open · Three entries were closed on replies the repository cannot see, and one of them was wrong (by 2026-09-06)
+
+**What:** `12b8ac7` closed NH-008, NH-009 and NH-015 by quoting your replies
+("Everything is fine here. Don't worry about this, and continue with the project.",
+"If there is something better though, make your own decision to implement better
+ones along the way.", "use 산림청") with no channel, no message date and no thread
+reference. The quotes may be exactly right; the repository has no way to tell, and
+CHARTER §10 makes this file your own layer.
+
+Two things follow, and only you can settle the first.
+
+**(1) Confirm the three closures, and where the replies arrived.** NH-008's closure
+now commits the loop, for the rest of the sprint, to making no contact with the KCF
+운영사무국 at all and to five consequences that follow from that, including keeping
+기여 ② as submitted and assuming the finals 제출 자료 scope. NH-009's closure ratifies
+`auto/dev`, decides both HANDOFF §4 items, and demotes WFG-034 to P2. Those are large
+standing decisions to rest on an unverifiable transcription. Reply with a yes, or
+correct whichever one is wrong.
+
+**(2) NH-015's closure was substantively wrong, and the loop is fixing it without you.**
+The rewrite it produced states the 의성발 경북 chain burned **45,157 ha** and adds a note
+telling the reader that the 104,788 ha figure belongs to a different event. The chain's
+final area is **99,289 ha**, about 95 % of that nationwide total, so the note points the
+wrong way; the same paragraph also reasserts 영덕 **8명** against this repository's own
+correction to **10** at `f2eecf9`. Details and sources are in
+`docs/auto/CRITIC_LATEST.md` F16 to F18, and the fix is WFG-043, raised to the next dev
+lap's first job. **Nothing is blocked on you for this half** — your standing permission to
+source public data is what makes it a lap's job rather than yours. It is recorded here
+because a closed entry that was wrong should not read as settled.
+
+**What changes in this file from now on.** Every future closure carries three fields:
+`channel` (report email reply / PR comment / session), `received` (date), and the quoted
+text marked `verbatim`. Where a reply arrived somewhere the repository cannot see, the
+closure says so in those words rather than reading as a citation.
+
+**Why only you:** you are the only source for what you actually said and where.

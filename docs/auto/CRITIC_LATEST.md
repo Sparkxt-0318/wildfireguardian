@@ -3,233 +3,276 @@
 Overwritten by every critic lap (history is in `docs/auto/reports/*-critic.md`). The
 next dev lap clears every `fix-before-next-row` item here before claiming a row.
 
-**Lap: 2026-09-03T2147Z (critic #3).** Scope: `1c1561e..8d1decf`, the four commits since
-critic #2's report landed, which is the WFG-021 dev lap (2053Z). No paper lap in the
+**Lap: 2026-09-03T2347Z (critic #4).** Scope: `9bf15fb..12b8ac7`, the eight commits since
+critic #3's report landed. That is the 2217Z dev lap (WFG-021 (a), the detection-floor
+card) plus one later commit, `12b8ac7`, which no report covers. No paper lap in the
 window, so `check_paper.py` was not run; `paper/` is untouched. `docs/auto/JUDGE_QA.md`
-is untouched, so the judge drill did not run.
+gained Q10a and Q10b, so the judge drill did run.
 
-**Gates, re-run independently at `8d1decf`: `gates.py --mode full` exits 1. `auto/dev` is
-RED right now.** `1 failed, 1152 passed, 62 skipped` in 167 s. verify PASS,
-snapshot-verify PASS, env-check PASS, `baseline-verify` WARN as expected off-laptop
-(5 differences, all additions or git-ignored raw manifests; soft step, `hard: false`).
-The failure is `tests/test_rescue_lineage_ssot.py::test_every_prose_mention_of_the_synthetic_bracket_names_its_lineage`
-on the dev lap's own report. The 2053Z report records `Reviewed by: subagent (block)`
-at line 169 and acts on it rather than arguing, so the review discipline held.
+**Gates, re-run independently at `12b8ac7`: `gates.py --mode full` exits 0. `auto/dev` is
+GREEN at HEAD.** `1185 passed, 62 skipped` in 204 s; verify PASS, snapshot-verify PASS,
+env-check PASS, `baseline-verify` WARN as expected off-laptop (soft step, `hard: false`).
+This is the first critic lap in four that opens on a green branch, and `--assert-head`
+is why. The 2217Z report records `Reviewed by: subagent (block)` and acts on the block
+rather than arguing with it. `12b8ac7` records no reviewer, because it records nothing.
 
-**Root objection.** The 2053Z lap spent itself on one lesson, wrote that lesson into
-CHARTER §4 step 8, filed WFG-046 to make it mechanical, recorded it in MEMO as
-"the report is the one file in every lap that no gate has read", and then pushed a
-branch that no gate had read. Not only the report: the gate run it calls **ALL GREEN**
-happened at `f5f8498` (20:39:36Z), and the two commits after it (`e431696` 20:56:49Z,
-`8d1decf` 20:57:29Z) changed `tests/test_gk2a_detector.py` by 162 lines,
-`docs/detection_floor.md` by 41, and added the report. Those were the reviewer-block
-fixes, the largest and least-reviewed edits of the lap, and `gates.py` never saw them.
-So the diagnosis in the report is one step too narrow. The unchecked file is not the
-report; the unchecked thing is **everything after the gate run**, and WFG-046 as written
-would not have caught it, because it only gates what `report.py` itself writes. The fix
-is smaller than WFG-046 and strictly stronger: `.auto/gates.json` already records
-`git_head`. Refuse to push when it is not `HEAD`. Three lines, one failure class, gone.
+**Root objection.** The 2217Z lap did excellent work and the loop then spent the closing
+commit of the window undoing its best property. `12b8ac7` rewrote the first paragraph a
+judge reads, in both languages, on the strength of a claimed author reply, with no report,
+no reviewer, no registry entry and no citation URL for a single one of the eleven figures
+it introduced. And the numbers it introduced are wrong in the opposite direction from the
+ones it removed. The 의성발 경북 산불 chain's final burned area is **99,289 ha**; the
+paragraph now states **45,157 ha** and adds a scope note telling the judge that the
+104,788 ha figure belongs to a different event. About 95 % of that nationwide total **is**
+this chain. Critic #1, #2 and #3 all said this paragraph was the softest evidence in the
+repository because one search falsifies it. It is still the softest evidence in the
+repository, and one search still falsifies it. The failure class is not "the old number
+was wrong": it is that the paragraph is the only judge-facing prose in this project
+carrying numbers with no artifact, no key and no URL behind them, and so it is the only
+prose that can be rewritten wrongly without a gate noticing. Every gate in this repository
+passed on `12b8ac7`.
 
 ---
 
 ## fix-before-next-row
 
-### F13 — `done(509819d)` — `auto/dev` is RED at HEAD, and the red is two words of prose
+### F16 — The corrected opening paragraph understates the motivating fire by 54,000 ha, and its scope note points the judge the wrong way
 
-> **Cleared by the 2026-09-03T2217Z dev lap.** The critic's replacement text was used
-> verbatim, wrapped onto two lines to keep the 90-column measure; the annotation sits
-> inside the gate's window. `pytest tests/test_rescue_lineage_ssot.py` 6 passed and
-> `make check-forbidden` clean at `509819d`, before any other change was made.
+**Where:** `README.md:193` and `README.md:196-197` (Korean); `README.md:491` and
+`README.md:495-499` (English); `docs/data_sources.md:183`, `:193`, `:199-203`;
+`docs/auto/NEEDS_HUMAN.md:255-261`. Introduced by `12b8ac7`.
 
+**What is wrong.** The paragraph states the chain's 피해면적 as **45,157 ha**, sourced to
+중앙재난안전대책본부 as of 2025-03-27, and then adds a 범위 주의 note saying the
+**104,788 ha** figure "이 산불 하나가 아니라 2025년 3월 전국 동시다발 산불 347건 전체
+합계입니다" (English: "are the nationwide March 2025 total across 347 separate fires, not
+this chain").
 
-**Where:** `docs/auto/reports/2026-09-03T2053Z-dev.md:194`, inside the
-`## In plain terms` block.
+Checked this lap, both directions:
 
-**What is wrong.** The line quotes the 폐기된 452계열 bracket, canonical is 6 -> 66, and
-neither it nor the two lines either side carries a lineage label.
-`tests/test_rescue_lineage_ssot.py` reads a plus-or-minus-two-line window and accepts
-`452`, `synthetic`, `합성`, `pre-flip`, `superseded`, `retired`, `legacy`,
-`baseline_synthetic`, `폐기`, or the canonical bracket shown beside it. The window at
-lines 192 to 196 has none of them, so the gate fires. The value itself is correct: it is
-the 폐기된 452계열 pre-flip baseline's own bracket, preserved at
-`data/processed/rescue_baseline_synthetic/rescue_verify.json`.
+| claim as written | what the sources say |
+|---|---|
+| chain = 45,157 ha (중대본 2025-03-27) | that is the **경상북도 지역** interim tally on 03-27, one day before 주불 진화 at 03-28 17:15 (ko.wikipedia, 2025년 의성-안동 산불) |
+| chain final area | **99,289 ha**, the largest recorded since 1986 statistics began; 주불 진화 149시간; 2,246세대 3,587명 이재민; 주택 3,819동; 총 1조 505억 원 |
+| en.wikipedia major-fires table | Uiseong-Andong complex **99,289 ha** |
+| nationwide, all 347 fires | 104,788 ha, 32 deaths |
 
-**When it entered.** `e431696`, not `8d1decf`. Verified by replaying the gate's own regex
-over the file at all three commits: clean at `f5f8498` (the report did not exist yet),
-unlabelled at `e431696` and at `8d1decf`.
+So the chain is roughly **95 %** of the nationwide total, and the note as written tells a
+judge the opposite. The old text was wrong by overstating (116,000 ha exceeds the national
+total). The new text is wrong by understating by more than half **and** adds a falsifiable
+disclaimer that the old text did not have. A judge who searches 의성 산불 피해면적 lands on
+99,289 ha and reads the paragraph as either sloppy or as minimising the event the whole
+project is motivated by.
 
-**Why it is finding #1.** Third occurrence of one failure class. The 1622Z lap installed
-this gate. Critic #2 tripped it at `24751fa`. The 2053Z lap found that, fixed it,
-documented it in three places, and tripped it again in the same lap that documented it.
-That is not carelessness twice over, it is a missing mechanical check, which is F14.
+**The WWA cross-reference does not rescue it.** The paragraph offers "WWA 2025-04-30
+분석은 같은 화재군에 48,000 ha 이상을 제시" as the upper end of a range. Fetched this lap:
+worldweatherattribution.org, 30 April 2025, says "more than 48,000 hectares burned" for
+**southeastern Korea**, not for this complex, and the same coverage of that study reports
+104,000 ha for the event overall. Presenting 45,157 to "more than 48,000" as the plausible
+range for a fire that burned 99,289 ha makes the range itself the error.
 
-**Smallest fix.** One annotation inside the gate's window, in the report, which is a
-record and so is repaired by annotation rather than rewriting, exactly as `1c1561e` did:
-make line 194 read `asks about the "6 → 34" number (폐기된 452계열 합성 baseline; 정본은
-6 → 66), the honest answer is that both versions are real runs,`. That replacement text
-is itself clean under both gates, so it can be copied verbatim. Then
-`.auto/venv/bin/python -m pytest tests/test_rescue_lineage_ssot.py` and
-`make check-forbidden`.
+**Smallest fix.** Three edits, no new research needed:
 
-**One instruction for the next dev lap, because CHARTER §4 step 2 would otherwise stop
-it.** Step 2 says a red baseline means do not build, and fix only if the cause is clearly
-environmental. **This red is not environmental and it is not a reason to stop.** It
-touches no code, no test, no artifact and no registry entry; it is a parenthetical in one
-line of Markdown under `docs/auto/`. Make it the lap's first commit, confirm the suite is
-green, then claim a row and build normally. Do not file a NEEDS_HUMAN BLOCKER for it.
+1. State the chain's final area as **99,289 ha** with 산림청 / 경상북도 as the agency and a
+   URL, and keep 45,157 ha only if it is labelled explicitly as the 03-27 interim 경북 tally.
+2. Rewrite the 범위 주의 note so it says what is true: the nationwide March 2025 total is
+   104,788 ha across 347 fires, **of which this chain is 99,289 ha**. That sentence is more
+   impressive than the one it replaces and it survives the search.
+3. Drop the WWA figure from the range, or restate it as "southeastern Korea, WWA rapid
+   study" which is the scope WWA gives it.
 
-### F14 — `done(509819d)` — "ALL GREEN" names a head that is two commits and 200-plus changed lines behind what was pushed
+Then correct `docs/data_sources.md` table A the same way, and rewrite the 알려진 함정 bullet
+that currently reads `"주택 4,000여 채"는 A가 아니라 B의 값(3,848동)이다. A의 주택 전소는
+150동이다.` The chain's own 주택 전소 is **3,819동**; 150동 is the 산림청 03-26 interim, taken
+two days before containment. The trap bullet as written is backwards, and it is the bullet
+a later lap will trust.
 
-> **Cleared by the 2026-09-03T2217Z dev lap, as WFG-046 widened.** Three pieces, because
-> the objection has two halves and the critic's own framing has a third:
-> `gates.py --assert-head` runs no gate and exits non-zero unless `.auto/gates.json`
-> records a pass, **in mode `full`**, at exactly this `HEAD`, with a clean tree — the
-> mode clause is this lap's addition, because a 20-second `--mode quick` run at the
-> right head would otherwise have satisfied the check that guards a push. `report.py`
-> runs `make check-forbidden` and the lineage test over the report it just wrote and
-> exits non-zero (WFG-046 a). And the gate table in every future report now says in
-> words when it certifies a commit that is no longer `HEAD`, so the failure is legible
-> in the artifact the critic reads rather than only in a hash comparison.
-> `tests/test_gates_assert_head.py` (15 tests) pins all three, including the exact
-> `f5f8498`/`8d1decf` mismatch that produced this finding. CHARTER §4 step 8 names the
-> command; a test asserts that it still does.
+### F17 — The same paragraph reasserts 영덕 사망 8명, which this repository corrected to 10 twelve hours earlier
 
+**Where:** `README.md:194` (`그중 **영덕 8명**`) and `README.md:489`
+(`**8 in 영덕 (Yeongdeok) alone**`); `docs/data_sources.md:185` (breakdown
+`영덕 8·영양 6·안동 4·청송 3 등`). Contradicts
+`docs/evidence/greenpeace_2026_survey.md:89-93` and `:157`.
 
-**Where:** `docs/auto/reports/2026-09-03T2053Z-dev.md:207`
-(`**ALL GREEN** · mode `full` · head `f5f8498` · 2026-09-03T20:52:29Z`);
-`docs/auto/BACKLOG.md:72` (WFG-046 as currently scoped);
-`scripts/auto/gates.py` (writes `.auto/gates.json`); CHARTER §4 step 8.
+**What is wrong.** WFG-020 (`f2eecf9`, 2026-09-03T1821Z) read the Greenpeace 실태조사
+최종보고서 and recorded, in §7 「이 문서가 정정한 저장소의 기존 서술」, item 1:
+**영덕 사망자 「8명」 → 10명**, sourced to the report p.9 quoting the 영덕군 홈페이지 공지 of
+2025-04-29, and flagged as a 재인용값 rather than a survey result. `12b8ac7` then rewrote
+both paragraphs, moved the total from 27 to 26, and left 영덕 8명 standing in both
+languages. So the repository now states two different Yeongdeok death tolls in two
+judge-facing documents, and the newer one is the one that was already corrected.
 
-**What is wrong.** The sentence is true and it is not the truth a reader takes from it. A
-report that says ALL GREEN is read as "this branch is green", and what it certifies is a
-head that was superseded seventeen minutes and three files later. The two commits after
-the gate run were not cosmetic: `e431696` alone rewrote 162 lines of
-`tests/test_gk2a_detector.py` (the whole opt-in network block, group 5) and 41 lines of
-`docs/detection_floor.md` (the retraction in §12). Those happen to pass, which this lap
-confirmed by running the suite; that they pass is luck, not process.
+This is worse than a stale number because 영덕 is the region the routing work is built
+around, and the evidence card that carries the correct figure is the same card the booth
+answer to Q17 points at.
 
-**Why WFG-046 as filed does not close it.** WFG-046 asks `report.py` to run the prose
-gates over what it just wrote. That catches F13. It does not catch a test-file or
-source-file edit made after step 5 and before the push, which is what actually happened
-here, and which is the more dangerous half because it can change behaviour rather than
-prose.
+**Smallest fix.** Both README lines read **영덕 10명** / **10 in 영덕**, with the same
+재인용 caveat the evidence card carries (영덕군 공지 2025-04-29, quoted by the Greenpeace
+report p.9, not a survey result). Fix the `docs/data_sources.md:185` breakdown at the same
+time, or label it as the 2025-03-26 interim it actually is. Then grep the tree for `영덕 8`
+so the third copy does not survive.
 
-**Smallest fix, and it subsumes WFG-046's own.** `.auto/gates.json` already carries
-`"git_head": "8d1decf"` and `"passed": false`. Add to `scripts/auto/gates.py` a
-`--assert-head` mode (or a five-line `scripts/auto/check_gates_current.py`) that reads
-`.auto/gates.json`, compares `git_head` with `git rev-parse --short HEAD` and
-`git status --porcelain`, and exits non-zero unless they agree and `passed` is true. Then
-CHARTER §4 step 8 becomes one command instead of a list a tired lap can skip, and the
-rule it enforces is the one that is actually load-bearing: **the commit you push is the
-commit the gates read.** Widen WFG-046's `done when` to say exactly that.
+### F18 — The entry that existed to put sources under these numbers closed without a single retrievable source
+
+**Where:** `docs/data_sources.md:176-208`, the whole new
+`## 동기 사건의 피해 규모` section; `docs/auto/NEEDS_HUMAN.md:247-269` (the NH-015 closure).
+
+**What is wrong.** NH-015 was titled "The three sources behind the README's opening
+numbers". Eleven figures now sit in two tables with an 출처 column reading 중앙재난안전대책본부,
+산림청, World Weather Attribution, and a 기준일 column. **Not one row carries a URL, a
+보도자료 number, a document title or a page.** The 산림청 rows say "2025-05-15" with no
+release named; the 중대본 row names no bulletin. The previous version of the paragraph at
+least named 한겨레·세계일보·서울환경연합, which is three checkable outlets. The rewrite
+removed those and added nothing a reader can open. Under CHARTER §3 rule 5 and §12's
+citation discipline this is the weakest sourcing in the repository sitting in the document
+whose title is 데이터 출처. It is also how F16 and F17 got in: with no URL on a row, nothing
+downstream can disagree with it.
+
+Two of the figures are independently doubtful and would have been caught by the URL rule:
+the nationwide 주택 피해 **3,848동** is close enough to the chain's own 3,819동 to look like
+a conflation, and the widely reported nationwide figure is around 4,015 houses.
+
+**Smallest fix.** Every row in both tables gains a URL column, and any row whose URL the
+lap cannot open is deleted rather than kept unsourced. That is the same rule CHARTER §12
+already applies to `paper/references.bib`, applied to the one document that names itself
+after it.
 
 ---
 
 ## fix-this-sprint
 
-### F15 — `done(509819d)` — filed as WFG-047 · Two P0 rows are stranded in `in-progress` and no future lap can pick them up
+### F19 — `12b8ac7` is an unreported, unreviewed commit, and every mechanism this loop built to notice that is looking somewhere else
 
-> **Cleared in the same lap, though it was only `fix-this-sprint`, because it decided
-> which row this lap could take.** CHARTER §5 states the release rule; WFG-021 and
-> WFG-016 are `todo` with their residue notes verbatim. WFG-021 was then the first
-> `todo` row in table order, and this lap claimed it.
+**Where:** `12b8ac7` (README, `docs/data_sources.md`, `docs/auto/NEEDS_HUMAN.md`,
+`docs/auto/LOOP_CONFIG.json`); `docs/auto/STATE.json:5-8`;
+`docs/auto/reports/` (no report names this commit).
 
+**What is wrong.** The window's last commit changed the judge-facing README in two
+languages, closed three NEEDS_HUMAN entries including two DECISION entries, and edited
+`LOOP_CONFIG.json`. It has no report, so it has no `Reviewed by:` line, no gate table, no
+plain-terms section and no root objection. `STATE.json` still names the 2239Z dev report at
+`c7b8a66` as the last report, so the loop's own state file does not know the commit exists.
+CHARTER §4 step 7 requires a report per lap and `LOOP_CONFIG` → `review: subagent` requires
+an independent reviewer before the push; a subagent reading only that diff would have asked
+where 45,157 ha came from, which is exactly what F16 is.
 
-**Where:** `docs/auto/BACKLOG.md:44` (WFG-021,
-`in-progress(20260903T2050Z) — (b) done(f5f8498), (a) card + JUDGE_QA block outstanding,
-(c) not attempted`) and `docs/auto/BACKLOG.md:47` (WFG-016,
-`in-progress(kickoff seed)`); CHARTER §4 step 3 and §5.
+The three checks the loop added this week all pass on it, and none of them is aimed here:
+`--assert-head` asks whether the gates read the pushed commit (yes), `report.py`'s prose
+gate only runs when a report is written (none was), and `make verify` only re-derives
+numbers that have registry keys (these have none). The gap is a class, not an incident:
+**a commit that carries only unregistered prose is invisible to every gate this repository
+owns.**
 
-**What is wrong.** CHARTER §4 step 3 tells a lap to take the highest-priority row that is
-`todo`, agent-doable, unblocked, **and not `in-progress` by another lap**. The 2053Z lap
-ended without finishing WFG-021 and left the row `in-progress`, which is honest reporting
-and also makes the unfinished two thirds invisible to every lap that follows, because
-there is no lap holding the claim any more. `in-progress` is written as a lock and there
-is no release. WFG-016 has been in the same state since the kickoff seed.
+**Smallest fix, and it is cheap.** `report.py` already computes "commits since the previous
+report". Have `gates.py --assert-head`, or a five-line check beside it, refuse a push when
+`HEAD` is not a descendant of the commit the last report names **and** the intervening
+commits touch anything outside `docs/auto/reports/`. Filed as **WFG-049**. The author-facing
+half is NH-017.
 
-**Why it costs something.** WFG-021 part (a) is the detection-floor evidence card on the
-finals screen. `KCF_READINESS.md` R2 names it by row ID. So a readiness line the product's
-definition of done depends on is now blocked by a status word, inside a twelve-day sprint
-whose plan dated WFG-021 to 09-05.
+### F20 — A NEEDS_HUMAN entry can be closed by quoting an author reply that nothing in the repository can check
 
-**Smallest fix.** Two parts, both cheap. (1) CHARTER §5 gains one sentence: *a lap that
-ends without finishing its row sets the row back to `todo` and appends what it did as a
-residue note; `in-progress` is only ever held by a lap that is still running.* (2) Set
-WFG-021 and WFG-016 to `todo`, keeping their residue text verbatim so nothing is lost.
-Filed as **WFG-047**.
+**Where:** `docs/auto/NEEDS_HUMAN.md:126-133` (NH-008), `:150-152` (NH-009),
+`:247` (NH-015). All three closures are in `12b8ac7`.
+
+**What is wrong.** Three DECISION entries were closed on quoted author replies
+("Everything is fine here...", "If there is something better though...", "use 산림청") with
+no channel, no message date, no thread reference and no artifact. NH-008's closure then
+carries five consequences the loop will act on for the rest of the sprint, including not
+contacting the 운영사무국 at all. NH-009's closure delegates decisions and records that
+protecting `Main` is "the one item still owed".
+
+The quotes may well be accurate; the point is that the repository has no way to tell, and
+CHARTER §10 makes NEEDS_HUMAN the author's own layer. The one closure whose substance can
+be checked from outside, NH-015, turned out to be substantively wrong (F16, F17, F18), which
+is the argument for the record rather than against the author.
+
+**Smallest fix.** NEEDS_HUMAN closures gain three fields: `channel` (report email reply, PR
+comment, session), `received` (date), and `verbatim` for the quoted text. Where the reply
+arrived in a session the repository cannot see, the closure says so in those words. Filed as
+NH-017 because only the author can confirm the channel.
 
 ### F11 — **open**, unchanged, filed as WFG-045 · `paper/manuscript.md` ships 21 citations and no `## References` section
 
-Carried from critic #2 without re-verification: `paper/` did not change in this window,
-so nothing about F11 can have moved. Restated only so it is not read as closed.
-
-### F5 — **open**, unchanged, filed as WFG-043 / NH-015 · The README's motivation paragraph still claims a burned area larger than the nationwide total
-
-**Where:** `README.md:191-194` (Korean) and `README.md:486-491` (English). Third critic lap
-in a row. It is the first paragraph a judge reads and it is falsifiable in one search;
-it is correctly blocked on the author's sources (NH-015), which is why it is not
-`fix-before-next-row`.
+Carried from critic #2 and #3 without re-verification: `paper/` did not change in this
+window, so nothing about F11 can have moved. Restated only so it is not read as closed.
 
 ### F12 — **open**, unchanged, filed as WFG-044 · `report.py` has no `paper` kind
 
 `scripts/auto/report.py:123` still reads
 `choices=["dev","critic","research","kickoff","red","manual"]`. Verified again this lap.
 
+### F5 — **superseded by F16, not closed**
+
+Critic #1, #2 and #3 filed F5 as "the README claims a burned area larger than the
+nationwide total". `12b8ac7` removed the 116,000 ha figure, so F5's literal text no longer
+describes the tree. The defect it named is not fixed; it changed sign. WFG-043 stays open
+and should be **raised to P0** and rewritten to F16's terms, since it is now the row that
+closes a wrong number rather than an unsourced one.
+
 ---
 
 ## note
 
-- **N12 · The window's actual product is good, and better than its process.**
-  `tests/test_gk2a_detector.py` puts 545 lines under a detector that had none and whose
-  numbers (+22 / +34 / +64 minutes, 0 of 709 control steps) are quoted on judge-facing
-  documents. Group 4 binds six registry keys to
-  `data/processed/detection/*.json` so prose cannot drift from the artifact.
-  `test_a_contaminated_background_reproduces_the_recorded_yeongdeok_threshold` reads both
-  the best-step anomaly and the recorded threshold **out of the artifact** rather than
-  typing them, and requires the K = 4 rule to reproduce 21.964 K to the third decimal;
-  that is the one test in the file an outside fact decides, and `docs/detection_floor.md`
-  §12 says so in its own table. The `contextual_flag` extraction is semantics-preserving:
-  compared line by line against the closure it replaced, the conjunction and its operand
-  order are identical.
-- **N13 · The retraction in `docs/detection_floor.md` §12 is factually correct, and this
-  lap re-checked it rather than taking it on trust.** The draft's claim that the sandbox
-  could not reach the NOAA GK2A archive was false. Re-fetched this lap:
-  `https://noaa-gk2a-pds.s3.amazonaws.com/AMI/L1B/LA/202503/22/02/gk2a_ami_le1b_sw038_la020ge_202503220224.nc`
-  returns HTTP 206 on a range request with a full object size of **458,172 bytes**, which
-  is the exact figure §12 states. No credentials. Retracting a caveat in writing, in the
-  document that leaned on it, is the behaviour CHARTER §3 rule 5 asks for.
-- **N14 · The one externally-determined fact in the new test file is checked by nobody by
-  default.** Group 5 is `skipif` on `WFG_GK2A_NETWORK_TESTS=1`, and the opt-in is correctly
-  argued (a 0.45 MB download mid-suite would move the pass/skip counts this project's gates
-  read, which is WFG-039's whole complaint). The consequence is still worth naming: whether
-  sw038 is 14-bit and whether its gain is decreasing are the two facts §12 uses to argue
-  that the mask hole does not open on real calibration, and no lap and no CI ever checks
-  them unless a human sets the variable. Cheapest honest answer is not to un-skip it but to
-  name it in WFG-039's opt-in inventory, so the `(collected, passed, skipped)` triple
-  WFG-038 wants can account for it deliberately.
-- **N15 · Suite census this lap, cold, in a fresh sandbox.** `collected 1215`,
-  `1152 passed / 1 failed / 62 skipped` at `8d1decf`, against the 2053Z lap's
-  `1159 passed / 56 skipped` at `f5f8498`. The six-test delta is again the SRTM-gated
-  block (WFG-039), plus this lap's one real failure. `collected` is invariant across both
-  environments for the third consecutive lap, which keeps critic #2's N7 recommendation
-  standing: gate on `collected` alone.
-- **N16 · `baseline-verify` WARN is unchanged and is not a finding.** Five differences,
-  all of them either new tracked artifacts (`evidence/greenpeace_2026_survey.json`,
-  `operating_point/per_fire_recall.json`), the registry growing 260 to 296, or the two
-  `data/raw/firms_data/*.json` manifests that are git-ignored and cannot exist in a fresh
-  clone. The step is `hard: false` for exactly this reason. Recorded so no lap "fixes" it.
-- **N17 · WFG-021's row text is a model of how to report a partial row**, and F15 is a
-  complaint about the status word, not about the honesty. `(b) done(f5f8498), (a) ...
-  outstanding, (c) not attempted` is precisely what a fresh agent needs. Keep the text;
-  change only `in-progress` to `todo`.
+- **N18 · The 2217Z dev lap is the best lap the loop has run, and F16 is not its fault.**
+  `docs/auto/finals/DETECTION_FLOOR_CARD.md` plus `tests/test_detection_floor_card.py` (17)
+  is the pattern this project should repeat: every figure on a judge-facing card read back
+  out of `docs/NUMBERS.json`, each delay bound inside its own table row so a swapped
+  attribution fails, and the one claim the row asked for left **off** the card because it
+  has no registry key (WFG-048). Leaving a number out because it cannot be registered is
+  CHARTER §3 rule 3 obeyed at a cost, and it is the exact discipline `12b8ac7` did not use.
+- **N19 · The reviewer block in that lap caught the F14 failure class reproduced inside the
+  lap that closed F14.** `KCF_READINESS` R3 claimed a green that `.auto/gates.json` recorded
+  as `passed: false`. The lap rewrote R3 to state RED at `633c3db` and the reason. A
+  definition-of-done document that records its own red is worth more to a judge than one
+  that never has.
+- **N20 · `--assert-head` works.** Independently confirmed: `gates.py --mode full` at
+  `12b8ac7` writes `.auto/gates.json` with `git_head` matching, and the branch is green at
+  HEAD for the first time in four critic laps. `tests/test_gates_assert_head.py` (15) pins
+  the mode clause and the `f5f8498`/`8d1decf` mismatch that produced the finding.
+- **N21 · Suite census this lap, cold, in a fresh sandbox.** `1185 passed, 62 skipped` at
+  `12b8ac7`, against the 2217Z lap's `1191 passed, 56 skipped` at `c7b8a66`. Collected is
+  **1247 in both**, the fourth consecutive lap in which the collected count is invariant
+  across environments while the pass/skip split moves by exactly the six SRTM-gated tests
+  (WFG-039). Critic #2's N7 recommendation stands: gate on `collected` alone.
+- **N22 · `baseline-verify` WARN is unchanged and is not a finding.** Recorded again so no
+  lap "fixes" it. The step is `hard: false` for the git-ignored raw manifests.
+- **N23 · The author's standing permission to source public data is the most useful thing
+  in `12b8ac7`.** It is what makes F16, F17 and F18 fixable by a lap instead of blocked on
+  a human, and this lap used it: five sources were opened during this critic run. The
+  permission should be written into CHARTER §3 as a standing fact rather than living only
+  inside a closed NEEDS_HUMAN entry, or the next lap will not know it has it.
 
 ---
 
 ## The judge drill
 
-`docs/auto/JUDGE_QA.md` did not change in this window, so no drill ran. The one question
-critic #1 declined to add (116,000 ha against a nationwide 104,788 ha) is still
-unanswerable and still correctly withheld; it becomes addable the lap WFG-043 closes.
+`docs/auto/JUDGE_QA.md` gained Q10a and Q10b in `b557e9d`, so the drill ran on the bank as
+it now stands.
+
+**Q10a (영덕은 위성이 놓친 겁니까?) passes.** The answer states the 교란 classification, the
+four numbers that justify it, the 283 스텝 중 217 counterfactual **with** its denominator
+and both riders, and closes on "설령 그 이상이 진짜 화재였다 해도 시각은 신고 +28분" so the
+conclusion is the same either way. Every figure has a registry key printed beside it, and
+`tests/test_detection_floor_card.py` fails if any of them drifts. This is a T1 answer a
+student can defend without hedging.
+
+**Q10b (오경보는 몇 %입니까?) passes**, and refusing to say 0 % is the right instinct. The
+95 % upper bound, the 709-step control, the four sites in one season, and the "표본을
+늘리기 전에는 이 상한보다 강하게 말할 근거가 없습니다" close are all correct treatments of a
+zero numerator.
+
+**The drill's one hit is not in the bank, it is behind it.** Two questions a judge asks
+before either of these, because they come from the first paragraph:
+
+1. *"의성 산불 피해면적이 얼마입니까?"* The tree's answer today is 45,157 ha. The judge's
+   phone says 99,289 ha. (F16)
+2. *"영덕에서 몇 분이 돌아가셨습니까?"* The README says 8. `docs/evidence/greenpeace_2026_survey.md`
+   says 10, and says the repository already corrected 8 to 10. (F17)
+
+Neither is addable to the bank until F16 and F17 are fixed, exactly as critic #1 withheld
+the 116,000 ha question for the same reason. The bank is strong where it is bound to
+artifacts and silent where the project's numbers have no artifact, which is a fair map of
+the project.
 
 ---
 
@@ -237,20 +280,21 @@ unanswerable and still correctly withheld; it becomes addable the lap WFG-043 cl
 
 | lens | verdict | the one load-bearing reason |
 |---|---|---|
-| KCF judge · SW professor | **fail** | The branch is red at HEAD and its report says ALL GREEN. A professor does not need to read the diff to score that: it is one `git clone` and one `pytest`. Everything else in the window is work I would credit. |
-| KCF judge · 재난 대응 공무원 | pass, first time in three laps | The booth script no longer concedes an error the audit disproved (F1 closed at `1c1561e`), and R5 is ticked with evidence. Nothing in this window touched what the official watches, but nothing broke either. |
-| fire-behaviour scientist | pass, on this window only | The detector's geometry (15 km target disc, 30 to 80 km background ring, the deliberate 15 to 30 km gap) is now pinned by tests, and 영덕 stays classified 교란 and counted in neither direction. The standing objection (F5, the opening burned-area figure) is not in this diff. |
-| ML reviewer (leakage, baselines) | pass | Ran `mandela` over the new suite. Groups 1 to 3 are synthetic and the doc says so in bold; the gains and offsets are the test's own and §12 forbids citing them as GK2A calibration. The one test with outside ground truth reads its targets from the committed artifact, not from a literal. No leakage pattern fires. |
-| statistician | pass | `0 of 709` is stated as an upper bound in the artifact caveat, in the registry entry, and in `docs/detection_floor.md` §5: 95 % upper limit near 0.4 % per step, of order 3 per day at 2-minute cadence, measured at four sites in one season. That is the correct treatment of a zero numerator and it is written three times. |
+| KCF judge · SW professor | pass, first time in four laps | The branch is green at HEAD, `--assert-head` makes that structural rather than lucky, and the detection-floor card is bound to the registry by 17 tests. I would score the engineering. |
+| KCF judge · 재난 대응 공무원 | **fail** | The first paragraph tells me the fire that motivates this project burned 45,157 ha and that the 104,788 ha figure is a different event. I worked that season. The 경북 산불 was 99,289 ha and 3,819 주택. If you have the scale of the event wrong, I do not trust the 29 dispatch sheets. |
+| fire-behaviour scientist | **fail**, on the same line | 45,157 ha is a pre-containment provincial interim and the document knows it (it says so), then uses it as the headline anyway, with a WWA figure for a different geography as the upper end of the range. The physics work in this repository is careful; this paragraph is not, and it is the one a reader meets first. |
+| ML reviewer (leakage, baselines) | pass | Ran `mandela` over the window. Nothing in the diff touches an eval, a split or a metric. `tests/test_detection_floor_card.py` reads targets out of `docs/NUMBERS.json` rather than from literals, which is the correct direction. No leakage pattern fires. |
+| statistician | pass, with one remark | Q10b's 95 % upper bound for a zero numerator is right and is stated three times without drifting. The remark is F18: eleven point estimates in a new table with no source is not a sourcing standard, and the one that looks conflated (3,848 vs 3,819) is the kind of error a URL column prevents for free. |
 
-**Where they agree:** the engineering in this window is the strongest single artifact the
-loop has produced since the survey evidence card, and it was shipped on a red branch under
-a green headline. Four lenses pass on content; the one that fails, fails on process.
+**Where they agree:** the machinery got materially better this window and the prose got
+materially worse, and the two happened in the same eight commits. Three lenses pass on the
+work the 2217Z lap did; the two that fail, fail on one paragraph written after it.
 
-**Where they split:** L1 scores the tree a judge would clone. L3, L4 and L5 score the
-method a judge would question at the booth. They do not disagree about any fact.
+**Where they split:** L1 scores the tree's process, which is now genuinely good. L2 and L3
+score the claim the tree opens with, which one search overturns. They do not disagree about
+any fact.
 
-**The question that resolves the split:** *is the commit you push the commit the gates
-read?* Today, twice out of the last three laps, no. F14's `--assert-head` check is five
-lines and makes the answer yes permanently, and it is worth more than either row it
-would have saved.
+**The question that resolves the split:** *which numbers in this repository can be wrong
+without a gate noticing?* The answer is the small set with no registry key and no URL, and
+every finding in this report is inside that set. F18's URL column is the cheapest thing
+that shrinks it.

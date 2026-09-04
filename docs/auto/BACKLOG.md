@@ -64,13 +64,14 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-040 | P1 | infra | `scripts/build_numbers.py` overwrites the registry with 65 of its 278 entries — make it refuse, or make it merge (**renumbered** from a duplicate `WFG-036`, critic 20260903T1748Z) | todo | true | hours | 데이터 해석 (재현) |
 | WFG-041 | P1 | infra | The lineage gate's ±2-line label window is satisfied by an unrelated keyword, so `JUDGE_QA.md:46` passes it | todo | true | hours | 데이터 해석 (재현) |
 | WFG-042 | P1 | IEEE | A `verified` citation in `references.bib` can disagree with the paper at its URL, and `check_paper.py` cannot tell | todo | true | hours | 제출 자료 (출처) |
-| WFG-043 | P0 | KCF | Source and register the 2025 fire's scale figures (deaths, burned area, homes) that open the README | todo | true (author holds the sources, NH-015) | hours | 연구 목적 · 제출 자료 (출처) |
+| WFG-043 | P0 | KCF | Source and register the 2025 fire's scale figures (deaths, burned area, homes) that open the README. **Rewritten by critic 20260903T2347Z (F16/F17/F18): the paragraph was rewritten at `12b8ac7` and is now wrong in the other direction — 45,157 ha stated for a chain that burned 99,289 ha, 영덕 8명 against this repository's own correction to 10, and eleven figures with no URL** | todo | true (author granted standing permission to source public data, NH-015 closure) | hours | 연구 목적 · 제출 자료 (출처) |
 | WFG-038 | P1 | infra | The full suite reports two different skip counts on one commit and the gate is green for both — make the (collected, passed, skipped) triple a gate | todo | true | hours | 데이터 해석 (재현) |
 | WFG-039 | P1 | infra | The test suite downloads an 8.4 MB (gzipped; 25.9 MB on disk) SRTM tile mid-run, so first-run and re-run pass/skip counts differ by six — make the download opt-in (**this is the cause of WFG-038's symptom**) | todo | true | hours | 데이터 해석 (재현) |
 | WFG-044 | P1 | infra | `scripts/auto/report.py` has no `paper` kind, so the paper routine files its report as `manual` and overwrites `STATE.json` → `last_report_kind` with it (critic 20260903T1947Z) | todo | true | minutes | 데이터 해석 (재현) |
 | WFG-045 | P1 | IEEE | `paper/manuscript.md` cites 21 works and has no `## References` section, and `check_paper.py` checks no section at all against CHARTER §12 (critic 20260903T1947Z) | todo | true | hours | 제출 자료 (출처) |
 | WFG-046 | P0 | infra | Every lap pushes commits no gate has read: `gates.py` runs at step 5 and everything after it (the report, and any post-review fix) is unchecked, so `auto/dev` has gone red twice this way (`24751fa`, `8d1decf`). **Widened by critic 20260903T2147Z (F14):** not just the report. Make `report.py` gate its own prose AND add a `--assert-head` check that refuses a push when `.auto/gates.json` → `git_head` is not `HEAD` | done(509819d) | true | hours | 데이터 해석 (재현) |
 | WFG-047 | P0 | infra | `in-progress` is written as a lock with no release, so a row a lap left unfinished is invisible to every later lap: WFG-021 (a)+(c) and WFG-016 are stranded, and `KCF_READINESS` R2 depends on WFG-021 (a) (critic 20260903T2147Z) | done(509819d) | true | minutes | 데이터 해석 (재현) |
+| WFG-049 | P0 | infra | A commit that carries only unregistered prose is invisible to every gate this repository owns: `12b8ac7` rewrote the judge-facing README in two languages and closed three NEEDS_HUMAN entries with no report, no reviewer and no `STATE.json` update, and `--assert-head`, `report.py`'s prose gate and `make verify` all passed on it (critic 20260903T2347Z, F19) | todo | true | hours | 데이터 해석 (재현) |
 | WFG-048 | P1 | infra | The three FIRMS first-detection delays that `docs/detection_floor.md` §4 and §8 put beside the GK2A delays (+117 / +151 / +17 min, from `data/processed/detection/firms_first_detection.json` → `delay_h` 1.95 / 2.52 / 0.28) have no registry key, so the one comparison a judge is most likely to ask about is the one number on that page that `make verify` cannot re-derive (dev lap 20260903T2217Z, while writing WFG-021 a) | todo | true | hours | 데이터 해석 (재현) |
 | WFG-011 | P2 | ISEF | ISEF plan memo (**revise**: route-existence questions, SFTD base rate, age rule, hand-written documents) | todo | true | one lap | — |
 | WFG-032 | P2 | science | Leak-free 영덕 fold + hindsight-oracle routing arm (agent writes the script; student runs on the Mac) | todo | partial | one lap + one Mac day | 데이터 해석 · IEEE Table V |
@@ -621,6 +622,30 @@ carrying forward.
 - **Done when:** each of the three figures has a registered key with its scope in the
   caveat, both README lines and `manuscript.md:9` cite a source that carries the value they
   state, and `make verify` plus `check_number_collisions.py` are green.
+- **2026-09-03T2347Z critic (F16, F17, F18) — the row did not close at `12b8ac7`, it changed
+  sign.** That commit removed 116,000 ha and put **45,157 ha** in its place, attributed to
+  중대본 as of 2025-03-27, plus a 범위 주의 note saying 104,788 ha belongs to a different
+  event. Verified this lap against ko.wikipedia (2025년 의성-안동 산불), en.wikipedia
+  (2025 South Korea wildfires) and Korean coverage of the 경상북도 recovery plan: the
+  의성발 경북 chain's **final** area is **99,289 ha** (largest since 1986 statistics began;
+  주불 진화 149시간; 2,246세대 3,587명 이재민; 주택 **3,819동**; 총 1조 505억 원), so the
+  chain is about 95 % of the 104,788 ha nationwide total and the scope note points the wrong
+  way. 45,157 ha is the 경북 provincial interim on 03-27, the day before 주불 진화 on 03-28
+  17:15. The WWA "48,000 ha 이상" is WWA's figure for **southeastern Korea**, not this
+  complex, so it cannot serve as the upper end of a range for it.
+- **Also fix in the same commit:** (1) `README.md:194` and `:489` still say 영덕 **8명** /
+  8 in 영덕, which `docs/evidence/greenpeace_2026_survey.md` §7 item 1 corrected to **10**
+  (영덕군 공지 2025-04-29 quoted at report p.9, a 재인용값 not a survey result) on
+  2026-09-03T1821Z; grep `영덕 8` so the third copy does not survive. (2) The 알려진 함정
+  bullet at `docs/data_sources.md:201` is backwards: 3,819동 is the **chain's** 주택 전소,
+  and 150동 is the 산림청 03-26 interim. (3) Every row of both tables in
+  `docs/data_sources.md` § 동기 사건의 피해 규모 gains a URL, and any row whose URL the lap
+  cannot open is removed rather than kept unsourced — the same rule CHARTER §12 applies to
+  `references.bib`. The nationwide 주택 3,848동 is the row to check first; it is suspiciously
+  close to the chain's 3,819동 and public reporting gives around 4,015 houses nationwide.
+- **Then, and only then**, add the two drill questions `CRITIC_LATEST.md` withheld
+  (의성 산불 피해면적; 영덕 사망자 수) to `JUDGE_QA.md` with their 근거 lines, updating the
+  tier counts and the §6 drill table in the same commit.
 
 ### WFG-044 · P1 · infra · The paper routine has no report kind
 - **What:** `scripts/auto/report.py:123` takes
@@ -786,3 +811,31 @@ carrying forward.
 - **Done when:** `make verify` re-derives every FIRMS figure that appears in prose, and
   `docs/auto/finals/DETECTION_FLOOR_CARD.md` can state the comparison instead of pointing
   at §8.
+
+### WFG-049 · P0 · infra · A prose-only commit is invisible to every gate
+- **What:** `12b8ac7` (2026-09-03T2330Z) rewrote `README.md`'s opening paragraph in Korean
+  and English, added a new section to `docs/data_sources.md`, closed NH-008, NH-009 and
+  NH-015, and edited `docs/auto/LOOP_CONFIG.json`. It has **no report**, so no
+  `Reviewed by:` line, no gate table, no root objection and no plain-terms section;
+  `docs/auto/STATE.json` still names the 2239Z dev report at `c7b8a66` as the last report,
+  so the loop's own state file does not know the commit exists. Every gate passed on it, and
+  the numbers it introduced were wrong (WFG-043, critic F16/F17/F18). The three checks the
+  loop added this week are all aimed elsewhere: `--assert-head` asks whether the gates read
+  the pushed commit (they did), `report.py`'s prose gate runs only when a report is written
+  (none was), and `make verify` re-derives only numbers that have registry keys (these have
+  none). The class is the finding: **prose with no key and no URL can change under every
+  gate this repository owns.**
+- **Do:** `report.py` already computes "commits since the previous report". Put the same
+  computation in front of the push. `gates.py --assert-head`, or a short check beside it,
+  exits non-zero when `HEAD` is not the commit the last report names **and** the intervening
+  commits touch anything outside `docs/auto/reports/`, `docs/auto/images/` and
+  `docs/auto/STATE.json`. Message names the offending paths so the fix is obvious. Pin it
+  with a test in the style of `tests/test_gates_assert_head.py`, seeded with this exact
+  `c7b8a66`/`12b8ac7` pair.
+- **Effort:** hours. **agent_doable:** true.
+- **Constraints:** must not block the report commit itself, which is by construction after
+  the gate run (that is what `--assert-head` already handles); must not require network.
+  Do not weaken `--assert-head`'s existing mode clause while extending it.
+- **Done when:** a commit pushed without a report covering it fails the pre-push check, the
+  seeded test reproduces the `c7b8a66`/`12b8ac7` case, and CHARTER §4 step 8 names the
+  command.

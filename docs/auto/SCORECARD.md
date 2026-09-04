@@ -18,6 +18,7 @@ commit to point at is a defect in the scoring, not evidence of progress.
 | 2026-09-03 | `1113388` | 15 | 15 | 16 | 15 | 11 | **72** | baseline (first critic lap) |
 | 2026-09-03 | `0ff1b36` | 15 | 15 | 17 | 15 | 13 | **75** | +1 데이터: the survey evidence card, digest-gated extractor and doc-to-artifact tests. +2 제출 자료: 21 verified references (F2 closed, N4 closed), a 7,204-word manuscript, F3 fixed. 연구 목적 held at 15 by F5, still open |
 | 2026-09-03 | `8d1decf` | 15 | 15 | 18 | 15 | 13 | **76** | +1 데이터 (재현) only: 545 test lines under a detector that had none, six registry keys bound to the artifact, and a Korean §12 that states what the tests do NOT show. Everything else held. Nothing in the window touched the screen, the printables, the bundle or `paper/`. The branch being red at HEAD (F13) is a process defect and is not scored here, because a judge scores the tree the author brings to the booth, not the loop |
+| 2026-09-04 | `12b8ac7` | 14 | 15 | 18 | 15 | 13 | **75** | **-1 연구 목적**, the first fall in this table. `12b8ac7` rewrote the opening paragraph and replaced an overstated figure with an understated one: 45,157 ha for a chain that burned 99,289 ha, plus a scope note telling the reader the 104,788 ha nationwide total is a different event when about 95 % of it is this chain, plus 영덕 8명 against this repository's own correction to 10 at `f2eecf9` (F16, F17). Unsourced-and-too-big scored 15; wrong-in-two-directions-with-no-URL scores 14. 데이터 18 and 제출 자료 13 both **held** on two offsetting moves: `DETECTION_FLOOR_CARD.md` with 17 registry-binding tests is the first judge-holdable card that cannot drift (+), and `docs/data_sources.md` gained eleven figures with no URL in the document named 데이터 출처 (-) |
 
 ## Track A — 애플리케이션 / 실생활 도구
 
@@ -26,6 +27,7 @@ commit to point at is a defect in the scoring, not evidence of progress.
 | 2026-09-03 | `1113388` | 15 | 15 | 11 | 15 | 11 | **67** | baseline (first critic lap) |
 | 2026-09-03 | `0ff1b36` | 15 | 15 | 11 | 15 | 12 | **68** | +1 제출 자료 only: the survey card gives Q17 a file to point at. 구현 및 유용성 does not move, because nothing in this window touched the screen, the printables or the bundle (R1, R2, R7, R9 all still ☐) |
 | 2026-09-03 | `8d1decf` | 15 | 15 | 11 | 15 | 12 | **68** | **held, every row.** Track A's judges score a working tool at a booth. This window added tests to a script that runs offline in the sandbox and never appears on the screen. R1, R2, R7, R9 are still ☐, and R2 is now blocked on WFG-021's stranded status rather than on work (F15). Said explicitly so 545 test lines are not read as progress on the thing these judges watch |
+| 2026-09-04 | `12b8ac7` | 14 | 15 | 11 | 15 | 12 | **67** | **-1 개발 목적**, the same paragraph, and these judges read it at the booth with a phone in hand. 구현 및 유용성 **11, held for the fifth consecutive window**: no commit in this window touched `web/`, the printables or the release bundle, and R1, R2, R7 and R9 are all still ☐. WFG-017 is now the single most overdue thing in the sprint plan |
 
 ## 2026-09-03 · `25f1e14..1113388` — why these numbers
 
@@ -133,3 +135,45 @@ a coupling or an experimental arm.
 release bundle. Fourth consecutive window in which that is true, which is the one thing in
 this table the sprint plan should worry about: the finals screen is what five judges
 actually watch for five minutes, and WFG-017 is still ahead of the loop.
+
+## 2026-09-04 · `9bf15fb..12b8ac7` — why these numbers
+
+**연구 목적 / 개발 목적 · 15 → 14.** The first fall this table has recorded, and it is
+deliberate. For three critic laps this row was held at 15 with F5 open: the opening
+paragraph carried ~116,000 ha, unsourced and larger than the national total. That is a
+figure a judge distrusts. `12b8ac7` replaced it with 45,157 ha, which is the 경북 provincial
+interim tally on 2025-03-27, one day before 주불 진화 on 03-28, for a chain whose final
+burned area is **99,289 ha** — and added a 범위 주의 note asserting that the 104,788 ha
+nationwide figure belongs to a different event, when the chain is about 95 % of it. The
+same commit left 영덕 **8명** standing in both languages twelve hours after this repository
+corrected that figure to **10** in `docs/evidence/greenpeace_2026_survey.md` §7. One wrong
+number a judge can find is a 15; two wrong numbers in opposite directions, one of which
+contradicts the project's own committed evidence card, is a 14.
+
+**데이터 수집·분석·해석 · 18, held.** Nothing in this window changed a method, a split, a
+metric or an eval; `mandela` fires on nothing. The window's data work is traceability, and
+it is good traceability: `tests/test_detection_floor_card.py` binds every figure on the new
+card to `docs/NUMBERS.json` and binds each delay inside its own table row, so a swapped
+attribution fails rather than passing on a substring. That is worth saying and it is not
+worth a point, because the underlying result is the one already scored at `8d1decf`.
+
+**설계와 방법론 · 15, held; 창의성 · 15, held.** No coupling, arm or protocol moved.
+
+**제출 자료 · 13 (Track B) / 12 (Track A), held, on two moves that cancel.** Up:
+`docs/auto/finals/DETECTION_FLOOR_CARD.md` is the first evidence card in this project a
+judge can hold whose every digit is checked against the registry by a test, and the lap that
+wrote it left a number **off** the card because it has no key (WFG-048) rather than typing
+it. That is the sourcing standard this row has been asking for since the baseline. Down:
+`docs/data_sources.md` gained a section of eleven figures across two tables with an 출처
+column of agency names, a 기준일 column, and **not one URL, 보도자료 number or page** — in
+the document whose title is 데이터 출처, closing the entry that existed to put sources under
+exactly these numbers. The previous text at least named three checkable outlets. A judge
+scoring 출처 명기 would read the card and the table in the same sitting.
+
+**구현 및 유용성 · 11, held (Track A). Fifth consecutive window.** Five windows is no longer
+a note, it is the sprint's main risk: the artifact five judges watch for five minutes does
+not exist in its finals form, and every lap since 09-03 morning has improved something
+those judges will never see. WFG-017 should be the next row after WFG-043.
+
+**Not scored here:** the two Pass/Fail rows. 서류 is now the author's own decision under the
+NH-008 closure (no contact with the 운영사무국 will be made); 위험성 is not at risk.
