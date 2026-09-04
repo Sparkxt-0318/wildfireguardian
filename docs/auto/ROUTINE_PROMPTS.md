@@ -1,6 +1,6 @@
 # Verbatim prompts of the three cloud routines
 
-Recorded 2026-09-03 for the AI ledger (`docs/auto/AI_DISCLOSURE.md`). The live copies are on https://claude.ai/code/routines; if they diverge, the live copy is what ran and this file must be updated. All three run on Anthropic-managed sandboxes with this repository cloned, model `claude-opus-5`, with the author's Gmail connector attached (research also has alphaXiv and Scholar Gateway).
+Recorded 2026-09-03 under CHARTER §9 (attribution and the student's own voice). The live copies are on https://claude.ai/code/routines; if they diverge, the live copy is what ran and this file must be updated. All three run on Anthropic-managed sandboxes with this repository cloned, model `claude-opus-5`, with the author's Gmail connector attached (research also has alphaXiv and Scholar Gateway).
 
 | routine | id | cron (UTC) |
 |---|---|---|

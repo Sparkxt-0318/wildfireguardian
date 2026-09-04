@@ -72,6 +72,17 @@ are the ones the loop meets daily), from the KCF 운영요강, and from safety.
    frame is in `docs/auto/RUBRIC.md` and the 서식 documents the author holds:
    spread forecast → rescue-aware routing → decision/report layer, for rural
    elderly Koreans. Extend it; do not pivot it.
+5b. **External figures are sourced by the loop, and carry agency, date and
+   scope.** The author granted standing permission on 2026-09-04 to search and
+   fetch public sources rather than escalating a sourcing gap. A figure taken from
+   outside the repository is written only with its **agency, as-of date and scope**,
+   and an interim tally is never presented as a final one. Where sources disagree,
+   both are given with their scopes. This rule exists because `12b8ac7` restated the
+   README's opening figures from an interim provincial tally and was wrong by 54,000
+   ha; see NH-015 and WFG-049. Escalation is still required for credentials,
+   repository or account settings, external contact, and anything needing the
+   author's physical presence.
+
 5. **No fabricated evidence, no fabricated citations, no rounding a limitation
    away.** The project's credibility rests on its withdrawn-claim record (README
    TL;DR). When a result is weak, say so in the artifact and the report.
@@ -249,17 +260,26 @@ Documents that face judges are in Korean with the repository's existing tone
 to the author are in English. No em-dashes in shipped screens (font subset). Keep
 the README's Round-2 section untouched; add Round-4 material below Round 3.
 
-## 9. The AI ledger (ISEF Form 2A, KCF 대리작 rule)
+## 9. Attribution and the student's own voice
 
-ISEF 2026–27 accepts AI-generated code only with an explicit citation of which
-portions were AI-generated and a prompt log; the Korea Code Fair excludes work
-judged to be 대리작. The loop keeps `docs/auto/AI_DISCLOSURE.md` true: every
-agent commit carries the `Co-Authored-By` trailer, every lap writes its report,
-every experiment doc says who proposed the method, and drafts meant for the
-student's own voice (abstract, poster text, Q&A answers) are labelled drafts.
-The student must be able to explain every artifact at the booth; a lap that
-produces something the student could not explain in two minutes produces a
-`docs/<topic>.md` that makes it explainable, or does not ship it.
+The Korea Code Fair organisers confirmed to the author (2026-09-04, NH-008) that no
+AI-disclosure artifact is required for this entry, and `docs/auto/AI_DISCLOSURE.md`
+was removed at the author's instruction. The practices below are kept anyway, because
+they are what makes the work explainable at the booth, not because a form asks for
+them:
+
+- every agent commit carries the `Co-Authored-By` trailer, and agent commits are
+  never squashed into human-authored ones;
+- every lap writes its report under `docs/auto/reports/`, and the routine prompts
+  stay recorded verbatim in `docs/auto/ROUTINE_PROMPTS.md`;
+- every experiment doc says who proposed the method, the student or the loop;
+- drafts meant for the student's own voice (abstract, poster text, Q&A answers) are
+  labelled drafts at the top of the file, where they are read
+  (`tests/test_judge_qa_bank.py::test_the_draft_label_is_on_the_file`).
+
+The student must be able to explain every artifact at the booth; a lap that produces
+something the student could not explain in two minutes produces a `docs/<topic>.md`
+that makes it explainable, or does not ship it.
 
 ## 10. Who checks what, and how the author changes it
 

@@ -129,8 +129,10 @@ Consequences the loop now carries instead of an answer: (1) the finals date stay
 **10-24** per NH-006; (2) the 참가부문 track is not re-verified; (3) 기여 ② keeps its
 current wording rather than the restatement, since only the organisers could have
 approved the change; (4) AI-assisted development is disclosed on the loop's own
-initiative — `docs/auto/AI_DISCLOSURE.md` is the artifact, and it should be written
-to satisfy the strictest plausible reading of 심사개요 rather than a confirmed one;
+initiative. **Superseded 2026-09-04:** the author reports the organisers addressed
+this directly and no disclosure artifact is required, so `docs/auto/AI_DISCLOSURE.md`
+was removed at the author's instruction and CHARTER §9 keeps only the practices that
+make the work explainable at the booth;
 (5) finals 제출 자료 scope is assumed to be the 기제출 서식2 plus a booth demo, which
 is what `docs/auto/KCF_READINESS.md` already plans for.
 
@@ -244,35 +246,39 @@ attributes 27 deaths to the WWA report — a source that reports 32 casualties, 
 of them in 의성군. Nothing else is blocked on this; it is a P0 because it is the
 first paragraph a judge reads.
 
-**CLOSED 2026-09-04. The author replied "use 산림청"** and granted the loop standing
-permission to gather public sources from the internet itself. Re-sourced, and both
-README paragraphs rewritten. The finding was worse than "one figure is unverified":
-the paragraph described the **의성발 경북 산불 chain** but carried **nationwide**
-numbers, and inflated even those.
+**CLOSED 2026-09-04, then CORRECTED the same night.** The author replied "use 산림청"
+and granted the loop standing permission to source public data itself (now CHARTER §3).
+The first attempt at this fix, commit `12b8ac7`, **was wrong in the opposite direction
+and critic #4 caught it 80 minutes later (F16, F17).** Both the original error and the
+correction are recorded here because the pattern matters more than either number.
 
-| README claimed | Actual | Scope it really belongs to |
-|---|---|---|
-| 약 116,000 ha | — | **no scope at all**; larger than the nationwide total |
-| 주택 4,000여 채 | 3,848동 | nationwide March 2025, *not* the chain (chain: 150동 전소) |
-| 사망 27명 | 26 (chain) / 32 (nationwide) | neither |
+| figure | original README | `12b8ac7` wrote | correct |
+|---|---|---|---|
+| chain burned area | 약 116,000 ha | 45,157 ha (03-27 잠정) | **99,289 ha** (final) |
+| 영덕 deaths | 8명 | 8명 | **10명** (already corrected at `f2eecf9`) |
+| chain housing | 주택 4,000여 채 | 150동 (03-26 잠정) | **3,819동** |
+| scope note | none | "104,788 ha is a different event" | chain is **95 %** of it |
 
-Now recorded in **`docs/data_sources.md` § 동기 사건의 피해 규모**, which separates
-scope A (the chain: 45,157 ha per 중대본 2025-03-27, 26 deaths, 150 homes destroyed)
-from scope B (nationwide 347 fires: 104,788 ha, 32 deaths, 3,848 homes, 산림청
-2025-05-15), and lists the traps.
+The same sentence was therefore wrong twice: once by overstating (116,000 ha exceeds
+the national total) and once by understating (45,157 ha is a pre-containment provincial
+interim). The second attempt also introduced a *new* falsifiable disclaimer the first
+did not have, and cited WWA's "more than 48,000 ha" — which is WWA's figure for
+**southeastern Korea**, not this complex.
 
-**One residue, deliberately left open as WFG-043 (P1).** The 중대본 45,157 ha is
-dated **2025-03-27, a day before containment on 03-28**, and the WWA rapid study
-gives **more than 48,000 ha** for the same complex. Both READMEs therefore state the
-figure *with its as-of date and the WWA cross-reference*, rather than asserting a
-single number. A lap should close this against a 산림청 primary release. Writing
-45,157 ha bare would have repeated this entry's own mistake in a new place.
+Corrected at the commit that carries this entry. `docs/data_sources.md` now separates
+scope A (the chain: 99,289 ha, 26 deaths, 영덕 10, 3,819 homes) from scope B (nationwide
+347 fires: 104,788 ha, 32 deaths) and states that **A is about 95 % of B**, which is the
+sentence that survives a judge's search.
 
-`paper/manuscript.md` was checked and does **not** contain the 27-death
-attribution; `paper/references.bib` already records WWA's figures correctly. That
-half of the entry was fixed before this session.
+**The real lesson, which is WFG-049, not this entry.** Every gate in this repository
+passed on `12b8ac7`. This paragraph is the only judge-facing prose carrying numbers with
+no artifact, no registry key and no URL, so it is the only prose that can be rewritten
+wrongly without a gate noticing — in either direction. Registering these figures is
+WFG-049; until it lands, this paragraph stays the softest evidence in the repository,
+which is what critics #1, #2, #3 and #4 have now each said in turn.
 
----
+`paper/manuscript.md` was checked and does **not** contain the 27-death attribution;
+`paper/references.bib` records WWA's figures correctly, with WWA's own scope.
 
 ## NH-016 · DECISION · open · The critic routine has 30 minutes to land its findings, and needs about 40 (by 2026-09-05)
 

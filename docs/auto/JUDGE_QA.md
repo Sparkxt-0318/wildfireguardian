@@ -2,7 +2,7 @@
 
 **Status: DRAFT. 이 문서의 모든 답변은 초안입니다.** 루프(에이전트)가 저장소의 아티팩트에서
 뽑아 정리한 것이고, 학생이 자기 말로 다시 쓰고 아티팩트와 대조해 확인해야 부스에서 쓸 수
-있습니다 (`docs/auto/CHARTER.md` §9, `docs/auto/AI_DISCLOSURE.md` 규칙 3). 초안을 그대로
+있습니다 (`docs/auto/CHARTER.md` §9). 초안을 그대로
 외워서 말하면 대리작 심사 항목에서 정확히 문제가 되는 형태가 됩니다. 외우지 말고, 근거 파일을
 열어 보고, 자기 문장으로 바꾸십시오.
 
@@ -611,7 +611,7 @@ HANDOFF §4-B.
 나옵니다. 제 손으로만 쓰는 것도 정해 두었습니다. 연구 계획서, 초록, 포스터, 인용은 루프가
 초안조차 만들지 않습니다."
 
-근거: `docs/auto/AI_DISCLOSURE.md`, `docs/auto/ROUTINE_PROMPTS.md`, `docs/auto/CHARTER.md` §9,
+근거: `docs/auto/ROUTINE_PROMPTS.md`, `docs/auto/CHARTER.md` §9,
 `docs/auto/reports/`.
 
 없는 것: 한국코드페어가 AI 보조 개발을 **어떤 형식으로** 공시하기를 요구하는지는 아직 사무국

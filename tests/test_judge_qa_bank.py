@@ -237,7 +237,7 @@ def test_the_purge_list_covers_what_the_row_actually_ordered() -> None:
 def test_the_draft_label_is_on_the_file() -> None:
     head = _text()[:1500]
     assert "DRAFT" in head, (
-        "CHARTER section 9 and AI_DISCLOSURE rule 3: material meant for the "
+        "CHARTER section 9: material meant for the "
         "student's own voice is labelled a draft, at the top, where it is read"
     )
 

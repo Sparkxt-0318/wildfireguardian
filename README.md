@@ -189,13 +189,13 @@ Round 3 은 새 기능을 얹기 전에 **기존 수치가 아직 참인지 확�
 시스템입니다.
 
 **보호 대상**: 한국 농촌의 고령층(60–80대). 2025년 3월 경북 **의성**에서 발화해
-**의성→안동→청송→영양→영덕**으로 번진 산불(중앙재난안전대책본부 2025-03-27 기준
-피해면적 **45,157 ha**(진화 완료 3-28 이전 집계이며, WWA 2025-04-30 분석은 같은
-화재군에 **48,000 ha 이상**을 제시), 사망 **26명**, 그중 **영덕 8명**, 대부분 60–80대
-고령자; 산림청 2025-03-26 기준 주택 전소 **150동**, 시설 전소 275동)의 재발 방지·대응 개선을
-동기로 삼습니다. 〔**범위 주의**: 흔히 인용되는 **104,788 ha**·사망 **32명**(산림청
-2025-05-15 기준)은 이 산불 하나가 아니라 *2025년 3월 전국 동시다발 산불 347건 전체*
-합계입니다. 출처와 범위 정리는 `docs/data_sources.md` 참조〕
+**의성→안동→청송→영양→영덕**으로 번진 산불(최종 피해면적 **99,289 ha**로 1986년 통계
+작성 이래 최대, 주불 진화까지 149시간; 사망 **26명**, 그중 **영덕 10명**〈영덕군 공지
+2025-04-29, 그린피스 실태조사 최종보고서 p.9 재인용값〉, 대부분 60–80대 고령자; 주택
+**3,819동** 피해, 이재민 2,246세대 3,587명)의 재발 방지·대응 개선을 동기로 삼습니다.
+〔**범위**: 2025년 3월 전국 동시다발 산불 347건 전체가 **104,788 ha**·사망 32명(산림청
+2025-05-15 기준)이며, **이 산불 하나가 그중 99,289 ha**로 약 95 %를 차지합니다. 출처와
+범위 정리는 `docs/data_sources.md` 참조〕
 
 **대회**: 2026 대한민국 학생 SW공모전(Korea Code Fair) → ISEF (Software Design, SFTD)
 출전을 목표로 합니다.
@@ -486,18 +486,16 @@ evacuation.
 
 **Motivating event**: the March 2025 wildfire that ignited in 의성 (Uiseong),
 Gyeongbuk and ran 의성→안동→청송→영양→영덕
-(Uiseong→Andong→Cheongsong→Yeongyang→Yeongdeok) killed **26** people — **8 in 영덕
-(Yeongdeok) alone** — the majority in their 60s–80s living in rural villages, burning
-**45,157 ha** (중앙재난안전대책본부, as of 2025-03-27 — a count taken *before* the fire
-was fully contained on 03-28; the WWA rapid study of 2025-04-30 gives **more than
-48,000 ha** for the same fire complex) and destroying **150 homes** (산림청, as of
-2025-03-26; 275 structures in total). Two stages of that
-fire — `uiseong_andong_2025` and `yeongdeok_2025` — are among the six fires the
-current model is validated on. **Scope note:** the larger figures often quoted
-alongside this fire — **104,788 ha** burned and **32** deaths (산림청, as of
-2025-05-15) — are the *nationwide* March 2025 total across 347 separate fires, not
-this chain. Every figure here, with its agency and scope, is tabulated in
-`docs/data_sources.md`.
+(Uiseong→Andong→Cheongsong→Yeongyang→Yeongdeok) burned **99,289 ha** — the largest on
+Korean record since statistics began in 1986, and 149 hours to 주불 진화 — killed **26**
+people, **10 of them in 영덕 (Yeongdeok)** (영덕군 notice of 2025-04-29, quoted at p.9 of
+the Greenpeace damage survey; a re-cited figure, not a survey result), the majority in
+their 60s–80s living in rural villages, and damaged **3,819 homes**, displacing 3,587
+people from 2,246 households. Two stages of that fire — `uiseong_andong_2025` and
+`yeongdeok_2025` — are among the six fires the current model is validated on.
+**Scope:** the nationwide March 2025 total across 347 fires is **104,788 ha** and 32
+deaths (산림청, as of 2025-05-15); this one chain is **99,289 ha of it, about 95 %**.
+Every figure here, with its agency and scope, is tabulated in `docs/data_sources.md`.
 
 **Target venue**: 2026 Korea Code Fair SW공모전 (Korean student SW competition),
 with the stretch goal of qualifying for ISEF in the Software Design (SFTD) category.
