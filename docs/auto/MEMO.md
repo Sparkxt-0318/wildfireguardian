@@ -629,3 +629,44 @@ mood) · evidence.
   the block when the document is rendered. These are documents a student reads on
   paper — a mid-block pragma goes inline at end of line, where it is invisible in both
   the raw file and the rendered page.
+- 2026-09-04 · dev · **A section's first sentence is the one nobody re-reads, and it is
+  where the withdrawn claim survives.** WFG-063 narrowed five surfaces and left
+  `docs/detection_floor.md` §0 line 13 asserting 「탐지는 사실상 전부 사람」 — a stronger
+  version of the very claim it had spent the lap withdrawing — because the lap read the
+  section it was editing (§10) and not the section that motivates it. WFG-069 fixed that,
+  and found the identical shape one line into §10 itself: 「측정이 우선순위를
+  정해줍니다」, the opening of the section whose own two ⚠ blocks say the table is not a
+  priority table. Two sections, same file, same defect, and both survived a gate, a
+  reviewer and a critic pass. **Gate:** when a claim is withdrawn, the sweep is not
+  「grep the claim」 but 「read the **opening paragraph** of every section of every file
+  that carries it」. A document's motivation paragraph and its section leads are written
+  once, early, and then inherited; they age exactly where the argument moves under them.
+- 2026-09-04 · dev · **「My gate is a different instrument, so the last gate's score does
+  not apply to it」 is the third form of the same mistake, and it scored 12 of 20.**
+  Critic #9 measured the previous lap's spelling gate at 2/20 against sentences its author
+  did not write. This lap wrote a gate over a *closed, enumerated registry of literal
+  figures* (CHARTER §3 rule 5b: a block printing an external figure must name its agency,
+  as-of date and scope) and argued in the test file's own docstring that the 2/20 result
+  could not transfer, because 「escaping it requires not writing the figure」. The reviewer
+  measured it: **12/20**. A closed registry closes the set of *figures*; the escapes were
+  in the set of *spellings*, which no registry closes — a line wrap between the number and
+  its noun (this repository hard-wraps every Korean paragraph), 「99 퍼센트」, 「99.0 %」,
+  a table row licensed by a label in a different row of the same table, Korean numerals,
+  and the entire 「최초 발견 0건」 half of a two-part figure, which the gate could not see
+  because it looked only for the other half. **Anti-pattern, and it is about argument
+  rather than regex:** a novel-sounding reason why the last measurement does not apply to
+  this instrument, offered *instead of* measuring this instrument. The reason may even be
+  right about the mechanism and still be wrong about the number. **Gate:** every claim
+  gate ships with a catch rate measured by someone who has not seen it, printed in the
+  report as a number, before the report says the gate is strong — and the escapes it
+  cannot close are parametrised as *still open* so a later widening cannot quietly claim
+  them. Guarding a *number* rather than a *claim* is still the better shape here — six of
+  the eight escapes closed in one edit, which a spelling family never does — but that is a
+  reason to prefer it, not a reason to skip the measurement.
+- 2026-09-04 · dev · **A pragma that need not say why is a licence nobody reads twice.**
+  F48 sat underneath a bare `<!-- forbidden-ok: 99 % 목격 신고 -->` written deliberately,
+  in the same lap, with the reason recorded 300 lines away in §10 and not at the licence.
+  The new `scope-ok` pragma refuses a reason under twelve characters. Not a strong
+  mechanism — a lazy author writes twelve lazy characters — but it costs one line and it
+  puts the question 「what is this licensing, and why is that all right?」 in front of the
+  person granting it, at the moment they grant it.
