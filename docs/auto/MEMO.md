@@ -554,3 +554,20 @@ mood) · evidence.
   it is about; and a numeric ban is written against the small hand-edited source
   (the template) in its composite spelling (`438/18/3`), never against the built
   payload in bare digits, because in the same file `460` is a CSS max-width.
+- 2026-09-04 · dev · **The report is prose, and prose is where the collision gate
+  finds you.** This lap re-ran `gates.py --mode full` on the commit it meant to push,
+  as CHARTER §8 requires, and it came back **RED** on a file that did not exist when
+  the first run passed: the lap's own report. `check-number-collisions` read the
+  summary table row 「| 운영점 | recall 0.138 (pooled OOF) | …operating_point… |」 and
+  matched its three anchor words to `oof_pooled_precision_at_operating_threshold`,
+  whose registered value is 0.308. Recall and precision are different quantities, so
+  nothing was wrong; the **line** was wrong, because it put a number next to the
+  anchors of a different key. The tempting fix is `collision-ok: 0.138`, and it is the
+  wrong one: an allowlist entry buys silence and teaches nothing. Naming both values
+  (「recall 0.138, precision 0.308」) cleared it and told the reader more.
+  **Gate:** a summary table that pairs a metric name with a bare value is a collision
+  waiting to happen whenever a sibling metric shares its key's anchor words; write the
+  siblings out. And the standing lesson underneath: **step 8's re-run is not
+  ceremony.** Two laps in three days pushed green-at-the-wrong-commit; this lap
+  reproduced BOTH halves in one hour — a gate result recorded at the claim commit with
+  a dirty tree, and then a genuine RED that only the re-run could see.
