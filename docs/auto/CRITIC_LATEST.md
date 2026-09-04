@@ -1,347 +1,251 @@
-# CRITIC_LATEST — critic #10, 2026-09-04T1200Z
+# CRITIC_LATEST — critic #11, 2026-09-04T1400Z
 
-Window `ce31b91..3a70e16` on `auto/dev`. Written by the `wfg-autoloop-critic` routine.
+Window `3a70e16..83f49bc` on `auto/dev`. Written by the `wfg-autoloop-critic` routine.
 The next dev lap clears every `fix-before-next-row` item here before claiming a row.
 
-**Verified independently this lap:** `gates.py --mode full` exits **0** at `3a70e16` in a
-fresh cloud sandbox. `1342 passed, 62 skipped` in 152 s, **COLD** (first full run in this
-sandbox, so the six SRTM-gated tests skipped; WFG-039). Against critic #9's cold reading at
-`ce31b91` (`1312 passed, 62 skipped`) that is **+30 passed, skips unchanged** — like for
-like, both cold, fourth comparable window. `verify`, `snapshot-verify`, `env-check` PASS;
-`baseline-verify` WARN, expected off-laptop, `hard: false`, tenth window and still not a
-finding. `--assert-head` and `--assert-reported` both exit 0 at HEAD. **Green at HEAD for a
-seventh consecutive critic lap.**
+**Verified independently this lap:** `gates.py --mode full` exits **0** at `83f49bc` in a
+fresh cloud sandbox. `1367 passed, 62 skipped` in 196 s, **COLD** (first full run in this
+sandbox, so the six SRTM-gated tests skipped; WFG-039). Against critic #10's cold reading at
+`3a70e16` (`1342 passed, 62 skipped`) that is **+25 passed, skips unchanged** — like for
+like, both cold, fifth comparable window. `verify`, `snapshot-verify`, `env-check` PASS;
+`baseline-verify` WARN, expected off-laptop, `hard: false`, eleventh window and still not a
+finding. **Green at HEAD for an eighth consecutive critic lap** — and this lap is the one
+that has to say out loud what that sentence is worth.
 
-**The window's headline: the design document's first sentence is now a count, and this lap
-opened the article to check it.** WFG-069 is done. `docs/detection_floor.md` §0 no longer
-asserts 「한국의 산불 탐지는 사실상 전부 사람입니다」 on the statistic §10 of the same file
-forbids. It opens on 경북 산불감시카메라 **152대**, 대당 약 **6천만 원**, **최초 발견 0건**,
-over **2022년 한 해와 2023년 4월 28일까지**, with the agency, the article date and the URL in
-the same paragraph, and it says the thing the measurement actually supports: what comes in
-the satellite's place 「이 저장소가 재지 않았습니다」. Critic #10 opened
-<https://www.khan.co.kr/article/202304281446001> rather than trusting the citation. Every
-element holds: 「경북에는 152개의 산불감시카메라가 설치돼 있다 … 대당 6000만원 정도다」,
-「감시카메라로 산불을 먼저 발견한 건수는 '0'건 이었다」, and the 99 % figure carries the
-article's own 「올해」, which is the interim scope §0 now prints beside it. That is the
-strongest 출처 명기 work yet done in a judge-facing Korean document.
+**The window's headline: an external dataset was ingested with every discipline this
+repository has, and it is the wrong county.** The author sent two 주소정보누리집 downloads;
+`scripts/extract_juso_yeongdeok.py` cut what it calls the 영덕 subset, committed it with a
+manifest carrying both zip digests, the data dates, the agency, the CRS decision and the
+filter string, registered eight counts, and wrote `docs/juso_yeongdeok.md` with a
+「What it does not show」 section. Every one of those is the right habit. The filter constant
+is `47920`, labelled `# 경상북도 영덕군`, and it selects a different county about 45 km away.
 
-**And the claim it withdrew is alive in English, in the file this routine is told to read
-every lap.** That is this lap's finding and its root objection.
+This lap did not need a source to find it. **The repository already stores the answer:**
+`regions.lookup('yeongdeok_2025').bbox_wgs84` is `(129.25, 36.30, 129.55, 36.60)`, and every
+one of the 239 committed points falls at 128.65–129.15 E / 36.78–37.05 N. The two boxes do
+not overlap on either axis.
+
+**That is the root objection, and it is bigger than the bug.** Every gate in this tree checks
+that a number matches an artifact. Not one checks that the artifact is of the thing its label
+names. Nine laps of sourcing discipline — agency, as-of date, scope, URL, forbidden
+phrasings, digests — and the field none of it constrains is **scope**, because scope is prose
+a lap typed. Here the number and the document agree perfectly with each other and both are
+wrong about the world, and a green test **pins the mistake in place**.
 
 ---
 
 ## fix-before-next-row
 
-**Two items. One is a paragraph of annotation; one is a single character.**
+**Two items. Neither needs the author, and neither is the re-cut.**
 
-1. **WFG-070 (F52)** — `docs/auto/research/RESEARCH_BRIEF_2026-09-03.md:75`, under the
-   heading 「**The ten hardest judge questions, with the answers that survive the verdicts**」,
-   answers question 7 with 「a satellite trigger would have fired +22/+34/+64 min **after the
-   human report** … So the design is **report-first, satellite-confirm**」.
-   `docs/auto/research/sweeps_2026-09-03/R3_science_gaps.md:22` says the same. That is the
-   claim WFG-053 and WFG-063 spent two laps withdrawing from five surfaces. Neither file
-   carries the dated annotation `docs/SESSION19_REPORT.md` was given. Annotate both — do not
-   edit them, CHARTER §3 rule 7 — and fix question 10's `Files:` line, which cites
-   `docs/auto/AI_DISCLOSURE.md`, retired to `docs/auto/archive/` on 2026-09-04.
+1. **WFG-075 (F54) — contain it.** Annotate the eight `juso_yeongdeok_*_count` entries in
+   `docs/NUMBERS.json` additively (add, never edit; CHARTER §3.2/§3.3) as scope-wrong and not
+   to be used; put the correction at the **top** of `docs/juso_yeongdeok.md`; correct the
+   2026-09-04 annotations on NH-005 and NH-012, which currently tell the author that 영덕's
+   designated 지진옥외대피장소 and 무더위쉼터 are in the repository; leave WFG-073 and
+   WFG-074 `blocked` (this lap set them). `tests/test_juso_yeongdeok.py:11` asserts
+   `man["sigungu_cd"] == "47920"` — do **not** delete that test; mark it `xfail` with a reason
+   naming NH-022, so the record of what was enforced survives.
+   **Do not guess the correct 시군구 code.** WFG-066 is the standing rule that an identifier
+   not read off a record is not written down, and this lap could not open 행정표준코드 to
+   read it. The re-cut is NH-022 and needs the laptop; the raw zips are git-ignored.
 
-2. **WFG-071, the one-character half** — `tests/test_external_figures_carry_their_scope.py`
-   accepts `%` and `퍼센트` and not **`％`** (U+FF05, fullwidth), which is what a Korean IME
-   produces by default. `목격 신고 99％가 …` walks through the gate shipped this window. One
-   character in one character class; the rest of WFG-071 is a row, not a fix-before-next-row.
-
-Otherwise **the table order stands and this lap does not reorder it**. The next `todo` row in
-table order is **WFG-003** (finals screen audit + the 5-minute demo script), which has now
-been named 「next」 by two consecutive critic laps and started by neither, then **WFG-067**.
-**NH-021 is unanswered and its stated default is table order**, so WFG-062 and WFG-071 stay
-at P1 and no critic re-decides that by editing a priority column — see the correction at the
-foot of `docs/auto/BACKLOG.md`.
+2. **WFG-067 (fourth window).** `web/finals.html` still carries `"git":"a562045"` and
+   `git cat-file -t a562045` still answers `fatal: Not a valid object name` in a fresh clone.
+   One rebuild after a rebase, plus the one-line gate that the stamp must satisfy
+   `git cat-file -e`. It is a single character of real work and it has now outlived four
+   critic laps on a **☑** readiness line — the line whose whole job is to let a judge verify
+   the build.
 
 ---
 
-## fix-this-sprint
+## The findings, ranked
 
-### F52 — The withdrawn claim is alive, in English, in the drill brief
+### F54 · **CRITICAL** · the artifact labelled 영덕 is not 영덕, and the suite enforces it
 
-**Where:** `docs/auto/research/RESEARCH_BRIEF_2026-09-03.md:75` and
-`docs/auto/research/sweeps_2026-09-03/R3_science_gaps.md:22`. **Row: WFG-070 (P0), new, and
-the first `fix-before-next-row` item.**
+`scripts/extract_juso_yeongdeok.py:32`: `SIGUNGU = "47920"  # 경상북도 영덕군`.
 
-Critic #9 certified its window with this sentence: 「Grepped every `.md` and `.html` in the
-tree this lap: the only surviving affirmative-primacy strings are that dated withdrawal block
-and §10's own paragraph explaining what its table used to be.」 **It is not true.** The reason
-it was missed is the same reason the gates missed it: **both claim families in
-`tests/test_detection_ordering_is_not_claimed.py` are Korean-only, and so was the grep.**
+Measured this lap by reading the coordinates out of the eight committed GeoJSON files in
+`data/processed/external/juso_yeongdeok/`:
 
-| where | what it says today |
-|---|---|
-| `RESEARCH_BRIEF_2026-09-03.md:75` | 「a satellite trigger would have fired +22/+34/+64 min *after* the human report (FIRMS +117/+151/+17) … So the design is **report-first, satellite-confirm**」 |
-| `sweeps_2026-09-03/R3_science_gaps.md:22` | 「GK2A detection floor: +22 / +34 / +64 min **after the human report** (n = 3)」 |
+| layer | n | lon range | lat range |
+|---|---:|---|---|
+| minwon_agencies | 74 | 128.686–129.067 | 36.799–37.051 |
+| samul_eqout_point (지진옥외대피장소) | 27 | 128.732–129.064 | 36.817–37.047 |
+| samul_coolingcen_point (무더위쉼터) | 99 | 128.665–129.148 | 36.786–37.063 |
+| samul_busst_point (버스정류장) | 28 | 128.649–129.102 | 36.785–37.064 |
+| samul_firehydr_point (소화전) | 6 | 128.736–129.058 | 36.883–37.015 |
+| samul_lifesav_point (인명구조함) | 5 | 128.729–128.954 | 36.788–37.011 |
+| samul_eqwav_point (지진해일긴급대피장소) | **0** | — | — |
+| samul_emerwat_point (비상급수시설) | 0 | — | — |
 
-The first is not an archived record in practice. `docs/auto/ROUTINE_PROMPTS.md` tells this
-routine to read that file's sections (a) and **(c)** on every lap, and (c) is where the
-sentence lives. Its section heading is 「the answers that **survive the verdicts**」. It is the
-student's drill material, and a student who reads answer 7 the night before says at the booth
-the sentence five other documents were rewritten to stop them saying.
+`config/default.yaml:83` and `regions.lookup('yeongdeok_2025').bbox_wgs84` give 영덕 as
+`(129.25, 36.30, 129.55, 36.60)`. **No point in any layer is inside it, and none is
+adjacent:** the easternmost point is 0.10 degrees west of 영덕's western edge and the
+southernmost is 0.18 degrees north of its northern edge, roughly 45 km diagonally.
 
-**The structural half, which is the part worth keeping.** `PRIMACY_GUARDED` is five files and
-`GUARDED` in the new gate is seven; **neither list contains `README.md`, and neither contains
-anything under `docs/auto/research/`**. `paper/manuscript.md` is in the second and not the
-first, so the manuscript is guarded for a figure's labels and unguarded for the claim — and
-the manuscript is the document going to an IEEE venue. Every token in `BANNED_PRIMACY`,
-`PRIORITY_WORDS`, `SOURCE_NOUNS` and `NEGATION_MORPHEMES` is Korean. Half of this repository
-is in English and none of it is covered by a sentence-level claim gate.
+**Two tells inside the artifact itself, both written up as facts about 영덕:**
 
-**What this is not.** It is not a claim that a judge-facing document is wrong today. Every
-Korean surface a judge can be handed is clean in meaning, checked again this lap. It is a
-claim that the certification 「the tree is clean」 was made by an instrument that can only read
-one of the two languages the tree is written in, and that the certification was believed.
+1. 영덕 is an East Sea coastal county. Not one of the 239 points is east of 129.15 E.
+2. `samul_eqwav_point` — 지진해일긴급대피장소, tsunami emergency evacuation sites — returned
+   **zero rows**, and `docs/juso_yeongdeok.md:12` records that as a property of 영덕
+   (「지진해일대피장소 and 비상급수 have no 영덕 rows」). A coastal county on the East Sea has
+   designated tsunami evacuation sites; a landlocked one has none. **That zero was the
+   evidence, and it was filed as data.** The centroid (36.915 N, 128.871 E) sits beside
+   봉화읍, which ko.wikipedia's 경상북도 article (opened this lap) lists among the inland
+   northern counties while naming 영덕 among the 동해안 ones.
 
-### F53 — The third claim gate was built beside the registry that already holds its answer
+**What carries it.** Eight registry keys (`juso_yeongdeok_minwon_agencies_count`,
+`…_samul_eqout_point_count`, `…_coolingcen_…`, `…_lifesav_…`, `…_firehydr_…`, `…_busst_…`,
+and the two zero-valued ones), every one with `scope: 영덕군 · …` and a `derivation` reading
+「count of … with sigungu code 47920 (영덕군)」; `docs/juso_yeongdeok.md` entire; the
+2026-09-04 annotations on **NH-005** and **NH-012**, which tell the author that 영덕's
+designated sites are now in the repository; and **WFG-073** and **WFG-074**, which would have
+put these points into the router as 영덕 refuge candidates and 119 depots. Both are now
+`blocked(WFG-075)`.
 
-**Where:** `tests/test_external_figures_carry_their_scope.py` `EXTERNAL_FIGURES` (`:108-147`)
-against `docs/NUMBERS.json`. **Row: WFG-071 (P1), new. This is the lap's root objection.**
+**What does not carry it, checked rather than assumed.** `README.md`, `web/finals.html`,
+`paper/manuscript.md` and `docs/auto/JUDGE_QA.md` print none of these values. **Nothing at
+the booth is wrong today.** This is contained, and it stops being contained the moment
+WFG-073 or WFG-074 runs.
 
-The new gate is a real improvement and this finding is not about its quality. It publishes
-its own catch rate, folds in six escapes a reviewer found, and keeps two it cannot close in
-`test_the_escapes_this_gate_cannot_close_are_still_open`, which **fails when the gate starts
-catching something the docstring says it cannot**. That is the first instrument in this
-repository whose job is to keep its author honest rather than its documents consistent.
+**And the gate holds it in place.** `tests/test_juso_yeongdeok.py:11`:
 
-What it asks of every guarded block is that the block carry the figure's **agency**, its
-**as-of date** and its **scope**. Counted this lap:
+    assert man["sigungu_cd"] == "47920"
 
-| | count |
-|---|---:|
-| registry keys in `docs/NUMBERS.json` | 312 |
-| keys with `provenance: external` | **16** |
-| of those, carrying `agency` **and** `as_of` **and** `scope` | **16** |
-| figures in the gate's `EXTERNAL_FIGURES` | **2** |
-| of those 2, present in `docs/NUMBERS.json` | **0** |
+All **1367** tests pass. `make verify`, `snapshot-verify` and `env-check` pass. The artifact
+manifest was rebuilt and the phase-13 baseline deliberately re-frozen, both correctly and
+both said so in the commit message. Every mechanism in this repository worked exactly as
+designed, on the wrong county.
 
-Two registries of external figures now exist: one structured, complete on its three labels,
-machine-readable, sixteen deep; and one hand-written in a test file holding the two 경향신문
-2023 figures that are in no registry at all. **The gate reads the second and not the first.**
+**Filed as WFG-075** (the containment half, agent-doable) and **NH-022** (the re-cut, which
+needs the laptop: `data/raw/juso/` is git-ignored and `extract_juso_yeongdeok.py` returns
+early without it).
 
-**The cost is not hypothetical and it is six windows old.** Five of the sixteen are printed
-today *inside files this gate lists as `GUARDED`* — `docs/auto/JUDGE_QA.md` (99,289 ha, 26명),
-`web/finals.html` (3,819동, 3,587명), `paper/manuscript.md` (99,289, 3,819, 3,587, 2,246,
-104,788) — where it does not look. One of them is **WFG-051**: `fire2025_chain_deaths` carries
-`agency: 중앙재난안전대책본부`, and `paper/manuscript.md:37`, a `GUARDED` file, calls the same
-26 deaths 「the **provincial** disaster headquarters' count」.
+### F54-root · the objection this lap would put to the loop
 
-A check that compared each printed value against **its own key's** `agency` field would have
-failed on that line the day it was written. The gate that was built cannot see the number at
-all. It would also be **language-neutral**, because it matches a value rather than a sentence,
-which is the one property neither hand-rolled family has and is exactly what F52 cost.
+*Every gate here checks that a number matches its artifact. None checks that the artifact is
+of the thing its label names.*
 
-### F54 — A critic report says three times that it changed a priority, and it did not
+WFG-049 bound prose figures to a registry. WFG-062 and WFG-071 are about claim sentences and
+external figures. All three constrain a **document** against a **number**. F54 is the first
+defect in eleven windows where the document and the number agree perfectly and both are
+wrong about the world — and the check that would have caught it was already committed here
+and consulted by nothing.
 
-**Where:** `docs/auto/reports/2026-09-04T1005Z-critic.md:33, 134, 148` against
-`docs/auto/BACKLOG.md:95`. **No new row; the record is corrected in `BACKLOG.md`.**
+**The cheapest test, and it needs no external source:** for every artifact whose name or
+registry `scope` carries a region this repository already knows, assert its geometry lies
+inside `regions.lookup(<region>).bbox_wgs84` plus a stated, committed buffer. One function,
+offline, and it catches this, the next mis-keyed 시군구 code, and any wrong-`.prj` or
+wrong-CRS assignment — including the EPSG:5179 inference `docs/juso_yeongdeok.md:26` honestly
+records as an inference rather than a reading. **Filed as WFG-076, P0**, with NH-021's
+standard attached: publish the catch rate against a mutation set its author did not write.
 
-Critic #9 wrote 「F47 (WFG-062, **raised P1 → P0**)」, 「build WFG-062's withdrawn-claims
-registry」 and, in the section headed 「**Updated, not duplicated**」 whose entire job is to list
-what the lap changed, 「WFG-062 (**P1 → P0**, with the 18/20 measurement …)」. The table row
-still reads `| WFG-062 | P1 |`, and `git show adf712d -- docs/auto/BACKLOG.md` shows the lap
-edited the row's **text** and not its priority column. The same lap's `CRITIC_LATEST.md` says
-the opposite of its own report — 「the table order stands and this lap does not reorder it」 —
-and refers the question to NH-021.
+It is the geometric sibling of WFG-071 (「drive it off the registry; match the value, not the
+sentence」). Take them together.
 
-Both positions are defensible; holding both in one lap is not. And it matters mechanically:
-CHARTER §4 step 3 sends the next dev lap to 「the highest-priority backlog row that is `todo`」,
-which it reads from the table, not from the report. This is F49's pattern one window on — a
-report that cannot describe its own actions — and critic #10 says it about the series before
-anything else.
+### F55 · P1 · two backlog rows were filed under IDs that were already taken
 
-**Critic #10 leaves WFG-062 at P1 deliberately.** NH-021 is the author's open decision, its
-stated default is table order, and a critic that re-decides it by editing a column takes the
-choice the entry exists to give the author.
+`3fdb888`'s commit message and `docs/auto/reports/2026-09-04T1318Z-manual.md` both say
+「WFG-072 (designated sites as refuge candidates), WFG-073 (agency depots and notification
+targets)」. The rows actually in the table are **WFG-073** and **WFG-074**; **WFG-072** is the
+English-claim-rule row filed by the 1310Z cloud dev lap inside the same half hour. The table
+was renumbered; the commit message and the report were not, so both records now point at a
+row that means something else.
 
-### F55 — The measurement the routine asks for, on the gate that shipped
+This is the **third** measured instance of the ID-collision class recorded in NH-016's
+critic #7 note (「an ID is allocated while writing, not while claiming, so the
+claim-before-build rule does not cover it」) and the first where the surviving record is
+wrong rather than merely expensive. Not worth its own row while WFG-062 is the author's
+chosen next job; recorded here so the next lap reading either document is not misled.
 
-Critic #9's standing instruction is that a new claim gate is graded against a mutation set its
-author did not write, and the rate printed. The 1045Z lap did this for its **first draft**
-(12 / 20, measured by its reviewer) and then folded six of the eight escapes in as rules, so
-the **shipped** version was unmeasured by anyone outside it. Critic #10 wrote twenty fresh
-blocks — none of them in `INCOMPLETE_BLOCKS`, ten per registered figure, each an ordinary
-Korean sentence printing the figure with no agency, no date and no scope — and ran them
-against the shipped patterns:
+### F56 · P0 · WFG-067, fourth window · the integrity panel still names a commit that does not exist
 
-| detector | caught |
-|---|---:|
-| `test_external_figures_carry_their_scope.py`, shipped | **14 / 20** |
-| (`test_detection_ordering_is_not_claimed.py`, critic #9's set, for scale) | 2 / 20 |
+Unchanged and re-checked in this fresh clone: `web/finals.html` carries `"git":"a562045"`;
+`git cat-file -t a562045` answers `fatal: Not a valid object name`. The RELIABILITY tab
+renders it as the first line of the panel a judge is invited to verify the build with. On the
+one `KCF_READINESS.md` line that is ticked for the finals screen. Four critic laps.
 
-**14 of 20 is a large, real improvement and it should be read as one.** The six escapes:
+### F57 · P0 · WFG-057, sixth window · the Q&A bank still miscounts itself, and it is blocking this routine's step 3
 
-1. **`99％`** — U+FF05, fullwidth. The class is `(?:%|퍼센트)`. A Korean IME produces ％ by
-   default. **One character, and it is a `fix-before-next-row` item.**
-2. the figure restated as a count — 「산불 신고 100건 가운데 **99건**이 목격 신고였습니다」;
-3. 목격 paraphrased — 「전체 신고의 99%가 **눈으로 본 사람의** 신고였습니다」;
-4–6. the camera figure with no digit beside 최초 — 「카메라가 먼저 찾아낸 산불은 **한 건도
-   없었습니다**」, 「단 한 건의 산불도 **먼저 발견하지 못했습니다**」, 「**인지한 최초 산불: 0건**」.
+Counted again this lap. `docs/auto/JUDGE_QA.md:17-23` tells the student **33 questions, T0
+14, T1 13, T2 6**. The file holds **41 / 15 / 19 / 7**. Critic #9 established that no
+question may be added while the header lies, because adding one makes the miscount worse.
+That means this routine's judge drill has had nowhere to put its output for a **third**
+consecutive lap: the questions it cannot answer from a file become backlog rows instead of
+`JUDGE_QA` entries marked 「근거 없음」, which is not what CHARTER §4 asks for. A P0 that
+disables a daily check is more expensive than its diff.
 
-Only the first is cheap. Escapes 2–6 are the class the docstring already names and refuses to
-claim — 「a paraphrase that carries no digits」 — and finding five more instances of an admitted
-limit is a measurement, not a rebuttal. It is the reason WFG-071 asks for the registry rather
-than a seventh regex.
+### F58 · FYI · the only lap in this window that shipped data had no independent reviewer
 
-### F56 — Carried, verified unchanged, with the checks that were run
-
-- **WFG-051 (F46)**, P0, **sixth window**, and the oldest live defect in the tree. Now with
-  the fourth document: `docs/NUMBERS.json` → `fire2025_chain_deaths` `agency:
-  중앙재난안전대책본부`; `README.md:198` and `:510` 「경상북도 최종 집계·중앙재난안전대책본부
-  확인」; `docs/data_sources.md` 경상북도 재난안전대책본부; `paper/manuscript.md:37` 「the
-  provincial disaster headquarters' count」. One number, three attributions, and nothing in
-  this repository supporting the 중대본 confirmation. **The booth is not exposed:** `JUDGE_QA.md`
-  Q30b (T1) now names the disagreement, names WFG-051, and tells the student not to assert one
-  agency. That is the honest interim answer and it is why this is still a row and not a
-  `fix-before-next-row`.
-- **WFG-067 (F41)**, P0, **third window**, on a ☑ line. `git cat-file -t a562045` in this fresh
-  clone still answers `fatal: Not a valid object name`; `web/finals.html` still carries
-  `"git":"a562045"`. Nothing in this window touched `web/`. `JUDGE_QA.md` Q35 answers it
-  honestly at the booth.
-- **WFG-057 (F49)**, P0, **fifth window**, and it did not move. Counted at `3a70e16`: header
-  says 33 / 14 / 13 / 6, file holds **41 / 15 / 19 / 7**. **It is now blocking this routine's
-  own output for a second lap:** the routine prompt says a judge-drill question no file can
-  answer becomes a backlog row *or a `JUDGE_QA.md` entry*, and adding a 42nd question to a file
-  that says 33 makes the defect worse by the hand of the lap reporting it. Critic #9 declined
-  for that reason and so does this one. Two consecutive critic laps have now been unable to use
-  half of step 3 of their own prompt; that is a cost this row has not been priced at.
-- **WFG-065 (F38)**, **fourth window**. 8.2 km h⁻¹ is still only in
-  `docs/auto/knowledge/PYROGEOGRAPHY.md`, the backlog and four critic reports. Checked by
-  `git grep` over `docs/*.md`, `paper/`, `web/` and `README.md`.
-- **WFG-056 (F50)**, **third window**. `--assert-reported` run this lap against six bases in
-  the window — `3a70e16`, `613ff3c`, `05691d6`, `c57ef90`, `197dae3`, `adf712d` — and all six
-  exit 0, all six naming `docs/auto/reports/2026-09-04T1045Z-dev.md`, **including
-  `--base adf712d`**, the commit that carried critic #9's own report. Third critic lap that
-  cannot perform the verification its prompt asks for, and the third to say so rather than
-  report a pass.
-- **What this lap *can* verify from the report files:** every dev report in the 24-hour window
-  carries a `Reviewed by:` line except `docs/auto/reports/2026-09-04T0401Z-dev.md` (critic #7's
-  F40, unchanged, a record). The 1045Z lap's reads `Reviewed by: subagent (block, then fixed)`.
-- **WFG-054, WFG-055, WFG-050, WFG-048, WFG-044, WFG-038 / WFG-039, WFG-068, WFG-066** —
-  unchanged; nothing in this window touched them.
+Every cloud dev report in the 24-hour window carries a `Reviewed by:` line except
+`2026-09-04T0401Z-dev.md`. The three **manual** reports (`1231Z`, `1252Z`, `1318Z`) carry
+none, and manual laps are not dev laps, so CHARTER §4 step 5 does not require it. But the
+1318Z manual lap is the one that shipped F54, and it is the only lap in this window that
+touched data, a script, the registry and the tests at once. `LOOP_CONFIG.json` → `review:
+subagent` reaches dev laps only; there is no equivalent for a laptop lap, and a laptop lap is
+exactly where the author's own external data enters the repository. Recorded as an
+observation, not a rule violation. The structural answer is WFG-076, which would have caught
+it with no reviewer at all.
 
 ---
 
-## note
+## What went right in this window, and it should not be lost under F54
 
-- **N57 · The best thing in the window is a test written to fail when its own docstring stops
-  being true.** `test_the_escapes_this_gate_cannot_close_are_still_open` asserts that two
-  named sentences are **not** caught, so a later lap that widens the rule past what it can
-  defend fails here and has to correct the docstring and the report together. Most
-  repositories document a limitation in prose and let it rot. This one made the limitation
-  executable. It is the reason F53 is a row about where the gate reads from and not a
-  complaint about the gate.
-- **N58 · The lap graded itself down in public and was right to.** The 1045Z lap's first draft
-  defended itself with the argument that a closed registry of literal figures is immune to the
-  2-of-20 result, 「a sentence escapes it only by not containing the figure」. Its reviewer
-  measured 12 of 20 and the docstring now says, in the lap's own words, 「**That argument is
-  false and the reviewer measured it**」. A loop that writes its own refuted argument into the
-  file is doing the thing this project is selling.
-- **N59 · `factchk` on this window's new world-claims: all of them hold.** The window asserts
-  five things about the world, all from 경향신문 2023-04-28, and this lap opened the article:
-  152 cameras ✓ (「경북에는 152개의 산불감시카메라가 설치돼 있다」), 대당 6천만 원 ✓ (「대당
-  6000만원 정도다」), 최초 발견 0건 ✓ (「감시카메라로 산불을 먼저 발견한 건수는 '0'건
-  이었다」), the 0건 period covering 2022 and the year to 2023-04-28 ✓, and the 99 % figure
-  carrying the article's own 「올해」 ✓, which is what makes it the interim tally §0 now labels.
-  Nothing was overstated and one thing was **narrowed** correctly: the article says 152개 and
-  §0 writes 152대, which is the same count in the classifier a Korean reader expects.
-- **N60 · The census is comparable for a fourth window.** `1312 → 1342` cold to cold, `+30`,
-  skips unchanged at 62. WFG-039 has now reproduced in five consecutive laps; it is still
-  `todo`, still P1, and the reason it has not hurt anyone is that four laps in a row have
-  quoted their readings with a temperature by hand.
-- **N61 · Eleven windows without a commit to `web/`, and the demo script is the row that keeps
-  being named next.** Three of eleven `KCF_READINESS.md` lines are ticked. WFG-003 has been
-  「the next row in table order」 in two consecutive critic laps and neither dev lap in between
-  took it; both took a claim-gate row instead. That is not a rule violation — WFG-069 was a
-  `fix-before-next-row` item and clearing it first is exactly what CHARTER §11 asks — but it is
-  the second time the mechanism has spent the booth's lap, and NH-021 is the entry that exists
-  to let the author say whether to keep paying for it.
+**`paper/figures/F8_routing_map.png` is the best judge-facing graphic this repository has
+produced.** Opened and read this lap. Panel (a): SRTM hillshade, P(ignite) at 720 min in
+YlOrRd, the P ≥ 0.5 cells at 0 min, the 720-min 0.5 isoline, the reported ignition, and the
+walk-network rectangle. Panel (b): the walk network, 50 refuge nodes, all 458 scanned origins
+classed **exactly as the committed artifact** (414 safe on both / 42 safe only forecast-aware
+/ 2 with no safe route — verified: 414 + 42 + 2 = 458, and `n_refuges` in
+`data/processed/rescue_routing.json` is **50**, matching the caption), and three worked
+origins with the fire-blind route against the forecast-aware one. Graticule, two scale bars,
+boxed legend, and a caption that says the isoline smoothing is display-only.
+
+Two things earn it more than tidiness. The routes are **recomputed at figure time by the
+repository's own router** and the recomputed partition equals the committed one, so the
+figure is a re-derivation rather than an illustration. And panel (a) **draws the project's
+worst limitation instead of describing it**: the predicted hazard core runs well west of the
+walk box, which is the 32.6 % coverage caveat made visible to a judge in one glance. It is
+also, this lap notes without pleasure, drawn over the correct 영덕 — 129.3–129.5 E with the
+coastline on the right — in the same window in which the same repository committed a 영덕
+dataset 45 km inland.
+
+**The author's decision channel worked.** Twelve NEEDS_HUMAN entries were closed on
+2026-09-04 through the Claude Code session channel (`docs/auto/decisions_seen.json`), and
+only **four** entries are now open, two of them FYI. NH-020's finding — twenty-nine reports
+into a void — is closed. This lap added exactly one entry, NH-022, because it is the one
+thing in F54 that the loop genuinely cannot do.
 
 ---
 
-## The judge drill
+## The judge drill, and why it produced rows instead of questions
 
-Ten questions, answered using only files in the repository.
+Ten hardest questions in `docs/auto/JUDGE_QA.md` re-run against files. The one that fails
+today is new and is F54's:
 
-| # | question | can a file answer it? |
-|---|---|---|
-| 1 | 「이 문서 첫 줄의 카메라 152대·0건은 어느 기간 이야기입니까?」 | **Yes, and it could not last window.** `docs/detection_floor.md` §0 gives agency, article date, URL and the period the 0건 covers. Critic #10 opened the article and every element holds. WFG-069 closed |
-| 2 | 「그러면 왜 사람 신고를 일차 소스로 둡니까?」 | **Yes.** The premise is refused in one sentence, identical in Q10, Q10d, `detection_floor.md` §10, the booth card and the screen |
-| 3 | 「그 문장이 영어로 되살아나면 무엇이 잡습니까?」 | **No, and it already has.** Both claim families are Korean-only; the claim is alive at `RESEARCH_BRIEF_2026-09-03.md:75` and `R3_science_gaps.md:22`. F52, WFG-070, the first `fix-before-next-row` item |
-| 4 | 「외부 수치가 기관·기준일·범위를 달고 있는지 무엇이 확인합니까?」 | **Partly, and now measurably.** The new gate covers **2** figures; `docs/NUMBERS.json` holds **16** external keys all carrying those three fields, five of them printed inside the gate's own `GUARDED` files. Outside catch rate 14/20. F53, WFG-071 |
-| 5 | 「사망 26명은 어느 기관 집계입니까?」 | **Half**, sixth window. Four documents, three attributions (WFG-051) — but Q30b tells the student the disagreement exists and forbids asserting one. The booth answer is honest; the tree is not consistent |
-| 6 | 「화면 아래 「commit a562045」 로 이 화면을 다시 만들 수 있습니까?」 | **No**, third window, and the bank says 「아니오」 honestly at Q35 with what *is* reproducible. WFG-067 |
-| 7 | 「Q&A 카드는 몇 문항이고 그중 몇 개를 외워야 합니까?」 | **No.** Header says 33 / 14 / 13 / 6; the file holds **41 / 15 / 19 / 7**. F56, WFG-057, fifth window |
-| 8 | 「이 산불의 확산 속도는 시간당 얼마였습니까?」 | **No file a judge can be shown.** Q34 answers honestly (「저희가 측정한 값이 아닙니다」). WFG-065, fourth window |
-| 9 | 「5분 시연 대본이 있습니까? 부스 노트북에서는 어떻게 띄웁니까?」 | **No, twice.** `docs/auto/DEMO_SCRIPT_5MIN.md` and `docs/auto/finals/BOOTH_SETUP.md` do not exist (R4 ☐, R3 half ☐). WFG-003, WFG-037 |
-| 10 | 「제출용 번들을 하나로 받을 수 있습니까?」 | **No.** `release/` does not exist (R9 ☐, WFG-036, plan date 09-10). Three of eleven `KCF_READINESS.md` lines ticked |
+**「이 대피 지점들은 어디서 나온 겁니까?」** — Until this window the honest answer was: OSM
+tags, the 공공데이터포털 standard when configured, and a documented synthetic fallback, all in
+`docs/data_sources.md`. This window added an answer the student would rather give — 「행정
+안전부가 지정한 대피 장소입니다」 — and that answer is currently about another county. The
+student must not use it until NH-022 is answered. The old answer is unaffected and still
+correct; `F8`'s 50 refuges are the OSM ones.
 
-**No question was added to `docs/auto/JUDGE_QA.md` this lap.** Questions 3 and 4 have no answer
-in a file and both became backlog rows instead, because WFG-057 is open and a 42nd question
-under a header that says 33 makes the defect worse by the hand of the lap reporting it. That is
-now two consecutive critic laps unable to use half of their own step 3, and it is recorded as a
-cost of WFG-057 rather than as a preference.
+No new `JUDGE_QA` entry was written, for the reason critic #9 and critic #10 both gave and
+which F57 now makes concrete: the file's header is wrong about its own contents by 8
+questions, and adding a ninth is not a contribution. The drill's output went to WFG-075 and
+WFG-076 instead.
 
 ---
 
-## What five lenses converged on
+## Scores
 
-| lens | verdict | the one load-bearing reason |
-|---|---|---|
-| KCF judge · SW professor | **pass**, held | Green at HEAD for a seventh window, `1342 / 62` cold, and the window contains a test that fails when its own docstring stops being true. Show me `test_the_escapes_this_gate_cannot_close_are_still_open` and I will believe the rest of the suite. What stops it being a rise: you have written three separate hand-rolled string families in three windows, and the fields the newest one demands are already columns in a JSON registry you wrote yourself. That is not a gate problem, it is an architecture answer you keep declining to give |
-| KCF judge · 재난 대응 공무원 | **pass**, and this is the window it improved | Last window I said fix the first sentence of the design document before you show it to me. You did, and you fixed it by replacing an opinion with a count — 152 cameras, zero first detections, and the two years that covers. That is the sentence I would have written. I still cannot get one answer about who counted the 26 dead, and that is the number I would be asked about in my office |
-| fire-behaviour scientist | **pass**, unchanged and still short of strong | Nothing about fire behaviour moved this window, for a fourth window. 8.2 km h⁻¹ is still the number that characterises 의성 and it is still in a note I would not be handed. The size floor is still given as an order of magnitude, which is still the right instinct |
-| ML reviewer (leakage, baselines) | **pass**, and `mandela` fires on the same axis as last window | No model, split, metric, arm or eval moved, so nothing fires in the science. On the instrument: the lap **fixed** pattern #4 — its mutation set was written by a reviewer who had not seen the patterns, and the rate was published. Then it folded six of the eight escapes in as parametrised cases, which converts external ground truth into internal ground truth, and the file says so out loud. The shipped version was therefore ungraded until this lap ran twenty fresh blocks: **14 / 20**. Keep doing exactly this, and note that the leak closes permanently only when the ground truth is a registry field rather than a sentence someone wrote |
-| statistician | **pass**, and the complaint is now three windows old | Fourth comparable cold census, `+30`, temperature stated: a habit, and I credit it. Against it: the bank still miscounts itself by eight, fifth window; `--assert-reported` gave me six zeros for six different bases naming one report, third window; and this window a report asserted three times that it changed a priority column that it did not change. Three of your instruments returned a value that does not depend on the thing being measured, and one of them was a report about a report |
+Track B **82 → 81** (데이터 19 → 17, 제출 자료 17 → 18). Track A **73 → 73**, every row held.
+Evidence per row in `docs/auto/SCORECARD.md`, appended at `83f49bc`.
 
-**Where they agree:** the §0 rewrite is the best sentence-level work in the window and the
-lap's public self-downgrade is the best process work. Four of five named one or the other
-unprompted.
-
-**Where they split:** the professor and the ML reviewer are looking at where the next gate
-should read from and want the registry; the 공무원 and the statistician are looking at two
-documents in front of them — the 26 deaths' agency and the bank's header — and both have been
-wrong for five and six windows while three windows of engineering went into claim gates.
-
----
-
-## The root objection, and its cheapest test
-
-Critic #4 asked which numbers can be wrong without a gate noticing. #5 asked which sentences.
-#6 asked which sentences the repository already knows are wrong. #7 asked why eight windows had
-never touched what judges look at. #8 asked why every gate points away from the screen. #9
-asked whether a bigger string gate is the right instrument at all. This one is narrower, and it
-is the constructive half of #9's question:
-
-> **The loop keeps building the gate beside the registry instead of on it.** Three hand-rolled
-> string families now guard prose. The newest asks every guarded block to carry a figure's
-> **agency**, **as-of date** and **scope** — the exact three fields `docs/NUMBERS.json` already
-> stores, and stores for **all sixteen** of its external figures. It reads none of them; it
-> hand-writes a second registry holding **two** figures that are in no registry at all. Five of
-> the sixteen are printed inside files the gate itself lists as guarded, where it does not look,
-> and one of those five is **WFG-051**: the registry says the 26 deaths are 중앙재난안전대책본부's,
-> and `paper/manuscript.md:37` — a guarded file — calls them 「the provincial disaster
-> headquarters' count」. A gate that compared a printed value against its own key's `agency`
-> field would have failed on that line the day it was written, and would have been
-> **language-neutral**, which is precisely what F52 cost: the claim the loop spent two laps
-> withdrawing is alive in English in the file this routine is told to read every lap, because
-> every token in both claim families is Korean.
-
-**The cheapest test, and it is one function inside one lap:** iterate `docs/NUMBERS.json` for
-`provenance == "external"`; for each guarded file, for each block printing that key's value in
-the spelling the document uses, require a token from that key's own `agency` / `as_of` /
-`scope` in the same block or a `scope-ok:` pragma naming the key. **Print the number of failing
-blocks on the current tree before fixing any of them.** If WFG-051's manuscript line is among
-them, the instrument is right and both hand-rolled families should migrate onto it. If the
-output is mostly noise, that is the more valuable answer, and WFG-030's shape — every
-judge-facing claim sentence cites a registry key or an artifact — is the right instrument
-instead.
-
-**And it is still not this lap's call which comes first.** WFG-071 is one lap, and the rows it
-would displace are the booth ones: no demo script, no booth recipe, no bundle, eleven windows
-without a commit to `web/`. That trade is **NH-021**, asked on 2026-09-04, due 09-06, and
-unanswered — as are sixteen other entries across twenty-nine report emails. Until it is
-answered the backlog table order stands, and this lap changed no priority.
+Track A's note this window carries a correction the table owed the loop: 구현 및 유용성 has
+held at 14 for twelve windows and previous critics called it slippage. It is not. NH-021
+closed on 2026-09-04 with the author choosing 「Do WFG-062 now; booth rows resume after」, so
+WFG-003, WFG-037 and WFG-036 are behind a gate row **by the author's own decision**, taken
+against this exact trade-off written out for them. The consequence is still scored; the
+adjective is withdrawn.

@@ -785,3 +785,44 @@ backlog table order, which today means the booth rows first and WFG-062 after th
 **Options:** A) `NH-021: booth first` — leave WFG-062 at P1, take WFG-003 / WFG-067 / WFG-037 / WFG-036 in table order, and accept that the next withdrawn claim is found by a critic rather than a gate  B) `NH-021: gate first` — WFG-062 is the next row after WFG-067, and any replacement must publish its catch rate against a mutation set its own author did not write  C) `NH-021: neither, cap it` — no more claim gates at all before the freeze; judge-facing claim sentences must instead each cite a registry key or an artifact (that is WFG-030's shape) and the critic reads the prose by hand until 10-16
 
 **CLOSED 2026-09-04 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-04 · ref: claude-code-session-7da6bf25#NH-021 · verbatim: "Do WFG-062 now (the withdrawn-claims registry gate first; booth rows resume after)."
+
+## NH-022 · DECISION · open · The 영덕 dataset you sent was cut with the wrong county code, and only your laptop can re-cut it (by 2026-09-08)
+
+**What happened.** The two 주소정보누리집 files you downloaded on 2026-09-04 are fine. The
+script that cut the 영덕 subset out of them is not: `scripts/extract_juso_yeongdeok.py:32`
+filters on 시군구 code **47920**, labelled `# 경상북도 영덕군`, and 47920 is not 영덕군.
+
+**How this lap knows, without opening any source.** Every point in the eight committed
+GeoJSON files sits at latitude 36.78–37.05 N, longitude 128.65–129.15 E. This repository's
+own canonical 영덕 box, the one the router and the forecast run on, is
+`(129.25, 36.30, 129.55, 36.60)` (`config/default.yaml:83`). **The two do not overlap on
+either axis** — they are about 45 km apart. Two more checks from the files themselves: 영덕
+is on the East Sea and not one of the 239 points is east of 129.15 E; and the
+지진해일긴급대피장소 (tsunami evacuation site) layer came back with **zero rows**, which
+`docs/juso_yeongdeok.md` wrote up as a fact about 영덕. A coastal county has tsunami
+evacuation sites. A landlocked one has none. That zero was the tell and it was read as data.
+The centre of the extracted set (36.915 N, 128.871 E) is next to 봉화읍.
+
+**What it did and did not reach.** Eight registry keys (`juso_yeongdeok_*_count`) now say
+`scope: 영덕군`, `docs/juso_yeongdeok.md` describes them as 영덕's designated sites, and the
+notes added to NH-005 and NH-012 tell you the same. **Nothing a judge sees prints them** —
+the README, the finals screen, the manuscript and the Q&A bank are all clean — so nothing at
+the booth is wrong today. Two backlog rows are now **blocked** (WFG-073, WFG-074) because
+they would have put these points into the router as 영덕 refuges and 119 depots.
+
+**What the loop is doing without you (WFG-075, WFG-076).** Annotating the eight registry
+entries as scope-wrong, correcting the document and the two notes above, keeping the rows
+blocked, and building the gate that would have caught this: every artifact whose label names
+a region must have its geometry inside that region's committed bounding box.
+
+**What only you can do.** `data/raw/juso/` is git-ignored and lives on your laptop, so the
+loop cannot re-cut the subset. On the laptop: look up 영덕군's 시군구 code on
+행정표준코드 (https://www.code.go.kr) — please read it off the record rather than typing one
+from memory, which is the rule that WFG-066 exists for — set `SIGUNGU` in
+`scripts/extract_juso_yeongdeok.py` to it, re-run the extractor and the registration script,
+and check before committing that the new points fall inside 129.25–129.55 E / 36.30–36.60 N.
+If they do not, the filter field itself is wrong and not just the constant, and that is worth
+saying rather than adjusting until something passes.
+
+**Options:** A) I will re-cut it on the laptop with the correct code  B) drop the 주소정보누리집 subset for the finals; keep the OSM refuges and the synthetic depots, and archive the mis-cut artifact with its correction note  C) keep the mis-cut data as a deliberately labelled 봉화 control set (it is a real agency inventory of a real county) and re-cut 영덕 separately
+

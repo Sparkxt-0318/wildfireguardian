@@ -104,8 +104,10 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-014 | P3 | IEEE | Paper skeleton in `paper/` (**revise**: vocabulary, caveats, AI acknowledgment, no preprint before December) | done(0ff1b36) | true | weeks | — |
 | WFG-035 | P3 | IEEE | Register every number the manuscript will cite; reconcile the two HGB means; per-fire/spatial-block CIs; new-ring IoU beside cumulative | todo | true | one lap | 데이터 해석 |
 | WFG-015 | P3 | IEEE | Reproducibility package + Zenodo release checklist (keep; DOI minted by the student) | todo | true (release: human) | one lap | 데이터 해석 (재현) |
-| WFG-073 | P1 | science | Designated sites as refuge candidates for 영덕: the author's 주소정보누리집 download (2026-09-04) gives agency-listed 지진옥외대피장소 and 무더위쉼터 points (`data/processed/external/juso_yeongdeok/`, `docs/juso_yeongdeok.md`). Measure how many of the router's current 영덕 refuges coincide with a designated site (within the walk-network snap distance), how many designated sites are reachable under the canonical forecast, and whether swapping them in changes the decision-shift counts — a new arm, new filenames, no committed artifact modified | todo | true | one lap | 데이터 수집 · 설계와 방법론 |
-| WFG-074 | P1 | product | Responder depots and notification targets from the 민원행정기관 layer: 119안전센터, 파출소 and 읍면동 offices for 영덕 with road addresses and phone numbers (`juso_yeongdeok_minwon_agencies_count`). Load them through the existing `rescue.load_depots` path as a documented alternative to the synthetic depots; the alert sheet names the nearest 읍면동 office. No numbers move; a new arm | todo | true | one lap | 제출 자료 · 창의성 |
+| WFG-075 | **P0** | science | **The dataset committed as 영덕 is not 영덕, and a test pins the mistake.** `scripts/extract_juso_yeongdeok.py:32` sets `SIGUNGU = "47920"` with the comment `# 경상북도 영덕군`. Measured this lap from the eight committed GeoJSON files, every selected point falls at lat **36.78–37.05 N, lon 128.65–129.15 E**; this repository's own canonical 영덕 box is **(129.25, 36.30, 129.55, 36.60)** (`config/default.yaml:83`, `regions.lookup('yeongdeok_2025').bbox_wgs84`). **The two boxes do not overlap on either axis** — about 45 km apart diagonally. Two corroborations from the artifact alone: 영덕 is an East Sea coastal county and the set contains **zero** points east of 129.15 E; and `samul_eqwav_point` (지진해일긴급대피장소) has **zero** rows, which `docs/juso_yeongdeok.md:12` writes up as a fact about 영덕 — a coastal county has tsunami evacuation sites, a landlocked one does not, so that zero was the tell. The centroid (36.915 N, 128.871 E) is next to 봉화읍. Carried by: 8 `juso_yeongdeok_*_count` registry keys, each with `scope: 영덕군 · …` and a `derivation` naming 「sigungu code 47920 (영덕군)」; `docs/juso_yeongdeok.md`; the 2026-09-04 annotations on NH-005 and NH-012 telling the author that 영덕's designated sites are now in the repository; WFG-073 and WFG-074, which would put these points into the router as 영덕 refuges and depots. **Nothing judge-facing prints them yet** (README, `web/finals.html`, `paper/manuscript.md`, `JUDGE_QA.md` all clean), so this is contained until one of those rows runs. **And the suite enforces it:** `tests/test_juso_yeongdeok.py:11` asserts `man["sigungu_cd"] == "47920"`, and all 1367 tests pass. **Agent-doable half (this row):** annotate the eight registry entries additively; put the correction at the top of `docs/juso_yeongdeok.md`; correct the two NEEDS_HUMAN annotations; keep WFG-073/074 blocked. The re-cut needs the laptop (the zips are git-ignored under `data/raw/juso/`), which is **NH-022** (critic #11, F54) | todo | true (annotation half; the re-cut is NH-022) | hours | 데이터 수집·분석·해석 · 제출 자료 (출처) |
+| WFG-076 | **P0** | infra | **Every gate here checks that a number matches its artifact; none checks that the artifact is of the thing its label names.** That is critic #11's root objection and F54 is its first measured cost: nine laps of sourcing discipline (agency, as-of date, scope, URL, forbidden phrasings, digests) and the one field none of it constrains is **scope**, because scope is prose a lap typed. The cheapest general fix is geometric and needs no external source: for every artifact whose name or `scope` carries a region this repository already knows, assert its geometry lies inside `regions.lookup(<region>).bbox_wgs84` (or a stated, committed buffer of it), and fail otherwise. One function, runs offline, catches F54, the next mis-keyed 시군구 code, and any wrong-CRS or wrong-`.prj` assignment too — including the EPSG:5179 assumption `docs/juso_yeongdeok.md:26` records as an inference rather than a reading. This is the geometric sibling of WFG-071's 「drive it off the registry, match the value not the sentence」; take them together. **Must publish its catch rate** against a mutation set its own author did not write, per NH-021 and WFG-062 (critic #11, F54 root) | todo | true | one lap | 데이터 수집·분석·해석 (재현) · 제출 자료 |
+| WFG-073 | P1 | science | Designated sites as refuge candidates for 영덕: the author's 주소정보누리집 download (2026-09-04) gives agency-listed 지진옥외대피장소 and 무더위쉼터 points (`data/processed/external/juso_yeongdeok/`, `docs/juso_yeongdeok.md`). Measure how many of the router's current 영덕 refuges coincide with a designated site (within the walk-network snap distance), how many designated sites are reachable under the canonical forecast, and whether swapping them in changes the decision-shift counts — a new arm, new filenames, no committed artifact modified | **blocked(WFG-075)** — the input this row consumes is the wrong county (critic #11, F54); do not start until WFG-075 has re-cut the subset | true | one lap | 데이터 수집 · 설계와 방법론 |
+| WFG-074 | P1 | product | Responder depots and notification targets from the 민원행정기관 layer: 119안전센터, 파출소 and 읍면동 offices for 영덕 with road addresses and phone numbers (`juso_yeongdeok_minwon_agencies_count`). Load them through the existing `rescue.load_depots` path as a documented alternative to the synthetic depots; the alert sheet names the nearest 읍면동 office. No numbers move; a new arm | **blocked(WFG-075)** — the input this row consumes is the wrong county (critic #11, F54); do not start until WFG-075 has re-cut the subset | true | one lap | 제출 자료 · 창의성 |
 
 ## Details
 
@@ -1692,3 +1694,61 @@ names the nearest 읍면동 office and its phone number from the same file; docs
 **Constraints:** a new arm with new filenames; the synthetic depots stay as the control.
 
 **WFG-060 update 2026-09-04:** the routing map half is done — `F8_routing_map` in `paper/make_figures.py`, cited after F5 in the manuscript, drawn from `routing_demo_canonical.npz`, `real_roads_real_hazard_canonical.json` and the three committed snapshots (DEM, walk graph, shelters), routes recomputed with the repository router and matching the committed partition. The six-fire study-area map is **blocked**: no per-fire burned-area keys in the registry and the other five fires' DEMs are laptop-only. Unblock by registering per-fire burned areas from the fire manifest (a laptop lap) and committing a coarse DEM or coastline; until then the row stays here.
+
+### WFG-075 · **P0** · science · The 영덕 subset is another county, and a green test pins it
+
+**How it was found (critic #11, 2026-09-04).** Not from a source — from the committed files.
+Reading the coordinates out of the eight GeoJSON files in
+`data/processed/external/juso_yeongdeok/` gives, for every layer:
+
+| layer | n | lon range | lat range |
+|---|---:|---|---|
+| minwon_agencies | 74 | 128.686–129.067 | 36.799–37.051 |
+| samul_eqout_point (지진옥외대피장소) | 27 | 128.732–129.064 | 36.817–37.047 |
+| samul_coolingcen_point (무더위쉼터) | 99 | 128.665–129.148 | 36.786–37.063 |
+| samul_busst_point (버스정류장) | 28 | 128.649–129.102 | 36.785–37.064 |
+| samul_firehydr_point (소화전) | 6 | 128.736–129.058 | 36.883–37.015 |
+| samul_lifesav_point (인명구조함) | 5 | 128.729–128.954 | 36.788–37.011 |
+| samul_eqwav_point (지진해일긴급대피장소) | **0** | — | — |
+| samul_emerwat_point (비상급수시설) | 0 | — | — |
+
+`regions.lookup('yeongdeok_2025').bbox_wgs84` is `(129.25, 36.30, 129.55, 36.60)`. No point in
+any layer is inside it, and none is even adjacent: the easternmost point of the new data is
+0.10 degrees west of 영덕's western edge and the southernmost is 0.18 degrees north of its
+northern edge. The same repository drew `paper/figures/F8_routing_map.png` on the same day,
+correctly, over 129.3–129.5 E with the coastline on the right of panel b.
+
+**Done when:** (a) the eight `juso_yeongdeok_*_count` entries in `docs/NUMBERS.json` carry an
+added, dated annotation saying the scope label is wrong and the value must not be used (added,
+never edited, CHARTER §3.2/§3.3); (b) `docs/juso_yeongdeok.md` opens with the correction and
+states what is and is not known about the county identity; (c) NH-005's and NH-012's
+2026-09-04 annotations are corrected as dated amendments; (d) WFG-073 and WFG-074 stay
+`blocked` until the re-cut lands; (e) `tests/test_juso_yeongdeok.py` stops asserting
+`sigungu_cd == "47920"` as correct and instead asserts the artifact is where its label says
+(that assertion is WFG-076's, so this row may mark the test `xfail` with a reason pointing at
+NH-022, and must not delete it).
+**Constraints:** the loop cannot re-cut the data — `data/raw/juso/` is git-ignored and
+laptop-only, and `extract_juso_yeongdeok.py` returns early without it. Do **not** guess the
+correct 시군구 code from memory; WFG-066 is the standing rule that an identifier not read off a
+record is not written down. The code must be read off 행정표준코드 (code.go.kr) by whoever
+re-runs it. Nothing about the two source zips is in question: the digests, dates, agency and
+CRS note all stand; only the filter constant and every label derived from it are wrong.
+
+### WFG-076 · **P0** · infra · Assert that an artifact is where its label says it is
+
+**Why this is the general row and not a patch.** WFG-049 registered figures so prose could not
+drift from artifacts. WFG-062 and WFG-071 are about claim sentences and external figures. All
+three constrain the relationship between a **document** and a **number**. F54 is the first
+defect where the number and the document agree perfectly with each other and both are wrong
+about the world, and the thing that would have caught it — a bounding box — was already
+committed in this repository and consulted by nothing.
+
+**Done when:** a gate walks the artifacts whose name or registry `scope` names a region known to
+`wildfireguardian.utils.regions`, loads their geometry, and fails when it falls outside that
+region's `bbox_wgs84` plus a committed, named buffer; the buffer is a stated choice with a
+reason, not a number chosen to make today's tree pass; the row publishes the gate's catch rate
+against a mutation set written by someone who did not see the patterns (NH-021's standard, and
+WFG-062's); and the limits it cannot close are parametrised as open, in the style of
+`tests/test_external_figures_carry_their_scope.py::test_the_escapes_this_gate_cannot_close_are_still_open`.
+**Constraints:** no committed artifact is modified to make it pass; an artifact that legitimately
+straddles a region boundary is declared in the gate with its reason, not silently buffered past.
