@@ -250,6 +250,19 @@ would move; a §5 rule would be broken to proceed; hardware must be bought; a hu
 participant would be involved; two laps disagree on direction. BLOCKER stops the
 thread only — every other backlog row keeps moving.
 
+**How the author answers, and how the loop reads it.** Every report email ends its
+"Decisions needed" block with the reply syntax: one line per item, `NH-###: <decision>`
+(a letter from the entry's **Options:** line, yes/no, or a sentence). Step 1b of every
+lap searches the mailbox through the Gmail connector for the author's replies to
+"WildfireGuardian autoloop" emails, parses them with `scripts/auto/decisions.py parse`,
+applies each with `decisions.py apply --ref <gmail message id> --received <date>`, which
+closes the entry with channel, date, message id and the verbatim text, and refuses to
+apply the same message twice (`docs/auto/decisions_seen.json`). The lap then acts on the
+decision and says so in its report ("Your reply of <date> closed NH-###: …"). A reply the
+loop cannot map to an entry is quoted in the report, never guessed at. A PR comment on
+#31 in the same `NH-###: …` form is the second channel (GitHub MCP, `channel: PR comment`).
+An entry that needs a choice states its options on one line as `**Options:** A) … B) …`.
+
 ## 7. What a good lap produces
 
 Not lines of code. A lap is good when at least one of these is true: a rubric row

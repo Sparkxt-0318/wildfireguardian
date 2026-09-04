@@ -12,6 +12,11 @@ Severities:
 
 Header format (machine-read): `## NH-### · SEVERITY · open|closed · short title`
 
+**How to decide (author):** reply to any report email with one line per item,
+`NH-###: <your decision>`; the next lap records it here with the Gmail message id and
+date (`scripts/auto/decisions.py`), acts on it, and confirms in its report. Entries
+that need a choice carry an `**Options:** A) … B) …` line; a letter is enough.
+
 ---
 
 ## NH-001 · DECISION · open · Email delivery needs three repository secrets
@@ -59,6 +64,9 @@ https://business.juso.go.kr (도로명주소 전자지도 → 건물) and place 
 `data/raw/juso_buildings/`, the loop can run the real-footprint replacement it
 already scripted. The loop will first check whether an open global dataset covers
 the area (see backlog WFG-013) so this may close itself.
+
+**Options:** A) I will download the 도로명주소 건물 layer into data/raw/juso_buildings/ by <date>  B) skip; provisional OSM counts stand for the finals
+
 
 ## NH-006 · DECISION · closed · Confirm the finals date: 10.18 (your notice) vs 10.24 (June schedule post)
 
@@ -210,6 +218,9 @@ without the preview proxy), enable GitHub Pages on the repository: Settings →
 Pages → Source "Deploy from a branch" → branch `auto/dev`, folder `/docs`. The
 board would then be at `https://sparkxt-0318.github.io/wildfireguardian/auto/dashboard.html`.
 The repository is already public, so this exposes nothing new. Not required.
+
+**Options:** A) enable GitHub Pages as described  B) skip; the htmlpreview link is enough
+
 
 ## NH-014 · DECISION · open · Run the booth recipe once on the real laptop (after 09-10, before 10-16)
 
@@ -364,6 +375,9 @@ two. Option A is the recommendation.
 
 ---
 
+**Options:** A) adopt the recommended cadence (dev every 3 h, critic 3-hourly offset, paper 6-hourly)  B) keep the current cadence  C) another cadence (say which)
+
+
 ## NH-017 · DECISION · open · Three entries were closed on replies the repository cannot see, and one of them was wrong (by 2026-09-06)
 
 **What:** `12b8ac7` closed NH-008, NH-009 and NH-015 by quoting your replies
@@ -466,6 +480,9 @@ fourth rewrite and leaves the rule the sentence was attached to intact. Item 1 (
 paragraph should state the season's 32 deaths) and your confirmation of both readings remain
 yours.
 ---
+
+**Options:** A) keep the 0100Z scope note as it stands (prints no share)  B) remove the "약 43 %" / "about 43 %" sentence, keep the rest  C) also restate the season toll (32 deaths) in the scope note
+
 
 ## NH-019 · DECISION · open · One report time, for one fire, decides what the detection result is allowed to say (by 2026-09-08)
 

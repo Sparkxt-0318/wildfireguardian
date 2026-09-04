@@ -100,11 +100,13 @@ def write_email_html(path: Path, title: str, summary: str, stamp: str, branch: s
         f"<figcaption style='font:13px/1.4 -apple-system,Segoe UI,Arial,sans-serif;color:#6F6A62;margin-top:6px'>{html_escape(cap)}</figcaption></figure>"
         for fn, cap in CAPTIONS)
     needs_html = "".join(f"<li>{html_escape(n)}</li>" for n in needs) or "<li>nothing; the loop is not blocked</li>"
+    decisions = decisions_block()
     rel = report_path.relative_to(REPO) if report_path.is_relative_to(REPO) else report_path
     body = f"""<div style="font:15px/1.5 -apple-system,Segoe UI,Arial,sans-serif;color:#1B1F23;max-width:760px">
 <h2 style="font-weight:600;margin:0 0 4px">{html_escape(title)}</h2>
 <p style="color:#6F6A62;margin:0 0 16px">{branch} @ {head} · {gate_line} · <a href="{PREVIEW}">open the visual board</a> · <a href="{BLOB}/{rel}">full report on GitHub</a></p>
 <div style="border-left:4px solid #B4471B;background:#F3E3D9;padding:12px 16px;margin:0 0 18px"><b>In plain terms</b><div style="margin-top:6px">{plain_html}</div></div>
+{decisions}
 {imgs}
 <h3 style="font-weight:600;margin:22px 0 6px">Needs you ({len(needs)} open)</h3><ul>{needs_html}</ul>
 <p style="color:#6F6A62;font-size:13px;margin-top:22px">Images and the board are files in the repository (docs/auto/images/{stamp}/, docs/auto/dashboard.html); if an image does not load yet, the push is still propagating. Reply to this email with a decision and the next lap folds it in.</p>
@@ -112,6 +114,37 @@ def write_email_html(path: Path, title: str, summary: str, stamp: str, branch: s
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(body, encoding="utf-8")
     print(f"[report] email body -> {path.relative_to(REPO)}")
+
+
+def decisions_block() -> str:
+    """Open DECISION/BLOCKER entries as a reply form: one line per item closes it.
+
+    The routine that sends this email also reads the mailbox, so a reply of the form
+    `NH-018: B` is picked up by the next lap, recorded through
+    scripts/auto/decisions.py with the Gmail message id, and acted on."""
+    try:
+        text = NEEDS.read_text(encoding="utf-8")
+    except OSError:
+        return ""
+    items = []
+    for m in re.finditer(r"^## (NH-\d+)\s*·\s*(DECISION|BLOCKER)\s*·\s*open\s*·\s*(.*)$", text, flags=re.M):
+        nid, sev, title = m.group(1), m.group(2), m.group(3).strip()
+        body = text[m.end(): text.find("\n## ", m.end()) if text.find("\n## ", m.end()) > 0 else len(text)]
+        opts = re.search(r"\*\*Options:\*\*\s*(.*?)(?:\n\n|\Z)", body, flags=re.S)
+        items.append((nid, sev, title, opts.group(1).strip().replace("\n", " ") if opts else ""))
+    if not items:
+        return ""
+    rows = "".join(
+        f"<li style='margin:0 0 8px'><b>{nid}</b> <span style='color:#6F6A62'>[{sev}]</span> {html_escape(title)}"
+        + (f"<br><span style='color:#6F6A62'>options: {html_escape(o)}</span>" if o else "")
+        + f"<br><code style='background:#EEE9DF;padding:1px 6px'>{nid}: &lt;your decision&gt;</code></li>"
+        for nid, sev, title, o in items)
+    return (f"<div style='border:1px solid #DDD8CE;border-radius:4px;padding:12px 16px;margin:0 0 18px'>"
+            f"<b>Decisions needed ({len(items)})</b>"
+            f"<p style='margin:6px 0 10px;color:#6F6A62'>Reply to this email with one line per item, exactly "
+            f"<code>NH-###: your decision</code> (a letter, yes/no, or a sentence). The next lap reads the reply, "
+            f"records it in NEEDS_HUMAN.md with the message id and date, acts on it, and confirms in its report. "
+            f"Anything else in the reply is ignored.</p><ul style='margin:0;padding-left:18px'>{rows}</ul></div>")
 
 
 def html_escape(s: str) -> str:
