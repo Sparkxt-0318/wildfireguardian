@@ -749,11 +749,22 @@ def test_the_permitted_sentence_is_not_a_violation():
 # gate whose noise nobody knows:
 #
 #   variant A — a direct mirror of `priority_violations` above: a priority word plus ONE
-#               source noun, no negation.                          **37 hits, mostly noise.**
+#               source noun, no negation.                          **27 hits, mostly noise.**
 #               「first ISEF delegation」, 「primary category」, 「before Round 3–5」: the
 #               English priority words are ordinary English, which the Korean ones are not.
 #   variant B — the same, but requiring BOTH SIDES of the comparison in one sentence: a
 #               machine-detection noun AND a human-channel noun.    **4 hits, 3 of them real.**
+#
+# ⚠ THE FIRST VERSION OF THIS COMMENT SAID 37, AND THE INDEPENDENT REVIEWER BLOCKED THE PUSH
+# OVER IT. 37 came from a throwaway script that matched the nouns BY SUBSTRING in variant A
+# and with WORD BOUNDARIES in variant B, so the two arms were never run under one rule and
+# 「recall at threshold」 counted as a human-channel noun. The reviewer rebuilt variant A in
+# good faith from the shipped constants, got 27, and pointed at CHARTER §3 rule 3: a number
+# you cannot register, you do not write. **27 is the reproducible number**, variant A is now
+# a committed function (`english_ordering_violations_variant_a`), and
+# `test_the_number_that_chose_this_design_is_re_derivable` asserts both counts every run.
+# The design call did not change — the ratio is 27:4 rather than 37:4 — but nobody should
+# have had to take the first figure on trust.
 #
 # B is what ships. The asymmetry is the finding: this claim is a *comparison*, and demanding
 # that both compared things appear is what separates it from ordinary English prose. The
@@ -776,10 +787,43 @@ def test_the_permitted_sentence_is_not_a_violation():
 #   carrying `not` anywhere passes, so 「the satellite is not fast, so the call comes first」
 #   walks through;
 # * it needs both sides named. 「the trigger is designed report-first」 alone — no satellite
-#   noun — passes, and that half-sentence is quotable;
+#   noun — passes, and that half-sentence is quotable. The three literal spellings WFG-070's
+#   contract names all fall here, which is why `BANNED_EN_SPELLINGS` exists further down as
+#   a separate, separately-scored family;
 # * a claim spread over two sentences passes, since the unit is a sentence;
 # * it reads English and Korean and nothing else, and this repository has prose in both;
-# * `[GAP: …]` markers and other bracketed conditionals are not understood.
+# * `[GAP: …]` markers and other bracketed conditionals are not understood;
+# * **MARKDOWN HEADINGS ARE NEVER SCANNED AT ALL.** `_blocks` flushes on any line starting
+#   with `#`, so `## The satellite fired after the human report` escapes both this rule and
+#   both Korean families. Inherited from `priority_violations` and not noticed there either;
+#   found by this lap's independent reviewer, recorded rather than fixed because changing
+#   `_blocks` changes three rules at once and belongs in its own row (WFG-072);
+# * **THE PRAGMA LICENSES A WHOLE BLOCK, NOT A LINE**, which the top of this file understates
+#   when it says 「it is per-line, on purpose」 — true of `violations` and
+#   `english_spelling_violations`, false of this rule and of `priority_violations`, where one
+#   comment above a paragraph exempts the entire paragraph for good;
+# * **the vocabulary is the floor, and it is lower than 「one side only」 suggests.**
+#   `EN_MACHINE_NOUNS` has no `sensor`, `imager`, `pixel`, `hotspot` or `orbit`;
+#   `EN_HUMAN_NOUNS` has no bare `report`, no `people`, no `public`. So 「Report first,
+#   satellite second」 escapes even though **both sides are named** in ordinary English. That
+#   is a different and worse failure than the one-side-only limit, and it is the reviewer's
+#   finding, not this lap's.
+#
+# GRADED A SECOND TIME, BY SOMEONE WHO DID NOT WRITE IT. This lap's independent reviewer
+# wrote **18** sentences of its own asserting the two withdrawn claims and measured
+# **9 caught, 9 escaped — 50 %**, against this rule's own 8/16 (also 50 %) on the frozen set.
+# Two independent sets agreeing at the same rate is the strongest evidence in this lap that
+# the number generalises off its author's corpus. **None of the reviewer's nine escapes was
+# folded in** — among them 「The primary trigger source is the human report.」, 「People beat
+# the satellite every time.」 and 「already dispatched by the time the geostationary imager
+# registered anything」. Adding their words would move the score and mean nothing, which is
+# critic #10's F55 stated as a rule rather than as a story.
+#
+# ⚠ AND THE PRE-REGISTRATION BELOW IS NOT EVIDENCE, WHICH THE REVIEWER IS RIGHT ABOUT. The
+# claim 「predicted 11, scored 8」 is written in prose that was committed AFTER the run, so
+# nothing in this repository can falsify it; it is an honest report of what happened and it
+# is not a measurement. The next lap that grades a gate writes its prediction as its own
+# committed line BEFORE the run, and then the claim has a witness.
 #
 # Measured against a fresh set the author of these patterns wrote only AFTER freezing them
 # (`test_the_english_rule_was_graded_after_it_was_frozen`): **8 of 16**. The lap that wrote
@@ -1013,3 +1057,207 @@ def test_the_english_rule_was_graded_after_it_was_frozen():
           "so in the report. If a change OPENED one, the rule regressed."
     )
     assert len(caught) == 8, f"expected 8 of 16, got {len(caught)}"
+
+
+#: ⚠ REGISTERED BECAUSE THE INDEPENDENT REVIEWER COULD NOT RE-DERIVE IT, WHICH IS CHARTER
+#: §3 RULE 3 APPLIED TO A COMMENT. The first version of this lap justified shipping variant
+#: B with 「variant A gives 37 hits, mostly noise」 — a number that lived in a prose comment
+#: and in a backlog row and in no runnable thing. The reviewer rebuilt variant A in good
+#: faith from the shipped constants and got 27, never 37, and blocked on the gap.
+#:
+#: The reviewer was right and the cause is embarrassing in a useful way: the throwaway
+#: script that produced 37 matched the NOUNS BY SUBSTRING for variant A while matching them
+#: with word boundaries for variant B, so the two arms of the comparison were never run
+#: under the same rule. `\bcall\b` versus `call` is the difference between 「recall at
+#: threshold」 counting as a human-channel noun and not counting. **37 is withdrawn.** The
+#: number below is variant A implemented with exactly variant B's word-boundary discipline,
+#: differing from it in the one dimension the comparison is about, and it is asserted rather
+#: than described so the next lap can re-run it.
+def english_ordering_violations_variant_a(text: str) -> list[tuple[int, str]]:
+    """The rejected design, kept runnable: a priority word plus ONE source noun.
+
+    This is `english_ordering_violations` with the both-sides-of-the-comparison requirement
+    removed and nothing else changed. It exists only so the number that chose the shipped
+    design is re-derivable by anyone who doubts it.
+    """
+    lines = text.splitlines()
+    found: list[tuple[int, str]] = []
+    for block, nums, split in _blocks(text):
+        licensed: set[str] = set()
+        for n in nums:
+            for j in (n - 1, n):
+                if 1 <= j <= len(lines):
+                    licensed |= _pragma_tokens(lines[j - 1])
+        if EN_PRAGMA in licensed:
+            continue
+        parts = _SENTENCE_SPLIT.split(block) if split else [block]
+        for sentence in (c for part in parts for c in _EN_CLAUSE_SPLIT.split(part)):
+            low = sentence.strip().lower()
+            if not low:
+                continue
+            if not _has_word(low, EN_PRIORITY_WORDS):
+                continue
+            if not _has_word(low, EN_MACHINE_NOUNS + EN_HUMAN_NOUNS):   # <-- the only change
+                continue
+            if any(re.search(p, low) for p in EN_NEGATION_PATTERNS):
+                continue
+            found.append((nums[0], sentence.strip()))
+    return found
+
+
+#: The file set both variants were measured over: the guarded surfaces plus the manuscript.
+_VARIANT_SURFACES: tuple[str, ...] = EN_GUARDED + ("paper/manuscript.md",)
+
+#: Counts over `_VARIANT_SURFACES` on the tree AS IT STANDS, i.e. after this lap's
+#: annotations put three real instances behind pragmas. Asserted, not described.
+_VARIANT_A_HITS = 11
+_VARIANT_B_HITS = 1
+
+#: And the numbers on the UNTOUCHED tree, which are the ones that actually chose the design,
+#: recorded here with the recipe because they cannot be re-run from this checkout:
+#:
+#:     git worktree add /tmp/wt0 4ff56d6
+#:     # then run both functions over every .md under docs/auto/research/, plus
+#:     # README.md and paper/manuscript.md, reading from /tmp/wt0
+#:
+#: gives **A = 27, B = 4** over that wider English half, and A = 15, B = 4 over
+#: `_VARIANT_SURFACES` alone. The independent reviewer of this lap reconstructed variant A
+#: from the shipped constants without seeing this recipe and also got **27**, which is the
+#: only reason the figure is quotable at all.
+_UNTOUCHED_TREE = "4ff56d6"
+_UNTOUCHED_WIDE_A, _UNTOUCHED_WIDE_B = 27, 4
+
+
+def test_the_number_that_chose_this_design_is_re_derivable():
+    """The comparison that rejected variant A, run rather than remembered.
+
+    Both arms over the same files under the same word-boundary discipline. The ratio is
+    the argument — one source noun admits ordinary English ('the first ISEF delegation',
+    'primary category', 'before Round 3-5'); requiring both sides of the comparison does
+    not — and the ratio is what must hold, so both counts are asserted.
+
+    These run over the tree as it stands TODAY, i.e. after this lap's annotations, which is
+    why the numbers are lower than a run on the untouched tree: three real instances are now
+    behind `forbidden-ok: en-ordering` pragmas and no longer counted by either arm.
+    """
+    a = sum(len(english_ordering_violations_variant_a(
+        (REPO / rel).read_text(encoding="utf-8"))) for rel in _VARIANT_SURFACES)
+    b = sum(len(english_ordering_violations(
+        (REPO / rel).read_text(encoding="utf-8"))) for rel in _VARIANT_SURFACES)
+    assert (a, b) == (_VARIANT_A_HITS, _VARIANT_B_HITS), (
+        f"variant A now scores {a} and variant B {b}, not the registered "
+        f"{_VARIANT_A_HITS} and {_VARIANT_B_HITS}. If prose moved, re-register both here "
+        f"and in the report; if the RULE moved, the design comparison has to be re-argued."
+    )
+    assert a > b * 4, (
+        "variant A is no longer several times noisier than variant B, which is the entire "
+        "reason variant B ships. Re-argue the design."
+    )
+
+
+# ---------------------------------------------------------------------------
+# WFG-070 · the three literal spellings the ROW asked for, which the structural
+# rule above does not catch on their own
+# ---------------------------------------------------------------------------
+#
+# THE REVIEWER READ THE ROW'S CONTRACT AGAINST THE DIFF AND FOUND THE WEAKER BRANCH TAKEN.
+# WFG-070's 「Done when」 offers two ways to close: the test 「either gains the English
+# spellings (`after the human report`, `report-first`, `human report is the primary
+# trigger`) or its docstring says in one sentence that the family is Korean-only and names
+# the surfaces that are therefore unguarded」. `english_ordering_violations` satisfies the
+# SECOND branch and reads as though it satisfied the first, and it does not: all three
+# named spellings **escape it standalone**, because it requires a machine-detection noun in
+# the same clause and none of the three contains one. 「The human report is the primary
+# trigger source.」 — the literal withdrawn primacy claim, the sentence WFG-063 spent a lap
+# removing — passed clean. The three in-tree instances are caught only because a satellite
+# noun happens to sit beside them.
+#
+# So the row's first branch is honoured here, literally and narrowly: the three spellings it
+# names, as strings, in the same per-token pragma discipline as `BANNED` and
+# `BANNED_PRIMACY`. This is a copy-paste ratchet and nothing more — it is the shape this
+# file already calls 「a string tripwire, not a claim detector」 three times.
+#
+# ⚠ IT IS DELIBERATELY NOT MERGED INTO THE STRUCTURAL RULE, and the separation is the
+# point. `english_ordering_violations` scored 8/16 on a set frozen before it and 9/18 on the
+# reviewer's independent set. If the reviewer's escapes were folded into ITS vocabulary the
+# score would rise and mean nothing — critic #10's F55 exactly. These three strings come
+# from the ROW's contract, written before the rule existed, not from a set anybody used to
+# grade it, so they change no measured number. **The 8/16 in
+# `test_the_english_rule_was_graded_after_it_was_frozen` is the score of the structural rule
+# alone and is not restated anywhere as the score of the two together.**
+
+#: (pattern, token, why). Case-insensitive; these are English spellings, not shapes.
+BANNED_EN_SPELLINGS: tuple[tuple[str, str, str], ...] = (
+    (r"after\s+the\s+human\s+report", "en after the human report",
+     "the ordering claim in the spelling the drill brief actually used. The delays are "
+     "measured from a recorded occurrence time; no 신고접수시각 exists in this repository"),
+    (r"report[-\s]first", "en report-first",
+     "「the design is report-first, satellite-confirm」. The size floor rules the satellite "
+     "OUT; it does not rule the human IN"),
+    (r"human\s+report\s+is\s+the\s+primary|primary\s+trigger\s+source\s+is\s+the\s+human",
+     "en human report is primary",
+     "the primacy claim WFG-063 withdrew, in English and in either word order"),
+)
+
+
+def english_spelling_violations(text: str) -> list[tuple[int, str, str]]:
+    """(line number, token, line) for every banned English spelling not licensed.
+
+    Line-level and case-insensitive, matching `violations` above rather than the block-level
+    structural rule: these are exact strings, so a wrap between two of their words already
+    defeats them and nothing is gained by rebuilding blocks.
+    """
+    lines = text.splitlines()
+    found = []
+    for i, line in enumerate(lines):
+        allowed = _pragma_tokens(line)
+        if i:
+            allowed |= _pragma_tokens(lines[i - 1])
+        for pattern, token, _why in BANNED_EN_SPELLINGS:
+            if re.search(pattern, line, re.IGNORECASE) and token not in allowed:
+                found.append((i + 1, token, line.strip()))
+    return found
+
+
+@pytest.mark.parametrize("rel", EN_GUARDED)
+def test_no_english_surface_carries_the_three_withdrawn_spellings(rel: str):
+    """WFG-070's 「Done when」, first branch, taken literally."""
+    hits = english_spelling_violations((REPO / rel).read_text(encoding="utf-8"))
+    assert not hits, (
+        f"{rel} carries a withdrawn English spelling (WFG-053, WFG-063, WFG-070):\n"
+        + "\n".join(f"  {rel}:{n}  [{tok}]  {line[:120]}" for n, tok, line in hits)
+        + "\n\nIf the line names the claim in order to withdraw or record it, put "
+          "`<!-- forbidden-ok: <token> -->` on the line or the line above."
+    )
+
+
+@pytest.mark.parametrize(
+    "sentence",
+    [
+        "a satellite trigger would have fired +22/+34/+64 min after the human report",
+        "So the design is report-first, satellite-confirm.",
+        "The human report is the primary trigger source.",
+        "Our primary trigger source is the human report.",
+        "the trigger interface is designed report first, satellite-confirm",
+    ],
+)
+def test_each_named_spelling_is_caught(sentence: str):
+    assert english_spelling_violations(sentence), f"not caught: {sentence}"
+
+
+def test_the_two_english_rules_are_scored_separately():
+    """The structural rule's 8/16 must not silently become the pair's score.
+
+    `test_the_english_rule_was_graded_after_it_was_frozen` calls
+    `english_ordering_violations` and nothing else. This asserts the separation holds by
+    showing the spelling rule DOES catch sentences the graded rule misses — which is the
+    whole reason the two numbers may never be added together or quoted as one.
+    """
+    only_spelling = [
+        s for s, want in _GRADED_AFTER_FREEZING
+        if not want and english_spelling_violations(s)
+    ]
+    assert only_spelling == ["We designed the interface report-first."], (
+        f"the spelling rule's overlap with the graded set changed: {only_spelling}. "
+        "Re-read the note above about not merging the two scores."
+    )

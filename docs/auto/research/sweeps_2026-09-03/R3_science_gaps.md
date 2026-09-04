@@ -6,7 +6,7 @@ Everything below marked **UNVERIFIED** could not be checked at source (paywall 4
 
 > **⚠ WITHDRAWN 2026-09-04 (WFG-053, WFG-063, WFG-070).** This sweep is a record of what was
 > believed on 2026-09-03 and its prose is not edited. The §0 row 「GK2A detection floor:
-> +22 / +34 / +64 min **after the human report**」 states the delays against a clock this
+> +22 / +34 / +64 min **after the human report**」 states the delays against a clock this <!-- forbidden-ok: en after the human report -->
 > repository never measured: no committed artifact records a 신고접수시각 for any of these
 > fires, and `docs/data_provenance/fire_manifest.json` marks the field they *are* measured
 > from as `start/end/reported_ha are provenance only`. The delays are relative to a
@@ -30,7 +30,7 @@ Everything below marked **UNVERIFIED** could not be checked at source (paywall 4
 | Routing: 42/458 origins safe only on the future-aware route on the canonical trained-hazard field; 2 with no safe route | README Round 3 | — |
 | Vulnerability layer (households, 240 min): the failing set is **identical with and without fire** on the elliptical hazard at Yeongdeok (Session 17); 18/24 failures are tautological (walk time > horizon); the margin threshold never fires (0/2,496) | SESSION17, BLOCKERS "future work" | This is in visible tension with the 42/458 headline. Resolving it is candidate C1. |
 | 240-min horizon grounded on KFS statistics (n = 2,008; 79.2 % contained ≤240 min; ≥100 ha median 4,025 min) | horizon_grounding | — |
-| GK2A detection floor: +22 / +34 / +64 min **after the human report** (n = 3); GK2A beat FIRMS in 2/3; "GK2A buys time" is explicitly not claimed | SESSION19, detection_floor | Candidate contributions do not touch detection; §4(c) only positions it against the KJRS 2025 papers. <!-- forbidden-ok: en-ordering --> |
+| GK2A detection floor: +22 / +34 / +64 min **after the human report** (n = 3); GK2A beat FIRMS in 2/3; "GK2A buys time" is explicitly not claimed | SESSION19, detection_floor | **⚠ WITHDRAWN 2026-09-04 — see the block at the top of this file; neither direction of this comparison can be stated.** Candidate contributions do not touch detection; §4(c) only positions it against the KJRS 2025 papers. <!-- forbidden-ok: en-ordering, en after the human report, en report-first, en human report is primary --> |
 | Refuge placement: one refuge covers 20/24 failing households, two cover 24/24 — reachability-only objective, OSM 124-building proxy | SESSION22 | Fire-aware placement is candidate C5 (6-month). |
 | Firefighter consultation: no fixed time budget exists in the field; `W = 75` has no field basis; elderly do not leave "until they see fire" — a compliance failure, out of scope | firefighter_consultation §1, §3 | Any candidate that hangs on `W` is weakened; C7 is therefore ranked last. |
 | Rules: never move committed values; new measurements are new registry entries (arm-isolated); no synthetic GK2A data; don't compare AUC to AP benchmarks | HANDOFF §5 | All candidates below are additive arms. |
