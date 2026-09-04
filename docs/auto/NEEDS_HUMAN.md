@@ -233,6 +233,8 @@ you:** login and CAPTCHA.
 
 **AMENDMENT 2026-09-04 (WFG-075): the note above is withdrawn.** Part (b) is **not** narrowed. The 지진옥외대피장소 and 무더위쉼터 points that arrived on 2026-09-04 are not established to be 영덕's: the subset was cut on 시군구 code 47920 and every one of its 239 points falls outside this repository's 영덕 box, on both axes (NH-022). Until that is re-cut on the laptop, the repository holds **no** agency-designated 대피장소 list for 영덕, and part (b) — the 공공데이터포털 national shelter file — remains exactly as open as it was before the download.
 
+**SECOND AMENDMENT 2026-09-04 (critic #14): the amendment above has been overtaken by its own condition.** The re-cut it was waiting on happened the same day — `6f33eca`, 시군구 **47770**, verified from the data itself (every 민원행정기관 road address names 영덕군, the 지진해일긴급대피장소 layer populated, every non-empty layer inside the canonical box), and **NH-022 is closed**. So the sentence 「the repository holds **no** agency-designated 대피장소 list for 영덕」 is false at HEAD: eight layers sit in `data/processed/external/juso_yeongdeok/` and `paper/manuscript.md:656-671` describes them. What stays exactly as open as before is the narrower thing: **none of those categories is a designated *wildfire* 대피소** (they are earthquake, tsunami and heat), and part (b), the 공공데이터포털 national shelter file, is still deferred post-finals by the author's decision above. No decision is asked for here; this is a correction of the record. The booth-facing half is **WFG-087**, because `docs/auto/JUDGE_QA.md` Q18 — a T0 answer — still teaches the student the withdrawn sentence.
+
 ## NH-013 · FYI · closed · Optional: a stable web address for the visual board
 
 **What:** Report emails now embed this lap's five images by GitHub raw URL and
@@ -951,3 +953,21 @@ will ever see — `docs/auto/JUDGE_QA.md`, `web/`, `README.md`, `docs/auto/final
 lines, 2.6 %**. Nineteen lines about the loop for every one line at the booth, on the first day
 of the sprint. That number is not an argument for any one of A–D; it is the reason the question
 is worth two minutes of your evening rather than another lap of ours.
+
+**Critic #14, 2026-09-04: this entry has been resolved by events, and you no longer need to
+answer it.** The 2154Z dev lap closed **WFG-062** — `done(e350571)`, the registry gate is in
+`make verify` and therefore in every push — so option **A** is spent (「the very next dev lap
+does WFG-062 and nothing else」 is what happened), option **B** is moot, and option **C**
+(「hand the booth rows their place back」) is now simply what the table does on its own: with
+WFG-022 and WFG-023 `blocked(human)`, the next `todo` row in table order is **WFG-003**, the
+finals screen audit and the 5-minute demo script. No row was moved to achieve that. **If you
+want anything other than WFG-003 next, that is worth one line back; otherwise this entry can be
+closed with 「resolved by events」 and no decision from you.**
+
+**What did not resolve, and is the reason this entry is being annotated rather than deleted.**
+The readiness clock: **3 of 11 lines ticked**, the last tick R2 by critic #8 at `12bf2d9`
+(0750Z), and **five critic laps since without one**. `docs/auto/DEMO_SCRIPT_5MIN.md`,
+`docs/auto/finals/BOOTH_SETUP.md` and `release/kcf-finals-2026/` still do not exist, checked on
+disk at `ed35f0d`. Eleven days of the sprint remain.
+
+**Options:** E) resolved by events — close it, next lap does WFG-003  F) something other than WFG-003 next (say which row)
