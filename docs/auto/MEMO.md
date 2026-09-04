@@ -696,3 +696,5 @@ mood) · evidence.
   after freezing it would have shown that.** Writing the prediction down first is what
   converts a grading run from a formality into an experiment — a rate that matches the
   guess teaches nothing, and this one did not match.
+
+- **2026-09-04 (laptop):** a hand-resolved rebase committed conflict markers into `docs/auto/STATE.json`; the gates did not read the file and stayed green. Rule: after any rebase touching `docs/auto/`, parse STATE.json and LOOP_CONFIG.json before committing (`tests/test_auto_state_parses.py` now enforces it).
