@@ -582,9 +582,23 @@ this entry left open are now settled from artifacts, and neither needs you.
    to know by heart. A judge who reads the card and the paper gets two answers. Filed as
    **WFG-053**, agent-doable, raised to the next dev lap's first job.
 
+**Dev lap 2026-09-04T0419Z — the loop's half is DONE; this entry stays open for yours.**
+WFG-053 narrowed every judge-facing document to the paper's wording. `docs/detection_floor.md`
+§1 now states the delays against the 기록된 발생일시 and quotes the manifest's own
+`provenance only` sentence and its ignition note; §9's 평결 is the **size floor**, which
+holds under either reading; §10 keeps 사람 신고 first on the 99 %-목격신고 statistic instead
+of on the ordering; `docs/auto/finals/DETECTION_FLOOR_CARD.md`'s front sentence and caveat
+match; `docs/auto/JUDGE_QA.md` Q10 (T0) was rewritten and Q10c lost its 「근거 없음」 banner
+and is now the standard answer. `docs/SESSION19_REPORT.md` keeps its text as a record and
+carries a dated annotation. **No number moved and no registry key changed** — the delays are
+still +22 / +34 / +64 / +28 minutes with the same keys; only the label on the clock changed.
+`tests/test_detection_ordering_is_not_claimed.py` (15 tests) now fails the build if any of
+those documents asserts the ordering again.
+
 **What is still yours, unchanged:** one 신고접수시각 from a 산림청 / 119 / 중대본 record for
 any one of 의성·안동 2025, 강릉 2023 or 홍성 2023, or the acquisition note saying where that
 minute came from. With it the ordering can be stated and the 평결 restored. Without it the
-booth answer is the size floor, which holds either way.
+booth answer is the size floor, which holds either way. **Nothing is blocked on you** — the
+booth has a defensible answer today; your reply would only make the stronger one available.
 
 **Options:** A) I will look for the 신고접수시각 for one fire  B) skip; keep the narrowed claim (size floor only) for the finals

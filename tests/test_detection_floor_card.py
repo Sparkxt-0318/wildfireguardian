@@ -105,9 +105,23 @@ def test_the_card_keeps_the_three_constraints_the_row_put_on_it():
 
 
 def test_the_card_states_the_reference_time_caveat_first():
-    """§1 is the most important clue in the whole measurement; a card that drops it lies."""
+    """§1 is the most important clue in the whole measurement; a card that drops it lies.
+
+    ⚠ REWRITTEN 2026-09-04 (WFG-053), and the rewrite is the point of the row. This test
+    used to assert `"신고 시각" in text` — it enforced the caveat that the reference clock
+    IS a report time, which is the unsourced reading critic #6's F27 withdrew. So the one
+    test guarding the card's most important sentence was pinning the wrong sentence, and
+    passed for the whole window the card was wrong. It now asserts the narrow reading:
+    the clock is named, and the manifest's own provenance sentence is quoted beside it.
+
+    The ordering claim itself is gated separately and tree-wide by
+    `tests/test_detection_ordering_is_not_claimed.py`; this test only guards placement,
+    which that file cannot see.
+    """
     text = CARD.read_text(encoding="utf-8")
-    assert "신고 시각" in text and "발화" in text
+    assert "기록된 발생일시" in text, "the card must name the clock the delays are measured from"
+    assert "provenance only" in text, "the card must quote the manifest sentence that makes it unsourced"
+    assert "발화" in text
     assert text.index("기준 시각") < text.index("+22분"), "the caveat must precede the numbers"
 
 
@@ -158,6 +172,12 @@ def test_the_card_carries_no_number_this_test_has_not_been_shown(card: str):
         "0.4",    # the 95 % upper bound per step, in percent (§5)
         "95",     # ...its confidence level
         "709", "0",  # det_control_steps and det_false_alarm_steps
+        # --- added 2026-09-04 by WFG-053; none of these is a measurement ---
+        "99",     # 「신고의 99 %가 목격 신고」, the §0 statistic that now carries the
+                  # trigger ranking in place of the withdrawn ordering claim
+        "2026", "09", "04",  # the withdrawal date on the 「보여주지 않는 것」 line
+        "053",    # WFG-053, the row that narrowed this card
+        "019",    # NH-019, the open entry that would let the ordering be stated again
     }
     bare = set(re.findall(r"\d+(?:\.\d+)?", card))
     unexplained = sorted(bare - allowed)

@@ -474,3 +474,21 @@ mood) · evidence.
   questions at once, that is the moment to ask which of the two the page in front of
   you actually answers, because a citation is the one thing a reader can check in ten
   seconds and a judge will.
+- 2026-09-04 · dev · **A test that guards a sentence can pin the wrong sentence, and then
+  it defends the defect.** `tests/test_detection_floor_card.py` had one test over the booth
+  card's most important caveat, named
+  `test_the_card_states_the_reference_time_caveat_first`. It asserted `"신고 시각" in text`.
+  That is the unsourced reading critic #6 withdrew — so the single test standing over the
+  single sentence a judge reads first was **requiring** the error, and would have failed the
+  correct card. It passed green for the whole window the card was wrong, alongside 16 number
+  bindings that were all correct. The number bindings were doing their job; the prose binding
+  was inverted, and nothing distinguishes the two in a summary line that says `17 passed`.
+  **Anti-pattern:** writing a presence-assertion over prose (`assert "X" in text`) without
+  asking what happens when X is the thing that turns out to be false. A value binding fails
+  when the value drifts; a presence binding fails when the *correct* prose arrives.
+  **Gate:** when a row narrows or withdraws a claim, grep the test suite for the withdrawn
+  spelling **before** editing the documents. A hit is not an obstacle to route around; it is
+  the gate that was holding the defect in place, and it goes in the report by name. Here it
+  cost one line to find (`grep -rn "신고 시각" tests/`) and it was the difference between
+  "the row's constraint held" and the truth, which is that two of seventeen tests had to
+  change and one of them was wrong on the merits.

@@ -76,7 +76,7 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-050 | P1 | infra | The motivating-event figures are pinned by `tests/test_motivating_event_figures.py` against `docs/data_sources.md`, a sibling document the same lap wrote in the same commit — leakage patterns #3/#4/#5, named by the 2026-09-04T0017Z dev lap's own reviewer. Table A's rows carry bare news URLs whose content can change or vanish. Snapshot each cited page (sha256 + retrieval date, the way `docs/evidence/greenpeace_2026_survey.md` already does) and assert README <-> snapshot instead of README <-> sibling doc | todo | true | hours | 데이터 해석 (재현) · 제출 자료 (출처) |
 | WFG-051 | **P0** | infra | The `fire2025_*` apparatus binds a figure's **value** to the registry and leaves its **attribution** free: `check_readme_figures.py` only asserts that `agency` / `as_of` / `scope` / `source_url` are non-empty, never that they agree with what the prose says. Three live disagreements: the registry calls 45,157 ha a 중앙재난안전대책본부 figure while `README.md:204-205` and `docs/data_sources.md:194` call it 산림청 (the cited 경향신문 article says 산림청, so the registry is the wrong one); the registry calls 사망 26명 a 중앙재난안전대책본부 count while `docs/data_sources.md:190` calls it 경상북도 재난안전대책본부; and `README.md:193-199` puts 사망 26명 under an 아시아경제 link that carries no death figure at all. Fix the artifact, give 26명 its own citation, and extend the gate to compare the README's inline link and the sources table's 출처 column against the registry's `agency` and `source_url` (critic #5, F23). **Raised P1 → P0 by critic #6 (F30): the disagreement has now propagated into `paper/manuscript.md:36-38`, which calls 26명 "the provincial disaster headquarters' count" — a third spelling — so the same figure now carries three different agencies across three judge-facing documents, and the README link a judge would click still carries no death figure** | todo | true | hours | 제출 자료 (출처) · 데이터 해석 (재현) |
 | WFG-052 | P1 | infra | No gate reads judge-facing prose for *structural* damage, only for numbers: `d2f314d` left BOTH opening stanzas duplicated verbatim on consecutive lines (`**보호 대상**` and `**Motivating event**`), and they survived the eight commits since, a critic run that read that exact diff, `make verify`, `check_readme_figures.py` and 36 paragraph tests, because every one of them flattens or greps the paragraph and none looks at it as text. The 2026-09-04T0400Z dev lap removed the Korean twin, missed the English one, and its own reviewer found it — which is the row's point twice over. Both removed; that test now asserts each anchor appears exactly once. The general gate is still the row. Cheapest form: fail on two consecutive identical non-empty lines in `README.md` and `docs/*.md` | todo | true | minutes | 제출 자료 |
-| WFG-053 | P0 | KCF | **The booth card, the T0 Q&A answer and the design doc's 평결 all say the satellite rang after the human call; this project's own paper says the measurement cannot say that.** Narrow every judge-facing document to the paper's wording (delays behind the *recorded occurrence time*, no ordering claim), keep the size floor, which is true either way. Agent-doable and needs nothing from the author: the paper already did it (critic #6, F27) | in-progress(2026-09-04T0419Z) | true | one lap | 데이터 해석 · 제출 자료 (출처) · 구현 및 유용성 |
+| WFG-053 | P0 | KCF | **The booth card, the T0 Q&A answer and the design doc's 평결 all say the satellite rang after the human call; this project's own paper says the measurement cannot say that.** Narrow every judge-facing document to the paper's wording (delays behind the *recorded occurrence time*, no ordering claim), keep the size floor, which is true either way. Agent-doable and needs nothing from the author: the paper already did it (critic #6, F27) | done(2026-09-04T0419Z) | true | one lap | 데이터 해석 · 제출 자료 (출처) · 구현 및 유용성 |
 | WFG-054 | P0 | infra | `scripts/auto/decisions.py apply` appends the Gmail message id to `decisions_seen.json` even when `apply_one` recorded nothing, so an author reply naming an id the file does not carry is written nowhere and the message is never read again. Its own docstring promises the opposite (`recorded, as noted, never guessed at`). Record `seen` only on a real change, write unmapped lines to a committed place, and test both directions (critic #6, F28) | todo | true | hours | 데이터 해석 (재현) |
 | WFG-055 | P1 | IEEE | `paper/check_paper.py` enforces a word proxy (7,479 of 7,500 used) for a constraint CHARTER §12 states in **pages**, measures no section against the §12 list, and the loop's own recount puts the built `.docx` nearer 21 pages than 20. Get one real page count out of the built document, re-derive the words-per-page constant from it, and add a section gate. Absorbs WFG-045 (critic #6, F29) | todo | true | one lap | 제출 자료 |
 | WFG-056 | P1 | infra | `gates.py --assert-reported` reads `origin/auto/dev` at push time and writes nothing, so no later lap can audit whether a given push actually carried a report — which is the check the critic prompt asks be verified every day and the one thing in this repository that cannot be. Append `{utc, base, head, verdict}` to a committed ledger under `docs/auto/` on every run (critic #6, F32) | todo | true | hours | 데이터 해석 (재현) |
@@ -84,6 +84,8 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-058 | P1 | paper | Manuscript figures restyled to the look of Moreno et al. (2025), which the author chose on 2026-09-04: framed panels, panel letters, hairline bar edges, framed legends, a warm red / blue / grey palette. `paper/style.py` rewritten, `paper/make_figures.py` labels every multi-panel figure; rules in `docs/auto/knowledge/FIGURE_STYLE_REFERENCE.md` | done (2026-09-04 laptop lap) | true | one lap | 제출 자료 |
 | WFG-059 | P3 | science | Buildings as exposure, not fuel — a Korean BFM-lite **after the finals**: 건축물대장 (needs the author's API key) joined to 도로명주소 건물DB footprints → footprint fraction, structure-separation distance, construction era and structure type per cell; then an ablation in the leave-one-fire-out protocol. The FireDX pipeline the author supplied was read and deliberately not adopted before the freeze; the decision and the four reasons are in `docs/auto/knowledge/WUI_BUILDINGS_AS_FUEL.md` | todo (post-finals) | partly | days | 데이터 수집 · 연구 기여 |
 | WFG-060 | P2 | paper | Study-area map of the six fires in the Moreno Fig. 1 style: DEM hillshade from data already in the repo, one graded circle per fire (size and colour by burned area, five-step legend), lat/lon graticule, scale bar, boxed legend. Offline build only, every burned-area figure from the registry | todo | true | one lap | 제출 자료 |
+| WFG-061 | P1 | science | `docs/horizon_grounding.md` reads the KFS 산불통계 CSV's `발생일시` column as a 신고 시각 and cites no source for that reading, exactly as `docs/detection_floor.md` §1 did before WFG-053. The two are **different datasets** (public-portal CSV vs `fire_manifest.json`), so the claim that they "share the same weakness in the same data" was wrong and was withdrawn by the WFG-053 lap; the column's own provenance is still unchecked. Find what 산림청 says `발생일시` means in the 산불통계데이터 spec, or state that it is unknown. The 79.23 %/240-min horizon numbers do not move either way (dev lap 20260904T0419Z) | todo | true | hours | 데이터 해석 (재현) · 데이터 수집 |
+| WFG-062 | P1 | infra | `tests/test_detection_ordering_is_not_claimed.py` gates ONE withdrawn sentence shape over FOUR named documents, and `scripts/check_forbidden.py`'s five `claim` rules are the only other sentence-level gate in the tree. Every other gate reads a value, which is critic #5's and critic #6's shared root objection two windows running. Generalise: a registry of withdrawn CLAIMS (id, banned spellings, the artifact that withdrew it, the pragma token) that any document can be checked against, so a fifth document asserting the ordering tomorrow is caught. Absorbs the per-row hand-rolled gates (dev lap 20260904T0419Z) | todo | true | one lap | 데이터 해석 (재현) · 제출 자료 |
 | WFG-011 | P2 | ISEF | ISEF plan memo (**revise**: route-existence questions, SFTD base rate, age rule, hand-written documents) | todo | true | one lap | — |
 | WFG-032 | P2 | science | Leak-free 영덕 fold + hindsight-oracle routing arm (agent writes the script; student runs on the Mac) | todo | partial | one lap + one Mac day | 데이터 해석 · IEEE Table V |
 | WFG-033 | P2 | science | Coupling-ablation routing-only arms on committed hazard fields (fire-blind / static perimeter + buffer / spread_v2), three regions (absorbs WFG-012) | todo | true | two laps | 설계와 방법론 · 데이터 해석 |
@@ -948,6 +950,47 @@ it is meant for the booth panel, and Q10 is one of the fourteen answers the stud
 to know by heart. This is the same failure class as F21 — a value bound to a registry with a
 free sentence around it — moved from a README paragraph to the three artifacts a judge
 actually meets.
+
+**Lap 20260904T0419Z — done.** The whole done-when clause holds and no number moved.
+
+- `docs/detection_floor.md` §1 is retitled 「기준 시각이 무엇인지 우리는 모릅니다」 and quotes
+  the manifest's own `start/end/reported_ha are provenance only` plus its ignition note
+  (`first hit … may lag ignition`), with the withdrawn 신고 reading annotated below it rather
+  than deleted (CHARTER §3 rule 3). §4's table label and §4's counterfactual sentence follow.
+- §9's 평결 is now the **size floor** — 「2 km 화소는 대략 1 ha 아래의 불을 분해하지 못한다」 —
+  which is true under either reading of the clock, with the old ordering verdict annotated.
+  §10 keeps 사람 신고 first on §0's 99 %-목격신고 statistic instead of on the ordering.
+- `docs/auto/finals/DETECTION_FLOOR_CARD.md`: caveat block, front sentence, table header,
+  trigger table and the 「보여주지 않는 것」 list. The front sentence is now the size floor.
+- `docs/auto/JUDGE_QA.md`: Q10 (T0) rewritten, Q10a's closing line narrowed, Q10c's
+  「근거 없음」 banner replaced by a ✅ note making it the repository's standard answer.
+- `docs/SESSION19_REPORT.md` keeps its body verbatim as a record and gains a dated 🛑
+  annotation naming the current version; `docs/horizon_grounding.md` loses its false
+  「same weakness in the same data」 cross-reference (filed as WFG-058).
+
+**The row's constraint was almost right, and the exception is the finding.** It said the 17
+tests in `tests/test_detection_floor_card.py` must pass untouched. Fifteen did. Two did not,
+and both are worth recording:
+
+1. `test_the_card_states_the_reference_time_caveat_first` asserted `"신고 시각" in text` — the
+   one test guarding the card's most important sentence was **pinning the withdrawn reading**,
+   so it would have failed the correct card and passed the wrong one. It now asserts
+   「기록된 발생일시」 and `provenance only`. Every one of the 17 *number* bindings passed
+   untouched, which is what the constraint was protecting.
+2. The bare-digit tripwire fired on `2026-09-04`, `WFG-053`, `NH-019` and the `99 %`
+   statistic. Its escape list is hand-maintained by design; all five are added with reasons.
+
+**The gate is the deliverable, not the prose.** `tests/test_detection_ordering_is_not_claimed.py`
+(15 tests) bans five spellings of the ordering assertion across the three Korean documents
+**and `paper/manuscript.md`**, which is in the list as a regression anchor — it is the half of
+the repository that got this right first, and a later lap "harmonising" it back to the card's
+old wording is the failure this row exists to stop. Withdrawal prose is licensed per line by
+the repository's own `<!-- forbidden-ok: -->` pragma, so there is no whole-file escape. Six
+mutation cases put the exact shipped sentences back and require a failure; three neighbour
+cases (「기록된 발생일시로부터 +22분」, the 99 % statistic, 「사람 신고를 일차 소스로」) require
+a pass. `test_the_manifest_still_says_what_this_gate_rests_on` re-derives the premise from the
+artifact, so if a real report time ever lands the gate fails and the narrowing is revisited on
+evidence — which is what NH-019 asks the author for.
 
 ### WFG-054 · P0 · infra · A reply the loop cannot map is discarded, and the message is marked read
 
