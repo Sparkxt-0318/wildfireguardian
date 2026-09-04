@@ -5,7 +5,7 @@ Why this script exists
 ----------------------
 Before it, a withdrawn claim was gated by naming the files it was allowed to be absent
 from.  ``tests/test_detection_ordering_is_not_claimed.py`` carries four claim families and
-five hand-written guard lists between them, covering **11 files** out of the 343 tracked
+five hand-written guard lists between them, covering **11 files** out of the 988 tracked
 ``.md`` and ``.html`` files in this repository.  Every escape the loop has actually paid
 for was a FILE nobody had listed, not a spelling nobody had patterned:
 

@@ -36,11 +36,16 @@ WHAT IT DOES NOT DO — read this before quoting any number about it at a booth:
   ``english_ordering_violations``).  Those reconstruct sentences from wrapped markdown
   blocks per language and cannot be expressed as a registry row; folding them in is a
   later row, not this one.
+* Its coverage number counts files READ, not claims CAUGHT, and the two are not the same:
+  915 gated files are **652** generated ``outputs/**`` dispatch sheets, **105** vendored
+  ``.claude/skills/**`` documents and **158** hand-written project documents.  The honest
+  pair to quote is **11 → 158** for prose a person writes, and 915 for what is scanned.
+  (The reviewer of the lap that wrote this made that distinction; it is kept in its words.)
 * Widening scope has a measured cost, paid once here: ``docs/finals_screen_v2.md:75``
   says 「사람 신고를 일차로 **끌어올리지 않습니다**」 — an honest negated sentence that the
   ``신고 일차`` spelling matches.  The structural rule reads the negation and passes it; the
   spelling rule cannot.  It is licensed by pragma, and that is the mechanism, not a
-  workaround: one false positive in 914 files is the price of the coverage.
+  workaround: one false positive in 915 files is the price of the coverage.
 """
 
 from __future__ import annotations
@@ -252,7 +257,13 @@ def test_the_registry_holds_nothing_the_families_do_not():
     in_files = set()
     for family_name in ("BANNED", "BANNED_PRIMACY", "BANNED_EN_SPELLINGS"):
         in_files |= {(p, t) for p, t, _w in getattr(families, family_name)}
-    extra = {(s["pattern"], s["token"]) for _cid, s in SPELLINGS} - in_files
+    #: Registered by the independent reviewer of dev lap 20260904T2119Z, which found the
+    #: spelling live at docs/SESSION19_REPORT.md:229 and :293 — three lines from a line
+    #: this row had just licensed. It is here rather than in the older file because it was
+    #: found IN THE TREE by someone who had not written the patterns; a spelling the
+    #: pattern's author invents and then grades with its own sentence is leakage.
+    reviewer_found = {(r"기준이?\s*(?:「\s*)?신고\s*시각", "기준 시각은 신고")}
+    extra = {(s["pattern"], s["token"]) for _cid, s in SPELLINGS} - in_files - reviewer_found
     assert extra == set(), (
         "the registry has grown past the families it absorbed. That is allowed, and when "
         "you do it, add the new spelling to this test's expected set and say in "
@@ -400,6 +411,8 @@ def _probe_sentence(pattern: str) -> str:
         r"신고\s*대비": "아래는 전부 신고 대비 탐지 지연입니다.",
         r"신고보다": "세 건 모두 신고보다 느렸습니다.",
         r"기준\s*시각은\s*(?:「\s*)?신고": "기준 시각은 신고 시각입니다.",
+        # found live in the tree by the reviewer, not invented from the regex
+        r"기준이?\s*(?:「\s*)?신고\s*시각": "기준이 신고 시각이므로 실제 지연은 더 큽니다.",
         r"신고\s*시각\s*(?:대비|기준)": "표의 값은 신고 시각 대비입니다.",
         r"신고[^\n]{0,20}?[*\s]{0,4}일차[*\s]{0,4}(?:로|이|입니|였|소스|트리거)":
             "트리거 인터페이스는 사람 신고를 일차로 가정합니다.",

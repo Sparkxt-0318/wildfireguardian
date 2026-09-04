@@ -96,6 +96,11 @@
           "pattern": "신고\\s*시각\\s*(?:대비|기준)",
           "token": "신고 시각 대비",
           "why": "the same label one synonym over"
+        },
+        {
+          "pattern": "기준이?\\s*(?:「\\s*)?신고\\s*시각",
+          "token": "기준 시각은 신고",
+          "why": "the SAME withdrawn heading in the other word order — 「기준이 신고 시각이므로」. Found live at docs/SESSION19_REPORT.md:229 and :293 by the independent reviewer of dev lap 20260904T2119Z, three lines from a line this row had just licensed, which is why it is registered rather than left as a stated limit. It is registered because a reviewer who did not write the patterns found the spelling IN THE TREE; a spelling the pattern's author invents and then grades with its own sentence is leakage."
         }
       ]
     },
