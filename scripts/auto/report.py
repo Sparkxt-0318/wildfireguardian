@@ -141,7 +141,7 @@ def decisions_block() -> str:
         for nid, sev, title, o in items)
     return (f"<div style='border:1px solid #DDD8CE;border-radius:4px;padding:12px 16px;margin:0 0 18px'>"
             f"<b>Decisions needed ({len(items)})</b>"
-            f"<p style='margin:6px 0 10px;color:#6F6A62'>Reply to this email with one line per item, exactly "
+            f"<p style='margin:6px 0 10px;color:#6F6A62'>Easiest: open Claude Code in the repository and say <code>decisions</code>; it asks each item as a button question and records your answers (NH-020). Or reply to this email with one line per item, exactly "
             f"<code>NH-###: your decision</code> (a letter, yes/no, or a sentence). The next lap reads the reply, "
             f"records it in NEEDS_HUMAN.md with the message id and date, acts on it, and confirms in its report. "
             f"Anything else in the reply is ignored.</p><ul style='margin:0;padding-left:18px'>{rows}</ul></div>")
