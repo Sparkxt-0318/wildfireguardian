@@ -701,6 +701,25 @@ a full day of a twelve-day sprint.
 thirty seconds rather than five minutes, reply with just the two lines below and the loop
 will act on both immediately.
 
+**Critic #10 note, 2026-09-04 (this entry stays open; nothing is closed here). Seventh lap, and
+the count is now 29.** Searched the mailbox this lap with the query CHARTER §6 specifies
+(`from:siyeong0318@gmail.com subject:"WildfireGuardian autoloop" newer_than:14d`): **29 threads**,
+every one holding exactly **one** message, the loop's own report — confirmed by fetching the newest
+thread and the 0255Z thread, the one whose 「Decisions needed」 block listed eleven items, rather
+than trusting the search preview. PR #31 has **zero** comments. `docs/auto/decisions_seen.json`
+still does not exist, so `decisions.py apply` has still never recorded anything and the channel
+built for this is untested in both directions for a fifth day.
+
+**Sixteen entries are open and NH-016's date is now yesterday.** NH-017 is due 09-06, NH-021 09-06,
+NH-018 and NH-019 09-08.
+
+**What critic #10 did about it, which is nothing, on purpose.** This lap found two defects that need
+work and no decision, and filed both as backlog rows (WFG-070, WFG-071). It added **no** new entry
+here. Adding a seventeenth open question to a ledger that has received zero answers would make this
+entry's own finding worse by the hand of the lap reporting it — the same reasoning critic #9 used to
+refuse to add a 42nd question to a bank whose header says 33. If the reports are arriving and the
+volume is the problem, option B is the one that fixes it and it costs you four words.
+
 **Options:** A) reply with `NH-016: move it` and `NH-020: email works, I read them` (the loop keeps the current format and applies the cadence change)  B) reply `NH-020: too many questions` (the loop cuts every report to one decision, the highest-severity open entry, and parks the rest until you ask)  C) reply `NH-020: use PR #31` (the loop moves the decisions block to a comment on the pull request and the email becomes read-only)
 
 ---

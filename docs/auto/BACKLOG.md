@@ -51,6 +51,8 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-066 | P1 | infra | **A bibliographic record was written from memory in a repository whose rule 5 is 「no fabricated citations」.** `docs/auto/knowledge/PYROGEOGRAPHY.md:169` carries `[UNVERIFIED — not opened; author list from memory]`. Critic #7 checked it: Sullivan, Sharples, Matthews & Plucinski (2014), *Environ. Model. Softw.* **62**: 153–163 is **correct in every field**, confirmed against the FRAMES catalog record (frames.gov/catalog/53980) and the ScienceDirect listing. So replace the tag with `[verified 2026-09-04 · FRAMES catalog + ScienceDirect listing]` and delete the phrase. The row is the rule, not the entry: add to CHARTER §13 that a note may carry `[UNVERIFIED]` for a *claim* it could not open, and may never carry an author list, year, volume or page range that was not read off a record (critic #7, F37) | todo | true | minutes | 제출 자료 (출처) |
 | WFG-068 | P1 | infra | **The paper routine can do a backlog row's work but cannot mark it done, so a row it finishes stays `todo` and the next dev lap rediscovers it.** CHARTER §12 says the paper lap 「touches nothing outside `paper/` (plus its own report)」, which is the right isolation and also means `BACKLOG.md` is out of reach. WFG-064 is the first instance: the paper lap fixed both halves at `e28377c`, wrote it up under the row's own name, and left the row reading `todo`; critic #8 closed it by opening the two PNGs. Give the routine a write it can make — the cheapest is a committed `paper/BACKLOG_CLAIMS.md` the paper lap appends `{row, commit, what}` to and the next dev or critic lap drains — or state in CHARTER §12 that the paper lap names its completed rows in its report and the daily critic closes them. Either way the rule must be written down, because the failure mode is silent: a `todo` row that is already done costs a whole lap to rediscover (critic #8, F44) | todo | true | minutes | 데이터 해석 (재현) |
 | WFG-069 | **P0** | KCF | **The document that spent this window forbidding a conclusion opens by stating it.** `docs/detection_floor.md:13` is the first sentence of §0: 「한국의 산불 탐지는 사실상 전부 사람입니다」. Its only support is the next clause, 「산불 신고의 99 %가 목격 신고」 — the value §10 of the same file now forbids in bold from carrying any conclusion in a judge-facing document (unregistered, no registry key, an interim year-to-date tally as of 2023-04-28). The whole of WFG-063 was 「the size floor rules the satellite out, it does not rule the human in」, and §0 rules the human in flatly, eight lines above the measurement, in the document `JUDGE_QA.md` Q10 · Q10d name as their 근거. Both new gates are blind to it: it carries no `PRIORITY_WORDS` token, so `priority_violations` never looks at it, and the 99 % clause on the next line is pragma-licensed as 「background with its source」. **And the scope is wrong twice over under CHARTER §3.5b:** §0 writes 「보도된 해에」 for a figure the article states as 「올해」 at 2023-04-28, i.e. about four months of accumulation, which §10 itself calls a 잠정치 — an interim presented as a settled annual fact, which is the exact rule 5b exists for. Fix: narrow §0's opening sentence to what is sourced (the 152 cameras with 최초 발견 0건, which is a count and not a share), and give the 99 % clause the interim label §10 already wrote for it, or drop the clause. No number moves and no artifact is touched (critic #9, F48) | **done(20260904T1020Z)** — §0 now opens on the count the source supports (경북 감시카메라 152대, 2022년 및 2023-04-28 까지 최초 발견 0건) with the article URL and the read date, and says 「그 자리에 무엇이 오고 있는지는 이 저장소가 재지 않았습니다」; the 99 % clause stays as background carrying its agency, as-of date and 연중 누계·잠정 scope, and supports no conclusion. §10 lost the same defect in its own first line (「측정이 우선순위를 정해줍니다」, the opening of the section whose two ⚠ blocks deny it) and its camera row gained the period and the source. Gated by `tests/test_external_figures_carry_their_scope.py`, CHARTER §3 rule 5b made mechanical for the first time — **catch rate 12/20** against the reviewer's outside mutation set, six of the eight escapes closed, the two that cannot be closed parametrised as still open. Coverage is two files, not the seven `GUARDED` lists | true | hours | 데이터 해석 · 제출 자료 (출처) |
+| WFG-070 | **P0** | KCF | **The withdrawn ordering claim is alive, in English, in the document the routine tells every lap to read.** `docs/auto/research/RESEARCH_BRIEF_2026-09-03.md:75`, under the heading 「The ten hardest judge questions, with the answers that survive the verdicts」, answers question 7 with 「a satellite trigger would have fired +22/+34/+64 min **after the human report** … So the design is **report-first, satellite-confirm**」. `docs/auto/research/sweeps_2026-09-03/R3_science_gaps.md:22` says the same. That is the claim WFG-053 and WFG-063 spent two laps withdrawing from five surfaces, and neither file carries the dated annotation `docs/SESSION19_REPORT.md` got. Both claim families in `tests/test_detection_ordering_is_not_claimed.py` are **Korean-only** and neither `PRIMACY_GUARDED` nor the new `GUARDED` list contains `paper/manuscript.md`, `README.md` or `docs/auto/research/`, so the English spelling of the claim is ungated everywhere. Same file, question 10, cites `docs/auto/AI_DISCLOSURE.md`, retired to `docs/auto/archive/` on 2026-09-04 (critic #10, F52) | todo | true | one lap | 제출 자료 · 데이터 해석 |
+| WFG-071 | P1 | infra | **The third claim gate was built beside the registry that already holds its answer.** `tests/test_external_figures_carry_their_scope.py` demands that a block printing an external figure carry that figure's **agency, as-of date and scope** — the exact three fields `docs/NUMBERS.json` already stores, and stores for **all 16** of its `provenance: external` keys. The gate reads none of them: `EXTERNAL_FIGURES` is a second, hand-written registry holding **2** figures that appear in no registry at all. Five of the 16 are printed inside files this same gate lists as `GUARDED` (`JUDGE_QA.md` 99,289 · 26명; `web/finals.html` 3,819 · 3,587; `paper/manuscript.md` 99,289 · 3,819 · 3,587 · 2,246 · 104,788) where it does not look. Drive it off the registry instead, and the same pass becomes language-neutral, because it matches the **value**, not the sentence. In NH-021's scope: if the author answers 「gate first」 this and WFG-062 are the pair (critic #10, F53) | todo | true | one lap | 데이터 해석 · 제출 자료 |
 | WFG-016 | — | — | ~~AI ledger current~~ | **withdrawn(2026-09-04)** — author's instruction; organisers require no disclosure artifact (NH-008). Never started, nothing produced | false | — | — |
 | WFG-036 | P0 | KCF | **Final product bundle** `release/kcf-finals-2026/`: `web/` whole (finals + console + field view), printables PDF, `README_KO.md` 10-line run recipe, `CITATION.cff`, `make finals-bundle` byte-identical rebuild; definition of done = `docs/auto/KCF_READINESS.md` R1–R11 | todo | true | two laps (v1 by 09-10, v2 by 09-14) | 구현 및 유용성 · 제출 자료 |
 | WFG-037 | P0 | KCF | Booth recipe `docs/auto/finals/BOOTH_SETUP.md`: exact steps for the judged laptop (env, `make all-checks`, open `file://` with Wi-Fi off, key bindings, two USB copies, fallback if the laptop dies), plus NH-014 asking the author to run it once | todo | true | hours | 구현 및 유용성 |
@@ -1470,3 +1472,142 @@ scope label. Do **not** add a question to `JUDGE_QA.md` while WFG-057 is open (t
 already miscounts the file by eight). Do **not** widen `PRIORITY_WORDS` to chase this
 sentence: the escape class is 「no priority word at all」, which is WFG-062's problem and is
 not fixed by another token.
+
+---
+
+### WFG-070 · **P0** · KCF · The withdrawn claim is alive in the drill brief, in English
+
+**Raised by critic #10, 2026-09-04, window `ce31b91..3a70e16`.**
+
+Two laps (WFG-053, then WFG-063) withdrew the claim that the satellite trigger would have
+fired *after* the human report, and narrowed five Korean surfaces to one sentence. Critic #9
+wrote that it had 「grepped every `.md` and `.html` in the tree this lap」 and that the only
+survivals were the `SESSION19_REPORT.md` record inside its own dated withdrawal block and
+§10's paragraph explaining what its table used to be. **That is not true, and the reason it
+was missed is that both claim gates and both greps are in Korean.**
+
+| where | what it says |
+|---|---|
+| `docs/auto/research/RESEARCH_BRIEF_2026-09-03.md:75` | 「a satellite trigger would have fired +22/+34/+64 min *after* the human report (FIRMS +117/+151/+17) … So the design is **report-first, satellite-confirm**」 |
+| `docs/auto/research/sweeps_2026-09-03/R3_science_gaps.md:22` | 「GK2A detection floor: +22 / +34 / +64 min **after the human report** (n = 3)」 |
+
+The first sits under the heading 「**The ten hardest judge questions, with the answers that
+survive the verdicts**」, in a file `docs/auto/ROUTINE_PROMPTS.md` tells the critic routine to
+read sections (a) and (c) of on **every** lap. It is the student's own drill material. A
+student who reads answer 7 the night before the booth says at the booth the sentence five
+other documents were rewritten to stop them saying.
+
+**Why no gate saw it.** `tests/test_detection_ordering_is_not_claimed.py` has two claim
+families — `BANNED_PRIMACY` and the `PRIORITY_WORDS`/`SOURCE_NOUNS` structural rule — and
+every token in both is Korean. `PRIMACY_GUARDED` is five files; the new
+`test_external_figures_carry_their_scope.py` `GUARDED` is seven. Neither list contains
+`README.md`, and neither contains anything under `docs/auto/research/`. `paper/manuscript.md`
+is in the second list and not the first, so the manuscript is guarded for a figure's labels
+and unguarded for the claim. The English half of this repository is where the IEEE submission
+and half the README live.
+
+**Also in the same file:** question 10's `Files:` line cites `docs/auto/AI_DISCLOSURE.md`,
+which was retired to `docs/auto/archive/AI_DISCLOSURE_retired_2026-09-04.md` at the author's
+instruction (NH-008). A judge answer that points at a deleted file is the WFG-067 shape in
+prose.
+
+**Done when:** both research files carry a **dated annotation** — not an edit; CHARTER §3
+rule 7 makes them records — saying which claim was withdrawn, on what date, and where the
+current wording lives (`docs/detection_floor.md` §9–§10, `JUDGE_QA.md` Q10 · Q10d); the dead
+`AI_DISCLOSURE.md` reference is corrected to the archive path; and
+`tests/test_detection_ordering_is_not_claimed.py` either gains the English spellings
+(`after the human report`, `report-first`, `human report is the primary trigger`) or its
+docstring says in one sentence that the family is Korean-only and names the surfaces that
+are therefore unguarded. Stating the limit is an acceptable outcome; leaving it unstated
+is not.
+
+**Constraints:** do not edit the two research files' prose — annotate above it. Do not add a
+question to `docs/auto/JUDGE_QA.md` while WFG-057 is open. Do not widen the guard lists to
+every file in the tree; the record files (`docs/SESSION*_REPORT.md`,
+`docs/auto/reports/`, `docs/auto/archive/`) are out of scope by the same rule 7 that makes
+this an annotation.
+
+---
+
+### WFG-071 · P1 · infra · Drive the external-figure gate off the registry, not beside it
+
+**Raised by critic #10, 2026-09-04. This is the lap's root objection as a row.**
+
+`tests/test_external_figures_carry_their_scope.py` (shipped 2026-09-04T1020Z) is the first
+mechanical check of CHARTER §3 rule 5b and it is a real improvement: it publishes its own
+catch rate, folds in six escapes a reviewer found, and keeps two it cannot close as a test
+that **fails if the docstring ever stops being true**. Nothing below takes that away.
+
+What it asks of every guarded block is that the block carry the figure's **agency**, its
+**as-of date** and its **scope**. Those are three fields `docs/NUMBERS.json` already stores,
+under exactly those names:
+
+| | count |
+|---|---:|
+| registry keys total | 312 |
+| keys with `provenance: external` | **16** |
+| of those, carrying `agency` **and** `as_of` **and** `scope` | **16** |
+| figures in the new gate's `EXTERNAL_FIGURES` | **2** |
+| of those 2, present in `docs/NUMBERS.json` | **0** |
+
+So the repository now keeps two registries of external figures: one structured, complete on
+its three labels, machine-readable and 16 entries deep, and one hand-written in a test file
+holding the two 경향신문 2023 figures that are in no registry at all. The gate reads the
+second and not the first.
+
+**The cost is not hypothetical and it is six windows old.** Five of the 16 are printed today
+*inside files the new gate lists as `GUARDED`*: `docs/auto/JUDGE_QA.md` (99,289 ha, 26명),
+`web/finals.html` (3,819동, 3,587명), `paper/manuscript.md` (99,289, 3,819, 3,587, 2,246,
+104,788). The gate does not look at any of them. And one of them is **WFG-051**:
+`fire2025_chain_deaths` carries `agency: 중앙재난안전대책본부`, while `paper/manuscript.md:37`
+— a `GUARDED` file — calls the same 26 deaths 「the **provincial** disaster headquarters'
+count」, `docs/data_sources.md` says 경상북도 재난안전대책본부, and `README.md:198` says
+「경상북도 최종 집계·중앙재난안전대책본부 확인」. Four documents, three attributions, one
+number, and the registry field that would settle it is read by nothing.
+
+A check that compared each printed value against **its own key's** `agency` string would have
+failed on the manuscript line the day it was written. It would also be **language-neutral**,
+because it matches a value rather than a sentence — which is the one property neither
+hand-rolled family has (WFG-070).
+
+**Done when:** one function iterates `docs/NUMBERS.json` for `provenance == "external"`, and
+for each `GUARDED` file and each block printing that key's value in the spellings the
+documents use, requires a token from that key's own `agency` / `as_of` / `scope` in the same
+block, or a `<!-- scope-ok: <key> — <reason> -->` pragma naming the key. **The lap prints the
+number of failing blocks on the current tree in its report**, before fixing any of them. If
+WFG-051's manuscript line is among the failures, the instrument is right and both
+hand-rolled families should migrate onto it. If the output is mostly noise, that is the more
+valuable answer and WFG-030's shape — every judge-facing claim sentence cites a registry key
+or an artifact — is the right instrument instead.
+
+**Also fix, and it is one character:** the witness-share pattern accepts `%` and `퍼센트` and
+not **`％`** (U+FF05, fullwidth), which is what a Korean IME produces by default.
+Critic #10's outside mutation set of twenty blocks — none of them in `INCOMPLETE_BLOCKS` —
+is caught **14 / 20** by the shipped gate, against 2 / 20 for the previous family, and
+`목격 신고 99％가 …` is one of the six escapes. The other five are the figure restated as a
+count (`100건 가운데 99건`), 목격 paraphrased (`눈으로 본 사람의 신고`), and three restatements
+of the camera figure with no digit beside 최초 (`한 건도 없었습니다`, `먼저 발견하지 못했습니다`,
+`인지한 최초 산불: 0건`). Only the first is cheap; the rest are the class this instrument
+cannot close, and the docstring already says so.
+
+**Constraints:** in NH-021's scope. Until the author answers, the backlog table order stands
+and this row does not jump the booth rows. Add nothing to `EXTERNAL_FIGURES` by hand as a
+substitute for this row — that is the move this row exists to stop.
+
+---
+
+### Correction to the record · WFG-062's priority did not change
+
+Critic #9's report (`docs/auto/reports/2026-09-04T1005Z-critic.md`) says in three places that
+it raised WFG-062 from P1 to P0 — in F47's header, in its cheapest-test paragraph, and in the
+section headed 「Updated, not duplicated」, whose job is to list what the lap changed. The
+table row still reads `| WFG-062 | P1 |`, and `git show adf712d -- docs/auto/BACKLOG.md`
+shows that lap edited the row's **text** and not its priority column. `CRITIC_LATEST.md` from
+the same lap says the opposite of its own report: 「the table order stands and this lap does
+not reorder it」, and refers the question to NH-021.
+
+**Critic #10 leaves WFG-062 at P1**, deliberately. NH-021 is the author's open decision and
+its stated default is that silence means table order, which puts the booth rows first. A
+critic re-deciding it by editing a priority column would take the choice the entry exists to
+give the author. The record is corrected here rather than the row: what critic #9 did was
+raise the row's **evidence**, not its priority.
