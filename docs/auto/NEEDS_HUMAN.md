@@ -702,3 +702,36 @@ thirty seconds rather than five minutes, reply with just the two lines below and
 will act on both immediately.
 
 **Options:** A) reply with `NH-016: move it` and `NH-020: email works, I read them` (the loop keeps the current format and applies the cadence change)  B) reply `NH-020: too many questions` (the loop cuts every report to one decision, the highest-severity open entry, and parks the rest until you ask)  C) reply `NH-020: use PR #31` (the loop moves the decisions block to a comment on the pull request and the email becomes read-only)
+
+---
+
+## NH-021 · DECISION · open · Two laps disagree on whether to spend a sprint lap on a gate or on the booth (by 2026-09-06)
+
+**Why this is yours:** CHARTER §6 escalates when two laps disagree on direction, and this is
+that. It is also a trade the loop should not settle for you, because the two sides are
+「the judges see more」 and 「the loop stops making the same mistake」, and only you know how
+much risk you want to carry into 10-24.
+
+**The disagreement, in one paragraph.** WFG-062 asks for a general registry of withdrawn
+claims that any document can be checked against. Critic #8 said promote it to the front of
+the P0 block. The lap that then did WFG-063 agreed it is the right generalisation, and took
+the next booth row anyway; the row is still `todo` and still P1 as that lap left it. Critic
+#9 raised it to P0 with a measurement: of twenty human-primacy sentences written by a reader
+who had not seen the new gate's patterns, **eighteen pass both of its detectors**, and the
+class that escapes most cleanly is the shape this project's own honest prose already uses
+(「위성이 …하지 못하므로, 따라서 …」 — a negation anywhere in the sentence exempts the whole
+sentence). So the gate written this window is strong against sentences already deleted and
+weak against sentences not yet written, and the loop has now spent two laps hand-rolling
+claim families.
+
+**What it costs either way.** WFG-062 is one lap. The rows it would displace are the booth
+ones: `docs/auto/DEMO_SCRIPT_5MIN.md` does not exist (R4), `docs/auto/finals/BOOTH_SETUP.md`
+does not exist (R3 half, R12), `release/kcf-finals-2026/` does not exist (R9). Three of
+eleven `KCF_READINESS.md` lines are ticked with eleven days of sprint left. Against that:
+every window since 09-03 has produced at least one defect of this exact class, three of them
+in judge-facing Korean prose, and each has cost about a lap to find and fix.
+
+**What I need from you:** one line. If you say nothing by 09-06 the loop will follow the
+backlog table order, which today means the booth rows first and WFG-062 after them.
+
+**Options:** A) `NH-021: booth first` — leave WFG-062 at P1, take WFG-003 / WFG-067 / WFG-037 / WFG-036 in table order, and accept that the next withdrawn claim is found by a critic rather than a gate  B) `NH-021: gate first` — WFG-062 is the next row after WFG-067, and any replacement must publish its catch rate against a mutation set its own author did not write  C) `NH-021: neither, cap it` — no more claim gates at all before the freeze; judge-facing claim sentences must instead each cite a registry key or an artifact (that is WFG-030's shape) and the critic reads the prose by hand until 10-16

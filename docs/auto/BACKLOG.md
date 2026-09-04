@@ -50,6 +50,7 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-065 | P1 | KCF | **The most quotable fire-behaviour figure about the motivating event is in no judge-facing document.** 8.2 km h⁻¹ forward spread (국가산림위성정보활용센터, from S-NPP/VIIRS thermal detections, 2025-03-22 onward; a Korean record) lives only in `docs/auto/knowledge/PYROGEOGRAPHY.md:45`. It is the first thing a fire-behaviour judge asks about 의성. Register it under CHARTER §3.5b with agency + as-of + scope + the URL a lap opened, add it to `docs/data_sources.md` table A and answer it in `JUDGE_QA.md`, or write down in one line why it stays out (critic #7, F38; the 1.5× / 고성 2019 5.2 km h⁻¹ comparison did **not** verify in this lap's search and must not travel with it) | todo | true | hours | 연구 목적 · 제출 자료 (출처) |
 | WFG-066 | P1 | infra | **A bibliographic record was written from memory in a repository whose rule 5 is 「no fabricated citations」.** `docs/auto/knowledge/PYROGEOGRAPHY.md:169` carries `[UNVERIFIED — not opened; author list from memory]`. Critic #7 checked it: Sullivan, Sharples, Matthews & Plucinski (2014), *Environ. Model. Softw.* **62**: 153–163 is **correct in every field**, confirmed against the FRAMES catalog record (frames.gov/catalog/53980) and the ScienceDirect listing. So replace the tag with `[verified 2026-09-04 · FRAMES catalog + ScienceDirect listing]` and delete the phrase. The row is the rule, not the entry: add to CHARTER §13 that a note may carry `[UNVERIFIED]` for a *claim* it could not open, and may never carry an author list, year, volume or page range that was not read off a record (critic #7, F37) | todo | true | minutes | 제출 자료 (출처) |
 | WFG-068 | P1 | infra | **The paper routine can do a backlog row's work but cannot mark it done, so a row it finishes stays `todo` and the next dev lap rediscovers it.** CHARTER §12 says the paper lap 「touches nothing outside `paper/` (plus its own report)」, which is the right isolation and also means `BACKLOG.md` is out of reach. WFG-064 is the first instance: the paper lap fixed both halves at `e28377c`, wrote it up under the row's own name, and left the row reading `todo`; critic #8 closed it by opening the two PNGs. Give the routine a write it can make — the cheapest is a committed `paper/BACKLOG_CLAIMS.md` the paper lap appends `{row, commit, what}` to and the next dev or critic lap drains — or state in CHARTER §12 that the paper lap names its completed rows in its report and the daily critic closes them. Either way the rule must be written down, because the failure mode is silent: a `todo` row that is already done costs a whole lap to rediscover (critic #8, F44) | todo | true | minutes | 데이터 해석 (재현) |
+| WFG-069 | **P0** | KCF | **The document that spent this window forbidding a conclusion opens by stating it.** `docs/detection_floor.md:13` is the first sentence of §0: 「한국의 산불 탐지는 사실상 전부 사람입니다」. Its only support is the next clause, 「산불 신고의 99 %가 목격 신고」 — the value §10 of the same file now forbids in bold from carrying any conclusion in a judge-facing document (unregistered, no registry key, an interim year-to-date tally as of 2023-04-28). The whole of WFG-063 was 「the size floor rules the satellite out, it does not rule the human in」, and §0 rules the human in flatly, eight lines above the measurement, in the document `JUDGE_QA.md` Q10 · Q10d name as their 근거. Both new gates are blind to it: it carries no `PRIORITY_WORDS` token, so `priority_violations` never looks at it, and the 99 % clause on the next line is pragma-licensed as 「background with its source」. **And the scope is wrong twice over under CHARTER §3.5b:** §0 writes 「보도된 해에」 for a figure the article states as 「올해」 at 2023-04-28, i.e. about four months of accumulation, which §10 itself calls a 잠정치 — an interim presented as a settled annual fact, which is the exact rule 5b exists for. Fix: narrow §0's opening sentence to what is sourced (the 152 cameras with 최초 발견 0건, which is a count and not a share), and give the 99 % clause the interim label §10 already wrote for it, or drop the clause. No number moves and no artifact is touched (critic #9, F48) | todo | true | hours | 데이터 해석 · 제출 자료 (출처) |
 | WFG-016 | — | — | ~~AI ledger current~~ | **withdrawn(2026-09-04)** — author's instruction; organisers require no disclosure artifact (NH-008). Never started, nothing produced | false | — | — |
 | WFG-036 | P0 | KCF | **Final product bundle** `release/kcf-finals-2026/`: `web/` whole (finals + console + field view), printables PDF, `README_KO.md` 10-line run recipe, `CITATION.cff`, `make finals-bundle` byte-identical rebuild; definition of done = `docs/auto/KCF_READINESS.md` R1–R11 | todo | true | two laps (v1 by 09-10, v2 by 09-14) | 구현 및 유용성 · 제출 자료 |
 | WFG-037 | P0 | KCF | Booth recipe `docs/auto/finals/BOOTH_SETUP.md`: exact steps for the judged laptop (env, `make all-checks`, open `file://` with Wi-Fi off, key bindings, two USB copies, fallback if the laptop dies), plus NH-014 asking the author to run it once | todo | true | hours | 구현 및 유용성 |
@@ -86,12 +87,12 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-054 | P0 | infra | `scripts/auto/decisions.py apply` appends the Gmail message id to `decisions_seen.json` even when `apply_one` recorded nothing, so an author reply naming an id the file does not carry is written nowhere and the message is never read again. Its own docstring promises the opposite (`recorded, as noted, never guessed at`). Record `seen` only on a real change, write unmapped lines to a committed place, and test both directions (critic #6, F28) | todo | true | hours | 데이터 해석 (재현) |
 | WFG-055 | P1 | IEEE | `paper/check_paper.py` enforces a word proxy (7,479 of 7,500 used) for a constraint CHARTER §12 states in **pages**, measures no section against the §12 list, and the loop's own recount puts the built `.docx` nearer 21 pages than 20. Get one real page count out of the built document, re-derive the words-per-page constant from it, and add a section gate. Absorbs WFG-045 (critic #6, F29) | todo | true | one lap | 제출 자료 |
 | WFG-056 | P1 | infra | `gates.py --assert-reported` reads `origin/auto/dev` at push time and writes nothing, so no later lap can audit whether a given push actually carried a report — which is the check the critic prompt asks be verified every day and the one thing in this repository that cannot be. Append `{utc, base, head, verdict}` to a committed ledger under `docs/auto/` on every run (critic #6, F32) | todo | true | hours | 데이터 해석 (재현) |
-| WFG-057 | **P0** | infra | A question numbered `Q10a` is invisible to every test in `tests/test_judge_qa_bank.py`: `QUESTION_RE` matches `Q(\d+)`, so a lettered question escapes the tier-count anti-padding guard, the contiguity check and the 근거/없는 것 requirement. Four such questions now exist (Q10a, Q10b, and the three this lap added). Widen the pattern to accept a letter suffix and restate the three header counts in the same commit (critic #6, F34). **Raised P1 → P0 and the stated fix corrected by critic #8 (F43): widening the pattern for the letter suffix is not enough.** `QUESTION_RE` is `^\*\*Q(\d+) · (T[012])\.` and the escaping headers are `**Q10c · T1 (크리틱 #6).`, `**Q10d · T0 (크리틱 #7).` and `**Q34 · T2 (크리틱 #7).` — the **parenthetical between the tier and the period** defeats the pattern on its own, so `Q34`, which carries no letter at all, escapes too. Six questions are now invisible, not four. The reason this is P0: `JUDGE_QA.md:17-23` tells the student 「T0 (14개) — 이것만 완전히 외우십시오」, the file actually holds **38 questions and 15 T0s**, and the fifteenth T0 is **Q10d**, the entry whose whole job is to stop the student saying a sentence this repository cannot support. The student who obeys the bank's own drill plan memorises the fourteen and never reaches the guard | todo | true | minutes | 제출 자료 |
+| WFG-057 | **P0** | infra | A question numbered `Q10a` is invisible to every test in `tests/test_judge_qa_bank.py`: `QUESTION_RE` matches `Q(\d+)`, so a lettered question escapes the tier-count anti-padding guard, the contiguity check and the 근거/없는 것 requirement. Four such questions now exist (Q10a, Q10b, and the three this lap added). Widen the pattern to accept a letter suffix and restate the three header counts in the same commit (critic #6, F34). **Raised P1 → P0 and the stated fix corrected by critic #8 (F43): widening the pattern for the letter suffix is not enough.** `QUESTION_RE` is `^\*\*Q(\d+) · (T[012])\.` and the escaping headers are `**Q10c · T1 (크리틱 #6).`, `**Q10d · T0 (크리틱 #7).` and `**Q34 · T2 (크리틱 #7).` — the **parenthetical between the tier and the period** defeats the pattern on its own, so `Q34`, which carries no letter at all, escapes too. Six questions are now invisible, not four. The reason this is P0: `JUDGE_QA.md:17-23` tells the student 「T0 (14개) — 이것만 완전히 외우십시오」, the file actually holds **38 questions and 15 T0s**, and the fifteenth T0 is **Q10d**, the entry whose whole job is to stop the student saying a sentence this repository cannot support. The student who obeys the bank's own drill plan memorises the fourteen and never reaches the guard. **Re-measured by critic #9 at `ce31b91` (F49) and it moved the wrong way inside one window:** the file now holds **41 question headers — T0 15, T1 19, T2 7** — while `:17-23` still says 「33개」 and 「T0 (14개) · T1 (13개) · T2 (6개)」. Every one of the three tier counts is now wrong, not one of them. The drift is +3 headers in the last two windows (38 at `8e0a6ad`, 40 at `12bf2d9`, 41 at `d8aec94`) and no lap has touched the header since. Critic #8's own report quoted 「38 questions」 against a head that held 40, which is this defect catching the report that named it | todo | true | minutes | 제출 자료 |
 | WFG-058 | P1 | paper | Manuscript figures restyled to the look of Moreno et al. (2025), which the author chose on 2026-09-04: framed panels, panel letters, hairline bar edges, framed legends, a warm red / blue / grey palette. `paper/style.py` rewritten, `paper/make_figures.py` labels every multi-panel figure; rules in `docs/auto/knowledge/FIGURE_STYLE_REFERENCE.md` | done (2026-09-04 laptop lap) | true | one lap | 제출 자료 |
 | WFG-059 | P3 | science | Buildings as exposure, not fuel — a Korean BFM-lite **after the finals**: 건축물대장 (needs the author's API key) joined to 도로명주소 건물DB footprints → footprint fraction, structure-separation distance, construction era and structure type per cell; then an ablation in the leave-one-fire-out protocol. The FireDX pipeline the author supplied was read and deliberately not adopted before the freeze; the decision and the four reasons are in `docs/auto/knowledge/WUI_BUILDINGS_AS_FUEL.md` | todo (post-finals) | partly | days | 데이터 수집 · 연구 기여 |
 | WFG-060 | P2 | paper | Study-area map of the six fires in the Moreno Fig. 1 style: DEM hillshade from data already in the repo, one graded circle per fire (size and colour by burned area, five-step legend), lat/lon graticule, scale bar, boxed legend. Offline build only, every burned-area figure from the registry | todo | true | one lap | 제출 자료 |
 | WFG-061 | P1 | science | `docs/horizon_grounding.md` reads the KFS 산불통계 CSV's `발생일시` column as a 신고 시각 and cites no source for that reading, exactly as `docs/detection_floor.md` §1 did before WFG-053. The two are **different datasets** (public-portal CSV vs `fire_manifest.json`), so the claim that they "share the same weakness in the same data" was wrong and was withdrawn by the WFG-053 lap; the column's own provenance is still unchecked. Find what 산림청 says `발생일시` means in the 산불통계데이터 spec, or state that it is unknown. The 79.23 %/240-min horizon numbers do not move either way (dev lap 20260904T0419Z). **Widened by the WFG-017 lap's reviewer (2026-09-04): this is not doc-vs-nothing, it is doc-vs-artifact.** `data/processed/detection/kfs_containment_duration.json`'s own header `⚠_reference_time` states flatly 「`발생일시` is a REPORTED start time, not observed ignition. Every duration is report-to-containment」, and all four registry entries the finals screen reads (`kfs_cum_le_240_pct`, `kfs_n_usable_events`, `kfs_containment_median_min`, `kfs_area_ge100ha_median_min`) carry that caveat, as do `det_gk2a_delay_*_min`. So the artifact asserts what §2 says it could not confirm. The artifact is a committed record and is not edited (§3 rule 2); what this row must produce is either the upstream source (then annotate the entries) or a written statement that the assertion is unsourced. Until then judge-facing prose states BOTH and reads the distribution as 기록 → 진화 only | todo | true | hours | 데이터 해석 (재현) · 데이터 수집 |
-| WFG-062 | P1 | infra | `tests/test_detection_ordering_is_not_claimed.py` gates ONE withdrawn sentence shape over FOUR named documents, and `scripts/check_forbidden.py`'s five `claim` rules are the only other sentence-level gate in the tree. Every other gate reads a value, which is critic #5's and critic #6's shared root objection two windows running. Generalise: a registry of withdrawn CLAIMS (id, banned spellings, the artifact that withdrew it, the pragma token) that any document can be checked against, so a fifth document asserting the ordering tomorrow is caught. Absorbs the per-row hand-rolled gates (dev lap 20260904T0419Z). **Critic #8 named the cheapest test of this row and the WFG-063 lap ran it (20260904T0820Z): 「if narrowing one sentence in three files and adding one gate closes WFG-063 and WFG-067, WFG-062 is the right generalisation」. The answer is stronger than that. WFG-063 alone took FIVE files — the fourth was `docs/SESSION19_REPORT.md`, a session report nobody had listed, which still carried the rank table and the primacy sentence unannotated — and it needed a SECOND hand-rolled claim family in the same test file, whose first draft caught six of nine mutations. There are now two claim families, six regex rules, two pragma-token vocabularies and two guard lists in one file named for only one of the claims. The next withdrawn claim makes it three.** | todo | true | one lap | 데이터 해석 (재현) · 제출 자료 |
+| WFG-062 | P1 | infra | `tests/test_detection_ordering_is_not_claimed.py` gates ONE withdrawn sentence shape over FOUR named documents, and `scripts/check_forbidden.py`'s five `claim` rules are the only other sentence-level gate in the tree. Every other gate reads a value, which is critic #5's and critic #6's shared root objection two windows running. Generalise: a registry of withdrawn CLAIMS (id, banned spellings, the artifact that withdrew it, the pragma token) that any document can be checked against, so a fifth document asserting the ordering tomorrow is caught. Absorbs the per-row hand-rolled gates (dev lap 20260904T0419Z). **Critic #8 named the cheapest test of this row and the WFG-063 lap ran it (20260904T0820Z): 「if narrowing one sentence in three files and adding one gate closes WFG-063 and WFG-067, WFG-062 is the right generalisation」. The answer is stronger than that. WFG-063 alone took FIVE files — the fourth was `docs/SESSION19_REPORT.md`, a session report nobody had listed, which still carried the rank table and the primacy sentence unannotated — and it needed a SECOND hand-rolled claim family in the same test file, whose first draft caught six of nine mutations. There are now two claim families, six regex rules, two pragma-token vocabularies and two guard lists in one file named for only one of the claims. The next withdrawn claim makes it three.** **Raised P1 → P0 by critic #9 (F47), with a measurement rather than an adjective.** Critic #9 wrote twenty affirmative human-primacy sentences from the withdrawn CLAIM (not from the deleted sentences), having not seen the patterns, and ran them through the two shipped detectors: `primacy_violations` caught **0 of 20**, `priority_violations` caught **2 of 20**, and **18 of 20 are invisible to both** (script and full table in the critic #9 report). Three escape classes, none of them a spelling: a source noun outside `SOURCE_NOUNS` (「119 상황실이 일차 트리거입니다」), a priority word outside `PRIORITY_WORDS` (「사람 신고가 트리거의 출발점입니다」), and — the one that matters — **a negation morpheme anywhere else in the sentence** (「위성이 1 ha 아래를 보지 못하므로 최초 인지는 사람 신고입니다」), which is the shape every honest sentence in these documents already has. Any replacement must publish its catch rate against a mutation set its author did not write | todo | true | one lap | 데이터 해석 (재현) · 제출 자료 |
 | WFG-011 | P2 | ISEF | ISEF plan memo (**revise**: route-existence questions, SFTD base rate, age rule, hand-written documents) | todo | true | one lap | — |
 | WFG-032 | P2 | science | Leak-free 영덕 fold + hindsight-oracle routing arm (agent writes the script; student runs on the Mac) | todo | partial | one lap + one Mac day | 데이터 해석 · IEEE Table V |
 | WFG-033 | P2 | science | Coupling-ablation routing-only arms on committed hazard fields (fire-blind / static perimeter + buffer / spread_v2), three regions (absorbs WFG-012) | todo | true | two laps | 설계와 방법론 · 데이터 해석 |
@@ -1164,6 +1165,16 @@ push history out of it. A test asserts the line is written on both verdicts.
 **Constraints:** append only, never rewrite (CHARTER §3 rule 7). The ledger is a record of
 what a lap ran, not a claim that it was right.
 
+**Critic #9, 2026-09-04T0950Z — reproduced, second window, on a smaller window that removes
+the last excuse.** Critic #8 used eight bases spanning 24 hours. This lap used the four
+commits of its own window (`12bf2d9`, `d8aec94`, `0965b15`, `ec2e813`), where the push
+boundaries are known and only one report exists. All four exit 0 and all four name the same
+report, `docs/auto/reports/2026-09-04T0855Z-dev.md` — including `--base d8aec94`, which is
+the commit that *carried* critic #8's report, so the check answers 「yes, a report travelled」
+for a range whose own report is behind the base. The check is not weakly informative here; on
+a window of one report it is uninformative for every base. Two critic laps have now been
+unable to perform the daily verification their own prompt asks for.
+
 ### WFG-057 · **P0** · infra · Six questions are invisible to every test that guards the Q&A bank, and one of them is the guard
 
 **Where:** `tests/test_judge_qa_bank.py` `QUESTION_RE` matches `Q(\d+)`, so `Q10a` and `Q10b`
@@ -1180,6 +1191,27 @@ it.
 
 **Constraints:** the five lettered questions are good questions; this row widens the guard,
 it does not remove them.
+
+**Critic #9, 2026-09-04T0950Z — re-measured at `ce31b91`, and all three tier counts are now
+wrong.** Counted with `grep -cE '^\*\*Q[0-9]+[a-z]? · T[012]'` and per tier:
+
+| | header says (`:17-23`) | file holds | |
+|---|---:|---:|---|
+| total | 33 | **41** | +8 |
+| T0 | 14 | **15** | +1 |
+| T1 | 13 | **19** | +6 |
+| T2 | 6 | **7** | +1 |
+
+At `8e0a6ad` the file held 38 headers and the header was wrong by 5; at `12bf2d9` it held 40;
+at `d8aec94` (critic #8's Q35) it held 41. So the gap widened in each of the last two windows
+while the row sat `todo`, and the loop's own reports have started to disagree with each other
+about it: critic #8 wrote 「38 questions and 15 T0s」 at a head that held **40** — it carried
+the previous window's total beside the current window's tier count. A file that miscounts
+itself makes every reader of it miscount too, which is the argument for this being P0 rather
+than a tidy-up. **This lap deliberately added no question of its own to the bank** even
+though the drill turned up two it could have added, because adding a 42nd header to a file
+that says 33 makes the finding worse by the hand of the lap reporting it; the two questions
+are WFG-069 and the WFG-062 escape rate instead.
 
 ### WFG-058 · P1 · paper · Figures in the Moreno look — done
 
@@ -1395,3 +1427,46 @@ either a committed `paper/BACKLOG_CLAIMS.md` the paper lap appends `{row, commit
 to and the next dev or critic lap drains, or an explicit sentence that the paper lap names
 its completed rows in its report and the daily critic closes them. **Constraints:** do not
 widen the paper routine's write scope to `docs/auto/`; the isolation is the point.
+
+### WFG-069 · **P0** · KCF · The document that forbade a conclusion opens by stating it
+
+**Where:** `docs/detection_floor.md:13-15` (§0, the first two sentences of the file) against
+`docs/detection_floor.md:310-320` (§10's 99 % ban), and `docs/auto/JUDGE_QA.md` Q10 · Q10d,
+which both name §9/§10 of this file as their 근거.
+
+**What is wrong.** §0 opens: 「한국의 산불 탐지는 사실상 전부 사람입니다. 보도된 해에
+산림청·119 가 접수한 산불 신고의 **99 %가 목격 신고**였고 …(경향신문, 2023-04-28)」.
+
+Two defects, and the second is the one a judge finds first.
+
+1. **The conclusion WFG-063 spent a window removing is stated flatly at the top of the file
+   the removal cites.** 「탐지는 사실상 전부 사람입니다」 is a stronger human-primacy claim
+   than any sentence deleted this window; the ones that were deleted at least said 「설계
+   함의」 or 「가정」. Its only ground is the 99 % clause immediately after it, and §10 of the
+   same file says in bold that this value 「이 표의 근거로 쓰지 않습니다 … 판정단이 보는
+   문서에서 이 값이 결론을 떠받치게 두지 않습니다」. §0 lets it hold up a conclusion in the
+   first sentence of a 판정단이 보는 문서.
+2. **The scope is stated wrongly, which is a CHARTER §3.5b breach on its own terms.** §0
+   writes 「보도된 해에」 (in the year reported). The article is dated 2023-04-28 and its own
+   word is 「올해」, so the figure is a four-month year-to-date accumulation — which §10
+   spells out as 「연중 누계, 즉 잠정치」. Rule 5b: an interim tally is never presented as a
+   final one. §0 presents it as an annual fact and the correction lives 300 lines away.
+
+**Why both new gates are blind to it.** `priority_violations` requires a token from
+`PRIORITY_WORDS`; the sentence contains none, so the rule never looks at it.
+`primacy_violations` would fire on the 99 % clause, and the WFG-063 lap pragma-licensed that
+line explicitly as 「§0 은 배경 설명으로 출처와 함께 그대로 둡니다」. Both decisions were
+defensible in isolation; together they leave the strongest surviving primacy sentence in the
+repository inside the guarded file, un-flagged, licensed.
+
+**Done when:** §0's opening sentence claims only what a source supports — the 경북 152
+cameras with 최초 발견 0건 over two years is a count from the same article and carries no
+share — and the 99 % clause either carries the interim label §10 already wrote for it
+(agency, as-of 2023-04-28, scope 연중 누계, status 잠정) or is dropped. `JUDGE_QA.md` Q10d's
+❌ list already forbids the student saying it; the file it points at should not say it either.
+
+**Constraints:** no number moves and no artifact is touched — this is one sentence and one
+scope label. Do **not** add a question to `JUDGE_QA.md` while WFG-057 is open (the header
+already miscounts the file by eight). Do **not** widen `PRIORITY_WORDS` to chase this
+sentence: the escape class is 「no priority word at all」, which is WFG-062's problem and is
+not fixed by another token.
