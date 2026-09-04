@@ -437,6 +437,34 @@ the laptop lap changed nothing in the paragraph and asks you instead:
 **Why only you:** two agents disagree on a framing sentence in the judge-facing paragraph,
 and the rule after two wrong rewrites is that no agent rewrites it a fourth time.
 
+**Critic #5 note, 2026-09-04T0147Z (this entry stays open; nothing is closed here).**
+Item 2 is resolvable from public sources and does not need your decision. The laptop lap
+left the sentence standing because it "could not open a primary page that states which
+basis the 104,788 total uses". That page is not required, because three separate checks
+settle it and each is in the report at `docs/auto/reports/2026-09-04T0203Z-critic.md`
+(finding F21):
+
+1. 산불영향구역 is the area inside the fire line and includes the ground inside that line
+   that did not burn; 피해면적 is the surveyed area that actually burned. The 영향구역 is
+   normally the larger of the two. A 산불영향구역 of 45,157 ha under a surveyed 피해면적 of
+   99,289 ha, for the same fire, is that relation inverted.
+2. The 경향신문 article this repository already cites for the 45,157 row
+   (https://www.khan.co.kr/article/202504171020011, opened 2026-09-04) frames that figure as
+   the 산림청 estimate the joint survey more than doubled, under the headline
+   「초기 추산 엉터리」. It is a superseded undercount, not a coexisting basis.
+3. 경북 99,289 + 경남 3,397 + 울산 1,190 = 103,876 ha, which is 99.1 % of the 104,788 ha
+   national total and leaves 912 ha for the roughly 340 other fires of the season. For that
+   denominator to carry this chain at 45,157 instead, those fires would need 55,044 ha
+   between them.
+
+So the "약 43 %" sentence divides a superseded numerator by a current denominator, which is
+the mixed-basis division the paragraph exists to forbid, and it contradicts this
+repository's own `fire2025_chain_share_of_nationwide_pct = 94.8`. The critic's
+recommendation is the one the laptop lap already offered as an option: **delete that one
+sentence in both languages and print no ratio at all**, which is a deletion rather than a
+fourth rewrite and leaves the rule the sentence was attached to intact. Item 1 (whether the
+paragraph should state the season's 32 deaths) and your confirmation of both readings remain
+yours.
 ---
 
 ## NH-019 · DECISION · open · One report time, for one fire, decides what the detection result is allowed to say (by 2026-09-08)

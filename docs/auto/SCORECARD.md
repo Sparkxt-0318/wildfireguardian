@@ -19,6 +19,7 @@ commit to point at is a defect in the scoring, not evidence of progress.
 | 2026-09-03 | `0ff1b36` | 15 | 15 | 17 | 15 | 13 | **75** | +1 데이터: the survey evidence card, digest-gated extractor and doc-to-artifact tests. +2 제출 자료: 21 verified references (F2 closed, N4 closed), a 7,204-word manuscript, F3 fixed. 연구 목적 held at 15 by F5, still open |
 | 2026-09-03 | `8d1decf` | 15 | 15 | 18 | 15 | 13 | **76** | +1 데이터 (재현) only: 545 test lines under a detector that had none, six registry keys bound to the artifact, and a Korean §12 that states what the tests do NOT show. Everything else held. Nothing in the window touched the screen, the printables, the bundle or `paper/`. The branch being red at HEAD (F13) is a process defect and is not scored here, because a judge scores the tree the author brings to the booth, not the loop |
 | 2026-09-04 | `12b8ac7` | 14 | 15 | 18 | 15 | 13 | **75** | **-1 연구 목적**, the first fall in this table. `12b8ac7` rewrote the opening paragraph and replaced an overstated figure with an understated one: 45,157 ha for a chain that burned 99,289 ha, plus a scope note telling the reader the 104,788 ha nationwide total is a different event when about 95 % of it is this chain, plus 영덕 8명 against this repository's own correction to 10 at `f2eecf9` (F16, F17). Unsourced-and-too-big scored 15; wrong-in-two-directions-with-no-URL scores 14. 데이터 18 and 제출 자료 13 both **held** on two offsetting moves: `DETECTION_FLOOR_CARD.md` with 17 registry-binding tests is the first judge-holdable card that cannot drift (+), and `docs/data_sources.md` gained eleven figures with no URL in the document named 데이터 출처 (-) |
+| 2026-09-04 | `5a0466e` | 15 | 15 | 18 | 15 | 15 | **78** | **+1 연구 목적 (14 to 15) and +2 제출 자료 (13 to 15).** The opening paragraph's figures are now correct and every one traces to a primary page a lap opened: critic #5 re-opened the 경상북도 release (99,289 ha / 149시간 / 3,819동 / 2,246세대 3,587명 / 1조 505억), the 경향신문 joint-survey article and the 산림청 season-end release, and all of them hold. 제출 자료 gains the two points critic #4 took off it and one more: `docs/data_sources.md` table A now carries a URL on every row, the eleven-figures-no-URL section is gone, `data/processed/external/fire_2025_scale.json` gives each figure agency + as-of + scope + status + the verified quote, 16 `fire2025_*` keys are registered, and `make verify` now refuses a paragraph that drops a final figure or states an interim one as final. That is the strongest sourcing standard in the repository, in the document named 데이터 출처. 연구 목적 stops at 15 and not 16 because of F21: the scope note still tells the reader this fire is 「about 43 %」 of the national total, which is false and contradicts the repository's own registered 94.8. 데이터 18 and 설계와 방법론 15 held; nothing in the window touched a model, a split or a metric |
 
 ## Track A — 애플리케이션 / 실생활 도구
 
@@ -28,6 +29,7 @@ commit to point at is a defect in the scoring, not evidence of progress.
 | 2026-09-03 | `0ff1b36` | 15 | 15 | 11 | 15 | 12 | **68** | +1 제출 자료 only: the survey card gives Q17 a file to point at. 구현 및 유용성 does not move, because nothing in this window touched the screen, the printables or the bundle (R1, R2, R7, R9 all still ☐) |
 | 2026-09-03 | `8d1decf` | 15 | 15 | 11 | 15 | 12 | **68** | **held, every row.** Track A's judges score a working tool at a booth. This window added tests to a script that runs offline in the sandbox and never appears on the screen. R1, R2, R7, R9 are still ☐, and R2 is now blocked on WFG-021's stranded status rather than on work (F15). Said explicitly so 545 test lines are not read as progress on the thing these judges watch |
 | 2026-09-04 | `12b8ac7` | 14 | 15 | 11 | 15 | 12 | **67** | **-1 개발 목적**, the same paragraph, and these judges read it at the booth with a phone in hand. 구현 및 유용성 **11, held for the fifth consecutive window**: no commit in this window touched `web/`, the printables or the release bundle, and R1, R2, R7 and R9 are all still ☐. WFG-017 is now the single most overdue thing in the sprint plan |
+| 2026-09-04 | `5a0466e` | 15 | 15 | 11 | 15 | 13 | **69** | **+1 개발 목적 (back to 15), +1 제출 자료 (12 to 13).** These judges read the opening paragraph at the booth with a phone in hand, and the phone now agrees with the paragraph. 제출 자료 rises on the sources table gaining a URL per row. **구현 및 유용성 11, held for the sixth consecutive window.** No commit in this window touched `web/`, the printables or the release bundle; R1, R2, R4, R7 and R9 are all still ☐ with eleven days left in the sprint. Three windows ago this was a note, two ago a risk. It is now the finding that decides the score: the artifact five judges watch for five minutes still does not exist in its finals form, and WFG-017 has been named the next row by two critic laps running |
 
 ## 2026-09-03 · `25f1e14..1113388` — why these numbers
 
@@ -177,3 +179,38 @@ those judges will never see. WFG-017 should be the next row after WFG-043.
 
 **Not scored here:** the two Pass/Fail rows. 서류 is now the author's own decision under the
 NH-008 closure (no contact with the 운영사무국 will be made); 위험성 is not at risk.
+
+
+---
+
+## Window 2026-09-04 `a4dc9a7..5a0466e` (critic #5)
+
+**연구 목적 · 15, recovered, and capped there by one sentence.** Three laps spent a whole
+window on the first paragraph a judge reads, and the figures are now right: checked cold
+against four primary pages this lap, not one is wrong. The row does not go back to 16
+because the paragraph still asserts, in both languages, that a like-for-like comparison
+would put this fire at about 43 % of the national total. 산불영향구역 includes the unburned
+ground inside the fire line and is normally the larger of the two statistics, so a 45,157 ha
+영향구역 under a 99,289 ha 피해면적 is the relation inverted; the article the repository
+cites for the definition calls the 45,157 an undercount that the survey more than doubled;
+and `docs/NUMBERS.json` records the share as 94.8. One deleted sentence is the whole fix
+(F21) and it is worth a point.
+
+**제출 자료 · 15 (Track B) / 13 (Track A), the largest single-window rise in this table.**
+The mechanism is what earns it, not the prose. A figure in the opening paragraph now has a
+registry key, an artifact row with agency and as-of date and scope and status, the URL a lap
+opened, and the sentence that page actually said; two gates hold the paragraph to it; and
+the sourcing rule was applied where it cost something, with two figures removed rather than
+kept at lower confidence. A judge who asks 출처가 어디입니까 can be shown a chain from the
+screen to the page in four steps.
+
+**설계와 방법론 · 15, 창의성 · 15, 데이터 · 18: held.** No model, split, metric, arm or
+protocol moved. Said explicitly so 44 new tests are not read as scientific progress.
+
+**구현 및 유용성 · 11 (Track A), sixth consecutive window.** Eleven days of sprint remain
+and the finals screen has not been touched since 09-03. Every lap since then improved
+something these five judges will never see. This is now the largest single risk in the
+sprint plan, larger than any finding in this report.
+
+**Not scored here:** the two Pass/Fail rows. 서류 is the author's own under the NH-008
+closure; 위험성 is not at risk.

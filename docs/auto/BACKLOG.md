@@ -74,6 +74,7 @@ laptop's raw bundle (WFG-005/006/032/034), and the author-only rows.
 | WFG-049 | P0 | infra | A commit that carries only unregistered prose is invisible to every gate this repository owns: `12b8ac7` rewrote the judge-facing README in two languages and closed three NEEDS_HUMAN entries with no report, no reviewer and no `STATE.json` update, and `--assert-head`, `report.py`'s prose gate and `make verify` all passed on it (critic 20260903T2347Z, F19) | done(2026-09-04 laptop lap: registry keys fire2025_*, check-readme-figures, --assert-reported) | true | hours | 데이터 해석 (재현) |
 | WFG-048 | P1 | infra | The three FIRMS first-detection delays that `docs/detection_floor.md` §4 and §8 put beside the GK2A delays (+117 / +151 / +17 min, from `data/processed/detection/firms_first_detection.json` → `delay_h` 1.95 / 2.52 / 0.28) have no registry key, so the one comparison a judge is most likely to ask about is the one number on that page that `make verify` cannot re-derive (dev lap 20260903T2217Z, while writing WFG-021 a) | todo | true | hours | 데이터 해석 (재현) |
 | WFG-050 | P1 | infra | The motivating-event figures are pinned by `tests/test_motivating_event_figures.py` against `docs/data_sources.md`, a sibling document the same lap wrote in the same commit — leakage patterns #3/#4/#5, named by the 2026-09-04T0017Z dev lap's own reviewer. Table A's rows carry bare news URLs whose content can change or vanish. Snapshot each cited page (sha256 + retrieval date, the way `docs/evidence/greenpeace_2026_survey.md` already does) and assert README <-> snapshot instead of README <-> sibling doc | todo | true | hours | 데이터 해석 (재현) · 제출 자료 (출처) |
+| WFG-051 | P1 | infra | The `fire2025_*` apparatus binds a figure's **value** to the registry and leaves its **attribution** free: `check_readme_figures.py` only asserts that `agency` / `as_of` / `scope` / `source_url` are non-empty, never that they agree with what the prose says. Three live disagreements: the registry calls 45,157 ha a 중앙재난안전대책본부 figure while `README.md:204-205` and `docs/data_sources.md:194` call it 산림청 (the cited 경향신문 article says 산림청, so the registry is the wrong one); the registry calls 사망 26명 a 중앙재난안전대책본부 count while `docs/data_sources.md:190` calls it 경상북도 재난안전대책본부; and `README.md:193-199` puts 사망 26명 under an 아시아경제 link that carries no death figure at all. Fix the artifact, give 26명 its own citation, and extend the gate to compare the README's inline link and the sources table's 출처 column against the registry's `agency` and `source_url` (critic #5, F23) | todo | true | hours | 제출 자료 (출처) · 데이터 해석 (재현) |
 | WFG-011 | P2 | ISEF | ISEF plan memo (**revise**: route-existence questions, SFTD base rate, age rule, hand-written documents) | todo | true | one lap | — |
 | WFG-032 | P2 | science | Leak-free 영덕 fold + hindsight-oracle routing arm (agent writes the script; student runs on the Mac) | todo | partial | one lap + one Mac day | 데이터 해석 · IEEE Table V |
 | WFG-033 | P2 | science | Coupling-ablation routing-only arms on committed hazard fields (fire-blind / static perimeter + buffer / spread_v2), three regions (absorbs WFG-012) | todo | true | two laps | 설계와 방법론 · 데이터 해석 |
@@ -840,3 +841,45 @@ carrying forward.
 - **Done when:** a commit pushed without a report covering it fails the pre-push check, the
   seeded test reproduces the `c7b8a66`/`12b8ac7` case, and CHARTER §4 step 8 names the
   command.
+
+
+### WFG-051 · P1 · infra · A bound value with a free attribution
+
+Opened by critic #5 (2026-09-04T0147Z, F23). WFG-049 made every figure in the README's
+opening paragraph traceable to a value in `docs/NUMBERS.json`, re-derived from
+`data/processed/external/fire_2025_scale.json`. It did not make the *attribution*
+traceable, and `scripts/check_readme_figures.py:88-92` is where that stops: the provenance
+loop asserts only that `agency`, `as_of`, `scope`, `source_url` and `figure_status` are
+present and non-empty.
+
+Three disagreements exist today, all of them inside the apparatus:
+
+| figure | registry says | `docs/data_sources.md` says | `README.md` says | the source says |
+|---|---|---|---|---|
+| 45,157 ha (interim) | 중앙재난안전대책본부, khan 2025-03-28 | 산림청, khan 2025-04-17 (`:194`) | 산림청 (`:204-205`) | **산림청** (khan 2025-04-17) |
+| 사망 26명 | 중앙재난안전대책본부 (경북 5개 시군 합계), 뉴시스 + 서울신문 | 경상북도 재난안전대책본부, 대구MBC (`:190`) | no link of its own (`:193-199`) | not in the linked page |
+
+The second matters most. `README.md:193-199` and its English twin at `:505-513` put the
+whole chain parenthetical, 사망 26명 included, under one citation to
+[아시아경제 2025-05-06](https://view.asiae.co.kr/article/2025050610030818823). That article
+was opened by critic #5: it carries 99,289 ha, 149시간, 3,819동, 2,246세대 / 3,587명 and
+1조 505억 원, and no death figure. The figure a judge is most likely to check is the one
+whose link does not contain it.
+
+**Done when:** (a) `interim_chain_area_ha_20250327` in the artifact reads agency 산림청 with
+the khan 2025-04-17 URL (the page that carries both the figure and its 「산불영향구역」 label),
+and `chain_deaths` uses one agency spelling that `docs/data_sources.md` also uses;
+`register_fire2025_figures.py` re-run and `docs/NUMBERS.json` updated additively.
+(b) 사망 26명 carries its own inline citation in both paragraphs, from the registry's URL.
+(c) `check_readme_figures.py` compares each figure's registry `agency` and `source_url`
+against the sources-table row and against the README's nearest inline link, and fails on a
+mismatch; a test proves it fires by flipping one agency.
+
+**Constraints:** additive registry writes only (CHARTER §3 rule 3); no figure value changes,
+this row is about attributions; the artifact is under `data/processed/` so a new value needs
+a new file, but correcting a provenance field on a figure the same sprint registered is a
+correction of the record, not a regenerated result. If that reading is disputed, write the
+corrected rows to a new `fire_2025_scale_v2.json` and point the registrar at it.
+
+**Related:** WFG-049 (the value half, done), WFG-050 (the URLs themselves are unpinned;
+snapshot them with sha256), critic #5 F23.
