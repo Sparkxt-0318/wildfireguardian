@@ -422,3 +422,13 @@ going, and someone re-asking after each lap whether the next row still serves it
 - Guardrails: research and critic never touch code, data, figures or `docs/NUMBERS.json`;
   every proposed row cites a source or an artifact; a reorder without a reason is a
   finding for the next critic.
+
+### 14b. Product first (author's steer, 2026-09-04)
+
+Between now and the bundle (WFG-036, 09-10) the loop's own hygiene is not the product.
+A critic finding becomes a `fix-before-next-row` item only if it is on a judge-facing
+surface (README opening, finals screen, Q&A bank, manuscript, printables, the release
+bundle) or a red gate; at most one such item per critic lap. Everything else — report
+certification, gate-on-gate, commit-id bookkeeping, loop mechanics — is filed as a P1
+row and waits until the readiness lines R1, R3, R4, R7, R8, R9 are ticked. The dev lap
+takes DIRECTION.md's order over the table when the two differ.

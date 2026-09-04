@@ -1,6 +1,6 @@
 # Direction — where the project is going, on one screen
 
-*Written 2026-09-04 by the author's session. Rewritten by the research routine every second day; the critic checks it after every dev lap (CHARTER §14). The dev routine reads it before claiming a row. Last checked 2026-09-04 by critic #12.*
+*Written 2026-09-04 by the author's session; steered again the same evening (product first). Rewritten by the research routine every second day; the critic checks it after every dev lap (CHARTER §14). The dev routine reads it before claiming a row.*
 
 ## Thesis (two sentences)
 
@@ -8,9 +8,16 @@ A forecast of where the fire will be, not where it is, changes which walking rou
 
 ## Next three rows, and why
 
-1. **WFG-062** (P0) — one registry of withdrawn claims that every document is checked against. Two laps hand-rolled claim gates; a retired sentence still surfaced in English. Until this exists, every judge-facing edit risks resurrecting a claim the project already gave up. (Author decided this order, NH-021.) **Still row 1, and now 22 commits and 14 reports old.** It has been preempted every window by critic fix-before-next-row items, which is legitimate under CHARTER §4 step 3 and has still left the author's one explicit prioritisation unexecuted. If the next lap does not close it, it is not a one-lap row and must be re-scoped.
-2. **WFG-003** (P0) — finals screen audit and the 5-minute demo script. Judges see the screen first; the audit finds what a stranger cannot follow. `docs/auto/DEMO_SCRIPT_5MIN.md` still does not exist.
-3. **WFG-081** (P0, minutes) — replaces WFG-067, which closed at `d5e2562`. The bank tells the student to admit at the booth a screen defect that is fixed, quoting a commit id no longer on the screen. Take it with **WFG-057** (also P0, also minutes, also the bank drifting from the tree, unmoved for three windows): both are the same defect class and one lap closes both.
+*Author's steer, 2026-09-04 evening: the product first. Yesterday's laps went mostly to
+hygiene of the loop's own reports and gates; the readiness checklist has 3 of 11 lines ticked
+and the score has sat at 73 for four critic runs. From here the next rows are the ones a judge
+sees.*
+
+1. **WFG-062** (P0) — finish the withdrawn-claims registry gate (already first by NH-021); one lap, then no more claim-gate rows this sprint unless a judge-facing surface is wrong.
+2. **WFG-003** (P0) — finals screen audit and the 5-minute demo script, due 09-07 on the sprint plan; ticks R1 and R4.
+3. **WFG-036** then **WFG-037** (P0) — the release bundle v1 (R9) and the booth recipe (R3, R12), due 09-10.
+
+Then in order: WFG-007 (booth checklist, printables → R7), WFG-010 (README Round-4 + abstract → R8), WFG-024 when its blockers clear (R11), WFG-076 and the other infra rows only after the readiness lines above are ticked.
 
 ## What not to do
 
