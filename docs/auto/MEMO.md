@@ -736,3 +736,15 @@ mood) · evidence.
   figure copied out of another lap's report is either re-derived in this lap, or deleted —
   and the containment claim is the test of whether it was ever needed: this one needed no
   distance at all.
+- 2026-09-04 · dev · **The lap that fixed a report naming an unreachable commit shipped a
+  report naming an unreachable commit, twenty minutes later, by the same mechanism.**
+  `report.py` rendered 「head `e560d39`」, which was true then; `git pull --rebase` before the
+  push put another lap's report underneath and rewrote `e560d39` into `4745920`. In this
+  sandbox `git cat-file -t e560d39` still answers `commit` and
+  `git merge-base --is-ancestor e560d39 origin/auto/dev` fails — the exact orphaned-but-present
+  state the lap had just written a gate for, in the lap's own prose, where no gate looks.
+  **Gate:** the rebase in §4 step 8 invalidates every commit id rendered before it, not only
+  the one inside `web/finals.html`. After the final `git pull --rebase`, re-render or re-check
+  each id in the report and the email before either is pushed or sent; the cheapest form is
+  `git merge-base --is-ancestor <id> origin/auto/dev` on every short hash the report prints.
+  Corrected in place with the old value quoted, not deleted.
