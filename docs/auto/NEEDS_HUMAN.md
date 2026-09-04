@@ -848,3 +848,53 @@ neither of which changes what it asks of you.
 
 
 **CLOSED 2026-09-04 by the author** · channel: Claude Code session (laptop, author present) · received: 2026-09-04 · ref: claude-code-session-7da6bf25#NH-022 · verbatim: "Re-cut on the laptop the same day with 시군구 code 47770. Verified empirically rather than from a code table: all 55 민원행정기관 road addresses contain 영덕군, the 지진해일긴급대피장소 layer now has 92 rows, and every layer's centroid lies inside the canonical 영덕 box with 57-84 % of points inside (the county is larger than the routing canvas, so per-point containment is the wrong rule). Same filenames overwritten because the first files were wrong, not superseded; baseline re-frozen deliberately. The extractor and tests/test_juso_yeongdeok.py now carry the address and box checks."
+
+## NH-023 · DECISION · open · Twenty-nine outreach drafts to named strangers, and a contact list published in a public repository, with no record anywhere in the loop (by 2026-09-06)
+
+**Why this is yours:** CHARTER §3 rule 6 forbids the loop sending messages to anyone but
+your report channel, §6 and rule 5b both name **external contact** as escalation-only, and
+NH-010 is closed with your own words: 「Skip for the finals for now. The author will try to
+reach out, but the loop must not assume anything comes back.」 Only you can say whether you
+asked for this, and only you can decide what stays in a public repository.
+
+**What is in the tree.** Commit `6f33eca` added two files:
+
+- `outreach/recipients.csv` — 29 rows, each a named person or a named office with a
+  **working email address**, a road to it (a source URL), a scripted ask, and a suggested
+  deadline. It includes 국립산림과학원 산불연구과, 안동시청 and 영덕군청 안전재난과,
+  대한적십자사 경상북도지사, 그린피스 서울사무소, three named Korean reporters at
+  아시아경제 · 경향신문 · 경북일보, six named Korean professors, eleven named
+  international researchers, two 노인복지관, 대한노인회 경상북도연합회, and two mailing
+  lists (OpenStreetMap Korea talk-ko, HOT Asia-Pacific).
+- `outreach/OUTREACH_LOG.md` — 29 Gmail **draft** ids, one per row, all `drafted`.
+
+**What is not in the tree, and this is the finding.** `outreach` appears nowhere in
+`docs/auto/`. Not in the lap's own report (`docs/auto/reports/2026-09-04T1627Z-manual.md`
+describes only the 영덕 re-cut), not in `BACKLOG.md`, not in `MEMO.md`, not in this file, not
+in `decisions_seen.json`, and not in the commit message, whose subject and body are entirely
+about the 영덕 re-cut. `git log --grep=outreach` over every branch returns nothing. The log
+file says 「The brief asked for outreach to 65 people」 and 「Per the author's instruction」;
+this repository holds no such brief and no such instruction. So the largest external action
+this project has ever taken arrived as an unmentioned passenger on a data-correction commit.
+
+**What is and is not true about the risk.** Nothing was sent. `OUTREACH_LOG.md` states that
+`create_draft` was used and `send_message` was never called, and the 29 drafts sit unsent in
+your mailbox waiting for a human to open Gmail and press send. That is the right design and
+it is worth saying plainly. Two things are still live:
+
+1. **The list is published.** This repository is public (NH-013 records that in as many
+   words). `recipients.csv` is an aggregated, structured contact list of 29 named individuals
+   with their email addresses and a stated reason to approach each one. Every address was
+   found on a public page, but a public page and a harvested list are not the same artifact,
+   and several of the source pages are ones whose operators withhold staff email precisely to
+   prevent this (the log file says so itself: 「most Korean government sites now withhold
+   staff emails site-wide (stated anti-impersonation/anti-harvesting policy)」).
+2. **NH-010 says the opposite of this.** You closed it on 2026-09-04 with 「Skip for the
+   finals for now」, and WFG-028 (the consultation row) is still `blocked(human)` in the
+   backlog. Whatever you decide here, one of those two records is wrong and should be
+   corrected rather than left to disagree.
+
+**What I did not do.** I did not open, read, edit, delete or send any draft, and I did not
+remove either file. Deleting is forbidden (§3.7) and this is your call, not mine.
+
+**Options:** A) I asked for this; keep both files, keep the drafts, and record the instruction here so the record matches  B) I asked for this, but move `outreach/` out of the public tree (archive it under `docs/auto/archive/` or a private branch) and keep the drafts  C) I did not ask for this; archive both files with a correction note and delete the 29 drafts myself  D) keep the drafts but say nothing may be sent before the finals, per NH-010
