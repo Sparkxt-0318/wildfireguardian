@@ -348,25 +348,41 @@ def test_the_coverage_this_row_bought_is_recorded_and_re_derived():
     """The one number this row is allowed to claim, re-derived rather than restated.
 
     Before: the union of five hand-written guard lists. After: every tracked document in
-    scope minus the declared record class. The assertion is a floor, not an equality, so
-    a document added tomorrow does not fail the suite — but a *shrinking* of coverage,
-    which is the failure this row exists to prevent, does.
+    scope minus the declared record class. Coverage is asserted as a FLOOR, so a document
+    added tomorrow does not fail the suite, while a *shrinking* of coverage — the failure
+    this row exists to prevent — does.
+
+    ⚠ THE FIRST DRAFT OF THIS TEST PINNED THE RECORD CLASS AT ITS 73 FILES AND WOULD HAVE
+    GONE RED ON THE VERY NEXT PUSH, INCLUDING THE PUSH THAT CARRIED IT. `docs/auto/reports/`
+    gains a file every lap and `docs/auto/archive/` grows whenever something is retired
+    under CHARTER §3 rule 7, so the *file count* of the exception class is not a constant
+    and pinning it would have made this gate a tax on the report machinery. What a human
+    actually edits — and what must not grow silently — is the list of DECLARED paths, and
+    the two growing directories are the two whose growth is by design. So the pin is on the
+    twelve declarations and on the ten single files among them; the reports and the archive
+    are counted but not fixed.
     """
     tracked = checker.tracked_files(REGISTRY)
     gated = checker.gated_files(REGISTRY)
-    record = len(tracked) - len(gated)
+    record = [f for f in tracked if checker.is_record(f, REGISTRY)]
+    growing = ("docs/auto/reports/", "docs/auto/archive/")
+    pinned = [f for f in record if not f.startswith(growing)]
 
     assert len(HAND_ROLLED) == 11, (
         f"the hand-rolled guard lists now cover {len(HAND_ROLLED)} files, not 11; "
         f"update docs/withdrawn_claims.md, which quotes the before-number"
     )
     assert len(gated) >= 900, f"registry coverage fell to {len(gated)} gated files"
-    assert record == 73, (
-        f"the record class now exempts {record} files, not 73. Growth here is the one "
-        f"way this gate quietly gets smaller; if it is deliberate, say so in "
-        f"docs/withdrawn_claims.md and change this number in the same commit."
+    assert len(REGISTRY["scope"]["record_prefixes"]) == 12, (
+        "the exception class has gained or lost a declared path. Growth here is the one "
+        "way this gate quietly gets smaller; if it is deliberate, say so in "
+        "docs/withdrawn_claims.md and change this number in the same commit."
     )
-    assert len(REGISTRY["scope"]["record_prefixes"]) == 12
+    assert len(pinned) == 10, (
+        f"the record class exempts {len(pinned)} named files outside the two directories "
+        f"that grow by design, not 10: {sorted(pinned)}"
+    )
+    assert len(record) + len(gated) == len(tracked)
 
 
 def _probe_sentence(pattern: str) -> str:

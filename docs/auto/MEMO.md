@@ -792,3 +792,26 @@ mood) · evidence.
   the contribution, and the duplicate commit is not.
 
 - **2026-09-04 · dev lap 1817Z · the same red, diagnosed twice — and the second write-up quoted an error message it had not read.** The entry above is the fuller account and it landed first; this one keeps only what it does not say. **First:** CHARTER §4b lists what a test may not depend on — the local clock, the timezone, the network, files outside the repository — and this failure adds a fourth member that was missing from the list: **ambient tool configuration**. When a test shells out to a tool, ask what that command reads besides its arguments and the repository; if the answer includes anything in `$HOME`, pass it explicitly. **Second, and the one that cost something:** this lap's first draft of this entry, and of the comment in the test, quoted git's runner stderr verbatim — `got 'runner@fv-az….(none)'` — as an observation. It was not one. `_git` uses `capture_output=True` and the old assertion discarded stderr, so run #91's log holds only `AssertionError: could not build the orphan probe / assert ''`; the quote was reconstructed from the local reproduction, which actually prints `got 'root@vm.(none)'`. The independent reviewer caught it. **Rule:** name the machine a quoted error came from, every time. A reconstruction is easiest to ship as evidence precisely when it is correct, and §3.5 does not have an exception for correct fabrications.
+
+- 2026-09-04 · dev lap 2119Z · **Three findings in a row were the same finding, and nobody
+  named it: the gate was pointed at a LIST OF FILES.** WFG-063 found the withdrawn rank
+  table in 「a session report nobody had listed」; WFG-070 found the same claim alive in
+  English in two research files and then a third the row itself did not know about. Each
+  time the fix was to widen a pattern or add a filename, and each time the next escape was
+  another filename. The union of the five hand-written guard lists was **11 files** against
+  **988** tracked documents. **Anti-pattern:** a content gate whose scope is enumerated.
+  Enumerating what a rule *covers* means the rule's coverage decays every time somebody
+  writes a new document, silently, and the decay is invisible in a green suite — the suite
+  is green precisely because the new file is not in the list. **Gate:** a content rule
+  states what it EXCLUDES, with a reason per exclusion, and reads everything else; the size
+  of the exclusion class is pinned in a test, so it cannot grow without someone editing the
+  number and the document beside it. The corollary that cost this lap ten minutes and is
+  worth more than the row: **the first whole-tree run of a rule you have only ever run on a
+  list is a measurement, not a formality.** It found 11 unlicensed mentions in two files,
+  and then it failed on the document written to describe it. A rule that does not fire on
+  its own paperwork was never scoped honestly. **And the pin that guards the exclusion class
+  must be on what a HUMAN edits, not on what the class currently contains:** this lap's first
+  draft pinned the record class at its 73 files, and `docs/auto/reports/` gains a file every
+  lap — it would have gone red on the push that carried it, and on every push after. Caught
+  by re-reading the diff for what CI would reject, before the second gate run, which is the
+  step CHARTER §4 step 8 exists for.
