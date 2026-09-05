@@ -1373,3 +1373,62 @@ regions rather than one. D) Something else — say it in one line and the next l
 
 **Whatever you choose, the loop will not touch the finals screen's headline until you
 answer.** The evidence is committed and reproducible either way.
+
+## NH-032 · DECISION · open · Two laps built your fair-opponent row at the same time and got different answers: 9 and 27 (by 2026-09-08)
+
+**What happened.** WFG-114 was built **twice, concurrently, by two dev laps that could not see
+each other.** The 21:02Z lap pushed `c8a3eee` to `auto/dev`. This lap (2132Z) had released the
+dead `20260905T1820Z` claim per CHARTER §5, pushed its own claim `d14b29a` at 21:32Z, and
+built independently; its rebase conflicted on 15 files, so under CHARTER §4 it did **not**
+force and its work is parked on **`auto/red/20260905T2248Z`**. `auto/dev` carries the other
+lap's version and is green. Nothing was overwritten and nothing was lost.
+
+**The two answers.** Both re-derived the committed 91 node-for-node first, both used the
+canonical slope/DiGraph arm, both graded against the true hazard with `_evaluate_path`.
+
+| | 21:02Z lap (on `auto/dev`) | 2132Z lap (parked on `auto/red/…`) |
+|---|---:|---:|
+| fire-blind baseline | 263 | **265** |
+| present + 1 km | **345** | **327** |
+| forecast-aware | 354 | 354 |
+| **the margin** | **9** | **27** |
+| of the 91, recovered | 86 | 79 |
+
+**Why they differ, and it is not a bug in either.** They built *different opponents*:
+
+- The 21:02Z lap **prunes the refused nodes out of the graph and runs `naive_route`** on what
+  is left — a *distance*-minimising walk-out with **no time budget**, which therefore never
+  fails on the 600-minute cap.
+- This lap runs the **same time-expanded router against a frozen binary hazard**, which makes
+  it *time*-minimising, **budget-capped at 600 minutes**, and able to **refuse to let someone
+  start** when they are inside the buffer.
+
+That single design choice accounts for the whole gap: at 1 km this lap records 41 origins with
+no route (16 refused at their own doorstep, 25 walled off from every refuge inside the
+budget), and the other lap's planner routes most of those out because it has no budget and
+prunes rather than refusing departure.
+
+**Both are defensible readings of "a county office with a perimeter map".** One says the
+office would hand out the shortest path around the fire; the other says it would also tell
+people inside the margin not to move, and would not hand out a route that takes longer than
+the evacuation window. **A judge will ask which one, and the project needs one answer.**
+
+**One more thing, and it belongs to the author rather than to either lap.** The parked lap's
+reviewer forced it to measure *why* the forecast still wins its residual origins, and the
+answer was deflationary: **10 of the 11 analysable escapes cross ground that never burns at
+all** (80 of the 203 cells the 1 km arm refuses never catch fire), so the residual gap is
+better described as "the buffer was too wide" than as "the forecast knew where the fire was
+going". That measurement exists only on the red branch. Whichever opponent you keep, this
+question survives, and both margins — 9 and 27 — are **upper** bounds either way: neither
+opponent re-plans, and the forecast arm is graded on the exact field it was shown.
+
+**Options:** A) Keep the 21:02Z version on `auto/dev` (margin 9, the more conservative claim)
+and cherry-pick from the red branch only the escape analysis and the 265 correction. B) Keep
+the 21:02Z version and run **both** opponents as two named arms, reporting 9 and 27 as a range
+— the most honest and the most work. C) Replace it with the parked version (margin 27,
+budget-capped, refuses to move people inside the margin). D) Something else — one line and the
+next lap does it.
+
+⚠ **Until you answer, no judge-facing surface should carry either margin.** Neither lap
+changed the finals screen or the Q&A bank; NH-031 is the related decision about whether the
+fair opponent goes on the screen at all, and it should be answered **after** this one.
