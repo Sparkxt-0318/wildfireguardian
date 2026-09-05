@@ -59,27 +59,66 @@ def test_every_make_target_the_document_names_exists():
     assert not missing, f"BOOTH_SETUP.md names make targets that do not exist: {sorted(missing)}"
 
 
-#: Every key the document tells the student to press, and the fragment of
-#: `web/finals.html` that binds it. The point of the pairing is that a key
-#: rebound in the screen turns this red instead of turning the booth silent.
+#: Every key the document tells the student to press, and the WHOLE binding in
+#: `web/finals.html` — the `case` label together with what it does.
+#:
+#: ⚠ The first version of this table held the `case` labels alone, and the lap's own
+#: independent reviewer showed what that is worth: it rebound `g` from
+#: `setView('live'); GUIDED.start(0)` to `GUIDED.exit()` and reversed `ArrowRight` to
+#: `GUIDED.prev()`, making two rows of §6 false, and this file stayed green. A booth
+#: does not suffer a deleted `case` label; it suffers a key that now does something
+#: else. So the action travels with the label.
 KEY_BINDINGS = {
-    "Enter": "ev.key === 'Enter'",
-    "G": "case 'g': case 'G':",
-    "Esc": "case 'Escape':",
-    "Space": "case ' ':",
-    "R": "case 'r': case 'R':",
-    "F": "case 'f': case 'F':",
-    "M": "case 'm': case 'M':",
-    "ArrowRight": "case 'ArrowRight':",
-    "ArrowLeft": "case 'ArrowLeft':",
-    "1234": "case '1': case '2': case '3': case '4':",
+    "Enter": "if (ev.key === 'Escape' || ev.key === 'Enter') hideIntro(ev.key === 'Enter');",
+    "G": "case 'g': case 'G': setView('live'); GUIDED.start(0); break;",
+    "Esc": "    case 'Escape':\n      if (GUIDED.active()) GUIDED.exit();",
+    "Space": "case ' ': setPlaying(!state.playing); ev.preventDefault(); break;",
+    "R": "case 'r': case 'R': resetScenario(); break;",
+    "F": "case 'f': case 'F': toggleFullscreen(); break;",
+    "M": "case 'm': case 'M': setSound(!state.sound); break;",
+    "ArrowRight": "case 'ArrowRight': if (GUIDED.active()) GUIDED.next(); break;",
+    "ArrowLeft": "case 'ArrowLeft': if (GUIDED.active()) GUIDED.prev(); break;",
+    "1234": (
+        "case '1': case '2': case '3': case '4':\n"
+        "      if (state.view === 'live') GUIDED.jump(Number(ev.key) - 1);"
+    ),
 }
 
 
-def test_every_key_the_document_teaches_is_bound_in_the_screen():
+def test_every_key_the_document_teaches_does_in_the_screen_what_the_document_says():
     screen = SCREEN.read_text(encoding="utf-8")
     for name, fragment in KEY_BINDINGS.items():
-        assert fragment in screen, f"BOOTH_SETUP.md teaches {name}, which web/finals.html does not bind"
+        assert fragment in screen, (
+            f"BOOTH_SETUP.md §6 teaches {name}, and web/finals.html no longer binds it "
+            f"to what the document says it does"
+        )
+
+
+def test_the_document_does_not_tell_the_student_the_language_button_should_read_ko():
+    """The one sentence the reviewer blocked this row for, pinned so it cannot come back.
+
+    `web/finals.html` labels the language button with the language a press would switch
+    TO, so a Korean screen shows `EN`. Three documents told the student to check for
+    `KO`, which is the instruction that switches the judged demo into English ten
+    minutes after registration.
+    """
+    screen = SCREEN.read_text(encoding="utf-8")
+    assert "$('btnLang').textContent = lang === 'ko' ? 'EN' : 'KO';" in screen, (
+        "the language button's label mapping changed; §5.6 of BOOTH_SETUP.md, "
+        "release/kcf-finals-2026/README_KO.md and docs/auto/DEMO_SCRIPT_5MIN.md all "
+        "explain it and have to be re-read"
+    )
+    for doc in (
+        DOC,
+        REPO / "release" / "kcf-finals-2026" / "README_KO.md",
+        REPO / "docs" / "auto" / "DEMO_SCRIPT_5MIN.md",
+    ):
+        text = doc.read_text(encoding="utf-8")
+        assert "언어가 **KO**" not in text, (
+            f"{doc.name} tells the student to check that the language button reads KO; "
+            f"on a Korean screen it reads EN, and pressing it switches the demo to English"
+        )
+    assert "누르지 마십시오" in TEXT, "the recipe has to say not to press it"
 
 
 def test_the_document_actually_mentions_each_of_those_keys():

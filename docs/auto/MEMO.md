@@ -1027,3 +1027,16 @@ away the lap's own uncommitted work.** Grading `tests/test_booth_setup.py` meant
 reverted the two edits this lap had made to that file and had not yet committed. Caught by the
 harness telling me the file had changed on disk. **Restore a mutation from a copy taken before
 it (`cp file /tmp/x.bak` … `cp /tmp/x.bak file`), never from git, unless the file is committed.**
+
+**Addendum, the same lap, written after its reviewer blocked it.** The lesson above says not to
+write a procedure from other documents. This lap then did exactly that in one line — §5.6's
+「우상단 언어가 **KO** 인지 확인합니다」, copied from the bundle README and the demo script, never
+run, and false: `web/finals.html` labels the language button with the language a press switches
+**to**, so a Korean screen reads `EN`. Following the step literally switches the judged demo into
+English. **The anti-pattern is not a habit a lap can decide its way out of;** it survived being
+written down as the lap's own lesson, in the same commit. What catches it is the executable
+check, and the reviewer's second finding says which kind: my key table pinned bare `case` labels,
+so a key rebound to a different action left the table green. **A gate on a document's claim about
+code must pin the behaviour the document promises, not the token it names** — the label together
+with what it does. A booth does not suffer a deleted `case`; it suffers a key that now does
+something else.
