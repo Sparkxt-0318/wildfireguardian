@@ -957,21 +957,35 @@ def test_the_manuscript_hit_is_still_the_gap_marker():
     """`paper/manuscript.md` is out of `EN_GUARDED` on the strength of one measurement, so
     the measurement is a test rather than a sentence in a docstring.
 
-    Variant B's only hit there is the `[GAP: …]` marker that refuses the claim. If the
-    manuscript ever grows a second English hit, this fails and the exclusion has to be
-    argued again instead of inherited.
+    Written when variant B's only hit there was the `[GAP: …]` marker that refuses the
+    claim, and pinned to that one sentence. **2026-09-05:** the paper routine rewrote that
+    marker at `2b7c3a0` and the sentence 「would let the paper state whether a satellite
+    trigger precedes the call」 is gone, so the count is now **0** and the exact-1 assertion
+    turned a safe rewrite into a red suite on `auto/dev` and in CI.
+
+    What the exclusion actually needs is that the manuscript never carries an ordering
+    sentence OUTSIDE a `[GAP: …]` marker — a marker states what the paper cannot say, which
+    is the opposite of claiming it. Zero hits satisfies that as well as one does, so the
+    assertion is on the property, not on the count: at most one hit, and any hit must sit
+    inside a GAP marker. A second hit, or a first hit outside a marker, still fails and the
+    exclusion still has to be argued rather than inherited.
     """
-    hits = english_ordering_violations(
-        (REPO / "paper/manuscript.md").read_text(encoding="utf-8")
+    text = (REPO / "paper/manuscript.md").read_text(encoding="utf-8")
+    hits = english_ordering_violations(text)
+    assert len(hits) <= 1, (
+        f"paper/manuscript.md now has {len(hits)} English ordering hits, more than the one "
+        f"a [GAP: ...] marker can account for: {[s[:90] for _, s in hits]}. Re-argue the "
+        f"exclusion in EN_GUARDED, or add the file and pragma the marker."
     )
-    assert len(hits) == 1, (
-        f"paper/manuscript.md now has {len(hits)} English ordering hits, not the one "
-        f"known false positive: {[s[:90] for _, s in hits]}. Re-argue the exclusion in "
-        f"EN_GUARDED, or add the file and pragma the GAP marker."
-    )
-    assert "would settle it" in hits[0][1], (
-        f"the manuscript's one hit is no longer the [GAP: ...] marker but: {hits[0][1][:140]}"
-    )
+    lines = text.splitlines()
+    for line_no, sentence in hits:
+        # the marker opens on an earlier line than the sentence's match; look back over the
+        # paragraph rather than at the one line.
+        window = "\n".join(lines[max(0, line_no - 12):line_no])
+        assert "[GAP:" in window or "[GAP:" in sentence, (
+            "the manuscript's ordering hit is not inside a [GAP: ...] marker, so it reads "
+            f"as a claim rather than as a refusal of one: {sentence[:140]}"
+        )
 
 
 @pytest.mark.parametrize(
@@ -1108,10 +1122,18 @@ def english_ordering_violations_variant_a(text: str) -> list[tuple[int, str]]:
 #: The file set both variants were measured over: the guarded surfaces plus the manuscript.
 _VARIANT_SURFACES: tuple[str, ...] = EN_GUARDED + ("paper/manuscript.md",)
 
-#: Counts over `_VARIANT_SURFACES` on the tree AS IT STANDS, i.e. after this lap's
-#: annotations put three real instances behind pragmas. Asserted, not described.
-_VARIANT_A_HITS = 11
-_VARIANT_B_HITS = 1
+#: Counts over `_VARIANT_SURFACES` on the tree AS IT STANDS, i.e. after the annotating lap
+#: put three real instances behind pragmas. Asserted, not described.
+#:
+#: Re-registered 2026-09-05 from (11, 1) after the paper routine's `2b7c3a0` rewrote the
+#: §4.6 and §6 `[GAP: …]` markers: variant B's single hit (「would let the paper state
+#: whether a satellite trigger precedes the call」) is gone, and variant A's loose rule,
+#: which never needed both sides of the comparison, lost three of its eleven with the same
+#: rewrite. The RULE did not move — only the prose it reads — so the design comparison
+#: still stands and it is the ratio, not the absolute counts, that carried it: variant A
+#: is still the arm that fires on ordinary English while variant B fires on none of it.
+_VARIANT_A_HITS = 8
+_VARIANT_B_HITS = 0
 
 #: And the numbers on the UNTOUCHED tree, which are the ones that actually chose the design,
 #: recorded here with the recipe because they cannot be re-run from this checkout:
