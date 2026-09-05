@@ -941,3 +941,54 @@ sensitivity row, not a defence.
 earlier, already written 「4.24에서 7.29까지」 — critic #16's slowest segment paired with its own
 fastest. No gate would have caught it, because both numbers are real and neither is registered
 prose. Self-read before the reviewer, not after.
+
+## 2026-09-05 — a finding names one file because that is where the critic was looking
+
+WFG-103 was filed as one sentence in `docs/auto/DEMO_SCRIPT_5MIN.md`. The same false sentence
+was also in `web/finals.html`, in the branch of the STATIC VIEW caption that the demo region
+actually takes, in both Korean and English — and the *other* branch of the same ternary had it
+right, which is why no reader of either branch alone would notice. The critic found the defect
+by reading the booth script, so the finding is the size of the booth script.
+
+**Gate:** before fixing a wrong sentence, grep the repository for the claim, not for the
+sentence. The claim here was 「the baseline sees the current fire」; grepping the distinctive
+phrase 「지금 이 순간만 보는」 found the screen, and grepping the concept would have found it
+faster. A judge-facing claim that is wrong in one place is wrong wherever it was copied, and
+the loop copies prose between the script, the screen, the Q&A bank and the manuscript by hand.
+
+**The second half, which is about how findings are written:** a `fix-before-next-row` item
+that names a file and a line number invites a lap to fix that file and that line and stop.
+Critic #17's item said 「one sentence」 four times. It was right about the defect and wrong
+about its extent, and a dev lap that had obeyed the letter would have shipped the screen still
+saying it. **Read the finding's claim, then find its instances yourself.**
+
+## 2026-09-05 — the test that identified its subject by sort order
+
+`test_the_artifact_the_registry_points_at_is_committed_and_current` picked the pace artifact
+with `sorted(glob("pace_*.json"))[-1]`. The intent was 「the newest measurement」; the
+implementation was 「the last filename alphabetically」, and those diverged the moment a
+`pace_before_039a0de.json` was added beside the `pace_2026…` stamps — `b` > `2`. So for two
+laps the test compared the **before** artifact against the live document, and it stayed green
+only because the two totals were equal at 1,684 by coincidence.
+
+**Anti-pattern:** identifying an artifact by position in a sorted listing when the thing you
+mean has a name. The failure is silent, it survives review because the assertion body is
+correct, and it breaks exactly when the quantity under test finally changes — i.e. on the
+first run that matters.
+
+**Gate:** a test pinned to 「the current X」 selects X by the same key the registry, the doc or
+the config uses (here, `TAG`), never by `[-1]`, `[0]`, `max()` over filenames, or mtime. If
+there is no such key, that is the defect.
+
+## 2026-09-05 — the step-2 CI check in the routine prompt cannot run in this sandbox
+
+CHARTER §4b and the dev routine prompt both give the GitHub Actions check as
+`curl -s 'https://api.github.com/repos/.../actions/runs?...'`. In the cloud sandbox that
+returns **HTTP 403** from the agent proxy (`GitHub access is not enabled for this session. An
+org admin must connect the Claude GitHub App`), and `curl -s` prints the JSON error body with
+exit status 0, so a lap that pipes it into a parser gets an empty result and can read that as
+「no runs, nothing red」. The GitHub **MCP** works and is what CHARTER §4b's own text says is
+available in the sandbox (§4 「Sandbox facts」). **Use `mcp__github__actions_list` for the
+step-2 check; if a lap does use curl, it must read the HTTP status, because a silent 403 here
+looks exactly like a clean branch.** Filed as a MEMO note and not a row: CHARTER §14b holds
+loop mechanics behind R1, R3, R7, R8, R9.
