@@ -1253,3 +1253,8 @@ in-every-clone differences (`registry_entries`, the three `pace_*.json`) are gon
 condition; the loop cannot verify that here, because here the two manifests are genuinely
 absent and the step still exits 2. What is left for you is one run of `make all-checks` on the
 laptop and, if it is green, whether R3 keeps naming that command (option B is then moot).
+
+*(A `**CLOSED …**` line stood here until 2026-09-05T1520Z. It was **NH-028's**, written to the end
+of this file by `9442430` and reading here as part of this entry's option C. Its text now lives in
+the NH-028 block, unchanged, with the reason. Nothing about NH-029 was closed and nothing was
+deleted.)*

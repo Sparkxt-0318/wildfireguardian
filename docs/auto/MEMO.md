@@ -1040,3 +1040,58 @@ so a key rebound to a different action left the table green. **A gate on a docum
 code must pin the behaviour the document promises, not the token it names** — the label together
 with what it does. A booth does not suffer a deleted `case`; it suffers a key that now does
 something else.
+
+## 2026-09-05 — a finding names two lines; the defect is the identity those two lines broke
+
+WFG-109 arrived as a precise finding: `scripts/finals.template.html:1378` and `:1381` carry
+a sentence the built screen no longer carries, fix them. Its `done when` asked for a test
+that "asserts the template and `web/finals.html` carry the same STATIC VIEW captions". That
+test would have been green, correct, and worth almost nothing: it pins the two lines this
+bug happened to land on, and the next hand-edit to any other generated line survives it
+exactly as this one did.
+
+What the builder actually promises is much stronger and just as cheap to assert.
+`build_finals.py` reads the template and replaces **one** placeholder line with the payload.
+So the two files are a **line-for-line identity outside that one line**, and asserting the
+identity costs the same as asserting the two captions. Graded against seven mutations, three
+of them — an unrelated generated line edited, a line deleted, the template committed as the
+screen unbuilt — pass the caption comparison and fail the identity.
+
+**Gate:** when a finding names specific lines in a generated file, ask what invariant the
+generator promises about the whole file, and assert that instead. Then look for the second
+file with the same generator shape: `web/console.html` has the identical placeholder
+mechanism, was clean, and is now held there for one table row.
+
+**Anti-pattern, and it is the one the row itself contained:** writing the test the finding
+asked for. A `done when` is written by whoever found the bug, from the bug; it is a floor,
+not a ceiling, and a lap that treats it as the specification inherits the finder's sample
+size of one.
+
+**Second lesson, on the ledger rather than the code.** `decisions.py apply` places a closure
+line at the end of the entry it belongs to — replaying NH-028 against `8a8a940` proves it.
+But an apply run on a checkout whose last entry is NH-028, merged afterwards with the NH-029
+a cloud lap pushed below it, leaves the closure at the end of the *file*, inside a different
+entry — and `decisions.py list` then reads the author their answer to one question as an
+option of another, still-open one. **On a 3-hour cadence, a tool being correct is not the
+same as its output being correct**, because a stale checkout plus a clean rebase produces a
+file no single writer would have written. Verify the ledger's shape, not the writer's logic
+(WFG-112).
+
+**Addendum, same lap, written after its reviewer blocked it — and it is the same shape as the
+WFG-037 lap's addendum, one slot later.** The entry above says a tool being correct is not the
+same as its output being correct, and that a lap should verify the shape rather than the
+writer's logic. In the same commit I wrote, in the *disclosure* paragraph of the new gate:
+「that line's content is looked at by `verify_numbers.py` and `check_forbidden.py`」. Neither
+sentence survives being run. `verify_numbers.py` never opens `web/finals.html`; `check_forbidden.py`
+reads it but skips every numeric rule on `.html` by design, counting the skips into a dict named
+`payload_skips`. The reviewer changed `"n_entries": 326` to `999` on line 434 and every gate I had
+named stayed green.
+
+**Two things this makes concrete.** First, the anti-pattern is not cured by writing it down: two
+consecutive laps wrote the lesson and then broke it inside the same commit. What differs is where
+it lands — both times in the paragraph that *discloses a limitation*, which is the one place a lap
+is reasoning from memory about other people's code instead of from a command it ran. **So: a
+sentence naming which gate covers a hole is a claim about a program, and it is verified by running
+that program against the hole, never by reading the gate's name.** Second, the exemption a new gate
+grants itself is load-bearing from the moment it is written: WFG-109 made line 434 the one exempt
+line, and that same line is where every judged number lives (WFG-113).

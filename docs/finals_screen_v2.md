@@ -166,7 +166,7 @@
 | `check_region_literals.py` | 한 지역의 값이 모든 지역이 읽는 문자열에 박히는 것 |
 | `check_forbidden.py` | 폐기된 표현과 라벨 없는 폐기 수치 |
 | `verify_numbers.py` | 레지스트리 수치가 산출물에서 재현되지 않는 것 |
-| `tests/test_finals_screen.py` (26개) | 위의 모든 「말하지 않는 것」 |
+| `tests/test_finals_screen.py` (32개) | 위의 모든 「말하지 않는 것」, 그리고 페이로드의 일부 |
 | `tests/test_finals_template_sync.py` (9개) | 생성물을 손으로 고쳐 원본과 갈라지는 것 (§4.2) |
 
 `build_finals.py --verify` 는 앞의 세 게이트를 **실제로 실행하고 그 종료 코드를**
@@ -240,8 +240,20 @@ JSON 페이로드로 치환합니다. 나머지 모든 바이트는 템플릿의
 
 **이 게이트가 하지 못하는 것.**
 
-- **페이로드 한 줄은 검사 밖입니다.** 그 줄의 내용은 `verify_numbers.py` 와
-  `check_forbidden.py` 가 봅니다. 손으로 페이로드를 편집하면 이 게이트는 침묵합니다.
+- **페이로드 한 줄은 검사 밖이고, 그 줄의 숫자를 손으로 고치면 오늘 아무것도 잡지
+  못합니다.** ⚠ 이 문단의 초고는 「그 줄은 `verify_numbers.py` 와 `check_forbidden.py` 가
+  본다」고 적었고, **이 랩의 독립 검토자가 그것을 실행해 거짓임을 보였습니다.**
+  `verify_numbers.py` 는 `web/finals.html` 을 **열지 않습니다**(레지스트리 항목을 산출물에서
+  재현할 뿐이며, 파일 안에 `finals`·`web/`·`html` 이 0회 등장합니다).
+  `check_forbidden.py` 는 파일을 읽지만 숫자 규칙은 `is_authored_prose()` 가 `.md` 로
+  한정하므로(`scripts/check_forbidden.py:226-228`) `.html` 에서는 건너뛰며, 그 건너뜀은
+  `payload_skips` 에 세어져 출력됩니다 — **설계상의 면제**입니다
+  (`docs/forbidden_check_scope.md`). 페이로드를 실제로 파싱하는 게이트는
+  `tests/test_finals_screen.py`(32개) **하나뿐이며, 부분만 덮습니다**(지역별 개수, 비교 표,
+  근거 카드). 검토자는 434행의 `"n_entries": 326` 을 `999` 로 바꾸고 위 게이트를 모두
+  돌렸습니다: `test_finals_template_sync.py` 9개 통과, `check_forbidden.py` OK,
+  `test_finals_screen.py` 32개 통과. **거짓 숫자가 심사 화면에 남고 전부 초록입니다.**
+  그 구멍을 메우는 것이 백로그 **WFG-113** 이며, 각주가 아니라 행입니다.
 - **템플릿이 틀렸을 때는 아무 말도 하지 않습니다.** 두 면이 같은 거짓말을 하면 통과합니다.
   주장의 참·거짓은 §4.1 의 부정형 게이트와 사람의 몫입니다.
 - **모든 생성 화면을 덮지는 않습니다.** 같은 자리 표시자 방식을 쓰는 화면은 두 개이고
