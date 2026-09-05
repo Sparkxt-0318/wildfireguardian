@@ -75,6 +75,19 @@ forward_sim.py iterate the model into a time-sequenced hazard surface
   out-of-fold AUC ≈ **0.91** and far-band (>3 km) AUC ≈ **0.88** are *pooled*
   (concatenated held-out predictions), not the mean-of-folds. Canonical numbers:
   `docs/MODEL_CARD.md`.
+
+  ⚠ **`leave_one_fire_out` produces `per_fire_auc` over folds of highly unequal
+  size, and the mean over them gives each fold an equal vote.** The largest fold
+  holds 208.9× the rows of the smallest (`uiseong_andong_2025` 54.47 % of all
+  rows; `gangneung_2023` 0.26 %, with 8 positive cells). **Pooled AUC is the
+  primary metric** — it weights each row once. Anything quoting the
+  mean-of-folds must carry `docs/fold_sizes.md` with it. Note that
+  `permutation_importance` in the same artifact is NOT affected: it is
+  aggregated as a ROW-weighted average across folds, deliberately.
+
+  ⚠ **Read pooled AUC to three significant figures.** The fourth digit is not
+  stable across platforms (measured drift 0.0064 pooled, 0.0307 far-band —
+  `docs/platform_drift.json`, `docs/MODEL_CARD.md`).
 - **`days_since_rain` (dryness) ranks #1 in permutation importance; summed
   fire-weather severity importance is ~44× `wind_alignment`** — a measured
   ratio whose original reading, *"far-field skill comes from severity, not

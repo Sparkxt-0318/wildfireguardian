@@ -158,7 +158,21 @@ Round 3 은 새 기능을 얹기 전에 **기존 수치가 아직 참인지 확�
   이며, **그 구분이 요점입니다** — 「재현 불가」는 「틀림」이 아니고, Round 3 이전에는
   어느 쪽인지 말할 방법이 없었습니다.
 - **`make verify`** — 각 수치를 산출물에서 재유도하고, 폐기된 수치를 문서에서
-  스캔하고, 지역 리터럴을 검사합니다.
+  스캔하고, 지역 리터럴을 검사하고, Arm A 항목이 그대로인지 확인하고,
+  게이트가 파이프 뒤에 숨지 않았는지 검사합니다.
+
+  ⚠ **게이트를 파이프로 넘기지 마십시오.** POSIX 셸에서 파이프라인의 종료
+  코드는 **마지막 명령의 것**이므로, `게이트 | tail` 은 게이트가 실패해도
+  `tail` 의 0 을 돌려주고 `&&` 연쇄가 그대로 진행됩니다. Session 10 에서
+  실제로 이 방식으로 빨간 게이트 위에 커밋이 올라갔습니다. 두 겹으로
+  막아 둡니다 — `Makefile` 이 `.SHELLFLAGS := -o pipefail -e -c` 를 쓰고,
+  `make check-gate-invocations` 가 추적 대상 셸·Makefile·CI·문서의 실행
+  가능한 코드 블록에서 같은 패턴을 찾아 실패시킵니다. 직접 실행할 때는:
+
+  ```bash
+  set -o pipefail          # 파이프를 쓸 경우 반드시 먼저
+  make verify              # 또는 게이트를 파이프 없이 그대로 실행
+  ```
 - **[`docs/DECISIONS.md`](docs/DECISIONS.md)** — 결정 등기부. 확정·중단·수용된 한계·미결·번복을 한 곳에 모으고, 각 항목이 **무엇을 근거로 닫혔고 무엇이 다시 열 수 있는지**를 기록합니다. 근거는 링크된 문서가 보유하며, 이 파일은 색인입니다.
 - **화면 게이트 3종** (`scripts/check_screen_assets.py`) — 오프라인(외부 요청 0),
   대시, WCAG 대비. ⚠ 이 게이트는 **JSON 페이로드로 도착하는 문자열을 보지 못합니다**;
@@ -176,12 +190,29 @@ Round 3 은 새 기능을 얹기 전에 **기존 수치가 아직 참인지 확�
 시스템입니다.
 
 **보호 대상**: 한국 농촌의 고령층(60–80대). 2025년 3월 경북 **의성**에서 발화해
-**의성→안동→청송→영양→영덕**으로 번진 산불(사망자 **27명**, 그중 **영덕 8명**, 대부분
-60–80대 고령자; 약 **116,000 ha** 소실, 주택 **4,000여 채** 파손)의 재발 방지·대응
-개선을 동기로 삼습니다. 〔출처: 한겨레·세계일보·서울환경연합〕 ("30명 이상"은 2025년
-*전국* 산불 전체 사망자 합계로, 범위가 다른 수치입니다.)
+**의성→안동→청송→영양→영덕**으로 번진 산불(최종 피해면적 **99,289 ha**로 1986년 통계
+작성 이래 최대, 주불 진화까지 149시간; 사망 **26명**, 그중 **영덕 10명**〈영덕군 공지
+2025-04-29, 그린피스 실태조사 최종보고서 p.9 재인용값; 경상북도 재난안전대책본부
+2025-03-30 중간 집계는 9명〉, 대부분 60–80대 고령자; 주택 **3,819동** 피해,
+이재민 2,246세대 3,587명, 재산피해 1조 505억 원)의 재발 방지·대응 개선을 동기로 삼습니다
+([아시아경제 2025-05-06](https://view.asiae.co.kr/article/2025050610030818823),
+경상북도 최종 집계·중앙재난안전대책본부 확인).
 
-**대회**: 2026 대한민국 학생 SW공모전(Korea Code Fair) → ISEF (Systems Software)
+〔**범위 주의 — 기준이 다른 값들을 서로 비교하거나 나누지 마십시오.**
+① 위 **99,289 ha**는 관계기관 합동조사를 거친 이 화재군의 **산림피해 면적**입니다
+([경향신문 2025-04-17](https://www.khan.co.kr/article/202504171020011)).
+② 진화 중에 널리 인용된 **45,157 ha**는 같은 화재군의 **「산불영향구역」 초기 추정치**
+(산림청, 2025-03-27)이며, 합동조사 결과는 그 추정치의 두 배를 넘었습니다.
+③ 흔히 함께 인용되는 **104,788 ha**·**347건**은 이 산불 하나가 아니라
+*2025년 **봄철 산불조심기간**(1월 24일 ~ 5월 15일) 전국 산불 전체*의 합계입니다
+([산림청 보도자료 2025-05-16](https://www.pcccr.go.kr/base/board/read?boardManagementNo=43&boardNo=5375&menuLevel=2&menuNo=92)).
+①과는 **기간·주체·집계 기준이 모두** 다르므로 「이 화재군이 전국의 몇 %」 같은 비율은
+쓰지 않습니다. ②를 분자로 바꿔도 마찬가지입니다. ②는 ①과 나란히 놓을 수 있는 다른
+기준의 값이 아니라 **합동조사가 뒤집은 이전 추정치**이므로, 같은 기준끼리 맞춘 비율은
+이 저장소에 존재하지 않습니다(`docs/data_sources.md` 함정 6).
+출처와 범위 정리는 `docs/data_sources.md` 참조〕
+
+**대회**: 2026 대한민국 학생 SW공모전(Korea Code Fair) → ISEF (Software Design, SFTD)
 출전을 목표로 합니다.
 
 ### 현재 모델과 결과 (Build B — `spread_v2`, 데이터 기반)
@@ -340,7 +371,55 @@ Round 3 은 새 기능을 얹기 전에 **기존 수치가 아직 참인지 확�
 
 전체 데이터 카탈로그(라이선스·접근 포함)는 [`docs/data_sources.md`](docs/data_sources.md).
 
+### 처음 보는 노트북에서 데모 띄우기 (본선 · 오프라인)
+
+**아래 그대로 붙여넣으면 됩니다.** 인터넷 없이 동작하며, 1.3 GB 데이터 번들도
+필요 없습니다 — 콘솔과 `/field` 는 완성된 HTML 이라 지역 데이터를 읽지
+않습니다. Session 18 에서 빈 클론·빈 가상환경으로 실제로 실행해 확인했습니다
+(전문은 `docs/SESSION18_LOG.md`).
+
+```bash
+# 1. 클론
+git clone https://github.com/sparkxt-0318/wildfireguardian.git
+cd wildfireguardian
+
+# 2. 가상환경 (Python 3.11)
+python3.11 -m venv .venv && source .venv/bin/activate
+
+# 3. 선언된 의존성만 설치. h5netcdf/h5py 를 따로 치던 줄은 필요 없습니다 —
+#    Session 18 에서 requirements.txt 에 정식 선언했습니다.
+pip install -r requirements.txt
+pip install -e . --no-deps
+
+# 4. 여기서 이미 데모가 뜹니다 — 브라우저로 파일을 직접 열면 됩니다.
+#    web/console.html   운영 콘솔 (3개 지역 인라인)
+#    web/field_view.html 현장 화면
+#    외부 요청 0건: CDN·타일·API 를 일절 부르지 않습니다.
+
+# 5. 서비스로 띄우려면 (선택)
+python -m uvicorn --app-dir src --factory wildfireguardian.api.app:create_app --port 8000
+#    -> http://127.0.0.1:8000/        콘솔
+#    -> http://127.0.0.1:8000/field   현장 화면
+#    -> http://127.0.0.1:8000/api/health
+#    ⚠ 데이터 번들이 없으면 지역 preload 는 실패하지만 서비스는 정상 기동하고,
+#      /api/health 의 preload_failed_regions 가 무엇이 없는지 알려줍니다.
+#      (Session 18 이전에는 여기서 전체 기동이 죽었습니다.)
+
+# 6. 화면 두 개를 다시 빌드하고 싶다면 (선택, 데이터 번들 불필요)
+python scripts/build_console.py
+python scripts/build_field_view.py
+```
+
+**게이트로 확인:** `python scripts/check_declared_deps.py` 는 선언되지 않은
+런타임 임포트가 하나라도 생기면 exit 1 입니다. `import` 문뿐 아니라
+`engine=` / `driver=` 문자열도 훑습니다 — `h5netcdf` 와 `h5py` 는 어떤 import
+문에도 이름이 없고 `xr.open_dataset(engine="h5netcdf")` 로만 불려서, 임포트
+순회만으로는 원리적으로 찾을 수 없기 때문입니다.
+
 ### 재현 (Reproduce)
+
+전체 분석을 다시 돌리려면 데이터 번들이 필요합니다. 데모만 볼 때는 위 절차로
+충분합니다.
 
 ```bash
 git clone https://github.com/sparkxt-0318/wildfireguardian.git
@@ -351,7 +430,7 @@ python -m venv .venv && source .venv/bin/activate
 # scikit-learn / xgboost / xarray / pyproj / rasterio 등이 빠집니다.)
 pip install -e ".[ml,geospatial]"     # numpy scipy pandas shapely matplotlib pydantic
                                       #  + scikit-learn xgboost xarray pyproj rasterio ...
-pip install h5netcdf h5py             # ERA5 NetCDF 리더 (extras·requirements.txt 누락분)
+                                      #  h5netcdf/h5py 는 이제 코어 의존성입니다
 
 # 데이터 번들 배치 (저장소에 없음 — git-ignore):
 unzip firms_data.zip -d data/raw/     # 또는: export WFG_FIRMS_DIR=/path/to/firms
@@ -422,15 +501,35 @@ evacuation.
 
 **Motivating event**: the March 2025 wildfire that ignited in 의성 (Uiseong),
 Gyeongbuk and ran 의성→안동→청송→영양→영덕
-(Uiseong→Andong→Cheongsong→Yeongyang→Yeongdeok) killed **27** people — **8 in 영덕
-(Yeongdeok) alone** — the majority in their 60s–80s living in rural villages, burning
-**~116,000 ha** and destroying **4,000+ homes** (sources: 한겨레 / 세계일보 /
-서울환경연합). Two stages of that fire — `uiseong_andong_2025` and `yeongdeok_2025` —
-are among the six fires the current model is validated on. (The widely-quoted "30+"
-figure is the *nationwide* 2025 all-fires death toll — a broader, different scope.)
+(Uiseong→Andong→Cheongsong→Yeongyang→Yeongdeok) burned **99,289 ha** — the largest on
+Korean record since statistics began in 1986, and 149 hours to 주불 진화 — killed **26**
+people, **10 of them in 영덕 (Yeongdeok)** (영덕군 notice of 2025-04-29, quoted at p.9 of
+the Greenpeace damage survey; a re-cited figure, not a survey result, against 9 in the
+province's interim tally of 2025-03-30 — this repository keeps both and asserts neither
+alone), the majority in their 60s–80s living in rural villages, and damaged **3,819
+homes**, displacing 3,587 people from 2,246 households at a cost of ₩1.05 trillion
+(Gyeongsangbuk-do final tally confirmed by 중앙재난안전대책본부;
+[Asiae, 2025-05-06](https://view.asiae.co.kr/article/2025050610030818823)). Two stages of
+that fire — `uiseong_andong_2025` and `yeongdeok_2025` — are among the six fires the
+current model is validated on.
+
+**Scope note — these figures sit on different bases; do not compare or divide them.**
+(1) The **99,289 ha** above is this chain's *surveyed forest damage*, after the joint
+agency survey ([Kyunghyang, 2025-04-17](https://www.khan.co.kr/article/202504171020011)).
+(2) The **45,157 ha** widely quoted while the fire was still burning is the same chain's
+*initial 「산불영향구역」 (fire-affected area) estimate* (산림청, 2025-03-27); the joint
+survey came back at more than double it. (3) The **104,788 ha** across **347 fires** often
+quoted alongside is the *nationwide total for the 2025 spring fire-prevention season,
+24 January to 15 May*
+([산림청 press release, 2025-05-16](https://www.pcccr.go.kr/base/board/read?boardManagementNo=43&boardNo=5375&menuLevel=2&menuNo=92)) —
+a different **period**, body and basis, not merely a wider geography. So this repository
+prints no "share of the national total". Putting (2) on top instead does not rescue the
+ratio: (2) is not a parallel basis standing beside (1) but the earlier estimate the joint
+survey overturned, so there is no like-for-like ratio here to print. Every figure here,
+with its agency, scope and URL, is tabulated in `docs/data_sources.md`.
 
 **Target venue**: 2026 Korea Code Fair SW공모전 (Korean student SW competition),
-with the stretch goal of qualifying for ISEF in the Systems Software category.
+with the stretch goal of qualifying for ISEF in the Software Design (SFTD) category.
 
 ### Current model & results (Build B — `spread_v2`)
 
@@ -463,6 +562,7 @@ probability `P(ignites by the next satellite overpass)`.
   **It does not mean wind direction is unimportant** — it means this instrument
   cannot see it.
 - ⚠ **And the top-ranked feature makes the model WORSE out-of-fold.**
+<!-- collision-ok: 0.077 — permutation IMPORTANCE of days_since_rain, not the drop-delta wxdep_drop_days_since_rain_mean_delta (0.027). Different measurements of the same feature. -->
   `days_since_rain` ranks first at **+0.077**, but *dropping* it **raises**
   mean-of-folds AUC by **+0.0270** and far-band by **+0.0533**. For three of six
   fires the ERA5 window holds **zero** wet samples, so the feature anchors to the
@@ -669,8 +769,19 @@ assumed immobility rate of 0.30, not an observed population characteristic.
 A verification pass
 (`scripts/verify_rescue_routing.py`) re-derives the split and runs a full-N 2-D
 sweep whose baseline cell equals the headline (asserted); the robust finding is that
-**unreachable starts rise monotonically with dispatch delay** (6 → 34 as delay goes
-0 → 60 min). The downstream capacity/triage is a **PoC parameter, not measured 영덕
+**unreachable starts rise monotonically with dispatch delay** (**6 → 66** as delay
+goes 0 → 60 min; `rescue_unreachable_delay_row_cutoff_0p7` = [6, 11, 24, 51, 66] in
+`data/processed/rescue_verify.json`, the same **439-series** run as the 143 origins
+and 6.12 → 1.71 above, all on **real roads**). ⚠ Until 2026-09-03 this line read
+**6 → 34**, which is the same bracket on the **pre-flip synthetic baseline**
+— the superseded 452-series: [6, 15, 20, 25, 34], N = 452, unreachable 20 — preserved at
+`data/processed/rescue_baseline_synthetic/rescue_verify.json` — the lineage
+[`docs/rescue_routing.md`](docs/rescue_routing.md) documents behind its do-not-cite
+banner. Both brackets are real runs of the same script and
+[`docs/REPORT_ROUND2_P1.md`](docs/REPORT_ROUND2_P1.md) reports them side by side;
+neither is a typo, and this paragraph is real-roads throughout. See
+[`docs/ssot_audit_2026-09-03.md`](docs/ssot_audit_2026-09-03.md) §1.
+The downstream capacity/triage is a **PoC parameter, not measured 영덕
 fire-service capacity** — report the curve, not a single "X rescued". Full methods +
 data provenance: [`docs/rescue_routing.md`](docs/rescue_routing.md).
 

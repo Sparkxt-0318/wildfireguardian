@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "title": "alert-loop filled examples, generated from real model output (Session 8 Phase 3)",
+  "config_hash": "24c56d10310db3241234611d43513e4894a1aaf833e02f0d3756a43927f466f4",
+  "lineage": {
+    "network_vintage": "current tree (arm B snapshot)",
+    "hazard": "synthetic (labelled)",
+    "note": "every arrival minute is a model output on labelled-synthetic hazard; landmark names are real OSM POI names via the village naming rules"
+  },
+  "examples": [
+    {
+      "village": "우곡공원 일대",
+      "name_basis": "nearest named refuge '우곡공원' at 336 m",
+      "n_dispatch_homes": 16,
+      "arrival_min_walk_cutoff": 45.0,
+      "refuge_name": "우곡공원",
+      "sms": "[영덕군 안내] 산불이 약 45분 뒤 우곡공원 일대 방면에 도달할 것으로 예측됩니다. 지금 즉시 대피하십시오. 연기가 보이면 이미 늦습니다.",
+      "tts_call": "영덕군 재난안전대책본부입니다. 산불이 약 45분 뒤 우곡공원 일대 방면에 도달할 것으로 예측됩니다. 지금 즉시 우곡공원(으)로 대피하십시오. 연기가 보이면 이미 늦습니다. 대피를 시작하셨으면 1번을 눌러 주십시오.",
+      "broadcast_lines": [
+        "주민 여러분께 알립니다.",
+        "산불이 오고 있습니다.",
+        "약 45분 뒤 도달합니다.",
+        "지금 대피하십시오.",
+        "우곡공원(으)로",
+        "가시기 바랍니다.",
+        "연기가 보이면",
+        "이미 늦습니다.",
+        "지금 대피하십시오."
+      ]
+    },
+    {
+      "village": "전통생활 정신문화 체험지구공원 서쪽 1km",
+      "name_basis": "nearest named refuge '전통생활 정신문화 체험지구공원' at 532 m; disambiguated by bearing (서); disambiguated by distance (~1 km)",
+      "n_dispatch_homes": 8,
+      "arrival_min_walk_cutoff": 180.0,
+      "refuge_name": "전통생활 정신문화 체험지구공원",
+      "sms": "[영덕군 안내] 전통생활 정신문화 체험지구공원 서쪽 1km 산불 약 180분 뒤 도달 예측. 지금 즉시 대피하십시오. 연기가 보이면 이미 늦습니다.",
+      "tts_call": "영덕군 재난안전대책본부입니다. 산불이 약 180분 뒤 전통생활 정신문화 체험지구공원 서쪽 1km 방면에 도달할 것으로 예측됩니다. 지금 즉시 전통생활 정신문화 체험지구공원(으)로 대피하십시오. 연기가 보이면 이미 늦습니다. 대피를 시작하셨으면 1번을 눌러 주십시오.",
+      "broadcast_lines": [
+        "주민 여러분께 알립니다.",
+        "산불이 오고 있습니다.",
+        "약 180분 뒤 도달합니다.",
+        "지금 대피하십시오.",
+        "전통생활 정신문화",
+        "체험지구공원(으)로",
+        "가시기 바랍니다.",
+        "연기가 보이면",
+        "이미 늦습니다.",
+        "지금 대피하십시오."
+      ]
+    },
+    {
+      "village": "관어대 남서쪽",
+      "name_basis": "nearest named refuge '관어대' at 927 m; disambiguated by bearing (남서)",
+      "n_dispatch_homes": 6,
+      "arrival_min_walk_cutoff": 240.0,
+      "refuge_name": "관어대",
+      "sms": "[영덕군 안내] 산불이 약 240분 뒤 관어대 남서쪽 방면에 도달할 것으로 예측됩니다. 지금 즉시 대피하십시오. 연기가 보이면 이미 늦습니다.",
+      "tts_call": "영덕군 재난안전대책본부입니다. 산불이 약 240분 뒤 관어대 남서쪽 방면에 도달할 것으로 예측됩니다. 지금 즉시 관어대(으)로 대피하십시오. 연기가 보이면 이미 늦습니다. 대피를 시작하셨으면 1번을 눌러 주십시오.",
+      "broadcast_lines": [
+        "주민 여러분께 알립니다.",
+        "산불이 오고 있습니다.",
+        "약 240분 뒤 도달합니다.",
+        "지금 대피하십시오.",
+        "관어대(으)로",
+        "가시기 바랍니다.",
+        "연기가 보이면",
+        "이미 늦습니다.",
+        "지금 대피하십시오."
+      ]
+    }
+  ]
+}

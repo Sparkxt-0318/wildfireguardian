@@ -1,0 +1,83 @@
+# Safety gate for the autonomous loop (docs/auto/CHARTER.md).
+# Every push to auto/** and every PR into Main or auto/dev re-runs the repository's
+# own gates on a clean Linux checkout with pip-only dependencies, so a change the
+# cloud agent believed green is re-checked by a machine that shares nothing with it.
+name: auto-gates
+# Push-triggered only: the check attaches to the commit, so the standing PR
+# auto/dev → Main shows it without a second, identical pull_request run.
+on:
+  push:
+    branches: ['auto/**', 'Main']
+  workflow_dispatch:
+concurrency:
+  group: gates-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - name: Bootstrap (pip-only, pinned)
+        run: bash scripts/auto/bootstrap.sh
+      - name: Gates (make verify, baseline, snapshot, env, full pytest)
+        run: .auto/venv/bin/python scripts/auto/gates.py --mode full
+      - name: Name the failure in the job log (so the email is enough to act on)
+        if: failure()
+        run: |
+          echo "=== failed steps (.auto/gates.json) ==="
+          .auto/venv/bin/python - <<'PY'
+          import json, pathlib
+          g = json.load(open(".auto/gates.json"))
+          for s in g.get("steps", []):
+              if not s.get("passed"):
+                  print(f"--- {s['name']} exit={s['exit']} log={s['log']}")
+                  txt = pathlib.Path(s["log"]).read_text(errors="replace")
+                  keep = [l for l in txt.splitlines() if l.startswith(("FAILED", "ERROR", "E  ")) or "short test summary" in l or "Error" in l]
+                  print("\n".join(keep[-40:]) or txt[-3000:])
+          PY
+      - name: Keep the gate record
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gates-${{ github.sha }}
+          path: |
+            .auto/gates.json
+            .auto/bootstrap.json
+            .auto/*.log
+          include-hidden-files: true
+          retention-days: 30
+  promote:
+    # CHARTER §4c: Main follows the last commit GitHub's own gate certified.
+    needs: gates
+    if: github.ref == 'refs/heads/auto/dev'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Fast-forward Main to this green commit
+        run: |
+          git fetch origin Main
+          # Never turn a green gate into a red run: a refused promotion is a warning,
+          # not a failure (the branch rule still requires a pull-request review until
+          # the author relaxes it; a diverged Main is the author's to reconcile).
+          if ! git merge-base --is-ancestor origin/Main "$GITHUB_SHA"; then
+            echo "::warning::Main has diverged from auto/dev; not promoting (CHARTER §4c, NH-003)"
+            exit 0
+          fi
+          if git push origin "$GITHUB_SHA:refs/heads/Main"; then
+            echo "Main -> $GITHUB_SHA"
+          else
+            echo "::warning::Main refused the fast-forward (branch rule still requires a pull-request review). Gates are green; promotion waits for the setting change (CHARTER §4c)."
+            exit 0
+          fi

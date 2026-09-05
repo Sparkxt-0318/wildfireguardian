@@ -1,0 +1,103 @@
+{
+  "note": "Deltas are Arm E minus an Arm A replication computed by the SAME code on the SAME platform. The floor is the cross-platform reproduction drift measured in Session 10 (docs/platform_drift.json); a delta inside it is not a measurement, whichever way it points.",
+  "pooled_auc": {
+    "arm_A_replication": 0.8989002305704359,
+    "arm_E": 0.9048475036678545,
+    "delta": 0.005947273097418604,
+    "floor": 0.0064,
+    "clears_floor": false,
+    "verdict": "not measurable on this platform"
+  },
+  "far_band_auc": {
+    "arm_A_replication": 0.8458435014001401,
+    "arm_E": 0.8241133160074474,
+    "delta": -0.02173018539269267,
+    "floor": 0.0307,
+    "clears_floor": false,
+    "verdict": "not measurable on this platform"
+  },
+  "mid_band_auc": {
+    "arm_A_replication": 0.8514855219201246,
+    "arm_E": 0.8658841442595108,
+    "delta": 0.014398622339386158,
+    "floor": 0.0064,
+    "clears_floor": true,
+    "verdict": "exceeds the floor"
+  },
+  "mean_of_folds_auc": {
+    "arm_A_replication": 0.8751748045940855,
+    "arm_E": 0.8915855657166669,
+    "delta": 0.01641076112258144,
+    "floor": 0.0064,
+    "clears_floor": true,
+    "verdict": "exceeds the floor"
+  },
+  "per_fire": {
+    "gangneung_2023": {
+      "arm_A_replication": 0.6072809278350515,
+      "arm_E": 0.6839561855670103,
+      "delta": 0.07667525773195882,
+      "floor": 0.0064,
+      "clears_floor": true,
+      "verdict": "exceeds the floor"
+    },
+    "hongseong_2023": {
+      "arm_A_replication": 0.9401130744554526,
+      "arm_E": 0.954690463109016,
+      "delta": 0.014577388653563395,
+      "floor": 0.0064,
+      "clears_floor": true,
+      "verdict": "exceeds the floor"
+    },
+    "miryang_2022": {
+      "arm_A_replication": 0.9792292710072343,
+      "arm_E": 0.9750139120756818,
+      "delta": -0.00421535893155256,
+      "floor": 0.0064,
+      "clears_floor": false,
+      "verdict": "not measurable on this platform"
+    },
+    "uiseong_andong_2025": {
+      "arm_A_replication": 0.8681497849073514,
+      "arm_E": 0.8791119149240147,
+      "delta": 0.010962130016663352,
+      "floor": 0.0064,
+      "clears_floor": true,
+      "verdict": "exceeds the floor"
+    },
+    "uljin_samcheok_2022": {
+      "arm_A_replication": 0.916284412593035,
+      "arm_E": 0.9173632770034642,
+      "delta": 0.0010788644104292588,
+      "floor": 0.0064,
+      "clears_floor": false,
+      "verdict": "not measurable on this platform"
+    },
+    "yeongdeok_2025": {
+      "arm_A_replication": 0.9399913567663892,
+      "arm_E": 0.9393776416208145,
+      "delta": -0.0006137151455747336,
+      "floor": 0.0064,
+      "clears_floor": false,
+      "verdict": "not measurable on this platform"
+    }
+  },
+  "stratified": {
+    "gentle": {
+      "arm_A_replication": 0.894861051776122,
+      "arm_E": 0.9034664950959654,
+      "delta": 0.008605443319843475,
+      "floor": 0.0064,
+      "clears_floor": true,
+      "verdict": "exceeds the floor"
+    },
+    "steep": {
+      "arm_A_replication": 0.9049305111194712,
+      "arm_E": 0.9078788843136297,
+      "delta": 0.0029483731941585267,
+      "floor": 0.0064,
+      "clears_floor": false,
+      "verdict": "not measurable on this platform"
+    }
+  }
+}

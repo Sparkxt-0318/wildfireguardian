@@ -1,0 +1,250 @@
+% Every entry must have been opened at its URL by whoever added it (note field).
+% Unverified entries are not permitted; the manuscript gate rejects an unknown key.
+% Entries whose note says "verified 2026-09-03 (paper lap 1)" were opened this lap:
+% arXiv entries through the arXiv API or abstract page, DOI entries through the
+% Crossref record for that DOI, web sources at the URL given.
+
+@misc{wwa2025korea,
+  title = {Climate change made weather conditions leading to deadly South Korean wildfires about twice as likely},
+  author = {{World Weather Attribution}},
+  year = {2025},
+  howpublished = {World Weather Attribution rapid study, 30 April 2025},
+  url = {https://www.worldweatherattribution.org/climate-change-made-weather-conditions-leading-to-deadly-south-korean-wildfires-about-twice-as-likely/},
+  note = {re-verified 2026-09-04 (paper lap 2) at this URL, correcting the paraphrase this note carried after lap 1. The page states verbatim: "With 32 casualties, the fires are also South Korea's deadliest wildfires on record"; "Uiseong was hardest hit, with 26 deaths, while four occurred in Sancheong"; "More than 48,000 hectares burned"; "Around 5,000 buildings, including homes, factories, and farms, were destroyed"; "displacing about 37,000 residents". The lap-1 note rendered the second of these as "26 of them in Uiseong-gun", which converted a fire attribution into a county one and dropped the four Sancheong deaths — the fact that reconciles 26 with 32. The 48,000 ha is on a "southeastern Korea" extent and disagrees with the 99,289 ha the province gives for the Uiseong chain; see docs/data_sources.md}
+}
+
+@misc{dgmbc2025toll,
+  title = {경북 산불 사망자 26명…영덕 9명},
+  author = {{대구MBC}},
+  year = {2025},
+  howpublished = {대구MBC, 30 March 2025},
+  url = {https://dgmbc.com/article/bLdh4s3M4pgcSdYI0MZPc},
+  note = {verified 2026-09-04 (paper lap 3) at this URL. This is the page that actually carries the figure the manuscript states, and it attributes it to the PROVINCIAL headquarters: "경상북도 재난안전대책본부가 3월 30일 오전 8시 30분을 기준으로 발표한 자료에 따르면 산불로 인한 경북 지역 사망자는 영덕군 9명, 영양군 7명, 안동시와 청송군 각각 4명, 의성군 2명 등 26명입니다." Neither 중대본 nor 중앙재난안전대책본부 appears on the page. ⚠ This contradicts docs/NUMBERS.json, whose fire2025_chain_deaths entry gives the agency as 중앙재난안전대책본부 and cites a 뉴시스 breaking-news stub that names no agency at all, and a 서울신문 page which gives 중대본's two-province total of 30 without any provincial or district split. Paper lap 3 briefly followed the registry's agency field here and was blocked by its own reviewer for it; the openable source wins, which is the same precedent backlog WFG-051 already records. The registry and README halves of that row need a dev lap and are flagged in the lap report; this entry fixes only the manuscript}
+}
+
+@misc{khan2025area,
+  title = {경북 산불 실제 피해 약 10만ha, 산림청 추정치 '2배' 훌쩍…"초기 추산 엉터리" 비판도},
+  author = {김현수 and 이종섭},
+  year = {2025},
+  howpublished = {경향신문 (The Kyunghyang Shinmun), 17 April 2025},
+  url = {https://www.khan.co.kr/article/202504171020011},
+  note = {verified 2026-09-04 (paper lap 3) at this URL. Cited for the Korea Forest Service's own statement that the two area quantities are not commensurable: the page carries verbatim "산불영향구역과 피해면적은 개념이 달라서 단순 비교할 수 없고" (the fire-affected zone and the damage area are different concepts and cannot simply be compared) and, from a Forest Service official, "실제 피해면적은 줄어들 수도 있고 늘어날 수도 있다" (the actual damage area may go down or up). It gives the surveyed figure as 9만9000여 ha. The definitions themselves — the fire-affected zone as the fire-line boundary read off helicopter, drone and ground observation for suppression planning, the damage area as the forest area established by field survey for recovery — are stated by the Korea Forest Service in 문화일보 2025-04-18 (김창희, https://www.munhwa.com/article/11499954), also opened this lap; both are tabulated in docs/data_sources.md}
+}
+
+@misc{gyeongbuk2025recovery,
+  title = {경북 초대형 산불, 초고속 회복을 위한 복구계획 최종 확정 [Gyeongbuk mega-wildfire: the recovery plan for a rapid recovery is finalised]},
+  author = {{Gyeongsangbuk-do Provincial Government}},
+  year = {2025},
+  howpublished = {Provincial press release, 7 May 2025},
+  url = {https://gb.go.kr/Main/governor/page.do?mnu_uid=6792&BD_CODE=bbs_bodo&cmd=2&B_NUM=503433101&V_NUM=11584&tbbscode1=bbs_bodo},
+  note = {verified 2026-09-04 (paper lap 2) at this URL; the release states 99,289 ha burned (the largest on record since the 1986 series began), 3,819 homes damaged, 3,587 people displaced from 2,246 households, and 1.0505 trillion won of assessed damage, for the 22-28 March 2025 Uiseong-origin chain}
+}
+
+@misc{greenpeace2026survey,
+  title = {2025 영남 초대형 산불 피해 실태조사 최종보고서 — 안동, 영덕, 의성을 중심으로 [Final report of the damage survey of the 2025 Yeongnam mega-wildfires: Andong, Yeongdeok and Uiseong]},
+  author = {{Greenpeace East Asia Seoul Office} and {Green Transition Institute} and {Disaster Victims' Rights Center Uri-Hamkke}},
+  year = {2026},
+  howpublished = {Joint survey report, March 2026, 191 pp.},
+  url = {https://www.greenpeace.org/static/planet4-korea-stateless/2026/03/d2fe67f5-2025-%EC%98%81%EB%82%A8-%EC%B4%88%EB%8C%80%ED%98%95-%EC%82%B0%EB%B6%88-%EC%8B%A4%ED%83%9C%EC%A1%B0%EC%82%AC-%EC%B5%9C%EC%A2%85%EB%B3%B4%EA%B3%A0%EC%84%9C.pdf},
+  note = {verified 2026-09-04 (paper lap 2): the URL returns the 3,406,169-byte PDF whose sha256 is db15d70580e136b9a636ffbf4c84b29a53ec6d517e5c11d5b8d82a79f6653310, matching the digest this repository records; its response tables are re-extracted from that PDF by scripts/extract_survey_evidence.py into the committed artifact data/processed/evidence/greenpeace_2026_survey.json}
+}
+
+@article{dozier1981,
+  title = {A method for satellite identification of surface temperature fields of subpixel resolution},
+  author = {Dozier, Jeff},
+  journal = {Remote Sensing of Environment},
+  year = {1981},
+  volume = {11},
+  pages = {221--229},
+  url = {https://doi.org/10.1016/0034-4257(81)90021-3},
+  note = {verified 2026-09-04 (paper lap 2) via the Crossref record for DOI 10.1016/0034-4257(81)90021-3; volume 11, pages 221-229}
+}
+
+@article{kim2021gk2a,
+  title = {Introduction of the Advanced Meteorological Imager of Geo-Kompsat-2a: In-orbit tests and performance validation},
+  author = {Kim, Dohyeong and Gu, Minju and Oh, Tae-Hyeong and Kim, Eun-Kyu and Yang, Hye-Ji},
+  journal = {Remote Sensing},
+  year = {2021},
+  volume = {13},
+  number = {7},
+  pages = {1303},
+  url = {https://doi.org/10.3390/rs13071303},
+  note = {verified 2026-09-04 (paper lap 2) via the Crossref record for DOI 10.3390/rs13071303; volume 13, issue 7, article 1303}
+}
+
+@inproceedings{wildfirespreadts2024,
+  title = {WildfireSpreadTS: A dataset of multi-modal time series for wildfire spread prediction},
+  author = {Gerard, Sebastian and Zhao, Yu and Sullivan, Josephine},
+  booktitle = {Advances in Neural Information Processing Systems},
+  year = {2023},
+  url = {https://doi.org/10.52202/075280-3258},
+  note = {verified 2026-09-03 (paper lap 1) via the Crossref record for DOI 10.52202/075280-3258}
+}
+
+@misc{wstsplus2026,
+  title = {Improved wildfire spread prediction with time-series data and the WSTS+ benchmark},
+  author = {Lahrichi, Saad and Bova, Jake and Johnson, Jesse and Malof, Jordan},
+  year = {2025},
+  howpublished = {arXiv:2502.12003; accepted at WACV 2026},
+  url = {https://arxiv.org/abs/2502.12003},
+  note = {verified 2026-09-03 (paper lap 1); this URL was previously mislabelled in this file as the WildfireSpreadTS dataset paper}
+}
+
+@article{ndws2022,
+  title = {Next day wildfire spread: a machine learning dataset to predict wildfire spreading from remote-sensing data},
+  author = {Huot, Fantine and Hu, R. Lily and Goyal, Nita and others},
+  journal = {IEEE Transactions on Geoscience and Remote Sensing},
+  year = {2022},
+  url = {https://arxiv.org/abs/2112.02447},
+  note = {verified 2026-09-03 (paper lap 1); six authors, abbreviated here as elsewhere in this file}
+}
+
+@misc{borgwardt2024,
+  title = {Evacuation planning on time-expanded networks with integrated wildfire information},
+  author = {Borgwardt, Steffen and Crawford, Nicholas and Horton, Drew and Morrison, Angela and Speakman, Emily},
+  year = {2024},
+  howpublished = {arXiv:2410.14500},
+  url = {https://arxiv.org/abs/2410.14500},
+  note = {verified 2026-09-03 (paper lap 1)}
+}
+
+@inproceedings{rescue2026,
+  title = {RESCUE: Routing under evolving stochastic congestion and uncertain spread in wildfire emergencies},
+  author = {Tammali, Sowjanya and Khanda, Arindam and Satpathy, Anurag and Shovan, S. M. and Das, Sajal K.},
+  booktitle = {Proceedings of the 27th International Conference on Distributed Computing and Networking},
+  year = {2026},
+  url = {https://doi.org/10.1145/3772290.3772301},
+  note = {verified 2026-09-03 (paper lap 1) via the Crossref record for DOI 10.1145/3772290.3772301}
+}
+
+@article{cova2003,
+  title = {A network flow model for lane-based evacuation routing},
+  author = {Cova, Thomas J. and Johnson, Justin P.},
+  journal = {Transportation Research Part A: Policy and Practice},
+  year = {2003},
+  url = {https://doi.org/10.1016/S0965-8564(03)00007-7},
+  note = {verified 2026-09-03 (paper lap 1) via the Crossref record; volume 37, issue 7, pages 579-604}
+}
+
+@article{cova2005,
+  title = {Setting wildfire evacuation trigger points using fire spread modeling and GIS},
+  author = {Cova, Thomas J. and Dennison, Philip E. and Kim, Tae H. and Moritz, Max A.},
+  journal = {Transactions in GIS},
+  year = {2005},
+  url = {https://doi.org/10.1111/j.1467-9671.2005.00237.x},
+  note = {verified 2026-09-03 (paper lap 1) via the Crossref record; volume 9, issue 4, pages 603-617}
+}
+
+@article{li2017,
+  title = {Using reverse geocoding to identify prominent wildfire evacuation trigger points},
+  author = {Li, Dapeng and Cova, Thomas J. and Dennison, Philip E.},
+  journal = {Applied Geography},
+  year = {2017},
+  url = {https://doi.org/10.1016/j.apgeog.2017.05.008},
+  note = {verified 2026-09-03 (paper lap 1) via the Crossref record; volume 87, pages 14-27}
+}
+
+@article{li2019,
+  title = {Setting wildfire evacuation triggers by coupling fire and traffic simulation models: a spatiotemporal GIS approach},
+  author = {Li, Dapeng and Cova, Thomas J. and Dennison, Philip E.},
+  journal = {Fire Technology},
+  year = {2019},
+  url = {https://doi.org/10.1007/s10694-018-0771-6},
+  note = {verified 2026-09-03 (paper lap 1) via the Crossref record; volume 55, issue 2, pages 617-642}
+}
+
+@article{wahlqvist2021,
+  title = {The simulation of wildland-urban interface fire evacuation: the WUI-NITY platform},
+  author = {Wahlqvist, Jonathan and Ronchi, Enrico and Gwynne, Steven M. V. and Kinateder, Max and Rein, Guillermo and Mitchell, Harry and B{\'e}nichou, Noureddine and Ma, Chunyun and Kimball, Amanda and Kuligowski, Erica},
+  journal = {Safety Science},
+  year = {2021},
+  url = {https://doi.org/10.1016/j.ssci.2020.105145},
+  note = {verified 2026-09-03 (paper lap 1) via the Crossref record; volume 136, article 105145}
+}
+
+@article{finney2002,
+  title = {Fire growth using minimum travel time methods},
+  author = {Finney, Mark A.},
+  journal = {Canadian Journal of Forest Research},
+  year = {2002},
+  url = {https://doi.org/10.1139/x02-068},
+  note = {verified 2026-09-03 (paper lap 1) via the Crossref record; volume 32, issue 8, pages 1420-1424}
+}
+
+@article{radeloff2005,
+  title = {The wildland-urban interface in the United States},
+  author = {Radeloff, Volker C. and Hammer, Roger B. and Stewart, Susan I. and Fried, Jeremy S. and Holcomb, Sherry S. and McKeefry, Jason F.},
+  journal = {Ecological Applications},
+  year = {2005},
+  url = {https://doi.org/10.1890/04-1413},
+  note = {verified 2026-09-03 (paper lap 1) via the Crossref record; volume 15, issue 3, pages 799-805}
+}
+
+@misc{angelopoulos2024crc,
+  title = {Conformal risk control},
+  author = {Angelopoulos, Anastasios N. and Bates, Stephen and Fisch, Adam and Lei, Lihua and Schuster, Tal},
+  year = {2024},
+  howpublished = {arXiv:2208.02814; International Conference on Learning Representations},
+  url = {https://arxiv.org/abs/2208.02814},
+  note = {verified 2026-09-03 (paper lap 1) via the arXiv API record for 2208.02814}
+}
+
+@article{boeing2017,
+  title = {OSMnx: new methods for acquiring, constructing, analyzing, and visualizing complex street networks},
+  author = {Boeing, Geoff},
+  journal = {Computers, Environment and Urban Systems},
+  year = {2017},
+  url = {https://doi.org/10.1016/j.compenvurbsys.2017.05.004},
+  note = {verified 2026-09-03 (paper lap 1) via the Crossref record; volume 65, pages 126-139}
+}
+
+@article{studenski2011,
+  title = {Gait speed and survival in older adults},
+  author = {Studenski, Stephanie and Perera, Subashan and Patel, Kushang and others},
+  journal = {JAMA},
+  year = {2011},
+  url = {https://pubmed.ncbi.nlm.nih.gov/21205966/},
+  note = {verified 2026-09-03 (paper lap 1); volume 305, issue 1, pages 50-58}
+}
+
+@article{farr2007,
+  title = {The Shuttle Radar Topography Mission},
+  author = {Farr, Tom G. and Rosen, Paul A. and Caro, Edward and others},
+  journal = {Reviews of Geophysics},
+  year = {2007},
+  url = {https://doi.org/10.1029/2005RG000183},
+  note = {verified 2026-09-03 (paper lap 1) via the Crossref record; volume 45, issue 2}
+}
+
+@misc{firms,
+  title = {Fire Information for Resource Management System (FIRMS)},
+  author = {{NASA}},
+  year = {2026},
+  url = {https://firms.modaps.eosdis.nasa.gov/},
+  note = {verified 2026-09-03}
+}
+
+@misc{era5,
+  title = {ERA5 hourly data on single levels from 1940 to present},
+  author = {Hersbach, Hans and others},
+  year = {2023},
+  howpublished = {Copernicus Climate Change Service (C3S) Climate Data Store},
+  url = {https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels},
+  note = {verified 2026-09-03}
+}
+
+@misc{worldcover,
+  title = {ESA WorldCover: global land cover at 10 m from Sentinel-1 and Sentinel-2},
+  author = {{ESA WorldCover consortium}},
+  year = {2021},
+  url = {https://esa-worldcover.org/en},
+  note = {verified 2026-09-03 (paper lap 1); 10 m products for 2020 and 2021}
+}
+
+@misc{osm,
+  title = {OpenStreetMap: copyright and licence},
+  author = {{OpenStreetMap contributors}},
+  year = {2026},
+  url = {https://www.openstreetmap.org/copyright},
+  note = {verified 2026-09-03 (paper lap 1); data published under the Open Database License (ODbL)}
+}

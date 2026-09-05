@@ -1,0 +1,38 @@
+{
+  "what": "Why 영덕 produced no flag, re-derived from the committed per-step records. Supersedes an earlier draft claim that cited target-zone statistics which no artifact contains.",
+  "reference_time_utc": "2025-03-22T03:14:00",
+  "n_steps_total": 301,
+  "n_steps_with_background_stats": 283,
+  "strongest_anomaly": {
+    "time_utc": "2025-03-22T03:42:00",
+    "minutes_after_reference": 28,
+    "target_delta_max_k": 11.611,
+    "contextual_threshold_k": 21.964,
+    "shortfall_k": 10.353,
+    "bg_delta_median_k": 8.328,
+    "bg_delta_mad_sd_k": 3.409,
+    "target_frac_below_cloud_bt": 0.0
+  },
+  "background_ring_was_itself_anomalous": {
+    "ring_median_at_best_step_k": 8.328,
+    "clean_night_scene_median_k": 1.13,
+    "clean_night_scene_mad_sd_k": 0.49,
+    "ratio_ring_median_to_clean": 7.37,
+    "cause": "의성·안동 2025 ignited the same day 66 km away — inside 영덕's own 30-80 km background annulus — and burned at ΔT ≈ 67 K."
+  },
+  "threshold_range_over_run": {
+    "min_k": 3.0,
+    "median_k": 18.085,
+    "max_k": 22.373,
+    "n_steps_at_absolute_floor": 44
+  },
+  "counterfactual_clean_background": {
+    "clean_threshold_k": 3.09,
+    "strongest_anomaly_exceeds_clean_threshold_by_k": 8.521,
+    "would_have_flagged": true,
+    "n_steps_clearing_clean_threshold": 217,
+    "⚠_why_that_count_is_not_evidence_of_fire": "217 of 283 steps clear it, including steps hours BEFORE the report time. A 3.09 K threshold is far too permissive for a daytime scene, where solar reflection alone puts background contrast at +6 to +8 K. Clearing it is not evidence of fire."
+  },
+  "conclusion": "영덕's non-detection measures the BACKGROUND ANNULUS, not the fire and not GK2A's sensitivity floor. The strongest target anomaly (11.611 K) arrives +28 min after the recorded report time and is suppressed by a threshold (21.964 K) inflated by a second fire 66 km away. ⚠ This does NOT identify that anomaly as the fire, and it does NOT convert 영덕 into a detection: no detection is claimed for 영덕 anywhere. It removes 영덕 from the evidence base as CONFOUNDED rather than leaving it as a null.",
+  "supersedes": "The draft claim '문턱 탓이 아닙니다' with target-zone statistics 5.09 / 0.89 / 8.65 / 7.34 K. Those four numbers appear in NO committed artifact and are withdrawn."
+}

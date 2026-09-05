@@ -26,6 +26,27 @@ n_active_adjacent, elevation_m, slope_deg, elev_above_source_m, burnable_frac,
 wind_speed_ms, temp_c, rh_pct, vpd_kpa, days_since_rain, precip_24h_mm, dt_hours,
 wind_alignment` `[src: features.py/FEATURE_COLUMNS]`.
 
+## ⚠ Read this before comparing any number in this card to a published benchmark
+
+**The ROC-AUC, the IoU and the recall in this card are NOT comparable to NDWS
+PR-AUC or WSTS AP figures.** Three reasons, any one of which is on its own
+sufficient:
+
+1. **Different label.** The target here is *"this 500 m cell ignites by the
+   **next satellite overpass**"* at overpass cadence (a variable gap, gated at
+   90 minutes). NDWS-style benchmarks predict **next-day** fire pixels on a
+   fixed daily grid. A different time base is a different problem.
+2. **Different geometry for IoU.** The IoU below is over the **cumulative
+   burned-area envelope**, not over next-day fire pixels.
+3. **Different prevalence.** This set is **1.97 %** positive. PR-AUC and AP move
+   with prevalence *by construction* — the identical model scores differently on
+   a differently balanced set, so the numbers are not on a common scale.
+
+This note exists so the comparison cannot be made by accident later. If a
+comparison is ever wanted, it has to be built: same label definition, same grid,
+same evaluation protocol, on a shared dataset. **This project has not done
+that and does not claim it.**
+
 ## Headline metric — generalization (mean-of-folds, with spread)
 
 > **LOFO ROC-AUC = 0.89 (range 0.68–0.97 across 6 fires; the 0.68 fold,
@@ -40,6 +61,18 @@ wind_alignment` `[src: features.py/FEATURE_COLUMNS]`.
   6-point t-interval is not reported because its upper limit pins to the AUC ceiling.
 - Excluding the tiny `gangneung_2023` fold, the other five fires average **0.931 ±
   0.036**, 95 % t-CI [0.887, 0.976] (n=5) — recomputed from the same file.
+
+> ⚠ **Mean-of-folds is computed over folds of highly unequal size, and must
+> always be reported alongside [`docs/fold_sizes.md`](fold_sizes.md).**
+> The largest fold carries **208.9×** the rows of the smallest
+> (`uiseong_andong_2025` 82,736 rows / 54.47 % of the evidence;
+> `gangneung_2023` 396 rows / 8 positive cells / **0.26 %** of the evidence).
+> Every fold casts the same one-sixth vote regardless.
+> **Pooled AUC is the primary metric** because it weights each row exactly once.
+> Permutation importance is unaffected by this imbalance — it is aggregated as a
+> ROW-weighted average (`spread_v2/model.py::leave_one_fire_out`).
+> `[src: fold_sizes.json; keys lofo_fold_rows_max_over_min,
+> lofo_smallest_fold_share_of_rows]`
 
 ### Per-fire ROC-AUC
 
@@ -79,8 +112,15 @@ where the FIRMS/ERA5/DEM bundle is absent (e.g. a fresh clone), and **STOPs
 
 - **Pooled** out-of-fold ROC-AUC = **0.905** — one ROC over *all* held-out folds'
   predictions concatenated (`model.py:184–186`). Pooling is flattered by the
-  larger/easier folds; it is **not** the generalization estimate (it sits only
+  larger/easier folds; it is **not** the generalization estimate (it sits only <!-- collision-ok: 0.016 — a DELTA between the two summaries (0.905 − 0.890), not the pooled AUC itself (lofo_rowweighted_pooled_auc = 0.905). -->
   +0.016 above the mean-of-folds here). `[src: spread_v2_lofo.json/pooled_auc]`
+  ⚠ "not the generalization estimate" is scoped to *generalization to an unseen
+  fire*, and does **not** contradict `docs/fold_sizes.md` §"읽는 법", which calls
+  pooled AUC the primary indicator for *discrimination over the evidence*. The two
+  summaries answer different questions and neither is a substitute for the other;
+  the single statement of which leads for which purpose is
+  [`docs/ssot_audit_2026-09-03.md`](ssot_audit_2026-09-03.md) §3. The committed
+  headline is unchanged: mean-of-folds **0.890**.
 - **Far-band (>3 km) mean-of-folds** ROC-AUC = **0.925** (n=3 fires with far-band
   positives); **pooled far-band 0.877**, mid-band (1–3 km) 0.870. The pooled
   scalars are the committed `spread_v2_lofo.json` values.
@@ -90,6 +130,188 @@ where the FIRMS/ERA5/DEM bundle is absent (e.g. a fresh clone), and **STOPs
   mean-of-folds is a pre-correction re-run that was never committed; the
   **committed** artifact (`auc_intervals.json`, corrected lineage) reads
   **0.904 ± 0.100** (n=3). Quote whichever you can point at, with its lineage.
+
+## Cell-level recall, precision and F1 at the operating threshold (Session 18)
+
+AUC scores a **ranking**. It does not say what the model actually flags. This
+section answers the question a technical reader asks next, and the answer is
+unflattering — which is why it is here rather than only in a session report.
+
+> **At the operating threshold 0.3: pooled recall 0.138, precision 0.308,
+> F1 0.190.** 412 true positives, 925 false positives, 2,577 missed, over
+> 151,904 cells and 2,989 actual ignitions.
+
+**The operating threshold is `config/default.yaml :: forward_sim_advance_threshold`
+= 0.3 — a DEFAULT, not a tuned value.** It was never optimised on these
+probabilities by F1, Youden's J, or any cost model. It is reported because it is
+the number the forward simulation and the routing layer actually consume.
+
+| | value |
+|---|---:|
+| pooled recall | **0.138** |
+| pooled precision | **0.308** |
+| pooled F1 | **0.190** |
+| mean-of-folds recall | **0.0867** (range 0.0–0.456, sd 0.182) |
+| average precision (full ranking) | **0.169** |
+| prevalence (PR no-skill baseline) | **0.0197** |
+
+**ROC-AUC 0.905 and recall 0.138 are both true and do not conflict.** AUC
+measures how well the model *orders* cells; at ~2 % prevalence a well-ordered
+model still flags few positives at a 0.3 cut. The honest summary of the ranking
+is the average precision against its baseline: **0.169 vs 0.0197, i.e. 8.6× no
+skill.**
+
+⚠ **Mean-of-folds recall (0.0867) is far below pooled (0.138), and the reason is
+structural.** Three of six folds have **exactly zero true positives** at 0.3:
+
+| fold | rows | positives | recall | TP |
+|---|---:|---:|---:|---:|
+| `gangneung_2023` | 396 | 8 | **0.0** | 0 |
+| `hongseong_2023` | 3,353 | 34 | **0.0** | 0 |
+| `miryang_2022` | 3,019 | 24 | **0.0** | 0 |
+| `uiseong_andong_2025` | 82,736 | 1,502 | 0.0226 | 34 |
+| `uljin_samcheok_2022` | 41,651 | 652 | 0.0414 | 27 |
+| `yeongdeok_2025` | 20,749 | 769 | **0.456** | 351 |
+
+An unweighted mean gives the 396-row fold the same weight as the 82,736-row
+fold. This is the **fold-size heterogeneity disclosed in Session 10** appearing
+in a metric where it bites hard, and it means nearly all recall comes from
+`yeongdeok_2025`.
+
+⚠ F1 peaks at threshold **0.14 (F1 0.218)** on this same data. That is recorded
+in the artifact as `f1_maximising_threshold_NOT_ADOPTED` and **is not adopted**:
+a threshold chosen on the very probabilities it is then scored on is
+optimistically biased. **No threshold was changed by this session.**
+
+**No model was fitted to produce any of this.** The probabilities are the
+committed LOGO-CV out-of-fold values (`spread_v2_lofo_oof.csv.gz`, written by
+`scripts/auc_intervals.py`); refitting to add a column would mean the reported
+recall came from a different run than the reported AUC. Cell identity
+(`fire_id, op_from, row, col`) was attached by rebuilding the **dataset only**
+and verifying the positional join row-for-row on four columns across all 151,904
+rows — `scripts/oof_metrics.py` refuses to write if that check fails.
+
+Artifacts: `data/processed/oof_classification_metrics.json` (metrics + a 51-point
+PR curve), `data/processed/spread_v2_lofo_oof_cells.csv.gz` (per-cell OOF).
+
+## Reference environment and reportable precision
+
+**The reference environment is `wfg311`** — macOS, Apple Silicon (arm64),
+Python 3.11.15, conda-forge (`docs/ENVIRONMENT.md`). **Every committed headline
+value in this card was produced there.** That is not a footnote about tooling;
+it bounds how precisely any of these numbers may be read.
+
+Session 10 measured the bound directly. Arm A's own 16 columns, its seed
+(20250603), its folds and its protocol were re-run on Linux/aarch64 with PyPI
+manylinux wheels — same pinned versions, `make env-check` passing, dataset
+identical at 151,904 rows / 2,989 positives. What moved:
+
+| metric | reference `wfg311` | second platform | drift | registry key |
+|---|---:|---:|---:|---|
+| Pooled OOF AUC | 0.9053 | 0.8989 | **0.0064** | `platform_drift_pooled_auc` |
+| Mid-band AUC | 0.8698 | 0.8515 | 0.0183 | `platform_drift_mid_band_auc` |
+| Far-band AUC (>3 km) | 0.8766 | 0.8458 | **0.0307** | `platform_drift_far_band_auc` |
+
+**Cause:** floating-point accumulation order, and the placement of the
+early-stopping validation split, differ between the conda-forge macOS/arm64
+build and the PyPI manylinux aarch64 build of
+`HistGradientBoostingClassifier`. The estimator, its hyperparameters and its
+seed are identical. `[src: docs/platform_drift.json]`
+
+### The rule
+
+> **Pooled ROC-AUC is reportable to THREE significant figures — `0.905`.**
+> The fourth digit is not stable across platforms and must not be compared,
+> ranked or differenced.
+
+Two consequences, stated so neither is applied silently:
+
+1. **Stored values keep full precision.** `NUMBERS.json` holds the artifact's
+   exact float so `make verify` stays an exact check. The rule governs what may
+   be written in prose, on a poster or on a slide — **nothing is silently
+   rounded anywhere.**
+2. **Any comparison below the floor is not a measurement.** Far-band needs more
+   headroom than pooled (0.0307 vs 0.0064) because it holds fewer rows and
+   fewer positives. Session 10's Arm D pooled delta of −0.0070 sat inside the
+   pooled floor and was reported as unmeasurable rather than as a degradation
+   (`docs/SESSION10_REPORT.md` §1.1).
+
+⚠ These drift figures are **not Arm A values** and must never be cited as one.
+They carry `arm: A_replication` in the registry precisely so that confusion
+fails the isolation gate.
+
+### Angular quantities take a different rule
+
+Bearings and circular correlations are not AUCs, and the three-significant-figure
+rule above does not transfer to them. Their precision is set by sampling spread,
+not by platform drift.
+
+> **Mean angular differences are reportable to ONE decimal place**, and
+> differences smaller than **~19°** are not established.
+> **Circular correlations are reportable to TWO decimals**, and **|r| below
+> ~0.33** is not distinguishable from zero.
+
+Derivation: n = 36 usable label steps with a per-step spread of ~56°, so the
+standard error of a mean angular difference is ~9.3°, and 2 SE ≈ 19°. For a
+circular correlation at this n the approximate standard error is
+1/√36 ≈ 0.17, so 2 SE ≈ 0.33. These are **rules of thumb read off the observed
+spread, not exact tests** — the appropriate reference distribution for a
+circular correlation at n = 36 was not derived. The fold-level spread is wider
+still (sd ≈ 47–50° across 6 fires), and it, not the pooled SE, governs any
+per-fire claim. `[src: docs/direction_drivers.json]`
+
+## Terrain is attenuated by the 500 m grid — a limitation of THIS model
+
+**`slope_deg` in the committed baseline is a roughly 3× attenuated version of
+physical slope.** This is a property of the reported model, not only of the
+direction experiments that measured it.
+
+Two smoothing steps stack. `elevation_on_grid` **averages** ~30 m SRTM into
+500 m cells, and `slope_deg` then differences that already-smoothed surface over
+a **500 m baseline**. Session 12 measured what the pair removes, by recomputing
+slope at native resolution over 16×16 sub-cells per 500 m cell:
+
+| fire | `slope_deg` (500 m) | native effective | attenuation |
+|---|---:|---:|---:|
+| `gangneung_2023` | 4.18° | 13.89° | ×3.33 |
+| `hongseong_2023` | 2.49° | 9.05° | ×3.64 |
+| `miryang_2022` | 9.29° | 22.24° | ×2.39 |
+| `uiseong_andong_2025` | 4.70° | 16.28° | ×3.46 |
+| `uljin_samcheok_2022` | 7.54° | 21.47° | ×2.85 |
+| `yeongdeok_2025` | 6.21° | 20.61° | ×3.32 |
+| **pooled** | **5.73°** | **17.26°** | **×3.01** |
+
+`[src: docs/slope_resolution.json; keys slope_attenuation_500m_vs_native,
+slope_native_effective_mean_deg]`
+
+**The aggregate is the effective slope, not the mean:**
+`slope_effective = arctan(sqrt(mean(tan²φ)))`. Rothermel's slope factor
+`φ_s = 5.275 β^(−0.3)(tan φ)²` is **quadratic in `tan φ`**, so by Jensen's
+inequality `E[tan²φ] ≥ (E[tan φ])²` — the mean slope of a heterogeneous cell
+systematically **understates that cell's mean slope forcing**, and the
+understatement grows with within-cell roughness. The effective slope is the
+single angle whose forcing equals the cell's mean forcing, so it is the
+aggregate that preserves the physics. The maximum is deliberately not used: over
+256 sub-cells it is an extreme-value statistic that grows with the subdivision
+count and measures the sampling rather than the terrain.
+
+### What this means, stated plainly
+
+- **The model's terrain representation is attenuated.** Slope enters Arm A only
+  as a scalar magnitude (`slope_deg`, plus `elev_above_source_m`), and that
+  magnitude is about a third of the physical slope of the same ground.
+- **Calibration range moves with resolution.** Every 500 m slope sits below
+  Rothermel's lowest calibrated angle (14.0°; his 12 laboratory fires were at
+  14.0 / 26.6 / 36.9°). The native effective pooled mean of 17.26° does **not** —
+  it is 1.23× that angle. `hongseong_2023` and `gangneung_2023` remain below it,
+  and no fire's mean reaches the upper two angles. The downward extrapolation is
+  **smaller, not gone.**
+- **`slope_deg` has NOT been changed and Arm A has NOT been retrained.** This is
+  a disclosure of a limitation in the committed model. Session 12's Arm E added
+  native-resolution terrain features *beside* the frozen ones and did not
+  displace them; its result is a null (see `docs/direction_findings.md`).
+- **Unmeasured:** whether Arm A trained on native-resolution slope would perform
+  differently. That experiment was not run.
 
 ## The 2026-08-02 DEM correction — what moved, what did not
 
@@ -132,6 +354,7 @@ information), but it measures an easier task; the honest figure is **~0.40**.
 
 ## Permutation importance — what it measures, and what it does NOT establish
 
+<!-- collision-ok: 0.077 — permutation IMPORTANCE of days_since_rain, not wxdep_drop_days_since_rain_mean_delta (0.027), which is the mean-of-folds AUC change from DROPPING it. -->
 Permutation importance: `days_since_rain` 0.077 is the top-ranked feature; summed
 fire-weather **severity** importance 0.102 vs `wind_alignment` 0.0023 — a **44×**
 ratio. `[src: spread_v2_lofo.json/permutation_importance]`
@@ -306,3 +529,89 @@ Suggested replacement sentence (formal 합니다체):
 *Build comparison note for the author: the earlier 0.834 / 0.80 / 0.32 came from a  <!-- forbidden-ok: 0.834 -->
 different build (different fire set, 19 features, seed 42) and is not a like-for-like
 comparison; report the canonical Build B numbers above.*
+
+---
+
+## Appendix (WFG-019) — the operating point per fire, and why no threshold guarantee exists
+
+Appended 2026-09-03. **Nothing above this line was edited.** No model was fitted,
+no default was changed, and no threshold computed here is adopted anywhere. Full
+document: [`docs/operating_point.md`](operating_point.md). Artifact:
+`data/processed/operating_point/per_fire_recall.json`. Figure:
+`docs/figures/auto/pr_curve_operating_point.png`.
+
+### A1. Two thresholds, two surfaces
+
+The Session 18 section above reports recall at 0.3. That 0.3 is
+`time.forward_sim_advance_threshold`, applied **per simulation step** to a
+per-step ignition probability. It is **not** the cut the router applies: the
+router thresholds the **cumulative, survival-accumulated** hazard field at
+`pedestrian.walk_cutoff_p` = **0.5**. A sentence that reads the recall above as
+the routing field's miss rate is wrong in both directions — the recall bounds how
+fast the simulated hazard *extent* grows, and the router then reads the
+accumulated field that extent produced.
+
+### A2. What the zero-recall folds actually say
+
+The three folds with zero true positives fail for two different reasons, and the
+distinction is stronger than "recall 0":
+
+| fold | positives | max OOF probability over ALL cells | can 0.3 fire at all? |
+|---|---:|---:|---|
+| `gangneung_2023` | 8 | **0.0241** | **no** — no cell reaches 0.3 |
+| `hongseong_2023` | 34 | **0.296** | **no** — no cell reaches 0.3 |
+| `miryang_2022` | 24 | **0.369** | yes, on 2 non-igniting cells only |
+
+On two of six held-out fires the operating threshold can produce neither a true
+nor a false positive. The remaining folds' false-negative rates at 0.3 are
+`uiseong_andong_2025` **0.977**, `uljin_samcheok_2022` **0.959**,
+`yeongdeok_2025` **0.544** — so 351 of the 412 pooled true positives (85 %) come
+from `yeongdeok_2025`, which is also the fold whose training set contains
+same-week rows from `uiseong_andong_2025`.
+
+### A3. The threshold-calibration negative result
+
+Nested leave-one-fire-out: calibrate a lambda on five fires so their pooled
+false-negative rate is within a **0.20** budget, then measure it on the sixth.
+Convention (stated because the two Round-3 verdicts differed and got different
+lambdas): strict comparison, and the **largest** feasible lambda.
+
+| convention | target FNR on the 5 | held-out bound holds | worst held-out FNR | share of all cells flagged |
+|---|---:|:--:|---:|---:|
+| no finite-sample term | 0.200 | **3 of 6** | **0.750** | 0.0992 – 0.185 |
+| minus `1/(n+1)`, n = 5 | 0.0333 | 6 of 6 | 0.108 | **0.260 – 0.456** |
+
+**At six fires the correction `1/(n+1)` = 0.167 consumes 83 % of a 0.20 budget.**
+That single arithmetic fact is the finding. Without it the bound breaks on the
+fires the calibration never saw; with it the bound holds and a bound-satisfying
+lambda paints **26 – 46 % of the map** against a **1.97 %** prevalence, which is
+not a hazard field a pedestrian route can be planned on. **For this model, at
+n = 6, you can have the guarantee or a usable field, not both.** The operating
+point therefore stays what it already was: a ranking-driven forward simulation at
+an untuned default, not a classifier carrying a guarantee.
+
+⚠ **The two halves of that sentence rest on different evidence, and a leakage
+audit of the experiment (`mandela`) flagged the conflation.** "The correction
+consumes 83 % of the budget" is arithmetic in `n` alone — model-independent, true
+for any model at six fires. "26 – 46 % of cells flagged" is a property of *this
+model's* probability distribution: lambda has to fall to 0.0005 partly because
+the budget is narrow and partly because the igniting cells of the three small
+fires sit near the floor of the probability range. **The experiment does not
+separate those two causes** — that would need a control with the same marginal
+probability distribution and the fire-to-fire structure destroyed, which does not
+exist. So the defensible claim is "this model, calibrated on these six fires,
+gives an unusable threshold, and the budget arithmetic alone is about the fire
+count" — not "no threshold guarantee is possible in principle". Two smaller
+notes: the calibration-set FNR column is a construction check (lambda is *defined*
+to meet it), not a result; and the "largest feasible lambda" convention
+*minimises* the flagged fraction, so it works against this conclusion rather than
+for it. Finally `uiseong_andong_2025` and `yeongdeok_2025` are one March-2025
+complex with overlapping bounding boxes, so n = 5 calibration fires is itself
+optimistic and the correction is if anything too small (WFG-032).
+
+⚠ **Neither row above is a valid guarantee**, and the artifact says so. Exchangeability
+breaks twice: the held-out fire's out-of-fold probabilities come from a model
+trained on the very fires used to calibrate, and `1/(n+1)` is a **fire-level**
+finite-sample term applied to a **cell-level** quantile. The corrected row is an
+*optimistic* bound on what a real guarantee would cost. It is reported because
+even the optimistic version is unusable.

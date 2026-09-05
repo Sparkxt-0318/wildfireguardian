@@ -370,6 +370,20 @@ responder:
   n_depots_synthetic: 2            # SYNTHETIC [src: rescue.py RescueConfig.n_synthetic_depots]
   n_depots_osm_observed: 4         # OBSERVED  data/cache/osm/depots.geojson feature count
 
+  # --- SESSION 8 (round-trip margin) ---------------------------------------
+  # 현장 체류(승차·수용) 시간. ASSUMED — 측정값이 아니며, t_load 스윕
+  # (scripts/run_margin_sweep.py) 이 이 가정에 대한 강건성을 보고합니다.
+  t_load_min: 10.0                 # ASSUMED [src: rescue.py RescueConfig.t_load_min]
+  # ⚠ 0.0 은 적대적 하한입니다 — 현장 체류가 공짜라고 가정해도 결론이 유지되는지
+  # 확인하기 위한 값이며, 현실적인 값이 아닙니다 (follow-up session, Task C).
+  t_load_sweep: [0.0, 5.0, 10.0, 15.0, 20.0]   # [src: data/processed/margin_sweep.json grid]
+  # 복귀 경로 정책. "same_route" 는 진입로 그대로 복귀 (현장 실무자 자문의
+  # 「들어가서 그 길로 나오는 게 원칙」 — docs/firefighter_consultation.md §2,
+  # N = 1 구술이며 측정이 아님). "free" 는 생존 인지 라우터가 복귀로를 새로 탐색.
+  egress_policy: "same_route"      # [src: rescue.py RescueConfig.egress_policy]
+  # 마진 밴드 축 — §4a 2-D 스윕의 vehicle_cutoff 축과 동일 (verify_rescue_routing.py:69).
+  vehicle_cutoff_sweep: [0.5, 0.6, 0.7, 0.8, 0.9]  # [src: margins.py BAND_CUTOFFS]
+
 # -----------------------------------------------------------------------------
 # Population assumptions
 # -----------------------------------------------------------------------------
@@ -418,6 +432,14 @@ building_origins:
   # clamped — "we could not draw 1000 from 124" is the result, not an error.
   convergence_sample_sizes: [50, 100, 250, 500, 1000, 2000]
   convergence_repeats: 400
+
+  # --- SESSION 8 (village-edge / WUI re-centred origins) --------------------
+  # Building-level parameterisation of the Radeloff et al. (2005) INTERFACE
+  # concept (adjacent to, not within, wildland vegetation). D is THIS
+  # project's parameter — Radeloff's census-block constants are not
+  # transplanted. Swept; see data/processed/rescue_routing_village_edge.json.
+  wui_interface_distance_m: 100.0            # [src: buildings/wui.py]
+  wui_interface_distance_sweep_m: [50.0, 100.0, 200.0]  # [src: buildings/wui.py]
 
 # -----------------------------------------------------------------------------
 # Synthetic hazard envelope — used ONLY when no real forward-sim field is present

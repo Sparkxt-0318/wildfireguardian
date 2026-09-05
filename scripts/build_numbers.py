@@ -61,6 +61,10 @@ OBJBUD_CANON = "data/processed/objective_budget_canonical.json"  # step 3
 BBOX_EST = "data/processed/yeongdeok_bbox_reacquisition_estimate.json"  # step 4
 BLD_ROUTE = "data/processed/building_origin_routing.json"      # PHASE 18
 BLD_BIAS = "data/processed/building_spatial_bias.json"         # PHASE 18
+ORDER = "data/processed/dispatch_ordering_comparison.json"     # PHASE 23
+BOUND = "data/processed/ordering_boundary.json"                # PHASE 24
+MSWEEP = "data/processed/margin_sweep.json"                    # SESSION 8 Phase 1
+VEDGE = "data/processed/rescue_routing_village_edge.json"      # SESSION 8 Phase 2
 
 # Reproducibility is MEASURED, not assumed. Each artifact was re-run on
 # 2026-08-01 into a scratch directory and diffed against the committed copy.
@@ -203,6 +207,27 @@ REPRO = {
                     "in config (building_origins.sample_seed).",
         "blocked_by": None,
     },
+    ORDER: {
+        "status": "reproducible",
+        "evidence": "built 2026-08-10 from the snapshot store and the committed "
+                    "hazard npz files; scripts/run_dispatch_ordering.py re-derives "
+                    "every dispatch list from those inputs, asserts the Yeongdeok "
+                    "arm reproduces drift arm B (441/174/32/142), and pins the "
+                    "random arm to seeds 0..199. No network I/O, no sampling.",
+        "blocked_by": None,
+    },
+    BOUND: {
+        "status": "reproducible",
+        "evidence": "built 2026-08-11 by scripts/run_ordering_boundary.py, which "
+                    "imports run_dispatch_ordering.py as a module and reuses its "
+                    "model unmodified (only WINDOWS is rebound to the 12-point axis "
+                    "and binding_constraint is wrapped to ADD a deadline_spread "
+                    "block). Same snapshot store, same committed hazard npz, same "
+                    "seeds 0..199, same drift arm-B assertion. It re-verified PHASE "
+                    "23 in-run: 3744 values at W=75 and W=240 compared cell by cell, "
+                    "0 differences. No network I/O, no sampling.",
+        "blocked_by": None,
+    },
     BLD_BIAS: {
         "status": "reproducible",
         "evidence": "built 2026-08-05 from the snapshotted building layers, the "
@@ -239,6 +264,22 @@ REPRO = {
                       "this is RECOVERABLE: pinning the grid to "
                       "config bbox.fire_acquisition restores the committed extent. "
                       "Not changed here — it would alter results and needs a decision.",
+    },
+    MSWEEP: {
+        "status": "reproducible",
+        "evidence": "built 2026-08-29 (Session 8) on the CURRENT (arm-B vintage) "
+                    "cached OSM graphs; scripts/run_margin_sweep.py regenerates "
+                    "it deterministically under the fixed seed. Its lineage block "
+                    "records that it is NOT the committed arm-A 439-series.",
+        "blocked_by": None,
+    },
+    VEDGE: {
+        "status": "reproducible",
+        "evidence": "built 2026-08-29 (Session 8) from the pinned building "
+                    "snapshot (osm-buildings_yeongdeok-2025_20260805), the cached "
+                    "OSM vegetation layer and the current (arm-B vintage) cached "
+                    "graphs; scripts/run_village_edge_routing.py regenerates it.",
+        "blocked_by": None,
     },
 }
 
@@ -1795,6 +1836,396 @@ def main() -> int:
                             "c": op(BLD_ROUTE,
                                     "regions.2.building_level_counts.unclassified")},
                "expr": "a + b + c", "tolerance": 0.0},
+    )
+
+    # ------------------------------- PHASE 23: dispatch ORDERING ------------
+    # ⚠ These measure contribution ② itself and the answer is largely NEGATIVE.
+    # They belong to a NEW occupancy model (travel-aware); the committed
+    # rescue_capacity.json numbers are unchanged and are not restated here.
+    _ORD_CELL = "grid.depot_return|W75|s25p0|d30"
+    N["dispatch_order_deadline_wins_pct"] = entry(
+        value=3.6, unit="% of cells", source_file=ORDER,
+        json_path="summary.deadline_beats_nearest.pct",
+        derivation=("share of the 360 headline cells (4 arms x 2 windows x 3 service "
+                    "times x 3 delays x 5 team counts, depot-return occupancy) in "
+                    "which 시한 임박 순 rescues MORE than 가까운 순"),
+        sample="360개 구성",
+        caveat=("⚠ THE SHIPPED ORDERING LOSES. It ties in 36.7 % of cells and loses "
+                "in 59.7 %. Every one of the 13 wins is at W = 240 min, an "
+                "EXPLORATORY window 3.2x the committed 75 min; at the committed "
+                "window it wins 0 of 180. Measured under a TRAVEL-AWARE occupancy "
+                "rule that the shipped capacity_triage does not use, on the "
+                "Yeongdeok DRIFT ARM B lists and two Uljin-Samcheok lists — never on "
+                "the committed 439 series. Reports the ORDERING contrast only; it is "
+                "not a rescue-capacity forecast and carries no 'lives saved' reading."),
+        forbidden_phrasings=["우선순위 정렬이 더 많이 구한다",
+                             "deadline-first rescues more",
+                             "시한 임박 순이 최적", "우선순위가 검증되었다",
+                             "priority ordering validated"],
+        check={"kind": "json_path",
+               "operands": {"a": op(ORDER, "summary.deadline_beats_nearest.pct")},
+               "expr": "a", "tolerance": 0.0},
+        notes=("scripts/run_dispatch_ordering.py. Routing logic untouched: every "
+               "responder_eta_min and ingress_survival_time_min comes from the "
+               "committed pipeline. docs/dispatch_ordering.md."),
+    )
+    N["dispatch_order_deadline_wins_at_committed_window"] = entry(
+        value=0, unit="cells of 180", source_file=ORDER,
+        json_path="summary.by_window.W75.deadline_wins",
+        derivation=("cells at the COMMITTED responder window W = 75 min in which "
+                    "시한 임박 순 beats 가까운 순 (88 ties, 92 losses)"),
+        sample="커밋된 W=75 구성 180개",
+        caveat=("ZERO. At the window the system actually ships, deadline-first never "
+                "rescues more than nearest-first. The measured mechanism is in the "
+                "same artifact: at W = 75 the operational window closes before most "
+                "corridors do, so homes share one deadline and the sort key carries "
+                "almost no information — 영덕 합성 6 distinct deadlines over 142 homes, "
+                "영덕 real 2 over 124, 울진·삼척 real 2 over 116."),
+        forbidden_phrasings=["시한 정렬은 W=75에서도 유효", "deadline ordering holds at W=75"],
+        check={"kind": "json_path",
+               "operands": {"a": op(ORDER, "summary.by_window.W75.deadline_wins")},
+               "expr": "a", "tolerance": 0.0},
+    )
+    N["dispatch_order_committed_cell_gap"] = entry(
+        value=-5, unit="rescues", source_file=ORDER,
+        json_path=f"arms.yeongdeok_2025|synthetic.{_ORD_CELL}",
+        derivation=("deadline_closing_window.8 − nearest_eta.8 at the primary arm's "
+                    "committed cell (W = 75, service = 25 min, delay = 30 min, "
+                    "8 teams): 19 − 24"),
+        sample="영덕 합성 포락면, 8팀",
+        caveat=("The single most operationally relevant cell, and the shipped "
+                "ordering is 5 rescues BEHIND nearest-first. Same cell, 목록 순 "
+                "(no sort at all) = 16 and 무작위 200회 = 16.49 ± 1.69, so the sort "
+                "does beat no-sort here — it is nearest-first it loses to. Drift arm "
+                "B, NOT the committed 439 series. Absolute counts are illustrative: "
+                "service time and team count are PoC parameters, not measured "
+                "영덕 fire-service capacity."),
+        forbidden_phrasings=["19명을 구했다", "we rescue 19", "24명 구조",
+                             "구조 인원 24명"],
+        check={"kind": "expression",
+               "operands": {
+                   "a": op(ORDER, f"arms.yeongdeok_2025|synthetic.{_ORD_CELL}"
+                                  ".deadline_closing_window.8"),
+                   "b": op(ORDER, f"arms.yeongdeok_2025|synthetic.{_ORD_CELL}"
+                                  ".nearest_eta.8")},
+               "expr": "a - b", "tolerance": 0.0},
+    )
+    N["dispatch_order_largest_gap_against_deadline"] = entry(
+        value=-31, unit="rescues", source_file=ORDER,
+        json_path="summary.largest_gap_against_deadline.deadline_minus_nearest",
+        derivation=("the worst cell for the shipped ordering across all 360: "
+                    "울진·삼척 합성, W = 240, service = 12.5 min, delay = 30 min, "
+                    "5 teams — deadline 24 vs nearest 55"),
+        sample="최악 구성 1개",
+        caveat=("In that same cell 목록 순 (37) and 무작위 평균 (37.47 ± 2.62) also "
+                "beat the shipped ordering, so it is not merely losing to a better "
+                "rule — it is below an arbitrary order. Pair it with "
+                "dispatch_order_largest_gap_for_deadline (+25, same arm, delay 60, "
+                "8 teams) or the spread is misread as one-directional."),
+        forbidden_phrasings=["31명을 더 구한다", "31 more rescued"],
+        check={"kind": "json_path",
+               "operands": {"a": op(ORDER,
+                                    "summary.largest_gap_against_deadline"
+                                    ".deadline_minus_nearest")},
+               "expr": "a", "tolerance": 0.0},
+    )
+    N["dispatch_order_uljin_real_distinct_deadlines"] = entry(
+        value=2, unit="distinct deadlines", source_file=ORDER,
+        json_path=(f"arms.uljin_samcheok_2022|real.{_ORD_CELL}"
+                   ".binding_constraint.n_distinct_deadlines"),
+        derivation=("distinct values of min(ingress_survival, delay + W) over the 116 "
+                    "dispatch homes at the committed W = 75 / delay = 30; 114 of 116 "
+                    "take the window value"),
+        sample="울진·삼척 real, 배차 116곳",
+        caveat=("This is WHY the ordering cannot help. With two distinct deadlines "
+                "the urgency key is very nearly constant, so any sort of it is a sort "
+                "of noise. The corresponding 영덕 합성 figure is 6 over 142 homes. "
+                "It is a property of the window relative to the closure times, not a "
+                "defect in the sort."),
+        forbidden_phrasings=[],
+        check={"kind": "json_path",
+               "operands": {"a": op(ORDER,
+                                    f"arms.uljin_samcheok_2022|real.{_ORD_CELL}"
+                                    ".binding_constraint.n_distinct_deadlines")},
+               "expr": "a", "tolerance": 0.0},
+    )
+
+    # ── PHASE 24 — the boundary map ─────────────────────────────────────────
+    # ⚠ These extend PHASE 23; they do NOT soften it. Every caveat below has to
+    # carry the fact that the committed window still wins 0 of 180, because a
+    # boundary number quoted alone reads as "the rule works", which is the
+    # sentence dispatch_ordering.md §8 exists to prevent.
+    _B_NEG = ("⚠ 경계가 아니라 모서리이며, 유효 영역이라 부를 수 있는 것이 "
+              "존재하지 않습니다. 커밋된 W = 75 에서는 여전히 180개 셀 중 0승이고, "
+              "평균 차이는 12개 W 전부에서 음수이며, 승리 구간의 패배율(68.3–82.8 %)은 "
+              "커밋된 창(51.1 %)보다 오히려 높습니다. 네 축을 동시에 극단으로 조여 "
+              "격자의 1.7 %(36셀)로 줄여야 승률이 겨우 50.0 % 에 닿습니다. "
+              "「조건만 맞추면 유효하다」로 쓰지 마십시오 — PHASE 23 의 결론은 "
+              "약화되는 것이 아니라 강화됩니다.")
+    N["ordering_boundary_first_window_with_a_win"] = entry(
+        value=120.0, unit="min (operational window W)", source_file=BOUND,
+        json_path="boundary.first_window_with_a_win.pooled_min",
+        derivation=("lowest W on the 12-point axis (60…600) at which 시한 임박 순 "
+                    "out-rescues 가까운 순 in at least one of the 180 headline cells "
+                    "at that W; 60/75/90 are all 0 wins"),
+        sample="12개 W × 180 셀 = 2,160 셀",
+        caveat=(_B_NEG + " 그리고 W 단독으로 결정되지 않습니다 — 최소 승리 W 는 120 "
+                "이지만 최대 비승리 W 는 600 으로 두 구간이 완전히 겹칩니다. 그 최초 "
+                "승리 셀 하나는 나머지 세 축이 전부 유리한 끝값(service 12.5분, 지연 "
+                "60분, 8팀)입니다. 축이 이산적이므로 이 값은 실제 전이점의 상한입니다."),
+        forbidden_phrasings=["임계값은 120분", "the threshold is 120 minutes",
+                             "W가 120분이면 유효하다", "정렬이 120분부터 최적",
+                             "ordering works above 120 minutes",
+                             "조건만 맞추면 유효하다", "유효 영역", "valid region"],
+        check={"kind": "json_path",
+               "operands": {"a": op(BOUND,
+                                    "boundary.first_window_with_a_win.pooled_min")},
+               "expr": "a", "tolerance": 0.0},
+        notes=("scripts/run_ordering_boundary.py. 커밋된 W = 75 의 1.6배. "
+               "docs/ordering_boundary.md §5, §7."),
+    )
+    N["ordering_boundary_loss_rate_over_extended_axis"] = entry(
+        value=68.7, unit="% of cells", source_file=BOUND,
+        json_path="summary_phase23_format.deadline_loses_to_nearest.pct",
+        derivation=("share of all 2,160 headline cells (4 arms x 12 windows x 3 "
+                    "service times x 3 delays x 5 team counts, depot-return "
+                    "occupancy) in which 시한 임박 순 rescues FEWER than 가까운 순"),
+        sample="2,160개 구성",
+        caveat=("⚠ 축을 6배로 넓혀도 이 방향은 바뀌지 않습니다. 승 5.3 % / 무 26.0 % "
+                "/ 패 68.7 %. 정렬 없는 「목록 순」을 이기는 셀도 31.5 %, 무작위 평균을 "
+                "이기는 셀도 37.8 % 로 둘 다 과반 미만입니다. Yeongdeok DRIFT ARM B "
+                "lists, never the committed 439 series; travel-aware occupancy that "
+                "the shipped capacity_triage does not use; ORDERING contrast only, "
+                "no 'lives saved' reading."),
+        forbidden_phrasings=["우선순위 정렬이 더 많이 구한다",
+                             "deadline-first rescues more", "시한 임박 순이 최적",
+                             "우선순위가 검증되었다", "priority ordering validated"],
+        check={"kind": "json_path",
+               "operands": {"a": op(BOUND, "summary_phase23_format"
+                                           ".deadline_loses_to_nearest.pct")},
+               "expr": "a", "tolerance": 0.0},
+        notes="docs/ordering_boundary.md §7.",
+    )
+    N["ordering_boundary_win_rate_at_longest_window"] = entry(
+        value=12.2, unit="% of cells", source_file=BOUND,
+        json_path="boundary.pooled_by_window.W600.win_rate_pct",
+        derivation=("win rate of 시한 임박 순 vs 가까운 순 at W = 600 min, the "
+                    "longest window on the exploratory axis — 22 wins of 180 cells"),
+        sample="W = 600 구성 180개",
+        caveat=(_B_NEG + " ⚠ 이 값은 「경계를 넘으면 규칙이 좋아진다」의 반증으로 "
+                "인용하십시오. 커밋 값의 8배인 창에서조차 승률은 12.2 % 이고 패배율은 "
+                "75.6 % 입니다. W = 600 은 순전히 탐색용 축이며 이 시스템이 그 창으로 "
+                "운용된다는 근거가 아닙니다."),
+        forbidden_phrasings=["긴 창에서는 정렬이 유효하다",
+                             "the ordering works at long windows",
+                             "W=600에서 검증되었다"],
+        check={"kind": "json_path",
+               "operands": {"a": op(BOUND,
+                                    "boundary.pooled_by_window.W600.win_rate_pct")},
+               "expr": "a", "tolerance": 0.0},
+        notes="docs/ordering_boundary.md §5.",
+    )
+    N["ordering_boundary_no_distinct_deadline_threshold"] = entry(
+        value=1580, unit="non-winning cells", source_file=BOUND,
+        json_path=("threshold_verdict.n_distinct_deadlines_cut"
+                   ".n_non_winning_cells_at_or_above_that_value"),
+        derivation=("cells that do NOT win despite having at least as many distinct "
+                    "deadlines (3) as the lowest-scoring winning cell — the evidence "
+                    "that no cut on 「서로 다른 마감 수」 separates wins from non-wins"),
+        sample="2,160개 중 마감 수 ≥ 3 인 비승리 셀",
+        caveat=("⚠ 단일 임계값이 존재하지 않는다는 측정입니다. 「마감 수 N 이상이면 "
+                "이긴다」는 N 은 없습니다 — 관계가 단조롭지 않아 마감 6개·7개 구간의 "
+                "승률은 0 % 인데 3개 구간은 4.1 % 입니다. 셀 단위 상관은 Spearman "
+                "+0.244 로 약하고, 차이의 크기와는 −0.022 로 사실상 무관합니다. "
+                "⚠ 상관이지 인과가 아닙니다. ⚠ 그리고 PHASE 23 §6 의 기제는 이 결과를 "
+                "다 설명하지 못합니다 — 바닥(마감 2개 → 465셀 전부 0승)은 설명하지만 "
+                "6·7개 구간의 0 % 는 설명하지 못하고, 마감 수를 고정해도 승률이 계속 "
+                "움직입니다(영덕 real, 3개 고정, 17.8포인트). 마감 수는 자유 변수가 "
+                "아니라 (팔 × W) 의 이름표이므로 이 설계로는 개수·퍼짐·W 를 분리할 수 "
+                "없습니다. 설명이 불완전하다는 것과 무엇이 더 필요한지는 "
+                "docs/ordering_boundary.md §6.3 에 있으며, 억지 설명을 만들지 "
+                "않았습니다."),
+        forbidden_phrasings=["마감 수 임계값", "distinct-deadline threshold",
+                             "마감이 N개 이상이면 유효하다"],
+        check={"kind": "json_path",
+               "operands": {"a": op(BOUND, "threshold_verdict"
+                                           ".n_distinct_deadlines_cut"
+                                           ".n_non_winning_cells_at_or_above_that_value")},
+               "expr": "a", "tolerance": 0.0},
+        notes="docs/ordering_boundary.md §6, §7.",
+    )
+    N["ordering_boundary_wins_at_committed_dispatch_delay"] = entry(
+        value=9, unit="cells of 720", source_file=BOUND,
+        json_path="threshold_verdict.win_rate_by_delay.d30.deadline_wins",
+        derivation=("cells at the COMMITTED dispatch delay of 30 min in which 시한 "
+                    "임박 순 beats 가까운 순, over all 12 windows (720 cells). "
+                    "At delay 60 the same tally is 100"),
+        sample="지연 30분 구성 720개",
+        caveat=(_B_NEG + " ⚠ 승리 115개 중 100개(87 %)가 지연 60분에서 나옵니다 — "
+                "커밋된 지연이 아닙니다. 커밋된 30분 구간의 평균 차이 −8.36 은 세 "
+                "지연 중 가장 나쁩니다. 팀이 1대인 432개 셀에서는 어떤 W 에서도 "
+                "승리가 없습니다. 지연은 PoC 파라미터이며 측정된 영덕 출동 지연이 "
+                "아닙니다."),
+        forbidden_phrasings=["지연이 길수록 우리 정렬이 좋다",
+                             "longer delays validate the ordering"],
+        check={"kind": "json_path",
+               "operands": {"a": op(BOUND, "threshold_verdict.win_rate_by_delay"
+                                           ".d30.deadline_wins")},
+               "expr": "a", "tolerance": 0.0},
+        notes="docs/ordering_boundary.md §7 ③.",
+    )
+    N["ordering_boundary_phase23_reproduction_differences"] = entry(
+        value=0, unit="differing values", source_file=BOUND,
+        json_path="⚠ reproduction_of_phase23.cellwise.n_differences",
+        derivation=("differences found when every PHASE 23 value at W = 75 and "
+                    "W = 240 was re-derived in the PHASE 24 run and compared cell by "
+                    "cell against data/processed/dispatch_ordering_comparison.json — "
+                    "3,744 values compared across 4 orderings, the random mean and "
+                    "binding_constraint, both occupancy arms"),
+        sample="3,744개 값",
+        caveat=("This is the check that would have invalidated PHASE 24 had it "
+                "failed. Headline tallies also match exactly (W75 0/88/92, W240 "
+                "13/44/123), as do all four arms' pipeline counts and the config "
+                "hash. It does NOT re-verify PHASE 23's inputs — it verifies that "
+                "the same inputs still produce the same numbers."),
+        forbidden_phrasings=[],
+        check={"kind": "json_path",
+               "operands": {"a": op(BOUND, "⚠ reproduction_of_phase23"
+                                           ".cellwise.n_differences")},
+               "expr": "a", "tolerance": 0.0},
+        notes="docs/ordering_boundary.md §4.",
+    )
+
+    # ------------------------------------------------- SESSION 8 (2026-08-29) ----
+    # ⚠ Arm-B (current-network) lineage, clearly labelled — these do NOT revise
+    # the committed 439-series values above; they sit beside them.
+    msweep = read(MSWEEP)
+    vedge = read(VEDGE)
+
+    N["s8_margin_dispatch_n_armb"] = entry(
+        value=msweep["cells"]["same_route/t_load=10"]["n_dispatch"],
+        unit="homes",
+        source_file=MSWEEP,
+        json_path="cells.same_route/t_load=10.n_dispatch",
+        derivation="dispatch-reachable homes on the arm-B (current snapshot) "
+                   "network; the margin layer holds this fixed across all cells",
+        sample="영덕 arm-B 네트워크, 441-계 계보",
+        caveat="Arm-B network vintage — NOT the committed 439-series "
+               "(docs/network_drift.md). Synthetic hazard/terrain.",
+        forbidden_phrasings=["142 households rescued", "142 가구 구조"],
+        check={"kind": "json_path",
+               "operands": {"a": op(MSWEEP, "cells.same_route/t_load=10.n_dispatch")},
+               "expr": "a", "tolerance": 0.0},
+        notes="Session 8 Phase 1 (docs/SESSION8_LOG.md).",
+    )
+    N["s8_margin_nonpositive_core"] = entry(
+        value=msweep["cells"]["same_route/t_load=10"]["n_margin_nonpositive"],
+        unit="homes",
+        source_file=MSWEEP,
+        json_path="cells.same_route/t_load=10.n_margin_nonpositive",
+        derivation="dispatch-reachable homes whose ROUND-TRIP margin "
+                   "(ingress + assumed t_load + egress at egress time) is <= 0 "
+                   "at the baseline cell; invariant across every swept t_load "
+                   "and both egress policies (free adds homes, never removes)",
+        sample="영덕 arm-B 네트워크, 441-계 계보",
+        caveat="Direction is the result (one-way dispatchability overstates "
+               "completable missions); the absolute count rides on the ASSUMED "
+               "t_load and the synthetic hazard.",
+        forbidden_phrasings=["62 rescuers lost", "62명"],
+        check={"kind": "json_path",
+               "operands": {"a": op(MSWEEP,
+                                    "cells.same_route/t_load=10.n_margin_nonpositive")},
+               "expr": "a", "tolerance": 0.0},
+        notes="Session 8 Phase 1 (docs/SESSION8_LOG.md).",
+    )
+    N["s8_margin_nonpositive_tload0"] = entry(
+        value=msweep["cells"]["same_route/t_load=0"]["n_margin_nonpositive"],
+        unit="homes",
+        source_file=MSWEEP,
+        json_path="cells.same_route/t_load=0.n_margin_nonpositive",
+        derivation="the ADVERSARIAL cell: on-scene load time set to ZERO, so "
+                   "the round-trip margin is charged only for ingress + "
+                   "egress-at-egress-time. Added in the Session-8 follow-up "
+                   "because the original sweep started at t_load=5 and could "
+                   "not answer 'does the direction survive a free pickup?'",
+        sample="영덕 arm-B 네트워크, 441-계 계보",
+        caveat="Equal to the t_load=5..20 cells and to the free-policy "
+               "t_load=0 cell — the finding is carried by egress TIMING, not "
+               "by the assumed load time or the egress policy. Synthetic "
+               "hazard/terrain; arm-B network vintage.",
+        forbidden_phrasings=["62 homes lost", "62 가구 사망"],
+        check={"kind": "json_path",
+               "operands": {"a": op(MSWEEP,
+                                    "cells.same_route/t_load=0.n_margin_nonpositive")},
+               "expr": "a", "tolerance": 0.0},
+        notes="Session 8 follow-up, Task C (docs/SESSION8_FOLLOWUP.md §3).",
+    )
+    N["s8_vedge_intermix_n"] = entry(
+        value=vedge["n_intermix_within_vegetation"],
+        unit="buildings",
+        source_file=VEDGE,
+        json_path="n_intermix_within_vegetation",
+        derivation="OSM snapshot building centroids INSIDE an OSM wildland "
+                   "polygon (Radeloff 2005 intermix form)",
+        sample="영덕 bbox, OSM 건물 스냅샷 124동",
+        caveat="OSM building coverage in rural Korea is a small, "
+               "region-dependent fraction of the real stock — never a "
+               "building count.",
+        forbidden_phrasings=[],
+        check={"kind": "json_path",
+               "operands": {"a": op(VEDGE, "n_intermix_within_vegetation")},
+               "expr": "a", "tolerance": 0.0},
+        notes="Session 8 Phase 2 (docs/SESSION8_LOG.md).",
+    )
+    N["s8_vedge_n_origins_d100"] = entry(
+        value=vedge["runs"]["100"]["n_origins"],
+        unit="origins",
+        source_file=VEDGE,
+        json_path="runs.100.n_origins",
+        derivation="distinct walk nodes of WUI-interface buildings "
+                   "(distance <= 100 m, Radeloff 2005 interface form, "
+                   "building-level parameterisation)",
+        sample="영덕 arm-B 네트워크, OSM 건물 스냅샷",
+        caveat="Small N by construction (124-building OSM snapshot); the "
+               "re-centred split is a direction, not a magnitude.",
+        forbidden_phrasings=["29 households", "29 가구"],
+        check={"kind": "json_path",
+               "operands": {"a": op(VEDGE, "runs.100.n_origins")},
+               "expr": "a", "tolerance": 0.0},
+        notes="Session 8 Phase 2 (docs/SESSION8_LOG.md).",
+    )
+    N["s8_vedge_no_walk_d100"] = entry(
+        value=vedge["runs"]["100"]["four_way_counts"]["no_safe_pedestrian_route"],
+        unit="origins",
+        source_file=VEDGE,
+        json_path="runs.100.four_way_counts.no_safe_pedestrian_route",
+        derivation="four-way class 3 on the village-edge origin set (D=100 m)",
+        sample="영덕 arm-B 네트워크, OSM 건물 스냅샷",
+        caveat="Direction only; synthetic hazard/terrain, small N.",
+        forbidden_phrasings=[],
+        check={"kind": "json_path",
+               "operands": {"a": op(VEDGE,
+                                    "runs.100.four_way_counts.no_safe_pedestrian_route")},
+               "expr": "a", "tolerance": 0.0},
+        notes="Session 8 Phase 2 (docs/SESSION8_LOG.md).",
+    )
+    N["s8_vedge_no_ingress_d100"] = entry(
+        value=vedge["runs"]["100"]["four_way_counts"]["no_surviving_vehicle_ingress"],
+        unit="origins",
+        source_file=VEDGE,
+        json_path="runs.100.four_way_counts.no_surviving_vehicle_ingress",
+        derivation="four-way class 4 on the village-edge origin set (D=100 m)",
+        sample="영덕 arm-B 네트워크, OSM 건물 스냅샷",
+        caveat="Direction only; synthetic hazard/terrain, small N. Consistent "
+               "with the consultation's impression that genuinely unreachable "
+               "homes are rare at village edges — but N=1 testimony and a "
+               "124-building snapshot cannot confirm each other.",
+        forbidden_phrasings=[],
+        check={"kind": "json_path",
+               "operands": {"a": op(VEDGE,
+                                    "runs.100.four_way_counts.no_surviving_vehicle_ingress")},
+               "expr": "a", "tolerance": 0.0},
+        notes="Session 8 Phase 2 (docs/SESSION8_LOG.md).",
     )
 
     doc = {

@@ -112,6 +112,16 @@ class RescueConfig:
     ingress_sample_spacing_m: float = float(_cfg("responder.ingress_sample_spacing_m", 150.0))
     time_step_min: float = float(_cfg("time.routing_time_step_min", 10.0))
 
+    # -- round-trip margin (SESSION 8, Phase 1) ----------------------------
+    # On-scene load (승차·수용) time. ASSUMED — swept in scripts/run_margin_sweep.py.
+    t_load_min: float = float(_cfg("responder.t_load_min", 10.0))
+    # Egress policy: "same_route" returns along the ingress corridor (현장
+    # 실무자 자문 N=1: 「들어가서 그 길로 나오는 게 원칙」 — a stated doctrine,
+    # not a measurement; docs/firefighter_consultation.md §2). "free" lets the
+    # survival-aware router pick a fresh egress route at the egress departure
+    # time.
+    egress_policy: str = str(_cfg("responder.egress_policy", "same_route"))
+
     # -- immobile residents (the "send the rescuer" population) ------------
     immobile_fraction: float = float(_cfg("population.immobile_fraction", 0.3))
 
@@ -181,6 +191,8 @@ class RescueConfig:
                 "resident_time_budget_min": self.resident_time_budget_min,
                 "ingress_sample_spacing_m": self.ingress_sample_spacing_m,
                 "immobile_fraction": self.immobile_fraction,
+                "t_load_min": self.t_load_min,
+                "egress_policy": self.egress_policy,
             },
             "synthetic_when_no_real_source": {
                 "shelters": "coastal assembly nodes + inland open-space POIs (seeded)",

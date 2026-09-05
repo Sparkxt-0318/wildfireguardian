@@ -1,0 +1,1356 @@
+{
+  "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
+  "generated_at_git_commit": "a063e51b1049333cf51a982194aebc577a7a16e7",
+  "n_artifacts": 102,
+  "total_bytes": 14509350,
+  "total_mib": 13.84,
+  "n_git_tracked": 102,
+  "n_untracked_manifest_only": 0,
+  "n_regenerate_unknown": 8,
+  "artifacts": [
+    {
+      "path": "data/processed/.gitkeep",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "kind": "binary",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/OVERNIGHT_REPORT.md"
+      ],
+      "regenerate": "UNKNOWN"
+    },
+    {
+      "path": "data/processed/alert_examples.json",
+      "bytes": 4121,
+      "sha256": "cc6fb3f4a9ae3eb91ba79f350dbfe2864c6203bab1bb0d0d4c7783b88b32df5d",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/SESSION8_LOG.md",
+        "docs/alert_loop.md"
+      ],
+      "regenerate": "python scripts/generate_alert_examples.py"
+    },
+    {
+      "path": "data/processed/arms/A_replication/lofo_arm_A.json",
+      "bytes": 6090,
+      "sha256": "9b7fc2c03a8a9a76f1c708d0d3e8688882e29180f458764b059f8a244cec4ca9",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 2,
+      "cited_by_docs": [
+        "docs/SESSION18_LOG.md"
+      ],
+      "regenerate": "python scripts/arm_d_build.py && python scripts/arm_d_build.py --merge && python scripts/arm_d_lofo.py --features A && python scripts/arm_d_lofo.py --features A --aggregate"
+    },
+    {
+      "path": "data/processed/arms/A_replication_e/lofo_arm_A.json",
+      "bytes": 17700,
+      "sha256": "16de8c9f8f0f9de105fd7999ae3be7ca84da0d4d6d8fcc69513382beb820459b",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 2,
+      "cited_by_docs": [
+        "docs/SESSION18_LOG.md",
+        "docs/direction_findings.md"
+      ],
+      "regenerate": "python scripts/arm_e_lofo.py --features N && --aggregate"
+    },
+    {
+      "path": "data/processed/arms/D/lofo_arm_D.json",
+      "bytes": 8419,
+      "sha256": "6c644e5a7344229341fbe518251cf9a17e61914120f3bc0e9e242f6609a7a0c7",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 8,
+      "cited_by_docs": [
+        "docs/SESSION18_LOG.md",
+        "docs/direction_findings.md"
+      ],
+      "regenerate": "python scripts/arm_d_build.py && python scripts/arm_d_build.py --merge && python scripts/arm_d_lofo.py --features D && python scripts/arm_d_lofo.py --features D --aggregate"
+    },
+    {
+      "path": "data/processed/arms/E/lofo_arm_E.json",
+      "bytes": 19760,
+      "sha256": "9ff7bd5b8d93bd0fc0916448289e130d2f024a035069da470391d3170b60460b",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 3,
+      "cited_by_docs": [
+        "docs/SESSION18_LOG.md",
+        "docs/direction_findings.md"
+      ],
+      "regenerate": "python scripts/arm_e_build.py && --merge && python scripts/arm_e_lofo.py --features E && --aggregate"
+    },
+    {
+      "path": "data/processed/arms/N_noise_control/lofo_arm_N.json",
+      "bytes": 19616,
+      "sha256": "fb0338c9877ba16a7c47d4c866880431e99954a5f454484d9d476b1ba8e36a3c",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 3,
+      "cited_by_docs": [
+        "docs/SESSION18_LOG.md"
+      ],
+      "regenerate": "python scripts/arm_e_lofo.py --features N && --aggregate"
+    },
+    {
+      "path": "data/processed/auc_intervals.json",
+      "bytes": 6117,
+      "sha256": "18a511a8b48c08cfbfd8fa45cf5740aa1fcd3a0d5fe40ead2bc099135b99c5ba",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 4,
+      "cited_by_docs": [
+        "docs/MODEL_CARD.md",
+        "docs/auc_intervals.md"
+      ],
+      "regenerate": "python scripts/build_finals.py"
+    },
+    {
+      "path": "data/processed/budget_sweep_experiment.json",
+      "bytes": 9669,
+      "sha256": "2bd580015dd15e7c3f10495bd01e510fd4a1a0f1667f89e176ab6c46b8119398",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 7,
+      "cited_by_docs": [],
+      "regenerate": "python scripts/build_numbers.py"
+    },
+    {
+      "path": "data/processed/building_origin_routing.json",
+      "bytes": 137088,
+      "sha256": "915aead89fa624ec3745741c3f90580036c90972a28d03cc777015f108d11126",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 8,
+      "cited_by_docs": [
+        "docs/building_origins.md",
+        "docs/building_sampling.md"
+      ],
+      "regenerate": "python scripts/build_numbers.py"
+    },
+    {
+      "path": "data/processed/building_snapping_measurement.json",
+      "bytes": 15518,
+      "sha256": "7886d1b5b20f526923670ce1ada580cbd5864f2ede3f4669f4f18f455d377cac",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/building_origins.md",
+        "docs/building_sampling.md"
+      ],
+      "regenerate": "python scripts/measure_building_snapping.py"
+    },
+    {
+      "path": "data/processed/building_spatial_bias.json",
+      "bytes": 10851,
+      "sha256": "c4ec6223f59184078d5ba75bd01843c93ee984dea4ca7938e3a3c289deb4bb97",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 6,
+      "cited_by_docs": [
+        "docs/building_origins.md",
+        "docs/building_sampling.md"
+      ],
+      "regenerate": "python scripts/build_numbers.py"
+    },
+    {
+      "path": "data/processed/calibration_metrics.json",
+      "bytes": 18443,
+      "sha256": "6ae03c4e18cc7589ac07aa195f3fe07467e95d986166ab2273959ed246aa6078",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 4,
+      "cited_by_docs": [
+        "docs/MODEL_CARD.md",
+        "docs/REPORT_ROUND2_P2.md",
+        "docs/REPRODUCE.md",
+        "docs/baselines.md"
+      ],
+      "regenerate": "python scripts/build_finals.py"
+    },
+    {
+      "path": "data/processed/canonical_hazard.json",
+      "bytes": 6156,
+      "sha256": "ddc9b0d90e60fd071313d5d3b2b21a19038c5dee205d8fa7118d51b100d3db8c",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/HANDOFF_ROUND3.md",
+        "docs/submission_reconciliation.md"
+      ],
+      "regenerate": "python scripts/build_canonical_hazard.py"
+    },
+    {
+      "path": "data/processed/cluster_sparsity.json",
+      "bytes": 5519,
+      "sha256": "f9d07ba7e5939ff6371b356b163ff4666fd6074c31fef8bfb2792021eeef9ad3",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 3,
+      "cited_by_docs": [
+        "docs/cluster_sparsity.md"
+      ],
+      "regenerate": "python scripts/build_numbers.py"
+    },
+    {
+      "path": "data/processed/crown_sensitivity.json",
+      "bytes": 2716,
+      "sha256": "f5714efb8b8b2cac37f97b713ff9051673d216f88fb26b3fadac7302e9487f84",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/methodology/crown_initiation_sensitivity.md"
+      ],
+      "regenerate": "python scripts/crown_sensitivity.py"
+    },
+    {
+      "path": "data/processed/dem_acquisition.json",
+      "bytes": 6925,
+      "sha256": "65eba1d18d5aac6f815e643baebf8358abf9e98ab40bff7f79a61d8481840928",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/dem_defect_2026-08-02.md"
+      ],
+      "regenerate": "python scripts/acquire_region_dem.py"
+    },
+    {
+      "path": "data/processed/demo_data.json",
+      "bytes": 548019,
+      "sha256": "83dcaf7f8e69b6601ed687d2bc86035a3c86d0120cb200573585a2df8ce21b06",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/forbidden_check_scope.md"
+      ],
+      "regenerate": "python scripts/build_demo_html.py"
+    },
+    {
+      "path": "data/processed/demo_script_pace/pace_20260905T0625Z.json",
+      "bytes": 1571,
+      "sha256": "29eb094b640ffe89696e2e60eb99871eba44dcb50538d38dd431c1926882e601",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 2,
+      "cited_by_docs": [
+        "docs/auto/BACKLOG.md",
+        "docs/auto/KCF_READINESS.md",
+        "docs/auto/reports/2026-09-05T0702Z-dev.md",
+        "docs/demo_script_pace.md"
+      ],
+      "regenerate": "python scripts/measure_demo_script_pace.py --stamp 20260905T0625Z"
+    },
+    {
+      "path": "data/processed/demo_script_pace/pace_20260905T0947Z.json",
+      "bytes": 3196,
+      "sha256": "5791ed84fbc11f7fb5910957db3d40524798a2638981b61b1b15becc2de64b50",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 2,
+      "cited_by_docs": [],
+      "regenerate": "python scripts/measure_demo_script_pace.py --stamp 20260905T0947Z"
+    },
+    {
+      "path": "data/processed/demo_script_pace/pace_before_039a0de.json",
+      "bytes": 3207,
+      "sha256": "10c0862522d5deccc49bf97388c0970e472a0d5192aef690c2c9af1ca17ac896",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 2,
+      "cited_by_docs": [
+        "docs/auto/SCORECARD.md",
+        "docs/auto/reports/2026-09-05T0702Z-dev.md",
+        "docs/demo_script_pace.md"
+      ],
+      "regenerate": "python scripts/measure_demo_script_pace.py --stamp <UTC> --from-ref 039a0de"
+    },
+    {
+      "path": "data/processed/detection/firms_first_detection.json",
+      "bytes": 609,
+      "sha256": "b215c74f4dae3e1ea2e5a671a3d8b8a07e80af1dcc9821d7769f131f4fa8cd1b",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/auto/BACKLOG.md",
+        "docs/auto/KCF_READINESS.md",
+        "docs/auto/reports/2026-09-03T2239Z-dev.md"
+      ],
+      "regenerate": "python scripts/gk2a_detection.py"
+    },
+    {
+      "path": "data/processed/detection/gk2a_detection_floor.json",
+      "bytes": 5880,
+      "sha256": "ba6733392d1e9f546e3d97c984af77d36403b6d72ab9ac4f2b4b35fa8f21e502",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 7,
+      "cited_by_docs": [
+        "docs/auto/BACKLOG.md",
+        "docs/auto/finals/DETECTION_FLOOR_CARD.md",
+        "docs/auto/reports/2026-09-04T0149Z-manual.md",
+        "docs/auto/reports/2026-09-04T0150Z-manual.md",
+        "docs/auto/research/BACKLOG_PROPOSAL_2026-09-03.md",
+        "docs/detection_floor.md",
+        "docs/finals_screen_v2.md"
+      ],
+      "regenerate": "python scripts/build_finals.py"
+    },
+    {
+      "path": "data/processed/detection/kfs_containment_duration.json",
+      "bytes": 7680,
+      "sha256": "e47f93c11bb31714d0a6eed7b91947cec9853770314b1774fb785432ff27071e",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 7,
+      "cited_by_docs": [
+        "docs/SESSION20_REPORT.md",
+        "docs/auto/BACKLOG.md",
+        "docs/finals_screen_v2.md",
+        "docs/horizon_grounding.md",
+        "paper/GAPS.md"
+      ],
+      "regenerate": "python scripts/build_finals.py"
+    },
+    {
+      "path": "data/processed/detection/yeongdeok_background_contamination.json",
+      "bytes": 2326,
+      "sha256": "0c58f5696ca1f04dd06d0e96a32ebbd52c74427401d31c4dc9c3f7b1431ab588",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 3,
+      "cited_by_docs": [
+        "docs/SESSION19_REPORT.md",
+        "docs/auto/JUDGE_QA.md",
+        "docs/auto/finals/DETECTION_FLOOR_CARD.md",
+        "docs/detection_floor.md"
+      ],
+      "regenerate": "python scripts/gk2a_yeongdeok_diagnostic.py"
+    },
+    {
+      "path": "data/processed/dilation_perturbation.json",
+      "bytes": 13095,
+      "sha256": "274e52dd9344028b6758616f8131f419da0c2a23b980cc291c5af5edff3fb034",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/dilation_perturbation.md"
+      ],
+      "regenerate": "python scripts/dilation_perturb.py"
+    },
+    {
+      "path": "data/processed/dispatch_ordering_comparison.json",
+      "bytes": 693575,
+      "sha256": "b2c395a5c95e990247afa271199eea928dee8a774c608915b30cfc6e8cefe65b",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 5,
+      "cited_by_docs": [
+        "docs/dispatch_ordering.md"
+      ],
+      "regenerate": "python scripts/build_numbers.py"
+    },
+    {
+      "path": "data/processed/evidence/greenpeace_2026_survey.json",
+      "bytes": 15700,
+      "sha256": "2d86a83492be4948140be2fb58ecbe0d1105af175b61078ecc5252820bed1c86",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/auto/JUDGE_QA.md",
+        "docs/auto/SCORECARD.md",
+        "docs/auto/reports/2026-09-03T1851Z-dev.md",
+        "docs/evidence/greenpeace_2026_survey.md"
+      ],
+      "regenerate": "python scripts/extract_survey_evidence.py"
+    },
+    {
+      "path": "data/processed/external/fire_2025_scale.json",
+      "bytes": 9448,
+      "sha256": "7b861f65a0f37873e00ce54a5af36d20517524c902ef97ee88048d4359156012",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 16,
+      "cited_by_docs": [
+        "docs/auto/BACKLOG.md",
+        "docs/auto/JUDGE_QA.md",
+        "docs/auto/KCF_READINESS.md",
+        "docs/auto/SCORECARD.md",
+        "docs/auto/reports/2026-09-04T0134Z-dev.md",
+        "docs/data_sources.md"
+      ],
+      "regenerate": "python scripts/check_readme_figures.py"
+    },
+    {
+      "path": "data/processed/external/juso_yeongdeok/manifest.json",
+      "bytes": 4191,
+      "sha256": "eca384407d186a7cc7db757698b7c685a6f32bb5861d4ca257c5763be7b7d51a",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 8,
+      "cited_by_docs": [],
+      "regenerate": "python scripts/register_juso_yeongdeok.py"
+    },
+    {
+      "path": "data/processed/external/juso_yeongdeok/minwon_agencies.geojson",
+      "bytes": 19040,
+      "sha256": "8037a54415c0f9f1c99f0815e0dad5e2050515f080b296bcd3136c6887449f41",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/auto/BACKLOG.md"
+      ],
+      "regenerate": "python scripts/extract_juso_yeongdeok.py"
+    },
+    {
+      "path": "data/processed/forecast_robustness.json",
+      "bytes": 9942,
+      "sha256": "f3d196d06b348726375f6450ae53c3d08b5dab24aa67258431e2418cf38f9a4c",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/dilation_perturbation.md",
+        "docs/forecast_robustness.md"
+      ],
+      "regenerate": "python scripts/run_routing_monte_carlo.py"
+    },
+    {
+      "path": "data/processed/forward_sim_regions.json",
+      "bytes": 9340,
+      "sha256": "b666a07917ad78fc158b55e8569f8557eb10fca7af167140178d1037d591bd50",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/forward_sim_regions.md"
+      ],
+      "regenerate": "python scripts/acquire_region_dem.py"
+    },
+    {
+      "path": "data/processed/lofo_oof_logistic.csv.gz",
+      "bytes": 1756439,
+      "sha256": "1b95ccf2224d1357ff6fc9422d3e76bffa0c38acf746fb2a0b0445e64c89d5d4",
+      "kind": "binary",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/REPORT_ROUND2_P2.md"
+      ],
+      "regenerate": "python scripts/calibration_metrics.py"
+    },
+    {
+      "path": "data/processed/lofo_oof_random_forest.csv.gz",
+      "bytes": 1410014,
+      "sha256": "840192512d9cecabd0b8e998d37d7f035ebaa4d5224ddd1aa236d87bdfa0d16d",
+      "kind": "binary",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/REPORT_ROUND2_P2.md"
+      ],
+      "regenerate": "python scripts/calibration_metrics.py"
+    },
+    {
+      "path": "data/processed/margin_advisories.json",
+      "bytes": 161294,
+      "sha256": "ae2eb0a4c3e3daeea422e25df2c1180c732e20e77ec62b20369c5e979130d697",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/SESSION8_LOG.md"
+      ],
+      "regenerate": "python scripts/run_margin_sweep.py"
+    },
+    {
+      "path": "data/processed/margin_sweep.json",
+      "bytes": 5186,
+      "sha256": "e5df878440569a49a2af960c43f8ec62331311da288ce1791e3fbb839373201f",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 3,
+      "cited_by_docs": [
+        "docs/OVERNIGHT_REPORT_SESSION8.md",
+        "docs/SESSION8_FOLLOWUP.md",
+        "docs/SESSION8_LOG.md",
+        "docs/rescue_routing.md"
+      ],
+      "regenerate": "python scripts/build_numbers.py"
+    },
+    {
+      "path": "data/processed/ml_baselines.json",
+      "bytes": 1655,
+      "sha256": "dfca0a79516d7eb8799eaeada239773155bf1b1e97cf5b3059d9411bb870794b",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 6,
+      "cited_by_docs": [
+        "README.md",
+        "docs/MODEL_CARD.md",
+        "docs/auto/JUDGE_QA.md",
+        "docs/baselines.md"
+      ],
+      "regenerate": "python scripts/build_finals.py"
+    },
+    {
+      "path": "data/processed/multi_region_comparison.json",
+      "bytes": 23574,
+      "sha256": "3dbbb8e7aba4fde0690c3af4ad389ab48518832a9878b7df366797282014774c",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 48,
+      "cited_by_docs": [
+        "docs/console_regions.md",
+        "docs/finals_demo_plan.md",
+        "docs/multi_region.md"
+      ],
+      "regenerate": "python scripts/build_finals.py"
+    },
+    {
+      "path": "data/processed/network_drift_experiment.json",
+      "bytes": 7480,
+      "sha256": "4fb11bb3faacb85c6dfc02dc861b2367a6b7f9756447b10865a6e035a37799ad",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 3,
+      "cited_by_docs": [
+        "docs/network_drift.md"
+      ],
+      "regenerate": "python scripts/build_numbers.py"
+    },
+    {
+      "path": "data/processed/objective_budget_canonical.json",
+      "bytes": 14999,
+      "sha256": "2bb9f86884e4fae6129931ce3c75de3a5d23bdc90b542f58d4357ac1c2fde73c",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 9,
+      "cited_by_docs": [
+        "docs/auto/research/BACKLOG_PROPOSAL_2026-09-03.md",
+        "docs/budget_sweep.md",
+        "docs/slope_integration.md"
+      ],
+      "regenerate": "python scripts/build_numbers.py"
+    },
+    {
+      "path": "data/processed/oof_classification_metrics.json",
+      "bytes": 12710,
+      "sha256": "7c3a72f037fb6a63c8e39ce6b655ae71f4730704798c945704bf8134902eaf01",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 6,
+      "cited_by_docs": [
+        "docs/MODEL_CARD.md",
+        "docs/SESSION18_REPORT.md",
+        "docs/auto/BACKLOG.md",
+        "docs/auto/JUDGE_QA.md",
+        "docs/auto/research/BACKLOG_PROPOSAL_2026-09-03.md",
+        "docs/auto/research/RESEARCH_BRIEF_2026-09-03.md",
+        "docs/auto/research/sweeps_2026-09-03/R7_rubric_gap.md",
+        "docs/finals_screen_v2.md",
+        "docs/operating_point.md"
+      ],
+      "regenerate": "UNKNOWN"
+    },
+    {
+      "path": "data/processed/operating_point/per_fire_recall.json",
+      "bytes": 7848,
+      "sha256": "5641beae1f66835a1bf0dbb4346c1226befe322a5f65a97609a81611b88fcb21",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 17,
+      "cited_by_docs": [
+        "docs/MODEL_CARD.md",
+        "docs/auto/BACKLOG.md",
+        "docs/auto/DEMO_SCRIPT_5MIN.md",
+        "docs/auto/JUDGE_QA.md",
+        "docs/auto/SCORECARD.md",
+        "docs/auto/reports/2026-09-03T1300Z-dev.md",
+        "docs/auto/reports/2026-09-03T1622Z-dev.md",
+        "docs/auto/reports/2026-09-04T2013Z-critic.md",
+        "docs/auto/research/BACKLOG_PROPOSAL_2026-09-03.md",
+        "docs/auto/research/RESEARCH_BRIEF_2026-09-03.md",
+        "docs/finals_screen_v2.md",
+        "docs/operating_point.md"
+      ],
+      "regenerate": "python scripts/build_finals.py"
+    },
+    {
+      "path": "data/processed/ordering_boundary.json",
+      "bytes": 4697146,
+      "sha256": "16ba2387598a2e4ddbc066513f3c78eb45a3815ddb4335e8f030cbbd4614088a",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 6,
+      "cited_by_docs": [
+        "docs/ordering_boundary.md"
+      ],
+      "regenerate": "python scripts/build_numbers.py"
+    },
+    {
+      "path": "data/processed/osm_buildings_acquisition.json",
+      "bytes": 5243,
+      "sha256": "ed4c0dc02ceb0f8cd9e0b58c89838a8c40b1caf19c5add769d4cd2dc862c4809",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/building_origins.md",
+        "docs/building_sampling.md"
+      ],
+      "regenerate": "python scripts/acquire_region_buildings.py"
+    },
+    {
+      "path": "data/processed/osm_completeness.json",
+      "bytes": 4171,
+      "sha256": "3287bbf0dc1446a125f3bf5ba1bf023b7a135aa5cf9bd6e9c2d41c08d2d73076",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/multi_region.md"
+      ],
+      "regenerate": "python scripts/build_multi_region_comparison.py"
+    },
+    {
+      "path": "data/processed/real_roads_real_hazard.json",
+      "bytes": 8464,
+      "sha256": "96f48fc97b467637033d6ba8f3569a29e13cb8efe3a8e7f39a92f7d2d5282d6d",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 5,
+      "cited_by_docs": [
+        "data/snapshots/README.md",
+        "docs/DATA_LOSS_2026-07-24.md",
+        "docs/auto/research/sweeps_2026-09-03/R8_cloud_readiness.md",
+        "docs/real_roads_real_hazard.md"
+      ],
+      "regenerate": "python scripts/build_multi_region_comparison.py"
+    },
+    {
+      "path": "data/processed/real_roads_real_hazard_canonical.json",
+      "bytes": 8447,
+      "sha256": "629f4d20510e22047406b391899a83e16792a7b3f395593af4f3f0274e7f4087",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 5,
+      "cited_by_docs": [
+        "docs/auto/BACKLOG.md",
+        "docs/auto/reports/2026-09-05T0317Z-manual.md",
+        "docs/auto/reports/2026-09-05T0517Z-critic.md",
+        "docs/multi_region.md",
+        "docs/walk_bbox_coverage.md"
+      ],
+      "regenerate": "python scripts/build_multi_region_comparison.py"
+    },
+    {
+      "path": "data/processed/real_roads_real_hazard_slope_60.json",
+      "bytes": 17105,
+      "sha256": "b04c2874e3eb26489a617ad1efbf21610f16f2f2047bd0815c3781b9ea30dc83",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 4,
+      "cited_by_docs": [],
+      "regenerate": "python scripts/build_multi_region_comparison.py"
+    },
+    {
+      "path": "data/processed/real_roads_real_hazard_uiseong_andong_2025.json",
+      "bytes": 27915,
+      "sha256": "f2660c14f8bf9a5f507080e022e82c8e3c8d2d8a5a0206f0dc6b2aac927e5bf0",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 7,
+      "cited_by_docs": [],
+      "regenerate": "python scripts/build_multi_region_comparison.py"
+    },
+    {
+      "path": "data/processed/real_roads_real_hazard_uljin_samcheok_2022.json",
+      "bytes": 21835,
+      "sha256": "894a7e70ae4e267eb80ebc34cf24c8f5b4e1856061a34881e418356593ab53db",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 8,
+      "cited_by_docs": [],
+      "regenerate": "python scripts/build_multi_region_comparison.py"
+    },
+    {
+      "path": "data/processed/rescue_baseline_synthetic/README.md",
+      "bytes": 744,
+      "sha256": "a2802b9e961ace52de11aa56ae7ec68e3bd97f2a163f4c1138f7803647f3b63c",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/forbidden_check_scope.md"
+      ],
+      "regenerate": "python scripts/check_readme_figures.py"
+    },
+    {
+      "path": "data/processed/rescue_baseline_synthetic/rescue_capacity.json",
+      "bytes": 13786,
+      "sha256": "314ca3c472694064ab4d13e224834c3e11563caea8d5afe5360f0a052be14ae6",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/forbidden_check_scope.md"
+      ],
+      "regenerate": "UNKNOWN"
+    },
+    {
+      "path": "data/processed/rescue_baseline_synthetic/rescue_verify.json",
+      "bytes": 11381,
+      "sha256": "c7387686bc1b0c62d9abfdb6f5054949c886e490be4896d128fec6420f320a8a",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "README.md",
+        "docs/auto/BACKLOG.md",
+        "docs/auto/JUDGE_QA.md",
+        "docs/auto/reports/2026-09-03T1724Z-dev.md",
+        "docs/auto/reports/2026-09-03T2002Z-critic.md",
+        "docs/auto/research/sweeps_2026-09-03/R7_rubric_gap.md",
+        "docs/forbidden_check_scope.md",
+        "docs/ssot_audit_2026-09-03.md",
+        "docs/submission_reconciliation.md"
+      ],
+      "regenerate": "python scripts/verify_rescue_routing.py"
+    },
+    {
+      "path": "data/processed/rescue_capacity.json",
+      "bytes": 14240,
+      "sha256": "6010bb3440bb44e7c2007409349a7062cec17b8982ff21a794a353700c34db2f",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/MODEL_CARD.md",
+        "docs/dispatch_ordering.md",
+        "docs/rescue_routing.md"
+      ],
+      "regenerate": "python scripts/export_demo_data.py"
+    },
+    {
+      "path": "data/processed/rescue_routing.json",
+      "bytes": 40900,
+      "sha256": "92248e5a78f930cf68bdd6c48155da8f49a1a8f3c6cebc8c8dea2c5eb98ecc3b",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 10,
+      "cited_by_docs": [
+        "docs/HANDOFF_ROUND3.md",
+        "docs/REPORT_ROUND2_P1.md",
+        "docs/SESSION8_LOG.md",
+        "docs/auto/reports/2026-09-04T1416Z-critic.md",
+        "docs/auto/reports/2026-09-04T1534Z-manual.md",
+        "docs/auto/reports/2026-09-04T1547Z-manual.md",
+        "docs/network_drift.md",
+        "docs/ssot_audit_2026-09-03.md",
+        "outputs/dispatch/README.md"
+      ],
+      "regenerate": "python scripts/build_numbers.py"
+    },
+    {
+      "path": "data/processed/rescue_routing_full.json",
+      "bytes": 245122,
+      "sha256": "5e112b4ba956ae03779fbdb667e500bcd5b944e5589919a843318e8a7968486d",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 4,
+      "cited_by_docs": [
+        "docs/SESSION8_LOG.md",
+        "outputs/dispatch_full/README.md"
+      ],
+      "regenerate": "python scripts/build_numbers.py"
+    },
+    {
+      "path": "data/processed/rescue_routing_village_edge.json",
+      "bytes": 3468,
+      "sha256": "06e14f3db477c35fdfea432dc1d38cc2abfe8b95eb0fe6bc035c30294eb4e2b7",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 4,
+      "cited_by_docs": [
+        "docs/BLOCKERS.md",
+        "docs/OVERNIGHT_REPORT_SESSION8.md",
+        "docs/SESSION8_LOG.md"
+      ],
+      "regenerate": "python scripts/build_numbers.py"
+    },
+    {
+      "path": "data/processed/rescue_verify.json",
+      "bytes": 7601,
+      "sha256": "8fb4f4e9a530f157cb4b015db1821acfa35a528f80257259763fa70ba1c9f909",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 1,
+      "cited_by_docs": [
+        "README.md",
+        "docs/auto/JUDGE_QA.md",
+        "docs/auto/research/RESEARCH_BRIEF_2026-09-03.md",
+        "docs/rescue_routing.md",
+        "docs/ssot_audit_2026-09-03.md"
+      ],
+      "regenerate": "python scripts/verify_rescue_routing.py"
+    },
+    {
+      "path": "data/processed/rescue_verify_fc.json",
+      "bytes": 9956,
+      "sha256": "9e601ea91e1b39f70872b93fa06174c3cfd5939bb9ecc3f60947c18fbe3a2c9b",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 1,
+      "cited_by_docs": [
+        "docs/results_rescue_draft.md"
+      ],
+      "regenerate": "python scripts/build_numbers.py"
+    },
+    {
+      "path": "data/processed/routing_demo.npz",
+      "bytes": 72606,
+      "sha256": "5bed502661afa8e33335c342ddc468c2df6858267ea4f769a659f970e918da58",
+      "kind": "binary",
+      "git_tracked": true,
+      "n_registry_entries": 1,
+      "cited_by_docs": [
+        "docs/HANDOFF_ROUND3.md",
+        "docs/dilation_perturbation.md",
+        "docs/forecast_robustness.md",
+        "docs/grid_extent.md",
+        "docs/real_roads_real_hazard.md"
+      ],
+      "regenerate": "python scripts/build_canonical_hazard.py"
+    },
+    {
+      "path": "data/processed/routing_demo_canonical.npz",
+      "bytes": 66641,
+      "sha256": "81b4e4d159daa7a8ccc7c4fedf3fea948d501fff2d7e886c1fd55bbf47043fb7",
+      "kind": "binary",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/live_pipeline.md",
+        "docs/manual_trigger.md"
+      ],
+      "regenerate": "python scripts/build_canonical_hazard.py"
+    },
+    {
+      "path": "data/processed/routing_demo_divergence.json",
+      "bytes": 11947,
+      "sha256": "49df53460b364a180149fc538272866eb9c68e364107ee82b8456406eb77599c",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/HANDOFF_ROUND3.md",
+        "docs/budget_sweep.md",
+        "docs/multi_region.md",
+        "docs/slope_integration.md",
+        "docs/walk_bbox_coverage.md"
+      ],
+      "regenerate": "python scripts/build_canonical_hazard.py"
+    },
+    {
+      "path": "data/processed/routing_objective_experiment.json",
+      "bytes": 4929,
+      "sha256": "b417ceec0096c373cadab4e0f2e2ac42572aca608d719afdf69b88985c012e26",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 3,
+      "cited_by_docs": [
+        "docs/slope_integration.md"
+      ],
+      "regenerate": "python scripts/build_numbers.py"
+    },
+    {
+      "path": "data/processed/slope_sweep_canonical.json",
+      "bytes": 26003,
+      "sha256": "4d0940e1b7d635b8935c7c8163ad9250e02b08052ce0011adc2671cb7e09ed4b",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 12,
+      "cited_by_docs": [
+        "docs/slope_integration.md"
+      ],
+      "regenerate": "python scripts/build_numbers.py"
+    },
+    {
+      "path": "data/processed/spread_v2/LEGACY_DO_NOT_CITE.md",
+      "bytes": 2873,
+      "sha256": "3c37ff0a96a04c4e893858bd7993d60da0e8f1fdc5bfb10c4ed2c5ed7f93507b",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/forbidden_check_scope.md"
+      ],
+      "regenerate": "UNKNOWN"
+    },
+    {
+      "path": "data/processed/spread_v2/audit.json",
+      "bytes": 9696,
+      "sha256": "036b68dab78e32eb60f60b1e8ac77265114dce580252d3f9ed77246e14cd9142",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/REPRODUCE.md",
+        "docs/SPREAD_MODEL_REPORT_BUILD_A_LEGACY.md"
+      ],
+      "regenerate": "UNKNOWN"
+    },
+    {
+      "path": "data/processed/spread_v2/class_balance.json",
+      "bytes": 2414,
+      "sha256": "d7f5e3f3f1c6e9b4436950036bb1cf1db0a3ff3e5a54eff25cac4eef9fe87313",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/MODEL_CARD.md"
+      ],
+      "regenerate": "UNKNOWN"
+    },
+    {
+      "path": "data/processed/spread_v2/lofo_metrics.json",
+      "bytes": 3737,
+      "sha256": "f295c46d85a696d91a413a8466b179d350c0fd70b3995559c9fc6b3e5e84f433",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "data/processed/spread_v2/LEGACY_DO_NOT_CITE.md"
+      ],
+      "regenerate": "python scripts/build_numbers.py"
+    },
+    {
+      "path": "data/processed/spread_v2_lofo.json",
+      "bytes": 1680,
+      "sha256": "bb2eb74bc2c9419e66882c2db598d37fa735f16d19ca7db67e03dcd9e9a3ba6a",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 5,
+      "cited_by_docs": [
+        "README.md",
+        "data/processed/spread_v2/LEGACY_DO_NOT_CITE.md",
+        "data/processed/spread_v2/README.md",
+        "data/raw/README.md",
+        "docs/REPORT_ROUND2_P2.md",
+        "docs/REPRODUCE.md",
+        "docs/ROUTING_INTEGRATION_REPORT.md",
+        "docs/SESSION10_REPORT.md",
+        "docs/SESSION8_FOLLOWUP.md",
+        "docs/auc_reconciliation.md",
+        "docs/data_provenance/claude_firms_bundle_5fires_2026-07-20.md",
+        "docs/dem_defect_2026-08-02.md",
+        "docs/fold_sizes.md",
+        "docs/results_rescue_draft.md",
+        "docs/ssot_audit_2026-09-03.md",
+        "docs/weather_dependency.md"
+      ],
+      "regenerate": "python scripts/arm_d_lofo.py"
+    },
+    {
+      "path": "data/processed/spread_v2_lofo_dem_corrected.json",
+      "bytes": 7187,
+      "sha256": "22088693df716ab227255ad64dc208876f0cc9a00342cddebea04a15b258f6ba",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 2,
+      "cited_by_docs": [
+        "README.md",
+        "docs/MODEL_CARD.md",
+        "docs/REPRODUCE.md",
+        "docs/SESSION8_FOLLOWUP.md",
+        "docs/weather_dependency.md"
+      ],
+      "regenerate": "UNKNOWN"
+    },
+    {
+      "path": "data/processed/spread_v2_lofo_oof.csv.gz",
+      "bytes": 1771772,
+      "sha256": "75fd7c9229e9415b7e5f9bbdc5c7fcfec96872ca4e5e4b53cd88b7d0aaec604b",
+      "kind": "binary",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/REPORT_ROUND2_P2.md",
+        "docs/REPRODUCE.md"
+      ],
+      "regenerate": "python scripts/oof_metrics.py"
+    },
+    {
+      "path": "data/processed/spread_v2_lofo_oof_cells.csv.gz",
+      "bytes": 1976864,
+      "sha256": "dd8134d4eb6153c3cfa662dc627a08ffa874d295234431b7de0eb7b6d1ab1697",
+      "kind": "binary",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/MODEL_CARD.md",
+        "docs/SESSION18_REPORT.md",
+        "docs/auto/BACKLOG.md",
+        "docs/auto/knowledge/PYROGEOGRAPHY.md",
+        "docs/auto/research/BACKLOG_PROPOSAL_2026-09-03.md",
+        "docs/auto/research/RESEARCH_BRIEF_2026-09-03.md",
+        "docs/operating_point.md"
+      ],
+      "regenerate": "python scripts/operating_point_evidence.py"
+    },
+    {
+      "path": "data/processed/vulnerability/clearance_diagnostic.json",
+      "bytes": 3312,
+      "sha256": "370493a2b3f00699e02c3c7b9aa256d41a6cadd3d92414a400531fbf879c33f3",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 3,
+      "cited_by_docs": [],
+      "regenerate": "python scripts/clearance_diagnostic.py"
+    },
+    {
+      "path": "data/processed/vulnerability/hazard_sensitivity.json",
+      "bytes": 1561,
+      "sha256": "4e0a6b5e21ea93ec403caa30daa97d3f5b6aeb786f88c62fbba82a4626ed5fd7",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 2,
+      "cited_by_docs": [
+        "docs/SESSION18_LOG.md"
+      ],
+      "regenerate": "python scripts/vulnerability_sensitivity.py --hazard"
+    },
+    {
+      "path": "data/processed/vulnerability/horizon_sweep_yeongdeok.json",
+      "bytes": 2454,
+      "sha256": "36a5d312125ca6e58a821e7d81d30d34c70375c1b032358ae601ad4ad9d37b14",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 2,
+      "cited_by_docs": [
+        "docs/SESSION18_LOG.md"
+      ],
+      "regenerate": "python scripts/vulnerability_sensitivity.py --horizon"
+    },
+    {
+      "path": "data/processed/vulnerability/ignition_count_sweep.json",
+      "bytes": 801,
+      "sha256": "36233673f86a9fffd2bbc398b7d548e45be5d98ebc0668fe3172b98c4a285f82",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 1,
+      "cited_by_docs": [
+        "docs/SESSION18_LOG.md"
+      ],
+      "regenerate": "python scripts/vulnerability_drivers.py --ignitions"
+    },
+    {
+      "path": "data/processed/vulnerability/ignition_sweep.json",
+      "bytes": 14843,
+      "sha256": "d4f925d0e69ed86f4e94df9ab4356d55b0409395f2bf9bd93544d322b55a2173",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/SESSION14_REPORT.md",
+        "docs/SESSION18_LOG.md"
+      ],
+      "regenerate": "python scripts/vulnerability_layer.py"
+    },
+    {
+      "path": "data/processed/vulnerability/matched_comparison.json",
+      "bytes": 1130,
+      "sha256": "25384c985e78a2ca00b292e3c1b4aaa16a708efd4fc1bb1dc93b38105a5b3387",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 1,
+      "cited_by_docs": [
+        "docs/SESSION18_LOG.md"
+      ],
+      "regenerate": "UNKNOWN"
+    },
+    {
+      "path": "data/processed/vulnerability/network_matched.json",
+      "bytes": 1466,
+      "sha256": "80784754d9959d690626703abc1f90638353e3bf742db30a72aafca647c3fe58",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 1,
+      "cited_by_docs": [
+        "docs/SESSION18_LOG.md"
+      ],
+      "regenerate": "python scripts/vulnerability_drivers.py --network"
+    },
+    {
+      "path": "data/processed/vulnerability/network_structure.json",
+      "bytes": 1251,
+      "sha256": "6934a5774ccbe9af38c1354fb97edca1889f95e3fe9e65d2c4c039e77e3566a1",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 1,
+      "cited_by_docs": [
+        "docs/SESSION18_LOG.md"
+      ],
+      "regenerate": "python scripts/vulnerability_sensitivity.py --network"
+    },
+    {
+      "path": "data/processed/vulnerability/portability_paradise_ca_2018.json",
+      "bytes": 2133,
+      "sha256": "5c4e75d594eba90202dcadb0cc7fe71749f70b3775f0ef242216fc5f494c5b0a",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 1,
+      "cited_by_docs": [
+        "docs/SESSION18_LOG.md"
+      ],
+      "regenerate": "python scripts/vulnerability_portability_run.py --site paradise_ca_2018 --write"
+    },
+    {
+      "path": "data/processed/vulnerability/refuge_audit_yeongdeok.json",
+      "bytes": 995,
+      "sha256": "481990534ac762074fb8432653e540bec51bffe23156d7f3afc5eaf88fec7a72",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 2,
+      "cited_by_docs": [
+        "docs/SESSION18_LOG.md"
+      ],
+      "regenerate": "see docs/SESSION14_FOLLOWUP.md"
+    },
+    {
+      "path": "data/processed/vulnerability/refuge_distance.json",
+      "bytes": 1883,
+      "sha256": "70c422b023767111ccb2aa5998265edb8d305c3d019b507baa242b6813295a4f",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 4,
+      "cited_by_docs": [
+        "docs/SESSION18_LOG.md"
+      ],
+      "regenerate": "python scripts/vulnerability_drivers.py --distance"
+    },
+    {
+      "path": "data/processed/vulnerability/refuge_placement.json",
+      "bytes": 17353,
+      "sha256": "11cb8a7f640b1958e12421125f70af76c9e9393ec689b5f7c865a9ad08225058",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 6,
+      "cited_by_docs": [
+        "docs/SESSION22_LOG.md",
+        "docs/SESSION22_REPORT.md",
+        "docs/finals_screen_v2.md"
+      ],
+      "regenerate": "python scripts/build_finals.py"
+    },
+    {
+      "path": "data/processed/vulnerability/tautology_decomposition.json",
+      "bytes": 5780,
+      "sha256": "fa27a6e6d123a0230e87f52c4af3a0f3377126eee95bb43eb0bae5938f9a001e",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 4,
+      "cited_by_docs": [
+        "docs/SESSION16_REPORT.md",
+        "docs/SESSION17_REPORT.md",
+        "docs/SESSION18_LOG.md",
+        "docs/rescue_routing.md"
+      ],
+      "regenerate": "python scripts/vulnerability_tautology.py --null-hazard --collect"
+    },
+    {
+      "path": "data/processed/vulnerability/vulnerability_yeongdeok_2025.json",
+      "bytes": 2044,
+      "sha256": "94422cfce45d5d2ae72247721233447a266d5b778b6911cac4ed75fad340022f",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 2,
+      "cited_by_docs": [
+        "docs/SESSION18_LOG.md"
+      ],
+      "regenerate": "python scripts/vulnerability_layer.py --region yeongdeok_2025"
+    },
+    {
+      "path": "data/processed/vulnerability/warm_start.json",
+      "bytes": 467,
+      "sha256": "f0eb2ce8698fe0e97e663c12dd98dd979631f1c1057483beed83323ac04571b3",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 1,
+      "cited_by_docs": [
+        "docs/SESSION18_LOG.md"
+      ],
+      "regenerate": "python scripts/vulnerability_layer.py --warm-start"
+    },
+    {
+      "path": "data/processed/weather_dependency.json",
+      "bytes": 6227,
+      "sha256": "7dfb7e445bcab49c5611b1e1c42cd6bbf4dbd17a7e96d8a3ea3c1c8eb6d7546d",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 4,
+      "cited_by_docs": [
+        "docs/weather_dependency.md"
+      ],
+      "regenerate": "python scripts/build_numbers.py"
+    },
+    {
+      "path": "data/processed/yeongdeok_2025_ablation.json",
+      "bytes": 41342,
+      "sha256": "5224314567d46184ec880a239d442667e4fa0e37a84a6eb88da59a41863c77f5",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/OVERNIGHT_REPORT_SESSION6.md"
+      ],
+      "regenerate": "python scripts/run_ablation.py"
+    },
+    {
+      "path": "data/processed/yeongdeok_2025_validation_results.json",
+      "bytes": 20225,
+      "sha256": "594270e410c7f06d3f109978126fba3d18c6ebe6dbed795845bdb013f9572ed0",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/BLOCKERS.md",
+        "docs/OVERNIGHT_REPORT_SESSION3.md",
+        "docs/OVERNIGHT_REPORT_SESSION4.md",
+        "docs/OVERNIGHT_REPORT_SESSION5.md"
+      ],
+      "regenerate": "python scripts/run_yeongdeok_validation.py"
+    },
+    {
+      "path": "data/processed/yeongdeok_bbox_reacquisition_estimate.json",
+      "bytes": 3362,
+      "sha256": "f542b3ccbac3b12a299d8f267b5547f17a8f0367b27aef3eedfebe26ff082c38",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 3,
+      "cited_by_docs": [
+        "docs/HANDOFF_ROUND3.md",
+        "docs/walk_bbox_coverage.md"
+      ],
+      "regenerate": "python scripts/build_numbers.py"
+    },
+    {
+      "path": "data/processed/yeongdeok_dem_sensitivity.json",
+      "bytes": 10712,
+      "sha256": "ff145aad99b1505262a1d2bcc6f48e049ca682eb34781e1332e30aa2e0f56ccf",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/decision_shift.md"
+      ],
+      "regenerate": "python scripts/measure_yeongdeok_dem_sensitivity.py"
+    },
+    {
+      "path": "data/processed/yeongdeok_forward_sim.json",
+      "bytes": 1472,
+      "sha256": "37c7df62c585a2b8736fa6b6bc0b0626839dcbd3c61cc55444a41c2933f16a08",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/REPRODUCE.md",
+        "docs/multi_region.md"
+      ],
+      "regenerate": "python scripts/build_finals.py"
+    },
+    {
+      "path": "docs/column_addition_envelope.json",
+      "bytes": 4659,
+      "sha256": "8b8ad35bcf97737056449ce1aff83c15462022c64a6db9fa6e5ce21247b12bcb",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 7,
+      "cited_by_docs": [],
+      "regenerate": "python scripts/noise_envelope.py --run --seeds 60 && --aggregate"
+    },
+    {
+      "path": "docs/direction_drivers.json",
+      "bytes": 157698,
+      "sha256": "980c53f553c949da5e19df88e4234a007c2ec51df21deb0d7e2c5b3647224c08",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 10,
+      "cited_by_docs": [],
+      "regenerate": "python scripts/direction_drivers.py --write"
+    },
+    {
+      "path": "docs/fold_sizes.json",
+      "bytes": 2577,
+      "sha256": "3910208c0475f011408c12f4483361f6cb2c36ee452e24fb76f8f4ec6e913b36",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 2,
+      "cited_by_docs": [],
+      "regenerate": "python scripts/fold_sizes.py --write"
+    },
+    {
+      "path": "docs/label_geometry.json",
+      "bytes": 34349,
+      "sha256": "c1287823dfa542d60de2c365b1e673711a040de9564d843efd91156618afb2c5",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 6,
+      "cited_by_docs": [],
+      "regenerate": "python scripts/label_geometry.py --write"
+    },
+    {
+      "path": "docs/osm_coverage_gate.json",
+      "bytes": 4031,
+      "sha256": "6783ed11f62821244a9f52822fc703be76a922c5deb4ff9ea5b932545c0844d9",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 1,
+      "cited_by_docs": [],
+      "regenerate": "python scripts/osm_coverage_gate.py --write"
+    },
+    {
+      "path": "docs/platform_drift.json",
+      "bytes": 3115,
+      "sha256": "ab2e7537be3b749ec9652cb9e38f4ed8974eeaf1148d9197b21f9338fb3ef729",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 3,
+      "cited_by_docs": [],
+      "regenerate": "python scripts/arm_d_lofo.py --features A && python scripts/arm_d_lofo.py --features A --aggregate && python scripts/platform_drift.py --write"
+    },
+    {
+      "path": "docs/redundancy_decomposition.json",
+      "bytes": 4060,
+      "sha256": "86f0ebe5925c56128ba4efac6b5a14cbfce4135a6e7f5132ab9050f2a548cfc0",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 4,
+      "cited_by_docs": [],
+      "regenerate": "python scripts/redundancy_decomposition.py --run --draws 30 && --aggregate"
+    },
+    {
+      "path": "docs/slope_resolution.json",
+      "bytes": 19449,
+      "sha256": "1465520c0d77f4ae749d6c89f1c7dabf6eca1d19337ea46111f700f168c3c6eb",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 3,
+      "cited_by_docs": [],
+      "regenerate": "python scripts/slope_resolution.py --write"
+    }
+  ]
+}

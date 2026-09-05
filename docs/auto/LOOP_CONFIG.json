@@ -1,0 +1,28 @@
+{
+  "_readme": "Author-editable switches the routines read at the start of every lap. Change a value, commit to auto/dev, and the next lap obeys. Model and cadence are NOT here: they live on the routine itself (https://claude.ai/code/routines) because the repository cannot change what runs it; see docs/auto/CHARTER.md section 10.",
+  "review": "subagent",
+  "_review_options": {
+    "self": "the building agent runs hate + sip on its own work, then the gates. Cheapest; weakest independence.",
+    "subagent": "after building and before pushing, the lap spawns a fresh reviewer agent that has NOT seen the work being made; it reads only the diff and the claims, runs hate + factchk + mandela, and can block the push. Default.",
+    "critic-only": "no per-lap review beyond gates; the daily critic routine is the only independent reviewer."
+  },
+  "email_images": true,
+  "plain_terms_required": true,
+  "sprint": {
+    "start": "2026-09-04T00:00Z",
+    "end": "2026-09-15T23:59Z",
+    "_readme": "The author asked for all primary work to land inside this window, with laps as close together as the platform allows. After `end`, a lap writes a one-paragraph 'sprint over' report and exits without building; the one-time handover routine writes the post-sprint list. The author pauses the routines on claude.ai/code/routines afterwards."
+  },
+  "dev_cadence_note": "APPLIED 2026-09-04 (NH-016, author chose A in a Claude Code session): dev 17 */3, critic 57 1-22/3, paper 47 2-23/6 (all UTC), set on the routine pages by the same session. Research on Sep 4 and Sep 10.",
+  "paper": {
+    "enabled": true,
+    "author": "Siyeong Park (박시영)",
+    "body_words_target": 8500,
+    "body_words_max": 9000,
+    "docx": "paper/WildfireGuardian_Park_2026.docx",
+    "cadence_note": "every 6 h, exits early when no code moved since paper/STATE.json",
+    "page_limit_note": "author 2026-09-05 (NH-028): do not exceed 25 built pages; the word budget is the proxy"
+  },
+  "research_cadence_note": "APPLIED 2026-09-04 (author chose option A in a Claude Code session): research every second day at 18:17 UTC on 2026-09-06, 08, 10, 12, 14 (cron `17 18 6,8,10,12,14 9 *`), taking that slot from dev, which exits with 'slot ceded to research'. It rewrites docs/auto/DIRECTION.md; the critic checks the page after every dev lap. After the sprint the author resets research to weekly on the routine page.",
+  "ci_red_note": "2026-09-04: wfg-autoloop-ci-red polls GitHub Actions hourly at :05 and fixes a red auto-gates run on auto/dev within CHARTER §3 (author: 'catch them immediately'). Dev checks the API at step 2; critic treats a red run as finding #1."
+}

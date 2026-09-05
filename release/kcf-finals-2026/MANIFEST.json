@@ -1,0 +1,108 @@
+{
+  "_readme": "SHA-256 of every file release/kcf-finals-2026/ should contain, written by scripts/build_finals_bundle.py. Re-run `make finals-bundle` to rebuild the payload and check it against this file; see docs/finals_bundle.md.",
+  "bundle": "kcf-finals-2026",
+  "files": [
+    {
+      "path": "CITATION.cff",
+      "sha256": "b3da2735571e963de075dc2a56b8aa68ee92b795d0d421e1d8ec0fadc64ae19d",
+      "bytes": 1011,
+      "source": "CITATION.cff"
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "baf3f3d13693f55bef79f73be43b02988051313eef2607ba42880420439df64f",
+      "bytes": 1094,
+      "source": "LICENSE"
+    },
+    {
+      "path": "README_KO.md",
+      "sha256": "e30d285f24c1ac22d92bde192b452dbb6b72ca8130503c7dc3ea9e2c091b21f2",
+      "bytes": 4216,
+      "source": "release/kcf-finals-2026/README_KO.md"
+    },
+    {
+      "path": "check_bundle_copy.py",
+      "sha256": "0349a87e441201a27e70132afa0ea35b5fd219657d5810c294dcb18890085e83",
+      "bytes": 5781,
+      "source": "scripts/check_bundle_copy.py"
+    },
+    {
+      "path": "web/assets/fonts/IBMPlexMono-Regular.woff2",
+      "sha256": "08949f728dc52d528e69b1667d15c89a5686a4ee9a296ff90983985f99c380f7",
+      "bytes": 14708,
+      "source": "web/assets/fonts/IBMPlexMono-Regular.woff2"
+    },
+    {
+      "path": "web/assets/fonts/IBMPlexMono-SemiBold.woff2",
+      "sha256": "0d1f0b8d0722224e32e9f28261bdc86c79115be73444ae5eceb73976a1bcdf83",
+      "bytes": 15620,
+      "source": "web/assets/fonts/IBMPlexMono-SemiBold.woff2"
+    },
+    {
+      "path": "web/assets/fonts/IBMPlexSansKR-Regular.woff2",
+      "sha256": "f44b788da57c4717d6eb3a9cc4441204d81c476b9edcf0d3f9aff32b638fd600",
+      "bytes": 219492,
+      "source": "web/assets/fonts/IBMPlexSansKR-Regular.woff2"
+    },
+    {
+      "path": "web/assets/fonts/IBMPlexSansKR-SemiBold.woff2",
+      "sha256": "aca77c5de668158f3f12e5b4f2f0eef242e974310e04665bc6a57a1287cefb00",
+      "bytes": 256572,
+      "source": "web/assets/fonts/IBMPlexSansKR-SemiBold.woff2"
+    },
+    {
+      "path": "web/assets/fonts/LICENSE-IBMPlex.txt",
+      "sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da",
+      "bytes": 4456,
+      "source": "web/assets/fonts/LICENSE-IBMPlex.txt"
+    },
+    {
+      "path": "web/assets/fonts/LICENSE-Pretendard.txt",
+      "sha256": "d31ddd9f2bed32fd7e302a205cf2380ba0de6529152d239ef99cfb6f261bfc04",
+      "bytes": 4418,
+      "source": "web/assets/fonts/LICENSE-Pretendard.txt"
+    },
+    {
+      "path": "web/assets/fonts/Pretendard-arrow.subset.woff2",
+      "sha256": "fd9221bdd7867af8abd18fad9fddfbca31f070f0629db63f0d173add30d307b8",
+      "bytes": 1312,
+      "source": "web/assets/fonts/Pretendard-arrow.subset.woff2"
+    },
+    {
+      "path": "web/console.html",
+      "sha256": "f474bf41fbb21495e90698a68a7ab0d486d7b4eb09191162256bdc6d27ebd8d6",
+      "bytes": 162347,
+      "source": "web/console.html"
+    },
+    {
+      "path": "web/demo-media/README.md",
+      "sha256": "a30f57bf143d57279eae7fa08408a7b9a09ca95b0e06bf9926b447f579c90e85",
+      "bytes": 297,
+      "source": "web/demo-media/README.md"
+    },
+    {
+      "path": "web/demo-media/intro-poster.webp",
+      "sha256": "2cc9b40765da4aa95a84942aa3ccb245f68d82f8405b1898e60e841b9d3849d0",
+      "bytes": 18476,
+      "source": "web/demo-media/intro-poster.webp"
+    },
+    {
+      "path": "web/field_view.html",
+      "sha256": "6e97658b4b71a6d52da652fc208a1d12c7371b5efe52efa60a437d05164059d1",
+      "bytes": 144906,
+      "source": "web/field_view.html"
+    },
+    {
+      "path": "web/finals.html",
+      "sha256": "c6cc189eecc1aa2f644d69aaa02164e765d2516ebfc650f1c4f794e8862848bd",
+      "bytes": 2102316,
+      "source": "web/finals.html"
+    },
+    {
+      "path": "web/refuge_placement.html",
+      "sha256": "029c0b6e8c9994efdbbbbe560b3699296c9157a7871699dd602fba6ebb156fd4",
+      "bytes": 14664,
+      "source": "web/refuge_placement.html"
+    }
+  ]
+}

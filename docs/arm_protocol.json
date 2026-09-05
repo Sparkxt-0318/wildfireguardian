@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "title": "Arm protocol — declared feature counts and their required controls",
+  "note": "Machine-checked by scripts/check_arm_controls.py, a leg of `make verify`. Any arm whose feature count differs from Arm A's baseline must name a control arm and a registered number that places it against that control's null. Adding columns raises pooled AUC on average even when the columns are meaningless (docs/column_addition_envelope.json), so an uncontrolled feature-count change cannot support a claim. An arm marked is_control is exempt from needing a control of its own — the exemption is explicit and named rather than achieved by setting control_required=false, which would silently weaken the rule for every arm.",
+  "baseline_arm": "A",
+  "baseline_n_features": 16,
+  "arms": {
+    "A": {
+      "n_features": 16,
+      "role": "frozen baseline; the 본선 posters cite it",
+      "control_required": false,
+      "reason_no_control": "It IS the baseline. Its own cross-platform floor is registered as platform_drift_pooled_auc."
+    },
+    "A_replication": {
+      "n_features": 16,
+      "role": "Arm A re-run on a second platform to measure reproduction drift",
+      "control_required": false,
+      "reason_no_control": "No feature-count change; the whole point is that only the platform differs."
+    },
+    "D": {
+      "n_features": 23,
+      "role": "observed fire-front assimilation (Session 10)",
+      "control_required": true,
+      "control_arm": "N_control",
+      "control_number_key": "column_addition_floor_pooled_p95",
+      "status": "RETROSPECTIVE",
+      "note": "Arm D predates the envelope. Its pooled delta of -0.0070 sits inside the column-addition null (mean +0.0041, sd 0.0040, p5 -0.0035), so its null verdict is unchanged and reinforced. Arm D added SEVEN columns, not two, and no seven-column null was drawn — the two-column envelope is used as the nearest available reference and that substitution is not exact."
+    },
+    "E": {
+      "n_features": 18,
+      "role": "static upslope alignment + Rothermel slope forcing (Session 12)",
+      "control_required": true,
+      "control_arm": "N_control",
+      "control_number_key": "arme_pooled_percentile_of_null",
+      "status": "CONTROLLED"
+    },
+    "E_redundancy": {
+      "n_features": 17,
+      "role": "Arm E with elev_above_source_m removed (Session 13)",
+      "control_required": true,
+      "control_arm": "N_control",
+      "control_number_key": "redundancy_e17_pooled_percentile_of_null",
+      "status": "CONTROLLED",
+      "note": "Read against a 15-column Arm A baseline with its own 17-column noise null, so the substitution is not confounded with the column-count change."
+    },
+    "N_control": {
+      "n_features": 18,
+      "role": "the null itself: Arm A's 16 plus two columns of pure noise",
+      "control_required": false,
+      "reason_no_control": "It IS the control: its two added columns are pure noise, so it defines the null that other feature-count changes are measured against. Requiring it to have a control would be circular.",
+      "is_control": true
+    },
+    "A_geometry": {
+      "n_features": null,
+      "role": "measurement on labels and terrain; trains no model",
+      "control_required": false,
+      "reason_no_control": "No model is fitted, so there is no feature count to control."
+    },
+    "A_disclosure": {
+      "n_features": null,
+      "role": "disclosure of properties of the committed baseline; trains no model",
+      "control_required": false,
+      "reason_no_control": "No model is fitted."
+    },
+    "L0_vulnerability": {
+      "n_features": null,
+      "role": "Layer 0 pre-ignition evacuation vulnerability; trains no spread model",
+      "control_required": false,
+      "reason_no_control": "No model is fitted and no spread-model feature set changed. The layer consumes the existing routing stack through the HazardSequence interface; the Session 13 column-addition control applies to arms that change a trained model's feature count, and this arm changes none."
+    },
+    "A_classification": {
+      "n_features": null,
+      "role": "Session 18. Cell-level recall / precision / F1 and a PR curve, computed FROM Arm A's committed leave-one-fire-out probabilities (data/processed/spread_v2_lofo_oof.csv.gz). A re-scoring of an existing run at a threshold, not a new model.",
+      "control_required": false,
+      "reason_no_control": "No model is fitted and the feature count does not change, so there is nothing for a noise null to be matched against. The probabilities are byte-identical to the ones Arm A's AUC entries already read. ⚠ Tagged separately from 'A' rather than added to it because Arm A is FROZEN at 154 entries and check_arm_isolation verifies that count and their digests; adding to it would break the freeze it exists to protect."
+    },
+    "detection": {
+      "n_features": null,
+      "role": "Session 19. Satellite detection floor for Korea, measured from GK2A AMI L1B observations. Fits no model and reads no model output.",
+      "control_required": false,
+      "reason_no_control": "No model is fitted and no feature count changes, so a noise null has nothing to be matched against. The detector's own threshold IS controlled, by a 709-step no-fire false-alarm measurement over the same extents — recorded as det_false_alarm_steps / det_control_steps."
+    },
+    "horizon": {
+      "n_features": null,
+      "role": "Session 20. Empirical grounding of the Layer 0 evaluation horizon from 산림청 산불통계데이터 (2022-2025, n = 2,008 usable events). Descriptive statistics on an external dataset; fits no model.",
+      "control_required": false,
+      "reason_no_control": "No model is fitted and no feature count changes, so there is nothing for a noise null to be matched against. ⚠ The horizon DEFAULT did not move — it was 240 min before this arm existed and is 240 min after. Only its justification changed, from arbitrary-but-swept to grounded."
+    },
+    "L0_intervention": {
+      "n_features": null,
+      "role": "Session 22. Refuge-placement optimiser over the Layer 0 vulnerability layer: which single site converts the most failing households. Shortest-path search on the committed walk network; fits no model.",
+      "control_required": false,
+      "reason_no_control": "No model is fitted and no feature count changes, so there is nothing for a noise null to be matched against. The search's own control is the FULL-LAYER VERIFICATION: the top candidate was re-run through the real elliptical hazard with 4 ignitions x 3 scenarios and the saved-household set agreed exactly."
+    },
+    "A_ssot": {
+      "n_features": null,
+      "role": "WFG-004 (2026-09-03). SSOT sweep. Gives the LOFO POOLED AUC — the metric docs/fold_sizes.md and two NUMBERS.json caveats all name as the PRIMARY indicator — its first registry key. It was previously homeless: it existed only inside prose (README) and inside other entries' caveat strings, while the non-primary mean-of-folds was the registered headline. Reads the committed artifact only; fits nothing, re-runs nothing, changes no default and moves no headline.",
+      "control_required": false,
+      "reason_no_control": "Nothing is estimated — the `check` block re-reads pooled_auc from the same committed data/processed/spread_v2_lofo.json that already carried it, the same file the registered mean-of-folds comes from. ⚠ Tagged separately from 'A' because Arm A is FROZEN and check_arm_isolation verifies its entry count and digests (WFG-018's lesson). ⚠ Registering the primary metric does NOT promote it: the project's committed headline remains the mean-of-folds 0.890, and which metric leads the narrative is the author's call, not the loop's (CHARTER §6). This arm records the pair, it does not choose between them."
+    },
+    "A_reconciliation": {
+      "n_features": null,
+      "role": "WFG-018 (2026-09-03). Registration of values that were ALREADY computed and committed, so that every current value on docs/submission_reconciliation.md resolves to a registry key. Reads committed artifacts only; fits nothing, re-runs nothing, and changes no default.",
+      "control_required": false,
+      "reason_no_control": "Nothing is estimated, so there is no quantity for a noise null to be matched against — each entry's `check` block re-reads the same number from the same committed artifact that already carried it. ⚠ Tagged separately from 'A' rather than added to it because Arm A is FROZEN and check_arm_isolation verifies its entry count and digests; a new key claiming 'A' is exactly what that gate exists to stop, and it did stop this one. ⚠ RETIRED values (the submitted 438/18/3, 440/17/3, 3.70 %, +1.2 %, 44x) are deliberately NOT registered under this or any arm — they live only as NEAR-labelled prose."
+    },
+    "A_operating_point": {
+      "n_features": null,
+      "role": "WFG-019 (2026-09-03). Per-fire recall/FNR at the committed operating threshold, the ceiling probability of each held-out fold, and the nested leave-one-fire-out threshold-calibration table reported as a NEGATIVE result. Re-scores Arm A's committed leave-one-fire-out probabilities (data/processed/spread_v2_lofo_oof_cells.csv.gz); fits nothing, retrains nothing, and adopts no lambda.",
+      "control_required": false,
+      "reason_no_control": "No model is fitted and the feature count does not change, so there is nothing for a noise null to be matched against — the probabilities are byte-identical to the ones Arm A's AUC entries and Arm A_classification's recall entries already read. ⚠ Tagged separately from 'A' rather than added to it because Arm A is FROZEN and check_arm_isolation verifies its entry count and digests. ⚠ Tagged separately from 'A_classification' too: that arm is the Session 18 re-scoring at one threshold, while this arm SEARCHES over thresholds. The search is exactly the step whose validity the entries' own caveats deny (exchangeability is broken twice), so it must not inherit A_classification's 'a re-scoring, not a new analysis' exemption by sharing its name."
+    },
+    "external": {
+      "role": "published figures for the March 2025 fire that opens the README (WFG-049): burned area, deaths, homes, displaced, nationwide totals, and the interim tallies kept so a gate can refuse them as final",
+      "status": "EXTERNAL",
+      "n_features": 16,
+      "control_required": false,
+      "reason_no_control": "not a model arm: no training data, no features, no fold. Each number is a government or agency figure carried with its agency, as-of date, scope, status and URL in data/processed/external/fire_2025_scale.json and re-verified by opening the URL, not by a null draw.",
+      "note": "Registered 2026-09-04 after the README's opening paragraph was rewritten wrongly twice with every gate green (critic #4 F16-F18). Bound to README.md by scripts/check_readme_figures.py."
+    },
+    "booth_pace": {
+      "n_features": null,
+      "role": "WFG-100 (2026-09-05). The booth script's second budget: how many Korean syllables docs/auto/DEMO_SCRIPT_5MIN.md §1 asks the student to pronounce in each of its six segments, and the single rate the 300 s are allocated at. Counts characters in a committed document; trains nothing, predicts nothing, touches no fire data.",
+      "control_required": false,
+      "reason_no_control": "There is no model, no feature count and no held-out anything: the two entries are a count of syllables in this repository's own prose and that count divided by the 300 s the KCF 심사개요 allows. A noise null would have nothing to be null against. ⚠ What these numbers are NOT is a measurement of speech: nobody has read the script aloud with a stopwatch (R12 / NH-014), and docs/demo_script_pace.md says so under 'What this does NOT show'. Tagged as its own arm rather than folded into a modelling arm precisely so that no reader can mistake a document measurement for one."
+    }
+  }
+}

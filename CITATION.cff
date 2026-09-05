@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use this software or its results, please cite it as below."
+title: "WildfireGuardian"
+abstract: >-
+  Wildfire spread forecasting turned into household-level evacuation routing and
+  rescue dispatch for rural elderly residents in Korea. Every figure the project
+  states in prose is registered in docs/NUMBERS.json and re-derived from a
+  committed artifact by `make verify`.
+type: software
+authors:
+  - family-names: "Park"
+    given-names: "Siyeong"
+    alias: "박시영"
+repository-code: "https://github.com/Sparkxt-0318/wildfireguardian"
+license: MIT
+version: "0.1.0-alpha"
+keywords:
+  - wildfire
+  - evacuation routing
+  - time-dependent shortest path
+  - emergency response
+  - OpenStreetMap
+# No `doi:` and no `date-released:` field: no release has been tagged and no DOI has
+# been minted. Both are the author's to do from a browser session after the finals
+# (WFG-031), and a fabricated release date is exactly the kind of figure this
+# repository refuses to write.

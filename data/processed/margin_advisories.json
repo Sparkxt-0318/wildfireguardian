@@ -1,0 +1,4859 @@
+{
+  "schema_version": 1,
+  "title": "margin advisory feed (Session 8 Phase 1c, human-facing)",
+  "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+  "lineage": {
+    "network_vintage": "current tree (arm B snapshot, 441-series); NOT the committed 439-series arm-A artifact — see docs/network_drift.md",
+    "four_way_counts": {
+      "saved_by_rescue_reachable_refuge": 12,
+      "already_safe": 255,
+      "no_safe_pedestrian_route": 142,
+      "no_surviving_vehicle_ingress": 32
+    },
+    "n_origins": 441
+  },
+  "recommendation_counts": {
+    "철수 권장": 94,
+    "진입 권장": 80
+  },
+  "advisories": [
+    {
+      "home_node": 11764332408,
+      "margin_minutes": -138.33,
+      "margin_band": {
+        "low_min": -138.33,
+        "high_min": -108.33,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": {
+        "cells_xy": [],
+        "cells_rc": [],
+        "arrival_time_min": null,
+        "hazard_slice_index": null,
+        "latest_safe_commitment_min": -138.33,
+        "note": "latest safe commitment time precedes the first forecast slice — commitment window already closed at planning resolution"
+      },
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 79.17,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 49.17,
+        "egress_policy": "same_route",
+        "egress_departure_min": 89.17,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11793946245,
+      "margin_minutes": -136.87,
+      "margin_band": {
+        "low_min": -136.87,
+        "high_min": -106.87,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": {
+        "cells_xy": [],
+        "cells_rc": [],
+        "arrival_time_min": null,
+        "hazard_slice_index": null,
+        "latest_safe_commitment_min": -136.87,
+        "note": "latest safe commitment time precedes the first forecast slice — commitment window already closed at planning resolution"
+      },
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 78.44,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 48.44,
+        "egress_policy": "same_route",
+        "egress_departure_min": 88.44,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11784515068,
+      "margin_minutes": -134.81,
+      "margin_band": {
+        "low_min": -134.81,
+        "high_min": -104.81,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": {
+        "cells_xy": [],
+        "cells_rc": [],
+        "arrival_time_min": null,
+        "hazard_slice_index": null,
+        "latest_safe_commitment_min": -134.81,
+        "note": "latest safe commitment time precedes the first forecast slice — commitment window already closed at planning resolution"
+      },
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 77.41,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 47.41,
+        "egress_policy": "same_route",
+        "egress_departure_min": 87.41,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11825802453,
+      "margin_minutes": -134.07,
+      "margin_band": {
+        "low_min": -134.07,
+        "high_min": -104.07,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": {
+        "cells_xy": [],
+        "cells_rc": [],
+        "arrival_time_min": null,
+        "hazard_slice_index": null,
+        "latest_safe_commitment_min": -134.07,
+        "note": "latest safe commitment time precedes the first forecast slice — commitment window already closed at planning resolution"
+      },
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 77.04,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 47.04,
+        "egress_policy": "same_route",
+        "egress_departure_min": 87.04,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 437261791,
+      "margin_minutes": -132.89,
+      "margin_band": {
+        "low_min": -132.89,
+        "high_min": -102.89,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": {
+        "cells_xy": [],
+        "cells_rc": [],
+        "arrival_time_min": null,
+        "hazard_slice_index": null,
+        "latest_safe_commitment_min": -132.89,
+        "note": "latest safe commitment time precedes the first forecast slice — commitment window already closed at planning resolution"
+      },
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 76.45,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 46.45,
+        "egress_policy": "same_route",
+        "egress_departure_min": 86.45,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 437261948,
+      "margin_minutes": -129.85,
+      "margin_band": {
+        "low_min": -129.85,
+        "high_min": -99.85,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": {
+        "cells_xy": [],
+        "cells_rc": [],
+        "arrival_time_min": null,
+        "hazard_slice_index": null,
+        "latest_safe_commitment_min": -129.85,
+        "note": "latest safe commitment time precedes the first forecast slice — commitment window already closed at planning resolution"
+      },
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 74.92,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 44.92,
+        "egress_policy": "same_route",
+        "egress_departure_min": 84.92,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11735676004,
+      "margin_minutes": -126.9,
+      "margin_band": {
+        "low_min": -126.9,
+        "high_min": -96.9,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": {
+        "cells_xy": [],
+        "cells_rc": [],
+        "arrival_time_min": null,
+        "hazard_slice_index": null,
+        "latest_safe_commitment_min": -126.9,
+        "note": "latest safe commitment time precedes the first forecast slice — commitment window already closed at planning resolution"
+      },
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 73.45,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 43.45,
+        "egress_policy": "same_route",
+        "egress_departure_min": 83.45,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11737948180,
+      "margin_minutes": -125.85,
+      "margin_band": {
+        "low_min": -125.85,
+        "high_min": -95.85,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": {
+        "cells_xy": [],
+        "cells_rc": [],
+        "arrival_time_min": null,
+        "hazard_slice_index": null,
+        "latest_safe_commitment_min": -125.85,
+        "note": "latest safe commitment time precedes the first forecast slice — commitment window already closed at planning resolution"
+      },
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 72.92,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 42.92,
+        "egress_policy": "same_route",
+        "egress_departure_min": 82.92,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11736152154,
+      "margin_minutes": -125.68,
+      "margin_band": {
+        "low_min": -125.68,
+        "high_min": -95.68,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": {
+        "cells_xy": [],
+        "cells_rc": [],
+        "arrival_time_min": null,
+        "hazard_slice_index": null,
+        "latest_safe_commitment_min": -125.68,
+        "note": "latest safe commitment time precedes the first forecast slice — commitment window already closed at planning resolution"
+      },
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 72.84,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 42.84,
+        "egress_policy": "same_route",
+        "egress_departure_min": 82.84,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 4746359895,
+      "margin_minutes": -125.58,
+      "margin_band": {
+        "low_min": -125.58,
+        "high_min": -95.58,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": {
+        "cells_xy": [],
+        "cells_rc": [],
+        "arrival_time_min": null,
+        "hazard_slice_index": null,
+        "latest_safe_commitment_min": -125.58,
+        "note": "latest safe commitment time precedes the first forecast slice — commitment window already closed at planning resolution"
+      },
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 72.79,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 42.79,
+        "egress_policy": "same_route",
+        "egress_departure_min": 82.79,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11825787123,
+      "margin_minutes": -125.54,
+      "margin_band": {
+        "low_min": -125.54,
+        "high_min": -95.54,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": {
+        "cells_xy": [],
+        "cells_rc": [],
+        "arrival_time_min": null,
+        "hazard_slice_index": null,
+        "latest_safe_commitment_min": -125.54,
+        "note": "latest safe commitment time precedes the first forecast slice — commitment window already closed at planning resolution"
+      },
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 72.77,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 42.77,
+        "egress_policy": "same_route",
+        "egress_departure_min": 82.77,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11736152144,
+      "margin_minutes": -125.28,
+      "margin_band": {
+        "low_min": -125.28,
+        "high_min": -95.28,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": {
+        "cells_xy": [],
+        "cells_rc": [],
+        "arrival_time_min": null,
+        "hazard_slice_index": null,
+        "latest_safe_commitment_min": -125.28,
+        "note": "latest safe commitment time precedes the first forecast slice — commitment window already closed at planning resolution"
+      },
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 72.64,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 42.64,
+        "egress_policy": "same_route",
+        "egress_departure_min": 82.64,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 437090983,
+      "margin_minutes": -124.92,
+      "margin_band": {
+        "low_min": -124.92,
+        "high_min": -94.92,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": {
+        "cells_xy": [],
+        "cells_rc": [],
+        "arrival_time_min": null,
+        "hazard_slice_index": null,
+        "latest_safe_commitment_min": -124.92,
+        "note": "latest safe commitment time precedes the first forecast slice — commitment window already closed at planning resolution"
+      },
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 72.46,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 42.46,
+        "egress_policy": "same_route",
+        "egress_departure_min": 82.46,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11793946491,
+      "margin_minutes": -124.05,
+      "margin_band": {
+        "low_min": -124.05,
+        "high_min": -94.05,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": {
+        "cells_xy": [],
+        "cells_rc": [],
+        "arrival_time_min": null,
+        "hazard_slice_index": null,
+        "latest_safe_commitment_min": -124.05,
+        "note": "latest safe commitment time precedes the first forecast slice — commitment window already closed at planning resolution"
+      },
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 72.03,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 42.03,
+        "egress_policy": "same_route",
+        "egress_departure_min": 82.03,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11741886934,
+      "margin_minutes": -123.42,
+      "margin_band": {
+        "low_min": -123.42,
+        "high_min": -93.42,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": {
+        "cells_xy": [],
+        "cells_rc": [],
+        "arrival_time_min": null,
+        "hazard_slice_index": null,
+        "latest_safe_commitment_min": -123.42,
+        "note": "latest safe commitment time precedes the first forecast slice — commitment window already closed at planning resolution"
+      },
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 71.71,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 41.71,
+        "egress_policy": "same_route",
+        "egress_departure_min": 81.71,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11739983677,
+      "margin_minutes": -122.13,
+      "margin_band": {
+        "low_min": -122.13,
+        "high_min": -92.13,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": {
+        "cells_xy": [],
+        "cells_rc": [],
+        "arrival_time_min": null,
+        "hazard_slice_index": null,
+        "latest_safe_commitment_min": -122.13,
+        "note": "latest safe commitment time precedes the first forecast slice — commitment window already closed at planning resolution"
+      },
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 71.06,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 41.06,
+        "egress_policy": "same_route",
+        "egress_departure_min": 81.06,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 5536579452,
+      "margin_minutes": -119.86,
+      "margin_band": {
+        "low_min": -119.86,
+        "high_min": -89.86,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": {
+        "cells_xy": [],
+        "cells_rc": [],
+        "arrival_time_min": null,
+        "hazard_slice_index": null,
+        "latest_safe_commitment_min": -119.86,
+        "note": "latest safe commitment time precedes the first forecast slice — commitment window already closed at planning resolution"
+      },
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 69.93,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 39.93,
+        "egress_policy": "same_route",
+        "egress_departure_min": 79.93,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 4746359864,
+      "margin_minutes": -119.69,
+      "margin_band": {
+        "low_min": -119.69,
+        "high_min": -89.69,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": {
+        "cells_xy": [],
+        "cells_rc": [],
+        "arrival_time_min": null,
+        "hazard_slice_index": null,
+        "latest_safe_commitment_min": -119.69,
+        "note": "latest safe commitment time precedes the first forecast slice — commitment window already closed at planning resolution"
+      },
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 69.84,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 39.84,
+        "egress_policy": "same_route",
+        "egress_departure_min": 79.84,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 4746359864,
+      "margin_minutes": -119.69,
+      "margin_band": {
+        "low_min": -119.69,
+        "high_min": -89.69,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": {
+        "cells_xy": [],
+        "cells_rc": [],
+        "arrival_time_min": null,
+        "hazard_slice_index": null,
+        "latest_safe_commitment_min": -119.69,
+        "note": "latest safe commitment time precedes the first forecast slice — commitment window already closed at planning resolution"
+      },
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 69.84,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 39.84,
+        "egress_policy": "same_route",
+        "egress_departure_min": 79.84,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 4677054677,
+      "margin_minutes": -119.14,
+      "margin_band": {
+        "low_min": -119.14,
+        "high_min": -89.14,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": {
+        "cells_xy": [],
+        "cells_rc": [],
+        "arrival_time_min": null,
+        "hazard_slice_index": null,
+        "latest_safe_commitment_min": -119.14,
+        "note": "latest safe commitment time precedes the first forecast slice — commitment window already closed at planning resolution"
+      },
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 69.57,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 39.57,
+        "egress_policy": "same_route",
+        "egress_departure_min": 79.57,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 4746359720,
+      "margin_minutes": -117.41,
+      "margin_band": {
+        "low_min": -117.41,
+        "high_min": -87.41,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 68.71,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 38.71,
+        "egress_policy": "same_route",
+        "egress_departure_min": 78.71,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11752203706,
+      "margin_minutes": -117.23,
+      "margin_band": {
+        "low_min": -117.23,
+        "high_min": -87.23,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 68.62,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 38.62,
+        "egress_policy": "same_route",
+        "egress_departure_min": 78.62,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 436727424,
+      "margin_minutes": -117.0,
+      "margin_band": {
+        "low_min": -117.0,
+        "high_min": -87.0,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 68.5,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 38.5,
+        "egress_policy": "same_route",
+        "egress_departure_min": 78.5,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 4677114296,
+      "margin_minutes": -116.95,
+      "margin_band": {
+        "low_min": -116.95,
+        "high_min": -86.95,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 68.47,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 38.47,
+        "egress_policy": "same_route",
+        "egress_departure_min": 78.47,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11752040009,
+      "margin_minutes": -116.62,
+      "margin_band": {
+        "low_min": -116.62,
+        "high_min": -86.62,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 68.31,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 38.31,
+        "egress_policy": "same_route",
+        "egress_departure_min": 78.31,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11752040009,
+      "margin_minutes": -116.62,
+      "margin_band": {
+        "low_min": -116.62,
+        "high_min": -86.62,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 68.31,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 38.31,
+        "egress_policy": "same_route",
+        "egress_departure_min": 78.31,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11752040009,
+      "margin_minutes": -116.62,
+      "margin_band": {
+        "low_min": -116.62,
+        "high_min": -86.62,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 68.31,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 38.31,
+        "egress_policy": "same_route",
+        "egress_departure_min": 78.31,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11769621001,
+      "margin_minutes": -116.36,
+      "margin_band": {
+        "low_min": -116.36,
+        "high_min": -86.36,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 68.18,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 38.18,
+        "egress_policy": "same_route",
+        "egress_departure_min": 78.18,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 5274434419,
+      "margin_minutes": -114.72,
+      "margin_band": {
+        "low_min": -114.72,
+        "high_min": -84.72,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 67.36,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 37.36,
+        "egress_policy": "same_route",
+        "egress_departure_min": 77.36,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11753630020,
+      "margin_minutes": -114.3,
+      "margin_band": {
+        "low_min": -114.3,
+        "high_min": -84.3,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 67.15,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 37.15,
+        "egress_policy": "same_route",
+        "egress_departure_min": 77.15,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11749624321,
+      "margin_minutes": -114.03,
+      "margin_band": {
+        "low_min": -114.03,
+        "high_min": -84.03,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 67.02,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 37.02,
+        "egress_policy": "same_route",
+        "egress_departure_min": 77.02,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11769616125,
+      "margin_minutes": -113.13,
+      "margin_band": {
+        "low_min": -113.13,
+        "high_min": -83.13,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 66.56,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 36.56,
+        "egress_policy": "same_route",
+        "egress_departure_min": 76.56,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 4676964534,
+      "margin_minutes": -111.0,
+      "margin_band": {
+        "low_min": -111.0,
+        "high_min": -81.0,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 65.5,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 35.5,
+        "egress_policy": "same_route",
+        "egress_departure_min": 75.5,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 4631469917,
+      "margin_minutes": -110.8,
+      "margin_band": {
+        "low_min": -110.8,
+        "high_min": -80.8,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 65.4,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 35.4,
+        "egress_policy": "same_route",
+        "egress_departure_min": 75.4,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11760233027,
+      "margin_minutes": -110.58,
+      "margin_band": {
+        "low_min": -110.58,
+        "high_min": -80.58,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 65.29,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 35.29,
+        "egress_policy": "same_route",
+        "egress_departure_min": 75.29,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 4676044105,
+      "margin_minutes": -110.49,
+      "margin_band": {
+        "low_min": -110.49,
+        "high_min": -80.49,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 65.25,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 35.25,
+        "egress_policy": "same_route",
+        "egress_departure_min": 75.25,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11756939323,
+      "margin_minutes": -110.28,
+      "margin_band": {
+        "low_min": -110.28,
+        "high_min": -80.28,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 65.14,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 35.14,
+        "egress_policy": "same_route",
+        "egress_departure_min": 75.14,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11759516996,
+      "margin_minutes": -110.16,
+      "margin_band": {
+        "low_min": -110.16,
+        "high_min": -80.16,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 65.08,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 35.08,
+        "egress_policy": "same_route",
+        "egress_departure_min": 75.08,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 4676044095,
+      "margin_minutes": -109.37,
+      "margin_band": {
+        "low_min": -109.37,
+        "high_min": -79.37,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 64.68,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 34.68,
+        "egress_policy": "same_route",
+        "egress_departure_min": 74.68,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11756939484,
+      "margin_minutes": -108.84,
+      "margin_band": {
+        "low_min": -108.84,
+        "high_min": -78.84,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 64.42,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 34.42,
+        "egress_policy": "same_route",
+        "egress_departure_min": 74.42,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11768368723,
+      "margin_minutes": -104.46,
+      "margin_band": {
+        "low_min": -104.46,
+        "high_min": -74.46,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 62.23,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 32.23,
+        "egress_policy": "same_route",
+        "egress_departure_min": 72.23,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 5536086154,
+      "margin_minutes": -98.38,
+      "margin_band": {
+        "low_min": -98.38,
+        "high_min": -68.38,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 59.19,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 29.19,
+        "egress_policy": "same_route",
+        "egress_departure_min": 69.19,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11768209954,
+      "margin_minutes": -86.86,
+      "margin_band": {
+        "low_min": -86.86,
+        "high_min": -56.86,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 53.43,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 23.43,
+        "egress_policy": "same_route",
+        "egress_departure_min": 63.43,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11768368552,
+      "margin_minutes": -85.15,
+      "margin_band": {
+        "low_min": -85.15,
+        "high_min": -55.15,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 52.58,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 22.58,
+        "egress_policy": "same_route",
+        "egress_departure_min": 62.58,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11786567568,
+      "margin_minutes": -82.31,
+      "margin_band": {
+        "low_min": -82.31,
+        "high_min": -52.31,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 51.15,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 21.15,
+        "egress_policy": "same_route",
+        "egress_departure_min": 61.15,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11770736507,
+      "margin_minutes": -78.83,
+      "margin_band": {
+        "low_min": -78.83,
+        "high_min": -48.83,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 49.41,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 19.41,
+        "egress_policy": "same_route",
+        "egress_departure_min": 59.41,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 7883373977,
+      "margin_minutes": -77.66,
+      "margin_band": {
+        "low_min": -77.66,
+        "high_min": -47.66,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 48.83,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 18.83,
+        "egress_policy": "same_route",
+        "egress_departure_min": 58.83,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11842143153,
+      "margin_minutes": -73.95,
+      "margin_band": {
+        "low_min": -73.95,
+        "high_min": -43.95,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 46.97,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 16.97,
+        "egress_policy": "same_route",
+        "egress_departure_min": 56.97,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11872197712,
+      "margin_minutes": -73.78,
+      "margin_band": {
+        "low_min": -73.78,
+        "high_min": -43.78,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 46.89,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 16.89,
+        "egress_policy": "same_route",
+        "egress_departure_min": 56.89,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11872168257,
+      "margin_minutes": -73.46,
+      "margin_band": {
+        "low_min": -73.46,
+        "high_min": -43.46,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 46.73,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 16.73,
+        "egress_policy": "same_route",
+        "egress_departure_min": 56.73,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11872197536,
+      "margin_minutes": -71.78,
+      "margin_band": {
+        "low_min": -71.78,
+        "high_min": -41.78,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 45.89,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 15.89,
+        "egress_policy": "same_route",
+        "egress_departure_min": 55.89,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11872367981,
+      "margin_minutes": -67.14,
+      "margin_band": {
+        "low_min": -67.14,
+        "high_min": -37.14,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 43.57,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 13.57,
+        "egress_policy": "same_route",
+        "egress_departure_min": 53.57,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11872367981,
+      "margin_minutes": -67.14,
+      "margin_band": {
+        "low_min": -67.14,
+        "high_min": -37.14,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 43.57,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 13.57,
+        "egress_policy": "same_route",
+        "egress_departure_min": 53.57,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11993250366,
+      "margin_minutes": -38.99,
+      "margin_band": {
+        "low_min": -53.99,
+        "high_min": -8.99,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 45.0,
+        "eta_in_min": 51.99,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 21.99,
+        "egress_policy": "same_route",
+        "egress_departure_min": 61.99,
+        "egress_survival_time_min": 45.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11993250366,
+      "margin_minutes": -38.99,
+      "margin_band": {
+        "low_min": -53.99,
+        "high_min": -8.99,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 45.0,
+        "eta_in_min": 51.99,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 21.99,
+        "egress_policy": "same_route",
+        "egress_departure_min": 61.99,
+        "egress_survival_time_min": 45.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11993250528,
+      "margin_minutes": -38.49,
+      "margin_band": {
+        "low_min": -53.49,
+        "high_min": -8.49,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 45.0,
+        "eta_in_min": 51.75,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 21.75,
+        "egress_policy": "same_route",
+        "egress_departure_min": 61.75,
+        "egress_survival_time_min": 45.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11993250316,
+      "margin_minutes": -38.48,
+      "margin_band": {
+        "low_min": -53.48,
+        "high_min": -8.48,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 45.0,
+        "eta_in_min": 51.74,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 21.74,
+        "egress_policy": "same_route",
+        "egress_departure_min": 61.74,
+        "egress_survival_time_min": 45.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11993125845,
+      "margin_minutes": -36.06,
+      "margin_band": {
+        "low_min": -51.06,
+        "high_min": -6.06,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 45.0,
+        "eta_in_min": 50.53,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 20.53,
+        "egress_policy": "same_route",
+        "egress_departure_min": 60.53,
+        "egress_survival_time_min": 45.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11993125870,
+      "margin_minutes": -35.98,
+      "margin_band": {
+        "low_min": -50.98,
+        "high_min": -5.98,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 45.0,
+        "eta_in_min": 50.49,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 20.49,
+        "egress_policy": "same_route",
+        "egress_departure_min": 60.49,
+        "egress_survival_time_min": 45.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 4631438466,
+      "margin_minutes": -46.91,
+      "margin_band": {
+        "low_min": -61.91,
+        "high_min": -16.91,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 60.0,
+        "eta_in_min": 63.46,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 33.46,
+        "egress_policy": "same_route",
+        "egress_departure_min": 73.46,
+        "egress_survival_time_min": 60.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 12144184999,
+      "margin_minutes": -45.66,
+      "margin_band": {
+        "low_min": -60.66,
+        "high_min": -15.66,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 60.0,
+        "eta_in_min": 62.83,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 32.83,
+        "egress_policy": "same_route",
+        "egress_departure_min": 72.83,
+        "egress_survival_time_min": 60.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11897956714,
+      "margin_minutes": -18.95,
+      "margin_band": {
+        "low_min": -33.95,
+        "high_min": 11.05,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 60.0,
+        "eta_in_min": 49.47,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 19.47,
+        "egress_policy": "same_route",
+        "egress_departure_min": 59.47,
+        "egress_survival_time_min": 60.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11976273345,
+      "margin_minutes": 13.03,
+      "margin_band": {
+        "low_min": -1.97,
+        "high_min": 43.03,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 60.0,
+        "eta_in_min": 33.49,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 3.49,
+        "egress_policy": "same_route",
+        "egress_departure_min": 43.49,
+        "egress_survival_time_min": 60.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11976273200,
+      "margin_minutes": 13.77,
+      "margin_band": {
+        "low_min": -1.23,
+        "high_min": 43.77,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 60.0,
+        "eta_in_min": 33.12,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 3.12,
+        "egress_policy": "same_route",
+        "egress_departure_min": 43.12,
+        "egress_survival_time_min": 60.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11976273200,
+      "margin_minutes": 13.77,
+      "margin_band": {
+        "low_min": -1.23,
+        "high_min": 43.77,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 60.0,
+        "eta_in_min": 33.12,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 3.12,
+        "egress_policy": "same_route",
+        "egress_departure_min": 43.12,
+        "egress_survival_time_min": 60.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11976273200,
+      "margin_minutes": 13.77,
+      "margin_band": {
+        "low_min": -1.23,
+        "high_min": 43.77,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 60.0,
+        "eta_in_min": 33.12,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 3.12,
+        "egress_policy": "same_route",
+        "egress_departure_min": 43.12,
+        "egress_survival_time_min": 60.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11968186511,
+      "margin_minutes": 16.19,
+      "margin_band": {
+        "low_min": 1.19,
+        "high_min": 46.19,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 60.0,
+        "eta_in_min": 31.91,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 1.91,
+        "egress_policy": "same_route",
+        "egress_departure_min": 41.91,
+        "egress_survival_time_min": 60.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 6001827255,
+      "margin_minutes": 16.37,
+      "margin_band": {
+        "low_min": 1.37,
+        "high_min": 46.37,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 60.0,
+        "eta_in_min": 31.81,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 1.81,
+        "egress_policy": "same_route",
+        "egress_departure_min": 41.81,
+        "egress_survival_time_min": 60.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 4778527728,
+      "margin_minutes": 16.43,
+      "margin_band": {
+        "low_min": 1.43,
+        "high_min": 46.43,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 60.0,
+        "eta_in_min": 31.78,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 1.78,
+        "egress_policy": "same_route",
+        "egress_departure_min": 41.78,
+        "egress_survival_time_min": 60.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 6001724879,
+      "margin_minutes": 16.58,
+      "margin_band": {
+        "low_min": 1.58,
+        "high_min": 46.58,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 60.0,
+        "eta_in_min": 31.71,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 1.71,
+        "egress_policy": "same_route",
+        "egress_departure_min": 41.71,
+        "egress_survival_time_min": 60.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 6001827252,
+      "margin_minutes": 16.8,
+      "margin_band": {
+        "low_min": 1.8,
+        "high_min": 46.8,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 60.0,
+        "eta_in_min": 31.6,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 1.6,
+        "egress_policy": "same_route",
+        "egress_departure_min": 41.6,
+        "egress_survival_time_min": 60.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11968186282,
+      "margin_minutes": 17.05,
+      "margin_band": {
+        "low_min": 2.05,
+        "high_min": 47.05,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 60.0,
+        "eta_in_min": 31.47,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 1.47,
+        "egress_policy": "same_route",
+        "egress_departure_min": 41.47,
+        "egress_survival_time_min": 60.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 13075254853,
+      "margin_minutes": 17.16,
+      "margin_band": {
+        "low_min": 2.16,
+        "high_min": 47.16,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 60.0,
+        "eta_in_min": 31.42,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 1.42,
+        "egress_policy": "same_route",
+        "egress_departure_min": 41.42,
+        "egress_survival_time_min": 60.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 5362635103,
+      "margin_minutes": 17.29,
+      "margin_band": {
+        "low_min": 2.29,
+        "high_min": 47.29,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 60.0,
+        "eta_in_min": 31.35,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 1.35,
+        "egress_policy": "same_route",
+        "egress_departure_min": 41.35,
+        "egress_survival_time_min": 60.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 10607688428,
+      "margin_minutes": 17.64,
+      "margin_band": {
+        "low_min": 2.64,
+        "high_min": 47.64,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 60.0,
+        "eta_in_min": 31.18,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 1.18,
+        "egress_policy": "same_route",
+        "egress_departure_min": 41.18,
+        "egress_survival_time_min": 60.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11976157068,
+      "margin_minutes": 17.84,
+      "margin_band": {
+        "low_min": 2.84,
+        "high_min": 47.84,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 60.0,
+        "eta_in_min": 31.08,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 1.08,
+        "egress_policy": "same_route",
+        "egress_departure_min": 41.08,
+        "egress_survival_time_min": 60.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 4714065968,
+      "margin_minutes": 18.02,
+      "margin_band": {
+        "low_min": 3.02,
+        "high_min": 48.02,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 60.0,
+        "eta_in_min": 30.99,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 0.99,
+        "egress_policy": "same_route",
+        "egress_departure_min": 40.99,
+        "egress_survival_time_min": 60.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11952350444,
+      "margin_minutes": 18.13,
+      "margin_band": {
+        "low_min": 3.13,
+        "high_min": 48.13,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 60.0,
+        "eta_in_min": 30.93,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 0.93,
+        "egress_policy": "same_route",
+        "egress_departure_min": 40.93,
+        "egress_survival_time_min": 60.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 4679486153,
+      "margin_minutes": 18.25,
+      "margin_band": {
+        "low_min": 3.25,
+        "high_min": 48.25,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 60.0,
+        "eta_in_min": 30.88,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 0.88,
+        "egress_policy": "same_route",
+        "egress_departure_min": 40.88,
+        "egress_survival_time_min": 60.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 4137870256,
+      "margin_minutes": 19.11,
+      "margin_band": {
+        "low_min": 4.11,
+        "high_min": 49.11,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 60.0,
+        "eta_in_min": 30.45,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 0.45,
+        "egress_policy": "same_route",
+        "egress_departure_min": 40.45,
+        "egress_survival_time_min": 60.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 4714067251,
+      "margin_minutes": 19.16,
+      "margin_band": {
+        "low_min": 4.16,
+        "high_min": 49.16,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 60.0,
+        "eta_in_min": 30.42,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 0.42,
+        "egress_policy": "same_route",
+        "egress_departure_min": 40.42,
+        "egress_survival_time_min": 60.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11968186425,
+      "margin_minutes": 15.22,
+      "margin_band": {
+        "low_min": 0.22,
+        "high_min": 60.22,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 75.0,
+        "eta_in_min": 39.89,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 9.89,
+        "egress_policy": "same_route",
+        "egress_departure_min": 49.89,
+        "egress_survival_time_min": 75.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11941423817,
+      "margin_minutes": 20.79,
+      "margin_band": {
+        "low_min": 5.79,
+        "high_min": 50.79,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 90.0,
+        "eta_in_min": 44.61,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 14.61,
+        "egress_policy": "same_route",
+        "egress_departure_min": 54.61,
+        "egress_survival_time_min": 90.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11941423817,
+      "margin_minutes": 20.79,
+      "margin_band": {
+        "low_min": 5.79,
+        "high_min": 50.79,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 90.0,
+        "eta_in_min": 44.61,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 14.61,
+        "egress_policy": "same_route",
+        "egress_departure_min": 54.61,
+        "egress_survival_time_min": 90.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11941445127,
+      "margin_minutes": 21.17,
+      "margin_band": {
+        "low_min": 6.17,
+        "high_min": 51.17,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 90.0,
+        "eta_in_min": 44.41,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 14.41,
+        "egress_policy": "same_route",
+        "egress_departure_min": 54.41,
+        "egress_survival_time_min": 90.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 436912674,
+      "margin_minutes": 22.14,
+      "margin_band": {
+        "low_min": 7.14,
+        "high_min": 52.14,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 90.0,
+        "eta_in_min": 43.93,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 13.93,
+        "egress_policy": "same_route",
+        "egress_departure_min": 53.93,
+        "egress_survival_time_min": 90.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 436912674,
+      "margin_minutes": 22.14,
+      "margin_band": {
+        "low_min": 7.14,
+        "high_min": 52.14,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 90.0,
+        "eta_in_min": 43.93,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 13.93,
+        "egress_policy": "same_route",
+        "egress_departure_min": 53.93,
+        "egress_survival_time_min": 90.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11976273527,
+      "margin_minutes": 32.08,
+      "margin_band": {
+        "low_min": 17.08,
+        "high_min": 62.08,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 90.0,
+        "eta_in_min": 38.96,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 8.96,
+        "egress_policy": "same_route",
+        "egress_departure_min": 48.96,
+        "egress_survival_time_min": 90.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 10258416989,
+      "margin_minutes": 13.94,
+      "margin_band": {
+        "low_min": -16.06,
+        "high_min": 13.94,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 150.0,
+        "eta_in_min": 78.03,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 48.03,
+        "egress_policy": "same_route",
+        "egress_departure_min": 88.03,
+        "egress_survival_time_min": 150.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 5274413002,
+      "margin_minutes": 26.3,
+      "margin_band": {
+        "low_min": -3.7,
+        "high_min": 26.3,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 150.0,
+        "eta_in_min": 71.85,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 41.85,
+        "egress_policy": "same_route",
+        "egress_departure_min": 81.85,
+        "egress_survival_time_min": 150.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 5535644020,
+      "margin_minutes": 60.86,
+      "margin_band": {
+        "low_min": 30.86,
+        "high_min": 90.86,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 120.0,
+        "eta_in_min": 39.57,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 9.57,
+        "egress_policy": "same_route",
+        "egress_departure_min": 49.57,
+        "egress_survival_time_min": 120.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 5535644821,
+      "margin_minutes": 60.93,
+      "margin_band": {
+        "low_min": 30.93,
+        "high_min": 90.93,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 120.0,
+        "eta_in_min": 39.53,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 9.53,
+        "egress_policy": "same_route",
+        "egress_departure_min": 49.53,
+        "egress_survival_time_min": 120.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11959426119,
+      "margin_minutes": 60.98,
+      "margin_band": {
+        "low_min": 30.98,
+        "high_min": 90.98,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 120.0,
+        "eta_in_min": 39.51,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 9.51,
+        "egress_policy": "same_route",
+        "egress_departure_min": 49.51,
+        "egress_survival_time_min": 120.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11985895421,
+      "margin_minutes": 61.65,
+      "margin_band": {
+        "low_min": 31.65,
+        "high_min": 91.65,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 120.0,
+        "eta_in_min": 39.18,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 9.18,
+        "egress_policy": "same_route",
+        "egress_departure_min": 49.18,
+        "egress_survival_time_min": 120.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11985895421,
+      "margin_minutes": 61.65,
+      "margin_band": {
+        "low_min": 31.65,
+        "high_min": 91.65,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 120.0,
+        "eta_in_min": 39.18,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 9.18,
+        "egress_policy": "same_route",
+        "egress_departure_min": 49.18,
+        "egress_survival_time_min": 120.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 2828246132,
+      "margin_minutes": 63.66,
+      "margin_band": {
+        "low_min": 18.66,
+        "high_min": 63.66,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 120.0,
+        "eta_in_min": 38.17,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 8.17,
+        "egress_policy": "same_route",
+        "egress_departure_min": 48.17,
+        "egress_survival_time_min": 120.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11835584691,
+      "margin_minutes": 39.24,
+      "margin_band": {
+        "low_min": 9.24,
+        "high_min": 39.24,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 150.0,
+        "eta_in_min": 65.38,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 35.38,
+        "egress_policy": "same_route",
+        "egress_departure_min": 75.38,
+        "egress_survival_time_min": 150.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11835569718,
+      "margin_minutes": 47.55,
+      "margin_band": {
+        "low_min": 17.55,
+        "high_min": 47.55,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 150.0,
+        "eta_in_min": 61.22,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 31.22,
+        "egress_policy": "same_route",
+        "egress_departure_min": 71.22,
+        "egress_survival_time_min": 150.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11835585252,
+      "margin_minutes": 49.2,
+      "margin_band": {
+        "low_min": 19.2,
+        "high_min": 49.2,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 150.0,
+        "eta_in_min": 60.4,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 30.4,
+        "egress_policy": "same_route",
+        "egress_departure_min": 70.4,
+        "egress_survival_time_min": 150.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 12029705389,
+      "margin_minutes": 61.43,
+      "margin_band": {
+        "low_min": 31.43,
+        "high_min": 61.43,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 150.0,
+        "eta_in_min": 54.29,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 24.29,
+        "egress_policy": "same_route",
+        "egress_departure_min": 64.29,
+        "egress_survival_time_min": 150.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 12029705389,
+      "margin_minutes": 61.43,
+      "margin_band": {
+        "low_min": 31.43,
+        "high_min": 61.43,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 150.0,
+        "eta_in_min": 54.29,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 24.29,
+        "egress_policy": "same_route",
+        "egress_departure_min": 64.29,
+        "egress_survival_time_min": 150.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 12031151261,
+      "margin_minutes": 93.32,
+      "margin_band": {
+        "low_min": 63.32,
+        "high_min": 123.32,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 150.0,
+        "eta_in_min": 38.34,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 8.34,
+        "egress_policy": "same_route",
+        "egress_departure_min": 48.34,
+        "egress_survival_time_min": 150.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 12031151124,
+      "margin_minutes": 94.49,
+      "margin_band": {
+        "low_min": 64.49,
+        "high_min": 124.49,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 150.0,
+        "eta_in_min": 37.76,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 7.76,
+        "egress_policy": "same_route",
+        "egress_departure_min": 47.76,
+        "egress_survival_time_min": 150.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 5535636106,
+      "margin_minutes": 95.34,
+      "margin_band": {
+        "low_min": 65.34,
+        "high_min": 125.34,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 150.0,
+        "eta_in_min": 37.33,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 7.33,
+        "egress_policy": "same_route",
+        "egress_departure_min": 47.33,
+        "egress_survival_time_min": 150.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 5535636106,
+      "margin_minutes": 95.34,
+      "margin_band": {
+        "low_min": 65.34,
+        "high_min": 125.34,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 150.0,
+        "eta_in_min": 37.33,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 7.33,
+        "egress_policy": "same_route",
+        "egress_departure_min": 47.33,
+        "egress_survival_time_min": 150.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11991968652,
+      "margin_minutes": 99.81,
+      "margin_band": {
+        "low_min": 99.81,
+        "high_min": 129.81,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 150.0,
+        "eta_in_min": 35.09,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 5.09,
+        "egress_policy": "same_route",
+        "egress_departure_min": 45.09,
+        "egress_survival_time_min": 150.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11985895469,
+      "margin_minutes": 99.86,
+      "margin_band": {
+        "low_min": 69.86,
+        "high_min": 129.86,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 150.0,
+        "eta_in_min": 35.07,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 5.07,
+        "egress_policy": "same_route",
+        "egress_departure_min": 45.07,
+        "egress_survival_time_min": 150.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 12067413147,
+      "margin_minutes": 75.45,
+      "margin_band": {
+        "low_min": 45.45,
+        "high_min": 135.45,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 180.0,
+        "eta_in_min": 62.28,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 32.28,
+        "egress_policy": "same_route",
+        "egress_departure_min": 72.28,
+        "egress_survival_time_min": 180.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 6205151092,
+      "margin_minutes": 79.85,
+      "margin_band": {
+        "low_min": 49.85,
+        "high_min": 139.85,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 180.0,
+        "eta_in_min": 60.08,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 30.08,
+        "egress_policy": "same_route",
+        "egress_departure_min": 70.08,
+        "egress_survival_time_min": 180.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 10281901255,
+      "margin_minutes": 83.83,
+      "margin_band": {
+        "low_min": 53.83,
+        "high_min": 143.83,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 180.0,
+        "eta_in_min": 58.08,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 28.08,
+        "egress_policy": "same_route",
+        "egress_departure_min": 68.08,
+        "egress_survival_time_min": 180.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 10281901255,
+      "margin_minutes": 83.83,
+      "margin_band": {
+        "low_min": 53.83,
+        "high_min": 143.83,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 180.0,
+        "eta_in_min": 58.08,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 28.08,
+        "egress_policy": "same_route",
+        "egress_departure_min": 68.08,
+        "egress_survival_time_min": 180.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 437251271,
+      "margin_minutes": 84.9,
+      "margin_band": {
+        "low_min": 54.9,
+        "high_min": 144.9,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 180.0,
+        "eta_in_min": 57.55,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 27.55,
+        "egress_policy": "same_route",
+        "egress_departure_min": 67.55,
+        "egress_survival_time_min": 180.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 12045202467,
+      "margin_minutes": 85.66,
+      "margin_band": {
+        "low_min": 55.66,
+        "high_min": 145.66,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 180.0,
+        "eta_in_min": 57.17,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 27.17,
+        "egress_policy": "same_route",
+        "egress_departure_min": 67.17,
+        "egress_survival_time_min": 180.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 6205151283,
+      "margin_minutes": 86.86,
+      "margin_band": {
+        "low_min": 56.86,
+        "high_min": 146.86,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 180.0,
+        "eta_in_min": 56.57,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 26.57,
+        "egress_policy": "same_route",
+        "egress_departure_min": 66.57,
+        "egress_survival_time_min": 180.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 437251321,
+      "margin_minutes": 89.96,
+      "margin_band": {
+        "low_min": 59.96,
+        "high_min": 149.96,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 180.0,
+        "eta_in_min": 55.02,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 25.02,
+        "egress_policy": "same_route",
+        "egress_departure_min": 65.02,
+        "egress_survival_time_min": 180.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11919018984,
+      "margin_minutes": 90.38,
+      "margin_band": {
+        "low_min": 60.38,
+        "high_min": 150.38,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 180.0,
+        "eta_in_min": 54.81,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 24.81,
+        "egress_policy": "same_route",
+        "egress_departure_min": 64.81,
+        "egress_survival_time_min": 180.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 12048311044,
+      "margin_minutes": 91.79,
+      "margin_band": {
+        "low_min": 61.79,
+        "high_min": 151.79,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 180.0,
+        "eta_in_min": 54.1,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 24.1,
+        "egress_policy": "same_route",
+        "egress_departure_min": 64.1,
+        "egress_survival_time_min": 180.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 437251357,
+      "margin_minutes": 92.78,
+      "margin_band": {
+        "low_min": 62.78,
+        "high_min": 152.78,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 180.0,
+        "eta_in_min": 53.61,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 23.61,
+        "egress_policy": "same_route",
+        "egress_departure_min": 63.61,
+        "egress_survival_time_min": 180.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 12121532310,
+      "margin_minutes": 94.9,
+      "margin_band": {
+        "low_min": 64.9,
+        "high_min": 154.9,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 180.0,
+        "eta_in_min": 52.55,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 22.55,
+        "egress_policy": "same_route",
+        "egress_departure_min": 62.55,
+        "egress_survival_time_min": 180.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 12044800712,
+      "margin_minutes": 95.85,
+      "margin_band": {
+        "low_min": 65.85,
+        "high_min": 155.85,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 180.0,
+        "eta_in_min": 52.07,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 22.07,
+        "egress_policy": "same_route",
+        "egress_departure_min": 62.07,
+        "egress_survival_time_min": 180.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 13599845807,
+      "margin_minutes": 97.4,
+      "margin_band": {
+        "low_min": 67.4,
+        "high_min": 157.4,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 180.0,
+        "eta_in_min": 51.3,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 21.3,
+        "egress_policy": "same_route",
+        "egress_departure_min": 61.3,
+        "egress_survival_time_min": 180.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 6794268656,
+      "margin_minutes": 102.32,
+      "margin_band": {
+        "low_min": 72.32,
+        "high_min": 162.32,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 180.0,
+        "eta_in_min": 48.84,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 18.84,
+        "egress_policy": "same_route",
+        "egress_departure_min": 58.84,
+        "egress_survival_time_min": 180.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 12031801703,
+      "margin_minutes": 103.32,
+      "margin_band": {
+        "low_min": 73.32,
+        "high_min": 163.32,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 180.0,
+        "eta_in_min": 48.34,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 18.34,
+        "egress_policy": "same_route",
+        "egress_departure_min": 58.34,
+        "egress_survival_time_min": 180.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 12031801753,
+      "margin_minutes": 104.39,
+      "margin_band": {
+        "low_min": 74.39,
+        "high_min": 164.39,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 180.0,
+        "eta_in_min": 47.8,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 17.8,
+        "egress_policy": "same_route",
+        "egress_departure_min": 57.8,
+        "egress_survival_time_min": 180.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 437092410,
+      "margin_minutes": 107.99,
+      "margin_band": {
+        "low_min": 77.99,
+        "high_min": 167.99,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 180.0,
+        "eta_in_min": 46.01,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 16.01,
+        "egress_policy": "same_route",
+        "egress_departure_min": 56.01,
+        "egress_survival_time_min": 180.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 12032277415,
+      "margin_minutes": 114.01,
+      "margin_band": {
+        "low_min": 84.01,
+        "high_min": 174.01,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 180.0,
+        "eta_in_min": 43.0,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 13.0,
+        "egress_policy": "same_route",
+        "egress_departure_min": 53.0,
+        "egress_survival_time_min": 180.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11991968731,
+      "margin_minutes": 129.97,
+      "margin_band": {
+        "low_min": 99.97,
+        "high_min": 189.97,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 180.0,
+        "eta_in_min": 35.02,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 5.02,
+        "egress_policy": "same_route",
+        "egress_departure_min": 45.02,
+        "egress_survival_time_min": 180.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 11991968731,
+      "margin_minutes": 129.97,
+      "margin_band": {
+        "low_min": 99.97,
+        "high_min": 189.97,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 180.0,
+        "eta_in_min": 35.02,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 5.02,
+        "egress_policy": "same_route",
+        "egress_departure_min": 45.02,
+        "egress_survival_time_min": 180.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 436912427,
+      "margin_minutes": 134.27,
+      "margin_band": {
+        "low_min": 104.27,
+        "high_min": 194.27,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 180.0,
+        "eta_in_min": 32.86,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 2.86,
+        "egress_policy": "same_route",
+        "egress_departure_min": 42.86,
+        "egress_survival_time_min": 180.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 4631089476,
+      "margin_minutes": 134.45,
+      "margin_band": {
+        "low_min": 134.45,
+        "high_min": 194.45,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 180.0,
+        "eta_in_min": 32.78,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 2.78,
+        "egress_policy": "same_route",
+        "egress_departure_min": 42.78,
+        "egress_survival_time_min": 180.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 12009089593,
+      "margin_minutes": 135.68,
+      "margin_band": {
+        "low_min": 105.68,
+        "high_min": 195.68,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 180.0,
+        "eta_in_min": 32.16,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 2.16,
+        "egress_policy": "same_route",
+        "egress_departure_min": 42.16,
+        "egress_survival_time_min": 180.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 7879073417,
+      "margin_minutes": 136.08,
+      "margin_band": {
+        "low_min": 106.08,
+        "high_min": 196.08,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 180.0,
+        "eta_in_min": 31.96,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 1.96,
+        "egress_policy": "same_route",
+        "egress_departure_min": 41.96,
+        "egress_survival_time_min": 180.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 7216309662,
+      "margin_minutes": 136.14,
+      "margin_band": {
+        "low_min": 106.14,
+        "high_min": 196.14,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 180.0,
+        "eta_in_min": 31.93,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 1.93,
+        "egress_policy": "same_route",
+        "egress_departure_min": 41.93,
+        "egress_survival_time_min": 180.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 4631089409,
+      "margin_minutes": 136.98,
+      "margin_band": {
+        "low_min": 136.98,
+        "high_min": 196.98,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 180.0,
+        "eta_in_min": 31.51,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 1.51,
+        "egress_policy": "same_route",
+        "egress_departure_min": 41.51,
+        "egress_survival_time_min": 180.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 12011384702,
+      "margin_minutes": 138.67,
+      "margin_band": {
+        "low_min": 138.67,
+        "high_min": 198.67,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 180.0,
+        "eta_in_min": 30.67,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 0.67,
+        "egress_policy": "same_route",
+        "egress_departure_min": 40.67,
+        "egress_survival_time_min": 180.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 4746298604,
+      "margin_minutes": 187.79,
+      "margin_band": {
+        "low_min": 127.79,
+        "high_min": 187.79,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 240.0,
+        "eta_in_min": 36.11,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 6.11,
+        "egress_policy": "same_route",
+        "egress_departure_min": 46.11,
+        "egress_survival_time_min": 240.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 4746298585,
+      "margin_minutes": 187.89,
+      "margin_band": {
+        "low_min": 127.89,
+        "high_min": 187.89,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 240.0,
+        "eta_in_min": 36.05,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 6.05,
+        "egress_policy": "same_route",
+        "egress_departure_min": 46.05,
+        "egress_survival_time_min": 240.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 12030520657,
+      "margin_minutes": 190.6,
+      "margin_band": {
+        "low_min": 130.6,
+        "high_min": 190.6,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 240.0,
+        "eta_in_min": 34.7,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 4.7,
+        "egress_policy": "same_route",
+        "egress_departure_min": 44.7,
+        "egress_survival_time_min": 240.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 12014516283,
+      "margin_minutes": 194.33,
+      "margin_band": {
+        "low_min": 134.33,
+        "high_min": 194.33,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 240.0,
+        "eta_in_min": 32.84,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 2.84,
+        "egress_policy": "same_route",
+        "egress_departure_min": 42.84,
+        "egress_survival_time_min": 240.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 12014304602,
+      "margin_minutes": 194.52,
+      "margin_band": {
+        "low_min": 134.52,
+        "high_min": 194.52,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 240.0,
+        "eta_in_min": 32.74,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 2.74,
+        "egress_policy": "same_route",
+        "egress_departure_min": 42.74,
+        "egress_survival_time_min": 240.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 4746298708,
+      "margin_minutes": 196.93,
+      "margin_band": {
+        "low_min": 136.93,
+        "high_min": 196.93,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 240.0,
+        "eta_in_min": 31.54,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 1.54,
+        "egress_policy": "same_route",
+        "egress_departure_min": 41.54,
+        "egress_survival_time_min": 240.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 2486660240,
+      "margin_minutes": 196.98,
+      "margin_band": {
+        "low_min": 136.98,
+        "high_min": 196.98,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "진입 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 240.0,
+        "eta_in_min": 31.51,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 1.51,
+        "egress_policy": "same_route",
+        "egress_departure_min": 41.51,
+        "egress_survival_time_min": 240.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_safe_pedestrian_route"
+    },
+    {
+      "home_node": 4746359273,
+      "margin_minutes": -63.75,
+      "margin_band": {
+        "low_min": -63.75,
+        "high_min": -33.75,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 41.87,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 11.87,
+        "egress_policy": "same_route",
+        "egress_departure_min": 51.87,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 11877066847,
+      "margin_minutes": -72.03,
+      "margin_band": {
+        "low_min": -72.03,
+        "high_min": -57.03,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 46.02,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 16.02,
+        "egress_policy": "same_route",
+        "egress_departure_min": 56.02,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 9209936756,
+      "margin_minutes": -38.76,
+      "margin_band": {
+        "low_min": -53.76,
+        "high_min": -8.76,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 45.0,
+        "eta_in_min": 51.88,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 21.88,
+        "egress_policy": "same_route",
+        "egress_departure_min": 61.88,
+        "egress_survival_time_min": 45.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 437261983,
+      "margin_minutes": -134.13,
+      "margin_band": {
+        "low_min": -134.13,
+        "high_min": -104.13,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 77.07,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 47.07,
+        "egress_policy": "same_route",
+        "egress_departure_min": 87.07,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 11872368614,
+      "margin_minutes": -20.37,
+      "margin_band": {
+        "low_min": -50.37,
+        "high_min": 9.63,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 60.0,
+        "eta_in_min": 50.18,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 20.18,
+        "egress_policy": "same_route",
+        "egress_departure_min": 60.18,
+        "egress_survival_time_min": 60.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 11877066585,
+      "margin_minutes": -63.5,
+      "margin_band": {
+        "low_min": -63.5,
+        "high_min": -33.5,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 41.75,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 11.75,
+        "egress_policy": "same_route",
+        "egress_departure_min": 51.75,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 11877066932,
+      "margin_minutes": -73.73,
+      "margin_band": {
+        "low_min": -73.73,
+        "high_min": -58.73,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 46.87,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 16.87,
+        "egress_policy": "same_route",
+        "egress_departure_min": 56.87,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 11888500884,
+      "margin_minutes": -78.77,
+      "margin_band": {
+        "low_min": -78.77,
+        "high_min": -63.77,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 49.38,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 19.38,
+        "egress_policy": "same_route",
+        "egress_departure_min": 59.38,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 11888500884,
+      "margin_minutes": -78.77,
+      "margin_band": {
+        "low_min": -78.77,
+        "high_min": -63.77,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 49.38,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 19.38,
+        "egress_policy": "same_route",
+        "egress_departure_min": 59.38,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 5536086240,
+      "margin_minutes": -59.2,
+      "margin_band": {
+        "low_min": -59.2,
+        "high_min": -44.2,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 39.6,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 9.6,
+        "egress_policy": "same_route",
+        "egress_departure_min": 49.6,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 11890614600,
+      "margin_minutes": -82.28,
+      "margin_band": {
+        "low_min": -82.28,
+        "high_min": -67.28,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 51.14,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 21.14,
+        "egress_policy": "same_route",
+        "egress_departure_min": 61.14,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 11890615219,
+      "margin_minutes": -79.18,
+      "margin_band": {
+        "low_min": -79.18,
+        "high_min": -64.18,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 49.59,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 19.59,
+        "egress_policy": "same_route",
+        "egress_departure_min": 59.59,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 4706963730,
+      "margin_minutes": -20.48,
+      "margin_band": {
+        "low_min": -50.48,
+        "high_min": 9.52,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 60.0,
+        "eta_in_min": 50.24,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 20.24,
+        "egress_policy": "same_route",
+        "egress_departure_min": 60.24,
+        "egress_survival_time_min": 60.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 11872368165,
+      "margin_minutes": -39.61,
+      "margin_band": {
+        "low_min": -54.61,
+        "high_min": -9.61,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 45.0,
+        "eta_in_min": 52.31,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 22.31,
+        "egress_policy": "same_route",
+        "egress_departure_min": 62.31,
+        "egress_survival_time_min": 45.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 4706963766,
+      "margin_minutes": -60.93,
+      "margin_band": {
+        "low_min": -60.93,
+        "high_min": -30.93,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 40.47,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 10.47,
+        "egress_policy": "same_route",
+        "egress_departure_min": 50.47,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 5535652898,
+      "margin_minutes": -15.54,
+      "margin_band": {
+        "low_min": -30.54,
+        "high_min": 14.46,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 60.0,
+        "eta_in_min": 47.77,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 17.77,
+        "egress_policy": "same_route",
+        "egress_departure_min": 57.77,
+        "egress_survival_time_min": 60.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 5535652898,
+      "margin_minutes": -15.54,
+      "margin_band": {
+        "low_min": -30.54,
+        "high_min": 14.46,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 60.0,
+        "eta_in_min": 47.77,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 17.77,
+        "egress_policy": "same_route",
+        "egress_departure_min": 57.77,
+        "egress_survival_time_min": 60.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 5535652898,
+      "margin_minutes": -15.54,
+      "margin_band": {
+        "low_min": -30.54,
+        "high_min": 14.46,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 60.0,
+        "eta_in_min": 47.77,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 17.77,
+        "egress_policy": "same_route",
+        "egress_departure_min": 57.77,
+        "egress_survival_time_min": 60.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 11933422062,
+      "margin_minutes": -58.03,
+      "margin_band": {
+        "low_min": -58.03,
+        "high_min": -28.03,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 39.02,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 9.02,
+        "egress_policy": "same_route",
+        "egress_departure_min": 49.02,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 11933422062,
+      "margin_minutes": -58.03,
+      "margin_band": {
+        "low_min": -58.03,
+        "high_min": -28.03,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 39.02,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 9.02,
+        "egress_policy": "same_route",
+        "egress_departure_min": 49.02,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 11888501484,
+      "margin_minutes": -63.17,
+      "margin_band": {
+        "low_min": -63.17,
+        "high_min": -48.17,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 41.58,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 11.58,
+        "egress_policy": "same_route",
+        "egress_departure_min": 51.58,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 11933582977,
+      "margin_minutes": -63.6,
+      "margin_band": {
+        "low_min": -63.6,
+        "high_min": -48.6,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 41.8,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 11.8,
+        "egress_policy": "same_route",
+        "egress_departure_min": 51.8,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 11890615219,
+      "margin_minutes": -79.18,
+      "margin_band": {
+        "low_min": -79.18,
+        "high_min": -64.18,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 49.59,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 19.59,
+        "egress_policy": "same_route",
+        "egress_departure_min": 59.59,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 11933741021,
+      "margin_minutes": -84.14,
+      "margin_band": {
+        "low_min": -84.14,
+        "high_min": -69.14,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 52.07,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 22.07,
+        "egress_policy": "same_route",
+        "egress_departure_min": 62.07,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 11933583021,
+      "margin_minutes": -64.77,
+      "margin_band": {
+        "low_min": -64.77,
+        "high_min": -49.77,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 42.38,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 12.38,
+        "egress_policy": "same_route",
+        "egress_departure_min": 52.38,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 7049961839,
+      "margin_minutes": -68.77,
+      "margin_band": {
+        "low_min": -68.77,
+        "high_min": -53.77,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 44.39,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 14.39,
+        "egress_policy": "same_route",
+        "egress_departure_min": 54.39,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 5535652898,
+      "margin_minutes": -15.54,
+      "margin_band": {
+        "low_min": -30.54,
+        "high_min": 14.46,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 60.0,
+        "eta_in_min": 47.77,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 17.77,
+        "egress_policy": "same_route",
+        "egress_departure_min": 57.77,
+        "egress_survival_time_min": 60.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 7622147716,
+      "margin_minutes": -73.29,
+      "margin_band": {
+        "low_min": -73.29,
+        "high_min": -58.29,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 0.0,
+        "eta_in_min": 46.64,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 16.64,
+        "egress_policy": "same_route",
+        "egress_departure_min": 56.64,
+        "egress_survival_time_min": 0.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 436738552,
+      "margin_minutes": -13.66,
+      "margin_band": {
+        "low_min": -28.66,
+        "high_min": 16.34,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 30.0,
+        "eta_in_min": 31.83,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 1.83,
+        "egress_policy": "same_route",
+        "egress_departure_min": 41.83,
+        "egress_survival_time_min": 30.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 436738552,
+      "margin_minutes": -13.66,
+      "margin_band": {
+        "low_min": -28.66,
+        "high_min": 16.34,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 30.0,
+        "eta_in_min": 31.83,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 1.83,
+        "egress_policy": "same_route",
+        "egress_departure_min": 41.83,
+        "egress_survival_time_min": 30.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 11947136217,
+      "margin_minutes": -4.97,
+      "margin_band": {
+        "low_min": -19.97,
+        "high_min": 25.03,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 45.0,
+        "eta_in_min": 34.98,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 4.98,
+        "egress_policy": "same_route",
+        "egress_departure_min": 44.98,
+        "egress_survival_time_min": 45.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    },
+    {
+      "home_node": 11947136217,
+      "margin_minutes": -4.97,
+      "margin_band": {
+        "low_min": -19.97,
+        "high_min": 25.03,
+        "n_finite": 5,
+        "derived_from": "vehicle_cutoff sweep [0.5, 0.6, 0.7, 0.8, 0.9] (the committed §4a sweep axis)"
+      },
+      "recommendation": "철수 권장",
+      "trigger_line": null,
+      "basis": {
+        "ingress_survival_time_min": 45.0,
+        "eta_in_min": 34.98,
+        "t_load_min": 10.0,
+        "t_load_source": "assumed",
+        "eta_out_min": 4.98,
+        "egress_policy": "same_route",
+        "egress_departure_min": 44.98,
+        "egress_survival_time_min": 45.0,
+        "vehicle_cutoff": 0.7,
+        "safety_margin_min": 12.0,
+        "formula": "M = min(S_in - ETA_in, S_out - (ETA_in + t_load + ETA_out))"
+      },
+      "note": "",
+      "four_way_class": "no_surviving_vehicle_ingress"
+    }
+  ]
+}

@@ -11,8 +11,8 @@ Both were investigated and deliberately stopped.**
 | branch (historical) | `round3-dev` (tracked `origin/round3-dev`), HEAD `fb1d011` at the time §1–§14 were written |
 | baseline tag | **`round2-submitted`** = `4e9dfe3` — the submitted state |
 | environment | conda env **`wfg311`**, Python 3.11.15 — see [`ENVIRONMENT.md`](ENVIRONMENT.md) |
-| suite | **1,021 passed, 3 skipped, 0 failed** (measured 2026-08-10, after PHASE 5 committed `calibration_metrics.json` and its regeneration gate ran for the first time; skips = 2 by design + the closed-DEM-gap gate). Historical: 743/2 at `fb1d011`, 544 at PHASE 5. |
-| registry | [`NUMBERS.json`](NUMBERS.json) — **136 entries, 120 reproducible** (PHASE 13 registered the 15 OSM-completeness covariates that §5 rule 12 names) |
+| suite | **1,033 passed, 3 skipped, 0 failed** (measured 2026-08-10 on `dispatch-ordering`, after PHASE 23 added `tests/test_dispatch_ordering.py`; skips = 2 by design + the closed-DEM-gap gate). Historical: 1,021/3 before PHASE 23, 743/2 at `fb1d011`, 544 at PHASE 5. |
+| registry | [`NUMBERS.json`](NUMBERS.json) — **141 entries, 125 reproducible** (PHASE 23 added the 5 `dispatch_order_*` entries; PHASE 13 registered the 15 OSM-completeness covariates that §5 rule 12 names) |
 | OSM regions | 3 acquired + snapshotted (`MANIFEST.json`, **74 entries** as of 2026-08-10; was 68 — 64 + 4 FIRMS NRT polls — when this file was first written) |
 | config hash | `8e29a6cc4a99…` — moved from `05c6feae1dff…` by PURE ADDITION (the PHASE-13 `fuel:` block; a rebuild moved **0** registered values). Earlier lineage below. Superseded text: `05c6feae1dff…` — moved from `faf90a81b7e6…` by PURE ADDITION (the PHASE-6 `live:` block; no existing value changed, and re-running `build_numbers.py` moved **only** the per-entry `config_hash` stamp, 0 values). Earlier lineage: `0b6eb481177a…` → `51ec446843b6…` at `cc41f12`. `NUMBERS.json.config_hash_note` records why this is expected. |
 
@@ -140,6 +140,68 @@ not do: nothing had been built then beyond `demo/operator_screen.html`
 (PHASE 8, replay-only, no solver) and the service layer underneath.
 
 
+### 1.2-c PHASE 23 — the dispatch ordering, measured against alternatives
+
+⚠ **The one finding in this file that goes against a headline contribution.**
+Contribution ② is "배차 목록을 시한이 임박한 순서로 정렬한다". It had never been
+compared with any other ordering. It now has been, over 270 configurations
+(4 arms × 2 windows × 3 service times × 3 delays × 5 team counts), against
+nearest-first, closure-first, the unsorted scan order and 200 seeded shuffles.
+
+**It wins 3.6 % of the time, ties 36.7 %, loses 59.7 % — and at the committed
+75-minute responder window it wins 0 of 180.** All thirteen wins sit at an
+exploratory 240-minute window. The mechanism is measured, not guessed: at
+W = 75 the operational window shuts before the corridors do, so the homes share
+one deadline (영덕 합성 6 distinct deadlines over 142 homes, 영덕 real **2** over
+124, 울진·삼척 real **2** over 116) and the sort key carries almost no
+information, while nearest-first saves 6–13 minutes per round trip and converts
+that into extra trips.
+
+⚠ **One arm was approved for exclusion and then not excluded.** STEP 0
+recommended dropping 영덕 real for zero power, on the branch-only closure
+measurement at `vehicle_cutoff` **0.30** (40/40 closures at t=0, one distinct
+time). At `Main`'s **0.70** the profile is 42 at t=0 **and 3 at t=180** — two
+distinct times, not one. Dropping an arm on a premise that shifted under a
+different threshold is the §4-B failure, so it was run. It then produced the
+worst result for the shipped ordering of any arm: 13 rescues at 8 teams against
+nearest-first's 24, below both the unsorted order (16) and the random mean
+(15.7).
+
+Two things this does NOT do. It does not change `rescue.py::capacity_triage`,
+which is still the shipped model, and it does not move
+`rescue_capacity.json` — 8 teams / 14.4 %, unreachable 6/24/66 are unchanged.
+It does introduce a **travel-aware occupancy rule** in a new file, because the
+shipped rule (`free_at = departure + service`) makes travel free and is
+therefore ordering-blind on the Yeongdeok list.
+
+**⚠ Contribution ②, restated — SETTLED 2026-08-10. Use this wording.**
+
+> **기여 ② 는 「어느 진입로가 언제 닫히는지를 계산해 제시하는 것」입니다.**
+> 그 정보로 배차 목록을 정렬하는 것은 **운용 창이 회랑 폐쇄 시각을 넘어설
+> 때에만** 유효하며, **커밋된 W = 75분은 그 조건을 만족하지 않습니다.**
+
+The information is the contribution: `ingress_survival_time_min` per home is a
+value nothing else in this project — or in the systems it is compared against —
+computes, and it separates the regions sharply (영덕 real 45 closures, 42 of them
+at t=0; 울진·삼척 real 7 closures, 5 of them stepping through 180/360/540 min).
+The *ordering* built on it is conditional, and the condition is measurable: 13 of
+360 cells favour it and **all thirteen are at W = 240**.
+
+⚠ **Never quote ② without the condition.** The accurate sentence is not "our
+ordering is best" but "it holds only under this condition, and the current
+configuration is not that condition". Dropping the conditional clause re-asserts
+exactly what this experiment refuted; the registered `dispatch_order_*` forbidden
+phrasings block the "검증되었다 / 최적" family.
+
+⚠ **The output ordering was NOT changed, and is not to be.** Nearest-first
+rescues more in all four arms at the committed cell (24 vs 19 / 19 / 16 / 13),
+but changing the sort would move the print order of every A4 sheet, SMS draft and
+마을방송 script and desynchronise them from the committed `outputs/dispatch*`.
+`printable.py::DISPATCH_HEADING` and `live/pipeline.py::WALK_DISPATCH_HEADING`
+stay as they are. What this phase licenses is **stating the condition in the
+documents and the presentation**, not re-sorting the shipped output.
+[`dispatch_ordering.md`](dispatch_ordering.md) §8.
+
 ### 1.3 The numbers that are new in Round 3
 
 Nothing here existed at `round2-submitted`. **Every absolute Yeongdeok figure
@@ -168,8 +230,11 @@ distance objective, 600-min budget, stride 18, `osmnx` 2.0.7):
 Envelope-area spread **7.91×**. ⚠ Never rank the regions on the FA-only column
 (rule 14) — n = 3 and three covariates move together. What **is** established:
 on a field that actually advances, the same method and parameters give a
-future-aware-only share nearly **seven times** Yeongdeok's, so the quasi-static
-limitation was real and understated the benefit. What is **not**: that the
+future-aware-only share **2.7×** Yeongdeok's, so the quasi-static
+limitation was real and understated the benefit. ⚠ This sentence read "nearly
+**seven times**" until 2026-09-03: that ratio was computed against the **retired**
+영덕 share from the reverted run, not the canonical one. On the canonical field the
+ratio is 2.7× (`docs/ssot_audit_2026-09-03.md` §2). What is **not**: that the
 benefit rises with fire speed — 울진·삼척 advances fastest and benefits least.
 
 **Measured operational timings** — all on the reference machine, A4 PDF
@@ -419,9 +484,13 @@ Four things that did **not** carry over from Yeongdeok:
    On the canonical lineage: growth **+316.1** / +147.2 / +183.5 % against
    FA-only **9.17** / 24.73 / 0.76 %. Two regions support it, one contradicts it
    strongly. What IS established: on a field that actually advances, the same
-   method and parameters give a future-aware-only share nearly **seven times**
+   method and parameters give a future-aware-only share **2.7×**
    Yeongdeok's, so the "quasi-static core" limitation was real and understated
-   the benefit. What is NOT established: that the benefit rises with fire speed —
+   the benefit. ⚠ This sentence read "nearly **seven times**" until 2026-09-03,
+   which is the ratio against the **retired** 영덕 share from the reverted run —
+   inconsistent with the canonical shares listed two lines above, whose ratio is
+   2.7× (`docs/ssot_audit_2026-09-03.md` §2).
+   What is NOT established: that the benefit rises with fire speed —
    Uljin-Samcheok advances fastest and benefits least.
    ⚠ The earlier reading (ρ = −1, "fire-blind risk is flat at 4.35/3.53/3.31 %")
    was an artifact of the defective DEM. On the canonical lineage it reads
@@ -481,7 +550,8 @@ artifacts are current.
 |---|---|
 | **Yeongdeok 459-series counts** | **CHANGED.** 440 / 17 / 3 → **414 / 42 / 2**. FA-only share 3.70 % → **9.17 %**. Same network, same parameters — the hazard field alone. |
 | **Yeongdeok core growth** | **CHANGED.** +1.2 % → **+316.1 %**. The "quasi-static core" limitation was a property of the reverted field, not of the fire. |
-| **headline AUC 0.890** | **UNAFFECTED.** Correcting the DEMs moves mean-of-folds +0.0048 and pooled −0.0017. The `elev_above_source_m` importance rank falls 8 → 15 and far-band AUC falls 0.0357; those are the real changes. `spread_v2_lofo_dem_corrected.json`. |
+| **headline AUC 0.890** | **UNAFFECTED.** Correcting the DEMs moves mean-of-folds +0.0048 and pooled −0.0017. The `elev_above_source_m` importance rank falls 8 → 15 and far-band AUC falls 0.0357; those are the real changes. `spread_v2_lofo_dem_corrected.json`. | <!-- collision-ok: 0.89 — the MEAN-OF-FOLDS headline (lofo_mean_of_folds_auc), not the pooled 0.905 (lofo_rowweighted_pooled_auc); this row's job is to report the DEM correction's effect on both, so both words appear. -->
+
 | **the "sea cells inflate the AUC" hypothesis** | **REFUTED.** Only 99 of 151,904 rows have elevation < 0, minimum −6.9 m, none positive — candidates are drawn within 6 km of the fire, so open ocean is never sampled. Removing them *raises* the AUC; they were hard negatives. |
 | **the 439 series** | **UNAFFECTED.** 439/167/24, w ≈ 11.4 %, the 72.0 % exposure reduction and the dispatch outputs come from a different pipeline on a synthetic hazard envelope. Different denominator, lineage and field. |
 | **network and terrain quantities** | **UNAFFECTED.** Traversal time +26.594 %, mean \|slope\| 8.18 %, 150 changed routes, the 91.3-minute longest-walk saving — all reproduce to three significant figures, because none depends on the fire. |
@@ -615,6 +685,7 @@ fire_station이 없으며, 더 넓은 3,926 km² 범위에는 6곳이 있습니�
 |---|---|
 | ~~PHASE 6 — live detection pipeline~~ | **DONE 2026-08-03.** FIRMS NRT acquisition, trigger → 459-series routing on the canonical field → all three delivery formats, plus an offline replay mode. [`live_pipeline.md`](live_pipeline.md), §9. Its own open limits are listed there §9; the two that matter are that the hazard surface is fixed (ERA5 lag — not fixable without a real-time weather source) and that **no trigger has ever fired on a live detection**, which needs an actual fire in the bbox. |
 | ~~The 439-vs-459 delivery scoping question~~ | **DECIDED 2026-08-03: the live pipeline consumes the 459/canonical series.** It follows from the PHASE-6 brief (canonical field, snapshot network, real hazard). The 439 outputs under `outputs/dispatch*` are untouched and still generated by `generate_dispatch_outputs.py`; the two lineages now co-exist with different filenames and different wording (459 sheets say 도보, never 차량). |
+<!-- collision-ok: 5.2 — part of the DEM-defect narrative in this cell, not lofo_fold_rows_max_over_min (208.9). -->
 | **`spread_v2_lofo.json` was trained on the defective Uljin-Samcheok DEM** | The headline mean-of-folds AUC is built over the six-fire set that includes `uljin_samcheok_2022`, whose raster filled the sea with a ramp to −497 m, so EVERY fold — including Yeongdeok's — trained on it. The same applies to `routing_demo.npz` and every Yeongdeok number derived from it. ⚠ *Corrected 2026-08-10: this entry used to end "the effect is unmeasured and could go either way", which contradicted §2-A in the same file — the effect was measured the same day this was written* (`spread_v2_lofo_dem_corrected.json`: mean-of-folds +0.0048, pooled −0.0017, far-band −0.0357, `elev_above_source_m` rank 8→15; its control arm reproduces the committed values on the pre-fix rasters). What is still true: **no committed artifact has been replaced** — those are Round-2 artifacts protected by §5.2, the registry headline still reads from `spread_v2_lofo.json`, and whether to ever publish the corrected lineage instead is the user's decision. [`dem_defect_2026-08-02.md`](dem_defect_2026-08-02.md) §3. |
 | ~~DEM re-acquisition~~ — **DONE 2026-08-02** | Both regions re-acquired, validated, snapshotted, re-simulated and re-routed; nodata 0.000 %, sim-grid mean-fill 0.00 %, both pass the gate with no acknowledgement flag. Superseded text: **This was the next action.** Two gaps, one fix. (a) `uljin_samcheok_2022_dem.tif` spans 36.85–37.45 °N while its walk bbox starts at 36.81 °N: **405 of 7,300 walk nodes (5.55 %)**, 6.17 % of elevation samples, timed FLAT. (b) BOTH new regions' simulation canvases were extended south past their DEMs in `a0eaf07`, so **10.0 %** (Uiseong-Andong) and **15.6 %** (Uljin-Samcheok) of simulation cells carry a MEAN-FILLED elevation — hazard is p = 0 in every one of them, so the committed fields are clean, but the fill was silent. `scripts/acquire_region_dem.py` is written, targets the UNION of walk bbox + simulation canvas + existing raster, validates coverage before installing, and refuses to mix providers. It needs `OPENTOPOGRAPHY_API_KEY` (env or the git-ignored `.env`); a keyless request is HTTP 401, confirmed 2026-08-02. **Do not route on a partial DEM and do not substitute AWS-Mapzen tiles.** |
 | ~~Promote the hypothesis-refutation decomposition~~ | **Withdrawn.** The "fire-blind risk is near-constant" finding was an artifact of the pre-fix fields; it now reads 9.61 / 27.99 / 3.31 %. §2-A. |
@@ -622,11 +693,14 @@ fire_station이 없으며, 더 넓은 3,926 km² 범위에는 6곳이 있습니�
 | **`demo/wildfire_demo.html` is on the PRE-CANONICAL lineage** | **DECIDED 2026-08-06: keep the page, re-export it, and do that AFTER the operator dashboard** — re-exporting first would mean doing it twice. It is a 6-scene narrative pitch page and does NOT overlap `operator_screen.html`, which is the operator console; that is why it is worth keeping. But `scripts/export_demo_data.py` reads `routing_demo.json` and `routing_demo.npz`, the artifacts §2-A identifies as the reverted run's lineage, so the canonical figures a presenter would say aloud (458 / 414 / 42 / 2, 9.17 %) appear nowhere on it. It carries no HARD-forbidden value and labels its own hazard and terrain SYNTHETIC. ⚠ **Until re-export, do not cite it and do not demonstrate from it.** Provenance is recorded at the top of the exporter. |
 | **`make check-forbidden` does not scan generated screens** | Retired-number rules apply to `.md` only, so a `.html` demonstration screen carrying a retired figure passes silently — which is how the row above went unnoticed. ⚠ **Recorded, deliberately NOT fixed:** widening the rules would flag a batch of existing demo assets at once and each needs its own decision. Two candidate shapes, and why the second is better, in [`forbidden_check_scope.md`](forbidden_check_scope.md) §"The gap this scope leaves". |
 | Shelter-density experiment (within-region refuge decimation) | Requested 2026-08-02 as a way around n = 3: hold terrain and road network fixed, remove refuges at 100/75/50/25 % with repeats, and measure FA-only and `no_safe_route`. Sequenced after the DEM fix; the user will confirm before it starts. |
+| ⚠ **`us-arm-b` WIP is parked in a git stash, not on any branch** | **PHASE 24 (2026-08-11) stashed it to switch branches, and stashes are invisible to `git log`, `git status` and `git branch` — if a session does not know it is there, it is lost.** `stash@{0}`, message **`PHASE24-preserve: us-arm-b WIP (spread_v2/model.py crs param, us_arm_b.json, run_us_lofo.py)`**, taken **on branch `us-arm-b`**. Contents: `src/wildfireguardian/spread_v2/model.py` +18/−1 (adds an opt-in `crs=` parameter to `footprint_iou_lofo`, defaulting to `None` → `EPSG:5179`, so every Korean call site and every committed Korean number is unchanged), plus untracked `data/processed/us/us_arm_b.json` and `scripts/run_us_lofo.py`. **To restore: `git checkout us-arm-b && git stash pop stash@{0}`** — check the index first, the stash list shifts as entries are added. ⚠ Do **not** pop it onto `ordering-boundary` or any Round-4 branch: it is US-transfer work (§ `us_transfer_arm0.md`, `us_comparison_table.md`) and does not belong in the Korean lineage. ⚠ Note `stash@{1}` is a **different**, older entry (`arm-b-session: figure pngs from dispatch-ordering`) and is not this work. |
 | ~~PHASE 4 — live-operation feasibility~~ | **SUPERSEDED 2026-08-03.** It was scoped as investigation-only; PHASE 6 built the thing instead, and PHASE 12 added a second trigger into it. Nothing is outstanding. |
 | PHASE 2-C-3 — hazard time resolution | Deprioritised: `no_safe_route` already moved 3→18 once the budget bound, so the budget was the main blocker. |
 | `routing_demo.npz` not reproducible | Cause fully identified and **recoverable** — pin the grid to `bbox.fire_acquisition`. Not done: it would change results. |
 | 407-run directionality | Uses `abs(dz)` (conservative). Documented, not changed. |
 | `unclassified` in tight-budget buckets | Fixed by `fa_exceeds_budget`. No action. |
+| **PHASE 16 findings are branch-only** | The whole dispatch-degeneracy investigation lives on **`hazard-resolution`** (11 ahead of `Main`, 58 behind, never merged): 32 files, ~38.5k insertions — 4 docs (`hazard_time_resolution.md`, `impassability_threshold.md`, `threshold_provenance.md`), 7 scripts, 4 test files, a new `routing/impassability.py`, `rescue.py` +97, and ~994 lines of registry. **What it established, and `Main` records nowhere:** the Yeongdeok real field's dispatch key degenerates because every closing corridor closes at t=0; time resolution (`6ed4edd`), the impassability threshold (`1c16630`) and a short horizon (`1b166fc`) were each tested and ruled out; the **corridor definition** is the cause (`1b166fc`); and the non-circular replacement `T_close` = latest feasible departure was built, validated and **shipped as an OPT-IN with the default unchanged** (`eeca0c6`). **Why the alternative was not adopted IS recorded** — in the `1b166fc` and `eeca0c6` commit bodies and in that branch's `hazard_time_resolution.md`: key B's survival is biased upward because `rescuer_route` selects a corridor *for* surviving (circular), key B conflates "when the fire cuts this approach" with "how much detour the network offered", and switching the default would re-order every committed dispatch list. ⚠ **Not merged here, and it should not be merged wholesale**: the branch also *adopts* `p_cut = 0.30` (`9ce563f`) and carries re-run `*_pcut030` artifacts, which is a routing-behaviour change to Round-2/3 numbers and is the user's decision. **DECIDED 2026-08-10** — (a) carry the *record* only: this row plus [`dispatch_ordering.md`](dispatch_ordering.md) §3, **prose, no numbers imported**. Done. (b) **DO NOT import** `closure_time_distribution.json` / `hazard_time_resolution.json` as registered artifacts. They were produced at cutoff **0.30** while `Main`'s config is **0.70**, and a registry holding two cutoffs' numbers side by side is the failure mode this repository has hit repeatedly. Any figure from that branch must be quoted with its branch AND its cutoff, or not at all. (c) the `p_cut = 0.30` adoption, `impassability.py` and the `ingress_deadline_mode` opt-in stay out until separately approved. |
+| **The T_close deadline key is untested against ordering** | PHASE 23 compared four orderings under the **committed** deadline key (`ingress_survival − responder_ETA`, shortest-corridor mode). The `hazard-resolution` branch also built a non-circular alternative — `RescueConfig.ingress_deadline_mode = "latest_feasible_departure"`, T_close = the latest departure at which some depot still has a hazard-free route in (`eeca0c6`, opt-in, default unchanged). **Whether the ordering comparison comes out differently under that key has never been measured**, and the code is not on `Main`, so PHASE 23 did not test it. ⚠ Recorded, deliberately NOT done now. It is the natural next question only if (c) above is ever approved — testing it first would mean importing branch code to answer a question about a key this repository does not ship. |
 | ~~Yeongdeok walk-bbox coverage~~ | **CLOSED 2026-08-03.** It is **32.6 %** on the canonical field (the superseded 50.4 % was measured against the reverted run's four-times-smaller core). Accepted, reported as a covariate, and carried by every absolute Yeongdeok rate. Not fixed, and not to be fixed — §2-A. |
 
 ---
@@ -717,6 +791,113 @@ catch a citation whose event **never happened**, because there is nothing on
 file to match against. The §4-B rule — look the citation up before building on
 it — is the only defence for this class, and it is what caught it.
 
+### ⚠ Round-4 addendum (2026-08-10): a branch-only artifact quoted as a Main fact
+
+PHASE 23 opened with this premise, carried across several turns:
+
+> 「회랑 폐쇄 시각 분포 — 영덕: t=0 에 0 %, 중앙값 360분으로 이미 측정됨」
+
+**The measurement exists. It is not Yeongdeok's, and it is not on `Main`.**
+
+`data/processed/closure_time_distribution.json` (`run_closure_time_distribution.py`,
+commit `6491386`) lives **only on the `hazard-resolution` branch** — 11 commits
+ahead of `Main`, 58 behind, never merged. Neither the artifact, the script nor
+`docs/impassability_threshold.md` is in the working tree. What it measured, at
+`vehicle_cutoff = 0.30` (a threshold adopted on that branch; `Main`'s config is
+0.70):
+
+| region / field | corridors | closed | at t=0 | after t=0 | never | t=0 share | closure times |
+|---|---:|---:|---:|---:|---:|---:|---|
+| **Yeongdeok REAL** | 118 | 40 | **40** | **0** | 78 | **100.0 %** | one value: 0.0 |
+| Yeongdeok synthetic | 105 | 105 | 39 | 66 | 0 | 37.1 % | 0…150 min, 7 values |
+| **Uljin-Samcheok REAL** | 114 | 17 | 1 | 16 | 97 | **5.9 %** | 0/180/360/540 → **median 360** |
+| Uljin-Samcheok synthetic | 107 | 107 | 0 | 107 | 0 | **0.0 %** | 15…150 min, 7 values |
+| Uiseong-Andong | — | — | — | — | — | N/A | zero mapped fire stations |
+
+The cited profile — 0 % at t=0, median 360 — is **Uljin-Samcheok**. Yeongdeok's
+real field is its exact opposite: every closure lands at t=0, one distinct
+closure time, `sequential_closure_supported = false`. Two errors compounded —
+the wrong region, and a branch-only result treated as an established Main fact.
+
+**This is a new failure mode, distinct from the VPD one above.** There the cited
+event never happened anywhere. Here it did happen, was measured carefully, and
+was written down — on a branch that was never merged. `git log --all` finds it;
+`ls` and `grep` over the working tree do not. So the §4-B check has to be
+`git log --all` / `git branch -a --contains`, not just a working-tree grep, and
+the answer must carry **which branch** and **under which config** the number was
+produced.
+
+It was caught before any work was built on it, and it changed the experiment:
+Uljin-Samcheok was added as the second arm. **The exclusion it seemed to justify
+did not survive re-measurement either** — at `Main`'s cutoff of 0.70 Yeongdeok's
+real field has 42 closures at t=0 *and 3 at t=180*, two distinct times rather
+than one, so the arm was run instead of dropped. That is the same lesson twice:
+a number produced under a different config is a different number.
+[`dispatch_ordering.md`](dispatch_ordering.md) §3.
+
+⚠ **Also open, and separate:** that whole PHASE-16 investigation — the dispatch
+degeneracy, its cause, and the alternative key that was reported but not adopted
+— exists nowhere on `Main`. See §4 「PHASE 16 findings are branch-only」.
+
+### ⚠ Round-4 addendum (2026-08-13): a claim counted one measurement nine times
+
+PHASE 25 STEP 0 was a census of every defect this repository found in itself,
+asked for in support of a claim of the form 「one system, three regions, N real
+defects, decision shift measured for the first time」. **All three quantities in
+that sentence were checked, and none survived.**
+
+The census produced 156 confirmed defect records. Nine of them claimed a shift
+in the routing classification. Walking the five commits that touch
+`multi_region_comparison.json` and reading the same JSON path at each shows the
+counts move in exactly **two** places — `9ba83b4` (DEM re-acquisition) and
+`815dc02` (canonical-field switch). **The nine records are nine descriptions of
+two events.** 「Three regions」 fails for a second reason: event 1 moved two
+regions, event 2 moved one, and **no defect moved all three.** Novelty was never
+investigated at all.
+
+⚠ The census counts themselves (156 records, 9 claiming a shift) are a **session
+tally with no committed artifact** — the same shape §8.1 of `decision_shift.md`
+names as uncatchable. Quote them as such or not at all. A "thirty" figure also
+circulates for this project; it is the **2026-08-09 Round-4 review's**
+confirmed-findings count, not a census figure from this pass.
+
+⚠ **This is a new failure mode again, and it is the quietest one yet.** The VPD
+case was a citation whose event never happened. The closure-profile case was a
+real measurement from the wrong branch. Here **every individual record is true**
+— each was verified against an artifact — and the error is only in the
+*aggregation*. Nothing in the registry can catch it: each row checks out, and
+no gate counts distinct root causes. The defence is the same as §4-B's, applied
+one level up: before quoting a count of findings, check whether the findings are
+independent.
+
+The scoped claim, the two caveats that must travel with it, the 7-key partition
+correction and the two-axis distinction are all in
+[`decision_shift.md`](decision_shift.md). The three retired sentence shapes are
+registered in `scripts/check_forbidden.py` as `kind="claim"` rules.
+
+⚠ **One correction this produced, recorded here because it changes a stated
+control:** `multi_region.md` said 440/17/3 → 414/42/2 was "attributable to the
+hazard field **alone**". Only one input changed, but that input is
+simultaneously a different run, a corrected-DEM lineage and a larger canvas, and
+the **denominator moved 460 → 458** because the origin frame is a function of
+the field. Corrected in place; `decision_shift.md` §4.2.
+
+⚠ **And one thing that survives only by luck.** Event 1 fixed three faults in
+one commit — the sea-fill ramp, the 405-node footprint gap and the canvas
+mean-fill — and **no artifact decomposes the Uiseong-Andong routing movement
+into them.** Never attribute that movement to the sea-fill specifically; the
+attribution in the `9ba83b4` body is prose reasoning, not a measurement.
+
+A decomposition is nonetheless still *possible*, because the **defective rasters
+are on disk** — `data/raw/firms_CANONICAL_TEST/uljin_samcheok_2022_dem.tif`
+(`4850941d…`) and `…/uiseong_andong_2025_dem.tif` (`14288109…`), both matching
+`dem_acquisition.json` `.acquisitions[*].replaced.sha256`. ⚠ But `data/raw/**`
+is git-ignored and `data/snapshots/` holds only the *corrected* bytes, so these
+files are **in no commit and would not survive a fresh clone. Do not delete
+them.** (An earlier draft of this addendum said the bytes were unrecoverable and
+the decomposition impossible in principle; both were wrong — `decision_shift.md`
+§7.2, §10.)
+
 ## 5. ⚠ Never do these
 
 1. **Never push to `Main`.** All work stays on `round3-dev`. Merging is the
@@ -777,6 +958,31 @@ it — is the only defence for this class, and it is what caught it.
 21. **Never re-draw Yeongdeok's walk bbox** without re-reading §2-A. It does not
     fit the simulation grid, so it is not a bbox change — it is a full
     re-simulation and a re-run of steps 1–3.
+22. **Never headline a COUNT of defects with a measured decision shift.** Two
+    events move the routing classification, not nine and not thirty; a third and
+    fourth exist on the responder axis and must be labelled as a different
+    classification. **And never write 「three regions」 into that claim** — event
+    1 moved two regions, event 2 moved one, none moved three. Registered as
+    `kind="claim"` rules in `check_forbidden.py`.
+    [`decision_shift.md`](decision_shift.md) §1.
+23. **Never merge the two four-way classifications.** The routing axis
+    (`both_safe` / `naive_into_FA_safe` / `no_safe_route` / `fa_exceeds_budget`,
+    n = 458/368/393) and the responder axis (`rescue_routing.json`
+    `.four_way_counts`, n = 439) have different names, denominators, lineages
+    and hazard fields. Also: it is a **7-key** partition with three keys
+    structurally empty in Korean runs, and `fa_exceeds_budget`'s code condition
+    names no budget. `decision_shift.md` §2.
+24. **Never describe the reverted-field 440/17/3 → 414/42/2 as a single-variable
+    contrast**, and never write "N origins were reclassified" for it. The
+    canonical field differs from the reverted one on three axes at once, and the
+    denominator moved 460 → 458 because the origin frame is a function of the
+    field — so the per-origin ledger that would settle the split does not exist
+    **for this pair**. ⚠ It *does* exist for the DEM event and for the
+    flat-vs-slope contrast (`origin_nodes_by_bucket`,
+    `bucket_movement_vs_flat_control`), so check before assuming either way, and
+    when you do quote a movement count say which definition it is: leaving
+    `both_safe` and changing bucket are different numbers (Uiseong-Andong 83 vs
+    90). `decision_shift.md` §3.2, §4.2.
 
 ---
 
@@ -893,8 +1099,27 @@ of those artifacts are **irreproducible** ([`DATA_LOSS_2026-07-24.md`](DATA_LOSS
 **The convention, for the duration of the port:**
 
 1. **Never re-run a Korean producing script without an explicit `--out` (or
-   `--npz-out` / `--json-out`) pointing outside `data/processed`.** The scripts
-   all take one; the danger is the default, not the flag.
+   `--npz-out` / `--json-out`) pointing outside `data/processed`.** ⚠ **The
+   second half of this rule used to read "The scripts all take one; the danger
+   is the default, not the flag." That is false, and it was corrected
+   2026-08-13 (PHASE 25 STEP 0).** Eighteen scripts reference `data/processed`
+   and expose no out-flag at all; **ten of them write into it**:
+   `run_forward_sim_region.py` (`forward_sim_regions.json` +
+   `hazard_{fire_id}.npz`, `OUT_DIR` hardcoded at `:65`; its whole argparse
+   surface is `--fires --cell-m --n-steps --step-hours --advance-threshold
+   --p-cut --seed --walk-margin-km --acknowledge-fuel-gap`),
+   `export_demo_data.py` (`demo_data.json` — **no `ArgumentParser` anywhere in
+   the file**, `OUT` hardcoded at `:73`), `measure_weather_dependency.py`,
+   `verify_rescue_routing.py`, `derive_walk_failure.py`, `crown_sensitivity.py`,
+   `diagnose_crown.py`, `waf_sensitivity_sweep.py`, `run_ablation.py`
+   (`yeongdeok_2025_ablation.json`) and `run_yeongdeok_validation.py`
+   (`yeongdeok_2025_validation_results.json`) — the last two also with no
+   `ArgumentParser` at all. For these the danger **is
+   the absence of the flag**, and "re-run it to a scratch `--out`" is not an
+   available path without editing the script first. Three more
+   (`make_rescue_figures.py`, `make_routing_figures.py`,
+   `make_ordering_boundary_figure.py`) write `docs/figures/*.png`, which §5.3
+   forbids regenerating. [`decision_shift.md`](decision_shift.md) §7.2.
 2. **`make baseline-verify` before and after any such run.** It is in
    `make all-checks`, so a full check already covers it.
 3. **A deliberate change is a `make baseline-freeze` plus a sentence in the
@@ -947,8 +1172,11 @@ Override the interpreter with `make verify PYTHON=/path/to/python`.
 | [`screen_gate_scope.md`](screen_gate_scope.md) | **what the dash gate covers and why; ⚠ both of its original reasons were measured and found wrong, and it cannot see strings that arrive as JSON payload** |
 | [`region_literals.md`](region_literals.md) | **⚠ READ §0. One region's values typed into text every region reads — the same defect three times, why single-region verification cannot reveal it, and the check now in `make verify`** |
 | [`routing_limitations.md`](routing_limitations.md) | **Round-4 (2026-08-10): five measured limits of the routing layer — the bucket that names a cause the code does not establish, the objective-vs-report estimator gap, the slice-quantised 남은 시간, the non-Markov clock, the row-weighted importance. Recorded, deliberately not fixed; paired contrasts unaffected.** |
+| [`dispatch_ordering.md`](dispatch_ordering.md) | **⚠ PHASE 23 (2026-08-10) — contribution ② measured against three alternative orderings over 360 configurations, four arms. The result is largely NEGATIVE: 시한 임박 순 beats 가까운 순 in 3.6 % of cells and in **0 of 180** at the committed 75-minute window. §3 records the arm that was approved for exclusion and then run anyway; §6 has the measured mechanism; §8 the three ways the claim can honestly be restated. Read it before writing contribution ② into any submission text.** |
+| [`ordering_boundary.md`](ordering_boundary.md) | **⚠ PHASE 24 (2026-08-11) — the W axis of PHASE 23 filled in from 2 points to 12 (60…600), 2,160 cells. It does NOT reopen PHASE 23: that run's W=75 and W=240 values were re-derived cell by cell here, 3,744 values, **0 differences**. ⚠ **확정 서술 (§0, §7): 마감 기반 정렬이 이기는 셀이 존재하는 조건은 W ≥ 120분이나, 경계를 넘어도 규칙이 개선되지 않습니다. W = 600 에서도 승률 12.2 %, 패배율 68.3–82.8 % 로 커밋된 창(51.1 %)보다 높고, 평균 차이는 12개 W 전부 음수입니다. 승리 115개 중 100개가 지연 60분이며, 축 최초 승리 셀은 나머지 세 축이 동시에 최유리 끝값입니다. 즉 이것은 경계가 아니라 모서리이며, 유효 영역이라 부를 수 있는 것이 존재하지 않습니다.** This **strengthens** PHASE 23 rather than softening it: PHASE 23 measured invalidity at one committed point, PHASE 24 measured that opening the window 8× produces no valid region. Never write "조건만 맞추면 유효하다" — it takes all four axes at their extremes, 36 of 2,160 cells (1.7 %), to reach a win rate of even 50.0 %. **No single threshold exists** — not in W (min winning 120, max non-winning 600: the ranges fully overlap) and not in the distinct-deadline count (non-monotone; 1,580 non-winning cells sit at or above the lowest winning value). ⚠ **§6.3: PHASE 23 §6's mechanism is NOT a complete explanation** — it accounts for the floor (2 distinct deadlines → 0 wins in all 465 cells) but not for the 0 % at 6 and 7 distinct deadlines, and the outcome keeps moving (17.8 points, 영덕 real) while the count is frozen. The count is a label for (arm × W), not a free variable; §6.3 lists the three measurements that would be needed and states plainly that none was manufactured. §8.1: `W = 75` is marked `# ASSUMED` at `config/default.yaml:365` with **no measured basis anywhere in the tree** — quote the block there verbatim, and the limit statement is **「이 실험은 실제 운용이 경계의 어느 쪽인지 말할 수 없습니다」**. Read §1 before quoting anything.** |
 | [`weather_dependency.md`](weather_dependency.md) | **PHASE 14 — how much of the model's skill is instantaneous weather, and the ceiling on a forecast-source swap** |
 | [`baseline_phase13.json`](baseline_phase13.json) | **the frozen Korean baseline — every `data/processed` digest, the four PROTECTED paths, the LOFO shape, and the sha256 of the git-ignored `fire_manifest.json`. `make baseline-verify`.** |
+| [`firefighter_consultation.md`](firefighter_consultation.md) | **현직 소방관 1인 비공식 구술 자문 (N = 1, 2026-08-28 작성). 임정호·이양원 교수, 안희영 센터장 자문과 동일한 성격 — 전문가 판단의 기록이지 측정이 아니며, 「현장 실무자 자문」으로만 인용합니다. 수치 0건, 등록 0건, 코드·설정·산출물 변경 0건.** ⚠ **§1 — 「시간 예산」이라는 개념이 현장 의사결정에 존재하지 않음을 확인**했습니다 (「실측값 미확보」로 적지 마십시오). 철수 판단은 경과 시간이 아니라 「살아서 나올 수 있는가」의 실시간 평가입니다. 이는 [`dispatch_ordering.md`](dispatch_ordering.md) 의 **W = 75 에서 마감 기반 정렬 0/180** 과 **독립적인 출처가 같은 방향을 가리키는** 사례이며, `config/default.yaml:365` 의 `# ASSUMED` 인 `W` 에 대응하는 현장 대응물이 없음을 뜻합니다 — ⚠ 두 근거를 하나로 접어 「입증됐다」로 쓰지 마십시오. **§3 — 「지금 불이 안 보이니까」 대피하지 않는다는 진술이, 병목이 탐지·예보가 아니라 전달·구조에 있다는 프로젝트 전제를 현장에서 직접 확인한 가장 강한 증거**입니다. 동시에 §3.2 가 그 반대면을 기록합니다 — 원인은 순응 실패이고 **순응은 본 시스템의 범위 밖**입니다. **§2** 조건부 우회가 현장 관행과 구조적으로 일치(⚠ 축이 다르고 커버리지 단서 필요), **§4** 우리 목적함수는 소방(인명 최소화) 쪽이며 산림청(확산 저지)이 아님, **§5** 실질 가치가 「도달 불가 판정」보다 「다수 가구 우선순위 배정」에 있을 수 있다는 함의(결정 아님), **§7** 대원이 GPS를 쓰지 않으므로 전달 계층 산출물이 좌표가 아니라 도로명·랜드마크여야 한다는 **장비 수준의** 제약. **§8 미확인 — 소속·직급·성함, 익명 처리 동의 여부(기본값 익명), 인터뷰 일시, 시간 범위, 의성 고립 사례의 출처 대조.** |
 | **§13 of this file** | **PHASE 13 — the portability investigation, the four defects it found, why McKinney 2022, the four-arm design, and the resume condition** |
 
 ---
@@ -1734,6 +1962,7 @@ on the identical dataset (rebuilds to the canonical **151,904 / 2,989**).
 
 **⚠ The ceiling is NOT noise, and the metric decides what you see.** On pooled AUC
 the contrast is −0.0055 — no resolving power. On the **far band** it is −0.0344
+<!-- collision-ok: 0.1127 — this is wxdep_drop_far_band_delta (−0.1127); wxdep_drop_all_weather_far_band (0.6124) is asserted on the next line. -->
 shuffled and −0.1127 dropped. Removing weather entirely collapses the far band to
 **0.6124**: *without weather this model cannot do far-field prediction at all.*
 

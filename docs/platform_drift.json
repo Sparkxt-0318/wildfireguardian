@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "title": "Cross-platform reproduction drift of the Arm A LOGO-CV metrics",
+  "provenance": "derived",
+  "arm": "A_replication",
+  "generated_by": "scripts/platform_drift.py",
+  "what_this_is": "The floor below which no arm-to-arm comparison in this project is a measurement. Not an Arm A value and never to be cited as one.",
+  "reference_environment": {
+    "label": "wfg311",
+    "os": "macOS",
+    "arch": "arm64 (Apple Silicon)",
+    "python": "3.11.15",
+    "channel": "conda-forge",
+    "note": "The reference environment. Every committed headline value was produced here (docs/ENVIRONMENT.md)."
+  },
+  "second_platform": {
+    "os": "Linux",
+    "arch": "aarch64",
+    "python": "3.11.16",
+    "channel": "PyPI manylinux wheels (uv, python-build-standalone)",
+    "note": "Session 10's execution environment. requirements.txt pins installed exactly; `make env-check` passes. The versions match; only the binary builds differ."
+  },
+  "held_identical": {
+    "seed": 20250603,
+    "feature_columns": 16,
+    "folds": "leave-one-fire-out over the same 6 fires, alphabetical order",
+    "n_rows": 151904,
+    "n_positives": 2989,
+    "dataset_shape_matches_baseline_freeze": true
+  },
+  "drift": {
+    "pooled_auc": {
+      "reference": 0.9053277489374548,
+      "second_platform": 0.8989002305704359,
+      "abs_drift": 0.006428,
+      "signed_drift": -0.006428
+    },
+    "far_band_auc": {
+      "reference": 0.8765583120330634,
+      "second_platform": 0.8458435014001401,
+      "abs_drift": 0.030715,
+      "signed_drift": -0.030715
+    },
+    "mid_band_auc": {
+      "reference": 0.8698153315452233,
+      "second_platform": 0.8514855219201246,
+      "abs_drift": 0.01833,
+      "signed_drift": -0.01833
+    }
+  },
+  "per_fire_auc_drift": {
+    "gangneung_2023": {
+      "reference": 0.6820231958762887,
+      "second_platform": 0.6072809278350515,
+      "abs_drift": 0.074742
+    },
+    "hongseong_2023": {
+      "reference": 0.9448983570529749,
+      "second_platform": 0.9401130744554526,
+      "abs_drift": 0.004785
+    },
+    "miryang_2022": {
+      "reference": 0.973692264885921,
+      "second_platform": 0.9792292710072343,
+      "abs_drift": 0.005537
+    },
+    "uiseong_andong_2025": {
+      "reference": 0.8776874123436931,
+      "second_platform": 0.8681497849073514,
+      "abs_drift": 0.009538
+    },
+    "uljin_samcheok_2022": {
+      "reference": 0.9180778687255129,
+      "second_platform": 0.916284412593035,
+      "abs_drift": 0.001793
+    },
+    "yeongdeok_2025": {
+      "reference": 0.9407755935389225,
+      "second_platform": 0.9399913567663892,
+      "abs_drift": 0.000784
+    }
+  },
+  "cause": "Floating-point accumulation order and the placement of the early-stopping validation split inside HistGradientBoostingClassifier differ between the conda-forge macOS/arm64 build and the PyPI manylinux aarch64 build. The estimator, its hyperparameters and its seed are identical.",
+  "consequence": "Pooled ROC-AUC is reportable to THREE significant figures. The fourth digit is not stable across platforms and must not be compared, ranked or differenced."
+}

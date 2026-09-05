@@ -1,0 +1,11 @@
+{
+  "last_incorporated_commit": "38620f279ffd3a9d27fdb608481046030fdd6ae7",
+  "last_build_utc": "2026-09-05T15:10:00Z",
+  "body_words": 7461,
+  "figures": 8,
+  "tables": 4,
+  "references": 27,
+  "gaps": 6,
+  "built_pages": 21,
+  "built_pages_note": "Measured 2026-09-05 by paper/measure_pages.py and drift-checked by check_paper.py against the author's 25-page rule (NH-028) on any machine that can render in a Calibri-metric-compatible face. THE FACE IS PART OF THE NUMBER: 21 under Carlito, 23 under DejaVu Sans, same file and renderer, so the gate reports and falls back to the 9,000-word proxy rather than failing on a face whose metrics are not Calibri's. Re-measure after adding a figure: figures cost pages and no words, which the word proxy cannot see."
+}

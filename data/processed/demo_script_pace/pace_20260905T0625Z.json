@@ -1,0 +1,53 @@
+{
+  "segments": [
+    {
+      "name": "도입",
+      "declared_seconds": 29,
+      "spoken_syllables": 161,
+      "implied_syllables_per_second": 5.55,
+      "proportional_seconds": 28.68171021377672
+    },
+    {
+      "name": "1막",
+      "declared_seconds": 44,
+      "spoken_syllables": 246,
+      "implied_syllables_per_second": 5.59,
+      "proportional_seconds": 43.82422802850356
+    },
+    {
+      "name": "2막",
+      "declared_seconds": 50,
+      "spoken_syllables": 280,
+      "implied_syllables_per_second": 5.6,
+      "proportional_seconds": 49.8812351543943
+    },
+    {
+      "name": "3막",
+      "declared_seconds": 60,
+      "spoken_syllables": 338,
+      "implied_syllables_per_second": 5.63,
+      "proportional_seconds": 60.21377672209026
+    },
+    {
+      "name": "4막",
+      "declared_seconds": 59,
+      "spoken_syllables": 331,
+      "implied_syllables_per_second": 5.61,
+      "proportional_seconds": 58.9667458432304
+    },
+    {
+      "name": "마무리",
+      "declared_seconds": 58,
+      "spoken_syllables": 328,
+      "implied_syllables_per_second": 5.66,
+      "proportional_seconds": 58.43230403800475
+    }
+  ],
+  "total_spoken_syllables": 1684,
+  "declared_total_seconds": 300,
+  "syllables_per_second": 5.61,
+  "implied_rate_spread": 1.02,
+  "measured_from": "docs/auto/DEMO_SCRIPT_5MIN.md",
+  "variant": "full",
+  "method": "Hangul syllable blocks in §1's > lines; numerals read sino-Korean; symbols and Latin read from scripts/measure_demo_script_pace.py LEXICON; [버림] markers, ⚠ blocks and the §3 table excluded."
+}

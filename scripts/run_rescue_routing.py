@@ -125,6 +125,11 @@ def main() -> int:
         "dispatch_top20": [e.as_dict() for e in results.dispatch[:20]],
         "unreachable_homes": results.unreachable_homes,
         "sensitivity_sweep": sweeps,
+        # SESSION 8 Phase 1 — ADDITIVE key. Human-facing margin advisories
+        # (round-trip margin, band, recommendation, trigger line for the
+        # top-20, basis). Machine-facing keys above are byte-compatible with
+        # the pre-session artifact.
+        "margin_advisories": results.advisories,
     }
     (out / "rescue_routing.json").write_text(json.dumps(summary, indent=2, default=str))
 

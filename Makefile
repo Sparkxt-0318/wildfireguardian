@@ -9,10 +9,22 @@
 PYTHON ?= python
 SCRIPTS := scripts
 
+# A pipeline's exit status is its LAST command's. Session 10 ran the gates as
+# `gate | tail` inside an && chain, the shell read tail's zero, and a commit
+# landed on top of a red gate. `pipefail` makes a recipe fail on the gate
+# instead of on the tail of the pipe; `-e` stops the recipe at the first
+# failing command. `-u` is deliberately NOT set: recipes here legitimately
+# reference variables that may be empty.
+SHELL := /bin/bash
+.SHELLFLAGS := -o pipefail -e -c
+
 .DEFAULT_GOAL := help
-.PHONY: help verify verify-numbers check-forbidden check-region-literals \
-	snapshot snapshot-verify \
-        env-check config-hash test baseline-verify baseline-freeze all-checks
+.PHONY: help verify verify-numbers check-forbidden check-withdrawn-claims \
+	check-region-literals check-readme-figures \
+	snapshot snapshot-verify check-arm-isolation check-gate-invocations \
+	check-arm-controls \
+        env-check config-hash test baseline-verify baseline-freeze all-checks \
+        finals
 
 help:
 	@echo "WildfireGuardian — verification targets"
@@ -20,6 +32,7 @@ help:
 	@echo "  make verify           NUMBERS.json re-derived from artifacts + forbidden-string scan"
 	@echo "  make verify-numbers   just the NUMBERS.json re-derivation"
 	@echo "  make check-forbidden  just the forbidden-string scan"
+	@echo "  make check-withdrawn-claims  every tracked doc vs docs/auto/withdrawn_claims.json"
 	@echo "  make check-region-literals  one region's values typed into shared text"
 	@echo "  make snapshot         preserve external inputs (OSM + FIRMS manifests)"
 	@echo "  make snapshot-verify  re-hash the snapshot store against MANIFEST.json"
@@ -28,6 +41,7 @@ help:
 	@echo "                        manifests, against docs/baseline_phase13.json"
 	@echo "  make baseline-freeze  RE-record that baseline (deliberate)"
 	@echo "  make config-hash      print the current config hash"
+	@echo "  make finals           rebuild web/finals.html and record the gates"
 	@echo "  make test             pytest"
 	@echo "  make all-checks       everything above except snapshot"
 	@echo
@@ -36,7 +50,10 @@ help:
 # --- the headline gate -------------------------------------------------------
 # Every registered number is re-derived from its artifact, then the prose is
 # scanned for retired values. Either failing is a hard stop.
-verify: verify-numbers check-forbidden check-region-literals
+verify: verify-numbers check-forbidden check-withdrawn-claims check-region-literals \
+        check-arm-isolation check-gate-invocations check-arm-controls \
+        check-declared-deps check-artifact-manifest check-number-collisions \
+        check-readme-figures
 	@echo
 	@echo "=== make verify: PASSED ==="
 
@@ -49,10 +66,69 @@ check-forbidden:
 	@echo "=== forbidden strings ==="
 	@$(PYTHON) $(SCRIPTS)/check_forbidden.py
 
+check-withdrawn-claims:
+	@echo
+	@echo "=== withdrawn claims (registry, whole tree) ==="
+	@$(PYTHON) $(SCRIPTS)/check_withdrawn_claims.py
+
 check-region-literals:
 	@echo
 	@echo "=== region literals in user-visible text ==="
 	@$(PYTHON) $(SCRIPTS)/check_region_literals.py
+
+# --- arm isolation and gate hygiene (Session 10) -----------------------------
+check-arm-isolation:
+	@echo
+	@echo "=== Arm A entries unchanged ==="
+	@$(PYTHON) $(SCRIPTS)/check_arm_isolation.py
+
+check-gate-invocations:
+	@echo
+	@echo "=== no gate piped without pipefail ==="
+	@$(PYTHON) $(SCRIPTS)/check_gate_invocations.py
+
+check-arm-controls:
+	@echo
+	@echo "=== every feature-count change has a matched control ==="
+	@$(PYTHON) $(SCRIPTS)/check_arm_controls.py
+
+# --- clean-clone boot (Session 18) -------------------------------------------
+# Catches the failure that only appears on a laptop that has never seen this
+# repo: a module imported at runtime and declared in no dependency file. Also
+# scans engine=/driver= literals, because h5netcdf and h5py were reached only
+# through xr.open_dataset(engine="h5netcdf") and appear in no import statement.
+check-declared-deps:
+	@echo
+	@echo "=== every runtime import is declared ==="
+	@$(PYTHON) $(SCRIPTS)/check_declared_deps.py
+
+# Every artifact a document or NUMBERS.json cites must be IN the repository —
+# tracked, or carried in docs/artifact_manifest.json with a digest and a
+# regeneration command. A cited number whose artifact exists only on one laptop
+# cannot be checked by anyone else.
+check-artifact-manifest:
+	@echo
+	@echo "=== cited artifacts match the manifest ==="
+	@$(PYTHON) $(SCRIPTS)/build_artifact_manifest.py --check
+
+# A registered quantity appearing elsewhere with a DIFFERENT value and nothing
+# saying which superseded which. check-forbidden holds a curated list of retired
+# values; this one is registry-anchored and finds collisions nobody has curated.
+check-number-collisions:
+	@echo
+	@echo "=== no registered quantity contradicts itself ==="
+	@$(PYTHON) $(SCRIPTS)/check_number_collisions.py
+
+# The README's opening figures (the March 2025 fire's scale) were rewritten wrongly
+# twice with every gate green, because they had no key (WFG-049). Now each is a
+# fire2025_* registry entry read from data/processed/external/fire_2025_scale.json,
+# and this gate refuses a paragraph that omits a final figure, states an interim
+# tally as final, or carries a retired value.
+check-readme-figures:
+	@echo
+	@echo "=== README opening figures <-> registry ==="
+	@$(PYTHON) $(SCRIPTS)/register_fire2025_figures.py --check
+	@$(PYTHON) $(SCRIPTS)/check_readme_figures.py
 
 # --- provenance --------------------------------------------------------------
 snapshot:
@@ -87,6 +163,39 @@ baseline-freeze:
 
 config-hash:
 	@$(PYTHON) -m wildfireguardian.config
+
+# --- the finals presentation screen -----------------------------------------
+# `--verify` runs the fast gates and records their real results in the screen's
+# SYSTEM INTEGRITY panel. Without it the panel lists the commands and claims no
+# result, which is the honest rendering of a build that checked nothing.
+# The preflight exists because the failure it replaces is a 30-line traceback
+# from deep inside the package import chain, and the real cause is one line:
+# `python` resolved to an interpreter without the geospatial stack. That is the
+# wrong thing to read on a competition morning.
+finals:
+	@$(PYTHON) -c "import networkx, numpy, pyproj, rasterio, PIL" 2>/dev/null \
+	  || { echo "$(PYTHON) lacks the geospatial stack (networkx/pyproj/rasterio/PIL)."; \
+	       echo "Use the reference environment (docs/ENVIRONMENT.md):"; \
+	       echo "    conda activate wfg311 && make finals"; \
+	       echo "or point this target straight at it:"; \
+	       echo "    make finals PYTHON=\$$(conda run -n wfg311 which python)"; \
+	       exit 1; }
+	@echo "=== building web/finals.html ==="
+	@$(PYTHON) $(SCRIPTS)/build_finals.py --verify
+	@$(PYTHON) $(SCRIPTS)/check_screen_assets.py web/finals.html
+
+# The folder that goes on the USB stick (WFG-036, KCF_READINESS R9). Copies the four
+# offline screens, their fonts and poster, the licence and CITATION.cff out of the tree
+# into release/kcf-finals-2026/, then re-derives every SHA-256 and refuses if the result
+# is not the bundle MANIFEST.json describes. It checks the REPOSITORY against the
+# manifest and NOT a USB copy: it overwrites the bundle from the tree before hashing,
+# so a file that went bad on the stick is repaired rather than reported (measured
+# 2026-09-05, WFG-037). The copy on the stick is checked by
+#   python3 scripts/check_bundle_copy.py <folder>
+# which reads and never writes. See docs/auto/finals/BOOTH_SETUP.md.
+# Pass UPDATE=1 after deliberately changing a payload file. See docs/finals_bundle.md.
+finals-bundle:
+	@$(PYTHON) $(SCRIPTS)/build_finals_bundle.py $(if $(UPDATE),--update,)
 
 test:
 	@$(PYTHON) -m pytest -q

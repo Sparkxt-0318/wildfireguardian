@@ -1,10 +1,16 @@
 # Routing Spine Integration — coupling the spread_v2 hazard to elderly evacuation routing
 
 **Demonstration fire: 2025 영덕(영남) 산불 / Yeongdeok 2025** — the anchor casualty
-event (part of the 2025 의성–안동 wildfire complex: ~27 deaths total — 8 in 영덕 —
-victims predominantly in their 60s–80s). Real terrain, real fire data; synthetic road
-topology on the real extent.
-〔출처: 서울환경연합 2026 회고(23명은 2025-03-26 시점); 세계일보·한겨레 2025-03-26〕
+event (part of the 의성발 경북 wildfire chain: **26 deaths** in the chain, of which
+**영덕 10** by the county's notice of 2025-04-29, or 9 by the province's interim tally
+of 2025-03-30; victims predominantly in their 60s–80s). Real terrain, real fire data;
+synthetic road topology on the real extent.
+〔출처와 범위는 `docs/data_sources.md` § 동기 사건의 피해 규모 A 표에 URL과 함께
+정리되어 있다. 이전 판본이 쓰던 사망자 수치는 총계와 영덕 값이 모두 어느 출처에도
+없는 값이어서 폐기했다(critic #4 F17, 2026-09-04). **폐기한 판본이 달고 있던 출처
+표기도 여기 남긴다**(지우지 않는다 — CHARTER §3 rule 7): 「서울환경연합 2026
+회고(23명은 2025-03-26 시점); 세계일보·한겨레 2025-03-26」. 이 출처들이 틀렸던 것이
+아니라, 그 시점의 중간 집계값을 최종값처럼 옮겨 적은 것이 틀렸다.〕
 
 ---
 
@@ -90,6 +96,7 @@ candidate-cell rows, 2,989 positives (~2%).
 
 | rank | feature | AUC drop | group |
 |---:|---|---:|---|
+<!-- collision-ok: 0.077 — permutation IMPORTANCE, not the drop-delta (0.027). -->
 | 1 | **days_since_rain** | **0.077** | fire-weather **severity** |
 | 2 | dist_to_fire_m | 0.060 | geometry |
 | 3 | **wind_speed_ms** | 0.021 | severity |

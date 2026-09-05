@@ -1,0 +1,573 @@
+{
+  "source_file": "data/processed/spread_v2_lofo_oof_cells.csv.gz",
+  "n_rows": 151904,
+  "n_positive": 2989,
+  "n_folds": 6,
+  "operating_threshold": 0.3,
+  "operating_threshold_origin": "config/default.yaml :: forward_sim_advance_threshold. It is the value the forward simulation and the routing layer consume. IT WAS NOT TUNED on these probabilities — not by F1, not by Youden's J, not by any cost model. The PR curve is reported beside it.",
+  "no_model_was_fitted": "Probabilities are read from the committed LOGO-CV out-of-fold file; nothing was retrained. Refitting to add a column would mean the reported recall came from a different run than the AUC.",
+  "pooled": {
+    "tp": 412,
+    "fp": 925,
+    "fn": 2577,
+    "tn": 147990,
+    "n": 151904,
+    "n_positive": 2989,
+    "recall": 0.138,
+    "precision": 0.308,
+    "f1": 0.19,
+    "predicted_positive": 1337
+  },
+  "per_fold": {
+    "gangneung_2023": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 8,
+      "tn": 388,
+      "n": 396,
+      "n_positive": 8,
+      "recall": 0.0,
+      "precision": null,
+      "f1": 0.0,
+      "predicted_positive": 0
+    },
+    "hongseong_2023": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 34,
+      "tn": 3319,
+      "n": 3353,
+      "n_positive": 34,
+      "recall": 0.0,
+      "precision": null,
+      "f1": 0.0,
+      "predicted_positive": 0
+    },
+    "miryang_2022": {
+      "tp": 0,
+      "fp": 2,
+      "fn": 24,
+      "tn": 2993,
+      "n": 3019,
+      "n_positive": 24,
+      "recall": 0.0,
+      "precision": 0.0,
+      "f1": 0.0,
+      "predicted_positive": 2
+    },
+    "uiseong_andong_2025": {
+      "tp": 34,
+      "fp": 224,
+      "fn": 1468,
+      "tn": 81010,
+      "n": 82736,
+      "n_positive": 1502,
+      "recall": 0.0226,
+      "precision": 0.132,
+      "f1": 0.0386,
+      "predicted_positive": 258
+    },
+    "uljin_samcheok_2022": {
+      "tp": 27,
+      "fp": 102,
+      "fn": 625,
+      "tn": 40897,
+      "n": 41651,
+      "n_positive": 652,
+      "recall": 0.0414,
+      "precision": 0.209,
+      "f1": 0.0691,
+      "predicted_positive": 129
+    },
+    "yeongdeok_2025": {
+      "tp": 351,
+      "fp": 597,
+      "fn": 418,
+      "tn": 19383,
+      "n": 20749,
+      "n_positive": 769,
+      "recall": 0.456,
+      "precision": 0.37,
+      "f1": 0.409,
+      "predicted_positive": 948
+    }
+  },
+  "mean_of_folds": {
+    "recall": 0.0867,
+    "precision": 0.178,
+    "f1": 0.0861
+  },
+  "fold_spread": {
+    "recall": {
+      "min": 0.0,
+      "max": 0.456,
+      "sd": 0.182
+    },
+    "precision": {
+      "min": 0.0,
+      "max": 0.37,
+      "sd": 0.155
+    },
+    "f1": {
+      "min": 0.0,
+      "max": 0.409,
+      "sd": 0.161
+    }
+  },
+  "fold_sizes": {
+    "gangneung_2023": {
+      "n": 396,
+      "n_positive": 8,
+      "positive_rate": 0.0202
+    },
+    "hongseong_2023": {
+      "n": 3353,
+      "n_positive": 34,
+      "positive_rate": 0.0101
+    },
+    "miryang_2022": {
+      "n": 3019,
+      "n_positive": 24,
+      "positive_rate": 0.00795
+    },
+    "uiseong_andong_2025": {
+      "n": 82736,
+      "n_positive": 1502,
+      "positive_rate": 0.0182
+    },
+    "uljin_samcheok_2022": {
+      "n": 41651,
+      "n_positive": 652,
+      "positive_rate": 0.0157
+    },
+    "yeongdeok_2025": {
+      "n": 20749,
+      "n_positive": 769,
+      "positive_rate": 0.0371
+    }
+  },
+  "pr_curve": {
+    "points": [
+      {
+        "threshold": 0.0,
+        "recall": 1.0,
+        "precision": 0.0197,
+        "tp": 2989,
+        "fp": 148915,
+        "fn": 0
+      },
+      {
+        "threshold": 0.02,
+        "recall": 0.562,
+        "precision": 0.122,
+        "tp": 1679,
+        "fp": 12043,
+        "fn": 1310
+      },
+      {
+        "threshold": 0.04,
+        "recall": 0.395,
+        "precision": 0.143,
+        "tp": 1182,
+        "fp": 7083,
+        "fn": 1807
+      },
+      {
+        "threshold": 0.06,
+        "recall": 0.308,
+        "precision": 0.162,
+        "tp": 922,
+        "fp": 4783,
+        "fn": 2067
+      },
+      {
+        "threshold": 0.08,
+        "recall": 0.266,
+        "precision": 0.178,
+        "tp": 795,
+        "fp": 3676,
+        "fn": 2194
+      },
+      {
+        "threshold": 0.1,
+        "recall": 0.242,
+        "precision": 0.194,
+        "tp": 722,
+        "fp": 3009,
+        "fn": 2267
+      },
+      {
+        "threshold": 0.12,
+        "recall": 0.224,
+        "precision": 0.208,
+        "tp": 670,
+        "fp": 2545,
+        "fn": 2319
+      },
+      {
+        "threshold": 0.14,
+        "recall": 0.211,
+        "precision": 0.225,
+        "tp": 632,
+        "fp": 2183,
+        "fn": 2357
+      },
+      {
+        "threshold": 0.16,
+        "recall": 0.2,
+        "precision": 0.238,
+        "tp": 598,
+        "fp": 1917,
+        "fn": 2391
+      },
+      {
+        "threshold": 0.18,
+        "recall": 0.19,
+        "precision": 0.248,
+        "tp": 567,
+        "fp": 1719,
+        "fn": 2422
+      },
+      {
+        "threshold": 0.2,
+        "recall": 0.182,
+        "precision": 0.26,
+        "tp": 543,
+        "fp": 1547,
+        "fn": 2446
+      },
+      {
+        "threshold": 0.22,
+        "recall": 0.17,
+        "precision": 0.268,
+        "tp": 507,
+        "fp": 1386,
+        "fn": 2482
+      },
+      {
+        "threshold": 0.24,
+        "recall": 0.159,
+        "precision": 0.276,
+        "tp": 476,
+        "fp": 1249,
+        "fn": 2513
+      },
+      {
+        "threshold": 0.26,
+        "recall": 0.152,
+        "precision": 0.283,
+        "tp": 454,
+        "fp": 1148,
+        "fn": 2535
+      },
+      {
+        "threshold": 0.28,
+        "recall": 0.147,
+        "precision": 0.3,
+        "tp": 438,
+        "fp": 1023,
+        "fn": 2551
+      },
+      {
+        "threshold": 0.3,
+        "recall": 0.138,
+        "precision": 0.308,
+        "tp": 412,
+        "fp": 925,
+        "fn": 2577
+      },
+      {
+        "threshold": 0.32,
+        "recall": 0.13,
+        "precision": 0.32,
+        "tp": 390,
+        "fp": 829,
+        "fn": 2599
+      },
+      {
+        "threshold": 0.34,
+        "recall": 0.123,
+        "precision": 0.328,
+        "tp": 368,
+        "fp": 755,
+        "fn": 2621
+      },
+      {
+        "threshold": 0.36,
+        "recall": 0.119,
+        "precision": 0.345,
+        "tp": 356,
+        "fp": 677,
+        "fn": 2633
+      },
+      {
+        "threshold": 0.38,
+        "recall": 0.113,
+        "precision": 0.357,
+        "tp": 337,
+        "fp": 606,
+        "fn": 2652
+      },
+      {
+        "threshold": 0.4,
+        "recall": 0.105,
+        "precision": 0.362,
+        "tp": 315,
+        "fp": 554,
+        "fn": 2674
+      },
+      {
+        "threshold": 0.42,
+        "recall": 0.0997,
+        "precision": 0.377,
+        "tp": 298,
+        "fp": 493,
+        "fn": 2691
+      },
+      {
+        "threshold": 0.44,
+        "recall": 0.0967,
+        "precision": 0.396,
+        "tp": 289,
+        "fp": 441,
+        "fn": 2700
+      },
+      {
+        "threshold": 0.46,
+        "recall": 0.0883,
+        "precision": 0.39,
+        "tp": 264,
+        "fp": 413,
+        "fn": 2725
+      },
+      {
+        "threshold": 0.48,
+        "recall": 0.0806,
+        "precision": 0.401,
+        "tp": 241,
+        "fp": 360,
+        "fn": 2748
+      },
+      {
+        "threshold": 0.5,
+        "recall": 0.0769,
+        "precision": 0.419,
+        "tp": 230,
+        "fp": 319,
+        "fn": 2759
+      },
+      {
+        "threshold": 0.52,
+        "recall": 0.0689,
+        "precision": 0.415,
+        "tp": 206,
+        "fp": 290,
+        "fn": 2783
+      },
+      {
+        "threshold": 0.54,
+        "recall": 0.0616,
+        "precision": 0.413,
+        "tp": 184,
+        "fp": 261,
+        "fn": 2805
+      },
+      {
+        "threshold": 0.56,
+        "recall": 0.0545,
+        "precision": 0.414,
+        "tp": 163,
+        "fp": 231,
+        "fn": 2826
+      },
+      {
+        "threshold": 0.58,
+        "recall": 0.0482,
+        "precision": 0.413,
+        "tp": 144,
+        "fp": 205,
+        "fn": 2845
+      },
+      {
+        "threshold": 0.6,
+        "recall": 0.0435,
+        "precision": 0.423,
+        "tp": 130,
+        "fp": 177,
+        "fn": 2859
+      },
+      {
+        "threshold": 0.62,
+        "recall": 0.0378,
+        "precision": 0.433,
+        "tp": 113,
+        "fp": 148,
+        "fn": 2876
+      },
+      {
+        "threshold": 0.64,
+        "recall": 0.0298,
+        "precision": 0.41,
+        "tp": 89,
+        "fp": 128,
+        "fn": 2900
+      },
+      {
+        "threshold": 0.66,
+        "recall": 0.0254,
+        "precision": 0.411,
+        "tp": 76,
+        "fp": 109,
+        "fn": 2913
+      },
+      {
+        "threshold": 0.68,
+        "recall": 0.0197,
+        "precision": 0.393,
+        "tp": 59,
+        "fp": 91,
+        "fn": 2930
+      },
+      {
+        "threshold": 0.7,
+        "recall": 0.0151,
+        "precision": 0.417,
+        "tp": 45,
+        "fp": 63,
+        "fn": 2944
+      },
+      {
+        "threshold": 0.72,
+        "recall": 0.012,
+        "precision": 0.444,
+        "tp": 36,
+        "fp": 45,
+        "fn": 2953
+      },
+      {
+        "threshold": 0.74,
+        "recall": 0.00836,
+        "precision": 0.439,
+        "tp": 25,
+        "fp": 32,
+        "fn": 2964
+      },
+      {
+        "threshold": 0.76,
+        "recall": 0.00669,
+        "precision": 0.444,
+        "tp": 20,
+        "fp": 25,
+        "fn": 2969
+      },
+      {
+        "threshold": 0.78,
+        "recall": 0.00435,
+        "precision": 0.464,
+        "tp": 13,
+        "fp": 15,
+        "fn": 2976
+      },
+      {
+        "threshold": 0.8,
+        "recall": 0.00167,
+        "precision": 0.333,
+        "tp": 5,
+        "fp": 10,
+        "fn": 2984
+      },
+      {
+        "threshold": 0.82,
+        "recall": 0.000335,
+        "precision": 0.143,
+        "tp": 1,
+        "fp": 6,
+        "fn": 2988
+      },
+      {
+        "threshold": 0.84,
+        "recall": 0.000335,
+        "precision": 0.5,
+        "tp": 1,
+        "fp": 1,
+        "fn": 2988
+      },
+      {
+        "threshold": 0.86,
+        "recall": 0.0,
+        "precision": null,
+        "tp": 0,
+        "fp": 0,
+        "fn": 2989
+      },
+      {
+        "threshold": 0.88,
+        "recall": 0.0,
+        "precision": null,
+        "tp": 0,
+        "fp": 0,
+        "fn": 2989
+      },
+      {
+        "threshold": 0.9,
+        "recall": 0.0,
+        "precision": null,
+        "tp": 0,
+        "fp": 0,
+        "fn": 2989
+      },
+      {
+        "threshold": 0.92,
+        "recall": 0.0,
+        "precision": null,
+        "tp": 0,
+        "fp": 0,
+        "fn": 2989
+      },
+      {
+        "threshold": 0.94,
+        "recall": 0.0,
+        "precision": null,
+        "tp": 0,
+        "fp": 0,
+        "fn": 2989
+      },
+      {
+        "threshold": 0.96,
+        "recall": 0.0,
+        "precision": null,
+        "tp": 0,
+        "fp": 0,
+        "fn": 2989
+      },
+      {
+        "threshold": 0.98,
+        "recall": 0.0,
+        "precision": null,
+        "tp": 0,
+        "fp": 0,
+        "fn": 2989
+      },
+      {
+        "threshold": 1.0,
+        "recall": 0.0,
+        "precision": null,
+        "tp": 0,
+        "fp": 0,
+        "fn": 2989
+      }
+    ],
+    "average_precision": 0.169,
+    "prevalence": 0.0197,
+    "note": "average_precision is over the FULL ranking; the points are a 51-step grid for plotting. The no-skill baseline for a PR curve is the prevalence, not 0.5."
+  },
+  "f1_maximising_threshold_NOT_ADOPTED": {
+    "threshold": 0.14,
+    "f1": 0.218,
+    "recall": 0.211,
+    "precision": 0.225,
+    "warning": "Chosen ON the out-of-fold probabilities it is then scored on, so it is optimistically biased and is NOT an out-of-sample operating point. Reported so the reader can see how far the untuned 0.3 default sits from the peak; the system's threshold is unchanged."
+  },
+  "precision_rule": "Three significant figures, per docs/MODEL_CARD.md. The platform replication drift measured in Session 10 (pooled 0.0064, far-band 0.0307 on AUC) bounds how much of any small difference is real; a recall difference smaller than that bound is not a difference.",
+  "not_comparable_to": "This project's ROC-AUC and these recall/precision figures are NOT comparable to NDWS PR-AUC or WSTS AP numbers. Three reasons, any one of which is sufficient: (1) the label here is 'this 500 m cell ignites by the NEXT SATELLITE OVERPASS' at overpass cadence, not next-day fire pixels on a fixed daily grid; (2) the IoU this project reports is over CUMULATIVE BURNED AREA, not next-day fire pixels; (3) the prevalence differs, and PR-AUC/AP move with prevalence by construction, so the same model scores differently on a differently-balanced set. Do not place these numbers in a table beside those benchmarks."
+}

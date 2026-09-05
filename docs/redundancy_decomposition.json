@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "title": "Redundancy decomposition — is the Arm E null caused by overlap with elev_above_source_m?",
+  "provenance": "derived",
+  "arm": "E_redundancy",
+  "generated_by": "scripts/redundancy_decomposition.py",
+  "dropped_feature": "elev_above_source_m",
+  "correlation_upslope_alignment_with_dropped": 0.2426,
+  "configs": {
+    "A18": {
+      "n_features": 16,
+      "pooled_auc": 0.8989002305704359,
+      "mean_of_folds_auc": 0.8751748045940855,
+      "far_band_auc": 0.8458435014001401
+    },
+    "E18": {
+      "n_features": 18,
+      "pooled_auc": 0.9048475036678545,
+      "mean_of_folds_auc": 0.8915855657166669,
+      "far_band_auc": 0.8241133160074474
+    },
+    "A15": {
+      "n_features": 15,
+      "pooled_auc": 0.9030133826155731,
+      "mean_of_folds_auc": 0.8779853539150793,
+      "far_band_auc": 0.8419452306321092
+    },
+    "E17": {
+      "n_features": 17,
+      "pooled_auc": 0.9048949304732806,
+      "mean_of_folds_auc": 0.8912907230165179,
+      "far_band_auc": 0.8252340708618735
+    }
+  },
+  "dropping_elev_above_source_costs": {
+    "pooled_auc": 0.004113,
+    "mean_of_folds_auc": 0.002811,
+    "mid_band_auc": 0.011726,
+    "far_band_auc": -0.003898
+  },
+  "upslope_alignment": {
+    "in_E18": {
+      "rank": 15,
+      "n_features": 18,
+      "weighted_mean_auc_drop": 0.000722,
+      "fold_sd": 0.002673
+    },
+    "in_E17": {
+      "rank": 13,
+      "n_features": 17,
+      "weighted_mean_auc_drop": 0.000771,
+      "fold_sd": 0.004056
+    },
+    "rise_when_dropped": 4.9e-05,
+    "rise_in_units_of_its_own_fold_sd": 0.018
+  },
+  "slope_forcing": {
+    "in_E18": {
+      "rank": 14,
+      "n_features": 18,
+      "weighted_mean_auc_drop": 0.001104,
+      "fold_sd": 0.006686
+    },
+    "in_E17": {
+      "rank": 11,
+      "n_features": 17,
+      "weighted_mean_auc_drop": 0.001367,
+      "fold_sd": 0.013487
+    }
+  },
+  "matched_null_17col": {
+    "pooled_auc": {
+      "n_draws": 30,
+      "null_mean_delta": 0.000144,
+      "null_sd_delta": 0.003173,
+      "null_p5_delta": -0.00569,
+      "null_p95_delta": 0.0041
+    },
+    "mean_of_folds_auc": {
+      "n_draws": 30,
+      "null_mean_delta": -0.001805,
+      "null_sd_delta": 0.003385,
+      "null_p5_delta": -0.006165,
+      "null_p95_delta": 0.002415
+    },
+    "mid_band_auc": {
+      "n_draws": 30,
+      "null_mean_delta": -0.000621,
+      "null_sd_delta": 0.004904,
+      "null_p5_delta": -0.008872,
+      "null_p95_delta": 0.005926
+    },
+    "far_band_auc": {
+      "n_draws": 30,
+      "null_mean_delta": 0.002291,
+      "null_sd_delta": 0.026265,
+      "null_p5_delta": -0.043641,
+      "null_p95_delta": 0.039919
+    },
+    "gentle_auc": {
+      "n_draws": 30,
+      "null_mean_delta": 0.00052,
+      "null_sd_delta": 0.002774,
+      "null_p5_delta": -0.003494,
+      "null_p95_delta": 0.00427
+    },
+    "steep_auc": {
+      "n_draws": 30,
+      "null_mean_delta": -0.000292,
+      "null_sd_delta": 0.004135,
+      "null_p5_delta": -0.008496,
+      "null_p95_delta": 0.004407
+    }
+  },
+  "E17_placed_in_matched_null": {
+    "pooled_auc": {
+      "E17_delta_vs_A15": 0.001882,
+      "percentile_of_null": 56.7,
+      "exceeds_p95": false
+    },
+    "mean_of_folds_auc": {
+      "E17_delta_vs_A15": 0.013305,
+      "percentile_of_null": 100.0,
+      "exceeds_p95": true
+    },
+    "mid_band_auc": {
+      "E17_delta_vs_A15": 0.007581,
+      "percentile_of_null": 100.0,
+      "exceeds_p95": true
+    },
+    "far_band_auc": {
+      "E17_delta_vs_A15": -0.016711,
+      "percentile_of_null": 16.7,
+      "exceeds_p95": false
+    },
+    "gentle_auc": {
+      "E17_delta_vs_A15": 0.004351,
+      "percentile_of_null": 93.3,
+      "exceeds_p95": true
+    },
+    "steep_auc": {
+      "E17_delta_vs_A15": -0.00034,
+      "percentile_of_null": 36.7,
+      "exceeds_p95": false
+    }
+  },
+  "n_null_draws": 30,
+  "mean_of_folds_excluding_smallest_fold": {
+    "excluded": "gangneung_2023",
+    "E18_minus_A18_all6": 0.016411,
+    "E18_minus_A18_five": 0.004358,
+    "E17_minus_A15_all6": 0.013305,
+    "E17_minus_A15_five": -0.000206
+  }
+}

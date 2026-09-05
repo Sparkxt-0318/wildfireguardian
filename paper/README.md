@@ -1,0 +1,231 @@
+# The paper — how it is written and built
+
+Target: one English manuscript, publication-ready in tone and figures, written
+alongside the code by the `wfg-autoloop-paper` routine (docs/auto/CHARTER.md §12)
+and rebuilt every time the code moves. Author: **Siyeong Park (박시영)**.
+
+**Length: the ceiling is 25 pages.** The author decided it on 2026-09-05
+(NH-028, verbatim: 「Don't worry about the word count for now. Just make sure it
+doesn't exceed. 25 pages for. now」). `check_paper.py` now checks that directly —
+it renders the document and counts — and keeps the 9,000-word budget as the
+proxy for machines that cannot render, or that can render but not in a font
+whose metrics are Calibri's. As of 2026-09-05 the built document is **21 pages
+under Carlito**, measured rather than estimated; the qualifier is load-bearing
+and the next section says why. Earlier versions of this file and of CHARTER §12
+said 20 pages, which was IEEE Access's *recommendation* read as a rule; the
+author's ceiling is the operative one.
+
+| file | role |
+|---|---|
+| `manuscript.md` | the single source of truth; Markdown subset (see below) |
+| `references.bib` | every citation, verified by opening the URL; unverified ones are not allowed in the manuscript |
+| `figures/F*.png` | built by `make_figures.py` from committed artifacts only; never hand-edited |
+| `style.py` | the one figure style (fonts, palette, sizes); every figure imports it |
+| `make_figures.py` | regenerates every figure deterministically |
+| `build_docx.py` | Markdown → `WildfireGuardian_Park_2026.docx` (python-docx; title page, numbered figures/tables, references) |
+| `check_paper.py` | the paper's own gate: the 25-page ceiling where it can be measured, the word budget as its proxy where it cannot, figure/reference integrity, gap ledger, registry-anchored numbers |
+| `measure_pages.py` | renders the built `.docx` and counts its pages, two ways, refusing to answer when they disagree; `check_paper.py` calls it, and `--why` prints the install a machine needs to run it |
+| `GAPS.md` | every `[GAP: …]` marker in the manuscript, with what closes it and when (after the sprint if needed) |
+| `STATE.json` | the commit the manuscript last incorporated |
+
+## Markdown subset `build_docx.py` understands
+
+`# Title` (once) · `## Section` · `### Subsection` · paragraphs · `- bullets` ·
+`1. numbered` · `**bold**` / `*italic*` / `` `code` `` · figures as
+`![Caption text](figures/F1_system.png)` on their own line · tables in pipe
+syntax with a preceding line `Table N. Caption` · citations as `[@key]` or
+`[@key1; @key2]` (numbered in order of first appearance; the References section
+is generated from `references.bib`) · `[GAP: what is missing]` markers, rendered
+in red and mirrored in `GAPS.md`.
+
+## Rules (from docs/auto/CHARTER.md §3, §9, §12)
+
+- Every number comes from `docs/NUMBERS.json` or a committed artifact, and the
+  registry-anchored collision gate runs over `manuscript.md` like any other
+  prose. Withdrawn claims stay withdrawn.
+- Figures are drawn from artifacts by `make_figures.py`; if the artifact is
+  missing the figure is not drawn and the manuscript says `[GAP]`.
+- The manuscript is a draft the student owns: `AUTHORSHIP.md` records that the
+  loop drafted it; the abstract and any ISEF text are rewritten by the student
+  before submission; nothing is submitted anywhere before the December ceremony.
+- Length: **25 built pages** is the rule and `check_paper.py` measures it where a
+  renderer exists. The word budget — target 8,500, hard fail above 9,000
+  (`docs/auto/LOOP_CONFIG.json`, CHARTER §12) — is its stand-in everywhere else.
+  The old gloss "≈ 16 pages at this style" was an assumed conversion and it was
+  wrong; the measured curve is in the next section. ⚠ **The proxy is not the
+  rule**: figures, not prose, are why §4 is eight of the 21 pages, so a new
+  figure adds a page without adding a word. Re-measure after adding one.
+
+## How many pages this actually is
+
+`python paper/measure_pages.py` renders `WildfireGuardian_Park_2026.docx` with
+LibreOffice and counts the pages, cross-checking the page objects against the
+page tree and refusing to print a number when the two disagree. On 2026-09-05
+it reported **21 pages** (page objects 21, page-tree `/Count` 21). `pypdf` 6.17.0
+was `pip install`ed once as a third check and also said 21, then removed again;
+it is not in `requirements.txt` and not in the bootstrap venv, so treat that
+cross-check as a note, not as something a fresh clone re-derives.
+
+⚠ **The count is font-conditional, and the qualifier is not pedantry.** Measured
+on the identical built file with the identical renderer, varying only which
+faces fontconfig was allowed to see: **Carlito 21 pages, DejaVu Sans 23**.
+`build_docx.py` asks for Calibri, which is not redistributable; only a
+metric-compatible stand-in makes the number a statement about the document
+rather than about the machine. So `check_paper.py` gates only when the face is
+Carlito or real Calibri, and otherwise reports the count and falls back to the
+word budget — because failing on a DejaVu render would reject a document that is
+inside the author's rule in Word.
+
+**The words-to-pages curve.** `python paper/calibrate_pages.py` regenerates it.
+Filler is the manuscript's own paragraphs recycled; the 8 figures, 4 tables and
+27 references are held fixed; the only variable is **where the words go**:
+
+| body words | 7,461 | 7,961 | 8,561 | 8,961 | 9,461 | 9,961 | 10,461 |
+|---|---|---|---|---|---|---|---|
+| appended after the last figure | 21 | 21 | 22 | 23 | 24 | 24 | **25** |
+| spliced into §4, among the figures | 21 | **22** | **23** | 23 | 24 | **25** | **25** |
+
+⚠ **The first row is a lower bound, not a conversion rate.** This lap first
+measured only that row, ran a two-filler control that varied vocabulary, found
+the counts identical and concluded the conversion was "a property of the
+template, not of the words poured into it". The lap reviewer pointed out that
+this controlled the variable that cannot matter and held fixed the one that
+does. The second row is the re-run, and it costs up to a page at equal word
+count. Real prose is added in the middle of a paper, not after it.
+
+What the sampling actually supports: at the proxy's own 9,000-word limit the
+document is **23 pages by either route**, so the proxy keeps two pages of margin
+and is sound; the 25-page ceiling arrives between 9,961 words (among the
+figures) and 10,461 (at the end), so the proxy stops a lap about a thousand
+words early, which is the right direction to err in. The step is 500 words and
+**no count above 25 was ever measured**, so the ceiling is bracketed, not
+located. The laptop session that set the proxy estimated "about 21 pages" at the
+current length; that estimate was exactly right.
+
+Two things make that number meaningful, and both are printed by the script
+rather than assumed. `build_docx.py` sets **Calibri**, which is not
+redistributable; the render substitutes **Carlito**, which is metric compatible
+with it, so the line breaks — and therefore the page count — track Word. Where
+Carlito is absent the substitute is not metric compatible and the script says
+so in its output instead of printing a bare integer. The Korean runs fall to
+whatever CJK face is installed (`fonts-nanum` here); there are few enough of
+them that no page boundary moves, which is an observation and not a guarantee.
+
+⚠ **This sandbox cannot do it out of the box, and three laps mis-recorded
+why.** `paper/GAPS.md` had it that LibreOffice "refuses to load the built
+document", then correctly narrowed that to "it refuses a two-paragraph `.docx`
+too, so it says nothing about our file". Both were true and the diagnosis
+stopped one step short: this image ships `libreoffice-core` **without**
+`libreoffice-writer`, so there is no text-document import filter at all and
+every word-processor format fails identically with `source file could not be
+loaded`. (What CI's runner ships has not been inspected and is not asserted
+here; the gate skips wherever the renderer is absent, whatever the reason.)
+The fix is one install, which `measure_pages.py --why` prints:
+
+    apt-get update && apt-get install -y --no-install-recommends \
+        libreoffice-writer fonts-crosextra-carlito fonts-nanum
+
+That is machine setup, not a repository dependency, so no gate runs it and
+`measure_pages.py` exits **2** (not 1) where the renderer is missing — a fact
+about the machine, not about the document. `check_paper.py` imports the module
+lazily and survives its absence for the same reason: a module-scope import of a
+sibling a lap forgot to stage would turn every push red through
+`tests/test_paper.py`.
+
+⚠ **The page check has no committed test.** Its five branches — no module, no
+renderer, renderer broken, face not metric-compatible, count over the ceiling —
+were each exercised by hand on 2026-09-05 and behave, but `tests/` is outside
+what CHARTER §12 lets the paper routine touch, so a fixture-driven test in
+`tests/test_paper.py` is a dev-lap item. Until it exists, the branch that can
+fail a push is untested.
+
+Where the pages go, measured on the same render: title page 1; Abstract and
+§1 on p. 2; §2 p. 3; §3 pp. 4–6; §4 pp. 7–14; §5 p. 15; §6 pp. 16–17; §7 p. 18;
+Data and code availability and References pp. 19–21. Results is eight pages
+because it carries six of the eight figures. If a lap ever has to buy pages
+rather than words, that is where they are.
+
+## ⚠ Figures are deterministic within an environment, not across environments
+
+`style.py` asks for `Source Sans 3` and falls back through `Source Sans Pro`,
+`DejaVu Sans`, `Helvetica`, `Arial`. The cloud sandbox has **only DejaVu Sans**,
+so every figure re-renders with a different face there than on a machine that
+has the Source Sans family — the PNG bytes change even when neither the script
+nor the artifact did. That is what happened to F1–F3 on 2026-09-03: they were
+committed by one environment and regenerated by another, with no code change
+between. The figures are still reproducible in the sense that matters (same
+script, same committed artifacts, same numbers), but the byte-level diff is not
+evidence that anything moved. Vendoring the font into the repository, the way
+`web/assets/fonts/` already does for the screens, would close this; it is not
+done, and it is recorded here rather than hidden.
+
+**This is not only cosmetic, and on 2026-09-04 it had broken F1.** Matplotlib
+neither wraps nor shrinks text to fit a patch, so a diagram label sized against
+Source Sans renders straight through its box border in the wider DejaVu. Four of
+F1's seven boxes were doing exactly that — into the neighbouring box, and in one
+case off the canvas — in the committed PNG and therefore in the built `.docx`.
+Any figure that puts text inside a drawn shape must measure it: `_fit_text()` in
+`make_figures.py` places the label, reads its rendered extent, and steps the font
+size down until it fits its own box, which is deterministic for a given font and
+correct under either family. Use it for every new diagram label; never hand-tune
+a font size against whichever font this machine happens to have.
+
+## ⚠ Two figure rules added 2026-09-04 (lap 3), after critic #7 found both broken
+
+Both defects shipped in figures a lap had recorded as "looked at", so looking is not
+enough on its own — check these two things by name.
+
+- **A colour means one thing in one figure.** F7 panel b coloured "deadline first wins"
+  with panel a's *nearest-first* teal, so the same teal carried opposite meanings in two
+  panels an inch apart. Both panels now read: vermilion = deadline-first, teal =
+  nearest-first, and panel b's legend says "ahead" rather than "wins/loses" so the colour
+  and the word agree. Ties take `style.LINE`, which is not a series colour anywhere.
+- **A legend or a value label must not be placed where the data is.** F2's value labels
+  were struck through by the mean-of-folds rule and its "pooled" label sat on the x-axis
+  tick labels; F7 panel a's boxed legend covered the nearest-first line between three and
+  five teams. Value labels now go *inside* the bars (white on the fill, the Moreno
+  reference's own convention), and a legend goes either in a corner that is provably
+  empty — F2's lower right, empty because the bars there are the shortest — or below the
+  axes, as both of F7's now are. Growing series leave no free corner: check.
+
+## ⚠ Figure numbers in prose are appearance numbers, not F-numbers
+
+`build_docx.py` numbers figures in order of appearance, so `figures/F4_*.png` is
+"Figure 3" in the built document whenever an earlier-numbered file appears later
+in the text. The `F` numbers are stable internal identifiers for
+`make_figures.py`; the `Fig. N` references in `manuscript.md` must match the
+**appearance** order. Current mapping: F1→1, F2→2, F4→3, F5→4, **F8→5**, F3→6,
+F6→7, F7→8. Re-check it after moving or adding any figure.
+
+⚠ **This table was stale for two laps and the manuscript went with it.** F8 was
+added to §4.3 after the mapping was written, which pushed F3, F6 and F7 down one
+each; nobody re-checked, so §4.4 pointed at "Fig. 5" (the routing map) for the
+three-region partition and §4.6 pointed at "Fig. 7" (the sensitivity panel) for
+the dispatch lineage caveat that binds every number in that section. Both fixed
+on 2026-09-04 (lap 5). Nothing mechanical catches this — `check_paper.py` checks
+that each figure *file* exists, not that a `Fig. N` in prose names the right one.
+Count the `![` lines in order and compare, by hand, after any figure move.
+
+## ⚠ A table caption must touch its table — no blank line
+
+`build_docx.py` treats a `Table N.` line as a caption **only** when the very next
+line starts with `|`. With a blank line between them the caption falls through to
+the paragraph branch: it is counted in `body_words`, rendered as ordinary prose,
+and the table is built with the label `Table N. ` and an empty caption. All three
+captions were written that way and cost 318 words of the length budget until lap 5.
+`check_paper.py` counts tables and cannot see a missing caption, so after adding a
+table read it back out of the built `.docx` with `python-docx` and look at the
+caption. Figure captions are unaffected — that branch has no such condition.
+
+## ⚠ Two gate behaviours the manuscript has to be written around
+
+- `scripts/check_number_collisions.py` matches anchor words and numbers **per
+  source line**, so one very long Markdown line produces false collisions
+  between unrelated quantities. `manuscript.md` is therefore hard-wrapped at
+  88 columns; `build_docx.py` rejoins wrapped paragraph lines, so the wrapping
+  is invisible in the `.docx`. Do not unwrap it. List items and figure caption
+  lines cannot be wrapped (the builder matches them per line), so those must be
+  phrased to avoid packing many numbers onto one line.
+- That gate's number pattern does not capture a leading sign, so a **negative**
+  registered value written with a typographic minus (U+2212) can never match
+  its own registry entry. Write negatives with an ASCII hyphen-minus.

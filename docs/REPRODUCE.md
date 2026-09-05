@@ -6,6 +6,7 @@ consumes, then run it and confirm the headline number.
 
 > **Expected headline (traceable to a committed artifact).** After assembling the
 > bundle and running `scripts/run_routing_integration.py`, the leave-one-fire-out
+<!-- collision-ok: 0.905 — pooled ROC-AUC, not lofo_fold_auc_sd (0.107). -->
 > (LOFO) **pooled out-of-fold ROC-AUC = `0.9053277489374548` (≈ 0.905)**, with
 > **mean-of-folds ≈ 0.890** (range 0.68–0.97). This is the value committed in
 > [`data/processed/spread_v2_lofo.json`](../data/processed/spread_v2_lofo.json)

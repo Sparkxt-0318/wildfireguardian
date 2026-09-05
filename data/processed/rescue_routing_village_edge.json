@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "title": "village-edge (WUI-interface) re-centred rescue routing (Session 8 Phase 2)",
+  "config_hash": "e6977c615e38eed7c8ea55e57f22d2f1b5d43cb806de1aabd71afa233cba3de7",
+  "definition": {
+    "concept": "wildland-urban interface, Radeloff et al. (2005, Ecological Applications 15(3))",
+    "form_used": "interface (adjacent to, not within, wildland vegetation); intermix reported for transparency",
+    "parameterisation": "building-centroid distance to nearest OSM wildland polygon <= D; D swept",
+    "D_sweep_m": [
+      50.0,
+      100.0,
+      200.0
+    ],
+    "not_transplanted": "Radeloff's census-block density/buffer constants (6.17 units/km^2, 2.4 km) are US block-level operationalisations and are not used here"
+  },
+  "data_path": {
+    "vworld_attempt": "vworld: RemoteDisconnected: Remote end closed connection without response",
+    "buildings": {
+      "source": "osm",
+      "source_file": "data/snapshots/osm-buildings_yeongdeok-2025_20260805_137c5d78.geojson",
+      "n": 124,
+      "coverage_caveat": "OSM building coverage in rural Korea is a small, region-dependent fraction of the real building stock; counts are never building counts"
+    },
+    "vegetation": {
+      "source": "osm",
+      "tags": "natural=wood|landuse=forest",
+      "file": "data/cache/osm/yeongdeok_2025/vegetation.geojson",
+      "n": 72
+    },
+    "hazard": "synthetic (unchanged; FIRMS bundle git-ignored)",
+    "terrain": "synthetic (unchanged)"
+  },
+  "n_intermix_within_vegetation": 2,
+  "baseline_for_comparison": {
+    "note": "lattice-scan origins on the SAME network vintage (arm B, current snapshot). The committed 439-series artifact is the unrecoverable 2026-07-19 arm-A network (docs/network_drift.md) and is quoted only with that label.",
+    "arm_b_lattice_n_origins": 441,
+    "arm_b_lattice_four_way": {
+      "saved_by_rescue_reachable_refuge": 12,
+      "already_safe": 255,
+      "no_safe_pedestrian_route": 142,
+      "no_surviving_vehicle_ingress": 32
+    }
+  },
+  "runs": {
+    "50": {
+      "interface_distance_m": 50.0,
+      "n_buildings": 19,
+      "n_origins": 14,
+      "four_way_counts": {
+        "saved_by_rescue_reachable_refuge": 0,
+        "already_safe": 10,
+        "no_safe_pedestrian_route": 4,
+        "no_surviving_vehicle_ingress": 0
+      },
+      "n_dispatch": 4,
+      "n_unreachable": 0,
+      "advisory_recommendations": {
+        "진입 권장": 3,
+        "진입 보류 권장": 0,
+        "철수 권장": 1
+      }
+    },
+    "100": {
+      "interface_distance_m": 100.0,
+      "n_buildings": 35,
+      "n_origins": 29,
+      "four_way_counts": {
+        "saved_by_rescue_reachable_refuge": 0,
+        "already_safe": 19,
+        "no_safe_pedestrian_route": 8,
+        "no_surviving_vehicle_ingress": 2
+      },
+      "n_dispatch": 8,
+      "n_unreachable": 2,
+      "advisory_recommendations": {
+        "진입 권장": 8,
+        "진입 보류 권장": 0,
+        "철수 권장": 2
+      }
+    },
+    "200": {
+      "interface_distance_m": 200.0,
+      "n_buildings": 57,
+      "n_origins": 46,
+      "four_way_counts": {
+        "saved_by_rescue_reachable_refuge": 2,
+        "already_safe": 28,
+        "no_safe_pedestrian_route": 12,
+        "no_surviving_vehicle_ingress": 4
+      },
+      "n_dispatch": 12,
+      "n_unreachable": 4,
+      "advisory_recommendations": {
+        "진입 권장": 12,
+        "진입 보류 권장": 0,
+        "철수 권장": 4
+      }
+    }
+  }
+}

@@ -51,8 +51,18 @@ def test_the_record_exists_and_is_tracked():
     assert "baseline_phase13.json" in out
 
 
+@pytest.mark.skipif(
+    not (REPO / "data" / "raw" / "firms_data" / "fire_manifest.json").exists(),
+    reason="laptop-only acquisition manifests absent (git-ignored)")
 def test_the_live_tree_matches_the_record():
-    """The headline assertion. `make baseline-verify` in test form."""
+    """The headline assertion. `make baseline-verify` in test form.
+
+    Carries the same condition as the gate itself: `freeze_baseline.py --check`
+    digests two git-ignored manifests under data/raw/firms_data/ that a clean
+    clone cannot have (HANDOFF §5.9), so scripts/auto/gates.py runs the gate as
+    hard only where they exist. This is that gate in test form and it is scoped
+    the same way, rather than failing every clone by construction.
+    """
     r = subprocess.run(
         [sys.executable, str(REPO / "scripts" / "freeze_baseline.py"), "--check"],
         cwd=REPO, capture_output=True, text=True)
@@ -139,8 +149,17 @@ def test_a_moved_artifact_is_actually_detected(tmp_path, frozen):
     tampered2["lofo_shape"]["n_rows"] = 999999
     assert any("lofo_shape.n_rows" in p for p in fb.diff(tampered2, live))
 
-    tampered3 = json.loads(json.dumps(frozen))
+    # Everything above needs no git-ignored input and so runs in every clone —
+    # that is the half that actually proves the guard bites. The two below need
+    # a tree that HAS the laptop-only acquisition manifests (HANDOFF §5.9): in a
+    # clean clone the third would pass on the MISSING line rather than on the
+    # tamper it means to detect, which is a green nobody should trust, and the
+    # last compares the whole record against a tree missing two entries.
     m = "data/raw/firms_data/fire_manifest.json"
+    if not (REPO / m).exists():
+        pytest.skip("laptop-only acquisition manifests absent (git-ignored)")
+
+    tampered3 = json.loads(json.dumps(frozen))
     tampered3["untracked_contracts"][m] = "0" * 64
     assert any(m in p for p in fb.diff(tampered3, live))
 

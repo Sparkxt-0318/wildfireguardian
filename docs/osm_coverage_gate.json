@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "title": "OSM coverage gate for the vulnerability layer",
+  "provenance": "external (Overpass API, live query)",
+  "arm": "L0_vulnerability",
+  "generated_by": "scripts/osm_coverage_gate.py",
+  "min_buildings_threshold": 124,
+  "threshold_rationale": "Set to the building count of the Korean reference site, so the bar is 'at least as well mapped as the site this layer was built on' rather than an invented number.",
+  "queried_utc": "2026-08-30T14:35:54Z",
+  "candidates": {
+    "paradise_ca_2018": {
+      "bbox": [
+        39.73,
+        -121.665,
+        39.79,
+        -121.575
+      ],
+      "event": "Camp Fire, 8 Nov 2018",
+      "why": "A documented evacuation failure: 86 deaths; two of the three escape routes were closed by fire leaving one; 17 burnovers were identified, 12 of them on major evacuation roadways.",
+      "sources": [
+        "Britannica, Camp Fire of 2018",
+        "Burnover events identified during the 2018 Camp Fire (nwfirescience.org)"
+      ],
+      "buildings": 988,
+      "buildings_seconds": 12.1,
+      "buildings_attempts": 1,
+      "highways": 1532,
+      "highways_seconds": 10.6,
+      "highways_attempts": 1,
+      "refuge_pois": 9,
+      "refuge_pois_seconds": 33.3,
+      "refuge_pois_attempts": 2,
+      "all_subqueries_returned": true,
+      "passes_gate": true
+    },
+    "mati_gr_2018": {
+      "bbox": [
+        38.03,
+        23.96,
+        38.075,
+        24.02
+      ],
+      "event": "Attica wildfires, 23 Jul 2018",
+      "why": "A documented evacuation failure: 104 deaths. People burned to death in cars caught in traffic jams while fleeing; others drowned after wading into the sea. Six officials were convicted over the response in 2024.",
+      "sources": [
+        "VOA News (2024)",
+        "ABC News (2024)"
+      ],
+      "buildings": 1763,
+      "buildings_seconds": 8.2,
+      "buildings_attempts": 1,
+      "highways": 1150,
+      "highways_seconds": 23.8,
+      "highways_attempts": 2,
+      "refuge_pois": 16,
+      "refuge_pois_seconds": 2.4,
+      "refuge_pois_attempts": 1,
+      "all_subqueries_returned": true,
+      "passes_gate": true
+    },
+    "pedrogao_pt_2017": {
+      "bbox": [
+        39.9,
+        -8.22,
+        39.98,
+        -8.1
+      ],
+      "event": "Pedrógão Grande, 17 Jun 2017",
+      "why": "A documented evacuation failure: at least 66 deaths in the June 2017 fires, the majority in Pedrógão Grande, where 47 people died in their cars on a road while fleeing.",
+      "sources": [
+        "Wikipedia, 'June 2017 Portugal wildfires'",
+        "International Association of Wildland Fire, 'The Open Wounds of Pedrógão Grande'"
+      ],
+      "buildings": 700,
+      "buildings_seconds": 1.3,
+      "buildings_attempts": 1,
+      "highways": 1925,
+      "highways_seconds": 5.0,
+      "highways_attempts": 1,
+      "refuge_pois": 3,
+      "refuge_pois_seconds": 14.5,
+      "refuge_pois_attempts": 1,
+      "all_subqueries_returned": true,
+      "passes_gate": true
+    },
+    "yeongdeok_kr_2025": {
+      "bbox": [
+        36.38,
+        129.32,
+        36.48,
+        129.43
+      ],
+      "event": "reference — the Korean site this layer was built on",
+      "why": "Included so every foreign count has a familiar yardstick.",
+      "sources": [
+        "repo snapshot data/snapshots/osm-buildings"
+      ],
+      "buildings": 74,
+      "buildings_seconds": 2.4,
+      "buildings_attempts": 1,
+      "highways": 1794,
+      "highways_seconds": 1.8,
+      "highways_attempts": 1,
+      "refuge_pois": 17,
+      "refuge_pois_seconds": 1.5,
+      "refuge_pois_attempts": 1,
+      "all_subqueries_returned": true,
+      "passes_gate": false
+    }
+  },
+  "threshold_note": "⚠ The Korean reference site FAILS a threshold derived from its own repo snapshot count (124): the same-style bbox query returns 74 buildings for 영덕. The snapshot and this query cover different extents, so the threshold and the measurement are not on the same footing. Read the table as an order-of-magnitude comparison."
+}

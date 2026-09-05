@@ -105,6 +105,50 @@ A tightly-scoped layer **on top of** the existing future-aware evacuation router
   `no_safe_pedestrian_route` / `no_surviving_vehicle_ingress` counts therefore
   equal the dispatch / unreachable split exactly.
 
+### 3a. Round-trip margin, trigger line, advisory output (Session 8, additive)
+
+Motivated by a 현장 실무자 자문 (N = 1, qualitative —
+`firefighter_consultation.md`; a statement of practice, never a data source):
+a categorical 「구조대가 갈 수 없습니다」 is the wrong shape for field use, and
+withdrawal is a spatial judgment, not a clock. Cova, Dennison, Kim & Moritz
+(2005, *Transactions in GIS* 9(4)) formalise the spatial form as evacuation
+**trigger points**. Implementation: `routing/margins.py`, additive on top of
+everything above — the 7-key classification, the four-way split and the
+dispatch ranking are unchanged.
+
+- **Round-trip margin.** The committed urgency is one-way
+  (`ingress_survival − responder_ETA`). The margin extends it to the full
+  mission: `M = S − (ETA_in + t_load + ETA_out)`, with the egress leg
+  evaluated **at the egress departure time** `ETA_in + t_load` — the same
+  corridor at ingress time and at egress time is a different edge of the
+  time-expanded graph. A corridor survivable at ingress but closed at egress
+  produces a **negative** margin (pinned by
+  `tests/test_margins.py::test_ingress_ok_egress_closed_gives_negative_margin`).
+  `t_load` (on-scene pickup) is a **new ASSUMED config value**
+  (`responder.t_load_min`), swept in `scripts/run_margin_sweep.py`; it is
+  never presented as measured. `egress_policy = "same_route"` (default;
+  doctrine per the consultation — 「들어가서 그 길로 나오는 게 원칙」, N = 1)
+  vs `"free"` (survival-aware router picks a fresh egress route at the egress
+  departure time) is likewise config + swept.
+- **Withdrawal trigger line.** The spatial dual: the hazard-field isochrone
+  whose arrival time equals the mission's latest safe commitment time (where
+  `M(t) → 0`), snapped **down** to the containing forecast slice
+  (conservative). Emitted per mission with the arrival time and hazard slice
+  index it was derived from. ⚠ Hazard time resolution is overpass-scale
+  (hours), so trigger lines are **planning-scale, not tactical** (see §5 —
+  same constraint, same wording).
+- **Advisory output (human-facing only).** Per dispatch/unreachable home:
+  `margin_minutes` (signed, round-trip); `margin_band` — the margin's spread
+  over the committed §4a `vehicle_cutoff` sweep axis {0.5…0.9}, or `null`
+  when no swept cutoff yields a finite margin (an interval is never
+  invented); `recommendation` ∈ {진입 권장, 진입 보류 권장, 철수 권장} —
+  advisory wording, never 불가; `trigger_line`; and `basis` — every field the
+  recommendation was computed from, so a human commander can audit it.
+  Emitted as the **additive** `margin_advisories` key of
+  `rescue_routing.json`. Machine-facing keys (the 7-key classification, the
+  four-way split, `dispatch_top20`, `unreachable_homes`) are unchanged — they
+  are what the tests and NUMBERS.json trace to.
+
 ## 4. The four-way split (must sum to N)
 
 Each origin (an elderly home) lands in exactly one class:
@@ -313,10 +357,82 @@ geometry, not a deployed product:
 > placeholders (○○○), filled from the operator's resident registry in a
 > deployment.
 
+## 4e. Where network routing and the gait model do NOT earn their keep (Session 17)
+
+This section exists because a measured negative belongs next to the positive
+result it does not contradict, rather than buried in a session report. **Read
+the scope line before the finding — the two layers are different questions and
+the answer differs between them.**
+
+### The finding — Layer 0's RANKING only
+
+For the **pre-ignition vulnerability layer's household ranking at 영덕**, network
+routing and the elderly gait model contribute little beyond straight-line
+distance:
+
+| pair | Spearman |
+|---|---:|
+| network distance ↔ straight-line distance | **0.987** |
+| network distance → vulnerability | 0.3013 |
+| walking time → vulnerability | 0.3068 |
+| straight-line distance → vulnerability | 0.3035 |
+
+Three predictors, three effectively identical rankings. In 영덕's terrain the
+detour factor is near-constant across households and the slope correction does
+not reorder them, so the shortest-path machinery and the 0.7 m/s gait model
+reproduce a ranking that a ruler on a map would have produced.
+
+Session 17 sharpens this further: routing the same households against a hazard
+that is **identically zero everywhere** produces the **identical failing set** at
+all six horizons, so at this layer neither the routing, nor the gait model, nor
+the fire changes *who* fails — only the horizon does
+(`docs/SESSION17_REPORT.md`, `data/processed/vulnerability/tautology_decomposition.json`).
+
+### The scope — this says nothing about Layer 2
+
+> **This is a statement about the vulnerability layer's RANKING output. It is
+> NOT a statement about the response-time routing this document describes.**
+
+At Layer 2 the same machinery does measurable, sign-changing work: **62 of the
+142** dispatch-reachable homes have a **non-positive round-trip margin** once the
+egress leg is evaluated at the egress departure time rather than at ingress time
+(`s8_margin_nonpositive_core`), and that count is **unchanged at 62 with
+`t_load = 0`** (`s8_margin_nonpositive_tload0`) — so it is the corridor timing,
+not the assumed load time, producing it. A straight-line proxy cannot represent
+a corridor that is open on the way in and closed on the way out; the
+time-expanded graph is what makes that visible at all. §3a and
+`tests/test_margins.py::test_ingress_ok_egress_closed_gives_negative_margin`
+pin the behaviour.
+
+### Why the gait model stays
+
+**It is not removed, and removing it would be wrong.** Ranking invariance is not
+irrelevance:
+
+- **Absolute times are the actionable output.** "271 minutes to the nearest
+  surviving refuge" is what a 읍사무소 planner acts on. Substituting an
+  able-bodied walking speed would shorten every one of those numbers by roughly
+  a factor of 1.9 (1.34 vs 0.7 m/s) and would move households across the horizon
+  threshold — changing *how many* fail even where it does not change *which are
+  worst*. The failing count is horizon-determined (Session 17), so a speed
+  change acts exactly like a horizon change.
+- **The invariance is one site's terrain, not a law.** 영덕 is coastal-rural with
+  a fairly regular road grid. A site with a river crossing, a single bridge, or
+  a steep one-way climb would break the 0.987 agreement, and there is no
+  measurement here saying otherwise. ⚠ This was tested at **N = 1 site**.
+- **It is the demographically correct constant for this population.** Korean
+  rural 고령 인구 is the modelled evacuee; 0.7 m/s is a stated, swept assumption
+  (§4b), not a tuning knob.
+
 ## 5. Honest limitations
 
 - **Single-fire (영덕) proof-of-concept.** Not multi-fire validated; not an
   operational system.
+- **For the Layer 0 vulnerability RANKING, the routing and gait machinery is
+  near-redundant with straight-line distance** (§4e, mutual ρ = 0.987 at 영덕,
+  N = 1 site). This is scoped to that ranking and does not transfer to the
+  response-time routing above, where corridor timing flips 62 of 142 round-trip
+  margins.
 - **Rescue capacity is a PoC parameter, not a measured 영덕 fire-service value**
   (§4c). The `n_rescue_units` × `service_time` supply model is illustrative; the
   result is the demand–supply **curve** and the **direction** (supply far below
@@ -334,7 +450,15 @@ geometry, not a deployed product:
   dispatch / unreachable accounting, where the survival-aware route materially
   lowers ingress exposure versus a fire-blind shortest path.
 - **Time resolution is overpass-scale (hours).** Rules out tactical (minute-scale)
-  use, exactly as the parent routing report states.
+  use, exactly as the parent routing report states. This constraint carries
+  unchanged into the §3a withdrawal trigger lines: they are **planning-scale,
+  not tactical** — a line derived from hour-resolution hazard slices cannot
+  time a minute-scale withdrawal.
+- **The round-trip margin's `t_load` is assumed, and same-route egress is
+  doctrine reported by one practitioner (N = 1), not a measurement.** Both are
+  swept (`scripts/run_margin_sweep.py`, `data/processed/margin_sweep.json`);
+  conclusions that move under that sweep are reported as directions, not
+  point estimates.
 
 ## 6. Data provenance (real vs synthetic)
 
@@ -344,6 +468,22 @@ geometry, not a deployed product:
 | Walk + drive networks | OSMnx `walk`/`drive`, reprojected to EPSG:5179, disk-cached | **SYNTHETIC** 8-connected lattice on the extent (real algorithm) |
 | Refuges (대피소·긴급대피장소) | 행정안전부 / 공공데이터포털 (data.go.kr) GeoJSON/CSV at `cfg.shelters_path`, or OSM POIs | **SYNTHETIC** coastal assembly nodes + inland open-space POIs |
 | Depots (119안전센터) | 소방청 공공데이터포털 / OSM `amenity=fire_station` at `cfg.depots_path` | **SYNTHETIC** near-town nodes |
+| Village-edge origins (Session 8, `rescue_routing_village_edge.json`) | ① VWorld 건물통합정보 — **attempted twice (2026-08-29, and again in the follow-up session): connection failure / HTTP 502 on every endpoint, keyed and keyless alike.** ② 도로명주소 건물 데이터 (주소기반산업지원서비스) — **portal download requiring login + agency approval; not obtainable unattended, steps filed in `BLOCKERS.md`** | **OSM** building snapshot (124 buildings, `source="osm"`) — **PROVISIONAL**, see the coverage caveat below |
+| Wildland vegetation (WUI definition, Session 8) | 산림청 임상도 (not acquired) | **OSM** `natural=wood` / `landuse=forest` polygons, disk-cached (`source="osm"`) |
+
+> ⚠ **OSM RURAL BUILDING COVERAGE IN KOREA IS INCOMPLETE AND UNQUANTIFIED.**
+> The Session-8 village-edge run stands on **124** OSM building footprints in
+> the 영덕 bbox. Nobody in this project has measured what fraction of the real
+> rural building stock that is, and OSM's Korean building coverage is known to
+> vary by region — so the fraction cannot be assumed constant, or transferred
+> from another region, or treated as a random sample. **Therefore every Phase-2
+> village-edge count (N per threshold, the four-way split, the interface and
+> intermix counts) is PROVISIONAL and supports a direction at most; none of
+> them supports a per-household or per-village statement about 영덕.** The
+> committed lattice-scan origin counts are unaffected — they sample the walk
+> graph, not buildings. This caveat is removed only when a source with
+> characterised coverage (VWorld 건물통합정보 or 도로명주소 건물 데이터)
+> replaces OSM, and its coverage is stated as a number.
 
 Every synthetic/assumed input is tagged `source = "synthetic"` (or `assumed`) in
 the outputs (`rescue_routing.json::provenance`) and in `RescueConfig.provenance()`.

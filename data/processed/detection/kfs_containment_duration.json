@@ -1,0 +1,322 @@
+{
+  "source": "산림청_산불통계데이터_20250911.csv",
+  "sha256": "ae3e8426702168cb288761735dabe5b8a45f429ba7bc13e9f0318e838a92c153",
+  "bytes": 195891,
+  "encoding": "cp949",
+  "⚠_reference_time": "발생일시 is a REPORTED start time, not observed ignition. Every duration is report-to-containment.",
+  "⚠_mean_excluded": "One row carries a year-field error; the mean is meaningless and is never reported. Medians and percentiles only.",
+  "checks": [
+    {
+      "name": "sha256",
+      "computed": 0,
+      "brief_claimed": 0,
+      "agrees": true,
+      "tolerance": 0.0,
+      "notes": "computed ae3e8426702168cb288761735dabe5b8a45f429ba7bc13e9f0318e838a92c153, expected ae3e8426702168cb288761735dabe5b8a45f429ba7bc13e9f0318e838a92c153"
+    },
+    {
+      "name": "bytes",
+      "computed": 195891,
+      "brief_claimed": 195891,
+      "agrees": true,
+      "tolerance": 0.0,
+      "notes": null
+    },
+    {
+      "name": "utf8_decode_fails",
+      "computed": 0,
+      "brief_claimed": 0,
+      "agrees": true,
+      "tolerance": 0.0,
+      "notes": "decoded with cp949; UTF-8 FAILED as expected"
+    },
+    {
+      "name": "n_rows",
+      "computed": 2020,
+      "brief_claimed": 2020,
+      "agrees": true,
+      "tolerance": 0.0,
+      "notes": null
+    },
+    {
+      "name": "n_null_containment",
+      "computed": 0,
+      "brief_claimed": 0,
+      "agrees": true,
+      "tolerance": 0.0,
+      "notes": null
+    },
+    {
+      "name": "n_negative_duration",
+      "computed": 12,
+      "brief_claimed": 12,
+      "agrees": true,
+      "tolerance": 0.0,
+      "notes": null
+    },
+    {
+      "name": "n_usable",
+      "computed": 2008,
+      "brief_claimed": 2008,
+      "agrees": true,
+      "tolerance": 0.0,
+      "notes": null
+    },
+    {
+      "name": "p25_min",
+      "computed": 74.0,
+      "brief_claimed": 74,
+      "agrees": true,
+      "tolerance": 0.5,
+      "notes": null
+    },
+    {
+      "name": "median_min",
+      "computed": 120.0,
+      "brief_claimed": 120,
+      "agrees": true,
+      "tolerance": 0.5,
+      "notes": null
+    },
+    {
+      "name": "p75_min",
+      "computed": 212.0,
+      "brief_claimed": 212,
+      "agrees": true,
+      "tolerance": 0.5,
+      "notes": null
+    },
+    {
+      "name": "p90_min",
+      "computed": 402.6,
+      "brief_claimed": 403,
+      "agrees": true,
+      "tolerance": 0.5,
+      "notes": null
+    },
+    {
+      "name": "p95_min",
+      "computed": 1033.95,
+      "brief_claimed": 1034,
+      "agrees": true,
+      "tolerance": 0.5,
+      "notes": null
+    },
+    {
+      "name": "cum_le_60_pct",
+      "computed": 17.33,
+      "brief_claimed": 17.3,
+      "agrees": true,
+      "tolerance": 0.06,
+      "notes": null
+    },
+    {
+      "name": "cum_le_120_pct",
+      "computed": 50.5,
+      "brief_claimed": 50.5,
+      "agrees": true,
+      "tolerance": 0.06,
+      "notes": null
+    },
+    {
+      "name": "cum_le_240_pct",
+      "computed": 79.23,
+      "brief_claimed": 79.2,
+      "agrees": true,
+      "tolerance": 0.06,
+      "notes": null
+    },
+    {
+      "name": "cum_le_360_pct",
+      "computed": 88.79,
+      "brief_claimed": 88.8,
+      "agrees": true,
+      "tolerance": 0.06,
+      "notes": null
+    },
+    {
+      "name": "gyeongbuk_n",
+      "computed": 273,
+      "brief_claimed": 273,
+      "agrees": true,
+      "tolerance": 0.0,
+      "notes": null
+    },
+    {
+      "name": "gyeongbuk_median_min",
+      "computed": 145.0,
+      "brief_claimed": 145,
+      "agrees": true,
+      "tolerance": 0.5,
+      "notes": null
+    },
+    {
+      "name": "gyeongbuk_p90_min",
+      "computed": 756.8,
+      "brief_claimed": 757,
+      "agrees": true,
+      "tolerance": 0.5,
+      "notes": null
+    },
+    {
+      "name": "area_10_100_n",
+      "computed": 53,
+      "brief_claimed": 53,
+      "agrees": true,
+      "tolerance": 0.0,
+      "notes": null
+    },
+    {
+      "name": "area_10_100_median_min",
+      "computed": 1374.0,
+      "brief_claimed": 1374,
+      "agrees": true,
+      "tolerance": 0.5,
+      "notes": null
+    },
+    {
+      "name": "area_ge_100_n",
+      "computed": 25,
+      "brief_claimed": 25,
+      "agrees": true,
+      "tolerance": 0.0,
+      "notes": null
+    },
+    {
+      "name": "area_ge_100_median_min",
+      "computed": 4025.0,
+      "brief_claimed": 4025,
+      "agrees": true,
+      "tolerance": 0.5,
+      "notes": null
+    },
+    {
+      "name": "cause_입",
+      "computed": 515,
+      "brief_claimed": 515,
+      "agrees": true,
+      "tolerance": 0.0,
+      "notes": "code '입' = 입산자: 507 of 515 rows carry '입산자' in 발생원인_기타 (98.4 %); only 3 rows outside this code mention it"
+    },
+    {
+      "name": "cause_담",
+      "computed": 171,
+      "brief_claimed": 171,
+      "agrees": true,
+      "tolerance": 0.0,
+      "notes": "code '담' = 담뱃불: 168 of 171 rows carry '담뱃불' in 발생원인_기타 (98.2 %)"
+    },
+    {
+      "name": "cause_쓰",
+      "computed": 209,
+      "brief_claimed": 209,
+      "agrees": true,
+      "tolerance": 0.0,
+      "notes": "code '쓰' = 쓰레기소각: 201 of 209 rows carry '쓰레기소각' in 발생원인_기타 (96.2 %)"
+    },
+    {
+      "name": "cause_기",
+      "computed": 831,
+      "brief_claimed": 831,
+      "agrees": true,
+      "tolerance": 0.0,
+      "notes": "code '기' = 기타: the residual category: 0 of 831 say '기타' in 발생원인_기타, because that column holds the ACTUAL cause instead (성묘객실화, 작업장실화, 방화...). Consistent, as expected."
+    },
+    {
+      "name": "cause_null",
+      "computed": 294,
+      "brief_claimed": 294,
+      "agrees": true,
+      "tolerance": 0.0,
+      "notes": null
+    },
+    {
+      "name": "detail_free_text",
+      "computed": 1479,
+      "brief_claimed": 1479,
+      "agrees": true,
+      "tolerance": 0.0,
+      "notes": null
+    },
+    {
+      "name": "detail_specific",
+      "computed": 541,
+      "brief_claimed": 541,
+      "agrees": true,
+      "tolerance": 0.0,
+      "notes": null
+    },
+    {
+      "name": "freetext_real_cause",
+      "computed": 1170,
+      "brief_claimed": 1170,
+      "agrees": true,
+      "tolerance": 0.0,
+      "notes": null
+    },
+    {
+      "name": "freetext_unknown",
+      "computed": 309,
+      "brief_claimed": 309,
+      "agrees": true,
+      "tolerance": 0.0,
+      "notes": null
+    },
+    {
+      "name": "total_specific_cause",
+      "computed": 1711,
+      "brief_claimed": 1711,
+      "agrees": true,
+      "tolerance": 0.0,
+      "notes": "⚠ 84.7 %, NOT the ~540 the brief states — 발생원인_기타 carries the cause when 세부원인 is the placeholder. The binding constraint is NORMALISING 454 free-text strings, not label count."
+    },
+    {
+      "name": "gita_column_populated",
+      "computed": 2020,
+      "brief_claimed": 2020,
+      "agrees": true,
+      "tolerance": 0.0,
+      "notes": null
+    },
+    {
+      "name": "gita_distinct",
+      "computed": 454,
+      "brief_claimed": 454,
+      "agrees": true,
+      "tolerance": 0.0,
+      "notes": null
+    },
+    {
+      "name": "null_읍면",
+      "computed": 307,
+      "brief_claimed": 307,
+      "agrees": true,
+      "tolerance": 0.0,
+      "notes": null
+    },
+    {
+      "name": "month_3",
+      "computed": 529,
+      "brief_claimed": 529,
+      "agrees": true,
+      "tolerance": 0.0,
+      "notes": null
+    },
+    {
+      "name": "month_4",
+      "computed": 434,
+      "brief_claimed": 434,
+      "agrees": true,
+      "tolerance": 0.0,
+      "notes": null
+    },
+    {
+      "name": "month_2",
+      "computed": 339,
+      "brief_claimed": 339,
+      "agrees": true,
+      "tolerance": 0.0,
+      "notes": null
+    }
+  ]
+}
