@@ -508,3 +508,7 @@ Data realities
 - Wikipedia. 2025 South Korea wildfires (context on elderly victims and Yeongdeok port stranding; secondary). https://en.wikipedia.org/wiki/2025_South_Korea_wildfires *[opened; tertiary source, cite the underlying Korea Herald / Yonhap items instead]*
 
 Repository documents read for §0 and §7 (not re-derived): `README.md` (TL;DR, Round 3), `docs/routing_limitations.md`, `docs/rescue_routing.md`, `docs/horizon_grounding.md`, `docs/decision_shift.md`, `docs/network_drift.md`, `docs/dispatch_ordering.md`, `docs/slope_integration.md`, `docs/walk_bbox_coverage.md`, `docs/auto/CHARTER.md` §1 and §3, and the module docstrings under `src/wildfireguardian/routing/`.
+
+## Update 2026-09-05
+
+John P. Wilson (USC Spatial Sciences Institute) replied to the author with one point: pedestrians can leave mapped paths in a way vehicles cannot, so capacity-aware shortest-path routing built for road-bound vehicles may not transfer to evacuation on foot. Filed as WFG-093: document the network-graph assumption as a limitation and write a feasibility note on cost-surface routing over the committed DEM and land cover.

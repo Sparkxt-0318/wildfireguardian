@@ -54,3 +54,7 @@ The statewide California run classifies about 11.5 million structures; the large
 - Microsoft US Building Footprints — https://github.com/microsoft/USBuildingFootprints
 - 건축물대장 정보 서비스 (국토교통부) — https://www.data.go.kr (search "건축물대장"; API key required → author)
 - 도로명주소 건물DB — https://business.juso.go.kr (open download, no key)
+
+## Update 2026-09-05
+
+Volker Radeloff (SILVIS Lab) replied to the author: he cannot say whether the US WUI definition transfers to rural Korea but found it held in other countries; check the SILVIS global WUI map (https://geoserver.silvis.forest.wisc.edu/geodata/fast/globalwui/) for the five study counties, and if it looks wrong, the distance thresholds of Carlson et al. 2022 (*Ecological Applications*, 125 million buildings) are the first suspect. Filed as WFG-092. What this means: the FireDX verdict above (buildings as exposure, not fuel) does not settle whether our villages are WUI in the classical sense; that is now a measurable question on committed data.

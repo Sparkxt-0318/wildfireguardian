@@ -54,3 +54,24 @@ jobs:
             .auto/*.log
           include-hidden-files: true
           retention-days: 30
+  promote:
+    # CHARTER §4c: Main follows the last commit GitHub's own gate certified.
+    needs: gates
+    if: github.ref == 'refs/heads/auto/dev'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Fast-forward Main to this green commit
+        run: |
+          git fetch origin Main
+          if git merge-base --is-ancestor origin/Main "$GITHUB_SHA"; then
+            git push origin "$GITHUB_SHA:refs/heads/Main"
+            echo "Main -> $GITHUB_SHA"
+          else
+            echo "::error::Main has diverged from auto/dev; not promoting (CHARTER §4c, NH-003)"
+            exit 1
+          fi

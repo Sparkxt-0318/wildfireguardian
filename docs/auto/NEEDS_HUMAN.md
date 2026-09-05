@@ -80,6 +80,8 @@ the area (see backlog WFG-013) so this may close itself.
 
 **AMENDMENT 2026-09-04 (WFG-075).** The sentence above is wrong where it implies the ingested subset is 영덕's. It was cut on 시군구 code 47920 and its geometry lies wholly outside this repository's 영덕 box, overlapping it on neither axis; the county identity is unverified and is not guessed (NH-022, WFG-066). Nothing in that subset may be used as 영덕 data until it is re-cut on the laptop. **This entry's own ask is unchanged and still open:** the 도로명주소 **건물** layer was never in either zip, so household counts stay provisional on the 124 OSM buildings whatever NH-022 decides.
 
+**Author reply 2026-09-05 (Claude Code session, verbatim: "Still coming this week").** Stays open.
+
 ## NH-006 · DECISION · closed · Confirm the finals date: 10.18 (your notice) vs 10.24 (June schedule post)
 
 **Decided 2026-09-03 by the author: the finals are 2026-10-24.** Freeze moved to
@@ -207,6 +209,8 @@ consent.
 **CLOSED 2026-09-04 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-04 · ref: claude-code-session-7da6bf25#NH-010 · verbatim: "Skip for the finals for now. The author will try to reach out, but the loop must not assume anything comes back: no consultation-dependent claim or readiness line may wait on it."
 
 **Update 2026-09-04 (author, Claude Code session):** the author has sent the outreach messages themselves (29 drafts, see NH-023). The loop still assumes nothing comes back; a reply the author reports here is recorded with consent before anything is quoted.
+
+**Update 2026-09-05 (author, Claude Code session):** three written replies arrived on 2026-09-04 (이해평, Radeloff, Wilson). Author's decision: named, paraphrased, no verbatim quotes in the public repository; `docs/auto/research/EXPERT_REPLIES_2026-09-04.md`; rows WFG-090 to WFG-093. Written consent for anything beyond a paraphrase is still to be obtained before a quote appears anywhere.
 
 ## NH-011 · DECISION · closed · One real, recorded email send from a network that works in Shanghai (by 2026-09-20)
 
@@ -907,7 +911,7 @@ remove either file. Deleting is forbidden (§3.7) and this is your call, not min
 
 **CLOSED 2026-09-04 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-04 · ref: claude-code-session-7da6bf25#NH-023 · verbatim: "delete it completely. (on the drafts: 'I have sent them. NO need to worry.'; on the clone: this session owns it and the other local agent is paused in this folder)"
 
-## NH-024 · DECISION · open · WFG-062 is now three laps deferred, and the critic's own re-scope condition has been met (by 2026-09-07)
+## NH-024 · DECISION · closed · WFG-062 is now three laps deferred, and the critic's own re-scope condition has been met (by 2026-09-07)
 
 **What you decided.** NH-021, closed 2026-09-04, verbatim: 「Do WFG-062 now (the
 withdrawn-claims registry gate first; booth rows resume after).」 `docs/auto/DIRECTION.md`
@@ -971,3 +975,5 @@ The readiness clock: **3 of 11 lines ticked**, the last tick R2 by critic #8 at 
 disk at `ed35f0d`. Eleven days of the sprint remain.
 
 **Options:** E) resolved by events — close it, next lap does WFG-003  F) something other than WFG-003 next (say which row)
+
+**CLOSED 2026-09-05 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-05 · ref: claude-code-session-7da6bf25#NH-024 · verbatim: "A) Hold: full WFG-062 next lap (the very next dev lap does the whole row and nothing else)"

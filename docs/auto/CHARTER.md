@@ -463,3 +463,13 @@ harvested contact list created by another agent in the same clone rode into a pu
 on a `git add -A` during a conflict resolution, and the author had to force-push a purge.
 One clone, one agent: a second agent in the same working tree uses its own worktree.
 WFG-077 adds the gate that refuses a staged file with three or more email addresses.
+
+### 4c. Main follows the last green commit (author's decision, 2026-09-05)
+
+The loop still never pushes to `Main` by hand. Promotion is the `promote` job in
+`.github/workflows/auto-gates.yml`: after the `gates` job passes on a push to `auto/dev`,
+it fast-forwards `Main` to that exact commit. If `Main` has diverged it refuses and
+says so; a human then reconciles. `Main` is therefore always the last commit that
+GitHub's own clean-clone gate certified. The author enables this by allowing the
+fast-forward on the protected branch (no required pull-request review), and PR #31
+closes once `Main` catches up.
