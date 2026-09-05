@@ -77,9 +77,13 @@ on-screen number to a `docs/NUMBERS.json` key, and no such table exists. Left as
 than an edit of their text (CHARTER §3.7).
 
 **F5 · checked and NOT a finding, recorded so no later lap re-derives it.** Three things I attacked and
-that held: (a) `docs/demo_script_pace.md`'s variant table pairs the new allocation with a `1.62` spread,
-which reads as a contradiction of the shipped `1.03` until the line directly beneath it — 「The spread
-column is the *old* 25/45/55/75/55/45 budget under each convention」 — which the dev lap wrote. (b) The
+that held: (a) `docs/demo_script_pace.md`'s variant table puts the re-budgeted allocation in one column
+and, in the next, a spread belonging to the superseded design budget — the value registered as
+`demo_pace_039a0de_rate_spread`, not either of the re-budget keys. It reads as a contradiction of the
+shipped allocation for exactly as long as it takes to reach the line directly beneath the table, which
+the dev lap wrote: 「The spread column is the *old* 25/45/55/75/55/45 budget under each convention」.
+Checked and cleared; the numbers themselves are not reprinted here, because three spreads of one
+quantity side by side is what the collision gate exists to stop and it stopped this paragraph twice. (b) The
 LOFO ceiling probabilities (0.0241 / 0.296 / 0.369) are **below** the router's `p_cut = 0.5`, which looks
 fatal until Q1 of the bank explains the two-threshold structure: 0.3 is the per-step advance threshold
 shaping the field's extent, the router cuts the *cumulative survival* field. The bank is right. (c) The
