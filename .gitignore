@@ -419,10 +419,11 @@ outreach/
 
 # --- Finals release bundle (WFG-036) ---
 # The payload is copied out of the tree by `make finals-bundle`, so committing it
-# would be a second copy of web/ going stale beside the first (CHARTER 3.2) and a
-# duplicate of every retired figure inside the forbidden-string prose scope. What
-# IS committed is README_KO.md and MANIFEST.json, the SHA-256 of every file the
-# bundle should contain — see docs/finals_bundle.md.
+# would be a second copy of web/ going stale beside the first (CHARTER 3.2). One
+# copy plus a hash instead of two copies: what IS committed is README_KO.md and
+# MANIFEST.json, the SHA-256 of every file the bundle should contain, and a stale
+# hash fails a test where a stale 2.1 MB copy fails nothing. See
+# docs/finals_bundle.md.
 release/kcf-finals-2026/web/
 release/kcf-finals-2026/CITATION.cff
 release/kcf-finals-2026/LICENSE

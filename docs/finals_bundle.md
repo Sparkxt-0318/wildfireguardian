@@ -38,20 +38,31 @@ tree are equal.
 git-ignored. A clean clone therefore holds only `README_KO.md` and `MANIFEST.json`
 until someone runs `make finals-bundle`.
 
-Two reasons, both of them this repository's own rules:
+One reason, and it is **CHARTER §3.2**: a committed copy of `web/finals.html` (2.1 MB,
+rebuilt whenever the screen changes) is a second place for the same bytes to live, and
+the second place is the one that goes stale. One copy plus a hash instead of two copies.
 
-1. **CHARTER §3.2.** A committed copy of `web/finals.html` (2.1 MB, rebuilt whenever
-   the screen changes) is a second place for the same bytes to live, and the second
-   place is the one that goes stale. The manifest carries the same guarantee without
-   the copy: if the tree moves and the manifest does not, the test fails.
-2. **The forbidden-string scan.** `scripts/check_forbidden.py` reads retired figures
-   out of authored prose, and `docs/forbidden_check_scope.md` records exactly which
-   files are records rather than claims. A duplicate of every screen would put a
-   duplicate of every retired figure into that scan and would have to be argued back
-   out of it, one file at a time, for no gain.
+`MANIFEST.json` is itself a derivative and can go stale the same way — that is not a
+difference in kind, and it should not be claimed as one. The difference is what happens
+when it does: a stale hash line fails
+`tests/test_finals_bundle.py::test_every_hash_in_the_manifest_is_the_hash_of_the_source_file`
+on the next run, while a stale 2.1 MB copy of a screen fails nothing and is read by
+nobody until a judge is looking at it.
 
-The cost is stated plainly in `README_KO.md`: the folder is not complete until the
-command has been run once.
+> **A reason this document used to give, and it was wrong.** The first version of this
+> file, of the `.gitignore` comment beside these rules and of the lap report that shipped
+> them claimed a second reason: that a committed copy of the screens would drop a
+> duplicate of every retired figure into `scripts/check_forbidden.py`'s prose scope. The
+> lap's independent reviewer checked it and it is false —
+> `check_forbidden.py`'s `is_authored_prose()` is `rel.lower().endswith(".md")`, so
+> retired-figure rules never reach an `.html` file at all, and `web/finals.html` is
+> already tracked and already green. A copy would have added exactly zero findings. It
+> was a claim about this repository's own gate, asserted without running the gate, in a
+> lap that had just run it. It is recorded here rather than deleted, because that is what
+> this repository does with a withdrawn reason.
+
+The cost of the choice is stated plainly in `README_KO.md`: the folder is not complete
+until the command has been run once.
 
 ## What this does NOT show
 

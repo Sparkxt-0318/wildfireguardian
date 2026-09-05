@@ -852,3 +852,34 @@ only thing the test parsed; the reviewer broke it in one edit by changing a spok
 in the body and leaving the table alone. **Gate:** when a document has a summary table and
 a body, a test over the table must also assert that the **body is covered by the table** —
 otherwise the table is a self-portrait. After that assertion, 10 of 10.
+
+## 2026-09-05 — a marker placed by position, and a gate that counted instead of measuring
+
+**1. When a rule places a marker by position, fixing the two bad markers fixes nothing.**
+`DEMO_SCRIPT_5MIN.md` §1 said 「넘치면 그 구간의 **마지막** 문장을 버리고」 — when you run
+long, drop the segment's *last* sentence — and marked those sentences **[버림]**. A segment
+written with the caveats-first discipline this repository requires *ends on its caveat*, so
+the rule mechanically put the "drop this first" marker on the sentence that was holding the
+claim honest, in two of the three segments that have one. Critic #15 found the two
+instances; the row would have been fifteen minutes of moving two markers. **The rule is the
+defect**, and the next segment anyone writes would have reproduced it. **Gate:** when a
+convention selects an element *by position* (last, first, longest, topmost), ask what a
+correctly-written instance looks like — if the correct writing puts the wrong thing in that
+position, the convention is generating the bug, and the fix is the convention plus a test on
+the property (here: a **[버림]** marker must sit on a line carrying a number the document's
+own source table covers). **Anti-pattern:** a positional rule standing in for a semantic one.
+
+**2. A gate that registers a count of someone else's prose goes red when that prose moves,
+and the red is the gate's, not the prose's.** `tests/test_detection_ordering_is_not_claimed.py`
+asserted that `paper/manuscript.md` had **exactly one** English ordering hit — a sentence
+inside a `[GAP: …]` marker, which is the paper *refusing* the claim. The paper routine, which
+owns `paper/` and touched nothing else, rewrote that marker; the count went 1 → 0, which is
+**strictly safer**, and `auto-gates` run 109 went red on `auto/dev` for a change that improved
+the thing being guarded. **Gate:** assert the *property*, not the *census* — "at most one hit
+and any hit sits inside a GAP marker" catches everything `== 1` caught and nothing it should
+not. **Where a census is genuinely the point** (the 11-vs-1 design comparison in the same
+file), keep it, but write the re-registration procedure into the docstring, which that one
+did, and it is why re-registering to 8/0 was a five-minute change rather than an argument.
+**Corollary for a multi-routine repository:** a dev lap's own baseline can be green and the
+branch red one minute later, because four routines push to `auto/dev`. Read the newest
+`origin/auto/dev`, not the head the lap started from, before believing a green quick gate.

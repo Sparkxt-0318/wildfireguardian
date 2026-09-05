@@ -102,10 +102,17 @@ def test_the_run_recipe_exists_and_is_ten_numbered_steps():
 
 def test_the_payload_is_not_committed():
     """The bundle's reason to exist is that it is derived. A committed payload would be
-    a second copy of `web/` drifting beside the first (CHARTER §3.2), and a duplicate of
-    every retired figure inside the forbidden-string scan's prose scope.
+    a second copy of `web/` drifting beside the first (CHARTER §3.2) — one copy plus a
+    hash instead of two copies.
 
-    `.gitignore` is the thing that enforces it, so `.gitignore` is what is asserted.
+    An earlier version of this docstring gave a second reason, that a committed copy
+    would put a duplicate of every retired figure into `check_forbidden.py`'s prose
+    scope. It is false: that scan's `is_authored_prose()` is `endswith(".md")`, so no
+    `.html` copy could add a finding. Withdrawn here and in `docs/finals_bundle.md`
+    rather than quietly dropped.
+
+    `.gitignore` is the thing that enforces the choice, so `.gitignore` is what is
+    asserted.
     """
     ignored = (REPO / ".gitignore").read_text(encoding="utf-8")
     for rule in ("release/kcf-finals-2026/web/",

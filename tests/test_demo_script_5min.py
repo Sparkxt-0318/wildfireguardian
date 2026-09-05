@@ -275,55 +275,64 @@ def test_the_default_region_the_script_assumes_is_the_one_the_screen_ships():
 DROP_MARKER = "[버림]"
 
 
-def _spoken_lines_with_the_drop_marker(text: str) -> list[str]:
-    """The §1 lines that carry the [버림] marker, quoted lines only.
+def _droppable_sentences(text: str) -> list[str]:
+    """The sentence each [버림] marker makes droppable — the marker to the sentence end.
 
-    The ⚠ blocks talk *about* the marker in prose and must not be counted as
-    one; only a `> ` line is something the student says.
+    §1 says a marker sits on ONE sentence and only that sentence is dropped, so the
+    unit measured here is the marker to the first sentence terminator, not the line the
+    marker happens to start on. The first version of this helper read the line, and the
+    lap's independent reviewer showed why that is not enough: 2막's marker then sat at
+    the head of a three-sentence group, so a student dropping "the marked sentence"
+    would plausibly have dropped a caveat two sentences later that carries no number of
+    its own, and the line-level check passed on the number in the first sentence.
+
+    The ⚠ blocks talk *about* the marker in prose and are not quoted lines, so only a
+    `> ` line can carry one.
     """
     body = text.split("## 1. 대본", 1)[1].split("## 2. 끼어들 때", 1)[0]
-    return [line[2:] for line in body.splitlines()
-            if line.startswith("> ") and DROP_MARKER in line]
+    spoken = " ".join(line[2:] for line in body.splitlines() if line.startswith("> "))
+    out = []
+    for chunk in spoken.split(DROP_MARKER)[1:]:
+        end = chunk.find("다.")
+        out.append(chunk if end < 0 else chunk[: end + 2])
+    return out
 
 
 def test_a_droppable_sentence_takes_its_own_number_with_it(script_text):
     """WFG-095: the marker never sits on a caveat whose claim stays behind.
 
-    The script tells a student who is running long which sentence to cut. When
-    that marker sits on a caveat-only sentence, cutting it leaves the number the
-    caveat was guarding in the judge's ear with nothing qualifying it - which is
-    how critic #15 found 2막 and 3막: dropping 2막's marked line left 1막's
-    22/34/64분 and 2막's 79.23 % spoken as if they were the same clock (the
-    WFG-053 conflation, NH-018/NH-019), and dropping 3막's left four regional
-    percentages with nothing saying OSM mapping density is inside the difference,
-    while §4 item 4 of the same document lists 지역 간 순위 among the sentences
-    this script never says. Both deletions were measured against every claim gate
-    in the tree and all of them exited 0.
+    The script tells a student who is running long which sentence to cut. When that
+    marker sits on a caveat-only sentence, cutting it leaves the number the caveat was
+    guarding in the judge's ear with nothing qualifying it - which is how critic #15
+    found 2막 and 3막: dropping 2막's marked line left 1막's 22/34/64분 and 2막's
+    79.23 % spoken as if they were the same clock (the WFG-053 conflation,
+    NH-018/NH-019), and dropping 3막's left four regional percentages with nothing
+    saying OSM mapping density is inside the difference, while §4 item 4 of the same
+    document lists 지역 간 순위 among the sentences this script never says. Both
+    deletions were measured against every claim gate in the tree and all of them
+    exited 0.
 
-    The invariant this pins is the one §1 now states: a marker only ever goes on a
-    sentence that carries its own number, so cutting it cuts the number too.
-    Caveats that guard a surviving claim live in the ⚠ blocks instead.
+    The invariant this pins is the one §1 now states: a marker goes on exactly one
+    sentence, and only on a sentence that carries its own number, so cutting it cuts
+    the number too. Caveats that guard a surviving claim live in the ⚠ blocks instead.
 
-    What this cannot catch: it reads the marker's own line, not the whole
-    sentence-group the student would drop, so a marker moved to the *head* of a
-    numbered group would still pass. It is the head of the run that has been
-    getting this wrong, and a stricter test would need a closing marker the
-    spoken text should not have to carry.
+    What this still cannot catch: whether the ⚠ block's own prose is true, and whether
+    a student under time pressure stops at the sentence end. The second is a rehearsal
+    question (R12 / NH-014), and §5 of the document says so.
     """
-    marked = _spoken_lines_with_the_drop_marker(script_text)
+    marked = _droppable_sentences(script_text)
     assert marked, (
-        "no spoken line carries the [버림] marker any more; §1 tells a student "
+        "no spoken sentence carries the [버림] marker any more; §1 tells a student "
         "who is running long to drop the marked sentence, and there is none"
     )
     tabled = set()
     for _, value, _, _ in _mapping_rows(script_text):
         tabled.update(_numbers_in(value))
-    naked = [line for line in marked
-             if not (set(_numbers_in(line)) & (tabled | set(THRESHOLDS)))]
+    naked = [s for s in marked
+             if not (set(_numbers_in(s)) & (tabled | set(THRESHOLDS)))]
     assert not naked, (
-        "a [버림] marker sits on a sentence carrying no sourced number of its "
-        "own. Dropping it drops a caveat and leaves the claim it guards: "
-        + str(naked)
+        "a [버림] marker sits on a sentence carrying no sourced number of its own. "
+        "Dropping it drops a caveat and leaves the claim it guards: " + str(naked)
     )
 
 

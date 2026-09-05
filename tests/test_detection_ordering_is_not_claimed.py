@@ -953,6 +953,47 @@ def test_no_english_surface_claims_the_ordering_or_the_primacy(rel: str):
     )
 
 
+def gap_marker_lines(text: str) -> set[int]:
+    """1-based line numbers that fall inside a `[GAP: … ]` marker.
+
+    Containment, not proximity. The first version of this check looked back twelve lines
+    for the string `[GAP:`, which the lap's independent reviewer pointed out is a wider
+    rule than the docstring claimed: an ordering sentence in the paragraph FOLLOWING a
+    marker would have passed. A marker is a bracketed span, so the span is what is
+    measured — from each `[GAP:` to the first `]` after it.
+    """
+    covered: set[int] = set()
+    start = 0
+    while (open_at := text.find("[GAP:", start)) != -1:
+        close_at = text.find("]", open_at)
+        if close_at == -1:
+            close_at = len(text)
+        first = text.count("\n", 0, open_at) + 1
+        last = text.count("\n", 0, close_at) + 1
+        covered.update(range(first, last + 1))
+        start = close_at + 1
+    return covered
+
+
+def test_gap_containment_is_containment_and_not_nearness():
+    """The compensating half of the loosened assertion above, measured rather than assumed.
+
+    Three cases: inside a marker, in the paragraph after one, and no marker at all. The
+    middle one is the case the twelve-line proximity window got wrong.
+    """
+    inside = "Intro line.\n[GAP: settling this needs a record that would say whether\na satellite trigger precedes the call]\nAfter.\n"
+    assert 2 in gap_marker_lines(inside) and 3 in gap_marker_lines(inside)
+    assert 4 not in gap_marker_lines(inside), "the marker's span leaked past its bracket"
+
+    after = "[GAP: something else entirely]\n\nThe satellite trigger fired after the call.\n"
+    assert 3 not in gap_marker_lines(after), (
+        "a sentence in the paragraph after a marker counts as inside it, which is the "
+        "proximity bug this helper replaced"
+    )
+
+    assert gap_marker_lines("No marker here at all.\n") == set()
+
+
 def test_the_manuscript_hit_is_still_the_gap_marker():
     """`paper/manuscript.md` is out of `EN_GUARDED` on the strength of one measurement, so
     the measurement is a test rather than a sentence in a docstring.
@@ -977,12 +1018,9 @@ def test_the_manuscript_hit_is_still_the_gap_marker():
         f"a [GAP: ...] marker can account for: {[s[:90] for _, s in hits]}. Re-argue the "
         f"exclusion in EN_GUARDED, or add the file and pragma the marker."
     )
-    lines = text.splitlines()
+    inside = gap_marker_lines(text)
     for line_no, sentence in hits:
-        # the marker opens on an earlier line than the sentence's match; look back over the
-        # paragraph rather than at the one line.
-        window = "\n".join(lines[max(0, line_no - 12):line_no])
-        assert "[GAP:" in window or "[GAP:" in sentence, (
+        assert line_no in inside, (
             "the manuscript's ordering hit is not inside a [GAP: ...] marker, so it reads "
             f"as a claim rather than as a refusal of one: {sentence[:140]}"
         )
@@ -1171,10 +1209,54 @@ def test_the_number_that_chose_this_design_is_re_derivable():
         f"{_VARIANT_A_HITS} and {_VARIANT_B_HITS}. If prose moved, re-register both here "
         f"and in the report; if the RULE moved, the design comparison has to be re-argued."
     )
-    assert a > b * 4, (
-        "variant A is no longer several times noisier than variant B, which is the entire "
-        "reason variant B ships. Re-argue the design."
-    )
+    # The live-tree ratio used to be asserted here as `a > b * 4`. With b == 0 after
+    # `2b7c3a0` that degenerates to `a > 0` and can never fail again, which the lap's
+    # independent reviewer caught: a guard that reads as intact while measuring nothing
+    # is worse than no guard. The ratio is now measured on the fixed corpus below, which
+    # no rewrite of this repository's prose can empty.
+
+
+#: Sentences that separate the two arms, chosen because each is ordinary English a
+#: document here could legitimately write. Variant A fires on all of them because one
+#: source noun and a priority word is all it needs; variant B fires on none, because it
+#: requires BOTH sides of the comparison. This is the design argument, run.
+_ORDINARY_ENGLISH_VARIANT_A_FLAGS = (
+    "The first satellite image of the region was published in 2015.",
+    "GK2A was the primary source of the hazard field for this run.",
+)
+
+#: And the claim the rule exists to catch, which BOTH arms must still flag, or variant B
+#: bought its quiet at the cost of the thing it is for.
+_REAL_ORDERING_CLAIMS = (
+    "The satellite trigger would have fired after the human report in every case.",
+    "A geostationary detection precedes the villager's call by 22 minutes.",
+)
+
+
+def test_variant_b_is_quiet_where_variant_a_is_noisy_and_loud_where_it_counts():
+    """The design comparison, on a corpus the repository's prose cannot drain.
+
+    `test_the_number_that_chose_this_design_is_re_derivable` above measures both arms
+    over live files, and that measurement is worth having — but it counts what happens
+    to be written today, so a rewrite elsewhere can take it to zero and leave a green
+    assertion behind. These two tuples are fixed, so the claim 'variant A fires on
+    ordinary English and variant B does not, and variant B still catches the real
+    thing' is falsifiable on every run regardless of what the tree says this week.
+    """
+    for sentence in _ORDINARY_ENGLISH_VARIANT_A_FLAGS:
+        assert english_ordering_violations_variant_a(sentence), (
+            f"variant A no longer flags ordinary English, so the noise it was rejected "
+            f"for is gone and the design comparison has to be re-argued: {sentence}"
+        )
+        assert not english_ordering_violations(sentence), (
+            f"variant B now flags ordinary English that names one side only, which is "
+            f"exactly what it was chosen to avoid: {sentence}"
+        )
+    for sentence in _REAL_ORDERING_CLAIMS:
+        assert english_ordering_violations(sentence), (
+            f"variant B no longer catches a real ordering claim, so its quiet cost the "
+            f"thing the rule is for (WFG-053, WFG-063, WFG-070, NH-019): {sentence}"
+        )
 
 
 # ---------------------------------------------------------------------------
