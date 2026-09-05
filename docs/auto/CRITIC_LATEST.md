@@ -1,140 +1,125 @@
-# CRITIC_LATEST — critic #18, 2026-09-05
+# CRITIC_LATEST — critic #19, 2026-09-05
 
-Window `6236c81..6afd252` on `auto/dev` (7 commits; 1,043 authored insertions,
+Window `e2628f3..92bfc4f` on `auto/dev` (5 commits; 1,141 authored insertions,
 images and the generated board excluded). Written by the `wfg-autoloop-critic`
 routine.
 
 ## fix-before-next-row
 
-**NONE. This is deliberate, and it is this lap's main act.**
+**WFG-109 — the judged screen and the file it is built from disagree, and the file wins.**
 
-Of the last **eleven** dev claims on this branch, **eight** were a critic's `fix-before-next-row`
-item (WFG-063, WFG-069, WFG-070, WFG-067+WFG-075, WFG-087, WFG-095, WFG-100, WFG-103). The last
-three ran on three consecutive dev slots — 0325Z, 0625Z, 0920Z — all three were scoped 「minutes」,
-and all three were on the same document, `docs/auto/DEMO_SCRIPT_5MIN.md`. In the same six days
-`docs/auto/finals/BOOTH_SETUP.md` has **never once been claimed**, and its absence holds three
-readiness lines (R3's booth half, R7 and R9).
+`scripts/finals.template.html:1378` (KO) and `:1381` (EN) still carry the STATIC VIEW sentence
+WFG-103 withdrew: 「지도가 지금 이 순간만 본다면, 이 경로를 권했을 것입니다」 and 「A map that only
+sees the present would recommend it」. The built `web/finals.html:1378`/`:1381` carry the correction
+(「화재를 전혀 보지 않는 지도가 그리는 경로입니다」 / 「This is the route a fire-blind map draws」).
+I diffed the two files at this head; the third and fourth branches of the same expression already
+agree, so it is exactly these two lines.
 
-Every one of those eight items was real. Most were mine or my predecessors' best work. But the
-queue has run ahead of the product for six days, and the lever that keeps it ahead is the one I
-hold. So I am not pulling it. **The next dev lap owes the critic nothing and the first row it meets
-is WFG-037.** I moved that row above WFG-104 to make table order and this page agree (CHARTER §3b:
-both are P0, so no rule was bent either way).
+Nothing is wrong on the judged screen today. The next `make finals` puts a claim this repository has
+established is false back in front of five judges, no gate reads the template, and the only thing
+standing between them is a paragraph of `docs/auto/finals/BOOTH_SETUP.md` §3.4 asking a student not to
+run a command. **Done when** the template says what the built screen says, `make finals` is run so the
+two agree, the manifest is re-derived, and a test compares the STATIC VIEW captions in both files.
 
-This resolves critic #17's falsifiable test — 「if `BOOTH_SETUP.md` does not exist by then, WFG-084's
-cap becomes the rule」 — against the loop. It does not exist. **The cap is now the rule for this
-routine**, and this file and the report are written under it.
+**Why an item at all, one lap after critic #18 proved the empty block works.** Because #18's test
+resolved and its rule is now standing (see `DIRECTION.md`), and because readiness did not stall for
+want of direction this window: it stalled on paper and on an email. This item is judge-facing under
+CHARTER §14b, it is minutes, and it is the first critic item in nine that is not another sentence of
+`docs/auto/DEMO_SCRIPT_5MIN.md`.
 
 ## Findings, ranked
 
-**F1 · WFG-106 · judge-facing · P0 · the number that answers the strongest objection to the headline
-is already registered, already gated, and reaches no judge.**
-Critic #17's root objection was that 24.73 % is measured against a fire-blind walker. The repository
-has already computed the version that is *not* diluted by the walkers who were never in danger, and
-it is a registry key: `mr_uiseong_fa_rescue_rate` = **0.883**, derivation string 「naive_into_FA_safe /
-(naive_into_FA_safe + no_safe_route + both_enter) — of the origins whose FIRE-BLIND route is unsafe,
-the share the future-aware router still gets to a refuge」. `docs/multi_region.md:430-434` prints the
-whole row for all three fires:
+**F1 · WFG-109 · judge-facing · P0 · above.** Filed by the WFG-037 lap and verified here on disk rather
+than read from its report.
 
-| fire | fire-blind route unsafe | future-aware rescues |
-|---|---:|---:|
-| 영덕 2025 | 44 / 458 = 9.61 % | **95.5 %** |
-| 의성·안동 2025 | 103 / 368 = 27.99 % | **88.3 %** |
-| 울진·삼척 2022 | 13 / 393 = 3.31 % | **23.1 %** |
+**F2 · WFG-106 · corrected before a lap writes a card on it · the row's own opening names the wrong
+objection.** Critic #18 filed WFG-106 as 「the number that answers the strongest objection outright」.
+It is not, and the difference is the kind a judge finds. There are two objections to the headline and
+they are not the same question:
 
-Drilled against the files: `88.3`, `27.99` and `103 / 368` appear **zero times** in
-`docs/auto/JUDGE_QA.md`, `docs/auto/DEMO_SCRIPT_5MIN.md`, `paper/manuscript.md` and
-`docs/finals_screen_v2.md`. So the student stands at the booth with 91 of 368 — a denominator holding
-265 origins that were never at risk — and not with the conditional rate; and 울진·삼척's **23.1 %**,
-the number that runs against the project, is spoken nowhere. This costs no compute and adds no claim:
-it publishes three numbers the tree already re-derives. ⚠ Fix the key's own caveat while there — it
-reads 「SMALL denominator (13–20 origins)」, true of 울진's 13 and false of this key's own 103.
+- **(i) dilution** — 「91 of 368 includes 265 walkers who were never in danger」;
+- **(ii) the opponent** — 「you compared against a router that does not look at the fire at all」, which
+  is critic #17's root objection, WFG-104's card, and NH-027's experiment.
 
-**F2 · WFG-104 (updated, not duplicated) · judge-facing · the fix landed on two surfaces and left them
-saying different things.** WFG-103 corrected the baseline sentence on the script *and* on the judged
-screen, which is more than the finding asked for. But only one of them stayed inside what is measured:
+`mr_uiseong_fa_rescue_rate` answers (i). It cannot answer (ii), because its denominator is *defined by*
+the arm in dispute: the derivation string reads 「of the origins whose **FIRE-BLIND** route is unsafe」.
+So the conditional rate inherits the same opponent, and a card offering it as the answer to (ii) would
+be a stronger overclaim than the sentence WFG-103 withdrew a day ago. The row is still worth doing and
+its numbers are still absent from every judge-facing file (I re-drilled: `88.3`, `27.99`, `103 / 368`,
+`23.1` and `95.5` appear zero times in `JUDGE_QA.md`, `DEMO_SCRIPT_5MIN.md`, `paper/manuscript.md` and
+`docs/finals_screen_v2.md`). Row updated, not duplicated.
 
-- screen, `web/finals.html` — KO 「화재를 전혀 보지 않는 지도가 그리는 경로입니다」, EN 「This is the
-  route a fire-blind map draws」. Description only.
-- script, `docs/auto/DEMO_SCRIPT_5MIN.md:108-109` — adds 「**이 도구가 없을 때의 기준선입니다**」.
+⚠ And its caveat is wrong on two keys, not one. I read all three entries in `docs/NUMBERS.json`:
+`mr_yeongdeok_fa_rescue_rate`, `mr_uiseong_fa_rescue_rate` and `mr_uljin_fa_rescue_rate` carry a
+**byte-identical** caveat reading 「Conditional rate on a SMALL denominator (13-20 origins)」, while
+`docs/multi_region.md:431-433` gives the denominators as 44 / 458, 103 / 368 and 13 / 393. True of one,
+false of two.
 
-That clause is a counterfactual about what a resident without this tool actually walks. The repository
-*labels* it (`docs/real_roads_real_hazard.md:50` calls `naive` 「the status quo」) and has never measured
-it; a real resident sees the smoke. A judge reads the screen and hears the script at the same moment.
-Folded into WFG-104, which is where a claim about the unaided resident belongs. Not a
-`fix-before-next-row` item: it ships qualified by a ⚠ block directly beneath it that tells the student
-what to say instead, and WFG-104 is two rows down.
+**F3 · WFG-110 · judge-facing · P0 · R1 has been ☐ for nineteen critic laps on a condition nobody had
+sized, and it is six table rows wide.** Critic #18 wrote 「no such table exists」. Too strong, and the
+correction is the finding: `docs/auto/DEMO_SCRIPT_5MIN.md` §3 **is** a mapping table, but it runs
+script → key, and R1 asks screen → key, which is the direction that answers a judge pointing at the
+screen. Measured here using §3's own criterion for 화면 (does `scripts/finals.template.html` reference
+the key, not does the built page contain it): the template references **28** registry keys, §3 names
+**22**, and **six** are in no committed mapping table — `objective_canonical_longest_walk_saving_min`,
+`oof_average_precision`, `rescue_dispatch_count`, `responder_exposure_shortest_path_mean`,
+`responder_exposure_survival_aware_mean`, `slope_canonical_fa_routes_changed_60m`.
 
-**F3 · direction, acted on rather than filed · readiness has not moved for THREE consecutive critic
-laps.** 4 of 11 (R2, R4, R5, R6) at #16, #17 and #18. That fires the 「zero for two consecutive critic
-laps」 rule. `KCF_READINESS.md` carries the evidence line by line, checked on disk at this head, not
-read from the laps that claimed it. The action is the empty `fix-before-next-row` block above.
+**F4 · the direction rule fires for the fourth time and is measuring the wrong thing.** Readiness is
+4 of 11 and no line has moved since critic #16. But this window the loop built exactly the artifact the
+last three critics named. The lines did not move because R7 and R9 both wait on **the printables**
+(WFG-007, P1, never claimed by any lap) and R3 waits on **the author** (NH-029). The queue is no longer
+what holds the checklist, and `DIRECTION.md` now says so with a falsifiable test for critic #20: if
+WFG-109 closes and the printables still do not exist, WFG-007's **priority** is the defect, not its
+position, and it should be raised to P0.
 
-**F4 · a correction this file owes the loop.** Critics #16 and #17 wrote 「nothing has touched `web/`」.
-That was true of their windows and is **not** true of this one: `web/finals.html` gained two lines at
-`92366cb`. R1 is unmoved for a different reason — its condition is a committed mapping table from every
-on-screen number to a `docs/NUMBERS.json` key, and no such table exists. Left as a correction rather
-than an edit of their text (CHARTER §3.7).
+**F5 · the best thing this window produced, and the lap did not claim credit for it: NH-029.** Writing
+the recipe forced someone to actually run `make all-checks`, the command R3 has named for nineteen laps.
+It fails, and only two of its six differences are the sandbox. `registry_entries: 320 -> 326` and three
+tracked `data/processed/demo_script_pace/pace_*.json` files are in every clone, the author's included.
+I ran `make baseline-verify` here rather than quoting the lap and got the same six lines. **Eighteen
+critic laps, mine among them, wrote 「WARN, expected off-laptop, `hard: false`」 and read past four
+differences that are not off-laptop at all.** That is a finding about this routine as much as about the
+tree, and it is why F4 is worded as it is.
 
-**F5 · checked and NOT a finding, recorded so no later lap re-derives it.** Three things I attacked and
-that held: (a) `docs/demo_script_pace.md`'s variant table puts the re-budgeted allocation in one column
-and, in the next, a spread belonging to the superseded design budget — the value registered as
-`demo_pace_039a0de_rate_spread`, not either of the re-budget keys. It reads as a contradiction of the
-shipped allocation for exactly as long as it takes to reach the line directly beneath the table, which
-the dev lap wrote: 「The spread column is the *old* 25/45/55/75/55/45 budget under each convention」.
-Checked and cleared; the numbers themselves are not reprinted here, because three spreads of one
-quantity side by side is what the collision gate exists to stop and it stopped this paragraph twice. (b) The
-LOFO ceiling probabilities (0.0241 / 0.296 / 0.369) are **below** the router's `p_cut = 0.5`, which looks
-fatal until Q1 of the bank explains the two-threshold structure: 0.3 is the per-step advance threshold
-shaping the field's extent, the router cuts the *cumulative survival* field. The bank is right. (c) The
-「44 origins」 in `paper/GAPS.md` G7 is 영덕's 42 + 2, not a contradiction of 의성·안동's 103.
+**F6 · WFG-111 · P1 · R5 promises that every T0 answer cites a file, and nothing checks the file is
+there.** `tests/test_judge_qa_bank.py` gates phrasing and tiers, not paths. I extracted all 75
+path-shaped citations from `docs/auto/JUDGE_QA.md` and resolved each from the repository root: three do
+not resolve, all bare names whose full path appears elsewhere in the same file (`check_forbidden.py`,
+`check_number_collisions.py` at `:751-752`; `delivery/sms.py` at `:672`). Nothing is wrong today and no
+answer is unsupported. What is missing is the gate, and the failure it would catch between now and 10-24
+is a rename leaving a T0 answer pointing at nothing, with the bank green.
 
-## This lap's own rule breach
+**F7 · checked and NOT findings, recorded so no later lap re-derives them.**
+(a) `BOOTH_SETUP.md`'s two code citations resolve exactly: `web/finals.html:2154` is
+`lang === 'ko' ? 'EN' : 'KO'` and `:2145` is the `state.view === 'live'` guard on keys 1-4. The §6 key
+table matches the handler, including that `→`/`←` act only while `GUIDED.active()`.
+(b) §7.2's 「한국어 글꼴은 꾸러미 안에 있습니다」 is true: `IBMPlexSansKR-{Regular,SemiBold}.woff2` and
+`Pretendard-arrow.subset.woff2` are three of the bundle's seventeen files.
+(c) `make finals-bundle` exits 0 (`byte-identically, 17 files`) and `check_bundle_copy.py` agrees on the
+built folder. WFG-108 stays open and its booth risk is mitigated by §2, not fixed.
+(d) The window's one change to `DEMO_SCRIPT_5MIN.md` is §0's language-button correction and it is right.
+(e) The `.gitignore`, `Makefile` and `build_finals_bundle.py` changes are all comments, one payload entry
+and one ignore line; the withdrawn docstring sentence is struck **in writing** with the measurement that
+falsified it, which is this repository at its best.
 
-**`--assert-reported` exited non-zero on `c8765e5` and the push went out anyway**, because the two
-assertions and the push were chained with `;` in one shell line. CHARTER §4 step 8 says 「If it fails,
-you do not push」. The gate was right in the letter — that commit changed `BACKLOG.md` and this file
-and *edited* rather than added a report, which F22 deliberately does not count. In substance the
-change is described in the commit message, the report and here; nothing shipped unreported and
-nothing shipped red (`--mode full` ALL GREEN at `c8765e5`, `--assert-head` 0, `auto-gates` 125
-cancelled by the superseding push, 126 running on this head). The addendum commit carries a **new**
-report, which is how the assertion is meant to be satisfied. **The fix for every routine: `&&`, not
-`;`, between the assertions and the push.** Not filed as a row — it is a character of shell in a
-prompt, and §14b would park it behind the readiness lines regardless.
+**F8 · loop hygiene, clean, and it takes one line.** `auto-gates` runs 111 to 130 on `auto/dev`: no
+`failure` anywhere in the window; 130 at this head is `success`; 125, 116 and 115 were `cancelled` by a
+superseding push. Fifteen of fifteen pushes pass `--assert-reported`. Every dev, paper and manual report
+in the window carries `Reviewed by:`. `gates.py --mode full` exits 0 here at `92bfc4f`
+(`1506 passed, 62 skipped`, 197.4 s, cold; +22 like for like over critic #17's cold run).
 
-## Verification of the loop's claims
+## Root objection (hate), unchanged and now sharper
 
-- `gates.py --mode full` **ALL GREEN at `6afd252`**: `1484 passed, 62 skipped` in 214 s, **COLD** (the
-  six SRTM-gated tests skip, WFG-039), against critic #17's cold `1484 / 62` at `26e200d`: **unchanged
-  like for like**, eleventh comparable window. `verify`, `snapshot-verify`, `env-check` PASS;
-  `baseline-verify` WARN, expected off-laptop, `hard: false`, eighteenth window, still not a finding.
-- **GitHub's own runs (CHARTER §4b).** `auto-gates` on `auto/dev`: run **124 (`6afd252`, this head)
-  `success`**; 123, 122, 121, 120, 119, 118, 117 `success`; 116 and 115 `cancelled` by the next push.
-  **No red run stands behind a green report.** Last `failure` is run 110 (03:20Z), already NH-026/WFG-102.
-- **Every dev report of the last 24 h records `Reviewed by:`** — 1555Z, 1609Z (`self`, and it says why),
-  1851Z, 2154Z, 0059Z, 0404Z, 0702Z, 0953Z. Eight of eight. `--assert-head` and `--assert-reported
-  --base 6236c81` both exit 0.
-- **`make finals-bundle` re-run by me, not read:** exit 0, byte-identical, 16 files.
-- **Author decisions applied this lap: none.** `from:siyeong0318@gmail.com subject:"WildfireGuardian
-  autoloop" newer_than:14d` returns 49 threads, every one a single outbound message from the loop, no
-  reply. PR #31 carries no comment in `NH-###:` form. `decisions_seen.json` unchanged. **Six entries are
-  open: NH-005, NH-014, NH-025, NH-026, NH-027, NH-028.** ⚠ I first wrote 「five」 here, omitting
-  NH-005, which is the **third consecutive lap** to hand-write this count wrong beside a generated block
-  that had it right (`26e200d`, `6afd252`, and now this one). Filed as WFG-107.
+**The headline credits the forecast with what merely seeing the present fire would have bought.** Every
+comparison the project ships is against `naive`, which is fire-blind. Critic #18's proposed answer does
+not close it, for the reason in F2: the conditional rate is conditioned on that same arm. The cheapest
+test is still the one the paper routine's reviewer wrote into `paper/GAPS.md` G7 — slice-0 hazard mask as
+a node filter, the existing `naive_route`, only the origins that enter the hazard, every input already
+committed — about one lap and no new data. **It is the author's call (NH-027), and it has been open since
+09-05 with four options.**
 
-## Root objection (`hate`)
+## Scorecard
 
-**The loop's most reliable behaviour is answering its own critic, and for six days that has been more
-reliable than building the booth.** The window under review is a good window — a false description of
-the baseline was removed from the script, the screen and the manuscript, found twice independently —
-and it moved no score and no readiness line, because the rows are waiting on two files nobody has
-written. The cheapest test is not another finding: it is one lap with no critic item in front of it.
-That is what this lap bought, and critic #19 reads the result.
-
-## Readiness and scores
-
-**KCF readiness: 4 of 11 (R2, R4, R5, R6). No line moved, third consecutive lap.**
-**Track B 84 → 84. Track A 78 → 78. Every row held**, with the evidence per row in
-`docs/auto/SCORECARD.md`. Judge-facing census for the window: **65 of 1,043 authored insertions
-(6.2 %)**, against 493 (47.3 %) in reports — the highest report share this census has recorded, in the
-window whose falsifiable test was about exactly that.
+B 84 unchanged (16 / 15 / 19 / 15 / 19). A 78 to **79**, on 구현 및 유용성 17 to 18, the first row to move
+in three laps. Evidence per row in `docs/auto/SCORECARD.md`.

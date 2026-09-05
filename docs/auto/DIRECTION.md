@@ -1,6 +1,6 @@
 # Direction — where the project is going, on one screen
 
-*Written 2026-09-04 by the author's session; steered again the same evening (product first). Rewritten by the research routine every second day; the critic checks it after every dev lap (CHARTER §14). The dev routine reads it before claiming a row. Last checked by critic #18, 2026-09-05.*
+*Written 2026-09-04 by the author's session; steered again the same evening (product first). Rewritten by the research routine every second day; the critic checks it after every dev lap (CHARTER §14). The dev routine reads it before claiming a row. Last checked by critic #19, 2026-09-05.*
 
 ## Thesis (two sentences)
 
@@ -8,20 +8,27 @@ A forecast of where the fire will be, not where it is, changes which walking rou
 
 ## Next three rows, and why
 
-*WFG-103 closed. The booth script and the judged screen now name the baseline they compare against. What has
-not moved in six days is the booth itself, and that is row 1.*
+*WFG-037 closed. `docs/auto/finals/BOOTH_SETUP.md` exists, every command in it was executed, and writing
+it falsified three of the repository's own claims. The booth now has a recipe. What it does not have is
+paper.*
 
-1. **WFG-037** (P0, hours) — `docs/auto/finals/BOOTH_SETUP.md`. It does not exist, it was due 09-11 on this
-   page's own sprint plan, and its absence is what holds **three** readiness lines: R3's booth half, R7 and
-   R9. **Critic #18 set no `fix-before-next-row` item precisely so that this row is what the next lap takes.**
-2. **WFG-104** then **WFG-106** (both P0, one lap and hours) — the two Q&A cards for the objection critic #17
-   raised. WFG-106 is the cheaper and stronger of the two: the number that answers the objection outright,
-   **88.3 %**, is already a registry key (`mr_uiseong_fa_rescue_rate`) and reaches no judge-facing document.
-3. **WFG-007** (P1) then **WFG-036 v2** — the printables (R7), then the bundle that folds them in on 09-14.
+1. **WFG-109** (P0, one lap) — the judged screen and the template it is built from disagree, and the
+   template wins on the next `make finals`. Verified on disk by critic #19 at `92bfc4f`. **This is critic
+   #19's one `fix-before-next-row` item**, and it is deliberately not another edit of
+   `DEMO_SCRIPT_5MIN.md`.
+2. **WFG-106** then **WFG-104** (both P0) — the two Q&A cards. **WFG-106 was moved above WFG-104 this lap**
+   because this page has said since critic #18 that it is the cheaper and stronger of the two and the table
+   said the opposite. Read WFG-106's corrected opening first: it answers the **dilution** objection, not
+   the **opponent** objection, and a card that confuses the two would overclaim worse than the sentence
+   WFG-103 just withdrew.
+3. **WFG-007** (P1, the printables) — **now the single artifact holding two readiness lines, R7 and R9**,
+   and the hole `BOOTH_SETUP.md` §7.3 openly stands on. It is P1 and sits below four P0 rows in the table;
+   this page puts it third, and CHARTER §14b says the dev lap takes this page's order when the two differ.
 
-Then WFG-101 (the 3.53 % → 24.73 % card), WFG-010 (README Round-4 + abstract → R8), WFG-096, WFG-024 when its
-blockers clear (R11), and only then WFG-088, WFG-089, WFG-094, WFG-097, WFG-099, WFG-102, WFG-105 and the
-other infra rows, which CHARTER §14b holds behind R1, R3, R7, R8 and R9.
+Then WFG-110 (R1's screen → key table, six rows wide and now measured), WFG-036 v2, WFG-101, WFG-010
+(README Round-4 + abstract → R8), WFG-096, WFG-024 when its blockers clear (R11), and only then WFG-088,
+WFG-089, WFG-094, WFG-097, WFG-099, WFG-102, WFG-105, WFG-107, WFG-111 and the other infra rows, which
+CHARTER §14b holds behind R1, R3, R7, R8 and R9.
 
 ## What not to do
 
@@ -31,46 +38,45 @@ other infra rows, which CHARTER §14b holds behind R1, R3, R7, R8 and R9.
 - No ratio between the chain and the season areas (NH-018).
 - Do not spend a lap on the six-fire study-area map until per-fire burned areas are registered (WFG-060).
 - Do not commit the bundle payload. R9 does not require it and critic #16 said so on the line itself.
-- Do not open another gate-about-the-loop row while the printables and `BOOTH_SETUP.md` do not exist
-  (CHARTER §14b). WFG-097, WFG-099 and WFG-102 are filed and parked behind exactly that rule.
-- **Do not run the WFG-033(b) arm before the finals** unless the author reopens NH-027. WFG-106 answers the
-  same judge question with numbers the tree already re-derives, and costs no compute.
+- Do not open another gate-about-the-loop row while the printables do not exist (CHARTER §14b).
+- **Do not run the WFG-033(b) arm before the finals** unless the author reopens NH-027.
+- **Do not run `make baseline-freeze` in a sandbox.** It would record the two raw contracts as MISSING and
+  destroy the protection on the irreproducible Korean artifacts. NH-029 is the author's.
 
 ## Critic's last direction note
 
-**2026-09-05, critic #18. The falsifiable test critic #17 set for me has resolved, and it resolved against
-the loop.** It read: 「if `docs/auto/finals/BOOTH_SETUP.md` does not exist by then, WFG-084's cap becomes the
-rule.」 It does not exist. I checked it on disk at this head, along with the printables (none) and R1's
-mapping table (none). **So the cap is now the rule for this routine**, and this report is written under it.
-**I moved one row and it is the move that answers the test: WFG-037 now sits ABOVE WFG-104.** Both are P0, so
-no CHARTER §3b rule was broken either way. **And I deliberately set NO `fix-before-next-row` item**, which is
-the only lever that could have overridden that order, because the measurement below says the lever is what
-has been starving the booth.
+**2026-09-05, critic #19. Critic #18's falsifiable test resolved, and it resolved FOR the loop.** It read:
+「if `docs/auto/finals/BOOTH_SETUP.md` exists at that lap, the no-item lever works and should be used again
+whenever readiness stalls two laps.」 **It exists**, 256 lines, Korean, and I read it line by line rather
+than reading the lap that wrote it. Critic #18 spent its whole act on withholding one lever for one lap,
+and one lap later the file that had gone unclaimed for six days was written. The lever is real and the
+rule now stands: **when readiness stalls two critic laps, set no `fix-before-next-row` item.**
 
-**The measurement.** Of the last **eleven** dev claims on this branch, **eight** were a critic's
-`fix-before-next-row` item: WFG-063, WFG-069, WFG-070, WFG-067+WFG-075, WFG-087, WFG-095, WFG-100, WFG-103.
-The last three ran on three consecutive dev slots (0325Z, 0625Z, 0920Z), all three were scoped 「minutes」,
-and all three were on the same document, `docs/auto/DEMO_SCRIPT_5MIN.md`. In the same six days
-`BOOTH_SETUP.md` has never once been claimed. CHARTER §11 says a lap that finishes its row early takes the
-next one and never idles; the 0953Z lap finished a minutes-scale row and did not take WFG-037. **The critic's
-queue is not a wrong queue — every one of those eight items was real and most were mine or my predecessors'
-best work — but it is a queue that has run ahead of the product for six days, and I am the only routine that
-can stop it.**
+**So why do I set one.** Readiness did not stall for want of direction this window; it stalled on paper and
+on an email. And the window left one thing behind that a judge can see: `scripts/finals.template.html:1378`
+and `:1381` still carry the STATIC VIEW sentence WFG-103 withdrew, while the built `web/finals.html` carries
+the correction. I confirmed both on disk. Nothing is wrong on the judged screen today; the next `make finals`
+puts a withdrawn claim back in front of five judges, and no gate reads the template. That is a judge-facing
+surface under CHARTER §14b, it is minutes of work, and it is the first critic item in nine that is not
+another sentence of `DEMO_SCRIPT_5MIN.md`.
 
-**Readiness: 4 of 11 (R2, R4, R5, R6), and NO line has moved for THREE consecutive critic laps** (#16, #17,
-#18). That fires the 「zero for two consecutive critic laps」 rule, and it is a finding about the loop's
-direction, not about the product. **What the window did earn, and it was good work:** WFG-103 closed on both
-surfaces the claim lived on — the script and the judged screen — and the paper routine independently found
-the same overclaim in the manuscript's abstract and corrected it in four places with a new GAP row. Three
-judge-facing surfaces stopped saying something the repository's own source contradicts, in one window. It
-moved no score, and that is the point: the rows are waiting on two files nobody has written.
+**Readiness: 4 of 11 (R2, R4, R5, R6), and no line has moved for FOUR consecutive critic laps (#16 to #19).
+The rule fires and this time it is measuring the wrong thing.** The three lines the loop is closest to are
+held by two objects and neither is a direction problem. R7 and R9 both wait on **the printables** (WFG-007),
+which no lap has claimed and which is P1 sitting below four P0 rows. R3 waits on the author: writing the
+recipe proved that `make all-checks`, the command R3 names, **does not pass on any machine** including the
+author's, because the baseline freeze is stale in four ways that are in every clone (NH-029). Eighteen critic
+laps, mine included, read `baseline-verify WARN, expected off-laptop` and moved on. That is the single best
+thing this window produced and no lap claimed credit for it.
 
-**The falsifiable test for critic #19:** if `docs/auto/finals/BOOTH_SETUP.md` exists at that lap, the
-no-item lever works and should be used again whenever readiness stalls two laps. If it still does not exist
-— with no `fix-before-next-row` item standing in the way and this page naming it first — then the problem is
-not the critic's queue and NH-024's question should be reopened with the author as a question about the dev
-routine's own row selection.
+**The falsifiable test for critic #20:** if `WFG-109` is closed and the printables still do not exist, then
+WFG-007's priority is the defect, not its position, and critic #20 should raise it to P0 rather than write
+another direction note about it.
 
 ## Critic's previous direction note
 
-**2026-09-05, critic #17. I moved one row, and it is the smallest move this page has recorded: WFG-037 now sits ABOVE WFG-036 in the table**, because the page has said since critic #16 that the booth recipe and the printables 「come before WFG-036 v2」 and the table said the opposite. Both are P0, so no CHARTER §3b rule was broken either way; what was broken is that a dev lap reading table order and a dev lap reading this page would have claimed different rows. **What the window earned:** WFG-100 closed and closed well — 1,684 spoken syllables allocated over 300 s at one rate, the before state committed as its own artifact rather than asserted, and the disagreement with critic #16's own count published instead of smoothed. **No readiness line ticked that window** (4 of 11). *(Critic #16's note is in `docs/auto/reports/2026-09-05T0815Z-critic.md`; this page stays one screen.)*
+**2026-09-05, critic #18.** Of the last eleven dev claims, eight were a critic's `fix-before-next-row` item,
+the last three on three consecutive slots and all three on `DEMO_SCRIPT_5MIN.md`, while `BOOTH_SETUP.md` had
+never once been claimed. Critic #18 set **no** item and moved WFG-037 above WFG-104, so the next dev lap
+would meet the booth first. It did, and it built it. *(Critic #17's note is in
+`docs/auto/reports/2026-09-05T0815Z-critic.md`; this page stays one screen.)*

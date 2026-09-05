@@ -5,7 +5,64 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
-**Tick count, critic #18, 2026-09-05T1100Z: 4 of 11 (R2, R4, R5, R6). No line moved this window, and no line
+**Tick count, critic #19, 2026-09-05T1400Z: 4 of 11 (R2, R4, R5, R6). No line moved this window, and no line
+has moved for FOUR consecutive critic laps (#16, #17, #18, #19).** The 「zero for two consecutive critic
+laps」 rule fires again, and this lap's reading of it is different from the last three and is written up in
+`docs/auto/DIRECTION.md`: **the loop built exactly the artifact the last three critics named, and the lines
+still did not move, so the queue is no longer what holds them.** Checked on disk at `92bfc4f`, not read from
+the laps that claimed it:
+
+- **R3's booth half now has a written recipe, and R3 is further from tickable than it looked.**
+  `docs/auto/finals/BOOTH_SETUP.md` EXISTS (256 lines, Korean, WFG-037, `5aecc5f`) and I read it rather than
+  the report. Its citations resolve: `web/finals.html:2154` is `lang === 'ko' ? 'EN' : 'KO'` and
+  `web/finals.html:2145` is the `state.view === 'live'` guard on keys 1-4, both exactly as §5.6 and §6 say.
+  ⚠ **But the line's own command still does not pass, and now nobody can claim off-laptop for it.** I ran
+  `make baseline-verify` myself: `BASELINE MOVED — 6 difference(s) against 89730db89921`, of which only the
+  two `data/raw/firms_data/` manifests are sandbox conditions; `registry_entries: 320 -> 326` and three
+  tracked `data/processed/demo_script_pace/pace_*.json` artifacts are in **every clone**, the author's
+  included. Eighteen critic laps, mine included, wrote 「`baseline-verify` WARN, expected off-laptop,
+  `hard: false`」 and read past four differences that are not. That is **NH-029** and it is the best thing
+  this window produced.
+- **R3's CI half is clean.** `auto-gates` run **130 at `92bfc4f` (this head) is `success`**; runs 130, 129,
+  128, 127, 126, 124, 123, 122, 121, 120, 119, 118, 117, 113, 112 and 111 are `success`, and 125, 116 and
+  115 were `cancelled` by a superseding push. **No `failure` at all in this window, and no red run stands
+  behind a green report.** `gates.py --mode full` exits 0 in this fresh cloud sandbox at `92bfc4f`
+  (`1506 passed, 62 skipped` in 197.4 s, **COLD**, against critic #18's `1490 / 56` warm and critic #17's
+  cold `1484 / 62` at `26e200d`: **+22 passed like for like**). `verify`, `snapshot-verify` and `env-check`
+  PASS. Fifteen of fifteen pushes in the window pass `--assert-reported`, and every dev, paper and manual
+  report in it carries a `Reviewed by:` line.
+- **R7 and R9 are held by one object and it is the same one as yesterday and the day before: the
+  printables.** `docs/auto/finals/` holds `BOOTH_SETUP.md`, `DETECTION_FLOOR_CARD.md` and one screenshot
+  folder, and **no printable, PDF or otherwise** (WFG-007, P1, never claimed). I re-ran `make finals-bundle`:
+  exit 0, `OK — release/kcf-finals-2026/ rebuilt byte-identically, **17** files` (16 last window; the new
+  file is `check_bundle_copy.py`, which travels in the bundle). I also ran the new checker on the built
+  folder: `OK — release/kcf-finals-2026 matches its own MANIFEST.json.` The bundle carries the Korean fonts,
+  so §7.2's 「한국어 글꼴은 꾸러미 안에 있습니다」 is true: `IBMPlexSansKR-{Regular,SemiBold}.woff2` and
+  `Pretendard-arrow.subset.woff2` are three of the seventeen.
+- **R1 is measured for the first time in nineteen laps, and it is six rows wide (WFG-110).** Critic #18 wrote
+  「no such table exists」; that is too strong. `docs/auto/DEMO_SCRIPT_5MIN.md` §3 is a mapping table, but it
+  runs script → key, and R1 asks screen → key. Using §3's own criterion for 화면 (does
+  `scripts/finals.template.html` reference the key), the template references **28** registry keys, §3 names
+  **22**, and **6** are in no committed table: `objective_canonical_longest_walk_saving_min`,
+  `oof_average_precision`, `rescue_dispatch_count`, `responder_exposure_shortest_path_mean`,
+  `responder_exposure_survival_aware_mean`, `slope_canonical_fa_routes_changed_60m`. R1's other half gained
+  its first evidence this window (`BOOTH_SETUP.md` §3: headless Chromium, `file://`, network blocked, 0
+  external requests on all four screens); **I did not reproduce that browser run** and do not tick on it.
+- **R4 keeps its tick and gains one defect on it, recorded the way WFG-067, WFG-095, WFG-100 and WFG-103
+  were: WFG-109.** `scripts/finals.template.html:1378` (KO) and `:1381` (EN) still carry the STATIC VIEW
+  sentence WFG-103 withdrew, while the built `web/finals.html:1378`/`:1381` carry the correction. I diffed
+  both files. Nothing is wrong on the judged screen today; the next `make finals` reverts it, and no gate
+  reads the template. **This is critic #19's one `fix-before-next-row` item.** The window's one change to
+  `DEMO_SCRIPT_5MIN.md` is §0's language-button line and it is correct.
+- **Census for the window, measured** (`e2628f3..92bfc4f`, images, the `.docx` and the generated board
+  excluded): **1,141 authored insertions, of which 272 (23.8 %) reached a judge-facing surface** — 256 of
+  them `docs/auto/finals/BOOTH_SETUP.md` itself, 14 the bundle's `README_KO.md`, 2 the demo script — and
+  **216 (18.9 %) are the report**. The largest remaining block, **481 lines (42.2 %), is two test files**
+  (`tests/test_check_bundle_copy.py`, `tests/test_booth_setup.py`) that gate the judge-facing artifact.
+  Prior windows: 6.2 %, 1.8 %, 21.8 %, 27.3 % judge-facing. **Fifth data point for WFG-084 and the highest
+  judge-facing share this census has recorded**, on the first window since its cap became this routine's rule.
+
+Previous count: **critic #18, 2026-09-05T1100Z: 4 of 11 (R2, R4, R5, R6). No line moved this window, and no line
 has moved for THREE consecutive critic laps (#16, #17, #18).** That fires the 「zero for two consecutive critic
 laps」 rule, and under this file's own wording it is a finding about the loop's direction and not about the
 product. It is written up in `docs/auto/DIRECTION.md`, and the action taken on it is that critic #18 set **no**
