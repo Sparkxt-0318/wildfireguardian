@@ -5,7 +5,44 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
-**Tick count, critic #17, 2026-09-05T0800Z: 4 of 11 (R2, R4, R5, R6). No line moved this window.** R4 was
+**Tick count, critic #18, 2026-09-05T1100Z: 4 of 11 (R2, R4, R5, R6). No line moved this window, and no line
+has moved for THREE consecutive critic laps (#16, #17, #18).** That fires the 「zero for two consecutive critic
+laps」 rule, and under this file's own wording it is a finding about the loop's direction and not about the
+product. It is written up in `docs/auto/DIRECTION.md`, and the action taken on it is that critic #18 set **no**
+`fix-before-next-row` item and moved WFG-037 above WFG-104, so the next dev lap owes the critic nothing and the
+first row it meets is `BOOTH_SETUP.md`. Checked on disk at `6afd252`, not read from the laps that claimed it:
+
+- **R1 could not move on its condition, though `web/` did change.** `web/finals.html` gained two lines this
+  window (WFG-103, the STATIC VIEW caption in KO and EN) — so the sentence 「nothing touched `web/`」 is **not**
+  true of this window and must not be repeated. R1 is unmoved for a different reason: its condition is a
+  committed mapping table from every on-screen number to a `docs/NUMBERS.json` key, and no such table exists at
+  this head (searched `docs/finals_screen_v2.md` and `docs/auto/DEMO_SCRIPT_5MIN.md`).
+- **R3 (booth half), R7 and R9 are held by the same two absent artifacts as yesterday and the day before**,
+  both checked on disk at this head: `docs/auto/finals/BOOTH_SETUP.md` does not exist (WFG-037) and
+  `docs/auto/finals/` holds one card and one screenshot folder and no printable, PDF or otherwise (WFG-007).
+  I re-ran `make finals-bundle` myself rather than reading critic #17's result: exit 0, `OK —
+  release/kcf-finals-2026/ rebuilt byte-identically, 16 files`. R9's mechanism works for a third window; R9's
+  contents still do not exist. **WFG-037 has never been claimed by any lap** (`git log -S` over this file's
+  history finds it only in reorders), which is the whole of the direction finding above.
+- **R3's CI half is clean.** `auto-gates` run **124 at `6afd252` (this head) is `success`**; 123, 122, 121,
+  120, 119, 118 and 117 are `success`, 116 and 115 were `cancelled` by the next push. **No red run stands
+  behind a green report in this window.** The last `failure` is run 110 (`d2418c2`, 03:20Z), already filed as
+  NH-026 and WFG-102.
+- **R4 keeps its tick and WFG-103 is closed on it, on both surfaces rather than the one the finding named.**
+  The script's 3막 and `web/finals.html`'s STATIC VIEW caption both stopped calling the fire-blind arm 「지금 이
+  순간만 보는 지도」. I re-derived the re-measure that followed: 161+246+280+346+331+328 = **1,692**;
+  28+44+50+61+59+58 = **300**; per-segment 5.75 / 5.59 / 5.60 / 5.67 / 5.61 / 5.66, spread **1.03x**. Every
+  cell holds. ⚠ **The new defect on this line is that the two surfaces now disagree**: the screen says only what
+  is measured, the script adds 「이 도구가 없을 때의 기준선입니다」, a counterfactual the repository labels and has
+  never measured. Recorded on the ticked line the way WFG-067, WFG-095, WFG-100 and WFG-103 were; it is folded
+  into **WFG-104**, and it is **not** this lap's `fix-before-next-row` item because this lap sets none.
+- **Census for the window, measured** (`6236c81..6afd252`, images, `.docx` and the generated board excluded):
+  **1,043 authored insertions, of which 65 (6.2 %) reached a judge-facing surface and 493 (47.3 %) are
+  reports** — the highest report share this census has recorded, on the window whose falsifiable test was
+  about exactly that. Prior windows: 27.3 %, 21.8 %, 1.8 % judge-facing. Fourth data point for WFG-084, and
+  the one that turns its cap from a proposal into this routine's rule.
+
+Previous count: **critic #17, 2026-09-05T0800Z: 4 of 11 (R2, R4, R5, R6). No line moved this window.** R4 was
 ticked inside the last 24 h (critic #15, `43710f7`, 0200Z), so the「zero for two consecutive critic laps」
 direction finding does **not** fire. Checked on disk at `26e200d`, not read from the laps that claimed it:
 
