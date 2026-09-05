@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "title": "Korean baseline freeze — PHASE 13 PHASE 0",
-  "frozen_utc": "2026-09-04T16:36:02Z",
-  "git_commit": "89730db89921f8185117da4eac1d16dea43e1a6a",
+  "frozen_utc": "2026-09-05T14:49:23Z",
+  "git_commit": "944243054a590dd80ca08af4d89716a1fb4ba6fd",
   "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
-  "registry_entries": 320,
+  "registry_entries": 326,
   "lofo_shape": {
     "n_rows": 151904,
     "n_positives": 2989,
@@ -53,6 +53,9 @@
     "data/processed/dem_acquisition.json": "65eba1d18d5aac6f815e643baebf8358abf9e98ab40bff7f79a61d8481840928",
     "data/processed/dem_negative_elevation_audit.json": "a2c059643b014dd7d8efe75650e4ee2c37c86a129da4d012d056176dd4713a52",
     "data/processed/demo_data.json": "83dcaf7f8e69b6601ed687d2bc86035a3c86d0120cb200573585a2df8ce21b06",
+    "data/processed/demo_script_pace/pace_20260905T0625Z.json": "29eb094b640ffe89696e2e60eb99871eba44dcb50538d38dd431c1926882e601",
+    "data/processed/demo_script_pace/pace_20260905T0947Z.json": "5791ed84fbc11f7fb5910957db3d40524798a2638981b61b1b15becc2de64b50",
+    "data/processed/demo_script_pace/pace_before_039a0de.json": "10c0862522d5deccc49bf97388c0970e472a0d5192aef690c2c9af1ca17ac896",
     "data/processed/detection/firms_first_detection.json": "b215c74f4dae3e1ea2e5a671a3d8b8a07e80af1dcc9821d7769f131f4fa8cd1b",
     "data/processed/detection/gk2a_detection_floor.json": "ba6733392d1e9f546e3d97c984af77d36403b6d72ab9ac4f2b4b35fa8f21e502",
     "data/processed/detection/kfs_containment_duration.json": "e47f93c11bb31714d0a6eed7b91947cec9853770314b1774fb785432ff27071e",

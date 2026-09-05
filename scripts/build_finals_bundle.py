@@ -83,10 +83,21 @@ def sha256(path: Path) -> str:
     return h.hexdigest()
 
 
+def _tracked(root: Path) -> set[Path]:
+    """Files git tracks under `root`. The bundle is what a clean clone contains: a
+    git-ignored local file (a demo video dropped into web/demo-media/ on one laptop,
+    2026-09-05) must not enter the plan, or the manifest can never match on another machine."""
+    import subprocess
+    out = subprocess.run(["git", "ls-files", "-z", "--", str(root)], cwd=REPO,
+                         capture_output=True, text=True).stdout
+    return {REPO / f for f in out.split("\0") if f}
+
+
 def _expand(src: Path, dst_rel: str) -> list[tuple[Path, str]]:
     if src.is_dir():
+        tracked = _tracked(src)
         out = []
-        for f in sorted(p for p in src.rglob("*") if p.is_file()):
+        for f in sorted(p for p in src.rglob("*") if p.is_file() and p in tracked):
             out.append((f, f"{dst_rel}/{f.relative_to(src).as_posix()}"))
         return out
     return [(src, dst_rel)]
