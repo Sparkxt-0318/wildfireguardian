@@ -359,8 +359,8 @@ exits at once if nothing outside `paper/` and `docs/auto/` changed.
 What it keeps true, every lap it runs:
 
 - `paper/manuscript.md` is a complete, publication-register English manuscript
-  under 20 pages including title page and references (`check_paper.py` budget:
-  7,000 words of body text, hard fail at 7,500), author **Siyeong Park (박시영)**.
+  under 25 pages including title page and references (author, 2026-09-05, NH-028;
+  `check_paper.py` budget: 8,500 words of body text as the target, hard fail at 9,000 as the proxy), author **Siyeong Park (박시영)**.
   Sections: Abstract, Introduction, Related work, Data and methods, Results,
   Discussion, Limitations, Conclusion, Data and code availability, References.
 - Every number in it is a registry key or a committed artifact value; the
@@ -473,3 +473,5 @@ says so; a human then reconciles. `Main` is therefore always the last commit tha
 GitHub's own clean-clone gate certified. The author enables this by allowing the
 fast-forward on the protected branch (no required pull-request review), and PR #31
 closes once `Main` catches up.
+
+**Paper routine gate (NH-026, 2026-09-05):** the paper lap runs `gates.py --mode full` before every push like every other lap; its prompt is recorded in `docs/auto/ROUTINE_PROMPTS.md`.

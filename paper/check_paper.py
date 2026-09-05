@@ -23,7 +23,7 @@ PAPER = REPO / "paper"
 sys.path.insert(0, str(PAPER))
 from build_docx import build, parse_bib  # noqa: E402
 
-LIMIT = 7500
+LIMIT = 9000  # author, 2026-09-05 (NH-028): the rule is 25 built pages, not words; 9,000 body words is the proxy at the current figure and table count (7,479 words built to about 21 pages)
 
 
 def main() -> int:

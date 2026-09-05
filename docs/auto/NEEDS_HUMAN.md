@@ -1003,7 +1003,7 @@ disk at `ed35f0d`. Eleven days of the sprint remain.
 
 ---
 
-## NH-025 · DECISION · open · `Main` cannot follow the green commit until you change one GitHub setting, and until you do, every green push emails you a red run (by 2026-09-08)
+## NH-025 · DECISION · closed · `Main` cannot follow the green commit until you change one GitHub setting, and until you do, every green push emails you a red run (by 2026-09-08)
 
 **What this is about.** On 2026-09-05 you decided in a session that `Main` should follow the
 last commit GitHub's own clean-clone gate certified, and the loop wrote it into
@@ -1034,7 +1034,9 @@ are the artifacts a stranger clones, and they should come off a branch a gate ce
 
 ---
 
-## NH-026 · DECISION · open · One of the five routines pushes on a gate that does not run the test suite, and its prompt is the one the repository cannot show you (by 2026-09-08)
+**CLOSED 2026-09-05 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-05 · ref: claude-code-session-7da6bf25#NH-025 · verbatim: "A) I changed the setting (or will now) — verified 2026-09-05: Main no longer requires a pull-request review; required check 'gates' stays. The promote job takes over on the next green push."
+
+## NH-026 · DECISION · closed · One of the five routines pushes on a gate that does not run the test suite, and its prompt is the one the repository cannot show you (by 2026-09-08)
 
 **What happened, measured.** At 03:18Z on 2026-09-05 the `wfg-autoloop-paper` routine pushed
 `2b7c3a0`. That commit broke two tests in `tests/test_detection_ordering_is_not_claimed.py`.
@@ -1068,7 +1070,9 @@ failure (a cancelled run leaving a commit unchecked) is **WFG-102** and is the l
 
 ---
 
-## NH-027 · DECISION · open · The one experiment that would test the project's headline against a fair opponent is scheduled for after the competition (by 2026-09-08)
+**CLOSED 2026-09-05 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-05 · ref: claude-code-session-7da6bf25#NH-026 · verbatim: "A) Record the prompt and switch it to the full gate — the wfg-autoloop-paper prompt is now in docs/auto/ROUTINE_PROMPTS.md and its gate step on the routine page is gates.py --mode full (foreground, 1800000 ms)."
+
+## NH-027 · DECISION · closed · The one experiment that would test the project's headline against a fair opponent is scheduled for after the competition (by 2026-09-08)
 
 **Severity: HIGH** — it is on the sentence the booth turns on, and five judges include a
 software-engineering professor and a disaster-response official.
@@ -1107,7 +1111,9 @@ recording the contradiction rather than either answer. The clean fix is to re-la
 
 **Options:** A) promote WFG-033(b) into the sprint as P0, one region (의성·안동) and one buffer, one lap, and report the number whatever it says  B) leave WFG-033 at P2; WFG-103 and WFG-104 ship and the booth answer is 「아직 돌리지 않았습니다」 with the plan named  C) A but after 09-15, before the 10-16 freeze, so the sprint's booth rows are untouched  D) B now, and re-ask after the printables and BOOTH_SETUP.md exist
 
-## NH-028 · DECISION · open · The manuscript is full, and three laps have recorded that as a note rather than asked you (by 2026-09-10)
+**CLOSED 2026-09-05 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-05 · ref: claude-code-session-7da6bf25#NH-027 · verbatim: "A) Run it in the sprint now, P0 — the present-perimeter + buffer arm of WFG-033(b) on 의성·안동, one buffer, one lap, report the number whatever it says (new row at the top of the table after WFG-062). On the second question: the four P0 infra rows below P1 rows are loop hygiene and are demoted to P1 under CHARTER §14b."
+
+## NH-028 · DECISION · closed · The manuscript is full, and three laps have recorded that as a note rather than asked you (by 2026-09-10)
 
 **Severity: LOW-MEDIUM** — nothing is wrong with the paper. The question is what the loop
 should do the next time the evidence outgrows the budget, and it is genuinely yours because
@@ -1209,3 +1215,4 @@ only on the machine that has `data/raw/firms_data/`, which is yours.
 run already reads.
 
 **Options:** A) run `make baseline-freeze` on the laptop, check the diff shows only the six lines above, and commit it with 「deliberate re-freeze」 in the message  B) leave the freeze where it is and change R3 to name `gates.py --mode full` instead of `make all-checks`  C) leave both as they are; the recipe's §1.1 warning is enough and the drift is re-read at the 10-16 freeze
+**CLOSED 2026-09-05 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-05 · ref: claude-code-session-7da6bf25#NH-028 · verbatim: "Don't worry about the word count for now. Just make sure it doesn't exceed. 25 pages for. now"
