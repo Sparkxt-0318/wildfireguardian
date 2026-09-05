@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "c2693b72cea1a58a2b01b1890c642e17cdabe527",
-  "n_artifacts": 101,
-  "total_bytes": 14506154,
-  "total_mib": 13.83,
-  "n_git_tracked": 101,
+  "generated_at_git_commit": "a063e51b1049333cf51a982194aebc577a7a16e7",
+  "n_artifacts": 102,
+  "total_bytes": 14509350,
+  "total_mib": 13.84,
+  "n_git_tracked": 102,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 8,
   "artifacts": [
@@ -244,9 +244,20 @@
       "cited_by_docs": [
         "docs/auto/BACKLOG.md",
         "docs/auto/KCF_READINESS.md",
+        "docs/auto/reports/2026-09-05T0702Z-dev.md",
         "docs/demo_script_pace.md"
       ],
       "regenerate": "python scripts/measure_demo_script_pace.py --stamp 20260905T0625Z"
+    },
+    {
+      "path": "data/processed/demo_script_pace/pace_20260905T0947Z.json",
+      "bytes": 3196,
+      "sha256": "5791ed84fbc11f7fb5910957db3d40524798a2638981b61b1b15becc2de64b50",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 2,
+      "cited_by_docs": [],
+      "regenerate": "python scripts/measure_demo_script_pace.py --stamp 20260905T0947Z"
     },
     {
       "path": "data/processed/demo_script_pace/pace_before_039a0de.json",
@@ -256,6 +267,8 @@
       "git_tracked": true,
       "n_registry_entries": 2,
       "cited_by_docs": [
+        "docs/auto/SCORECARD.md",
+        "docs/auto/reports/2026-09-05T0702Z-dev.md",
         "docs/demo_script_pace.md"
       ],
       "regenerate": "python scripts/measure_demo_script_pace.py --stamp <UTC> --from-ref 039a0de"

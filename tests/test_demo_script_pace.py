@@ -43,7 +43,7 @@ BAND = 0.05
 # The measurement whose keys the registry carries for the CURRENT text of the script. A
 # re-measure registers a NEW tag rather than editing these (CHARTER §3.2), and moves this
 # constant; the old entries stay as the record of what the script used to ask for.
-TAG = "20260905t0625z"
+TAG = "20260905t0947z"
 
 
 def _module():
@@ -193,11 +193,25 @@ def test_the_doc_that_explains_the_budget_prints_the_budget_that_shipped(measure
 
 
 def test_the_artifact_the_registry_points_at_is_committed_and_current(measured):
-    artifacts = sorted(PACE_DIR.glob("pace_*.json"))
-    assert artifacts, "no pace artifact under data/processed/demo_script_pace/"
-    live = json.loads(artifacts[-1].read_text(encoding="utf-8"))
+    """The artifact behind TAG, not the last filename in sort order.
+
+    This test picked `sorted(glob)[-1]` until WFG-103's re-measure, and that is not the
+    newest measurement: `pace_before_039a0de.json` sorts after every `pace_2026...` name,
+    so the *before* artifact was the one being checked. It passed only because the before
+    and after totals happened to be equal at 1,684 - the edit that changed the count is
+    exactly the edit this test exists to catch, and it would have gone red naming the
+    wrong file. Bind it to TAG, which is what the registry keys are built from.
+    """
+    live_path = next((p for p in sorted(PACE_DIR.glob("pace_*.json"))
+                      if p.stem.lower() == f"pace_{TAG}"), None)
+    assert live_path is not None, (
+        f"no data/processed/demo_script_pace/pace_{TAG}.json for the tag the registry "
+        "keys and this module are pinned to; a re-measure writes the artifact, registers "
+        "the keys and moves TAG together"
+    )
+    live = json.loads(live_path.read_text(encoding="utf-8"))
     assert live["total_spoken_syllables"] == measured["total_spoken_syllables"], (
-        f"{artifacts[-1].name} was measured from a different version of the script; "
+        f"{live_path.name} was measured from a different version of the script; "
         "re-measure under a new stamp (CHARTER §3.2 forbids overwriting it)"
     )
     assert live["variant"] == "full"

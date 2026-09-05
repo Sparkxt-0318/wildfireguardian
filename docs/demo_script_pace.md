@@ -45,19 +45,26 @@ The script counts the syllables a student actually pronounces:
 
 | 구간 | spoken syllables | seconds (was) | seconds (now) | syl/s now |
 |---|---:|---:|---:|---:|
-| 도입 | 161 | 25 | **29** | 5.55 |
+| 도입 | 161 | 25 | **28** | 5.75 |
 | 1막 · 발견 | 246 | 45 | **44** | 5.59 |
 | 2막 · 시간이 도로망을 바꿉니다 | 280 | 55 | **50** | 5.60 |
-| 3막 · 같은 출발지, 두 개의 답 | 338 | 75 | **60** | 5.63 |
+| 3막 · 같은 출발지, 두 개의 답 | 346 | 75 | **61** | 5.67 |
 | 4막 · 예측을 판단으로 | 331 | 55 | **59** | 5.61 |
 | 마무리 · 한계 | 328 | 45 | **58** | 5.66 |
-| **합계** | **1,684** | 300 | **300** | **5.61** |
+| **합계** | **1,692** | 300 | **300** | **5.64** |
 
 The 300 seconds are allocated in proportion to the syllable counts by largest remainder, so
 the six whole seconds still sum to exactly 300 without a fudge on the last segment. The
-spread is now **1.02x** where it was 1.62x. **No sentence was deleted to buy seconds**
+spread is now **1.03x** where it was 1.62x. **No sentence was deleted to buy seconds**
 (CHARTER §3.5): proportional allocation means no segment is over its share by construction,
 so the trimming the backlog row allowed for was not needed.
+
+**The table above is the allocation that ships today, not the one WFG-100 wrote.** WFG-100
+measured 1,684 syllables and allocated 29 / 44 / 50 / 60 / 59 / 58 at spread 1.02x; WFG-103
+then changed one spoken sentence and the count moved. What did *not* move is the method, and
+the section 「Re-measuring after an edit」 below is the procedure that was followed rather
+than described. Every measurement keeps its own artifact, its own registry tag and its own
+row in 「The measurements, in order」 at the end of this page.
 
 ## How much of this is a judgement call
 
@@ -74,9 +81,13 @@ is wrong.** Counter words take *native* numerals — 세 시간, 여섯 개, 스
 rule reads 6개 as 육 개. `--variant native-counters` implements the native readings for the
 counts and counters that actually occur, and prices the approximation.
 
+This table is WFG-100's sensitivity run, measured on the script **as it stood at `039a0de`**;
+it is kept as measured rather than re-run, because what it prices is the *convention*, and the
+convention has not changed since (WFG-103 changed one sentence, not a counting rule).
+
 | variant | total syllables | allocation (s) | spread |
 |---|---:|---|---:|
-| `full` — Latin and symbols read aloud (**shipped**) | 1,684 | 29 / 44 / 50 / 60 / 59 / 58 | 1.62 |
+| `full` — Latin and symbols read aloud (**the shipped convention**) | 1,684 | 29 / 44 / 50 / 60 / 59 / 58 | 1.62 |
 | `hangul-only` — they are skipped | 1,627 | 30 / 44 / 50 / 57 / 59 / 60 | 1.73 |
 | `native-counters` — `full` plus native numerals for counters | 1,686 | 28 / 44 / 50 / 60 / 59 / 59 | 1.63 |
 
@@ -109,12 +120,12 @@ existence or its direction.
 
 ## What this does NOT show
 
-* **It does not show the script is sayable in five minutes.** 5.61 syllables per second is
+* **It does not show the script is sayable in five minutes.** 5.64 syllables per second is
   an arithmetic consequence of dividing this text by this budget, not a measurement of
   speech, and this repository has asserted no comfortable rate for spoken Korean. Whether a
-  student can say 1,684 syllables in 300 seconds while a judge interrupts is a stopwatch
+  student can say 1,692 syllables in 300 seconds while a judge interrupts is a stopwatch
   question and a human one: **R12 / NH-014**, and WFG-037's booth recipe.
-* **It does not show the budget is well-spent.** Giving 3막 — 「이 프로젝트의 전부」 — 60 s
+* **It does not show the budget is well-spent.** Giving 3막 — 「이 프로젝트의 전부」 — 61 s
   instead of 75 s is what one rate costs it. If the student wants 3막 slower, the move is to
   cut 3막's sentences, not to hand it seconds another segment then loses; 300 s is fixed by
   the 운영요강.
@@ -137,6 +148,8 @@ attempt asserted them from memory and its reviewer blocked on exactly that. Regi
 | `demo_pace_20260905t0625z_rate_spread` | 1.02 | after <!-- collision-ok: 1.02 — the spread AFTER the re-budget; the 1.62 on the previous line is the same quantity BEFORE it. -->|
 | `demo_pace_039a0de_total_spoken_syllables` | 1684 | unchanged by the fix — only seconds moved |
 | `demo_pace_20260905t0625z_total_spoken_syllables` | 1684 | " |
+| `demo_pace_20260905t0947z_rate_spread` | 1.03 | after WFG-103's sentence <!-- collision-ok: 1.03 — the spread at tag 20260905t0947z; the 1.62 and 1.02 above are the same quantity at 039a0de and 20260905t0625z, and the three rows are this table's whole point. -->|
+| `demo_pace_20260905t0947z_total_spoken_syllables` | 1692 | +8 — one spoken sentence in 3막 |
 
 The per-segment rates and the variant tables are fields of those two artifacts rather than
 registry keys of their own.
@@ -157,7 +170,7 @@ catches it.
 `demo_pace_syllables_per_second` to the artifact, and `tests/test_demo_script_pace.py`
 recomputes them from the committed document. **Adding or removing a spoken sentence
 therefore turns the gate red on purpose** — the budget is no longer the one that was
-measured. (WFG-101, which wants one sentence in 3막, is the next edit this will catch.)
+measured. **It caught WFG-103 on the very next lap**, which is the paragraph below.
 The fix is never to relax the test:
 
 ```
@@ -176,3 +189,31 @@ additive registrar's — that is WFG-040, and it is why the registrar here is ad
 then re-allocate the six segment headers and their cumulative brackets to the printed
 `allocation`, and update the table above. The script **refuses to overwrite an existing
 artifact** (CHARTER §3.2), so a re-measure always leaves the previous one in place.
+
+**Re-run the count after you write the new seconds into the headers, not before**, for the
+fixed-point reason above; the 도입 header's seconds are not spoken, but 마무리's are.
+
+## The measurements, in order
+
+| tag | artifact | script state | spoken syllables | allocation (s) | spread |
+|---|---|---|---:|---|---:|
+| `039a0de` | `pace_before_039a0de.json` | before WFG-100 | 1,684 | 25 / 45 / 55 / 75 / 55 / 45 | 1.62 |
+| `20260905t0625z` | `pace_20260905T0625Z.json` | after WFG-100 | 1,684 | 29 / 44 / 50 / 60 / 59 / 58 | 1.02 |
+| `20260905t0947z` | `pace_20260905T0947Z.json` | after WFG-103 (**ships**) | 1,692 | 28 / 44 / 50 / 61 / 59 / 58 | 1.03 |
+
+**What the third row cost, and what it bought.** WFG-103 replaced one spoken sentence in 3막 —
+the one that described the STATIC VIEW baseline as 「지금 이 순간만 보는 지도」 when the arm is
+fire-blind — with a sentence that says what the baseline is. It is **8 syllables longer**, so
+3막 gains a second (60 → 61) and 도입 loses one (29 → 28); every other segment is unmoved, and
+the spread widens from 1.02x to 1.03x, which is inside what whole-second allocation alone can
+do. The re-measure was not optional and the sentence was not chosen to be cheap: the count was
+run **after** the sentence was written, and the seconds followed it.
+
+**A defect this re-measure exposed in its own test.**
+`test_the_artifact_the_registry_points_at_is_committed_and_current` selected the artifact with
+`sorted(glob("pace_*.json"))[-1]`, which is `pace_before_039a0de.json` — `b` sorts after every
+`pace_2026…` name — so the test was checking the **before** artifact against the live script.
+It was green only because 1,684 = 1,684 held across WFG-100 by coincidence. The first edit that
+moved the count is the first edit that would have made it red, and it would have named the wrong
+file while doing so. It now selects by `TAG`, which is what the registry keys are built from.
+A test that identifies its subject by sort order is identifying it by accident.

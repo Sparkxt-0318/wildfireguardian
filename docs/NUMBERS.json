@@ -10893,6 +10893,78 @@
           }
         }
       }
+    },
+    "demo_pace_20260905t0947z_total_spoken_syllables": {
+      "source_file": "data/processed/demo_script_pace/pace_20260905T0947Z.json",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "a063e51b1049333cf51a982194aebc577a7a16e7",
+      "sample": "docs/auto/DEMO_SCRIPT_5MIN.md §1, the six segments' > blockquote lines",
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_demo_script_pace.py --stamp <UTC> re-derives the artifact from the committed document",
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "arm": "booth_pace",
+      "forbidden_phrasings": [
+        "편안한 발화 속도",
+        "말할 수 있는 속도로 확인",
+        "리허설을 마쳤"
+      ],
+      "notes": "WFG-100. Bound to the document by tests/test_demo_script_pace.py. Editing a spoken line changes these values and the gate goes red until a NEW measurement is registered under a new tag; this entry is never edited (CHARTER §3.2).",
+      "value": 1692,
+      "unit": "syllables",
+      "json_path": "total_spoken_syllables",
+      "derivation": "sum of the six segments' spoken_syllables. Regenerate: python scripts/measure_demo_script_pace.py --stamp 20260905T0947Z",
+      "caveat": "A COUNT OF SYLLABLES, NOT A MEASUREMENT OF SPEECH. This is how many syllables the script asks the student to pronounce divided by the seconds it gives them; it does not say that rate is sayable, and no rehearsal has been run (R12 / NH-014). Counting rules in scripts/measure_demo_script_pace.py: Hangul syllable blocks, numerals read sino-Korean (an APPROXIMATION - Korean counter words take native numerals, and --variant native-counters measures what that approximation costs), symbols and Latin from an explicit lexicon.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/demo_script_pace/pace_20260905T0947Z.json",
+            "json_path": "total_spoken_syllables"
+          }
+        }
+      }
+    },
+    "demo_pace_20260905t0947z_rate_spread": {
+      "source_file": "data/processed/demo_script_pace/pace_20260905T0947Z.json",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "a063e51b1049333cf51a982194aebc577a7a16e7",
+      "sample": "docs/auto/DEMO_SCRIPT_5MIN.md §1, the six segments' > blockquote lines",
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_demo_script_pace.py --stamp <UTC> re-derives the artifact from the committed document",
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "arm": "booth_pace",
+      "forbidden_phrasings": [
+        "편안한 발화 속도",
+        "말할 수 있는 속도로 확인",
+        "리허설을 마쳤"
+      ],
+      "notes": "WFG-100. Bound to the document by tests/test_demo_script_pace.py. Editing a spoken line changes these values and the gate goes red until a NEW measurement is registered under a new tag; this entry is never edited (CHARTER §3.2).",
+      "value": 1.03,
+      "unit": "x",
+      "json_path": "implied_rate_spread",
+      "derivation": "fastest segment's syllables/s divided by the slowest segment's. Regenerate: python scripts/measure_demo_script_pace.py --stamp 20260905T0947Z",
+      "caveat": "A COUNT OF SYLLABLES, NOT A MEASUREMENT OF SPEECH. This is how many syllables the script asks the student to pronounce divided by the seconds it gives them; it does not say that rate is sayable, and no rehearsal has been run (R12 / NH-014). Counting rules in scripts/measure_demo_script_pace.py: Hangul syllable blocks, numerals read sino-Korean (an APPROXIMATION - Korean counter words take native numerals, and --variant native-counters measures what that approximation costs), symbols and Latin from an explicit lexicon. The SPREAD is the quantity WFG-100 is about: one document cannot have six different speaking rates and one stated method.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/demo_script_pace/pace_20260905T0947Z.json",
+            "json_path": "implied_rate_spread"
+          }
+        }
+      }
     }
   }
 }
