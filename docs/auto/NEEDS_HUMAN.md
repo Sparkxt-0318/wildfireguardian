@@ -1168,6 +1168,16 @@ check at submission, not as a constraint.
 
 **Options:** A) move §6's designated-site inventory (~200 words: the 주소정보누리집 counts, their two data dates and the extent caveat) to an appendix or to Data and code availability — it describes an input no result uses  B) cut §4.7 (detection timing, ~530 words) to a short paragraph plus Table 4 and publish that measurement separately — it is the section least connected to the routing claim  C) open the `.docx`, confirm it is inside 20 pages, and raise `check_paper.py`'s limit to a page-based one; the word budget becomes advisory  D) leave it at 7,500; the loop keeps trading word for word and tells you in the report each time a caveat is at risk
 
+**CLOSED 2026-09-05 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-05 · ref: claude-code-session-7da6bf25#NH-028 · verbatim: "Don't worry about the word count for now. Just make sure it doesn't exceed. 25 pages for. now"
+
+> **Relocated 2026-09-05T1520Z, text unchanged.** This line was written at the END OF THE FILE
+> by `9442430`, i.e. inside NH-029's block, where `decisions.py list` was reading it out to you
+> as part of NH-029's option C. `decisions.py apply` is not at fault — replaying NH-028 against
+> `8a8a940` puts the line here, correctly — so the cause is an apply run on a checkout where
+> NH-028 was still the last entry, merged afterwards with the NH-029 that a cloud lap had added
+> below it. Moved to the entry its own `ref` names; nothing about the decision changed.
+> The gate that would have caught it is **WFG-112**.
+
 ✅ **Follow-up, 2026-09-05 (paper lap 8), after the decision above.** The page count you were
 told only you could produce now exists: **21 pages** (Carlito substituted for Calibri; 23 under
 DejaVu Sans, so the face is part of the number). `check_paper.py` now checks your 25 pages
@@ -1225,4 +1235,21 @@ only on the machine that has `data/raw/firms_data/`, which is yours.
 run already reads.
 
 **Options:** A) run `make baseline-freeze` on the laptop, check the diff shows only the six lines above, and commit it with 「deliberate re-freeze」 in the message  B) leave the freeze where it is and change R3 to name `gates.py --mode full` instead of `make all-checks`  C) leave both as they are; the recipe's §1.1 warning is enough and the drift is re-read at the 10-16 freeze
-**CLOSED 2026-09-05 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-05 · ref: claude-code-session-7da6bf25#NH-028 · verbatim: "Don't worry about the word count for now. Just make sure it doesn't exceed. 25 pages for. now"
+
+**Loop note, 2026-09-05T1520Z (measurement, not a decision — this entry stays open for you).**
+Your commit `38620f2` re-froze `docs/baseline_phase13.json`, which is option A. Re-run in this
+sandbox at `5f9a3b8`, `make baseline-verify` now reports **2** differences, not six:
+
+```
+BASELINE MOVED — 2 difference(s) against 944243054a59:
+  untracked_contracts: MISSING data/raw/firms_data/data_layers_manifest.json
+  untracked_contracts: MISSING data/raw/firms_data/fire_manifest.json
+```
+
+Both remaining lines are the git-ignored raw manifests that exist only on your laptop, so this
+is the 「WARN, expected off-laptop」 reading that was always correct **for these two**. The four
+in-every-clone differences (`registry_entries`, the three `pace_*.json`) are gone. That means
+`make all-checks` should now run past `baseline-verify` **on your machine**, which is R3's own
+condition; the loop cannot verify that here, because here the two manifests are genuinely
+absent and the step still exits 2. What is left for you is one run of `make all-checks` on the
+laptop and, if it is green, whether R3 keeps naming that command (option B is then moot).

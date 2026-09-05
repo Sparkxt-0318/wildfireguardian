@@ -1375,10 +1375,10 @@ const GUIDED = (() => {
           title: ko ? '같은 출발지, 두 개의 답' : 'One origin, two answers',
           bodyA: ko
             ? (later
-              ? 'STATIC VIEW · 고정 시점. 거리 기준 직행 경로는 <b>지금(t+0)은</b> 통과 가능해 보입니다. 지도가 지금 이 순간만 본다면, 이 경로를 권했을 것입니다.'
+              ? 'STATIC VIEW · 고정 시점. 거리 기준 직행 경로는 <b>지금(t+0)은</b> 통과 가능해 보입니다. 화재를 전혀 보지 않는 지도가 그리는 경로입니다.'
               : 'STATIC VIEW · 고정 시점. 이 지역에서는 거리 기준 직행 경로가 <b>t+0부터 이미</b> 위험면과 겹칩니다. 화재를 모르는 지도는 그래도 이 경로를 그렸을 것입니다.')
             : (later
-              ? 'STATIC VIEW. The distance-ranked direct route looks fine <b>right now (t+0)</b>. A map that only sees the present would recommend it.'
+              ? 'STATIC VIEW. The distance-ranked direct route looks fine <b>right now (t+0)</b>. This is the route a fire-blind map draws.'
               : 'STATIC VIEW. In this region the distance-ranked direct route overlaps the hazard field <b>already at t+0</b>. A fire-blind map would still draw it.'),
           bodyB: ko
             ? 'TIME-AWARE VIEW · 시간 인지.' + (later ? ' 그 길목은 <b>' + fmtT(closeT) + '</b>에 위험 확률 0.5를 넘습니다.' : ' 위험 확률 0.5를 넘는 구간이 경로 위에 강조되어 있습니다.') + ' 시간 인지 경로는 폐쇄를 미리 피해 우회합니다.'
