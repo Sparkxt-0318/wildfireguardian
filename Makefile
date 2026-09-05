@@ -184,6 +184,15 @@ finals:
 	@$(PYTHON) $(SCRIPTS)/build_finals.py --verify
 	@$(PYTHON) $(SCRIPTS)/check_screen_assets.py web/finals.html
 
+# The folder that goes on the USB stick (WFG-036, KCF_READINESS R9). Copies the four
+# offline screens, their fonts and poster, the licence and CITATION.cff out of the tree
+# into release/kcf-finals-2026/, then re-derives every SHA-256 and refuses if the result
+# is not the bundle MANIFEST.json describes. Also the way to check a USB copy on the
+# booth laptop, where a silently corrupted file is the failure that has no recovery.
+# Pass UPDATE=1 after deliberately changing a payload file. See docs/finals_bundle.md.
+finals-bundle:
+	@$(PYTHON) $(SCRIPTS)/build_finals_bundle.py $(if $(UPDATE),--update,)
+
 test:
 	@$(PYTHON) -m pytest -q
 
