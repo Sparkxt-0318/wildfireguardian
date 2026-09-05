@@ -117,6 +117,12 @@
       "control_required": false,
       "reason_no_control": "not a model arm: no training data, no features, no fold. Each number is a government or agency figure carried with its agency, as-of date, scope, status and URL in data/processed/external/fire_2025_scale.json and re-verified by opening the URL, not by a null draw.",
       "note": "Registered 2026-09-04 after the README's opening paragraph was rewritten wrongly twice with every gate green (critic #4 F16-F18). Bound to README.md by scripts/check_readme_figures.py."
+    },
+    "booth_pace": {
+      "n_features": null,
+      "role": "WFG-100 (2026-09-05). The booth script's second budget: how many Korean syllables docs/auto/DEMO_SCRIPT_5MIN.md §1 asks the student to pronounce in each of its six segments, and the single rate the 300 s are allocated at. Counts characters in a committed document; trains nothing, predicts nothing, touches no fire data.",
+      "control_required": false,
+      "reason_no_control": "There is no model, no feature count and no held-out anything: the two entries are a count of syllables in this repository's own prose and that count divided by the 300 s the KCF 심사개요 allows. A noise null would have nothing to be null against. ⚠ What these numbers are NOT is a measurement of speech: nobody has read the script aloud with a stopwatch (R12 / NH-014), and docs/demo_script_pace.md says so under 'What this does NOT show'. Tagged as its own arm rather than folded into a modelling arm precisely so that no reader can mistake a document measurement for one."
     }
   }
 }

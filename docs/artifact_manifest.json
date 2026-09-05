@@ -1,12 +1,12 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "89730db89921f8185117da4eac1d16dea43e1a6a",
-  "n_artifacts": 99,
-  "total_bytes": 14501376,
+  "generated_at_git_commit": "039a0de0c47752e1fa6104e4c70d176c88ddf8da",
+  "n_artifacts": 100,
+  "total_bytes": 14502947,
   "total_mib": 13.83,
-  "n_git_tracked": 99,
+  "n_git_tracked": 100,
   "n_untracked_manifest_only": 0,
-  "n_regenerate_unknown": 8,
+  "n_regenerate_unknown": 9,
   "artifacts": [
     {
       "path": "data/processed/.gitkeep",
@@ -233,6 +233,16 @@
         "docs/forbidden_check_scope.md"
       ],
       "regenerate": "python scripts/build_demo_html.py"
+    },
+    {
+      "path": "data/processed/demo_script_pace/pace_20260905T0625Z.json",
+      "bytes": 1571,
+      "sha256": "29eb094b640ffe89696e2e60eb99871eba44dcb50538d38dd431c1926882e601",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 2,
+      "cited_by_docs": [],
+      "regenerate": "UNKNOWN"
     },
     {
       "path": "data/processed/detection/firms_first_detection.json",
@@ -536,9 +546,12 @@
       "cited_by_docs": [
         "docs/MODEL_CARD.md",
         "docs/auto/BACKLOG.md",
+        "docs/auto/DEMO_SCRIPT_5MIN.md",
         "docs/auto/JUDGE_QA.md",
+        "docs/auto/SCORECARD.md",
         "docs/auto/reports/2026-09-03T1300Z-dev.md",
         "docs/auto/reports/2026-09-03T1622Z-dev.md",
+        "docs/auto/reports/2026-09-04T2013Z-critic.md",
         "docs/auto/research/BACKLOG_PROPOSAL_2026-09-03.md",
         "docs/auto/research/RESEARCH_BRIEF_2026-09-03.md",
         "docs/finals_screen_v2.md",
@@ -606,6 +619,9 @@
       "git_tracked": true,
       "n_registry_entries": 5,
       "cited_by_docs": [
+        "docs/auto/BACKLOG.md",
+        "docs/auto/reports/2026-09-05T0317Z-manual.md",
+        "docs/auto/reports/2026-09-05T0517Z-critic.md",
         "docs/multi_region.md",
         "docs/walk_bbox_coverage.md"
       ],
@@ -710,7 +726,6 @@
         "docs/HANDOFF_ROUND3.md",
         "docs/REPORT_ROUND2_P1.md",
         "docs/SESSION8_LOG.md",
-        "docs/auto/CRITIC_LATEST.md",
         "docs/auto/reports/2026-09-04T1416Z-critic.md",
         "docs/auto/reports/2026-09-04T1534Z-manual.md",
         "docs/auto/reports/2026-09-04T1547Z-manual.md",

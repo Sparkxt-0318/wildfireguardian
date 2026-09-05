@@ -285,6 +285,14 @@ data/processed/vulnerability/refuges/
 !data/processed/evidence/
 !data/processed/evidence/*.json
 
+# WFG-100: the booth script's second budget. ~1 KB of JSON per measurement, and it
+# is the artifact two registry keys re-derive from, so it has to be in the clone a
+# stranger checks out. One file per measurement, never overwritten (CHARTER §3.2):
+# editing a spoken line means a new stamp, and the old count stays as the record of
+# what the script used to be. docs/demo_script_pace.md.
+!data/processed/demo_script_pace/
+!data/processed/demo_script_pace/*.json
+
 # Validation-case manifest JSON files ARE committed (they're stubs, not
 # bulk data).
 !data/validation_cases/**
