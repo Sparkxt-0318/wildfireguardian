@@ -815,3 +815,40 @@ mood) · evidence.
   lap — it would have gone red on the push that carried it, and on every push after. Caught
   by re-reading the diff for what CI would reject, before the second gate run, which is the
   step CHARTER §4 step 8 exists for.
+
+## 2026-09-05 — an untracked file is invisible to the gate, and a key in the page is not a value on the screen
+
+Two lessons from WFG-003, both handed over by the lap's own independent reviewer.
+
+**1. `gates.py --mode full` on a working tree with untracked files is not a gate run.**
+This lap wrote `docs/auto/DEMO_SCRIPT_5MIN.md`, ran the full gates on the working tree,
+read **ALL GREEN**, and only then committed. `check_number_collisions.py` — like
+`check_forbidden.py` and `check_withdrawn_claims.py` — walks **tracked** files, so a file
+that is `??` in `git status` is not scanned. The commit turned `make verify` red with four
+collisions that had been sitting in the new file the whole time. CHARTER §4 step 8 already
+says «the commit you push is the commit the gates read»; what it did not say, and now does
+here, is that **the trap fires before the commit as well as after it**. Three laps have now
+been caught by a version of this. **Gate:** a lap that creates a *new* tracked file runs
+`git add` on it **before** the first `gates.py` run, not after — staging is free, and an
+unstaged new document is a gate blind spot, not a clean tree. The cheap tell is
+`git status --short` showing `??` next to anything the gates are supposed to read.
+
+**2. A registry key inside `web/finals.html` does not mean a judge can see the value.**
+`build_finals.py` embeds the entire registry slice as one JSON blob, so **every** declared
+key appears in the built page exactly once whether or not any card draws it. This lap
+labelled four rows of a booth script 「화면」 on that evidence and wrote a test that asserted
+the same wrong thing, so the test passed and agreed with the error. Two of the four were
+actively contradicted by what the screen really renders — the terrain card shows +26.6 %
+where the script had the student say 15.14 %, and the dispatch card shows 3.6 % where the
+script said 0-of-180 「화면에 그대로」. **The template, not the built page, is the evidence
+that a value is rendered**: `scripts/finals.template.html` referencing the key is what puts
+a card on screen. **Anti-pattern:** testing presence in a build artifact that contains a
+serialised dump of everything the builder *considered*. Presence in a dump measures the
+dump, not the product.
+
+**3. And the grading of a gate is only as wide as the surface it reads.** This lap graded
+its own test 6 of 6 against six mutations. All six edited the mapping table, which was the
+only thing the test parsed; the reviewer broke it in one edit by changing a spoken number
+in the body and leaving the table alone. **Gate:** when a document has a summary table and
+a body, a test over the table must also assert that the **body is covered by the table** —
+otherwise the table is a self-portrait. After that assertion, 10 of 10.

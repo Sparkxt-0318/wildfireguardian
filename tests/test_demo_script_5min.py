@@ -26,11 +26,20 @@ import pytest
 REPO = Path(__file__).resolve().parents[1]
 SCRIPT = REPO / "docs" / "auto" / "DEMO_SCRIPT_5MIN.md"
 SCREEN = REPO / "web" / "finals.html"
+TEMPLATE = REPO / "scripts" / "finals.template.html"
 REGISTRY = REPO / "docs" / "NUMBERS.json"
 
 # A registry key in this repository is lower snake case with a digit-free head;
 # the mapping table also cites file paths, which carry a dot or a slash.
 KEY_RE = re.compile(r"^[a-z][a-z0-9_]*$")
+
+# Numbers a spoken sentence may emphasise that are NOT results: thresholds,
+# instrument constants and bin edges that come from the method, not from a
+# measurement. Every entry needs a reason, and a measured value must never be
+# parked here to get a test green.
+THRESHOLDS = {
+    "100": "the 100 ha bin edge the KFS containment artifact bins on, not a result",
+}
 
 
 @pytest.fixture(scope="module")
@@ -86,20 +95,30 @@ def test_every_registry_key_the_script_speaks_resolves(script_text, registry):
     )
 
 
-def test_every_figure_the_table_calls_on_screen_is_on_the_screen(script_text):
-    """A 화면 row promises the judge can see the value while the student says it."""
+def test_every_figure_the_table_calls_on_screen_is_actually_rendered(script_text):
+    """A 화면 row promises the judge can SEE the value while the student says it.
+
+    Presence in the built `web/finals.html` is not that promise and this test
+    used to make that mistake. `build_finals.py` embeds the whole registry slice
+    as one JSON blob, so every declared key appears in the file exactly once
+    whether or not any card reads it; the independent reviewer of the lap that
+    wrote this document showed that four rows were labelled 화면 on that
+    evidence alone, and two of them are contradicted by what the screen really
+    renders. The card is in the template, so the template is what decides.
+    """
+    tpl = TEMPLATE.read_text(encoding="utf-8")
     html = SCREEN.read_text(encoding="utf-8")
-    absent = []
+    unrendered = []
     for _, value, where, source in _mapping_rows(script_text):
         if where != "화면":
             continue
         for key in _keys_in(source):
-            if f'"{key}"' not in html:
-                absent.append((value, key))
-    assert not absent, (
-        "the script tells the student to point at a value the built screen does "
-        "not carry as a registry key. Either the row is 구두, or "
-        "scripts/build_finals.py must ship the key: " + str(absent)
+            if key not in tpl or f'"{key}"' not in html:
+                unrendered.append((value, key))
+    assert not unrendered, (
+        "the script tells the student to point at a value no card on the screen "
+        "draws. Either the row is 구두, or scripts/finals.template.html must "
+        "render it: " + str(unrendered)
     )
 
 
@@ -115,6 +134,71 @@ def test_a_spoken_only_row_is_never_labelled_as_being_on_the_screen(script_text)
         "every row now claims to be on the screen. Six figures the script speaks "
         "(the fire-blind-vs-time-aware origin counts and the pipeline latency) "
         "are not registry keys on web/finals.html and must stay labelled 구두."
+    )
+
+
+def _numbers_in(text: str) -> list[str]:
+    return [n.replace(",", "").rstrip(".")
+            for n in re.findall(r"\d[\d,]*(?:\.\d+)?", text)]
+
+
+def test_every_value_cell_equals_the_registry_value_it_cites(script_text, registry):
+    """The 값 column is the number the student says. It must be the real one.
+
+    Without this the table can cite a correct key beside a wrong number, which
+    is the failure that puts a fabricated figure in a judge's ear while every
+    other gate stays green.
+    """
+    wrong = []
+    for act, value, _, source in _mapping_rows(script_text):
+        keys = _keys_in(source)
+        if len(keys) != 1:
+            continue  # rows sourced to a file path, checked by the reader
+        entry = registry.get(keys[0])
+        if entry is None:
+            continue  # the resolve test owns this failure
+        raw = entry["value"]
+        if not isinstance(raw, (int, float)) or isinstance(raw, bool):
+            continue
+        spoken = _numbers_in(value)
+        ok = False
+        for token in spoken:
+            places = len(token.split(".")[1]) if "." in token else 0
+            # a fraction in the registry may be spoken as a percentage
+            if token == f"{round(float(raw), places):.{places}f}".rstrip("."):
+                ok = True
+            if token == f"{round(float(raw) * 100, places):.{places}f}".rstrip("."):
+                ok = True
+        if not ok:
+            wrong.append((act, value, keys[0], raw))
+    assert not wrong, (
+        "a 값 cell does not match the registry value of the key beside it "
+        "(act, spoken, key, registry): " + str(wrong)
+    )
+
+
+def test_every_figure_the_student_says_aloud_is_in_the_mapping_table(script_text):
+    """§3 must cover §1's mouth, not just itself.
+
+    The lap that wrote this document graded its own gate 6 of 6 against six
+    mutations, and the independent reviewer broke it in one edit anyway: change
+    a bolded number in the spoken body and leave the table alone, and nothing in
+    the tree objected. §3 is only worth having if it is a cover of what is
+    actually said, so every emphasised number in a spoken line must appear in
+    the table or be a declared threshold.
+    """
+    body = script_text.split("## 1. 대본", 1)[1].split("## 2. 끼어들 때", 1)[0]
+    spoken = " ".join(l[2:] for l in body.splitlines() if l.startswith("> "))
+    said = set()
+    for span in re.findall(r"\*\*(.+?)\*\*", spoken, re.S):
+        said.update(_numbers_in(span))
+    tabled = set()
+    for _, value, _, _ in _mapping_rows(script_text):
+        tabled.update(_numbers_in(value))
+    uncovered = sorted(said - tabled - set(THRESHOLDS))
+    assert not uncovered, (
+        "the script emphasises numbers that §3 does not source, so the student "
+        "would say them with nothing behind them: " + str(uncovered)
     )
 
 
@@ -153,8 +237,10 @@ def test_the_script_keeps_the_result_that_lost(script_text):
     quietly drops it is the failure this repository exists to gate against, so
     the sentence is pinned here rather than left to a reviewer's memory.
     """
-    assert "180개 셀 중 0승" in script_text
+    assert "0승" in script_text
     assert "dispatch_order_deadline_wins_at_committed_window" in script_text
+    # and the screen's own figure, which is a different slice of the same result
+    assert "dispatch_order_deadline_wins_pct" in script_text
 
 
 def test_every_judge_type_has_exactly_one_interruption_sentence(script_text):
