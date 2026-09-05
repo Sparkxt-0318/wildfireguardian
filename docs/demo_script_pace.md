@@ -18,8 +18,9 @@ question.
 
 Measured over the spoken lines by this lap's convention, the old six implied **4.51 to 7.29
 syllables per second — a 1.62x spread inside one document from one stated method.** (Critic
-#16, counting without Latin and symbols, got 4.24 to 7.07 and 1.67x on the same six. The two
-sets of figures are not interchangeable and this page never mixes them.) One rate cannot satisfy both
+#16 got 4.24 to 7.07 and 1.67x on the same six under a convention it did not write down and
+which no variant here reproduces — see 「What could not be reconciled」. The two sets of figures
+are not interchangeable and this page never mixes them.) One rate cannot satisfy both
 ends. The segment that had to be spoken fastest was **마무리 · 한계**, the limitations close,
 and it is last: so the material 과학적 사고 is scored on was the material the clock would eat,
 once per judge.
@@ -33,7 +34,9 @@ The script counts the syllables a student actually pronounces:
 * the `[버림]` marker is not spoken, the sentence carrying it is, so it counts;
 * one Hangul syllable block (U+AC00–U+D7A3) is one syllable;
 * numerals are read sino-Korean and counted as that reading: `2,008` is 이천팔 (3),
-  `0.1939` is 영점일구삼구 (6);
+  `0.1939` is 영점일구삼구 (6). **This is an approximation and the section below prices
+  it:** Korean counter words take native numerals (세 시간, 여섯 개, 스무 가구), which this
+  rule gets wrong;
 * **every other non-space token must have an explicit reading in the script's `LEXICON`, and
   an unknown token is a hard error.** A tokenizer that scores what it does not recognise as
   zero under-counts exactly the segments densest in symbols, which is the failure this rule
@@ -58,24 +61,51 @@ so the trimming the backlog row allowed for was not needed.
 
 ## How much of this is a judgement call
 
-The counting rules contain one real judgement — whether `%`, `ha`, `km`, `OSM`, `pooled`,
-`STATIC VIEW` and `TIME-AWARE VIEW` are pronounced as Korean syllables or skipped. Running
-the script both ways sizes it:
+The counting rules contain two real judgements, and both are measured rather than defended.
+All three variants below are in the committed artifact
+(`pace_before_039a0de.json` → `variants`), so this table is committed numbers, not
+remembered ones.
 
-| variant | total syllables | allocation (s) |
-|---|---:|---|
-| `full` (Latin and symbols read aloud) | 1,684 | 29 / 44 / 50 / **60** / 59 / **58** |
-| `hangul-only` (they are skipped) | 1,627 | 30 / 44 / 50 / **57** / 59 / **60** |
+**First: whether `%`, `ha`, `km`, `OSM`, `pooled`, `STATIC VIEW` and `TIME-AWARE VIEW` are
+pronounced as Korean syllables or skipped.**
 
-**The largest disagreement between the two extreme conventions is 3 seconds out of 300**, on
-3막, and four of the six segments move by one second or none. The re-budget therefore does
-not rest on how `%` is pronounced. The shipped budget is the `full` variant, because a
-student saying 「칠십구점이삼 퍼센트」 does pronounce 퍼센트.
+**Second: `numerals are read sino-Korean` is an approximation, and a Korean speaker knows it
+is wrong.** Counter words take *native* numerals — 세 시간, 여섯 개, 스무 가구 — and the flat
+rule reads 6개 as 육 개. `--variant native-counters` implements the native readings for the
+counts and counters that actually occur, and prices the approximation.
 
-The `hangul-only` total, 1,627, is within three of critic #16's independently counted 1,630,
-which is the best evidence available that its unstated convention also skipped Latin and
-symbols — an inference from one agreeing total, not something that critic wrote down. What
-matters either way: both conventions find the same defect and disagree only about its size.
+| variant | total syllables | allocation (s) | spread |
+|---|---:|---|---:|
+| `full` — Latin and symbols read aloud (**shipped**) | 1,684 | 29 / 44 / 50 / 60 / 59 / 58 | 1.62 |
+| `hangul-only` — they are skipped | 1,627 | 30 / 44 / 50 / 57 / 59 / 60 | 1.73 |
+| `native-counters` — `full` plus native numerals for counters | 1,686 | 28 / 44 / 50 / 60 / 59 / 59 | 1.63 |
+
+(The spread column is the *old* 25/45/55/75/55/45 budget under each convention — the defect
+each one sees.)
+
+**Across all three conventions the six seconds move by at most 3 of 300**, on 3막, and the
+sino-Korean approximation alone costs at most 1 second. So the re-budget does not rest on
+either judgement. The shipped budget is `full`: a student saying 「칠십구점이삼 퍼센트」 does
+pronounce 퍼센트, and 3막's largest counted numbers are above the range where native numerals
+are used anyway.
+
+### What could not be reconciled, and is not papered over
+
+Critic #16 reported per-segment counts of 161 / 235 / 279 / 318 / 319 / 318 = 1,630, rates
+4.24 to 7.07, spread 1.67x, under a convention it did not write down. **No variant
+implemented here reproduces those numbers.** The closest, `hangul-only`, totals 1,627 — within
+three — but its per-segment counts are 161 / 237 / 274 / 312 / 320 / 323, which differ from
+critic #16's by 0, +2, −5, −6, +1, +5, and its spread is **1.73x, not 1.67x**. The totals
+agree only because the per-segment differences cancel; the agreement is arithmetic luck and is
+**not** evidence that the conventions match. An earlier draft of this page called it 「the best
+evidence available」 that critic #16 counted hangul-only, and the lap's independent reviewer was
+right to strike that: it is an inference the segments contradict.
+
+What survives the failure to reconcile is the only thing the re-budget needed: **every
+convention anyone has counted with finds the same defect** — a spread between 1.62x and 1.73x
+in a document whose stated method allows one rate — **and every one of them puts 마무리 · 한계
+fastest and last.** The disagreement is about the defect's second decimal, never about its
+existence or its direction.
 
 ## What this does NOT show
 
@@ -92,6 +122,35 @@ matters either way: both conventions find the same defect and disagree only abou
   count is of syllables in the text, and a real delivery is longer than its text.
 * **It says nothing about the Q&A five minutes** that follow (`docs/auto/JUDGE_QA.md`).
 
+## The before state is committed too
+
+The numbers this page uses to justify the change — the old 25 / 45 / 55 / 75 / 55 / 45 budget,
+its 4.51-to-7.29 rates and its 1.62x spread — describe a version of the document that this
+lap's own commit overwrote. They are therefore measured from `039a0de`, the claim commit, and
+committed as `data/processed/demo_script_pace/pace_before_039a0de.json`
+(`python scripts/measure_demo_script_pace.py --stamp <s> --from-ref 039a0de`). The lap's first
+attempt asserted them from memory and its reviewer blocked on exactly that. Registry:
+
+| key | value | what |
+|---|---:|---|
+| `demo_pace_039a0de_rate_spread` | 1.62 | the defect, before <!-- collision-ok: 1.62 — the spread BEFORE the re-budget, at commit 039a0de; the 1.02 on the next line is the same quantity AFTER it, and the two are the point of this page. -->|
+| `demo_pace_20260905t0625z_rate_spread` | 1.02 | after <!-- collision-ok: 1.02 — the spread AFTER the re-budget; the 1.62 on the previous line is the same quantity BEFORE it. -->|
+| `demo_pace_039a0de_total_spoken_syllables` | 1684 | unchanged by the fix — only seconds moved |
+| `demo_pace_20260905t0625z_total_spoken_syllables` | 1684 | " |
+
+The per-segment rates and the variant tables are fields of those two artifacts rather than
+registry keys of their own.
+
+## One thing the measurement does to itself
+
+The script's 마무리 segment says 「마지막 58초는…」 — **a number this allocation produced, inside
+the text the allocation is computed from.** The count is therefore a fixed point of itself.
+It did not bite here only because 사십오 and 오십팔 are both three syllables, so replacing 45
+with 58 changed no count. It would bite at 61 s (육십일, four syllables). **Anyone re-measuring
+must re-run the count after writing the new seconds into that sentence, not before**, and check
+that the allocation is still the one they wrote. The reviewer of this lap found this; no test
+catches it.
+
 ## Re-measuring after an edit
 
 `docs/NUMBERS.json` binds `demo_pace_total_spoken_syllables` and
@@ -104,8 +163,15 @@ The fix is never to relax the test:
 ```
 python scripts/measure_demo_script_pace.py --print                 # see the new spread
 python scripts/measure_demo_script_pace.py --stamp <NEW UTC STAMP> # new artifact, new filename
-python scripts/measure_demo_script_pace.py --register              # upsert the two keys
+python scripts/measure_demo_script_pace.py --register --tag <NEW UTC STAMP>
 ```
+
+`--register` **adds keys under the new tag and refuses to change the value of a key that is
+already registered** (CHARTER §3.2: add, never edit). The previous measurement's entries stay
+as the record of what the script used to ask the student to say; move `TAG` in
+`tests/test_demo_script_pace.py` to the new one. Note also that `scripts/build_numbers.py`
+rebuilds the registry from its own list and would drop these keys along with every other
+additive registrar's — that is WFG-040, and it is why the registrar here is additive.
 
 then re-allocate the six segment headers and their cumulative brackets to the printed
 `allocation`, and update the table above. The script **refuses to overwrite an existing

@@ -2,9 +2,12 @@
 
 `tests/test_demo_script_5min.py` already asserts the six numbers sum to 300. That is
 true of 25/45/55/75/55/45 and of 50/50/50/50/50/50 alike, so it never saw what critic
-#16 measured: the six implied 4.24 to 7.29 syllables per second, a 1.62x spread inside
-one document, with the *fastest* segment being the limitations close, which is last and
-therefore the first thing a running clock eats - once per judge.
+#16 measured: under this module's convention the six implied 4.51 to 7.29 syllables per
+second, a 1.62x spread inside one document, with the *fastest* segment being the
+limitations close, which is last and therefore the first thing a running clock eats -
+once per judge. (Critic #16's own figures were 4.24 to 7.07 and 1.67x under a convention
+it did not write down. The two sets are not interchangeable and are never mixed; this
+docstring shipped mixing them in the lap's first commit and its reviewer caught it.)
 
 These tests own the question that one could not ask: does each segment get seconds in
 proportion to the syllables it asks the student to pronounce? They recompute the count
@@ -36,6 +39,11 @@ REGISTRY = REPO / "docs" / "NUMBERS.json"
 # is what has moved, not the rounding. Widening this band is not a fix for a red run - the
 # re-measure procedure in docs/demo_script_pace.md is.
 BAND = 0.05
+
+# The measurement whose keys the registry carries for the CURRENT text of the script. A
+# re-measure registers a NEW tag rather than editing these (CHARTER §3.2), and moves this
+# constant; the old entries stay as the record of what the script used to ask for.
+TAG = "20260905t0625z"
 
 
 def _module():
@@ -154,8 +162,8 @@ def test_the_registered_numbers_re_derive_from_the_committed_document(measured):
     re-measure procedure in docs/demo_script_pace.md, never a new value typed in here.
     """
     registry = json.loads(REGISTRY.read_text(encoding="utf-8"))["numbers"]
-    assert registry["demo_pace_total_spoken_syllables"]["value"] == measured["total_spoken_syllables"]
-    assert registry["demo_pace_syllables_per_second"]["value"] == measured["syllables_per_second"]
+    assert registry[f"demo_pace_{TAG}_total_spoken_syllables"]["value"] == measured["total_spoken_syllables"]
+    assert registry[f"demo_pace_{TAG}_rate_spread"]["value"] == measured["implied_rate_spread"]
 
 
 def test_the_doc_that_explains_the_budget_prints_the_budget_that_shipped(measured):

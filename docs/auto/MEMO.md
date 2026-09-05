@@ -908,3 +908,36 @@ found the mechanism — `2b7c3a0` rewrote 「rather than」 to 「not」, and `\
 `EN_NEGATION_PATTERNS`, so the **shipping** rule now treats an unrelated negation as a
 withdrawal (WFG-099, three mutations, all missed). A second reader of the same red is worth
 something; a second *writer* of the same fix is not.
+
+## 2026-09-05 — a budget nobody had done the arithmetic for, and a tokenizer that was allowed to say "I don't know"
+
+**1. A gate that checks a sum is not checking the split.** `tests/test_demo_script_5min.py`
+asserted the booth script's six segment times **sum to 300**, and it had been green since the
+document was written. That assertion is equally true of 25/45/55/75/55/45 and of six fifties;
+it never touched the question the document's own §5 was making a claim about, which is whether
+each segment gets seconds in proportion to what it asks the student to say. The real budget was
+1.62x out, and the segment that had to be spoken fastest was the limitations close — last, and
+therefore the first thing an over-running clock deletes. **Gate:** when a document states a
+*total* and a *split*, a test on the total is not a test on the split, and the split is usually
+where the claim lives. Ask what the assertion would still allow.
+
+**2. Let the counter refuse.** The one design decision that made this measurement trustworthy
+was making the tokenizer raise on a token it has no reading for, instead of scoring it zero. It
+fired on the very first run (`pooled`, in the limitations close) and would have quietly
+under-counted the segments densest in symbols — the same segments whose seconds were most in
+dispute. **Anti-pattern:** a parser that treats "I do not recognise this" as "this is worth
+nothing". The failure is silent, and it is biased rather than random: it always under-counts
+the *unusual* input, which is the input you built the measurement to look at.
+
+**3. When a method has a judgement call in it, run it both ways and print the difference.**
+Rather than argue whether `%` is pronounced 퍼센트, the lap ran the count with the lexicon on and
+off: 1,684 vs 1,627 syllables, and a six-segment budget that differs by **at most 3 seconds of
+300**. That converts an unfalsifiable methods argument into one line of a table, and it is
+cheaper than the argument. **Gate:** a derived number whose method contains a convention gets a
+sensitivity row, not a defence.
+
+**4. The lap that writes the warning is the lap that commits the error.** This one wrote
+「the two sets of figures are not interchangeable」 into the doc and had, three paragraphs
+earlier, already written 「4.24에서 7.29까지」 — critic #16's slowest segment paired with its own
+fastest. No gate would have caught it, because both numbers are real and neither is registered
+prose. Self-read before the reviewer, not after.

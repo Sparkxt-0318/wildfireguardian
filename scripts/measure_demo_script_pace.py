@@ -72,6 +72,17 @@ LEXICON: list[tuple[str, str]] = [
     ("W", "더블유"),
 ]
 
+# Korean reads counter words with NATIVE numerals, not sino-Korean: 세 시간, 여섯 개,
+# 스무 가구. The flat "digits are read sino-Korean" rule above is therefore an
+# approximation, and `--variant native-counters` is how big an approximation it is: the
+# native readings for the small counts that actually occur, against the counters that
+# actually take them. Above roughly twenty a Korean speaker goes back to sino-Korean, so
+# only 1..20 are listed - beyond that the two conventions agree anyway.
+NATIVE = {1: "한", 2: "두", 3: "세", 4: "네", 5: "다섯", 6: "여섯", 7: "일곱", 8: "여덟",
+          9: "아홉", 10: "열", 11: "열한", 12: "열두", 13: "열세", 14: "열네", 15: "열다섯",
+          16: "열여섯", 17: "열일곱", 18: "열여덟", 19: "열아홉", 20: "스무"}
+NATIVE_COUNTERS = ("시간", "개", "가구", "건", "곳", "명", "살", "번")
+
 # Markup and punctuation nobody pronounces. Stripped before the unknown-token check.
 SILENT = "**「」*·—–-,.…?!:;()[]/'\"`~“”‘’ \t"
 HANGUL = re.compile(r"[가-힣]")
@@ -128,7 +139,18 @@ def spoken_segments(text: str) -> list[dict]:
     return segments
 
 
-def count_syllables(lines: list[str], *, lexicon: bool = True) -> int:
+def _read_numeral(match: re.Match, *, native_counters: bool) -> str:
+    token = match.group()
+    if native_counters and "." not in token:
+        n = int(token.replace(",", ""))
+        tail = match.string[match.end():]
+        if n in NATIVE and tail.startswith(NATIVE_COUNTERS):
+            return NATIVE[n]
+    return sino_korean(token)
+
+
+def count_syllables(lines: list[str], *, lexicon: bool = True,
+                    native_counters: bool = False) -> int:
     """Syllables a student pronounces, by the rules in this module's docstring."""
     total = 0
     for line in lines:
@@ -136,7 +158,8 @@ def count_syllables(lines: list[str], *, lexicon: bool = True) -> int:
         for word in ["**", "「", "」"]:
             text = text.replace(word, " ")
         # numerals first: they may sit against Hangul (240분) or a unit (0.1939 ha)
-        text = re.sub(r"\d[\d,]*(?:\.\d+)?", lambda m: sino_korean(m.group()), text)
+        text = re.sub(r"\d[\d,]*(?:\.\d+)?",
+                      lambda m: _read_numeral(m, native_counters=native_counters), text)
         for token, reading in LEXICON:
             text = text.replace(token, reading if lexicon else " ")
         total += len(HANGUL.findall(text))
@@ -149,13 +172,13 @@ def count_syllables(lines: list[str], *, lexicon: bool = True) -> int:
     return total
 
 
-def measure(text: str, *, lexicon: bool = True) -> dict:
+def measure(text: str, *, lexicon: bool = True, native_counters: bool = False) -> dict:
     segments = spoken_segments(text)
     if len(segments) != 6:
         raise ValueError(f"§1 no longer holds six timed segments; parsed {len(segments)}")
     rows = []
     for seg in segments:
-        syl = count_syllables(seg["lines"], lexicon=lexicon)
+        syl = count_syllables(seg["lines"], lexicon=lexicon, native_counters=native_counters)
         rows.append({
             "name": seg["name"],
             "declared_seconds": seg["seconds"],
@@ -193,7 +216,23 @@ def allocate(syllables: list[int], total_seconds: int = TOTAL_SECONDS) -> list[i
     return floors
 
 
-def registry_entries(art: dict, artifact_path: str, head: str, config_hash: str) -> dict:
+def registry_entries(art: dict, artifact_path: str, head: str, config_hash: str,
+                     tag: str) -> dict:
+    """Two entries per measurement, keyed by WHICH measurement.
+
+    CHARTER §3.2 is 'add, never edit a value'. A pace measurement is not a constant of
+    the world - it changes the moment anyone edits a spoken line - so a fixed key name
+    would mean every re-measure edits a registered value, which is precisely the rule's
+    prohibition, and the lap's own re-measure procedure would be the thing breaking it.
+    The measurement's identity therefore goes in the key: a new measurement is new keys
+    and the old ones stay as the record of what the script used to ask the student to
+    say. `tag` is the stamp for a measurement of the working tree, or the short git ref
+    for a measurement of an older version of the document.
+    """
+    stamp = Path(artifact_path).stem.replace("pace_before_", "").replace("pace_", "")
+    regen = ("python scripts/measure_demo_script_pace.py --stamp <UTC> --from-ref " + stamp
+             if "pace_before_" in artifact_path
+             else "python scripts/measure_demo_script_pace.py --stamp " + stamp)
     common = {
         "source_file": artifact_path,
         "config_hash": config_hash,
@@ -209,38 +248,38 @@ def registry_entries(art: dict, artifact_path: str, head: str, config_hash: str)
         },
         "provenance": "derived",
         "arm": "booth_pace",
-        "forbidden_phrasings": [
-            "comfortable speaking rate",
-            "편안한 발화 속도",
-            "리허설을 대신",
-        ],
-        "notes": "WFG-100. Bound to the document by tests/test_demo_script_pace.py; editing a "
-                 "spoken line changes these values and the gate goes red until the artifact is "
-                 "re-measured under a new filename (CHARTER §3.2).",
+        "forbidden_phrasings": ["편안한 발화 속도", "말할 수 있는 속도로 확인", "리허설을 마쳤"],
+        "notes": "WFG-100. Bound to the document by tests/test_demo_script_pace.py. Editing a "
+                 "spoken line changes these values and the gate goes red until a NEW measurement "
+                 "is registered under a new tag; this entry is never edited (CHARTER §3.2).",
     }
     caveat = (
         "A COUNT OF SYLLABLES, NOT A MEASUREMENT OF SPEECH. This is how many syllables the "
         "script asks the student to pronounce divided by the seconds it gives them; it does "
-        "not say that rate is sayable, and no rehearsal has been run (R12 / NH-014). The "
-        "count's rules are in scripts/measure_demo_script_pace.py: Hangul syllable blocks, "
-        "numerals read sino-Korean, symbols and Latin read from an explicit lexicon."
+        "not say that rate is sayable, and no rehearsal has been run (R12 / NH-014). Counting "
+        "rules in scripts/measure_demo_script_pace.py: Hangul syllable blocks, numerals read "
+        "sino-Korean (an APPROXIMATION - Korean counter words take native numerals, and "
+        "--variant native-counters measures what that approximation costs), symbols and Latin "
+        "from an explicit lexicon."
     )
     return {
-        "demo_pace_total_spoken_syllables": {
+        f"demo_pace_{tag}_total_spoken_syllables": {
             **common, "value": art["total_spoken_syllables"], "unit": "syllables",
             "json_path": "total_spoken_syllables",
-            "derivation": "sum of the six segments' spoken_syllables",
+            "derivation": "sum of the six segments' spoken_syllables. Regenerate: " + regen,
             "caveat": caveat,
             "check": {"kind": "json_path", "tolerance": 0.0,
                       "operands": {"a": {"file": artifact_path, "json_path": "total_spoken_syllables"}}},
         },
-        "demo_pace_syllables_per_second": {
-            **common, "value": art["syllables_per_second"], "unit": "syllables/s",
-            "json_path": "syllables_per_second",
-            "derivation": f"round({art['total_spoken_syllables']} / {TOTAL_SECONDS}, 2)",
-            "caveat": caveat,
+        f"demo_pace_{tag}_rate_spread": {
+            **common, "value": art["implied_rate_spread"], "unit": "x",
+            "json_path": "implied_rate_spread",
+            "derivation": "fastest segment's syllables/s divided by the slowest segment's. "
+                          "Regenerate: " + regen,
+            "caveat": caveat + " The SPREAD is the quantity WFG-100 is about: one document "
+                               "cannot have six different speaking rates and one stated method.",
             "check": {"kind": "json_path", "tolerance": 0.0,
-                      "operands": {"a": {"file": artifact_path, "json_path": "syllables_per_second"}}},
+                      "operands": {"a": {"file": artifact_path, "json_path": "implied_rate_spread"}}},
         },
     }
 
@@ -248,14 +287,26 @@ def registry_entries(art: dict, artifact_path: str, head: str, config_hash: str)
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--stamp", help="UTC stamp for the new artifact filename, e.g. 20260905T0625Z")
+    ap.add_argument("--from-ref", help="measure the document as it was at this git ref instead "
+                                       "of in the working tree (for a before/after record)")
     ap.add_argument("--print", action="store_true", dest="show")
     ap.add_argument("--check", action="store_true", help="exit 1 if no artifact matches the document")
-    ap.add_argument("--register", action="store_true", help="upsert the demo_pace_ registry keys")
-    ap.add_argument("--variant", choices=["full", "hangul-only"], default="full")
+    ap.add_argument("--register", action="store_true", help="add this measurement's registry keys")
+    ap.add_argument("--tag", help="registry key infix for this measurement; defaults to --stamp")
+    ap.add_argument("--variant", choices=["full", "hangul-only", "native-counters"], default="full")
     args = ap.parse_args()
 
-    text = SCRIPT.read_text(encoding="utf-8")
-    art = measure(text, lexicon=args.variant == "full")
+    if args.from_ref:
+        text = subprocess.run(["git", "show", f"{args.from_ref}:docs/auto/DEMO_SCRIPT_5MIN.md"],
+                              cwd=REPO, capture_output=True, text=True, check=True).stdout
+    else:
+        text = SCRIPT.read_text(encoding="utf-8")
+
+    def run(variant: str) -> dict:
+        return measure(text, lexicon=variant != "hangul-only",
+                       native_counters=variant == "native-counters")
+
+    art = run(args.variant)
 
     if args.show:
         print(f"{'segment':<34}{'syl':>6}{'declared':>10}{'syl/s':>8}{'proportional':>14}")
@@ -267,13 +318,13 @@ def main() -> int:
               f"{art['syllables_per_second']} syl/s; spread {art['implied_rate_spread']}x; "
               f"allocation {alloc} (sum {sum(alloc)})")
 
-    current = sorted(ARTIFACT_DIR.glob("pace_*.json"))
+    current = sorted(ARTIFACT_DIR.glob("pace_2*.json"))
     if args.check:
         if not current:
             print("no pace artifact committed")
             return 1
         live = json.loads(current[-1].read_text(encoding="utf-8"))
-        stale = {k: (live.get(k), art[k]) for k in ("total_spoken_syllables", "syllables_per_second")
+        stale = {k: (live.get(k), art[k]) for k in ("total_spoken_syllables", "implied_rate_spread")
                  if live.get(k) != art[k]}
         if stale:
             print(f"STALE {current[-1].name}: the document moved since it was measured: {stale}")
@@ -281,39 +332,68 @@ def main() -> int:
         print(f"OK - {current[-1].name} matches the document ({art['total_spoken_syllables']} syllables)")
         return 0
 
+    written = None
     if args.stamp:
         ARTIFACT_DIR.mkdir(parents=True, exist_ok=True)
-        out = ARTIFACT_DIR / f"pace_{args.stamp}.json"
+        name = f"pace_{args.stamp}.json" if not args.from_ref else f"pace_before_{args.from_ref}.json"
+        out = ARTIFACT_DIR / name
         if out.exists():
             print(f"refusing to overwrite {out.name} (CHARTER §3.2); pass a new --stamp")
             return 1
         payload = dict(art)
-        payload["measured_from"] = "docs/auto/DEMO_SCRIPT_5MIN.md"
+        payload["measured_from"] = (f"docs/auto/DEMO_SCRIPT_5MIN.md at {args.from_ref}"
+                                    if args.from_ref else "docs/auto/DEMO_SCRIPT_5MIN.md")
         payload["variant"] = args.variant
-        payload["method"] = ("Hangul syllable blocks in §1's > lines; numerals read sino-Korean; "
-                             "symbols and Latin read from scripts/measure_demo_script_pace.py "
-                             "LEXICON; [버림] markers, ⚠ blocks and the §3 table excluded.")
+        payload["allocation_seconds"] = allocate([r["spoken_syllables"] for r in art["segments"]])
+        # Every convention this lap could think of, in the artifact, so the prose that
+        # compares them is comparing committed numbers rather than remembered ones.
+        payload["variants"] = {}
+        for v in ("full", "hangul-only", "native-counters"):
+            a = run(v)
+            payload["variants"][v] = {
+                "total_spoken_syllables": a["total_spoken_syllables"],
+                "syllables_per_second": a["syllables_per_second"],
+                "implied_rate_spread": a["implied_rate_spread"],
+                "spoken_syllables": [r["spoken_syllables"] for r in a["segments"]],
+                "implied_syllables_per_second": [r["implied_syllables_per_second"] for r in a["segments"]],
+                "allocation_seconds": allocate([r["spoken_syllables"] for r in a["segments"]]),
+            }
+        payload["method"] = ("Hangul syllable blocks in §1's > lines; numerals read sino-Korean "
+                             "(an approximation - see the native-counters variant); symbols and "
+                             "Latin read from scripts/measure_demo_script_pace.py LEXICON; "
+                             "[버림] markers, ⚠ blocks and the §3 table excluded.")
         out.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        written = out
         print(f"wrote {out.relative_to(REPO)}")
-        current = sorted(ARTIFACT_DIR.glob("pace_*.json"))
 
     if args.register:
-        if not current:
+        target = written or (current[-1] if current else None)
+        if target is None:
             print("nothing to register: no pace artifact")
             return 1
-        artifact_path = str(current[-1].relative_to(REPO))
+        tag = args.tag or args.stamp
+        if not tag:
+            print("--register needs --tag or --stamp: the key names carry the measurement's identity")
+            return 1
+        tag = tag.lower()
+        artifact_path = str(target.relative_to(REPO))
         doc = json.loads(NUMBERS.read_text(encoding="utf-8"))
         head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=REPO,
                               capture_output=True, text=True).stdout.strip()
-        live = json.loads(current[-1].read_text(encoding="utf-8"))
-        new = registry_entries(live, artifact_path, head, doc["config_hash"])
+        live = json.loads(target.read_text(encoding="utf-8"))
+        new = registry_entries(live, artifact_path, head, doc["config_hash"], tag)
         cur = doc["numbers"]
-        for k, e in new.items():
-            if k in cur:
-                e["git_commit"] = cur[k].get("git_commit", head)
-            cur[k] = e
+        clashes = {k: (cur[k]["value"], e["value"]) for k, e in new.items()
+                   if k in cur and cur[k]["value"] != e["value"]}
+        if clashes:
+            # CHARTER §3.2: add, never edit. A changed value is a NEW measurement and
+            # takes a new tag; the old entry stays as the record.
+            print(f"REFUSING to edit registered values {clashes}. Re-run with a new --tag "
+                  "(a new measurement is new keys, never an edited one).")
+            return 1
+        cur.update(new)
         NUMBERS.write_text(json.dumps(doc, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-        print(f"upserted {len(new)} demo_pace entries from {artifact_path}; "
+        print(f"registered {len(new)} demo_pace keys under tag '{tag}' from {artifact_path}; "
               f"registry now {len(cur)} entries")
     return 0
 
