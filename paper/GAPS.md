@@ -8,10 +8,53 @@ the author.
 | # | where | what is missing | closes when | after sprint? |
 |---|---|---|---|---|
 | G5 | §4.7 Results | the provenance of the detection reference clock. Every delay in Table 4 is measured from `fire_manifest.json`'s `start` field, which the manifest marks "provenance only" and sources nowhere. **Narrowed 2026-09-04 (paper lap 3), and the repository has now come to the same reading.** Checked this lap against `docs/data_provenance/fire_manifest.json` — the only copy tracked here; the copy the pipeline actually reads, `data/raw/firms_data/fire_manifest.json`, is git-ignored and absent from a fresh clone, so this is the documentation copy and is assumed, not verified, to match. In it: all six entries mark `start/end/reported_ha` as `provenance only`, and **no entry contains 신고 or any word for a report**. That much is solid and is what the manuscript rests on. ⚠ **What this lap first wrote here, and the lap reviewer knocked down**: that exactly one entry says what the field is, namely `yeongdeok_2025`, whose note reads `first hit (2025-03-25) lags the 2025-03-22 ignition by days` against that entry's own `start` of `2025-03-22T12:15+09:00`. That is an inference from a date coincidence, not a statement — the note never mentions `start` — and it is probably the wrong inference: `2025-03-22` is the **parent Uiseong chain's** ignition date (its own `start` is `2025-03-22T11:25`, fifty minutes earlier), while Yeongdeok's first detection is three days later, so the "ignition" that note names is most plausibly the parent fire's, not Yeongdeok's. `docs/detection_floor.md` §1 reads the same five other notes as saying nothing about `start` either. So the honest statement is the weaker one: **no entry says what the field is, in either direction.** The manuscript was corrected to that before this lap pushed. `docs/detection_floor.md` §1 and §9 read the field as a 신고 (report) time and concluded that GK2A rang after the telephone; **that reading was withdrawn on 2026-09-04 (WFG-053) with no number moving**, the manuscript having reached the narrow form first. Until a call time exists the paper cannot say whether the satellite beat the call, in either direction | the author supplies, for at least one of Uiseong-Andong, Gangneung or Hongseong, the KFS / 119 / 중대본 record giving the 신고접수시각, or the acquisition note saying where the minute came from; then it is registered with agency and date and §4.7, §1, §5 and the abstract can state the ordering. Raised by the lap-2 reviewer (NEEDS_HUMAN NH-019) | no |
-| G2 | §5 Discussion | structured expert consultations (fire-service duty officer, village head, social worker) in the project's consultation format, as design feedback rather than collected data; any quotation needs the author's consent handling first | the consultations happen and the author clears the quotations (NH-009) | yes |
+| G2 | §5 Discussion | the **practitioner** consultations (fire-service duty officer, village head, social worker) in the project's consultation format, as design feedback rather than collected data; any quotation needs the author's consent handling first. **Narrowed 2026-09-05 (paper lap 6):** the *researcher* half is no longer missing — `docs/auto/research/EXPERT_REPLIES_2026-09-04.md` records three written replies to the author on 2026-09-04, and §5 now carries the two questions one of them raises that nothing here answers (age-only rescue prioritisation; the division of roles between forest-fire suppression and residential emergency response), while a second reply's off-network walking point became a §6 limitation and the third's WUI-transfer point a clause in §2. ⚠ **The paper names nobody.** That doc names the three by the author's decision *for the repository*; consent to be named there is not consent to be cited in a publication, so the manuscript says "an external researcher" and "three domain researchers". Before submission the author either obtains explicit permission to cite each as a personal communication, or leaves the attribution as it stands | the practitioner consultations happen and the author clears the quotations (NH-009); separately, the author decides whether to seek naming permission from the three researchers | yes |
 | G3 | §6 Limitations | the leak-free Yeongdeok fold: refit the Yeongdeok LOFO fold with the co-located Uiseong-Andong fire excluded, re-simulate the canonical field, and route the same 458 origins, reporting the three-bucket counts as new filenames | the raw acquisition bundle on the author's laptop is available and WFG-032 runs | yes |
 | G4 | §6 Limitations | **the hindsight-field routing arm — the single most load-bearing gap in the paper.** A third pass over the same 458 origins on a field rasterised from the *observed* FIRMS detections for Yeongdeok 2025, reporting how many of the 42 fire-blind routes actually intersect observed burn inside the walker's arrival window, and how many forecast-aware routes cross observed burn the model never flagged. Until it runs, "saved" means "re-routed around a model-flagged cell", not "away from where the fire went", and with pooled recall 0.138 that distinction is not cosmetic | the observed detections are available. ⚠ Checked 2026-09-03: `data/snapshots/firms-manifest_yeongdeok-2025_20260723_1aa75824.json` is committed and records 2,290 detections spanning 2025-03-25T12:25 to 2025-03-27T04:28, but the detections themselves (`yeongdeok_2025_detections.csv`) live under the git-ignored `data/raw/firms_data/`, which is absent from a fresh clone. So this arm needs the author's laptop too — it is cheaper than G3 (no refit, no re-simulation, reuses the committed walk graph and origin list) but it is not runnable in the cloud sandbox | yes |
 | G6 | §6 Limitations | the refuge-provenance comparison. Every refuge in the paper is an OpenStreetMap point; the 주소정보누리집 designated-site subset for 영덕군 is now committed and correctly scoped, and nothing has been re-routed against it. The question the paper cannot answer is how much of the 458-origin partition is a statement about where refuges actually are rather than about where OpenStreetMap says they are — which bears on every absolute Yeongdeok rate, though not on the paired contrast, both arms of which use the same refuge set | **runnable in the cloud sandbox, unlike G3 and G4**: the designated-site layers are committed under `data/processed/external/juso_yeongdeok/` and counted in that folder's `manifest.json` (64 earthquake outdoor sites, 92 tsunami sites), as are the walk graph and the origin list. ⚠ Only `manifest.json` and `minwon_agencies.geojson` of that folder are listed in `docs/artifact_manifest.json`; the seven 사물주소 `*.geojson` layers are not, though `scripts/register_juso_yeongdeok.py` registers a count for each (seven layer stems in `SAMUL_LAYERS`, seven `samul_*.geojson` files on disk). That is a dev-lap item, not the paper's — this row names the folder rather than a layer file because citing an unlisted one fails `make check-artifact-manifest`. A dev lap re-snaps the refuge nodes to the designated sites, re-runs the same 458 origins on the same canonical field under both policies, and commits the three-bucket partition under a new filename beside the committed one; the paper then reports both. This is backlog WFG-073, which the paper routine cannot run itself (it would be a new artifact outside `paper/`) | no |
+
+## ⚠ The length budget is now the binding constraint, and it is an author decision (lap 6)
+
+Not a `[GAP]` — nothing is missing from the manuscript; the problem is that nothing more
+fits. This lap added four things the evidence supports (the withdrawn-claim registry in
+§3.5, the not-a-probability-sample statement and the off-network walking limitation in §6, the
+outside-readers paragraph in §5) and had to pay for them by trimming elsewhere. **After the
+trims the body stands at 7,467 words against a 7,000 target and a 7,500 hard fail: 33
+words of margin.** The next lap that adds a clause fails `check_paper.py`.
+
+What was trimmed this lap, so the record exists: the abstract and §1's three-claims
+paragraph were tightened; four `[GAP]` markers were cut to what is missing, their detail
+already living in this file; §1 dropped "2,246 households" and "1.05 trillion won" (neither
+is used by any result; 99,289 ha and 3,819 homes stay); §4.6's mechanism paragraph, §4.7's
+opening and closing, §5's conformal paragraph and the availability section were compressed
+without dropping a number or a caveat.
+
+⚠ **The first version of this block said that of every trim, and it was false in two
+places — the lap reviewer caught both and they were restored before the push.** The §1
+compression had deleted "its casualty figures are re-cited rather than measured", which is
+the registered caveat on `fire2025_chain_deaths_yeongdeok`; the §4.3 compression had deleted
+"and no per-origin ledger exists", which is the caveat that stops a reader inferring a
+per-origin reclassification count between the reverted and canonical lineages. Both are back
+in the manuscript. The lesson is the one §3.5 now states about the other registry: a
+compression that keeps every *number* can still drop the *caveat* bound to it, and no gate
+here reads for that — `make verify`, the collision scan, the forbidden-string scan,
+`check_withdrawn_claims` and `check_paper` were all green across both deletions.
+
+**No further trim of this kind is available.** Every remaining paragraph carries a
+registered number and the caveat that CHARTER §3 rule 3 binds to it, and the loop will not
+drop a caveat to buy space. Closing the 467-word gap to the target is therefore structural,
+and the choice belongs to the author, not to a lap:
+
+- **(a)** Move §6's designated-site inventory block (~200 words: the 주소정보누리집 counts,
+  their two data dates and the extent caveat) to an appendix or to the data-availability
+  section. It is a description of an input no result uses, not a limitation of a result.
+- **(b)** Cut §4.7 (detection timing, ~530 words) to a short paragraph plus Table 4, and
+  publish the measurement separately. It is the section least connected to the routing
+  claim the paper is built on.
+- **(c)** Accept 7,460 and target a venue whose limit is the page count rather than the
+  word count — IEEE Access measures pages, and the built `.docx` is inside 20.
+
+Until the author chooses, laps must keep the body under 7,500 by trading word for word.
 
 ## ✅ That input was re-cut and is now in the manuscript (lap 5) — the block below is the record
 
