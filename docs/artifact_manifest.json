@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "a063e51b1049333cf51a982194aebc577a7a16e7",
-  "n_artifacts": 102,
-  "total_bytes": 14509350,
-  "total_mib": 13.84,
-  "n_git_tracked": 102,
+  "generated_at_git_commit": "84e0f0d3eef8d4fd42e6d3449d7faaf18acda531",
+  "n_artifacts": 103,
+  "total_bytes": 14654919,
+  "total_mib": 13.98,
+  "n_git_tracked": 103,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 8,
   "artifacts": [
@@ -244,6 +244,7 @@
       "cited_by_docs": [
         "docs/auto/BACKLOG.md",
         "docs/auto/KCF_READINESS.md",
+        "docs/auto/NEEDS_HUMAN.md",
         "docs/auto/reports/2026-09-05T0702Z-dev.md",
         "docs/demo_script_pace.md"
       ],
@@ -256,7 +257,10 @@
       "kind": "text",
       "git_tracked": true,
       "n_registry_entries": 2,
-      "cited_by_docs": [],
+      "cited_by_docs": [
+        "docs/auto/NEEDS_HUMAN.md",
+        "docs/auto/reports/2026-09-05T0953Z-dev.md"
+      ],
       "regenerate": "python scripts/measure_demo_script_pace.py --stamp 20260905T0947Z"
     },
     {
@@ -267,6 +271,7 @@
       "git_tracked": true,
       "n_registry_entries": 2,
       "cited_by_docs": [
+        "docs/auto/NEEDS_HUMAN.md",
         "docs/auto/SCORECARD.md",
         "docs/auto/reports/2026-09-05T0702Z-dev.md",
         "docs/demo_script_pace.md"
@@ -626,6 +631,18 @@
       "regenerate": "python scripts/build_multi_region_comparison.py"
     },
     {
+      "path": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "bytes": 145569,
+      "sha256": "eb13f09b282d4e40abf218b9721b435cd8faba07f9ddab8d33d118ce0f9219d2",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 75,
+      "cited_by_docs": [
+        "docs/present_perimeter_arm.md"
+      ],
+      "regenerate": "python scripts/register_present_perimeter_arm.py"
+    },
+    {
       "path": "data/processed/real_roads_real_hazard.json",
       "bytes": 8464,
       "sha256": "96f48fc97b467637033d6ba8f3569a29e13cb8efe3a8e7f39a92f7d2d5282d6d",
@@ -844,7 +861,8 @@
       "n_registry_entries": 0,
       "cited_by_docs": [
         "docs/live_pipeline.md",
-        "docs/manual_trigger.md"
+        "docs/manual_trigger.md",
+        "paper/GAPS.md"
       ],
       "regenerate": "python scripts/build_canonical_hazard.py"
     },

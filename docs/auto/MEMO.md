@@ -1095,3 +1095,67 @@ sentence naming which gate covers a hole is a claim about a program, and it is v
 that program against the hole, never by reading the gate's name.** Second, the exemption a new gate
 grants itself is load-bearing from the moment it is written: WFG-109 made line 434 the one exempt
 line, and that same line is where every judged number lives (WFG-113).
+
+---
+
+## 2026-09-05, dev lap 2132Z (WFG-114) — a test that cannot fail the way its docstring claims
+
+I wrote `test_the_buffer_is_a_disk_of_the_right_radius` with a docstring saying it catches a
+cross-shaped structuring element under-buffering the diagonals, asserted four cells at the
+headline's radius 2, and it passed. Then I mutated the disk into a cross and **ran the test
+again: it still passed.** At radius 2 on a 500 m grid a Euclidean disk and an L1 cross are
+the *same set of cells*. The test could not distinguish the two shapes it was named after.
+
+**The anti-pattern:** grading a shape, a threshold or a branch at the one operating point the
+production code uses. That point is usually where the alternatives coincide — that is often
+*why* it was chosen — so the test measures nothing and its docstring becomes a false claim
+about coverage. Regraded at radius 3, where disk and cross diverge, the cross mutation goes
+red; and the same run established a fact worth knowing about the result, namely that
+`ppa_recovered_1km` is invariant to the choice of element while the 2 km and wider rows are
+not.
+
+**The gate this adds to the next lap:** a test whose docstring says it catches X is run once
+against X before it is committed. Mutate the code, watch it go red, put the code back. Three
+mutations were graded this lap (doc drift, the element shape, and the artifact's
+`present_enters`); the first and third went red immediately and the second did not, which is
+the whole point of running all three rather than the one I expected to fail.
+
+**And the smaller lesson underneath it:** the operating point is the worst place to test a
+choice, and the best place to *report* one. Both statements went into the test's docstring.
+
+**Addendum, same lap, written after the reviewer blocked it.** The entry above is about a
+test that could not fail the way its docstring claimed. The reviewer found the same shape one
+level up, in the *result*: the run recorded ONE bucket named `refused_to_move_or_no_path` —
+a name that honestly concedes it is a union — and the prose then asserted a mechanism for
+the whole of it ("all 12 sit inside their own buffer"). Recomputing the router's own refusal
+predicate gives 4, not 12; the other 8 are outside the buffer and walled off from every
+refuge by the mask. The drift test I had written asserted the *union* equalled 12 and stayed
+green while the prose asserted one of its halves.
+
+**The anti-pattern, stated so the next lap can catch it in itself: a bucket whose NAME
+contains "or" cannot support a sentence about either side of the "or".** If the prose wants
+to say which half happened, the run must count the halves. And the give-away is in the
+identifier — I wrote `_or_` myself, in the same commit as the sentence that ignored it.
+
+The corrected split is a better finding than the wrong one: 8 origins cut off from every
+refuge by the safety margin itself is a stronger, more surprising result than 8 more people
+told to stay put. That is worth remembering the next time a block feels like a setback.
+
+**Second addendum, same lap, after the re-review passed it.** The fix above was the count.
+The reviewer then found the *same shape* one level further out: having correctly measured
+that 8 origins are walled off, the doc explained them with 「예보는 어느 쪽이 계속 열려
+있을지 알기 때문에」 — a causal claim, inferred, never measured, sitting in the sentence a
+judge repeats. The reviewer named the competing explanation and the cheapest measurement:
+39.4 % of the 1 km mask never burns, so a path through it may need no forecast at all.
+Measured: **10 of 11, against us.** The honest sentence is "the buffer was too wide".
+
+**So the anti-pattern generalises past buckets, and this is its real statement: a correct
+count does not license a sentence about WHY.** Both times the number beside the claim was
+right; both times the claim was invented. The tell is the word 「때문에」 / "because" in a
+paragraph whose only evidence is a count.
+
+**And the gate that follows: before a causal sentence ships, write down the competing
+explanation and say which measurement would separate them.** If that measurement is not in
+the run, either run it or delete the sentence — the count can stay. Twice in one lap the
+lap failed this, and both times it was an outside reader who noticed, which is the argument
+for `LOOP_CONFIG.review: subagent` in one line.

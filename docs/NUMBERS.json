@@ -10965,6 +10965,2416 @@
           }
         }
       }
+    },
+    "ppa_n_origins": {
+      "value": 368,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "n_origins_scanned",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "The scan denominator, reproduced here from the snapshot graph and equal to the committed run's 368. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "n_origins_scanned"
+          }
+        }
+      }
+    },
+    "ppa_fa_only_n": {
+      "value": 91,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "headline.fa_only_n",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "The committed headline's 91 forecast-aware-only origins, RE-DERIVED on this machine node-for-node before the new arm ran (see committed_arm_reproduction.node_for_node_match). If that flag is ever false the ppa_ keys are not comparable to the committed ones. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "headline.fa_only_n"
+          }
+        }
+      }
+    },
+    "ppa_recovered_1km": {
+      "value": 79,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "headline.fa_only_recovered_by_present",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Of the 91, how many a present-perimeter + 1 km planner ALSO gets to a refuge safely. This is the fair opponent recovering most of the headline gap. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [
+        "the forecast saves 91",
+        "91 people the baseline would lose"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "headline.fa_only_recovered_by_present"
+          }
+        }
+      }
+    },
+    "ppa_forecast_only_1km": {
+      "value": 12,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "headline.fa_only_still_forecast_only",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Of the 91, how many remain safe ONLY with the forecast at the author's 1 km buffer. NONE of them is an origin the present-aware arm walks into the fire — at 1 km that arm produces zero unsafe routes. They split into two DIFFERENT failures, registered separately as ppa_forecast_only_refused_1km (4, refused at the origin because it is inside the buffer) and ppa_forecast_only_walled_1km (8, free to leave but cut off from every refuge by the static mask). An earlier draft of this lap wrote 'all 12 sit inside their own buffer'; that was never measured and is false. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [
+        "sends into the fire",
+        "walks into the fire",
+        "12개 모두 자기 자신의 1 km 완충 안에"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "headline.fa_only_still_forecast_only"
+          }
+        }
+      }
+    },
+    "ppa_safe_1km": {
+      "value": 327,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "headline.present_safe",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Origins that reach a refuge safely under present perimeter + 1 km. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "headline.present_safe"
+          }
+        }
+      }
+    },
+    "ppa_no_route_1km": {
+      "value": 41,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "headline.present_no_route",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Origins the present + 1 km planner gives no route at all — almost all of them sit inside its own buffer, so the plan is 'do not move'. This is the cost of the margin, and it is why a larger buffer is not simply safer. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "headline.present_no_route"
+          }
+        }
+      }
+    },
+    "ppa_safe_naive": {
+      "value": 265,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "ladder_safe_counts.naive",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "The fire-blind control: shortest path to the nearest refuge, scored against the hazard. both_safe (263) PLUS fa_exceeds_budget (2), because that bucket is entered only when the naive route did NOT enter the hazard and the forecast-aware one failed to reach — so those two are naive successes. Reporting 263 here would understate the opponent by 2, in this project's own favour. ⚠ The naive router carries no time budget at all, so this row answers a slightly easier question than the budgeted rows. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "ladder_safe_counts.naive"
+          }
+        }
+      }
+    },
+    "ppa_safe_forecast": {
+      "value": 354,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "ladder_safe_counts.forecast_aware",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "The forecast-aware arm, from the committed artifact (both_safe + naive_into_FA_safe). 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "ladder_safe_counts.forecast_aware"
+          }
+        }
+      }
+    },
+    "ppa_safe_present_500m": {
+      "value": 349,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "ladder_safe_counts.present_500m",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "The BEST present-aware setting found in the sweep, and the strongest form of the opponent: 349 of 368, five short of the forecast-aware arm. It is not the author's named 1 km and it is reported because the sweep found it. It buys that mobility with 5 unsafe routes, which 1 km does not have. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "ladder_safe_counts.present_500m"
+          }
+        }
+      }
+    },
+    "ppa_recovered_500m": {
+      "value": 90,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.500.fa_only_recovered_by_present",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "At the sweep's best buffer the present-aware arm recovers 90 of the 91. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.500.fa_only_recovered_by_present"
+          }
+        }
+      }
+    },
+    "ppa_final_core_covered_1km": {
+      "value": 0.9389312977099237,
+      "unit": "fraction",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "geometry_by_buffer_m.1000.final_core_fraction_covered",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "WHY the opponent nearly ties: the slice-0 perimeter dilated by 1 km already contains 93.9 % of the cells that are burning at the 720-minute horizon. On THIS fire the envelope grows by less than the margin, so a static buffer is a near-substitute for the forecast. A faster fire would not have this property, and that is a prediction this repository has not tested. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "geometry_by_buffer_m.1000.final_core_fraction_covered"
+          }
+        }
+      }
+    },
+    "ppa_forecast_only_refused_1km": {
+      "value": 4,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.1000.fa_only_missed_because.refused_to_start",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Of the 12: refused at the origin. The node itself is inside the 1 km buffer, so the planner will not let anyone leave; the advice a resident gets is 'do not move'. Measured with the router's OWN refusal predicate (field.table[origin, 0] >= p_cut), not re-derived. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.1000.fa_only_missed_because.refused_to_start"
+          }
+        }
+      }
+    },
+    "ppa_forecast_only_walled_1km": {
+      "value": 8,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.1000.fa_only_missed_because.walled_off_from_every_refuge",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Of the 12: walled off. The node is OUTSIDE the buffer and free to leave, but the static 1 km mask separates it from every refuge within the budget, so there is nowhere to go. This is the larger half and the more interesting one: a fixed margin drawn around a present perimeter can sever a village from all of its shelters, and the forecast-aware planner routes these origins out because it knows which side will still be open. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.1000.fa_only_missed_because.walled_off_from_every_refuge"
+          }
+        }
+      }
+    },
+    "ppa_refused_to_start_1km": {
+      "value": 16,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.1000.no_route_causes.refused_to_start",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "All origins (not only the 91) the 1 km arm refuses to let leave. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.1000.no_route_causes.refused_to_start"
+          }
+        }
+      }
+    },
+    "ppa_walled_off_1km": {
+      "value": 25,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.1000.no_route_causes.walled_off_from_every_refuge",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "All origins (not only the 91) the 1 km arm cuts off from every refuge. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.1000.no_route_causes.walled_off_from_every_refuge"
+          }
+        }
+      }
+    },
+    "ppa_sweep_0m_safe": {
+      "value": 284,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.0.counts.present_safe",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 0 m: reaches a refuge safely. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.0.counts.present_safe"
+          }
+        }
+      }
+    },
+    "ppa_sweep_0m_enters": {
+      "value": 75,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.0.counts.present_enters",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 0 m: routes that enter the fire. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.0.counts.present_enters"
+          }
+        }
+      }
+    },
+    "ppa_sweep_0m_noroute": {
+      "value": 9,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.0.counts.present_no_route",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 0 m: given no route at all. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.0.counts.present_no_route"
+          }
+        }
+      }
+    },
+    "ppa_sweep_0m_refused": {
+      "value": 0,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.0.no_route_causes.refused_to_start",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 0 m: refused at the origin (inside the buffer). The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.0.no_route_causes.refused_to_start"
+          }
+        }
+      }
+    },
+    "ppa_sweep_0m_walled": {
+      "value": 9,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.0.no_route_causes.walled_off_from_every_refuge",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 0 m: cut off from every refuge by the mask. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.0.no_route_causes.walled_off_from_every_refuge"
+          }
+        }
+      }
+    },
+    "ppa_sweep_0m_recovered": {
+      "value": 21,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.0.fa_only_recovered_by_present",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 0 m: of the 91 forecast-aware-only origins, also saved here. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.0.fa_only_recovered_by_present"
+          }
+        }
+      }
+    },
+    "ppa_sweep_0m_mask_km2": {
+      "value": 13.25,
+      "unit": "km2",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "geometry_by_buffer_m.0.mask_area_km2",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 0 m: area of the refused region. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "geometry_by_buffer_m.0.mask_area_km2"
+          }
+        }
+      }
+    },
+    "ppa_sweep_0m_core_covered": {
+      "value": 0.40458015267175573,
+      "unit": "fraction",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "geometry_by_buffer_m.0.final_core_fraction_covered",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 0 m: fraction of the cells burning at the 720-minute horizon that this buffer already contains. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "geometry_by_buffer_m.0.final_core_fraction_covered"
+          }
+        }
+      }
+    },
+    "ppa_sweep_500m_safe": {
+      "value": 349,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.500.counts.present_safe",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 500 m: reaches a refuge safely. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.500.counts.present_safe"
+          }
+        }
+      }
+    },
+    "ppa_sweep_500m_enters": {
+      "value": 5,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.500.counts.present_enters",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 500 m: routes that enter the fire. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.500.counts.present_enters"
+          }
+        }
+      }
+    },
+    "ppa_sweep_500m_noroute": {
+      "value": 14,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.500.counts.present_no_route",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 500 m: given no route at all. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.500.counts.present_no_route"
+          }
+        }
+      }
+    },
+    "ppa_sweep_500m_refused": {
+      "value": 3,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.500.no_route_causes.refused_to_start",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 500 m: refused at the origin (inside the buffer). The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.500.no_route_causes.refused_to_start"
+          }
+        }
+      }
+    },
+    "ppa_sweep_500m_walled": {
+      "value": 11,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.500.no_route_causes.walled_off_from_every_refuge",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 500 m: cut off from every refuge by the mask. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.500.no_route_causes.walled_off_from_every_refuge"
+          }
+        }
+      }
+    },
+    "ppa_sweep_500m_recovered": {
+      "value": 90,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.500.fa_only_recovered_by_present",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 500 m: of the 91 forecast-aware-only origins, also saved here. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.500.fa_only_recovered_by_present"
+          }
+        }
+      }
+    },
+    "ppa_sweep_500m_mask_km2": {
+      "value": 33.25,
+      "unit": "km2",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "geometry_by_buffer_m.500.mask_area_km2",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 500 m: area of the refused region. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "geometry_by_buffer_m.500.mask_area_km2"
+          }
+        }
+      }
+    },
+    "ppa_sweep_500m_core_covered": {
+      "value": 0.7862595419847328,
+      "unit": "fraction",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "geometry_by_buffer_m.500.final_core_fraction_covered",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 500 m: fraction of the cells burning at the 720-minute horizon that this buffer already contains. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "geometry_by_buffer_m.500.final_core_fraction_covered"
+          }
+        }
+      }
+    },
+    "ppa_sweep_1000m_safe": {
+      "value": 327,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.1000.counts.present_safe",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 1000 m: reaches a refuge safely. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.1000.counts.present_safe"
+          }
+        }
+      }
+    },
+    "ppa_sweep_1000m_enters": {
+      "value": 0,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.1000.counts.present_enters",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 1000 m: routes that enter the fire. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.1000.counts.present_enters"
+          }
+        }
+      }
+    },
+    "ppa_sweep_1000m_noroute": {
+      "value": 41,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.1000.counts.present_no_route",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 1000 m: given no route at all. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.1000.counts.present_no_route"
+          }
+        }
+      }
+    },
+    "ppa_sweep_1000m_refused": {
+      "value": 16,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.1000.no_route_causes.refused_to_start",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 1000 m: refused at the origin (inside the buffer). The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.1000.no_route_causes.refused_to_start"
+          }
+        }
+      }
+    },
+    "ppa_sweep_1000m_walled": {
+      "value": 25,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.1000.no_route_causes.walled_off_from_every_refuge",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 1000 m: cut off from every refuge by the mask. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.1000.no_route_causes.walled_off_from_every_refuge"
+          }
+        }
+      }
+    },
+    "ppa_sweep_1000m_recovered": {
+      "value": 79,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.1000.fa_only_recovered_by_present",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 1000 m: of the 91 forecast-aware-only origins, also saved here. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.1000.fa_only_recovered_by_present"
+          }
+        }
+      }
+    },
+    "ppa_sweep_1000m_mask_km2": {
+      "value": 50.75,
+      "unit": "km2",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "geometry_by_buffer_m.1000.mask_area_km2",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 1000 m: area of the refused region. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "geometry_by_buffer_m.1000.mask_area_km2"
+          }
+        }
+      }
+    },
+    "ppa_sweep_1000m_core_covered": {
+      "value": 0.9389312977099237,
+      "unit": "fraction",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "geometry_by_buffer_m.1000.final_core_fraction_covered",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 1000 m: fraction of the cells burning at the 720-minute horizon that this buffer already contains. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "geometry_by_buffer_m.1000.final_core_fraction_covered"
+          }
+        }
+      }
+    },
+    "ppa_sweep_2000m_safe": {
+      "value": 234,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.2000.counts.present_safe",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 2000 m: reaches a refuge safely. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.2000.counts.present_safe"
+          }
+        }
+      }
+    },
+    "ppa_sweep_2000m_enters": {
+      "value": 0,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.2000.counts.present_enters",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 2000 m: routes that enter the fire. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.2000.counts.present_enters"
+          }
+        }
+      }
+    },
+    "ppa_sweep_2000m_noroute": {
+      "value": 134,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.2000.counts.present_no_route",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 2000 m: given no route at all. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.2000.counts.present_no_route"
+          }
+        }
+      }
+    },
+    "ppa_sweep_2000m_refused": {
+      "value": 46,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.2000.no_route_causes.refused_to_start",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 2000 m: refused at the origin (inside the buffer). The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.2000.no_route_causes.refused_to_start"
+          }
+        }
+      }
+    },
+    "ppa_sweep_2000m_walled": {
+      "value": 88,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.2000.no_route_causes.walled_off_from_every_refuge",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 2000 m: cut off from every refuge by the mask. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.2000.no_route_causes.walled_off_from_every_refuge"
+          }
+        }
+      }
+    },
+    "ppa_sweep_2000m_recovered": {
+      "value": 16,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.2000.fa_only_recovered_by_present",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 2000 m: of the 91 forecast-aware-only origins, also saved here. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.2000.fa_only_recovered_by_present"
+          }
+        }
+      }
+    },
+    "ppa_sweep_2000m_mask_km2": {
+      "value": 101.25,
+      "unit": "km2",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "geometry_by_buffer_m.2000.mask_area_km2",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 2000 m: area of the refused region. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "geometry_by_buffer_m.2000.mask_area_km2"
+          }
+        }
+      }
+    },
+    "ppa_sweep_2000m_core_covered": {
+      "value": 1.0,
+      "unit": "fraction",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "geometry_by_buffer_m.2000.final_core_fraction_covered",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 2000 m: fraction of the cells burning at the 720-minute horizon that this buffer already contains. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "geometry_by_buffer_m.2000.final_core_fraction_covered"
+          }
+        }
+      }
+    },
+    "ppa_sweep_3000m_safe": {
+      "value": 202,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.3000.counts.present_safe",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 3000 m: reaches a refuge safely. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.3000.counts.present_safe"
+          }
+        }
+      }
+    },
+    "ppa_sweep_3000m_enters": {
+      "value": 0,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.3000.counts.present_enters",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 3000 m: routes that enter the fire. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.3000.counts.present_enters"
+          }
+        }
+      }
+    },
+    "ppa_sweep_3000m_noroute": {
+      "value": 166,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.3000.counts.present_no_route",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 3000 m: given no route at all. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.3000.counts.present_no_route"
+          }
+        }
+      }
+    },
+    "ppa_sweep_3000m_refused": {
+      "value": 85,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.3000.no_route_causes.refused_to_start",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 3000 m: refused at the origin (inside the buffer). The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.3000.no_route_causes.refused_to_start"
+          }
+        }
+      }
+    },
+    "ppa_sweep_3000m_walled": {
+      "value": 81,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.3000.no_route_causes.walled_off_from_every_refuge",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 3000 m: cut off from every refuge by the mask. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.3000.no_route_causes.walled_off_from_every_refuge"
+          }
+        }
+      }
+    },
+    "ppa_sweep_3000m_recovered": {
+      "value": 13,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.3000.fa_only_recovered_by_present",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 3000 m: of the 91 forecast-aware-only origins, also saved here. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.3000.fa_only_recovered_by_present"
+          }
+        }
+      }
+    },
+    "ppa_sweep_3000m_mask_km2": {
+      "value": 174.0,
+      "unit": "km2",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "geometry_by_buffer_m.3000.mask_area_km2",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 3000 m: area of the refused region. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "geometry_by_buffer_m.3000.mask_area_km2"
+          }
+        }
+      }
+    },
+    "ppa_sweep_3000m_core_covered": {
+      "value": 1.0,
+      "unit": "fraction",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "geometry_by_buffer_m.3000.final_core_fraction_covered",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 3000 m: fraction of the cells burning at the 720-minute horizon that this buffer already contains. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "geometry_by_buffer_m.3000.final_core_fraction_covered"
+          }
+        }
+      }
+    },
+    "ppa_sweep_5000m_safe": {
+      "value": 165,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.5000.counts.present_safe",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 5000 m: reaches a refuge safely. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.5000.counts.present_safe"
+          }
+        }
+      }
+    },
+    "ppa_sweep_5000m_enters": {
+      "value": 0,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.5000.counts.present_enters",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 5000 m: routes that enter the fire. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.5000.counts.present_enters"
+          }
+        }
+      }
+    },
+    "ppa_sweep_5000m_noroute": {
+      "value": 203,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.5000.counts.present_no_route",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 5000 m: given no route at all. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.5000.counts.present_no_route"
+          }
+        }
+      }
+    },
+    "ppa_sweep_5000m_refused": {
+      "value": 133,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.5000.no_route_causes.refused_to_start",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 5000 m: refused at the origin (inside the buffer). The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.5000.no_route_causes.refused_to_start"
+          }
+        }
+      }
+    },
+    "ppa_sweep_5000m_walled": {
+      "value": 70,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.5000.no_route_causes.walled_off_from_every_refuge",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 5000 m: cut off from every refuge by the mask. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.5000.no_route_causes.walled_off_from_every_refuge"
+          }
+        }
+      }
+    },
+    "ppa_sweep_5000m_recovered": {
+      "value": 8,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.5000.fa_only_recovered_by_present",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 5000 m: of the 91 forecast-aware-only origins, also saved here. The sweep exists so the headline radius is read off a curve rather than chosen; ⚠ the fall in the `recovered` column above 1 km is the OPPONENT breaking itself on its own over-caution (no-route grows), NOT evidence for the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.5000.fa_only_recovered_by_present"
+          }
+        }
+      }
+    },
+    "ppa_sweep_5000m_mask_km2": {
+      "value": 368.5,
+      "unit": "km2",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "geometry_by_buffer_m.5000.mask_area_km2",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 5000 m: area of the refused region. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "geometry_by_buffer_m.5000.mask_area_km2"
+          }
+        }
+      }
+    },
+    "ppa_sweep_5000m_core_covered": {
+      "value": 1.0,
+      "unit": "fraction",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "geometry_by_buffer_m.5000.final_core_fraction_covered",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "d14b29a7e391e397be2e19540a925dc654d9b303",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 5000 m: fraction of the cells burning at the 720-minute horizon that this buffer already contains. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "geometry_by_buffer_m.5000.final_core_fraction_covered"
+          }
+        }
+      }
+    },
+    "ppa_gap_1km": {
+      "value": 27,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "gaps.forecast_minus_present_1km",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "84e0f0d3eef8d4fd42e6d3449d7faaf18acda531",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "The forecast-aware arm minus the present + 1 km arm, 354 - 327. The most quotable number in the doc's §5 and in NH-031's title, so it gets a key. ⚠ An UPPER bound: the opponent never re-plans and the forecast arm is graded on the field it was shown. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "gaps.forecast_minus_present_1km"
+          }
+        }
+      }
+    },
+    "ppa_gap_best": {
+      "value": 5,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "gaps.forecast_minus_present_best",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "84e0f0d3eef8d4fd42e6d3449d7faaf18acda531",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "The forecast-aware arm minus the BEST present-aware arm in the sweep, 354 - 349. The number least favourable to this project, and the honest one to lead with. Same upper-bound caveat as ppa_gap_1km. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "gaps.forecast_minus_present_best"
+          }
+        }
+      }
+    },
+    "ppa_mask_1km_never_burns_frac": {
+      "value": 0.39408866995073893,
+      "unit": "fraction",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "mask_1km_vs_what_actually_burns.fraction_of_mask_that_never_burns",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "84e0f0d3eef8d4fd42e6d3449d7faaf18acda531",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Of the 203 cells the 1 km arm refuses, the fraction that NEVER reach p_cut at any slice: 80 of 203. The 1 km margin is mostly margin over ground that does not burn, which is why 'the forecast knows which side stays open' is NOT the explanation for the walled-off origins. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "mask_1km_vs_what_actually_burns.fraction_of_mask_that_never_burns"
+          }
+        }
+      }
+    },
+    "ppa_walled_escape_n_analysed": {
+      "value": 11,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.1000.walled_off_escape_analysis.n_walled_off_with_a_forecast_route",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "84e0f0d3eef8d4fd42e6d3449d7faaf18acda531",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Of the 25 origins the 1 km arm walls off, how many the forecast-aware arm does route out (the rest have no forecast-aware route either). 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.1000.walled_off_escape_analysis.n_walled_off_with_a_forecast_route"
+          }
+        }
+      }
+    },
+    "ppa_walled_escape_through_burning": {
+      "value": 1,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.1000.walled_off_escape_analysis.n_whose_forecast_route_crosses_ground_that_does_burn",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "84e0f0d3eef8d4fd42e6d3449d7faaf18acda531",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Of those, how many escape across cells inside the refused mask that DO reach p_cut later — the only ones where knowing the TIMING is doing the work. It is 1. This is the measurement that refuted this lap's own first explanation of the walled-off origins; see docs/present_perimeter_arm.md §3. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [
+        "knows which side stays open",
+        "어느 쪽이 계속 열려 있을지 알기 때문에"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.1000.walled_off_escape_analysis.n_whose_forecast_route_crosses_ground_that_does_burn"
+          }
+        }
+      }
+    },
+    "ppa_walled_escape_through_never_burning": {
+      "value": 10,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.1000.walled_off_escape_analysis.n_whose_forecast_route_only_crosses_ground_that_never_burns",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "84e0f0d3eef8d4fd42e6d3449d7faaf18acda531",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Of those, how many escape across ground that never burns at all, so no forecast is needed to know it is safe. It is 10 of 11. The finding is that the 1 km buffer was TOO WIDE, not that the forecast was clever. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.1000.walled_off_escape_analysis.n_whose_forecast_route_only_crosses_ground_that_never_burns"
+          }
+        }
+      }
+    },
+    "ppa_sweep_0m_still_forecast_only": {
+      "value": 70,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.0.fa_only_still_forecast_only",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "84e0f0d3eef8d4fd42e6d3449d7faaf18acda531",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 0 m: of the 91, how many remain safe only with the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.0.fa_only_still_forecast_only"
+          }
+        }
+      }
+    },
+    "ppa_sweep_500m_still_forecast_only": {
+      "value": 1,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.500.fa_only_still_forecast_only",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "84e0f0d3eef8d4fd42e6d3449d7faaf18acda531",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 500 m: of the 91, how many remain safe only with the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.500.fa_only_still_forecast_only"
+          }
+        }
+      }
+    },
+    "ppa_sweep_1000m_still_forecast_only": {
+      "value": 12,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.1000.fa_only_still_forecast_only",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "84e0f0d3eef8d4fd42e6d3449d7faaf18acda531",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 1000 m: of the 91, how many remain safe only with the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.1000.fa_only_still_forecast_only"
+          }
+        }
+      }
+    },
+    "ppa_sweep_2000m_still_forecast_only": {
+      "value": 75,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.2000.fa_only_still_forecast_only",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "84e0f0d3eef8d4fd42e6d3449d7faaf18acda531",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 2000 m: of the 91, how many remain safe only with the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.2000.fa_only_still_forecast_only"
+          }
+        }
+      }
+    },
+    "ppa_sweep_3000m_still_forecast_only": {
+      "value": 78,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.3000.fa_only_still_forecast_only",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "84e0f0d3eef8d4fd42e6d3449d7faaf18acda531",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 3000 m: of the 91, how many remain safe only with the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.3000.fa_only_still_forecast_only"
+          }
+        }
+      }
+    },
+    "ppa_sweep_5000m_still_forecast_only": {
+      "value": 83,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+      "json_path": "arms_by_buffer_m.5000.fa_only_still_forecast_only",
+      "derivation": "scripts/run_present_perimeter_arm.py — the committed 의성·안동 hazard field, the snapshot walk graph and DEM, the same 368 origins, refuges, p_cut 0.5, 600-minute budget and 10-minute step as data/processed/real_roads_real_hazard_uiseong_andong_2025.json. Only what the planner is allowed to know differs.",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "84e0f0d3eef8d4fd42e6d3449d7faaf18acda531",
+      "sample": "368 road-network origins, 의성·안동 2025",
+      "caveat": "Buffer sweep row 5000 m: of the 91, how many remain safe only with the forecast. 의성·안동 2025, ONE region, ONE ignition, ONE weather realisation, 368 road-network origins at stride 18 (NOT households). All three planners are graded against the SAME simulated hazard field, so this ranks planners on a common synthetic ground truth and validates no spread model. The present-aware planner is handed the TRUE slice-0 perimeter, which a real office does not have, so it is an UPPER bound on present-perimeter routing.",
+      "forbidden_phrasings": [],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "re-run scripts/run_present_perimeter_arm.py; it needs only data/snapshots/ and data/processed/, both committed, and it re-derives the committed 91 before it reports anything new. Two independent runs on 2026-09-05 gave identical counts.",
+        "blocked_by": null
+      },
+      "provenance": "pipeline",
+      "arm": "present_perimeter",
+      "notes": "WFG-114 / NH-027 option A. Documented in docs/present_perimeter_arm.md.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
+            "json_path": "arms_by_buffer_m.5000.fa_only_still_forecast_only"
+          }
+        }
+      }
     }
   }
 }

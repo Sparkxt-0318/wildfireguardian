@@ -1298,3 +1298,78 @@ direction page. This one cannot be: the queue was right (the lap took exactly th
 
 **Options:** A) check the routine run at https://claude.ai/code/routines and tell the loop whether the 18:17Z lap failed, so the critic can record the cause rather than the symptom  B) treat it as a one-off, let the next lap release the claim per CRITIC_LATEST, and only escalate if a second slot goes empty  C) shorten the claim's life: add a rule to CHARTER §5 that any `in-progress` stamp older than two hours is released by the next lap that meets it, with no human in the loop
 
+
+## NH-031 · DECISION · open · Your fair-opponent experiment ran, and it cuts the headline from 91 to between 5 and 27 (by 2026-09-08)
+
+**What you asked for, and what came back.** NH-027 option A, verbatim: 「Run it in the
+sprint now, P0 ... report the number whatever it says」. It ran this lap (WFG-114,
+`docs/present_perimeter_arm.md`, `ppa_*` registry keys). Here is what it says.
+
+Same 368 origins, same refuges, same budget, same committed hazard field, three planners
+that differ only in what they are allowed to know — **how many reach a refuge safely:**
+
+| planner | safe |
+|---|---:|
+| fire-blind baseline (the committed comparison) | **265** |
+| present perimeter + 1 km buffer (**your** setting) | **327** |
+| present perimeter + 0.5 km buffer (the sweep's best) | **349** |
+| forecast-aware (the committed headline) | **354** |
+
+And of the committed **91** forecast-aware-only origins, the 1 km opponent also saves
+**79**. Twelve remain forecast-only, and **none** of them is an origin the buffer planner
+sends into the fire — at 1 km that arm produces zero unsafe routes. They split two ways:
+
+- **8** are **cut off from every refuge** by the static 1 km margin. They are free to leave;
+  the margin itself severs them from all their shelters.
+- **4** are **inside the margin** and told not to move at all.
+
+And the 8 are mostly **not** a win for the forecast either. Of the 25 origins the 1 km arm
+walls off, 11 have a forecast-aware route, and **10 of those 11 escape across ground that
+never burns at any point** — 80 of the 203 cells the 1 km arm refuses never catch fire at
+all. Only **1** escapes across ground that does burn later, which is the only case where
+knowing the *timing* did the work. **So the honest reading of the residual gap is "the 1 km
+buffer was too wide", not "the forecast was clever."**
+
+⚠ **Both gaps above (27, and 5 at the best buffer) are themselves UPPER bounds on the
+forecast's advantage.** This opponent never re-plans — a real office re-runs its map as the
+perimeter updates, and that opponent would be strictly stronger — and the forecast-aware arm
+is handed a noiseless oracle of the exact hazard field it is then graded on. Correcting
+either would narrow the gap further. Neither arm is what a real office could run today.
+
+⚠ **Two corrections the loop is making to itself, in the same breath, both caught by this
+lap's own independent reviewer before anything was pushed.** (1) The first draft said all
+twelve were inside the buffer; that was never measured — the run recorded one merged bucket
+— and the reviewer recomputed the split from the router's own refusal predicate. (2) The
+second draft then said the forecast saves the other 8 "because it knows which side stays
+open"; that was also never measured, and when the reviewer named the competing explanation
+the lap measured it and **the competing explanation won, 10 to 1.** Both sentences are now
+registered as forbidden phrasings. The run counts what the prose claims, tests grade the
+labels against the router's predicate, and nothing was pushed with either wrong sentence in
+it. Twice in one lap the loop asserted a mechanism it had only inferred — that is worth your
+knowing about how these reports are produced, not just about this result.
+
+**Why it nearly ties, which is the real finding.** The slice-0 perimeter dilated by 1 km
+already contains **93.9 %** of the cells burning at the 720-minute horizon. On this fire the
+envelope grows by less than the margin, so a static buffer is a near-substitute for the
+forecast. The loop has **not** tested whether that holds on a faster fire; that is a
+prediction, not a result.
+
+**Nothing was withdrawn and nothing was rewritten.** The committed 91 is still true and is
+untouched: it is a statement about a fire-blind baseline, and this arm is additive evidence
+beside it. No judge-facing surface was changed this lap.
+
+**Why this needs you.** The row's own done-when says the WFG-104 Q&A card and 3막's sentence
+should carry the measured number. That number **weakens the demo's strongest sentence**, and
+CHARTER §6 says a change to what a committed headline MEANS is yours, not a lap's. There is
+also a real choice about which comparison the booth leads with, and a lap should not make it
+for you five weeks before the finals.
+
+**Options:** A) Lead with the honest ladder — 265 / 327 / 354 of 368 — and put the fair
+opponent on the finals screen and in the Q&A bank; the 91 stays as the fire-blind
+comparison, labelled as such. B) Keep 91 as the headline, add the fair opponent as a
+「반론에 대한 답」 card in the Q&A bank only, and leave the screen alone. C) Keep everything
+as it is for now and revisit after the 울진·삼척 replication, so the decision is made on two
+regions rather than one. D) Something else — say it in one line and the next lap does it.
+
+**Whatever you choose, the loop will not touch the finals screen's headline until you
+answer.** The evidence is committed and reproducible either way.

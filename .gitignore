@@ -438,3 +438,9 @@ release/kcf-finals-2026/LICENSE
 # Same rule, added by WFG-037: the copy checker travels IN the bundle so the
 # laptop-has-died case can run it, and its source of truth is scripts/.
 release/kcf-finals-2026/check_bundle_copy.py
+# WFG-114 / NH-027 — the fair opponent for the headline (present perimeter +
+# buffer, 의성·안동 2025). Registered under the ppa_ keys, so `make verify` needs
+# it tracked. ADDITIVE: it supersedes nothing, and
+# real_roads_real_hazard_uiseong_andong_2025.json is untouched — the run hashes
+# it before and after and aborts if it moved.
+!data/processed/present_perimeter_arm_uiseong_andong_2025.json

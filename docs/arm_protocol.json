@@ -123,6 +123,12 @@
       "role": "WFG-100 (2026-09-05). The booth script's second budget: how many Korean syllables docs/auto/DEMO_SCRIPT_5MIN.md §1 asks the student to pronounce in each of its six segments, and the single rate the 300 s are allocated at. Counts characters in a committed document; trains nothing, predicts nothing, touches no fire data.",
       "control_required": false,
       "reason_no_control": "There is no model, no feature count and no held-out anything: the two entries are a count of syllables in this repository's own prose and that count divided by the 300 s the KCF 심사개요 allows. A noise null would have nothing to be null against. ⚠ What these numbers are NOT is a measurement of speech: nobody has read the script aloud with a stopwatch (R12 / NH-014), and docs/demo_script_pace.md says so under 'What this does NOT show'. Tagged as its own arm rather than folded into a modelling arm precisely so that no reader can mistake a document measurement for one."
+    },
+    "present_perimeter": {
+      "n_features": null,
+      "role": "WFG-114 / NH-027 option A (2026-09-05). The fair opponent for the routing headline: a planner that sees the slice-0 fire perimeter dilated by a fixed buffer and nothing about how the fire will move, routed with the SAME router, graph, refuges, budget, p_cut, time step and origins as the committed forecast-aware arm, then graded against the true hazard sequence. Consumes the committed hazard field through the HazardSequence interface; fits no model, retrains nothing, and reads no model output.",
+      "control_required": false,
+      "reason_no_control": "No model is fitted and no feature count changes, so a noise null has nothing to be matched against. The free parameter this arm DOES have is its buffer radius, and it is controlled the way this protocol would ask: swept over 0 / 0.5 / 1 / 2 / 3 / 5 km with the whole curve reported (ppa_* keys, docs/present_perimeter_arm.md §3), so the headline radius is read off a curve rather than chosen. The sweep's BEST setting for the opponent (0.5 km, 349 of 368 safe) is reported beside the author's named 1 km (327), and it is the one least favourable to this project's own headline."
     }
   }
 }
