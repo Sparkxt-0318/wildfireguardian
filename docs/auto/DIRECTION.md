@@ -1,6 +1,6 @@
 # Direction — where the project is going, on one screen
 
-*Written 2026-09-04 by the author's session; steered again the same evening (product first). Rewritten by the research routine every second day; the critic checks it after every dev lap (CHARTER §14). The dev routine reads it before claiming a row. Last checked by critic #21, 2026-09-05.*
+*Written 2026-09-04 by the author's session; steered again the same evening (product first). Rewritten by the research routine every second day; the critic checks it after every dev lap (CHARTER §14). The dev routine reads it before claiming a row. Last checked by critic #22, 2026-09-05.*
 
 ## Thesis (two sentences)
 
@@ -8,27 +8,35 @@ A forecast of where the fire will be, not where it is, changes which walking rou
 
 ## Next three rows, and why
 
-*Critic #20's falsifiable test is half-resolved and it resolved FOR this page: the 18:17Z dev lap took
-WFG-114, the row this page named and the author promoted. Then it pushed nothing (NH-030). The order below
-is unchanged, because nothing about the order was wrong.*
+*Rewritten twice inside one lap. The author pushed `4d705df` at 23:12Z — four decisions and two new
+rows — while this critic's gates were running, which is exactly the case CHARTER §14 added after critic
+#20: **this page is re-read after an author push, not only after a dev lap.** The order below is the
+author's, not this critic's.*
 
-1. **WFG-114** (P0, one lap) — **the author's own row.** NH-027 option A, verbatim: 「Run it in the sprint
-   now, P0 ... report the number whatever it says」. The present-perimeter + buffer arm on 의성·안동: the
-   fair opponent for the headline, and the answer to the objection four consecutive critics have written.
-   ⚠ It is `in-progress(20260905T1820Z)` with **no work commit behind it**. `CRITIC_LATEST.md` carries the
-   release rule; critic #21 released nothing, because a claim inside its time-box is not a stale claim.
-2. **WFG-007** (P0, the printables) — unchanged from critic #20, and its evidence got one day worse.
-   `docs/auto/finals/` still holds two `.md` files and no PDF. This row alone holds **R7 and half of R9**,
-   and no readiness line has moved for **six** critic laps.
-3. **WFG-117** (P0, new this lap) — **this lap's one `fix-before-next-row` item**, and the only finding in
-   six laps that a judge would hear rather than read. `JUDGE_QA.md` Q30 is **T0** and drills the student to
-   say 「등록된 값 295개 중 261개」 while `docs/NUMBERS.json` holds 326 / 268 / 58 and the screen behind them
-   prints 326 · 268. Ungated. A ⚠ note is on Q30 already so nobody rehearses it.
+1. **WFG-121** (P0, **the author's own row**, `4d705df`) — 「Keep the headline, add the fair-opponent
+   line」. Every surface printing 「368곳 중 91곳」 gains the next sentence. ⚠ **This lap's one
+   `fix-before-next-row` item lives on this row: read NH-032 before it prints 9 anywhere.** The 9 is
+   contested by a second green measurement of the same experiment that says **27** (parked on
+   `auto/red/20260905T2248Z`), and the author's instruction was written from a ledger that did not yet
+   carry NH-032 or NH-034 — this lap imported them. **The instruction stands; only the number is in
+   question.** Do the half no answer changes: the buffer finding, and that the 91's control is
+   fire-blind. Do not print a margin until NH-032 is answered.
+2. **WFG-007** (P0, the printables) — **seventh day.** `docs/auto/finals/` holds two `.md` files and no
+   PDF, it alone holds **R7 and half of R9**, no readiness line has moved for **seven** critic laps, and
+   no lap has ever claimed it in twenty-two critic windows. Its output is a file rather than an argument,
+   and that is now the leading explanation for the stall.
+3. **WFG-117** (P0) — minutes of work, and it grew in one lap. Critic #21's protective note on
+   `JUDGE_QA.md` Q30 is itself stale: WFG-114 registered 57 keys, so the registry holds **383 / 325 / 58**
+   where the note says 326 / 268, and the screen it told the student to point at still prints 326 · 268.
+   Three counts, one T0 question. This lap rewrote the note to quote none of them; the row makes the bank
+   derive the count instead of restating it.
 
-Then WFG-115 (moved up this lap, see below), WFG-106 then WFG-104 (the two Q&A cards; read WFG-106's
-corrected opening first, it answers the **dilution** objection, not the **opponent** one), WFG-113,
-WFG-110, WFG-036 v2, WFG-101, WFG-010 (README Round-4 + abstract → R8), WFG-096, WFG-024 when its blockers
-clear (R11), and only then the infra rows, which CHARTER §14b holds behind R1, R3, R7, R8 and R9.
+Then WFG-124 (reconcile the two measurements, `blocked(NH-032)`), WFG-104 (`blocked(NH-032)` on its
+margin half; the fire-blind half is writable today), WFG-106, WFG-115, WFG-113, WFG-125 (the
+perfect-forecast bound), WFG-122, WFG-110, WFG-036 v2, WFG-101, WFG-010 (README Round-4 + abstract → R8),
+WFG-096, WFG-126 (the paper routine's), WFG-024 when its blockers clear (R11), and only then the infra
+rows, which CHARTER §14b holds behind R1, R3, R7, R8 and R9.
+
 
 ## What not to do
 
@@ -40,10 +48,43 @@ clear (R11), and only then the infra rows, which CHARTER §14b holds behind R1, 
 - Do not spend a lap on the six-fire study-area map until per-fire burned areas are registered (WFG-060).
 - Do not commit the bundle payload. R9 does not require it and critic #16 said so on the line itself.
 - Do not open another gate-about-the-loop row while the printables do not exist (CHARTER §14b).
+- **Do not put any fair-opponent margin (9, 27, 5, 19) on a judge-facing surface** until NH-032 is
+  answered — including under the author's WFG-121, whose other half is unblocked and worth doing now.
+  The parked lap wrote that constraint for itself and it binds every lap.
+- **Do not release a claim younger than three hours** (CHARTER §5b, the author's NH-030 option C), and
+  check `git log --all --grep=<row>` and `auto/red/*` before releasing an older one.
 - **Do not run `make baseline-freeze` in a sandbox.** The author ran it on the laptop at `38620f2` and it was
   correct there; here it would record the two raw contracts as MISSING and destroy the protection.
 
 ## Critic's last direction note
+
+**2026-09-05, critic #22. The row got built twice, and the second copy is the most valuable thing in the
+window.** WFG-114 landed at `c8a3eee` with a margin of **9** of 368. A second lap had released that claim
+as dead under critic #21's release rule, re-claimed it, built it independently, could not rebase (15
+conflicting files) and parked green on `auto/red/20260905T2248Z` with a margin of **27** — and **5** at the
+sweep's best buffer. Neither is wrong; they built different opponents, both defensible, and **the spread
+between them is wider than the effect either reports.** That is **WFG-124** and **NH-032**.
+
+**Why that is a direction finding.** For six laps this page argued about the queue. The queue was never the
+constraint. Here the constraint was that **two laps cannot see each other**, and the mechanism meant to
+prevent that — the claim marker — was defeated by the release rule critic #21 wrote to un-stick it. My own
+predecessor's instrument produced the duplicate, and NH-030 option C (automatic expiry) would make this
+*more* frequent, not less. The author should know that before choosing.
+
+**Readiness: 4 of 11 (R2, R4, R5, R6), unchanged, SEVEN laps**, and this time the cause is neither the
+queue nor this page: the window's work was the author's own science row, which ticks no line by design and
+was the right thing to do. R7 is held for a seventh day by WFG-007, a P0 row no lap has ever claimed.
+
+**I moved no row.** WFG-104 changed *status* to `blocked(NH-032)` — not a move: the card the last dev lap
+named as next cannot be written while its own number is contested by a factor of three. My reorder budget
+is unspent deliberately; #21 spent its budget on a queue that was not the problem.
+
+**The falsifiable test for critic #23:** if the next lap ships a PDF under `docs/auto/finals/`, R7 moves
+and the stall was the queue's tail. If it ships another Q&A or gate row and R7 is empty on day eight, the
+constraint is that **no lap will voluntarily take a row whose output is a file rather than an argument**,
+and #23 should say that plainly rather than reorder again.
+
+## Critic's previous direction note
 
 **2026-09-05, critic #21. The window is one line long, and that is the finding.** Between critic #20's push
 (`3efd0db`, 17:21Z) and `HEAD` there is exactly one changed line: the status cell of WFG-114. The 18:17Z dev
@@ -82,11 +123,15 @@ queue.
 
 ## Critic's previous direction note
 
-**2026-09-05, critic #20.** Raised WFG-007 P1 → P0 on critic #19's falsifiable test (WFG-109 closed,
-printables still absent), and found the direction defect this page had about itself: the author pushed
-`9442430` at 14:24Z promoting the fair-opponent arm, critic #19 rewrote this page twelve minutes earlier,
-and for one lap the page steered the loop away from the author's own row. The rule it added — **this page
-is re-read after an author push, not only after a dev lap** — is what put WFG-114 first, and this lap's
-window is the evidence it worked. #20 set no `fix-before-next-row` item and filed WFG-115 as a row instead.
-*(Full text: `docs/auto/reports/2026-09-05T1716Z-critic.md`; critic #19's is in the 1412Z report. This page
-stays one screen.)*
+**2026-09-05, critic #21. The window is one line long, and that is the finding.** Between critic #20's push
+(`3efd0db`) and `HEAD` there was exactly one changed line: the status cell of WFG-114. #21 read that as a
+dead claim on the author's own row, filed **NH-030**, declined to release the claim itself (the lap was
+still inside CHARTER §4's two-hour box), and left the release procedure in `CRITIC_LATEST.md` for the next
+lap. Its one `fix-before-next-row` item was WFG-117; its one row move was WFG-115 above the P1 block. It
+also recorded that this sandbox clones at **depth 50** (WFG-119), which invalidates naive
+`merge-base --is-ancestor` claims, and re-tested WFG-115 at depth 170 where it survives.
+⚠ **What #21 could not see: the claim it called dead was alive.** The 18:17Z lap was on its second rebuild
+after three reviewer blocks and pushed at 21:02Z. The release rule it left behind was applied, correctly,
+to a live lap — which is how the same row came to be built twice. See critic #22's note above.
+*(Full text: `docs/auto/reports/2026-09-05T2015Z-critic.md`; #20's is in the 1716Z report, #19's in the
+1412Z. This page stays one screen.)*

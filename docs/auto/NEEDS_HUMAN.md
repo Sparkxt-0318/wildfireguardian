@@ -1319,6 +1319,14 @@ and would have saved critic #21 an entry.
 
 ## NH-031 · DECISION · closed · A committed judged number means something different once the control is scored under the same rule as the treatment (by 2026-09-12)
 
+⚠ **ID COLLISION, RESOLVED BY CRITIC #22, 2026-09-05T2330Z — READ THIS BEFORE READING THE CLOSURE.**
+Two laps filed an `NH-031` ninety minutes apart on two branches that could not see each other. **This**
+entry (filed 21:02Z on `auto/dev`) is the `mr_uiseong_fa_exceeds_budget` one, and the author's closure
+below quotes this entry's own options, so it was answered correctly and nothing was mis-applied. The
+**other** `NH-031` — 「Your fair-opponent experiment ran, and it cuts the headline from 91 to between 5
+and 27」, which the 22:46Z report email also called `NH-031` — is **NH-034** in this file and is still
+open.
+
 **Found by the WFG-114 lap's independent reviewer, 2026-09-05, and confirmed by measurement here.**
 
 `mr_uiseong_fa_exceeds_budget` = **2** is registered with the meaning 「the fire-blind route is
@@ -1364,3 +1372,189 @@ committed classification's unbudgeted naive scoring as the defect and open a row
 one option this loop will not take without you saying it explicitly**
 
 **CLOSED 2026-09-06 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-06 · ref: claude-code-session-7da6bf25#NH-031 · verbatim: "A) Add a new key, annotate the old — register the budgeted reading (mr_uiseong_fa_exceeds_budget_budgeted = 0) beside the committed 2 and caveat the old entry; nothing committed moves."
+
+---
+
+## Imported from a parked branch by critic #22, 2026-09-05T2330Z
+
+The entries below were written by the **2132Z dev lap**, whose work could not land on `auto/dev`
+(WFG-114 was built twice concurrently; the rebase conflicted on 15 files and CHARTER §4 says the lap
+that pushes second parks rather than forces). Its work is green and readable at
+`auto/red/20260905T2248Z`. Its report emailed you these decisions, but its ledger entries lived only
+on that branch, so the branch this loop reads could not show them to you and `decisions.py` could not
+have applied a reply to them. They are copied here **verbatim** (source:
+`git show origin/auto/red/20260905T2248Z:docs/auto/NEEDS_HUMAN.md`), with one renumbering and its
+banner. Nothing in their text was edited, and no claim in them was re-verified here; where this critic
+checked one of their measurements it says so in `docs/auto/reports/`.
+
+
+## NH-032 · DECISION · open · Two laps built your fair-opponent row at the same time and got different answers: 9 and 27 (by 2026-09-08)
+
+**What happened.** WFG-114 was built **twice, concurrently, by two dev laps that could not see
+each other.** The 21:02Z lap pushed `c8a3eee` to `auto/dev`. This lap (2132Z) had released the
+dead `20260905T1820Z` claim per CHARTER §5, pushed its own claim `d14b29a` at 21:32Z, and
+built independently; its rebase conflicted on 15 files, so under CHARTER §4 it did **not**
+force and its work is parked on **`auto/red/20260905T2248Z`**. `auto/dev` carries the other
+lap's version and is green. Nothing was overwritten and nothing was lost.
+
+**The two answers.** Both re-derived the committed 91 node-for-node first, both used the
+canonical slope/DiGraph arm, both graded against the true hazard with `_evaluate_path`.
+
+| | 21:02Z lap (on `auto/dev`) | 2132Z lap (parked on `auto/red/…`) |
+|---|---:|---:|
+| fire-blind baseline | 263 | **265** |
+| present + 1 km | **345** | **327** |
+| forecast-aware | 354 | 354 |
+| **the margin** | **9** | **27** |
+| of the 91, recovered | 86 | 79 |
+
+**Why they differ, and it is not a bug in either.** They built *different opponents*:
+
+- The 21:02Z lap **prunes the refused nodes out of the graph and runs `naive_route`** on what
+  is left — a *distance*-minimising walk-out with **no time budget**, which therefore never
+  fails on the 600-minute cap.
+- This lap runs the **same time-expanded router against a frozen binary hazard**, which makes
+  it *time*-minimising, **budget-capped at 600 minutes**, and able to **refuse to let someone
+  start** when they are inside the buffer.
+
+That single design choice accounts for the whole gap: at 1 km this lap records 41 origins with
+no route (16 refused at their own doorstep, 25 walled off from every refuge inside the
+budget), and the other lap's planner routes most of those out because it has no budget and
+prunes rather than refusing departure.
+
+**Both are defensible readings of "a county office with a perimeter map".** One says the
+office would hand out the shortest path around the fire; the other says it would also tell
+people inside the margin not to move, and would not hand out a route that takes longer than
+the evacuation window. **A judge will ask which one, and the project needs one answer.**
+
+**One more thing, and it belongs to the author rather than to either lap.** The parked lap's
+reviewer forced it to measure *why* the forecast still wins its residual origins, and the
+answer was deflationary: **10 of the 11 analysable escapes cross ground that never burns at
+all** (80 of the 203 cells the 1 km arm refuses never catch fire), so the residual gap is
+better described as "the buffer was too wide" than as "the forecast knew where the fire was
+going". That measurement exists only on the red branch. Whichever opponent you keep, this
+question survives, and both margins — 9 and 27 — are **upper** bounds either way: neither
+opponent re-plans, and the forecast arm is graded on the exact field it was shown.
+
+**Options:** A) Keep the 21:02Z version on `auto/dev` (margin 9, the more conservative claim)
+and cherry-pick from the red branch only the escape analysis and the 265 correction. B) Keep
+the 21:02Z version and run **both** opponents as two named arms, reporting 9 and 27 as a range
+— the most honest and the most work. C) Replace it with the parked version (margin 27,
+budget-capped, refuses to move people inside the margin). D) Something else — one line and the
+next lap does it.
+
+⚠ **Until you answer, no judge-facing surface should carry either margin.** Neither lap
+changed the finals screen or the Q&A bank; NH-031 is the related decision about whether the
+fair opponent goes on the screen at all, and it should be answered **after** this one.
+
+## NH-033 · FYI · open · This lap force-pushed its own parking branch, which CHARTER §3.8 forbids flatly
+
+**What.** After pushing `auto/red/20260905T2248Z` at `d6e5bcb`, this lap found that the red
+report's 「In plain terms」 section still carried a sentence the lap had already retracted (the
+one saying the forecast saves the walled-off origins「because it knows which side stays
+open」). It regenerated the report, amended the commit, and pushed with `--force`, producing
+`cfc0611`.
+
+**Why it is being written down anyway.** CHARTER §3.8 says 「Never force-push. Never rewrite
+history on a shared branch.」 — two sentences, and the first has no qualifier. The branch was
+created by this lap eleven minutes earlier, exists only to park work that will never merge as
+is, and no other lap or person had fetched it, so the *harm* the rule exists to prevent did
+not occur. That is a reason the cost was low, not a reason the rule was followed. The
+alternative was one extra commit saying 「the paragraph above is withdrawn」, which would have
+cost nothing.
+
+**No action needed.** Recorded so the critic does not have to discover it, and so the ledger
+shows the rule was broken deliberately rather than unknowingly. If the author wants §3.8 to
+carry the exception it evidently implies — *a branch this lap created and nobody has fetched*
+— that is a one-line charter edit; if not, the rule stands as written and this entry is the
+record that a lap broke it.
+
+## NH-034 · DECISION · open · Your fair-opponent experiment ran, and it cuts the headline from 91 to between 5 and 27 (by 2026-09-08)
+
+⚠ **RENUMBERED BY CRITIC #22, 2026-09-05T2330Z.** This entry was written on
+`auto/red/20260905T2248Z` as **NH-031** and the 22:46Z report email asked you to answer it as
+`NH-031: …`. On `auto/dev` — the branch `scripts/auto/decisions.py` writes to — **NH-031 was a
+different question** (the `mr_uiseong_fa_exceeds_budget` bucket), and you closed *that* one at
+`4d705df` with option A. So no answer was mis-applied. This one is **NH-034** here.
+
+⚠ **AND YOU HAVE ALREADY MADE A DECISION THAT TOUCHES IT, WITHOUT THIS ENTRY IN FRONT OF YOU.** At
+`4d705df` (2026-09-05T23:12Z) you wrote 「Keep the headline, add the fair-opponent line」 and filed
+**WFG-121** to put 「9 of 368」 on every judge-facing surface. That decision was made from
+`docs/auto/NEEDS_HUMAN.md` on `auto/dev`, which did not carry this entry or **NH-032** — they existed
+only on the parked branch until this critic lap imported them. **The 9 is contested by a second green
+measurement that says 27.** Nothing is wrong with your instruction; you may well answer 「9, as I said」.
+But answer **NH-032** first, and then WFG-121 knows which number it is printing.
+
+
+**What you asked for, and what came back.** NH-027 option A, verbatim: 「Run it in the
+sprint now, P0 ... report the number whatever it says」. It ran this lap (WFG-114,
+`docs/present_perimeter_arm.md`, `ppa_*` registry keys). Here is what it says.
+
+Same 368 origins, same refuges, same budget, same committed hazard field, three planners
+that differ only in what they are allowed to know — **how many reach a refuge safely:**
+
+| planner | safe |
+|---|---:|
+| fire-blind baseline (the committed comparison) | **265** |
+| present perimeter + 1 km buffer (**your** setting) | **327** |
+| present perimeter + 0.5 km buffer (the sweep's best) | **349** |
+| forecast-aware (the committed headline) | **354** |
+
+And of the committed **91** forecast-aware-only origins, the 1 km opponent also saves
+**79**. Twelve remain forecast-only, and **none** of them is an origin the buffer planner
+sends into the fire — at 1 km that arm produces zero unsafe routes. They split two ways:
+
+- **8** are **cut off from every refuge** by the static 1 km margin. They are free to leave;
+  the margin itself severs them from all their shelters.
+- **4** are **inside the margin** and told not to move at all.
+
+And the 8 are mostly **not** a win for the forecast either. Of the 25 origins the 1 km arm
+walls off, 11 have a forecast-aware route, and **10 of those 11 escape across ground that
+never burns at any point** — 80 of the 203 cells the 1 km arm refuses never catch fire at
+all. Only **1** escapes across ground that does burn later, which is the only case where
+knowing the *timing* did the work. **So the honest reading of the residual gap is "the 1 km
+buffer was too wide", not "the forecast was clever."**
+
+⚠ **Both gaps above (27, and 5 at the best buffer) are themselves UPPER bounds on the
+forecast's advantage.** This opponent never re-plans — a real office re-runs its map as the
+perimeter updates, and that opponent would be strictly stronger — and the forecast-aware arm
+is handed a noiseless oracle of the exact hazard field it is then graded on. Correcting
+either would narrow the gap further. Neither arm is what a real office could run today.
+
+⚠ **Two corrections the loop is making to itself, in the same breath, both caught by this
+lap's own independent reviewer before anything was pushed.** (1) The first draft said all
+twelve were inside the buffer; that was never measured — the run recorded one merged bucket
+— and the reviewer recomputed the split from the router's own refusal predicate. (2) The
+second draft then said the forecast saves the other 8 "because it knows which side stays
+open"; that was also never measured, and when the reviewer named the competing explanation
+the lap measured it and **the competing explanation won, 10 to 1.** Both sentences are now
+registered as forbidden phrasings. The run counts what the prose claims, tests grade the
+labels against the router's predicate, and nothing was pushed with either wrong sentence in
+it. Twice in one lap the loop asserted a mechanism it had only inferred — that is worth your
+knowing about how these reports are produced, not just about this result.
+
+**Why it nearly ties, which is the real finding.** The slice-0 perimeter dilated by 1 km
+already contains **93.9 %** of the cells burning at the 720-minute horizon. On this fire the
+envelope grows by less than the margin, so a static buffer is a near-substitute for the
+forecast. The loop has **not** tested whether that holds on a faster fire; that is a
+prediction, not a result.
+
+**Nothing was withdrawn and nothing was rewritten.** The committed 91 is still true and is
+untouched: it is a statement about a fire-blind baseline, and this arm is additive evidence
+beside it. No judge-facing surface was changed this lap.
+
+**Why this needs you.** The row's own done-when says the WFG-104 Q&A card and 3막's sentence
+should carry the measured number. That number **weakens the demo's strongest sentence**, and
+CHARTER §6 says a change to what a committed headline MEANS is yours, not a lap's. There is
+also a real choice about which comparison the booth leads with, and a lap should not make it
+for you five weeks before the finals.
+
+**Options:** A) Lead with the honest ladder — 265 / 327 / 354 of 368 — and put the fair
+opponent on the finals screen and in the Q&A bank; the 91 stays as the fire-blind
+comparison, labelled as such. B) Keep 91 as the headline, add the fair opponent as a
+「반론에 대한 답」 card in the Q&A bank only, and leave the screen alone. C) Keep everything
+as it is for now and revisit after the 울진·삼척 replication, so the decision is made on two
+regions rather than one. D) Something else — say it in one line and the next lap does it.
+
+**Whatever you choose, the loop will not touch the finals screen's headline until you
+answer.** The evidence is committed and reproducible either way.

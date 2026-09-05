@@ -1,123 +1,110 @@
-# CRITIC_LATEST — critic #21, 2026-09-05
+# CRITIC_LATEST — critic #22, 2026-09-05
 
-Window `3efd0db..492364c` on `auto/dev`. **One commit, one changed line** — the status cell of one
-backlog row. Written by the `wfg-autoloop-critic` routine. Gates re-run here: ALL GREEN at `492364c`
-(`1515 passed, 62 skipped`, cold), `--assert-head` and all 44 push pairs of the last 24 h pass
-`--assert-reported`, `auto-gates` runs 131 to 139 carry no `failure`.
+Window `492364c..4d705df` on `auto/dev` — which grew an author push at 23:12Z while this lap's gates were
+running — plus one branch that is not on `auto/dev` and matters more than the diff. Gates re-run here: **ALL GREEN** at `f118bfe` (`1535 passed, 62 skipped`, cold, 306.7 s),
+`--assert-head` green, all **70** consecutive push pairs in the 24-hour window pass `--assert-reported`,
+`auto-gates` runs **128 to 145** carry no `failure` and run 145 at this head is `success`.
 
-## Before you claim a row: WFG-114 may be a lock with no key
+## Read this before you claim anything: WFG-114 was built twice
 
-`docs/auto/BACKLOG.md` shows **WFG-114 `in-progress(20260905T1820Z)`** — the author's own NH-027 row.
-The lap that claimed it pushed `492364c` at 18:20Z and nothing since; at 20:10Z there was no artifact
-under `data/processed/` and `git log --all --grep=WFG-114` found only the claim. I did **not** release
-it: at that moment the lap was still inside CHARTER §4's two-hour box, and releasing a live claim is
-the NH-007 failure.
+`c8a3eee` on `auto/dev` reports the forecast's margin over a present-aware planner as **9 of 368**.
+A second lap built the same row concurrently, could not rebase (15 conflicting files), and parked green on
+**`auto/red/20260905T2248Z`** reporting **27** — and **5** at its sweep's best buffer (0.5 km). Both laps
+re-derive the committed 91 node-for-node first; both use the canonical slope/DiGraph arm; both grade with
+`_evaluate_path`. They differ only in how the *opponent* is built.
 
-**So the first thing you do is decide whether it is stale, using CHARTER §5 rather than judgement:**
+**Consequences for you, in order:**
 
-1. `git fetch origin && git log origin/auto/dev --oneline -5`.
-2. If a WFG-114 work commit has landed, nothing here applies — read the item below and carry on.
-3. If WFG-114 is still `in-progress(20260905T1820Z)` with no work commit behind it, the claiming lap
-   has ended. CHARTER §5: 「A lap that ends without finishing its row sets the row back to `todo`」 and
-   「`in-progress` written by a lap that has ended is a lock with no key」. **Set it back to `todo` with
-   a residue note naming the dead stamp, push that alone, and then claim it yourself.** It is the
-   author's own row, it is first on `docs/auto/DIRECTION.md`, and it answers the objection four
-   consecutive critics have written down. Do not step over it to reach the item below.
-
-**NH-030** is open on this for the author. Do not close it; it asks them something the loop cannot
-answer (whether the routine run failed).
+1. **Do not put 9, 27, 5 or 19 on any judge-facing surface.** That is the parked lap's own constraint and
+   this lap adopts it: 「Until you answer, no judge-facing surface should carry either margin.」 It binds
+   `JUDGE_QA.md`, `DEMO_SCRIPT_5MIN.md`, `web/`, `paper/` and the printables.
+2. **WFG-104 is `blocked(NH-032)` on its margin half.** The last dev lap named it as your next row. Its
+   fire-blind half is still writable today (「the baseline is fire-blind, and the fair-opponent arm HAS now
+   been run — see `docs/present_perimeter_arm.md`」) with no number in it. If you write it, write only that.
+3. **`docs/auto/NEEDS_HUMAN.md` now carries NH-032, NH-033 and NH-034**, imported verbatim from the parked
+   branch by this lap, because they existed only there and `decisions.py` writes to `auto/dev`. **NH-031
+   was an ID collision** — two laps filed one ninety minutes apart on two branches — and the fair-opponent
+   entry is **NH-034** here. Both entries carry a banner. If the author replies `NH-031: …`, read the
+   banner before applying it.
+4. **Do not delete or force-push `auto/red/20260905T2248Z`.** It is the only copy of the escape analysis
+   (10 of 11 forecast-only escapes cross ground that never burns) and of the 265-vs-263 control question.
 
 ## fix-before-next-row
 
-**One item, and it is a judge-facing surface under CHARTER §14b: WFG-117.**
+**One item, and it sits on the author's own new row: read NH-032 before WFG-121 prints 9 anywhere.**
 
-`docs/auto/JUDGE_QA.md` Q30 is **T0** — 「그러면 오늘의 숫자는 왜 믿습니까?」, the question this
-project's whole credibility case answers — and the drafted answer has the student say:
+At `4d705df` the author decided 「Keep the headline, add the fair-opponent line」 and filed **WFG-121** to
+put 「9 of 368」 on every judge-facing surface — README opening, `web/finals.html`, the 3막 script,
+`JUDGE_QA.md`, the manuscript. That is a judge-facing surface under CHARTER §14b and it is now the top
+row, so the next lap will take it.
 
-> 등록된 값 **295**개 중 **261**개가 커밋된 아티팩트에서 `make verify`로 다시 계산되고, 나머지
-> **34**개는 「확인됨, 재현 불가」로 라벨이 붙어 있습니다. **16**개는 ... OSM ... **18**개는 ...
+**The 9 is contested by a second green measurement of the same experiment that says 27**, and 5 at its
+sweep's best buffer (see the section above). **The author's instruction stands and nothing here overrules
+it** — but their decision was made from a `docs/auto/NEEDS_HUMAN.md` that did not carry NH-032 or NH-034,
+because those entries lived only on the parked branch until this critic lap imported them. They have not
+declined the question; they were never shown it.
 
-Counted from the file this lap, not read from a report:
+**So do this, in this order:**
 
-```
-docs/NUMBERS.json  numbers                      -> 326 entries
-                   reproducible: true           -> 268
-                   reproducible: false          ->  58
-web/finals.html    registry.n_entries           -> 326
-                   registry.n_reproducible      -> 268
-```
+1. Do the half of WFG-121 that **no answer changes**, and it is the better half anyway: the buffer finding
+   (250 m walks 91 origins into the fire; 2 km leaves 80 unable to finish inside the 600-minute budget; no
+   fixed width works and an operator on the day cannot know which one they are on) and the plain statement
+   that the 91's control is **fire-blind**. Neither sentence contains a margin.
+2. **Do not print 9, 27, 5 or 19** on any judge-facing surface until NH-032 is answered.
+3. If the author answers 9, the row proceeds unchanged and nothing was lost.
 
-All three spoken figures are stale, and the 16 + 18 decomposition accounts for 34 of 58. The 검증
-레지스트리 card **on the screen behind the student** prints 326 · 268, so a judge who looks up hears
-one number and sees another, on the highest drill tier. Nothing gates it: `tests/test_judge_qa_bank.py`
-contains no check that reads a registry count, which is how they drifted 31 apart. This is the WFG-057
-failure shape in a worse place.
+**WFG-117 stays P0 and is not this lap's item only because the author's row outranks it.** Its bleeding is
+stopped: this lap rewrote `JUDGE_QA.md` Q30's ⚠ note to quote no count and point at no screen. What is left
+is the durable fix, and the window is its own argument — critic #21's corrected literal (326 / 268) survived
+exactly **one lap** before WFG-114 registered 57 keys and the registry became **383 / 325 / 58**, while
+`web/finals.html` still prints 326 · 268:
 
-I have already put a ⚠ 근거 없음 note on Q30 so nobody rehearses the numbers before you close this.
+| where | 등록 | 재현 가능 | 재현 불가 |
+|---|---:|---:|---:|
+| Q30's draft answer | 295 | 261 | 34 |
+| Q30's old ⚠ note and `web/finals.html` | 326 | 268 | 58 |
+| `docs/NUMBERS.json`, counted here | **383** | **325** | **58** |
 
-**Done when:** Q30 states counts a test derives from `docs/NUMBERS.json` at run time (or states no count
-and points at the card); the non-reproducible decomposition is recounted against the 58 or withdrawn in
-writing; and a test in `tests/test_judge_qa_bank.py` goes red **both** ways — edit a digit in the bank,
-and flip one entry's `reproducible` flag in a scratch copy of the registry. Grade it, do not assert it.
+The row's done-when is the only fix with a fuse longer than one lap: the bank states a count only if a test
+derives it from `docs/NUMBERS.json` at run time, the 16 + 18 decomposition is recounted against 58 or
+withdrawn in writing, and `tests/test_judge_qa_bank.py` goes red when a count in the bank disagrees with the
+registry — graded both ways. The screen half is **WFG-113**, which now has a live instance.
 
-## Findings, ranked
+## After that: WFG-007, and it is not a suggestion this time
 
-**F1 · NH-030 · the loop · the dev slot produced no work, on the author's own row.** Detailed above.
-This is the first slot in the sprint with no work in it, and it reframes six laps of stalled readiness:
-critic #18 blamed the queue, #19 blamed the queue, #20 blamed the direction page, and this window rules
-all three out — the page named the right row, the lap took it, nothing came out. **Critic #20's
-falsifiable test is half-resolved and it resolved for the page.**
+`docs/auto/KCF_READINESS.md` reads **4 of 11 for the seventh consecutive critic lap**. R7 and half of R9
+are held by **WFG-007** — the printables — which is **P0**, `todo`, and has never been claimed by any lap
+in twenty-two critic windows. `docs/auto/finals/` has held two `.md` files and no PDF for seven days.
+It is **#1** on `docs/auto/DIRECTION.md` by arithmetic rather than by a move: the row above it finished.
 
-**F2 · WFG-117 · judge-facing · P0 ·** the `fix-before-next-row` item above.
+Critic #23's falsifiable test is written on the direction page and is about you: if the next lap ships a
+PDF under `docs/auto/finals/`, the seven-lap stall was the queue's tail. If it ships another Q&A or gate
+row and R7 is still empty on day eight, the constraint is that no lap will voluntarily take a row whose
+output is a file rather than an argument.
 
-**F3 · WFG-119 · the loop's own instruments · P1 (parked by §14b) · every ancestry claim four critic
-laps have made was measured in a depth-50 shallow clone, and none of them said so.**
-`git rev-parse --is-shallow-repository` → `true`; `git rev-list --count HEAD` → **50**.
-`git merge-base --is-ancestor` cannot answer across a shallow boundary, and it is the instrument behind
-WFG-067's gate (`tests/test_finals_screen.py:523`, `:550`, `:649`) and behind every 「not reachable from
-HEAD」 finding, WFG-115 included. **So I removed the confounder before trusting the finding:**
-`git fetch --deepen=120` (170 commits), then re-ran it. `41498ef` is **still** not an ancestor and is
-still on `origin/auto/lap-b1989d5-superseded` and `origin/ordering-boundary` only. **WFG-115 stands.**
-The predicted failure, not yet observed, is the mirror image of CHARTER §4b: the screen's stamp
-`5f9a3b8` is 7 commits behind `HEAD`, the branch moves on the order of 40 commits a day, and once a
-stamp ages past 50 commits the ancestry test goes **RED in every sandbox while staying GREEN in CI**,
-which checks out at `fetch-depth: 0`. A red only the sandbox sees would be read as a real defect.
-⚠ Same row: this routine's own step-2 command, `curl .../actions/runs`, now returns **403**
-「GitHub access is not enabled for this session」. The runs must be read through the GitHub MCP.
+## One thing about the loop you should know before you use the release rule
 
-**F4 · WFG-118 · the loop · P1 (parked by §14b) · the tail of the backlog table is in filing order, so
-the charter's own fallback would take a P1 infra row before three P0 judge-facing ones.** Measured by
-parsing the table at `492364c`: `todo` P1 WFG-107 (pos 22) and WFG-108 (23) sat above `todo` P0
-WFG-110 (25), WFG-113 (28) and WFG-115 (29), with P1 WFG-111 and WFG-112 interleaved. CHARTER §5 says
-the dev lap takes the first `todo` row in table order; CHARTER §14 forbids a P0 below a non-P0. Latent
-only because `DIRECTION.md` names the next rows — and #20's own finding is that the page can go stale
-for a full lap. **I moved WFG-115 above the P1 block. That was this lap's entire reorder budget**, and
-WFG-110 and WFG-113 are still below P1 rows, which is why WFG-118 exists.
+Critic #21 wrote the CHARTER §5 release procedure into this file for a claim it believed dead. The claim
+was alive: the 18:17Z lap was on its second rebuild after three reviewer blocks and pushed at 21:02Z. The
+release was applied correctly, to a live lap, and that is how one row came to be built twice by two laps
+that could not see each other. **A claim marker cannot distinguish working from dead.** ⚠ **The author has since chosen NH-030 option C
+with a three-hour window (CHARTER §5b, `4d705df`) — and the duplicate this lap is reporting happened at
+3 h 10 m, so the new rule would not have prevented it.** That is not an argument against the rule, which
+un-sticks real dead claims; it is the reason the rule needs its companion check. Before releasing any
+claim, run `git log --all --grep=<row>` **and** list `auto/red/*` and the remote branches for a
+work-in-progress push. Prefer waiting one lap over building a duplicate.
 
-**F5 · verified rather than repeated.** Things earlier laps claimed, re-run here: `make baseline-verify`
-reports **2** differences against `944243054a59`, both the git-ignored `data/raw/firms_data/` manifests
-(the author's NH-029 re-freeze holds, critic #20's reading confirmed); `make finals-bundle` exits 0 with
-`OK — release/kcf-finals-2026/ rebuilt byte-identically, 17 files`; `docs/auto/finals/` holds no PDF on
-the **sixth** day (R7 / WFG-007); `JUDGE_QA.md`'s self-count is correct (41 questions, 15 / 19 / 7,
-re-counted); every dev, paper and critic report of the last 24 h carries `Reviewed by:` and the five
-without it are `manual`, the author's own laptop.
+## Everything else this lap filed
 
-## Not findings
+- **WFG-124** (P0, `blocked(NH-032)`) — reconcile the two measurements; carry or explicitly decline the
+  parked branch's escape analysis and its 265/263 control question. ⚠ **Filed as WFG-121/122/123 and
+  renumbered to 124/125/126 in the same lap**, because the author's `4d705df` took 121 and 122 first.
+- **WFG-125** (P1) — every margin in the dispute is a **perfect-forecast** bound: the forecast-aware arm
+  plans on the field it is graded against (`docs/present_perimeter_arm.md` §5 says so). Re-run with a
+  predicted field, or record in writing that none is committed and what would produce one.
+- **WFG-126** (P1, the paper routine's paths) — `paper/manuscript.md:386` still carries
+  `[GAP: … a present-perimeter baseline …]`, so the manuscript tells a reviewer the experiment has not run.
+- **WFG-113 and WFG-117** updated, not duplicated. **No row was moved**; the reorder budget is unspent
+  deliberately.
 
-- **No `factchk` finding, and no prose to check.** The window added one backlog status cell. No claim
-  about the world entered the tree, so there is nothing this lap could verify or withdraw.
-- **No scorecard movement from anything built**, because nothing was built. B 83 → 82 and A 78 → 77
-  are one defect (WFG-117) scored once per track, on a tree that did not change.
-
-## Root objection (`hate`, on the current headline narrative)
-
-**The headline still has no fair opponent, and for the fourth consecutive critic lap the only scheduled
-answer to that is a row with nothing behind it.** The demo's strongest sentence compares survival-aware
-routing against an arm that cannot see the fire. The author saw this and personally promoted the fix
-into the sprint (NH-027 option A, 「report the number whatever it says」). It is WFG-114. It has been
-claimed for two hours and has produced nothing.
-
-**Cheapest test, for the next lap and it is one command:** `git log --all --grep=WFG-114 --stat`. If
-that shows a work commit, the objection is being answered and the loop is fine. If it shows only the
-claim and critic reports, then the single most important experiment in this project is being held by a
-status cell, and releasing that cell is worth more than anything else either of us could build today.
+Full report: `docs/auto/reports/2026-09-05T2330Z-critic.md`.

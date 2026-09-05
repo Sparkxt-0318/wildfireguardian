@@ -5,6 +5,84 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
+**Tick count, critic #22, 2026-09-05T2330Z: 4 of 11 (R2, R4, R5, R6). No line moved, and no line has moved
+for SEVEN consecutive critic laps (#16 to #22) — and this is the first of those windows where the loop did
+the right thing and the count still did not move.** Checked on disk at `f118bfe`, not read from the laps
+that claimed it:
+
+- **Why no line moved, and why that is not a criticism of the window.** The window's work is WFG-114, the
+  author's own NH-027 row: the fair opponent for the headline. It ticks no readiness line by design — no
+  readiness line is about the science — and it was the right row. Critic #18 blamed the queue, #19 the
+  queue, #20 this page, #21 lap completion. This window rules out all four: the page named the row, the lap
+  took it, it finished, it was good, and readiness is unchanged. **The remaining explanation is that R7 is
+  held by an artifact type no lap volunteers for.** WFG-007 is P0, `todo`, has never been claimed by any
+  lap in twenty-two critic windows, and its output is a *file* rather than an argument.
+- **R3's sandbox half is green; `gates.py --mode full` exits 0 here at `f118bfe`** (`1535 passed, 62
+  skipped` in 306.7 s, **COLD**, against critic #21's cold `1515 / 62` at `492364c`: **+20 passed, skips
+  unchanged**, like for like). `verify`, `snapshot-verify` and `env-check` PASS. `make baseline-verify`
+  re-run here rather than quoted: the same **2** differences, both the git-ignored `data/raw/firms_data/`
+  manifests that exist only on the author's machine, so the author's NH-029 re-freeze still holds. R3 still
+  waits on one `make all-checks` run on the author's own laptop (NH-029) and on R12/NH-014.
+- **R3's CI half is clean, and it was read through the GitHub MCP because this routine's `curl` still
+  returns 403 (WFG-119).** `auto-gates` runs **128 to 145** on `auto/dev` carry **no `failure`**; run 145 at
+  `f118bfe` (this head) is `success`; 141 and 137 were `cancelled` by a superseding push. **No red run
+  stands behind a green report in this window.** All **70** consecutive push pairs in the 24-hour window
+  pass `--assert-reported` (run here, one pair at a time), and every dev, paper and critic report in the
+  window carries `Reviewed by:` — the two without it are `manual`, the author's own laptop.
+- ⚠ **A fourth branch exists and it is green: `auto/red/20260905T2248Z`.** The 2132Z lap built WFG-114
+  concurrently, could not rebase, and parked rather than forced — correct under CHARTER §4. Its gates are
+  ALL GREEN at `6938e90`. It is not a readiness defect; it is recorded on this line because the readiness
+  of the *product* now depends on an author decision (**NH-032**) about which of two green measurements the
+  project means, and because its escalation entries were invisible to `auto/dev` until this lap imported
+  them.
+- **R5 keeps its tick and takes its second defect in two laps, and the second one is the first critic's
+  fix going stale.** Critic #21 put a ⚠ note on `JUDGE_QA.md` Q30 giving the student 326 / 268 / 58 and
+  telling them to point at the screen's 검증 레지스트리 card. One dev lap later: WFG-114 registered **57**
+  `pp_uiseong_*` keys, `docs/NUMBERS.json` at this head holds **383** entries / **325** reproducible / **58**
+  not (counted here with `json.load`), and `web/finals.html` still prints **326 · 268** because the screen
+  has not been rebuilt. **Three counts now answer one T0 question, and the newest wrong one was written by
+  the lap fixing the problem.** The note is rewritten this lap to quote no count and point at no screen;
+  WFG-117 is re-scoped and is this lap's one `fix-before-next-row` item; the screen half is WFG-113, which
+  now has a live instance rather than only a mutation. The tick survives because the bank's own self-count
+  (41 questions, 15 / 19 / 7) is still correct, re-counted here, and `tests/test_judge_qa_bank.py` is green
+  (19 passed) after this lap's edits.
+- ⚠ **A second defect recorded on R5, and it is the one a judge would actually hear.** `JUDGE_QA.md` has no
+  card for 「그냥 지금 불난 데만 피하면 되지 않습니까?」 — WFG-104, open since critic #17 — and as of
+  `c8a3eee` the answer 「그 실험은 안 해봤습니다」 became false. The row is now `blocked(NH-032)` on its
+  margin half, because the two green measurements differ by a factor of three. A ⚠ 근거 확정 전 note is on
+  the Q19 answer that carries the 91, with the sentence to say meanwhile and the three numbers not to say.
+- **R7 and half of R9, SEVENTH day.** `docs/auto/finals/` holds `BOOTH_SETUP.md`, `DETECTION_FLOOR_CARD.md`
+  and one screenshot folder; `find . -iname '*.pdf'` outside `outputs/` and the venv returns nothing. R9's
+  mechanism re-run here rather than quoted: `make finals-bundle` exits 0 with `OK — release/kcf-finals-2026/
+  rebuilt byte-identically, 17 files`. WFG-007 is now **#1** on `docs/auto/DIRECTION.md`, by arithmetic
+  rather than by a move: the row above it finished.
+- **R8 is where the fair-opponent result will eventually be felt and is unchanged today.** No judge-facing
+  surface carries the experiment: `JUDGE_QA.md`, `DEMO_SCRIPT_5MIN.md`, `web/finals.html`,
+  `scripts/finals.template.html`, `docs/finals_screen_v2.md`, `BOOTH_SETUP.md` and `README.md` all return
+  zero hits for the arm (grepped here). `paper/manuscript.md:386` is worse than zero: it still carries
+  `[GAP: the arm that separates them, a present-perimeter baseline …]`, i.e. the manuscript tells a reviewer
+  the experiment has not been run. Filed as **WFG-126** for the paper routine.
+- ⚠ **The window grew an author push at 23:12Z, after this lap's measurements were taken.** `4d705df`
+  closes NH-029, NH-030 and NH-031, adds CHARTER §5b (stale claims self-release after three hours) and
+  §3d (the baseline freeze guards overwrites, not growth), and files two rows of the author's own —
+  **WFG-121** (put the fair-opponent line beside the 91 on every judge-facing surface) and **WFG-122**
+  (the budgeted bucket key). Every measurement on this line was taken at `f118bfe` and none of them is
+  changed by that commit, which touches no artifact and no test. **What it does change is R8's near
+  future:** WFG-121 is the first row in twenty-two windows whose entire output is judge-facing prose, and
+  it is now the top row. ⚠ It is also the row that must not print a margin until **NH-032** is answered,
+  and the author's decision was made from a ledger that did not yet carry NH-032 or NH-034 — this lap
+  imported them from the parked branch. The critic's ids WFG-121/122/123 were renumbered to 124/125/126;
+  the author's win.
+- **Census for the window** (`492364c..f118bfe`, images and the `.docx` excluded): the window's authored
+  work is one experiment — the arm script, its registrar, its 20 tests, `docs/present_perimeter_arm.md`
+  and the paper lap's page-ceiling work. **Judge-facing share: 0 %**, and for once that is the correct
+  answer rather than a slippage note: the row was science, the author asked for it, and its own escalation
+  forbids putting its number in front of a judge until the author chooses. WFG-084's series takes this as
+  its sixth data point **with that caveat attached**, because a census that scores this window low would be
+  scoring the loop for obeying CHARTER §6.
+
+*(Critic #21's count block, which stood here until 2026-09-05T2330Z, is preserved verbatim below.)*
+
 **Tick count, critic #21, 2026-09-05T2000Z: 4 of 11 (R2, R4, R5, R6). No line moved, and no line has moved
 for SIX consecutive critic laps (#16 to #21) — and this window is the one where that sentence means
 something different.** Checked on disk at `492364c`, not read from the laps that claimed it:
