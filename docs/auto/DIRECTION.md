@@ -1,6 +1,6 @@
 # Direction — where the project is going, on one screen
 
-*Written 2026-09-04 by the author's session; steered again the same evening (product first). Rewritten by the research routine every second day; the critic checks it after every dev lap (CHARTER §14). The dev routine reads it before claiming a row. Last checked by critic #20, 2026-09-05.*
+*Written 2026-09-04 by the author's session; steered again the same evening (product first). Rewritten by the research routine every second day; the critic checks it after every dev lap (CHARTER §14). The dev routine reads it before claiming a row. Last checked by critic #21, 2026-09-05.*
 
 ## Thesis (two sentences)
 
@@ -8,28 +8,27 @@ A forecast of where the fire will be, not where it is, changes which walking rou
 
 ## Next three rows, and why
 
-*WFG-109 closed and its gate is real: I mutated the template myself and `tests/test_finals_template_sync.py`
-goes red. The two rows below it on this page are no longer the top of the queue, because the author moved
-one row into the sprint and this page did not know.*
+*Critic #20's falsifiable test is half-resolved and it resolved FOR this page: the 18:17Z dev lap took
+WFG-114, the row this page named and the author promoted. Then it pushed nothing (NH-030). The order below
+is unchanged, because nothing about the order was wrong.*
 
-1. **WFG-114** (P0, one lap) — **the author's own row, and this page has never named it.** NH-027 option A,
-   verbatim: 「Run it in the sprint now, P0 ... report the number whatever it says」. It is the
-   present-perimeter + buffer arm on 의성·안동: the fair opponent for the headline. It sits at the top of the
-   backlog table where the author asked for it, and it answers the root objection three consecutive critics
-   have written down. *(Filed by the author as `WFG-108`; renumbered here because two live rows held that id.)*
-2. **WFG-007** (P0, the printables) — **raised from P1 by this lap, which is its one row move.** Critic #19
-   wrote the test: 「if WFG-109 is closed and the printables still do not exist, then WFG-007's priority is the
-   defect, not its position」. WFG-109 is closed. `docs/auto/finals/` holds two `.md` files and no PDF. This
-   row alone holds **R7 and half of R9**, and no readiness line has moved for **five** critic laps.
-3. **WFG-115** (P0, new this lap) — the judged screen prints a second commit id, `41498ef`, and
-   `git merge-base --is-ancestor 41498ef HEAD` exits non-zero. Same failure shape WFG-067 closed, in the same
-   panel, unread by the gate WFG-067 added, and it falsifies half of `JUDGE_QA.md` Q35's answer.
+1. **WFG-114** (P0, one lap) — **the author's own row.** NH-027 option A, verbatim: 「Run it in the sprint
+   now, P0 ... report the number whatever it says」. The present-perimeter + buffer arm on 의성·안동: the
+   fair opponent for the headline, and the answer to the objection four consecutive critics have written.
+   ⚠ It is `in-progress(20260905T1820Z)` with **no work commit behind it**. `CRITIC_LATEST.md` carries the
+   release rule; critic #21 released nothing, because a claim inside its time-box is not a stale claim.
+2. **WFG-007** (P0, the printables) — unchanged from critic #20, and its evidence got one day worse.
+   `docs/auto/finals/` still holds two `.md` files and no PDF. This row alone holds **R7 and half of R9**,
+   and no readiness line has moved for **six** critic laps.
+3. **WFG-117** (P0, new this lap) — **this lap's one `fix-before-next-row` item**, and the only finding in
+   six laps that a judge would hear rather than read. `JUDGE_QA.md` Q30 is **T0** and drills the student to
+   say 「등록된 값 295개 중 261개」 while `docs/NUMBERS.json` holds 326 / 268 / 58 and the screen behind them
+   prints 326 · 268. Ungated. A ⚠ note is on Q30 already so nobody rehearses it.
 
-Then WFG-106 then WFG-104 (the two Q&A cards; read WFG-106's corrected opening first, it answers the
-**dilution** objection, not the **opponent** one), WFG-113, WFG-110, WFG-036 v2, WFG-101, WFG-010
-(README Round-4 + abstract → R8), WFG-096, WFG-024 when its blockers clear (R11), and only then WFG-088,
-WFG-089, WFG-094, WFG-097, WFG-099, WFG-102, WFG-105, WFG-107, WFG-108, WFG-111, WFG-112, WFG-116 and the
-other infra rows, which CHARTER §14b holds behind R1, R3, R7, R8 and R9.
+Then WFG-115 (moved up this lap, see below), WFG-106 then WFG-104 (the two Q&A cards; read WFG-106's
+corrected opening first, it answers the **dilution** objection, not the **opponent** one), WFG-113,
+WFG-110, WFG-036 v2, WFG-101, WFG-010 (README Round-4 + abstract → R8), WFG-096, WFG-024 when its blockers
+clear (R11), and only then the infra rows, which CHARTER §14b holds behind R1, R3, R7, R8 and R9.
 
 ## What not to do
 
@@ -46,41 +45,48 @@ other infra rows, which CHARTER §14b holds behind R1, R3, R7, R8 and R9.
 
 ## Critic's last direction note
 
-**2026-09-05, critic #20. Critic #19's falsifiable test resolved, and it resolved AGAINST the queue.** It read:
-「if `WFG-109` is closed and the printables still do not exist, then WFG-007's priority is the defect, not its
-position, and critic #20 should raise it to P0」. WFG-109 is `done(20260905T1520Z)`; `docs/auto/finals/` holds
-`BOOTH_SETUP.md` and `DETECTION_FLOOR_CARD.md` and no PDF. **Raised, and that is this lap's one row move.**
+**2026-09-05, critic #21. The window is one line long, and that is the finding.** Between critic #20's push
+(`3efd0db`, 17:21Z) and `HEAD` there is exactly one changed line: the status cell of WFG-114. The 18:17Z dev
+lap claimed the author's row at 18:20Z and, 1 h 50 m later, has pushed nothing; no artifact of the kind the
+row asks for exists, and `git log --all --grep=WFG-114` finds only the claim. **NH-030** is open on it and
+`CRITIC_LATEST.md` carries the CHARTER §5 release rule for the next lap. I released nothing myself: at the
+moment of measurement the lap was still inside CHARTER §4's two-hour time-box, and releasing a live claim is
+the NH-007 failure.
 
-**But the bigger direction defect this window is not mine and not the queue's: it is this page.** At 14:24Z the
-author pushed `9442430`, closing NH-027 with 「A) Run it in the sprint now, P0」 and putting the fair-opponent
-arm at the top of the backlog table. Critic #19 rewrote this page at 14:12Z, twelve minutes earlier, and
-nothing since has added the row. CHARTER §14b says the dev lap takes **this page's** order over the table when
-the two differ, so for one full lap this page has been steering the loop away from the one row the author
-personally promoted into the sprint. Two dev-lap slots passed. **A page that overrides the table has to be
-re-read after every author push, not only after every dev lap.**
+**Why that matters more than another reorder.** Readiness has read 4 of 11 for six consecutive critic laps.
+Critic #18 blamed the queue, #19 blamed the queue, #20 blamed this page. This window rules all three out:
+the page named the right row, the lap took it, and nothing came out. **The constraint this window was lap
+completion, not direction.** A seventh lap of reordering would be measuring the wrong thing again, so the
+order above is untouched.
 
-**So I set no `fix-before-next-row` item.** Not because nothing qualifies: WFG-115 is a judge-facing falsehood
-on the screen today and would qualify under §14b. Because setting one would displace either the author's row or
-the printables, and readiness has now been 4 of 11 for **five** consecutive critic laps while four of the last
-five dev slots went to a critic's item. Critic #18 proved the empty block moves the product; critic #19 set an
-item anyway and readiness did not move. The rule stands and this lap obeys it.
+**My one row move is WFG-115, and it is about the fallback rather than the front of the queue.** At
+`492364c` the `todo` **P1** rows WFG-107 and WFG-108 sat above `todo` **P0** rows WFG-110, WFG-113 and
+WFG-115, which CHARTER §14 forbids. It is latent while this page names the next rows — but #20's own finding
+is that this page can go stale for a lap, and the table is the fallback when it does. WFG-115 moved above the
+P1 block; the rest is **WFG-118**, because one move per lap cannot fix a systemic sort.
 
-**Readiness: 4 of 11 (R2, R4, R5, R6), unchanged, five laps.** R7 and half of R9 are WFG-007. R3 moved
-materially without moving the box: the author executed NH-029 option A at `38620f2` and I re-ran
-`make baseline-verify` here — six differences are now **two**, and both are the git-ignored raw manifests that
-exist only on the laptop. The re-freeze preserved every protection: the two `untracked_contracts` hashes and
-all four `protected` artifact hashes are byte-identical to the previous freeze. R3 now waits on one
-`make all-checks` run on the author's own machine, which is NH-029's remaining half.
+**Also filed: WFG-119, and it is why to trust WFG-115 more than yesterday.** This sandbox clones at **depth
+50** and no lap has said so; `merge-base --is-ancestor`, the instrument behind WFG-067's gate and every
+「not reachable」 claim four critics have written, cannot answer across that boundary. Deepened to 170 commits
+and re-run: `41498ef` is still not an ancestor, so **WFG-115 survives the confounder**. Predicted, not yet
+seen: once a screen stamp ages past 50 commits the ancestry gate goes red in every sandbox and stays green in
+CI (`fetch-depth: 0`). The same row carries the 403 this routine's step-2 `curl` now returns.
 
-**The falsifiable test for critic #21:** if the next two dev laps take WFG-114 and WFG-007 in that order, this
-page's re-read after an author push is what did it, and the re-read should become a line in CHARTER §14. If
-either lap takes something else, then this page is not actually the lever §14b says it is, and critic #21
-should say so rather than reorder it again.
+**Readiness: 4 of 11 (R2, R4, R5, R6), unchanged, six laps.** R7 and half of R9 are WFG-007.
+
+**The falsifiable test for critic #22:** if the next dev lap pushes a WFG-114 artifact, the 18:17Z lap was
+merely slow and NH-030 closes as option B. If WFG-114 is still `in-progress(20260905T1820Z)` with no work
+behind it, the claim is a lock with no key, the next lap must release it under CHARTER §5, and #22 should
+raise NH-030 option C — an automatic expiry on stale claims — rather than write a seventh note about the
+queue.
 
 ## Critic's previous direction note
 
-**2026-09-05, critic #19.** Set WFG-109 as its one item after proving on disk that
-`scripts/finals.template.html` still carried the STATIC VIEW sentence `web/finals.html` had withdrawn. The
-next lap closed it and built a stronger gate than the row asked for. #19 also read the direction rule as
-「measuring the wrong thing」 and wrote the WFG-007 test this lap resolved. *(Critic #18's note is in
-`docs/auto/reports/2026-09-05T1412Z-critic.md`; this page stays one screen.)*
+**2026-09-05, critic #20.** Raised WFG-007 P1 → P0 on critic #19's falsifiable test (WFG-109 closed,
+printables still absent), and found the direction defect this page had about itself: the author pushed
+`9442430` at 14:24Z promoting the fair-opponent arm, critic #19 rewrote this page twelve minutes earlier,
+and for one lap the page steered the loop away from the author's own row. The rule it added — **this page
+is re-read after an author push, not only after a dev lap** — is what put WFG-114 first, and this lap's
+window is the evidence it worked. #20 set no `fix-before-next-row` item and filed WFG-115 as a row instead.
+*(Full text: `docs/auto/reports/2026-09-05T1716Z-critic.md`; critic #19's is in the 1412Z report. This page
+stays one screen.)*

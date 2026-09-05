@@ -5,6 +5,64 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
+**Tick count, critic #21, 2026-09-05T2000Z: 4 of 11 (R2, R4, R5, R6). No line moved, and no line has moved
+for SIX consecutive critic laps (#16 to #21) — and this window is the one where that sentence means
+something different.** Checked on disk at `492364c`, not read from the laps that claimed it:
+
+- **No line moved because the window is one line long.** `git diff 3efd0db..HEAD` is a single changed
+  line: the status cell of one backlog row. The 18:17Z dev lap pushed `492364c`
+  (`claim WFG-114 (20260905T1820Z)`) at 18:20Z and nothing since; at 20:10Z that is 1 h 50 m. No
+  WFG-114 artifact exists under `data/processed/` and `git log --all --grep=WFG-114` finds only the
+  claim and critic #20's report. **So the 「zero for two consecutive critic laps」 rule fires for a
+  sixth lap, and for the first time the cause is not the queue and not the direction page.** Critic
+  #20's falsifiable test is half-resolved and it resolved **for** the page: the lap took WFG-114, the
+  row the page named and the author promoted. Then it produced nothing. Filed as **NH-030**; the
+  release rule for the next lap is in `docs/auto/CRITIC_LATEST.md` and no claim was released here.
+- **R3's sandbox half is green and its booth half is exactly where the author left it.** `gates.py
+  --mode full` exits 0 in this fresh cloud sandbox at `492364c` (`1515 passed, 62 skipped` in 253.2 s,
+  **COLD**, against critic #20's cold `1515 / 62` at `ce262fe`: **unchanged like for like**, which is
+  what a one-line window should produce). `verify`, `snapshot-verify` and `env-check` PASS.
+  `--assert-head` exits 0. **NH-029's measurement re-run rather than quoted:** `make baseline-verify`
+  here reports `BASELINE MOVED — 2 difference(s) against 944243054a59`, and both are the git-ignored
+  `data/raw/firms_data/` manifests that exist only on the author's machine. Critic #20's reading holds.
+  R3 still waits on one `make all-checks` run on the author's own laptop.
+- **R3's CI half is clean, read through the GitHub MCP because this routine's own command has stopped
+  working.** `auto-gates` runs **131 to 139** on `auto/dev` carry **no `failure`**; 139 at this head is
+  `success`; 137 and 131 were `cancelled` by a superseding push. ⚠ The step-2 command in this routine's
+  prompt, `curl https://api.github.com/repos/Sparkxt-0318/wildfireguardian/actions/runs`, now returns
+  **403** 「GitHub access is not enabled for this session」 from the sandbox proxy. Filed as **WFG-119**.
+  All 44 consecutive push pairs in the 24-hour window pass `--assert-reported`, and every dev, paper and
+  critic report in it carries `Reviewed by:` (the five without it are `manual`, the author's own laptop).
+- **R5 keeps its tick and takes a defect on it, recorded the way WFG-067, WFG-095, WFG-100, WFG-103 and
+  WFG-109 were: WFG-117, and it is this lap's one `fix-before-next-row` item.** The judge drill found it:
+  `JUDGE_QA.md` Q30 is **T0**, it is the question about why today's numbers should be believed, and its
+  drafted answer has the student say 「등록된 값 295개 중 261개」 with the remaining 34 split 16 + 18. I
+  counted `docs/NUMBERS.json` myself: **326** entries, **268** reproducible, **58** not. The screen
+  behind the student prints **326 · 재현 가능 268** in the same 검증 레지스트리 card. Nothing gates it —
+  `tests/test_judge_qa_bank.py` reads no registry count — which is how they drifted 31 apart. A ⚠ 근거
+  없음 note is on Q30 as of this lap so the student does not rehearse it. The tick survives because the
+  bank's own self-count (41 questions, 15 / 19 / 7) is correct, re-counted here.
+- **R1 is unchanged and WFG-115 survives an independent re-test with a confounder removed.** Critic #20
+  proved `41498ef` is not reachable from `HEAD`. That test was run in a **depth-50 shallow clone**
+  (`git rev-parse --is-shallow-repository` → `true`, `git rev-list --count HEAD` → 50), where
+  `merge-base --is-ancestor` cannot answer across the boundary, and no critic lap has ever recorded that
+  the sandbox is shallow. I ran `git fetch --deepen=120` (170 commits) and re-ran it: `41498ef` is
+  **still** not an ancestor, and it is still on `origin/auto/lap-b1989d5-superseded` and
+  `origin/ordering-boundary` only. WFG-115 stands. The shallow clone itself is **WFG-119**, with a
+  predicted failure it has not yet caused: the screen's stamp `5f9a3b8` is 7 commits behind `HEAD`, the
+  branch moves on the order of 40 commits a day, and once a stamp ages past 50 commits the ancestry gate
+  goes RED in every sandbox while staying GREEN in CI, which checks out at `fetch-depth: 0`.
+- **R7 and half of R9, sixth day, and this is now the longest-standing unticked line with a P0 row
+  behind it.** `docs/auto/finals/` holds `BOOTH_SETUP.md`, `DETECTION_FLOOR_CARD.md` and one screenshot
+  folder; `find . -iname '*.pdf'` outside `outputs/` and the venv returns nothing. WFG-007 is P0 and
+  `todo` at table position 3, where critic #20 put it. R9's mechanism was re-run here rather than
+  quoted: `make finals-bundle` exits 0 with `OK — release/kcf-finals-2026/ rebuilt byte-identically,
+  17 files`.
+- **Census for the window:** 1 authored insertion, 1 deletion, 1 file. There is no judge-facing share to
+  report and no report share; WFG-084's series takes no sixth data point from a window with no work in it.
+
+*(Critic #20's count block, which stood here until 2026-09-05T2000Z, is preserved verbatim below.)*
+
 **Tick count, critic #20, 2026-09-05T1700Z: 4 of 11 (R2, R4, R5, R6). No line moved, and no line has moved
 for FIVE consecutive critic laps (#16 to #20).** Checked on disk at `ce262fe`, not read from the laps that
 claimed it:

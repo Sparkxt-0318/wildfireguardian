@@ -1,133 +1,123 @@
-# CRITIC_LATEST — critic #20, 2026-09-05
+# CRITIC_LATEST — critic #21, 2026-09-05
 
-Window `8a8a940..ce262fe` on `auto/dev` (7 commits, two of them the author's own laptop
-sessions; 1,670 authored insertions with images, the board and the `.docx` excluded).
-Written by the `wfg-autoloop-critic` routine.
+Window `3efd0db..492364c` on `auto/dev`. **One commit, one changed line** — the status cell of one
+backlog row. Written by the `wfg-autoloop-critic` routine. Gates re-run here: ALL GREEN at `492364c`
+(`1515 passed, 62 skipped`, cold), `--assert-head` and all 44 push pairs of the last 24 h pass
+`--assert-reported`, `auto-gates` runs 131 to 139 carry no `failure`.
+
+## Before you claim a row: WFG-114 may be a lock with no key
+
+`docs/auto/BACKLOG.md` shows **WFG-114 `in-progress(20260905T1820Z)`** — the author's own NH-027 row.
+The lap that claimed it pushed `492364c` at 18:20Z and nothing since; at 20:10Z there was no artifact
+under `data/processed/` and `git log --all --grep=WFG-114` found only the claim. I did **not** release
+it: at that moment the lap was still inside CHARTER §4's two-hour box, and releasing a live claim is
+the NH-007 failure.
+
+**So the first thing you do is decide whether it is stale, using CHARTER §5 rather than judgement:**
+
+1. `git fetch origin && git log origin/auto/dev --oneline -5`.
+2. If a WFG-114 work commit has landed, nothing here applies — read the item below and carry on.
+3. If WFG-114 is still `in-progress(20260905T1820Z)` with no work commit behind it, the claiming lap
+   has ended. CHARTER §5: 「A lap that ends without finishing its row sets the row back to `todo`」 and
+   「`in-progress` written by a lap that has ended is a lock with no key」. **Set it back to `todo` with
+   a residue note naming the dead stamp, push that alone, and then claim it yourself.** It is the
+   author's own row, it is first on `docs/auto/DIRECTION.md`, and it answers the objection four
+   consecutive critics have written down. Do not step over it to reach the item below.
+
+**NH-030** is open on this for the author. Do not close it; it asks them something the loop cannot
+answer (whether the routine run failed).
 
 ## fix-before-next-row
 
-**None this lap, and the reason is a rule, not an absence of candidates.**
+**One item, and it is a judge-facing surface under CHARTER §14b: WFG-117.**
 
-`docs/auto/DIRECTION.md` now names two rows above anything I found: **WFG-114**, the author's own
-NH-027 row, which this page had never named; and **WFG-007**, the printables, raised to P0 on
-critic #19's falsifiable test. Setting an item would displace one of them. Readiness has been
-4 of 11 for **five** consecutive critic laps, and critic #18's rule — set no item when readiness
-stalls two laps — fires and is obeyed. WFG-115 below would qualify under CHARTER §14b and is
-filed as a P0 row, third on the direction page, not as an item.
+`docs/auto/JUDGE_QA.md` Q30 is **T0** — 「그러면 오늘의 숫자는 왜 믿습니까?」, the question this
+project's whole credibility case answers — and the drafted answer has the student say:
+
+> 등록된 값 **295**개 중 **261**개가 커밋된 아티팩트에서 `make verify`로 다시 계산되고, 나머지
+> **34**개는 「확인됨, 재현 불가」로 라벨이 붙어 있습니다. **16**개는 ... OSM ... **18**개는 ...
+
+Counted from the file this lap, not read from a report:
+
+```
+docs/NUMBERS.json  numbers                      -> 326 entries
+                   reproducible: true           -> 268
+                   reproducible: false          ->  58
+web/finals.html    registry.n_entries           -> 326
+                   registry.n_reproducible      -> 268
+```
+
+All three spoken figures are stale, and the 16 + 18 decomposition accounts for 34 of 58. The 검증
+레지스트리 card **on the screen behind the student** prints 326 · 268, so a judge who looks up hears
+one number and sees another, on the highest drill tier. Nothing gates it: `tests/test_judge_qa_bank.py`
+contains no check that reads a registry count, which is how they drifted 31 apart. This is the WFG-057
+failure shape in a worse place.
+
+I have already put a ⚠ 근거 없음 note on Q30 so nobody rehearses the numbers before you close this.
+
+**Done when:** Q30 states counts a test derives from `docs/NUMBERS.json` at run time (or states no count
+and points at the card); the non-reproducible decomposition is recounted against the 58 or withdrawn in
+writing; and a test in `tests/test_judge_qa_bank.py` goes red **both** ways — edit a digit in the bank,
+and flip one entry's `reproducible` flag in a scratch copy of the registry. Grade it, do not assert it.
 
 ## Findings, ranked
 
-**F1 · WFG-115 · judge-facing · P0 · the judged screen prints a second commit id and it is not on
-this branch.** The 검증 레지스트리 evidence card renders `'built at commit ' + DATA.registry.built_at_commit`
-(`web/finals.html:1924`, `scripts/finals.template.html:1924`), fed by `scripts/build_finals.py:628`
-from `docs/NUMBERS.json` `built_at_git_commit`. The value is `41498ef`. Run here, not reasoned about:
+**F1 · NH-030 · the loop · the dev slot produced no work, on the author's own row.** Detailed above.
+This is the first slot in the sprint with no work in it, and it reframes six laps of stalled readiness:
+critic #18 blamed the queue, #19 blamed the queue, #20 blamed the direction page, and this window rules
+all three out — the page named the right row, the lap took it, nothing came out. **Critic #20's
+falsifiable test is half-resolved and it resolved for the page.**
 
-```
-git cat-file -t 41498ef                       -> commit
-git merge-base --is-ancestor 41498ef HEAD     -> exits non-zero
-git branch -a --contains 41498ef              -> origin/auto/lap-b1989d5-superseded
-                                                 origin/ordering-boundary
-```
+**F2 · WFG-117 · judge-facing · P0 ·** the `fix-before-next-row` item above.
 
-That is the **exact** WFG-067 failure shape (a stamp that exists but is not reachable), in the same
-panel WFG-067 was about, and `tests/test_finals_screen.py` never looks at this field: both of its
-ancestry assertions (`:544`, `:550`, `:649`) read `_payload()["git"]`, which is `5f9a3b8` and is fine.
-Two commit stamps on one screen, one gated, one not.
+**F3 · WFG-119 · the loop's own instruments · P1 (parked by §14b) · every ancestry claim four critic
+laps have made was measured in a depth-50 shallow clone, and none of them said so.**
+`git rev-parse --is-shallow-repository` → `true`; `git rev-list --count HEAD` → **50**.
+`git merge-base --is-ancestor` cannot answer across a shallow boundary, and it is the instrument behind
+WFG-067's gate (`tests/test_finals_screen.py:523`, `:550`, `:649`) and behind every 「not reachable from
+HEAD」 finding, WFG-115 included. **So I removed the confounder before trusting the finding:**
+`git fetch --deepen=120` (170 commits), then re-ran it. `41498ef` is **still** not an ancestor and is
+still on `origin/auto/lap-b1989d5-superseded` and `origin/ordering-boundary` only. **WFG-115 stands.**
+The predicted failure, not yet observed, is the mirror image of CHARTER §4b: the screen's stamp
+`5f9a3b8` is 7 commits behind `HEAD`, the branch moves on the order of 40 commits a day, and once a
+stamp ages past 50 commits the ancestry test goes **RED in every sandbox while staying GREEN in CI**,
+which checks out at `fetch-depth: 0`. A red only the sandbox sees would be read as a real defect.
+⚠ Same row: this routine's own step-2 command, `curl .../actions/runs`, now returns **403**
+「GitHub access is not enabled for this session」. The runs must be read through the GitHub MCP.
 
-⚠ It is also **stale by construction**. `built_at_git_commit` was written when the registry held
-153 entries (`41498ef` is 「session 8 closes: 1085 green, 153 registered」); the card beside it prints
-**326**. `build_numbers.py` is deliberately not re-run (WFG-040), so the field will keep drifting.
+**F4 · WFG-118 · the loop · P1 (parked by §14b) · the tail of the backlog table is in filing order, so
+the charter's own fallback would take a P1 infra row before three P0 judge-facing ones.** Measured by
+parsing the table at `492364c`: `todo` P1 WFG-107 (pos 22) and WFG-108 (23) sat above `todo` P0
+WFG-110 (25), WFG-113 (28) and WFG-115 (29), with P1 WFG-111 and WFG-112 interleaved. CHARTER §5 says
+the dev lap takes the first `todo` row in table order; CHARTER §14 forbids a P0 below a non-P0. Latent
+only because `DIRECTION.md` names the next rows — and #20's own finding is that the page can go stale
+for a full lap. **I moved WFG-115 above the P1 block. That was this lap's entire reorder budget**, and
+WFG-110 and WFG-113 are still below P1 rows, which is why WFG-118 exists.
 
-⚠ And it falsifies half of a judge-facing answer. `docs/auto/JUDGE_QA.md` Q35 (T1, drill round 3) is
-「화면 아래 적힌 커밋을 받아서 이 화면을 그대로 다시 만들 수 있습니까?」 and the drafted answer says the
-panel's hash 「이 저장소에 실제로 있고 **현재 브랜치에서 닿는** 커밋입니다」. True of one stamp, false of
-this one. Its 「없는 것」 line disclaims only byte-identity of the HTML. The whole 「이 질문의 내력」
-paragraph holds WFG-067 up as this project's best example of how it handles reproducibility, which is
-what makes the second stamp worse than an ordinary stale string. A ⚠ note is added to Q35 in this lap
-so the student does not rehearse it; the answer itself is WFG-115's to rewrite once the gate proves
-what it may say.
+**F5 · verified rather than repeated.** Things earlier laps claimed, re-run here: `make baseline-verify`
+reports **2** differences against `944243054a59`, both the git-ignored `data/raw/firms_data/` manifests
+(the author's NH-029 re-freeze holds, critic #20's reading confirmed); `make finals-bundle` exits 0 with
+`OK — release/kcf-finals-2026/ rebuilt byte-identically, 17 files`; `docs/auto/finals/` holds no PDF on
+the **sixth** day (R7 / WFG-007); `JUDGE_QA.md`'s self-count is correct (41 questions, 15 / 19 / 7,
+re-counted); every dev, paper and critic report of the last 24 h carries `Reviewed by:` and the five
+without it are `manual`, the author's own laptop.
 
-**F2 · a duplicate backlog id, and one of the two rows is the author's.** Two live rows carried
-`WFG-108`: the `make finals-bundle` row filed by the 1302Z dev lap at 13:02Z, and the fair-opponent
-arm added by the author's laptop at 14:24Z (`9442430`). The dev lap picks 「the highest-priority `todo`
-row」 by id, and a report saying 「WFG-108 done」 would be ambiguous between a P1 infra row and a P0
-science row. Repaired the way CHARTER precedent sets (WFG-040, WFG-094: an id others quote wins): the
-bundle row keeps `WFG-108`, quoted in `docs/auto/finals/BOOTH_SETUP.md:86` (judge-facing),
-`docs/auto/MEMO.md:1012`, critic #19's `CRITIC_LATEST.md` and `docs/auto/reports/2026-09-05T1302Z-dev.md`;
-the fair-opponent row becomes **WFG-114**. The author's decision text names no id, so nothing the author
-wrote moves. Reports are records and are not edited, so the two 1424Z/1449Z manual reports still say
-`WFG-108`.
+## Not findings
 
-**F3 · the direction page did not know the author had moved a row, and it outranks the table.**
-`9442430` (14:24Z) closed NH-027 with 「A) Run it in the sprint now, P0 ... (new row at the top of the
-table after WFG-062)」 and put the row there. `DIRECTION.md` was rewritten at 14:12Z, twelve minutes
-earlier, and named WFG-109, WFG-106, WFG-104, WFG-007 and a tail of eleven more rows — not this one.
-CHARTER §14b says the dev lap takes **the page's** order over the table when they differ, so for one
-full lap the page steered the loop away from the row the author personally promoted, and the row that
-answers this routine's own standing root objection. Fixed on the page; the transferable rule is that
-the page is re-read after an **author push**, not only after a dev lap. This finding is about the loop,
-so under §14b it stays a note rather than a row.
+- **No `factchk` finding, and no prose to check.** The window added one backlog status cell. No claim
+  about the world entered the tree, so there is nothing this lap could verify or withdraw.
+- **No scorecard movement from anything built**, because nothing was built. B 83 → 82 and A 78 → 77
+  are one defect (WFG-117) scored once per track, on a tree that did not change.
 
-**F4 · WFG-116 · P1 · the paper's page ceiling is enforced by a gate that cannot run anywhere the loop
-runs.** `paper/check_paper.py` `page_check()` gates the author's 25-page rule (NH-028) only when
-LibreOffice **Writer** is present, and the previous lap installed it inside a sandbox that no longer
-exists. Verified at `ce262fe`: `/usr/bin/soffice` is there,
-`.auto/venv/bin/python paper/measure_pages.py --why` prints 「No LibreOffice Writer on this machine」,
-and `libreoffice-writer` / `fonts-crosextra-carlito` grep to **zero** hits across `.github/workflows/`,
-`scripts/auto/bootstrap.sh`, `requirements.txt` and `Makefile`. So the only branch that can fail is dead
-in every cloud lap and every `auto-gates` run, and `paper/STATE.json` `built_pages: 21` is the one field
-in that file nothing re-derives — the drift check skips it unless `metrics_ok`. The file's own docstring
-says the risk the word proxy cannot see is a **figure**, which costs a page and no words. Not urgent
-(21 of 25 pages, 7,461 of 9,000 words); it is filed so the number does not quietly rot.
+## Root objection (`hate`, on the current headline narrative)
 
-**F5 · NH-029 executed, and it is the best thing in this window.** The author ran option A at `38620f2`.
-Re-run here rather than read from the report: `make baseline-verify` now reports **2** differences, not
-six, and both are the git-ignored `data/raw/firms_data/` manifests that exist only on the laptop. The
-re-freeze **preserved every protection** — I diffed `38620f2^` against `38620f2`: both
-`untracked_contracts` hashes and all four `protected` artifact hashes are byte-identical, and
-`tracked_processed` went 127 → 130 (the three `pace_*.json` files). This is the outcome CHARTER §3.2
-exists to protect and it survived. R3's box does not tick, because its own command still needs one run
-on the author's machine, which is NH-029's remaining half.
+**The headline still has no fair opponent, and for the fourth consecutive critic lap the only scheduled
+answer to that is a row with nothing behind it.** The demo's strongest sentence compares survival-aware
+routing against an arm that cannot see the fire. The author saw this and personally promoted the fix
+into the sprint (NH-027 option A, 「report the number whatever it says」). It is WFG-114. It has been
+claimed for two hours and has produced nothing.
 
-**F6 · checked and NOT findings, recorded so no later lap re-derives them.**
-(a) **WFG-109's gate is real and I graded it myself.** I edited the corrected caption in
-`scripts/finals.template.html` back to the withdrawn wording and re-ran the suite: 2 failed, 7 passed.
-The identity assertion (whole file outside the one payload line) is the right invariant and is stronger
-than the caption comparison the row asked for.
-(b) **WFG-113 reproduces exactly as filed.** I changed `"n_entries": 326` to `999` on `web/finals.html:434`
-and ran the named guards: `test_finals_template_sync.py` + `test_finals_screen.py` 41 passed,
-`check_forbidden.py` `OK`, `verify_numbers.py` `OK`. A false number stays on the judged screen and
-everything is green. Independently confirmed, not read from the report.
-(c) **factchk on the window's one new claim about the world.** `paper/measure_pages.py` and
-`paper/check_paper.py` say Carlito is 「the metric-compatible stand-in for Calibri」. Debian's own package
-page for `fonts-crosextra-carlito` reads 「Sans-serif font metric-compatible with Calibri font」
-(packages.debian.org/sid/fonts-crosextra-carlito, opened 2026-09-05). Holds. No other new prose in the
-window asserts anything about the world; the fire-science and Korean-source surfaces were untouched.
-(d) The `git` stamp in the payload is `5f9a3b8`, an ancestor of `HEAD`, and its gate passes. F1 is about
-the **other** stamp only.
-
-**F7 · loop hygiene, clean, one line.** `auto-gates` runs 117 to 136 on `auto/dev`: **no `failure`**
-anywhere in the window; 136 at this head is `success`; 131 and 125 were `cancelled` by a superseding push
-(WFG-102). Every consecutive pair of commits in the window passes `--assert-reported`. Every dev, paper
-and critic report in the last 24 h carries `Reviewed by:`; the four that do not are `manual`, which is the
-author's own laptop and is not a lap. `gates.py --mode full` exits 0 here at `ce262fe`
-(`1515 passed, 62 skipped`, 202.0 s, cold; +9 like for like over critic #19's cold run).
-
-## Root objection (hate), unchanged, and now it has a row with the author's name on it
-
-**The headline credits the forecast with what merely seeing the present fire would have bought.** Every
-comparison the project ships is against `naive`, which is fire-blind
-(`src/wildfireguardian/routing/evacuation.py:270`, `docs/real_roads_real_hazard.md:50`). Three consecutive
-critics have written this and the cheapest test has been costed twice. **What changed this window is that
-it stopped being a critic's objection and became the author's instruction:** NH-027 option A, 「Run it in
-the sprint now, P0 ... report the number whatever it says」. The objection is now answered by doing WFG-114,
-not by arguing about it, and the only thing that had gone wrong is that the page which orders the work did
-not carry it.
-
-## Scorecard
-
-B 84 → **83**, A 79 → **78**, both on F1 and both scored once: a Track B judge takes an unreachable commit
-id in the reproducibility panel out of 제출 자료 (출처 명기), a Track A judge takes it out of
-구현 및 유용성 (작품 완성도). The window's real gains — the identity gate, the measured page count, the
-re-freeze — are holes closed rather than capability added, and the identity gate's own disclosure paragraph
-had to be corrected inside the same commit. Evidence per row in `docs/auto/SCORECARD.md`.
+**Cheapest test, for the next lap and it is one command:** `git log --all --grep=WFG-114 --stat`. If
+that shows a work commit, the objection is being answered and the loop is fine. If it shows only the
+claim and critic reports, then the single most important experiment in this project is being held by a
+status cell, and releasing that cell is worth more than anything else either of us could build today.

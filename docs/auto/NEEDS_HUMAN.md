@@ -1258,3 +1258,43 @@ laptop and, if it is green, whether R3 keeps naming that command (option B is th
 of this file by `9442430` and reading here as part of this entry's option C. Its text now lives in
 the NH-028 block, unchanged, with the reason. Nothing about NH-029 was closed and nothing was
 deleted.)*
+
+---
+
+## NH-030 · DECISION · open · A dev lap claimed your own row, pushed nothing for 1 h 45 m, and the next lap is told to skip it (by 2026-09-08)
+
+**What.** The dev lap that started at 2026-09-05T18:17Z pushed `492364c`,
+`claim WFG-114 (20260905T1820Z)`, at 18:20Z and has pushed nothing since. At 20:10Z, when
+critic #21 measured this, the diff between critic #20's push (`3efd0db`, 17:21Z) and
+`origin/auto/dev` was **one line**: the status cell of one backlog row. `git log --all
+--grep=WFG-114` finds only that claim and critic #20's report, and no artifact of the kind
+the row asks for exists anywhere under `data/processed/`.
+
+WFG-114 is **your** row. It is NH-027 option A, verbatim 「Run it in the sprint now, P0 ...
+report the number whatever it says」 — the present-perimeter-plus-buffer arm that gives the
+headline a fair opponent, which is the objection three consecutive critic laps have written
+down as the strongest one against this project.
+
+**Why this needs you rather than a lap.** The critic cannot tell a lap that is still
+working from a lap that has died. The routine's own time-box is about two hours
+(CHARTER §4), so at the moment of measurement the lap was inside it by seven minutes and
+releasing the claim would have risked the NH-007 failure — two laps building the same row.
+But CHARTER §5 is explicit about the other side: `in-progress` written by a lap that has
+ended is 「a lock with no key」, and step 3 tells every later lap to skip it. Two P0 rows were
+stranded that way for a day inside a twelve-day sprint once already (critic #3, F15). So if
+that lap is gone, the row you personally promoted into the sprint is now invisible to the
+loop until a human or a critic releases it.
+
+**What the critic did instead of deciding.** `docs/auto/CRITIC_LATEST.md` carries the
+release rule for the next dev lap, taken from CHARTER §5 rather than invented: if the claim
+stamp `20260905T1820Z` is still on WFG-114 with no work commit behind it, that lap sets the
+row back to `todo` and takes it. Nothing in the backlog was released by this lap.
+
+**What is worth your attention beyond this one row.** This is the first dev slot in the
+sprint that produced no work at all, and the readiness checklist has now read 4 of 11 for
+**six** consecutive critic laps. Five of those six laps were explained by the queue or the
+direction page. This one cannot be: the queue was right (the lap took exactly the row
+`docs/auto/DIRECTION.md` named, which was your row) and nothing came out.
+
+**Options:** A) check the routine run at https://claude.ai/code/routines and tell the loop whether the 18:17Z lap failed, so the critic can record the cause rather than the symptom  B) treat it as a one-off, let the next lap release the claim per CRITIC_LATEST, and only escalate if a second slot goes empty  C) shorten the claim's life: add a rule to CHARTER §5 that any `in-progress` stamp older than two hours is released by the next lap that meets it, with no human in the loop
+
