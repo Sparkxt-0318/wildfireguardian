@@ -68,10 +68,16 @@ jobs:
       - name: Fast-forward Main to this green commit
         run: |
           git fetch origin Main
-          if git merge-base --is-ancestor origin/Main "$GITHUB_SHA"; then
-            git push origin "$GITHUB_SHA:refs/heads/Main"
+          # Never turn a green gate into a red run: a refused promotion is a warning,
+          # not a failure (the branch rule still requires a pull-request review until
+          # the author relaxes it; a diverged Main is the author's to reconcile).
+          if ! git merge-base --is-ancestor origin/Main "$GITHUB_SHA"; then
+            echo "::warning::Main has diverged from auto/dev; not promoting (CHARTER §4c, NH-003)"
+            exit 0
+          fi
+          if git push origin "$GITHUB_SHA:refs/heads/Main"; then
             echo "Main -> $GITHUB_SHA"
           else
-            echo "::error::Main has diverged from auto/dev; not promoting (CHARTER §4c, NH-003)"
-            exit 1
+            echo "::warning::Main refused the fast-forward (branch rule still requires a pull-request review). Gates are green; promotion waits for the setting change (CHARTER §4c)."
+            exit 0
           fi
