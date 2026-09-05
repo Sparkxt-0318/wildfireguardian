@@ -264,6 +264,19 @@ the only readiness line the loop cannot tick for you.
 
 **Author reply 2026-09-04 (Claude Code session, AskUserQuestion, verbatim: "Yes, I will run it in that window").** Stays open until the run is reported with the date and the laptop's Python version; the loop keeps `docs/auto/finals/BOOTH_SETUP.md` current and reminds the author around 2026-09-20.
 
+**Amendment, 2026-09-05 (critic #17).** This entry got more important and the reason is a
+number. WFG-100 measured the booth script: **1,684 spoken syllables in 300 seconds = 5.61
+syllables per second**, sustained, charged against every one of the 300 seconds as if all of
+them were speech — while §2 of the script guarantees five judge interruptions inside the same
+300 seconds. The phonetics literature reports Korean *articulation* rate (physical pauses
+**excluded**) around 5.2–6.4 syllables per second for short units
+(<https://www.eksss.org/archive/view_article?pid=pss-10-4-19>). So the script asks for a
+*speaking* rate that sits inside the published band for a rate that excludes pauses. **Nothing
+in this repository can settle it and nothing should try** — the answer is you, out loud, with a
+stopwatch, once. When you run the recipe, please also read §1 aloud and report the six segment
+times you actually hit. If it overruns, the fix is to cut sentences (WFG-105), and cutting them
+is much cheaper before the 10-16 freeze than after it.
+
 ## NH-015 · DECISION · closed · The three sources behind the README's opening numbers (by 2026-09-08)
 
 **What:** `README.md:193` (Korean) and `README.md:488` (English) open the project
@@ -1042,3 +1055,44 @@ red `auto/dev` costs the next dev lap its first twenty minutes. The machine half
 failure (a cancelled run leaving a commit unchecked) is **WFG-102** and is the loop's own.
 
 **Options:** A) paste the `wfg-autoloop-paper` prompt into `docs/auto/ROUTINE_PROMPTS.md` and change its gate step to `gates.py --mode full` on the routine page  B) paste the prompt only, and leave the paper routine on `--mode quick` because it touches `paper/` alone (the loop then writes the exemption into CHARTER §12 so it is a decision rather than a drift)  C) neither for now; the loop records the gap here and the next red is handled by `wfg-autoloop-ci-red` as this one was
+
+---
+
+## NH-027 · DECISION · open · The one experiment that would test the project's headline against a fair opponent is scheduled for after the competition (by 2026-09-08)
+
+**Severity: HIGH** — it is on the sentence the booth turns on, and five judges include a
+software-engineering professor and a disaster-response official.
+
+**What this is about, in one paragraph.** The headline is 「예측이 경로를 바꾼다」: on 의성·안동,
+368곳 중 91곳 (**24.73 %**) reach a refuge **only** on the future-aware route. The route that
+fails those 91 origins is called `naive`, and `naive` is **fire-blind** — it does not look at
+the fire at all. This repository says so in its own words twice
+(`src/wildfireguardian/routing/evacuation.py:270`, `docs/real_roads_real_hazard.md:50`) and is
+not hiding it. But a judge will ask the obvious next question — 「지금 불이 있는 자리만 피하는
+경로와 비교하면요?」 — and a map that sees the fire *now* already refuses the cells burning now,
+so it would recover some unknown share of those 91. **Until that arm is run, nobody knows how
+much of 24.73 % is「예측」 and how much is「관측」.**
+
+**Why the loop is raising it rather than deciding.** The arm is already specified, by this
+repository, as **WFG-033(b)**: 「static current perimeter (slice 0, p ≥ p_cut) + fixed buffer
+0.5/1/2 km」, agent-doable, two laps, on committed hazard fields, no re-acquisition. It is
+**P2**, which under CHARTER §11 means after the finals. Moving it into the sprint costs two of
+the twelve days and displaces two booth rows; leaving it costs a weaker answer at the booth.
+CHARTER §6 makes 「two laps disagree on direction」 and a change of this size your call, and
+critic #17 will not spend a P0 slot on it unilaterally.
+
+**What the loop is doing meanwhile, whatever you decide.** Two P0 rows are filed and do not wait
+on you: **WFG-103** corrects one spoken sentence in 3막 that currently describes the fire-blind
+baseline as 「지금 이 순간만 보는 지도」, which is the stronger description handed to the weaker
+opponent; **WFG-104** writes the T0 Q&A card that says plainly what the baseline is and that the
+present-perimeter arm has not been run. If you pick B below, those two rows *are* the answer and
+they are honest ones — the same move 4막 already makes with 「저희가 진 결과도 화면에 있습니다」.
+
+**A second, smaller question in the same entry** (answer it or ignore it): four rows are `P0`
+and `todo` and sit below about forty `P1` rows — **WFG-051, WFG-076, WFG-078, WFG-082**, all
+`infra`. CHARTER §3b forbids a P0 below a non-P0; CHARTER §14b holds loop-hygiene rows behind
+the readiness lines. So they are P0 by their filing and P1 by the rule, and the table has been
+recording the contradiction rather than either answer. The clean fix is to re-label all four
+**P1**, which is what §14b already does to them in practice.
+
+**Options:** A) promote WFG-033(b) into the sprint as P0, one region (의성·안동) and one buffer, one lap, and report the number whatever it says  B) leave WFG-033 at P2; WFG-103 and WFG-104 ship and the booth answer is 「아직 돌리지 않았습니다」 with the plan named  C) A but after 09-15, before the 10-16 freeze, so the sprint's booth rows are untouched  D) B now, and re-ask after the printables and BOOTH_SETUP.md exist

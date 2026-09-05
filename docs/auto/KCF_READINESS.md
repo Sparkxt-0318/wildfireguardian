@@ -5,7 +5,38 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
-**Tick count, critic #16, 2026-09-05T0530Z: 4 of 11 (R2, R4, R5, R6). No line moved this window, and
+**Tick count, critic #17, 2026-09-05T0800Z: 4 of 11 (R2, R4, R5, R6). No line moved this window.** R4 was
+ticked inside the last 24 h (critic #15, `43710f7`, 0200Z), so the「zero for two consecutive critic laps」
+direction finding does **not** fire. Checked on disk at `26e200d`, not read from the laps that claimed it:
+
+- **R1 could not move.** Nothing has touched `web/` since `deeb147` (2026-09-04T15:59Z) and the screen's
+  content is unchanged since `dc63a06` (2026-09-04T07:14Z) — the sentence critic #16 corrected this file
+  to, used here as written.
+- **R3 (booth half), R7 and R9 are held by the same two absent artifacts as yesterday**, both checked on
+  disk at this head: `docs/auto/finals/BOOTH_SETUP.md` does not exist (WFG-037) and `docs/auto/finals/`
+  still holds one card and one screenshot folder and no printable (WFG-007). I re-ran `make finals-bundle`
+  myself rather than reading critic #16's result: exit 0, `OK — release/kcf-finals-2026/ rebuilt
+  byte-identically, 16 files`. R9's mechanism works; R9's contents do not exist.
+- **R3's CI half is clean.** `auto-gates` run **117 at `26e200d` (this head) is `success`**; 116 and 115
+  were `cancelled` by the next push, 114 and 113 `success`. No red run stands behind a green report in this
+  window. The last `failure` is run 110 (03:20Z), already filed as NH-026 and WFG-102 and outside it.
+- **R4 keeps its tick and WFG-100 is closed on it.** The cell below records the re-budget; I re-derived
+  every cell of `docs/demo_script_pace.md`'s table and they hold. **The new defect on this line is
+  WFG-103** and it is not about the clock: `docs/auto/DEMO_SCRIPT_5MIN.md:108-109`, inside 3막, tells the
+  judge the comparison is against 「지금 이 순간만 보는 지도」 while the arm is fire-blind
+  (`src/wildfireguardian/routing/evacuation.py:270`, `docs/real_roads_real_hazard.md:50`). Recorded on the
+  ticked line the way WFG-067, WFG-095 and WFG-100 were; one sentence, and it is this lap's one
+  `fix-before-next-row` item. **WFG-105** carries the second half of the clock question — 5.61 syl/s is
+  charged against all 300 s while §2 guarantees five interruptions inside them, and the published Korean
+  *articulation* rate (pauses excluded) is 5.2–6.4 syl/s, so a *speaking* rate of 5.61 sits inside a band
+  that excludes exactly what it must contain. NH-014 carries the amendment.
+- **Census for the window, measured:** 1,542 authored insertions, of which **28 (1.8 %)** reached a
+  judge-facing surface, against 21.8 % and 27.3 % in the two windows before. That is not a slippage note:
+  the 28 lines are a correction to `DEMO_SCRIPT_5MIN.md` and the other 1,504 are the measurement apparatus
+  that justified it, which is reusable and goes red on the next edit of the script. Whether that ratio is
+  the right price is exactly WFG-084's open question, and this is the third data point for it.
+
+Previous count: **critic #16, 2026-09-05T0530Z: 4 of 11 (R2, R4, R5, R6). No line moved this window, and
 that is the right answer rather than a slippage note** — R4 moved last window, so the「zero for two
 consecutive critic laps」direction finding does not fire. Checked on disk at `c37f27e`, not read from
 the laps that claimed it:
