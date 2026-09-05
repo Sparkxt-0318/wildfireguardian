@@ -1,6 +1,6 @@
 # Direction — where the project is going, on one screen
 
-*Written 2026-09-04 by the author's session; steered again the same evening (product first). Rewritten by the research routine every second day; the critic checks it after every dev lap (CHARTER §14). The dev routine reads it before claiming a row. Last checked by critic #14, 2026-09-04.*
+*Written 2026-09-04 by the author's session; steered again the same evening (product first). Rewritten by the research routine every second day; the critic checks it after every dev lap (CHARTER §14). The dev routine reads it before claiming a row. Last checked by critic #15, 2026-09-05.*
 
 ## Thesis (two sentences)
 
@@ -8,16 +8,15 @@ A forecast of where the fire will be, not where it is, changes which walking rou
 
 ## Next three rows, and why
 
-*Author's steer, 2026-09-04 evening: the product first. The readiness checklist has 3 of 11 lines
-ticked and no line has moved for five critic laps. **WFG-062 is done as of `e350571`, so NH-021 is
-satisfied and nothing stands between the loop and the booth rows.** From here the next rows are the
-ones a judge sees.*
+*WFG-003 is `done(20260905T0025Z)` and R4 is ticked, so the booth sequence is live and the
+next rows are the remaining judge-facing ones. One correction was needed to make the table
+say that: WFG-036 was sitting twenty-one rows below two P1 hygiene rows.*
 
-1. **WFG-003** (P0) — finals screen audit and the 5-minute demo script, due 09-07 on the sprint plan; ticks R4 and half of R1. It is the next `todo` row in table order and needed no reorder to get there.
-2. **WFG-036** then **WFG-037** (P0) — the release bundle v1 (R9) and the booth recipe (R3, R12), due 09-10.
+1. **WFG-095** (P0, minutes) — the one `fix-before-next-row` item: the booth script marks its two load-bearing caveats as the sentences to drop first. Judge-facing, cheap, and it clears in fifteen minutes so the rest of the lap is WFG-036.
+2. **WFG-036** then **WFG-037** (P0) — the release bundle v1 (R9) and the booth recipe (R3, R12), due 09-10 on the sprint plan. **Moved WFG-036 up this lap** (below).
 3. **WFG-007** (P1) — booth checklist and printables (R7), the last unwritten judge-facing artifact.
 
-Then in order: WFG-010 (README Round-4 + abstract → R8), WFG-024 when its blockers clear (R11), WFG-076 and the other infra rows only after the readiness lines above are ticked. **No further claim-gate row this sprint** unless a judge-facing surface is wrong: WFG-062 measured its own limit and published it, and critic #14 measured it independently at 1/20 on rewordings, which is what the document already said.
+Then in order: WFG-010 (README Round-4 + abstract → R8), WFG-024 when its blockers clear (R11), and only then WFG-088, WFG-089, WFG-094, WFG-097 and the other infra rows, which CHARTER §14b holds behind R1, R3, R7, R8 and R9.
 
 ## What not to do
 
@@ -26,12 +25,12 @@ Then in order: WFG-010 (README Round-4 + abstract → R8), WFG-024 when its bloc
 - No consultation-dependent claim (NH-010): nothing may wait on an expert reply.
 - No ratio between the chain and the season areas (NH-018).
 - Do not spend a lap on the six-fire study-area map until per-fire burned areas are registered (WFG-060).
-- Do not open another gate-about-the-loop row while `DEMO_SCRIPT_5MIN.md`, `BOOTH_SETUP.md` and `release/kcf-finals-2026/` do not exist (CHARTER §14b).
+- Do not open another gate-about-the-loop row while `release/kcf-finals-2026/`, `BOOTH_SETUP.md` and the printables do not exist (CHARTER §14b). WFG-097 is filed and parked behind exactly that rule, by the critic who found it.
 
 ## Critic's last direction note
 
-**2026-09-04, critic #14. The next `todo` row is WFG-003, no BACKLOG row was moved, and for the first time in three critic laps that is not a deferral — it is where the table already points.** WFG-062 closed at `e350571`, so option A of **NH-024** is spent, option C is what the table does on its own, and the escalation that critic #12 opened and critic #13 declined to answer is **resolved by events**; I annotated it so and left the author a one-line exit rather than a decision. What I add is the clock rather than another ratio. Judge-facing lines this 24 h window: **1,018 of 20,812 authored (4.9 %)**, against `docs/auto/reports/` at **8,052 in 45 files (38.7 %)** — better than critic #13's 2.6 %, still eight to one, and most of the improvement is the manuscript's §6 admission rather than anything at the booth. **Three of eleven readiness lines ticked; the last tick was R2 by critic #8 at `12bf2d9`, 0750Z, fifteen hours and five critic laps ago; `web/` has not been committed to for twelve windows.** My one `fix-before-next-row` item (WFG-087) is fifteen minutes on a T0 Q&A answer that teaches a blocker this repository removed the same day, and it is deliberately cheap so that the rest of the next lap is WFG-003. **The falsifiable test:** if the next dev lap produces `docs/auto/DEMO_SCRIPT_5MIN.md` and a `web/` commit, this page is steering; if it produces another gate, it is not, and critic #15 should say that to the author instead of filing a fifteenth row about it.
+**2026-09-05, critic #15. I moved one row, and it is the first reorder in four critic laps that is not a deferral: WFG-036 (P0, the release bundle, due 09-10) was at table line 69, below WFG-088 and WFG-089 — two P1 hygiene rows critic #14 filed on 09-04 — so the next `todo` a dev lap would take in table order was a minutes-long prose repair on `docs/withdrawn_claims.md`, not the bundle.** CHARTER §14b holds exactly those rows behind R1, R3, R7, R8 and R9, and §3b forbids a P0 below a non-P0, so this was the table contradicting the charter rather than a judgement call. WFG-036 now sits directly under WFG-095. I did not move WFG-037; one move is the limit and this page names it instead. **What the window earned:** `docs/auto/DEMO_SCRIPT_5MIN.md` exists, and I ticked **R4** with my own reading — six timed segments summing to exactly 300 s, five judge-lens interruption sentences, and a 35-row mapping table whose 33 registry keys I resolved and value-matched independently. **That is the first readiness line ticked in six critic laps** (the last was R2 by critic #8 at `12bf2d9`, 0750Z on 09-04); the count is now **4 of 11**. The census moved with it: judge-facing lines in this window are **257 of 943 authored (27.3 %)** against critic #14's 4.9 % and critic #13's 2.6 %, and 231 of the 257 are the script itself. **The falsifiable test for critic #16:** if the next lap produces `release/kcf-finals-2026/` or `BOOTH_SETUP.md`, this page is steering; if it produces another gate, WFG-084's cap should stop being a proposal.
 
 ## Critic's previous direction note
 
-**2026-09-04, critic #13. The next `todo` row is unchanged, no BACKLOG row was moved, and the reason is that the question is already with the author.** I did move WFG-003 above WFG-062 under CHARTER §14b, then put it back on finding **NH-024** open: the 1851Z dev lap had already escalated exactly this, with 「hand the booth rows their place back」 spelled out as option C. Critic #12's re-scope test has resolved (two laps passed, WFG-062 still `todo`), so the answer is due, but it is the author's and not a critic's — reordering under an open escalation of my own loop's making would be theatre. What I add instead is a measurement: over the 24 h to `baf6962`, 108 commits and 25,122 authored lines, of which **9,000 in 49 report files** and **3,386 in the steering documents** (49.3 % together) against **663 lines, 2.6 %**, on every surface a judge will ever see. Nineteen to one. Filed **WFG-084** as the structural half of that, P1 under §14b, and set **no `fix-before-next-row` item**.
+**2026-09-04, critic #14. The next `todo` row is WFG-003, no BACKLOG row was moved, and for the first time in three critic laps that is not a deferral — it is where the table already points.** WFG-062 closed at `e350571`, so option A of **NH-024** is spent and the escalation critic #12 opened is resolved by events. Judge-facing lines that window: **1,018 of 20,812 authored (4.9 %)** against `docs/auto/reports/` at 8,052 in 45 files. Three of eleven readiness lines ticked, no tick for five critic laps, `web/` untouched for twelve windows. One `fix-before-next-row` item (WFG-087), fifteen minutes on a T0 Q&A answer. *(Critic #13's note is in `docs/auto/reports/2026-09-04T2013Z-critic.md`; this page stays one screen.)*

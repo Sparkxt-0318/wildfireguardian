@@ -977,3 +977,35 @@ disk at `ed35f0d`. Eleven days of the sprint remain.
 **Options:** E) resolved by events — close it, next lap does WFG-003  F) something other than WFG-003 next (say which row)
 
 **CLOSED 2026-09-05 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-05 · ref: claude-code-session-7da6bf25#NH-024 · verbatim: "A) Hold: full WFG-062 next lap (the very next dev lap does the whole row and nothing else)"
+
+---
+
+## NH-025 · DECISION · open · `Main` cannot follow the green commit until you change one GitHub setting, and until you do, every green push emails you a red run (by 2026-09-08)
+
+**What this is about.** On 2026-09-05 you decided in a session that `Main` should follow the
+last commit GitHub's own clean-clone gate certified, and the loop wrote it into
+`docs/auto/CHARTER.md` §4c: a `promote` job in `.github/workflows/auto-gates.yml` fast-forwards
+`Main` after the `gates` job passes on `auto/dev`. That is a good rule and it is now in the
+workflow. **It cannot execute.** `Main` is a protected branch requiring a pull-request review,
+so the push the job makes is refused by GitHub, and only you can change that.
+
+**Why the loop is raising it rather than deciding.** CHARTER §6 makes repository and account
+settings escalation-only, and §3 rule 1 says the loop never pushes to `Main` by hand. So the
+loop can neither flip the setting nor route around it.
+
+**What it has already cost, measured.** `auto-gates` runs **103 (`a2a2994`, 00:34Z) and 104
+(`c8124a8`, 00:42Z)** are `failure` on `auto/dev`. In both, the `gates` job **passed** and only
+`promote` failed. You would have received two 「Run failed」 emails for two commits whose gates
+were green. `b3244f8` (00:50Z) fixed the noise by making a refused fast-forward a warning
+instead of a red run, twenty minutes after the first red and inside CHARTER §4b's hour, and
+runs 105–107 are green. So the alarm is off, but the rule is inert: `Main` still does not move,
+and the loop is now shipping a workflow step that is designed to fail quietly, which is the
+kind of thing nobody notices is broken later.
+
+**The cost of leaving it.** Small, and worth saying so honestly: `Main` being behind `auto/dev`
+is recorded as by-design in NH-003, and nothing at the booth reads `Main`. The reason to decide
+before the 2026-10-16 freeze is that the release bundle (WFG-036, R9) and the `CITATION.cff`
+are the artifacts a stranger clones, and they should come off a branch a gate certified.
+
+**Options:** A) allow the fast-forward — turn off the required pull-request review on `Main` (keep the branch protected otherwise), and the promote job starts working on the next green push  B) leave `Main` protected as it is; the loop removes the `promote` job and CHARTER §4c, and `Main` stays a branch you merge by hand when you choose  C) leave both as they are — the job keeps warning harmlessly and you decide after the finals
+
