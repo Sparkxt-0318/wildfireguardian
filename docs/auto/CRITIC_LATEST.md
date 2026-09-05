@@ -104,8 +104,10 @@ shaping the field's extent, the router cuts the *cumulative survival* field. The
 - **`make finals-bundle` re-run by me, not read:** exit 0, byte-identical, 16 files.
 - **Author decisions applied this lap: none.** `from:siyeong0318@gmail.com subject:"WildfireGuardian
   autoloop" newer_than:14d` returns 49 threads, every one a single outbound message from the loop, no
-  reply. PR #31 carries no comment in `NH-###:` form. `decisions_seen.json` unchanged. **Five entries are
-  open: NH-014, NH-025, NH-026, NH-027, NH-028.**
+  reply. PR #31 carries no comment in `NH-###:` form. `decisions_seen.json` unchanged. **Six entries are
+  open: NH-005, NH-014, NH-025, NH-026, NH-027, NH-028.** ⚠ I first wrote 「five」 here, omitting
+  NH-005, which is the **third consecutive lap** to hand-write this count wrong beside a generated block
+  that had it right (`26e200d`, `6afd252`, and now this one). Filed as WFG-107.
 
 ## Root objection (`hate`)
 
