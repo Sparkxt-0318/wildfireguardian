@@ -1298,3 +1298,61 @@ direction page. This one cannot be: the queue was right (the lap took exactly th
 
 **Options:** A) check the routine run at https://claude.ai/code/routines and tell the loop whether the 18:17Z lap failed, so the critic can record the cause rather than the symptom  B) treat it as a one-off, let the next lap release the claim per CRITIC_LATEST, and only escalate if a second slot goes empty  C) shorten the claim's life: add a rule to CHARTER §5 that any `in-progress` stamp older than two hours is released by the next lap that meets it, with no human in the loop
 
+
+**Loop note, 2026-09-05T2112Z (fact, not a decision — this entry stays open for you).** The lap this
+entry is about finished and pushed. It took 2 h 54 m rather than the two-hour box, and the reason is
+in its report: its own independent reviewer **blocked it three times**, and the first block was
+fundamental — the run had been built against the wrong arm (denominator 96 instead of your 91) on a
+limitation the lap had invented without checking, and it had to be rebuilt from the experiment
+outward. Critic #21 measured a one-line diff at 20:10Z because at that moment the lap was on its
+second rebuild, not because it had stalled: no artifact existed under `data/processed/` yet because
+the first one had been discarded. The entry's substantive point stands and is worth your answer —
+**a lap that is going to run long has no way to say so**, and the claim marker alone cannot
+distinguish 「working」 from 「dead」. A heartbeat the critic can read would have cost this lap nothing
+and would have saved critic #21 an entry.
+
+## NH-031 · DECISION · open · A committed judged number means something different once the control is scored under the same rule as the treatment (by 2026-09-12)
+
+**Found by the WFG-114 lap's independent reviewer, 2026-09-05, and confirmed by measurement here.**
+
+`mr_uiseong_fa_exceeds_budget` = **2** is registered with the meaning 「the fire-blind route is
+safe but the future-aware route is not」 — i.e. two origins on which the *forecast lost to the
+control*. It is the only bucket in the 459-series that runs against this project, and it is quoted
+as such.
+
+**It is an artifact of scoring the two arms under different rules.** The committed classification
+(`scripts/run_multi_region_routing.py`, `classify`) gives the fire-blind route **no time budget**,
+while `future_aware_route` enforces the 600-minute budget internally. Measured on the canonical
+slope network this lap: those two origins' fire-blind routes arrive at **624.8** and **628.2**
+minutes. Under one consistent rule they are not 「the forecast lost」 — they are 「no arm saves
+them」, and the bucket is **empty**.
+
+Two consequences, both measured, neither acted on:
+- The budgeted fire-blind control is **263**, which is exactly `both_safe`. WFG-114's own table uses
+  the budgeted figure and keeps 265 beside it as `safe_fire_blind_unbudgeted`.
+- Every 459-series region has the same asymmetry, so 영덕's and 울진·삼척's `fa_exceeds_budget`
+  (0 and 3) may have the same explanation. **Not checked** — this lap only ran 의성·안동.
+
+**Nothing has been changed.** CHARTER §3.2 and §3.3 forbid a lap from moving a committed registered
+value, and §6 says a number whose meaning would change is yours. `docs/present_perimeter_arm.md` §2
+states the qualification and points here; the registry entry is untouched.
+
+**How far this reaches, measured rather than estimated (added by the lap's reviewer, 2026-09-05).**
+No member of `both_safe` has a late fire-blind route, so under a uniform budget the **only** committed
+bucket whose membership moves in this region is `fa_exceeds_budget`. `both_safe` = 263 is untouched,
+and the blast radius here is **two origins**, not a re-run of the series.
+
+⚠ **Option C is narrower than it sounds.** 영덕 cannot be re-run at all (its 2026-07-23 walk graph is
+unrecoverable, HANDOFF_ROUND3.md §5.4), and 울진·삼척 carries its own DEM-footprint caveat (§5.16). So
+「all three regions」 is not available: C can cover 울진·삼척 (whose committed `fa_exceeds_budget` is 3)
+beside 의성·안동, and 영덕's 0 would stay a quoted value.
+
+**Options:** A) register a NEW key for the budgeted reading (`mr_uiseong_fa_exceeds_budget_budgeted`
+= 0) beside the existing one, annotate the old entry's caveat with the asymmetry, and change
+nothing else — additive, no committed value moves  B) leave the number and its caveat exactly as
+they are and record the asymmetry only in `docs/present_perimeter_arm.md`, where it was found
+C) also re-derive the other two regions' buckets under the uniform rule first, so the correction is
+made once for all three rather than one region at a time (one lap, no new data)  D) treat the
+committed classification's unbudgeted naive scoring as the defect and open a row to re-run the whole
+459 series under one rule — **expensive and it would move committed headline numbers, so it is the
+one option this loop will not take without you saying it explicitly**

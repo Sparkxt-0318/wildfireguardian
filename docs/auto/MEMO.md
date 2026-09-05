@@ -1095,3 +1095,112 @@ sentence naming which gate covers a hole is a claim about a program, and it is v
 that program against the hole, never by reading the gate's name.** Second, the exemption a new gate
 grants itself is load-bearing from the moment it is written: WFG-109 made line 434 the one exempt
 line, and that same line is where every judged number lives (WFG-113).
+
+---
+
+## 2026-09-05, 20260905T1820Z dev lap (WFG-114) — I invented a limitation, and the reviewer broke it in 103 seconds
+
+The lap's biggest lesson is not the experiment. It is that I wrote a **false limitation** into a
+document, a script docstring, a registry caveat on 40 keys, a backlog row and this file, and every
+gate stayed green, because no gate can check a sentence that says a file does not exist.
+
+I needed the canonical arm's SRTM raster. I looked at `data/raw/firms_data/`, found it absent,
+remembered that `data/raw/**` is git-ignored, and wrote: 「the canonical arm cannot be rebuilt in a
+cloud lap」. Then I built the whole experiment on the flat arm instead and reported against **96**
+when the author's row, and the author's decision, had asked about **91**. The independent reviewer
+ran `git ls-files data/snapshots | grep srtm-dem` and the raster was right there — committed, with
+a MANIFEST entry naming that exact `data/raw/` path as its `origin_path` and the same sha256.
+**CHARTER §4 "Sandbox facts" tells every lap to work from `data/snapshots/` for precisely this
+reason, and I had read it that morning.**
+
+**The anti-pattern: absence checked in one place is not absence.** I confirmed a file was missing
+from the location I happened to think of, and promoted that into a property of the environment. The
+snapshot store exists BECAUSE `data/raw/` does not survive a clone; the very fact I used to justify
+the limitation was the reason the workaround exists. Before writing 「X is not available here」, run
+the search that would find X if it were: `git ls-files | grep`, then the MANIFEST, then say it.
+
+**And the second-order damage is what makes it worse than a wrong number.** An invented limitation
+propagates as *humility*, so nothing challenges it: it went into a caveat on 40 registry keys, where
+it would have been quoted as a known constraint by every later lap and by the paper routine. A wrong
+result gets checked. A wrong reason for not having a result does not. **CHARTER §3.5 forbids
+fabricated evidence; a fabricated limitation is the same defect pointing the other way**, and this
+lap's own MEMO entry warned the next lap against exactly that, in the same commit, about a different
+row.
+
+**The reviewer's second finding, which I would never have found myself.** The arm scored an origin
+standing inside the buffer as "no route" whenever all of its neighbours were also inside — even
+though a road out plainly existed. That convention **flattered this project**: every origin it
+stranded counted against the fair opponent. It was worth 10 origins against a margin of 9, i.e. more
+than the entire result. Fixed by routing both conventions for every origin and making the honest one
+(`walk_out`: leave the buffer, never re-enter) primary, with both in the artifact. **The gate this
+leaves:** `test_both_origin_rules_are_reported_and_the_honest_one_is_primary` goes red if a later lap
+reports only one rule, or if the harsher rule is ever the one on the headline.
+
+**Where the independent review earned its cost.** LOOP_CONFIG's `review: subagent` is the only reason
+this lap did not push a number answering a question the author did not ask, under a limitation that
+was not real. Both findings were things I could have checked in under two minutes and did not,
+because I had already written the sentence. **A reviewer that only reads the diff cannot catch a
+false claim about what is NOT in the diff — this one caught it by running a search instead of reading
+my reasoning.** Give the reviewer the claims, not just the diff, and let it go looking.
+
+---
+
+## 2026-09-05, 20260905T1820Z dev lap (WFG-114), second lesson — a fair opponent needs a band, not a width
+
+The author's row asked for one buffer (1 km) and one number. Run that way the answer is
+「the present-aware arm recovers 86 of the 91 forecast-only origins」, and it is **true and
+almost worthless**, because nothing in it says whether 1 km was a discovery or a coincidence.
+Four extra widths, ~2 minutes of compute in the same run, turned it into a different finding:
+250 m and 500 m walk **91 and 80** origins into the fire as it grows; 2 km and 3 km leave
+**80 and 73** unable to finish inside the 600-minute budget; 1 km is the single crossing where the
+first failure has nearly vanished and the second has not yet started. The headline number did not
+change — the **claim** did, from 「a simple baseline nearly matches the forecast」 to 「a simple
+baseline nearly matches the forecast if you already know the answer, and an operator does
+not」. The second is defensible at a booth and the first is not.
+
+**The gate this leaves:** `tests/test_present_perimeter_arm.py::test_the_buffer_band_brackets_the_headline_width`
+refuses a sensitivity table whose reported width is its own minimum or maximum. A free
+parameter reported at one value is a tuned number wearing a sensitivity check's clothes, and
+the cheapest way to stop a later lap quietly re-tuning it is to require something on both sides.
+
+**And the thing worth doing again:** the script **refuses to write** unless it first reproduces
+the committed arm it stands on — all seven bucket counts, and the origin ids of every bucket the
+committed artifact stores a list for (`--verify-only`; `both_safe` has no stored list and is pinned
+by complement, which is what the sentence must say: 「every origin node id」 was the overstatement
+this same lap had to withdraw in four other places, and restating it here as advice was the sixth
+copy, found by the reviewer in the file that teaches the next lap). That check is what makes the third column comparable at all, it cost about
+100 seconds, and it is the difference between measuring the question and measuring the harness.
+A new arm on an old experiment should always be gated on re-deriving the old arm first.
+
+**One consequence outside the row, and it is the dangerous kind.** This lap falsified a standing
+instruction in a *different* live row: WFG-104 told the next lap to write a judge-facing card
+saying 「the present-perimeter arm has **not** been run」. It has now. Left alone, the next lap
+would have written a fabricated limitation into the Q&A bank in the student's own voice, and
+every gate would have stayed green because no gate reads a backlog row's premise. **A lap that
+changes the world a row describes must edit that row in the same commit** — the superseded text
+kept as a record, never deleted (CHARTER §3.7).
+
+**Round 2 of the same review, and the lesson that generalises past this row.** After the fixes
+above the reviewer blocked again, on something neither it nor I had looked at the first time: the
+committed classification scores the **fire-blind** route with no time budget, while the
+forecast-aware router enforces one internally and my new arm was held to it. Two rules in one
+three-column table. Two fire-blind routes arrive at 624.8 and 628.2 minutes, so the control was 265
+where a consistent rule gives 263 — and because those origins counted as "already safe", the buffer
+was also blamed for breaking them, so its cost read 6 instead of 4.
+
+**Both errors ran in this project's favour, and that is the pattern to take away.** Across two
+rounds every defect the reviewer found — the invented DEM limitation, the strict origin rule, the
+unbudgeted control — biased the result *toward* the forecast. None was deliberate and none was
+random. When a lap builds the opponent to its own headline, the opponent gets the benefit of every
+unexamined default, because the defaults were all written while the headline was the thing being
+defended. **So: when you build an adversary for your own result, enumerate every rule the two sides
+are scored under and check them for symmetry explicitly, before measuring anything.** The gate this
+leaves is `test_the_three_arms_add_up`'s budget assertion plus the artifact's
+`safe_fire_blind_unbudgeted`, which keeps the superseded figure visible instead of replaced.
+
+**And one place a withdrawn claim can hide that no gate was watching:** the artifact's own
+`what_this_does_not_show` block. The v1 string ("this run is flat-timed and its denominator is the
+flat arm's 96") survived the entire rewrite inside the committed JSON that 52 registry keys point
+at, because it lives in a Python literal that no prose gate reads and no test asserted on. The
+reviewer replaced it with 「THIS RUN PROVES THE FORECAST IS UNNECESSARY.」 and all 18 tests and
+`check_forbidden.py` stayed green. A caveat surface needs a content gate, not a length check.

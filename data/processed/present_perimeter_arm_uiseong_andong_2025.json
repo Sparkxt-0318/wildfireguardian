@@ -1,0 +1,1220 @@
+{
+  "title": "Present perimeter + 1000 m buffer — the fair opponent for the forecast-aware headline (uiseong_andong_2025)",
+  "schema_version": 1,
+  "row": "WFG-114",
+  "decision": "NH-027 option A (author, 2026-09-05); report the number whatever it says",
+  "region": "uiseong_andong_2025",
+  "generated_utc": "2026-09-05T20:35:46Z",
+  "git_commit": "492364c87585180264035f7e8294d871436ef6ce",
+  "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+  "runtime_s": 217.8,
+  "parameters": {
+    "buffer_m": 1000.0,
+    "p_cut": 0.5,
+    "time_budget_min": 600.0,
+    "time_step_min": 10.0,
+    "routing_objective": "length_m (distance-ranked, identical to the control)",
+    "timing_model": "SLOPE 60 m / DiGraph (CANONICAL) — the arm the headline's 91 comes from, rebuilt from the SRTM raster in the committed snapshot store",
+    "slope_sampling_m": 60.0,
+    "max_abs_slope": 0.6,
+    "origin_rule_primary": "walk_out (may leave the buffer, never re-enter)",
+    "budget_rule": "the 600-minute budget is applied to ALL THREE columns. The committed classification does not budget the fire-blind route; that unbudgeted figure is kept as headline.safe_fire_blind_unbudgeted.",
+    "origin_rule": "imported from run_multi_region_routing.candidate_origins"
+  },
+  "sources": {
+    "committed_experiment": "data/processed/real_roads_real_hazard_uiseong_andong_2025.json",
+    "committed_arm": "slope_digraph_canonical",
+    "hazard_npz": "data/processed/hazard_uiseong_andong_2025.npz",
+    "hazard_npz_sha256": "4016c2e6ef8e27eb12310a816a416b6d1a6bf54d0187d6ac8fbc4ad4f747e3cd",
+    "snapshot_walk": "osm-walk_uiseong-andong-2025_20260802_031147a0.graphml.gz",
+    "snapshot_shelters": "osm-shelters_uiseong-andong-2025_20260802_065fac6b.geojson"
+  },
+  "reproduction_gate": {
+    "arm": "slope_digraph_canonical",
+    "reproduced": true,
+    "differences": [],
+    "committed_counts": {
+      "naive_into_FA_safe": 91,
+      "no_safe_route": 12,
+      "both_safe": 263,
+      "both_enter": 0,
+      "naive_unreachable": 0,
+      "fa_exceeds_budget": 2,
+      "unclassified": 0
+    },
+    "recomputed_counts": {
+      "naive_into_FA_safe": 91,
+      "no_safe_route": 12,
+      "both_safe": 263,
+      "both_enter": 0,
+      "naive_unreachable": 0,
+      "fa_exceeds_budget": 2,
+      "unclassified": 0
+    },
+    "id_buckets_graded": [
+      "fa_exceeds_budget",
+      "naive_into_FA_safe",
+      "no_safe_route"
+    ],
+    "n_id_buckets_graded": 3,
+    "n_ids_graded": 105,
+    "buckets_without_stored_ids": [
+      "both_safe"
+    ],
+    "note": "bucket counts are graded for all seven buckets; origin ids are graded for every bucket the committed artifact stores a list for. `both_safe` has no stored list and is pinned by complement (counts match and the scan size matches)."
+  },
+  "perimeter": {
+    "slice0_core_cells": 53,
+    "n_nodes_refused": 321,
+    "n_nodes_total": 6678,
+    "refused_fraction": 0.048068,
+    "refuges_before": 31,
+    "refuges_after": 29,
+    "origins_inside_buffer": 18
+  },
+  "headline": {
+    "n_origins_scanned": 368,
+    "forecast_only": 91,
+    "recovered_by_present_perimeter": 86,
+    "still_forecast_only": 5,
+    "recovered_fraction": 0.945055,
+    "already_safe_broken_by_buffer": 4,
+    "saved_from_no_safe_route": 0,
+    "saved_from_no_safe_route_note": "⚠ NAME IS NARROWER THAN THE SET. It counts origins no arm saved under the uniform rule that the present-aware arm does save, which is no_safe_route + both_enter + naive_unreachable + unclassified PLUS the fire-blind routes that miss the budget. It is 0 at every width in this run.",
+    "broken_by_mode": {
+      "safe": 0,
+      "unreachable": 3,
+      "enters_hazard": 1,
+      "over_budget": 0
+    },
+    "n_both_safe": 263,
+    "n_fire_blind_safe_set": 263,
+    "safe_fire_blind_unbudgeted": 265,
+    "fire_blind_late_past_budget": 2,
+    "fire_blind_late_arrivals_min": [
+      624.8,
+      628.2
+    ],
+    "safe_fire_blind": 263,
+    "safe_present_perimeter": 345,
+    "safe_present_perimeter_no_budget": 361,
+    "safe_forecast_aware": 354,
+    "forecast_margin_over_present": 9
+  },
+  "failure_modes": {
+    "all_origins": {
+      "safe": 345,
+      "unreachable": 4,
+      "enters_hazard": 3,
+      "over_budget": 16
+    },
+    "still_forecast_only": {
+      "safe": 0,
+      "unreachable": 1,
+      "enters_hazard": 2,
+      "over_budget": 2
+    },
+    "already_safe_broken_by_buffer": {
+      "safe": 0,
+      "unreachable": 3,
+      "enters_hazard": 1,
+      "over_budget": 0
+    },
+    "origins_inside_buffer": {
+      "safe": 15,
+      "unreachable": 0,
+      "enters_hazard": 3,
+      "over_budget": 0
+    }
+  },
+  "per_origin": {
+    "330186872": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 14153.352616703005,
+      "time_min": 349.5871733377422
+    },
+    "365832477": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 20332.420291841794,
+      "time_min": 534.7979875355871
+    },
+    "365838099": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 15696.978367148506,
+      "time_min": 416.88091008683966
+    },
+    "365840174": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 18481.3657781648,
+      "time_min": 496.47130335134136
+    },
+    "365843543": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 19462.4884795988,
+      "time_min": 521.5704144187068
+    },
+    "367855171": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 16500.294108419388,
+      "time_min": 434.94554985732293
+    },
+    "367855611": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 11899.174513234526,
+      "time_min": 323.6016222933118
+    },
+    "367856490": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 20233.167871971193,
+      "time_min": 539.3834114136155
+    },
+    "367857498": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 21338.386023480394,
+      "time_min": 560.829895544898
+    },
+    "367858725": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 15455.251833073604,
+      "time_min": 413.18411322674194
+    },
+    "4853541334": {
+      "reached": false,
+      "enters_hazard": false,
+      "within_budget": false,
+      "safe": false,
+      "distance_m": 0.0,
+      "time_min": 0.0
+    },
+    "6602597956": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 15034.28499517735,
+      "time_min": 399.6095098853456
+    },
+    "6602598020": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 14568.872968063459,
+      "time_min": 390.3440522066691
+    },
+    "6602598059": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 15536.665104765678,
+      "time_min": 411.24521525887326
+    },
+    "6602598132": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 15720.59924015784,
+      "time_min": 417.52333378539345
+    },
+    "6602598207": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 16096.668537626552,
+      "time_min": 425.8343755988444
+    },
+    "6665720685": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 19935.041480905056,
+      "time_min": 532.2772782467607
+    },
+    "6665720755": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 19879.50849560208,
+      "time_min": 528.8111562806422
+    },
+    "6665720797": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 20102.767741178002,
+      "time_min": 535.2046353179868
+    },
+    "6667033701": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 20588.97987719602,
+      "time_min": 548.2762047024935
+    },
+    "6667033765": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 20615.52331743118,
+      "time_min": 546.8818909010504
+    },
+    "6667108998": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": false,
+      "safe": false,
+      "distance_m": 22849.912038102804,
+      "time_min": 602.807847828471
+    },
+    "6667109029": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 21105.335947108506,
+      "time_min": 561.6081796286542
+    },
+    "6667109108": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 21233.43153400565,
+      "time_min": 563.7928600051706
+    },
+    "6667109180": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 22635.040572303806,
+      "time_min": 597.791815043991
+    },
+    "7272152883": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 18640.608573896898,
+      "time_min": 492.8980479576279
+    },
+    "7348685984": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 21251.63424297177,
+      "time_min": 563.8648357336565
+    },
+    "7348686426": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 19524.869674773607,
+      "time_min": 480.0248404364209
+    },
+    "8488013765": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": false,
+      "safe": false,
+      "distance_m": 23294.26194114663,
+      "time_min": 609.6620788243513
+    },
+    "8488020090": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 20695.237819103335,
+      "time_min": 543.6224588916091
+    },
+    "9120108701": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 5402.957202220365,
+      "time_min": 156.8621784763001
+    },
+    "9120108767": {
+      "reached": true,
+      "enters_hazard": true,
+      "within_budget": true,
+      "safe": false,
+      "distance_m": 2188.9084762795846,
+      "time_min": 53.501240084960806
+    },
+    "9842953160": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 5652.38003697401,
+      "time_min": 163.2123822171305
+    },
+    "9851985144": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 12903.285788923591,
+      "time_min": 319.9039713733315
+    },
+    "9851985333": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 7018.508053613466,
+      "time_min": 181.35104761764384
+    },
+    "9856969533": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 12687.384327540007,
+      "time_min": 342.55832590168785
+    },
+    "9856969771": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 4675.5744511575285,
+      "time_min": 137.36368510520347
+    },
+    "9859514543": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 7414.159016045679,
+      "time_min": 191.18770416019925
+    },
+    "9859514626": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 6721.183701530539,
+      "time_min": 190.23875801044855
+    },
+    "9859514700": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 8553.96386623104,
+      "time_min": 218.51195420089738
+    },
+    "10806853248": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 13545.372217134644,
+      "time_min": 333.28090482204567
+    },
+    "11633929813": {
+      "reached": true,
+      "enters_hazard": true,
+      "within_budget": true,
+      "safe": false,
+      "distance_m": 9889.382630416712,
+      "time_min": 280.6596659016055
+    },
+    "11707864056": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 13341.245410058167,
+      "time_min": 364.00345038645133
+    },
+    "12099879598": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 14398.169906628209,
+      "time_min": 385.2125644669366
+    },
+    "12099940125": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 15758.350858880183,
+      "time_min": 420.24813596831007
+    },
+    "12099940500": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 13951.170420159086,
+      "time_min": 374.1119489374529
+    },
+    "12099940676": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 15647.490929822712,
+      "time_min": 418.08334762695495
+    },
+    "12100016299": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 18965.33227112099,
+      "time_min": 500.2633031546285
+    },
+    "12100026449": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 20633.275407948866,
+      "time_min": 550.5364198810504
+    },
+    "12100026685": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 19257.962031211046,
+      "time_min": 507.7039411630411
+    },
+    "12100026820": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 20124.227855520498,
+      "time_min": 530.2454935119061
+    },
+    "12100027070": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 19358.146295843075,
+      "time_min": 510.0920062116753
+    },
+    "12100027218": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 20367.712050424772,
+      "time_min": 535.8509035227344
+    },
+    "12100027347": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 19598.046559933202,
+      "time_min": 515.5934235095267
+    },
+    "12100027501": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 20339.633129150854,
+      "time_min": 536.6003246216266
+    },
+    "12369636734": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 21424.743579340073,
+      "time_min": 568.4440198018527
+    },
+    "12369637053": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 18861.46595914441,
+      "time_min": 523.1868512289624
+    },
+    "12372525486": {
+      "reached": true,
+      "enters_hazard": true,
+      "within_budget": true,
+      "safe": false,
+      "distance_m": 7884.6048754276835,
+      "time_min": 218.7561821295618
+    },
+    "12616948842": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 14884.151025847412,
+      "time_min": 396.0268536815464
+    },
+    "12616949089": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 8258.187030208375,
+      "time_min": 232.4175744522158
+    },
+    "12616949212": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 7366.58737949957,
+      "time_min": 209.90975869359616
+    },
+    "12661934937": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 13731.247436715048,
+      "time_min": 339.82444587345634
+    },
+    "12738909323": {
+      "reached": false,
+      "enters_hazard": false,
+      "within_budget": false,
+      "safe": false,
+      "distance_m": 0.0,
+      "time_min": 0.0
+    },
+    "12905324322": {
+      "reached": false,
+      "enters_hazard": false,
+      "within_budget": false,
+      "safe": false,
+      "distance_m": 0.0,
+      "time_min": 0.0
+    },
+    "13052018542": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 16793.666741877914,
+      "time_min": 445.5817338095168
+    },
+    "13052089767": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 16778.063923068657,
+      "time_min": 445.86106009788114
+    },
+    "13064587891": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 22596.527190531662,
+      "time_min": 590.0693744135755
+    },
+    "13064588291": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 21673.875779517235,
+      "time_min": 568.7390840195271
+    },
+    "13064588432": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 22463.47790882201,
+      "time_min": 586.2972856435645
+    },
+    "13064588588": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 23002.952989095756,
+      "time_min": 599.2203401181628
+    },
+    "13070646970": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 18026.86371997607,
+      "time_min": 476.0313234471412
+    },
+    "13075772755": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 21597.71065331913,
+      "time_min": 537.4124850454712
+    },
+    "13075774226": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 21169.175407498748,
+      "time_min": 554.5602187995765
+    },
+    "13075774548": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 20929.284288390118,
+      "time_min": 553.0686608767704
+    },
+    "13084694786": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 19261.731972056037,
+      "time_min": 506.19932664356816
+    },
+    "13113492677": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 16768.31924136573,
+      "time_min": 443.81827161534795
+    },
+    "13113494316": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 15754.017080248685,
+      "time_min": 419.32107216394604
+    },
+    "13113542711": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 18314.992921271227,
+      "time_min": 482.7435403858294
+    },
+    "13113887806": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 16087.768212091858,
+      "time_min": 427.2732206264061
+    },
+    "13113896443": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 16250.860599045976,
+      "time_min": 431.01294100649204
+    },
+    "13113924473": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 21062.13185621069,
+      "time_min": 520.5033311230789
+    },
+    "13113973650": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 20578.804519212972,
+      "time_min": 548.6087281891057
+    },
+    "13119054201": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 22954.129419277277,
+      "time_min": 598.0571210766566
+    },
+    "13119105061": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 18539.942342744383,
+      "time_min": 490.4478034679594
+    },
+    "13238387928": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 13693.026240906776,
+      "time_min": 367.29085447767665
+    },
+    "13238388426": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 16948.497093783957,
+      "time_min": 431.4869975779611
+    },
+    "13238388764": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 12938.642134731303,
+      "time_min": 349.1052924698015
+    },
+    "13238388941": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 13289.01535195267,
+      "time_min": 358.38121990820764
+    },
+    "13238389148": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 17398.11287204375,
+      "time_min": 456.698783485395
+    },
+    "13355501620": {
+      "reached": false,
+      "enters_hazard": false,
+      "within_budget": false,
+      "safe": false,
+      "distance_m": 0.0,
+      "time_min": 0.0
+    },
+    "13375223823": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 8146.331403449925,
+      "time_min": 228.48624917002456
+    },
+    "13375458301": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 13481.340506209997,
+      "time_min": 333.4288582492366
+    },
+    "13375651306": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 13898.885956560129,
+      "time_min": 343.78119215335977
+    },
+    "13375662088": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 14667.004300856193,
+      "time_min": 363.4188395253144
+    },
+    "13375750094": {
+      "reached": true,
+      "enters_hazard": false,
+      "within_budget": true,
+      "safe": true,
+      "distance_m": 13319.873785239415,
+      "time_min": 357.9963387854915
+    }
+  },
+  "flat_arm_crosswalk": {
+    "flat_forecast_only": 96,
+    "canonical_forecast_only": 91,
+    "ids_in_both": 90,
+    "note": "the flat/DiGraph arm is QUOTED from the committed artifact, not recomputed. It is here because the first version of this run used it as the denominator on a limitation that turned out to be false; keeping the crosswalk makes that withdrawal checkable rather than merely stated."
+  },
+  "cost": {
+    "on_recovered_origins": {
+      "n_paired": 86,
+      "present_mean_m": 16580.8,
+      "fire_blind_mean_m": 13197.9,
+      "mean_detour_m": 3382.8,
+      "max_detour_m": 10424.3
+    },
+    "on_all_origins": {
+      "n_paired": 364,
+      "present_mean_m": 8330.8,
+      "fire_blind_mean_m": 7320.4,
+      "mean_detour_m": 1010.4,
+      "max_detour_m": 10424.3
+    }
+  },
+  "buffer_sensitivity": [
+    {
+      "buffer_m": 250.0,
+      "nodes_refused": 36,
+      "refuges_left": 31,
+      "recovered_of_forecast_only": 12,
+      "already_safe_broken": 0,
+      "safe_total": 275,
+      "saved_from_no_safe_route": 0,
+      "forecast_margin": 79,
+      "failed_enters_hazard": 91,
+      "failed_unreachable": 0,
+      "failed_over_budget": 2
+    },
+    {
+      "buffer_m": 500.0,
+      "nodes_refused": 109,
+      "refuges_left": 31,
+      "recovered_of_forecast_only": 23,
+      "already_safe_broken": 2,
+      "safe_total": 284,
+      "saved_from_no_safe_route": 0,
+      "forecast_margin": 70,
+      "failed_enters_hazard": 80,
+      "failed_unreachable": 2,
+      "failed_over_budget": 2
+    },
+    {
+      "buffer_m": 1000.0,
+      "nodes_refused": 321,
+      "refuges_left": 29,
+      "recovered_of_forecast_only": 86,
+      "already_safe_broken": 4,
+      "safe_total": 345,
+      "saved_from_no_safe_route": 0,
+      "forecast_margin": 9,
+      "failed_enters_hazard": 3,
+      "failed_unreachable": 4,
+      "failed_over_budget": 16
+    },
+    {
+      "buffer_m": 2000.0,
+      "nodes_refused": 907,
+      "refuges_left": 26,
+      "recovered_of_forecast_only": 19,
+      "already_safe_broken": 7,
+      "safe_total": 275,
+      "saved_from_no_safe_route": 0,
+      "forecast_margin": 79,
+      "failed_enters_hazard": 5,
+      "failed_unreachable": 8,
+      "failed_over_budget": 80
+    },
+    {
+      "buffer_m": 3000.0,
+      "nodes_refused": 1586,
+      "refuges_left": 26,
+      "recovered_of_forecast_only": 24,
+      "already_safe_broken": 4,
+      "safe_total": 283,
+      "saved_from_no_safe_route": 0,
+      "forecast_margin": 71,
+      "failed_enters_hazard": 3,
+      "failed_unreachable": 9,
+      "failed_over_budget": 73
+    }
+  ],
+  "origin_rule_comparison": {
+    "primary": "walk_out",
+    "walk_out": {
+      "safe_total": 345,
+      "recovered_of_forecast_only": 86,
+      "forecast_margin": 9,
+      "unreachable": 4
+    },
+    "strict": {
+      "safe_total": 335,
+      "recovered_of_forecast_only": 86,
+      "forecast_margin": 19,
+      "unreachable": 17
+    },
+    "origins_inside_buffer": 18,
+    "note": "strict keeps only the origin's own node inside the buffer, so an origin whose every neighbour is also buffered is scored 'no route'. walk_out lets it leave and never re-enter. Every origin the strict rule strands is counted against the fair opponent, so strict inflates the forecast's margin."
+  },
+  "origin_nodes": {
+    "forecast_only": [
+      330186872,
+      365832477,
+      365838099,
+      365840174,
+      365843543,
+      367855171,
+      367855611,
+      367856490,
+      367857498,
+      367858725,
+      6602597956,
+      6602598020,
+      6602598059,
+      6602598132,
+      6602598207,
+      6665720685,
+      6665720755,
+      6665720797,
+      6667033701,
+      6667033765,
+      6667108998,
+      6667109029,
+      6667109108,
+      6667109180,
+      7272152883,
+      7348685984,
+      7348686426,
+      8488013765,
+      8488020090,
+      9120108701,
+      9120108767,
+      9842953160,
+      9851985144,
+      9851985333,
+      9856969533,
+      9856969771,
+      9859514543,
+      9859514626,
+      9859514700,
+      10806853248,
+      11633929813,
+      11707864056,
+      12099879598,
+      12099940125,
+      12099940500,
+      12099940676,
+      12100016299,
+      12100026449,
+      12100026685,
+      12100026820,
+      12100027070,
+      12100027218,
+      12100027347,
+      12100027501,
+      12369636734,
+      12369637053,
+      12616948842,
+      12616949089,
+      12616949212,
+      12661934937,
+      12738909323,
+      13052018542,
+      13052089767,
+      13064587891,
+      13064588291,
+      13064588432,
+      13064588588,
+      13070646970,
+      13075772755,
+      13075774226,
+      13075774548,
+      13084694786,
+      13113492677,
+      13113494316,
+      13113542711,
+      13113887806,
+      13113896443,
+      13113924473,
+      13113973650,
+      13119054201,
+      13119105061,
+      13238387928,
+      13238388426,
+      13238388764,
+      13238388941,
+      13238389148,
+      13375223823,
+      13375458301,
+      13375651306,
+      13375662088,
+      13375750094
+    ],
+    "recovered_by_present_perimeter": [
+      330186872,
+      365832477,
+      365838099,
+      365840174,
+      365843543,
+      367855171,
+      367855611,
+      367856490,
+      367857498,
+      367858725,
+      6602597956,
+      6602598020,
+      6602598059,
+      6602598132,
+      6602598207,
+      6665720685,
+      6665720755,
+      6665720797,
+      6667033701,
+      6667033765,
+      6667109029,
+      6667109108,
+      6667109180,
+      7272152883,
+      7348685984,
+      7348686426,
+      8488020090,
+      9120108701,
+      9842953160,
+      9851985144,
+      9851985333,
+      9856969533,
+      9856969771,
+      9859514543,
+      9859514626,
+      9859514700,
+      10806853248,
+      11707864056,
+      12099879598,
+      12099940125,
+      12099940500,
+      12099940676,
+      12100016299,
+      12100026449,
+      12100026685,
+      12100026820,
+      12100027070,
+      12100027218,
+      12100027347,
+      12100027501,
+      12369636734,
+      12369637053,
+      12616948842,
+      12616949089,
+      12616949212,
+      12661934937,
+      13052018542,
+      13052089767,
+      13064587891,
+      13064588291,
+      13064588432,
+      13064588588,
+      13070646970,
+      13075772755,
+      13075774226,
+      13075774548,
+      13084694786,
+      13113492677,
+      13113494316,
+      13113542711,
+      13113887806,
+      13113896443,
+      13113924473,
+      13113973650,
+      13119054201,
+      13119105061,
+      13238387928,
+      13238388426,
+      13238388764,
+      13238388941,
+      13238389148,
+      13375223823,
+      13375458301,
+      13375651306,
+      13375662088,
+      13375750094
+    ],
+    "still_forecast_only": [
+      6667108998,
+      8488013765,
+      9120108767,
+      11633929813,
+      12738909323
+    ],
+    "already_safe_broken_by_buffer": [
+      4853541334,
+      12372525486,
+      12905324322,
+      13355501620
+    ],
+    "origins_inside_buffer": [
+      367857846,
+      8704234890,
+      9100530459,
+      9120092992,
+      9120108661,
+      9120108767,
+      9120194473,
+      9520863363,
+      9828046220,
+      9828063514,
+      9842930234,
+      11633929813,
+      11752194693,
+      12372525486,
+      12661934937,
+      12905324435,
+      13375651306,
+      13375729088
+    ]
+  },
+  "what_this_does_not_show": [
+    "The forecast-aware arm plans on the same hazard field it is scored against, so it carries NO forecast error: the margin here is what a PERFECT forecast buys over a present-perimeter policy, and this project's real model buys less by an amount this run does not measure.",
+    "The buffer width is a free parameter and 1 km is the best of five widths tried on ONE fire, sitting on the crossing of two failure regimes; it is not a constant and an operator cannot know which width they are on.",
+    "One region, one ignition, one departure time. The buffer band (250 m to 3 km) is a sensitivity check on this single run, not evidence that any width generalises to another fire.",
+    "'Safe' is the committed definition (reached a refuge without standing on a cell at p >= p_cut when it was there), not survival."
+  ]
+}

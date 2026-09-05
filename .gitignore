@@ -130,6 +130,10 @@ data/processed/**
 !data/processed/real_roads_real_hazard_uljin_samcheok_2022.json
 # STEP 4 cross-region table.
 !data/processed/multi_region_comparison.json
+# WFG-114 — the fair opponent for the forecast-aware headline (present perimeter
+# + a fixed buffer). Registered in NUMBERS.json under pp_uiseong_*, so it must be
+# tracked or `make verify` fails on a fresh clone with 'source_file missing'.
+!data/processed/present_perimeter_arm_uiseong_andong_2025.json
 # PHASE 14 — the weather-dependency ceiling. Registered in NUMBERS.json, so it
 # must be tracked or `make verify` fails on a fresh clone with 'source_file missing'.
 !data/processed/weather_dependency.json
