@@ -82,13 +82,119 @@ margin, and the structural choice below is still the author's.
   article charge」 and 「strongly recommend[s] keeping the page count under 20 pages for ease
   of readability」 (IEEE Access, <https://ieeeaccess.ieee.org/about/article-processing-charges/>,
   read 2026-09-05) — so the venue rule is a *recommendation*, and the 7,500-word gate is this
-  repository's own invention rather than anyone's requirement. But 「the built `.docx` is
-  inside 20」 was never measured: the sandbox's LibreOffice will not load the file (the file
-  itself is valid — 25 zip members, 159 paragraphs, 4 tables, 8 figures, opens in Word), so
-  no page count has ever been produced. The clause is struck until someone opens it.
-  This is **NH-028**, now in the author's decision channel rather than only in this file.
+  repository's own invention rather than anyone's requirement. ✅ **The other half is no
+  longer unmeasured: the built document is 21 pages** (lap 8, below).
 
-Until the author chooses, laps must keep the body under 7,500 by trading word for word.
+✅ **ANSWERED 2026-09-05 — the author took none of (a), (b) or (c) as written and set a
+ceiling instead: 25 pages, word count secondary.** So the trimming regime this whole block
+describes is over. Nothing above is deleted, because it is the record of four laps spent
+trading word for word and of the two caveat-losing near-misses that discipline caught; read
+it as history, not as instruction. The operative rule and the measurement behind it are in
+「The page count exists now」 below.
+
+## ✅ The page count exists now — 21 pages (lap 8, 2026-09-05)
+
+**This is the number NH-028 said only the author could produce, and it is the one clause
+every earlier lap had to strike.** `paper/measure_pages.py` renders the committed
+`WildfireGuardian_Park_2026.docx` and counts: **21 pages under Carlito**, cross-checked two
+ways in the script (21 page objects against a page-tree `/Count` of 21, and it refuses to
+print a number when those disagree). `pypdf` 6.17.0 was pip-installed once as a third check,
+also said 21, and was removed; it is in neither `requirements.txt` nor the bootstrap venv, so
+that third check is a note rather than something a fresh clone re-derives. Body words at that
+render: **7,461**, with 8 figures, 4 tables and 27 references.
+
+⚠ **「21 pages」 is conditional and the condition is the font.** Measured on the identical
+file and renderer, varying only which faces fontconfig may see: **Carlito 21, DejaVu Sans 23**.
+`build_docx.py` asks for Calibri, which is not redistributable; Carlito is metric compatible
+with it and DejaVu is not. The first version of this lap's gate computed the substituted face,
+printed it, and then failed hard on the number anyway — caught by the lap reviewer. It now
+gates only on a metric-compatible face and otherwise reports and falls back to the word
+budget, because failing on a DejaVu render would reject a document that is inside the author's
+rule in Word.
+
+So the conversion this file and `paper/README.md` had been assuming — 「roughly 16 pages per
+7,000 words」, and lap 3's crude recount of 「nearer 21」 — resolves to: **the old 7,500-word
+gate sat at about 21 pages**, four under the author's 25-page ceiling. Lap 3's estimate was
+right and its method was not, which is why it was recorded as an estimate and is now replaced
+by a measurement.
+
+**Why nobody could do this before, and it was not the file.** Lap 2 recorded that LibreOffice
+"refuses to load the built document"; lap 3 correctly narrowed that to "it refuses a
+two-paragraph `.docx` written by the same `python-docx` in the same environment, so it says
+nothing about our file". Both true, and one step short of the cause: the sandbox image ships
+`libreoffice-core` **without `libreoffice-writer`**, so no text-document import filter exists
+and every word-processor format fails identically with `source file could not be loaded`.
+Confirmed this lap by listing `/usr/lib/libreoffice/program/` (no `swriter`, no `libswlo.so`)
+and then by installing the package, after which the same command converted the same file in
+under four seconds. The install is machine setup, not a repository dependency:
+
+    apt-get update && apt-get install -y --no-install-recommends \
+        libreoffice-writer fonts-crosextra-carlito fonts-nanum
+
+**Carlito is not cosmetic.** `build_docx.py` sets Calibri, which is not redistributable;
+Carlito is metric compatible with it, so with Carlito installed the line breaks and the page
+count track Word. Without it the substitute is not metric compatible and the count is that
+machine's rather than the document's — `measure_pages.py` prints which case it is in
+(`"calibri_substitute": "Carlito"` on this render) instead of a bare integer. `fonts-nanum`
+renders the Korean runs; there are few enough of them to move no page boundary here, which is
+an observation and not a guarantee.
+
+**The author answered NH-028 while this lap was running, and the answer makes the measurement
+load-bearing rather than merely interesting.** Verbatim, through the laptop decision channel on
+2026-09-05: 「Don't worry about the word count for now. Just make sure it doesn't exceed. 25
+pages for. now」. That session raised the proxy to 8,500 / 9,000 words in
+`docs/auto/LOOP_CONFIG.json`, CHARTER §12 and `paper/check_paper.py`, estimating 「about 21
+pages」 at the current length. **The estimate was exactly right, and this lap replaced it with
+the measurement and with a check.**
+
+So the length rule is now enforced as the author stated it. `check_paper.py` renders the
+document it just built and fails above 25 pages, and the 9,000-word budget stays as the proxy
+everywhere else. Five branches, each exercised by hand this lap: no `measure_pages` module
+(the import is lazy, so an unstaged file cannot make every push ImportError-red), no renderer,
+renderer broken, face not metric-compatible, count over the ceiling. **Only the last one
+fails.** A broken renderer is reported and passes — that is deliberate, so a flaky converter
+cannot turn a push red, and it is said plainly because the first version of this block claimed
+the opposite of code that failed on nothing. ⚠ **None of those branches has a committed
+test**: `tests/` is outside what CHARTER §12 lets this routine touch, so a fixture-driven test
+is a dev-lap item, and until it lands the branch that can fail a push is untested.
+
+**The curve** (`python paper/calibrate_pages.py` regenerates it). Filler is the manuscript's
+own paragraphs recycled, the 8 figures, 4 tables and 27 references held fixed, and the only
+variable is where the words land:
+
+| body words | 7,461 | 7,961 | 8,561 | 8,961 | 9,461 | 9,961 | 10,461 |
+|---|---|---|---|---|---|---|---|
+| appended after the last figure | 21 | 21 | 22 | 23 | 24 | 24 | **25** |
+| spliced into §4, among the figures | 21 | **22** | **23** | 23 | 24 | **25** | **25** |
+
+⚠ **The first row is a lower bound, not a conversion rate, and this lap got that wrong first.**
+It measured only the tail row, ran a control with two fillers of different vocabulary (4.87 and
+5.13 mean word length), found the counts identical at every point, and wrote that the
+conversion was 「a property of the template, not of the words poured into it」. The lap reviewer
+answered that this varied the thing that cannot matter and held fixed the thing that does. The
+second row is the re-run: same words, up to one page more. Real prose is added in the middle of
+a paper, not after it. The sentence is withdrawn and the control is recorded as what it was —
+a control on the wrong variable, which is the failure mode §3.5 of the manuscript exists to
+warn about, committed by the file that describes it.
+
+What the sampling supports: at the proxy's own 9,000-word limit the document is **23 pages by
+either route**, two pages of margin, so the proxy is sound; the ceiling arrives between 9,961
+words (among the figures) and 10,461 (at the end), so the proxy stops a lap about a thousand
+words early. The step is 500 words and **no count above 25 was ever measured**, so the ceiling
+is bracketed rather than located.
+
+⚠ **The proxy is not the rule.** Where the pages go, same render: title page 1, §1 p. 2, §2
+p. 3, §3 pp. 4–6, §4 pp. 7–14, §5 p. 15, §6 pp. 16–17, §7 p. 18, availability and References
+pp. 19–21 (heading positions read with the one-off `pypdf`; the script reports only the total,
+which is the load-bearing number). §4 is eight of the 21 pages because it carries six of the
+eight figures — so a **new figure costs a page and no words at all**, which the word budget
+cannot see and is exactly why the page check exists. Options (a) and (b) in the block above
+both cut prose, and prose is not where the pages are.
+
+**What this means for the next lap.** The length pressure that dominated laps 4 through 7 is
+gone: the body is at 7,461 against a 9,000-word proxy and 21 pages against a 25-page ceiling.
+A lap that needs 200 words for a caveat now takes them. The trap that replaces it is the
+figures, and the page check is the thing that catches it.
 
 ## ✅ That input was re-cut and is now in the manuscript (lap 5) — the block below is the record
 
@@ -213,20 +319,29 @@ the same or an adjacent section.
 The candidates left, in order, are §6 (still the longest section), §4.5 and §4.6's second
 half. Captions remain the free space: `build_docx.py` does not count them.
 
-⚠ **The 20-page limit is still not measured, and lap 2's diagnosis of why was wrong.**
+⚠ **CLOSED on lap 8 — see "The page count exists now" above. The block below is the record
+of how it stood, and lap 3's estimate was right for the wrong reason.**
 `check_paper.py` enforces words, and this file's budget line converts them at roughly 16
 pages per 7,000 words; a crude recount over the built `.docx` — 8,909 words including
 captions, tables and references, plus seven full-width figures — lands nearer 21 pages.
+*(Lap 8: the measurement is 21. The recount landed on the right integer from a word count
+that double-counts captions and a figure count that was one short.)*
 Lap 2 recorded that LibreOffice "refuses to load the built document", which reads as a
 fact about our file. **It is not.** Checked on lap 3: `soffice --convert-to pdf` fails with
 `Error: source file could not be loaded` on a two-paragraph `.docx` written by the same
 `python-docx` in the same environment, so the converter cannot open *any* `.docx` here and
-says nothing about `WildfireGuardian_Park_2026.docx`. No metric-compatible Calibri
+says nothing about `WildfireGuardian_Park_2026.docx`. *(Lap 8: correct, and the cause is that
+`libreoffice-writer` is not installed — no import filter for any word-processor format. One
+apt install and the same command converts the same file.)* No metric-compatible Calibri
 (Carlito) is installed either, so a text-flow simulation would have to substitute Arial
 metrics for Calibri's and assume a line height this repository has not measured — which is
-the kind of unchecked constant the gap exists to remove. So no page number is asserted
+the kind of unchecked constant the gap exists to remove. *(Lap 8: `fonts-crosextra-carlito`
+installs it, so no simulation and no assumed line height were needed — the renderer does the
+flowing and the script reports which face Calibri resolved to.)* So no page number is asserted
 here. **The cheapest close is the author**: open the committed `.docx` in Word or Google
 Docs and report the page count; one number settles it. Failing that, a working converter.
+*(Lap 8: it was the working converter, and it cost one install. The author's open-and-look is
+still worth one minute as an independent check against real Word rather than Carlito-in-Writer.)*
 
 ## ⚠ Two clocks, and the trap a lap fell into (lap 4, caught by the lap reviewer)
 

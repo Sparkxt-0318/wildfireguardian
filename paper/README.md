@@ -1,9 +1,19 @@
 # The paper — how it is written and built
 
-Target: one English manuscript, under 20 pages including the title page and
-references, publication-ready in tone and figures, written alongside the code by
-the `wfg-autoloop-paper` routine (docs/auto/CHARTER.md §12) and rebuilt every
-time the code moves. Author: **Siyeong Park (박시영)**.
+Target: one English manuscript, publication-ready in tone and figures, written
+alongside the code by the `wfg-autoloop-paper` routine (docs/auto/CHARTER.md §12)
+and rebuilt every time the code moves. Author: **Siyeong Park (박시영)**.
+
+**Length: the ceiling is 25 pages.** The author decided it on 2026-09-05
+(NH-028, verbatim: 「Don't worry about the word count for now. Just make sure it
+doesn't exceed. 25 pages for. now」). `check_paper.py` now checks that directly —
+it renders the document and counts — and keeps the 9,000-word budget as the
+proxy for machines that cannot render, or that can render but not in a font
+whose metrics are Calibri's. As of 2026-09-05 the built document is **21 pages
+under Carlito**, measured rather than estimated; the qualifier is load-bearing
+and the next section says why. Earlier versions of this file and of CHARTER §12
+said 20 pages, which was IEEE Access's *recommendation* read as a rule; the
+author's ceiling is the operative one.
 
 | file | role |
 |---|---|
@@ -13,7 +23,8 @@ time the code moves. Author: **Siyeong Park (박시영)**.
 | `style.py` | the one figure style (fonts, palette, sizes); every figure imports it |
 | `make_figures.py` | regenerates every figure deterministically |
 | `build_docx.py` | Markdown → `WildfireGuardian_Park_2026.docx` (python-docx; title page, numbered figures/tables, references) |
-| `check_paper.py` | the paper's own gate: length budget, figure/reference integrity, gap ledger, registry-anchored numbers |
+| `check_paper.py` | the paper's own gate: the 25-page ceiling where it can be measured, the word budget as its proxy where it cannot, figure/reference integrity, gap ledger, registry-anchored numbers |
+| `measure_pages.py` | renders the built `.docx` and counts its pages, two ways, refusing to answer when they disagree; `check_paper.py` calls it, and `--why` prints the install a machine needs to run it |
 | `GAPS.md` | every `[GAP: …]` marker in the manuscript, with what closes it and when (after the sprint if needed) |
 | `STATE.json` | the commit the manuscript last incorporated |
 
@@ -37,8 +48,102 @@ in red and mirrored in `GAPS.md`.
 - The manuscript is a draft the student owns: `AUTHORSHIP.md` records that the
   loop drafted it; the abstract and any ISEF text are rewritten by the student
   before submission; nothing is submitted anywhere before the December ceremony.
-- Length budget: 7,000 words of body text (≈ 16 pages at this style) plus
-  references and figures; `check_paper.py` fails above 7,500.
+- Length: **25 built pages** is the rule and `check_paper.py` measures it where a
+  renderer exists. The word budget — target 8,500, hard fail above 9,000
+  (`docs/auto/LOOP_CONFIG.json`, CHARTER §12) — is its stand-in everywhere else.
+  The old gloss "≈ 16 pages at this style" was an assumed conversion and it was
+  wrong; the measured curve is in the next section. ⚠ **The proxy is not the
+  rule**: figures, not prose, are why §4 is eight of the 21 pages, so a new
+  figure adds a page without adding a word. Re-measure after adding one.
+
+## How many pages this actually is
+
+`python paper/measure_pages.py` renders `WildfireGuardian_Park_2026.docx` with
+LibreOffice and counts the pages, cross-checking the page objects against the
+page tree and refusing to print a number when the two disagree. On 2026-09-05
+it reported **21 pages** (page objects 21, page-tree `/Count` 21). `pypdf` 6.17.0
+was `pip install`ed once as a third check and also said 21, then removed again;
+it is not in `requirements.txt` and not in the bootstrap venv, so treat that
+cross-check as a note, not as something a fresh clone re-derives.
+
+⚠ **The count is font-conditional, and the qualifier is not pedantry.** Measured
+on the identical built file with the identical renderer, varying only which
+faces fontconfig was allowed to see: **Carlito 21 pages, DejaVu Sans 23**.
+`build_docx.py` asks for Calibri, which is not redistributable; only a
+metric-compatible stand-in makes the number a statement about the document
+rather than about the machine. So `check_paper.py` gates only when the face is
+Carlito or real Calibri, and otherwise reports the count and falls back to the
+word budget — because failing on a DejaVu render would reject a document that is
+inside the author's rule in Word.
+
+**The words-to-pages curve.** `python paper/calibrate_pages.py` regenerates it.
+Filler is the manuscript's own paragraphs recycled; the 8 figures, 4 tables and
+27 references are held fixed; the only variable is **where the words go**:
+
+| body words | 7,461 | 7,961 | 8,561 | 8,961 | 9,461 | 9,961 | 10,461 |
+|---|---|---|---|---|---|---|---|
+| appended after the last figure | 21 | 21 | 22 | 23 | 24 | 24 | **25** |
+| spliced into §4, among the figures | 21 | **22** | **23** | 23 | 24 | **25** | **25** |
+
+⚠ **The first row is a lower bound, not a conversion rate.** This lap first
+measured only that row, ran a two-filler control that varied vocabulary, found
+the counts identical and concluded the conversion was "a property of the
+template, not of the words poured into it". The lap reviewer pointed out that
+this controlled the variable that cannot matter and held fixed the one that
+does. The second row is the re-run, and it costs up to a page at equal word
+count. Real prose is added in the middle of a paper, not after it.
+
+What the sampling actually supports: at the proxy's own 9,000-word limit the
+document is **23 pages by either route**, so the proxy keeps two pages of margin
+and is sound; the 25-page ceiling arrives between 9,961 words (among the
+figures) and 10,461 (at the end), so the proxy stops a lap about a thousand
+words early, which is the right direction to err in. The step is 500 words and
+**no count above 25 was ever measured**, so the ceiling is bracketed, not
+located. The laptop session that set the proxy estimated "about 21 pages" at the
+current length; that estimate was exactly right.
+
+Two things make that number meaningful, and both are printed by the script
+rather than assumed. `build_docx.py` sets **Calibri**, which is not
+redistributable; the render substitutes **Carlito**, which is metric compatible
+with it, so the line breaks — and therefore the page count — track Word. Where
+Carlito is absent the substitute is not metric compatible and the script says
+so in its output instead of printing a bare integer. The Korean runs fall to
+whatever CJK face is installed (`fonts-nanum` here); there are few enough of
+them that no page boundary moves, which is an observation and not a guarantee.
+
+⚠ **This sandbox cannot do it out of the box, and three laps mis-recorded
+why.** `paper/GAPS.md` had it that LibreOffice "refuses to load the built
+document", then correctly narrowed that to "it refuses a two-paragraph `.docx`
+too, so it says nothing about our file". Both were true and the diagnosis
+stopped one step short: this image ships `libreoffice-core` **without**
+`libreoffice-writer`, so there is no text-document import filter at all and
+every word-processor format fails identically with `source file could not be
+loaded`. (What CI's runner ships has not been inspected and is not asserted
+here; the gate skips wherever the renderer is absent, whatever the reason.)
+The fix is one install, which `measure_pages.py --why` prints:
+
+    apt-get update && apt-get install -y --no-install-recommends \
+        libreoffice-writer fonts-crosextra-carlito fonts-nanum
+
+That is machine setup, not a repository dependency, so no gate runs it and
+`measure_pages.py` exits **2** (not 1) where the renderer is missing — a fact
+about the machine, not about the document. `check_paper.py` imports the module
+lazily and survives its absence for the same reason: a module-scope import of a
+sibling a lap forgot to stage would turn every push red through
+`tests/test_paper.py`.
+
+⚠ **The page check has no committed test.** Its five branches — no module, no
+renderer, renderer broken, face not metric-compatible, count over the ceiling —
+were each exercised by hand on 2026-09-05 and behave, but `tests/` is outside
+what CHARTER §12 lets the paper routine touch, so a fixture-driven test in
+`tests/test_paper.py` is a dev-lap item. Until it exists, the branch that can
+fail a push is untested.
+
+Where the pages go, measured on the same render: title page 1; Abstract and
+§1 on p. 2; §2 p. 3; §3 pp. 4–6; §4 pp. 7–14; §5 p. 15; §6 pp. 16–17; §7 p. 18;
+Data and code availability and References pp. 19–21. Results is eight pages
+because it carries six of the eight figures. If a lap ever has to buy pages
+rather than words, that is where they are.
 
 ## ⚠ Figures are deterministic within an environment, not across environments
 

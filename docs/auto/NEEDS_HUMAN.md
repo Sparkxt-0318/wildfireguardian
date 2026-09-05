@@ -1168,6 +1168,16 @@ check at submission, not as a constraint.
 
 **Options:** A) move §6's designated-site inventory (~200 words: the 주소정보누리집 counts, their two data dates and the extent caveat) to an appendix or to Data and code availability — it describes an input no result uses  B) cut §4.7 (detection timing, ~530 words) to a short paragraph plus Table 4 and publish that measurement separately — it is the section least connected to the routing claim  C) open the `.docx`, confirm it is inside 20 pages, and raise `check_paper.py`'s limit to a page-based one; the word budget becomes advisory  D) leave it at 7,500; the loop keeps trading word for word and tells you in the report each time a caveat is at risk
 
+✅ **Follow-up, 2026-09-05 (paper lap 8), after the decision above.** The page count you were
+told only you could produce now exists: **21 pages** (Carlito substituted for Calibri; 23 under
+DejaVu Sans, so the face is part of the number). `check_paper.py` now checks your 25 pages
+directly where it can and keeps 9,000 words as the proxy elsewhere. Your session's 「about 21」
+was exactly right, and your 9,000-word proxy is sound — 23 pages at its own limit, two of
+margin. **One thing the proxy cannot see:** pages come from figures, not prose (§4 is eight of
+the 21), so a new figure costs a page and no words. Details, the measured curve and what this
+lap got wrong first are in `paper/README.md`, `paper/GAPS.md` and the lap report; nothing here
+needs a decision from you.
+
 ## NH-029 · DECISION · open · The baseline freeze is stale, so `make all-checks` cannot pass — on this machine or on yours (by 2026-09-10)
 
 **What.** `docs/auto/KCF_READINESS.md` R3 asks for 「`make all-checks` green on a clean
