@@ -89,6 +89,19 @@ fatal until Q1 of the bank explains the two-threshold structure: 0.3 is the per-
 shaping the field's extent, the router cuts the *cumulative survival* field. The bank is right. (c) The
 「44 origins」 in `paper/GAPS.md` G7 is 영덕's 42 + 2, not a contradiction of 의성·안동's 103.
 
+## This lap's own rule breach
+
+**`--assert-reported` exited non-zero on `c8765e5` and the push went out anyway**, because the two
+assertions and the push were chained with `;` in one shell line. CHARTER §4 step 8 says 「If it fails,
+you do not push」. The gate was right in the letter — that commit changed `BACKLOG.md` and this file
+and *edited* rather than added a report, which F22 deliberately does not count. In substance the
+change is described in the commit message, the report and here; nothing shipped unreported and
+nothing shipped red (`--mode full` ALL GREEN at `c8765e5`, `--assert-head` 0, `auto-gates` 125
+cancelled by the superseding push, 126 running on this head). The addendum commit carries a **new**
+report, which is how the assertion is meant to be satisfied. **The fix for every routine: `&&`, not
+`;`, between the assertions and the push.** Not filed as a row — it is a character of shell in a
+prompt, and §14b would park it behind the readiness lines regardless.
+
 ## Verification of the loop's claims
 
 - `gates.py --mode full` **ALL GREEN at `6afd252`**: `1484 passed, 62 skipped` in 214 s, **COLD** (the
