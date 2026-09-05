@@ -475,3 +475,19 @@ fast-forward on the protected branch (no required pull-request review), and PR #
 closes once `Main` catches up.
 
 **Paper routine gate (NH-026, 2026-09-05):** the paper lap runs `gates.py --mode full` before every push like every other lap; its prompt is recorded in `docs/auto/ROUTINE_PROMPTS.md`.
+
+### 5b. Stale claims (NH-030, author's option C, 2026-09-06)
+
+An `in-progress(<stamp>)` more than three hours old with no work commit behind it
+(`git log --all --grep=<row id>` shows only the claim) is a lock with no key: the next dev
+lap sets the row back to `todo` in its own claim commit and takes it. A younger stamp is
+another lap's and is skipped. Three hours matches the dev grid; the 2026-09-05T1817Z lap
+that looked dead for 1 h 45 m was only slow (it finished at 21:47Z), which is why the
+window is three hours and not two.
+
+### 3d. The baseline freeze guards overwrites, not growth (NH-029, author's choice, 2026-09-06)
+
+`freeze_baseline.py --check` fails on a MODIFIED or MISSING tracked artifact and on a
+changed registry hash of an existing key; a NEW tracked artifact or a grown registry is
+reported as information, because every lap adds artifacts by design and the sandbox
+cannot re-freeze. The laptop re-freezes when convenient so the record stays current.

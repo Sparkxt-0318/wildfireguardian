@@ -1113,6 +1113,8 @@ recording the contradiction rather than either answer. The clean fix is to re-la
 
 **CLOSED 2026-09-05 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-05 · ref: claude-code-session-7da6bf25#NH-027 · verbatim: "A) Run it in the sprint now, P0 — the present-perimeter + buffer arm of WFG-033(b) on 의성·안동, one buffer, one lap, report the number whatever it says (new row at the top of the table after WFG-062). On the second question: the four P0 infra rows below P1 rows are loop hygiene and are demoted to P1 under CHARTER §14b."
 
+**Framing decision, 2026-09-06 (author, Claude Code session, verbatim: "Keep the headline, add the fair-opponent line").** WFG-114 measured the margin over a 1 km present-perimeter route at 9 of 368; WFG-121 puts that sentence beside the 91 on every judge-facing surface.
+
 ## NH-028 · DECISION · closed · The manuscript is full, and three laps have recorded that as a note rather than asked you (by 2026-09-10)
 
 **Severity: LOW-MEDIUM** — nothing is wrong with the paper. The question is what the loop
@@ -1188,7 +1190,7 @@ the 21), so a new figure costs a page and no words. Details, the measured curve 
 lap got wrong first are in `paper/README.md`, `paper/GAPS.md` and the lap report; nothing here
 needs a decision from you.
 
-## NH-029 · DECISION · open · The baseline freeze is stale, so `make all-checks` cannot pass — on this machine or on yours (by 2026-09-10)
+## NH-029 · DECISION · closed · The baseline freeze is stale, so `make all-checks` cannot pass — on this machine or on yours (by 2026-09-10)
 
 **What.** `docs/auto/KCF_READINESS.md` R3 asks for 「`make all-checks` green on a clean
 clone (CI) and on the booth laptop」. While writing the booth recipe (WFG-037) this lap
@@ -1261,7 +1263,9 @@ deleted.)*
 
 ---
 
-## NH-030 · DECISION · open · A dev lap claimed your own row, pushed nothing for 1 h 45 m, and the next lap is told to skip it (by 2026-09-08)
+**CLOSED 2026-09-06 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-06 · ref: claude-code-session-7da6bf25#NH-029 · verbatim: "A now + make NEW artifacts informational — re-freeze today on the laptop; then a NEW tracked artifact no longer fails the baseline, only a modified or missing one does."
+
+## NH-030 · DECISION · closed · A dev lap claimed your own row, pushed nothing for 1 h 45 m, and the next lap is told to skip it (by 2026-09-08)
 
 **What.** The dev lap that started at 2026-09-05T18:17Z pushed `492364c`,
 `claim WFG-114 (20260905T1820Z)`, at 18:20Z and has pushed nothing since. At 20:10Z, when
@@ -1311,7 +1315,9 @@ the first one had been discarded. The entry's substantive point stands and is wo
 distinguish 「working」 from 「dead」. A heartbeat the critic can read would have cost this lap nothing
 and would have saved critic #21 an entry.
 
-## NH-031 · DECISION · open · A committed judged number means something different once the control is scored under the same rule as the treatment (by 2026-09-12)
+**CLOSED 2026-09-06 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-06 · ref: claude-code-session-7da6bf25#NH-030 · verbatim: "C) Auto-release stale claims after 3 h — any in-progress stamp older than 3 hours with no work commit is released by the next lap; no human needed. (The 18:17Z lap was slow, not dead: it finished at 21:47Z.)"
+
+## NH-031 · DECISION · closed · A committed judged number means something different once the control is scored under the same rule as the treatment (by 2026-09-12)
 
 **Found by the WFG-114 lap's independent reviewer, 2026-09-05, and confirmed by measurement here.**
 
@@ -1356,3 +1362,5 @@ made once for all three rather than one region at a time (one lap, no new data) 
 committed classification's unbudgeted naive scoring as the defect and open a row to re-run the whole
 459 series under one rule — **expensive and it would move committed headline numbers, so it is the
 one option this loop will not take without you saying it explicitly**
+
+**CLOSED 2026-09-06 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-06 · ref: claude-code-session-7da6bf25#NH-031 · verbatim: "A) Add a new key, annotate the old — register the budgeted reading (mr_uiseong_fa_exceeds_budget_budgeted = 0) beside the committed 2 and caveat the old entry; nothing committed moves."

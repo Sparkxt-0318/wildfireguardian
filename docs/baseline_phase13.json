@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "title": "Korean baseline freeze — PHASE 13 PHASE 0",
-  "frozen_utc": "2026-09-05T14:49:23Z",
-  "git_commit": "944243054a590dd80ca08af4d89716a1fb4ba6fd",
+  "frozen_utc": "2026-09-05T23:12:16Z",
+  "git_commit": "f118bfe55c310bf8f8eda8f6b59c522e950173b5",
   "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
-  "registry_entries": 326,
+  "registry_entries": 383,
   "lofo_shape": {
     "n_rows": 151904,
     "n_positives": 2989,
@@ -99,6 +99,7 @@
     "data/processed/osm_acquisition.json": "f56d9ed77b0f9af0749bb850fe77be96ed501508bb26d260eef2623f36397faa",
     "data/processed/osm_buildings_acquisition.json": "ed4c0dc02ceb0f8cd9e0b58c89838a8c40b1caf19c5add769d4cd2dc862c4809",
     "data/processed/osm_completeness.json": "3287bbf0dc1446a125f3bf5ba1bf023b7a135aa5cf9bd6e9c2d41c08d2d73076",
+    "data/processed/present_perimeter_arm_uiseong_andong_2025.json": "5706c5874e56688a1387580d72bcaab4c9666a50501a8defd994e6ecda570b07",
     "data/processed/real_roads_real_hazard.json": "96f48fc97b467637033d6ba8f3569a29e13cb8efe3a8e7f39a92f7d2d5282d6d",
     "data/processed/real_roads_real_hazard_canonical.json": "629f4d20510e22047406b391899a83e16792a7b3f395593af4f3f0274e7f4087",
     "data/processed/real_roads_real_hazard_slope_30.json": "8cac84f2bfc268cc26369b03d7ad801bf55f9ce0293abce648698971df0e9efa",
