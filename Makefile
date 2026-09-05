@@ -187,8 +187,12 @@ finals:
 # The folder that goes on the USB stick (WFG-036, KCF_READINESS R9). Copies the four
 # offline screens, their fonts and poster, the licence and CITATION.cff out of the tree
 # into release/kcf-finals-2026/, then re-derives every SHA-256 and refuses if the result
-# is not the bundle MANIFEST.json describes. Also the way to check a USB copy on the
-# booth laptop, where a silently corrupted file is the failure that has no recovery.
+# is not the bundle MANIFEST.json describes. It checks the REPOSITORY against the
+# manifest and NOT a USB copy: it overwrites the bundle from the tree before hashing,
+# so a file that went bad on the stick is repaired rather than reported (measured
+# 2026-09-05, WFG-037). The copy on the stick is checked by
+#   python3 scripts/check_bundle_copy.py <folder>
+# which reads and never writes. See docs/auto/finals/BOOTH_SETUP.md.
 # Pass UPDATE=1 after deliberately changing a payload file. See docs/finals_bundle.md.
 finals-bundle:
 	@$(PYTHON) $(SCRIPTS)/build_finals_bundle.py $(if $(UPDATE),--update,)

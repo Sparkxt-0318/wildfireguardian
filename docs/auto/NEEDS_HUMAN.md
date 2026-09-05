@@ -255,7 +255,17 @@ The repository is already public, so this exposes nothing new. Not required.
 
 ## NH-014 · DECISION · open · Run the booth recipe once on the real laptop (after 09-10, before 10-16)
 
-**What:** When WFG-037 lands, `docs/auto/finals/BOOTH_SETUP.md` gives the exact
+**2026-09-05: WFG-037 landed, so this entry is now the only thing standing between the
+repository and R12.** `docs/auto/finals/BOOTH_SETUP.md` exists. Every command in it was run
+in a cloud sandbox and its exit code read, and the parts that cannot be run there — the
+double-click, the Wi-Fi switch, the USB stick, the laptop's own browser — are marked as
+yours. Two changes to what the recipe asks of you: it now tells you **not** to run
+`make all-checks` (NH-029) and to run `python scripts/auto/gates.py --mode full` instead;
+and §2 adds a copy check (`python3 check_bundle_copy.py .`) to run inside each USB stick,
+because `make finals-bundle` was found this lap not to check a stick at all. Please also
+report the laptop's Python version and whether `web/console.html` behaves as §3.1 says.
+
+**What (as originally written):** When WFG-037 lands, `docs/auto/finals/BOOTH_SETUP.md` gives the exact
 steps for the judged machine. Run it once on the laptop you will carry to
 Gwangju (env, `make all-checks`, open `web/finals.html` from `file://` with
 Wi-Fi off, copy `release/kcf-finals-2026/` to two USB sticks). Close this entry
@@ -1151,3 +1161,51 @@ unverified and contradicts the primary page on charges, so it is recorded as a t
 check at submission, not as a constraint.
 
 **Options:** A) move §6's designated-site inventory (~200 words: the 주소정보누리집 counts, their two data dates and the extent caveat) to an appendix or to Data and code availability — it describes an input no result uses  B) cut §4.7 (detection timing, ~530 words) to a short paragraph plus Table 4 and publish that measurement separately — it is the section least connected to the routing claim  C) open the `.docx`, confirm it is inside 20 pages, and raise `check_paper.py`'s limit to a page-based one; the word budget becomes advisory  D) leave it at 7,500; the loop keeps trading word for word and tells you in the report each time a caveat is at risk
+
+## NH-029 · DECISION · open · The baseline freeze is stale, so `make all-checks` cannot pass — on this machine or on yours (by 2026-09-10)
+
+**What.** `docs/auto/KCF_READINESS.md` R3 asks for 「`make all-checks` green on a clean
+clone (CI) and on the booth laptop」. While writing the booth recipe (WFG-037) this lap
+ran it, and it does not pass. `make all-checks` is
+`verify → baseline-verify → snapshot-verify → env-check → test`, and it aborts at the
+second step (2026-09-05, this sandbox):
+
+```
+BASELINE MOVED — 6 difference(s) against 89730db89921
+  registry_entries: 320 -> 326
+  untracked_contracts: MISSING data/raw/firms_data/data_layers_manifest.json
+  untracked_contracts: MISSING data/raw/firms_data/fire_manifest.json
+  tracked_processed: NEW data/processed/demo_script_pace/pace_20260905T0625Z.json
+  tracked_processed: NEW data/processed/demo_script_pace/pace_20260905T0947Z.json
+  tracked_processed: NEW data/processed/demo_script_pace/pace_before_039a0de.json
+```
+
+**Why this is new information.** Eighteen critic laps have recorded 「`baseline-verify`
+WARN, expected off-laptop, `hard: false`」 and moved on, and that reading is correct for
+**two** of the six lines — the two `data/raw/firms_data/` manifests, which are git-ignored
+and exist only on your laptop. It is **not** correct for the other four. `registry_entries`
+counts `docs/NUMBERS.json`, and the three `pace_*.json` files are tracked artifacts; both
+are in every clone. So `freeze_baseline.py --check` will report four differences **on your
+laptop too**, and `make all-checks` will abort there for a reason that has nothing to do
+with the missing raw bundle. `scripts/auto/gates.py` treats the step as soft, which is why
+every lap and every `auto-gates` run has been green while the command the readiness line
+names has not been runnable.
+
+Nothing is wrong with the four differences themselves. They are exactly what CHARTER §3.2
+asks for — numbers added, never edited, and new artifacts under new filenames. What is
+stale is the frozen record they are compared against: it was last written at `c65dc56`
+(2026-09-04) and the loop has added to the tree since.
+
+**Why only you.** Re-freezing writes `docs/baseline_phase13.json`, which is the file that
+protects the four irreproducible Korean artifacts and the SHA-256 of the git-ignored
+`fire_manifest.json` that defines the training set (`docs/DATA_LOSS_2026-07-24.md`).
+**Re-freezing in this sandbox would record the two raw contracts as MISSING and destroy
+exactly that protection**, so no lap may run `make baseline-freeze` here. It is correct
+only on the machine that has `data/raw/firms_data/`, which is yours.
+
+**Until you decide,** `docs/auto/finals/BOOTH_SETUP.md` §1.1 tells the student not to run
+`make all-checks` on the competition morning and to run
+`python scripts/auto/gates.py --mode full` instead, which is what every lap and every CI
+run already reads.
+
+**Options:** A) run `make baseline-freeze` on the laptop, check the diff shows only the six lines above, and commit it with 「deliberate re-freeze」 in the message  B) leave the freeze where it is and change R3 to name `gates.py --mode full` instead of `make all-checks`  C) leave both as they are; the recipe's §1.1 warning is enough and the drift is re-read at the 10-16 freeze

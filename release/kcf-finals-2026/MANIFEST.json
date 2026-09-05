@@ -16,9 +16,15 @@
     },
     {
       "path": "README_KO.md",
-      "sha256": "3f43d4f4704ff96993d45e9d5ca5a2f4c1567e398608958c566c2207c6d6be4c",
-      "bytes": 3237,
+      "sha256": "3403307b71fb48c4b335f200b86e31f05ee29fa72a491cb50bbc1c3c6969ddf5",
+      "bytes": 4073,
       "source": "release/kcf-finals-2026/README_KO.md"
+    },
+    {
+      "path": "check_bundle_copy.py",
+      "sha256": "0349a87e441201a27e70132afa0ea35b5fd219657d5810c294dcb18890085e83",
+      "bytes": 5781,
+      "source": "scripts/check_bundle_copy.py"
     },
     {
       "path": "web/assets/fonts/IBMPlexMono-Regular.woff2",

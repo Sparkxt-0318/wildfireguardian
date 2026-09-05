@@ -22,28 +22,35 @@
 | 파일 | 무엇 |
 |---|---|
 | `web/finals.html` | 본선 시연 화면. 4막, 3개 지역, 모든 숫자는 빌드 때 커밋된 산출물에서 읽어 온 값입니다 |
-| `web/console.html` | 운영자 콘솔 |
+| `web/console.html` | 운영자 콘솔. `file://` 로 열면 **사전 계산된 표시만** 동작합니다. 라이브 계산은 API 서버(`run_api.py`)가 필요하고, 부스에서는 쓰지 않습니다 |
 | `web/field_view.html` | 현장 화면 |
 | `web/refuge_placement.html` | 대피 지점 배치 |
 | `web/assets/`, `web/demo-media/` | 글꼴과 포스터 이미지. 인터넷에서 받아오지 않습니다 |
 | `CITATION.cff` | 인용 정보 |
 | `LICENSE` | MIT |
 | `MANIFEST.json` | 이 폴더에 있어야 할 모든 파일의 SHA-256 |
+| `check_bundle_copy.py` | 이 폴더가 위 목록 그대로인지 확인하는 검사기. 표준 라이브러리만 씁니다 |
 
 ## 무결성 확인 — USB는 조용히 깨집니다
 
-저장소에서 다음을 실행하면 꾸러미를 다시 만들고 `MANIFEST.json` 과 대조합니다.
-한 바이트라도 다르면 어느 파일인지 말하고 실패합니다.
+**이 폴더 안에서** 다음을 실행하십시오. 저장소도, 설치도 필요 없습니다.
+폴더를 읽기만 하고 아무것도 고치지 않으며, 한 바이트라도 다르면 어느 파일인지
+말하고 실패합니다. USB에 복사한 직후, 그리고 부스 설치 직후에 한 번씩 실행합니다.
 
 ```
-make finals-bundle
+python3 check_bundle_copy.py .
 ```
+
+⚠ 저장소에서 실행하는 `make finals-bundle` 은 **이 확인이 아닙니다.** 그것은
+저장소를 `MANIFEST.json` 과 대조하며, 대조하기 전에 저장소의 파일로 이 폴더를
+덮어씁니다 — USB에서 깨진 파일은 보고되는 대신 조용히 복구됩니다
+(2026-09-05 측정, WFG-037). 두 명령은 서로 다른 질문에 답합니다.
 
 ## 이 문서가 하지 않는 것
 
 - **부스 노트북에서의 실측 리허설.** 위 열 줄은 이 저장소에서 검증한 절차이지,
   실제 노트북에서 한 번 돌려 본 기록이 아닙니다. 그것은 `docs/auto/NEEDS_HUMAN.md`
-  의 NH-014 이고, 절차서는 `docs/auto/finals/BOOTH_SETUP.md` (아직 없음) 입니다.
+  의 NH-014 이고, 절차서는 `docs/auto/finals/BOOTH_SETUP.md` 입니다 (2026-09-05 작성).
 - **인쇄물.** A4 근거 시트와 부스 체크리스트는 아직 이 꾸러미에 없습니다 (WFG-007).
 - **대본.** 5분 시연 대본은 `docs/auto/DEMO_SCRIPT_5MIN.md`, 질의응답은
   `docs/auto/JUDGE_QA.md` 입니다. 둘 다 학생이 자기 말로 다시 쓰는 초안입니다.

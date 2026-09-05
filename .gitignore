@@ -435,3 +435,6 @@ outreach/
 release/kcf-finals-2026/web/
 release/kcf-finals-2026/CITATION.cff
 release/kcf-finals-2026/LICENSE
+# Same rule, added by WFG-037: the copy checker travels IN the bundle so the
+# laptop-has-died case can run it, and its source of truth is scripts/.
+release/kcf-finals-2026/check_bundle_copy.py

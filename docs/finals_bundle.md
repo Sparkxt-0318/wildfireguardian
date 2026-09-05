@@ -25,7 +25,9 @@ has changed a payload file on purpose.
 
 ## Result
 
-Sixteen files. `make finals-bundle` exits 0 on a tree that has not changed, and
+Seventeen files (sixteen until 2026-09-05, when WFG-037 added
+`check_bundle_copy.py` to the payload so the laptop-has-died case can verify a stick
+without this repository). `make finals-bundle` exits 0 on a tree that has not changed, and
 `tests/test_finals_bundle.py` (7 tests) re-derives the same hashes independently of
 the builder's own report, asserts that the manifest covers exactly the builder's
 plan, that the four screens and at least one font are in it, that the recipe is ten
@@ -72,7 +74,8 @@ until the command has been run once.
 - **That the run recipe is right.** The ten steps are written from
   `docs/FINALS_DEMO.md` and the screen's own key bindings, not from a rehearsal. The
   booth procedure with the fallbacks — two USB copies, what to do if the laptop dies
-  — is `docs/auto/finals/BOOTH_SETUP.md`, which does not exist yet (WFG-037).
+  — is `docs/auto/finals/BOOTH_SETUP.md`, written 2026-09-05 (WFG-037). It is still
+  not a rehearsal: NH-014 / R12 is the author reading it on the actual laptop.
 - **That the bundle is complete for the finals.** v1 has no printables. The A4
   evidence sheet, the reconciliation sheet, the differentiation panel, the booth
   checklist and the dispatch-sheet sample are R7 / WFG-007, and v2 of this row
@@ -81,6 +84,22 @@ until the command has been run once.
   release has been tagged and no DOI minted. Both are author actions from a browser
   session after the finals (WFG-031); a plausible-looking release date would be a
   fabricated figure.
-- **That a corrupted USB is recoverable.** `make finals-bundle` says *that* a file
-  differs, not how to get it back. The recovery is the second stick, which is why
-  `README_KO.md` step 9 names it.
+- **That a corrupted USB is detected at all — withdrawn 2026-09-05 (WFG-037).** What
+  stood here read: 「`make finals-bundle` says *that* a file differs, not how to get it
+  back」. The first half is false for a USB copy, and the builder's own docstring and
+  the `finals-bundle` comment in the Makefile said the same thing. `assemble()` copies
+  every payload file out of the repository over the top of the bundle **before**
+  anything is hashed, so a file that went bad on the stick is repaired, not reported.
+  Measured by appending seven bytes to `release/kcf-finals-2026/web/finals.html` and
+  running the builder: the file was overwritten and the run printed `OK`.
+  `scripts/check_bundle_copy.py` is the check that was missing — it reads a folder and
+  never writes to it, imports nothing outside the standard library, travels inside the
+  bundle, and is graded against a flipped byte, a truncation, a deletion and a stray
+  file (`tests/test_check_bundle_copy.py`). The recovery for a bad file is still the
+  second stick, which is why `README_KO.md` names it.
+- **That the folder on disk holds only what the manifest lists.** `make finals-bundle`
+  compares two manifests and never scans the folder, so a file left behind by an
+  earlier run stays in `release/kcf-finals-2026/` and rides onto the USB stick while
+  the builder reports `byte-identically`. Found 2026-09-05 by running the new checker
+  immediately after a green builder run; filed as **WFG-108**. Until the builder prunes,
+  `docs/auto/finals/BOOTH_SETUP.md` §2 makes the copy check a step, not an option.

@@ -15,9 +15,21 @@ is generated and git-ignored, and what the repository commits is the part a clea
 clone cannot regenerate: the recipe (``README_KO.md``) and ``MANIFEST.json``, the
 SHA-256 of every file the bundle should contain.
 
-That manifest is the byte-identical check R9 asks for, and it does a second job the
-booth needs: a USB stick can corrupt a file silently, and re-running this script on
-the laptop says so instead of finding out in front of a judge.
+That manifest is the byte-identical check R9 asks for.
+
+⚠ **It is not a check on the USB stick, and this docstring claimed for a day that it
+was.** The withdrawn sentence read: 「a USB stick can corrupt a file silently, and
+re-running this script on the laptop says so instead of finding out in front of a
+judge」. It is false, because ``assemble`` copies every payload file out of the
+repository over the top of the bundle before anything is hashed. Measured on
+2026-09-05 (WFG-037) by appending seven bytes to
+``release/kcf-finals-2026/web/finals.html`` and running this script: the file was
+silently overwritten from the tree and the run printed ``OK``. What this script
+compares is the repository against the manifest. The check on a COPY — a mounted
+stick, the folder on the desktop, the folder on a borrowed machine — is
+``scripts/check_bundle_copy.py``, which reads and never writes, needs nothing outside
+the standard library, and travels inside the bundle for the case where the laptop is
+the thing that died.
 
 Default run assembles the bundle and compares it against the committed manifest,
 exiting non-zero on any difference. ``--update`` rewrites the manifest, and is what
@@ -51,6 +63,10 @@ PAYLOAD: tuple[tuple[str, str], ...] = (
     ("web/demo-media", "web/demo-media"),
     ("CITATION.cff", "CITATION.cff"),
     ("LICENSE", "LICENSE"),
+    # The one command in docs/auto/finals/BOOTH_SETUP.md that has to work when the
+    # laptop with the repository on it is the thing that failed. Standard library
+    # only, reads and never writes, and it hashes itself along with everything else.
+    ("scripts/check_bundle_copy.py", "check_bundle_copy.py"),
 )
 
 #: Files that live in the bundle and are written by hand, not copied. They are

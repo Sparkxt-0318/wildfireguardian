@@ -992,3 +992,38 @@ available in the sandbox (§4 「Sandbox facts」). **Use `mcp__github__actions_
 step-2 check; if a lap does use curl, it must read the HTTP status, because a silent 403 here
 looks exactly like a clean branch.** Filed as a MEMO note and not a row: CHARTER §14b holds
 loop mechanics behind R1, R3, R7, R8, R9.
+
+## 2026-09-05 — a procedure is a set of claims, and the only way to check one is to run it
+
+WFG-037 asked for a booth recipe. The cheap version of this row is a well-organised document
+assembled from `README_KO.md`, `docs/ENVIRONMENT.md` and the Makefile — plausible, tidy, and
+never executed. This lap ran every command it was about to write down and read the exit code,
+and three of them did not behave the way the repository's own prose said they did:
+
+1. **`make all-checks`** — named by readiness line R3 as the booth-laptop check — aborts at
+   `baseline-verify`. Four of its six differences are tracked-file drift that will abort it on
+   the author's laptop too. Eighteen critic windows had recorded 「WARN, expected off-laptop」,
+   which is true of the other two lines and was read as covering all six (NH-029).
+2. **`make finals-bundle`** does not check a USB copy, although the Makefile comment, the
+   builder's docstring, `docs/finals_bundle.md` and the bundle's own Korean README all said it
+   did, in four different wordings. `assemble()` overwrites the folder from the tree before
+   anything is hashed. Seven bytes appended to the bundle's `finals.html`; the run printed `OK`.
+3. **The builder never enumerates the folder it certifies.** The new copy checker found a stray
+   file in `release/` *seconds after* a green builder run (WFG-108).
+
+**Anti-pattern:** writing a procedure from other documents. Every sentence of a procedure is a
+prediction about a machine, and the documents you are copying from are predictions too — the
+false claim in (2) had been copied four times without anyone running it once.
+
+**Gate:** a row whose deliverable is a set of steps runs every step it can, in the lap, and
+marks the ones it cannot with what stands in for them. `tests/test_booth_setup.py` holds the
+mechanical half — every path resolves, every `make` target exists, every key the document
+teaches is bound in `web/finals.html` — so the next lap that rebinds a key or renames a target
+turns the recipe red instead of turning the booth silent.
+
+**Second lesson, cheaper and sharper: `git checkout -- <file>` during a mutation test throws
+away the lap's own uncommitted work.** Grading `tests/test_booth_setup.py` meant breaking
+`scripts/build_finals_bundle.py` and restoring it, and the restore was `git checkout`, which
+reverted the two edits this lap had made to that file and had not yet committed. Caught by the
+harness telling me the file had changed on disk. **Restore a mutation from a copy taken before
+it (`cp file /tmp/x.bak` … `cp /tmp/x.bak file`), never from git, unless the file is committed.**
