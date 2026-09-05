@@ -560,6 +560,11 @@ not depend on the fire at all.
 
 ## 3. Decisions already made — do not relitigate
 
+> The **full register** — this table plus the coverage decision, the two
+> deliberate stops, the accepted limits and the reversals, each with the
+> condition that would reopen it — is [`DECISIONS.md`](DECISIONS.md). This
+> section stays as the short list a PHASE-5 reader needs in place.
+
 | decision | why |
 |---|---|
 | **Synthetic terrain/hazard path is excluded** | `build_real_demo` fabricates a coastline on the eastern 12 % of any bbox. Uiseong-Andong is inland; it would invent a sea that does not exist. |
@@ -917,6 +922,7 @@ Override the interpreter with `make verify PYTHON=/path/to/python`.
 
 | file | for |
 |---|---|
+| [`DECISIONS.md`](DECISIONS.md) | **every decision this project has made** — settled, stopped, accepted, open and reversed — with the record that holds the evidence and the condition that would reopen it |
 | [`NUMBERS.json`](NUMBERS.json) | **every reportable number**, with derivation, caveat and forbidden phrasings. Start here before writing any figure into prose. |
 | [`DATA_LOSS_2026-07-24.md`](DATA_LOSS_2026-07-24.md) | why the 459 numbers cannot be reproduced |
 | [`grid_extent.md`](grid_extent.md) | why the npz hash cannot be reproduced |
