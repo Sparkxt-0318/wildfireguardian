@@ -26,7 +26,7 @@ author's ceiling is the operative one.
 | `check_paper.py` | the paper's own gate: the 25-page ceiling where it can be measured, the word budget as its proxy where it cannot, figure/reference integrity, gap ledger, registry-anchored numbers |
 | `measure_pages.py` | renders the built `.docx` and counts its pages, two ways, refusing to answer when they disagree; `check_paper.py` calls it, and `--why` prints the install a machine needs to run it |
 | `GAPS.md` | every `[GAP: …]` marker in the manuscript, with what closes it and when (after the sprint if needed) |
-| `STATE.json` | the commit the manuscript last incorporated |
+| `STATE.json` | the commit the manuscript last incorporated, the counts `check_paper.py` drift-checks, and `built_pages` with the `built_pages_inputs` digest that anchors it |
 
 ## Markdown subset `build_docx.py` understands
 
@@ -138,6 +138,87 @@ were each exercised by hand on 2026-09-05 and behave, but `tests/` is outside
 what CHARTER §12 lets the paper routine touch, so a fixture-driven test in
 `tests/test_paper.py` is a dev-lap item. Until it exists, the branch that can
 fail a push is untested.
+
+## `built_pages` now rots loudly instead of quietly (lap 9, WFG-116)
+
+⚠ **This heading read "cannot rot any more" for the first hour of lap 9 and the lap
+reviewer blocked the push over it.** Its objection is kept here rather than paraphrased,
+because it is the same discipline the manuscript paragraph shipped in the same diff is
+about: nothing below re-derives the page count. A renderer is the only thing that
+produces that number, `STATE.json` is bookkeeping a lap writes by hand, and so every
+field in it — the new one included — is forgeable by the very lap the gate audits.
+Critic #21 F4's sentence, "`built_pages` is the one field in that file nothing
+re-derives", is still literally true. What changed is narrower and worth having:
+
+Critic #21 (F4) found the hole the block above leaves: **the only branch that can
+fail needs LibreOffice Writer, and no machine the loop owns has it** — not a
+cloud lap, not `auto-gates`. So `built_pages` was the one field in `STATE.json`
+that nothing ever re-derived, on exactly the quantity a new figure changes and
+the word budget cannot see. The lap that measured 21 pages did it inside a
+sandbox that no longer exists.
+
+`check_paper.py` now **anchors** the number, and the check needs **no renderer**.
+`built_pages_inputs` is a digest of the document the count was measured on: the
+ordered figure list with each PNG's pixel size, the table count, the reference
+count and the body-word count. Where a run can measure, it refreshes both and
+prints the digest. Where it cannot, carrying a `built_pages` whose digest has
+moved is a **failure**, and the message says to re-measure or to set both fields
+to `null` — an unknown page count is honest and a stale one is not.
+
+What that buys, stated at the size it is: a figure, table or block of prose
+arriving unnoticed now turns the gate red instead of quietly invalidating a
+number nobody rechecks; and keeping the old count anyway stops being an accident
+and becomes an edit that shows in the diff. What it does not buy: any
+re-derivation. **WFG-116's first alternative — one `apt` line in
+`.github/workflows/auto-gates.yml` so a clean clone actually measures — is the
+fix that re-derives, is outside `paper/`, and is still open.**
+
+⚠ The reviewer's sharpest point was operational and it changed the code, not
+only this file. The first version printed `built_pages_inputs` on **every** run,
+including runs that could not measure — so on a cloud lap the bypass (paste the
+string the gate just printed, keep the old page count) and the honest act (null
+both) were the same keystrokes, and the bypass was the routine one because
+`body_words` is in the digest and therefore every lap invalidates it. The digest
+is now printed **only by a run that measured**, and the failure messages no
+longer contain it. The value a lap may record is the value a run derived.
+
+Two decisions inside it, both deliberate:
+
+- **Not a digest of the PNG bytes.** The next section explains why: the same
+  script on the same artifacts re-renders to different bytes under a different
+  font set, and a byte digest would call that a change. Pixel size is what
+  drives the page cost and it survives a substituted face.
+- **`body_words` is in the digest.** Leaving it out would let a recorded 21 ride
+  through any amount of new prose on the argument that the word budget covers
+  prose. It covers the *ceiling*, not the accuracy of a recorded count, and the
+  curve below moves a page well inside the budget's own range.
+
+Graded the way the backlog row asks, on 2026-09-05 with `_has_writer` stubbed
+false to reproduce the cloud case: matching state passes; a figure swapped for
+one of a different size fails with the digest mismatch; `built_pages: null`
+passes. This lap also **re-measured** rather than inheriting: 21 pages under
+Carlito at 7,639 words, after one `apt-get install libreoffice-writer
+fonts-crosextra-carlito fonts-nanum` in the sandbox.
+
+⚠ **These branches have no committed test either, and that is now the same
+criticism one layer up from the one above.** The diff that added them touches no
+file under `tests/`, because CHARTER §12 does not let this routine write there.
+Worse for local coverage: this sandbox *has* Writer once the install above has
+run, so `measured_here` is true and the suite takes the refresh path — the
+failing branches are unreachable in `pytest` here and were exercised only by the
+stub above, by hand. A fixture-driven test belongs in `tests/test_paper.py` and
+is a dev-lap item, alongside the workflow line.
+
+⚠ **One piece of critic #21 F4's own evidence does not stand, and the finding
+survives without it.** F4 cited `paper/measure_pages.py --why` printing "No
+LibreOffice Writer on this machine" as proof that none was installed.
+`--why` prints `SETUP_HINT` unconditionally and returns 0 (`measure_pages.py`
+`main()`); re-checked here with Writer present and it prints the same text and
+still exits 0, so that output says nothing about the machine. What does
+establish the hole is F4's other check — `libreoffice-writer` and
+`fonts-crosextra-carlito` appear nowhere in `.github/workflows/`,
+`scripts/auto/bootstrap.sh`, `requirements.txt` or the `Makefile` — and that is
+unaffected. Raised by this lap's reviewer.
 
 Where the pages go, measured on the same render: title page 1; Abstract and
 §1 on p. 2; §2 p. 3; §3 pp. 4–6; §4 pp. 7–14; §5 p. 15; §6 pp. 16–17; §7 p. 18;

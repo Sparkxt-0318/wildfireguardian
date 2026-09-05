@@ -254,7 +254,19 @@ instead, and the spellings that restate it — and every tracked document is rea
 so a withdrawn claim cannot survive in a file nobody thought to list. It matches spellings,
 not meaning: in an independent probe, sentences reusing a registered spelling were caught
 and sentences reworded around one were not, and that limit is recorded rather than designed
-away. This manuscript is scanned by both gates like any other document here. Figures from
+away. A further limit is not about matching at all, and it appeared in September 2026:
+some of this project's artifacts are *generated* from templates, and a sentence that had
+just been retired was corrected in one generated file while the template it is built from
+kept it. Nothing was wrong in the artifact a reader saw and every gate passed, so the
+retired wording would have returned at the next rebuild. Had that sentence been a
+registered spelling the scan would have found it in the template, which the scan does
+read; it was not, so nothing did. The general point survives either way and needs no
+registry: a correction applied to a generated file is one rebuild from being undone. The
+repair was accordingly a test asserting that the generated file is its template line for
+line apart from the injected data, not a longer list of spellings. The injected line
+itself stays outside that test, and a wrong value inside it still passes every gate
+named here; that hole is open and recorded rather than repaired. This
+manuscript is scanned by both gates like any other document here. Figures from
 outside the repository — the tallies of Section 1 — are not registry values and carry their
 agency, date and scope instead.
 

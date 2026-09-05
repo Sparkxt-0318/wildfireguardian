@@ -1,11 +1,12 @@
 {
-  "last_incorporated_commit": "38620f279ffd3a9d27fdb608481046030fdd6ae7",
-  "last_build_utc": "2026-09-05T15:10:00Z",
-  "body_words": 7461,
+  "last_incorporated_commit": "04153b71c735b2a55e46a80123c3e4960bec7030",
+  "last_build_utc": "2026-09-05T21:25:00Z",
+  "body_words": 7639,
   "figures": 8,
   "tables": 4,
   "references": 27,
   "gaps": 6,
   "built_pages": 21,
-  "built_pages_note": "Measured 2026-09-05 by paper/measure_pages.py and drift-checked by check_paper.py against the author's 25-page rule (NH-028) on any machine that can render in a Calibri-metric-compatible face. THE FACE IS PART OF THE NUMBER: 21 under Carlito, 23 under DejaVu Sans, same file and renderer, so the gate reports and falls back to the 9,000-word proxy rather than failing on a face whose metrics are not Calibri's. Re-measure after adding a figure: figures cost pages and no words, which the word proxy cannot see."
+  "built_pages_inputs": "9ef22aa1e0bdaf00",
+  "built_pages_note": "Measured 2026-09-05 by paper/measure_pages.py (page objects 21, page-tree /Count 21) and gated by check_paper.py against the author's 25-page rule (NH-028). THE FACE IS PART OF THE NUMBER: 21 under Carlito, 23 under DejaVu Sans, same file and renderer, so the gate reports and falls back to the 9,000-word proxy rather than failing on a face whose metrics are not Calibri's. built_pages_inputs is the anchor added for WFG-116 / critic #21 F4: the digest of the document this 21 was measured on (the figure list with pixel sizes, the table and reference counts, the body-word count). It does NOT re-derive the page count and nothing in this file does — only a renderer produces that number, and this file is written by hand. What it does is make a figure or a block of prose arriving unnoticed turn check_paper.py RED where no renderer exists, and make carrying an old count a visible edit rather than an accident. Set both fields to null rather than hand-writing an anchor no run produced. WFG-116's other half, an apt line in auto-gates.yml so a clean clone measures, is open and outside paper/."
 }

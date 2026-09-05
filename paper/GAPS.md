@@ -92,6 +92,56 @@ trading word for word and of the two caveat-losing near-misses that discipline c
 it as history, not as instruction. The operative rule and the measurement behind it are in
 「The page count exists now」 below.
 
+## ⚠ And now it rots loudly rather than quietly — the anchor (lap 9, 2026-09-05)
+
+**This heading read "✅ And it cannot rot now either" until the lap reviewer blocked the
+push over it, and the objection is kept because it is the same discipline as the
+manuscript paragraph shipped in the same diff.** Nothing below re-derives the page count.
+A renderer is the only thing that produces it, `STATE.json` is bookkeeping a lap writes by
+hand, and every field in it — the new one included — is forgeable by the lap the gate
+audits. Critic #21 F4's sentence, 「`built_pages` is the one field in that file nothing
+re-derives」, is still literally true after this change.
+
+Not a `[GAP]`. Critic #21's F4 (backlog **WFG-116**, P1) is the objection the block below
+invites: the 21 pages was measured inside a sandbox that no longer exists, the branch that
+can fail needs LibreOffice **Writer**, and no machine the loop owns has it — so `built_pages`
+was the one field in `STATE.json` nothing re-derived, on the one quantity a new **figure**
+changes and the word budget cannot see.
+
+What is true is narrower and still worth having. `check_paper.py` now carries
+`built_pages_inputs`, a digest of the document the count was measured on — the ordered
+figure list with each PNG's pixel size, the table count, the reference count, the
+body-word count — and **the check needs no renderer**. A run that can measure refreshes
+both fields; a run that cannot fails if `built_pages` is carried while that digest has
+moved, and its message says to re-measure or set both to `null`. So a figure arriving
+unnoticed turns the gate red instead of quietly invalidating a number nobody rechecks, and
+keeping the old count anyway becomes an edit visible in the diff rather than an accident.
+Graded as the row asks, with `_has_writer` stubbed false: matching state passes, a figure
+swapped for one of a different size goes red on the digest, `built_pages: null` passes.
+
+⚠ **The reviewer's operational point changed the code, not only the prose.** The first
+version printed the digest on every run, so on a cloud lap the bypass — paste the string
+the gate just printed, keep the old page count — and the honest act — null both — were the
+same keystrokes, and the bypass was the routine one, because `body_words` is in the digest
+and every lap therefore invalidates it. The digest is now printed **only by a run that
+measured**, and neither failure message contains it.
+
+Two choices worth keeping: the digest is over **pixel sizes, not PNG bytes**, because the
+font-fallback problem below makes a byte digest call a re-render a change; and **`body_words`
+is in it**, because the word budget bounds the ceiling rather than the accuracy of a recorded
+count, and the curve moves a page inside the budget's own range.
+
+This lap also re-measured instead of inheriting: **21 pages under Carlito at 7,639 words**,
+after one `apt-get install libreoffice-writer fonts-crosextra-carlito fonts-nanum`. The
+The 178 words this lap added to §3.5 cost no page. ⚠ **WFG-116 is not closed, and the half that
+is still open is the one that actually re-derives**: `auto-gates.yml` installing those
+packages so a clean clone measures. It is outside `paper/` and only a dev lap can do it,
+together with a fixture-driven test in `tests/test_paper.py` — the new failing branches
+have no committed test, are unreachable in the local suite once Writer is installed
+(`measured_here` is then true and the run takes the refresh path), and were exercised only
+by the stub above. The row also cannot be marked from here, since `docs/auto/BACKLOG.md`
+is outside CHARTER §12's paths.
+
 ## ✅ The page count exists now — 21 pages (lap 8, 2026-09-05)
 
 **This is the number NH-028 said only the author could produce, and it is the one clause
