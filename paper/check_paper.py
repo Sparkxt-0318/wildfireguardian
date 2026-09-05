@@ -53,6 +53,29 @@ def main() -> int:
     state = {"body_words": info["body_words"], "figures": info["figures"], "tables": info["tables"],
              "references": info["references"], "gaps": n_marks}
     print("[check_paper] " + json.dumps(state))
+    # STATE.json is bookkeeping the paper routine writes at the end of its lap, and until
+    # 2026-09-05 nothing compared it with the manuscript it describes: this function
+    # computed exactly these counts, printed them, and threw them away. A lap reviewer
+    # caught STATE.json holding the PREVIOUS lap's body_words and gap count while the
+    # manuscript had moved, and no gate anywhere would have said so. Only the counts are
+    # checked. `last_incorporated_commit` is deliberately NOT checked: it names the code
+    # commit the manuscript was written against and legitimately lags HEAD.
+    state_path = PAPER / "STATE.json"
+    if state_path.exists():
+        try:
+            recorded = json.loads(state_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            problems.append(f"STATE.json is not valid JSON: {exc}")
+        else:
+            drift = {k: (recorded.get(k), v) for k, v in state.items() if recorded.get(k) != v}
+            if drift:
+                problems.append(
+                    "STATE.json disagrees with the manuscript it describes "
+                    + ", ".join(f"{k}: recorded {was!r}, built {now!r}" for k, (was, now) in sorted(drift.items()))
+                    + " — rerun the build and update paper/STATE.json"
+                )
+    else:
+        problems.append("paper/STATE.json is missing")
     for p in problems:
         print("[check_paper] FAIL: " + p)
     print("[check_paper] " + ("OK" if not problems else f"{len(problems)} problem(s)"))

@@ -1096,3 +1096,58 @@ recording the contradiction rather than either answer. The clean fix is to re-la
 **P1**, which is what §14b already does to them in practice.
 
 **Options:** A) promote WFG-033(b) into the sprint as P0, one region (의성·안동) and one buffer, one lap, and report the number whatever it says  B) leave WFG-033 at P2; WFG-103 and WFG-104 ship and the booth answer is 「아직 돌리지 않았습니다」 with the plan named  C) A but after 09-15, before the 10-16 freeze, so the sprint's booth rows are untouched  D) B now, and re-ask after the printables and BOOTH_SETUP.md exist
+
+## NH-028 · DECISION · open · The manuscript is full, and three laps have recorded that as a note rather than asked you (by 2026-09-10)
+
+**Severity: LOW-MEDIUM** — nothing is wrong with the paper. The question is what the loop
+should do the next time the evidence outgrows the budget, and it is genuinely yours because
+it is a venue choice.
+
+`paper/check_paper.py` fails the build above **7,500** words of body text and the target is
+**7,000**. The body has sat between 7,4xx and 7,467 for three laps, so every lap that adds a
+sentence must delete one. This lap (2026-09-05, paper lap 7) is the first where that bit: it
+arrived with a correction it could not decline to ship — the abstract attributed the headline
+routing contrast to *forecast* knowledge when the baseline it is measured against is
+**fire-blind** (the same defect critic #17 found in the booth script; G7 in `paper/GAPS.md`,
+and the science half of it is **NH-027**) — and 33 words of margin to ship it in.
+
+It shipped, and the budget did not cost the paper anything this time. Lap 6 had written in
+`paper/GAPS.md` that 「no further trim of this kind is available… every remaining paragraph
+carries a registered number and the caveat CHARTER §3 rule 3 binds to it」. That was too
+strong and this lap falsified it: it found **106 words** that carried no number and no caveat
+— an anecdote in §5 already made three times over, three sentences duplicating §1, §3.4 and
+§6, and a restatement of the 22–64 min / 0.1–1 ha figures in §1 that §4.7 and the abstract
+both give in full — cut them, and finished at **7,457** with the correction in. No number and
+no caveat left the manuscript; `check_paper`, `make verify`, the collision and
+forbidden-string scans and `gates.py --mode full` are all green.
+
+**Why you are being asked anyway.** That was a one-time harvest. The duplication is now gone,
+the next lap starts from 43 words, and the following correction has nowhere to come from
+except a caveat — which the loop will not cut (CHARTER §3 rule 5). The three options below
+have been sitting in `paper/GAPS.md` since lap 6 under 「the choice belongs to the author, not
+to a lap」, where your decision channel (NH-020) never looks. That is the actual defect this
+entry fixes: a decision recorded in a file you do not read on 「decisions」 is not a decision
+you were asked.
+
+⚠ **Option C is probably free, and the venue policy is now checked rather than assumed.**
+Lap 6 wrote option (c) on the belief that 「IEEE Access measures pages rather than word
+count」. That is close to right and this lap verified it at the source: IEEE Access's own
+Article Processing Charges page states 「There is no page limit for articles and therefore no
+over-length article charge」 and 「strongly recommend[s] keeping the page count under 20 pages
+for ease of readability」 (IEEE Access, <https://ieeeaccess.ieee.org/about/article-processing-charges/>,
+read 2026-09-05). So the 20 pages CHARTER §12 targets is the venue's **recommendation**, the
+7,500-word gate is **this repository's own invention**, and no external rule is pressing on
+the manuscript at 7,457 words.
+
+Two caveats on that, kept because they are the kind this project does not round away.
+**First, the loop has not measured the page count.** `paper/WildfireGuardian_Park_2026.docx`
+builds valid and opens in Word (25 zip members, 159 paragraphs, 4 tables, 8 figures —
+verified this lap), but the sandbox's LibreOffice refuses to load it, so no page number was
+produced here and none is asserted. One open-and-look on your laptop settles it. **Second,
+secondary sources (blogs, not IEEE) add two numbers this lap could NOT find on any IEEE
+page: a ~10,000-word main-text guidance and a 10-figures-or-tables limit.** The manuscript
+has 8 figures and 4 tables, so if that second one were real it would bind — but it is
+unverified and contradicts the primary page on charges, so it is recorded as a thing to
+check at submission, not as a constraint.
+
+**Options:** A) move §6's designated-site inventory (~200 words: the 주소정보누리집 counts, their two data dates and the extent caveat) to an appendix or to Data and code availability — it describes an input no result uses  B) cut §4.7 (detection timing, ~530 words) to a short paragraph plus Table 4 and publish that measurement separately — it is the section least connected to the routing claim  C) open the `.docx`, confirm it is inside 20 pages, and raise `check_paper.py`'s limit to a page-based one; the word budget becomes advisory  D) leave it at 7,500; the loop keeps trading word for word and tells you in the report each time a caveat is at risk

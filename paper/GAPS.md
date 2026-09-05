@@ -12,6 +12,7 @@ the author.
 | G3 | §6 Limitations | the leak-free Yeongdeok fold: refit the Yeongdeok LOFO fold with the co-located Uiseong-Andong fire excluded, re-simulate the canonical field, and route the same 458 origins, reporting the three-bucket counts as new filenames | the raw acquisition bundle on the author's laptop is available and WFG-032 runs | yes |
 | G4 | §6 Limitations | **the hindsight-field routing arm — the single most load-bearing gap in the paper.** A third pass over the same 458 origins on a field rasterised from the *observed* FIRMS detections for Yeongdeok 2025, reporting how many of the 42 fire-blind routes actually intersect observed burn inside the walker's arrival window, and how many forecast-aware routes cross observed burn the model never flagged. Until it runs, "saved" means "re-routed around a model-flagged cell", not "away from where the fire went", and with pooled recall 0.138 that distinction is not cosmetic | the observed detections are available. ⚠ Checked 2026-09-03: `data/snapshots/firms-manifest_yeongdeok-2025_20260723_1aa75824.json` is committed and records 2,290 detections spanning 2025-03-25T12:25 to 2025-03-27T04:28, but the detections themselves (`yeongdeok_2025_detections.csv`) live under the git-ignored `data/raw/firms_data/`, which is absent from a fresh clone. So this arm needs the author's laptop too — it is cheaper than G3 (no refit, no re-simulation, reuses the committed walk graph and origin list) but it is not runnable in the cloud sandbox | yes |
 | G6 | §6 Limitations | the refuge-provenance comparison. Every refuge in the paper is an OpenStreetMap point; the 주소정보누리집 designated-site subset for 영덕군 is now committed and correctly scoped, and nothing has been re-routed against it. The question the paper cannot answer is how much of the 458-origin partition is a statement about where refuges actually are rather than about where OpenStreetMap says they are — which bears on every absolute Yeongdeok rate, though not on the paired contrast, both arms of which use the same refuge set | **runnable in the cloud sandbox, unlike G3 and G4**: the designated-site layers are committed under `data/processed/external/juso_yeongdeok/` and counted in that folder's `manifest.json` (64 earthquake outdoor sites, 92 tsunami sites), as are the walk graph and the origin list. ⚠ Only `manifest.json` and `minwon_agencies.geojson` of that folder are listed in `docs/artifact_manifest.json`; the seven 사물주소 `*.geojson` layers are not, though `scripts/register_juso_yeongdeok.py` registers a count for each (seven layer stems in `SAMUL_LAYERS`, seven `samul_*.geojson` files on disk). That is a dev-lap item, not the paper's — this row names the folder rather than a layer file because citing an unlisted one fails `make check-artifact-manifest`. A dev lap re-snaps the refuge nodes to the designated sites, re-runs the same 458 origins on the same canonical field under both policies, and commits the three-bucket partition under a new filename beside the committed one; the paper then reports both. This is backlog WFG-073, which the paper routine cannot run itself (it would be a new artifact outside `paper/`) | no |
+| G7 | §4.3 Results | **what the headline contrast is allowed to attribute.** The baseline the 42 (and §4.4's 91 of 368, 24.73 %) are measured against is `naive`, which is **fire-blind**: it consults no hazard at all, present or forecast (`src/wildfireguardian/routing/evacuation.py:270` 「Fire-blind shortest path to the nearest shelter, then scored against the hazard」; `docs/real_roads_real_hazard.md:50` 「the fire-blind shortest walk to the nearest refuge (the status quo)」). So the contrast measures what hazard awareness of ANY kind buys, and an unmeasured share of it is bought by knowing where the fire is **now** rather than where it will be — a router refusing only the cells alight at departure would recover some of the 42. Raised by critic #17 (2026-09-05) against the booth script, which had handed the fire-blind arm the stronger description 「지금 이 순간만 보는 지도」; WFG-103 fixed that sentence. The manuscript had the same overclaim in its **abstract** (「reach a refuge only when the router accounts for where the fire will be」) and it was corrected this lap, with the caveat added to §4.3 as its third | the present-perimeter arm runs: **WFG-033(b)**, 「static current perimeter (slice 0, p ≥ p_cut) + fixed buffer 0.5/1/2 km」, agent-doable, two laps, on committed hazard fields with no re-acquisition. It is **P2**, i.e. after the finals, and whether to pull it into the sprint is open with the author as **NH-027** (four options, by 2026-09-08). The paper routine cannot run it: it would be a new artifact outside `paper/`. ⚠ **A much cheaper version answers the framing question and this lap's reviewer specified it exactly** — mask slice 0 of the committed canonical field (p ≥ 0.5, 249 cells, `data/processed/routing_demo_canonical.npz`, shape [5,181,156]) as a node filter and re-run the existing `naive_route` over **only the 44 origins whose fire-blind route enters the hazard**, counting how many a present-perimeter-only router already saves. Zero buffer, one region, 44 origins, all inputs committed, no refit and no re-simulation; `F8(a)` in `make_figures.py` already loads and renders that same slice-0 mask. That is minutes of work against WFG-033(b)'s two laps, and it converts §4.3's 「an unmeasured share」 from a hedge into a number. **A dev lap should run this before the finals whatever the author decides on NH-027** | yes for full WFG-033(b); the 44-origin version above is runnable in the sandbox now by a dev lap |
 
 ## ⚠ The length budget is now the binding constraint, and it is an author decision (lap 6)
 
@@ -45,14 +46,47 @@ registered number and the caveat that CHARTER §3 rule 3 binds to it, and the lo
 drop a caveat to buy space. Closing the 467-word gap to the target is therefore structural,
 and the choice belongs to the author, not to a lap:
 
+⚠ **That sentence was too strong, and lap 7 falsified it by having to.** Lap 7 arrived with
+a correction it could not decline to ship (G7: the abstract attributed the headline contrast
+to forecast knowledge when the baseline is fire-blind) and 33 words of margin. It found 106
+words of prose that carried **no** registered number and **no** caveat, and cut them: §5's
+county-subset arc compressed to one clause; §5's 「A second raised Section 6's off-network
+walking limitation」 deleted as a duplicate of §6, which already carries that point with its
+attribution; §5's 「and one field answers the responder's mirror-image question too」 deleted
+as a duplicate of §1 and §3.4; §1's restatement of the 22–64 min and 0.1–1 ha figures cut to
+「tens of minutes」 and 「a size floor」, both stated in full with their caveats in §4.7 (the
+abstract keeps 0.1–1 ha but says only 「tens of minutes」 — the lap reviewer corrected this
+sentence, which had claimed the abstract carried both in full); §1's 「and this paper is as much about the evaluation design under which it was
+built」 deleted as a duplicate of §1's own claims paragraph and the abstract; §6's 「Reading
+those shares as estimates for households would need an interval nothing here supports」
+deleted as a restatement of the sentence before it; and the abstract's opening compressed.
+No number and no caveat left the manuscript, and the body went 7,467 → 7,457 while
+absorbing the ~100-word correction.
+
+The lesson is the mirror of the one above it. Lap 6 learned that a compression keeping every
+number can still drop a caveat. Lap 7 adds: a section can be *dense* in numbers and still
+hold prose that repeats another section, and 「every paragraph carries a number」 is not the
+same claim as 「every sentence earns its words」. What is **now** true is the weaker and more
+useful statement: the duplication has been harvested, the next lap starts from 43 words of
+margin, and the structural choice below is still the author's.
+
 - **(a)** Move §6's designated-site inventory block (~200 words: the 주소정보누리집 counts,
   their two data dates and the extent caveat) to an appendix or to the data-availability
   section. It is a description of an input no result uses, not a limitation of a result.
 - **(b)** Cut §4.7 (detection timing, ~530 words) to a short paragraph plus Table 4, and
   publish the measurement separately. It is the section least connected to the routing
   claim the paper is built on.
-- **(c)** Accept 7,460 and target a venue whose limit is the page count rather than the
-  word count — IEEE Access measures pages, and the built `.docx` is inside 20.
+- **(c)** Accept the current length and let the venue's own rule govern. ⚠ **Half of what
+  this option said was unverified, and lap 7 checked it.** IEEE Access's Article Processing
+  Charges page states 「There is no page limit for articles and therefore no over-length
+  article charge」 and 「strongly recommend[s] keeping the page count under 20 pages for ease
+  of readability」 (IEEE Access, <https://ieeeaccess.ieee.org/about/article-processing-charges/>,
+  read 2026-09-05) — so the venue rule is a *recommendation*, and the 7,500-word gate is this
+  repository's own invention rather than anyone's requirement. But 「the built `.docx` is
+  inside 20」 was never measured: the sandbox's LibreOffice will not load the file (the file
+  itself is valid — 25 zip members, 159 paragraphs, 4 tables, 8 figures, opens in Word), so
+  no page count has ever been produced. The clause is struck until someone opens it.
+  This is **NH-028**, now in the author's decision channel rather than only in this file.
 
 Until the author chooses, laps must keep the body under 7,500 by trading word for word.
 

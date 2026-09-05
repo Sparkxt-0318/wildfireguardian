@@ -2,10 +2,10 @@
 
 ## Abstract
 
-Satellite detection and district-level fire-danger forecasts were both operating in Korea
-during the March 2025 Gyeongbuk wildfires, the largest on the country's record by burned
-area, yet neither produced the last-kilometre answer a rural household needs: which way to
-walk now, and whether a rescue crew can still reach the house. WildfireGuardian couples an
+Satellite detection and district-level fire-danger forecasts were both operating during the
+March 2025 Gyeongbuk wildfires, the largest on Korea's record by burned area. Neither
+answered which way a rural household should walk now, or whether a rescue crew can
+still reach the house. WildfireGuardian couples an
 event-held-out ignition-probability model to a time-expanded pedestrian router and a
 rescue-ingress calculation, and re-derives every published number from a committed
 artifact. The spread model is deliberately ordinary — a
@@ -15,9 +15,11 @@ pooled out-of-fold 0.905, a different quantity). Its operating point is weak and
 as such: pooled cell recall at the shipped threshold is 0.138 and three of the six
 held-out fires produce no true positive at all. The coupling is nonetheless where the
 decision changes: on the canonical Yeongdeok field, 42 of 458 scanned walk-network origins
-reach a refuge only when the router accounts for where the fire will be, and 2 have no
-safe walking route, on a network covering 32.6 % of the predicted fire core whose bias
-runs in an unmeasured direction. Two further results are negative and reported in full: the
+reach a refuge only under the forecast-aware policy, and 2 have no safe walking route, on a
+network covering 32.6 % of the predicted fire core whose bias runs in an unmeasured
+direction. That contrast is measured against a fire-blind baseline, so it does not separate
+knowing where the fire will be from knowing where it is. Two further results are negative
+and reported in full: the
 deadline-first dispatch ordering the system ships never out-rescues nearest-first at the
 operating window, in 0 of 180 configuration cells, and a geostationary detector sees these
 fires only at a sub-pixel size floor of roughly 0.1 to 1 hectare, tens of minutes after
@@ -55,26 +57,25 @@ non-probability sample of survivors — the dead are absent by construction — 
 describes who answered, not the population, and its casualty figures are re-cited rather
 than measured.
 
-Detection was not the failure, though the paper cannot claim it was an advantage either.
-Section 4.7 measures the fastest satellite product over Korea. Its first
-anomaly comes 22 to 64 minutes after the
-recorded occurrence time, at a size floor of 0.1 to 1 hectare — too coarse for an
+Detection was not the failure, though the paper cannot claim it was an advantage either:
+Section 4.7 measures the fastest satellite product over Korea and finds its first
+anomaly tens of minutes after the
+recorded occurrence time, at a size floor too coarse for an
 ignition, on a clock whose relation to the emergency call this repository cannot
-establish. The gap was not that nobody knew; it was between knowing and acting. A
+establish. The gap was between knowing and acting. A
 district-level probability does not tell one
 household on one lane which direction is still walkable at 09:40, nor a fire crew which
 of the houses that cannot self-evacuate they can still drive to, or for how much longer.
-That gap is sharpest where the deaths occurred: dispersed rural settlement, slow
+It is sharpest where the deaths occurred: dispersed rural settlement, slow
 walkers, road networks with few alternatives. The same survey
 shows how the warning travelled: village broadcast and a neighbour together account for
 237 mentions against 112 for the national emergency text
 message, and in Yeongdeok — where only 48.0 % received the text — 89 against 22.
 
-WildfireGuardian closes that gap on public data, and this paper is as much about the
-evaluation design under which it was built. It fits a per-cell ignition-probability model,
-propagates it into a time-sliced hazard field, and consumes that field twice: in a
+WildfireGuardian closes that gap on public data. It fits a per-cell ignition-probability
+model, propagates it into a time-sliced hazard field, and consumes that field twice: in a
 time-expanded pedestrian router that refuses nodes whose forecast risk will have crossed a
-cutoff by the time a slow walker arrives, and in a rescue-ingress calculation asking when
+cutoff by the walker's arrival, and in a rescue-ingress calculation asking when
 each approach corridor closes to a vehicle. Its outputs are operator documents (Fig. 1).
 
 We make three claims. The coupling changes decisions, measurably, as a paired contrast:
@@ -127,8 +128,7 @@ contrast and the sub-pixel area inversion standard since Dozier [@dozier1981].
 
 **Calibration and guarantees.** Conformal risk control offers distribution-free
 guarantees on a monotone risk by calibrating a threshold [@angelopoulos2024crc]. Section
-4.2 reports what happens when it is applied honestly at six fires: the finite-sample term
-consumes most of the error budget, and that negative result is the contribution.
+4.2 reports what happens when it is applied honestly at six fires.
 
 **Walking speed.** The elderly gait speeds this system assumes sit in the range for
 which gait speed is an established predictor of survival in older adults
@@ -339,7 +339,7 @@ fires, and a fire-level finite-sample term is applied to a cell-level quantile. 
 threshold computed here is adopted; the operating point stays at 0.3, and the reason is
 now stated rather than defaulted.
 
-### 4.3 What the forecast changes about who can walk out
+### 4.3 What hazard awareness changes about who can walk out
 
 On the canonical Yeongdeok hazard field, 458 origins are scanned; the fire-blind route
 reaches a refuge without entering the predicted hazard for 414 of them and enters the
@@ -350,11 +350,11 @@ budget-exceeded class at 600 minutes, and none enters the hazard under the
 forecast-aware policy, which is structural: the policy refuses any node at or above the
 cutoff.
 
-![Decision shift on the canonical Yeongdeok field. Left: the same 458 scanned origins under the fire-blind and the forecast-aware policies. Right: the predicted hazard core over the forecast horizon. The absolute rates on the left are computed on a walk network covering 32.6 % of the predicted fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. Not re-acquiring the region is deliberate: the walk box does not fit the simulation grid, so redrawing it would force re-extending the canvas and re-simulating the field, replacing a stated limit with an unstated one.](figures/F5_decision_shift.png)
+![Decision shift on the canonical Yeongdeok field. Left: the same 458 scanned origins under the fire-blind and the forecast-aware policies. Right: the predicted hazard core over the forecast horizon. The fire-blind arm consults no hazard at all, present or forecast, so the shift between the two bars is what hazard awareness of any kind buys and not what the forecast alone buys (Section 4.3, third caveat). The absolute rates on the left are computed on a walk network covering 32.6 % of the predicted fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. Not re-acquiring the region is deliberate: the walk box does not fit the simulation grid, so redrawing it would force re-extending the canvas and re-simulating the field, replacing a stated limit with an unstated one.](figures/F5_decision_shift.png)
 
 ![The canonical Yeongdeok 2025 case on the SRTM hillshade. (a) Forecast P(ignite) at 720 min, the cells at P ≥ 0.5 at 0 min (teal), the 720-min 0.5 isoline (dashed), the reported ignition (star); the rectangle is the walk-network extent. (b) The walk network, the refuge nodes snapped from 50 OSM points of interest (triangles), all 458 scanned origins classed as in the committed artifact (414 safe on both routes, 42 safe only on the forecast-aware route, 2 with no safe walking route), and three example origins with the fire-blind shortest route (grey, dashed) against the forecast-aware route (red). Routes are recomputed at figure time with the repository's own router from the committed snapshots, and the recomputed partition equals the committed one; the isoline is drawn on a one-cell smoothing of the slice for display only.](figures/F8_routing_map.png)
 
-Two caveats are inseparable from those counts. **First and most important, they are
+Three caveats are inseparable from those counts. **First and most important, they are
 rates on a covered third.** Yeongdeok's walk-network bounding box contains only 32.6 %
 of the grid cells at P(ignite) ≥ 0.5 in the field's final slice; the western part of the
 predicted core has no road network in the box at all. The origins are a spatially biased
@@ -366,6 +366,13 @@ and the "quasi-static fire core" limitation recorded against those numbers was a
 of that reverted field, not of the fire: on the canonical field the core grows by 316.06 %
 from the first slice to the last. The two lineages differ on more than one axis, so the
 movement between them is not a single-variable contrast and no per-origin ledger exists.
+
+**Third, the counterfactual is a fire-blind walk.** The baseline consults no hazard at
+all, present or forecast, so the 42 measure what hazard awareness of any kind buys, not
+what the forecast alone buys: a router refusing only the cells alight at departure would
+recover an unmeasured share of them. This is a coupling effect, not a forecasting
+effect. [GAP: the arm that separates them, a present-perimeter baseline
+over the same origins, is specified in the project backlog and scheduled after this sprint]
 
 ### 4.4 Three regions under one rule
 
@@ -381,8 +388,9 @@ Table 2. Three regions under one identical rule. The right-hand columns are the 
 | Uiseong-Andong 2025 | 368 | 263 | 91 | 12 | 2 | 99.2 % | 3,275 | 2.39 | 7.45 | 3.79 | 0.00 |
 | Uljin-Samcheok 2022 | 393 | 377 | 3 | 10 | 3 | 81.5 % | 7,300 | 1.663 | 8.21 | 2.92 | 0.45 |
 
-The forecast-aware-only share is 9.17 %, 24.73 % and 0.76 %. **These three rows must not
-be ranked against each other on that column.** With n = 3, coverage, core area and
+The forecast-aware-only share is 9.17 %, 24.73 % and 0.76 %. All three are measured against
+the same fire-blind baseline, so §4.3's third caveat binds them too. **These three rows must
+not be ranked against each other on that column.** With n = 3, coverage, core area and
 mapping density all move together; the predicted-core areas span a factor of 7.91 under
 one definition, and one region's rate is computed on a third of its own core. The one
 ordering that carries information runs against the naive reading: the Spearman rank
@@ -487,9 +495,6 @@ one. What the analysis does establish positively is reproducibility: re-deriving
 
 ### 4.7 How early could a satellite have seen these fires?
 
-The system's premise is that detection was not the binding failure, and that premise is
-partly testable here.
-
 Four of the six fires fall inside the GK2A archive and three produced a detection under
 the rule of Section 3.1 (Table 4). In each, the first satellite-detectable anomaly follows
 the fire's recorded occurrence time by 22 to 64 minutes. **That reference clock is the
@@ -535,8 +540,7 @@ Whether that is ahead of or behind the emergency call, this measurement cannot s
 **What the coupling adds over a spread map.** A hazard map answers "where will the fire
 be"; a household needs "is my route still passable when I get there", and the two differ
 because a slow walker's arrival time is a variable in the answer. Section 4.3 is the
-measurable form of that difference, and one field answers the responder's mirror-image
-question too. It is not a
+measurable form of that difference. It is not a
 claim that the system knows where the fire will be: the router needs ranking quality, not
 per-cell precision, because it cuts a cumulative, survival-accumulated surface at its own
 threshold. That the surface itself goes unchecked is the first limitation in Section 6.
@@ -564,20 +568,18 @@ routing.
 existed: the terrain null because of the flat control, the feature-arm null because of the
 column-addition envelope, and the claim that distance drives vulnerability was
 **withdrawn** because a null-hazard control showed the failing set was set-identical with
-no fire at all. The same discipline stopped an input before it reached this paper: a county
-subset of an external designated-site dataset, cut on an administrative code and labelled
-with a county name, was refused when its points proved to lie outside that county's own
-study box — a label checked against the geometry it claims rather than against a code
-table. The code was wrong; the subset was re-cut on the right one, checked the same way,
-and is the inventory Section 6 reports. That whole arc, and not the refusal alone, is what
-the control buys.
+no fire at all. The same discipline stopped an input before it reached this paper: a
+designated-site subset labelled with a county name was refused when its points proved to
+lie outside that county's own study box — a label checked against the geometry it claims
+rather than against a code table. It was re-cut on the right administrative code, and only
+then used as the inventory Section 6 reports.
 
 **What outside readers asked first.** Three domain researchers replied in writing to the
 author in September 2026; their comments are design feedback rather than data. One of them
 put two questions that nothing measured here answers: whether prioritising rescue need by
 age alone stays appropriate in an ageing population, and whether these results are usable
 without modelling how forest-fire suppression and residential emergency response divide
-roles during a fire. A second raised Section 6's off-network walking limitation.
+roles during a fire. Another's off-network walking point is a limitation in Section 6.
 
 [GAP: the practitioner consultations — a fire-service duty officer, a village head and a
 social worker — have not happened; they are design feedback rather than collected data,
@@ -614,9 +616,8 @@ walk-graph nodes at a fixed stride, so their distribution reflects road-network 
 They are also not a probability sample: the 458 are a deterministic systematic subsample —
 every 18th of the walk graph's 8,443 nodes, then filtered by the hazard at time zero and by
 a band around the predicted core — so no design-based standard error is defined for the
-shares in Sections 4.3 and 4.4, and neighbouring origins are not independent. Reading those
-shares as estimates for households would need an interval nothing here supports. Building footprints are no
-better:
+shares in Sections 4.3 and 4.4, and neighbouring origins are not independent. Building
+footprints are no better:
 OpenStreetMap maps 124, 339 and 1,220 footprints across the three regions, and 91.5 % of
 1 km cells containing built-up land at Yeongdeok hold no mapped building. Origins needing
 rescue are 2.13 times more dispersed than origins in general and 69.2 % of clusters at a
@@ -692,7 +693,7 @@ settle it]
 
 **Operational status.** No trigger has ever fired on a live detection and the messaging
 layer is a dry run: the SMS path is simulated, private cell-broadcast origination is not
-lawful in Korea, and the approval-gated email channel has never completed a verification
+authorized in Korea, and the approval-gated email channel has never completed a verification
 send. Nothing here reached a real resident or a real crew.
 
 ## 7. Conclusion
