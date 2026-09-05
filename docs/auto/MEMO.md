@@ -883,3 +883,28 @@ did, and it is why re-registering to 8/0 was a five-minute change rather than an
 **Corollary for a multi-routine repository:** a dev lap's own baseline can be green and the
 branch red one minute later, because four routines push to `auto/dev`. Read the newest
 `origin/auto/dev`, not the head the lap started from, before believing a green quick gate.
+
+## 2026-09-05 — two routines fixed the same red, twenty minutes apart, and neither could see the other
+
+The `wfg-autoloop-ci-red` routine woke on `auto-gates` run 110 and spent forty minutes
+reaching the same diagnosis and the same re-registration (8/0) that the 0404Z dev lap had
+already pushed at `3b174c2`. Both were right; one was redundant. **The cause is structural:**
+CHARTER §4 step 3 gives a dev lap a claim marker pushed before the work starts, and a red
+run is the one piece of work in this loop with **no claim surface at all** — the ci-red
+routine has nothing to write and nothing to read. It fetched `origin/auto/dev` at the start,
+which is exactly when the other lap's fix did not exist yet.
+
+**Gate:** a routine whose trigger is a failure must re-fetch `origin/auto/dev` and re-check
+the failing gate **immediately before it commits**, not only at bootstrap — the same
+re-fetch CHARTER §4 step 3 already requires after a claim, applied to the other end of the
+lap. Cheap version: `git fetch origin auto/dev` and re-run the one failing test at the new
+head. Had this lap done that at the 40-minute mark it would have found the branch already
+green and spent the remaining time on the finding below instead of on a duplicate diff.
+
+**What survived the collision is the reason the duplicate was not wasted.** Two laps read
+the same failure and stopped at different depths: the dev lap recorded that variant A lost
+three hits because "the prose moved", which is true; this one measured *which* three and
+found the mechanism — `2b7c3a0` rewrote 「rather than」 to 「not」, and `\bnot\b` is in
+`EN_NEGATION_PATTERNS`, so the **shipping** rule now treats an unrelated negation as a
+withdrawal (WFG-099, three mutations, all missed). A second reader of the same red is worth
+something; a second *writer* of the same fix is not.
