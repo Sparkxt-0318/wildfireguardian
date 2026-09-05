@@ -270,3 +270,76 @@ def test_the_default_region_the_script_assumes_is_the_one_the_screen_ships():
         f"still assume 의성·안동, but the builder now ships {m.group(1)}"
     )
     assert "의성·안동(2025)" in SCRIPT.read_text(encoding="utf-8")
+
+
+DROP_MARKER = "[버림]"
+
+
+def _spoken_lines_with_the_drop_marker(text: str) -> list[str]:
+    """The §1 lines that carry the [버림] marker, quoted lines only.
+
+    The ⚠ blocks talk *about* the marker in prose and must not be counted as
+    one; only a `> ` line is something the student says.
+    """
+    body = text.split("## 1. 대본", 1)[1].split("## 2. 끼어들 때", 1)[0]
+    return [line[2:] for line in body.splitlines()
+            if line.startswith("> ") and DROP_MARKER in line]
+
+
+def test_a_droppable_sentence_takes_its_own_number_with_it(script_text):
+    """WFG-095: the marker never sits on a caveat whose claim stays behind.
+
+    The script tells a student who is running long which sentence to cut. When
+    that marker sits on a caveat-only sentence, cutting it leaves the number the
+    caveat was guarding in the judge's ear with nothing qualifying it - which is
+    how critic #15 found 2막 and 3막: dropping 2막's marked line left 1막's
+    22/34/64분 and 2막's 79.23 % spoken as if they were the same clock (the
+    WFG-053 conflation, NH-018/NH-019), and dropping 3막's left four regional
+    percentages with nothing saying OSM mapping density is inside the difference,
+    while §4 item 4 of the same document lists 지역 간 순위 among the sentences
+    this script never says. Both deletions were measured against every claim gate
+    in the tree and all of them exited 0.
+
+    The invariant this pins is the one §1 now states: a marker only ever goes on a
+    sentence that carries its own number, so cutting it cuts the number too.
+    Caveats that guard a surviving claim live in the ⚠ blocks instead.
+
+    What this cannot catch: it reads the marker's own line, not the whole
+    sentence-group the student would drop, so a marker moved to the *head* of a
+    numbered group would still pass. It is the head of the run that has been
+    getting this wrong, and a stricter test would need a closing marker the
+    spoken text should not have to carry.
+    """
+    marked = _spoken_lines_with_the_drop_marker(script_text)
+    assert marked, (
+        "no spoken line carries the [버림] marker any more; §1 tells a student "
+        "who is running long to drop the marked sentence, and there is none"
+    )
+    tabled = set()
+    for _, value, _, _ in _mapping_rows(script_text):
+        tabled.update(_numbers_in(value))
+    naked = [line for line in marked
+             if not (set(_numbers_in(line)) & (tabled | set(THRESHOLDS)))]
+    assert not naked, (
+        "a [버림] marker sits on a sentence carrying no sourced number of its "
+        "own. Dropping it drops a caveat and leaves the claim it guards: "
+        + str(naked)
+    )
+
+
+def test_the_rule_that_places_the_marker_is_written_down(script_text):
+    """The bad placements came from the rule, not from two slips.
+
+    §1 used to say 「넘치면 그 구간의 마지막 문장을 버리고」 - drop the *last*
+    sentence - and a well-written segment ends on its caveat, so the rule
+    manufactured the failure above twice. Re-introducing that rule would
+    reproduce it in the next segment anyone adds, and the test above would not
+    see it until the marker moved.
+    """
+    body = script_text.split("## 1. 대본", 1)[1].split("### 도입", 1)[0]
+    assert "표시한 문장을 버리고" in body, (
+        "§1 no longer says that the marked sentence is the one to drop"
+    )
+    assert "단서만 있는 문장에는 붙이지 않습니다" in body, (
+        "§1 no longer forbids marking a caveat-only sentence as droppable"
+    )
