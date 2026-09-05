@@ -2,7 +2,8 @@
 
 **What was settled, on what evidence, and what would reopen it.**
 
-Written 2026-09-05 against `c0bd560`. This file **indexes decisions; it does not
+Written 2026-09-05 from the records as they stood at `c0bd560` (2026-08-10), the
+end of the Round-4 review pass. This file **indexes decisions; it does not
 hold evidence.** Every row points at the document that carries the measurement,
 and where the two ever disagree the linked record wins — a register that becomes
 a second source of truth is worse than no register at all.
@@ -25,6 +26,22 @@ away from the work.
 
 Bare **§ references are sections of [`HANDOFF_ROUND3.md`](HANDOFF_ROUND3.md)**,
 which is where most of this was written down first.
+
+**Coverage, and where the newer decisions are.** This register covers the
+decisions taken up to the end of Round 4. From 2026-09-03 the repository is
+developed by an autonomous loop that keeps its own live records, and those are
+the authority for anything decided since:
+
+| record | holds |
+|---|---|
+| [`auto/NEEDS_HUMAN.md`](auto/NEEDS_HUMAN.md) | the escalation ledger — every `NH-###` the loop could not or must not decide alone, open or closed with the author's answer |
+| [`auto/BACKLOG.md`](auto/BACKLOG.md) | the `WFG-###` rows: what is being built, what is blocked, what was withdrawn and why |
+| [`auto/CHARTER.md`](auto/CHARTER.md) | the standing brief the loop reads first, including the rules it may not break |
+| [`auto/DIRECTION.md`](auto/DIRECTION.md) | what the product is aimed at next |
+
+Rows below that the loop has since revisited are marked where this register
+knows about it; where it does not, the records above win, as they do
+everywhere else in this file.
 
 ## How to read the status column
 
@@ -104,6 +121,7 @@ exist; §5 says what not to do.
 | **The gap that scope leaves — generated screens — is recorded, not fixed** | ACCEPTED | 2026-08-06 | Widening the rules to `.html` would flag a batch of existing demo assets at once, and each needs its own decision. Two candidate shapes, and why the second is better, are written down. [`forbidden_check_scope.md`](forbidden_check_scope.md). |
 | **Every checker carries a ratchet, and every ratchet entry carries its reason** | SETTLED | PHASE 21–22 | The floor is where the tree stands today and may only go down. An entry in one has been *looked at* — that is the difference between a ratchet and an exemption, and it is why there is deliberately no whole-file escape hatch. [`region_literals.md`](region_literals.md), [`screen_gate_scope.md`](screen_gate_scope.md). |
 | **The `NEAR_WINDOW` for the near-label severity is measured, not chosen** | SETTLED | 2026-08-08 | ±10 lines, from a false-positive/detection table across four candidate windows on the tree before and after the caveat pass. The natural way to caveat a table is a block quote above it, which is why the same-line rule the other severity uses cannot work here. `scripts/check_forbidden.py`. |
+| **A withdrawn claim is registered once and gated across the whole tree** | SETTLED | 2026-09-04 | Five hand-written guard lists covered 11 files out of ~988 tracked documents, and every escape actually paid for was a file nobody had listed — including the same claims surviving in English because every guard read Korean. The registry inverts the default: every tracked document is in scope, and each exception carries a written reason. ⚠ It reads **spellings**, so its sensitivity to a rewording is that of the patterns it draws from, no better. `make check-withdrawn-claims`, [`withdrawn_claims.md`](withdrawn_claims.md). |
 | **Acquired data is snapshotted immediately, never left in `data/cache/`** | SETTLED | PHASE 1 | `data/cache/**` is git-ignored, and that is exactly how the 2026-07-23 graph died. `make snapshot-verify` re-hashes the store. |
 | **The acquisition record is never edited** | SETTLED | PHASE 1 | `fire_manifest.json` defines the training set and is git-ignored, so it would otherwise be changeable with no diff at all; `make baseline-verify` pins its digest. Simulation-side changes belong in `config`. §5 rule 9. |
 | **A cited number or a cited prior step is checked against the repository before anything is built on it** | SETTLED | 2026-08-06 (user) | Across three sessions, five instructions arrived carrying findings, measurements and completed work that did not exist here, and two reached the documentation before being caught. Every guard this repository has is registry-based: they catch a *retired* number being re-quoted, and cannot catch a citation whose event never happened. Looking it up is the only defence for that class, and it costs one grep. §4-B. |
@@ -148,6 +166,7 @@ has dropped cannot be checked at all.
 | The shelter-search cost figures in the service-layer write-up | REVERSED | Retracted in place 2026-08-06. Both halves were wrong and both had been written from a conversational summary rather than from the code; the multi-destination single search they proposed was already how it worked. [`service_layer.md`](service_layer.md) §5. |
 | A VPD unit defect, its permutation-importance jump, and the fix for it | REVERSED | Five independent checks all came back negative (2026-08-10): the cited source line has never existed, both real Magnus formulas carry the conversion in their creation commits, the training table was never clamped, no artifact ranks the feature where it was said to rank, and no commit on any branch, stash or reflog describes such a fix. The approved change altered nothing because there was nothing to change. §4-B addendum. |
 | "The fire-blind risk is near-constant" (the hypothesis-refutation decomposition) | REVERSED | Withdrawn: an artifact of the pre-correction fields. §4. |
+| The satellite-versus-telephone detection ordering, and human-report primacy | REVERSED | Withdrawn 2026-09-04, after this register's window: the reference clock is the manifest's 기록된 발생일시 and no 신고접수시각 exists here, and the size floor rules the satellite out rather than ruling the human in. Both, plus their survival in English, are `WC-001`…`WC-003` in the registry that now gates them. [`withdrawn_claims.md`](withdrawn_claims.md). |
 | "전달 문구는 모사이며 실제 발송하지 않습니다" | REVERSED | Superseded at PHASE 7. The email channel can transmit, so the old wording would now understate the system. The current wording is in §10. |
 
 ---
@@ -162,3 +181,5 @@ has dropped cannot be checked at all.
 | the model, its inputs and its limits | [`MODEL_CARD.md`](MODEL_CARD.md) |
 | known limitations by session, including the physics era | [`BLOCKERS.md`](BLOCKERS.md) |
 | reproducing any of it from a fresh clone | [`REPRODUCE.md`](REPRODUCE.md) |
+| every decision taken since 2026-09-03 | [`auto/NEEDS_HUMAN.md`](auto/NEEDS_HUMAN.md), [`auto/BACKLOG.md`](auto/BACKLOG.md), [`auto/CHARTER.md`](auto/CHARTER.md) |
+| the claims this project has withdrawn, and the gate that enforces them | [`withdrawn_claims.md`](withdrawn_claims.md) |
