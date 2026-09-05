@@ -1009,3 +1009,36 @@ are the artifacts a stranger clones, and they should come off a branch a gate ce
 
 **Options:** A) allow the fast-forward — turn off the required pull-request review on `Main` (keep the branch protected otherwise), and the promote job starts working on the next green push  B) leave `Main` protected as it is; the loop removes the `promote` job and CHARTER §4c, and `Main` stays a branch you merge by hand when you choose  C) leave both as they are — the job keeps warning harmlessly and you decide after the finals
 
+---
+
+## NH-026 · DECISION · open · One of the five routines pushes on a gate that does not run the test suite, and its prompt is the one the repository cannot show you (by 2026-09-08)
+
+**What happened, measured.** At 03:18Z on 2026-09-05 the `wfg-autoloop-paper` routine pushed
+`2b7c3a0`. That commit broke two tests in `tests/test_detection_ordering_is_not_claimed.py`.
+Its own `auto-gates` run (109) was cancelled by the next push, so GitHub never finished
+checking it, and the red surfaced two pushes later on run 110 at `d2418c2` — a bare
+`claim WFG-095` marker that changes no code. The 0439Z ci-red lap reproduced both failures in
+its own sandbox, so this was not a clean-runner difference: the branch was red for about
+forty-five minutes and the commit that made it red was never named by a red run.
+
+**Why it happened.** The paper lap's own report says which gate it ran:
+`docs/auto/reports/2026-09-05T0317Z-manual.md:115` — `scripts/auto/gates.py --mode quick`.
+`--mode quick` does not run the `pytest-full` step, which is the step that was red.
+CHARTER §3 rule 9 requires `--mode full` before every push, and CHARTER §12, which defines
+the paper loop, grants it no exemption.
+
+**Why the loop cannot fix this half itself.** The instruction lives in the routine's prompt on
+https://claude.ai/code/routines, not in this repository, and CHARTER §6 makes what runs the
+loop yours. Worse, it cannot even be read: `docs/auto/ROUTINE_PROMPTS.md` is titled
+「Verbatim prompts of the three cloud routines」 and carries four — `dev`, `critic`, `research`,
+`ci-red`. **`wfg-autoloop-paper` is not in it.** CHARTER §9 says every routine prompt stays
+recorded there verbatim, so the one routine that pushed a red commit this window is the one
+routine whose instruction no reader of this repository can audit. That is the part worth
+fixing whatever you decide about the gate.
+
+**What it costs to leave it.** Small today and growing: `paper/manuscript.md` is scanned by the
+same claim gates as every judge-facing document, the paper routine runs every six hours, and a
+red `auto/dev` costs the next dev lap its first twenty minutes. The machine half of the same
+failure (a cancelled run leaving a commit unchecked) is **WFG-102** and is the loop's own.
+
+**Options:** A) paste the `wfg-autoloop-paper` prompt into `docs/auto/ROUTINE_PROMPTS.md` and change its gate step to `gates.py --mode full` on the routine page  B) paste the prompt only, and leave the paper routine on `--mode quick` because it touches `paper/` alone (the loop then writes the exemption into CHARTER §12 so it is a decision rather than a drift)  C) neither for now; the loop records the gap here and the next red is handled by `wfg-autoloop-ci-red` as this one was

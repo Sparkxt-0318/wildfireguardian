@@ -1,6 +1,6 @@
 # Direction — where the project is going, on one screen
 
-*Written 2026-09-04 by the author's session; steered again the same evening (product first). Rewritten by the research routine every second day; the critic checks it after every dev lap (CHARTER §14). The dev routine reads it before claiming a row. Last checked by critic #15, 2026-09-05.*
+*Written 2026-09-04 by the author's session; steered again the same evening (product first). Rewritten by the research routine every second day; the critic checks it after every dev lap (CHARTER §14). The dev routine reads it before claiming a row. Last checked by critic #16, 2026-09-05.*
 
 ## Thesis (two sentences)
 
@@ -8,15 +8,23 @@ A forecast of where the fire will be, not where it is, changes which walking rou
 
 ## Next three rows, and why
 
-*WFG-003 is `done(20260905T0025Z)` and R4 is ticked, so the booth sequence is live and the
-next rows are the remaining judge-facing ones. One correction was needed to make the table
-say that: WFG-036 was sitting twenty-one rows below two P1 hygiene rows.*
+*WFG-036 v1 landed and `make finals-bundle` verifies byte-identically, so the bundle mechanism works and
+what R9 still lacks is the two artifacts that go inside it. The table now points at them in order.*
 
-1. **WFG-095** (P0, minutes) — the one `fix-before-next-row` item: the booth script marks its two load-bearing caveats as the sentences to drop first. Judge-facing, cheap, and it clears in fifteen minutes so the rest of the lap is WFG-036.
-2. **WFG-036** then **WFG-037** (P0) — the release bundle v1 (R9) and the booth recipe (R3, R12), due 09-10 on the sprint plan. **Moved WFG-036 up this lap** (below).
-3. **WFG-007** (P1) — booth checklist and printables (R7), the last unwritten judge-facing artifact.
+1. **WFG-100** (P0, minutes to one lap) — the one `fix-before-next-row` item: the booth script's six segment
+   times are unmeasured and cannot all be right (1,630 spoken syllables in 300 s; 4.24 to 7.07 per second
+   across segments, fastest on the limitations close, which is last). Judge-facing, and it must be settled
+   before anyone else edits that document.
+2. **WFG-037** then **WFG-007** (P0, P1) — the booth recipe (R3's booth half) and the printables (R7). These
+   are the two things R9 is waiting on, so they come before WFG-036 v2, which folds them in on 09-14.
+   **Moved WFG-037 up this lap** (below).
+3. **WFG-101** (P0, hours) — the card for the question the repository can already answer better than any
+   competitor and the student cannot: the headline 24.73 % was 3.53 % before a DEM defect this project found
+   and corrected in its own data.
 
-Then in order: WFG-010 (README Round-4 + abstract → R8), WFG-024 when its blockers clear (R11), and only then WFG-088, WFG-089, WFG-094, WFG-097 and the other infra rows, which CHARTER §14b holds behind R1, R3, R7, R8 and R9.
+Then WFG-010 (README Round-4 + abstract → R8), WFG-096, WFG-024 when its blockers clear (R11), and only then
+WFG-088, WFG-089, WFG-094, WFG-097, WFG-099, WFG-102 and the other infra rows, which CHARTER §14b holds
+behind R1, R3, R7, R8 and R9.
 
 ## What not to do
 
@@ -25,12 +33,14 @@ Then in order: WFG-010 (README Round-4 + abstract → R8), WFG-024 when its bloc
 - No consultation-dependent claim (NH-010): nothing may wait on an expert reply.
 - No ratio between the chain and the season areas (NH-018).
 - Do not spend a lap on the six-fire study-area map until per-fire burned areas are registered (WFG-060).
-- Do not open another gate-about-the-loop row while `release/kcf-finals-2026/`, `BOOTH_SETUP.md` and the printables do not exist (CHARTER §14b). WFG-097 is filed and parked behind exactly that rule, by the critic who found it.
+- Do not commit the bundle payload. R9 does not require it and critic #16 said so on the line itself.
+- Do not open another gate-about-the-loop row while the printables and `BOOTH_SETUP.md` do not exist
+  (CHARTER §14b). WFG-097, WFG-099 and WFG-102 are filed and parked behind exactly that rule.
 
 ## Critic's last direction note
 
-**2026-09-05, critic #15. I moved one row, and it is the first reorder in four critic laps that is not a deferral: WFG-036 (P0, the release bundle, due 09-10) was at table line 69, below WFG-088 and WFG-089 — two P1 hygiene rows critic #14 filed on 09-04 — so the next `todo` a dev lap would take in table order was a minutes-long prose repair on `docs/withdrawn_claims.md`, not the bundle.** CHARTER §14b holds exactly those rows behind R1, R3, R7, R8 and R9, and §3b forbids a P0 below a non-P0, so this was the table contradicting the charter rather than a judgement call. WFG-036 now sits directly under WFG-095. I did not move WFG-037; one move is the limit and this page names it instead. **What the window earned:** `docs/auto/DEMO_SCRIPT_5MIN.md` exists, and I ticked **R4** with my own reading — six timed segments summing to exactly 300 s, five judge-lens interruption sentences, and a 35-row mapping table whose 33 registry keys I resolved and value-matched independently. **That is the first readiness line ticked in six critic laps** (the last was R2 by critic #8 at `12bf2d9`, 0750Z on 09-04); the count is now **4 of 11**. The census moved with it: judge-facing lines in this window are **257 of 943 authored (27.3 %)** against critic #14's 4.9 % and critic #13's 2.6 %, and 231 of the 257 are the script itself. **The falsifiable test for critic #16:** if the next lap produces `release/kcf-finals-2026/` or `BOOTH_SETUP.md`, this page is steering; if it produces another gate, WFG-084's cap should stop being a proposal.
+**2026-09-05, critic #16. I moved one row and it is the same correction as last lap, one line further down: WFG-037 (P0, the booth recipe, R3) sat at table line 75, below fourteen P1 rows, so the row after WFG-036 in table order was a P1 hygiene item and not the thing R9 is actually waiting on.** CHARTER §3b forbids a P0 below a non-P0 and §14b holds those P1 rows behind the readiness lines, so this was the table contradicting the charter twice, not a judgement call. WFG-037 now sits directly under WFG-036; WFG-100 goes above both as the `fix-before-next-row` item and WFG-101 below them. **What the window earned:** `release/kcf-finals-2026/` exists, and I ran `make finals-bundle` myself rather than reading the claim — exit 0, 16 files, byte-identical. I also answered on the R9 line the question WFG-036 v1 put to the critic: R9 does **not** require a committed payload, because the line's own condition is a byte-identical rebuild. So R9 is held by the printables and the recipe alone, which is why they are rows 2 and 3 above. **No readiness line ticked this window** (still 4 of 11), and that is not the direction finding — R4 moved last window, so the two-consecutive-laps rule does not fire. The census holds the shape critic #15 opened: judge-facing lines **382 of 1,754 authored (21.8 %)** against 27.3 %, 4.9 % and 2.6 % in the three windows before it — two consecutive windows above 20 % after eleven below 5 %. **The falsifiable test for critic #17:** if the next lap produces `docs/auto/finals/BOOTH_SETUP.md`, this page is steering; if it produces another gate or another registry, WFG-084's cap should stop being a proposal and become the rule.
 
 ## Critic's previous direction note
 
-**2026-09-04, critic #14. The next `todo` row is WFG-003, no BACKLOG row was moved, and for the first time in three critic laps that is not a deferral — it is where the table already points.** WFG-062 closed at `e350571`, so option A of **NH-024** is spent and the escalation critic #12 opened is resolved by events. Judge-facing lines that window: **1,018 of 20,812 authored (4.9 %)** against `docs/auto/reports/` at 8,052 in 45 files. Three of eleven readiness lines ticked, no tick for five critic laps, `web/` untouched for twelve windows. One `fix-before-next-row` item (WFG-087), fifteen minutes on a T0 Q&A answer. *(Critic #13's note is in `docs/auto/reports/2026-09-04T2013Z-critic.md`; this page stays one screen.)*
+**2026-09-05, critic #15.** Moved WFG-036 (P0, release bundle, due 09-10) up from table line 69 where it sat below two P1 hygiene rows. Ticked **R4** on its own reading of `docs/auto/DEMO_SCRIPT_5MIN.md` — six timed segments summing to exactly 300 s, five judge-lens interruption sentences, 33 registry keys resolved and value-matched — the first readiness line to move in six critic laps, taking the count to 4 of 11. Judge-facing lines that window: 257 of 943 authored (27.3 %). One `fix-before-next-row` item, WFG-095, on the same document. *(Critic #14's note is in `docs/auto/reports/2026-09-05T0221Z-critic.md`; this page stays one screen.)*

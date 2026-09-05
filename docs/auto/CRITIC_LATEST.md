@@ -1,96 +1,110 @@
-# CRITIC_LATEST — critic #15, 2026-09-05
+# CRITIC_LATEST — critic #16, 2026-09-05
 
-Window `a234a1c..43710f7` on `auto/dev` (5 commits; the 24 h window is 101).
+Window `466900b..c37f27e` on `auto/dev` (7 commits; the 24 h window is 60 files, 2,971 insertions).
 Written by the `wfg-autoloop-critic` routine. The next dev lap clears every
 `fix-before-next-row` item here before claiming a row.
 
 ## fix-before-next-row
 
-**One item, WFG-095, and it is fifteen minutes on the document this window earned its score with.**
+**One item, WFG-100: the five minutes the whole booth turns on is a budget nobody has measured, and its six segments cannot all be right.**
 
-`docs/auto/DEMO_SCRIPT_5MIN.md` is the only file in this repository whose sentences are spoken
-out loud to a judge, and it is good. It also marks one droppable sentence per segment with
-**[버림]**, so that a student running long knows what to cut. In 1막 that marker sits on a
-sentence carrying its claim and its caveat together (`:52-53`, 709단계 / 0건 with 「오경보율의
-측정이 아니라 상한입니다」) — drop it and both go, which is right.
+`docs/auto/DEMO_SCRIPT_5MIN.md` §5 says the six segment times were set from
+「문장 수와 한국어 발화 속도」. Nobody has checked the arithmetic of that, and the tests cannot:
+`tests/test_demo_script_5min.py` asserts the six numbers **sum to 300**, which is true and is
+not the same question.
 
-In 2막 (`:70-71`) and 3막 (`:85-86`) the marker sits on a **caveat-only** sentence while the
-claim it guards stays in the non-droppable text:
+**Measured this lap**, over the spoken blockquote lines only (Hangul syllables plus numerals
+read as sino-Korean; the ⚠ blocks, the mapping table and the DRAFT header are excluded because
+nobody says them):
 
-- **2막.** The droppable line is 「이 표본과 1막의 표본은 서로 다른 자료입니다. 두 시각을 같은
-  성격이라고 말하지 않습니다.」 The claims stay: 1막's 「기록된 발생일시 대비 22분, 34분, 64분」
-  and 2막's 「2,008건 중 79.23 %가 기록된 발생일시에서 240분 안에」. Drop the caveat and the
-  student has spoken two different 발생일시 clocks in consecutive segments with nothing left
-  saying they are different samples. That is the conflation `WFG-053` withdrew and NH-018 /
-  NH-019 were opened over, and the paper routine had a §4.6 paragraph blocked by its own
-  reviewer for exactly it (`72cf230`).
-- **3막.** The droppable line is 「지역 차이는 실제 지형 차이만이 아니라 OSM 지도 작성 밀도
-  차이이기도 합니다. 그래서 지역끼리 순위를 매기지 않습니다.」 The claims stay: 24.73 %
-  (의성·안동), 9.17 % (영덕), 15.14 % and 23.67 % (울진·삼척), four regional numbers in a row.
-  And **§4 item 4 of the same document** lists 「지역 간 순위」 among the sentences this script
-  never says. The script's own never-say list is enforced by a sentence it marks as disposable.
+| segment | declared | spoken syllables | implied syllables/second |
+|---|---:|---:|---:|
+| 도입 | 25 s | 161 | 6.44 |
+| 1막 · 발견 | 45 s | 235 | 5.22 |
+| 2막 · 시간이 도로망을 바꿉니다 | 55 s | 279 | 5.07 |
+| 3막 · 같은 출발지, 두 개의 답 | 75 s | 318 | 4.24 |
+| 4막 · 예측을 판단으로 | 55 s | 319 | 5.80 |
+| 마무리 · 한계 | 45 s | 318 | 7.07 |
+| **total** | **300 s** | **1,630** | **5.43** |
 
-**Measured, not asserted.** I deleted each caveat in the working tree and ran
-`scripts/check_forbidden.py`, `tests/test_withdrawn_claims_registry.py`,
-`tests/test_detection_ordering_is_not_claimed.py` and `tests/test_demo_script_5min.py`:
-**all four exit 0 on both deletions.** The tree was restored; nothing was committed.
+The finding does not depend on knowing the true comfortable rate for spoken Korean, and I am
+not asserting one. It depends on the spread: **4.24 to 7.07 is 1.67×, inside one document, from
+one stated method.** One rate cannot satisfy both ends. If 3막's 4.24 is the right pace the
+script needs **385 s**; if 마무리's 7.07 is achievable it needs **231 s** and 3막 is 30 s too
+long. At least one of the six numbers is wrong and probably five are.
 
-**Done when** every **[버림]** marker sits on a sentence that carries its own claim, so cutting
-it cuts the number too — either move the marker onto the claim-plus-caveat pair, or move the
-caveat into that segment's ⚠ block where the script's non-droppable warnings already live — and
-the six segment times still sum to 300 s.
+**Why this is the item and not a note.** The segment that must be spoken fastest is
+**마무리 · 한계**, the limitations close, and it is **last**. `docs/auto/RUBRIC.md` 심사개요:
+「발표는 5분을 넘지 않는 것을 권장; 길어지면 중단될 수 있음」. So the material that gets cut
+when the clock runs out is the material 창의성 and 과학적 사고 are scored on — the withdrawn
+claims, the 0.138 recall, the 「20가구를 구했다가 아니라」 correction — and it gets cut five
+times, once per judge. The three **[버림]** sentences buy back 84 syllables, about 17 s, and §2
+of the same document guarantees interruptions that will spend it.
 
-This qualifies under CHARTER §14b: it is a judge-facing surface in the plainest sense the rule
-has, the words the student says to the judge. It is the only item this lap sets.
+**Done when** the six segment times are re-derived from a per-segment syllable count at ONE
+rate, the table and every cumulative bracket updated to still sum to 300 s (the proportional
+re-budget at 5.43 syl/s is **30 / 43 / 51 / 58 / 59 / 59 s**), any segment still over its share
+trimmed of text carrying neither a number nor a caveat, and `tests/test_demo_script_5min.py`
+gains a check that each segment's spoken syllable count over its seconds stays inside a stated
+band. **No caveat is deleted to buy seconds** (CHARTER §3.5) — that is the whole point of
+WFG-095, which closed cleanly this window. The half no test reaches is unchanged and this item
+does not claim it: a human reading it aloud with a stopwatch is R12 / NH-014.
 
-## What I ticked, and why it is the news
+**Cheapest test, if the row is doubted:** read 마무리 aloud once and time it.
 
-**R4 is ticked at `43710f7`, the first `KCF_READINESS.md` line to move in six critic laps**
-(the last was R2 by critic #8 at `12bf2d9`, 0750Z on 09-04). **4 of 11.** I ticked it on my own
-reading rather than on the lap's claim: the six segment lengths sum to exactly 300 s and every
-cumulative bracket is consistent with them; §2 carries one interruption sentence for each of the
-five judge lenses; all **33 registry keys** in the §3 mapping table resolve in `docs/NUMBERS.json`
-with values matching the spoken text; the two screen sentences the script tells the student to
-quote verbatim are in the built `web/finals.html`; and `default_region` really is
-`uiseong_andong_2025` in `scripts/build_finals.py:846`, which §0's twenty-second reset depends on.
+This qualifies under CHARTER §14b on the same reading critic #15 used for WFG-095: the words the
+student says to the judge. It is the only item this lap sets.
 
-The half a test cannot reach is unchanged and the tick does not claim it: whether five minutes of
-spoken Korean fits in five minutes is R12 / NH-014, and §5 of the document says so itself.
+## The rest, ranked, and where each lives
 
-## Verified independently this lap
+1. **WFG-101** (P0, new) — the headline 24.73 % was **3.53 %** before this project found and
+   corrected the DEM defect that trains every other fire's model
+   (`docs/dem_defect_2026-08-02.md:67-70`, `docs/decision_shift.md:118-151`,
+   `docs/multi_region.md:8-18`, where it is the first blockquote a judge reads). Nothing in
+   `JUDGE_QA.md`'s 41 questions and nothing in the booth script says so. This is the best
+   과학적 사고 answer the project owns and the student has no card for it.
+2. **WFG-096 corrected in place** — the row filed last window told the next lap the 368 and 458
+   origins are 「a census of that region's walk-network origins」. They are not: 458 of 8,443
+   nodes at stride 18, then hazard-filtered, 5.4 % of the graph. The paper lap's reviewer
+   removed the same sentence from `paper/manuscript.md` §6 six hours after the row was filed;
+   the backlog was the second place the false framing was living.
+3. **NH-026** (author) + **WFG-102** (P1, parked by §14b) — `2b7c3a0` was pushed by the paper
+   routine on `gates.py --mode quick`, which does not run `pytest-full`, and it broke two tests.
+   Its own `auto-gates` run 109 was **cancelled** by the next push, so the red landed on run 110
+   at `d2418c2`, a bare claim marker that changes no code. CHARTER §3 rule 9 requires
+   `--mode full`; CHARTER §12 grants the paper loop no exemption. And
+   `docs/auto/ROUTINE_PROMPTS.md` is titled 「the three cloud routines」, carries four, and does
+   **not** carry `wfg-autoloop-paper` — so the one routine that pushed a red commit is the one
+   whose instruction the repository cannot show anyone (CHARTER §9).
+4. **KCF_READINESS correction** — critics #14 and #15 wrote 「web/ untouched, twelfth /
+   thirteenth consecutive window」. `web/finals.html` was changed at `deeb147`,
+   2026-09-04T15:32Z (one line, the WFG-067 commit stamp). The sentence they meant is true:
+   the screen's **content** has not changed since `dc63a06`, 2026-09-04T07:14Z.
+5. **SCORECARD series table** — the `83f49bc` row appears twice and the first of the two spills a
+   paragraph into the `A·목적` column, so the combined table stops rendering from there down.
+   Left in place under §3.7 rather than deleted; recorded here so a lap that may edit it does.
 
-`gates.py --mode full` exits **0** at `43710f7` in a fresh cloud sandbox: `1464 passed,
-62 skipped` in 317.3 s, **COLD** (first full run here, so the six SRTM-gated tests skip;
-WFG-039). Against critic #14's cold `1453 / 62` at `ed35f0d` that is **+11 passed, skips
-unchanged**, like for like, ninth comparable window. `verify`, `snapshot-verify`, `env-check`
-PASS; `baseline-verify` WARN, expected off-laptop, `hard: false`, fifteenth window and still not
-a finding. Green at HEAD for a **twelfth** consecutive critic lap. `--assert-head` and
-`--assert-reported` both exit 0.
+## What this lap verified rather than read
 
-**GitHub's own runs (CHARTER §4b), read through the MCP because the sandbox proxy answers
-nothing to unauthenticated `api.github.com` calls.** Two red runs in the window, and they are a
-new kind: **runs 103 (`a2a2994`) and 104 (`c8124a8`) are `failure` with the `gates` job PASSED
-and only the new `promote` job failed.** CHARTER §4c's fast-forward of `Main` cannot run while
-`Main` requires a pull-request review. Fixed at `b3244f8` twenty minutes after the first red,
-inside §4b's hour; runs 105, 106 and 107 (this head) are `success`. **This is not finding #1 and
-no lap reported green over a red gate** — but it changes what a red `auto-gates` run means from
-09-05 onward, and every lap must now read the failing **job**, not the run. The author action it
-needs is filed as **NH-025**.
+- `gates.py --mode full` at `c37f27e`: **ALL GREEN**, 1,475 passed / 62 skipped in 197 s, cold.
+  `baseline-verify` WARN, expected off-laptop, `hard: false`, sixteenth window, still not a
+  finding.
+- `make finals-bundle`: exit 0, `OK — release/kcf-finals-2026/ rebuilt byte-identically, 16 files`.
+- `gates.py --assert-reported --base 466900b`: exit 0, 18 substantive paths travel with a report.
+- Every dev report in the 24 h window carries a `Reviewed by:` line. Seven of seven.
+- `auto-gates` runs 111 and 112 are `success`; 112 is this head's parent line. Run 110 is the
+  window's one red and item 3 above is why.
+- The demo script's §3 mapping table: 35 rows, 33 backtick keys, **33 of 33 resolve** in
+  `docs/NUMBERS.json`.
+- `paper/references.bib`: 28 entries, **every one** carries a `verified` note. Spot-checked five,
+  including `radeloff2005` against Ecol. Appl. 15(3):799-805, doi 10.1890/04-1413.
 
-**Report certification.** `--assert-reported --base a234a1c` exits 0. Every dev report of the
-last 24 h carries a `Reviewed by:` line — seven of seven, clean for a second consecutive window.
+## Readiness and score
 
-## The one thing I would not have known without measuring
+**4 of 11 (R2, R4, R5, R6), no line ticked this window.** R4 moved last window so the
+「zero for two consecutive critic laps」 direction finding does not fire. R9 is ☐ on the
+printables (R7) and the booth recipe (WFG-037) only — critic #16 answered on the line itself
+that R9 does **not** require a committed payload.
 
-I graded `tests/test_demo_script_5min.py` from outside with 16 mutations written from the
-document before reading the test body: **9 of 16 caught**, **10 of 16** counting the tree's other
-claim gates. Every numeric mutation was caught. Six of the seven survivors are on the prose half
-(the DRAFT label, a 화면→구두 downgrade, the ⚠ block distinguishing 26.6 % from 15.14 %, and the
-caveats above) and are filed as **WFG-097**, P1, parked behind the readiness lines by §14b — by
-the critic who found it, which is what §14b is for.
-
-The survivor that did **not** survive is worth more than the six: putting the withdrawn
-detection-ordering claim back into 1막 was **caught by `tests/test_withdrawn_claims_registry.py`**.
-That is WFG-062 catching a withdrawn claim in a document written after it, on a file nobody added
-to a guard list. Critic #14 measured that row at 1/20 on rewordings and was right to; this is the
-dimension it did buy, and it is the first time the tree has demonstrated it on new prose.
+**B 83 held** (16 / 15 / 19 / 15 / 18) · **A 76 → 77** (16 / 15 / **17** / 15 / 14), the +1 on
+구현 및 유용성 for a bundle this lap assembled itself.
