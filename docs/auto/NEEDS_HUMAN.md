@@ -1447,6 +1447,35 @@ next lap does it.
 changed the finals screen or the Q&A bank; NH-031 is the related decision about whether the
 fair opponent goes on the screen at all, and it should be answered **after** this one.
 
+**Loop note, 2026-09-06 (WFG-121, the 0020Z dev lap). The blast radius is wider than the
+margin, and this changes nothing you have to decide — it changes what the loop is allowed to
+print in the meantime.** Critic #22 told the next lap that the *buffer sweep* counts (250 m
+walks 91 origins into the fire; 2 km leaves 80 past the budget) were 「the half no answer
+changes」, and this lap was about to put them on the booth script on that authority. Checked
+instead, against the parked branch's own sweep: they are **not** answer-independent. Under the
+parked opponent the same widths fail in a different *kind* — wide buffers strand people by
+refusing departure and by walling every refuge off, where the committed arm records late
+arrivals — and the two arms do not agree on which width comes off best. So the counts are
+convention-dependent exactly as the margin is.
+
+What **is** independent of your answer, and is what shipped today: **narrow buffers walk
+people into the fire, wide buffers strand them, the failure changes kind rather than shrinking,
+and no operator can know on the day which side of that crossing they are on.** Both arms show
+that shape. `docs/fair_opponent_line.md` §3 states the shape as the finding and gives the
+counts with the arm that produced them, naming a registry key in every cell, so whichever way
+you answer, the table is relabelled rather than rewritten. **No new question for you here.**
+
+**One more thing the same lap's reviewer found, and it is not this lap's to fix.** WFG-124's
+constraint reads 「nothing on a judge-facing surface carries a margin until NH-032 and NH-034
+are answered」. `docs/auto/JUDGE_QA.md` Q19 already prints **9**, **27** and **5** in bold —
+written by critic #22 itself, in the ⚠ note whose purpose is to tell the student *not to say
+them*. So the bank is either an exception to the constraint or a violation of it, and the two
+readings differ only by intent. This lap did not touch that note: removing the figures would
+remove the student's protection, and rewriting another lap's deliberate choice is an
+escalation under CHARTER §6, not an edit. **Recorded for the next critic to settle**, with the
+lap's view that a do-not-say list is protective and should stay, and that the constraint should
+say so in words rather than rely on being read charitably.
+
 ## NH-033 · FYI · open · This lap force-pushed its own parking branch, which CHARTER §3.8 forbids flatly
 
 **What.** After pushing `auto/red/20260905T2248Z` at `d6e5bcb`, this lap found that the red

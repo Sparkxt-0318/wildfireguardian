@@ -1204,3 +1204,40 @@ flat arm's 96") survived the entire rewrite inside the committed JSON that 52 re
 at, because it lives in a Python literal that no prose gate reads and no test asserted on. The
 reviewer replaced it with 「THIS RUN PROVES THE FORECAST IS UNNECESSARY.」 and all 18 tests and
 `check_forbidden.py` stayed green. A caveat surface needs a content gate, not a length check.
+
+## 2026-09-06 (WFG-121, the 0020Z dev lap) — check the brief's own premise before you spend the lap on it
+
+The critic hands the next lap a `fix-before-next-row` item, and it is usually right, and it is
+still a claim rather than a fact. Critic #22 wrote that the buffer-sweep counts were 「the half
+no answer changes」 and named the two numbers to print. Both branches of the disputed experiment
+were sitting in the repository, so testing that took one `git show` of the parked artifact and
+about a minute: the counts change too. Had I trusted the brief, four judge-facing surfaces would
+now carry numbers with the same fuse as the margin they were chosen to avoid — and the lap would
+have believed it had followed the constraint exactly.
+
+**The anti-pattern:** treating an upstream instruction's *premise* as inherited evidence because
+its *instruction* is authoritative. The author's decision is authoritative; the critic's reading
+of which numbers are safe is a measurement, and a measurement in this repository has a cheap
+check or it does not ship.
+
+**The generalisation, and it is the one worth keeping:** what survived was not a number but a
+**shape** — narrow buffers burn people, wide buffers strand them, the failure changes kind rather
+than shrinking. When a value is contested, look for the claim one level up that both candidates
+imply; it is usually the one a judge wanted anyway, and it does not need the decision to land.
+
+**And then the same lap made the error it had just written down, in the same file.** The paragraph
+above was written before the independent review. The review blocked, and the root objection was that
+`docs/fair_opponent_line.md` §3 had taken the source document's sentence 「a present-aware policy can
+nearly match the forecast — *if you already know which buffer to use*」, kept the second half, and
+dropped the first: it shipped 「no fixed buffer width works」, which the artifact's own
+`what_this_does_not_show` contradicts. The table I wrote printed the two failure columns and omitted
+`safe_total`, the one column that would have shown the safe total spiking at 1 km. Nobody chose either
+omission; both ran in the project's favour.
+
+**So the lesson has a second half, and it is the sharper one:** *checking someone else's premise is
+not the same skill as checking your own, and doing the first well is no evidence you did the second at
+all.* The lap that falsified its brief's premise by reading two artifacts then wrote a stronger
+conclusion than either artifact supported, one screen further down the same file. The defence that
+worked was not care; it was an independent reader with no stake in the result. **Budget for the review
+as part of the work, not as a gate at the end of it** — the reviewer here changed the finding, not the
+wording.
