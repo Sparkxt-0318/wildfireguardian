@@ -1429,9 +1429,40 @@ Two lessons, and the second is the load-bearing one.
    WFG-137.
 
 And the finding that came out of it is better than the gate I meant to write: critic #26
-withdrew the claim into `CRITIC_LATEST.md`, `KCF_READINESS.md` and `DIRECTION.md`, and
-**all three are record class** — the paths the registry is designed not to scan. The
-withdrawal reached only the pages the machine ignores, which is why every gate was green
-while the student's card told them to say the false sentence. So the rule that was
-missing is not a gate at all: it is that **withdrawing a claim includes registering it,
-in the same lap** (CHARTER §3.5c).
+withdrew the claim and never **registered** it. The rule that was missing is not a gate
+at all — the gate exists — it is that **withdrawing a claim includes registering it, in
+the same lap** (CHARTER §3.5c).
+
+⚠ My first draft of that finding said the withdrawal 「reached only three pages, all
+record class」, and the independent reviewer disproved it from the commit I had cited:
+`git show --stat 828bbae` shows critic #26 also edited `docs/auto/JUDGE_QA.md`, +19
+lines, and that file is not record class. I had built a tidy causal story and not run
+`--stat` on the one commit it rested on. The true version is narrower and argues the
+rule better: the withdrawal *did* reach the student's card file, corrected Q30, and left
+the same claim standing in Q35 eight sections away. **A lap picks which documents to fix
+and misses one. Registration is the step that does not depend on picking.**
+
+## 2026-09-06T1520Z — a gate can be wrong in the direction that deletes the truth
+
+The reviewer blocked this lap and the root objection was not "too weak". It was
+*inverted*. My second spelling matched the object particle `문장을`, and I wrote in the
+registry that the particle is what separates the withdrawn prohibition from the card's
+true sentence. That is a false statement about Korean: `문장을` marks the object of any
+verb, permission included. It happened to discriminate the one sentence pair that existed
+in one file that day, and I graded it on that pair.
+
+Measured by the reviewer on nine sentences it wrote without seeing the patterns: **3/3**
+true phrasings wrongly flagged, **5/6** false ones missed. After the fix: **0/5** and
+**6/6**.
+
+The direction is the lesson. A withdrawn-claim gate that fires on the *correction*
+creates pressure on the next lap to strike a TRUE sentence off the student's card — the
+row running backwards, with a green suite. So for any gate that bans a sentence, grade
+both directions explicitly and keep the true-sentence set in the repository: ours is
+`REVIEWER_SET_TRUE` / `REVIEWER_SET_FALSE` in
+`tests/test_withdrawn_claims_registry.py`, and the score is re-derived, never restated.
+
+And the reason the set has to come from someone else: a probe cut from the line the regex
+was written against is a regression pin, not a test. `_probe_sentence`'s own docstring
+says so about invented sentences; it does not say that verbatim sentences have the same
+problem when the *pattern* was fitted to them.

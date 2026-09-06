@@ -451,7 +451,7 @@ provenance only`라고 적고 있으며, 영덕 항목은 같은 주석에서 �
 
 | 명령 | 아래 문단이 적은 값 | `dd500e6` 에서 실제 값 |
 |---|---|---|
-| `git merge-base --is-ancestor 41498ef HEAD` | 0이 아닌 값으로 종료 | **0으로 종료** |
+| `git merge-base --is-ancestor 41498ef HEAD` | 0이 아닌 값으로 종료 | **0으로 종료** | <!-- forbidden-ok: is-ancestor 0이 아닌 값 -->
 | `git branch -a --contains 41498ef` | superseded 브랜치 둘에서만 | **`auto/dev`, `origin/auto/dev`, `origin/Main` 포함** |
 | `git rev-list --count 41498ef..HEAD` | (적지 않음) | **283** |
 | 옆 카드가 인쇄하는 등록 항목 수 | **326** | **383** (WFG-113 이 `1ec1d06` 에서 고쳤습니다) |
@@ -485,7 +485,7 @@ provenance only`라고 적고 있으며, 영덕 항목은 같은 주석에서 �
 레지스트리」 카드에 있는 「built at commit 41498ef」 입니다(`web/finals.html:1924`,
 `scripts/build_finals.py:628` → `docs/NUMBERS.json` 의 `built_at_git_commit`). 크리틱 #20이
 직접 실행한 결과: `git cat-file -t 41498ef` 는 `commit`, `git merge-base --is-ancestor
-41498ef HEAD` 는 **0이 아닌 값으로 종료**, `git branch -a --contains` 는 그 커밋을
+41498ef HEAD` 는 **0이 아닌 값으로 종료**, `git branch -a --contains` 는 그 커밋을 <!-- forbidden-ok: is-ancestor 0이 아닌 값 -->
 `origin/auto/lap-b1989d5-superseded` 와 `origin/ordering-boundary` 에서만 찾습니다.
 `tests/test_finals_screen.py` 의 두 계보 검사(`:544`, `:550`, `:649`)는 모두 `git` 각인만
 읽고 이 필드는 읽지 않습니다. 그리고 `built_at_git_commit` 은 레지스트리가 153항목이던
