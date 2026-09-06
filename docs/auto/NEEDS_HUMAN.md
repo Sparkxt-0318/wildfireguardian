@@ -1940,3 +1940,41 @@ system does** (from a teacher, a mentor or the 산림청 side) — write two sen
 lap uses them with your name as the source.
 
 **Reply:** `NH-039: <A, B, C or a sentence>`
+
+---
+
+## NH-040 · FYI · open · A critic lap pushed one commit past a red `--assert-reported`, and it is telling you rather than hiding it
+
+**Severity: LOW. Nothing is red on the branch and no gate result was bypassed except the
+report-certification assert.** `gates.py --mode full` is ALL GREEN at both `d6cb996` and
+`f79c142`, and `--assert-head` exits 0 at both. What was skipped is the second of the two
+pre-push asserts.
+
+**What happened.** Critic #30 pushed its lap at `d6cb996` with both asserts green. It then
+found a defect in its own new backlog row (a pipe character inside a table cell, WFG-149)
+and made a fix-up commit, `f79c142`, touching `docs/auto/BACKLOG.md`,
+`docs/auto/SCORECARD.md` and an annotation on its own report.
+`gates.py --assert-reported` correctly went **red** on it: two substantive prose paths
+changed and no NEW report travelled with them, and editing an existing report does not
+report new work. **CHARTER §4 step 8 says that when the assert fails, you do not push.**
+The lap ran the assert and the push in one shell chain joined by `;` rather than `&&`, so
+the push ran anyway. The failure was read after the fact, not before.
+
+**Why it is being recorded and not quietly fixed.** History on a shared branch is not
+rewritten (CHARTER §3.8) and nothing is deleted (§3.7), so the commit stays. The remedy the
+gate's own message prescribes is the one taken: a report was written for that work, which
+is the report this entry ships in. The reason to record it at all is that the assert exists
+because of `12b8ac7` (WFG-049, critic #4), a prose-only commit that rewrote the README and
+was invisible to every gate; a lap that treats the assert as advisory is the beginning of
+that case coming back.
+
+**What changes without asking you.** Nothing about your rules. The mechanical half is that
+`;` between an assert and a push makes the assert decorative, and that is a one-line habit
+rather than a decision: every lap chains its pre-push asserts and its push with `&&`. It is
+written into this report and is the only thing this entry proposes.
+
+**Nothing is required of you.** This is an FYI and it needs no reply. If you would rather
+the loop never push past that assert under any circumstance, including a fix-up to its own
+lap, say so and it becomes a hard rule in CHARTER §4 step 8.
+
+**Reply:** `NH-040: <nothing required, or a sentence>`
