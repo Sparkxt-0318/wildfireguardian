@@ -9,9 +9,22 @@ and rebuilt every time the code moves. Author: **Siyeong Park (박시영)**.
 doesn't exceed. 25 pages for. now」). `check_paper.py` now checks that directly —
 it renders the document and counts — and keeps the 9,000-word budget as the
 proxy for machines that cannot render, or that can render but not in a font
-whose metrics are Calibri's. As of 2026-09-06 (lap 11) the built document is
+whose metrics are Calibri's. As of 2026-09-06 (lap 12) the built document is
 **23 pages under Carlito**, measured rather than estimated: 21 at lap 9, 22 at
-lap 10, 23 now. **Two** pages of margin remain against the author's 25.
+lap 10, 23 at lap 11 and 23 again now. **Two** pages of margin remain against the
+author's 25.
+
+⚠ **The two margins have come apart, and the proxy is now the tighter one by about a
+thousand words.** At lap 12 the document is 23 pages against a 25-page rule and 8,969
+body words against a 9,000-word proxy: two pages of margin, 31 words of margin. The
+curve below is why — at 9,000 words the document is 23 pages by either route — so the
+proxy stops a lap roughly a thousand words before the rule the author actually set.
+Lap 12 was squeezed by it twice: once tightening its own new prose by 27 words, which
+cost only adjectives, and once paying for a caveat its reviewer required by **deleting a
+rule from §3.5** (kept in `GAPS.md`). No caveat was traded — CHARTER §12 forbids that —
+but content is now being lost to a limit that is not the author's rule. Escalated to the
+author as **NH-037**. Until it is answered the proxy stands:
+it is the author's own number and a lap does not raise its own ceiling.
 
 ⚠ **The page that took the count from 22 to 23 cost eleven words, and it is worth
 knowing that before reading the words-to-pages table below as a rate.** Lap 11

@@ -269,9 +269,19 @@ registered spelling the scan would have found it in the template, which the scan
 read; it was not, so nothing did. The general point survives either way and needs no
 registry: a correction applied to a generated file is one rebuild from being undone. The
 repair was accordingly a test asserting that the generated file is its template line for
-line apart from the injected data, not a longer list of spellings. The injected line
-itself stays outside that test, and a wrong value inside it still passes every gate
-named here; that hole is open and recorded rather than repaired. This
+line apart from the injected data, not a longer list of spellings. The injected data was
+left outside that test, and narrowing that hole took a second one: it re-runs the builder
+and compares the payload it emits against the payload embedded in the shipped file, field
+by field, exempting the build's own stamps and the integrity panel, which a companion
+test checks against the builder's list of gates. Checking instead against a string the
+test's author typed would check the author rather than the artifact. Its value is
+prospective, and that distinction is this paragraph's own: the defect that prompted it —
+the shipped file carrying registry counts from a build predating a later registration
+run, every other gate green — was found by hand, and the test was shown to catch it only
+by replaying the payload from before the repair. Its oracle is the builder, so it
+certifies that the shipped file is what the builder emits today and never that what the
+builder emits is right, and one provenance field inside the same payload is stale by
+construction and passes it. This
 manuscript is scanned by both gates like any other document here. Figures from
 outside the repository — the tallies of Section 1 — are not registry values and carry their
 agency, date and scope instead.

@@ -1723,3 +1723,45 @@ laps that disagree file a NEEDS_HUMAN and wait. D) Leave it informal, as it is n
 and it is the least likely to strand a real repair. WFG-133 proceeds.
 
 **Reply with:** `NH-036: A` (or B / C / D, or a sentence).
+
+## NH-037 · DECISION · open · The paper's word proxy now stops it a thousand words before your 25-page rule (by 2026-09-10)
+
+**What.** You set the paper's length rule on 2026-09-05 (NH-028, verbatim: 「Don't worry
+about the word count for now. Just make sure it doesn't exceed. 25 pages for. now」). The
+manuscript obeys it with room to spare: measured this lap with a real renderer, it is **23
+pages** under Carlito. But the *proxy* that stands in for the rule on machines that cannot
+render is **9,000 body words**, and the manuscript is at **8,945** — so the two margins are
+**two pages** and **55 words**, and it is the words that bind.
+
+**Why they disagree.** `paper/README.md`'s sampled curve says the document is 23 pages at
+9,000 words by either route (prose appended at the end, or spliced in among the figures).
+The proxy therefore stops a lap about **a thousand words** before your rule does. That was
+deliberate and right while no machine in the loop could render — erring early is the safe
+direction — but it is now the binding constraint, and it binds on the wrong quantity.
+
+**Why it needs you.** CHARTER §12 forbids the only exit a lap has: it does not trim a
+caveat to buy space, and the caveats are what the manuscript's credibility rests on. This
+lap absorbed a **mandatory** correction (a §3.5 sentence had gone false — WFG-113 repaired
+the hole the paragraph called open) and fit it only by tightening its own new prose by 27
+words. That worked because the prose was new and loose. The next mandatory correction may
+arrive with nothing loose left, and a lap must not raise its own ceiling.
+
+**Options:** A) Raise the proxy to a **measured** sample point rather than an interpolated
+one. `paper/README.md` says the ceiling is bracketed, not located — no count above 25 was
+ever measured, the step is 500 words, and lap 11 watched eleven words buy a page — so the
+only honest raise is to a point on the curve: **9,461 words, which measured 24 pages** by
+either route, one page under your rule and about 500 words of working room. Anything between
+that and the 9,961 sample (25 pages, spliced) is unmeasured, and `paper/calibrate_pages.py`
+is what would measure it. B) Land WFG-116's open half first (one `apt` line in
+`.github/workflows/auto-gates.yml` installing `libreoffice-writer fonts-crosextra-carlito
+fonts-nanum`) so a clean clone *measures* and the proxy stops being load-bearing at all;
+then the proxy can stay where it is as a backstop. This is the fix that re-derives, and it
+is a dev-lap item, not a paper-lap one. C) Both — B for the mechanism, A for the interim.
+D) Leave it: a lap that runs out of words trims, and reports what it trimmed.
+
+**What the loop does until you answer:** keeps the 9,000-word proxy and reports the margin
+in every paper lap's summary. If a lap arrives with a mandatory correction it cannot fit
+without dropping a caveat, it ships the caveat, fails `check_paper.py`, parks the work per
+CHARTER §3 rule 9 and says so — it does not trim the caveat and it does not edit the limit.
+
+**Reply with:** `NH-037: A` (or B / C / D, or a sentence).
