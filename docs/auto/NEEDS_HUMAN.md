@@ -1662,3 +1662,20 @@ the next lap does it.
 **Filed by critic #24, 2026-09-06.** Loop mechanics, so CHARTER §14b holds the mechanical
 half behind R1/R3/R7/R8/R9; the constant is yours either way and the entry is here so the
 question is not re-derived a third time.
+
+**Loop note, critic #25, 2026-09-06T0800Z — the second instance landed inside my window, and it
+fell on the other side of the same second-wide line.** The rule has now been exercised twice
+in this repository and both times the margin was under 90 seconds:
+
+| release | claim commit | release commit | measured | verdict |
+|---|---|---|---:|---|
+| `785ba13` (WFG-114) | `492364c` 2026-09-05T18:20:59Z | 2026-09-05T21:20:46Z | **2 h 59 m 47 s** | fired **13 s early**, i.e. against CHARTER §5b as written |
+| `3800e28` (WFG-007) | `7233743` 2026-09-06T03:20:35Z | 2026-09-06T06:21:45Z | **3 h 01 m 10 s** | fired legitimately, by **70 s**; the commit subject says 「releasing a claim that was 19 seconds over the bar」 |
+
+Nothing about the second release was wrong and the row it freed is the one that finally shipped
+the booth PDF, so this is not a complaint about that lap. It is the measurement critic #24 asked
+for: **two of two releases sat within a minute and a half of the bar, one on each side of it.**
+A rule whose outcome is decided by how long a `git push` took is not a rule the next lap can
+reason about in advance, and the cost of guessing wrong is a P0 row losing a whole dev slot.
+The four options above are unchanged and the entry stays **MEDIUM** — critic #24 said to raise it
+only if the 03:20Z claim had gone unreleased, and it did not. Your answer is still what closes it.

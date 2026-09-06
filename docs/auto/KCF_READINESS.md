@@ -5,6 +5,62 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
+**Tick count, critic #25, 2026-09-06T0800Z: 4 of 11 (R2, R4, R5, R6), unchanged — and for the first
+time in nine laps the reason is not absence.** Checked on disk at `b70e464`, re-run rather than read from a
+report.
+
+- **R7 has an object.** `docs/auto/finals/printables/WFG_printables_20260906T0620Z.pdf` exists: **29 A4
+  pages**, 395,927 bytes, built by `scripts/build_printables.py` at `3e92b69`, with a manifest recording the
+  sha256 of all four sources and all three fonts. I re-hashed every one of them here against the tree: all
+  four sources **OK**, the PDF's own sha256 **matches**, so the kit is current rather than already stale.
+  Critic #24 left a two-branch falsifiable test on this line — 「(1) if `docs/auto/finals/` holds a PDF, R7
+  moves and WFG-007 is finished, say so and stop writing about the queue」 — and **branch (1) is what
+  happened.** Nine days of this line reading 「no lap has ever claimed WFG-007」 ended in one window. I am
+  therefore not writing about queue position again, and the constraint critics #19 through #24 were
+  arguing about (position, then the lock) is settled: it was both, and both are now paid.
+- **R7 still does not tick, and the reason is new, specific and cheap.** The line enumerates five
+  printables — 「evidence sheet (A4), **reconciliation sheet**, related-work and SFTD059T differentiation
+  panel, booth checklist, 29 dispatch sheets sample」. The PDF contains **one** of them (the booth
+  checklist) and three documents that are not on the list (demo script, this Q&A bank, the detection-floor
+  card). Of the four missing: the related-work panel is WFG-026 and genuinely does not exist; the dispatch
+  sheets were deliberately excluded, with a reason, because `outputs/dispatch*` already holds them as
+  committed PDFs; and the **reconciliation sheet exists** — `docs/submission_reconciliation.md`, 13,702
+  bytes, `done(20260903T0653Z)`, the file **R6's own tick is written on**. The build's manifest says it
+  「does not exist yet」. That is **WFG-130**, minutes, and it is the difference between R7 ticking this week
+  and not.
+- **The finding underneath is about measurement, not about the PDF**, which is good work: the kit was
+  assembled from the four documents the loop writes and never compared against the five this page asks
+  for. `scripts/build_printables.py:97-101` and R7's own sentence overlap in exactly one item, and nothing
+  reads them together. WFG-130's done-when offers both repairs (bind the builder to R7, or correct R7 to
+  the documents the booth actually needs) because either one closes the gap and the choice is a lap's.
+- **R9 is unchanged and now waits on strictly less.** `release/kcf-finals-2026/MANIFEST.json` lists 17
+  files and the printables PDF is not among them; R9's sentence names 「printables」 explicitly. Once
+  WFG-130 settles which PDF is the real one, `make finals-bundle UPDATE=1` is the whole of R9's remaining
+  agent half.
+- **R1 is unchanged and its defect is now sixteen windows old and on a clock.** `web/finals.html:434`
+  prints `n_entries` **326** / `n_reproducible` **268**; `docs/NUMBERS.json` holds **383** / **325**,
+  counted here in one process. `registry.built_at_commit` is `41498ef`, and `git merge-base --is-ancestor
+  41498ef HEAD` still **rejects** on a deepened 250-commit clone. Measured for WFG-119's prediction: the
+  screen's own stamp `5f9a3b8` is **29** commits behind `HEAD` today (23 at critic #24), the branch took
+  **51** commits in my 24 h, and the sandbox clones at depth **50** — so the stamp crosses the shallow
+  boundary in roughly **ten hours**, after which `gates.py --mode full` goes RED in every sandbox on a
+  screen that is not wrong, and CHARTER §9 spends the first lap that hits it on parking. This is my one
+  `fix-before-next-row` item; see `docs/auto/CRITIC_LATEST.md`.
+- **R3, R8, R10, R11, R12 unchanged**, and R12 is the author's. `gates.py --mode full` is **ALL GREEN** at
+  `b70e464` in this sandbox (`1562 passed, 62 skipped`, cold, 298.9 s, against critic #24's `1545 / 62`:
+  **+17 passed**, skips unchanged). Read through the GitHub MCP rather than `curl` (WFG-119 records the
+  403): the twenty most recent `auto-gates` runs on `auto/dev`, run numbers 140 to 163, spanning
+  2026-09-05T20:21Z to 2026-09-06T07:25Z, are **nineteen `success` and one `cancelled`** — `9ebf5a5`,
+  critic #24's own push, superseded four minutes later by `3656bea`, which is green. **No red run sits
+  behind a green report, so there is no gate finding and no CHARTER §4b finding this lap.** R3 still waits
+  on one `make all-checks` run on the author's own laptop.
+- **Zero ticks for a second consecutive critic lap, and I am recording what that rule means today rather
+  than firing it.** The routine says zero across two laps is a finding about direction. The window it
+  covers built the object the line has been waiting nine days for; direction was correct. What the count
+  actually exposes is that **a row can be `done` and leave its readiness line ☐ forever**, because
+  WFG-007's done-when (「rehearsal aids + booth checklist」) and R7's condition (five named printables)
+  do not describe the same object. That is the direction finding, it is one row wide, and it is WFG-130.
+
 **Tick count, critic #23, 2026-09-06T0200Z: 4 of 11 (R2, R4, R5, R6). No line moved, and no line has moved
 for EIGHT consecutive critic laps (#16 to #23).** Checked on disk at `de7bd0a`, re-run rather than read:
 
