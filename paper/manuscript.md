@@ -107,6 +107,16 @@ minimum-travel-time fire growth [@finney2002], and an earlier Rothermel-based su
 model in this project captured a small fraction of the burned area, which motivated the
 move to a data-driven field.
 
+**Operational systems in Korea.** The Korea Forest Service's research
+institute publishes a 2026 user guide for an AI spread-prediction console driven by a
+human-entered origin point [@nifos2026guide]; Gyeonggi Province's civil-defence alert model
+predicts a fire's route, arrival times and the township it reaches, in half-hour steps, and
+was announced for trial operation in April 2026 [@khan2026gdaps]. Both answer where the
+fire goes, for a suppression commander or a siren operator; neither answers which household
+can still walk out and by which path — the object this paper produces. No accuracy
+comparison is made in either direction: no published validation of either was located, and
+the capability figures in circulation are agency plan statements.
+
 **Evacuation routing.** Lane-based evacuation routing was posed as a network flow
 problem two decades ago [@cova2003]. Recent work brings wildfire information into that
 formulation directly: Borgwardt et al. pose wildfire evacuation as maximum flow on a
@@ -256,32 +266,32 @@ entry on every change, scans the prose for retired figures and quantity-name col
 and refuses a document that states a registered quantity with a different value.
 Superseded values are annotated in place, never deleted. A second registry holds the claims
 this project has **withdrawn** — what each asserted, what retired it, what should be said
-instead, and the spellings that restate it — and every tracked document is read against it,
-so a withdrawn claim cannot survive in a file nobody thought to list. It matches spellings,
+instead, and the spellings that restate it — and every gated document is read against it,
+so a withdrawn claim cannot survive in a file nobody thought to list. The step that can
+fail is registration: a September 2026 retraction skipped it, and the hand-applied
+correction left the same claim standing further down a file it had already edited.
+It matches spellings,
 not meaning: in an independent probe, sentences reusing a registered spelling were caught
 and sentences reworded around one were not, and that limit is recorded rather than designed
-away. A further limit is not about matching at all, and it appeared in September 2026:
-some of this project's artifacts are *generated* from templates, and a sentence that had
-just been retired was corrected in one generated file while the template it is built from
-kept it. Nothing was wrong in the artifact a reader saw and every gate passed, so the
-retired wording would have returned at the next rebuild. Had that sentence been a
+away. A further limit, from the same month, is not about matching at all: some of this
+project's artifacts are
+*generated* from templates, and a sentence that had just been retired was corrected in one
+generated file while its template kept it. Nothing a reader saw was wrong and every gate
+passed, so the retired wording would have returned at the next rebuild. Had that sentence
+been a
 registered spelling the scan would have found it in the template, which the scan does
-read; it was not, so nothing did. The general point survives either way and needs no
-registry: a correction applied to a generated file is one rebuild from being undone. The
-repair was accordingly a test asserting that the generated file is its template line for
-line apart from the injected data, not a longer list of spellings. The injected data was
-left outside that test, and narrowing that hole took a second one: it re-runs the builder
-and compares the payload it emits against the payload embedded in the shipped file, field
-by field, exempting the build's own stamps and the integrity panel, which a companion
-test checks against the builder's list of gates. Checking instead against a string the
-test's author typed would check the author rather than the artifact. Its value is
-prospective, and that distinction is this paragraph's own: the defect that prompted it —
-the shipped file carrying registry counts from a build predating a later registration
-run, every other gate green — was found by hand, and the test was shown to catch it only
-by replaying the payload from before the repair. Its oracle is the builder, so it
-certifies that the shipped file is what the builder emits today and never that what the
-builder emits is right, and one provenance field inside the same payload is stale by
-construction and passes it. This
+read; it was not, so nothing did. The general point needs no registry: a correction applied
+to a generated file is one rebuild from being undone. The
+repair was two tests rather than more spellings — the generated file against its template
+line for line, and the data injected into it against a fresh run of the builder, field by
+field apart from the build's own stamps and an integrity block a companion test covers.
+Their value is prospective: the defect that prompted them, a shipped file carrying
+registry counts from a build predating a later registration run, was found by hand with
+every other gate green, and they were shown to catch it only by replaying the pre-repair
+payload. Their oracle is the builder, so they
+certify that the shipped file is what the builder emits today and never that what the
+builder emits is right, and one provenance field in the same payload is stale by
+construction and passes them. This
 manuscript is scanned by both gates like any other document here. Figures from
 outside the repository — the tallies of Section 1 — are not registry values and carry their
 agency, date and scope instead.
@@ -458,12 +468,11 @@ shortest remaining path. Run over the same Uiseong-Andong origins, refuges and h
 as the two arms of Section 4.4, scored by the same function and with one 600-minute budget
 applied to all three arms, it recovers most of the origins that region's fire-blind contrast
 credits to the forecast-aware policy. The run reproduces the committed classification —
-every bucket count, and the origin identities of every bucket the committed artifact
-stores — before it measures anything, which is the warrant for reading its column beside the
-other two.
+every bucket count and the origin identities the committed artifact stores — before it
+measures anything, which is the warrant for reading its column beside the other two.
 
 This paper states no count from that arm, and the reason is itself a result. The row was
-built twice, independently and concurrently, on the same origins and the same field, by two
+built twice, independently and concurrently, on the same origins and field, by two
 different constructions of the opponent. One prunes the refused nodes out of the graph and
 runs the same distance-minimising search as the fire-blind control, under no time budget.
 The other runs the time-expanded, time-minimising router against a frozen binary hazard,
@@ -490,10 +499,9 @@ agree on which buffer width comes off best either, so the dispute above is not c
 the residual it leaves. What the run does not support is any
 statement about whether a workable width could be chosen in advance: the five widths differ
 by factors of two, so the grid holds a single point in the region such a claim would be
-about. One document in the repository still draws the stronger conclusion from those same
-five points, as do the caveats the registry carries on this arm's own entries; a second
-document was narrowed to this reading while this paper was being revised, and the rest is an
-open item there.
+about. One repository document still draws the stronger conclusion from those same five
+points, as do the caveats the registry carries on this arm's own entries; a second was
+narrowed to this reading during revision, and the rest is an open item there.
 
 Two caveats bind the whole comparison. The forecast-aware arm plans on the same hazard field
 it is graded against, so whatever it is worth against a present-perimeter policy is what a
@@ -587,7 +595,7 @@ window does not repair that: the first win comes at 120 minutes, and neither a w
 threshold nor the number of distinct deadlines separates a winning region, 1,580 cells
 failing to win despite having at least as many deadlines as the lowest-scoring winning
 cell. No operating region recommends the shipped ordering, and the paper does not construct
-one. What the analysis does establish positively is reproducibility: re-deriving
+one. What the analysis does establish is reproducibility: re-deriving
 3,744 values from the earlier run cell by cell produced **0** differences.
 
 ### 4.8 How early could a satellite have seen these fires?
@@ -634,9 +642,9 @@ Whether that is ahead of or behind the emergency call, this measurement cannot s
 
 ## 5. Discussion
 
-**What the coupling adds over a spread map.** A hazard map answers "where will the fire
-be"; a household needs "is my route still passable when I get there", and the two differ
-because a slow walker's arrival time is a variable in the answer. Section 4.3 is the
+**What the coupling adds over a spread map.** A hazard map answers where the fire will be;
+a household needs to know whether its route is still passable on arrival, which makes a
+slow walker's arrival time a variable in the answer. Section 4.3 is the
 measurable form of that difference, and Section 4.5 bounds how much of it belongs to the
 forecast rather than to hazard awareness of any kind: on the one region where the stronger
 opponent has been built, most of the same origins are recovered by refusing where the fire
@@ -647,7 +655,7 @@ threshold. That the surface itself goes unchecked is the first limitation in Sec
 
 **Why n = 6 forbids a threshold guarantee.** Section 4.2 quantifies why the intuition that
 a distribution-free method rescues a small-sample setting is wrong: small-N event datasets
-do not get guarantees by changing the calibration method, but by having more events.
+get guarantees by having more events, not by changing the calibration method.
 
 **Where the trigger comes from, and where the warning goes.** Section 4.8 establishes a
 floor: a 2 km geostationary pixel
@@ -671,7 +679,7 @@ column-addition envelope, and the claim that distance drives vulnerability was
 no fire at all. The same discipline stopped an input before it reached this paper: a
 designated-site subset labelled with a county name was refused when its points proved to
 lie outside that county's own study box — a label checked against the geometry it claims
-rather than against a code table. It was re-cut on the right administrative code, and only
+rather than against a code table. It was re-cut on the right administrative code and only
 then used as the inventory Section 6 reports.
 
 **What outside readers asked first.** Three domain researchers replied in writing to the
@@ -679,7 +687,7 @@ author in September 2026; their comments are design feedback rather than data. O
 put two questions that nothing measured here answers: whether prioritising rescue need by
 age alone stays appropriate in an ageing population, and whether these results are usable
 without modelling how forest-fire suppression and residential emergency response divide
-roles during a fire. Another's off-network walking point is a limitation in Section 6.
+roles during a fire.
 
 [GAP: the practitioner consultations — a fire-service duty officer, a village head and a
 social worker — have not happened; they are design feedback rather than collected data,
@@ -688,7 +696,7 @@ and any quotation from them needs the author's consent handling first]
 ## 6. Limitations
 
 **The routing result is graded against the predicted field, not against observed
-burn.** This is the objection we would raise first against this paper. An origin counted
+burn.** It is the objection we would raise first. An origin counted
 in the 42 is one whose fire-blind route crosses a cell the *model* flagged and whose
 forecast-aware route does not: a statement about two policies read on one surface, not
 that the fire went where the surface said. At Section 4.2's operating point the same
@@ -761,9 +769,9 @@ within the scan's constraints. None was fixed; all divide out of the paired cont
 
 **A pedestrian is not confined to the graph, but this router is.** A walker can cross a
 field or a yard where a vehicle cannot, so a shortest-path formulation borrowed from
-road-bound traffic may not transfer cleanly on foot — a point put to the author in written
-comments by an external researcher in September 2026. Every route here stays on mapped
-ways, and whether that makes the reported failures pessimistic or optimistic is unmeasured.
+road-bound traffic may not transfer cleanly on foot — one of the written comments of
+Section 5. Every route here stays on mapped ways, and whether that makes the reported
+failures pessimistic or optimistic is unmeasured.
 
 **Assumptions the results ride on.** A fixed 0.7 m/s gait speed with no individual
 variation and no pre-movement delay; an immobile fraction of 0.3; a pedestrian cutoff of
@@ -818,7 +826,7 @@ refuses only where the fire is now recovers most of it — so the claim is about
 hazard field into the routing at all, and the part attributable to the forecast is smaller
 and, on the evidence here, not yet a single number.
 
-The rest of the contribution is the instrument, and the instrument is visible in what
+The rest of the contribution is the instrument, visible in what
 this paper declines to say: the operating point is reported rather than hidden, the
 conformal calibration is called vacuous at this sample size rather than dressed as a
 guarantee, the shipped dispatch ordering is reported as losing, the detection floor is
@@ -832,9 +840,9 @@ coincidence, and it is the part of this work that transfers.
 The code, committed artifacts, evidence registry and this manuscript are at
 https://github.com/Sparkxt-0318/wildfireguardian. Raw geospatial inputs are public and
 are re-acquired by the scripts in `scripts/`; the repository distributes no raw data.
-Every measured number in this paper is registered in `docs/NUMBERS.json` with its source
-artifact, derivation and caveat, and re-derived from that artifact by `make verify`;
-externally sourced figures are attributed in place with agency, date and scope.
+Every measured number is registered in `docs/NUMBERS.json` and re-derived from its artifact
+by `make verify` (Section 3.5); externally sourced figures are attributed in place with
+agency, date and scope.
 Figures are regenerated from committed artifacts by `paper/make_figures.py` and none was
 edited by hand. Authorship and the disclosure of agent-assisted drafting are recorded in
 `paper/AUTHORSHIP.md`.

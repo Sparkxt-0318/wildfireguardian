@@ -9,22 +9,36 @@ and rebuilt every time the code moves. Author: **Siyeong Park (박시영)**.
 doesn't exceed. 25 pages for. now」). `check_paper.py` now checks that directly —
 it renders the document and counts — and keeps the 9,000-word budget as the
 proxy for machines that cannot render, or that can render but not in a font
-whose metrics are Calibri's. As of 2026-09-06 (lap 12) the built document is
+whose metrics are Calibri's. As of 2026-09-06 (lap 13) the built document is
 **23 pages under Carlito**, measured rather than estimated: 21 at lap 9, 22 at
-lap 10, 23 at lap 11 and 23 again now. **Two** pages of margin remain against the
-author's 25.
+lap 10, 23 at lap 11, 23 at lap 12 and 23 again now. **Two** pages of margin remain
+against the author's 25.
 
 ⚠ **The two margins have come apart, and the proxy is now the tighter one by about a
-thousand words.** At lap 12 the document is 23 pages against a 25-page rule and 8,969
-body words against a 9,000-word proxy: two pages of margin, 31 words of margin. The
+thousand words.** At lap 13 the document is 23 pages against a 25-page rule and 8,983
+body words against a 9,000-word proxy: two pages of margin, **17** words of margin,
+down from 31 at lap 12. The
 curve below is why — at 9,000 words the document is 23 pages by either route — so the
 proxy stops a lap roughly a thousand words before the rule the author actually set.
 Lap 12 was squeezed by it twice: once tightening its own new prose by 27 words, which
 cost only adjectives, and once paying for a caveat its reviewer required by **deleting a
-rule from §3.5** (kept in `GAPS.md`). No caveat was traded — CHARTER §12 forbids that —
-but content is now being lost to a limit that is not the author's rule. Escalated to the
-author as **NH-037**. Until it is answered the proxy stands:
-it is the author's own number and a lap does not raise its own ceiling.
+rule from §3.5** (kept in `GAPS.md`). Lap 13 was squeezed harder still, and this is the
+paragraph to read before deciding NH-037. The related-work paragraph its own research
+routine's finding required — Korea already runs two wildfire *spread* systems and the
+manuscript named neither — cost about 100 words against 31 of headroom, so it was paid for
+by six compressions across §3.5, §4.5, §5, §6, §7 and the availability section. **Twice the
+budget, not the evidence, chose the wording, and the lap's independent reviewer blocked the
+push for it:** the draft wrote that Gyeonggi's model 「entered trial operation」 where its own
+cited source says only that trial operation was *announced* for the following month, and the
+§3.5 compression deleted the payload test's scope exemption while keeping 「field by field」,
+claiming more coverage than the test has. Both were repaired before the push and the repairs
+were paid for by a further round of compression. No caveat and no registered number was
+traded in either lap — CHARTER §12 forbids that, and the reviewer checked it token by token
+— but the compressible prose is close to exhausted and the failure mode is no longer
+hypothetical: **a lap under this budget will write a wrong sentence before it writes a long
+one.** The next lap that must add a sentence has 17 words. Escalated to the
+author as **NH-037**, which is now urgent rather than theoretical. Until it is answered
+the proxy stands: it is the author's own number and a lap does not raise its own ceiling.
 
 ⚠ **The page that took the count from 22 to 23 cost eleven words, and it is worth
 knowing that before reading the words-to-pages table below as a rate.** Lap 11
