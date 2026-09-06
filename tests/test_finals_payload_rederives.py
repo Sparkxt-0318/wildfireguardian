@@ -147,24 +147,25 @@ def test_every_value_the_screen_displays_is_what_the_builder_derives_today(
 
 
 def test_the_registry_card_counts_the_registry_it_ships_beside(shipped):
-    """The live instance WFG-113 was filed for, stated in its own terms.
+    """The live instance WFG-113 was filed for, without a rebuild.
 
-    The general test above would catch this too, but only by re-running the
-    builder. This one reads the two files and needs neither.
+    The general test above subsumes this one, but only by re-running the whole
+    builder. This reads `docs/NUMBERS.json` through the builder's own
+    `registry_slice()` and costs milliseconds, so the two counts a judge reads
+    off the 검증 레지스트리 card are checked even when the rebuild is skipped.
+
+    It calls `registry_slice()` rather than re-implementing its predicate: a
+    copied rule goes on asserting the old definition after the builder's moves
+    (MEMO 2026-09-06, and this file's own third test).
     """
-    reg = json.loads((REPO / "docs" / "NUMBERS.json").read_text(encoding="utf-8"))
+    import build_finals  # noqa: PLC0415
+
+    derived = build_finals.registry_slice()
     card = shipped["registry"]
-    assert card["n_entries"] == len(reg["numbers"]), (
-        f"the 검증 레지스트리 card says {card['n_entries']} entries and "
-        f"docs/NUMBERS.json holds {len(reg['numbers'])}. " + REPAIR)
-    n_repro = sum(
-        1 for e in reg["numbers"].values()
-        if e.get("reproducible") is True
-        or (isinstance(e.get("reproducibility"), dict)
-            and e["reproducibility"].get("status") == "reproducible"))
-    assert card["n_reproducible"] == n_repro, (
-        f"the card says {card['n_reproducible']} reproducible and the registry "
-        f"holds {n_repro}. " + REPAIR)
+    for field in ("n_entries", "n_reproducible"):
+        assert card[field] == derived[field], (
+            f"the 검증 레지스트리 card says {field} = {card[field]} and "
+            f"docs/NUMBERS.json derives {derived[field]}. " + REPAIR)
 
 
 def test_the_integrity_panel_reports_the_builders_own_gate_list(shipped):

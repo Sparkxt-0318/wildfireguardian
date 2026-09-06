@@ -1307,14 +1307,22 @@ cells, evidence cards, provenance — and every one of them is a judged number. 
 seconds** and covers all of it. I measured that before designing anything, because the
 design turns on it: at 90 seconds this would have been the wrong shape.
 
-**Measure determinism before you assert on it.** The same measurement answered the
-question that would have made the gate flaky: two fresh builds are byte-identical to each
-other and to the committed payload, apart from three keys the builder cannot reproduce by
-construction (`built_utc`, `git`, `integrity.gates[*].seconds`). Had `hillshade_png` or
-any float path been version-sensitive, this test would have been an environment-dependent
-red in CI and a green here, which CHARTER §4b calls the mirror image of its own case. The
-check is one command; skipping it is how a lap ships a gate that fails on someone else's
-machine.
+**Measure determinism before you assert on it — and know what the measurement cannot
+see.** Two fresh builds are byte-identical to each other and to the committed payload,
+apart from three keys the builder cannot reproduce by construction (`built_utc`, `git`,
+`integrity.gates[*].seconds`). That is one command, and skipping it is how a lap ships a
+gate that is red on the first machine that is not this one.
+
+But this lap's reviewer was right that the measurement proves less than the first draft of
+this paragraph claimed. **Two builds on one machine cannot see version sensitivity at
+all.** The payload embeds three Pillow ADAPTIVE-quantised PNGs (~440 KB of base64) and
+several hundred floats, and this gate compares every one of them value-for-value against a
+rebuild that may happen under a different Pillow or numpy. What actually carries that risk
+is `requirements.txt` and `env-check`, not the repeat run. So: **a same-machine repeat
+measures determinism; only the pins carry portability, and the two are not
+interchangeable.** If `auto-gates` ever goes red on this test alone, the pins are the first
+place to look — CHARTER §4b's mirror case, arriving through a door the measurement did not
+cover.
 
 **The anti-pattern the previous lap named, met again one day later.** The integrity block
 exists only under `--verify`, so a plain rebuild cannot reproduce it, and the tempting fix
