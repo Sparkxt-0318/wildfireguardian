@@ -18,7 +18,10 @@ decision changes: on the canonical Yeongdeok field, 42 of 458 scanned walk-netwo
 reach a refuge only under the forecast-aware policy, and 2 have no safe walking route, on a
 network covering 32.6 % of the predicted fire core whose bias runs in an unmeasured
 direction. That contrast is measured against a fire-blind baseline, so it does not separate
-knowing where the fire will be from knowing where it is. Two further results are negative
+knowing where the fire will be from knowing where it is. On a second region that separation
+has now been measured: a present-perimeter opponent, which refuses what is burning now plus
+a fixed buffer and needs no model at all, recovers most of what that region's fire-blind
+contrast credits to the forecast. Two further results are negative
 and reported in full: the
 deadline-first dispatch ordering the system ships never out-rescues nearest-first at the
 operating window, in 0 of 180 configuration cells, and a geostationary detector sees these
@@ -58,7 +61,7 @@ describes who answered, not the population, and its casualty figures are re-cite
 than measured.
 
 Detection was not the failure, though the paper cannot claim it was an advantage either:
-Section 4.7 measures the fastest satellite product over Korea and finds its first
+Section 4.8 measures the fastest satellite product over Korea and finds its first
 anomaly tens of minutes after the
 recorded occurrence time, at a size floor too coarse for an
 ignition, on a clock whose relation to the emergency call this repository cannot
@@ -83,7 +86,10 @@ both arms of Section 4.3 run over the same origins, network and field, so neithe
 routing layer's known approximations nor the coverage limit contaminates it. The
 operating point is weak, and owning that is part of the result. And the evaluation design
 is the transferable part: the discipline of matched controls of Section 3.5 is what six
-fires permit and a large dataset makes easy to skip. The non-claim is the dispatch ordering,
+fires permit and a large dataset makes easy to skip. How much of the change the forecast
+itself is responsible for is a separate question, and Section 4.5 answers it on one region
+by replacing the baseline with a policy that needs no model: much less than the fire-blind
+contrast implies. The non-claim is the dispatch ordering,
 which wins 0 of 180 configuration cells against nearest-first at the operating window.
 
 ## 2. Related work
@@ -123,7 +129,7 @@ transfer to rural Korean settlement is untested here.
 
 **Detection.** Geostationary imagers trade resolution for cadence: GK2A's Advanced
 Meteorological Imager returns the Korean local area every two minutes at 2 km in the
-infrared [@kim2021gk2a]. Section 4.7 measures what that buys, using the mid-infrared
+infrared [@kim2021gk2a]. Section 4.8 measures what that buys, using the mid-infrared
 contrast and the sub-pixel area inversion standard since Dozier [@dozier1981].
 
 **Calibration and guarantees.** Conformal risk control offers distribution-free
@@ -151,7 +157,7 @@ single levels [@era5]; terrain from SRTM [@farr2007]; fuel from ESA WorldCover a
 points of interest from OpenStreetMap, graph-built with OSMnx [@boeing2017; @osm]. No
 proprietary or paid source is used.
 
-One further public input feeds only the detection-timing measurement of Section 4.7:
+One further public input feeds only the detection-timing measurement of Section 4.8:
 GK2A level-1B radiances, read without credentials from the NOAA open-data mirror. The
 detector is a mid-infrared-minus-window contrast (3.8 µm against 11.2 µm) under a
 contextual test whose rule is a conjunction of three conditions, all referred to a
@@ -228,7 +234,7 @@ its hazard field and terrain are labelled synthetic in the artifact's own proven
 forward simulation needing a raw fire bundle this repository does not distribute. Its
 policy contrasts are the robust part; its absolute magnitudes are illustrative.
 The shipped ordering ranks dispatchable homes by urgency — ingress survival minus
-responder arrival, smallest closing window first — and Section 4.6 measures it against
+responder arrival, smallest closing window first — and Section 4.7 measures it against
 nearest-first, earliest-closure, unsorted scan order and 200 random permutations across a
 grid of operational window, service time, dispatch delay and team count.
 
@@ -383,8 +389,10 @@ movement between them is not a single-variable contrast and no per-origin ledger
 all, present or forecast, so the 42 measure what hazard awareness of any kind buys, not
 what the forecast alone buys: a router refusing only the cells alight at departure would
 recover an unmeasured share of them. This is a coupling effect, not a forecasting
-effect. [GAP: the arm that separates them, a present-perimeter baseline
-over the same origins, is specified in the project backlog and scheduled after this sprint]
+effect. That arm has since been run, on a different region and against that region's own
+fire-blind contrast, and Section 4.5 reports it; it has not been run over these 458 origins.
+[GAP: the present-perimeter baseline over the canonical Yeongdeok origins, which is what
+would separate the two effects on this field rather than on another one]
 
 ### 4.4 Three regions under one rule
 
@@ -417,7 +425,68 @@ Uiseong-Andong has no `amenity=fire_station` mapped inside its
 896.5 km² walk box, though the wider acquisition box contains six, so its responder side
 is recorded as not applicable rather than as zero dispatches.
 
-### 4.5 Sensitivity and controls
+One column of that table needs a qualification the next section's run supplied. The
+committed classification scores the fire-blind route under no time budget while the
+forecast-aware router enforces one internally, so the two arms are read under different
+rules. The over-budget column is the only bucket in the series that runs against the
+system — its registered meaning is that the fire-blind route is safe and the forecast-aware
+route is not — and at Uiseong-Andong its 2 origins have fire-blind arrival times of 624.8
+and 628.2 minutes. Under one budget applied to both arms they are origins no arm saves,
+rather than origins on which the forecast lost. The committed value is not moved and this
+paper reports the qualification rather than a correction. Of the other two regions,
+Uljin-Samcheok has not been re-read under the uniform rule and Yeongdeok cannot be, its
+walk graph of that vintage no longer being recoverable.
+
+### 4.5 The fair opponent: refusing where the fire is now
+
+Section 4.3's third caveat names the weakness of a fire-blind baseline, and on one region it
+has now been measured rather than conceded. A present-perimeter policy is what a county
+office can run with no model at all: refuse every node within a fixed buffer of the cells
+burning at the departure slice, drop any refuge that falls inside the buffer, and take the
+shortest remaining path. Run over the same Uiseong-Andong origins, refuges and hazard field
+as the two arms of Section 4.4, scored by the same function and with one 600-minute budget
+applied to all three arms, it recovers most of the origins that region's fire-blind contrast
+credits to the forecast-aware policy. The run reproduces the committed classification —
+every bucket count, and the origin identities of every bucket the committed artifact
+stores — before it measures anything, which is the warrant for reading its column beside the
+other two.
+
+This paper states no count from that arm, and the reason is itself a result. The row was
+built twice, independently and concurrently, on the same origins and the same field, by two
+different constructions of the opponent. One prunes the refused nodes out of the graph and
+runs the same distance-minimising search as the fire-blind control, under no time budget.
+The other runs the time-expanded, time-minimising router against a frozen binary hazard,
+holds it to the 600-minute budget, and lets it refuse to let a walker already inside the
+buffer set out at all. Both reproduce the committed classification first, both are
+internally consistent, and they disagree substantially on what the forecast is then still
+worth. Which of them is the fair opponent is a modelling choice the project has not made,
+and it is not one an analysis settles by preferring its own. The registry governing these
+values also requires the disputed quantity to travel with any count taken from the arm, so
+this section quotes none of them and names the dispute instead. [GAP: which build of the
+present-perimeter opponent defines the comparison, and therefore what the forecast's
+residual advantage over it is]
+
+The buffer width is a second free parameter and nothing in the data chooses it. The
+committed arm was run at five widths, and across them the opponent's failures change in kind
+rather than simply shrinking: at the two narrowest the buffer sits inside the fire's own
+growth and most failures are routes that cross ground which is alight by the time the walker
+reaches it, while at the two widest most failures are refuges reached only after the
+evacuation budget has expired, with a few origins walled off from every refuge. Both
+constructions of the opponent show that change of kind, which is why it is stated here and
+the counts are not. What the run does not support is any statement about whether a workable
+width could be chosen in advance: the five widths differ by factors of two, so the grid holds
+a single point in the region such a claim would be about. Two documents in the repository
+this paper cites currently draw the stronger conclusion from those same five points, and
+correcting them is an open item there.
+
+Two caveats bind the whole comparison. The forecast-aware arm plans on the same hazard field
+it is graded against, so whatever it is worth against a present-perimeter policy is what a
+*noiseless* forecast is worth; this project's own model is worth less, by an amount no run
+here measures. And this is one fire, one ignition and one departure time: which buffer comes
+off best is a property of this fire's growth against this road network, and no run tests it
+on a second one.
+
+### 4.6 Sensitivity and controls
 
 ![Sensitivity on the canonical Yeongdeok field. Left: the share of origins whose fire-blind route fails, against the evacuation-time budget, with a flat-timing control. Centre: origins safe only on the forecast-aware route, against the slope-sampling interval, with a flat control. Right: peak P(ignite) along one committed route pair as the forecast field is dilated, with the pedestrian cutoff and the radius at which the forecast-aware route first crosses it. ⚠ Scope: that pair is a real pipeline output but its origin differs from the committed `routing_demo.json` headline case, so both artifacts state their result as robustness of the routing *method* and not a restatement of the headline. The dilation and translation axes and the Monte-Carlo figure quoted in the text come from the committed artifacts `forecast_robustness.json` and `dilation_perturbation.json`, which do not yet carry registry keys of their own; they are flagged here as artifact values rather than registered ones.](figures/F6_sensitivity.png)
 
@@ -460,7 +529,7 @@ exposure-reduction contrast moved by 0.5614 percentage points. Neither network i
 right one; the reported quantity is sensitivity, and it says binary verdicts are
 network-fragile where paired contrasts are not.
 
-### 4.6 Rescue ingress, and a dispatch ordering that does not work
+### 4.7 Rescue ingress, and a dispatch ordering that does not work
 
 On the committed 439-origin responder run, survival-aware routing reduces mean responder
 exposure from 6.12 to 1.71 probability-minutes over the 143 dispatchable origins, a 72.0 %
@@ -505,7 +574,7 @@ cell. No operating region recommends the shipped ordering, and the paper does no
 one. What the analysis does establish positively is reproducibility: re-deriving
 3,744 values from the earlier run cell by cell produced **0** differences.
 
-### 4.7 How early could a satellite have seen these fires?
+### 4.8 How early could a satellite have seen these fires?
 
 Four of the six fires fall inside the GK2A archive and three produced a detection under
 the rule of Section 3.1 (Table 4). In each, the first satellite-detectable anomaly follows
@@ -552,7 +621,10 @@ Whether that is ahead of or behind the emergency call, this measurement cannot s
 **What the coupling adds over a spread map.** A hazard map answers "where will the fire
 be"; a household needs "is my route still passable when I get there", and the two differ
 because a slow walker's arrival time is a variable in the answer. Section 4.3 is the
-measurable form of that difference. It is not a
+measurable form of that difference, and Section 4.5 bounds how much of it belongs to the
+forecast rather than to hazard awareness of any kind: on the one region where the stronger
+opponent has been built, most of the same origins are recovered by refusing where the fire
+is now, with no model at all. It is not a
 claim that the system knows where the fire will be: the router needs ranking quality, not
 per-cell precision, because it cuts a cumulative, survival-accumulated surface at its own
 threshold. That the surface itself goes unchecked is the first limitation in Section 6.
@@ -561,7 +633,7 @@ threshold. That the surface itself goes unchecked is the first limitation in Sec
 a distribution-free method rescues a small-sample setting is wrong: small-N event datasets
 do not get guarantees by changing the calibration method, but by having more events.
 
-**Where the trigger comes from, and where the warning goes.** Section 4.7 establishes a
+**Where the trigger comes from, and where the warning goes.** Section 4.8 establishes a
 floor: a 2 km geostationary pixel
 cannot see a fire below roughly a hectare, so a satellite trigger cannot be an
 ignition-scale alarm whatever its cadence, and the system treats it as corroboration. A
@@ -612,6 +684,14 @@ FIRMS detections, reporting how many of the 42 fire-blind routes intersect obser
 inside the walker's arrival window. Those detections are not distributed with the
 repository, and the two committed manifests for this fire place its ignition point about
 30 km apart]
+
+**The counterfactual was weak, and the stronger one is run on only one region.** Every
+contrast in Sections 4.3 and 4.4 is against a fire-blind baseline. Section 4.5 replaces it
+on Uiseong-Andong with a present-perimeter opponent and most of that region's contrast does
+not survive the substitution. The same substitution has not been made on the canonical
+Yeongdeok field, so the 42 of Section 4.3 remains a fire-blind contrast and must be read as
+one; and even where the substitution has been made, the residual difference is not reported,
+because two defensible builds of that opponent disagree about it.
 
 **Six fires, and not six independent ones.** Because Uiseong-Andong 2025 and Yeongdeok
 2025 belong to one chain (Section 3.1), the Yeongdeok fold's training data may contain
@@ -716,7 +796,11 @@ strict evidence discipline support is a different claim: that coupling an event-
 probability field into a time-expanded pedestrian router and a rescue-ingress calculation
 changes household-level decisions measurably, as a paired contrast — 42 of 458 scanned
 origins on the canonical Yeongdeok field reach a refuge only under the forecast-aware
-policy, on a network covering 32.6 % of that fire's predicted core.
+policy, on a network covering 32.6 % of that fire's predicted core. That contrast is
+against a fire-blind baseline, and Section 4.5 shows on a second region that a policy which
+refuses only where the fire is now recovers most of it — so the claim is about coupling a
+hazard field into the routing at all, and the part attributable to the forecast is smaller
+and, on the evidence here, not yet a single number.
 
 The rest of the contribution is the instrument, and the instrument is visible in what
 this paper declines to say: the operating point is reported rather than hidden, the

@@ -9,8 +9,11 @@ and rebuilt every time the code moves. Author: **Siyeong Park (박시영)**.
 doesn't exceed. 25 pages for. now」). `check_paper.py` now checks that directly —
 it renders the document and counts — and keeps the 9,000-word budget as the
 proxy for machines that cannot render, or that can render but not in a font
-whose metrics are Calibri's. As of 2026-09-05 the built document is **21 pages
-under Carlito**, measured rather than estimated; the qualifier is load-bearing
+whose metrics are Calibri's. As of 2026-09-06 (lap 10) the built document is
+**23 pages under Carlito**, measured rather than estimated — it was 21 at lap 9,
+and the two pages went to Fig. 7 (F9) and to the ~1,080 words of §4.5, one page
+each, which is the split the words-to-pages curve below predicts. Two pages of
+margin remain against the author's 25. The Carlito qualifier is load-bearing
 and the next section says why. Earlier versions of this file and of CHARTER §12
 said 20 pages, which was IEEE Access's *recommendation* read as a rule; the
 author's ceiling is the operative one.
@@ -53,8 +56,9 @@ in red and mirrored in `GAPS.md`.
   (`docs/auto/LOOP_CONFIG.json`, CHARTER §12) — is its stand-in everywhere else.
   The old gloss "≈ 16 pages at this style" was an assumed conversion and it was
   wrong; the measured curve is in the next section. ⚠ **The proxy is not the
-  rule**: figures, not prose, are why §4 is eight of the 21 pages, so a new
-  figure adds a page without adding a word. Re-measure after adding one.
+  rule**: figures, not prose, are why §4 is most of the document, so a new
+  figure adds a page without adding a word. Re-measure after adding one — lap 10
+  did, and the added figure cost exactly the page the curve predicts.
 
 ## How many pages this actually is
 
@@ -220,11 +224,19 @@ establish the hole is F4's other check — `libreoffice-writer` and
 `scripts/auto/bootstrap.sh`, `requirements.txt` or the `Makefile` — and that is
 unaffected. Raised by this lap's reviewer.
 
-Where the pages go, measured on the same render: title page 1; Abstract and
+⚠ **The page map below is the lap-8 render (21 pages) and lap 10 has not
+re-derived it.** The total was re-measured — 23 — but the per-section boundaries
+were read with a one-off `pypdf` install that no longer exists here, so the
+positions are kept as the record of where the pages went at 21 rather than
+restated as current. The shape of the answer is unchanged and is the only part
+that matters for a lap deciding where to buy space: Results carries most of the
+figures and therefore most of the pages.
+
+Where the pages went at the lap-8 render: title page 1; Abstract and
 §1 on p. 2; §2 p. 3; §3 pp. 4–6; §4 pp. 7–14; §5 p. 15; §6 pp. 16–17; §7 p. 18;
-Data and code availability and References pp. 19–21. Results is eight pages
-because it carries six of the eight figures. If a lap ever has to buy pages
-rather than words, that is where they are.
+Data and code availability and References pp. 19–21. Results was eight pages
+because it carried six of the eight figures; lap 10 added a ninth to it. If a lap
+ever has to buy pages rather than words, that is where they are.
 
 ## ⚠ Figures are deterministic within an environment, not across environments
 
@@ -276,7 +288,21 @@ enough on its own — check these two things by name.
 in the text. The `F` numbers are stable internal identifiers for
 `make_figures.py`; the `Fig. N` references in `manuscript.md` must match the
 **appearance** order. Current mapping: F1→1, F2→2, F4→3, F5→4, **F8→5**, F3→6,
-F6→7, F7→8. Re-check it after moving or adding any figure.
+F6→7, F7→8. Re-check it after moving or adding any figure. The check that catches
+a mistake here is reading the captions back out of the built `.docx` with
+`python-docx` and comparing them to the `Fig. N` mentions in the prose; nothing
+mechanical does it.
+
+⚠ **`F9_present_perimeter` is drawn and committed but is NOT in the manuscript,
+so it has no appearance number.** Lap 10 wrote it for the new §4.5, then withdrew
+it after its own reviewer showed that the bar totals plus the axis denominator
+plus Table 2 determine the margin NH-032 bars from judge-facing surfaces
+(`paper/GAPS.md`, gap **G8**). It stays in `FIGURES` so it keeps being rebuilt
+and stays reproducible; when NH-032 is answered it is referenced from §4.5 and
+becomes Fig. 7, pushing F6 and F7 to 8 and 9 — at which point §4.6's two `Fig. 7`
+references and §4.7's three `Fig. 8` references all move up one. `check_paper.py`
+does not object to a drawn-but-unreferenced figure: it checks that every
+referenced figure exists, not the converse.
 
 ⚠ **This table was stale for two laps and the manuscript went with it.** F8 was
 added to §4.3 after the mapping was written, which pushed F3, F6 and F7 down one

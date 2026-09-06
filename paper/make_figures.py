@@ -684,8 +684,74 @@ def F8_routing_map(out: Path) -> bool:
     return True
 
 
+def F9_present_perimeter(out: Path) -> bool:
+    """How the present-perimeter opponent fails, across the five buffer widths that
+    were run (Uiseong-Andong 2025, committed canonical arm).
+
+    ⚠ NOT REFERENCED BY THE MANUSCRIPT (lap 10, 2026-09-06; paper/GAPS.md gap G8).
+    It is built and committed so it stays reproducible and can drop straight into
+    §4.5 once NH-032 is answered, and it is kept rather than deleted per CHARTER
+    §3.7. check_paper.py checks that every referenced figure exists, not that every
+    drawn figure is referenced, so an unreferenced figure is not a gate failure.
+
+    Only the three FAILURE classes are drawn, and deliberately not the safe total:
+    the safe total against the forecast-aware arm's own total is the contested
+    margin the project has not settled, and a figure is not the place to settle it.
+    What the failure classes show is the part both builds of the opponent agree on
+    — that the two ways of failing trade off against each other as the buffer
+    widens.
+
+    ⚠ The first version of this function contradicted the paragraph above and the
+    lap reviewer caught it: it printed each bar's TOTAL above the stack and put the
+    origin count in the y-axis label, so subtracting one from the other recovered
+    the whole safe series the docstring says it does not draw — and, with the
+    forecast-aware total that Table 2 of the manuscript already determines, the
+    margin itself. Neither the totals nor the denominator is drawn now. The y axis
+    is a bare count, and a reader who wants the safe totals has to go to the
+    committed artifact, where they carry their caveats.
+
+    The x axis is CATEGORICAL on purpose. The five widths are 250 / 500 / 1000 /
+    2000 / 3000 m, so the nearest measured neighbours of the middle width are a
+    factor of two away on either side; drawing them on a metric axis with a line
+    through them would assert a curve shape between the samples that the run
+    cannot resolve (WFG-127). Five bars, no interpolation.
+    """
+    d = load("data/processed/present_perimeter_arm_uiseong_andong_2025.json")
+    if not d or not isinstance(d.get("buffer_sensitivity"), list):
+        return False
+    rows = sorted(d["buffer_sensitivity"], key=lambda r: float(r["buffer_m"]))
+    if not rows:
+        return False
+    classes = [("failed_enters_hazard", "route crosses ground that is alight when the walker crosses it", style.PALETTE["fire"]),
+               ("failed_unreachable", "no route to any refuge outside the buffer", style.PALETTE["slate"]),
+               ("failed_over_budget", "reaches a refuge, but after the 600-minute budget", style.PALETTE["brown"])]
+    fig, ax = plt.subplots(figsize=style.FULL)
+    x = list(range(len(rows)))
+    bottom = [0.0] * len(rows)
+    for key, label, colour in classes:
+        vals = [float(r.get(key, 0)) for r in rows]
+        ax.bar(x, vals, bottom=bottom, color=colour, label=label, width=0.58)
+        for xi, (v, b) in enumerate(zip(vals, bottom)):
+            if v >= 6:
+                ax.text(xi, b + v / 2, f"{int(v)}", ha="center", va="center", fontsize=7.5, color="white")
+        bottom = [b + v for b, v in zip(bottom, vals)]
+    ax.set_xticks(x)
+    ax.set_xticklabels([f"{int(r['buffer_m'])} m" if float(r["buffer_m"]) < 1000
+                        else f"{float(r['buffer_m']) / 1000:g} km" for r in rows])
+    ax.set_xlabel("Buffer width refused beyond the slice-0 perimeter (five measured widths, categorical spacing)")
+    ax.set_ylabel("Origins failing")
+    ax.set_ylim(0, max(bottom) * 1.12)
+    # Legend below the axes: the tall bars sit at both ends of the x range, so no
+    # corner inside the panel is provably empty (paper/README.md, figure rule 2).
+    lg = ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.20), ncol=1, fontsize=7.5)
+    lg.get_frame().set_linewidth(0.5)
+    ax.grid(axis="y", visible=True)
+    style.finish(fig, out / "F9_present_perimeter.png")
+    return True
+
+
 FIGURES = [F1_system, F2_lofo_auc, F3_regions, F4_operating_point, F5_decision_shift,
-           F6_sensitivity, F7_dispatch_ordering, F8_routing_map]
+           F6_sensitivity, F7_dispatch_ordering, F8_routing_map, F9_present_perimeter]
 
 
 def main() -> int:
