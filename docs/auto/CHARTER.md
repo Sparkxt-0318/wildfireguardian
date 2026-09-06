@@ -83,6 +83,23 @@ are the ones the loop meets daily), from the KCF 운영요강, and from safety.
    repository or account settings, external contact, and anything needing the
    author's physical presence.
 
+5c. **A withdrawal is not applied until it is registered, in the same lap.**
+   Correcting `CRITIC_LATEST.md`, `KCF_READINESS.md` and `DIRECTION.md` corrects
+   the loop's memory, not the product: all three are **record class** in
+   `docs/auto/withdrawn_claims.json` and are deliberately not scanned. A lap
+   that withdraws a claim adds it to that registry as a `WC-###` in the same
+   lap, with the spellings the repository actually used and a probe sentence it
+   actually shipped; `make verify` then reads every tracked `.md` and `.html`
+   against it and a surviving mention goes red wherever it lives. Keeping the
+   record is still required (§3.7) and is what the per-line
+   `<!-- forbidden-ok: <token> -->` pragma is for. This rule exists because
+   critic #26 withdrew the `41498ef` reachability finding into three record-class
+   pages and never registered it, so every gate stayed green while
+   `docs/auto/JUDGE_QA.md` Q35 went on instructing the student to say it to a
+   judge for a full window (WFG-133, NH-036; the claim is now WC-004). The
+   registry is the mechanism; a hand-listed set of surfaces is not, and WFG-062
+   replaced one with the other on 2026-09-04.
+
 5. **No fabricated evidence, no fabricated citations, no rounding a limitation
    away.** The project's credibility rests on its withdrawn-claim record (README
    TL;DR). When a result is weak, say so in the artifact and the report.

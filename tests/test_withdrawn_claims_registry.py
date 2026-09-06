@@ -263,7 +263,18 @@ def test_the_registry_holds_nothing_the_families_do_not():
     #: found IN THE TREE by someone who had not written the patterns; a spelling the
     #: pattern's author invents and then grades with its own sentence is leakage.
     reviewer_found = {(r"기준이?\s*(?:「\s*)?신고\s*시각", "기준 시각은 신고")}
-    extra = {(s["pattern"], s["token"]) for _cid, s in SPELLINGS} - in_files - reviewer_found
+    #: WC-004, registered by dev lap 20260906T1520Z on WFG-133. It belongs to no older
+    #: family: the three absorbed families are all the detection-ordering claim, and this
+    #: is the reachability claim five critic laps published from inside a clone shallower
+    #: than the object they were measuring. Critic #26 withdrew it into three loop pages
+    #: and never registered it here, which is why every gate stayed green while
+    #: docs/auto/JUDGE_QA.md Q35 went on telling the student to say it to a judge.
+    reachability = {
+        (r"브랜치에서\s*닿지\s*않", "브랜치 닿지 않"),
+        (r"닿는\s*커밋입니다」\s*문장을", "닿는 커밋 말하지 말라"),
+    }
+    extra = ({(s["pattern"], s["token"]) for _cid, s in SPELLINGS}
+             - in_files - reviewer_found - reachability)
     assert extra == set(), (
         "the registry has grown past the families it absorbed. That is allowed, and when "
         "you do it, add the new spelling to this test's expected set and say in "
@@ -428,6 +439,12 @@ def _probe_sentence(pattern: str) -> str:
         r"report[-\s]first": "So the design is report-first, satellite-confirm.",
         r"human\s+report\s+is\s+the\s+primary|primary\s+trigger\s+source\s+is\s+the\s+human":
             "The human report is the primary trigger source.",
+        # WC-004, both taken verbatim from docs/auto/JUDGE_QA.md at dd500e6 --- the
+        # card as critic #27 found it, before the withdrawal reached it (WFG-133).
+        r"브랜치에서\s*닿지\s*않":
+            "시점의 것이고 지금 브랜치에서 닿지 않습니다. 저희가 스스로 찾아 백로그에",
+        r"닿는\s*커밋입니다」\s*문장을":
+            "**그러므로 WFG-115 가 닫히기 전까지 위 답변의 「현재 브랜치에서 닿는 커밋입니다」 문장을",
     }
     assert pattern in probes, (
         f"no probe sentence for a newly registered pattern:\n  {pattern}\n"

@@ -1398,3 +1398,40 @@ in its place, and gate *that* — the fourth gate here derives the bucket set fr
 registry, so a bucket the card does not describe turns it red. And the cheapest correction
 was available all along: the card said 「어느 랩도 세어 본 적이 없습니다」 about a count that
 takes one command. **A document that says a thing is unmeasured is a task, not a caveat.**
+
+## 2026-09-06T1520Z — I nearly rebuilt a machine this repository already had
+
+WFG-133's gate took most of this lap: a withdrawn-claim check over five judge-facing
+surfaces parsed from a rule I added to the charter, graded five ways, green. It was
+deleted unbuilt. `docs/auto/withdrawn_claims.json` + `scripts/check_withdrawn_claims.py`
+have done the same job since 2026-09-04, inside `make verify`, over **925** files
+instead of five.
+
+What found it was not review and not the gates. It was `git status --short` before
+staging, showing `docs/withdrawn_claims.md` as **modified** when I believed I had
+created it: I had overwritten a committed 142-line document with a `Write` to a path I
+had never read. CHARTER §3c's staging rule caught a §3.2 violation it was not written
+for. Restored from `HEAD` in the next command, then read.
+
+Two lessons, and the second is the load-bearing one.
+
+1. **Never `Write` to a path you have not read.** `Write` overwrites silently and the
+   diff arrives too late to be a warning. If the file might exist, read it first; the
+   cost is one tool call and the failure mode is destroying a committed artifact.
+2. **Before building a gate, find out what already runs.** I searched `tests/` for
+   similar tests, read the backlog row, read the critic's finding, and ran `hate` on my
+   plan — and the root objection it returned was about my design, because the question I
+   never asked was whether the design was needed. Nothing on the path a lap actually
+   walks names the registry: not WFG-133's row, not `CRITIC_LATEST.md`, not
+   `DIRECTION.md`'s standing rule (which still describes the superseded hand-listed
+   method), not CHARTER §3. It is named in WFG-062, thirty-nine rows down a 1,858-line
+   table, in a row whose title still reads as an open request to *build* it. Filed as
+   WFG-137.
+
+And the finding that came out of it is better than the gate I meant to write: critic #26
+withdrew the claim into `CRITIC_LATEST.md`, `KCF_READINESS.md` and `DIRECTION.md`, and
+**all three are record class** — the paths the registry is designed not to scan. The
+withdrawal reached only the pages the machine ignores, which is why every gate was green
+while the student's card told them to say the false sentence. So the rule that was
+missing is not a gate at all: it is that **withdrawing a claim includes registering it,
+in the same lap** (CHARTER §3.5c).
