@@ -1765,3 +1765,65 @@ without dropping a caveat, it ships the caveat, fails `check_paper.py`, parks th
 CHARTER §3 rule 9 and says so — it does not trim the caveat and it does not edit the limit.
 
 **Reply with:** `NH-037: A` (or B / C / D, or a sentence).
+
+---
+
+## NH-038 · DECISION · open · Your "product first" rule has spent the last three dev laps on documents, and the readiness line it was written to protect has not moved in five critic laps (by 2026-09-09)
+
+**Severity: MEDIUM.** Nothing is broken and no gate is red. What is happening is that the
+sprint plan and the loop's actual order of work have come apart, and neither a dev lap nor
+a critic lap can fix that on its own, because the rule that separates them is yours.
+
+**What you set up, on 2026-09-04, and why it was right.** CHARTER §14b: 「A critic finding
+becomes a `fix-before-next-row` item only if it is on a judge-facing surface ... or a red
+gate; **at most one such item per critic lap**. Everything else ... is filed as a P1 row and
+waits.」 The cap was the point. It was written to stop the loop grading itself instead of
+building the product.
+
+**What it turned into.** The cap on one is also a floor of one, because every critic lap
+finds at least one judge-facing defect, and the dev lap must clear the item **before** it
+claims a row (CHARTER §4 step 3). Read off this branch:
+
+| dev lap | row it built | where the row came from |
+|---|---|---|
+| 2026-09-06T0711Z | WFG-007 (booth printables) | table order after critic #23's move |
+| 2026-09-06T1000Z | WFG-113 | critic #25's one `fix-before-next-row` item |
+| 2026-09-06T1313Z | WFG-117 | critic #26's one item |
+| 2026-09-06T1638Z | WFG-133 | critic #27's one item |
+
+Three consecutive dev laps, three critic items, and all three were defects in **documents
+the loop itself wrote**. Each was real and each was worth fixing; I am not arguing any of
+them was wrong. The effect is still that since the booth kit landed at `3e92b69` on
+2026-09-06 at 06:20Z, **nothing has finished it**. WFG-130 has been 「next」 for three
+windows. WFG-134 was filed one window ago and is already staler than when it was written.
+
+**The number that says it plainly.** `docs/auto/KCF_READINESS.md` is the definition of done
+for the final product (CHARTER §11). It has been **4 of 11** ticked for **five consecutive
+critic laps** — critics #24, #25, #26, #27 and this one. The sprint plan in
+`docs/auto/BACKLOG.md` names 09-11 for the printables and 09-10 for the bundle. Today is
+09-06 and R7 and R9 both wait on the same two rows.
+
+**And I am about to do it a fourth time.** My one item this lap is WFG-138, one clause in
+the README. I have kept it to minutes deliberately, and I am filing this entry rather than
+quietly widening the rule, because the honest reading is that a critic cannot both hold the
+cap and stop the preemption: the cap is on the *number* of items, not on their *cost*, and
+not on how many laps in a row may carry one.
+
+**What I am not asking for.** Not fewer critic findings, and not a weaker judge-facing bar.
+Everything the three laps fixed was a false or stale sentence in front of a judge.
+
+**Why this is yours.** §14b is your steer, dated and recorded, and CHARTER §6 sends both 「a
+rule you set」 and 「two laps disagree on direction」 back to you. Critic #27 read the same
+zero-tick count and concluded direction was right; I read it and conclude the mechanism is
+the reason it looks right every time. That is the disagreement.
+
+**Options:** A) **Keep the rule exactly as it is** — the judge-facing bar is worth three
+laps and R7 slips to 09-08; say so and the loop stops re-raising it. B) **Cap the cost, not
+the count**: a `fix-before-next-row` item must be **minutes**, and anything larger is a P0
+row that takes its place in the table like any other, so the top row is never displaced by
+more than a few minutes. C) **One in two**: a critic lap may set an item only if the
+previous critic lap did not, so at least every other dev lap runs the table. D) **Suspend
+the mechanism until R7 and R9 tick**, with judge-facing findings still filed as P0 rows at
+position 1 but not as preemptions. E) Something else — one line, and the next lap does it.
+
+**Reply:** `NH-038: <A, B, C, D or a sentence>`

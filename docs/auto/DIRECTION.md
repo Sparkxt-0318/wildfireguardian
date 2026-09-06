@@ -1,6 +1,6 @@
 # Direction — where the project is going, on one screen
 
-*Written 2026-09-04 by the author's session; steered again the same evening (product first). Rewritten by the research routine every second day; the critic checks it after every dev lap (CHARTER §14). The dev routine reads it before claiming a row. Last checked by critic #27, 2026-09-06T1400Z.*
+*Written 2026-09-04 by the author's session; steered again the same evening (product first). Rewritten by the research routine every second day; the critic checks it after every dev lap (CHARTER §14). The dev routine reads it before claiming a row. Last checked by critic #28, 2026-09-06T1736Z.*
 
 ## Thesis (two sentences)
 
@@ -8,54 +8,58 @@ A forecast of where the fire will be, not where it is, changes which walking rou
 
 ## Next three rows, and why
 
-*No existing row moved this lap. Two new P0 rows enter at positions 1 and 2 and everything else keeps its
-order. Both are the same defect on the same file, one window apart: a correction that reached every page the
-loop reads and stopped at the page the student reads aloud.*
+*No existing row moved this lap. WFG-133 closed at `923ffbd`. Three new P0 rows enter — one at position 1, two
+below the judge-facing block — and everything else keeps its order. The direction check's answer is **yes,
+the next todo row is still the highest-leverage one**: R7 and R9 both wait on the booth kit and nothing else
+does.*
 
-1. **WFG-133 (P0, minutes) — the Q&A bank scripts the student to say a false sentence to a judge, and the
-   last critic lap forbade fixing it.** `docs/auto/JUDGE_QA.md` Q35 is **T1**, the reproducibility question.
-   Its ⚠ block tells the student **not** to say the draft's true sentence 「현재 브랜치에서 닿는
-   커밋입니다」 and to say instead 「… 지금 브랜치에서 닿지 않습니다」. Measured here on a clone
-   **fully unshallowed** (`is-shallow-repository` = `false`, 488 commits): `merge-base --is-ancestor`
-   exits **0**, the object is **283** back, `branch --contains` names `auto/dev` and `origin/Main`. The
-   block also says the card prints **326**; it prints **383**. Critic #26 withdrew the measurement at 1100Z
-   and wrote 「Q35 is correct as written and must not be edited」 into three pages. That is true of Q35's
-   **draft answer** and false of the **⚠ block** that overrides it, and it protected the false half for a
-   window. **This is critic #27's one `fix-before-next-row` item.** A dated ⚠⚠ correction note with the
-   measured table is already on Q35 so nobody rehearses the false block tonight.
-2. **WFG-134 (P0, one lap) — the booth PDF is stale against the Q&A bank, by exactly the text this window
-   withdrew, and no gate reads for it.** The manifest records `docs/auto/JUDGE_QA.md` at `2c8451211e5f97eb…`;
-   the file hashes `af955a30fa500391…`. The other three sources still match. So the paper the student
-   physically carries holds the **pre-WFG-117 Q30** (the 「326 · 268」 warning) and Q35's false block.
-   `tests/test_printables.py` checks the manifest *has* a hash per source and that the PDF matches its own
-   hash; nothing compares a recorded source hash against the tree, which is the one comparison that detects
-   a stale printable. CHARTER §3.2: a corrected build gets a new stamp beside the old one.
-3. **WFG-130** (P0, minutes, carried from critics #25 and #26) — the booth PDF omits the reconciliation
-   sheet and its manifest declares that committed file 「does not exist yet」. R7 names five printables and
-   the build's source list overlaps it in **one**. Do it in the same lap as WFG-134: one rebuild pays both.
+1. **WFG-138 (P0, minutes) — the README asserts what the manuscript disclaims, about the number the project
+   leads with. This is critic #28's one `fix-before-next-row` item.** `README.md:22-26` says 42 of 458 origins
+   reach a refuge 「**only** when the router accounts for where the fire **will be**」. `paper/manuscript.md`'s
+   Abstract carries the same two numbers and then says the contrast 「does not separate knowing where the fire
+   will be from knowing where it is」, because the baseline is fire-blind
+   (`src/wildfireguardian/routing/evacuation.py:270`, `docs/real_roads_real_hazard.md:50`). `paper/GAPS.md` G7
+   records that the abstract was corrected for exactly this and names the two surfaces already repaired:
+   the booth script (**WFG-103**) and the finals template (**WFG-109**). The README is the fourth surface and
+   nobody went there. It is the first page a KCF judge, an ISEF reviewer or an IEEE reader opens. One clause,
+   additive, no number moves. ⚠ This is the 「Headline result」 bullet, **not** the opening paragraph about the
+   2025 fire, which stays untouched.
+2. **WFG-134 with WFG-130 and WFG-140 in one lap (P0)** — the booth kit. Re-hashed at `e95fe28`: three of the
+   four manifest sources match, `docs/auto/JUDGE_QA.md` does not, and the drift is **larger** than critic #27
+   measured (manifest `2c8451211e…`, tree `7d5ac4c9c5…`, was `af955a30fa…`) because the WFG-133 lap edited Q35
+   again. The printed 17 pages carry the pre-WFG-117 Q30 **and** Q35's ⚠ block with no retraction on it.
+   **WFG-140 is new and is the freshness gate, split out of the two rebuild rows** on critic #27's own
+   pre-registered branch: a gate that ships only if a rebuild ships is not a gate, and the rebuild has now
+   been displaced three windows. Grade WFG-140 red on today's tree before the rebuild makes it green.
+3. **WFG-139 (P0, one lap) — the test suite reaches the network and the clean-clone claim is false.** On a
+   clone with no `data/raw/`, `gates.py --mode full` downloaded a 25 MB SRTM tile from
+   `elevation-tiles-prod.s3.amazonaws.com` (`tests/test_spread_warmup.py:156`, no skip guard). CHARTER §4b
+   forbids it in those words; `docs/clean_clone_gates.md:27` says 「No network」 and `JUDGE_QA.md` Q28 cites
+   that file to a judge; six terrain-plausibility tests keyed on that tile have never run in CI. This is the
+   whole of the cold/warm `62 / 56` skip gap two dev laps diagnosed wrongly and declined to chase.
 
 Then **WFG-128** (P0, `docs/multi_region.md:191` + `README.md:113`), **WFG-129** (P0, one lap: the cheapest
-test of the headline 42 of 458, fully specified in `paper/GAPS.md` G7), **WFG-117 (b)** (its judge-facing
-half shipped at `fc05320`; what is left is grading this row's own gate against a registry-moving mutation,
-which is hygiene and now sits behind the two rows above it), WFG-007's human half, WFG-110 (the **only**
-thing holding R1), WFG-124 (`blocked(NH-032)`), WFG-104, WFG-106, WFG-127, WFG-135, WFG-125, WFG-122,
-WFG-121 (c), WFG-036 v2, WFG-101, WFG-010 (README Round-4 + abstract → R8), WFG-096, WFG-026 (the other
-half of R7), WFG-024 when its blockers clear (R11), and only then the infra rows — **WFG-119**, WFG-131,
-WFG-132 among them — which CHARTER §14b holds behind R1, R3, R7, R8 and R9.
+test of the headline 42 of 458, fully specified in `paper/GAPS.md` G7), **WFG-117 (b)**, WFG-007's human half,
+WFG-110 (the **only** thing holding R1), WFG-124 (`blocked(NH-032)`), WFG-104, WFG-106, WFG-127, WFG-135,
+WFG-125, WFG-122, WFG-121 (c), WFG-036 v2, WFG-101, WFG-010 (README Round-4 + abstract → R8), WFG-096,
+WFG-026 (the other half of R7), WFG-024 when its blockers clear (R11), and only then the infra rows —
+**WFG-119**, WFG-131, WFG-132, WFG-137, **WFG-141** among them — which CHARTER §14b holds behind R1, R3, R7,
+R8 and R9.
 
-⚠⚠ **WFG-115's premise is false and stays withdrawn. `41498ef` IS an ancestor of `HEAD`.** Re-verified
-this lap on an **unshallowed** clone, which is the control every earlier lap lacked. Do not act on the old
-premise; do not edit the screen's provenance line to "fix" reachability. The row survives at P1, re-scoped
-to the real and much smaller defect: the line is stale by construction and mislabelled.
+⚠⚠ **WFG-115's premise is false and stays withdrawn. `41498ef` IS an ancestor of `HEAD`.** Registered as
+`WC-004` in `docs/auto/withdrawn_claims.json` since `923ffbd`, so `make verify` now reads it against 925
+gated files. Do not act on the old premise; do not edit the screen's provenance line to "fix" reachability.
+The row survives at P1, re-scoped to the real and much smaller defect: the line is stale by construction and
+mislabelled.
 
 ## What not to do
 
 - No new spread model, no retrain, no re-acquired region before 2026-10-16 (CHARTER §3).
-- No fourth rewrite of the README's opening paragraph; disagreements go to NEEDS_HUMAN.
+- No fourth rewrite of the README's **opening paragraph about the 2025 fire**; disagreements go to
+  NEEDS_HUMAN. WFG-138 is a different bullet and is not covered by this.
 - No consultation-dependent claim (NH-010); no ratio between the chain and the season areas (NH-018).
 - Do not spend a lap on the six-fire study-area map until per-fire burned areas are registered (WFG-060).
 - Do not commit the bundle payload. R9 does not require it.
-- Do not open another gate-about-the-loop row while a judge-facing surface is wrong (CHARTER §14b).
 - **Do not put any fair-opponent margin (9, 27, 5, 19) on a judge-facing surface** until NH-032 is answered.
   `JUDGE_QA.md` Q19's do-not-say list is the one deliberate exception. Settled by critic #23.
 - **Do not overwrite `WFG_printables_20260906T0620Z.pdf` or its manifest.** CHARTER §3.2: WFG-134's
@@ -66,61 +70,66 @@ to the real and much smaller defect: the line is stale by construction and misla
 - **Do not use `curl` for the GitHub Actions API in a cloud lap.** It returns 403 through the proxy. Read
   runs through the GitHub MCP (WFG-119).
 - ⚠⚠ **Do not write a reachability or ancestry claim until `git rev-parse --is-shallow-repository` answers
-  `false`.** Not 「deepened to N」. `false`. Five laps published a false finding by deepening to a number
-  they chose (50, 170, 250) when the object sat at 283. This lap ran `git fetch --unshallow` and got
-  `false`, 488 commits, and only then wrote the sentence.
-- ⚠⚠ **New, from this lap: a withdrawal is not applied until it has reached the document a human reads
-  aloud.** Correcting `CRITIC_LATEST.md`, `KCF_READINESS.md` and this page is correcting the loop's memory,
-  not the product. Grep the judge-facing surfaces (`README.md`, `web/`, `docs/auto/JUDGE_QA.md`,
-  `docs/auto/DEMO_SCRIPT_5MIN.md`, `paper/manuscript.md`, the newest printables manifest) for the withdrawn
-  string before writing 「withdrawn」 anywhere.
+  `false`.** Not 「deepened to N」. `false`. This lap ran `git fetch --unshallow`, got `false` and 496
+  commits, and only then wrote anything about the graph.
+- ⚠⚠ **A withdrawal is not applied until it has been REGISTERED** (CHARTER §3.5c, from `923ffbd`): add it to
+  `docs/auto/withdrawn_claims.json` in the same lap and let `check_withdrawn_claims.py` read all 925 files.
+  Grepping the judge-facing surfaces by hand is the method that misses one; the registry is the method that
+  does not depend on picking.
+- ⚠⚠ **New, from this lap: registration does not reach a claim that was NARROWED rather than withdrawn.**
+  WFG-138's sentence was never retracted, only qualified in one document, so `WC-004`'s machinery cannot see
+  it and neither can any grep for a withdrawn string. When a lap narrows a claim in one file, it names every
+  other file that states the unnarrowed version, in that lap, in writing.
+- ⚠ **Do not report a pass/skip count without saying whether the sandbox was cold or warm.** `1599 / 62`
+  cold and `1605 / 56` warm are the same commit (WFG-139). Critic laps have been quoting cold counts and dev
+  laps warm ones, so every 「+N passed」 across the two kinds is contaminated until WFG-139 closes.
 
 ## Critic's last direction note
 
-**2026-09-06T1400Z, critic #27. The window did its one item well, and the correction it did not carry is
-the same one twice.**
+**2026-09-06T1736Z, critic #28. The window did its one item well and found the mechanism behind it; what I
+found is that the same shape is on the front page, and that the mechanism which finds these has taken the
+last three dev laps.**
 
-Verified here rather than read from the reports: `gates.py --mode full` **ALL GREEN** at `dd500e6`
-(`1569 passed, 62 skipped`, cold, 304.3 s; **+4 passed** on critic #26), the 25 most recent `auto-gates`
-runs on `auto/dev` (numbers 145 to 173) are **22 `success` and 3 `cancelled`** with **no `failure`** — so
-there is no gate finding and no CHARTER §4b finding this lap — `--assert-head` and `--assert-reported` both
-exit 0, every dev report in the window carries `Reviewed by:`, and no author reply is waiting (the Gmail
-search returns only threads this loop sent, each holding one message with no reply; `decisions_seen.json`
-unchanged).
+Verified here rather than read: `gates.py --mode full` **ALL GREEN** at `e95fe28` (`1599 passed, 62 skipped`,
+cold, 288.4 s; **+30 passed** on critic #27's cold `1569 / 62`), the 25 most recent `auto-gates` runs on
+`auto/dev` (numbers **#154 to #178**) are **21 `success` and 4 `cancelled`** with **no `failure`** — so there is <!-- forbidden-ok: 154 -->
+no gate finding and no CHARTER §4b finding this lap — `--assert-head` and `--assert-reported` both exit 0,
+every dev report in the window carries `Reviewed by:`, and no author reply is waiting (the Gmail search
+returns a first page of 50 threads, newest first, every one sent by this loop and holding exactly one
+message, so no thread carries a reply; `decisions_seen.json` unchanged; PR #31 has no comments).
 
-**Critic #26's falsifiable test, both branches, answered.** (1) The three ancestry commands were re-run on
-an **unshallowed** clone: `is-ancestor` exits 0, the object is **283** back (277 at `b2bdaf0` plus this
-window's six commits), `branch --contains` names `auto/dev` and `origin/Main`. The withdrawal stands and
-WFG-115 stays at P1. (2) Q30's ⚠⚠ block no longer says 326 · 268 — the item mechanism **did** carry prose,
-and it carried it well: the card now names three reason-buckets instead of two, carries no live count at
-all, and ships a gate that goes red when the registry grows a bucket the card does not describe. Do not
-escalate the mechanism.
+**Critic #27's falsifiable test, both branches, answered.** (1) Q35's ⚠ block no longer tells the student
+「지금 브랜치에서 닿지 않습니다」: the block is retracted in place with a dated ⚠⚠ note and the measured table
+above it, and `WC-004` now makes `make verify` red if the sentence reappears anywhere in 925 files. A
+`fix-before-next-row` item **can** survive a previous critic's prohibition, and the way it survived was to
+stop relying on a lap choosing the right document. (2) The manifest is **still stale**, and staler than when
+critic #27 measured it, so the pre-registered branch fires: the freshness gate is filed separately as
+**WFG-140**, not as part of the rebuild.
 
-**The root objection is that the loop measures whether a correction was *made*, never whether it *arrived*.**
-Critic #26 withdrew the `41498ef` finding into `CRITIC_LATEST.md`, `KCF_READINESS.md` R1 and this page, and
-in the same breath wrote 「`JUDGE_QA.md` Q35 is correct as written and must not be edited」. Q35's ⚠ block
-still carries the withdrawn measurement **and instructs the student to speak it**, so the sentence meant to
-protect a correct answer is what shielded the false one. Then the same window's repair of Q30 never reached
-the printed kit: the manifest's recorded hash for `JUDGE_QA.md` and the file's hash have diverged, and no
-test compares them. **Twice in one window, on the same file, a repair landed in the source and not in the
-surface a human meets** — once in prose, once in paper. The cheapest test is a grep, and it is now a rule
-above.
+**The root objection is that the loop's honesty machinery is built for claims it has retracted, and the two
+worst sentences in this repository today were never retracted — they were narrowed in one file and left
+standing in another.** `README.md:22-26` and `docs/clean_clone_gates.md:27` are both cases: the manuscript
+narrowed the first and `paper/GAPS.md` G7 wrote down that it had; nobody carried it to the README. Nobody
+ever narrowed the second, because nobody measured it. `WC-004`, the registry, the 925-file sweep and
+critic #27's grep rule all key on a **withdrawn string**, and a claim that was merely qualified has no
+string to key on. The cheapest test is the one WFG-138 asks for and it costs one clause.
 
-**My one `fix-before-next-row` item is WFG-133**, the false ⚠ block on Q35, and lifting critic #26's
-「must not be edited」 for that block is part of the item.
+**My one `fix-before-next-row` item is WFG-138**, the README's headline attribution. I kept it to minutes on
+purpose, because the second finding of this lap is that the item mechanism itself has taken the last three
+dev laps (WFG-113, WFG-117, WFG-133, all critic items, all defects in documents the loop wrote) while the
+booth kit has not moved since `3e92b69` and `KCF_READINESS.md` has read 4 of 11 for five consecutive critic
+laps. That is **NH-038**, open, with four options, and it is the author's because §14b is the author's steer.
 
-**The falsifiable test for critic #28.** (1) If `docs/auto/JUDGE_QA.md` Q35's ⚠ block still tells the
-student 「지금 브랜치에서 닿지 않습니다」 at the next critic head, then a `fix-before-next-row` item cannot
-survive a *previous critic's* prohibition, and the finding is about how critic laps bind each other, not
-about the row. (2) Re-hash the newest printables manifest's four sources against the tree. If any is still
-stale, then R7's kit is a snapshot with no freshness gate and WFG-134 is understated: file the gate as P0
-rather than as part of the rebuild.
+**The falsifiable test for critic #29.** (1) Delete `data/raw/dem/srtm/` and run the full suite with no
+network. If it is green at `1599 / 62`, WFG-139 closed properly; if it is red, the fix guarded the wrong
+test. (2) If `README.md:22-26` still says 「only when the router accounts for where the fire will be」 with no
+fire-blind caveat at the next critic head, then a `fix-before-next-row` item costing one clause is not
+cheap enough to survive a window, and the finding is about the dev lap's step 3 rather than about the row.
 
 ## Critic's previous direction note
 
-**2026-09-06T1100Z, critic #26.** Its finding was the instrument: `41498ef` is an ancestor 277 commits
-back, and five critic laps had measured inside a shorter graph. Its one `fix-before-next-row` item was
-WFG-117 on Q30; critic #27 confirms it ran and ran well.
-*(Full text: `docs/auto/reports/2026-09-06T1112Z-critic.md`; #25's is in the 2026-09-06T0816Z report, #24's
-in the 0516Z, #23's in the 0215Z. This page stays one screen, which is why the older notes live in the
-reports and not here.)*
+**2026-09-06T1400Z, critic #27.** Its root objection was that the loop measures whether a correction was
+*made*, never whether it *arrived*; its one item was WFG-133 on Q35, and critic #28 confirms it ran and ran
+well, and that it found the registry defect one level up.
+*(Full text: `docs/auto/reports/2026-09-06T1414Z-critic.md`; #26's is in the 1112Z report, #25's in the
+0816Z, #24's in the 0516Z. This page stays one screen, which is why the older notes live in the reports.)*

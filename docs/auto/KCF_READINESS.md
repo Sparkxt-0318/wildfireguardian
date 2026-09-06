@@ -5,6 +5,60 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
+**Tick count, critic #28, 2026-09-06T1736Z: 4 of 11 (R2, R4, R5, R6), unchanged for a FIFTH consecutive
+critic lap — and this lap's finding is that one of the ticked-adjacent claims, the one about running on a
+clean clone, is false.** Checked on disk at `e95fe28`, re-run rather than read, on a clone **fully
+unshallowed** (`git rev-parse --is-shallow-repository` answers `false`, 496 commits).
+
+- **R3 is the line this lap moves against, and it does not lose its half-green so much as change what the
+  green means.** `gates.py --mode full` is **ALL GREEN** at `e95fe28`: `1599 passed, 62 skipped`, cold,
+  288.4 s (critic #27's cold `1569 / 62`: **+30 passed**, skips unchanged). `verify`, `snapshot-verify`,
+  `env-check` PASS; `baseline-verify` WARN is CHARTER §3d information. CI half clean: read through the
+  GitHub MCP (WFG-119 records the `curl` 403), `auto-gates` runs **#154 to #178** on `auto/dev` are **21 <!-- forbidden-ok: 154 -->
+  `success` and 4 `cancelled`**, **no `failure` at all**, so there is no gate finding and no CHARTER §4b
+  finding this lap. Run 178 at `e95fe28`, this head, is `success`. `--assert-head` and `--assert-reported`
+  both exit 0, and every dev report in the window carries `Reviewed by:`. ⚠⚠ **What is new is that the
+  clean-clone run is not clean.** On a clone created at 16:57Z with no `data/raw/` at all, the gate run
+  wrote `data/raw/dem/srtm/N36E129.hgt` (**25,934,402 bytes**) at 17:02Z, fetched from
+  `elevation-tiles-prod.s3.amazonaws.com` by `tests/test_spread_warmup.py:156`, which passes
+  `dem_source="srtm"` with no skip guard. `docs/clean_clone_gates.md:27` reads 「No network, no keys, no
+  `.env`.」 and is one of the three files `docs/auto/JUDGE_QA.md` **Q28** cites to a judge. CHARTER §4b:
+  「No test may depend on the local clock, the timezone, the network, or files outside the repository.」
+  **WFG-139.** Six tests keyed on that tile (`test_srtm_dem.py:81/:94/:109/:170`,
+  `test_validation_robustness.py:57`, `test_validation_session3.py:171`) are `skipif`-guarded and `skipif`
+  is evaluated at collection, so on every fresh CI clone the download always lands after the decision to
+  skip: **those six have never run in CI.** They are the terrain-plausibility checks (ocean clipped to 0 m,
+  max elevation at least 400 m, east strip lower than west) on the DEM the router walks over. This is also
+  the whole of the cold/warm split the loop has diagnosed twice and never chased: cold `1599 / 62`, warm
+  `1605 / 56`, same commit, both measured here, delta exactly those six. R3 keeps its sandbox half-green
+  because the suite does pass; what it can no longer be read as is evidence that a stranger with no network
+  gets the same answer.
+- **R7 does not tick and the kit is staler than critic #27 left it.** I re-hashed all four manifest sources
+  against the tree at `e95fe28`: `BOOTH_SETUP.md`, `DEMO_SCRIPT_5MIN.md` and `DETECTION_FLOOR_CARD.md`
+  match; `docs/auto/JUDGE_QA.md` does not, and the tree hash has moved again — manifest `2c8451211e…`,
+  tree **`7d5ac4c9c5…`** where critic #27 measured `af955a30fa…`, because the WFG-133 lap edited Q35 after
+  that measurement. So the printed 17 Q&A pages carry the pre-WFG-117 Q30 **and** Q35's ⚠ block with **no**
+  retraction on it, since critic #27's ⚠⚠ note landed at `a64b904`, after the `3e92b69` build. Critic #27
+  pre-registered this branch: if any source is still stale, file the gate separately. Done — **WFG-140**.
+  WFG-130 and WFG-134 keep the rebuild.
+- **R8 does not tick and takes a new defect that is worse than staleness.** `README.md:22-26` asserts that
+  42 of 458 origins reach a refuge 「**only** when the router accounts for where the fire **will be**」.
+  `paper/manuscript.md`'s Abstract carries the same two numbers and then says the contrast 「does not
+  separate knowing where the fire will be from knowing where it is」, because the baseline is fire-blind
+  (`src/wildfireguardian/routing/evacuation.py:270`). `paper/GAPS.md` G7 records that the abstract was
+  corrected for exactly this, and names the booth script (WFG-103) and the finals template (WFG-109) as the
+  two surfaces already repaired. The README is the fourth and was never touched. **WFG-138**, and it is this
+  lap's one `fix-before-next-row` item.
+- **R1, R2, R4, R5, R6, R9, R11 unchanged**; R10 stays withdrawn and R12 is the author's.
+- **Zero ticks for a FIFTH consecutive critic lap, and this time I do not think the direction is right.**
+  Critics #26 and #27 each read the same count and concluded the window had done its one item well, which
+  was true both times. What the fifth reading exposes is the mechanism rather than any lap: the last three
+  dev laps each built a critic's `fix-before-next-row` item, all three on documents the loop wrote, and
+  nothing has finished the booth kit since it landed at `3e92b69` on 09-06 at 06:20Z. The sprint plan names
+  09-11 for the printables and 09-10 for the bundle. The cap of one item per critic lap is also a floor of
+  one, and it is a cap on the number of items rather than on their cost. That is **NH-038**, and I am asking
+  the author rather than widening the rule myself, because §14b is the author's steer.
+
 **Tick count, critic #27, 2026-09-06T1400Z: 4 of 11 (R2, R4, R5, R6), unchanged — and this lap's finding is
 that the surface a line is ticked on and the surface a human meets are not the same object.** Checked on
 disk at `dd500e6`, re-run rather than read from a report, on a clone **fully unshallowed**
