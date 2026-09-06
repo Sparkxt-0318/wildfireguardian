@@ -1,88 +1,90 @@
-# CRITIC_LATEST — critic #23, 2026-09-06
+# CRITIC_LATEST — critic #24, 2026-09-06T0457Z
 
-Window `9cc973b..de7bd0a` on `auto/dev` — four commits, one of them a real build lap (WFG-121). Verified here
-rather than read from the reports: `gates.py --mode full` **ALL GREEN** at `de7bd0a` (`1545 passed, 62 skipped`,
-cold, 302.5 s, against critic #22's cold `1535 / 62`, like for like), `--assert-head` green, all **68**
-consecutive push pairs in the 24-hour window pass `--assert-reported`, every dev report of the last 24 h carries
-a `Reviewed by:` line (eight of eight), and the five `auto-gates` runs
-in this window are all `success`, the newest of them at this head. **No red run sits behind a green report, so there is no gate finding this lap.**
+Window `de7bd0a..91d3e05` on `auto/dev` — three commits, one of them substantive (the 0323Z paper lap;
+the other two are critic #23's own report tail and a bare claim). Verified here rather than read from the
+reports: `gates.py --mode full` **ALL GREEN** at `91d3e05` (`1545 passed, 62 skipped`, cold, 179.9 s;
+`baseline-verify` WARN is the documented NH-029 behaviour), every dev report of the last 24 h carries a
+`Reviewed by:` line, and **all fifteen `auto-gates` runs on `auto/dev` in the window are `success`** (two
+`cancelled`, both superseded by a later push), read through the GitHub MCP rather than `curl`, which
+WFG-119 records as 403 in this sandbox. **No red run sits behind a green report, so there is no gate
+finding and no CHARTER §4b finding this lap.**
+
+No author reply is waiting: the Gmail search returns twenty-five threads and every one of them is a report
+this loop sent, with no reply message in any thread; `docs/auto/decisions_seen.json` is unchanged. The
+2026-09-06 decisions (NH-029/030/031, WFG-121/122) came through the laptop session at `4d705df` and are
+already applied.
 
 ## fix-before-next-row
 
-**One item, and it is fifteen minutes of prose with no run and no new number: WFG-127's half (i).**
+**One item, and it is critic #23's, carried forward unchanged: WFG-127 (i).**
 
-Two surfaces assert a shape their evidence cannot resolve:
+I checked both surfaces at `91d3e05` and neither has moved:
 
-- `docs/fair_opponent_line.md` §3 — 「The safe total is a **spike, not a plateau** (275 / 284 / **345** / 275 /
-  283 across 250 m → 3 km)」 and 「Move off the best width in either direction and the arm loses ground fast」.
-- `docs/auto/DEMO_SCRIPT_5MIN.md` 3막 — 「**어느 폭이 맞는지는 그날 알 수 없고**, 같은 실험의 두 가지 구현조차
-  최적 폭을 서로 다르게 답합니다」. This is the sentence the student says out loud at the booth.
+- `docs/fair_opponent_line.md` §3 — 「The safe total is a **spike, not a plateau**」.
+- `docs/auto/DEMO_SCRIPT_5MIN.md` 3막 — 「**어느 폭이 맞는지는 그날 알 수 없고**」. This is the sentence the
+  student says out loud at the booth.
 
-The sweep is `data/processed/present_perimeter_arm_uiseong_andong_2025.json` → `buffer_sensitivity`, read cell
-by cell by this critic: **five** widths, 250 / 500 / **1000** / 2000 / 3000 m. The winner's nearest measured
-neighbours are a **factor of two** away on each side. Nothing in the run separates a spike at 1 km from a
-plateau spanning roughly 800 m to 1.5 km — and a plateau that wide is exactly the thing an operator **can** aim
-at, which is the opposite of the operational conclusion. The second leg fails the same way: two coarse grids
-landing on 1 km and 500 m is what a broad optimum produces, not evidence of unknowability.
+The sweep behind them is five widths (250 / 500 / **1000** / 2000 / 3000 m) whose winner's nearest measured
+neighbours are a factor of two away on each side, so the run cannot separate a spike at 1 km from a plateau
+an operator **can** aim at. **The correction is already written and only needs porting:** the 0323Z paper
+lap made exactly this fix in `paper/manuscript.md` §4.5, which now states the change of *kind* across the
+widths and then says the grid holds a single point in the region a 「which width」 claim would be about,
+asserting **neither** spike nor plateau. Copy that discipline onto the two booth-side documents.
 
-**What to do, and only this:** on both surfaces, state the grid (five widths, the neighbours are 2× away) and
-narrow the claim to what five points support. Do not run anything. Do not add a number. Do not touch §4's
-gated table, which is correct and lives in `docs/present_perimeter_arm.md`. Then **claim WFG-007.**
+**Fifteen minutes. No run. No new number. Do not touch §4's gated table in
+`docs/present_perimeter_arm.md`, which is correct. Then go to the rows below.**
 
-The run half — adding 750 / 1250 / 1500 m to the existing `scripts/run_present_perimeter_arm.py` sweep,
-routing only on committed inputs, registered additively — is WFG-127 (ii) and is its own lap, behind the
-printables.
+I am **not** spending this budget on my own two findings, and the reason is method rather than modesty: an
+item that survives a lap unspent is the only way to learn whether the item or the mechanism is at fault, and
+substituting a fresh one would lose both that and the finding.
 
-## Then take WFG-007, and nothing is in front of it any more
+## What I did not make an item, and where it went instead
 
-`docs/auto/finals/` holds two `.md` files and one screenshot folder; `find docs/auto -name '*.pdf'` returns
-nothing on the **eighth** day. R7 and half of R9 are this row alone; readiness has read 4 of 11 for **eight**
-consecutive critic laps. WFG-007 is now first on `docs/auto/DIRECTION.md` **and** first in the backlog table
-(this lap's one row move), so neither route sends you elsewhere.
+**WFG-128 (P0, new, minutes).** `docs/multi_region.md:191` states the one bucket in this repository that
+runs against the project — `fa_exceeds_budget`, 2 for 의성·안동 — as 「fire-blind route safe, future-aware
+router cannot finish in time」, i.e. as origins the forecast lost. `docs/present_perimeter_arm.md:46-63`
+measured the opposite: the committed classification scores the fire-blind arm under **no** time budget while
+the forecast-aware router enforces the 600-minute one, those two origins' fire-blind routes arrive at
+**624.8** and **628.2** minutes, and under one rule the bucket is **empty**. The manuscript took that
+qualification into §4.4 this window and its twin did not; `README.md:113` links the twin as 「완전한 분할」.
+The author chose the fix already (NH-031 option A, 2026-09-06). No committed value moves, no margin, no
+dependency on NH-032. The booth answer is now `JUDGE_QA.md` **Q38**, with the two sentences not to say.
 
-**Why the previous top row is spent, so you do not re-take it:** WFG-121's (a) shipped at `a182cc0`; its (b) is
-`blocked(NH-032)`; its (c) — the spoken 3막 line — needs a new `demo_pace_*` allocation because CHARTER §3.2
-forbids editing the registered one, and that is WFG-100's machinery and a different row.
+**WFG-129 (P0, new, one lap).** The cheapest test of the number the booth leads with — **42 of 458** — is
+fully specified in `paper/GAPS.md` G7, runnable in this sandbox in minutes, and in no file a dev lap reads:
+mask slice 0 of the committed canonical field (p ≥ 0.5, 249 cells, `routing_demo_canonical.npz`) as a node
+filter and re-run `naive_route` over only the **44** origins whose fire-blind route enters the hazard. Zero
+buffer, one region, every input committed, no refit. CHARTER §4 step 1 does not list `paper/GAPS.md` and
+CHARTER §12 forbids the paper routine from writing outside `paper/`, so it sat where neither routine could
+act on it.
 
-## Still binding from critic #22, unchanged
+**The judged screen, three wrong numbers, two proven commands (WFG-113 / WFG-115 / WFG-117).** Counted at
+this head in one process: the card prints `n_entries` **326** / `n_reproducible` **268**; `docs/NUMBERS.json`
+holds **383** / **325**. `build_finals.py:629-630` derives both from the registry, so `make finals` fixes
+them and needs no decision; WFG-109's own closure records this loop running it and changing only the payload
+line, then `make finals-bundle UPDATE=1`. It does **not** fix 「built at commit 41498ef」, which comes from
+the registry's `built_at_git_commit` and is still not an ancestor of `HEAD` on a clone deepened to 250
+commits. ⚠ **This has a deadline now:** the screen's own stamp `5f9a3b8` is 23 commits behind `HEAD`, the
+branch took 53 commits in 24 h, and the sandbox clones at depth 50 — so within roughly twelve hours
+`test_the_integrity_panel_names_a_commit_this_repository_has` goes RED in every sandbox while CI at
+`fetch-depth: 0` stays green, and CHARTER §9 then sends the first lap that hits it to `auto/red/` instead of
+building. Details on WFG-113 and WFG-119.
 
-1. **Do not put 9, 27, 5 or 19 on any judge-facing surface** while NH-032 is open. **Settled this lap:** the
-   do-not-say list in `JUDGE_QA.md` Q19 is the one deliberate exception and is not a violation — the docstring
-   of `tests/test_fair_opponent_line.py::test_no_contested_margin_reaches_the_booth_script` states that the
-   list lives there. One defect in it was fixed here: it forbade picking 「어느 하나만」 (only one of them),
-   which permitted reciting all three. It now forbids all of them. The 0020Z lap's escalation is closed.
-2. **Do not delete or force-push `auto/red/20260905T2248Z`.** It is the only copy of the escape analysis and
-   of the 265-vs-263 control question.
-3. **NH-032, NH-033, NH-034 are open** and NH-031 was an ID collision; read the banners before applying any
-   `NH-031: …` reply.
+## WFG-007, and the test that is running
 
-## The three open defects on the judged screen, which one rebuild closes
+`7233743` set the row `in-progress(20260906T0320Z)` **three minutes after the 03:17Z lap woke** — the first
+window in which it was unambiguously first by both routes. That is critic #23's falsifiable test actually
+running, and the early half of the answer is that queue position was at least part of the constraint. The
+claim was still in flight when this lap ran its gates, so the verdict is critic #25's.
 
-Re-tested here on a clone deepened past the depth-50 boundary (WFG-119), not inherited:
+⚠ **If that lap died, the row is not releasable at 06:17Z.** A claim stamped 03:20 reads **2 h 57 m** old at
+the next dev wake and CHARTER §5b's bar is three hours, which is exactly the dev grid. That is **NH-035**,
+filed this lap with options. Until the author answers, §5b stands as written: **do not reinterpret it, and
+do not release WFG-007 early.** If you are the 06:17Z lap and the row is still locked, clear WFG-127 (i),
+then take **WFG-128**, then the screen rebuild.
 
-- `web/finals.html` prints `built at commit 41498ef`; `git merge-base --is-ancestor 41498ef HEAD` exits **1**.
-  Fourteen windows. **WFG-115.**
-- The same screen prints `n_entries":326`; `docs/NUMBERS.json` holds **383** entries, counted here. **WFG-113**
-  (the value is hand-typed and ungated) and **WFG-117** (the Q&A bank's T0 question about it).
+## Scores
 
-## New this lap
-
-- **WFG-127** (P0) — the buffer grid, above.
-- **WFG-126 raised P1 → P0** (a priority change, not a position move; critic #22's WFG-104 precedent).
-  `paper/manuscript.md:386` tells a reviewer the fair-opponent arm 「is specified in the project backlog and
-  scheduled after this sprint」. It ran on 2026-09-05 and its artifact is committed. This window's own diff
-  wrote the rule that makes this a violation rather than staleness — `docs/fair_opponent_line.md:32-35`,
-  「A limitation that has been closed and is still spoken is a fabricated limitation, which CHARTER §3.5
-  forbids in the same breath as a fabricated result」 — applied it to the booth script, and left the twin
-  surface saying the closed thing. **This is the paper routine's row, not a dev lap's** (`paper/` is §12's).
-- **JUDGE_QA Q36 and Q37**, both marked 근거 없음. Q36 is the oracle question (WFG-125): the forecast-aware arm
-  plans on the field it is graded against, so every margin in the dispute is a **perfect-forecast** bound, and
-  the honest booth answer today is 「맞습니다」 followed by nothing. Q37 is the buffer-grid question above.
-
-## What I did not find
-
-No red gate, no red CI run, no missing report, no uncertified push, no fabricated number in the window's new
-prose. Every numeric claim in `docs/fair_opponent_line.md` §3 was checked against the artifact and every one
-holds: 345 / 354 at 1 km, 91 burns at 250 m, 80 late at 2 km, the 275 / 284 / 345 / 275 / 283 series, and both
-value collisions the file flags. `factchk`: the window's new prose makes **no** new claim about the world — no
-agency figure, no citation, no external statistic — so there was nothing to verify outside the repository.
+Track B **84** (연구 목적 17 · 설계와 방법론 **15** · 데이터 19 · 창의성 15 · 제출 자료 **18**);
+Track A **77**, every row held. Two rows move and both are the manuscript lap. Readiness **4 of 11**
+(R2, R4, R5, R6), unchanged for **nine** critic laps. Reasoning in `docs/auto/SCORECARD.md`.

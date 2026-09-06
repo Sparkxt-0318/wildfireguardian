@@ -1608,3 +1608,57 @@ regions rather than one. D) Something else — say it in one line and the next l
 
 **Whatever you choose, the loop will not touch the finals screen's headline until you
 answer.** The evidence is committed and reproducible either way.
+
+---
+
+## NH-035 · DECISION · open · The three-hour rule you chose to un-stick a stranded row cannot fire on the three-hour dev grid (by 2026-09-09)
+
+**Severity: MEDIUM.** It stops no thread today; it silently doubles how long a dead lap's
+claim strands the top row, and the top row is the one holding readiness R7.
+
+**What you decided, and it was the right call.** NH-030 option C, applied 2026-09-06 and
+written into CHARTER §5b: 「An `in-progress(<stamp>)` **more than three hours old** with no
+work commit behind it is a lock with no key: the next dev lap sets the row back to `todo` in
+its own claim commit and takes it.」 The reason recorded on the line is that the 2026-09-05
+18:17Z lap looked dead for 1 h 45 m and was only slow, so the window is three hours and not
+two.
+
+**The arithmetic nobody ran.** The dev routine's cron is `17 */3` (UTC), so laps wake at
+03:17, 06:17, 09:17. A lap claims its row in the first four minutes after it wakes
+— read off the commit timestamps of the last five claims on this branch, every one of them
+between `+3 m 26 s` and `+3 m 59 s`: `7233743` WFG-007 03:20:35, `81a0a15` WFG-121 00:20:26,
+`d14b29a` WFG-114 21:20:53, `492364c` WFG-114 18:20:59, `5f9a3b8` WFG-109 15:20:40. So at
+the **next** lap's wake a stranded claim is **2 h 56 m to 2 h 57 m** old — under the
+three-hour bar, every time, by design rather than by luck. The rule can therefore only fire
+**two** slots later, six hours after the claim, and a dead lap costs the row two dev slots
+instead of one.
+
+**It has already happened once, and it cleared by seconds.** The only release this rule has
+ever performed is `785ba13` 「release WFG-114: the 18:17Z lap's claim was a lock with no
+key」. The claim commit `492364c` is timestamped `2026-09-05 18:20:59Z`; the release commit
+is `2026-09-05 21:20:46Z`. That is **2 h 59 m 47 s** measured from the claim commit and
+**3 h 00 m 46 s** measured from the label `20260905T1820Z` the row carries. The
+rule fired or did not fire depending on which of the two timestamps the lap read, and no
+document says which it should read. The stamps are not reliably the wake time either:
+`d14b29a` is labelled `20260905T2132Z` and was committed at `21:20:53Z`, eleven minutes
+apart.
+
+**It is live right now.** `WFG-007` — first in the table, first on `DIRECTION.md`, the only
+row holding R7 and half of R9 — is `in-progress(20260906T0320Z)`. If that lap did not
+finish, the 06:17Z lap computes an age of 2 h 57 m, skips the row under §5b, and R7 waits
+until 09:17Z. Nothing about that is a bug in a lap; it is the constant meeting the grid.
+
+**Why this is yours and not a lap's.** The three hours is your number, chosen against a
+stated trade-off, and CHARTER §6 sends a change to a rule you set back to you.
+
+**Options:** A) **Two hours** — clears the grid with 57 minutes to spare and still covers
+the 1 h 45 m case that set the bar. B) **Age it against the previous dev slot instead of a
+clock**: a claim whose stamp is older than the most recent dev wake before this one is
+releasable, which is grid-independent and needs no constant. C) **Keep three hours and
+require the release to measure from the claim commit's own timestamp**, so at least the
+rule is deterministic; the two-slot cost stays. D) Something else — say it in one line and
+the next lap does it.
+
+**Filed by critic #24, 2026-09-06.** Loop mechanics, so CHARTER §14b holds the mechanical
+half behind R1/R3/R7/R8/R9; the constant is yours either way and the entry is here so the
+question is not re-derived a third time.
