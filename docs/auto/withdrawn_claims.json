@@ -171,6 +171,47 @@
           "flags": "i"
         }
       ]
+    },
+    {
+      "id": "WC-004",
+      "title": "the registry stamp is unreachable from this branch",
+      "claim": "the 검증 레지스트리 card's 「built at commit 41498ef」 names a commit that is not reachable from HEAD, so the student must not say the screen's stamp is a commit this branch reaches",
+      "withdrawn_by": "critic #26 (2026-09-06T1100Z) measured it on a deepened clone and withdrew it; critic #27 (1400Z) re-measured on a FULLY unshallowed clone and filed WFG-133 because the withdrawal had reached three loop pages and not the card the student reads aloud. Re-verified by the 20260906T1520Z dev lap at 6cac7c6, `git rev-parse --is-shallow-repository` = false, 491 commits: `merge-base --is-ancestor 41498ef HEAD` exits 0, distance 286, `branch -a --contains` names auto/dev and origin/Main.",
+      "artifact": "docs/auto/JUDGE_QA.md Q35's ⚠⚠ block, which carries the measured table and the head it was taken at",
+      "say_instead": "각인은 두 개이고 둘 다 이 브랜치에서 닿습니다. 레지스트리 카드의 각인은 더 오래된 것이고, 남은 결함은 그 줄이 낡았고 이름표가 틀렸다는 것입니다 (WFG-115)",
+      "spellings": [
+        {
+          "pattern": "브랜치에서\\s*닿지\\s*않",
+          "token": "브랜치 닿지 않",
+          "why": "the withdrawn assertion itself. Anchored on 브랜치에서 because 「닿지 않」 alone is ordinary Korean and the bank uses it correctly elsewhere for questions that have no answer yet"
+        },
+        {
+          "pattern": "닿는\\s*커밋입니다」[^\\n]{0,24}말하지\\s*[마말]",
+          "token": "닿는 커밋 말하지 말라",
+          "why": "the instruction that made this dangerous rather than merely wrong: it told the student NOT to say the draft's true sentence. The prohibition (말하지 말-) is what is matched. An earlier draft of this entry matched 「커밋입니다」 문장을」 and claimed the object particle distinguished the prohibition from the card's true 「문장은 옳고」; that was false about Korean — 문장을 is the accusative marker and marks the sentence as the object of any verb, permission included — and the independent reviewer of dev lap 20260906T1520Z measured it firing on all three natural TRUE phrasings while missing the prohibition with one particle changed. The prohibition ending is [마말] because Korean negative imperatives take both 말고 and 마십시오/마세요; requiring 말 alone missed 「라는 문장은 말하지 마십시오」, which the reviewer's set caught"
+        },
+        {
+          "pattern": "0이\\s*아닌\\s*값으로\\s*종료",
+          "token": "is-ancestor 0이 아닌 값",
+          "why": "the plainest spelling of the withdrawn measurement, and the one live in docs/auto/JUDGE_QA.md's preserved record: 「`git merge-base --is-ancestor 41498ef HEAD` 는 0이 아닌 값으로 종료」. It exits 0. Found by the independent reviewer eight lines above the lines the lap had licensed"
+        },
+        {
+          "pattern": "조상이\\s*아닙니다",
+          "token": "조상이 아닙니다",
+          "why": "the same claim in the plainest Korean rewording (「41498ef 는 HEAD 의 조상이 아닙니다」). Written by the independent reviewer, who did not write these patterns"
+        },
+        {
+          "pattern": "브랜치에\\s*없습니다",
+          "token": "브랜치에 없습니다",
+          "why": "「각인은 이 브랜치에 없습니다」 — the reviewer's rewording, and the shape a lap would reach for after the two above are gated"
+        },
+        {
+          "pattern": "not\\s+reachable\\s+from\\s+HEAD",
+          "token": "en not reachable from HEAD",
+          "why": "the claim in English, for paper/manuscript.md and the research surfaces. WC-003 exists because the Korean guard lists did not read English",
+          "flags": "i"
+        }
+      ]
     }
   ]
 }

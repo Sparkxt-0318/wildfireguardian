@@ -263,7 +263,24 @@ def test_the_registry_holds_nothing_the_families_do_not():
     #: found IN THE TREE by someone who had not written the patterns; a spelling the
     #: pattern's author invents and then grades with its own sentence is leakage.
     reviewer_found = {(r"기준이?\s*(?:「\s*)?신고\s*시각", "기준 시각은 신고")}
-    extra = {(s["pattern"], s["token"]) for _cid, s in SPELLINGS} - in_files - reviewer_found
+    #: WC-004, registered by dev lap 20260906T1520Z on WFG-133. It belongs to no older
+    #: family: the three absorbed families are all the detection-ordering claim, and this
+    #: is the reachability claim five critic laps published from inside a clone shallower
+    #: than the object they were measuring. Critic #26 withdrew it into three loop pages
+    #: and never registered it here, which is why every gate stayed green while
+    #: docs/auto/JUDGE_QA.md Q35 went on telling the student to say it to a judge.
+    reachability = {
+        (r"브랜치에서\s*닿지\s*않", "브랜치 닿지 않"),
+        (r"닿는\s*커밋입니다」[^\n]{0,24}말하지\s*[마말]", "닿는 커밋 말하지 말라"),
+        (r"0이\s*아닌\s*값으로\s*종료", "is-ancestor 0이 아닌 값"),
+        # the last three were written by the lap's independent reviewer, who had not
+        # read the patterns; see REVIEWER_SET_FALSE at the foot of this file
+        (r"조상이\s*아닙니다", "조상이 아닙니다"),
+        (r"브랜치에\s*없습니다", "브랜치에 없습니다"),
+        (r"not\s+reachable\s+from\s+HEAD", "en not reachable from HEAD"),
+    }
+    extra = ({(s["pattern"], s["token"]) for _cid, s in SPELLINGS}
+             - in_files - reviewer_found - reachability)
     assert extra == set(), (
         "the registry has grown past the families it absorbed. That is allowed, and when "
         "you do it, add the new spelling to this test's expected set and say in "
@@ -277,7 +294,7 @@ def test_the_registry_holds_nothing_the_families_do_not():
 # ---------------------------------------------------------------------------
 
 def test_no_gated_document_carries_an_unlicensed_withdrawn_claim():
-    """The gate. 915 files, three claims, every hit licensed by its own token or absent."""
+    """The gate. 925 files, four claims, every hit licensed by its own token or absent."""
     hits = checker.scan_repo(REGISTRY)
     assert not hits, (
         "a withdrawn claim is asserted in a document with no `forbidden-ok:` licence:\n"
@@ -428,6 +445,22 @@ def _probe_sentence(pattern: str) -> str:
         r"report[-\s]first": "So the design is report-first, satellite-confirm.",
         r"human\s+report\s+is\s+the\s+primary|primary\s+trigger\s+source\s+is\s+the\s+human":
             "The human report is the primary trigger source.",
+        # WC-004, both taken verbatim from docs/auto/JUDGE_QA.md at dd500e6 --- the
+        # card as critic #27 found it, before the withdrawal reached it (WFG-133).
+        r"브랜치에서\s*닿지\s*않":
+            "시점의 것이고 지금 브랜치에서 닿지 않습니다. 저희가 스스로 찾아 백로그에",
+        r"닿는\s*커밋입니다」[^\n]{0,24}말하지\s*[마말]":
+            "**그러므로 WFG-115 가 닫히기 전까지 위 답변의 「현재 브랜치에서 닿는 커밋입니다」 문장을 그대로 말하지 말고,",
+        r"0이\s*아닌\s*값으로\s*종료":
+            "41498ef HEAD` 는 **0이 아닌 값으로 종료**, `git branch -a --contains` 는 그 커밋을",
+        # The three below are the independent reviewer's, not the repository's: no lap
+        # ever shipped them. They are here because the reviewer of dev lap
+        # 20260906T1520Z measured the first version of this claim's patterns at 3/3
+        # WRONG-WAY on true sentences and 5/6 blind on false ones, and the fix has to be
+        # graded on sentences their author did not write. See REVIEWER_SET below.
+        r"조상이\s*아닙니다": "41498ef 는 HEAD 의 조상이 아닙니다.",
+        r"브랜치에\s*없습니다": "각인은 이 브랜치에 없습니다.",
+        r"not\s+reachable\s+from\s+HEAD": "The registry stamp is not reachable from HEAD.",
     }
     assert pattern in probes, (
         f"no probe sentence for a newly registered pattern:\n  {pattern}\n"
@@ -446,3 +479,71 @@ def test_the_registry_is_valid_json_with_a_trailing_newline():
     raw = REGISTRY_PATH.read_text(encoding="utf-8")
     assert raw.endswith("\n")
     json.loads(raw)
+
+
+# ---------------------------------------------------------------------------
+# WC-004's independence check (WFG-133, dev lap 20260906T1520Z)
+# ---------------------------------------------------------------------------
+#
+# `_probe_sentence` grades a pattern against the line it was cut from, which is a
+# regression pin and not a generalisation test: the author read the text, wrote the
+# regex, and the regex matches the text. `mandela` leakage #4 and #5, and the file
+# already says so about `reviewer_found`.
+#
+# So WC-004 carries a set written by the lap's independent reviewer, who had not seen
+# the patterns. It is what caught the first version being INVERTED on the axis that
+# matters: `닿는\s*커밋입니다」\s*문장을` fired on all three natural true phrasings of
+# the position this repository now holds, and missed the prohibition with one particle
+# changed. The claimed discriminator (the object particle 문장을) was a false statement
+# about Korean --- 문장을 marks the object of any verb, permission included --- and it
+# happened to separate the one sentence pair that existed in one file that day.
+#
+# Measured before the fix: 3/3 true sentences wrongly flagged, 5/6 false missed.
+# Measured after: 0/5 and 6/6, which is what this test re-derives rather than restates.
+
+#: Sentences that state the position the repository NOW holds. A gate that fires here
+#: creates pressure on a later lap to delete a TRUE sentence off the student's card,
+#: which is WFG-133 running backwards.
+REVIEWER_SET_TRUE = (
+    "「현재 브랜치에서 닿는 커밋입니다」 문장을 그대로 말하셔도 됩니다.",
+    "「현재 브랜치에서 닿는 커밋입니다」 문장을 복권했습니다.",
+    "「현재 브랜치에서 닿는 커밋입니다」 문장을 학생이 말해도 됩니다.",
+    "레지스트리 카드의 각인도 이 브랜치에서 닿습니다.",
+    "41498ef 는 HEAD 의 조상입니다.",
+)
+
+#: The withdrawn claim, reworded. Each is a shape a lap could reach for tomorrow.
+REVIEWER_SET_FALSE = (
+    "「현재 브랜치에서 닿는 커밋입니다」 라는 문장은 말하지 마십시오.",
+    "각인은 이 브랜치에 없습니다.",
+    "41498ef 는 HEAD 의 조상이 아닙니다.",
+    "`git merge-base --is-ancestor 41498ef HEAD` 는 **0이 아닌 값으로 종료** 합니다.",
+    "The registry stamp is not reachable from HEAD.",
+    "시점의 것이고 지금 브랜치에서 닿지 않습니다.",
+)
+
+
+@pytest.mark.parametrize("sentence", REVIEWER_SET_TRUE)
+def test_wc004_does_not_fire_on_a_true_sentence(sentence):
+    """The direction that matters most: never make a lap delete a true sentence."""
+    hits = [h for h in checker.scan_text(sentence, REGISTRY) if h["claim"] == "WC-004"]
+    assert not hits, (
+        "WC-004 fired on a sentence that states what this repository now holds to be "
+        "true:\n  " + sentence + "\ncaught by: "
+        + ", ".join(h["token"] for h in hits)
+        + "\n\nA withdrawn-claim gate that flags the correction is worse than no gate: "
+        "it pushes the next lap to strike the true sentence off the student's card. "
+        "Narrow the spelling; do not pragma your way past this test."
+    )
+
+
+@pytest.mark.parametrize("sentence", REVIEWER_SET_FALSE)
+def test_wc004_catches_the_claim_reworded(sentence):
+    """Written by someone who had not read the patterns. That is the whole point."""
+    hits = [h for h in checker.scan_text(sentence, REGISTRY) if h["claim"] == "WC-004"]
+    assert hits, (
+        "WC-004 did not catch a rewording of the claim it registers:\n  " + sentence
+        + "\n\nThese sentences were written by the independent reviewer of the lap that "
+        "registered WC-004, without seeing the patterns, which is the only reason they "
+        "test anything a probe cut from the matched line does not."
+    )

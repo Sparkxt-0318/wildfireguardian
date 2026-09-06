@@ -123,6 +123,12 @@
       "role": "WFG-100 (2026-09-05). The booth script's second budget: how many Korean syllables docs/auto/DEMO_SCRIPT_5MIN.md §1 asks the student to pronounce in each of its six segments, and the single rate the 300 s are allocated at. Counts characters in a committed document; trains nothing, predicts nothing, touches no fire data.",
       "control_required": false,
       "reason_no_control": "There is no model, no feature count and no held-out anything: the two entries are a count of syllables in this repository's own prose and that count divided by the 300 s the KCF 심사개요 allows. A noise null would have nothing to be null against. ⚠ What these numbers are NOT is a measurement of speech: nobody has read the script aloud with a stopwatch (R12 / NH-014), and docs/demo_script_pace.md says so under 'What this does NOT show'. Tagged as its own arm rather than folded into a modelling arm precisely so that no reader can mistake a document measurement for one."
+    },
+    "present_perimeter": {
+      "n_features": null,
+      "role": "WFG-114 (2026-09-05, author decision NH-027 option A). The FAIR OPPONENT for the forecast-aware headline: the fire-blind objective (shortest path by length_m to the nearest surviving refuge) run on the CANONICAL arm's walk network - slope 60 m sampling, DiGraph, |slope| clipped at 0.6, rebuilt from the SRTM raster in the committed snapshot store - with every node within a fixed buffer of the slice-0 perimeter (p >= 0.5) refused, at five widths. Fits no model and reads no model output; it re-uses the committed hazard npz, the snapshot walk graph and the snapshot SRTM raster, and changes only which nodes the router may stand on.",
+      "control_required": false,
+      "reason_no_control": "No model is fitted, so there is no feature count to control. The arm's own control is internal and is the point of the experiment: the SAME objective on the SAME network with the buffer NOT applied is the fire-blind column, and all three columns are scored under one rule including the 600-minute budget. The run refuses to write unless it first reproduces the committed slope_digraph_canonical arm - all seven bucket counts, and the origin ids of every bucket the committed artifact stores a list for (3 non-empty buckets, 105 ids; both_safe has no stored list and is pinned by complement). See docs/present_perimeter_arm.md."
     }
   }
 }

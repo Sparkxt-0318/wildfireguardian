@@ -9,9 +9,59 @@ and rebuilt every time the code moves. Author: **Siyeong Park (박시영)**.
 doesn't exceed. 25 pages for. now」). `check_paper.py` now checks that directly —
 it renders the document and counts — and keeps the 9,000-word budget as the
 proxy for machines that cannot render, or that can render but not in a font
-whose metrics are Calibri's. As of 2026-09-05 the built document is **21 pages
-under Carlito**, measured rather than estimated; the qualifier is load-bearing
-and the next section says why. Earlier versions of this file and of CHARTER §12
+whose metrics are Calibri's. As of 2026-09-06 (lap 13) the built document is
+**23 pages under Carlito**, measured rather than estimated: 21 at lap 9, 22 at
+lap 10, 23 at lap 11, 23 at lap 12 and 23 again now. **Two** pages of margin remain
+against the author's 25.
+
+⚠ **The two margins have come apart, and the proxy is now the tighter one by about a
+thousand words.** At lap 13 the document is 23 pages against a 25-page rule and 8,983
+body words against a 9,000-word proxy: two pages of margin, **17** words of margin,
+down from 31 at lap 12. The
+curve below is why — at 9,000 words the document is 23 pages by either route — so the
+proxy stops a lap roughly a thousand words before the rule the author actually set.
+Lap 12 was squeezed by it twice: once tightening its own new prose by 27 words, which
+cost only adjectives, and once paying for a caveat its reviewer required by **deleting a
+rule from §3.5** (kept in `GAPS.md`). Lap 13 was squeezed harder still, and this is the
+paragraph to read before deciding NH-037. The related-work paragraph its own research
+routine's finding required — Korea already runs two wildfire *spread* systems and the
+manuscript named neither — cost about 100 words against 31 of headroom, so it was paid for
+by six compressions across §3.5, §4.5, §5, §6, §7 and the availability section. **Twice the
+budget, not the evidence, chose the wording, and the lap's independent reviewer blocked the
+push for it:** the draft wrote that Gyeonggi's model 「entered trial operation」 where its own
+cited source says only that trial operation was *announced* for the following month, and the
+§3.5 compression deleted the payload test's scope exemption while keeping 「field by field」,
+claiming more coverage than the test has. Both were repaired before the push and the repairs
+were paid for by a further round of compression. No caveat and no registered number was
+traded in either lap — CHARTER §12 forbids that, and the reviewer checked it token by token
+— but the compressible prose is close to exhausted and the failure mode is no longer
+hypothetical: **a lap under this budget will write a wrong sentence before it writes a long
+one.** The next lap that must add a sentence has 17 words. Escalated to the
+author as **NH-037**, which is now urgent rather than theoretical. Until it is answered
+the proxy stands: it is the author's own number and a lap does not raise its own ceiling.
+
+⚠ **The page that took the count from 22 to 23 cost eleven words, and it is worth
+knowing that before reading the words-to-pages table below as a rate.** Lap 11
+took the body 8,735 → 8,825 (a mandatory §4.5 correction, one clause, and the
+repairs its reviewer's block required in §4.4 and §4.5), but the page had gone by
+the first of those: measured in the same lap, the mandatory correction **alone**
+(8,746 words) already renders 23. §4.5 was sitting on a page boundary and any
+edit to it would have tipped the same page. The table below samples at 500-word
+steps and cannot see a boundary an eleven-word sentence crosses. **A lap that
+must correct a sentence corrects it and re-measures; it does not trade a caveat
+for a page.**
+
+⚠ **This paragraph itself read 「23 pages … two pages of margin」 for a lap while
+the file was 22, which is the opposite error and was luck rather than accuracy.**
+Lap 10 drafted §4.5 with a ninth figure (F9) in it, measured **23**, then withdrew
+the figure on its reviewer's block (`GAPS.md` G8) — which took the document back
+to 22 without this paragraph following it. `STATE.json` carried 22 correctly
+throughout, so the two disagreed and nothing compared them: `check_paper.py`
+gates `STATE.json` against the manuscript, and **no gate reads this file at
+all.** The withdrawn measurement is kept rather than deleted because it is the
+cleanest datum the loop has for what a figure costs: the same prose, one figure
+added, is one page. The Carlito
+qualifier is load-bearing and the next section says why. Earlier versions of this file and of CHARTER §12
 said 20 pages, which was IEEE Access's *recommendation* read as a rule; the
 author's ceiling is the operative one.
 
@@ -26,7 +76,7 @@ author's ceiling is the operative one.
 | `check_paper.py` | the paper's own gate: the 25-page ceiling where it can be measured, the word budget as its proxy where it cannot, figure/reference integrity, gap ledger, registry-anchored numbers |
 | `measure_pages.py` | renders the built `.docx` and counts its pages, two ways, refusing to answer when they disagree; `check_paper.py` calls it, and `--why` prints the install a machine needs to run it |
 | `GAPS.md` | every `[GAP: …]` marker in the manuscript, with what closes it and when (after the sprint if needed) |
-| `STATE.json` | the commit the manuscript last incorporated |
+| `STATE.json` | the commit the manuscript last incorporated, the counts `check_paper.py` drift-checks, and `built_pages` with the `built_pages_inputs` digest that anchors it |
 
 ## Markdown subset `build_docx.py` understands
 
@@ -53,8 +103,10 @@ in red and mirrored in `GAPS.md`.
   (`docs/auto/LOOP_CONFIG.json`, CHARTER §12) — is its stand-in everywhere else.
   The old gloss "≈ 16 pages at this style" was an assumed conversion and it was
   wrong; the measured curve is in the next section. ⚠ **The proxy is not the
-  rule**: figures, not prose, are why §4 is eight of the 21 pages, so a new
-  figure adds a page without adding a word. Re-measure after adding one.
+  rule**: figures, not prose, are why §4 is most of the document, so a new
+  figure adds a page without adding a word. Re-measure after adding one — lap 10
+  did, and its ninth figure cost exactly the page the curve predicts. That figure
+  was then withdrawn for an unrelated reason (`GAPS.md` G8) and the page came back.
 
 ## How many pages this actually is
 
@@ -139,11 +191,101 @@ what CHARTER §12 lets the paper routine touch, so a fixture-driven test in
 `tests/test_paper.py` is a dev-lap item. Until it exists, the branch that can
 fail a push is untested.
 
-Where the pages go, measured on the same render: title page 1; Abstract and
+## `built_pages` now rots loudly instead of quietly (lap 9, WFG-116)
+
+⚠ **This heading read "cannot rot any more" for the first hour of lap 9 and the lap
+reviewer blocked the push over it.** Its objection is kept here rather than paraphrased,
+because it is the same discipline the manuscript paragraph shipped in the same diff is
+about: nothing below re-derives the page count. A renderer is the only thing that
+produces that number, `STATE.json` is bookkeeping a lap writes by hand, and so every
+field in it — the new one included — is forgeable by the very lap the gate audits.
+Critic #21 F4's sentence, "`built_pages` is the one field in that file nothing
+re-derives", is still literally true. What changed is narrower and worth having:
+
+Critic #21 (F4) found the hole the block above leaves: **the only branch that can
+fail needs LibreOffice Writer, and no machine the loop owns has it** — not a
+cloud lap, not `auto-gates`. So `built_pages` was the one field in `STATE.json`
+that nothing ever re-derived, on exactly the quantity a new figure changes and
+the word budget cannot see. The lap that measured 21 pages did it inside a
+sandbox that no longer exists.
+
+`check_paper.py` now **anchors** the number, and the check needs **no renderer**.
+`built_pages_inputs` is a digest of the document the count was measured on: the
+ordered figure list with each PNG's pixel size, the table count, the reference
+count and the body-word count. Where a run can measure, it refreshes both and
+prints the digest. Where it cannot, carrying a `built_pages` whose digest has
+moved is a **failure**, and the message says to re-measure or to set both fields
+to `null` — an unknown page count is honest and a stale one is not.
+
+What that buys, stated at the size it is: a figure, table or block of prose
+arriving unnoticed now turns the gate red instead of quietly invalidating a
+number nobody rechecks; and keeping the old count anyway stops being an accident
+and becomes an edit that shows in the diff. What it does not buy: any
+re-derivation. **WFG-116's first alternative — one `apt` line in
+`.github/workflows/auto-gates.yml` so a clean clone actually measures — is the
+fix that re-derives, is outside `paper/`, and is still open.**
+
+⚠ The reviewer's sharpest point was operational and it changed the code, not
+only this file. The first version printed `built_pages_inputs` on **every** run,
+including runs that could not measure — so on a cloud lap the bypass (paste the
+string the gate just printed, keep the old page count) and the honest act (null
+both) were the same keystrokes, and the bypass was the routine one because
+`body_words` is in the digest and therefore every lap invalidates it. The digest
+is now printed **only by a run that measured**, and the failure messages no
+longer contain it. The value a lap may record is the value a run derived.
+
+Two decisions inside it, both deliberate:
+
+- **Not a digest of the PNG bytes.** The next section explains why: the same
+  script on the same artifacts re-renders to different bytes under a different
+  font set, and a byte digest would call that a change. Pixel size is what
+  drives the page cost and it survives a substituted face.
+- **`body_words` is in the digest.** Leaving it out would let a recorded 21 ride
+  through any amount of new prose on the argument that the word budget covers
+  prose. It covers the *ceiling*, not the accuracy of a recorded count, and the
+  curve below moves a page well inside the budget's own range.
+
+Graded the way the backlog row asks, on 2026-09-05 with `_has_writer` stubbed
+false to reproduce the cloud case: matching state passes; a figure swapped for
+one of a different size fails with the digest mismatch; `built_pages: null`
+passes. This lap also **re-measured** rather than inheriting: 21 pages under
+Carlito at 7,639 words, after one `apt-get install libreoffice-writer
+fonts-crosextra-carlito fonts-nanum` in the sandbox.
+
+⚠ **These branches have no committed test either, and that is now the same
+criticism one layer up from the one above.** The diff that added them touches no
+file under `tests/`, because CHARTER §12 does not let this routine write there.
+Worse for local coverage: this sandbox *has* Writer once the install above has
+run, so `measured_here` is true and the suite takes the refresh path — the
+failing branches are unreachable in `pytest` here and were exercised only by the
+stub above, by hand. A fixture-driven test belongs in `tests/test_paper.py` and
+is a dev-lap item, alongside the workflow line.
+
+⚠ **One piece of critic #21 F4's own evidence does not stand, and the finding
+survives without it.** F4 cited `paper/measure_pages.py --why` printing "No
+LibreOffice Writer on this machine" as proof that none was installed.
+`--why` prints `SETUP_HINT` unconditionally and returns 0 (`measure_pages.py`
+`main()`); re-checked here with Writer present and it prints the same text and
+still exits 0, so that output says nothing about the machine. What does
+establish the hole is F4's other check — `libreoffice-writer` and
+`fonts-crosextra-carlito` appear nowhere in `.github/workflows/`,
+`scripts/auto/bootstrap.sh`, `requirements.txt` or the `Makefile` — and that is
+unaffected. Raised by this lap's reviewer.
+
+⚠ **The page map below is the lap-8 render (21 pages) and no lap since has
+re-derived it.** The total was re-measured — 23 — but the per-section boundaries
+were read with a one-off `pypdf` install that no longer exists here, so the
+positions are kept as the record of where the pages went at 21 rather than
+restated as current. The shape of the answer is unchanged and is the only part
+that matters for a lap deciding where to buy space: Results carries most of the
+figures and therefore most of the pages.
+
+Where the pages went at the lap-8 render: title page 1; Abstract and
 §1 on p. 2; §2 p. 3; §3 pp. 4–6; §4 pp. 7–14; §5 p. 15; §6 pp. 16–17; §7 p. 18;
-Data and code availability and References pp. 19–21. Results is eight pages
-because it carries six of the eight figures. If a lap ever has to buy pages
-rather than words, that is where they are.
+Data and code availability and References pp. 19–21. Results was eight pages
+because it carried six of the eight figures; the page lap 10 added to it was
+prose, its ninth figure having been withdrawn before the push. If a lap
+ever has to buy pages rather than words, that is where they are.
 
 ## ⚠ Figures are deterministic within an environment, not across environments
 
@@ -195,7 +337,21 @@ enough on its own — check these two things by name.
 in the text. The `F` numbers are stable internal identifiers for
 `make_figures.py`; the `Fig. N` references in `manuscript.md` must match the
 **appearance** order. Current mapping: F1→1, F2→2, F4→3, F5→4, **F8→5**, F3→6,
-F6→7, F7→8. Re-check it after moving or adding any figure.
+F6→7, F7→8. Re-check it after moving or adding any figure. The check that catches
+a mistake here is reading the captions back out of the built `.docx` with
+`python-docx` and comparing them to the `Fig. N` mentions in the prose; nothing
+mechanical does it.
+
+⚠ **`F9_present_perimeter` is drawn and committed but is NOT in the manuscript,
+so it has no appearance number.** Lap 10 wrote it for the new §4.5, then withdrew
+it after its own reviewer showed that the bar totals plus the axis denominator
+plus Table 2 determine the margin NH-032 bars from judge-facing surfaces
+(`paper/GAPS.md`, gap **G8**). It stays in `FIGURES` so it keeps being rebuilt
+and stays reproducible; when NH-032 is answered it is referenced from §4.5 and
+becomes Fig. 7, pushing F6 and F7 to 8 and 9 — at which point §4.6's two `Fig. 7`
+references and §4.7's three `Fig. 8` references all move up one. `check_paper.py`
+does not object to a drawn-but-unreferenced figure: it checks that every
+referenced figure exists, not the converse.
 
 ⚠ **This table was stale for two laps and the manuscript went with it.** F8 was
 added to §4.3 after the mapping was written, which pushed F3, F6 and F7 down one

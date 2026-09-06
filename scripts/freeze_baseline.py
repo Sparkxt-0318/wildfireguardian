@@ -121,11 +121,21 @@ def snapshot() -> dict:
     }
 
 
+NOTES: list[str] = []  # growth by design (NH-029, 2026-09-06): reported, never fatal
+
+
 def diff(frozen: dict, live: dict) -> list[str]:
+    """Fatal differences only. A NEW tracked artifact or a registry that grew is growth
+    by design (every lap adds artifacts; the sandbox cannot re-freeze) and goes to NOTES;
+    a MODIFIED or MISSING artifact, a changed config hash, a shrunken registry or a moved
+    LOFO shape is the overwrite this record exists to catch."""
     problems: list[str] = []
-    for key in ("config_hash", "registry_entries"):
-        if frozen[key] != live[key]:
-            problems.append(f"{key}: {frozen[key]!r} -> {live[key]!r}")
+    NOTES.clear()
+    if frozen["config_hash"] != live["config_hash"]:
+        problems.append(f"config_hash: {frozen['config_hash']!r} -> {live['config_hash']!r}")
+    if frozen["registry_entries"] != live["registry_entries"]:
+        line = f"registry_entries: {frozen['registry_entries']!r} -> {live['registry_entries']!r}"
+        (NOTES if live["registry_entries"] > frozen["registry_entries"] else problems).append(line)
     for key in ("n_rows", "n_positives", "pooled_auc", "fires_used"):
         if frozen["lofo_shape"][key] != live["lofo_shape"][key]:
             problems.append(f"lofo_shape.{key}: {frozen['lofo_shape'][key]!r} "
@@ -137,7 +147,7 @@ def diff(frozen: dict, live: dict) -> list[str]:
             if a == b:
                 continue
             if a is None:
-                problems.append(f"{group}: NEW {path}")
+                (NOTES if group == "tracked_processed" else problems).append(f"{group}: NEW {path}")
             elif b is None:
                 problems.append(f"{group}: MISSING {path}")
             else:
@@ -177,6 +187,8 @@ def main() -> int:
         return 2
     frozen = json.loads(OUT.read_text(encoding="utf-8"))
     problems = diff(frozen, live)
+    for n in NOTES:
+        print(f"  note (growth by design, re-freeze when convenient): {n}")
     if not problems:
         print(f"baseline intact — {len(live['tracked_processed'])} artifacts, "
               f"config {live['config_hash'][:12]}…, "

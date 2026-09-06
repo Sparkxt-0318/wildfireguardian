@@ -24,6 +24,14 @@
   origins reach a refuge **only** when the router accounts for where the fire
   will be, and **2** have no safe walking route at all
   ([Round 3](#round-3-2026-08); the 32.6 % coverage caveat applies).
+  ⚠ **That contrast is measured against a fire-blind baseline**
+  (`src/wildfireguardian/routing/evacuation.py:270`, "fire-blind shortest path to
+  the nearest shelter"), **so it does not separate knowing where the fire will be
+  from knowing where it is** — the manuscript's own wording
+  ([`paper/manuscript.md`](paper/manuscript.md), Abstract). The fair opponent that
+  would separate them, a plan that refuses only what is burning now, has been run
+  on 의성·안동 only ([`docs/present_perimeter_arm.md`](docs/present_perimeter_arm.md));
+  on 영덕, where the 42 comes from, it has never been run.
 - ⚠ **A claim that used to stand here has been withdrawn.** Earlier versions led
   with "fire-weather severity dominates wind direction by ~44× in permutation
   importance". That ratio compares a **six-feature sum** against a **single

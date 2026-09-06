@@ -8,3 +8,4 @@ Started 2026-09-04 at the author's request; kept current by the research routine
 | `ROUTING_FUNDAMENTALS.md` | shortest paths on time-dependent graphs, time-expanded networks, FIFO and non-FIFO arcs, hazard-aware objectives, evacuation routing literature | primer (2026-09-04) |
 | `WUI_BUILDINGS_AS_FUEL.md` | the FireDX pipeline (Theodori et al.), what it does, why it is not adopted before the finals, the post-finals Korean BFM-lite (WFG-059) | decision recorded |
 | `FIGURE_STYLE_REFERENCE.md` | the Moreno et al. (2025) figure look turned into rules, and how `paper/style.py` implements them (WFG-058, WFG-060) | in force |
+| `KOREAN_OPERATIONAL_SYSTEMS.md` | NIFoS's AI 산불확산예측시스템 and 경기도's G-DAPS — what Korea already runs operationally, what is publicly stated about each, and why the differentiator is the output object rather than accuracy | landscape (2026-09-06) |

@@ -1095,3 +1095,421 @@ sentence naming which gate covers a hole is a claim about a program, and it is v
 that program against the hole, never by reading the gate's name.** Second, the exemption a new gate
 grants itself is load-bearing from the moment it is written: WFG-109 made line 434 the one exempt
 line, and that same line is where every judged number lives (WFG-113).
+
+---
+
+## 2026-09-05, 20260905T1820Z dev lap (WFG-114) — I invented a limitation, and the reviewer broke it in 103 seconds
+
+The lap's biggest lesson is not the experiment. It is that I wrote a **false limitation** into a
+document, a script docstring, a registry caveat on 40 keys, a backlog row and this file, and every
+gate stayed green, because no gate can check a sentence that says a file does not exist.
+
+I needed the canonical arm's SRTM raster. I looked at `data/raw/firms_data/`, found it absent,
+remembered that `data/raw/**` is git-ignored, and wrote: 「the canonical arm cannot be rebuilt in a
+cloud lap」. Then I built the whole experiment on the flat arm instead and reported against **96**
+when the author's row, and the author's decision, had asked about **91**. The independent reviewer
+ran `git ls-files data/snapshots | grep srtm-dem` and the raster was right there — committed, with
+a MANIFEST entry naming that exact `data/raw/` path as its `origin_path` and the same sha256.
+**CHARTER §4 "Sandbox facts" tells every lap to work from `data/snapshots/` for precisely this
+reason, and I had read it that morning.**
+
+**The anti-pattern: absence checked in one place is not absence.** I confirmed a file was missing
+from the location I happened to think of, and promoted that into a property of the environment. The
+snapshot store exists BECAUSE `data/raw/` does not survive a clone; the very fact I used to justify
+the limitation was the reason the workaround exists. Before writing 「X is not available here」, run
+the search that would find X if it were: `git ls-files | grep`, then the MANIFEST, then say it.
+
+**And the second-order damage is what makes it worse than a wrong number.** An invented limitation
+propagates as *humility*, so nothing challenges it: it went into a caveat on 40 registry keys, where
+it would have been quoted as a known constraint by every later lap and by the paper routine. A wrong
+result gets checked. A wrong reason for not having a result does not. **CHARTER §3.5 forbids
+fabricated evidence; a fabricated limitation is the same defect pointing the other way**, and this
+lap's own MEMO entry warned the next lap against exactly that, in the same commit, about a different
+row.
+
+**The reviewer's second finding, which I would never have found myself.** The arm scored an origin
+standing inside the buffer as "no route" whenever all of its neighbours were also inside — even
+though a road out plainly existed. That convention **flattered this project**: every origin it
+stranded counted against the fair opponent. It was worth 10 origins against a margin of 9, i.e. more
+than the entire result. Fixed by routing both conventions for every origin and making the honest one
+(`walk_out`: leave the buffer, never re-enter) primary, with both in the artifact. **The gate this
+leaves:** `test_both_origin_rules_are_reported_and_the_honest_one_is_primary` goes red if a later lap
+reports only one rule, or if the harsher rule is ever the one on the headline.
+
+**Where the independent review earned its cost.** LOOP_CONFIG's `review: subagent` is the only reason
+this lap did not push a number answering a question the author did not ask, under a limitation that
+was not real. Both findings were things I could have checked in under two minutes and did not,
+because I had already written the sentence. **A reviewer that only reads the diff cannot catch a
+false claim about what is NOT in the diff — this one caught it by running a search instead of reading
+my reasoning.** Give the reviewer the claims, not just the diff, and let it go looking.
+
+---
+
+## 2026-09-05, 20260905T1820Z dev lap (WFG-114), second lesson — a fair opponent needs a band, not a width
+
+The author's row asked for one buffer (1 km) and one number. Run that way the answer is
+「the present-aware arm recovers 86 of the 91 forecast-only origins」, and it is **true and
+almost worthless**, because nothing in it says whether 1 km was a discovery or a coincidence.
+Four extra widths, ~2 minutes of compute in the same run, turned it into a different finding:
+250 m and 500 m walk **91 and 80** origins into the fire as it grows; 2 km and 3 km leave
+**80 and 73** unable to finish inside the 600-minute budget; 1 km is the single crossing where the
+first failure has nearly vanished and the second has not yet started. The headline number did not
+change — the **claim** did, from 「a simple baseline nearly matches the forecast」 to 「a simple
+baseline nearly matches the forecast if you already know the answer, and an operator does
+not」. The second is defensible at a booth and the first is not.
+
+**The gate this leaves:** `tests/test_present_perimeter_arm.py::test_the_buffer_band_brackets_the_headline_width`
+refuses a sensitivity table whose reported width is its own minimum or maximum. A free
+parameter reported at one value is a tuned number wearing a sensitivity check's clothes, and
+the cheapest way to stop a later lap quietly re-tuning it is to require something on both sides.
+
+**And the thing worth doing again:** the script **refuses to write** unless it first reproduces
+the committed arm it stands on — all seven bucket counts, and the origin ids of every bucket the
+committed artifact stores a list for (`--verify-only`; `both_safe` has no stored list and is pinned
+by complement, which is what the sentence must say: 「every origin node id」 was the overstatement
+this same lap had to withdraw in four other places, and restating it here as advice was the sixth
+copy, found by the reviewer in the file that teaches the next lap). That check is what makes the third column comparable at all, it cost about
+100 seconds, and it is the difference between measuring the question and measuring the harness.
+A new arm on an old experiment should always be gated on re-deriving the old arm first.
+
+**One consequence outside the row, and it is the dangerous kind.** This lap falsified a standing
+instruction in a *different* live row: WFG-104 told the next lap to write a judge-facing card
+saying 「the present-perimeter arm has **not** been run」. It has now. Left alone, the next lap
+would have written a fabricated limitation into the Q&A bank in the student's own voice, and
+every gate would have stayed green because no gate reads a backlog row's premise. **A lap that
+changes the world a row describes must edit that row in the same commit** — the superseded text
+kept as a record, never deleted (CHARTER §3.7).
+
+**Round 2 of the same review, and the lesson that generalises past this row.** After the fixes
+above the reviewer blocked again, on something neither it nor I had looked at the first time: the
+committed classification scores the **fire-blind** route with no time budget, while the
+forecast-aware router enforces one internally and my new arm was held to it. Two rules in one
+three-column table. Two fire-blind routes arrive at 624.8 and 628.2 minutes, so the control was 265
+where a consistent rule gives 263 — and because those origins counted as "already safe", the buffer
+was also blamed for breaking them, so its cost read 6 instead of 4.
+
+**Both errors ran in this project's favour, and that is the pattern to take away.** Across two
+rounds every defect the reviewer found — the invented DEM limitation, the strict origin rule, the
+unbudgeted control — biased the result *toward* the forecast. None was deliberate and none was
+random. When a lap builds the opponent to its own headline, the opponent gets the benefit of every
+unexamined default, because the defaults were all written while the headline was the thing being
+defended. **So: when you build an adversary for your own result, enumerate every rule the two sides
+are scored under and check them for symmetry explicitly, before measuring anything.** The gate this
+leaves is `test_the_three_arms_add_up`'s budget assertion plus the artifact's
+`safe_fire_blind_unbudgeted`, which keeps the superseded figure visible instead of replaced.
+
+**And one place a withdrawn claim can hide that no gate was watching:** the artifact's own
+`what_this_does_not_show` block. The v1 string ("this run is flat-timed and its denominator is the
+flat arm's 96") survived the entire rewrite inside the committed JSON that 52 registry keys point
+at, because it lives in a Python literal that no prose gate reads and no test asserted on. The
+reviewer replaced it with 「THIS RUN PROVES THE FORECAST IS UNNECESSARY.」 and all 18 tests and
+`check_forbidden.py` stayed green. A caveat surface needs a content gate, not a length check.
+
+## 2026-09-06 (WFG-121, the 0020Z dev lap) — check the brief's own premise before you spend the lap on it
+
+The critic hands the next lap a `fix-before-next-row` item, and it is usually right, and it is
+still a claim rather than a fact. Critic #22 wrote that the buffer-sweep counts were 「the half
+no answer changes」 and named the two numbers to print. Both branches of the disputed experiment
+were sitting in the repository, so testing that took one `git show` of the parked artifact and
+about a minute: the counts change too. Had I trusted the brief, four judge-facing surfaces would
+now carry numbers with the same fuse as the margin they were chosen to avoid — and the lap would
+have believed it had followed the constraint exactly.
+
+**The anti-pattern:** treating an upstream instruction's *premise* as inherited evidence because
+its *instruction* is authoritative. The author's decision is authoritative; the critic's reading
+of which numbers are safe is a measurement, and a measurement in this repository has a cheap
+check or it does not ship.
+
+**The generalisation, and it is the one worth keeping:** what survived was not a number but a
+**shape** — narrow buffers burn people, wide buffers strand them, the failure changes kind rather
+than shrinking. When a value is contested, look for the claim one level up that both candidates
+imply; it is usually the one a judge wanted anyway, and it does not need the decision to land.
+
+**And then the same lap made the error it had just written down, in the same file.** The paragraph
+above was written before the independent review. The review blocked, and the root objection was that
+`docs/fair_opponent_line.md` §3 had taken the source document's sentence 「a present-aware policy can
+nearly match the forecast — *if you already know which buffer to use*」, kept the second half, and
+dropped the first: it shipped 「no fixed buffer width works」, which the artifact's own
+`what_this_does_not_show` contradicts. The table I wrote printed the two failure columns and omitted
+`safe_total`, the one column that would have shown the safe total spiking at 1 km. Nobody chose either
+omission; both ran in the project's favour.
+
+**So the lesson has a second half, and it is the sharper one:** *checking someone else's premise is
+not the same skill as checking your own, and doing the first well is no evidence you did the second at
+all.* The lap that falsified its brief's premise by reading two artifacts then wrote a stronger
+conclusion than either artifact supported, one screen further down the same file. The defence that
+worked was not care; it was an independent reader with no stake in the result. **Budget for the review
+as part of the work, not as a gate at the end of it** — the reviewer here changed the finding, not the
+wording.
+
+## 2026-09-06 (WFG-007, the 0617Z dev lap) — a gate that reads the source cannot see what the renderer adds
+
+The row was booth printables, and the interesting part was not the PDF. It was that the
+safety check I wrote for it was wrong twice, in the same direction, and neither wrong
+version failed.
+
+The hazard is real and narrow: `IBMPlexSansKR-Regular.woff2` is a **subset** (2,460
+codepoints, cut for the finals screens), and matplotlib draws a glyph it does not have as a
+**blank plus a UserWarning**, not an error. So the failure surface is a sheet of paper a
+judge is holding, and every exit code upstream of it is 0. CHARTER §8 already knows this in
+its narrow form — 「no em-dashes in shipped screens」 — which is one row of what turned out to
+be a seventeen-row table.
+
+**The first gate read the four source documents and passed. Two things it could not see:**
+
+1. The renderer's own bullet marker, `•` U+2022. It is in **no source document**, because
+   the renderer adds it, and it is not in the font. A gate over the inputs is structurally
+   blind to the furniture the output adds.
+2. Table and code lines are drawn in `IBMPlexMono-Regular`, which has **229 codepoints and
+   no hangul at all**. The gate had checked coverage against the Sans faces only, so every
+   Korean table row was about to print as blanks. The gate checked *a* font; the page uses
+   *three*, and the assignment of line to face happens after the check.
+
+**The generalisation, and it is not about fonts.** A check placed on the *inputs* of a
+transform verifies the transform you intended. What ships is the *output*, and the gap
+between them is exactly where a renderer's own additions and its internal routing decisions
+live. So: **for anything with a rendering step, assert on the artifact, not on its
+sources** — here, record every character actually handed to each face during layout and
+check that, plus promote the renderer's own missing-glyph warning to an exception. Three
+checks now, and only the last two would have caught either defect.
+
+**And the part no assertion caught at all: I looked at the pages.** Rendering them to PNG
+and reading two of them found three more defects — bold spans that open and close on
+different source lines printing their own asterisks, markdown table separator rows printing
+as rows of dashes, and a `check_forbidden.py` pragma (`<!-- forbidden-ok: … -->`) printed in
+the middle of a judge-facing answer card. Repository machinery on a handout. CHARTER §12
+already tells the paper routine to look at each new figure once; that rule belongs to every
+lap that renders anything, and it is cheap.
+
+**A second lesson, from the same lap's other half.** The critic's `fix-before-next-row` item
+was labelled 「prose only, no run, fifteen minutes」. The prose edit **failed the test
+suite**: `test_the_doc_does_not_claim_a_fixed_buffer_cannot_work` *required* the string 「not
+knowable on the day」. The gate written to stop one overclaim was **holding a second overclaim
+in place**, and would have refused any lap that tried to withdraw it. So a withdrawal is not
+finished when the sentence is gone: **grep the gates for the sentence too, because a gate
+that asserts presence is a claim with a lock on it.**
+
+## 2026-09-06 (WFG-113, the 0920Z dev lap) — the artifact a gate re-derives is the only thing it can vouch for
+
+The row was the judged screen's registry card, stale at 326 / 268 against a registry
+holding 383 / 325, and the interesting part was not the repair. It was that the repair
+and the gate answer two different questions, and only one of them was overdue.
+
+`make finals` fixed the live instance in one line. The gate the row actually asked for
+took the rest of the lap, and writing it turned up the rule worth keeping.
+
+**Re-deriving beats comparing, and the cost is smaller than it looks.** The obvious gate
+here is a string check: read `n_entries` off the payload, read `len(reg["numbers"])` off
+the registry, compare. That catches the one number somebody thought to check. What the
+screen actually ships is ~2 MB of derived payload — per-region counts, comparison-table
+cells, evidence cards, provenance — and every one of them is a judged number. Re-running
+`scripts/build_finals.py` into a temp path and diffing the whole structure costs **9
+seconds** and covers all of it. I measured that before designing anything, because the
+design turns on it: at 90 seconds this would have been the wrong shape.
+
+**Measure determinism before you assert on it — and know what the measurement cannot
+see.** Two fresh builds are byte-identical to each other and to the committed payload,
+apart from three keys the builder cannot reproduce by construction (`built_utc`, `git`,
+`integrity.gates[*].seconds`). That is one command, and skipping it is how a lap ships a
+gate that is red on the first machine that is not this one.
+
+But this lap's reviewer was right that the measurement proves less than the first draft of
+this paragraph claimed. **Two builds on one machine cannot see version sensitivity at
+all.** The payload embeds three Pillow ADAPTIVE-quantised PNGs (~440 KB of base64) and
+several hundred floats, and this gate compares every one of them value-for-value against a
+rebuild that may happen under a different Pillow or numpy. What actually carries that risk
+is `requirements.txt` and `env-check`, not the repeat run. So: **a same-machine repeat
+measures determinism; only the pins carry portability, and the two are not
+interchangeable.** If `auto-gates` ever goes red on this test alone, the pins are the first
+place to look — CHARTER §4b's mirror case, arriving through a door the measurement did not
+cover.
+
+**The anti-pattern the previous lap named, met again one day later.** The integrity block
+exists only under `--verify`, so a plain rebuild cannot reproduce it, and the tempting fix
+is to assert the three gate names inline. That is exactly 2026-09-05's lesson — *a gate
+that checks for strings its own author picked confirms the author, not the artifact* — so
+the test reads `build_finals.GATES` instead. The anti-pattern does not arrive labelled;
+it arrives as the convenient line.
+
+**And the half a green test cannot supply: what a red one means.** This gate goes red
+whenever an artifact moves and the screen was not rebuilt, which will be most laps that
+register a key. Red here means *stale*, not *wrong*, and the difference decides whether
+the next lap rebuilds in thirty seconds or parks itself under CHARTER §9. So every
+assertion in the file carries the two-command repair in its own failure message, and the
+module docstring says it before it says anything else. **A gate that will fire on a
+routine, fixable condition owes its reader the fix, in the message, not in a document
+they would have to already know to open.**
+
+## 2026-09-06 (WFG-117, the 1230Z dev lap) — the third correction of a number is evidence that correcting it is the wrong move
+
+The row was one Q&A card whose warning had outlived the defect it warned about.
+The lesson is not about that card. It is about what three laps in a row did to it.
+
+Critics #21, #22 and #26 each found the registry counts in `JUDGE_QA.md` Q30
+stale, and each wrote the then-correct pair in its place. All three were stale
+again inside a lap. **Three corrections of the same number in two days is not a
+number with a typo in it; it is a number that does not belong in the document.**
+The tell is available before the third correction and nobody looked for it: how
+often does the underlying quantity move? Measured here, once, in one command
+over every revision of the file — the registry count changed **44 times across
+45 distinct values** since 2026-08-01, ten of those on the four sprint days. A
+gated literal would have gone red two to four times a day. That measurement, not
+taste, is what chose the design: **the recited answer makes a qualitative claim
+(「대부분」) that the gate re-derives, and holds no count at all.** A claim that
+survives the artifact growing is worth more than a claim that is exactly right
+for six hours.
+
+**The corollary for gates, and it cost this lap its first red.** The obvious gate
+here — keep a literal, re-derive it — is the one that *looks* rigorous. Its cost
+is paid by every future lap, in a document the student rehearses from. Before
+writing a gate that will fire on a routine condition, measure how often that
+condition occurs; if the answer is "a few times a day on a judge-facing surface",
+the gate is a tax and the design is wrong, not the frequency.
+
+**And the anti-pattern that a prose-only edit is prose-only.** This lap's edit
+was 「a Q&A card, no run」, and it turned the suite RED: `docs/auto/JUDGE_QA.md`
+is one of four **printables sources**, so the two CJK bracket characters chosen
+for the record marker (`【` `】`) are not in the committed IBM Plex Sans KR
+subset and would have printed as blanks on the booth paper.
+`test_every_source_character_can_be_drawn` caught it in the full gates and not in
+the targeted run. **A document that is also a print source has a typography gate
+on it; a symbol is a code change.** ASCII brackets, and the marker reads the same.
+
+**The finding the same failure handed over.** Fixing the font made the suite
+green while the committed booth PDF was now stale against the card it was built
+from — `manifest_20260906T0620Z.json` records the old sha256 and every printables
+test stays green, because the manifest is checked for internal consistency and
+never against the tree it describes. `docs/printables.md` already claimed that
+staleness 「can be checked mechanically」. **「Can be checked」 is not 「is
+checked」, and that gap is where this loop's defects live** — it is the same
+sentence-shape as the card WFG-117 just fixed. Annotated in place, filed on
+WFG-130 with the gate and the grading.
+
+**The reviewer's catch, and it is the sharper half of this lap.** Removing the counts from
+Q30 left an ungated *two-bucket* account of why the rest do not re-derive — and the
+reviewer counted the registry in one command and found **three** buckets, the omitted one
+(`reproducibility.status == "external"`, agency-published figures) being the **largest**.
+Four paragraphs below, the same card recorded that that very split had never been verified.
+So the file marked a categorisation unverified and recited it as fact, on the T0 question
+about honesty. **Taking the numbers out is not the same as making the sentence checkable:
+it can remove the only handle a gate had on it.** The general rule this lap earned: when
+you delete a quantity to stop it going stale, ask what qualitative claim is left standing
+in its place, and gate *that* — the fourth gate here derives the bucket set from the
+registry, so a bucket the card does not describe turns it red. And the cheapest correction
+was available all along: the card said 「어느 랩도 세어 본 적이 없습니다」 about a count that
+takes one command. **A document that says a thing is unmeasured is a task, not a caveat.**
+
+## 2026-09-06T1520Z — I nearly rebuilt a machine this repository already had
+
+WFG-133's gate took most of this lap: a withdrawn-claim check over five judge-facing
+surfaces parsed from a rule I added to the charter, graded five ways, green. It was
+deleted unbuilt. `docs/auto/withdrawn_claims.json` + `scripts/check_withdrawn_claims.py`
+have done the same job since 2026-09-04, inside `make verify`, over **925** files
+instead of five.
+
+What found it was not review and not the gates. It was `git status --short` before
+staging, showing `docs/withdrawn_claims.md` as **modified** when I believed I had
+created it: I had overwritten a committed 142-line document with a `Write` to a path I
+had never read. CHARTER §3c's staging rule caught a §3.2 violation it was not written
+for. Restored from `HEAD` in the next command, then read.
+
+Two lessons, and the second is the load-bearing one.
+
+1. **Never `Write` to a path you have not read.** `Write` overwrites silently and the
+   diff arrives too late to be a warning. If the file might exist, read it first; the
+   cost is one tool call and the failure mode is destroying a committed artifact.
+2. **Before building a gate, find out what already runs.** I searched `tests/` for
+   similar tests, read the backlog row, read the critic's finding, and ran `hate` on my
+   plan — and the root objection it returned was about my design, because the question I
+   never asked was whether the design was needed. Nothing on the path a lap actually
+   walks names the registry: not WFG-133's row, not `CRITIC_LATEST.md`, not
+   `DIRECTION.md`'s standing rule (which still describes the superseded hand-listed
+   method), not CHARTER §3. It is named in WFG-062, thirty-nine rows down a 1,858-line
+   table, in a row whose title still reads as an open request to *build* it. Filed as
+   WFG-137.
+
+And the finding that came out of it is better than the gate I meant to write: critic #26
+withdrew the claim and never **registered** it. The rule that was missing is not a gate
+at all — the gate exists — it is that **withdrawing a claim includes registering it, in
+the same lap** (CHARTER §3.5c).
+
+⚠ My first draft of that finding said the withdrawal 「reached only three pages, all
+record class」, and the independent reviewer disproved it from the commit I had cited:
+`git show --stat 828bbae` shows critic #26 also edited `docs/auto/JUDGE_QA.md`, +19
+lines, and that file is not record class. I had built a tidy causal story and not run
+`--stat` on the one commit it rested on. The true version is narrower and argues the
+rule better: the withdrawal *did* reach the student's card file, corrected Q30, and left
+the same claim standing in Q35 eight sections away. **A lap picks which documents to fix
+and misses one. Registration is the step that does not depend on picking.**
+
+## 2026-09-06T1520Z — a gate can be wrong in the direction that deletes the truth
+
+The reviewer blocked this lap and the root objection was not "too weak". It was
+*inverted*. My second spelling matched the object particle `문장을`, and I wrote in the
+registry that the particle is what separates the withdrawn prohibition from the card's
+true sentence. That is a false statement about Korean: `문장을` marks the object of any
+verb, permission included. It happened to discriminate the one sentence pair that existed
+in one file that day, and I graded it on that pair.
+
+Measured by the reviewer on nine sentences it wrote without seeing the patterns: **3/3**
+true phrasings wrongly flagged, **5/6** false ones missed. After the fix: **0/5** and
+**6/6**.
+
+The direction is the lesson. A withdrawn-claim gate that fires on the *correction*
+creates pressure on the next lap to strike a TRUE sentence off the student's card — the
+row running backwards, with a green suite. So for any gate that bans a sentence, grade
+both directions explicitly and keep the true-sentence set in the repository: ours is
+`REVIEWER_SET_TRUE` / `REVIEWER_SET_FALSE` in
+`tests/test_withdrawn_claims_registry.py`, and the score is re-derived, never restated.
+
+And the reason the set has to come from someone else: a probe cut from the line the regex
+was written against is a regression pin, not a test. `_probe_sentence`'s own docstring
+says so about invented sentences; it does not say that verbatim sentences have the same
+problem when the *pattern* was fitted to them.
+
+## 2026-09-06T2117Z — the second gate I wrote was green on the defect it was written for
+
+WFG-138's English half is one bullet in `README.md`. I fixed it, then wrote
+`tests/test_future_aware_attribution.py` so the fix could not silently regress, ran it
+against the repaired tree (3 passed), and graded it the way the row asks: put the pre-lap
+bullet back and watch it go red. **It stayed green.** The surface writes the claim as
+`reach a refuge **only** when the router ...` and `**42 of 458**`, and a literal substring
+scan sees neither the attribution nor the count across a line break. The gate was reading a
+sentence that does not exist in the file it reads.
+
+Both halves of that are worth keeping. First: on judge-facing Markdown, **strip `*` and
+`` ` `` and collapse whitespace before matching** — the emphasis marks are exactly where a
+claim's load-bearing words go, so the bold on `**only**` is not incidental to the pattern,
+it is adversarial to it. Second, and it is the general one: *authoring the fix and the gate
+in the same lap makes the mutation grade non-optional*. The suite told me 3 passed on a
+gate that could not fail. `1ec1d06` learned this once (`paper/GAPS.md` G8 point 2) and
+recorded it as "a gate authored alongside a rebuild is green by construction"; that reads
+as a caution about **construction**, and the failure here was **spelling**. The mutation is
+what distinguishes them, and it costs one `git stash push` and one pytest run.
+
+Corollary found the same way: **WFG-140 cannot be taken alone.** Its own done-when requires
+the freshness test to be red on today's tree, and CHARTER §3.9 forbids pushing a red tree to
+`auto/dev`. It ships with WFG-134's rebuild in one lap, or it parks.
+
+**Same lap, one hour later: the mutation I chose was the mutation my gate survived.**
+The reviewer passed the lap and then drove the nail anyway. It did not delete the caveat —
+it **moved** it: restored the pre-lap overclaim into the Headline-result bullet and planted
+「(The routing contrast above is against a fire-blind baseline.)」 four bullets down the same
+TL;DR list. Three tests passed. `_blocks()` split on blank lines, and README's TL;DR is one
+2,159-character block holding four bullets, so the gate only ever asked that the word appear
+*somewhere in the list* — while its own assertion message called a note beside the sentence
+「what failed three times」. A Markdown list item is now its own block, and both mutations are
+graded.
+
+**The general lesson is about which mutation, not whether.** A delete mutation grades whether
+the gate can see the token. Only a **move** mutation grades whether it can see the *locality*,
+and locality was this row's entire subject. So: mutate along the axis the claim is about. If a
+gate exists because a correction landed in the wrong place, the grading mutation puts the
+correction in the wrong place.
+
+And the reviewer's second measurement, kept because it points the other way: scored on
+fourteen sentences it wrote itself, the first gates got 3/7 (English) and 2/7 (Korean), and
+the misses included **correct** sentences flagged — the WC-004 direction. Both gates now share
+one CONTROL/ATTRIBUTION family instead of two hand-typed tokens, the reviewer's sentences are
+committed as the probe set, and the one class no spelling list reaches (a reworded overclaim
+with no 「only」 at all) is a `strict=True` xfail so it is measured rather than forgotten.

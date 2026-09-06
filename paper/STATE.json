@@ -1,11 +1,12 @@
 {
-  "last_incorporated_commit": "38620f279ffd3a9d27fdb608481046030fdd6ae7",
-  "last_build_utc": "2026-09-05T15:10:00Z",
-  "body_words": 7461,
+  "last_incorporated_commit": "850fd83e318e17f643df43680d5d5d3d52017290",
+  "last_build_utc": "2026-09-06T21:25:00Z",
+  "body_words": 8983,
   "figures": 8,
   "tables": 4,
-  "references": 27,
-  "gaps": 6,
-  "built_pages": 21,
-  "built_pages_note": "Measured 2026-09-05 by paper/measure_pages.py and drift-checked by check_paper.py against the author's 25-page rule (NH-028) on any machine that can render in a Calibri-metric-compatible face. THE FACE IS PART OF THE NUMBER: 21 under Carlito, 23 under DejaVu Sans, same file and renderer, so the gate reports and falls back to the 9,000-word proxy rather than failing on a face whose metrics are not Calibri's. Re-measure after adding a figure: figures cost pages and no words, which the word proxy cannot see."
+  "references": 29,
+  "gaps": 7,
+  "built_pages": 23,
+  "built_pages_inputs": "27ce321ac9151233",
+  "built_pages_note": "Measured 2026-09-06 (paper lap 13) by paper/measure_pages.py on this lap's own build: 23 pages under Carlito, page objects and page-tree /Count agreeing, gated by check_paper.py against the author's 25-page rule (NH-028). 23 at laps 11 and 12 too; lap 13 added a related-work paragraph and two references and paid for them by compressing prose, for a net of -1 word (8,984 -> 8,983 across the lap, from 8,969 before it). THE TWO MARGINS HAVE COME FURTHER APART AND THIS IS THE ONE THING TO CARRY AWAY: two pages under the author's rule, SEVENTEEN words under the 9,000-word proxy. The proxy is the tighter of the two by about a thousand words (paper/README.md, 'How many pages this actually is'), and lap 13 spent more effort finding words than writing them. COUNT THE COMPRESSIONS HONESTLY: there were SIX, not the three this field claimed in its first version, and the lap's reviewer caught the miscount. They are §3.5's generated-file test description, §4.5's closing sentence about other repository documents, §4.5's reproduction warrant, §5's opening restatement, §6's repeat of an attribution §5 already gives, and (after the reviewer's block) a further round in §5, §6, §7 and the availability section. The additions are in §2; the payments are spread across §3.5, §4.5, §5, §6, §7 and Data and code availability, NOT 'the same section set'. THE REVIEWER BLOCKED THIS LAP AND WAS RIGHT TWICE: the first draft wrote that Gyeonggi's model 'entered trial operation in April 2026' where its own cited source says only that trial operation was announced for the following month, and the first §3.5 compression deleted the payload test's scope exemption while keeping 'field by field', claiming broader coverage than the test has. Both are fixed here; both were the word budget choosing the wording, which is what NH-037 is about. THE FACE IS PART OF THE NUMBER: metric-compatible Carlito stands in for the non-redistributable Calibri build_docx.py asks for, so the gate reports and falls back to the 9,000-word proxy on any face whose metrics are not Calibri's. This lap could measure only because it ran the apt line paper/README.md records; a clean clone still cannot, which is WFG-116's open half. F9_present_perimeter is still drawn, committed and NOT referenced by the manuscript (paper/GAPS.md, gap G8, NH-032 open), so it still costs no page here and will cost one when it is referenced. built_pages_inputs is the WFG-116 anchor: the digest of the document this 23 was measured on (the ordered figure list with pixel sizes, the table and reference counts, the body-word count). It does NOT re-derive the page count and nothing in this file does. Set both fields to null rather than hand-writing an anchor no run produced."
 }
