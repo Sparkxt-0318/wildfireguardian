@@ -1339,3 +1339,48 @@ assertion in the file carries the two-command repair in its own failure message,
 module docstring says it before it says anything else. **A gate that will fire on a
 routine, fixable condition owes its reader the fix, in the message, not in a document
 they would have to already know to open.**
+
+## 2026-09-06 (WFG-117, the 1230Z dev lap) — the third correction of a number is evidence that correcting it is the wrong move
+
+The row was one Q&A card whose warning had outlived the defect it warned about.
+The lesson is not about that card. It is about what three laps in a row did to it.
+
+Critics #21, #22 and #26 each found the registry counts in `JUDGE_QA.md` Q30
+stale, and each wrote the then-correct pair in its place. All three were stale
+again inside a lap. **Three corrections of the same number in two days is not a
+number with a typo in it; it is a number that does not belong in the document.**
+The tell is available before the third correction and nobody looked for it: how
+often does the underlying quantity move? Measured here, once, in one command
+over every revision of the file — the registry count changed **44 times across
+45 distinct values** since 2026-08-01, ten of those on the four sprint days. A
+gated literal would have gone red two to four times a day. That measurement, not
+taste, is what chose the design: **the recited answer makes a qualitative claim
+(「대부분」) that the gate re-derives, and holds no count at all.** A claim that
+survives the artifact growing is worth more than a claim that is exactly right
+for six hours.
+
+**The corollary for gates, and it cost this lap its first red.** The obvious gate
+here — keep a literal, re-derive it — is the one that *looks* rigorous. Its cost
+is paid by every future lap, in a document the student rehearses from. Before
+writing a gate that will fire on a routine condition, measure how often that
+condition occurs; if the answer is "a few times a day on a judge-facing surface",
+the gate is a tax and the design is wrong, not the frequency.
+
+**And the anti-pattern that a prose-only edit is prose-only.** This lap's edit
+was 「a Q&A card, no run」, and it turned the suite RED: `docs/auto/JUDGE_QA.md`
+is one of four **printables sources**, so the two CJK bracket characters chosen
+for the record marker (`【` `】`) are not in the committed IBM Plex Sans KR
+subset and would have printed as blanks on the booth paper.
+`test_every_source_character_can_be_drawn` caught it in the full gates and not in
+the targeted run. **A document that is also a print source has a typography gate
+on it; a symbol is a code change.** ASCII brackets, and the marker reads the same.
+
+**The finding the same failure handed over.** Fixing the font made the suite
+green while the committed booth PDF was now stale against the card it was built
+from — `manifest_20260906T0620Z.json` records the old sha256 and every printables
+test stays green, because the manifest is checked for internal consistency and
+never against the tree it describes. `docs/printables.md` already claimed that
+staleness 「can be checked mechanically」. **「Can be checked」 is not 「is
+checked」, and that gap is where this loop's defects live** — it is the same
+sentence-shape as the card WFG-117 just fixed. Annotated in place, filed on
+WFG-130 with the gate and the grading.

@@ -367,3 +367,112 @@ def test_every_judge_type_has_a_section() -> None:
     text = _text()
     for group in ("ML 리뷰어", "산불 과학자", "재난대응 실무자", "소프트웨어 전공 교수"):
         assert group in text, "no section for the judge type: " + group
+
+
+# ---------------------------------------------------------------------------
+# WFG-117: the registry counts, and why this bank may not hold one
+#
+# Q30 is T0 --- the student recites it from memory --- and it is the question
+# about why today's numbers should be believed. Three consecutive critic laps
+# wrote the then-correct counts into that card (#21 on 2026-09-05, #22 the same
+# evening, #26 on 2026-09-06) and all three were stale inside one lap, because
+# the count moves whenever any lap registers a key. Measured over this
+# repository's whole history on an UNSHALLOWED clone (485 commits,
+# `git rev-parse --is-shallow-repository` -> false): docs/NUMBERS.json's entry
+# count changed 44 times across 45 distinct values between 2026-08-01 and
+# 2026-09-05, ten of those on the four sprint days. So a literal here is not a
+# fix with a typo in it; it is a defect with a shorter fuse, and the third
+# correction of a number is evidence that correcting it is the wrong move.
+#
+# Hence the split these three tests enforce:
+#
+#   * the answer the student recites carries NO count at all --- it names the
+#     two places to read one (docs/NUMBERS.json and the screen's card);
+#   * a count literal is allowed only inside a dated record block, which is
+#     CHARTER section 3.7 (superseded values are annotated, never deleted);
+#   * the one quantitative claim the recited answer DOES make is qualitative
+#     ("대부분", most), and that word is checked against the registry --- so
+#     this gate still has something to say when the registry moves, without
+#     going red every time it does.
+#
+# What these do NOT do, and it matters for reading a red one. They do not check
+# that the screen agrees with the registry; that is
+# tests/test_finals_payload_rederives.py::test_the_registry_card_counts_the_registry_it_ships_beside,
+# which re-derives both and is what makes the recited answer's "그 둘은 같은
+# 수를 말합니다" safe to say at a booth. If the registry moves and the screen is
+# not rebuilt, THAT test goes red, not these.
+
+RECORD_MARK = re.compile(r"^\[기록 · \d{4}-\d{2}-\d{2} · 오늘의 값이 아닙니다\]")
+
+# A registry count as this bank has ever written one: the quantity named, then
+# the number. Deliberately not a bare-integer scan --- the card also carries
+# critic numbers (#21, #26), commit ids and dates, none of which are claims
+# about the registry.
+COUNT_CLAIM = re.compile(r"(?:등록된 값|등록|재현 가능|재현 불가)\s*(\d{2,4})개?")
+
+
+def _q30() -> str:
+    body = next((b for qid, _, b in _questions() if qid == "30"), None)
+    assert body is not None, "Q30 is gone from the bank; WFG-117 assumed it exists"
+    return body
+
+
+def test_the_recited_registry_answer_quotes_no_count() -> None:
+    """The T0 draft names where to read the count instead of holding one."""
+    draft = _q30().split("답변(초안):", 1)[1].split("\n\n", 1)[0]
+    stray = re.findall(r"(?<!\d)\d{2,}(?!\d)", draft)
+    assert not stray, (
+        "Q30's recited draft answer quotes " + ", ".join(stray) + ". This card "
+        "may not hold a registry count: it moves on every lap that registers a "
+        "key, so a number typed here is stale before the student rehearses it "
+        "(critics #21, #22 and #26 each corrected it and each correction went "
+        "stale inside one lap). Say where to read it instead --- "
+        "docs/NUMBERS.json and the screen's 검증 레지스트리 카드."
+    )
+    for place in ("docs/NUMBERS.json", "검증 레지스트리 카드"):
+        assert place in draft, (
+            "Q30's draft no longer tells the student to read the count at "
+            + place + "; with no number and no pointer the answer is empty"
+        )
+
+
+def test_every_registry_count_in_the_bank_sits_in_a_dated_record() -> None:
+    """A superseded count is kept (CHARTER 3.7) but must be marked and dated."""
+    unmarked = []
+    for para in _text().split("\n\n"):
+        if not COUNT_CLAIM.search(para):
+            continue
+        if RECORD_MARK.match(para.strip()):
+            continue
+        unmarked.append(para.strip()[:180])
+    assert not unmarked, (
+        "these paragraphs state a registry count outside a dated record "
+        "block. Either the value is today's --- in which case it does not "
+        "belong in this document at all, read it from docs/NUMBERS.json --- "
+        "or it is a record, and it opens with "
+        "[기록 · YYYY-MM-DD · 오늘의 값이 아닙니다]:\n\n" + "\n\n".join(unmarked)
+    )
+
+
+def test_the_banks_qualitative_registry_claim_is_true_of_the_registry() -> None:
+    """The recited answer says 대부분 ("most") re-derive. Check that against the registry.
+
+    This is the claim that survives a registry that grows: it is what the
+    student actually says out loud, it is falsifiable, and it does not need
+    retyping when a lap registers a key.
+    """
+    numbers = json.loads(NUMBERS.read_text(encoding="utf-8"))["numbers"]
+    n_entries = len(numbers)
+    n_reproducible = sum(1 for v in numbers.values() if v.get("reproducible"))
+    draft = _q30().split("답변(초안):", 1)[1].split("\n\n", 1)[0]
+    assert "대부분" in draft, (
+        "Q30's draft no longer claims that 대부분 of the registry re-derives; "
+        "if the wording changed, this gate is checking a sentence that is gone"
+    )
+    assert n_reproducible * 2 > n_entries, (
+        "Q30 tells a judge that 대부분 ('most') of the registered values "
+        "re-derive under make verify, and the registry says "
+        + str(n_reproducible) + " of " + str(n_entries) + ", which is not most. "
+        "Either the registry regressed or the booth answer is now an overclaim; "
+        "the answer is the thing to change, not this threshold."
+    )
