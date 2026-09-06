@@ -34,7 +34,7 @@ Both clauses are load-bearing and neither depends on how NH-032 is answered:
   still spoken is a fabricated limitation, which CHARTER §3.5 forbids in the same breath as
   a fabricated result: it understates the work to a judge who could check.
 
-## 3. The finding that survives either answer: **which** width works is not knowable on the day
+## 3. The finding that survives either answer: the failure changes **kind** across widths, and this grid cannot say whether a width could be chosen in advance
 
 The present-perimeter opponent needs a width — how far beyond the burning edge to refuse.
 Nothing in the problem chooses one, so `scripts/run_present_perimeter_arm.py` swept five.
@@ -50,20 +50,33 @@ forecast-aware arm's 354. So 「a fixed buffer cannot work」 is **false**, and 
 in its first draft — the lap's own independent reviewer struck it out. What is true, and it is
 narrower:
 
-- **The safe total is a spike, not a plateau** (275 / 284 / **345** / 275 / 283 across
-  250 m → 3 km). Move off the best width in either direction and the arm loses ground fast.
-- **The two ways it loses are different.** Too thin and routes walk through ground that is
-  alight before they cross it; too thick and the detour either outruns the evacuation window
-  or walls the refuges off entirely.
-- **Nothing on the day tells you which width you are on.** The best width here is a property
-  of this fire, this road network and this departure time. And the two defensible builds of
-  the same opponent do not even agree on it: the committed arm's best is 1 km, the parked
-  arm's is 500 m (§4).
+- **The two ways it loses are different, and that change of kind is the finding.** Too thin and
+  routes walk through ground that is alight before they cross it; too thick and the detour
+  either outruns the evacuation window or walls the refuges off entirely. Both constructions
+  of the opponent show it, and the manuscript's §4.5 states it in the same terms.
+- **What the grid cannot say is whether a workable width could be chosen in advance.** The
+  sweep is 250 m, 500 m, 1 km, 2 km, 3 km: the best width's nearest measured neighbours are a
+  factor of two away on each side, so the run holds a *single point* in the region a
+  「which width」 claim would be about. It separates a spike at 1 km from a plateau an operator
+  could aim at in neither direction, and **this file asserts neither.** Counts:
+  [`docs/present_perimeter_arm.md`](present_perimeter_arm.md) §4.
+- **What is measured, and is not a question of resolution, is that the two defensible builds
+  disagree about which width is best** — the committed arm's is 1 km, the parked arm's is
+  500 m (§4) — and that the best width here is in any case a property of this fire, this road
+  network and this departure time.
 
-That last point is the argument, and it needs no answer from you: a policy whose quality turns
-on a parameter chosen after the fact is not a policy an operator can run. **It is a claim about
-this fire only** — one region, one ignition, one departure time — and §5 says why it cannot yet
-be widened.
+That last point is the argument, and it needs no answer from you. It is **not** 「a present-perimeter
+policy cannot be run」; it is that this project has not shown a width can be chosen ahead of time,
+on one fire, where its own two builds of the same opponent answer differently. **It is a claim about
+this fire only** — one region, one ignition, one departure time — and §5 says why even that cannot
+yet be widened.
+
+⚠ **Narrowed 2026-09-06 (WFG-127 (i), critic #23's finding, carried by critic #24).** This section
+previously read 「the safe total is a **spike**, not a plateau」 and 「nothing on the day tells you
+which width you are on」, and quoted the five safe totals to support it. Neither sentence is
+recoverable from a five-point grid whose spacing is a factor of two, and the counts belong to §4 of
+the other document. Nothing was measured again and no committed value moved; the claim was cut back
+to what the run carries. The withdrawn wording is recorded here rather than deleted (CHARTER §3.5).
 
 ⚠ **Two coincidences of value in that table, named so nobody reads them as one number.**
 The 250 m burn count `pp_uiseong_w250m_burns` is 91, and that is *not* the headline's 91
@@ -84,9 +97,11 @@ agree on which width comes off best — the committed arm's is 1 km, the parked 
 set.) So the **counts** are convention-dependent like the margin is, which is why §3 quotes
 none of them and sends the reader to the one gated table instead.
 
-What is convention-independent is the weaker claim §3 makes: **both** arms show a spike rather
-than a plateau, and **both** say a well-chosen fixed buffer nearly matches the forecast — the
-parked arm's best width reaches within a handful of origins of the same forecast-aware total.
+What is convention-independent is the weaker claim §3 makes: **both** arms show the same change of
+kind across the widths — thin buffers send people through burning ground, wide ones strand them —
+and **both** say a well-chosen fixed buffer nearly matches the forecast; the parked arm's best
+width reaches within a handful of origins of the same forecast-aware total. Neither arm's grid is
+fine enough to say whether that best width sits on a spike or on a plateau, and §3 asserts neither.
 That is the honest version, and it is less flattering than the one this file first wrote.
 
 This is filed as information on NH-032 rather than as an argument with either lap.

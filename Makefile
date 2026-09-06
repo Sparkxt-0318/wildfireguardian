@@ -24,7 +24,7 @@ SHELL := /bin/bash
 	snapshot snapshot-verify check-arm-isolation check-gate-invocations \
 	check-arm-controls \
         env-check config-hash test baseline-verify baseline-freeze all-checks \
-        finals
+        finals printables printables-check
 
 help:
 	@echo "WildfireGuardian — verification targets"
@@ -196,6 +196,18 @@ finals:
 # Pass UPDATE=1 after deliberately changing a payload file. See docs/finals_bundle.md.
 finals-bundle:
 	@$(PYTHON) $(SCRIPTS)/build_finals_bundle.py $(if $(UPDATE),--update,)
+
+# Booth printables (WFG-007). Builds one A4 PDF of the four documents that go on
+# paper, in the screens' own font, with no PDF dependency beyond matplotlib and
+# fontTools. A new UTC stamp on every build, so nothing is overwritten (CHARTER 3.2).
+# `make printables STAMP=... PREVIEW=dir` to look at the pages before printing.
+# See docs/printables.md.
+printables:
+	@$(PYTHON) $(SCRIPTS)/build_printables.py \
+		$(if $(STAMP),--stamp $(STAMP),) $(if $(PREVIEW),--preview $(PREVIEW),)
+
+printables-check:
+	@$(PYTHON) $(SCRIPTS)/build_printables.py --check-only
 
 test:
 	@$(PYTHON) -m pytest -q

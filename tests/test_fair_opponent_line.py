@@ -170,16 +170,35 @@ def test_the_doc_does_not_claim_a_fixed_buffer_cannot_work(doc: str) -> None:
     committed arm reaches 345 of 368 at 1 km against 354 — so 「no fixed buffer
     width works」 is false, and it was false in the direction that flattered the
     project. The claim that survives is about WHICH width, not whether any does.
+
+    ⚠ Narrowed 2026-09-06 (WFG-127 (i)). This test used to *require* the string
+    「not knowable on the day」, so the gate written to stop one overclaim was
+    holding a second one in place: a five-point grid spaced by factors of two
+    (250 m / 500 m / 1 km / 2 km / 3 km) cannot separate a spike at 1 km from a
+    plateau an operator could aim at, so neither 「spike, not a plateau」 nor
+    「nothing on the day tells you which width」 is recoverable from the run.
+    Critic #23 found the prose; the prose fix failed here, which is how the gate
+    was found. What replaces the requirement is the claim that IS carried: the
+    failure changes kind across the widths, and the grid's resolution is stated.
     """
     for overclaim in ("no fixed buffer width works",
-                      "The failure does not shrink with width"):
+                      "The failure does not shrink with width",
+                      "spike, not a plateau",
+                      "not knowable on the day"):
         assert overclaim not in doc, (
-            f"docs/fair_opponent_line.md asserts {overclaim!r}, which the "
-            f"artifact's own buffer_sensitivity contradicts: safe_total peaks at "
-            f"1 km. See §3 and the reviewer's objection recorded there.")
-    assert "not knowable on the day" in doc, (
-        "the weaker, true claim (which width works is not knowable in advance) is "
-        "no longer stated in docs/fair_opponent_line.md")
+            f"docs/fair_opponent_line.md asserts {overclaim!r}. The first two are "
+            f"contradicted by the artifact's own buffer_sensitivity (safe_total "
+            f"peaks at 1 km); the last two are finer-grained than a grid whose "
+            f"points differ by factors of two. See §3 and WFG-127.")
+    assert "single point" in doc and "factor of two" in doc, (
+        "docs/fair_opponent_line.md no longer states the resolution limit that "
+        "bounds every width claim it makes: the sweep's spacing is a factor of "
+        "two, so it holds a single point in the region a 'which width' claim "
+        "would be about (WFG-127 (i))")
+    assert "change of kind" in doc, (
+        "docs/fair_opponent_line.md has dropped the width finding that the run "
+        "does carry, and that both builds of the opponent agree on: thin buffers "
+        "send people through burning ground, wide ones strand them")
 
 
 def test_the_concession_and_the_oracle_caveat_are_both_present(doc: str) -> None:
