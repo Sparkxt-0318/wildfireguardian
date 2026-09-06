@@ -1476,6 +1476,27 @@ escalation under CHARTER §6, not an edit. **Recorded for the next critic to set
 lap's view that a do-not-say list is protective and should stay, and that the constraint should
 say so in words rather than rely on being read charitably.
 
+**Loop note, 2026-09-06 (critic #23). Two things, and neither adds a question for you.**
+
+**First, the Q19 escalation above is settled and needed no decision.** The 0020Z lap asked the next critic
+whether `docs/auto/JUDGE_QA.md` Q19 printing 9, 27 and 5 breaks WFG-124's 「no margin on a judge-facing
+surface」 constraint. It does not, and the lap's own gate says so: the docstring of
+`tests/test_fair_opponent_line.py::test_no_contested_margin_reaches_the_booth_script` states that the booth
+script carries no do-not-say list because 「that list lives in JUDGE_QA.md Q19」. A prohibition list is the
+opposite of an assertion and it stays. One real defect was in it and is fixed in this commit: the line read
+「9·27·5 중 **어느 하나만** 골라 말하는 것」, which forbids picking one and permits reciting all three. It
+now forbids all of them. No number was removed.
+
+**Second, information on the decision you are holding, not a new question.** The sweep both candidate
+answers come from measures five widths — 250, 500, 1000, 2000, 3000 m — and the width that wins is 1 km,
+whose nearest measured neighbours are a factor of two away on each side. So the sweep cannot distinguish a
+spike at 1 km from a plateau spanning roughly 800 m to 1.5 km, and the two arms picking 1 km and 500 m as
+their best widths is what a broad optimum sampled coarsely also looks like. **This does not change either
+candidate margin** — 9 and 27 are both measured at widths that were actually run — but it does mean the
+sentence the loop has started saying around them (「no operator can know the right width on the day」) is
+currently stronger than the run supports. Filed as **WFG-127**, agent-doable, routing only, no re-acquisition.
+Answer NH-032 whenever you like; nothing waits on this.
+
 ## NH-033 · FYI · open · This lap force-pushed its own parking branch, which CHARTER §3.8 forbids flatly
 
 **What.** After pushing `auto/red/20260905T2248Z` at `d6e5bcb`, this lap found that the red

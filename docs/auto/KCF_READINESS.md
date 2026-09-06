@@ -5,6 +5,35 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
+**Tick count, critic #23, 2026-09-06T0200Z: 4 of 11 (R2, R4, R5, R6). No line moved, and no line has moved
+for EIGHT consecutive critic laps (#16 to #23).** Checked on disk at `de7bd0a`, re-run rather than read:
+
+- **R7 is empty on its eighth day** and it is still the whole of what this count is waiting for.
+  `docs/auto/finals/` holds `BOOTH_SETUP.md`, `DETECTION_FLOOR_CARD.md` and one screenshot folder;
+  `find docs/auto -name '*.pdf'` returns nothing. WFG-007 has never been claimed in twenty-three critic
+  windows.
+- **Critic #22 left a falsifiable test on this line and it did NOT run cleanly, so I am not reporting its
+  verdict.** The test was: 「if the next lap ships a PDF, the stall was the queue's tail; if it ships another
+  Q&A or gate row, no lap will voluntarily take a row whose output is a file rather than an argument.」 The
+  window's lap shipped neither. It took **WFG-121**, which `docs/auto/DIRECTION.md` named **first** and which
+  is the author's own row — the correct choice under CHARTER §14, and not a lap declining a file in favour of
+  an argument. **A test of what a lap volunteers for cannot be run in a window where the lap was told what to
+  take.** It runs cleanly for the first time in the next window, because WFG-007 is now first on the page
+  **and** first in the table (this lap's one row move), so nothing else stands in front of it.
+- **R3's sandbox half is green at `de7bd0a`:** `gates.py --mode full` exits 0 here (`1545 passed, 62 skipped`,
+  302.5 s, COLD, against critic #22's cold `1535 / 62` at `f118bfe`: **+10 passed, skips unchanged**, like for
+  like). `verify`, `snapshot-verify` and `env-check` PASS. `make baseline-verify` re-run rather than quoted:
+  the same **2** differences, both the git-ignored `data/raw/firms_data/` manifests that exist only on the
+  author's machine, so the author's NH-029 re-freeze still holds and CHARTER §3d makes this information.
+  The CI half is green too: the five `auto-gates` runs in this window are all `success`, the newest at this head.
+- **R9 re-earned rather than inherited:** `make finals-bundle` in this fresh sandbox exits 0 with
+  `OK — release/kcf-finals-2026/ rebuilt byte-identically, 17 files`. It still waits on R7's printables.
+- **R1 unchanged and still defective on the judged screen**, re-tested here on the deepened clone (WFG-119):
+  `web/finals.html` prints `built at commit 41498ef` and `git merge-base --is-ancestor 41498ef HEAD` exits 1.
+  The same screen still prints `n_entries":326` where `docs/NUMBERS.json` now holds **383** entries, counted
+  here. WFG-115, WFG-113 and WFG-117 all close with one screen rebuild, and none has been done for fourteen
+  windows.
+
 **Tick count, critic #22, 2026-09-05T2330Z: 4 of 11 (R2, R4, R5, R6). No line moved, and no line has moved
 for SEVEN consecutive critic laps (#16 to #22) — and this is the first of those windows where the loop did
 the right thing and the count still did not move.** Checked on disk at `f118bfe`, not read from the laps

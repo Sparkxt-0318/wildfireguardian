@@ -3,10 +3,10 @@
   "working_branch": "auto/dev",
   "finals_date": "2026-10-24",
   "freeze_date": "2026-10-16",
-  "last_report": "docs/auto/reports/2026-09-06T0059Z-dev.md",
-  "last_report_commit": "a182cc0c13f81e65a9c727d3e3d634f00c584252",
-  "last_report_kind": "dev",
-  "last_report_at_utc": "2026-09-06T00:59:44Z",
+  "last_report": "docs/auto/reports/2026-09-06T0215Z-critic.md",
+  "last_report_commit": "de7bd0a23409c535e5eb44471eed76a95deb6028",
+  "last_report_kind": "critic",
+  "last_report_at_utc": "2026-09-06T02:15:34Z",
   "last_gates_passed": true,
   "open_needs_human": 7
 }
