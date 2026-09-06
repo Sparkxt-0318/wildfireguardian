@@ -47,6 +47,8 @@
     }
   ],
   "font_codepoints": 2460,
+  "chars_needing_substitution": "§–—ⅡⅢⅤ←→≥②⚠✅❌⭕「」〔〕🛑",
+  "n_chars_needing_substitution": 19,
   "mono_fallback_lines": 85,
   "substitutions": {
     " ": " ",

@@ -11,17 +11,25 @@ dependency that ``make check-declared-deps`` and ``scripts/env_check.py`` must
 then carry to the booth laptop, for prose that never changes shape.
 
 What IS already here: ``matplotlib`` (every figure in this repository is drawn
-with it) writes PDF, and ``fontTools`` + ``brotli`` (both already declared) can
-decompress the Korean web fonts this project already ships in
+with it) writes PDF, and ``fontTools`` + ``brotli`` can decompress the Korean
+web fonts this project already ships in
 ``web/assets/fonts/``. So the printables are drawn on the same stack as the
-figures, in the same typeface as the screens, with no new dependency at all.
+figures, in the same typeface as the screens, with **no new dependency**:
+``matplotlib`` and ``fontTools`` are in ``requirements.txt``, and ``brotli`` --
+which fontTools needs to read woff2 -- is installed by
+``scripts/auto/bootstrap.sh`` and is already required by the woff2 reads in
+``tests/test_screen_checks.py``. (It is NOT itself named in ``requirements.txt``
+or ``pyproject.toml``; that predates this script and is not changed by it.)
 
 THE FONT IS A SUBSET, AND THAT IS THE DANGEROUS PART
 ----------------------------------------------------
 ``IBMPlexSansKR-Regular.woff2`` carries **2,460 codepoints**, not the full
 Korean repertoire: it was subset for the finals screens. Every hangul syllable
-these documents use is present, but seventeen punctuation and symbol
-codepoints are NOT -- ``§ — – ← → ≥ ⚠ 「 」 〔 〕 Ⅱ Ⅲ Ⅴ ② ✅ ❌ ⭕ 🛑``.
+these documents use is present, but **nineteen** punctuation and symbol
+codepoints are NOT -- ``§ – — Ⅱ Ⅲ Ⅴ ← → ≥ ② ⚠ ✅ ❌ ⭕ 「 」 〔 〕 🛑``. That count
+is derived by ``build()`` into the manifest as ``n_chars_needing_substitution``
+rather than typed here, because the first draft typed "seventeen" -- one source
+file's count mistaken for the union of four -- and no artifact contradicted it.
 
 A missing glyph in matplotlib does not raise. It renders as a blank or a
 fallback box, silently, and the failure surface is a sheet of paper a judge is
@@ -505,6 +513,17 @@ def build(stamp: str, out_dir: Path, preview_dir: Path | None = None) -> dict:
             raise SystemExit(f"[printables] source missing: {rel}")
         texts[rel] = path.read_text(encoding="utf-8")
 
+    # Derived, not asserted: the set of characters these sources use that the
+    # font cannot draw WITHOUT the substitution table. The first version of
+    # docs/printables.md said "seventeen" here, which was one source file's
+    # count mistaken for the union of four; the reviewer caught it because
+    # nothing but the prose had ever produced the figure. It is now a manifest
+    # field, and tests/test_printables.py makes the doc agree with it.
+    needs_substitution = sorted(
+        {ch for text in texts.values() for ch in text
+         if ch not in "\n\r\t " and ord(ch) not in cps}
+    )
+
     uncovered = check_coverage(texts, cps)
     if uncovered:
         print("[printables] REFUSING TO BUILD - the committed font cannot draw:",
@@ -587,6 +606,8 @@ def build(stamp: str, out_dir: Path, preview_dir: Path | None = None) -> dict:
             for p in (REGULAR_WOFF2, SEMIBOLD_WOFF2, MONO_WOFF2)
         ],
         "font_codepoints": len(cps),
+        "chars_needing_substitution": "".join(needs_substitution),
+        "n_chars_needing_substitution": len(needs_substitution),
         "mono_fallback_lines": r.mono_fallbacks,
         "substitutions": {k: v for k, v in sorted(SUBSTITUTIONS.items())},
         "what_this_does_not_show": (

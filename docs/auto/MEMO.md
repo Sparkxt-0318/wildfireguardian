@@ -1241,3 +1241,50 @@ conclusion than either artifact supported, one screen further down the same file
 worked was not care; it was an independent reader with no stake in the result. **Budget for the review
 as part of the work, not as a gate at the end of it** — the reviewer here changed the finding, not the
 wording.
+
+## 2026-09-06 (WFG-007, the 0617Z dev lap) — a gate that reads the source cannot see what the renderer adds
+
+The row was booth printables, and the interesting part was not the PDF. It was that the
+safety check I wrote for it was wrong twice, in the same direction, and neither wrong
+version failed.
+
+The hazard is real and narrow: `IBMPlexSansKR-Regular.woff2` is a **subset** (2,460
+codepoints, cut for the finals screens), and matplotlib draws a glyph it does not have as a
+**blank plus a UserWarning**, not an error. So the failure surface is a sheet of paper a
+judge is holding, and every exit code upstream of it is 0. CHARTER §8 already knows this in
+its narrow form — 「no em-dashes in shipped screens」 — which is one row of what turned out to
+be a seventeen-row table.
+
+**The first gate read the four source documents and passed. Two things it could not see:**
+
+1. The renderer's own bullet marker, `•` U+2022. It is in **no source document**, because
+   the renderer adds it, and it is not in the font. A gate over the inputs is structurally
+   blind to the furniture the output adds.
+2. Table and code lines are drawn in `IBMPlexMono-Regular`, which has **229 codepoints and
+   no hangul at all**. The gate had checked coverage against the Sans faces only, so every
+   Korean table row was about to print as blanks. The gate checked *a* font; the page uses
+   *three*, and the assignment of line to face happens after the check.
+
+**The generalisation, and it is not about fonts.** A check placed on the *inputs* of a
+transform verifies the transform you intended. What ships is the *output*, and the gap
+between them is exactly where a renderer's own additions and its internal routing decisions
+live. So: **for anything with a rendering step, assert on the artifact, not on its
+sources** — here, record every character actually handed to each face during layout and
+check that, plus promote the renderer's own missing-glyph warning to an exception. Three
+checks now, and only the last two would have caught either defect.
+
+**And the part no assertion caught at all: I looked at the pages.** Rendering them to PNG
+and reading two of them found three more defects — bold spans that open and close on
+different source lines printing their own asterisks, markdown table separator rows printing
+as rows of dashes, and a `check_forbidden.py` pragma (`<!-- forbidden-ok: … -->`) printed in
+the middle of a judge-facing answer card. Repository machinery on a handout. CHARTER §12
+already tells the paper routine to look at each new figure once; that rule belongs to every
+lap that renders anything, and it is cheap.
+
+**A second lesson, from the same lap's other half.** The critic's `fix-before-next-row` item
+was labelled 「prose only, no run, fifteen minutes」. The prose edit **failed the test
+suite**: `test_the_doc_does_not_claim_a_fixed_buffer_cannot_work` *required* the string 「not
+knowable on the day」. The gate written to stop one overclaim was **holding a second overclaim
+in place**, and would have refused any lap that tried to withdraw it. So a withdrawal is not
+finished when the sentence is gone: **grep the gates for the sentence too, because a gate
+that asserts presence is a claim with a lock on it.**

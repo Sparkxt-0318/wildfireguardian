@@ -208,6 +208,51 @@ def test_the_doc_exists_and_states_what_it_does_not_show() -> None:
         assert needle in text, f"docs/printables.md no longer states: {needle}"
 
 
+def test_the_docs_uncovered_symbol_count_is_the_derived_one(built: dict) -> None:
+    """The number in the prose must be the number the build computed.
+
+    ⚠ This test exists because the first version of docs/printables.md said
+    「기호 17 개가 없습니다」 and then listed NINETEEN characters underneath. 17 was
+    docs/auto/JUDGE_QA.md's own count, mistaken for the union of the four
+    sources. Every other figure in that document was checkable against the
+    manifest and correct; this one was the only figure the manifest did not
+    carry, and it was the only one that was wrong. The lap's independent
+    reviewer found it, and blocked, and was right.
+
+    That is the leakage worth naming: a documentation gate that asserts the
+    PRESENCE of strings its own author chose confirms the author, not the
+    artifact. So the count is now derived by build() into the manifest, and this
+    test makes the prose agree with it rather than the other way round.
+    """
+    derived = built["n_chars_needing_substitution"]
+    assert derived == len(set(built["chars_needing_substitution"]))
+    text = DOC.read_text(encoding="utf-8")
+    assert f"기호 **{derived} 개**" in text, (
+        f"docs/printables.md does not state the derived count of characters the "
+        f"font cannot draw. The build computed {derived} "
+        f"({built['chars_needing_substitution']}); update the prose to match the "
+        f"manifest, never the manifest to match the prose.")
+    # And the enumerated list must be the derived set, not a stale copy of it.
+    listed = {c for c in text.split("`§")[1].split("`")[0]} | {"§"}
+    missing = sorted(set(built["chars_needing_substitution"]) - listed - {" "})
+    assert not missing, (
+        f"docs/printables.md's enumerated list omits {missing}, which the build "
+        f"says the font cannot draw")
+
+
+def test_every_character_the_build_flags_has_a_substitution(built: dict) -> None:
+    """The derived set and the hand-written table must not drift apart.
+
+    If a source grows a symbol that is missing from the font, the build refuses
+    — but only if SUBSTITUTIONS covers it. This asserts the two stay in step,
+    so the failure arrives here rather than as a refused build mid-lap.
+    """
+    for ch in built["chars_needing_substitution"]:
+        assert ch in bp.SUBSTITUTIONS, (
+            f"{ch!r} U+{ord(ch):04X} is used by a source, is not in the font, "
+            f"and has no entry in SUBSTITUTIONS")
+
+
 def test_the_manifest_records_what_the_pdf_was_built_from(built: dict) -> None:
     """A printable whose sources have moved on is stale, and must be detectable.
 

@@ -181,6 +181,11 @@ def test_the_doc_does_not_claim_a_fixed_buffer_cannot_work(doc: str) -> None:
     was found. What replaces the requirement is the claim that IS carried: the
     failure changes kind across the widths, and the grid's resolution is stated.
     """
+    # Markdown emphasis is stripped before the substring check. Without this,
+    # 「a **spike**, not a plateau」 slips the ban purely because two asterisks
+    # sit inside it, and a later reflow of the same line would trip the gate
+    # for a reason that has nothing to do with the claim.
+    doc = doc.replace("**", "").replace("*", "")
     for overclaim in ("no fixed buffer width works",
                       "The failure does not shrink with width",
                       "spike, not a plateau",

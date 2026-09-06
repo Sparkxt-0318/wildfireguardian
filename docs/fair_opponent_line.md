@@ -72,8 +72,10 @@ this fire only** — one region, one ignition, one departure time — and §5 sa
 yet be widened.
 
 ⚠ **Narrowed 2026-09-06 (WFG-127 (i), critic #23's finding, carried by critic #24).** This section
-previously read 「the safe total is a **spike**, not a plateau」 and 「nothing on the day tells you
-which width you are on」, and quoted the five safe totals to support it. Neither sentence is
+previously called the 1 km safe total a spike rather than a plateau, said that nothing on the day
+tells you which width you are on, and quoted the five safe totals to support both.
+*(The withdrawn sentences are described here rather than quoted, so that the gate below can ban
+their exact spellings without this paragraph having to dodge its own rule on a line break.)* Neither sentence is
 recoverable from a five-point grid whose spacing is a factor of two, and the counts belong to §4 of
 the other document. Nothing was measured again and no committed value moved; the claim was cut back
 to what the run carries. The withdrawn wording is recorded here rather than deleted (CHARTER §3.5).
