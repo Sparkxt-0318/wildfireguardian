@@ -1288,3 +1288,46 @@ knowable on the day」. The gate written to stop one overclaim was **holding a s
 in place**, and would have refused any lap that tried to withdraw it. So a withdrawal is not
 finished when the sentence is gone: **grep the gates for the sentence too, because a gate
 that asserts presence is a claim with a lock on it.**
+
+## 2026-09-06 (WFG-113, the 0920Z dev lap) — the artifact a gate re-derives is the only thing it can vouch for
+
+The row was the judged screen's registry card, stale at 326 / 268 against a registry
+holding 383 / 325, and the interesting part was not the repair. It was that the repair
+and the gate answer two different questions, and only one of them was overdue.
+
+`make finals` fixed the live instance in one line. The gate the row actually asked for
+took the rest of the lap, and writing it turned up the rule worth keeping.
+
+**Re-deriving beats comparing, and the cost is smaller than it looks.** The obvious gate
+here is a string check: read `n_entries` off the payload, read `len(reg["numbers"])` off
+the registry, compare. That catches the one number somebody thought to check. What the
+screen actually ships is ~2 MB of derived payload — per-region counts, comparison-table
+cells, evidence cards, provenance — and every one of them is a judged number. Re-running
+`scripts/build_finals.py` into a temp path and diffing the whole structure costs **9
+seconds** and covers all of it. I measured that before designing anything, because the
+design turns on it: at 90 seconds this would have been the wrong shape.
+
+**Measure determinism before you assert on it.** The same measurement answered the
+question that would have made the gate flaky: two fresh builds are byte-identical to each
+other and to the committed payload, apart from three keys the builder cannot reproduce by
+construction (`built_utc`, `git`, `integrity.gates[*].seconds`). Had `hillshade_png` or
+any float path been version-sensitive, this test would have been an environment-dependent
+red in CI and a green here, which CHARTER §4b calls the mirror image of its own case. The
+check is one command; skipping it is how a lap ships a gate that fails on someone else's
+machine.
+
+**The anti-pattern the previous lap named, met again one day later.** The integrity block
+exists only under `--verify`, so a plain rebuild cannot reproduce it, and the tempting fix
+is to assert the three gate names inline. That is exactly 2026-09-05's lesson — *a gate
+that checks for strings its own author picked confirms the author, not the artifact* — so
+the test reads `build_finals.GATES` instead. The anti-pattern does not arrive labelled;
+it arrives as the convenient line.
+
+**And the half a green test cannot supply: what a red one means.** This gate goes red
+whenever an artifact moves and the screen was not rebuilt, which will be most laps that
+register a key. Red here means *stale*, not *wrong*, and the difference decides whether
+the next lap rebuilds in thirty seconds or parks itself under CHARTER §9. So every
+assertion in the file carries the two-command repair in its own failure message, and the
+module docstring says it before it says anything else. **A gate that will fire on a
+routine, fixable condition owes its reader the fix, in the message, not in a document
+they would have to already know to open.**
