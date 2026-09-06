@@ -47,8 +47,36 @@ annotated, never deleted), each opening with
 | `test_the_recited_registry_answer_quotes_no_count` | Q30's draft holds no multi-digit number, and still names both places to read one | typing today's count into the draft |
 | `test_every_registry_count_in_the_bank_sits_in_a_dated_record` | every 「등록 N」/「재현 가능 N」/「재현 불가 N」 in the bank opens a dated record block | removing one record marker |
 | `test_the_banks_qualitative_registry_claim_is_true_of_the_registry` | the word 「대부분」 the student says out loud is true of `docs/NUMBERS.json`, re-derived in-process | flipping most registry entries to non-reproducible |
+| `test_the_cards_account_of_the_irreproducible_covers_every_bucket` | every reason the registry gives for not re-deriving is a kind the card names | adding a new `reproducibility.status` to the registry; removing a bucket phrase from the card |
+
+## What the independent reviewer caught, and why it is the same defect
+
+The first version of this change removed the counts and kept, ungated, a **two-bucket**
+account of *why* the rest do not re-derive: the overwritten OSM graph, and past runs held
+for the reconciliation sheet. The reviewer counted the registry in one command:
+
+```
+json.load(open('docs/NUMBERS.json'))['numbers']   # bucket the reproducible=false entries
+                                                  # on reproducibility.status
+```
+
+Of the 58 irreproducible entries, **16** carry the overwritten-OSM reason, **18** are past
+runs not re-executed in this environment, and **24** — the largest group — are
+`status == "external"`: agency-published figures whose re-verification means opening the
+source again rather than re-running a pipeline. The recited answer named two of three
+kinds and omitted the biggest, on the T0 question about honesty, while inviting the judge
+to open `docs/NUMBERS.json` alongside them. Four paragraphs below, the same card filed the
+older 16 + 18 split as *never verified* — so the file marked the categorisation unverified
+and recited it as fact at the same time.
+
+**Removing the numbers had removed the only handle a gate had on the claim.** That is the
+row's own defect reproduced one clause later in the same sentence. The fix is the fourth
+gate above, which takes the bucket set from the artifact rather than from the author, plus
+a 없는 것 line that records the count the card had called unmeasured — it took one command,
+and no lap had run it.
 
 ## Why the live claim is qualitative
+
 
 The obvious gate is to keep one correct count in the card and re-derive it. It
 was rejected on a measurement rather than on taste. Taken here on an

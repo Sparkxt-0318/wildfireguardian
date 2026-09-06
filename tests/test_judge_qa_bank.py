@@ -454,6 +454,54 @@ def test_every_registry_count_in_the_bank_sits_in_a_dated_record() -> None:
     )
 
 
+# Q30's draft accounts for WHY a registered value does not re-derive. The
+# registry sorts those values by `reproducibility.status`, so the set of buckets
+# is the artifact's to decide, not the card's. This map is the card's side of
+# it: each status the registry actually uses must have a phrase the card says.
+#
+# The first version of this lap's Q30 named two buckets, and this test did not
+# exist. The independent reviewer counted the registry in one command and found
+# a third bucket -- `external`, published agency figures whose re-verification
+# means opening the source again rather than re-running a pipeline -- which was
+# the LARGEST of the three and the one the card omitted, on the T0 question
+# about honesty. Hence the direction of this gate: it fails when the registry
+# grows a bucket the card does not describe, which is the failure that actually
+# happened, rather than checking that a phrase the author chose is present.
+IRREPRODUCIBLE_BUCKETS = {
+    "not_reproducible": "덮어써져",      # the OSM graph overwritten 2026-07-24
+    "external": "저장소 밖의 공개 수치",   # agency-published figures
+    None: "다시 돌리지 않은 과거 실행",    # past runs not re-executed here
+}
+
+
+def test_the_cards_account_of_the_irreproducible_covers_every_bucket() -> None:
+    """Every reason the registry gives for not re-deriving is one the card names."""
+    numbers = json.loads(NUMBERS.read_text(encoding="utf-8"))["numbers"]
+    seen = set()
+    for value in numbers.values():
+        if value.get("reproducible"):
+            continue
+        repro = value.get("reproducibility")
+        seen.add(repro.get("status") if isinstance(repro, dict) else None)
+    unknown = sorted((s for s in seen if s not in IRREPRODUCIBLE_BUCKETS), key=str)
+    assert not unknown, (
+        "docs/NUMBERS.json marks values irreproducible for reason(s) this Q&A "
+        "card does not describe: " + ", ".join(map(repr, unknown)) + ". Q30 is "
+        "T0 and tells a judge what the labels mean, so a new bucket has to be "
+        "named there (and added to IRREPRODUCIBLE_BUCKETS) before it ships."
+    )
+    q30 = _q30()
+    for status in sorted(seen, key=str):
+        phrase = IRREPRODUCIBLE_BUCKETS[status]
+        assert phrase in q30, (
+            "the registry has irreproducible values with status "
+            + repr(status) + ", and Q30 no longer contains the phrase that "
+            "describes them (" + phrase + "). The card would then account for "
+            "fewer kinds than the registry has, which is the defect this gate "
+            "was added for."
+        )
+
+
 def test_the_banks_qualitative_registry_claim_is_true_of_the_registry() -> None:
     """The recited answer says 대부분 ("most") re-derive. Check that against the registry.
 

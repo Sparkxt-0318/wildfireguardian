@@ -1384,3 +1384,17 @@ staleness 「can be checked mechanically」. **「Can be checked」 is not 「is
 checked」, and that gap is where this loop's defects live** — it is the same
 sentence-shape as the card WFG-117 just fixed. Annotated in place, filed on
 WFG-130 with the gate and the grading.
+
+**The reviewer's catch, and it is the sharper half of this lap.** Removing the counts from
+Q30 left an ungated *two-bucket* account of why the rest do not re-derive — and the
+reviewer counted the registry in one command and found **three** buckets, the omitted one
+(`reproducibility.status == "external"`, agency-published figures) being the **largest**.
+Four paragraphs below, the same card recorded that that very split had never been verified.
+So the file marked a categorisation unverified and recited it as fact, on the T0 question
+about honesty. **Taking the numbers out is not the same as making the sentence checkable:
+it can remove the only handle a gate had on it.** The general rule this lap earned: when
+you delete a quantity to stop it going stale, ask what qualitative claim is left standing
+in its place, and gate *that* — the fourth gate here derives the bucket set from the
+registry, so a bucket the card does not describe turns it red. And the cheapest correction
+was available all along: the card said 「어느 랩도 세어 본 적이 없습니다」 about a count that
+takes one command. **A document that says a thing is unmeasured is a task, not a caveat.**
