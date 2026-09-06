@@ -1466,3 +1466,27 @@ And the reason the set has to come from someone else: a probe cut from the line 
 was written against is a regression pin, not a test. `_probe_sentence`'s own docstring
 says so about invented sentences; it does not say that verbatim sentences have the same
 problem when the *pattern* was fitted to them.
+
+## 2026-09-06T2117Z — the second gate I wrote was green on the defect it was written for
+
+WFG-138's English half is one bullet in `README.md`. I fixed it, then wrote
+`tests/test_future_aware_attribution.py` so the fix could not silently regress, ran it
+against the repaired tree (3 passed), and graded it the way the row asks: put the pre-lap
+bullet back and watch it go red. **It stayed green.** The surface writes the claim as
+`reach a refuge **only** when the router ...` and `**42 of 458**`, and a literal substring
+scan sees neither the attribution nor the count across a line break. The gate was reading a
+sentence that does not exist in the file it reads.
+
+Both halves of that are worth keeping. First: on judge-facing Markdown, **strip `*` and
+`` ` `` and collapse whitespace before matching** — the emphasis marks are exactly where a
+claim's load-bearing words go, so the bold on `**only**` is not incidental to the pattern,
+it is adversarial to it. Second, and it is the general one: *authoring the fix and the gate
+in the same lap makes the mutation grade non-optional*. The suite told me 3 passed on a
+gate that could not fail. `1ec1d06` learned this once (`paper/GAPS.md` G8 point 2) and
+recorded it as "a gate authored alongside a rebuild is green by construction"; that reads
+as a caution about **construction**, and the failure here was **spelling**. The mutation is
+what distinguishes them, and it costs one `git stash push` and one pytest run.
+
+Corollary found the same way: **WFG-140 cannot be taken alone.** Its own done-when requires
+the freshness test to be red on today's tree, and CHARTER §3.9 forbids pushing a red tree to
+`auto/dev`. It ships with WFG-134's rebuild in one lap, or it parks.

@@ -524,3 +524,51 @@ def test_the_banks_qualitative_registry_claim_is_true_of_the_registry() -> None:
         "Either the registry regressed or the booth answer is now an overclaim; "
         "the answer is the thing to change, not this threshold."
     )
+
+
+# WFG-138 (b), critic #29. The 「시간 인지 경로에서만」 sentence is the bank's
+# strongest claim and its baseline is `naive`, which is fire-blind
+# (src/wildfireguardian/routing/evacuation.py:270). Critic #22 wrote the
+# correction for the 91 into a ⚠ block *below* Q19's draft answer, critic #23
+# tightened that block, and for two windows the 42 in the same sentence of the
+# same draft stood uncorrected --- because a note beside a sentence is not the
+# sentence. The student rehearses the draft, so the caveat has to live inside
+# the draft; this gate is what makes that true of every card, not only of Q19.
+#
+# What it does NOT do: it keys on the phrase 「불을 전혀 보지 않는」, so it
+# catches a caveat that is deleted or a new card that never had one. A reworded
+# overclaim that keeps the phrase escapes it, the same limit
+# docs/withdrawn_claims.md section 4 records for the withdrawn-claim registry.
+FUTURE_AWARE_ONLY = "시간 인지 경로에서만"
+FIRE_BLIND_KO = "불을 전혀 보지 않는"
+
+
+def _draft(body: str) -> str:
+    """The quoted draft answer of a question body, or '' if it has none."""
+    if "답변(초안):" not in body:
+        return ""
+    return body.split("답변(초안):", 1)[1].split("\n\n", 1)[0]
+
+
+def test_no_draft_answer_states_the_future_aware_only_claim_bare() -> None:
+    """A card that says 「... 시간 인지 경로에서만 ...」 names its control in the same draft.
+
+    Graded by mutation: delete the 「42도 91도 불을 전혀 보지 않는 ...」 sentence
+    from Q19's draft and this goes red naming Q19.
+    """
+    offenders = [
+        qid for qid, _, body in _questions()
+        if FUTURE_AWARE_ONLY in _draft(body)
+        and FIRE_BLIND_KO not in _draft(body)
+    ]
+    assert not offenders, (
+        "Q" + ", Q".join(offenders) + ": the draft answer the student speaks "
+        "says 「" + FUTURE_AWARE_ONLY + "」 without saying, in the draft itself, "
+        "that the comparison is against a route that sees no fire at all (「"
+        + FIRE_BLIND_KO + "」). The baseline is fire-blind in this repository's "
+        "own words (src/wildfireguardian/routing/evacuation.py:270), so the bare "
+        "sentence lets a judge hear 「better than knowing where the fire is now」, "
+        "which this repository has measured on 의성·안동 only. A ⚠ note above or "
+        "below the draft does not satisfy this: that is exactly what failed for "
+        "two windows on Q19's 42 (WFG-138, critic #29)."
+    )
