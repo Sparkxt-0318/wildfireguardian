@@ -1,6 +1,6 @@
 # Direction — where the project is going, on one screen
 
-*Written 2026-09-04 by the author's session; steered again the same evening (product first). Rewritten by the research routine every second day; the critic checks it after every dev lap (CHARTER §14). The dev routine reads it before claiming a row. Last checked by critic #25, 2026-09-06T0800Z.*
+*Written 2026-09-04 by the author's session; steered again the same evening (product first). Rewritten by the research routine every second day; the critic checks it after every dev lap (CHARTER §14). The dev routine reads it before claiming a row. Last checked by critic #26, 2026-09-06T1100Z.*
 
 ## Thesis (two sentences)
 
@@ -8,37 +8,41 @@ A forecast of where the fire will be, not where it is, changes which walking rou
 
 ## Next three rows, and why
 
-*No row moved this lap and the reorder budget is deliberately unspent for the third critic lap running.
-The reason is not caution: **the top two entries on this page were both cleared in the window I reviewed**,
-so the page's order was right and the queue below it has not been tested yet. The order below is the
-table's own.*
+*One row moved this lap and it is **WFG-117**, from deep in the table to position 2. The reason is that its
+defect inverted inside one window: the repair landed and the warning about it did not, so the Q&A bank now
+tells the student a false thing about a screen that is right. Critic #25's two branches are both answered
+below.*
 
-1. **The judged screen, and it is now on a ten-hour clock.** `web/finals.html:434` prints `n_entries`
-   **326** and `n_reproducible` **268**; `docs/NUMBERS.json` holds **383** and **325**, counted in one
-   process at `b70e464`. Sixteen windows. `make finals` re-derives both from the registry
-   (`scripts/build_finals.py:629-630`) and needs no decision; `make finals-bundle UPDATE=1` carries it into
-   the 17-file release bundle, which ships this screen. ⚠ New today: the screen's stamp `5f9a3b8` is **29**
-   commits behind `HEAD`, the branch takes ~**51** commits a day, and the sandbox clones at depth **50** —
-   so WFG-119's predicted red arrives in roughly **ten hours**, after which a lap that hits it spends
-   itself parking under CHARTER §9 on a screen that is not wrong. **This is critic #25's one
-   `fix-before-next-row` item.** Rows: **WFG-113**, then **WFG-115** (`41498ef`, still not an ancestor on a
-   deepened 250-commit clone; `make finals` does **not** touch it), then **WFG-117**.
-2. **WFG-130** (P0, new, minutes) — the booth PDF exists and omits the one paper `JUDGE_QA.md` Q30 tells
-   the student to open in front of a judge. `docs/submission_reconciliation.md` is `done(20260903T0653Z)`,
-   is the file R6's tick is written on, says of itself 「인쇄본은 양면 한 장입니다」, and the build's manifest
-   says it 「does not exist yet」. R7 names five printables and `scripts/build_printables.py:97-101` lists
-   four sources that overlap it in **one**. This is the difference between R7 ticking this week and not.
-3. **WFG-128** (P0, minutes, carried from critic #24) — `docs/multi_region.md:191` still states the one
-   bucket that runs against this project in a form this project's own measurement contradicts, and
-   `README.md:113` still sends a judge there for 「완전한 분할」. The author closed NH-031 option A on
-   2026-09-06; no committed value moves and no margin is spoken. Checked unfixed at `b70e464`.
+1. **WFG-117 (P0, minutes) — the Q&A bank is wrong about the screen, and it is a T0 question.**
+   `web/finals.html` prints `n_entries` **383** / `n_reproducible` **325**, which is exactly what
+   `docs/NUMBERS.json` holds (counted here in one process: 383 / 325 / 58 not). `docs/auto/JUDGE_QA.md`
+   Q30's ⚠⚠ block still says the screen prints 「**326 · 268**」, that pointing at it 「학생을 낡은 숫자로
+   데려갑니다」, and that 「서로 다른 수가 셋 있습니다」. All three are false at this head. A student
+   rehearsing today is drilled to distrust the one surface that is now correct, on the question about why
+   today's numbers should be believed. **This is critic #26's one `fix-before-next-row` item.** A dated
+   correction note is already on Q30 so nobody rehearses the stale block; the row makes the answer true and
+   puts a gate behind it.
+2. **WFG-130** (P0, minutes, carried from critic #25) — the booth PDF omits the reconciliation sheet and its
+   manifest declares that committed file 「does not exist yet」. R7 names five printables and the build's
+   source list overlaps it in **one**. This is the difference between R7 ticking this week and not.
+3. **WFG-128** (P0, minutes, carried from critics #24 and #25) — `docs/multi_region.md:191` still states the
+   one bucket that runs against this project in a form this project's own measurement contradicts, and
+   `README.md:113` still sends a judge there. The author closed NH-031 option A on 2026-09-06; no committed
+   value moves and no margin is spoken.
 
 Then **WFG-129** (P0, one lap: the cheapest test of the headline 42 of 458, fully specified in
-`paper/GAPS.md` G7 and still in no file a dev lap reads), WFG-007's human half (the student prints it once),
-WFG-124 (`blocked(NH-032)`), WFG-104 (`blocked(NH-032)` on its margin half), WFG-106, WFG-110, WFG-125,
-WFG-122, WFG-121 (c) once WFG-100's re-allocation exists, WFG-036 v2, WFG-101, WFG-010 (README Round-4 +
-abstract → R8), WFG-096, WFG-026 (which is the other half of R7), WFG-024 when its blockers clear (R11), and
-only then the infra rows — WFG-131 among them — which CHARTER §14b holds behind R1, R3, R7, R8 and R9.
+`paper/GAPS.md` G7), WFG-007's human half (the student prints it once), WFG-110 (which is now the **only**
+thing holding R1 — see below), WFG-124 (`blocked(NH-032)`), WFG-104 (`blocked(NH-032)` on its margin half),
+WFG-106, WFG-127, WFG-125, WFG-122, WFG-121 (c), WFG-036 v2, WFG-101, WFG-010 (README Round-4 + abstract →
+R8), WFG-096, WFG-026 (the other half of R7), WFG-024 when its blockers clear (R11), and only then the infra
+rows — **WFG-119**, **WFG-131** and the new **WFG-132** among them — which CHARTER §14b holds behind R1, R3,
+R7, R8 and R9.
+
+⚠⚠ **WFG-115 is off this page and off P0. Its premise is false.** `41498ef` **is** an ancestor of `HEAD`,
+277 commits back, verified here on a clone deepened to 300. Five critic laps said otherwise because five
+critic laps measured inside a shorter graph. Do not act on the old premise; do not edit the screen's
+provenance line to "fix" reachability; do not edit `JUDGE_QA.md` Q35, which is correct. The row survives at
+P1, re-scoped to the real and much smaller defect: the line is stale by construction and mislabelled.
 
 ## What not to do
 
@@ -61,64 +65,64 @@ only then the infra rows — WFG-131 among them — which CHARTER §14b holds be
 - **Do not run `make baseline-freeze` in a sandbox.** The author ran it on the laptop at `38620f2` and it
   was correct there; here it would record the two raw contracts as MISSING and destroy the protection.
 - **Do not use `curl` for the GitHub Actions API in a cloud lap.** It returns 403 through the proxy. Read
-  runs through the GitHub MCP (WFG-119). This sandbox also clones at **depth 50**, so deepen before any
-  `merge-base --is-ancestor` claim.
+  runs through the GitHub MCP (WFG-119).
+- ⚠⚠ **Do not write a reachability or ancestry claim until `git rev-parse --is-shallow-repository` answers
+  `false`, and record the depth beside the claim.** Deepening by a number you chose is not a control: this
+  sandbox clones at **depth 50**, critic #21 deepened by 120, critic #24 to 250, and the object in dispute
+  sat at **277**. Five laps published the same false finding that way (WFG-115's withdrawal, WFG-119).
 
 ## Critic's last direction note
 
-**2026-09-06T0800Z, critic #25. The window shipped the object nine days of this page had been arguing
-about, and the argument turns out to have been about the wrong thing.**
+**2026-09-06T1100Z, critic #26. The window did what it was told, and the finding is in the instrument that
+has been grading it.**
 
-Verified here rather than read from the reports: `gates.py --mode full` **ALL GREEN** at `b70e464`
-(`1562 passed, 62 skipped`, cold, 298.9 s; **+17 passed** on critic #24), the twenty most recent
-`auto-gates` runs on `auto/dev` are nineteen `success` and one `cancelled` that a later push superseded —
-**so there is no gate finding and no CHARTER §4b finding this lap** — every dev report of the last 24 h
-carries `Reviewed by:`, and no author reply is waiting (thirty Gmail threads, every one a report this loop
-sent, no reply on any; `decisions_seen.json` unchanged).
+Verified here rather than read from the reports: `gates.py --mode full` **ALL GREEN** at `b2bdaf0`
+(`1565 passed, 62 skipped`, cold, 199.1 s; **+3 passed** on critic #25), the 25 most recent `auto-gates`
+runs on `auto/dev` (numbers 140 to 168) are **22 `success` and 3 `cancelled`** with **no `failure`** — so
+there is no gate finding and no CHARTER §4b finding this lap — `--assert-reported` exits 0 across the
+window, every dev and paper report of the last 24 h carries `Reviewed by:`, and no author reply is waiting
+(the Gmail search returns only threads this loop sent, each holding one message with no reply;
+`decisions_seen.json` unchanged).
 
-**Critic #24's falsifiable test, answered on branch (1).** `docs/auto/finals/` holds
-`WFG_printables_20260906T0620Z.pdf`: 29 A4 pages, four sources and three fonts hashed into a manifest, all
-seven hashes re-checked against the tree here and all seven current. **R7 has an object and WFG-007's agent
-half is finished.** I am not writing about queue position again, and the nine-day question — position, or
-the lock — is settled as *both*, both now paid.
+**Critic #25's falsifiable test, branch (1), answered.** `web/finals.html` prints **383 / 325** against the
+registry's 383 / 325. The two-command repair ran (WFG-113, `1ec1d06`), the screen's stamp moved to
+`62b58e1`, **6** commits behind `HEAD` rather than 29, and WFG-119's ten-hour clock is reset. The item
+mechanism worked; branch (2) does not fire.
 
-**What the window exposes instead is a measurement gap, and it is the root objection.** The kit was
-assembled from the four documents the loop writes and never compared against the five R7 asks for; the
-overlap is **one**. The build then wrote that the missing 「A4 evidence sheet (WFG-018)」 「does not exist
-yet」, and WFG-018 is `done(20260903T0653Z)` — `docs/submission_reconciliation.md`, 13,702 bytes, the file
-R6's own tick is written on, whose fourth line says it is meant to be printed as one double-sided sheet.
-Fifteen new tests and an independent reviewer that returned `block` all stayed green through it, because
-nothing in the repository reads the builder's source list beside the readiness line it is supposed to
-satisfy. **WFG-130**, P0, minutes.
+**The root objection is about how this loop knows things, and it costs five laps of the record.**
+`41498ef` — the commit five critic laps have called unreachable from this branch — **is an ancestor of
+`HEAD`, 277 commits back.** Verified three independent ways on a clone deepened to 300: `merge-base
+--is-ancestor` exits 0, `rev-list HEAD` contains the full sha, `branch -a --contains` names `auto/dev` and
+`origin/Main`. Critic #20 raised it at the sandbox's default **depth 50**; critic #21 found the shallow
+clone, deepened by **120**, and re-confirmed; critic #24 deepened to **250** and wrote 「so the shallow
+boundary is not the confounder」. It still was. Every one of those laps wrote 「re-run rather than read」 —
+this loop's central honesty claim — and every one of them re-ran the same command inside the same short
+instrument. **「Re-run rather than read」 defends against a stale reading. It does nothing against a
+systematically wrong instrument, and deepening by a number you picked is not a control.** The finding
+reached `KCF_READINESS.md` R1, this page, `SCORECARD.md` (where critic #20 docked Track A a point for it,
+now withdrawn) and `docs/finals_screen_v2.md` §4.3, the screen's own explainer. The cheapest test is one
+line and is now a rule above: no ancestry claim until `is-shallow-repository` answers `false`, with the
+depth recorded beside it.
 
-**The consequence for this page is a rule about rows rather than about queues:** a row can be `done` and
-leave its readiness line ☐ forever when its done-when and the line's condition describe different objects.
-WFG-007's done-when says 「rehearsal aids + booth checklist」; R7 names five specific printables. That, not
-priority and not the lock, is why R7 has looked stuck — and it is the honest answer to the routine's
-「zero ticks for two consecutive critic laps is a direction finding」 rule, which fires today for the
-second time.
+**My one `fix-before-next-row` item is WFG-117, and it is the mirror image of the same problem on a
+judge-facing surface.** WFG-113's repair landed and the warning about it did not: `JUDGE_QA.md` Q30, a
+**T0** question, still tells the student the screen prints 326 · 268, that pointing at it leads them to a
+stale number, and that three counts are in play. All three are false. A wrong warning survives a correct
+repair, and this one drills the student to distrust the one surface that is now right.
 
-**My one `fix-before-next-row` item is not either of my findings: it is WFG-113's two-command repair on the
-judged screen.** It is wrong to a judge today, it has been for sixteen windows, it needs no decision, and it
-is now on a ten-hour clock (WFG-119: stamp `5f9a3b8` **29** commits behind `HEAD`, ~**51** commits a day,
-sandbox depth **50**). After that boundary the gate goes red in every sandbox on a screen that is not wrong
-and CHARTER §9 spends the first lap that hits it on parking.
-
-**The falsifiable test for critic #26.** (1) If `web/finals.html`'s payload prints **383 / 325**, the repair
-ran and the clock is reset — score R1 on what is left (`41498ef`, WFG-115) and stop treating the counts as a
-finding. (2) If it still prints **326 / 268** *and* the sandbox's `gates.py --mode full` is RED on
-`test_the_integrity_panel_names_a_commit_this_repository_has`, then a two-command repair that three critic
-laps have specified and one lap has already proven cannot survive a `fix-before-next-row` slot, and the
-defect is the item mechanism rather than the item — say so and do not spend the budget on it a fourth time.
+**The falsifiable test for critic #27.** (1) Re-run the three ancestry commands on an **unshallowed** clone
+and confirm 277; if any of them disagrees, my withdrawal is wrong and WFG-115 goes back to P0 with the
+measurement. (2) If Q30's ⚠⚠ block still says 326 · 268 at the next critic head, then a `fix-before-next-row`
+item on a Q&A-bank sentence is not enough to move a Q&A-bank sentence, and the item mechanism — which
+worked this window on a two-command repair — does not carry prose; say so and escalate the mechanism rather
+than the row.
 
 ## Critic's previous direction note
 
-**2026-09-06T0457Z, critic #24.** The window was one substantive commit and the best manuscript lap the loop
-had run; the finding was in what the window did not touch. The root objection: **42 of 458 on 영덕** is the
-number the student says out loud and the judged screen prints, and it has never met a fair opponent — while
-the cheapest test of it is fully specified in `paper/GAPS.md` G7, runnable in minutes, and lives in the one
-file no dev lap reads (CHARTER §4 step 1 does not list it; §12 forbids the paper routine from writing
-outside `paper/`). That is **WFG-129**, still open. Its second finding was **WFG-128**, also still open.
-*(Full text: `docs/auto/reports/2026-09-06T0516Z-critic.md`; #23's is in the 2026-09-06T0215Z report, #22's
-in the 2026-09-05T2330Z, #21's in the 2015Z. This page stays one screen, which is why the older notes live
+**2026-09-06T0800Z, critic #25.** The window shipped the booth printables — the object nine days of this
+page had argued about — and the finding was that the kit was measured against its own sources rather than
+against R7's five named ones, which is **WFG-130**, still open. Its one `fix-before-next-row` item was
+WFG-113's two-command repair on the judged screen; critic #26 confirms it ran.
+*(Full text: `docs/auto/reports/2026-09-06T0816Z-critic.md`; #24's is in the 2026-09-06T0516Z report, #23's
+in the 0215Z, #22's in the 2026-09-05T2330Z. This page stays one screen, which is why the older notes live
 in the reports and not here.)*

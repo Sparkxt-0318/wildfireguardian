@@ -1,127 +1,77 @@
-# CRITIC_LATEST — critic #25, 2026-09-06T0800Z
+# CRITIC_LATEST — critic #26, 2026-09-06T1100Z
 
-Window `91d3e05..b70e464` on `auto/dev` — six commits, of which two are substantive (`3e92b69` and
-`5f927b0`, the 06:17Z dev lap's WFG-007) and four are a claim, a critic report and two report tails.
-Verified here rather than read from the reports:
+*The next dev lap reads this file before it claims a row (CHARTER §4 step 3), and clears every
+`fix-before-next-row` item below first. Reviewed head: `b2bdaf0`. Window: `b70e464..b2bdaf0`, plus the
+24 h to 2026-09-05T10:00Z for the gate, CI and report checks.*
 
-- `gates.py --mode full` **ALL GREEN** at `b70e464` (`1562 passed, 62 skipped`, cold, 298.9 s;
-  `baseline-verify` WARN is the documented NH-029 behaviour). Against critic #24's cold `1545 / 62`:
-  **+17 passed**, skips unchanged.
-- The twenty most recent `auto-gates` runs on `auto/dev` (numbers 140 to 163, 2026-09-05T20:21Z to
-  2026-09-06T07:25Z), read through the GitHub MCP rather than `curl`, are **nineteen `success` and one
-  `cancelled`** (`9ebf5a5`, critic #24's own push, superseded four minutes later by `3656bea`, green).
-  **No red run sits behind a green report: no gate finding, no CHARTER §4b finding this lap.**
-- Every dev report of the last 24 h carries a `Reviewed by:` line, and the 0711Z lap's is the strongest
-  one this loop has produced (`block` → fixed → re-verified, on a number no artifact had produced).
-- **No author reply is waiting.** The Gmail search for `from:siyeong0318@gmail.com subject:"WildfireGuardian
-  autoloop" newer_than:14d` returns thirty threads and every one is a report this loop sent, each holding a
-  single message with no reply on it. `docs/auto/decisions_seen.json` is unchanged. Nothing new to apply.
+## fix-before-next-row (exactly one, CHARTER §14b)
 
-**Critic #24 left a two-branch falsifiable test and branch (1) is what happened: `docs/auto/finals/` holds a
-PDF.** WFG-007's agent half is finished, R7 has an object for the first time in nine days, and I am not
-writing about queue position again.
+**WFG-117 — `docs/auto/JUDGE_QA.md` Q30 warns the student against a screen that is now correct.**
 
-## fix-before-next-row
+Q30 is **T0**: the student answers it from memory, with no paper, and it is the question about why today's
+numbers should be believed. Its ⚠⚠ block says three things, and all three are false at this head:
 
-**One item: run WFG-113's two-command repair on the judged screen, before any row.**
+| the bank says | the truth at `b2bdaf0`, measured here |
+|---|---|
+| 「화면은 아직 **326 · 268** 을 인쇄합니다」 | `web/finals.html` prints `n_entries` **383**, `n_reproducible` **325** |
+| 「화면을 가리키라는 조언은 학생을 낡은 숫자로 데려갑니다」 | the screen and `docs/NUMBERS.json` agree exactly |
+| 「서로 다른 수가 셋 있습니다」 | two: the draft's 295 / 261 / 34, and 383 / 325 everywhere else |
 
-    make finals        PYTHON=.auto/venv/bin/python
-    make finals-bundle UPDATE=1 PYTHON=.auto/venv/bin/python
+`docs/NUMBERS.json` counted in one process this lap: **383** entries, **325** reproducible, **58** not.
+WFG-113 closed the screen half at `1ec1d06`; the warning about it did not move, so a wrong warning has
+outlived a correct repair. A dated correction note is already on Q30 (critic #26) so nobody rehearses the
+stale block — **the row's job is to make the answer itself true and to gate it**, not to re-add a literal
+that goes stale on the next lap that registers a key. The done-when is on the row.
 
-Then verify the card against the registry and commit both. Why this and not one of my own findings:
+## Do NOT do this (withdrawal, and it is the lap's main finding)
 
-- **It is wrong on the surface five judges look at, and it has been for sixteen windows.**
-  `web/finals.html:434` prints `n_entries` **326** and `n_reproducible` **268**. `docs/NUMBERS.json` holds
-  **383** and **325** — I counted both in one process rather than reading either from a lap. The screen was
-  correct when it was built (`built_utc` 2026-09-05 15:22 UTC, stamp `5f9a3b8`) and went stale six hours
-  later when WFG-114 registered 57 `pp_uiseong_*` keys.
-- **It needs no decision from anyone.** `scripts/build_finals.py:629-630` derives both counts from the
-  registry, so `make finals` re-derives them. WFG-109's closure records this loop running exactly these two
-  commands in this sandbox and the only line `make finals` changed was the payload (434).
-- **The same two commands travel into the release bundle**, which ships `web/finals.html` among its 17
-  files, so the stale pair is on the USB stick as well as on the screen.
-- **And it is now on a clock, which is the part that is new today.** WFG-119 predicted the screen's stamp
-  would cross the sandbox's shallow boundary 「during 2026-09-06」. Measured at `b70e464`: `5f9a3b8` is
-  **29** commits behind `HEAD` (23 at critic #24), the branch took **51** commits in my 24 h, and
-  `git rev-parse --is-shallow-repository` is `true` at depth **50**. That is roughly **ten hours** of
-  headroom. After it, `test_the_integrity_panel_names_a_commit_this_repository_has` goes RED in every
-  sandbox on a screen that is not wrong, CI at `fetch-depth: 0` stays green, and CHARTER §9 spends the
-  first lap that hits it on parking rather than building. `make finals` resets that clock as a side effect.
+⚠⚠ **WFG-115's premise is false. `41498ef` IS an ancestor of `HEAD`.** Verified three ways on a clone
+deepened to **300** commits:
 
-**Do not** try to fix `registry.built_at_commit` (`41498ef`) in the same breath — `make finals` does not
-touch it, it comes from `docs/NUMBERS.json` → `built_at_git_commit`, and it is **WFG-115**, a separate row
-with a separate done-when. One repair, two commands, then go to the rows below.
+    git merge-base --is-ancestor 41498ef HEAD          -> exit 0
+    git rev-list HEAD | grep -c 41498efbf0679276c...   -> 1
+    git rev-list --count 41498ef..HEAD                 -> 277
+    git branch -a --contains 41498ef                   -> auto/dev, origin/auto/dev, origin/Main, ...
 
-## The root objection
+The object sits **277** commits back. Critic #20 raised the row in the sandbox's default **depth-50** clone;
+critic #21 deepened by 120 and re-confirmed; critic #24 deepened to **250** and wrote 「so the shallow
+boundary is not the confounder」. 250 < 277, so it still was. Five critic laps published it as measured fact.
 
-**The loop now ships the booth kit, and it assembled the kit from the documents it writes rather than from
-the list of what the booth needs.**
+So, for the next lap:
 
-`docs/auto/KCF_READINESS.md` **R7** enumerates five printables: 「evidence sheet (A4), **reconciliation
-sheet**, related-work and SFTD059T differentiation panel, booth checklist, 29 dispatch sheets sample」.
-`scripts/build_printables.py:97-101` lists four sources. **The overlap is one** — the booth checklist. Three
-of the four documents in the PDF are not on R7's list, and three of R7's five are not in the PDF.
+- **Do not edit `web/finals.html` or `scripts/finals.template.html` to "fix" reachability.** Nothing on the
+  judged screen is wrong about it.
+- **Do not edit `docs/auto/JUDGE_QA.md` Q35.** It is correct as written.
+- WFG-115 survives at **P1**, re-scoped to the real and much smaller defect: the provenance line is stale by
+  construction and mislabelled (the registry held **153** entries at that commit; the card prints **383**).
+- **New standing rule, now on `docs/auto/DIRECTION.md`:** write no reachability or ancestry claim until
+  `git rev-parse --is-shallow-repository` answers `false`, and record the depth beside the claim. Deepening
+  by a number you chose is not a control.
 
-That alone would be a scope note. What makes it the objection is the sentence the build wrote about the gap.
-`docs/auto/finals/printables/manifest_20260906T0620Z.json` → `what_this_does_not_show` says 「The A4 evidence
-sheet (WFG-018), the related-work table (WFG-026) and the 29 dispatch sheets ... are NOT in this file; **the
-first two do not exist yet**」, and `docs/auto/BACKLOG.md` repeated it in WFG-007's own status cell.
+## What this lap verified rather than read
 
-**WFG-018 is `done(20260903T0653Z)` in that same table, three days old.** Its artifact is
-`docs/submission_reconciliation.md`: 13,702 bytes of Korean prose, the file `docs/auto/KCF_READINESS.md`
-**R6's tick is written on**, whose own fourth line reads 「부스에서 심사위원이 ... 물었을 때 그 자리에서 펴는
-종이. **인쇄본은 양면 한 장입니다**」. It was written to be printed, and the booth PDF says it does not exist.
+- `gates.py --mode full` **ALL GREEN** at `b2bdaf0`: `1565 passed, 62 skipped`, cold, 199.1 s
+  (critic #25: `1562 / 62` — **+3 passed**, skips unchanged). `verify`, `snapshot-verify`, `env-check` PASS;
+  `baseline-verify` WARN is CHARTER §3d information.
+- **No red CI run behind a green report, so no CHARTER §4b finding.** Read through the GitHub MCP (the
+  routine's `curl` returns 403, WFG-119): `auto-gates` runs **140 to 168** on `auto/dev` are **22 `success`
+  and 3 `cancelled`** (`ef61e9b`, `9ebf5a5`, `785ba13`, each superseded by a green push). Run 168 at
+  `b2bdaf0`, this head, is `success`. **Zero `failure`.**
+- `--assert-reported` exits 0 across the window; every dev, paper and critic report of the last 24 h carries
+  `Reviewed by:` (the four without it are `manual`, the author's laptop).
+- **Critic #25's falsifiable test, branch (1): answered.** The screen prints 383 / 325, the stamp moved to
+  `62b58e1` (**6** commits behind `HEAD`, was 29), and WFG-119's ten-hour clock is reset.
+- **No author decision is waiting.** The Gmail search returns only threads this loop sent, each holding one
+  message with no reply on it; `docs/auto/decisions_seen.json` is unchanged; PR #31 carries no comment in the
+  `NH-###:` form.
 
-**The cheapest test, and it is one minute with no run:** open `scripts/build_printables.py:97-101` beside
-R7's sentence and count the overlap. It returns 1 of 5. Nothing in the repository reads those two lists
-together, which is why an otherwise excellent build could declare a committed artifact absent and stay green
-through fifteen new tests.
+## Filed this lap
 
-**Filed as WFG-130 (P0, minutes), not as this lap's `fix-before-next-row` item**, because the judged screen
-is wrong to a judge today and this one only makes the kit smaller than it should be. Its done-when offers
-both repairs — bind the builder to R7, or correct R7 to the documents the booth actually needs — because
-either closes the gap and the choice belongs to a lap, not to me.
+| id | what | where it sits |
+|---|---|---|
+| **WFG-117** | re-scoped and **moved to position 2** (this lap's one row move); the Q30 repair | `fix-before-next-row` |
+| **WFG-115** | premise withdrawn, **P0 -> P1**, re-scoped to staleness and mislabelling | not scheduled |
+| **WFG-119** | strengthened: the predicted failure already happened five times; done-when now requires an unshallowed clone before any ancestry claim | P1, held behind R1/R3/R7/R8/R9 |
+| **WFG-132** | new: `2026-09-06T1000Z-dev.md` and its email name `a464d1a` and `a68c2d0`, neither of which is a valid object anywhere | P1, loop hygiene, held by CHARTER §14b |
 
-## What I did not make an item, and where it went instead
-
-**WFG-131 (P1, minutes).** `docs/printables.md` §2 says, in its own voice and correctly, that `brotli` is
-declared nowhere: `matplotlib==3.11.1` and `fonttools==4.63.0` are pinned in `requirements.txt` (`:44`,
-`:76`), and `brotli` appears in neither that file nor `pyproject.toml` — only at
-`scripts/auto/bootstrap.sh:69-70`, 「brotli, which no pin pulls in」. fontTools needs it to open the vendored
-`.woff2` faces, so without it `make printables` cannot build a **P0** deliverable and
-`tests/test_screen_checks.py`'s woff2 reads fail. This is three days old (`docs/auto/BACKLOG.md:179` records
-it as cause 1 of the first cloud lap's 17 red items) and was resolved by teaching `bootstrap.sh` to install
-it rather than by declaring it, so `scripts/env_check.py` reports 「the environment matches
-requirements.txt」 while the hole is open. P1 and parked behind R1/R3/R7/R8/R9 by CHARTER §14b.
-
-**WFG-127 (i) is cleared — critic #23's item, carried by #24, spent by the 06:17Z lap.** Both surfaces
-checked here at `b70e464`: `docs/fair_opponent_line.md` §3 now says the grid 「separates a spike at 1 km from
-a plateau an operator could aim at in **neither** direction, and this file asserts neither」, with the
-withdrawn wording described rather than quoted so the ban can name its exact spellings; `DEMO_SCRIPT_5MIN.md`
-3막 now says 「좋았던 폭 주변이 뾰족한 봉우리인지 넓은 고원인지 이 실험은 가리지 못합니다」. An item
-survived one lap unspent and was then spent, which is the answer to the question #24 was holding it open to
-ask: the item was fine and the mechanism works.
-
-**WFG-128 and WFG-129 are both still open and neither is a new finding.** `docs/multi_region.md:191` still
-reads 「fire-blind route safe, future-aware router cannot finish in time」 and `README.md:113` still sends a
-judge there for 「완전한 분할」 (WFG-128); `paper/GAPS.md` G7's test of the headline 42 of 458 is still
-unrun (WFG-129). Both were filed at `9ebf5a5`, which landed **57 minutes before** the 06:17Z lap woke, and
-that lap took WFG-007 — first in the table, first on `DIRECTION.md`, and the right choice. The rows were
-readable and were not read past; that is the queue working, not failing.
-
-## One thing in §3 of `docs/fair_opponent_line.md` to watch, filed as information
-
-The file says at `:99-100` that 「the **counts** are convention-dependent like the margin is, **which is why
-§3 quotes none of them**」. §3 quotes two, at `:48-49`: 「at 1 km the committed arm reaches **345** of 368
-against the forecast-aware arm's **354**」. Their difference is **9**, which is one of NH-032's two contested
-margins and one of the four figures `docs/auto/DIRECTION.md` bans from judge-facing surfaces.
-
-I am **not** filing this as a violation and I am not asking for it to be cut. The gate
-(`test_no_contested_margin_reaches_the_booth_script`) is scoped to `DEMO_SCRIPT_5MIN.md`, correctly; this
-file is not in the printables PDF, not in the release bundle, and not linked from the README; and the two
-numbers are the load-bearing evidence for 「a fixed buffer cannot work is **false**」, which is the honest
-half of the section and would be unsupportable without them. What is wrong is only the **self-description**
-at `:99-100`, which tells a later reader the section is cleaner than it is — and that sentence is exactly
-how a real constraint gets read charitably until it is gone. Corrected wording is one clause: 「§3 quotes
-only the pair its own claim rests on, and sends the reader to §4 for the rest」. Left to WFG-121's owner
-rather than filed as a row, because it is one clause inside a document another lap is still working.
+No new NEEDS_HUMAN entry. Every finding above is agent-doable and none of them moves a committed number.
