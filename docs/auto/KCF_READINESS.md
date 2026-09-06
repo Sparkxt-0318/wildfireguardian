@@ -5,6 +5,63 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
+**Tick count, critic #27, 2026-09-06T1400Z: 4 of 11 (R2, R4, R5, R6), unchanged — and this lap's finding is
+that the surface a line is ticked on and the surface a human meets are not the same object.** Checked on
+disk at `dd500e6`, re-run rather than read from a report, on a clone **fully unshallowed**
+(`git rev-parse --is-shallow-repository` answers `false`, 488 commits), which is the control the last seven
+laps on this page did not have.
+
+- **R1 is unchanged and waits on WFG-110's six unmapped registry keys alone.** The `41498ef` half stays
+  **withdrawn** and is now verified with the instrument rather than around it: on the unshallowed clone
+  `git merge-base --is-ancestor 41498ef HEAD` exits **0**, `git rev-list --count 41498ef..HEAD` answers
+  **283** (critic #26's 277 plus this window's six commits, so the two measurements agree), and
+  `git branch -a --contains 41498ef` names `auto/dev`, `origin/auto/dev` and `origin/Main`. The counts half
+  stays fixed: `web/finals.html` prints `n_entries` **383** / `n_reproducible` **325** against a registry
+  holding 383 / 325 / 58-not, counted here in one process. I did not re-measure WFG-110's six and do not
+  tick on a number I did not take.
+- **R5 keeps its tick and takes a defect on it that is worse than the one it took last lap, because this
+  one is a false statement rather than a stale one.** `docs/auto/JUDGE_QA.md` Q35 is **T1**, the
+  reproducibility question. Its ⚠ block tells the student **not** to say the draft's true sentence
+  「현재 브랜치에서 닿는 커밋입니다」 and to say instead 「레지스트리 카드의 각인은 … 지금 브랜치에서
+  닿지 않습니다」. That is false at this head and at every head since the object was written. It also
+  asserts the card prints **326** where the screen prints **383**. **Critic #26 withdrew that measurement
+  in this very cell at 1100Z and wrote 「`JUDGE_QA.md` Q35 is correct as written and must not be edited」**,
+  which is true of Q35's draft answer and false of the ⚠ block that overrides it; the effect was to protect
+  the false half from repair for a full window. WFG-133, and it is this lap's one `fix-before-next-row`
+  item. The tick survives on R5's literal condition (Q35 is T1, not T0; the bank's self-count is unchanged;
+  `tests/test_judge_qa_bank.py` is 23 green inside the full run below) and a dated ⚠⚠ correction note with
+  the measured table is on Q35 at this head so nobody rehearses the false block.
+- **R7 does not tick and now has a second reason, which is about freshness rather than contents.**
+  WFG-130 is unchanged: the kit contains one of the five printables R7 names and its manifest still says
+  the reconciliation sheet 「does not exist yet」 while `docs/submission_reconciliation.md` is the file R6's
+  own tick is written on. **New this lap: the kit is also stale.** I re-hashed all four sources against the
+  tree. `BOOTH_SETUP.md`, `DEMO_SCRIPT_5MIN.md` and `DETECTION_FLOOR_CARD.md` match; `docs/auto/JUDGE_QA.md`
+  does not — manifest `2c8451211e5f97eb…`, tree `af955a30fa500391…`. The PDF was built at `3e92b69` and
+  WFG-117 rewrote Q30 at `fc05320`, so **the 17 printed Q&A pages carry the pre-WFG-117 Q30 with the
+  「326 · 268」 warning this window removed, plus Q35's false block.** `tests/test_printables.py` checks
+  that the manifest *has* a hash per source and that the PDF matches its own hash; nothing compares a
+  recorded source hash against the tree, which is the one comparison that detects this. WFG-134.
+- **R3 sandbox half green; CI half clean.** `gates.py --mode full` is **ALL GREEN** at `dd500e6`
+  (`1569 passed, 62 skipped`, cold, 304.3 s, against critic #26's cold `1565 / 62`: **+4 passed**, skips
+  unchanged). `verify`, `snapshot-verify`, `env-check` PASS; `baseline-verify` WARN is CHARTER §3d
+  information. Read through the GitHub MCP (WFG-119 records the `curl` 403): the **25** most recent
+  `auto-gates` runs on `auto/dev`, numbers **145 to 173**, are **22 `success` and 3 `cancelled`**
+  (`828bbae`, `ef61e9b`, `9ebf5a5`, each superseded by a green push). **No `failure` at all, so there is no
+  gate finding and no CHARTER §4b finding this lap.** Run 173 at `dd500e6`, this head, is `success`.
+  `--assert-head` and `--assert-reported` both exit 0. Every dev report in the window carries
+  `Reviewed by:`. ⚠ One small correction to critic #26's cell: it wrote that every *critic* report of the
+  last 24 h carries `Reviewed by:` too, and `docs/auto/reports/2026-09-05T2330Z-critic.md` does not. Critic
+  laps have no subagent reviewer by design, so this is a wrong sentence rather than a missing practice, and
+  it is not a finding. R3 still waits on one `make all-checks` run on the author's laptop.
+- **R2, R4, R6 hold. R8, R10, R11, R12 unchanged**, and R12 is the author's.
+- **Zero ticks for a FOURTH consecutive critic lap, and the direction is still not what is wrong.** The
+  window cleared critic #26's one item, cleared it well, and shipped a gate that did not exist. What the
+  count exposes this time is narrower than last time and cheaper to fix: **the loop measures whether a
+  correction was made, never whether it arrived.** Both of this lap's findings are one correction that
+  reached the pages the loop reads and stopped at the surfaces a human meets — Q35's card, and the printed
+  kit. That is WFG-133 and WFG-134, and the standing rule is now on `DIRECTION.md`: grep the judge-facing
+  surfaces for the withdrawn string before writing 「withdrawn」 anywhere.
+
 **Tick count, critic #26, 2026-09-06T1100Z: 4 of 11 (R2, R4, R5, R6), unchanged — and this lap's finding is
 that one of the reasons R1 has been ☐ was never real.** Checked on disk at `b2bdaf0`, re-run rather than read
 from a report, and on a clone **deepened to 300 commits with the depth recorded beside every claim**.

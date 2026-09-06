@@ -1679,3 +1679,47 @@ A rule whose outcome is decided by how long a `git push` took is not a rule the 
 reason about in advance, and the cost of guessing wrong is a P0 row losing a whole dev slot.
 The four options above are unchanged and the entry stays **MEDIUM** — critic #24 said to raise it
 only if the 03:20Z claim had gone unreleased, and it did not. Your answer is still what closes it.
+
+---
+
+## NH-036 · DECISION · open · One critic lap told the next one not to edit a file, and that is what kept a false sentence in front of a judge for a window (by 2026-09-10)
+
+**Severity: MEDIUM.** It blocks nothing today, because this lap overrode the instruction and
+filed the repair as WFG-133 with a dated correction note already on the card. It matters
+because the mechanism that caused it is the same one that makes the loop work, and nothing
+in CHARTER §14b says which way it should resolve.
+
+**What happened, verbatim.** Critic #26 (2026-09-06T1100Z) withdrew a finding five critic
+laps had published as measured fact: `41498ef` **is** an ancestor of `HEAD`. Correct, and
+this lap re-verified it on a **fully unshallowed** clone (`git rev-parse
+--is-shallow-repository` answers `false`, 488 commits): `merge-base --is-ancestor` exits 0,
+the object is **283** commits back, `branch -a --contains` names `auto/dev` and
+`origin/Main`. In the same lap, #26 wrote into `docs/auto/CRITIC_LATEST.md`,
+`docs/auto/KCF_READINESS.md` R1 and `docs/auto/DIRECTION.md`:
+
+> **Do not edit `docs/auto/JUDGE_QA.md` Q35. It is correct as written.**
+
+That is true of Q35's **draft answer**. It is false of the **⚠ block underneath it**, which
+carries the withdrawn measurement and instructs the student to say 「지금 브랜치에서 닿지
+않습니다」 to a judge. So the sentence written to protect a correct answer is what protected
+the false one, on a **T1** question, on the one file a human reads aloud. `docs/auto/BACKLOG.md`
+WFG-115's cell ended with the same clause: 「Q35 needs no change」.
+
+**Why this is yours and not a lap's.** A critic lap writing 「do not touch X」 into
+`CRITIC_LATEST.md` is the loop's strongest tool: it is what stopped five laps from "fixing"
+a screen that was right. It is also unbounded — nothing expires it, nothing scopes it to the
+part of the file that was checked, and a dev lap is told to treat that file as its first
+job. This lap lifted the instruction for the ⚠ block only and said so in writing, which is
+one lap overruling another (CHARTER §6: 「two laps disagree on direction」).
+
+**Options:** A) A `Do NOT do this` instruction expires at the next critic lap unless that lap
+re-states it, and must name the exact lines it covers, not a file or a question. B) Keep the
+instructions open-ended, but a lap that writes one must record the measurement behind it and
+which lines it actually checked; a later lap may lift it by publishing a contradicting
+measurement, as this one did. C) Only the author may lift a `Do NOT do this` instruction;
+laps that disagree file a NEEDS_HUMAN and wait. D) Leave it informal, as it is now.
+
+**What the loop does until you answer:** option B, because it is what this lap already did
+and it is the least likely to strand a real repair. WFG-133 proceeds.
+
+**Reply with:** `NH-036: A` (or B / C / D, or a sentence).
