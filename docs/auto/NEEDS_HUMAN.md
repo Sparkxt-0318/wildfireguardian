@@ -1827,3 +1827,52 @@ the mechanism until R7 and R9 tick**, with judge-facing findings still filed as 
 position 1 but not as preemptions. E) Something else — one line, and the next lap does it.
 
 **Reply:** `NH-038: <A, B, C, D or a sentence>`
+
+---
+
+## NH-039 · DECISION · open · The national wildfire-spread system's manual is an 18 MB PDF the sandbox could not fetch, and one of you can (by 2026-09-12)
+
+**Severity: LOW.** Nothing is blocked, no gate is red, and no claim depends on this. It is
+an ask that makes one answer genuinely informed instead of merely honest.
+
+**What the research lap found on 2026-09-06.** Korea already runs two operational
+wildfire-**spread** prediction systems, and until today neither appeared anywhere in this
+repository — not in the knowledge base, not in `docs/auto/JUDGE_QA.md`, not in related work:
+
+- 국립산림과학원 「AI 기반 산불확산예측시스템」, user guide 연구자료 제1201호 (2026),
+  <https://book.nifos.go.kr/library/10130/contents/7732761>
+- 경기도 「민방위 경보 예측모델 (G-DAPS)」, 30-minute steps, 읍면동 resolution, trial
+  operation from April 2026, 경향신문 2026-03-30,
+  <https://www.khan.co.kr/article/202603301116001/>
+
+Both are written up in the new note `docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md`,
+and the Q&A card is filed as **WFG-144**. The card's answer is the *output object* — a
+suppression-oriented spread footprint at township granularity versus a per-household
+walk-or-be-rescued decision — and it does **not** depend on this ask.
+
+**What I could not do.** The NIFoS catalogue page opened; the document itself is an ~18 MB
+PDF served through the NIFoS library and this sandbox did not retrieve it. Its
+「확산예측 모델링」 and 「연료 매개변수」 chapters would say what model class, what spatial
+resolution and what inputs the national system actually uses. Without them, every capability
+figure available is a press restatement of an agency plan (사이언스타임즈 2026-02-12:
+「확산예측 정밀도 약 30% 향상」, 「지형 분석 정밀도 5ｍ」, occurrence 76 % → 88 %) with no
+metric definition, no dataset and no validation scheme attached — which is exactly the class
+of figure CHARTER §3 rule 5b was written for after WFG-049, so **none of it may go on a
+judge-facing surface** and WFG-144's card is explicitly barred from comparing accuracy at all.
+
+**The ask, and it is five minutes of your time.** Download the PDF from the NIFoS library
+and drop it under `data/raw/evidence/` (git-ignored, so tell a lap it is there, or commit
+only its sha256 and the extracted figures the way `docs/evidence/greenpeace_2026_survey.md`
+does). A lap then registers it as evidence and the card can say what the national system
+does from its own manual rather than from a newspaper.
+
+**Why this is yours.** It needs a download this sandbox could not make. Nothing else.
+
+**Options:** A) **You fetch it** and a lap registers it as evidence, the way the Greenpeace
+report was handled — the card then cites the manual. B) **Leave it** — WFG-144's card ships
+on the output-object argument alone, which is the argument that actually answers the judge,
+and the knowledge note keeps its 「could not open」 line. C) **You already know what the
+system does** (from a teacher, a mentor or the 산림청 side) — write two sentences and the
+lap uses them with your name as the source.
+
+**Reply:** `NH-039: <A, B, C or a sentence>`

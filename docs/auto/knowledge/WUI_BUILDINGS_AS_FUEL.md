@@ -58,3 +58,15 @@ The statewide California run classifies about 11.5 million structures; the large
 ## Update 2026-09-05
 
 Volker Radeloff (SILVIS Lab) replied to the author: he cannot say whether the US WUI definition transfers to rural Korea but found it held in other countries; check the SILVIS global WUI map (https://geoserver.silvis.forest.wisc.edu/geodata/fast/globalwui/) for the five study counties, and if it looks wrong, the distance thresholds of Carlson et al. 2022 (*Ecological Applications*, 125 million buildings) are the first suspect. Filed as WFG-092. What this means: the FireDX verdict above (buildings as exposure, not fuel) does not settle whether our villages are WUI in the classical sense; that is now a measurable question on committed data.
+
+## Update 2026-09-06
+
+*Research routine, sandbox.*
+
+Farajpoor & Narimani (2026-08-23, arXiv:2608.22293, <https://arxiv.org/abs/2608.22293>) [opened] model structure loss for 9,883 residential buildings in the January 2025 Palisades Fire and find **building density within 100 m is the strongest predictor** (odds of destruction ×4.12 per standard deviation), with vegetation moisture (NDMI, 100–300 m) protective at odds 0.52 and greenness (NDVI, 30–100 m) associated with loss at odds 1.74 once moisture is accounted for; predictive information concentrates at the **100–300 m neighbourhood scale**. Their headline methodological result is the validation one: ROC-AUC **0.92 under random cross-validation, 0.75 under 1 km spatial-block validation**.
+
+**What it changes for this note's decision.** Nothing. §3's decision — buildings-as-fuel is not adopted before the finals — stands, and this paper strengthens the reason rather than weakening it. The predictive scale it identifies is 100–300 m, which is **finer than this project's 500 m hazard grid**, so a buildings-as-fuel term could not be expressed at the project's resolution even if the data existed; and there is still no Korean building-footprint census in this repository. What the paper adds is a citation for the post-finals direction (WFG-059): if a Korean BFM-lite is ever built, the neighbourhood-scale density term is the one with published effect sizes behind it, and the validation must be spatially blocked or the skill is not real.
+
+**What it changes for the WUI thresholds question.** Nothing — the Radeloff et al. (2005/2018) numeric thresholds remain **UNVERIFIED** here (`PYROGEOGRAPHY.md` §7). This paper does not use them.
+
+- Farajpoor, P., Narimani, M. (2026). The spatial anatomy of urban wildfire vulnerability: a spatially validated GeoAI framework reveals the roles of building density and vegetation moisture in structure loss during the 2025 Palisades Fire. arXiv:2608.22293. <https://arxiv.org/abs/2608.22293> [opened]

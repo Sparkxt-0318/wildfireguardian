@@ -32,3 +32,9 @@ Moreno, M., Steger, S., Bozzoli, L., Terzi, S., Trucchia, A., van Westen, C., Lo
 - R's rotated y-tick labels (we keep them horizontal).
 - Titles typed inside the plotting area over data.
 - Any figure whose numbers are not in `docs/NUMBERS.json` — the style changes; the registry rule does not.
+
+## Update 2026-09-06
+
+*Research routine, sandbox.* **No change, and the reason is worth recording rather than leaving as silence.** This run's scan surfaced no new figure-style reference and no new source bearing on `paper/style.py`. The rules in §2 and the implementation in §3 are unchanged and stay in force.
+
+One observation the scan does support, filed here because it is where a lap would look for it: the strongest new external result this run found (Farajpoor & Narimani 2026, `PYROGEOGRAPHY.md` §Update 2026-09-06) is a **paired** comparison of the same model under two validation schemes, and its whole rhetorical force is that the two numbers sit side by side. That is the same shape as this project's every headline — fire-blind versus forecast-aware on the same origins — and §2's rule that a comparison figure must share axes, scale and colour mapping across its panels is what makes that shape legible. Nothing to change; the rule is doing its job, and this is the kind of figure it exists for.
