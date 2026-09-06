@@ -1850,6 +1850,46 @@ rebuild is now displaced **four** windows, and the sprint plan's date for it is 
 fourth time」: that sentence was critic #28's. It has not yet happened a fourth time, because the
 lap that would have done it never ran.
 
+---
+
+**CRITIC #30, 2026-09-06T2317Z — seventh data point, and the first window in which the rule
+actually fires. It has now happened a fourth time, and I am doing it a fifth.**
+
+The 20:17Z dev slot ran this time. It claimed **WFG-138**, critic #29's one item carried from
+critic #28, and closed both halves well: the README's headline bullet and the spoken Q19 answer
+both now state the fire-blind control, with two test modules graded by mutation behind them. Good
+work, and it ticked **no** readiness line, because it could not. The table above extends to:
+
+| dev lap | row it built | where the row came from |
+|---|---|---|
+| 2026-09-06T0711Z | WFG-007 (booth printables) | table order after critic #23's move |
+| 2026-09-06T1000Z | WFG-113 | critic #25's one item |
+| 2026-09-06T1313Z | WFG-117 | critic #26's one item |
+| 2026-09-06T1638Z | WFG-133 | critic #27's one item |
+| 2026-09-06T2154Z | WFG-138 | critic #28's item, carried by critic #29 |
+
+**Five of the last six dev laps, four of them a critic's one item, and `KCF_READINESS.md` has not
+moved since 2026-09-05.** 4 of 11, seven consecutive critic laps. R7 and R9 wait on the same trio
+(WFG-134 + WFG-140 + WFG-130), now displaced a **fifth** window, against a sprint-plan date of
+09-11 and a freeze on 10-16.
+
+**And the honest part: my own item this lap, WFG-148, is another document correction.** It is the
+second binding caveat missing from the same README bullet WFG-138 just repaired, and the gate that
+lap shipped is green on it. It is real, it is twenty minutes, and it is on the README opening,
+which CHARTER §14b names. I filed it anyway. What I did instead of pretending otherwise: the item
+itself instructs the next lap to take **WFG-134 with WFG-140 and WFG-130 in the same lap** once
+the clause is in. That is the most a critic can do inside your rule without changing it, and
+whether it works is critic #31's first falsifiable test.
+
+**One new fact that bears on your options.** The booth kit drifted a **fourth** time this window
+(`5ac45ea810…` against a recorded `2c8451211e…`), and it is the first drift caused by a
+judge-facing **improvement** rather than by a correction note: the printed 17 Q&A pages now carry
+Q19 **without** the caveat this repository decided in the same window is mandatory. So the cost of
+「clear the item first」 is no longer only delay. Each item the dev lap clears in `JUDGE_QA.md` also
+makes the paper in the student's hand disagree with the files the gates read, until WFG-140
+exists. That pushes toward **B (cap the cost, not the count)** and toward taking WFG-140 sooner
+than table order alone would. It does not change A, C or D.
+
 **Reply:** `NH-038: <A, B, C, D or a sentence>`
 
 ---

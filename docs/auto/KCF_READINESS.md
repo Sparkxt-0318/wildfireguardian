@@ -5,6 +5,80 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
+**Tick count, critic #30, 2026-09-06T2317Z: 4 of 11 (R2, R4, R5, R6), unchanged for a SEVENTH consecutive
+critic lap. This window DID contain a dev lap, so unlike last time the 「zero across two consecutive laps」
+rule fires, and it fires about the loop's direction and not about the product.** Checked on disk at
+`524f13c`, re-run rather than read, on a clone fully unshallowed (`git rev-parse --is-shallow-repository`
+answers `false`, 508 commits).
+
+- **Why the zero is a direction finding this time, stated before anything else.** The 20:17Z dev lap ran,
+  claimed **WFG-138** and closed both of its halves, and the work is real: the README's headline bullet no
+  longer asserts what the manuscript disclaims, the spoken Q19 draft carries the same caveat, and two test
+  modules go red if either slips back. It ticked no readiness line because it could not: WFG-138 is a
+  correction to a document this loop wrote, and every readiness line is an artifact a judge opens.
+  **That is now five of the last six dev laps** (WFG-007 was the exception, and it is what put R7 within
+  reach): WFG-113, WFG-117, WFG-133, WFG-138 were each some critic's one `fix-before-next-row` item. Each
+  was worth doing. The sum is that `docs/auto/KCF_READINESS.md` has not moved since 2026-09-05 while the
+  sprint is over halfway through, and R7 and R9 still wait on the same trio, WFG-134 + WFG-140 + WFG-130,
+  now displaced a **fifth** window. The measurement goes to **NH-038**, which asks the author this exact
+  question, because the rule that produces the pattern is theirs and neither a dev lap nor a critic lap
+  may change it. ⚠ **And this lap does it again:** my one item, **WFG-148**, is another document
+  correction. I file it anyway because it is on the README opening and it is twenty minutes, and I have
+  written into the item that the same lap must then take WFG-134. That is the most a critic can do inside
+  the rule as written.
+- **R3 sandbox half green; CI half clean; and the cold/warm gap is now a controlled demonstration.**
+  `gates.py --mode full` is **ALL GREEN** at `524f13c`, exit 0: `1616 passed, 62 skipped, 1 xfailed`,
+  **cold**, 350.4 s. The 2154Z dev lap reported **warm** `1622 / 56` at `8e902dd`, a tree that differs
+  from this one only in prose and generated board files. The difference is **exactly six tests in each
+  direction**, which is **WFG-139**: the first suite run in a sandbox downloads the SRTM tile and every
+  later run in that sandbox executes six more tests. Same defect, two sandboxes, one lap apart, and it is
+  the cleanest evidence for that row anyone has produced. `verify`, `snapshot-verify` and `env-check`
+  PASS; `baseline-verify` WARN is CHARTER §3d information. Read through the GitHub MCP (WFG-119 records
+  the `curl` 403): `auto-gates` runs **165 to 184** on `auto/dev` are **18 `success` and 2 `cancelled`**,
+  with **no `failure` at all**; run 184 at this head is `success`. `--assert-head` exits 0. Every push in
+  the window carried a report, checked pair by pair. Every **dev** report carries `Reviewed by:`; the
+  research report does not (**WFG-147**). R3 still waits on one `make all-checks` run on the author's
+  laptop, and WFG-139 is untaken.
+- **R7 does not tick, and the fourth drift is the first one that makes the printed pages WORSE.**
+  Re-hashed in one process at this head: `BOOTH_SETUP.md` `ef7342dacf…`, `DEMO_SCRIPT_5MIN.md`
+  `b1aae78f35…` and `DETECTION_FLOOR_CARD.md` `84648d4d6e…` all **match**; `docs/auto/JUDGE_QA.md`
+  manifest `2c8451211e5f97…` against tree **`5ac45ea8103f11…`**. The PDF still matches its own manifest
+  sha256, so `tests/test_printables.py` stays fully green over it. Series: `af955a30fa…` (#27) →
+  `7d5ac4c9c5…` (#28) → `175da9e50c…` (#29) → **`5ac45ea810…`** (here). Critic #29's root objection was
+  that all three earlier drifts were the loop's own correction notes rather than judge-facing
+  improvements. **This one is a judge-facing improvement, which is precisely why it is worse than the
+  three before it:** the 17 printed Q&A pages now carry Q19's answer **without** the fire-blind caveat
+  that the repository decided in the same window is mandatory and now enforces in two test modules. The
+  paper in the student's hand and the files the gates read disagree about what the student may say aloud.
+  WFG-134 rebuilds and **WFG-140** is the gate that ends the series.
+- **R8 does not tick, and the reason is no longer the defect critic #28 filed.** That defect is fixed:
+  `README.md:22-33` states the fire-blind control inside the bullet and names the fair opponent's region
+  scope. What holds R8 now is the **second** of the two caveats `paper/manuscript.md:506` says bind the
+  same comparison: the forecast-aware arm plans on the hazard field it is graded against, so the 42 is
+  what a **noiseless** forecast buys. `grep -niE "perfect|oracle|upper bound|상한|noiseless" README.md`
+  returns **nothing** at this head. `docs/present_perimeter_arm.md` §5 states it and calls it 「a property
+  the 91 has always had, inherited not introduced」; `docs/real_roads_real_hazard.md` hands both arms the
+  same `HazardSequence`; `evacuation.py:270` says the fire-blind arm is 「then scored against the hazard」.
+  And `tests/test_future_aware_attribution.py:135` `_is_caveated` accepts one CONTROL spelling and asks
+  nothing else, so the new gate is green on it. Filed as **WFG-148**, this lap's one item. R8's own
+  Round-4 and abstract half is unchanged and untaken.
+- **R5 keeps its tick.** Q19's spoken draft is stronger than it was and 50 judge-qa, printables and
+  fair-opponent tests are green over the file. ⚠ Still **no card** for
+  「산림청·경기도가 이미 산불확산예측을 하고 있는데 무엇이 다릅니까?」 (**WFG-144**, P1), which the paper
+  now answers in its Related work at `719c420` while the bank does not. That is the one row whose
+  promotion the research lap asked for.
+- **R1, R2, R4, R6, R9, R11 unchanged**; R10 stays withdrawn and R12 is the author's. I did not re-measure
+  WFG-110's six registry keys and do not tick on a number I did not take.
+- **Sourcing spot-checked rather than accepted.** The window's only new external prose is the
+  manuscript's Related-work paragraph on the two Korean operational systems (`719c420`). Both new
+  `references.bib` entries carry a `verified 2026-09-06` note, an agency, a date and an explicit
+  statement that no accuracy figure exists on either page, which is CHARTER §3 rule 5b satisfied in the
+  form the rule asks for; the `khan2026gdaps` URL slug `202603301116001` agrees with the `30 March 2026`
+  the entry records. **WFG-146** (the knowledge note's one-character date error on the 사이언스타임즈
+  article) is unchanged and untaken; it did not propagate into the manuscript, which does not cite that
+  article.
+
+
 **Tick count, critic #29, 2026-09-06T2015Z: 4 of 11 (R2, R4, R5, R6), unchanged for a SIXTH consecutive
 critic lap — and this is the first of those six windows that contained no dev lap at all, so the count
 could not have moved.** Checked on disk at `1b26c3a`, re-run rather than read, on a clone fully unshallowed

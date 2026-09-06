@@ -1,6 +1,6 @@
 # Direction — where the project is going, on one screen
 
-*Written 2026-09-04 by the author's session; steered again the same evening (product first). Rewritten by the research routine every second day; the critic checks it after every dev lap (CHARTER §14). The dev routine reads it before claiming a row. **Rewritten 2026-09-06T1817Z by the research lap** (first research run of the sprint cadence); **direction re-checked 2026-09-06T2015Z by critic #29, no row moved.** Critic #28's note is in `docs/auto/reports/2026-09-06T1736Z-critic.md`.*
+*Written 2026-09-04 by the author's session; steered again the same evening (product first). Rewritten by the research routine every second day; the critic checks it after every dev lap (CHARTER §14). The dev routine reads it before claiming a row. **Rewritten 2026-09-06T1817Z by the research lap** (first research run of the sprint cadence); **direction re-checked 2026-09-06T2317Z by critic #30, no row moved, reorder budget unspent.** Critic #29's note is in `docs/auto/reports/2026-09-06T2015Z-critic.md`.*
 
 ## Thesis (two sentences)
 
@@ -10,9 +10,9 @@ A forecast of where the fire will be, not where it is, changes which walking rou
 
 *No existing row moved this lap. Three new rows enter (**WFG-142, WFG-143, WFG-144**) and all three enter the **P1** block at the end — no P0 row moved, and no row moved below a row of higher priority. The research lap's own answer to 「is the next todo row still the highest-leverage one」 is **yes**, and its finding is that the highest-leverage thing it could do for the queue was not to add to the front of it.*
 
-1. **WFG-138 (P0, minutes) — the README asserts what the manuscript disclaims, about the number the project leads with. Critic #28's one `fix-before-next-row` item, still `todo`.** `README.md:22-26` says 42 of 458 origins reach a refuge 「**only** when the router accounts for where the fire **will be**」; the manuscript's Abstract carries the same two numbers and then says the contrast 「does not separate knowing where the fire will be from knowing where it is」, because the baseline is fire-blind (`src/wildfireguardian/routing/evacuation.py:270`). The README is the fourth surface for this claim and the only one nobody repaired. One clause, additive, no number moves. ⚠ The 「Headline result」 bullet, **not** the opening paragraph about the 2025 fire.
-2. **WFG-134 with WFG-130 and WFG-140 in one lap (P0) — the booth kit.** The manifest's `JUDGE_QA.md` hash is stale and has drifted twice; the printed 17 pages carry the pre-WFG-117 Q30 and Q35's un-retracted block. **WFG-140 is the freshness gate and must go red on today's tree before the rebuild makes it green.** R7 and R9 both wait on this and nothing else does — the fifth consecutive critic lap has read 4 of 11.
-3. **WFG-139 (P0, one lap) — the test suite reaches the network and the clean-clone claim is false.** `tests/test_spread_warmup.py:156` downloads a 25 MB SRTM tile on a clone with no `data/raw/`; CHARTER §4b forbids it in those words and `JUDGE_QA.md` Q28 cites the file that promises 「No network」. Six terrain tests have never run in CI, and this is the whole of the cold/warm `62 / 56` skip gap.
+1. **WFG-148 (P0, twenty minutes) — the same bullet WFG-138 just repaired carries the first of the manuscript's TWO binding caveats and not the second. Critic #30's one `fix-before-next-row` item.** ✅ **WFG-138 is `done(20260906T2117Z)` and both of its halves shipped.** What remains is `paper/manuscript.md:506`: 「Two caveats bind the whole comparison. The forecast-aware arm plans on the same hazard field it is graded against, so whatever it is worth ... is what a *noiseless* forecast is worth.」 That is absent from `README.md` entirely, it binds the 42 for the same reason it binds the 91, and `tests/test_future_aware_attribution.py:135` is green on it because `_is_caveated` accepts one CONTROL spelling and asks nothing else. One clause, additive, no number moves, and **do not touch `docs/auto/JUDGE_QA.md`** (Q36 already carries the sentence; a fifth drift buys nothing). ⚠ The 「Headline result」 bullet, **not** the opening paragraph about the 2025 fire.
+2. **WFG-134 with WFG-130 and WFG-140 in one lap (P0) — the booth kit, and the lap that clears row 1 takes this one in the same lap.** The manifest's `JUDGE_QA.md` hash has now drifted **four** times (`5ac45ea810…` against a recorded `2c8451211e…`), and this fourth drift is the first that makes the printed pages **worse rather than older**: the 17 printed Q&A pages hold Q19 without the caveat the repository has since made mandatory. **WFG-140 is the freshness gate and must go red on today's tree before the rebuild makes it green.** R7 and R9 wait on this and nothing else does; the seventh consecutive critic lap has read 4 of 11.
+3. **WFG-139 (P0, one lap) — the test suite reaches the network and the clean-clone claim is false.** `tests/test_spread_warmup.py:156` downloads a 25 MB SRTM tile on a clone with no `data/raw/`; CHARTER §4b forbids it in those words and `JUDGE_QA.md` Q28 cites the file that promises 「No network」. Six terrain tests have never run in CI, and this is the whole of the cold/warm `62 / 56` skip gap, demonstrated cleanly across critic #30's cold `1616 / 62` and the 2154Z lap's warm `1622 / 56` on a tree differing only in prose.
 
 Then **WFG-128**, **WFG-129**, WFG-117 (b), WFG-007's human half, WFG-110 (the **only** thing holding R1), WFG-124 (`blocked(NH-032)`), WFG-104, WFG-106, WFG-127, WFG-135, **WFG-142**, **WFG-143**, **WFG-144**, WFG-125, WFG-122, WFG-121 (c), WFG-036 v2, WFG-101, WFG-010, WFG-096, WFG-026 (the other half of R7), WFG-024 when its blockers clear, and only then the infra rows — **WFG-119**, WFG-131, WFG-132, WFG-137, WFG-141 — which CHARTER §14b holds behind R1, R3, R7, R8 and R9.
 
@@ -25,7 +25,7 @@ Then **WFG-128**, **WFG-129**, WFG-117 (b), WFG-007's human half, WFG-110 (the *
 - No new spread model, no retrain, no re-acquired region before 2026-10-16 (CHARTER §3). **This now also bars measuring our own random-split-versus-LOFO penalty** — WFG-142 cites an external instance and says in its own voice that we have not measured ours.
 - **⚠⚠ NEW: no accuracy comparison with NIFoS's 산불확산예측시스템 or 경기도's G-DAPS, on any surface, in either direction.** The only figures available are agency plan statements in a newspaper. The differentiator is the **output object** (`docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md` §3). Their 5 m terrain analysis is finer than our 500 m grid and the card says so.
 - **⚠ NEW: an external paper's number never normalises one of ours.** Farajpoor & Narimani's 0.92 → 0.75 spatial-blocking penalty establishes that the penalty exists and is large; it is a different task, unit, geography and label, and it may not sit beside our AUC anywhere.
-- No fourth rewrite of the README's **opening paragraph about the 2025 fire**; WFG-138 is a different bullet.
+- No fourth rewrite of the README's **opening paragraph about the 2025 fire**; WFG-148, like WFG-138 before it, is a different bullet.
 - No consultation-dependent claim (NH-010); no ratio between the chain and the season areas (NH-018).
 - Do not spend a lap on the six-fire study-area map until per-fire burned areas are registered (WFG-060). Do not commit the bundle payload.
 - **Do not put any fair-opponent margin (9, 27, 5, 19) on a judge-facing surface** until NH-032 is answered. `JUDGE_QA.md` Q19's do-not-say list is the one exception.
@@ -36,52 +36,50 @@ Then **WFG-128**, **WFG-129**, WFG-117 (b), WFG-007's human half, WFG-110 (the *
 
 ## Critic's last direction note
 
-**2026-09-06T2015Z, critic #29. The window I was sent to review contains no dev lap, so I graded
-the queue rather than a lap, and the one thing I found is one clause long and sits inside the
-sentence the student says out loud.**
+**2026-09-06T2317Z, critic #30. Critic #29's two falsifiable tests both came back in the dev
+lap's favour, and the one thing I found is the other half of the sentence they were about.**
 
-Verified rather than read: `gates.py --mode full` **ALL GREEN** at `1b26c3a` (`1599 passed, 62
-skipped`, cold, 273.6 s; **identical** to critic #28's cold `1599 / 62`, which is the correct
-result for a window with no code in it), `--assert-head` exits 0, and the `auto-gates` runs **161
-to 180** on `auto/dev` are **17 `success` and 3 `cancelled`** with **no `failure`** — run 180 at
-this head is `success`, so no gate finding and no CHARTER §4b finding. Every dev report in the
-window carries `Reviewed by:`. No author reply is waiting; the Gmail search returns only the loop's
-own 25 sent reports.
+Verified rather than read: `gates.py --mode full` **ALL GREEN** at `524f13c`, exit 0 (`1616
+passed, 62 skipped, 1 xfailed`, **cold**, 350.4 s), `--assert-head` exits 0, and the `auto-gates`
+runs **165 to 184** on `auto/dev` are **18 `success` and 2 `cancelled`** with **no `failure`** and
+run 184 at this head `success`, so no gate finding and no CHARTER §4b finding. Every push in the
+window carried a report; every **dev** report carries `Reviewed by:` (the research report still
+does not, WFG-147). No author reply waits on either channel: 30 Gmail threads, all the loop's own
+`SENT` reports, and PR #31 has no comments. Clone unshallowed before any measurement
+(`is-shallow-repository` = `false`, 508 commits).
 
-**No row moved this lap and the reorder budget is unspent.** The page's first row, **WFG-138**, is
-still the highest-leverage row for 2026-10-24 and it has never been in front of a dev lap: the
-18:17Z slot was ceded to research (CHARTER §14), so `git diff e95fe28..1b26c3a` changes zero lines
-outside `docs/auto/`. **Critic #28's falsifiable test (2) on WFG-138 therefore could not be run and
-I do not report its verdict.** I carried the item forward verbatim instead of spending a new one,
-and filed the mechanism as **WFG-145**.
+**Critic #29's tests, answered.** (1) `README.md:22-33` is repaired, so the finding is **not**
+about the dev lap's step 3. (2) The widened row **did** travel: one lap closed both surfaces, so
+「one row per surface」 is falsified and the unit stays the claim.
 
-**The root objection is that the booth kit's staleness has become a reason not to improve the
-booth.** `docs/auto/JUDGE_QA.md` has now drifted from the printed manifest three times — recorded
-`2c8451211e…`, tree `af955a30fa…` (#27), `7d5ac4c9c5…` (#28), **`175da9e50c…`** (here, re-hashed) —
-and **every one of those drifts was a critic or dev lap adding a correction note, not a
-judge-facing improvement**. The research lap then filed the one genuinely new judge-facing card
-(**WFG-144**) at P1 partly so it would not make the kit stale a fourth time. So freshness is being
-spent freely on the loop's own corrections and rationed against the booth. The cheapest test is
-**WFG-140 plus WFG-134 in one lap**: once drift is caught by a gate, no row needs sequencing behind
-a rebuild.
+**No row moved and the reorder budget is unspent.** WFG-138 closed, so the first `todo` row in
+table order is **WFG-134**, which is this page's row 2 and the 2154Z lap's own stated next row.
+The page and the table already agree; a reorder would be motion without a reason. WFG-148 enters
+at position 1 as this lap's one item, which is not a reorder.
 
-**Widened, not added: WFG-138 now has a second half.** The judge drill found that `JUDGE_QA.md`
-Q19's draft answer says 「영덕에서 458개 원점 중 **42**개, 의성·안동에서 368개 중 **91**개가 시간
-인지 경로에서만 …」, and the ⚠ block beneath it corrects the **91** and says nothing about the
-**42** in the same sentence. Both come from the same fire-blind control, and 영덕 needs the caveat
-more, because the present-perimeter opponent has only ever run on 의성·안동. A dated ⚠⚠ note with
-the sentence to say is on Q19 at this head.
+**The root objection is that a gate certifying 「this sentence is caveated」 is only as wide as its
+list of caveats, and the loop wrote that list from the one defect in front of it.**
+`tests/test_future_aware_attribution.py:135` accepts one CONTROL spelling and asks nothing else,
+so the README bullet is green under the gate built for it while the second of the manuscript's own
+two binding caveats is missing from it. The cheapest test is one line and it is WFG-148's half
+(b): add an ORACLE family, require both on README and the manuscript, and watch it go **red** at
+this head.
 
-**KCF_READINESS: zero lines ticked in the last 24 h, 4 of 11, a sixth consecutive critic lap — and
-I did not fire the direction rule on it,** because a window with no dev lap in it cannot tick a
-line and reading it as a direction failure would be false. The measurement went to **NH-038**,
-which already asks the author this exact question.
+**KCF_READINESS: zero lines ticked in the last 24 h, 4 of 11, a SEVENTH consecutive critic lap,
+and this time the rule fires**, because unlike critic #29's window this one contained a dev lap.
+Five of the last six dev laps built a critic's `fix-before-next-row` item, each one a correction
+to a document the loop wrote, each one worth doing, and the checklist that defines 「the product is
+ready」 has not moved since 2026-09-05. ⚠ **And this lap spends its item on another document
+correction**, which is the pattern itself; I file it anyway because it is the README opening and
+twenty minutes, and I have written into the item that the same lap must then take WFG-134. The
+seventh data point went to **NH-038**, which asks the author this exact question, because the rule
+that produces the pattern is theirs.
 
-**The falsifiable test for critic #30.** (1) The 20:17Z slot is a dev slot, so critic #28's test
-runs cleanly for the first time: if `README.md:22-26` still says 「only when the router accounts for
-where the fire will be」 with no fire-blind caveat at the next critic head, the finding is about the
-dev lap's step 3 and not about the row. (2) If that lap clears WFG-138's README half and leaves
-Q19's 42 standing, then a widened row does not travel and the correct unit is one row per surface.
+**The falsifiable test for critic #31.** (1) If the next dev lap clears WFG-148 and does **not**
+also claim WFG-134 in the same lap, then 「clear the item, then take the next row」 does not fit in
+one lap and the correct fix is to the cadence, not to the row. (2) If WFG-134 ships without
+WFG-140 going red on the pre-rebuild tree first, the freshness gate is green by construction and
+the drift series will reach five.
 
 ## The research lap's note (2026-09-06T1817Z)
 
