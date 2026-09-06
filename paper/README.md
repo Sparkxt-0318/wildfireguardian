@@ -9,12 +9,32 @@ and rebuilt every time the code moves. Author: **Siyeong Park (박시영)**.
 doesn't exceed. 25 pages for. now」). `check_paper.py` now checks that directly —
 it renders the document and counts — and keeps the 9,000-word budget as the
 proxy for machines that cannot render, or that can render but not in a font
-whose metrics are Calibri's. As of 2026-09-06 (lap 10) the built document is
-**23 pages under Carlito**, measured rather than estimated — it was 21 at lap 9,
-and the two pages went to Fig. 7 (F9) and to the ~1,080 words of §4.5, one page
-each, which is the split the words-to-pages curve below predicts. Two pages of
-margin remain against the author's 25. The Carlito qualifier is load-bearing
-and the next section says why. Earlier versions of this file and of CHARTER §12
+whose metrics are Calibri's. As of 2026-09-06 (lap 11) the built document is
+**23 pages under Carlito**, measured rather than estimated: 21 at lap 9, 22 at
+lap 10, 23 now. **Two** pages of margin remain against the author's 25.
+
+⚠ **The page that took the count from 22 to 23 cost eleven words, and it is worth
+knowing that before reading the words-to-pages table below as a rate.** Lap 11
+took the body 8,735 → 8,825 (a mandatory §4.5 correction, one clause, and the
+repairs its reviewer's block required in §4.4 and §4.5), but the page had gone by
+the first of those: measured in the same lap, the mandatory correction **alone**
+(8,746 words) already renders 23. §4.5 was sitting on a page boundary and any
+edit to it would have tipped the same page. The table below samples at 500-word
+steps and cannot see a boundary an eleven-word sentence crosses. **A lap that
+must correct a sentence corrects it and re-measures; it does not trade a caveat
+for a page.**
+
+⚠ **This paragraph itself read 「23 pages … two pages of margin」 for a lap while
+the file was 22, which is the opposite error and was luck rather than accuracy.**
+Lap 10 drafted §4.5 with a ninth figure (F9) in it, measured **23**, then withdrew
+the figure on its reviewer's block (`GAPS.md` G8) — which took the document back
+to 22 without this paragraph following it. `STATE.json` carried 22 correctly
+throughout, so the two disagreed and nothing compared them: `check_paper.py`
+gates `STATE.json` against the manuscript, and **no gate reads this file at
+all.** The withdrawn measurement is kept rather than deleted because it is the
+cleanest datum the loop has for what a figure costs: the same prose, one figure
+added, is one page. The Carlito
+qualifier is load-bearing and the next section says why. Earlier versions of this file and of CHARTER §12
 said 20 pages, which was IEEE Access's *recommendation* read as a rule; the
 author's ceiling is the operative one.
 
@@ -58,7 +78,8 @@ in red and mirrored in `GAPS.md`.
   wrong; the measured curve is in the next section. ⚠ **The proxy is not the
   rule**: figures, not prose, are why §4 is most of the document, so a new
   figure adds a page without adding a word. Re-measure after adding one — lap 10
-  did, and the added figure cost exactly the page the curve predicts.
+  did, and its ninth figure cost exactly the page the curve predicts. That figure
+  was then withdrawn for an unrelated reason (`GAPS.md` G8) and the page came back.
 
 ## How many pages this actually is
 
@@ -224,7 +245,7 @@ establish the hole is F4's other check — `libreoffice-writer` and
 `scripts/auto/bootstrap.sh`, `requirements.txt` or the `Makefile` — and that is
 unaffected. Raised by this lap's reviewer.
 
-⚠ **The page map below is the lap-8 render (21 pages) and lap 10 has not
+⚠ **The page map below is the lap-8 render (21 pages) and no lap since has
 re-derived it.** The total was re-measured — 23 — but the per-section boundaries
 were read with a one-off `pypdf` install that no longer exists here, so the
 positions are kept as the record of where the pages went at 21 rather than
@@ -235,7 +256,8 @@ figures and therefore most of the pages.
 Where the pages went at the lap-8 render: title page 1; Abstract and
 §1 on p. 2; §2 p. 3; §3 pp. 4–6; §4 pp. 7–14; §5 p. 15; §6 pp. 16–17; §7 p. 18;
 Data and code availability and References pp. 19–21. Results was eight pages
-because it carried six of the eight figures; lap 10 added a ninth to it. If a lap
+because it carried six of the eight figures; the page lap 10 added to it was
+prose, its ninth figure having been withdrawn before the push. If a lap
 ever has to buy pages rather than words, that is where they are.
 
 ## ⚠ Figures are deterministic within an environment, not across environments

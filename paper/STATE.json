@@ -1,12 +1,12 @@
 {
-  "last_incorporated_commit": "614500125f14e325f122c46ff66180a26e37fa5b",
-  "last_build_utc": "2026-09-06T03:40:00Z",
-  "body_words": 8735,
+  "last_incorporated_commit": "9c2b9038077043cfdb568a0b6e0a34a87b50bb8b",
+  "last_build_utc": "2026-09-06T09:35:00Z",
+  "body_words": 8825,
   "figures": 8,
   "tables": 4,
   "references": 27,
   "gaps": 7,
-  "built_pages": 22,
-  "built_pages_inputs": "43f96b29e898dd45",
-  "built_pages_note": "Measured 2026-09-06 (paper lap 10) by paper/measure_pages.py: 22 pages under Carlito, page objects and page-tree /Count agreeing, gated by check_paper.py against the author's 25-page rule (NH-028). Three pages of margin. It was 21 at lap 9; the page went to the ~1,100 words of the new SS4.5 (the fair opponent). The section's figure, F9_present_perimeter, is drawn and committed but NOT referenced by the manuscript - the lap reviewer blocked it because its bar totals plus Table 2 determined the margin NH-032 bars from judge-facing surfaces (paper/GAPS.md, gap G8) - so it costs no page here and will cost one when NH-032 is answered and it is referenced. THE FACE IS PART OF THE NUMBER: metric-compatible Carlito stands in for the non-redistributable Calibri build_docx.py asks for, so the gate reports and falls back to the 9,000-word proxy on any face whose metrics are not Calibri's. built_pages_inputs is the WFG-116 anchor: the digest of the document this 22 was measured on (the ordered figure list with pixel sizes, the table and reference counts, the body-word count). It does NOT re-derive the page count and nothing in this file does. Set both fields to null rather than hand-writing an anchor no run produced. WFG-116's other half, an apt line in auto-gates.yml so a clean clone measures, is open and outside paper/."
+  "built_pages": 23,
+  "built_pages_inputs": "77f162671872f430",
+  "built_pages_note": "Measured 2026-09-06 (paper lap 11) by paper/measure_pages.py: 23 pages under Carlito, page objects and page-tree /Count agreeing, gated by check_paper.py against the author's 25-page rule (NH-028). Two pages of margin. It was 22 at lap 10; the page went to 90 words in SS4.4 and SS4.5 - one mandatory correction (the repository narrowed its own buffer-width claim, so the manuscript's 'two documents' became one), one clause, and the lap reviewer's block, which cost SS4.4 a sentence and SS4.5 an attribution. Measured before the reviewer's fixes: the mandatory correction ALONE (8,746 words) already rendered 23, so SS4.5 sat on a page boundary and any edit to it tipped the same page. That is why the words-to-pages table in paper/README.md is a 500-word sampling and not a rate. F9_present_perimeter is still drawn, committed and NOT referenced by the manuscript (paper/GAPS.md, gap G8, NH-032 open), so it still costs no page here and will cost one when it is referenced. THE FACE IS PART OF THE NUMBER: metric-compatible Carlito stands in for the non-redistributable Calibri build_docx.py asks for, so the gate reports and falls back to the 9,000-word proxy on any face whose metrics are not Calibri's. built_pages_inputs is the WFG-116 anchor: the digest of the document this 23 was measured on (the ordered figure list with pixel sizes, the table and reference counts, the body-word count). It does NOT re-derive the page count and nothing in this file does. Set both fields to null rather than hand-writing an anchor no run produced. WFG-116's other half, an apt line in auto-gates.yml so a clean clone measures, is open and outside paper/."
 }

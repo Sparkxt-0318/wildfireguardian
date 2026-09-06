@@ -430,9 +430,10 @@ committed classification scores the fire-blind route under no time budget while 
 forecast-aware router enforces one internally, so the two arms are read under different
 rules. The over-budget column is the only bucket in the series that runs against the
 system — its registered meaning is that the fire-blind route is safe and the forecast-aware
-route is not — and at Uiseong-Andong its 2 origins have fire-blind arrival times of 624.8
-and 628.2 minutes. Under one budget applied to both arms they are origins no arm saves,
-rather than origins on which the forecast lost. The committed value is not moved and this
+route is not — and at Uiseong-Andong its 2 origins have fire-blind arrival times past that
+budget. Under one budget applied to both arms they are origins no arm saves, rather than
+origins on which the forecast lost. The two arrival times are values of the Section 4.5 arm
+and are withheld for the reason that section gives. The committed value is not moved and this
 paper reports the qualification rather than a correction. Of the other two regions,
 Uljin-Samcheok has not been re-read under the uniform rule and Yeongdeok cannot be, its
 walk graph of that vintage no longer being recoverable.
@@ -471,13 +472,18 @@ committed arm was run at five widths, and across them the opponent's failures ch
 rather than simply shrinking: at the two narrowest the buffer sits inside the fire's own
 growth and most failures are routes that cross ground which is alight by the time the walker
 reaches it, while at the two widest most failures are refuges reached only after the
-evacuation budget has expired, with a few origins walled off from every refuge. Both
-constructions of the opponent show that change of kind, which is why it is stated here and
-the counts are not. What the run does not support is any statement about whether a workable
-width could be chosen in advance: the five widths differ by factors of two, so the grid holds
-a single point in the region such a claim would be about. Two documents in the repository
-this paper cites currently draw the stronger conclusion from those same five points, and
-correcting them is an open item there.
+evacuation budget has expired, with a few origins walled off from every refuge. That
+breakdown by failure type is the committed arm's alone; what both constructions agree on is
+the coarser statement — thin buffers send walkers through burning ground, wide ones strand
+them — which is why the change of kind is stated here and the counts are not. They do not
+agree on which buffer width comes off best either, so the dispute above is not confined to
+the residual it leaves. What the run does not support is any
+statement about whether a workable width could be chosen in advance: the five widths differ
+by factors of two, so the grid holds a single point in the region such a claim would be
+about. One document in the repository still draws the stronger conclusion from those same
+five points, as do the caveats the registry carries on this arm's own entries; a second
+document was narrowed to this reading while this paper was being revised, and the rest is an
+open item there.
 
 Two caveats bind the whole comparison. The forecast-aware arm plans on the same hazard field
 it is graded against, so whatever it is worth against a present-perimeter policy is what a
