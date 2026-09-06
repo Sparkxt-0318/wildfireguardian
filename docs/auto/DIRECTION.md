@@ -1,6 +1,6 @@
 # Direction — where the project is going, on one screen
 
-*Written 2026-09-04 by the author's session; steered again the same evening (product first). Rewritten by the research routine every second day; the critic checks it after every dev lap (CHARTER §14). The dev routine reads it before claiming a row. **Rewritten 2026-09-06T1817Z by the research lap** (first research run of the sprint cadence); critic #28's note below is kept in full.*
+*Written 2026-09-04 by the author's session; steered again the same evening (product first). Rewritten by the research routine every second day; the critic checks it after every dev lap (CHARTER §14). The dev routine reads it before claiming a row. **Rewritten 2026-09-06T1817Z by the research lap** (first research run of the sprint cadence); **direction re-checked 2026-09-06T2015Z by critic #29, no row moved.** Critic #28's note is in `docs/auto/reports/2026-09-06T1736Z-critic.md`.*
 
 ## Thesis (two sentences)
 
@@ -36,15 +36,52 @@ Then **WFG-128**, **WFG-129**, WFG-117 (b), WFG-007's human half, WFG-110 (the *
 
 ## Critic's last direction note
 
-**2026-09-06T1736Z, critic #28. The window did its one item well and found the mechanism behind it; what I found is that the same shape is on the front page, and that the mechanism which finds these has taken the last three dev laps.**
+**2026-09-06T2015Z, critic #29. The window I was sent to review contains no dev lap, so I graded
+the queue rather than a lap, and the one thing I found is one clause long and sits inside the
+sentence the student says out loud.**
 
-Verified rather than read: `gates.py --mode full` **ALL GREEN** at `e95fe28` (`1599 passed, 62 skipped`, cold, 288.4 s; **+30 passed** on critic #27's cold `1569 / 62`), the 25 most recent `auto-gates` runs on `auto/dev` are **21 `success` and 4 `cancelled`** with **no `failure`** — so no gate finding and no CHARTER §4b finding — `--assert-head` and `--assert-reported` both exit 0, every dev report in the window carries `Reviewed by:`, and no author reply is waiting.
+Verified rather than read: `gates.py --mode full` **ALL GREEN** at `1b26c3a` (`1599 passed, 62
+skipped`, cold, 273.6 s; **identical** to critic #28's cold `1599 / 62`, which is the correct
+result for a window with no code in it), `--assert-head` exits 0, and the `auto-gates` runs **161
+to 180** on `auto/dev` are **17 `success` and 3 `cancelled`** with **no `failure`** — run 180 at
+this head is `success`, so no gate finding and no CHARTER §4b finding. Every dev report in the
+window carries `Reviewed by:`. No author reply is waiting; the Gmail search returns only the loop's
+own 25 sent reports.
 
-**The root objection is that the loop's honesty machinery is built for claims it has retracted, and the two worst sentences in this repository today were never retracted — they were narrowed in one file and left standing in another.** `README.md:22-26` and `docs/clean_clone_gates.md:27` are both cases. `WC-004`, the registry and the 925-file sweep all key on a **withdrawn string**, and a claim that was merely qualified has no string to key on. The cheapest test is the one WFG-138 asks for and it costs one clause.
+**No row moved this lap and the reorder budget is unspent.** The page's first row, **WFG-138**, is
+still the highest-leverage row for 2026-10-24 and it has never been in front of a dev lap: the
+18:17Z slot was ceded to research (CHARTER §14), so `git diff e95fe28..1b26c3a` changes zero lines
+outside `docs/auto/`. **Critic #28's falsifiable test (2) on WFG-138 therefore could not be run and
+I do not report its verdict.** I carried the item forward verbatim instead of spending a new one,
+and filed the mechanism as **WFG-145**.
 
-**My one `fix-before-next-row` item is WFG-138.** The second finding of this lap is that the item mechanism itself has taken the last three dev laps (WFG-113, WFG-117, WFG-133) while the booth kit has not moved since `3e92b69` and `KCF_READINESS.md` has read 4 of 11 for five consecutive critic laps. That is **NH-038**, open, with four options, and it is the author's because §14b is the author's steer.
+**The root objection is that the booth kit's staleness has become a reason not to improve the
+booth.** `docs/auto/JUDGE_QA.md` has now drifted from the printed manifest three times — recorded
+`2c8451211e…`, tree `af955a30fa…` (#27), `7d5ac4c9c5…` (#28), **`175da9e50c…`** (here, re-hashed) —
+and **every one of those drifts was a critic or dev lap adding a correction note, not a
+judge-facing improvement**. The research lap then filed the one genuinely new judge-facing card
+(**WFG-144**) at P1 partly so it would not make the kit stale a fourth time. So freshness is being
+spent freely on the loop's own corrections and rationed against the booth. The cheapest test is
+**WFG-140 plus WFG-134 in one lap**: once drift is caught by a gate, no row needs sequencing behind
+a rebuild.
 
-**The falsifiable test for critic #29.** (1) Delete `data/raw/dem/srtm/` and run the full suite with no network. Green at `1599 / 62` means WFG-139 closed properly; red means the fix guarded the wrong test. (2) If `README.md:22-26` still says 「only when the router accounts for where the fire will be」 with no fire-blind caveat at the next critic head, then a `fix-before-next-row` item costing one clause is not cheap enough to survive a window, and the finding is about the dev lap's step 3 rather than about the row.
+**Widened, not added: WFG-138 now has a second half.** The judge drill found that `JUDGE_QA.md`
+Q19's draft answer says 「영덕에서 458개 원점 중 **42**개, 의성·안동에서 368개 중 **91**개가 시간
+인지 경로에서만 …」, and the ⚠ block beneath it corrects the **91** and says nothing about the
+**42** in the same sentence. Both come from the same fire-blind control, and 영덕 needs the caveat
+more, because the present-perimeter opponent has only ever run on 의성·안동. A dated ⚠⚠ note with
+the sentence to say is on Q19 at this head.
+
+**KCF_READINESS: zero lines ticked in the last 24 h, 4 of 11, a sixth consecutive critic lap — and
+I did not fire the direction rule on it,** because a window with no dev lap in it cannot tick a
+line and reading it as a direction failure would be false. The measurement went to **NH-038**,
+which already asks the author this exact question.
+
+**The falsifiable test for critic #30.** (1) The 20:17Z slot is a dev slot, so critic #28's test
+runs cleanly for the first time: if `README.md:22-26` still says 「only when the router accounts for
+where the fire will be」 with no fire-blind caveat at the next critic head, the finding is about the
+dev lap's step 3 and not about the row. (2) If that lap clears WFG-138's README half and leaves
+Q19's 42 standing, then a widened row does not travel and the correct unit is one row per surface.
 
 ## The research lap's note (2026-09-06T1817Z)
 

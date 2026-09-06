@@ -5,6 +5,68 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
+**Tick count, critic #29, 2026-09-06T2015Z: 4 of 11 (R2, R4, R5, R6), unchanged for a SIXTH consecutive
+critic lap — and this is the first of those six windows that contained no dev lap at all, so the count
+could not have moved.** Checked on disk at `1b26c3a`, re-run rather than read, on a clone fully unshallowed
+(`git rev-parse --is-shallow-repository` answers `false`, 500 commits).
+
+- **Why the zero is not a direction finding this time, stated before anything else.** `git diff
+  e95fe28..1b26c3a` changes **zero lines outside `docs/auto/`**. The 18:17Z slot was ceded to the research
+  routine (CHARTER §14, `LOOP_CONFIG.json` -> `research_cadence_note`, the author's 2026-09-04 decision),
+  so the window holds one critic report and one research lap and nothing else. A window with no dev lap
+  cannot tick a readiness line, and reading that as a failure of direction would be a false reading. The
+  routine's rule (zero across two consecutive laps is a direction finding) is therefore **recorded and not
+  fired**; the measurement went to **NH-038**, which asks the author this exact question and now carries a
+  sixth data point. The mechanism the window exposed is **WFG-145**.
+- **R3 sandbox half green; CI half clean; and the cold count is unchanged, which is the correct result.**
+  `gates.py --mode full` is **ALL GREEN** at `1b26c3a`: `1599 passed, 62 skipped`, cold, 273.6 s — **identical**
+  to critic #28's cold `1599 / 62` at `e95fe28`, like for like, which is what a window with no code in it
+  should produce. `verify`, `snapshot-verify` and `env-check` PASS; `baseline-verify` WARN is CHARTER §3d
+  information. Read through the GitHub MCP (WFG-119 records the `curl` 403): `auto-gates` runs **161 to 180**
+  on `auto/dev` are **17 `success` and 3 `cancelled`** (`dfdf480`, `828bbae`, `ef61e9b`, each superseded by a
+  green push), with **no `failure` at all**, so there is no gate finding and no CHARTER §4b finding this lap.
+  Run 180 at `1b26c3a`, this head, is `success`. `--assert-head` exits 0. Every **dev** report in the window
+  carries `Reviewed by:`. ⚠ The one report in the window that carries no such line is the research lap's
+  (`2026-09-06T1838Z-research.md`), which is a gap in the routine's prompt rather than a missing practice —
+  **WFG-147**. R3 still waits on one `make all-checks` run on the author's laptop, and WFG-139's network
+  test is unchanged and untaken.
+- **R7 does not tick, and the kit has drifted a THIRD time — written by critic #28's own commit.** I
+  re-hashed all four manifest `SOURCES` against the tree here in one process: `BOOTH_SETUP.md`
+  `ef7342dacf…`, `DEMO_SCRIPT_5MIN.md` `b1aae78f35…` and `DETECTION_FLOOR_CARD.md` `84648d4d6e…` all
+  **match**; `docs/auto/JUDGE_QA.md` manifest `2c8451211e5f97…` against tree **`175da9e50c5ce9…`**. The PDF's
+  own sha256 still matches its manifest, so `tests/test_printables.py` stays fully green over it. The series
+  on that one file is `af955a30fa…` (#27) -> `7d5ac4c9c5…` (#28) -> `175da9e50c…` (here), and **all three
+  drifts were correction notes written by critic or dev laps, not judge-facing improvements** — #27's Q35
+  note at `a64b904`, the WFG-133 lap at `923ffbd`/`32de531`, and critic #28's own `050731a`. This lap adds a
+  fourth for the same reason and does not exempt itself. **That is this report's root objection**, because
+  `WFG-144`'s cell now sequences a genuinely new judge-facing card behind the rebuild 「or the printed 17
+  pages go stale a fourth time」, while the laps making that argument spend the same freshness on themselves.
+  WFG-134 rebuilds, **WFG-140** is the gate, and the gate is the half that dissolves the sequencing argument.
+- **R8 does not tick and its defect is one clause wider than critic #28 measured.** `README.md:22-26` is
+  unchanged and still says 42 of 458 reach a refuge 「**only** when the router accounts for where the fire
+  **will be**」, so **WFG-138** is `todo` — but the item was never in front of a dev lap (see the first
+  bullet), so critic #28's falsifiable test on it **could not be run and I do not report its verdict**. What
+  the judge drill added: `docs/auto/JUDGE_QA.md` **Q19**'s draft answer carries 「영덕에서 458개 원점 중 **42**개,
+  의성·안동에서 368개 중 **91**개가 시간 인지 경로에서만 …」, and the ⚠ block directly beneath it corrects the
+  **91** and leaves the **42** untouched in the same sentence. Both come from the same fire-blind control
+  (`src/wildfireguardian/routing/evacuation.py:270`); 영덕 needs the caveat **more**, because the
+  present-perimeter opponent has only ever been run on 의성·안동
+  (`data/processed/present_perimeter_arm_uiseong_andong_2025.json`). A dated ⚠⚠ note with the sentence to say
+  is on Q19 at this head and 50 judge-qa, printables and fair-opponent tests are green over it. WFG-138 is
+  widened by that half and **carried forward** as this lap's one item rather than re-filed.
+- **R5 keeps its tick.** The bank gained one correction note and no card changed its answer; the drill's
+  finding is R8's, above. ⚠ The bank still has **no card** for 「산림청·경기도가 이미 산불확산예측을 하고 있는데
+  무엇이 다릅니까?」 (**WFG-144**, P1), which is the most likely question a disaster-response judge asks, and
+  the research lap's own page says that if the author promotes one row it is that one.
+- **R1, R2, R4, R6, R9, R11 unchanged**; R10 stays withdrawn and R12 is the author's. I did not re-measure
+  WFG-110's six registry keys and do not tick on a number I did not take.
+- **Sourcing re-checked rather than accepted**, because the window's only substantive prose is a new
+  landscape note whose sources no gate can read. I re-opened both live URLs: 경향신문 (G-DAPS) confirms the
+  date, the 30-minute steps, the 읍면동 unit, the **589** alert facilities, the following-month trial, and
+  **no accuracy figure**; 사이언스타임즈 confirms every NIFoS figure the note quotes. **One error: the note
+  dates that article 2026-02-12 and the page says 2026-02-13** — one character, filed as **WFG-146** because
+  CHARTER §3 rule 5b makes the date part of what licenses the figure.
+
 **Tick count, critic #28, 2026-09-06T1736Z: 4 of 11 (R2, R4, R5, R6), unchanged for a FIFTH consecutive
 critic lap — and this lap's finding is that one of the ticked-adjacent claims, the one about running on a
 clean clone, is false.** Checked on disk at `e95fe28`, re-run rather than read, on a clone **fully

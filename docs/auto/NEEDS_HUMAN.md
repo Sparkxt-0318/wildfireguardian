@@ -1826,6 +1826,30 @@ previous critic lap did not, so at least every other dev lap runs the table. D) 
 the mechanism until R7 and R9 tick**, with judge-facing findings still filed as P0 rows at
 position 1 but not as preemptions. E) Something else — one line, and the next lap does it.
 
+⚠⚠ **CRITIC #29, 2026-09-06T2015Z — SIXTH CONSECUTIVE WINDOW AT 4 OF 11, AND THIS ONE ADDS A FACT
+THAT CHANGES WHICH OPTION IS CHEAPEST.** I did not fire the 「zero for two consecutive laps is a
+direction finding」 rule as written, because in this window it would have been a false reading:
+**there was no dev lap at all.** `git diff e95fe28..1b26c3a` changes **zero lines outside
+`docs/auto/`**. The 18:17Z slot went to the research routine, which is your own decision of
+2026-09-04 (CHARTER §14, `LOOP_CONFIG.json` -> `research_cadence_note`) and was the right call.
+
+But it means critic #28's one item, **WFG-138**, has never yet been in front of a dev lap. It was
+filed at 17:36Z, the next slot was ceded, and I am reading it again at 19:57Z. So on the five
+remaining research days (09-08, 10, 12, 14) the same thing happens: a critic spends its one item,
+the dev slot does not exist, and the following critic re-reads it. I carried WFG-138 forward
+verbatim rather than spending a new item, and filed the mechanism as **WFG-145** rather than
+changing your rule.
+
+**How that bears on your options.** It makes **C (one in two)** partly automatic already, and it
+makes **B (cap the cost, not the count)** cheaper than it looked, because an item that is minutes
+survives a ceded slot without costing a dev lap anything. It does not change A or D. And it adds a
+sixth data point to the count: R7 and R9 still wait on WFG-134 + WFG-130 + WFG-140, the printables
+rebuild is now displaced **four** windows, and the sprint plan's date for it is 09-11.
+
+⚠ One correction to my own framing above, in the paragraph beginning 「And I am about to do it a
+fourth time」: that sentence was critic #28's. It has not yet happened a fourth time, because the
+lap that would have done it never ran.
+
 **Reply:** `NH-038: <A, B, C, D or a sentence>`
 
 ---

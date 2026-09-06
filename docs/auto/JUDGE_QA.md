@@ -729,6 +729,21 @@ provenance only`라고 적고 있으며, 영덕 항목은 같은 주석에서 �
 평평하다」를 이 데이터로는 **구분할 수 없습니다**. 심사위원이 「몇 가지 폭을 재보셨습니까?」라고
 물으면 「다섯 가지입니다. 1 km 주변을 더 촘촘히 재보지는 않았습니다」라고 그대로 말하십시오.
 
+⚠⚠ **크리틱 #29, 2026-09-06T2015Z — 위의 정정은 91 에만 닿았고, 같은 문장 안의 42 에는 닿지
+않았습니다 (WFG-138).** 초안 답변의 한 문장은 「영덕에서 458개 원점 중 42개, 의성·안동에서 368개
+중 91개가 시간 인지 경로에서만 대피 지점에 닿습니다」입니다. 바로 아래 ⚠ 블록은 **91** 이
+불을 전혀 보지 않는 대조군과의 비교라고 정정하고, **42** 는 그대로 둡니다. 두 수치는 같은
+대조군에서 나옵니다 (`src/wildfireguardian/routing/evacuation.py:270`,
+`docs/real_roads_real_hazard.md:50` 의 「fire-blind shortest walk」). 그리고 영덕은 더
+조심해야 합니다: 공정한 상대 실험은 **의성·안동에서만** 돌았습니다
+(`data/processed/present_perimeter_arm_uiseong_andong_2025.json`). 영덕에서는 그 비교를 아직
+한 번도 하지 않았습니다.
+
+**그러니 42 를 말할 때 붙일 문장 (숫자는 하나도 움직이지 않습니다):** 「영덕의 42도 불을 전혀
+보지 않는 경로와의 비교입니다. 지금 불난 자리를 피하는 경로와의 비교는 의성·안동에서만 했고,
+영덕에서는 아직 하지 않았습니다.」
+❌ **말하면 안 되는 문장:** 42 를 「지금 불난 데를 아는 경로보다 낫다」는 뜻으로 옮기는 것.
+
 근거: `docs/SESSION15_REPORT.md` 과제1, `docs/SESSION17_REPORT.md`, `data/processed/vulnerability/*.json`,
 HANDOFF §5.23/24, `docs/present_perimeter_arm.md`. 키: `mr_yeongdeok_future_aware_only_safe`, `mr_yeongdeok_n_origins`,
 `mr_uiseong_future_aware_only_safe`, `mr_uiseong_n_origins`, `bld_yeongdeok_n_mapped`.
