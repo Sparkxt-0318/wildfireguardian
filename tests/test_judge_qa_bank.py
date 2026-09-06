@@ -37,6 +37,14 @@ from pathlib import Path
 
 import pytest
 
+# WFG-138. The spelling families live in the English gate and are shared rather
+# than retyped here: two hand-kept lists of the same phrases drift, and the lap
+# reviewer measured the cost of a one-token list (2 of 7 sentences classified
+# correctly, with correct sentences among the misses).
+from tests.test_future_aware_attribution import ATTRIBUTION as _ATTRIBUTION
+from tests.test_future_aware_attribution import CONTROL as _CONTROL
+from tests.test_future_aware_attribution import _flat
+
 REPO = Path(__file__).resolve().parents[1]
 QA = REPO / "docs" / "auto" / "JUDGE_QA.md"
 NUMBERS = REPO / "docs" / "NUMBERS.json"
@@ -535,14 +543,12 @@ def test_the_banks_qualitative_registry_claim_is_true_of_the_registry() -> None:
 # sentence. The student rehearses the draft, so the caveat has to live inside
 # the draft; this gate is what makes that true of every card, not only of Q19.
 #
-# What it does NOT do: it keys on the phrase 「불을 전혀 보지 않는」, so it
-# catches a caveat that is deleted or a new card that never had one. A reworded
-# overclaim that keeps the phrase escapes it, the same limit
-# docs/withdrawn_claims.md section 4 records for the withdrawn-claim registry.
-FUTURE_AWARE_ONLY = "시간 인지 경로에서만"
-FIRE_BLIND_KO = "불을 전혀 보지 않는"
-
-
+# What it does NOT do: it keys on spellings (ATTRIBUTION and CONTROL, shared
+# with the English gate and scored there against sentences neither gate's author
+# wrote). It catches a caveat that is deleted, moved out of the draft, or a new
+# card that never had one. A reworded overclaim carrying none of the keyed
+# phrases still escapes --- the same limit docs/withdrawn_claims.md section 4
+# records for the withdrawn-claim registry, kept as a strict xfail there.
 def _draft(body: str) -> str:
     """The quoted draft answer of a question body, or '' if it has none."""
     if "답변(초안):" not in body:
@@ -556,16 +562,19 @@ def test_no_draft_answer_states_the_future_aware_only_claim_bare() -> None:
     Graded by mutation: delete the 「42도 91도 불을 전혀 보지 않는 ...」 sentence
     from Q19's draft and this goes red naming Q19.
     """
-    offenders = [
-        qid for qid, _, body in _questions()
-        if FUTURE_AWARE_ONLY in _draft(body)
-        and FIRE_BLIND_KO not in _draft(body)
-    ]
+    offenders = []
+    for qid, _, body in _questions():
+        draft = _flat(_draft(body))
+        if any(a.search(draft) for a in _ATTRIBUTION) and not any(
+            c.search(draft) for c in _CONTROL
+        ):
+            offenders.append(qid)
     assert not offenders, (
         "Q" + ", Q".join(offenders) + ": the draft answer the student speaks "
-        "says 「" + FUTURE_AWARE_ONLY + "」 without saying, in the draft itself, "
-        "that the comparison is against a route that sees no fire at all (「"
-        + FIRE_BLIND_KO + "」). The baseline is fire-blind in this repository's "
+        "attributes the count to knowing where the fire will be without saying, "
+        "in the draft itself, that the comparison is against a route that sees no "
+        "fire at all (「불을 전혀 보지 않는」, or any spelling in CONTROL). "
+        "The baseline is fire-blind in this repository's "
         "own words (src/wildfireguardian/routing/evacuation.py:270), so the bare "
         "sentence lets a judge hear 「better than knowing where the fire is now」, "
         "which this repository has measured on 의성·안동 only. A ⚠ note above or "

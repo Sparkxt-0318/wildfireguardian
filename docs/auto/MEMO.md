@@ -1490,3 +1490,26 @@ what distinguishes them, and it costs one `git stash push` and one pytest run.
 Corollary found the same way: **WFG-140 cannot be taken alone.** Its own done-when requires
 the freshness test to be red on today's tree, and CHARTER §3.9 forbids pushing a red tree to
 `auto/dev`. It ships with WFG-134's rebuild in one lap, or it parks.
+
+**Same lap, one hour later: the mutation I chose was the mutation my gate survived.**
+The reviewer passed the lap and then drove the nail anyway. It did not delete the caveat —
+it **moved** it: restored the pre-lap overclaim into the Headline-result bullet and planted
+「(The routing contrast above is against a fire-blind baseline.)」 four bullets down the same
+TL;DR list. Three tests passed. `_blocks()` split on blank lines, and README's TL;DR is one
+2,159-character block holding four bullets, so the gate only ever asked that the word appear
+*somewhere in the list* — while its own assertion message called a note beside the sentence
+「what failed three times」. A Markdown list item is now its own block, and both mutations are
+graded.
+
+**The general lesson is about which mutation, not whether.** A delete mutation grades whether
+the gate can see the token. Only a **move** mutation grades whether it can see the *locality*,
+and locality was this row's entire subject. So: mutate along the axis the claim is about. If a
+gate exists because a correction landed in the wrong place, the grading mutation puts the
+correction in the wrong place.
+
+And the reviewer's second measurement, kept because it points the other way: scored on
+fourteen sentences it wrote itself, the first gates got 3/7 (English) and 2/7 (Korean), and
+the misses included **correct** sentences flagged — the WC-004 direction. Both gates now share
+one CONTROL/ATTRIBUTION family instead of two hand-typed tokens, the reviewer's sentences are
+committed as the probe set, and the one class no spelling list reaches (a reworded overclaim
+with no 「only」 at all) is a `strict=True` xfail so it is measured rather than forgotten.
