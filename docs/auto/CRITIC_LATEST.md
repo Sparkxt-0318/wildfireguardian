@@ -135,18 +135,25 @@ one `make printables` pays for it.
   concept up. **Third instance of WFG-138's propagation shape in five days, and the second in which
   a reviewer's block was applied to the file under review and not to the claim.** Not judge-facing
   today, which is the only reason it is not the item above.
-- **WFG-164 (new, P1, loop hygiene, held behind R1/R3/R8 by §14b). The author's inbox received an
-  email whose entire body is the word `PLACEHOLDER`.** Gmail message `1a07a0a7ffa5bafb`,
-  2026-09-07T04:05:03Z, subject `WildfireGuardian autoloop · dev · 2026-09-07T0355Z`,
-  `plaintextBody` = `PLACEHOLDER`, snippet `PLACEHOLDER_WILL_NOT_BE_USED`. The real report for the
-  same lap arrived 86 seconds later as message `1a07a0bce7b3c975`. Every routine prompt ends with
-  「read the body back before sending and **never send a placeholder**」. The 0355Z dev report does
-  not mention it: `grep -in "placeholder\|email"` on `docs/auto/reports/2026-09-07T0355Z-dev.md`
-  returns nothing. **And three critic laps have run the exact search that returns this message and
-  none of us saw it** — #32, #33 and #34 each reported 「every one a single message this loop sent」
-  and stopped at the sender, which is the loop's own address. I only saw it because I read the
-  snippets. The report channel is the author's only window onto this loop while they are away, and
-  it is the one surface no gate reads.
+- **WFG-164 (new, P1, held behind R1/R3/R8 by §14b). NH-041's undone remainder: the `PLACEHOLDER`
+  email is still in the author's inbox.** ⚠⚠ **I filed this on a false premise and I am correcting it
+  in the same lap, which is the only reason it is still here rather than deleted.** My first draft
+  said the send 「has never been mentioned by any lap」 and made a finding out of three critic laps
+  failing to notice it. **That is wrong.** `docs/auto/NEEDS_HUMAN.md` **NH-041** records the whole
+  thing and records it well: both message ids, that CHARTER §4 step 9 was performed in form and not
+  in substance because the lap passed the literal strings `PLACEHOLDER_WILL_NOT_BE_USED` and
+  `PLACEHOLDER` instead of reading `.auto/email.html`, that it tried to trash the message
+  immediately and the connector answered `requires re-authorization (token expired)` in the same
+  minute, that a cloud routine cannot run the OAuth flow, and the habit it wrote into `MEMO.md` in
+  response. The loop told the author about its own defect, which is the practice this repository
+  runs on, and my draft accused it of the opposite. **I found this out by reading back the email
+  body I was about to send, which lists NH-041 in its own Decisions block** — which is to say the
+  check that caught me is the same check NH-041 exists to install, and it worked on the first lap
+  after it was written. **What is actually left is small:** NH-041 says 「the next lap will trash it
+  if the connector is authorised again」, and I read message `1a07a0a7ffa5bafb` in this sandbox
+  today and it is still there, six laps later. Either a lap does it or that sentence stops promising
+  it. I did **not** trash it myself: this routine writes under `docs/auto/` and sends one email, and
+  mutating the author's mailbox is outside that brief (CHARTER §6).
 - **WFG-110 is untouched and is the sole remaining blocker of R1**, holding Track A 구현 및 유용성
   at 19. Unchanged from critic #32, #33 and #34: `scripts/finals.template.html` references 28
   registry keys, `DEMO_SCRIPT_5MIN.md` §3 maps 22 of them the wrong way round, 6 are in no committed
@@ -202,6 +209,7 @@ and the next lap still did it.** That is why this is the root objection and not 
    `git grep` for the subject 「재현」 across `docs/` and `paper/`, then the fix is the third
    application of the pattern this report names and the machine that was supposed to stop it is the
    lap's own habit, not a gate.
-2. If critic #36's Gmail step reports 「every thread is a single message this loop sent」 without
-   naming message `1a07a0a7ffa5bafb`, then WFG-164 is invisible to the search that four critic laps
-   have now run, and the finding is the search and not the send.
+2. If critic #36 files a finding about this loop's own conduct without first grepping
+   `docs/auto/NEEDS_HUMAN.md` for it, it will repeat what I did with WFG-164, where NH-041 had
+   already recorded the whole thing better than my draft did. The check that saved me was reading
+   the email body back before sending; a critic that skips it ships the accusation.
