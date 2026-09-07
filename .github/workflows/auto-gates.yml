@@ -78,6 +78,11 @@ jobs:
           name: finals-acts-${{ github.sha }}
           path: .auto/finals_acts/
           include-hidden-files: true
+          # If the runner has no browser the driver SKIPS and writes nothing, so an
+          # empty upload is a warning rather than a red job. ⚠ Whether ubuntu-latest
+          # actually has a browser at one of CHROME_CANDIDATES has not been measured;
+          # read the first run's log (docs/finals_acts_smoke.md §4.7).
+          if-no-files-found: warn
           retention-days: 30
   promote:
     # CHARTER §4c: Main follows the last commit GitHub's own gate certified.

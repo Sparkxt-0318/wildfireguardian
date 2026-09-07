@@ -167,7 +167,7 @@ first and along which walking route」·「walk out and by which path」(쉼표 
    백로그 행도 이름 부르지 않은 사본을 찾았습니다: `docs/auto/finals/RELATED_WORK_PANEL.md:67-69`.
    이것은 **인쇄되는 패널**이고, 한 랩 전에 1528Z 랩이 **바로 그 파일의 다른 절**을 WC-007 로
    고친 페이지입니다. 한 랩, 한 페이지, 같은 모양의 두 절, 고쳐진 것은 하나. 두 사본 모두
-   부스 킷 38 쪽 중 20 쪽에 인쇄되어 있었습니다.
+   부스 킷에 인쇄됩니다 — `manifest_20260907T1825Z.json` 의 `pages_per_source` 기준 `JUDGE_QA.md` **19 쪽**, `RELATED_WORK_PANEL.md` **3 쪽**, 전체 38 쪽 중입니다. ⚠ 이 문단의 초고는 「38 쪽 중 20 쪽」이라고 적었고, 어떤 산출물도 뒷받침하지 않는 수였습니다 (CHARTER §3.3). 이 랩의 독립 검토자가 그것 하나로 막았고, 매니페스트가 그 산출물입니다.
 
 ⚠ **한국어 패턴의 한계도 영어판만큼 좁고, 여기 적습니다.** (1) 이 패턴은 부정의 **목적어**
 <!-- forbidden-ok: wc008-household-walk-out-negative-ko -->

@@ -101,9 +101,14 @@ def _free_port() -> int:
 
 
 #: The state the screen exposes about the guided demo, read in one round trip.
-#: `dots` is how many progress pips are lit, which the screen sets to `act + 1`;
-#: reading BOTH the label and the dots means a half-applied transition (label moved,
-#: scene did not) is a failure rather than a pass.
+#: `dots` is how many progress pips are lit, which the screen sets to `act + 1`.
+#: ⚠ Reading it as well as the label is a REDUNDANCY, not an independent witness:
+#: `enter()` in web/finals.html sets the label, the caption and the dots from the
+#: same `act` argument in one synchronous block, so a state where the label moved
+#: and the dots did not cannot arise from the screen as it stands today. It is here
+#: to catch the version of this screen where they DO come apart. Corrected after
+#: this lap's reviewer read `enter()`; the first draft called it an independent
+#: witness, which was an overstatement about code nobody had opened.
 _STATE_JS = """
 (() => {
   const q = (id) => document.getElementById(id);
@@ -205,28 +210,49 @@ def _assert_advanced(previous: dict, current: dict, expected_label: str) -> None
         )
 
 
-#: Extensions `.gitignore` excludes as "too large for git" and that
-#: `web/demo-media/README.md` declares optional: 「전부 없어도 화면은 완전하게
-#: 동작한다(지형 정지 화면 + 무음 대체)」.  The author drops these onto the booth
-#: laptop; a clean clone never has them, and CI never will either.
-OPTIONAL_MEDIA_EXT = (".mp4", ".mov", ".avi", ".mp3", ".wav", ".m4a", ".ogg", ".webm")
+def tracked_demo_media() -> frozenset[str]:
+    """Basenames of the files actually committed under `web/demo-media/`."""
+    out = subprocess.run(
+        ["git", "ls-files", "-z", "web/demo-media"],
+        cwd=REPO, capture_output=True, text=True, check=True,
+    ).stdout
+    return frozenset(Path(p).name for p in out.split("\0") if p)
 
 
-def _is_optional_media(url: str) -> bool:
-    """True only for the booth's optional audio/video slots.
+def _is_optional_media(url: str, tracked: frozenset[str] | None = None) -> bool:
+    """True only for an **unfilled** booth media slot.
 
-    ⚠ Deliberately narrow.  `web/demo-media/intro-poster.webp` is **tracked**, so a
-    failure to load it is a real defect and this returns False for it; the same goes
-    for a font, a stylesheet or a script anywhere.  A blanket "ignore missing files"
-    would have made this gate agree with a booth laptop that had lost its fonts.
+    `web/demo-media/README.md` declares these slots optional — 「전부 없어도 화면은
+    완전하게 동작한다(지형 정지 화면 + 무음 대체)」 — and the author drops the real
+    files onto the booth laptop, so a clean clone and CI never have them.
+
+    ⚠ **The predicate is the git INDEX, not a list of file extensions.**  The first
+    version of this function tolerated a hardcoded extension list and its comment
+    claimed those were 「the extensions .gitignore excludes」.  That was false:
+    `.gitignore` excludes only `*.mp4 *.mov *.avi`, so `.mp3`, `.wav` and the rest
+    were tolerated on a premise that did not hold, and `web/finals.html` references
+    five committable `.wav` UI-sound slots that the tolerance would have silently
+    covered.  Asking the index instead says exactly the true thing: **a file
+    committed under `demo-media/` must load, and one that was never committed is a
+    slot nobody has filled.**  Found by this lap's independent reviewer.
+
+    Nothing outside `demo-media/` is ever optional, so a missing font, stylesheet or
+    script fails wherever it lives — a blanket "ignore missing files" would have made
+    this gate agree with a booth laptop that had lost its fonts.
     """
-    return "/demo-media/" in url and url.lower().endswith(OPTIONAL_MEDIA_EXT)
+    if "/demo-media/" not in url:
+        return False
+    if tracked is None:
+        tracked = tracked_demo_media()
+    name = url.split("?", 1)[0].split("#", 1)[0].rstrip("/").rsplit("/", 1)[-1]
+    return bool(name) and name not in tracked
 
 
 def _console_errors(cdp: CDP) -> tuple[list[str], list[str]]:
     """(errors that fail the gate, optional-media misses recorded but tolerated)."""
     fatal: list[str] = []
     tolerated: list[str] = []
+    tracked = tracked_demo_media()
     for ev in cdp.events:
         m, p = ev.get("method"), ev.get("params", {})
         if m == "Runtime.exceptionThrown":
@@ -240,7 +266,8 @@ def _console_errors(cdp: CDP) -> tuple[list[str], list[str]]:
         elif m == "Log.entryAdded" and p.get("entry", {}).get("level") == "error":
             e = p["entry"]
             line = f"log[{e.get('source')}]: {e.get('text')} {e.get('url', '')}".strip()
-            (tolerated if _is_optional_media(e.get("url", "")) else fatal).append(line)
+            (tolerated if _is_optional_media(e.get("url", ""), tracked)
+             else fatal).append(line)
     return fatal, tolerated
 
 

@@ -95,6 +95,25 @@ def test_the_advance_assertion_fails_on_a_half_applied_transition():
                               _good("2막 · 시간과 도로망", 1), "2막 · 시간과 도로망")
 
 
+def test_the_advance_assertion_fails_on_the_wrong_act():
+    """Changed, but to the wrong act — e.g. a press that skipped one.
+
+    Added after this lap's reviewer mutation-graded the checker and found this
+    branch alive: `act != expected_label` survived deletion because every other
+    test that moved the label also expected the label it moved to.
+    """
+    with pytest.raises(AssertionError, match="act label is"):
+        acts._assert_advanced(_good("1막 · 발견", 1),
+                              _good("3막 · 경로 비교", 3), "2막 · 시간과 도로망")
+
+
+def test_the_advance_assertion_fails_on_an_empty_title():
+    """The other branch the reviewer found unkilled."""
+    blank = _good("2막 · 시간과 도로망", 2) | {"title": ""}
+    with pytest.raises(AssertionError, match="caption title is empty"):
+        acts._assert_advanced(_good("1막 · 발견", 1), blank, "2막 · 시간과 도로망")
+
+
 def test_the_advance_assertion_fails_on_an_empty_caption():
     blank = _good("2막 · 시간과 도로망", 2) | {"body": ""}
     with pytest.raises(AssertionError, match="caption body is empty"):
@@ -118,34 +137,54 @@ def test_the_advance_assertion_fails_when_the_demo_left_the_live_view():
 # tolerates a missing file.  It must stay narrow.
 # ---------------------------------------------------------------------------
 
-def test_only_the_gitignored_booth_media_is_optional():
-    assert acts._is_optional_media("file:///x/web/demo-media/intro-forest-loop.mp4")
-    assert acts._is_optional_media("file:///x/web/demo-media/ambient-documentary.mp3")
-    assert acts._is_optional_media("file:///x/web/demo-media/ui-soft-click.wav")
+def test_only_an_unfilled_slot_is_optional():
+    """Every one of these is genuinely absent from the index, checked here."""
+    tracked = acts.tracked_demo_media()
+    for name in ("intro-forest-loop.mp4", "ambient-documentary.mp3",
+                 "ui-soft-click.wav", "ui-map-ping.wav"):
+        assert name not in tracked, (
+            f"{name} is now COMMITTED under web/demo-media/, so it is no longer an "
+            "unfilled slot and this gate must stop tolerating its absence"
+        )
+        assert acts._is_optional_media(f"file:///x/web/demo-media/{name}")
 
 
 def test_a_tracked_asset_is_never_optional():
-    """`intro-poster.webp` is committed; so are the fonts.  Losing one is a defect.
+    """A committed file must load.  Losing one is a defect, not an unfilled slot.
 
     This is the test that keeps the tolerance from becoming "ignore missing files",
     which would have made the gate agree with a booth laptop that lost its fonts.
     """
+    tracked = acts.tracked_demo_media()
+    assert "intro-poster.webp" in tracked and "README.md" in tracked, (
+        "web/demo-media/'s committed files are the premise of the whole rule; the "
+        f"index now holds {sorted(tracked)}"
+    )
     assert not acts._is_optional_media("file:///x/web/demo-media/intro-poster.webp")
+    assert not acts._is_optional_media("file:///x/web/demo-media/README.md")
     assert not acts._is_optional_media(
         "file:///x/web/assets/fonts/Pretendard-arrow.subset.woff2")
     assert not acts._is_optional_media("file:///x/web/finals.html")
 
 
-def test_the_optional_media_really_is_untracked_and_ignored():
-    """The tolerance is justified by the tree, not by an opinion in the driver."""
-    assert (REPO / "web" / "demo-media" / "intro-poster.webp").exists(), (
-        "the poster is supposed to be committed; if it is gone, the tolerance rule "
-        "in check_finals_acts.py is resting on a false premise"
-    )
-    assert not (REPO / "web" / "demo-media" / "intro-forest-loop.mp4").exists(), (
-        "the .mp4 is gitignored as too large for git; if a lap committed one, revisit "
-        "the optional-media rule rather than leaving it silently unused"
-    )
+def test_the_rule_reads_the_index_and_not_a_list_of_extensions():
+    """The regression this lap's reviewer blocked, kept as a test.
+
+    The first version tolerated a hardcoded extension list whose comment claimed
+    those were the extensions `.gitignore` excludes.  `.gitignore` excludes only
+    `*.mp4 *.mov *.avi`, so `.mp3`/`.wav` were tolerated on a false premise — and
+    `web/finals.html` references five committable `.wav` UI-sound slots.  A rule
+    driven by the index cannot drift from the tree that way: a `.wav` committed
+    tomorrow stops being optional the moment it is committed, with no edit here.
+    """
+    fake_tracked = frozenset({"ui-soft-click.wav", "intro-poster.webp"})
+    assert not acts._is_optional_media(
+        "file:///x/web/demo-media/ui-soft-click.wav", fake_tracked)
+    assert acts._is_optional_media(
+        "file:///x/web/demo-media/ui-map-ping.wav", fake_tracked)
+    # And nothing outside demo-media/ is reachable by the rule at all.
+    assert not acts._is_optional_media(
+        "file:///x/web/assets/fonts/IBMPlexMono-Regular.woff2", frozenset())
 
 
 # ---------------------------------------------------------------------------
