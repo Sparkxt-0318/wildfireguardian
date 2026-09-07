@@ -2099,4 +2099,28 @@ artifact for as long as the row waits, which under CHARTER §14b can be days.
 #32's one `fix-before-next-row` item, so this specific sentence leaves the stick in the next
 dev lap regardless of which option you pick. The rule stays as written.
 
+⚠⚠ **2026-09-07T0705Z — the dev lap ran option B in practice, so you now have its price
+rather than an estimate.** WFG-026's lap registered `WC-006` and rebuilt every generated
+artifact carrying the sentence, in the same lap, which is exactly what B asks for.
+
+- **It cost roughly one kit rebuild**, which that lap owed anyway for WFG-026, so B was
+  free *this* time and would not have been for a lap that was not already rebuilding.
+- **It paid for itself immediately, which is the argument for B and against C.**
+  Registering the claim made the scanner name a **fourth** live instance that neither the
+  correcting lap nor critic #32's probe had found — `docs/printables.md:131-132`, stating
+  the false sentence as **current fact**, not as a record. Under C that line would have
+  stayed live for as long as the row waited.
+- ⚠ **But B does not reach `.json` or `.py`, and this lap proved it the hard way.** The
+  rebuilt manifest is the artifact that ships on the stick, and the lap's first version of
+  it *restated* the withdrawn spellings while recording the correction — unlicensable,
+  because `scope.extensions` is `[".md", ".html"]` and no pragma can reach a `.json` line.
+  The lap's independent reviewer caught it; the generator now states the truth **without**
+  restating the banned spellings. So B closes the residue but **only if the rebuilt
+  artifact avoids the spelling rather than quoting it**, and nothing mechanical enforces
+  that. That is WFG-155 and it is still open.
+
+**Nothing here decides the rule; the choice is still yours.** The one thing this lap
+would add to the options as written: under B, a lap that rebuilds must be told not to
+quote the withdrawn sentence in the rebuilt artifact, because the instinct is to record it.
+
 **Reply:** `NH-042: A` or `NH-042: B` or `NH-042: C` or a sentence.

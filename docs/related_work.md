@@ -19,15 +19,23 @@ Three reasons, all of them binding:
 
 1. **The metrics are not comparable.** Label definition, geometry and above all
    prevalence differ between these settings, and prevalence moves average precision by
-   construction. `docs/model_card.md` and `paper/manuscript.md` §2 say the same thing.
+   construction. [`docs/MODEL_CARD.md`](MODEL_CARD.md) and `paper/manuscript.md` §2 say
+   the same thing.
 2. **For the two Korean operational systems, no published validation was located at
    all** (`docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md` §4). The capability figures
    in circulation are agency plan statements restated by newspapers, with no metric
    definition, no dataset and no validation scheme attached.
 3. **The claim this project actually makes is not an accuracy claim.** It is that a
    forecast of where the fire will be changes which walking route and which rescue order
-   are safe. What is measured, and its limits, is in `docs/routing.md`,
-   `docs/rescue_dispatch.md` and `docs/model_card.md` — not here.
+   are safe. What is measured, and its limits, lives in
+   [`docs/MODEL_CARD.md`](MODEL_CARD.md) (the canonical spread-model numbers),
+   [`docs/routing_limitations.md`](routing_limitations.md) (what the routing layer does
+   NOT support, measured and deliberately unfixed) and
+   [`docs/dispatch_ordering.md`](dispatch_ordering.md) (the dispatch-order effect,
+   measured, and it goes against us) — not here.
+   ⚠ [`docs/rescue_routing.md`](rescue_routing.md) is the older methods note and opens
+   with a DO-NOT-CITE banner over its pre-flip synthetic figures; read it for method and
+   take no number from it.
 
 **Positioning language.** Every gap below is written as *not found in the surveyed
 work*, never as 최초 or 처음. The survey is a survey and not a proof of absence; it is
@@ -48,7 +56,7 @@ what one student, one loop and a search of public sources found by 2026-09-07.
 | 6 | Finney, FlamMap minimum travel time | [10.1139/x02-068](https://doi.org/10.1139/x02-068) | physical fire growth as a minimum-travel-time problem over a fuel/terrain grid | anything about who evacuates, or how |
 | 7 | Borgwardt et al., evacuation as time-expanded max flow | [arXiv:2410.14500](https://arxiv.org/abs/2410.14500) | maximum flow on a time-expanded network with wildfire hazard integrated | individual pedestrians; a crew driving *toward* the fire |
 | 8 | Tammali et al., RESCUE (ICDCN 2026) | [10.1145/3772290.3772301](https://doi.org/10.1145/3772290.3772301) | vehicle evacuation routing under stochastic congestion and uncertain spread | household-level walk-out on a real walk graph |
-| 9 | Dayan, conformal risk control applied to wildfire | [arXiv:2603.22331](https://arxiv.org/abs/2603.22331) | distribution-free guarantees on a monotone risk by calibrating a threshold | what the guarantee costs at six fires (this project measures that; `docs/conformal.md`) |
+| 9 | Dayan, conformal risk control applied to wildfire | [arXiv:2603.22331](https://arxiv.org/abs/2603.22331) | distribution-free guarantees on a monotone risk by calibrating a threshold | what the guarantee costs at six fires (this project measures that in [`docs/operating_point.md`](operating_point.md), which recomputes from committed leave-one-fire-out held-out probabilities and trains nothing) |
 | 10 | Lahrichi et al., WSTS+ | [arXiv:2502.12003](https://arxiv.org/abs/2502.12003) | next-day spread learned over many fire-years; time-series inputs beat single-day inputs | any decision object downstream of the prediction |
 | 11 | Sung et al., GK2A detection (KJRS 2025) | [KJRS](https://www.kjrs.org/journal/view.html?pn=mostdownload&uid=1117&vmd=Full) | geostationary detection of Korean fires at the imager's cadence and resolution | the evacuation consequence of detecting late |
 | 12 | Kwon, Kim & Han, Uiryeong shelter MIP | [10.3390/systems13121125](https://doi.org/10.3390/systems13121125) | shelter siting / assignment for a Korean rural county as a mixed-integer program | a time-varying hazard between the household and the shelter |
@@ -181,5 +189,15 @@ report; 30-minute steps, 읍면동, 589 facilities and the 2026-03-30 경향신�
 of them is registered in `docs/NUMBERS.json`, and none of them may be: they are not this
 repository's measurements. **This page states no measurement of this repository's own**,
 which is why it needs no registry key of its own; the project's numbers live in
-`docs/model_card.md`, `docs/routing.md`, `docs/rescue_dispatch.md` and
-`docs/submission_reconciliation.md`, each with its key.
+[`docs/MODEL_CARD.md`](MODEL_CARD.md), [`docs/operating_point.md`](operating_point.md),
+[`docs/dispatch_ordering.md`](dispatch_ordering.md),
+[`docs/routing_limitations.md`](routing_limitations.md) and
+[`docs/submission_reconciliation.md`](submission_reconciliation.md), each with its key.
+
+⚠ **The first draft of this page pointed at four files that do not exist** —
+`docs/model_card.md`, `docs/routing.md`, `docs/rescue_dispatch.md` and <!-- dead-path-ok -->
+`docs/conformal.md`, seven present-tense assertions in all. They were not a rename away: <!-- dead-path-ok -->
+the nearest real file to the third was the superseded `rescue_routing.md`, and the
+conformal pointer named the wrong subject entirely. This lap's independent reviewer
+found them by running `os.path.exists` over every backticked repository path, which is
+the check the repository does not have and which **WFG-157** now files.

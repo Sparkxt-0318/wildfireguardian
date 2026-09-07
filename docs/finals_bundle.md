@@ -84,7 +84,7 @@ until the command has been run once.
   stick. It is now **one**: WFG-026 shipped the related-work and SFTD059T
   differentiation panel (`docs/auto/finals/RELATED_WORK_PANEL.md`, summarising the
   16-entry survey in `docs/related_work.md`), it is `SOURCES` entry six of the kit
-  rebuilt at `20260907T0630Z`, and the bundle carries that stamp. **Four of R7's five
+  rebuilt at `20260907T0705Z`, and the bundle carries that stamp. **Four of R7's five
   are on the stick; the dispatch-sheet sample is the one that is not.**
   ⚠ **That second reason was wrong here for one commit and the correction is worth
   keeping.** This bullet said 「the 29 dispatch sheets are already committed PDFs that <!-- forbidden-ok: wc006-dispatch-committed-pdfs, wc006-29-dispatch-sheets -->

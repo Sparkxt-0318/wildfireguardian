@@ -304,7 +304,9 @@ def test_the_registry_holds_nothing_the_families_do_not():
     #: say it aloud. ⚠ Registering it found a FOURTH instance that neither the
     #: correcting lap nor critic #32's probe had named --- docs/printables.md:131-132,
     #: stating it as current fact. That is the whole argument for §3.5c: the machine
-    #: reads all 929 gated files and a lap reads the ones it thought of.
+    #: reads the whole gated tree (931 files at this commit, a number that moves every
+#: time a lap adds a .md --- including this one, which is why the draft's 929 was
+#: stale in the very commit that wrote it) and a lap reads the ones it thought of.
     dispatch_exclusion_reason = {
         (r"(?:already|이미)[^\n]{0,80}?(?:committed|커밋된?)\s*PDF",
          "wc006-dispatch-committed-pdfs"),

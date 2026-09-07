@@ -1694,3 +1694,109 @@ withdrawn. A cloud routine cannot re-authorise. The correction that was availabl
 saying so in the real email and in NH-041 — is the one that was taken. **When you
 cannot unsend, the next message is the correction**, and it goes out immediately rather
 than being left for the report to explain.
+
+
+## 2026-09-07T0630Z — registering a withdrawal is a SEARCH, not bookkeeping
+
+CHARTER §3.5c says a withdrawal is not applied until it is registered in the same lap.
+Two laps have now read that as a filing obligation: write the sentence down in
+`withdrawn_claims.json` so the record is complete. **That is not what the step is for,
+and this lap has the measurement.**
+
+The 0355Z lap declared 「the 29 dispatch sheets … are already committed PDFs that print
+directly」 false and corrected it in **three** places it had thought of. Critic #32
+found **two** more by reading. This lap registered it and the scanner immediately named
+a **fourth** live instance that neither had: `docs/printables.md:131-132`, stating the
+false claim as **current fact** — not a record, not a quote.
+
+So the value of registration is not the record. **It is that a lap corrects the files it
+thought of, and the machine reads all 931.** A lap that corrects three places and files
+the registration as follow-up work has not done a smaller version of the job; it has
+done a different job that leaves live instances behind, and it will not know which.
+
+⚠ **And the spelling you choose decides what you find.** Critic #32 probed with the
+narrow spelling — the exact sentence, as shipped. It hit one file. This lap anchored on
+the two load-bearing words in both languages (`이미`/`already`, `커밋된`/`committed`)
+and hit four. Neither is "correct": `docs/withdrawn_claims.md` §4's limit is unchanged
+and a reworded assertion still escapes. The lesson is narrower and it is actionable:
+**when you register, anchor on the words the claim cannot be made without, not on the
+sentence you happen to be looking at.**
+
+**The corollary, which cost this lap two red scans:** run
+`scripts/check_withdrawn_claims.py` **unpiped** and read its exit code. The first time
+here it was piped through `tail`, printed a failure, and reported `EXIT=0` — CHARTER
+§3.10, demonstrated on the gate written to catch exactly this class of miss.
+
+## 2026-09-07T0630Z, second entry — fix the binding BEFORE you reword what it binds
+
+This lap had to reword R7's definition cell (「29 dispatch sheets sample」 → 「village
+dispatch sheets sample」) while also claiming R7's last blocker was gone. That is the
+loop's signature defect in its purest form: **the builder editing the specification it
+is about to be measured against.**
+
+The binding that should have made that safe was vacuous. Graded, not argued: plant a
+sentinel name in R7's **status** cell only — the cell every lap appends its own
+narrative to — and the old whole-file test **passes**. The new definition-cell test
+**fails**. Both were run.
+
+**So the order is the lesson.** WFG-156 was filed as a P1 infra row and would have
+waited behind R7. Taking it *first*, in the same lap, is what made the reword honest,
+and it cost about fifteen minutes. **When a lap is about to edit a specification, the
+test that binds that specification is not infra work — it is the first half of the
+task**, and it is worth nothing if it lands afterwards.
+
+## 2026-09-07T0705Z, third entry — I checked the citations I was nervous about and not the ones I was confident about
+
+The reviewer blocked this lap for four repository paths that do not exist —
+`docs/model_card.md`, `docs/routing.md`, `docs/rescue_dispatch.md`,
+`docs/conformal.md` — seven present-tense assertions on the judge-facing page whose
+whole argument is 「we do not compare accuracy here **because the measurements live
+over there**」. A dead 「over there」 is not a broken link; it is the load-bearing half
+of the refusal.
+
+**What makes this worth a lesson is what I did do.** In the same block of the same
+document I cross-checked all sixteen **external** identifiers against
+`paper/references.bib`, found three overclaimed, and rewrote the provenance note to
+say so. That check was real and it held up under review. **I ran it on the citations
+that felt risky — other people's papers, DOIs, a foreign agency — and never once on
+the paths pointing at my own repository, because those felt like typing rather than
+citing.**
+
+**So: a pointer to your own repository is a citation and gets the same check.** The
+cheap form is one line — `os.path.exists` over every backticked path in what you
+wrote — and it is now `tests/test_related_work_paths.py` for the two files this lap
+shipped, with **WFG-157** filed for the repository-wide version (68 dead paths across
+50 files, most of them legitimate 「done when:」 placeholders, so it needs a designed
+allowlist).
+
+⚠ **And the second half, which cost two probes.** The exemption list in that new test
+was written as a set of *names* and subtracted from the whole file, so one licensed
+record line exempted that name **everywhere** — re-introducing a dead path as a live
+claim mid-page stayed green. I fixed it, re-ran the probe, and it was **still** green,
+because the fix had the same shape one layer down. It went red only when the check
+became **occurrence-level**, line by line. Both bugs were invisible in the code and
+obvious in the probe. **Re-run the grading probe after the fix, not just before it** —
+the second version of a bug looks exactly like the first version's fix.
+
+## 2026-09-07T0705Z, fourth entry — look at the artifact before you commit it, not after
+
+This lap committed the booth kit at `20260907T0630Z`, then rendered the preview PNGs
+and looked at them. The panel's three comparison tables printed as **raw pipe rows
+running off the right margin**: this renderer wraps prose and prints table lines
+verbatim, which every other source in the kit happens not to stress. Unreadable, on
+the page a judge holds.
+
+The cost was not the mistake, it was the ordering. Because the kit was already
+committed, CHARTER §3.2 froze it, so fixing a legibility defect meant a **second
+stamp** (`20260907T0705Z`) and a superseded 460 KB PDF in the tree forever. Had I
+looked first, there would be one kit.
+
+**So the rule the paper routine already has (「the lap looks at each new figure once
+before it ships」) applies to any rendered artifact, and 「ships」 means the commit, not
+the push.** Render, look, then commit.
+
+⚠ Related, and it bit in the same ten minutes: **editing a `SOURCES` document after
+building the kit silently makes the kit stale**, and `make finals-bundle` reports `OK`
+while the superseded PDF sits in the bundle folder (WFG-108). `check_bundle_copy.py`
+is what catches it and it did — `EXTRA printables/…0630Z.pdf`. Build the kit **last**,
+after every source edit is final.
