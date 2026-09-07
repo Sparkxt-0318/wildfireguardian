@@ -123,8 +123,9 @@ wildfire-spread prediction, run by the agency that would deploy anything like th
   wire original's date, not 사이언스타임즈's; corrected under WFG-146, with the reasoning
   and both re-fetches recorded in
   [`docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md`](auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md) §6.
-  ⚠ Narrowed 2026-09-07 (WFG-171, critic #37): row 13's cell above read 「driven by a
-  **human-entered origin point**」, flat and unattributed, and the two printed surfaces read
+  ⚠ Narrowed 2026-09-07 (WFG-171, critic #37; registered as `WC-009`): row 13's cell above read
+  <!-- forbidden-ok: wc009-nifos-origin-hand-entered -->
+  「driven by a **human-entered origin point**」, flat and unattributed, and the two printed surfaces read
   the same way in Korean. Only the catalogue page was opened (NH-039), so what the record
   supports is the chapter list, not the console's behaviour. **A positive assertion about a
   document nobody opened is the same new claim as a negative one**; the rule this page and

@@ -2011,3 +2011,58 @@ It failed **loudly**; had I ordered it the other way — check first, normalise
 never — the same mistake would have made the gate blind to a real remote request
 instead. A transform that touches the thing a predicate reads goes **after** the
 predicate, and the ordering gets a comment saying so.
+
+## 2026-09-07T2120Z — a rule written for one direction of a claim is a rule with a hole in it, and the same lap measured the cold/warm delta on one tree
+
+**The lesson, and it is not 「be careful about negatives」.** For a week the loop has
+been catching sentences that assert what somebody else's system does **not** do, and
+every fix, every registered spelling, every DIRECTION bullet and the printed panel's
+own ⚠ note was written about that direction. Four lines above that note, on the same
+printed page, sat 「발화점은 **운영자가 손으로 입력**합니다」 — the same claim, the same
+provenance (a chapter title in a catalogue's table of contents), the same failure in
+front of a judge who has driven that console, and in the **positive** direction. The
+note's argument covered it perfectly; the note's wording did not. **When a lap writes a
+rule about a claim, it writes it about the PREDICATE, not about the polarity** — and
+before it calls the rule done it asks what the mirror of the fixed sentence looks like
+and greps for that too. A grep for 「없다」-shaped wording finds nothing wrong with
+「있다」-shaped wording.
+
+**The corollary, paid for here.** A narrowing must be grounded in a committed artifact
+or it is the same defect one level down. The replacement sentence names the catalogue's
+chapter list, so before writing it I checked that the list exists verbatim in
+`paper/references.bib:258` with its verification date. It did. Had it not, the honest
+fix would have been to delete the clause, not to write a better-sounding guess.
+
+⚠ **And a measurement that fell out of the lap rather than being planned.** This lap ran
+`gates.py --mode full` twice on effectively the same code, and got **1682 passed / 62
+skipped** the first time and **1688 passed / 56 skipped** the second. That is not a
+regression and not a flake: the first run was **cold** and the second **warm**, because
+run one downloaded `N36E129.hgt` (25,934,402 B) into `data/raw/` and six terrain tests
+that `skipif` themselves away without it then ran. **The six-test gap critic #37 could
+only infer across two laps is reproducible inside one**, and it is the whole argument
+for WFG-172: a pass/skip count without a cold/warm word is not a number, it is two
+numbers. It is also the eleventh consecutive measurement of WFG-139 — the suite reaches
+the network, and `JUDGE_QA.md` Q28 still tells a judge it does not.
+
+⚠⚠ **And the lesson the reviewer had to teach me, which is bigger than the one above.**
+I wrote the paragraph above about greping the predicate rather than the polarity, ran the
+subject grep DIRECTION mandates, found a copy the critic had not named, and then reported
+that everything else was either our own ignition point or record class. **That report was
+false, and my independent reviewer blocked on it alone.** The subject grep I was told to
+run is `git grep -n '발화'`, and the claim was living in ENGLISH in `paper/manuscript.md`
+§2, where a Korean-script pattern cannot see it. `paper/references.bib:258` held a second
+copy, and its note certified the manuscript's wording while the manuscript cited the note
+as its source — a circle I reported as provenance. **A subject grep in one script is a
+subject grep in one language; the mandated command is a floor, not the check.**
+
+**The part worth keeping is what happened after I fixed it.** I registered the spelling
+under §3.5c — the step I had talked myself out of on a 「narrowing, not withdrawal」
+technicality — and the gate read all 933 gated files and immediately stood up a THIRD
+copy, in `docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md` §1, **a file my reviewer had
+explicitly judged clean.** Two careful readers and one machine looked at this claim; only
+the machine found that copy. So the rule is not 「grep harder」 and it is not 「trust the
+reviewer」: **when a claim has more than one spelling, registration is the check and every
+hand sweep is a draft of it** — which is what CHARTER §3.5c already says, in the words the
+laps keep re-deriving the hard way. The one thing registration cannot do is reach outside
+`.md` and `.html`, so the file that started this — `references.bib` — is fixed by hand and
+guarded by nothing.

@@ -351,6 +351,28 @@ def test_the_registry_holds_nothing_the_families_do_not():
         (r"특정한\s*집의\s*어느\s*길이[^\n]*들어가지\s*않는지는",
          "wc008-household-walk-out-negative-ko"),
     }
+    #: WC-009, registered by dev lap 20260907T2120Z on WFG-171, and the first member of
+    #: this family in the POSITIVE direction. WC-007 and WC-008 are both flat NEGATIVES
+    #: about the same two Korean systems, and every fix, every registered spelling and
+    #: every DIRECTION bullet written for them was about negatives. Four lines above the
+    #: printed panel's own ⚠ note forbidding negatives sat 「발화점은 운영자가 손으로
+    #: 입력합니다」 --- identical provenance (a chapter title in a library catalogue's
+    #: table of contents), identical failure in front of a judge who has driven that
+    #: console. Both languages go in together, which is what CHARTER §3.5c asks after
+    #: WC-007 and WC-008 each went in in one language and surfaced later in the other.
+    #: ⚠ The lap's own hand sweep passed and its independent reviewer blocked: the
+    #: Korean subject grep on 「발화」 is Latin-script-blind, and the claim was live in
+    #: English in paper/manuscript.md §2 and paper/references.bib:258. Registering it
+    #: then caught a file the reviewer had judged CLEAN --- the knowledge note at
+    #: docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md §1, whose visible derivation
+    #: licensed the console description but never the origin-point behaviour. Two
+    #: readers and one machine, and only the machine found the third copy.
+    someone_elses_system |= {
+        (r"(human|hand)-entered\s+origin\s+point",
+         "wc009-nifos-origin-hand-entered"),
+        (r"운영자가\s*손으로\s*입력",
+         "wc009-nifos-origin-hand-entered-ko"),
+    }
     extra = ({(s["pattern"], s["token"]) for _cid, s in SPELLINGS}
              - in_files - reviewer_found - reachability - booth_kit_contents
              - dispatch_exclusion_reason - someone_elses_system)
@@ -585,6 +607,17 @@ def _probe_sentence(pattern: str) -> str:
         r"특정한\s*집의\s*어느\s*길이[^\n]*들어가지\s*않는지는":
             "어디에 울릴지는 정해 주지만 특정한 집의 어느 길이 위험에 들어가고 "
             "어느 길이 들어가지 않는지는",
+        # WC-009, registered by dev lap 20260907T2120Z on WFG-171, and the first
+        # POSITIVE claim in this family. The English line below is paper/manuscript.md
+        # §2 as it stood at 14e4331; the same words were docs/related_work.md row 13's
+        # own cell. The Korean line is docs/auto/finals/RELATED_WORK_PANEL.md:32 at the
+        # same commit --- 뒷면 1 of a page that PRINTS, in bold, and the identical
+        # sentence stood in the recited Q16a · T0 draft of docs/auto/JUDGE_QA.md:652.
+        r"(human|hand)-entered\s+origin\s+point":
+            "institute publishes a 2026 user guide for an AI spread-prediction console "
+            "driven by a human-entered origin point [@nifos2026guide];",
+        r"운영자가\s*손으로\s*입력":
+            "인력과 헬기를 어디에 둘지입니다. 발화점은 **운영자가 손으로 입력**합니다.",
     }
     assert pattern in probes, (
         f"no probe sentence for a newly registered pattern:\n  {pattern}\n"

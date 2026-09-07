@@ -108,15 +108,15 @@ model in this project captured a small fraction of the burned area, which motiva
 move to a data-driven field.
 
 **Operational systems in Korea.** The Korea Forest Service's research
-institute publishes a 2026 user guide for an AI spread-prediction console driven by a
-human-entered origin point [@nifos2026guide]; Gyeonggi Province's civil-defence alert model
-predicts a fire's route, arrival times and the township it reaches, in half-hour steps, and
-was announced for trial operation in April 2026 [@khan2026gdaps]. Both answer where the
+institute publishes a 2026 user guide for an AI spread-prediction console whose
+catalogue chapter list implies an operator-set origin point [@nifos2026guide]; Gyeonggi Province's civil-defence alert model
+predicts a fire's route, arrival times and the township it reaches, in half-hour steps;
+trial operation was announced for April 2026 [@khan2026gdaps]. Both answer where the
 fire goes, for a suppression commander or a siren operator. What was opened of either — a
 catalogue entry, press reports — describes no output of this paper's kind: which household
 can still walk out, and by which path. No accuracy
 comparison is made in either direction: no published validation of either was located, and
-the capability figures in circulation are agency plan statements.
+the circulating capability figures are agency plan statements.
 
 **Evacuation routing.** Lane-based evacuation routing was posed as a network flow
 problem two decades ago [@cova2003]. Recent work brings wildfire information into that
