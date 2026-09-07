@@ -5,6 +5,65 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
+**Tick count, critic #31, 2026-09-07T0206Z: 4 of 11 (R2, R4, R5, R6), unchanged for an EIGHTH consecutive
+critic lap — and this is the first of the eight where I can name, for each of the two lines that should
+have moved, the single small thing that blocks it and has never been anyone's item.** Checked on disk at
+`3f881f6`, re-run rather than read, on a clone fully unshallowed (`git rev-parse --is-shallow-repository`
+answers `false`, 517 commits).
+
+- **The window's dev lap closed four rows and the count still did not move, and that is not the lap's
+  fault.** The 01:09Z lap shipped WFG-148, WFG-140, WFG-134 and WFG-130: the README bullet gained the
+  second of its paper's two binding caveats, a freshness gate ended a four-drift series, and the booth kit
+  was rebuilt at `20260907T0059Z` with the reconciliation sheet in it for the first time. **R7 and R9 are
+  the two lines that work was aimed at, and each is now one small piece short:**
+  - **R7 needs `WFG-026`,** the related-work and SFTD059T differentiation panel, which is not written. The
+    kit's own `what_this_does_not_show` says so in those words. It was sitting at **P1**, below the five
+    P1 infra rows that CHARTER §14b holds *behind R7*. That is this lap's one row move: **WFG-026 P1 → P0**.
+  - **R9 needs the printables to be in the bundle.** They are not. This lap's one `fix-before-next-row`
+    item, **WFG-151**.
+  So the eighth zero is not another instance of NH-038's pattern (a critic's document correction crowding
+  out product work) — the last lap *was* product work. It is an ordering defect that the loop could see
+  and did not, and both halves of it are now filed. Eighth data point recorded in **NH-038** all the same,
+  because the author's rule is what set the order.
+- **R7 does not tick, and for the first time the reason is not drift.** Re-hashed here in one process at
+  `3f881f6` against `manifest_20260907T0059Z.json`: all **five** `SOURCES` match the tree —
+  `BOOTH_SETUP.md` `99b2168f4b…`, `DEMO_SCRIPT_5MIN.md` `b1aae78f35…`, `JUDGE_QA.md` `ec75a1657d…`,
+  `submission_reconciliation.md` `237de4f4ae…`, `DETECTION_FLOOR_CARD.md` `84648d4d6e…`. The PDF's own
+  sha256 matches (`a4970b12cdd1…`), `pages_per_source` sums 5+6+17+3+2 = **33** = `pages`, and the PDF
+  really carries **33** `/Type /Page` objects. The `af955a30fa…` → `7d5ac4c9c5…` → `175da9e50c…` →
+  `5ac45ea810…` series is over. What is left of R7 is one unwritten document.
+- **R9 does not tick, and the reason is measured rather than inherited from its own cell.**
+  `release/kcf-finals-2026/MANIFEST.json` lists **17 files** and no printable. `build_finals_bundle.py:57`
+  `PAYLOAD` names no PDF. The first kit existed at `3e92b69` (2026-09-06T06:51Z) and the bundle manifest
+  was rebuilt at `1ec1d06` (09:34Z), **2 h 43 m later**, gaining only a `web/finals.html` hash. Nothing
+  went red because `tests/test_finals_bundle.py:41` compares the manifest to the **builder's own plan**,
+  and `:74`, the one place R9's list is transcribed into code, asserts four screens, fonts, `CITATION.cff`,
+  `LICENSE` and `README_KO.md` and never the printables. **WFG-151.**
+- **R3 sandbox half green; CI half clean.** `gates.py --mode full` **ALL GREEN** at `3f881f6`, exit 0
+  (`1632 passed, 62 skipped, 2 xfailed`, **cold**, 349.5 s); the 01:09Z lap's **warm** re-run reported
+  `1638 / 56` on a tree differing only in prose, the same six-test gap for a fourth consecutive critic lap,
+  which is **WFG-139** and is still `todo`. `verify`, `snapshot-verify`, `env-check` PASS;
+  `baseline-verify` WARN is CHARTER §3d information. Through the GitHub MCP (WFG-119 records the `curl`
+  403): `auto-gates` runs **171 to 190** on `auto/dev` are **18 `success` and 2 `cancelled`** with **no
+  `failure`**, and run **190** at this head is `success`. `--assert-head` exits 0; `--assert-reported`
+  over the whole window exits 0 (52 substantive paths, all carried by reports). Every **dev** report in
+  the window carries `Reviewed by:`; the research report still does not (**WFG-147**). R3 still waits on
+  one `make all-checks` on the author's laptop, and on WFG-139.
+- **R5 keeps its tick, and its one gap is now also a mechanical one.** Q39 is repaired and true from the
+  `20260907T0059Z` build; Q40 states the network defect honestly. ⚠ There is still **no card** for
+  「산림청·경기도가 이미 산불확산예측을 하고 있는데 무엇이 다릅니까?」 — I re-ran the drill and the only
+  `산림청` hits in `JUDGE_QA.md` are about burned-area figures, unrelated. That is **WFG-144**, and it can
+  no longer be written by a critic or research lap at all: editing `JUDGE_QA.md` turns the new freshness
+  gate red (**WFG-152**, probed and reverted here).
+- **R1, R2, R4, R6, R8, R11 unchanged**; R10 stays withdrawn and R12 is the author's. I did not re-measure
+  WFG-110's six registry keys and do not tick on a number I did not take.
+- **Sourcing spot-checked rather than accepted.** The window's new external prose is the manuscript's
+  Related-work paragraph on the two Korean operational systems and its two `references.bib` entries. Both
+  carry `verified 2026-09-06` notes with agency, series or publication date, scope, and an explicit
+  statement that no accuracy or validation figure exists on either page — CHARTER §3 rule 5b in the form
+  the rule asks for. The manuscript makes no accuracy comparison in either direction and cites neither the
+  사이언스타임즈 article that **WFG-146**'s one-day date error is in; that row is unchanged and untaken.
+
 **Tick count, critic #30, 2026-09-06T2317Z: 4 of 11 (R2, R4, R5, R6), unchanged for a SEVENTH consecutive
 critic lap. This window DID contain a dev lap, so unlike last time the 「zero across two consecutive laps」
 rule fires, and it fires about the loop's direction and not about the product.** Checked on disk at

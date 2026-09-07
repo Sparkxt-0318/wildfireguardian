@@ -1,107 +1,99 @@
-# CRITIC_LATEST — critic #30, 2026-09-06T2317Z
+# CRITIC_LATEST — critic #31, 2026-09-07T0206Z
 
 *The next dev lap reads this file before it claims a row (CHARTER §4 step 3), and clears every
-`fix-before-next-row` item below first. Reviewed head: `524f13c`. Window: `1b26c3a..524f13c`, plus the
-24 h to 2026-09-05T23:38Z for the gate, CI and report checks.*
+`fix-before-next-row` item below first. Reviewed head: `3f881f6`. Window: `de7bd0a..3f881f6`, the
+24 h to 2026-09-07T02:00Z.*
 
-**Critic #29's two falsifiable tests, answered first, because both were about the dev lap and not
-about the row.**
+**Critic #30's two falsifiable tests, answered first, because both were about the dev lap.**
 
-1. **「If `README.md:22-26` still says 「only when the router accounts for where the fire will be」 with
-   no fire-blind caveat at the next critic head, the finding is about the dev lap's step 3.」** It does
-   not. `README.md:22-33` at `524f13c` carries the caveat inside the same bullet, and
-   `docs/auto/JUDGE_QA.md` Q19's spoken draft carries it in the sentence itself. The 20:17Z slot ran,
-   claimed **WFG-138** at `8cc1e89` and closed **both halves** at `0ed15aa`/`20b0b7e`. No finding.
-2. **「If that lap clears WFG-138's README half and leaves Q19's 42 standing, then a widened row does
-   not travel and the correct unit is one row per surface.」** It did not leave it standing.
-   **A widened row travels when both halves are one clause long**, and the record now says so rather
-   than the hypothesis. The unit stays the claim, not the surface.
+1. **「If the next dev lap clears WFG-148 and does not also claim WFG-134 in the same lap, then
+   『clear the item, then take the next row』 does not fit in one lap and the fix is to the
+   cadence.」** It fits. The 01:09Z lap closed **four** rows — WFG-148 at `786318c`, then WFG-140 +
+   WFG-134 + WFG-130 at `590c29a`, plus the reviewer's three repairs at `d0a739e`. No cadence
+   finding.
+2. **「If WFG-134 ships without WFG-140 going red on the pre-rebuild tree first, the freshness gate
+   is green by construction and the drift series reaches five.」** It went red first, and the lap
+   quoted the failure text. I re-hashed all five `SOURCES` against the tree here in one process and
+   every one matches. **The series is over.** No finding.
 
 ## fix-before-next-row (exactly one, CHARTER §14b)
 
-**WFG-148 — the README's headline bullet gained the first of the manuscript's two binding caveats and
-not the second, and the gate the same lap shipped certifies the bullet as caveated.**
+**WFG-151 — the booth kit shipped yesterday and the release bundle a judge would be handed still
+does not contain it, because the one place R9's contents were written into code transcribed four of
+R9's five names and dropped the fifth.**
 
-`paper/manuscript.md:506`, this loop's own sentence:
+Measured at `3f881f6`, not read:
 
-> Two caveats bind the whole comparison. The forecast-aware arm plans on the same hazard field it is
-> graded against, so whatever it is worth against a present-perimeter policy is what a *noiseless*
-> forecast is worth; this project's own model is worth less, by an amount no run here measures.
+- `release/kcf-finals-2026/MANIFEST.json` lists **17 files** and not one of them is a printable.
+- `scripts/build_finals_bundle.py:57` `PAYLOAD` names the four screens, `web/assets`,
+  `web/demo-media`, `CITATION.cff`, `LICENSE`, `check_bundle_copy.py`. No PDF.
+- `docs/auto/KCF_READINESS.md` **R9** asks for 「`web/` whole, **printables**, `README_KO.md` …」,
+  and R9's own cell names 「the printables the line names (R7 / WFG-007 — none exist)」 as one of the
+  two reasons it cannot tick. **They exist now.**
+- The first kit was built at `3e92b69`, 2026-09-06T06:51Z. The bundle manifest was rebuilt **2 h
+  43 m later** at `1ec1d06` (09:34Z) and gained only a new `web/finals.html` hash. `d0a739e` built
+  `WFG_printables_20260907T0059Z.pdf` (33 pages, sha256 `a4970b12cdd1…`, tracked) and the bundle
+  did not move again.
 
-WFG-138 put caveat one into `README.md:22-33`. Caveat two is not in the README at all:
-`grep -niE "perfect|oracle|upper bound|상한|noiseless" README.md` returns nothing at `524f13c`.
+**Why no gate said so, and this is the part that matters more than the omission.**
+`tests/test_finals_bundle.py:41` `test_the_manifest_is_committed_and_covers_every_planned_file`
+compares the committed manifest to `bfb.plan()` — **the builder's own plan** — so the manifest and
+the builder can agree with each other forever while both omit the same file. And `:74`
+`test_the_bundle_carries_the_four_screens_the_booth_opens`, whose docstring says 「R9 names `web/`
+whole」, is the **only** place R9's list is transcribed into code; it asserts the four screens, the
+fonts, `CITATION.cff`, `LICENSE` and `README_KO.md`, and never the printables. That is WFG-140's
+defect — a manifest read against itself — living in a second directory, one day later.
 
-**It binds the 42 for the same reason it binds the 91.** `docs/present_perimeter_arm.md` §5 states it
-and calls it 「a property the 91 has always had, inherited not introduced」. The 42 is the 영덕 sibling
-of the identical design: `docs/real_roads_real_hazard.md` hands both arms the same `HazardSequence`,
-and `src/wildfireguardian/routing/evacuation.py:270` says the fire-blind arm is 「then scored against
-the hazard」. So on 영덕 too the forecast-aware arm plans on the field it is graded against, and the 42
-is an upper bound on what a **noiseless** forecast buys, not a measurement of this project's model.
+**Done when.** (a) the newest-stamp printables PDF and its manifest are in `PAYLOAD` and in the
+committed `MANIFEST.json`, and `make finals-bundle` still rebuilds byte-identically; (b) a test
+binds R9's **named contents** to the plan in the `R7_ITEMS` shape WFG-130 used — R9's names
+resolved to paths, a written reason for anything deliberately excluded — and it is **graded red**
+by removing the printables entry before the fix makes it green; (c)
+`release/kcf-finals-2026/README_KO.md` says in one line what the paper in the folder is and that
+the manifest carries its sha256.
 
-**The gate makes it harder to notice, not easier.** `tests/test_future_aware_attribution.py:135`,
-`_is_caveated(block)`, returns True on any one spelling of the CONTROL family and asks nothing else.
-The README bullet is therefore green under the gate built for it while half of what the manuscript
-calls binding is missing. A gate that certifies 「this sentence is caveated」 is only as wide as its
-list of caveats, and this list was written from the one defect in front of the lap.
+**Constraints.** ⚠ No new committed bytes: `release/kcf-finals-2026/web/` is git-ignored
+(`.gitignore:439`), so this does not breach DIRECTION's 「do not commit the bundle payload」. ⚠ Do
+not overwrite `WFG_printables_20260906T0620Z.pdf`, `…T0032Z.pdf` or any manifest (CHARTER §3.2);
+the bundle carries the **newest stamp**, and `docs/printables.md` already says why the `0032Z`
+build must not be printed. ⚠ Do not edit `docs/auto/JUDGE_QA.md`, `docs/auto/DEMO_SCRIPT_5MIN.md`
+or `docs/auto/finals/BOOTH_SETUP.md` in the same lap without rebuilding the kit (**WFG-152**).
 
-**The judge already has the question and the bank already has the answer.** `docs/auto/JUDGE_QA.md`
-**Q36** (「비교하신 예보 경로는 정답을 미리 본 예보 아닙니까?」, critic #23) sits in the 근거 없음 table
-and tells the student to say 「맞습니다. 그건 완벽한 예보가 사는 값의 상한이고, 저희 모델이 실제로 사는
-값은 아직 재지 않았습니다」 **before the judge digs**. The README is the surface that invites that
-question and does not answer it.
+**Then take WFG-026**, which is this lap's one row move (P1 → P0) and is the sole remaining blocker
+of R7. Both are small; neither has ever been anyone's item; between them they are the whole reason
+`docs/auto/KCF_READINESS.md` reads 4 of 11 for an eighth consecutive critic lap after a dev lap
+that closed four rows.
 
-⚠ **Do not touch `docs/auto/JUDGE_QA.md` for this item.** Q36 already carries the sentence, and the
-printables manifest is stale against that file for a **fourth** time (WFG-134 below). A fifth drift
-buys nothing.
+## The root objection
 
-⚠ **Budget: twenty minutes and one clause.** Extend the module WFG-138 shipped; do not write a new
-one. The full done-when, including the two mutations that grade it (a restore and a **move**), is the
-`WFG-148` row in `docs/auto/BACKLOG.md`.
+**Every gate this loop writes compares the artifact to its own description, and the loop keeps
+discovering that one directory at a time instead of once.** Three instances in three consecutive
+days, one shape: `tests/test_printables.py` read the manifest against itself until WFG-140 hashed
+the sources against the tree (fixed yesterday); the reviewer's `sum(pages_per_source) == pages`
+found four surfaces carrying wrong numbers under the true sentence 「re-derived from the manifest
+rather than retyped」 (fixed yesterday); and `tests/test_finals_bundle.py:41` compares the committed
+manifest to the builder's plan, **today**.
 
-**Then claim WFG-134 with WFG-140 and WFG-130 in the same lap and do not idle** (CHARTER §11). R7 and
-R9 wait on nothing else, and the 2154Z lap's own report already names that trio as its next row with a
-written reason why WFG-140 cannot be separated from the rebuild.
+**The cheapest test is one grep** — every test that compares a committed manifest to a builder's
+plan or to itself rather than to the tree — and its first hit is WFG-151.
 
-## What I verified rather than read
+## Everything else this lap checked, and found clean
 
-- `gates.py --mode full` **ALL GREEN** at `524f13c`, exit 0: `1616 passed, 62 skipped, 1 xfailed`,
-  **cold**, 350.4 s. `verify`, `snapshot-verify`, `env-check` PASS; `baseline-verify` WARN is
-  CHARTER §3d information. The 2154Z lap's **warm** `1622 / 56` and this **cold** `1616 / 62` differ by
-  exactly the six terrain tests of **WFG-139**, in both directions, which is the cleanest demonstration
-  of that row anyone has produced: same tree, one sandbox apart.
-- **CI (CHARTER §4b), read through the GitHub MCP** because `curl` is 403 through this proxy
-  (WFG-119): `auto-gates` runs **165 to 184** on `auto/dev` are **18 `success` and 2 `cancelled`**
-  (`dfdf480`, `8cc1e89`, each superseded by a green push) with **no `failure` at all**. Run **184** at
-  `524f13c`, this head, is `success`. **No red run behind a green report, so no finding #1 of that
-  kind and no `fix-before-next-row` item spent on a gate.**
-- **Every push in the window carried a report**, checked pair by pair with
-  `gates.py --assert-reported --base <previous push>`; the only non-zero exit is the range that spans
-  the concurrent paper lap and the WFG-138 claim commit, where the paper work is covered by
-  `docs/auto/reports/2026-09-06T2119Z-manual.md` in the neighbouring range. Every **dev** report in the
-  window carries `Reviewed by:`. The research report still does not (**WFG-147**, already filed).
-- **The booth kit drifted a fourth time and this drift is the worst of the four.** Re-hashed in one
-  process: manifest `2c8451211e5f97…`, tree **`5ac45ea8103f11…`**; the other three sources MATCH. The
-  series is `af955a30fa…` (#27) → `7d5ac4c9c5…` (#28) → `175da9e50c…` (#29) → **`5ac45ea810…`** (here).
-  Critic #29's reading was that all three earlier drifts were correction notes rather than
-  improvements. This one is an improvement, and that is why it is worse: the printed 17 pages now hold
-  Q19 **without** the caveat the repository has since made mandatory and gated twice. The paper in the
-  student's hand and the files the gates read now disagree about what the student may say.
-- The clone was unshallowed before any measurement: `git rev-parse --is-shallow-repository` answers
-  **`false`**, 508 commits.
-- **No author decision is waiting on either channel.** The Gmail search
-  `from:siyeong0318@gmail.com subject:"WildfireGuardian autoloop" newer_than:14d` returns 30 threads,
-  every one a single message this loop sent, all labelled `SENT`; no thread carries a reply. PR #31 has
-  no comments at all. `docs/auto/decisions_seen.json` is unchanged and `decisions.py` was not run.
+- `gates.py --mode full` **ALL GREEN** at `3f881f6`, exit 0 (`1632 passed, 62 skipped, 2 xfailed`,
+  **cold**, 349.5 s). `--assert-head` exits 0. `--assert-reported --base de7bd0a` exits 0 over the
+  whole window: 52 substantive paths, all carried by reports.
+- `auto-gates` runs **171 to 190** on `auto/dev`, through the GitHub MCP: **18 `success`, 2
+  `cancelled`, zero `failure`**. Run **190** at this head is `success`. No CHARTER §4b finding.
+- Every **dev** report in the window carries `Reviewed by:`. The research report does not
+  (**WFG-147**, unchanged).
+- No author reply on either channel: 80 Gmail threads, every one a single message this loop sent;
+  PR #31 has no comments. `decisions.py` was not called because there was nothing to call it on.
+- Clone unshallowed before any measurement (`is-shallow-repository` = `false`, 517 commits).
 
-## Direction (CHARTER §14, five minutes)
+## The falsifiable tests for critic #32
 
-**No row moved and the reorder budget is unspent.** WFG-138 closed, so the first `todo` row in table
-order is **WFG-134**, which is also `DIRECTION.md`'s row 2 and the 2154Z lap's stated next row. The
-page and the table already agree; a reorder would be motion without a reason. `WFG-148` enters at
-position 1 as this lap's one item, which is not a reorder of an existing row.
-
-**KCF_READINESS: zero lines ticked in the last 24 h, 4 of 11, a SEVENTH consecutive critic lap, and
-this time the rule fires.** Critic #29 recorded the zero without firing it, correctly, because that
-window contained no dev lap. This one did. The seventh data point is in **NH-038**, which asks the
-author this exact question and is the only place it can be answered, because the rule that produces it
-is theirs.
+1. If WFG-151 ships and `MANIFEST.json` gains a printable **without** a test that goes red when
+   R9's named contents are dropped from the plan, then the fix was to the omission and not to the
+   shape, and the shape will produce a fourth instance.
+2. If the next lap takes WFG-026 and the kit is **not** rebuilt in the same lap, WFG-152's rule
+   needs to be a gate and not a sentence.

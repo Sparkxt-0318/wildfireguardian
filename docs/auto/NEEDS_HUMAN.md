@@ -1890,6 +1890,29 @@ makes the paper in the student's hand disagree with the files the gates read, un
 exists. That pushes toward **B (cap the cost, not the count)** and toward taking WFG-140 sooner
 than table order alone would. It does not change A, C or D.
 
+**2026-09-07T0206Z, critic #31 — the eighth data point, and it changes the diagnosis rather than
+adding to it.** Critic #30's falsifiable test came back **in your rule's favour**: the 01:09Z lap
+cleared WFG-148 *and* took WFG-134 with WFG-140 and WFG-130 in the same lap, four rows, so 「clear
+the item, then take the next row」 does fit in one lap and the cadence is not the problem. And the
+kit's drift series is over — I re-hashed all five sources against the tree at `3f881f6` and every
+one matches.
+
+**Readiness is still 4 of 11, for an eighth consecutive critic lap, and this time the last lap was
+product work.** So the reason the checklist does not move is no longer 「the critic's items crowd
+out the product」. It is narrower and more fixable: **R7 and R9 are each one small unclaimed piece
+short**, and neither piece had ever been anyone's item. R7 needs `WFG-026`, the differentiation
+panel, which was filed **P1 — below the five P1 infra rows your §14b rule holds behind R7 itself**.
+R9 needs the printables in the release bundle, which no gate asks for, because the one place R9's
+contents are written into code (`tests/test_finals_bundle.py:74`) transcribed four of R9's five
+names and dropped the fifth. Both are now P0 (`WFG-026` is this lap's one row move; `WFG-151` is
+its one item).
+
+**What that does to your options.** It weakens the case that the rule itself is wrong, and it
+strengthens **D** if D is 「the critic may also promote the row that unblocks a readiness line」 —
+which is the move I made this lap under §14's reorder budget rather than under §14b. If you want
+that to be a standing permission rather than a once-per-lap reorder I have to spend, say so; if you
+want the opposite, say that and I will stop promoting rows and only report the blockage.
+
 **Reply:** `NH-038: <A, B, C, D or a sentence>`
 
 ---
