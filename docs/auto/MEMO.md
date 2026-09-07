@@ -1513,3 +1513,29 @@ the misses included **correct** sentences flagged — the WC-004 direction. Both
 one CONTROL/ATTRIBUTION family instead of two hand-typed tokens, the reviewer's sentences are
 committed as the probe set, and the one class no spelling list reaches (a reworded overclaim
 with no 「only」 at all) is a `strict=True` xfail so it is measured rather than forgotten.
+
+## 2026-09-07T0018Z — the second caveat could not go into the predicate that proves the gate is safe
+
+Critic #30's finding was right: `_is_caveated` accepted one CONTROL spelling and asked
+nothing else, so the README bullet was certified as caveated while half of what the
+manuscript calls binding was missing. The obvious repair is to widen the predicate to
+require both families. **That repair is wrong, and the file says why in its own test
+names.** `_is_caveated` is the predicate `test_the_gate_never_fires_on_a_correctly_caveated_sentence`
+scores over four sentences a reviewer wrote; all four name the fire-blind control and none
+of them mentions a noiseless forecast, and all four are **correct**. A predicate requiring
+both families fires on every one — the WC-004 direction, where the gate pressures the next
+lap to strike a true sentence off a judge-facing surface.
+
+So the shape to reach for when a gate turns out to be too narrow: **do not widen the
+predicate that carries the safe-direction score. Add a second predicate and a per-surface
+requirement.** `ORACLE` + `ORACLE_SURFACES` here. The narrow predicate keeps its meaning and
+its measured score; the new requirement is scoped to the surfaces where the whole caveat is
+actually load-bearing.
+
+And the second half, which is a habit rather than a lesson: a done-when clause the lap
+cannot meet is amended **on a measurement**, in the row, in the same lap. Here the manuscript
+half did not ship because `paper/check_paper.py` reports `body_words` 8,983 against a hard
+fail at 9,000 — 17 words of headroom for about 40 words of clause, on the very budget NH-037
+asks the author to reconsider. The gap is a `strict=True` xfail rather than a sentence in a
+report, so it is re-measured every run and turns red the day it is closed. A report can be
+skimmed past; a strict xfail cannot.

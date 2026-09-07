@@ -104,6 +104,28 @@ CONTROL = (
 )
 
 
+#: The **second** caveat the manuscript calls binding, in the spellings the
+#: repository uses for it. ``paper/manuscript.md`` §4.5: "The forecast-aware arm
+#: plans on the same hazard field it is graded against, so whatever it is worth
+#: against a present-perimeter policy is what a *noiseless* forecast is worth;
+#: this project's own model is worth less, by an amount no run here measures."
+#: It binds the 42 for the reason ``docs/present_perimeter_arm.md`` §5 gives for
+#: the 의성 margin, and ``docs/auto/JUDGE_QA.md`` Q36 is the spoken answer.
+ORACLE = (
+    re.compile(r"upper\s+bound", re.I),
+    re.compile(r"noiseless", re.I),
+    re.compile(r"perfect\s+forecast", re.I),
+    re.compile(r"oracle", re.I),
+    re.compile(r"상한"),
+    re.compile(r"완벽한\s*예보"),
+)
+
+#: Surfaces required to carry **both** families in the same block as the number.
+#: ``paper/manuscript.md`` is deliberately NOT here and the reason is measured,
+#: not assumed --- see ``test_the_manuscript_claim_blocks_do_not_yet_name_it``.
+ORACLE_SURFACES = ("README.md",)
+
+
 def _flat(block: str) -> str:
     """A block with Markdown emphasis, quote marks and line breaks taken out."""
     stripped = re.sub(r"^\s*>\s?", "", block, flags=re.M)
@@ -133,7 +155,21 @@ def _claim_blocks(path: Path) -> list[str]:
 
 
 def _is_caveated(block: str) -> bool:
+    """Caveat one only: the control is fire-blind.
+
+    Deliberately NOT widened to require ``ORACLE`` as well. This predicate is
+    what ``test_the_gate_never_fires_on_a_correctly_caveated_sentence`` scores in
+    the safe direction, over sentences a reviewer wrote that name the control and
+    say nothing about a noiseless forecast --- correct sentences, every one. Fold
+    the second family in here and the gate starts flagging them, which is the
+    direction MEMO 2026-09-06T1520Z calls the worse one. The second caveat is a
+    per-surface requirement instead, below.
+    """
     return any(c.search(block) for c in CONTROL)
+
+
+def _names_the_oracle_bound(block: str) -> bool:
+    return any(o.search(block) for o in ORACLE)
 
 
 @pytest.mark.parametrize("surface", SURFACES)
@@ -166,6 +202,63 @@ def test_each_surface_still_states_the_claim_this_gate_guards(surface: str) -> N
         "the gate above has quietly been checking nothing. The second is how a "
         "green suite hides a regression."
     )
+
+
+@pytest.mark.parametrize("surface", ORACLE_SURFACES)
+def test_the_headline_contrast_names_its_oracle_bound(surface: str) -> None:
+    """WFG-148: the manuscript says TWO caveats bind this comparison, not one.
+
+    The first gate this module shipped certified a block as caveated on one
+    family and asked nothing else, so the README bullet was green under it while
+    half of what ``paper/manuscript.md`` §4.5 calls binding was missing. A gate
+    that certifies "this sentence is caveated" is only as wide as its list of
+    caveats (critic #30).
+    """
+    path = REPO / surface
+    assert path.exists(), surface + " is gone; WFG-148 assumed it exists"
+    bare = [b for b in _claim_blocks(path) if not _names_the_oracle_bound(b)]
+    assert not bare, (
+        surface + " states the 42-of-458 contrast with an 'only' attribution in a "
+        "block that never says the forecast-aware arm plans on the hazard field it "
+        "is scored against. That makes the 42 an upper bound --- what a noiseless "
+        "forecast would buy --- and not a measurement of this project's model, "
+        "which is worth less by an amount no run here measures "
+        "(paper/manuscript.md 4.5; docs/present_perimeter_arm.md 5 says the same "
+        "of the 의성 margin). Put it in the SAME block as the number: a clause "
+        "under the next bullet is what failed three times for the first caveat "
+        "(WFG-138), and the same locality is what this one is about. The spoken "
+        "answer is docs/auto/JUDGE_QA.md Q36. Offending block starts: "
+        + bare[0].strip()[:140]
+    )
+
+
+@pytest.mark.xfail(
+    strict=True,
+    reason=(
+        "paper/manuscript.md states the caveat in 4.5 and not in the two blocks "
+        "that carry the 42; it has 17 words of headroom against the 9,000-word "
+        "proxy (NH-037 open), so WFG-150 closes this, not WFG-148"
+    ),
+)
+def test_the_manuscript_claim_blocks_do_not_yet_name_it() -> None:
+    """The gap WFG-148 did not close, measured on every run instead of quoted.
+
+    WFG-148's done-when asked for both families on ``README.md`` **and**
+    ``paper/manuscript.md``. The README half shipped. The manuscript half did
+    not, and the reason is a number rather than a judgement: ``paper/check_paper.py``
+    reports ``body_words`` 8,983 against a hard fail at 9,000, so the two clauses
+    this would add do not fit, and the budget itself is the open question in
+    NH-037. The manuscript is not silent on the caveat --- §4.5 states it in the
+    words every other surface quotes --- so what is missing is locality, not the
+    claim.
+
+    Marked ``strict``: the day the manuscript gains the clause in those blocks
+    this test fails and asks ``paper/manuscript.md`` to be promoted into
+    ``ORACLE_SURFACES``, rather than sitting here as a permanent excuse.
+    """
+    blocks = _claim_blocks(REPO / "paper" / "manuscript.md")
+    assert blocks, "the manuscript no longer states the claim this gate is about"
+    assert all(_names_the_oracle_bound(b) for b in blocks)
 
 
 def test_the_control_is_still_called_fire_blind_in_the_code() -> None:
