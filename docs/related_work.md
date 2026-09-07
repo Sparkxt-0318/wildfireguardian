@@ -101,18 +101,27 @@ wildfire-spread prediction, run by the agency that would deploy anything like th
   2026 user guide (국립산림과학원, 연구자료 제1201호). Its table of contents describes an
   operator workflow — create a fire origin point, enter fire information, run the spread
   prediction, fuel parameters, firefighting resources. A 사이언스타임즈 report of
-  2026-02-12 states an intended terrain-analysis resolution of **5 m** (agency plan
-  statement, spread side, no metric definition attached).
+  **2026-02-13** (a 전재 of the 연합뉴스 wire original of 2026-02-12) states an intended
+  terrain-analysis resolution of **5 m** (agency plan statement, spread side, no metric
+  definition attached). ⚠ This page read **2026-02-12** until 2026-09-07 and that was the
+  wire original's date, not 사이언스타임즈's; corrected under WFG-146, with the reasoning
+  and both re-fetches recorded in
+  [`docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md`](auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md) §6.
 - **경기도's G-DAPS** forecasts a fire's route, affected area, expected arrival times and
   when to issue an alert, analysing risk in **30-minute steps** and resolving damage to
   the **읍면동**, drawing on the audible footprint of **589 civil-defence alert
   facilities**; trial operation was announced for April 2026 (경향신문, 2026-03-30). The
   article reports **no accuracy figure**.
 
-**Where they are ahead, said plainly.** A 5 m terrain analysis is two orders of magnitude
-finer than this project's hazard grid. That is a real capability gap, in their favour,
-and the booth panel says so. It is a gap in *inputs* rather than in *conclusions*: the
-question this project answers is not answered better by a finer DEM alone.
+**Where they say they will be ahead, said plainly.** The 5 m terrain analysis NIFoS has
+**announced** is two orders of magnitude finer than this project's hazard grid, and the booth
+panel says so. ⚠ Corrected 2026-09-07 (WFG-144 lap's independent reviewer; superseded wording
+kept per CHARTER §3.5): this paragraph read 「That is a real capability gap, **in their
+favour**」, a present-tense verdict resting on a **future-tense agency plan statement** — the
+same page that refuses to compare capability in either direction was quietly making one. What
+the source supports is the announcement, not the achieved resolution. Either way it is a gap
+in *inputs* rather than in *conclusions*: the question this project answers is not answered
+better by a finer DEM alone.
 
 **Where the difference actually lies — the output object.**
 
@@ -184,8 +193,9 @@ residents out are different objectives on the same graph, and this project carri
 ## 5. Where the numbers on this page come from
 
 Every figure in §2 is an **external** figure and carries its agency, date and scope in
-the sentence that uses it, per CHARTER §3 rule 5b — 5 m and the 2026-02-12 사이언스타임즈
-report; 30-minute steps, 읍면동, 589 facilities and the 2026-03-30 경향신문 report. None
+the sentence that uses it, per CHARTER §3 rule 5b — 5 m and the **2026-02-13** 사이언스타임즈
+report (연합뉴스 2026-02-12 전재; the date was corrected here on 2026-09-07 under WFG-146,
+and §2 carries the reason); 30-minute steps, 읍면동, 589 facilities and the 2026-03-30 경향신문 report. None
 of them is registered in `docs/NUMBERS.json`, and none of them may be: they are not this
 repository's measurements. **This page states no measurement of this repository's own**,
 which is why it needs no registry key of its own; the project's numbers live in

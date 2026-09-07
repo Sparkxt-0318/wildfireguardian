@@ -1968,7 +1968,8 @@ walk-or-be-rescued decision — and it does **not** depend on this ask.
 PDF served through the NIFoS library and this sandbox did not retrieve it. Its
 「확산예측 모델링」 and 「연료 매개변수」 chapters would say what model class, what spatial
 resolution and what inputs the national system actually uses. Without them, every capability
-figure available is a press restatement of an agency plan (사이언스타임즈 2026-02-12:
+figure available is a press restatement of an agency plan (사이언스타임즈 2026-02-13,
+연합뉴스 2026-02-12 기사 전재 — date corrected 2026-09-07 under WFG-146:
 「확산예측 정밀도 약 30% 향상」, 「지형 분석 정밀도 5ｍ」, occurrence 76 % → 88 %) with no
 metric definition, no dataset and no validation scheme attached — which is exactly the class
 of figure CHARTER §3 rule 5b was written for after WFG-049, so **none of it may go on a

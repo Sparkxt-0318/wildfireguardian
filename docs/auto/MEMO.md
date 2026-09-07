@@ -1866,3 +1866,48 @@ controlled.** This sits directly beside the 2026-09-07T0705Z lesson (「re-run t
 probe after the fix」) — that one was about running the probe at the wrong *time*, this one
 about the probe not observing what it thinks it changed. When a probe result surprises you,
 re-run that single case in isolation before you believe it.
+
+## 2026-09-07T1222Z — a narrowing graded by grepping your own sentence can only ever pass
+
+This lap narrowed an over-scoped claim in `docs/auto/JUDGE_QA.md` Q16 (「비교한 어느
+**시스템**도 이 값을 계산하지 않습니다」, which became a claim about a manual nobody has
+opened once `d2640ca` widened the compared set to two operational systems). DIRECTION's rule
+for a narrowing is that the lap **names, in writing, every other file stating the unnarrowed
+version** — because registration in `withdrawn_claims.json` structurally cannot reach a claim
+that was narrowed rather than withdrawn.
+
+So the lap ran `git grep` for the sentence it had just written, found it in one file, and
+wrote 「이 문장은 `docs/auto/JUDGE_QA.md`에만 있었습니다」 into the student's card **and**
+「and nowhere else」 into its own summary. The lap's independent reviewer found the claim
+alive in `docs/dispatch_ordering.md` §8 — as 「**다른 어떤 체계도** 이 값을 계산하지
+않습니다」, an unrestricted universal negative, one word wider and therefore invisible to a
+search for the narrower spelling. That file is the page **Q16's own 근거 line sends the judge
+to**. The card would have said the careful thing out loud while the evidence it cites said the
+reckless thing on paper: the critic-#26 / WC-004 shape exactly.
+
+⚠ **The lesson is that this was a leakage failure, not a thoroughness failure, and `mandela`
+names it.** The search string and the thing being searched for were written by the same party
+in the same edit; author, scorer and designer were one, and no external ground truth ever
+entered. A check built that way **cannot return a finding**, so its green tells you nothing.
+CHARTER §3.5c had already written the mechanism down — 「a reworded assertion escapes」 — and
+the lap quoted that sentence nowhere, having filed it as a fact about the *registry* rather
+than about *any* spelling-based check, its own included.
+
+**So: grade a narrowing by re-reading every file the narrowed card's 근거 line points at, plus
+a claim-FAMILY search (`이 값을 계산`, `어떤 체계`, `어느 시스템`, `no other system`), never a
+search for the sentence you just wrote.** The 근거 line is the right net because it is exactly
+where a judge is sent, which is where a surviving contradiction does its damage.
+
+The same reviewer pass caught the propagation shape twice more in this lap's *own* new prose
+— 「저쪽이 낫습니다」 and 「읍면동은 보통 수천 명」 were fixed in the Q&A card and left standing
+in the printed panel and the knowledge note, by the lap that had just conceded the principle.
+Fixing a sentence in the file you have open is not propagation; propagation is a separate,
+deliberate sweep, and it is owed **in the same lap** even when the sentence is one you wrote
+four minutes earlier.
+
+**And one piece of process that worked, worth keeping.** Because the reviewer's block landed
+before any commit, the kit built from the blocked text (`20260907T1228Z`, 37 pp) had never
+been committed and was simply discarded rather than frozen under CHARTER §3.2. The 0705Z lap
+paid for two kit stamps because it committed before it looked. Build the kit, read the
+rendered pages, take the review, and commit once — three generated stamps cost nothing while
+they are untracked, and one costs forever once it is pushed.
