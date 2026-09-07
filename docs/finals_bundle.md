@@ -81,8 +81,22 @@ until the command has been run once.
   tracked stamp rather than named by a literal (WFG-151) — so the evidence sheet, the
   reconciliation sheet and the booth checklist are on the stick. Two of R7's five are
   still not: the related-work and SFTD059T differentiation panel is **WFG-026 and is
-  not written**, and the 29 dispatch sheets are already committed PDFs that print
-  directly and are deliberately not re-rendered (CHARTER §3.2).
+  not written**, and the dispatch-sheet sample is not on the stick either.
+  ⚠ **That second reason was wrong here for one commit and the correction is worth
+  keeping.** This bullet said 「the 29 dispatch sheets are already committed PDFs that
+  print directly」, which is what R7's line and `tests/test_printables.py` `R7_ITEMS`
+  both say. The tree says otherwise: `outputs/dispatch/20260801T163042Z/` holds **33**
+  clusters, and while the HTML, SMS drafts and broadcast scripts are committed for all
+  33, only the **three largest clusters' PDFs** are — `outputs/dispatch/README.md`
+  states it plainly, because 33 Korean-font-subset PDFs come to 6.7 MB of regenerable
+  output, rebuilt with `python scripts/generate_dispatch_outputs.py`. So the exclusion
+  is sound but its stated reason was not: the sheets are **regenerable from a committed
+  artifact**, not already-printed PDFs waiting in the folder. Neither 「29」 nor
+  「committed」 traced to anything; 「29」 came from an aspiration in
+  `docs/auto/research/RESEARCH_BRIEF_2026-09-03.md`. Found by WFG-151's independent
+  reviewer, which checked the reason against the tree instead of against the loop's
+  own earlier prose. The upstream copies in R7's line and in the printables manifest's
+  `what_this_does_not_show` carry the same error and are **WFG-153**.
   〔기록 · 2026-09-07 이전〕 this bullet read 「v1 has no printables. The A4 evidence
   sheet, the reconciliation sheet, the differentiation panel, the booth checklist and
   the dispatch-sheet sample are R7 / WFG-007, and v2 of this row (due 09-14) is the

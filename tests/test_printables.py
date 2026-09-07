@@ -405,9 +405,25 @@ R7_ITEMS: tuple[tuple[str, str | None, str | None], ...] = (
      "WFG-026 is todo: the document does not exist, so there is nothing to print"),
     ("booth checklist", "docs/auto/finals/BOOTH_SETUP.md", None),
     ("29 dispatch sheets sample", "outputs/dispatch",
-     "already a set of committed PDFs that print directly; re-rendering them "
-     "through this build would put a second, worse copy in the repository "
-     "(CHARTER §3.2)"),
+     # ⚠ CORRECTED 2026-09-07T0320Z (WFG-151). This reason read 「already a set of
+     # committed PDFs that print directly; re-rendering them through this build
+     # would put a second, worse copy in the repository (CHARTER §3.2)」, and the
+     # first half was false. It was copied from here into the judge-facing
+     # release/kcf-finals-2026/README_KO.md by WFG-151 and caught by that lap's
+     # independent reviewer, which checked it against the tree instead of against
+     # this string. outputs/dispatch/20260801T163042Z/ holds 33 clusters; the HTML,
+     # SMS drafts and broadcast scripts are committed for all 33, but only the
+     # THREE largest clusters' dispatch_a4.pdf are -- outputs/dispatch/README.md
+     # says so, because 33 Korean-font-subset PDFs are 6.7 MB of regenerable
+     # output. R7's own wording 「29 dispatch sheets sample」 does not match the 33
+     # either, and neither number is registered; that half is WFG-153, because
+     # rewording R7 needs the critic and the manifest needs a new stamp.
+     "the sheets are regenerable from a committed artifact rather than "
+     "re-rendered here: outputs/dispatch/README.md commits the HTML, SMS drafts "
+     "and broadcast scripts for all 33 clusters and only the three largest "
+     "clusters' PDFs, with `python scripts/generate_dispatch_outputs.py` as the "
+     "rebuild; putting a second, worse copy in this build would breach "
+     "CHARTER §3.2"),
 )
 
 

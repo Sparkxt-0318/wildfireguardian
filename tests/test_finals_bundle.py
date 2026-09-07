@@ -106,6 +106,61 @@ R9_ITEMS: tuple[tuple[str, object, str | None], ...] = (
      "test_rebuilding_the_manifest_reproduces_the_committed_one"),
 )
 
+#: An excused item ships on its reason, so the reason is the thing to check. Each
+#: entry is (what the bundle excludes, a path that must exist in the tree for the
+#: reason to hold, the reason). WFG-151 shipped an exclusion reason that was FALSE
+#: --- 「the 29 dispatch sheets are already committed PDFs」 --- into the judge-facing
+#: README_KO.md, read from R7's line rather than from the tree, where
+#: `outputs/dispatch/20260801T163042Z/` holds 33 clusters and exactly THREE committed
+#: PDFs. `R9_ITEMS` had an exclusion slot with nothing behind it, so the sentence was
+#: never checked by anything. This is that assertion.
+EXCLUSION_EVIDENCE: tuple[tuple[str, str, str], ...] = (
+    ("the dispatch-sheet sample", "outputs/dispatch/README.md",
+     "the sheets are REGENERABLE from a committed artifact, not already-committed "
+     "PDFs: only the three largest clusters' PDFs are committed and "
+     "`python scripts/generate_dispatch_outputs.py` rebuilds the rest"),
+    ("the related-work and SFTD059T differentiation panel",
+     "docs/auto/BACKLOG.md",
+     "WFG-026 is todo: the document does not exist, so there is nothing to carry"),
+)
+
+
+def test_every_exclusion_reason_names_something_that_is_actually_in_the_tree() -> None:
+    """A reason nobody checks is how a false sentence reaches a judge.
+
+    Graded by pointing an entry at a path that does not exist and seeing this name it.
+    """
+    missing = [(what, path) for what, path, _why in EXCLUSION_EVIDENCE
+               if not (REPO / path).exists()]
+    assert not missing, (
+        "an exclusion reason rests on a path that is not in the tree, so the reason "
+        f"no longer holds and needs re-reading: {missing}")
+
+
+def test_the_dispatch_exclusion_reason_matches_what_is_committed() -> None:
+    """The specific sentence WFG-151 got wrong, pinned to the count it got wrong.
+
+    Not a registered number in prose --- a re-derivation, here, from `git ls-files`.
+    If a later lap commits the other 30 PDFs, this goes red and the reason above (and
+    the Korean sentence in the bundle's README that repeats it) must be rewritten.
+    """
+    import subprocess
+    out = subprocess.run(
+        ["git", "ls-files", "--", "outputs/dispatch"],
+        cwd=REPO, capture_output=True, text=True).stdout
+    names = [line.rsplit("/", 1)[-1].strip('"') for line in out.splitlines() if line]
+    pdfs = [n for n in names if n.endswith("dispatch_a4.pdf")]
+    htmls = [n for n in names if n.endswith("dispatch_a4.html")]
+    assert len(htmls) > len(pdfs), (
+        "every dispatch sheet now has a committed PDF, so 「regenerable, only the "
+        "three largest are committed」 is no longer the reason to exclude them")
+    assert len(pdfs) == 3, (
+        f"outputs/dispatch has {len(pdfs)} committed dispatch_a4.pdf, not 3. "
+        "release/kcf-finals-2026/README_KO.md tells the student in Korean that only "
+        "the three largest clusters' PDFs are committed and the rest are rebuilt with "
+        "scripts/generate_dispatch_outputs.py; update that sentence and this test "
+        "together, or the bundle lies about what the student will find.")
+
 
 def test_r9_still_enumerates_the_contents_this_list_resolves() -> None:
     """If R9's wording moves, the mapping above is a reading of a line that changed.
@@ -116,7 +171,16 @@ def test_r9_still_enumerates_the_contents_this_list_resolves() -> None:
     readiness = (REPO / "docs" / "auto" / "KCF_READINESS.md").read_text(encoding="utf-8")
     r9 = [line for line in readiness.splitlines() if line.startswith("| R9 |")]
     assert len(r9) == 1, f"expected exactly one R9 row in KCF_READINESS.md, found {len(r9)}"
-    missing = [name for name, _pred, _why in R9_ITEMS if name not in r9[0]]
+    # Bind to the DEFINITION cell, not the whole row. The row's third cell is the
+    # status narrative, which every lap appends its own account to --- WFG-151 added
+    # ~2,000 words of it, mentioning three of the five names below. Searching the
+    # whole line would let this test be satisfied by the loop's own commentary while
+    # R9's actual definition quietly lost a name: the self-comparison this row exists
+    # to remove, one column over. Found by WFG-151's independent reviewer.
+    cells = r9[0].split(" | ")
+    assert len(cells) >= 3, f"R9's row is not the expected 4-cell table row: {cells[:2]}"
+    definition = cells[1]
+    missing = [name for name, _pred, _why in R9_ITEMS if name not in definition]
     assert not missing, (
         "docs/auto/KCF_READINESS.md R9 no longer names " + str(missing)
         + ", so R9_ITEMS here is a reading of a line that has changed. Re-read R9 "
@@ -126,10 +190,19 @@ def test_r9_still_enumerates_the_contents_this_list_resolves() -> None:
 def test_the_bundle_carries_every_content_r9_names(manifest):
     """R9 is the definition of done for the bundle; MANIFEST.json is what ships.
 
-    Graded red by removing the printables entry from the plan (drop the
-    `newest_printables()` call from `bfb.plan`, or the `printables/` pair from its
-    result) and re-running: this fails naming 「printables」, which is the state the
-    repository was actually in at `3f881f6`.
+    Graded red by removing the printables from the COMMITTED MANIFEST --- which is
+    what this reads, and which is the state the repository was actually in at
+    `3f881f6`, where the plan and the manifest agreed at 17 files with no printable
+    in either. It then fails naming exactly 「printables」.
+
+    ⚠ It does NOT go red if you drop `newest_printables()` from `bfb.plan` while
+    leaving the committed manifest alone: the manifest still lists the kit, so this
+    passes and the two plan-vs-manifest tests are what fire. That is deliberate ---
+    the manifest is the artifact that ships and the plan is a description of it ---
+    but the first version of this docstring claimed the plan-side ablation, and
+    WFG-151's independent reviewer ran it and found the claim false. A grading record
+    a later lap cannot reproduce is worse than none, because it is the sentence that
+    lap will trust instead of re-running it.
     """
     listed = {f["path"] for f in manifest["files"]}
     problems = []

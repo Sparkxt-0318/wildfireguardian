@@ -1580,3 +1580,91 @@ the honest-sounding provenance sentence is what stops anyone from checking.
 `sum(pages_per_source) == pages` is one line and had never been written. Any time a manifest
 carries both a total and its parts, the test is that they agree — the parts being
 "re-derived" is not evidence of anything.
+
+## 2026-09-07T0320Z — a stale artifact and a stale sentence are different defects, and the fix for one is not the fix for the other
+
+WFG-151 looked like two prose corrections and one `PAYLOAD` line. It was neither.
+
+**The artifact half.** The bundle omitted the booth kit for a day. The obvious fix —
+add `docs/auto/finals/printables/WFG_printables_20260907T0059Z.pdf` to `PAYLOAD` —
+would have been correct today and wrong on the next `make printables`, because
+CHARTER §3.2 forbids overwriting a committed artifact, so every kit gets a NEW
+stamped filename and a literal names whichever kit was newest when it was typed.
+The shape that works is to resolve the newest tracked stamp at plan time: the plan
+then moves when the tree moves, the committed manifest stops matching, and
+`make finals-bundle` fails until the lap that built the kit rebuilds the bundle.
+
+**So: when a directory holds every version of an artifact by design, a build that
+names one version by hand is stale by construction, not by accident.** The
+question to ask of any `PAYLOAD`-shaped list is whether any entry's filename can
+change without the list changing. Here two of nineteen could.
+
+**The prose half, which is where I nearly made it worse.** I started to write that
+the bundle's README had gone false when the kit shipped, and drafted a 〔기록〕
+block saying so. That was wrong, and the correction is the lesson. The sentence
+read 「A4 근거 시트와 부스 체크리스트는 아직 이 **꾸러미**에 없습니다」 — about the
+bundle. The kit existed in the repository from 2026-09-06T0651Z and did not enter
+the bundle until this lap, so the sentence was **true for every minute it was
+shipped**. Nothing to withdraw, nothing to register under §3.5c.
+
+**The distinction is load-bearing and it is easy to lose in the direction that
+costs.** MEMO 2026-09-07T0018Z taught the loop to open `withdrawn_claims.json` the
+moment it writes 「that was false」. The failure mode that rule creates, one lap
+later, is the opposite one: reaching for the withdrawal machinery for a sentence
+that was accurate about a world that then changed. Registering it would have put a
+true sentence into the forbidden-string scan and pressured a later lap to strike it
+off other surfaces — the WC-004 direction the ORACLE lesson already named.
+
+**The test:** ask what the sentence was ABOUT, then ask whether that thing has
+changed. A claim about the world that was never true is a withdrawal. A true claim
+about an artifact that has since moved is an update, and it keeps its 〔기록〕 block
+without a `WC-###`.
+
+**And the cold read still earned its keep after all of that.** `README_KO.md` filed
+the demo script and the Q&A bank under 「이 문서가 하지 않는 것」, sending the student
+off the stick for two documents that are now pages 6 and 17 of the PDF on it. Not a
+false sentence either — a true sentence in a section whose heading made it mislead.
+A stale artifact makes prose wrong in more ways than one, and only one of them is
+the sentence being false.
+
+## 2026-09-07T0320Z, second entry — the reviewer blocked, and the thing it caught was a REASON, which nothing in this repository gates
+
+I fixed the omission and I fixed the shape, and I still shipped a false sentence
+onto the judge-facing surface the row existed to get right. The reviewer's nail:
+`release/kcf-finals-2026/README_KO.md` told the student that the dispatch-sheet
+sample was excluded because 「29장짜리 출동 지시서 표본은 `outputs/` 에 이미 완성된
+PDF 로 있어」. The tree holds **33** clusters and exactly **3** committed
+`dispatch_a4.pdf`; `outputs/dispatch/README.md` says so in its own 「What is
+committed」 section. 「29」 traces to an aspiration in a 2026-09-03 research brief and
+to nothing else. On a clean clone the student goes looking for 29 finished PDFs and
+finds 3.
+
+**Where it came from is the whole lesson.** I did not invent it. I read it off
+`tests/test_printables.py` `R7_ITEMS`, which had carried 「already a set of committed
+PDFs that print directly」 since WFG-130, and off R7's own line. So the loop's
+signature defect — *the artifact compared to the loop's own description of it* — was
+not in the contents this time. It was one layer out, in the **reason for an
+exclusion**, and it had been sitting in a test file for a day being quoted as
+evidence.
+
+**The gap is structural and it is worth stating as a rule.** `R7_ITEMS` asserts that
+an excluded item's path exists. It never asserts that the excluded item's *reason* is
+true. A path existing is compatible with any story about why it was excluded, so the
+reason is the one field in the whole mapping that no gate reads — and it is the field
+that gets copied onto judge-facing prose, because it is the part that reads like an
+explanation. `R9_ITEMS` inherited the same hole and I built it that way without
+noticing.
+
+**So: an item excused by a written reason needs the reason gated, not the exclusion.**
+`EXCLUSION_EVIDENCE` plus `test_the_dispatch_exclusion_reason_matches_what_is_committed`
+is what that looks like here — the second one re-derives 3-of-33 from `git ls-files`
+and goes red if a later lap commits the rest, which is exactly when the Korean
+sentence in the bundle would silently become wrong again.
+
+**And a second, smaller lesson with a sharp edge: do not `git checkout <file>` to
+undo a probe.** I did it twice while grading, on files carrying uncommitted fixes,
+and silently lost the R9 correction and three test edits — the second time I only
+caught it because `git status` no longer listed the file. A grading probe reverts
+from a **copy taken at the start of the probe**, never from the index, because the
+index is one commit behind the work in progress.
+
