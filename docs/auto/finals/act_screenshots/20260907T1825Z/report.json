@@ -1,0 +1,43 @@
+{
+  "browser": "Chromium 141.0.7390.37",
+  "browser_path": "/opt/pw-browsers/chromium-1194/chrome-linux/chrome",
+  "page": "web/finals.html (copied whole into a temp dir)",
+  "acts": [
+    {
+      "act": "1막 · 발견",
+      "screenshot": "act1.png",
+      "dots": 1,
+      "title": "화점이 탐지되었습니다",
+      "presses_so_far": 0
+    },
+    {
+      "act": "2막 · 시간과 도로망",
+      "screenshot": "act2.png",
+      "dots": 2,
+      "title": "시간이 도로망을 바꿉니다",
+      "presses_so_far": 1
+    },
+    {
+      "act": "3막 · 경로 비교",
+      "screenshot": "act3.png",
+      "dots": 3,
+      "title": "같은 출발지, 두 개의 답",
+      "presses_so_far": 2
+    },
+    {
+      "act": "4막 · 판단",
+      "screenshot": "act4.png",
+      "dots": 4,
+      "title": "예측을 행동 가능한 판단으로",
+      "presses_so_far": 4
+    }
+  ],
+  "presses_total": 4,
+  "console_errors": [],
+  "optional_media_missing": [
+    "log[network]: Failed to load resource: net::ERR_FILE_NOT_FOUND web/demo-media/intro-forest-loop.mp4",
+    "log[network]: Failed to load resource: net::ERR_FILE_NOT_FOUND web/demo-media/ambient-documentary.mp3"
+  ],
+  "requests_total": 10,
+  "offsite_requests": []
+}

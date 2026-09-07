@@ -54,6 +54,31 @@ jobs:
             .auto/*.log
           include-hidden-files: true
           retention-days: 30
+  finals-acts:
+    # WFG-009 / readiness line R1: 「opens from `file://` with Wi-Fi off, all four
+    # acts advance」.  The gates job already runs tests/test_finals_acts.py; this job
+    # exists so the four screenshots leave the machine as an artifact a human can
+    # open, which is what R1's done-when asks for.  It installs no browser: the
+    # runner's own Chrome/Chromium is used, and the driver skips if there is none
+    # (CHARTER §4b: no gate reaches the network).
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Advance the four acts of web/finals.html in a real browser
+        # Standard library only (scripts/cdp_min.py), so no bootstrap is needed.
+        run: python3 scripts/check_finals_acts.py --out .auto/finals_acts
+      - name: The four screenshots a judge is walked through
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: finals-acts-${{ github.sha }}
+          path: .auto/finals_acts/
+          include-hidden-files: true
+          retention-days: 30
   promote:
     # CHARTER §4c: Main follows the last commit GitHub's own gate certified.
     needs: gates

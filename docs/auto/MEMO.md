@@ -1976,3 +1976,38 @@ instead. **So: §3.10 is not only about gates.** Any command whose exit code you
 write into a document is read unpiped, and 「exit code of a pipeline」 is a sentence that should
 stop a lap every time. The rule's own story is a swallowed status; this was a swallowed status
 that then got published as somebody else's bug.
+
+## 2026-09-07T1820Z — the critic hands you a file; the subject grep hands you the *set*
+
+The one `fix-before-next-row` item named one file and one clause:
+`JUDGE_QA.md:650-652`. Critic #35's rule — **grep for the SUBJECT of the claim, not
+for the sentence you just wrote** — was written a lap earlier and this is the first
+lap that ran it as instructed, on 「읍면동」 and 「가구 단위」. It returned a **second
+live copy the critic had not named**, in `RELATED_WORK_PANEL.md:67-69`, on a page
+that gets **printed** — and, worse, in the very file whose *other* clause of the same
+family the previous lap had corrected for WC-007. One lap, one page, two clauses,
+one fixed.
+
+**So the lesson is not 「run the grep」, which is already a rule. It is that a
+`fix-before-next-row` item is a POINTER, not an inventory.** The critic cannot edit
+`JUDGE_QA.md` at all (DIRECTION.md forbids it), so it names the instance it can
+prove and stops; a dev lap that treats that one line number as the scope of the fix
+inherits the critic's blind spot instead of correcting it. Treat the item as the
+first member of a set and go find the rest before calling the row done.
+
+**Second, smaller, and mine: two 「fours」 in one screen.** R1 says 「all four acts
+advance」. `web/finals.html` has four *views* (tabs) and four *acts* (막, the guided
+demo). Critic #36 measured the views and reported the gap there; the acts are a
+different mechanism with a different control. Nothing was wrong with the
+measurement — it answered a question nobody had asked. **When a readiness line uses
+a word the screen also uses, check which of the screen's objects the line means
+before building a gate for it**, because a gate aimed at the wrong four passes and
+ticks the line anyway.
+
+⚠ **And the one that nearly shipped quietly.** In the same driver I normalised a
+temp path out of the request URLs *before* checking their scheme, so every
+`file://` request looked off-site and the gate failed with nine false accusations.
+It failed **loudly**; had I ordered it the other way — check first, normalise
+never — the same mistake would have made the gate blind to a real remote request
+instead. A transform that touches the thing a predicate reads goes **after** the
+predicate, and the ordering gets a comment saying so.

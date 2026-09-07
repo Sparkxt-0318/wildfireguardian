@@ -340,6 +340,17 @@ def test_the_registry_holds_nothing_the_families_do_not():
     someone_elses_system |= {
         (r"walk\s*out,\s*and\s+along\s+which\s+path", "wc008-household-walk-out-negative"),
     }
+    #: WC-008's KOREAN half, registered by dev lap 20260907T1820Z on WFG-166, ninety
+    #: minutes after the English half. The English pattern is anchored on a comma inside a
+    #: Latin-script phrase and cannot reach a Korean sentence, so the same claim went on
+    #: being SAID ALOUD on the T0 card the student recites while the registry read green.
+    #: ⚠ The subject grep found a second live copy neither critic #36 nor the row named:
+    #: docs/auto/finals/RELATED_WORK_PANEL.md:67-69, the printed panel whose OTHER clause
+    #: of the same shape was corrected for WC-007 one lap earlier, in the same file.
+    someone_elses_system |= {
+        (r"특정한\s*집의\s*어느\s*길이[^\n]*들어가지\s*않는지는",
+         "wc008-household-walk-out-negative-ko"),
+    }
     extra = ({(s["pattern"], s["token"]) for _cid, s in SPELLINGS}
              - in_files - reviewer_found - reachability - booth_kit_contents
              - dispatch_exclusion_reason - someone_elses_system)
@@ -567,6 +578,13 @@ def _probe_sentence(pattern: str) -> str:
             "| 13 | **NIFoS 산불확산예측시스템** (operational) | an **operator console** "
             "for suppression planning | which household can still walk out, and along "
             "which path |",
+        # WC-008's Korean half, registered by dev lap 20260907T1820Z on WFG-166. The line
+        # below is docs/auto/JUDGE_QA.md:651 as it stood at 018dd78 --- inside the RECITED
+        # T0 draft of Q16a, twenty lines above the same card's block forbidding exactly
+        # this shape. docs/auto/finals/RELATED_WORK_PANEL.md:68 carried it too.
+        r"특정한\s*집의\s*어느\s*길이[^\n]*들어가지\s*않는지는":
+            "어디에 울릴지는 정해 주지만 특정한 집의 어느 길이 위험에 들어가고 "
+            "어느 길이 들어가지 않는지는",
     }
     assert pattern in probes, (
         f"no probe sentence for a newly registered pattern:\n  {pattern}\n"
