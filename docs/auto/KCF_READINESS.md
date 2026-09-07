@@ -5,7 +5,49 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
-**Tick count, critic #33, 2026-09-07T0800Z: 6 of 11 (R2, R4, R5, R6, R7, R9). R7 is ticked, a line moves for
+**Tick count, critic #34, 2026-09-07T1100Z: 6 of 11 (R2, R4, R5, R6, R7, R9), unchanged — and unchanged is the
+correct answer this lap rather than a stall.** Two lines moved inside this 24 h window (R9 at 05:00Z, R7 at 08:00Z), so
+the "zero for two consecutive critic laps" direction finding does not fire. Checked on disk at `2720840`, re-run rather
+than read.
+
+- ⚠⚠ **R1's red is CLEARED, and R1 still does not tick.** Critic #33's finding #1 was `gates.py --mode full` exiting
+  **1** in the routine's default clone on `web/finals.html`'s aged-out stamp. Re-measured here **on the default clone
+  before any deepening**, which is the reading that matters and the one two laps skipped: `is-shallow-repository` =
+  `true`, `rev-list --count HEAD` = **50**, `gates.py --mode full` exits **0**, **ALL GREEN**, `1650 passed, 62 skipped,
+  2 xfailed`, pytest 260.6 s. `web/finals.html` names `7308b06`, **6** commits behind `HEAD`, inside the new limit of
+  30. WFG-119's (a), (b) and (c) all shipped and its carrier gate is depth-independent, so the recurrence was closed
+  rather than reset. **R1 remains ☐ on its original and only sized blocker: WFG-110.** `scripts/finals.template.html`
+  references **28** registry keys, `docs/auto/DEMO_SCRIPT_5MIN.md` §3 maps **22** and maps them script → key rather than
+  screen → key, and **6** are in no committed mapping table. That is one lap of work and it is the last thing between
+  this line and a tick, which is why WFG-110 is DIRECTION position 2.
+- **R3 unchanged, and its sandbox half now has a seventh measurement against it.** `verify`, `snapshot-verify`,
+  `env-check` PASS; `baseline-verify` WARN is the documented CHARTER §3d state. Through the GitHub MCP (`curl` is 403
+  here): `auto-gates` runs **181 to 205** on `auto/dev` are **22 `success`, 3 `cancelled`, no `failure`**, and run
+  **205** at this head is `success` — **no CHARTER §4b finding**. `gates.py --assert-reported --base b2bdaf0` over the
+  whole 59-commit window exits **0** with 59 substantive paths. Every **dev** report in the window carries
+  `Reviewed by:`; the research report does not (WFG-147). ⚠ R3 cannot tick while the suite reaches the network:
+  measured on this lap's own clock, `data/raw/dem/srtm/N36E129.hgt` (**25,934,402 B**) and its `.gz` were written at
+  **11:02:33Z**, inside a `pytest-full` run that began about 10:59:40Z, into a directory that held only `.gitkeep` and
+  `README.md` at container start. WFG-139, seventh consecutive lap. R3 also still waits on one `make all-checks` on the
+  author's laptop.
+- **R5 keeps its tick and its one gap is now promoted rather than re-measured.** Re-run at this head: the only
+  `산림청` hits in `docs/auto/JUDGE_QA.md` are the two burned-area lines at `:399` and `:1003`, so there is still no
+  card for 「산림청·경기도가 이미 산불확산예측을 하고 있는데 무엇이 다릅니까?」 while the kit prints three pages that
+  invite it. Seventh consecutive lap measured, and the sixth to decline to promote it. **WFG-144 is this lap's one row
+  move, P1 → P0 at position 1** (CHARTER §14b: judge-facing, larger than minutes, therefore a P0 row and never a
+  preemption).
+- **R7 keeps its tick, and it carries one printed error.** Kit `20260907T0953Z`, rebuilt when JUDGE_QA's line-number
+  citations were re-cited by test name. `docs/auto/finals/RELATED_WORK_PANEL.md:43` — 3 of the kit's 36 pages, on the
+  stick and in the release bundle — dates the 사이언스타임즈 NIFoS article **2026-02-12**. I fetched the article in
+  this sandbox rather than inheriting the claim: its byline reads `연합뉴스 2026-02-13` and its 저작권자 line
+  `2026-02-13 ⓒ ScienceTimes`; the only `2026/02/12` strings on the page are 연합뉴스 image CDN paths carrying the wire
+  id `AKR20260212072300063`. WFG-146, and this lap's one `fix-before-next-row` item. The tick stands because R7's
+  conditions are about completeness and provenance hashes, all of which hold; the date is a 제출 자료 deduction and is
+  scored there.
+- **R2, R4, R6, R9 hold. R8, R11 unchanged**; R10 stays withdrawn and R12 is the author's. I did not re-measure
+  WFG-110's six registry keys myself and do not tick on a number I did not take.
+
+*(Superseded, kept as the record, CHARTER §3.7.)* **Tick count, critic #33, 2026-09-07T0800Z: 6 of 11 (R2, R4, R5, R6, R7, R9). R7 is ticked, a line moves for
 a second consecutive lap, and the two that moved are the two the loop has been circling since 09-05.** Checked
 on disk at `2896c9c`, re-run rather than read. ⚠⚠ **And the same measurement that ticks R7 found `gates.py
 --mode full` RED in this sandbox on a correct tree**, which is finding #1 and is written under R1 below.

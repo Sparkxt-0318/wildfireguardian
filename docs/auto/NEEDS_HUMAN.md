@@ -2138,3 +2138,55 @@ would add to the options as written: under B, a lap that rebuilds must be told n
 quote the withdrawn sentence in the rebuilt artifact, because the instinct is to record it.
 
 **Reply:** `NH-042: A` or `NH-042: B` or `NH-042: C` or a sentence.
+
+## NH-043 · DECISION · open · A gate your loop built this morning will go red about twice a day, and the charter tells the lap that meets it to stop working (by 2026-09-09)
+
+**Severity: MEDIUM. Nothing a judge sees is wrong. The cost is dev laps: on the measured
+numbers this can burn one lap in four for the rest of the sprint, and the sprint ends
+2026-09-15.**
+
+**What was built, and it was good work.** The 2026-09-07T0918Z lap closed WFG-119. The
+finals screen `web/finals.html` stamps the commit it was built at; two old gates asked
+「can this clone resolve that commit」, which the *clone* answers as much as the tree, so
+they only fired once the stamp was ~50 commits old and never fired in CI at all. The new
+gate, `test_the_screen_is_rebuilt_before_its_stamp_ages_out_of_this_clone`, asks the
+question the loop actually cares about — 「is the judged screen a recent build」 — and
+fires at **30** commits behind `HEAD`, the same way everywhere. Verified green here at
+`2720840` with the stamp 6 commits behind.
+
+**The gap.** Nothing says what a lap should DO when it fires. CHARTER §4 step 2 reads
+「Red baseline → do not build. Diagnose; fix only if the cause is clearly environmental …
+otherwise write a NEEDS_HUMAN BLOCKER and a `red` report, and stop」, and §3.9 sends the
+work to `auto/red/<stamp>`. This red is neither environmental nor a defect to escalate: the
+remedy is one command, `make finals`, printed in the failure text. On 2026-09-07 the only
+thing that stopped a lap obeying the standing rule was critic #33 writing an explicit
+override at the top of `CRITIC_LATEST.md` — **and that file is rewritten by every critic
+lap, so the override expires today.** The WFG-119 lap amended CHARTER §4's sandbox-facts
+paragraph for the shallow-clone facts and did not amend step 2 for this class.
+
+**How often, measured rather than assumed, by critic #34 at `2720840`.** The test's own
+comment estimates 「roughly 18 hours, or six dev laps」 from a rate of 40-55 commits/day.
+This branch's actual rate: **194** commits in the last 72 h = **64.7/day**; per day **94**
+(09-04), **64** (09-05), **52** (09-06), **29** in the first 11 h of 09-07. No full sprint
+day falls inside the quoted band. At 64.7/day a 30-commit budget is **11.1 hours**, about
+**3.7** dev laps at the 3-hour cadence. That prose error is its own row (WFG-160); the
+routing question is yours.
+
+**Options:** A) **Name the exception in the charter.** Amend CHARTER §4 step 2: a baseline
+red whose failures are only `tests/test_finals_screen.py` staleness gates is not a stop —
+the lap runs `make finals` on the commit it is pushing, notes it in the report, and
+continues to its row. Cheapest; leaves the alarm ringing every ~11 h but makes answering it
+a two-minute chore with a written rule behind it. B) **Remove the recurrence instead of
+routing it.** Fold `make finals` into the push path (`scripts/auto/gates.py --assert-head`
+or the Makefile target the lap pushes through) so the stamp cannot age and the gate can only
+fire on a real defect. This is WFG-119's own done-when #2, second shape; it is filed as
+**WFG-161** and is agent-doable, but it changes the push path, which is why it is not being
+taken without you. C) **Raise the threshold** from 30 to something that fires about once a
+day (~60 would, at the measured rate) — but 60 is above the depth-50 clone horizon, so the
+cryptic `Not a valid object name` failure comes back first and the whole repair is undone.
+I do not recommend C and record it only so the option set is complete. D) **Leave it.**
+Accept that a dev lap will occasionally park itself on `auto/red/` over a stale build stamp,
+and rely on each critic lap re-stating the override.
+
+**My recommendation: B, with A written down as well** so a lap that meets the red before B
+lands has a rule instead of a report to follow.
