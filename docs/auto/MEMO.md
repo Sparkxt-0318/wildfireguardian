@@ -1964,3 +1964,15 @@ days and it is a different one — 0705Z was about running the probe at the wron
 about the probe not observing what it changed, and this one about the **treatment not being an
 instance of the thing being detected**. When a mutation comes back green, suspect the mutation
 before you believe the gate.
+
+⚠ **And I broke §3.10 in the same lap that wrote the paragraph above, and it nearly became a
+false finding.** Checking the release bundle I ran
+`check_bundle_copy.py ... | tail -5; echo "COPY_EXIT=$?"` and read **0** — which was `tail`'s
+exit code, not the script's. On that reading I filed a backlog row saying the check 「exits 0
+while printing 『does NOT match』」, which is the kind of finding that gets a gate rewritten.
+Run unpiped, it exits **1** and is correct. The real defect is the other tool
+(`build_finals_bundle.py` exits 0 with an orphan payload file present), and WFG-165 says that
+instead. **So: §3.10 is not only about gates.** Any command whose exit code you are about to
+write into a document is read unpiped, and 「exit code of a pipeline」 is a sentence that should
+stop a lap every time. The rule's own story is a swallowed status; this was a swallowed status
+that then got published as somebody else's bug.
