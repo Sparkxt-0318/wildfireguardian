@@ -1791,6 +1791,30 @@ options below are unchanged and **B or C is what the lap would pick**: it is the
 stops the proxy being load-bearing at all, and it is a dev-lap item you could hand to the
 next dev lap in one line.
 
+⚠⚠ **Update, critic #38 (2026-09-07T2319Z). The margin is now FIVE words, and this entry's own worst case has
+happened twice in one day.** Measured here, not read: `.auto/venv/bin/python paper/check_paper.py` at `1bca8ed`
+reports `{"body_words": 8995, "figures": 8, "tables": 4, "references": 29, "gaps": 7}` and exits OK.
+**8,995 against a hard fail at 9,000.** When this entry was written the margin was 55; lap 16 left it at 8; lap 17
+ends at **5**. `paper/STATE.json` also re-measured the built document with a real renderer this lap and got
+**23 pages** under Carlito, page objects and the page tree's `/Count` agreeing. So your rule has **two pages** of
+room and the proxy has **five words**, and the gap between the two is now the whole story.
+
+**What lap 17 had to pay with, and why the stock is nearly gone.** Its independent reviewer blocked it three times
+and every one of the three was right, which means the corrections were mandatory rather than stylistic: a §3.5
+sentence had to stop claiming a completeness the gate does not have, a miscount of registration failures had to go
+from 「twice」 to 「three times」 (the third being this loop's own paper routine), and a deleted clause had to be
+restored because it was payload rather than self-congratulation. Net **+7 words**, paid for with four
+meaning-preserving syntax compressions of one word each: 「a document that states」 → 「a document stating」,
+「which the scan does read」 → 「which it does read」, 「a correction applied to a generated file」 → 「a correction
+to a generated file」, 「like any other document here」 → 「like any other document」. **Five laps in a row have now
+had their writing shaped by the proxy rather than by the evidence**, and what is left to compress is what four
+reviewers have already been over.
+
+**Nothing is broken and nothing is red.** The gate passes at `1bca8ed` and every caveat is intact. What this update
+adds is that the next mandatory correction of any size at all now parks the manuscript, and the parking is correct
+behaviour under CHARTER §3 rule 9. The options below are unchanged; **B or C remains what the loop would pick**,
+and B is one `apt` line in `.github/workflows/auto-gates.yml` that a dev lap could land in a single lap.
+
 **Reply with:** `NH-037: A` (or B / C / D, or a sentence).
 
 ---
@@ -2218,6 +2242,79 @@ and rely on each critic lap re-stating the override.
 
 **My recommendation: B, with A written down as well** so a lap that meets the red before B
 lands has a rule instead of a report to follow.
+
+---
+
+## NH-045 · BLOCKER · open · The staleness gate has closed `auto/dev` to every routine, and the one routine that met it is the one forbidden to clear it (by 2026-09-08)
+
+**Severity: BLOCKER. Nothing a judge sees is wrong and no number moved. What is stuck is the
+branch: at `1bca8ed` the finals screen's stamp sits at exactly the gate's limit, so the NEXT
+commit from ANY routine turns `gates.py --mode full` red, and CHARTER §3.9 then forbids that
+routine from pushing it. This is NH-043's question, arriving as a fact instead of a forecast.**
+
+**What happened, in order, on 2026-09-07T2319Z (critic #38).**
+
+1. Baseline at `1bca8ed`: `gates.py --mode full` **exit 0, ALL GREEN**. `web/finals.html:434`
+   names `7308b06`; `git rev-list --count 7308b06..HEAD` = **30**;
+   `tests/test_finals_screen.py:540` sets `STAMP_MAX_COMMITS_BEHIND = 30` and `:732` asserts
+   `behind <= STAMP_MAX_COMMITS_BEHIND`. Green **at** the limit. This was filed as **WFG-173**
+   and as this lap's one `fix-before-next-row` item, with the prediction written down: red on
+   the next push.
+2. The lap committed its own report and backlog rows, `docs/auto/` only, staged by explicit
+   path. That commit made `behind` = **31**.
+3. `tests/test_finals_screen.py::test_the_screen_is_rebuilt_before_its_stamp_ages_out_of_this_clone`
+   now **FAILS**: `AssertionError: web/finals.html was built at 7308b06, now 31 commits behind
+   HEAD (limit 30)`. The prediction was right within four minutes of being written.
+
+**Why this is a blocker and not a chore.** The remedy is one command, `make finals`, and the
+gate's own failure text prints it. But `make finals` regenerates `web/finals.html`, which is an
+artifact outside `docs/auto/`, and **the critic routine's standing prompt forbids it in those
+words**: 「You change NO code and NO artifact; you write only under `docs/auto/`」. So the only
+routine that met the red is the only routine that cannot clear it. Its work is parked on
+`auto/red/2026-09-07T2319Z` per CHARTER §3.9 and `origin/auto/dev` is left at `1bca8ed`, which
+is green.
+
+**And the same trap is set for whoever arrives next.** `behind` counts commits, not changes, so
+**any** commit trips it. CHARTER §4 step 3 tells the next dev lap to claim its row by committing
+and pushing that claim before it builds anything: that claim commit alone takes `behind` to 31
+and turns the gate red before the lap has done a single piece of work. A paper lap or a
+`ci-red` lap is in the same position. `auto/dev` is not broken; it is **closed**, and it stays
+closed until some lap runs `make finals` and pushes the rebuilt screen.
+
+**What saves it, and why it is not certain.** The gate's failure text says 「Run `make finals` on
+the commit you are pushing」, so a dev lap that reads the message has the fix in front of it and
+does not need this file. Whether it *may* act on it is precisely the question NH-043 asks and
+you have not yet answered: CHARTER §4 step 2 says a red baseline is a stop, and NH-043 records
+that the only thing that stopped a lap obeying that rule on 2026-09-07 was critic #33 writing an
+explicit override into `CRITIC_LATEST.md`, a file every critic lap rewrites. **This lap did not
+write such an override**, because an override that expires in three hours is what NH-043 asked
+you to replace, and writing another one would have buried the question again.
+
+**Options:** A) **Answer NH-043 option A now** by amending CHARTER §4 step 2 in one sentence: a
+baseline red whose only failures are `tests/test_finals_screen.py` staleness gates is not a stop;
+the lap runs `make finals` on the commit it is pushing, records it in the report, and continues.
+This unblocks the branch at the next lap with a written rule behind it, and it is the smallest
+change that ends the recurrence of *this* stall. B) **Answer NH-043 option B** (**WFG-161**, filed
+and agent-doable): fold `make finals` into the push path so the stamp cannot age and the gate can
+only fire on a real defect. This removes the class rather than routing it, and it is what the
+loop recommends, but it changes the push path, which is why no lap has taken it without you.
+C) **Do it by hand now:** on the laptop, `git checkout auto/dev && make finals && make
+finals-bundle`, commit both, push. Two minutes, unblocks tonight, and leaves the recurrence for
+A or B. D) **Say nothing and let the next dev lap decide.** It will meet the gate's own
+instruction and will most likely run `make finals`; if instead it obeys CHARTER §4 step 2 it
+parks itself on `auto/red/` and the sprint loses laps until you reply. The loop does not
+recommend D, and records it so the option set is complete.
+
+**Recommendation: C tonight for the branch, and A or B for the class.** C and A together cost you
+about three minutes and end both the stall and its recurrence.
+
+**What the loop does until you answer:** this lap's work is on `auto/red/2026-09-07T2319Z` and
+`origin/auto/dev` stays green at `1bca8ed`. Nothing is lost and nothing is force-pushed. The next
+lap that clears the gate should merge or cherry-pick that branch so **WFG-173**, **WFG-174**,
+**WFG-175**, the WFG-139 reproduction and this lap's `CRITIC_LATEST.md` reach `auto/dev`.
+
+**Reply with:** `NH-045: A` (or B / C / D, or a sentence). Answering **NH-043** answers most of
+this one too.
 
 ---
 

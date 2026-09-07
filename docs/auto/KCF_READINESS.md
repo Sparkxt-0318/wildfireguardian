@@ -5,7 +5,51 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
-**Tick count, critic #37, 2026-09-07T2020Z: 7 of 11 (R1, R2, R4, R5, R6, R7, R9) — and R1 TICKS, the first movement
+**Tick count, critic #38, 2026-09-07T2319Z: 7 of 11 (R1, R2, R4, R5, R6, R7, R9). No line moved this window and no
+line fell.** Checked on disk at `1bca8ed`, re-run rather than read, on the routine's **default** clone before any
+deepening (`git rev-parse --is-shallow-repository` = `true`, `git rev-list --count HEAD` = **50**, `git log
+--since='26 hours ago'` returns exactly 50, so the oldest resolvable commit `590c29a` (2026-09-07T00:43Z) is inside
+the window and the window resolves from there forward; the hour before it does not, and I say so rather than implying
+a full 24 h). `gates.py --mode full` exits **0**, ALL GREEN: `1689 passed, 62 skipped, 2 xfailed`, pytest 212.2 s,
+**COLD**, and **the run downloaded 25.9 MB** (WFG-139, below). `--assert-head` exits 0; `--assert-reported --base
+3426135` exits 0. Through the GitHub MCP, `auto-gates` runs **204 to 223** on `auto/dev` are 19 `success`, 1
+`cancelled` (218), **zero `failure`**, and run **223** at this exact head is `success`. **No CHARTER §4b finding.**
+Every dev and critic report in the window carries `Reviewed by:`; the research report of 2026-09-06T1838Z still does
+not (WFG-147, unchanged, not duplicated).
+
+- **R5 and R7 keep their ticks and the defect critic #37 attached to both is CLEARED.** That lap's one
+  `fix-before-next-row` item was WFG-171: `RELATED_WORK_PANEL.md:32` and `JUDGE_QA.md:652` asserting flat and in bold
+  that the NIFoS console's 발화점은 「운영자가 손으로 입력」한다, on the provenance of a catalogue chapter title. Both
+  lines now state the claim at the strength of its source; the panel prints the eight chapter names and says the flow
+  「읽힙니다」; the superseded wording is registered as **`WC-009`** rather than reprinted; the kit was rebuilt in the
+  same lap (`WFG_printables_20260907T2149Z.pdf`, `manifest_20260907T2149Z.json`) and
+  `release/kcf-finals-2026/MANIFEST.json` re-pointed. I read the replacement text on both files rather than grepping
+  for the absence of the old one. ⚠ **What R5 still does not cover:** `JUDGE_QA.md` Q28 keeps a sentence this
+  repository knows to be false, and its correction sits in Q40 **211 lines below**; both print in the same kit
+  (WFG-139's 「Done when」).
+- **R1 keeps the tick critic #37 earned for it, and I did not re-run its driver.** That lap's evidence was a headless
+  `Chromium 141` run here plus the same four act labels and dot counts in `auto-gates` run 219's `finals-acts` job on a
+  clean `ubuntu-latest` runner. Two independent machines is stronger than a third run on this one, and nothing in this
+  window touched `web/`, `scripts/check_finals_acts.py` or the payload. ⚠ **But the screen the tick is about is one
+  commit from a red gate**, which is a different property from R1's: `web/finals.html:434` names `7308b06`, **30**
+  commits behind `HEAD` (`git rev-list --count 7308b06..HEAD`), against `STAMP_MAX_COMMITS_BEHIND = 30` at
+  `tests/test_finals_screen.py:540` and `assert behind <= STAMP_MAX_COMMITS_BEHIND` at `:732`. Critic #37 read the
+  same field at **24** and called it inside the limit, which it was. **WFG-173**, this lap's one `fix-before-next-row`
+  item.
+- **R3 unchanged, and its sandbox half now has an ELEVENTH measurement, this one isolated.** `verify`,
+  `snapshot-verify`, `env-check` PASS; `baseline-verify` WARN is the documented CHARTER §3d state. At container start
+  `data/raw/` held `.gitkeep`, `README.md` and the KFS CSV; after the gate run it holds `dem/srtm/N36E129.hgt`
+  (**25,934,402 B**) and `N36E129.hgt.gz` (8,473,868 B) at mtime **23:02Z**. I then deleted both tiles and the cached
+  `data/cache/dem_yeongdeok_2025_srtm_500m_80858ae747.nc` (all git-ignored; `git status --short` clean afterwards) and
+  ran the row's own named suspect **alone**: `tests/test_spread_warmup.py::test_model_config_ignition_radius_
+  increases_initial_burn`, **1 passed in 1.54 s, both tiles back at 23:06Z**. The same test with the `.nc` cache
+  present passes in 0.47 s and downloads nothing, which is why ten laps of re-running never located it. R3 also still
+  waits on one `make all-checks` on the author's laptop.
+- **R2, R4, R6, R9 hold; R8 and R11 unchanged; R10 stays withdrawn; R12 is the author's (NH-014).**
+- **Readiness lines ticked inside this window: R9 (05:00Z), R7 (08:00Z), R1 (20:00Z).** The 「zero across two
+  consecutive critic laps」 direction finding does not fire.
+
+*(Superseded, kept as the record.)* **Tick count, critic #37, 2026-09-07T2020Z: 7 of 11 (R1, R2, R4, R5, R6, R7, R9) — and R1 TICKS, the first movement
 on that line since the checklist was written.** Checked on disk at `64f015b`, re-run rather than read, on the routine's
 **default** clone before any deepening (`is-shallow-repository` = `true`, `rev-list --count HEAD` = **50**, and the oldest
 resolvable commit `d6cb996` is itself inside this lap's 24 h window, so the whole window resolves). Lines ticked inside
