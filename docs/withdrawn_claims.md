@@ -118,8 +118,32 @@ $ python scripts/check_withdrawn_claims.py
 | WC-005 | 부스 인쇄물의 A4 근거 시트 겸 대조표가 아직 없다 | 개발 랩 2026-09-07T0018Z / WFG-130 — `docs/submission_reconciliation.md` 는 13,702 바이트이고 WFG-018 이 2026-09-03 에 `done(20260903T0653Z)` 로 닫은 문서입니다. 인쇄물 manifest 네 판이 그 반대를 적고 다녔습니다 | 3 | <!-- forbidden-ok: 근거 시트 아직 없 -->
 | WC-006 | 마을 A4 출동 지시서가 「이미 커밋된 PDF 라서 그대로 인쇄하면 된다」, 그리고 그것이 「29 장」이다 | 개발 랩 2026-09-07T0355Z / WFG-151 이 거짓으로 판정하고 세 곳을 고쳤으나 **등록하지 않았고**(CHARTER §3.5c), 크리틱 #32 가 그 결과를 재고 WFG-153(a) 로 올렸습니다. 트리는 클러스터 **33개**이고 커밋된 `dispatch_a4.pdf` 는 **3개**뿐이며(`outputs/dispatch/README.md`), 「29」는 이 저장소의 어떤 산출물도 세지 않습니다. 2026-09-07T0630Z 랩이 인쇄물 재빌드와 같은 랩에서 등록했습니다 | 2 | <!-- forbidden-ok: wc006-29-dispatch-sheets, wc006-dispatch-committed-pdfs -->
 | WC-007 | 국내 두 운영 시스템이 재현 절차를 대외에 내놓은 적이 없다 | 개발 랩 2026-09-07T1528Z / WFG-162 — 크리틱 #35 의 `fix-before-next-row` 항목입니다. 이 패널이 읽은 것은 카탈로그 기록과 언론 보도뿐이고, 국립산림과학원 사용자가이드 원문은 **NH-039** 로 아직 아무도 열지 못했습니다. 원본 조사 `docs/related_work.md:134` 는 같은 칸을 처음부터 「not stated」로 적었고, 요약본인 패널만 한 칸 더 나갔습니다. ⚠ 이 랩도 등록 대신 손 grep 으로 닫으려 했고 **독립 검토자가 그 한 가지로 막았습니다** | 1 |
+| WC-008 | 국내 두 운영 시스템이 **가구 단위 대피 경로를 산출하지 못한다** | 논문 랩 2026-09-07T1529Z 가 자기 검토자의 block 으로 `paper/manuscript.md` §2 에서 철회했고, 그 검토자가 §2 의 출처 페이지인 `docs/related_work.md` 13·14 행에 같은 단정이 **그대로 살아 있는 것**을 찾아 **NH-044** 로 올렸습니다 (CHARTER §12 상 논문 루틴은 그 파일을 고칠 수 없습니다). 같은 주장 계열을 열고 있던 개발 랩 2026-09-07T1528Z 가 두 행을 좁히고 같은 랩에서 등록했습니다. ⚠ 등록이 **세 번째 사본**을 찾아냈습니다 — `docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md` §2, WFG-163 과 같은 모양입니다 | 1 | <!-- forbidden-ok: wc008-household-walk-out-negative -->
 
 
+
+### 5g. WC-008 — 등록이 **또 한 번** 아무도 이름 부르지 않은 사본을 찾았습니다
+
+WC-007 과 같은 랩, 같은 주장 계열입니다. 다른 점은 **누가 철회했는가**입니다: 이번에는 논문
+루틴의 독립 검토자가 `paper/manuscript.md` §2 에서 「neither answers …」를 막았고, 그 검토자가
+**§2 가 인용하는 바로 그 페이지** `docs/related_work.md` 13·14 행에 같은 단정이 살아 있는 것을
+찾았습니다. 논문 루틴은 CHARTER §12 때문에 `paper/` 바깥을 고칠 수 없어서 **NH-044** 로 올렸고,
+같은 창에서 WFG-162 로 같은 계열을 열고 있던 개발 랩이 두 행을 좁히고 여기에 등록했습니다.
+
+**그리고 등록이 세 번째 사본을 찾아냈습니다.** 두 랩 어느 쪽도 이름 부르지 않은
+`docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md` §2 — CHARTER §13 이 「랩이나 학생이 개념을
+찾아보는 곳」이라고 적어 둔 파일입니다. WFG-163 이 이번 주에 이미 같은 모양을 기록했고, 이것이
+그 두 번째입니다. 같은 파일 §3.3 에는 「Reproducibility on public data is a claim **neither
+agency system makes**」— WC-007 의 **영어판** — 도 살아 있었고, WC-007 의 한국어 철자는 당연히
+그것에 닿지 못했습니다. §4 가 모든 패턴에 대해 적어 둔 한계가 그대로 실현된 것이라, 손으로
+고쳤습니다.
+
+⚠ 이 패턴의 설계에서 한 가지는 **의도적으로 좁습니다.** 「walk out**,** and along which path」의
+쉼표가 걸쇠입니다. 이 프로젝트가 **자기 산출물**을 설명할 때 쓰는 「which household to reach
+first and along which walking route」·「walk out and by which path」(쉼표 없음)까지 잡는 패턴이었다면,
+그것은 이 프로젝트의 제출 프레임 자체를 막는 게이트가 되었을 것입니다. 반대로 14 행의 철자
+「anything below the township; a walking route for one person」은 13 행과 공유하는 어구가 없어
+**이 패턴이 닿지 못합니다** — 같은 커밋에서 손으로 고쳤고, 래칫은 없습니다.
 
 ### 5f. WC-007 — grep 이 **맞았는데도** 막힌 첫 사례이고, 그것이 §3.5c 의 요점입니다
 

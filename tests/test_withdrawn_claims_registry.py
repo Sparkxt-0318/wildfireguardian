@@ -328,6 +328,18 @@ def test_the_registry_holds_nothing_the_families_do_not():
         (r"재현\s*(?:방법|절차)[^\n]{0,20}?공개하지\s*않",
          "wc007-two-systems-do-not-publish-reproduction"),
     }
+    #: WC-008, registered by the same lap as WC-007 and belonging with it: both are flat
+    #: negatives about the two Korean operational systems, drawn from a catalogue entry and
+    #: one newspaper article. This one is about what they COMPUTE rather than what they
+    #: publish, it was retracted from paper/manuscript.md §2 by the paper routine's own
+    #: reviewer at 8ff1b40, and that reviewer found it still live on docs/related_work.md
+    #: rows 13-14 --- the page §2 cites --- and could not edit them (CHARTER §12), so it
+    #: filed NH-044 and the dev lap holding the same claim family fixed and registered them.
+    #: ⚠ Registering it surfaced a THIRD copy neither routine had named, in
+    #: docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md §2, which is WFG-163's shape again.
+    someone_elses_system |= {
+        (r"walk\s*out,\s*and\s+along\s+which\s+path", "wc008-household-walk-out-negative"),
+    }
     extra = ({(s["pattern"], s["token"]) for _cid, s in SPELLINGS}
              - in_files - reviewer_found - reachability - booth_kit_contents
              - dispatch_exclusion_reason - someone_elses_system)
@@ -547,6 +559,14 @@ def _probe_sentence(pattern: str) -> str:
         # to 20260907T1248Z, which is the folder a judge is handed.
         r"재현\s*(?:방법|절차)[^\n]{0,20}?공개하지\s*않":
             "재계산**합니다 — 앞의 두 시스템은 재현 방법을 공개하지 않습니다.",
+        # WC-008, registered by dev lap 20260907T1528Z alongside WC-007. The line below
+        # is docs/related_work.md row 13 as it stood at 27b76f1 --- the cell of a column
+        # headed 「what it does **not** compute」, which is what makes the phrase an
+        # assertion rather than a description. The knowledge note used the same words.
+        r"walk\s*out,\s*and\s+along\s+which\s+path":
+            "| 13 | **NIFoS 산불확산예측시스템** (operational) | an **operator console** "
+            "for suppression planning | which household can still walk out, and along "
+            "which path |",
     }
     assert pattern in probes, (
         f"no probe sentence for a newly registered pattern:\n  {pattern}\n"

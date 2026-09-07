@@ -60,10 +60,26 @@ what one student, one loop and a search of public sources found by 2026-09-07.
 | 10 | Lahrichi et al., WSTS+ | [arXiv:2502.12003](https://arxiv.org/abs/2502.12003) | next-day spread learned over many fire-years; time-series inputs beat single-day inputs | any decision object downstream of the prediction |
 | 11 | Sung et al., GK2A detection (KJRS 2025) | [KJRS](https://www.kjrs.org/journal/view.html?pn=mostdownload&uid=1117&vmd=Full) | geostationary detection of Korean fires at the imager's cadence and resolution | the evacuation consequence of detecting late |
 | 12 | Kwon, Kim & Han, Uiryeong shelter MIP | [10.3390/systems13121125](https://doi.org/10.3390/systems13121125) | shelter siting / assignment for a Korean rural county as a mixed-integer program | a time-varying hazard between the household and the shelter |
-| 13 | **NIFoS 산불확산예측시스템** (operational) | [user guide, 연구자료 제1201호, 2026](https://book.nifos.go.kr/library/10130/contents/7732761) | an **operator console** for suppression planning, driven by a human-entered origin point | which household can still walk out, and along which path |
-| 14 | **경기도 G-DAPS** (operational) | [경향신문 2026-03-30](https://www.khan.co.kr/article/202603301116001/) | a civil-defence alert model: route, arrival times and the **읍면동** an alert should cover, in half-hour steps | anything below the township; a walking route for one person |
+| 13 | **NIFoS 산불확산예측시스템** (operational) | [user guide, 연구자료 제1201호, 2026](https://book.nifos.go.kr/library/10130/contents/7732761) | an **operator console** for suppression planning, driven by a human-entered origin point | ⚠ *not stated in what was opened* — a catalogue entry and press describe no household-level walk-out output; the user guide itself is unread (NH-039) |
+| 14 | **경기도 G-DAPS** (operational) | [경향신문 2026-03-30](https://www.khan.co.kr/article/202603301116001/) | a civil-defence alert model: route, arrival times and the **읍면동** an alert should cover, in half-hour steps | ⚠ *not stated in what was opened* — the article describes nothing below the 읍면동 and no per-person walking route; no other document was opened |
 | 15 | ISEF 2026 **SFTD059T** | [abstract](https://abstracts.societyforscience.org/Home/FullAbstract?projectId=27978) | **indoor** egress: floor-plan recognition, a fire/toxic-gas model trained on FDS output, A\* with time-varying risk, a Raspberry Pi display | outdoor landscape fire; rural settlement; rescuer dispatch |
 | 16 | ISEF 2026 **FireChain (EAEV039)** | [abstract](https://abstracts.societyforscience.org/Home/FullAbstract?projectId=28121) | routing suppression **crews to firelines**, with conformal bounds as time-window constraints | routing residents away from the fire |
+
+⚠ **2026-09-07 correction, rows 13 and 14.** Until this date the *what it does not
+compute* cells for the two operational systems read, for row 13,
+「which household can still walk out, and along which path」 <!-- forbidden-ok: wc008-household-walk-out-negative -->
+and, for row 14, 「anything below the township; a walking route for one person」 (both kept
+here under CHARTER §3.5, not deleted; the first is the registered spelling of **WC-008** and
+this line carries its licence, because the wrapped version escaped the line-based scan by an
+accident of where the text happened to break). Both are flat negatives about systems whose primary
+documentation this project has never opened: the NIFoS user guide is **NH-039**, catalogued
+and unfetched, and row 14's source is one newspaper article. The register they now use is the
+one the *reproducibility* row of §2's table has used all along — **not stated in what was
+opened**. The same shape was corrected on the printed panel the same day (WFG-162, registered
+as **WC-007** in `docs/auto/withdrawn_claims.json`), and in `paper/manuscript.md` §2 at
+`8ff1b40` by the paper routine, whose independent reviewer found these two rows still standing
+and filed them as **NH-044** because CHARTER §12 does not let that routine edit this file. This
+lap owns the claim family, so it fixed them here rather than leaving a third copy alive.
 
 > ⚠ **Citation provenance, split by how strong it actually is.** This distinction was
 > not in the first draft of this page, which claimed 「entries 1–12 … each is carried in
