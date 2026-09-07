@@ -16,8 +16,8 @@
     },
     {
       "path": "README_KO.md",
-      "sha256": "e30d285f24c1ac22d92bde192b452dbb6b72ca8130503c7dc3ea9e2c091b21f2",
-      "bytes": 4216,
+      "sha256": "c5873e1a732f211d5e1a64a7ea413c6f68fb082f12372ea6c672ac85dc201873",
+      "bytes": 6200,
       "source": "release/kcf-finals-2026/README_KO.md"
     },
     {
@@ -25,6 +25,18 @@
       "sha256": "0349a87e441201a27e70132afa0ea35b5fd219657d5810c294dcb18890085e83",
       "bytes": 5781,
       "source": "scripts/check_bundle_copy.py"
+    },
+    {
+      "path": "printables/WFG_printables_20260907T0059Z.pdf",
+      "sha256": "a4970b12cdd13b9ece553351a9169c0950a3bef6aaebac4bb77090fb02307bbb",
+      "bytes": 443472,
+      "source": "docs/auto/finals/printables/WFG_printables_20260907T0059Z.pdf"
+    },
+    {
+      "path": "printables/manifest_20260907T0059Z.json",
+      "sha256": "b448a64356d38b292acceda5249fdf086868d1f16c2b8acb55cbddc754b11d89",
+      "bytes": 3970,
+      "source": "docs/auto/finals/printables/manifest_20260907T0059Z.json"
     },
     {
       "path": "web/assets/fonts/IBMPlexMono-Regular.woff2",

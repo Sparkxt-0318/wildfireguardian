@@ -71,6 +71,112 @@ def test_every_hash_in_the_manifest_is_the_hash_of_the_source_file(manifest):
     )
 
 
+#: R9's own sentence, read into (name as R9 writes it, a predicate over the paths
+#: the committed manifest lists, a written reason when the bundle deliberately does
+#: not carry it). This is the `R7_ITEMS` shape from `tests/test_printables.py`, and
+#: it is here for the reason WFG-151 was filed: the ONLY place R9's contents had
+#: ever reached code was `test_the_bundle_carries_the_four_screens_the_booth_opens`
+#: below, which transcribed four of R9's five names and dropped 「printables」. So
+#: the bundle omitted the booth kit for a day after the kit shipped, and nothing went
+#: red --- because the one test that checks the manifest's contents compares it to
+#: `bfb.plan()`, the builder's own plan, and a manifest and its builder can agree
+#: with each other forever while both omit the same file.
+#:
+#: The grounding runs R9's line -> these names -> paths in the COMMITTED MANIFEST.
+#: Not the plan. The manifest is the artifact that ships on the USB stick; the plan
+#: is a description of it, and a description checked against itself is the defect.
+R9_ITEMS: tuple[tuple[str, object, str | None], ...] = (
+    ("`web/` whole",
+     lambda paths: {"web/finals.html", "web/console.html", "web/field_view.html",
+                    "web/refuge_placement.html"} <= paths
+     and any(p.startswith("web/assets/fonts/") for p in paths), None),
+    ("printables",
+     lambda paths: any(p.startswith("printables/") and p.endswith(".pdf")
+                       for p in paths)
+     and any(p.startswith("printables/") and p.endswith(".json")
+             for p in paths), None),
+    ("`README_KO.md` with the 10-line run recipe",
+     lambda paths: "README_KO.md" in paths, None),
+    ("`CITATION.cff`", lambda paths: "CITATION.cff" in paths, None),
+    # R9's fifth clause is a property of the build rather than a file, and the
+    # property is what `test_rebuilding_the_manifest_reproduces_the_committed_one`
+    # and `test_every_hash_in_the_manifest_is_the_hash_of_the_source_file` assert.
+    ("`make finals-bundle` rebuilds it byte-identically", None,
+     "a property of the builder, not a file in the bundle; asserted by "
+     "test_rebuilding_the_manifest_reproduces_the_committed_one"),
+)
+
+
+def test_r9_still_enumerates_the_contents_this_list_resolves() -> None:
+    """If R9's wording moves, the mapping above is a reading of a line that changed.
+
+    The same binding `tests/test_printables.py` puts on R7. Without it the list is
+    a transcription, and a transcription is what dropped 「printables」.
+    """
+    readiness = (REPO / "docs" / "auto" / "KCF_READINESS.md").read_text(encoding="utf-8")
+    r9 = [line for line in readiness.splitlines() if line.startswith("| R9 |")]
+    assert len(r9) == 1, f"expected exactly one R9 row in KCF_READINESS.md, found {len(r9)}"
+    missing = [name for name, _pred, _why in R9_ITEMS if name not in r9[0]]
+    assert not missing, (
+        "docs/auto/KCF_READINESS.md R9 no longer names " + str(missing)
+        + ", so R9_ITEMS here is a reading of a line that has changed. Re-read R9 "
+        "and rewrite the mapping; do not delete this test.")
+
+
+def test_the_bundle_carries_every_content_r9_names(manifest):
+    """R9 is the definition of done for the bundle; MANIFEST.json is what ships.
+
+    Graded red by removing the printables entry from the plan (drop the
+    `newest_printables()` call from `bfb.plan`, or the `printables/` pair from its
+    result) and re-running: this fails naming 「printables」, which is the state the
+    repository was actually in at `3f881f6`.
+    """
+    listed = {f["path"] for f in manifest["files"]}
+    problems = []
+    for name, predicate, why in R9_ITEMS:
+        if predicate is None:
+            assert why, f"R9 item {name!r} has neither a predicate nor a reason"
+            continue
+        if not predicate(listed):
+            problems.append(name)
+    assert not problems, (
+        "release/kcf-finals-2026/MANIFEST.json does not carry everything R9 names, "
+        "which is the defect WFG-151 was filed for --- the bundle was measured "
+        "against the builder's own plan and never against R9:\n  "
+        + "\n  ".join(problems)
+        + "\nAdd the source to scripts/build_finals_bundle.py and re-run "
+        "`make finals-bundle UPDATE=1`, or record here why it is not carried.")
+
+
+def test_the_bundle_carries_the_newest_booth_kit_and_not_an_older_stamp(manifest):
+    """A kit in the bundle is worth nothing if it is last week's kit.
+
+    `docs/auto/finals/printables/` holds every stamp ever built, because CHARTER
+    §3.2 forbids overwriting a committed artifact. The bundle must carry the newest,
+    and this re-derives which that is from the tree rather than reading the manifest
+    back to itself.
+    """
+    stamps = sorted(p.stem[len("WFG_printables_"):]
+                    for p in bfb._tracked(bfb.PRINTABLES)
+                    if p.name.startswith("WFG_printables_") and p.suffix == ".pdf")
+    assert stamps, "no tracked booth printable in the tree at all"
+    newest = stamps[-1]
+    listed = {f["path"] for f in manifest["files"]}
+    assert f"printables/WFG_printables_{newest}.pdf" in listed, (
+        f"the newest booth kit in the tree is {newest} and the bundle does not "
+        f"carry it; the bundle's printables are {sorted(p for p in listed if p.startswith('printables/'))}. "
+        "Re-run `make finals-bundle UPDATE=1` and commit MANIFEST.json.")
+    assert f"printables/manifest_{newest}.json" in listed, (
+        f"the bundle carries the {newest} PDF and not the manifest that says what "
+        "it was built from, so the sha256 of its sources does not travel with it")
+    older = [p for p in listed
+             if p.startswith("printables/") and newest not in p]
+    assert not older, (
+        f"the bundle carries a superseded booth kit beside the newest one: {older}. "
+        "The student would have two PDFs on the stick and no way to tell which to "
+        "print; docs/printables.md records why the earlier builds must not be.")
+
+
 def test_the_bundle_carries_the_four_screens_the_booth_opens(manifest):
     """R9 names `web/` whole. The screens are the product; the rest is packaging."""
     listed = {f["path"] for f in manifest["files"]}

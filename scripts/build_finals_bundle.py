@@ -2,8 +2,9 @@
 """Assemble ``release/kcf-finals-2026/`` — the folder that goes on the USB stick.
 
 WFG-036 v1, KCF_READINESS R9. The bundle is what the student carries to the booth:
-the four offline screens, the fonts and poster they need, the licence, the citation
-file, and a ten-line Korean run recipe. Nothing in it is computed here — every
+the four offline screens, the fonts and poster they need, the printed booth kit,
+the licence, the citation file, and a ten-line Korean run recipe. Nothing in it is
+computed here — every
 payload file is copied byte for byte from the repository, so the bundle can never
 disagree with the tree it came from.
 
@@ -69,6 +70,10 @@ PAYLOAD: tuple[tuple[str, str], ...] = (
     ("scripts/check_bundle_copy.py", "check_bundle_copy.py"),
 )
 
+#: The booth kit lives here under a stamped filename, so it cannot be a PAYLOAD
+#: literal: see `newest_printables`.
+PRINTABLES = REPO / "docs" / "auto" / "finals" / "printables"
+
 #: Files that live in the bundle and are written by hand, not copied. They are
 #: committed, they are hashed into the manifest like everything else, and the
 #: builder never overwrites them.
@@ -103,9 +108,50 @@ def _expand(src: Path, dst_rel: str) -> list[tuple[Path, str]]:
     return [(src, dst_rel)]
 
 
+def newest_printables() -> list[tuple[Path, str]]:
+    """The newest booth-kit PDF and its manifest, resolved from the tree.
+
+    R9 names 「printables」 among the bundle's contents and for a day the bundle
+    did not have them, which is WFG-151. A stamped filename is why: every
+    `make printables` run writes a NEW `WFG_printables_<stamp>.pdf` beside the
+    old ones (CHARTER §3.2 forbids overwriting the committed one), so a literal
+    in `PAYLOAD` would name the kit that was newest on the day it was typed and
+    would go stale at the next rebuild without anything going red.
+
+    Resolving it here means the opposite: build a kit at a new stamp and the
+    plan moves with it, so the committed manifest no longer matches and
+    `make finals-bundle` fails until the lap that built the kit rebuilds the
+    bundle too. That is WFG-152's rule enforced by the mechanism rather than by
+    a sentence.
+
+    Stamps are `YYYYMMDDTHHMMZ`, so the newest is the lexicographic maximum of
+    the TRACKED filenames --- no clock, no timezone, no locale (CHARTER §4b).
+    The manifest is required at the PDF's own stamp rather than taken as its own
+    maximum, so a half-committed kit is an error and not a mismatched pair.
+    """
+    tracked = _tracked(PRINTABLES)
+    pdfs = sorted(p for p in tracked if p.name.startswith("WFG_printables_")
+                  and p.suffix == ".pdf")
+    if not pdfs:
+        raise SystemExit(
+            "no tracked booth printable under "
+            f"{PRINTABLES.relative_to(REPO).as_posix()}/, so the bundle would ship "
+            "without the printables R9 names. Run `make printables`.")
+    pdf = pdfs[-1]
+    stamp = pdf.stem[len("WFG_printables_"):]
+    manifest = PRINTABLES / f"manifest_{stamp}.json"
+    if manifest not in tracked:
+        raise SystemExit(
+            f"the newest booth printable is {pdf.name} and its manifest "
+            f"{manifest.name} is not tracked; the two are committed together or "
+            "the bundle carries a PDF nothing describes")
+    return [(pdf, f"printables/{pdf.name}"),
+            (manifest, f"printables/{manifest.name}")]
+
+
 def plan() -> list[tuple[Path, str]]:
     """Every (source file, bundle-relative path) the bundle should contain."""
-    pairs: list[tuple[Path, str]] = []
+    pairs: list[tuple[Path, str]] = list(newest_printables())
     missing = []
     for src_rel, dst_rel in PAYLOAD:
         src = REPO / src_rel

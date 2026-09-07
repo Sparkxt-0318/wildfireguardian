@@ -27,6 +27,8 @@
 | `web/field_view.html` | 현장 화면 |
 | `web/refuge_placement.html` | 대피 지점 배치 |
 | `web/assets/`, `web/demo-media/` | 글꼴과 포스터 이미지. 인터넷에서 받아오지 않습니다 |
+| `printables/WFG_printables_*.pdf` | **부스에서 인쇄해 들고 서는 종이 꾸러미.** A4 한 벌이며, 체크리스트·5분 대본·질의응답·제출본 대비 정본 대조표·탐지 카드가 한 파일에 들어 있습니다. 이 폴더에는 **가장 최근 판 하나만** 들어옵니다 |
+| `printables/manifest_*.json` | 그 PDF가 어느 문서에서, 어느 내용으로 만들어졌는지의 기록. 원본 문서마다 SHA-256 이 적혀 있습니다 |
 | `CITATION.cff` | 인용 정보 |
 | `LICENSE` | MIT |
 | `MANIFEST.json` | 이 폴더에 있어야 할 모든 파일의 SHA-256 |
@@ -52,10 +54,27 @@ python3 check_bundle_copy.py .
 - **부스 노트북에서의 실측 리허설.** 위 열 줄은 이 저장소에서 검증한 절차이지,
   실제 노트북에서 한 번 돌려 본 기록이 아닙니다. 그것은 `docs/auto/NEEDS_HUMAN.md`
   의 NH-014 이고, 절차서는 `docs/auto/finals/BOOTH_SETUP.md` 입니다 (2026-09-05 작성).
-- **인쇄물.** A4 근거 시트와 부스 체크리스트는 아직 이 꾸러미에 없습니다 (WFG-007).
-- **대본.** 5분 시연 대본은 `docs/auto/DEMO_SCRIPT_5MIN.md`, 질의응답은
-  `docs/auto/JUDGE_QA.md` 입니다. 둘 다 학생이 자기 말로 다시 쓰는 초안입니다.
+- **인쇄물 전부는 아닙니다.** 종이 꾸러미는 `printables/` 에 들어왔지만, 그 안에
+  **기존 연구 대비 차별점 패널(WFG-026)은 아직 쓰이지 않아 없고**, 29장짜리 출동
+  지시서 표본은 `outputs/` 에 이미 완성된 PDF 로 있어 일부러 넣지 않았습니다
+  (같은 파일을 더 나쁜 판으로 두 벌 두지 않기 위해서입니다). 무엇이 왜 빠졌는지는
+  같이 들어온 `printables/manifest_*.json` 의 `what_this_does_not_show` 에 적혀
+  있습니다.
+- 〔기록 · 2026-09-07 이전〕 이 자리에는 「A4 근거 시트와 부스 체크리스트는 아직 이
+  꾸러미에 없습니다 (WFG-007)」 라고 적혀 있었습니다. **이 문장은 계속 맞는
+  문장이었습니다.** 인쇄물은 2026-09-06 에 저장소 안에 만들어졌지만, 이 꾸러미에는
+  하루가 넘도록 들어오지 않았기 때문입니다. 고쳐야 했던 것은 문장이 아니라 꾸러미
+  쪽이었고, 그것이 WFG-151 입니다.
+- **대본을 대신 써 주지는 않습니다.** 5분 시연 대본과 질의응답 카드는 이제 이
+  꾸러미 안에 있습니다 — `printables/` 의 PDF 6쪽과 17쪽이 그것이고, 원본은
+  `docs/auto/DEMO_SCRIPT_5MIN.md` 와 `docs/auto/JUDGE_QA.md` 입니다. 다만 둘 다
+  **학생이 자기 말로 다시 쓰는 초안**이고, 그대로 읽는 문서가 아닙니다.
 
-`web/`, `CITATION.cff`, `LICENSE` 는 `make finals-bundle` 이 저장소에서 복사해 넣습니다.
-갓 복제한 저장소에는 이 파일과 `MANIFEST.json` 만 있습니다 — 사본을 두 벌 두지 않기
-위해서이고, 그 이유는 `docs/finals_bundle.md` 에 적혀 있습니다.
+`printables/` 안의 종이 꾸러미 PDF 는 저장소의
+`docs/auto/finals/printables/` 에서 그대로 복사해 온 파일이고, 그 SHA-256 은 이 폴더의
+`MANIFEST.json` 에 다른 파일들과 똑같이 적혀 있습니다 — 즉 `python3 check_bundle_copy.py .`
+한 줄이 인쇄 직전에 이 PDF 가 저장소의 그 PDF 인지까지 확인합니다.
+
+`web/`, `CITATION.cff`, `LICENSE`, `printables/` 는 `make finals-bundle` 이 저장소에서
+복사해 넣습니다. 갓 복제한 저장소에는 이 파일과 `MANIFEST.json` 만 있습니다 — 사본을
+두 벌 두지 않기 위해서이고, 그 이유는 `docs/finals_bundle.md` 에 적혀 있습니다.

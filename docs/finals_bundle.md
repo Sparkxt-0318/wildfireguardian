@@ -76,10 +76,21 @@ until the command has been run once.
   booth procedure with the fallbacks — two USB copies, what to do if the laptop dies
   — is `docs/auto/finals/BOOTH_SETUP.md`, written 2026-09-05 (WFG-037). It is still
   not a rehearsal: NH-014 / R12 is the author reading it on the actual laptop.
-- **That the bundle is complete for the finals.** v1 has no printables. The A4
-  evidence sheet, the reconciliation sheet, the differentiation panel, the booth
-  checklist and the dispatch-sheet sample are R7 / WFG-007, and v2 of this row
-  (due 09-14) is the rebuild that carries them.
+- **That the bundle is complete for the finals.** It now carries the booth kit —
+  `printables/WFG_printables_<stamp>.pdf` and its manifest, resolved from the newest
+  tracked stamp rather than named by a literal (WFG-151) — so the evidence sheet, the
+  reconciliation sheet and the booth checklist are on the stick. Two of R7's five are
+  still not: the related-work and SFTD059T differentiation panel is **WFG-026 and is
+  not written**, and the 29 dispatch sheets are already committed PDFs that print
+  directly and are deliberately not re-rendered (CHARTER §3.2).
+  〔기록 · 2026-09-07 이전〕 this bullet read 「v1 has no printables. The A4 evidence
+  sheet, the reconciliation sheet, the differentiation panel, the booth checklist and
+  the dispatch-sheet sample are R7 / WFG-007, and v2 of this row (due 09-14) is the
+  rebuild that carries them」. **That sentence stayed true the whole time** — the kit
+  was built into the repository at `3e92b69` on 2026-09-06T0651Z, and the bundle
+  still did not contain it a day later. Nothing here needed withdrawing; the bundle
+  needed rebuilding, which is why WFG-151 is a defect in `PAYLOAD` and in the test
+  that never read R9, and not a prose correction.
 - **A DOI.** `CITATION.cff` carries no `doi:` and no `date-released:` because no
   release has been tagged and no DOI minted. Both are author actions from a browser
   session after the finals (WFG-031); a plausible-looking release date would be a

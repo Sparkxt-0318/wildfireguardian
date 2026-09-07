@@ -442,3 +442,7 @@ release/kcf-finals-2026/LICENSE
 # Same rule, added by WFG-037: the copy checker travels IN the bundle so the
 # laptop-has-died case can run it, and its source of truth is scripts/.
 release/kcf-finals-2026/check_bundle_copy.py
+# Same rule, added by WFG-151: the booth kit R9 names is copied in from
+# docs/auto/finals/printables/, where the committed PDF already lives. A second
+# committed copy of a 433 KB PDF is exactly the drift CHARTER 3.2 forbids.
+release/kcf-finals-2026/printables/
