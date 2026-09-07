@@ -4,7 +4,7 @@
   "finals_date": "2026-10-24",
   "freeze_date": "2026-10-16",
   "last_report": "docs/auto/reports/2026-09-07T0355Z-dev.md",
-  "last_report_commit": "0bd4060dd4f5d2de7708604a602996737dfd446f",
+  "last_report_commit": "15f3df2 (rebased; generated at 0bd4060)",
   "last_report_kind": "dev",
   "last_report_at_utc": "2026-09-07T03:55:24Z",
   "last_gates_passed": true,
