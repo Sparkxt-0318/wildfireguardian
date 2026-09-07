@@ -188,6 +188,7 @@ Round 3 은 새 기능을 얹기 전에 **기존 수치가 아직 참인지 확�
   set -o pipefail          # 파이프를 쓸 경우 반드시 먼저
   make verify              # 또는 게이트를 파이프 없이 그대로 실행
   ```
+- **[`docs/DECISIONS.md`](docs/DECISIONS.md)** — 결정 등기부. 확정·중단·수용된 한계·미결·번복을 한 곳에 모으고, 각 항목이 **무엇을 근거로 닫혔고 무엇이 다시 열 수 있는지**를 기록합니다. 근거는 링크된 문서가 보유하며, 이 파일은 색인입니다.
 - **화면 게이트 3종** (`scripts/check_screen_assets.py`) — 오프라인(외부 요청 0),
   대시, WCAG 대비. ⚠ 이 게이트는 **JSON 페이로드로 도착하는 문자열을 보지 못합니다**;
   그 한계는 [`docs/screen_gate_scope.md`](docs/screen_gate_scope.md) 에 기록돼 있습니다.
@@ -690,6 +691,9 @@ This repository provides:
   2022, Goseong 2019 (`utils/regions.py`, `utils/vulnerability.py`).
 - **Rothermel physics fire-spread model** — preserved as the *initial* approach
   (see [Research log](#research-log--superseded-approaches-physics-model)).
+- **Decision register** — every decision the project has made, settled or
+  stopped or reversed, with the evidence it rests on and the condition that
+  would reopen it ([`docs/DECISIONS.md`](docs/DECISIONS.md)).
 
 **Unit tests**: the full suite passes — **1,021 passed, 3 skipped** (measured
 2026-08-10 with the full data bundle present; data-dependent tests self-skip on
