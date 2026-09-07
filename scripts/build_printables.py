@@ -107,6 +107,13 @@ SOURCES: list[tuple[str, str]] = [
     # 서식 and the repository disagree, so it prints after the Q&A card.
     ("docs/submission_reconciliation.md", "제출본 대비 정본 대조표"),
     ("docs/auto/finals/DETECTION_FLOOR_CARD.md", "탐지 하한 근거 카드"),
+    # WFG-026. docs/auto/KCF_READINESS.md R7's third item, 「related-work and
+    # SFTD059T differentiation panel」, and the last of R7's five to be written.
+    # The survey it summarises is docs/related_work.md; this file is the booth
+    # wording. It prints last because it is the paper opened when a judge asks
+    # 「기존 연구와 무엇이 다릅니까」, which is a question about the whole
+    # project rather than about any one measurement.
+    ("docs/auto/finals/RELATED_WORK_PANEL.md", "기존 연구와의 차별점 패널"),
 ]
 
 # Characters the committed font subset does not carry, mapped to something it
@@ -642,16 +649,31 @@ def build(stamp: str, out_dir: Path, preview_dir: Path | None = None) -> dict:
             "document changes, this PDF is stale until a new stamp is built beside "
             "it, and tests/test_printables.py now fails when that happens instead "
             "of leaving it to be noticed. It is not a substitute for the screens: "
-            "no map, no route and no figure is rendered here. Of the five "
-            "printables docs/auto/KCF_READINESS.md R7 enumerates, two are NOT in "
-            "this file: the related-work and SFTD059T differentiation panel, which "
-            "is WFG-026 and is not written yet, and the 29 dispatch sheets in "
-            "outputs/dispatch, which are already committed PDFs that print "
-            "directly and would only be re-rendered worse here. R7's other three "
-            "are: the booth checklist, and the evidence sheet and reconciliation "
-            "sheet, which are one document (WFG-018, "
+            "no map, no route and no figure is rendered here. Of the printables "
+            "docs/auto/KCF_READINESS.md R7 enumerates, FOUR are now in this file "
+            "and ONE is not. In: the booth checklist; the evidence sheet and "
+            "reconciliation sheet, which are one document (WFG-018, "
             "docs/submission_reconciliation.md, whose own fourth line calls it a "
-            "single double-sided page). An earlier build of this kit said the "
+            "single double-sided page); and, from this build, the related-work "
+            "and SFTD059T differentiation panel (WFG-026, "
+            "docs/auto/finals/RELATED_WORK_PANEL.md, the booth wording for the "
+            "survey in docs/related_work.md). NOT in: the village dispatch "
+            "sheets under outputs/dispatch. That exclusion's reason is written "
+            "here as the tree actually is, because the reason this manifest "
+            "carried before this build was false and reached a judge-facing "
+            "page. outputs/dispatch/20260801T163042Z/ holds 33 cluster "
+            "directories, and outputs/dispatch/README.md commits the HTML, SMS "
+            "drafts and broadcast scripts for all 33 but only the THREE largest "
+            "clusters' dispatch_a4.pdf, because 33 Korean-font-subset PDFs are "
+            "6.7 MB of regenerable output. The sheets are therefore excluded as "
+            "REGENERABLE from a committed artifact (python "
+            "scripts/generate_dispatch_outputs.py rebuilds them), and never "
+            "again as a set of finished PDFs that print directly, which was "
+            "untrue of 30 of the 33 and is registered as WC-006 in "
+            "docs/auto/withdrawn_claims.json. R7's own line said 「29 dispatch "
+            "sheets sample」 and no count of 29 exists anywhere in this "
+            "repository; that wording is corrected in the same lap (WFG-153). "
+            "An earlier build of this kit said the "
             "first two of R7's five 「do not exist yet」; that was false of the "
             "reconciliation sheet, which was done(20260903T0653Z) at the time, "
             "and WFG-130 is the correction."

@@ -401,10 +401,21 @@ R7_ITEMS: tuple[tuple[str, str | None, str | None], ...] = (
     # done(20260903T0653Z) and its artifact is this file, whose fourth line says
     # 「인쇄본은 양면 한 장입니다」.
     ("reconciliation sheet", "docs/submission_reconciliation.md", None),
-    ("related-work and SFTD059T differentiation panel", None,
-     "WFG-026 is todo: the document does not exist, so there is nothing to print"),
+    # ⚠ WFG-026 shipped 2026-09-07T0630Z; this entry had `None` for its path and
+    # 「the document does not exist, so there is nothing to print」 for its
+    # reason, and it was the LAST of R7's five to be written. The booth wording
+    # is RELATED_WORK_PANEL.md and the survey behind it is docs/related_work.md.
+    ("related-work and SFTD059T differentiation panel",
+     "docs/auto/finals/RELATED_WORK_PANEL.md", None),
     ("booth checklist", "docs/auto/finals/BOOTH_SETUP.md", None),
-    ("29 dispatch sheets sample", "outputs/dispatch",
+    # ⚠ REWORDED 2026-09-07T0630Z (WFG-153). R7's own line said 「29 dispatch
+    # sheets sample」 and no count of 29 exists anywhere in this repository: the
+    # tree holds 33 clusters, and 「29」 traces to an aspiration in
+    # docs/auto/research/RESEARCH_BRIEF_2026-09-03.md with no key in
+    # docs/NUMBERS.json (CHARTER §3.3). The reword drops the unregistered number
+    # and keeps the item; R7's definition cell was changed in the same commit,
+    # and test_r7_still_enumerates_... reads that cell rather than the file.
+    ("village dispatch sheets sample", "outputs/dispatch",
      # ⚠ CORRECTED 2026-09-07T0320Z (WFG-151). This reason read 「already a set of
      # committed PDFs that print directly; re-rendering them through this build
      # would put a second, worse copy in the repository (CHARTER §3.2)」, and the
@@ -434,11 +445,31 @@ def test_r7_still_enumerates_the_five_printables_this_list_resolves() -> None:
     line is what stops the reading from quietly outliving it.
     """
     readiness = (ROOT / "docs" / "auto" / "KCF_READINESS.md").read_text(encoding="utf-8")
-    missing = [name for name, _path, _why in R7_ITEMS if name not in readiness]
+    # ⚠ WFG-156, applied 2026-09-07T0630Z. This read the WHOLE of
+    # KCF_READINESS.md, and critic #32 measured that all five of R7's names
+    # already occur outside R7's row (2, 8, 3, 3 and 4 occurrences, on lines
+    # predating that lap), so the test was VACUOUS: R7's definition could lose a
+    # name and the loop's own commentary elsewhere in the file would keep this
+    # green. The twin at tests/test_finals_bundle.py::
+    # test_r9_still_enumerates_the_contents_this_list_resolves narrows to the
+    # definition cell and spells out the reason; it was written by the 0355Z lap
+    # and not applied one file over. Applied here by the lap that had to REWORD
+    # R7 (「29 dispatch sheets sample」 -> 「village dispatch sheets sample」,
+    # WFG-153) --- a lap rewording the specification it is measured against is
+    # exactly when a vacuous binding costs something.
+    r7 = [line for line in readiness.splitlines() if line.startswith("| R7 |")]
+    assert len(r7) == 1, f"expected exactly one R7 row in KCF_READINESS.md, found {len(r7)}"
+    cells = r7[0].split(" | ")
+    assert len(cells) >= 3, f"R7's row is not the expected 4-cell table row: {cells[:2]}"
+    definition = cells[1]
+    missing = [name for name, _path, _why in R7_ITEMS if name not in definition]
     assert not missing, (
-        "docs/auto/KCF_READINESS.md no longer enumerates " + str(missing)
+        "docs/auto/KCF_READINESS.md R7's DEFINITION cell no longer enumerates "
+        + str(missing)
         + ", so R7_ITEMS here is a reading of a line that has changed. Re-read "
-        "R7 and rewrite the mapping; do not delete this test.")
+        "R7 and rewrite the mapping; do not delete this test. (It reads the "
+        "definition cell only: the status cell is the loop's own narrative and "
+        "would satisfy this test with commentary --- WFG-156.)")
 
 
 def test_every_r7_printable_that_exists_is_actually_printed() -> None:

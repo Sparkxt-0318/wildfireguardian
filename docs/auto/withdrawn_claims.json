@@ -238,6 +238,28 @@
           "flags": "i"
         }
       ]
+    },
+    {
+      "id": "WC-006",
+      "title": "the village dispatch sheets are already committed PDFs that print directly",
+      "claim": "the 29 dispatch sheets in outputs/dispatch are already committed PDFs that print directly, so they are excluded from the booth kit because printing them again would only put a worse second copy in the repository",
+      "withdrawn_by": "dev lap 2026-09-07T0355Z (WFG-151) declared it false --- 「Both halves are false」 --- after its own independent reviewer checked it against the tree instead of against the string it was copied from. outputs/dispatch/20260801T163042Z/ holds 33 cluster directories, and `git ls-files outputs/dispatch` counts 33 dispatch_a4.html, 33 sms_drafts.json, 33 broadcast_script.txt and exactly 3 dispatch_a4.pdf, because outputs/dispatch/README.md commits only the three largest clusters' PDFs (33 Korean-font-subset PDFs are 6.7 MB of regenerable output). 「29」 is not a count of anything here either: it traces to an aspiration in docs/auto/research/RESEARCH_BRIEF_2026-09-03.md and has no key in docs/NUMBERS.json (CHARTER §3.3). ⚠ THAT LAP CORRECTED IT IN THREE PLACES AND REGISTERED IT IN NONE, which CHARTER §3.5c forbids in those words; critic #32 measured the consequence and made it the one fix-before-next-row item (WFG-153(a)). The claim stayed live for two windows in two places no hand sweep reached: release/kcf-finals-2026/printables/manifest_20260907T0059Z.json:95, INSIDE the folder a judge is handed, and docs/auto/JUDGE_QA.md Q39, where it instructed the student to say it out loud. Registered here by dev lap 2026-09-07T0630Z, in the same lap as the kit rebuild that could finally move the manifest (CHARTER §3.2, WFG-152).",
+      "artifact": "docs/auto/finals/printables/manifest_20260907T0630Z.json `what_this_does_not_show`, which states the exclusion as REGENERABLE-from-a-committed-artifact and re-derives the 3-of-33; tests/test_finals_bundle.py::test_the_dispatch_exclusion_reason_matches_what_is_committed, which re-counts from `git ls-files` and goes red the day a lap commits the rest; and outputs/dispatch/README.md, which was right the whole time",
+      "say_instead": "마을 A4 출동 지시서는 클러스터 33개 가운데 가장 큰 3개만 PDF 로 커밋돼 있고, 나머지는 `python scripts/generate_dispatch_outputs.py` 로 다시 만들어 인쇄합니다 (HTML · SMS 초안 · 방송 문안은 33개 모두 커밋). 부스 인쇄물 한 권에는 들어 있지 않습니다",
+      "spellings": [
+        {
+          "pattern": "(?:already|이미)[^\\n]{0,80}?(?:committed|커밋된?)\\s*PDF",
+          "token": "wc006-dispatch-committed-pdfs",
+          "why": "the false half in both languages, anchored on the two words that carry it. The English spelling every printables manifest up to 20260907T0059Z shipped is 「the 29 dispatch sheets in outputs/dispatch, which are already committed PDFs that print directly」; the Korean spelling docs/auto/JUDGE_QA.md Q39 used is 「29 장 마을 A4 시트는 이미 커밋된 PDF 라서」. The 80-character window is measured rather than guessed: 「already」 and 「PDFs」 are 22 characters apart in the manifest and 「이미」 and 「PDF」 are 7 apart in Q39, and a window this wide also catches the reordering 「PDF 로 이미 커밋」 --- no, it does not, which is stated here rather than implied: this pattern is a copy-paste ratchet over the two spellings the repository actually used, and docs/withdrawn_claims.md §4 carries the general limit that a reworded assertion escapes",
+          "flags": "i"
+        },
+        {
+          "pattern": "29\\s*(?:장|dispatch\\s+sheets)",
+          "token": "wc006-29-dispatch-sheets",
+          "why": "the unregistered count, which is the half that survived WFG-151's correction and sat in R7's own definition cell for another two windows. Every appearance of 「29」 beside 「장」 or 「dispatch sheets」 in this repository is this claim: the tree holds 33 clusters and 3 committed PDFs, and no artifact anywhere counts 29. Registering the number as well as the assertion is deliberate --- WC-004's lesson was that a lap corrects the sentence it is looking at and leaves the number that generated it",
+          "flags": "i"
+        }
+      ]
     }
   ]
 }

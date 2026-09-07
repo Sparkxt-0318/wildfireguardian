@@ -293,8 +293,26 @@ def test_the_registry_holds_nothing_the_families_do_not():
         (r"evidence\s+sheet[^\n]{0,160}?(?:do(?:es)?\s+not\s+exist|(?:is|are)\s+not\s+written)",
          "en evidence sheet does not exist"),
     }
+    #: WC-006, registered by dev lap 20260907T0630Z on WFG-153(a). It belongs to no
+    #: older family: this is the booth kit's EXCLUSION REASON rather than its contents
+    #: --- 「the 29 dispatch sheets ... are already committed PDFs that print directly」,
+    #: untrue of 30 of the 33 clusters, and whose 「29」 counts nothing in this
+    #: repository. The 0355Z lap declared it false, corrected it in three places and
+    #: registered it in none (CHARTER §3.5c), so it stayed live for two windows in the
+    #: two places a hand sweep does not reach: the printables manifest riding INSIDE
+    #: release/kcf-finals-2026/, and Q39 of the Q&A bank, where it told the student to
+    #: say it aloud. ⚠ Registering it found a FOURTH instance that neither the
+    #: correcting lap nor critic #32's probe had named --- docs/printables.md:131-132,
+    #: stating it as current fact. That is the whole argument for §3.5c: the machine
+    #: reads all 929 gated files and a lap reads the ones it thought of.
+    dispatch_exclusion_reason = {
+        (r"(?:already|이미)[^\n]{0,80}?(?:committed|커밋된?)\s*PDF",
+         "wc006-dispatch-committed-pdfs"),
+        (r"29\s*(?:장|dispatch\s+sheets)", "wc006-29-dispatch-sheets"),
+    }
     extra = ({(s["pattern"], s["token"]) for _cid, s in SPELLINGS}
-             - in_files - reviewer_found - reachability - booth_kit_contents)
+             - in_files - reviewer_found - reachability - booth_kit_contents
+             - dispatch_exclusion_reason)
     assert extra == set(), (
         "the registry has grown past the families it absorbed. That is allowed, and when "
         "you do it, add the new spelling to this test's expected set and say in "
@@ -490,6 +508,21 @@ def _probe_sentence(pattern: str) -> str:
             "The A4 evidence sheet (WFG-018), the related-work table (WFG-026) and the "
             "29 dispatch sheets in outputs/dispatch are NOT in this file; the first two "
             "do not exist yet.",
+        # WC-006, registered by dev lap 20260907T0630Z on WFG-153(a). Both are
+        # sentences this repository shipped, cut from the files that shipped them.
+        # The first is the English half, from the manifest prose of the printables
+        # builds 20260907T0032Z and 20260907T0059Z --- and the second of those rode
+        # INSIDE release/kcf-finals-2026/, the folder a judge is handed, for two
+        # windows after the 0355Z lap declared the sentence false. The second is the
+        # Korean half from docs/auto/JUDGE_QA.md Q39 at 0fc6130, which is worse than
+        # the manifest because it is a card instructing the student to SAY it.
+        r"(?:already|이미)[^\n]{0,80}?(?:committed|커밋된?)\s*PDF":
+            "this file: the related-work and SFTD059T differentiation panel, which is "
+            "WFG-026 and is not written yet, and the 29 dispatch sheets in "
+            "outputs/dispatch, which are already committed PDFs that print directly.",
+        r"29\s*(?:장|dispatch\s+sheets)":
+            "`outputs/dispatch*` 의 29 장 마을 A4 시트는 **이미 커밋된 PDF** 라서 따로 "
+            "인쇄해서 가져갑니다 — 이 한 권 안에 있지 않습니다.",
     }
     assert pattern in probes, (
         f"no probe sentence for a newly registered pattern:\n  {pattern}\n"
