@@ -9,15 +9,15 @@ and rebuilt every time the code moves. Author: **Siyeong Park (박시영)**.
 doesn't exceed. 25 pages for. now」). `check_paper.py` now checks that directly —
 it renders the document and counts — and keeps the 9,000-word budget as the
 proxy for machines that cannot render, or that can render but not in a font
-whose metrics are Calibri's. As of 2026-09-06 (lap 13) the built document is
+whose metrics are Calibri's. As of 2026-09-07 (lap 14) the built document is
 **23 pages under Carlito**, measured rather than estimated: 21 at lap 9, 22 at
-lap 10, 23 at lap 11, 23 at lap 12 and 23 again now. **Two** pages of margin remain
-against the author's 25.
+lap 10, 23 at lap 11, 23 at lap 12, 23 at lap 13 and 23 again now. **Two** pages of margin
+remain against the author's 25.
 
 ⚠ **The two margins have come apart, and the proxy is now the tighter one by about a
-thousand words.** At lap 13 the document is 23 pages against a 25-page rule and 8,983
-body words against a 9,000-word proxy: two pages of margin, **17** words of margin,
-down from 31 at lap 12. The
+thousand words.** At lap 14 the document is 23 pages against a 25-page rule and 8,985
+body words against a 9,000-word proxy: two pages of margin, **15** words of margin,
+down from 17 at lap 13 and 31 at lap 12. The
 curve below is why — at 9,000 words the document is 23 pages by either route — so the
 proxy stops a lap roughly a thousand words before the rule the author actually set.
 Lap 12 was squeezed by it twice: once tightening its own new prose by 27 words, which
@@ -36,9 +36,22 @@ were paid for by a further round of compression. No caveat and no registered num
 traded in either lap — CHARTER §12 forbids that, and the reviewer checked it token by token
 — but the compressible prose is close to exhausted and the failure mode is no longer
 hypothetical: **a lap under this budget will write a wrong sentence before it writes a long
-one.** The next lap that must add a sentence has 17 words. Escalated to the
+one.** The next lap that must add a sentence has 15 words. Escalated to the
 author as **NH-037**, which is now urgent rather than theoretical. Until it is answered
 the proxy stands: it is the author's own number and a lap does not raise its own ceiling.
+
+⚠ **Lap 14 is what this constraint now looks like when nothing is broken, and it is the
+cleanest evidence NH-037 has.** The code moved and no sentence in the manuscript had gone
+false, so the lap had no mandatory correction to fund. It made one net-**+2**-word change to
+§3.5 (a registration failure that had happened once has now happened twice; `GAPS.md`) and
+then **declined a second, better sentence it wanted** — that §3.5's 「scanned by both gates」
+is now three gates, the third being the one that reads this manuscript's own headline block
+and whose false-negative rate is re-derived on every run. The shortest honest form of it
+costs 12 words against 15 of headroom, and spending them would leave the next mandatory
+correction with three. So the budget is no longer only shaping *how* a lap writes a required
+sentence; it is now deciding **whether** an optional true one is written at all. That is a
+milder failure than lap 13's — nothing wrong was shipped — but it is the same mechanism one
+step earlier, and it will not stay mild.
 
 ⚠ **The page that took the count from 22 to 23 cost eleven words, and it is worth
 knowing that before reading the words-to-pages table below as a rate.** Lap 11
