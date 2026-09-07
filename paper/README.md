@@ -9,15 +9,17 @@ and rebuilt every time the code moves. Author: **Siyeong Park (박시영)**.
 doesn't exceed. 25 pages for. now」). `check_paper.py` now checks that directly —
 it renders the document and counts — and keeps the 9,000-word budget as the
 proxy for machines that cannot render, or that can render but not in a font
-whose metrics are Calibri's. As of 2026-09-07 (lap 15) the built document is
+whose metrics are Calibri's. As of 2026-09-07 (lap 16) the built document is
 **23 pages under Carlito**, measured rather than estimated: 21 at lap 9, 22 at
-lap 10, 23 at lap 11, 23 at lap 12, 23 at lap 13, 23 at lap 14 and 23 again now. **Two**
+lap 10, and 23 at every lap from 11 to 16. **Two**
 pages of margin remain against the author's 25.
 
 ⚠ **The two margins have come apart, and the proxy is now the tighter one by about a
-thousand words.** At lap 15 the document is 23 pages against a 25-page rule and 8,994
-body words against a 9,000-word proxy: two pages of margin, **6** words of margin,
-down from 15 at lap 14, 17 at lap 13 and 31 at lap 12. The
+thousand words.** At lap 16 the document is 23 pages against a 25-page rule and 8,992
+body words against a 9,000-word proxy: two pages of margin, **8** words of margin —
+the first lap since lap 11 to end with more headroom than it started with (6 at lap 15,
+15 at lap 14, 17 at lap 13, 31 at lap 12), and it bought that by compressing, not by
+writing less. The
 curve below is why — at 9,000 words the document is 23 pages by either route — so the
 proxy stops a lap roughly a thousand words before the rule the author actually set.
 Lap 12 was squeezed by it twice: once tightening its own new prose by 27 words, which
@@ -83,6 +85,43 @@ is not: §5d records the same observation for `WC-005` three hours earlier, so t
 is smaller than drafted and is stated smaller. What stands without inflation is the shape of
 this lap: **the mandatory work alone took nine of fifteen words, and the next lap that must
 fix something on this scale has six.** NH-037 is the answer and it is still open.
+
+⚠ **Lap 16 is the one where the budget stood between the manuscript and a correction the
+manuscript's own bibliography demanded — and it was payable only by luck.** §2 had been
+asserting that of the two Korean operational systems 「**neither answers** which household can
+still walk out and by which path」. That is a negative claim about two documents nobody here
+has opened: what was read of the NIFoS guide is a catalogue entry listing chapter names (the
+guide is an ~18 MB PDF, **NH-039**), and of G-DAPS a single newspaper article.
+`references.bib`'s own note for `nifos2026guide` says so verbatim — 「Only the catalogue page
+was opened」 — so **the paper's apparatus had been contradicting the paper's prose since the
+paragraph was written at lap 13**, one citation click away from any reviewer. The fix costs
+**+11** words and was paid by three meaning-preserving compressions worth **−13** (`GAPS.md`
+lists all three; none is a caveat or a number). The document went 8,994 → 8,992 and the margin
+**6 → 8**. ⚠ **Do not read that as headroom.** The correction was payable because three
+sentences happened to be compressible, and that stock is finite and is now visibly smaller.
+Four laps in a row have now had their writing shaped by the proxy rather than by the evidence.
+**NH-037 is the answer and it is still open.**
+
+⚠⚠ **And the lap's account of the repository around that sentence was wrong in three ways,
+all found by its independent reviewer, all corrected before the push. Read `GAPS.md`'s lap-16
+section before this paragraph.** The first draft here said the identical claim had been
+narrowed in `dispatch_ordering.md`, `JUDGE_QA.md` Q16a **and `related_work.md`**, and that the
+manuscript was 「the file that escaped」. **`docs/related_work.md` was never corrected for this
+claim** — its 2026-09-07 diff is the WFG-146 date and WFG-144's 「in their favour」, neither of
+which touches it — and its table **rows 13 and 14 assert the retracted negative today**, under
+the column header 「what it does **not** compute」, on the manuscript's own §2 source page.
+`docs/auto/finals/RELATED_WORK_PANEL.md:40` carries the same shape in the file that gets
+**printed** (WFG-162, `todo`). So the narrowing reached two files and missed at least three,
+and this lap fixed the one inside CHARTER §12's paths and filed the rest as **NH-044**.
+
+**The mechanism of that error is the one this whole section is about, one level up.** The
+draft discharged DIRECTION.md's ⚠⚠ rule — 「grep for the SUBJECT of the claim, never for the
+sentence you just wrote; `git grep -n "<subject>" -- docs/ paper/ release/ web/`; name every
+file it returned and what you did about each」 — by running `git grep -n "neither answers which
+household" -- paper/ docs/`. **That is a grep of the sentence it had just written, over half
+the mandated paths, printed in the ledger as evidence the rule had been followed.** The rule
+was one lap old and was written by the critic whose finding this lap was extending. `GAPS.md`
+now carries the real grep and a four-row table of what was done about each hit.
 
 ⚠ **The page that took the count from 22 to 23 cost eleven words, and it is worth
 knowing that before reading the words-to-pages table below as a rate.** Lap 11

@@ -15,6 +15,153 @@ the author.
 | G8 | §4.5 Results | **which build of the present-perimeter opponent defines the comparison, and therefore what the forecast's residual advantage over it is.** The arm ran (WFG-114, author decision NH-027 option A) and §4.5 reports, qualitatively, that it recovers most of the Uiseong-Andong origins the fire-blind contrast credits to the forecast. ⚠ **Until 2026-09-06 (paper lap 11) this sentence instead said that §4.5 reports the recovery count, and printed it — the recovered figure over the 91. It was false in two directions at once** (the wording is described rather than restated here, for the second of those reasons): §4.5 states no count, as the rest of this row says twice in bold, and the sentence was itself putting fact (1)'s recovery half into the paper bundle without the other three facts the shared caveat binds to it. Lap 10 rewrote §4.5 and left its own ledger describing the draft it had withdrawn; lap 11's reviewer found it. What §4.5 declines to state is the difference that is left, because the row was built **twice, concurrently, by two dev laps that could not see each other**, and the two builds disagree by about a factor of three on exactly that quantity. Both reproduce the committed classification node for node before measuring; they differ only in how the opponent is constructed — one prunes the refused nodes and runs the distance-minimising `naive_route` on what is left, with no time budget; the other runs the time-expanded router against a frozen binary hazard, budget-capped at 600 minutes and able to refuse departure from inside the buffer. Both are defensible readings of 「a county office with a perimeter map」. The project's own ledger holds this open as **NH-032** and its consequences as **NH-034**, and NH-032's standing instruction is that no judge-facing surface carries either margin until the author answers; CHARTER §14b lists the manuscript as a judge-facing surface, so this manuscript names neither. ⚠ **THIS ROW IS THE REASON §4.5 QUOTES NO COUNT AT ALL, AND THE FIRST DRAFT OF THE SECTION GOT THAT WRONG — the lap reviewer blocked the push and was right.** That draft quoted the recovery count (described, not restated, for the same reason as above) and shipped a new figure whose bars carried each width's failure total against a 「of 368 scanned」 axis. Neither states a margin. Together with Table 2 they *determine* one: the bar totals and the denominator give the present-aware safe series, Table 2's own row gives the forecast-aware total, and the subtraction lands on the committed arm's margin — reaching the reader stripped of the five caveats the `pp_uiseong_*` entries make mandatory, and with the losing build's answer alongside it from the draft's own 「about a factor of three」. Withholding a number while printing its determinants is the appearance of restraint with none of the protection. Worse, the draft's two derivable residuals disagreed with each other, because the reconciling term — the already-safe origins the buffer breaks — was the one registered value it did not print. **The deadlock is real and is worth stating plainly**: the shared `pp_uiseong_*` caveat opens 「Four facts travel together or none of them may be quoted」 and fact (1) is the margin, while NH-032 bars the margin from every judge-facing surface. So quoting *any* count from the arm was unavailable, and the section now quotes none. ⚠ Two further things bind the answer whichever way it goes, and §4.5 states both: the forecast-aware arm plans on the field it is graded against, so any such margin is what a **noiseless** forecast buys and this project's model buys less (backlog **WFG-125**); and the five widths differ by factors of two, so the grid holds one point in the region a 「which width could an operator pick」 claim would be about (backlog **WFG-127**). ⚠ **The manuscript reached this strength first and one of the two surfaces behind it has now caught up.** `docs/fair_opponent_line.md` §3 was narrowed on 2026-09-06 (WFG-127 (i), critic #23's finding carried by critic #24): it now states the change of kind, states the sweep's spacing as the resolution limit, and asserts neither shape, and `tests/test_fair_opponent_line.py::test_the_doc_does_not_claim_a_fixed_buffer_cannot_work` bans the retired spellings in that file — the gate that used to *require* one of them. `docs/present_perimeter_arm.md` §4 (「The 1 km row is a **spike, not a plateau**」) still draws the stronger conclusion from those same five points; that is the rest of WFG-127(i), a dev-lap item outside CHARTER §12's paths, and §4.5's last sentence now says one document rather than two. **This row asserts no shape either** — not spike, not plateau; only that five points a factor of two apart cannot tell them apart. 🖼 **The figure exists and is committed but is not in the manuscript.** `paper/make_figures.py` → `F9_present_perimeter` draws the failure-mode composition across the five widths and `paper/figures/F9_present_perimeter.png` is committed, so the moment NH-032 is answered the figure drops into §4.5 with the margin and its caveats. It is deliberately left unreferenced rather than deleted (CHARTER §3.7), and `check_paper.py` does not object because it checks that every referenced figure exists, not that every drawn figure is referenced | the author answers **NH-032** (which opponent) and **NH-034** (what the surfaces then say); the manuscript then states the margin from the chosen build with its five registered caveats, adds the already-safe-broken term so the residuals reconcile, and references F9. Nothing else is needed — both artifacts exist and both are green | no |
 | G7 | §4.3 Results | **what the headline contrast is allowed to attribute.** The baseline the 42 (and §4.4's 91 of 368, 24.73 %) are measured against is `naive`, which is **fire-blind**: it consults no hazard at all, present or forecast (`src/wildfireguardian/routing/evacuation.py:270` 「Fire-blind shortest path to the nearest shelter, then scored against the hazard」; `docs/real_roads_real_hazard.md:50` 「the fire-blind shortest walk to the nearest refuge (the status quo)」). So the contrast measures what hazard awareness of ANY kind buys, and an unmeasured share of it is bought by knowing where the fire is **now** rather than where it will be — a router refusing only the cells alight at departure would recover some of the 42. Raised by critic #17 (2026-09-05) against the booth script, which had handed the fire-blind arm the stronger description 「지금 이 순간만 보는 지도」; WFG-103 fixed that sentence. The manuscript had the same overclaim in its **abstract** (「reach a refuge only when the router accounts for where the fire will be」) and it was corrected this lap, with the caveat added to §4.3 as its third. ✅ **NARROWED 2026-09-06 (paper lap 10): the arm has run, on the other region.** WFG-114 (author decision NH-027 option A) built the present-perimeter opponent on **의성·안동 2025** — the §4.4 region, whose fire-blind contrast is the 91 of 368 — and §4.5 of the manuscript now reports it. So G7's premise is no longer 「an unmeasured share」 in general: on that region the share is large and measured, and saying otherwise would be a fabricated limitation (CHARTER §3.5; `docs/fair_opponent_line.md` §2 makes the same point about the booth surfaces). What is still missing is **the same arm over the canonical Yeongdeok 458**, which is the origin set the paper's headline 42 comes from, and that is what the §4.3 marker now asks for. ⚠ The margin half of the Uiseong-Andong result is a separate gap, **G8** above, and is an open author decision rather than a missing run | the arm runs **on Yeongdeok's 458 origins**, i.e. the still-outstanding part of **WFG-033(b)**, 「static current perimeter (slice 0, p ≥ p_cut) + fixed buffer 0.5/1/2 km」, agent-doable, two laps, on committed hazard fields with no re-acquisition. It is **P2**, i.e. after the finals, and whether to pull it into the sprint is open with the author as **NH-027** (four options, by 2026-09-08). The paper routine cannot run it: it would be a new artifact outside `paper/`. ⚠ **A much cheaper version answers the framing question and this lap's reviewer specified it exactly** — mask slice 0 of the committed canonical field (p ≥ 0.5, 249 cells, `data/processed/routing_demo_canonical.npz`, shape [5,181,156]) as a node filter and re-run the existing `naive_route` over **only the 44 origins whose fire-blind route enters the hazard**, counting how many a present-perimeter-only router already saves. Zero buffer, one region, 44 origins, all inputs committed, no refit and no re-simulation; `F8(a)` in `make_figures.py` already loads and renders that same slice-0 mask. That is minutes of work against WFG-033(b)'s two laps, and it converts §4.3's 「an unmeasured share」 from a hedge into a number. **A dev lap should run this before the finals whatever the author decides on NH-027** | yes for full WFG-033(b); the 44-origin version above is runnable in the sandbox now by a dev lap |
 
+## What lap 16 incorporated (2026-09-07): the manuscript was the file that escaped
+
+No `[GAP]` opened or closed; the count stays at **7**. One mandatory correction, **+11
+words**, paid for by three meaning-preserving compressions worth **−13**, so the document
+went **8,994 → 8,992** and the margin against the 9,000-word proxy went **6 → 8**. Measured
+again with the renderer this lap installed: **23 pages** under Carlito, page objects and
+page-tree `/Count` agreeing, two pages under the author's 25-page rule (NH-028).
+
+### The correction: §2 asserted the contents of a document nobody here has opened
+
+§2's operational-systems paragraph read:
+
+> Both answer where the fire goes, for a suppression commander or a siren operator;
+> **neither answers** which household can still walk out and by which path — the object this
+> paper produces.
+
+The second clause is a **negative claim about two documents this repository has never
+read**. What was actually opened of the NIFoS 산불확산예측시스템 is a catalogue entry
+listing the guide's chapter names; the guide itself is an ~18 MB PDF that no lap has
+retrieved, escalated as **NH-039**. What was opened of G-DAPS is one 경향신문 article of
+2026-03-30. Neither can support "neither answers".
+
+**The manuscript's own bibliography said so, and the prose disagreed with it.**
+`references.bib` → `nifos2026guide`'s `note` reads, verbatim: 「⚠ Only the catalogue page was
+opened; the guide itself is an ~18 MB PDF this sandbox did not retrieve … escalated to the
+author as NH-039」. A reader who followed the citation would have found the paper's apparatus
+contradicting the paper's sentence. That is the cheapest possible kill for a hostile reviewer
+and it had been sitting there since the paragraph was written on lap 13.
+
+**The repository had narrowed this exact claim in two places on the same day, and the
+manuscript was not one of them.** Under **WFG-144** on 2026-09-07: `docs/dispatch_ordering.md`
+§8 carries a dated correction block replacing 「**다른 어떤 체계도** 이 값을 계산하지 않습니다」
+with 「`docs/related_work.md`가 조사한 어느 **연구**도 이 값을 내지 않습니다」, saying in its own
+words that the old form had become 「아무도 열어 본 적 없는 매뉴얼에 무엇이 없다」는 주장; and
+`docs/auto/JUDGE_QA.md` Q16a teaches the student the forbidden and the permitted form by
+name — ❌ 「저쪽은 가구 단위로는 못 합니다」 against ⭕ 「**공개된 자료에서는** 가구 단위
+산출물이 확인되지 않습니다」 — adding 「심사위원이 그 시스템을 직접 써 본 분일 수 있고, 그때
+무너지는 것은 이 답변 하나가 아니라 신뢰 전부입니다」.
+
+### ⚠ The subject grep, run properly this time, and it says the correction is INCOMPLETE
+
+⚠⚠ **The first draft of this section claimed 「`docs/related_work.md` was corrected in the
+same window」 and called the manuscript 「the file that escaped」. Both are wrong, this lap's
+independent reviewer found them, and the corrected version is below.** What that draft ran
+was `git grep -n "neither answers which household" -- paper/ docs/` — **a grep of the
+sentence this lap had just written, over two of the four mandated paths.** That is the exact
+thing `docs/auto/DIRECTION.md`'s ⚠⚠ rule, written by critic #35 one lap earlier, forbids:
+「a lap that narrows a claim greps for the SUBJECT of the claim, never for the sentence it
+just wrote … `git grep -n "<subject>" -- docs/ paper/ release/ web/` … and it names in
+writing every file the grep returned and what it did about each.」 **This lap wrote that it
+had followed the rule while doing the thing the rule bans**, which is worse than not knowing
+the rule.
+
+The subject grep — `git grep -n "which household can still walk out\|walking route for one
+person\|가구 단위 산출물" -- docs/ paper/ release/ web/` — returns four live sites outside the
+record class, and here is what was done about each:
+
+| file | what it says | status |
+|---|---|---|
+| `docs/related_work.md:63` (row 13, NIFoS) | column header 「what it does **not** compute」, cell 「which household can still walk out, and along which path」 | ⚠ **STILL LIVE, UNNARROWED.** This is the manuscript's own §2 source page, and it asserts of an unopened user guide the flat negative §2 has just retracted. **Outside CHARTER §12's paths — a dev-lap item, escalated as NH-044.** The page's §1 preamble does carry a global 「*not found in the surveyed work*, never 최초」 qualifier, so the row is softer than the manuscript's sentence was; it is not soft enough, because rows 13–14 are not surveyed work — what was surveyed of them is a catalogue entry and a news article |
+| `docs/related_work.md:64` (row 14, G-DAPS) | same column, 「anything below the township; a walking route for one person」 | ⚠ **STILL LIVE, UNNARROWED.** Same row, same fix, same NH-044 |
+| `docs/auto/finals/RELATED_WORK_PANEL.md:40` | 「앞의 두 시스템은 **재현 방법을 공개하지 않습니다**」 | ⚠ **STILL LIVE.** A different spelling of the same shape — a negative about unopened documents — already filed as **WFG-162, status `todo`**, on the file that gets **printed** for judges. Not this routine's to fix; named here because the rule requires naming |
+| `docs/auto/JUDGE_QA.md:672` | ⭕ 「**공개된 자료에서는** 가구 단위 산출물이 확인되지 않습니다」 | ✅ **Already correct.** This is the form the manuscript now matches |
+
+**So the honest statement is not 「the manuscript was the file that escaped」 but: the
+narrowing reached two files, missed at least three, and this lap fixed the one inside its own
+paths and could only file the rest.** Critic #35 found **two** escapees, not one — WFG-162
+(`RELATED_WORK_PANEL.md`) and WFG-163 (`PYROGEOGRAPHY.md`), and its own root objection says
+so: 「Two independent narrowings, two escapees」. It did cite `paper/manuscript.md:114` by line
+number, for the *G-DAPS trial-operation* narrowing which the manuscript had already absorbed
+correctly; what it did not check was this file for **this** claim.
+
+The section now reads:
+
+> Both answer where the fire goes, for a suppression commander or a siren operator. **What
+> was opened of either — a catalogue entry, press reports — describes no output of this
+> paper's kind**: which household can still walk out, and by which path.
+
+The negative is now about the record rather than about the systems, which is what the
+evidence supports. Nothing is conceded about what those systems do, and no accuracy
+comparison is made in either direction — the sentence after it already forbids that.
+
+### What paid for it, and why none of it is a caveat trade
+
+CHARTER §12 forbids trading a caveat or a registered number for length. None was traded:
+every `[GAP]` marker, every lineage warning, every registered value and every 32.6 % coverage
+qualifier is byte-identical to lap 15. The three compressions are pure syntax:
+
+| where | before | after | words |
+|---|---|---|---|
+| §5 | 「recovered by refusing where the fire is now**, with no model at all**」 | 「… where the fire is now」 | **−5** |
+| §4.5 | 「**What the run does not support is any** statement about whether …」 | 「**The run supports no** statement about whether …」 | **−4** |
+| §4.5 | 「Which **of them** is the fair opponent … and **it is** not one an analysis settles」 | 「Which is the fair opponent … and not one …」 | **−4** |
+
+The §5 cut is the only one that removes a phrase rather than rearranging one, and it removes
+the **third** copy of it. The two that survive are the **Abstract** (「needs no model at all」,
+`manuscript.md:23`) and **§4.5** (「what a county office can run with no model at all」, `:467`),
+and the §5 sentence cites §4.5 in its own clause. ⚠ The draft of this paragraph named §4.5 and
+**§7** as the two carriers; §7 carries a *different* phrase (「a policy which refuses only where
+the fire is now」, `:827`) and the unnamed second carrier is the Abstract. The count 「third」 was
+right and one of its two witnesses was wrong — found by this lap's reviewer. No claim of this
+project's is weakened either way; the phrase is a point in the project's own favour, not a
+limitation.
+
+### The escalation, stated at the size it is
+
+**This is the fourth consecutive lap whose writing was shaped by the proxy rather than by the
+evidence, and the first where the budget stood between the manuscript and a correction its own
+bibliography demanded.** Lap 13 wrote two wrong sentences under compression pressure and its
+reviewer caught both; lap 14 declined a true sentence it wanted; lap 15 spent 9 of its 15 words
+on mandatory corrections it did not find itself. This lap's correction was **payable only
+because three sentences happened to be compressible** — that is luck, not headroom. The stock
+of meaning-preserving compressions is finite and is now visibly smaller. **NH-037** is the
+answer, it is unchanged, and it is still open.
+
+⚠ **And one line of that escalation does not survive the reviewer either.** The apparatus half
+of this correction cost **zero** body words and was therefore never blocked by the budget at
+all: `references.bib` → `nifos2026guide` was titled as the user guide, so the generated
+reference list printed, as a consulted source, a document §2 now tells the reader nobody
+opened. `check_paper.py:203` cannot catch that — it tests only that the `note` contains the
+substring 「verified」, and that note opens 「verified 2026-09-06 … at this URL」 before saying
+「Only the catalogue page was opened」. Fixed this lap, at no cost to the budget: the entry's
+`howpublished` now reads 「Cited from the publisher's catalogue record; the guide itself was
+not retrieved」, which is what the reference list prints. **The budget was the binding
+constraint on the prose half and on nothing else, and the first draft of this ledger implied
+otherwise.**
+
+Still declined and unbought, unchanged from lap 15: 「registering the third found one no hand
+sweep had named」 (10 words); `docs/related_work.md`'s Uiryeong shelter MIP
+(10.3390/systems13121125) as a §2 entry (~30 words **and** not yet opened at its URL, so
+CHARTER §12 forbids citing it either way until a lap opens it); §3.5's 「scanned by both
+gates」, still an undercount.
+
+### What was in the diff and produced nothing here
+
+`e649f2d..6ee996b`, six files outside `paper/` and `docs/auto/`. `docs/related_work.md`
+(WFG-144's 「in their favour」 → 「where they say they will be ahead」, and WFG-146's
+사이언스타임즈 date 2026-02-12 → **2026-02-13**, the 연합뉴스 wire original being the 02-12);
+`docs/dispatch_ordering.md` (the narrowing above); `docs/finals_screen_v2.md`,
+`tests/test_finals_screen.py`, `web/finals.html` and `release/kcf-finals-2026/MANIFEST.json`
+(WFG-119, a staleness gate that measures commits-behind rather than asking a shallow clone to
+resolve a stamp). **No new artifact under `data/processed/`**, so no result section gained a
+number or a figure, and the WFG-146 date is not a figure this manuscript ever cited — the 5 m
+resolution it dates appears nowhere here, because it is an agency plan statement and §2 says
+only that such statements exist. All nine figures re-rendered **byte-identically** from the
+committed artifacts, so none was added, changed or needed looking at.
+
 ## What lap 15 incorporated (2026-09-07): its reviewer blocked it, and the block was right
 
 No `[GAP]` opened or closed; the count stays at **7**. The code moved — WFG-026 shipped

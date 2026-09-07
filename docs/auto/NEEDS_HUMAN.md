@@ -1764,6 +1764,29 @@ in every paper lap's summary. If a lap arrives with a mandatory correction it ca
 without dropping a caveat, it ships the caveat, fails `check_paper.py`, parks the work per
 CHARTER §3 rule 9 and says so — it does not trim the caveat and it does not edit the limit.
 
+⚠ **Update, paper lap 16 (2026-09-07). The case above was written on a hypothetical and it
+has now happened.** 「The next mandatory correction may arrive with nothing loose left」 —
+lap 16's correction arrived with **6** words of margin and cost **11**. It was a real
+correction, not a stylistic one: §2 asserted that of the two Korean operational systems
+「neither answers which household can still walk out and by which path」, which is a negative
+claim about two documents nobody in this project has opened, and **the manuscript's own
+bibliography said so** (`references.bib` → `nifos2026guide`: 「Only the catalogue page was
+opened」, NH-039). The identical claim had been narrowed in `dispatch_ordering.md` and
+`JUDGE_QA.md` Q16a under WFG-144 on the same day, and the manuscript was not one of them —
+nor is it the only file still carrying the unnarrowed form. See **NH-044**.
+
+It was paid for, and **the way it was paid is the point.** Three sentences elsewhere happened
+to be compressible without losing meaning (`paper/GAPS.md` lists all three; the largest was a
+third restatement of a phrase two other sections already carry), worth −13 against the +11, so
+the document went 8,994 → 8,992 and the margin **6 → 8**. No caveat and no registered number
+was traded. **But that was luck.** The stock of meaning-preserving compressions in a document
+this heavily reviewed is finite, four laps in a row have now had their writing shaped by the
+proxy rather than the evidence, and the next correction of this size may find nothing left —
+at which point the loop parks the work and the manuscript sits red rather than wrong. The
+options below are unchanged and **B or C is what the lap would pick**: it is the one that
+stops the proxy being load-bearing at all, and it is a dev-lap item you could hand to the
+next dev lap in one line.
+
 **Reply with:** `NH-037: A` (or B / C / D, or a sentence).
 
 ---
@@ -2140,7 +2163,7 @@ quote the withdrawn sentence in the rebuilt artifact, because the instinct is to
 
 **Reply:** `NH-042: A` or `NH-042: B` or `NH-042: C` or a sentence.
 
-## NH-043 · DECISION · open · A gate your loop built this morning will go red about twice a day, and the charter tells the lap that meets it to stop working (by 2026-09-09)
+## NH-044 · DECISION · open · A gate your loop built this morning will go red about twice a day, and the charter tells the lap that meets it to stop working (by 2026-09-09)
 
 **Severity: MEDIUM. Nothing a judge sees is wrong. The cost is dev laps: on the measured
 numbers this can burn one lap in four for the rest of the sprint, and the sprint ends
@@ -2191,3 +2214,62 @@ and rely on each critic lap re-stating the override.
 
 **My recommendation: B, with A written down as well** so a lap that meets the red before B
 lands has a rule instead of a report to follow.
+
+---
+
+## NH-044 · DECISION · open · The claim the paper just retracted is still live on the page the paper cites for it (by 2026-09-09)
+
+**What.** Paper lap 16 corrected §2 of the manuscript. It had been asserting that of the two
+Korean operational wildfire-spread systems, 「**neither answers** which household can still
+walk out and by which path」. That is a flat negative about two documents nobody in this
+project has opened: what was read of the 국립산림과학원 산불확산예측시스템 is a **catalogue
+entry** listing the user guide's chapter names — the guide itself is an ~18 MB PDF nobody has
+retrieved (**NH-039**) — and of 경기도 G-DAPS a single 경향신문 article. The manuscript now
+says only what the record supports: 「What was opened of either — a catalogue entry, press
+reports — describes no output of this paper's kind」.
+
+**The problem this entry is for.** `docs/related_work.md` is the page the manuscript's §2 is
+built from, and **its table still asserts the retracted form today**, under the column header
+「what it does **not** compute」:
+
+- **row 13** (`:63`, NIFoS): 「which household can still walk out, and along which path」
+- **row 14** (`:64`, G-DAPS): 「anything below the township; a walking route for one person」
+
+The page's §1 preamble does carry a global qualifier — 「Every gap below is written as *not
+found in the surveyed work*, never as 최초」 — which makes the rows softer than the
+manuscript's sentence was. It is not enough for rows 13–14, because those two entries are not
+surveyed work: what was surveyed of them is a catalogue entry and a news article. Row 12's
+neighbours are peer-reviewed papers that were actually read; rows 13–14 are not.
+
+Two other sites carry the same shape and are already filed:
+`docs/auto/finals/RELATED_WORK_PANEL.md:40` (「앞의 두 시스템은 재현 방법을 공개하지
+않습니다」) is **WFG-162**, status `todo`, and it is on a page that gets **printed for
+judges**; `docs/auto/knowledge/PYROGEOGRAPHY.md:204` is **WFG-163**.
+
+**Why it needs a decision rather than a lap.** CHARTER §12 confines the paper routine to
+`paper/`, so this routine cannot edit `docs/related_work.md` and did not. It is a dev-lap
+edit of a few words in two table cells — but `docs/related_work.md` feeds the booth
+differentiation panel, and per DIRECTION.md the critic and research routines may not touch
+the printables' `SOURCES` without rebuilding the kit in the same lap (WFG-152). So it needs
+to be ordered against WFG-162, which is the same fix on the printed copy.
+
+**What is at stake, in the author's terms.** Q16a's own 없는 것 list already says it: 「심사위원이
+그 시스템을 직접 써 본 분일 수 있고, 그때 무너지는 것은 이 답변 하나가 아니라 신뢰
+전부입니다」. A judge from the disaster-response side who has used the NIFoS console reads
+row 13 as a claim about a manual this project never opened.
+
+**Options:** A) A dev lap narrows rows 13–14 to the 「what the opened record describes」 form
+and rebuilds the printables kit in the same lap, closing WFG-162 with it — one lap, no new
+artifact. B) Same edit, but WFG-162 first because it is the printed copy and the finals are
+closer than the paper. C) Leave `related_work.md` as it is on the strength of its §1
+preamble, and record here that the manuscript and its source page state the claim at
+different strengths deliberately. D) Something else.
+
+**What the loop does until you answer:** the manuscript keeps the narrow form, and every
+paper lap re-runs the subject grep and re-states in `paper/GAPS.md` which files still carry
+the unnarrowed one. It does not edit `docs/related_work.md`.
+
+**My recommendation: A.** The panel and the page say the same thing to the same judge, and
+splitting them across two laps is how the first escape happened.
+
+**Reply with:** `NH-044: A` (or B / C / D, or a sentence).

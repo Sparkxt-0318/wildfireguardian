@@ -112,8 +112,9 @@ institute publishes a 2026 user guide for an AI spread-prediction console driven
 human-entered origin point [@nifos2026guide]; Gyeonggi Province's civil-defence alert model
 predicts a fire's route, arrival times and the township it reaches, in half-hour steps, and
 was announced for trial operation in April 2026 [@khan2026gdaps]. Both answer where the
-fire goes, for a suppression commander or a siren operator; neither answers which household
-can still walk out and by which path — the object this paper produces. No accuracy
+fire goes, for a suppression commander or a siren operator. What was opened of either — a
+catalogue entry, press reports — describes no output of this paper's kind: which household
+can still walk out, and by which path. No accuracy
 comparison is made in either direction: no published validation of either was located, and
 the capability figures in circulation are agency plan statements.
 
@@ -480,8 +481,8 @@ The other runs the time-expanded, time-minimising router against a frozen binary
 holds it to the 600-minute budget, and lets it refuse to let a walker already inside the
 buffer set out at all. Both reproduce the committed classification first, both are
 internally consistent, and they disagree substantially on what the forecast is then still
-worth. Which of them is the fair opponent is a modelling choice the project has not made,
-and it is not one an analysis settles by preferring its own. The registry governing these
+worth. Which is the fair opponent is a modelling choice the project has not made,
+and not one an analysis settles by preferring its own. The registry governing these
 values also requires the disputed quantity to travel with any count taken from the arm, so
 this section quotes none of them and names the dispute instead. [GAP: which build of the
 present-perimeter opponent defines the comparison, and therefore what the forecast's
@@ -497,7 +498,7 @@ breakdown by failure type is the committed arm's alone; what both constructions 
 the coarser statement — thin buffers send walkers through burning ground, wide ones strand
 them — which is why the change of kind is stated here and the counts are not. They do not
 agree on which buffer width comes off best either, so the dispute above is not confined to
-the residual it leaves. What the run does not support is any
+the residual it leaves. The run supports no
 statement about whether a workable width could be chosen in advance: the five widths differ
 by factors of two, so the grid holds a single point in the region such a claim would be
 about. One repository document still draws the stronger conclusion from those same five
@@ -649,7 +650,7 @@ slow walker's arrival time a variable in the answer. Section 4.3 is the
 measurable form of that difference, and Section 4.5 bounds how much of it belongs to the
 forecast rather than to hazard awareness of any kind: on the one region where the stronger
 opponent has been built, most of the same origins are recovered by refusing where the fire
-is now, with no model at all. It is not a
+is now. It is not a
 claim that the system knows where the fire will be: the router needs ranking quality, not
 per-cell precision, because it cuts a cumulative, survival-accumulated surface at its own
 threshold. That the surface itself goes unchecked is the first limitation in Section 6.
