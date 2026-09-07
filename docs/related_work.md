@@ -60,7 +60,7 @@ what one student, one loop and a search of public sources found by 2026-09-07.
 | 10 | Lahrichi et al., WSTS+ | [arXiv:2502.12003](https://arxiv.org/abs/2502.12003) | next-day spread learned over many fire-years; time-series inputs beat single-day inputs | any decision object downstream of the prediction |
 | 11 | Sung et al., GK2A detection (KJRS 2025) | [KJRS](https://www.kjrs.org/journal/view.html?pn=mostdownload&uid=1117&vmd=Full) | geostationary detection of Korean fires at the imager's cadence and resolution | the evacuation consequence of detecting late |
 | 12 | Kwon, Kim & Han, Uiryeong shelter MIP | [10.3390/systems13121125](https://doi.org/10.3390/systems13121125) | shelter siting / assignment for a Korean rural county as a mixed-integer program | a time-varying hazard between the household and the shelter |
-| 13 | **NIFoS 산불확산예측시스템** (operational) | [user guide, 연구자료 제1201호, 2026](https://book.nifos.go.kr/library/10130/contents/7732761) | an **operator console** for suppression planning, driven by a human-entered origin point | ⚠ *not stated in what was opened* — a catalogue entry and press describe no household-level walk-out output; the user guide itself is unread (NH-039) |
+| 13 | **NIFoS 산불확산예측시스템** (operational) | [user guide, 연구자료 제1201호, 2026](https://book.nifos.go.kr/library/10130/contents/7732761) | an **operator console** for suppression planning; the catalogue's chapter list (「… 발화지점 생성 …」) reads as an operator-designated origin point | ⚠ *not stated in what was opened* — a catalogue entry and press describe no household-level walk-out output; the user guide itself is unread (NH-039) |
 | 14 | **경기도 G-DAPS** (operational) | [경향신문 2026-03-30](https://www.khan.co.kr/article/202603301116001/) | a civil-defence alert model: route, arrival times and the **읍면동** an alert should cover, in half-hour steps | ⚠ *not stated in what was opened* — the article describes nothing below the 읍면동 and no per-person walking route; no other document was opened |
 | 15 | ISEF 2026 **SFTD059T** | [abstract](https://abstracts.societyforscience.org/Home/FullAbstract?projectId=27978) | **indoor** egress: floor-plan recognition, a fire/toxic-gas model trained on FDS output, A\* with time-varying risk, a Raspberry Pi display | outdoor landscape fire; rural settlement; rescuer dispatch |
 | 16 | ISEF 2026 **FireChain (EAEV039)** | [abstract](https://abstracts.societyforscience.org/Home/FullAbstract?projectId=28121) | routing suppression **crews to firelines**, with conformal bounds as time-window constraints | routing residents away from the fire |
@@ -123,6 +123,12 @@ wildfire-spread prediction, run by the agency that would deploy anything like th
   wire original's date, not 사이언스타임즈's; corrected under WFG-146, with the reasoning
   and both re-fetches recorded in
   [`docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md`](auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md) §6.
+  ⚠ Narrowed 2026-09-07 (WFG-171, critic #37): row 13's cell above read 「driven by a
+  **human-entered origin point**」, flat and unattributed, and the two printed surfaces read
+  the same way in Korean. Only the catalogue page was opened (NH-039), so what the record
+  supports is the chapter list, not the console's behaviour. **A positive assertion about a
+  document nobody opened is the same new claim as a negative one**; the rule this page and
+  the panel already carried was written about negatives only.
 - **경기도's G-DAPS** forecasts a fire's route, affected area, expected arrival times and
   when to issue an alert, analysing risk in **30-minute steps** and resolving damage to
   the **읍면동**, drawing on the audible footprint of **589 civil-defence alert
