@@ -1913,6 +1913,19 @@ which is the move I made this lap under §14's reorder budget rather than under 
 that to be a standing permission rather than a once-per-lap reorder I have to spend, say so; if you
 want the opposite, say that and I will stop promoting rows and only report the blockage.
 
+
+⚠⚠ **NINTH DATA POINT, 2026-09-07T0500Z, critic #32, and it is the first one that goes the OTHER
+way: the count moved.** `docs/auto/KCF_READINESS.md` is **5 of 11**. R9 is ticked, on evidence re-run
+in this sandbox rather than read from the lap that built it (`make finals-bundle` exit 0 at 19 files,
+`check_bundle_copy.py` exit 0, `git status` empty afterwards). The eight-lap flat line ended one lap
+after critic #31 named, for each of the two lines that should have moved, the single small unclaimed
+piece that blocked it. That is evidence for your rule rather than against it, and it is the reason
+this entry is annotated rather than escalated further. **What has not changed:** R7 is still blocked
+by one unwritten document (WFG-026), and the infra rows CHARTER §14b holds are now held behind R1, R3,
+R7 and R8 rather than behind six lines. Three of those four are single-row blockages with the row
+named. **The question in this entry is still open** and it is still worth your answer, because the
+next flat stretch will look identical from the inside.
+
 **Reply:** `NH-038: <A, B, C, D or a sentence>`
 
 ---
@@ -2039,3 +2052,51 @@ re-authorising on your side (claude.ai → Settings → Connectors), that is wor
 step 9 is how every report reaches you and this lap saw the token expire mid-run.
 
 **Reply:** `NH-041: <nothing required, or a sentence>`
+
+## NH-042 · DECISION · open · Two of your own rules collide whenever a withdrawn claim lives in a frozen artifact, and this week they collided three times (by 2026-09-10)
+
+**Severity: MEDIUM. Nothing on a screen is wrong today, and one false sentence is inside
+the folder that goes on the USB stick.**
+
+**The two rules.** CHARTER §3.2 says never modify, overwrite or regenerate a committed
+artifact; new results get new filenames. CHARTER §3.5c says a withdrawal is not applied
+until it is registered in `docs/auto/withdrawn_claims.json`, **in the same lap**, and it
+exists because a lap that corrects a claim by hand will always miss a file.
+
+**Where they collide.** When the withdrawn sentence lives inside a stamped artifact, §3.2
+freezes the text and §3.5c demands the registration that would make a gate go red on it.
+The lap then has three bad options: skip the registration (what happened), register and
+push red (forbidden by §3.9), or rebuild the artifact at a new stamp inside a lap that was
+not about that (expensive, and the routine that finds these is usually not allowed to).
+
+**This week, three times.** WC-004 (2026-09-06), WC-005 (2026-09-07T0018Z, registered only
+because a reviewer caught the omission), and on 2026-09-07T0355Z a lap declared
+「the 29 dispatch sheets in outputs/dispatch, which are already committed PDFs that print
+directly」 false, corrected it in three places, and registered it nowhere. The registry holds
+WC-001 to WC-005 and no sixth. The sentence is live in
+`release/kcf-finals-2026/printables/manifest_20260907T0059Z.json:95`, inside the release
+bundle, and is authored at `scripts/build_printables.py:648`.
+
+**Measured, not argued, by critic #32 at `0fc6130`.** Adding the two spellings to the
+registry and running `scripts/check_withdrawn_claims.py` exits **1**, naming exactly one
+file: `docs/finals_bundle.md:86`, which is outside `docs/auto/` and which the critic and
+research routines may not edit. So the critic could not register it either. The probe was
+reverted and the rescan is `PASSED === 5 claims over 929 gated files`. ⚠ The scan named
+**neither** of the two places the claim is actually live, because
+`withdrawn_claims.json` → `scope.extensions` is `[".md", ".html"]`. That half is a backlog
+row this loop can fix on its own (WFG-155); the rule collision is yours.
+
+**Options:** A) **Registration always wins.** A lap that withdraws a claim registers it in
+the same commit and, where the spelling then sits in a frozen artifact, records that path in
+the registry as a dated known-stale exception so the gate stays green and the debt is
+visible. B) **The withdrawal is not finished until the artifact is rebuilt.** A lap that
+declares a sentence false rebuilds every generated artifact carrying it at a new stamp in
+the same lap, which makes withdrawals expensive and complete. C) **Leave it as it stands:**
+file the residue as a backlog row and accept that a corrected claim can ride on a stamped
+artifact for as long as the row waits, which under CHARTER §14b can be days.
+
+**What the loop does until you answer.** WFG-153 is raised to P0 and its (a) half is critic
+#32's one `fix-before-next-row` item, so this specific sentence leaves the stick in the next
+dev lap regardless of which option you pick. The rule stays as written.
+
+**Reply:** `NH-042: A` or `NH-042: B` or `NH-042: C` or a sentence.
