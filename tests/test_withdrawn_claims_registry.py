@@ -312,9 +312,25 @@ def test_the_registry_holds_nothing_the_families_do_not():
          "wc006-dispatch-committed-pdfs"),
         (r"29\s*(?:장|dispatch\s+sheets)", "wc006-29-dispatch-sheets"),
     }
+    #: WC-007, registered by dev lap 20260907T1528Z on WFG-162. It belongs to no older
+    #: family: the four above are the detection-ordering claim, the reachability claim, the
+    #: booth kit's contents and the booth kit's exclusion reason, and this is the first
+    #: claim here about somebody ELSE'S system --- 「앞의 두 시스템은 재현 방법을
+    #: 공개하지 않습니다」, printed on 3 of the 38 pages of every kit from 20260906T0620Z
+    #: to 20260907T1248Z, about a manual (NH-039) nobody in this repository has opened.
+    #: ⚠ The lap that withdrew it reached for a hand grep instead of this file, and its
+    #: independent reviewer blocked on that alone: fourth instance of the
+    #: unregistered-withdrawal shape in four days. The correction note left in the panel
+    #: deliberately does NOT quote the withdrawn sentence and therefore carries no pragma
+    #: --- it is a page the student hands a judge, and WC-005 set that precedent for the
+    #: same reason.
+    someone_elses_system = {
+        (r"재현\s*(?:방법|절차)[^\n]{0,20}?공개하지\s*않",
+         "wc007-two-systems-do-not-publish-reproduction"),
+    }
     extra = ({(s["pattern"], s["token"]) for _cid, s in SPELLINGS}
              - in_files - reviewer_found - reachability - booth_kit_contents
-             - dispatch_exclusion_reason)
+             - dispatch_exclusion_reason - someone_elses_system)
     assert extra == set(), (
         "the registry has grown past the families it absorbed. That is allowed, and when "
         "you do it, add the new spelling to this test's expected set and say in "
@@ -525,6 +541,12 @@ def _probe_sentence(pattern: str) -> str:
         r"29\s*(?:장|dispatch\s+sheets)":
             "`outputs/dispatch*` 의 29 장 마을 A4 시트는 **이미 커밋된 PDF** 라서 따로 "
             "인쇄해서 가져갑니다 — 이 한 권 안에 있지 않습니다.",
+        # WC-007, registered by dev lap 20260907T1528Z on WFG-162. The line below is
+        # the one docs/auto/finals/RELATED_WORK_PANEL.md:40 shipped, and it shipped
+        # onto paper: it was 3 of the 38 pages of every booth kit from 20260906T0620Z
+        # to 20260907T1248Z, which is the folder a judge is handed.
+        r"재현\s*(?:방법|절차)[^\n]{0,20}?공개하지\s*않":
+            "재계산**합니다 — 앞의 두 시스템은 재현 방법을 공개하지 않습니다.",
     }
     assert pattern in probes, (
         f"no probe sentence for a newly registered pattern:\n  {pattern}\n"

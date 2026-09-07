@@ -1911,3 +1911,56 @@ been committed and was simply discarded rather than frozen under CHARTER §3.2. 
 paid for two kit stamps because it committed before it looked. Build the kit, read the
 rendered pages, take the review, and commit once — three generated stamps cost nothing while
 they are untracked, and one costs forever once it is pushed.
+
+## 2026-09-07T1528Z — the subject grep returns a homonym field, and the count is not the finding
+
+Critic #35's rule, written into DIRECTION.md the same morning, is that a lap narrowing a
+claim greps for the **subject** of the claim rather than for the sentence it just wrote.
+This lap ran it for WFG-162 and the rule works — but it costs something the rule does not
+mention, and the next lap should know the shape before it runs one.
+
+`git grep -n "재현" -- docs/ paper/ release/ web/ scripts/` returns **185** hits, **125** of
+them outside the record class. Almost none are the subject. 재현 is a homonym here: 재현**율**
+is *recall*, a model metric this repository writes about constantly, and 재현 alone is
+*reproduction*, which is the subject of the claim. A lap that reads the count, or that skims
+a 125-line result for the sentence it remembers, learns nothing and will report 「grep run,
+one instance」 with exactly the confidence the 1222Z lap had.
+
+**So: a subject grep is not one grep and its output is not a count.** Run the claim FAMILY —
+the subject, the predicate, and the English of both — and then classify every hit as *live*
+or *record class*, by path, in writing. Here: 재현 (185/125), 공개하지 않|공개되지 않|공개치
+않 (9/1), does not publish|do not publish|not disclosed|does not disclose (5/0), 재현 방법|재현
+절차 (11/4). The **predicate** patterns are the ones that found the claim, each returning a
+handful; the subject pattern's 125 lines contained it too and would have hidden it. One live
+instance survived, `RELATED_WORK_PANEL.md:40`.
+
+⚠⚠ **And the grep was right, and the lap's independent reviewer blocked it anyway, and the
+reviewer was right.** The block: a claim about the world was withdrawn and nothing was added to
+`docs/auto/withdrawn_claims.json` in the same lap, which CHARTER §3.5c forbids in those words —
+fourth instance in four days. The defence the lap had ready was 「but my grep found it, and the
+reviewer re-ran it and agreed」. **That is not a defence, it is the pattern.** §3.5c exists
+because the hand sweep is the thing that keeps failing; a sweep that happens to be right on
+one lap says nothing about the next, and registration is what takes the lap's diligence out of
+the trust chain. **So: the trigger for opening `withdrawn_claims.json` is writing 「that was
+false」, not failing to find the copies.** Registering costs about ten minutes; skipping it has
+now cost four laps.
+
+**Registration then earned its keep inside the same hour.** The first correction note quoted the
+withdrawn sentence verbatim, because §3.5 says do not delete — and that file is a printables
+SOURCE the same lap was rebuilding. With WC-007 registered, `check_withdrawn_claims.py` named
+that exact line, unlicensed, out of 931 gated files: **the sentence written to record the
+withdrawal was about to reprint the withdrawn claim on 3 of the 38 pages a judge is handed.** The
+resolution is WC-005's precedent, now used twice: on a page the student hands over, the dated note
+**describes** what was there and the verbatim text lives in the registry. Keep the record; do not
+reprint it. A `forbidden-ok` pragma would have made the gate green and the paper worse.
+
+⚠ And one probe defect of my own, recorded because it printed green. Grading the new gate
+`tests/test_finals_screen_numbers.py`, the mutation for 「a new card ships an unmapped number」
+inserted a card reading `oof_pooled_auc` — which is **not a key in `docs/NUMBERS.json`**. The
+suite passed, and a passing mutation reads exactly like a gate with a hole in it. The
+treatment was invalid, not the gate: re-run with a real unreferenced key
+(`arma_replication_far_band_auc`) it fails three tests. This is the third probe lesson in two
+days and it is a different one — 0705Z was about running the probe at the wrong *time*, 1222Z
+about the probe not observing what it changed, and this one about the **treatment not being an
+instance of the thing being detected**. When a mutation comes back green, suspect the mutation
+before you believe the gate.

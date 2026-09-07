@@ -260,6 +260,21 @@
           "flags": "i"
         }
       ]
+    },
+    {
+      "id": "WC-007",
+      "title": "the two Korean operational systems do not publish a reproduction method",
+      "claim": "앞의 두 시스템(국립산림과학원 산불확산예측시스템, 경기도 G-DAPS)은 재현 방법을 공개하지 않습니다 --- an assertion about the contents of documents this repository has never opened, printed on the booth panel as the closing clause of the WildfireGuardian row",
+      "withdrawn_by": "dev lap 2026-09-07T1528Z (WFG-162), on critic #35's one fix-before-next-row item, and then narrowed a SECOND time by that lap's own independent reviewer, which is the part worth recording. The lap's first repair wrote 「공개된 자료에서는 ... 확인되지 않습니다」 --- still a claim about ALL published material, from a panel whose own closing section says it read only a catalogue record and press. The shipped wording is 「이 패널이 읽은 자료(카탈로그 기록·언론 보도)에서는」, which is what the sources support. The NIFoS user guide (연구자료 제1201호, about 18 MB PDF) is NH-039, open and unfetched; the 경향신문 G-DAPS article says nothing about reproduction. The source survey docs/related_work.md:134 wrote the same cell as 「not stated」 twice and was right the whole time --- the panel that summarises it went one step further than the document it summarises, which its own header at :3-5 forbids in those words (「원본을 요약할 뿐 새로운 숫자를 만들지 않습니다」; it made a new CLAIM, and no gate reads claims). ⚠ The lap ALSO tried to close this with a hand grep instead of a registration --- four family patterns over docs/ paper/ release/ web/ scripts/, which did return the one live instance --- and its reviewer blocked on exactly that: CHARTER §3.5c exists because the hand grep is the thing that keeps failing, so a grep that happens to be right is the pattern, not the defence. Fourth instance of the unregistered-withdrawal shape in four days (WC-004 §5a, WC-005 §5d, WC-006 §5e).",
+      "artifact": "docs/auto/finals/RELATED_WORK_PANEL.md, the WildfireGuardian row and the dated ⚠ correction beneath it, rebuilt into the booth kit in the same lap (WFG-152) so the printed page and the tree agree; docs/related_work.md:134, which carries the honest register 「not stated」 for both systems and did not change",
+      "say_instead": "이 패널이 읽은 자료(카탈로그 기록·언론 보도)에서는 앞의 두 시스템의 재현 절차가 확인되지 않습니다. --- and if a judge presses: 국립산림과학원 사용자가이드 원문은 아직 열어 보지 못했습니다, so we do not know what it does or does not contain.",
+      "spellings": [
+        {
+          "pattern": "재현\\s*(?:방법|절차)[^\\n]{0,20}?공개하지\\s*않",
+          "token": "wc007-two-systems-do-not-publish-reproduction",
+          "why": "the shipped spelling, anchored on the subject (재현 방법/절차) and the predicate (공개하지 않). The window is measured rather than guessed: in the line this repository actually printed, 「방법」 and 「공개하지」 are 2 characters apart. ⚠ The limit is the one docs/withdrawn_claims.md §4 states for every pattern here and it bites unusually hard on this claim: the assertion can be reworded into 「밝히지 않습니다」, 「비공개입니다」 or 「does not publish」 and escape, and the lap that registered this checked those four rewordings by hand rather than by gate. What this pattern IS is a copy-paste ratchet: it stops the exact sentence being pasted back into any of the 931 gated files, which is how WC-004 and WC-006 both survived. The dated correction note in RELATED_WORK_PANEL.md deliberately does NOT quote the withdrawn sentence and therefore needs no forbidden-ok pragma --- WC-005's precedent, chosen for the same reason: it is a page the student hands a judge, and reprinting a withdrawn sentence verbatim on paper to record that it was withdrawn puts it back in front of the judge."
+        }
+      ]
     }
   ]
 }
