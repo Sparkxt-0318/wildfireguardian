@@ -1,153 +1,129 @@
-# CRITIC_LATEST — critic #36, 2026-09-07T1717Z
+# CRITIC_LATEST — critic #37, 2026-09-07T2020Z
 
 *The next dev lap reads this file before it claims a row (CHARTER §4 step 3), and clears every
-`fix-before-next-row` item below first. Reviewed head: `7cc4eb7`. Window: the 24 h to
-2026-09-07T17:00Z; this clone resolves the WHOLE of it, because the depth-50 boundary is
-`719c420` (2026-09-06T21:20Z) and `git log --since='25 hours ago'` returns exactly 50 commits.
-Full report: `docs/auto/reports/2026-09-07T1717Z-critic.md`.*
+`fix-before-next-row` item below first. Reviewed head: `64f015b`. Window: the 24 h to
+2026-09-07T20:00Z; this clone resolves the WHOLE of it, because `git rev-list --count HEAD` = **50**
+and the oldest resolvable commit `d6cb996` is inside the window (`git log --since='26 hours ago'`
+returns exactly 50). Full report: `docs/auto/reports/2026-09-07T2020Z-critic.md`.*
 
 ✅ **The baseline is GREEN on the routine's DEFAULT clone, measured before any deepening, and read
 unpiped.** `git rev-parse --is-shallow-repository` = **true**, `git rev-list --count HEAD` = **50**.
-`gates.py --mode full` exits **0**, ALL GREEN at `7cc4eb7`: `1665 passed, 62 skipped, 2 xfailed`,
-pytest 260.5 s, **cold**. `verify`, `snapshot-verify`, `env-check` PASS; `baseline-verify` WARN is
-the documented CHARTER §3d state. `--assert-head` exits 0; `--assert-reported --base 719c420` exits
-0 with 58 substantive paths.
+`gates.py --mode full` exits **0**, ALL GREEN at `64f015b`: `1682 passed, 62 skipped, 2 xfailed`,
+pytest 289.3 s, **COLD**, and the run **downloaded 25.9 MB** partway through (see finding 3).
+`verify`, `snapshot-verify`, `env-check` PASS; `baseline-verify` WARN is the documented CHARTER §3d
+state. `--assert-head` exits 0; `--assert-reported --base 018dd78` exits 0 with 20 substantive paths.
 
 ✅ **No CHARTER §4b finding.** Through the GitHub MCP (`curl` against `api.github.com` is 403 here,
-WFG-119): `auto-gates` runs **186 to 215** on `auto/dev` are **28 `success`, 2 `cancelled` (197,
-200), ZERO `failure`**, and run **215** at this head is `success`. Every push in the window carried
-a report; every dev and critic report carries `Reviewed by:`; the research report does not
-(WFG-147, unchanged).
+WFG-119): `auto-gates` runs **200 to 219** on `auto/dev` are **18 `success`, 2 `cancelled` (200,
+218), ZERO `failure`**, and run **219** at this head is `success`. Every push in the window carried a
+report; every dev and critic report carries `Reviewed by:`; the research report does not (WFG-147,
+unchanged).
 
-⚠ **A forward-looking number, taken rather than guessed, so you are not surprised by it.**
-`web/finals.html` names `7308b06`, **19** commits behind `HEAD`, inside the staleness gate's limit
-of 30. This branch put those 19 commits down in 7 h 40 m, about 2.5 per hour, so the gate fires in
-roughly **four and a half hours** at that rate. That is NH-043, not a defect in this window. If it
-is red when you arrive, `make finals` is the remedy the gate's own message prints, and the bundle
-must be re-pointed in the same lap.
+✅✅ **R1 TICKS. 7 of 11, and it is the first movement on this line since the checklist was
+written.** Both remaining clauses were re-derived here rather than read, and one of them was
+re-derived on a machine that is not this sandbox. See `docs/auto/KCF_READINESS.md`.
+
+⚠ `web/finals.html` names `7308b06`, **24** commits behind `HEAD`, inside the staleness gate's limit
+of 30. NH-043, not a defect in this window. If it is red when you arrive, `make finals` is the
+remedy the gate's own message prints, and the bundle must be re-pointed in the same lap.
 
 ---
 
 ## `fix-before-next-row` — ONE item (CHARTER §14b)
 
-### WFG-166 — `docs/auto/JUDGE_QA.md:650-652`, the T0 card that forbids its own sentence
+### WFG-171 — the same family as WFG-166, in the POSITIVE direction, on the same two surfaces
 
-Inside **Q16a · T0**, the recited draft has the student say aloud that G-DAPS
-「사이렌을 어디에 울릴지는 정해 주지만 **특정한 집의 어느 길이 위험에 들어가고 어느 길이 들어가지
-않는지는 말해 주지 않습니다**」. Lines **671-672** of the same card say ❌ 「저쪽은 가구 단위로는 못
-합니다」라고 **단정하지 마십시오**, give the permitted form ⭕ 「**공개된 자료에서는** 가구 단위
-산출물이 확인되지 않습니다」, and give the reason: 「심사위원이 그 시스템을 직접 써 본 분일 수 있고,
-그때 무너지는 것은 이 답변 하나가 아니라 신뢰 전부입니다.」 Twenty lines apart, written by the same lap.
+`docs/auto/finals/RELATED_WORK_PANEL.md:32` (printed, 뒷면 1) and `docs/auto/JUDGE_QA.md:652`
+(the recited **Q16a · T0** draft, printed on the kit's Q&A pages) both assert, flat, present tense,
+one of them in bold:
 
-- It is the **Korean half of `WC-008`**, registered at 16:12Z on the English spelling
-  `walk out, and along which path`, which a per-spelling ratchet structurally cannot reach. The
-  mirror of what happened to `WC-007` in the same lap, in the other direction.
-- `JUDGE_QA.md:625` asserts this card says 「공개된 자료에서는 확인되지 않습니다」**만**, which is
-  false at `:651` and is what a later lap would read to decide the card is clean.
-- It is **printed**: `JUDGE_QA.md` is a `SOURCES` file of kit `20260907T1551Z`, 17 of its 38 pages,
-  and the kit is inside the release bundle.
+> 발화점은 **운영자가 손으로 입력**합니다.
 
-**What the fix is:** the recited draft says only what this project checked (for example
-「저희가 연 자료 — 카탈로그 기록과 언론 보도 — 에서는 가구 단위 경로 산출물이 확인되지
-않습니다」), or drops the clause and keeps the positive statement of this project's own output
-object; `:625` is corrected in the same edit; the superseded sentence is kept as a dated record
-(CHARTER §3.7) and **is not reprinted verbatim on a printed page** (the `WC-005`/`WC-007`
-precedent: the note describes, the registry quotes); `WC-008` gains the Korean spelling; the kit is
-rebuilt at a new stamp **in the same lap** and the bundle re-pointed (WFG-152); and the lap runs the
-DIRECTION subject grep on 「읍면동」 and 「가구 단위」 across `docs/ paper/ release/ web/` and names in
-writing every file it returned.
+That is a positive factual claim about another agency's operating system, and its whole provenance is
+a **chapter title in a library catalogue's table of contents** (「발화지점 생성」). Nobody in this
+project has opened the NIFoS user guide; NH-039 is open precisely because of that.
 
-⚠ **I could not do this myself.** `docs/auto/DIRECTION.md` forbids critic and research laps from
-editing `JUDGE_QA.md` at all, because a one-line edit turns
-`tests/test_printables.py::test_the_newest_printable_is_not_stale_against_the_tree` red unless the
-same lap rebuilds the kit.
+**Why this is the same defect the last three laps have been fixing, not a new one.** Every other
+surface in this repository states it with its attribution and its limit:
 
----
+- `paper/references.bib:258` writes it as what the catalogue's chapter list implies, names the eight
+  chapters, and adds 「Only the catalogue page was opened」.
+- `paper/manuscript.md:111-112` writes 「publishes a 2026 user guide for an AI spread-prediction
+  console driven by a human-entered origin point [@nifos2026guide]」, attributed.
+- `docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md` §1 writes 「The catalogue's table of contents
+  describes an operator workflow ... So it is an operator console ... driven by a human-entered
+  origin point」, with the derivation visible.
 
-## The one row move, and the order behind it
+The two surfaces a judge actually meets are the two that dropped the attribution. And the panel does
+it **four lines above** its own ⚠ note, whose argument is that this panel read only 「카탈로그
+기록·언론 보도」 and that 「열어 본 적 없는 문서에 무엇이 **없다**고 말하는 것은 요약이 아니라 새로운
+주장입니다」. The note's rule covers only negatives. A positive assertion of the same provenance is the
+same new claim, and it fails in the same way: a judge who has driven that console and knows it can
+take an origin from a KFS feed hears a flat sentence that is simply wrong, and what breaks is not one
+answer but, in the card's own words, 「신뢰 전부」.
 
-**`WFG-009` raised P1 → P0, DIRECTION position 1.** `WFG-110` closed at `60c07c8` and I re-derived
-it rather than reading it (28 parser keys, all 28 in `docs/finals_screen_numbers.md`, all 28 keys of
-`docs/NUMBERS.json`), which met R1's **second** clause. R1's **first** clause is 「opens from
-`file://` with Wi-Fi off, **all four acts advance**」, and nothing in this repository has ever
-exercised the word *advance*. `WFG-009` is that row and it has sat at P1 inside the very block
-CHARTER §14b holds **behind** R1, with eleven infra rows behind it. A row that unblocks a readiness
-line cannot be parked behind that readiness line.
+⚠ **The 읍면동 and 30분 clauses beside it are NOT this finding and must not be softened.** Those are
+reported by 경향신문 2026-03-30, an article this project opened, and the register they are in is
+correct.
 
-**What I measured, so you do not repeat it.** Chromium is present at
-`/opt/pw-browsers/chromium-1194/chrome-linux/chrome`. `--headless=new --disable-gpu --no-sandbox
---virtual-time-budget=8000 --dump-dom file://$PWD/web/finals.html` exits **0** and returns
-**3,449,612 bytes** of post-JS DOM holding `view-live`, `view-evidence`, `view-reliability`,
-`view-system` and the labels 라이브 · 근거 · 신뢰성 · 시스템; the built file has **zero** `http(s)`
-`src`/`href` references. ⚠ At initial load `view-live` = 1,157,688 B and `view-reliability` =
-2,063,451 B, while **`view-evidence` = 225 B and `view-system` = 235 B with no Korean text**. Those
-two build on switch and `--dump-dom` presses no key, so 「advance」 is the word nothing has measured.
-⚠ **First risk to check in your first ten minutes:** whether `npm`/`@playwright/test` or a Python
-`playwright` installs in this sandbox at all — `pip` timed out twice on `files.pythonhosted.org`
-during this lap's own bootstrap. If not, drive the acts over `--remote-debugging-port` with the
-stdlib. The row is the four screenshots, not the framework.
+**Done when** both lines state the claim at the strength of its source, in the register those two
+files already use elsewhere, for example 「카탈로그의 목차가 「발화지점 생성」을 한 장으로 두고 있어,
+운영자가 발화점을 지정하는 흐름으로 읽힙니다」; **and** the same lap runs `make printables` and
+re-points `release/kcf-finals-2026/MANIFEST.json` (WFG-152), because both files are printables
+`SOURCES` and a one-line edit without the rebuild turns
+`tests/test_printables.py::test_the_newest_printable_is_not_stale_against_the_tree` red; **and** the
+lap runs the subject grep DIRECTION mandates (`git grep -n '발화' -- docs/ paper/ release/ web/`) and
+names in writing every file it returned and what it did about each.
 
-Order after WFG-166: **WFG-009**, **WFG-139** (ninth measurement, below), **WFG-167**, then WFG-128,
-WFG-129 and the rest of `docs/auto/DIRECTION.md`'s list.
+**This is why I did not fix it myself.** DIRECTION's *What not to do* forbids the critic and research
+routines from editing `JUDGE_QA.md`, `DEMO_SCRIPT_5MIN.md` and `BOOTH_SETUP.md` at all, for exactly
+the staleness reason above; `RELATED_WORK_PANEL.md` is a `SOURCES` entry on the same footing. Only a
+lap that rebuilds the kit in the same lap may touch them.
 
 ---
 
-## New rows filed this lap
+## The rest, ranked, and none of them is a `fix-before-next-row` item
 
-| id | P | what |
-|---|---|---|
-| **WFG-166** | P0 | the `fix-before-next-row` item above |
-| **WFG-167** | P0 | 42 Q&A cards and **zero** on responsibility. `git grep -niE '책임\|법적\|면책' docs/auto/JUDGE_QA.md` returns nothing, while `web/finals.html:1393` prints 「최종 판단은 언제나 사람이 내립니다」 and `DEMO_SCRIPT_5MIN.md:217` gives it as the 재난대응 실무자 answer. One of the five judges is a public-sector disaster-response official. WFG-144's asymmetry in the other direction |
-| **WFG-168** | P1 | five withdrawals of one claim family in one day, every one found by a reader and none by a gate. A lint over judge-facing prose (third-party subject + negative predicate, no licensed hedge), not a claim detector. Held behind R1/R3/R4/R7/R8/R9 by §14b, deliberately |
+2. **WFG-172 (new, P1, infra) — the cold/warm rule DIRECTION wrote has no enforcement, and the very
+   next lap broke it.** `docs/auto/reports/2026-09-07T1900Z-dev.md` and commit `64f015b`'s message
+   both record 「1688 passed / 56 skipped / 2 xfailed, unpiped」 with **no** cold/warm word and **no**
+   statement of whether the run downloaded anything. DIRECTION's *What not to do* says, in its own
+   ⚠ bullet: 「Do not report a pass/skip count without saying cold or warm, and without saying whether
+   the run downloaded anything (WFG-139).」 It is not a slip with no consequence: my **cold** count at
+   the **same tree** is `1682 passed, 62 skipped`, and a reader comparing 1682 to 1688 reads a
+   six-test regression that did not happen. `report.py` can take both facts mechanically (the pytest
+   summary it already parses, plus the size of `data/raw/` before and after) and no lap then has to
+   remember.
 
-**No NEEDS_HUMAN entry was added this lap.** The one thing that could have been an escalation is
-agent-doable and is WFG-168.
+3. **WFG-139 — TENTH consecutive measurement, taken on this lap's own clock.** At container start
+   `data/raw/` held `.gitkeep` and `README.md` only. After `gates.py --mode full`,
+   `data/raw/dem/srtm/N36E129.hgt` (**25,934,402 B**) and `N36E129.hgt.gz` (8,473,868 B) carry mtime
+   **2026-09-07T20:02Z**, inside a `pytest-full` stage that ran 19:59Z to 20:04Z. Unchanged, unrepaired,
+   and it is DIRECTION position 1 for the next lap.
 
----
+4. **The author has TWELVE open decisions and two of them are due TOMORROW.** `decisions_seen.json`
+   shows `"seen": []`: no decision has ever arrived by email, and the newest applied one is NH-031
+   from a laptop session on 2026-09-06. NH-032 and NH-034 (**by 2026-09-08**) are the two that decide
+   what the project's headline number means against a fair opponent; NH-035, NH-038, NH-043 and NH-044
+   are due **2026-09-09**. This is not a finding against a lap. It is the one thing in this window
+   that no lap can clear.
 
-## Unchanged and untaken, re-checked rather than re-filed
+## Direction
 
-- **WFG-139**, ninth consecutive measurement, on this lap's own clock:
-  `data/raw/dem/srtm/N36E129.hgt` (**25,934,402 B**) and its `.gz` have mtime **17:02:33Z**, inside
-  a `pytest-full` run that began about 17:00Z, in a container whose `data/raw/` held only `.gitkeep`
-  and `README.md` at start. Six terrain tests have still never run in CI.
-- **WFG-163**: `docs/auto/knowledge/PYROGEOGRAPHY.md` §2 still states G-DAPS 「entered trial
-  operation in April 2026」 as accomplished fact. I did not re-fetch the article and do not claim the
-  reading as mine; critic #35 did, four hours ago.
-- **WFG-147**: the research report is still the only report in the window with no `Reviewed by:`.
-- The 1600Z dev report ships with its gate table marked `stale` (`13c79c1` vs `60c07c8`, pushed as
-  `7cc4eb7`). The prose beside it reports a green unpiped run, GitHub run 215 is `success` and my
-  own run is green, so the **tree is right and the report's table is what is wrong**. Loop hygiene,
-  held behind R1 by §14b, covered by the existing report-certification rows; recorded, not re-filed.
+**No reorder, and no reorder was needed.** DIRECTION's position 1 (WFG-009) and its
+`fix-before-next-row` (WFG-166) both **closed** this window and closed well. Position 1 is now
+**WFG-139**, which is where the page already had it, and it stays P0 rather than falling to the §14b
+infra block because it blocks readiness line **R3** and puts a false sentence on `JUDGE_QA.md` Q28.
+My one item above sits ahead of it and displaces nothing, per §14b.
 
-## What I checked and found sound
+**Readiness lines ticked in the window:** R9 (05:00Z), R7 (08:00Z) and now **R1** (this lap). The
+「zero across two consecutive critic laps」 direction finding does not fire, and this is the first lap
+in the checklist's life where it could not have.
 
-- **`WFG-162` is genuinely closed on the printed panel**, and its dated note **describes** the
-  withdrawn sentence instead of reprinting it — `WC-005`'s precedent used correctly on a page that
-  prints. The best thing in the window.
-- **`docs/related_work.md`'s four dead `docs/*.md` paths are the record, not a defect**: each is
-  licensed with `<!-- dead-path-ok -->` and held true by
-  `tests/test_related_work_paths.py::test_the_paths_named_as_dead_are_still_dead`.
-- **The 42/91 caveat trace holds at this head**, re-run rather than inherited: both numbers appear
-  only in `README.md`, `web/finals.html`, `docs/auto/JUDGE_QA.md`, `docs/auto/DEMO_SCRIPT_5MIN.md`
-  and `paper/manuscript.md`, and all five carry the noiseless-forecast wording.
+## `Do NOT edit` notes carried forward
 
-## Readiness and scores
-
-**KCF_READINESS: 6 of 11** (R2, R4, R5, R6, R7, R9), unchanged. R9 (05:00Z) and R7 (08:00Z) both
-ticked inside this 24 h window, so the "zero across two consecutive critic laps" direction finding
-does not fire. **R1's blocker changed identity for the first time in five laps: WFG-110 → WFG-009.**
-
-**Track B 86 (17 / 18 / 18 / 15 / 18); Track A 83 (16 / 18 / 19 / 15 / 15). Every row holds.** The
-pre-registration, so the next critic can falsify me: **when a driver advances all four acts of
-`web/finals.html` and uploads four screenshots (WFG-009), Track A 구현 및 유용성 goes to 20.**
-
-## Root objection
-
-**A registered withdrawal reaches one language, and nobody has ever registered both halves in the
-same lap.** `WC-007` went in in Korean and its English half surfaced ninety minutes later; `WC-008`
-went in in English and its Korean half is on the card the student says out loud. Registration is the
-right tool and the ratchet is per-spelling by construction, while the project ships in two
-languages. **Cheapest test:** for the next withdrawal, run the subject grep once in Korean and once
-in English before calling it done, and write down both results. Two out of two so far have returned
-something in the second language, both inside one day.
+**None.** Critic #36 left none, and this lap writes none. The DIRECTION rule that keeps this routine
+out of `JUDGE_QA.md`, `DEMO_SCRIPT_5MIN.md`, `BOOTH_SETUP.md` and `RELATED_WORK_PANEL.md` is a
+standing routine boundary, not a `Do NOT edit` note on a file's content, and it names its own
+mechanism (`tests/test_printables.py::test_the_newest_printable_is_not_stale_against_the_tree`,
+probed and reverted at `3f881f6`). It is re-checked and re-stated here rather than inherited.

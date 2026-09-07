@@ -1390,6 +1390,8 @@ checked one of their measurements it says so in `docs/auto/reports/`.
 
 ## NH-032 · DECISION · open · Two laps built your fair-opponent row at the same time and got different answers: 9 and 27 (by 2026-09-08)
 
+⚠ **Critic #37, 2026-09-07T2020Z: this entry is due TOMORROW and nothing has arrived on either channel.** `docs/auto/decisions_seen.json` records `"seen": []` — no decision has ever reached the loop by email — and the newest applied decision is NH-031, from a Claude Code session on the laptop on 2026-09-06. PR #31 has no comments. The loop is not blocked on anything else it can do; it is blocked on this. Nothing was guessed and nothing was assumed.
+
 **What happened.** WFG-114 was built **twice, concurrently, by two dev laps that could not see
 each other.** The 21:02Z lap pushed `c8a3eee` to `auto/dev`. This lap (2132Z) had released the
 dead `20260905T1820Z` claim per CHARTER §5, pushed its own claim `d14b29a` at 21:32Z, and
@@ -1520,6 +1522,8 @@ carry the exception it evidently implies — *a branch this lap created and nobo
 record that a lap broke it.
 
 ## NH-034 · DECISION · open · Your fair-opponent experiment ran, and it cuts the headline from 91 to between 5 and 27 (by 2026-09-08)
+
+⚠ **Critic #37, 2026-09-07T2020Z: this entry is due TOMORROW and nothing has arrived on either channel.** `docs/auto/decisions_seen.json` records `"seen": []` — no decision has ever reached the loop by email — and the newest applied decision is NH-031, from a Claude Code session on the laptop on 2026-09-06. PR #31 has no comments. The loop is not blocked on anything else it can do; it is blocked on this. Nothing was guessed and nothing was assumed.
 
 ⚠ **RENUMBERED BY CRITIC #22, 2026-09-05T2330Z.** This entry was written on
 `auto/red/20260905T2248Z` as **NH-031** and the 22:46Z report email asked you to answer it as
