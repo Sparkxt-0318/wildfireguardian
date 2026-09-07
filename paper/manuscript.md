@@ -264,25 +264,26 @@ The registry makes the rest checkable. Each publishable value has an entry in
 `docs/NUMBERS.json` naming its source artifact, its JSON path, the expression that
 re-derives it, its caveat, and the phrasings that misstate it; a gate re-derives every
 entry on every change, scans the prose for retired figures and quantity-name collisions,
-and refuses a document that states a registered quantity with a different value.
+and refuses a document stating a registered quantity with a different value.
 Superseded values are annotated in place, never deleted. A second registry holds the claims
 this project has **withdrawn** — what each asserted, what retired it, what should be said
 instead, and the spellings that restate it — and every gated document is read against it,
 so a withdrawn claim cannot survive in a prose file nobody thought to list; a data file or
 a generator escapes it. The step that can
-fail is registration: September 2026 retractions skipped it twice, and each hand-applied
-correction left the same claim standing in a file that lap had itself edited or shipped.
-It matches spellings,
-not meaning: in an independent probe, sentences reusing a registered spelling were caught
-and sentences reworded around one were not, and that limit is recorded rather than designed
-away. A further limit, from the same month, is not about matching at all: some of this
+fail is registration: September 2026 retractions skipped it three times, and each
+hand-applied correction left the same claim standing in a file that lap had itself edited
+or shipped. It matches spellings,
+not meaning, and one language at a time: in an independent probe, sentences reusing a
+registered spelling were caught and sentences reworded around one were not, and both
+limits are recorded rather than designed away.
+A further limit, from the same month, is not about matching at all: some of this
 project's artifacts are
 *generated* from templates, and a sentence that had just been retired was corrected in one
 generated file while its template kept it. Nothing a reader saw was wrong and every gate
 passed, so the retired wording would have returned at the next rebuild. Had that sentence
 been a
-registered spelling the scan would have found it in the template, which the scan does
-read; it was not, so nothing did. The general point needs no registry: a correction applied
+registered spelling the scan would have found it in the template, which it does
+read; it was not, so nothing did. The general point needs no registry: a correction
 to a generated file is one rebuild from being undone. The
 repair was two tests rather than more spellings — the generated file against its template
 line for line, and the data injected into it against a fresh run of the builder, field by
@@ -294,7 +295,7 @@ payload. Their oracle is the builder, so they
 certify that the shipped file is what the builder emits today and never that what the
 builder emits is right, and one provenance field in the same payload is stale by
 construction and passes them. This
-manuscript is scanned by both gates like any other document here. Figures from
+manuscript is scanned by both gates like any other document. Figures from
 outside the repository — the tallies of Section 1 — are not registry values and carry their
 agency, date and scope instead.
 

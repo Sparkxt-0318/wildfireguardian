@@ -9,10 +9,14 @@ and rebuilt every time the code moves. Author: **Siyeong Park (박시영)**.
 doesn't exceed. 25 pages for. now」). `check_paper.py` now checks that directly —
 it renders the document and counts — and keeps the 9,000-word budget as the
 proxy for machines that cannot render, or that can render but not in a font
-whose metrics are Calibri's. As of 2026-09-07 (lap 16) the built document is
+whose metrics are Calibri's. As of 2026-09-07 (lap 17) the built document is
 **23 pages under Carlito**, measured rather than estimated: 21 at lap 9, 22 at
 lap 10, and 23 at every lap from 11 to 16. **Two**
-pages of margin remain against the author's 25.
+pages of margin remain against the author's 25. Lap 17 **re-measured** rather
+than inheriting — 8,995 words still render 23 under Carlito, page objects and
+page-tree `/Count` agreeing — after its own edits moved `body_words` and
+therefore `built_pages_inputs`, which turned the anchor red exactly as designed
+until a run had actually produced a new count.
 
 ⚠ **The two margins have come apart, and the proxy is now the tighter one by about a
 thousand words.** At lap 16 the document is 23 pages against a 25-page rule and 8,992
@@ -122,6 +126,45 @@ household" -- paper/ docs/`. **That is a grep of the sentence it had just writte
 the mandated paths, printed in the ledger as evidence the rule had been followed.** The rule
 was one lap old and was written by the critic whose finding this lap was extending. `GAPS.md`
 now carries the real grep and a four-row table of what was done about each hit.
+
+⚠⚠ **Lap 17 is the one where the lap's own repair was a category error, and its independent
+reviewer killed it before the push. Read `GAPS.md`'s lap-17 section before this paragraph.**
+The defect was real: §3.5's 「cannot survive in a **prose** file nobody thought to list」 — lap
+15's own narrowing, quoted three paragraphs above — is falsified by the incorporated diff.
+`docs/withdrawn_claims.md` §5g-2 records **WC-008** registered with an **English** spelling and
+the same claim living on in **Korean** inside `docs/auto/JUDGE_QA.md` Q16a, a gated prose file
+and the card the student reads aloud to five judges. §5g records the mirror image ninety minutes
+earlier — **WC-007** in Korean, its English twin alive in `KOREAN_OPERATIONAL_SYSTEMS.md` §3.3.
+
+**The draft repaired it by appending the language case to the escape list, and that is the wrong
+list.** The other two members escape by **scope** — never opened at all. The Korean copy escaped
+by **spelling**, inside a file the scanner *did* open and pass. So the sentence would have read
+*prose files are covered, except this prose file*; and it would have sold a **contingent**
+registration gap, closed the same day by a Korean pattern, to an IEEE reviewer as a structural
+property. The escape list is back to its lap-15 wording, and the language case now sits in the
+sentence the repository's own §5g files it under: 「It matches spellings, not meaning, **and one
+language at a time**」, closing 「and **both limits** are recorded rather than designed away」 —
+the trailing clause the draft had deleted, and which the reviewer showed is payload, restored.
+
+⚠⚠ **The second half of the block was a wrong number, and the instance it omitted was this
+routine's own.** §3.5's 「September 2026 retractions skipped it **twice**」 is **three**. Paper
+lap 16 (`8ff1b40`, 15:30Z) retracted the claim from §2 and, *in that same commit*, wrote the
+retracted sentence verbatim and **unlicensed** into `paper/GAPS.md:77` and `:79`; a **different
+routine** registered it 42 minutes later (`7cc4eb7`, 16:12Z) and had to license those two lines.
+Both halves of the manuscript's own sentence fit it. The draft of the ledger asserted 「twice」 on
+the false ground that WC-008 was registered in the lap that withdrew it — taken from the ledger's
+summary instead of from the commits, which is the error this whole section is about.
+
+8,992 → **8,995**; margin **8 → 5**, the tightest yet, paid down by four meaning-preserving
+syntax compressions. **Laps 13, 14, 15, 16 and 17 have now all had their writing shaped by the
+proxy rather than by the evidence. NH-037 is the answer and it is still open.**
+
+⚠ **The subject grep caught a file this routine owns, and it is `GAPS.md`.** Lap 15's ledger
+entry ended 「the completeness claim is now scoped to what the instrument actually reads」 — an
+own-voice completeness assertion, in `paper/`, that is still incomplete. It is **annotated in
+place as superseded, not deleted** (CHARTER §3.7), and `GAPS.md`'s lap-17 section carries the
+full seven-row grep table. This paragraph is the pointer for the block above it, which quotes
+lap 15's wording as a record and does not assert it.
 
 ⚠ **The page that took the count from 22 to 23 cost eleven words, and it is worth
 knowing that before reading the words-to-pages table below as a rate.** Lap 11
