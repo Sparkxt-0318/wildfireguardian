@@ -267,9 +267,10 @@ and refuses a document that states a registered quantity with a different value.
 Superseded values are annotated in place, never deleted. A second registry holds the claims
 this project has **withdrawn** — what each asserted, what retired it, what should be said
 instead, and the spellings that restate it — and every gated document is read against it,
-so a withdrawn claim cannot survive in a file nobody thought to list. The step that can
+so a withdrawn claim cannot survive in a prose file nobody thought to list; a data file or
+a generator escapes it. The step that can
 fail is registration: September 2026 retractions skipped it twice, and each hand-applied
-correction left the same claim standing in a file that lap had itself edited or printed.
+correction left the same claim standing in a file that lap had itself edited or shipped.
 It matches spellings,
 not meaning: in an independent probe, sentences reusing a registered spelling were caught
 and sentences reworded around one were not, and that limit is recorded rather than designed
