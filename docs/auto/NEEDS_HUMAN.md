@@ -2163,7 +2163,7 @@ quote the withdrawn sentence in the rebuilt artifact, because the instinct is to
 
 **Reply:** `NH-042: A` or `NH-042: B` or `NH-042: C` or a sentence.
 
-## NH-044 · DECISION · open · A gate your loop built this morning will go red about twice a day, and the charter tells the lap that meets it to stop working (by 2026-09-09)
+## NH-043 · DECISION · open · A gate your loop built this morning will go red about twice a day, and the charter tells the lap that meets it to stop working (by 2026-09-09)
 
 **Severity: MEDIUM. Nothing a judge sees is wrong. The cost is dev laps: on the measured
 numbers this can burn one lap in four for the rest of the sprint, and the sprint ends
