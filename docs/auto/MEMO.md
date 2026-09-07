@@ -1800,3 +1800,32 @@ building the kit silently makes the kit stale**, and `make finals-bundle` report
 while the superseded PDF sits in the bundle folder (WFG-108). `check_bundle_copy.py`
 is what catches it and it did — `EXTRA printables/…0630Z.pdf`. Build the kit **last**,
 after every source edit is final.
+
+## 2026-09-07T0918Z — a gate that reports the instrument gets read as an instrument problem
+
+`tests/test_finals_screen.py`'s two reachability gates went red on 2026-09-07 with
+`fatal: Not a valid object name 62b58e1`. That was a **true positive**: the judged
+screen was reporting a build 55 commits and 23 hours old. But the sentence the gate
+printed was about the **clone**, not about the screen, and two laps read it that way —
+they ran `git fetch --unshallow`, watched both tests pass, wrote 「nothing in the tree
+was wrong」, and filed nothing. The defect survived two laps that had it in front of them
+and a failing test pointing at it.
+
+The gate was not wrong and its predicate did not need changing. What it lacked was a
+**failure text in the vocabulary of the defect**. So this lap left both gates untouched
+and added one that asks the question the loop actually cares about — 「how many commits
+behind HEAD is this build」 — at a threshold (30) well inside the depth-50 horizon, whose
+failure names the staleness, the clone depth it measured, the remedy (`make finals`) and
+the row. Probed both ways: at 31 commits behind, the two old gates stay **green** and
+only the new one fires, 24 commits before the cryptic failure could exist.
+
+**The lesson is about diagnostics, not predicates.** When a gate can only fail by way of
+an environmental accident — a shallow clone, a missing file, a timezone — its message
+will describe the accident, and the next lap will fix the accident. If you want the
+defect fixed, something has to fail in the defect's own words, earlier.
+
+⚠ **And the honest half, which belongs in the memo because it is the part a later lap
+will want to reverse.** This makes the alarm ring MORE often (about every 0.75 days
+instead of 1.3), not less. That is the trade, taken deliberately: the answer costs one
+command and no judgement. A lap that finds the frequency intolerable should raise
+`STAMP_MAX_COMMITS_BEHIND` on WFG-119 with a measurement, not delete the gate.

@@ -523,16 +523,62 @@ def _stamp_is_reachable(stamp: str) -> bool:
     return _git("merge-base", "--is-ancestor", stamp, "HEAD").returncode == 0
 
 
+# WFG-119. How many commits the screen's build stamp may sit behind HEAD.
+#
+# The horizon that matters is the routine's default clone depth, measured at
+# **50** on 2026-09-07. Past it the stamp stops resolving and the reachability
+# gates above fail with `fatal: Not a valid object name`, which is a true
+# positive (the screen IS stale) wearing the costume of a corrupt repository.
+# Two laps read that costume and unshallowed instead of rebuilding.
+#
+# 30 is "comfortably under 50" as the row asks, and it is chosen against the
+# branch's measured rate of ~40-55 commits/day: a rebuild buys about 30
+# commits, i.e. roughly 18 hours, or six dev laps at the sprint's 3-hour
+# cadence. ⚠ This raises how OFTEN the alarm rings (from ~1.3 days to ~0.75)
+# and lowers what it costs to answer: `make finals`, one payload line, no
+# decision. That trade is the point and it is stated in docs/finals_screen_v2.md.
+STAMP_MAX_COMMITS_BEHIND = 30
+
+
+def _stamp_commits_behind(stamp: str) -> int | None:
+    """Commits between the screen's stamp and HEAD, or None if unanswerable here.
+
+    None means the stamp does not resolve in this clone -- which, in the
+    sandbox, means it has already aged past the shallow boundary. Factored out
+    so the threshold can be graded below without mutating web/finals.html.
+    """
+    if not stamp or stamp == "unknown":
+        return None
+    if _git("cat-file", "-e", f"{stamp}^{{commit}}").returncode != 0:
+        return None
+    counted = _git("rev-list", "--count", f"{stamp}..HEAD")
+    if counted.returncode != 0:
+        return None
+    return int(counted.stdout.strip())
+
+
 def _needs_git_history():
     """Only a missing work tree skips this gate.
 
     The first draft of this helper also skipped on `--is-shallow-repository`,
     which would have switched the gate off in exactly the place the loop runs:
-    the cloud sandbox clones shallow (294 commits deep, but flagged shallow).
-    A gate that skips where the defect is created is the hole it was written to
-    close. The limit it really has is narrow and safe: a stamp older than the
-    shallow boundary would fail `cat-file -e` and read as "rebuild the screen",
+    the cloud sandbox clones shallow. A gate that skips where the defect is
+    created is the hole it was written to close.
+
+    The depth is NOT a constant and this docstring used to name one (294),
+    inherited from whichever lap first wrote it. Measured since: the routine's
+    default checkout is **depth 50** (2026-09-07, WFG-119, on two separate
+    laps), earlier laps recorded 294, and a lap that runs `--unshallow` sees
+    531. Any lap quoting a depth measures it in its own clone and dates it.
+
+    The limit this helper really has is narrow and safe: a stamp older than the
+    shallow boundary fails `cat-file -e` and reads as "rebuild the screen",
     which is a red gate asking for a rebuild, not a wrong screen shipped.
+    ⚠ That is exactly what fired on 2026-09-07 (WFG-119), and the failure text
+    it produced -- `fatal: Not a valid object name` -- was read by two laps as
+    an environment problem rather than as a stale screen. The staleness gate
+    below now fires FIRST, at a threshold well inside the horizon, so the
+    legible failure arrives before the cryptic one.
     """
     if _git("rev-parse", "--is-inside-work-tree").stdout.strip() != "true":
         pytest.skip("not a git work tree")
@@ -651,3 +697,77 @@ def test_the_escape_this_gate_cannot_close_is_still_open():
         f"web/finals.html names {stamp}, which is reachable from your HEAD but is not on "
         "origin/auto/dev. It resolves for you and not for anyone who clones the repository. "
         "Rebuild the screen at a commit that is already pushed, or push first and rebuild.")
+
+
+def test_the_screen_is_rebuilt_before_its_stamp_ages_out_of_a_shallow_clone():
+    """WFG-119. The recurrence, caught early and named, instead of late and cryptic.
+
+    The two gates above ask "can this clone resolve the stamp". That question
+    is answered by the CLONE as much as by the tree, so it goes red only once
+    the stamp has crossed the shallow boundary -- at which point the failure
+    text is `fatal: Not a valid object name` and reads as corruption. On
+    2026-09-07 the stamp `62b58e1` crossed it at 55 commits behind HEAD, the
+    gate went red in every sandbox while GitHub at `fetch-depth: 0` stayed
+    green, and the row that predicted this in writing was sitting at P1.
+
+    This gate asks the question the loop actually cares about -- "is the judged
+    screen a recent build" -- in a form that is answerable in ANY clone depth,
+    and it fires at STAMP_MAX_COMMITS_BEHIND, well inside the horizon. What it
+    buys is not a rarer alarm; it is a legible one, with the remedy in the text.
+    """
+    _needs_git_history()
+    stamp = _payload()["git"]
+    behind = _stamp_commits_behind(stamp)
+    if behind is None:
+        pytest.fail(
+            f"web/finals.html names {stamp}, which this clone cannot resolve at all: "
+            f"the stamp has aged past the clone's shallow boundary "
+            f"(depth here: {_git('rev-list', '--count', 'HEAD').stdout.strip()}, "
+            f"shallow: {_git('rev-parse', '--is-shallow-repository').stdout.strip()}). "
+            "The screen is stale, not the repository broken. Run `make finals` on the "
+            "commit you are pushing. This is WFG-119; do NOT unshallow and call it fixed.")
+    assert behind <= STAMP_MAX_COMMITS_BEHIND, (
+        f"web/finals.html was built at {stamp}, now {behind} commits behind HEAD "
+        f"(limit {STAMP_MAX_COMMITS_BEHIND}). The judged screen reports a stale build, "
+        f"and at ~{STAMP_MAX_COMMITS_BEHIND + 20} it stops resolving in the routine's "
+        "depth-50 clone and starts failing as `Not a valid object name`. "
+        "Run `make finals` on the commit you are pushing. WFG-119.")
+
+
+def test_the_staleness_threshold_is_graded_against_a_stamp_that_has_aged():
+    """The threshold, measured rather than asserted (MEMO 2026-09-04).
+
+    Grades the predicate the gate above rests on, without touching
+    web/finals.html: a stamp at HEAD is 0 behind and passes; a stamp one commit
+    past the threshold is over it and fails; a stamp git cannot resolve is
+    unanswerable and fails. The third case is the one that fired on 2026-09-07.
+    """
+    _needs_git_history()
+    depth = int(_git("rev-list", "--count", "HEAD").stdout.strip())
+    if depth < STAMP_MAX_COMMITS_BEHIND + 2:
+        pytest.skip(
+            f"this clone holds {depth} commits; grading the threshold needs "
+            f"{STAMP_MAX_COMMITS_BEHIND + 2}. Not a network or clock dependency -- "
+            "the graph itself is too short here.")
+
+    head = _git("rev-parse", "HEAD").stdout.strip()
+    over = _git("rev-parse", f"HEAD~{STAMP_MAX_COMMITS_BEHIND + 1}").stdout.strip()
+
+    cases = [
+        ("built at HEAD",              head[:7], 0),
+        ("one commit over the limit",  over[:7], STAMP_MAX_COMMITS_BEHIND + 1),
+        ("git could not read HEAD",    "unknown", None),
+        ("aged past the boundary",     "a562045", None),
+    ]
+    graded = [(label, _stamp_commits_behind(stamp) == expected)
+              for label, stamp, expected in cases]
+    assert all(ok for _, ok in graded), [label for label, ok in graded if not ok]
+
+    # And the decision the threshold encodes: the first case is inside the gate,
+    # the other three are outside it. A change to STAMP_MAX_COMMITS_BEHIND that
+    # broke this would be a change of policy, and should be argued on WFG-119.
+    verdicts = [
+        (behind is not None and behind <= STAMP_MAX_COMMITS_BEHIND)
+        for behind in (_stamp_commits_behind(s) for _, s, _ in cases)
+    ]
+    assert verdicts == [True, False, False, False], verdicts
