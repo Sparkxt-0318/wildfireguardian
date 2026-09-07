@@ -1,140 +1,207 @@
-# CRITIC_LATEST — critic #34, 2026-09-07T1100Z
+# CRITIC_LATEST — critic #35, 2026-09-07T1416Z
 
 *The next dev lap reads this file before it claims a row (CHARTER §4 step 3), and clears every
-`fix-before-next-row` item below first. Reviewed head: `2720840`. Window: `b2bdaf0..2720840`, the
-24 h to 2026-09-07T11:00Z, 59 commits.*
+`fix-before-next-row` item below first. Reviewed head: `b54ca28`. Window: the 24 h to
+2026-09-07T14:10Z; this clone resolves `dfdf480..b54ca28`, 49 commits, which covers
+2026-09-06T16:38Z onward and is 21.4 h of the 24 (see the depth note below).*
 
-✅ **The baseline is GREEN. Run it on the DEFAULT clone before you deepen anything.** `gates.py
---mode full` exits **0** here at this head with `is-shallow-repository` = `true` and `rev-list --count
-HEAD` = **50**. Critic #33's red is cleared. ⚠ If you ever see `tests/test_finals_screen.py` red on a
-staleness message, that is **not** CHARTER §4 step 2's 「red baseline, do not build」 — the remedy is
-`make finals` on the commit you are pushing and it takes a minute. The rule that should say so is
-**NH-043** and it is not written yet, which is the point of that entry.
+✅ **The baseline is GREEN on the routine's DEFAULT clone, measured before any deepening.**
+`git rev-parse --is-shallow-repository` = **true**, `git rev-list --count HEAD` = **50**.
+`gates.py --mode full` exits **0**, ALL GREEN at `b54ca28`: `1650 passed, 62 skipped, 2 xfailed`,
+pytest 283.6 s. `verify`, `snapshot-verify`, `env-check` PASS; `baseline-verify` WARN is the
+documented CHARTER §3d state. `--assert-head` and `--assert-reported --base dfdf480` both exit 0.
 
-**Critic #33's two falsifiable tests, answered first, because both were about the dev lap.**
+⚠ **One honest defect in my own method, recorded rather than hidden.** I piped that first
+`gates.py --mode full` into `tail` and read the exit code out of `PIPESTATUS[0]`. CHARTER §3.10
+says never pipe a gate, and the reason the rule exists (a pipe swallows the status) did not bite
+here because the status was captured, but the rule does not have an exception for that and I
+should not have written the pipe. **The certifying re-run on this lap's own commit was run
+unpiped**, and that is the run `--assert-head` reads.
 
-1. **「If a lap runs `make finals`, pushes, and files nothing about recurrence, WFG-119 has been reset
-   and not closed.」** **It was not reset.** The 09:18Z lap ran `make finals` **and** built a
-   depth-independent carrier: `test_the_screen_is_rebuilt_before_its_stamp_ages_out_of_this_clone`
-   fires at 30 commits behind `HEAD`, a question answerable at any clone depth, so sandbox and CI
-   reach the same verdict for the same reason. Its grader pins the policy with two hard-coded
-   distances (29, 31) rather than deriving them from the constant — the correct repair of a first
-   version that was arithmetically incapable of failing, which the lap's **own reviewer** caught and
-   the lap conceded rather than argued. Good work, and I say so before I take it apart.
-2. **「If WFG-146 is fixed in `docs/related_work.md` and not in `RELATED_WORK_PANEL.md`, the printed
-   page keeps the wrong date.」** **Not triggered — it was fixed in neither.** Unchanged at this head,
-   third critic lap. It is this lap's one item, below.
+⚠ **The window is 24 h and this clone reaches back 21.4 h of it.** The depth-50 boundary lands at
+`dfdf480` (2026-09-06T16:38:53Z), so the 14:10Z–16:38Z stretch of 2026-09-06 is outside anything I
+can resolve. I did not deepen to close it, because CHARTER §14's *What not to do* says take the
+baseline reading on the default clone first, and nothing in my findings depends on that stretch.
+Two dev laps and one critic lap sit in it and their reports are on disk and were read.
 
-## What is green, verified rather than read, all at `2720840`
+## Critic #34's two falsifiable tests, answered first
 
-- **`gates.py --mode full` ALL GREEN, exit 0**, on the routine's **default** clone before any
-  deepening: `is-shallow-repository` = `true`, `rev-list --count HEAD` = **50**, `1650 passed,
-  62 skipped, 2 xfailed`, pytest 260.6 s. `verify`, `snapshot-verify`, `env-check` PASS;
-  `baseline-verify` WARN is the documented CHARTER §3d state.
-- **The finals screen is current.** `web/finals.html` names `7308b06`, **6** commits behind `HEAD`,
-  inside the new limit of 30, and `7308b06` is on `origin/auto/dev`.
-- `gates.py --assert-reported --base b2bdaf0` over the whole 59-commit window exits **0**: 59
-  substantive paths travelling with `docs/auto/reports/2026-09-07T1002Z-dev.md`.
-- GitHub Actions, through the MCP (`curl` is 403 here, WFG-119): `auto-gates` runs **181 to 205** on
-  `auto/dev` are **22 `success`, 3 `cancelled`, no `failure`**; run **205** at this head is `success`.
+1. **「If a lap fixes WFG-146 in `docs/related_work.md` and not in `RELATED_WORK_PANEL.md`, the
+   printed page keeps the wrong date and the propagation shape has completed a second lap.」**
+   **Answered in the dev lap's favour: it was fixed in BOTH, and in five more places.** At
+   `b54ca28` the pairing reads 「사이언스타임즈 2026-02-13 (연합뉴스 2026-02-12 기사 전재)」 at
+   `docs/related_work.md:104` and `:196-197`, `docs/auto/finals/RELATED_WORK_PANEL.md:43`,
+   `docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md:12` and `:45-46`, and
+   `docs/auto/JUDGE_QA.md:656`, each with a dated correction note and the superseded value
+   annotated rather than deleted. The kit was rebuilt in the same lap (`20260907T1248Z`, 38 pp)
+   and the release bundle re-pointed at it. **I re-fetched the article myself rather than
+   inheriting the reading** — fourth independent fetch: the visible text carries `2026-02-13`
+   twice (`연합뉴스 2026-02-13`, `저작권자 2026-02-13`) and `2026-02-12` **zero** times; the
+   three `2026/02/12` strings are in the HTML only, as Yonhap image-CDN paths. The substance is
+   characterised correctly too — 「약 30% 향상시키고」, 「5ｍ 수준까지 높인다」, 「88 %로
+   끌어올릴 계획이다」, 「2030년까지」 are all future-tense plan statements, and the body says the
+   agency announced it 「12일」, which is exactly why the wire date is a day earlier.
+2. **「If the WFG-119 staleness gate goes red in a dev lap's baseline and that lap parks under
+   CHARTER §4 step 2 instead of running `make finals`, the recurrence was made legible without
+   being routed.」** **Not triggered.** `web/finals.html` names `7308b06`, **10** commits behind
+   `HEAD`, inside the limit of 30, and the gate did not fire in this window. NH-043 stays open and
+   untested; on the measured commit rate it fires in roughly 11 hours.
+
+## What is green, verified rather than read, all at `b54ca28`
+
+- **The 12:56Z dev lap did the two things it was told to do, and did them well.** WFG-144's card
+  **Q16a · T0** is at `docs/auto/JUDGE_QA.md:637-694`, in §3 (재난대응 실무자), and it answers on
+  the **output object** and nothing else. Its 없는 것 block is the strongest thing in this window:
+  ❌ 「저쪽은 가구 단위로는 못 합니다」 paired against ⭕ 「**공개된 자료에서는** 가구 단위
+  산출물이 확인되지 않습니다」, no accuracy comparison in either direction, and no claim about
+  whether either system covers 경상북도·영덕. Seven critic laps measured that gap; this one closed
+  it. I say so before I take a piece of it apart.
+- **The lap's own reviewer blocked it and it conceded rather than argued**, and the block was
+  right: the narrowed claim still stood in a wider wording in `docs/dispatch_ordering.md` §8, which
+  is where the card's own 근거 line sends a judge. That file now carries the narrowing and a dated
+  correction block at `:317-327`. Second consecutive window where the subagent reviewer caught the
+  thing the lap's own grep could not.
+- GitHub Actions, through the MCP (`curl` against `api.github.com` returned **403** here again,
+  WFG-119, and I checked rather than assuming): `auto-gates` runs **170 to 209** on `auto/dev` are
+  **36 `success`, 4 `cancelled`, ZERO `failure`**. Run **209** at this exact head is `success`.
   **No CHARTER §4b finding.**
-- Every **dev** report in the window carries `Reviewed by:`. The research report does not (WFG-147).
-- **The WFG-138 caveat propagation is COMPLETE, and this is the good news of the window.** Every
-  judge-facing surface that states 42 or 91 carries both binding caveats (fire-blind opponent; upper
-  bound for a noiseless forecast): `README.md`, `web/finals.html`, `docs/auto/JUDGE_QA.md`,
-  `docs/auto/DEMO_SCRIPT_5MIN.md`, `paper/manuscript.md`. The one apparent miss in
-  `release/kcf-finals-2026/README_KO.md` is the directory stamp `20260801T163042Z`, not the claim — I
-  opened the line rather than trusting the grep.
-- **KCF_READINESS 6 of 11**, unchanged, with R9 and R7 both ticked inside this window, so the
-  "zero for two consecutive critic laps" direction finding does not fire.
-- No author reply on either channel. The Gmail search returns threads that are every one a single
-  message this loop sent; PR #31 has no comments. `decisions_seen.json` unchanged.
+- Every **dev** report in the window carries `Reviewed by:`. The research report of 2026-09-06T1838Z
+  does not (WFG-147, unchanged).
+- **Sourcing spot-checked by fetching, not by reading the lap that fetched.** Both live sources were
+  re-opened in this sandbox. The 경향신문 G-DAPS page confirms every figure the repository draws
+  from it: 「민방위 경보 예측 모델(가칭 G-DAPS)」, 「589개소 민방위 경보시설 가청지역 정보」,
+  「산불 위험을 30분 단위로 분석」, 「읍면동 단위까지 피해 지역을 파악」, and **no accuracy
+  figure anywhere on the page** — which is what the panel says it says.
+- **KCF_READINESS 6 of 11**, unchanged, with R9 (05:00Z) and R7 (08:00Z) both ticked inside this
+  24 h window, so the "zero for two consecutive critic laps" direction finding does **not** fire.
+- **No author reply on either channel.** One line, as instructed, plus one thing that is not routine
+  and is finding #3 below.
 
 ## fix-before-next-row (exactly one, CHARTER §14b)
 
-**WFG-146 — the 사이언스타임즈 date is wrong on three lines, one of which is printed on the booth
-kit and is on the USB stick. Minutes, judge-facing, and re-verified from the source this lap.**
+**WFG-162 — the printed panel asserts what two systems do NOT publish, three lines after promising
+it would only summarise, and one lap after the same claim was narrowed everywhere else. One clause,
+judge-facing, on paper.**
 
-Eligible under §14b as a fix of **minutes** on a **printable**, which §14b names as judge-facing.
+Eligible under §14b as a fix of **minutes** on a **printable** and on the **release bundle**, both
+named there as judge-facing.
 
-Measured at `2720840`, not inherited from critic #33. I fetched
-<https://www.sciencetimes.co.kr/nscvrg/view/menu/249?searchCategory=221&nscvrgSn=261448> in this
-sandbox and parsed it:
+Measured at `b54ca28`, in the tree, not inherited:
 
-- The page carries `2026-02-13` **twice** — its byline reads `연합뉴스 2026-02-13` and its
-  copyright line reads `저작권자 2026-02-13 ⓒ ScienceTimes`.
-- It carries **no** `2026-02-12` as a date. The three `2026/02/12` strings on it are 연합뉴스 image
-  CDN paths of the form
-  `https://img8.yna.co.kr/etc/inner/KR/2026/02/12/AKR20260212072300063_02_i_P4.jpg` — the **wire
-  original's** date and id, which 사이언스타임즈 republished a day later.
-- So the repository pairs one publisher with another's date. CHARTER §3 rule 5b makes the as-of date
-  load-bearing, and 출처 명기 is a named criterion on the 제출 자료 row of **both** rubric tables.
-- I also checked the substance the citation carries, and it is characterised correctly: 「지형 분석
-  정밀도를 5ｍ 수준까지 높인다」 and 「산불확산예측 정밀도를 기존 대비 약 30% 향상」 are agency plan
-  statements in the future tense. Nothing else on this citation needs to change.
+- `docs/auto/finals/RELATED_WORK_PANEL.md:40` ends the WildfireGuardian row with
+  「그리고 **공개 자료 위에서 모든 숫자를 게이트가 재계산**합니다 — **앞의 두 시스템은 재현
+  방법을 공개하지 않습니다.**」 That second clause is an assertion about the contents of documents
+  this repository has never opened. The NIFoS user guide (연구자료 제1201호, ~18 MB PDF) is
+  **NH-039**, open and unfetched; the 경향신문 article says nothing about reproduction.
+- **The source document this panel summarises gets it right.** `docs/related_work.md:134` writes the
+  same cell as 「reproducible by a stranger | **not stated** | **not stated** | committed public
+  data, every number re-derived by a gate」. *Not stated* is the honest register; *does not publish*
+  is a claim.
+- **The panel's own text forbids it twice.** Its header at `:3-5` says 「이 카드는 원본을 요약할 뿐
+  **새로운 숫자를 만들지 않습니다**」 — and it made a new *claim*, which is worse than a new number,
+  because no gate reads claims. Its closing section at `:135` says 「국립산림과학원과 G-DAPS 는
+  카탈로그 기록과 언론 보도만 읽었고」. The page states it read only a catalogue entry and press,
+  and then states what those systems do not publish.
+- **And the same lap wrote the correct sentence twice, in two other files.** `JUDGE_QA.md:660`:
+  「두 시스템이 그렇게 한다는 **자료는 찾지 못했습니다**」. `docs/dispatch_ordering.md:317-327`:
+  the whole correction block exists to replace 「다른 어떤 체계도」 with 「조사한 어느 **연구**도」
+  for exactly this reason, and says so in its own words: 「아무도 열어 본 적 없는 매뉴얼에 무엇이
+  없다는 주장이 되었습니다」. **So this is not a claim the lap failed to think about. It is the one
+  copy of that claim its narrowing did not reach — and it is the copy that gets printed.**
+- **Where it is live:** `docs/auto/finals/RELATED_WORK_PANEL.md:40`, which is `SOURCES[5]` and
+  **3 of the 38 pages** of kit `WFG_printables_20260907T1248Z.pdf` (sha256 `4504f5984cb9…`), on the
+  USB stick and in `release/kcf-finals-2026/MANIFEST.json`.
 
-**Where it is live:** `docs/related_work.md:104`, `docs/related_work.md:187`, and
-`docs/auto/finals/RELATED_WORK_PANEL.md:43` — the last being 3 of the 36 printed pages of kit
-`20260907T0953Z`.
+**Done when:** that clause reads the *not stated* register — 「공개된 자료에서는 두 시스템의 재현
+절차가 확인되지 않습니다」 or equivalent — with a dated note keeping the superseded wording
+(CHARTER §3.5), **and the kit is rebuilt in the same lap** (WFG-152) so the printed page matches the
+tree and `tests/test_printables.py` stays green.
 
-**Done when:** all three read `2026-02-13`, **and the kit is rebuilt in the same lap** (WFG-152), so
-the printed page matches the tree and `tests/test_printables.py` stays green.
-
-⚠ **Take it together with WFG-144 (below), which needs the same single `make printables`.** One kit
-rebuild pays for both.
+⚠ Same shape as critic #34's item, so the same warning: no critic or research lap may take it, and
+one `make printables` pays for it.
 
 ## The other findings, filed and not carried
 
-- **WFG-144 is this lap's one row move: P1 → P0, position 1 of the table.** §14b: a judge-facing
-  finding larger than minutes becomes a P0 row at position 1 and is **never a preemption**, so the
-  top of the table is displaced by WFG-146's minutes and by nothing else. Re-measured at this head:
-  the only `산림청` hits in `docs/auto/JUDGE_QA.md` are the burned-area lines at `:399` and `:1003`,
-  and there is no card for 「산림청·경기도가 이미 산불확산예측을 하고 있는데 무엇이 다릅니까?」 while
-  the kit prints three pages that invite it. **Seventh consecutive critic lap measuring this, and
-  the sixth to decline to promote it because the one allowed item went elsewhere.** That is the
-  pattern NH-038 is about; this lap ends it. ⚠ I may not write the card myself — JUDGE_QA is a
-  printables `SOURCES` document and a one-line edit turns the freshness gate red, so only a lap that
-  rebuilds the kit in the same lap may touch it (WFG-152).
-- **WFG-110 is the sole remaining blocker of R1 and is what holds Track A 구현 및 유용성 at 19.**
-  DIRECTION position 2. Critic #33 said a stale build stamp was what stopped a 20 on that row; that
-  is cleared, and the point it buys is spent on critic #32's older blocker, which is unchanged: 6 of
-  the 28 registry keys `scripts/finals.template.html` references are in no committed mapping table.
-  Nine infra rows sit behind R1 under §14b.
-- **WFG-139 unrepaired, seventh consecutive measurement, and this one is on my own clock rather than
-  a pass/skip delta.** `data/raw/` held only `.gitkeep` and `README.md` (mtime 2026-09-04T16:57:27Z)
-  at container start; bootstrap finished 10:59:40Z; `pytest-full` ran 260.6 s; afterwards
-  `data/raw/dem/srtm/N36E129.hgt` (**25,934,402 B**) and its `.gz` carry mtime **11:02:33Z**. The
-  suite downloaded 25.9 MB over the network inside a gate run. My counts are therefore neither cleanly
-  cold nor warm and I say so: `1650 / 62` on a run that fetched the DEM partway through.
-- **WFG-160 (new, P1).** The staleness threshold's stated frequency is contradicted by this branch's
-  own rate. The test comment argues 30 commits ≈ 「roughly 18 hours, or six dev laps」 from
-  「~40-55 commits/day」. Measured on an unshallowed clone (540 commits): **194** commits in 72 h =
-  **64.7/day**; per day **94**, **64**, **52**, and **29** in 11 h today. No sprint day is inside the
-  quoted band. At 64.7/day a 30-commit budget is **11.1 hours**, about **3.7** dev laps. Same class as
-  the number the lap's reviewer blocked, one paragraph over. Held behind R1/R3/R8 as hygiene.
-- **NH-043 + WFG-161 (new).** The recurrence is legible but not routed: when the new gate fires — on
-  the measured rate, about every 11 hours — CHARTER §4 step 2 still tells the lap to stop, and the
-  only override is a `CRITIC_LATEST.md` line that expires with every critic report. Escalated with
-  four options; my recommendation is to fold `make finals` into the push path **and** write the
-  exception down.
+- **WFG-163 (new, P1). The G-DAPS trial-operation claim was narrowed in the manuscript by a
+  reviewer's block and never travelled to the knowledge note.** `docs/auto/knowledge/PYROGEOGRAPHY.md:204`
+  states G-DAPS 「**entered trial operation in April 2026**」 as accomplished fact. The source says
+  「이르면 다음 달부터 시범 운영에 들어간다」 — *at the earliest*, from next month, announced on
+  2026-03-30. `paper/README.md:31-32` records that this exact sentence was blocked by the paper
+  lap's independent reviewer at `719c420` (「the draft wrote that Gyeonggi's model 「entered trial
+  operation」 where its own cited source says only that trial operation was *announced*」), and the
+  repair reached `paper/manuscript.md:114`, `docs/related_work.md:113` and
+  `KOREAN_OPERATIONAL_SYSTEMS.md:17` — all three now read *announced*. It did not reach
+  PYROGEOGRAPHY, which CHARTER §13 says is where a lap, the paper routine or the student looks a
+  concept up. **Third instance of WFG-138's propagation shape in five days, and the second in which
+  a reviewer's block was applied to the file under review and not to the claim.** Not judge-facing
+  today, which is the only reason it is not the item above.
+- **WFG-164 (new, P1, loop hygiene, held behind R1/R3/R8 by §14b). The author's inbox received an
+  email whose entire body is the word `PLACEHOLDER`.** Gmail message `1a07a0a7ffa5bafb`,
+  2026-09-07T04:05:03Z, subject `WildfireGuardian autoloop · dev · 2026-09-07T0355Z`,
+  `plaintextBody` = `PLACEHOLDER`, snippet `PLACEHOLDER_WILL_NOT_BE_USED`. The real report for the
+  same lap arrived 86 seconds later as message `1a07a0bce7b3c975`. Every routine prompt ends with
+  「read the body back before sending and **never send a placeholder**」. The 0355Z dev report does
+  not mention it: `grep -in "placeholder\|email"` on `docs/auto/reports/2026-09-07T0355Z-dev.md`
+  returns nothing. **And three critic laps have run the exact search that returns this message and
+  none of us saw it** — #32, #33 and #34 each reported 「every one a single message this loop sent」
+  and stopped at the sender, which is the loop's own address. I only saw it because I read the
+  snippets. The report channel is the author's only window onto this loop while they are away, and
+  it is the one surface no gate reads.
+- **WFG-110 is untouched and is the sole remaining blocker of R1**, holding Track A 구현 및 유용성
+  at 19. Unchanged from critic #32, #33 and #34: `scripts/finals.template.html` references 28
+  registry keys, `DEMO_SCRIPT_5MIN.md` §3 maps 22 of them the wrong way round, 6 are in no committed
+  mapping table. I did not re-measure the six and do not restate a number I did not take.
+- **WFG-139 unrepaired, eighth consecutive measurement, and mine is a pass/skip reading rather than
+  a clock reading.** My `pytest-full` reports `1650 passed, 62 skipped` — the cold counts — and the
+  0630Z and 1256Z dev laps' warm re-runs on the same tree report `1656 passed, 56 skipped`. Six
+  terrain tests still switch on a 25.9 MB SRTM download that the suite performs itself, and have
+  never run in CI. Per DIRECTION's rule I say which mine is: **cold**, and it downloaded the tile
+  during the run.
+- **WFG-111 updated, not duplicated, with today's count.** I ran its own drill mechanically over the
+  five printed source documents: 158 backticked repository paths in `docs/auto/JUDGE_QA.md`, of
+  which **1** does not resolve from the root — `delivery/sms.py` at `:856`, which is the shorthand
+  for `src/wildfireguardian/delivery/sms.py` and is the spelling CHARTER §3.6 itself uses. Nothing
+  is factually wrong and no answer is unsupported; two of the three bare names critic #19 found have
+  since been written out. `DEMO_SCRIPT_5MIN.md` (33), `DETECTION_FLOOR_CARD.md` (12) and
+  `docs/submission_reconciliation.md` (14) are clean.
+- **The gate that catches this class deliberately does not read the bank.**
+  `tests/test_related_work_paths.py:36-42` covers `docs/related_work.md` and
+  `RELATED_WORK_PANEL.md` and excludes `JUDGE_QA.md` and `BOOTH_SETUP.md` **with a stated reason**
+  (they name artifacts a later lap creates; sweeping them in recreates the allowlist problem, which
+  is WFG-157). That reasoning is sound and I am not calling it an oversight. It is recorded in
+  WFG-111's cell because Q16a is now the first card in the bank whose 근거 line is itself the
+  deliverable of a reviewer block about pointing at things that are not there.
 
-## The root objection, and it is on this loop's own steering page
+## The root objection
 
-**The page that tells every lap where the project is going asserted the one thing the repository
-spent this week retracting.** `docs/auto/DIRECTION.md`'s thesis read 「A forecast of where the fire
-will be, **not where it is**, changes which walking route and which rescue order are safe, and the
-repository **proves that**」. In the same window `README.md` gained 「it does not separate knowing
-where the fire will be from knowing where it is」 and 「42 is an upper bound」, and `JUDGE_QA.md` Q36
-tells the student to say 「저희 모델이 실제로 사는 값은 아직 재지 않았습니다」 before a judge digs.
-**The cheapest test was one grep and it was run:** the caveat reached every judge-facing surface and
-missed only DIRECTION — the surface every lap reads first. That is WFG-138's propagation shape landing
-on the loop's steering rather than on its output. **Corrected this lap**, since the critic owns that
-page (CHARTER §14), and added to its *What not to do* list.
+**Every correction this loop makes is applied to a claim in the file where it was noticed, and the
+loop has now built three separate machines to catch the copies — and today the copy that escaped was
+made by the same lap, in the same hour, in the file that gets printed.**
 
-## Falsifiable tests for critic #35
+WFG-138 named the shape. CHARTER §3.5c answered it with registration, which reaches 925 gated files —
+but only for a claim that is **withdrawn**, and DIRECTION already records that registration 「cannot
+reach a claim that was NARROWED rather than withdrawn」. The lap's own subagent reviewer answered it
+again, and it worked: it caught `dispatch_ordering.md`. So the count today is that a narrowing
+reached `JUDGE_QA.md` and `dispatch_ordering.md` and missed `RELATED_WORK_PANEL.md`, while a
+different narrowing, three days old and blocked by a different reviewer, reached the manuscript and
+`related_work.md` and missed `PYROGEOGRAPHY.md`. **Two independent narrowings, two escapees, and in
+both cases the file that escaped was one the reviewer was not given.** The reviewer sees the diff.
+The claim lives in files the diff does not touch.
 
-1. If a lap fixes WFG-146 in `docs/related_work.md` and not in `docs/auto/finals/RELATED_WORK_PANEL.md`,
-   the printed page keeps the wrong date and the propagation shape has completed a second lap.
-2. If the WFG-119 staleness gate goes red in a dev lap's baseline and that lap parks under CHARTER §4
-   step 2 instead of running `make finals`, then the recurrence was made legible without being routed,
-   and NH-043 is the reason.
+**The cheapest test, and it is cheaper than any of the three machines:** a lap that narrows a claim
+greps for the *subject* of the claim, not for the sentence it just wrote. One command would have
+found both — `git grep -n "재현\|reproduc" -- docs/ paper/` for the first, `git grep -n "trial
+operation\|시범 운영"` for the second, each about four seconds. The 1256Z lap wrote in its own report
+that its grep 「자기가 방금 쓴 문장을 그대로 찾는 `git grep`」 was the failure the reviewer caught,
+and JUDGE_QA.md:634-638 now teaches the student that lesson in Korean. **The lesson is written down
+and the next lap still did it.** That is why this is the root objection and not a finding.
+
+## Falsifiable tests for critic #36
+
+1. If a lap fixes WFG-162 by editing only `RELATED_WORK_PANEL.md:40` and does not run
+   `git grep` for the subject 「재현」 across `docs/` and `paper/`, then the fix is the third
+   application of the pattern this report names and the machine that was supposed to stop it is the
+   lap's own habit, not a gate.
+2. If critic #36's Gmail step reports 「every thread is a single message this loop sent」 without
+   naming message `1a07a0a7ffa5bafb`, then WFG-164 is invisible to the search that four critic laps
+   have now run, and the finding is the search and not the send.

@@ -5,7 +5,48 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
-**Tick count, critic #34, 2026-09-07T1100Z: 6 of 11 (R2, R4, R5, R6, R7, R9), unchanged — and unchanged is the
+**Tick count, critic #35, 2026-09-07T1416Z: 6 of 11 (R2, R4, R5, R6, R7, R9), unchanged — and this is the second
+consecutive lap where unchanged is correct rather than a stall.** R9 (05:00Z) and R7 (08:00Z) both moved inside this
+24 h window, so the "zero for two consecutive critic laps" direction finding does not fire. Checked on disk at
+`b54ca28`, re-run rather than read, on the routine's **default** clone before any deepening
+(`is-shallow-repository` = `true`, `rev-list --count HEAD` = **50**).
+
+- **R1 unchanged, and its blocker is unchanged for a fourth consecutive lap: WFG-110.** The baseline is green here —
+  `gates.py --mode full` exits **0**, ALL GREEN, `1650 passed, 62 skipped, 2 xfailed`, pytest 283.6 s, cold — and
+  `web/finals.html` names `7308b06`, **10** commits behind `HEAD`, inside the limit of 30, so critic #33's red stays
+  cleared and the depth-independent carrier gate did not fire. What holds R1 is what has held it since critic #32:
+  `scripts/finals.template.html` references **28** registry keys, `DEMO_SCRIPT_5MIN.md` §3 maps **22** of them the
+  wrong way round, and **6** are in no committed mapping table. ⚠ **I did not re-measure those six and do not tick,
+  or re-quote a count, on a number I did not take.** WFG-110 is DIRECTION position 1.
+- **R3 unchanged, and its sandbox half now has an eighth measurement against it.** `verify`, `snapshot-verify`,
+  `env-check` PASS; `baseline-verify` WARN is the documented CHARTER §3d state. Through the GitHub MCP (`curl`
+  against `api.github.com` returned **403** here again, WFG-119): `auto-gates` runs **170 to 209** on `auto/dev` are
+  **36 `success`, 4 `cancelled`, ZERO `failure`**, and run **209** at this head is `success` — **no CHARTER §4b
+  finding.** `--assert-head` exits 0 and `--assert-reported --base dfdf480` exits 0 over the 49 commits this clone
+  resolves, with 60 substantive paths travelling with `docs/auto/reports/2026-09-07T1256Z-dev.md`. Every **dev**
+  report in the window carries `Reviewed by:`; the research report does not (WFG-147). ⚠ R3 cannot tick while the
+  suite reaches the network: my cold run reports `1650 passed / 62 skipped` where the same tree's warm re-runs
+  report `1656 / 56`, which is the six terrain tests switching on a 25.9 MB SRTM download the suite performs itself.
+  WFG-139, eighth consecutive lap. R3 also still waits on one `make all-checks` on the author's laptop.
+- **R5 keeps its tick and the gap seven critic laps measured is CLOSED.** `docs/auto/JUDGE_QA.md:637-694` now holds
+  **Q16a · T0**, answering 「산림청·경기도가 이미 산불확산예측을 하고 있는데 무엇이 다릅니까?」 on the output
+  object, with a 없는 것 block that refuses the accuracy comparison in either direction, refuses the 「저쪽은 못
+  합니다」 form in favour of 「공개된 자료에서는 확인되지 않습니다」, and refuses any claim about 경상북도·영덕
+  coverage. The panel and the spoken bank now say the same thing, which is what critic #33 and #34 said the
+  asymmetry cost. I read the card rather than grepping for its existence.
+- ⚠ **R7 keeps its tick, and it carries one printed claim that should not be on paper.** Kit `20260907T1248Z`,
+  **38** pages (was 36), sha256 `4504f5984cb9…`, six source hashes, bundle re-pointed with no residual `0953Z`.
+  WFG-146's date is corrected on the printed panel, which was critic #34's item, and I re-fetched the article as a
+  fourth independent check rather than inheriting it. What is new is `docs/auto/finals/RELATED_WORK_PANEL.md:40` —
+  3 of the 38 printed pages — asserting 「앞의 두 시스템은 재현 방법을 공개하지 않습니다」, an assertion about
+  documents this repository has never opened (NH-039), where the survey it summarises writes 「not stated」 at
+  `docs/related_work.md:134` and the same lap wrote the narrowed form into `JUDGE_QA.md:660` and
+  `docs/dispatch_ordering.md:317`. **WFG-162, and this lap's one `fix-before-next-row` item.** The tick stands
+  because R7's conditions are completeness and provenance hashes, all of which hold; the claim is a 제출 자료
+  deduction and is scored there.
+- **R2, R4, R6, R9 hold. R8, R11 unchanged**; R10 stays withdrawn and R12 is the author's.
+
+*(Superseded, kept as the record, CHARTER §3.7.)* **Tick count, critic #34, 2026-09-07T1100Z: 6 of 11 (R2, R4, R5, R6, R7, R9), unchanged — and unchanged is the
 correct answer this lap rather than a stall.** Two lines moved inside this 24 h window (R9 at 05:00Z, R7 at 08:00Z), so
 the "zero for two consecutive critic laps" direction finding does not fire. Checked on disk at `2720840`, re-run rather
 than read.
