@@ -1,6 +1,6 @@
 # Direction — where the project is going, on one screen
 
-*Written 2026-09-04 by the author's session; steered again the same evening (product first). Rewritten by the research routine every second day; the critic checks it after every dev lap (CHARTER §14). The dev routine reads it before claiming a row. **Rewritten 2026-09-06T1817Z by the research lap**; **direction re-checked 2026-09-07T0500Z by critic #32, which spent its one reorder: WFG-153 P1 → P0, reason below.** Critic #31's note is in `docs/auto/reports/2026-09-07T0217Z-critic.md`.*
+*Written 2026-09-04 by the author's session; steered again the same evening (product first). Rewritten by the research routine every second day; the critic checks it after every dev lap (CHARTER §14). The dev routine reads it before claiming a row. **Rewritten 2026-09-06T1817Z by the research lap**; **direction re-checked 2026-09-07T0800Z by critic #33, which spent its one reorder: WFG-119 P1 → P0, reason below.** Critic #32's note is kept below; #31's is in `docs/auto/reports/2026-09-07T0217Z-critic.md`.*
 
 ## Thesis (two sentences)
 
@@ -8,25 +8,29 @@ A forecast of where the fire will be, not where it is, changes which walking rou
 
 ## Next three rows, and why
 
-*One row moved this lap: **WFG-153 P1 → P0** (reason in the critic's note below). Position 1 is unchanged
-from critic #31: **WFG-026**. WFG-151 shipped and is `done`. No P0 row moved below a row of higher priority.*
+*One row moved this lap: **WFG-119 P1 → P0** (reason in the critic's note below). **WFG-026 and WFG-153
+both shipped and are `done`**, so R7 ticks and positions 1 and 2 are both new. No P0 row moved below a row
+of higher priority.*
 
-1. **WFG-026 (P0, one lap) — unchanged at position 1, and it is now the ONLY unwritten document standing
-   between R7 and a tick.** R7 names five printables; three are in the `20260907T0059Z` kit, the dispatch
-   sample is excused, and the related-work and SFTD059T differentiation panel is not written. It carries the
-   two Korean operational systems (`KOREAN_OPERATIONAL_SYSTEMS.md`, `manuscript.md` §2), which absorbs most
-   of **WFG-144**. ⚠ The lap that writes it **rebuilds the kit at a new stamp in the same lap** (WFG-152),
-   and that rebuild is the only lap allowed to carry item 2.
-2. **WFG-153(a) (P0, minutes) — critic #32's one `fix-before-next-row` item, and it RIDES WFG-026's rebuild
-   rather than taking a lap of its own.** The 0355Z lap declared 「the 29 dispatch sheets in outputs/dispatch,
-   which are already committed PDFs that print directly」 **false**, corrected it in three places, and
-   registered it in none. `docs/auto/withdrawn_claims.json` holds WC-001 to WC-005 and no sixth, which
-   CHARTER §3.5c forbids in those words. The sentence is live on the stick at
-   `release/kcf-finals-2026/printables/manifest_20260907T0059Z.json:95`, authored at
-   `scripts/build_printables.py:648`. ⚠ Registration was **probed** here and turns `make verify` red on
-   `docs/finals_bundle.md:86`, which neither the critic nor the research routine may edit — so it takes a
-   dev lap, and it takes the same one as WFG-026. **Done when:** the generator's sentence is true, the kit
-   and the bundle are rebuilt, and `WC-006` exists in the same commit.
+1. ⚠⚠ **WFG-119 (P0, hours) — critic #33's one `fix-before-next-row` item, and the gate is currently RED
+   in the sandbox on a correct tree.** `web/finals.html` names commit `62b58e1`, now **55** commits behind
+   `HEAD` and outside the routine's default depth-50 clone, so `gates.py --mode full` exits **1** here on
+   two `tests/test_finals_screen.py` failures while GitHub run 201 at the same head is `success`
+   (`fetch-depth: 0`). WFG-119 predicted this in writing and was parked at P1 as hygiene. **The gate is
+   right and the tree is wrong:** the screen a judge opens reports a build 23 hours stale, and `make finals`
+   is what the failure text asks for. ⚠ **A dev lap must not read this red as CHARTER §4 step 2's 「red
+   baseline, do not build」 stop.** It is diagnosed; the red *is* the item; clearing the item clears the red.
+   **Done when:** the stamp names a pushed commit inside the horizon, AND the recurrence is closed rather
+   than reset (a rebuild alone buys about 1.3 days at 40 commits/day; critic #26 already watched the counter
+   reset 29 → 6 and read that as handled), AND the `_needs_git_history` docstring's 「294 commits deep」 is
+   replaced by a measured number. Reproduce both failures red first and show them green after, in the report.
+2. **WFG-146 (P1, minutes + a kit rebuild) — not promoted, but it is the row that best repays being taken
+   alongside item 1's rebuild.** The 사이언스타임즈 date is wrong on `docs/related_work.md:104`/`:187` and on
+   `docs/auto/finals/RELATED_WORK_PANEL.md:43`, which is **printed in the kit and on the stick**. Re-measured
+   here rather than inherited: the page's byline and 저작권자 line both read **2026-02-13**; the `2026/02/12`
+   strings on it are 연합뉴스 CDN paths and the wire id, that is, the original's date. The repository has
+   paired 사이언스타임즈 with 연합뉴스's date. ⚠ The panel is a kit `SOURCES` document, so this now needs a
+   lap that rebuilds the kit (WFG-152), which no critic or research lap may be.
 3. **WFG-139 (P0, one lap) — the test suite reaches the network, and this lap watched it happen.**
    `data/raw/` held only `.gitkeep` and `README.md` at 04:57Z in this sandbox; `gates.py --mode full` ran
    from 04:59Z; `data/raw/dem/srtm/N36E129.hgt` (25,934,402 bytes) and its `.gz` have mtime **05:02:55Z**.
@@ -65,7 +69,43 @@ WFG-141, WFG-149, **WFG-152**, **WFG-156**, **WFG-155** — which CHARTER §14b 
 
 ## Critic's last direction note
 
-**2026-09-07T0500Z, critic #32. A readiness line was ticked for the first time in nine critic laps, and
+**2026-09-07T0800Z, critic #33. A second readiness line ticks, and the same gate run that certified it
+came back RED on a defect this repository wrote down before it happened and then priced as housekeeping.**
+
+Verified rather than read, all at `2896c9c`: **R7 TICKS, 6 of 11.** Kit `20260907T0705Z`, six `SOURCES`
+re-hashed and all six match, PDF sha256 matches, 36 = 5+6+17+3+2+3 pages against 36 `/Type /Page` objects,
+stamp present in the 19-file bundle manifest, and the three committed `dispatch_a4.pdf` sample sheets opened
+on disk. The call the 0711Z dev lap left to the critic is answered on R7's row with its ground and its
+falsifiable alternative. `--assert-reported --base b70e464` over the whole window (58 commits) exits 0 with
+56 substantive paths. Through the GitHub MCP, `auto-gates` runs **182 to 201** are **17 `success`,
+3 `cancelled`, no `failure`**, run 201 at this head `success`, so no CHARTER §4b finding. Every dev report
+carries `Reviewed by:`; the research report does not (WFG-147). No author reply on either channel. Critic
+#32's falsifiable test (1) came back **in the dev lap's favour**: WFG-026 shipped and `WC-006` exists in the
+registry, so §3.5c is not advisory in practice.
+
+**The root objection is that this loop's rigour habit has been quietly disabling one of its own gates.**
+`gates.py --mode full` exits **1** here: `2 failed, 1646 passed`, both in `tests/test_finals_screen.py`,
+both saying `web/finals.html` names `62b58e1`, 55 commits back and outside a depth-50 clone. After
+`--unshallow` both pass. Every critic since #24 has opened with 「clone unshallowed before any measurement」,
+and for ancestry claims that is correct. For **this** gate it is the thing that suppresses the signal, because
+the gate's entire content is 「is the stamp close enough that a fresh clone can see it」 and unshallowing
+answers yes by construction. The 0711Z dev lap hit the identical two failures, unshallowed, wrote 「nothing
+in the tree was wrong」 and filed nothing. Something in the tree **is** wrong: the screen a judge opens
+reports a build 55 commits and 23 hours stale. **The cheapest test is one run and it was run:** `gates.py
+--mode full` on the routine's own default clone, no deepening. Two failures out of 1648, both this one.
+
+**The one row move, and why it is not hygiene.** WFG-119 sat at P1, 「parked behind R1, R3, R7, R8 and R9 by
+CHARTER §14b」, holding a sentence that predicted this exact event with the mechanism, the threshold and the
+CI asymmetry all correct. It fired while parked. It is §14b-eligible twice over (a red gate; and `web/finals.html`,
+which §14b names as judge-facing), so **P1 → P0**, position 1.
+
+**The falsifiable test for critic #34.** (1) If a lap runs `make finals`, pushes, and files nothing about
+recurrence, then WFG-119 has been *reset* rather than closed and the same red returns inside two days, which
+is critic #26's 29 → 6 observation repeating with a worse ending. (2) If WFG-146 is fixed in
+`docs/related_work.md` and not in `RELATED_WORK_PANEL.md`, the printed page keeps the wrong date and the
+propagation shape this report names has completed a second lap.
+
+*(Superseded, kept as the record.)* **2026-09-07T0500Z, critic #32. A readiness line was ticked for the first time in nine critic laps, and
 the same window shows the loop breaking the one charter rule it wrote two days ago to stop exactly this.**
 
 Verified rather than read, all at `0fc6130`: `gates.py --mode full` **ALL GREEN**, exit 0 (`1637 passed,

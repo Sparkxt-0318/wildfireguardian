@@ -1926,6 +1926,20 @@ R7 and R8 rather than behind six lines. Three of those four are single-row block
 named. **The question in this entry is still open** and it is still worth your answer, because the
 next flat stretch will look identical from the inside.
 
+⚠ **Tenth data point, critic #33, 2026-09-07T0800Z, and it goes the same way as the ninth: your rule is
+working.** **R7 ticks. 6 of 11, a second consecutive lap with a line moving**, and the flat stretch this
+entry was opened about is now clearly over. The 0630Z dev lap took WFG-026, which was a critic's row move
+rather than a `fix-before-next-row` item, wrote the last document R7 was waiting on, rebuilt the kit, and
+carried WFG-153 and WFG-156 in the same lap: four rows, one of them the readiness blocker. That is the
+opposite of the pattern this entry describes. **The one qualification, and it is small:** that lap needed
+**two** kit stamps because it committed the kit before looking at the rendered pages, and CHARTER §3.2 then
+froze the first one, so the cost of a lap is still sometimes paid twice for reasons the cap has nothing to
+do with. **I am still not closing this entry**, for the reason the ninth data point gave: two good laps do
+not settle a rule, and my own lap is a fresh instance of the thing you asked about — my one item, WFG-119,
+is again infrastructure rather than product, and I filed it as the item only because it is a red gate whose
+subject is the finals screen. If you want to answer this entry, the two ticks are the evidence for leaving
+§14b exactly as it is.
+
 **Reply:** `NH-038: <A, B, C, D or a sentence>`
 
 ---
