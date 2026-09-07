@@ -296,3 +296,165 @@ def test_a_committed_printable_never_overwrites_an_earlier_one() -> None:
         assert bp.sha256(pdf) == m["pdf_sha256"], (
             f"{m['pdf']} does not match the sha256 its manifest records; a "
             f"committed artifact was modified in place (CHARTER §3.2)")
+
+
+# --------------------------------------------------------------------------
+# The freshness contract (WFG-140)
+# --------------------------------------------------------------------------
+#
+# Everything above this line reads the manifest against itself: the sources it
+# lists have a sha256 each, the PDF matches its own recorded hash, no stamp is
+# overwritten. All of it stayed green through four consecutive drifts of
+# docs/auto/JUDGE_QA.md (critics #27, #28, #29, #30: af955a30fa, 7d5ac4c9c5,
+# 175da9e50c, 5ac45ea810 against a recorded 2c8451211e), because nothing here
+# compared a recorded source hash against the tree the sources actually live in.
+# That is the one comparison that detects a stale printable, and the fourth
+# drift was the one that made the printed pages worse rather than merely older:
+# the 17 printed Q&A pages held Q19 without the caveat WFG-138 had just made
+# mandatory, so the paper in the student's hand and the file the gates read
+# disagreed about what the student is allowed to say.
+
+def newest_manifest() -> Path | None:
+    """The manifest of the most recent build, or None if nothing is committed.
+
+    Older stamps stay valid records of what they were built from (CHARTER §3.2),
+    so only the newest one is held to the working tree.
+    """
+    if not OUT_DIR.exists():
+        return None
+    manifests = sorted(OUT_DIR.glob("manifest_*.json"))
+    return manifests[-1] if manifests else None
+
+
+def test_the_newest_printable_is_not_stale_against_the_tree() -> None:
+    """The kit on paper still says what the repository says today.
+
+    Graded by touching one source: change any byte of a SOURCES document and
+    this fails naming that path. It was also confirmed red BEFORE the rebuild it
+    ships with, on the JUDGE_QA.md drift above, which is what says it is not
+    green by construction (`paper/GAPS.md` G8 point 2).
+    """
+    manifest_path = newest_manifest()
+    if manifest_path is None:
+        pytest.skip("no printables have been committed yet")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    drifted = []
+    for entry in manifest["sources"]:
+        path = ROOT / entry["path"]
+        if not path.exists():
+            drifted.append(f"{entry['path']}: MISSING from the tree")
+            continue
+        current = bp.sha256(path)
+        if current != entry["sha256"]:
+            drifted.append(
+                f"{entry['path']}: manifest {entry['sha256'][:10]}... "
+                f"tree {current[:10]}...")
+    assert not drifted, (
+        "the newest booth printable is stale against the documents it prints, so "
+        "the paper the student carries to the booth and the files the gates read "
+        "no longer agree:\n  " + "\n  ".join(drifted)
+        + f"\n{manifest_path.name} was built at stamp {manifest['stamp']}. "
+        "Rebuild at a NEW stamp beside it (`make printables`); CHARTER §3.2 "
+        "forbids overwriting the committed PDF or its manifest.")
+
+
+def test_every_source_the_build_prints_is_recorded_by_the_newest_manifest() -> None:
+    """A source added to the build after the last rebuild is drift too.
+
+    The test above compares what the manifest lists; this one compares the other
+    direction, so adding a SOURCES entry cannot pass unnoticed by leaving the
+    manifest short.
+    """
+    manifest_path = newest_manifest()
+    if manifest_path is None:
+        pytest.skip("no printables have been committed yet")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    recorded = {e["path"] for e in manifest["sources"]}
+    building = {path for path, _title in bp.SOURCES}
+    assert recorded == building, (
+        "scripts/build_printables.py and the newest manifest disagree about what "
+        f"goes on paper.\n  in the build, not in {manifest_path.name}: "
+        f"{sorted(building - recorded)}\n  in the manifest, not in the build: "
+        f"{sorted(recorded - building)}\nRebuild at a new stamp "
+        "(`make printables`).")
+
+
+# --------------------------------------------------------------------------
+# The kit against its own definition of done (WFG-130)
+# --------------------------------------------------------------------------
+#
+# The build was measured against its own SOURCES list from the first lap, and
+# never against docs/auto/KCF_READINESS.md R7, which is what says the kit is
+# finished. R7 enumerates five printables; the first build carried one of them
+# and three of its four documents are not on R7's list at all. That is why R7
+# could not tick on a build that was otherwise good, and why its manifest said
+# for four windows that a document done(20260903T0653Z) did not exist.
+
+#: R7's five items, each resolved to what it is in the tree. An entry with a
+#: reason is deliberately NOT printed here and the reason is the whole point of
+#: writing it down: an exclusion nobody can read is how the first kit lost three
+#: of these without anyone noticing.
+R7_ITEMS: tuple[tuple[str, str | None, str | None], ...] = (
+    ("evidence sheet (A4)", "docs/submission_reconciliation.md", None),
+    # R7's first two items are one document. WFG-018 (「제출본 대비 정본
+    # reconciliation sheet as NEAR-labelled prose (Korean, one page)」) is
+    # done(20260903T0653Z) and its artifact is this file, whose fourth line says
+    # 「인쇄본은 양면 한 장입니다」.
+    ("reconciliation sheet", "docs/submission_reconciliation.md", None),
+    ("related-work and SFTD059T differentiation panel", None,
+     "WFG-026 is todo: the document does not exist, so there is nothing to print"),
+    ("booth checklist", "docs/auto/finals/BOOTH_SETUP.md", None),
+    ("29 dispatch sheets sample", "outputs/dispatch",
+     "already a set of committed PDFs that print directly; re-rendering them "
+     "through this build would put a second, worse copy in the repository "
+     "(CHARTER §3.2)"),
+)
+
+
+def test_r7_still_enumerates_the_five_printables_this_list_resolves() -> None:
+    """If R7's wording moves, this mapping is stale and must be re-read.
+
+    The list above is a reading of one line in another file. Binding to that
+    line is what stops the reading from quietly outliving it.
+    """
+    readiness = (ROOT / "docs" / "auto" / "KCF_READINESS.md").read_text(encoding="utf-8")
+    missing = [name for name, _path, _why in R7_ITEMS if name not in readiness]
+    assert not missing, (
+        "docs/auto/KCF_READINESS.md no longer enumerates " + str(missing)
+        + ", so R7_ITEMS here is a reading of a line that has changed. Re-read "
+        "R7 and rewrite the mapping; do not delete this test.")
+
+
+def test_every_r7_printable_that_exists_is_actually_printed() -> None:
+    """R7 is the definition of done for the booth kit; SOURCES is the build.
+
+    Graded by removing one entry from bp.SOURCES and seeing this go red naming
+    it.
+    """
+    building = {path for path, _title in bp.SOURCES}
+    problems = []
+    for name, path, why in R7_ITEMS:
+        if path is None:
+            assert why, f"R7 item {name!r} has neither a path nor a reason"
+            continue
+        exists = (ROOT / path).exists()
+        if why:
+            assert exists, (
+                f"R7 item {name!r} is excluded from the printables because "
+                f"{why}, but {path} is not in the tree, so the reason no longer "
+                "holds and the exclusion needs re-reading")
+            continue
+        if not exists:
+            problems.append(f"{name}: {path} is not in the tree")
+        elif path not in building:
+            problems.append(
+                f"{name}: {path} exists but scripts/build_printables.py does not "
+                "print it")
+    assert not problems, (
+        "the booth kit does not contain every R7 printable that exists in the "
+        "tree, which is the defect WFG-130 was filed for — the first build was "
+        "measured against its own source list and never against R7:\n  "
+        + "\n  ".join(problems)
+        + "\nAdd the path to SOURCES in scripts/build_printables.py and rebuild "
+        "at a new stamp (`make printables`), or record here why it is not "
+        "printed.")
