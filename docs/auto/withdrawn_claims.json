@@ -212,6 +212,32 @@
           "flags": "i"
         }
       ]
+    },
+    {
+      "id": "WC-005",
+      "title": "the booth kit's evidence sheet does not exist yet",
+      "claim": "the A4 evidence sheet / 제출본 대비 정본 대조표 is not written, so the booth printables cannot contain it and the laptop-death procedure's step 3 stands on that gap",
+      "withdrawn_by": "dev lap 2026-09-07T0018Z (WFG-130), and the withdrawal was the lap's own: the manifest of WFG_printables_20260906T0620Z.json said 「The A4 evidence sheet (WFG-018) ... [is] NOT in this file; the first two do not exist yet」 while WFG-018 has been done(20260903T0653Z) since 2026-09-03 and docs/submission_reconciliation.md is 13,702 bytes. Critic #25 first named the false half on 2026-09-06T0800Z; four printables manifests carried it. The lap that corrected it did NOT register it, and the independent reviewer of that same lap found the claim still standing in docs/auto/finals/BOOTH_SETUP.md at four places --- a file that is SOURCES entry #1 of the PDF the lap had just built, so the printed kit told the student on page 2 that the kit does not exist and on pages 21-23 was the sheet it said did not exist. Registered in the same lap, before the push, which is what CHARTER §3.5c requires and what WC-004 exists to have taught.",
+      "artifact": "docs/auto/finals/printables/manifest_20260907T0032Z.json `what_this_does_not_show`, which names only the two R7 items genuinely absent, and tests/test_printables.py::test_every_r7_printable_that_exists_is_actually_printed",
+      "say_instead": "인쇄물 한 권 안에 대조표가 들어 있습니다 (WFG-130, 2026-09-07). 아직 없는 것은 관련연구 · SFTD059T 차별화 패널(WFG-026)이고, 아무도 실제 프린터로 뽑아 보지 않았다는 것(NH-014)입니다",
+      "spellings": [
+        {
+          "pattern": "근거\\s*시트는?\\s*아직\\s*없",
+          "token": "근거 시트 아직 없",
+          "why": "the withdrawn assertion itself, in the spelling docs/auto/finals/BOOTH_SETUP.md:240 used --- 「A4 근거 시트는 아직 없습니다(WFG-007)」. Written by the independent reviewer of dev lap 2026-09-07T0018Z, which found it by grepping 「근거 시트」 across the tree after the lap's hand sweep had missed it"
+        },
+        {
+          "pattern": "인쇄물이?\\s*아직\\s*없",
+          "token": "인쇄물 아직 없",
+          "why": "the same claim about the kit rather than the sheet, which is how BOOTH_SETUP.md:181 and :229 spelled it. Anchored on 아직 so that 「종이는 아직 없다」 about physical printing --- which is TRUE and stays true until NH-014 --- is not caught by it; the object of this pattern is the file, not the paper"
+        },
+        {
+          "pattern": "evidence\\s+sheet[^\\n]{0,160}?(?:do(?:es)?\\s+not\\s+exist|(?:is|are)\\s+not\\s+written)",
+          "token": "en evidence sheet does not exist",
+          "why": "the claim in English, in the spelling every printables manifest up to 20260907T0032Z shipped: 「The A4 evidence sheet (WFG-018), the related-work table (WFG-026) and the 29 dispatch sheets in outputs/dispatch are NOT in this file; the first two do not exist yet.」 The window is 160 characters and non-greedy because the false clause sits at the end of a list of three items, 138 characters after the phrase it is about --- a shorter window missed the only sentence this pattern exists for, measured rather than assumed. WC-003 exists because the Korean guard lists did not read English",
+          "flags": "i"
+        }
+      ]
     }
   ]
 }

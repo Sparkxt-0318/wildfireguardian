@@ -458,3 +458,27 @@ def test_every_r7_printable_that_exists_is_actually_printed() -> None:
         + "\nAdd the path to SOURCES in scripts/build_printables.py and rebuild "
         "at a new stamp (`make printables`), or record here why it is not "
         "printed.")
+
+
+def test_the_per_source_page_counts_sum_to_the_page_count(built: dict) -> None:
+    """The two-second check that had never been run.
+
+    `pages_per_source` was one too large for every source, because the value was
+    computed as `r.page - start + 1` while the h1 branch of the renderer had
+    already advanced the page. The error telescoped, so it was invisible in the
+    breakdown and visible only in the sum: the 20260906T0620Z manifest records
+    6+7+17+3 = 33 against a `pages` of 29, and 20260907T0032Z recorded
+    6+7+18+4+3 = 38 against 33. Both decompositions had been copied onto
+    judge-facing prose --- `docs/printables.md` §3 and
+    `docs/auto/KCF_READINESS.md` R7 --- under a sentence saying they were
+    re-derived from the manifest rather than retyped, which was true and is
+    exactly how the wrong numbers travelled. Re-derived is not checked.
+    """
+    per_source = built["pages_per_source"]
+    assert sum(per_source.values()) == built["pages"], (
+        "the per-source page counts do not sum to the total the same build "
+        f"reports: {per_source} sums to {sum(per_source.values())}, `pages` is "
+        f"{built['pages']}. One of the two is wrong and both get printed into "
+        "docs/printables.md and docs/auto/KCF_READINESS.md R7.")
+    assert all(v >= 1 for v in per_source.values()), (
+        f"a source drew fewer than one page: {per_source}")

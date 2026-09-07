@@ -588,7 +588,19 @@ def build(stamp: str, out_dir: Path, preview_dir: Path | None = None) -> dict:
                     if not blocks or blocks[0].kind != "h1":
                         blocks.insert(0, Block("h1", title))
                     r.draw(blocks)
-                    r.pages_per_source[rel] = r.page - start + 1
+                    # `start` is the page the PREVIOUS section ended on: the
+                    # h1 branch of Renderer.draw calls new_page() itself, so the
+                    # first page of this section is start + 1 and the count is
+                    # the plain difference. The +1 that used to be here made
+                    # every value one too large and the error telescoped --- the
+                    # 20260906T0620Z manifest records 6+7+17+3 = 33 against a
+                    # `pages` of 29, and the 20260907T0032Z one 6+7+18+4+3 = 38
+                    # against 33. Both were re-derived from the manifest onto
+                    # judge-facing prose and neither was ever summed. Found by
+                    # the independent reviewer of dev lap 2026-09-07T0018Z;
+                    # test_the_per_source_page_counts_sum_to_the_page_count is
+                    # the two-second check nobody had run.
+                    r.pages_per_source[rel] = r.page - start
                 r.finish()
                 pages = r.page
                 r.close()
