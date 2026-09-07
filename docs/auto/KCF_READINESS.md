@@ -5,7 +5,64 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
-**Tick count, critic #35, 2026-09-07T1416Z: 6 of 11 (R2, R4, R5, R6, R7, R9), unchanged — and this is the second
+**Tick count, critic #36, 2026-09-07T1700Z: 6 of 11 (R2, R4, R5, R6, R7, R9), unchanged — and R1's blocker CHANGED
+identity for the first time in five laps.** Checked on disk at `7cc4eb7`, re-run rather than read, on the routine's
+**default** clone before any deepening (`is-shallow-repository` = `true`, `rev-list --count HEAD` = **50**, so the whole
+resolvable history is inside this lap's 24 h window). Lines ticked inside the window: **R9** at 05:00Z and **R7** at
+08:00Z, so the "zero across two consecutive critic laps" direction finding does not fire.
+
+- ⚠⚠ **R1 does not tick, and the blocker is no longer WFG-110.** WFG-110 **closed** at `60c07c8` and I re-derived it
+  rather than reading it: `scripts/finals_screen_keys.py` returns **28** keys, **all 28** appear in
+  `docs/finals_screen_numbers.md`, and **all 28** are keys of `docs/NUMBERS.json` (383 entries). The doc writes no
+  registry VALUE, which is what keeps it from becoming a second home for a number (CHARTER §3.3). **R1's second clause
+  is met.** Its **first** clause — 「opens from `file://` with Wi-Fi off, **all four acts advance**」 — is the one no
+  measurement has ever covered, and I took the cheapest honest reading rather than inheriting the 2026-09-05 hand-run:
+  `/opt/pw-browsers/chromium-1194/chrome-linux/chrome --headless=new --disable-gpu --no-sandbox
+  --virtual-time-budget=8000 --dump-dom file://$PWD/web/finals.html` exits **0** and returns **3,449,612 bytes** of
+  post-JS DOM holding `view-live`, `view-evidence`, `view-reliability`, `view-system` and the labels 라이브 · 근거 ·
+  신뢰성 · 시스템; the built file contains **zero** `http(s)` `src`/`href` references. ⚠ **What that does NOT show, and
+  why I do not tick:** at initial load `view-live` = 1,157,688 B and `view-reliability` = 2,063,451 B, while
+  `view-evidence` = **225 B** and `view-system` = **235 B**, with **no Korean text in either** — consistent with those
+  two views building on switch, which `--dump-dom` cannot exercise because it presses no key. So 「advance」 is exactly
+  the word nothing has measured. **WFG-009 is that row, it has been P1 since the kickoff inside the block §14b holds
+  *behind* R1, and it is this lap's one row move: P1 → P0, DIRECTION position 1.**
+- **R3 unchanged, and its sandbox half now has a NINTH measurement against it.** `verify`, `snapshot-verify`,
+  `env-check` PASS; `baseline-verify` WARN is the documented CHARTER §3d state. `gates.py --mode full` exits **0**, ALL
+  GREEN, `1665 passed, 62 skipped, 2 xfailed`, 260.5 s, **cold**. Through the GitHub MCP (`curl` against
+  `api.github.com` is 403 here again, WFG-119): `auto-gates` runs **186 to 215** on `auto/dev` are **28 `success`, 2
+  `cancelled`, ZERO `failure`**, and run **215** at this head is `success` — **no CHARTER §4b finding.** `--assert-head`
+  exits 0 and `--assert-reported --base 719c420` exits 0 over the 49 commits this clone resolves, with 58 substantive
+  paths travelling with `docs/auto/reports/2026-09-07T1600Z-dev.md`. Every **dev** and **critic** report in the window
+  carries `Reviewed by:`; the research report does not (WFG-147, unchanged). ⚠ R3 cannot tick while the suite reaches
+  the network, and this lap watched it: `data/raw/dem/srtm/N36E129.hgt` (**25,934,402 B**) and its `.gz` have mtime
+  **2026-09-07T17:02:33Z**, inside a `pytest-full` run that began about 17:00Z, in a container whose `data/raw/` held
+  only `.gitkeep` and `README.md` at start. **WFG-139, ninth consecutive lap.** R3 also still waits on one
+  `make all-checks` on the author's laptop.
+- ⚠⚠ **R5 keeps its tick, and it carries the sentence its own card forbids.** `docs/auto/JUDGE_QA.md:650-652` — inside
+  **Q16a · T0**, the card critic #35 gave a scorecard point four hours ago — has the student say aloud that G-DAPS
+  「특정한 집의 어느 길이 위험에 들어가고 어느 길이 들어가지 않는지는 **말해 주지 않습니다**」. `:671-672` of the same
+  card says ❌ 「저쪽은 가구 단위로는 못 합니다」라고 **단정하지 마십시오**, gives the permitted form
+  ⭕ 「**공개된 자료에서는** 가구 단위 산출물이 확인되지 않습니다」, and gives the reason: 「심사위원이 그 시스템을 직접
+  써 본 분일 수 있고, 그때 무너지는 것은 이 답변 하나가 아니라 신뢰 전부입니다.」 It is the **Korean half of `WC-008`**,
+  registered ninety minutes earlier on the English spelling `walk out, and along which path`, which structurally cannot
+  reach it. `:625` of the same file asserts that Q16a 「「공개된 자료에서는 확인되지 않습니다」라고**만** 말합니다」, and
+  that is false at `:651`. **WFG-166, and this lap's one `fix-before-next-row` item.** The tick stands because R5's
+  condition is coverage and the bank answers 42 questions; the sentence is a 제출 자료 deduction and is scored there.
+  ⚠ **A second R5 gap, found by this lap's judge drill and filed rather than ticked against:** `git grep -niE
+  '책임|법적|면책|사람이 다치'` over `docs/auto/JUDGE_QA.md` returns **zero** at this head, while `web/finals.html:1393`
+  prints 「최종 판단은 언제나 사람이 내립니다」 and `DEMO_SCRIPT_5MIN.md:217` gives it as the 재난대응 실무자 lens's
+  one-line answer. One of the five judges is a public-sector disaster-response official. **WFG-167.**
+- **R7 keeps its tick, and critic #35's printed defect is GONE.** Kit `20260907T1551Z`, **38** pages, sha256
+  `b54eb514a95e…`, bundle manifest re-pointed to 19 files. `RELATED_WORK_PANEL.md:40` now reads 「**이 패널이 읽은
+  자료(카탈로그 기록·언론 보도)에서는** 앞의 두 시스템의 재현 절차가 확인되지 않습니다」 — narrowed twice, once by the
+  lap and once by its reviewer — and the dated note beside it **describes** the withdrawn sentence rather than
+  reprinting it, which is `WC-005`'s precedent used correctly on a printed page. What R7 now carries instead is
+  `JUDGE_QA.md:650-652`, 17 of the same 38 pages: the sentence is on paper, in the student's hand. Same deduction,
+  different file, and it is WFG-166's second half.
+- **R2, R4, R6, R9 hold. R8, R11 unchanged**; R10 stays withdrawn and R12 is the author's (NH-014, and it is now the
+  only pre-registered blocker of Track A 구현 및 유용성 20 that is not the loop's to close).
+
+*(Superseded, kept as the record, CHARTER §3.7.)* **Tick count, critic #35, 2026-09-07T1416Z: 6 of 11 (R2, R4, R5, R6, R7, R9), unchanged — and this is the second
 consecutive lap where unchanged is correct rather than a stall.** R9 (05:00Z) and R7 (08:00Z) both moved inside this
 24 h window, so the "zero for two consecutive critic laps" direction finding does not fire. Checked on disk at
 `b54ca28`, re-run rather than read, on the routine's **default** clone before any deepening
