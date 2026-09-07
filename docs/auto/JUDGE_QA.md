@@ -488,7 +488,14 @@ provenance only`라고 적고 있으며, 영덕 항목은 같은 주석에서 �
 41498ef HEAD` 는 **0이 아닌 값으로 종료**, `git branch -a --contains` 는 그 커밋을 <!-- forbidden-ok: is-ancestor 0이 아닌 값 -->
 `origin/auto/lap-b1989d5-superseded` 와 `origin/ordering-boundary` 에서만 찾습니다.
 `tests/test_finals_screen.py` 의 두 계보 검사(`:544`, `:550`, `:649`)는 모두 `git` 각인만
-읽고 이 필드는 읽지 않습니다. 그리고 `built_at_git_commit` 은 레지스트리가 153항목이던
+읽고 이 필드는 읽지 않습니다.
+[!] **2026-09-07 주석(WFG-119). 위 세 줄 번호는 더 이상 그 검사들을 가리키지 않습니다.**
+기록이므로 고치지 않고 주석만 답니다(CHARTER §3.7). 같은 파일에 WFG-119 의 낡음 게이트가
+추가되면서 줄이 밀렸고, `:544`·`:550`·`:649` 는 지금 각각 새 도우미의 독스트링, 그 가드,
+채점 표를 가리킵니다. 두 검사의 **이름**은
+`test_the_integrity_panel_names_a_commit_this_repository_has` 와
+`test_the_escape_this_gate_cannot_close_is_still_open` 이고, 이름은 편집에 견딥니다.
+**부스에서 줄 번호를 인용하지 마십시오. 이름으로 말하십시오.** 그리고 `built_at_git_commit` 은 레지스트리가 153항목이던
 때의 값인데 그 옆 카드는 **326**을 인쇄합니다(`build_numbers.py` 는 WFG-040 때문에 다시
 돌리지 않습니다).
 

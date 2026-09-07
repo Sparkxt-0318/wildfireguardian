@@ -143,7 +143,24 @@ parks its work on `auto/red/<stamp>` and reports instead of forcing.
 minute (`pins_ok: true`). `data/raw/**` is git-ignored, so the FIRMS/ERA5/DEM
 bundle and the two acquisition manifests never reach a fresh clone; work from
 `data/snapshots/` and `data/processed/`. A GitHub MCP is available in the
-sandbox for reading Actions runs and pull requests.
+sandbox for reading Actions runs and pull requests; `curl` against
+`api.github.com` returns 403 here and must not be used (WFG-119).
+
+⚠ **The routine's checkout is SHALLOW, and this paragraph did not say so for
+four days.** `git rev-parse --is-shallow-repository` answers `true` and the
+clone holds **50** commits (measured 2026-09-07 on two separate laps; earlier
+laps recorded 294, and `--unshallow` gives 531 — **the depth is not a constant,
+so a lap that quotes one measures it in its own clone and dates it**). Three
+consequences the loop has actually paid for: (1) `git merge-base --is-ancestor`
+cannot answer across the boundary, and **five consecutive critic laps published
+false ancestry findings** from it (WFG-115, now `WC-004`); (2) a clone holding
+D commits resolves a stamp at most D-1 behind `HEAD`, so any gate whose
+predicate is 「can this clone resolve X」 fires at the **clone depth**, not at
+any fixed distance, and fires in the sandbox while GitHub at `fetch-depth: 0`
+stays green; (3) **no reachability or ancestry claim may be written until
+`--is-shallow-repository` answers `false`**, with the depth recorded beside the
+claim. Deepening is not itself a control: two laps deepened by a guess (120,
+then 250) and re-published the same wrong answer with more confidence.
 
 0. **Bootstrap.** `git fetch origin && git checkout -B auto/dev origin/auto/dev`
    (create from `origin/Main` only if `auto/dev` does not exist yet). Then

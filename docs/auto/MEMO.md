@@ -1817,7 +1817,21 @@ and added one that asks the question the loop actually cares about — 「how ma
 behind HEAD is this build」 — at a threshold (30) well inside the depth-50 horizon, whose
 failure names the staleness, the clone depth it measured, the remedy (`make finals`) and
 the row. Probed both ways: at 31 commits behind, the two old gates stay **green** and
-only the new one fires, 24 commits before the cryptic failure could exist.
+only the new one fires.
+
+⚠ **The first version of this entry said 「24 commits before the cryptic failure could
+exist」 and that was false — the reviewer nailed it and the correction is the sharper
+lesson.** The old gates do not fail at any fixed distance. A clone holding D commits
+resolves a stamp at most D-1 behind `HEAD`, so they fail at **D**, the clone's own
+depth (measured here: `HEAD~51` resolves, `HEAD~52` is `fatal: Needed a single
+revision`, in a 52-commit clone). 24 came from subtracting 31 from 55, and 55 was
+merely where the stamp happened to sit when critic #33 looked. So the lead is
+**(clone depth − 30)**: about 20 at the measured depth-50 checkout, and **unbounded**
+in CI at `fetch-depth: 0`, where those gates never fire from staleness at all.
+I probed two points and let the interpolation between them become a stated property
+of the gate — which is exactly what this row faults critic #26 for (「deepening by a
+guess is not a control」), committed by the lap that was writing that sentence down.
+**Two probe points do not locate a boundary; probe the boundary itself.**
 
 **The lesson is about diagnostics, not predicates.** When a gate can only fail by way of
 an environmental accident — a shallow clone, a missing file, a timezone — its message
@@ -1829,3 +1843,26 @@ will want to reverse.** This makes the alarm ring MORE often (about every 0.75 d
 instead of 1.3), not less. That is the trade, taken deliberately: the answer costs one
 command and no judgement. A lap that finds the frequency intolerable should raise
 `STAMP_MAX_COMMITS_BEHIND` on WFG-119 with a measurement, not delete the gate.
+
+## 2026-09-07T0918Z, second entry — a mutation grid can be served stale bytecode, and it lies quietly
+
+Grading the new threshold meant setting `STAMP_MAX_COMMITS_BEHIND` to 5, 20, 29, 30, 31,
+45 in turn and running the grader each time. The first grid reported **N=45 passes**, which
+would have meant the test was still vacuous. Re-running N=45 on its own reported **fail**.
+
+The cause is not the test. `30`, `31` and `45` are all two characters, so the mutated file
+keeps **the same size**, and CPython keys its bytecode cache on (mtime, size) at
+one-second resolution — inside a fast loop the interpreter re-used the previous
+iteration's `.pyc`. Every result in that grid was potentially one mutation behind.
+
+**So: a mutation probe that edits a file in place must clear `__pycache__` (and
+`.pytest_cache`) between mutations, or set `PYTHONDONTWRITEBYTECODE=1`.** With that, the
+grid is clean: red at 5, 20, 28, 31, 32, 45 and green only at 29 and 30, which is the band
+the two hard-coded distances pin.
+
+⚠ The general form, and it is the one worth carrying: **a probe is an experiment, and an
+experiment with a caching layer between the treatment and the measurement is not
+controlled.** This sits directly beside the 2026-09-07T0705Z lesson (「re-run the grading
+probe after the fix」) — that one was about running the probe at the wrong *time*, this one
+about the probe not observing what it thinks it changed. When a probe result surprises you,
+re-run that single case in isolation before you believe it.

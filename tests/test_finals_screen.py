@@ -699,75 +699,113 @@ def test_the_escape_this_gate_cannot_close_is_still_open():
         "Rebuild the screen at a commit that is already pushed, or push first and rebuild.")
 
 
-def test_the_screen_is_rebuilt_before_its_stamp_ages_out_of_a_shallow_clone():
+def test_the_screen_is_rebuilt_before_its_stamp_ages_out_of_this_clone():
     """WFG-119. The recurrence, caught early and named, instead of late and cryptic.
 
-    The two gates above ask "can this clone resolve the stamp". That question
-    is answered by the CLONE as much as by the tree, so it goes red only once
-    the stamp has crossed the shallow boundary -- at which point the failure
-    text is `fatal: Not a valid object name` and reads as corruption. On
-    2026-09-07 the stamp `62b58e1` crossed it at 55 commits behind HEAD, the
-    gate went red in every sandbox while GitHub at `fetch-depth: 0` stayed
-    green, and the row that predicted this in writing was sitting at P1.
+    The two gates above ask "can this clone resolve the stamp". That question is
+    answered by the CLONE as much as by the tree: a clone holding D commits can
+    resolve a stamp at most D-1 behind HEAD, so those gates cannot fail from
+    staleness until the stamp is **D commits behind**, and in GitHub Actions
+    (`fetch-depth: 0`) they never fail from staleness at all. On 2026-09-07 the
+    stamp `62b58e1` had drifted to 55 commits behind in a depth-50 checkout; both
+    gates went red with `fatal: Not a valid object name` while CI at the identical
+    commit stayed green, and two laps read that as a broken repository, ran
+    `--unshallow`, and filed nothing.
 
     This gate asks the question the loop actually cares about -- "is the judged
-    screen a recent build" -- in a form that is answerable in ANY clone depth,
-    and it fires at STAMP_MAX_COMMITS_BEHIND, well inside the horizon. What it
-    buys is not a rarer alarm; it is a legible one, with the remedy in the text.
+    screen a recent build" -- which is answerable at ANY clone depth, so the
+    sandbox and CI reach the same verdict for the same reason.
     """
     _needs_git_history()
     stamp = _payload()["git"]
+    depth = _git("rev-list", "--count", "HEAD").stdout.strip()
+    shallow = _git("rev-parse", "--is-shallow-repository").stdout.strip()
     behind = _stamp_commits_behind(stamp)
     if behind is None:
         pytest.fail(
-            f"web/finals.html names {stamp}, which this clone cannot resolve at all: "
-            f"the stamp has aged past the clone's shallow boundary "
-            f"(depth here: {_git('rev-list', '--count', 'HEAD').stdout.strip()}, "
-            f"shallow: {_git('rev-parse', '--is-shallow-repository').stdout.strip()}). "
-            "The screen is stale, not the repository broken. Run `make finals` on the "
-            "commit you are pushing. This is WFG-119; do NOT unshallow and call it fixed.")
+            f"web/finals.html names {stamp}, which this clone cannot resolve at all "
+            f"(it holds {depth} commits; shallow: {shallow}). Either the stamp is more "
+            f"than {depth} commits behind HEAD, or a rebase orphaned it. The likely "
+            "cause is the first, and then the SCREEN is stale, not the repository "
+            "broken. Run `make finals` on the commit you are pushing. This is WFG-119; "
+            "do NOT unshallow and call it fixed.")
     assert behind <= STAMP_MAX_COMMITS_BEHIND, (
         f"web/finals.html was built at {stamp}, now {behind} commits behind HEAD "
-        f"(limit {STAMP_MAX_COMMITS_BEHIND}). The judged screen reports a stale build, "
-        f"and at ~{STAMP_MAX_COMMITS_BEHIND + 20} it stops resolving in the routine's "
-        "depth-50 clone and starts failing as `Not a valid object name`. "
+        f"(limit {STAMP_MAX_COMMITS_BEHIND}). The judged screen reports a stale build. "
+        f"Left alone it keeps drifting, and at {depth} commits behind -- this clone's "
+        "own depth -- it stops resolving and starts failing as `Not a valid object "
+        "name`, which reads as corruption rather than staleness. "
         "Run `make finals` on the commit you are pushing. WFG-119.")
 
 
-def test_the_staleness_threshold_is_graded_against_a_stamp_that_has_aged():
+# The two distances the grading test probes. They are LITERALS on purpose and
+# must not be derived from STAMP_MAX_COMMITS_BEHIND: the first version of this
+# test built its "over the limit" case as `HEAD~(STAMP_MAX_COMMITS_BEHIND + 1)`
+# and then checked verdicts computed from the same constant, so it was
+# arithmetically incapable of failing for ANY threshold -- it passed with the
+# constant set to 5, 20 and 45. It graded the helper and not the policy while
+# claiming to grade the policy, which is the WFG-156 vacuous-binding class one
+# function below where the row records it. Found by this lap's independent
+# reviewer, not by the lap.
+_INSIDE_THE_GATE = 29
+_OUTSIDE_THE_GATE = 31
+
+
+def test_the_staleness_threshold_and_its_helper_are_both_graded():
     """The threshold, measured rather than asserted (MEMO 2026-09-04).
 
-    Grades the predicate the gate above rests on, without touching
-    web/finals.html: a stamp at HEAD is 0 behind and passes; a stamp one commit
-    past the threshold is over it and fails; a stamp git cannot resolve is
-    unanswerable and fails. The third case is the one that fired on 2026-09-07.
+    Two halves. The helper `_stamp_commits_behind` is graded on the four shapes a
+    stamp arrives in. The THRESHOLD is then pinned by two fixed distances, so that
+    changing `STAMP_MAX_COMMITS_BEHIND` breaks this test rather than sliding past
+    it -- which is the point, because MEMO explicitly invites a later lap to raise
+    it when the alarm rings too often. That is a policy change and it should cost
+    an argument on WFG-119, not be free.
     """
     _needs_git_history()
     depth = int(_git("rev-list", "--count", "HEAD").stdout.strip())
-    if depth < STAMP_MAX_COMMITS_BEHIND + 2:
+    needed = _OUTSIDE_THE_GATE + 2
+    if depth < needed:
         pytest.skip(
-            f"this clone holds {depth} commits; grading the threshold needs "
-            f"{STAMP_MAX_COMMITS_BEHIND + 2}. Not a network or clock dependency -- "
-            "the graph itself is too short here.")
+            f"this clone holds {depth} commits; grading needs {needed}. Not a clock, "
+            "timezone, network or out-of-repository dependency -- the commit graph "
+            "itself is too short here. This bound is a literal and is deliberately "
+            "NOT tied to STAMP_MAX_COMMITS_BEHIND, so raising the threshold cannot "
+            "silently skip its own grader.")
 
     head = _git("rev-parse", "HEAD").stdout.strip()
-    over = _git("rev-parse", f"HEAD~{STAMP_MAX_COMMITS_BEHIND + 1}").stdout.strip()
+    inside = _git("rev-parse", f"HEAD~{_INSIDE_THE_GATE}").stdout.strip()
+    outside = _git("rev-parse", f"HEAD~{_OUTSIDE_THE_GATE}").stdout.strip()
 
-    cases = [
-        ("built at HEAD",              head[:7], 0),
-        ("one commit over the limit",  over[:7], STAMP_MAX_COMMITS_BEHIND + 1),
-        ("git could not read HEAD",    "unknown", None),
-        ("aged past the boundary",     "a562045", None),
+    # (1) the helper, on every shape a stamp arrives in
+    helper_cases = [
+        ("built at HEAD",           head[:7],     0),
+        ("29 commits behind",       inside[:7],   _INSIDE_THE_GATE),
+        ("31 commits behind",       outside[:7],  _OUTSIDE_THE_GATE),
+        ("git could not read HEAD", "unknown",    None),
+        ("aged past the boundary",  "a562045",    None),
     ]
     graded = [(label, _stamp_commits_behind(stamp) == expected)
-              for label, stamp, expected in cases]
+              for label, stamp, expected in helper_cases]
     assert all(ok for _, ok in graded), [label for label, ok in graded if not ok]
 
-    # And the decision the threshold encodes: the first case is inside the gate,
-    # the other three are outside it. A change to STAMP_MAX_COMMITS_BEHIND that
-    # broke this would be a change of policy, and should be argued on WFG-119.
-    verdicts = [
-        (behind is not None and behind <= STAMP_MAX_COMMITS_BEHIND)
-        for behind in (_stamp_commits_behind(s) for _, s, _ in cases)
-    ]
-    assert verdicts == [True, False, False, False], verdicts
+    # (2) the threshold itself, against distances this test hard-codes
+    def verdict(stamp: str) -> bool:
+        behind = _stamp_commits_behind(stamp)
+        return behind is not None and behind <= STAMP_MAX_COMMITS_BEHIND
+
+    assert verdict(inside[:7]) is True, (
+        f"a build {_INSIDE_THE_GATE} commits old is being rejected, so "
+        f"STAMP_MAX_COMMITS_BEHIND has been lowered below {_INSIDE_THE_GATE}. That is a "
+        "policy change: it makes every lap rebuild the screen more often. Argue it on "
+        "WFG-119 and move this literal deliberately.")
+    assert verdict(outside[:7]) is False, (
+        f"a build {_OUTSIDE_THE_GATE} commits old is being accepted, so "
+        f"STAMP_MAX_COMMITS_BEHIND has been raised to {_OUTSIDE_THE_GATE} or more. MEMO "
+        "invites exactly this when the alarm rings too often -- but the whole value of "
+        "the gate is that it fires while the stamp is still WELL inside the clone's "
+        "depth (measured: 50 on the routine's default checkout, 2026-09-07). Raise it "
+        "with a measurement on WFG-119, and move this literal in the same commit.")
+    assert verdict("unknown") is False and verdict("a562045") is False
+
+    # (3) and the band the two literals pin, stated so a reader need not derive it
+    assert _INSIDE_THE_GATE <= STAMP_MAX_COMMITS_BEHIND < _OUTSIDE_THE_GATE
