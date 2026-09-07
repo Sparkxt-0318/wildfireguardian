@@ -1,0 +1,96 @@
+{
+  "built_by": "scripts/build_printables.py",
+  "stamp": "20260907T0032Z",
+  "pdf": "WFG_printables_20260907T0032Z.pdf",
+  "pdf_sha256": "19a9b17573f0db4d0f9a628264a632270fe3f6a7a7374e9ea9a600c7b4c924e6",
+  "pages": 33,
+  "pages_per_source": {
+    "docs/auto/finals/BOOTH_SETUP.md": 6,
+    "docs/auto/DEMO_SCRIPT_5MIN.md": 7,
+    "docs/auto/JUDGE_QA.md": 18,
+    "docs/submission_reconciliation.md": 4,
+    "docs/auto/finals/DETECTION_FLOOR_CARD.md": 3
+  },
+  "sources": [
+    {
+      "path": "docs/auto/finals/BOOTH_SETUP.md",
+      "title": "부스 설치 체크리스트",
+      "sha256": "ef7342dacf621413d94bfc80ad08adcda2c8ddd42166ff4bdde88312d75b370a"
+    },
+    {
+      "path": "docs/auto/DEMO_SCRIPT_5MIN.md",
+      "title": "5분 시연 대본",
+      "sha256": "b1aae78f35c751689650c93156a84cd4a2056353273fecf17f8c3667139c1797"
+    },
+    {
+      "path": "docs/auto/JUDGE_QA.md",
+      "title": "심사위원 질의응답 카드",
+      "sha256": "c26dca2a9573bcf81fffc3047f02581db53db83b9c9b8702525f0180839d9633"
+    },
+    {
+      "path": "docs/submission_reconciliation.md",
+      "title": "제출본 대비 정본 대조표",
+      "sha256": "237de4f4aeab8135cb2e104b72a604eba90f9e6741de77a61c379fc432011e97"
+    },
+    {
+      "path": "docs/auto/finals/DETECTION_FLOOR_CARD.md",
+      "title": "탐지 하한 근거 카드",
+      "sha256": "84648d4d6e0b86c1c73a8d31761afdd6229330bbe33e01adc94fc36087b83632"
+    }
+  ],
+  "fonts": [
+    {
+      "path": "web/assets/fonts/IBMPlexSansKR-Regular.woff2",
+      "sha256": "f44b788da57c4717d6eb3a9cc4441204d81c476b9edcf0d3f9aff32b638fd600"
+    },
+    {
+      "path": "web/assets/fonts/IBMPlexSansKR-SemiBold.woff2",
+      "sha256": "aca77c5de668158f3f12e5b4f2f0eef242e974310e04665bc6a57a1287cefb00"
+    },
+    {
+      "path": "web/assets/fonts/IBMPlexMono-Regular.woff2",
+      "sha256": "08949f728dc52d528e69b1667d15c89a5686a4ee9a296ff90983985f99c380f7"
+    }
+  ],
+  "font_codepoints": 2460,
+  "chars_needing_substitution": "§–—ⅡⅢⅤ←→−≥①②③⚠✅❌⭕「」〔〕🛑",
+  "n_chars_needing_substitution": 22,
+  "mono_fallback_lines": 104,
+  "substitutions": {
+    " ": " ",
+    "§": "S",
+    "±": "+/-",
+    "×": "x",
+    "‑": "-",
+    "–": "-",
+    "—": " - ",
+    "‘": "'",
+    "’": "'",
+    "“": "\"",
+    "”": "\"",
+    "…": "...",
+    "Ⅰ": "I",
+    "Ⅱ": "II",
+    "Ⅲ": "III",
+    "Ⅳ": "IV",
+    "Ⅴ": "V",
+    "←": "<-",
+    "→": "->",
+    "−": "-",
+    "≤": "<=",
+    "≥": ">=",
+    "①": "(1)",
+    "②": "(2)",
+    "③": "(3)",
+    "⚠": "[!]",
+    "✅": "[O]",
+    "❌": "[X]",
+    "⭕": "[O]",
+    "「": "\"",
+    "」": "\"",
+    "〔": "[",
+    "〕": "]",
+    "🛑": "[STOP]"
+  },
+  "what_this_does_not_show": "The PDF is a print rendering of committed Markdown documents and adds no number, no claim and no source of its own. Every figure in it is whatever those documents say on the sha256 recorded above; if a document changes, this PDF is stale until a new stamp is built beside it, and tests/test_printables.py now fails when that happens instead of leaving it to be noticed. It is not a substitute for the screens: no map, no route and no figure is rendered here. Of the five printables docs/auto/KCF_READINESS.md R7 enumerates, two are NOT in this file: the related-work and SFTD059T differentiation panel, which is WFG-026 and is not written yet, and the 29 dispatch sheets in outputs/dispatch, which are already committed PDFs that print directly and would only be re-rendered worse here. R7's other three are: the booth checklist, and the evidence sheet and reconciliation sheet, which are one document (WFG-018, docs/submission_reconciliation.md, whose own fourth line calls it a single double-sided page). An earlier build of this kit said the first two of R7's five 「do not exist yet」; that was false of the reconciliation sheet, which was done(20260903T0653Z) at the time, and WFG-130 is the correction."
+}

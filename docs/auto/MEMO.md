@@ -1513,3 +1513,70 @@ the misses included **correct** sentences flagged — the WC-004 direction. Both
 one CONTROL/ATTRIBUTION family instead of two hand-typed tokens, the reviewer's sentences are
 committed as the probe set, and the one class no spelling list reaches (a reworded overclaim
 with no 「only」 at all) is a `strict=True` xfail so it is measured rather than forgotten.
+
+## 2026-09-07T0018Z — the second caveat could not go into the predicate that proves the gate is safe
+
+Critic #30's finding was right: `_is_caveated` accepted one CONTROL spelling and asked
+nothing else, so the README bullet was certified as caveated while half of what the
+manuscript calls binding was missing. The obvious repair is to widen the predicate to
+require both families. **That repair is wrong, and the file says why in its own test
+names.** `_is_caveated` is the predicate `test_the_gate_never_fires_on_a_correctly_caveated_sentence`
+scores over four sentences a reviewer wrote; all four name the fire-blind control and none
+of them mentions a noiseless forecast, and all four are **correct**. A predicate requiring
+both families fires on every one — the WC-004 direction, where the gate pressures the next
+lap to strike a true sentence off a judge-facing surface.
+
+So the shape to reach for when a gate turns out to be too narrow: **do not widen the
+predicate that carries the safe-direction score. Add a second predicate and a per-surface
+requirement.** `ORACLE` + `ORACLE_SURFACES` here. The narrow predicate keeps its meaning and
+its measured score; the new requirement is scoped to the surfaces where the whole caveat is
+actually load-bearing.
+
+And the second half, which is a habit rather than a lesson: a done-when clause the lap
+cannot meet is amended **on a measurement**, in the row, in the same lap. Here the manuscript
+half did not ship because `paper/check_paper.py` reports `body_words` 8,983 against a hard
+fail at 9,000 — 17 words of headroom for about 40 words of clause, on the very budget NH-037
+asks the author to reconsider. The gap is a `strict=True` xfail rather than a sentence in a
+report, so it is re-measured every run and turns red the day it is closed. A report can be
+skimmed past; a strict xfail cannot.
+
+## 2026-09-07T0018Z, second entry — I quoted §3.5c in the entry above and broke it an hour later
+
+The lesson above was written at the start of this lap. Later in the same lap I withdrew a
+claim — 「the A4 evidence sheet does not exist yet」, which four printables manifests had
+carried while `WFG-018` was `done(20260903T0653Z)` — corrected it in the three files I had
+open, and **registered nothing**. The independent reviewer found it still standing at four
+places in `docs/auto/finals/BOOTH_SETUP.md`, which is `SOURCES` entry #1 of the PDF I had
+just built. The printed booth kit's first five pages told the student the kit did not
+exist; pages 21–23 were the sheet those pages said was missing.
+
+**The habit this needs is not "remember to register".** It is: *the moment a lap writes
+the words 「that was false」 about a sentence, `docs/auto/withdrawn_claims.json` is the next
+file it opens* — before the sweep, not after, because the registration IS the sweep. The
+reviewer demonstrated exactly that: it added the claim as a probe and one gate run named
+`BOOTH_SETUP.md:240`, the file my hand sweep had missed. Registration is not the paperwork
+after finding all the places; it is the thing that finds them.
+
+**And the corollary, which is new:** when the withdrawal is about an artifact the lap is
+*building*, the sweep has to cover that artifact's own sources before the build, not after.
+A kit that prints a document saying the kit does not exist is not a prose defect; it is a
+defect in the thing a judge holds.
+
+## 2026-09-07T0018Z, third entry — "re-derived from the artifact" is not "checked"
+
+The same reviewer found that `6+7+18+4+3 = 38`, printed beside a `pages` of **33**, on four
+surfaces. `scripts/build_printables.py` computed each source's page count as
+`r.page - start + 1` while the h1 block had already called `new_page()`, so every value was
+one too large. The error **telescoped**: each value is wrong by exactly one, the breakdown
+looks plausible, and it is visible only in the sum. The `20260906T0620Z` manifest had it too
+(`6+7+17+3 = 33` against `pages` 29) and nobody had summed that either, across four laps.
+
+What let it travel is the sentence I was pleased with: 「이 숫자들은 manifest 에서 다시 읽은
+것이지 옮겨 적은 것이 아닙니다」. That was **true**, and it is precisely the mechanism —
+re-deriving from an artifact carries the artifact's error onto every surface at once, and
+the honest-sounding provenance sentence is what stops anyone from checking.
+
+**So: for any decomposition an artifact reports, gate the identity, not the provenance.**
+`sum(pages_per_source) == pages` is one line and had never been written. Any time a manifest
+carries both a total and its parts, the test is that they agree — the parts being
+"re-derived" is not evidence of anything.

@@ -279,8 +279,22 @@ def test_the_registry_holds_nothing_the_families_do_not():
         (r"브랜치에\s*없습니다", "브랜치에 없습니다"),
         (r"not\s+reachable\s+from\s+HEAD", "en not reachable from HEAD"),
     }
+    #: WC-005, registered by dev lap 20260907T0018Z on WFG-130. It belongs to no older
+    #: family either: the absorbed families are the detection-ordering claim and the
+    #: reachability claim, and this is the booth kit's own contents --- 「the A4 evidence
+    #: sheet does not exist yet」, which four printables manifests shipped while WFG-018
+    #: had been done(20260903T0653Z) since 2026-09-03. The lap that corrected it did not
+    #: register it, and its independent reviewer found the claim still standing at four
+    #: places in docs/auto/finals/BOOTH_SETUP.md --- SOURCES entry #1 of the PDF that
+    #: same lap had just built, so the printed kit said on page 2 that it did not exist.
+    booth_kit_contents = {
+        (r"근거\s*시트는?\s*아직\s*없", "근거 시트 아직 없"),
+        (r"인쇄물이?\s*아직\s*없", "인쇄물 아직 없"),
+        (r"evidence\s+sheet[^\n]{0,160}?(?:do(?:es)?\s+not\s+exist|(?:is|are)\s+not\s+written)",
+         "en evidence sheet does not exist"),
+    }
     extra = ({(s["pattern"], s["token"]) for _cid, s in SPELLINGS}
-             - in_files - reviewer_found - reachability)
+             - in_files - reviewer_found - reachability - booth_kit_contents)
     assert extra == set(), (
         "the registry has grown past the families it absorbed. That is allowed, and when "
         "you do it, add the new spelling to this test's expected set and say in "
@@ -461,6 +475,21 @@ def _probe_sentence(pattern: str) -> str:
         r"조상이\s*아닙니다": "41498ef 는 HEAD 의 조상이 아닙니다.",
         r"브랜치에\s*없습니다": "각인은 이 브랜치에 없습니다.",
         r"not\s+reachable\s+from\s+HEAD": "The registry stamp is not reachable from HEAD.",
+        # WC-005. All three are sentences this repository actually shipped, cut from
+        # the files they were shipped in, at the commits named beside them. The first
+        # two are docs/auto/finals/BOOTH_SETUP.md at 590c29a --- SOURCES entry #1 of
+        # the PDF the same commit built, so pages 1-5 of the printed kit told the
+        # student the kit did not exist. The third is the English half, from the
+        # manifest prose of every printables build up to and including 20260907T0032Z.
+        r"근거\s*시트는?\s*아직\s*없":
+            "§4 짐 목록에 있는 이유입니다. **A4 근거 시트는 아직 없습니다(WFG-007).**",
+        r"인쇄물이?\s*아직\s*없":
+            "이 절은 **아직 완전하지 않습니다**. 3단계가 인쇄물에 기대는데 인쇄물이 아직 "
+            "없습니다(R7 / WFG-007).",
+        r"evidence\s+sheet[^\n]{0,160}?(?:do(?:es)?\s+not\s+exist|(?:is|are)\s+not\s+written)":
+            "The A4 evidence sheet (WFG-018), the related-work table (WFG-026) and the "
+            "29 dispatch sheets in outputs/dispatch are NOT in this file; the first two "
+            "do not exist yet.",
     }
     assert pattern in probes, (
         f"no probe sentence for a newly registered pattern:\n  {pattern}\n"

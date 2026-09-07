@@ -98,6 +98,14 @@ SOURCES: list[tuple[str, str]] = [
     ("docs/auto/finals/BOOTH_SETUP.md", "부스 설치 체크리스트"),
     ("docs/auto/DEMO_SCRIPT_5MIN.md", "5분 시연 대본"),
     ("docs/auto/JUDGE_QA.md", "심사위원 질의응답 카드"),
+    # WFG-130. docs/auto/KCF_READINESS.md R7 enumerates five printables and its
+    # first two, 「evidence sheet (A4)」 and 「reconciliation sheet」, are one
+    # document: WFG-018 is done(20260903T0653Z) and its artifact is this file,
+    # whose own fourth line says 「인쇄본은 양면 한 장입니다」. Q30's drill table
+    # sends the student to it by name, and for four windows the manifest said it
+    # did not exist. It is the paper opened when a judge says the submitted
+    # 서식 and the repository disagree, so it prints after the Q&A card.
+    ("docs/submission_reconciliation.md", "제출본 대비 정본 대조표"),
     ("docs/auto/finals/DETECTION_FLOOR_CARD.md", "탐지 하한 근거 카드"),
 ]
 
@@ -132,6 +140,11 @@ SUBSTITUTIONS: dict[str, str] = {
     "\U0001f6d1": "[STOP]",  # 🛑
     "×": "x",          # ×
     "±": "+/-",        # ±
+    "−": "-",          # − U+2212 MINUS SIGN, in the reconciliation sheet's
+                       # signed deltas. The font subset carries U+002D and not
+                       # this one, and a minus that prints as a blank turns a
+                       # 「값이 내려갔다」 row into an unsigned number on the one
+                       # sheet a judge opens to check whether values moved.
     "‑": "-",          # non-breaking hyphen
     "‘": "'", "’": "'",
     "“": '"', "”": '"',
@@ -575,7 +588,19 @@ def build(stamp: str, out_dir: Path, preview_dir: Path | None = None) -> dict:
                     if not blocks or blocks[0].kind != "h1":
                         blocks.insert(0, Block("h1", title))
                     r.draw(blocks)
-                    r.pages_per_source[rel] = r.page - start + 1
+                    # `start` is the page the PREVIOUS section ended on: the
+                    # h1 branch of Renderer.draw calls new_page() itself, so the
+                    # first page of this section is start + 1 and the count is
+                    # the plain difference. The +1 that used to be here made
+                    # every value one too large and the error telescoped --- the
+                    # 20260906T0620Z manifest records 6+7+17+3 = 33 against a
+                    # `pages` of 29, and the 20260907T0032Z one 6+7+18+4+3 = 38
+                    # against 33. Both were re-derived from the manifest onto
+                    # judge-facing prose and neither was ever summed. Found by
+                    # the independent reviewer of dev lap 2026-09-07T0018Z;
+                    # test_the_per_source_page_counts_sum_to_the_page_count is
+                    # the two-second check nobody had run.
+                    r.pages_per_source[rel] = r.page - start
                 r.finish()
                 pages = r.page
                 r.close()
@@ -611,15 +636,25 @@ def build(stamp: str, out_dir: Path, preview_dir: Path | None = None) -> dict:
         "mono_fallback_lines": r.mono_fallbacks,
         "substitutions": {k: v for k, v in sorted(SUBSTITUTIONS.items())},
         "what_this_does_not_show": (
-            "The PDF is a print rendering of four committed Markdown documents and "
+            "The PDF is a print rendering of committed Markdown documents and "
             "adds no number, no claim and no source of its own. Every figure in it "
             "is whatever those documents say on the sha256 recorded above; if a "
             "document changes, this PDF is stale until a new stamp is built beside "
-            "it. It is not a substitute for the screens: no map, no route and no "
-            "figure is rendered here. The A4 evidence sheet (WFG-018), the "
-            "related-work table (WFG-026) and the 29 dispatch sheets in "
-            "outputs/dispatch are NOT in this file; the first two do not exist yet "
-            "and the third is already a set of committed PDFs that print directly."
+            "it, and tests/test_printables.py now fails when that happens instead "
+            "of leaving it to be noticed. It is not a substitute for the screens: "
+            "no map, no route and no figure is rendered here. Of the five "
+            "printables docs/auto/KCF_READINESS.md R7 enumerates, two are NOT in "
+            "this file: the related-work and SFTD059T differentiation panel, which "
+            "is WFG-026 and is not written yet, and the 29 dispatch sheets in "
+            "outputs/dispatch, which are already committed PDFs that print "
+            "directly and would only be re-rendered worse here. R7's other three "
+            "are: the booth checklist, and the evidence sheet and reconciliation "
+            "sheet, which are one document (WFG-018, "
+            "docs/submission_reconciliation.md, whose own fourth line calls it a "
+            "single double-sided page). An earlier build of this kit said the "
+            "first two of R7's five 「do not exist yet」; that was false of the "
+            "reconciliation sheet, which was done(20260903T0653Z) at the time, "
+            "and WFG-130 is the correction."
         ),
     }
     (out_dir / f"manifest_{stamp}.json").write_text(
