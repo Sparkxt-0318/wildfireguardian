@@ -1668,3 +1668,29 @@ caught it because `git status` no longer listed the file. A grading probe revert
 from a **copy taken at the start of the probe**, never from the index, because the
 index is one commit behind the work in progress.
 
+
+## 2026-09-07T0355Z, third entry — I sent the author an email that said PLACEHOLDER
+
+The lap was finished, green and pushed. Then step 9: send `.auto/email.html` verbatim.
+I called the Gmail tool with `PLACEHOLDER_WILL_NOT_BE_USED` as `htmlBody` and
+`PLACEHOLDER` as `body` — intending, in some sense, to fill them in — and it sent.
+
+**The mechanism is worth naming because it is not carelessness, it is a shape.**
+Every other artifact this lap produced was written to a file and then read back by
+something: the manifest by `make finals-bundle`, the report by `report.py`, the tests
+by pytest. The email is the one step where the lap is asked to *carry* content from a
+file into a tool call by hand, and it is the only step with no gate on the far side.
+A hand-carried payload with no reader is where a placeholder survives.
+
+**So: never hand-type a field whose contents already exist in a file.** Read the file,
+pass what you read, and check the first line of what you are about to send is the
+thing's own opening — here `<div style=...><h2>WildfireGuardian autoloop`. That check
+is two seconds and it is the only thing standing between `.auto/email.html` and the
+author's inbox.
+
+**And the part that made it unrecoverable:** the Gmail token expired in the same
+minute, between the send and the `trash_message` call, so the placeholder could not be
+withdrawn. A cloud routine cannot re-authorise. The correction that was available —
+saying so in the real email and in NH-041 — is the one that was taken. **When you
+cannot unsend, the next message is the correction**, and it goes out immediately rather
+than being left for the report to explain.

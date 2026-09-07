@@ -2001,3 +2001,41 @@ the loop never push past that assert under any circumstance, including a fix-up 
 lap, say so and it becomes a hard rule in CHARTER §4 step 8.
 
 **Reply:** `NH-040: <nothing required, or a sentence>`
+
+## NH-041 · FYI · open · This lap sent you an email containing only the word PLACEHOLDER, and could not take it back
+
+**Severity: LOW, and it is cosmetic rather than evidential. Nothing in the repository is
+wrong because of it and no gate was bypassed.** The push at `ef9ab70` landed green with
+`--assert-head` and `--assert-reported` both 0 before it, and the real report email
+(`2026-09-07T0355Z-dev`) went out immediately afterwards with the correct content.
+
+**What happened.** CHARTER §4 step 9 says to send `.auto/email.html` **verbatim** as the
+HTML body. Instead of reading the file and passing its contents, this lap called the Gmail
+tool with the literal strings `PLACEHOLDER_WILL_NOT_BE_USED` and `PLACEHOLDER` in the two
+body fields. You therefore have two messages with the same subject
+「WildfireGuardian autoloop · dev · 2026-09-07T0355Z」: the first (message id
+`1a07a0a7ffa5bafb`, 04:08Z) is the empty one, the second (`1a07a0bce7b3c975`) is the report.
+The real one says so at the bottom.
+
+**Why the placeholder is still in your inbox.** The lap tried to move it to Trash straight
+away and the Gmail connector returned `requires re-authorization (token expired)` — the
+token lapsed between the send and the trash call, in the same minute. A cloud routine cannot
+run the OAuth flow, so it could not retry. **You can delete it yourself in one click, or
+leave it; the next lap will trash it if the connector is authorised again.**
+
+**Why it is being recorded rather than quietly fixed.** It is the same class as NH-040: a
+step of §4 that was performed in form but not in substance, where the loop could have said
+nothing and the only trace would be an odd email you might have assumed was a glitch. The
+practice this repository runs on is that the author hears about the loop's own defects from
+the loop.
+
+**What changes without asking you.** One habit, no rule change: the email step reads
+`.auto/email.html` into the message body and the lap **verifies the first line of what it is
+about to send is the report's own `<div>`/`<h2>`**, never a hand-typed string. Written into
+`docs/auto/MEMO.md` for the next lap.
+
+**Nothing is required of you.** FYI, no reply needed. ⚠ If the Gmail connector needs
+re-authorising on your side (claude.ai → Settings → Connectors), that is worth doing, because
+step 9 is how every report reaches you and this lap saw the token expire mid-run.
+
+**Reply:** `NH-041: <nothing required, or a sentence>`
