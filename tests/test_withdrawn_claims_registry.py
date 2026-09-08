@@ -373,9 +373,28 @@ def test_the_registry_holds_nothing_the_families_do_not():
         (r"운영자가\s*손으로\s*입력",
          "wc009-nifos-origin-hand-entered-ko"),
     }
+    #: WC-010, registered by dev lap 20260908T0018Z on WFG-139, and the only entry in
+    #: this registry that withdraws a claim for being too WEAK rather than too strong.
+    #: Q40 · T1 answered 「can the tests run without internet」 with 「오늘의 답이
+    #: 「아니오」입니다」 and scripted the student to say a terrain-tile download was
+    #: still unfixed. It was an honest confession of a real defect --- and the lap that
+    #: closed the defect left the confession on the printed card, where a stale
+    #: self-criticism costs a judge's trust exactly as a stale boast does. Nothing in
+    #: this project was watching that direction, which is why the family gets its own
+    #: name rather than joining `in_files`.
+    #: ⚠ The lap needed this file: its independent reviewer found that the Q28 edit it
+    #: had just written contradicted the Q40 edit it had just written, in the same file,
+    #: twelve minutes apart --- the Q30/Q35 shape CHARTER §3.5c was written about.
+    stale_self_criticism = {
+        (r"지형\s*타일을\s*내려받는\s*테스트가\s*하나",
+         "wc010-suite-still-downloads-a-terrain-tile-ko"),
+        (r"(?:test\s+)?suite\s+(?:still\s+)?(?:reaches|downloads)[^.\n]{0,60}(?:the\s+network|25\s*MB)",
+         "wc010-suite-still-downloads-a-terrain-tile-en"),
+    }
     extra = ({(s["pattern"], s["token"]) for _cid, s in SPELLINGS}
              - in_files - reviewer_found - reachability - booth_kit_contents
-             - dispatch_exclusion_reason - someone_elses_system)
+             - dispatch_exclusion_reason - someone_elses_system
+             - stale_self_criticism)
     assert extra == set(), (
         "the registry has grown past the families it absorbed. That is allowed, and when "
         "you do it, add the new spelling to this test's expected set and say in "
@@ -618,6 +637,18 @@ def _probe_sentence(pattern: str) -> str:
             "driven by a human-entered origin point [@nifos2026guide];",
         r"운영자가\s*손으로\s*입력":
             "인력과 헬기를 어디에 둘지입니다. 발화점은 **운영자가 손으로 입력**합니다.",
+        # WC-010, registered by dev lap 20260908T0018Z on WFG-139. The Korean line
+        # below is docs/auto/JUDGE_QA.md's Q40 · T1 card as it stood at 088203c ---
+        # the 「부스에서 할 말」 clause, i.e. the sentence the student was being
+        # trained to say aloud, printed on the booth kit from 20260906T0620Z to
+        # 20260908T0051Z. The English line is the WFG-139 backlog row's own opening
+        # sentence, present tense, as it stood at the same commit.
+        r"지형\s*타일을\s*내려받는\s*테스트가\s*하나":
+            "전부는 아닙니다. 커밋된 스냅샷 위의 부분은 망 없이 돌지만, 지형 타일을 "
+            "내려받는 테스트가 하나 남아 있고 그건 저희가 아직 못 고쳤습니다.",
+        r"(?:test\s+)?suite\s+(?:still\s+)?(?:reaches|downloads)[^.\n]{0,60}(?:the\s+network|25\s*MB)":
+            "The test suite downloads 25 MB from Amazon S3 in the middle of every "
+            "cold run, CHARTER §4b forbids exactly that",
     }
     assert pattern in probes, (
         f"no probe sentence for a newly registered pattern:\n  {pattern}\n"

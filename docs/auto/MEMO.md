@@ -2066,3 +2066,45 @@ hand sweep is a draft of it** — which is what CHARTER §3.5c already says, in 
 laps keep re-deriving the hard way. The one thing registration cannot do is reach outside
 `.md` and `.html`, so the file that started this — `references.bib` — is fixed by hand and
 guarded by nothing.
+
+---
+
+## 2026-09-08T0018Z (dev) — a guard that looks obviously right can block nothing, and the way you find out is to run it
+
+WFG-139 is closed after eleven laps of measuring it, and the lesson is not about
+SRTM. Eleven laps knew the suite downloaded a 25 MB tile; every one of them
+measured it the same way, by watching `data/raw/` grow across a five-minute
+pytest stage. That measurement names no caller, needs a cold machine, and is
+unrepeatable on the machine that just made it warm. The row therefore carried a
+diagnosis — one named test — that nobody could confirm without doing the whole
+thing again.
+
+**Replace the inference with a mechanism and the machine does the naming.** A
+session-wide socket guard in `tests/conftest.py` turned the question 「which test
+reaches the network」 from an argument into a run. It answered **three**, not
+one: the test the row named, a second one nobody had ever named
+(`test_raster_ingestion.py`'s auto-DEM test, which asserted 「either outcome is
+acceptable」 and so passed under both), and a third that was not a network use at
+all — `test_finals_acts.py` talking to a Chromium this repository launched.
+
+**The anti-pattern, and it is the reusable part.** My first draft of that guard
+exempted loopback. That is the obviously safe rule, it is what every example of
+this pattern does, and here it blocked **nothing**: this sandbox sets
+`HTTPS_PROXY=http://127.0.0.1:38639`, so the S3 fetch the guard exists to stop
+goes to 127.0.0.1. I did not reason my way to that. I ran the guard, watched the
+offending test pass, watched `data/raw/` grow to 34,609,457 B anyway, and went
+looking for why. **A guard is not installed until you have watched it refuse the
+thing it was written to refuse.** Writing it, reading it and believing it are all
+the same step, and none of them is the check — which is WFG-156's
+vacuous-binding class arriving inside the mechanism written to end a measurement
+problem.
+
+**One gate that makes the next lap cheaper.** `conftest.pytest_sessionfinish`
+now fails any run in which `data/raw/` grew, so the measurement eleven laps took
+by hand is taken automatically at the end of every run, on every machine, and it
+sees paths the socket guard cannot. It was graded before it was trusted: a
+throwaway test writing 12,345 bytes turned a passing run's exit status to 1. And
+a *test* could not have done this job — pytest runs files in collection order and
+`test_no_network_in_tests.py` sorts before both offenders, so a test there reads
+the disk before they run. The first draft of that file did exactly that and would
+have passed for the wrong reason on the tree that motivated it.

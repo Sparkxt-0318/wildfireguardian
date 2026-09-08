@@ -139,7 +139,17 @@ def test_isotropic_baseline_zero_radius_starts_at_origin() -> None:
 
 def test_model_config_ignition_radius_increases_initial_burn() -> None:
     """run_validation_with_baselines with a non-zero ignition radius should
-    start the model with more than one burning cell."""
+    start the model with more than one burning cell.
+
+    ⚠ ``dem_source`` is ``"synthetic"`` and must stay that way (WFG-139). This
+    test asked for ``"srtm"`` until 2026-09-08, which made it download a 25 MB
+    SRTM tile from Amazon S3 in the middle of every cold gate run — against
+    CHARTER §4b, and the reason cold and warm pass counts in this repository
+    differed by six for weeks. Both assertions are about the size of the
+    **ignition disc** the config asks for, ``fuel_source`` was already
+    synthetic, and the terrain is not read before the first snapshot, so the
+    real DEM bought this test nothing at all.
+    """
     from pathlib import Path
 
     from wildfireguardian.validation import (
@@ -153,7 +163,7 @@ def test_model_config_ignition_radius_increases_initial_burn() -> None:
     )
     cfg = ModelConfig(
         cell_size_m=500.0, duration_min=60.0, dt_min=10.0,
-        snapshot_every_min=30.0, dem_source="srtm", fuel_source="synthetic",
+        snapshot_every_min=30.0, dem_source="synthetic", fuel_source="synthetic",
         ignition_radius_m=1000.0,
     )
     result = run_validation_with_baselines(case, cfg, horizons_min=(60.0,))

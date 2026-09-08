@@ -159,19 +159,73 @@ def test_real_data_sources_raise_not_implemented(loader, source: str) -> None:
         loader(YEONGDEOK_2025, source=source, cell_size_m=300.0, use_cache=False)
 
 
-def test_auto_dem_prefers_srtm_when_tile_available_else_synthetic() -> None:
-    """source='auto' returns SRTM if the Yeongdeok tile is cached, else synthetic.
+def _srtm_tile_cached() -> bool:
+    """True iff the Yeongdeok-area .hgt tile is already on this machine."""
+    root = Path(__file__).resolve().parents[1]
+    return (root / "data" / "raw" / "dem" / "srtm" / "N36E129.hgt").exists()
 
-    Either outcome is acceptable; this test just confirms the fallback chain
-    does not crash and produces a tagged DataArray.
-    """
+
+@pytest.mark.skipif(
+    not _srtm_tile_cached(),
+    reason="SRTM N36E129.hgt not cached; the preference branch needs real data",
+)
+def test_auto_dem_prefers_srtm_when_the_tile_is_cached() -> None:
+    """source='auto' returns SRTM, not synthetic, once the tile is on disk."""
     arr = load_dem(YEONGDEOK_2025, source="auto", cell_size_m=300.0, use_cache=False)
-    # Should be either real SRTM or labelled synthetic, both have valid attrs.
-    assert arr.attrs.get("source") in {"srtm", "synthetic"}
-    if arr.attrs.get("source") == "synthetic":
-        assert arr.attrs.get("synthetic") is True
-    else:
-        assert "SRTMGL1" in arr.attrs.get("citation", "")
+    assert arr.attrs.get("source") == "srtm"
+    assert arr.attrs.get("synthetic") is False
+    assert "SRTMGL1" in arr.attrs.get("citation", "")
+
+
+def test_auto_dem_falls_back_past_an_unimplemented_source(monkeypatch) -> None:
+    """The documented ngii → srtm → synthetic chain, driven offline.
+
+    This replaces ``test_auto_dem_prefers_srtm_when_tile_available_else_synthetic``,
+    which asserted 「either outcome is acceptable」 and so passed under both. It
+    passed on a cold clone only because the srtm branch DOWNLOADED the tile
+    (WFG-139); with ``tests/conftest.py``'s network guard in place it fails, and
+    that failure is how this test was found — no lap had named it in eleven
+    measurements of that download.
+    """
+    import wildfireguardian.data_io.raster as raster
+
+    def _unavailable(*_a, **_k):
+        raise NotImplementedError("srtm unavailable in this test")
+
+    monkeypatch.setattr(raster, "_srtm_dem_for_region", _unavailable)
+    arr = load_dem(YEONGDEOK_2025, source="auto", cell_size_m=300.0, use_cache=False)
+    assert arr.attrs.get("source") == "synthetic"
+    assert arr.attrs.get("synthetic") is True
+
+
+def test_auto_dem_does_not_fall_back_when_the_srtm_tile_is_merely_missing(
+    monkeypatch, tmp_path,
+) -> None:
+    """⚠ This pins behaviour that CONTRADICTS ``load_dem``'s own docstring.
+
+    ``load_dem`` documents ``"auto"`` as 「try ngii → srtm → synthetic in
+    order」, but the loop at ``raster.py:492`` catches only
+    ``NotImplementedError``. A missing tile raises ``FileNotFoundError``
+    (``raster.py:378``, and ``_download_srtm_tile`` re-raises the same class when
+    the fetch fails), which propagates: on a clean clone with no network,
+    ``source="auto"`` RAISES rather than returning synthetic.
+
+    Nothing in this repository has been able to see that, because the download
+    always succeeded. It is asserted here rather than fixed, because widening a
+    production ``except`` is not this row's work; the row is **WFG-176**.
+    """
+    import wildfireguardian.data_io.raster as raster
+
+    def _missing(*_a, **_k):
+        raise FileNotFoundError("SRTM tile not in cache and no network")
+
+    empty_cache = tmp_path / "srtm"
+    empty_cache.mkdir()
+    monkeypatch.setattr(raster, "_download_srtm_tile", _missing)
+    # An empty cache dir, so the branch is taken on a warm machine too.
+    monkeypatch.setattr(raster, "_srtm_cache_dir", lambda: empty_cache)
+    with pytest.raises(FileNotFoundError):
+        load_dem(YEONGDEOK_2025, source="auto", cell_size_m=300.0, use_cache=False)
 
 
 # ---------------------------------------------------------------------------

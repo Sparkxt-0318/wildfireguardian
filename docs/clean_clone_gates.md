@@ -24,7 +24,70 @@ bash scripts/auto/bootstrap.sh                        # pip-only, pinned
 
 `gates.py` runs each gate as a direct subprocess and reads its exit status; it
 never pipes one (`scripts/check_gate_invocations.py` enforces that; CHARTER
-§3.10). No network, no keys, no `.env`.
+§3.10). No keys, no `.env`.
+
+### ⚠ 「No network」 was false here for five weeks, and is now enforced (WFG-139)
+
+This line read 「No network, no keys, no `.env`.」 from 2026-09-03 until
+2026-09-08, and the first three words were wrong. On every **cold** run the
+suite downloaded `N36E129.hgt` (25,934,402 B) and its `.gz` (8,473,868 B) from
+`elevation-tiles-prod.s3.amazonaws.com` into `data/raw/dem/srtm/`, in the middle
+of the `pytest-full` stage. Eleven consecutive laps measured it and none of them
+could say which line did it, because a 25 MB file appearing during a five-minute
+stage names no caller and a warm re-run never reproduces it.
+
+**Method.** `tests/conftest.py` now installs a session-wide guard that refuses
+outbound socket connections (`connect`, `connect_ex`, `create_connection`) to
+any non-loopback address, and to any address named in the environment's
+`*_proxy` variables even when it is loopback. A test that reaches the network
+fails, naming CHARTER §4b, on every machine.
+
+**Result, measured 2026-09-08 on this sandbox at `088203c`.** With
+`data/raw/dem/srtm/` and the derived `data/cache/dem_yeongdeok_2025_srtm_500m_*.nc`
+deleted first, a full `pytest` run with the guard active **flagged three tests**:
+**two** real network uses — one more than the backlog row had named in eleven
+measurements — and one false positive that belonged to the guard's own first
+draft rather than to the suite.
+
+| test | what it was doing | fix |
+|---|---|---|
+| `tests/test_spread_warmup.py::test_model_config_ignition_radius_increases_initial_burn` | asked for `dem_source="srtm"` to assert the size of an ignition disc | now `"synthetic"` |
+| `tests/test_raster_ingestion.py::test_auto_dem_prefers_srtm_when_tile_available_else_synthetic` | `source="auto"`, asserting 「either outcome is acceptable」 | split into three offline tests |
+| `tests/test_finals_acts.py::test_the_four_acts_advance_in_a_real_browser` | talking to a Chromium this repository launched, on a loopback port | **not a network use**; the guard's first draft was wrong to refuse it |
+
+`data/raw/` was byte-for-byte unchanged across that run. ⚠ That total is not written here as a figure: `data/raw/**` is git-ignored, so it holds a different number of bytes on every machine and **zero** on the clean CI clone this document is about. What is checkable is the difference, which is what the hook below measures.
+
+**The second half of the mechanism.** The socket guard sees the calls the
+standard library funnels connections through, and nothing else. What sees
+everything else is `conftest.pytest_sessionfinish`, which measures `data/raw/`
+before and after the run and **fails the run** if it grew — the same measurement
+eleven laps took by hand, taken automatically at the end of every run. It was
+graded rather than assumed: a throwaway test that wrote a few kilobytes into
+`data/raw/` turned a passing run's exit status to 1 (2026-09-08). That hook also
+answers WFG-172's 「did this run download anything」 without a network call.
+
+**Caveats, and what this does not show.** Enumerated rather than gestured at,
+because a guard's blind spots are the only part of it that can surprise anyone.
+The socket guard does not see: a C extension calling `connect(2)` directly; a
+subprocess; a loopback service that forwards traffic without appearing in the
+proxy variables; **UDP** (`sendto`/`sendmsg` are not patched); **name
+resolution** (`getaddrinfo` is not patched, so a test can still depend on DNS,
+which is half of what CHARTER §4b forbids); anything at **import or collection
+time**, because the guard is a session fixture and fixtures are set up after
+collection; and any `pytest` invocation on a path outside `tests/`, which loads
+no `conftest.py` at all. The session hook covers what leaves bytes behind in
+`data/raw/` and nothing else: a fetch that writes nowhere, overwrites a
+same-size file, or writes to another directory is seen by neither. Four of these
+were named by this lap's independent reviewer and not by the lap. The guard's own first draft exempted loopback and therefore
+blocked nothing in this sandbox, whose egress runs through
+`HTTPS_PROXY=http://127.0.0.1:38639`; that is why the proxy clause exists and
+why `tests/test_no_network_in_tests.py` asserts it rather than trusting it. The
+six SRTM tests that `skipif` on the cached tile still skip on a clean clone —
+this row makes that honest, it does not make them run.
+
+**Warming the cache on purpose** is a script's job, not a test's. Set
+`WFG_TESTS_ALLOW_NETWORK=1` for a whole run if you must; no gate and no workflow
+sets it, and a test asserts that.
 
 ## Result
 
