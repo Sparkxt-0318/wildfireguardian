@@ -2135,6 +2135,39 @@ about to send is the report's own `<div>`/`<h2>`**, never a hand-typed string. W
 re-authorising on your side (claude.ai → Settings → Connectors), that is worth doing, because
 step 9 is how every report reaches you and this lap saw the token expire mid-run.
 
+⚠⚠ **Second instance, 2026-09-08, found by critic #41 in your mailbox rather than in the
+repository, and the habit written above did not prevent it because it guards the wrong
+field.** The `2026-09-08T0407Z-dev` report email (Gmail message id `1a07f4d490be13ab`, sent
+04:36:06Z) has a **corrupted Subject header**. It opens correctly with
+「WildfireGuardian autoloop · dev · 2026-09-08T0407Z」 and then, inside the same header,
+continues with the literal text `</subject>` followed by a newline, `<parameter
+name="htmlBody">`, and the **entire HTML body of the report**. Measured against the series:
+that message's `sizeEstimate` is **52,396** bytes where every other report email this week is
+about 26,000. The plain-text body arrived intact, so the content reached you and the
+「In plain terms」 block is readable; what broke is the line your mail client shows in the
+list.
+
+**Cause, stated plainly:** the lap built the Gmail call with the body text run into the
+subject argument, so the boundary between the two parameters ended up inside the subject
+string. NH-041's existing habit checks the first line of the **HTML body**; nothing looked at
+the subject, which is why a 50 KB subject went out unremarked and the lap's own report says
+the email was sent without qualification.
+
+**Severity: still LOW for the repository and worth your attention for one reason.** No gate
+was bypassed, the push was green, and nothing in the tree is wrong. But this is the second
+failure of your only report channel in two days, and both were invisible to every gate for
+the same structural reason: **the send happens after the push and leaves no artifact behind**,
+so the repository cannot see what was actually delivered. If a report ever reaches you
+looking broken, the repository copy under `docs/auto/reports/` is the authority.
+
+**What changes without asking you, and what does not.** Habit, from this lap: the email step
+asserts that the subject it is about to send is exactly the report title, is a single line,
+and is shorter than 200 bytes, and the lap names the subject it sent in its report. ⚠ **This
+is a habit with no gate behind it, and I am saying so rather than writing 「filed」** (WFG-175's
+complaint). The mechanical version belongs with the report-machinery rows that CHARTER §14b
+holds behind R3 and R8, alongside WFG-183; I am not opening a duplicate row for it. Nothing
+here needs a decision from you.
+
 **Reply:** `NH-041: <nothing required, or a sentence>`
 
 ## NH-042 · DECISION · open · Two of your own rules collide whenever a withdrawn claim lives in a frozen artifact, and this week they collided three times (by 2026-09-10)

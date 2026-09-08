@@ -1,130 +1,183 @@
-# CRITIC_LATEST — critic #40, 2026-09-08T0524Z
+# CRITIC_LATEST — critic #41, 2026-09-08T0819Z
 
 *The next dev lap reads this file before it claims a row (CHARTER §4 step 3). Reviewed head:
-`47e48b5`. Window: the 24 h to 2026-09-08T05:00Z. ⚠ **This clone resolves the window from
-2026-09-07T04:08:02Z forward, not the whole of it:** `git rev-parse --is-shallow-repository` =
-**true**, `git rev-list --count HEAD` = **50**, and the oldest resolvable commit is `0fc6130`. That
-is 49 commits and about 25 hours, so the window is covered; I still make no claim about anything
-older than that boundary. Full report: `docs/auto/reports/2026-09-08T0524Z-critic.md`.*
+`9329400`. Window: the 24 h to 2026-09-08T08:10Z. ⚠ **This clone is shallow:**
+`git rev-parse --is-shallow-repository` = **true** and `git rev-list --count HEAD` = **50**, so I
+make no claim about anything older than that boundary and no ancestry or reachability claim at all
+(DIRECTION's standing rule). Full report: `docs/auto/reports/2026-09-08T0819Z-critic.md`.*
 
-## `fix-before-next-row` — NONE this lap, and that is a decision, not an oversight
+## `fix-before-next-row` — ONE item: **WFG-185**. Clear it, then take the table (WFG-182).
 
-**Take the table. It is WFG-167.**
+**`docs/auto/JUDGE_QA.md:715` tells the student a count about this repository that describes one
+directory out of three, and the gate written to stop exactly that passes on a coincidence.**
 
-Under CHARTER §14b as amended by NH-038 B, an item must be a fix of **minutes** on a judge-facing
-surface or a red gate. No gate is red. Both judge-facing findings this lap produced (**WFG-181**,
-**WFG-182**) are a lap each, and §14b files a lap-sized judge-facing finding as a P0 row that is
-**never a preemption**. Spending the item on something smaller would have displaced WFG-167 for a
-fifth consecutive lap, which is what NH-038 was written to stop.
+The spoken draft of **Q16b (T0)** reads 「... `FOOTER_LINES` 가 모든 시트에 찍는 것이라, **커밋된
+33장 전부**에 있습니다」. Measured here at `9329400`:
+
+- `git ls-files '*dispatch_a4.html'` answers **642** tracked sheets: **33** under
+  `outputs/dispatch`, **113** under `outputs/dispatch_full`, **496** under `outputs/live`.
+- 「커밋된」 makes the claim about the repository. 33 is true of one run directory.
+- The 0655Z lap's own independent reviewer raised this, and the lap's report says the card
+  「must name the run directory its count describes」. **The fix commit `4679285` never touched
+  `docs/auto/JUDGE_QA.md`** (`git show --stat 4679285` lists `tests/`, `MEMO`, `BACKLOG`, `STATE`,
+  `dashboard`, images and the report). The scope fix reached the test file and the report's prose.
+- The gate's scope assertion is `assert COUNTED_RUN in _card("16b")`
+  (`tests/test_responsibility_and_privacy_cards.py:225`). It passes because
+  `outputs/dispatch/20260801T163042Z/MANIFEST.json` sits at `JUDGE_QA.md:733` **in the 근거 block,
+  under the `nothing_was_sent` claim**, not under the sheet count. The count could be wholly
+  unscoped and the gate would stay green.
+
+⚠ **The substantive claim is TRUE and understates.** The reviewer measured **0 of 642** sheets
+missing the footer. This is a scope defect on the sentence the student says out loud, not a false
+claim about the world, and it is live on `WFG_printables_20260908T0633Z.pdf` (40 pages).
+
+**Why this qualifies under §14b as amended by NH-038 B.** One line of Korean on one card, a
+tightened assertion, and the kit rebuild every `SOURCES` edit already requires. That is the same
+shape and cost as critic #39's WFG-178, which the loop cleared inside one lap. **It does not
+displace WFG-182**, which stays position 1.
+
+**Done when:** the spoken sentence names the run directory its count describes, or drops the count
+and points at the manifest (Q30/WFG-117's register); the assertion binds the scope token to the
+**sentence carrying the count** rather than to anywhere in the card; the lap records the mutation
+that proves it (move the run-directory string out of that sentence: green today, must be red
+after); and the kit is rebuilt and `release/kcf-finals-2026/MANIFEST.json` re-pointed in the same
+lap (WFG-152).
 
 ---
 
 ## The baseline, re-derived rather than read
 
 ✅ **ALL GREEN on the routine's DEFAULT clone, measured before any deepening, read unpiped.**
-`gates.py --mode full` exits **0** at `47e48b5`: `1722 passed, 63 skipped, 2 xfailed`, pytest
-277.3 s. `verify`, `snapshot-verify`, `env-check` PASS; the `baseline-verify` WARN is the documented
-CHARTER §3d state. **The run downloaded nothing:** `du -sb data/raw` answers **201,187** bytes and
-`data/raw/dem/srtm/` is empty afterwards. **Cold on the tile, which was never present; WARM on
-`data/cache`**, and I say which rather than implying (DIRECTION's rule). `--assert-head` exits 0;
-`--assert-reported --base 0fc6130` exits 0 with 75 substantive paths.
+`gates.py --mode full` exits **0** at `9329400`: `1735 passed, 63 skipped, 2 xfailed`, pytest
+**466.2 s**. `verify`, `snapshot-verify`, `env-check` PASS; the `baseline-verify` WARN is the
+documented CHARTER §3d sandbox state. **The run downloaded nothing:** `du -sb data/raw` answers
+**201,187** bytes before and after, and `data/raw/dem/srtm/` is empty afterwards. **Cold on the
+tile, which was never present; WARM on `data/cache`**, said rather than implied. `--assert-head`
+exits 0.
 
-✅ **No CHARTER §4b finding.** Through the GitHub MCP (`curl` is 403 here, WFG-119): `auto-gates`
-runs **211 to 231** on `auto/dev` are **18 `success`, 3 `cancelled` (218, 226, 229), ZERO
-`failure`**, and run **231** at this exact head is `success`. Every push in the window carried a
-report; every **dev** and **critic** report in the window carries `Reviewed by:`.
+✅ **GitHub's own runs (CHARTER §4b): no finding.** Through the GitHub MCP. ⚠ `curl` against
+`api.github.com` returns 「GitHub access is not enabled for this session」 here, which is WFG-119's
+403 in its current wording; the routine prompt's `curl` line does not work and the MCP is the
+channel. `auto-gates` runs **216 to 236** on `auto/dev`: **15 `success`, 5 `cancelled` (218, 226,
+229, 232, 235), ZERO `failure`**. Run **236** at this exact head is `success`. No red run sits
+behind a green report.
 
-✅✅ **WFG-178 is closed and I verified it by a channel the lap did not use.** Whole-suite
-`pytest -rs` in this tile-less clone prints **60 skip lines, 11 of them naming SRTM**: seven
-tile-gated (`test_srtm_dem.py` ×4, `test_raster_ingestion.py:168`,
-`test_validation_robustness.py:57`, `test_validation_session3.py:171`) and four gating on the
-laptop bundle (`test_slope_digraph.py:145/160/174/209`). That is exactly what `JUDGE_QA.md` Q28 and
-Q40 and `docs/clean_clone_gates.md` now state, and `tests/test_tile_gated_skip_count.py` binds
-twelve sentences on those pages to the tree, the two spoken lines included, with a
-matches-nothing-fails clause. The kit was rebuilt twice (`20260908T0406Z`, 38 pages) and
-`release/kcf-finals-2026/MANIFEST.json` re-points at it.
-
-**KCF_READINESS holds at 7 of 11. Zero lines ticked since critic #39.** R1 ticked at
-2026-09-07T2020Z, inside this 24 h window, so the 「zero across two consecutive critic laps」
-direction finding does not fire — but it fires at the next critic lap if nothing moves.
+✅ **Report certification.** Every dev and critic report in the window carries `Reviewed by:`.
 
 ---
 
-## What the next dev lap should carry into WFG-167
+## The root objection
 
-Not corrections; context. Two things this lap established that touch the row you are about to take.
+**This loop reports the completeness of its own gates as a fraction whose denominator it chooses,
+and a fresh reader has broken that fraction three laps running.**
 
-1. **WFG-181 is WFG-167's twin and belongs in the same lap if the clock allows.** Both are one
-   `Q · T0` card in `docs/auto/JUDGE_QA.md`, from the same judge (the public-sector
-   disaster-response official), and `JUDGE_QA.md` is a printables `SOURCES` file, so doing them
-   together costs **one** kit rebuild and one bundle re-point instead of two (WFG-152). Take
-   WFG-167 first and only fold WFG-181 in if the row is genuinely finished; a half-written
-   개인정보 card is worse than none.
-2. **WFG-180's row said 「minutes」 and it is wrong. I updated the row; read it before you take it.**
-   `tests/test_tile_gated_skip_count.py` derives a second set, `srtm_named_only`, and that set
-   **is** WFG-180. Renaming the four skip reasons takes it 4 → 0 and the derived total 11 → 7, and
-   four bound judge-facing sentences go red: two in `JUDGE_QA.md` Q40 (a T1 card with a spoken
-   line) and two in `docs/clean_clone_gates.md`. The fix is one lap, including a kit rebuild.
+The 0655Z lap graded `tests/test_responsibility_and_privacy_cards.py` **5 for 5** by mutation and
+shipped it as trustworthy. Its own independent reviewer reproduced all five, invented **three more**,
+and **M7 found 609 of 642 tracked sheets unguarded**. The widened gate was graded again and again
+called trustworthy. I then found its scope assertion is satisfied by a string sitting in a different
+claim's 근거 block (WFG-185, above). One lap earlier, `82ec346`/`4f887c7` ran the same shape: nine
+tests, graded, and the reviewer still had to rewrite the line the student speaks (WFG-178).
+
+The defect is in the **reporting**, not the testing. 「5 for 5」 reads to the author as coverage. It
+means 「every mutation I thought of」, which is 100 % by construction and cannot fall.
+
+**The cheapest test, and it costs one sentence:** a lap that reports a mutation score also writes
+down **one mutation it could not make the gate catch**. If it cannot name one, the grading is
+unfinished, not perfect. That is **WFG-186** for the class and **WFG-185** for today's instance.
 
 ---
 
 ## Findings, ranked
 
-**F1 (P0, judge-facing) — WFG-181. The bank has no 개인정보 card, for a tool that outputs a
-household-level rescue list for elderly residents.** `git grep -ciE '개인정보|프라이버시|privacy' --
-docs/auto/JUDGE_QA.md` returns **zero** across 42 cards, and the same grep returns zero on
-`web/finals.html`, `docs/auto/DEMO_SCRIPT_5MIN.md`, `docs/auto/finals/` and `README.md`. The answer
-exists in committed files and is a strong one: `docs/data_sources.md:101-102,147` name 행정안전부
-주민등록 연령별 인구 통계 and KOSIS 시군구별 65세 이상 독거노인 as *aggregate density* sources,
-`outputs/dispatch/README.md` says in its own voice that the clusters are DBSCAN groupings at
-eps = 500 m and **not 행정리**, the SMS drafts count places rather than naming people, and
-`MANIFEST.json` records `nothing_was_sent: true`. **I checked the negative rather than asserting
-it:** the phone-shaped digit runs a regex finds under `outputs/` are all inside floats and hashes
-(`1814997.0179265365`), so no phone number is in the tree.
+**F1 · WFG-185 · `fix-before-next-row`.** Q16b's spoken count is unscoped and its gate passes on a
+coincidence. Stated in full above. `docs/auto/JUDGE_QA.md:715`, `:733`;
+`tests/test_responsibility_and_privacy_cards.py:225`.
 
-**F2 (P0, judge-facing, and this lap's root objection) — WFG-182. 창의성 is worth 20 points on both
-tables and has never moved.** `awk` over the 창의성 columns of `SCORECARD.md`'s combined series
-returns the single line `39 15/15`: 15 and 15 in every row from the first critic lap to critic #39,
-while the totals went 72 to 86 on the other four rows. `grep -c '창의성' docs/auto/BACKLOG.md`
-returns **2** across about 180 rows. The 심사기준 names 창의성 first, and it plus the interview is
-over half the ISEF score. Six days of laps have been aimed at correctness; none at the row worth a
-fifth of the mark.
+**F2 · WFG-186 · P1 infra (behind R3, R8).** Mutation scores are published without a denominator
+the loop controls. The root objection made mechanical.
 
-**F3 (escalation, updated not duplicated) — the manuscript is SIX WORDS from parking, and CI cannot
-measure the limit the author actually set.** `paper/check_paper.py` run here prints
-`body_words 8994` against `body_words_max` **9,000**, and `pages {"pages": null, "why": "no
-LibreOffice Writer here"}`. The last real page measurement, in the paper lap's own container, was
-**23** against a 25-page rule. **NH-037 updated with today's numbers; no new entry opened.**
+**F3 · WFG-010 promoted P1 to P0.** ⚠ **This corrects the record rather than changing a mind, and it
+is a step-5 update to an existing row, not a §3b reorder.** Critic #39 recorded WFG-010 as
+「sitting inside the very block R8 helps hold shut」 and filed it no further. That is a misreading:
+CHARTER §14b holds **loop hygiene** behind the readiness lines, this row's goal column is **KCF**,
+and §14b's own sentence names 「README opening」 first among judge-facing surfaces. For two laps the
+one row that ticks R8 sat unpicked as P1 under a reason that did not apply to it. Measured here:
+`grep -nE '^## Round' README.md` returns `:59` Round 2, `:75` Round 3, no Round 4.
 
-**F4 (P1, loop hygiene) — WFG-183. A dev report told the author three commit ids resolve on
-`auto/dev` and two of them exist nowhere.** `docs/auto/reports/2026-09-08T0407Z-dev.md` writes
-「All three ids resolve on `auto/dev`」 of `b1af739`, `893c75c` and `ebba1aa`. Checked by two
-channels because a shallow clone is not evidence of absence: `git cat-file -t` fails on both, **and
-the GitHub API answers `No commit found for SHA: b1af739`** on a server holding the whole branch.
-Both are the lap's own pre-rebase commits. The same annotation says so four paragraphs later. The
-lap's *work* is sound — `47e48b5` is green here and run 231 is `success` — this is bookkeeping.
+**F4 · KCF_READINESS: 7 of 11, ZERO lines ticked for the SECOND consecutive critic lap.** The
+routine prompt makes that a finding about the loop's **direction**, not about the product, and I am
+filing it as one rather than softening it. Both windows went to the Q&A bank. That is real
+judge-facing work and it closed two P0 rows, and the checklist that defines 「the product is done」
+has not moved since 2026-09-07T2020Z. R3 and R8 are the two unticked lines; R8's blocker is F3 and
+is now P0, R3 needs NH-046 and NH-014 from the author.
 
-**F5 (P1, loop hygiene) — WFG-184. Three consecutive critic laps got the scorecard append wrong.**
-#37 appended to neither detail table, #38's backfill landed mid-table so a 09-07 row sits after a
-09-04 one in both, and #39 appended to the combined series only. Annotated in place; **nothing
-reordered**, because the charter says append and never rewrite.
+**F5 · NH-041, second instance, recorded not filed.** The `2026-09-08T0407Z-dev` report email
+(Gmail `1a07f4d490be13ab`) went out with a **corrupted Subject header** carrying the entire HTML
+body and raw tool-call scaffolding; `sizeEstimate` **52,396** bytes against about 26,000 for every
+other report this week. The plain-text body arrived intact. Second failure of the author's only
+report channel in two days, and both were invisible to every gate for the same structural reason:
+the send happens after the push and leaves no artifact in the tree. Recorded in NH-041 with the
+habit that follows and an explicit note that the habit has **no gate behind it** (WFG-175's
+complaint), rather than a duplicate row.
+
+**F6 · Protocol, already self-reported, recorded not re-filed.** WFG-181 was built without a pushed
+`in-progress` claim (CHARTER §4 step 3). The 0655Z lap's reviewer caught it and the lap wrote it
+into the row. Nothing collided. No new row.
 
 ---
 
-## `Do NOT edit` notes (CHARTER §14c, NH-036 A)
+## What I checked and did NOT find
 
-**None written this lap, and one was deliberately not written.** The obvious candidate was
-`JUDGE_QA.md` Q40's 11 / 7 / 4 and `docs/clean_clone_gates.md`'s matching sentences, which are
-correct today and which I verified line by line. Freezing them would have been wrong: **WFG-180
-will change those numbers on purpose**, and a note telling the next lap not to touch them is exactly
-the mechanism NH-036 was opened about. The coupling is recorded in WFG-180's row instead, where the
-lap that changes them will read it.
+Said explicitly, because a critic that only publishes hits is not measuring anything.
+
+- **The two new cards' load-bearing claims all hold**, re-derived by channels the lap did not use:
+  `sms.send` is called nowhere in `src/` or `scripts/`; `email_sent.json` appears **0** times in the
+  tree; **28** JSON run records carry `nothing_was_sent: true` and the 29th grep match is
+  `outputs/dispatch/README.md`, which is prose, so the card's 28 is right and I nearly published a
+  false finding on it; `immobile_fraction` is **0.3** in `data/processed/rescue_routing.json`;
+  `vulnerability.py`'s module docstring does declare its county scores placeholders 「NOT yet
+  anchored to authoritative data sources」.
+- **The bank's own counts are consistent:** `grep -cE '^\*\*Q[0-9]+[a-z]? · T[0-9]'` returns **44**,
+  and the header's 44 / T0 18 / T1 19 / T2 7 sums correctly.
+- **The paper lap's prose changes at `24f914f` all narrow rather than widen** (「reports」 to
+  「finds」, 「standard since Dozier」 to 「after Dozier」, 「established predictor」 to 「predicts」,
+  「the Korean local area」 to 「its sectored regions」). No new world claim needed a `factchk`
+  reversal, and I am not filing the one wording tension I noticed because I could not settle it
+  from a source in this sandbox.
+- **No ancestry or reachability claim is made anywhere in this lap** (`is-shallow-repository` =
+  `true`).
 
 ---
 
-## What I changed
+## Direction
 
-`docs/auto/` only, staged by explicit path: `BACKLOG.md` (one reorder, four new rows, WFG-180
-updated), `NEEDS_HUMAN.md` (NH-037 updated), `KCF_READINESS.md`, `SCORECARD.md` (three appended
-rows plus an ordering note), `DIRECTION.md`, this file, the report and its images. **No code, no
-test, no data, no figure, no `docs/NUMBERS.json`, and none of the four printables `SOURCES` files.**
+**No reorder spent.** Positions 1 and 2 (WFG-167, WFG-181) both closed inside this window at
+`c2a7980`. **WFG-182 falls through to position 1** and is the right row: critic #40 measured the
+scorecard side (41 consecutive 15/15 on a row worth **20 points on both tables**); this lap measured
+the product side, which is the half that matters at a booth. `grep -ncE '창의|독창'` returns **0** on
+`docs/auto/JUDGE_QA.md`, **0** on `web/finals.html` and **0** on `docs/auto/DEMO_SCRIPT_5MIN.md`.
+The same grep for 책임 and 개인정보 now returns **6** and **5** where critic #40 measured zero, so the
+method that found those rows works and 창의성 is what it points at next.
+
+Order for the next lap: **WFG-185** (the item, minutes), then **WFG-182**, then **WFG-010**, then
+WFG-128.
+
+---
+
+## Scorecard
+
+Appended at `9329400` to **all three** tables (WFG-184's requirement; existing rows untouched).
+**Track B 87, unchanged: 17 / 18 / 19 / 15 / 18.** **Track A 87, +1: 개발 목적 16 to 17**, the only
+rubric row whose text names 「작품 작동을 위한 제약에 대한 이해」, which is exactly what the two new
+cards' eight 없는 것 clauses are. 제출 자료 holds on both tracks: two T0 cards and a 40-page kit
+against F1 live on those printed pages, and I would rather hold than ratchet. **창의성 15 and 15,
+the 41st consecutive pair.**
+
+---
+
+## `Do NOT edit` notes
+
+**None written this lap** (CHARTER §14c, NH-036 A). WFG-185 must edit `docs/auto/JUDGE_QA.md` and
+rebuild the kit in the same lap, and WFG-182 must add to it; freezing either would block the work
+this file is asking for. Critic #40 wrote none either, and no note from an earlier lap is re-stated
+here, so none carries forward.

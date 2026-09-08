@@ -5,7 +5,47 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
-**Tick count, critic #40, 2026-09-08T0524Z: 7 of 11 (R1, R2, R4, R5, R6, R7, R9), unchanged, and ZERO lines moved
+**Tick count, critic #41, 2026-09-08T0819Z: 7 of 11 (R1, R2, R4, R5, R6, R7, R9), unchanged, and ZERO lines ticked
+for the SECOND consecutive critic lap.** That fires the direction finding the routine prompt defines, and it is a
+finding about the loop's aim rather than about the product. Re-derived at `9329400` on the routine's **default**
+clone, before any deepening: `git rev-parse --is-shallow-repository` = **true**, `git rev-list --count HEAD` = **50**,
+so this clone reads about 50 commits and I claim nothing about anything older. `gates.py --mode full` exits **0**,
+ALL GREEN: `1735 passed, 63 skipped, 2 xfailed`, pytest 466.2 s. **The run downloaded nothing:** `du -sb data/raw`
+answers **201,187** bytes before and after, and `data/raw/dem/srtm/` is empty afterwards. **Cold on the tile, warm on
+`data/cache`**, said rather than implied. `--assert-head` exits 0. Through the GitHub MCP (`curl` against
+`api.github.com` returns 「GitHub access is not enabled for this session」 here, which is WFG-119's 403 in its current
+wording): `auto-gates` runs **216 to 236** on `auto/dev` are **15 `success`, 5 `cancelled` (218, 226, 229, 232, 235),
+ZERO `failure`**, and run **236** at this exact head is `success`. **No CHARTER §4b finding.** Every dev and critic
+report in the window carries `Reviewed by:`.
+
+- ⚠⚠ **R3 and R8 are the two unticked lines and NEITHER moved, which is why the tick count is a direction finding.**
+  Re-measured here rather than read. **R3:** `Makefile:215` still reads `all-checks: verify baseline-verify
+  snapshot-verify env-check test`, so `baseline-verify` is still a hard prerequisite of the command R3 names, and it
+  exits 2 in every clone without the acquisition manifests (CHARTER §3d). The line still cannot go green on a clean
+  clone by construction. WFG-179, decision NH-046, plus the laptop booth recipe (NH-014, R12). **R8:** `grep -nE
+  '^## Round' README.md` returns `:59` Round 2 and `:75` Round 3 and nothing for Round 4, unchanged all week.
+- ⚠⚠ **R8's blocker was never held by anything except its own priority, and the record said otherwise.** Critic #39
+  wrote that WFG-010 「sits inside the very block R8 helps hold shut」 and filed it no further. That is a misreading:
+  CHARTER §14b holds **loop hygiene** behind the readiness lines, WFG-010's goal column is **KCF**, and §14b's own
+  sentence names 「README opening」 first among judge-facing surfaces. So for two laps the one row that ticks R8 sat
+  as P1 `todo` under a reason that did not apply to it. **Promoted to P0 by this lap** (step 5, an update to an
+  existing row, not a §3b reorder) with the measurement written into the row.
+- **R5 and R7 keep their ticks and this lap adds a deduction to neither, but records one defect on both surfaces.**
+  The bank is 44 cards (`grep -cE '^\*\*Q[0-9]+[a-z]? · T[0-9]' docs/auto/JUDGE_QA.md` = **44**, and the header's
+  44 / T0 18 / T1 19 / T2 7 sums correctly), and the kit is `WFG_printables_20260908T0633Z.pdf` at 40 pages with
+  `release/kcf-finals-2026/MANIFEST.json` pointing at it. R5's condition is coverage and R7's is that the kit exists
+  and is fresh; both hold. The defect is **WFG-185** and it is scored on 제출 자료, not here: `JUDGE_QA.md:715` tells
+  the student 「커밋된 33장 전부」 where `git ls-files '*dispatch_a4.html'` answers **642**.
+  ⚠ **A `Do NOT edit` note is NOT written here** (CHARTER §14c): WFG-185 must edit `JUDGE_QA.md` and rebuild the kit
+  in the same lap, and freezing either would block the fix.
+- **R1, R2, R4, R6, R9 hold; R11 unchanged; R10 stays withdrawn; R12 is the author's (NH-014).** I did not re-run
+  the finals acts driver: nothing in this window touched `web/`, and critic #37's two-machine evidence stands.
+- **Readiness lines ticked inside this window: NONE.** Combined with critic #40's zero, this is **two consecutive
+  critic laps at zero**, which the routine prompt makes a finding about the loop's direction. Said plainly: the loop
+  spent both windows on the Q&A bank, which is real judge-facing work and closed two P0 rows, while the checklist
+  that defines 「the product is done」 has not moved since 2026-09-07T2020Z.
+
+*(Superseded lead, kept as the record.)* **Tick count, critic #40, 2026-09-08T0524Z: 7 of 11 (R1, R2, R4, R5, R6, R7, R9), unchanged, and ZERO lines moved
 since critic #39.** Re-derived at `47e48b5` on the routine's **default** clone, before any deepening
 (`git rev-parse --is-shallow-repository` = `true`, `git rev-list --count HEAD` = **50**; the oldest resolvable
 commit is `0fc6130` at 2026-09-07T04:08:02Z, so this clone reads **49 commits / about 25 hours** and I make no claim
