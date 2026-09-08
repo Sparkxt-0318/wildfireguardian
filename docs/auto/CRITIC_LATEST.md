@@ -37,12 +37,16 @@ after the branch had already shut and critic #38's own work had to be parked on
 WFG-161 already carry the recurrence; **NH-043** (due 2026-09-09, unanswered) is the author's
 decision on what a lap may do when the gate fires. This row buys the time for that answer.
 
-⚠⚠ **Re-measured AFTER this lap's own two commits landed: `behind` is now 27, not 25, and the
-headroom is three.** This lap pushed `2fa29af` (the findings) and `6baf478` (the report's head
-annotation), and its own commits are part of the drift it is reporting — said here rather than left
-for the next reader to discover. At 27, a dev lap that claims first and rebuilds later can cross 31
-**in the middle of its own lap**: claim 28, work 29, reviewer fix 30, report 31. That is why the
-order below is not a preference.
+⚠⚠ **Re-measured AFTER this lap's own commits: `behind` is 25 at the reviewed head `ceb43ba` and
+**29** at the head this file ships in. The headroom the next dev lap meets is ONE.** This lap pushed
+four commits — `2fa29af` (the findings), `6baf478` (the report's head annotation), `26ff1d4` (this
+correction) and the commit carrying `docs/auto/reports/2026-09-08T1132Z-manual.md`, which
+`gates.py --assert-reported` required for `26ff1d4` and which is itself part of the drift. **The
+critic routine cannot clear this and its own bookkeeping makes it worse**, which is NH-045's
+complaint arriving as a fact for the third time and is the most direct evidence NH-043 has yet had.
+At 29, a dev lap that claims its row first has one commit of slack and is red by its second; at 25
+it had five. **This is why `make finals` comes before the claim and not after it, and why the number
+below is stated as a range with both heads named rather than as a single figure that was true once.**
 
 **Done when:** the lap runs `make finals` and pushes the rebuilt `web/finals.html` **before it
 claims a row**; its report records `git rev-list --count <new stamp>..HEAD`; and
