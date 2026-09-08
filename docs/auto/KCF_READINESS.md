@@ -5,7 +5,61 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
-**Tick count, critic #43, 2026-09-08T1429Z: 8 of 11 (R1, R2, R4, R5, R6, R7, **R8**, R9). ⚠ **R8 TICKS**, and the
+**Tick count, critic #44, 2026-09-08T1700Z: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), held. R8 keeps the tick
+it earned last window and I re-derived it rather than reading it.** Re-measured at `0cca093` on the routine's
+**default** clone, before any deepening: `git rev-parse --is-shallow-repository` = **true**, `git rev-list --count
+HEAD` = **54**, oldest resolvable `6d1d730` at **18:50Z on 09-07**, so this clone reads about **22 hours** and I claim
+nothing about anything older and **no ancestry or reachability claim at all**. `gates.py --mode full` exits **0**,
+ALL GREEN: `1763 passed, 63 skipped, 2 xfailed`, pytest **247.9 s**. **The run downloaded nothing:** `du -sb data/raw`
+answers **201,187** bytes before and after and `data/raw/dem/srtm/` holds **0** files. **Cold on the tile, warm on
+`data/cache`.** `--assert-head` exits 0; `--assert-reported --base 6d1d730` exits 0 over **56** substantive paths.
+
+- ⚠⚠ **CHARTER §4b FINDING, and it is the first one any critic lap has had to write this week.** `auto-gates` run
+  **253** (id 34250797625) at `0cca093` — the current head — is **`failure`**, and **the gates inside it are green**:
+  the job log prints `[gates] ALL GREEN  mode=full head=0cca093 (auto/dev)` with `1763 passed, 63 skipped, 2 xfailed`
+  in 341.5 s, and the gate step concluded `success`. What failed is the step after it, 「Keep the gate record」
+  (`actions/upload-artifact@v4`): `Failed to FinalizeArtifact: … (403) Forbidden: Error from intermediary`.
+  **`promote` has `needs: gates` (`.github/workflows/auto-gates.yml:89`) so it was SKIPPED**, and `git ls-remote
+  origin Main` answers **`6ecc386`** while `auto/dev` is `0cca093`. **`Main` stopped following the last
+  gate-certified commit because an archival upload 403'd** (CHARTER §4c). Runs **230 to 253** are otherwise 19
+  `success`, 4 `cancelled` (232, 235, 242, 245) and **this one `failure`**. **WFG-193**, and it is this lap's one
+  `fix-before-next-row` item — a red GitHub run, which §14b as amended by NH-038 B names alongside the judge-facing
+  surfaces. ⚠ **No readiness line falls for it.** R1's and R9's conditions are about the screen and the bundle, not
+  about the artifact store, and the gate's own verdict on this head is green on two machines.
+- ✅ **R8 holds, and here are the three commands rather than the claim.** `grep -nE '^## Round' README.md` answers
+  `:59`, `:75` and **`:200`**; `grep -n '^### Abstract' README.md` answers **`:614`** (it was `:596` last window; the
+  section grew by this window's fix, which is why I re-took it instead of quoting critic #43's number);
+  `make check-forbidden` exits **0** and `make verify` PASS inside the full run.
+  ⚠⚠ **And the tick is on R8's condition, not on the section's prose, for the second consecutive lap.** Critic #43
+  filed WFG-190 against two sentences inside that section; the 1518Z lap fixed both, correctly. In fixing them it
+  wrote a third: `README.md:232` now states 「이 실행이 쓴 폭은 그 sweep 안에서 **고원이 아니라 뾰족한 봉우리**
+  입니다」, which is the shape `docs/auto/JUDGE_QA.md:1394` and `:920` say the five-point sweep **cannot resolve** and
+  which `docs/auto/DEMO_SCRIPT_5MIN.md:151` has the student disclaim aloud. That is **WFG-127**'s fourth surface and
+  this lap's root objection; it is scored on 제출 자료 and 설계와 방법론, not here.
+- ✅ **R5 and R7 hold and both got stronger.** The bank is **46** cards and the header's 46 / T0 19 / T1 20 / T2 7
+  sums (`grep -cE '^\*\*Q[0-9]+[a-z]? · T[0-9]'` = 46, and the per-tier counts derive to 19 / 20 / 7). The 46th is
+  the county-adoption card WFG-188 asked for, it leads with what the project cannot do, and
+  `tests/test_adoption_card.py` (327 lines) binds it. The kit is `WFG_printables_20260908T1529Z.pdf` with
+  `release/kcf-finals-2026/MANIFEST.json` re-pointed to it in the same lap, which is what a `SOURCES` edit requires.
+- ⚠⚠ **R3 is still the last of CHARTER §14b's six lines and it is still the author's, not a lap's.** Unchanged from
+  critic #43 and re-read rather than re-argued: `Makefile:215` still makes `baseline-verify` a hard prerequisite of
+  the command R3 names, R3's row **WFG-179** is `blocked(NH-046)`, and **NH-046 is due 2026-09-10**. Eight P1 infra
+  rows still wait on one reply. Nothing in the loop's power shortens that queue.
+- **R1 and R9 keep their ticks and the staleness defect is nowhere near firing.** `web/finals.html` carries
+  `"git":"25f6b60"` and `git rev-list --count 25f6b60..HEAD` answers **16** against
+  `tests/test_finals_screen.py:540`'s `STAMP_MAX_COMMITS_BEHIND = 30`. DIRECTION's 「say so at 20 or more」 rule does
+  **not** trigger this lap, and I say the number anyway so the next lap need not re-take it.
+- **R11 unchanged (WFG-024, blocked on WFG-023); R10 stays withdrawn; R12 is the author's (NH-014).**
+- **Readiness lines ticked inside this window: ONE (R8, at `dee1bc1`, 09-08).** The zero-tick direction finding does
+  **not** fire, for the second consecutive lap.
+- ⚠ **The one scoped `Do NOT edit` note this lap writes is RE-STATED after re-checking, per CHARTER §14c / NH-036 A.**
+  It covers `README.md:220-239` only, it forbids exactly one thing — putting a **margin value** (9, 27, 5, 19, 42,
+  91, 86) into those lines — and I re-read `docs/auto/NEEDS_HUMAN.md:1391` and `:1524` to confirm the premise: NH-032
+  and NH-034 are both still `open` and both were due **2026-09-08**, which is today. It expires at critic #45 unless
+  that lap re-states it after re-reading those two entries. **It freezes no file and no question:** WFG-127 (iv) must
+  edit `README.md:232`, and that edit is prose about a **grid**, not a result number.
+
+*(Superseded lead, kept as the record.)* **Tick count, critic #43, 2026-09-08T1429Z: 8 of 11 (R1, R2, R4, R5, R6, R7, **R8**, R9). ⚠ **R8 TICKS**, and the
 zero-tick streak that ran for three consecutive critic laps ends here.** Re-derived at `dee1bc1` on the routine's
 **default** clone, before any deepening: `git rev-parse --is-shallow-repository` = **true**, `git rev-list --count HEAD`
 = **50**, oldest resolvable `7cc4eb7` (16:12Z, 09-07), so this clone reads about 22 hours and I claim nothing about
