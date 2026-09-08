@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "492364c87585180264035f7e8294d871436ef6ce",
-  "n_artifacts": 103,
-  "total_bytes": 14541543,
-  "total_mib": 13.87,
-  "n_git_tracked": 103,
+  "generated_at_git_commit": "97231a186bb24d2b0b5717333810af410343985e",
+  "n_artifacts": 104,
+  "total_bytes": 14574787,
+  "total_mib": 13.9,
+  "n_git_tracked": 104,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 8,
   "artifacts": [
@@ -376,6 +376,7 @@
         "docs/auto/JUDGE_QA.md",
         "docs/auto/SCORECARD.md",
         "docs/auto/reports/2026-09-03T1851Z-dev.md",
+        "docs/auto/research/WEEKLY_2026-W36.md",
         "docs/evidence/greenpeace_2026_survey.md"
       ],
       "regenerate": "python scripts/extract_survey_evidence.py"
@@ -639,9 +640,29 @@
       "n_registry_entries": 57,
       "cited_by_docs": [
         "docs/auto/BACKLOG.md",
+        "docs/auto/JUDGE_QA.md",
+        "docs/auto/KCF_READINESS.md",
+        "docs/auto/SCORECARD.md",
+        "docs/auto/reports/2026-09-05T2132Z-dev.md",
+        "docs/auto/reports/2026-09-06T0059Z-dev.md",
+        "docs/auto/reports/2026-09-06T0215Z-critic.md",
+        "docs/auto/reports/2026-09-06T0323Z-manual.md",
+        "docs/auto/reports/2026-09-06T2015Z-critic.md",
+        "docs/auto/reports/2026-09-06T2154Z-dev.md",
+        "docs/fair_opponent_line.md",
         "docs/present_perimeter_arm.md"
       ],
       "regenerate": "python scripts/run_present_perimeter_arm.py"
+    },
+    {
+      "path": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "bytes": 33244,
+      "sha256": "53628569463441e82d96606651fb212f0fecb828b2c2e179d8a8909d277322c4",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 18,
+      "cited_by_docs": [],
+      "regenerate": "python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json"
     },
     {
       "path": "data/processed/real_roads_real_hazard.json",
@@ -691,7 +712,9 @@
       "kind": "text",
       "git_tracked": true,
       "n_registry_entries": 7,
-      "cited_by_docs": [],
+      "cited_by_docs": [
+        "docs/auto/BACKLOG.md"
+      ],
       "regenerate": "python scripts/build_multi_region_comparison.py"
     },
     {
@@ -773,6 +796,9 @@
         "docs/HANDOFF_ROUND3.md",
         "docs/REPORT_ROUND2_P1.md",
         "docs/SESSION8_LOG.md",
+        "docs/auto/JUDGE_QA.md",
+        "docs/auto/SCORECARD.md",
+        "docs/auto/archive/DIRECTION_superseded_2026-09-08T1817Z.md",
         "docs/auto/reports/2026-09-04T1416Z-critic.md",
         "docs/auto/reports/2026-09-04T1534Z-manual.md",
         "docs/auto/reports/2026-09-04T1547Z-manual.md",
@@ -861,6 +887,8 @@
       "git_tracked": true,
       "n_registry_entries": 0,
       "cited_by_docs": [
+        "docs/auto/BACKLOG.md",
+        "docs/auto/reports/2026-09-06T0516Z-critic.md",
         "docs/live_pipeline.md",
         "docs/manual_trigger.md",
         "paper/GAPS.md"
@@ -1023,7 +1051,11 @@
         "docs/MODEL_CARD.md",
         "docs/SESSION18_REPORT.md",
         "docs/auto/BACKLOG.md",
+        "docs/auto/CRITIC_LATEST.md",
+        "docs/auto/DIRECTION.md",
+        "docs/auto/SCORECARD.md",
         "docs/auto/knowledge/PYROGEOGRAPHY.md",
+        "docs/auto/reports/2026-09-08T2023Z-critic.md",
         "docs/auto/research/BACKLOG_PROPOSAL_2026-09-03.md",
         "docs/auto/research/RESEARCH_BRIEF_2026-09-03.md",
         "docs/operating_point.md"

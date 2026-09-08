@@ -126,8 +126,23 @@ widths in the same run:
 | 2 km | 19 | 7 | 275 | 5 | 8 | **80** |
 | 3 km | 24 | 4 | 283 | 3 | 9 | **73** |
 
-The 1 km row is a **spike, not a plateau**, and the last three columns say why.
-The arm has two ways to fail and they trade off against each other:
+⚠ **This table's five widths cannot say what shape the top is, and a sentence
+here used to say it anyway.** Until 2026-09-08 this line read 「The 1 km row is a
+spike, not a plateau」 <!-- forbidden-ok: wc011-buffer-width-is-a-spike-en --> —
+but the two neighbours of 1 km in this grid are each a factor of two away, so
+nothing above distinguishes a peak at 1 km from a shoulder spanning roughly
+800 m to 1.5 km. The claim is **withdrawn (WC-011)**. It was replaced by a
+measurement, not by a hedge: 750 m, 1250 m and 1500 m were run on the same code
+and the same committed inputs, all five widths above reproduced cell for cell,
+and the top turned out to be a **shoulder** — 750 m scores 349 and 1 km scores
+345, four origins apart out of 368. The eight-width table, the asymmetry that
+replaces 「you cannot know the width」, and the fact that this outcome runs
+**against** this project are in
+[`docs/present_perimeter_buffer_shape.md`](present_perimeter_buffer_shape.md).
+**This table is unchanged and is still the committed artifact's own five widths.**
+
+What the last three columns do say, and this part stands, is *why* the ends
+fail. The arm has two ways to fail and they trade off against each other:
 
 - **Too thin** (250 m, 500 m): the buffer is inside the fire's own growth. The
   route dodges the perimeter as it stands and the fire arrives anyway — **91 and
@@ -141,7 +156,11 @@ The arm has two ways to fail and they trade off against each other:
   success. A handful more (8 and 9) have no route at all.
 
 1 km happens to sit on the crossing: narrow enough that the detours are still
-walkable, wide enough that the fire has almost stopped catching people.
+walkable, wide enough that the fire has almost stopped catching people. The
+denser grid puts 750 m on the same crossing, slightly better, which is why the
+crossing is a **band** rather than a point — and why an operator who has to
+guess should guess **thick**, since the thin side is a cliff and the thick side
+is a ramp (`docs/present_perimeter_buffer_shape.md` §3).
 
 **This is the honest defence of the forecast, and it is a better one than the 91
 ever was.** A present-aware policy can nearly match the forecast on this fire —

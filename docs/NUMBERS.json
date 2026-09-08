@@ -13359,6 +13359,744 @@
           }
         }
       }
+    },
+    "ppshape_uiseong_w750m_recovered": {
+      "value": 88,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "json_path": "buffer_sensitivity.2.recovered_of_forecast_only",
+      "derivation": "forecast-only origins the present-aware arm also gets to safety (buffer 750 m). Regenerate: python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "97231a186bb24d2b0b5717333810af410343985e",
+      "sample": "의성·안동 2025 · 368곳 주사 · slope 60 m / DiGraph (canonical)",
+      "caveat": "DENSE BUFFER GRID, FAIR-OPPONENT ARM, ONE FIRE, CANONICAL (slope 60 m / DiGraph) TIMING. These three widths were run to settle a question the five-width grid could not answer and that three surfaces answered anyway: whether the best buffer width is a spike or a plateau. Four facts travel together or none of them may be quoted: (1) it is NOT a spike — measured safe totals run 275, 284, 349, 345, 318, 305, 275, 283 across 250 m to 3 km, so the top is a shoulder about 750 m to 1 km wide and the previous 「spike, not a plateau」 reading is WITHDRAWN (WC-011); (2) the shoulder is not symmetric — the LEFT edge is a cliff (500 m to 750 m gains 65 origins) and the right side decays gradually (1 km to 1.5 km loses 40), so an operator who guesses 250 m too THIN loses far more than one who guesses 500 m too THICK, which is an operationally different statement from 「you cannot know」; (3) 750 m scores HIGHER than the 1 km the committed headline uses, so the fair opponent is stronger than the committed artifact reports and the forecast's margin on this fire is SMALLER than the committed margin, not larger — this result runs AGAINST this project; (4) it is still ONE fire, ONE region and ONE hazard realisation, the grid is still 250 m coarse at its finest, and nothing here says an operator could pick the shoulder in advance on a DIFFERENT fire. ⚠ The forecast-aware arm is scored on the SAME hazard field it plans on, so it carries NO forecast error here; every margin in this band is what a PERFECT forecast buys over a present-perimeter policy, and the real-model margin is smaller by an amount this run does not measure.",
+      "forbidden_phrasings": [
+        "750 m is the optimal buffer",
+        "750 m가 최적",
+        "the optimal buffer width is 750",
+        "the data chooses the buffer width",
+        "데이터가 완충거리를 골라",
+        "the buffer width can be known in advance",
+        "the forecast is unnecessary",
+        "예보는 필요 없다"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json rebuilds the artifact from the hash-verified snapshot walk graph, the committed hazard npz and the committed refuge snapshot, with no network access. It refuses to write unless it first reproduces the committed canonical arm exactly, and the five widths it shares with the committed artifact come out cell for cell identical — which is what makes the three new widths comparable with the five old ones at all.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "present_perimeter",
+      "notes": "docs/present_perimeter_buffer_shape.md states the method, the measured shape, the withdrawal it forces (WC-011) and what the denser grid still does not show. WFG-127.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+            "json_path": "buffer_sensitivity.2.recovered_of_forecast_only"
+          }
+        }
+      }
+    },
+    "ppshape_uiseong_w750m_broken": {
+      "value": 3,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "json_path": "buffer_sensitivity.2.already_safe_broken",
+      "derivation": "origins the fire-blind control already had safe that this buffer breaks (buffer 750 m). Regenerate: python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "97231a186bb24d2b0b5717333810af410343985e",
+      "sample": "의성·안동 2025 · 368곳 주사 · slope 60 m / DiGraph (canonical)",
+      "caveat": "DENSE BUFFER GRID, FAIR-OPPONENT ARM, ONE FIRE, CANONICAL (slope 60 m / DiGraph) TIMING. These three widths were run to settle a question the five-width grid could not answer and that three surfaces answered anyway: whether the best buffer width is a spike or a plateau. Four facts travel together or none of them may be quoted: (1) it is NOT a spike — measured safe totals run 275, 284, 349, 345, 318, 305, 275, 283 across 250 m to 3 km, so the top is a shoulder about 750 m to 1 km wide and the previous 「spike, not a plateau」 reading is WITHDRAWN (WC-011); (2) the shoulder is not symmetric — the LEFT edge is a cliff (500 m to 750 m gains 65 origins) and the right side decays gradually (1 km to 1.5 km loses 40), so an operator who guesses 250 m too THIN loses far more than one who guesses 500 m too THICK, which is an operationally different statement from 「you cannot know」; (3) 750 m scores HIGHER than the 1 km the committed headline uses, so the fair opponent is stronger than the committed artifact reports and the forecast's margin on this fire is SMALLER than the committed margin, not larger — this result runs AGAINST this project; (4) it is still ONE fire, ONE region and ONE hazard realisation, the grid is still 250 m coarse at its finest, and nothing here says an operator could pick the shoulder in advance on a DIFFERENT fire. ⚠ The forecast-aware arm is scored on the SAME hazard field it plans on, so it carries NO forecast error here; every margin in this band is what a PERFECT forecast buys over a present-perimeter policy, and the real-model margin is smaller by an amount this run does not measure.",
+      "forbidden_phrasings": [
+        "750 m is the optimal buffer",
+        "750 m가 최적",
+        "the optimal buffer width is 750",
+        "the data chooses the buffer width",
+        "데이터가 완충거리를 골라",
+        "the buffer width can be known in advance",
+        "the forecast is unnecessary",
+        "예보는 필요 없다"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json rebuilds the artifact from the hash-verified snapshot walk graph, the committed hazard npz and the committed refuge snapshot, with no network access. It refuses to write unless it first reproduces the committed canonical arm exactly, and the five widths it shares with the committed artifact come out cell for cell identical — which is what makes the three new widths comparable with the five old ones at all.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "present_perimeter",
+      "notes": "docs/present_perimeter_buffer_shape.md states the method, the measured shape, the withdrawal it forces (WC-011) and what the denser grid still does not show. WFG-127.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+            "json_path": "buffer_sensitivity.2.already_safe_broken"
+          }
+        }
+      }
+    },
+    "ppshape_uiseong_w750m_safe": {
+      "value": 349,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "json_path": "buffer_sensitivity.2.safe_total",
+      "derivation": "origins the present-aware arm gets to a refuge safely and inside budget (buffer 750 m). Regenerate: python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "97231a186bb24d2b0b5717333810af410343985e",
+      "sample": "의성·안동 2025 · 368곳 주사 · slope 60 m / DiGraph (canonical)",
+      "caveat": "DENSE BUFFER GRID, FAIR-OPPONENT ARM, ONE FIRE, CANONICAL (slope 60 m / DiGraph) TIMING. These three widths were run to settle a question the five-width grid could not answer and that three surfaces answered anyway: whether the best buffer width is a spike or a plateau. Four facts travel together or none of them may be quoted: (1) it is NOT a spike — measured safe totals run 275, 284, 349, 345, 318, 305, 275, 283 across 250 m to 3 km, so the top is a shoulder about 750 m to 1 km wide and the previous 「spike, not a plateau」 reading is WITHDRAWN (WC-011); (2) the shoulder is not symmetric — the LEFT edge is a cliff (500 m to 750 m gains 65 origins) and the right side decays gradually (1 km to 1.5 km loses 40), so an operator who guesses 250 m too THIN loses far more than one who guesses 500 m too THICK, which is an operationally different statement from 「you cannot know」; (3) 750 m scores HIGHER than the 1 km the committed headline uses, so the fair opponent is stronger than the committed artifact reports and the forecast's margin on this fire is SMALLER than the committed margin, not larger — this result runs AGAINST this project; (4) it is still ONE fire, ONE region and ONE hazard realisation, the grid is still 250 m coarse at its finest, and nothing here says an operator could pick the shoulder in advance on a DIFFERENT fire. ⚠ The forecast-aware arm is scored on the SAME hazard field it plans on, so it carries NO forecast error here; every margin in this band is what a PERFECT forecast buys over a present-perimeter policy, and the real-model margin is smaller by an amount this run does not measure.",
+      "forbidden_phrasings": [
+        "750 m is the optimal buffer",
+        "750 m가 최적",
+        "the optimal buffer width is 750",
+        "the data chooses the buffer width",
+        "데이터가 완충거리를 골라",
+        "the buffer width can be known in advance",
+        "the forecast is unnecessary",
+        "예보는 필요 없다"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json rebuilds the artifact from the hash-verified snapshot walk graph, the committed hazard npz and the committed refuge snapshot, with no network access. It refuses to write unless it first reproduces the committed canonical arm exactly, and the five widths it shares with the committed artifact come out cell for cell identical — which is what makes the three new widths comparable with the five old ones at all.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "present_perimeter",
+      "notes": "docs/present_perimeter_buffer_shape.md states the method, the measured shape, the withdrawal it forces (WC-011) and what the denser grid still does not show. WFG-127.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+            "json_path": "buffer_sensitivity.2.safe_total"
+          }
+        }
+      }
+    },
+    "ppshape_uiseong_w750m_burns": {
+      "value": 3,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "json_path": "buffer_sensitivity.2.failed_enters_hazard",
+      "derivation": "origins whose present-aware route still stands on a cell at p >= 0.5 while it is at p >= 0.5 — the fire grows past the buffer (buffer 750 m). Regenerate: python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "97231a186bb24d2b0b5717333810af410343985e",
+      "sample": "의성·안동 2025 · 368곳 주사 · slope 60 m / DiGraph (canonical)",
+      "caveat": "DENSE BUFFER GRID, FAIR-OPPONENT ARM, ONE FIRE, CANONICAL (slope 60 m / DiGraph) TIMING. These three widths were run to settle a question the five-width grid could not answer and that three surfaces answered anyway: whether the best buffer width is a spike or a plateau. Four facts travel together or none of them may be quoted: (1) it is NOT a spike — measured safe totals run 275, 284, 349, 345, 318, 305, 275, 283 across 250 m to 3 km, so the top is a shoulder about 750 m to 1 km wide and the previous 「spike, not a plateau」 reading is WITHDRAWN (WC-011); (2) the shoulder is not symmetric — the LEFT edge is a cliff (500 m to 750 m gains 65 origins) and the right side decays gradually (1 km to 1.5 km loses 40), so an operator who guesses 250 m too THIN loses far more than one who guesses 500 m too THICK, which is an operationally different statement from 「you cannot know」; (3) 750 m scores HIGHER than the 1 km the committed headline uses, so the fair opponent is stronger than the committed artifact reports and the forecast's margin on this fire is SMALLER than the committed margin, not larger — this result runs AGAINST this project; (4) it is still ONE fire, ONE region and ONE hazard realisation, the grid is still 250 m coarse at its finest, and nothing here says an operator could pick the shoulder in advance on a DIFFERENT fire. ⚠ The forecast-aware arm is scored on the SAME hazard field it plans on, so it carries NO forecast error here; every margin in this band is what a PERFECT forecast buys over a present-perimeter policy, and the real-model margin is smaller by an amount this run does not measure.",
+      "forbidden_phrasings": [
+        "750 m is the optimal buffer",
+        "750 m가 최적",
+        "the optimal buffer width is 750",
+        "the data chooses the buffer width",
+        "데이터가 완충거리를 골라",
+        "the buffer width can be known in advance",
+        "the forecast is unnecessary",
+        "예보는 필요 없다"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json rebuilds the artifact from the hash-verified snapshot walk graph, the committed hazard npz and the committed refuge snapshot, with no network access. It refuses to write unless it first reproduces the committed canonical arm exactly, and the five widths it shares with the committed artifact come out cell for cell identical — which is what makes the three new widths comparable with the five old ones at all.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "present_perimeter",
+      "notes": "docs/present_perimeter_buffer_shape.md states the method, the measured shape, the withdrawal it forces (WC-011) and what the denser grid still does not show. WFG-127.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+            "json_path": "buffer_sensitivity.2.failed_enters_hazard"
+          }
+        }
+      }
+    },
+    "ppshape_uiseong_w750m_unreachable": {
+      "value": 3,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "json_path": "buffer_sensitivity.2.failed_unreachable",
+      "derivation": "origins with no route to any refuge — safety bought by telling people there is no way out (buffer 750 m). Regenerate: python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "97231a186bb24d2b0b5717333810af410343985e",
+      "sample": "의성·안동 2025 · 368곳 주사 · slope 60 m / DiGraph (canonical)",
+      "caveat": "DENSE BUFFER GRID, FAIR-OPPONENT ARM, ONE FIRE, CANONICAL (slope 60 m / DiGraph) TIMING. These three widths were run to settle a question the five-width grid could not answer and that three surfaces answered anyway: whether the best buffer width is a spike or a plateau. Four facts travel together or none of them may be quoted: (1) it is NOT a spike — measured safe totals run 275, 284, 349, 345, 318, 305, 275, 283 across 250 m to 3 km, so the top is a shoulder about 750 m to 1 km wide and the previous 「spike, not a plateau」 reading is WITHDRAWN (WC-011); (2) the shoulder is not symmetric — the LEFT edge is a cliff (500 m to 750 m gains 65 origins) and the right side decays gradually (1 km to 1.5 km loses 40), so an operator who guesses 250 m too THIN loses far more than one who guesses 500 m too THICK, which is an operationally different statement from 「you cannot know」; (3) 750 m scores HIGHER than the 1 km the committed headline uses, so the fair opponent is stronger than the committed artifact reports and the forecast's margin on this fire is SMALLER than the committed margin, not larger — this result runs AGAINST this project; (4) it is still ONE fire, ONE region and ONE hazard realisation, the grid is still 250 m coarse at its finest, and nothing here says an operator could pick the shoulder in advance on a DIFFERENT fire. ⚠ The forecast-aware arm is scored on the SAME hazard field it plans on, so it carries NO forecast error here; every margin in this band is what a PERFECT forecast buys over a present-perimeter policy, and the real-model margin is smaller by an amount this run does not measure.",
+      "forbidden_phrasings": [
+        "750 m is the optimal buffer",
+        "750 m가 최적",
+        "the optimal buffer width is 750",
+        "the data chooses the buffer width",
+        "데이터가 완충거리를 골라",
+        "the buffer width can be known in advance",
+        "the forecast is unnecessary",
+        "예보는 필요 없다"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json rebuilds the artifact from the hash-verified snapshot walk graph, the committed hazard npz and the committed refuge snapshot, with no network access. It refuses to write unless it first reproduces the committed canonical arm exactly, and the five widths it shares with the committed artifact come out cell for cell identical — which is what makes the three new widths comparable with the five old ones at all.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "present_perimeter",
+      "notes": "docs/present_perimeter_buffer_shape.md states the method, the measured shape, the withdrawal it forces (WC-011) and what the denser grid still does not show. WFG-127.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+            "json_path": "buffer_sensitivity.2.failed_unreachable"
+          }
+        }
+      }
+    },
+    "ppshape_uiseong_w750m_late": {
+      "value": 13,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "json_path": "buffer_sensitivity.2.failed_over_budget",
+      "derivation": "origins that reach a refuge safely but outside the 600-minute budget (buffer 750 m). Regenerate: python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "97231a186bb24d2b0b5717333810af410343985e",
+      "sample": "의성·안동 2025 · 368곳 주사 · slope 60 m / DiGraph (canonical)",
+      "caveat": "DENSE BUFFER GRID, FAIR-OPPONENT ARM, ONE FIRE, CANONICAL (slope 60 m / DiGraph) TIMING. These three widths were run to settle a question the five-width grid could not answer and that three surfaces answered anyway: whether the best buffer width is a spike or a plateau. Four facts travel together or none of them may be quoted: (1) it is NOT a spike — measured safe totals run 275, 284, 349, 345, 318, 305, 275, 283 across 250 m to 3 km, so the top is a shoulder about 750 m to 1 km wide and the previous 「spike, not a plateau」 reading is WITHDRAWN (WC-011); (2) the shoulder is not symmetric — the LEFT edge is a cliff (500 m to 750 m gains 65 origins) and the right side decays gradually (1 km to 1.5 km loses 40), so an operator who guesses 250 m too THIN loses far more than one who guesses 500 m too THICK, which is an operationally different statement from 「you cannot know」; (3) 750 m scores HIGHER than the 1 km the committed headline uses, so the fair opponent is stronger than the committed artifact reports and the forecast's margin on this fire is SMALLER than the committed margin, not larger — this result runs AGAINST this project; (4) it is still ONE fire, ONE region and ONE hazard realisation, the grid is still 250 m coarse at its finest, and nothing here says an operator could pick the shoulder in advance on a DIFFERENT fire. ⚠ The forecast-aware arm is scored on the SAME hazard field it plans on, so it carries NO forecast error here; every margin in this band is what a PERFECT forecast buys over a present-perimeter policy, and the real-model margin is smaller by an amount this run does not measure.",
+      "forbidden_phrasings": [
+        "750 m is the optimal buffer",
+        "750 m가 최적",
+        "the optimal buffer width is 750",
+        "the data chooses the buffer width",
+        "데이터가 완충거리를 골라",
+        "the buffer width can be known in advance",
+        "the forecast is unnecessary",
+        "예보는 필요 없다"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json rebuilds the artifact from the hash-verified snapshot walk graph, the committed hazard npz and the committed refuge snapshot, with no network access. It refuses to write unless it first reproduces the committed canonical arm exactly, and the five widths it shares with the committed artifact come out cell for cell identical — which is what makes the three new widths comparable with the five old ones at all.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "present_perimeter",
+      "notes": "docs/present_perimeter_buffer_shape.md states the method, the measured shape, the withdrawal it forces (WC-011) and what the denser grid still does not show. WFG-127.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+            "json_path": "buffer_sensitivity.2.failed_over_budget"
+          }
+        }
+      }
+    },
+    "ppshape_uiseong_w1250m_recovered": {
+      "value": 59,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "json_path": "buffer_sensitivity.4.recovered_of_forecast_only",
+      "derivation": "forecast-only origins the present-aware arm also gets to safety (buffer 1250 m). Regenerate: python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "97231a186bb24d2b0b5717333810af410343985e",
+      "sample": "의성·안동 2025 · 368곳 주사 · slope 60 m / DiGraph (canonical)",
+      "caveat": "DENSE BUFFER GRID, FAIR-OPPONENT ARM, ONE FIRE, CANONICAL (slope 60 m / DiGraph) TIMING. These three widths were run to settle a question the five-width grid could not answer and that three surfaces answered anyway: whether the best buffer width is a spike or a plateau. Four facts travel together or none of them may be quoted: (1) it is NOT a spike — measured safe totals run 275, 284, 349, 345, 318, 305, 275, 283 across 250 m to 3 km, so the top is a shoulder about 750 m to 1 km wide and the previous 「spike, not a plateau」 reading is WITHDRAWN (WC-011); (2) the shoulder is not symmetric — the LEFT edge is a cliff (500 m to 750 m gains 65 origins) and the right side decays gradually (1 km to 1.5 km loses 40), so an operator who guesses 250 m too THIN loses far more than one who guesses 500 m too THICK, which is an operationally different statement from 「you cannot know」; (3) 750 m scores HIGHER than the 1 km the committed headline uses, so the fair opponent is stronger than the committed artifact reports and the forecast's margin on this fire is SMALLER than the committed margin, not larger — this result runs AGAINST this project; (4) it is still ONE fire, ONE region and ONE hazard realisation, the grid is still 250 m coarse at its finest, and nothing here says an operator could pick the shoulder in advance on a DIFFERENT fire. ⚠ The forecast-aware arm is scored on the SAME hazard field it plans on, so it carries NO forecast error here; every margin in this band is what a PERFECT forecast buys over a present-perimeter policy, and the real-model margin is smaller by an amount this run does not measure.",
+      "forbidden_phrasings": [
+        "750 m is the optimal buffer",
+        "750 m가 최적",
+        "the optimal buffer width is 750",
+        "the data chooses the buffer width",
+        "데이터가 완충거리를 골라",
+        "the buffer width can be known in advance",
+        "the forecast is unnecessary",
+        "예보는 필요 없다"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json rebuilds the artifact from the hash-verified snapshot walk graph, the committed hazard npz and the committed refuge snapshot, with no network access. It refuses to write unless it first reproduces the committed canonical arm exactly, and the five widths it shares with the committed artifact come out cell for cell identical — which is what makes the three new widths comparable with the five old ones at all.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "present_perimeter",
+      "notes": "docs/present_perimeter_buffer_shape.md states the method, the measured shape, the withdrawal it forces (WC-011) and what the denser grid still does not show. WFG-127.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+            "json_path": "buffer_sensitivity.4.recovered_of_forecast_only"
+          }
+        }
+      }
+    },
+    "ppshape_uiseong_w1250m_broken": {
+      "value": 4,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "json_path": "buffer_sensitivity.4.already_safe_broken",
+      "derivation": "origins the fire-blind control already had safe that this buffer breaks (buffer 1250 m). Regenerate: python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "97231a186bb24d2b0b5717333810af410343985e",
+      "sample": "의성·안동 2025 · 368곳 주사 · slope 60 m / DiGraph (canonical)",
+      "caveat": "DENSE BUFFER GRID, FAIR-OPPONENT ARM, ONE FIRE, CANONICAL (slope 60 m / DiGraph) TIMING. These three widths were run to settle a question the five-width grid could not answer and that three surfaces answered anyway: whether the best buffer width is a spike or a plateau. Four facts travel together or none of them may be quoted: (1) it is NOT a spike — measured safe totals run 275, 284, 349, 345, 318, 305, 275, 283 across 250 m to 3 km, so the top is a shoulder about 750 m to 1 km wide and the previous 「spike, not a plateau」 reading is WITHDRAWN (WC-011); (2) the shoulder is not symmetric — the LEFT edge is a cliff (500 m to 750 m gains 65 origins) and the right side decays gradually (1 km to 1.5 km loses 40), so an operator who guesses 250 m too THIN loses far more than one who guesses 500 m too THICK, which is an operationally different statement from 「you cannot know」; (3) 750 m scores HIGHER than the 1 km the committed headline uses, so the fair opponent is stronger than the committed artifact reports and the forecast's margin on this fire is SMALLER than the committed margin, not larger — this result runs AGAINST this project; (4) it is still ONE fire, ONE region and ONE hazard realisation, the grid is still 250 m coarse at its finest, and nothing here says an operator could pick the shoulder in advance on a DIFFERENT fire. ⚠ The forecast-aware arm is scored on the SAME hazard field it plans on, so it carries NO forecast error here; every margin in this band is what a PERFECT forecast buys over a present-perimeter policy, and the real-model margin is smaller by an amount this run does not measure.",
+      "forbidden_phrasings": [
+        "750 m is the optimal buffer",
+        "750 m가 최적",
+        "the optimal buffer width is 750",
+        "the data chooses the buffer width",
+        "데이터가 완충거리를 골라",
+        "the buffer width can be known in advance",
+        "the forecast is unnecessary",
+        "예보는 필요 없다"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json rebuilds the artifact from the hash-verified snapshot walk graph, the committed hazard npz and the committed refuge snapshot, with no network access. It refuses to write unless it first reproduces the committed canonical arm exactly, and the five widths it shares with the committed artifact come out cell for cell identical — which is what makes the three new widths comparable with the five old ones at all.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "present_perimeter",
+      "notes": "docs/present_perimeter_buffer_shape.md states the method, the measured shape, the withdrawal it forces (WC-011) and what the denser grid still does not show. WFG-127.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+            "json_path": "buffer_sensitivity.4.already_safe_broken"
+          }
+        }
+      }
+    },
+    "ppshape_uiseong_w1250m_safe": {
+      "value": 318,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "json_path": "buffer_sensitivity.4.safe_total",
+      "derivation": "origins the present-aware arm gets to a refuge safely and inside budget (buffer 1250 m). Regenerate: python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "97231a186bb24d2b0b5717333810af410343985e",
+      "sample": "의성·안동 2025 · 368곳 주사 · slope 60 m / DiGraph (canonical)",
+      "caveat": "DENSE BUFFER GRID, FAIR-OPPONENT ARM, ONE FIRE, CANONICAL (slope 60 m / DiGraph) TIMING. These three widths were run to settle a question the five-width grid could not answer and that three surfaces answered anyway: whether the best buffer width is a spike or a plateau. Four facts travel together or none of them may be quoted: (1) it is NOT a spike — measured safe totals run 275, 284, 349, 345, 318, 305, 275, 283 across 250 m to 3 km, so the top is a shoulder about 750 m to 1 km wide and the previous 「spike, not a plateau」 reading is WITHDRAWN (WC-011); (2) the shoulder is not symmetric — the LEFT edge is a cliff (500 m to 750 m gains 65 origins) and the right side decays gradually (1 km to 1.5 km loses 40), so an operator who guesses 250 m too THIN loses far more than one who guesses 500 m too THICK, which is an operationally different statement from 「you cannot know」; (3) 750 m scores HIGHER than the 1 km the committed headline uses, so the fair opponent is stronger than the committed artifact reports and the forecast's margin on this fire is SMALLER than the committed margin, not larger — this result runs AGAINST this project; (4) it is still ONE fire, ONE region and ONE hazard realisation, the grid is still 250 m coarse at its finest, and nothing here says an operator could pick the shoulder in advance on a DIFFERENT fire. ⚠ The forecast-aware arm is scored on the SAME hazard field it plans on, so it carries NO forecast error here; every margin in this band is what a PERFECT forecast buys over a present-perimeter policy, and the real-model margin is smaller by an amount this run does not measure.",
+      "forbidden_phrasings": [
+        "750 m is the optimal buffer",
+        "750 m가 최적",
+        "the optimal buffer width is 750",
+        "the data chooses the buffer width",
+        "데이터가 완충거리를 골라",
+        "the buffer width can be known in advance",
+        "the forecast is unnecessary",
+        "예보는 필요 없다"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json rebuilds the artifact from the hash-verified snapshot walk graph, the committed hazard npz and the committed refuge snapshot, with no network access. It refuses to write unless it first reproduces the committed canonical arm exactly, and the five widths it shares with the committed artifact come out cell for cell identical — which is what makes the three new widths comparable with the five old ones at all.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "present_perimeter",
+      "notes": "docs/present_perimeter_buffer_shape.md states the method, the measured shape, the withdrawal it forces (WC-011) and what the denser grid still does not show. WFG-127.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+            "json_path": "buffer_sensitivity.4.safe_total"
+          }
+        }
+      }
+    },
+    "ppshape_uiseong_w1250m_burns": {
+      "value": 4,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "json_path": "buffer_sensitivity.4.failed_enters_hazard",
+      "derivation": "origins whose present-aware route still stands on a cell at p >= 0.5 while it is at p >= 0.5 — the fire grows past the buffer (buffer 1250 m). Regenerate: python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "97231a186bb24d2b0b5717333810af410343985e",
+      "sample": "의성·안동 2025 · 368곳 주사 · slope 60 m / DiGraph (canonical)",
+      "caveat": "DENSE BUFFER GRID, FAIR-OPPONENT ARM, ONE FIRE, CANONICAL (slope 60 m / DiGraph) TIMING. These three widths were run to settle a question the five-width grid could not answer and that three surfaces answered anyway: whether the best buffer width is a spike or a plateau. Four facts travel together or none of them may be quoted: (1) it is NOT a spike — measured safe totals run 275, 284, 349, 345, 318, 305, 275, 283 across 250 m to 3 km, so the top is a shoulder about 750 m to 1 km wide and the previous 「spike, not a plateau」 reading is WITHDRAWN (WC-011); (2) the shoulder is not symmetric — the LEFT edge is a cliff (500 m to 750 m gains 65 origins) and the right side decays gradually (1 km to 1.5 km loses 40), so an operator who guesses 250 m too THIN loses far more than one who guesses 500 m too THICK, which is an operationally different statement from 「you cannot know」; (3) 750 m scores HIGHER than the 1 km the committed headline uses, so the fair opponent is stronger than the committed artifact reports and the forecast's margin on this fire is SMALLER than the committed margin, not larger — this result runs AGAINST this project; (4) it is still ONE fire, ONE region and ONE hazard realisation, the grid is still 250 m coarse at its finest, and nothing here says an operator could pick the shoulder in advance on a DIFFERENT fire. ⚠ The forecast-aware arm is scored on the SAME hazard field it plans on, so it carries NO forecast error here; every margin in this band is what a PERFECT forecast buys over a present-perimeter policy, and the real-model margin is smaller by an amount this run does not measure.",
+      "forbidden_phrasings": [
+        "750 m is the optimal buffer",
+        "750 m가 최적",
+        "the optimal buffer width is 750",
+        "the data chooses the buffer width",
+        "데이터가 완충거리를 골라",
+        "the buffer width can be known in advance",
+        "the forecast is unnecessary",
+        "예보는 필요 없다"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json rebuilds the artifact from the hash-verified snapshot walk graph, the committed hazard npz and the committed refuge snapshot, with no network access. It refuses to write unless it first reproduces the committed canonical arm exactly, and the five widths it shares with the committed artifact come out cell for cell identical — which is what makes the three new widths comparable with the five old ones at all.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "present_perimeter",
+      "notes": "docs/present_perimeter_buffer_shape.md states the method, the measured shape, the withdrawal it forces (WC-011) and what the denser grid still does not show. WFG-127.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+            "json_path": "buffer_sensitivity.4.failed_enters_hazard"
+          }
+        }
+      }
+    },
+    "ppshape_uiseong_w1250m_unreachable": {
+      "value": 3,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "json_path": "buffer_sensitivity.4.failed_unreachable",
+      "derivation": "origins with no route to any refuge — safety bought by telling people there is no way out (buffer 1250 m). Regenerate: python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "97231a186bb24d2b0b5717333810af410343985e",
+      "sample": "의성·안동 2025 · 368곳 주사 · slope 60 m / DiGraph (canonical)",
+      "caveat": "DENSE BUFFER GRID, FAIR-OPPONENT ARM, ONE FIRE, CANONICAL (slope 60 m / DiGraph) TIMING. These three widths were run to settle a question the five-width grid could not answer and that three surfaces answered anyway: whether the best buffer width is a spike or a plateau. Four facts travel together or none of them may be quoted: (1) it is NOT a spike — measured safe totals run 275, 284, 349, 345, 318, 305, 275, 283 across 250 m to 3 km, so the top is a shoulder about 750 m to 1 km wide and the previous 「spike, not a plateau」 reading is WITHDRAWN (WC-011); (2) the shoulder is not symmetric — the LEFT edge is a cliff (500 m to 750 m gains 65 origins) and the right side decays gradually (1 km to 1.5 km loses 40), so an operator who guesses 250 m too THIN loses far more than one who guesses 500 m too THICK, which is an operationally different statement from 「you cannot know」; (3) 750 m scores HIGHER than the 1 km the committed headline uses, so the fair opponent is stronger than the committed artifact reports and the forecast's margin on this fire is SMALLER than the committed margin, not larger — this result runs AGAINST this project; (4) it is still ONE fire, ONE region and ONE hazard realisation, the grid is still 250 m coarse at its finest, and nothing here says an operator could pick the shoulder in advance on a DIFFERENT fire. ⚠ The forecast-aware arm is scored on the SAME hazard field it plans on, so it carries NO forecast error here; every margin in this band is what a PERFECT forecast buys over a present-perimeter policy, and the real-model margin is smaller by an amount this run does not measure.",
+      "forbidden_phrasings": [
+        "750 m is the optimal buffer",
+        "750 m가 최적",
+        "the optimal buffer width is 750",
+        "the data chooses the buffer width",
+        "데이터가 완충거리를 골라",
+        "the buffer width can be known in advance",
+        "the forecast is unnecessary",
+        "예보는 필요 없다"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json rebuilds the artifact from the hash-verified snapshot walk graph, the committed hazard npz and the committed refuge snapshot, with no network access. It refuses to write unless it first reproduces the committed canonical arm exactly, and the five widths it shares with the committed artifact come out cell for cell identical — which is what makes the three new widths comparable with the five old ones at all.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "present_perimeter",
+      "notes": "docs/present_perimeter_buffer_shape.md states the method, the measured shape, the withdrawal it forces (WC-011) and what the denser grid still does not show. WFG-127.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+            "json_path": "buffer_sensitivity.4.failed_unreachable"
+          }
+        }
+      }
+    },
+    "ppshape_uiseong_w1250m_late": {
+      "value": 43,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "json_path": "buffer_sensitivity.4.failed_over_budget",
+      "derivation": "origins that reach a refuge safely but outside the 600-minute budget (buffer 1250 m). Regenerate: python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "97231a186bb24d2b0b5717333810af410343985e",
+      "sample": "의성·안동 2025 · 368곳 주사 · slope 60 m / DiGraph (canonical)",
+      "caveat": "DENSE BUFFER GRID, FAIR-OPPONENT ARM, ONE FIRE, CANONICAL (slope 60 m / DiGraph) TIMING. These three widths were run to settle a question the five-width grid could not answer and that three surfaces answered anyway: whether the best buffer width is a spike or a plateau. Four facts travel together or none of them may be quoted: (1) it is NOT a spike — measured safe totals run 275, 284, 349, 345, 318, 305, 275, 283 across 250 m to 3 km, so the top is a shoulder about 750 m to 1 km wide and the previous 「spike, not a plateau」 reading is WITHDRAWN (WC-011); (2) the shoulder is not symmetric — the LEFT edge is a cliff (500 m to 750 m gains 65 origins) and the right side decays gradually (1 km to 1.5 km loses 40), so an operator who guesses 250 m too THIN loses far more than one who guesses 500 m too THICK, which is an operationally different statement from 「you cannot know」; (3) 750 m scores HIGHER than the 1 km the committed headline uses, so the fair opponent is stronger than the committed artifact reports and the forecast's margin on this fire is SMALLER than the committed margin, not larger — this result runs AGAINST this project; (4) it is still ONE fire, ONE region and ONE hazard realisation, the grid is still 250 m coarse at its finest, and nothing here says an operator could pick the shoulder in advance on a DIFFERENT fire. ⚠ The forecast-aware arm is scored on the SAME hazard field it plans on, so it carries NO forecast error here; every margin in this band is what a PERFECT forecast buys over a present-perimeter policy, and the real-model margin is smaller by an amount this run does not measure.",
+      "forbidden_phrasings": [
+        "750 m is the optimal buffer",
+        "750 m가 최적",
+        "the optimal buffer width is 750",
+        "the data chooses the buffer width",
+        "데이터가 완충거리를 골라",
+        "the buffer width can be known in advance",
+        "the forecast is unnecessary",
+        "예보는 필요 없다"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json rebuilds the artifact from the hash-verified snapshot walk graph, the committed hazard npz and the committed refuge snapshot, with no network access. It refuses to write unless it first reproduces the committed canonical arm exactly, and the five widths it shares with the committed artifact come out cell for cell identical — which is what makes the three new widths comparable with the five old ones at all.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "present_perimeter",
+      "notes": "docs/present_perimeter_buffer_shape.md states the method, the measured shape, the withdrawal it forces (WC-011) and what the denser grid still does not show. WFG-127.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+            "json_path": "buffer_sensitivity.4.failed_over_budget"
+          }
+        }
+      }
+    },
+    "ppshape_uiseong_w1500m_recovered": {
+      "value": 46,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "json_path": "buffer_sensitivity.5.recovered_of_forecast_only",
+      "derivation": "forecast-only origins the present-aware arm also gets to safety (buffer 1500 m). Regenerate: python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "97231a186bb24d2b0b5717333810af410343985e",
+      "sample": "의성·안동 2025 · 368곳 주사 · slope 60 m / DiGraph (canonical)",
+      "caveat": "DENSE BUFFER GRID, FAIR-OPPONENT ARM, ONE FIRE, CANONICAL (slope 60 m / DiGraph) TIMING. These three widths were run to settle a question the five-width grid could not answer and that three surfaces answered anyway: whether the best buffer width is a spike or a plateau. Four facts travel together or none of them may be quoted: (1) it is NOT a spike — measured safe totals run 275, 284, 349, 345, 318, 305, 275, 283 across 250 m to 3 km, so the top is a shoulder about 750 m to 1 km wide and the previous 「spike, not a plateau」 reading is WITHDRAWN (WC-011); (2) the shoulder is not symmetric — the LEFT edge is a cliff (500 m to 750 m gains 65 origins) and the right side decays gradually (1 km to 1.5 km loses 40), so an operator who guesses 250 m too THIN loses far more than one who guesses 500 m too THICK, which is an operationally different statement from 「you cannot know」; (3) 750 m scores HIGHER than the 1 km the committed headline uses, so the fair opponent is stronger than the committed artifact reports and the forecast's margin on this fire is SMALLER than the committed margin, not larger — this result runs AGAINST this project; (4) it is still ONE fire, ONE region and ONE hazard realisation, the grid is still 250 m coarse at its finest, and nothing here says an operator could pick the shoulder in advance on a DIFFERENT fire. ⚠ The forecast-aware arm is scored on the SAME hazard field it plans on, so it carries NO forecast error here; every margin in this band is what a PERFECT forecast buys over a present-perimeter policy, and the real-model margin is smaller by an amount this run does not measure.",
+      "forbidden_phrasings": [
+        "750 m is the optimal buffer",
+        "750 m가 최적",
+        "the optimal buffer width is 750",
+        "the data chooses the buffer width",
+        "데이터가 완충거리를 골라",
+        "the buffer width can be known in advance",
+        "the forecast is unnecessary",
+        "예보는 필요 없다"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json rebuilds the artifact from the hash-verified snapshot walk graph, the committed hazard npz and the committed refuge snapshot, with no network access. It refuses to write unless it first reproduces the committed canonical arm exactly, and the five widths it shares with the committed artifact come out cell for cell identical — which is what makes the three new widths comparable with the five old ones at all.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "present_perimeter",
+      "notes": "docs/present_perimeter_buffer_shape.md states the method, the measured shape, the withdrawal it forces (WC-011) and what the denser grid still does not show. WFG-127.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+            "json_path": "buffer_sensitivity.5.recovered_of_forecast_only"
+          }
+        }
+      }
+    },
+    "ppshape_uiseong_w1500m_broken": {
+      "value": 4,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "json_path": "buffer_sensitivity.5.already_safe_broken",
+      "derivation": "origins the fire-blind control already had safe that this buffer breaks (buffer 1500 m). Regenerate: python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "97231a186bb24d2b0b5717333810af410343985e",
+      "sample": "의성·안동 2025 · 368곳 주사 · slope 60 m / DiGraph (canonical)",
+      "caveat": "DENSE BUFFER GRID, FAIR-OPPONENT ARM, ONE FIRE, CANONICAL (slope 60 m / DiGraph) TIMING. These three widths were run to settle a question the five-width grid could not answer and that three surfaces answered anyway: whether the best buffer width is a spike or a plateau. Four facts travel together or none of them may be quoted: (1) it is NOT a spike — measured safe totals run 275, 284, 349, 345, 318, 305, 275, 283 across 250 m to 3 km, so the top is a shoulder about 750 m to 1 km wide and the previous 「spike, not a plateau」 reading is WITHDRAWN (WC-011); (2) the shoulder is not symmetric — the LEFT edge is a cliff (500 m to 750 m gains 65 origins) and the right side decays gradually (1 km to 1.5 km loses 40), so an operator who guesses 250 m too THIN loses far more than one who guesses 500 m too THICK, which is an operationally different statement from 「you cannot know」; (3) 750 m scores HIGHER than the 1 km the committed headline uses, so the fair opponent is stronger than the committed artifact reports and the forecast's margin on this fire is SMALLER than the committed margin, not larger — this result runs AGAINST this project; (4) it is still ONE fire, ONE region and ONE hazard realisation, the grid is still 250 m coarse at its finest, and nothing here says an operator could pick the shoulder in advance on a DIFFERENT fire. ⚠ The forecast-aware arm is scored on the SAME hazard field it plans on, so it carries NO forecast error here; every margin in this band is what a PERFECT forecast buys over a present-perimeter policy, and the real-model margin is smaller by an amount this run does not measure.",
+      "forbidden_phrasings": [
+        "750 m is the optimal buffer",
+        "750 m가 최적",
+        "the optimal buffer width is 750",
+        "the data chooses the buffer width",
+        "데이터가 완충거리를 골라",
+        "the buffer width can be known in advance",
+        "the forecast is unnecessary",
+        "예보는 필요 없다"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json rebuilds the artifact from the hash-verified snapshot walk graph, the committed hazard npz and the committed refuge snapshot, with no network access. It refuses to write unless it first reproduces the committed canonical arm exactly, and the five widths it shares with the committed artifact come out cell for cell identical — which is what makes the three new widths comparable with the five old ones at all.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "present_perimeter",
+      "notes": "docs/present_perimeter_buffer_shape.md states the method, the measured shape, the withdrawal it forces (WC-011) and what the denser grid still does not show. WFG-127.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+            "json_path": "buffer_sensitivity.5.already_safe_broken"
+          }
+        }
+      }
+    },
+    "ppshape_uiseong_w1500m_safe": {
+      "value": 305,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "json_path": "buffer_sensitivity.5.safe_total",
+      "derivation": "origins the present-aware arm gets to a refuge safely and inside budget (buffer 1500 m). Regenerate: python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "97231a186bb24d2b0b5717333810af410343985e",
+      "sample": "의성·안동 2025 · 368곳 주사 · slope 60 m / DiGraph (canonical)",
+      "caveat": "DENSE BUFFER GRID, FAIR-OPPONENT ARM, ONE FIRE, CANONICAL (slope 60 m / DiGraph) TIMING. These three widths were run to settle a question the five-width grid could not answer and that three surfaces answered anyway: whether the best buffer width is a spike or a plateau. Four facts travel together or none of them may be quoted: (1) it is NOT a spike — measured safe totals run 275, 284, 349, 345, 318, 305, 275, 283 across 250 m to 3 km, so the top is a shoulder about 750 m to 1 km wide and the previous 「spike, not a plateau」 reading is WITHDRAWN (WC-011); (2) the shoulder is not symmetric — the LEFT edge is a cliff (500 m to 750 m gains 65 origins) and the right side decays gradually (1 km to 1.5 km loses 40), so an operator who guesses 250 m too THIN loses far more than one who guesses 500 m too THICK, which is an operationally different statement from 「you cannot know」; (3) 750 m scores HIGHER than the 1 km the committed headline uses, so the fair opponent is stronger than the committed artifact reports and the forecast's margin on this fire is SMALLER than the committed margin, not larger — this result runs AGAINST this project; (4) it is still ONE fire, ONE region and ONE hazard realisation, the grid is still 250 m coarse at its finest, and nothing here says an operator could pick the shoulder in advance on a DIFFERENT fire. ⚠ The forecast-aware arm is scored on the SAME hazard field it plans on, so it carries NO forecast error here; every margin in this band is what a PERFECT forecast buys over a present-perimeter policy, and the real-model margin is smaller by an amount this run does not measure.",
+      "forbidden_phrasings": [
+        "750 m is the optimal buffer",
+        "750 m가 최적",
+        "the optimal buffer width is 750",
+        "the data chooses the buffer width",
+        "데이터가 완충거리를 골라",
+        "the buffer width can be known in advance",
+        "the forecast is unnecessary",
+        "예보는 필요 없다"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json rebuilds the artifact from the hash-verified snapshot walk graph, the committed hazard npz and the committed refuge snapshot, with no network access. It refuses to write unless it first reproduces the committed canonical arm exactly, and the five widths it shares with the committed artifact come out cell for cell identical — which is what makes the three new widths comparable with the five old ones at all.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "present_perimeter",
+      "notes": "docs/present_perimeter_buffer_shape.md states the method, the measured shape, the withdrawal it forces (WC-011) and what the denser grid still does not show. WFG-127.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+            "json_path": "buffer_sensitivity.5.safe_total"
+          }
+        }
+      }
+    },
+    "ppshape_uiseong_w1500m_burns": {
+      "value": 4,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "json_path": "buffer_sensitivity.5.failed_enters_hazard",
+      "derivation": "origins whose present-aware route still stands on a cell at p >= 0.5 while it is at p >= 0.5 — the fire grows past the buffer (buffer 1500 m). Regenerate: python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "97231a186bb24d2b0b5717333810af410343985e",
+      "sample": "의성·안동 2025 · 368곳 주사 · slope 60 m / DiGraph (canonical)",
+      "caveat": "DENSE BUFFER GRID, FAIR-OPPONENT ARM, ONE FIRE, CANONICAL (slope 60 m / DiGraph) TIMING. These three widths were run to settle a question the five-width grid could not answer and that three surfaces answered anyway: whether the best buffer width is a spike or a plateau. Four facts travel together or none of them may be quoted: (1) it is NOT a spike — measured safe totals run 275, 284, 349, 345, 318, 305, 275, 283 across 250 m to 3 km, so the top is a shoulder about 750 m to 1 km wide and the previous 「spike, not a plateau」 reading is WITHDRAWN (WC-011); (2) the shoulder is not symmetric — the LEFT edge is a cliff (500 m to 750 m gains 65 origins) and the right side decays gradually (1 km to 1.5 km loses 40), so an operator who guesses 250 m too THIN loses far more than one who guesses 500 m too THICK, which is an operationally different statement from 「you cannot know」; (3) 750 m scores HIGHER than the 1 km the committed headline uses, so the fair opponent is stronger than the committed artifact reports and the forecast's margin on this fire is SMALLER than the committed margin, not larger — this result runs AGAINST this project; (4) it is still ONE fire, ONE region and ONE hazard realisation, the grid is still 250 m coarse at its finest, and nothing here says an operator could pick the shoulder in advance on a DIFFERENT fire. ⚠ The forecast-aware arm is scored on the SAME hazard field it plans on, so it carries NO forecast error here; every margin in this band is what a PERFECT forecast buys over a present-perimeter policy, and the real-model margin is smaller by an amount this run does not measure.",
+      "forbidden_phrasings": [
+        "750 m is the optimal buffer",
+        "750 m가 최적",
+        "the optimal buffer width is 750",
+        "the data chooses the buffer width",
+        "데이터가 완충거리를 골라",
+        "the buffer width can be known in advance",
+        "the forecast is unnecessary",
+        "예보는 필요 없다"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json rebuilds the artifact from the hash-verified snapshot walk graph, the committed hazard npz and the committed refuge snapshot, with no network access. It refuses to write unless it first reproduces the committed canonical arm exactly, and the five widths it shares with the committed artifact come out cell for cell identical — which is what makes the three new widths comparable with the five old ones at all.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "present_perimeter",
+      "notes": "docs/present_perimeter_buffer_shape.md states the method, the measured shape, the withdrawal it forces (WC-011) and what the denser grid still does not show. WFG-127.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+            "json_path": "buffer_sensitivity.5.failed_enters_hazard"
+          }
+        }
+      }
+    },
+    "ppshape_uiseong_w1500m_unreachable": {
+      "value": 3,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "json_path": "buffer_sensitivity.5.failed_unreachable",
+      "derivation": "origins with no route to any refuge — safety bought by telling people there is no way out (buffer 1500 m). Regenerate: python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "97231a186bb24d2b0b5717333810af410343985e",
+      "sample": "의성·안동 2025 · 368곳 주사 · slope 60 m / DiGraph (canonical)",
+      "caveat": "DENSE BUFFER GRID, FAIR-OPPONENT ARM, ONE FIRE, CANONICAL (slope 60 m / DiGraph) TIMING. These three widths were run to settle a question the five-width grid could not answer and that three surfaces answered anyway: whether the best buffer width is a spike or a plateau. Four facts travel together or none of them may be quoted: (1) it is NOT a spike — measured safe totals run 275, 284, 349, 345, 318, 305, 275, 283 across 250 m to 3 km, so the top is a shoulder about 750 m to 1 km wide and the previous 「spike, not a plateau」 reading is WITHDRAWN (WC-011); (2) the shoulder is not symmetric — the LEFT edge is a cliff (500 m to 750 m gains 65 origins) and the right side decays gradually (1 km to 1.5 km loses 40), so an operator who guesses 250 m too THIN loses far more than one who guesses 500 m too THICK, which is an operationally different statement from 「you cannot know」; (3) 750 m scores HIGHER than the 1 km the committed headline uses, so the fair opponent is stronger than the committed artifact reports and the forecast's margin on this fire is SMALLER than the committed margin, not larger — this result runs AGAINST this project; (4) it is still ONE fire, ONE region and ONE hazard realisation, the grid is still 250 m coarse at its finest, and nothing here says an operator could pick the shoulder in advance on a DIFFERENT fire. ⚠ The forecast-aware arm is scored on the SAME hazard field it plans on, so it carries NO forecast error here; every margin in this band is what a PERFECT forecast buys over a present-perimeter policy, and the real-model margin is smaller by an amount this run does not measure.",
+      "forbidden_phrasings": [
+        "750 m is the optimal buffer",
+        "750 m가 최적",
+        "the optimal buffer width is 750",
+        "the data chooses the buffer width",
+        "데이터가 완충거리를 골라",
+        "the buffer width can be known in advance",
+        "the forecast is unnecessary",
+        "예보는 필요 없다"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json rebuilds the artifact from the hash-verified snapshot walk graph, the committed hazard npz and the committed refuge snapshot, with no network access. It refuses to write unless it first reproduces the committed canonical arm exactly, and the five widths it shares with the committed artifact come out cell for cell identical — which is what makes the three new widths comparable with the five old ones at all.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "present_perimeter",
+      "notes": "docs/present_perimeter_buffer_shape.md states the method, the measured shape, the withdrawal it forces (WC-011) and what the denser grid still does not show. WFG-127.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+            "json_path": "buffer_sensitivity.5.failed_unreachable"
+          }
+        }
+      }
+    },
+    "ppshape_uiseong_w1500m_late": {
+      "value": 56,
+      "unit": "origins",
+      "source_file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "json_path": "buffer_sensitivity.5.failed_over_budget",
+      "derivation": "origins that reach a refuge safely but outside the 600-minute budget (buffer 1500 m). Regenerate: python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "97231a186bb24d2b0b5717333810af410343985e",
+      "sample": "의성·안동 2025 · 368곳 주사 · slope 60 m / DiGraph (canonical)",
+      "caveat": "DENSE BUFFER GRID, FAIR-OPPONENT ARM, ONE FIRE, CANONICAL (slope 60 m / DiGraph) TIMING. These three widths were run to settle a question the five-width grid could not answer and that three surfaces answered anyway: whether the best buffer width is a spike or a plateau. Four facts travel together or none of them may be quoted: (1) it is NOT a spike — measured safe totals run 275, 284, 349, 345, 318, 305, 275, 283 across 250 m to 3 km, so the top is a shoulder about 750 m to 1 km wide and the previous 「spike, not a plateau」 reading is WITHDRAWN (WC-011); (2) the shoulder is not symmetric — the LEFT edge is a cliff (500 m to 750 m gains 65 origins) and the right side decays gradually (1 km to 1.5 km loses 40), so an operator who guesses 250 m too THIN loses far more than one who guesses 500 m too THICK, which is an operationally different statement from 「you cannot know」; (3) 750 m scores HIGHER than the 1 km the committed headline uses, so the fair opponent is stronger than the committed artifact reports and the forecast's margin on this fire is SMALLER than the committed margin, not larger — this result runs AGAINST this project; (4) it is still ONE fire, ONE region and ONE hazard realisation, the grid is still 250 m coarse at its finest, and nothing here says an operator could pick the shoulder in advance on a DIFFERENT fire. ⚠ The forecast-aware arm is scored on the SAME hazard field it plans on, so it carries NO forecast error here; every margin in this band is what a PERFECT forecast buys over a present-perimeter policy, and the real-model margin is smaller by an amount this run does not measure.",
+      "forbidden_phrasings": [
+        "750 m is the optimal buffer",
+        "750 m가 최적",
+        "the optimal buffer width is 750",
+        "the data chooses the buffer width",
+        "데이터가 완충거리를 골라",
+        "the buffer width can be known in advance",
+        "the forecast is unnecessary",
+        "예보는 필요 없다"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json rebuilds the artifact from the hash-verified snapshot walk graph, the committed hazard npz and the committed refuge snapshot, with no network access. It refuses to write unless it first reproduces the committed canonical arm exactly, and the five widths it shares with the committed artifact come out cell for cell identical — which is what makes the three new widths comparable with the five old ones at all.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "present_perimeter",
+      "notes": "docs/present_perimeter_buffer_shape.md states the method, the measured shape, the withdrawal it forces (WC-011) and what the denser grid still does not show. WFG-127.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json",
+            "json_path": "buffer_sensitivity.5.failed_over_budget"
+          }
+        }
+      }
     }
   }
 }

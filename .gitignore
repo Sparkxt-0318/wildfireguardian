@@ -134,6 +134,12 @@ data/processed/**
 # + a fixed buffer). Registered in NUMBERS.json under pp_uiseong_*, so it must be
 # tracked or `make verify` fails on a fresh clone with 'source_file missing'.
 !data/processed/present_perimeter_arm_uiseong_andong_2025.json
+# WFG-127 — the DENSE buffer grid (750 / 1250 / 1500 m added to the five above),
+# which settled whether the best width is a spike or a shoulder. Registered in
+# NUMBERS.json under ppshape_uiseong_*, so it must be tracked or `make verify`
+# fails on a fresh clone with 'source_file missing'. The five-width artifact
+# above is NOT modified by it (CHARTER §3 rule 2).
+!data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json
 # PHASE 14 — the weather-dependency ceiling. Registered in NUMBERS.json, so it
 # must be tracked or `make verify` fails on a fresh clone with 'source_file missing'.
 !data/processed/weather_dependency.json

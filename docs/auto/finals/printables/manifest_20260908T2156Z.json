@@ -1,0 +1,102 @@
+{
+  "built_by": "scripts/build_printables.py",
+  "stamp": "20260908T2156Z",
+  "pdf": "WFG_printables_20260908T2156Z.pdf",
+  "pdf_sha256": "73e497310065a030eef6b60c434b74412a0fc9996b0eac5fcd5f2ac958aeaf4b",
+  "pages": 41,
+  "pages_per_source": {
+    "docs/auto/finals/BOOTH_SETUP.md": 5,
+    "docs/auto/DEMO_SCRIPT_5MIN.md": 6,
+    "docs/auto/JUDGE_QA.md": 22,
+    "docs/submission_reconciliation.md": 3,
+    "docs/auto/finals/DETECTION_FLOOR_CARD.md": 2,
+    "docs/auto/finals/RELATED_WORK_PANEL.md": 3
+  },
+  "sources": [
+    {
+      "path": "docs/auto/finals/BOOTH_SETUP.md",
+      "title": "부스 설치 체크리스트",
+      "sha256": "99b2168f4bd7e10ec5ffcde407aa2fbdc82be6f4ed5f2cfd88dd0b6b64af6e3f"
+    },
+    {
+      "path": "docs/auto/DEMO_SCRIPT_5MIN.md",
+      "title": "5분 시연 대본",
+      "sha256": "1db38ecf85b62a747b1a2d7e66429b0f509e32c5e000ef5651c5a0d8ab9277b7"
+    },
+    {
+      "path": "docs/auto/JUDGE_QA.md",
+      "title": "심사위원 질의응답 카드",
+      "sha256": "784cc08747e25f5aaf70250723fb95757edafa8024879df6d095129a4c20c332"
+    },
+    {
+      "path": "docs/submission_reconciliation.md",
+      "title": "제출본 대비 정본 대조표",
+      "sha256": "237de4f4aeab8135cb2e104b72a604eba90f9e6741de77a61c379fc432011e97"
+    },
+    {
+      "path": "docs/auto/finals/DETECTION_FLOOR_CARD.md",
+      "title": "탐지 하한 근거 카드",
+      "sha256": "84648d4d6e0b86c1c73a8d31761afdd6229330bbe33e01adc94fc36087b83632"
+    },
+    {
+      "path": "docs/auto/finals/RELATED_WORK_PANEL.md",
+      "title": "기존 연구와의 차별점 패널",
+      "sha256": "5c62a918cf4c4bd847dc1dd97073a54af0e83a0b34643bc4f7c5ffa138454b79"
+    }
+  ],
+  "fonts": [
+    {
+      "path": "web/assets/fonts/IBMPlexSansKR-Regular.woff2",
+      "sha256": "f44b788da57c4717d6eb3a9cc4441204d81c476b9edcf0d3f9aff32b638fd600"
+    },
+    {
+      "path": "web/assets/fonts/IBMPlexSansKR-SemiBold.woff2",
+      "sha256": "aca77c5de668158f3f12e5b4f2f0eef242e974310e04665bc6a57a1287cefb00"
+    },
+    {
+      "path": "web/assets/fonts/IBMPlexMono-Regular.woff2",
+      "sha256": "08949f728dc52d528e69b1667d15c89a5686a4ee9a296ff90983985f99c380f7"
+    }
+  ],
+  "font_codepoints": 2460,
+  "chars_needing_substitution": "§–—ⅡⅢⅤ←→−≥①②③⚠✅❌⭕「」〔〕🛑",
+  "n_chars_needing_substitution": 22,
+  "mono_fallback_lines": 104,
+  "substitutions": {
+    " ": " ",
+    "§": "S",
+    "±": "+/-",
+    "×": "x",
+    "‑": "-",
+    "–": "-",
+    "—": " - ",
+    "‘": "'",
+    "’": "'",
+    "“": "\"",
+    "”": "\"",
+    "…": "...",
+    "Ⅰ": "I",
+    "Ⅱ": "II",
+    "Ⅲ": "III",
+    "Ⅳ": "IV",
+    "Ⅴ": "V",
+    "←": "<-",
+    "→": "->",
+    "−": "-",
+    "≤": "<=",
+    "≥": ">=",
+    "①": "(1)",
+    "②": "(2)",
+    "③": "(3)",
+    "⚠": "[!]",
+    "✅": "[O]",
+    "❌": "[X]",
+    "⭕": "[O]",
+    "「": "\"",
+    "」": "\"",
+    "〔": "[",
+    "〕": "]",
+    "🛑": "[STOP]"
+  },
+  "what_this_does_not_show": "The PDF is a print rendering of committed Markdown documents and adds no number, no claim and no source of its own. Every figure in it is whatever those documents say on the sha256 recorded above; if a document changes, this PDF is stale until a new stamp is built beside it, and tests/test_printables.py now fails when that happens instead of leaving it to be noticed. It is not a substitute for the screens: no map, no route and no figure is rendered here. Of the printables docs/auto/KCF_READINESS.md R7 enumerates, FOUR are now in this file and ONE is not. In: the booth checklist; the evidence sheet and reconciliation sheet, which are one document (WFG-018, docs/submission_reconciliation.md, whose own fourth line calls it a single double-sided page); and, from this build, the related-work and SFTD059T differentiation panel (WFG-026, docs/auto/finals/RELATED_WORK_PANEL.md, the booth wording for the survey in docs/related_work.md). NOT in: the village dispatch sheets under outputs/dispatch. That exclusion's reason is written here as the tree actually is, because the reason this manifest carried before this build was false and reached a judge-facing page. outputs/dispatch/20260801T163042Z/ holds 33 cluster directories, and outputs/dispatch/README.md commits the HTML, SMS drafts and broadcast scripts for all 33 but only the THREE largest clusters' dispatch_a4.pdf, because 33 Korean-font-subset PDFs are 6.7 MB of regenerable output. The sheets are therefore excluded as REGENERABLE from a committed artifact (python scripts/generate_dispatch_outputs.py rebuilds them). The reason this manifest carried before 20260907T0705Z asserted instead that they were finished PDFs needing only a printer, which was untrue of 30 of the 33; it is registered as WC-006 in docs/auto/withdrawn_claims.json and is deliberately NOT restated here, because this file is .json and the registry scans .md and .html, so a quotation on this line could never be licensed by a pragma and would ride to the booth unreadable by the gate (WFG-155). R7's own line also carried a count of sheets that matches no artifact in this repository; that wording is corrected in the same lap (WFG-153). An earlier build of this kit said the first two of R7's five 「do not exist yet」; that was false of the reconciliation sheet, which was done(20260903T0653Z) at the time, and WFG-130 is the correction."
+}

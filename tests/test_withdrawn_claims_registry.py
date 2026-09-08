@@ -391,10 +391,35 @@ def test_the_registry_holds_nothing_the_families_do_not():
         (r"(?:test\s+)?suite\s+(?:still\s+)?(?:reaches|downloads)[^.\n]{0,60}(?:the\s+network|25\s*MB)",
          "wc010-suite-still-downloads-a-terrain-tile-en"),
     }
+    #: WC-011, registered by dev lap 20260908T2117Z on WFG-127, and the first entry
+    #: here that withdraws a claim about THIS PROJECT'S OWN EXPERIMENT rather than about
+    #: a detection ordering, a reachability fact, the booth kit or somebody else's
+    #: system. Three surfaces read a SHAPE --- 「a spike, not a plateau」 --- off a
+    #: buffer sweep whose two neighbours of the best width were each a factor of two
+    #: away, and the booth script then rested 「어느 폭이 맞는지는 그날 알 수 없다」 on
+    #: that shape. The lap did not soften the sentences; it MEASURED, adding 750, 1250
+    #: and 1500 m on the same code and the same committed inputs, with all five original
+    #: widths reproducing cell for cell. The top is a shoulder.
+    #: ⚠ It is the first withdrawal here that costs the project something: 750 m scores
+    #: higher than the committed 1 km, so the fair opponent is STRONGER than the
+    #: repository reported and the forecast's margin on this fire is SMALLER.
+    #: ⚠ Both languages go in together (the WC-007/WC-008 lesson), and the third
+    #: spelling --- the recited booth sentence --- matches NOTHING today, because the
+    #: 0617Z lap had already removed it. It is registered anyway, as a ratchet against a
+    #: later lap restoring it from an old report: the WC-004 shape, where a correction
+    #: reached one card and left the same claim standing eight sections away.
+    measured_shape_of_our_own_sweep = {
+        (r"고원이\s*아니라\s*\**\s*뾰족한\s*봉우리",
+         "wc011-buffer-width-is-a-spike-ko"),
+        (r"spikes?,?\s+(?:not|rather\s+than)\s+a\s+plateau",
+         "wc011-buffer-width-is-a-spike-en"),
+        (r"어느\s*폭이\s*맞는지는\s*그날\s*알\s*수\s*없",
+         "wc011-which-width-is-unknowable-ko"),
+    }
     extra = ({(s["pattern"], s["token"]) for _cid, s in SPELLINGS}
              - in_files - reviewer_found - reachability - booth_kit_contents
              - dispatch_exclusion_reason - someone_elses_system
-             - stale_self_criticism)
+             - stale_self_criticism - measured_shape_of_our_own_sweep)
     assert extra == set(), (
         "the registry has grown past the families it absorbed. That is allowed, and when "
         "you do it, add the new spelling to this test's expected set and say in "
@@ -643,6 +668,17 @@ def _probe_sentence(pattern: str) -> str:
         # trained to say aloud, printed on the booth kit from 20260906T0620Z to
         # 20260908T0051Z. The English line is the WFG-139 backlog row's own opening
         # sentence, present tense, as it stood at the same commit.
+        # WC-011, all three taken verbatim from the tree at 97231a1 --- README.md:232,
+        # docs/present_perimeter_arm.md:129 and docs/auto/DEMO_SCRIPT_5MIN.md:150 as the
+        # lap found them. The first draft of the Korean patterns matched ZERO of the four
+        # live surfaces (a mistyped syllable, and no tolerance for the markdown emphasis
+        # sitting inside the phrase); these probes are what caught that.
+        r"고원이\s*아니라\s*\**\s*뾰족한\s*봉우리":
+            "sweep 안에서 **고원이 아니라 뾰족한 봉우리**입니다. 그래서 이 항목에서 폭은",
+        r"spikes?,?\s+(?:not|rather\s+than)\s+a\s+plateau":
+            "The 1 km row is a **spike, not a plateau**, and the last three columns say why.",
+        r"어느\s*폭이\s*맞는지는\s*그날\s*알\s*수\s*없":
+            "그 구분에 기대어 「어느 폭이 맞는지는 그날 알 수 없다」고 말하게 되어 있습니다.",
         r"지형\s*타일을\s*내려받는\s*테스트가\s*하나":
             "전부는 아닙니다. 커밋된 스냅샷 위의 부분은 망 없이 돌지만, 지형 타일을 "
             "내려받는 테스트가 하나 남아 있고 그건 저희가 아직 못 고쳤습니다.",

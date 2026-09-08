@@ -54,11 +54,18 @@ narrower:
   routes walk through ground that is alight before they cross it; too thick and the detour
   either outruns the evacuation window or walls the refuges off entirely. Both constructions
   of the opponent show it, and the manuscript's §4.5 states it in the same terms.
-- **What the grid cannot say is whether a workable width could be chosen in advance.** The
-  sweep is 250 m, 500 m, 1 km, 2 km, 3 km: the best width's nearest measured neighbours are a
-  factor of two away on each side, so the run holds a *single point* in the region a
-  「which width」 claim would be about. It separates a spike at 1 km from a plateau an operator
-  could aim at in neither direction, and **this file asserts neither.** Counts:
+- **The grid was widened on 2026-09-08, and it now says what shape the top is.** The
+  committed sweep is 250 m, 500 m, 1 km, 2 km, 3 km, so the best width's nearest measured
+  neighbours were a factor of two away on each side and the run held a *single point* in the
+  region a 「which width」 claim is about. WFG-127 added **750 m, 1250 m and 1500 m** on the
+  same code and the same committed inputs, with all five original widths reproducing cell for
+  cell. The answer is a **shoulder, not a peak** — 750 m and 1 km are four origins apart out
+  of 368 — and the shoulder is **asymmetric**: the thin side is a cliff and the thick side a
+  ramp. So the honest statement is no longer 「the grid cannot tell」 and never was 「you
+  cannot know」; it is 「a band exists, we found it *after* the fire, and the thin side is the
+  dangerous one to be wrong on」. Method, table and limits:
+  [`docs/present_perimeter_buffer_shape.md`](present_perimeter_buffer_shape.md); the
+  committed five-width counts stay at
   [`docs/present_perimeter_arm.md`](present_perimeter_arm.md) §4.
 - **What is measured, and is not a question of resolution, is that the two defensible builds
   disagree about which width is best** — the committed arm's is 1 km, the parked arm's is
@@ -72,7 +79,7 @@ this fire only** — one region, one ignition, one departure time — and §5 sa
 yet be widened.
 
 ⚠ **Narrowed 2026-09-06 (WFG-127 (i), critic #23's finding, carried by critic #24).** This section
-previously called the 1 km safe total a spike rather than a plateau, said that nothing on the day
+previously called the 1 km safe total a spike rather than a plateau <!-- forbidden-ok: wc011-buffer-width-is-a-spike-en -->, said that nothing on the day
 tells you which width you are on, and quoted the five safe totals to support both.
 *(The withdrawn sentences are described here rather than quoted, so that the gate below can ban
 their exact spellings without this paragraph having to dodge its own rule on a line break.)* Neither sentence is
@@ -102,9 +109,16 @@ none of them and sends the reader to the one gated table instead.
 What is convention-independent is the weaker claim §3 makes: **both** arms show the same change of
 kind across the widths — thin buffers send people through burning ground, wide ones strand them —
 and **both** say a well-chosen fixed buffer nearly matches the forecast; the parked arm's best
-width reaches within a handful of origins of the same forecast-aware total. Neither arm's grid is
-fine enough to say whether that best width sits on a spike or on a plateau, and §3 asserts neither.
+width reaches within a handful of origins of the same forecast-aware total.
 That is the honest version, and it is less flattering than the one this file first wrote.
+
+⚠ **Updated 2026-09-08 (WFG-127 (ii)).** This paragraph used to end by saying that neither arm's
+grid was fine enough to tell a peak from a plateau. That is now true of the **parked** arm only.
+The committed arm's grid was made finer — 750 m, 1250 m and 1500 m — and it answers: a shoulder,
+asymmetric, with the thin side the dangerous one (§3, and
+[`docs/present_perimeter_buffer_shape.md`](present_perimeter_buffer_shape.md)). The parked arm was
+**not** re-run, so nothing here says the two builds agree about the shape; they are still measured
+to disagree about the best width, and that disagreement is untouched by this lap.
 
 This is filed as information on NH-032 rather than as an argument with either lap.
 

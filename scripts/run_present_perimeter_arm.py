@@ -358,6 +358,25 @@ def reproduce_committed_arm(net, cand, hazard, args) -> tuple[dict, dict, dict]:
     }
 
 
+def _widths(raw: str) -> list[float]:
+    """Parse `--sweep-extra-m`: a comma-separated list of positive metres.
+
+    Rejects a non-positive width rather than silently dropping it, because a
+    sweep grid that is not the grid the caller asked for is exactly the defect
+    WFG-127 exists to fix.
+    """
+    out = []
+    for tok in raw.split(","):
+        tok = tok.strip()
+        if not tok:
+            continue
+        w = float(tok)
+        if w <= 0:
+            raise argparse.ArgumentTypeError(f"buffer width must be > 0, got {w}")
+        out.append(w)
+    return out
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--buffer-m", type=float, default=DEFAULT_BUFFER_M,
@@ -370,6 +389,11 @@ def main() -> int:
                     default=float(mrr._cfg("pedestrian.walk_budget_min", 600.0)))
     ap.add_argument("--time-step-min", type=float,
                     default=float(mrr._cfg("time.routing_time_step_min", 10.0)))
+    ap.add_argument("--sweep-extra-m", type=_widths, default=[],
+                    help="comma-separated extra buffer widths (m) to ADD to the "
+                         "five-point sensitivity grid. The default is empty, so "
+                         "a default run still reproduces the committed artifact; "
+                         "use it with --out to write a denser grid elsewhere.")
     ap.add_argument("--verify-only", action="store_true",
                     help="reproduce the committed arm and stop; write nothing")
     ap.add_argument("--out", default=None,
@@ -553,9 +577,18 @@ def main() -> int:
     # beside the same counts at four other widths. This is a SENSITIVITY BAND,
     # not a tuning exercise: no width is selected on its result, and the
     # committed number stays the one the author's decision named.
+    #
+    # ⚠ The five default widths are 250 / 500 / 1000 / 2000 / 3000 m, so the two
+    # neighbours of the best width are each a FACTOR OF TWO away. That grid
+    # cannot separate a spike at 1 km from a plateau spanning roughly 800 m to
+    # 1.5 km, and three surfaces asserted the spike anyway (WFG-127). `--sweep-
+    # extra-m` adds widths to the grid WITHOUT changing it: the default run is
+    # byte-identical to the committed artifact, and the extra widths are written
+    # to a separate `--out` file so no committed artifact moves (CHARTER §3.2).
     print("[4/4] buffer sensitivity ...")
     sweep = []
-    for width in sorted({250.0, 500.0, args.buffer_m, 2000.0, 3000.0}):
+    for width in sorted({250.0, 500.0, args.buffer_m, 2000.0, 3000.0}
+                        | set(args.sweep_extra_m)):
         ref_w, _ = present_perimeter_nodes(net, haz, extent, p_cut=args.p_cut,
                                            buffer_m=width)
         pruned_w = pruned_network(net, ref_w)
