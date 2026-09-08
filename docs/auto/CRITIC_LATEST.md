@@ -37,6 +37,13 @@ after the branch had already shut and critic #38's own work had to be parked on
 WFG-161 already carry the recurrence; **NH-043** (due 2026-09-09, unanswered) is the author's
 decision on what a lap may do when the gate fires. This row buys the time for that answer.
 
+⚠⚠ **Re-measured AFTER this lap's own two commits landed: `behind` is now 27, not 25, and the
+headroom is three.** This lap pushed `2fa29af` (the findings) and `6baf478` (the report's head
+annotation), and its own commits are part of the drift it is reporting — said here rather than left
+for the next reader to discover. At 27, a dev lap that claims first and rebuilds later can cross 31
+**in the middle of its own lap**: claim 28, work 29, reviewer fix 30, report 31. That is why the
+order below is not a preference.
+
 **Done when:** the lap runs `make finals` and pushes the rebuilt `web/finals.html` **before it
 claims a row**; its report records `git rev-list --count <new stamp>..HEAD`; and
 `gates.py --mode full` exits 0 on the commit it actually pushes.
