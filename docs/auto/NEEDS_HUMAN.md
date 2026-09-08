@@ -2626,3 +2626,49 @@ still true and is why this is a DECISION and not a BLOCKER. It is recorded becau
 queue now has a single author-shaped gate in it, and you could not see that from the tree.
 
 **The loop still recommends A** and nothing measured today changes the recommendation.
+
+## NH-047 · FYI · open · A 403 on an artifact upload took a green run red; recorded, no reply needed
+
+**No reply is requested.** This is recorded once so the arithmetic is not lost, and it is an FYI
+rather than a DECISION on purpose — see "why not a decision" below.
+
+**What happened.** `auto-gates` run **#253** at `0cca093` (2026-09-08T16:23Z) is recorded
+**failed** and sent the author a "Run failed" email. The gates did not fail. The job log records
+`[gates] ALL GREEN mode=full head=0cca093 (auto/dev)` with `1763 passed, 63 skipped, 2 xfailed`,
+and the `wfg-autoloop-ci-red` routine re-ran `gates.py --mode full` on the same commit in a clean
+sandbox and got the identical line at exit 0. What failed was the step *after* the gates,
+`actions/upload-artifact@v4`: the content uploaded (9,774 bytes) and the call that finalises the
+artifact was refused with `403 Forbidden: Error from intermediary`. Because `promote` declares
+`needs: gates`, it was skipped, and `Main` stopped following the last gate-certified commit
+(CHARTER §4c). **Fixed** at `789d1b4`: both artifact uploads now carry `continue-on-error: true`,
+so the artifact service can no longer decide whether a gate run is green. Critic #44 (`dc8fa9f`)
+reached the same diagnosis independently and filed it as `WFG-193`.
+
+**The storage hypothesis, and the evidence against it.** Every push retains `gates-<sha>`
+(~9.8 kB) and `finals-acts-<sha>` (~2.238 MB, measured at 2,238,204 / 2,237,962 / 2,237,975 B on
+runs #253 / #252 / #250) for **30 days**. The API reports **247** `auto-gates` runs on `auto/dev`,
+and nothing has expired yet — run #86 was 2026-09-04 and #253 is today — so roughly
+`247 × 2.248 MB ≈ 555 MB` is live against the 500 MB published allowance for a GitHub Free
+personal account, and an over-quota upload is refused with 403. **That arithmetic is an estimate
+from per-run sizes, not a reading of the billing page, which the loop cannot open.**
+
+⚠ **And critic #44 found the fact that cuts against it:** inside run #253 itself, the
+**2,238,204 B** `finals-acts` upload **succeeded** at 16:24:41Z and the **9,774 B** gate record
+failed six minutes later. A full store refuses the large upload, not the small one that follows
+it. Runs 223–253 hold exactly this one failure. So the honest reading is that the cause is **not
+established**: it is consistent with a store that crossed its limit between the two finalise
+calls, and equally consistent with a transient fault in GitHub's artifact service.
+
+**Why not a DECISION.** Nothing is blocked. The guard at `789d1b4` means a refused upload no
+longer reddens the branch or stalls `Main`, and `DIRECTION.md` is explicit that the loop does not
+open a fifteenth DECISION while fourteen are unanswered and nothing is blocked. Asking the author
+to go read a billing page over a cause that is not established would spend the scarcest thing this
+project has for no decision that has to be made today.
+
+**What settles it, for free.** The next several `auto-gates` runs. If the 403 was quota, the
+upload step keeps failing — now visibly in the step, harmlessly to the run. If it was transient,
+it stops. `WFG-195` is the row that reads those runs and says which. **It becomes a DECISION only
+if it recurs**, and then it will carry the options (delete the accumulated artifacts; shorten
+`finals-acts` retention from 30 days, which is readiness line **R1**'s evidence and therefore the
+author's line to move, not a lap's; or raise the allowance, which costs money and is barred to the
+loop by §3.6).

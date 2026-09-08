@@ -45,6 +45,17 @@ jobs:
           PY
       - name: Keep the gate record
         if: always()
+        # The gate's verdict is the exit code of the step above; this upload is a
+        # diagnostic convenience and must not be able to overrule it.  On 2026-09-08
+        # run #253 the gates passed ALL GREEN at 0cca093 (1763 passed / 63 skipped /
+        # 2 xfailed) and the job still went red, because FinalizeArtifact answered
+        # 403 "Error from intermediary" *after* the content had uploaded.  That
+        # painted a certified-green commit red and, through `needs: gates`, skipped
+        # `promote`, so `Main` stopped following the last green commit (§4c) over an
+        # artifact nobody had read.  A real gate failure is unaffected: the step
+        # above fails the job, and the step before it prints the failing test into
+        # the job log, which is what the ci-red routine actually reads.  NH-047.
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: gates-${{ github.sha }}
@@ -73,6 +84,10 @@ jobs:
         run: python3 scripts/check_finals_acts.py --out .auto/finals_acts
       - name: The four screenshots a judge is walked through
         if: always()
+        # Same reason as the gates job's upload, and the same incident (NH-047): the
+        # screenshots are R1 evidence, not a gate, so the artifact service must not
+        # be able to fail a job whose own check step passed.
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: finals-acts-${{ github.sha }}
