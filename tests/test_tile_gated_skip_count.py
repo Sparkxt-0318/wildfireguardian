@@ -91,16 +91,30 @@ def _scan_tree() -> tuple[list[str], list[str]]:
 #: (path, regex with one capturing group, which derived set the number must equal).
 #: Every match of every regex is checked, and a regex that matches nothing fails:
 #: a reworded sentence must not silently drop out of this gate.
+#: ⚠ **Every restatement of these integers on these pages must appear here.** The
+#: first draft of this file bound seven sentences and left five more unanchored,
+#: including the two lines the student SPEAKS at the booth — the independent reviewer
+#: showed it by rewriting the spoken 7 to a 3 and watching all nine tests pass. A
+#: binding that covers the paragraph's headline and not its restatements is the same
+#: defect one level up, so when you add a sentence carrying one of these numbers, add
+#: its regex here in the same edit.
 SURFACES: tuple[tuple[str, str, str], ...] = (
     # Q28's 없는 것 block.
     ("docs/auto/JUDGE_QA.md", r"지형 타일[^\n]{0,40}있어야 도는 테스트 \*\*(\d+)개\*\*", "tile"),
+    ("docs/auto/JUDGE_QA.md", r"그 \*\*(\d+)개\*\*가 CI에서 돌게 된 것은", "tile"),
     # Q40, the card that sends a judge to `pytest -rs`.
     ("docs/auto/JUDGE_QA.md", r"그 타일에 걸린 테스트 \*\*(\d+)개\*\*", "tile"),
     ("docs/auto/JUDGE_QA.md", r"타일에 걸린 것은 \*\*(\d+)개\*\*", "tile"),
     ("docs/auto/JUDGE_QA.md", r"나머지 \*\*(\d+)개\*\*는 이름만 SRTM", "srtm_named_only"),
     ("docs/auto/JUDGE_QA.md", r"「SRTM」이 들어간 스킵 줄이 \*\*(\d+)개\*\*", "both"),
+    # The two lines the student says out loud. These are the ones that matter most and
+    # the ones the first draft of this file missed.
+    ("docs/auto/JUDGE_QA.md", r"있어야 도는 \*\*(\d+)개\*\*는 깨끗한 클론에서 건너뛰고", "tile"),
+    ("docs/auto/JUDGE_QA.md", r"그 \*\*(\d+)개\*\*는 돌지 않고 건너뜁니다", "tile"),
     ("docs/clean_clone_gates.md", r"The \*\*(\d+)\*\* tests that `skipif` on the cached tile", "tile"),
     ("docs/clean_clone_gates.md", r"\*\*(\d+)\*\* more skips say SRTM", "srtm_named_only"),
+    ("docs/clean_clone_gates.md", r"prints \*\*(\d+)\*\* SRTM-looking skips", "both"),
+    ("docs/clean_clone_gates.md", r"only \*\*(\d+)\*\* of them are about this tile", "tile"),
 )
 
 

@@ -85,7 +85,8 @@ same-size file, or writes to another directory is seen by neither. Four of these
 were named by this lap's independent reviewer and not by the lap. The guard's own first draft exempted loopback and therefore
 blocked nothing in this sandbox, whose egress runs through
 `HTTPS_PROXY=http://127.0.0.1:38639`; that is why the proxy clause exists and
-why `tests/test_no_network_in_tests.py` asserts it rather than trusting it. The
+why `tests/test_no_network_in_tests.py` asserts it rather than trusting it.
+
 The **7** tests that `skipif` on the cached tile still skip on a clean clone —
 this row makes that honest, it does not make them run. ⚠ This sentence said **six**
 until 2026-09-08T0321Z, and the seventh
@@ -93,11 +94,20 @@ until 2026-09-08T0321Z, and the seventh
 was added by the same commit that wrote the six. Beside them, **4** more skips say SRTM
 in their `reason` while gating on `data/raw/firms_data/yeongdeok_2025_dem.tif`, a
 laptop-bundle GeoTIFF and not the tile (`tests/test_slope_digraph.py`); that naming
-defect is WFG-180. So `pytest -rs` prints eleven SRTM-looking skips on a clean clone
-and only seven of them are about this tile. **Neither number is typed here twice:**
-`tests/test_tile_gated_skip_count.py` derives both from the test sources by walking
-their `skipif` decorators, and fails when this sentence or the Q28/Q40 cards disagree
-with the tree.
+defect is WFG-180. So on a clean clone `pytest -rs` prints **11** SRTM-looking skips
+and only **7** of them are about this tile. ⚠ **That is a clean-clone statement and
+nowhere else's.** The four are gated on a laptop-bundle file and the seven on a tile
+that a laptop may also have, so on the booth machine some or all of the eleven **run
+instead of skipping**, and the count a judge sees there is lower. Do not quote 11 or 7
+off a machine that carries `data/raw/`.
+
+**Where these numbers come from.** `tests/test_tile_gated_skip_count.py` derives 7 and
+4 from the test sources by walking their `skipif` decorators — not from a run, so it
+answers the same on a warm laptop and a clean clone — and it fails when a sentence
+bound to them disagrees with the tree, in this file and in the Q28 and Q40 cards. ⚠
+**It binds the sentences it names and no others.** Every restatement of these integers
+in this section is anchored there; a *new* one written elsewhere is unwatched, exactly
+as 「여섯 개」 was. The canonical list is `pytest -rs` itself.
 
 **Warming the cache on purpose** is a script's job, not a test's. Set
 `WFG_TESTS_ALLOW_NETWORK=1` for a whole run if you must; no gate and no workflow

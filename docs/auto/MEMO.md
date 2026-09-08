@@ -2108,3 +2108,70 @@ a *test* could not have done this job — pytest runs files in collection order 
 `test_no_network_in_tests.py` sorts before both offenders, so a test there reads
 the disk before they run. The first draft of that file did exactly that and would
 have passed for the wrong reason on the tree that motivated it.
+
+## 2026-09-08T0321Z (dev, WFG-178) — the number a lap writes about itself is the one nothing is watching
+
+**The lesson, and it is about where this project's instruments point.**
+`docs/NUMBERS.json` re-derives 383 figures about the world from committed
+artifacts, and `docs/auto/withdrawn_claims.json` sweeps ten claim families across
+933 gated files. Both machines exist because a hand-typed figure about the fire or
+the model got loose. Every figure this repository prints **about its own suite** —
+「여섯 개」, `1717/63`, 「933 gated files」 — was prose. The lap that built the best
+reproducibility mechanism this repository has produced then hand-typed the count
+of what that mechanism left open, and made it wrong in the same diff that added
+the seventh test. Not a lie and not a shortcut: a number no machine was watching,
+on the card whose whole subject is that this project does not rely on people
+remembering things.
+
+**The anti-pattern is fixing the integer.** The row said 「state seven」, and
+stating seven would have reinstalled the identical defect at the identical cost:
+`grep -rn '일곱' tests/` returns exactly what `'여섯 개'` returns. **A correction
+that leaves the surface as unwatched as it found it is not a fix, it is a reset of
+the same timer.** Where a count describes the tree, derive it from the tree —
+`tests/test_tile_gated_skip_count.py` walks `skipif` decorators with `ast` and
+binds seven judge-facing sentences to what it finds.
+
+**Two things that generalise past this row.**
+
+1. **Make the un-anchoring red, not silent.** Each binding is a regex against the
+   sentence, and a regex that matches *nothing* fails. Without that clause the
+   gate would have graded only sentences that still exist, and a lap that reworded
+   a card would have walked out of the gate without ever seeing it go red — the
+   vacuous-binding class again (WFG-156), one level up: not a detector that finds
+   nothing, but a *binding* that holds nothing.
+2. **A registry cannot sweep itself.** The fourth surface carrying the wrong count
+   was `withdrawn_claims.json`'s own `say_instead` field — the sentence telling the
+   student what to say to a judge — and `check_withdrawn_claims.py` reads `.md` and
+   `.html`, so the instrument that sweeps 933 files for stale claims is outside its
+   own scope. The critic did not find it and no gate could have. **Grep the subject
+   across every extension, not the ones the sweeper reads** (WFG-155, met from the
+   inside).
+
+**One trap, worth thirty seconds to the next lap.** `build_finals_bundle.py`
+selects the newest **tracked** printables kit. Run `make printables`, then
+`make finals-bundle`, and it silently re-points at the *old* kit, because the new
+PDF is still untracked. Stage the new kit first, then `make finals-bundle UPDATE=1`.
+
+**⚠ The independent reviewer BLOCKED this lap, and its objection was the lesson.**
+The gate above bound seven sentences and left **five restatements of the same
+integers unanchored on the same judge-facing pages** — including both lines the
+student *speaks* at the booth and the ❌ gloss beside them. The reviewer did not
+argue it; it rewrote the spoken 「7개」 to 「3개」, ran the suite, and got **9 passed**.
+Meanwhile the card next to it asserted 「이 세 수는 전부 … 트리에서 다시 세어 이
+카드와 맞춰 보므로」 and the English page asserted 「Neither number is typed here
+twice」 — **both false of the very paragraphs they sat in.** So the lap wrote a fresh
+instance of the defect it was closing, inside the fix, and then boasted about the
+coverage it did not have. **When you install a binding, mutate the sentence you care
+about most — the spoken one — not the one you just wrote.** And a claim about a
+mechanism's coverage is a claim like any other: it needs the same check as a claim
+about the world.
+
+**Second reviewer catch, and it is subtler.** The card told a judge that
+`pytest -rs` prints eleven SRTM-looking skips — a claim about the output of a
+command, derived from decorator *text*, which is machine-state independent, while
+the printed count is not. Four of the eleven gate on the laptop bundle, so **on the
+booth laptop the judge running that command sees fewer, possibly none**. Every
+neighbouring sentence carried 「깨끗한 클론에서」 and that one did not, which made the
+card self-refuting for the exact reader it addressed. **A count derived from source
+is not a prediction of a run; if prose promises a judge what they will see, it names
+the machine.**
