@@ -2214,3 +2214,58 @@ firing inside a gate written to stop exactly this class of defect, by the lap th
 mutation-graded that gate 5 for 5 — mutation grading proves a gate *notices*, it says nothing
 about whether the gate is *looking at the right set*. Ask both questions: does it fire, and
 over what population.
+
+## 2026-09-08T0920Z — the gate could not fail, and only its own mutations said so
+
+WFG-182's new gate `tests/test_creativity_card.py` asserts that the 창의성 card states
+no count about this repository. It was written as `re.findall(r"\d{2,}", spoken)` and it
+passed, and it was worthless: **「여섯 개」 — the exact defect this repository shipped onto
+three judge-facing surfaces in WFG-178 — contains no digit.** The check could not see the
+failure it existed for. The Korean-numeral half was then added ending in `\b`, and two more
+mutations stayed green: after a Hangul syllable a word boundary can never match, because
+Korean particles attach directly to the counter (「여섯 개는」, 「아홉 건이」) and Hangul
+syllables are word characters.
+
+Two things generalise, and the second is the sharper one.
+
+**A count is a notation, not a number, and a guard written in one notation guards one
+notation.** The defects this project has actually shipped were written 33장 (digits),
+여섯 개 (Korean numeral) and 41문항 (digits). Any guard on 「a number about ourselves」
+covers the writing systems its author happened to think in. Ours now covers two, and the
+counter list is the part that will rot.
+
+**A gate is not graded until its own mutations have run, and 「it passes」 is evidence of
+nothing.** Both holes were invisible to reading and took one command each to find. This is
+critic #41's root objection arriving one lap later in a new costume: the 0655Z lap graded a
+gate 5 for 5 and its reviewer found 609 of 642 sheets unguarded; this lap wrote a gate that
+was green because it could not fail. Mutation grading is not a score to report, it is the
+step where you find out whether the thing you built exists. Run it before you believe the
+green, and report the mutation that stayed green (WFG-186) — here it is the evaluative
+rewrite (「매우 독창적입니다」), which keeps every anchor and every prohibition and turns
+the card into the self-assessment its whole design was meant to avoid.
+
+**Third, smaller, and it cost a false positive:** the exclusion is as load-bearing as the
+pattern. 「한」 in Korean prose is overwhelmingly idiomatic rather than enumerative, and the
+card's own 「이유를 한 줄씩 적게」 tripped the first version. The numeral list starts at
+「두」 and the reason is written where the list is, because a future lap that adds 「한」
+back will otherwise re-learn this by turning the suite red on a sentence that is fine.
+
+**Same lap, the reviewer's block, and it is the same lesson one level up.** The lap wrote
+into `docs/creativity_card.md` that 「the repository's forbidden-string check independently
+blocks the 처음/최초 claim shapes」. It does not: that rule is a claim *shape* from
+`docs/decision_shift.md` §6 and fires only next to the word for a direct measurement, so a
+bare novelty sentence on a T0 card passed `check_forbidden.py` at exit 0 and passed the new
+gate too. **The lap had read that regex earlier in the same lap and had correctly noted it
+was not a word ban, and then wrote the opposite two hours later.** The reviewer found it by
+planting the sentence, not by reading.
+
+**Do not describe a gate's coverage from memory of having read it; run the sentence you are
+about to claim is caught, and paste the exit code.** A false statement about what a gate
+covers is worse than no statement, because it stops the next lap from looking — and it lands
+in the one paragraph a reader trusts most, the honesty section. The reviewer also broke three
+more of this lap's claims the same way (an other-system list drawn from the systems the
+repository had already written about, so 「FARSITE」 and 「소방청」 walked through; a count
+guard whose `\d{2,}` sat one digit above 「9건」; an anchor check that was card-level while the
+doc's table drew it item-level). All four are fixed and each fix is a mutation that now goes
+red. **Every one of them was a population or a pattern drawn to fit the claim after the claim
+existed** — critic #41's root objection, arriving inside the lap written to answer it.

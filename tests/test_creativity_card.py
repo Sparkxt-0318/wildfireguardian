@@ -14,14 +14,23 @@ committed file — and NOT in the evaluative one.
 That register is the whole safety of the card, and prose does not hold a
 register on its own. What is checked here:
 
-* the card exists, is T0, and its three load-bearing artifacts exist;
-* the spoken draft names **no other system**, in either direction. DIRECTION's
+* the card exists, is T0, its three load-bearing artifacts exist, and the
+  spoken draft still makes all three items;
+* the spoken draft makes **no novelty claim**. Nothing else in this repository
+  catches one: ``scripts/check_forbidden.py``'s only 처음/최초 rule requires
+  실측 within 40 characters, so a bare 「이번이 처음입니다」 on a T0 card passed
+  every gate until the independent reviewer planted one;
+* the spoken draft names **no other system** from a listed set, in either
+  direction — a named list, therefore a partial one, and the residual limit is
+  written in ``docs/creativity_card.md`` rather than implied. DIRECTION's
   standing rule (critics #37 and #34, ``WC-009``) is that a judge-facing
   sentence about another system carries what opened it — a catalogue entry, a
   named press report — or it is not written. This card carries none, so it must
   name none, and it sends the question to Q16a and the related-work panel where
   the provenance actually is;
-* the spoken draft holds **no multi-digit number**. Q30's register (WFG-117):
+* the spoken draft holds **no count** — any multi-digit run, and any digit or
+  Korean numeral used with a counter of repository objects. Q30's register
+  (WFG-117):
   a count about this repository's own state, typed onto a card the student
   recites, is the defect with the shortest fuse in this project — 「여섯 개」,
   「41문항」 and 「커밋된 33장」 were all written true and were false within a
@@ -33,9 +42,13 @@ register on its own. What is checked here:
 
 What this does NOT do. It cannot tell whether the three items are the *right*
 three, or whether a judge would find them creative; that is the judge's call
-and the card says so in its own first 없는 것 line. See
+and the card says so in its own first 없는 것 line. The other-system list is a
+named list and a system this repository has never named escapes it, and the
+anchor check is card-level, so an item whose path is corrupted inside the draft
+stays green while the 근거 block still lists the real one. See
 ``_the_mutation_this_cannot_catch`` at the foot of this file for the mutation
-that was tried and stays green (WFG-186).
+that was tried and stays green (WFG-186), and ``docs/creativity_card.md`` for
+what the independent reviewer had to break before these limits were known.
 """
 
 from __future__ import annotations
@@ -56,11 +69,33 @@ ANCHORS = (
     "scripts/check_withdrawn_claims.py",
 )
 
-#: Systems this project has written about elsewhere WITH their provenance.
-#: Naming any of them in THIS card is the defect: the card carries no source
-#: line, so a sentence about another system here would be unsourced by
-#: construction. Both directions are barred, not only the negative one.
-OTHER_SYSTEMS = ("NIFoS", "G-DAPS", "산림청", "경기도", "국립산림과학원")
+#: Systems this project has written about elsewhere WITH their provenance, plus
+#: the ones a student is most likely to reach for at a booth. Naming any of them
+#: in THIS card is the defect: the card carries no source line, so a sentence
+#: about another system here would be unsourced by construction. Both directions
+#: are barred, not only the negative one.
+#:
+#: ⚠ **This is a named list and therefore a partial one, and the independent
+#: reviewer proved it rather than arguing it**: 「FARSITE 는 …」 and 「소방청
+#: 시스템에는 …」 were both green against the first version, which held only the
+#: five systems this repository had already written about. That is a population
+#: drawn to fit the claim — the very shape WFG-185 and WFG-186 are about. The
+#: list is widened here and the residual limit is stated in
+#: docs/creativity_card.md rather than papered over: a system this repository
+#: has never named still escapes, and the cold read is what catches it.
+OTHER_SYSTEMS = (
+    "NIFoS", "G-DAPS", "산림청", "경기도", "국립산림과학원", "소방청", "소방방재청",
+    "FARSITE", "FlamMap", "WRF", "Prometheus", "Phoenix", "행정안전부",
+)
+
+#: Novelty claim shapes. The card's own 없는 것 block tells the student not to
+#: say these; nothing enforced it until the reviewer planted 「국내에서 이런
+#: 접근은 이번이 처음입니다. 최초의 구조 순서 시스템입니다.」 into the draft and
+#: watched BOTH this gate and scripts/check_forbidden.py stay green.
+#: check_forbidden's only 처음/최초 rule requires 실측 within 40 characters
+#: (the docs/decision_shift.md claim shape), so a bare novelty claim on a T0
+#: card was caught by nothing at all.
+NOVELTY_RE = re.compile(r"처음|최초|유일한|세계\s*최초|국내\s*최초|전례\s*없")
 
 
 def _card() -> str:
@@ -157,7 +192,12 @@ def test_the_card_states_no_number_about_this_repository() -> None:
     notations this repository has actually shipped the defect in.
     """
     spoken = _spoken()
+    # Any multi-digit run, AND any digit at all that is being used as a count of
+    # repository objects. The reviewer's N1 — 「철회 주장은 9건입니다」 — sat one
+    # digit under a `\d{2,}` threshold while being the exact WFG-117/WFG-178
+    # defect class, so the counter list decides here rather than the width.
     numbers = re.findall(r"\d{2,}", spoken)
+    numbers += re.findall(r"\d\s*(?:" + _OBJECT_COUNTER + r")", spoken)
     numbers += KO_COUNT_RE.findall(spoken)
     assert not numbers, (
         "Q29a's spoken draft has acquired a count: " + ", ".join(numbers)
@@ -165,6 +205,53 @@ def test_the_card_states_no_number_about_this_repository() -> None:
         "way tests/test_responsibility_and_privacy_cards.py derives Q16b's, "
         "and say in the card which set it counts — do not type it and leave it "
         "to go stale (WFG-117, WFG-178, WFG-185)."
+    )
+
+
+def test_the_card_makes_no_novelty_claim() -> None:
+    """The one prohibition the card states and nothing enforced.
+
+    The 없는 것 block tells the student not to say 「처음」 or 「최초」, and the
+    lap that wrote it recorded in its own doc that
+    ``scripts/check_forbidden.py`` was the independent backstop for that. **It
+    is not.** That script's only 처음/최초 rule requires 실측 within 40
+    characters — it is the docs/decision_shift.md claim shape, not a novelty
+    ban — so 「국내에서 이런 접근은 이번이 처음입니다」 passes it, exit 0. The
+    independent reviewer planted exactly that and blocked the lap on it.
+
+    A novelty claim is the single most expensive sentence this card could
+    acquire: it is unfalsifiable from the literature this project has opened,
+    the card's own third item is about not making claims the tree cannot
+    support, and it is on a T0 card the student says from memory.
+    """
+    spoken = _spoken()
+    hits = NOVELTY_RE.findall(spoken)
+    assert not hits, (
+        "Q29a's spoken draft has acquired a novelty claim: " + ", ".join(hits)
+        + ". The literature scan is the range of what this project has opened, "
+        "and what lies outside it is unknown — the card's own 없는 것 block "
+        "says so. Nothing else in this repository catches this: "
+        "scripts/check_forbidden.py's 처음/최초 rule fires only next to 실측."
+    )
+
+
+def test_the_spoken_draft_still_makes_all_three_items() -> None:
+    """Item-level structure, because the anchor check above is card-level.
+
+    The reviewer's N4: deleting item 2 from the spoken draft entirely left
+    every other assertion green, because the 근거 block still listed its file.
+    A card that has quietly lost one of its three items still passes an
+    anchors-are-named check, and the doc's method table reads as though each
+    item were bound to its file. This binds the structure the table describes.
+    """
+    spoken = _spoken()
+    missing = [m for m in ("첫째", "둘째", "셋째") if m not in spoken]
+    assert not missing, (
+        "Q29a's spoken draft no longer makes all three items: missing "
+        + ", ".join(missing) + ". The card answers 창의성 with three things "
+        "that were built, each pointing at a committed file; two of them is a "
+        "different card and docs/creativity_card.md's method table would be "
+        "describing something the bank no longer says."
     )
 
 

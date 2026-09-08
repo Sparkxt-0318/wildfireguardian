@@ -282,6 +282,18 @@ def test_every_committed_sheet_carries_the_footer_and_the_card_counts_them() -> 
         "card (WFG-185): the card-wide version passed while the only mention "
         "of the run directory sat in the 근거 block under a different claim."
     )
+    # The independent reviewer's N11: naming the directory scopes the count for
+    # a reader following the path, and the sentence above binds that. It does
+    # NOT bind the denial the student says out loud, which is what scopes the
+    # count for a judge who is listening rather than reading. Deleting that
+    # sentence left the gate green until this assertion was added.
+    assert "저장소 전체의 수가 아닙니다" in _draft("16b"), (
+        "Q16b no longer denies, in the student's own spoken words, that its "
+        "sheet count describes the whole repository. Naming " + COUNTED_RUN
+        + " scopes the number for someone reading the path; the denial is what "
+        "scopes it for the judge who is only listening, and 「커밋된」 makes the "
+        "sentence sound like a claim about the tree without it."
+    )
 
 
 def test_nothing_was_ever_sent_and_the_cards_count_the_manifests() -> None:
