@@ -5,7 +5,43 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
-**Tick count, critic #41, 2026-09-08T0819Z: 7 of 11 (R1, R2, R4, R5, R6, R7, R9), unchanged, and ZERO lines ticked
+**Tick count, critic #42, 2026-09-08T1115Z: 7 of 11 (R1, R2, R4, R5, R6, R7, R9), unchanged, and ZERO lines ticked
+for the THIRD consecutive critic lap.** The direction finding critic #41 fired is now one lap worse and it is still a
+finding about the loop's aim rather than about the product. Re-derived at `ceb43ba` on the routine's **default**
+clone, before any deepening: `git rev-parse --is-shallow-repository` = **true**, `git rev-list --count HEAD` = **50**,
+oldest resolvable `2720840` (10:09Z, 09-07), so this clone reads about 25 hours and I claim nothing about anything
+older. `gates.py --mode full` exits **0**, ALL GREEN: `1741 passed, 63 skipped, 2 xfailed`, pytest 258.3 s. **The run
+downloaded nothing:** `du -sb data/raw` answers **201,187** bytes before and after, and `data/raw/dem/srtm/` is empty
+afterwards. **Cold on the tile, warm on `data/cache`.** `--assert-head` exits 0; `--assert-reported --base 2720840`
+exits 0 over 69 substantive paths. Through the GitHub MCP (`curl` against `api.github.com` is still refused here,
+WFG-119): `auto-gates` runs **216 to 241** on `auto/dev` are **21 `success`, 5 `cancelled` (218, 226, 229, 232, 235),
+ZERO `failure`**, and run **241** at this exact head is `success`. **No CHARTER §4b finding.** Every dev and critic
+report in the window carries `Reviewed by:`.
+
+- ⚠⚠ **R3 and R8 are the two unticked lines a lap can move, and neither moved for a third window.** **R3:**
+  `Makefile:215` still reads `all-checks: verify baseline-verify snapshot-verify env-check test`, so `baseline-verify`
+  is still a hard prerequisite of the command R3 names and exits 2 in every clone without the acquisition manifests
+  (CHARTER §3d). WFG-179, decision **NH-046**, plus the laptop recipe (NH-014, R12). **R8:** `grep -nE '^## Round'
+  README.md` returns `:59` and `:75` and nothing for Round 4, unchanged all week. **R8's row WFG-010 is now at the head
+  of the `todo` block** — critic #41 gave it P0 and left it at table line 151, which is this lap's one reorder.
+- ⚠⚠ **R1 and R9 keep their ticks and this lap records a defect on both that is five commits from turning them red.**
+  `web/finals.html:434` carries `"git":"1bca8ed"`, `git rev-list --count 1bca8ed..HEAD` answers **25**, and
+  `tests/test_finals_screen.py:540` sets `STAMP_MAX_COMMITS_BEHIND = 30`. R1's condition is that the screen opens and
+  its numbers map; R9's is that the bundle exists. Both hold **today**. The gate that closed `auto/dev` on 09-07
+  (NH-045) trips at 31, and at this branch's measured rate — 25 commits in 11 h 59 m — that is the lap after next.
+  **WFG-187**, and it is this lap's one `fix-before-next-row` item.
+- **R5 and R7 keep their ticks and both got stronger this window.** The bank is **45** cards
+  (`grep -cE '^\*\*Q[0-9]+[a-z]? · T[0-9]' docs/auto/JUDGE_QA.md` = 45, header's 45 / T0 19 / T1 19 / T2 7 sums), the
+  WFG-185 scope defect critic #41 recorded here is **closed**, and the kit is `WFG_printables_20260908T0939Z.pdf` at
+  41 pages with `release/kcf-finals-2026/MANIFEST.json` pointing at it, re-checked here.
+- **Readiness lines ticked inside this window: NONE.** Three consecutive critic laps at zero. Six consecutive dev work
+  commits in that span all edited `docs/auto/JUDGE_QA.md` and none touched R3's or R8's blocker. **NH-038**, due
+  2026-09-09, is the author's decision on exactly this and this lap wrote the new measurement into it rather than
+  opening a fourteenth question.
+- ⚠ **No `Do NOT edit` note is written by this lap** (CHARTER §14c, NH-036 A). WFG-187 must rebuild `web/finals.html`
+  and WFG-010 must edit `README.md`; freezing either would block the fix.
+
+*(Superseded lead, kept as the record.)* **Tick count, critic #41, 2026-09-08T0819Z: 7 of 11 (R1, R2, R4, R5, R6, R7, R9), unchanged, and ZERO lines ticked
 for the SECOND consecutive critic lap.** That fires the direction finding the routine prompt defines, and it is a
 finding about the loop's aim rather than about the product. Re-derived at `9329400` on the routine's **default**
 clone, before any deepening: `git rev-parse --is-shallow-repository` = **true**, `git rev-list --count HEAD` = **50**,

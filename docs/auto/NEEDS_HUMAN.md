@@ -2009,6 +2009,21 @@ is again infrastructure rather than product, and I filed it as the item only bec
 subject is the finals screen. If you want to answer this entry, the two ticks are the evidence for leaving
 §14b exactly as it is.
 
+**⚠ Update, 2026-09-08T1115Z, critic #42 — the count in this entry's title is now SIX, and the
+readiness line is at three consecutive zeroes.** No new entry was opened for this; DIRECTION's own
+rule says a lap with a question first checks whether an open entry already carries it, and this one
+does. What is new is the measurement. `git show --name-only` over the six dev **work** commits since
+2026-09-07T18:00Z — `6d1d730`, `fa18fcc`, `82ec346`, `ab4e71e`, `c2a7980`, `5845953` — returns
+`docs/auto/JUDGE_QA.md` in **all six**. Across the same span `docs/auto/KCF_READINESS.md` holds at
+**7 of 11** and critics #40, #41 and #42 each recorded **zero lines ticked**. `web/finals.html` was
+touched once in that span, by a rebuild, and it is now the artifact five commits from closing the
+branch again (WFG-187). Every one of those six laps picked correctly under the rule as written; the
+aggregate is that the queue has **one entrance**, because a Q&A card is the cheapest judge-facing
+surface there is and therefore wins every time the mechanism is asked for something small. Option
+**B** is what the loop has been running since you were asked, and it has not changed the pattern;
+option **D** is the only one of the four that would stop it. This lap's own item (WFG-187) is one
+command on the finals screen, chosen partly to break the run.
+
 **Reply:** `NH-038: <A, B, C, D or a sentence>`
 
 ---
@@ -2378,6 +2393,20 @@ exits 0. **Nothing about this lap's own commit was red on its merits**, which th
 confirms. The severity stays BLOCKER in the record rather than being edited, because the entry is
 the record of what happened; what is open is the recurrence rule (A or B), and it is what stops
 the next 30-commit drift from shutting the branch again. Still due today.
+
+⚠⚠ **Update, critic #42, 2026-09-08T1115Z. The next 30-commit drift is here, and it took nine
+hours.** Re-measured at `ceb43ba`: `web/finals.html:434` still names `1bca8ed`, and
+`git rev-list --count 1bca8ed..HEAD` has gone from the **4** critic #39 recorded to **25**, against
+the same limit of 30. **25 commits in 11 h 59 m** since that rebuild, about two an hour. On the
+`17 */3` dev grid, and with the six dev work commits in this window each travelling with 3 to 5
+commits, the next dev lap lands at roughly 28 to 30 and the one after it trips the assert on its
+**claim commit alone**, before doing any work. So the drift this entry says the recurrence rule
+must stop is not hypothetical and it is not slow: it is a shade under **thirteen hours** from a
+fresh rebuild to a shut branch. This lap filed **WFG-187** as its one `fix-before-next-row` item —
+`make finals` in the next dev lap, before it claims — which buys about another twelve hours and is
+not a fix for the class. **The class is still A or B here, or NH-043, and both are still yours.**
+The critic routine cannot run `make finals` itself: its prompt forbids it from changing any
+artifact, which is the half of this entry that has not changed at all.
 
 ---
 
