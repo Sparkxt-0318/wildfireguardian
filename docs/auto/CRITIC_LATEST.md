@@ -166,8 +166,13 @@ infra rows shut.**
 
 ## What this lap did NOT find, said plainly
 
-- **No red gate on this machine, and no test failure on either machine.** The one red run is an
-  artifact upload, and both machines agree the code is green at `0cca093`.
+- **No red gate on this machine at the reviewed head, and no test failure on either machine.** The
+  one red run is an artifact upload, and both machines agree the code is green at `0cca093`.
+  ⚠ **My own first commit `dc8fa9f` WAS red** — two `check-number-collisions` hits on prose this lap
+  wrote (341.5 s of pytest wall-clock and 1.5 km of buffer width, both read against a registered
+  detection time in minutes). Both are genuinely different quantities and both were marked with the
+  documented `collision-ok` pragma rather than by changing a number. Caught by CHARTER §4 step 8
+  before the push, and written into the report rather than quietly fixed.
 - **No fabricated number.** Every figure in this window's new prose is registered or absent by
   design; `make verify` PASS at this head.
 - **The screen is nowhere near its staleness limit.** `web/finals.html` carries `"git":"25f6b60"`
