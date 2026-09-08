@@ -5,7 +5,54 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
-**Tick count, critic #38, 2026-09-07T2319Z: 7 of 11 (R1, R2, R4, R5, R6, R7, R9). No line moved this window and no
+**Tick count, critic #39, 2026-09-08T0217Z: 7 of 11 (R1, R2, R4, R5, R6, R7, R9), unchanged, and for the first time
+in eleven laps R3's sandbox half has NOTHING against it.** Checked on disk at `1282198`, re-run rather than read,
+on the routine's **default** clone before any deepening (`git rev-parse --is-shallow-repository` = `true`,
+`git rev-list --count HEAD` = **50**; ⚠ the oldest resolvable commit is `5cca6ce` at 2026-09-07T02:25:10Z, so this
+clone reads the window from there forward and **not** the full 24 h, and I say so rather than implying otherwise).
+`gates.py --mode full` exits **0**, ALL GREEN: `1708 passed, 63 skipped, 2 xfailed`, pytest 290.9 s, **COLD**, and
+**the run downloaded nothing**. `--assert-head` exits 0; `--assert-reported --base 5cca6ce` exits 0 with 73
+substantive paths. Through the GitHub MCP, `auto-gates` runs **207 to 227** on `auto/dev` are 19 `success`,
+2 `cancelled` (218, 226), **zero `failure`**, and run **227** at this exact head is `success`. **No CHARTER §4b
+finding.** Every dev and critic report in the window carries `Reviewed by:`.
+
+- ✅✅ **R3's blocker is GONE, and R3 still does not tick. Both halves of that sentence are load-bearing.** WFG-139
+  closed at `ab4e71e` and I re-derived it rather than reading it: at container start `data/raw/` held `.gitkeep`,
+  `README.md` and the KFS CSV; after a **cold** `gates.py --mode full`, `du -sb data/raw` answers **201,187** bytes,
+  `data/raw/dem/srtm/` exists and is **empty**, and no `N36E129.hgt` was written. The eleven-lap measurement finally
+  reads zero. The mechanism is `tests/conftest.py` refusing outbound sockets session-wide including to the
+  `*_proxy` addresses this sandbox routes egress through, plus a `pytest_sessionfinish` hook that fails a run in
+  which `data/raw/` grew. ⚠ **What stops the tick is now the line's own wording, not the suite.** R3 says
+  「`make all-checks` green on a clean clone (CI)」; `Makefile:215` makes `baseline-verify` a **hard** prerequisite
+  of that target and `baseline-verify` exits **2** in every clone without the acquisition manifests (CHARTER §3d),
+  so the named command cannot go green on a clean clone by construction, while `.github/workflows/auto-gates.yml:31`
+  runs `gates.py --mode full` instead. **WFG-179**, and the decision is the author's: **NH-046**. R3 also still
+  waits on one run of the booth recipe on the author's laptop (NH-014, R12).
+- ⚠ **R5 and R7 keep their ticks and both carry this lap's one `fix-before-next-row` item.** `JUDGE_QA.md:980` and
+  `:1182` tell the student the tile-gated skip set is 「여섯 개」 and Q40 enumerates it; measured here at `1282198`,
+  cold, the tests whose `skipif` predicate is `data/raw/dem/srtm/N36E129.hgt` number **seven**, the seventh being
+  `tests/test_raster_ingestion.py:168::test_auto_dem_prefers_srtm_when_the_tile_is_cached`, added by the same commit
+  that wrote the card. `docs/clean_clone_gates.md:85` says six as well, and `:45` attributes the whole measurement
+  to `088203c`, a tree in which `git ls-tree -r 088203c -- tests/conftest.py` is empty. Both ticks stand because
+  R5's condition is coverage (the bank answers 42 questions) and R7's is that the kit exists and is fresh (kit
+  `20260908T0114Z`, 38 pages, all six `SOURCES` re-hashed here and matching); this is a 제출 자료 deduction and is
+  scored there. **WFG-178.**
+- ✅ **R1 keeps its tick and the liveness defect critic #38 attached to it is CLEARED.** `web/finals.html` names
+  `1bca8ed` and `git rev-list --count 1bca8ed..HEAD` answers **4** against `STAMP_MAX_COMMITS_BEHIND = 30`
+  (`tests/test_finals_screen.py:540`). I did not re-run the acts driver: nothing in this window touched `web/`
+  beyond the rebuilt stamp, `scripts/check_finals_acts.py` or the payload, and critic #37's two-machine evidence
+  stands.
+- ⚠ **R8 does not tick and its blocker is unchanged and unmeasured by anyone this week.** `README.md` has
+  `## Round 2 결과 (2026-07)` at `:59` and `## Round 3 (2026-08)` at `:75` and **no Round-4 section**; R8's other
+  clause (forbidden-string and collision gates green) is met. R8 is the second of the two lines holding §14b's infra
+  block shut. Its row already exists and is **WFG-010** (P1, 「README Round-4 section + English abstract draft」),
+  which sits inside the very block R8 helps hold shut. Recorded here rather than filed as new: no duplicate row, and
+  the ordering knot is NH-038's subject, not a new finding.
+- **R2, R4, R6, R9 hold; R11 unchanged; R10 stays withdrawn; R12 is the author's (NH-014).**
+- **Readiness lines ticked inside this window: R1 (2026-09-07T2020Z).** The 「zero across two consecutive critic
+  laps」 direction finding does not fire.
+
+*(Superseded, kept as the record, CHARTER §3.7.)* **Tick count, critic #38, 2026-09-07T2319Z: 7 of 11 (R1, R2, R4, R5, R6, R7, R9). No line moved this window and no
 line fell.** Checked on disk at `1bca8ed`, re-run rather than read, on the routine's **default** clone before any
 deepening (`git rev-parse --is-shallow-repository` = `true`, `git rev-list --count HEAD` = **50**, `git log
 --since='26 hours ago'` returns exactly 50, so the oldest resolvable commit `590c29a` (2026-09-07T00:43Z) is inside

@@ -2316,6 +2316,18 @@ lap that clears the gate should merge or cherry-pick that branch so **WFG-173**,
 **Reply with:** `NH-045: A` (or B / C / D, or a sentence). Answering **NH-043** answers most of
 this one too.
 
+⚠ **Update, critic #39, 2026-09-08T0217Z. The branch is open again and the entry is no longer
+blocking anything; the decision it asks for is still open.** The 2026-09-08T0121Z dev lap took
+option C by itself: it fast-forwarded `auto/red/2026-09-07T2319Z` onto `auto/dev`, so critic
+#38's report, `CRITIC_LATEST.md`, `DIRECTION.md` note, `KCF_READINESS` and `SCORECARD` rows and
+rows WFG-173 through WFG-175 are all on `auto/dev`; then it rebuilt the screen and re-pointed the
+bundle. Re-measured here at `1282198`: `web/finals.html` names `1bca8ed`, `git rev-list --count
+1bca8ed..HEAD` answers **4** against `STAMP_MAX_COMMITS_BEHIND = 30`, and `gates.py --mode full`
+exits 0. **Nothing about this lap's own commit was red on its merits**, which the recovery
+confirms. The severity stays BLOCKER in the record rather than being edited, because the entry is
+the record of what happened; what is open is the recurrence rule (A or B), and it is what stops
+the next 30-commit drift from shutting the branch again. Still due today.
+
 ---
 
 ## NH-044 · DECISION · open · The claim the paper just retracted is still live on the page the paper cites for it (by 2026-09-09)
@@ -2374,3 +2386,51 @@ the unnarrowed one. It does not edit `docs/related_work.md`.
 splitting them across two laps is how the first escape happened.
 
 **Reply with:** `NH-044: A` (or B / C / D, or a sentence).
+
+---
+
+## NH-046 · DECISION · open · Your product's definition-of-done names a command nothing in this project has ever run (by 2026-09-10)
+
+**What.** `docs/auto/KCF_READINESS.md` is the checklist that decides when the finals product is
+finished (CHARTER §11). Line R3 reads 「`make all-checks` green on a clean clone (CI) and on the
+booth laptop recipe in `docs/auto/finals/BOOTH_SETUP.md`」. Measured here at `1282198`:
+
+- `Makefile:215` defines `all-checks: verify baseline-verify snapshot-verify env-check test`, and
+  `baseline-verify` is a **hard** prerequisite of that target.
+- `baseline-verify` exits **2** in this sandbox, and in any clone that is not your laptop, because
+  the two acquisition manifests under `data/raw/firms_data/` are git-ignored and never arrive.
+  CHARTER §3d records that as the documented and permanent state, not as a fault.
+- So `make all-checks` **cannot** go green on a clean clone. Not today, not after any amount of
+  loop work.
+- `.github/workflows/auto-gates.yml:31` runs `scripts/auto/gates.py --mode full` instead, which
+  records `baseline-verify` as a soft WARN where the manifests are absent and is what has actually
+  been green on every push.
+
+So R3's CI half has been graded, for the whole life of the checklist, by a command other than the
+one it names, and no lap has ever run the named one. This is not a judge-facing defect and nothing
+a judge reads is wrong; it is your definition of done pointing at the wrong thing, which matters
+because R3 is one of the two lines still holding CHARTER §14b's infra block shut.
+
+**Why you and not the loop.** The checklist is the product's definition of done and you set it. A
+lap that edits a readiness line to match what the loop already does is a lap grading its own
+homework, which is the failure this project has spent the week building registries against.
+
+**Options:** A) **Reword R3 to name `gates.py --mode full`** on the CI half, and keep
+`make all-checks` as the laptop half where `baseline-verify` is genuinely hard and genuinely
+passes. This is what is already measured; the line simply starts saying so. The loop recommends A.
+B) **Make `all-checks` soft on `baseline-verify` when the manifests are absent**, the same
+condition `gates.py` already uses, so the named command becomes runnable on a clean clone and R3
+stays word-for-word. Costs a Makefile change and gives you one command instead of two.
+C) **Leave R3 as written and treat it as a laptop-only line**, which makes it a duplicate of R12
+and means R3 can only ever tick when you run it yourself.
+
+**What this does NOT change either way.** R3's second half is still yours: the booth recipe on the
+real laptop, which is NH-014 and R12. And R3's long-standing blocker **is gone** as of
+2026-09-08: WFG-139 closed, and I re-ran the full gates cold here with `data/raw/` at 201,187 B
+before and after, so the suite no longer reaches the network. That is the first time in eleven
+laps R3's sandbox half has had nothing against it.
+
+**What the loop does until you answer:** R3 stays unticked, §14b's infra block stays shut, and no
+lap edits a readiness line's wording. WFG-179 carries whichever option you pick.
+
+**Reply with:** `NH-046: A` (or B / C, or a sentence).

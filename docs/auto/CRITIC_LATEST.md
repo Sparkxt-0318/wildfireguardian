@@ -1,185 +1,160 @@
-# CRITIC_LATEST — critic #38, 2026-09-07T2319Z
+# CRITIC_LATEST — critic #39, 2026-09-08T0217Z
 
 *The next dev lap reads this file before it claims a row (CHARTER §4 step 3), and clears every
-`fix-before-next-row` item below first. Reviewed head: `1bca8ed`. Window: the 24 h to 2026-09-07T23:00Z.
-⚠ **This clone resolves the window from 00:43Z forward, not the whole of it:** `git rev-list --count HEAD` = **50**,
-`git log --since='26 hours ago'` returns exactly 50, and the oldest resolvable commit is `590c29a`
-(2026-09-07T00:43Z). The hour before that is outside this clone and I did not read it. Full report:
-`docs/auto/reports/2026-09-07T2319Z-critic.md`.*
+`fix-before-next-row` item below first. Reviewed head: `1282198`. Window: the 24 h to
+2026-09-08T02:00Z. ⚠ **This clone resolves the window from 02:25Z on 09-07 forward, not the whole of
+it:** `git rev-parse --is-shallow-repository` = **true**, `git rev-list --count HEAD` = **50**, and the
+oldest resolvable commit is `5cca6ce` (2026-09-07T02:25:10Z). The 25 minutes before that are outside
+this clone and I did not read them. Full report: `docs/auto/reports/2026-09-08T0217Z-critic.md`.*
 
-✅ **The baseline is GREEN on the routine's DEFAULT clone, measured before any deepening, and read unpiped.**
-`git rev-parse --is-shallow-repository` = **true**, `git rev-list --count HEAD` = **50**. `gates.py --mode full`
-exits **0**, ALL GREEN at `1bca8ed`: `1689 passed, 62 skipped, 2 xfailed`, pytest 212.2 s, **COLD**, and the run
-**downloaded 25.9 MB** partway through (finding 3). `verify`, `snapshot-verify`, `env-check` PASS;
-`baseline-verify` WARN is the documented CHARTER §3d state. `--assert-head` exits 0; `--assert-reported --base
-3426135` exits 0.
+✅ **The baseline is GREEN on the routine's DEFAULT clone, measured before any deepening, read
+unpiped.** `gates.py --mode full` exits **0**, ALL GREEN at `1282198`: `1708 passed, 63 skipped,
+2 xfailed`, pytest 290.9 s, **COLD**, and **the run downloaded nothing** — `du -sb data/raw` answers
+**201,187** bytes before and after, and `data/raw/dem/srtm/` is empty. `verify`, `snapshot-verify`,
+`env-check` PASS; `baseline-verify` WARN is the documented CHARTER §3d state. `--assert-head` exits 0;
+`--assert-reported --base 5cca6ce` exits 0 with 73 substantive paths.
 
-✅ **No CHARTER §4b finding.** Through the GitHub MCP (`curl` against `api.github.com` is 403 here, WFG-119):
-`auto-gates` runs **204 to 223** on `auto/dev` are **19 `success`, 1 `cancelled` (218), ZERO `failure`**, and run
-**223** at this exact head is `success`. Every push in the window carried a report; every dev and critic report
-carries `Reviewed by:`; the research report of 2026-09-06T1838Z does not (WFG-147, unchanged, not duplicated).
+✅ **No CHARTER §4b finding.** Through the GitHub MCP (`curl` is 403 here, WFG-119): `auto-gates` runs
+**207 to 227** on `auto/dev` are **19 `success`, 2 `cancelled` (218, 226), ZERO `failure`**, and run
+**227** at this exact head is `success`. Every push in the window carried a report; every **dev** and
+**critic** report in the window carries `Reviewed by:`.
 
-✅ **WFG-171 closed and closed well.** Critic #37's one item is cleared on both printed surfaces, registered as
-`WC-009`, kit rebuilt and bundle re-pointed in the same lap. I read the replacement text rather than grepping for
-the absence of the old sentence. **KCF_READINESS holds at 7 of 11**; R9, R7 and R1 all ticked inside this window.
+✅✅ **WFG-139 is closed after eleven laps, and I re-derived it rather than reading it.** The
+mechanism is real: `tests/conftest.py` refuses outbound sockets session-wide, including to the
+`*_proxy` addresses this sandbox routes egress through, and `pytest_sessionfinish` fails a run in
+which `data/raw/` grew. This is the strongest single piece of evidence this repository has produced
+for its own reproducibility claim, and it is the first cold gate run here that downloaded nothing.
+
+✅ **WFG-173 is closed.** `web/finals.html` names `1bca8ed`; `git rev-list --count 1bca8ed..HEAD`
+answers **4** against `STAMP_MAX_COMMITS_BEHIND = 30`. The branch is open, critic #38's parked lap is
+on `auto/dev`, and NH-045 is no longer blocking anything (dated update written into that entry).
+
+**KCF_READINESS holds at 7 of 11.** R1 ticked inside this window (2026-09-07T2020Z), so the
+「zero across two consecutive critic laps」 direction finding does not fire.
 
 ---
 
 ## `fix-before-next-row` — ONE item (CHARTER §14b)
 
-### WFG-173 — the judged screen's build stamp is sitting exactly on the staleness limit
+### WFG-178 — the honest remainder printed on the card is wrong by the test the same commit added
 
-`web/finals.html:434` carries `"git":"7308b06"`. `git rev-list --count 7308b06..HEAD` answers **30** at `1bca8ed`.
-`tests/test_finals_screen.py:540` sets `STAMP_MAX_COMMITS_BEHIND = 30`; `:732` asserts
-`behind <= STAMP_MAX_COMMITS_BEHIND`.
+The WFG-139 lap did the hard thing right and then hand-typed the number that describes what it left
+open. Three judge-facing surfaces say the tile-gated skip set is **six**:
 
-**So the gate is green today at the limit and red on the first commit anybody pushes** — which, on the sprint's
-3-hour dev grid with a paper lap and a critic lap between, is the next lap. Critic #37 read the same field three
-hours ago at **24** and wrote it up as 「inside the limit, not a defect in this window」. That was true then. Six
-commits later it is not, and the difference between the two readings is the whole reason this is an item rather
-than a note: at 24 there was room, at 30 there is none.
+| surface | what it says |
+|---|---|
+| `docs/auto/JUDGE_QA.md:980` (Q28, 없는 것) | 「지형 타일이 있어야 도는 테스트 **여섯 개**는 깨끗한 클론에서 여전히 건너뜁니다」 |
+| `docs/auto/JUDGE_QA.md:1182` (Q40) | enumerates them as `test_srtm_dem.py` 네 개 + `test_validation_robustness.py` + `test_validation_session3.py`, and scripts the student to say 「**여섯 개**는 깨끗한 클론에서 건너뜁니다」 aloud |
+| `docs/clean_clone_gates.md:85` | 「The **six** SRTM tests that `skipif` on the cached tile still skip on a clean clone」 |
 
-⚠ **There is a second and worse failure mode 20 commits further on.** When `behind` reaches this clone's own depth
-(**50** here) the stamp stops resolving at all and the gate fails as `Not a valid object name`, which the test's own
-message says 「reads as corruption rather than staleness」. That is what turned critic #33's lap red on a correct
-tree (WFG-119). Drift walks toward it.
+**Measured here at `1282198`, cold, with `data/raw/dem/srtm/N36E129.hgt` absent, the tests whose
+`skipif` predicate is exactly that tile number seven.** The six the card names, plus
+`tests/test_raster_ingestion.py:168::test_auto_dem_prefers_srtm_when_the_tile_is_cached`, whose
+predicate is `_srtm_tile_cached()` at `tests/test_raster_ingestion.py:166-169` reading that same
+path. That test was **added by `ab4e71e`, the commit that wrote the card**, and the lap's own report
+says so at `docs/auto/reports/2026-09-08T0121Z-dev.md:202`: 「The 63rd skip is new and is mine」. The
+card did not learn it.
 
-⚠ **Nothing on the screen is WRONG today, and this is filed as minutes for that reason.** Critic #37 re-derived all
-28 on-screen keys against `docs/NUMBERS.json` with zero misses on either side, and R1 ticks on that work. This is a
-liveness defect, not a correctness one.
+**It is on paper and in the student's mouth.** Kit `20260908T0114Z`, 38 pages; I re-hashed all six
+`SOURCES` against the tree in one process and every one matches, `JUDGE_QA.md` at
+`c7ab6e505ce0…`. Q28 and Q40 are inside the 17 printed JUDGE_QA pages, and Q40 is a T1 card with a
+spoken line.
 
-**Done when** `make finals` has been run **on the commit being pushed**, so `web/finals.html`'s `git` field names a
-commit inside the limit; **and** `make finals-bundle` re-points `release/kcf-finals-2026/MANIFEST.json` in the
-**same lap** (WFG-152; `newest_printables()` resolves the stamp from the tracked tree, so the bundle build stays
-broken until it is rebuilt); **and** `gates.py --mode full` is re-run after both, read unpiped, with `--assert-head`
-and `--assert-reported` immediately before the push.
+**Nothing reads the number.** `grep -rn '여섯 개' tests/` and `grep -rn 'six SRTM' tests/` both return
+nothing outside a `.pyc`. The count is prose, and prose about this repository's own suite is the one
+class of number this project does not register.
 
-⚠⚠ **Do NOT raise `STAMP_MAX_COMMITS_BEHIND`.** `tests/test_finals_screen.py:754` grades the threshold with two
-literals deliberately not derived from the constant, so raising it fails rather than slides past. **NH-043** (open,
-due 2026-09-09) is the author's decision about how often this gate should fire; this row does not pre-empt it.
+**Second defect in the same write-up, same minutes.** `docs/clean_clone_gates.md:45` reads
+「**Result, measured 2026-09-08 on this sandbox at `088203c`**」. `git ls-tree -r 088203c --
+tests/conftest.py` is **empty**; the guard that result is about first exists at `ab4e71e`. The
+measurement is real and I reproduced it; the commit id under it names a tree with no guard in it.
 
----
+⚠ **What is NOT wrong here, said plainly so the next lap does not over-correct.** The mechanism, the
+two real callers, the false positive the lap admitted to, and the enumerated blind-spot list are all
+accurate and I checked them. This is a count and a commit id, nothing else. Do not reopen WFG-139.
 
-## The rest, ranked, and none of them is a `fix-before-next-row` item
+**Done when** `docs/auto/JUDGE_QA.md:980`, `:1182` and `docs/clean_clone_gates.md:85` state **seven**
+and name `test_auto_dem_prefers_srtm_when_the_tile_is_cached`; `docs/clean_clone_gates.md:45` names
+`ab4e71e`; the printables kit is rebuilt at a new stamp and `make finals-bundle` re-points
+`release/kcf-finals-2026/MANIFEST.json` in the **same lap** (WFG-152); and `gates.py --mode full` is
+re-run after the rebuild, read unpiped, with `--assert-head` and `--assert-reported` immediately
+before the push.
 
-2. **WFG-139 — ELEVENTH consecutive measurement, and the first ISOLATED reproduction. The diagnosis in the row is
-   right and the fix is minutes.** Ten laps have measured this by watching a 25 MB file appear during a
-   200-to-350-second `pytest-full` stage, which proves the suite downloads but not which line does. This lap ran the
-   row's own named suspect **alone**. After the COLD gate run left `data/raw/dem/srtm/N36E129.hgt` (25,934,402 B) and
-   `N36E129.hgt.gz` (8,473,868 B) at mtime **23:02Z**, I deleted both tiles **and** the cached
-   `data/cache/dem_yeongdeok_2025_srtm_500m_80858ae747.nc` they had produced (all git-ignored; `git status --short`
-   clean afterwards) and ran exactly
-   `pytest tests/test_spread_warmup.py::test_model_config_ignition_radius_increases_initial_burn`.
-   **1 passed in 1.54 s, and both tiles were back on disk at 23:06Z.** Control: the same single test with the `.nc`
-   cache still present passes in **0.47 s** and downloads nothing, which is why no earlier lap saw it in a re-run and
-   why a warm machine can never reproduce it. The test asserts `first_area_ha > 25.0` and
-   `metrics_persistence[0].predicted_area_ha > 25.0`, both about the **ignition disc**, and it already runs
-   `fuel_source="synthetic"`, so `dem_source="synthetic"` is the smaller of the two repairs the row already
-   prescribes and should be tried first. **Grade it** by repeating the deletion above with the network unreachable:
-   green at the COLD counts, `data/raw/dem/` still empty.
-
-3. **WFG-174 (new, P1, IEEE) — the manuscript applies one provenance standard to a Korean agency and a laxer one to
-   the Western literature, and its own reviewer said so.** `paper/GAPS.md:118-127` and `paper/STATE.json` record that
-   **15 of the 29 references are verified 「via the Crossref record」** while §2 characterises six of them
-   substantively (`li2017`, `li2019`, `wahlqvist2021`, `cova2003`, `cova2005`, `finney2002`). A Crossref record is a
-   catalogue entry, which is the exact standard paper lap 16 applied when it retracted the NIFoS sentence and the
-   exact standard WFG-171 has just applied to two booth panels. No claim is false and none may be called false; the
-   asymmetry is the defect. Shares its gate half with **WFG-042**, and `check_paper.py:203` cannot see either,
-   because it tests only for the substring `verified`.
-
-4. **WFG-175 (new, P1, infra) — a paper lap's findings have no route to the backlog, and today one was lost.**
-   `docs/auto/reports/2026-09-07T2112Z-manual.md:124` and `paper/GAPS.md:118` both say the finding above was
-   「Filed as a dev-lap row」; `paper/STATE.json` says 「FILED, NOT FIXED」. **No such row existed.** It is not that
-   lap's slip: CHARTER §12 confines the paper routine to `paper/` plus its own report, so it is structurally unable
-   to write the row it says it filed. The finding survived only because this lap opened `paper/STATE.json` to check
-   the word budget and read the field to the end. §14b holds this behind R3, R4 and R8 as loop hygiene.
-
-5. **NH-037 is now binding on FIVE words, and this entry's own worst case has happened twice in one day.**
-   `paper/check_paper.py` at `1bca8ed`: `body_words` **8,995** against a hard fail at **9,000**. The same lap
-   re-measured the built document with a real renderer at **23 pages** against the author's **25-page** rule. So the
-   author's rule has two pages of room and the proxy has five words. Lap 17's three reviewer-mandated corrections
-   cost +7 words and were paid for with four one-word syntax compressions. Five laps in a row have now had their
-   writing shaped by the proxy rather than by the evidence. Nothing is red; the next mandatory correction of any size
-   parks the manuscript, which is correct behaviour under CHARTER §3 rule 9 and is exactly why NH-037 is open.
-
-6. **The author has TWELVE open decisions and two of them are due TODAY (2026-09-08 KST).** `decisions_seen.json`
-   still shows `"seen": []`: no decision has ever arrived by email, and the newest applied one is NH-031 from a
-   laptop session on 2026-09-06. **NH-032 and NH-034 are due 2026-09-08**; NH-035, NH-038, NH-043 and NH-044 are due
-   2026-09-09. Until NH-032 and NH-034 are answered the student is forbidden to say **any** of the three
-   fair-opponent margins that exist. This is not a finding against a lap. It is the one thing in this window that no
-   lap can clear.
-
-7. **A small one against this routine, recorded rather than hidden.** Critic #37 appended its scorecard row to the
-   Track B and Track A tables and **not** to the series table, against `SCORECARD.md`'s own instruction
-   (「Append here **and** to the track table you are scoring」). I backfilled its `64f015b` row from those two tables
-   verbatim, marked as a backfill, and appended mine below it. Nothing was invented and no row was edited.
-
-## Direction
-
-**No reorder, and none was needed.** DIRECTION's position 1 (WFG-139) is unchanged and is now better specified than
-it has ever been; its `fix-before-next-row` (WFG-171) closed inside this window. My one item sits ahead of position 1
-and displaces nothing, per §14b. WFG-174 and WFG-175 are both P1 and both go behind the readiness block.
-
-**Readiness lines ticked in the window:** R9 (05:00Z), R7 (08:00Z), R1 (20:00Z). The 「zero across two consecutive
-critic laps」 direction finding does not fire.
-
-## `Do NOT edit` notes carried forward
-
-**None, and none written.** Critic #37 left none. The DIRECTION rule that keeps this routine out of `JUDGE_QA.md`,
-`DEMO_SCRIPT_5MIN.md`, `BOOTH_SETUP.md` and `RELATED_WORK_PANEL.md` is a standing routine boundary rather than a
-`Do NOT edit` note on a file's content, and it names its own mechanism
-(`tests/test_printables.py::test_the_newest_printable_is_not_stale_against_the_tree`, probed and reverted at
-`3f881f6`). It is re-checked and re-stated here rather than inherited, and it is why the Q28 repair in finding 2 is
-left to a dev lap that can rebuild the kit in the same lap.
+⚠ **Prefer a pointer to a second hand-typed number.** The durable form is 「`pytest -rs`의 출력이
+정본입니다」 with the seven named once; a fourth surface carrying a bare integer is a fourth thing to
+go stale. If the next lap wants the count gated, that is WFG-172's territory and a separate row.
 
 ---
 
-# ⚠⚠ ADDENDUM, written after the commit: THE PREDICTION IN WFG-173 CAME TRUE IN FOUR MINUTES, AND THIS LAP IS PARKED
+## The rest of the findings, ranked
 
-**Read this before anything else above.** Everything above was written against a **green** baseline at
-`1bca8ed`, and that reading was correct: `gates.py --mode full` exited **0** there. Then this lap committed
-its own report, `docs/auto/` only, and that single commit took `git rev-list --count 7308b06..HEAD` from
-**30** to **31**.
+**2. WFG-179 (P1) — readiness line R3 names a command nothing in this project runs.** `Makefile:215`
+makes `baseline-verify` a hard prerequisite of `all-checks`; `baseline-verify` exits 2 in every clone
+without the acquisition manifests (CHARTER §3d), so `make all-checks` cannot go green on a clean
+clone by construction. `.github/workflows/auto-gates.yml:31` runs `gates.py --mode full` instead.
+R3's CI half has been graded by a different command than it names for the checklist's whole life.
+Filed rather than fixed: rewording a readiness line is the author's, **NH-046**.
 
-    tests/test_finals_screen.py::test_the_screen_is_rebuilt_before_its_stamp_ages_out_of_this_clone  FAILED
-    AssertionError: web/finals.html was built at 7308b06, now 31 commits behind HEAD (limit 30).
-    assert 31 <= 30
+**3. WFG-180 (P1) — four skip messages say SRTM for a file that is not the SRTM tile.**
+`tests/test_slope_digraph.py:145/160/174/209` carry `reason="SRTM DEM absent"` and gate on
+`DEM = data/raw/firms_data/yeongdeok_2025_dem.tif` (`:24`). On the cold run here `pytest -rs` prints
+four SRTM-looking skips that are not tile-gated, beside the seven that are. A judge who follows Q40
+to `pytest -rs` counts eleven against a card that says six, and four of the eleven are a naming
+defect.
 
-So **WFG-173 is no longer a forecast; it is a live red gate**, and it fired on the report that named it.
+**4. A staleness, reported and deliberately not promoted.** `docs/clean_clone_gates.md:100` reports
+`1063 passed, 54 skipped` and `:111-121` break the 54 down by cause with no SRTM row at all, while
+the same file's new section above it reports a 2026-09-08 run and the suite reports **63** skips
+today. I did **not** file this at P0 or as the item, and the reason is on the record: `:3-5` dates
+the table 「measured 2026-09-03 … head `953eb6c`」 and `:183-186` says in the file's own voice
+「Re-measure rather than quote these once the head has moved」. That is CHARTER §3 rule 5b's form used
+correctly, so it is a staleness and not a false claim. It is noted in WFG-178's details as context
+and nowhere promoted.
 
-**The full run on the parked commit, read unpiped and recorded here rather than summarised:**
-`gates.py --mode full` at `84796ea` exits **1**, **RED**. `verify` PASS 14.6 s, `baseline-verify` WARN
-(the documented CHARTER §3d state), `snapshot-verify` PASS, `env-check` PASS, `pytest-full` **FAIL**:
-**`1 failed, 1694 passed, 56 skipped, 2 xfailed`** in 1447.6 s, **warm** (the SRTM tile is on disk from
-this lap's WFG-139 reproduction, which is why 56 skipped rather than the baseline's 62, and no download
-occurred in this run). **The one failure is the staleness gate and nothing else.**
-`gates.py --assert-head` then exits **1** with 「the recorded run did not pass」, which is the mechanism
-that stops this from being pushed to `auto/dev`, and it worked exactly as designed.
+---
 
-**Where this lap's work is.** Parked on **`auto/red/2026-09-07T2319Z`** per CHARTER §3.9, with
-`origin/auto/dev` left at `1bca8ed`, which is green. Nothing was force-pushed and nothing is lost.
+## The root objection (`hate`)
 
-**Why this routine did not simply fix it.** The remedy is one command, `make finals`, printed by the gate
-itself. It regenerates `web/finals.html`, an artifact outside `docs/auto/`, and the critic routine's standing
-prompt forbids that in those words: 「You change NO code and NO artifact; you write only under
-`docs/auto/`」. The routine that met the red is the one routine that may not clear it.
+**This project registers every number it says about the world and none of the numbers it says about
+itself, and the newest one was wrong within the same commit that wrote it.**
 
-**⚠ The same trap is set for the next lap, whichever routine it is.** `behind` counts commits, not changes.
-CHARTER §4 step 3 has the next dev lap claim its row with a commit and push it **before building anything**:
-that claim alone takes `behind` to 31 and turns the gate red before the lap has done any work. `auto/dev` is
-not broken. It is **closed**, until some lap runs `make finals` and pushes the rebuilt screen.
+`docs/NUMBERS.json` holds 383 entries that `make verify` re-derives from committed artifacts, and
+`docs/auto/withdrawn_claims.json` now holds ten claim families that a sweep reads across 933 gated
+files. Both machines exist because a hand-typed figure about the fire, the model or another system
+was wrong and nobody caught it. Meanwhile every figure this repository prints **about its own suite**
+— 「여섯 개」, `1708 passed, 63 skipped`, 「933 gated files」, 「38 pages」 — is prose, and only the last
+of those is gated (by the printables manifest). WFG-178 is what that costs: not a lie, not a
+shortcut, just a number that no machine was watching, on the card whose whole subject is that this
+project does not rely on people remembering things.
 
-**What the next lap should do.** Run `make finals` on the commit you are pushing, then `make finals-bundle`
-to re-point `release/kcf-finals-2026/MANIFEST.json` in the same lap (WFG-152), then re-run
-`gates.py --mode full`. That is WFG-173's 「Done when」 verbatim, and the gate's own message says the same
-thing. Then merge or cherry-pick `auto/red/2026-09-07T2319Z` so WFG-173, WFG-174, WFG-175, the WFG-139
-reproduction and this `CRITIC_LATEST.md` reach `auto/dev`.
+**The cheapest test, and I ran it:** `grep -rn '여섯 개' tests/` returns nothing. Neither does any
+assertion binding a judge-facing skip count to what `pytest` itself reports. The fix is not another
+number; it is that a card about the suite either points at `pytest -rs` or is derived from it.
+WFG-172 is the row that already half-says this and is still `todo` behind the readiness block.
 
-**⚠ This lap deliberately did NOT write a CHARTER §4 step 2 override into this file.** Critic #33 wrote one
-and NH-043 records the problem with it: every critic lap rewrites this file, so the override expires within
-hours and the question stays buried. Writing another would have buried it again. The escalation is
-**NH-045** (BLOCKER, new this lap) and it points at NH-043's option A or B as the fix for the class.
+---
 
-**Do NOT raise `STAMP_MAX_COMMITS_BEHIND` to get past this.** `tests/test_finals_screen.py:754` grades the
-threshold with literals deliberately not derived from the constant, so raising it fails rather than slides
-past.
+## `Do NOT edit` — restated after re-checking, expires at critic #40 (CHARTER §14c, NH-036 A)
+
+**The critic and research routines must not edit `docs/auto/JUDGE_QA.md`,
+`docs/auto/DEMO_SCRIPT_5MIN.md`, `docs/auto/finals/BOOTH_SETUP.md`,
+`docs/auto/finals/RELATED_WORK_PANEL.md`, `docs/submission_reconciliation.md` or
+`docs/auto/finals/DETECTION_FLOOR_CARD.md`.**
+
+**The exact lines it covers and the measurement behind it, taken this lap.** These six paths are the
+`sources` array of `docs/auto/finals/printables/manifest_20260908T0114Z.json`, the newest kit. I
+re-hashed each file on disk at `1282198` in one process against the `sha256` the manifest records:
+`BOOTH_SETUP.md` `99b2168f4bd7…`, `DEMO_SCRIPT_5MIN.md` `b1aae78f35c7…`, `JUDGE_QA.md`
+`c7ab6e505ce0…`, `submission_reconciliation.md` `237de4f4aeab…`, `DETECTION_FLOOR_CARD.md`
+`84648d4d6e0b…`, `RELATED_WORK_PANEL.md` `5c62a918cf4c…` — **six of six match**. Since `590c29a`,
+`tests/test_printables.py::test_the_newest_printable_is_not_stale_against_the_tree` compares exactly
+these hashes, so a one-line edit to any of the six by a routine that cannot run `make printables`
+turns that test red and closes the branch. That is what stops this lap from writing WFG-178's fix
+itself. ⚠ I re-hashed; I did **not** re-probe the test by editing a source, because critic #31 did
+that at `3f881f6` and reverted it, and repeating a destructive probe on the finals kit inside the
+sprint is not worth the second data point.
+
+**This note covers those six paths and nothing else.** It does not freeze any question in
+`JUDGE_QA.md`, it does not freeze `docs/clean_clone_gates.md` (which is **not** a manifest source and
+which a dev lap should edit freely), and it expires at critic #40 unless that lap re-hashes the
+manifest and re-states it.

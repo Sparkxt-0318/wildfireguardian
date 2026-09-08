@@ -1,6 +1,6 @@
 # Direction — where the project is going, on one screen
 
-*Written 2026-09-04 by the author's session; steered again the same evening (product first). Rewritten by the research routine every second day; the critic checks it after every dev lap (CHARTER §14). The dev routine reads it before claiming a row. **Direction re-checked 2026-09-07T2319Z by critic #38, which SPENT NO REORDER: WFG-171 closed inside the window, position 1 (WFG-139) is unchanged and is now better specified than it has ever been, and the two new rows are both P1 and both belong behind the readiness block.** Critic #37's note is kept below; #36's is in `docs/auto/reports/2026-09-07T1717Z-critic.md`.*
+*Written 2026-09-04 by the author's session; steered again the same evening (product first). Rewritten by the research routine every second day; the critic checks it after every dev lap (CHARTER §14). The dev routine reads it before claiming a row. **Direction re-checked 2026-09-08T0217Z by critic #39, which SPENT NO REORDER: position 1 (WFG-139) closed, position 2 (WFG-167) falls through to position 1 and is still the highest-leverage row on the page, and the two new P1 rows both belong behind the readiness block.** Critic #38's note is kept below. (Superseded lead: **Direction re-checked 2026-09-07T2319Z by critic #38, which SPENT NO REORDER: WFG-171 closed inside the window, position 1 (WFG-139) is unchanged and is now better specified than it has ever been, and the two new rows are both P1 and both belong behind the readiness block.** Critic #37's note is kept below; #36's is in `docs/auto/reports/2026-09-07T1717Z-critic.md`.)*
 
 ## Thesis (two sentences)
 
@@ -8,13 +8,15 @@
 
 ## Next three rows, and why
 
-*Position 1 is unchanged for a second consecutive lap and that is the right answer rather than a stall: **WFG-171 shipped at `fa18fcc`/`fa771d9`** with `WC-009` registered and the kit rebuilt, so position 0 emptied by being done, and position 1 fell through to the row this page already had there. **R3 is the readiness line still holding §14b's infra block shut, and WFG-139 is R3's blocker.** (Superseded lead, kept as the record: 「Nothing moved this lap and that is the finding, not the absence of one. **WFG-009 shipped at `6d1d730`/`804e5b6`** and **WFG-166 with it**, so positions 1 and 0 emptied by being done. **R1 TICKS** on that work — the first movement on that readiness line since the checklist was written, re-derived here on the sandbox AND on GitHub's clean `ubuntu-latest` runner (run 219, job `finals-acts`). §14b's infra block is therefore one line closer to releasing; **R3 is the line still holding it, and R3's blocker is position 1.**」)*
+*Position 1 emptied by being done. **WFG-139 shipped at `ab4e71e`** and I re-derived it here rather than reading it: a cold `gates.py --mode full` at `1282198` left `data/raw` at **201,187 bytes** before and after, with `data/raw/dem/srtm/` empty. **WFG-173 shipped at `088203c`**, the branch is open and critic #38's parked lap is back on `auto/dev`. So both of the last page's leading items are closed, WFG-167 falls through to position 1, and it is the right row: the judge drill re-run here still returns **zero** matches for `git grep -niE '책임|법적|면책' -- docs/auto/JUDGE_QA.md` while `web/finals.html:1393` and `DEMO_SCRIPT_5MIN.md:217` both print 「최종 판단은 언제나 사람」 and one of the five judges is a public-sector disaster-response official. ⚠ **R3's blocker is gone and R3 still does not tick** (its own wording; WFG-179, NH-046), so §14b's infra block still holds behind R3 and R8.*
 
-1. **WFG-139 (P0, one lap) — the test suite reaches the network, and this lap watched it for the TENTH time, on its own clock.** At `64f015b`, in a container whose `data/raw/` held only `.gitkeep` and `README.md` at start, `data/raw/dem/srtm/N36E129.hgt` (25,934,402 B) and its `.gz` carry mtime **2026-09-07T20:02Z**, inside a `pytest-full` stage that ran 19:59:37Z to 20:04:26Z. CHARTER §4b forbids a test that depends on the network in those words; six terrain tests have never run in CI; and `JUDGE_QA.md` Q28 tells a judge this does not happen. It stays P0 rather than falling into §14b's infra block because it blocks **R3** and puts a false sentence on a judge-facing card.
-2. **WFG-167 (P0, one lap) — 42 cards and none of them about responsibility.** `git grep -niE '책임|법적|면책' docs/auto/JUDGE_QA.md` still returns **zero**, while `web/finals.html:1393` prints 「최종 판단은 언제나 사람이 내립니다」 and `DEMO_SCRIPT_5MIN.md:217` gives it as the one-line answer for the 재난대응 실무자 lens. One of the five judges is a public-sector disaster-response official.
-3. **WFG-128 (P0, one lap) — the one number in this repository that runs against the project is misstated on the page the README sends a judge to.** `docs/multi_region.md:191`. A judge who follows the README's own link reads the project's single self-damaging bucket in a form the project's own measurement contradicts.
+*(Superseded lead, kept as the record.)* *Position 1 is unchanged for a second consecutive lap and that is the right answer rather than a stall: **WFG-171 shipped at `fa18fcc`/`fa771d9`** with `WC-009` registered and the kit rebuilt, so position 0 emptied by being done, and position 1 fell through to the row this page already had there. **R3 is the readiness line still holding §14b's infra block shut, and WFG-139 is R3's blocker.** (Superseded lead, kept as the record: 「Nothing moved this lap and that is the finding, not the absence of one. **WFG-009 shipped at `6d1d730`/`804e5b6`** and **WFG-166 with it**, so positions 1 and 0 emptied by being done. **R1 TICKS** on that work — the first movement on that readiness line since the checklist was written, re-derived here on the sandbox AND on GitHub's clean `ubuntu-latest` runner (run 219, job `finals-acts`). §14b's infra block is therefore one line closer to releasing; **R3 is the line still holding it, and R3's blocker is position 1.**」)*
 
-Ahead of all three, and displacing none of them, sits critic #38's one `fix-before-next-row` item **WFG-173** (`make finals` on the commit being pushed, plus the `make finals-bundle` re-point that WFG-152 requires, because `web/finals.html` is at **30** of a 30-commit staleness limit and goes red on the next push). Critic #37's item **WFG-171** is **done**. Then **WFG-129**, WFG-117 (b), WFG-007's human half, WFG-124 (`blocked(NH-032)`), WFG-104, WFG-106, WFG-127, WFG-135, **WFG-142**, **WFG-143**, **WFG-150**, WFG-163, WFG-125, WFG-122, WFG-121 (c), WFG-036 v2 (booth-recipe half only), WFG-101, WFG-010, WFG-096, WFG-024 when its blockers clear, and only then the infra rows — WFG-131, WFG-132, WFG-137, WFG-141, WFG-149, **WFG-152**, **WFG-156**, **WFG-155**, **WFG-160**, **WFG-161**, **WFG-164**, **WFG-165**, **WFG-168**, **WFG-172**, **WFG-174**, **WFG-175** — which CHARTER §14b holds behind R1, R3 and R8. **R1 is now ticked; R3 and R8 are not, so the block holds.**
+1. **WFG-167 (P0, one lap) — 42 cards and none of them about responsibility.** Re-run at `1282198`: `git grep -niE '책임|법적|면책' -- docs/auto/JUDGE_QA.md` returns **zero**, while `web/finals.html:1393` prints 「최종 판단은 언제나 사람이 내립니다」 and `DEMO_SCRIPT_5MIN.md:217` gives 「최종 판단은 언제나 사람」 as the one-line answer for the 재난대응 실무자 lens. One of the five judges is a public-sector disaster-response official, and this is the one question the product's own screen invites and the bank cannot answer.
+2. **WFG-128 (P0, one lap) — the one number in this repository that runs against the project is misstated on the page the README sends a judge to.** `docs/multi_region.md:189-194`, re-read here and unchanged, carries `fa_exceeds_budget` 「0 for Yeongdeok … 2 for Uiseong-Andong and 3 for Uljin-Samcheok」 with no budget qualification and no pointer to `docs/present_perimeter_arm.md`. A judge who follows the README's own link reads the project's single self-damaging bucket in a form the project's own measurement contradicts. NH-031 already decided the registry half; the prose half needs no open decision.
+3. **WFG-129 stays UNPROMOTED and position 3 is the head of the 「then」 chain below.** The page's standing reason is unchanged and re-stated rather than re-derived: promoting WFG-129 would produce a fourth contested fair-opponent margin while NH-032 and NH-034 are open and the student is forbidden to say any of the three that exist. Take WFG-117 (b) next unless the table has moved.
+
+Ahead of all three, and displacing none of them, sits critic #39's one `fix-before-next-row` item **WFG-178** (the tile-gated skip set is **seven**, not the 「여섯 개」 on `JUDGE_QA.md:980`, `:1182` and `clean_clone_gates.md:85`, and `clean_clone_gates.md:45` names a commit with no guard in it; kit rebuilt and bundle re-pointed in the same lap). Critic #38's item **WFG-173** is **done** (`web/finals.html` names `1bca8ed`, 4 behind a limit of 30), and critic #37's **WFG-171** is **done**. Then **WFG-129**, WFG-117 (b), WFG-007's human half, WFG-124 (`blocked(NH-032)`), WFG-104, WFG-106, WFG-127, WFG-135, **WFG-142**, **WFG-143**, **WFG-150**, WFG-163, WFG-125, WFG-122, WFG-121 (c), WFG-036 v2 (booth-recipe half only), WFG-101, WFG-010, WFG-096, WFG-024 when its blockers clear, and only then the infra rows — WFG-131, WFG-132, WFG-137, WFG-141, WFG-149, **WFG-152**, **WFG-156**, **WFG-155**, **WFG-160**, **WFG-161**, **WFG-164**, **WFG-165**, **WFG-168**, **WFG-172**, **WFG-174**, **WFG-175**, **WFG-176**, **WFG-177**, **WFG-179**, **WFG-180** — which CHARTER §14b holds behind R1, R3 and R8. **R1 is ticked; R3 and R8 are not, so the block holds. R3's blocker changed identity this lap: WFG-139 is done, and what holds R3 now is the readiness line's own wording (WFG-179, NH-046).**
 
 ⚠⚠ **WFG-115's premise is false and stays withdrawn. `41498ef` IS an ancestor of `HEAD`.** Registered as `WC-004` since `923ffbd`. Do not act on the old premise.
 
@@ -35,35 +37,40 @@ Ahead of all three, and displacing none of them, sits critic #38's one `fix-befo
 - ⚠⚠ **A lap that narrows a claim greps for the SUBJECT of the claim, never for the sentence it just wrote.** `git grep -n "<subject>" -- docs/ paper/ release/ web/`, before it calls the narrowing done, naming in writing every file the grep returned and what it did about each.
 - ⚠⚠ **A withdrawal is not applied until it is REGISTERED** in `docs/auto/withdrawn_claims.json`, in the same lap (CHARTER §3.5c). Registration cannot reach a claim that was **narrowed** rather than withdrawn.
 - ⚠ **Do not report a pass/skip count without saying cold or warm, and without saying whether the run downloaded anything** (WFG-139). ⚠ **The 1900Z dev lap broke this rule the same day it was written** (1688/56, no cold/warm word), and the cold count at the same tree is 1682/62, so the omission reads as a six-test regression. The gate that would stop it is **WFG-172**.
+- ⚠⚠ **NEW (critic #39): do not hand-type a number about this repository's own test suite onto a judge-facing surface.** 「여섯 개」 was written onto three surfaces by the commit that made it seven (WFG-178), and `grep -rn '여섯 개' tests/` returns nothing, so nothing was ever going to catch it. A card about the suite points at `pytest -rs` and its own skip reasons, or it is derived by a gate; a bare integer typed once is a fourth thing to go stale. The same rule binds `1708/63`, 「933 gated files」 and any 「N tests」 sentence.
 - ⚠⚠ **Do not treat `make verify` green as evidence that a withdrawn claim is gone.** The registry reads `.md` and `.html` only (WFG-155).
 - ⚠⚠ **The critic and research routines must not edit `docs/auto/JUDGE_QA.md`, `docs/auto/DEMO_SCRIPT_5MIN.md`, `docs/auto/finals/BOOTH_SETUP.md` or `docs/auto/finals/RELATED_WORK_PANEL.md` at all.** They are `SOURCES` of the printables manifest, and since `590c29a` a one-line edit to any of them turns `tests/test_printables.py::test_the_newest_printable_is_not_stale_against_the_tree` **red** — probed and reverted at `3f881f6` by critic #31. Only a lap that rebuilds the kit at a new stamp in the same lap may touch them. **This is what stops critic #37 from writing WFG-171's fix itself.** WFG-152.
 
 ## Critic's last direction note
 
-**2026-09-07T2319Z, critic #38. No reorder, and this time the reason is not that the page's rows emptied but that the row at position 1 got a better description of itself.**
+**2026-09-08T0217Z, critic #39. No reorder, and the reason is that the page's own position 1 closed and what fell
+into it was already the right row.**
 
-Verified rather than read, all at `1bca8ed`, on the routine's **default** clone before any deepening
-(`is-shallow-repository` = `true`, `rev-list --count HEAD` = **50**; ⚠ the oldest resolvable commit is `590c29a` at
-00:43Z, so this clone reads the window from there forward and **not** the full 24 h): `gates.py --mode full` is
-**ALL GREEN**, exit **0** (`1689 passed, 62 skipped, 2 xfailed`, 212.2 s, **COLD**, and the run downloaded 25.9 MB,
-WFG-139); `--assert-head` and `--assert-reported --base 3426135` both exit 0; `auto-gates` runs **204 to 223** are
-**19 `success`, 1 `cancelled`, ZERO `failure`**, run **223** at this head `success`. **No CHARTER §4b finding.**
-**KCF_READINESS holds at 7 of 11**; R9, R7 and R1 all ticked inside this window.
+Verified rather than read, all at `1282198`, on the routine's **default** clone before any deepening
+(`is-shallow-repository` = `true`, `rev-list --count HEAD` = **50**; ⚠ the oldest resolvable commit is `5cca6ce` at
+02:25Z on 09-07, so this clone reads the window from there forward and **not** the full 24 h): `gates.py --mode
+full` is **ALL GREEN**, exit **0** (`1708 passed, 63 skipped, 2 xfailed`, 290.9 s, **COLD**), and **the run
+downloaded nothing** — `du -sb data/raw` answers 201,187 bytes before and after. `--assert-head` and
+`--assert-reported --base 5cca6ce` both exit 0. `auto-gates` runs **207 to 227** are 19 `success`, 2 `cancelled`,
+**zero `failure`**; run 227 at this head is `success`. **No CHARTER §4b finding.** KCF_READINESS holds at **7 of
+11**; R1 ticked inside this window.
 
-**Why no move.** WFG-139 blocks R3, the readiness line still holding §14b's infra block shut, and what this lap
-added is what ten previous laps had not: an **isolated** reproduction. Deleting the tile and the `.nc` cache and
-running one named test brought 25.9 MB back in 1.54 s. The row was right, the fix is minutes, and nothing above it
-should move up.
+**Why no move.** WFG-167 was position 2 and is now position 1 by fall-through, not by promotion, and it is the
+strongest row on the page: the screen a judge stands in front of says 「최종 판단은 언제나 사람이 내립니다」, one of
+the five judges is the person who would have to live with that sentence, and the bank has 42 cards and no answer.
+Nothing above it should move up, and the two rows this lap filed are both P1 infra behind a block that is still
+shut.
 
-**The root objection is that this loop keeps writing 「filed」 for work no gate will ever look for.** The 21:12Z
-paper lap found a real defect in the manuscript's own provenance discipline, wrote 「FILED, NOT FIXED」 in
-`paper/STATE.json` and 「Filed as a dev-lap row」 in two other places, and filed nothing, because CHARTER §12 makes
-that routine structurally unable to file anything. It was not hidden and it was not a lie; it was a promise the
-architecture cannot keep, written three times in three files, and it survived only because this lap opened
-`paper/STATE.json` for the word budget and read the field to the end. The loop has spent this week building
-registries so a **withdrawn** claim cannot hide in a file nobody listed, and has no equivalent for a **found**
-defect, which hides just as easily. That is **WFG-175**, and its cheapest test is to ask, of the last four paper
-reports, how many of their 「filed」 items are in the backlog today.
+**The root objection is that this project registers every number it says about the world and none of the numbers it
+says about itself.** The WFG-139 lap built the best mechanism this repository has produced for its own
+reproducibility claim, then hand-typed the count that describes what the mechanism leaves open, and the count was
+made wrong by a test the same commit added. `docs/NUMBERS.json` has 383 gated entries and
+`docs/auto/withdrawn_claims.json` ten gated families, both built because a hand-typed figure about the world got
+loose; 「여섯 개」, `1708/63` and 「933 gated files」 are prose that nothing reads. The cheapest test, run here:
+`grep -rn '여섯 개' tests/` returns nothing, and no assertion binds a judge-facing skip count to what `pytest`
+itself reports. That is **WFG-178** for today and **WFG-172** for the class.
+
+*(Superseded, kept as the record.)* **2026-09-07T2319Z, critic #38.** No reorder; WFG-171 closed inside the window, position 1 (WFG-139) stayed and got a better description of itself, and the root objection was that the loop keeps writing 「filed」 for work no gate will ever look for (WFG-175). Full note in `docs/auto/reports/2026-09-07T2319Z-critic.md`.
 
 *(Superseded, kept as the record.)* **2026-09-07T2020Z, critic #37.** Positions 0 and 1 both closed inside the window (WFG-166, WFG-009), R1 ticked for the first time in the checklist's life on two independent machines, and the root objection was that the loop's rule about another system's capabilities covered only the negative direction while the positive one was live on the printed panel (WFG-171). Full note in `docs/auto/reports/2026-09-07T2020Z-critic.md`.
 *(Superseded, kept as the record.)* **2026-09-07T1700Z, critic #36.** Closing WFG-110 left R1 blocked by WFG-009, a row parked behind the very line it unblocks; P1 → P0 was the one row move, and the root objection was that `WC-007`/`WC-008` each escaped in the language they were not registered in. Full note in `docs/auto/reports/2026-09-07T1717Z-critic.md`.
