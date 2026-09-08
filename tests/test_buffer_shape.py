@@ -100,25 +100,74 @@ SURFACES = (
 PRAGMA = "forbidden-ok: wc011"
 
 
-@pytest.mark.parametrize("rel", SURFACES)
-def test_no_surface_asserts_a_shape_the_grid_cannot_resolve(rel: str):
-    grid_resolves = any(GAP_LO < w < GAP_HI for w in _sweep(DENSE))
-    if grid_resolves:
-        pytest.skip(
-            f"the registered grid has a point strictly between {GAP_LO:.0f} m "
-            f"and {GAP_HI:.0f} m, so the shape of the top is measured and this "
-            f"ban does not apply. It re-arms automatically if that point goes.")
-    text = (REPO / rel).read_text(encoding="utf-8")
+def grid_resolves_the_shape(widths) -> bool:
+    """Can this grid tell a peak at the best width from a shoulder around it?
+
+    Pure and takes the widths as an argument, so the ban below can be exercised
+    against a grid this repository does not currently have. The first version of
+    this module read the artifact inside the test, which made the ban impossible
+    to fire in the suite: the same lap had just added the 750 m row, and a
+    committed artifact may not lose one (CHARTER §3 rule 2). A gate that cannot
+    be made to fail is not a gate, and its author cannot tell the difference.
+    """
+    return any(GAP_LO < w < GAP_HI for w in widths)
+
+
+def unlicensed_shape_assertions(text: str) -> list[tuple[int, str]]:
+    """Lines asserting the withdrawn shape, minus those a pragma licenses."""
+    out = []
     for line_no, line in enumerate(text.splitlines(), 1):
         if PRAGMA in line:
             continue
         for pat, what in SHAPE_ASSERTIONS:
-            assert not pat.search(line), (
-                f"{rel}:{line_no} {what}, while the registered buffer grid has "
-                f"no measured width strictly between {GAP_LO:.0f} m and "
-                f"{GAP_HI:.0f} m. Either measure it "
-                f"(scripts/run_present_perimeter_arm.py --sweep-extra-m ...) or "
-                f"do not write the shape.")
+            if pat.search(line):
+                out.append((line_no, what))
+    return out
+
+
+def test_the_ban_fires_on_the_sentences_the_repository_actually_shipped():
+    """The gate can FAIL. Exercised against a grid without the 750 m row.
+
+    This is the half that was missing. `WC011_PROBES` holds the three sentences
+    as they stood at 97231a1; under a five-point grid the ban must catch every
+    one of them, or it is decoration.
+    """
+    narrow = [w for w in _sweep(DENSE) if not (GAP_LO < w < GAP_HI)]
+    assert not grid_resolves_the_shape(narrow), "the fixture grid is not narrow"
+    for token, probe in WC011_PROBES.items():
+        assert unlicensed_shape_assertions(probe), (
+            f"under a grid that cannot resolve the shape, the ban did not catch "
+            f"the sentence {token} was registered for:\n  {probe}")
+
+
+def test_a_pragma_licenses_a_line_that_records_the_withdrawn_shape():
+    """The negative direction: a record line must survive the armed ban."""
+    for probe in WC011_PROBES.values():
+        assert not unlicensed_shape_assertions(
+            f"{probe} <!-- {PRAGMA}-buffer-width-is-a-spike-en -->")
+
+
+@pytest.mark.parametrize("rel", SURFACES)
+def test_no_surface_asserts_a_shape_the_grid_cannot_resolve(rel: str):
+    """The live gate, and it is CONDITIONAL on purpose.
+
+    The defect was never the word "spike"; it was asserting a shape the grid
+    could not resolve. So the ban is armed exactly while no measured width sits
+    strictly between 500 m and 1 km, and re-arms by itself if that point ever
+    goes. Today the grid resolves it, so this asserts the weaker thing that is
+    still worth asserting: the corrected surfaces would pass EVEN IF the ban
+    were armed. That keeps the check live rather than skipped, which is what the
+    first version of this module got wrong.
+    """
+    hits = unlicensed_shape_assertions((REPO / rel).read_text(encoding="utf-8"))
+    assert not hits, (
+        f"{rel} asserts the withdrawn buffer shape at line(s) "
+        f"{[n for n, _ in hits]}: {[w for _, w in hits]}. Either measure it "
+        f"(scripts/run_present_perimeter_arm.py --sweep-extra-m ...) or do not "
+        f"write the shape. "
+        f"(The registered grid currently "
+        f"{'DOES' if grid_resolves_the_shape(_sweep(DENSE)) else 'does NOT'} "
+        f"resolve it.)")
 
 
 # --------------------------------------------------------------------------
@@ -173,3 +222,18 @@ def test_every_dense_grid_number_in_the_doc_is_registered():
 def test_the_committed_artifact_still_holds_exactly_its_five_widths():
     """CHARTER §3 rule 2: this lap added an artifact, it did not move one."""
     assert sorted(_sweep(COMMITTED)) == [250.0, 500.0, 1000.0, 2000.0, 3000.0]
+
+
+def test_the_paths_this_entry_cites_exist():
+    """WC-011's `artifact` field named a directory that had been renamed mid-lap.
+
+    Registered evidence pointing at a file that is not there is worse than none,
+    because the green registry reads as provenance. Nothing was checking it.
+    """
+    claims = json.loads(REGISTRY.read_text(encoding="utf-8"))["claims"]
+    wc011 = next(c for c in claims if c["id"] == "WC-011")
+    cited = re.findall(r"(?:data|docs|tests|scripts|paper|release)/[\w./-]+\.\w+",
+                       wc011["artifact"] + " " + wc011["say_instead"])
+    assert cited, "WC-011 cites no path at all"
+    missing = [c for c in cited if not (REPO / c).exists()]
+    assert not missing, f"WC-011 cites paths that do not exist: {missing}"

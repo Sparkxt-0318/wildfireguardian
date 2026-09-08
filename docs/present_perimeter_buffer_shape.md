@@ -11,6 +11,7 @@ Registry prefix: `ppshape_uiseong_`.*
 refuses every node within a fixed buffer of the fire's **present** perimeter and
 uses no spread model at all — at five buffer widths: **250, 500, 1000, 2000,
 3000 m**. The 1 km row scored best, and three surfaces then described that peak
+<!-- forbidden-ok: wc011-buffer-width-is-a-spike-en -->
 as a **spike rather than a plateau**, from which the booth script concluded that
 an operator could not know the right width on the day.
 
@@ -31,7 +32,10 @@ python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 \
 ```
 
 `--sweep-extra-m` **adds** widths to the five-point grid and defaults to empty,
-so a default run is unchanged and still reproduces the committed artifact. The
+so with the flag absent the grid is exactly the five widths it has always been
+and their measured cells come out the same. ⚠ The *file* is **not** byte-identical
+and this document does not claim it is: every run stamps its own `generated_utc`,
+`runtime_s` and `git_commit`. What reproduces is the numbers. The
 output goes to a **separate file**: no committed artifact was modified
 (CHARTER §3 rule 2), and `data/processed/present_perimeter_arm_uiseong_andong_2025.json`
 still holds exactly the five widths it always held.
@@ -69,6 +73,7 @@ Eight widths, one fire, 368 scanned origins. The three new rows are in **bold**.
 
 Three things the denser grid says that the five-point grid could not.
 
+<!-- forbidden-ok: wc011-buffer-width-is-a-spike-en -->
 **(a) The top is a shoulder, and 「spike, not a plateau」 is withdrawn.** 750 m
 and 1 km score **349** and **345** — four origins apart out of 368, on a grid
 whose own step is 250 m. That is a flat top two sampled points wide, not a
@@ -83,10 +88,15 @@ they are the same two regimes §4 of the arm document already named: too thin an
 the fire grows past the buffer (**91** and **80** origins walk into it at 250 m
 and 500 m); too thick and the detour outlives the walker (**43**, **56** and
 **80** origins arrive past the 600-minute budget at 1250 m, 1500 m and 2 km).
-So an operator who guesses **too thin** loses far more than one who guesses
-**too thick** by the same distance. 「You cannot know which width is right」 was
-the wrong lesson to draw; 「err thick」 is a lesson this grid does support, for
-this fire.
+**The asymmetry is a statement about one grid step, and that is how it is
+written here.** One 250 m step off the **thin** end of the shoulder takes the
+safe total from **349** to **284**; one 250 m step off the **thick** end takes
+it from **345** to **318**. So within a step, being thin costs more than twice
+being thick. It does **not** hold at every distance — 2 km is back to **275**,
+which is where 250 m already was — so the supported lesson is 「if you must be
+wrong by about a step, be wrong thick」, not 「thicker is always safer」.
+「You cannot know which width is right」 was the wrong lesson to draw; this
+narrower one the grid does support, for this fire.
 
 **(c) It runs against this project, and that is why it is here.** 750 m scores
 **higher** than the 1 km the committed headline uses. The fair opponent is
@@ -123,8 +133,16 @@ and **NH-034** are open.
 
 | surface | before | after |
 |---|---|---|
-| `README.md` | 「sweep 안에서 고원이 아니라 뾰족한 봉우리」 | states the eight-point grid and the shoulder |
-| `docs/present_perimeter_arm.md` §4 | 「The 1 km row is a spike, not a plateau」 | points at this document, states the shoulder |
+| `README.md` | 「sweep 안에서 고원이 아니라 뾰족한 봉우리」 <!-- forbidden-ok: wc011-buffer-width-is-a-spike-ko --> | states the eight-point grid and the shoulder |
+| `docs/present_perimeter_arm.md` §4 | 「The 1 km row is a spike, not a plateau」 <!-- forbidden-ok: wc011-buffer-width-is-a-spike-en --> | points at this document, states the shoulder |
 | `docs/fair_opponent_line.md` §3 | the grid cannot say which shape it is | the denser grid says: a shoulder |
 | `docs/auto/DEMO_SCRIPT_5MIN.md` 3막 | 「뾰족한 봉우리인지 넓은 고원인지 가리지 못합니다」 | it is a shoulder; the thin side is the dangerous side |
 | `docs/auto/JUDGE_QA.md` Q37 | 다섯 가지 · 구분할 수 없습니다 | 여덟 가지 · 어깨 모양 |
+| `paper/GAPS.md` G8 | 「§4 still draws the stronger conclusion」 | closed, with the margin consequence kept open |
+
+⚠ **The fifth row is there because a machine found it, not because anyone remembered it.**
+`paper/GAPS.md` was not in the row's list, is not read by a dev lap, and surfaced only when
+WC-011 was registered and `check_withdrawn_claims.py` swept all 936 gated files. It both
+quoted the withdrawn sentence and asserted that `docs/present_perimeter_arm.md` §4 「still
+draws the stronger conclusion」 — true when the paper routine wrote it, false the moment this
+lap fixed §4. That is the whole argument for CHARTER §3.5c in one row.

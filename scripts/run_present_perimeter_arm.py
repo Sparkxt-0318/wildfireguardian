@@ -392,7 +392,9 @@ def main() -> int:
     ap.add_argument("--sweep-extra-m", type=_widths, default=[],
                     help="comma-separated extra buffer widths (m) to ADD to the "
                          "five-point sensitivity grid. The default is empty, so "
-                         "a default run still reproduces the committed artifact; "
+                         "with the flag absent the grid is the same five widths, "
+                         "whose measured cells reproduce the committed artifact "
+                         "(the file is not byte-identical: it stamps its own time); "
                          "use it with --out to write a denser grid elsewhere.")
     ap.add_argument("--verify-only", action="store_true",
                     help="reproduce the committed arm and stop; write nothing")
@@ -582,9 +584,13 @@ def main() -> int:
     # neighbours of the best width are each a FACTOR OF TWO away. That grid
     # cannot separate a spike at 1 km from a plateau spanning roughly 800 m to
     # 1.5 km, and three surfaces asserted the spike anyway (WFG-127). `--sweep-
-    # extra-m` adds widths to the grid WITHOUT changing it: the default run is
-    # byte-identical to the committed artifact, and the extra widths are written
-    # to a separate `--out` file so no committed artifact moves (CHARTER §3.2).
+    # extra-m` adds widths to the grid WITHOUT changing it: with the flag absent
+    # the grid is exactly the five widths it has always been, and the extra
+    # widths are written to a separate `--out` file so no committed artifact
+    # moves (CHARTER §3.2). ⚠ NOT byte-identical, and an earlier draft of this
+    # comment said it was: every run stamps its own `generated_utc`,
+    # `runtime_s` and `git_commit`. What reproduces is the MEASURED CELLS, and
+    # that is what tests/test_buffer_shape.py compares.
     print("[4/4] buffer sensitivity ...")
     sweep = []
     for width in sorted({250.0, 500.0, args.buffer_m, 2000.0, 3000.0}

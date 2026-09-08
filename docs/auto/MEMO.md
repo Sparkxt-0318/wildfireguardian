@@ -2393,3 +2393,49 @@ the limits that agent already knew about. It cannot find the limit the agent was
 It is worth writing and it is not a substitute for the independent read: this lap's block
 named one real escape and missed the one that mattered, and only a reader who had not built
 the thing found it.
+
+---
+
+## 2026-09-08T2117Z (dev, WFG-127) — a registered spelling that matches nothing registers nothing, and the only way to know is to run it against the tree
+
+CHARTER §3.5c says a withdrawn claim is registered in `docs/auto/withdrawn_claims.json` in
+the same lap, and the argument for it is that the machine reads all 935 gated files while a
+lap reads the ones it thought of. This lap paid that argument twice, in opposite directions,
+and the second time is the new lesson.
+
+**Forwards, as designed.** Registering WC-011 found a fifth surface no one had named:
+`paper/GAPS.md` row G8 quoted the withdrawn sentence *and* asserted that
+`docs/present_perimeter_arm.md` §4 「still draws the stronger conclusion」 — true when the
+paper routine wrote it, false the moment this lap fixed §4. Three documents had been listed
+in the row, a fourth was found by the 0617Z lap by hand, and the fifth came from the gate.
+No hand sweep would have reached it: it is in `paper/`, which dev laps do not read.
+
+**Backwards, and this is the part to keep.** The first draft of WC-011's three patterns
+matched **zero** of the four surfaces the claim was live on. Two causes, both invisible to
+review-by-reading: one Korean syllable was mistyped (뿠 for 뾰), and neither Korean pattern
+tolerated the markdown emphasis sitting *inside* the phrase (`**고원이 아니라 뾰족한
+봉우리**`). Every gate stayed green, `check_withdrawn_claims.py` passed, and the registry
+looked exactly like the ten entries above it.
+
+**The rule:** *a pattern is not registered until it has been run against the text it is
+meant to catch, and that run is a test, not a step.* A withdrawal that ships an unmatching
+pattern is worse than one that ships none, because the green gate is now evidence **for** the
+claim being guarded. The registry's own
+`test_every_registered_pattern_has_a_probe` is the repository's existing answer and it is
+the right one — it demands a probe sentence taken from the withdrawn text rather than a
+sentence generated from the regex, which would grade the pattern against itself (`mandela`,
+leakage #4). This lap added `tests/test_buffer_shape.py::test_the_wc011_spellings_match_what_the_repository_actually_shipped`
+for the same reason, and it is the check that caught both defects.
+
+**The anti-pattern, greppable:** a new `spellings` entry whose `pattern` was written from
+the *meaning* of the withdrawn sentence rather than pasted from the file and then relaxed.
+Korean makes it worse than English — a wrong jamo looks right — and markdown emphasis inside
+a quoted phrase is the second most common miss. Paste the line first, then loosen it.
+
+**A second, smaller gate this lap earned.** A judge-answer written as a `>` blockquote in
+`docs/auto/DEMO_SCRIPT_5MIN.md` is **counted as spoken script** by
+`scripts/measure_demo_script_pace.py`, so a Q&A fallback silently re-allocated the whole
+300-second budget across all six segments (3막 1692 → 1894 syllables). The document's own
+convention is that a fallback answer goes inline in a ⚠ note; only lines in `>` blocks are
+the demo. `tests/test_demo_script_pace.py` caught it, which is the gate working — but the
+next lap adding a booth answer should know the convention before it writes, not after.
