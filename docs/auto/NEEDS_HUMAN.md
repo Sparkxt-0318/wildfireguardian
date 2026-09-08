@@ -2028,6 +2028,32 @@ command on the finals screen, chosen partly to break the run.
 
 ---
 
+⚠⚠ **2026-09-08T1429Z, critic #43: the measurement this entry was opened on has reversed, and you
+should have that before you answer.** The entry asks, in your words, whether the product-first
+rule is worth what it costs, on the evidence that three (then six) consecutive dev laps had spent
+themselves on documents while `KCF_READINESS.md` did not move. **In the window just reviewed the
+mechanism worked exactly as designed, twice.**
+
+- Critic #42's `fix-before-next-row` item (**WFG-187**, one command) was run first and alone at
+  `2c6e366`. `web/finals.html` now carries `"git":"25f6b60"` and
+  `git rev-list --count 25f6b60..HEAD` answers **9** against a limit of **30**, where critic #42
+  measured **29**. The gate that closed `auto/dev` to every routine on 09-07 did not fire.
+- The lap then took the table, **WFG-010**, at `692497a` with its reviewer's fixes at `ea04478`,
+  and **R8 ticked**. `KCF_READINESS.md` reads **8 of 11**, after three consecutive critic laps at
+  zero.
+
+That is one preemption of minutes followed by a full row, which is the shape option **B**
+describes, and it produced the first readiness tick in four laps and the first window in six where
+the judge-facing gain was not another Q&A card. **This is evidence for B, or for A, and against C
+and D**; it is not a reason to close the entry, because two data points inside one window do not
+settle a rule. It is written here rather than argued in a report so that the number in front of
+you when you answer is today's and not Friday's.
+
+⚠ **Recorded against the same window, so this note is not only good news:** the section that
+ticked R8 carries two prose defects this lap filed as **WFG-190**, and both of them are the front
+door stating a hard result more softly than the file it links to. The rule bought a surface; it
+did not buy the register.
+
 ## NH-039 · DECISION · open · The national wildfire-spread system's manual is an 18 MB PDF the sandbox could not fetch, and one of you can (by 2026-09-12)
 
 **Severity: LOW.** Nothing is blocked, no gate is red, and no claim depends on this. It is
@@ -2545,3 +2571,22 @@ laps R3's sandbox half has had nothing against it.
 lap edits a readiness line's wording. WFG-179 carries whichever option you pick.
 
 **Reply with:** `NH-046: A` (or B / C, or a sentence).
+
+⚠⚠ **2026-09-08T1429Z, critic #43: this entry is now the single thing holding eight backlog rows
+shut, and that was not true when it was written.** CHARTER §14b holds the P1 infra block until
+readiness lines **R1, R3, R4, R7, R8 and R9** are ticked. **R8 ticked today** at `dee1bc1`
+(`grep -nE '^## Round' README.md` answers `:200`, `grep -n '^### Abstract' README.md` answers
+`:596`, `make check-forbidden` exits 0), which was the last one a lap could move. R1, R4, R7 and
+R9 were already ticked. **R3 is the only unticked line of the six, and no lap may tick it**,
+because this entry says so: the row that would do it, WFG-179, ends its own *Done when* with
+「whichever the author picks in NH-046」. This lap therefore set **WFG-179 from `todo` to
+`blocked(NH-046)`**, which is the honest status; it had been sitting as an `agent_doable: true`
+`todo` that no lap was permitted to finish.
+
+So the eight P1 infra rows currently waiting (WFG-189, WFG-186, WFG-180, WFG-183, WFG-184,
+WFG-174/175/176/177 among them, plus this lap's WFG-191 and WFG-192) are waiting on **one reply
+to this entry**, and nothing else. **Nothing is broken and no judge sees any of it** - that is
+still true and is why this is a DECISION and not a BLOCKER. It is recorded because the loop's own
+queue now has a single author-shaped gate in it, and you could not see that from the tree.
+
+**The loop still recommends A** and nothing measured today changes the recommendation.
