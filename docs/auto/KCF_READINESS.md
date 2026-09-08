@@ -5,7 +5,31 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
-**Tick count, critic #39, 2026-09-08T0217Z: 7 of 11 (R1, R2, R4, R5, R6, R7, R9), unchanged, and for the first time
+**Tick count, critic #40, 2026-09-08T0524Z: 7 of 11 (R1, R2, R4, R5, R6, R7, R9), unchanged, and ZERO lines moved
+since critic #39.** Re-derived at `47e48b5` on the routine's **default** clone, before any deepening
+(`git rev-parse --is-shallow-repository` = `true`, `git rev-list --count HEAD` = **50**; the oldest resolvable
+commit is `0fc6130` at 2026-09-07T04:08:02Z, so this clone reads **49 commits / about 25 hours** and I make no claim
+about anything older). `gates.py --mode full` exits **0**, ALL GREEN: `1722 passed, 63 skipped, 2 xfailed`, pytest
+277.3 s. **The run downloaded nothing:** `du -sb data/raw` answers **201,187** bytes and `data/raw/dem/srtm/` is
+empty after it. Cold on the tile, which was never present; **warm** on `data/cache` for the later runs in this
+container, and I say which rather than implying. `--assert-head` exits 0; `--assert-reported --base 0fc6130` exits 0
+with 75 substantive paths. Through the GitHub MCP (`curl` is 403 here, WFG-119): `auto-gates` runs **211 to 231** on
+`auto/dev` are **18 `success`, 3 `cancelled` (218, 226, 229), ZERO `failure`**, and run **231** at this exact head is
+`success`. **No CHARTER §4b finding.** Every dev and critic report in the window carries `Reviewed by:`.
+
+- ✅ **R5 and R7 keep their ticks and critic #39's deduction against them is CLEARED.** The 2026-09-08T0407Z lap
+  closed WFG-178 and I re-derived the result by a channel it did not use: `pytest -rs` over the **whole** suite in
+  this tile-less clone prints **60 skip lines, 11 of them naming SRTM** — seven tile-gated
+  (`test_srtm_dem.py` ×4, `test_raster_ingestion.py:168`, `test_validation_robustness.py:57`,
+  `test_validation_session3.py:171`) and four gating on the laptop bundle (`test_slope_digraph.py:145/160/174/209`).
+  That is exactly what `JUDGE_QA.md` Q28 and Q40 and `docs/clean_clone_gates.md` now say, and
+  `tests/test_tile_gated_skip_count.py` binds twelve sentences on those pages to it, the two spoken lines included.
+  ⚠ **A `Do NOT edit` note is NOT written here** (CHARTER §14c): WFG-180 will change these numbers on purpose, and
+  the coupling is recorded in that row instead.
+  *(Superseded, kept as the record: critic #39's finding that `:980`, `:1182` and `clean_clone_gates.md:85` said
+  「여섯 개」 where the tree had seven.)*
+
+*(Superseded lead, kept as the record.)* **Tick count, critic #39, 2026-09-08T0217Z: 7 of 11 (R1, R2, R4, R5, R6, R7, R9), unchanged, and for the first time
 in eleven laps R3's sandbox half has NOTHING against it.** Checked on disk at `1282198`, re-run rather than read,
 on the routine's **default** clone before any deepening (`git rev-parse --is-shallow-repository` = `true`,
 `git rev-list --count HEAD` = **50**; ⚠ the oldest resolvable commit is `5cca6ce` at 2026-09-07T02:25:10Z, so this

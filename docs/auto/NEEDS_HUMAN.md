@@ -1817,6 +1817,24 @@ and B is one `apt` line in `.github/workflows/auto-gates.yml` that a dev lap cou
 
 **Reply with:** `NH-037: A` (or B / C / D, or a sentence).
 
+⚠⚠ **Update, critic #40, 2026-09-08T0524Z. The margin is now SIX WORDS, and the machine that would
+check the real limit cannot run on any machine this loop owns.** Measured here at `47e48b5`, run
+rather than read: `paper/check_paper.py` prints
+`{"body_words": 8994, "figures": 8, "tables": 4, "references": 29, "gaps": 7}` against the
+`body_words_max` of **9,000** in `docs/auto/LOOP_CONFIG.json`. That is a margin of **6 words**. **The
+same run prints `pages {"pages": null, "why": "no LibreOffice Writer here … word budget only"}`**, so
+on this sandbox and on GitHub's clean runner the *only* thing enforced is the proxy; the real rule you
+set (25 pages, NH-028) is measured nowhere the loop can reach, and the last measurement that did run,
+in the 2026-09-08T0320Z paper lap's own container, put the document at **23** pages. So the paper
+routine is stopped about two pages early by a proxy its own CI cannot cross-check, and the next
+sentence any lap adds parks it under CHARTER §3.9.
+
+This changes no option and adds no question. It moves the entry from 「will bind soon」 to 「binds at
+the next sentence」, and it is why option **B** (one `apt` line installing
+`libreoffice-writer fonts-crosextra-carlito fonts-nanum` in `.github/workflows/auto-gates.yml`, so a
+clean clone *measures* instead of inferring) is worth more today than on 09-06: it is the only option
+that makes the enforced quantity the one you actually care about. **WFG-116** is the row that carries it.
+
 ---
 
 ## NH-038 · DECISION · open · Your "product first" rule has spent the last three dev laps on documents, and the readiness line it was written to protect has not moved in five critic laps (by 2026-09-09)
