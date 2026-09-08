@@ -57,7 +57,7 @@
   volume = {11},
   pages = {221--229},
   url = {https://doi.org/10.1016/0034-4257(81)90021-3},
-  note = {verified 2026-09-04 (paper lap 2) via the Crossref record for DOI 10.1016/0034-4257(81)90021-3; volume 11, pages 221-229}
+  note = {verified 2026-09-04 (paper lap 2) via the Crossref record for DOI 10.1016/0034-4257(81)90021-3; volume 11, pages 221-229. ⚠ CATALOGUE RECORD ONLY, re-established 2026-09-08 (paper lap 18): neither the paper nor its abstract could be opened from this sandbox. doi.org redirects to Elsevier and both linkinghub and the sciencedirect abstract page return HTTP 403; Unpaywall reports is_oa false and lists no open location; and Crossref, OpenAlex and Semantic Scholar all carry the record with the abstract field empty or elided by the publisher. So what is verified here is the title, journal, volume and pages and nothing else. ⚠ CORRECTED BY LAP 18'S OWN REVIEWER: an earlier draft of this note justified §2's wording as 「the title's own subject」, and that is WRONG. The title's subject is surface temperature FIELDS of subpixel resolution; neither 「area」 nor 「two-component」 appears in it. So the honest statement is narrower and is this: BOTH §2's 「a sub-pixel area inversion after Dozier」 and §4.8's 「two-component sub-pixel split」 describe THIS repository's own computation on its own committed artifact, with this paper cited for the method's origin rather than for a proposition about its contents. Neither sentence asserts what this paper says, which is what the catalogue-record-only standard requires; and the attribution itself is conventional rather than evidenced from anything opened here. The same standard the manuscript applies to nifos2026guide (WC-009: never a flat sentence about a document only opened as a catalogue record) is what narrowed §2 here}
 }
 
 @article{kim2021gk2a,
@@ -69,7 +69,7 @@
   number = {7},
   pages = {1303},
   url = {https://doi.org/10.3390/rs13071303},
-  note = {verified 2026-09-04 (paper lap 2) via the Crossref record for DOI 10.3390/rs13071303; volume 13, issue 7, article 1303}
+  note = {verified 2026-09-04 (paper lap 2) via the Crossref record for DOI 10.3390/rs13071303; volume 13, issue 7, article 1303. ⚠ ABSTRACT OPENED 2026-09-08 (paper lap 18) through the OpenAlex record for this DOI, which carries the publisher's abstract in full; the MDPI page itself returns HTTP 403 here, so the full text was not opened. The abstract states verbatim: 「its spatial resolution is 0.5 or 1 km for visible channels and 2 km for near-infrared and infrared channels」 and 「shortened revisit times (around 10 min for full disk and 2 min for sectored regions)」, and gives the AMI 16 observation channels. ⚠ It does NOT name the Korean peninsula as the 2-minute sector, does not name the 3.8 and 11.2 µm channels this project uses, and carries no fire product. §2 was narrowed on 2026-09-08 from 「returns the Korean local area every two minutes」 to 「returns its sectored regions every two minutes」 for exactly that reason. ⚠ THE FIRST DRAFT OF THAT NARROWING LEFT A HOLE AND LAP 18'S REVIEWER FOUND IT: this note claimed the sector was identified in §3.1, and it was not — §3.1's whole GK2A sentence was 「GK2A level-1B radiances, read without credentials from the NOAA open-data mirror」, which names no sector and no cadence, so §4.8's 「a two-minute cadence」 was left with no stated source anywhere in the paper. That is the same circular-provenance failure this lap was fixing, one file over. §3.1 now reads 「GK2A level-1B radiances from its two-minute Korean local-area sector」, and its source is THIS REPOSITORY'S OWN INGESTION, not this paper: src/wildfireguardian/detection/gk2a.py names the LA sector 「every 2 minutes at 2 km in the infrared」 and builds keys AMI/L1B/LA/<yyyymm>/<dd>/<hh>/ with area la020ge, and docs/gk2a_direction_experiment.md records the archive as 「FD 10-min, LA 2-min」}
 }
 
 @inproceedings{wildfirespreadts2024,
@@ -78,7 +78,7 @@
   booktitle = {Advances in Neural Information Processing Systems},
   year = {2023},
   url = {https://doi.org/10.52202/075280-3258},
-  note = {verified 2026-09-03 (paper lap 1) via the Crossref record for DOI 10.52202/075280-3258}
+  note = {verified 2026-09-03 (paper lap 1) via the Crossref record for DOI 10.52202/075280-3258; NeurIPS Datasets and Benchmarks track, pages 74515-74529. ⚠ ABSTRACT OPENED 2026-09-08 (paper lap 18) through the Semantic Scholar record for this DOI, which carries it in full: 「We present a multi-temporal, multi-modal remote-sensing dataset for predicting how active wildfires will spread at a resolution of 24 hours. The dataset consists of 13 607 images across 607 fire events in the United States from January 2018 to October 2021.」 That is what §2's 「multi-temporal successor」 rests on; the word 「successor」 is this paper's own framing of the sequence and is not a claim taken from that abstract}
 }
 
 @misc{wstsplus2026,
@@ -87,7 +87,7 @@
   year = {2025},
   howpublished = {arXiv:2502.12003; accepted at WACV 2026},
   url = {https://arxiv.org/abs/2502.12003},
-  note = {verified 2026-09-03 (paper lap 1); this URL was previously mislabelled in this file as the WildfireSpreadTS dataset paper}
+  note = {verified 2026-09-03 (paper lap 1); this URL was previously mislabelled in this file as the WildfireSpreadTS dataset paper. ⚠ ABSTRACT RE-OPENED at this URL 2026-09-08 (paper lap 18), which states both halves of §2's sentence verbatim: 「Our benchmark doubles the number of unique years of historical data, expands its geographic scope」 and 「we found that models using time-series input obtained the best overall accuracy」. Title as posted: 「Improved Wildfire Spread Prediction with Time-Series Data and the WSTS+ Benchmark」}
 }
 
 @article{ndws2022,
@@ -96,7 +96,7 @@
   journal = {IEEE Transactions on Geoscience and Remote Sensing},
   year = {2022},
   url = {https://arxiv.org/abs/2112.02447},
-  note = {verified 2026-09-03 (paper lap 1); six authors, abbreviated here as elsewhere in this file}
+  note = {verified 2026-09-03 (paper lap 1); six authors, abbreviated here as elsewhere in this file. ⚠ ABSTRACT RE-OPENED at this URL 2026-09-08 (paper lap 18): 「a curated, large-scale, multivariate data set of historical wildfires aggregating nearly a decade of remote-sensing data across the United States」, which is what §2's 「roughly a decade of US observations」 rests on. The abstract states no year range and no fire count, so this paper states neither for it}
 }
 
 @misc{borgwardt2024,
@@ -105,7 +105,7 @@
   year = {2024},
   howpublished = {arXiv:2410.14500},
   url = {https://arxiv.org/abs/2410.14500},
-  note = {verified 2026-09-03 (paper lap 1)}
+  note = {verified 2026-09-03 (paper lap 1). ⚠ ABSTRACT RE-OPENED at this URL 2026-09-08 (paper lap 18), which carries §2's characterisation verbatim: 「We formulate large-scale evacuations as maximum flow problems on time-expanded networks, in which we integrate hazard information given in the form of a shapefile.」 Title as posted: 「Evacuation Planning on Time-Expanded Networks with Integrated Wildfire Information」. The abstract also states 「a proof of concept on three locations with historic deadly fires using data available through OpenStreetMaps」, which is the basis for §2 calling it network-scale}
 }
 
 @inproceedings{rescue2026,
@@ -114,7 +114,7 @@
   booktitle = {Proceedings of the 27th International Conference on Distributed Computing and Networking},
   year = {2026},
   url = {https://doi.org/10.1145/3772290.3772301},
-  note = {verified 2026-09-03 (paper lap 1) via the Crossref record for DOI 10.1145/3772290.3772301}
+  note = {verified 2026-09-03 (paper lap 1) via the Crossref record for DOI 10.1145/3772290.3772301; ICDCN '27 proceedings, pages 168-172. ⚠ ABSTRACT OPENED 2026-09-08 (paper lap 18) through the Semantic Scholar record, which carries it in full. It supports §2's 「routes under stochastic congestion and uncertain spread」 (the title's own words) and §2's 「vehicle-centric and network-scale」: the framework 「models the road network as a time-varying weighted graph」 and combines 「a Beta cumulative distribution modeling evacuee speed under stress」 with 「the Bureau of Public Roads (BPR) model for delay estimation」, a road-traffic delay model. ⚠ Its headline reductions (72.4 %, 73.0 %, 77.1 % over A*-based routing) are NOT restated anywhere in this manuscript and must not be, being another paper's numbers on another paper's networks}
 }
 
 @article{cova2003,
@@ -123,7 +123,7 @@
   journal = {Transportation Research Part A: Policy and Practice},
   year = {2003},
   url = {https://doi.org/10.1016/S0965-8564(03)00007-7},
-  note = {verified 2026-09-03 (paper lap 1) via the Crossref record; volume 37, issue 7, pages 579-604}
+  note = {verified 2026-09-03 (paper lap 1) via the Crossref record; volume 37, issue 7, pages 579-604. ⚠ CATALOGUE RECORD ONLY, re-established 2026-09-08 (paper lap 18): doi.org redirects to Elsevier, both linkinghub and the sciencedirect abstract page return HTTP 403, Unpaywall reports is_oa false, and Crossref, OpenAlex and Semantic Scholar all carry the record with the abstract elided by the publisher. §2's sentence is therefore held to the title's own words — 「A network flow model for lane-based evacuation routing」 — and says only that lane-based evacuation routing was posed as a network flow problem. Semantic Scholar's machine-generated one-line summary agrees with that reading, but a machine summary is not the paper and nothing here rests on it}
 }
 
 @article{cova2005,
@@ -132,7 +132,7 @@
   journal = {Transactions in GIS},
   year = {2005},
   url = {https://doi.org/10.1111/j.1467-9671.2005.00237.x},
-  note = {verified 2026-09-03 (paper lap 1) via the Crossref record; volume 9, issue 4, pages 603-617}
+  note = {verified 2026-09-03 (paper lap 1) via the Crossref record; volume 9, issue 4, pages 603-617. ⚠ ABSTRACT OPENED 2026-09-08 (paper lap 18) through the OpenAlex record, which carries it in full; the Wiley page itself returns HTTP 403 here. It states verbatim: 「Using data on wind, topography, and fuel in conjunction with estimated evacuation time, a trigger buffer can be computed for a community whereby an evacuation is recommended if a fire crosses the edge of the buffer」, and 「This paper presents a new method for delimiting wildfire evacuation trigger points using fire spread modeling and GIS.」 §2's wording was moved onto those words on 2026-09-08 (「a buffer edge whose crossing by the fire front should trigger evacuation」). ⚠ Note for any future edit of that paragraph: this 2005 method ALREADY takes 「estimated evacuation time」 as an input, so nothing here may say or imply that evacuation time entered the trigger literature only with li2019; §2's li2019 clause was narrowed the same day for that reason}
 }
 
 @article{li2017,
@@ -141,7 +141,7 @@
   journal = {Applied Geography},
   year = {2017},
   url = {https://doi.org/10.1016/j.apgeog.2017.05.008},
-  note = {verified 2026-09-03 (paper lap 1) via the Crossref record; volume 87, pages 14-27}
+  note = {verified 2026-09-03 (paper lap 1) via the Crossref record; volume 87, pages 14-27. ⚠ CATALOGUE RECORD ONLY, re-established 2026-09-08 (paper lap 18): the sciencedirect abstract page returns HTTP 403, Unpaywall reports is_oa false, and Crossref, OpenAlex and Semantic Scholar carry no abstract. §2 previously read 「to name the road segments that matter」; 「road segments」 appears nowhere in what was opened, and the sentence was narrowed on 2026-09-08 to the title's own words — 「Using reverse geocoding to identify prominent wildfire evacuation trigger points」 — i.e. 「to identify the prominent ones」}
 }
 
 @article{li2019,
@@ -150,7 +150,7 @@
   journal = {Fire Technology},
   year = {2019},
   url = {https://doi.org/10.1007/s10694-018-0771-6},
-  note = {verified 2026-09-03 (paper lap 1) via the Crossref record; volume 55, issue 2, pages 617-642}
+  note = {verified 2026-09-03 (paper lap 1) via the Crossref record; volume 55, issue 2, pages 617-642. ⚠ CATALOGUE RECORD ONLY, re-established 2026-09-08 (paper lap 18): link.springer.com redirects to an authorisation endpoint, Unpaywall reports is_oa false, and Crossref, OpenAlex and Semantic Scholar carry no abstract. §2 previously read 「later coupled to traffic simulation so it accounts for the time evacuation takes」. The second clause is in neither the title nor anything opened, AND it is contradicted in implicature by cova2005's own abstract, which already takes 「estimated evacuation time」 as an input — so it claimed a novelty this record does not support and the earlier paper partly forecloses. Narrowed on 2026-09-08 to the title's own words: 「Setting Wildfire Evacuation Triggers by Coupling Fire and Traffic Simulation Models: A Spatiotemporal GIS Approach」}
 }
 
 @article{wahlqvist2021,
@@ -159,7 +159,7 @@
   journal = {Safety Science},
   year = {2021},
   url = {https://doi.org/10.1016/j.ssci.2020.105145},
-  note = {verified 2026-09-03 (paper lap 1) via the Crossref record; volume 136, article 105145}
+  note = {verified 2026-09-03 (paper lap 1) via the Crossref record; volume 136, article 105145. ⚠ ABSTRACT OPENED 2026-09-08 (paper lap 18) through the OpenAlex record, which carries it in full. §2's characterisation is the abstract's own: 「WUI-NITY represents current and predicted conditions by coupling the three key modelling layers of wildfire evacuation, namely the fire, pedestrian, and traffic movement.」 The abstract adds that the fire layer is based on FARSITE, the traffic layer on a Lighthill-Whitham-Richards model, and that a sub-model called PERIL 「designs the spatial location of trigger buffers」 — which is the link back to the trigger-point line of work §2 opens that paragraph with, and is not restated in the manuscript}
 }
 
 @article{finney2002,
@@ -168,7 +168,7 @@
   journal = {Canadian Journal of Forest Research},
   year = {2002},
   url = {https://doi.org/10.1139/x02-068},
-  note = {verified 2026-09-03 (paper lap 1) via the Crossref record; volume 32, issue 8, pages 1420-1424}
+  note = {verified 2026-09-03 (paper lap 1) via the Crossref record; volume 32, issue 8, pages 1420-1424. ⚠ ABSTRACT OPENED 2026-09-08 (paper lap 18) through the OpenAlex record, which carries it in full: 「Fire-growth modeling on complex landscapes can be approached as a search for the minimum time for fire to travel among nodes in a two-dimensional network.」 That is what §2's 「minimum-travel-time fire growth」 rests on. ⚠ The abstract also says these perimeters are 「essentially identical to the products of perimeter expansion techniques」, i.e. it claims a computational advantage rather than an accuracy one; nothing in this manuscript says otherwise}
 }
 
 @article{radeloff2005,
@@ -177,7 +177,7 @@
   journal = {Ecological Applications},
   year = {2005},
   url = {https://doi.org/10.1890/04-1413},
-  note = {verified 2026-09-03 (paper lap 1) via the Crossref record; volume 15, issue 3, pages 799-805}
+  note = {verified 2026-09-03 (paper lap 1) via the Crossref record; volume 15, issue 3, pages 799-805. ⚠ ABSTRACT OPENED 2026-09-08 (paper lap 18) through the OpenAlex record, which carries it in full. The definition §2 cites is its first sentence: 「The wildland-urban interface (WUI) is the area where houses meet or intermingle with undeveloped wildland vegetation.」 ⚠ Everything else in the abstract is a measurement of the CONTERMINOUS UNITED STATES (719 156 km², 44.8 million housing units), which is why §2 says the transfer of this framing to rural Korean settlement is untested here rather than importing any of its quantities}
 }
 
 @misc{angelopoulos2024crc,
@@ -186,7 +186,7 @@
   year = {2024},
   howpublished = {arXiv:2208.02814; International Conference on Learning Representations},
   url = {https://arxiv.org/abs/2208.02814},
-  note = {verified 2026-09-03 (paper lap 1) via the arXiv API record for 2208.02814}
+  note = {verified 2026-09-03 (paper lap 1) via the arXiv API record for 2208.02814. ⚠ ABSTRACT RE-OPENED at this URL 2026-09-08 (paper lap 18): 「We extend conformal prediction to control the expected value of any monotone loss function. The algorithm generalizes split conformal prediction together with its coverage guarantee.」 That is what §2's 「distribution-free guarantees on a monotone risk by calibrating a threshold」 rests on. ⚠ Nothing in the abstract concerns small numbers of exchangeable groups; §4.2's negative result is this project's own measurement at six fires and is not attributed to this paper}
 }
 
 @article{boeing2017,
@@ -195,7 +195,7 @@
   journal = {Computers, Environment and Urban Systems},
   year = {2017},
   url = {https://doi.org/10.1016/j.compenvurbsys.2017.05.004},
-  note = {verified 2026-09-03 (paper lap 1) via the Crossref record; volume 65, pages 126-139}
+  note = {verified 2026-09-03 (paper lap 1) via the Crossref record; volume 65, pages 126-139. ⚠ ABSTRACT OPENED 2026-09-08 (paper lap 18) through the Semantic Scholar record, which carries it in full. It supports the only use made of it, §3.1's 「graph-built with OSMnx」: the tool provides 「the tailored and automated downloading and constructing of street network data from OpenStreetMap」 and 「the automated downloading of political boundaries and building footprints」, which is also the provenance of the building-footprint counts §6 reports}
 }
 
 @article{studenski2011,
@@ -204,7 +204,7 @@
   journal = {JAMA},
   year = {2011},
   url = {https://pubmed.ncbi.nlm.nih.gov/21205966/},
-  note = {verified 2026-09-03 (paper lap 1); volume 305, issue 1, pages 50-58}
+  note = {verified 2026-09-03 (paper lap 1); volume 305, issue 1, pages 50-58. ⚠ ABSTRACT OPENED 2026-09-08 (paper lap 18) through the OpenAlex record, which carries it in full: a pooled analysis of 9 cohort studies, 34,485 community-dwelling adults aged 65 or older, 「mean (SD) gait speed of 0.92 (0.27) m/s」, and 「Survival increased across the full range of gait speeds, with significant increments per 0.1 m/s.」 That is what §2's 「sit in the range over which gait speed predicts survival in older adults」 rests on, and the 0.7 m/s this system assumes lies inside that reported range. ⚠ This note quoted §2's OLD wording (「is an established predictor of」) for the length of one draft, certifying a sentence the same lap had already changed; caught by lap 18's reviewer and corrected here. 「Established predictor」 was itself dropped from §2 because it is a claim about the literature's standing that one pooled analysis does not settle, whereas 「predicts survival」 is the abstract's own 「Predicted survival based on age, sex, and gait speed」. ⚠ This is a SURVIVAL study, not a walking-speed-under-evacuation study: it establishes that the speeds assumed here are ordinary for this age group, and nothing about how fast such a person walks away from a fire. No number from it is used}
 }
 
 @article{farr2007,
@@ -213,7 +213,7 @@
   journal = {Reviews of Geophysics},
   year = {2007},
   url = {https://doi.org/10.1029/2005RG000183},
-  note = {verified 2026-09-03 (paper lap 1) via the Crossref record; volume 45, issue 2}
+  note = {verified 2026-09-03 (paper lap 1) via the Crossref record; volume 45, issue 2. ⚠ ABSTRACT OPENED 2026-09-08 (paper lap 18) through the OpenAlex record, which carries it in full: the mission 「used dual radar antennas to acquire interferometric radar data, processed to digital topographic data at 1 arc sec resolution」 and flew in February 2000. That is the whole use made of it in §3.1, 「terrain from SRTM」; §6's native ~30 m effective-slope figures are this project's own measurements on the tiles, not values from this paper}
 }
 
 @misc{firms,
@@ -221,7 +221,7 @@
   author = {{NASA}},
   year = {2026},
   url = {https://firms.modaps.eosdis.nasa.gov/},
-  note = {verified 2026-09-03}
+  note = {verified 2026-09-03 (paper lap 1) at this URL. ⚠ RE-OPENED 2026-09-08 (paper lap 18) because this note previously read 「verified 2026-09-03」 and nothing else — it recorded that something had been opened without recording WHAT, which is the defect lap 18's own independent reviewer used to block that lap's first draft. What the page is: NASA's Fire Information for Resource Management System, a near-real-time active-fire service run under NASA's LANCE programme, distributing detections from MODIS (Aqua, Terra) and VIIRS (S-NPP, NOAA-20, NOAA-21) as maps, downloads and web services, globally 「available within 3 hours of satellite observation」. ⚠ The page states no spatial resolution for either instrument, so no resolution figure in this paper is attributed to it; §3.1 cites it only as the source of the detections whose times define the prediction target}
 }
 
 @misc{era5,
@@ -230,7 +230,7 @@
   year = {2023},
   howpublished = {Copernicus Climate Change Service (C3S) Climate Data Store},
   url = {https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels},
-  note = {verified 2026-09-03}
+  note = {verified 2026-09-03 (paper lap 1) at this URL. ⚠ RE-OPENED 2026-09-08 (paper lap 18) for the same reason as the firms entry: the note said only 「verified 2026-09-03」. The page is the Copernicus Climate Data Store entry 「ERA5 hourly data on single levels from 1940 to present」, produced by ECMWF under Copernicus. It states the atmospheric fields are gridded at 0.25° x 0.25° (0.5° for ocean waves), hourly, covering 1940 to present at about five days' latency. The 0.25° figure is the one §6 rests its weather-resolution limitation on and it is stated on this page}
 }
 
 @misc{worldcover,
@@ -238,7 +238,7 @@
   author = {{ESA WorldCover consortium}},
   year = {2021},
   url = {https://esa-worldcover.org/en},
-  note = {verified 2026-09-03 (paper lap 1); 10 m products for 2020 and 2021}
+  note = {verified 2026-09-03 (paper lap 1) at this URL; 10 m products for 2020 and 2021. ⚠ RE-OPENED 2026-09-08 (paper lap 18), which found that this note stated a fact about the product without saying what had been opened. The page states 「global land cover products for 2020 and 2021 at 10 m resolution, developed and validated in near-real time based on Sentinel-1 and Sentinel-2 data」 and names the producing consortium as VITO with Brockmann Consult, C-S, Wageningen University and Research, GAMMA Remote Sensing and IIASA. ⚠ It states no class count, so this paper names none; §3.2's burnable-fraction feature is this project's own reduction of the class raster}
 }
 
 @misc{osm,
@@ -246,7 +246,7 @@
   author = {{OpenStreetMap contributors}},
   year = {2026},
   url = {https://www.openstreetmap.org/copyright},
-  note = {verified 2026-09-03 (paper lap 1); data published under the Open Database License (ODbL)}
+  note = {verified 2026-09-03 (paper lap 1) at this URL; data published under the Open Database License (ODbL). ⚠ RE-OPENED 2026-09-08 (paper lap 18), which found that this note stated the licence without saying what had been opened. The page is OpenStreetMap's own copyright and licence page: the data is licensed by the OpenStreetMap Foundation under the Open Data Commons Open Database License (ODbL), and a user must both display the attribution notice and make clear the data is available under that licence. This paper's attribution is this entry plus §3.1 and the Data and code availability section}
 }
 
 @misc{nifos2026guide,
@@ -255,7 +255,7 @@
   year = {2026},
   howpublished = {연구자료 제1201호 (Research Material No. 1201), Korea Forest Service. Cited from the publisher's catalogue record; the guide itself was not retrieved},
   url = {https://book.nifos.go.kr/library/10130/contents/7732761},
-  note = {verified 2026-09-06 (paper lap 13) at this URL. The catalogue record gives the title, the issuing body 국립산림과학원 (the Korea Forest Service's research institute), the series number 연구자료 제1201호 and the year 2026, and lists the guide's chapters as 로그인 / 메인 페이지 / 발화지점 생성 / 발화정보 / 확산예측 / 진화자원 / 연료 / 관리자. ⚠ Narrowed 2026-09-07 (WFG-171): this note previously read 「an operator workflow driven by a human-entered origin point, which is what the manuscript states and all it states」, which certified the manuscript's wording while the manuscript cited this note as its source — a circle reported as provenance, found by that lap's independent reviewer. The chapter list is the whole basis for reading it as an operator workflow with an operator-set origin point; the catalogue page states nothing about HOW the origin is set, so neither this note nor the manuscript may say more than the list supports. ⚠ Only the catalogue page was opened; the guide itself is an ~18 MB PDF this sandbox did not retrieve (docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md; escalated to the author as NH-039). The page carries no model class, no spatial resolution and no accuracy or validation figure, which is why this manuscript compares accuracy with the system in neither direction}
+  note = {verified 2026-09-06 (paper lap 13) at this URL. The catalogue record gives the title, the issuing body 국립산림과학원 (the Korea Forest Service's research institute), the series number 연구자료 제1201호 and the year 2026, and lists the guide's chapters as 로그인 / 메인 페이지 / 발화지점 생성 / 발화정보 / 확산예측 / 진화자원 / 연료 / 관리자. ⚠ Narrowed 2026-09-07 (WFG-171): this note previously read 「an operator workflow driven by a human-entered origin point, which is what the manuscript states and all it states」, which certified the manuscript's wording while the manuscript cited this note as its source — a circle reported as provenance, found by that lap's independent reviewer. The chapter list is the whole basis for reading it as an operator workflow with an operator-set origin point; the catalogue page states nothing about HOW the origin is set, so neither this note nor the manuscript may say more than the list supports. ⚠ CATALOGUE RECORD ONLY: only the catalogue page was opened; the guide itself is an ~18 MB PDF this sandbox did not retrieve (docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md; escalated to the author as NH-039). The page carries no model class, no spatial resolution and no accuracy or validation figure, which is why this manuscript compares accuracy with the system in neither direction}
 }
 
 @misc{khan2026gdaps,

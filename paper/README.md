@@ -159,6 +159,55 @@ summary instead of from the commits, which is the error this whole section is ab
 syntax compressions. **Laps 13, 14, 15, 16 and 17 have now all had their writing shaped by the
 proxy rather than by the evidence. NH-037 is the answer and it is still open.**
 
+✅ **Lap 18 is the first lap since 12 that could write the optional true sentence it wanted, and
+the reason is worth reading before the next NH-037 decision: the work it most needed to do cost
+nothing.** The incorporated diff made no manuscript sentence false. What it did do was register
+**WC-009** — 「never a flat present-tense sentence about what a system does, in **either**
+direction, when the only thing opened is a catalogue record or a newspaper」 — which is precisely
+the charge lap 17's reviewer had **filed without fixing** against this paper's own bibliography:
+fifteen of 29 references verified 「via the Crossref record」 while §2 characterised six of them
+substantively. The paper was applying one provenance standard to the Korean operational systems
+and a laxer one to the Western evacuation-routing literature.
+
+This lap opened twelve abstracts in full (OpenAlex, Semantic Scholar and arXiv records) and quoted
+them verbatim into their notes; **four could not be opened past a catalogue record** — `dozier1981`,
+`cova2003`, `li2017`, `li2019` — and are marked `⚠ CATALOGUE RECORD ONLY`, with `nifos2026guide`
+the fifth. **Three sentences were narrowed to what their titles support**, the sharpest being
+`li2019`'s 「so it accounts for the time evacuation takes」, which was in nothing that was opened
+*and* was partly foreclosed by `cova2005`'s own abstract taking 「estimated evacuation time」 as an
+input. Two more were moved onto opened text, and two compressions were themselves corrections.
+
+**The crucial mechanical fact: `build_docx.py`'s `fmt_ref` does not render the `note` field.** So
+provenance for sixteen references cost **zero** words and zero pages. 8,995 → **8,994**; margin
+**5 → 6**.
+
+⚠⚠ **And the one sentence the lap ADDED broke the rule the lap spent its whole diff enforcing.
+Read `GAPS.md`'s lap-18 section before this paragraph.** The draft wrote 「Each reference's note
+says what was opened; five rest on catalogue records」 — **a flat universal over 29 notes, written
+by a lap that had rewritten 17 of them, and false for four**: `firms` and `era5` carried the
+entire note 「verified 2026-09-03」, nineteen characters naming nothing, and `worldcover` and `osm`
+stated a fact about the source rather than what was read. Two greps falsify it. That is the
+WC-005 / WC-009 shape precisely — *the sentence advertising the correction was the thing that was
+now wrong.* Independently fatal: 「five」 was the diff's only new number and is **unregistered**,
+one line below the manuscript's own 「Every measured number is registered in `docs/NUMBERS.json`」
+(CHARTER §3.3; §12 forbids this routine from registering it). Both halves went. It now reads
+「`references.bib` marks each work known only from a catalogue record」, and **the four thin notes
+were fixed rather than only the sentence**.
+
+⚠⚠ **The reviewer's sharpest finding was a hole the narrowing itself opened.** Dropping 「the
+Korean local area」 from §2 left §4.8's 「a **two-minute cadence**」 with no stated source anywhere
+in the paper — and the `kim2021gk2a` note asserted §3.1 supplied it when §3.1 named neither sector
+nor cadence. **A bib note certifying a repair the manuscript does not contain: the WFG-171 circle
+in reverse, inside the lap whose subject is precisely that.** §3.1 now carries the LA sector and
+its cadence, sourced to this repository's own ingestion code rather than to the cited paper.
+
+⚠ **Do not generalise the relief.** This lap had an unusually cheap fix available because most of
+the defect lived in a file the length gate cannot see. The §3.5 illustration is still declined,
+for the **sixth** lap running, and it now has its best instance yet (WC-009's registration found a
+live copy in a file the reviewer had passed as clean). **Laps 13 through 18 have all had their
+writing shaped by the proxy rather than by the evidence. NH-037 is the answer and it is still
+open.**
+
 ⚠ **The subject grep caught a file this routine owns, and it is `GAPS.md`.** Lap 15's ledger
 entry ended 「the completeness claim is now scoped to what the instrument actually reads」 — an
 own-voice completeness assertion, in `paper/`, that is still incomplete. It is **annotated in

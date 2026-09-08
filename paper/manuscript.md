@@ -98,7 +98,7 @@ which wins 0 of 180 configuration cells against nearest-first at the operating w
 models over hundreds of fires with multi-modal inputs — Next Day Wildfire Spread over
 roughly a decade of US observations [@ndws2022], WildfireSpreadTS as a multi-temporal
 successor [@wildfirespreadts2024], and the WSTS+ extension, which doubles the unique
-years of history and reports that time-series inputs beat single-day inputs
+years of history and finds time-series inputs beat single-day inputs
 [@wstsplus2026]. Six Korean fires cannot compete on that axis, and the metrics are not
 comparable across these settings anyway: label definition, geometry and above all
 prevalence differ, and prevalence moves average precision by construction. Physical
@@ -128,10 +128,10 @@ to refuges on a real walk graph and adds a responder-side ingress term a maximum
 objective has no notion of, having no crew driving toward the fire.
 
 **Evacuation triggers and simulation.** The closest conceptual ancestor is the wildfire
-evacuation trigger point: a spatial line whose crossing by the fire front should start an
+evacuation trigger point: a buffer edge whose crossing by the fire front should trigger
 evacuation, set by coupling spread modelling to GIS [@cova2005], refined by reverse
-geocoding to name the road segments that matter [@li2017], and later coupled to traffic
-simulation so it accounts for the time evacuation takes [@li2019]. Trigger geometry
+geocoding to identify the prominent ones [@li2017], and later coupled to fire and traffic
+simulation models [@li2019]. Trigger geometry
 answers *when to leave*; our router answers *which way*, on the same idea that a route's
 safety depends on arrival time rather than the fire's present extent. At community scale,
 WUI-NITY couples fire, pedestrian and traffic models into one platform [@wahlqvist2021];
@@ -139,16 +139,16 @@ the wildland-urban-interface framing follows the standard definition [@radeloff2
 transfer to rural Korean settlement is untested here.
 
 **Detection.** Geostationary imagers trade resolution for cadence: GK2A's Advanced
-Meteorological Imager returns the Korean local area every two minutes at 2 km in the
+Meteorological Imager returns its sectored regions every two minutes at 2 km in the
 infrared [@kim2021gk2a]. Section 4.8 measures what that buys, using the mid-infrared
-contrast and the sub-pixel area inversion standard since Dozier [@dozier1981].
+contrast and a sub-pixel area inversion after Dozier [@dozier1981].
 
 **Calibration and guarantees.** Conformal risk control offers distribution-free
 guarantees on a monotone risk by calibrating a threshold [@angelopoulos2024crc]. Section
 4.2 reports what happens when it is applied honestly at six fires.
 
-**Walking speed.** The elderly gait speeds this system assumes sit in the range for
-which gait speed is an established predictor of survival in older adults
+**Walking speed.** The elderly gait speeds this system assumes sit in the range over
+which gait speed predicts survival in older adults
 [@studenski2011]; we use a fixed conservative speed rather than an individualised one,
 and sweep it.
 
@@ -168,8 +168,9 @@ single levels [@era5]; terrain from SRTM [@farr2007]; fuel from ESA WorldCover a
 points of interest from OpenStreetMap, graph-built with OSMnx [@boeing2017; @osm]. No
 proprietary or paid source is used.
 
-One further public input feeds only the detection-timing measurement of Section 4.8:
-GK2A level-1B radiances, read without credentials from the NOAA open-data mirror. The
+One further public input feeds only Section 4.8's detection-timing measurement:
+GK2A level-1B radiances from its two-minute Korean local-area sector, read without
+credentials from the NOAA open-data mirror. The
 detector is a mid-infrared-minus-window contrast (3.8 µm against 11.2 µm) under a
 contextual test whose rule is a conjunction of three conditions, all referred to a
 30–80 km background annulus: the pixel's 3.8 µm brightness temperature exceeds its own
@@ -846,6 +847,7 @@ are re-acquired by the scripts in `scripts/`; the repository distributes no raw 
 Every measured number is registered in `docs/NUMBERS.json` and re-derived from its artifact
 by `make verify` (Section 3.5); externally sourced figures are attributed in place with
 agency, date and scope.
+`references.bib` marks each work known only from a catalogue record.
 Figures are regenerated from committed artifacts by `paper/make_figures.py` and none was
 edited by hand. Authorship and the disclosure of agent-assisted drafting are recorded in
 `paper/AUTHORSHIP.md`.
