@@ -197,6 +197,87 @@ Round 3 은 새 기능을 얹기 전에 **기존 수치가 아직 참인지 확�
 
 ---
 
+## Round 4 (2026-09 — 본선 준비)
+
+Round 4 는 **모델도 지역도 늘리지 않았습니다.** 새 확산 모델도, 재학습도, 새 지역
+취득도 없습니다. 대신 이 저장소에서 **가장 강한 주장에 제대로 된 반대 상대를
+세우고**, 한 번 철회한 주장이 조용히 되살아나지 못하게 하는 장치를 만들었습니다.
+아래 네 항목은 모두 심사위원이 직접 열어 확인할 수 있습니다.
+
+> ⚠ **읽는 법.** 이 절에서 이 프로젝트에 **유리한** 항목은 4번뿐입니다. 1번과
+> 3번은 이 프로젝트의 주장을 **깎는** 결과이고, 그렇게 적는 것이 이 절의 목적입니다.
+
+### 1. 가장 강한 주장에 「공정한 상대」를 세웠습니다
+
+지금까지 이 프로젝트의 머리기사 대비는 **불을 전혀 보지 못하는(fire-blind)**
+기준선을 상대로 측정돼 있었습니다 — 가장 가까운 대피소로 최단경로를 걷고, 그
+경로가 탔는지는 사후에야 듣는 상대입니다
+(`src/wildfireguardian/routing/evacuation.py` 의 `naive_route`). 그래서 그 대비는
+**「불이 어디로 갈지 아는 것」의 값어치**와 **「불이 지금 어디 있는지 아는 것」의
+값어치**를 **가르지 못합니다**. 모델이 전혀 필요 없는 후자까지 예보의 공으로
+돌립니다.
+
+Round 4 는 그 둘을 가르는 상대를 실제로 돌렸습니다. **지금 타고 있는 영역에 고정
+완충거리를 더해 거부하는 경로계획**(present perimeter + buffer)으로, 확산 모델을
+쓰지 않습니다. **의성·안동**에서 측정했고, **결과는 이 프로젝트에 불리합니다** —
+fire-blind 대비가 예보의 공으로 돌리던 것의 **상당 부분을, 모델 없는 이 상대가
+이미 회수합니다**. 방법·수치·한계는
+[`docs/present_perimeter_arm.md`](docs/present_perimeter_arm.md).
+
+- ⚠ **영덕에서는 이 상대를 아직 돌리지 않았습니다.** 위 TL;DR 의 **42곳**은
+  영덕에서 나온 값이므로, 그 수치에는 이 검사가 **아직 적용되지 않았습니다**.
+- ⚠ 이 실험이 내놓은 **구체적인 margin 값들은 아직 어느 심사용 자료에도 싣지
+  않습니다.** 어느 값을 정본으로 삼을지가 아직 정해지지 않았고
+  (`docs/auto/NEEDS_HUMAN.md` 의 열린 항목), 정해지기 전에 말하지 않는 편이 낫다고
+  판단했습니다. 이 문장 자체가 그 상태의 기록입니다.
+
+### 2. 철회한 주장이 되살아나지 못하게 했습니다
+
+이 저장소는 틀린 것으로 밝혀진 주장을 지우지 않고 **기록으로 남깁니다**(TL;DR 의
+철회 항목이 그 예입니다). Round 4 는 그 관행을 **기계가 읽는 등록부**로 바꿨습니다:
+철회된 주장은 `docs/auto/withdrawn_claims.json` 에 실제로 쓰였던 표현들과 함께
+등록되고, `make verify` 가 추적 대상 문서에서 그 표현을 다시 찾습니다. 한 문서만
+고치고 여덟 절 뒤의 같은 문장을 놓치는 일 — 실제로 있었던 일입니다 — 이 그래서
+막힙니다.
+
+⚠ **이 장치의 한계는 장치 자신이 적어 둡니다.** 두 가지입니다. ① 등록부는
+**복사·붙여넣기를 막는 래칫이지 주장 탐지기가 아니며, 다르게 고쳐 쓴 문장은
+빠져나갑니다.** ② 검사 범위는 **`.md` 와 `.html` 뿐**이므로, `make verify` 가
+초록색이라는 사실만으로 철회된 주장이 저장소에서 사라졌다고 읽으면 안 됩니다.
+측정된 한계는 [`docs/withdrawn_claims.md`](docs/withdrawn_claims.md) 에 있습니다.
+
+### 3. 불리한 결과 두 개를 그대로 싣습니다
+
+- **배차 순서** — 이 시스템이 싣고 있는 **마감 우선(deadline-first)** 배차 순서는,
+  운영 시점의 창에서 단순한 **최근접 우선**을 이긴 적이 **없습니다**. 이긴 칸의
+  수는 **0**입니다. → [`docs/dispatch_ordering.md`](docs/dispatch_ordering.md)
+- **탐지 바닥** — 정지궤도 위성 검출기는 이 화재들을 **화소 이하 크기의 바닥**에서,
+  그리고 기록된 발생 시각보다 **수십 분 뒤에야** 봅니다. 즉 이 시스템의 입력은
+  「발화 즉시」가 아닙니다. → [`docs/detection_floor.md`](docs/detection_floor.md),
+  부스용 카드는 [`docs/auto/finals/DETECTION_FLOOR_CARD.md`](docs/auto/finals/DETECTION_FLOOR_CARD.md)
+
+### 4. 심사위원이 그 자리에서 열어볼 수 있는 것
+
+- **오프라인 본선 화면** — `web/finals.html` 외 3종. 외부 요청 0건이므로 부스에
+  인터넷이 없어도 그대로 뜹니다.
+- **USB 로 가는 꾸러미** — [`release/kcf-finals-2026/`](release/kcf-finals-2026/).
+  `make finals-bundle` 이 트리에서 다시 만들어 SHA-256 을 재유도하고, 매니페스트와
+  다르면 거부합니다. 빌려온 노트북에서는 `python scripts/check_bundle_copy.py` 가
+  표준 라이브러리만으로 사본을 검사합니다.
+- **인쇄물 묶음** — `docs/auto/finals/printables/` 의 A4 PDF 한 벌. 어느 문서
+  몇 장으로 만들어졌는지는 같은 폴더의 매니페스트가 스스로 적으며, 원본 문서가
+  바뀌면 게이트가 그 묶음을 낡은 것으로 판정합니다. (여기에 장수를 손으로 적지
+  않는 이유가 그것입니다.)
+- **질의응답 은행** — [`docs/auto/JUDGE_QA.md`](docs/auto/JUDGE_QA.md). 각 답변은
+  파일을 가리키고, 카드마다 **「없는 것」** 을 함께 적습니다.
+- **깨끗한 복제본에서의 재검** — 매 push 마다 GitHub Actions 가 같은 게이트를
+  빈 리눅스 머신에서 다시 돌립니다(`.github/workflows/auto-gates.yml`). 이
+  저장소의 수치는 **이 노트북에서만 맞는 수치가 아닙니다.**
+
+영문 초록 초안은 아래 [Abstract (draft)](#abstract-draft) 에 있습니다.
+
+---
+
 ### 프로젝트 개요
 
 **WildfireGuardian** 는 산불 발화부터 대피 완료까지의 "골든타임" 동안 위성 화재
@@ -503,6 +584,51 @@ pytest tests/test_rescue_routing.py -q
   url    = {https://github.com/sparkxt-0318/wildfireguardian}
 }
 ```
+
+---
+
+### Abstract (draft)
+
+> ⚠ **This is a DRAFT written by the project's agent loop, not the student's own
+> prose.** Siyeong Park (박시영) rewrites it in their own voice before any
+> submission; the rule and the reason are in
+> [`paper/AUTHORSHIP.md`](paper/AUTHORSHIP.md). It tracks the manuscript's abstract
+> ([`paper/manuscript.md`](paper/manuscript.md)), which is the canonical version.
+
+Satellite detection and district-level fire-danger forecasts were both operating
+during the March 2025 Gyeongbuk wildfires, the largest on Korea's record by burned
+area. Neither answered which way a rural household should walk **now**, or whether a
+rescue crew can still reach the house. WildfireGuardian couples an event-held-out
+ignition-probability model to a time-expanded pedestrian router and a rescue-ingress
+calculation, and re-derives every published number from a committed artifact.
+
+The spread model is deliberately ordinary — a gradient-boosted classifier over sixteen
+public features, evaluated leave-one-fire-out on six real Korean fires, mean-of-folds
+held-out ROC-AUC **0.890** (fold range 0.682–0.974; pooled out-of-fold 0.905, a
+different quantity). **Its operating point is weak and is reported as such**: pooled
+cell recall at the shipped threshold is **0.138**, and three of the six held-out fires
+produce no true positive at all.
+
+The coupling is nonetheless where the decision changes. On the canonical Yeongdeok
+field, **42 of 458** scanned walk-network origins reach a refuge only under the
+forecast-aware policy, and **2** have no safe walking route at all, on a network
+covering **32.6 %** of the predicted fire core whose bias runs in an unmeasured
+direction. ⚠ **Two caveats bind that number and travel with it everywhere.** First,
+the contrast is measured against a **fire-blind** baseline, so it does not separate
+knowing where the fire *will be* from knowing where it *is*. Second, the
+forecast-aware arm plans on the **same hazard field it is scored against**, so 42 is
+an **upper bound** — what a *noiseless* forecast would buy, not what this project's
+own model buys. On a second region that separation has now been measured: a
+present-perimeter opponent, which refuses what is burning now plus a fixed buffer and
+needs no model at all, recovers most of what that region's fire-blind contrast credits
+to the forecast ([`docs/present_perimeter_arm.md`](docs/present_perimeter_arm.md)).
+
+Two further results are negative and are reported in full: the deadline-first dispatch
+ordering the system ships never out-rescues nearest-first at the operating window, and
+a geostationary detector sees these fires only at a sub-pixel size floor, tens of
+minutes after their recorded occurrence time. On a six-event dataset the transferable
+contribution is the **evaluation design** — paired contrasts, matched null controls,
+and registries that keep withdrawn claims in the tree — rather than the model.
 
 ---
 

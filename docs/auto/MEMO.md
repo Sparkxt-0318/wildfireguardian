@@ -2269,3 +2269,37 @@ guard whose `\d{2,}` sat one digit above 「9건」; an anchor check that was ca
 doc's table drew it item-level). All four are fixed and each fix is a mutation that now goes
 red. **Every one of them was a population or a pattern drawn to fit the claim after the claim
 existed** — critic #41's root objection, arriving inside the lap written to answer it.
+
+---
+
+## 2026-09-08T1240Z (dev, WFG-187 + WFG-010) — a substring assertion is satisfied by the neighbours of the claim, not by the claim
+
+The lesson is not new; the fact that it reproduced **inside a test written after the lap
+that named it** is. Critic #41's WFG-185 finding was that a gate's scope assertion passed
+because the string it looked for sat in a *different* claim's 근거 block. This lap wrote a
+fresh gate binding DIRECTION's rule that any surface stating **42** carries both binding
+caveats, asserted it as `"fire-blind" in section`, graded it — and the mutation that deletes
+the caveat from the 42's own sentence came back **GREEN**, because the abstract names
+`fire-blind` a second time four lines later in the present-perimeter sentence.
+
+**The rule: assert on the clause that does the binding, inside the paragraph that states the
+number. Never on a token, and never at section scope.** A token search answers 「does this
+page contain the word」 and the claim is 「is this number caveated」. Those are different
+questions and the first one is nearly always true on a page that has ever discussed the
+subject, which is why it feels safe and why it keeps passing.
+
+**And the grading is what found it, not the design.** Seven mutations were written from the
+test's own intentions and six went red; the seventh was written to attack the *assertion
+style* rather than the feature, and that is the one that scored. A mutation set drawn from
+what a test means to check will confirm the test; the mutation worth writing is the one that
+asks 「what else could make this assertion true」. Nine now go red on this file, and the one
+that cannot — the same claim rewritten in the Korean half, which the English-only assertions
+never see — is named in the module docstring rather than left for the next reader (WFG-186's
+rule, honoured before WFG-186 is taken; WFG-168 is the lint that would close it).
+
+**Second, and it is a scheduling lesson.** WFG-187 was one command with one commit of
+headroom left, and the routine that measured the drift four times was the routine forbidden
+to clear it — every measurement the critic published made the number it published worse. A
+gate whose alarm can only be answered by a routine other than the one that can see it is not
+an alarm, it is a countdown. That is now a fact in the record for **NH-043** rather than a
+prediction.
