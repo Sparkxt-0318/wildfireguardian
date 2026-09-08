@@ -217,12 +217,22 @@ def test_the_four_acts_advance_in_a_real_browser(tmp_path):
         # `finals-acts` job, which runs the same driver and uploads the four
         # screenshots a human can open.
         #
-        # ⚠ What this does NOT catch, and WFG-196 carries: a Chromium that stops
-        # starting *permanently* now skips here silently, and the `finals-acts`
-        # job's own soft edge (`if-no-files-found: warn`) means R1 could then
-        # lose its evidence on both surfaces at once.  A retry-then-fail launch
-        # is the stronger fix; this is the narrow one.
-        if "no page target on port" not in str(exc):
+        # ⚠ 2026-09-08, run 260 (`7eeccab`): the cause of BOTH red runs is now
+        # measured rather than attributed to the runner in general.  The driver
+        # asked Chromium for a port that `_free_port()` had bound and released,
+        # and something on the runner took it in between; Chromium logs 「bind()
+        # failed: Address already in use (98)」, keeps running without a DevTools
+        # endpoint, and the poll below it times out.  `check_finals_acts._launch`
+        # now asks for port 0 and reads back the port Chromium chose, so the race
+        # is gone, and it retries once before failing (WFG-196's stronger fix).
+        #
+        # ⚠ The discrimination is by TYPE, not by matching words in a message.
+        # It used to skip on the substring 「no page target on port」, which would
+        # have swallowed that sentence whatever raised it; `BrowserLaunchError`
+        # is raised at exactly one place, by the launcher, for a browser that
+        # never came up.  Every other CDPError -- a JS throw, a button with no
+        # box -- is the screen's and still fails this test.
+        if not isinstance(exc, acts.BrowserLaunchError):
             raise
         pytest.skip(f"Chromium was found but never exposed a debugging port: {exc}")
 

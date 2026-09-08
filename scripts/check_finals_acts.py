@@ -50,7 +50,6 @@ import contextlib
 import json
 import os
 import shutil
-import socket
 import subprocess
 import sys
 import tempfile
@@ -63,6 +62,17 @@ from cdp_min import CDP, CDPError, page_target  # noqa: E402
 
 class NoBrowser(Exception):
     """Chromium is absent.  A skip, never a download (CHARTER §4b)."""
+
+
+class BrowserLaunchError(CDPError):
+    """Chromium was found and started, and never opened its debugging port.
+
+    A machine fact about the runner, not a finding about `web/finals.html`, and
+    the only failure this driver lets a caller treat as one.  It is a TYPE so
+    that callers discriminate by `isinstance` rather than by matching words in a
+    message: `tests/test_finals_acts.py` used to skip on the substring 「no page
+    target on port」, which would have swallowed that message from any source.
+    """
 
 REPO = Path(__file__).resolve().parents[1]
 WEB = REPO / "web"
@@ -94,10 +104,82 @@ def find_chrome() -> str | None:
     return shutil.which("chromium") or shutil.which("google-chrome")
 
 
-def _free_port() -> int:
-    with socket.socket() as s:
-        s.bind(("127.0.0.1", 0))
-        return s.getsockname()[1]
+#: How long to wait for Chromium to publish its debugging port, and how many
+#: times to start it before calling the machine broken.  Two attempts, because a
+#: launch that fails for a transient reason is the case WFG-196 asked to cover
+#: and a second one costs a few seconds; a browser that is genuinely gone fails
+#: both and the job goes red, which is the half that must not be softened.
+LAUNCH_TIMEOUT = 30.0
+LAUNCH_ATTEMPTS = 2
+
+
+def _launch(chrome: str, profile: Path, stderr_path: Path) -> tuple[subprocess.Popen, int]:
+    """Start Chromium and return it with the port it is actually listening on.
+
+    ⚠ The port is **not** chosen here, and that is the whole point of this
+    function.  Until 2026-09-08 it was: `_free_port()` bound an ephemeral port,
+    closed it, and passed the number to Chromium, which bound it again some
+    hundreds of milliseconds later.  Anything else on the machine could take it
+    in that window, and on a GitHub runner something does.  Chromium does not
+    fail when it cannot bind: it logs 「bind() failed: Address already in use
+    (98)」, keeps running with no DevTools endpoint at all, and the driver then
+    polls a port nobody is listening on until it times out.  That is exactly the
+    shape `auto-gates` went red in twice -- 「no page target on port 51449 within
+    30.0s (last: <urlopen error [Errno 111] Connection refused>)」 at `b7c1837`
+    (run 255) and the same on port 58173 at `7eeccab` (run 260) -- and the
+    runner's own cleanup line 「Terminate orphan process: pid (2032) (chrome)」
+    is the tell that the browser was alive the whole time.  Reproduced
+    deliberately in the sandbox by holding the port open across the launch.
+
+    So Chromium is asked for port 0 and picks its own, which it cannot race with
+    anyone, and it writes the result to `DevToolsActivePort` in the profile
+    directory.  Reading that file is how Playwright and puppeteer do it too.
+    """
+    stderr_handle = stderr_path.open("wb")
+    proc = subprocess.Popen(
+        [
+            chrome, "--headless=new", "--disable-gpu", "--no-sandbox",
+            "--hide-scrollbars", "--window-size=1440,900",
+            "--force-device-scale-factor=1", "--disable-lcd-text",
+            # Port 0 means 「choose one and tell me which」; see the note above.
+            "--remote-debugging-port=0", f"--user-data-dir={profile}",
+            "--no-first-run", "--no-default-browser-check",
+            # Nothing may leave the machine.  If the screen ever grows a remote
+            # asset, the request is recorded below and the gate fails on it.
+            "--disable-background-networking", "--disable-component-update",
+            "--disable-default-apps", "--disable-sync", "--metrics-recording-only",
+            "about:blank",
+        ],
+        stdout=subprocess.DEVNULL, stderr=stderr_handle,
+    )
+    # ⚠ Chromium's stderr is kept rather than sent to DEVNULL, which is where it
+    # went while two laps guessed at this failure from the outside.  The one line
+    # that names the cause is in there.
+    active = profile / "DevToolsActivePort"
+    deadline = time.time() + LAUNCH_TIMEOUT
+    try:
+        while time.time() < deadline:
+            if active.exists():
+                first = active.read_text(errors="replace").splitlines()[:1]
+                # The file is written in one go, but it is read while another
+                # process writes it, so a half-line is possible and is not a port.
+                if first and first[0].strip().isdigit():
+                    return proc, int(first[0].strip())
+            if proc.poll() is not None:
+                break  # it died; no amount of waiting will produce a port
+            time.sleep(0.1)
+    finally:
+        stderr_handle.close()
+    with contextlib.suppress(Exception):
+        proc.terminate()
+        proc.wait(timeout=10)
+    why = "exited with %s" % proc.poll() if proc.poll() is not None else \
+        f"stayed up for {LAUNCH_TIMEOUT}s without writing {active.name}"
+    tail = stderr_path.read_text(errors="replace").strip().splitlines()[-8:]
+    raise BrowserLaunchError(
+        f"Chromium ({chrome}) {why}. Its last stderr lines:\n  "
+        + ("\n  ".join(tail) if tail else "(it printed nothing)")
+    )
 
 
 #: The state the screen exposes about the guided demo, read in one round trip.
@@ -288,27 +370,28 @@ def run(out_dir: Path, keep: bool = False) -> dict:
         )
     out_dir.mkdir(parents=True, exist_ok=True)
     staged = Path(tempfile.mkdtemp(prefix="wfg-finals-"))
-    profile = Path(tempfile.mkdtemp(prefix="wfg-profile-"))
+    #: One profile per attempt: a relaunch must not read the previous attempt's
+    #: `DevToolsActivePort` and take a dead browser's port for its own.
+    profiles: list[Path] = []
     try:
         # The WHOLE of web/, so a missing sibling asset fails here, not at the booth.
         shutil.copytree(WEB, staged / "web")
         page = (staged / "web" / "finals.html").resolve()
-        port = _free_port()
-        proc = subprocess.Popen(
-            [
-                chrome, "--headless=new", "--disable-gpu", "--no-sandbox",
-                "--hide-scrollbars", "--window-size=1440,900",
-                "--force-device-scale-factor=1", "--disable-lcd-text",
-                f"--remote-debugging-port={port}", f"--user-data-dir={profile}",
-                "--no-first-run", "--no-default-browser-check",
-                # Nothing may leave the machine.  If the screen ever grows a remote
-                # asset, the request is recorded below and the gate fails on it.
-                "--disable-background-networking", "--disable-component-update",
-                "--disable-default-apps", "--disable-sync", "--metrics-recording-only",
-                "about:blank",
-            ],
-            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
-        )
+        launch_failure: BrowserLaunchError | None = None
+        proc = port = None
+        for attempt in range(1, LAUNCH_ATTEMPTS + 1):
+            profile = Path(tempfile.mkdtemp(prefix="wfg-profile-"))
+            profiles.append(profile)
+            try:
+                proc, port = _launch(chrome, profile, profile / "chrome-stderr.log")
+                break
+            except BrowserLaunchError as exc:
+                launch_failure = exc
+                print(f"    (browser launch attempt {attempt} of "
+                      f"{LAUNCH_ATTEMPTS} failed: {exc})", file=sys.stderr)
+        if proc is None or port is None:
+            assert launch_failure is not None
+            raise launch_failure
         try:
             cdp = CDP(page_target(port))
             cdp.call("Page.enable")
@@ -422,7 +505,8 @@ def run(out_dir: Path, keep: bool = False) -> dict:
     finally:
         if not keep:
             shutil.rmtree(staged, ignore_errors=True)
-        shutil.rmtree(profile, ignore_errors=True)
+        for used in profiles:
+            shutil.rmtree(used, ignore_errors=True)
 
 
 def main() -> int:
