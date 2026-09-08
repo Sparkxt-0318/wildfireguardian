@@ -282,6 +282,55 @@ register `WC-009` itself forbids. The blocks above are records and are not rewri
 paragraph is their annotation (CHARTER §3.7). **The rest of NH-037 stands: laps 13, 15 and 16 each
 funded a mandatory correction by compression, and lap 13 shipped two wrong sentences doing it.**
 
+⚠⚠ **Lap 20 is the one where this routine wrote a correction, its own reviewer proved it was
+worse than the defect, and the lap reverted. Read `GAPS.md`'s lap-20 section before this
+paragraph.** The defect is real and stands: `docs/auto/DIRECTION.md:59` requires every
+judge-facing surface stating **42** or **91** to carry *both* binding caveats — fire-blind
+opponent, and upper bound for a noiseless forecast — CHARTER §14b names the manuscript as such a
+surface, and the manuscript carries the second only in §4.5, scoped there to the
+present-perimeter comparison rather than to the 42. ⚠ **The repository had a sharper statement of
+that than this file did, and the lap did not run it:**
+`tests/test_future_aware_attribution.py` enumerates exactly two claim blocks in the manuscript —
+the Abstract and §7 — and is `xfail(strict=True)` because neither names the oracle bound.
+
+**Four things were wrong with the fix, all found by the reviewer, all verified in the tree before
+the revert, none reachable by any gate here.** The lap asserted that `README.md:626` cites
+`paper/manuscript.md` §4.5 for the caveat and wrote that line number into three files; **`:626`
+carries no citation at all and the citing line is `README.md:38`**, the TL;DR bullet. The fix
+then **deleted the very text `:38` cites** — `grep -niE 'noiseless|upper bound'` matched §4.5 at
+`:512` before the diff and matched nothing in §4.5 after — which would have left the README
+citing a section silent on the claim it quotes, **strictly worse than the mismatch being fixed**,
+and CHARTER §12 bars this routine from repairing `README.md`. The Abstract clause **inverted the
+bound**, reading 「bounds a noiseless forecast rather than this model」 where every other surface
+has 42 as an upper bound *on this model* equal to what a noiseless forecast buys — the inverse of
+the safety-relevant meaning, on the headline number, in the diff whose purpose was to make two
+surfaces agree. And the §4.5 back-reference imported a fire-blind clause into a section whose
+opponent is expressly not fire-blind, while the merged lead's second clause was left with **no
+premise anywhere in §4.3**, that premise being the sentence deleted from §4.5.
+
+⚠⚠ **The reason it was reverted rather than repaired is the whole of NH-037.** The correct
+version needs the mechanism stated once with its premise, §4.5's original 43 words **kept** so
+the README's citation survives, a corrected Abstract clause, and §7 — roughly **+50 words against
+a margin of 6**. Every cheaper shape inverts the bound, strands the premise, or breaks the
+citation. **Nothing was compressed and no caveat was trimmed to close it**, because CHARTER §12
+forbids that and the only compressible prose left is the stock that produced wrong sentences at
+laps 13 and 15. ⚠ And whoever does land it needs more than words: the strict xfail above means
+`paper/manuscript.md` must be promoted into that test's `ORACLE_SURFACES` and its reason string
+rewritten in the same change, or the suite turns red the moment the prose becomes correct —
+`tests/` being outside CHARTER §12, that half is a dev-lap job.
+
+✅ **What the lap did land: the page count, re-derived rather than inherited.** It ran the one
+`apt` line this file has printed since lap 9, so `check_paper.py` took its measuring branch —
+`pages 23, calibri_face Carlito, metrics_ok true` — and **re-derived the anchor
+`f2ee9be6c9c7c4e0` and found it matching** rather than accepting it. ⚠ It does **not** close
+WFG-116; that is the same line in `.github/workflows/auto-gates.yml`, outside `paper/`, still
+open. **Both margins now stand measured on one document by one run: two pages against the
+author's 25, six words against the proxy's 9,000.** When NH-037 was written they were two pages
+and **55** words. The word margin has fallen to 6 and the page count has not moved once, and
+**the case that entry was written for has now arrived** — a correction the repository's own
+DIRECTION rule and its own strict tripwire both require does not fit, and the rule it does not
+fit is the proxy rather than the author's.
+
 ⚠ **The page that took the count from 22 to 23 cost eleven words, and it is worth
 knowing that before reading the words-to-pages table below as a rate.** Lap 11
 took the body 8,735 → 8,825 (a mandatory §4.5 correction, one clause, and the

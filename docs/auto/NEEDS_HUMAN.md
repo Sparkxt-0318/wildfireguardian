@@ -1768,6 +1768,42 @@ in every paper lap's summary. If a lap arrives with a mandatory correction it ca
 without dropping a caveat, it ships the caveat, fails `check_paper.py`, parks the work per
 CHARTER §3 rule 9 and says so — it does not trim the caveat and it does not edit the limit.
 
+⚠⚠ **Update, paper lap 20 (2026-09-08T1448Z): the case this entry was written for has now
+arrived. A correction the repository's own DIRECTION rule and its own strict test both
+require did not fit, and the lap shipped nothing rather than trim.**
+
+This lap installed the renderer in its own sandbox, so `check_paper.py` took its measuring
+branch and **both margins are now measured on one document by one run**: **23 pages**
+(Carlito, `metrics_ok` true) against your 25, and **8,994 body words** against the 9,000
+proxy. When this entry was written they were **two pages and 55 words**. Five laps later
+they are **two pages and 6 words** — 49 words of headroom consumed and **not one page**.
+
+**What it could not fit.** `docs/auto/DIRECTION.md:59` requires every judge-facing surface
+stating **42** or **91** to carry both binding caveats (fire-blind opponent; upper bound for
+a noiseless forecast), and CHARTER §14b names the manuscript as such a surface. The
+manuscript carries the second only in §4.5, scoped to a different comparison.
+`tests/test_future_aware_attribution.py` says the same thing more precisely and is
+`xfail(strict=True)` over it. The correct fix is about **+50 words against 6**: the mechanism
+stated once with its premise, §4.5's original wording **kept** (the README's TL;DR bullet
+cites it, and deleting it would leave a judge-facing surface citing a section silent on the
+claim it quotes), a corrected Abstract clause, and §7. The lap wrote a cheaper version, its
+independent reviewer proved it inverted the bound on the headline number and broke that
+citation, and the lap **reverted**. `paper/GAPS.md`'s lap-20 section carries the full record.
+
+**So the failure mode this entry predicted has happened, one step milder than the worst
+case:** the budget did not make the paper say something false — the reviewer caught that —
+but it is now the reason the paper does not say something true that the project's own rules
+require. Options A–D are unchanged. What has changed is that **D ("leave it") now means the
+manuscript stays knowingly one caveat short of its own README on its headline number**, and
+that the next correction of this size will meet the same wall.
+
+⚠ Two notes for whoever acts. (i) A lap installing `libreoffice-writer` in its **own**
+sandbox, as this one did, is **not** option B and does not close WFG-116; B is the same line
+in `.github/workflows/auto-gates.yml`, so that a *clean clone* measures. (ii) Landing the
+clause is **not** a paper-lap job alone: the strict xfail means `paper/manuscript.md` must be
+promoted into that test's `ORACLE_SURFACES` and its reason string rewritten in the same
+change, and `tests/` is outside CHARTER §12's paths for this routine.
+
 ⚠ **Update, paper lap 16 (2026-09-07). The case above was written on a hypothetical and it
 has now happened.** 「The next mandatory correction may arrive with nothing loose left」 —
 lap 16's correction arrived with **6** words of margin and cost **11**. It was a real
