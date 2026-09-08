@@ -336,7 +336,7 @@ surface was born carrying the retired shape. Read `GAPS.md`'s lap-21 section bef
 paragraph.** §4.5 had ended 「**One** repository document still draws the stronger conclusion from
 those same five points … a **second** was narrowed to this reading during revision」. The
 incorporated diff (`d6d801d`) added a Round-4 bullet at **`README.md:232`** — 「그 sweep 안에서
-**고원이 아니라 뾰족한 봉우리**입니다」, the 1 km buffer is a sharp peak and not a plateau — which
+**고원이 아니라 뾰족한 봉우리**입니다」, the 1 km buffer is a sharp peak and not a plateau — which <!-- forbidden-ok: wc011-buffer-width-is-a-spike-ko --> <!-- These lines RECORD the withdrawn shape claim in order to say it was withdrawn; WC-011 registered it on 2026-09-08 and this file is not record class, so the quotation is licensed per line rather than by exemption (CHARTER §3.5c). -->
 is precisely the shape §4.5 says five widths a factor of two apart cannot resolve. So it is
 **two** now, and §4.5 says two. Net **−1** word; 8,994 → **8,993**, margin **6 → 7**.
 
