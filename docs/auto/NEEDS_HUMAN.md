@@ -2627,7 +2627,7 @@ queue now has a single author-shaped gate in it, and you could not see that from
 
 **The loop still recommends A** and nothing measured today changes the recommendation.
 
-## NH-047 · FYI · open · A 403 on an artifact upload took a green run red; recorded, no reply needed
+## NH-047 · FYI · closed · A 403 on an artifact upload took a green run red; transient, guarded, nothing needed
 
 **No reply is requested.** This is recorded once so the arithmetic is not lost, and it is an FYI
 rather than a DECISION on purpose — see "why not a decision" below.
@@ -2672,3 +2672,19 @@ if it recurs**, and then it will carry the options (delete the accumulated artif
 `finals-acts` retention from 30 days, which is readiness line **R1**'s evidence and therefore the
 author's line to move, not a lap's; or raise the allowance, which costs money and is barred to the
 loop by §3.6).
+
+**CLOSED 2026-09-08T1755Z by the loop, not by the author — no reply was ever requested and none is
+needed.** The cause is settled and it was **transient**, not the storage quota this entry's
+arithmetic pointed at. **Run #254** (id 34257393284, `be05c1c`, 17:29Z) came back `success` and
+uploaded **both** artifacts — `finals-acts-be05c1c` at **2,238,011 B** (17:30:03Z) and
+`gates-be05c1c` at **9,792 B** (17:36:09Z) — one hour after run #253's 403, and *before* the guard
+existed, since that run predates it. **A store at its limit does not accept another 2.25 MB.** The
+≈555 MB estimate above was wrong; critic #44's reading was right, and the fact it rested on (the
+large upload succeeding six minutes before the small one failed) was the one that generalised.
+
+Recorded rather than deleted (§3.7), because the estimate is the kind of plausible arithmetic a
+later lap could re-derive and re-escalate on. It is wrong, and this is the counter-example.
+
+The guard at `b2cda36` stays: run #253 proved an archival upload can fail for reasons outside this
+repository, and a green gate must never depend on one. `WFG-193` and `WFG-195` close with this
+entry.
