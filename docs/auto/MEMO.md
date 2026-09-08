@@ -2365,3 +2365,31 @@ fix is the card's characters, not the substitution table: `1)`-`4)` costs nothin
 target that must itself be proved drawable. A card edit after a kit build means the kit is
 rebuilt again, so **make the prose final before the first `make printables`** — this lap
 built twice and had to drop the first, uncommitted, build.
+
+**Added after this lap's independent review BLOCKED it.** The reviewer's nail was in the
+same file and the same class, and I had shipped it while writing a disclosure block about
+what the file could not catch. `test_the_two_credentials_are_the_two_the_reproduce_page_requires`
+parsed `docs/REPRODUCE.md` §2 into `rows`, asserted `rows` was non-empty, and then compared
+the card against `{"FIRMS", "CDS"}` **typed one line below**. The derivation was decorative
+and the docstring asserted the property the code did not have (「so a third required
+credential turns the card red」). Three mutations walked through it, and the reviewer ran all
+three: a card naming one key, a card naming three, and **a third row added to REPRODUCE §2
+itself**. The first of those stayed green because `"FIRMS" in card` was satisfied by the
+token standing in the *ERA5 lag* sentence three lines above — critic #41's defect, fourth
+shipment, and this time the innocent neighbour was the very limitation the card had been
+restructured to lead with.
+
+**The rule, and it is sharper than 「scope your assertions」:** *reading the owning file is
+not deriving from it — the assertion has to **consume** what it read.* A parse whose result
+is only ever passed to `assert rows` is a decoration that reads as a derivation to every
+later reader, including the lap that wrote it. The tell is mechanical and greppable: a local
+bound from a file read, and the comparison performed against a literal. Both halves of the
+fix matter — the count now comes from `len(rows)` and the identities from the row names, and
+the identity check is scoped to the card's own `**1)**` item rather than to the card.
+
+**And the second-order lesson, which is the one worth keeping.** A WFG-186 disclosure block
+is written by the same agent that wrote the gate, out of the same model of it, so it lists
+the limits that agent already knew about. It cannot find the limit the agent was wrong about.
+It is worth writing and it is not a substitute for the independent read: this lap's block
+named one real escape and missed the one that mattered, and only a reader who had not built
+the thing found it.
