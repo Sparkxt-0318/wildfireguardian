@@ -21,14 +21,24 @@ project at least once:
    bound. This is the rule the loop breaks most often, because the second caveat is
    the one that is easy to forget when the first one has already been written.
 
-⚠ **The mutation this file CANNOT catch, stated rather than left for the next
-reader** (``docs/auto/DIRECTION.md``, critic #41's rule about mutation scores):
-rule 3 is enforced on the **English** abstract only. A lap that writes a fresh
-「42곳은 예보를 본 경로에서만 안전했습니다」 sentence into the Korean half, with
-neither caveat, passes every assertion below. Binding the Korean spelling needs the
-bilingual lint that does not exist yet (WFG-168), and the four sites where 42 appears
-today are listed in ``test_the_places_the_readme_states_42_are_the_known_ones`` so
-that a fifth one fails here instead of being found by a judge.
+⚠ **What this file's first version got wrong, kept here because it is the most useful
+thing in it.** Rule 3 was enforced on the **English** abstract only, keyed on the
+spelling ``42 of 458``, and the docstring named the Korean half as the gap it could
+not cover -- while the very same commit added a Korean bullet stating 「42곳」 with
+neither caveat. The lap's independent reviewer blocked the push on it. **Naming a
+mutation you cannot catch is not a substitute for not shipping it**, and a guard that
+lists the sites it knows about, written after looking at them, passes by construction
+(that is the leakage the ``mandela`` skill is for). Rule 3 is now enforced on **every**
+block that states the number in **either** language, keyed on the bare number so that
+dropping the denominator does not buy an escape -- which is exactly how
+``tests/test_future_aware_attribution.py`` missed the same line.
+
+⚠ **The mutation this file still cannot catch** (``docs/auto/DIRECTION.md``, critic
+#41's rule): it reads ``README.md`` only. The same uncaveated sentence written onto
+`web/finals.html`, `docs/auto/JUDGE_QA.md` or the printed panel passes everything
+here. ``tests/test_future_aware_attribution.py`` covers some of those surfaces with a
+regex that requires the denominator, so a sentence dropping it escapes there too;
+closing that properly is **WFG-168**, the bilingual lint, which does not exist yet.
 """
 
 from __future__ import annotations
@@ -209,25 +219,98 @@ def test_the_abstract_draft_states_42_with_both_binding_caveats(lines: list[str]
     )
 
 
-def test_the_places_the_readme_states_42_are_the_known_ones(readme: str) -> None:
-    """A fifth site for the 42 fails here rather than being found by a judge.
+#: The same two caveats in Korean, again as the binding clause and not a bare token.
+_FIRE_BLIND_KO = re.compile(r"불을 전혀\s*보지\s*못하는")
+_UPPER_BOUND_KO = re.compile(r"상한")
 
-    This is the guard the file's own docstring names as its weak point: the caveat
-    assertions above read the English abstract only, so what protects the rest of the
-    README is knowing exactly where the number appears. Today that is four places:
-    the TL;DR (English, both caveats present), the Round-3 re-derivation table (a
-    record of the correction), the Round-4 cross-reference (which states in its own
-    sentence that the fair opponent has NOT been run on this figure's region), and
-    the abstract draft.
+#: The ONE site that states 42 without carrying the caveats, exempted BY NAME with a
+#: written reason: the Round-3 table cell is a record of the 제출본 → 정본 correction
+#: (「미래 인지 경로로만 안전 | 17곳 | **42곳**」), not an assertion about what the
+#: forecast buys. CHARTER §3.7 keeps such records rather than editing them.
+#: ⚠ An exemption is a claim too. It is one line, it names the section, and a second
+#: exempted site may not be added without the same treatment.
+_RECORD_SITE = "미래 인지 경로로만 안전"
 
-    A new occurrence is not necessarily wrong -- it is unreviewed. Add it here once
-    it carries what DIRECTION requires.
+
+def _blocks_stating_42(readme: str) -> list[tuple[int, str]]:
+    """(1-indexed start line, whitespace-normalised text) of each block stating 42.
+
+    A *block* is a run of contiguous non-blank lines -- a paragraph, a bullet with
+    its continuation lines, or a table. That is the unit a reader actually meets,
+    and it is the unit ``_paragraph_stating_42`` already uses for the English side.
     """
-    sites = [i + 1 for i, ln in enumerate(readme.splitlines())
-             if re.search(r"42 of 458|\*\*42곳\*\*", ln)]
-    assert len(sites) == 4, (
-        f"the README states 42 at lines {sites}; this guard knows four sites. A new "
-        "one must carry the fire-blind and upper-bound caveats (or, in Korean, say "
-        "which region it does not cover) before it is added here. WFG-168 is the "
-        "bilingual lint that would make this count unnecessary."
+    lines = readme.splitlines()
+    out: list[tuple[int, str]] = []
+    start = 0
+    while start < len(lines):
+        if not lines[start].strip():
+            start += 1
+            continue
+        end = start
+        while end < len(lines) and lines[end].strip():
+            end += 1
+        block = lines[start:end]
+        if any(re.search(r"42 of 458|42곳", ln) for ln in block):
+            out.append((start + 1, " ".join(" ".join(block).split())))
+        start = end
+    return out
+
+
+def test_every_block_stating_42_carries_both_caveats_in_either_language(readme: str) -> None:
+    """DIRECTION's rule, enforced on **every** site rather than on the English one.
+
+    ⚠ **This assertion exists because the lap that wrote this file broke the rule it
+    was writing.** The first version keyed on ``42 of 458`` and on a hand-listed count
+    of "known sites", and the same commit added a Korean bullet stating 「42곳」 with
+    neither caveat in its own block -- the exact mutation the module docstring named
+    as uncatchable, shipped while naming it. The lap's independent reviewer blocked
+    the push on it.
+
+    Two things were wrong and both are fixed here. The regex required the denominator
+    (``458 … 42``), so a sentence that drops it escapes classification entirely --
+    which is how ``tests/test_future_aware_attribution.py`` also missed the new site.
+    And the "known sites" count *whitelisted* the offending line: the scope of the
+    metric was chosen after seeing the artifact, so the artifact passed by
+    construction. That is textbook measurement leakage, and it is why this test keys
+    on the bare number and exempts exactly one site, by name, with a reason.
+    """
+    blocks = _blocks_stating_42(readme)
+    assert blocks, "the README no longer states 42 anywhere -- that is a change, not a pass"
+
+    offenders = []
+    for line_no, text in blocks:
+        if _RECORD_SITE in text:
+            continue  # the Round-3 correction record, exempted above by name
+        fire_blind = bool(_FIRE_BLIND.search(text) or _FIRE_BLIND_KO.search(text))
+        upper_bound = bool(_UPPER_BOUND.search(text) or _UPPER_BOUND_KO.search(text))
+        if not (fire_blind and upper_bound):
+            missing = []
+            if not fire_blind:
+                missing.append("fire-blind opponent")
+            if not upper_bound:
+                missing.append("upper bound / 상한")
+            offenders.append(f"README.md:{line_no} is missing: {', '.join(missing)}")
+
+    assert not offenders, (
+        "a block states 42 without both binding caveats attached to it:\n  "
+        + "\n  ".join(offenders)
+        + "\n\nDIRECTION: 'Every judge-facing surface that states 42 or 91 carries "
+        "both binding caveats (fire-blind opponent; upper bound for a noiseless "
+        "forecast). A new sentence about either number carries both caveats or it is "
+        "not written.' A caveat in a neighbouring block does not count -- a judge "
+        "reading this sentence would never meet it."
+    )
+
+
+def test_the_record_exemption_still_matches_exactly_one_block(readme: str) -> None:
+    """The exemption above is a claim, so it is checked like one.
+
+    An exemption that silently widens is how a rule dies. If the Round-3 record cell
+    is reworded, or a second block acquires the same anchor text, this fails and the
+    next lap re-decides deliberately instead of inheriting a hole.
+    """
+    exempted = [ln for ln, text in _blocks_stating_42(readme) if _RECORD_SITE in text]
+    assert len(exempted) == 1, (
+        f"the record exemption matches {len(exempted)} blocks stating 42 (lines "
+        f"{exempted}); it is written for exactly one, the Round-3 correction table."
     )

@@ -2303,3 +2303,28 @@ to clear it — every measurement the critic published made the number it publis
 gate whose alarm can only be answered by a routine other than the one that can see it is not
 an alarm, it is a countdown. That is now a fact in the record for **NH-043** rather than a
 prediction.
+
+**Same lap, the reviewer's block, and it is the sharper half.** The paragraphs above were
+written before the review. The reviewer blocked the push, and what it found was that the
+lap had **shipped the very mutation it was naming as uncatchable**: the module docstring
+said 「a fresh uncaveated 「42곳」 sentence in the Korean half passes」, and the same commit
+added one, at `README.md:227`, in the Round-4 section. It also found the mechanism —
+`test_future_aware_attribution.py`'s claim regex requires the denominator (`458 … 42`), so
+a sentence that drops it is never classified as a claim at all — and the deeper defect:
+the guard listed the four 「known sites」 **after looking at them**, so the offending line
+was whitelisted and the README passed by construction.
+
+**Two rules out of it.** First: **naming a mutation you cannot catch is not a substitute
+for not shipping it.** Critic #41's rule asks a lap to publish the denominator of its own
+coverage claim; this lap published it and then wrote an instance of it into the same
+commit, which converts an honesty practice into an alibi. The clause belongs in the report
+*and* the instance belongs out of the tree. Second: **a guard whose scope is a list
+written after reading the artifact passes by construction** — that is the `mandela` leakage
+pattern, and the tell is that the list is a count (「four known sites」). Key the assertion
+on the thing itself (the bare number, either language, every block) and exempt by **name
+with a reason**, then assert the exemption still matches exactly one thing.
+
+**And the shape that made both possible:** the assertion required the denominator, so
+dropping it was an escape. `WC-004` already says a reworded assertion escapes a registered
+spelling. The same sentence is true of every regex this project uses to find a claim, and
+each one should be attacked by removing a *part* of the pattern rather than by negating it.
