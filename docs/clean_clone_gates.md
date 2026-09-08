@@ -42,7 +42,11 @@ any non-loopback address, and to any address named in the environment's
 `*_proxy` variables even when it is loopback. A test that reaches the network
 fails, naming CHARTER §4b, on every machine.
 
-**Result, measured 2026-09-08 on this sandbox at `088203c`.** With
+**Result, measured 2026-09-08 on this sandbox at `ab4e71e`.** ⚠ This line read
+`088203c` until 2026-09-08T0321Z, and `git ls-tree -r 088203c -- tests/conftest.py`
+is empty: the guard this result is about first exists at `ab4e71e`, the commit that
+added it. The measurement was real and was reproduced; the commit id under it named
+a tree with no guard in it (critic #39, WFG-178). With
 `data/raw/dem/srtm/` and the derived `data/cache/dem_yeongdeok_2025_srtm_500m_*.nc`
 deleted first, a full `pytest` run with the guard active **flagged three tests**:
 **two** real network uses — one more than the backlog row had named in eleven
@@ -82,8 +86,18 @@ were named by this lap's independent reviewer and not by the lap. The guard's ow
 blocked nothing in this sandbox, whose egress runs through
 `HTTPS_PROXY=http://127.0.0.1:38639`; that is why the proxy clause exists and
 why `tests/test_no_network_in_tests.py` asserts it rather than trusting it. The
-six SRTM tests that `skipif` on the cached tile still skip on a clean clone —
-this row makes that honest, it does not make them run.
+The **7** tests that `skipif` on the cached tile still skip on a clean clone —
+this row makes that honest, it does not make them run. ⚠ This sentence said **six**
+until 2026-09-08T0321Z, and the seventh
+(`tests/test_raster_ingestion.py::test_auto_dem_prefers_srtm_when_the_tile_is_cached`)
+was added by the same commit that wrote the six. Beside them, **4** more skips say SRTM
+in their `reason` while gating on `data/raw/firms_data/yeongdeok_2025_dem.tif`, a
+laptop-bundle GeoTIFF and not the tile (`tests/test_slope_digraph.py`); that naming
+defect is WFG-180. So `pytest -rs` prints eleven SRTM-looking skips on a clean clone
+and only seven of them are about this tile. **Neither number is typed here twice:**
+`tests/test_tile_gated_skip_count.py` derives both from the test sources by walking
+their `skipif` decorators, and fails when this sentence or the Q28/Q40 cards disagree
+with the tree.
 
 **Warming the cache on purpose** is a script's job, not a test's. Set
 `WFG_TESTS_ALLOW_NETWORK=1` for a whole run if you must; no gate and no workflow
