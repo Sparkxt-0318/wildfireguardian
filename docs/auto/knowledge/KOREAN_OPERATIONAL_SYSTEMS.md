@@ -47,3 +47,40 @@
 - 경향신문 (2026-03-30). 산불 경로·피해 지역, 미리 예측해 전파한다 — 경기도, AI 예측 모델 자체 개발. <https://www.khan.co.kr/article/202603301116001/> [opened]
 - 국립산림과학원 (2026-03-13). 「2026 산불 제대로 알기」 발간 (public Q&A booklet; ignition, spread, evacuation guidance). 대한민국 정책브리핑 <https://www.korea.kr/briefing/pressReleaseView.do?newsId=156748710&call_from=rsslink> [abstract — search result summary; the booklet itself was not opened]
 - 국가산불위험예보시스템 (occurrence side, already in `PYROGEOGRAPHY.md` §2.5). <https://forestfire.nifos.go.kr/> [opened previously, 2026-09-04]
+
+---
+
+## Update 2026-09-08
+
+*Research routine, sandbox. Scan window: new since 2026-09-06. Nothing above is deleted; §3's reading is revised in place below.*
+
+**1. Korea has published elderly-evacuation timing thresholds, and this note did not have them.** 헤럴드경제, **2026-02-12**, 「산림과학원, AI·빅데이터 기반 '산불 전방위 대응 시스템' 가동」, <https://biz.heraldcorp.com/article/10675702> [opened]. Reporting 국립산림과학원's 2026-02-12 strategy announcement, and quoted here in the agency's own words because the whole value of the item is its exact wording:
+
+> 「'준비(Ready)-실행 대기(Set)-즉시 실행(Go)'으로 이어지는 단계별 체계」
+>
+> 「화선 도달 8시간 전 산불확산 예측 정보를 바탕으로 고령자 등 안전 취약계층의 선제적 대피를 돕고, 5시간 전에는 대상 주민이 안전한 곳으로 지체 없이 이동하도록 유도할 방침」
+
+The article restates the same plan figures §6 already carries — 산불위험 예측 정확도 **76 % → 88 %** by 2027, 산불확산예측 정밀도 **약 30 % 향상** — with the same status: agency plan statements, no published metric definition, and (per CHARTER §3 rule 5b and §13) they stay in this note with their agency, date and scope and reach no card, no README, no manuscript and no `docs/NUMBERS.json`.
+
+**Scope and provenance, stated plainly because the temptation here is large.** This is a **press restatement of an agency announcement**, obtained through a general web search; the routine did not open a NIFoS or 행안부 primary document, and NH-039 (the ~18 MB 사용자가이드 the sandbox cannot retrieve) is now more valuable than it was, because it is the nearest primary source for a doctrine this project wants to reference. Treat 8 h and 5 h as **the lead times national policy plans its decisions around**, not as validated, measured or externally evaluated thresholds. The agency's own framing is 「방침」 — an intention.
+
+**2. Why this is the most consequential thing found in two runs.** `docs/MODEL_CARD.md:344` fixes this project's forecast horizon at **3–12 h**, evaluated at 3/6/9/12 h. **5 h and 8 h lie strictly inside that window.** Until now, the answer to 「왜 3–12시간입니까?」 in this repository was a data-and-label answer: the FIRMS overpass cadence and what the next-overpass label supports. That answer is true and it sounds like an excuse. The available second answer is that the horizon contains the two lead times at which Korean national doctrine actually makes and completes the elderly-evacuation decision — which reframes the horizon as an operational design choice that happens to coincide with a data constraint, rather than as a data constraint dressed up.
+
+⚠ **Three limits, and none of them is optional.**
+- **It says nothing about sufficiency.** Nothing here measures whether this project's forecast is good enough at 5–8 h, and its own forward-sim envelope of ≈ 0.40 over 3–12 h (`docs/MODEL_CARD.md:348`) argues against any comfort. The permitted sentence is 「정책이 대피 의사결정을 상정하는 시점이 5–8시간이고, 이 작품의 예보 지평이 그 구간을 포함한다」. The forbidden sentence, and it is forbidden in Korean and in English alike, is 「따라서 우리 예보가 정책 요건을 충족한다」.
+- **The two clocks are not the same clock.** 「화선 도달 8시간 전」 is measured backwards from fire-line arrival at a place; this project's horizon runs forward from forecast issue. They coincide only under instantaneous detection, and `docs/detection_floor.md` exists precisely to say detection is not instantaneous. Any card that puts them side by side must say this.
+- **This is a plan, and plans move.** The date is 2026-02-12 and the target year quoted for the accuracy figures is 2027. A later run should re-check whether the doctrine was published in a primary document and whether the thresholds changed.
+
+**3. G-DAPS: re-checked, nothing new.** The 경기도 model entered 시범운영 in April 2026 (§2). This run searched specifically for a trial-operation results publication and **found none**; the 2026-03-30 경향신문 record stands, including that **no accuracy figure has been published**. WFG-163, which narrowed the manuscript's trial-operation claim, is unaffected and remains correct.
+
+### What this means for WildfireGuardian — revision of §3, 2026-09-08
+
+§3's central finding stands and is unchanged: **the honest differentiator against NIFoS and G-DAPS is the output object — a suppression- or alert-oriented spread footprint at 읍면동 granularity versus a per-household walk-or-be-rescued decision on public, re-derivable data — and it is never accuracy**, because the agency figures are plan statements with no metric definition and this repository has no basis for comparison. This run adds one thing to it, and it cuts the other way from a differentiator:
+
+- **The doctrine is an alignment, not a difference, and that is why it is worth saying.** Korea's Ready-Set-Go ladder makes exactly the decision this project's output object is: *this category of resident, at this lead time, moves or is moved*. The project is not proposing a decision nobody asked for; it is producing, per household, the decision the national ladder specifies per 읍면동. Say that at the booth **before** the differentiator, because it establishes that the project is inside the operational frame rather than beside it — and then the output-object difference lands as a refinement of something real rather than as a claim to have invented the problem.
+
+### Backlog candidates from this update
+
+| id | question | data | when | rules |
+|---|---|---|---|---|
+| **B10** | Does `docs/auto/JUDGE_QA.md` carry a card for 「왜 3–12시간 예보입니까?」 that answers with the Ready-Set-Go 5–8 h decision points, carries the ≈ 0.40 envelope figure in the same card, and states the two-clocks limit? And does the manuscript's Discussion have the matching operational-relevance line? | none — prose; the two Korean sources in §6 and this update | **before-freeze**; filed this run as **WFG-197** | yes — the 8 h/5 h/76 %/88 %/30 % figures stay in this note, with agency, date and scope; none is registered |

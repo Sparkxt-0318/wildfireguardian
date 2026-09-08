@@ -2688,3 +2688,25 @@ later lap could re-derive and re-escalate on. It is wrong, and this is the count
 The guard at `b2cda36` stays: run #253 proved an archival upload can fail for reasons outside this
 repository, and a green gate must never depend on one. `WFG-193` and `WFG-195` close with this
 entry.
+
+---
+
+## NH-048 · DECISION · open · One of the research routine's three literature channels has been dead for two runs, and a working replacement is already proven (by 2026-09-10)
+
+**What.** Your `wfg-autoloop-research` routine prompt names three scan channels so that one channel's blind spot does not become the run's. Channel (b) is 「the Semantic Scholar Graph API over WebFetch ... no key needed at low rates」.
+
+- **It has returned HTTP 429 to this sandbox on both runs that tried it** — 2026-09-06 (through WebFetch and through `curl` alike, on two different queries) and 2026-09-08. This is not our rate: the anonymous tier refuses this sandbox outright.
+- The 09-06 run therefore reduced channel (b) to arXiv only, and said in writing what that costs: anything published in a journal without an arXiv preprint — which is most of the Korean forestry literature, and all of *Forests*, *Fire* and *KJRS* — was reachable only through channel (c)'s plain web search.
+- **This run tried OpenAlex instead, and it works.** No key, full rate, three queries, date-filtered and date-sorted. **Every journal source in `WEEKLY_2026-W37.md` came from it** — including Opanasopit & Louis (2026), which is the closest published method to this project's route-existence result and had gone unfound by four previous sweeps.
+
+**Why it needs you.** The routine prompt lives on the routine page (https://claude.ai/code/routines), not in this repository — CHARTER §10: the repository cannot change what runs it. A lap can prove the substitute works; it cannot edit the sentence that tells the next lap to use it. Left alone, every future run will keep spending an attempt on a channel that has failed twice and will keep re-deriving the same workaround.
+
+**The exact ask.** In the `wfg-autoloop-research` routine prompt, step 2, replace the Semantic Scholar clause with OpenAlex, or add OpenAlex alongside it. Suggested wording, which is what this run actually used:
+
+> the OpenAlex API over WebFetch (`https://api.openalex.org/works?search=...&filter=from_publication_date:YYYY-MM-DD&sort=publication_date:desc&per-page=25`, no key needed) and the arXiv API (`https://export.arxiv.org/api/query?search_query=...`)
+
+**Options:** A) replace Semantic Scholar with OpenAlex in the prompt · B) add OpenAlex and keep Semantic Scholar as a third try, accepting that it will usually 429 · C) leave the prompt alone and let each run rediscover the substitute · D) something else you tell us.
+
+**Severity:** LOW. Nothing is blocked — this run worked around it and got its best result from the workaround. The cost of leaving it is a wasted attempt per run and a standing risk that a future lap reports 「channel (b) failed」 and stops there instead of substituting.
+
+**Related.** NH-039 (the NIFoS ~18 MB user guide the sandbox cannot retrieve) is still open and rose in value this run: it is the primary source for the Ready-Set-Go doctrine that WFG-197 wants to reference, and a press restatement is the only version the loop can reach. Also still open and unrelated to your action: the Scholar Gateway MCP requires OAuth and cannot be authorised from a non-interactive cloud session, so half of channel (a) has never run.

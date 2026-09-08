@@ -38,3 +38,11 @@ Moreno, M., Steger, S., Bozzoli, L., Terzi, S., Trucchia, A., van Westen, C., Lo
 *Research routine, sandbox.* **No change, and the reason is worth recording rather than leaving as silence.** This run's scan surfaced no new figure-style reference and no new source bearing on `paper/style.py`. The rules in §2 and the implementation in §3 are unchanged and stay in force.
 
 One observation the scan does support, filed here because it is where a lap would look for it: the strongest new external result this run found (Farajpoor & Narimani 2026, `PYROGEOGRAPHY.md` §Update 2026-09-06) is a **paired** comparison of the same model under two validation schemes, and its whole rhetorical force is that the two numbers sit side by side. That is the same shape as this project's every headline — fire-blind versus forecast-aware on the same origins — and §2's rule that a comparison figure must share axes, scale and colour mapping across its panels is what makes that shape legible. Nothing to change; the rule is doing its job, and this is the kind of figure it exists for.
+
+## Update 2026-09-08
+
+*Research routine, sandbox. Scan window: new since 2026-09-06.*
+
+**Nothing new. The rules in §2 and the implementation in §3 are unchanged, and no source this run touched bears on figure style.** Recorded as an explicit no-change rather than left silent, so that a later reader can tell "scanned and nothing found" from "not scanned" — the same distinction this run insists on for its UNVERIFIED sources.
+
+One observation, from reading rather than from a source: the two candidates this run filed (**WFG-197**, **WFG-198**) are both prose-and-card rows that produce **no figure**, so `paper/style.py` and the finals screen acquire no new drawing obligation from this run.

@@ -70,3 +70,16 @@ Farajpoor & Narimani (2026-08-23, arXiv:2608.22293, <https://arxiv.org/abs/2608.
 **What it changes for the WUI thresholds question.** Nothing — the Radeloff et al. (2005/2018) numeric thresholds remain **UNVERIFIED** here (`PYROGEOGRAPHY.md` §7). This paper does not use them.
 
 - Farajpoor, P., Narimani, M. (2026). The spatial anatomy of urban wildfire vulnerability: a spatially validated GeoAI framework reveals the roles of building density and vegetation moisture in structure loss during the 2025 Palisades Fire. arXiv:2608.22293. <https://arxiv.org/abs/2608.22293> [opened]
+
+## Update 2026-09-08
+
+*Research routine, sandbox. Scan window: new since 2026-09-06.*
+
+**Nothing was found that changes the decision in §3, and this run is saying so rather than padding.** The FireDX decision — read, understood, deliberately not adopted before the finals — stands unchanged.
+
+Two WUI-adjacent items surfaced and neither is usable:
+
+- 「The temporal trajectories and driving forces of wildfire regimes differing between wildland–cropland and wildland–urban interfaces on the Central Yunnan Plateau」 (*Ecological Processes*, 2026-09-01, 10.1186/s13717-026-00745-x). **Paywalled to this sandbox** — `link.springer.com` redirected to `idp.springer.com` — so it was **not opened and none of its content is recorded here.** It is flagged as the most relevant outstanding WUI lead because it is East Asian, because it separates the wildland–**cropland** interface from the wildland–**urban** interface, and because rural 경상북도 is materially more a wildland–cropland interface than a wildland–urban one in the North American sense — which is the unexamined assumption underneath §3's decision and underneath WFG-092's SILVIS check. A later run that opens it should read it against §3 directly.
+- Opanasopit & Louis (2026, *Frontiers in Built Environment*, 10.3389/fbuil.2026.1856100) [opened] treat the built environment as **exposure connected by a road network** rather than as fuel, which is the framing this note's §3 already chose for the pre-finals project. It is recorded in `ROUTING_FUNDAMENTALS.md` §Update 2026-09-08, where it belongs, and is noted here only as independent support for the exposure-not-fuel decision.
+
+**What this means for WildfireGuardian:** §3 and §4 are unchanged. The post-finals Korean BFM-lite (WFG-059) stays P3, and the wildland–cropland framing question above is worth carrying into it — a Korean BFM-lite built on a North American WUI definition would inherit an assumption nobody here has tested.

@@ -29,3 +29,17 @@
 **The cheapest test that would revive it.** A source showing that language or literacy is a measured barrier for this specific population in a Korean wildfire evacuation. None was found this run.
 
 **Status:** parked. BEACON is kept as a citation in `ROUTING_FUNDAMENTALS.md` §Update 2026-09-06 for one narrow purpose: its router is 「polygon-avoidant」 around the *current* perimeter, which is independent evidence for what deployed guidance systems actually do and therefore for why the present-perimeter opponent is the fair one to beat.
+
+---
+
+## P-003 · 2026-09-08 · Multi-window (7/30/90-day) drought windows as `spread_v2` features
+
+**The idea.** Chen et al. <!-- forbidden-ok: Chen --> (2026-09-01, *PLOS ONE*, 10.1371/journal.pone.0355829, <https://doi.org/10.1371/journal.pone.0355829>, [opened]) build FWI-MSNet, which encodes fuel dryness at **three timescales at once** — parallel 1D-CNN channels with 7-, 30- and 90-day kernels for daily fuel response, monthly drying and seasonal drought accumulation — and report test R² 0.9251 against seven baselines, with an approximate 56.1 % error reduction. The suggestion is to add matching multi-window drought features to this project's `spread_v2` feature set.
+
+**Why it is attractive.** The design observation is genuinely good and genuinely transferable in principle: dryness carries information at more than one timescale, and a flat feature vector at one window throws part of it away. It is also cheap to describe and would make an easy slide.
+
+**The objection that parks it (root, from `hate`).** **It is a refit, and a refit is the one thing this project cannot do before the finals.** CHARTER §3 rule 2 forbids modifying, overwriting or regenerating a committed artifact, and every headline number in the repository — the operating point, the LOFO-CV AUC, the reconciliation, the forward-sim envelope — is downstream of the fitted `spread_v2` model. Changing its features means refitting, which means every one of those numbers becomes a new number, seven days before the sprint ends and six weeks before the finals, with no time to re-validate any of them. A second leg: the source task is **regression of a fire-danger index at a station**, not next-overpass ignition on a 500 m grid, so the transfer of the *architecture* to this label is unevidenced — the paper gives no reason to expect the 7/30/90-day decomposition to help a different target, and its own cross-geography transfer (R² 0.9251 → 0.57–0.77) shows how much its performance depends on where it was fitted.
+
+**The cheapest test that would revive it.** After the finals, and only on the ISEF/IEEE track (WFG-032's leak-free fold is the natural place): fit one additional arm with the multi-window drought features against the existing arm on the identical LOFO-CV split, and report both. If the multi-window arm does not beat the existing one under leave-one-fire-out, the idea is dead and the null is publishable; if it does, it is a paper result with a clean provenance, produced with a new filename and a new registry key rather than by editing anything. **Not filed as a row this run**, because it cannot start before 2026-10-24 and the backlog already carries twelve P0 rows with seven sprint days left.
+
+**Status:** parked, post-finals. Chen et al. <!-- forbidden-ok: Chen --> stays cited in `PYROGEOGRAPHY.md` §Update 2026-09-08 for the thing it is actually good for here: a second external instance of the honest-validation penalty, measured across geography rather than across spatial blocks.

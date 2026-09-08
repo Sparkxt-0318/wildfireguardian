@@ -121,7 +121,7 @@ Items deliberately **not** proposed, because the brief §(d) refutes or parks th
 - Jones, M. W., Abatzoglou, J. T., Veraverbeke, S., et al. (2022). Global and regional trends and drivers of fire under climate change. *Rev. Geophys.* 60(3): e2020RG000726. https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2020RG000726 [abstract]
 - Cunningham, C. X., Williamson, G. J., Bowman, D. M. J. S. (2024). Increasing frequency and intensity of the most extreme wildfires on Earth. *Nat. Ecol. Evol.* 8: 1420–1425. https://www.nature.com/articles/s41559-024-02452-2 [abstract]
 - Balch, J. K., Abatzoglou, J. T., Joseph, M. B., et al. (2022). Warming weakens the night-time barrier to global fire. *Nature* 602: 442–448. https://www.nature.com/articles/s41586-021-04325-1 [abstract]
-- Sedano, F., Randerson, J. T. (2014). Multi-scale influence of vapor pressure deficit on fire ignition and spread in boreal forest ecosystems. *Biogeosciences* 11: 3739–3755. https://bg.copernicus.org/articles/11/3739/2014/ [abstract] <!-- forbidden-ok: Multi-scale -->
+- Sedano, F., Randerson, J. T. (2014). Multi-window influence of vapor pressure deficit on fire ignition and spread in boreal forest ecosystems. *Biogeosciences* 11: 3739–3755. https://bg.copernicus.org/articles/11/3739/2014/ [abstract] <!-- forbidden-ok: Multi-window -->
 
 **Korea / East Asia**
 - Kim, N., Kwak, J., Kim, M.-I. (2021). 양간지풍 특성을 고려한 동해안 대형 산불의 수치시뮬레이션 / Numerical simulations of large forest fires in the east coastal region of Korea considering the Yangganjipung local wind. *J. Korean Soc. Hazard Mitig.* 21(4): 39–48. https://www.j-kosham.or.kr/upload/pdf/KOSHAM-2021-21-4-39.pdf [opened]
@@ -217,3 +217,27 @@ Items deliberately **not** proposed, because the brief §(d) refutes or parks th
 | id | question | data | when | rules |
 |---|---|---|---|---|
 | **B6** | Does the manuscript's related-work section state the honest-validation penalty with an external citation, and does `docs/auto/JUDGE_QA.md` carry a card for 「랜덤 분할로 재면 AUC가 더 높지 않습니까?」 | none — prose plus one citation, `paper/references.bib` | **before-freeze**; filed this run as **WFG-142** | yes — no artifact, no number registered, and the external figures stay in this note |
+
+---
+
+## Update 2026-09-08
+
+*Research routine, sandbox. Scan window: new since 2026-09-06. Channel (b) changed this run — Semantic Scholar returned HTTP 429 for the second consecutive run and **OpenAlex** was substituted and works, which is why this update has a journal source at all. Nothing above is deleted.*
+
+**1. Fuel dryness is multi-timescale in time, and an East Asian station has now put an architecture on that.** Chen et al. <!-- forbidden-ok: Chen --> (2026-09-01, *PLOS ONE*, 10.1371/journal.pone.0355829, <https://doi.org/10.1371/journal.pone.0355829>) [opened] build **FWI-MSNet**, which organises its inputs by the Fire Weather Index system's own temporal structure rather than by a flat feature vector: **three parallel 1D-CNN channels with kernel widths of 7, 30 and 90 days**, for daily fuel response, monthly drying and seasonal drought accumulation respectively, fused by a GRU-Transformer hybrid. Trained on **Huitong Ecological Station, China, 2005–2022** (18 years of continuous observation), it reports test **R² 0.9251, RMSE 1.6892, MAE 1.4046, MAPE 30.47 %**, about a 56.1 % error reduction against seven baselines including gradient-boosted trees, LSTM and CNN; transferred to the 2020 Australian fires over six ERA5 regions it reports **R² 0.57–0.77** with MAPE near 25 %. **What it changes for this project.** Two things, neither of them a number here. (i) It is a second, independent external instance of the honest-validation penalty §6 insight 2 and the 2026-09-06 update record: 0.9251 at the training station against 0.57–0.77 off it is the *geographic* version of the spatial-block penalty Farajpoor & Narimani measured, and it points the same way. (ii) It says the fuel-dryness signal that carries information is spread across day-to-season timescales — which is a design observation about *features*, not a licence to change ours. ⚠ **This is an index regression, not next-overpass ignition.** Its R² and this project's AUC measure different things on different labels and **must never appear side by side**. Adding 7/30/90-day drought windows to `spread_v2` is a refit and CHARTER §3 rule 2 forbids it before the finals; the idea is parked as **P-003** in `docs/auto/research/IDEAS_PARKED.md` with the cheapest test that would revive it.
+
+**2. A lead on the motivating event's winds, recorded as UNVERIFIED.** OpenAlex surfaced 「From the Stratosphere to the Surface: The Case of the April 2025 Wind Extremes in Eastern Asia」 (Research Square, 2026-09-04, 10.21203/rs.3.rs-10649476/v1). **This run could not open it — HTTP 403 — and no part of its content is written here or anywhere else in this repository.** It is recorded only as the single most relevant outstanding lead for §2's account of the March 2025 wind regime, and a later run that opens it should read it against §2 rather than assuming it confirms anything. Note also that the title's window is **April** 2025 and the motivating fires began **22 March** 2025; whether it covers the fire period at all is unknown until someone opens it.
+
+**3. Still nothing on §7's open questions, and one new standing negative.** The 산불피해대장 reconciliation, the Radeloff thresholds, the NERO pyroCb claim, Sullivan et al. (2014)'s slope correction and a measured field ROS for *P. densiflora* litter are all unchanged and open. New this run, and worth stating because two runs is a pattern rather than an accident: **no conformal-prediction or conformal-risk-control paper applied to wildfire hazard mapping has been found in either run.** The four conformal papers surfaced (arXiv:2609.03104, 2609.01375, 2608.27124, 2608.26529) are in CSI prediction, LLM judging and vision-language factuality. That is a genuine gap in the literature rather than a gap in the scan, and it is the kind of gap the IEEE plan should note.
+
+### What this means for WildfireGuardian — revision of §6, 2026-09-08
+
+§6's ten insights stand unchanged. One is amended in place:
+
+- **Insight 2 gains a second external instance, in a different direction.** The 2026-09-06 update gave it the *spatial-block* penalty (AUC 0.92 → 0.75, Farajpoor & Narimani 2026). This run adds the *geographic-transfer* penalty (R² 0.9251 → 0.57–0.77 off the training station, Chen et al. <!-- forbidden-ok: Chen --> 2026). The reading is unchanged and now better supported: **skill measured where the model was fitted is not the skill it has elsewhere, and this project's LOFO-CV pays that cost on purpose.** Both remain analogies and neither may be used to normalise this project's own number — different tasks, units and labels. That prohibition is the same one CHARTER §3.5 states.
+
+### Backlog candidates from this update
+
+| id | question | data | when | rules |
+|---|---|---|---|---|
+| **B8** | Does any conformal-risk-control method have a published wildfire-hazard-mapping instance? Two runs say no. If that survives a third run, it is a stated gap for the IEEE paper rather than a citation to chase | none — literature only | **for-the-paper**; not filed as a row this run | yes — a negative result, recorded as one |

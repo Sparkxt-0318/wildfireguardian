@@ -18,6 +18,7 @@
 - A withdrawn-claim record that is machine-checked across 925 gated files (`docs/auto/withdrawn_claims.json`, `WC-001`…`WC-004`), which is an unusual and genuinely reviewable thing to be able to show.
 - Figures drawn from committed artifacts in one style at 300 dpi, colour-blind safe.
 - Leave-one-fire-out cross-validation rather than random splits — and as of this run there is an external measurement of what that discipline costs elsewhere (Farajpoor & Narimani 2026, §2.1 of `WEEKLY_2026-W36.md`).
+- As of 2026-09-08 there is a **second** external instance of that penalty, in a different direction: FWI-MSNet reports R² 0.9251 at its training station and 0.57–0.77 transferred off it (Chen et al. <!-- forbidden-ok: Chen --> 2026, §2.3 of `WEEKLY_2026-W37.md`). Both remain analogies on different tasks and neither may normalise this project's own number.
 
 ## 3. Open gaps that bear on a submission, in the order a reviewer will hit them
 
@@ -31,6 +32,8 @@
 | G2 | practitioner consultations, and naming permission for the three researchers already quoted | the author (NH-009) | before any submission |
 | G6 | refuge provenance — OSM points versus the committed 주소정보누리집 designated sites | WFG-073, runnable in the sandbox | before freeze |
 | new | related work does not yet name the two-stage supported-evacuation problem class (arXiv:2608.05413) or the domestic operational systems | WFG-026, WFG-144 | before freeze |
+| G9 | **related work does not situate the route-existence result against accessibility/isolation literature.** A reviewer who knows connected-component accessibility analysis (Opanasopit & Louis 2026, 10.3389/fbuil.2026.1856100) will read an unsituated route-existence claim as an invention claim and refute it with one citation. The fix states the delta instead — static severance under a post-event footprint versus time-dependent severance under a forecast field | WFG-198 (research lap, 2026-09-08) | before freeze |
+| G10 | **the Discussion has no operational-relevance anchor.** Korea's Ready-Set-Go doctrine makes the elderly-evacuation decision at 8 h and completes it at 5 h before fire-line arrival (헤럴드경제 2026-02-12), and the manuscript's 3–12 h horizon contains that window. Without it the horizon reads as a data artifact; with it, an operational choice. Must carry the two-clocks limit and must claim no sufficiency | WFG-197 (research lap, 2026-09-08) | before freeze |
 
 ## 4. Author-only items, collected in one place
 
@@ -49,3 +52,4 @@
 ## 6. Changelog
 
 - **2026-09-06** — page created. Venue candidate recorded with the one figure that had already been read; the APC problem named as an author decision rather than left implicit; the alternative-venue survey filed as the next run's IEEE task; gap table assembled from `paper/GAPS.md` and this run's two new related-work items.
+- **2026-09-08** — two gaps added (**G9** route-existence not situated against accessibility/isolation literature; **G10** Discussion has no operational-relevance anchor), each with the row that closes it. §2 gains a second external instance of the honest-validation penalty. **The alternative-venue survey that the 2026-09-06 entry filed as this run's IEEE task was NOT done** — this run spent its scan budget on repairing channel (b) after Semantic Scholar's second consecutive 429, and on the domestic doctrine finding. It carries forward to the next research lap (2026-09-10) and is named here so it is not quietly dropped a second time. Venue, timing and the APC problem are unchanged; **nothing was submitted anywhere**.
