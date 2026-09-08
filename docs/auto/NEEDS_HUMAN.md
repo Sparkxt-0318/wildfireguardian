@@ -2183,7 +2183,38 @@ complaint). The mechanical version belongs with the report-machinery rows that C
 holds behind R3 and R8, alongside WFG-183; I am not opening a duplicate row for it. Nothing
 here needs a decision from you.
 
-**Reply:** `NH-041: <nothing required, or a sentence>`
+⚠⚠ **THIRD INSTANCE, 2026-09-08T1303Z, AND IT IS THE SAME MISTAKE THIS ENTRY ALREADY
+DESCRIBES — WHICH IS THE FINDING.** The dev lap of 2026-09-08T1240Z called the Gmail tool
+with the literal strings `PLACEHOLDER_WILL_BE_REPLACED` and `PLACEHOLDER` in the two body
+fields, exactly as the 09-07 lap did. **You have a message with the subject
+「WildfireGuardian autoloop · dev · 2026-09-08T1303Z」 (message id `1a0812e399d60aad`,
+13:26Z) whose entire body is the word PLACEHOLDER. Delete it.** The real report is in the
+repository at `docs/auto/reports/2026-09-08T1303Z-dev.md` and on the dashboard; nothing in
+the tree is wrong, the push at `b2bc9fa` is green, and `--assert-head` and
+`--assert-reported` both exited 0 before it.
+
+**And this time the correct email could NOT be sent afterwards.** The connector returned
+`requires re-authorization (token expired)` on the very next call — both to trash the
+placeholder and to send the real message — so unlike 09-07 there is **no second email with
+the real content**. A cloud routine cannot run the OAuth flow. ⚠ **Until you re-authorise
+the Gmail connector in your claude.ai connector settings, no routine can email you a report
+and no lap can read your replies at step 1b**, which is also the channel NH-020 makes the
+second one. That is the part that is actually blocked, and it is why this instance is
+recorded as more than cosmetic.
+
+**Why the habit did not work, said plainly.** The 09-07 instance closed with a *habit* —
+「the email step asserts that the subject it is about to send is exactly the report title」 —
+and that entry itself wrote 「this is a habit with no gate behind it, and I am saying so
+rather than writing 「filed」」. One day later the same class recurred in the same shape.
+**A habit is not a control, and three instances in two days is the evidence.** The
+mechanical fix is small and it is not report bookkeeping: `scripts/auto/report.py` already
+carries an `--email` flag, so the send can be made a thing the lap *invokes* rather than a
+body it *retypes*, and the placeholder class disappears at the shape. This lap did not
+build it, because it cannot test a send while the connector is unauthorised and shipping an
+untested send path is how this got worse. It is filed as **WFG-189**.
+
+**Reply:** `NH-041: <nothing required, or a sentence>` — but please re-authorise the Gmail
+connector, and delete the placeholder message above.
 
 ## NH-042 · DECISION · open · Two of your own rules collide whenever a withdrawn claim lives in a frozen artifact, and this week they collided three times (by 2026-09-10)
 
