@@ -164,6 +164,44 @@ def _flat(text: str) -> str:
     return re.sub(r"\s+", " ", text)
 
 
+def _sentence_with(text: str, needle: str) -> str:
+    """The ONE sentence of ``text`` that contains ``needle``, flattened.
+
+    Why a sentence and not the card. Critic #41's WFG-185: the scope assertion
+    below used to read ``COUNTED_RUN in _card("16b")``, and it passed on a
+    coincidence — the run directory sits in the card's 근거 block under the
+    ``nothing_was_sent`` claim, four paragraphs from the sheet count, so the
+    count could have been wholly unscoped and this gate would have stayed
+    green. A scope token that is not in the same sentence as the number does
+    not scope it for the judge listening to the student say the number.
+
+    Splitting on ``[.!?]`` followed by whitespace is safe for these cards: the
+    only inline periods are inside backticked filenames (``printable.py```),
+    where the next character is a backtick rather than a space.
+
+    **The mutation this could NOT be made to catch** (WFG-186 asks every graded
+    gate to name one). Two mutations go red: the pre-fix wording, which left the
+    run directory in the 근거 block (M1), and the same token moved one sentence
+    away inside the card (M2). The one that stays GREEN is a superset phrasing —
+    「``outputs/dispatch/20260801T163042Z`` 를 포함해 커밋된 33장 전부에」 — where
+    the token sits in the counting sentence but the grammar re-attaches 33 to a
+    set that *contains* the run directory, i.e. the whole tree, which is false.
+    Co-location is not attachment, and nothing here reads Korean grammar. A
+    future lap that wants that caught needs the token adjacent to the count
+    (「<run> 의 커밋된 N장」), not merely inside the sentence; that is a stricter
+    assertion than this one and it was not written, so the hole is stated here
+    rather than left for the next reviewer.
+    """
+    parts = re.split(r"(?<=[.!?])\s+", _flat(text))
+    hits = [p for p in parts if needle in p]
+    assert len(hits) == 1, (
+        "expected exactly one sentence carrying " + repr(needle) + ", found "
+        + str(len(hits)) + ". Two sentences stating the same count is the "
+        "duplication WFG-178 was about; zero means the split broke."
+    )
+    return hits[0]
+
+
 def _manifests() -> list[Path]:
     """Every committed run record carrying the key — both spellings.
 
@@ -221,12 +259,6 @@ def test_every_committed_sheet_carries_the_footer_and_the_card_counts_them() -> 
         "is printed by construction: " + ", ".join(missing[:5])
     )
     sheets = _counted_sheets()
-    assert COUNTED_RUN in _card("16b"), (
-        "Q16b states a sheet count without naming the run directory it counts. "
-        "The tree holds " + str(len(_all_sheets())) + " tracked sheets and the "
-        "card's number describes " + COUNTED_RUN + "; an unscoped self-count is "
-        "the defect this gate exists for."
-    )
     stated = re.search(r"커밋된 (\d+)장 전부에", _draft("16b"))
     assert stated is not None, (
         "Q16b no longer states how many sheets carry the footer in the form "
@@ -234,10 +266,21 @@ def test_every_committed_sheet_carries_the_footer_and_the_card_counts_them() -> 
         "nothing — do not write a count this gate cannot find (critic #39)."
     )
     assert int(stated.group(1)) == len(sheets), (
-        "Q16b says 커밋된 " + stated.group(1) + "장 and the tree holds "
-        + str(len(sheets)) + " dispatch sheets. This is the 「여섯 개」 failure "
-        "(WFG-178): a hand-typed count about this repository's own state, made "
-        "wrong by a later commit. Update the card."
+        "Q16b says 커밋된 " + stated.group(1) + "장 and " + COUNTED_RUN
+        + " holds " + str(len(sheets)) + " dispatch sheets. This is the "
+        "「여섯 개」 failure (WFG-178): a hand-typed count about this "
+        "repository's own state, made wrong by a later commit. Update the card."
+    )
+    counting_sentence = _sentence_with(_draft("16b"), stated.group(0))
+    assert COUNTED_RUN in counting_sentence, (
+        "Q16b states 「" + stated.group(0) + "」 without naming, IN THAT "
+        "SENTENCE, the run directory the count describes. The tree holds "
+        + str(len(_all_sheets())) + " tracked sheets and the card's number "
+        "describes the " + str(len(sheets)) + " under " + COUNTED_RUN + ". "
+        "The sentence reads: " + counting_sentence + "\n"
+        "This assertion is deliberately scoped to the sentence and not to the "
+        "card (WFG-185): the card-wide version passed while the only mention "
+        "of the run directory sat in the 근거 block under a different claim."
     )
 
 
