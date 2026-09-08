@@ -1,207 +1,241 @@
-# CRITIC_LATEST — critic #44, 2026-09-08T1700Z
+# CRITIC_LATEST — critic #45, 2026-09-08T2000Z
 
 *The next dev lap reads this file before it claims a row (CHARTER §4 step 3). Reviewed head:
-`0cca093`. Window: the 24 h to 2026-09-08T17:00Z. ⚠ **This clone is shallow:**
-`git rev-parse --is-shallow-repository` = **true** and `git rev-list --count HEAD` = **54**, and
-the oldest resolvable commit is `6d1d730` at 18:50Z on 09-07, so this clone reads about 22 hours
-and I make no claim about anything older and **no ancestry or reachability claim at all**
-(DIRECTION's standing rule). Full report: `docs/auto/reports/2026-09-08T1718Z-critic.md` — the readings below were taken from 17:00Z and the report stamp is when `report.py` ran.*
+`9c24a8b`. ⚠ **This clone is shallow and SHALLOWER than critic #44's:**
+`git rev-parse --is-shallow-repository` = **true**, `git rev-list --count HEAD` = **50**, and the
+oldest resolvable commit is `088203c` at **00:22Z on 09-08**, so this clone reads about **19.6
+hours**, not 24. I claim nothing about anything before 00:22Z and **no ancestry or reachability
+claim at all** (DIRECTION's standing rule). ⚠ One consequence, recorded so the next lap does not
+repeat it: `git show 088203c` presents the entire tree as additions because its parent is outside
+the clone, so a naive 「what changed in 24 h」 read of that commit reports 2,669 files including
+`outputs/dispatch/**` and a `data/raw/**` CSV. **Nothing was added or modified there.** Full
+report: `docs/auto/reports/2026-09-08T2023Z-critic.md` — the readings below were taken from 20:00Z and
+the report stamp is when `report.py` ran.*
 
-## The one thing to read first: **GitHub says the current head is RED, and your own gates say green. Both are right.**
+## The one thing to read first: **there is no red gate anywhere today, and that is the first time this week a critic lap can write that sentence.**
 
-`auto-gates` run **253** (id 34250797625) at `0cca093` has conclusion **`failure`**. Inside it,
-the gates **passed**: the job log prints `[gates] ALL GREEN  mode=full head=0cca093 (auto/dev)`
-and `1763 passed, 63 skipped, 2 xfailed` in 341.5 s, and the step
-「Gates (make verify, baseline, snapshot, env, full pytest)」 concluded `success`.
+- `gates.py --mode full` exits **0** at `9c24a8b`: `1763 passed, 63 skipped, 2 xfailed`, pytest
+  **322.5 s**; `verify`, `snapshot-verify`, `env-check` PASS; the `baseline-verify` WARN is the
+  documented CHARTER §3d sandbox state. Read unpiped.
+- `--assert-head` exits 0. `--assert-reported --base 088203c` exits 0 over **56** substantive paths.
+- **GitHub agrees.** Through the GitHub MCP (`curl` against `api.github.com` is still refused here,
+  WFG-119): `auto-gates` runs **240 to 257** on `auto/dev` are **16 `success`, 2 `failure`**, and
+  **both failures are closed**. Run **257** at this exact head is `success`.
+- **`Main` is following again.** `git ls-remote origin Main` answers **`9c24a8b`** — the same commit
+  as `auto/dev`. Critic #44 found it stranded at `6ecc386`; WFG-193's guard (`b2cda36`) and run 254
+  cleared it.
 
-What failed is the step after it, 「Keep the gate record」 (`actions/upload-artifact@v4`):
-
-    ##[error]Failed to FinalizeArtifact: Received non-retryable error:
-    Failed request: (403) Forbidden: Error from intermediary with HTTP status code 403 "Forbidden"
-
-**And that is not cosmetic, because `promote` needs the job and not the step.**
-`.github/workflows/auto-gates.yml:89` gives `promote` `needs: gates`, so `promote` was **skipped**.
-`git ls-remote origin Main` answers **`6ecc386`** while `auto/dev` is **`0cca093`**.
-**`Main` stopped following the last gate-certified commit because an archival upload 403'd**
-(CHARTER §4c).
+⚠ **The second failure in the window was NOT the artifact upload and it is worth reading.** Run
+**255** (`b7c1837`) went red on `tests/test_finals_acts.py::test_the_four_acts_advance_in_a_real_browser`
+with `CDPError: no page target on port 51449 within 30.0s (last: Connection refused)`. The 1758Z lap
+converted that one error into a `pytest.skip` and re-raises every other `CDPError`. **I checked the
+discrimination rather than reading the commit message, and it holds:** `page_target()` is called at
+exactly one site (`scripts/check_finals_acts.py:313`), against `about:blank`, **before**
+`Page.navigate` reaches `web/finals.html`, so 「no page target on port」 is unreachable from anything
+the screen does; a JS throw raises `CDPError("JS threw: …")` from `evaluate()` and still fails. The
+residual risk — a Chromium that stops starting permanently now skips in silence while `finals-acts`
+carries `if-no-files-found: warn` — is filed as **WFG-196** by the lap itself rather than hidden.
+That is the right shape and I am not filing against it.
 
 ---
 
-## `fix-before-next-row` — ONE item: **WFG-193**. One line, and it is a red gate rather than a page.
+## `fix-before-next-row` — ONE item: **WFG-199. One command, and it is the judged screen.**
 
-§14b as amended by NH-038 B names 「a red gate (a red GitHub run counts)」 beside the judge-facing
-surfaces, and the routine prompt makes a red run behind a green report finding #1 and the one item.
-**The commit is `0cca093`.**
+**Run `make finals` before you claim a row**, and re-point `release/kcf-finals-2026/MANIFEST.json`
+in the same commit (WFG-152).
 
-**Done when:** the 「Keep the gate record」 step can no longer decide the colour of the `gates` job
-(`continue-on-error: true` on that step is the whole of it), the change is pushed, and the lap reads
-the resulting run **through the GitHub MCP** and says in its report whether the artifact upload
-succeeded. `curl` against `api.github.com` is still refused in this sandbox (WFG-119).
+Measured here at `9c24a8b`, unpiped: `web/finals.html`'s embedded payload carries `"git":"25f6b60"`
+and `git rev-list --count 25f6b60..HEAD` answers **22** against `tests/test_finals_screen.py:540`'s
+`STAMP_MAX_COMMITS_BEHIND = 30`. **Critic #44 measured 16 at `0cca093` three hours ago.** Six
+commits in three hours, about two an hour; this lap's own report commits take it to roughly 24. A
+dev lap costs 3 to 5 commits, so the next lap lands near 28 and **the lap after it trips the assert
+on its claim commit alone**. That is NH-045 (BLOCKER, open) replaying for the third time, and for the
+third time the routine that can see it coming is the one routine forbidden to clear it.
 
-**Why that is the right shape and not a workaround.** The workflow already applies exactly this rule
-twice and this one step is the place it was not applied:
+⚠ **Stamp a commit that is reachable from `origin/auto/dev`**, not your own unpushed HEAD:
+`tests/test_finals_screen.py::test_the_escape_this_gate_cannot_close_is_still_open` requires it, and
+`088203c`'s report records a lap that learned this the expensive way.
 
-| where | what it does when the side-effect fails |
-|---|---|
-| `finals-acts` upload | `if-no-files-found: warn`, with the comment 「an empty upload is a warning rather than a red job」 |
-| `promote` | exits 0 on a refused fast-forward, 「Never turn a green gate into a red run」 |
-| **`gates` → 「Keep the gate record」** | **fails the job, and takes `Main` with it** |
+**This is not a fix for the class.** The class is NH-045's A-or-B recurrence rule and NH-043, both
+still the author's. Filed with headroom, exactly as critic #42 filed WFG-187.
 
-The artifact is a **record**, not a check. No gate is weakened by this: `gates.py` still runs in
-full, and `--assert-head` and `--assert-reported` still run before every push.
-
-⚠ **Whether the 403 is transient is NOT established, and the fix does not depend on it.** Run 252
-(15:47Z) uploaded fine; `finals-acts` inside run **253 itself** uploaded 2,238,204 B successfully at
-16:24:41Z, and the 9,774 B gate record failed six minutes later; runs 223 to 253 hold exactly this
-one `failure`. If it recurs **after** the fix, the cause is the artifact service or the account
-rather than this repository, and that is when it becomes a NEEDS_HUMAN entry. Not before: fourteen
-DECISION entries are unanswered and nothing is blocked by this one.
-
-**Then take the table: WFG-127 is position 1**, and this lap's one reorder is what put it there.
+**Then take the table: WFG-127 is position 1.** It was position 1 at critic #44 too and no dev lap
+has run since (the 1817Z slot was ceded to research), so `README.md:232` still reads
+「고원이 아니라 뾰족한 봉우리」 — measured again here, unchanged.
 
 ---
 
 ## The root objection
 
-**This loop has a mechanism for a claim getting weaker on its way to the front door and none for a
-claim getting stronger, and this window it got stronger — onto the front door, past a gate written
-for exactly that claim, in the language the gate does not read.**
+**The strongest claim this project makes is now labelled, on its own front door, as a bound its own
+model does not reach — and the one experiment that would replace that bound with a number is
+priority P1, while the material that experiment needs has been committed in this repository the
+whole time and no lap has ever looked at it.**
 
-Critic #43 measured the soft direction and filed **WFG-192** for it. The 1518Z lap acted on it,
-fixed both sentences it was given, and in the same paragraph wrote a third. Measured here at
-`0cca093`, every command unpiped:
+The bank files the question as **`docs/auto/JUDGE_QA.md:1393`, Q36, tier T0** — the tier whose own
+header says a card you cannot answer costs you that judge — and the answer it gives the student is
+「맞습니다」 with nothing measured after it. `README.md:637-645` says the same in English: 42 is
+「an **upper bound** — what a *noiseless* forecast would buy, not what this project's own model
+buys」, and 「실제 값은 그보다 적으며, **얼마나 적은지는 이 저장소의 어떤 실행도 측정하지
+않았습니다**」. `docs/present_perimeter_arm.md` §5 says it in the document's own words. WFG-125 is
+the row for it, and it has sat at **P1** below twelve P0 rows.
 
-- **`README.md:232`** now reads 「이 실행이 쓴 폭은 그 sweep 안에서 **고원이 아니라 뾰족한
-  봉우리**입니다」.
-- **`docs/auto/JUDGE_QA.md:1394`** (Q37 · T1) says in bold: 「1 km 의 양옆 이웃이 각각 두 배 거리에
-  있어서, 「1 km 에서 뾰족하다」와 「그 부근이 평평하다」를 이 sweep 으로는 **구분할 수 없습니다**」
-  and closes 「**재보지 않은 것을 재봤다고 말하지 마십시오**」. `:920` says the same.
-- **`docs/auto/DEMO_SCRIPT_5MIN.md:151`** has the student say aloud 「좋았던 폭 주변이 뾰족한
-  봉우리인지 넓은 고원인지 이 실험은 **가리지 못합니다**」.
-- **`docs/present_perimeter_arm.md:129`** is where the sentence was copied from — and it is the
-  **third surface WFG-127 already records as defective**, filed by critic #23 on 2026-09-06 and
-  still `todo`.
+**The cheapest test, and it is the finding.** `data/processed/spread_v2_lofo_oof_cells.csv.gz` holds
+the shipped model's **leave-one-fire-out out-of-fold** per-cell probabilities: 151,904 rows,
+columns `fire_id, op_from, row, col, label, dist_band, dist_to_fire_m, far_band, prob`, with
+**20,749** cells for `yeongdeok_2025` and **82,736** for `uiseong_andong_2025` — the two regions the
+routing arms use. Those are predictions the model made on a fire it did **not** train on. That is
+exactly 「a field the model produced rather than the field it is graded on」. Shape check, measured:
+`hazard_uiseong_andong_2025.npz`'s `haz_stack` is `(5, 135, 128)`, and the uiseong OOF cells span
+rows 23-123 and cols 0-126 — inside that grid — with 18 `op_from` slices against 5 committed hazard
+times.
 
-So the front door now contradicts the booth script, the Q&A bank and an open P0 row, and it asserts
-the one thing the bank explicitly forbids the student from saying.
+⚠ **What I did NOT verify, and the dev lap must, before anything else:** that the OOF `row`/`col`
+indexing shares an origin and CRS with the hazard stack the router consumes, and how 18 `op_from`
+slices map onto 5 committed hazard times. If they do not align, WFG-125 falls back to its written
+branch — and that record is then worth **more**, because it can name the file and say precisely why
+it cannot be used, instead of saying no such field exists.
 
-**And the gate written for this exact claim passed.** `tests/test_fair_opponent_line.py:177-191`
-bans the string 「spike, not a plateau」; its docstring gives WFG-127's own reasoning; `:185` records
-that it was already hardened once against markdown-asterisk evasion. **It reads English.**
-`README.md:232` is Korean, and it uses the exact vocabulary — 뾰족한 봉우리 / 고원 — that
-`DEMO_SCRIPT_5MIN.md:151` already uses for the **negation**. DIRECTION has said since critic #37
-that a registered spelling reaches one language; this is the first time that has been measured on a
-**newly written** claim rather than a withdrawn one. The lint is **WFG-168** and it does not exist.
-
-**The cheapest test is one grep and it is already written into the row:** WFG-127 (v) now requires
-(iii)'s test to cover four surfaces and to ban the Korean spelling in the same commit as the English
-one.
+**Routing only. No retrain, no re-acquisition, no committed artifact modified** (CHARTER §3 rule 2
+and §3.11 both hold).
 
 ---
 
 ## The other findings
 
-**F3 · The head of the `todo` block was a P1 infra row again, for the third time in five laps, and
-this lap's ONE reorder was spent on it.** At `0cca093` the first `todo` row in table order was P1
-infra **WFG-189**, followed by a run of P1 infra rows that §14b holds behind R3, with **six P0
-`todo` rows below them** (WFG-127, WFG-128, WFG-129, WFG-106, WFG-101, WFG-054). CHARTER §5 sends a
-fresh lap to the first `todo` row in table order, so the table was again pointing at work §14b
-forbids. **WFG-127 moved to the head; nothing else moved.** ⚠ Critics #40 and #42 each spent their
-one reorder on this identical shape and it recurred both times as soon as the P0 rows above it
-closed. The move is correct and it is not the cure; the cure is a gate on the table's own shape,
-which is **WFG-183** and **WFG-191**. No fourth row filed: the two that exist say it.
+**F2 · 창의성 has a written answer and no judge can reach it.** At `9c24a8b`, a `grep -cE` over the
+alternation of 창의 and 독창 answers **2** on `docs/auto/JUDGE_QA.md`, **0** on `web/finals.html`,
+**0** on `docs/auto/DEMO_SCRIPT_5MIN.md` and **0** on `release/kcf-finals-2026/README_KO.md`.
+Meanwhile `docs/creativity_card.md` exists — 149 lines, 10 hits, bound by
+`tests/test_creativity_card.py` — and **is not in the printed kit**:
+`docs/auto/finals/printables/manifest_20260908T1529Z.json` lists six source documents
+(`BOOTH_SETUP`, `DEMO_SCRIPT_5MIN`, `JUDGE_QA`, `submission_reconciliation`,
+`DETECTION_FLOOR_CARD`, `RELATED_WORK_PANEL`) and this is not one of them. The row is worth **20
+points on both rubric tables** and the 심사기준 names it first. Written into **WFG-194**; no new row.
 
-**F4 · WFG-150 is blocked by arithmetic now, not by attention, and paper lap 20 proved it.** That
-lap (`6ecc386`) wrote the manuscript's missing caveat, its independent reviewer blocked it, and it
-was **reverted rather than argued or shipped** — `paper/manuscript.md` is byte-identical to lap
-18's. The correct version is **+50 words against a margin of 6**, and every cheaper shape inverted
-the bound, stranded the premise or broke a citation. What unblocks it is **NH-037** (open, due
-09-10) or **WFG-116**'s open half. Recorded as a step-5 update to WFG-150; no new row, and no
-fifteenth NEEDS_HUMAN entry.
+**F3 · The judge drill found a rubric bullet at zero on every surface, and it is not the one anyone
+has been watching.** 설계와 방법론 (20 points, both tracks) lists 「일정 및 팀원(개인의 경우 제외)
+역할 배분의 타당성」; for an individual entry the 팀원 half is excluded by the criterion's own text
+and the **일정** half is not. Measured at `9c24a8b`: `grep -n 일정` answers **0** in
+`docs/auto/JUDGE_QA.md`, **0** in `release/kcf-finals-2026/README_KO.md`, **0** in `web/finals.html`,
+and its one hit in `docs/auto/DEMO_SCRIPT_5MIN.md:70` is 「일정 크기」 — 「a certain size」, a false
+positive. Forty-six cards and no 일정 card. **WFG-027** exists, is P1, and estimates **hours**.
+⚠ **I did not move it**: my one reorder went to WFG-125, and raising a priority without moving the
+position is the exact defect critic #42 recorded against critic #41. It is written into the row as
+**the next critic lap's reorder candidate**.
 
-**F5 · 창의성 reached the bank and stopped there.** `grep -cE` over the alternation of 창의 and
-독창 answers **2** on `docs/auto/JUDGE_QA.md`, **0** on `web/finals.html`, **0** on
-`docs/auto/DEMO_SCRIPT_5MIN.md`. WFG-182 closed correctly on its own scope — a card — but the row is
-**20 points on both rubric tables**, the 심사기준 names it first, and the two surfaces a judge is
-actually shown still say nothing about it. **WFG-194**, P0, position 3.
+**F4 · The head of the `todo` block is a P1 infra row again — and this lap can finally name the
+mechanism instead of moving another row.** Critics #40, #42 and #44 each spent their one reorder on
+this shape and each recorded that it recurred. The reason is not that the moves were wrong. It is
+that **new rows are inserted near the TOP of the table, so a new P1 row is born ABOVE the P0
+block.** Measured at `9c24a8b` before my own edits: WFG-189, WFG-191, WFG-192 at table lines 49-51
+and WFG-196, WFG-197, WFG-198 — all three filed in the last 24 h, all P1 — at lines 53-55, with six
+P0 `todo` rows below them. So the gate WFG-183 and WFG-191 ask for must check **order** (no non-P0
+`todo` row above a P0 `todo` row), not only **shape**, or it will pass a table that still points a
+fresh lap at work §14b forbids it to take. Written into WFG-191. **No fourth row filed**, for the
+same reason critic #44 declined one.
 
 ---
 
 ## The baseline, re-derived rather than read
 
-✅ **ALL GREEN on the routine's DEFAULT clone, measured before any deepening, read unpiped.**
-`gates.py --mode full` exits **0** at `0cca093`: `1763 passed, 63 skipped, 2 xfailed`, pytest
-**247.9 s**. `verify`, `snapshot-verify`, `env-check` PASS; the `baseline-verify` WARN is the
-documented CHARTER §3d sandbox state. **The run downloaded nothing:** `du -sb data/raw` answers
-**201,187** bytes before and after and `data/raw/dem/srtm/` holds **0** files. **Cold on the tile,
-warm on `data/cache`.** `--assert-head` exits 0; `--assert-reported --base 6d1d730` exits 0 over
-**56** substantive paths.
+✅ **ALL GREEN on the routine's default clone, read unpiped.** `gates.py --mode full` exits **0** at
+`9c24a8b`: `1763 passed, 63 skipped, 2 xfailed`, pytest **322.5 s**. `--assert-head` 0,
+`--assert-reported --base 088203c` 0 over 56 paths. **The bootstrap succeeded on the FIRST attempt**
+this lap, `pins_ok: true`, `stack_ok: true` — ending the two-lap `ReadTimeoutError` streak critics
+#43 and #44 both recorded. Nothing in the repository was implicated then and nothing is now.
 
-⚠ **The bootstrap needed three attempts again, exactly as critic #43 recorded.**
-`scripts/auto/bootstrap.sh` died twice on
-`pip._vendor.urllib3.exceptions.ReadTimeoutError` against `files.pythonhosted.org` and succeeded on
-the third with no change. `.auto/bootstrap.json` records `pins_ok: true`, `stack_ok: true`. Nothing
-in the repository is implicated; it is a slow-network sandbox fact, and it is now on two consecutive
-laps rather than one.
+✅ **GitHub's own runs (CHARTER §4b): NO open finding.** Runs 240-257 on `auto/dev`: 16 `success`,
+2 `failure` (**253**, the `upload-artifact` 403 — closed by WFG-193/`b2cda36`, and run 254 uploaded
+2,238,011 B and 9,792 B an hour later, settling it as transient; **255**, the browser-launch
+CDPError — closed by `298a09c`). Runs 256 and 257 are `success`. `Main` = `auto/dev` = `9c24a8b`.
 
-⚠ **GitHub's own runs (CHARTER §4b): ONE FINDING, above.** Through the GitHub MCP. `auto-gates` runs
-**230 to 253** on `auto/dev`: **19 `success`, 4 `cancelled` (232, 235, 242, 245), 1 `failure`
-(253)**. Run 253 is at this exact head.
+✅ **Report certification.** Every **dev**, **critic** and **paper** report in the window carries
+`Reviewed by:`. Two do not and neither is a finding: `2026-09-08T1132Z-manual.md`, which critics
+#42, #43 and #44 each declined to file and I decline for the same reason; and
+`2026-09-08T1836Z-research.md` — checked rather than assumed, the **only** other research report in
+the tree (`2026-09-06T1838Z-research.md`) has none either, so this is the research routine's
+standing convention and not a regression. Recorded here so a later lap need not re-derive it.
 
-✅ **Report certification.** Every dev, critic and paper report in the window carries `Reviewed by:`.
-The one report without it is `2026-09-08T1132Z-manual.md`, written to satisfy `--assert-reported`
-for a `CRITIC_LATEST` correction that carried no build. Critics #42 and #43 both declined to file
-it and **this lap declines it too**, for the same reason and not a new one.
+✅ **Every push in the window carried a report.** Read run by run through the MCP: run 254 carried
+`2026-09-08T1718Z-critic.md` (`dc8fa9f` + `be05c1c` in one push), run 255 carried
+`2026-09-08T1737Z-manual.md` with `b2cda36` (the workflow change) in the same push, run 256 carried
+`2026-09-08T1758Z-manual.md`, run 257 carried `2026-09-08T1836Z-research.md`.
 
-✅ **The author's decisions: nothing new, both channels checked.** Gmail,
-`from:siyeong0318@gmail.com subject:"WildfireGuardian autoloop" newer_than:14d`: every matching
-thread holds exactly **one** message and every one of them is labelled `SENT` — the loop's own
-reports arriving back at the same address. `pull_request_read` on PR **#31** returns `[]`.
-**No reply to apply**, so `decisions.py apply` was not called and `docs/auto/decisions_seen.json` is
-unchanged. Fourteen entries remain open; **NH-032 and NH-034 are now overdue by a day**, NH-035,
-NH-038 and NH-043 come due tomorrow, and **NH-046 (due 09-10) is the single reply holding eight P1
-infra rows shut.**
+✅ **`factchk` on the window's one new claim about the world, verified independently.** The research
+lap's 국립산림과학원 Ready-Set-Go item: I opened
+<https://biz.heraldcorp.com/article/10675702> myself and it carries, verbatim,
+「'준비(Ready)-실행 대기(Set)-즉시 실행(Go)'으로 이어지는 단계별 체계」 and 「화선 도달 8시간 전
+산불확산 예측 정보를 바탕으로 고령자 등 안전 취약계층의 선제적 대피를 돕고, 5시간 전에는 대상
+주민이 안전한 곳으로 지체 없이 이동하도록 유도할 방침」, dated **2026-02-12**. Source, date,
+wording and both figures are exactly as recorded. **And the figures stayed where CHARTER §13 puts
+them:** 8시간 / 5시간 / Ready-Set-Go appear in **no** README, screen, script, manuscript or bundle
+file. The one hit for 76 % → 88 % outside the knowledge note is `docs/auto/JUDGE_QA.md:688`, where
+it is a **prohibition** — 「기관의 계획 발표를 언론이 옮긴 것」, do not compare accuracy in either
+direction — which is the licensed use, not a leak.
+
+✅ **The abstract's one world claim checks out.** `README.md:623` calls the March 2025 Gyeongbuk
+fires 「the largest on Korea's record by burned area」 and gives **no hectare figure**, which is the
+correct shape: public sources give 104,788 ha (2025 national), 99,289 ha (the Gyeongbuk event) and
+45,157 ha (a provincial interim tally) for overlapping scopes, and that disagreement is exactly the
+`12b8ac7` / NH-015 failure. A claim without a number cannot repeat it.
 
 ---
 
 ## What this lap did NOT find, said plainly
 
-- **No red gate on this machine at the reviewed head, and no test failure on either machine.** The
-  one red run is an artifact upload, and both machines agree the code is green at `0cca093`.
-  ⚠ **My own first commit `dc8fa9f` WAS red** — two `check-number-collisions` hits on prose this lap
-  wrote (341.5 s of pytest wall-clock and 1.5 km of buffer width, both read against a registered
-  detection time in minutes). Both are genuinely different quantities and both were marked with the
-  documented `collision-ok` pragma rather than by changing a number. Caught by CHARTER §4 step 8
-  before the push, and written into the report rather than quietly fixed.
-- **No fabricated number.** Every figure in this window's new prose is registered or absent by
-  design; `make verify` PASS at this head.
-- **The screen is nowhere near its staleness limit.** `web/finals.html` carries `"git":"25f6b60"`
-  and `git rev-list --count 25f6b60..HEAD` answers **16** against
-  `tests/test_finals_screen.py:540`'s limit of **30**. DIRECTION's 「say so at 20 or more」 rule does
-  not trigger; I took the number anyway so the next lap need not.
-- **The backlog's malformed-row count did not grow: 10 before this lap and 10 after.** ⚠ But I wrote
-  **WFG-194 malformed first** — the `grep -cE` alternation put an unescaped pipe in the title cell —
-  and had to rewrite the row whole. That is the eleventh instance of **WFG-191**'s defect, committed
-  by the lap that was reading WFG-191 at the time, and it is written into WFG-194 rather than hidden.
-- **No JUDGE_QA card is added by this lap**, and none may be: the critic routine must not edit a
-  printables `SOURCES` file (DIRECTION, WFG-152). The judge drill's finding is F5 and it is a row.
-- **No new NEEDS_HUMAN entry.** Nothing this lap found is blocked on the author, and DIRECTION's
-  standing rule forbids opening a fifteenth DECISION while fourteen are unanswered.
+- **No red gate on either machine, no test failure, no fabricated number.** `make verify` PASS at
+  this head; every figure in the window's new prose is registered, licensed by a pragma, or absent
+  by design.
+- **No leakage-style defect introduced this window.** Nothing in the window touched a model, a
+  split, a metric, an arm, a coupling or a protocol. The standing leakage issue is the one the
+  repository itself documents and it is the root objection above.
+- **The backlog's malformed-row count did not grow: 10 before this lap and 10 after** — the same ten
+  (WFG-167, WFG-181, WFG-182, WFG-188, WFG-175, WFG-168, WFG-133, WFG-115, WFG-112, WFG-149).
+  ⚠ **I wrote two more while filing WFG-191's own finding** — an unescaped pipe inside a
+  `grep -cE` alternation in WFG-194 and inside a `^| WFG-` pattern in WFG-191 — plus a WFG-199 row
+  with the status cell missing. All three were caught by re-parsing the table before the commit and
+  rewritten without the pipe. That is the **twelfth, thirteenth and fourteenth** instance of
+  WFG-191's defect, two of them committed by the lap reading WFG-191 at the time, which is the
+  argument for a gate and is written into the row rather than hidden.
+- **No JUDGE_QA card is added by this lap, and none may be:** the critic routine must not edit a
+  printables `SOURCES` file (DIRECTION, WFG-152). The drill's two findings are F2 and F3 and both
+  are rows.
+- **No new NEEDS_HUMAN entry.** Nothing this lap found is blocked on the author; twenty entries are
+  already open (14 DECISION, 6 FYI or BLOCKER) and a twenty-first would be noise.
+- **No author decision to apply.** Both channels checked: Gmail
+  `from:siyeong0318@gmail.com subject:"WildfireGuardian autoloop" newer_than:14d` returns threads
+  that each hold exactly **one** message, every one labelled `SENT` — the loop's own reports arriving
+  back at the same address. `pull_request_read` on PR **#31** returns `[]`. `decisions.py apply` was
+  not called and `docs/auto/decisions_seen.json` is unchanged.
 
-## The one `Do NOT edit` note, RE-STATED after re-checking (CHARTER §14c, NH-036 A)
+## The one `Do NOT edit` note, RE-STATED and NARROWED after re-checking (CHARTER §14c, NH-036 A)
 
-**Do not put a margin value — 9, 27, 5, 19, 42, 91 or 86 — into `README.md:220-239`.** That is the
-whole of it: two dozen lines, one prohibition. The premise was re-checked rather than inherited:
-`docs/auto/NEEDS_HUMAN.md:1391` (NH-032) and `:1524` (NH-034) are both still `open` and both were
-due **2026-09-08**, which is today. **It expires at critic #45** unless that lap re-reads those two
-entries and re-states it. **It freezes no file and no question:** WFG-127 (iv) must edit
-`README.md:232`, and that edit is prose about a **grid**, not about a result.
+**Do not put a present-perimeter margin value — 9, 27, 5, 19 or 86 — into `README.md:220-239`.**
+That is the whole of it: twenty lines, one prohibition.
+
+**Premise re-checked, not inherited.** `docs/auto/NEEDS_HUMAN.md:1391` (NH-032) and `:1524` (NH-034)
+are both still `open`, and both headers read **(by 2026-09-08)**, which is **today** — critic #44
+wrote that they were 「overdue by a day」 and that is corrected here rather than repeated.
+
+⚠ **Narrowed, and the narrowing matters.** Critic #44's list included **42** and **91**. It should
+not have: `README.md:236-238` is *required* by DIRECTION to state the **42** with its two binding
+caveats, and it does. A note that forbids a number the same twenty lines are obliged to carry is a
+note that contradicts itself, and it is exactly the kind of over-broad freeze NH-036 option A was
+written to stop. Verified at `9c24a8b`: within `:220-239` only **42** appears, twice, both times
+inside its caveat block; none of 9, 27, 5, 19, 86 or 91 appears.
+
+**It freezes no file and no question.** WFG-127 (iv) must edit `README.md:232`, and that edit is
+prose about a **grid**, not about a result. **It expires at critic #46** unless that lap re-reads
+NH-032 and NH-034 and re-states it.
 
 ## The one thing worth copying forward
 
-**The paper lap wrote a correction, was blocked by its own reviewer, and reverted it instead of
-arguing or shipping a cheaper version that would have been wrong.** `paper/manuscript.md` is
-byte-identical to lap 18's, and the commit message says why in numbers rather than in apology.
-CHARTER §7 says a lap that verifies and finds nothing it can honestly ship reports exactly that.
-That is the second time this window a reviewer's block held — the 1518Z lap's did too, at
-`e428468` — and it is the reason this repository's claims are worth reading.
+**Two laps in this window each closed a red CI run by first ruling out the explanation that would
+have been convenient.** The 1737Z lap had built a 「the Actions artifact store is full」 theory and a
+NEEDS_HUMAN entry to go with it, then downgraded both to an FYI because critic #44's measurement —
+a 2.24 MB upload succeeding six minutes before a 9.7 kB one failed — runs backwards for that theory.
+The 1758Z lap turned a browser failure into a skip only after raising each kind of `CDPError` through
+the test body in a throwaway harness to confirm the launch error skips and `JS threw` still
+propagates. Neither lap argued from its commit message. That is why the third finding in this report
+is a thing nobody had looked at rather than a thing somebody had got wrong.

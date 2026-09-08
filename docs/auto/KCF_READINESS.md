@@ -5,6 +5,51 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
+**Tick count, critic #45, 2026-09-08T2000Z: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), held. R3, R11 and
+R12 are the three that do not tick; R10 was withdrawn 2026-09-04.** Re-measured at `9c24a8b` on the routine's
+**default** clone before any deepening: `git rev-parse --is-shallow-repository` = **true**, `git rev-list
+--count HEAD` = **50**, oldest resolvable `088203c` at **00:22Z on 09-08**, so this clone reads about **19.6
+hours** and I claim nothing older and **no ancestry claim at all**. `gates.py --mode full` exits **0**, ALL
+GREEN: `1763 passed, 63 skipped, 2 xfailed`, pytest **322.5 s**. `--assert-head` exits 0;
+`--assert-reported --base 088203c` exits 0 over **56** substantive paths.
+
+- ✅ **CHARTER §4b: NO finding, and it is the first clean reading this week.** Through the GitHub MCP,
+  `auto-gates` runs **240 to 257** on `auto/dev`: **16 `success`, 2 `failure`**, and both failures are
+  closed inside the window. Run **253** (`0cca093`) was the `upload-artifact` 403 critic #44 filed as
+  WFG-193; `b2cda36` put `continue-on-error: true` on 「Keep the gate record」 and run 254 then uploaded
+  2,238,011 B and 9,792 B an hour later, which settles that 403 as **transient** and retires the
+  ~555 MB quota theory the 1737Z lap had built. Run **255** (`b7c1837`) was a browser that never listened
+  on its debugging port, closed by `298a09c`. Run **257** at this head is `success`, and **`git ls-remote
+  origin Main` answers `9c24a8b`** — `Main` is following the last gate-certified commit again (CHARTER §4c).
+
+- ⚠ **R1 keeps its tick and this lap attaches ONE measured risk to it rather than a defect.** R1's shipped
+  browser evidence has two surfaces and both just got softer in the same 24 h: `tests/test_finals_acts.py`
+  now **skips** when Chromium is found but never exposes a debugging port, and the `finals-acts` job carries
+  `if-no-files-found: warn`, so a Chromium that stops starting permanently would take both surfaces quiet
+  with nothing going red. The lap that made the trade filed it as **WFG-196** itself. I checked the
+  discrimination rather than taking the commit message: `page_target()` has exactly one call site
+  (`scripts/check_finals_acts.py:313`), against `about:blank`, **before** `Page.navigate` reaches
+  `web/finals.html`, so the skipped error is unreachable from anything the screen does, and a JS throw still
+  raises and still fails. **The trade is sound and R1 is not docked.**
+
+- ⚠ **R1 and R9 carry a live clock, and it is this lap's one `fix-before-next-row` item (WFG-199).**
+  `web/finals.html` names `25f6b60` and `git rev-list --count 25f6b60..HEAD` answers **22** against
+  `tests/test_finals_screen.py:540`'s limit of **30**. Critic #44 measured **16** three hours earlier: about
+  two commits an hour. `make finals` in the next dev lap, before it claims.
+
+- ⚠ **One readiness line was ticked in the 24 h window and none in the last three hours.** R8 was ticked by
+  critic #43 at 1115Z (`dee1bc1`) and holds here — re-derived, not read: `grep -nE '^## Round' README.md`
+  answers `:59`, `:75` and **`:200`**, `grep -n '^### Abstract' README.md` answers **`:614`**, and
+  `make check-forbidden` exits 0. **Zero for two consecutive critic laps would be a direction finding
+  (routine prompt step 3b); this is not that**, but the three-hour window contained two CI-repair laps and
+  one research lap and no judge-facing change at all, which is why every scorecard row holds.
+
+- ⚠ **R3 is unchanged and unchangeable by any lap.** Its row is **WFG-179**, whose own *Done when* ends
+  「whichever the author picks in NH-046」, and NH-046 (due 09-10) is still open. R3 is the last of §14b's
+  six lines, so **eight P1 infra rows still wait on one reply**. R11 and R12 are likewise the author's
+  (R12 is NH-014).
+
+
 **Tick count, critic #44, 2026-09-08T1700Z: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), held. R8 keeps the tick
 it earned last window and I re-derived it rather than reading it.** Re-measured at `0cca093` on the routine's
 **default** clone, before any deepening: `git rev-parse --is-shallow-repository` = **true**, `git rev-list --count

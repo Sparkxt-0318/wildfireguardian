@@ -1,6 +1,6 @@
 # Direction — where the project is going, on one screen
 
-*Rewritten 2026-09-08T1817Z by the research routine (CHARTER §14). The dev routine reads this before claiming a row; the critic re-checks it after every dev lap, at most one reorder per lap, with a reason. The previous version of this page had grown to **54,923 bytes** — roughly forty screens of stacked superseded leads and eight critic notes — which is a straight breach of the "one screen, never longer" rule it opens with, and it is archived verbatim (nothing deleted, CHARTER §3.7) at `docs/auto/archive/DIRECTION_superseded_2026-09-08T1817Z.md`. Only the most recent critic note is kept below, as §14 specifies.*
+*Rewritten 2026-09-08T1817Z by the research routine, updated 2026-09-08T2000Z by critic #45 (CHARTER §14). The dev routine reads this before claiming a row; the critic re-checks it after every dev lap, at most one reorder per lap, with a reason. The previous version of this page had grown to **54,923 bytes** — roughly forty screens of stacked superseded leads and eight critic notes — which is a straight breach of the "one screen, never longer" rule it opens with, and it is archived verbatim (nothing deleted, CHARTER §3.7) at `docs/auto/archive/DIRECTION_superseded_2026-09-08T1817Z.md`. Only the most recent critic note is kept below, as §14 specifies.*
 
 ## Thesis (two sentences)
 
@@ -8,13 +8,30 @@ WildfireGuardian forecasts where an already-burning Korean wildfire goes next, a
 
 ## Next three rows, and why each is next
 
-Table order at `298a09c` after this run. **No P0 row was moved below a non-P0 row; this run reordered nothing.**
+Table order at `9c24a8b` after critic #45. **No P0 row was moved below a non-P0 row; the one move
+this lap made was WFG-125 P1 to P0, upward, from table line 97 to line 49.**
 
-1. **WFG-193 (P0, infra)** — critic #44's one `fix-before-next-row` item and a **red GitHub run at the current head**. CHARTER §14b names a red gate explicitly. Nothing else starts while `auto-gates` is red and `Main` is not following.
-2. **WFG-127 (P0, KCF)** — the claim `README.md:232` makes (「고원이 아니라 뾰족한 봉우리」) is the one a five-point grid cannot support, and the Q&A bank tells the student not to make it. It is on the front door, it is a claim drifting *stronger*, and the fix is a grep away.
-3. **WFG-194 (P0, KCF)** — 창의성 is on the Q&A bank and at zero on `web/finals.html` and `DEMO_SCRIPT_5MIN.md`, the two surfaces a judge actually stands in front of.
+0. **WFG-199 (P0, KCF)** — critic #45's one `fix-before-next-row` item, and it is one command.
+   `make finals` before you claim: the judged screen's stamp is **22** commits behind against a
+   limit of 30, up from 16 three hours earlier, and the lap after next trips the assert on its
+   claim commit alone. That is NH-045 replaying.
+1. **WFG-127 (P0, KCF)** — unchanged from critic #44 and still not done, because no dev lap ran in
+   the window (the 1817Z slot was ceded to research). `README.md:232` still asserts
+   「고원이 아니라 뾰족한 봉우리」, which the Q&A bank forbids the student to say and the booth
+   script disclaims out loud.
+2. **WFG-194 (P0, KCF)** — 창의성 is 20 points on both tables, is named first in the 심사기준, and
+   is at **0** on `web/finals.html`, `DEMO_SCRIPT_5MIN.md` and the bundle README. Critic #45 adds
+   that `docs/creativity_card.md` exists and is **not in the printed kit**.
+3. **WFG-125 (P0, science)** — this lap's one move, and the reason is a measurement.
+   `data/processed/spread_v2_lofo_oof_cells.csv.gz` already holds the shipped model's
+   leave-one-fire-out out-of-fold per-cell probabilities for both routing regions (20,749 Yeongdeok
+   cells, 82,736 Uiseong-Andong), so the experiment that turns Q36 — a **T0** card whose answer is
+   today 「맞습니다」 and nothing measured — into a number needs routing only, no retrain and no
+   re-acquisition. The cost written into the row was wrong.
 
-Behind those, the P0 block: WFG-007, WFG-117, WFG-121, WFG-128, WFG-129, WFG-106, WFG-036, WFG-101, WFG-119, WFG-054. **Twelve P0 rows, seven sprint days.** That ratio is the single most important fact on this page.
+Behind those, the P0 block: WFG-007, WFG-117, WFG-121, WFG-128, WFG-129, WFG-106, WFG-036, WFG-101,
+WFG-119, WFG-054. **Thirteen P0 rows, seven sprint days.** That ratio is still the single most
+important fact on this page, and this lap made it worse by one on purpose.
 
 ## What not to do
 
@@ -32,12 +49,42 @@ The finding worth the author's attention is WFG-197's: **Korean national doctrin
 
 ## Critic's last direction note
 
-**2026-09-08T1700Z, critic #44. ONE reorder, spent on a rule violation for the third time; ONE `fix-before-next-row` item, and it is a red gate; one new P0 row; two rows updated.**
+**2026-09-08T2000Z, critic #45. ONE reorder, spent UPWARD on a row whose cost turned out to be
+wrong; ONE `fix-before-next-row` item and it is one command; one new P0 row; three rows updated;
+no new NEEDS_HUMAN entry.**
 
-Verified at `0cca093` on the default clone before deepening (`is-shallow-repository` = **true**, `rev-list --count HEAD` = **54**, oldest resolvable `6d1d730`; so this clone reads about 22 hours and claims nothing older and no ancestry at all): `gates.py --mode full` is **ALL GREEN**, exit **0** (1763 passed, 63 skipped, 2 xfailed), the run downloaded nothing, and both asserts exit 0.
+Verified at `9c24a8b` on the default clone before any deepening (`is-shallow-repository` = **true**,
+`rev-list --count HEAD` = **50**, oldest resolvable `088203c` at 00:22Z, so this clone reads about
+**19.6 hours** and claims no ancestry at all): `gates.py --mode full` is **ALL GREEN**, exit **0**
+(1763 passed, 63 skipped, 2 xfailed, 322.5 s), both asserts exit 0, and **GitHub agrees for the
+first time this week** — runs 240-257 are 16 `success` and 2 `failure`, both failures closed
+(253's `upload-artifact` 403 by WFG-193, 255's browser-launch CDPError by `298a09c`), run 257 green
+at this head, and `Main` is back to following at `9c24a8b`.
 
-**And GitHub does not agree, for the first time this week.** `auto-gates` run **253** at that head is **`failure`** while its own log prints `ALL GREEN`: the gate step passed, the step filing the gate's record 403'd, `promote` needs the job, so `Main` sat at `6ecc386`. Finding #1 and the one item. It is **not** a test failure, not a suite flake, and not a sandbox/runner difference — both machines agree the code is green. What disagreed was the artifact store, and the workflow let it speak for the gate.
+**The root objection: the project's own front door now says its headline number is a bound its model
+does not reach, and the experiment that would replace the bound with a number is the row nobody
+prioritised — while the material that experiment needs has been committed here the whole time.**
+`docs/auto/JUDGE_QA.md:1393` files this as **Q36 · T0**, the tier whose header says an unanswerable
+card costs you that judge, and today's answer is 「맞습니다」 followed by nothing measured. That is
+WFG-125, and it is now P0 at position 3.
 
-**The root objection: the loop has one mechanism for a claim drifting weaker and none for a claim drifting stronger, and this window it drifted stronger onto the front door.** The lap acting on WFG-192 fixed both sentences it was given and in the same paragraph wrote `README.md:232`, the assertion WFG-127 has been saying the five-point grid cannot support. The gate for that exact claim exists, bans the English spelling, and the Korean one walked past it.
+⚠ **Standing observation, and it replaces three laps' worth of repeated reorders.** The head of the
+`todo` block returns to a P1 infra row after every P0 row closes, and the mechanism is not that the
+moves were wrong: **new rows are inserted near the top of the table, so a new P1 row is born above
+the P0 block.** At `9c24a8b` before this lap's edits, WFG-189/191/192 sat at lines 49-51 and
+WFG-196/197/198 — all filed in the last 24 h, all P1 — at lines 53-55, above six P0 `todo` rows. The
+gate WFG-183 and WFG-191 ask for must therefore check **order**, not only **shape**.
 
-⚠ **The one `Do NOT edit` note is RE-STATED, not inherited** (CHARTER §14c, NH-036 A): it lives in `CRITIC_LATEST.md`, covers `README.md:220-239` only, forbids one thing (a margin value while NH-032 and NH-034 are open), and expires at critic #45 unless that lap re-checks both entries. It does **not** freeze `README.md:232`, which WFG-127 must edit.
+**Next critic lap's reorder candidate, so it need not re-derive the measurement: WFG-027.**
+설계와 방법론 (20 points, both tables) names 「일정 및 팀원(개인의 경우 제외) 역할 배분의
+타당성」; for an individual entry the 팀원 half is excluded and the 일정 half is not, and 일정 is at
+**zero** on the Q&A bank, the demo script, the finals screen and the bundle README. The row is P1
+and estimates hours. This lap did not move it, because raising a priority without moving the
+position is the defect critic #42 recorded against critic #41.
+
+⚠ **The one `Do NOT edit` note is RE-STATED and NARROWED** (CHARTER §14c, NH-036 A): it lives in
+`CRITIC_LATEST.md`, covers `README.md:220-239` only, forbids **present-perimeter margin values (9,
+27, 5, 19, 86)** while NH-032 and NH-034 are open — both re-read at `:1391` and `:1524`, both still
+`open`, both due **today**, not overdue as critic #44 wrote — and it expires at critic #46. **42 and
+91 are removed from it**: those twenty lines are required by this page to state the 42 with its two
+caveats, and they do. It does **not** freeze `README.md:232`, which WFG-127 must edit.
