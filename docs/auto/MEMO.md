@@ -2328,3 +2328,40 @@ with a reason**, then assert the exemption still matches exactly one thing.
 dropping it was an escape. `WC-004` already says a reworded assertion escapes a registered
 spelling. The same sentence is true of every regex this project uses to find a claim, and
 each one should be attacked by removing a *part* of the pattern rather than by negating it.
+
+---
+
+## 2026-09-08T1518Z (dev, WFG-190 + WFG-188) — an assembly card is where a limitation goes soft, so put the limitation first and let a test hold the position
+
+Critic #43's root objection was that this repository writes the strongest version of a
+limitation in the file nobody opens and the softest version on the surface a judge meets.
+WFG-188 is exactly the shape that produces that: an **adoption** card is a list of what a
+county would need, and a list is a positive object. The honest first item is not on the
+list at all — the hazard surface cannot be built for today, because the weather field it
+is simulated from publishes on a lag while hotspot detection is near-real-time
+(`docs/live_pipeline.md` §0). Every draft that opens with the recipe reads at a booth as
+「이건 지금 쓸 수 있는 물건입니다」, and every one of them is *literally true*, which is
+why the softening is invisible to a forbidden-string gate.
+
+**The gate that holds it is paragraph-scoped, and that is the whole of its value.**
+`tests/test_adoption_card.py::test_the_card_leads_with_the_constraint_and_not_with_the_recipe`
+asserts the clause is in the card's **opening** paragraph, not in the card. Graded: M1
+(delete the clause) goes red, and so does **M2 — the same clause moved intact to the last
+paragraph**, which is the mutation a section-scoped assertion would have missed and which
+is the realistic one, because no lap deletes a caveat on purpose; it relocates it while
+tidying. This is critic #41's finding (a scope assertion satisfied by a string standing in
+some other claim's neighbourhood) answered by construction rather than by care.
+
+**The mutation it does NOT catch, demonstrated rather than imagined (WFG-186):** M4, a cost
+claim written in words. 「수백만 원대면 충분합니다」 carries no digit, states a cost, and
+passes all thirteen assertions — I ran it. Every "no number" gate in this repository matches
+digits, so the register that escapes is prose. Naming it is not a substitute for not
+shipping it (the 1303Z lap's lesson), so the card carries the refusal sentence explicitly
+and a second assertion binds *that*.
+
+**And a cheap operational one.** `make printables` refuses a glyph the committed font cannot
+draw, and it refused `④` and `∼` — from a numbered list a lap would naturally reach for. The
+fix is the card's characters, not the substitution table: `1)`-`4)` costs nothing and adds no
+target that must itself be proved drawable. A card edit after a kit build means the kit is
+rebuilt again, so **make the prose final before the first `make printables`** — this lap
+built twice and had to drop the first, uncommitted, build.
