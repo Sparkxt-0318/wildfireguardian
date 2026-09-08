@@ -89,14 +89,69 @@ def _draft(qid: str) -> str:
     return body.split("답변(초안):", 1)[1]
 
 
-def _sheets() -> list[Path]:
-    sheets = sorted(DISPATCH.glob("*/*/dispatch_a4.html"))
+#: The run directory the 책임 card counts, named here because the card names it.
+#: See _counted_sheets' docstring for why the scope is stated and not implied.
+COUNTED_RUN = "outputs/dispatch/20260801T163042Z"
+
+
+def _all_sheets() -> list[Path]:
+    """EVERY tracked dispatch sheet in the repository, not one run directory.
+
+    The independent reviewer's root objection on 2026-09-08, and it was right.
+    The first version of this file globbed only ``outputs/dispatch/*/*/`` — 33
+    files — which is exactly the population the card's 「33장」 describes, so the
+    check could only ever agree with the number it was checking. The reviewer
+    dropped a footer-less sheet into ``outputs/dispatch_full/`` and this gate
+    stayed green: the tree holds **642** tracked ``dispatch_a4.html``, and 609
+    of them were unguarded.
+
+    That is the leakage shape ``mandela`` is for: a population chosen after the
+    claim, and drawn to fit it. The substantive claim the card makes — that the
+    footer is printed by construction rather than typed per sheet — is a claim
+    about every sheet this repository has ever committed, so that is the set.
+    """
+    sheets = sorted(REPO / p for p in _tracked_paths("*dispatch_a4.html"))
     assert sheets, (
-        "no dispatch_a4.html found under outputs/dispatch/. Every claim below "
-        "is derived from these files, and a derivation over zero files agrees "
-        "with any card at all (WFG-178's matches-nothing-fails clause)."
+        "no tracked dispatch_a4.html anywhere in the repository. Every claim "
+        "below is derived from these files, and a derivation over zero files "
+        "agrees with any card at all (WFG-178's matches-nothing-fails clause)."
     )
     return sheets
+
+
+def _counted_sheets() -> list[Path]:
+    """The one run directory the card actually counts.
+
+    Kept separate from _all_sheets on purpose. 「33장」 is true of
+    ``outputs/dispatch/20260801T163042Z`` and false of the tree, and Q39 in this
+    same bank already scopes that directory — so the honest fix is not to widen
+    the number but to make the card SAY which set it counts and check that it
+    does, while the footer claim itself is checked against all 642.
+    """
+    sheets = sorted(DISPATCH.glob("*/*/dispatch_a4.html"))
+    assert sheets, "no sheet under outputs/dispatch/; the card counts these"
+    return sheets
+
+
+def _tracked_paths(pattern: str) -> list[str]:
+    """Repository-relative paths of tracked files matching a git pathspec.
+
+    Tracked rather than on-disk: an untracked scratch file left by another lap
+    is not something this repository ships, and a gate that reads it reports a
+    failure the next clone cannot reproduce.
+
+    Graded, so the limit is measured and not assumed: a footer-less sheet
+    planted under ``outputs/dispatch_full/`` leaves this gate GREEN while it is
+    untracked and turns it RED the moment it is ``git add``-ed. That is the
+    intended boundary — the card's claim is about what the repository ships —
+    but it is the boundary, and it is written here rather than left for the
+    next reviewer to find.
+    """
+    import subprocess
+    out = subprocess.run(
+        ["git", "-C", str(REPO), "ls-files", "-z", pattern],
+        capture_output=True, text=True, check=True).stdout
+    return [p for p in out.split("\0") if p]
 
 
 def _flat(text: str) -> str:
@@ -158,13 +213,19 @@ def test_the_responsibility_card_quotes_the_footer_the_code_actually_prints() ->
 
 def test_every_committed_sheet_carries_the_footer_and_the_card_counts_them() -> None:
     """「33장 전부에 있습니다」 is derived here, not typed there."""
-    sheets = _sheets()
     footer = FOOTER_LINES[0]
-    missing = [str(p.relative_to(REPO)) for p in sheets
+    missing = [str(p.relative_to(REPO)) for p in _all_sheets()
                if footer not in p.read_text(encoding="utf-8")]
     assert not missing, (
         "these committed sheets do not carry the footer the 책임 card promises "
-        "is on all of them: " + ", ".join(missing[:5])
+        "is printed by construction: " + ", ".join(missing[:5])
+    )
+    sheets = _counted_sheets()
+    assert COUNTED_RUN in _card("16b"), (
+        "Q16b states a sheet count without naming the run directory it counts. "
+        "The tree holds " + str(len(_all_sheets())) + " tracked sheets and the "
+        "card's number describes " + COUNTED_RUN + "; an unscoped self-count is "
+        "the defect this gate exists for."
     )
     stated = re.search(r"커밋된 (\d+)장 전부에", _draft("16b"))
     assert stated is not None, (
@@ -321,8 +382,7 @@ def test_the_clusters_are_not_administrative_villages_on_every_sheet() -> None:
         "outputs/dispatch/README.md no longer states that the clusters are "
         "DBSCAN groupings and not 행정리 — the sentence Q20a cites"
     )
-    sheets = _sheets()
-    missing = [str(p.relative_to(REPO)) for p in sheets
+    missing = [str(p.relative_to(REPO)) for p in _all_sheets()
                if "행정리" not in p.read_text(encoding="utf-8")]
     assert not missing, (
         "these sheets do not carry the 행정리 disclaimer that Q20a says is "

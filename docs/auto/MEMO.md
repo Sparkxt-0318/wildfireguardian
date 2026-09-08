@@ -2175,3 +2175,42 @@ neighbouring sentence carried 「깨끗한 클론에서」 and that one did not,
 card self-refuting for the exact reader it addressed. **A count derived from source
 is not a prediction of a run; if prose promises a judge what they will see, it names
 the machine.**
+
+## 2026-09-08T0622Z — the gate passed and the cold read found the booth-breaking sentence
+
+WFG-167/WFG-181 built `tests/test_responsibility_and_privacy_cards.py`, which binds every
+quantity two new T0 cards state back to the tree: the sheet footer is imported from
+`FOOTER_LINES` rather than retyped, the 33 is counted, the 28 is derived from the run records,
+`immobile_fraction` is read from the committed artifact, and `email_sent.json`'s absence is
+checked as an absence. It was mutation-graded 5 for 5 before it was trusted. It went green.
+
+The sentence that would have broken at the booth was still in the card: the draft ended
+「지금 펴 드릴 수 있습니다」 — an offer to hand the judge the dispatch sheet — and the dispatch
+sheet is the **one document not in the booth kit**, which Q39 says four hundred lines below in
+the same file. The gate could not see it: it carries no number, quotes no file, and names no
+other surface. **A gate binds the claims you thought to bind. The cold read is what finds the
+claim you did not know you were making**, and on a judge-facing card the dangerous claims are
+often the ones with no number in them.
+
+The generalisable form, for a future gate: **a card that promises a physical action at the
+booth must name the artifact that action needs, and that artifact must appear in the printables
+manifest.** Nothing checks that today.
+
+**Second, smaller, and the opposite direction: the gate is not automatically the truth.** Its
+first glob derived 16 run records where the card said 28, and the gate was wrong — 12 of the
+records are `RUN.json` and not `MANIFEST.json`. Had the card been "corrected" to 16, a true
+number would have been replaced by a number about a subset nobody named, and the gate would
+have certified it forever. When a derivation disagrees with a hand-counted figure, grade the
+derivation before editing the prose.
+
+**Third, and the reviewer's root objection — the same failure in its purest form.** The gate
+above globbed `outputs/dispatch/*/*/` for the sheets it checked: **33 files, which is exactly
+the population the card's 「33장」 describes.** The tree holds **642** tracked
+`dispatch_a4.html`. So the check could only ever agree with the number it was checking, and the
+reviewer proved it by dropping a footer-less sheet into `outputs/dispatch_full/` and watching
+the gate stay green — 609 sheets unguarded. **A population chosen after the claim, and drawn to
+fit it, is not evidence; it is the claim restated.** This is `mandela`'s leakage taxonomy
+firing inside a gate written to stop exactly this class of defect, by the lap that had just
+mutation-graded that gate 5 for 5 — mutation grading proves a gate *notices*, it says nothing
+about whether the gate is *looking at the right set*. Ask both questions: does it fire, and
+over what population.
