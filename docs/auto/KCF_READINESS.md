@@ -5,7 +5,62 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
-**Tick count, critic #45, 2026-09-08T2000Z: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), held. R3, R11 and
+**Tick count, critic #46, 2026-09-08T2340Z: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), held. R3, R11 and R12
+are the three that do not tick; R10 was withdrawn 2026-09-04.** Re-measured at `cb9fcc3` on the routine's
+**default** clone before any deepening: `is-shallow-repository` = **true**, `rev-list --count HEAD` = **55**,
+oldest resolvable `24f914f` at **03:21:30Z on 09-08**, so this clone reads about **20.3 hours** and I claim
+nothing older and **no ancestry claim at all**. `gates.py --mode full` exits **0**, ALL GREEN: `1786 passed,
+63 skipped, 2 xfailed`, pytest **346.6 s**. `git ls-remote origin Main` answers **`cb9fcc3`**, so `Main` is
+following (CHARTER §4c).
+
+- ⚠⚠ **THIS LAP'S OWN CORRECTION, recorded here because a readiness page is a record.** I first measured this
+  window at `7cfe29a` (23:00Z) and wrote that the 21:17Z dev lap had claimed WFG-199 and WFG-127 and died: a
+  pushed claim at `97231a1`, no work commit, no report, 1 h 43 m elapsed. **The evidence was real and the
+  inference was wrong.** The lap was slow, not dead; it pushed `9170a37` at about 23:20Z and closed **both**
+  rows. Nothing was pushed carrying the wrong finding. NH-035 already records the 2026-09-05 lap that
+  「looked dead for 1 h 45 m and was only slow」, which is why §5b's window is three hours; I quoted that
+  sentence in the draft and drew the opposite conclusion anyway.
+- ✅ **R1 and R9 keep their ticks and the countdown two critic laps recorded is GONE.** WFG-199 closed at
+  `9170a37`: `make finals` re-stamped `web/finals.html` onto `97231a1`, a commit reachable from
+  `origin/auto/dev` as the row requires, and `git rev-list --count 97231a1..HEAD` answers **8** against
+  `tests/test_finals_screen.py:540`'s limit of **30**. The series across four readings is 16 (1700Z), 22
+  (2000Z), 27 (2300Z), **8** (here). NH-045's third replay did not happen.
+- ✅ **R5 and R7 hold and both got stronger, and I re-hashed rather than read.** The kit is
+  `WFG_printables_20260908T2156Z.pdf` with `release/kcf-finals-2026/MANIFEST.json` re-pointed at it in the
+  same lap (WFG-152), and **all six `SOURCES` re-hash to the tree in one process**: `BOOTH_SETUP.md`,
+  `DEMO_SCRIPT_5MIN.md`, `JUDGE_QA.md`, `submission_reconciliation.md`, `DETECTION_FLOOR_CARD.md`,
+  `RELATED_WORK_PANEL.md`. The bank is **46** cards, unchanged in count, with Q37 rewritten from 「다섯
+  가지 · 구분할 수 없습니다」 to 「여덟 가지 · 어깨 모양」 in the same commit that rebuilt the kit.
+  ⚠ **What R5 still does not cover, measured:** `grep -ciE 'Ready.?Set.?Go|화선|8시간'` is **0** on the bank,
+  the screen and the script, and no card asks why the horizon is 3 to 12 hours (**WFG-197**).
+- ✅ **R1's browser evidence got STRONGER this window and I checked it on a second machine.** `1fa0b7f`
+  replaced the substring skip critic #45 flagged with an `isinstance` check on a `BrowserLaunchError` raised
+  at exactly one site, and removed the `_free_port()` TOCTOU race by asking Chromium for port 0 and reading
+  `DevToolsActivePort`. `auto-gates` run **261**'s `finals-acts` job ran both steps to `success` on a clean
+  `ubuntu-latest` runner. **WFG-196's residual risk is substantially discharged.** ⚠ It shipped with **no
+  independent reviewer** (`docs/auto/reports/2026-09-08T2231Z-manual.md` contains 「Reviewed」 zero times
+  while its commit changed 152 lines of driver and test); filed onto **WFG-147**.
+- ⚠ **No CHARTER §4b finding.** `auto-gates` runs **246 to 263** on `auto/dev` carry three `failure`s, all
+  three closed inside the window: 253 (`upload-artifact` 403, WFG-193), 255 (browser, closed by `298a09c`)
+  and 260 (`7eeccab`, the port race, closed by `1fa0b7f`). Runs **262** and **263** are `success` at the two
+  newest heads.
+- ⚠ **R3 is unchanged and unchangeable by any lap, for a fourth consecutive window.** Its row is **WFG-179**,
+  `blocked(NH-046)`, and NH-046 is due 2026-09-10 and still open. R3 is the last of CHARTER §14b's six lines,
+  so the P1 infra block still waits on one reply. R11 and R12 are likewise the author's (R12 is NH-014).
+- **Readiness lines ticked inside the last 24 h: ONE (R8, at `dee1bc1`, by critic #43 at 1429Z).** The
+  「zero across two consecutive critic laps」 direction finding does **not** fire. None ticked in this
+  three-hour window, and unlike the last two windows the reason is not that nothing happened: the window
+  closed two P0 rows and ran a measurement against the project's own interest. The three lines that do not
+  tick are all the author's.
+- ⚠ **The one `Do NOT edit` note is RE-STATED and its LINE RANGE WIDENED to match the block that grew**
+  (CHARTER §14c, NH-036 A). It lives in `CRITIC_LATEST.md`, covers `README.md:220-247` only, forbids
+  **present-perimeter margin values (9, 27, 5, 19, 86)** in those lines while NH-032 and NH-034 are open
+  (both re-read, both still `open`, both due today), and expires at critic #47 unless that lap re-states it.
+  It freezes no question: **WFG-201 must edit those very lines**, and that edit is a sentence about how the
+  number is chosen, not a margin value.
+
+
+*(Superseded lead, kept as the record.)* **Tick count, critic #45, 2026-09-08T2000Z: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), held. R3, R11 and
 R12 are the three that do not tick; R10 was withdrawn 2026-09-04.** Re-measured at `9c24a8b` on the routine's
 **default** clone before any deepening: `git rev-parse --is-shallow-repository` = **true**, `git rev-list
 --count HEAD` = **50**, oldest resolvable `088203c` at **00:22Z on 09-08**, so this clone reads about **19.6

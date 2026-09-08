@@ -1499,6 +1499,39 @@ sentence the loop has started saying around them (「no operator can know the ri
 currently stronger than the run supports. Filed as **WFG-127**, agent-doable, routing only, no re-acquisition.
 Answer NH-032 whenever you like; nothing waits on this.
 
+**⚠⚠ 2026-09-08T2340Z, critic #46: THE TABLE ABOVE IS COMPUTED ENTIRELY AT 1 km, AND 1 km IS NO LONGER
+THE BEST WIDTH IN THIS REPOSITORY'S OWN GRID. Read this before you pick a letter.** The 2026-09-08T2235Z
+dev lap closed WFG-127 at `9170a37` by adding the three widths the five-point sweep was missing (750,
+1250, 1500 m), on committed inputs, no retrain, into a new file, with all five old widths reproducing
+**cell for cell** as the control. `docs/present_perimeter_buffer_shape.md` §3(c) states the consequence in
+its own words: 「750 m scores **higher** than the 1 km the committed headline uses. The fair opponent is
+therefore **stronger** than the committed artifact reports, and the forecast's margin over it on this fire
+is **smaller** than the committed margin: **5** origins at 750 m against **9** at 1 km.」
+
+**What that does to each option, so the letter you pick is chosen against today's numbers:**
+
+- **Option A** is offered above as 「the 21:02Z version ... (margin 9, the more conservative claim)」. At
+  the grid's own best measured width that version's margin is **5**, not 9. A is *more* conservative than
+  its own label, not less, and choosing it means the repository reports 5 if it reports the margin at the
+  opponent's best measured width, or keeps reporting 9 and must then say in the same breath that a better
+  width for the opponent is known and committed.
+- **Option C**'s parked version (margin 27) was also computed at **1 km** and has **never** been run at
+  750 m. Its number is therefore in the same position 9 was in three hours ago: unrefined. Nobody has
+  measured what C is worth on the eight-point grid.
+- **Option B** (report both arms as a range) is the only one whose shape is unaffected: a range of two
+  post-hoc-optimal margins is still a range, whatever the grid.
+
+⚠ **And a property none of the three options states, which is this critic lap's root objection and is now
+`WFG-201` (P0, position 1):** the opponent's width is chosen **after the fact by scanning outcomes**, so
+the reported margin is a **maximum over a grid** and is **non-increasing in how finely anyone searches** —
+a new width can only tie or beat the incumbent. The first refinement this project ever ran removed four of
+the nine origins. Whichever letter you choose, the number that ships should be named as a post-hoc maximum
+and should carry that sentence, or a statistician judge will supply it for you.
+
+**Nothing was decided here and no number moved on any judge-facing surface.** The dev lap correctly kept
+5 off every surface a judge meets while this entry and NH-034 are open, and the margins live in
+`docs/present_perimeter_buffer_shape.md` and the artifact only.
+
 ## NH-033 · FYI · open · This lap force-pushed its own parking branch, which CHARTER §3.8 forbids flatly
 
 **What.** After pushing `auto/red/20260905T2248Z` at `d6e5bcb`, this lap found that the red
@@ -1614,6 +1647,29 @@ regions rather than one. D) Something else — say it in one line and the next l
 answer.** The evidence is committed and reproducible either way.
 
 ---
+
+**⚠⚠ 2026-09-08T2340Z, critic #46: the lower end of this entry's own title moved into the mainline, and
+the entry was not told.** This entry is titled 「cuts the headline from 91 to between 5 and 27」, where the
+**5** came from a strict-origin variant. As of `9170a37` (2026-09-08T2235Z dev lap, WFG-127) the **5** is
+also what the shipping `walk_out` version reports at the grid's own best measured width: adding 750, 1250
+and 1500 m to the five-point sweep puts the fair opponent's best at **750 m** (safe total **349**) rather
+than 1 km (**345**), and `docs/present_perimeter_buffer_shape.md` §3(c) reads 「the forecast's margin over
+it on this fire is smaller than the committed margin: **5** origins at 750 m against **9** at 1 km」.
+
+**What that does to the options here.** Option **A** (「lead with the honest ladder — 265 / 327 / 354 of
+368」) is the one this measurement strengthens, because the ladder is a set of totals rather than a single
+difference and does not have to be re-cut when the opponent gets stronger. Option **B** (keep 91 as the
+headline, fair opponent in the Q&A bank only) now asks a judge to meet 91 on the screen and a margin that
+has fallen twice in four days on a card behind it. Option **C** (wait for the 울진·삼척 replication) is
+unaffected in shape and costs one more window of the same exposure.
+
+⚠ **The property, not the number, is the thing to fix**, and it is now `WFG-201` (P0, position 1): the
+opponent's buffer width is chosen post hoc by scanning outcomes, so the margin is a **maximum over a grid**
+and can only hold or fall as the grid is refined. Whatever you pick, the shipped sentence should say so.
+
+⚠ **The standing constraint is unchanged and was obeyed this window:** nothing on a judge-facing surface
+carries a margin while this entry and NH-032 are open, and `README.md:245-247` says only that the rerun
+went against the project and that the values are in the document.
 
 ## NH-035 · DECISION · open · The three-hour rule you chose to un-stick a stranded row cannot fire on the three-hour dev grid (by 2026-09-09)
 
@@ -2089,6 +2145,22 @@ you when you answer is today's and not Friday's.
 ticked R8 carries two prose defects this lap filed as **WFG-190**, and both of them are the front
 door stating a hard result more softly than the file it links to. The rule bought a surface; it
 did not buy the register.
+
+**⚠ 2026-09-08T2340Z, critic #46, one measurement for this decision and no new question.** Your rule
+worked exactly as option B describes it this window, and the evidence is unusually clean. Critic #45 set a
+one-command item (`make finals`); the 2235Z dev lap cleared it in minutes, then spent the rest of the lap
+on its actual row and **closed both** — WFG-199 and WFG-127 — with a measurement that runs against this
+project. **The preemption cost minutes and the row still landed.** This lap sets **no** item at all,
+because nothing eligible under §14b is red or minutes-scale, so the next lap runs the table unobstructed.
+On the evidence so far, B is doing what you would want it to do.
+
+⚠ **What is not working is the queue behind it.** At `cb9fcc3` there are **13** P0 rows `todo` against
+**seven** sprint days, and this lap added one (WFG-201, the fair-opponent margin's post-hoc-maximum
+property, filed at position 1 because §14b says a judge-facing finding larger than minutes goes there). I
+deliberately did **not** promote a second (WFG-197, the missing horizon card), and recorded that reasoning
+on the row, because two P0 promotions in one lap from a critic who is simultaneously calling the block
+unservable is not a priority system, it is a wish list. **A P0 block nobody can serve has stopped carrying
+information**, and that is the thing your letter decides.
 
 ## NH-039 · DECISION · open · The national wildfire-spread system's manual is an 18 MB PDF the sandbox could not fetch, and one of you can (by 2026-09-12)
 
