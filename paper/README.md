@@ -331,6 +331,81 @@ and **55** words. The word margin has fallen to 6 and the page count has not mov
 DIRECTION rule and its own strict tripwire both require does not fit, and the rule it does not
 fit is the proxy rather than the author's.
 
+⚠⚠ **Lap 21 is the one where the count went false in the direction nothing here watches: a new
+surface was born carrying the retired shape. Read `GAPS.md`'s lap-21 section before this
+paragraph.** §4.5 had ended 「**One** repository document still draws the stronger conclusion from
+those same five points … a **second** was narrowed to this reading during revision」. The
+incorporated diff (`d6d801d`) added a Round-4 bullet at **`README.md:232`** — 「그 sweep 안에서
+**고원이 아니라 뾰족한 봉우리**입니다」, the 1 km buffer is a sharp peak and not a plateau — which
+is precisely the shape §4.5 says five widths a factor of two apart cannot resolve. So it is
+**two** now, and §4.5 says two. Net **−1** word; 8,994 → **8,993**, margin **6 → 7**.
+
+**The three surfaces that state the resolution limit all still state it — none regressed.**
+`fair_opponent_line.md` (whose own note is dated 「Narrowed 2026-09-06」), `DEMO_SCRIPT_5MIN.md:151`
+and `JUDGE_QA.md` Q37 each carry their own record of that narrowing. What happened is not a survival
+a sweep missed: **the sentence was written afterwards, into a file that had never carried it, and
+that file is the project's front door.** ⚠ No ancestry claim is made and none can be: this clone
+answers `true` to `--is-shallow-repository` at a depth of **50**, oldest resolvable commit
+`ab4e71e` (2026-09-08), and `git log -S` on both Korean narrowings returns that boundary commit,
+which is the clone edge and not an answer. The ordering above rests on the documents' own dated
+records and on `d6d801d` being inside the incorporated range.
+
+⚠ The shape claim is in **no** entry of `docs/auto/withdrawn_claims.json` — checked key by key this
+lap, none of `spike`, `plateau`, 고원, 봉우리, 뾰족 or 평평 occurs anywhere in that file — so the
+scan never reads for it, and the only guard that exists, `tests/test_fair_opponent_line.py`, bans
+the retired spellings **in one file, by name, and in English**. `README.md:232` is Korean.
+
+⚠⚠ **And the first draft of this block was wrong in three ways, all found by the independent
+reviewer, all verified in the tree before the push. Read `GAPS.md`'s lap-21 section before this
+paragraph.** It called that mechanism 「new」 and 「a third failure mode beside §3.5's two」: it is
+neither. Critic #44 filed it at 2026-09-08T1700Z (`dc8fa9f`, **inside the diff this lap
+incorporated**) as 「A FOURTH SURFACE」 in WFG-127's own row — the row this block cites by name —
+with a sharper root than the draft had, namely that the guard reads English while the claim was
+written in Korean. **That is §3.5's own 「It matches spellings, not meaning, and one language at a
+time」**, firing on a guard rather than the registry and on a newly written claim rather than a
+surviving one (DIRECTION's rule; WFG-168, not yet filed). So the manuscript is owed nothing here and
+nothing was written into it. The draft also said WFG-127 is 「position 1 of the backlog table」:
+measured at `eff2183` it is table row **12** and the **second** `todo` row, WFG-199 having been put
+at the head of that block by critic #45 in that same commit — true at `9c24a8b`, falsified by the
+last commit of the range being incorporated. And it said 「933 gated files」 three times; the script
+prints **935** (`scripts/check_withdrawn_claims.py`, run this lap). ⚠⚠ **Two of those three are the
+wrong-count class this whole lap exists to fix, committed by the lap in the act of reporting it, in
+a block whose own headline is that a hand-typed count went stale.** The **933** in the lap-19 block
+above and in the two `GAPS.md` passages of laps 18 and 19 is left standing as those laps' record
+(CHARTER §3.7), and no line number is given for any of them, because this lap's own insertions moved
+them all.
+
+⛔ **And the budget declined a LIMITATION this lap, not an illustration. That is new, and it is
+what NH-037 was waiting to become.** The paper nowhere says that its hazard field cannot be
+current. `docs/live_pipeline.md` §0 makes it the project's own lead line — detection is
+near-real-time (FIRMS NRT), the weather is not, ERA5 publishing on a ~5-day lag — `live/scope.py`
+owns the strings, `tests/test_live_pipeline.py` fails if either is missing from **any** screen,
+sheet, broadcast script, SMS draft or JSON record, and this lap's own incorporated diff added
+`tests/test_adoption_card.py`, binding a judge card that opens on the same asymmetry.
+`references.bib`'s `era5` note already carries 「about five days' latency」, verified at the
+Copernicus page. The manuscript's only neighbouring line is §6's 「No trigger has ever fired on a
+**live** detection」, which says the system has not been run live and **not** that its weather
+source makes a current field impossible — a structural limit no deployment effort removes.
+
+The sentence — 「The hazard field cannot be current: ERA5 publishes on a ~5-day lag.」 — was
+**inserted and measured, not estimated**: `body_words` **8,993 → 9,005**, i.e. **12 words against a
+margin of 7**, five over the proxy's hard fail. It was reverted and the document rebuilt at 8,993.
+**Nothing was compressed to fund it** — CHARTER §12 forbids buying space with a caveat, and the
+only compressible prose left is the stock that produced wrong sentences at laps 13 and 15. ⚠ The
+honest other half, owed by the same rule that makes this worth escalating: **the manuscript is not
+false without the sentence.** It claims no real-time operation anywhere. What is missing is the
+*reason*, and a reviewer who asks for it is asking a fair question the paper cannot answer today.
+⚠ And this lap **re-measured** rather than inheriting: `body_words` moved, which moves
+`built_pages_inputs`, so lap 20's anchor turned the gate red exactly as designed until a run had
+produced a new count. After the one `apt` line this file has printed since lap 9,
+`check_paper.py` took its measuring branch — `pages 23, calibri_face Carlito, metrics_ok true` —
+and the new anchor `84b91dde83d63607` is the one that run printed. **Both margins stand measured
+on one document by one run: two pages against the author's 25, seven words against the proxy's
+9,000.** Twelve words move no page. **The rule that stopped a limitation is
+the proxy, not the author's. Laps 13 through 21 have now all had their writing shaped by it, and
+this is the first one where what it shaped away was a limitation. NH-037 is the answer and it is
+still open.**
+
 ⚠ **The page that took the count from 22 to 23 cost eleven words, and it is worth
 knowing that before reading the words-to-pages table below as a rate.** Lap 11
 took the body 8,735 → 8,825 (a mandatory §4.5 correction, one clause, and the

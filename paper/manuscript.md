@@ -503,8 +503,8 @@ agree on which buffer width comes off best either, so the dispute above is not c
 the residual it leaves. The run supports no
 statement about whether a workable width could be chosen in advance: the five widths differ
 by factors of two, so the grid holds a single point in the region such a claim would be
-about. One repository document still draws the stronger conclusion from those same five
-points, as do the caveats the registry carries on this arm's own entries; a second was
+about. Two repository documents still draw the stronger conclusion from those same five
+points, as do the caveats the registry carries on this arm's own entries; others were
 narrowed to this reading during revision, and the rest is an open item there.
 
 Two caveats bind the whole comparison. The forecast-aware arm plans on the same hazard field
