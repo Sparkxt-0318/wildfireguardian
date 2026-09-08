@@ -215,6 +215,73 @@ place as superseded, not deleted** (CHARTER §3.7), and `GAPS.md`'s lap-17 secti
 full seven-row grep table. This paragraph is the pointer for the block above it, which quotes
 lap 15's wording as a record and does not assert it.
 
+⚠⚠ **Lap 19 changed no sentence in the manuscript, and measured the thing every block above it
+has been arguing about: the proxy does not count 2,403 of the words the document renders.** Read
+`GAPS.md`'s lap-19 section for the working; this is the summary. **`python paper/measure_render_gap.py`**
+(new in that lap) re-derives it from the shipped `.docx`: **11,397** words render against the
+**8,994** `build_docx.py` calls `body_words` — the counter is incremented in the paragraph branch
+(`:187`) and the list-item branch (`:177`) and nowhere else, so figure captions (**789**), table
+captions (**439**), table cells (**213**), headings (**119**), the generated References section
+(**802** over 29 entries), the title page (**39**) and the rendered citation markers the counter
+strips from the source (**2**) are all outside it. **The proxy sees 79 % of the words that
+render** — words, not page area; this section's whole point is that the two are not the same.
+
+⚠⚠ **The first version of that table was itself a word miscount, and the lap's independent
+reviewer found it before the push.** It decomposed the Markdown *source* rather than the rendered
+document, published 773 / 431 / 153 / 40, and those parts sum to **2,412** against the 2,403 they
+decompose: heading lines had been counted with their `#` markers attached, and the builder's
+rendered `Figure N. ` / `Table N. ` labels do not exist in the source. **The lap whose entire
+product was 「a word counter mis-counts words」 shipped a word miscount in the same table, into
+three files, and nothing here could have caught it** — no script re-derived any of the six
+integers. `measure_render_gap.py` is that script and exits **1** when its parts do not reconcile
+with its total. ⚠ It gates nothing: no push runs it, so a number copied out of it can still go
+stale, the same standing weakness `measure_pages.py` has and a dev-lap item for the same reason.
+
+⚠ **That makes it bypassable in one keystroke, over 1,441 words of caption and table prose —
+16.0 % of `body_words` — and no lap may use it.** Move a sentence from a
+paragraph into the figure caption above it and `check_paper.py` reports a shorter document. It is
+the `built_pages_inputs` bypass again — the one lap 9's reviewer killed because the dishonest act
+and the honest one were the same keystrokes — except that here nothing stands against it at all.
+A caption carrying body argument to dodge a counter is a false measurement of the document, not a
+short document. Lap 19 did not use it and did not compress anything either: with 6 words of
+margin and **no mandatory correction to fund**, it was the cheapest lap in which to realise
+compressible stock, and it refused because every compression is an edit to litigated prose for no
+gain in truth and two of the three sentences laps 13 and 15 got wrong were compressions. The
+margin is **6** and is reported as 6 — ⚠ **and never bare, because it is a margin against a proxy
+that does not measure the rule it stands in for.** What is operative is the author's 25 pages, and
+the document measured 23 at lap 18 with no input to that measurement moved since. The 6 is what
+the gate enforces until NH-037 is answered, and that is all it is.
+
+⚠ **One caption in this paper already carries argument that is nowhere else**, which is why the
+paragraph above is a rule and not a worry. F5's caption ends 「Not re-acquiring the region is
+deliberate: the walk box does not fit the simulation grid, so redrawing it would force
+re-extending the canvas and re-simulating the field, replacing a stated limit with an unstated
+one」 — a methodological justification §4.3's first caveat does not restate. **No claim is made
+about how it got there:** `git log -S` names `e649f2d`, but this clone answers `true` to
+`--is-shallow-repository` at a depth of **50** commits (measured 2026-09-08), so that commit shows
+`manuscript.md` as a *new file* and the answer is the clone boundary, not the history. CHARTER §4
+forbids the ancestry claim and none is made. Moving it into §4.3 costs about 30 words against 6.
+
+⚠ **What this does to NH-037, in both directions.** It sharpens the question — the entry should
+ask about a proxy that is tight on prose and blind on captions and tables, not about a proxy
+「a thousand words early」, and the words-to-pages table below was calibrated at *this* caption
+density and holds only there, `calibrate_pages.py` holding figures, tables and references fixed by
+construction. The remedy that removes the class is not a bigger number but **WFG-116's one `apt`
+line in `.github/workflows/auto-gates.yml`**, after which a clean clone measures the 25 pages the
+author actually set. ⚠ And it **shrinks** the entry's case by one line, which is owed: the §3.5
+illustration recorded as declined at laps 13–18 — that registration keeps finding live copies a
+hand sweep missed, the want the blocks above quote at 10 and 20 words — **is retired as a want,
+not deferred a seventh time.** This diff carries the other direction: `WC-010`'s `say_instead`
+field was wrong from `ab4e71e` to `82ec346` (2 h 16 min on the commits' **author** dates; `82ec346`
+was rebased and its committer date gives 3 h 03 min, and author date is the one that answers how
+long the wrong wording sat in the tree the lap wrote it into), and the scan
+that enforces `WC-010` over 933 files reads `.md` and `.html`, so it does not read the file
+`WC-010` lives in — a hand grep of the subject found it and registration structurally could not.
+Both directions hold; what dies is the **one-directional** form all six drafts had, which is the
+register `WC-009` itself forbids. The blocks above are records and are not rewritten; this
+paragraph is their annotation (CHARTER §3.7). **The rest of NH-037 stands: laps 13, 15 and 16 each
+funded a mandatory correction by compression, and lap 13 shipped two wrong sentences doing it.**
+
 ⚠ **The page that took the count from 22 to 23 cost eleven words, and it is worth
 knowing that before reading the words-to-pages table below as a rate.** Lap 11
 took the body 8,735 → 8,825 (a mandatory §4.5 correction, one clause, and the
@@ -250,6 +317,7 @@ author's ceiling is the operative one.
 | `build_docx.py` | Markdown → `WildfireGuardian_Park_2026.docx` (python-docx; title page, numbered figures/tables, references) |
 | `check_paper.py` | the paper's own gate: the 25-page ceiling where it can be measured, the word budget as its proxy where it cannot, figure/reference integrity, gap ledger, registry-anchored numbers |
 | `measure_pages.py` | renders the built `.docx` and counts its pages, two ways, refusing to answer when they disagree; `check_paper.py` calls it, and `--why` prints the install a machine needs to run it |
+| `measure_render_gap.py` | what the word proxy does **not** count: decomposes the built document into `body_words` and the captions, tables, headings, references and front matter outside it, and exits 1 if the parts do not reconcile with the total. Gates nothing |
 | `GAPS.md` | every `[GAP: …]` marker in the manuscript, with what closes it and when (after the sprint if needed) |
 | `STATE.json` | the commit the manuscript last incorporated, the counts `check_paper.py` drift-checks, and `built_pages` with the `built_pages_inputs` digest that anchors it |
 
