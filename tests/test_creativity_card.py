@@ -710,3 +710,34 @@ def test_the_readme_block_keeps_its_limit_and_leaves_the_verdict_to_the_judge() 
         "explains why it is written in the descriptive register. The block is "
         "the summary; the card is where the method and its limits are."
     )
+
+
+def test_the_label_a_judge_reads_is_the_path_the_link_opens() -> None:
+    """WFG-207's independent reviewer, mutation D: the href was bound and the
+    LABEL was not.
+
+    `test_every_link_in_the_readme_block_opens` resolves link targets, and
+    `test_the_readme_pairs_each_item_with_its_own_artifact` cuts the block at
+    its markers — but both read the raw text, in which a link's visible label
+    and its target are two different strings. Rewriting item ①'s backticked
+    label to another real repository path while leaving the target correct kept
+    all eighteen assertions green. On a rendered README the label is the whole
+    of what a judge sees: they read one path and land on another, and every
+    gate here said the pairing held.
+
+    So the labels are bound to the targets. This is what makes the pairing claim
+    true of the surface rather than of the markup.
+    """
+    block = _readme_block()
+    pairs = re.findall(r"\[`([^`]+)`\]\(([^)]+)\)", block)
+    assert pairs, (
+        "README.md's 창의성 block has no `path`-labelled links left; the items "
+        "are supposed to show a judge the path they are about to open."
+    )
+    mismatched = [f"{label} -> {target}" for label, target in pairs if label != target]
+    assert not mismatched, (
+        "README.md's 창의성 block shows a judge one path and opens another: "
+        + ", ".join(mismatched) + ". The label is what a rendered README puts "
+        "in front of a reader; binding only the href leaves the pairing "
+        "unbound where it is actually read (WFG-207 reviewer, mutation D)."
+    )

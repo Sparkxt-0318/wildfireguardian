@@ -2580,3 +2580,23 @@ opens. **When a row's done-when is inherited from a defect on another surface, c
 the surface has the same shape before satisfying it literally.** The property that
 actually distinguishes what a judge is handed here is the **link** — a path that does not
 open — and that is what got a gate instead.
+
+**Third, and it was caught only because the claim was re-run before the push.**
+`scripts/build_finals_bundle.py` builds the bundle from the files **git tracks**. This lap
+ran `--update` after `make printables` but before `git add`, so the new kit was still
+untracked, the builder could not see it, and both `--update` and the byte-identical check
+returned **green about the previous kit**. The report was about to claim a re-pointed
+manifest that pointed at the old PDF. **Any check whose input is `git ls-files` answers
+about the index, not the working tree: run it after staging, or its green means nothing.**
+This is CHARTER §8's warning one step earlier — there the danger is a gate that never read
+the pushed commit; here it is a gate that read the pushed commit's *predecessor* and said OK.
+
+**Fourth, and the reviewer raised it against the lap rather than the code.** `docs/creativity_card.md`
+§6 already contains the rule 「the two mutation sets have to come from two sessions」, written by WFG-194
+after its own reviewer raised `mandela` #5 (verifier = designer). This lap wrote its five gates and its
+ten mutations in one session and did not follow it. The reviewer's independent eight found in one pass
+what the lap's ten could not: the link **label** was unbound while the **target** was bound, so a judge
+could read one path and open another with every assertion green. **A rule this repository wrote for
+itself is not a control until a lap is made to run it** — and the cheapest form of it here is that the
+independent review IS the second source, so the mutation set belongs in the reviewer's brief and not
+only in the lap's own doc.

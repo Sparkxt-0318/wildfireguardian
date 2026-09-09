@@ -340,11 +340,23 @@ in the Round-4 fair-opponent block while NH-032 and NH-034 are open.
 ### The row's own 「done when」 could not be met as written, and this is what replaced it
 
 The row asks for a gate that reads **「the rendered README and not a source
-file」**. There is no rendered README: nothing in this tree builds it — the only
-`README.md` string in `scripts/` is inside a printables body paragraph — so
+file」**. There is no rendered README: nothing in this tree builds it, so
 `README.md` is at once the source and the artifact a judge opens, unlike
 `web/finals.html`, which `make finals` builds from `scripts/finals.template.html`
 and which is why WFG-194's gates could read the wrong file.
+
+⚠ **The sentence that first stood here as the evidence for that was false, and
+the independent reviewer measured it.** It said the only `README.md` string in
+`scripts/` was inside a printables body paragraph. `grep -rn 'README\.md'
+scripts/` returns **seven** text hits: `check_readme_figures.py` (which *reads*
+the file, as a gate), `auto/render_images.py`, `auto/dashboard.py`,
+`auto/gates.py`, `check_finals_acts.py`,
+`investigate_routing_demo_divergence.py`, and the printables one. **The
+conclusion survives** — every one of those reads or names the file and none
+writes it, and neither the `Makefile` nor `.github/workflows/` generates it —
+but the measurement offered for it did not, and this page is printed in the
+booth kit. It is corrected here rather than deleted, because a false measurement
+under a true conclusion is exactly the shape this file exists to refuse.
 
 So the property a source-reading gate genuinely misses here is not a build step.
 It is **the link**. What a judge does on the front door is press on a path, and
@@ -363,7 +375,10 @@ the newest surface only.
 
 ### Mutations
 
-Ten were run against the five new gates. **Nine are red:**
+Ten were run by the lap against its five new gates, and eight more by the
+independent reviewer, which is the two-source rule §6 stated and this lap had
+not followed until the review. **Nine of the lap's ten are red, and the
+reviewer's set added a sixth gate — see the review section below:**
 
 | mutation | red |
 |---|---|
@@ -376,6 +391,7 @@ Ten were run against the five new gates. **Nine are red:**
 | the Korean-numeral form of the same (「여섯 건」) | ✅ |
 | delete the reworded-claim limit | ✅ |
 | delete the 「심사위원의 판단입니다」 line | ✅ |
+| **(reviewer, D)** rewrite an item's backticked LABEL, leave the link target correct | ✅ *after the gate this review forced* |
 
 **The tenth stays green, and it is M8 again**: rewriting the opening from the
 descriptive register into the evaluative one, keeping all three items, all their
@@ -406,8 +422,43 @@ headline number would be read first.
   pairing, the register and the limits, and none of them can tell whether these
   are the right three items or whether a judge finds them creative.
 - **It says nothing about whether a judge scrolls that far.** §5 sits below four
-  other Round-4 sections on a 1,100-line page. The finals screen and the spoken
+  other Round-4 sections on a long page. The finals screen and the spoken
   script are the surfaces that do not depend on scrolling, and they carry the
-  same three items (§6).
+  same three items (§6). ⚠ The line count that stood here — a figure for the
+  README's length — was removed by the reviewer's third nail: it was an
+  unregistered count of this repository's own state, in a printed document, one
+  section below a gate that forbids exactly that on the surface next door.
 - **The evaluative-register rewrite is still uncaught here**, as it is
   everywhere else in this file.
+
+### What the independent reviewer blocked, and what it changed (WFG-207)
+
+`LOOP_CONFIG.json` sets `review: subagent`, and this lap's reviewer returned
+**block** with four nails, each proved by a command. Two are corrected above.
+The other two changed the gates and the claims:
+
+**The label a judge reads was not bound to the link it opens (mutation D).** The
+reviewer wrote its own eight mutations without seeing the lap's ten — which is
+the two-source rule §6 stated and this lap had not followed — and D is what the
+lap's set could not have found: rewriting item ①'s backticked **label** to
+another real repository path while leaving the **target** correct left all
+eighteen assertions green. On a rendered README the label is the whole of what a
+reader sees; they read one path and land on another. So the claim 「a
+transposition of two items' paths turns the suite red」 was true of *hrefs* and
+false of *labels*. `test_the_label_a_judge_reads_is_the_path_the_link_opens`
+now requires the two strings to be equal, and D is red.
+
+**The count exclusion let something through, and the page did not say what.**
+§7 above says `Q\d+[a-z]?` is stripped before the count scan so 「Q29a」 is not
+read as 29. The reviewer planted 「근거 문서 Q33종」 and it passes: a count written
+*adjacent to a Q* escapes. It is narrow, and it is now written down rather than
+implied by the word 「excluded」.
+
+The reviewer also confirmed, independently: the four link targets resolve; the
+README diff is one hunk, with the opening paragraph, the Round-2 section and the
+Round-4 fair-opponent block untouched and no margin value added; and the
+malformed-row histogram of `docs/auto/BACKLOG.md` is identical before and after.
+And one disclosed limit it re-found rather than a finding: an explicit
+superiority claim over an *unnamed* class (「국내 어떤 시스템보다 앞서 있는」) trips
+neither the novelty pattern nor the other-system list, because nothing here
+reads tone — which is M8 again, from a third direction.
