@@ -2699,3 +2699,62 @@ turns on 「the input we need does not exist」, the lap that re-costs it lists 
 arrays or columns of the committed file it claims is insufficient, in the report,
 before the estimate. `docs/oracle_gap.md` §2 is that list; it took ten minutes and
 it moved a P0 row from 「needs a free parameter」 to 「needs the author's decision」.
+
+## 2026-09-09T1517Z — a gate whose predicate is 「what does git know」 must read an artifact, not git
+
+WFG-027 asked for a schedule reconstructed from `git log`. The obvious build is a
+script that reads the history and a test that re-reads it. That test would have
+been red in this sandbox and green on GitHub, for the fifth time: the routine's
+clone opened SHALLOW at **51** commits, oldest 2026-09-08, and the first commit
+this document is about is 2026-05-27. CHARTER §4 already names the class — a gate
+whose predicate is 「can this clone resolve X」 fires at the clone depth, and the
+depth is not a constant (50, 51, 149, 294 and 531 measured on different laps).
+
+**The shape that works, and it is one extra file:** the script reads git and
+writes a committed JSON artifact; the prose is checked against the *artifact*; and
+the single test that must read git carries a `skipif` on
+`--is-shallow-repository` with the reason written into it. A shallow clone then
+checks everything except the one thing it cannot know, instead of failing at
+everything.
+
+**The second half is the deepening rule, and this lap has a predicate worth
+reusing.** The charter warns that deepening by a guess (120, then 250) re-published
+a wrong answer with more confidence. Here the honest predicate was not a number at
+all: the document is *about the whole history*, so `--unshallow` is the ask, and
+`--is-shallow-repository` answering `false` afterwards is what licensed writing any
+dated claim at all.
+
+**The anti-pattern this lap also walked into, and could not fix in scope:** a
+document with two id namespaces that share a counter. `docs/auto/JUDGE_QA.md`
+numbers its answered cards 1..35 under a contiguity gate and its *open* questions
+Q36..Q40 in a table the same gate cannot see. The result is that no lap can add a
+card: Q36 is taken and Q41 breaks contiguity. The 일정 answer shipped as a
+labelled block instead, which works and is worse, and the fix is WFG-216. **Before
+adding an id to a document, check whether something else in the same document is
+already counting.**
+
+**Same lap, the reviewer's lesson, and it cost three renders.** This lap edited a
+printables `SOURCES` file, rendered the kit, re-pointed the bundle — and then
+edited the same source file again, twice: once to move a block a gate rejected,
+once to fix a false clause `factchk` found in its own new prose. Each edit
+silently invalidated the PDF the bundle had just been re-pointed at, and the third
+time the lap wrote in its report that it had corrected the sentence 「before the
+kit was rebuilt」 when it had not. **The independent reviewer blocked on exactly
+that**, and its first nail was one command:
+`pytest tests/test_printables.py::test_the_newest_printable_is_not_stale_against_the_tree`.
+
+**The rule, and it is an ordering rule like the `make finals` one above:**
+`make printables` and `make finals-bundle` are the LAST content actions of a lap,
+after `sip`, after `factchk`, after the reviewer's fixes — never in the middle. A
+kit rendered before the prose is final is a kit that has to be rendered again, and
+the failure is invisible in the working tree because the stale PDF still exists
+and still hashes correctly against *its own* manifest. **A lap that has re-rendered
+the kit twice should treat the third edit as a signal that it rendered too early,
+not as bad luck.**
+
+**And the smaller one, also the reviewer's:** a test that checks a figure with
+`needle in doc` passes while a *single* instance of a twice-written number is
+wrong. This lap had graded eight mutations and called the figure covered; the
+reviewer changed one of the two 「662개」 and the suite stayed green. **Count
+occurrences, do not test containment**, whenever a document states the same figure
+more than once.

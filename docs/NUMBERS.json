@@ -15144,6 +15144,746 @@
           }
         }
       }
+    },
+    "timeline_total_commits": {
+      "value": 662,
+      "unit": "commits",
+      "source_file": "data/processed/timeline_roles/timeline_roles.json",
+      "json_path": "total_commits",
+      "derivation": "commits reachable from HEAD on auto/dev when the artifact was built. Regenerate: python scripts/build_timeline_roles.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "89da7d348516ae452b50ce8d41e42fdb6c6391a5",
+      "sample": "auto/dev history, 2026-05-27 to 2026-09-09",
+      "caveat": "COMMIT COUNTS FROM ONE BRANCH'S HISTORY, NOT A MEASURE OF WORK. Four facts travel with any of these figures or none may be quoted: (1) they count commits reachable from HEAD on auto/dev at the stated commit, so a rebased or parked branch's commits are not in them, and every count except the last phase's grows with every later lap — the figure is 'as of' its git_commit and nothing re-derives it forward; (2) `agent_trailer_commits` counts commits whose message carries the `Co-Authored-By: Claude` trailer, which is a mechanical string test and NOT a statement about who thought of what — the trailer convention only begins in July 2026, so an untrailered commit is not evidence that no tool was used; (3) a commit is not a unit of work — the autonomous loop commits several times per lap by design (a claim, the work, the report), so the 2026-09 counts are inflated relative to the hand-worked months and must never be read as 'more was done'; (4) the phase boundaries are the calendar gaps in the commit record, chosen because the record has them, and they are not project milestones anyone declared at the time.",
+      "forbidden_phrasings": [
+        "commits measure the work",
+        "the AI wrote 513 commits",
+        "AI가 513개를 작성했습니다",
+        "커밋 수가 작업량입니다",
+        "the student wrote 149 commits"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/build_timeline_roles.py rebuilds the artifact from `git log` alone, with no network and no data files. It requires the FULL history: a shallow clone cannot resolve 2026-05-27 and the script exits 2 there rather than guessing.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "process_record",
+      "notes": "docs/auto/finals/TIMELINE_ROLES.md states the schedule, the roles for a solo entrant, and what these counts do NOT show. They are a record of a git history and are not a result about wildfires.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/timeline_roles/timeline_roles.json",
+            "json_path": "total_commits"
+          }
+        }
+      }
+    },
+    "timeline_active_days": {
+      "value": 42,
+      "unit": "days",
+      "source_file": "data/processed/timeline_roles/timeline_roles.json",
+      "json_path": "active_days",
+      "derivation": "distinct UTC calendar dates carrying at least one commit. Regenerate: python scripts/build_timeline_roles.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "89da7d348516ae452b50ce8d41e42fdb6c6391a5",
+      "sample": "auto/dev history, 2026-05-27 to 2026-09-09",
+      "caveat": "COMMIT COUNTS FROM ONE BRANCH'S HISTORY, NOT A MEASURE OF WORK. Four facts travel with any of these figures or none may be quoted: (1) they count commits reachable from HEAD on auto/dev at the stated commit, so a rebased or parked branch's commits are not in them, and every count except the last phase's grows with every later lap — the figure is 'as of' its git_commit and nothing re-derives it forward; (2) `agent_trailer_commits` counts commits whose message carries the `Co-Authored-By: Claude` trailer, which is a mechanical string test and NOT a statement about who thought of what — the trailer convention only begins in July 2026, so an untrailered commit is not evidence that no tool was used; (3) a commit is not a unit of work — the autonomous loop commits several times per lap by design (a claim, the work, the report), so the 2026-09 counts are inflated relative to the hand-worked months and must never be read as 'more was done'; (4) the phase boundaries are the calendar gaps in the commit record, chosen because the record has them, and they are not project milestones anyone declared at the time.",
+      "forbidden_phrasings": [
+        "commits measure the work",
+        "the AI wrote 513 commits",
+        "AI가 513개를 작성했습니다",
+        "커밋 수가 작업량입니다",
+        "the student wrote 149 commits"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/build_timeline_roles.py rebuilds the artifact from `git log` alone, with no network and no data files. It requires the FULL history: a shallow clone cannot resolve 2026-05-27 and the script exits 2 there rather than guessing.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "process_record",
+      "notes": "docs/auto/finals/TIMELINE_ROLES.md states the schedule, the roles for a solo entrant, and what these counts do NOT show. They are a record of a git history and are not a result about wildfires.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/timeline_roles/timeline_roles.json",
+            "json_path": "active_days"
+          }
+        }
+      }
+    },
+    "timeline_agent_trailer_commits": {
+      "value": 513,
+      "unit": "commits",
+      "source_file": "data/processed/timeline_roles/timeline_roles.json",
+      "json_path": "agent_trailer_commits",
+      "derivation": "commits whose message body carries the `Co-Authored-By: Claude` trailer. Regenerate: python scripts/build_timeline_roles.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "89da7d348516ae452b50ce8d41e42fdb6c6391a5",
+      "sample": "auto/dev history, 2026-05-27 to 2026-09-09",
+      "caveat": "COMMIT COUNTS FROM ONE BRANCH'S HISTORY, NOT A MEASURE OF WORK. Four facts travel with any of these figures or none may be quoted: (1) they count commits reachable from HEAD on auto/dev at the stated commit, so a rebased or parked branch's commits are not in them, and every count except the last phase's grows with every later lap — the figure is 'as of' its git_commit and nothing re-derives it forward; (2) `agent_trailer_commits` counts commits whose message carries the `Co-Authored-By: Claude` trailer, which is a mechanical string test and NOT a statement about who thought of what — the trailer convention only begins in July 2026, so an untrailered commit is not evidence that no tool was used; (3) a commit is not a unit of work — the autonomous loop commits several times per lap by design (a claim, the work, the report), so the 2026-09 counts are inflated relative to the hand-worked months and must never be read as 'more was done'; (4) the phase boundaries are the calendar gaps in the commit record, chosen because the record has them, and they are not project milestones anyone declared at the time.",
+      "forbidden_phrasings": [
+        "commits measure the work",
+        "the AI wrote 513 commits",
+        "AI가 513개를 작성했습니다",
+        "커밋 수가 작업량입니다",
+        "the student wrote 149 commits"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/build_timeline_roles.py rebuilds the artifact from `git log` alone, with no network and no data files. It requires the FULL history: a shallow clone cannot resolve 2026-05-27 and the script exits 2 there rather than guessing.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "process_record",
+      "notes": "docs/auto/finals/TIMELINE_ROLES.md states the schedule, the roles for a solo entrant, and what these counts do NOT show. They are a record of a git history and are not a result about wildfires.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/timeline_roles/timeline_roles.json",
+            "json_path": "agent_trailer_commits"
+          }
+        }
+      }
+    },
+    "timeline_other_commits": {
+      "value": 149,
+      "unit": "commits",
+      "source_file": "data/processed/timeline_roles/timeline_roles.json",
+      "json_path": "other_commits",
+      "derivation": "the remainder — commits without that trailer, which is not the same as commits written without a tool. Regenerate: python scripts/build_timeline_roles.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "89da7d348516ae452b50ce8d41e42fdb6c6391a5",
+      "sample": "auto/dev history, 2026-05-27 to 2026-09-09",
+      "caveat": "COMMIT COUNTS FROM ONE BRANCH'S HISTORY, NOT A MEASURE OF WORK. Four facts travel with any of these figures or none may be quoted: (1) they count commits reachable from HEAD on auto/dev at the stated commit, so a rebased or parked branch's commits are not in them, and every count except the last phase's grows with every later lap — the figure is 'as of' its git_commit and nothing re-derives it forward; (2) `agent_trailer_commits` counts commits whose message carries the `Co-Authored-By: Claude` trailer, which is a mechanical string test and NOT a statement about who thought of what — the trailer convention only begins in July 2026, so an untrailered commit is not evidence that no tool was used; (3) a commit is not a unit of work — the autonomous loop commits several times per lap by design (a claim, the work, the report), so the 2026-09 counts are inflated relative to the hand-worked months and must never be read as 'more was done'; (4) the phase boundaries are the calendar gaps in the commit record, chosen because the record has them, and they are not project milestones anyone declared at the time.",
+      "forbidden_phrasings": [
+        "commits measure the work",
+        "the AI wrote 513 commits",
+        "AI가 513개를 작성했습니다",
+        "커밋 수가 작업량입니다",
+        "the student wrote 149 commits"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/build_timeline_roles.py rebuilds the artifact from `git log` alone, with no network and no data files. It requires the FULL history: a shallow clone cannot resolve 2026-05-27 and the script exits 2 there rather than guessing.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "process_record",
+      "notes": "docs/auto/finals/TIMELINE_ROLES.md states the schedule, the roles for a solo entrant, and what these counts do NOT show. They are a record of a git history and are not a result about wildfires.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/timeline_roles/timeline_roles.json",
+            "json_path": "other_commits"
+          }
+        }
+      }
+    },
+    "timeline_commits_outside_phases": {
+      "value": 0,
+      "unit": "commits",
+      "source_file": "data/processed/timeline_roles/timeline_roles.json",
+      "json_path": "commits_outside_phases",
+      "derivation": "commits whose date falls in none of the five phases; 0 is what makes the phase table a partition of the record rather than a selection from it. Regenerate: python scripts/build_timeline_roles.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "89da7d348516ae452b50ce8d41e42fdb6c6391a5",
+      "sample": "auto/dev history, 2026-05-27 to 2026-09-09",
+      "caveat": "COMMIT COUNTS FROM ONE BRANCH'S HISTORY, NOT A MEASURE OF WORK. Four facts travel with any of these figures or none may be quoted: (1) they count commits reachable from HEAD on auto/dev at the stated commit, so a rebased or parked branch's commits are not in them, and every count except the last phase's grows with every later lap — the figure is 'as of' its git_commit and nothing re-derives it forward; (2) `agent_trailer_commits` counts commits whose message carries the `Co-Authored-By: Claude` trailer, which is a mechanical string test and NOT a statement about who thought of what — the trailer convention only begins in July 2026, so an untrailered commit is not evidence that no tool was used; (3) a commit is not a unit of work — the autonomous loop commits several times per lap by design (a claim, the work, the report), so the 2026-09 counts are inflated relative to the hand-worked months and must never be read as 'more was done'; (4) the phase boundaries are the calendar gaps in the commit record, chosen because the record has them, and they are not project milestones anyone declared at the time.",
+      "forbidden_phrasings": [
+        "commits measure the work",
+        "the AI wrote 513 commits",
+        "AI가 513개를 작성했습니다",
+        "커밋 수가 작업량입니다",
+        "the student wrote 149 commits"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/build_timeline_roles.py rebuilds the artifact from `git log` alone, with no network and no data files. It requires the FULL history: a shallow clone cannot resolve 2026-05-27 and the script exits 2 there rather than guessing.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "process_record",
+      "notes": "docs/auto/finals/TIMELINE_ROLES.md states the schedule, the roles for a solo entrant, and what these counts do NOT show. They are a record of a git history and are not a result about wildfires.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/timeline_roles/timeline_roles.json",
+            "json_path": "commits_outside_phases"
+          }
+        }
+      }
+    },
+    "timeline_p1_commits": {
+      "value": 55,
+      "unit": "commits",
+      "source_file": "data/processed/timeline_roles/timeline_roles.json",
+      "json_path": "phases.0.commits",
+      "derivation": "commits dated inside this phase (2026-05-27 to 2026-06-15). Regenerate: python scripts/build_timeline_roles.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "89da7d348516ae452b50ce8d41e42fdb6c6391a5",
+      "sample": "auto/dev history, 2026-05-27 to 2026-09-09",
+      "caveat": "COMMIT COUNTS FROM ONE BRANCH'S HISTORY, NOT A MEASURE OF WORK. Four facts travel with any of these figures or none may be quoted: (1) they count commits reachable from HEAD on auto/dev at the stated commit, so a rebased or parked branch's commits are not in them, and every count except the last phase's grows with every later lap — the figure is 'as of' its git_commit and nothing re-derives it forward; (2) `agent_trailer_commits` counts commits whose message carries the `Co-Authored-By: Claude` trailer, which is a mechanical string test and NOT a statement about who thought of what — the trailer convention only begins in July 2026, so an untrailered commit is not evidence that no tool was used; (3) a commit is not a unit of work — the autonomous loop commits several times per lap by design (a claim, the work, the report), so the 2026-09 counts are inflated relative to the hand-worked months and must never be read as 'more was done'; (4) the phase boundaries are the calendar gaps in the commit record, chosen because the record has them, and they are not project milestones anyone declared at the time.",
+      "forbidden_phrasings": [
+        "commits measure the work",
+        "the AI wrote 513 commits",
+        "AI가 513개를 작성했습니다",
+        "커밋 수가 작업량입니다",
+        "the student wrote 149 commits"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/build_timeline_roles.py rebuilds the artifact from `git log` alone, with no network and no data files. It requires the FULL history: a shallow clone cannot resolve 2026-05-27 and the script exits 2 there rather than guessing.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "process_record",
+      "notes": "docs/auto/finals/TIMELINE_ROLES.md states the schedule, the roles for a solo entrant, and what these counts do NOT show. They are a record of a git history and are not a result about wildfires.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/timeline_roles/timeline_roles.json",
+            "json_path": "phases.0.commits"
+          }
+        }
+      }
+    },
+    "timeline_p1_active_days": {
+      "value": 12,
+      "unit": "days",
+      "source_file": "data/processed/timeline_roles/timeline_roles.json",
+      "json_path": "phases.0.active_days",
+      "derivation": "distinct UTC dates inside this phase carrying at least one commit (2026-05-27 to 2026-06-15). Regenerate: python scripts/build_timeline_roles.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "89da7d348516ae452b50ce8d41e42fdb6c6391a5",
+      "sample": "auto/dev history, 2026-05-27 to 2026-09-09",
+      "caveat": "COMMIT COUNTS FROM ONE BRANCH'S HISTORY, NOT A MEASURE OF WORK. Four facts travel with any of these figures or none may be quoted: (1) they count commits reachable from HEAD on auto/dev at the stated commit, so a rebased or parked branch's commits are not in them, and every count except the last phase's grows with every later lap — the figure is 'as of' its git_commit and nothing re-derives it forward; (2) `agent_trailer_commits` counts commits whose message carries the `Co-Authored-By: Claude` trailer, which is a mechanical string test and NOT a statement about who thought of what — the trailer convention only begins in July 2026, so an untrailered commit is not evidence that no tool was used; (3) a commit is not a unit of work — the autonomous loop commits several times per lap by design (a claim, the work, the report), so the 2026-09 counts are inflated relative to the hand-worked months and must never be read as 'more was done'; (4) the phase boundaries are the calendar gaps in the commit record, chosen because the record has them, and they are not project milestones anyone declared at the time.",
+      "forbidden_phrasings": [
+        "commits measure the work",
+        "the AI wrote 513 commits",
+        "AI가 513개를 작성했습니다",
+        "커밋 수가 작업량입니다",
+        "the student wrote 149 commits"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/build_timeline_roles.py rebuilds the artifact from `git log` alone, with no network and no data files. It requires the FULL history: a shallow clone cannot resolve 2026-05-27 and the script exits 2 there rather than guessing.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "process_record",
+      "notes": "docs/auto/finals/TIMELINE_ROLES.md states the schedule, the roles for a solo entrant, and what these counts do NOT show. They are a record of a git history and are not a result about wildfires.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/timeline_roles/timeline_roles.json",
+            "json_path": "phases.0.active_days"
+          }
+        }
+      }
+    },
+    "timeline_p1_agent_trailer_commits": {
+      "value": 0,
+      "unit": "commits",
+      "source_file": "data/processed/timeline_roles/timeline_roles.json",
+      "json_path": "phases.0.agent_trailer_commits",
+      "derivation": "commits inside this phase carrying the `Co-Authored-By: Claude` trailer (2026-05-27 to 2026-06-15). Regenerate: python scripts/build_timeline_roles.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "89da7d348516ae452b50ce8d41e42fdb6c6391a5",
+      "sample": "auto/dev history, 2026-05-27 to 2026-09-09",
+      "caveat": "COMMIT COUNTS FROM ONE BRANCH'S HISTORY, NOT A MEASURE OF WORK. Four facts travel with any of these figures or none may be quoted: (1) they count commits reachable from HEAD on auto/dev at the stated commit, so a rebased or parked branch's commits are not in them, and every count except the last phase's grows with every later lap — the figure is 'as of' its git_commit and nothing re-derives it forward; (2) `agent_trailer_commits` counts commits whose message carries the `Co-Authored-By: Claude` trailer, which is a mechanical string test and NOT a statement about who thought of what — the trailer convention only begins in July 2026, so an untrailered commit is not evidence that no tool was used; (3) a commit is not a unit of work — the autonomous loop commits several times per lap by design (a claim, the work, the report), so the 2026-09 counts are inflated relative to the hand-worked months and must never be read as 'more was done'; (4) the phase boundaries are the calendar gaps in the commit record, chosen because the record has them, and they are not project milestones anyone declared at the time.",
+      "forbidden_phrasings": [
+        "commits measure the work",
+        "the AI wrote 513 commits",
+        "AI가 513개를 작성했습니다",
+        "커밋 수가 작업량입니다",
+        "the student wrote 149 commits"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/build_timeline_roles.py rebuilds the artifact from `git log` alone, with no network and no data files. It requires the FULL history: a shallow clone cannot resolve 2026-05-27 and the script exits 2 there rather than guessing.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "process_record",
+      "notes": "docs/auto/finals/TIMELINE_ROLES.md states the schedule, the roles for a solo entrant, and what these counts do NOT show. They are a record of a git history and are not a result about wildfires.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/timeline_roles/timeline_roles.json",
+            "json_path": "phases.0.agent_trailer_commits"
+          }
+        }
+      }
+    },
+    "timeline_p2_commits": {
+      "value": 42,
+      "unit": "commits",
+      "source_file": "data/processed/timeline_roles/timeline_roles.json",
+      "json_path": "phases.1.commits",
+      "derivation": "commits dated inside this phase (2026-07-18 to 2026-07-26). Regenerate: python scripts/build_timeline_roles.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "89da7d348516ae452b50ce8d41e42fdb6c6391a5",
+      "sample": "auto/dev history, 2026-05-27 to 2026-09-09",
+      "caveat": "COMMIT COUNTS FROM ONE BRANCH'S HISTORY, NOT A MEASURE OF WORK. Four facts travel with any of these figures or none may be quoted: (1) they count commits reachable from HEAD on auto/dev at the stated commit, so a rebased or parked branch's commits are not in them, and every count except the last phase's grows with every later lap — the figure is 'as of' its git_commit and nothing re-derives it forward; (2) `agent_trailer_commits` counts commits whose message carries the `Co-Authored-By: Claude` trailer, which is a mechanical string test and NOT a statement about who thought of what — the trailer convention only begins in July 2026, so an untrailered commit is not evidence that no tool was used; (3) a commit is not a unit of work — the autonomous loop commits several times per lap by design (a claim, the work, the report), so the 2026-09 counts are inflated relative to the hand-worked months and must never be read as 'more was done'; (4) the phase boundaries are the calendar gaps in the commit record, chosen because the record has them, and they are not project milestones anyone declared at the time.",
+      "forbidden_phrasings": [
+        "commits measure the work",
+        "the AI wrote 513 commits",
+        "AI가 513개를 작성했습니다",
+        "커밋 수가 작업량입니다",
+        "the student wrote 149 commits"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/build_timeline_roles.py rebuilds the artifact from `git log` alone, with no network and no data files. It requires the FULL history: a shallow clone cannot resolve 2026-05-27 and the script exits 2 there rather than guessing.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "process_record",
+      "notes": "docs/auto/finals/TIMELINE_ROLES.md states the schedule, the roles for a solo entrant, and what these counts do NOT show. They are a record of a git history and are not a result about wildfires.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/timeline_roles/timeline_roles.json",
+            "json_path": "phases.1.commits"
+          }
+        }
+      }
+    },
+    "timeline_p2_active_days": {
+      "value": 7,
+      "unit": "days",
+      "source_file": "data/processed/timeline_roles/timeline_roles.json",
+      "json_path": "phases.1.active_days",
+      "derivation": "distinct UTC dates inside this phase carrying at least one commit (2026-07-18 to 2026-07-26). Regenerate: python scripts/build_timeline_roles.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "89da7d348516ae452b50ce8d41e42fdb6c6391a5",
+      "sample": "auto/dev history, 2026-05-27 to 2026-09-09",
+      "caveat": "COMMIT COUNTS FROM ONE BRANCH'S HISTORY, NOT A MEASURE OF WORK. Four facts travel with any of these figures or none may be quoted: (1) they count commits reachable from HEAD on auto/dev at the stated commit, so a rebased or parked branch's commits are not in them, and every count except the last phase's grows with every later lap — the figure is 'as of' its git_commit and nothing re-derives it forward; (2) `agent_trailer_commits` counts commits whose message carries the `Co-Authored-By: Claude` trailer, which is a mechanical string test and NOT a statement about who thought of what — the trailer convention only begins in July 2026, so an untrailered commit is not evidence that no tool was used; (3) a commit is not a unit of work — the autonomous loop commits several times per lap by design (a claim, the work, the report), so the 2026-09 counts are inflated relative to the hand-worked months and must never be read as 'more was done'; (4) the phase boundaries are the calendar gaps in the commit record, chosen because the record has them, and they are not project milestones anyone declared at the time.",
+      "forbidden_phrasings": [
+        "commits measure the work",
+        "the AI wrote 513 commits",
+        "AI가 513개를 작성했습니다",
+        "커밋 수가 작업량입니다",
+        "the student wrote 149 commits"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/build_timeline_roles.py rebuilds the artifact from `git log` alone, with no network and no data files. It requires the FULL history: a shallow clone cannot resolve 2026-05-27 and the script exits 2 there rather than guessing.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "process_record",
+      "notes": "docs/auto/finals/TIMELINE_ROLES.md states the schedule, the roles for a solo entrant, and what these counts do NOT show. They are a record of a git history and are not a result about wildfires.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/timeline_roles/timeline_roles.json",
+            "json_path": "phases.1.active_days"
+          }
+        }
+      }
+    },
+    "timeline_p2_agent_trailer_commits": {
+      "value": 4,
+      "unit": "commits",
+      "source_file": "data/processed/timeline_roles/timeline_roles.json",
+      "json_path": "phases.1.agent_trailer_commits",
+      "derivation": "commits inside this phase carrying the `Co-Authored-By: Claude` trailer (2026-07-18 to 2026-07-26). Regenerate: python scripts/build_timeline_roles.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "89da7d348516ae452b50ce8d41e42fdb6c6391a5",
+      "sample": "auto/dev history, 2026-05-27 to 2026-09-09",
+      "caveat": "COMMIT COUNTS FROM ONE BRANCH'S HISTORY, NOT A MEASURE OF WORK. Four facts travel with any of these figures or none may be quoted: (1) they count commits reachable from HEAD on auto/dev at the stated commit, so a rebased or parked branch's commits are not in them, and every count except the last phase's grows with every later lap — the figure is 'as of' its git_commit and nothing re-derives it forward; (2) `agent_trailer_commits` counts commits whose message carries the `Co-Authored-By: Claude` trailer, which is a mechanical string test and NOT a statement about who thought of what — the trailer convention only begins in July 2026, so an untrailered commit is not evidence that no tool was used; (3) a commit is not a unit of work — the autonomous loop commits several times per lap by design (a claim, the work, the report), so the 2026-09 counts are inflated relative to the hand-worked months and must never be read as 'more was done'; (4) the phase boundaries are the calendar gaps in the commit record, chosen because the record has them, and they are not project milestones anyone declared at the time.",
+      "forbidden_phrasings": [
+        "commits measure the work",
+        "the AI wrote 513 commits",
+        "AI가 513개를 작성했습니다",
+        "커밋 수가 작업량입니다",
+        "the student wrote 149 commits"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/build_timeline_roles.py rebuilds the artifact from `git log` alone, with no network and no data files. It requires the FULL history: a shallow clone cannot resolve 2026-05-27 and the script exits 2 there rather than guessing.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "process_record",
+      "notes": "docs/auto/finals/TIMELINE_ROLES.md states the schedule, the roles for a solo entrant, and what these counts do NOT show. They are a record of a git history and are not a result about wildfires.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/timeline_roles/timeline_roles.json",
+            "json_path": "phases.1.agent_trailer_commits"
+          }
+        }
+      }
+    },
+    "timeline_p3_commits": {
+      "value": 99,
+      "unit": "commits",
+      "source_file": "data/processed/timeline_roles/timeline_roles.json",
+      "json_path": "phases.2.commits",
+      "derivation": "commits dated inside this phase (2026-08-01 to 2026-08-12). Regenerate: python scripts/build_timeline_roles.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "89da7d348516ae452b50ce8d41e42fdb6c6391a5",
+      "sample": "auto/dev history, 2026-05-27 to 2026-09-09",
+      "caveat": "COMMIT COUNTS FROM ONE BRANCH'S HISTORY, NOT A MEASURE OF WORK. Four facts travel with any of these figures or none may be quoted: (1) they count commits reachable from HEAD on auto/dev at the stated commit, so a rebased or parked branch's commits are not in them, and every count except the last phase's grows with every later lap — the figure is 'as of' its git_commit and nothing re-derives it forward; (2) `agent_trailer_commits` counts commits whose message carries the `Co-Authored-By: Claude` trailer, which is a mechanical string test and NOT a statement about who thought of what — the trailer convention only begins in July 2026, so an untrailered commit is not evidence that no tool was used; (3) a commit is not a unit of work — the autonomous loop commits several times per lap by design (a claim, the work, the report), so the 2026-09 counts are inflated relative to the hand-worked months and must never be read as 'more was done'; (4) the phase boundaries are the calendar gaps in the commit record, chosen because the record has them, and they are not project milestones anyone declared at the time.",
+      "forbidden_phrasings": [
+        "commits measure the work",
+        "the AI wrote 513 commits",
+        "AI가 513개를 작성했습니다",
+        "커밋 수가 작업량입니다",
+        "the student wrote 149 commits"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/build_timeline_roles.py rebuilds the artifact from `git log` alone, with no network and no data files. It requires the FULL history: a shallow clone cannot resolve 2026-05-27 and the script exits 2 there rather than guessing.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "process_record",
+      "notes": "docs/auto/finals/TIMELINE_ROLES.md states the schedule, the roles for a solo entrant, and what these counts do NOT show. They are a record of a git history and are not a result about wildfires.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/timeline_roles/timeline_roles.json",
+            "json_path": "phases.2.commits"
+          }
+        }
+      }
+    },
+    "timeline_p3_active_days": {
+      "value": 11,
+      "unit": "days",
+      "source_file": "data/processed/timeline_roles/timeline_roles.json",
+      "json_path": "phases.2.active_days",
+      "derivation": "distinct UTC dates inside this phase carrying at least one commit (2026-08-01 to 2026-08-12). Regenerate: python scripts/build_timeline_roles.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "89da7d348516ae452b50ce8d41e42fdb6c6391a5",
+      "sample": "auto/dev history, 2026-05-27 to 2026-09-09",
+      "caveat": "COMMIT COUNTS FROM ONE BRANCH'S HISTORY, NOT A MEASURE OF WORK. Four facts travel with any of these figures or none may be quoted: (1) they count commits reachable from HEAD on auto/dev at the stated commit, so a rebased or parked branch's commits are not in them, and every count except the last phase's grows with every later lap — the figure is 'as of' its git_commit and nothing re-derives it forward; (2) `agent_trailer_commits` counts commits whose message carries the `Co-Authored-By: Claude` trailer, which is a mechanical string test and NOT a statement about who thought of what — the trailer convention only begins in July 2026, so an untrailered commit is not evidence that no tool was used; (3) a commit is not a unit of work — the autonomous loop commits several times per lap by design (a claim, the work, the report), so the 2026-09 counts are inflated relative to the hand-worked months and must never be read as 'more was done'; (4) the phase boundaries are the calendar gaps in the commit record, chosen because the record has them, and they are not project milestones anyone declared at the time.",
+      "forbidden_phrasings": [
+        "commits measure the work",
+        "the AI wrote 513 commits",
+        "AI가 513개를 작성했습니다",
+        "커밋 수가 작업량입니다",
+        "the student wrote 149 commits"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/build_timeline_roles.py rebuilds the artifact from `git log` alone, with no network and no data files. It requires the FULL history: a shallow clone cannot resolve 2026-05-27 and the script exits 2 there rather than guessing.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "process_record",
+      "notes": "docs/auto/finals/TIMELINE_ROLES.md states the schedule, the roles for a solo entrant, and what these counts do NOT show. They are a record of a git history and are not a result about wildfires.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/timeline_roles/timeline_roles.json",
+            "json_path": "phases.2.active_days"
+          }
+        }
+      }
+    },
+    "timeline_p3_agent_trailer_commits": {
+      "value": 93,
+      "unit": "commits",
+      "source_file": "data/processed/timeline_roles/timeline_roles.json",
+      "json_path": "phases.2.agent_trailer_commits",
+      "derivation": "commits inside this phase carrying the `Co-Authored-By: Claude` trailer (2026-08-01 to 2026-08-12). Regenerate: python scripts/build_timeline_roles.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "89da7d348516ae452b50ce8d41e42fdb6c6391a5",
+      "sample": "auto/dev history, 2026-05-27 to 2026-09-09",
+      "caveat": "COMMIT COUNTS FROM ONE BRANCH'S HISTORY, NOT A MEASURE OF WORK. Four facts travel with any of these figures or none may be quoted: (1) they count commits reachable from HEAD on auto/dev at the stated commit, so a rebased or parked branch's commits are not in them, and every count except the last phase's grows with every later lap — the figure is 'as of' its git_commit and nothing re-derives it forward; (2) `agent_trailer_commits` counts commits whose message carries the `Co-Authored-By: Claude` trailer, which is a mechanical string test and NOT a statement about who thought of what — the trailer convention only begins in July 2026, so an untrailered commit is not evidence that no tool was used; (3) a commit is not a unit of work — the autonomous loop commits several times per lap by design (a claim, the work, the report), so the 2026-09 counts are inflated relative to the hand-worked months and must never be read as 'more was done'; (4) the phase boundaries are the calendar gaps in the commit record, chosen because the record has them, and they are not project milestones anyone declared at the time.",
+      "forbidden_phrasings": [
+        "commits measure the work",
+        "the AI wrote 513 commits",
+        "AI가 513개를 작성했습니다",
+        "커밋 수가 작업량입니다",
+        "the student wrote 149 commits"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/build_timeline_roles.py rebuilds the artifact from `git log` alone, with no network and no data files. It requires the FULL history: a shallow clone cannot resolve 2026-05-27 and the script exits 2 there rather than guessing.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "process_record",
+      "notes": "docs/auto/finals/TIMELINE_ROLES.md states the schedule, the roles for a solo entrant, and what these counts do NOT show. They are a record of a git history and are not a result about wildfires.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/timeline_roles/timeline_roles.json",
+            "json_path": "phases.2.agent_trailer_commits"
+          }
+        }
+      }
+    },
+    "timeline_p4_commits": {
+      "value": 49,
+      "unit": "commits",
+      "source_file": "data/processed/timeline_roles/timeline_roles.json",
+      "json_path": "phases.3.commits",
+      "derivation": "commits dated inside this phase (2026-08-28 to 2026-09-01). Regenerate: python scripts/build_timeline_roles.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "89da7d348516ae452b50ce8d41e42fdb6c6391a5",
+      "sample": "auto/dev history, 2026-05-27 to 2026-09-09",
+      "caveat": "COMMIT COUNTS FROM ONE BRANCH'S HISTORY, NOT A MEASURE OF WORK. Four facts travel with any of these figures or none may be quoted: (1) they count commits reachable from HEAD on auto/dev at the stated commit, so a rebased or parked branch's commits are not in them, and every count except the last phase's grows with every later lap — the figure is 'as of' its git_commit and nothing re-derives it forward; (2) `agent_trailer_commits` counts commits whose message carries the `Co-Authored-By: Claude` trailer, which is a mechanical string test and NOT a statement about who thought of what — the trailer convention only begins in July 2026, so an untrailered commit is not evidence that no tool was used; (3) a commit is not a unit of work — the autonomous loop commits several times per lap by design (a claim, the work, the report), so the 2026-09 counts are inflated relative to the hand-worked months and must never be read as 'more was done'; (4) the phase boundaries are the calendar gaps in the commit record, chosen because the record has them, and they are not project milestones anyone declared at the time.",
+      "forbidden_phrasings": [
+        "commits measure the work",
+        "the AI wrote 513 commits",
+        "AI가 513개를 작성했습니다",
+        "커밋 수가 작업량입니다",
+        "the student wrote 149 commits"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/build_timeline_roles.py rebuilds the artifact from `git log` alone, with no network and no data files. It requires the FULL history: a shallow clone cannot resolve 2026-05-27 and the script exits 2 there rather than guessing.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "process_record",
+      "notes": "docs/auto/finals/TIMELINE_ROLES.md states the schedule, the roles for a solo entrant, and what these counts do NOT show. They are a record of a git history and are not a result about wildfires.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/timeline_roles/timeline_roles.json",
+            "json_path": "phases.3.commits"
+          }
+        }
+      }
+    },
+    "timeline_p4_active_days": {
+      "value": 5,
+      "unit": "days",
+      "source_file": "data/processed/timeline_roles/timeline_roles.json",
+      "json_path": "phases.3.active_days",
+      "derivation": "distinct UTC dates inside this phase carrying at least one commit (2026-08-28 to 2026-09-01). Regenerate: python scripts/build_timeline_roles.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "89da7d348516ae452b50ce8d41e42fdb6c6391a5",
+      "sample": "auto/dev history, 2026-05-27 to 2026-09-09",
+      "caveat": "COMMIT COUNTS FROM ONE BRANCH'S HISTORY, NOT A MEASURE OF WORK. Four facts travel with any of these figures or none may be quoted: (1) they count commits reachable from HEAD on auto/dev at the stated commit, so a rebased or parked branch's commits are not in them, and every count except the last phase's grows with every later lap — the figure is 'as of' its git_commit and nothing re-derives it forward; (2) `agent_trailer_commits` counts commits whose message carries the `Co-Authored-By: Claude` trailer, which is a mechanical string test and NOT a statement about who thought of what — the trailer convention only begins in July 2026, so an untrailered commit is not evidence that no tool was used; (3) a commit is not a unit of work — the autonomous loop commits several times per lap by design (a claim, the work, the report), so the 2026-09 counts are inflated relative to the hand-worked months and must never be read as 'more was done'; (4) the phase boundaries are the calendar gaps in the commit record, chosen because the record has them, and they are not project milestones anyone declared at the time.",
+      "forbidden_phrasings": [
+        "commits measure the work",
+        "the AI wrote 513 commits",
+        "AI가 513개를 작성했습니다",
+        "커밋 수가 작업량입니다",
+        "the student wrote 149 commits"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/build_timeline_roles.py rebuilds the artifact from `git log` alone, with no network and no data files. It requires the FULL history: a shallow clone cannot resolve 2026-05-27 and the script exits 2 there rather than guessing.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "process_record",
+      "notes": "docs/auto/finals/TIMELINE_ROLES.md states the schedule, the roles for a solo entrant, and what these counts do NOT show. They are a record of a git history and are not a result about wildfires.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/timeline_roles/timeline_roles.json",
+            "json_path": "phases.3.active_days"
+          }
+        }
+      }
+    },
+    "timeline_p4_agent_trailer_commits": {
+      "value": 0,
+      "unit": "commits",
+      "source_file": "data/processed/timeline_roles/timeline_roles.json",
+      "json_path": "phases.3.agent_trailer_commits",
+      "derivation": "commits inside this phase carrying the `Co-Authored-By: Claude` trailer (2026-08-28 to 2026-09-01). Regenerate: python scripts/build_timeline_roles.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "89da7d348516ae452b50ce8d41e42fdb6c6391a5",
+      "sample": "auto/dev history, 2026-05-27 to 2026-09-09",
+      "caveat": "COMMIT COUNTS FROM ONE BRANCH'S HISTORY, NOT A MEASURE OF WORK. Four facts travel with any of these figures or none may be quoted: (1) they count commits reachable from HEAD on auto/dev at the stated commit, so a rebased or parked branch's commits are not in them, and every count except the last phase's grows with every later lap — the figure is 'as of' its git_commit and nothing re-derives it forward; (2) `agent_trailer_commits` counts commits whose message carries the `Co-Authored-By: Claude` trailer, which is a mechanical string test and NOT a statement about who thought of what — the trailer convention only begins in July 2026, so an untrailered commit is not evidence that no tool was used; (3) a commit is not a unit of work — the autonomous loop commits several times per lap by design (a claim, the work, the report), so the 2026-09 counts are inflated relative to the hand-worked months and must never be read as 'more was done'; (4) the phase boundaries are the calendar gaps in the commit record, chosen because the record has them, and they are not project milestones anyone declared at the time.",
+      "forbidden_phrasings": [
+        "commits measure the work",
+        "the AI wrote 513 commits",
+        "AI가 513개를 작성했습니다",
+        "커밋 수가 작업량입니다",
+        "the student wrote 149 commits"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/build_timeline_roles.py rebuilds the artifact from `git log` alone, with no network and no data files. It requires the FULL history: a shallow clone cannot resolve 2026-05-27 and the script exits 2 there rather than guessing.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "process_record",
+      "notes": "docs/auto/finals/TIMELINE_ROLES.md states the schedule, the roles for a solo entrant, and what these counts do NOT show. They are a record of a git history and are not a result about wildfires.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/timeline_roles/timeline_roles.json",
+            "json_path": "phases.3.agent_trailer_commits"
+          }
+        }
+      }
+    },
+    "timeline_p5_commits": {
+      "value": 417,
+      "unit": "commits",
+      "source_file": "data/processed/timeline_roles/timeline_roles.json",
+      "json_path": "phases.4.commits",
+      "derivation": "commits dated inside this phase (2026-09-03 to 2026-09-09). Regenerate: python scripts/build_timeline_roles.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "89da7d348516ae452b50ce8d41e42fdb6c6391a5",
+      "sample": "auto/dev history, 2026-05-27 to 2026-09-09",
+      "caveat": "COMMIT COUNTS FROM ONE BRANCH'S HISTORY, NOT A MEASURE OF WORK. Four facts travel with any of these figures or none may be quoted: (1) they count commits reachable from HEAD on auto/dev at the stated commit, so a rebased or parked branch's commits are not in them, and every count except the last phase's grows with every later lap — the figure is 'as of' its git_commit and nothing re-derives it forward; (2) `agent_trailer_commits` counts commits whose message carries the `Co-Authored-By: Claude` trailer, which is a mechanical string test and NOT a statement about who thought of what — the trailer convention only begins in July 2026, so an untrailered commit is not evidence that no tool was used; (3) a commit is not a unit of work — the autonomous loop commits several times per lap by design (a claim, the work, the report), so the 2026-09 counts are inflated relative to the hand-worked months and must never be read as 'more was done'; (4) the phase boundaries are the calendar gaps in the commit record, chosen because the record has them, and they are not project milestones anyone declared at the time.",
+      "forbidden_phrasings": [
+        "commits measure the work",
+        "the AI wrote 513 commits",
+        "AI가 513개를 작성했습니다",
+        "커밋 수가 작업량입니다",
+        "the student wrote 149 commits"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/build_timeline_roles.py rebuilds the artifact from `git log` alone, with no network and no data files. It requires the FULL history: a shallow clone cannot resolve 2026-05-27 and the script exits 2 there rather than guessing.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "process_record",
+      "notes": "docs/auto/finals/TIMELINE_ROLES.md states the schedule, the roles for a solo entrant, and what these counts do NOT show. They are a record of a git history and are not a result about wildfires.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/timeline_roles/timeline_roles.json",
+            "json_path": "phases.4.commits"
+          }
+        }
+      }
+    },
+    "timeline_p5_active_days": {
+      "value": 7,
+      "unit": "days",
+      "source_file": "data/processed/timeline_roles/timeline_roles.json",
+      "json_path": "phases.4.active_days",
+      "derivation": "distinct UTC dates inside this phase carrying at least one commit (2026-09-03 to 2026-09-09). Regenerate: python scripts/build_timeline_roles.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "89da7d348516ae452b50ce8d41e42fdb6c6391a5",
+      "sample": "auto/dev history, 2026-05-27 to 2026-09-09",
+      "caveat": "COMMIT COUNTS FROM ONE BRANCH'S HISTORY, NOT A MEASURE OF WORK. Four facts travel with any of these figures or none may be quoted: (1) they count commits reachable from HEAD on auto/dev at the stated commit, so a rebased or parked branch's commits are not in them, and every count except the last phase's grows with every later lap — the figure is 'as of' its git_commit and nothing re-derives it forward; (2) `agent_trailer_commits` counts commits whose message carries the `Co-Authored-By: Claude` trailer, which is a mechanical string test and NOT a statement about who thought of what — the trailer convention only begins in July 2026, so an untrailered commit is not evidence that no tool was used; (3) a commit is not a unit of work — the autonomous loop commits several times per lap by design (a claim, the work, the report), so the 2026-09 counts are inflated relative to the hand-worked months and must never be read as 'more was done'; (4) the phase boundaries are the calendar gaps in the commit record, chosen because the record has them, and they are not project milestones anyone declared at the time.",
+      "forbidden_phrasings": [
+        "commits measure the work",
+        "the AI wrote 513 commits",
+        "AI가 513개를 작성했습니다",
+        "커밋 수가 작업량입니다",
+        "the student wrote 149 commits"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/build_timeline_roles.py rebuilds the artifact from `git log` alone, with no network and no data files. It requires the FULL history: a shallow clone cannot resolve 2026-05-27 and the script exits 2 there rather than guessing.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "process_record",
+      "notes": "docs/auto/finals/TIMELINE_ROLES.md states the schedule, the roles for a solo entrant, and what these counts do NOT show. They are a record of a git history and are not a result about wildfires.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/timeline_roles/timeline_roles.json",
+            "json_path": "phases.4.active_days"
+          }
+        }
+      }
+    },
+    "timeline_p5_agent_trailer_commits": {
+      "value": 416,
+      "unit": "commits",
+      "source_file": "data/processed/timeline_roles/timeline_roles.json",
+      "json_path": "phases.4.agent_trailer_commits",
+      "derivation": "commits inside this phase carrying the `Co-Authored-By: Claude` trailer (2026-09-03 to 2026-09-09). Regenerate: python scripts/build_timeline_roles.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "89da7d348516ae452b50ce8d41e42fdb6c6391a5",
+      "sample": "auto/dev history, 2026-05-27 to 2026-09-09",
+      "caveat": "COMMIT COUNTS FROM ONE BRANCH'S HISTORY, NOT A MEASURE OF WORK. Four facts travel with any of these figures or none may be quoted: (1) they count commits reachable from HEAD on auto/dev at the stated commit, so a rebased or parked branch's commits are not in them, and every count except the last phase's grows with every later lap — the figure is 'as of' its git_commit and nothing re-derives it forward; (2) `agent_trailer_commits` counts commits whose message carries the `Co-Authored-By: Claude` trailer, which is a mechanical string test and NOT a statement about who thought of what — the trailer convention only begins in July 2026, so an untrailered commit is not evidence that no tool was used; (3) a commit is not a unit of work — the autonomous loop commits several times per lap by design (a claim, the work, the report), so the 2026-09 counts are inflated relative to the hand-worked months and must never be read as 'more was done'; (4) the phase boundaries are the calendar gaps in the commit record, chosen because the record has them, and they are not project milestones anyone declared at the time.",
+      "forbidden_phrasings": [
+        "commits measure the work",
+        "the AI wrote 513 commits",
+        "AI가 513개를 작성했습니다",
+        "커밋 수가 작업량입니다",
+        "the student wrote 149 commits"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/build_timeline_roles.py rebuilds the artifact from `git log` alone, with no network and no data files. It requires the FULL history: a shallow clone cannot resolve 2026-05-27 and the script exits 2 there rather than guessing.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "process_record",
+      "notes": "docs/auto/finals/TIMELINE_ROLES.md states the schedule, the roles for a solo entrant, and what these counts do NOT show. They are a record of a git history and are not a result about wildfires.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/timeline_roles/timeline_roles.json",
+            "json_path": "phases.4.agent_trailer_commits"
+          }
+        }
+      }
     }
   }
 }

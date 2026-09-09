@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "f9183b0ada5d753c847ada58f49868660737caf5",
-  "n_artifacts": 107,
-  "total_bytes": 14609543,
-  "total_mib": 13.93,
-  "n_git_tracked": 107,
+  "generated_at_git_commit": "89da7d348516ae452b50ce8d41e42fdb6c6391a5",
+  "n_artifacts": 108,
+  "total_bytes": 14612259,
+  "total_mib": 13.94,
+  "n_git_tracked": 108,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 9,
   "artifacts": [
@@ -628,7 +628,11 @@
       "n_registry_entries": 25,
       "cited_by_docs": [
         "docs/auto/BACKLOG.md",
-        "docs/auto/NEEDS_HUMAN.md"
+        "docs/auto/DIRECTION.md",
+        "docs/auto/NEEDS_HUMAN.md",
+        "docs/auto/reports/2026-09-09T1250Z-dev.md",
+        "docs/auto/reports/2026-09-09T1418Z-critic.md",
+        "docs/oracle_gap.md"
       ],
       "regenerate": "python scripts/measure_oracle_gap.py"
     },
@@ -933,11 +937,14 @@
       "n_registry_entries": 0,
       "cited_by_docs": [
         "docs/auto/BACKLOG.md",
+        "docs/auto/JUDGE_QA.md",
         "docs/auto/MEMO.md",
         "docs/auto/NEEDS_HUMAN.md",
         "docs/auto/reports/2026-09-06T0516Z-critic.md",
+        "docs/auto/reports/2026-09-09T1250Z-dev.md",
         "docs/live_pipeline.md",
         "docs/manual_trigger.md",
+        "docs/oracle_gap.md",
         "paper/GAPS.md"
       ],
       "regenerate": "python scripts/build_canonical_hazard.py"
@@ -1098,16 +1105,30 @@
         "docs/MODEL_CARD.md",
         "docs/SESSION18_REPORT.md",
         "docs/auto/BACKLOG.md",
-        "docs/auto/CRITIC_LATEST.md",
         "docs/auto/NEEDS_HUMAN.md",
         "docs/auto/SCORECARD.md",
         "docs/auto/knowledge/PYROGEOGRAPHY.md",
         "docs/auto/reports/2026-09-08T2023Z-critic.md",
         "docs/auto/research/BACKLOG_PROPOSAL_2026-09-03.md",
         "docs/auto/research/RESEARCH_BRIEF_2026-09-03.md",
-        "docs/operating_point.md"
+        "docs/operating_point.md",
+        "docs/oracle_gap.md"
       ],
       "regenerate": "python scripts/operating_point_evidence.py"
+    },
+    {
+      "path": "data/processed/timeline_roles/timeline_roles.json",
+      "bytes": 2716,
+      "sha256": "200f074f8d0b12e4d1de876aba6cfdc21fe6d4ad41938f47b36b44bfc9ddc83f",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 20,
+      "cited_by_docs": [
+        "docs/auto/BACKLOG.md",
+        "docs/auto/JUDGE_QA.md",
+        "docs/auto/finals/TIMELINE_ROLES.md"
+      ],
+      "regenerate": "python scripts/build_timeline_roles.py"
     },
     {
       "path": "data/processed/vulnerability/clearance_diagnostic.json",
