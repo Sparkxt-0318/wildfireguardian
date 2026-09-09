@@ -2798,3 +2798,63 @@ hold, which nothing derives either; over-correcting the schedule document to 「
 임의입니다」 would have taken the partition proof down with the sentence that was wrong.
 **Withdraw the claim, keep the word, bind it to the escalation** — and say separately what
 was chosen and what was proved.
+
+## 2026-09-09T2118Z (dev, WFG-212) — two artifacts side by side are a third claim, and nobody registers it
+
+The lap wrote a lead block for `README.md`'s Round-4 section and, to make it an
+**existence** claim rather than a performance claim, ended one sentence with two links:
+`outputs/dispatch/README.md` and `docs/real_roads_real_hazard.md`. Each link is true.
+Each file says what it is. The lap checked both and shipped.
+
+`shower`, reading it cold as a judge with sixty seconds, returned the sentence the lap
+could not see: **placing two artifacts in one claim asserts their conjunction, and the
+conjunction was false.** The committed dispatch documents come from the rescue-routing
+pipeline, whose hazard surface is a **synthetic** severity-scaled envelope
+(`docs/HANDOFF_ROUND3.md` §556 says so in as many words); the run where the walking
+graph and the spread surface are **both** real is a different execution that produces
+four-way verdicts and no dispatch documents. So the sentence read as 「real roads + real
+fire → these A4 sheets」, which does not exist in this repository. Nothing in either
+linked file is wrong; the join is.
+
+**The anti-pattern: an existence claim proved by more than one artifact needs the join
+stated, and the join is a claim of its own with no artifact behind it.** A lap that
+writes 「A 와 B 를 보십시오」 has quietly asserted A ∧ B on one pipeline. The repair that
+shipped is to name the seam in the caveat block — which run each artifact came from, and
+that the product of the two does not exist yet — and to pin that sentence in the gate, so
+the next lap cannot drop it while tidying the links.
+
+**The cheap check, for the next lap:** for every claim that leans on two paths, ask
+whether one command, one script or one run produced both. If not, the seam goes in the
+prose before the links do. Here the check was one `jq` away — `rescue_routing.json` →
+`provenance.sources` answers `hazard: synthetic, terrain: synthetic, origins: sampled
+candidates` about the very file the lead was calling its receipt.
+
+**The second lesson, and the reviewer wrote it rather than the lap: a gate whose
+assertions are substrings the same lap just wrote is a gate the next writer edits
+around.** Asked to prove the new gate could be beaten, the independent reviewer beat it
+**three times with the full suite green** — it inverted the section's reading note from
+an audit into a pitch while keeping the pinned prefix 「이 절에서 이 프로젝트에」; it
+appended an unsourced operational-readiness and precedence sentence to the lead, which no
+ban listed because nobody had written it yet; and it hedged the measured dispatch-ordering
+zero into 「아직 없을 뿐, 실무에서는 더 나은 순서일 수 있습니다」 with the pinned fragment
+「이긴 적이」 sitting intact inside it. **A pinned quotation constrains the letters, not the
+sentence.** The three repairs are the shapes worth reusing: pin the **direction** a note
+must keep, not its opening words; put a **ceiling** on how many sentences a claim may
+have, because no wording ban catches a sentence nobody has written yet; and ban the
+**hedge family** in the sentence that carries an adverse result. Each exploit is kept
+verbatim in the test file as regression data, so the next lap that rewrites those
+patterns has to face them.
+
+**And a loop mechanic worth one line, learned the hard way in the same lap.** The
+independent reviewer was asked to *prove* the new gate could be beaten, so it wrote an
+overclaim into `README.md` in the shared working tree while the building lap was editing
+the same file, and restored it afterwards with `git checkout -- README.md`, which reverts
+to `HEAD` and therefore **deleted the lap's entire uncommitted lead block**, not only the
+reviewer's own lines. Nothing was lost, and only because the lap had copied its work to
+the session scratchpad before waiting; the reviewer said so in its own notes. **A lap that
+asks its reviewer to demonstrate an exploit stops editing the file under test until the
+reviewer returns, copies its uncommitted work out of the tree first, and re-runs
+`gates.py --mode full` afterwards** — the reviewer's own `--mode quick` run also
+overwrote `.auto/gates.json`, which is what `--assert-head` reads. Better still, give the
+reviewer its own worktree; CHARTER §3c already says one clone, one agent, and this is the
+second failure mode of ignoring it.
