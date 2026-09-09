@@ -2953,3 +2953,71 @@ days. That is the same shape as NH-050's own finding: you answered on the routin
 loop never heard you. **This does not need a new decision from you** — it needs §6 and
 `docs/auto/ROUTINE_PROMPTS.md` to name a channel that exists, and that is a backlog row, filed
 where the next critic lap will see it.
+
+---
+
+## NH-051 · DECISION · open · The rule your loop has been obeying for three days is not the option it names, and the difference is why one row has been pushed down five times (by 2026-09-11)
+
+**Severity: MEDIUM.** Nothing is red, no gate fails, and no judge sees any of this. What is
+wrong is that a rule the routines apply on every lap is attributed to an option of yours
+whose text says something else, and the difference has a measured cost inside the backlog.
+
+**What NH-050 found, and the half it got wrong.** Critic #48 filed NH-050 on 2026-09-09
+because this critic routine's stored prompt binds it to 「CHARTER §14b ... as amended
+2026-09-07 by NH-038 B」 while `NEEDS_HUMAN.md` records NH-038 as `open`. That finding
+stands and is unchanged. NH-050 then wrote that the prompt 「states option B's content」.
+**It does not.** Read at `9c22ff3`, side by side:
+
+| source | what it says a larger judge-facing finding becomes |
+|---|---|
+| this routine's stored prompt | 「anything larger, however judge-facing, is filed as a **P0 row at position 1** and is never a preemption」 |
+| NH-038 **option B**, `NEEDS_HUMAN.md:2016-2019` | 「anything larger is a P0 row that **takes its place in the table like any other**, so the top row is never displaced by more than a few minutes」 |
+| NH-038 **option D**, `NEEDS_HUMAN.md:2020-2022` | 「**Suspend the mechanism** until R7 and R9 tick, with judge-facing findings still filed as **P0 rows at position 1** but not as preemptions」 |
+
+The 「position 1」 mechanic the loop has been applying belongs to **option D**, not to option
+B. Option B's own words put the row in table order like any other P0 row. The two options
+differ on exactly one thing — whether a large judge-facing finding jumps the queue — and the
+loop has been running the version that jumps it while citing the version that does not.
+
+**The cost, measured in the table rather than argued.** Three consecutive critic laps filed a
+P0 row at position 1 citing that authority, and `docs/auto/BACKLOG.md` still carries their own
+words: WFG-201 (critic #46, 2026-09-08T2340Z, 「CHARTER §14b as amended by NH-038 B:
+judge-facing, larger than minutes, therefore a P0 row at position 1」), WFG-207 (critic #48)
+and WFG-210 (critic #49). Each was a real defect and each was fixed within one lap; none of
+that is in dispute. The effect is that **WFG-125 — the one row that would measure what this
+project's own forecast is worth, as opposed to what a perfect one would be worth — has been
+ranked below a newer prose row by five consecutive critic laps (#46, #47, #48, #49 and the
+promotion this lap had to spend its single §3b reorder on to undo).** Under option B's own
+wording, none of those three rows would have been placed above it, and no reorder would have
+been needed.
+
+**Why this is yours and not a lap's.** The prompt lives on the routine page and the repository
+cannot change what runs it (CHARTER §10). A lap can prove the two texts differ, which this one
+has, and it can decline to file at position 1, which this one also has (WFG-212 is filed in
+table order after WFG-125 and WFG-027, with the reason written into the row). It cannot decide
+which of the two you meant. And the loop should not settle it by reading, because reading is
+what produced the divergence.
+
+**What the loop does until you answer.** It applies **option B as this repository's copy of
+NH-038 words it** — a larger judge-facing finding becomes a P0 row in table order, not at
+position 1 — and every row so filed says in its own text that it did so and why. Nothing
+already filed at position 1 is moved back down: those rows are `done` and moving a closed row
+rewrites history for no gain.
+
+**Options:** A) **Option B as `NEEDS_HUMAN.md` words it is what you meant** — a larger
+judge-facing finding is a P0 row in table order. Say so and a lap corrects the routine prompt
+wording you paste onto the routine page; CHARTER §14b gains the amendment in the repository so
+no future lap has to reconstruct it. B) **Option D is what you meant** — the preemption
+mechanism is suspended and judge-facing findings do go to position 1. Then the behaviour of
+the last three days was right, the prompt is right, and NH-038 closes as D rather than B.
+C) **Neither exactly** — say in one line where a larger judge-facing critic finding should sit
+in the table, and the next lap writes it into CHARTER §14b and into the row template.
+D) Something else — one line, and the next lap does it.
+
+**Reply with:** `NH-051: A` (or B / C / D, or a sentence).
+
+**Related.** NH-038 (`open`, due 2026-09-09, the question this rule came from), NH-036
+(`open`, due 2026-09-10, the same family for `Do NOT edit` notes and CHARTER §14c, which this
+lap re-confirms does not exist in `docs/auto/CHARTER.md`), NH-050 (`open`, the channel finding
+this entry corrects one clause of) and WFG-211 (the second reply channel CHARTER §6 names is a
+pull request that merged on 2026-09-05).

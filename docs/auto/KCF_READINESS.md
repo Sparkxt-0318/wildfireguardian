@@ -5,7 +5,70 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
-**Tick count, critic #49, 2026-09-09T0820Z at `7f914fd`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
+**Tick count, critic #50, 2026-09-09T1122Z at `9c22ff3`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
+R3, R11 and R12 are the three that do not tick; R10 was withdrawn 2026-09-04.** ⚠⚠ **ZERO lines ticked, for
+the SEVENTH consecutive critic lap.** The count has stood at 8 since critic #43 ticked R8 at 2026-09-08T1429Z.
+
+⚠⚠ **This lap stops re-describing the zero and measures its cause, which turns out to be a single point of
+failure.** The three unticked lines are not three independent gaps:
+
+| line | why it does not tick | who can move it |
+|---|---|---|
+| R12 | the booth recipe has not been run on the real laptop | the author (NH-014) |
+| R3 | `blocked(NH-046)` — its criterion names `make all-checks`, a command that cannot go green on any clone but the author's, and no lap may reword a readiness line | the author (NH-046) |
+| R11 | its row **WFG-024** is one stale sentence, `agent_doable`, `todo`, and held at table position 163 by CHARTER §14b as loop hygiene | a lap, **once R3 ticks** |
+
+§14b releases the P1 infra block only when **R1, R3, R4, R7, R8 and R9** are all ticked. Five of those six are
+ticked. **R3 is the only one that is not, and NH-046 forbids a lap from ticking it.** So R11 is downstream of
+R3, R3 is downstream of NH-046, and R12 is downstream of NH-014. **There is no path from any amount of loop
+work to a ninth tick.** That is not a direction failure this lap can file against the product, and it is why
+this lap files no fourteenth question: NH-046 and NH-014 already ask it, in the author's own terms, and
+NH-046 has carried the loop's recommendation (option A) unchanged for three laps.
+
+✅ **R1, R2, R5 and R7 hold, and critic #49's one defect inside R1/R2 is CLOSED and verified here rather than
+read from the report.** The 창의성 answer's item ① no longer anchors only on the landscape note about the
+other systems. Measured at `9c22ff3` on all four surfaces: `web/finals.html`'s `CREATIVE[0].doc` reads
+`outputs/dispatch/20260801T163042Z/01-거무역리공원-북쪽/dispatch_a4.html · outputs/dispatch/README.md ·
+docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md §3`, with the instance **first**; `docs/creativity_card.md:36`
+names the index and a named sheet, then the note with its role in parentheses; `README.md:326-355` names
+`outputs/dispatch/README.md` first; and `docs/auto/JUDGE_QA.md` Q29a offers to open the file. **Every anchor
+resolves** — the named sheet is tracked (`git ls-files` answers it) and every markdown link target in
+`README.md:200-362` exists in the tree, checked one by one here. `tests/test_creativity_card.py` binds the
+anchors' **contents** rather than their names, and the lap's own M8 mutation (a threshold no document reaches,
+which made the assertion vacuously true) is now red in both directions.
+
+✅ **R9 holds and is re-earned rather than inherited.** `release/kcf-finals-2026/` tracks two files by design
+(`MANIFEST.json` and `README_KO.md`; the 19-file payload is git-ignored at `.gitignore:438-454` and rebuilt by
+`make finals-bundle`, so nothing is duplicated into the tree), the manifest declares **19** files, and
+`gates.py --mode full` including `tests/test_printables.py` exits 0 at this head.
+
+Measured at `9c22ff3`. ⚠ **The routine's clone opened SHALLOW at 50 commits**, deepened with
+`git fetch --shallow-since='2026-09-08T00:00:00Z'` to **90** commits, oldest resolvable `088203c` at
+**00:22:53Z on 09-08** — a deepening whose predicate is the window rather than a guessed depth.
+`--is-shallow-repository` still answers **true**, so **no ancestry or reachability claim is made anywhere in
+this lap's output.** `gates.py --mode full` exits **0**, ALL GREEN: `1830 passed, 63 skipped, 3 xfailed`,
+pytest **373.4 s**; `baseline-verify` WARNs on the two git-ignored `data/raw/**` contracts, which is NH-029
+and §3d working as decided. `--assert-head` exits 0 and `--assert-reported --base 088203c` exits 0 over **95**
+substantive paths. **GitHub `auto-gates`, runs 246 to 285 — the full 24 h window, wider than critic #49's —
+carries THREE `failure` runs: 253 (`0cca093`, upload-artifact 403, closed at `b2cda36`), 255 (`b7c1837`,
+browser launch, closed at `298a09c`) and 260 (`7eeccab`, a debug-port race, closed at `1fa0b7f`). All three
+were caught and repaired inside the hour by `wfg-autoloop-ci-red`, none was a product test failure, and run
+**285** is `success` at this exact head.** By CHARTER §4b's letter those are finding #1; **no
+`fix-before-next-row` item is set for them, because all three are already closed and green.** Every dev
+report in the window carries `Reviewed by:`.
+
+⚠ **The one `Do NOT edit` note, RE-STATED after re-checking its premise (CHARTER §14c as the routine prompt
+states it, NH-036 A; ⚠ a search for `14c` in `docs/auto/CHARTER.md` answers **0** at this head, and both NH-036
+and NH-038 are still `open` — NH-050 and this lap's NH-051).** It covers **`README.md:210-282`**, the Round-4
+fair-opponent block, whose bounds this lap re-measured (「### 1.」 at **210**, 「### 2.」 at **283**), unchanged
+from critic #49. It forbids exactly one thing there: putting a present-perimeter **margin value**
+(9, 27, 5, 19, 86) into those lines while NH-032 and NH-034 are open. Both re-read at `NEEDS_HUMAN.md:1391`
+and `:1574`: still `open`, both due 2026-09-08, so **one day overdue**. A scan of 210-282 finds no margin
+value there today. **It expires at critic #51 unless that lap re-states it after re-reading them.** It
+freezes no file and no question: WFG-212's lead paragraph, filed by this lap, is an edit to this very section
+that the note permits, and the note is written into that row as a constraint so the next lap cannot miss it.
+
+*(Superseded lead, kept as the record.)* **Tick count, critic #49, 2026-09-09T0820Z at `7f914fd`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
 R3, R11 and R12 are the three that do not tick; R10 was withdrawn 2026-09-04.** ⚠⚠ **ZERO lines ticked, for
 the SIXTH consecutive critic lap.** The count has stood at 8 since critic #43 ticked R8 at 2026-09-08T1429Z.
 
