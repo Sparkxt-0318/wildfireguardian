@@ -2483,3 +2483,72 @@ were six: `docs/present_perimeter_arm.md` §4 is titled 「Why 1 km is not a con
 both argmax conclusions. A row's surface list is written by someone reading the surfaces they
 remembered; the gate's list is the one that has to be right, so derive it by grepping the
 trigger across the repository before trusting the row.
+
+---
+
+## 2026-09-09T0321Z (dev, WFG-194) — a gate whose false positive is a word the project must be able to say
+
+`scripts/check_region_literals.py` exists for a defect with a nasty shape: a per-region value
+typed into a screen string is **correct for the region the author is looking at** and wrong
+for the other two. It tests Korean region names by substring. **의성** (Uiseong) is also the
+last two syllables of **창의성** (creativity), which is a **20-point row on both KCF scoring
+tables and the first thing the 심사기준 names**. So the gate refused the finals screen the
+moment this project tried to write the word it is scored on, and reported it as a region claim.
+
+**The temptation was the ratchet.** The file already has a `KNOWN_REGION_LITERALS` floor with
+a per-file count, and adding `"scripts/finals.template.html": 1` would have been one line and
+green. It would also have bought silence on *any* future region literal in the one template
+that renders all three regions from one payload — the exact file the gate was written for,
+paid for with the exact currency the file's own comment warns about (「an entry here is a
+literal that has been LOOKED AT, not one that was noisy」).
+
+**The rule:** when a gate fires on something true, fix the gate's *predicate*, not its budget.
+Here the predicate was wrong by one character class: a place name is a place name where it
+**starts** a word, and Korean writes a place name with a separator before it. One negative
+lookbehind, and the false positive is gone without loosening anything.
+
+**And grade the narrowing in both directions, including what it now cannot see.** Four cases:
+창의성 must pass, 「의성·안동」 and 「경북 의성」 must still fire, and a compound of two region
+names must still fire on the first one. The fourth test asserts the *hole* — 「경북의성군」, a
+place name glued to a non-region noun, escapes — as a **passing** assertion, so the limit is a
+fact of the suite rather than a sentence in a comment nobody re-reads. A narrowing that is not
+graded is a hole; a narrowing whose hole is only in a comment is a hole with a note on it.
+
+**The lap's own root objection, kept because it changed the work.** The row's 「done when」 is a
+grep count of 창의 or 독창 on two surfaces, and a grep count is satisfied by typing the word —
+a keyword, not a mark. So the gates were aimed at the **anchor paths and the register** rather
+than the word, and the mutation set was written to prove it: the mutation that keeps 창의성 in
+the spoken line and replaces the claim with 「저희 프로젝트는 매우 독창적입니다」 turns the suite
+red on two counts. **When a row's done-when is a proxy, gate the thing the proxy stands for and
+say in the report that the row's own criterion was not enough.**
+
+**A second thing, and the browser test earned its 25 seconds.** Fixing a typographic
+apostrophe to a plain one inside a **single-quoted JS string literal** in
+`scripts/finals.template.html` broke the whole inline script, and `make finals` shipped it
+green: `check_screen_assets.py` reads assets and `check_forbidden.py` reads prose, and neither
+parses JavaScript. The only thing in the tree that caught it was
+`tests/test_finals_acts.py::test_the_four_acts_advance_in_a_real_browser`, which timed out
+after 25 s on 「web/finals.html to finish building the intro」 — a message that names the
+symptom and not the cause. **The five-second diagnostic, for the next lap that meets that
+timeout:** split the built page's `<script>` blocks and run `node --check` on the one that is
+not the JSON payload; it names the line and the character. A dead finals screen is the single
+worst artifact this project could take to a booth, and one apostrophe is all it takes.
+
+**The third thing, and it is the reviewer's, not mine.** *Every gate this lap wrote reads a
+source file; nothing read what a judge is handed or shown.* Three defects lived in that gap
+and all three were in the printed kit: a prose claim about a table that the table's own test
+could not see (「가장 많이 낸 구간은 2막」 — four segments tie), a `~~strikethrough~~` that the
+print renderer silently dropped so a retracted claim printed as a live one, and a screen item
+that stated an unqualified scope where the card it was copied from states the limit. **The
+rule: when a lap writes prose ABOUT an artifact, the gate has to read the property the prose
+asserts, not the cells the artifact prints.** `cells[1]` and `cells[3]` were both correct
+while the sentence three lines above them was false.
+
+**And the shape to copy from the review, not just the findings.** Its cheapest nail was three
+subtractions on the lap's own committed artifact — under a minute, no build, no browser — and
+its most useful finding needed the opposite: driving the real page and counting DOM nodes,
+which no amount of reading the template would have produced. It also corrected the lap **in
+the project's favour** twice, and raised `mandela` #5 against its own method: the lap wrote
+the gates and the mutations that grade them in one session, so the two mutation sets have to
+come from two sessions. They did, and the hole that survived **both** sets is the one now on
+the board as WFG-206.

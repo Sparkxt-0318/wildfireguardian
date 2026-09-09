@@ -43,19 +43,24 @@ The script counts the syllables a student actually pronounces:
   exists to prevent. It fired on the first run: `pooled` in 마무리 had no reading, and the
   count was two syllables short until it got one.
 
-| 구간 | spoken syllables | seconds (was) | seconds (now) | syl/s now |
+⚠ **This table is the measurement that SHIPS, re-written in place by each re-measure**; the
+`seconds (before WFG-100)` column is the budget as it stood before any of this, kept because
+the paragraph above prices the defect against it. Every intermediate allocation is a row of
+「The measurements, in order」 at the end of this page, and none of them is deleted.
+
+| 구간 | spoken syllables | seconds (before WFG-100) | seconds (now) | syl/s now |
 |---|---:|---:|---:|---:|
-| 도입 | 161 | 25 | **28** | 5.75 |
-| 1막 · 발견 | 246 | 45 | **44** | 5.59 |
-| 2막 · 시간이 도로망을 바꿉니다 | 280 | 55 | **50** | 5.60 |
-| 3막 · 같은 출발지, 두 개의 답 | 346 | 75 | **61** | 5.67 |
-| 4막 · 예측을 판단으로 | 331 | 55 | **59** | 5.61 |
-| 마무리 · 한계 | 328 | 45 | **58** | 5.66 |
-| **합계** | **1,692** | 300 | **300** | **5.64** |
+| 도입 | 213 | 25 | **37** | 5.76 |
+| 1막 · 발견 | 246 | 45 | **42** | 5.86 |
+| 2막 · 시간이 도로망을 바꿉니다 | 280 | 55 | **48** | 5.83 |
+| 3막 · 같은 출발지, 두 개의 답 | 346 | 75 | **60** | 5.77 |
+| 4막 · 예측을 판단으로 | 331 | 55 | **57** | 5.81 |
+| 마무리 · 한계 | 328 | 45 | **56** | 5.86 |
+| **합계** | **1,744** | 300 | **300** | **5.81** |
 
 The 300 seconds are allocated in proportion to the syllable counts by largest remainder, so
 the six whole seconds still sum to exactly 300 without a fudge on the last segment. The
-spread is now **1.03x** where it was 1.62x. **No sentence was deleted to buy seconds**
+spread is now **1.02x** where it was 1.62x (it read 1.03x between WFG-103 and WFG-194). **No sentence was deleted to buy seconds**
 (CHARTER §3.5): proportional allocation means no segment is over its share by construction,
 so the trimming the backlog row allowed for was not needed.
 
@@ -120,10 +125,10 @@ existence or its direction.
 
 ## What this does NOT show
 
-* **It does not show the script is sayable in five minutes.** 5.64 syllables per second is
+* **It does not show the script is sayable in five minutes.** 5.81 syllables per second is
   an arithmetic consequence of dividing this text by this budget, not a measurement of
   speech, and this repository has asserted no comfortable rate for spoken Korean. Whether a
-  student can say 1,692 syllables in 300 seconds while a judge interrupts is a stopwatch
+  student can say 1,744 syllables in 300 seconds while a judge interrupts is a stopwatch
   question and a human one: **R12 / NH-014**, and WFG-037's booth recipe.
 * **It does not show the budget is well-spent.** Giving 3막 — 「이 프로젝트의 전부」 — 61 s
   instead of 75 s is what one rate costs it. If the student wants 3막 slower, the move is to
@@ -150,6 +155,8 @@ attempt asserted them from memory and its reviewer blocked on exactly that. Regi
 | `demo_pace_20260905t0625z_total_spoken_syllables` | 1684 | " |
 | `demo_pace_20260905t0947z_rate_spread` | 1.03 | after WFG-103's sentence <!-- collision-ok: 1.03 — the spread at tag 20260905t0947z; the 1.62 and 1.02 above are the same quantity at 039a0de and 20260905t0625z, and the three rows are this table's whole point. -->|
 | `demo_pace_20260905t0947z_total_spoken_syllables` | 1692 | +8 — one spoken sentence in 3막 |
+| `demo_pace_20260909t0321z_rate_spread` | 1.02 | after WFG-194's sentence <!-- collision-ok: 1.02 — the spread at tag 20260909t0321z. The 1.02 two rows up is the same quantity at tag 20260905t0625z, and that the two agree to two decimals is arithmetic, not the same measurement: the syllable totals behind them are 1,684 and 1,744. -->|
+| `demo_pace_20260909t0321z_total_spoken_syllables` | 1744 | +52 — one spoken sentence in 도입 |
 
 The per-segment rates and the variant tables are fields of those two artifacts rather than
 registry keys of their own.
@@ -199,7 +206,8 @@ fixed-point reason above; the 도입 header's seconds are not spoken, but 마무
 |---|---|---|---:|---|---:|
 | `039a0de` | `pace_before_039a0de.json` | before WFG-100 | 1,684 | 25 / 45 / 55 / 75 / 55 / 45 | 1.62 |
 | `20260905t0625z` | `pace_20260905T0625Z.json` | after WFG-100 | 1,684 | 29 / 44 / 50 / 60 / 59 / 58 | 1.02 |
-| `20260905t0947z` | `pace_20260905T0947Z.json` | after WFG-103 (**ships**) | 1,692 | 28 / 44 / 50 / 61 / 59 / 58 | 1.03 |
+| `20260905t0947z` | `pace_20260905T0947Z.json` | after WFG-103 | 1,692 | 28 / 44 / 50 / 61 / 59 / 58 | 1.03 |
+| `20260909t0321z` | `pace_20260909T0321Z.json` | after WFG-194 (**ships**) | 1,744 | 37 / 42 / 48 / 60 / 57 / 56 | 1.02 |
 
 **What the third row cost, and what it bought.** WFG-103 replaced one spoken sentence in 3막 —
 the one that described the STATIC VIEW baseline as 「지금 이 순간만 보는 지도」 when the arm is
@@ -217,3 +225,34 @@ It was green only because 1,684 = 1,684 held across WFG-100 by coincidence. The 
 moved the count is the first edit that would have made it red, and it would have named the wrong
 file while doing so. It now selects by `TAG`, which is what the registry keys are built from.
 A test that identifies its subject by sort order is identifying it by accident.
+
+## The 2026-09-09 re-measure, and what it cost (WFG-194)
+
+The 창의성 row is **20 points on both KCF scoring tables** and the 심사기준 names it first,
+and until this lap a count of 창의 or 독창 answered **0** on the booth script. The row's fix
+was one spoken sentence in 도입 naming what the project's output object is, plus two ⚠ blocks
+which are Q&A prose and are **not** in the 300 seconds by this page's own counting rule.
+
+**The sentence cost 52 syllables and nine seconds of the other five segments**, because 300 s
+is fixed by the 운영요강 and a segment that gains seconds takes them from the rest:
+
+| 구간 | seconds before | seconds after | delta |
+|---|---:|---:|---:|
+| 도입 | 28 | 37 | +9 |
+| 1막 | 44 | 42 | -2 |
+| 2막 | 50 | 48 | -2 |
+| 3막 | 61 | 60 | -1 |
+| 4막 | 59 | 57 | -2 |
+| 마무리 | 58 | 56 | -2 |
+
+**Whether nine seconds is worth the 창의성 row is not a question this page can answer**, and
+it is not a question the measurement answers either. What the measurement says is only that
+the six segments still share one rate (spread 1.02x, tighter than the 1.03x it replaced) and
+that 마무리 · 한계 is not the fastest segment - the defect WFG-100 was filed for stays fixed.
+The trade is written into `docs/auto/DEMO_SCRIPT_5MIN.md` §1 where the student reads it, not
+only here.
+
+⚠ **The fixed point did not bite, and it was checked rather than assumed.** 마무리's own line
+says 「마지막 NN초는…」, a number this allocation produces inside the text it is computed from.
+58 and 56 are both three syllables read sino-Korean (오십팔, 오십육), so re-running the count
+after rewriting the header returned the same allocation. At 60 s it would not have.

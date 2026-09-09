@@ -302,3 +302,214 @@ def test_the_card_keeps_the_limit_that_makes_its_third_item_honest() -> None:
 # registry. The cold read is what catches this one, so it is written down for
 # the next reader rather than left implied.
 # ---------------------------------------------------------------------------
+
+
+# ---------------------------------------------------------------------------
+# WFG-194: the same three items, on the two surfaces a judge actually meets
+#
+# WFG-182 shipped the card and closed correctly on its own scope. What it left,
+# and said so in its own 「what this does NOT show」 block, is that a count of
+# 창의 or 독창 answered 0 on `web/finals.html` and 0 on the booth script — the
+# two surfaces a judge is in front of, where the Q&A bank is a reference the
+# student reads from. Critics #41, #45 and #47 each re-measured the same zero.
+#
+# ⚠ These gates deliberately bind the ANCHOR PATHS and the register, not the
+# word 창의. The row's own 「done when」 is a grep count, and a grep count is
+# satisfied by writing the word — which would buy a keyword and not a mark. What
+# has to survive is that a judge who presses on any of the three items lands on
+# a file that exists and says what the surface said.
+# ---------------------------------------------------------------------------
+
+SCREEN = REPO / "web" / "finals.html"
+TEMPLATE = REPO / "scripts" / "finals.template.html"
+BOOTH = REPO / "docs" / "auto" / "DEMO_SCRIPT_5MIN.md"
+
+#: The three anchors the screen block names, one per item. A subset of ANCHORS:
+#: the screen's third item cites the registry and its checker, and sends a
+#: reader who wants the measured limits to docs/creativity_card.md.
+SCREEN_ANCHORS = (
+    "docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md",
+    "docs/real_roads_real_hazard.md",
+    "docs/auto/withdrawn_claims.json",
+    "scripts/check_withdrawn_claims.py",
+)
+
+
+def _screen_block() -> str:
+    """The CREATIVE literals in the template, which is what the build emits.
+
+    Read from the template rather than the built page because the template is
+    the file a lap edits; `test_the_screen_ships_what_the_template_says` below
+    is what binds the two together, so a hand-edited `web/finals.html` cannot
+    satisfy this on its own.
+    """
+    text = TEMPLATE.read_text(encoding="utf-8")
+    head = "const CREATIVE = ["
+    assert head in text, (
+        "the finals screen's 창의성 block is gone from the template. It is one "
+        "of the two surfaces WFG-194 exists to reach; if it is being retired, "
+        "retire this gate in the same commit and say why in the backlog row."
+    )
+    return text[text.index(head):].split("\n];", 1)[0]
+
+
+def test_the_screen_block_rests_on_artifacts_that_exist() -> None:
+    """Every path the screen shows a judge resolves in the tree."""
+    block = _screen_block()
+    named = [a for a in SCREEN_ANCHORS if a in block]
+    assert len(named) == len(SCREEN_ANCHORS), (
+        "the screen's 창의성 block no longer names all of "
+        + ", ".join(SCREEN_ANCHORS) + ". A judge who presses on an item has "
+        "nothing to open."
+    )
+    missing = [a for a in SCREEN_ANCHORS if not (REPO / a).exists()]
+    assert not missing, (
+        "the screen's 창의성 block points at files that are not in the tree: "
+        + ", ".join(missing)
+    )
+
+
+def test_the_screen_ships_what_the_template_says() -> None:
+    """`make finals` was run, so the built page carries the block too.
+
+    Without this the template could gain the block and the page a judge opens
+    on the booth laptop could stay silent for a whole window — which is the
+    exact shape of the defect WFG-194 was filed about, one file upstream.
+    """
+    page = SCREEN.read_text(encoding="utf-8")
+    assert "창의성 · 이 작품이 직접 만든 것" in page, (
+        "web/finals.html does not carry the 창의성 block. Run `make finals` "
+        "on the commit being pushed; the template alone is not the surface."
+    )
+    for anchor in SCREEN_ANCHORS:
+        assert anchor in page, (
+            f"the built screen is missing the anchor {anchor}; it is stale "
+            "against the template. Run `make finals`."
+        )
+
+
+def test_the_screen_block_holds_the_same_register_as_the_card() -> None:
+    """No novelty claim, no other system, no count - on the screen as well.
+
+    The register is the card's whole design (docs/creativity_card.md), and a
+    second surface making the same three claims in the evaluative register
+    would undo it while the card's own gate stayed green. The three assertions
+    are the card's, applied to the screen's literals.
+    """
+    block = _screen_block()
+    assert not NOVELTY_RE.findall(block), (
+        "the screen's 창의성 block has acquired a novelty claim: "
+        + ", ".join(NOVELTY_RE.findall(block))
+    )
+    others = [s for s in OTHER_SYSTEMS if s in block]
+    assert not others, (
+        "the screen's 창의성 block names another system: " + ", ".join(others)
+        + ". This block carries no source line, so a sentence about another "
+        "system would be unsourced by construction (WC-009)."
+    )
+    counts = re.findall(r"\d\s*(?:" + _OBJECT_COUNTER + r")", block)
+    counts += KO_COUNT_RE.findall(block)
+    assert not counts, (
+        "the screen's 창의성 block has acquired a count of this repository's "
+        "own state: " + ", ".join(counts)
+    )
+
+
+def test_the_screen_block_says_the_judge_writes_the_verdict() -> None:
+    """The closing limit is what keeps a wall of claims from reading as a boast."""
+    page = SCREEN.read_text(encoding="utf-8")
+    assert "심사위원의 판단입니다" in page, (
+        "the screen's 창의성 block no longer says that whether these read as "
+        "creative is the judge's call. Without it the block is the "
+        "self-assessment the card's register exists to avoid."
+    )
+
+
+def test_the_booth_script_answers_the_creativity_row_out_loud() -> None:
+    """One spoken sentence, inside §1, not only in a ⚠ block.
+
+    A ⚠ block is Q&A prose and is not in the 300 seconds by
+    `scripts/measure_demo_script_pace.py`'s counting rule, so a 창의성 answer
+    that lives only there is said only if a judge happens to ask. 창의성 is
+    scored whether or not it is asked.
+    """
+    text = BOOTH.read_text(encoding="utf-8")
+    intro = text.split("### 도입", 1)[1].split("### 1막", 1)[0]
+    spoken = "\n".join(l for l in intro.splitlines() if l.startswith("> "))
+    assert "창의성" in spoken, (
+        "the booth script's spoken 도입 no longer names 창의성. It is 20 points "
+        "on both KCF tables and the 심사기준 names it first; a count of 창의 "
+        "or 독창 answered 0 on this file for six days (WFG-194)."
+    )
+    assert "가구 단위 판정" in spoken, (
+        "the spoken answer no longer says what the output object IS, which is "
+        "the whole content of the first item; naming 창의성 without it is the "
+        "keyword and not the claim."
+    )
+
+
+def test_the_booth_script_sends_the_judge_to_the_other_two_items() -> None:
+    """The spoken line carries item 1; the screen carries all three."""
+    text = BOOTH.read_text(encoding="utf-8")
+    for needle in ("창의성 · 이 작품이 직접 만든 것",
+                   "docs/creativity_card.md",
+                   "Q29a"):
+        assert needle in text, (
+            f"the booth script no longer points at {needle}. The spoken line "
+            "makes one of the three items; without the pointer the other two "
+            "are unreachable from the script."
+        )
+
+
+def test_the_booth_script_forbids_the_evaluative_register() -> None:
+    """M8, the mutation the card's own gate cannot catch, written down where
+    the student reads it.
+
+    Nothing in this suite reads tone, and `docs/creativity_card.md` records
+    that rewriting the descriptive register into the evaluative one keeps every
+    assertion green. The one control available for a sentence a human speaks is
+    to tell the human, on the page they read before speaking.
+    """
+    text = BOOTH.read_text(encoding="utf-8")
+    assert "독창적입니다" in text and "말하지 마십시오" in text, (
+        "the booth script no longer tells the student not to call the work "
+        "독창적. That prohibition is the only control this repository has over "
+        "the evaluative register in a spoken sentence (docs/creativity_card.md, "
+        "mutation M8)."
+    )
+
+
+def test_the_screen_states_what_the_withdrawal_registry_does_not_reach() -> None:
+    """WFG-194's reviewer: the register gates were ported to the screen and this
+    one was not, on the item whose whole content is 「we are honest about being
+    wrong」.
+
+    Q29a is permitted to offer the withdrawn-claim registry as a method only
+    because its 없는 것 block forces the student to speak the limits, and
+    `docs/withdrawn_claims.md` §4 is titled 「이 게이트가 하지 않는 것 — 부스에서
+    근거로 들지 마십시오」. The screen's first wording said the checker reads the
+    registry back across 「추적 문서 전체」 / 「the tracked documents」, full stop:
+    an unqualified scope claim on a booth surface, wider than the measured reach
+    (the loop's own record pages are exempt by design, and `.bib` and `.py` are
+    out of reach - WFG-155, WFG-168).
+
+    The limit is stated qualitatively rather than as a fraction on purpose: the
+    screen block states no quantity at all, a count of this repository's own
+    state is the defect with the shortest fuse here (WFG-117), and the
+    denominator moves every time a document is added.
+    """
+    block = _screen_block()
+    for needle_ko, needle_en, what in (
+        (".md", ".md", "which file types the checker actually reads"),
+        ("기록 문서", "record pages", "that the loop's own record class is exempt"),
+        ("다시 쓴 문장", "reworded claim", "that a reworded claim escapes"),
+    ):
+        assert needle_ko in block and needle_en in block, (
+            "the screen's withdrawn-claim item no longer says " + what
+            + f" (looking for {needle_ko!r} and {needle_en!r}). Without it the "
+            "screen claims a wider reach than docs/withdrawn_claims.md §4 "
+            "measured, on the one item that is about not overclaiming."
+        )
+    page = SCREEN.read_text(encoding="utf-8")
+    assert "다시 쓴 문장" in page, (
+        "the built screen does not carry the limit; run `make finals`.")

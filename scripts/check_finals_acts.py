@@ -255,6 +255,22 @@ def _click(cdp: CDP, selector: str) -> None:
     time.sleep(0.45)
 
 
+#: Open the 시스템 구조 tab, toggle the language twice, and count the blocks
+#: renderSystem() appends. One of each is correct; more than one is the append
+#: bug. Returns a JSON object so the report records the counts either way.
+_SYS_DUP_JS = """(() => {
+  const tab = [...document.querySelectorAll('button, a')]
+    .find(el => (el.textContent || '').includes('시스템'));
+  if (tab) tab.click();
+  const lang = document.getElementById('btnLang');
+  if (lang) { lang.click(); lang.click(); }
+  if (tab) tab.click();
+  const n = (id) => document.querySelectorAll('#' + id).length;
+  return JSON.stringify({syssrc: n('syssrc'), sysnote: n('sysnote'),
+                         syscreative: n('syscreative')});
+})()"""
+
+
 def _state(cdp: CDP) -> dict:
     return json.loads(cdp.evaluate(_STATE_JS))
 
@@ -458,6 +474,17 @@ def run(out_dir: Path, keep: bool = False) -> dict:
                 })
                 previous = state
 
+            # ⚠ The 시스템 구조 tab, opened and language-toggled, WFG-194.
+            # renderSystem() appends its source strip, its operator note and its
+            # 창의성 block into the page, and setLang() sets sysBuilt = false and
+            # calls it again - so before this lap one toggle left two of each and
+            # two toggles left three, with duplicate element ids. Nobody had ever
+            # driven it: the acts loop above never leaves the 상황 tab. The booth
+            # script now tells the student to open this tab when a judge asks
+            # what is new, so the count is asserted rather than assumed.
+            sys_counts = json.loads(cdp.evaluate(_SYS_DUP_JS))
+            duplicated = {k: v for k, v in sys_counts.items() if v != 1}
+
             cdp.drain()
             errors, optional_misses = _console_errors(cdp)
             urls = _requested_urls(cdp)
@@ -490,6 +517,7 @@ def run(out_dir: Path, keep: bool = False) -> dict:
                 "console_errors": errors,
                 "optional_media_missing": optional_misses,
                 "requests_total": len(urls), "offsite_requests": offsite,
+                "system_tab_elements_after_two_language_toggles": sys_counts,
             }
             if errors:
                 raise AssertionError("console errors while advancing the acts:\n  "
@@ -497,6 +525,14 @@ def run(out_dir: Path, keep: bool = False) -> dict:
             if offsite:
                 raise AssertionError("the screen requested something off file://:\n  "
                                      + "\n  ".join(offsite))
+            if duplicated:
+                raise AssertionError(
+                    "the 시스템 구조 tab stacks its own blocks when the language is "
+                    "toggled, so a judge sees each one more than once and the page "
+                    "carries duplicate element ids: "
+                    + ", ".join(f"{k} x{v}" for k, v in sorted(duplicated.items()))
+                    + ". renderSystem() appends into #view-system .page; remove the "
+                      "previous nodes by id before rebuilding.")
             return report
         finally:
             with contextlib.suppress(Exception):

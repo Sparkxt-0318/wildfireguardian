@@ -113,6 +113,15 @@ SOURCES: list[tuple[str, str]] = [
     # wording. It prints last because it is the paper opened when a judge asks
     # 「기존 연구와 무엇이 다릅니까」, which is a question about the whole
     # project rather than about any one measurement.
+    # WFG-194. 창의성 is 20 points on both KCF scoring tables and the 심사기준
+    # names it first, and for six days the answer existed only as Q29a inside
+    # the Q&A bank plus this page - which was in none of the printed kit's
+    # sources, so a judge reached it only by opening the bank at the right
+    # card. The screen and the booth script now carry it too; this puts the
+    # method, the mutations and the limits on paper beside them. It prints
+    # immediately before the related-work panel because 「무엇이 새롭습니까」
+    # and 「기존 연구와 무엇이 다릅니까」 are the same conversation.
+    ("docs/creativity_card.md", "창의성 카드의 방법과 한계"),
     ("docs/auto/finals/RELATED_WORK_PANEL.md", "기존 연구와의 차별점 패널"),
 ]
 
@@ -179,6 +188,17 @@ _LINK = re.compile(r"\[([^\]]*)\]\(([^)]*)\)")
 _INLINE_CODE = re.compile(r"`([^`]*)`")
 _BOLD = re.compile(r"\*\*([^*]+)\*\*")
 _ITALIC = re.compile(r"(?<!\*)\*([^*]+)\*(?!\*)")
+#: ⚠ A strikethrough is a RETRACTION, and on paper it is the one piece of inline
+#: markup whose meaning cannot survive being dropped. Every other rule here loses
+#: only weight: ``**중요**`` reads the same without the asterisks. ``~~틀렸습니다~~``
+#: read without its tildes is the false sentence, printed as though it were still
+#: true. This renderer prints one weight of body text and cannot draw a line
+#: through a run of glyphs, so it says the word instead. Found by WFG-194's
+#: independent reviewer: that lap struck a claim through in docs/creativity_card.md
+#: and added the same file to SOURCES in the same commit, and the kit would have
+#: printed 「그 두 화면은 창의성에 대해 아직 침묵합니다」 as a live claim - flatly
+#: contradicted by the screen the judge was looking at.
+_STRIKE = re.compile(r"~~(.+?)~~", re.S)
 _TABLE_RULE = re.compile(r"^\s*\|[\s:|-]+\|\s*$")
 # HTML comments in these sources are gate pragmas for check_forbidden.py, not
 # content. The first preview printed "<!-- forbidden-ok: 신고보다 -->" in the
@@ -232,6 +252,7 @@ def strip_inline(text: str) -> str:
     text = _IMAGE.sub(lambda m: f"[그림: {m.group(1) or m.group(2)}]", text)
     text = _LINK.sub(r"\1", text)
     text = _INLINE_CODE.sub(r"\1", text)
+    text = _STRIKE.sub(r"[철회] \1", text)
     text = _BOLD.sub(r"\1", text)
     text = _ITALIC.sub(r"\1", text)
     # A bold span that OPENS on one line and closes on another survives both
@@ -239,6 +260,9 @@ def strip_inline(text: str) -> str:
     # showed six such lines printing their own asterisks on page 1 alone, which
     # on paper reads as a typo rather than as emphasis. Emphasis is dropped
     # here, not reconstructed: this renderer prints one weight of body text.
+    # An UNCLOSED ~~ is left alone deliberately: dropping the tildes would turn a
+    # half-written retraction into a live claim, which is the same defect one step
+    # on. The residual-markup gate over the real SOURCES is what catches it.
     return text.replace("**", "").replace("__", "")
 
 

@@ -178,6 +178,74 @@ def test_unclosed_emphasis_does_not_print_its_asterisks() -> None:
         assert "**" not in b.text, f"asterisks survive into the page: {b.text!r}"
 
 
+def test_a_strikethrough_announces_itself_on_paper() -> None:
+    """Dropping ~~ inverts a sentence, so the renderer says the word instead.
+
+    Every other inline rule here loses only weight - 「**중요**」 reads the same
+    without its asterisks. A retraction does not: 「~~틀렸습니다~~」 printed without
+    its tildes IS the false sentence, on a sheet a judge is holding.
+
+    ⚠ The parser works a line at a time, so a struck span that WRAPS is not
+    matched and its tildes reach the page - the same shape as the unclosed-bold
+    defect above. That is caught by the real-sources gate below rather than
+    papered over here, and the fix for an author who meets it is to keep the span
+    on one line, never to delete the markup.
+    """
+    blocks = bp.parse_markdown("- ~~그 화면은 아직 침묵합니다~~ 2026-09-09 에 닫혔습니다\n")
+    text = " ".join(b.text for b in blocks)
+    assert "~~" not in text, f"tildes survive onto the page: {text!r}"
+    assert "[철회]" in text, (
+        f"the struck span printed as an ordinary sentence: {text!r}. On paper "
+        "that is the retracted claim, presented as current.")
+
+
+def test_no_residual_inline_markup_prints_in_the_real_kit() -> None:
+    """The test above grades a string the author typed; this one grades the paper.
+
+    WFG-194's independent reviewer: the gate that existed knew the CLASS -- inline
+    markup surviving into a printed line -- and could not see an instance, because
+    its subject was a two-line literal rather than the seven documents that
+    actually print. In the same lap, `docs/creativity_card.md` struck a claim
+    through with ``~~ ~~`` and was added to `SOURCES`, and the renderer had no
+    strikethrough rule; on paper the retraction markup vanished and the judge
+    would have read a live claim that the screen in front of them was silent on
+    창의성.
+
+    ⚠ A strikethrough is the reason this is not cosmetic. Losing ``**`` costs
+    emphasis; losing ``~~`` INVERTS the sentence. So ``~~`` is checked here in
+    both directions: no raw tildes reach the page, and every struck span still
+    announces itself as withdrawn.
+
+    Runs over `SOURCES` itself, so a document added to the kit is graded by the
+    fact of being added and no one has to remember to extend a list.
+    """
+    residues = []
+    struck = 0
+    for rel, _title in bp.SOURCES:
+        md = (bp.ROOT / rel).read_text(encoding="utf-8")
+        struck += len(bp._STRIKE.findall(md))
+        for block in bp.parse_markdown(md):
+            if block.kind == "code":
+                continue          # tables and fences print verbatim by design
+            for token in ("~~", "**", "__"):
+                if token in block.text:
+                    residues.append(f"{rel}: {token} in {block.text[:80]!r}")
+    assert not residues, (
+        "inline markup survives onto the printed page:\n  "
+        + "\n  ".join(residues[:20])
+        + "\nDropping ** costs emphasis; dropping ~~ turns a retraction back "
+          "into a live claim. Teach strip_inline the token, do not delete the "
+          "markup from the source.")
+    if struck:
+        printed = "\n".join(
+            b.text for rel, _ in bp.SOURCES
+            for b in bp.parse_markdown((bp.ROOT / rel).read_text(encoding="utf-8")))
+        assert printed.count("[철회]") >= struck, (
+            f"{struck} struck-through span(s) in the kit's sources and only "
+            f"{printed.count('[철회]')} of them say so on paper. A retraction "
+            "that prints as an ordinary sentence is worse than no retraction.")
+
+
 def test_table_separator_rows_are_dropped() -> None:
     blocks = bp.parse_markdown("| 시점 | 무엇 |\n|---|---|\n| 10-23 | 짐 |\n")
     texts = [b.text for b in blocks if b.kind == "code"]

@@ -98,6 +98,27 @@ SCOPE: tuple[str, ...] = (
 #: about that region, so it must not be built for another.
 REGION_WORDS: tuple[str, ...] = ("영덕", "의성", "안동", "울진", "삼척")
 
+#: ⚠ A region name is a region name only when it STARTS a word. `의성` is also
+#: the tail of 창의성 (creativity), which is a 20-point KCF rubric row this
+#: project must be able to name on a screen, and a bare substring test read
+#: WFG-194's card title 「창의성 · 이 작품이 직접 만든 것」 as a claim about
+#: Uiseong. The narrowing is exactly one rule: the name must not be preceded by
+#: a Hangul syllable with no separator between them, because Korean writes a
+#: place name with a space before it and a compound without one.
+#: What this deliberately does NOT do: it cannot see a place name glued to a
+#: non-region noun (`경북의성군` would escape). That spelling is not Korean the
+#: repository writes - every label here comes from `region_label_kr` - and the
+#: trade is recorded rather than hidden. A compound of two region names is
+#: still caught, because the FIRST one still starts the word.
+#: ⚠ ONE-SIDED ON PURPOSE. A symmetric rule with a trailing `(?![가-힣])` looks
+#: tidier and blinds the gate to 영덕에서는, 의성군 and 울진의, because Korean
+#: particles attach directly to the noun. Measured, not argued: WFG-194's
+#: reviewer made that edit and it passed every other test in the file.
+#: `tests/test_check_region_literals.py` grades all five cases.
+_REGION_WORD_RE: dict[str, re.Pattern[str]] = {
+    w: re.compile(r"(?<![가-힣])" + w) for w in REGION_WORDS
+}
+
 #: Values that differ per region and have a committed per-region source.
 #: `docs/console_regions.md` §5 is the table; the sources are
 #: `multi_region_comparison.json` and `osm_completeness.json`.
@@ -211,7 +232,7 @@ def check_text(text: str, path: str, *, suffix: str) -> list[Finding]:
         # sufficient on its own and the exemption only created a blind spot.
         if _KOREAN.search(line):
             for word in REGION_WORDS:
-                if word in line:
+                if _REGION_WORD_RE[word].search(line):
                     out.append(Finding(path, i, f"region name {word!r} in a "
                                                 "user-visible string",
                                        line.strip()[:110]))

@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "97231a186bb24d2b0b5717333810af410343985e",
-  "n_artifacts": 104,
-  "total_bytes": 14574787,
+  "generated_at_git_commit": "9a97e538fff006cb5deda7737ca0fa6b95ddd047",
+  "n_artifacts": 105,
+  "total_bytes": 14577987,
   "total_mib": 13.9,
-  "n_git_tracked": 104,
+  "n_git_tracked": 105,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 8,
   "artifacts": [
@@ -262,6 +262,18 @@
         "docs/auto/reports/2026-09-05T0953Z-dev.md"
       ],
       "regenerate": "python scripts/measure_demo_script_pace.py --stamp 20260905T0947Z"
+    },
+    {
+      "path": "data/processed/demo_script_pace/pace_20260909T0321Z.json",
+      "bytes": 3200,
+      "sha256": "f1a9472ccacb8e0bb1214dafaaef93d41be8b2b896dd215234f471d34342edfd",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 2,
+      "cited_by_docs": [
+        "docs/creativity_card.md"
+      ],
+      "regenerate": "python scripts/measure_demo_script_pace.py --stamp 20260909T0321Z"
     },
     {
       "path": "data/processed/demo_script_pace/pace_before_039a0de.json",
@@ -649,8 +661,10 @@
         "docs/auto/reports/2026-09-06T0323Z-manual.md",
         "docs/auto/reports/2026-09-06T2015Z-critic.md",
         "docs/auto/reports/2026-09-06T2154Z-dev.md",
+        "docs/auto/reports/2026-09-09T0056Z-dev.md",
         "docs/fair_opponent_line.md",
-        "docs/present_perimeter_arm.md"
+        "docs/present_perimeter_arm.md",
+        "docs/present_perimeter_buffer_shape.md"
       ],
       "regenerate": "python scripts/run_present_perimeter_arm.py"
     },
@@ -661,7 +675,10 @@
       "kind": "text",
       "git_tracked": true,
       "n_registry_entries": 18,
-      "cited_by_docs": [],
+      "cited_by_docs": [
+        "docs/auto/reports/2026-09-09T0056Z-dev.md",
+        "docs/present_perimeter_buffer_shape.md"
+      ],
       "regenerate": "python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json"
     },
     {
@@ -872,6 +889,9 @@
       "n_registry_entries": 1,
       "cited_by_docs": [
         "docs/HANDOFF_ROUND3.md",
+        "docs/auto/BACKLOG.md",
+        "docs/auto/CRITIC_LATEST.md",
+        "docs/auto/NEEDS_HUMAN.md",
         "docs/dilation_perturbation.md",
         "docs/forecast_robustness.md",
         "docs/grid_extent.md",
@@ -1052,7 +1072,7 @@
         "docs/SESSION18_REPORT.md",
         "docs/auto/BACKLOG.md",
         "docs/auto/CRITIC_LATEST.md",
-        "docs/auto/DIRECTION.md",
+        "docs/auto/NEEDS_HUMAN.md",
         "docs/auto/SCORECARD.md",
         "docs/auto/knowledge/PYROGEOGRAPHY.md",
         "docs/auto/reports/2026-09-08T2023Z-critic.md",

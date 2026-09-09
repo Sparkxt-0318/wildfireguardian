@@ -1571,6 +1571,33 @@ function sysGlyph(i) {
   return svg;
 }
 let sysBuilt = false;
+/* The three items, kept in one place because the Q29a card, the booth script
+   and this screen must make the same three claims against the same three
+   files. Descriptive register only - see the comment in renderSystem(). */
+const CREATIVE = [
+  {
+    ko_h: '내놓는 것은 지도가 아니라 판정입니다',
+    ko_b: '확산 예보 격자는 중간 입력이고, 산출물은 가구 단위의 대피 판정과 걸어 나갈 경로, 그리고 마을 단위 출동 목록입니다.',
+    en_h: 'The output is a decision, not a map',
+    en_b: 'The spread forecast grid is an intermediate input. What comes out is a per-household evacuation verdict, the walking route that goes with it, and a village-level dispatch list.',
+    doc: 'docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md §3',
+  },
+  {
+    ko_h: '두 축이 동시에 실제인 실행',
+    ko_b: '실제 OpenStreetMap 보행망 위에서, 전방 시뮬레이션으로 만든 확산면을 함께 씁니다. 이 저장소가 스스로 가장 크다고 적어 둔 한계를 닫는 실행입니다.',
+    en_h: 'A run where both axes are real at once',
+    en_b: 'A real OpenStreetMap walk graph carrying a forward-simulated spread surface, which closes the largest limitation this repository states about itself.',
+    doc: 'docs/real_roads_real_hazard.md',
+  },
+  {
+    ko_h: '철회한 주장을 기계가 읽도록 등록합니다',
+    ko_b: '틀린 것으로 판정한 문장은 지우지 않고 등록하며, 검사기가 그 등록부를 추적되는 .md 와 .html 에서 다시 읽습니다. 매 랩과 매 푸시의 make verify 안에서 돕니다. 닿지 않는 곳: 루프 자신의 기록 문서는 일부러 제외이고, 참고문헌 파일과 코드에는 닿지 않으며, 잡는 것은 베낀 철자이지 다시 쓴 문장이 아닙니다.',
+    en_h: 'Withdrawn claims are registered for a machine to read',
+    en_b: 'A sentence judged wrong is registered rather than deleted, and a checker reads that registry back across the tracked .md and .html inside make verify, on every lap and every push. What it does not reach: the record pages the loop writes about itself are exempt by design, the bibliography and the code are out of reach, and what it catches is a copied spelling, not a reworded claim.',
+    doc: 'docs/auto/withdrawn_claims.json · scripts/check_withdrawn_claims.py',
+  },
+];
+
 function renderSystem() {
   $('sysH').textContent = T('sys_h');
   $('sysSub').textContent = T('sys_sub');
@@ -1601,6 +1628,16 @@ function renderSystem() {
   flow.addEventListener('mouseleave', () => flow.classList.remove('focus'));
   if (!sysBuilt) {
     const page = $('view-system').querySelector('.page');
+    /* setLang() sets sysBuilt = false and calls this again, and everything
+       below is APPENDED to the page, so before WFG-194 one language toggle left
+       the source strip and the operator note stacked twice and two toggles left
+       them three times. Nothing ever cleared them. The block is now id'd and
+       removed first, so the tab holds one of each however often the language is
+       switched - which matters more now that the booth script tells the student
+       to open this tab when a judge asks what is new.
+       tests/test_finals_acts.py drives the toggle and counts. */
+    for (const id of ['syssrc', 'sysnote', 'syscreative'])
+      $(id)?.remove();
     const src = hel('div', null, page);
     src.id = 'syssrc';
     const mk = (label, value) => {
@@ -1614,13 +1651,43 @@ function renderSystem() {
     mk('LANDCOVER', 'ESA WorldCover');
     mk('NETWORK·POI', 'OpenStreetMap (스냅숏 고정)');
     const note = hel('p', 'note', page);
+    note.id = 'sysnote';
     note.style.cssText = 'max-width:1460px;margin-top:16px';
     note.textContent = state.lang === 'ko'
       ? '이 시스템의 사용자는 운영자입니다. 수혜자는 주민, 특히 고령 주민이며, 주민에게 앱 사용을 요구하지 않습니다.'
       : 'The user of this system is an operator. The beneficiaries are residents, above all elderly residents; no app is required of them.';
+
+    /* 창의성 - what this project itself made (WFG-194).
+       The register is the design and it is what the gate holds
+       (docs/creativity_card.md): each line says what was BUILT and names the
+       file behind it. It does not rate the work, does not compare with another
+       system, states no quantity and makes no novelty claim - that sentence is
+       the judge's to write, not this screen's.
+       tests/test_creativity_card.py binds the three anchors and the closing
+       limit; the anchors must stay identical to the Q29a card's. */
+    const cw = hel('div', null, page);
+    cw.id = 'syscreative';
+    cw.style.cssText = 'max-width:1460px;margin-top:26px';
+    hel('h3', null, cw, state.lang === 'ko'
+      ? '창의성 · 이 작품이 직접 만든 것'
+      : 'Creativity: what this project itself made').style.cssText =
+      'font-size:13px;margin-bottom:10px';
+    const cg = hel('div', 'grid rel-grid', cw);
+    for (const it of CREATIVE) {
+      const c = hel('div', 'relcard', cg);
+      hel('h3', null, c, state.lang === 'ko' ? it.ko_h : it.en_h);
+      hel('p', null, c, state.lang === 'ko' ? it.ko_b : it.en_b);
+      hel('div', 'doc', c, it.doc);
+    }
+    const clim = hel('p', 'note', cw);
+    clim.style.marginTop = '10px';
+    clim.textContent = state.lang === 'ko'
+      ? '이 세 가지가 맞는 세 가지인지, 그리고 이것을 창의적이라고 볼지는 심사위원의 판단입니다. 이 화면은 만든 것을 적을 뿐 스스로 점수를 매기지 않습니다.'
+      : 'Whether these are the right three, and whether they read as creative, is for the judge to decide. This screen records what was built and does not grade it.';
     sysBuilt = true;
   }
 }
+
 
 /* ---------- EVIDENCE view --------------------------------------------------------- */
 function provBlock(parent, lines) {

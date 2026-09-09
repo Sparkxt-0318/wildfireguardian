@@ -43,7 +43,7 @@ BAND = 0.05
 # The measurement whose keys the registry carries for the CURRENT text of the script. A
 # re-measure registers a NEW tag rather than editing these (CHARTER §3.2), and moves this
 # constant; the old entries stay as the record of what the script used to ask for.
-TAG = "20260905t0947z"
+TAG = "20260909t0321z"
 
 
 def _module():
@@ -185,11 +185,61 @@ def test_the_doc_that_explains_the_budget_prints_the_budget_that_shipped(measure
                cells[1] == f"{row['spoken_syllables']}", (
             f"{row['name']}: the doc says {cells[1]} syllables, the document measures "
             f"{row['spoken_syllables']}")
+        assert cells[4] == f"{row['implied_syllables_per_second']:.2f}", (
+            f"{row['name']}: the doc's table says {cells[4]} syl/s and the "
+            f"measurement derives {row['implied_syllables_per_second']:.2f}. "
+            "The syl/s column is the one that shows the budget is ONE rate, "
+            "which is the whole argument of the page; WFG-194's reviewer found "
+            "a prose claim about the same table that no assertion could see.")
         assert cells[3] == f"**{row['declared_seconds']}**", (
             f"{row['name']}: the doc's table says {cells[3]} seconds, the booth script "
             f"says {row['declared_seconds']}. Re-measure per the doc's own procedure.")
     assert f"**{measured['total_spoken_syllables']:,}**" in doc, (
         "the doc's total row no longer matches the measurement")
+
+
+def test_the_deltas_the_pages_claim_are_the_deltas_the_artifacts_show(measured):
+    """A sentence ABOUT the table, in two documents of the printed kit.
+
+    WFG-194 moved the six seconds and then wrote 「가장 많이 낸 구간은 2막」 into
+    `docs/auto/DEMO_SCRIPT_5MIN.md` and 「2막 most」 into `docs/creativity_card.md`.
+    Both are false: four segments tie at -2 s and 3막 gave the least. Both print
+    in the booth kit. The table test above reads the syllable and seconds columns
+    and could not see a claim about their differences, which is CHARTER §3.3 -- a
+    number in prose that does not trace to the artifact -- one layer out from
+    where the gate was looking.
+
+    So this asserts the property those sentences assert, from the artifacts: no
+    page in the kit may name a single segment as the one that gave the most while
+    the maximum is shared. It is deliberately a property and not a string match,
+    because the next re-measure will produce different deltas and a string match
+    would have to be rewritten rather than re-run.
+    """
+    prev = json.loads((PACE_DIR / "pace_20260905T0947Z.json").read_text(encoding="utf-8"))
+    before = {r["name"]: r["declared_seconds"] for r in prev["segments"]}
+    deltas = {r["name"]: r["declared_seconds"] - before[r["name"]]
+              for r in measured["segments"]}
+    given = {k: -v for k, v in deltas.items() if v < 0}
+    assert given, "no segment gave seconds back; this test's premise is gone"
+    most = max(given.values())
+    winners = sorted(k for k, v in given.items() if v == most)
+    if len(winners) == 1:
+        return                      # a single maximum: naming it would be true
+    pages = ("docs/auto/DEMO_SCRIPT_5MIN.md", "docs/creativity_card.md",
+             "docs/demo_script_pace.md")
+    bad = []
+    for rel in pages:
+        text = (REPO / rel).read_text(encoding="utf-8")
+        for line in text.splitlines():
+            if "가장 많이 낸" in line or "most" in line and "give" in line:
+                for w in winners:
+                    if w in line:
+                        bad.append(f"{rel}: {line.strip()[:100]}")
+    assert not bad, (
+        f"{len(winners)} segments tie at -{most} s ({', '.join(winners)}) and a "
+        "page names one of them as the one that gave most:\n  "
+        + "\n  ".join(bad)
+        + "\nSay that they tie. Two of these three pages print in the booth kit.")
 
 
 def test_the_artifact_the_registry_points_at_is_committed_and_current(measured):
