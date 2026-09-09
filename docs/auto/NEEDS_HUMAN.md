@@ -2835,3 +2835,71 @@ entry.
 
 **Related.** WFG-205 is the agent-doable half of option A. WFG-152 and WFG-187 are the same gate biting other surfaces.
 
+
+---
+
+## NH-050 · DECISION · open · You answered two of these questions two days ago and the loop never heard you, because you answered them on the routine page (by 2026-09-10)
+
+**Severity: MEDIUM.** Nothing is red and no gate is failing. What is wrong is that the
+loop's written constitution and the loop's actual behaviour disagree, and the disagreement
+is invisible from inside the repository.
+
+**What this lap found, measured at `5f4e32b`.** The stored prompt that starts this critic
+routine binds it to two rules by name:
+
+- 「CHARTER §14b the product-first rule ... (product first, **as amended 2026-09-07 by
+  NH-038 B**)」, and it then states option B's content: a `fix-before-next-row` item must be
+  **minutes**, anything larger is a P0 row at position 1 and never a preemption.
+- 「CHARTER **§14c** how a `Do NOT edit` note must be written ... (CHARTER §14c, **NH-036
+  A**)」, and it then states option A's content: such a note names the exact lines it covers
+  and the measurement behind it, and expires at the next critic lap.
+
+Both read as your decisions, dated. Neither reached this repository:
+
+| what the prompt says | what the repository says |
+|---|---|
+| §14b amended by NH-038 B on 2026-09-07 | `docs/auto/CHARTER.md` §14b is the unamended 2026-09-04 text; it caps the **number** of items, not their **cost** |
+| CHARTER §14c exists | a search for `14c` in `docs/auto/CHARTER.md` answers **0**. There is no §14c |
+| NH-036 A and NH-038 B are decided | `NEEDS_HUMAN.md` line 1779 has NH-036 `open`, line 1966 has NH-038 `open` |
+| the decisions are registered | `docs/auto/decisions_seen.json` records nothing past **NH-031** |
+
+**What that has cost you, concretely.** Every report email since 2026-09-07 has asked you
+for NH-036 and NH-038 again, inside a list of fifteen. The one at 2026-09-09T0126Z did it
+this morning. If you have already answered them, the loop has been pestering you for two
+days about settled questions, and the two most overdue real questions (NH-032 and NH-034,
+both due 2026-09-08) are buried in the same list.
+
+**And the divergence is operational, not cosmetic.** A dev lap reads CHARTER §4 step 3 and
+CHARTER §14b; a critic lap reads the routine prompt. Under the charter's text a critic may
+set one judge-facing item of any size and the dev lap must clear it before claiming a row.
+Under the prompt's text that item must be minutes. Those are different loops. Six lap
+outputs already cite 「CHARTER §14c」 as a source of authority (`CRITIC_LATEST.md`,
+`DIRECTION.md`, and four places in `KCF_READINESS.md`), and a reader who opens the charter
+to check finds nothing there.
+
+**A third thing this exposes.** `docs/auto/ROUTINE_PROMPTS.md`, which CHARTER §9 says keeps
+the routine prompts 「recorded verbatim」, still carries the pre-amendment critic prompt at
+line 56 and names a 「2026-10-10 freeze」 that CHARTER §1 puts at **2026-10-16**. So the
+repository's own copy of the instructions is stale in two ways, and no gate reads it.
+
+**Why this lap did not just close the two entries.** CHARTER §6 names three channels for
+your decisions: an email reply, a PR comment on #31, and a Claude Code session on your
+laptop. The routine page is not one of them. Registering a decision you did not make is
+worse than asking once more, so this lap has changed nothing and filed **WFG-209** as
+`blocked(NH-050)`.
+
+**Options:** A) **Confirm both and let the loop register them** — reply `NH-050: A` and the
+next lap applies NH-036 A and NH-038 B with channel `routine prompt`, writes §14c and the
+§14b amendment into CHARTER in your words, re-syncs `ROUTINE_PROMPTS.md` verbatim from all
+four stored prompts, and adds the routine page to CHARTER §6 as a declared fourth channel.
+B) **Confirm both, but keep the routine page out of §6** — same registration and the same
+charter edits, and CHARTER §6 gains one sentence saying the routine prompt is not a
+decision channel and anything decided there must be repeated in one of the three. C) **You
+did not decide these** and the sentences in the prompt were written by a lap or by you as
+shorthand; say so and both entries stay open and get answered normally. D) Something else,
+one line, and the next lap does it.
+
+**Related.** NH-036, NH-038, WFG-209. The second half of the cost is the email itself:
+fifteen items in one list is how NH-032 and NH-034, both a day overdue and both about the
+number the student is currently forbidden to say out loud, get lost among questions you
+have already answered.

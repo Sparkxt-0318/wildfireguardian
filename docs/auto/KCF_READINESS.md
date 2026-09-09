@@ -5,12 +5,33 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
-**Tick count, critic #47, 2026-09-09T0230Z: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD. R3, R11 and R12
-are the three that do not tick; R10 was withdrawn 2026-09-04.** ⚠⚠ **ZERO lines ticked, for the FOURTH
-consecutive critic lap** — the count has stood at 8 since critic #43 ticked R8 at 2026-09-08T1429Z, and #44,
-#45, #46 and #47 each ticked nothing. The routine prompt calls zero across two consecutive laps a finding
-about the loop's direction rather than about the product, and this is four. **NH-038, which was written about
-exactly this, is due today and is open.**
+**Tick count, critic #48, 2026-09-09T0526Z at `5f4e32b`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
+R3, R11 and R12 are the three that do not tick; R10 was withdrawn 2026-09-04.** ⚠⚠ **ZERO lines ticked, for
+the FIFTH consecutive critic lap.** The count has stood at 8 since critic #43 ticked R8 at 2026-09-08T1429Z,
+and #44, #45, #46, #47 and #48 each ticked nothing.
+
+**This lap's window is the honest reason, and it is not a direction failure.** The window `86f8929..5f4e32b`
+contains one paper lap (`4b0010a`, manuscript §4.5) and three commits repairing a report header. The one dev
+lap in it, `9a97e53`, is a bare claim of WFG-194 and was still running when this lap read the tree, so its work
+is not in the window at all. **No readiness line has a surface in this window to tick against.** Saying it moved
+would be a courtesy, and this page does not pay those.
+
+⚠ **R9 keeps its tick and gains a defect, measured at `5f4e32b`.** R9's criterion is that the bundle exists
+with the named contents, and it does: `make finals-bundle` rebuilds `release/kcf-finals-2026/` byte-identically,
+19 files, exit 0. What this lap measured is a quality defect inside a criterion that still passes:
+`release/kcf-finals-2026/README_KO.md` cites **15** repository paths, **7** of which exist in the tree and are
+**not** in the bundle, and a count of github.com in that file answers **0**. The printed kit in the same folder
+cites **105** repository paths from `docs/auto/JUDGE_QA.md`, of which **102** exist and **3** are in the bundle.
+On the student's own laptop all of them resolve, because BOOTH_SETUP §1 has the full clone there; on the USB a
+judge carries away, they do not, and there is no address at which to look. **This does NOT un-tick R9** and this
+lap will not pretend it does; it is **WFG-208** and this lap's one `fix-before-next-row` item, minutes.
+
+⚠ **NH-038, which was written about exactly this zero, came due today (2026-09-09) and is still `open` in
+this repository, and this lap found the reason it may never be answered here: it looks as if you already
+answered it.** See **NH-050**. This routine's own stored prompt binds it to 「§14b ... as amended 2026-09-07 by
+NH-038 B」 and to a 「CHARTER §14c ... NH-036 A」 that does not exist in `docs/auto/CHARTER.md` (a search for
+`14c` there answers **0**). So the zero-tick finding and the decision that would resolve it have been passing
+each other for two days.
 
 ⚠ **Part of the cause is now measured rather than guessed, and it is bookkeeping.** R11's row is **WFG-024**,
 and it had been `blocked(WFG-022, WFG-023)` since 2026-09-04. Neither blocker gates the work: WFG-022's own
