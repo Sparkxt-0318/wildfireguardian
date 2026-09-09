@@ -613,6 +613,70 @@ six-hour window. The `.docx` is committed this lap because the
 manuscript actually moved, which is the case lap 23's byte-non-determinism finding says a
 rebuild is legitimate in.
 
+✅ **Lap 25 landed the pointer the last four laps had costed as unaffordable, and it cost one
+word. Read `GAPS.md`'s lap-25 section before this paragraph.** `docs/auto/DIRECTION.md:26-31`
+records WFG-214 as three of four surfaces closed with 「one link in `paper/manuscript.md`」
+left, blocked because 「the link costs a caveat, which CHARTER §3 rule 5 forbids」. ⚠ **The
+arithmetic behind that was this file's and it was wrong.** Lap 24 costed the pointer as a
+*sentence* (「`docs/oracle_gap.md` states what would measure it」, **8 words against a margin of
+1**) and every surface since quoted that costing. A **bare parenthetical citation** is a
+different and much cheaper form and nobody had measured it: inserted and built with the
+builder's own counter, `body_words` 8,999 → **9,000**, **exactly +1**, and `check_paper.py`
+fails on `> LIMIT` so 9,000 is inside. `grep -c oracle_gap paper/manuscript.md` goes **0 → 1**.
+Nothing was compressed and no caveat or registered number was traded.
+
+⚠ **Placement was the whole of the care.** The link attaches to the **mechanism** clause
+(「…so it cannot be wrong there (`docs/oracle_gap.md`)」), which is what that document's §2
+establishes. An identical +1 word one clause later — after 「by an amount no run here
+measures」 — would have read as though `oracle_gap.md` measured that amount. It does not; that
+run is **WFG-213**, `blocked(NH-052)`.
+
+⛔ **The bound is untouched, word for word, and the temptation to touch it was real.** The
+incorporated diff narrowed **four** of the five surfaces NH-053's own table lists — its three
+`README.md` rows in `3ec5737`, and its `docs/auto/JUDGE_QA.md` Q36 row two commits earlier in
+`359fd15` — leaving the
+manuscript the only one still asserting 「this project's own model is worth less」 flatly.
+⚠ That table's line numbers are **not** quoted here: NH-053 took them at `8506a2d` and the
+same diff's insertions moved them, which is the staleness this file exists to stop repeating. **That asymmetry is not this routine's to close:** NH-053 is a DECISION with four
+options, one of which is 「change nothing before the finals」, and a paper lap that quietly
+brought the manuscript into line would be choosing option A for the author on a judged
+headline number. `DIRECTION.md:62-64` says the same in one line. It is reported, not fixed;
+the entry comes due **2026-09-12**. NH-053's instruction now stands at **two of three**: the
+mechanism (lap 24), the link (this lap), and 「with a pointer to this entry」 — **permanently
+declined with a stated reason**, a published manuscript having no way to point at an internal
+NEEDS_HUMAN entry. That third part is not a budget casualty and must stop being counted as one.
+
+⛔ **The margin is now ZERO, and the honest size of that is small.** What this lap spent is
+exactly the ability to make a **+1-word** correction; a zero-net or negative-net correction
+still passes. Set against a margin of 1 that lap 24 already called 「not a margin」, that is a
+narrow loss, and it bought the last open piece of a P0 row **no other routine can land** —
+`paper/` is this routine's under CHARTER §12, which DIRECTION says in as many words. It is
+still a loss and the direction is still one way. **Laps 13 through 21, 24 and now 25 have all
+had their writing shaped by the proxy rather than by the evidence. NH-037 is the answer and it
+is still open.** ✅ The anchor was **re-derived, not inherited**: `body_words` moved, lap 24's
+`built_pages_inputs` turned the gate red as designed, and after the one `apt` line below
+`check_paper.py` took its measuring branch — **`pages 23, calibri_face Carlito, metrics_ok
+true`** — printing `50b905d584c8030c`. **Two pages against the author's 25, zero words against
+the proxy's 9,000, measured on one document by one run.**
+
+✅ **The lap's other half cost zero manuscript words because it is not in the manuscript.**
+WFG-027 shipped `data/processed/timeline_roles/timeline_roles.json` and twenty `timeline_*`
+registry keys, so CHARTER §9's trailer convention is now **counted** in `paper/AUTHORSHIP.md`
+— the file the manuscript's availability section already points a reviewer at — rather than
+described: **662** commits on `auto/dev` at the artifact's own stamp, **513** carrying the
+`Co-Authored-By` trailer and **149** not, with the registry's four mandatory caveats.
+⚠⚠ **And caveat (4) is a withdrawn claim that is live today in two files the scanner
+structurally cannot read.** `WC-012` retracts 「the phase boundaries were not chosen by anyone;
+the record's calendar gaps chose them」 and cites `scripts/build_timeline_roles.py:40-84` as
+its disproof — while the comment block at **`:42-46`**, *inside* that range rather than above
+it, still asserts it, and so does the shared caveat of **all twenty** `timeline_*` entries in
+`docs/NUMBERS.json`. Re-derived rather than quoted: both `WC-012` patterns return **False**
+against both files; the scanner reads `.md` and `.html` **only**; both registered spellings
+are **Korean** and both survivals are **English**. **Two of §3.5's own stated limits firing
+together, inside the window that created the instance.** No manuscript sentence is owed —
+§3.5 states both limits in its own voice and lap 19 retired the illustration as a want — so it
+is filed as a dev-lap fix, and `AUTHORSHIP.md` quotes caveat (4) in its corrected form.
+
 ⚠ **The page that took the count from 22 to 23 cost eleven words, and it is worth
 knowing that before reading the words-to-pages table below as a rate.** Lap 11
 took the body 8,735 → 8,825 (a mandatory §4.5 correction, one clause, and the

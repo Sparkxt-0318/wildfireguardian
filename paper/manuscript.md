@@ -509,9 +509,9 @@ committed one, taking part of that advantage.
 
 Two further caveats bind the whole comparison. The forecast-aware arm plans on the same hazard field
 it is graded against, a leave-one-fire-out simulation rather than the fire, so it cannot be
-wrong there; what it is worth against a present-perimeter policy is what trusting that
-prediction buys, and this project's own model is worth less, by an amount no run here
-measures. And this
+wrong there (`docs/oracle_gap.md`); what it is worth against a present-perimeter policy
+is what trusting that prediction buys, and this project's own model is worth less, by an
+amount no run here measures. And this
 is one fire, one ignition and one departure time: which buffer comes off best is a property
 of this fire's growth against this road network, and no run tests it on a second one.
 
