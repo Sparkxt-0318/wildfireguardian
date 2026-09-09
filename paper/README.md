@@ -526,6 +526,93 @@ checkable, a fixed `date_time` in the builder or a content-only digest, is one l
 this routine's own paths. It was **not** taken this lap: a build change wants its own lap and
 its own reviewer, and the manuscript is at two words of headroom.
 
+⚠⚠ **Lap 24 is the one where two manuscript sentences went false in a single window, both
+were corrected for a measured net +1 word, and the lap's independent reviewer BLOCKED the
+push over the way the first of the two was corrected. Read `GAPS.md`'s lap-24 section before
+this paragraph.** 8,998 → **8,999**; margin **2 → 1**, the tightest this document has ever
+been. Nothing was compressed and no caveat or registered number was traded. One document did
+all of the damage — `docs/oracle_gap.md`, which opened
+`data/processed/routing_demo_canonical.npz`, **the file the canonical 458-origin routing
+already runs on**, and found `obs_stack` beside `haz_stack`: the cumulative FIRMS-observed
+footprint, `uint8 (6, 181, 156)`, on the same 500 m grid, committed since Round 3.
+
+- **§4.5** had said the forecast-aware arm's margin is 「what a **noiseless** forecast is
+  worth」. The arm does not plan on truth — it plans on a leave-one-fire-out simulation of a
+  fire the model never trained on — and **what makes it an oracle is the grader**, which
+  treats that same array as truth. Critic #51 filed this as its root objection and named
+  `paper/manuscript.md:512` by line number (**WFG-214**). The section now says the margin is
+  what **trusting that prediction** buys. ⛔ The other half of the sentence, 「this project's
+  own model is worth less」, is the **upper-bound** claim that nothing in the tree derives,
+  and it is **NH-053**, an open author decision: it is left word for word as the author
+  found it.
+- **§6**'s first limitation had said the hindsight-field routing pass cannot run because
+  「Those detections are not distributed with the repository」. **That is false and `obs_stack`
+  is the disproof.** The marker now names the observed FIRMS footprint and says it is
+  committed 「on the same grid, **on its own clock**, an observation and not the fire」.
+  G4's 「after sprint?」 goes **yes → no**: the run is a dev lap's, blocked on the author's
+  NH-052 rather than on data.
+
+⚠⚠ **The reviewer's block, and it is the sharpest objection this routine has had.** The draft
+of the §4.5 fix **deleted the bound's stated mechanism and left the bound standing.** Before
+the edit the section gave a chain — graded on the field it plans on → 「noiseless」 → therefore
+this project's model is worth less; the premise was wrong but the conclusion had *a* stated
+mechanism. The draft removed it and put nothing in its place, leaving 「this project's own
+model is worth less」 with **no antecedent whatever**, in a judge-facing section, on precisely
+the claim NH-053 says 「nothing in this repository proves」. **Deleting a false justification
+while keeping the conclusion strengthens an unproven claim rather than repairing one.** And
+the draft never once said **grader**, which is the whole content of WFG-214 and of the dev
+commit's own subject line (`f958c3e`, 「the oracle is in the grader, not in the planner」).
+§4.5 now reads 「…plans on the same hazard field it is graded against, a leave-one-fire-out
+simulation rather than the fire, **so it cannot be wrong there**」, at a measured **+2** words.
+
+⛔ **Half of NH-053's instruction is declined for the budget, and the draft of this file
+reported partial compliance as complete.** The entry asks for the mechanism 「**plus a link to
+`docs/oracle_gap.md` from every surface that discusses the margin**」 and the bound left
+「**with a pointer to this entry**」. `grep -c oracle_gap paper/manuscript.md` returns **0** and
+still does: the shortest pointer costs **8 words against a margin of 1**, and a manuscript
+cannot carry a pointer to an internal NEEDS_HUMAN entry at all. One conjunct of two, reported
+as one conjunct of two.
+
+⚠⚠ **The lap also breached CHARTER §12 and the reviewer caught that too.** It had written a
+fifteen-line annotation into `docs/auto/NEEDS_HUMAN.md` — a file outside `paper/` — whose own
+text read 「none is inside CHARTER §12, so no paper lap can reach them」, citing the boundary
+in the act of crossing it; and the insertion landed **between two rows of NH-053's surface
+table**, so the `docs/auto/JUDGE_QA.md:1399` row stopped rendering as a row in the one
+document the author reads to decide. **Reverted in full** (`git checkout --`), and the
+information it carried is in this file and in the lap report instead.
+
+⚠ **`README.md:38` cites §4.5 and was checked before the edit, because deleting the text it
+cites is what killed lap 20's fix.** §4.5 still carries both things the README quotes it for
+— the same-field mechanism and 「less by an amount no run here measures」. The one word the
+README now quotes that §4.5 no longer contains is 「noiseless」, which is the word WFG-214
+exists to remove from the README too. **That is a dev lap's job** (`README.md:36`,
+`:266-267`, `:702`, `docs/auto/JUDGE_QA.md:1399`); both files are outside CHARTER §12.
+
+⛔ **And the budget still refused the best evidence in the window.** `docs/oracle_gap.md`
+measured how far the predicted field sits from what burned — 952 predicted cells against 937
+observed at the closest pair, 534 shared, **IoU 0.394** — with 25 registered
+`og_yeongdeok_*` keys. The shortest honest sentence carrying it costs **41 words** — measured
+with the builder's counter at the pre-reviewer baseline, `body_words` 8,996 → **9,037**, and
+reverted — **against this lap's final margin of 1**. §6's 「none
+admits external truth」 remains true (it is about the five controls, checked not assumed), so
+the paper is **not false** without it — it is under-reporting the strongest new evidence
+*against itself*, on the limitation it calls 「the objection we would raise first」. **Laps 13
+through 21, and now 24, have all had their writing shaped by the proxy rather than by the
+evidence. NH-037 is the answer and it is still open.**
+
+✅ **The anchor was re-derived, not inherited.** `body_words` moved, so lap 23's
+`built_pages_inputs` turned the gate red as designed. After the one `apt` line below,
+`check_paper.py` took its measuring branch — **`pages 23, calibri_face Carlito,
+metrics_ok true`**, page objects and page-tree `/Count` agreeing — and the new anchor is
+`61b8ee7cf0f331f8`, re-derived a second time after the reviewer's repairs moved `body_words`
+again (`b7c713c21f56a2d2` was the pre-repair run's, and is not what this lap records).
+**Two pages against the author's 25, ONE word against the proxy's 9,000, measured on one
+document by one run.** ⛔ **A margin of one is not a margin.** The next lap that must correct
+a sentence has, in effect, nothing; two mandatory corrections arrived in this single
+six-hour window. The `.docx` is committed this lap because the
+manuscript actually moved, which is the case lap 23's byte-non-determinism finding says a
+rebuild is legitimate in.
+
 ⚠ **The page that took the count from 22 to 23 cost eleven words, and it is worth
 knowing that before reading the words-to-pages table below as a rate.** Lap 11
 took the body 8,735 → 8,825 (a mandatory §4.5 correction, one clause, and the

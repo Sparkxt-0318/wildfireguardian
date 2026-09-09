@@ -508,11 +508,12 @@ over it non-increasing as widths are added. This refinement moved the best width
 committed one, taking part of that advantage.
 
 Two further caveats bind the whole comparison. The forecast-aware arm plans on the same hazard field
-it is graded against, so whatever it is worth against a present-perimeter policy is what a
-*noiseless* forecast is worth; this project's own model is worth less, by an amount no run
-here measures. And this is one fire, one ignition and one departure time: which buffer comes
-off best is a property of this fire's growth against this road network, and no run tests it
-on a second one.
+it is graded against, a leave-one-fire-out simulation rather than the fire, so it cannot be
+wrong there; what it is worth against a present-perimeter policy is what trusting that
+prediction buys, and this project's own model is worth less, by an amount no run here
+measures. And this
+is one fire, one ignition and one departure time: which buffer comes off best is a property
+of this fire's growth against this road network, and no run tests it on a second one.
 
 ### 4.6 Sensitivity and controls
 
@@ -707,11 +708,10 @@ that the fire went where the surface said. At Section 4.2's operating point the 
 evidence is consistent with detours around cells that never burned, and with burned cells
 the model never flagged left unavoided under both policies. Every control here perturbs
 the predicted field, so none admits external truth. [GAP: settling this needs a third
-routing pass over the same 458 origins on a hindsight field rasterised from the observed
-FIRMS detections, reporting how many of the 42 fire-blind routes intersect observed burn
-inside the walker's arrival window. Those detections are not distributed with the
-repository, and the two committed manifests for this fire place its ignition point about
-30 km apart]
+routing pass over the same 458 origins on the observed FIRMS footprint, reporting how many
+of the 42 fire-blind routes intersect observed burn inside the walker's arrival window.
+That field is committed on the same grid, on its own clock, an observation and not the
+fire]
 
 **The counterfactual was weak, and the stronger one is run on only one region.** Every
 contrast in Sections 4.3 and 4.4 is against a fire-blind baseline. Section 4.5 replaces it
