@@ -33,7 +33,7 @@ is new about it*. It answers in three items, each pointing at a committed file:
 
 | item | the claim | the artifact |
 |---|---|---|
-| 1 | the **output object** is the contribution — a rescue order and a walking route per household, with the forecast grid as an intermediate input rather than the deliverable | `docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md` §3 |
+| 1 | the **output object** is the contribution — a rescue order and a walking route per household, with the forecast grid as an intermediate input rather than the deliverable | `outputs/dispatch/README.md` and the committed sheets beside it, e.g. `outputs/dispatch/20260801T163042Z/01-거무역리공원-북쪽/dispatch_a4.html` (an instance of the object); `docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md` §3 (why the choice is not to compete on accuracy) |
 | 2 | the run where **both axes are real** at once — real OpenStreetMap walk graph *and* real forward-simulated spread — closing the project's own largest stated limitation | `docs/real_roads_real_hazard.md`, first table, third row |
 | 3 | withdrawn claims are **registered for a machine to read**, not deleted; the check runs inside `make verify` on every lap and every push | `docs/auto/withdrawn_claims.json`, `scripts/check_withdrawn_claims.py`, `docs/withdrawn_claims.md` |
 
@@ -462,3 +462,118 @@ And one disclosed limit it re-found rather than a finding: an explicit
 superiority claim over an *unnamed* class (「국내 어떤 시스템보다 앞서 있는」) trips
 neither the novelty pattern nor the other-system list, because nothing here
 reads tone — which is M8 again, from a third direction.
+
+---
+
+## 8. The anchor (WFG-210, 2026-09-09)
+
+*Method proposed by the loop (critic #49), not by the student (CHARTER §9).*
+
+### What was wrong
+
+Item 1 claims the contribution is the **output object** — a per-household
+walk-or-be-rescued verdict, the walking route that goes with it, and the village
+dispatch list. On every surface that answers it, its only anchor was
+`docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md`, a landscape note whose
+subject is the other systems. Two things follow, and the second is the one a
+judge feels:
+
+1. `tests/test_creativity_card.py` spends four graded mutations keeping those
+   names out of what the student **says**, in either direction, because this
+   card carries no source line and a sentence about another system here would be
+   unsourced by construction (`WC-007`, `WC-008`, `WC-009`). The anchor then
+   handed the judge a document full of them. A principle cited, and its opposite
+   implemented one line below.
+2. A judge who reads item 1 and says 「그 산출물을 하나 보여 주십시오」 had no
+   path from any surface — while `outputs/dispatch/` has carried committed
+   instances of exactly that object the whole time: the A4 dispatch sheet for
+   each village cluster, the 마을방송 script, the SMS drafts, none of them ever
+   sent.
+
+It was **inherited, not chosen four times**: written in §2's table (WFG-182),
+taken by the finals screen (WFG-194), by the README's front door (WFG-207), and
+standing unchanged in Q29a's own 근거 line. Each of those laps did its own row
+correctly. That is why the fix is a gate and not four edits — the next surface
+would have inherited it a fifth time.
+
+### What changed
+
+Every surface that answers item 1 now names a path to an instance of the object
+**first**, and keeps the landscape note beside it with its role stated: it is
+the anchor for the *choice* not to compete on accuracy, which is what it has
+always honestly been. Nothing was deleted and no comparison sentence was added.
+
+One asymmetry, and the version below is the **second** one written here, because
+the first was false and the independent reviewer caught it on this page.
+
+`README.md`'s block is the **only** surface carrying a `\d{2,}` count assertion
+(`test_the_readme_block_holds_the_same_register_as_the_card`; the screen's
+register check drops that half deliberately), and every committed instance lives
+under a run stamp — `outputs/dispatch/{stamp}/…` — which that assertion reads as
+a count. So the front door names the committed **index**,
+`outputs/dispatch/README.md`: one click above the sheets, and the page that
+states the clusters are not 행정리, that nothing was transmitted, and which of
+the run's points the sheets cover. The other three surfaces name a sheet **and**
+the index. Weakening the count assertion to fit a path in was the alternative and
+was declined: it is the assertion that caught WFG-117 and WFG-178, and it guards
+the page a judge reads first.
+
+⚠ **What the first version of that paragraph said, and why it is recorded rather
+than quietly replaced.** It read 「The surfaces with no count assertion name a
+sheet directly」 — and at the time it was written the finals screen named the
+index, exactly as the README did, with no count assertion anywhere near it. The
+reviewer proved it in one command rather than arguing: putting a stamped sheet
+path into `CREATIVE[0].doc` and running the eight suites that read the screen
+gave **262 passed** and `check_forbidden.py` exit 0, so nothing had constrained
+that surface and the reason given for it was invented after the fact. The
+sentence generalised one real constraint into an account of a choice nobody had
+made, in the *measured* register, on a page that is a hashed `SOURCES` entry of
+the printed booth kit — which is the defect class this whole card exists to
+prevent, one level up from the anchor it was fixing. The screen now names a
+sheet, so the claim above is true; the sentence it replaces is kept here because
+that is what §3.7 asks and because the mechanism that spread it — a sentence
+inherited verbatim from this card into `tests/test_creativity_card.py`'s own
+header comment — is the same mechanism that carried the original anchor onto
+four surfaces.
+
+### The gate, and the mutation that graded the gate rather than the surface
+
+Four new assertions: an instance exists in the tree at all; every surface hands
+a judge one; item 1's anchors are never *all* documents about the other systems,
+decided by reading the anchors' contents rather than by matching their names;
+and the classifier that decides that still separates the two anchors.
+
+Nine mutations, re-runnable by a stranger with
+`python scripts/mutate_creativity_gates.py` rather than by a recipe this lap kept
+to itself. Seven are on the surfaces — reverting each of the four anchors, naming
+the directory as prose with no resolvable file, swapping in a second document
+about the other systems, and pointing the premise check at a directory holding no
+sheets — and two move the classifier's threshold in opposite directions. **All
+nine are red against the shipped tree**, each on the assertion it was aimed at,
+and the script prints which test failed for each so the grading can be read
+rather than trusted.
+
+**The eighth was GREEN when it was first run, and that is the useful part of this
+section.** It is red now only because the assertion it exposed was then written;
+the numbering here is the final set, not the order of discovery. Raising the classifier's
+threshold to a number no document reaches makes it answer False for everything,
+which turns 「item 1's anchors are not all documents about other systems」 into
+「they are not all members of the empty set」 — true of any surface, on any tree.
+The whole suite stayed green. That is the **third** time this one file has
+shipped a check that could not fail: the count assertion that was digit-only
+and could not see 「여섯 개」, the Korean-numeral half written with a trailing
+`\b` that after a Hangul syllable can never match, and now a free constant.
+**The shape is the same each time — a check whose failing case is unreachable —
+and the only thing that has ever found it is mutating the gate itself rather
+than the document it reads.** The floor is now asserted in both directions, so
+raising the threshold past the note's own content is red and lowering it until
+every file classifies is red too.
+
+### What this does not show
+
+The classifier reads a named list of systems, so a document about a system this
+repository has never named is not classified and could still stand as item 1's
+only anchor. That is the same residual limit §2 records for the spoken draft,
+one level up, and the cold read is still what catches it. The assertions bind
+the **anchor**, not the wording: a surface may describe the object however it
+likes, and nothing here reads whether the description is true of the sheet.

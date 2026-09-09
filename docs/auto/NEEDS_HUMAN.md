@@ -2936,3 +2936,20 @@ one line, and the next lap does it.
 fifteen items in one list is how NH-032 and NH-034, both a day overdue and both about the
 number the student is currently forbidden to say out loud, get lost among questions you
 have already answered.
+
+**Measurement appended 2026-09-09T0917Z (dev lap, WFG-210), to NH-050 rather than as a
+fourteenth question.** CHARTER §6 names two channels for your decisions: a reply to a report
+email, and 「a PR comment on #31 in the same `NH-###: …` form」. This lap checked both, as its
+routine prompt requires. The email channel is empty — every thread matching
+`from:siyeong0318@gmail.com subject:"WildfireGuardian autoloop" newer_than:14d` holds exactly
+one message, the loop's own report, and a search for `subject:"Re: WildfireGuardian autoloop"`
+returns nothing. **And the second channel is a merged pull request.** PR #31 was closed and
+merged on **2026-09-05T14:25Z** by the `promote` job, which is CHARTER §4c working exactly as
+you decided — 「PR #31 closes once `Main` catches up」 — and nobody noticed that §6 still sends
+your replies there, or that the routine prompt still tells every lap to poll it. It carries
+zero comments. So of the three channels the loop believes it has, one is the laptop session
+(NH-020, and the one you actually used), one is email, and one has been a merged PR for four
+days. That is the same shape as NH-050's own finding: you answered on the routine page and the
+loop never heard you. **This does not need a new decision from you** — it needs §6 and
+`docs/auto/ROUTINE_PROMPTS.md` to name a channel that exists, and that is a backlog row, filed
+where the next critic lap will see it.

@@ -2600,3 +2600,72 @@ could read one path and open another with every assertion green. **A rule this r
 itself is not a control until a lap is made to run it** — and the cheapest form of it here is that the
 independent review IS the second source, so the mutation set belongs in the reviewer's brief and not
 only in the lap's own doc.
+
+## 2026-09-09T0917Z (dev, WFG-210) — a mutation that restores a same-length constant leaves the mutant running
+
+The lap graded nine mutations against four new gates. Two of them moved one
+constant: `_ABOUT_OTHERS_MIN = 5` to `500`, then to `0`, each written into the
+test file, pytest run, and the original written back in a `finally`. The
+harness looked airtight and it was not.
+
+CPython invalidates a cached `.pyc` on **(mtime, size)**. `= 0` and `= 5` are
+the same size, and the restore happened inside the same second as the mutation,
+so the restored source and the mutant bytecode were indistinguishable. Every
+later import — the lap's own re-run, and the next twenty minutes of work — ran
+`_ABOUT_OTHERS_MIN = 0` while the file on disk said `5`. Two tests went red on
+a tree that was correct, and the failure message named the wrong cause
+(「the index acquired that subject matter」). The tell was that calling the same
+function directly answered `False` and pytest answered `True`, on the same file,
+in the same second.
+
+**The rule: a mutation harness runs with bytecode off.** `-B` plus
+`PYTHONDONTWRITEBYTECODE=1` plus clearing `tests/__pycache__` between mutations;
+the whole set is re-graded that way or its verdicts are not evidence. The class
+is wider than pytest — any `write / run / restore` loop over a Python file has
+it, and it is worst for exactly the mutation a careful reviewer reaches for
+first, a **single character inside a constant**, because that is the case where
+the size never changes. The lap's first M1-M6 pass was safe only by accident:
+those replacements were prose of a different length.
+
+**And the second half, which is why the mutation existed at all.** M8 raised
+that threshold past what any document in the tree holds. `_is_about_other_systems`
+then answered False for everything, so 「item ①'s anchors are not ALL documents
+about other systems」 became 「they are not all members of the empty set」 — true
+of every surface, on every tree — and the suite stayed **green**. That is the
+**third** check this one file has shipped that could not fail: the count
+assertion that was digit-only and could not see 「여섯 개」, the Korean-numeral
+half with a trailing `\b` that after a Hangul syllable can never match, and now
+a free constant. The shape is identical each time — *the failing case is
+unreachable* — and in all three the only thing that found it was mutating **the
+gate** rather than the document the gate reads. A gate's threshold needs its own
+floor, asserted in both directions, or it is a dial that turns the gate off.
+
+**Second lesson from the same lap, and it is the reviewer's, about the review
+itself.** The lap wrote `docs/auto/MEMO.md` (this entry) while its independent
+reviewer was running. The reviewer restored every file it mutated with
+`git checkout -- <path>`, which is the right tool for a mutation harness and the
+wrong one to have pointed at a tree somebody else is editing: had the lap's
+concurrent write landed on one of those paths, it would have been discarded
+silently, and neither side would have seen it happen. **A lap does not write to
+tracked files while its reviewer is running** — the reviewer's brief already says
+「leave the working tree exactly as you found it」, and that is only checkable if
+the tree stops moving. Report drafting belongs in `.auto/`, which is ignored;
+anything tracked waits for the verdict.
+
+**Third, and it is an ordering rule the loop did not have.** `make finals` stamps
+`web/finals.html` with `git rev-parse HEAD` at build time, and
+`tests/test_finals_screen.py::test_the_escape_this_gate_cannot_close_is_still_open`
+requires that stamp to be an ancestor of `origin/auto/dev` — a screen naming a
+commit only the building machine can resolve is a screen a judge's clone cannot.
+So **the screen may only be built while `HEAD` is already pushed.** This lap built
+it twice: the first build sat on the pushed claim commit and was green, and the
+second, forced by the independent reviewer's block on the template, sat on the
+lap's own unpushed work commit and took the pre-push gate red. There is no way
+out of it forwards — rebuilding again stamps the newer unpushed commit, and every
+later commit moves the target — so the fix is to rebuild at the pushed commit and
+create the lap's commits after it. **A reviewer block that touches the finals
+template therefore un-does the lap's commits**, and a lap that expects that plans
+for one commit rather than discovering it at step 8. This is the same family as
+NH-043 (open, due today): a gate whose condition is 「can a stranger's clone
+resolve this」 fires on the ordering of a lap's own steps, and the charter tells
+the lap that meets it to stop.

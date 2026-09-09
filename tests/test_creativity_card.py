@@ -741,3 +741,217 @@ def test_the_label_a_judge_reads_is_the_path_the_link_opens() -> None:
         "in front of a reader; binding only the href leaves the pairing "
         "unbound where it is actually read (WFG-207 reviewer, mutation D)."
     )
+
+
+# ---------------------------------------------------------------------------
+# WFG-210: the anchor for item ① was a document ABOUT the systems this same
+# file spends four graded mutations keeping out of the answer
+#
+# Critic #49 measured the shape at `7f914fd`. Item ① claims the contribution is
+# the **output object** — a per-household walk-or-be-rescued verdict, its route,
+# and the village dispatch list — and on every surface its only anchor was
+# `docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md`, a landscape note whose
+# subject is the other systems. Two consequences, both of them the judge's:
+#
+# 1. A judge who presses item ① lands on a page about NIFoS and G-DAPS. The
+#    register rule (WC-007/8/9) keeps those names out of the student's mouth and
+#    the anchor handed them over anyway, which is a principle cited and its
+#    opposite implemented.
+# 2. A judge who says 「그 산출물을 하나 보여 주십시오」 had no path from any
+#    surface, while `outputs/dispatch/` has held committed instances the whole
+#    time.
+#
+# It was inherited rather than chosen four times: written in the card (WFG-182),
+# taken by the screen (WFG-194), by the front door (WFG-207) and standing in the
+# bank's own 근거 line. That is why this is a gate and not four edits: the next
+# surface would have inherited it a fifth time.
+#
+# ⚠ What these assertions bind is the ANCHOR, not the wording. A surface may
+# describe the object however it likes; what it may not do is send a judge to a
+# document about somebody else's system and nowhere else.
+#
+# ⚠ One asymmetry, and this comment is the SECOND version of it. `README.md`'s
+# block is the one surface that carries a `\d{2,}` count assertion
+# (`test_the_readme_block_holds_the_same_register_as_the_card`), and every
+# committed instance lives under a run stamp — `outputs/dispatch/2026…Z/…` —
+# which that assertion reads as a count. The front door therefore names the
+# committed INDEX, `outputs/dispatch/README.md`, one click above the sheets and
+# carrying their limits; the other three surfaces name a sheet AND the index.
+# Weakening the count gate to fit a path was the alternative and was declined:
+# it is the assertion that caught WFG-117 and WFG-178, and it guards the page a
+# judge reads first.
+#
+# The first version of this comment ended 「the surfaces with no count assertion
+# name a sheet directly」, inherited verbatim from `docs/creativity_card.md` §8,
+# and it was false: the finals screen has no count assertion and named the index
+# too. The independent reviewer proved it by putting a stamped sheet path into
+# `CREATIVE[0].doc` and watching the eight suites that read the screen stay
+# green, so nothing had constrained that surface. Recorded here and not only in
+# the card because a comment inherited verbatim from a document is exactly how
+# the anchor this section fixes reached four surfaces.
+# ---------------------------------------------------------------------------
+
+#: Every instance of the output object this repository has committed lives under
+#: this prefix, together with the README that states what they are and what the
+#: word 「마을」 does and does not mean in them.
+OBJECT_INSTANCE_ROOT = "outputs/dispatch/"
+
+#: How many of OTHER_SYSTEMS a document has to name before it counts as being
+#: ABOUT them rather than merely mentioning one. The landscape note is far above
+#: this and the instance index is at zero, so any threshold in that gap gives
+#: the same verdict and the constant is not load-bearing.
+#:
+#: ⚠ It was free until ``test_the_about_others_classifier_still_separates_the_
+#: two_anchors`` below. Raising it to 500 made ``_is_about_other_systems``
+#: answer False for every file, which turned the assertion that uses it into a
+#: vacuous one, and the whole suite stayed GREEN — the third time this file has
+#: shipped a check that could not fail (the digit-only count, the ``\b`` after a
+#: Hangul syllable). A constant a mutation can raise until the gate stops
+#: working is the same defect as a regex that can never match.
+_ABOUT_OTHERS_MIN = 5
+
+
+def _is_about_other_systems(path: str) -> bool:
+    """Read the anchor and ask what it is about, rather than trusting its name.
+
+    This is the assertion the row asked for. 「a document in OTHER_SYSTEMS'
+    subject matter」 is not decidable from a path, and a name list would be the
+    same copy-paste ratchet `docs/withdrawn_claims.md` §4 measures the limits of.
+    Counting the systems the document actually names is decidable, and it is the
+    measurement critic #49 made by hand.
+    """
+    target = REPO / path
+    if not target.is_file():
+        return False
+    try:
+        text = target.read_text(encoding="utf-8")
+    except (UnicodeDecodeError, OSError):
+        return False
+    return sum(text.count(s) for s in OTHER_SYSTEMS) >= _ABOUT_OTHERS_MIN
+
+
+def _card_item_one() -> str:
+    """Row 1 of docs/creativity_card.md §2, cut at the table's row boundaries."""
+    text = (REPO / "docs" / "creativity_card.md").read_text(encoding="utf-8")
+    rows = [l for l in text.splitlines() if l.startswith("| 1 |")]
+    assert rows, (
+        "docs/creativity_card.md no longer carries row 1 of its §2 table, which "
+        "is where item ①'s anchor is WRITTEN and from which the screen, the "
+        "front door and the bank each inherited it (WFG-210)."
+    )
+    return rows[0]
+
+
+def _bank_evidence_line() -> str:
+    """Q29a's 근거 block: the paths the student opens when a judge presses."""
+    body = _card()
+    assert "근거:" in body, "Q29a has no 근거 block; the bank requires one"
+    return body.split("근거:", 1)[1].split("없는 것:", 1)[0]
+
+
+def _item_one_surfaces() -> dict[str, str]:
+    """The four places item ① is answered, each cut to item ①'s own text."""
+    return {
+        "README.md item ①": _readme_items()["①"],
+        "web/finals.html CREATIVE[0]": _screen_block().split("},", 1)[0],
+        "docs/creativity_card.md §2 row 1": _card_item_one(),
+        "docs/auto/JUDGE_QA.md Q29a 근거": _bank_evidence_line(),
+    }
+
+
+def test_a_committed_instance_of_the_output_object_exists() -> None:
+    """The premise the four assertions below stand on.
+
+    If the sheets ever stop being committed, those assertions would still pass
+    while pointing a judge at nothing — the WFG-207 failure mode one level down.
+    So the instance is checked in the tree, not assumed from the path.
+    """
+    index = REPO / OBJECT_INSTANCE_ROOT / "README.md"
+    assert index.is_file(), (
+        f"{OBJECT_INSTANCE_ROOT}README.md is gone. It is the page the front "
+        "door hands a judge for item ①, and it is what states that the "
+        "clusters are not 행정리 and that nothing was ever sent."
+    )
+    sheets = sorted((REPO / OBJECT_INSTANCE_ROOT).glob("*/*/dispatch_a4.html"))
+    assert sheets, (
+        "no committed dispatch sheet remains under " + OBJECT_INSTANCE_ROOT
+        + ". Item ① claims the output object IS the contribution; with no "
+        "instance in the tree the claim has nothing behind it and the four "
+        "surfaces below would be pointing at an empty directory."
+    )
+
+
+def test_every_surface_hands_a_judge_an_instance_of_the_object() -> None:
+    """WFG-210's second half, and the one a judge feels.
+
+    Graded red on the tree as critic #49 found it: at `7f914fd` all four
+    surfaces failed this, naming only the landscape note.
+    """
+    for surface, text in _item_one_surfaces().items():
+        assert OBJECT_INSTANCE_ROOT in text, (
+            f"{surface} claims the output object is the contribution and gives "
+            f"no path to an instance of it. A judge who says 「그 산출물을 하나 "
+            "보여 주십시오」 has nothing to open. The committed instances are "
+            f"under {OBJECT_INSTANCE_ROOT}; the index beside them is "
+            f"{OBJECT_INSTANCE_ROOT}README.md."
+        )
+
+
+def test_item_one_never_rests_only_on_a_document_about_other_systems() -> None:
+    """WFG-210's first half: the gate's own principle, applied to the anchor.
+
+    ``test_the_card_names_no_other_system_in_either_direction`` spends four
+    graded mutations keeping those names out of what the student SAYS. This one
+    keeps them from being the whole of what the student HANDS OVER for item ①.
+    The landscape note may stay — it is the honest anchor for the *choice* not
+    to compete on accuracy — but it may not stand alone.
+    """
+    for surface, text in _item_one_surfaces().items():
+        paths = re.findall(r"[\w./\-가-힣]+\.(?:md|html|json|py)", text)
+        anchors = sorted({p for p in paths if (REPO / p).is_file()})
+        assert anchors, (
+            f"{surface} names no resolvable file for item ①. The pairing of a "
+            "claim with a file a judge can open is the whole of what this card "
+            "offers instead of a self-assessment."
+        )
+        about_others = [p for p in anchors if _is_about_other_systems(p)]
+        assert about_others != anchors, (
+            f"{surface} answers item ① with nothing but a document about other "
+            "systems: " + ", ".join(about_others) + ". This file spends four "
+            "graded mutations keeping those names out of the spoken draft, and "
+            "the anchor would hand them to the judge instead (WFG-210). Add a "
+            f"path under {OBJECT_INSTANCE_ROOT} — an instance of the object the "
+            "item claims — and keep the landscape note beside it as the anchor "
+            "for the choice not to compete on accuracy."
+        )
+
+
+def test_the_about_others_classifier_still_separates_the_two_anchors() -> None:
+    """The floor under ``_ABOUT_OTHERS_MIN``, added because it had none.
+
+    Mutation M8 raised the threshold to 500 and every assertion in this file
+    stayed green: with nothing classified as being about other systems, the
+    assertion above becomes 「the anchors are not all members of the empty set」,
+    which is true of any surface. So the classifier is asserted to still make
+    the distinction it was written for, on the two documents whose contents are
+    the measurement critic #49 made by hand — the landscape note is about those
+    systems, and the index beside the committed sheets is not.
+
+    Both directions on purpose: a threshold of 0 would classify every file and
+    is caught by the second assertion, a threshold above the note's own count is
+    caught by the first.
+    """
+    note = "docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md"
+    index = OBJECT_INSTANCE_ROOT + "README.md"
+    assert _is_about_other_systems(note), (
+        f"{note} no longer classifies as a document about the other systems, "
+        "so the assertion that item ① may not rest on one alone is now vacuous "
+        "and passes for every surface. Either the note was rewritten, or "
+        "_ABOUT_OTHERS_MIN was raised past what it holds."
+    )
+    assert not _is_about_other_systems(index), (
+        f"{index} classifies as a document about the other systems, so the "
+        "anchor this row added to answer item ① would satisfy nothing. Either "
+        "the index acquired that subject matter, or _ABOUT_OTHERS_MIN was "
+        "lowered until every file matches."
+    )

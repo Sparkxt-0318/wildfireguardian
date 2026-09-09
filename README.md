@@ -331,8 +331,11 @@ fire-blind 대비가 예보의 공으로 돌리던 것의 **대부분을, 모델
 - **① 산출물 자체가 기여입니다.** 확산 예측 격자는 최종 결과물이 아니라 중간 입력이고,
   이 시스템이 내놓는 것은 **가구 단위의 「걸어서 나갈 수 있는가 / 구조를 보내야 하는가」
   판정과 그 도보 경로**입니다. 예측 정확도로 겨루지 않고 산출물의 모양으로 겨루는 쪽을
-  택했다는 뜻입니다.
-  → [`docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md`](docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md)
+  택했다는 뜻입니다. **그 산출물의 실물이 저장소에 커밋돼 있습니다** — 마을별 A4 출동
+  지시서, 마을방송 낭독 문안, 문자 초안이고, 어느 것도 발송되지 않았습니다.
+  → 실물과 그 한계: [`outputs/dispatch/README.md`](outputs/dispatch/README.md)
+  → 정확도로 겨루지 않기로 한 판단의 근거:
+  [`docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md`](docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md)
 - **② 두 축이 동시에 실제인 실행.** 실제 OpenStreetMap 보행 그래프와 실제 전진
   시뮬레이션 확산면을 한 실행 안에서 함께 돌렸고, 그것이 이 프로젝트가 스스로 가장 크다고
   적어 두었던 한계를 닫은 지점입니다.

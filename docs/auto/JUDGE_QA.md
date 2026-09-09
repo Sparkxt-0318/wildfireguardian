@@ -1171,7 +1171,10 @@ HANDOFF §4-B.
 가고 어느 길로 걸어 나오는가**입니다. 예보 격자가 최종 산출물이 아니라 중간 입력이고, 그
 뒤에 가구 단위 구조 순서와 보행 경로가 붙습니다. 그래서 저희가 답하는 질문은 「불이 어디로
 가는가」가 아니라 **「불이 어디로 갈지를 알면 어느 집을 먼저 구해야 하는가가 달라지는가」**
-입니다. 이건 더 정확한 예보라는 주장이 아니라 **다른 질문**이라는 뜻입니다.
+입니다. 이건 더 정확한 예보라는 주장이 아니라 **다른 질문**이라는 뜻입니다. **말씀만
+드리는 게 아니라 실물을 열어 드릴 수 있습니다** — `outputs/dispatch/` 에 마을별 A4 출동
+지시서와 방송 문안, 문자 초안이 커밋돼 있고, 어느 것도 발송된 적이 없습니다. 「마을」이
+행정리가 아니라 공간 군집이라는 것도 그 지시서마다 박스로 적혀 있습니다.
 
 **둘째, 그 질문을 재려고 두 축이 동시에 실제인 실행을 만들었습니다.** 이 저장소의 이전
 라우팅 실행들은 한쪽 축만 실제였습니다 — 실제 도로에 합성 화재이거나, 실제 화재에 합성
@@ -1193,7 +1196,10 @@ HANDOFF §4-B.
 바꾸는 부분을 만들고 그 과정에서 자기가 틀린 자리를 기계가 읽을 수 있게 남긴 프로젝트**
 입니다."
 
-근거: `docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md` §3,
+근거: `outputs/dispatch/README.md` 과 그 옆의 커밋된 지시서
+(예: `outputs/dispatch/20260801T163042Z/01-거무역리공원-북쪽/dispatch_a4.html` — 첫째 항목이
+말하는 산출물의 실물), `docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md` §3
+(정확도로 겨루지 않기로 한 판단의 근거이고, 산출물의 실물이 아닙니다),
 `docs/real_roads_real_hazard.md`, `docs/withdrawn_claims.md`,
 `docs/auto/withdrawn_claims.json`, `scripts/check_withdrawn_claims.py`,
 `tests/test_creativity_card.py`.
