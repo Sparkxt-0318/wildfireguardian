@@ -1532,6 +1532,23 @@ and should carry that sentence, or a statistician judge will supply it for you.
 5 off every surface a judge meets while this entry and NH-034 are open, and the margins live in
 `docs/present_perimeter_buffer_shape.md` and the artifact only.
 
+**⚠ Appended by critic #47, 2026-09-09T0230Z — a measurement, not an opinion, and it bears on this choice.**
+Every candidate value in this entry (9, 27, 5, 19, 86) is what a **noiseless** forecast would buy, because the
+forecast-aware arm plans on the very hazard field it is graded on (`docs/present_perimeter_arm.md` §5 says so
+in its own words). WFG-125 is the row that would replace that bound with what this project's model actually
+buys, and critic #45 raised it to P0 on the ground that its input is already committed. **I measured the input
+rather than re-reading the row, and it is a sample, not a field.** From
+`data/processed/spread_v2_lofo_oof_cells.csv.gz` at `86f8929`: 영덕 is graded on
+`data/processed/routing_demo.npz`, `haz_stack` shape (5, 181, 147) = **26,607** cells per slice, and the
+out-of-fold file scores **4,859** distinct cells in total = **18.3 %** of that grid, about 15.4 % per operating
+point, confined to rows 25-99 of 181. Uiseong-Andong is 50.1 % and Uljin-Samcheok 16.9 %.
+**What that means for your decision:** replacing the oracle needs a rule for the other ~82 % of cells, and a
+rule chosen after seeing what it does to the margin is a second post-hoc maximum of exactly the kind the
+0056Z lap just wrote onto six surfaces. **So the honest planning assumption is that the oracle gap will NOT
+be measured before 2026-10-24, and the value you pick here will still be an upper bound when the student says
+it.** That does not change the options below; it changes what the chosen number may be called. The repository
+already says this on `README.md` and in Q36 of the bank, so nothing is hidden by waiting.
+
 ## NH-033 · FYI · open · This lap force-pushed its own parking branch, which CHARTER §3.8 forbids flatly
 
 **What.** After pushing `auto/red/20260905T2248Z` at `d6e5bcb`, this lap found that the red
@@ -1670,6 +1687,23 @@ and can only hold or fall as the grid is refined. Whatever you pick, the shipped
 ⚠ **The standing constraint is unchanged and was obeyed this window:** nothing on a judge-facing surface
 carries a margin while this entry and NH-032 are open, and `README.md:245-247` says only that the rerun
 went against the project and that the values are in the document.
+
+**⚠ Appended by critic #47, 2026-09-09T0230Z — a measurement, not an opinion, and it bears on this choice.**
+Every candidate value in this entry (9, 27, 5, 19, 86) is what a **noiseless** forecast would buy, because the
+forecast-aware arm plans on the very hazard field it is graded on (`docs/present_perimeter_arm.md` §5 says so
+in its own words). WFG-125 is the row that would replace that bound with what this project's model actually
+buys, and critic #45 raised it to P0 on the ground that its input is already committed. **I measured the input
+rather than re-reading the row, and it is a sample, not a field.** From
+`data/processed/spread_v2_lofo_oof_cells.csv.gz` at `86f8929`: 영덕 is graded on
+`data/processed/routing_demo.npz`, `haz_stack` shape (5, 181, 147) = **26,607** cells per slice, and the
+out-of-fold file scores **4,859** distinct cells in total = **18.3 %** of that grid, about 15.4 % per operating
+point, confined to rows 25-99 of 181. Uiseong-Andong is 50.1 % and Uljin-Samcheok 16.9 %.
+**What that means for your decision:** replacing the oracle needs a rule for the other ~82 % of cells, and a
+rule chosen after seeing what it does to the margin is a second post-hoc maximum of exactly the kind the
+0056Z lap just wrote onto six surfaces. **So the honest planning assumption is that the oracle gap will NOT
+be measured before 2026-10-24, and the value you pick here will still be an upper bound when the student says
+it.** That does not change the options below; it changes what the chosen number may be called. The repository
+already says this on `README.md` and in Q36 of the bank, so nothing is hidden by waiting.
 
 ## NH-035 · DECISION · open · The three-hour rule you chose to un-stick a stranded row cannot fire on the three-hour dev grid (by 2026-09-09)
 
@@ -2782,3 +2816,22 @@ entry.
 **Severity:** LOW. Nothing is blocked — this run worked around it and got its best result from the workaround. The cost of leaving it is a wasted attempt per run and a standing risk that a future lap reports 「channel (b) failed」 and stops there instead of substituting.
 
 **Related.** NH-039 (the NIFoS ~18 MB user guide the sandbox cannot retrieve) is still open and rose in value this run: it is the primary source for the Ready-Set-Go doctrine that WFG-197 wants to reference, and a press restatement is the only version the loop can reach. Also still open and unrelated to your action: the Scholar Gateway MCP requires OAuth and cannot be authorised from a non-interactive cloud session, so half of channel (a) has never run.
+
+## NH-049 · DECISION · open · Your critic routine is told to add judge Q&A cards and your own printing gate makes that impossible for it (by 2026-09-11)
+
+**What.** The `wfg-autoloop-critic` routine prompt (step 3) ends its judge drill with 「every question you cannot answer from a file becomes a backlog row **or a JUDGE_QA entry marked 'no evidence yet'**」. The second half has not been used in the last four critic laps, and this lap found out why rather than assuming.
+
+- `docs/auto/JUDGE_QA.md` is one of the **six** `SOURCES` documents of the printed booth kit (`docs/auto/finals/printables/manifest_20260909T0055Z.json`).
+- `tests/test_printables.py::test_the_newest_printable_is_not_stale_against_the_tree` is a hard `assert` that re-hashes every source against that manifest. Change one byte of the bank and the whole gate suite goes **red**.
+- The only cure is `make printables` at a new stamp plus re-pointing `release/kcf-finals-2026/MANIFEST.json` — an artifact rebuild, which the critic's own charter forbids it (CHARTER §4: the critic 「changes no code」; the routine prompt: 「you change NO code and NO artifact」).
+
+**So the critic has exactly two legal moves and neither is a card:** file a backlog row, or leave the question unanswered. Three judge-facing questions are queued in that state right now — **WFG-197** (why is the horizon 3 to 12 hours), **WFG-027** (일정, a named sub-item of a 20-point row on both tables), **WFG-194** (창의성, a 20-point row on both tables, still at literal zero on the finals screen and the five-minute script).
+
+**Why it needs you.** The routine prompt lives on the routine page (https://claude.ai/code/routines), not in this repository — CHARTER §10. A lap can prove the instruction is unexecutable; it cannot edit the sentence that gives it. And the gate is **right**: a booth kit that disagrees with the repository is worse than a thin one, so the fix must not weaken it.
+
+**Options:** A) give the critic a staging file it may write freely — `docs/auto/JUDGE_QA_PENDING.md`, in no `SOURCES` list — and have the next dev lap that rebuilds the kit merge and empty it (this is **WFG-205**, and it is the option this lap recommends because it costs the kit nothing and loses no question) · B) let the critic edit the bank and rebuild the kit, accepting that the critic now touches an artifact · C) delete the clause from the routine prompt, so the drill's output is always a backlog row and the bank only ever grows on a dev lap · D) something else you tell us.
+
+**Severity:** MEDIUM. Nothing is red and nothing is lost — every drill question this week did become a backlog row. What it costs is speed on the single surface a judge holds in their hands: a card takes minutes and a backlog row waits behind twelve P0 rows with six sprint days left.
+
+**Related.** WFG-205 is the agent-doable half of option A. WFG-152 and WFG-187 are the same gate biting other surfaces.
+

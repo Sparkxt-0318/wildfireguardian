@@ -5,7 +5,40 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
-**Tick count, critic #46, 2026-09-08T2340Z: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), held. R3, R11 and R12
+**Tick count, critic #47, 2026-09-09T0230Z: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD. R3, R11 and R12
+are the three that do not tick; R10 was withdrawn 2026-09-04.** ⚠⚠ **ZERO lines ticked, for the FOURTH
+consecutive critic lap** — the count has stood at 8 since critic #43 ticked R8 at 2026-09-08T1429Z, and #44,
+#45, #46 and #47 each ticked nothing. The routine prompt calls zero across two consecutive laps a finding
+about the loop's direction rather than about the product, and this is four. **NH-038, which was written about
+exactly this, is due today and is open.**
+
+⚠ **Part of the cause is now measured rather than guessed, and it is bookkeeping.** R11's row is **WFG-024**,
+and it had been `blocked(WFG-022, WFG-023)` since 2026-09-04. Neither blocker gates the work: WFG-022's own
+blocker **NH-008 was closed by the author on 2026-09-04** (verbatim: 「Everything is fine here. Don't worry
+about this, and continue with the project.」, and the closing lap recorded 「No contact with the 운영사무국
+will be made」), and the branch decision WFG-023 was to ratify is settled in CHARTER §3 rule 1 and §4c.
+WFG-022 is now `dropped` on the author's own words, WFG-023 records which three of its five items are
+discharged, and **WFG-024 is `todo`**. R11 still does not tick — the defect is real and unfixed — but it is
+no longer waiting on anyone. **The live defect, measured at this head:** `docs/HANDOFF_ROUND3.md:898` is rule
+1 of the §5 block that `CLAUDE.md` and CHARTER §3 bind every lap to, and it reads 「Never push to `Main`. All
+work stays on `round3-dev`.」 R3 remains blocked by NH-046; R12 is the author's (NH-014).
+
+Measured at `86f8929`. ⚠ **The routine's clone opened SHALLOW at 50 commits**, reading back only to
+2026-09-08T08:28Z, which would have hidden a third of the 24 h window. It was deepened with
+`git fetch --shallow-since='2026-09-08T00:00:00Z'` to **66** commits, oldest resolvable `088203c` at
+**00:22:53Z on 09-08** — **a deepening whose predicate is the window itself rather than a guessed depth**,
+which is the control CHARTER §4 warns is missing when a lap guesses 120 or 250. `--is-shallow-repository`
+still answers **true**, so **no ancestry or reachability claim is made anywhere in this lap's output.**
+`gates.py --mode full` exits **0**, ALL GREEN: `1806 passed, 63 skipped, 2 xfailed`, pytest **348.2 s**;
+`baseline-verify` WARNs on the two `data/raw/**` contract files that are git-ignored and cannot exist in any
+sandbox, which is NH-029 and §3d working as decided. GitHub `auto-gates` runs **256 to 267**: one `failure`,
+run **260** at `7eeccab`, already closed by `1fa0b7f` and reported by the 2231Z ci-red lap; **run 267 is
+`success` at this exact head**. The printed kit is `WFG_printables_20260909T0055Z.pdf` and **all six of its
+`SOURCES` re-hash to the tree**. The finals screen's stamp `97231a1` is **14** commits behind against a limit
+of **30** — headroom 16, down from 24 two hours ago, and this is the third readiness cycle in which that
+number has been the quietest live clock in the project.
+
+*(Superseded lead, kept as the record.)* **Tick count, critic #46, 2026-09-08T2340Z: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), held. R3, R11 and R12
 are the three that do not tick; R10 was withdrawn 2026-09-04.** Re-measured at `cb9fcc3` on the routine's
 **default** clone before any deepening: `is-shallow-repository` = **true**, `rev-list --count HEAD` = **55**,
 oldest resolvable `24f914f` at **03:21:30Z on 09-08**, so this clone reads about **20.3 hours** and I claim
