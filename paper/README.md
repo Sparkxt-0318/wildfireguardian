@@ -444,6 +444,88 @@ post-hoc-maximum qualifier into a paragraph about a word counter — a sentence 
 words wrongly, which is the leakage that module's own docstring says it cannot detect. It was
 not done. The fix is a narrowed trigger in `tests/`, outside CHARTER §12.
 
+✅ **Lap 23 changed no sentence in the manuscript — the third such lap since 12, after 19 and
+20 — and the reason is worth separating from the nine laps above it: nothing had gone false.**
+⚠⚠ This block first said 「second … lap 19 was the first」, and **the lap's independent
+reviewer blocked the push over it.** It was the one figure in the lap's ledger that was
+inherited rather than re-derived, in a section whose stated principle is re-derivation; one
+grep of this repository (`byte-identical to the one lap 18 pushed`) returns lap 20's own
+opening as well as lap 19's. ⚠ The correction is worth more than the arithmetic: **lap 20 is
+the closest precedent and the two laps are not the same.** Lap 20's draft was proved by its
+reviewer to be *worse than the defect* and would not have shipped at any length, so its
+no-change outcome has a correctness cause beside the budget one. **Lap 23's does not** — no
+one objected to the content of either sentence measured below, and the only thing standing
+between them and the document is a word counter. **Of the three no-change laps since 12, this
+is the first where the budget is the sole cause.** The incorporated diff (`a9e0430..65edfa3`,
+sixteen commits, seventeen files outside `paper/` and `docs/auto/`) is the 창의성 answer and
+the booth kit. `docs/NUMBERS.json` gained exactly **two** keys, both booth-pace quantities
+about how many syllables the demo script asks the student to pronounce; **no existing key's
+value or caveat moved** (401 → 403, compared key by key). No claim was withdrawn — eleven
+entries before and after — so §3.5's 「skipped it **three** times」 stays three because there
+was no fourth retraction, which is a different thing from a fourth that was registered
+correctly. All nine figures redrew byte-identical. `body_words` stayed **8,998**. ⚠ The range
+itself does contain a manuscript edit — §4.5's rewrite in `4b0010a`, **this routine's own
+lap-22 push**, accounted for in the block above — which is why the file count is stated
+*outside* `paper/`: the sentence here is about what lap 23 wrote, not about the range.
+
+⛔ **The budget nonetheless shaped this lap, and the sentence it shaped away is the mildest
+casualty in eleven laps.** §3.5 already says the printables tests' oracle is the builder, so
+they certify what the builder emits and **never that what it emits is right**. This window
+produced the first worked instance: the kit's renderer had no strikethrough rule, so
+`~~…~~` was dropped and a **retraction would have printed as a live claim** on a sheet a
+judge holds — every other inline rule there loses only weight, that one inverts the
+sentence — and both existing tests pass a builder that does it. Sharper still, the gate that
+already knew the class grades a **two-line string literal**; the repair now runs over
+`SOURCES` itself, which generalises §3.5's own theme: *a gate whose subject is a fixture
+knows the failure class and cannot see an instance of it.* Measured with the builder's own
+counter and not estimated: the minimal clause is **8,998 → 9,018** and the form that also
+carries the transferable lesson is **9,040**, against **2 words of headroom**. Both reverted,
+rebuilt at 8,998, **nothing compressed**.
+
+⚠⚠ **The first draft of this block overstated the instance and it was corrected before the
+push.** It said the live instance 「sat in the seven documents that print」. **No commit ever
+carried it:** `git show <rev>:docs/creativity_card.md` for all three revisions inside the
+range returns **zero** lines containing `~~`, and the seven `SOURCES` documents are clean at
+`65edfa3`. The struck span was in that lap's **working draft** and the account of it is the
+repository's own record — the `_STRIKE` comment in `scripts/build_printables.py` and the new
+test's docstring — not a measurement made here. So **nothing reached paper**, which weakens
+the instance to a near miss; and what caught it was a **reviewer with every gate green**,
+which is verbatim the shape §3.5 already reports for the defect that prompted those two
+tests, now happening a second time in the same generator. `GAPS.md`'s lap-23 section carries
+both halves.
+
+⚠ **Read the size of that honestly.** The manuscript is **not false without it and is not
+missing a limitation** — §3.5 states the general limit in its own voice and this window
+supplied an illustration of it. That is milder than lap 14's declined illustration and much
+milder than lap 21's, which was a limitation the paper nowhere stated. What it adds to
+NH-037 is one more instance of the budget deciding *whether* an optional true sentence is
+written, and nothing more. `GAPS.md`'s lap-23 section carries both measurements and the
+four §3.5 sentences this lap verified against the tree rather than inherited.
+
+✅ **The anchor was confirmed by measurement for the first time.** `body_words` did not move,
+so `check_paper.py` would have passed with no renderer at all; this lap ran the `apt` line
+below anyway and took the measuring branch on the **committed** `.docx` — `pages 23,
+calibri_face Carlito, metrics_ok true` — printing `6b0702d747ed5beb`, **the same string
+`STATE.json` already carried**. Every earlier confirmation either carried an unmoved input or
+replaced a moved one. **Two pages against the author's 25, two words against the proxy's
+9,000, measured on one document by one run.**
+
+⚠⚠ **New, and it changes what a diff on the built `.docx` means: the document is
+content-deterministic and byte-non-deterministic.** `build_docx.py` run three times on an
+identical manuscript produced three different files. Decomposed rather than asserted: all
+**25** zip members are **byte-identical in content** across the three, all 25 differ only in
+their **zip modification timestamp** (the wall clock at build time), and `docProps/core.xml`
+is itself identical — nothing is stamped into the document, only into the archive. So **a
+byte diff on `WildfireGuardian_Park_2026.docx` is not evidence that the document moved**,
+which is the figure-font paragraph below one layer up; and **a lap whose manuscript did not
+move must not commit a rebuilt `.docx`**, because the diff is 2.9 MB of binary churn that
+says nothing. This lap restored the committed file and measured its 23 pages on **that**
+file. ⚠ It gates nothing — no push re-derives it, the same standing weakness
+`measure_pages.py` and `measure_render_gap.py` have — and the fix that would make it
+checkable, a fixed `date_time` in the builder or a content-only digest, is one line inside
+this routine's own paths. It was **not** taken this lap: a build change wants its own lap and
+its own reviewer, and the manuscript is at two words of headroom.
+
 ⚠ **The page that took the count from 22 to 23 cost eleven words, and it is worth
 knowing that before reading the words-to-pages table below as a rate.** Lap 11
 took the body 8,735 → 8,825 (a mandatory §4.5 correction, one clause, and the
