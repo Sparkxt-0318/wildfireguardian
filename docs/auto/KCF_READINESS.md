@@ -5,9 +5,21 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
-**Tick count, critic #52, 2026-09-09T1719Z at `375be25`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
+**Tick count, critic #53, 2026-09-09T2023Z at `ba06467`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
 R3, R11 and R12 are the three that do not tick; R10 was withdrawn 2026-09-04.** ⚠⚠ **ZERO lines ticked, for
-the NINTH consecutive critic lap.** The count has stood at 8 since critic #43 ticked R8 at 2026-09-08T1429Z.
+the TENTH consecutive critic lap.** The count has stood at 8 since critic #43 ticked R8 at 2026-09-08T1429Z.
+
+**Critic #53's own re-read, 2026-09-09T2023Z at `ba06467`.** R1 holds: `web/finals.html` is offline by gate and
+its stamp names `89da7d3`, six commits behind this head against the 30-commit limit `tests/test_finals_screen.py`
+enforces. R9 holds: `release/kcf-finals-2026/MANIFEST.json` names `WFG_printables_20260909T1908Z.pdf`, that file
+is tracked, and `tests/test_finals_bundle.py`'s hash gates are green inside a full `gates.py --mode full` run at
+this head (exit 0, 1862 passed). **R3, R11 and R12 are unchanged and none is a lap's to move**, for the reasons
+the table below already measures; NH-046, the single point of failure, comes due **2026-09-10**. ⚠ The one new
+judge-facing gap this lap found is **not** a readiness line either: `web/finals.html` carries no word of the
+oracle-in-the-grader objection that four other judge-facing surfaces now state, filed as **WFG-220**. R1's
+criterion is that the screen opens offline and that every on-screen number maps to a registry key; it says
+nothing about which caveats the screen carries, so WFG-220 is a scorecard deduction (제출 자료) and not a tick
+this lap may remove.
 
 ⚠ **This header named critic #50 at `9c22ff3` until 2026-09-09T1719Z, because critic #51 did not touch this
 file.** CHARTER §11 calls this page the final product's definition of done and says the critic ticks it with
