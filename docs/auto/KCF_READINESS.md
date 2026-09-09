@@ -5,7 +5,68 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
-**Tick count, critic #48, 2026-09-09T0526Z at `5f4e32b`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
+**Tick count, critic #49, 2026-09-09T0820Z at `7f914fd`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
+R3, R11 and R12 are the three that do not tick; R10 was withdrawn 2026-09-04.** ⚠⚠ **ZERO lines ticked, for
+the SIXTH consecutive critic lap.** The count has stood at 8 since critic #43 ticked R8 at 2026-09-08T1429Z.
+
+⚠⚠ **This window is NOT the honest zero the last one was, and the difference is the finding.** Critic #48's
+window contained one paper lap and three report-header repairs and had nothing to tick against. This window,
+`5f4e32b..7f914fd`, contains two dev laps that closed four rows and put the 창의성 answer onto **all four**
+judge-facing surfaces — `web/finals.html`, `docs/auto/DEMO_SCRIPT_5MIN.md`, the printed kit
+(`WFG_printables_20260909T0700Z.pdf`, **7** `SOURCES` now including `docs/creativity_card.md`,
+`release/kcf-finals-2026/MANIFEST.json` re-pointed) and `README.md` §5 — and put the repository's address onto
+the USB (WFG-208). **It ticked nothing, because none of the three unticked lines has a condition this window
+could meet.** R3 is `blocked(NH-046)`, R12 is the author's (NH-014), and R11's row **WFG-024** is `todo`,
+agent-doable and one stale sentence long, sitting at **table position 125** where CHARTER §14b holds it as
+loop hygiene. **The only readiness line still in the loop's reach is held shut by the loop's own ordering
+rule.** That measurement is written into **NH-038**, which asks exactly this in the author's words and is due
+today, rather than into a new entry.
+
+✅ **R5 and R7 hold and both got stronger, re-hashed rather than read.** The kit is
+`WFG_printables_20260909T0700Z.pdf`; `release/kcf-finals-2026/MANIFEST.json` names that exact PDF, and the
+manifest's `SOURCES` list is `BOOTH_SETUP.md`, `DEMO_SCRIPT_5MIN.md`, `JUDGE_QA.md`,
+`submission_reconciliation.md`, `DETECTION_FLOOR_CARD.md`, **`docs/creativity_card.md`** and
+`RELATED_WORK_PANEL.md` — seven, up from six, the seventh being the 창의성 card WFG-194 added.
+
+✅ **R9 keeps its tick and critic #48's quality defect on it is CLOSED.** `release/kcf-finals-2026/README_KO.md`
+now opens with one block saying that backticked `docs/…` / `scripts/…` / `outputs/…` paths are paths **in the
+repository and not in this folder**, naming the repository URL once and `auto/dev` as the branch it was built
+from; a count of `github.com` in that file answered **0** before and answers **1** now.
+`make finals-bundle` still rebuilds byte-identically at **19** files, and no document was added to the payload.
+
+⚠ **R1 and R2 keep their ticks and this lap files a defect inside the block that just landed on the screen.**
+`web/finals.html`'s 「시스템 구조」 view now carries a 창의성 block whose item ① reads
+「내놓는 것은 지도가 아니라 판정입니다 … 마을 단위 출동 목록입니다」 and whose `doc` anchor is
+`docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md` §3 — a landscape note about NIFoS and G-DAPS, carrying **34**
+mentions of the systems `tests/test_creativity_card.py:86` makes red in the spoken draft and **12** of their
+announced percentages. **This does NOT un-tick either line** — R1's condition is that the screen opens offline
+and its numbers map to registry keys, and it does — it is **WFG-210**, filed at position 1, and its README half
+is this lap's one `fix-before-next-row` item, minutes.
+
+Measured at `7f914fd`. ⚠ **The routine's clone opened SHALLOW at 50 commits**, deepened with
+`git fetch --shallow-since='2026-09-08T00:00:00Z'` to **83** commits, oldest resolvable `088203c` at
+**00:22:53Z on 09-08** — a deepening whose predicate is the window rather than a guessed depth.
+`--is-shallow-repository` still answers **true**, so **no ancestry or reachability claim is made anywhere in
+this lap's output.** `gates.py --mode full` exits **0**, ALL GREEN: `1826 passed, 63 skipped, 3 xfailed`,
+pytest **470.7 s**; `baseline-verify` WARNs on the two git-ignored `data/raw/**` contracts, which is NH-029
+and §3d working as decided. `--assert-head` exits 0 and `--assert-reported --base 088203c` exits 0 over **90**
+substantive paths. GitHub `auto-gates`, the sixteen runs of this window ending at **279**: **zero
+`failure`**; 275 and 278 are `cancelled`, each superseded by the next push, and run **279** is `success` at
+this exact head. **No CHARTER §4b finding.**
+Every dev report in the window carries `Reviewed by:`.
+
+⚠ **The one `Do NOT edit` note, RE-STATED after re-reading its premise (CHARTER §14c as the routine prompt
+states it, NH-036 A; both NH entries are still `open`, which is NH-050).** It covers **`README.md:210-282`**,
+the Round-4 fair-opponent block, whose bounds this lap re-measured (「### 1.」 at 210, 「### 2.」 at 283) and
+which are unchanged from critic #48's corrected range. It forbids exactly one thing there: putting a
+present-perimeter **margin value** (9, 27, 5, 19, 86) into those lines while NH-032 and NH-034 are open. Both
+re-read at `NEEDS_HUMAN.md:1391` and `:1574`: still `open`, both due 2026-09-08, so **one day overdue** —
+critic #48 wrote 「two days」 and the 0654Z dev report 「three days」, and the correct figure is one. A scan of
+210-282 finds no margin value there today. **It expires at critic #50 unless that lap re-states it after
+re-reading them.** It freezes no file and no question: `README.md:326-355` was written four lines below it this
+window, which is the kind of edit it permits.
+
+*(Superseded lead, kept as the record.)* **Tick count, critic #48, 2026-09-09T0526Z at `5f4e32b`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
 R3, R11 and R12 are the three that do not tick; R10 was withdrawn 2026-09-04.** ⚠⚠ **ZERO lines ticked, for
 the FIFTH consecutive critic lap.** The count has stood at 8 since critic #43 ticked R8 at 2026-09-08T1429Z,
 and #44, #45, #46, #47 and #48 each ticked nothing.
@@ -303,7 +364,7 @@ report in the window carries `Reviewed by:`.
 - ⚠ **No `Do NOT edit` note is written by this lap** (CHARTER §14c, NH-036 A). WFG-187 must rebuild `web/finals.html`
   and WFG-010 must edit `README.md`; freezing either would block the fix.
 
-*(Superseded lead, kept as the record.)* **Tick count, critic #41, 2026-09-08T0819Z: 7 of 11 (R1, R2, R4, R5, R6, R7, R9), unchanged, and ZERO lines ticked
+*(Superseded lead, kept as the record.)* **Tick count, critic #41, 2026-09-08T0820Z: 7 of 11 (R1, R2, R4, R5, R6, R7, R9), unchanged, and ZERO lines ticked
 for the SECOND consecutive critic lap.** That fires the direction finding the routine prompt defines, and it is a
 finding about the loop's aim rather than about the product. Re-derived at `9329400` on the routine's **default**
 clone, before any deepening: `git rev-parse --is-shallow-repository` = **true**, `git rev-list --count HEAD` = **50**,

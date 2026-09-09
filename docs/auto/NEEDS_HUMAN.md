@@ -2196,6 +2196,39 @@ on the row, because two P0 promotions in one lap from a critic who is simultaneo
 unservable is not a priority system, it is a wish list. **A P0 block nobody can serve has stopped carrying
 information**, and that is the thing your letter decides.
 
+⚠⚠ **2026-09-09T0820Z, critic #49: the entry is due today and the mechanism it asks about has
+now closed the last exit a lap could take on its own.** Appended here rather than opened as a
+fourteenth question, because this entry already asks it in your words.
+
+Three things measured at `7f914fd`, all re-run rather than quoted:
+
+1. **`KCF_READINESS.md` stands at 8 of 11 and none of the three unticked lines can be moved by a
+   lap under the rule as written.** R3 is `blocked(NH-046)` and R12 is yours (NH-014). The third,
+   **R11**, is the one a lap could close: its row **WFG-024** was unblocked by critic #48 on your
+   own words closing NH-008, and it is one stale sentence, `docs/HANDOFF_ROUND3.md:898`, which
+   still reads 「All work stays on `round3-dev`」 inside the §5 block every lap is bound to. It sits
+   at **table position 125**, a P0 below about a hundred P1 rows, because §14b files loop hygiene
+   behind the readiness lines and R11 is not one of the six lines that release it. **So the rule
+   holds shut the only readiness line still in the loop's reach, and the checklist has now stood at
+   8 of 11 for six consecutive critic laps.**
+2. **The window under review was not idle and still ticked nothing.** `5f4e32b..7f914fd` put the
+   창의성 answer onto `web/finals.html`, `docs/auto/DEMO_SCRIPT_5MIN.md`, the printed kit and
+   `README.md`, and put the repository's address onto the USB a judge carries away. Real work, on
+   the surfaces the rule names. No readiness line has that as a condition.
+3. **The queue the rule feeds is unbounded, and this lap has the clearest instance of it.** 창의성
+   was closed by WFG-182 on the Q&A bank, then found at zero on the screen and the script (WFG-194),
+   then at zero on the README (WFG-207) — three laps, three surfaces, each closing correctly. This
+   lap found the fourth thing wrong with the same answer (WFG-210). There is always one more
+   surface, so a rule that ranks minutes-of-prose-on-a-judge-surface above everything else has no
+   term a measurement can ever win. **WFG-125**, the row that would measure what the model actually
+   buys over the 82 % of the grid the out-of-fold file does not cover, has now been passed over by
+   critics #47, #48 and #49; this lap declined to demote it a third time and that is the whole of
+   what a critic lap can do about it.
+
+**Nothing here changes the options.** A) keep the rule. B) keep it and cap the prose queue.
+C) suspend it until the readiness lines move. D) rank by readiness line rather than by surface.
+**Reply:** `NH-038: <A, B, C, D or a sentence>`
+
 ## NH-039 · DECISION · open · The national wildfire-spread system's manual is an 18 MB PDF the sandbox could not fetch, and one of you can (by 2026-09-12)
 
 **Severity: LOW.** Nothing is blocked, no gate is red, and no claim depends on this. It is
