@@ -323,6 +323,36 @@ fire-blind 대비가 예보의 공으로 돌리던 것의 **대부분을, 모델
   빈 리눅스 머신에서 다시 돌립니다(`.github/workflows/auto-gates.yml`). 이
   저장소의 수치는 **이 노트북에서만 맞는 수치가 아닙니다.**
 
+### 5. 창의성 — 이 작품이 직접 만든 것
+
+⚠ 아래는 **무엇을 만들었는지**만 적습니다. 그것이 얼마나 뛰어난지는 적지 않습니다.
+그 판정은 심사위원의 몫이고, 저장소가 스스로에게 줄 수 있는 점수가 아니기 때문입니다.
+
+- **① 산출물 자체가 기여입니다.** 확산 예측 격자는 최종 결과물이 아니라 중간 입력이고,
+  이 시스템이 내놓는 것은 **가구 단위의 「걸어서 나갈 수 있는가 / 구조를 보내야 하는가」
+  판정과 그 도보 경로**입니다. 예측 정확도로 겨루지 않고 산출물의 모양으로 겨루는 쪽을
+  택했다는 뜻입니다.
+  → [`docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md`](docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md)
+- **② 두 축이 동시에 실제인 실행.** 실제 OpenStreetMap 보행 그래프와 실제 전진
+  시뮬레이션 확산면을 한 실행 안에서 함께 돌렸고, 그것이 이 프로젝트가 스스로 가장 크다고
+  적어 두었던 한계를 닫은 지점입니다.
+  → [`docs/real_roads_real_hazard.md`](docs/real_roads_real_hazard.md)
+- **③ 철회한 주장을 기계가 읽도록 등록합니다.** 틀린 것으로 밝혀진 문장을 지우는 대신
+  등록부에 남기고, `make verify` 가 매 push 마다 추적 문서를 상대로 그 표현을 다시
+  찾습니다. 자기 교정을 관행이 아니라 **게이트**로 만든 것이 이 항목입니다.
+  → [`docs/auto/withdrawn_claims.json`](docs/auto/withdrawn_claims.json),
+  [`scripts/check_withdrawn_claims.py`](scripts/check_withdrawn_claims.py)
+
+⚠ **없는 것.** ③의 등록부는 복사·붙여넣기를 막는 래칫이지 주장 탐지기가 아니어서
+**다시 쓴 문장은 빠져나갑니다**; 검사 범위는 추적되는 `.md` 와 `.html` 뿐이고, 자동 루프가
+스스로 남기는 **기록 문서**는 설계상 제외됩니다([`docs/withdrawn_claims.md`](docs/withdrawn_claims.md) §4).
+그리고 위의 것들이 창의적인지, 애초에 이 세 가지가 옳은 세 가지인지는
+**심사위원의 판단입니다.**
+
+같은 답을 부스에서는 본선 화면의 「시스템 구조」 탭과 질의응답 카드 **Q29a** 가 말합니다.
+이 답변이 왜 이 문체로 — 자평 없이, 다른 시스템과의 비교 없이 — 쓰였는지는
+[`docs/creativity_card.md`](docs/creativity_card.md) 에 적혀 있습니다.
+
 영문 초록 초안은 아래 [Abstract (draft)](#abstract-draft) 에 있습니다.
 
 ---

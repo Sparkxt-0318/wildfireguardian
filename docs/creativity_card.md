@@ -303,3 +303,111 @@ mutations that grade them, in one session — verifier equals designer. That is
 why the mutation set here has two sources, and why the reviewer's eight were
 written without seeing the lap's eight. The item-level anchor hole is what
 survived both sets: it is **WFG-206**.
+
+---
+
+## 7. The front door (WFG-207, 2026-09-09)
+
+*Method proposed by the loop, not by the student (CHARTER §9). Like §6 this is an
+**assembly** of the three claims already in §2 onto a surface that already
+existed: no experiment, no model, no arm, no region (CHARTER §3.4).*
+
+### What was silent, and how it was missed
+
+WFG-194 named three surfaces — `web/finals.html`, `docs/auto/DEMO_SCRIPT_5MIN.md`
+and, on the way, the printed kit — and delivered all three. Critic #48 then
+measured the fourth, which no row had named: a raw count of 창의 or 독창 answered
+**0 on `README.md`**. That is the page a judge opens before the booth, and it is
+the page this loop had spent a whole window writing a Round-4 section into while
+the word it is scored on did not occur once.
+
+The useful part is *how* it stayed at zero. WFG-182's scope was a card, WFG-194's
+scope was the two surfaces the student stands in front of, and both closed
+correctly on their own scope. **A surface that is in nobody's scope is not
+caught by any lap doing its row properly**; it is caught by someone re-measuring
+the whole set. That is what the critic lap is for, and it took four of them.
+
+### What shipped
+
+`README.md` gains **§5 창의성 — 이 작품이 직접 만든 것** inside Round 4, below §4
+and above the abstract pointer. The same three items, in the same descriptive
+register, each on its own line with its own repository path as a link, plus the
+없는 것 limit for item ③, the closing line that the verdict is the judge's, and a
+pointer to this page and to Q29a. The README's opening paragraph and its Round-2
+section are untouched (CHARTER §3.12), and no margin value was written anywhere
+in the Round-4 fair-opponent block while NH-032 and NH-034 are open.
+
+### The row's own 「done when」 could not be met as written, and this is what replaced it
+
+The row asks for a gate that reads **「the rendered README and not a source
+file」**. There is no rendered README: nothing in this tree builds it — the only
+`README.md` string in `scripts/` is inside a printables body paragraph — so
+`README.md` is at once the source and the artifact a judge opens, unlike
+`web/finals.html`, which `make finals` builds from `scripts/finals.template.html`
+and which is why WFG-194's gates could read the wrong file.
+
+So the property a source-reading gate genuinely misses here is not a build step.
+It is **the link**. What a judge does on the front door is press on a path, and
+the only thing that makes the claim real to them is that the file opens.
+`test_every_link_in_the_readme_block_opens` resolves every link target in the
+block against the tree, which is as close to reading what the judge is handed as
+a filesystem gets.
+
+**And the pairing is bound item by item, which is WFG-206's hole closed on this
+one surface.** WFG-206 exists because the screen block passes every assertion
+with two anchors transposed: the checks ask whether the paths appear *somewhere*.
+Here the block is cut at its ①②③ markers and each chunk must name its own
+anchors and none of another item's, so a transposition is red. ⚠ **WFG-206 stays
+open**: the screen and the Q29a card are unchanged, and this closes the hole on
+the newest surface only.
+
+### Mutations
+
+Ten were run against the five new gates. **Nine are red:**
+
+| mutation | red |
+|---|---|
+| delete the block heading | ✅ |
+| transpose items ① and ② anchors (the WFG-206 shape) | ✅ |
+| point item ② at a path that is not in the tree | ✅ |
+| a bare novelty claim (「국내에서 이런 접근은 이번이 처음입니다」) | ✅ |
+| a sentence about another operational system | ✅ |
+| a digit count of this repository's own state (「12건」) | ✅ |
+| the Korean-numeral form of the same (「여섯 건」) | ✅ |
+| delete the reworded-claim limit | ✅ |
+| delete the 「심사위원의 판단입니다」 line | ✅ |
+
+**The tenth stays green, and it is M8 again**: rewriting the opening from the
+descriptive register into the evaluative one, keeping all three items, all their
+anchors, no other system, no count and both limit sentences. Nothing here reads
+tone, on this surface any more than on the other three.
+
+⚠ **One thing the mutation run itself taught, and it is why M8 was re-run.** The
+first attempt at the M8 mutation went **red** — and for the wrong reason. It
+opened with 「아래 세 항목은」, and 항목 is on this file's own counter list, so the
+count gate fired on structural prose about the block's own shape. A mutation that
+goes red for a reason other than the one it tests reports coverage the gate does
+not have; it was rewritten without a counter word and then stayed green, which is
+the honest result. Two of §5's mutations were originally green for the mirror-image
+reason, so this is the same lesson from the other side.
+
+### One measured false positive, excluded rather than papered over
+
+The block sends a reader to Q&A card **Q29a**, and the card's count gate reads a
+multi-digit run as a count — 29 is a card ID. The card-ID shape is removed before
+the scan rather than dropping the multi-digit half (which is what the screen's
+version of this check does), because the front door is the one page where a stale
+headline number would be read first.
+
+### What this does NOT show
+
+- **The word is now reachable on four surfaces; that is not a mark.** A keyword
+  count is satisfied by typing the word. What the gates hold is the anchor
+  pairing, the register and the limits, and none of them can tell whether these
+  are the right three items or whether a judge finds them creative.
+- **It says nothing about whether a judge scrolls that far.** §5 sits below four
+  other Round-4 sections on a 1,100-line page. The finals screen and the spoken
+  script are the surfaces that do not depend on scrolling, and they carry the
+  same three items (§6).
+- **The evaluative-register rewrite is still uncaught here**, as it is
+  everywhere else in this file.

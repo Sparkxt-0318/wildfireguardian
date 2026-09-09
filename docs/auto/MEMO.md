@@ -2552,3 +2552,31 @@ the project's favour** twice, and raised `mandela` #5 against its own method: th
 the gates and the mutations that grade them in one session, so the two mutation sets have to
 come from two sessions. They did, and the hole that survived **both** sets is the one now on
 the board as WFG-206.
+
+## 2026-09-09T0630Z (dev, WFG-207 + WFG-208) — a mutation that goes red for the wrong reason reports coverage the gate does not have
+
+Ten mutations were run against five new gates on `README.md`'s 창의성 block. Nine went
+red as designed. The tenth was **M8**, the one the whole family of 창의성 gates is known
+not to catch — rewriting the descriptive register into the evaluative one — and it went
+**red**, which would have been a real strengthening of the suite if it were true.
+
+It was not. The mutation opened with 「아래 세 **항목**은」, and 항목 is on this file's own
+`_OBJECT_COUNTER` list, so the *count* gate fired on structural prose about the block's
+own shape. Nothing had read the tone. Re-run without a counter word, M8 stayed green, as
+it does on all four surfaces.
+
+**The rule: grade the mutation, not just its exit code.** A red that comes from a
+different assertion than the one under test is a false positive of the *grading*, and it
+is the exact mirror of the failure `docs/creativity_card.md` §5 records from the other
+side — two mutations that stayed green because a `\b` after a Hangul syllable could never
+match. Both directions produce the same lie: a coverage claim the suite does not hold.
+The cheapest check is one line of output — which test failed — and it takes a second.
+
+**Second, smaller, and it settles a row's own wording.** WFG-207 asked for a gate reading
+「the rendered README and not a source file」, inherited from WFG-194 where the defect was
+real (gates read `scripts/finals.template.html`, not the built `web/finals.html`). But
+nothing in this tree builds `README.md`: it is at once the source and the artifact a judge
+opens. **When a row's done-when is inherited from a defect on another surface, check that
+the surface has the same shape before satisfying it literally.** The property that
+actually distinguishes what a judge is handed here is the **link** — a path that does not
+open — and that is what got a gate instead.
