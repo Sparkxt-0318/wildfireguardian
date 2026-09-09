@@ -3021,3 +3021,69 @@ D) Something else — one line, and the next lap does it.
 lap re-confirms does not exist in `docs/auto/CHARTER.md`), NH-050 (`open`, the channel finding
 this entry corrects one clause of) and WFG-211 (the second reply channel CHARTER §6 names is a
 pull request that merged on 2026-09-05).
+
+## NH-052 · DECISION · open · The experiment that measures what your own forecast is worth is now one run away, and it would change what 42 means (by 2026-09-12)
+
+**Severity: HIGH — this is the one your front door already asks.** `README.md`'s TL;DR
+tells every reader that **42 of 458** is 「an upper bound: it is what a *noiseless* forecast
+would buy, not what this project's own model buys, which is less by an amount no run here
+measures」. WFG-125 was the row that would measure it, and four critic laps ranked it below
+newer rows because the run was costed as unaffordable.
+
+**It is affordable, and the reason it looked expensive is that everyone was reaching for the
+wrong file.** `docs/oracle_gap.md` and `data/processed/oracle_gap_yeongdeok.json`, added this
+lap, record the measurement. The short version:
+
+- The forecast-aware arm was believed to plan on the graded truth. It does not. It plans on
+  `haz_stack` in `data/processed/routing_demo_canonical.npz`, which is a **leave-one-fire-out
+  forward simulation** — already a model output, on a fire the model never trained on.
+- What makes it an oracle is that the **grader** uses that same array as if it were truth.
+- The observation is committed **in the same file**, on the same 500 m grid: `obs_stack`, the
+  cumulative FIRMS footprint. Nothing scores against it.
+- So removing the oracle needs no new planning field, and therefore **no fill rule** for the
+  ~82 % of cells the out-of-fold sample never scores. Critic #47's cost was correct for the
+  instrument it assumed and that instrument is not the one required.
+- Measured, at the best time-matched pair (27 minutes apart): the simulation puts **952**
+  cells in the fire where **937** burned — within 2 % on area — and only **534** are the same
+  cells (IoU **0.394**, which independently re-derives the ≈ 0.40 figure `docs/MODEL_CARD.md`
+  already reports from a different artifact). **Right size, wrong place**, and routing depends
+  only on the place.
+
+**Why you and not a lap.** Re-grading the three arms against `obs_stack` is routing-only — no
+refit, no re-acquisition, no new data — but the margin it produces **changes what a committed,
+judged headline number means**. 42 and 91 are cited by your submission documents. CHARTER §6
+makes that yours. A lap may not decide it, and this lap has not: nothing on any judge-facing
+surface moved, and `docs/oracle_gap.md` states in its own §7 that it produces no margin.
+
+**Two things that are honestly hard about the run, stated before it is authorised rather than
+after.** (1) The time grids do not line up — `haz_times` are 0/180/360/540/720 min and
+`obs_times` are 0/333/1005/1480/1812/2403 — so reading `obs_stack` between observations needs a
+rule, and that rule is a free parameter that must be written down **before** the run, or it
+becomes the post-hoc maximum WFG-201 was filed about. (2) `obs_stack` is FIRMS at a 500 m
+resample with a detection floor (`docs/detection_floor.md`), so it is an **observation**, not
+ground truth; the run would measure the model against what was seen, which is the honest
+available target and is not the same as measuring it against the fire.
+
+⚠ And the region asymmetry, which is the part that will annoy you: the fair-opponent margins
+(9, 27) come from 의성·안동, and `data/processed/hazard_uiseong_andong_2025.npz` carries
+**no** `obs_stack` at all. So this check is possible today on 영덕 (the 42) and **not** on
+의성·안동 (the 9 and the 27) from committed data. A test pins that claim so it goes red if a
+later lap adds the array.
+
+**Options:** A) **Run it on 영덕 and report whatever it says**, as you decided for the fair
+opponent in NH-027 — the between-observations rule is written down and committed before the
+run, the result lands in `docs/` only, and no judge-facing surface moves until you have read
+it. This is WFG-213 and it is a lap. B) **Run it and, if the margin survives, put it on the
+judge-facing surfaces too** — the stronger claim if it holds, and the one that would let the
+student answer 「선생님 모델이 실제로 벌어 주는 값은 얼마입니까?」 with a number instead of a
+document. C) **Do not run it before the finals.** The front door keeps its 「an amount no run
+here measures」 sentence, which is honest, and the row waits for ISEF. D) Something else — one
+line and the next lap does it.
+
+**What the loop does until you answer.** Nothing further on this thread. WFG-213 is filed
+`blocked(NH-052)` and no lap starts it. Every other row keeps moving (CHARTER §6).
+
+**Related.** WFG-125 (`done` this lap — the measurement and the correction to the row's own
+premise), WFG-213 (the run itself, blocked on this), NH-032 and NH-034 (`open`, overdue — the
+fair-opponent margins this would re-express), and `docs/present_perimeter_arm.md` §5, whose
+「9 is the margin a **perfect** forecast buys」 is the sentence this entry is about.

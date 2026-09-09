@@ -14169,6 +14169,981 @@
           }
         }
       }
+    },
+    "og_yeongdeok_horizon_min": {
+      "value": 360.0,
+      "unit": "minutes",
+      "source_file": "data/processed/oracle_gap_yeongdeok.json",
+      "json_path": "headline.haz_time_min",
+      "derivation": "the forward-simulation slice quoted: the one whose observation is nearest in time, excluding t=0. Regenerate: python scripts/measure_oracle_gap.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "f9183b0ada5d753c847ada58f49868660737caf5",
+      "sample": "영덕 2025 · routing_demo_canonical.npz · 181x156 @ 500 m · p_cut 0.5",
+      "caveat": "FIELD-TO-FIELD COMPARISON, ONE FIRE, NOT A ROUTING RESULT. This compares the hazard field the canonical router PLANS on (`haz_stack`, the leave-one-fire-out forward simulation) against the cumulative FIRMS-observed footprint (`obs_stack`) in the SAME committed npz and on the SAME 500 m grid. Six facts travel together or none may be quoted: (1) it produces NO margin and moves no committed number — 42, 91, 9 and 27 are untouched by it, and converting this gap into origins saved requires the re-grading run that has not been done; (2) the two stacks are compared at the nearest available times, not identical ones, and the quoted slice is the best-matched pair (27 minutes apart) with every other pair in the artifact; (3) `obs_stack` is a FIRMS-derived observation with its own detection floor (docs/detection_floor.md) and 500 m resampling, so it is an observation and NOT ground truth — a missed cell may be a cell FIRMS did not see; (4) the t=0 slice agrees perfectly by construction, because both stacks are seeded from the same detection, and is excluded from the headline for that reason. (5) The IoU here is NOT an independent confirmation of the ~0.40 footprint figure docs/MODEL_CARD.md reports: it recomputes the SAME quantity as spread_v2/forward_sim.py's drift_vs_observed — same p_cut, same nearest-observation matching, same estimator, same leave-target-out fit, same fire — differing only in the canvas (181x147 -> 181x156). The agreement is close to mechanical and is a consistency check on the canvas change, not corroboration. (6) The size agreement is a property of the quoted slice, not of the model: across the artifact the area ratios are 0.74 / 1.02 / 1.05 / 1.05, so at 3 h the simulation is 26 % UNDER. The place disagreement is the stable finding; the size agreement is not.",
+      "forbidden_phrasings": [
+        "the model is wrong about where the fire goes",
+        "the forecast is useless",
+        "예보가 쓸모없다",
+        "the model gets the fire wrong",
+        "IoU 0.39 is the routing margin",
+        "the oracle gap is measured",
+        "this measures what the model buys"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_oracle_gap.py rebuilds the artifact from the committed routing_demo_canonical.npz alone, with no DEM, no network access and no fitted model — it reads two arrays out of one file and counts cells.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "field_comparison",
+      "notes": "docs/oracle_gap.md states the method, what it answers for WFG-125 and what it does NOT show. It is a field-to-field comparison and produces no routing margin.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/oracle_gap_yeongdeok.json",
+            "json_path": "headline.haz_time_min"
+          }
+        }
+      }
+    },
+    "og_yeongdeok_obs_time_min": {
+      "value": 333.0,
+      "unit": "minutes",
+      "source_file": "data/processed/oracle_gap_yeongdeok.json",
+      "json_path": "headline.obs_time_min",
+      "derivation": "the observation time it is compared against. Regenerate: python scripts/measure_oracle_gap.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "f9183b0ada5d753c847ada58f49868660737caf5",
+      "sample": "영덕 2025 · routing_demo_canonical.npz · 181x156 @ 500 m · p_cut 0.5",
+      "caveat": "FIELD-TO-FIELD COMPARISON, ONE FIRE, NOT A ROUTING RESULT. This compares the hazard field the canonical router PLANS on (`haz_stack`, the leave-one-fire-out forward simulation) against the cumulative FIRMS-observed footprint (`obs_stack`) in the SAME committed npz and on the SAME 500 m grid. Six facts travel together or none may be quoted: (1) it produces NO margin and moves no committed number — 42, 91, 9 and 27 are untouched by it, and converting this gap into origins saved requires the re-grading run that has not been done; (2) the two stacks are compared at the nearest available times, not identical ones, and the quoted slice is the best-matched pair (27 minutes apart) with every other pair in the artifact; (3) `obs_stack` is a FIRMS-derived observation with its own detection floor (docs/detection_floor.md) and 500 m resampling, so it is an observation and NOT ground truth — a missed cell may be a cell FIRMS did not see; (4) the t=0 slice agrees perfectly by construction, because both stacks are seeded from the same detection, and is excluded from the headline for that reason. (5) The IoU here is NOT an independent confirmation of the ~0.40 footprint figure docs/MODEL_CARD.md reports: it recomputes the SAME quantity as spread_v2/forward_sim.py's drift_vs_observed — same p_cut, same nearest-observation matching, same estimator, same leave-target-out fit, same fire — differing only in the canvas (181x147 -> 181x156). The agreement is close to mechanical and is a consistency check on the canvas change, not corroboration. (6) The size agreement is a property of the quoted slice, not of the model: across the artifact the area ratios are 0.74 / 1.02 / 1.05 / 1.05, so at 3 h the simulation is 26 % UNDER. The place disagreement is the stable finding; the size agreement is not.",
+      "forbidden_phrasings": [
+        "the model is wrong about where the fire goes",
+        "the forecast is useless",
+        "예보가 쓸모없다",
+        "the model gets the fire wrong",
+        "IoU 0.39 is the routing margin",
+        "the oracle gap is measured",
+        "this measures what the model buys"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_oracle_gap.py rebuilds the artifact from the committed routing_demo_canonical.npz alone, with no DEM, no network access and no fitted model — it reads two arrays out of one file and counts cells.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "field_comparison",
+      "notes": "docs/oracle_gap.md states the method, what it answers for WFG-125 and what it does NOT show. It is a field-to-field comparison and produces no routing margin.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/oracle_gap_yeongdeok.json",
+            "json_path": "headline.obs_time_min"
+          }
+        }
+      }
+    },
+    "og_yeongdeok_time_gap_min": {
+      "value": 27.0,
+      "unit": "minutes",
+      "source_file": "data/processed/oracle_gap_yeongdeok.json",
+      "json_path": "headline.time_gap_min",
+      "derivation": "how far apart in time the two compared slices are — the residual unfairness of the comparison, reported rather than hidden. Regenerate: python scripts/measure_oracle_gap.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "f9183b0ada5d753c847ada58f49868660737caf5",
+      "sample": "영덕 2025 · routing_demo_canonical.npz · 181x156 @ 500 m · p_cut 0.5",
+      "caveat": "FIELD-TO-FIELD COMPARISON, ONE FIRE, NOT A ROUTING RESULT. This compares the hazard field the canonical router PLANS on (`haz_stack`, the leave-one-fire-out forward simulation) against the cumulative FIRMS-observed footprint (`obs_stack`) in the SAME committed npz and on the SAME 500 m grid. Six facts travel together or none may be quoted: (1) it produces NO margin and moves no committed number — 42, 91, 9 and 27 are untouched by it, and converting this gap into origins saved requires the re-grading run that has not been done; (2) the two stacks are compared at the nearest available times, not identical ones, and the quoted slice is the best-matched pair (27 minutes apart) with every other pair in the artifact; (3) `obs_stack` is a FIRMS-derived observation with its own detection floor (docs/detection_floor.md) and 500 m resampling, so it is an observation and NOT ground truth — a missed cell may be a cell FIRMS did not see; (4) the t=0 slice agrees perfectly by construction, because both stacks are seeded from the same detection, and is excluded from the headline for that reason. (5) The IoU here is NOT an independent confirmation of the ~0.40 footprint figure docs/MODEL_CARD.md reports: it recomputes the SAME quantity as spread_v2/forward_sim.py's drift_vs_observed — same p_cut, same nearest-observation matching, same estimator, same leave-target-out fit, same fire — differing only in the canvas (181x147 -> 181x156). The agreement is close to mechanical and is a consistency check on the canvas change, not corroboration. (6) The size agreement is a property of the quoted slice, not of the model: across the artifact the area ratios are 0.74 / 1.02 / 1.05 / 1.05, so at 3 h the simulation is 26 % UNDER. The place disagreement is the stable finding; the size agreement is not.",
+      "forbidden_phrasings": [
+        "the model is wrong about where the fire goes",
+        "the forecast is useless",
+        "예보가 쓸모없다",
+        "the model gets the fire wrong",
+        "IoU 0.39 is the routing margin",
+        "the oracle gap is measured",
+        "this measures what the model buys"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_oracle_gap.py rebuilds the artifact from the committed routing_demo_canonical.npz alone, with no DEM, no network access and no fitted model — it reads two arrays out of one file and counts cells.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "field_comparison",
+      "notes": "docs/oracle_gap.md states the method, what it answers for WFG-125 and what it does NOT show. It is a field-to-field comparison and produces no routing margin.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/oracle_gap_yeongdeok.json",
+            "json_path": "headline.time_gap_min"
+          }
+        }
+      }
+    },
+    "og_yeongdeok_predicted_cells": {
+      "value": 952,
+      "unit": "cells",
+      "source_file": "data/processed/oracle_gap_yeongdeok.json",
+      "json_path": "headline.predicted_cells",
+      "derivation": "cells in the forward-simulated core (p >= 0.5) at the quoted slice. Regenerate: python scripts/measure_oracle_gap.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "f9183b0ada5d753c847ada58f49868660737caf5",
+      "sample": "영덕 2025 · routing_demo_canonical.npz · 181x156 @ 500 m · p_cut 0.5",
+      "caveat": "FIELD-TO-FIELD COMPARISON, ONE FIRE, NOT A ROUTING RESULT. This compares the hazard field the canonical router PLANS on (`haz_stack`, the leave-one-fire-out forward simulation) against the cumulative FIRMS-observed footprint (`obs_stack`) in the SAME committed npz and on the SAME 500 m grid. Six facts travel together or none may be quoted: (1) it produces NO margin and moves no committed number — 42, 91, 9 and 27 are untouched by it, and converting this gap into origins saved requires the re-grading run that has not been done; (2) the two stacks are compared at the nearest available times, not identical ones, and the quoted slice is the best-matched pair (27 minutes apart) with every other pair in the artifact; (3) `obs_stack` is a FIRMS-derived observation with its own detection floor (docs/detection_floor.md) and 500 m resampling, so it is an observation and NOT ground truth — a missed cell may be a cell FIRMS did not see; (4) the t=0 slice agrees perfectly by construction, because both stacks are seeded from the same detection, and is excluded from the headline for that reason. (5) The IoU here is NOT an independent confirmation of the ~0.40 footprint figure docs/MODEL_CARD.md reports: it recomputes the SAME quantity as spread_v2/forward_sim.py's drift_vs_observed — same p_cut, same nearest-observation matching, same estimator, same leave-target-out fit, same fire — differing only in the canvas (181x147 -> 181x156). The agreement is close to mechanical and is a consistency check on the canvas change, not corroboration. (6) The size agreement is a property of the quoted slice, not of the model: across the artifact the area ratios are 0.74 / 1.02 / 1.05 / 1.05, so at 3 h the simulation is 26 % UNDER. The place disagreement is the stable finding; the size agreement is not.",
+      "forbidden_phrasings": [
+        "the model is wrong about where the fire goes",
+        "the forecast is useless",
+        "예보가 쓸모없다",
+        "the model gets the fire wrong",
+        "IoU 0.39 is the routing margin",
+        "the oracle gap is measured",
+        "this measures what the model buys"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_oracle_gap.py rebuilds the artifact from the committed routing_demo_canonical.npz alone, with no DEM, no network access and no fitted model — it reads two arrays out of one file and counts cells.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "field_comparison",
+      "notes": "docs/oracle_gap.md states the method, what it answers for WFG-125 and what it does NOT show. It is a field-to-field comparison and produces no routing margin.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/oracle_gap_yeongdeok.json",
+            "json_path": "headline.predicted_cells"
+          }
+        }
+      }
+    },
+    "og_yeongdeok_observed_cells": {
+      "value": 937,
+      "unit": "cells",
+      "source_file": "data/processed/oracle_gap_yeongdeok.json",
+      "json_path": "headline.observed_cells",
+      "derivation": "cells in the cumulative FIRMS-observed footprint at the matched time. Regenerate: python scripts/measure_oracle_gap.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "f9183b0ada5d753c847ada58f49868660737caf5",
+      "sample": "영덕 2025 · routing_demo_canonical.npz · 181x156 @ 500 m · p_cut 0.5",
+      "caveat": "FIELD-TO-FIELD COMPARISON, ONE FIRE, NOT A ROUTING RESULT. This compares the hazard field the canonical router PLANS on (`haz_stack`, the leave-one-fire-out forward simulation) against the cumulative FIRMS-observed footprint (`obs_stack`) in the SAME committed npz and on the SAME 500 m grid. Six facts travel together or none may be quoted: (1) it produces NO margin and moves no committed number — 42, 91, 9 and 27 are untouched by it, and converting this gap into origins saved requires the re-grading run that has not been done; (2) the two stacks are compared at the nearest available times, not identical ones, and the quoted slice is the best-matched pair (27 minutes apart) with every other pair in the artifact; (3) `obs_stack` is a FIRMS-derived observation with its own detection floor (docs/detection_floor.md) and 500 m resampling, so it is an observation and NOT ground truth — a missed cell may be a cell FIRMS did not see; (4) the t=0 slice agrees perfectly by construction, because both stacks are seeded from the same detection, and is excluded from the headline for that reason. (5) The IoU here is NOT an independent confirmation of the ~0.40 footprint figure docs/MODEL_CARD.md reports: it recomputes the SAME quantity as spread_v2/forward_sim.py's drift_vs_observed — same p_cut, same nearest-observation matching, same estimator, same leave-target-out fit, same fire — differing only in the canvas (181x147 -> 181x156). The agreement is close to mechanical and is a consistency check on the canvas change, not corroboration. (6) The size agreement is a property of the quoted slice, not of the model: across the artifact the area ratios are 0.74 / 1.02 / 1.05 / 1.05, so at 3 h the simulation is 26 % UNDER. The place disagreement is the stable finding; the size agreement is not.",
+      "forbidden_phrasings": [
+        "the model is wrong about where the fire goes",
+        "the forecast is useless",
+        "예보가 쓸모없다",
+        "the model gets the fire wrong",
+        "IoU 0.39 is the routing margin",
+        "the oracle gap is measured",
+        "this measures what the model buys"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_oracle_gap.py rebuilds the artifact from the committed routing_demo_canonical.npz alone, with no DEM, no network access and no fitted model — it reads two arrays out of one file and counts cells.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "field_comparison",
+      "notes": "docs/oracle_gap.md states the method, what it answers for WFG-125 and what it does NOT show. It is a field-to-field comparison and produces no routing margin.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/oracle_gap_yeongdeok.json",
+            "json_path": "headline.observed_cells"
+          }
+        }
+      }
+    },
+    "og_yeongdeok_intersection_cells": {
+      "value": 534,
+      "unit": "cells",
+      "source_file": "data/processed/oracle_gap_yeongdeok.json",
+      "json_path": "headline.intersection_cells",
+      "derivation": "cells that are in BOTH — predicted to burn and observed to burn. Regenerate: python scripts/measure_oracle_gap.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "f9183b0ada5d753c847ada58f49868660737caf5",
+      "sample": "영덕 2025 · routing_demo_canonical.npz · 181x156 @ 500 m · p_cut 0.5",
+      "caveat": "FIELD-TO-FIELD COMPARISON, ONE FIRE, NOT A ROUTING RESULT. This compares the hazard field the canonical router PLANS on (`haz_stack`, the leave-one-fire-out forward simulation) against the cumulative FIRMS-observed footprint (`obs_stack`) in the SAME committed npz and on the SAME 500 m grid. Six facts travel together or none may be quoted: (1) it produces NO margin and moves no committed number — 42, 91, 9 and 27 are untouched by it, and converting this gap into origins saved requires the re-grading run that has not been done; (2) the two stacks are compared at the nearest available times, not identical ones, and the quoted slice is the best-matched pair (27 minutes apart) with every other pair in the artifact; (3) `obs_stack` is a FIRMS-derived observation with its own detection floor (docs/detection_floor.md) and 500 m resampling, so it is an observation and NOT ground truth — a missed cell may be a cell FIRMS did not see; (4) the t=0 slice agrees perfectly by construction, because both stacks are seeded from the same detection, and is excluded from the headline for that reason. (5) The IoU here is NOT an independent confirmation of the ~0.40 footprint figure docs/MODEL_CARD.md reports: it recomputes the SAME quantity as spread_v2/forward_sim.py's drift_vs_observed — same p_cut, same nearest-observation matching, same estimator, same leave-target-out fit, same fire — differing only in the canvas (181x147 -> 181x156). The agreement is close to mechanical and is a consistency check on the canvas change, not corroboration. (6) The size agreement is a property of the quoted slice, not of the model: across the artifact the area ratios are 0.74 / 1.02 / 1.05 / 1.05, so at 3 h the simulation is 26 % UNDER. The place disagreement is the stable finding; the size agreement is not.",
+      "forbidden_phrasings": [
+        "the model is wrong about where the fire goes",
+        "the forecast is useless",
+        "예보가 쓸모없다",
+        "the model gets the fire wrong",
+        "IoU 0.39 is the routing margin",
+        "the oracle gap is measured",
+        "this measures what the model buys"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_oracle_gap.py rebuilds the artifact from the committed routing_demo_canonical.npz alone, with no DEM, no network access and no fitted model — it reads two arrays out of one file and counts cells.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "field_comparison",
+      "notes": "docs/oracle_gap.md states the method, what it answers for WFG-125 and what it does NOT show. It is a field-to-field comparison and produces no routing margin.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/oracle_gap_yeongdeok.json",
+            "json_path": "headline.intersection_cells"
+          }
+        }
+      }
+    },
+    "og_yeongdeok_false_alarm_cells": {
+      "value": 418,
+      "unit": "cells",
+      "source_file": "data/processed/oracle_gap_yeongdeok.json",
+      "json_path": "headline.false_alarm_cells",
+      "derivation": "cells the simulation put in the fire core that the observation does not record burning at the matched time. Regenerate: python scripts/measure_oracle_gap.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "f9183b0ada5d753c847ada58f49868660737caf5",
+      "sample": "영덕 2025 · routing_demo_canonical.npz · 181x156 @ 500 m · p_cut 0.5",
+      "caveat": "FIELD-TO-FIELD COMPARISON, ONE FIRE, NOT A ROUTING RESULT. This compares the hazard field the canonical router PLANS on (`haz_stack`, the leave-one-fire-out forward simulation) against the cumulative FIRMS-observed footprint (`obs_stack`) in the SAME committed npz and on the SAME 500 m grid. Six facts travel together or none may be quoted: (1) it produces NO margin and moves no committed number — 42, 91, 9 and 27 are untouched by it, and converting this gap into origins saved requires the re-grading run that has not been done; (2) the two stacks are compared at the nearest available times, not identical ones, and the quoted slice is the best-matched pair (27 minutes apart) with every other pair in the artifact; (3) `obs_stack` is a FIRMS-derived observation with its own detection floor (docs/detection_floor.md) and 500 m resampling, so it is an observation and NOT ground truth — a missed cell may be a cell FIRMS did not see; (4) the t=0 slice agrees perfectly by construction, because both stacks are seeded from the same detection, and is excluded from the headline for that reason. (5) The IoU here is NOT an independent confirmation of the ~0.40 footprint figure docs/MODEL_CARD.md reports: it recomputes the SAME quantity as spread_v2/forward_sim.py's drift_vs_observed — same p_cut, same nearest-observation matching, same estimator, same leave-target-out fit, same fire — differing only in the canvas (181x147 -> 181x156). The agreement is close to mechanical and is a consistency check on the canvas change, not corroboration. (6) The size agreement is a property of the quoted slice, not of the model: across the artifact the area ratios are 0.74 / 1.02 / 1.05 / 1.05, so at 3 h the simulation is 26 % UNDER. The place disagreement is the stable finding; the size agreement is not.",
+      "forbidden_phrasings": [
+        "the model is wrong about where the fire goes",
+        "the forecast is useless",
+        "예보가 쓸모없다",
+        "the model gets the fire wrong",
+        "IoU 0.39 is the routing margin",
+        "the oracle gap is measured",
+        "this measures what the model buys"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_oracle_gap.py rebuilds the artifact from the committed routing_demo_canonical.npz alone, with no DEM, no network access and no fitted model — it reads two arrays out of one file and counts cells.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "field_comparison",
+      "notes": "docs/oracle_gap.md states the method, what it answers for WFG-125 and what it does NOT show. It is a field-to-field comparison and produces no routing margin.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/oracle_gap_yeongdeok.json",
+            "json_path": "headline.false_alarm_cells"
+          }
+        }
+      }
+    },
+    "og_yeongdeok_missed_cells": {
+      "value": 403,
+      "unit": "cells",
+      "source_file": "data/processed/oracle_gap_yeongdeok.json",
+      "json_path": "headline.missed_cells",
+      "derivation": "cells the observation records burning that the simulation's core does not contain — a miss against FIRMS, which is not the same as a miss against the ground. Regenerate: python scripts/measure_oracle_gap.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "f9183b0ada5d753c847ada58f49868660737caf5",
+      "sample": "영덕 2025 · routing_demo_canonical.npz · 181x156 @ 500 m · p_cut 0.5",
+      "caveat": "FIELD-TO-FIELD COMPARISON, ONE FIRE, NOT A ROUTING RESULT. This compares the hazard field the canonical router PLANS on (`haz_stack`, the leave-one-fire-out forward simulation) against the cumulative FIRMS-observed footprint (`obs_stack`) in the SAME committed npz and on the SAME 500 m grid. Six facts travel together or none may be quoted: (1) it produces NO margin and moves no committed number — 42, 91, 9 and 27 are untouched by it, and converting this gap into origins saved requires the re-grading run that has not been done; (2) the two stacks are compared at the nearest available times, not identical ones, and the quoted slice is the best-matched pair (27 minutes apart) with every other pair in the artifact; (3) `obs_stack` is a FIRMS-derived observation with its own detection floor (docs/detection_floor.md) and 500 m resampling, so it is an observation and NOT ground truth — a missed cell may be a cell FIRMS did not see; (4) the t=0 slice agrees perfectly by construction, because both stacks are seeded from the same detection, and is excluded from the headline for that reason. (5) The IoU here is NOT an independent confirmation of the ~0.40 footprint figure docs/MODEL_CARD.md reports: it recomputes the SAME quantity as spread_v2/forward_sim.py's drift_vs_observed — same p_cut, same nearest-observation matching, same estimator, same leave-target-out fit, same fire — differing only in the canvas (181x147 -> 181x156). The agreement is close to mechanical and is a consistency check on the canvas change, not corroboration. (6) The size agreement is a property of the quoted slice, not of the model: across the artifact the area ratios are 0.74 / 1.02 / 1.05 / 1.05, so at 3 h the simulation is 26 % UNDER. The place disagreement is the stable finding; the size agreement is not.",
+      "forbidden_phrasings": [
+        "the model is wrong about where the fire goes",
+        "the forecast is useless",
+        "예보가 쓸모없다",
+        "the model gets the fire wrong",
+        "IoU 0.39 is the routing margin",
+        "the oracle gap is measured",
+        "this measures what the model buys"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_oracle_gap.py rebuilds the artifact from the committed routing_demo_canonical.npz alone, with no DEM, no network access and no fitted model — it reads two arrays out of one file and counts cells.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "field_comparison",
+      "notes": "docs/oracle_gap.md states the method, what it answers for WFG-125 and what it does NOT show. It is a field-to-field comparison and produces no routing margin.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/oracle_gap_yeongdeok.json",
+            "json_path": "headline.missed_cells"
+          }
+        }
+      }
+    },
+    "og_yeongdeok_iou": {
+      "value": 0.3941,
+      "unit": "ratio",
+      "source_file": "data/processed/oracle_gap_yeongdeok.json",
+      "json_path": "headline.iou",
+      "derivation": "intersection over union of the two footprints at the quoted slice. Regenerate: python scripts/measure_oracle_gap.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "f9183b0ada5d753c847ada58f49868660737caf5",
+      "sample": "영덕 2025 · routing_demo_canonical.npz · 181x156 @ 500 m · p_cut 0.5",
+      "caveat": "FIELD-TO-FIELD COMPARISON, ONE FIRE, NOT A ROUTING RESULT. This compares the hazard field the canonical router PLANS on (`haz_stack`, the leave-one-fire-out forward simulation) against the cumulative FIRMS-observed footprint (`obs_stack`) in the SAME committed npz and on the SAME 500 m grid. Six facts travel together or none may be quoted: (1) it produces NO margin and moves no committed number — 42, 91, 9 and 27 are untouched by it, and converting this gap into origins saved requires the re-grading run that has not been done; (2) the two stacks are compared at the nearest available times, not identical ones, and the quoted slice is the best-matched pair (27 minutes apart) with every other pair in the artifact; (3) `obs_stack` is a FIRMS-derived observation with its own detection floor (docs/detection_floor.md) and 500 m resampling, so it is an observation and NOT ground truth — a missed cell may be a cell FIRMS did not see; (4) the t=0 slice agrees perfectly by construction, because both stacks are seeded from the same detection, and is excluded from the headline for that reason. (5) The IoU here is NOT an independent confirmation of the ~0.40 footprint figure docs/MODEL_CARD.md reports: it recomputes the SAME quantity as spread_v2/forward_sim.py's drift_vs_observed — same p_cut, same nearest-observation matching, same estimator, same leave-target-out fit, same fire — differing only in the canvas (181x147 -> 181x156). The agreement is close to mechanical and is a consistency check on the canvas change, not corroboration. (6) The size agreement is a property of the quoted slice, not of the model: across the artifact the area ratios are 0.74 / 1.02 / 1.05 / 1.05, so at 3 h the simulation is 26 % UNDER. The place disagreement is the stable finding; the size agreement is not.",
+      "forbidden_phrasings": [
+        "the model is wrong about where the fire goes",
+        "the forecast is useless",
+        "예보가 쓸모없다",
+        "the model gets the fire wrong",
+        "IoU 0.39 is the routing margin",
+        "the oracle gap is measured",
+        "this measures what the model buys"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_oracle_gap.py rebuilds the artifact from the committed routing_demo_canonical.npz alone, with no DEM, no network access and no fitted model — it reads two arrays out of one file and counts cells.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "field_comparison",
+      "notes": "docs/oracle_gap.md states the method, what it answers for WFG-125 and what it does NOT show. It is a field-to-field comparison and produces no routing margin.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/oracle_gap_yeongdeok.json",
+            "json_path": "headline.iou"
+          }
+        }
+      }
+    },
+    "og_yeongdeok_size_ratio": {
+      "value": 1.016,
+      "unit": "ratio",
+      "source_file": "data/processed/oracle_gap_yeongdeok.json",
+      "json_path": "headline.size_ratio",
+      "derivation": "predicted cells / observed cells — how close the simulation gets to the right AREA, which is the half of the problem it does well. Regenerate: python scripts/measure_oracle_gap.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "f9183b0ada5d753c847ada58f49868660737caf5",
+      "sample": "영덕 2025 · routing_demo_canonical.npz · 181x156 @ 500 m · p_cut 0.5",
+      "caveat": "FIELD-TO-FIELD COMPARISON, ONE FIRE, NOT A ROUTING RESULT. This compares the hazard field the canonical router PLANS on (`haz_stack`, the leave-one-fire-out forward simulation) against the cumulative FIRMS-observed footprint (`obs_stack`) in the SAME committed npz and on the SAME 500 m grid. Six facts travel together or none may be quoted: (1) it produces NO margin and moves no committed number — 42, 91, 9 and 27 are untouched by it, and converting this gap into origins saved requires the re-grading run that has not been done; (2) the two stacks are compared at the nearest available times, not identical ones, and the quoted slice is the best-matched pair (27 minutes apart) with every other pair in the artifact; (3) `obs_stack` is a FIRMS-derived observation with its own detection floor (docs/detection_floor.md) and 500 m resampling, so it is an observation and NOT ground truth — a missed cell may be a cell FIRMS did not see; (4) the t=0 slice agrees perfectly by construction, because both stacks are seeded from the same detection, and is excluded from the headline for that reason. (5) The IoU here is NOT an independent confirmation of the ~0.40 footprint figure docs/MODEL_CARD.md reports: it recomputes the SAME quantity as spread_v2/forward_sim.py's drift_vs_observed — same p_cut, same nearest-observation matching, same estimator, same leave-target-out fit, same fire — differing only in the canvas (181x147 -> 181x156). The agreement is close to mechanical and is a consistency check on the canvas change, not corroboration. (6) The size agreement is a property of the quoted slice, not of the model: across the artifact the area ratios are 0.74 / 1.02 / 1.05 / 1.05, so at 3 h the simulation is 26 % UNDER. The place disagreement is the stable finding; the size agreement is not.",
+      "forbidden_phrasings": [
+        "the model is wrong about where the fire goes",
+        "the forecast is useless",
+        "예보가 쓸모없다",
+        "the model gets the fire wrong",
+        "IoU 0.39 is the routing margin",
+        "the oracle gap is measured",
+        "this measures what the model buys"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_oracle_gap.py rebuilds the artifact from the committed routing_demo_canonical.npz alone, with no DEM, no network access and no fitted model — it reads two arrays out of one file and counts cells.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "field_comparison",
+      "notes": "docs/oracle_gap.md states the method, what it answers for WFG-125 and what it does NOT show. It is a field-to-field comparison and produces no routing margin.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/oracle_gap_yeongdeok.json",
+            "json_path": "headline.size_ratio"
+          }
+        }
+      }
+    },
+    "og_yeongdeok_t0min_iou": {
+      "value": 1.0,
+      "unit": "ratio",
+      "source_file": "data/processed/oracle_gap_yeongdeok.json",
+      "json_path": "slices.0.iou",
+      "derivation": "intersection over union of the predicted core and the observed footprint (forward-sim slice 0 min vs observation 0 min). Regenerate: python scripts/measure_oracle_gap.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "f9183b0ada5d753c847ada58f49868660737caf5",
+      "sample": "영덕 2025 · routing_demo_canonical.npz · 181x156 @ 500 m · p_cut 0.5",
+      "caveat": "FIELD-TO-FIELD COMPARISON, ONE FIRE, NOT A ROUTING RESULT. This compares the hazard field the canonical router PLANS on (`haz_stack`, the leave-one-fire-out forward simulation) against the cumulative FIRMS-observed footprint (`obs_stack`) in the SAME committed npz and on the SAME 500 m grid. Six facts travel together or none may be quoted: (1) it produces NO margin and moves no committed number — 42, 91, 9 and 27 are untouched by it, and converting this gap into origins saved requires the re-grading run that has not been done; (2) the two stacks are compared at the nearest available times, not identical ones, and the quoted slice is the best-matched pair (27 minutes apart) with every other pair in the artifact; (3) `obs_stack` is a FIRMS-derived observation with its own detection floor (docs/detection_floor.md) and 500 m resampling, so it is an observation and NOT ground truth — a missed cell may be a cell FIRMS did not see; (4) the t=0 slice agrees perfectly by construction, because both stacks are seeded from the same detection, and is excluded from the headline for that reason. (5) The IoU here is NOT an independent confirmation of the ~0.40 footprint figure docs/MODEL_CARD.md reports: it recomputes the SAME quantity as spread_v2/forward_sim.py's drift_vs_observed — same p_cut, same nearest-observation matching, same estimator, same leave-target-out fit, same fire — differing only in the canvas (181x147 -> 181x156). The agreement is close to mechanical and is a consistency check on the canvas change, not corroboration. (6) The size agreement is a property of the quoted slice, not of the model: across the artifact the area ratios are 0.74 / 1.02 / 1.05 / 1.05, so at 3 h the simulation is 26 % UNDER. The place disagreement is the stable finding; the size agreement is not.",
+      "forbidden_phrasings": [
+        "the model is wrong about where the fire goes",
+        "the forecast is useless",
+        "예보가 쓸모없다",
+        "the model gets the fire wrong",
+        "IoU 0.39 is the routing margin",
+        "the oracle gap is measured",
+        "this measures what the model buys"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_oracle_gap.py rebuilds the artifact from the committed routing_demo_canonical.npz alone, with no DEM, no network access and no fitted model — it reads two arrays out of one file and counts cells.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "field_comparison",
+      "notes": "docs/oracle_gap.md states the method, what it answers for WFG-125 and what it does NOT show. It is a field-to-field comparison and produces no routing margin.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/oracle_gap_yeongdeok.json",
+            "json_path": "slices.0.iou"
+          }
+        }
+      }
+    },
+    "og_yeongdeok_t0min_time_gap_min": {
+      "value": 0.0,
+      "unit": "minutes",
+      "source_file": "data/processed/oracle_gap_yeongdeok.json",
+      "json_path": "slices.0.time_gap_min",
+      "derivation": "how far apart in time this pair of slices is (forward-sim slice 0 min vs observation 0 min). Regenerate: python scripts/measure_oracle_gap.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "f9183b0ada5d753c847ada58f49868660737caf5",
+      "sample": "영덕 2025 · routing_demo_canonical.npz · 181x156 @ 500 m · p_cut 0.5",
+      "caveat": "FIELD-TO-FIELD COMPARISON, ONE FIRE, NOT A ROUTING RESULT. This compares the hazard field the canonical router PLANS on (`haz_stack`, the leave-one-fire-out forward simulation) against the cumulative FIRMS-observed footprint (`obs_stack`) in the SAME committed npz and on the SAME 500 m grid. Six facts travel together or none may be quoted: (1) it produces NO margin and moves no committed number — 42, 91, 9 and 27 are untouched by it, and converting this gap into origins saved requires the re-grading run that has not been done; (2) the two stacks are compared at the nearest available times, not identical ones, and the quoted slice is the best-matched pair (27 minutes apart) with every other pair in the artifact; (3) `obs_stack` is a FIRMS-derived observation with its own detection floor (docs/detection_floor.md) and 500 m resampling, so it is an observation and NOT ground truth — a missed cell may be a cell FIRMS did not see; (4) the t=0 slice agrees perfectly by construction, because both stacks are seeded from the same detection, and is excluded from the headline for that reason. (5) The IoU here is NOT an independent confirmation of the ~0.40 footprint figure docs/MODEL_CARD.md reports: it recomputes the SAME quantity as spread_v2/forward_sim.py's drift_vs_observed — same p_cut, same nearest-observation matching, same estimator, same leave-target-out fit, same fire — differing only in the canvas (181x147 -> 181x156). The agreement is close to mechanical and is a consistency check on the canvas change, not corroboration. (6) The size agreement is a property of the quoted slice, not of the model: across the artifact the area ratios are 0.74 / 1.02 / 1.05 / 1.05, so at 3 h the simulation is 26 % UNDER. The place disagreement is the stable finding; the size agreement is not.",
+      "forbidden_phrasings": [
+        "the model is wrong about where the fire goes",
+        "the forecast is useless",
+        "예보가 쓸모없다",
+        "the model gets the fire wrong",
+        "IoU 0.39 is the routing margin",
+        "the oracle gap is measured",
+        "this measures what the model buys"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_oracle_gap.py rebuilds the artifact from the committed routing_demo_canonical.npz alone, with no DEM, no network access and no fitted model — it reads two arrays out of one file and counts cells.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "field_comparison",
+      "notes": "docs/oracle_gap.md states the method, what it answers for WFG-125 and what it does NOT show. It is a field-to-field comparison and produces no routing margin.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/oracle_gap_yeongdeok.json",
+            "json_path": "slices.0.time_gap_min"
+          }
+        }
+      }
+    },
+    "og_yeongdeok_t0min_size_ratio": {
+      "value": 1.0,
+      "unit": "ratio",
+      "source_file": "data/processed/oracle_gap_yeongdeok.json",
+      "json_path": "slices.0.size_ratio",
+      "derivation": "predicted cells / observed cells at this slice (forward-sim slice 0 min vs observation 0 min). Regenerate: python scripts/measure_oracle_gap.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "f9183b0ada5d753c847ada58f49868660737caf5",
+      "sample": "영덕 2025 · routing_demo_canonical.npz · 181x156 @ 500 m · p_cut 0.5",
+      "caveat": "FIELD-TO-FIELD COMPARISON, ONE FIRE, NOT A ROUTING RESULT. This compares the hazard field the canonical router PLANS on (`haz_stack`, the leave-one-fire-out forward simulation) against the cumulative FIRMS-observed footprint (`obs_stack`) in the SAME committed npz and on the SAME 500 m grid. Six facts travel together or none may be quoted: (1) it produces NO margin and moves no committed number — 42, 91, 9 and 27 are untouched by it, and converting this gap into origins saved requires the re-grading run that has not been done; (2) the two stacks are compared at the nearest available times, not identical ones, and the quoted slice is the best-matched pair (27 minutes apart) with every other pair in the artifact; (3) `obs_stack` is a FIRMS-derived observation with its own detection floor (docs/detection_floor.md) and 500 m resampling, so it is an observation and NOT ground truth — a missed cell may be a cell FIRMS did not see; (4) the t=0 slice agrees perfectly by construction, because both stacks are seeded from the same detection, and is excluded from the headline for that reason. (5) The IoU here is NOT an independent confirmation of the ~0.40 footprint figure docs/MODEL_CARD.md reports: it recomputes the SAME quantity as spread_v2/forward_sim.py's drift_vs_observed — same p_cut, same nearest-observation matching, same estimator, same leave-target-out fit, same fire — differing only in the canvas (181x147 -> 181x156). The agreement is close to mechanical and is a consistency check on the canvas change, not corroboration. (6) The size agreement is a property of the quoted slice, not of the model: across the artifact the area ratios are 0.74 / 1.02 / 1.05 / 1.05, so at 3 h the simulation is 26 % UNDER. The place disagreement is the stable finding; the size agreement is not.",
+      "forbidden_phrasings": [
+        "the model is wrong about where the fire goes",
+        "the forecast is useless",
+        "예보가 쓸모없다",
+        "the model gets the fire wrong",
+        "IoU 0.39 is the routing margin",
+        "the oracle gap is measured",
+        "this measures what the model buys"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_oracle_gap.py rebuilds the artifact from the committed routing_demo_canonical.npz alone, with no DEM, no network access and no fitted model — it reads two arrays out of one file and counts cells.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "field_comparison",
+      "notes": "docs/oracle_gap.md states the method, what it answers for WFG-125 and what it does NOT show. It is a field-to-field comparison and produces no routing margin.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/oracle_gap_yeongdeok.json",
+            "json_path": "slices.0.size_ratio"
+          }
+        }
+      }
+    },
+    "og_yeongdeok_t180min_iou": {
+      "value": 0.3586,
+      "unit": "ratio",
+      "source_file": "data/processed/oracle_gap_yeongdeok.json",
+      "json_path": "slices.1.iou",
+      "derivation": "intersection over union of the predicted core and the observed footprint (forward-sim slice 180 min vs observation 333 min). Regenerate: python scripts/measure_oracle_gap.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "f9183b0ada5d753c847ada58f49868660737caf5",
+      "sample": "영덕 2025 · routing_demo_canonical.npz · 181x156 @ 500 m · p_cut 0.5",
+      "caveat": "FIELD-TO-FIELD COMPARISON, ONE FIRE, NOT A ROUTING RESULT. This compares the hazard field the canonical router PLANS on (`haz_stack`, the leave-one-fire-out forward simulation) against the cumulative FIRMS-observed footprint (`obs_stack`) in the SAME committed npz and on the SAME 500 m grid. Six facts travel together or none may be quoted: (1) it produces NO margin and moves no committed number — 42, 91, 9 and 27 are untouched by it, and converting this gap into origins saved requires the re-grading run that has not been done; (2) the two stacks are compared at the nearest available times, not identical ones, and the quoted slice is the best-matched pair (27 minutes apart) with every other pair in the artifact; (3) `obs_stack` is a FIRMS-derived observation with its own detection floor (docs/detection_floor.md) and 500 m resampling, so it is an observation and NOT ground truth — a missed cell may be a cell FIRMS did not see; (4) the t=0 slice agrees perfectly by construction, because both stacks are seeded from the same detection, and is excluded from the headline for that reason. (5) The IoU here is NOT an independent confirmation of the ~0.40 footprint figure docs/MODEL_CARD.md reports: it recomputes the SAME quantity as spread_v2/forward_sim.py's drift_vs_observed — same p_cut, same nearest-observation matching, same estimator, same leave-target-out fit, same fire — differing only in the canvas (181x147 -> 181x156). The agreement is close to mechanical and is a consistency check on the canvas change, not corroboration. (6) The size agreement is a property of the quoted slice, not of the model: across the artifact the area ratios are 0.74 / 1.02 / 1.05 / 1.05, so at 3 h the simulation is 26 % UNDER. The place disagreement is the stable finding; the size agreement is not.",
+      "forbidden_phrasings": [
+        "the model is wrong about where the fire goes",
+        "the forecast is useless",
+        "예보가 쓸모없다",
+        "the model gets the fire wrong",
+        "IoU 0.39 is the routing margin",
+        "the oracle gap is measured",
+        "this measures what the model buys"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_oracle_gap.py rebuilds the artifact from the committed routing_demo_canonical.npz alone, with no DEM, no network access and no fitted model — it reads two arrays out of one file and counts cells.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "field_comparison",
+      "notes": "docs/oracle_gap.md states the method, what it answers for WFG-125 and what it does NOT show. It is a field-to-field comparison and produces no routing margin.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/oracle_gap_yeongdeok.json",
+            "json_path": "slices.1.iou"
+          }
+        }
+      }
+    },
+    "og_yeongdeok_t180min_time_gap_min": {
+      "value": 153.0,
+      "unit": "minutes",
+      "source_file": "data/processed/oracle_gap_yeongdeok.json",
+      "json_path": "slices.1.time_gap_min",
+      "derivation": "how far apart in time this pair of slices is (forward-sim slice 180 min vs observation 333 min). Regenerate: python scripts/measure_oracle_gap.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "f9183b0ada5d753c847ada58f49868660737caf5",
+      "sample": "영덕 2025 · routing_demo_canonical.npz · 181x156 @ 500 m · p_cut 0.5",
+      "caveat": "FIELD-TO-FIELD COMPARISON, ONE FIRE, NOT A ROUTING RESULT. This compares the hazard field the canonical router PLANS on (`haz_stack`, the leave-one-fire-out forward simulation) against the cumulative FIRMS-observed footprint (`obs_stack`) in the SAME committed npz and on the SAME 500 m grid. Six facts travel together or none may be quoted: (1) it produces NO margin and moves no committed number — 42, 91, 9 and 27 are untouched by it, and converting this gap into origins saved requires the re-grading run that has not been done; (2) the two stacks are compared at the nearest available times, not identical ones, and the quoted slice is the best-matched pair (27 minutes apart) with every other pair in the artifact; (3) `obs_stack` is a FIRMS-derived observation with its own detection floor (docs/detection_floor.md) and 500 m resampling, so it is an observation and NOT ground truth — a missed cell may be a cell FIRMS did not see; (4) the t=0 slice agrees perfectly by construction, because both stacks are seeded from the same detection, and is excluded from the headline for that reason. (5) The IoU here is NOT an independent confirmation of the ~0.40 footprint figure docs/MODEL_CARD.md reports: it recomputes the SAME quantity as spread_v2/forward_sim.py's drift_vs_observed — same p_cut, same nearest-observation matching, same estimator, same leave-target-out fit, same fire — differing only in the canvas (181x147 -> 181x156). The agreement is close to mechanical and is a consistency check on the canvas change, not corroboration. (6) The size agreement is a property of the quoted slice, not of the model: across the artifact the area ratios are 0.74 / 1.02 / 1.05 / 1.05, so at 3 h the simulation is 26 % UNDER. The place disagreement is the stable finding; the size agreement is not.",
+      "forbidden_phrasings": [
+        "the model is wrong about where the fire goes",
+        "the forecast is useless",
+        "예보가 쓸모없다",
+        "the model gets the fire wrong",
+        "IoU 0.39 is the routing margin",
+        "the oracle gap is measured",
+        "this measures what the model buys"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_oracle_gap.py rebuilds the artifact from the committed routing_demo_canonical.npz alone, with no DEM, no network access and no fitted model — it reads two arrays out of one file and counts cells.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "field_comparison",
+      "notes": "docs/oracle_gap.md states the method, what it answers for WFG-125 and what it does NOT show. It is a field-to-field comparison and produces no routing margin.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/oracle_gap_yeongdeok.json",
+            "json_path": "slices.1.time_gap_min"
+          }
+        }
+      }
+    },
+    "og_yeongdeok_t180min_size_ratio": {
+      "value": 0.7385,
+      "unit": "ratio",
+      "source_file": "data/processed/oracle_gap_yeongdeok.json",
+      "json_path": "slices.1.size_ratio",
+      "derivation": "predicted cells / observed cells at this slice (forward-sim slice 180 min vs observation 333 min). Regenerate: python scripts/measure_oracle_gap.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "f9183b0ada5d753c847ada58f49868660737caf5",
+      "sample": "영덕 2025 · routing_demo_canonical.npz · 181x156 @ 500 m · p_cut 0.5",
+      "caveat": "FIELD-TO-FIELD COMPARISON, ONE FIRE, NOT A ROUTING RESULT. This compares the hazard field the canonical router PLANS on (`haz_stack`, the leave-one-fire-out forward simulation) against the cumulative FIRMS-observed footprint (`obs_stack`) in the SAME committed npz and on the SAME 500 m grid. Six facts travel together or none may be quoted: (1) it produces NO margin and moves no committed number — 42, 91, 9 and 27 are untouched by it, and converting this gap into origins saved requires the re-grading run that has not been done; (2) the two stacks are compared at the nearest available times, not identical ones, and the quoted slice is the best-matched pair (27 minutes apart) with every other pair in the artifact; (3) `obs_stack` is a FIRMS-derived observation with its own detection floor (docs/detection_floor.md) and 500 m resampling, so it is an observation and NOT ground truth — a missed cell may be a cell FIRMS did not see; (4) the t=0 slice agrees perfectly by construction, because both stacks are seeded from the same detection, and is excluded from the headline for that reason. (5) The IoU here is NOT an independent confirmation of the ~0.40 footprint figure docs/MODEL_CARD.md reports: it recomputes the SAME quantity as spread_v2/forward_sim.py's drift_vs_observed — same p_cut, same nearest-observation matching, same estimator, same leave-target-out fit, same fire — differing only in the canvas (181x147 -> 181x156). The agreement is close to mechanical and is a consistency check on the canvas change, not corroboration. (6) The size agreement is a property of the quoted slice, not of the model: across the artifact the area ratios are 0.74 / 1.02 / 1.05 / 1.05, so at 3 h the simulation is 26 % UNDER. The place disagreement is the stable finding; the size agreement is not.",
+      "forbidden_phrasings": [
+        "the model is wrong about where the fire goes",
+        "the forecast is useless",
+        "예보가 쓸모없다",
+        "the model gets the fire wrong",
+        "IoU 0.39 is the routing margin",
+        "the oracle gap is measured",
+        "this measures what the model buys"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_oracle_gap.py rebuilds the artifact from the committed routing_demo_canonical.npz alone, with no DEM, no network access and no fitted model — it reads two arrays out of one file and counts cells.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "field_comparison",
+      "notes": "docs/oracle_gap.md states the method, what it answers for WFG-125 and what it does NOT show. It is a field-to-field comparison and produces no routing margin.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/oracle_gap_yeongdeok.json",
+            "json_path": "slices.1.size_ratio"
+          }
+        }
+      }
+    },
+    "og_yeongdeok_t360min_iou": {
+      "value": 0.3941,
+      "unit": "ratio",
+      "source_file": "data/processed/oracle_gap_yeongdeok.json",
+      "json_path": "slices.2.iou",
+      "derivation": "intersection over union of the predicted core and the observed footprint (forward-sim slice 360 min vs observation 333 min). Regenerate: python scripts/measure_oracle_gap.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "f9183b0ada5d753c847ada58f49868660737caf5",
+      "sample": "영덕 2025 · routing_demo_canonical.npz · 181x156 @ 500 m · p_cut 0.5",
+      "caveat": "FIELD-TO-FIELD COMPARISON, ONE FIRE, NOT A ROUTING RESULT. This compares the hazard field the canonical router PLANS on (`haz_stack`, the leave-one-fire-out forward simulation) against the cumulative FIRMS-observed footprint (`obs_stack`) in the SAME committed npz and on the SAME 500 m grid. Six facts travel together or none may be quoted: (1) it produces NO margin and moves no committed number — 42, 91, 9 and 27 are untouched by it, and converting this gap into origins saved requires the re-grading run that has not been done; (2) the two stacks are compared at the nearest available times, not identical ones, and the quoted slice is the best-matched pair (27 minutes apart) with every other pair in the artifact; (3) `obs_stack` is a FIRMS-derived observation with its own detection floor (docs/detection_floor.md) and 500 m resampling, so it is an observation and NOT ground truth — a missed cell may be a cell FIRMS did not see; (4) the t=0 slice agrees perfectly by construction, because both stacks are seeded from the same detection, and is excluded from the headline for that reason. (5) The IoU here is NOT an independent confirmation of the ~0.40 footprint figure docs/MODEL_CARD.md reports: it recomputes the SAME quantity as spread_v2/forward_sim.py's drift_vs_observed — same p_cut, same nearest-observation matching, same estimator, same leave-target-out fit, same fire — differing only in the canvas (181x147 -> 181x156). The agreement is close to mechanical and is a consistency check on the canvas change, not corroboration. (6) The size agreement is a property of the quoted slice, not of the model: across the artifact the area ratios are 0.74 / 1.02 / 1.05 / 1.05, so at 3 h the simulation is 26 % UNDER. The place disagreement is the stable finding; the size agreement is not.",
+      "forbidden_phrasings": [
+        "the model is wrong about where the fire goes",
+        "the forecast is useless",
+        "예보가 쓸모없다",
+        "the model gets the fire wrong",
+        "IoU 0.39 is the routing margin",
+        "the oracle gap is measured",
+        "this measures what the model buys"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_oracle_gap.py rebuilds the artifact from the committed routing_demo_canonical.npz alone, with no DEM, no network access and no fitted model — it reads two arrays out of one file and counts cells.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "field_comparison",
+      "notes": "docs/oracle_gap.md states the method, what it answers for WFG-125 and what it does NOT show. It is a field-to-field comparison and produces no routing margin.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/oracle_gap_yeongdeok.json",
+            "json_path": "slices.2.iou"
+          }
+        }
+      }
+    },
+    "og_yeongdeok_t360min_time_gap_min": {
+      "value": 27.0,
+      "unit": "minutes",
+      "source_file": "data/processed/oracle_gap_yeongdeok.json",
+      "json_path": "slices.2.time_gap_min",
+      "derivation": "how far apart in time this pair of slices is (forward-sim slice 360 min vs observation 333 min). Regenerate: python scripts/measure_oracle_gap.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "f9183b0ada5d753c847ada58f49868660737caf5",
+      "sample": "영덕 2025 · routing_demo_canonical.npz · 181x156 @ 500 m · p_cut 0.5",
+      "caveat": "FIELD-TO-FIELD COMPARISON, ONE FIRE, NOT A ROUTING RESULT. This compares the hazard field the canonical router PLANS on (`haz_stack`, the leave-one-fire-out forward simulation) against the cumulative FIRMS-observed footprint (`obs_stack`) in the SAME committed npz and on the SAME 500 m grid. Six facts travel together or none may be quoted: (1) it produces NO margin and moves no committed number — 42, 91, 9 and 27 are untouched by it, and converting this gap into origins saved requires the re-grading run that has not been done; (2) the two stacks are compared at the nearest available times, not identical ones, and the quoted slice is the best-matched pair (27 minutes apart) with every other pair in the artifact; (3) `obs_stack` is a FIRMS-derived observation with its own detection floor (docs/detection_floor.md) and 500 m resampling, so it is an observation and NOT ground truth — a missed cell may be a cell FIRMS did not see; (4) the t=0 slice agrees perfectly by construction, because both stacks are seeded from the same detection, and is excluded from the headline for that reason. (5) The IoU here is NOT an independent confirmation of the ~0.40 footprint figure docs/MODEL_CARD.md reports: it recomputes the SAME quantity as spread_v2/forward_sim.py's drift_vs_observed — same p_cut, same nearest-observation matching, same estimator, same leave-target-out fit, same fire — differing only in the canvas (181x147 -> 181x156). The agreement is close to mechanical and is a consistency check on the canvas change, not corroboration. (6) The size agreement is a property of the quoted slice, not of the model: across the artifact the area ratios are 0.74 / 1.02 / 1.05 / 1.05, so at 3 h the simulation is 26 % UNDER. The place disagreement is the stable finding; the size agreement is not.",
+      "forbidden_phrasings": [
+        "the model is wrong about where the fire goes",
+        "the forecast is useless",
+        "예보가 쓸모없다",
+        "the model gets the fire wrong",
+        "IoU 0.39 is the routing margin",
+        "the oracle gap is measured",
+        "this measures what the model buys"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_oracle_gap.py rebuilds the artifact from the committed routing_demo_canonical.npz alone, with no DEM, no network access and no fitted model — it reads two arrays out of one file and counts cells.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "field_comparison",
+      "notes": "docs/oracle_gap.md states the method, what it answers for WFG-125 and what it does NOT show. It is a field-to-field comparison and produces no routing margin.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/oracle_gap_yeongdeok.json",
+            "json_path": "slices.2.time_gap_min"
+          }
+        }
+      }
+    },
+    "og_yeongdeok_t360min_size_ratio": {
+      "value": 1.016,
+      "unit": "ratio",
+      "source_file": "data/processed/oracle_gap_yeongdeok.json",
+      "json_path": "slices.2.size_ratio",
+      "derivation": "predicted cells / observed cells at this slice (forward-sim slice 360 min vs observation 333 min). Regenerate: python scripts/measure_oracle_gap.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "f9183b0ada5d753c847ada58f49868660737caf5",
+      "sample": "영덕 2025 · routing_demo_canonical.npz · 181x156 @ 500 m · p_cut 0.5",
+      "caveat": "FIELD-TO-FIELD COMPARISON, ONE FIRE, NOT A ROUTING RESULT. This compares the hazard field the canonical router PLANS on (`haz_stack`, the leave-one-fire-out forward simulation) against the cumulative FIRMS-observed footprint (`obs_stack`) in the SAME committed npz and on the SAME 500 m grid. Six facts travel together or none may be quoted: (1) it produces NO margin and moves no committed number — 42, 91, 9 and 27 are untouched by it, and converting this gap into origins saved requires the re-grading run that has not been done; (2) the two stacks are compared at the nearest available times, not identical ones, and the quoted slice is the best-matched pair (27 minutes apart) with every other pair in the artifact; (3) `obs_stack` is a FIRMS-derived observation with its own detection floor (docs/detection_floor.md) and 500 m resampling, so it is an observation and NOT ground truth — a missed cell may be a cell FIRMS did not see; (4) the t=0 slice agrees perfectly by construction, because both stacks are seeded from the same detection, and is excluded from the headline for that reason. (5) The IoU here is NOT an independent confirmation of the ~0.40 footprint figure docs/MODEL_CARD.md reports: it recomputes the SAME quantity as spread_v2/forward_sim.py's drift_vs_observed — same p_cut, same nearest-observation matching, same estimator, same leave-target-out fit, same fire — differing only in the canvas (181x147 -> 181x156). The agreement is close to mechanical and is a consistency check on the canvas change, not corroboration. (6) The size agreement is a property of the quoted slice, not of the model: across the artifact the area ratios are 0.74 / 1.02 / 1.05 / 1.05, so at 3 h the simulation is 26 % UNDER. The place disagreement is the stable finding; the size agreement is not.",
+      "forbidden_phrasings": [
+        "the model is wrong about where the fire goes",
+        "the forecast is useless",
+        "예보가 쓸모없다",
+        "the model gets the fire wrong",
+        "IoU 0.39 is the routing margin",
+        "the oracle gap is measured",
+        "this measures what the model buys"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_oracle_gap.py rebuilds the artifact from the committed routing_demo_canonical.npz alone, with no DEM, no network access and no fitted model — it reads two arrays out of one file and counts cells.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "field_comparison",
+      "notes": "docs/oracle_gap.md states the method, what it answers for WFG-125 and what it does NOT show. It is a field-to-field comparison and produces no routing margin.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/oracle_gap_yeongdeok.json",
+            "json_path": "slices.2.size_ratio"
+          }
+        }
+      }
+    },
+    "og_yeongdeok_t540min_iou": {
+      "value": 0.3949,
+      "unit": "ratio",
+      "source_file": "data/processed/oracle_gap_yeongdeok.json",
+      "json_path": "slices.3.iou",
+      "derivation": "intersection over union of the predicted core and the observed footprint (forward-sim slice 540 min vs observation 333 min). Regenerate: python scripts/measure_oracle_gap.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "f9183b0ada5d753c847ada58f49868660737caf5",
+      "sample": "영덕 2025 · routing_demo_canonical.npz · 181x156 @ 500 m · p_cut 0.5",
+      "caveat": "FIELD-TO-FIELD COMPARISON, ONE FIRE, NOT A ROUTING RESULT. This compares the hazard field the canonical router PLANS on (`haz_stack`, the leave-one-fire-out forward simulation) against the cumulative FIRMS-observed footprint (`obs_stack`) in the SAME committed npz and on the SAME 500 m grid. Six facts travel together or none may be quoted: (1) it produces NO margin and moves no committed number — 42, 91, 9 and 27 are untouched by it, and converting this gap into origins saved requires the re-grading run that has not been done; (2) the two stacks are compared at the nearest available times, not identical ones, and the quoted slice is the best-matched pair (27 minutes apart) with every other pair in the artifact; (3) `obs_stack` is a FIRMS-derived observation with its own detection floor (docs/detection_floor.md) and 500 m resampling, so it is an observation and NOT ground truth — a missed cell may be a cell FIRMS did not see; (4) the t=0 slice agrees perfectly by construction, because both stacks are seeded from the same detection, and is excluded from the headline for that reason. (5) The IoU here is NOT an independent confirmation of the ~0.40 footprint figure docs/MODEL_CARD.md reports: it recomputes the SAME quantity as spread_v2/forward_sim.py's drift_vs_observed — same p_cut, same nearest-observation matching, same estimator, same leave-target-out fit, same fire — differing only in the canvas (181x147 -> 181x156). The agreement is close to mechanical and is a consistency check on the canvas change, not corroboration. (6) The size agreement is a property of the quoted slice, not of the model: across the artifact the area ratios are 0.74 / 1.02 / 1.05 / 1.05, so at 3 h the simulation is 26 % UNDER. The place disagreement is the stable finding; the size agreement is not.",
+      "forbidden_phrasings": [
+        "the model is wrong about where the fire goes",
+        "the forecast is useless",
+        "예보가 쓸모없다",
+        "the model gets the fire wrong",
+        "IoU 0.39 is the routing margin",
+        "the oracle gap is measured",
+        "this measures what the model buys"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_oracle_gap.py rebuilds the artifact from the committed routing_demo_canonical.npz alone, with no DEM, no network access and no fitted model — it reads two arrays out of one file and counts cells.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "field_comparison",
+      "notes": "docs/oracle_gap.md states the method, what it answers for WFG-125 and what it does NOT show. It is a field-to-field comparison and produces no routing margin.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/oracle_gap_yeongdeok.json",
+            "json_path": "slices.3.iou"
+          }
+        }
+      }
+    },
+    "og_yeongdeok_t540min_time_gap_min": {
+      "value": 207.0,
+      "unit": "minutes",
+      "source_file": "data/processed/oracle_gap_yeongdeok.json",
+      "json_path": "slices.3.time_gap_min",
+      "derivation": "how far apart in time this pair of slices is (forward-sim slice 540 min vs observation 333 min). Regenerate: python scripts/measure_oracle_gap.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "f9183b0ada5d753c847ada58f49868660737caf5",
+      "sample": "영덕 2025 · routing_demo_canonical.npz · 181x156 @ 500 m · p_cut 0.5",
+      "caveat": "FIELD-TO-FIELD COMPARISON, ONE FIRE, NOT A ROUTING RESULT. This compares the hazard field the canonical router PLANS on (`haz_stack`, the leave-one-fire-out forward simulation) against the cumulative FIRMS-observed footprint (`obs_stack`) in the SAME committed npz and on the SAME 500 m grid. Six facts travel together or none may be quoted: (1) it produces NO margin and moves no committed number — 42, 91, 9 and 27 are untouched by it, and converting this gap into origins saved requires the re-grading run that has not been done; (2) the two stacks are compared at the nearest available times, not identical ones, and the quoted slice is the best-matched pair (27 minutes apart) with every other pair in the artifact; (3) `obs_stack` is a FIRMS-derived observation with its own detection floor (docs/detection_floor.md) and 500 m resampling, so it is an observation and NOT ground truth — a missed cell may be a cell FIRMS did not see; (4) the t=0 slice agrees perfectly by construction, because both stacks are seeded from the same detection, and is excluded from the headline for that reason. (5) The IoU here is NOT an independent confirmation of the ~0.40 footprint figure docs/MODEL_CARD.md reports: it recomputes the SAME quantity as spread_v2/forward_sim.py's drift_vs_observed — same p_cut, same nearest-observation matching, same estimator, same leave-target-out fit, same fire — differing only in the canvas (181x147 -> 181x156). The agreement is close to mechanical and is a consistency check on the canvas change, not corroboration. (6) The size agreement is a property of the quoted slice, not of the model: across the artifact the area ratios are 0.74 / 1.02 / 1.05 / 1.05, so at 3 h the simulation is 26 % UNDER. The place disagreement is the stable finding; the size agreement is not.",
+      "forbidden_phrasings": [
+        "the model is wrong about where the fire goes",
+        "the forecast is useless",
+        "예보가 쓸모없다",
+        "the model gets the fire wrong",
+        "IoU 0.39 is the routing margin",
+        "the oracle gap is measured",
+        "this measures what the model buys"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_oracle_gap.py rebuilds the artifact from the committed routing_demo_canonical.npz alone, with no DEM, no network access and no fitted model — it reads two arrays out of one file and counts cells.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "field_comparison",
+      "notes": "docs/oracle_gap.md states the method, what it answers for WFG-125 and what it does NOT show. It is a field-to-field comparison and produces no routing margin.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/oracle_gap_yeongdeok.json",
+            "json_path": "slices.3.time_gap_min"
+          }
+        }
+      }
+    },
+    "og_yeongdeok_t540min_size_ratio": {
+      "value": 1.047,
+      "unit": "ratio",
+      "source_file": "data/processed/oracle_gap_yeongdeok.json",
+      "json_path": "slices.3.size_ratio",
+      "derivation": "predicted cells / observed cells at this slice (forward-sim slice 540 min vs observation 333 min). Regenerate: python scripts/measure_oracle_gap.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "f9183b0ada5d753c847ada58f49868660737caf5",
+      "sample": "영덕 2025 · routing_demo_canonical.npz · 181x156 @ 500 m · p_cut 0.5",
+      "caveat": "FIELD-TO-FIELD COMPARISON, ONE FIRE, NOT A ROUTING RESULT. This compares the hazard field the canonical router PLANS on (`haz_stack`, the leave-one-fire-out forward simulation) against the cumulative FIRMS-observed footprint (`obs_stack`) in the SAME committed npz and on the SAME 500 m grid. Six facts travel together or none may be quoted: (1) it produces NO margin and moves no committed number — 42, 91, 9 and 27 are untouched by it, and converting this gap into origins saved requires the re-grading run that has not been done; (2) the two stacks are compared at the nearest available times, not identical ones, and the quoted slice is the best-matched pair (27 minutes apart) with every other pair in the artifact; (3) `obs_stack` is a FIRMS-derived observation with its own detection floor (docs/detection_floor.md) and 500 m resampling, so it is an observation and NOT ground truth — a missed cell may be a cell FIRMS did not see; (4) the t=0 slice agrees perfectly by construction, because both stacks are seeded from the same detection, and is excluded from the headline for that reason. (5) The IoU here is NOT an independent confirmation of the ~0.40 footprint figure docs/MODEL_CARD.md reports: it recomputes the SAME quantity as spread_v2/forward_sim.py's drift_vs_observed — same p_cut, same nearest-observation matching, same estimator, same leave-target-out fit, same fire — differing only in the canvas (181x147 -> 181x156). The agreement is close to mechanical and is a consistency check on the canvas change, not corroboration. (6) The size agreement is a property of the quoted slice, not of the model: across the artifact the area ratios are 0.74 / 1.02 / 1.05 / 1.05, so at 3 h the simulation is 26 % UNDER. The place disagreement is the stable finding; the size agreement is not.",
+      "forbidden_phrasings": [
+        "the model is wrong about where the fire goes",
+        "the forecast is useless",
+        "예보가 쓸모없다",
+        "the model gets the fire wrong",
+        "IoU 0.39 is the routing margin",
+        "the oracle gap is measured",
+        "this measures what the model buys"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_oracle_gap.py rebuilds the artifact from the committed routing_demo_canonical.npz alone, with no DEM, no network access and no fitted model — it reads two arrays out of one file and counts cells.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "field_comparison",
+      "notes": "docs/oracle_gap.md states the method, what it answers for WFG-125 and what it does NOT show. It is a field-to-field comparison and produces no routing margin.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/oracle_gap_yeongdeok.json",
+            "json_path": "slices.3.size_ratio"
+          }
+        }
+      }
+    },
+    "og_yeongdeok_t720min_iou": {
+      "value": 0.3981,
+      "unit": "ratio",
+      "source_file": "data/processed/oracle_gap_yeongdeok.json",
+      "json_path": "slices.4.iou",
+      "derivation": "intersection over union of the predicted core and the observed footprint (forward-sim slice 720 min vs observation 1005 min). Regenerate: python scripts/measure_oracle_gap.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "f9183b0ada5d753c847ada58f49868660737caf5",
+      "sample": "영덕 2025 · routing_demo_canonical.npz · 181x156 @ 500 m · p_cut 0.5",
+      "caveat": "FIELD-TO-FIELD COMPARISON, ONE FIRE, NOT A ROUTING RESULT. This compares the hazard field the canonical router PLANS on (`haz_stack`, the leave-one-fire-out forward simulation) against the cumulative FIRMS-observed footprint (`obs_stack`) in the SAME committed npz and on the SAME 500 m grid. Six facts travel together or none may be quoted: (1) it produces NO margin and moves no committed number — 42, 91, 9 and 27 are untouched by it, and converting this gap into origins saved requires the re-grading run that has not been done; (2) the two stacks are compared at the nearest available times, not identical ones, and the quoted slice is the best-matched pair (27 minutes apart) with every other pair in the artifact; (3) `obs_stack` is a FIRMS-derived observation with its own detection floor (docs/detection_floor.md) and 500 m resampling, so it is an observation and NOT ground truth — a missed cell may be a cell FIRMS did not see; (4) the t=0 slice agrees perfectly by construction, because both stacks are seeded from the same detection, and is excluded from the headline for that reason. (5) The IoU here is NOT an independent confirmation of the ~0.40 footprint figure docs/MODEL_CARD.md reports: it recomputes the SAME quantity as spread_v2/forward_sim.py's drift_vs_observed — same p_cut, same nearest-observation matching, same estimator, same leave-target-out fit, same fire — differing only in the canvas (181x147 -> 181x156). The agreement is close to mechanical and is a consistency check on the canvas change, not corroboration. (6) The size agreement is a property of the quoted slice, not of the model: across the artifact the area ratios are 0.74 / 1.02 / 1.05 / 1.05, so at 3 h the simulation is 26 % UNDER. The place disagreement is the stable finding; the size agreement is not.",
+      "forbidden_phrasings": [
+        "the model is wrong about where the fire goes",
+        "the forecast is useless",
+        "예보가 쓸모없다",
+        "the model gets the fire wrong",
+        "IoU 0.39 is the routing margin",
+        "the oracle gap is measured",
+        "this measures what the model buys"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_oracle_gap.py rebuilds the artifact from the committed routing_demo_canonical.npz alone, with no DEM, no network access and no fitted model — it reads two arrays out of one file and counts cells.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "field_comparison",
+      "notes": "docs/oracle_gap.md states the method, what it answers for WFG-125 and what it does NOT show. It is a field-to-field comparison and produces no routing margin.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/oracle_gap_yeongdeok.json",
+            "json_path": "slices.4.iou"
+          }
+        }
+      }
+    },
+    "og_yeongdeok_t720min_time_gap_min": {
+      "value": 285.0,
+      "unit": "minutes",
+      "source_file": "data/processed/oracle_gap_yeongdeok.json",
+      "json_path": "slices.4.time_gap_min",
+      "derivation": "how far apart in time this pair of slices is (forward-sim slice 720 min vs observation 1005 min). Regenerate: python scripts/measure_oracle_gap.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "f9183b0ada5d753c847ada58f49868660737caf5",
+      "sample": "영덕 2025 · routing_demo_canonical.npz · 181x156 @ 500 m · p_cut 0.5",
+      "caveat": "FIELD-TO-FIELD COMPARISON, ONE FIRE, NOT A ROUTING RESULT. This compares the hazard field the canonical router PLANS on (`haz_stack`, the leave-one-fire-out forward simulation) against the cumulative FIRMS-observed footprint (`obs_stack`) in the SAME committed npz and on the SAME 500 m grid. Six facts travel together or none may be quoted: (1) it produces NO margin and moves no committed number — 42, 91, 9 and 27 are untouched by it, and converting this gap into origins saved requires the re-grading run that has not been done; (2) the two stacks are compared at the nearest available times, not identical ones, and the quoted slice is the best-matched pair (27 minutes apart) with every other pair in the artifact; (3) `obs_stack` is a FIRMS-derived observation with its own detection floor (docs/detection_floor.md) and 500 m resampling, so it is an observation and NOT ground truth — a missed cell may be a cell FIRMS did not see; (4) the t=0 slice agrees perfectly by construction, because both stacks are seeded from the same detection, and is excluded from the headline for that reason. (5) The IoU here is NOT an independent confirmation of the ~0.40 footprint figure docs/MODEL_CARD.md reports: it recomputes the SAME quantity as spread_v2/forward_sim.py's drift_vs_observed — same p_cut, same nearest-observation matching, same estimator, same leave-target-out fit, same fire — differing only in the canvas (181x147 -> 181x156). The agreement is close to mechanical and is a consistency check on the canvas change, not corroboration. (6) The size agreement is a property of the quoted slice, not of the model: across the artifact the area ratios are 0.74 / 1.02 / 1.05 / 1.05, so at 3 h the simulation is 26 % UNDER. The place disagreement is the stable finding; the size agreement is not.",
+      "forbidden_phrasings": [
+        "the model is wrong about where the fire goes",
+        "the forecast is useless",
+        "예보가 쓸모없다",
+        "the model gets the fire wrong",
+        "IoU 0.39 is the routing margin",
+        "the oracle gap is measured",
+        "this measures what the model buys"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_oracle_gap.py rebuilds the artifact from the committed routing_demo_canonical.npz alone, with no DEM, no network access and no fitted model — it reads two arrays out of one file and counts cells.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "field_comparison",
+      "notes": "docs/oracle_gap.md states the method, what it answers for WFG-125 and what it does NOT show. It is a field-to-field comparison and produces no routing margin.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/oracle_gap_yeongdeok.json",
+            "json_path": "slices.4.time_gap_min"
+          }
+        }
+      }
+    },
+    "og_yeongdeok_t720min_size_ratio": {
+      "value": 1.0496,
+      "unit": "ratio",
+      "source_file": "data/processed/oracle_gap_yeongdeok.json",
+      "json_path": "slices.4.size_ratio",
+      "derivation": "predicted cells / observed cells at this slice (forward-sim slice 720 min vs observation 1005 min). Regenerate: python scripts/measure_oracle_gap.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "f9183b0ada5d753c847ada58f49868660737caf5",
+      "sample": "영덕 2025 · routing_demo_canonical.npz · 181x156 @ 500 m · p_cut 0.5",
+      "caveat": "FIELD-TO-FIELD COMPARISON, ONE FIRE, NOT A ROUTING RESULT. This compares the hazard field the canonical router PLANS on (`haz_stack`, the leave-one-fire-out forward simulation) against the cumulative FIRMS-observed footprint (`obs_stack`) in the SAME committed npz and on the SAME 500 m grid. Six facts travel together or none may be quoted: (1) it produces NO margin and moves no committed number — 42, 91, 9 and 27 are untouched by it, and converting this gap into origins saved requires the re-grading run that has not been done; (2) the two stacks are compared at the nearest available times, not identical ones, and the quoted slice is the best-matched pair (27 minutes apart) with every other pair in the artifact; (3) `obs_stack` is a FIRMS-derived observation with its own detection floor (docs/detection_floor.md) and 500 m resampling, so it is an observation and NOT ground truth — a missed cell may be a cell FIRMS did not see; (4) the t=0 slice agrees perfectly by construction, because both stacks are seeded from the same detection, and is excluded from the headline for that reason. (5) The IoU here is NOT an independent confirmation of the ~0.40 footprint figure docs/MODEL_CARD.md reports: it recomputes the SAME quantity as spread_v2/forward_sim.py's drift_vs_observed — same p_cut, same nearest-observation matching, same estimator, same leave-target-out fit, same fire — differing only in the canvas (181x147 -> 181x156). The agreement is close to mechanical and is a consistency check on the canvas change, not corroboration. (6) The size agreement is a property of the quoted slice, not of the model: across the artifact the area ratios are 0.74 / 1.02 / 1.05 / 1.05, so at 3 h the simulation is 26 % UNDER. The place disagreement is the stable finding; the size agreement is not.",
+      "forbidden_phrasings": [
+        "the model is wrong about where the fire goes",
+        "the forecast is useless",
+        "예보가 쓸모없다",
+        "the model gets the fire wrong",
+        "IoU 0.39 is the routing margin",
+        "the oracle gap is measured",
+        "this measures what the model buys"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_oracle_gap.py rebuilds the artifact from the committed routing_demo_canonical.npz alone, with no DEM, no network access and no fitted model — it reads two arrays out of one file and counts cells.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "field_comparison",
+      "notes": "docs/oracle_gap.md states the method, what it answers for WFG-125 and what it does NOT show. It is a field-to-field comparison and produces no routing margin.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/oracle_gap_yeongdeok.json",
+            "json_path": "slices.4.size_ratio"
+          }
+        }
+      }
     }
   }
 }

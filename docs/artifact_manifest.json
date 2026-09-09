@@ -1,12 +1,12 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "9a97e538fff006cb5deda7737ca0fa6b95ddd047",
-  "n_artifacts": 105,
-  "total_bytes": 14577987,
-  "total_mib": 13.9,
-  "n_git_tracked": 105,
+  "generated_at_git_commit": "f9183b0ada5d753c847ada58f49868660737caf5",
+  "n_artifacts": 107,
+  "total_bytes": 14609543,
+  "total_mib": 13.93,
+  "n_git_tracked": 107,
   "n_untracked_manifest_only": 0,
-  "n_regenerate_unknown": 8,
+  "n_regenerate_unknown": 9,
   "artifacts": [
     {
       "path": "data/processed/.gitkeep",
@@ -271,6 +271,7 @@
       "git_tracked": true,
       "n_registry_entries": 2,
       "cited_by_docs": [
+        "docs/auto/reports/2026-09-09T0452Z-dev.md",
         "docs/creativity_card.md"
       ],
       "regenerate": "python scripts/measure_demo_script_pace.py --stamp 20260909T0321Z"
@@ -458,6 +459,18 @@
       "regenerate": "python scripts/acquire_region_dem.py"
     },
     {
+      "path": "data/processed/hazard_uiseong_andong_2025.npz",
+      "bytes": 28289,
+      "sha256": "4016c2e6ef8e27eb12310a816a416b6d1a6bf54d0187d6ac8fbc4ad4f747e3cd",
+      "kind": "binary",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/auto/NEEDS_HUMAN.md"
+      ],
+      "regenerate": "python scripts/measure_building_snapping.py"
+    },
+    {
       "path": "data/processed/lofo_oof_logistic.csv.gz",
       "bytes": 1756439,
       "sha256": "1b95ccf2224d1357ff6fc9422d3e76bffa0c38acf746fb2a0b0445e64c89d5d4",
@@ -607,6 +620,19 @@
       "regenerate": "python scripts/build_finals.py"
     },
     {
+      "path": "data/processed/oracle_gap_yeongdeok.json",
+      "bytes": 3267,
+      "sha256": "af9b5cf51c17fc9a547a45712b7e3a33aab2c221af6c3fed5bfec586552c22b3",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 25,
+      "cited_by_docs": [
+        "docs/auto/BACKLOG.md",
+        "docs/auto/NEEDS_HUMAN.md"
+      ],
+      "regenerate": "python scripts/measure_oracle_gap.py"
+    },
+    {
       "path": "data/processed/ordering_boundary.json",
       "bytes": 4697146,
       "sha256": "16ba2387598a2e4ddbc066513f3c78eb45a3815ddb4335e8f030cbbd4614088a",
@@ -754,7 +780,7 @@
       "cited_by_docs": [
         "docs/forbidden_check_scope.md"
       ],
-      "regenerate": "python scripts/check_readme_figures.py"
+      "regenerate": "UNKNOWN"
     },
     {
       "path": "data/processed/rescue_baseline_synthetic/rescue_capacity.json",
@@ -890,7 +916,6 @@
       "cited_by_docs": [
         "docs/HANDOFF_ROUND3.md",
         "docs/auto/BACKLOG.md",
-        "docs/auto/CRITIC_LATEST.md",
         "docs/auto/NEEDS_HUMAN.md",
         "docs/dilation_perturbation.md",
         "docs/forecast_robustness.md",
@@ -908,6 +933,8 @@
       "n_registry_entries": 0,
       "cited_by_docs": [
         "docs/auto/BACKLOG.md",
+        "docs/auto/MEMO.md",
+        "docs/auto/NEEDS_HUMAN.md",
         "docs/auto/reports/2026-09-06T0516Z-critic.md",
         "docs/live_pipeline.md",
         "docs/manual_trigger.md",

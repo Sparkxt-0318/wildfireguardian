@@ -159,6 +159,7 @@ data/processed/**
 # routing_demo.npz is untouched and still carries the digest the submission
 # cites. Which field is published is not decided here.
 !data/processed/routing_demo_canonical.npz
+!data/processed/oracle_gap_yeongdeok.json
 !data/processed/canonical_hazard.json
 !data/processed/real_roads_real_hazard_canonical.json
 # Step 2: the 30/60/90 m slope sweep on the canonical field. The committed

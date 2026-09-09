@@ -129,6 +129,12 @@
       "role": "WFG-114 (2026-09-05, author decision NH-027 option A). The FAIR OPPONENT for the forecast-aware headline: the fire-blind objective (shortest path by length_m to the nearest surviving refuge) run on the CANONICAL arm's walk network - slope 60 m sampling, DiGraph, |slope| clipped at 0.6, rebuilt from the SRTM raster in the committed snapshot store - with every node within a fixed buffer of the slice-0 perimeter (p >= 0.5) refused, at five widths. Fits no model and reads no model output; it re-uses the committed hazard npz, the snapshot walk graph and the snapshot SRTM raster, and changes only which nodes the router may stand on.",
       "control_required": false,
       "reason_no_control": "No model is fitted, so there is no feature count to control. The arm's own control is internal and is the point of the experiment: the SAME objective on the SAME network with the buffer NOT applied is the fire-blind column, and all three columns are scored under one rule including the 600-minute budget. The run refuses to write unless it first reproduces the committed slope_digraph_canonical arm - all seven bucket counts, and the origin ids of every bucket the committed artifact stores a list for (3 non-empty buckets, 105 ids; both_safe has no stored list and is pinned by complement). See docs/present_perimeter_arm.md."
+    },
+    "field_comparison": {
+      "n_features": null,
+      "role": "WFG-125 (2026-09-09). Not a modelling arm: it fits nothing, predicts nothing and routes nothing. It opens ONE committed artifact, data/processed/routing_demo_canonical.npz, and compares two arrays already inside it - haz_stack, the leave-one-fire-out forward simulation the canonical router plans on, against obs_stack, the cumulative FIRMS-observed footprint on the same 181x156 500 m grid - at the nearest available times, counting cells. See docs/oracle_gap.md.",
+      "control_required": false,
+      "reason_no_control": "No model is fitted and no feature exists, so there is no feature count to control and no column-addition null to place it against. The comparison's own control is structural and is stated in the artifact: the t=0 slice, where both stacks are seeded from the same detection and agree exactly (IoU 1.0), which is what an agreement of no skill looks like here and is excluded from the headline for that reason. Every quantity re-derives from the two committed arrays by tests/test_oracle_gap.py, which recomputes all five slices rather than trusting the artifact."
     }
   }
 }

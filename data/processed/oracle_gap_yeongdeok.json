@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "title": "The planning field vs the observed footprint — 영덕 2025, canonical",
+  "row": "WFG-125",
+  "generated_utc": "2026-09-09T12:30:02Z",
+  "git_commit": "f9183b0ada5d753c847ada58f49868660737caf5",
+  "source_artifact": "data/processed/routing_demo_canonical.npz",
+  "source_sha256": "81b4e4d159daa7a8ccc7c4fedf3fea948d501fff2d7e886c1fd55bbf47043fb7",
+  "p_cut": 0.5,
+  "grid_shape": [
+    181,
+    156
+  ],
+  "grid_cells_per_slice": 28236,
+  "cell_size_m": 500.0,
+  "stacks_are_cumulative": {
+    "haz": true,
+    "obs": true
+  },
+  "slices": [
+    {
+      "haz_time_min": 0.0,
+      "obs_time_min": 0.0,
+      "time_gap_min": 0.0,
+      "predicted_cells": 249,
+      "observed_cells": 249,
+      "intersection_cells": 249,
+      "union_cells": 249,
+      "false_alarm_cells": 0,
+      "missed_cells": 0,
+      "iou": 1.0,
+      "size_ratio": 1.0
+    },
+    {
+      "haz_time_min": 180.0,
+      "obs_time_min": 333.0,
+      "time_gap_min": 153.0,
+      "predicted_cells": 692,
+      "observed_cells": 937,
+      "intersection_cells": 430,
+      "union_cells": 1199,
+      "false_alarm_cells": 262,
+      "missed_cells": 507,
+      "iou": 0.3586,
+      "size_ratio": 0.7385
+    },
+    {
+      "haz_time_min": 360.0,
+      "obs_time_min": 333.0,
+      "time_gap_min": 27.0,
+      "predicted_cells": 952,
+      "observed_cells": 937,
+      "intersection_cells": 534,
+      "union_cells": 1355,
+      "false_alarm_cells": 418,
+      "missed_cells": 403,
+      "iou": 0.3941,
+      "size_ratio": 1.016
+    },
+    {
+      "haz_time_min": 540.0,
+      "obs_time_min": 333.0,
+      "time_gap_min": 207.0,
+      "predicted_cells": 981,
+      "observed_cells": 937,
+      "intersection_cells": 543,
+      "union_cells": 1375,
+      "false_alarm_cells": 438,
+      "missed_cells": 394,
+      "iou": 0.3949,
+      "size_ratio": 1.047
+    },
+    {
+      "haz_time_min": 720.0,
+      "obs_time_min": 1005.0,
+      "time_gap_min": 285.0,
+      "predicted_cells": 1036,
+      "observed_cells": 987,
+      "intersection_cells": 576,
+      "union_cells": 1447,
+      "false_alarm_cells": 460,
+      "missed_cells": 411,
+      "iou": 0.3981,
+      "size_ratio": 1.0496
+    }
+  ],
+  "headline": {
+    "haz_time_min": 360.0,
+    "obs_time_min": 333.0,
+    "time_gap_min": 27.0,
+    "predicted_cells": 952,
+    "observed_cells": 937,
+    "intersection_cells": 534,
+    "union_cells": 1355,
+    "false_alarm_cells": 418,
+    "missed_cells": 403,
+    "iou": 0.3941,
+    "size_ratio": 1.016,
+    "note": "the best time-matched slice: t=0 is excluded because both stacks are seeded from the same detection there, and of the rest this is the one whose observation is nearest in time"
+  },
+  "last_slice": {
+    "haz_time_min": 720.0,
+    "obs_time_min": 1005.0,
+    "time_gap_min": 285.0,
+    "predicted_cells": 1036,
+    "observed_cells": 987,
+    "intersection_cells": 576,
+    "union_cells": 1447,
+    "false_alarm_cells": 460,
+    "missed_cells": 411,
+    "iou": 0.3981,
+    "size_ratio": 1.0496
+  },
+  "what_this_is_not": "This is a field-to-field comparison, not a routing result. It produces no margin and moves no committed number. obs_stack is a FIRMS-derived observation with its own detection floor (docs/detection_floor.md), not ground truth."
+}

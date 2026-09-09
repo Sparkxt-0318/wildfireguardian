@@ -2669,3 +2669,33 @@ for one commit rather than discovering it at step 8. This is the same family as
 NH-043 (open, due today): a gate whose condition is 「can a stranger's clone
 resolve this」 fires on the ordering of a lap's own steps, and the charter tells
 the lap that meets it to stop.
+
+## 2026-09-09T1230Z — before you cost a missing input, check what the existing input IS
+
+WFG-125 sat for five critic laps on a premise none of them tested: that the
+forecast-aware arm plans on the graded truth, so removing its oracle meant
+building a new **planning** field. Critic #47 costed that honestly and correctly
+— a fill rule over the ~82 % of 영덕 cells the out-of-fold sample never scores,
+which is a free parameter chosen after seeing the margin — and concluded the
+cheap branch was the only one that fits a lap. Four laps then inherited the
+conclusion without re-opening the premise.
+
+The premise was wrong, and one `np.load` answers it.
+`data/processed/routing_demo_canonical.npz` carries `haz_stack` (a
+leave-one-fire-out forward simulation — already a model output) **and**
+`obs_stack` (the cumulative FIRMS footprint), on one grid, in one file. The arm
+already plans on a model field. **The oracle is in the grader, not in the
+planner**, so the fix needs a different *grading* field, and a complete one is
+committed. No fill rule, no refit, no re-acquisition.
+
+**The anti-pattern:** a row that names a missing artifact, re-costed by lap after
+lap, where nobody opens the artifact that IS there. The row said 「which of them
+is a prediction rather than the graded truth is the row's first question, not its
+assumption」 — the row was right and five laps read past it, because a
+well-argued cost estimate reads like a finished investigation.
+
+**The gate that would have caught it earlier, and is cheap:** when a row's cost
+turns on 「the input we need does not exist」, the lap that re-costs it lists the
+arrays or columns of the committed file it claims is insufficient, in the report,
+before the estimate. `docs/oracle_gap.md` §2 is that list; it took ten minutes and
+it moved a P0 row from 「needs a free parameter」 to 「needs the author's decision」.
