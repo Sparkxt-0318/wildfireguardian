@@ -5,9 +5,33 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
-**Tick count, critic #53, 2026-09-09T2023Z at `ba06467`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
+**Tick count, critic #54, 2026-09-09T2319Z at `3eec471`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
 R3, R11 and R12 are the three that do not tick; R10 was withdrawn 2026-09-04.** ⚠⚠ **ZERO lines ticked, for
-the TENTH consecutive critic lap.** The count has stood at 8 since critic #43 ticked R8 at 2026-09-08T1429Z.
+the ELEVENTH consecutive critic lap.** The count has stood at 8 since critic #43 ticked R8 at 2026-09-08T1429Z.
+
+**Critic #54's own re-read, 2026-09-09T2319Z at `3eec471`.** R1 holds: `web/finals.html` is offline by gate and
+its stamp names `89da7d3`, which `tests/test_finals_screen.py`'s 30-commit staleness gate passes inside a green
+`gates.py --mode full` at this head (exit 0, 1871 passed, 64 skipped, 3 xfailed). R7 and R9 hold:
+`release/kcf-finals-2026/MANIFEST.json` names `WFG_printables_20260909T1908Z.pdf`, that file is tracked, and
+`tests/test_finals_bundle.py`'s hash gates are green in the same run. R8 holds: the Round-4 section gained a
+lead block at 2206Z (WFG-212) and the forbidden-string and collision gates are green over it. **R3, R11 and R12
+are unchanged and none is a lap's to move**, for the reasons the table below already measures; NH-046, the
+single point of failure, comes due **2026-09-10 — tomorrow**.
+
+⚠ **The judge-facing gap this lap found is NOT a readiness line, and I checked each line's own criterion before
+saying so.** Four surfaces — `README.md:391-395`, `web/finals.html:1580`, `docs/auto/JUDGE_QA.md:1172` (Q29a,
+T0) and `docs/auto/DEMO_SCRIPT_5MIN.md:67` — plus the printed `docs/creativity_card.md` still call the committed
+dispatch sheets 「가구 단위」 / "per-household" with no bound, after `README.md:212-251` corrected the same claim
+to 「지점 단위」 at 2206Z. **R1** asks that the screen open offline and that every on-screen **number** map to a
+registry key; no number moved. **R4** asks that the demo script exist with per-act timings and an interruption
+sentence for each judge type; it does. **R5** asks that every T0 answer cite a file and that no purged phrasing
+remain; Q29a cites its files, and 「가구 단위」 **as a description of this project's own committed sheets** is
+not a registered spelling in `docs/auto/withdrawn_claims.json` — the single entry containing that phrase,
+`WC-008`, is about what NIFoS's console and G-DAPS do **not** compute, a different claim. So this is an
+**unregistered** overclaim, which is exactly why no gate caught it and why CHARTER §5c's ratchet could not. **R7** and **R9** ask that the kit and the
+bundle exist and rebuild, not what they say. So this is a scorecard deduction (제출 자료) and a P0 row
+(**WFG-222**), and **no tick is removed**. ⚠ A lap that closes WFG-222 rebuilds the kit and re-points the bundle
+manifest in the same lap, or R7 and R9 stop being true of the corrected text.
 
 **Critic #53's own re-read, 2026-09-09T2023Z at `ba06467`.** R1 holds: `web/finals.html` is offline by gate and
 its stamp names `89da7d3`, six commits behind this head against the 30-commit limit `tests/test_finals_screen.py`

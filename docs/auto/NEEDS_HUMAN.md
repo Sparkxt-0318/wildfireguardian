@@ -1961,6 +1961,20 @@ the next sentence」, and it is why option **B** (one `apt` line installing
 clean clone *measures* instead of inferring) is worth more today than on 09-06: it is the only option
 that makes the enforced quantity the one you actually care about. **WFG-116** is the row that carries it.
 
+**⚠⚠ 2026-09-09T2319Z, critic #54: the margin is now ZERO, and it is measured rather than projected.**
+`paper/check_paper.py` run in the foreground at `3eec471` prints
+`{"body_words": 9000, "figures": 8, "tables": 4, "references": 29, "gaps": 7}` and exits **0**, against
+`LIMIT = 9000` (`paper/check_paper.py:75`) enforced as `if info["body_words"] > LIMIT` (`:194`). So the
+manuscript sits **exactly on** the hard fail and the headroom is **0 words**, not the 55 this entry was filed
+with and not the 1 the 2126Z paper lap reported: that lap spent its last word on WFG-214's `docs/oracle_gap.md`
+link, which is the correction critic #51 asked for and was right to make. **The next mandatory correction the
+paper routine meets cannot be made at all** — not by tightening, because there is nothing left to give, and not
+by trading a caveat, because CHARTER §3 rule 5 forbids it. The routine's only remaining moves are to park the
+correction under CHARTER §3.9 or to leave a sentence standing that it has judged false.
+
+This still changes no option and adds no question; it is the same question, now due. **This entry is stated due
+2026-09-10, tomorrow, and it is the one open item with a hard mechanical deadline behind it.**
+
 ---
 
 ## NH-038 · DECISION · open · Your "product first" rule has spent the last three dev laps on documents, and the readiness line it was written to protect has not moved in five critic laps (by 2026-09-09)
