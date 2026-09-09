@@ -167,8 +167,9 @@ fact, by scanning outcomes — so it is a maximum over the measured grid, and th
 forecast's margin over this opponent is non-increasing under refinement.** A
 width added to the grid can only tie or beat the incumbent, so the opponent's
 best score can only rise and the margin can only fall. This is not hypothetical:
-the denser grid above is the first refinement this project ran, and it moved the
-best width off 1 km and took part of the margin with it. The property and the
+the denser grid is the only refinement `data/processed/` holds — these are the
+only two buffer grids in the repository — and it moved the best width off 1 km
+and took part of the margin with it. The property and the
 worked instance are in
 [`docs/present_perimeter_buffer_shape.md`](present_perimeter_buffer_shape.md) §4.
 It is a statement about **how the number is selected**, not a fault in the run:

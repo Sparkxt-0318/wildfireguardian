@@ -2439,3 +2439,47 @@ a quoted phrase is the second most common miss. Paste the line first, then loose
 convention is that a fallback answer goes inline in a ⚠ note; only lines in `>` blocks are
 the demo. `tests/test_demo_script_pace.py` caught it, which is the gate working — but the
 next lap adding a booth answer should know the convention before it writes, not after.
+
+---
+
+## 2026-09-09T0021Z (dev, WFG-201) — a gate written to the row's words would have guarded nothing, because the sentence it banned is already banned
+
+The row asked for a test that fails 「if any surface states a margin without the
+post-hoc-maximum qualifier」. That is the right property and it was the wrong gate, and the
+check that found out costs one grep: **no judge-facing surface states a margin at all.**
+NH-032 and NH-034 are open, so every one of them carries an explicit ❌ forbidding the value,
+and the README block carries a critic's standing note forbidding it by line number. A gate on
+「margin without qualifier」 therefore has **no true positive available anywhere in the tree**.
+It would have passed on the day it was written, passed every day after, and passed just as
+happily on the day someone deleted the qualifier — because the trigger it waits for is
+something a different rule already prevents.
+
+**This is the same defect as MEMO 2026-09-08T2235Z's decorative derivation, one level up.**
+That one was an assertion that read a file and then compared against a literal. This one is a
+gate whose *predicate* is unreachable. Both look like protection, both are green, and in both
+cases the author cannot tell the difference from the inside — the sibling module
+`tests/test_buffer_shape.py` says so in its own comments and still only escaped it because a
+lap noticed the artifact could not lose a row.
+
+**The rule, and it is one command:** *before writing a gate, find the line in the tree it
+would fire on today.* If there is none, the gate is guarding a hypothetical, and it must
+either be re-aimed at what is live or be exercised against synthetic text and **labelled** as
+dormant — never left to imply it is holding something up. Re-aiming is usually available and
+is what happened here: the margin is forbidden, but everything **else** read off the same
+post-hoc argmax — the shoulder, 「틀리려면 두껍게」 — is spoken at the booth in Q37 and 3막, and
+those are the live instances of the identical property. The dormant margin arm was kept, and
+is exercised against injected text so it is load-bearing the day NH-032 closes rather than
+written then.
+
+**The greppable tell:** a new test whose trigger regex, run against the paths in its own
+`SURFACES` list, returns **zero** matches. The mutation test that makes this visible is not
+「does the gate fire on a synthetic string」 — that always passes — it is **「strike the
+qualifier out of each real surface and confirm the gate fires on that file」**. It fails
+loudly for any surface that never carried a trigger, which is exactly the file the list should
+not have contained, or the aim that should not have been taken.
+
+**A second, smaller thing this lap owes the next one.** The row named five surfaces and there
+were six: `docs/present_perimeter_arm.md` §4 is titled 「Why 1 km is not a constant」 and draws
+both argmax conclusions. A row's surface list is written by someone reading the surfaces they
+remembered; the gate's list is the one that has to be right, so derive it by grepping the
+trigger across the repository before trusting the row.

@@ -22,6 +22,20 @@ Two halves, and the second is the one this module exists for:
    WC-004 failure the charter records: a lap fixed Q30's card and left the same
    claim standing in Q35, eight sections away, in the same green file.
 
+⚠ **What this gate cannot check, stated because the same agent wrote both sides.**
+The qualifier sentences on the six surfaces and the patterns that recognise them
+were written by one lap, so this module grades a **form** — is a qualifier of a
+recognised shape present in the section a judge reads — and not a meaning. It
+cannot tell a correct qualifier from a plausible one, and it would accept a
+sentence that used the right words wrongly. That is `mandela` leakage #4, the
+scorer grading a bucket it drew. Two things narrow it and neither closes it: the
+qualifier needs **two independent halves** (the selection is post hoc; refinement
+moves the result one way) with several alternative spellings each, so a single
+borrowed phrase does not license a claim; and the mutations below are graded
+against text this module did not author. The check that is *not* form-only is
+`test_the_documents_worked_instance_is_what_the_artifacts_say`, which computes
+both margins from the artifacts and requires §4 to state them.
+
 ⚠ **What this gate does NOT cover.** `paper/` is the paper routine's (CHARTER
 §12) and no dev lap edits it, so `paper/manuscript.md` §4.5 and `paper/GAPS.md`
 are outside the surface list even though the same qualifier is owed there. That
@@ -134,35 +148,86 @@ def _best(grid: dict[float, dict]) -> tuple[float, int]:
     return w, grid[w]["safe_total"]
 
 
+def _states(text: str, value: int) -> bool:
+    """Is `value` written in `text` as a number of its own?
+
+    ⚠ Anchored on BOTH sides, and this module shipped it unanchored first. The
+    independent reviewer's nail: `\\*{0,2}9\\*{0,2}\\b` matches the 9 inside
+    **349** and the 5 inside **345**, two substrings sitting in the very
+    sentence the assertion was meant to check, so the test stayed green against
+    a document whose worked instance had been rewritten to 12 and 7. A
+    derivation that any falsification survives is decoration
+    (MEMO 2026-09-08T2235Z), which is the anti-pattern this module's own
+    docstring cites.
+    """
+    return re.search(rf"(?<![\d.])\*{{0,2}}{value}\*{{0,2}}(?![\d.\w])",
+                     text) is not None
+
+
+def _states_width(text: str, metres: float) -> bool:
+    """A width, in either spelling the documents use: `750 m` or `1 km`."""
+    if metres >= 1000 and metres % 1000 == 0:
+        km = int(metres // 1000)
+        if re.search(rf"(?<![\d.])\*{{0,2}}{km}\*{{0,2}}\s*km", text):
+            return True
+    return re.search(rf"(?<![\d.])\*{{0,2}}{int(metres)}\*{{0,2}}\s*m\b",
+                     text) is not None
+
+
 # --------------------------------------------------------------------------
 # 1. The property, computed from the artifacts rather than quoted from a doc.
 # --------------------------------------------------------------------------
-def test_the_property_holds_on_the_committed_grids():
-    """Refining the grid raised the opponent and lowered the margin, in fact.
+def test_the_grids_are_nested_and_the_refinement_actually_moved_the_answer():
+    """The two conditions every surface's sentence rests on, checked.
 
-    This is the claim every surface now makes, and it is derived here: the
-    forecast-aware total comes from the registry, both argmaxes from the two
-    artifacts, and the comparison is between two computed values. Nothing is
-    compared against a literal.
+    ⚠ The monotonicity itself is *not* asserted here, and an earlier draft of
+    this module did assert it. A maximum over a superset cannot be smaller than
+    a maximum over the subset, so with `set(coarse) < set(dense)` established one
+    line above, `best_dense >= best_coarse` is arithmetic and can only fail if
+    the two files disagree on a shared width — which is already
+    `test_buffer_shape.py::test_the_five_shared_widths_reproduce_cell_for_cell`'s
+    job. A test that grades a bucket it drew itself is `mandela` #4, and the
+    independent reviewer named it.
+
+    What has content, and is what the prose actually leans on, is that the
+    grids are **nested** (otherwise the monotonicity argument does not apply at
+    all) and that this refinement **moved the argmax onto a new width** — the
+    worked instance is worth writing only because it happened.
     """
-    numbers = json.loads(NUMBERS.read_text(encoding="utf-8"))["numbers"]
-    forecast_aware = numbers["pp_uiseong_safe_forecast_aware"]["value"]
     coarse, dense = _sweep(COMMITTED), _sweep(DENSE)
-
     assert set(coarse) < set(dense), (
-        "the dense grid is not a refinement of the committed one, so nothing "
-        "below is a statement about refinement")
+        f"the dense grid is not a superset of the committed one "
+        f"({sorted(set(coarse) - set(dense))} missing), so nothing on any "
+        f"surface is a statement about adding widths to this grid, and the "
+        f"monotonicity argument does not hold")
+
     w_coarse, best_coarse = _best(coarse)
     w_dense, best_dense = _best(dense)
+    assert w_dense not in coarse, (
+        f"the refinement left the best width at {w_coarse:.0f} m, so there is "
+        f"no worked instance and the surfaces must not claim one")
+    assert best_dense > best_coarse, (
+        f"the refinement did not strengthen the opponent ({best_coarse} at "
+        f"{w_coarse:.0f} m -> {best_dense} at {w_dense:.0f} m), so 「the first "
+        f"refinement took part of the margin」 is false on this tree")
 
-    assert best_dense >= best_coarse, (
-        f"refining the grid LOWERED the opponent's best score "
-        f"({best_coarse} at {w_coarse:.0f} m -> {best_dense} at {w_dense:.0f} m), "
-        f"which a maximum over a superset cannot do. Either the two sweeps are "
-        f"not comparable or one of the artifacts moved.")
-    assert (forecast_aware - best_dense) <= (forecast_aware - best_coarse), (
-        "refining the grid RAISED the forecast's margin, which contradicts "
-        "every surface that now states the property")
+
+def test_the_forecast_aware_arm_is_the_same_number_on_both_grids():
+    """The margin only falls if the arm it is measured from does not move.
+
+    The forecast-aware arm plans no buffer, so widening the buffer grid cannot
+    touch it — but that is the invariance the whole property rests on and no
+    surface states it, so it is checked here rather than assumed.
+    """
+    numbers = json.loads(NUMBERS.read_text(encoding="utf-8"))["numbers"]
+    registered = numbers["pp_uiseong_safe_forecast_aware"]["value"]
+    for path in (COMMITTED, DENSE):
+        art = json.loads(path.read_text(encoding="utf-8"))
+        assert art["headline"]["safe_forecast_aware"] == registered, (
+            f"{path.name} reports a different forecast-aware total "
+            f"({art['headline']['safe_forecast_aware']}) from the registered "
+            f"{registered}, so the two margins are not measured from the same "
+            f"baseline and cannot be compared")
 
 
 def test_the_documents_worked_instance_is_what_the_artifacts_say():
@@ -174,18 +239,58 @@ def test_the_documents_worked_instance_is_what_the_artifacts_say():
     """
     numbers = json.loads(NUMBERS.read_text(encoding="utf-8"))["numbers"]
     forecast_aware = numbers["pp_uiseong_safe_forecast_aware"]["value"]
-    margin_coarse = forecast_aware - _best(_sweep(COMMITTED))[1]
-    margin_dense = forecast_aware - _best(_sweep(DENSE))[1]
-    body = SHAPE_DOC.read_text(encoding="utf-8").split("## 4.")[-1]
+    w_coarse, best_coarse = _best(_sweep(COMMITTED))
+    w_dense, best_dense = _best(_sweep(DENSE))
+    body = SHAPE_DOC.read_text(encoding="utf-8").split("## 4.")[-1].split("## 5.")[0]
 
-    for value, which in ((margin_coarse, "five-point"), (margin_dense, "eight-point")):
-        assert re.search(rf"\*{{0,2}}{value}\*{{0,2}}\b", body), (
+    for value, which in ((forecast_aware - best_coarse, "five-point"),
+                         (forecast_aware - best_dense, "eight-point")):
+        assert _states(body, value), (
             f"docs/present_perimeter_buffer_shape.md §4 does not state the "
-            f"{which} grid's margin of {value}, so its worked instance is not "
-            f"the one the artifacts carry")
-    assert margin_coarse - margin_dense > 0, (
-        "the worked instance is only worth writing if the refinement actually "
-        "cost margin; it did not")
+            f"{which} grid's margin of {value} as a number of its own, so its "
+            f"worked instance is not the one the artifacts carry")
+    for value, which in ((best_coarse, "the five-point grid's best safe total"),
+                         (best_dense, "the eight-point grid's best safe total")):
+        assert _states(body, value), (
+            f"§4's worked instance does not state {which} ({value}), so a "
+            f"reader cannot check the two margins against the sweep")
+    for width, which in ((w_coarse, "the width it came from"),
+                         (w_dense, "the width it moved to")):
+        assert _states_width(body, width), (
+            f"§4's worked instance does not name {which} ({width:.0f} m), so "
+            f"the two margins are not attached to the grids they came from")
+
+
+#: The worked-instance sentence as §4 actually ships it. Held as a probe rather
+#: than as a regex, for the sibling module's reason: a mutation written from the
+#: *meaning* of a sentence tests nothing, and if the sentence is reworded this
+#: probe must go stale loudly instead of quietly matching nothing.
+WORKED_INSTANCE_PROBE = ("margin went from **9** origins to **5**",
+                         "margin went from **12** origins to **7**")
+
+
+def test_the_worked_instance_check_fails_on_a_document_that_states_wrong_margins(
+        monkeypatch, tmp_path):
+    """The reviewer's nail, kept as a test so the anchoring cannot be lost.
+
+    The first version of `_states` had no left boundary, so 9 matched inside
+    **349** and 5 inside **345** — both in the same sentence — and the check
+    passed against a §4 whose worked instance read 12 and 7, and against a §4
+    with the bullet deleted outright. This test is that mutation.
+    """
+    shipped, falsified = WORKED_INSTANCE_PROBE
+    original = SHAPE_DOC.read_text(encoding="utf-8")
+    assert shipped in original, (
+        f"the sentence this mutation targets is no longer in §4: {shipped!r}. "
+        f"Re-take the probe from the document rather than deleting the test.")
+
+    for mutated in (original.replace(shipped, falsified),
+                    original.replace(shipped, "")):
+        path = tmp_path / "mutated.md"
+        path.write_text(mutated, encoding="utf-8")
+        monkeypatch.setitem(globals(), "SHAPE_DOC", path)
+        with pytest.raises(AssertionError):
+            test_the_documents_worked_instance_is_what_the_artifacts_say()
 
 
 # --------------------------------------------------------------------------

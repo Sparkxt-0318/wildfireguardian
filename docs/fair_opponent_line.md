@@ -68,8 +68,8 @@ narrower:
   committed five-width counts stay at
   [`docs/present_perimeter_arm.md`](present_perimeter_arm.md) §4.
 - **⚠ And the band was found by scanning outcomes, so it is a maximum over the
-  measured grid: refining the grid can only strengthen this opponent and only
-  shrink whatever margin the forecast is reported to hold over it.** Nothing in
+  measured grid: adding widths to this grid can only strengthen this opponent
+  and can only shrink whatever margin the forecast is reported to hold over it.** Nothing in
   the problem chooses a width, so the sweep hands the opponent the best width it
   finds — after the run. A width added to the grid can only tie or beat the
   incumbent, so the opponent's best score is non-decreasing and the margin

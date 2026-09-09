@@ -64,9 +64,9 @@ width the sweep found — the argmax of the `safe total` column, read **after** 
 run. Every conclusion in this section is therefore a statement about **the grid
 that was searched**, not about a present-perimeter policy in general: the argmax,
 the shoulder, the asymmetry and the margin all move with the set of widths
-measured. That is a post-hoc maximum, and §4 states what it costs — refining the
-grid can only raise the opponent's score and only lower the forecast's margin
-over it.
+measured. That is a post-hoc maximum, and §4 states what it costs — adding a
+width to this grid can only raise the opponent's score and can only lower the
+forecast's margin over it.
 
 Eight widths, one fire, 368 scanned origins. The three new rows are in **bold**.
 
@@ -126,8 +126,11 @@ and **NH-034** are open.
   fire, this hazard realisation and this scoring rule fixed. **The worked instance
   is this run's own, in §3(c):** the five-point grid's best was 1 km at a safe
   total of 345, and adding three widths moved the best to 750 m at 349. The
-  margin went from **9** origins to **5** <!-- collision-ok: 9 and 5 are the margins of §3(c), re-stated here as the worked instance of the post-hoc-maximum property; they are the same two quantities and not new ones. -->
-  — **the first refinement this project ever ran removed four of the nine.**
+  margin went from **9** origins to **5** <!-- collision-ok: the two margins of §3(c), re-stated here as the worked instance of the post-hoc-maximum property; they are the same two quantities and not new ones. -->
+  — **that one refinement removed four of the nine origins of margin.** These
+  two artifacts are the only buffer grids `data/processed/` holds, so this is
+  the only refinement the repository can show; it is not a claim about the
+  project's history, which no clone here is deep enough to make.
   Nothing here bounds how far a finer grid would take it, and nothing in this
   repository has searched one. The honest way to read every margin against this
   opponent is 「at most this much, on the grid we happened to measure」. ⚠ This is
