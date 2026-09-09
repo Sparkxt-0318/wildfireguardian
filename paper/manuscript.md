@@ -500,14 +500,14 @@ breakdown by failure type is the committed arm's alone; what both constructions 
 the coarser statement — thin buffers send walkers through burning ground, wide ones strand
 them — which is why the change of kind is stated here and the counts are not. They do not
 agree on which buffer width comes off best either, so the dispute above is not confined to
-the residual it leaves. The run supports no
-statement about whether a workable width could be chosen in advance: the five widths differ
-by factors of two, so the grid holds a single point in the region such a claim would be
-about. Two repository documents still draw the stronger conclusion from those same five
-points, as do the caveats the registry carries on this arm's own entries; others were
-narrowed to this reading during revision, and the rest is an open item there.
+the residual it leaves. That grid has since been refined — three intermediate widths, the
+five reproducing cell for cell — and the top is a shoulder two sampled widths wide, not a
+peak. The opponent's score is reported at the best width measured, a width picked out after
+the run by scanning outcomes, so it is a maximum over that grid and the forecast's advantage
+over it non-increasing as widths are added. This refinement moved the best width off the
+committed one, taking part of that advantage.
 
-Two caveats bind the whole comparison. The forecast-aware arm plans on the same hazard field
+Two further caveats bind the whole comparison. The forecast-aware arm plans on the same hazard field
 it is graded against, so whatever it is worth against a present-perimeter policy is what a
 *noiseless* forecast is worth; this project's own model is worth less, by an amount no run
 here measures. And this is one fire, one ignition and one departure time: which buffer comes

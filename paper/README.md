@@ -406,6 +406,44 @@ the proxy, not the author's. Laps 13 through 21 have now all had their writing s
 this is the first one where what it shaped away was a limitation. NH-037 is the answer and it is
 still open.**
 
+✅ **Lap 22 is the second lap in ten where the budget shaped nothing, and the reason is the
+same as lap 18's: the work it had to do paid for itself.** Two sentences of §4.5 had gone
+false — 「the grid holds a single point in the region such a claim would be about」 and
+「**Two** repository documents still draw the stronger conclusion」 — because the incorporated
+diff **measured the three widths that grid was missing** and corrected both surfaces in the
+same commit. Removing 80 false words bought 84 true ones plus one (「Two **further** caveats」),
+so the whole of WFG-202's post-hoc-maximum qualifier landed for a **measured net +5**:
+8,993 → **8,998**, margin **7 → 2**. Nothing was compressed and no caveat or number was traded.
+
+⚠ **Read the direction of that, not the relief.** The margin is the smallest it has ever
+been, and it was funded by an unrepeatable source: a sentence that went false. The compressible
+stock is untouched and still exhausted, and **laps 13 through 21 all had their writing shaped
+by the proxy** — lap 21's casualty being a *limitation*. This lap's own declined clause is
+costed at **8 words against 2** in `GAPS.md`. **NH-037 is the answer and it is still open.**
+
+⚠⚠ **And the lap's independent reviewer BLOCKED it, on a count this file's first draft had
+not re-measured. Read `GAPS.md`'s lap-22 section before the paragraph below.** The lap ran
+`unqualified_post_hoc_claims`, fixed the one real hit it found, then **wrote the entire lap-22
+ledger without re-running it** — and the ledger's own new prose stated the shape of the top
+bare, a fresh unqualified argmax claim, with the qualifier one
+heading away in the next unit. That is `WC-004`'s shape, in the section explaining why the
+gate cannot be satisfied, in the lap whose subject is a count going stale. The reviewer also
+struck §4.5's mechanism claim: the runner sets a **default** buffer and sweeps around it, so
+「the opponent is therefore handed the best width the sweep found」 asserted code that does not
+exist; the sentence now says the score is **reported at** the best width measured. Both were
+repaired before the push and every integer below was re-derived after the repair.
+
+⚠⚠ **The gate is nonetheless unsatisfiable in `paper/` by honest means, and that is the
+finding.** WFG-202's done-when is 「`unqualified_post_hoc_claims` returns empty for every
+`paper/` path」. After the repair it returns **six** units, **zero** of them real: every one
+is the trigger `margin\s+(?:of|is|was)\s+\d` matching *this file's own* and `GAPS.md`'s
+**word-budget** margin. In `paper/` the dominant sense of 「margin」 is NH-037's, not NH-032's,
+and **one of the six units is the paragraph describing the false positives** — the gate
+cannot tell a margin from a sentence about one. Silencing them would mean writing a
+post-hoc-maximum qualifier into a paragraph about a word counter — a sentence using the right
+words wrongly, which is the leakage that module's own docstring says it cannot detect. It was
+not done. The fix is a narrowed trigger in `tests/`, outside CHARTER §12.
+
 ⚠ **The page that took the count from 22 to 23 cost eleven words, and it is worth
 knowing that before reading the words-to-pages table below as a rate.** Lap 11
 took the body 8,735 → 8,825 (a mandatory §4.5 correction, one clause, and the

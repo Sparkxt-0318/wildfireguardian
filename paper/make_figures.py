@@ -715,6 +715,21 @@ def F9_present_perimeter(out: Path) -> bool:
     factor of two away on either side; drawing them on a metric axis with a line
     through them would assert a curve shape between the samples that the run
     cannot resolve (WFG-127). Five bars, no interpolation.
+
+    ⚠ 2026-09-09 (paper lap 22): WFG-127 has since MEASURED the three widths this
+    grid was missing — 750, 1250 and 1500 m — in a separate artifact
+    (`present_perimeter_buffer_shape_uiseong_andong_2025.json`), all five widths
+    below reproducing cell for cell, and §4.5 of the manuscript now states what the
+    denser grid says. This figure deliberately STAYS on the committed five-width
+    artifact and its PNG is unchanged, for two reasons. NH-032's options are
+    computed at the committed widths, so this is the figure that drops into §4.5
+    when that decision lands. And a dense-grid companion would be a second
+    unreferenced figure with the same exposure the paragraph above is about, one
+    step worse: failure classes plus safe total sum to the scanned-origin count,
+    which Table 2 of the manuscript prints, so the stack recovers the safe series
+    and — against Table 2's forecast-aware total — the margin NH-032 bars from every
+    judge-facing surface. Not drawing it is the same decision as not drawing the
+    totals here, made once more rather than re-argued next lap.
     """
     d = load("data/processed/present_perimeter_arm_uiseong_andong_2025.json")
     if not d or not isinstance(d.get("buffer_sensitivity"), list):
