@@ -104,11 +104,16 @@ head. No new red run, so §4b sets no finding #1.** `factchk` had nothing new to
 markdown contains no new external URL and no new citation.
 
 **The root objection: the one gate that binds the schedule document to the history it reports measures the
-clone rather than the tree, and gives three answers on three clones of one commit.**
-`build_timeline_roles.py` resolves phase anchors with `%h`, whose width scales with the clone's object count.
-Here, unshallowed, `--check` exits 1 with `STALE timeline artifact: phase starts or anchor commits`; on
-GitHub at `fetch-depth: 0` run 294 exits 0; shallow it exits 2. The obvious repair is to rebuild the
-artifact, which would commit eight-character anchors and turn GitHub red instead. ⚠ **The lap that shipped
+clone rather than the tree, and gave four answers on four clone states of one tree today.**
+`build_timeline_roles.py` resolves phase anchors with `%h`, whose width git derives from the clone's object
+count. Shallow (as the sandbox opens) it exits 2 and the test skips. After `--unshallow`, at 20,641 packed
+objects, `%h` is eight characters, `--check` exits 1 with `STALE timeline artifact: phase starts or anchor
+commits`, and `gates.py --mode full` went **RED** on this lap's own commit `a53912d0`. Deleting the four
+unrelated remote-tracking refs and running `git gc --prune=now` took the clone to 12,052 objects with not one
+commit reachable from `HEAD` changed; `%h` is seven characters again and `--check` exits 0. GitHub run 294's
+own log reads `1851 passed, 63 skipped`, so the test ran and passed there. **What decides the verdict of a
+gate about this project's schedule is which other branches are in the clone.** The obvious repair is to
+rebuild the artifact, which would commit eight-character anchors and turn GitHub red instead. ⚠ **The lap that shipped
 this is the strongest 설계와 방법론 work of the sprint** and the defect is narrow: it is CHARTER §4's
 clone-shape failure class arriving through abbreviation **width** instead of clone **depth**, which is why
 its own docstring, written about depth, did not see it. **WFG-217**, and until it lands nobody rebuilds that

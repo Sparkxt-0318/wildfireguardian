@@ -65,10 +65,13 @@ the booth line in `DEMO_SCRIPT_5MIN.md:284-287` tells the student to say 「활�
 `baseline-verify` WARNs on the two git-ignored `data/raw/**` contracts, which is NH-029 and CHARTER §3d
 working as the author chose. `--assert-head` exits 0.
 
-⚠ **My pytest counts differ from the 1619Z dev lap's (1851 passed, 63 skipped) by exactly one test, and the
-difference is the point of WFG-217 below.** `tests/test_timeline_roles.py::test_the_artifact_still_agrees_with_the_history_when_the_clone_has_one`
-**skips** in a shallow clone and **runs** in a full one. It skipped in my first pass and, once I unshallowed,
-it does not merely run: it **fails**, and the failure is not a defect in the tree.
+⚠ **My first pytest counts differ from the 1619Z dev lap's (1851 passed, 63 skipped) by exactly one test, and
+that difference is WFG-217 below.** `tests/test_timeline_roles.py::test_the_artifact_still_agrees_with_the_history_when_the_clone_has_one`
+skips in a shallow clone, and in a full one it either passes or fails depending on **which other branches the
+clone happens to hold**. The full sequence in this session, every step on the same tree, is in the root
+objection; the short form is that my commit `a53912d0` went **RED** on `gates.py --mode full` for that one
+test, I established that the cause is the clone and not the tree, repaired the clone, and re-ran green. The
+red run is recorded here rather than quietly replaced.
 
 **GitHub `auto-gates`, the full 24 h window (runs 255 to 294):** two `failure` runs, **255** (`b7c1837`,
 `actions/upload-artifact` 403) and **260** (`7eeccab`, a debug-port race), both already inside critic #50's
@@ -82,36 +85,53 @@ all six nails fixed, none argued.
 
 ## The root objection (`hate`)
 
-**The one gate that binds the schedule document to the history it reports gives two different verdicts on two
-clean clones of the same commit, and the one it gives here accuses a correct document of drift.**
+**The one gate that binds the schedule document to the history it reports has no opinion about the history:
+its verdict is decided by how many objects the clone happens to hold, and in one of the four clone states I
+measured today it accuses a correct document of drift and takes the whole gate suite red.**
 
 `scripts/build_timeline_roles.py:110-115` resolves each phase's anchor with `%h` / `--abbrev-commit`. Git's
 abbreviation width is a property of the **clone's object count**, not of the history. Measured at `375be25`:
 
-| | stored artifact | re-derived in this clone |
-|---|---|---|
-| p1 anchor | `a88700c` | `a88700c8` |
-| p2 anchor | `4e9dfe3` | `4e9dfe39` |
-| p3 anchor | `66abf92` | `66abf92e` |
-| p4 anchor | `25f1e14` | `25f1e142` |
-| p5 anchor | `522f7a7` | `522f7a72` |
+| | stored artifact | re-derived at 20,641 packed objects | re-derived at 12,052 |
+|---|---|---|---|
+| p1 anchor | `a88700c` | `a88700c8` | `a88700c` |
+| p2 anchor | `4e9dfe3` | `4e9dfe39` | `4e9dfe3` |
+| p3 anchor | `66abf92` | `66abf92e` | `66abf92` |
+| p4 anchor | `25f1e14` | `25f1e142` | `25f1e14` |
+| p5 anchor | `522f7a7` | `522f7a72` | `522f7a7` |
 
 `build_timeline_roles.py --check` therefore exits **1** with `STALE timeline artifact: phase starts or anchor
-commits` here, while GitHub run **294**, which ran the same check on the same commit at `fetch-depth: 0`,
-exits 0. The `--check` design is otherwise careful: it deliberately exempts the totals and 5기's counts as
-growth (`:181-186`) and pins only the settled past. **The one thing it says must never move is the one thing
-it measures with a clone-dependent string.**
+commits`, in the one class its own comment at `:181-186` says must never move. The `--check` design is
+otherwise careful: it deliberately exempts the totals and 5기's counts as growth and pins only the settled
+past. **The one thing it says must never move is the one thing it measures with a clone-dependent string.**
 
-Two costs, and the second is the one that reaches a judge. First, the next lap that unshallows to make a
+⚠⚠ **CORRECTED AND SHARPENED, in this same lap, and the first reading is kept beside it.** I first wrote that
+the discriminator is **depth**, because the failure appeared when I ran `--unshallow`. It is not. It is the
+clone's **object count**, and unrelated remote-tracking branches move it. Four clone states, one tree
+(`375be25` / `a53912d0`), measured in this session:
+
+| clone state | packed objects | `%h` width | `--check` |
+|---|---:|---:|---|
+| as the sandbox opened: shallow at 50, five origin branches | - | - | exit **2**, `shallow` (test skips) |
+| deepened by the window predicate to 101, still shallow | - | - | exit **2**, `shallow` (test skips) |
+| `--unshallow`, 666 commits, five origin branches | **20,641** | **8** | exit **1**, `STALE` (test **fails**) |
+| same clone, four unrelated remote-tracking refs deleted, `git gc --prune=now` | **12,052** | **7** | exit **0** (test **passes**) |
+
+Not one commit reachable from `HEAD` changed between the last two rows. **What changed the verdict of a gate
+about this project's schedule is how many other branches happened to be in the clone.**
+
+And GitHub's own log for run **294** at `375be25` reads `1851 passed, 63 skipped`, the same 63 as the dev
+lap's full clone, so the test **ran and passed** there at `fetch-depth: 0`. That is the fourth answer, and it
+is the one that matters.
+
+Two costs, and the second is the one that reaches a judge. First, a lap that deepens its clone to make a
 dated claim, which CHARTER §4 tells laps to do, meets a red gate whose message says the document drifted when
-it did not. Second, and worse, the obvious repair is to **rebuild the artifact**, which writes eight-character
-anchors into a committed file and turns **GitHub** red instead. That is why the `fix-before-next-row` item
-above forbids the rebuild in as many words.
+it did not, and CHARTER §3.9 then tells that lap to stop working. Second, and worse, the obvious repair is to
+**rebuild the artifact**, which writes eight-character anchors into a committed file and turns **GitHub** red
+instead. That is why the `fix-before-next-row` item above forbids the rebuild in as many words.
 
-**Cheapest test, ten seconds, already run:**
-`.auto/venv/bin/python scripts/build_timeline_roles.py --check` in a full clone at `375be25` prints
-`STALE timeline artifact: phase starts or anchor commits`; the same command in the shallow clone prints
-`shallow` and exits 2; GitHub 294 is green. Three clones, three answers, one commit.
+**Cheapest test, ten seconds, already run:** `.auto/venv/bin/python scripts/build_timeline_roles.py --check`
+in the two full-clone states above. One tree, one commit, opposite verdicts.
 
 **Credit, because it changes the reading.** The file this objection is about is the best-instrumented
 document the loop has shipped: 20 registry keys, 10 tests with 9 graded by mutation, `commits_outside_phases`
