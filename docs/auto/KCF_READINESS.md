@@ -5,9 +5,25 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
-**Tick count, critic #50, 2026-09-09T1122Z at `9c22ff3`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
+**Tick count, critic #52, 2026-09-09T1719Z at `375be25`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
 R3, R11 and R12 are the three that do not tick; R10 was withdrawn 2026-09-04.** ⚠⚠ **ZERO lines ticked, for
-the SEVENTH consecutive critic lap.** The count has stood at 8 since critic #43 ticked R8 at 2026-09-08T1429Z.
+the NINTH consecutive critic lap.** The count has stood at 8 since critic #43 ticked R8 at 2026-09-08T1429Z.
+
+⚠ **This header named critic #50 at `9c22ff3` until 2026-09-09T1719Z, because critic #51 did not touch this
+file.** CHARTER §11 calls this page the final product's definition of done and says the critic ticks it with
+evidence every day; #51 reported the count in its own report and in `DIRECTION.md` and left the page naming
+the lap before it. Nothing below is changed by that: the three unticked lines and their causes are exactly
+as critic #50 measured them, re-read at `375be25` by critic #52 rather than inherited, and R3 remains the
+single point of failure the table below names. Recorded here rather than filed as a row, because the repair
+is this sentence.
+
+**Critic #52's own re-read, 2026-09-09T1719Z at `375be25`.** R1 holds: `web/finals.html` is offline by gate
+and its stamp is current (built at `89da7d3` by the 1619Z lap, inside the 30-commit limit
+`tests/test_finals_screen.py` enforces). R9 holds: `release/kcf-finals-2026/MANIFEST.json` was re-pointed
+after staging by the 1619Z lap and `tests/test_finals_bundle.py`'s hash gates are green in a full
+`gates.py --mode full` run at this head. **R11 and R3 are unchanged and neither is a lap's to move.** The one
+new judge-facing gap this lap found is not a readiness line: it is 일정 reading 0 on `README.md` and 0 on
+`web/finals.html`, filed as **WFG-218**.
 
 ⚠⚠ **This lap stops re-describing the zero and measures its cause, which turns out to be a single point of
 failure.** The three unticked lines are not three independent gaps:
