@@ -58,6 +58,16 @@ five old ones land in the same place.
 
 ## 3. Result: it is a shoulder, not a spike
 
+⚠ **How the width is chosen, before any row below is read: by scanning outcomes.**
+Nothing in the problem picks a buffer width, so the opponent is handed the best
+width the sweep found — the argmax of the `safe total` column, read **after** the
+run. Every conclusion in this section is therefore a statement about **the grid
+that was searched**, not about a present-perimeter policy in general: the argmax,
+the shoulder, the asymmetry and the margin all move with the set of widths
+measured. That is a post-hoc maximum, and §4 states what it costs — refining the
+grid can only raise the opponent's score and only lower the forecast's margin
+over it.
+
 Eight widths, one fire, 368 scanned origins. The three new rows are in **bold**.
 
 | buffer | recovered of 91 | already-safe broken | safe total | walks into the fire | no route | too slow |
@@ -108,6 +118,23 @@ and **NH-034** are open.
 
 ## 4. What this does NOT show
 
+- **⚠ It is not a fixed quantity. The opponent's width is chosen after the fact by
+  scanning outcomes, so its score is a maximum over the measured grid and the
+  forecast's margin over it is non-increasing under refinement.** A width that is
+  added to the grid can only tie or beat the incumbent, so the opponent's best
+  score can only rise or hold and the margin can only fall or hold — holding this
+  fire, this hazard realisation and this scoring rule fixed. **The worked instance
+  is this run's own, in §3(c):** the five-point grid's best was 1 km at a safe
+  total of 345, and adding three widths moved the best to 750 m at 349. The
+  margin went from **9** origins to **5** <!-- collision-ok: 9 and 5 are the margins of §3(c), re-stated here as the worked instance of the post-hoc-maximum property; they are the same two quantities and not new ones. -->
+  — **the first refinement this project ever ran removed four of the nine.**
+  Nothing here bounds how far a finer grid would take it, and nothing in this
+  repository has searched one. The honest way to read every margin against this
+  opponent is 「at most this much, on the grid we happened to measure」. ⚠ This is
+  a property of **how the number is selected**, not a doubt about the run: the
+  selection rule is deliberate, conservative and the right design — the opponent
+  should be given its best shot — and this bullet is what that design costs when
+  the result is reported as a margin.
 - **It is one fire, one region, one hazard realisation.** Uiseong–Andong 2025.
   Nothing here says the shoulder sits at 750 m–1 km on a different fire, in
   different terrain, or under a different wind. The width is still a free

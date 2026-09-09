@@ -162,6 +162,19 @@ crossing is a **band** rather than a point — and why an operator who has to
 guess should guess **thick**, since the thin side is a cliff and the thick side
 is a ramp (`docs/present_perimeter_buffer_shape.md` §3).
 
+⚠ **Every sentence in the paragraph above is read off a width chosen after the
+fact, by scanning outcomes — so it is a maximum over the measured grid, and the
+forecast's margin over this opponent is non-increasing under refinement.** A
+width added to the grid can only tie or beat the incumbent, so the opponent's
+best score can only rise and the margin can only fall. This is not hypothetical:
+the denser grid above is the first refinement this project ran, and it moved the
+best width off 1 km and took part of the margin with it. The property and the
+worked instance are in
+[`docs/present_perimeter_buffer_shape.md`](present_perimeter_buffer_shape.md) §4.
+It is a statement about **how the number is selected**, not a fault in the run:
+giving the opponent its best width is the conservative and correct design, and
+this is what that design costs when the result is reported as a margin.
+
 **This is the honest defence of the forecast, and it is a better one than the 91
 ever was.** A present-aware policy can nearly match the forecast on this fire —
 *if you already know which buffer to use*. An operator standing in front of a

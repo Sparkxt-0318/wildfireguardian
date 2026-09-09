@@ -67,6 +67,19 @@ narrower:
   [`docs/present_perimeter_buffer_shape.md`](present_perimeter_buffer_shape.md); the
   committed five-width counts stay at
   [`docs/present_perimeter_arm.md`](present_perimeter_arm.md) §4.
+- **⚠ And the band was found by scanning outcomes, so it is a maximum over the
+  measured grid: refining the grid can only strengthen this opponent and only
+  shrink whatever margin the forecast is reported to hold over it.** Nothing in
+  the problem chooses a width, so the sweep hands the opponent the best width it
+  finds — after the run. A width added to the grid can only tie or beat the
+  incumbent, so the opponent's best score is non-decreasing and the margin
+  non-increasing in how finely anyone searches, holding this fire and this
+  scoring fixed. The 2026-09-08 refinement is the worked instance and it moved
+  the best width off 1 km; the property, the values and what bounds it does
+  **not** carry are in
+  [`docs/present_perimeter_buffer_shape.md`](present_perimeter_buffer_shape.md)
+  §4. This file still quotes no margin (§5), and the qualifier is owed to
+  whichever margin NH-032 settles on, not to a particular one.
 - **What is measured, and is not a question of resolution, is that the two defensible builds
   disagree about which width is best** — the committed arm's is 1 km, the parked arm's is
   500 m (§4) — and that the best width here is in any case a property of this fire, this road
