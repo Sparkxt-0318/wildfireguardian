@@ -111,6 +111,15 @@ CONTROL = (
 #: this project's own model is worth less, by an amount no run here measures."
 #: It binds the 42 for the reason ``docs/present_perimeter_arm.md`` §5 gives for
 #: the 의성 margin, and ``docs/auto/JUDGE_QA.md`` Q36 is the spoken answer.
+#: ⚠ **2026-09-09, WFG-214: the quoted §4.5 sentence above is the OLD wording and is
+#: kept here as the record of what this family was built on.** Paper lap 24
+#: (``bd0da54``) corrected the mechanism in the manuscript and the same day
+#: ``docs/oracle_gap.md`` §2 established why: the arm plans on ``haz_stack``, a
+#: leave-one-fire-out model output rather than truth, and the oracle is that the
+#: **grader** treats that array as truth. This family stays deliberately WIDE --
+#: ``oracle`` and ``perfect forecast`` were always in it -- so the mechanism wording
+#: satisfies it and no surface has to assert 「upper bound」 to clear a gate. Whether
+#: that bound holds at all is NH-053, open, and no test here may decide it.
 ORACLE = (
     re.compile(r"upper\s+bound", re.I),
     re.compile(r"noiseless", re.I),

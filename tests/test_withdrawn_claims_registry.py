@@ -416,10 +416,34 @@ def test_the_registry_holds_nothing_the_families_do_not():
         (r"어느\s*폭이\s*맞는지는\s*그날\s*알\s*수\s*없",
          "wc011-which-width-is-unknowable-ko"),
     }
+    #: WC-012, registered by dev lap 20260909T1817Z clearing critic #52's
+    #: `fix-before-next-row` item, and the first entry here that withdraws a claim about
+    #: HOW THIS PROJECT'S OWN WORK WAS ORGANISED rather than about a measurement.
+    #: `docs/auto/finals/TIMELINE_ROLES.md` opened with 「각 구간의 경계는 제가 정한
+    #: 것이 아니라 커밋 기록에 실제로 비어 있는 달력 간격입니다」 — the schedule answer
+    #: to a sub-item worth 20 points on both scoring tables — while
+    #: `scripts/build_timeline_roles.py:40-84` hard-codes all five boundaries and no
+    #: gap-selecting rule exists anywhere in the tree. A software-engineering judge
+    #: falsifies it by opening the builder, which is the cheapest falsification any claim
+    #: in this registry has ever had.
+    #: ⚠ Both halves of the one sentence go in separately: the claim survives a rewrite
+    #: of its first half (「구간은 커밋 기록에 실제로 비어 있는 달력 간격입니다」 says the
+    #: same thing with the agent removed), which is the form a later lap paraphrasing
+    #: from a report would produce, and WC-007/WC-008 are the precedent for registering
+    #: the surviving half rather than trusting the sweep.
+    #: ⚠ What is NOT withdrawn is the stronger claim beside it: `commits_outside_phases`
+    #: is 0, so the five phases partition the whole record whatever the boundaries are.
+    how_our_own_work_was_organised = {
+        (r"경계는\s*제가\s*정한\s*것이\s*아니라",
+         "wc012-phase-boundaries-were-not-chosen-ko"),
+        (r"실제로\s*비어\s*있는\s*달력\s*간격",
+         "wc012-the-gaps-are-the-boundaries-ko"),
+    }
     extra = ({(s["pattern"], s["token"]) for _cid, s in SPELLINGS}
              - in_files - reviewer_found - reachability - booth_kit_contents
              - dispatch_exclusion_reason - someone_elses_system
-             - stale_self_criticism - measured_shape_of_our_own_sweep)
+             - stale_self_criticism - measured_shape_of_our_own_sweep
+             - how_our_own_work_was_organised)
     assert extra == set(), (
         "the registry has grown past the families it absorbed. That is allowed, and when "
         "you do it, add the new spelling to this test's expected set and say in "
@@ -685,6 +709,15 @@ def _probe_sentence(pattern: str) -> str:
         r"(?:test\s+)?suite\s+(?:still\s+)?(?:reaches|downloads)[^.\n]{0,60}(?:the\s+network|25\s*MB)":
             "The test suite downloads 25 MB from Amazon S3 in the middle of every "
             "cold run, CHARTER §4b forbids exactly that",
+        # WC-012, both lines taken verbatim from docs/auto/finals/TIMELINE_ROLES.md §0
+        # at 359fd15 --- the commit that shipped the document. The sentence wrapped
+        # across two source lines and the checker scans per line, so each half is
+        # probed on the line it actually occupied; that is also why the two halves are
+        # registered as two spellings rather than one pattern spanning the break.
+        r"경계는\s*제가\s*정한\s*것이\s*아니라":
+            "구간으로 나뉘어 개발되었고, 각 구간의 경계는 제가 정한 것이 아니라 커밋 기록에",
+        r"실제로\s*비어\s*있는\s*달력\s*간격":
+            "실제로 비어 있는 달력 간격입니다.**",
     }
     assert pattern in probes, (
         f"no probe sentence for a newly registered pattern:\n  {pattern}\n"

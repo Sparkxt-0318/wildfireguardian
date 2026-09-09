@@ -32,10 +32,20 @@
   would separate them, a plan that refuses only what is burning now, has been run
   on 의성·안동 only ([`docs/present_perimeter_arm.md`](docs/present_perimeter_arm.md));
   on 영덕, where the 42 comes from, it has never been run.
-  ⚠ **And the forecast-aware arm plans on the same hazard field it is scored
-  against**, so **42 is an upper bound**: it is what a *noiseless* forecast would
-  buy, not what this project's own model buys, which is less by an amount no run
-  here measures ([`paper/manuscript.md`](paper/manuscript.md) §4.5;
+  ⚠ **And the forecast-aware arm is graded on the very field it planned on.** That
+  field is not truth: the router plans on a **leave-one-fire-out** forward
+  simulation — a model output on a fire the model never trained on — while the
+  observed FIRMS footprint committed beside it in the same file scores nothing.
+  **The oracle is in the grading, not in the planning**, so the arm cannot be wrong
+  about the array that grades it, and 42 is what this policy buys **when its own
+  prediction is believed** rather than what a *noiseless* forecast would buy. How
+  far that prediction sits from the observation is counted cell by cell in
+  [`docs/oracle_gap.md`](docs/oracle_gap.md), whose §7 states what that measurement
+  does **not** show and whose §6 is the re-grading that would measure the real
+  margin and has not been run. Whether this also makes 42 an **upper bound** on the
+  real margin is an open question rather than a result: nothing in this repository
+  derives it, and it is asked of the author as **NH-053**
+  ([`paper/manuscript.md`](paper/manuscript.md) §4.5;
   [`docs/present_perimeter_arm.md`](docs/present_perimeter_arm.md) §5 says the
   same of the 의성 margin and calls it "a property the 91 has always had,
   inherited not introduced").
@@ -262,10 +272,17 @@ fire-blind 대비가 예보의 공으로 돌리던 것의 **대부분을, 모델
   영덕에서 나온 값이므로, 그 수치에는 이 검사가 **아직 적용되지 않았습니다**.
   그 42곳에는 언제나 **두 개의 단서가 함께 붙습니다**: ① 비교 상대가 **불을 전혀
   보지 못하는(fire-blind)** 기준선이므로 그 대비는 「어디로 갈지 아는 것」과
-  「지금 어디 있는지 아는 것」을 가르지 못하고, ② 예보 인지 경로가 **채점에 쓰이는
-  바로 그 위험면 위에서** 계획하므로 **42곳은 잡음 없는 완벽한 예보가 사 줄 값의
-  「상한」**이지 이 프로젝트의 모델이 실제로 사 준 값이 아닙니다. 실제 값은 그보다
-  적으며, **얼마나 적은지는 이 저장소의 어떤 실행도 측정하지 않았습니다.**
+  「지금 어디 있는지 아는 것」을 가르지 못하고, ② 예보 인지 경로는 **자기가 계획에
+  쓴 바로 그 장으로 채점됩니다**. 그 장은 「정답」이 아니라 **이 불을 한 번도 학습하지
+  않은 모델이 만든 전방 시뮬레이션**(leave-one-fire-out)이고, 같은 파일 안에 함께
+  들어 있는 관측(FIRMS 누적 발자국)은 채점에 전혀 쓰이지 않습니다. 그래서
+  **오라클은 계획하는 쪽이 아니라 채점하는 쪽에 있고**, 42곳은 「완벽한 예보가 사 줄
+  값」이라기보다 **자기 예측을 그대로 믿었을 때의 값**입니다. 그 예측이 관측과 얼마나
+  벌어지는지는 [`docs/oracle_gap.md`](docs/oracle_gap.md) 가 셀 단위로 재어 두었고
+  (§7 이 그 측정이 보여 주지 **않는** 것을 적습니다), 실제 예보 오차를 넣은 값은 아직
+  재지 않았습니다(§6 이 그 재채점을 적어 둡니다). 그것이 곧 42곳이 참값의
+  **「상한」**이라는 뜻인지는 **아직 정해지지 않은 물음**입니다 — 이 저장소의 어떤
+  것도 그것을 유도하지 않으며, 저자에게 **NH-053** 으로 열려 있습니다.
 - ⚠ 이 실험이 내놓은 **구체적인 margin 값들은 부스에서 말하지 않습니다.** 어느 값을
   정본으로 삼을지가 아직 정해지지 않았고 (`docs/auto/NEEDS_HUMAN.md` 의 열린 항목),
   정해지기 전에 말하지 않는 편이 낫다고 판단했습니다. **어디에 없고 어디에 있는지를
@@ -698,9 +715,12 @@ covering **32.6 %** of the predicted fire core whose bias runs in an unmeasured
 direction. ⚠ **Two caveats bind that number and travel with it everywhere.** First,
 the contrast is measured against a **fire-blind** baseline, so it does not separate
 knowing where the fire *will be* from knowing where it *is*. Second, the
-forecast-aware arm plans on the **same hazard field it is scored against**, so 42 is
-an **upper bound** — what a *noiseless* forecast would buy, not what this project's
-own model buys. On a second region that separation has now been measured: a
+forecast-aware arm is graded on the **same field it planned on**, and that field is a
+**leave-one-fire-out** model output rather than truth, so the oracle sits in the
+grading: 42 is what the policy buys when its own prediction is believed, not what a
+*noiseless* forecast would buy ([`docs/oracle_gap.md`](docs/oracle_gap.md)). Whether
+that also makes 42 an **upper bound** on the real margin is an open question here and
+not a result (**NH-053**). On a second region that separation has now been measured: a
 present-perimeter opponent, which refuses what is burning now plus a fixed buffer and
 needs no model at all, recovers most of what that region's fire-blind contrast credits
 to the forecast ([`docs/present_perimeter_arm.md`](docs/present_perimeter_arm.md)).

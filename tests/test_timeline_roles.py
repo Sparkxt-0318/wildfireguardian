@@ -136,6 +136,78 @@ def test_the_forbidden_sentences_are_on_the_card(doc: str) -> None:
         assert f"❌ 「{banned}」" in doc
 
 
+#: The commit the committed artifact was BUILT on, which is the only honest as-of for
+#: its totals. `data/processed/timeline_roles/timeline_roles.json` records 662 commits
+#: and 513 trailers; at `359fd15`, the commit that carries the artifact, the history
+#: already held 664 and 515, because two commits landed between the build and the push.
+#: 662 is reached at `359fd15~2` = `89da7d3`, the WFG-027 claim commit. Nothing in the
+#: artifact records this, which is why the number lives here and in the document rather
+#: than being re-derived: the clone is shallow (CHARTER §4) and cannot resolve it.
+AS_OF = "89da7d3"
+
+
+def test_the_two_growing_totals_carry_the_commit_they_were_counted_at(
+    doc: str, art: dict
+) -> None:
+    """A flat present-tense total in a document about a repository that grows.
+
+    Critic #52 found `513 of 662` false within six hours of it being written — at
+    `375be25` the same builder answers 517 of 666. The repair is NOT to retype today's
+    values, because a retyped value re-derives from nothing; it is to say which tree
+    the value was counted on. §3.4 already disclosed that the LAST phase grows, and
+    that disclosure covered the per-phase cells while leaving the two headline totals
+    reading as timeless facts.
+    """
+    trailer_rows = [ln for ln in doc.splitlines()
+                    if f"**{art['agent_trailer_commits']}개**" in ln]
+    assert len(trailer_rows) == 1, (
+        f"expected one row stating {art['agent_trailer_commits']} trailers, "
+        f"found {len(trailer_rows)}")
+    assert AS_OF in trailer_rows[0], (
+        "§2's trailer row states a total with no as-of commit, which is the exact "
+        "defect critic #52 measured")
+    assert f"`{AS_OF}` 기준" in doc, "§0 does not date the totals it opens with"
+
+
+def test_the_boundary_claim_is_the_weaker_one_the_script_actually_proves(
+    doc: str, art: dict
+) -> None:
+    """The document may not claim the record chose its phase boundaries.
+
+    `scripts/build_timeline_roles.py` hard-codes all five `start`/`end`/`anchor`
+    literals and `build()` only counts inside them, so there is no gap-selecting rule
+    anywhere in the tree: the boundaries ARE a choice, and a software-engineering judge
+    falsifies the old sentence by opening the builder. Registered as `WC-012`; the
+    spelling itself is gated across every tracked document by
+    `scripts/check_withdrawn_claims.py`, so what is checked HERE is the positive half —
+    that the replacement says who chose, and that the claim which survives is stated.
+    """
+    assert "어디서 끊을지는 제가 골랐습니다" in doc, (
+        "the document does not say who chose the boundaries")
+    assert art["commits_outside_phases"] == 0
+    assert "밖에 남는 커밋이 하나도 없다" in doc or "밖으로 새는 커밋이 하나도 없다" in doc, (
+        "the partition proof — the claim that survives the withdrawal — is not stated "
+        "beside the correction")
+
+
+def test_the_unsplit_six_day_gap_is_disclosed(doc: str) -> None:
+    """The evidence that the split is a choice is the gap it did NOT split on.
+
+    Measured on a full clone (668 commits at `b5de13e`, `--is-shallow-repository`
+    false) with the builder's own predicate: the record's empty-day gaps are 32, 15,
+    **6**, 5, 2 and four of one day. The document splits on the 32, the 15, the 5 and
+    ONE one-day gap (09-01 → 09-03), and leaves the six-day 06-06 → 06-13 inside 1기.
+    A reader who checks the boundaries finds that gap first, so the document names it
+    before they do (CHARTER §3 rule 5).
+    """
+    assert "06-06" in doc and "06-13" in doc, (
+        "the six-day gap the split passed over is not named anywhere")
+    six = [ln for ln in doc.splitlines() if "06-06" in ln and "06-13" in ln]
+    assert any("엿새" in ln or "6일" in ln for ln in six), (
+        "the gap is named but its length is not, so a reader cannot tell it is the "
+        "third longest in the record")
+
+
 def _shallow() -> bool:
     out = subprocess.run(["git", "rev-parse", "--is-shallow-repository"],
                          cwd=REPO, capture_output=True, text=True)

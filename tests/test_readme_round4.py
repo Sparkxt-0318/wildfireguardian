@@ -176,7 +176,36 @@ def test_the_abstract_is_labelled_a_draft_where_it_is_read(lines: list[str]) -> 
 #: standing in some other claim's neighbourhood. Matching the binding clause, inside
 #: the paragraph that states the number, is what closes it.
 _FIRE_BLIND = re.compile(r"against a \*{0,2}fire-blind\*{0,2} baseline", re.I)
-_UPPER_BOUND = re.compile(r"42 is\s+an\s+\*{0,2}upper[- ]bound\*{0,2}", re.I)
+
+#: ⚠ **REWRITTEN 2026-09-09 (WFG-214). The old pattern was
+#: ``r"42 is\s+an\s+\*{0,2}upper[- ]bound\*{0,2}"`` and it required the README to
+#: ASSERT the very sentence NH-053 asks the author about.** ``docs/oracle_gap.md``
+#: §2, built from the committed ``routing_demo_canonical.npz``, establishes that the
+#: forecast-aware arm does not plan on truth: it plans on ``haz_stack``, a
+#: leave-one-fire-out forward simulation of a fire the model never trained on, and
+#: what makes the arm an oracle is that the **grader** treats that same array as
+#: truth. That the arm therefore cannot be wrong about its grading field is a
+#: MECHANISM this repository derives. That 42 is consequently an **upper bound** on
+#: what the real model buys is a further claim, and nothing in the tree derives it --
+#: NH-053. A gate may require the mechanism; it may not require the conclusion.
+#: So this family matches either wording, and
+#: ``test_no_block_asserts_the_bound_without_naming_the_open_question`` below is what
+#: keeps the second one honest wherever it is used.
+_ORACLE = re.compile(
+    r"graded on the \*{0,2}(?:very|same) field it planned on"
+    r"|plans on the \*{0,2}same hazard field it is scored against"
+    r"|oracle is in the grading"
+    r"|oracle sits in the grading"
+    r"|42 is\s+an\s+\*{0,2}upper[- ]bound\*{0,2}"
+    r"|upper[- ]bound\*{0,2} on the real margin",
+    re.I,
+)
+
+#: The word this repository may NOT settle in a lap, in either language, and the
+#: escalation that owns it. A block using the bound wording about 42 or 91 must name
+#: NH-053 in the same block, so a judge who reads the word also reads that it is open.
+_BOUND_WORD = re.compile(r"upper[- ]bound|상한", re.I)
+_OPEN_QUESTION = re.compile(r"NH-053")
 
 
 def _paragraph_stating_42(lines: list[str]) -> str:
@@ -200,10 +229,10 @@ def test_the_abstract_draft_states_42_with_both_binding_caveats(lines: list[str]
     """``docs/auto/DIRECTION.md``: a new sentence about 42 carries both caveats.
 
     Both, not either, and both in the paragraph that states the number. The
-    fire-blind caveat says the opponent could not see the fire; the upper-bound
-    caveat says the forecast-aware arm was scored on the field it planned on. A
-    surface carrying only the first still tells a judge that 42 is what this
-    project's model buys, which is the claim the repository does not have.
+    fire-blind caveat says the opponent could not see the fire; the oracle caveat
+    says the forecast-aware arm is graded on the field it planned on. A surface
+    carrying only the first still tells a judge that 42 is what this project's model
+    buys, which is the claim the repository does not have.
     """
     para = _paragraph_stating_42(lines)
     assert _FIRE_BLIND.search(para), (
@@ -211,17 +240,23 @@ def test_the_abstract_draft_states_42_with_both_binding_caveats(lines: list[str]
         "fire-blind baseline. ⚠ Naming 'fire-blind' elsewhere in the abstract does "
         "not count: the caveat has to bind THIS number, in this paragraph."
     )
-    assert _UPPER_BOUND.search(para), (
-        "the paragraph stating 42 does not say that 42 is an upper bound -- that the "
-        "forecast-aware arm plans on the same hazard field it is scored against, so "
-        "42 is what a noiseless forecast would buy, not what this project's model "
-        "buys. DIRECTION requires BOTH caveats on every surface stating 42."
+    assert _ORACLE.search(para), (
+        "the paragraph stating 42 does not say that the forecast-aware arm is graded "
+        "on the same field it planned on. DIRECTION requires BOTH caveats on every "
+        "surface stating 42. ⚠ The MECHANISM satisfies this, and since WFG-214 it is "
+        "the preferred wording: `docs/oracle_gap.md` §2 shows the planning field is a "
+        "leave-one-fire-out model output rather than truth, so the oracle is in the "
+        "grading. Calling 42 an 'upper bound' also satisfies it, but that word is "
+        "NH-053 and carries its own requirement below."
     )
 
 
 #: The same two caveats in Korean, again as the binding clause and not a bare token.
 _FIRE_BLIND_KO = re.compile(r"불을 전혀\s*보지\s*못하는")
-_UPPER_BOUND_KO = re.compile(r"상한")
+#: ⚠ Widened with ``_ORACLE`` for the same reason (WFG-214): 「상한」 alone was the
+#: only Korean spelling that satisfied this, so the gate could be cleared only by
+#: writing the word NH-053 asks about. The mechanism clause now satisfies it too.
+_UPPER_BOUND_KO = re.compile(r"상한|채점하는 쪽에 있|계획에\s*쓴 바로 그 장으로 채점")
 
 #: The ONE site that states 42 without carrying the caveats, exempted BY NAME with a
 #: written reason: the Round-3 table cell is a record of the 제출본 → 정본 correction
@@ -282,23 +317,58 @@ def test_every_block_stating_42_carries_both_caveats_in_either_language(readme: 
         if _RECORD_SITE in text:
             continue  # the Round-3 correction record, exempted above by name
         fire_blind = bool(_FIRE_BLIND.search(text) or _FIRE_BLIND_KO.search(text))
-        upper_bound = bool(_UPPER_BOUND.search(text) or _UPPER_BOUND_KO.search(text))
-        if not (fire_blind and upper_bound):
+        oracle = bool(_ORACLE.search(text) or _UPPER_BOUND_KO.search(text))
+        if not (fire_blind and oracle):
             missing = []
             if not fire_blind:
                 missing.append("fire-blind opponent")
-            if not upper_bound:
-                missing.append("upper bound / 상한")
+            if not oracle:
+                missing.append("graded on the field it planned on / 상한")
             offenders.append(f"README.md:{line_no} is missing: {', '.join(missing)}")
 
     assert not offenders, (
         "a block states 42 without both binding caveats attached to it:\n  "
         + "\n  ".join(offenders)
         + "\n\nDIRECTION: 'Every judge-facing surface that states 42 or 91 carries "
-        "both binding caveats (fire-blind opponent; upper bound for a noiseless "
-        "forecast). A new sentence about either number carries both caveats or it is "
-        "not written.' A caveat in a neighbouring block does not count -- a judge "
-        "reading this sentence would never meet it."
+        "both binding caveats (fire-blind opponent; the forecast-aware arm is graded "
+        "on the field it planned on). A new sentence about either number carries both "
+        "caveats or it is not written.' A caveat in a neighbouring block does not "
+        "count -- a judge reading this sentence would never meet it."
+    )
+
+
+def test_no_block_asserts_the_bound_without_naming_the_open_question(readme: str) -> None:
+    """WFG-214, and the constraint that IS the row.
+
+    Until 2026-09-09 three README lines told the reader that 42 is 「what a noiseless
+    forecast would buy」 / 「완벽한 예보가 사 줄 값의 상한」, flatly. `docs/oracle_gap.md`
+    §2 shows the arm plans on a leave-one-fire-out model output and is graded on that
+    same array, so what the number is worth 「when its own prediction is believed」 is
+    derived; that this bounds the real model's margin from above is **not** derived by
+    anything in this tree, and it is asked of the author as NH-053.
+
+    The row may not settle that word in either direction — deleting it decides the
+    question by omission just as asserting it does. So the word stays usable and this
+    gate binds it to the escalation: wherever a block about 42 or 91 uses 「upper
+    bound」 or 「상한」, the same block names NH-053. A judge who meets the word meets
+    the fact that it is open, in the same breath.
+
+    ⚠ Scope is the block, deliberately, and for the reason
+    `test_every_block_stating_42_carries_both_caveats_in_either_language` gives above:
+    a note two paragraphs away is one a reader never meets.
+    """
+    offenders = []
+    for line_no, text in _blocks_stating_42(readme):
+        if _RECORD_SITE in text:
+            continue
+        if _BOUND_WORD.search(text) and not _OPEN_QUESTION.search(text):
+            offenders.append(f"README.md:{line_no}")
+    assert not offenders, (
+        "a block states 42 or 91, calls it an upper bound / 「상한」, and does not say "
+        "the word itself is an open question:\n  " + "\n  ".join(offenders)
+        + "\n\nNothing in this repository derives that bound; NH-053 asks the author "
+        "whether it survives at all. Name NH-053 in the same block, or describe the "
+        "mechanism (`docs/oracle_gap.md` §2) and leave the word out."
     )
 
 
