@@ -167,6 +167,19 @@ def test_the_two_growing_totals_carry_the_commit_they_were_counted_at(
         "§2's trailer row states a total with no as-of commit, which is the exact "
         "defect critic #52 measured")
     assert f"`{AS_OF}` 기준" in doc, "§0 does not date the totals it opens with"
+    #: ⚠ The independent reviewer's residual weakness (b), closed here: `AS_OF` is a
+    #: literal no gate can re-derive in a shallow clone, so a rebuilt artifact would
+    #: leave the stamp silently pointing at the wrong tree. Pinning the two values it
+    #: was measured against makes a rebuild LOUD instead: this line goes red and the
+    #: next lap re-derives the stamp deliberately rather than inheriting it.
+    assert (art["total_commits"], art["agent_trailer_commits"]) == (662, 513), (
+        f"the artifact was rebuilt ({art['total_commits']} commits, "
+        f"{art['agent_trailer_commits']} trailers). `AS_OF` = {AS_OF} was measured "
+        f"against 662/513 and is now wrong. Re-derive it: it is the commit at which "
+        f"`build_timeline_roles.py` produces the artifact's own totals, which is NOT "
+        f"the commit that carries the artifact — 662 is reached two commits before "
+        f"`359fd15`, and writing `359fd15` would have been a false as-of."
+    )
 
 
 def test_the_boundary_claim_is_the_weaker_one_the_script_actually_proves(
@@ -182,10 +195,14 @@ def test_the_boundary_claim_is_the_weaker_one_the_script_actually_proves(
     `scripts/check_withdrawn_claims.py`, so what is checked HERE is the positive half —
     that the replacement says who chose, and that the claim which survives is stated.
     """
-    assert "어디서 끊을지는 제가 골랐습니다" in doc, (
+    #: Whitespace-tolerant on purpose. The first version of this assertion was a plain
+    #: substring and went red the moment the paragraph was re-wrapped by one word, which
+    #: is a gate firing on typography rather than on the claim — the failure class
+    #: CHARTER §4 keeps paying for in a different costume.
+    assert re.search(r"어디서\s*끊을지는\s*제가\s*골랐습니다", doc), (
         "the document does not say who chose the boundaries")
     assert art["commits_outside_phases"] == 0
-    assert "밖에 남는 커밋이 하나도 없다" in doc or "밖으로 새는 커밋이 하나도 없다" in doc, (
+    assert re.search(r"밖(?:에 남는|으로 새는)\s*커밋이\s*하나도\s*없다", doc), (
         "the partition proof — the claim that survives the withdrawal — is not stated "
         "beside the correction")
 

@@ -207,6 +207,36 @@ _ORACLE = re.compile(
 _BOUND_WORD = re.compile(r"upper[- ]bound|상한", re.I)
 _OPEN_QUESTION = re.compile(r"NH-053")
 
+#: ⚠ **THE INDEPENDENT REVIEWER OF THE LAP THAT WIDENED `_ORACLE` FOUND THE HOLE THE
+#: WIDENING OPENED, AND THIS IS THE PATCH FOR IT.** `_ORACLE` is a strict superset of
+#: the pattern it replaced, and the old pattern had one property incidentally: the only
+#: clause that could satisfy it, 「42 is an upper bound」, **contradicts** the overclaim.
+#: The mechanism alternatives are merely **compatible** with it, so a block that states
+#: the mechanism correctly and then draws the opposite conclusion —
+#:
+#:     the forecast-aware arm is graded on the very field it planned on, so the oracle
+#:     is in the grading. 42 is therefore what this project's own model buys
+#:
+#: — passed the widened suite green. That sentence is the reviewer's, not this file's
+#: author's, which is the whole reason it is worth gating: it is a sentence somebody who
+#: had not written the patterns produced while trying to get past them.
+#:
+#: The claim is banned only in the AFFIRMATIVE. The README's correct prose says exactly
+#: this phrase with a negator in front of it ("**not** what this project's own model
+#: buys"), and `re` has no variable-length lookbehind, so the negator is checked in a
+#: window rather than in the pattern.
+_OWN_MODEL_BUYS = re.compile(
+    r"what (?:this project'?s|our|the project'?s)(?: own)? model buys"
+    r"|이 프로젝트의 모델이 (?:실제로 )?사 준 값"
+    r"|모델이 실제로 사 준 값",
+    re.I,
+)
+#: Anything in the 48 characters before the phrase that turns it into a denial. Korean
+#: negation trails its verb, so 「…이 아닙니다」 cannot be caught this way; the Korean
+#: surfaces are instead covered by the affirmative form being unnatural without one of
+#: these, and by `_BOUND_WORD`'s NH-053 requirement in the same block.
+_NEGATOR = re.compile(r"\bnot\b|rather than|instead of|아니라|말고|보다\s*$", re.I)
+
 
 def _paragraph_stating_42(lines: list[str]) -> str:
     """The abstract paragraph that states 42, whitespace-normalised.
@@ -369,6 +399,40 @@ def test_no_block_asserts_the_bound_without_naming_the_open_question(readme: str
         + "\n\nNothing in this repository derives that bound; NH-053 asks the author "
         "whether it survives at all. Name NH-053 in the same block, or describe the "
         "mechanism (`docs/oracle_gap.md` §2) and leave the word out."
+    )
+
+
+def test_no_block_says_42_is_what_this_projects_own_model_buys(readme: str) -> None:
+    """The claim the whole caveat apparatus exists to keep off this page.
+
+    ⚠ **This test exists because the independent reviewer of the lap that widened
+    `_ORACLE` wrote a sentence that got past it**, reproduced in the comment above
+    `_OWN_MODEL_BUYS`: mechanism stated correctly, conclusion inverted. The old
+    `_UPPER_BOUND` caught that shape by accident — its only satisfying clause
+    contradicted the overclaim — and the widening, which `docs/auto/DIRECTION.md:65-67`
+    required, gave the accident up. So the property is asserted directly instead of
+    being inherited from a wording.
+
+    Banned in the affirmative only: the correct prose on this page says the same phrase
+    with a negator in front of it, and a gate that cannot tell 「X」 from 「not X」 would
+    flag the sentence it exists to protect — the direction MEMO 2026-09-06T1520Z calls
+    the worse one.
+    """
+    offenders = []
+    for line_no, text in _blocks_stating_42(readme):
+        if _RECORD_SITE in text:
+            continue
+        for m in _OWN_MODEL_BUYS.finditer(text):
+            window = text[max(0, m.start() - 48):m.start()]
+            if not _NEGATOR.search(window):
+                offenders.append(f"README.md:{line_no}: ...{text[max(0, m.start()-70):m.end()+10]}")
+    assert not offenders, (
+        "a block states 42 and then claims it IS what this project's own model buys:\n  "
+        + "\n  ".join(offenders)
+        + "\n\nNo run in this repository measures that. `docs/oracle_gap.md` §6 is the "
+        "re-grading that would, WFG-213 is the row and it is blocked(NH-052). Say what "
+        "the number is — what the policy buys when its own prediction is believed — and "
+        "stop there."
     )
 
 

@@ -2758,3 +2758,43 @@ wrong. This lap had graded eight mutations and called the figure covered; the
 reviewer changed one of the two 「662개」 and the suite stayed green. **Count
 occurrences, do not test containment**, whenever a document states the same figure
 more than once.
+
+---
+
+## 2026-09-09T1817Z — a gate can require the overclaim, and then honesty is what turns the suite red
+
+**The lesson, and it is the one worth carrying:** before you weaken a sentence, grep the
+test suite for the sentence. WFG-214 asked this lap to stop three README lines asserting
+that 42 is 「what a noiseless forecast would buy」, because `docs/oracle_gap.md` had
+established the real mechanism (the arm plans on a leave-one-fire-out model output and the
+oracle is that the **grader** treats that array as truth). Two tests in
+`tests/test_readme_round4.py` required every README block stating 42 to match
+`_UPPER_BOUND = r"42 is\s+an\s+\*{0,2}upper[- ]bound\*{0,2}"` or, in Korean, the bare token
+`상한`. **The only way to keep the suite green was to write the sentence NH-053 asks the
+author about.** A caveat gate written when the caveat was believed had frozen the belief
+into the tree, and it had been doing so for as long as `docs/oracle_gap.md` had been
+contradicting it.
+
+**The anti-pattern to name: a gate that pins a WORDING rather than a PROPERTY.** The
+property the project wants on every block stating 42 is 「this number does not come from a
+forecast under error」. `42 is an upper bound` is one sentence that has that property, and
+pinning the sentence made the other sentences — the true ones — fail. The repair is the
+same shape both times: match the family (mechanism **or** bound wording), and put the thing
+that must not drift into its own assertion, here 「wherever the bound word is used, NH-053
+is named in the same block」. **When a gate's regex is a quotation, ask what it would do to
+the next lap that learns something.**
+
+**The smaller one, and it cost nothing only because it was checked:** the critic's
+`fix-before-next-row` item named the as-of stamp to write — 「2026-09-09 `359fd15` 기준」 —
+and that stamp is itself wrong. The artifact holds 662 commits; `359fd15`, the commit that
+*carries* the artifact, already held 664, because two commits landed between the build and
+the push. The honest anchor is `89da7d3`, two back. **A commit that carries an artifact is
+not the commit the artifact was built on**, and a lap that copies an instruction's literal
+into a judge-facing document has published the instruction's error under its own name.
+
+**And the constraint that made both edits hard, stated once:** a claim-weakening edit can
+settle an open question by omission. Deleting 「상한」 tells a reader the bound does not
+hold, which nothing derives either; over-correcting the schedule document to 「이 표는
+임의입니다」 would have taken the partition proof down with the sentence that was wrong.
+**Withdraw the claim, keep the word, bind it to the escalation** — and say separately what
+was chosen and what was proved.
