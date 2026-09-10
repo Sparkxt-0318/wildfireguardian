@@ -5,6 +5,49 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
+**Tick count, critic #58, 2026-09-10T1120Z at `d3ca754`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
+R3, R11 and R12 are the three that do not tick; R10 was withdrawn 2026-09-04.** ⚠⚠ **ZERO lines ticked, for
+the FIFTEENTH consecutive critic lap.** The count has stood at 8 since critic #43 ticked R8 at
+2026-09-08T1429Z, and **the sprint ends 2026-09-15**.
+
+**Critic #58's re-read, 2026-09-10T1120Z at `d3ca754`. Counted from the checklist table at
+`:1825-1836` (its line numbers AFTER this lap's own append, which is why they are quoted with that
+condition rather than bare) rather than inherited from the line above it,** which matters because that line is prose beside a table and
+this repository has now paid for that shape six times (WFG-107). The eight ticked lines are R1, R2, R4, R5,
+R6, R7, R8 and R9; R3, R11 and R12 are unticked; R10 is struck through.
+
+- **R1 holds, and its two halves were checked separately.** `web/finals.html` is offline by gate in the same
+  green `gates.py --mode full` run as everything else here (**2016 passed**, 64 skipped, 3 xfailed at
+  `d3ca754`), and its build stamp is `53d1a4e`, well inside `tests/test_finals_screen.py`'s staleness limit.
+  R1's other half asks that every on-screen **number** map to a registry key: WFG-225 added two surfaces to
+  the screen this window and **neither writes a number** — the `renderPanel()` pointer and the `rel(...)`
+  card both state a rule and name no value — so R1 is not touched by the change. Verified by reading the
+  built file rather than the template: the caveat string appears **twice** in `web/finals.html` and twice in
+  `scripts/finals.template.html`.
+- **R5 holds but is closer to the edge than it was, and the reason is a row, not a doubt.** R5 asks that
+  every T0 answer cite a file and that no purged phrasing remain; `tests/test_judge_qa_bank.py` is green in
+  the run above. What the gate cannot see is a T0 card that is *complete* and *out of date*: **Q38 is stale**
+  (WFG-226, `todo`, filed by critic #57 and still open a full window later) and **Q29 · T0 carries none of
+  the 513-of-662 arithmetic** `docs/auto/finals/TIMELINE_ROLES.md:81` now publishes (WFG-229, filed here).
+  Neither is an untick — both cards cite files and neither says anything purged — and both are named here so
+  the next lap does not read a green bank gate as a current bank.
+- **R7 and R9 hold.** The printed kit's seven hashed `SOURCES` still equal the tree, which is exactly how
+  WFG-226's staleness is provable rather than suspected: the bank has not moved since the `0140Z` print, so
+  the print carries the same stale card. `release/kcf-finals-2026/MANIFEST.json` was re-pointed by the 0952Z
+  lap and the bundle rebuilds. ⚠ A seven-of-seven means the kit matches the tree, **not** that the tree is
+  right; critic #57 wrote that and it is re-stated here because it is what makes WFG-226 legible.
+- **R3, R11 and R12 are unchanged and none is a lap's to move.** R12 is the author's (NH-014). R3 is
+  `blocked(NH-046)` and its criterion names `make all-checks`, a command that cannot go green on any clone
+  but the author's; **NH-046 came due 2026-09-10 and is now one day past due**. R11's row **WFG-024** is held
+  by CHARTER §14b until R1, R3, R4, R7, R8 and R9 all tick, of which **R3 is the only one unticked**. So the
+  whole P1 block, 102 rows, waits on one entry in the author's queue with five sprint days left. That is the
+  fifteenth consecutive lap this paragraph has been true, it is a finding about the loop's direction rather
+  than about the product, and it is appended to **NH-046** rather than filed again.
+
+⚠ **No `Do NOT edit` note is written on this page by this lap.** CHARTER §14c makes such a note expire at
+the next critic lap unless re-checked, and there is nothing on this page that a lap would be tempted to
+edit wrongly today.
+
 **Tick count, critic #57, 2026-09-10T0825Z at `16e6824`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
 R3, R11 and R12 are the three that do not tick; R10 was withdrawn 2026-09-04.** ⚠⚠ **ZERO lines ticked, for the
 FOURTEENTH consecutive critic lap.** The count has stood at 8 since critic #43 ticked R8 at 2026-09-08T1429Z.

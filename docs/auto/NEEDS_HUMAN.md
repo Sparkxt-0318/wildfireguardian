@@ -2336,6 +2336,24 @@ Three things measured at `7f914fd`, all re-run rather than quoted:
 C) suspend it until the readiness lines move. D) rank by readiness line rather than by surface.
 **Reply:** `NH-038: <A, B, C, D or a sentence>`
 
+⚠ **CRITIC #58, 2026-09-10T1120Z: the P1 measurement re-counted at `d3ca754`, because critic #56 and #57
+disagreed by parser and a third reading settles the method.** Counted by status prefix over the backlog
+table between the header row and `## Details`, which is the method and is stated because it is the thing
+that differs between laps: **P0 is 66 done, 4 blocked, 1 dropped and 14 `todo`; P1 is 9 done and 102
+`todo`.** The P0 `todo` count rose 12 → 14 this window and **every one of the two is mine plus one more**:
+critic #57 filed WFG-226, and this lap filed WFG-228, 229 and 230 while the dev laps closed WFG-225. The
+inherited P0 `todo` count (rows filed before this sprint week) is unchanged at **10**. **P1 rose 101 → 102
+and the 102nd is mine (WFG-231).**
+
+So the two-window trend critic #57 asked for is now a three-window trend and it holds: **the critic is the
+main producer of P1 rows and the P1 block is released only by R3, which needs you** (NH-046, now one day
+past due). ⚠ **One thing cuts against the finding and is recorded for the same reason critic #56 recorded
+its counter-example.** Every one of this lap's three P0 filings came out of attacking the *product* rather
+than the loop — a missing null model for a statistic on four judge-facing surfaces, a number on the schedule
+document that the Q&A bank does not carry, and a caveat that is true of four slices rather than three. §14b
+sent all three to the right place with no friction. The rule's P0 half is not what this entry is about; the
+P1 half is.
+
 ## NH-039 · DECISION · open · The national wildfire-spread system's manual is an 18 MB PDF the sandbox could not fetch, and one of you can (by 2026-09-12)
 
 **Severity: LOW.** Nothing is blocked, no gate is red, and no claim depends on this. It is
@@ -2873,6 +2891,24 @@ queue now has a single author-shaped gate in it, and you could not see that from
 
 **The loop still recommends A** and nothing measured today changes the recommendation.
 
+⚠⚠ **CRITIC #58, 2026-09-10T1120Z: THIS ENTRY IS NOW ONE DAY PAST THE DATE IT NAMES, AND IT IS THE ONLY
+THING BETWEEN THE LOOP AND 102 ROWS OF ITS OWN QUEUE.** Measured at `d3ca754` from the checklist table
+rather than from any report. `docs/auto/KCF_READINESS.md` stands at **8 of 11** and has stood there since
+critic #43 ticked R8 on 2026-09-08T1429Z, so **zero readiness lines ticked for the fifteenth consecutive
+critic lap**. The three unticked lines are R3, R11 and R12. R12 is yours (NH-014). **R11's row WFG-024 is
+held by CHARTER §14b until R1, R3, R4, R7, R8 and R9 all tick, and R3 is the ONLY one of those six that is
+unticked** — R3 is `blocked` on this entry. And §14b sends every non-judge-facing finding to the P1 block,
+which is released by the same six lines: at this head that block is **9 done against 102 `todo`**.
+
+**So one unanswered question of yours is the release condition for 102 rows, with five sprint days left
+(sprint ends 2026-09-15).** This is stated as arithmetic and not as pressure: nothing is red, no gate fails,
+no judge sees any of it, and the P0 half of §14b is visibly working — the loop closed WFG-225 this window
+and the finals screen is better for it. What the arithmetic says is that the loop cannot move this line by
+working harder, and that every critic lap which files a P1 row (this one included, WFG-231) is adding to a
+ledger it is forbidden to spend. **No new entry was filed for this; it is the same finding fifteen times and
+it belongs here.** The neighbouring question — whether the P1 block should be released on a condition the
+loop controls, or the critic should stop filing rows it may not work — is **NH-038**, and both are yours.
+
 ## NH-047 · FYI · closed · A 403 on an artifact upload took a green run red; transient, guarded, nothing needed
 
 **No reply is requested.** This is recorded once so the arithmetic is not lost, and it is an FYI
@@ -2985,6 +3021,18 @@ entry.
 
 **So the queue this entry describes is now five deep** — WFG-197, WFG-027, WFG-194, and now WFG-226 and WFG-227 — and one of the five is a **correction to an existing card that is already in the judge's hands**, which is a strictly worse failure than a missing card. Option **A** (`docs/auto/JUDGE_QA_PENDING.md`, the staging file, = WFG-205) still costs the kit nothing and would have absorbed all five.
 ---
+
+⚠ **CRITIC #58, 2026-09-10T1120Z: a second row now waits on the same rebuild, which changes the cost of
+this question from one lap to one lap shared.** WFG-226 (critic #57, Q38 stale) and **WFG-229** (filed here:
+`docs/auto/JUDGE_QA.md` Q29 · T0 carries none of the 513-of-662 agent-commit arithmetic that
+`docs/auto/finals/TIMELINE_ROLES.md:81` now publishes) both edit the bank, and the bank is one of the seven
+hashed `SOURCES` of the printed kit. Either alone needs `make printables` at a new stamp plus a re-pointed
+`release/kcf-finals-2026/MANIFEST.json` or
+`tests/test_printables.py::test_the_newest_printable_is_not_stale_against_the_tree` goes red. **Doing them
+in one lap pays the rebuild once**, and DIRECTION.md now names them as one piece of work for that reason.
+This does not answer your question — whether a critic lap may add a card at all, given the rebuild it forces
+— it only lowers what the answer costs. Both rows are filed as rows, not written into the bank by this lap,
+which is this routine's standing constraint (it changes no artifact).
 
 ## NH-050 · DECISION · open · You answered two of these questions two days ago and the loop never heard you, because you answered them on the routine page (by 2026-09-10)
 
