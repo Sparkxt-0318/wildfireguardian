@@ -83,3 +83,13 @@ Two WUI-adjacent items surfaced and neither is usable:
 - Opanasopit & Louis (2026, *Frontiers in Built Environment*, 10.3389/fbuil.2026.1856100) [opened] treat the built environment as **exposure connected by a road network** rather than as fuel, which is the framing this note's §3 already chose for the pre-finals project. It is recorded in `ROUTING_FUNDAMENTALS.md` §Update 2026-09-08, where it belongs, and is noted here only as independent support for the exposure-not-fuel decision.
 
 **What this means for WildfireGuardian:** §3 and §4 are unchanged. The post-finals Korean BFM-lite (WFG-059) stays P3, and the wildland–cropland framing question above is worth carrying into it — a Korean BFM-lite built on a North American WUI definition would inherit an assumption nobody here has tested.
+
+## Update 2026-09-10
+
+*Research routine, sandbox. Scan window: new since 2026-09-08.*
+
+**One WUI item surfaced and it could not be opened.** 「Accessibility, Infrastructure, and Systemic Failures in the 2025 Altadena (Eaton) Wildfire: A Wildland–Urban Interface Analysis of Emergency Evacuation Systems」, Research Square preprint, 2026-09-08, 10.21203/rs.3.rs-10811917/v1. **HTTP 403 to this sandbox on two attempts** (direct and via the DOI redirect), so it was **not opened and none of its content — not one number, not one finding — is recorded here or anywhere in this repository.** It is named only as a lead.
+
+On its title alone it would be the most relevant WUI source any run has found for this project's actual question: it pairs **accessibility** and **evacuation-system failure** at a **WUI** in a real 2025 fire, which is the intersection of `ROUTING_FUNDAMENTALS.md` §Update 2026-09-08 (isolation and severance) with this note's subject. **That is a reason for the next run to try harder to open it, and not a reason to describe it.** Two outstanding WUI leads now stand: this one and the Central Yunnan wildland–cropland paper from 09-08.
+
+**What this means for WildfireGuardian:** §3 and §4 are unchanged. Nothing this run opened bears on the FireDX decision or on the post-finals Korean BFM-lite (WFG-059), which stays P3.

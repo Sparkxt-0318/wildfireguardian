@@ -567,3 +567,41 @@ The ten insights stand. Two are amended in place:
 | id | question | data | when | rules |
 |---|---|---|---|---|
 | **B9** | Does the manuscript's related work and `docs/auto/JUDGE_QA.md` state route-existence as time-dependent severance against a cited static-severance method, with the hazard-family boundary in the same sentence? | none — prose plus one `references.bib` entry verified at its DOI | **before-freeze**; filed this run as **WFG-198** | yes — no artifact, no number registered, no fire number compared |
+
+## Update 2026-09-10
+
+*Research routine, sandbox. Scan window: new since 2026-09-08 (two days). Sources opened this run are marked [opened].*
+
+**Somebody built the whole pipeline this project builds — spread forecast into dynamic evacuation routing — and published it eight days before our finals month.** Bokade, Rahul; Barai, Vishal; Bhogle, Shravani; Chapherkar, Yug; Kale, Dilip (supervisor), 2026-09-09, 「A Hybrid Neural Physical Framework for Wildfire Propagation Modeling and Dynamic Evacuation Routing」, preprint on Zenodo, <https://doi.org/10.5281/zenodo.22668357> (duplicate record 22668358), [opened — record description and abstract; the attached PDF was not read]. Abstract verbatim on the two halves that matter here:
+
+> 「Traditional navigation systems rely on static road closure reports, inadvertently routing civilians into active hazards due to latency.」
+
+> 「we present a dual-layer pathfinding architecture. The system orchestrates OpenRouteService vector routing using spatial polygon clustering to bypass API area limitations. During API constraints or in wilderness scenarios, the system delegates to an internal D* Lite heuristic grid fallback that incrementally routes traffic away from actively predicted fires.」
+
+**What it is:** a U-Net flammability prior coupled to an explicit cellular-automaton physics engine running inside PyTorch (wind advection and convective heating), feeding a two-layer router — OpenRouteService for vector routing, D* Lite incremental replanning on a grid as the fallback — over a multimodal dataset built for **Uttarakhand, India**. **No routing evaluation, no metric and no numerical result is reported in the record**; the claim is architectural.
+
+**What it changes for this project's routing claims, and it cuts three ways.**
+
+1. **It is the closest published object to this project's routing arm that any run has found**, and it is closer than Opanasopit & Louis (static severance) or BEACON (polygon-avoidance around the *current* perimeter). Bokade et al. route away from **actively predicted** fire, which is the same design choice this project makes. §7's account of why routing-against-a-forecast is the right object should now say that an independent group made the same choice, rather than presenting it as this project's own reasoning.
+2. **It does not dilute the contribution; it sharpens where the contribution is not.** The differentiator was never "route against a forecast" — it is the **output object**: a per-point, time-dependent walk-or-be-rescued verdict for named rural elderly residents, with the limits of that verdict measured and written down. Bokade et al. produce **an interactive simulation environment** and report no evaluation of anything; this project produces a decision per point and a page of measurements of how wrong it can be. That difference is now demonstrable against a same-month, same-architecture comparator instead of asserted.
+3. **The mechanism differs and the difference is real.** D* Lite is **incremental replanning** — repair the path when the cost surface changes. This project computes **time-dependent shortest paths on a time-expanded graph**, where an edge's usability is a function of *when a walker would traverse it* (§1, §3). Replanning reacts to the hazard as it moves; time-expansion prices the hazard the walker will meet later. They are not the same object and the paper should say which it uses and why.
+
+⚠ **Boundaries, and they are load-bearing.** Different country and terrain (Uttarakhand), a road/vehicle routing stack (OpenRouteService), no reported evaluation of the routing layer, and a preprint on Zenodo with no venue and no peer review — the attached file is named `IEEE_Conference_Template.pdf`, i.e. a manuscript in an IEEE template, not an IEEE publication. It validates a **design class** and supplies **no number** to compare against anything here. Nothing from it is registered.
+
+⚠ **One sentence in it is the overclaim this project must not imitate.** Its abstract closes on 「guaranteed safe evacuation」. Nothing in a forecast-driven router guarantees safety — this repository's own `docs/disc_null.md` and `docs/oracle_gap.md` exist precisely to measure the gap between a routed decision and the truth. The contrast is worth keeping in mind for the manuscript's own register: the honest version of that sentence is what this project already writes.
+
+**Evacuation mode choice under an imminent threat — a lead, not a source.** 「Modelling evacuation mode choice behaviour under an imminent threat of volcanic eruption」, *Transportation*, 2026-09-06, 10.1007/s11116-026-10818-7. **Paywalled to this sandbox** (`link.springer.com` redirected to `idp.springer.com`), so it was **not opened and none of its content is recorded here.** Flagged as the highest-value outstanding routing lead because mode choice — walk, drive, wait to be collected — **is** this project's output object under another name, and no source in this note yet measures how people actually choose it. A later run that opens it should read it against §7 and §4 directly.
+
+### What this means for WildfireGuardian (revision of §7, 2026-09-10)
+
+§7 stands. Two amendments, both narrowing rather than widening:
+
+- **§7's novelty framing gets its second correction in two runs, in the same direction.** 09-08 moved route-existence from an invention claim to a delta against static severance. 09-10 does the same to the routing arm as a whole: routing against a forecast hazard field is a design choice at least one other group made in the same month, so the manuscript should claim the **output object and its measured limits**, not the architecture. Two corrections pointing the same way is a pattern worth naming: **this project's defensible novelty has consistently been narrower than its unedited prose implied, and narrower has consistently been stronger.**
+- **The time-expansion versus incremental-replanning distinction (§1, §3) is now a related-work obligation**, not just theory. A reviewer who knows D* Lite will ask why this project does not replan; the answer is in §1 and has never been written where a reviewer would find it.
+
+### Backlog candidates from this update
+
+| id | question | data | when | rules |
+|---|---|---|---|---|
+| **B13** | Does the manuscript's related work situate the routing arm against a same-architecture forecast-driven router (Bokade et al. 2026), stating the delta as the **output object and its measured limits** rather than the architecture — and does it say why time-expansion rather than incremental replanning? | none — prose plus one `references.bib` entry verified at its DOI | **before-freeze**; filed this run as **WFG-239** | yes — no metric compared, no number registered; the boundary (India, vehicles, no reported evaluation, unrefereed preprint) travels in the same sentence |
+| **B14** | Does any source measure how rural elderly residents actually choose between walking, driving and waiting to be collected? The volcanic mode-choice paper is the outstanding lead and is paywalled | literature only | **for-the-paper**; not filed as a row this run | yes — no human-subject data collection (CHARTER §3 rule 6) |

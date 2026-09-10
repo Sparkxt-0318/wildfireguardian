@@ -86,3 +86,48 @@ The article restates the same plan figures §6 already carries — 산불위험 
 | id | question | data | when | rules |
 |---|---|---|---|---|
 | **B10** | Does `docs/auto/JUDGE_QA.md` carry a card for 「왜 3–12시간 예보입니까?」 that answers with the Ready-Set-Go 5–8 h decision points, carries the ≈ 0.40 envelope figure in the same card, and states the two-clocks limit? And does the manuscript's Discussion have the matching operational-relevance line? | none — prose; the two Korean sources in §6 and this update | **before-freeze**; filed this run as **WFG-197** | yes — the 8 h/5 h/76 %/88 %/30 % figures stay in this note, with agency, date and scope; none is registered |
+
+## Update 2026-09-10
+
+*Research routine, sandbox. Scan window: new since 2026-09-08. Sources opened this run are marked [opened].*
+
+### The Ready-Set-Go doctrine now has a government source, and it says slightly more than the newspaper did
+
+The 2026-09-08 update recorded the 5 h / 8 h elderly-evacuation thresholds from 헤럴드경제 (2026-02-12), a **press restatement of an agency announcement**, and flagged that class explicitly under CHARTER §3 rule 5b. This run reached the government's own briefing portal:
+
+**대한민국 정책브리핑 (korea.kr), 부처 브리핑, 「첨단 과학 기반 산불 전방위 대응 체계 가동」, 산림청 국립산림과학원, 2026-02-12, <https://www.korea.kr/briefing/policyBriefingView.do?newsId=156744521> [opened].** Verbatim, the four sentences that bear on this project:
+
+> 「'준비-실행 대기-즉시 실행' 체계의 주민 대피 가이드라인을 확립하였습니다」
+
+> 「8시간 산불 확산 예측정보를 바탕으로 해서 실행 대기 상태에 돌입합니다」
+
+> 「고령자 등 안전 취약계층을 중심으로 선제적 대피를 완료하게 됩니다」
+
+> 「불길이 도달하기 5시간 전인 즉시 실행 단계에서는 대피 대상 주민이 지체 없이 안전한 곳으로 대피하도록 하였습니다」
+
+**What changes.** The **source class**, and only that. The doctrine, the ladder and the two thresholds are exactly as the 09-08 update recorded them — this is a confirmation, not a correction. What improves is that the claim no longer rests on a newspaper's paraphrase: it rests on the 국립산림과학원's own briefing, published on the government's briefing portal, and the 8-hour and 5-hour sentences are the agency's own words. **WFG-197's constraint 「Source is a press restatement, not a primary document」 can be relaxed to 「the agency's own briefing on the government portal; the full 사용자 가이드 (NH-039) is still unreachable」.** The substantive constraints do not move: these remain **plan and doctrine statements**, nothing here measures whether any forecast is skilful at 5–8 h, and no figure from this note reaches a card, the README, the manuscript or `docs/NUMBERS.json`.
+
+⚠ **One thing this run could NOT verify, and it is recorded as UNVERIFIED rather than written up.** A web-search summary of the korea.kr pages additionally described the doctrine as a **spatial zoning** by predicted fire-line arrival time — a 「위험 구역」 within 5 hours receiving an immediate evacuation order and a 「잠재적 위험 구역」 within 8 hours receiving a prepare-to-evacuate notice, with 고령자 등 취약계층 moving pre-emptively. **That zoning wording does not appear in the page this run opened**, and a search-engine summary is not a source. If true it would matter — a zoning is a *map*, which is much closer to what this project outputs than a pair of lead times is — so it is the single highest-value item for the next run to confirm or drop. Until confirmed at a document, **no lap may write the 위험 구역 / 잠재적 위험 구역 framing anywhere.**
+
+### A Korean academic deep-learning wildfire model now exists, with a full reproducibility archive
+
+Choi, JuGyeong & Chae, HeeMun (Kangwon National University), 2026-09-01, 「Data and code for: Deep learning prediction of wildfire burned-area extent and burn probability from ignition conditions using topography, fuel, and meteorology in South Korea」, Zenodo, <https://doi.org/10.5281/zenodo.22069027> (duplicate 22069028) [opened]. **What it holds:** satellite-derived burned-area masks and per-event metadata for **118 wildfire events in South Korea, 2018–2025**, of which **102** form an 「operating-envelope」 subset; a **self-attention U-Net** as the primary architecture with LSTM and non-attention ablation variants; inputs of SRTM terrain, ridge distance, canopy height, pre-fire NDVI, and station plus ERA5 meteorology; **cross-validation and a hold-out split** on the 102-event subset; roughly **6.8 GB** of code, trained weights and results with reproducibility documentation. ⚠ **No metric value is stated in the record** and the associated journal article is not named, so nothing here says how well it performs, and this note records no accuracy figure for it.
+
+**Why this matters to this project, in three parts.**
+
+1. **The domestic landscape is no longer just NIFoS and G-DAPS.** §1 and §2 describe the two *operational* systems. This is an *academic* Korean deep-learning wildfire model with public code and weights, published four weeks before our finals, from a Korean university. Any run that says 「Korea has no published academic DL wildfire model to compare against」 is now wrong.
+2. **Its output object is different, and that is the point.** It predicts **burned-area extent and burn probability from ignition conditions** — a whole-event outcome, forecast at the moment of ignition. This project predicts **where an already-burning fire goes next over 3–12 h** and converts that into a per-point evacuation decision. Same country, same data families, **different question**. This is direct support for `docs/auto/DIRECTION.md`'s thesis that the defensible contribution is the output object rather than forecast accuracy — and it is now support from a domestic comparator rather than from a foreign one.
+3. **Their scoping discipline mirrors ours and is worth naming at the booth.** Restricting to a 102-of-118 「operating envelope」 is the same kind of honest, documented narrowing this project does with its folds and its operating point. A judge who asks 「왜 전체 사건을 쓰지 않았습니까?」 can be answered with the observation that this is standard practice in the domestic literature.
+
+⚠ **What must NOT happen with this source.** `docs/auto/DIRECTION.md` says 「Do not compare accuracy with NIFoS or G-DAPS」 and the same reasoning applies here with more force: the tasks differ, no metric was even read, and a side-by-side number would be meaningless and indefensible. Whether this comparator is **named at all** on a judge-facing surface is the author's call — filed as **NH-056**.
+
+### What this means for WildfireGuardian (revision of §3, 2026-09-10)
+
+§3's conclusion — the differentiator is the output object, not accuracy — is **unchanged and better evidenced than it was two days ago**. It now rests on three domestic reference points rather than two: NIFoS (operational, better resourced), G-DAPS (operational, 읍면동 granularity, no published accuracy), and Choi & Chae 2026 (academic, reproducible, a different output object). The strongest form of the booth answer is now: *Korea already forecasts fire spread, and a Korean university already publishes a reproducible deep-learning model for it; what none of them publishes is a per-point walk-or-be-rescued decision with its own error measured.*
+
+### Backlog candidates from this update
+
+| id | question | data | when | rules |
+|---|---|---|---|---|
+| **B15** | Does WFG-197's row still say the doctrine source is a press restatement, when the agency's own briefing has been opened and quoted? | none — the korea.kr briefing above | **before-freeze**; the row text is corrected in place this run, not re-filed | yes — the substantive constraints (no sufficiency claim, two clocks, no figure registered) do not move |
+| **B16** | Should a judge-facing surface name the domestic academic comparator (Choi & Chae 2026) at all, and if so as landscape or as contrast? | none — prose | **before-freeze**; the decision is the author's, filed as **NH-056** | yes — no accuracy comparison in any direction, and no metric was read |

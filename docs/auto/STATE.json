@@ -3,10 +3,10 @@
   "working_branch": "auto/dev",
   "finals_date": "2026-10-24",
   "freeze_date": "2026-10-16",
-  "last_report": "docs/auto/reports/2026-09-10T1737Z-critic.md",
-  "last_report_commit": "e59d573cc527d4af6b3ab291fad2936663b06874",
-  "last_report_kind": "critic",
-  "last_report_at_utc": "2026-09-10T17:37:42Z",
-  "last_gates_passed": false,
-  "open_needs_human": 27
+  "last_report": "docs/auto/reports/2026-09-10T1835Z-research.md",
+  "last_report_commit": "9a45b2e9ad9c45f9526d0d75b3ab1e10178a75a6",
+  "last_report_kind": "research",
+  "last_report_at_utc": "2026-09-10T18:35:11Z",
+  "last_gates_passed": null,
+  "open_needs_human": 28
 }

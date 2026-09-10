@@ -3498,3 +3498,20 @@ D loses a real result. A is what happens if you do not answer and it is not a ba
 **Related.** NH-054 (`open`, the caveat ratio in the TL;DR's other headline bullet), WFG-236, WFG-237
 (the centroid magnitude, the document half), WFG-235 (the Q36 card half), WFG-234 (`P1`, the
 persistence null that would be a fair opponent), CHARTER §3.5 and §14b.
+
+## NH-056 · DECISION · open · A Korean university published a reproducible deep-learning wildfire model four weeks before your finals, and a lap may not decide on its own whether to mention it (by 2026-09-13)
+
+**What.** The research lap of 2026-09-10 found, through OpenAlex, a source no previous sweep had: Choi, JuGyeong & Chae, HeeMun (강원대학교), 「Data and code for: Deep learning prediction of wildfire burned-area extent and burn probability from ignition conditions using topography, fuel, and meteorology in South Korea」, Zenodo, 2026-09-01, <https://doi.org/10.5281/zenodo.22069027> [opened]. It holds burned-area masks and metadata for **118 Korean wildfire events (2018–2025)**, a **102-event 「operating-envelope」 subset**, a **self-attention U-Net** with LSTM and non-attention ablations, inputs of SRTM terrain, ridge distance, canopy height, pre-fire NDVI and station/ERA5 meteorology, **cross-validation plus a hold-out split**, and about **6.8 GB** of code, weights and results with reproducibility documentation. ⚠ **No metric value is stated in the record**, and no lap has read one.
+
+**Why this is yours and not a lap's.** Until now the domestic landscape recorded in `docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md` was two **operational** systems (NIFoS, G-DAPS), and `docs/auto/DIRECTION.md` says 「Do not compare accuracy with NIFoS or G-DAPS」. This is a different animal: a **Korean academic** deep-learning wildfire model with public code and weights, from a Korean university, published four weeks before the finals. A judge — particularly the software professor — could plausibly know it or find it. Whether it is **named on a judge-facing surface**, and in what register, is a presentation decision about your own project's positioning, which CHARTER §6 reserves to you.
+
+**What the lap already established, so you are not deciding blind.**
+
+- **Their output object is different from yours, and this helps you.** They predict **burned-area extent and burn probability from ignition conditions** — a whole-event outcome forecast at ignition. You predict **where an already-burning fire goes next over 3–12 h** and turn it into a per-point walk-or-be-rescued decision. Same country, same data families, different question. This is domestic support for DIRECTION's thesis that your differentiator is the **output object**, not accuracy.
+- **An accuracy comparison is off the table in every option below.** The tasks differ, and no metric was even read. Any side-by-side number would be meaningless and would be the exact failure CHARTER §3 rule 5b exists to prevent.
+
+**Options:** A) **name it as landscape** — one line in the Q&A bank's 「국내에 비슷한 연구가 있습니까?」 answer saying a Korean university published a reproducible DL model for a *different* output object, which strengthens the output-object framing · B) **name it in the manuscript's related work only**, and keep it off every KCF surface · C) **both A and B** · D) **neither** — record it in the knowledge note and say nothing publicly, on the view that raising a comparator you were not asked about spends booth time · E) something else you tell us.
+
+**Severity:** MEDIUM. Nothing is blocked and no gate is red. The cost of leaving it undecided is that a judge raises it first, and 「we did not know about it」 is a worse answer than any of A–D.
+
+**Related.** NH-039 (the NIFoS user guide) is unchanged. The same authors' second archive — the spring green-up gating study covering South Korea and the Mongolian Plateau — is recorded in `docs/auto/knowledge/PYROGEOGRAPHY.md` §Update 2026-09-10 and bears on nothing you must decide.

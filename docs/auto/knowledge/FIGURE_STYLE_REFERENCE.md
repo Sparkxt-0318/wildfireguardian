@@ -46,3 +46,11 @@ One observation the scan does support, filed here because it is where a lap woul
 **Nothing new. The rules in §2 and the implementation in §3 are unchanged, and no source this run touched bears on figure style.** Recorded as an explicit no-change rather than left silent, so that a later reader can tell "scanned and nothing found" from "not scanned" — the same distinction this run insists on for its UNVERIFIED sources.
 
 One observation, from reading rather than from a source: the two candidates this run filed (**WFG-197**, **WFG-198**) are both prose-and-card rows that produce **no figure**, so `paper/style.py` and the finals screen acquire no new drawing obligation from this run.
+
+## Update 2026-09-10
+
+*Research routine, sandbox. Scan window: new since 2026-09-08.*
+
+**Nothing new. §2's rules and §3's implementation are unchanged, and no source this run opened bears on figure style.** Recorded as an explicit no-change rather than left silent, so a later reader can tell 「scanned and nothing found」 from 「not scanned」.
+
+Two observations from reading rather than from a source. First, the one row this run filed (**WFG-239**) is prose plus a `references.bib` entry and produces **no figure**, so `paper/style.py` and the finals screen acquire no new drawing obligation. Second, the closest comparator this run found (Bokade et al. 2026, `ROUTING_FUNDAMENTALS.md` §Update 2026-09-10) ships its manuscript in an **IEEE conference template** on Zenodo; that is a template choice and not a style precedent, and §4's 「things we deliberately do not copy」 list needs no addition.
