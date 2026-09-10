@@ -581,3 +581,178 @@ def test_no_draft_answer_states_the_future_aware_only_claim_bare() -> None:
         "below the draft does not satisfy this: that is exactly what failed for "
         "two windows on Q19's 42 (WFG-138, critic #29)."
     )
+
+
+# ---------------------------------------------------------------------------
+# WFG-229 · the trailer counts. Q29 is T0 --- said from memory, no paper --- and
+# `docs/auto/finals/TIMELINE_ROLES.md` publishes the arithmetic a judge holding
+# that document already has. The card carried NO number at all until 2026-09-10,
+# so the student met 513 / 662 for the first time in front of a judge.
+#
+# WHY A LITERAL IS ALLOWED HERE AND IS NOT ALLOWED IN Q30. Q30's count is the
+# size of docs/NUMBERS.json, which moves on every lap that registers a key: a
+# literal there is stale before the student rehearses it (WFG-117; critics #21,
+# #22 and #26 each wrote the then-correct pair). These two are frozen readings
+# with a `git_commit` in the registry entry itself, and the artifact behind them
+# is rebuilt only when a lap runs scripts/build_timeline_roles.py deliberately.
+# So the literal is gate-able, and this gate is the thing that makes it safe:
+# re-run the registrar and Q29 goes red until the card is updated with it.
+TIMELINE_KEYS = {
+    "timeline_agent_trailer_commits": "커밋 {value}개",
+    "timeline_total_commits": "전체 커밋 {value}개",
+}
+
+
+def _q29() -> str:
+    body = next((b for qid, _, b in _questions() if qid == "29"), None)
+    assert body is not None, "Q29 is gone from the bank; WFG-229 assumes it exists"
+    return body
+
+
+def test_the_authorship_card_carries_the_trailer_counts_the_registry_holds() -> None:
+    """Q29's spoken draft states both figures, with units, as the registry has them.
+
+    Graded by mutation: move either value in docs/NUMBERS.json and this goes red
+    naming the key; delete either sentence from the draft and it goes red too.
+    """
+    numbers = json.loads(NUMBERS.read_text(encoding="utf-8"))["numbers"]
+    draft = _draft(_q29())
+    assert draft, "Q29 no longer has a 답변(초안) block"
+    for key, shape in TIMELINE_KEYS.items():
+        assert key in numbers, key + " is gone from the registry"
+        want = shape.format(value=numbers[key]["value"])
+        assert want in draft, (
+            "Q29's spoken draft does not carry " + repr(want) + ". This is a T0 "
+            "card, so the student says it from memory while a judge may be "
+            "holding docs/auto/finals/TIMELINE_ROLES.md, which publishes the "
+            "same figure. Write the UNIT (this bank already keeps 42일 apart "
+            "from 42곳); a bare integer does not satisfy this gate."
+        )
+
+
+def test_the_trailer_counts_travel_with_their_as_of_commit() -> None:
+    """A total that grows every lap is quotable only 'as of' a commit.
+
+    The registry says so in its own caveat ("the figure is 'as of' its
+    git_commit and nothing re-derives it forward"), and TIMELINE_ROLES.md 3-(4)
+    tells the student not to quote a total without one. The card is the surface
+    where that instruction is most likely to be dropped, because it is spoken.
+    """
+    numbers = json.loads(NUMBERS.read_text(encoding="utf-8"))["numbers"]
+    anchor = numbers["timeline_agent_trailer_commits"]["git_commit"][:7]
+    draft = _draft(_q29())
+    assert anchor in draft, (
+        "Q29's draft quotes the trailer counts without the commit they were "
+        "measured at (" + anchor + "). Every count but the last phase's grows "
+        "with every later lap, so a total with no anchor is a number that is "
+        "wrong by the time it is said."
+    )
+
+
+def test_the_authorship_card_says_what_the_trailer_count_is_not() -> None:
+    """The two facts the registry's caveat makes mandatory travel in the SPOKEN draft.
+
+    Graded against the draft and not the card body, and the first version of
+    this gate read the body. The mutation that removed 「기계적인 검사」 from the
+    draft scored ZERO, because the 없는 것 block below it says 「기계적 문자열
+    검사」 too --- a caveat in the block the student does not recite, passing a
+    gate on the sentence they do. WFG-138's finding on Q19's 42, one card over.
+    """
+    draft = _draft(_q29())
+    assert draft, "Q29 no longer has a 답변(초안) block"
+    for phrase, why in (
+        ("기계적", "the trailer is a mechanical string test, not a statement "
+                   "about who thought of what"),
+        ("작업량이 아닙니다", "a commit is not a unit of work --- the loop "
+                             "commits several times per lap by design"),
+    ):
+        assert phrase in draft, (
+            "Q29's spoken draft states the trailer counts but not that " + why
+            + ". The registry's caveat says four facts travel with any of "
+            "these figures or none may be quoted; these two are the ones a "
+            "judge hears wrong without them. A 없는 것 line does not satisfy "
+            "this: the student recites the draft."
+        )
+
+
+def test_the_bank_writes_none_of_the_timeline_forbidden_phrasings() -> None:
+    """The registry declares phrasings for these keys. Nothing enforced them here.
+
+    Measured 2026-09-10: `forbidden_phrasings` is registry metadata that
+    make verify never reads --- scripts/check_forbidden.py has its own hand-kept
+    list and carries none of these strings. The only place the field was bound
+    to a document was tests/test_oracle_gap.py, for docs/oracle_gap.md alone.
+    This binds it for the bank, which is the surface that now writes the numbers.
+    """
+    numbers = json.loads(NUMBERS.read_text(encoding="utf-8"))["numbers"]
+    text = _text().lower()
+    hits = []
+    for key, value in numbers.items():
+        if not key.startswith("timeline_"):
+            continue
+        for phrase in value.get("forbidden_phrasings") or []:
+            if phrase.lower() in text:
+                hits.append(key + ": " + phrase)
+    assert not hits, (
+        "the Q&A bank writes a phrasing docs/NUMBERS.json registers as "
+        "forbidden on the key it belongs to:\n  " + "\n  ".join(hits)
+    )
+
+
+# ---------------------------------------------------------------------------
+# WFG-226 · Q38 told the student to open with 「오늘 저장소는 이 질문에 두 가지로
+# 답합니다 --- 그게 결함입니다」 for four days after 5bcfe11 closed the
+# contradiction, and the bank is one of the seven hashed SOURCES of the printed
+# kit, so the stale card was on paper in the booth. The card also cited
+# docs/multi_region.md by LINE, and the line moved, which is what made it stale.
+def _q38() -> str:
+    row = next(
+        (line for line in _text().split("\n") if line.startswith("| **Q38 · T1**")),
+        None,
+    )
+    assert row is not None, "Q38 is gone from the bank; WFG-226 assumes it exists"
+    return row
+
+
+def test_the_budget_card_does_not_recite_a_contradiction_that_is_closed() -> None:
+    """The lead the student speaks must not report a defect the repository fixed.
+
+    The sentence is KEPT as a dated record (CHARTER 3.7) --- this checks it is
+    not what the card OPENS with. Graded by mutation: put the old lead back as
+    the first sentence after the question and this goes red; delete the record
+    block and the next test goes red.
+    """
+    row = _q38()
+    lead = row.split("|")[2] if row.count("|") >= 3 else row
+    lead = lead.split("⚠⚠")[0]
+    assert "두 가지로 답합니다" not in lead, (
+        "Q38 still OPENS by telling the student the repository answers this "
+        "question two ways. 5bcfe11 rewrote docs/multi_region.md 3.1 and the "
+        "repository has given one answer since. The card's substantive answer "
+        "is unchanged and correct; only the framing was stale."
+    )
+    assert "한 가지로 답합니다" in lead, (
+        "Q38's lead no longer states the repository's single current answer"
+    )
+
+
+def test_the_budget_card_keeps_its_own_correction_as_a_dated_record() -> None:
+    """CHARTER 3.7: the superseded lead is kept, marked, and dated."""
+    row = _q38()
+    assert "2026-09-10" in row and "그대로 말하지 마십시오" in row, (
+        "Q38 dropped the dated record of what it used to say. A student who "
+        "rehearsed the old lead needs to be told it changed, which is how "
+        "Q36 and Q40 handle the same event."
+    )
+
+
+def test_the_budget_card_cites_multi_region_by_section_not_by_line() -> None:
+    """A line citation is what went stale here; the section survived the edit."""
+    row = _q38()
+    assert "§3.1" in row, "Q38 no longer points at docs/multi_region.md 3.1"
+    stale = re.findall(r"docs/multi_region\.md[`\s]*:\s*\d+", row)
+    assert not stale, (
+        "Q38 cites docs/multi_region.md by line number again: "
+        + ", ".join(stale) + ". The line moved once already and that move is "
+        "the whole reason this row exists. Cite the section."
+    )

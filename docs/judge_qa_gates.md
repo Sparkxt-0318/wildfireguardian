@@ -124,3 +124,91 @@ retyping when a lap registers a key.
   「재현 불가 N」). A future lap that invents a fourth way to write the count
   escapes it. The mitigation is the note addressed to laps inside Q30 itself,
   not a regex.
+
+---
+
+## Update · 2026-09-10 · the two counts that ARE allowed in the bank (WFG-229)
+
+*Row WFG-229 · method proposed by the loop (critic #58 filed the row; this lap
+built it) · gates in `tests/test_judge_qa_bank.py`.*
+
+The rule above reads like 「no number in the bank」 and it is not that rule. It
+is 「no number the registrar moves under the student's feet」. Q29 is the case
+that separates the two.
+
+**The defect.** `docs/auto/finals/TIMELINE_ROLES.md` §0 and §2 publish
+`timeline_agent_trailer_commits` and `timeline_total_commits` — the count of
+commits carrying the `Co-Authored-By: Claude` trailer, and the total. That
+document is this repository's answer to 「일정 및 팀원 역할 배분의 타당성」, a
+named sub-item of a 20-point row on both rubric tables. `docs/auto/JUDGE_QA.md`
+Q29 answers the same question at tier **T0**, which means the student says it
+from memory with no paper, and until this lap it carried **no number at all**.
+So a judge could be holding the arithmetic while the student had never
+rehearsed it. That is `WC-004`'s shape with a document boundary in place of
+eight sections.
+
+**Why a literal is safe here and is not safe in Q30.** Q30's count is the size
+of `docs/NUMBERS.json`, which moves on every lap that registers a key — measured
+at 44 changes across 45 distinct values on the sprint days, so a literal there
+is stale before the student rehearses it. These two are **frozen readings**:
+each registry entry carries its own `git_commit` (`89da7d3`, 2026-09-09), the
+entry's caveat says in its own words that the figure is 'as of' that commit and
+that nothing re-derives it forward, and the artifact behind it changes only when
+a lap deliberately runs `scripts/build_timeline_roles.py`. A frozen reading can
+be gated; a moving one cannot.
+
+**Method.** Four gates, and the second and third exist because a frozen reading
+has two ways to go wrong that a moving one does not:
+
+1. `test_the_authorship_card_carries_the_trailer_counts_the_registry_holds` —
+   the spoken draft states both figures **with their units**, re-derived from
+   `docs/NUMBERS.json` in the same process. Re-run the registrar and the card
+   goes red until it is updated with it.
+2. `test_the_trailer_counts_travel_with_their_as_of_commit` — the draft carries
+   the seven-character anchor the registry entry names. A total that grows every
+   lap is quotable only with one.
+3. `test_the_authorship_card_says_what_the_trailer_count_is_not` — the two facts
+   the registry's caveat makes mandatory (the trailer is a mechanical string
+   test; a commit is not a unit of work) are in the **draft**, not merely in the
+   card.
+4. `test_the_bank_writes_none_of_the_timeline_forbidden_phrasings` — see below.
+
+**Mutation grading, as it came out.** Restored tree: 31 passed.
+
+| mutation | red |
+|---|---|
+| M1 · registry value moved 513 → 999 | **1** |
+| M2 · the two figures cut from the draft | **2** |
+| M3 · the as-of commit removed, figures kept | **1** |
+| M4a · 「기계적인 검사」 cut from the DRAFT only | **1** |
+| M4b · 「커밋 수는 작업량이 아닙니다」 cut from the DRAFT only | **1** |
+| M5 · a registered forbidden phrasing written into the bank | **1** |
+
+⚠ **M4a scored ZERO on the first version of gate 3, and the reason is the
+finding.** That gate read the whole card body, and Q29's 없는 것 block says
+「기계적 문자열 검사」 too — so a caveat in the block the student does **not**
+recite was passing a gate on the sentence they **do**. It is WFG-138's finding
+on Q19's 42 arriving one card over, and it was the mutation that found it, not
+a reading of the assertion. The gate now reads the draft.
+
+## What `forbidden_phrasings` actually enforced before this lap
+
+Measured 2026-09-10 in this clone, by experiment rather than by reading:
+
+- `docs/NUMBERS.json` gives many keys a `forbidden_phrasings` list. `make verify`
+  **never reads that field** — appending a registered phrasing to a tracked
+  document leaves `verify_numbers.py`, `check_forbidden.py` and
+  `check_withdrawn_claims.py` all at exit 0.
+- `scripts/check_forbidden.py` is the tree-wide scanner and it keeps its **own
+  hand-written** HARD/LABEL list. None of the `og_yeongdeok_*` or `timeline_*`
+  phrasings is in it.
+- The one place the field was bound to a document is
+  `tests/test_oracle_gap.py::test_the_forbidden_phrasings_are_registered_and_absent_from_the_doc`,
+  which asserts `docs/oracle_gap.md` contains **none** of its own keys'
+  phrasings. Verified by mutation: appending 「this measures what the model
+  buys」 to that file turns exactly that test red.
+
+Gate 4 above adds the same binding for the Q&A bank and the `timeline_*` keys,
+because the bank now writes those numbers. **It does not close the general gap**
+— every other key's list is still a declaration that no gate reads, on every
+other document. That is a row, not a clause of this one.

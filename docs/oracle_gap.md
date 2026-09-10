@@ -229,8 +229,15 @@ re-acquisition, no fill rule, no new free parameter.
 
 - **It is not a routing result and produces no margin.** No route was run. It
   moves no committed number: 42, 91, 9 and 27 are untouched. Anyone quoting
-  0.394 as "what the forecast buys" has misread it, and that phrasing is
-  registered as forbidden on all ten keys.
+  0.394 as "what the forecast buys" has misread it. That exact spelling is not
+  in the registry; what every `og_yeongdeok_*` key does carry, in its
+  `forbidden_phrasings` field, is a list of neighbouring readings, and
+  `tests/test_oracle_gap.py::test_the_forbidden_phrasings_are_registered_and_absent_from_the_doc`
+  binds that list by asserting **this page contains none of them** — which is
+  why none of them is quoted here, in the sentence that would most naturally
+  quote one. ⚠ That test is the whole of the enforcement: `make verify` does
+  not read the field, and `scripts/check_forbidden.py`, which is the tree-wide
+  scanner, carries none of these strings. Read the list at the keys.
 - **It is not a new performance claim, and it is not an independent one.** The
   IoU is the model card's own drift metric recomputed on the extended canvas
   (§4b) — a consistency check, not corroboration. What is new here is the
