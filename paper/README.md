@@ -676,6 +676,108 @@ are **Korean** and both survivals are **English**. **Two of §3.5's own stated l
 together, inside the window that created the instance.** No manuscript sentence is owed —
 §3.5 states both limits in its own voice and lap 19 retired the illustration as a want — so it
 is filed as a dev-lap fix, and `AUTHORSHIP.md` quotes caveat (4) in its corrected form.
+✅⚠ **Lap 26 is the first lap since 12 where mandatory corrections paid for themselves by
+being DELETIONS, and the first thing deleted was §3.5's claim about its own instrument. Read
+`GAPS.md`'s lap-26 section before this paragraph.** 8,997 words, margin **0 → 3**; nothing
+was compressed and no caveat or registered number was traded. ⚠⚠ **Its independent reviewer
+BLOCKED the push, and the block landed on the lap's own thesis: the lap corrected the
+weakest occurrence of the withdrawn register and argued the strongest one away, in the very
+sweep whose point was that a hand sweep misses a surface.** Four findings, all re-verified
+in the tree and repaired before the push; the fourth block paragraph below is the record.
+
+§3.5 had asserted that every gated document is read against the withdrawal registry, 「**so
+a withdrawn claim cannot survive in a prose file nobody thought to list**」. The first clause
+is true; the inference is false, and the falsifying instance is inside the incorporated
+window. `scripts/check_withdrawn_claims.py:121-124` reads `text.splitlines()` and matches
+inside `for i, line in enumerate(lines)`, so **every registered spelling is a single-line
+predicate**. Re-derived in this clone rather than read off the critic report: `WC-013`'s
+English pattern matches `docs/creativity_card.md` **once** over the whole text and **zero**
+times line by line, because the phrase straddles `:475-476`, and the scan prints
+「PASSED === 13 claims over 938 gated files」 with it in the tree. The sentence now claims
+only what scanning buys — 「so **no prose file goes unscanned for being unlisted**」 —
+which is **−5 words**, and that is what funded the rest of the lap. Critic #55 filed the
+same defect independently as **WFG-223**.
+
+⚠ **Where the new limit went matters more than that it went in, and it is lap 17's lesson
+applied rather than quoted.** The matching sentence now reads 「It matches spellings, not
+meaning, **one language and one source line** at a time … and **all three** limits are
+recorded rather than designed away」 (+4). It was **not** appended to the escape list
+(「a data file or a generator escapes it」), whose members escape by **scope** — the scanner
+never opens them. This one escapes inside a file the scanner **did** open and **did** pass,
+so it is a matching-granularity limit, which is also where the repository files it: this
+window's own `docs/withdrawn_claims.md` §4 item 7 puts it beside §4's 「a reworded sentence
+escapes」. Appending it to the escape list would have been the exact category error lap 17's
+reviewer killed.
+
+✅ **A count went stale in the same paragraph, and moving it cost nothing.** 「September 2026
+retractions skipped it **three** times」 is **four**, +0 words. The fourth is inside the
+incorporated diff and is verified **from the commits**: `fef4c71` (the 2206Z WFG-212 dev
+lap) narrowed the output-object claim in its own new Round-4 lead block on its reviewer's
+block, and `git show --stat fef4c71` lists sixteen files with
+`docs/auto/withdrawn_claims.json` **not** among them; `WC-013` was registered **2 h 46 m
+later on the commits' author dates** (2 h 38 m on committer dates; both measured), in
+`8bd4b2d`, by a different lap. ⚠ **The second half of the manuscript's own
+clause was checked before the number was moved** — 「left the same claim standing in a file
+that lap had itself edited or shipped」 — and it fits: `git show fef4c71:README.md` returns
+the live claim at `:392`, in the same file whose `:209` block that lap had just rewritten.
+Lap 25's 「stays THREE」 was right about `WC-012` (registered in the commit that withdrew it)
+and is not contradicted; this is a different event.
+
+⚠⚠ **And the manuscript was itself a surface the hand sweep did not reach — this routine's
+own file, on this window's own withdrawal.** §5 said the outputs are 「a **household-ordered**
+dispatch list」, which is exactly the register `WC-013` retracts: the committed instances'
+origins are `origins: sampled candidates`. The sweep corrected the identical Korean sentence
+in `docs/evidence/greenpeace_2026_survey.md` and the same phrase in
+`docs/firefighter_consultation.md` **in this very window**, and did not reach `paper/`. It
+now reads 「an **origin-level** dispatch list」 at **+0 words**, using the paper's own
+defined term (§3.3: 「they are walk-network locations and **are never called households**」)
+rather than the imported 「지점」/「point-level」. ⚠ **The draft wrote 「origin-ordered」 and the
+reviewer struck it:** 「ordering」 is load-bearing in this manuscript and means **sort order**
+only (§1:26, §3.4:248, §4.7's heading, §7:836 「the shipped dispatch ordering is reported as
+**losing**」), so 「origin-ordered」 asserted an ordering by origin that no run measures, one
+clause from the paper reporting its actual ordering as losing. The intended sense was
+granularity.
+
+⚠⚠ **And the lap's own sweep of the remaining 「household」 occurrences reached the wrong
+verdict on one of them — this is the block.** §7's Conclusion read 「changes
+**household-level** decisions measurably, as a paired contrast — 42 of 458 scanned origins」,
+and this file's first draft defended it as 「the decision level the paper is about, followed
+in the same sentence by 458 scanned origins」. **The em-dash makes the 458-origin count the
+evidence for a household-level effect**, which is the withdrawn register attached to the
+**measurement**, and the same file denies that evidence twice (§3.3:227, §6:734). It also
+contradicted two places that already had it right: the Abstract says 「42 of 458 scanned
+**walk-network** origins」 and §1:84 writes the claim as 「The coupling changes **decisions**,
+measurably, as a paired contrast」. §7 now matches §1 word for word, at **−1 word**. ⚠ No
+registered spelling covers 「household-level decisions」, so the gate was green on it — 「It
+matches spellings, not meaning」, the limit this same lap re-advertised in §3.5, firing
+inside the same file in the same lap. ⚠ The **title** is left as it stands and that is a
+decision: 「routing **for** household-level wildfire evacuation」 names the application, not a
+measurement, and §6 denies the register for the sample in its own voice.
+
+⛔ **Two things this lap declined, and one of them is NH-037's.** The line-wrap limit's
+**instance** — the creativity-card straddle — costs about **14 words** against a margin that
+was **0** when the lap began; the general limit is stated the way §3.5's other two members
+are, so the manuscript is not false without it, and this counts as one more optional true
+sentence declined and nothing larger. Separately, `paper/manuscript.md` is **not** in
+`tests/test_output_object_claim_bounds.py`'s `SURFACES`, which lists seven judge-facing
+blocks and no `paper/` path; `tests/` is outside CHARTER §12 and that is a dev-lap row. The
+manuscript is on the safe side of that gate anyway, §3.4 carrying the synthetic-hazard and
+sampled-origin bounds in its own voice.
+
+✅ **The anchor was re-derived, not inherited.** `body_words` moved, so lap 25's
+`built_pages_inputs` turned the gate red as designed; after the one `apt` line below,
+`check_paper.py` took its measuring branch — **`pages 23, calibri_face Carlito, metrics_ok
+true`**, page objects and page-tree `/Count` both 23 — and printed **`d866b7b725675ebf`**.
+⚠ It was measured **twice**: the pre-reviewer run printed `61b8ee7cf0f331f8` at 8,999 words,
+which is also lap 24's string (lap 24 ended at the same 8,999 words with the same 8 figures,
+4 tables and 29 references, the digest's only inputs, so the equality was the check working
+and not a copy); the reviewer's repairs moved `body_words` again and the anchor was
+re-measured on the final document. **Two pages against the author's 25, three words against
+the proxy's 9,000, measured on one document by one run.** ⚠ **A margin of 3 is not
+headroom.** It exists only because four sentences had gone false in the **removable**
+direction, which is unrepeatable; the compressible stock is untouched and still exhausted,
+and 8,997 is **497 words over CHARTER §12's target of 8,500** — the margin is against the
+hard fail, not the target. **NH-037 is the answer and it is still open.**
 
 ⚠ **The page that took the count from 22 to 23 cost eleven words, and it is worth
 knowing that before reading the words-to-pages table below as a rate.** Lap 11

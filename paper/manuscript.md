@@ -269,14 +269,14 @@ and refuses a document stating a registered quantity with a different value.
 Superseded values are annotated in place, never deleted. A second registry holds the claims
 this project has **withdrawn** — what each asserted, what retired it, what should be said
 instead, and the spellings that restate it — and every gated document is read against it,
-so a withdrawn claim cannot survive in a prose file nobody thought to list; a data file or
+so no prose file goes unscanned for being unlisted; a data file or
 a generator escapes it. The step that can
-fail is registration: September 2026 retractions skipped it three times, and each
+fail is registration: September 2026 retractions skipped it four times, and each
 hand-applied correction left the same claim standing in a file that lap had itself edited
 or shipped. It matches spellings,
-not meaning, and one language at a time: in an independent probe, sentences reusing a
-registered spelling were caught and sentences reworded around one were not, and both
-limits are recorded rather than designed away.
+not meaning, one language and one source line at a time: in an independent probe,
+sentences reusing a registered spelling were caught and sentences reworded around one
+were not. All three limits are recorded rather than designed away.
 A further limit, from the same month, is not about matching at all: some of this
 project's artifacts are
 *generated* from templates, and a sentence that had just been retired was corrected in one
@@ -673,7 +673,7 @@ artifact here records, and that human report is therefore the primary channel �
 this repository has never measured. The system is built to the narrow statement rather than
 its converse.
 The survey evidence at the other end is firmer, and is the measured reason the outputs are
-a sheet a village head can read aloud and a household-ordered dispatch list rather than a
+a sheet a village head can read aloud and an origin-level dispatch list rather than a
 broadcast — a claim about delivery channels only, since the survey does not evaluate the
 routing.
 
@@ -822,7 +822,7 @@ A wildfire spread model trained on six fires is not a contribution to spread mod
 and this paper does not present it as one. What six real fires, real road networks and a
 strict evidence discipline support is a different claim: that coupling an event-held-out
 probability field into a time-expanded pedestrian router and a rescue-ingress calculation
-changes household-level decisions measurably, as a paired contrast — 42 of 458 scanned
+changes decisions measurably, as a paired contrast — 42 of 458 scanned
 origins on the canonical Yeongdeok field reach a refuge only under the forecast-aware
 policy, on a network covering 32.6 % of that fire's predicted core. That contrast is
 against a fire-blind baseline, and Section 4.5 shows on a second region that a policy which
