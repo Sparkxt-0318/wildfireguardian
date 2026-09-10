@@ -457,7 +457,7 @@ def test_the_registry_holds_nothing_the_families_do_not():
     #: ⚠⚠ Registering it found THREE copies no list named — two knowledge notes and a
     #: research weekly — which is the §3.5c argument for the fourth time.
     our_own_output_object = {
-        (r"가구\s*단위(?:의)?\s*(?:\*\*)?\s*(?:「?걸어서\s*나갈|대피\s*판정|구조\s*순서|판정과\s*걸어)",
+        (r"가구\s*단위(?:의)?\s*(?:\*\*)?\s*(?:「?걸어서\s*나갈|대피\s*판정|구조\s*순서|출동\s*순서|판정과\s*걸어|인명)",
          "wc013-output-object-is-per-household-ko"),
         (r"per[-\s]household\s+(?:evacuation\s+verdict|walk-or-be-rescued)",
          "wc013-output-object-is-per-household-en"),
@@ -746,7 +746,7 @@ def _probe_sentence(pattern: str) -> str:
         # WC-013, all three lifted from the surfaces that carried them at 3eec471: the
         # front door's §5 item ①, the finals screen's CREATIVE[0] in both languages, and
         # docs/creativity_card.md's method table row that is printed in the booth kit.
-        r"가구\s*단위(?:의)?\s*(?:\*\*)?\s*(?:「?걸어서\s*나갈|대피\s*판정|구조\s*순서|판정과\s*걸어)":
+        r"가구\s*단위(?:의)?\s*(?:\*\*)?\s*(?:「?걸어서\s*나갈|대피\s*판정|구조\s*순서|출동\s*순서|판정과\s*걸어|인명)":
             "이 시스템이 내놓는 것은 **가구 단위의 「걸어서 나갈 수 있는가 / 구조를 "
             "보내야 하는가」 판정과 그 도보 경로**입니다.",
         r"per[-\s]household\s+(?:evacuation\s+verdict|walk-or-be-rescued)":

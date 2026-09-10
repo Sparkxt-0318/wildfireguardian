@@ -479,8 +479,8 @@ as the wording item 1 carried in September 2026 and is now withdrawn** — the u
 word is **point-level (지점 단위)**; §9 below is the withdrawal. ⚠⚠ And the
 registry did **not** find this line: the phrase wraps across two source lines and
 `scripts/check_withdrawn_claims.py` scans one line at a time, so the pragma above
-is here because a human put it here, not because a gate asked for it (§9's
-「What this does NOT show」). On every surface that answers it, its only anchor was
+was placed by hand by the WFG-222 lap rather than because a gate asked for it
+(§9's 「What this does NOT show」). On every surface that answers it, its only anchor was
 `docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md`, a landscape note whose
 subject is the other systems. Two things follow, and the second is the one a
 judge feels:
@@ -624,7 +624,7 @@ the same weight of type as the correction. The exact spellings are in
 | `README.md` §5 item ① | the household register, plus 「그 산출물의 실물이 저장소에 커밋돼 있습니다」 | none, 180 lines below the block that denies it, **in the same file** |
 | `web/finals.html` + `scripts/finals.template.html` | the same, in Korean **and** English | none |
 | `docs/auto/JUDGE_QA.md` Q29a (**T0**, spoken from memory) | the same, as the rescue ordering that follows the forecast grid | 행정리 only |
-| `docs/auto/DEMO_SCRIPT_5MIN.md` 도입 | the same, in the sentence the student speaks in the first 37 seconds | none |
+| `docs/auto/DEMO_SCRIPT_5MIN.md` 도입 | the same, in the sentence the student speaks to open the demo | none |
 | `docs/creativity_card.md` §2 table row 1 | the same, in English, printed in the booth kit | none |
 
 Two things are wrong and they are not the same size. The **register**: the committed
@@ -640,8 +640,20 @@ sheets」.
 Every block that asserts the committed instances exist now carries, **in that same
 block**, what was synthetic in the run that produced them and that the origins were
 sampled — 지점 단위 rather than 가구 단위, and 「실제 확산면으로 만든 출동 지시서는
-아직 없습니다」. Six surfaces, not the five the row named: `docs/auto/finals/RELATED_WORK_PANEL.md`
-carried the same sentence about this project's own output and no list had it.
+아직 없습니다」.
+
+⚠ **The row named five surfaces. Eleven were corrected, and the row's list found the
+fewest of them.** The lap's own sweep added a sixth, `docs/auto/finals/RELATED_WORK_PANEL.md`,
+a *printed* panel carrying the same sentence about this project's own output.
+**Registering `WC-013` then found three more** in files nobody had reason to open —
+`docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md` (which instructs the student what to
+say at the booth), `docs/auto/knowledge/PYROGEOGRAPHY.md` and
+`docs/auto/research/WEEKLY_2026-W36.md`. **And the independent reviewer found two the
+registry's first pattern still missed** — `docs/evidence/greenpeace_2026_survey.md` and
+`docs/firefighter_consultation.md`, whose wordings (「출동 순서」, 「인명」) were outside the
+anchor list; the pattern was widened in the same lap, after measuring that the two new
+alternatives hit nothing else in the tree. That ratio is the section's real finding: a
+hand list found five, a machine found three, and a hostile reader found two more.
 
 Two things were **added** rather than swapped, because a word swap alone would have
 left the conjunction standing:
@@ -654,21 +666,32 @@ left the conjunction standing:
   spoken line, and that is deliberate: §1's syllable budget is measured
   (`tests/test_demo_script_pace.py`), one added sentence moves the segment off the
   document's single rate, and 가구 → 지점 is the same two syllables. The student says
-  the corrected word inside the same 37 seconds and answers the rest if asked.
+  the corrected word inside the same spoken segment and answers the rest if asked.
 
 ### The gate, and what makes it different from the one it replaces
 
-`tests/test_output_object_claim_bounds.py` holds a **structural** property over six
-declared blocks: a block that says committed instances exist must carry the
+`tests/test_output_object_claim_bounds.py` holds a **structural** property over seven
+declared blocks (the six sources plus the built screen): a block that says committed instances exist must carry the
 synthetic-hazard and sampled-origin bounds itself. It is not a wording gate.
 
 * It cannot be satisfied by deleting the claim — one assertion fails if a surface
   goes quiet, because a silent screen is the state WFG-194 found.
 * Its families are not strings this lap invented: 합성 / synthetic and 표본 / sampled
   are the words `provenance.sources` uses about itself.
-* It is **graded**, not asserted (MEMO 2026-09-09): the mutation test strips every
-  bound-carrying sentence from each shipped block and requires the check to fail.
-  The same mutation runs on all six, so no wording was hand-picked to fail.
+* It is **graded against text this lap did not write.** ⚠ Its first version was not:
+  it built a mutation by deleting whatever matched its own two patterns and then
+  asserted those same two patterns reported them missing, which cannot fail. The
+  lap's independent reviewer blocked the lap on it — `mandela` pattern #4, a scorer
+  grading buckets it drew itself — and the repair is a corpus of the **six blocks
+  the repository actually shipped at `3eec471`**, written by five earlier laps over
+  six days, none of which had seen these patterns. Every one of them is refused, and
+  a second test re-derives the corpus from git and refuses a copy that has drifted.
+* It reads **polarity**, not only tokens, and that assertion is also the reviewer's.
+  Its first version returned green on a block carrying 합성, 표본 좌표 and the
+  existence claim while asserting the **opposite** of all three. So a block must now
+  also say the thing they add up to — that no dispatch document has yet been made on
+  a real spread surface — and a block that asserts the run *was* real is refused
+  outright. The reviewer's sentence is kept verbatim as a regression.
 
 `tests/test_readme_round4_lead.py` now runs its bound assertion over the whole Round-4
 **section** rather than over its `lead` fixture. That fixture boundary is what let one
