@@ -5,7 +5,53 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
-**Tick count, critic #60, 2026-09-10T1657Z at `71e95ee`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
+**Tick count, critic #61, 2026-09-10T2000Z at `be39dea`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
+R3, R11 and R12 are the three that do not tick; R10 was withdrawn 2026-09-04.** ⚠⚠ **ZERO lines ticked, for
+the EIGHTEENTH consecutive critic lap.** The count has stood at 8 since critic #43 ticked R8 at
+2026-09-08T1429Z, and **the sprint ends 2026-09-15, five days out**. ⚠ This lead is rewritten by the lap
+that appends below it, which is what WFG-238 asks a gate to enforce; until that gate exists it is done by
+hand, deliberately, in the same commit as the append.
+
+
+**Critic #61's re-read, 2026-09-10T2000Z at `be39dea`, counted from the checklist table rather than
+inherited from the line above it.** ⚠ **This window could tick nothing by construction and saying so is the
+point:** `71e95ee..be39dea` holds one research lap and four report or archive commits, no code, no data, no
+figure and no judge-facing artifact. A window with nothing to tick against is not a direction failure; a
+window with something to tick against and no tick would be.
+
+- **R1 holds.** `web/finals.html` is offline by gate inside the green `gates.py --mode full` at this head
+  (**2042 passed**, 63 skipped, 3 xfailed, pytest 282.0 s), and its stamp is unchanged from critic #60's
+  reading because nothing rebuilt it. R1's other half asks that every on-screen number map to a registry
+  key; no number reached the screen this window.
+- ⚠⚠ **R7 and R9 hold on their own criteria, AND this lap used the same seven-of-seven hash to prove a
+  judge-facing defect, exactly as critic #57 did.** `docs/auto/finals/printables/manifest_20260910T1233Z.json`
+  declares seven `sources` and **all seven hash equal to the tree**, re-computed in this lap's own process;
+  `release/kcf-finals-2026/MANIFEST.json` is unmoved and its gates are green. **That equality is what makes
+  WFG-240 provable rather than suspected:** `docs/auto/finals/RELATED_WORK_PANEL.md` is one of the seven, so
+  `WFG_printables_20260910T1233Z.pdf` carries `:46`'s 「공간 단위는 **가구(집)**」 and `:119-120`'s 「농촌
+  **가구 단위의 도보 대피**」 onto the paper a judge is handed, 73 lines below the same file's own ⚠
+  2026-09-10 정정 block, which scopes itself to 「**이 문단**」 and narrows the same register to 지점 단위 at
+  `:23`. **A hash gate proves the paper matches the repository; it cannot prove the repository agrees with
+  itself.** R7's criterion is that the printables exist and match, and they do, so **no tick is removed**;
+  this is a 제출 자료 deduction and a P0 row.
+- **R5 holds and gains a second named staleness beside WFG-226's.** Every T0 answer cites a file and no
+  purged phrasing remains; `tests/test_judge_qa_bank.py` is green in the run above. What a green bank gate
+  cannot see is a card that is complete and out of date: `docs/auto/JUDGE_QA.md:1246-1247` (Q29a, 없는 것
+  item 4) tells the student 「그 범위 밖에서 같은 일을 한 연구가 있는지는 모릅니다」, and since 2026-09-10 the
+  repository holds one that did (**WFG-241**). Not an untick, and named here so the next lap does not read a
+  green bank gate as a current bank.
+- **R3, R11 and R12 are unchanged and none is a lap's to move.** R12 is the author's (NH-014). R3 is
+  `blocked(NH-046)`, and **NH-046 is due TODAY, 2026-09-10; it is NOT overdue**, which critic #60 corrected
+  on two pages and this lap re-checked at the entry's own heading. R11's **WFG-024** is held by CHARTER §14b
+  until R1, R3, R4, R7, R8 and R9 all tick, of which **R3 is the only one unticked**, so 102 P1 rows wait on
+  one entry with five sprint days left. Eighteenth consecutive lap this paragraph is true; appended to
+  **NH-046** rather than filed again.
+
+⚠ **No `Do NOT edit` note is written on this page by this lap** (CHARTER §14c). There is nothing here a lap
+would be tempted to edit wrongly today, and a note that froze the checklist table would block WFG-238.
+
+
+*(Superseded lead, kept as the record, CHARTER §3 rule 7.)* **Tick count, critic #60, 2026-09-10T1657Z at `71e95ee`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
 R3, R11 and R12 are the three that do not tick; R10 was withdrawn 2026-09-04.** ⚠⚠ **ZERO lines ticked, for
 the SEVENTEENTH consecutive critic lap.** The count has stood at 8 since critic #43 ticked R8 at
 2026-09-08T1429Z, and **the sprint ends 2026-09-15**.

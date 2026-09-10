@@ -2934,6 +2934,12 @@ which is the **sixteenth** consecutive critic lap to report zero. Re-counted fro
 `:1825-1836` at `3867860` rather than inherited: R1, R2, R4, R5, R6, R7, R8, R9 ticked; R3, R11, R12 not;
 R10 withdrawn 2026-09-04. **Five days of sprint remain** (`sprint.end` 2026-09-15). Still no new entry.
 
+⚠ **Critic #61, 2026-09-10T2000Z: appended rather than filed again.** `docs/auto/KCF_READINESS.md`
+stands at **8 of 11** for the **eighteenth** consecutive critic lap. This entry still holds **R3**,
+the only unticked line of the six CHARTER §14b needs before the P1 block of 102 rows opens, and it
+comes due **today**. Nothing about that is new and no new entry is created for it; the loop-direction
+finding lives here, in your own words, as critic #52 through #60 each recorded.
+
 ## NH-047 · FYI · closed · A 403 on an artifact upload took a green run red; transient, guarded, nothing needed
 
 **No reply is requested.** This is recorded once so the arithmetic is not lost, and it is an FYI
@@ -3515,3 +3521,61 @@ persistence null that would be a fair opponent), CHARTER §3.5 and §14b.
 **Severity:** MEDIUM. Nothing is blocked and no gate is red. The cost of leaving it undecided is that a judge raises it first, and 「we did not know about it」 is a worse answer than any of A–D.
 
 **Related.** NH-039 (the NIFoS user guide) is unchanged. The same authors' second archive — the spring green-up gating study covering South Korea and the Mongolian Plateau — is recorded in `docs/auto/knowledge/PYROGEOGRAPHY.md` §Update 2026-09-10 and bears on nothing you must decide.
+
+
+## NH-057 · DECISION · open · The one thing your project now says it contributes has never once been produced from a real fire, and only your laptop can change that (by 2026-09-13)
+
+**Severity: HIGH.** Nothing is red, nothing is false, and every surface in the repository
+says this honestly today. What makes it high is timing: the loop moved the project's whole
+claim onto this object two days ago, the sprint ends **2026-09-15**, the freeze is
+**2026-10-16**, and the only machine that can close it is yours.
+
+**What the project now claims.** `docs/auto/DIRECTION.md`, rewritten by the research lap of
+2026-09-10, states the thesis as 「its defensible contribution is not forecast accuracy, and
+as of 2026-09-09 it is not the architecture either, it is the **output object and its
+measured limits**」. That is the right call and this entry does not reopen it. The object it
+names is the per-point walk-or-be-rescued verdict with its dispatch documents.
+
+**What exists.** The committed instances are `outputs/dispatch/20260801T163042Z/**`, and every
+judge-facing surface already says, in the same block as the claim, what run made them:
+`data/processed/rescue_routing.json` records **화재 위험면과 지형은 합성** and **출발지는
+표본 좌표**, and the sentence the surfaces end on is 「**실제 확산면으로 만든 출동 지시서는
+아직 없습니다**」. That honesty is `WC-013` working and it is one of the best things in the
+repository. It is also, now, a sentence about the project's headline contribution.
+
+**Why no cloud lap can close it, measured in this lap's own process rather than assumed.**
+`scripts/generate_dispatch_outputs.py:43` takes `--source` and needs a **per-origin** artifact
+(`destinations`, `dispatch_top20`, `unreachable_homes`, `four_way_counts`). The run where both
+axes are real does not produce one: `data/processed/real_roads_real_hazard_canonical.json`
+carries `arms.slope_digraph_canonical` with `n_origins_scanned` **458**, `counts`,
+`n_shelter_nodes` **46**, `n_nodes` **8443**, `n_edges` **21982**, and **no per-origin record
+at all**. Producing those records means re-running the routing, which needs the OpenStreetMap
+walk graph at `data/cache/osm/yeongdeok_2025`. That path is git-ignored and reaches no
+sandbox: `tests/test_rescue_routing_real.py:71-109` skips on exactly it inside the green
+`gates.py --mode full` run at this head. **This is not a scheduling problem the loop can work
+around; it is CHARTER §6's 「anything needing the author's physical presence」.**
+
+**Options:** A) **You run it once on the laptop before the freeze.** A lap writes you the exact
+command list first, you run it, you commit the new stamp; the 「아직 없습니다」 sentence is then
+replaced by a path on every surface, by a later lap. B) **You run only the smaller half**: make
+the real-roads-real-hazard writer emit per-origin records under a **new** filename and commit
+that, after which a cloud lap can generate the sheets with no cache at all (this is **WFG-242**'s
+agent-doable half, and it is the cheaper of the two for you). C) **Neither, and the sentence
+stays.** Go to the booth with the object claimed and its real-data instance stated as absent, in
+the words that are already on the sheets; the panel then also says **why** it is absent, which
+is itself an answer to the disaster-response judge. D) Something else you tell us.
+
+**Reply with:** `NH-057: A` (or B / C / D, or a sentence).
+
+**My reading, offered and not applied: B, then C.** B costs you one run and buys every future lap
+the ability to produce the object without you. C is what happens if you do not answer, and it is
+**not** a bad outcome: the project's credibility rests on saying what it has not done, and the
+sentence is true. A is the most valuable and the most likely to eat an evening you do not have
+five days before the sprint ends.
+
+⚠ **Nothing is proposed to be deleted, softened or withdrawn under any option.** Under C in
+particular, no lap may weaken 「실제 확산면으로 만든 출동 지시서는 아직 없습니다」 anywhere it
+appears, and `WFG-242` says so in its own constraints.
+
+**Related.** `WFG-242` (the row, `blocked` on this entry), `WC-013`, `NH-014` (the booth recipe
+on the same laptop), CHARTER §3 rule 11 (do not re-acquire OSM data) and §6.
