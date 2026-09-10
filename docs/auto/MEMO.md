@@ -2965,3 +2965,33 @@ that cannot fire. The four-mutation grading is now written into the test's own
 docstring **as it came out**, including this miss, rather than as it was
 designed: a mutation table that reports only successes is a leakage surface
 (`mandela` #4), and the miss is the most instructive row in it.
+
+## 2026-09-10 · a caveat is on a SURFACE only if it is in the same rendered view as the thing it caveats
+
+The MEMO entry above gave the loop the rule that a denial pattern is cut from the
+document rather than from the claim in your head. This lap found the same class one
+level out, in geometry rather than in wording, and it nearly shipped as a closed row
+that had not been closed.
+
+WFG-225's `Done when` reads: 「the 알려진 한계 panel carries a card stating that the two
+arms are scored under different time rules」. That is satisfiable, gradeable, and would
+have left the defect standing. The count 「◆ 예산 초과 2」 is printed by `renderPanel()`
+in the **지역 패널**; the 알려진 한계 cards live in the **신뢰성 view**. A judge renders
+one at a time. So a card there is a correction on a page the reader of the number is
+not on, which is exactly `WC-004`'s shape — a fix that reached one card and left the
+claim standing eight sections away — with a view boundary in place of eight sections.
+
+**The rule.** When a row says 「add the caveat to surface X」, ask what the reader is
+looking at **at the moment the wrong impression forms**, and put the pointer there;
+the fuller card can live wherever it reads best. Then grade the adjacency separately
+from the card's content, because the two fail independently: this lap's M8 (delete the
+pointer) scored **2 red** while every one of the card's 29 assertions stayed green.
+A gate that reads a whole file, or a whole panel, cannot tell you a caveat is where
+the number is.
+
+**And the smaller lesson beside it.** `docs/oracle_gap.md` credited the wrong script
+for the array the entire document is about, under a claim that was TRUE. The repair for
+a wrong pointer under a correct claim is the pointer, not the sentence: this loop's
+reflex when something is wrong on a judge-facing page is to soften, and softening here
+would have withdrawn a true claim and cost a `WC-###` besides. Check which half is
+wrong before reaching for the hedge.

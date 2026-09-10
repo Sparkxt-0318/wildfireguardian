@@ -83,6 +83,14 @@ SCOPE: tuple[str, ...] = (
     # with the file, not after the first defect.
     "scripts/build_finals.py",
     "scripts/finals.template.html",
+    # ⚠ WFG-225's independent reviewer, 2026-09-10: the template was in SCOPE and the
+    # BUILT screen was not, so the one file a judge actually opens was outside the only
+    # gate that catches a typed region name. `build_finals.py` copies the script verbatim,
+    # so in practice the template covered it — but "in practice" is what this check exists
+    # to stop relying on, and a hand edit to `web/finals.html` (the thing WFG-109 is about)
+    # would have escaped both. It costs nothing: the embedded JSON payload is one line and
+    # carries every region KEY, which `_REGION_KEY` already exempts as the correct pattern.
+    "web/finals.html",
     "scripts/build_console.py",
     "scripts/build_operator_screen.py",
     "scripts/console.template.html",
