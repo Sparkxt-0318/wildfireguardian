@@ -1,0 +1,230 @@
+# What should IoU 0.394 be compared with?
+
+**Row:** WFG-228 · **Method proposed by:** the loop (critic #58 filed the row, and
+fixed the disc rule in it; the lap that ran it added the centroid reading in §5
+after objecting to the row's own interpretation)
+**Artifact:** `data/processed/disc_null_yeongdeok.json`
+**Script:** `scripts/measure_disc_null.py` · **Registry:** the `dn_yeongdeok_` prefix
+of `docs/NUMBERS.json` — count it there rather than here.
+
+---
+
+## 1. The question this answers
+
+`docs/oracle_gap.md` §4 reports **IoU 0.394** between the forward-simulated core
+and the observed footprint at the well-matched pair, and concludes that the model
+「gets the size nearly exactly right and the place substantially wrong」. That
+reading is now on `README.md`'s TL;DR, the finals screen's first 알려진 한계 card,
+`docs/auto/JUDGE_QA.md` Q36 at tier T0 and `paper/manuscript.md`.
+
+Until this document, **nothing in the repository said what 0.394 should be
+compared with.** A judge who asks 「0.394는 무엇에 견준 값입니까?」 — and the
+ML-reviewer and statistician lenses both ask it in the first minute — was being
+handed a number with no scale. 0.394 could have been a criticism of the model or a
+compliment to it and the repository could not say which.
+
+## 2. The null, and why it has no free parameters
+
+For each forward-simulation slice, an **area-matched disc**:
+
+| choice | what it is | why it is not a free parameter |
+|---|---|---|
+| centre | the centroid of the `t = 0` seed | `obs_stack[0] > 0` and `haz_stack[0] >= 0.5` are the **same 249 cells** — the script asserts this and aborts if it ever stops being true — so the centre uses only what the two stacks already **share**. ⚠ It is not free of the observation: `obs_stack` is cumulative, so that seed sits *inside* the footprint being scored. §3c is where that is paid for |
+| size | that slice's **own** predicted core count (692 / 952 / 981 / 1036) | the area is not chosen, it is **handed over** from the model. The one thing the model gets right is given to the null for free |
+| membership | the N cells of smallest Euclidean distance from that centre | no radius is picked; N fixes it |
+| ties | `(row, col)` ascending | makes the mask deterministic, nothing more |
+| scoring | the **same** observed footprint, the **same** nearest-observation matching, the **same** `p_cut`, the **same** cumulative masks as `scripts/measure_oracle_gap.py` | the comparison is between two masks on one grader, not between two graders |
+
+**The rule above and the interpretation below were written into the WFG-228 claim
+commit `4ab2e07` before the script was run** (the WFG-201 discipline). The
+pre-registration said: if the disc scores at or above 0.394, that is the finding
+and it goes on this page in those words. It did not, and this page would have said
+so if it had.
+
+No refit, no re-acquisition, no fill rule, no threshold sweep. The script reads one
+committed artifact and writes a new one.
+
+## 3. Result
+
+At the headline slice — forecast 360 min against the 333 min observation, the
+**27-minute** pair `docs/oracle_gap.md` §4 already quotes, fixed before the run and
+not re-chosen after:
+
+| | forward simulation | area-matched disc |
+|---|---:|---:|
+| cells | **952** | **952** (matched by construction) |
+| in both | **534** | **254** |
+| predicted, did not burn | **418** | **698** |
+| burned, not predicted | **403** | **683** |
+| **IoU** | **0.3941** | **0.1554** |
+
+**The model scores 2.536 times the null**, a gap of **0.2387** IoU. And it is not a
+property of the quoted slice — every slice says the same thing:
+
+| forecast time | `time_gap_min` | cells | model IoU | disc IoU | model − disc | model ÷ disc |
+|---:|---:|---:|---:|---:|---:|---:|
+| 180 min | 153 | 692 | 0.3586 | 0.1320 | 0.2266 | 2.7167 |
+| **360 min** | **27** | **952** | **0.3941** | **0.1554** | **0.2387** | **2.5360** |
+| 540 min | 207 | 981 | 0.3949 | 0.1547 | 0.2402 | 2.5527 |
+| 720 min | 285 | 1036 | 0.3981 | 0.1606 | 0.2375 | 2.4788 |
+
+⚠ The three badly-matched rows are still badly matched, and `docs/oracle_gap.md`
+§4's warning applies here unchanged: 180, 360 and 540 are graded against the **same**
+observation, so this is not four independent readings. What the column adds is that
+the model-minus-disc gap is **stable across all four** — from **0.2266** to
+**0.2402** — while the time gaps underneath them run from **27** to **285** minutes.
+A quantity that barely moves while the thing contaminating it swings that far is the
+more robust half of this table.
+
+### 3b. The sanity anchor: the fire was never disc-shaped
+
+At `t = 0` the disc is scored against the 249-cell seed both stacks agree on, and
+gets **0.0803** — it recovers **74** of those 249 cells at the next slice and
+**92** at the headline slice. The footprint this project is trying to predict is
+irregular from the first frame, which is the whole reason a disc is a floor and not
+a rival.
+
+### 3c. ⚠⚠ The raw ratio is inflated, and this is the honest one
+
+**The comparison above is not clean, and the defect was found by this row's
+independent reviewer — not by the row, and not by the lap that ran it.**
+
+`obs_stack` is **cumulative**. So the 249-cell `t = 0` seed is a **subset** of the
+937-cell observation being scored, and the two masks do not meet it on equal terms:
+
+- the **model's** core contains **all 249** seed cells at every slice — by
+  construction, because they are its *initial condition*, not a prediction;
+- the **disc**, being a circle, recovers only **92** of them at the headline slice.
+
+So the model collects a free intersection of cells it never predicted, and the null
+was never given the same gift. Removing the shared seed from **all three** masks —
+model, disc and observation — is the comparison with that advantage taken away:
+
+| headline slice | model | disc | ratio |
+|---|---:|---:|---:|
+| as scored above | 0.3941 | 0.1554 | **2.5360** |
+| **shared seed removed** | **0.2577** | **0.1169** | **2.2044** |
+
+| forecast time | model (seed removed) | disc (seed removed) | ratio |
+|---:|---:|---:|---:|
+| 180 min | 0.1905 | 0.0975 | **1.9538** |
+| **360 min** | **0.2577** | **0.1169** | **2.2044** |
+| 540 min | 0.2611 | 0.1169 | **2.2335** |
+| 720 min | 0.2730 | 0.1225 | **2.2286** |
+
+**The finding survives in sign at every slice, and its size drops by about a
+fifth.** So the sentence this document adds to the project is the seed-removed one:
+*the forecast's footprint overlaps the fire about 2.2 times better than a disc of
+exactly the same area centred on where the fire started, once the shared starting
+footprint is taken away from both.* **2.5360 is not quotable without 2.2044 beside
+it**, and the caveat band on all 87 keys says so.
+
+## 4. What the gap is NOT: the row's own interpretation, corrected
+
+The WFG-228 row says the disc 「holds constant the one thing the model got right
+(area) and destroys the one thing routing depends on (direction), so the difference
+between the two IoUs is the model's directional skill and nothing else」.
+
+**That is wrong, and the artifact contains the evidence against it.** A disc differs
+from the model's core in **two** ways at once: where its mass sits (direction) *and*
+that it is a circle rather than an irregular, terrain- and wind-shaped blob (shape).
+The IoU gap is therefore **joint placement-and-shape skill**, and this comparison
+alone cannot split it.
+
+The centroid displacements can, and they say something the IoU gap hides:
+
+| centre-of-mass distance, headline slice | cells | metres |
+|---|---:|---:|
+| seed → **observed** footprint | **2.250** | 1,124.8 |
+| seed → **model** core | **7.292** | 3,646.1 |
+| **model** → observed | **5.340** | 2,670.2 |
+| **disc** → observed | **2.266** | 1,133.0 |
+
+⚠⚠ **By centre of mass, the disc is closer to the truth than the model is.** The
+observed footprint's centre of mass barely leaves the seed — **2.250** cells,
+**1,124.8 m** — while the model's core centre of mass travels **7.292** cells,
+**3,646.1 m**. The model **overshoots**. The disc, which by construction stays put,
+ends up with a centre-of-mass error of **2.266** cells (**1,133.0 m**) against the
+model's **5.340** (**2,670.2 m**).
+
+So the model's advantage is **not** that it points in the right direction. On this
+fire, at this slice, it points in a *worse* direction than doing nothing. Its
+advantage is that it reproduces the **shape and extent** of an elongated, irregular
+footprint — it puts cells along the arms the fire actually ran down — while a
+compact circle covering the same area cannot, whatever its centre.
+
+The two masks are genuinely different objects and not one mask twice: disc against
+model core is IoU **0.2453**.
+
+**Both readings are true and they must travel together.** Quoting 「2.5 times the
+null」 without the centroid row would tell a judge the model has directional skill
+it does not have, which is the failure mode `docs/auto/withdrawn_claims.json`
+exists to record. The registry band on all 52 `dn_yeongdeok_` keys carries the
+centroid numbers for that reason.
+
+## 5. What this does NOT show
+
+1. **It is not a validation.** The disc is a **floor**, not a competitive baseline.
+   A circle scored against an elongated fire is a weak opponent by construction, so
+   clearing it is **necessary** and not **sufficient** evidence of skill. 「Better
+   than the null」 here means only 「better than *this* null」.
+2. **The strong nulls are not scored against *this* truth.** `src/wildfireguardian/validation/baselines.py`
+   defines `run_persistence_baseline` (`:44`) and `run_isotropic_baseline` (`:68`)
+   — the WFG-228 row dates them to 「Session 4」 and this page deliberately does not
+   repeat that, because the only in-repo evidence is
+   `docs/OVERNIGHT_REPORT_SESSION3.md:195` and **this clone is shallow (51 commits),
+   so it cannot settle a history claim at all** (CHARTER §4). What is checkable here
+   is that the two functions exist at those lines and are called. ⚠ **They are not
+   unused** — `validation/harness.py:703-704`
+   runs both and `compute_horizon_metrics` (`:496`) scores them with a **polygon**
+   IoU (`perimeter_iou`, `:514`). But that is a different measurement from this one
+   in both halves: it compares **polygons**, not 500 m raster masks on the canonical
+   canvas, and it grades against `load_observed_perimeter_series`, which the harness
+   itself labels 「APPROXIMATE, reconstructed from public reporting」 — not the
+   FIRMS-derived `obs_stack` that produced 0.394. So the honest statement is narrow:
+   **no persistence or isotropic null has been scored against the truth 0.394 is
+   scored against**, and the two IoU families are not comparable as they stand. A
+   persistence null is the one a fire scientist will ask for, and it is a harder
+   opponent than a disc because it inherits the fire's real shape. That is filed as
+   **WFG-234**, not done here.
+3. **No margin, no route, no committed number moves.** 42, 91, 9 and 27 are
+   untouched. Nothing here was routed; this is two masks against a third.
+4. **`obs_stack` is not ground truth.** It is a FIRMS-derived observation with its
+   own detection floor (`docs/detection_floor.md`) and 500 m resampling. A 「missed」
+   cell may be a cell FIRMS did not see, and the same caveat applies to the disc's
+   misses and the model's equally — which is one reason the *comparison* survives it
+   better than either number alone does.
+5. **One fire, one canvas, one threshold.** 영덕 2025 on the canonical 181×156 grid
+   at `p_cut = 0.5`. Nothing here is a claim about 의성·안동 or 울진·삼척.
+6. **The disc is not clipped, and that was checked rather than assumed.** Neither
+   the disc nor the model core touches a grid border at any of the five slices, so
+   the rule executed as written. Each slice's disc radius is registered separately,
+   and the largest of the five is
+   <!-- collision-ok: 18.162 — dn_yeongdeok_t720min_disc_radius_cells, the LARGEST slice's radius, which is what this sentence claims. The other registered radii (headline 17.355, t540 17.681) are different slices, not stale values; test_every_radius_the_doc_quotes_is_the_slice_it_names binds this line to max(). -->
+   **18.162** cells against a 181×156 canvas, at `t = 720`. An earlier draft of this
+   page quoted that figure while registering only the *headline* slice's 17.355, and
+   `make verify`'s collision gate refused it — correctly.
+7. **The null is not perfectly clean, and §3c is the price.** The centre is derived
+   from a seed that is *inside* the cumulative observation being scored, and the
+   model contains that seed by construction while the disc does not. The
+   seed-removed figures (ratio **2.2044**, not 2.5360) are the fair ones and both
+   are published. A null that had to be sited *without* any shared information
+   would need a centre chosen from something other than the fire's own first frame,
+   and there is no such thing in this artifact.
+
+## 6. What a judge should hear
+
+Short, and in this order, because the second sentence is what keeps the first
+honest:
+
+> 「0.394가 좋은 값인지 나쁜 값인지 견줄 대상을 만들었습니다. 같은 면적의 원을
+> 발화점에 놓고 같은 방식으로 채점하면 0.155입니다. 다만 두 마스크가 처음 불씨
+> 249칸을 똑같이 물려받기 때문에, 그 부분을 양쪽에서 빼고 다시 재면 0.2577 대
+> 0.1169, 약 2.2배입니다 — 저희가 인용하는 값은 이쪽입니다. 그리고 무게중심으로
+> 보면 저희 모델이 불을 3,646 m 보냈고 실제로는 1,125 m 움직였습니다 — 원보다 더
+> 많이 빗나갔습니다. 저희가 잘하는 것은 방향이 아니라 불의 모양입니다.」
+
+The draft Korean above is a draft for the student's own voice (CHARTER §9) and is
+not yet on any card; putting it on Q36 is **WFG-235**, which pays a
+`make printables` rebuild and a re-pointed release manifest (NH-049) and is
+therefore a row, not a side effect of this one.

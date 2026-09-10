@@ -176,6 +176,45 @@ evidence from an independent route. It is recorded here because the alternative
 is letting a self-confirming replication travel in the caveat band as though it
 were corroboration.
 
+### 4c. What 0.394 should be compared with
+
+§4 above says the place is 「substantially wrong」 and, until 2026-09-10, nothing in
+this repository said what 0.394 should be measured against. `docs/disc_null.md`
+(WFG-228) builds the comparison: an **area-matched disc**, centred on the centroid
+of the `t = 0` seed the two stacks agree on exactly, holding exactly as many cells
+as that slice's own predicted core, scored against the same observation under the
+same matching rule. Zero free parameters, and the rule and the interpretation were
+both fixed in the claim commit before the run.
+
+| headline slice, 27 min apart | forward simulation | area-matched disc | ratio |
+|---|---:|---:|---:|
+| cells | 952 | 952 | |
+| IoU as scored here | **0.3941** | **0.1554** | **2.5360** |
+| IoU, **shared seed removed** | **0.2577** | **0.1169** | **2.2044** |
+
+⚠ **Quote the second row, not the first.** `obs_stack` is cumulative, so the 249-cell
+`t = 0` seed is a subset of the observation being scored; the model's core contains
+all 249 by construction — they are its initial condition, not a prediction — while
+the disc recovers 92. Removing the shared seed from all three masks takes that free
+intersection away, and `docs/disc_null.md` §3c is where it is argued. The finding
+survives in sign at all four slices and loses about a fifth of its size.
+
+So 「substantially wrong」 stands as a statement about how many cells disagree — and
+it is now also true that the forecast overlaps the fire about **2.2** times better
+than a disc of identical area centred on the ignition. The gap is stable across all
+four slices while the time gap under them runs from 27 to 285 minutes.
+
+⚠ **The gap is not directional skill, and `docs/disc_null.md` §4 is where that is
+argued.** By centre of mass the model **overshoots**: the observed footprint's
+centroid moves 2.250 cells from the seed, the model's core moves 7.292, and the
+disc's centre-of-mass error (2.266 cells) is *smaller* than the model's (5.340).
+What the model does better than a circle is **shape and extent**, not direction.
+Quote the two rows together or neither.
+
+⚠ The disc is a **floor**, not a competitive baseline: a circle against an elongated
+fire is a weak opponent, so clearing it is necessary and not sufficient. The
+persistence null a fire scientist would ask for is **WFG-234** and is not built.
+
 ## 5. What this changes for the judge answer
 
 The honest answer to 「비교하신 예보는 정답을 미리 본 예보 아닙니까?」 is no longer

@@ -1,0 +1,458 @@
+{
+  "schema_version": 1,
+  "title": "An area-matched disc null for the forward simulation — 영덕 2025, canonical",
+  "row": "WFG-228",
+  "generated_utc": "2026-09-10T15:58:09Z",
+  "git_commit": "5b78ffdad265ea796b8a077bd8046a93ca744de0",
+  "source_artifact": "data/processed/routing_demo_canonical.npz",
+  "source_sha256": "81b4e4d159daa7a8ccc7c4fedf3fea948d501fff2d7e886c1fd55bbf47043fb7",
+  "p_cut": 0.5,
+  "grid_shape": [
+    181,
+    156
+  ],
+  "cell_size_m": 500.0,
+  "null_rule": {
+    "centre_row_col": [
+      97.7751,
+      55.1205
+    ],
+    "centre_from": "centroid of the t=0 seed, the 249 cells obs_stack[0]>0 and haz_stack[0]>=p_cut agree on exactly",
+    "seed_cells": 249,
+    "seed_stacks_agree": true,
+    "area_matched_to": "that slice's own predicted core count",
+    "tie_break": "(row, col) ascending",
+    "free_parameters": 0,
+    "pre_registered_in": "the WFG-228 claim commit, before the run"
+  },
+  "slices": [
+    {
+      "haz_time_min": 0.0,
+      "obs_time_min": 0.0,
+      "time_gap_min": 0.0,
+      "is_seed_slice": true,
+      "n_cells": 249,
+      "model": {
+        "predicted_cells": 249,
+        "observed_cells": 249,
+        "intersection_cells": 249,
+        "union_cells": 249,
+        "false_alarm_cells": 0,
+        "missed_cells": 0,
+        "iou": 1.0,
+        "size_ratio": 1.0
+      },
+      "disc": {
+        "predicted_cells": 249,
+        "observed_cells": 249,
+        "intersection_cells": 37,
+        "union_cells": 461,
+        "false_alarm_cells": 212,
+        "missed_cells": 212,
+        "iou": 0.0803,
+        "size_ratio": 1.0
+      },
+      "iou_delta_model_minus_disc": 0.9197,
+      "iou_ratio_model_over_disc": 12.4533,
+      "seed_removed": {
+        "model": {
+          "predicted_cells": 0,
+          "observed_cells": 0,
+          "intersection_cells": 0,
+          "union_cells": 0,
+          "false_alarm_cells": 0,
+          "missed_cells": 0,
+          "iou": null,
+          "size_ratio": null
+        },
+        "disc": {
+          "predicted_cells": 212,
+          "observed_cells": 0,
+          "intersection_cells": 0,
+          "union_cells": 212,
+          "false_alarm_cells": 212,
+          "missed_cells": 0,
+          "iou": 0.0,
+          "size_ratio": null
+        },
+        "iou_delta_model_minus_disc": null,
+        "iou_ratio_model_over_disc": null,
+        "seed_cells_in_model": 249,
+        "seed_cells_in_disc": 37
+      },
+      "disc_radius_cells": 8.913,
+      "disc_touches_grid_border": false,
+      "model_touches_grid_border": false,
+      "direction": {
+        "seed_to_observed_cells": 0.0,
+        "seed_to_observed_m": 0.0,
+        "seed_to_model_cells": 0.0,
+        "seed_to_model_m": 0.0,
+        "seed_to_disc_cells": 0.036,
+        "seed_to_disc_m": 18.0,
+        "model_to_observed_cells": 0.0,
+        "model_to_observed_m": 0.0,
+        "disc_to_observed_cells": 0.036,
+        "disc_to_observed_m": 18.0
+      },
+      "disc_vs_model_iou": 0.0803
+    },
+    {
+      "haz_time_min": 180.0,
+      "obs_time_min": 333.0,
+      "time_gap_min": 153.0,
+      "is_seed_slice": false,
+      "n_cells": 692,
+      "model": {
+        "predicted_cells": 692,
+        "observed_cells": 937,
+        "intersection_cells": 430,
+        "union_cells": 1199,
+        "false_alarm_cells": 262,
+        "missed_cells": 507,
+        "iou": 0.3586,
+        "size_ratio": 0.7385
+      },
+      "disc": {
+        "predicted_cells": 692,
+        "observed_cells": 937,
+        "intersection_cells": 190,
+        "union_cells": 1439,
+        "false_alarm_cells": 502,
+        "missed_cells": 747,
+        "iou": 0.132,
+        "size_ratio": 0.7385
+      },
+      "iou_delta_model_minus_disc": 0.2266,
+      "iou_ratio_model_over_disc": 2.7167,
+      "seed_removed": {
+        "model": {
+          "predicted_cells": 443,
+          "observed_cells": 688,
+          "intersection_cells": 181,
+          "union_cells": 950,
+          "false_alarm_cells": 262,
+          "missed_cells": 507,
+          "iou": 0.1905,
+          "size_ratio": 0.6439
+        },
+        "disc": {
+          "predicted_cells": 618,
+          "observed_cells": 688,
+          "intersection_cells": 116,
+          "union_cells": 1190,
+          "false_alarm_cells": 502,
+          "missed_cells": 572,
+          "iou": 0.0975,
+          "size_ratio": 0.8983
+        },
+        "iou_delta_model_minus_disc": 0.093,
+        "iou_ratio_model_over_disc": 1.9538,
+        "seed_cells_in_model": 249,
+        "seed_cells_in_disc": 74
+      },
+      "disc_radius_cells": 14.881,
+      "disc_touches_grid_border": false,
+      "model_touches_grid_border": false,
+      "direction": {
+        "seed_to_observed_cells": 2.25,
+        "seed_to_observed_m": 1124.8,
+        "seed_to_model_cells": 4.233,
+        "seed_to_model_m": 2116.6,
+        "seed_to_disc_cells": 0.021,
+        "seed_to_disc_m": 10.7,
+        "model_to_observed_cells": 2.567,
+        "model_to_observed_m": 1283.4,
+        "disc_to_observed_cells": 2.231,
+        "disc_to_observed_m": 1115.7
+      },
+      "disc_vs_model_iou": 0.2108
+    },
+    {
+      "haz_time_min": 360.0,
+      "obs_time_min": 333.0,
+      "time_gap_min": 27.0,
+      "is_seed_slice": false,
+      "n_cells": 952,
+      "model": {
+        "predicted_cells": 952,
+        "observed_cells": 937,
+        "intersection_cells": 534,
+        "union_cells": 1355,
+        "false_alarm_cells": 418,
+        "missed_cells": 403,
+        "iou": 0.3941,
+        "size_ratio": 1.016
+      },
+      "disc": {
+        "predicted_cells": 952,
+        "observed_cells": 937,
+        "intersection_cells": 254,
+        "union_cells": 1635,
+        "false_alarm_cells": 698,
+        "missed_cells": 683,
+        "iou": 0.1554,
+        "size_ratio": 1.016
+      },
+      "iou_delta_model_minus_disc": 0.2387,
+      "iou_ratio_model_over_disc": 2.536,
+      "seed_removed": {
+        "model": {
+          "predicted_cells": 703,
+          "observed_cells": 688,
+          "intersection_cells": 285,
+          "union_cells": 1106,
+          "false_alarm_cells": 418,
+          "missed_cells": 403,
+          "iou": 0.2577,
+          "size_ratio": 1.0218
+        },
+        "disc": {
+          "predicted_cells": 860,
+          "observed_cells": 688,
+          "intersection_cells": 162,
+          "union_cells": 1386,
+          "false_alarm_cells": 698,
+          "missed_cells": 526,
+          "iou": 0.1169,
+          "size_ratio": 1.25
+        },
+        "iou_delta_model_minus_disc": 0.1408,
+        "iou_ratio_model_over_disc": 2.2044,
+        "seed_cells_in_model": 249,
+        "seed_cells_in_disc": 92
+      },
+      "disc_radius_cells": 17.355,
+      "disc_touches_grid_border": false,
+      "model_touches_grid_border": false,
+      "direction": {
+        "seed_to_observed_cells": 2.25,
+        "seed_to_observed_m": 1124.8,
+        "seed_to_model_cells": 7.292,
+        "seed_to_model_m": 3646.1,
+        "seed_to_disc_cells": 0.057,
+        "seed_to_disc_m": 28.7,
+        "model_to_observed_cells": 5.34,
+        "model_to_observed_m": 2670.2,
+        "disc_to_observed_cells": 2.266,
+        "disc_to_observed_m": 1133.0
+      },
+      "disc_vs_model_iou": 0.2453
+    },
+    {
+      "haz_time_min": 540.0,
+      "obs_time_min": 333.0,
+      "time_gap_min": 207.0,
+      "is_seed_slice": false,
+      "n_cells": 981,
+      "model": {
+        "predicted_cells": 981,
+        "observed_cells": 937,
+        "intersection_cells": 543,
+        "union_cells": 1375,
+        "false_alarm_cells": 438,
+        "missed_cells": 394,
+        "iou": 0.3949,
+        "size_ratio": 1.047
+      },
+      "disc": {
+        "predicted_cells": 981,
+        "observed_cells": 937,
+        "intersection_cells": 257,
+        "union_cells": 1661,
+        "false_alarm_cells": 724,
+        "missed_cells": 680,
+        "iou": 0.1547,
+        "size_ratio": 1.047
+      },
+      "iou_delta_model_minus_disc": 0.2402,
+      "iou_ratio_model_over_disc": 2.5527,
+      "seed_removed": {
+        "model": {
+          "predicted_cells": 732,
+          "observed_cells": 688,
+          "intersection_cells": 294,
+          "union_cells": 1126,
+          "false_alarm_cells": 438,
+          "missed_cells": 394,
+          "iou": 0.2611,
+          "size_ratio": 1.064
+        },
+        "disc": {
+          "predicted_cells": 889,
+          "observed_cells": 688,
+          "intersection_cells": 165,
+          "union_cells": 1412,
+          "false_alarm_cells": 724,
+          "missed_cells": 523,
+          "iou": 0.1169,
+          "size_ratio": 1.2922
+        },
+        "iou_delta_model_minus_disc": 0.1442,
+        "iou_ratio_model_over_disc": 2.2335,
+        "seed_cells_in_model": 249,
+        "seed_cells_in_disc": 92
+      },
+      "disc_radius_cells": 17.681,
+      "disc_touches_grid_border": false,
+      "model_touches_grid_border": false,
+      "direction": {
+        "seed_to_observed_cells": 2.25,
+        "seed_to_observed_m": 1124.8,
+        "seed_to_model_cells": 7.19,
+        "seed_to_model_m": 3595.1,
+        "seed_to_disc_cells": 0.031,
+        "seed_to_disc_m": 15.6,
+        "model_to_observed_cells": 5.233,
+        "model_to_observed_m": 2616.6,
+        "disc_to_observed_cells": 2.267,
+        "disc_to_observed_m": 1133.5
+      },
+      "disc_vs_model_iou": 0.2577
+    },
+    {
+      "haz_time_min": 720.0,
+      "obs_time_min": 1005.0,
+      "time_gap_min": 285.0,
+      "is_seed_slice": false,
+      "n_cells": 1036,
+      "model": {
+        "predicted_cells": 1036,
+        "observed_cells": 987,
+        "intersection_cells": 576,
+        "union_cells": 1447,
+        "false_alarm_cells": 460,
+        "missed_cells": 411,
+        "iou": 0.3981,
+        "size_ratio": 1.0496
+      },
+      "disc": {
+        "predicted_cells": 1036,
+        "observed_cells": 987,
+        "intersection_cells": 280,
+        "union_cells": 1743,
+        "false_alarm_cells": 756,
+        "missed_cells": 707,
+        "iou": 0.1606,
+        "size_ratio": 1.0496
+      },
+      "iou_delta_model_minus_disc": 0.2375,
+      "iou_ratio_model_over_disc": 2.4788,
+      "seed_removed": {
+        "model": {
+          "predicted_cells": 787,
+          "observed_cells": 738,
+          "intersection_cells": 327,
+          "union_cells": 1198,
+          "false_alarm_cells": 460,
+          "missed_cells": 411,
+          "iou": 0.273,
+          "size_ratio": 1.0664
+        },
+        "disc": {
+          "predicted_cells": 939,
+          "observed_cells": 738,
+          "intersection_cells": 183,
+          "union_cells": 1494,
+          "false_alarm_cells": 756,
+          "missed_cells": 555,
+          "iou": 0.1225,
+          "size_ratio": 1.2724
+        },
+        "iou_delta_model_minus_disc": 0.1505,
+        "iou_ratio_model_over_disc": 2.2286,
+        "seed_cells_in_model": 249,
+        "seed_cells_in_disc": 97
+      },
+      "disc_radius_cells": 18.162,
+      "disc_touches_grid_border": false,
+      "model_touches_grid_border": false,
+      "direction": {
+        "seed_to_observed_cells": 2.466,
+        "seed_to_observed_m": 1233.0,
+        "seed_to_model_cells": 7.425,
+        "seed_to_model_m": 3712.7,
+        "seed_to_disc_cells": 0.022,
+        "seed_to_disc_m": 11.0,
+        "model_to_observed_cells": 5.007,
+        "model_to_observed_m": 2503.5,
+        "disc_to_observed_cells": 2.476,
+        "disc_to_observed_m": 1238.1
+      },
+      "disc_vs_model_iou": 0.2814
+    }
+  ],
+  "headline": {
+    "haz_time_min": 360.0,
+    "obs_time_min": 333.0,
+    "time_gap_min": 27.0,
+    "is_seed_slice": false,
+    "n_cells": 952,
+    "model": {
+      "predicted_cells": 952,
+      "observed_cells": 937,
+      "intersection_cells": 534,
+      "union_cells": 1355,
+      "false_alarm_cells": 418,
+      "missed_cells": 403,
+      "iou": 0.3941,
+      "size_ratio": 1.016
+    },
+    "disc": {
+      "predicted_cells": 952,
+      "observed_cells": 937,
+      "intersection_cells": 254,
+      "union_cells": 1635,
+      "false_alarm_cells": 698,
+      "missed_cells": 683,
+      "iou": 0.1554,
+      "size_ratio": 1.016
+    },
+    "iou_delta_model_minus_disc": 0.2387,
+    "iou_ratio_model_over_disc": 2.536,
+    "seed_removed": {
+      "model": {
+        "predicted_cells": 703,
+        "observed_cells": 688,
+        "intersection_cells": 285,
+        "union_cells": 1106,
+        "false_alarm_cells": 418,
+        "missed_cells": 403,
+        "iou": 0.2577,
+        "size_ratio": 1.0218
+      },
+      "disc": {
+        "predicted_cells": 860,
+        "observed_cells": 688,
+        "intersection_cells": 162,
+        "union_cells": 1386,
+        "false_alarm_cells": 698,
+        "missed_cells": 526,
+        "iou": 0.1169,
+        "size_ratio": 1.25
+      },
+      "iou_delta_model_minus_disc": 0.1408,
+      "iou_ratio_model_over_disc": 2.2044,
+      "seed_cells_in_model": 249,
+      "seed_cells_in_disc": 92
+    },
+    "disc_radius_cells": 17.355,
+    "disc_touches_grid_border": false,
+    "model_touches_grid_border": false,
+    "direction": {
+      "seed_to_observed_cells": 2.25,
+      "seed_to_observed_m": 1124.8,
+      "seed_to_model_cells": 7.292,
+      "seed_to_model_m": 3646.1,
+      "seed_to_disc_cells": 0.057,
+      "seed_to_disc_m": 28.7,
+      "model_to_observed_cells": 5.34,
+      "model_to_observed_m": 2670.2,
+      "disc_to_observed_cells": 2.266,
+      "disc_to_observed_m": 1133.0
+    },
+    "disc_vs_model_iou": 0.2453,
+    "note": "the slice docs/oracle_gap.md §4 already quotes — the 27-minute pair. Fixed in the claim commit before the answer was computed; not re-chosen afterwards"
+  },
+  "what_this_is_not": "This is a comparison of two FIELDS against an observation, not a routing result: it produces no margin and moves no committed number. The gap between the model's IoU and the disc's is joint PLACEMENT-AND-SHAPE skill, not directional skill alone, because a disc differs from the model's core both in where its mass sits and in being a circle rather than an irregular terrain-shaped blob; the `direction` block is the direction-only reading. obs_stack is a FIRMS-derived observation with its own detection floor (docs/detection_floor.md), not ground truth."
+}

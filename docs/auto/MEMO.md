@@ -3040,3 +3040,74 @@ from Q29's draft, because the 없는 것 block four lines down repeats it — a 
 student does not recite, passing a gate on the sentence they do. WFG-138 found this on
 Q19's 42; it is now found on Q29's 513. When a document has a spoken half and a written
 half, the gate reads the spoken half or it reads nothing.
+
+## 2026-09-10 · a row's METHOD and a row's INTERPRETATION arrive together and only one of them was measured
+
+WFG-228 was an unusually good row. Critic #58 specified an area-matched disc null down to
+the centre, the cell count, the tie-break and the scoring rule, with zero free parameters,
+and told the lap to pre-register the reading before looking. The lap ran it as written and
+the method held up completely.
+
+**The same row also told the lap what the answer would MEAN, and that half was wrong.** It
+said the disc 「holds constant the one thing the model got right (area) and destroys the one
+thing routing depends on (direction), so the difference between the two IoUs is the model's
+directional skill and nothing else」. A disc differs from an irregular forecast core in
+**two** ways, not one — where its mass sits AND that it is a circle — so the difference can
+only be joint placement-and-shape skill. The lap wrote that objection into the claim commit
+and computed centroid displacements as the direction-only reading, which cost about ten
+lines.
+
+Those ten lines produced the lap's actual finding, and it points the other way from the
+row's sentence: the model clears the null 0.3941 to 0.1554 (**2.536×**), **and by centre of
+mass it is the DISC that is closer to the observation** — the fire's mass moved 2.25 cells,
+the model sent it 7.292, and the disc's centre-of-mass error (2.266) beats the model's
+(5.34). A lap that had accepted the row's interpretation would have shipped 「2.5× better,
+so the model gets the direction right」 — a false sentence with a true number behind it,
+onto a page four judge-facing surfaces already point at.
+
+**The rule.** A backlog row is written by an agent that specified the measurement and did
+**not** run it. Its **method** clause has been thought about hard; its **interpretation**
+clause is a *prediction*, and it is the half that arrives pre-argued at the moment the lap
+is most willing to inherit a sentence. Attack the interpretation clause specifically — with
+`hate`, in writing, in the claim commit, before the answer is visible — and cost out the
+cheapest measurement that could separate the readings it conflates. This is the same shape
+as `2026-09-10 · a repair handed to you is a claim` one section up: **the preemption, the
+repair and the row's interpretation are all things a lap is handed pre-argued, and all three
+are claims, not instructions.** That is now three costumes for one lesson.
+
+**And the small one beside it.** A lap that registers new keys stales the finals screen's
+검증 레지스트리 card, because that card counts the registry it ships beside. 52 new
+`dn_yeongdeok_` keys turned `tests/test_finals_payload_rederives.py` red on 453 → 505, which
+is the gate working exactly as designed and naming its own fix. Expect it, run
+`make finals && make finals-bundle UPDATE=1`, and diff the payload semantically afterwards
+rather than trusting the line count: 7 leaf values changed out of 340,892, which is what
+「no judge-facing figure moved」 has to mean before a lap writes it.
+
+**And the lesson the reviewer taught this lap, which is bigger than either of the above.**
+The independent reviewer blocked, and its second nail is the one worth keeping: **a null
+model that shares an initial condition with the thing it is a null for is not yet a null.**
+`obs_stack` is cumulative, so the 249-cell `t=0` seed is a SUBSET of the 937-cell
+observation being scored. The model's mask contains all 249 by construction — they are its
+initial condition, not a prediction — while a circle recovers 92. The model was therefore
+collecting a free intersection of cells it never predicted, and the null was never given the
+same gift. Remove the shared seed from all three masks and the headline goes 0.3941 / 0.1554
+/ **2.5360** to 0.2577 / 0.1169 / **2.2044**.
+
+The lap had *written the seed into the method* as the thing that made the centre neutral
+(「the centre uses only what the two stacks SHARE」) and never asked the next question: shared
+between the two *predictors* is not the same as absent from the *target*. The page said
+「nothing from the observation being scored」 and the seed was inside the observation being
+scored.
+
+**The rule.** When a null is built by *matching* the model on some property — area, centre,
+seeding, calibration — write down what the model gets that the null does not, cell for cell,
+before quoting the ratio. The `mandela` question is not 「did I hold something constant?」 but
+**「what does the model still inherit from the target that the null cannot?」** Here the answer
+was 249 cells and it cost a fifth of the effect size. Both numbers are now published, and
+`test_the_seed_asymmetry_is_real_and_is_the_model_s_advantage` fails if a rebuild ever makes
+the two masks inherit the seed equally.
+
+Note where this was caught: **not by the row, not by the lap, by the independent reviewer** —
+which is the first time in this loop's record that the `subagent` review has changed a
+published NUMBER rather than a sentence. `LOOP_CONFIG.json` → `review: subagent` paid for
+itself on this lap.

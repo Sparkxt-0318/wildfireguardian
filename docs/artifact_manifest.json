@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "89da7d348516ae452b50ce8d41e42fdb6c6391a5",
-  "n_artifacts": 108,
-  "total_bytes": 14612259,
-  "total_mib": 13.94,
-  "n_git_tracked": 108,
+  "generated_at_git_commit": "5b78ffdad265ea796b8a077bd8046a93ca744de0",
+  "n_artifacts": 109,
+  "total_bytes": 14626355,
+  "total_mib": 13.95,
+  "n_git_tracked": 109,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 9,
   "artifacts": [
@@ -182,6 +182,7 @@
       "n_registry_entries": 0,
       "cited_by_docs": [
         "docs/HANDOFF_ROUND3.md",
+        "docs/auto/reports/2026-09-09T1529Z-manual.md",
         "docs/submission_reconciliation.md"
       ],
       "regenerate": "python scripts/build_canonical_hazard.py"
@@ -300,8 +301,11 @@
       "n_registry_entries": 0,
       "cited_by_docs": [
         "docs/auto/BACKLOG.md",
+        "docs/auto/CRITIC_LATEST.md",
         "docs/auto/KCF_READINESS.md",
-        "docs/auto/reports/2026-09-03T2239Z-dev.md"
+        "docs/auto/SCORECARD.md",
+        "docs/auto/reports/2026-09-03T2239Z-dev.md",
+        "docs/auto/reports/2026-09-10T1426Z-critic.md"
       ],
       "regenerate": "python scripts/gk2a_detection.py"
     },
@@ -365,6 +369,18 @@
         "docs/dilation_perturbation.md"
       ],
       "regenerate": "python scripts/dilation_perturb.py"
+    },
+    {
+      "path": "data/processed/disc_null_yeongdeok.json",
+      "bytes": 14096,
+      "sha256": "5763b87bb30748e48b9aaf8922a1aabe58674870afde7dad1e81762935e11b1d",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 87,
+      "cited_by_docs": [
+        "docs/disc_null.md"
+      ],
+      "regenerate": "python scripts/measure_disc_null.py"
     },
     {
       "path": "data/processed/dispatch_ordering_comparison.json",
@@ -532,6 +548,7 @@
         "README.md",
         "docs/MODEL_CARD.md",
         "docs/auto/JUDGE_QA.md",
+        "docs/auto/reports/2026-09-10T1426Z-critic.md",
         "docs/baselines.md"
       ],
       "regenerate": "python scripts/build_finals.py"
@@ -544,6 +561,8 @@
       "git_tracked": true,
       "n_registry_entries": 48,
       "cited_by_docs": [
+        "docs/auto/BACKLOG.md",
+        "docs/auto/reports/2026-09-10T0952Z-dev.md",
         "docs/console_regions.md",
         "docs/finals_demo_plan.md",
         "docs/multi_region.md"
@@ -625,14 +644,18 @@
       "sha256": "af9b5cf51c17fc9a547a45712b7e3a33aab2c221af6c3fed5bfec586552c22b3",
       "kind": "text",
       "git_tracked": true,
-      "n_registry_entries": 25,
+      "n_registry_entries": 30,
       "cited_by_docs": [
         "docs/auto/BACKLOG.md",
-        "docs/auto/DIRECTION.md",
+        "docs/auto/KCF_READINESS.md",
         "docs/auto/NEEDS_HUMAN.md",
+        "docs/auto/SCORECARD.md",
         "docs/auto/reports/2026-09-09T1250Z-dev.md",
         "docs/auto/reports/2026-09-09T1418Z-critic.md",
-        "docs/oracle_gap.md"
+        "docs/auto/reports/2026-09-10T0523Z-critic.md",
+        "docs/auto/reports/2026-09-10T0703Z-dev.md",
+        "docs/oracle_gap.md",
+        "docs/withdrawn_claims.md"
       ],
       "regenerate": "python scripts/measure_oracle_gap.py"
     },
@@ -721,8 +744,10 @@
       "cited_by_docs": [
         "data/snapshots/README.md",
         "docs/DATA_LOSS_2026-07-24.md",
+        "docs/auto/reports/2026-09-10T0942Z-manual.md",
         "docs/auto/research/sweeps_2026-09-03/R8_cloud_readiness.md",
-        "docs/real_roads_real_hazard.md"
+        "docs/real_roads_real_hazard.md",
+        "paper/GAPS.md"
       ],
       "regenerate": "python scripts/build_multi_region_comparison.py"
     },
@@ -737,8 +762,10 @@
         "docs/auto/BACKLOG.md",
         "docs/auto/reports/2026-09-05T0317Z-manual.md",
         "docs/auto/reports/2026-09-05T0517Z-critic.md",
+        "docs/auto/reports/2026-09-10T0942Z-manual.md",
         "docs/multi_region.md",
-        "docs/walk_bbox_coverage.md"
+        "docs/walk_bbox_coverage.md",
+        "paper/GAPS.md"
       ],
       "regenerate": "python scripts/build_multi_region_comparison.py"
     },
@@ -840,18 +867,29 @@
       "git_tracked": true,
       "n_registry_entries": 10,
       "cited_by_docs": [
+        "README.md",
         "docs/HANDOFF_ROUND3.md",
         "docs/REPORT_ROUND2_P1.md",
         "docs/SESSION8_LOG.md",
+        "docs/auto/BACKLOG.md",
+        "docs/auto/DEMO_SCRIPT_5MIN.md",
         "docs/auto/JUDGE_QA.md",
         "docs/auto/SCORECARD.md",
         "docs/auto/archive/DIRECTION_superseded_2026-09-08T1817Z.md",
+        "docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md",
         "docs/auto/reports/2026-09-04T1416Z-critic.md",
         "docs/auto/reports/2026-09-04T1534Z-manual.md",
         "docs/auto/reports/2026-09-04T1547Z-manual.md",
+        "docs/auto/reports/2026-09-09T2206Z-dev.md",
+        "docs/auto/reports/2026-09-09T2319Z-critic.md",
+        "docs/auto/reports/2026-09-10T0142Z-dev.md",
+        "docs/auto/reports/2026-09-10T0237Z-critic.md",
+        "docs/auto/reports/2026-09-10T0316Z-manual.md",
+        "docs/creativity_card.md",
         "docs/network_drift.md",
         "docs/ssot_audit_2026-09-03.md",
-        "outputs/dispatch/README.md"
+        "outputs/dispatch/README.md",
+        "paper/GAPS.md"
       ],
       "regenerate": "python scripts/build_numbers.py"
     },
@@ -940,12 +978,19 @@
         "docs/auto/JUDGE_QA.md",
         "docs/auto/MEMO.md",
         "docs/auto/NEEDS_HUMAN.md",
+        "docs/auto/SCORECARD.md",
         "docs/auto/reports/2026-09-06T0516Z-critic.md",
         "docs/auto/reports/2026-09-09T1250Z-dev.md",
+        "docs/auto/reports/2026-09-09T1529Z-manual.md",
+        "docs/auto/reports/2026-09-09T1928Z-dev.md",
+        "docs/auto/reports/2026-09-09T2023Z-critic.md",
+        "docs/auto/reports/2026-09-10T0825Z-critic.md",
+        "docs/auto/reports/2026-09-10T0952Z-dev.md",
         "docs/live_pipeline.md",
         "docs/manual_trigger.md",
         "docs/oracle_gap.md",
-        "paper/GAPS.md"
+        "paper/GAPS.md",
+        "paper/README.md"
       ],
       "regenerate": "python scripts/build_canonical_hazard.py"
     },
@@ -1010,7 +1055,12 @@
       "n_registry_entries": 0,
       "cited_by_docs": [
         "docs/REPRODUCE.md",
-        "docs/SPREAD_MODEL_REPORT_BUILD_A_LEGACY.md"
+        "docs/SPREAD_MODEL_REPORT_BUILD_A_LEGACY.md",
+        "docs/auto/BACKLOG.md",
+        "docs/auto/CRITIC_LATEST.md",
+        "docs/auto/DIRECTION.md",
+        "docs/auto/SCORECARD.md",
+        "docs/auto/reports/2026-09-10T1426Z-critic.md"
       ],
       "regenerate": "UNKNOWN"
     },
@@ -1124,9 +1174,21 @@
       "git_tracked": true,
       "n_registry_entries": 20,
       "cited_by_docs": [
+        "README.md",
         "docs/auto/BACKLOG.md",
+        "docs/auto/DIRECTION.md",
         "docs/auto/JUDGE_QA.md",
-        "docs/auto/finals/TIMELINE_ROLES.md"
+        "docs/auto/SCORECARD.md",
+        "docs/auto/finals/TIMELINE_ROLES.md",
+        "docs/auto/reports/2026-09-09T1619Z-dev.md",
+        "docs/auto/reports/2026-09-09T1719Z-critic.md",
+        "docs/auto/reports/2026-09-09T2023Z-critic.md",
+        "docs/auto/reports/2026-09-09T2126Z-manual.md",
+        "docs/auto/reports/2026-09-10T0415Z-dev.md",
+        "docs/auto/reports/2026-09-10T0523Z-critic.md",
+        "paper/AUTHORSHIP.md",
+        "paper/GAPS.md",
+        "paper/README.md"
       ],
       "regenerate": "python scripts/build_timeline_roles.py"
     },

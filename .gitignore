@@ -160,6 +160,11 @@ data/processed/**
 # cites. Which field is published is not decided here.
 !data/processed/routing_demo_canonical.npz
 !data/processed/oracle_gap_yeongdeok.json
+# WFG-228 — the area-matched disc null for the IoU the line above reports.
+# Registered in NUMBERS.json under dn_yeongdeok_*, so it must be tracked or
+# `make verify` fails on a fresh clone with 'source_file missing'. It reads
+# routing_demo_canonical.npz and modifies nothing (CHARTER §3 rule 2).
+!data/processed/disc_null_yeongdeok.json
 !data/processed/canonical_hazard.json
 !data/processed/real_roads_real_hazard_canonical.json
 # Step 2: the 30/60/90 m slope sweep on the canonical field. The committed
