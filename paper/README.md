@@ -856,6 +856,157 @@ one document by one run.** ⚠ **A margin of 2 is not headroom** — it exists o
 clause was deleted, which is unrepeatable — and 8,998 is **498 words over CHARTER §12's target of
 8,500**: the margin is against the hard fail, not the target.
 
+⛔⛔ **Lap 29 is the one where the budget refused TWO obligations in a single window — the
+project's strongest evidence against its own headline, and the one citation an IEEE reviewer is
+most likely to hold against the paper — and both refusals were measured, not costed in prose.
+Read `GAPS.md`'s lap-29 section before this paragraph.** 8,998 words, margin **2**, unmoved:
+**no sentence of the manuscript changed**, because none had gone false. Nothing was compressed
+and no caveat or registered number was traded.
+
+⚠⚠ **And its independent reviewer BLOCKED the push, on the one completeness integer this lap
+derived itself — the same bug class as lap 28's, one container deeper.** The first draft of all
+three ledgers put `forbidden_phrasings` at **396 / 537** and said 「empty on none of those」,
+which is affirmatively false about **23** entries: the predicate was lap 28's own repair,
+`v is not None and str(v).strip() != ''`, which fixes `str(None)` being the truthy `'None'` and
+then walks straight into **`str([])` being the truthy `'[]'`**, so every empty list counted as
+populated. The true figure is **373 / 537 (69.5 %)**, present on 396 with 23 empty. **Wrong in
+the direction that makes a completeness claim look better supported, in a lap whose subject is a
+completeness claim, in the file whose whole argument is that a hand-typed count goes stale.**
+⚠ Confirmed a second way rather than only re-run: lap 28's **289 / 453**, plus all **84** new
+`dn_yeongdeok_` entries carrying a non-empty list, is 289 + 84 = **373**, and the 23 empty lists
+are the same 23 in both counts. The manuscript sentence survives — 69.5 % is still 「most」 — so
+the whole repair is three ledger edits at **zero body words**, and lap 28's derivation stands
+where lap 28 wrote it rather than being overwritten (CHARTER §3.7). Four smaller corrections
+came with it and are in `GAPS.md`: 「four weeks」 before the finals is **45 days**, the caveat band
+**carries** rather than **opens** with its six-fact sentence, the count-stays-four justification
+was replaced with the check that actually supports it, and two figure defects were repaired.
+
+The incorporated diff (`c7c915b..a6d49d3`, 14 commits) built **`docs/disc_null.md`** — the thing
+the repository has never had, something to compare `IoU 0.394` with. An area-matched disc with
+**zero free parameters**, its rule *and its interpretation* fixed in the claim commit before the
+run, scored against the same observed FIRMS footprint by the same grader: the forecast core
+scores **0.2577** against the disc's **0.1169** with the shared seed removed from both, a ratio of
+**2.2044** that survives in sign at all four non-seed slices. ⚠⚠ **And the half that matters most
+is the half against the project: by centre of mass the disc is CLOSER to the truth than the model
+is.** The observed footprint's centre of mass travels **1,124.8 m** from the ignition seed while
+the forecast core's travels **3,646.1 m**, leaving the forecast a **2,670.2 m** centre-of-mass
+error against the disc's **1,133.0 m**. The model overshoots; what it reproduces better than a
+circle is the burn's **shape and extent**, not its **place**.
+
+⛔ **That is exactly the evidence §6's first limitation asks for, and it measures +198 words
+against a margin of 2.** The registry's caveat band is identical on all 84 new keys and carries 「Six facts travel
+together or none may be quoted」 — the floor caveat, the centroid pairing, the non-truth of
+`obs_stack`, the shared observation behind three of four slices, the seed inflation, and that no
+route was run — and CHARTER §12 forbids buying space with a caveat, so none of the six is
+optional. Written at that standard as a replacement for §6's 「Every control here perturbs the
+predicted field, so none admits external truth」, `body_words` goes **8,998 → 9,196**. ⚠ **The
+floor was measured too, because the obvious objection is that a lap inflates a cost to justify
+writing nothing:** the tightest form carrying all six facts and quoting only the fair ratio, one
+telegraphic clause per fact, measures **+143** — that is the number to hold the budget against,
+and it is still 141 over. A **number-free** form, which escapes the band as a quotation rule but
+not the two caveats that are scope on the claim rather than on the numbers, measures **+73**. All
+three reverted. ⚠ The honest other half: **the manuscript is not false without it — and the
+reviewer replaced this lap's reason for saying so with a better one.** The draft argued that
+「every control here」 refers to §3.5's **five** controls and that all five perturb the predicted
+field; **that ground is loose**, two of the five (the column-addition null, the platform-drift
+floor) being controls on AUC and not on any predicted field. The sentence survives on a ground the
+draft never stated: **the paragraph's subject is the ROUTING result and the disc null ran no
+route** — `docs/disc_null.md` §5.3 says so in its own voice — and the `[GAP:` immediately after it
+asks for a routing pass on the observed footprint that is untouched.
+
+⛔⛔ **And the reviewer named a correction the draft never costed, which turns out to be the
+cheapest thing this lap refused.** §6 offers a **symmetry**: the evidence is 「consistent with
+detours around cells that never burned, **and** with burned cells the model never flagged left
+unavoided under both policies」. **The overshoot breaks that symmetry against the paper** — the
+core's centre of mass travels 3,646.1 m where the footprint's travels 1,124.8 m — so the first
+branch is the measured one, and presenting a broken symmetry as open is the nearest thing in this
+lap to CHARTER §3's 「rounding a limitation away」. The reviewer did not block on it, this file and
+`GAPS.md` saying it at length, but the amendment 「has not been costed」 was true of the draft and
+is costed now: both halves must travel (the registry's pairing rule is symmetric — quoting only
+the unflattering half understates the model as surely as the reverse), so it measures **+57** with
+the registered metres and **+37** at its tightest. Reverted. **A thirtieth lap must not record
+this a second time without landing it.** What the paper is, is **under-reporting the strongest
+evidence against itself on the limitation it calls 「the objection we would raise first」**, at a
+floor of +143 where lap 24 recorded +41.
+
+⛔ **The second refusal is a CITATION, and that is new in this record.** The research lap of
+2026-09-10 found Bokade et al., 「A Hybrid Neural Physical Framework for Wildfire Propagation
+Modeling and Dynamic Evacuation Routing」, Zenodo preprint, **2026-09-09**: a U-Net flammability
+prior into an explicit cellular-automaton spread engine, then routing that 「incrementally routes
+traffic away from actively predicted fires」. **This project's architecture, published
+independently 45 days before the finals — deposit 2026-09-09 against the 2026-10-24 finals, 37
+days against the 2026-10-16 freeze; the draft wrote 「four weeks」, the backlog's wording restated
+without deriving it — and §2 has no line about it** (WFG-239; `IEEE_PLAN.md`
+G11, due before the freeze). ⚠ **Nothing is false and nothing is retracted** — the row as filed
+said the manuscript 「claims the architecture as its contribution」, critic #61 corrected that in
+place after checking three places, and this lap re-read all three. What is missing is a situating
+line, and the cheapest honest form of it measures **+26** against **2** (the fuller form carrying
+country, mode and delta: **+46**). Both reverted. ⚠ A bare `[@bokade2026]` marker costs **zero**
+body words — `build_docx.py:187` strips `[@...]` before counting — and was **not** used, because
+attaching it to an existing sentence attributes that sentence to a paper that does not say it.
+
+✅ **What did land is the half that needed a network and an opened URL, and it cost zero words.**
+`references.bib` gains `bokade2026`, opened at its **concept** DOI this lap, quoting five verbatim
+passages of the record's own abstract with the deposit date, the five creators, the resource type
+and the boundaries that must travel inside any citing sentence — Uttarakhand, road and vehicle
+routing, unrefereed, and **no reported metric of any kind**, so no accuracy comparison in either
+direction. The page's own DOI field reads `...22668358`, which is the **version** DOI of the same
+record and not a duplicate deposit. The entry is **not yet cited**, which is legal and inert:
+`check_paper.py:200` checks that every `[@key]` has a verified entry and not the converse, and
+`build_docx.py` renders only cited ones, so `references` stays **29** and the built document is the
+same document. It is added because CHARTER §12 requires whoever cites a work to have opened it, and
+a later lap with the words should not have to re-open it.
+
+✅ **`F10_disc_null` is drawn, looked at, and unreferenced — the F9 precedent applied.** Panel (a)
+the seed-removed IoU per slice with the as-scored pair as a tick and each slice's own gap under its
+group; panel (b) the four centre-of-mass distances. It takes no appearance number, so the mapping
+below is unchanged. ⚠ **And it buys nothing off the counter, which needs saying because the
+temptation is the one lap 19 ruled on.** Captions cost no `body_words`, and lap 19's rule is that
+carrying body argument in one is 「a false measurement of the document, not a short document」 and
+that no lap may use it. This figure draws **numbers**; the number-scope caveats that would sit in
+its caption are the kind Table 1, Table 4 and F6 already carry. **The argument still has to be
+written in the body and still costs words this lap does not have.** ⚠ **And the reviewer named the
+honest description of what 「at zero words」 bought, kept rather than softened: `F10` and
+`bokade2026` are free precisely BECAUSE both are invisible to every gate in `paper/`** — an
+unreferenced figure reaches neither `figure_fingerprint`, the page count nor the built document,
+an uncited entry reaches neither the citation check nor `fmt_ref`. **Two artifacts landed and
+nothing reads either.** Defensible under CHARTER §12, since both were drawn and opened as §12
+requires and the alternative was landing nothing, but it is what happened.
+
+⚠ **The first render was wrong in four ways and the reviewer found two more after this lap's own
+look-at-it pass had passed it.** The lap's four: panel (b)'s y-tick labels ran out of their own
+panel across panel (a)'s bars, panel (a)'s y-label was clipped, its x-tick labels overlapped into
+each other, and the two x-axis labels collided. The reviewer's two, both repaired before the push:
+panel (a)'s bars are the **seed-removed** IoUs and nothing said so, leaving the reader to infer it
+by negation from the tick legend — the axis now names it; and **one colour carried two meanings**,
+fire marking both a *displacement from the ignition* (3,646.1 m) and an *error against the
+observation* (2,670.2 m) on one axis, which is the rule the 2026-09-04 block below exists to
+enforce — panel (b) is now two labelled groups, one quantity each. **Looking is not enough on its
+own, which is what that block already says.** The nine existing figures redrew **byte-identical**.
+
+✅ **The registry moved purely additively and it was checked, not asserted.** `docs/NUMBERS.json`
+goes **453 → 537**, all 84 additions under the `dn_yeongdeok_` prefix; compared key by key against
+`c7c915b`, **zero** existing values and **zero** existing caveat bodies moved.
+`docs/auto/withdrawn_claims.json` is byte-unchanged, so §3.5's 「skipped it **four** times」 stays
+four. §3.5's hedge was re-derived at the new count with lap 28's corrected predicate:
+`source_file`, `derivation` and `caveat` are **537 / 537** each, `forbidden_phrasings` is
+**373 / 537** (69.5 %; present on 396, empty on 23 of those), so 「most」 remains the right word
+and the three universals survive the 84 new
+entries.
+
+✅ **The anchor was re-derived, not inherited.** `body_words` did not move, so `check_paper.py`
+would have passed with no renderer at all; the one `apt` line below was run anyway and the
+measuring branch reports **`pages 23, calibri_face Carlito, metrics_ok true`**, printing
+**`6b0702d747ed5beb`** — the string `STATE.json` already carried. That is a confirmation on an
+unmoved input, the weaker of the two kinds, and is stated as such. The `.docx` is **not** rebuilt
+into the commit: the manuscript did not move, and lap 23's byte-non-determinism finding makes a
+rebuilt file 2.9 MB of diff that says nothing. **Two pages against the author's 25, two words
+against the proxy's 9,000, measured on one document by one run.** ⚠ **A margin of 2 is not
+headroom** and 8,998 is **498 words over CHARTER §12's target of 8,500**. Laps 13 through 21, 24,
+25, 28 and now 29 have all had their writing shaped by the proxy rather than by the evidence, and
+this is the first lap where it refused **two** obligations at once, one of them a citation.
+**NH-037 is the answer and it is still open.**
+
 ⚠ **The page that took the count from 22 to 23 cost eleven words, and it is worth
 knowing that before reading the words-to-pages table below as a rate.** Lap 11
 took the body 8,735 → 8,825 (a mandatory §4.5 correction, one clause, and the

@@ -765,8 +765,170 @@ def F9_present_perimeter(out: Path) -> bool:
     return True
 
 
+def F10_disc_null(out: Path) -> bool:
+    """The area-matched disc null for the forward-simulated hazard core, and the
+    centre-of-mass reading that reverses how the gap should be read (Yeongdeok 2025,
+    canonical field; `data/processed/disc_null_yeongdeok.json`, WFG-228).
+
+    ⚠ NOT REFERENCED BY THE MANUSCRIPT (paper lap 29, 2026-09-10; that lap's section
+    of paper/GAPS.md carries the record, and deliberately NOT a `G` row: those rows
+    are one-to-one with the `[GAP:` markers in the manuscript and check_paper.py
+    counts both, so a row for a figure with no marker would turn the gate red — and
+    a marker would be false, since nothing is missing from the artifacts here. What
+    is missing is room). It is built and committed for the same reason F9 is: so it stays
+    reproducible and can drop into §6's first limitation when the length rule the
+    prose needs is settled (NH-037). The prose is what does not fit — measured this
+    lap at +198 body words with the caveat band the registry makes mandatory, and
+    +73 for a number-free form, against 2 words of margin — and a figure costs no
+    body words, so drawing it now is not a way of buying the prose cheaply. The
+    body argument still has to be written in the body; what this figure removes is
+    only the work of drawing it later. check_paper.py checks that every referenced
+    figure exists, not the converse, so an unreferenced figure is not a gate
+    failure, and it takes no appearance number: the mapping stays F1→1, F2→2, F4→3,
+    F5→4, F8→5, F3→6, F6→7, F7→8.
+
+    Panel (a) draws the SEED-REMOVED IoU as the bars, because the registry's caveat
+    band says those are the fair figures: `obs_stack` is cumulative, so the 249-cell
+    t = 0 seed is a subset of the observation being scored, the model's core
+    contains all 249 by construction (they are its initial condition, not a
+    prediction) and the disc recovers 92. The as-scored values are drawn too, as an
+    open tick above each bar, because the same band forbids quoting 2.536 without
+    2.2044 beside it — so both are on the page and the fair one is the one with
+    weight. Each slice's own `time_gap_min` is written under its group, which that
+    band also requires: three of the four are graded against the SAME observation
+    (obs_time_min 333), so this is not four independent readings, and the column's
+    content is that the gap barely moves while the contamination swings from 27 to
+    285 minutes. The t = 0 seed slice is excluded: both stacks are seeded from the
+    same detection there, model IoU is 1.0 by construction, and the seed-removed
+    figure is undefined.
+
+    Panel (b) is the half that keeps panel (a) honest and it is drawn at the same
+    weight, not as an afterthought. By centre of mass the disc is CLOSER to the
+    observation than the model is, because the observed footprint barely leaves the
+    ignition while the model's core travels three and a half kilometres from it. So
+    the gap in panel (a) is not directional skill; what the model reproduces better
+    than a circle is the shape and extent of an irregular footprint, and its place
+    overshoots. Colour carries one meaning across both panels: fire = the
+    forward-simulated core, blue = the disc, grey = the observed footprint's own
+    movement, which is the reference neither arm chose.
+    """
+    from matplotlib.lines import Line2D
+
+    d = load("data/processed/disc_null_yeongdeok.json")
+    if not d or not isinstance(d.get("slices"), list):
+        return False
+    rows = [s for s in d["slices"] if not s.get("is_seed_slice")
+            and isinstance(s.get("seed_removed"), dict)
+            and s["seed_removed"].get("model", {}).get("iou") is not None]
+    head = d.get("headline") or {}
+    dirn = head.get("direction") or {}
+    if not rows or not dirn:
+        return False
+    rows.sort(key=lambda s: float(s["haz_time_min"]))
+
+    fig, (ax, bx) = plt.subplots(1, 2, figsize=(7.0, 3.5),
+                                 gridspec_kw={"width_ratios": [1.0, 1.0], "wspace": 0.22})
+
+    # ---- (a) seed-removed IoU per slice, model against disc -----------------
+    x = list(range(len(rows)))
+    w = 0.34
+    bare_m = [float(s["seed_removed"]["model"]["iou"]) for s in rows]
+    bare_d = [float(s["seed_removed"]["disc"]["iou"]) for s in rows]
+    raw_m = [float(s["model"]["iou"]) for s in rows]
+    raw_d = [float(s["disc"]["iou"]) for s in rows]
+    for off, vals, colour in ((-w / 2 - 0.015, bare_m, style.PALETTE["fire"]),
+                              (+w / 2 + 0.015, bare_d, style.PALETTE["blue"])):
+        ax.bar([xi + off for xi in x], vals, width=w, color=colour)
+    # Value labels inside the fill, white, as the reference does (paper/README.md
+    # figure rule 2: never where the data is, and never on the axis labels).
+    for off, vals in ((-w / 2 - 0.015, bare_m), (+w / 2 + 0.015, bare_d)):
+        for xi, v in zip(x, vals):
+            ax.text(xi + off, v / 2, f"{v:.3f}", ha="center", va="center", fontsize=6.6, color="white")
+    for off, vals in ((-w / 2 - 0.015, raw_m), (+w / 2 + 0.015, raw_d)):
+        for xi, v in zip(x, vals):
+            ax.plot([xi + off - w / 2, xi + off + w / 2], [v, v], color=style.INK, lw=0.9, solid_capstyle="butt")
+    ax.set_xticks(x)
+    ax.set_xticklabels([f"{int(s['haz_time_min'])} min\ngap {int(s['time_gap_min'])} min" for s in rows],
+                       fontsize=7.0)
+    ax.set_xlabel("Forecast slice, and its gap to the observation it is graded against", fontsize=7.6)
+    # The bars are the SEED-REMOVED figures and the axis has to say so: leaving the
+    # reader to infer it by negation from the tick legend's "seed included" was a
+    # defect this lap's independent reviewer found after the look-at-it pass passed.
+    ax.set_ylabel("IoU with the observed footprint,\nshared seed removed from both masks", fontsize=7.6)
+    ax.set_ylim(0, max(raw_m) * 1.14)
+    ax.grid(axis="y", visible=True)
+
+    # ---- (b) centre-of-mass displacement at the headline slice --------------
+    # The row labels go ABOVE each bar rather than on the y axis: as y-tick labels
+    # they ran left out of this panel and across panel (a)'s bars and value labels,
+    # which the look-at-it pass caught before this figure was ever committed.
+    #
+    # And the rows are in TWO GROUPS, because the first draft put a displacement
+    # from the ignition and an error against the observation on one axis under one
+    # colour — one colour carrying two meanings, which is exactly the rule
+    # paper/README.md's 2026-09-04 figure block exists to enforce. The reviewer
+    # found it. Each group now carries one quantity, so fire means "the
+    # forward-simulated core" in both groups without meaning two things at once.
+    groups = [
+        ("distance moved from the ignition", [
+            ("observed footprint", float(dirn["seed_to_observed_m"]), style.PALETTE["grey"]),
+            ("forward-simulated core", float(dirn["seed_to_model_m"]), style.PALETTE["fire"]),
+        ]),
+        ("distance from the observed footprint", [
+            ("forward-simulated core", float(dirn["model_to_observed_m"]), style.PALETTE["fire"]),
+            ("area-matched disc", float(dirn["disc_to_observed_m"]), style.PALETTE["blue"]),
+        ]),
+    ]
+    bars = [row for _, rows in groups for row in rows]
+    widest = max(b[1] for b in bars)
+    # Fixed slots on an explicit grid so nothing can overlap: two rows per group,
+    # one blank slot between the groups for the group heading.
+    slots, headings = [], []
+    slot = 0.0
+    for title, rows in groups:
+        headings.append((slot, title))
+        slot -= 0.75
+        for row in rows:
+            slots.append((slot, row))
+            slot -= 1.0
+        slot -= 0.30
+    for yi, (label, v, colour) in slots:
+        bx.barh(yi, v, height=0.46, color=colour)
+        bx.text(v - widest * 0.018, yi, f"{v:,.1f} m", ha="right", va="center", fontsize=6.8, color="white")
+        bx.text(widest * 0.012, yi + 0.34, label, ha="left", va="bottom", fontsize=6.5, color=style.INK)
+    for yi, title in headings:
+        bx.text(0.0, yi, title, ha="left", va="center", fontsize=6.8, style="italic", color=style.MUTED)
+    bx.set_yticks([])
+    bx.set_ylim(slot + 0.55, 0.55)
+    bx.set_xlabel(f"Centre-of-mass distance (m), forecast slice {int(head['haz_time_min'])} min\n"
+                  f"against the observation {int(head['time_gap_min'])} min away", fontsize=7.6)
+    bx.set_xlim(0, widest * 1.10)
+    bx.grid(axis="x", visible=True)
+
+    style.label_panels([ax, bx])
+    # One figure-level legend below both panels: it declares the colour mapping once
+    # for the whole figure, which is the rule it exists to make visible, and it sits
+    # outside the axes so it cannot be placed where the data is.
+    handles = [
+        mpatches.Patch(facecolor=style.PALETTE["fire"], edgecolor=style.INK, linewidth=0.4,
+                       label="forward-simulated hazard core"),
+        mpatches.Patch(facecolor=style.PALETTE["blue"], edgecolor=style.INK, linewidth=0.4,
+                       label="area-matched disc null"),
+        mpatches.Patch(facecolor=style.PALETTE["grey"], edgecolor=style.INK, linewidth=0.4,
+                       label="observed footprint (panel b)"),
+        Line2D([], [], color=style.INK, lw=0.9, label="panel a: the same pair as scored, seed included"),
+    ]
+    fig.subplots_adjust(left=0.075, right=0.988, top=0.935, bottom=0.30)
+    lg = fig.legend(handles=handles, loc="upper center", ncol=2, fontsize=6.6, frameon=True,
+                    bbox_to_anchor=(0.53, 0.115), handlelength=1.5, columnspacing=1.4, handletextpad=0.6)
+    lg.get_frame().set_linewidth(0.5); lg.get_frame().set_edgecolor(style.INK)
+    style.finish(fig, out / "F10_disc_null.png")
+    return True
+
+
 FIGURES = [F1_system, F2_lofo_auc, F3_regions, F4_operating_point, F5_decision_shift,
-           F6_sensitivity, F7_dispatch_ordering, F8_routing_map, F9_present_perimeter]
+           F6_sensitivity, F7_dispatch_ordering, F8_routing_map, F9_present_perimeter,
+           F10_disc_null]
 
 
 def main() -> int:
