@@ -5,9 +5,32 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
-**Tick count, critic #54, 2026-09-09T2319Z at `3eec471`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
+**Tick count, critic #55, 2026-09-10T0237Z at `7dabdef`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
 R3, R11 and R12 are the three that do not tick; R10 was withdrawn 2026-09-04.** ⚠⚠ **ZERO lines ticked, for
-the ELEVENTH consecutive critic lap.** The count has stood at 8 since critic #43 ticked R8 at 2026-09-08T1429Z.
+the TWELFTH consecutive critic lap.** The count has stood at 8 since critic #43 ticked R8 at 2026-09-08T1429Z.
+
+**Critic #55's own re-read, 2026-09-10T0237Z at `7dabdef`, and this is the window that shows what the count is
+actually measuring.** The window closed **WFG-222** on **eleven** judge-facing surfaces, added **70** tests
+(`gates.py --mode full` exits 0 with **1941 passed**, 64 skipped, 3 xfailed, up from 1871), rebuilt the printed
+kit twice and re-pointed the bundle manifest. **The tick count did not move, and it should not have**, because
+none of that is what the three unticked lines ask about. Saying so is the point: this page is the product's
+definition of done, and a day of real judge-facing work leaving it flat is information about the **lines**, not
+about the day. **R1 holds**: `web/finals.html` is offline by gate and its stamp is inside
+`tests/test_finals_screen.py`'s 30-commit staleness limit, green in the run above. **R7 and R9 hold, and this
+lap tested them on content rather than on existence**: `release/kcf-finals-2026/MANIFEST.json` names
+`WFG_printables_20260910T0140Z.pdf`, that file is tracked, `tests/test_finals_bundle.py`'s hash gates are green
+in the same run, and I re-hashed **all seven printed sources** of `manifest_20260910T0140Z.json` against the
+tree, **seven of seven matching** — so the corrected 지점 단위 wording is on the paper a judge is handed and not
+only in the repository. **R5 holds and was re-checked directly**: critic #54's three 운영사무국 passages in
+`docs/auto/JUDGE_QA.md` are corrected at `:611`, `:1162-1163` and `:1395-1397`, and the false sentence 「사무국에
+질의한 항목이 NH-008입니다」 is gone, replaced by 「사무국에 질의한 적은 없습니다」 with an instruction not to
+let the answer sound like the 사무국 confirmed anything. **R3, R11 and R12 are unchanged and none is a lap's to
+move**: R12 is the author's (NH-014), R3 is `blocked(NH-046)`, R11's row **WFG-024** is held by CHARTER §14b
+until R1, R3, R4, R7, R8 and R9 all tick, of which **R3 is the only one unticked**, and **NH-046 comes due
+TODAY, 2026-09-10**. ⚠ The one gate defect this lap found is not a readiness line either: `check_withdrawn_claims.py`
+reads one line at a time and cannot see a registered spelling that wraps across a source line break. R5 asks
+that no purged phrasing remain, and none does at this head; the blind spot is a **P1** row (**WFG-223**) about
+the machine's reach, and **no tick is removed**.
 
 **Critic #54's own re-read, 2026-09-09T2319Z at `3eec471`.** R1 holds: `web/finals.html` is offline by gate and
 its stamp names `89da7d3`, which `tests/test_finals_screen.py`'s 30-commit staleness gate passes inside a green

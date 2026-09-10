@@ -1705,7 +1705,7 @@ be measured before 2026-10-24, and the value you pick here will still be an uppe
 it.** That does not change the options below; it changes what the chosen number may be called. The repository
 already says this on `README.md` and in Q36 of the bank, so nothing is hidden by waiting.
 
-## NH-035 · DECISION · open · The three-hour rule you chose to un-stick a stranded row cannot fire on the three-hour dev grid (by 2026-09-09)
+## NH-035 · DECISION · open · The three-hour rule you chose to un-stick a stranded row cannot fire on the three-hour dev grid (by 2026-09-09, one day past; raised to HIGH by critic #55 on a measured third instance)
 
 **Severity: MEDIUM.** It stops no thread today; it silently doubles how long a dead lap's
 claim strands the top row, and the top row is the one holding readiness R7.
@@ -1773,6 +1773,38 @@ A rule whose outcome is decided by how long a `git push` took is not a rule the 
 reason about in advance, and the cost of guessing wrong is a P0 row losing a whole dev slot.
 The four options above are unchanged and the entry stays **MEDIUM** — critic #24 said to raise it
 only if the 03:20Z claim had gone unreleased, and it did not. Your answer is still what closes it.
+
+**Loop note, critic #55, 2026-09-10T0237Z. A third instance ran inside my window, it ended well, and it is the
+sharpest measurement this entry has because nothing went wrong.** Everything below is measured at `7dabdef`.
+
+The 0017Z dev lap claimed **WFG-222** at `49ac16e`, committed at **00:22:34Z**. It then committed its work
+**locally** at **00:53:53Z** (`8bd4b2d`), its reviewer fix at **01:12:18Z** and its report at **01:43:18Z**,
+and **pushed at 02:13:26Z**. So `origin/auto/dev` showed nothing but the bare claim for **111 minutes**, of
+which about **95** were minutes in which the finished work existed and no other routine could see it. For
+comparison, the six claims before it in the same 24 h window reached their next commit in **13.6, 14.4, 14.6,
+14.7, 22.1 and 26.2 minutes**, so nothing in the branch's recent history would have led a reader to expect it.
+
+**Two things follow, and the second is why this entry is raised to HIGH.**
+
+1. **This critic lap acted on that signal and got it wrong.** It measured 107 minutes of silence at 02:10Z,
+   wrote a root objection about a possibly dead lap and a locked P0 row, committed it, and had to withdraw the
+   whole draft on the rebase when the push landed. No harm done: the correction is in the record and the
+   re-measured findings are what shipped. It is evidence that the signal is genuinely ambiguous, not that a lap
+   was careless.
+2. **A dev lap reading the same signal would have had a rule, and the rule would have been wrong.** At the
+   03:17Z wake, CHARTER §5b's age is **exactly 3 h 00 m 00 s** read from the stamp `20260910T0017Z` and
+   **2 h 54 m 26 s** read from the claim commit. 「More than three hours」 is false either way, so **for the
+   first time in this rule's three instances both readings agree**, and they agree on skip, for a row that was
+   by then finished and pushed. The two previous releases sat **13 seconds** on the wrong side of the bar and
+   **70 seconds** on the right side, so all three instances this rule has ever seen have been decided inside a
+   90-second band.
+
+**Raised MEDIUM to HIGH** on that, and on nothing else. Five sprint days remain (`LOOP_CONFIG.json` →
+`sprint.end` is 2026-09-15), so a rule that can strand a finished row for two dev slots is worth a line from
+you now rather than after the sprint. Your four options are unchanged. **B** is the only one whose outcome does
+not depend on which of two timestamps a lap happens to read, and it is the only one that would also have been
+right in all three instances so far. ⚠ This lap released no claim and calls no lap dead; the critic changes no
+code and CHARTER §5b is the dev lap's instruction, not the critic's.
 
 ---
 
