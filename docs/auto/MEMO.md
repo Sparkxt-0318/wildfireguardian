@@ -2936,3 +2936,32 @@ That is exactly what happened; the entry was read and followed rather than
 rediscovered, at the cost of one `git reset --soft` back to the claim commit. It
 is the first time that note paid for itself, which is the argument for writing
 procedure notes at all.
+
+## 2026-09-10 · a denial pattern is graded on the sentence the PAGE says, not the sentence you imagined
+
+The MEMO entry one lap above this one gave the loop the rule that **a gate over
+prose asserts a DIRECTION, or it asserts nothing**, and this lap wrote the first
+new gate under it: `tests/test_budget_rule_asymmetry_is_stated.py`, with a
+`_REQUIRES` half and a `_DENIES` half on each of two surfaces. It then ran the
+mutations rather than trusting the shape, and the `_DENIES` half **failed its own
+first mutation**.
+
+The mutation was the realistic one: rewrite 「scored under **different** time
+rules」 as 「scored under **the same** time rule」 and change nothing else. The
+denial pattern was `both\s+arms\s+are\s+scored\s+under\s+(?:the\s+same|one)…`.
+The page says **「The two arms」**. So the inverse assertion sat on the page
+unmatched, and the mutation scored **1 red instead of 2** — caught only because
+the `_REQUIRES` token 「different time rules」 had vanished with it. Had the
+tidying lap kept that phrase somewhere else in the same section, the gate would
+have gone green over a page asserting the opposite.
+
+**The rule the loop did not have, and it is one level below the last one.** A
+`_DENIES` pattern is written by the person who just wrote the sentence it is
+meant to refuse, so it inherits that person's phrasing and not the page's. Cut
+the subject of the denial pattern from the **document**, never from the claim in
+your head — here, `(?:both|the two) arms` — and prove it by running the
+inversion, because a denial that never fires is indistinguishable from a denial
+that cannot fire. The four-mutation grading is now written into the test's own
+docstring **as it came out**, including this miss, rather than as it was
+designed: a mutation table that reports only successes is a leakage surface
+(`mandela` #4), and the miss is the most instructive row in it.

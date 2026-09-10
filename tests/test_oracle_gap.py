@@ -12,6 +12,7 @@ No clock, no timezone, no network, no file outside the repository.
 
 from __future__ import annotations
 
+import importlib.util
 import json
 from pathlib import Path
 
@@ -24,6 +25,20 @@ ART = REPO / "data/processed/oracle_gap_yeongdeok.json"
 DOC = REPO / "docs/oracle_gap.md"
 NUMBERS = REPO / "docs/NUMBERS.json"
 PREFIX = "og_yeongdeok_"
+
+
+def _load_registrar():
+    """The additive registrar, imported as a module so its field lists are readable.
+
+    `scripts/` is not a package, so this is the same `spec_from_file_location`
+    dance `tests/test_withdrawn_claims_registry.py` uses for its checker.
+    """
+    spec = importlib.util.spec_from_file_location(
+        "register_oracle_gap", REPO / "scripts" / "register_oracle_gap.py")
+    assert spec and spec.loader
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
 
 
 @pytest.fixture(scope="module")
@@ -86,9 +101,27 @@ def test_both_stacks_are_cumulative(art):
 
 
 def test_every_registered_key_matches_the_artifact(registry, art):
+    """⚠ The count is DERIVED from the registrar, not pinned.
+
+    It was pinned at 25 — 10 headline keys plus 3 per-slice keys on each of 5
+    slices — and it went red on 2026-09-10 the moment WFG-215's registry half
+    added a fourth per-slice field, on a lap whose whole subject was that a
+    number withheld for want of a key had had one all along. A literal here has
+    the same short fuse `docs/auto/JUDGE_QA.md` Q30 has (WFG-117): it goes stale
+    on the next legitimate growth and teaches the lap that hit it to think the
+    growth was the defect. What must not happen is a key silently DISAPPEARING,
+    and re-deriving the expected count from `FIGURES` and `SLICE_FIELDS` catches
+    that just as well while surviving the registrar being extended.
+    """
     keys = [k for k in registry if k.startswith(PREFIX)]
-    # 10 headline keys + 3 per-slice keys on each of the 5 slices.
-    assert len(keys) == 25, f"expected 25 {PREFIX}* keys, found {len(keys)}"
+    registrar = _load_registrar()
+    expected = len(registrar.FIGURES) + len(registrar.SLICE_FIELDS) * len(art["slices"])
+    assert len(keys) == expected, (
+        f"expected {expected} {PREFIX}* keys "
+        f"({len(registrar.FIGURES)} headline + {len(registrar.SLICE_FIELDS)} per-slice "
+        f"x {len(art['slices'])} slices, read from scripts/register_oracle_gap.py), "
+        f"found {len(keys)}. Re-run it: python scripts/register_oracle_gap.py"
+    )
     for k in keys:
         entry = registry[k]
         cur = art

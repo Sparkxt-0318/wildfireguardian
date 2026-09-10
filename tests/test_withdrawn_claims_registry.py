@@ -464,11 +464,34 @@ def test_the_registry_holds_nothing_the_families_do_not():
         (r"walking\s+route\s+per\s+household",
          "wc013-a-walking-route-per-household-en"),
     }
+    #: WC-014, dev lap 20260910T0625Z clearing critic #56's `fix-before-next-row` item
+    #: (the minutes-sized half of WFG-215). The first entry here that withdraws a
+    #: READING of a number rather than the number: `docs/oracle_gap.md` §4 printed a
+    #: size-ratio series 0.74 / 1.02 / 1.05 / 1.05 as a property of the forecast, when
+    #: three of its four slices are graded against ONE observation and the 3 h slice is
+    #: compared with a footprint 153 minutes later than the forecast time. Nothing in
+    #: the artifact moved; what was wrong was what the series was said to be about.
+    #: ⚠ It is a preemption rather than a P1 row because the page changed status inside
+    #: one window: at `c4eb8d2` `docs/oracle_gap.md` became the anchor of the FIRST card
+    #: of the finals screen's 알려진 한계 panel, and it is cited from card Q36 (T0) in the
+    #: printed kit. WFG-215's own 「not a judge-facing surface」 was true when filed.
+    #: ⚠ Blast radius was measured over all 1,134 tracked .md and .html BEFORE
+    #: registering: 12 hits, every one of them in a declared record path, so this
+    #: registration adds no pragma anywhere. The Korean spelling matches nothing today
+    #: and goes in with its English twin regardless — the WC-007/WC-008/WC-009 lesson,
+    #: and this claim's judge-facing route is Korean.
+    a_reading_of_our_own_measurement = {
+        (r"26\s*%\s*(?:\*\*)?\s*under",
+         "wc014-three-hour-slice-is-26-percent-under-en"),
+        (r"3\s*시간[^\n]{0,30}?(?:26\s*%|사분의\s*일)\s*(?:정도\s*)?(?:과소|적게|작게|미달)",
+         "wc014-three-hour-slice-is-26-percent-under-ko"),
+    }
     extra = ({(s["pattern"], s["token"]) for _cid, s in SPELLINGS}
              - in_files - reviewer_found - reachability - booth_kit_contents
              - dispatch_exclusion_reason - someone_elses_system
              - stale_self_criticism - measured_shape_of_our_own_sweep
-             - how_our_own_work_was_organised - our_own_output_object)
+             - how_our_own_work_was_organised - our_own_output_object
+             - a_reading_of_our_own_measurement)
     assert extra == set(), (
         "the registry has grown past the families it absorbed. That is allowed, and when "
         "you do it, add the new spelling to this test's expected set and say in "
@@ -752,6 +775,22 @@ def _probe_sentence(pattern: str) -> str:
         r"per[-\s]household\s+(?:evacuation\s+verdict|walk-or-be-rescued)":
             "What comes out is a per-household evacuation verdict, the walking route "
             "that goes with it, and a village-level dispatch list.",
+        # WC-014, dev lap 20260910T0625Z on critic #56's preemption (WFG-215's
+        # minutes-sized half). The English line is docs/oracle_gap.md §4 verbatim at
+        # 9b7d21c, wrapped exactly where the source wrapped it, so the probe reads the
+        # line the checker actually reads: the emphasis markers sit INSIDE the phrase,
+        # which is the WC-013 lesson and the reason for the `(?:\*\*)?` in the pattern.
+        # The Korean line is NOT from the tree — nothing in the tree says this in
+        # Korean — and is written as the sentence a later lap would produce
+        # paraphrasing the finding onto Q36 or the finals screen's limits panel, which
+        # is where this document is cited from. A probe the pattern's own author wrote
+        # is a regression pin and not a generalisation test (`mandela` leakage #4);
+        # this file says so about `reviewer_found`, and it is true of this line too.
+        r"26\s*%\s*(?:\*\*)?\s*under":
+            "the artifact the ratios are 0.74 / 1.02 / 1.05 / 1.05: at 3 h the "
+            "simulation is **26 % under**, not within 2 %. The place disagreement is",
+        r"3\s*시간[^\n]{0,30}?(?:26\s*%|사분의\s*일)\s*(?:정도\s*)?(?:과소|적게|작게|미달)":
+            "3시간 시점에서는 모의가 관측보다 **26 % 과소**입니다.",
         r"walking\s+route\s+per\s+household":
             "| 1 | the **output object** is the contribution — a rescue order and a "
             "walking route per household, with the forecast grid as an intermediate "

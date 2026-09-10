@@ -46,9 +46,18 @@ BAND = (
     "same fire — differing only in the canvas (181x147 -> 181x156). The "
     "agreement is close to mechanical and is a consistency check on the canvas "
     "change, not corroboration. (6) The size agreement is a property of the "
-    "quoted slice, not of the model: across the artifact the area ratios are "
-    "0.74 / 1.02 / 1.05 / 1.05, so at 3 h the simulation is 26 % UNDER. The "
-    "place disagreement is the stable finding; the size agreement is not."
+    "quoted slice, not of the model, AND the other three slices are not readings "
+    "of the model at all, because they are not time-matched: their time_gap_min "
+    "are 153 / 207 / 285 against the quoted 27, and the slices at 180, 360 and "
+    "540 minutes are all graded against the SAME observation (obs_time_min 333). "
+    "So the area-ratio series runs over a CONSTANT observed denominator for three "
+    "of its four terms and measures the matching, not forecast bias. Quote each "
+    "ratio and each IoU with its own og_yeongdeok_t###min_time_gap_min or do not "
+    "quote it. The earlier reading of that series as forecast behaviour is "
+    "WITHDRAWN as WC-014 (docs/auto/withdrawn_claims.json); what stands is the "
+    "PLACE disagreement at the well-matched pair, which a time gap cannot "
+    "manufacture because a longer gap grows the intersection and the union "
+    "together."
 )
 
 FORBIDDEN = [
@@ -102,6 +111,18 @@ SLICE_FIELDS = [
      "how far apart in time this pair of slices is"),
     ("size_ratio", "size_ratio", "ratio",
      "predicted cells / observed cells at this slice"),
+    # WFG-215's registry half, added 2026-09-10. Without this key the observation
+    # a slice was graded against is unwritable, and §4's table can print the gap
+    # but not the thing the gap is a gap TO. That is not a hypothetical: the lap
+    # that added the gap column omitted this column and told the reader the
+    # registry forbade it, which was false — the HEADLINE obs_time_min has been
+    # registered all along and the page already prints it twice. Its own
+    # independent reviewer blocked on exactly that. Registering the per-slice
+    # value removes the argument instead of restating it.
+    ("obs_time_min", "obs_time_min", "minutes",
+     "the observation time this slice was graded against — THREE of the five "
+     "slices share one observation, which is why this key exists per slice and "
+     "not once"),
 ]
 
 

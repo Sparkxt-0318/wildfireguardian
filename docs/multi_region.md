@@ -186,16 +186,59 @@ longer in this table.
 
 ## 3. Two things that do not carry over from the committed run
 
-### 3.1 The 600-minute budget binds
+### 3.1 The 600-minute budget binds — on one arm only
 
 `fa_exceeds_budget` — fire-blind route safe, future-aware router cannot finish
 in time — is **0 for Yeongdeok at 600 minutes**, asserted in
 `tests/test_partition_categories.py`, and it stays 0 on the canonical field. It
 is **2** for Uiseong-Andong and **3** for Uljin-Samcheok.
 
+⚠⚠ **The two arms in that sentence are scored under different time rules, and
+the asymmetry runs in this project's favour.** `classify()` in
+[`scripts/run_real_roads_real_hazard_slope.py`](../scripts/run_real_roads_real_hazard_slope.py)
+passes `time_budget_min=budget` to the future-aware router and passes **no budget
+at all** to `naive_route`, so the fire-blind arm is 「safe」 when it reaches a
+refuge without standing in fire, however long it takes. Read the bucket's own
+name against that: 「fire-blind route safe **but** future-aware over budget」 is
+a comparison in which only one of the two arms can be over budget. This is a
+count that runs **against** this project — the reason it is in the table at all —
+and it is measured with a rule that inflates it.
+
+**Under one rule applied to both arms, the Uiseong-Andong bucket is empty.**
+[`docs/present_perimeter_arm.md`](present_perimeter_arm.md) §2 re-scored that
+region with the 600-minute budget on all three arms and found that the two
+origins in this bucket are exactly the two whose **fire-blind** routes arrive at
+**624.8** and **628.2** minutes — after the budget. Under one rule they are not
+「the forecast lost here」; they are origins **no arm saves**, and the bucket has
+no members. That qualifies a committed, registered, judged value, so **nothing
+here moves it**: `mr_uiseong_fa_exceeds_budget` stays **2** and the decision to
+register the budgeted reading beside it rather than replace it is the author's,
+recorded as **NH-031** (option A, closed 2026-09-06) and carried by `WFG-122`.
+
+**The other two entries have not had the same treatment, and they are not in the
+same position.**
+
+- **Uljin-Samcheok's 3 has not been re-read.** No arm of that region has been
+  re-scored under one rule. The mechanism, and not a word for it: a single rule
+  can only take members **out** of this bucket, so a re-run would return some
+  number from 0 to 3, and nobody has run it. This document does not say which,
+  and does not name 3 as a bound of any kind — that wording is `NH-053` and is
+  the author's to settle.
+- **Yeongdeok's 0 does not need re-reading, and that is an argument about the
+  classifier rather than a measurement.** The bucket's membership test requires
+  the fire-blind route to be **safe**; putting a budget on that arm can only move
+  origins **out** of the bucket (they fall to `naive_unreachable` at the first
+  branch), never in. So tightening the rule cannot raise 0. It could not be
+  re-measured directly in any case — the OSM walk network behind the 459-series
+  was overwritten on 2026-07-24
+  ([`docs/DATA_LOSS_2026-07-24.md`](DATA_LOSS_2026-07-24.md)) — but the
+  monotonicity settles it without the re-run.
+
 So the three-way split no longer accounts for every origin outside Yeongdeok.
 The column is in the table above for that reason; dropping it would make
-`both_safe + FA-only + no_safe_route` fail to sum to N without saying why.
+`both_safe + FA-only + no_safe_route` fail to sum to N without saying why. What
+it does **not** license is reading those two counts as places where a forecast
+was tried and lost.
 
 ### 3.2 Slope moves the counts
 

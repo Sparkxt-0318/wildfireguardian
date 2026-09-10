@@ -3,7 +3,10 @@
 **Row:** WFG-125 · **Method proposed by:** the loop (four consecutive critic laps
 wrote the objection; critic #50 promoted the row to first position)
 **Artifact:** `data/processed/oracle_gap_yeongdeok.json`
-**Script:** `scripts/measure_oracle_gap.py` · **Registry:** `og_yeongdeok_*` (10 keys)
+**Script:** `scripts/measure_oracle_gap.py` · **Registry:** the `og_yeongdeok_*` prefix
+of `docs/NUMBERS.json` — count it there rather than here. This line said 「10 keys」
+until 2026-09-10 and the prefix had held 25 since the per-slice band was registered;
+a key count written into prose goes stale the next time the registrar grows.
 
 ---
 
@@ -104,14 +107,60 @@ on *which* cells, and on nothing at all about how many.
 selection rule (exclude the shared seed at `t = 0`, then take the smallest time
 gap) is fixed in the script and pinned by a test, and it does **not** pick the
 IoU maximum — `t = 540` and `t = 720` both score higher than the quoted 0.394.
-But it does land on the slice where the area ratio is best. Across the artifact
-the ratios are 0.74 / 1.02 / 1.05 / 1.05: at 3 h the simulation is **26 % under**,
-not within 2 %. The place disagreement is the stable finding; the size agreement
-is not.
+But it does land on the slice where the area ratio is best.
+
+⚠⚠ **And the other three slices are not readings of the model, because they are
+not time-matched. Every ratio and every IoU below is printed with the gap it was
+scored across, because without that column the series reads as forecast bias when
+most of it is the matching.**
+
+| forecast time | observation it was graded against | `time_gap_min` | predicted / observed area | IoU |
+|---:|---:|---:|---:|---:|
+| 180 min | **333 min** | **153** | 0.7385 | 0.3586 |
+| 360 min | **333 min** | **27** | 1.016 | 0.3941 |
+| 540 min | **333 min** | **207** | 1.047 | 0.3949 |
+| 720 min | **1005 min** | **285** | 1.0496 | 0.3981 |
+
+**Three of the four slices — 180, 360 and 540 minutes — are scored against the
+same observation**, the 333-minute one the headline pair uses; only `t = 720`
+matches a later one. So the denominator is one constant footprint across three of
+the four rows,
+and the ratio series 0.74 / 1.02 / 1.05 is a growing simulated area over a fixed
+observed area, not three independent readings of the model.
+
+That changes what the first row means, and an earlier draft of this document read
+it the other way — as a statement about the forecast's size bias at three hours.
+It is withdrawn as `WC-014`, and the sentence it was is in
+`docs/auto/withdrawn_claims.json` rather than here. At `t = 180` the forecast is
+compared with a footprint **153 minutes later than the forecast time**, on a fire
+that was still growing, so the simulated area is smaller than the thing it is
+measured against largely because that thing had 153 more minutes to burn. The
+honest statement is narrower: **the size agreement at the 27-minute pair is not
+evidence of size agreement anywhere else, and the three badly-matched slices are
+evidence about the matching, not about the model.** The place disagreement remains
+the stable finding — it is the one quantity in this table a time gap cannot
+manufacture, because a longer gap grows the intersection and the union together.
+
+Every number in that table is a registry key:
+`og_yeongdeok_t###min_time_gap_min`, `_size_ratio`, `_iou` and — new in the same
+lap that added the column — `_obs_time_min`. **The observation column exists
+because the first draft of this section left it out and told the reader the
+registry forbade it.** That was false twice over: the headline
+`og_yeongdeok_obs_time_min` has been registered since this document was written
+and §4's own result table above prints it, and the withheld column is precisely
+the evidence for the claim this section makes. The lap's independent reviewer
+blocked on it, the five per-slice keys were registered through
+`scripts/register_oracle_gap.py` rather than argued about, and that closes
+`WFG-215`'s registry half. The general form of the mistake is worth more than the
+correction: **invoking a rule to license an omission is worse than writing a wrong
+number, because the next reader inherits a registry that says no when it says
+yes.**
 
 ### 4b. What the IoU is, and what it is not
 
-The per-slice IoU here (0.36 / 0.39 / 0.39 / 0.40 at 3/6/9/12 h) sits beside the
+The per-slice IoU here (0.36 / 0.39 / 0.39 / 0.40 at 3/6/9/12 h, scored across
+time gaps of **153 / 27 / 207 / 285** minutes and, for the first three, against
+one observation) sits beside the
 **≈ 0.40** figure `docs/MODEL_CARD.md` §「Footprint IoU — honest figure」 already
 reports (0.37 / 0.40 / 0.39 / 0.40, sourced from `yeongdeok_forward_sim.json/drift`).
 
