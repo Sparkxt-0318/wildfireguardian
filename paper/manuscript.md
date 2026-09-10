@@ -262,10 +262,10 @@ earlier version of this project made a claim one of them later removed.
 - **Sweeps rather than defaults** for the parameters carrying the most weight: evacuation-time budget, slope sampling interval, immobile fraction, vehicle cutoff, dispatch delay and forecast-perturbation magnitude.
 
 The registry makes the rest checkable. Each publishable value has an entry in
-`docs/NUMBERS.json` naming its source artifact, its JSON path, the expression that
-re-derives it, its caveat, and the phrasings that misstate it; a gate re-derives every
-entry on every change, scans the prose for retired figures and quantity-name collisions,
-and refuses a document stating a registered quantity with a different value.
+`docs/NUMBERS.json` naming its source artifact, the expression that re-derives it and its
+caveat; most also name the phrasings that misstate it; a gate re-derives every entry on
+every change, scans the prose for retired figures and quantity-name collisions, and refuses
+a document stating a registered quantity with a different value.
 Superseded values are annotated in place, never deleted. A second registry holds the claims
 this project has **withdrawn** — what each asserted, what retired it, what should be said
 instead, and the spellings that restate it — and every gated document is read against it,
@@ -844,9 +844,9 @@ coincidence, and it is the part of this work that transfers.
 The code, committed artifacts, evidence registry and this manuscript are at
 https://github.com/Sparkxt-0318/wildfireguardian. Raw geospatial inputs are public and
 are re-acquired by the scripts in `scripts/`; the repository distributes no raw data.
-Every measured number is registered in `docs/NUMBERS.json` and re-derived from its artifact
-by `make verify` (Section 3.5); externally sourced figures are attributed in place with
-agency, date and scope.
+Almost every measured number is registered in `docs/NUMBERS.json` and re-derived from its
+artifact by `make verify` (Section 3.5); externally sourced figures are attributed in place
+with agency, date and scope.
 `references.bib` marks each work known only from a catalogue record.
 Figures are regenerated from committed artifacts by `paper/make_figures.py` and none was
 edited by hand. Authorship and the disclosure of agent-assisted drafting are recorded in

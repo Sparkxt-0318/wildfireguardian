@@ -779,6 +779,83 @@ direction, which is unrepeatable; the compressible stock is untouched and still 
 and 8,997 is **497 words over CHARTER §12's target of 8,500** — the margin is against the
 hard fail, not the target. **NH-037 is the answer and it is still open.**
 
+⚠⚠ **Lap 28 is the one where the routine's own instrument-completeness sentence was false in two
+of its five conjuncts, the lap found one, its independent reviewer BLOCKED the push over the
+other — in the very sentence the lap had just repaired — and the cause was a defective measurement
+rather than an oversight. Read `GAPS.md`'s lap-28 section before this paragraph.** 8,998 words,
+margin **3 → 2** over three corrections; nothing was compressed and no caveat or registered number
+was traded.
+
+§3.5 had been saying that each publishable value's registry entry names five things — source
+artifact, **JSON path**, re-derivation expression, caveat, **and the phrasings that misstate it**.
+Re-derived in this clone: of **453** entries, `source_file`, `derivation` and `caveat` are
+non-empty on **453 / 453**; `json_path` is non-empty on **449 / 453** (`null` on
+`hazard_npz_sha256`, `armn_noise_pooled_delta`, `armn_far_band_delta_vs_a` and
+`optpoint_zero_truepositive_fold_tally`); `forbidden_phrasings` is non-empty on **289** (present on
+312, empty on 23 of those), so **164 entries name no misstating phrasing at all**. The sentence now
+names the three universal conjuncts and hedges the fifth — 「…naming its source artifact, the
+expression that re-derives it and its caveat; **most also name the phrasings that misstate it**」 —
+with the JSON-path conjunct **deleted rather than qualified**.
+
+⚠⚠ **The block, and the mechanism under it.** The lap's first count tested each field with
+`str(v.get(f, '')).strip()`, and **`str(None)` is the truthy four-character string `'None'`** — so
+every `null` field counted as populated and the method reported `453/453` for a field that is
+`449/453`. **It was wrong in the direction that makes a universal look true**, inside a lap whose
+whole subject is a completeness claim, and it reached both ledger files before the reviewer
+re-derived it in one command. The corrected predicate is `v is not None and str(v).strip() != ''`.
+Nothing here re-derives these counts on a later run, so this file records the predicate as well as
+the number.
+
+⚠ **Why the repair is a deletion.** Hedging in place was costed rather than guessed: 「almost always
+its JSON path」 is +2 against a margin of 1 (9,001, over the hard fail), and 「usually its JSON path」
+fits at exactly 9,000 but understates 99.1 % badly enough to be its own small falsehood. Deleting a
+false clause is the one source of headroom CHARTER §12 permits, and what goes is a locating detail
+the two surviving conjuncts already carry between them.
+
+⚠⚠ **The lap's second correction, found before the reviewer answered: the availability section
+stated a universal that a caption in the same document disproves.** 「Data and code availability」
+read 「**Every** measured number is registered in `docs/NUMBERS.json` and re-derived from its
+artifact by `make verify`」, while F6's caption says the dilation and translation axes and the
+Monte-Carlo figure quoted in §4.6 come from `forecast_robustness.json` and
+`dilation_perturbation.json`, 「**which do not yet carry registry keys of their own**」. Re-derived
+against the registry: **zero** of 453 entries name either artifact, and no entry carries the value
+125, 530 or 0.86, all of which §4.6 prints. **This is not a practice failure** — CHARTER §12's own
+rule is 「a `docs/NUMBERS.json` value **or a committed artifact value**」 and the caption is that
+second class declared exactly as required; what was wrong is the availability section's summary of
+the rule. It now reads 「**Almost** every measured number is registered…」, at a measured +1.
+
+⛔ **And here the budget chose the form of a MANDATORY correction, which is new in this record.**
+Both fuller forms were **built and read off the counter rather than costed in prose**: naming both
+classes the way CHARTER §12 does gives `body_words` **9,006**, six over the hard fail; the cheaper
+variant that keeps the hedge and adds only where the exceptions are — 「…(Section 3.5), the rest
+flagged where used」 — gives **9,003**, three over. Both were reverted. ⚠ Laps 13 and 15 gave the
+failure mode as 「a lap under this budget will write a wrong sentence before it writes a long one」;
+**this is its milder cousin — a lap under this budget writes the weaker of two true sentences** —
+and it is the first time the proxy has shaped a correction the manuscript could not decline. The
+shipped sentence is nonetheless **true**, and the class it does not name is named in the document
+on the numbers themselves.
+
+⛔ **What was declined is the enforcement half of the phrasings finding, and it is small.** §3.5
+attributes no enforcement to that field: it names the field among what an entry carries, then lists
+what a gate does, and the phrasings are in neither list. So the corrected sentence is true and
+complete about what it claims, and **the manuscript is not false without the enforcement gap**
+(`WFG-232`: the field is scanned against exactly two documents and `make verify` reads it nowhere).
+One more *optional* true sentence declined, at about 20 words. **Laps 13 through 21, 24, 25 and now
+28 have all had their writing shaped by the proxy rather than by the evidence. NH-037 is the answer
+and it is still open.**
+
+✅ **The anchor was re-derived, not inherited, three times.** `body_words` moved at each of the
+three corrections, so the previous lap's `built_pages_inputs` turned the gate red exactly as
+designed. After the one `apt` line below, `check_paper.py` took its measuring branch — **`pages 23,
+calibri_face Carlito, metrics_ok true`** — printing `6b0702d747ed5beb` at 8,998, then
+`61b8ee7cf0f331f8` at 8,999, then `6b0702d747ed5beb` again when the block took the document back to
+8,998. **Only the final run's value is recorded.** The repeats are the digest working: its only
+inputs are the ordered figure list with pixel sizes, the table count, the reference count and
+`body_words`. **Two pages against the author's 25, two words against the proxy's 9,000, measured on
+one document by one run.** ⚠ **A margin of 2 is not headroom** — it exists only because a false
+clause was deleted, which is unrepeatable — and 8,998 is **498 words over CHARTER §12's target of
+8,500**: the margin is against the hard fail, not the target.
+
 ⚠ **The page that took the count from 22 to 23 cost eleven words, and it is worth
 knowing that before reading the words-to-pages table below as a rate.** Lap 11
 took the body 8,735 → 8,825 (a mandatory §4.5 correction, one clause, and the
