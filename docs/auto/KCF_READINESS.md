@@ -5,10 +5,16 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
-**Tick count, critic #58, 2026-09-10T1120Z at `d3ca754`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
+**Tick count, critic #60, 2026-09-10T1657Z at `71e95ee`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
 R3, R11 and R12 are the three that do not tick; R10 was withdrawn 2026-09-04.** ⚠⚠ **ZERO lines ticked, for
-the FIFTEENTH consecutive critic lap.** The count has stood at 8 since critic #43 ticked R8 at
+the SEVENTEENTH consecutive critic lap.** The count has stood at 8 since critic #43 ticked R8 at
 2026-09-08T1429Z, and **the sprint ends 2026-09-15**.
+
+⚠ **This lead was one lap stale when critic #60 read it, and that is WFG-238.** It said 「critic #58 ...
+FIFTEENTH」 while this file's own newest section, then at `:1841`, said 「critic #59 ... SIXTEENTH」.
+Critic #59 appended its section and left the lead alone, which is the WFG-107 shape critic #58 had named
+one lap earlier at `:12-16`. Nothing binds the two together; WFG-238 (P1, held by CHARTER §14b behind R3)
+is the gate that would.
 
 **Critic #58's re-read, 2026-09-10T1120Z at `d3ca754`. Counted from the checklist table at
 `:1825-1836` (its line numbers AFTER this lap's own append, which is why they are quoted with that
@@ -1894,3 +1900,58 @@ a line **edits the status cell in place at those lines**; a lap that only report
 **This note expires at the next critic lap unless that lap re-states it after re-checking the line numbers.**
 It does not freeze the file, the table's contents, or any readiness question.
 
+
+## 2026-09-10T1657Z · critic #60 · ZERO lines ticked, the SEVENTEENTH consecutive critic lap
+
+Read at `71e95ee`, window 2026-09-09T16:20Z to 2026-09-10T16:44Z (61 commits, 46 pushed heads). Counted
+from the checklist table itself rather than inherited: **its rows R1 to R12 are at `:1832-1843`** at this
+head (the six lines this lap added to the page's lead moved them down by six from the `:1826-1837` critic
+#59 correctly measured at `3867860`; header `:1830`, rule `:1831`). Ticked: R1, R2, R4, R5, R6, R7, R8, R9.
+Unticked: R3, R11, R12. R10 struck through 2026-09-04.
+
+- **R1 holds, both halves re-measured.** `web/finals.html` is offline by gate in the green
+  `gates.py --mode full` run at this head (**2041 passed**, 64 skipped, 3 xfailed, pytest 315.2 s), and its
+  build stamp is `4ab2e07`, **an ancestor of `HEAD` by 5 commits** against
+  `tests/test_finals_screen.py`'s 30-commit staleness limit. The ancestry statement is licensed:
+  `--is-shallow-repository` answers **false** and `git rev-list --count HEAD` answers **725** after this lap
+  unshallowed a clone that again arrived at depth **51** (CHARTER §4). R1's other half asks that every
+  on-screen **number** map to a registry key, and **WFG-228 put no number on the screen**: the disc null
+  reached `docs/disc_null.md` and `docs/oracle_gap.md` §4c only, so R1 is untouched by the window's largest
+  change. That is also why R2 does not move.
+- **R2 holds and is one row away from being worth more.** The screen's 알려진 한계 panel gained nothing this
+  window. The measurement a judge would most want beside the first card, the disc null and the centroid
+  overshoot, is `todo` as **WFG-235** (Q36) and **WFG-237** (the document half); neither is on the screen.
+- **R5 holds, and its two named stale cards from critic #58 are now closed.** Q38 (WFG-226) and Q29
+  (WFG-229) closed at `ba76b8c` with the kit reprinted at `20260910T1233Z`. What replaces them is **not** an
+  untick either: **Q36 · T0 is complete, cites a file, and is now out of date**, because since `b8fd6a8` the
+  repository can answer 「0.394는 무엇에 견준 값입니까?」 and the card cannot. WFG-235 is that row, and this
+  lap corrected it, because the row as filed told the next lap to write **2.536** onto a T0 card while the
+  same day's `docs/disc_null.md:119-120` says 「2.5360 is not quotable without 2.2044 beside it」.
+- **R7 and R9 hold, re-hashed here rather than inherited.** The newest printable is
+  `manifest_20260910T1233Z.json` and its **seven** `sources` hash **7 of 7** against the tree;
+  `release/kcf-finals-2026/MANIFEST.json` hashes **19 of 19**. Both re-computed in this lap's own process.
+  ⚠ Seven of seven means the kit matches the tree, **not** that the tree is current: Q36 is stale inside a
+  kit that hashes clean, which is the same gap critic #58 recorded for Q38.
+- **R8 holds.** Forbidden-string and collision gates are green in the run above. ⚠ This lap files
+  **WFG-236**, which is a `제출 자료` defect on two `docs/` pages rather than on the README, so R8's
+  README half is not touched. The README half of the same question is **NH-055**, the author's.
+- **R3 is still the only unticked line of the six CHARTER §14b needs**, and it is `blocked(NH-046)`.
+  ⚠ **NH-046 is due TODAY, 2026-09-10, and it is NOT past due.** Its heading reads 「(by 2026-09-10)」 at
+  `docs/auto/NEEDS_HUMAN.md:2847` and the entry was never re-dated. Critic #58 and critic #59 both wrote
+  「NH-046 is now two days past due」, here and on `docs/auto/DIRECTION.md`; corrected rather than repeated,
+  and recorded as a fresh instance of **WFG-107**. Five days of sprint remain. R11's row WFG-024 stays shut
+  behind R3. R12 is the author's (NH-014). Appended to NH-046 on previous laps; not filed again.
+
+⚠ **The one `Do NOT edit` note this lap writes, and it is line-scoped and re-measured (CHARTER §14c,
+NH-036 A).** **Do not write a byte into `docs/auto/JUDGE_QA.md` without `make printables` at a new stamp and
+a re-pointed `release/kcf-finals-2026/MANIFEST.json`.** The measurement behind it, taken in this lap's own
+process at `71e95ee`: the newest manifest `docs/auto/finals/printables/manifest_20260910T1233Z.json` lists
+seven `sources` and all **seven** hash equal to the tree, `docs/auto/JUDGE_QA.md` among them
+(sha256 `df826a4cec52…`, first twelve characters; the full digest is in the manifest and is not restated here, because it contains a three-digit substring the retired-claim scanner reads as a count), so the first changed byte turns
+`tests/test_printables.py::test_the_newest_printable_is_not_stale_against_the_tree` red. **This note covers
+that one file and expires at the next critic lap unless that lap re-measures the seven hashes and re-states
+it.** It freezes no other file and no question: WFG-235 and WFG-237 are expected to edit the bank, paying
+the rebuild, and this note is the price tag rather than a prohibition on the work.
+
+⚠ **No `Do NOT edit` note is written on `docs/oracle_gap.md`, `docs/disc_null.md` or `docs/MODEL_CARD.md`
+by this lap.** WFG-233, WFG-236 and WFG-237 must all edit them, and a freeze would block three P0 rows.

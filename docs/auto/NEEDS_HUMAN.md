@@ -3439,3 +3439,62 @@ is the record of why, and `docs/auto/DIRECTION.md` carries the same prohibition.
 `docs/auto/RUBRIC.md` Track A 개발 목적 and Track B 연구 목적, and `docs/oracle_gap.md` §7, which is
 where the third qualification sends the reader.
 
+## NH-055 · DECISION · open · Your front door compares the headline forecast number to a model the same page calls broken, and today the loop measured a second, harsher comparison it is not allowed to put beside it (by 2026-09-13)
+
+**Severity: MEDIUM.** Nothing here is false and no gate is red. Both comparisons are honestly
+sourced. What no lap may decide is which of them a judge should meet first, because changing that
+changes what the project's headline forecast number means.
+
+**What I measured, at `71e95ee`, and where.** `README.md:520-522` (Korean) and `README.md:888-891`
+(English) both give the forward-simulated footprint IoU as **≈ 0.40** for 영덕 over 3 to 12 hours and
+then compare it: 「물리(Rothermel) 표면 모델 **~0.09** 대비 약 **4배**」, 「roughly **4×** the
+Rothermel surface model's **~0.09**」, with the reading 「표면물리가 놓치는 수관화·비화(crown/spotting)
+영역을 포착합니다」. Its source is `docs/ROUTING_INTEGRATION_REPORT.md:183`. That comparison has stood
+on the front door for months.
+
+**What landed today, on the same measurement family.** `docs/disc_null.md` (WFG-228, `b8fd6a8`) scored
+the same forward simulation against a zero-parameter, area-matched disc and, after its independent
+reviewer found that both masks inherit the fire's 249-cell first frame, published the corrected pair:
+model **0.2577**, disc **0.1169**, ratio **2.2044**. `docs/disc_null.md` §4 adds that **by centre of
+mass the disc is closer to the observed footprint than the model is**
+<!-- collision-ok: 5.340 — dn_yeongdeok_model_to_observed_cells, which is a DIFFERENT quantity from dn_yeongdeok_disc_to_observed_cells (2.266); the next line names both because the comparison is the point -->
+(model 5.340 cells from truth, disc 2.266), because the model **overshoots**: it sends the fire **3,646 m** where the fire moved
+**1,125 m**.
+
+**Why the pair cannot be left as it is, and why the fix is not the loop's to pick.** The two readings
+sit on different pages, neither names the other, and they land on a judge in opposite directions.
+「약 4배」 reads as a strength. 「2.2배, and the circle placed it better」 reads as a limit. And the
+README's own TL;DR describes the ~0.09 comparator as 「an earlier Rothermel-based *physics* model
+captured only ~9 % of the burned area (a documented moisture-conflation bug), which **motivated the
+pivot**」, so the front door's comparison is against a model the same page says was broken. An
+ML-reviewer judge who notices that asks why the winning margin is quoted against a known-defective
+opponent, and the honest answer is now in the repository but not on the page.
+
+⚠ **Nothing is proposed to be deleted, softened or withdrawn under any option below.** The ~0.09
+figure is real, its source is cited, and the 2025-fire opening paragraph is untouched in all four.
+
+**Options:** A) **Leave `README.md` exactly as it is** and have the loop reconcile the two only where
+they live (WFG-236 does this: it repairs the two sentences that wrongly claim no comparison existed
+and cross-links the Rothermel figure). B) **Add the disc-null ratio beside the 4× on the README**, one
+clause, so the front door carries both comparisons in one place: 「~0.09 대비 약 4배, 무매개변수 원형
+귀무모형 대비 약 2.2배」. C) **Keep 4× but attach the bug**, one clause saying the ~0.09 comparator is
+the superseded physics model with the documented moisture-conflation bug, which the TL;DR already says
+40 lines above. D) **Drop the 「약 4배」 clause from the README's IoU bullet** and let
+`docs/disc_null.md` be the only place a comparison is made, since it is the only one with a
+pre-registered rule.
+
+**Reply with:** `NH-055: A` (or B / C / D, or a sentence).
+
+**My reading, offered and not applied: C, then A.** C is one clause, changes no number, deletes
+nothing, and removes the only part of the claim a judge could call unfair, all inside the sentence
+that already exists. B is the most informative but it puts two ratios measured against two different
+opponents in one breath, which is how 「약 4배」 became detached from its own caveat in the first place.
+D loses a real result. A is what happens if you do not answer and it is not a bad outcome.
+
+**What a lap will do until you answer.** WFG-236 (P0) repairs the two false sentences in
+`docs/disc_null.md` and `docs/oracle_gap.md` and adds the cross-reference; **no lap edits
+`README.md`'s IoU bullet**, and `docs/auto/DIRECTION.md` carries the same prohibition.
+
+**Related.** NH-054 (`open`, the caveat ratio in the TL;DR's other headline bullet), WFG-236, WFG-237
+(the centroid magnitude, the document half), WFG-235 (the Q36 card half), WFG-234 (`P1`, the
+persistence null that would be a fair opponent), CHARTER §3.5 and §14b.
