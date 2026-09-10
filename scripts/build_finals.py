@@ -647,6 +647,37 @@ def registry_slice() -> dict:
     return out
 
 
+def timeline_phases() -> dict:
+    """The five development phases, read from the committed artifact (WFG-218).
+
+    The screen names the phases; it does **not** carry any of the document's
+    totals (commits, active days, the first/last commit dates). Those grow with
+    every lap, and a total copied onto a generated screen goes stale between
+    builds in exactly the way `docs/auto/finals/TIMELINE_ROLES.md` §3.4 argues
+    against. The card links the document and lets it carry its own counts.
+
+    ⚠ The as-of stamp is ``last_commit_date`` and NOT the artifact's ``ref`` field.
+    ``ref`` is the literal string ``HEAD`` — `scripts/build_timeline_roles.py`
+    writes what it was pointed at, not what it resolved to — so a card printing
+    「ref HEAD」 would be a stamp-shaped thing that stamps nothing. The lap's
+    independent reviewer caught that; the honest stamp is the date of the last
+    commit the artifact counted, which the artifact does record.
+    """
+    art = json.loads((REPO / "data" / "processed" / "timeline_roles" /
+                      "timeline_roles.json").read_text(encoding="utf-8"))
+    return {
+        "doc": "docs/auto/finals/TIMELINE_ROLES.md",
+        "artifact": "data/processed/timeline_roles/timeline_roles.json",
+        "builder": "scripts/build_timeline_roles.py",
+        "counted_through": art["last_commit_date"],
+        "phases": [{"name": _dash_safe(p["name_ko"]),
+                    "start": p["start"],
+                    "end": p["end"],
+                    "open": bool(p.get("end_is_open"))}
+                   for p in art["phases"]],
+    }
+
+
 def model_evidence() -> dict:
     """The three committed evidence artifacts (not registry entries)."""
     lofo = json.loads((REPO / "data" / "processed" / "spread_v2_lofo.json")
@@ -855,6 +886,7 @@ def main() -> int:
         "registry": registry_slice(),
         "model": model_evidence(),
         "ev2": evidence_v2(),
+        "timeline": timeline_phases(),
         "integrity": {
             "verified": bool(gates),
             "gates": gates,

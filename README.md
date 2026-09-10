@@ -62,6 +62,13 @@
   preserved below in **[Research log / superseded approaches](#research-log--superseded-approaches-physics-model)**
   — it is no longer the current state.
 
+- **개발 일정과 역할**: 이 저장소의 개발은 **다섯 구간**으로 나뉘어 있고, 각 구간의
+  기간·커밋 수·활동일 수와 1인 참가자의 역할 서술은
+  [`docs/auto/finals/TIMELINE_ROLES.md`](docs/auto/finals/TIMELINE_ROLES.md) 가 스스로
+  적습니다(그 문서가 자기 기준 시각을 함께 적으므로 여기에 옮겨 적지 않습니다).
+  ⚠ **계획서가 아니라 기록입니다** — 미리 세운 일정이 아니라 끝난 뒤 `git log` 에서
+  되짚어 만든 것이고, 그 점이 이 문서의 강점이자 한계입니다.
+
 > **Canonical source of truth for every number below:** [`docs/MODEL_CARD.md`](docs/MODEL_CARD.md)
 > and [`data/processed/spread_v2_lofo.json`](data/processed/spread_v2_lofo.json).
 > No model code, results, or numbers were changed to write this README.
@@ -379,6 +386,12 @@ fire-blind 대비가 예보의 공으로 돌리던 것의 **대부분을, 모델
   않는 이유가 그것입니다.)
 - **질의응답 은행** — [`docs/auto/JUDGE_QA.md`](docs/auto/JUDGE_QA.md). 각 답변은
   파일을 가리키고, 카드마다 **「없는 것」** 을 함께 적습니다.
+- **개발 일정과 역할** — [`docs/auto/finals/TIMELINE_ROLES.md`](docs/auto/finals/TIMELINE_ROLES.md).
+  **1기 · 착수와 물리 모델**, **2기 · 1차 정리와 Round 2 제출**, **3기 · Round 3 개발**,
+  **4기 · 세션 기록 정리와 재현성**, **5기 · 자율 루프 스프린트** 의 다섯 구간이고, 모든
+  날짜와 수는 저장소의 산출물 `data/processed/timeline_roles/timeline_roles.json` 에서 다시
+  세어지며 `tests/test_timeline_roles.py` 가 문서와 산출물을 대조합니다. ⚠ 미리 세운
+  계획서가 아니라 사후에 만든 기록이고, 구간 사이의 빈칸(학기와 시험)도 그대로 둡니다.
 - **깨끗한 복제본에서의 재검** — 매 push 마다 GitHub Actions 가 같은 게이트를
   빈 리눅스 머신에서 다시 돌립니다(`.github/workflows/auto-gates.yml`). 이
   저장소의 수치는 **이 노트북에서만 맞는 수치가 아닙니다.**

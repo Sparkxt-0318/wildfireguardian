@@ -2894,3 +2894,45 @@ segment's rate did not move. The bound that could not be compressed went into a 
 which the pace counter does not read, phrased as the answer to the question that would
 draw it out. A lap that must change spoken prose checks the syllable count before it
 reaches for the re-measure procedure.
+
+## 2026-09-10T0317Z — a token list is not a claim, and the lap that had just read that lesson wrote it again
+
+`tests/test_output_object_claim_bounds.py` carries a ⚠ block called THE POLARITY
+ANCHOR, written one lap earlier, whose whole content is that four token-presence
+assertions passed a block asserting the **opposite** of what they were written to
+protect. This lap read that file (it turned red on the first draft of a README
+bullet), then wrote two new gates of exactly the same shape: `haz_stack` present,
+`obs_stack` present, 채점 present, `docs/oracle_gap.md` cited, card first in the
+grid. The independent reviewer kept every one of those tokens, replaced the body
+with 「채점은 obs_stack 으로 합니다」 — the inverse of the section it cites — and got
+**six passed in under a second** on a screen now telling five judges the opposite
+of this repository's own finding.
+
+**The rule the loop did not have: a gate over prose asserts a DIRECTION, or it
+asserts nothing.** Two patterns, not one: the claim in its own words, and the
+inverse refused outright, because the way this defect actually travels is somebody
+「tidying」 a sentence in good faith. `_DENIES` in the older file is the model and
+the newer files now copy it.
+
+**And its twin, from the same block.** The reviewer's second mutation gutted the
+screen's schedule card — dropped the rendered phase list and the caveat, left
+`void DATA.timeline;` behind — while the **payload** still carried all five
+phases. Every assertion passed, because they read the payload. **A payload nobody
+renders is not a surface.** A gate on a generated screen reads the card, on the
+built file and not only on its template: `test_finals_template_sync.py` asserts
+the two AGREE, never what they SAY, so a mutation applied identically to both is
+invisible to it.
+
+**Third, small, and it cost a rebuild.** An assertion that a count is data-driven
+(`'TL.phases.length' in card`) is satisfied by the headline while the prose beside
+it says 「다섯 구간」. The numeral itself has to be refused, not just its
+alternative required — measured here as mutation M9, which stayed green until it
+was.
+
+**Fourth, and it is a procedure note the MEMO already held.** The 2026-09-09 entry
+says a reviewer block that touches the finals template un-does the lap's commits,
+because `make finals` stamps `HEAD` and the stamp must already be on `origin`.
+That is exactly what happened; the entry was read and followed rather than
+rediscovered, at the cost of one `git reset --soft` back to the claim commit. It
+is the first time that note paid for itself, which is the argument for writing
+procedure notes at all.
