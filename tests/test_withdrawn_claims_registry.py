@@ -439,11 +439,36 @@ def test_the_registry_holds_nothing_the_families_do_not():
         (r"실제로\s*비어\s*있는\s*달력\s*간격",
          "wc012-the-gaps-are-the-boundaries-ko"),
     }
+    #: WC-013, dev lap 20260910T0017Z / WFG-222. The first entry that withdraws a claim
+    #: this project makes about ITS OWN OUTPUT OBJECT, and the first registered from a
+    #: claim that had ALREADY been withdrawn once, on one surface, without being
+    #: registered: WFG-212's reviewer broke the Round-4 lead on the conjunction at 2206Z
+    #: on 2026-09-09 and that lap fixed `README.md` alone, leaving the identical wording
+    #: on the finals screen, on a T0 card the student speaks from memory, on the booth
+    #: script and in the printed kit. Two halves. The REGISTER — the committed instances
+    #: start from `origins: sampled candidates`, not households, and `docs/auto/JUDGE_QA.md`
+    #: Q20a's honest definition of 「가구」 as one walk-graph node is two hundred lines from
+    #: every surface that used the word. And the CONJUNCTION, which has no spelling and is
+    #: therefore held by `tests/test_output_object_claim_bounds.py` instead: item ① beside
+    #: item ② reads as 「real roads + real fire → these sheets」, and that run does not exist.
+    #: ⚠ Each pattern is anchored on 「가구 단위」 PLUS the output-object phrase, never on the
+    #: bare term, which is legitimate three times in the same bank (Q20a's definition,
+    #: Q16's quantity, Q16a's sentence about other systems' published material).
+    #: ⚠⚠ Registering it found THREE copies no list named — two knowledge notes and a
+    #: research weekly — which is the §3.5c argument for the fourth time.
+    our_own_output_object = {
+        (r"가구\s*단위(?:의)?\s*(?:\*\*)?\s*(?:「?걸어서\s*나갈|대피\s*판정|구조\s*순서|판정과\s*걸어)",
+         "wc013-output-object-is-per-household-ko"),
+        (r"per[-\s]household\s+(?:evacuation\s+verdict|walk-or-be-rescued)",
+         "wc013-output-object-is-per-household-en"),
+        (r"walking\s+route\s+per\s+household",
+         "wc013-a-walking-route-per-household-en"),
+    }
     extra = ({(s["pattern"], s["token"]) for _cid, s in SPELLINGS}
              - in_files - reviewer_found - reachability - booth_kit_contents
              - dispatch_exclusion_reason - someone_elses_system
              - stale_self_criticism - measured_shape_of_our_own_sweep
-             - how_our_own_work_was_organised)
+             - how_our_own_work_was_organised - our_own_output_object)
     assert extra == set(), (
         "the registry has grown past the families it absorbed. That is allowed, and when "
         "you do it, add the new spelling to this test's expected set and say in "
@@ -718,6 +743,19 @@ def _probe_sentence(pattern: str) -> str:
             "구간으로 나뉘어 개발되었고, 각 구간의 경계는 제가 정한 것이 아니라 커밋 기록에",
         r"실제로\s*비어\s*있는\s*달력\s*간격":
             "실제로 비어 있는 달력 간격입니다.**",
+        # WC-013, all three lifted from the surfaces that carried them at 3eec471: the
+        # front door's §5 item ①, the finals screen's CREATIVE[0] in both languages, and
+        # docs/creativity_card.md's method table row that is printed in the booth kit.
+        r"가구\s*단위(?:의)?\s*(?:\*\*)?\s*(?:「?걸어서\s*나갈|대피\s*판정|구조\s*순서|판정과\s*걸어)":
+            "이 시스템이 내놓는 것은 **가구 단위의 「걸어서 나갈 수 있는가 / 구조를 "
+            "보내야 하는가」 판정과 그 도보 경로**입니다.",
+        r"per[-\s]household\s+(?:evacuation\s+verdict|walk-or-be-rescued)":
+            "What comes out is a per-household evacuation verdict, the walking route "
+            "that goes with it, and a village-level dispatch list.",
+        r"walking\s+route\s+per\s+household":
+            "| 1 | the **output object** is the contribution — a rescue order and a "
+            "walking route per household, with the forecast grid as an intermediate "
+            "input rather than the deliverable |",
     }
     assert pattern in probes, (
         f"no probe sentence for a newly registered pattern:\n  {pattern}\n"

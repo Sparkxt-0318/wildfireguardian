@@ -441,10 +441,20 @@ def test_the_booth_script_answers_the_creativity_row_out_loud() -> None:
         "on both KCF tables and the 심사기준 names it first; a count of 창의 "
         "or 독창 answered 0 on this file for six days (WFG-194)."
     )
-    assert "가구 단위 판정" in spoken, (
+    assert "지점 단위 판정" in spoken, (
         "the spoken answer no longer says what the output object IS, which is "
         "the whole content of the first item; naming 창의성 without it is the "
-        "keyword and not the claim."
+        "keyword and not the claim. ⚠ The unit word is 지점, not 가구 "
+        "(WFG-222): the committed instances start from sampled walk-network "
+        "coordinates, not from household addresses, and "
+        "tests/test_output_object_claim_bounds.py is what keeps every surface "
+        "saying so."
+    )
+    assert "가구 단위 판정" not in spoken, (
+        "the spoken 도입 says 「가구 단위 판정」 again. WFG-222 replaced it "
+        "because a judge who has not read Q20a's definition hears a household "
+        "register the origins do not support; 지점 단위 is the word, with the "
+        "bound in the ⚠ block below the segment."
     )
 
 

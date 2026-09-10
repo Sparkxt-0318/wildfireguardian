@@ -33,7 +33,7 @@ is new about it*. It answers in three items, each pointing at a committed file:
 
 | item | the claim | the artifact |
 |---|---|---|
-| 1 | the **output object** is the contribution — a rescue order and a walking route per household, with the forecast grid as an intermediate input rather than the deliverable | `outputs/dispatch/README.md` and the committed sheets beside it, e.g. `outputs/dispatch/20260801T163042Z/01-거무역리공원-북쪽/dispatch_a4.html` (an instance of the object); `docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md` §3 (why the choice is not to compete on accuracy) |
+| 1 | the **output object** is the contribution — a rescue order and a walking route **per point** (지점 단위), with the forecast grid as an intermediate input rather than the deliverable. ⚠ In the run that produced the committed instances the **hazard surface and the terrain are synthetic** and the **origins are sampled coordinates**: no dispatch sheet has yet been made on a real spread surface, and a point is not a real household address (§9) | `outputs/dispatch/README.md` and the committed sheets beside it, e.g. `outputs/dispatch/20260801T163042Z/01-거무역리공원-북쪽/dispatch_a4.html` (an instance of the object); `data/processed/rescue_routing.json` → `provenance.sources` (what was real and what was synthetic in that run); `docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md` §3 (why the choice is not to compete on accuracy) |
 | 2 | the run where **both axes are real** at once — real OpenStreetMap walk graph *and* real forward-simulated spread — closing the project's own largest stated limitation | `docs/real_roads_real_hazard.md`, first table, third row |
 | 3 | withdrawn claims are **registered for a machine to read**, not deleted; the check runs inside `make verify` on every lap and every push | `docs/auto/withdrawn_claims.json`, `scripts/check_withdrawn_claims.py`, `docs/withdrawn_claims.md` |
 
@@ -471,9 +471,16 @@ reads tone — which is M8 again, from a third direction.
 
 ### What was wrong
 
+<!-- forbidden-ok: wc013-output-object-is-per-household-en -->
 Item 1 claims the contribution is the **output object** — a per-household
 walk-or-be-rescued verdict, the walking route that goes with it, and the village
-dispatch list. On every surface that answers it, its only anchor was
+dispatch list. ⚠ **2026-09-10 (WFG-222, WC-013): 「per-household」 is quoted here
+as the wording item 1 carried in September 2026 and is now withdrawn** — the unit
+word is **point-level (지점 단위)**; §9 below is the withdrawal. ⚠⚠ And the
+registry did **not** find this line: the phrase wraps across two source lines and
+`scripts/check_withdrawn_claims.py` scans one line at a time, so the pragma above
+is here because a human put it here, not because a gate asked for it (§9's
+「What this does NOT show」). On every surface that answers it, its only anchor was
 `docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md`, a landscape note whose
 subject is the other systems. Two things follow, and the second is the one a
 judge feels:
@@ -577,3 +584,124 @@ only anchor. That is the same residual limit §2 records for the spoken draft,
 one level up, and the cold read is still what catches it. The assertions bind
 the **anchor**, not the wording: a surface may describe the object however it
 likes, and nothing here reads whether the description is true of the sheet.
+
+---
+
+## 9. The wording (WFG-222, 2026-09-10)
+
+*Method proposed by the loop (critic #54), not by the student (CHARTER §9).*
+
+**§8 ends with a sentence that predicts this section:** 「The assertions bind the
+**anchor**, not the wording: a surface may describe the object however it likes,
+and nothing here reads whether the description is true of the sheet.」 It was
+written on 2026-09-09 as a residual limit. It was already a live defect on five
+surfaces when it was written.
+
+### What was wrong
+
+On 2026-09-09 at 2206Z the independent reviewer of WFG-212 broke the Round-4 lead
+block of `README.md` on a **conjunction**: two artifacts named side by side assert
+their conjunction, and the conjunction was false. The committed dispatch documents
+come from the rescue-routing pipeline, whose `provenance.sources` reads
+`walk_network: osm`, `drive_network: osm`, `shelters: osm`, `depots: osm`, but
+**`hazard: synthetic`**, **`terrain: synthetic`**, **`origins: sampled candidates`**.
+The run where the walking graph and the spread surface are *both* real is a different
+execution and it produces four-way verdicts, not dispatch documents. That lap fixed
+`README.md:212-251` and shipped.
+
+It fixed **one** surface. Measured by critic #54 at `3eec471` and re-measured by this
+lap at `49ac16e`, the identical claim in the identical words stood on five more:
+
+⚠ **The withdrawn wordings are described here and not transcribed.** This file is one of
+the seven sources of the printed booth kit, and the WC-005 / WC-007 precedent
+(`docs/withdrawn_claims.md` §5f) is that a correction note on a printed page explains the
+sentence rather than reprinting it — otherwise the kit carries the withdrawn sentence in
+the same weight of type as the correction. The exact spellings are in
+`docs/auto/withdrawn_claims.json` under `WC-013`, where a machine reads them.
+
+| surface | what it carried | bound |
+|---|---|---|
+| `README.md` §5 item ① | the household register, plus 「그 산출물의 실물이 저장소에 커밋돼 있습니다」 | none, 180 lines below the block that denies it, **in the same file** |
+| `web/finals.html` + `scripts/finals.template.html` | the same, in Korean **and** English | none |
+| `docs/auto/JUDGE_QA.md` Q29a (**T0**, spoken from memory) | the same, as the rescue ordering that follows the forecast grid | 행정리 only |
+| `docs/auto/DEMO_SCRIPT_5MIN.md` 도입 | the same, in the sentence the student speaks in the first 37 seconds | none |
+| `docs/creativity_card.md` §2 table row 1 | the same, in English, printed in the booth kit | none |
+
+Two things are wrong and they are not the same size. The **register**: the committed
+instances do not start from households, and `docs/auto/JUDGE_QA.md` Q20a's honest
+definition of 「가구」 as one node of the OSM walking graph sits two hundred lines from
+every surface that used the word. The **conjunction**, which is the larger half: on
+three of the five, item ① sits immediately beside item ② 「두 축이 동시에 실제인 실행」,
+so a judge reading them in order reads 「real roads + real fire → these committed
+sheets」.
+
+### What shipped
+
+Every block that asserts the committed instances exist now carries, **in that same
+block**, what was synthetic in the run that produced them and that the origins were
+sampled — 지점 단위 rather than 가구 단위, and 「실제 확산면으로 만든 출동 지시서는
+아직 없습니다」. Six surfaces, not the five the row named: `docs/auto/finals/RELATED_WORK_PANEL.md`
+carried the same sentence about this project's own output and no list had it.
+
+Two things were **added** rather than swapped, because a word swap alone would have
+left the conjunction standing:
+
+* `docs/auto/JUDGE_QA.md` Q29a gains a 없는 것 item, placed **first**, that tells the
+  student not to read items ① and ② as one sentence and gives the answer to the
+  question critic #54's judge drill found unanswerable anywhere but the README —
+  「이 출동 지시서, 진짜 불로 만든 겁니까?」 The answer is 「아직 아닙니다」.
+* `docs/auto/DEMO_SCRIPT_5MIN.md` takes the bound in a ⚠ block rather than in the
+  spoken line, and that is deliberate: §1's syllable budget is measured
+  (`tests/test_demo_script_pace.py`), one added sentence moves the segment off the
+  document's single rate, and 가구 → 지점 is the same two syllables. The student says
+  the corrected word inside the same 37 seconds and answers the rest if asked.
+
+### The gate, and what makes it different from the one it replaces
+
+`tests/test_output_object_claim_bounds.py` holds a **structural** property over six
+declared blocks: a block that says committed instances exist must carry the
+synthetic-hazard and sampled-origin bounds itself. It is not a wording gate.
+
+* It cannot be satisfied by deleting the claim — one assertion fails if a surface
+  goes quiet, because a silent screen is the state WFG-194 found.
+* Its families are not strings this lap invented: 합성 / synthetic and 표본 / sampled
+  are the words `provenance.sources` uses about itself.
+* It is **graded**, not asserted (MEMO 2026-09-09): the mutation test strips every
+  bound-carrying sentence from each shipped block and requires the check to fail.
+  The same mutation runs on all six, so no wording was hand-picked to fail.
+
+`tests/test_readme_round4_lead.py` now runs its bound assertion over the whole Round-4
+**section** rather than over its `lead` fixture. That fixture boundary is what let one
+file answer its own headline claim two ways, and it was written by the lap that made
+the claim. Both new assertions there were graded against the pre-fix text and both go
+red on it.
+
+The spelling half is `WC-013` in `docs/auto/withdrawn_claims.json`. Registration is
+what makes the machine read every gated file rather than the five a critic listed —
+and it earned its keep immediately: it found **three** copies no list named, in
+`docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md`, `docs/auto/knowledge/PYROGEOGRAPHY.md`
+and `docs/auto/research/WEEKLY_2026-W36.md`.
+
+### What this does NOT show
+
+**It does not show the claim is now true everywhere, and one measurement says so.**
+`scripts/check_withdrawn_claims.py` scans **one line at a time**, so a registered
+spelling that wraps across a source line break is invisible to it. This section's own
+§8 is the proof: 「a per-household / walk-or-be-rescued verdict」 straddles two lines
+there and the registry did not report it. The pragma on that line is there because a
+human put it there. The same limit is recorded for `WC-012` in
+`tests/test_withdrawn_claims_registry.py`, where two halves of one sentence had to be
+registered as two patterns for exactly this reason, and it is now the third measured
+limit of the registry beside the two in `docs/withdrawn_claims.md` §4 — a reworded
+claim escapes, and a claim in a `.py` or `.bib` file is out of scope.
+
+**It does not show the register is corrected everywhere it appears.** 「가구 단위」 is
+still the right phrase in three places in the same Q&A bank, deliberately: Q20a
+*defines* it, Q16 names the quantity `ingress_survival_time_min`, and Q16a says what
+other systems' published material does not show. The patterns are anchored on the
+output-object phrases so that none of the three trips, which also means a fourth,
+differently-worded copy of the same claim escapes both gates.
+
+**And it does not make the object better.** Nothing measured here changed. The
+committed dispatch documents are the same documents; what changed is that every page
+that offers them now says, in the same breath, what fire they were made on.

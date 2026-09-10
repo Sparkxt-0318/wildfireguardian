@@ -113,6 +113,20 @@ def items(readme: str) -> str:
     return _slice(readme, _FIRST_ITEM, _SECTION_END)
 
 
+@pytest.fixture(scope="module")
+def section(readme: str) -> str:
+    """The WHOLE Round-4 section: the lead block AND the five numbered items.
+
+    ⚠ Added by WFG-222, and the reason is this file's own defect. Every bound assertion
+    here read the ``lead`` fixture, while ``items`` — which contains §5, the 창의성 block —
+    asserted only caveat-fragment presence, a ⚠ floor and one hedge ban. So the section
+    could answer its own headline claim two ways one hundred and eighty lines apart with
+    the whole suite green, and for one window it did: the lead said 지점 단위 with its
+    bounds and §5 item ① said 가구 단위 with none (critic #54).
+    """
+    return _slice(readme, _SECTION_START, _SECTION_END)
+
+
 # --------------------------------------------------------------------------- (1)
 
 #: The claim's own truth-makers. A judge who opens these settles what the lead asserts.
@@ -237,6 +251,95 @@ def test_the_lead_block_carries_its_own_bounds(lead: str) -> None:
             "states the contribution; these are what keep it from being an overclaim, "
             "and they are load-bearing in the same block, not two screens away."
         )
+
+
+def _bounds_module():
+    """The claim/bound families, loaded from the file that owns them (one definition).
+
+    ``tests/test_output_object_claim_bounds.py`` holds the families for every surface;
+    importing them here rather than re-typing them means a later lap that narrows one
+    narrows it for the README too.
+    """
+    import importlib.util
+
+    path = Path(__file__).with_name("test_output_object_claim_bounds.py")
+    spec = importlib.util.spec_from_file_location("_wfg222_bounds", path)
+    mod = importlib.util.module_from_spec(spec)
+    assert spec is not None and spec.loader is not None
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def test_every_existence_claim_in_the_section_carries_its_bounds(section: str) -> None:
+    """The assertion runs over the SECTION, which is what WFG-222 asks for.
+
+    ⚠ This is the fixture-boundary defect made mechanical. The property is per block, not
+    per file: a bullet that says committed instances of the output object exist must say,
+    in that same bullet, that the run which produced them had a synthetic hazard surface
+    and sampled origins. A bound in the lead does not pay for a claim in §5, and that is
+    the whole finding — 「같은 파일 안에서 180줄 떨어져 있다」 was critic #54's phrase for it.
+
+    Blocks are cut at top-level ``- `` bullets and ``### `` headings, so the unit is what a
+    judge reads as one item. ⚠ A ``>`` blockquote run is ONE block however many bullets it
+    holds: the lead block is a single quote whose bullets are its bounds, and cutting it per
+    bullet would demand every bound repeat every other bound — the assertion would then be
+    about typography rather than about what a judge reads.
+    """
+    mod = _bounds_module()
+    blocks: list[str] = []
+    current: list[str] = []
+    in_quote = False
+    for line in section.splitlines():
+        quoted = line.startswith(">")
+        new_block = (quoted and not in_quote) or (
+            not quoted
+            and (in_quote or line.startswith("- ") or line.startswith("### "))
+        )
+        if new_block and current:
+            blocks.append("\n".join(current))
+            current = []
+        current.append(line)
+        in_quote = quoted
+    if current:
+        blocks.append("\n".join(current))
+
+    naked = []
+    for block in blocks:
+        if not mod._EXISTENCE.search(block):
+            continue
+        if not (mod._SYNTHETIC.search(block) and mod._SAMPLED.search(block)):
+            naked.append(block.strip().splitlines()[0][:90])
+    assert not naked, (
+        "a block in README.md's Round-4 section says committed instances of the output "
+        "object exist and does not carry, in the same block, that the hazard surface and "
+        "terrain of that run are synthetic and the origins sampled: "
+        + " || ".join(naked)
+        + ". data/processed/rescue_routing.json → provenance.sources says both about "
+        "itself; the lead block at the top of this section is the model to copy (WFG-222). "
+        "⚠ If a genuinely new block legitimately mentions a committed artifact without "
+        "making the output-object existence claim, narrow the family in "
+        "tests/test_output_object_claim_bounds.py rather than widening this scan."
+    )
+
+
+def test_the_section_never_puts_the_committed_instances_in_the_household_register(
+    section: str,
+) -> None:
+    """One word, over the section rather than the lead.
+
+    Q20a's definition of 「가구」 as one OSM walk-graph node lives in the Q&A bank and is
+    untouched. On the front door, where no definition is within reach of a judge's eye,
+    the word for the committed instances is 지점.
+    """
+    mod = _bounds_module()
+    hits = mod._HOUSEHOLD.findall(section)
+    assert not hits, (
+        "README.md's Round-4 section describes the output object in the household "
+        "register again (" + ", ".join(hits) + "). The origins are sampled walk-network "
+        "coordinates, not addresses; 지점 단위 is the word this section settled on at "
+        "2206Z on 2026-09-09, and WFG-222 is the row that made the other four surfaces "
+        "agree with it."
+    )
 
 
 # --------------------------------------------------------------------------- (3)

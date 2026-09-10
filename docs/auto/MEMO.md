@@ -2858,3 +2858,39 @@ reviewer returns, copies its uncommitted work out of the tree first, and re-runs
 overwrote `.auto/gates.json`, which is what `--assert-head` reads. Better still, give the
 reviewer its own worktree; CHARTER §3c already says one clone, one agent, and this is the
 second failure mode of ignoring it.
+
+## 2026-09-10T0017Z (dev, WFG-222) — the surface list a lap is handed is never the surface list
+
+Critic #54 named five judge-facing surfaces carrying the uncorrected claim and measured
+each one. The list was careful, it was taken at a named head, and it was **wrong by one**:
+`docs/auto/finals/RELATED_WORK_PANEL.md` — a **printed** panel — said the same thing about
+this project's own output, and no list had it. Registering the claim (`WC-013`) then found
+**three more** in files no critic had reason to open: two knowledge notes and a research
+weekly, all of them repeating the same differentiator sentence.
+
+**The anti-pattern: a lap that fixes the surfaces on the list has fixed the list, not the
+claim.** This is the third time the same shape has been paid for (WC-005, WC-006, and the
+Q30/Q35 case that produced CHARTER §3.5c), and each time the lap's own hand-`grep` looked
+thorough. The cheap discipline that actually works: **register first, then read the gate's
+output as the sweep.** Registration costs ten minutes and it is the only step in this
+process that reads every gated file; a hand list reads the files someone thought of.
+
+⚠ **And the same lap measured the ratchet's third limit, on its own document.**
+`scripts/check_withdrawn_claims.py` scans **one line at a time**, so a registered spelling
+that wraps across a source line break is invisible to it. `docs/creativity_card.md` §8
+carries 「a per-household / walk-or-be-rescued verdict」 across two lines; the gate reported
+it not at all, and the pragma sitting there is one a human put there. `WC-012` had already
+hit this — its one sentence is registered as two patterns for exactly this reason — but it
+was recorded only in a test comment, so this lap re-discovered it. It is now
+`docs/withdrawn_claims.md` §4 item 7, beside the two limits that were already published:
+a **reworded** claim escapes, and a claim in a `.py` or `.bib` file is out of scope. Three
+known holes, all measured, none of them closed — which is the honest state and is worth
+more at a booth than a gate described as complete.
+
+**One more, small and reusable.** The booth script's spoken text is a measured syllable
+budget (`tests/test_demo_script_pace.py`), so a correction that must be *spoken* is
+cheapest when it is the **same length**: 가구 → 지점 is two syllables for two, and the
+segment's rate did not move. The bound that could not be compressed went into a ⚠ block,
+which the pace counter does not read, phrased as the answer to the question that would
+draw it out. A lap that must change spoken prose checks the syllable count before it
+reaches for the re-measure procedure.

@@ -1577,9 +1577,9 @@ let sysBuilt = false;
 const CREATIVE = [
   {
     ko_h: '내놓는 것은 지도가 아니라 판정입니다',
-    ko_b: '확산 예보 격자는 중간 입력이고, 산출물은 가구 단위의 대피 판정과 걸어 나갈 경로, 그리고 마을 단위 출동 목록입니다. 그 실물이 저장소에 커밋돼 있습니다 - 마을별 A4 출동 지시서, 방송 문안, 문자 초안이며 어느 것도 발송되지 않았습니다.',
+    ko_b: '확산 예보 격자는 중간 입력이고, 산출물은 지점 단위의 대피 판정과 걸어 나갈 경로, 그리고 마을 단위 출동 목록입니다. 그 실물이 저장소에 커밋돼 있습니다 - 마을별 A4 출동 지시서, 방송 문안, 문자 초안이며 어느 것도 발송되지 않았습니다. 다만 그 실물을 만든 실행에서 화재 위험면과 지형은 합성이고 출발지는 표본 좌표입니다. 실제 확산면으로 만든 출동 지시서는 아직 없고, 「지점」은 실제 가구 주소가 아니며 「마을」도 행정리가 아니라 공간 군집입니다.',
     en_h: 'The output is a decision, not a map',
-    en_b: 'The spread forecast grid is an intermediate input. What comes out is a per-household evacuation verdict, the walking route that goes with it, and a village-level dispatch list. Committed instances of that object are in the repository - the A4 dispatch sheet, the broadcast script and the SMS drafts for each village cluster, none of them ever sent.',
+    en_b: 'The spread forecast grid is an intermediate input. What comes out is a point-level evacuation verdict, the walking route that goes with it, and a village-level dispatch list. Committed instances of that object are in the repository - the A4 dispatch sheet, the broadcast script and the SMS drafts for each village cluster, none of them ever sent. In the run that produced them, however, the hazard surface and the terrain are synthetic and the origins are sampled coordinates. No dispatch sheet has yet been made on a real spread surface; a point is not a real household address, and a village here is a spatial cluster rather than an administrative one.',
     doc: 'outputs/dispatch/20260801T163042Z/01-거무역리공원-북쪽/dispatch_a4.html · outputs/dispatch/README.md · docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md §3',
   },
   {
