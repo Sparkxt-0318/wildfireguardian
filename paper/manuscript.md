@@ -458,9 +458,9 @@ route is not — and at Uiseong-Andong its 2 origins have fire-blind arrival tim
 budget. Under one budget applied to both arms they are origins no arm saves, rather than
 origins on which the forecast lost. The two arrival times are values of the Section 4.5 arm
 and are withheld for the reason that section gives. The committed value is not moved and this
-paper reports the qualification rather than a correction. Of the other two regions,
-Uljin-Samcheok has not been re-read under the uniform rule and Yeongdeok cannot be, its
-walk graph of that vintage no longer being recoverable.
+paper reports the qualification rather than a correction. Yeongdeok's 0 cannot rise, since
+budgeting the fire-blind arm only takes members out of this bucket. Uljin-Samcheok's 3 has
+not been re-read, and nothing is inferred from it.
 
 ### 4.5 The fair opponent: refusing where the fire is now
 
