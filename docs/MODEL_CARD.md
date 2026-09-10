@@ -521,10 +521,42 @@ The 작품설명서 is **not in this repo** — apply these old→new correction
 Suggested replacement sentence (formal 합니다체):
 
 > 본 시스템의 산불 확산 모델(spread_v2, 16개 특징)의 LOFO(한 산불씩 제외 교차검증)
-> 평균 ROC-AUC는 **0.89**입니다(6개 산불, 범위 0.68–0.97; 0.68은 탐지 약 17건의
-> 소규모 산불 폴드입니다). 전체 보류예측 통합(pooled) AUC는 0.905이나, 일반화
+> 평균 ROC-AUC는 **0.89**입니다(6개 산불, 범위 0.68–0.97). 최저값 0.68을 기록한
+> `gangneung_2023` 폴드는 **양성 셀이 8개**뿐인 소규모·잡음 폴드입니다
+> (같은 산불의 FIRMS 탐지는 **17건**이지만, 이는 화재 전체를 센 값이고 폴드의 양성
+> 셀 수가 아닙니다). 전체 보류예측 통합(pooled) AUC는 0.905이나, 일반화
 > 성능 지표로는 폴드 평균을 보고합니다. 순방향 모의 화선(footprint) IoU는 약
 > **0.40**입니다(영덕, 3–12시간).
+
+`[양성 셀 src: docs/fold_sizes.json/folds.0.positive_cells ·
+foldev_gangneung2023_fold_positive_cells]`
+`[FIRMS 탐지 src: data/processed/detection/firms_first_detection.json/gangneung_2023.n ·
+foldev_gangneung2023_firms_whole_fire_detections]`
+
+⚠ **The two counts are not interchangeable, and this is the sentence they used to be
+swapped in.** Until WFG-233 the pasted sentence explained the 0.68 fold with 「탐지 약
+17건」, while the headline blockquote at the top of this file, the per-fire table above
+and `docs/fold_sizes.md` all explained the same fold with 8 positive cells. Both values
+are true. **8 positive cells is the fold's evidence** — it is what the 0.682 AUC is
+computed over, so it is the operative number whenever the fold's weakness is being
+explained. **17 is the FIRMS detection count for the whole gangneung_2023 event**, over
+its whole burn and not restricted to the fold's grid or overpass window; it says how
+little the satellite saw of the fire, not how much evidence the fold holds. Quoting 17
+where 8 belongs overstates the fold's evidence by roughly a factor of two and answers a
+different question than the one asked. `README.md:489` is the model wording. Both counts
+are now registered (`foldev_` prefix, `scripts/register_fold_evidence.py`) so
+`make verify` re-derives each from its artifact, and
+`tests/test_fold_evidence_registry.py` fails if they are ever made equal or if this
+sentence stops carrying both. ⚠ **Neither count has a second, independent derivation in
+this repository.** `data/processed/detection/gk2a_detection_floor.json` carries the same
+17, but `scripts/gk2a_detection.py` copies that record verbatim rather than deriving it,
+so the two agree by construction; the registry's cross-check on it catches a hand-edit of
+one file and nothing more. Say that if a judge asks what corroborates the 17. ⚠ The legacy Build A `spread_v2` audit file also reports
+17 for this fire, over a bbox and a date window. That directory carries
+`LEGACY_DO_NOT_CITE.md`, its 17 agrees with the whole-fire count by coincidence rather
+than by derivation, and it is **not** a source for this number — which is why its path
+is not written here, and why a lap that sources this number by grepping for 17 will
+land in the wrong file first.
 
 *Build comparison note for the author: the earlier 0.834 / 0.80 / 0.32 came from a  <!-- forbidden-ok: 0.834 -->
 different build (different fire set, 19 features, seed 42) and is not a like-for-like

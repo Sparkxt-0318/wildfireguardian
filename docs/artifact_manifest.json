@@ -1,6 +1,6 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "5b78ffdad265ea796b8a077bd8046a93ca744de0",
+  "generated_at_git_commit": "99dee9bb9614a524785fea8a3beef33b1453329c",
   "n_artifacts": 109,
   "total_bytes": 14626355,
   "total_mib": 13.95,
@@ -298,10 +298,9 @@
       "sha256": "b215c74f4dae3e1ea2e5a671a3d8b8a07e80af1dcc9821d7769f131f4fa8cd1b",
       "kind": "text",
       "git_tracked": true,
-      "n_registry_entries": 0,
+      "n_registry_entries": 1,
       "cited_by_docs": [
         "docs/auto/BACKLOG.md",
-        "docs/auto/CRITIC_LATEST.md",
         "docs/auto/KCF_READINESS.md",
         "docs/auto/SCORECARD.md",
         "docs/auto/reports/2026-09-03T2239Z-dev.md",
@@ -315,8 +314,9 @@
       "sha256": "ba6733392d1e9f546e3d97c984af77d36403b6d72ab9ac4f2b4b35fa8f21e502",
       "kind": "text",
       "git_tracked": true,
-      "n_registry_entries": 7,
+      "n_registry_entries": 8,
       "cited_by_docs": [
+        "docs/MODEL_CARD.md",
         "docs/auto/BACKLOG.md",
         "docs/auto/finals/DETECTION_FLOOR_CARD.md",
         "docs/auto/reports/2026-09-04T0149Z-manual.md",
@@ -325,7 +325,7 @@
         "docs/detection_floor.md",
         "docs/finals_screen_v2.md"
       ],
-      "regenerate": "python scripts/build_finals.py"
+      "regenerate": "python scripts/gk2a_detection.py"
     },
     {
       "path": "data/processed/detection/kfs_containment_duration.json",
@@ -376,8 +376,9 @@
       "sha256": "5763b87bb30748e48b9aaf8922a1aabe58674870afde7dad1e81762935e11b1d",
       "kind": "text",
       "git_tracked": true,
-      "n_registry_entries": 87,
+      "n_registry_entries": 84,
       "cited_by_docs": [
+        "docs/auto/reports/2026-09-10T1620Z-dev.md",
         "docs/disc_null.md"
       ],
       "regenerate": "python scripts/measure_disc_null.py"
@@ -760,9 +761,12 @@
       "n_registry_entries": 5,
       "cited_by_docs": [
         "docs/auto/BACKLOG.md",
+        "docs/auto/CRITIC_LATEST.md",
+        "docs/auto/NEEDS_HUMAN.md",
         "docs/auto/reports/2026-09-05T0317Z-manual.md",
         "docs/auto/reports/2026-09-05T0517Z-critic.md",
         "docs/auto/reports/2026-09-10T0942Z-manual.md",
+        "docs/auto/reports/2026-09-10T2028Z-critic.md",
         "docs/multi_region.md",
         "docs/walk_bbox_coverage.md",
         "paper/GAPS.md"
@@ -874,6 +878,7 @@
         "docs/auto/BACKLOG.md",
         "docs/auto/DEMO_SCRIPT_5MIN.md",
         "docs/auto/JUDGE_QA.md",
+        "docs/auto/NEEDS_HUMAN.md",
         "docs/auto/SCORECARD.md",
         "docs/auto/archive/DIRECTION_superseded_2026-09-08T1817Z.md",
         "docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md",
@@ -1057,8 +1062,7 @@
         "docs/REPRODUCE.md",
         "docs/SPREAD_MODEL_REPORT_BUILD_A_LEGACY.md",
         "docs/auto/BACKLOG.md",
-        "docs/auto/CRITIC_LATEST.md",
-        "docs/auto/DIRECTION.md",
+        "docs/auto/MEMO.md",
         "docs/auto/SCORECARD.md",
         "docs/auto/reports/2026-09-10T1426Z-critic.md"
       ],
@@ -1186,6 +1190,7 @@
         "docs/auto/reports/2026-09-09T2126Z-manual.md",
         "docs/auto/reports/2026-09-10T0415Z-dev.md",
         "docs/auto/reports/2026-09-10T0523Z-critic.md",
+        "docs/auto/reports/2026-09-10T1737Z-critic.md",
         "paper/AUTHORSHIP.md",
         "paper/GAPS.md",
         "paper/README.md"
@@ -1479,7 +1484,7 @@
       "sha256": "3910208c0475f011408c12f4483361f6cb2c36ee452e24fb76f8f4ec6e913b36",
       "kind": "text",
       "git_tracked": true,
-      "n_registry_entries": 2,
+      "n_registry_entries": 3,
       "cited_by_docs": [],
       "regenerate": "python scripts/fold_sizes.py --write"
     },
