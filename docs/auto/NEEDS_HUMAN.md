@@ -2007,6 +2007,14 @@ correction under CHARTER §3.9 or to leave a sentence standing that it has judge
 This still changes no option and adds no question; it is the same question, now due. **This entry is stated due
 2026-09-10, tomorrow, and it is the one open item with a hard mechanical deadline behind it.**
 
+
+**⚠ CRITIC #57, 2026-09-10T0825Z — THE INSTANCE THIS ENTRY ASKS ABOUT HAPPENED AGAIN, AND THIS TIME IT COST A JUDGE-FACING PAGE ITS OWN EVIDENCE.** This entry asks you whether one critic lap should be able to tell the next lap 「do not edit this」. Critic #56 wrote such a note on `docs/auto/DIRECTION.md`: 「Do not print a per-slice `obs_time_min` from `data/processed/oracle_gap_yeongdeok.json` anywhere. Only the headline `og_yeongdeok_obs_time_min` is registered, and CHARTER §3 rule 3 says a number you cannot register you do not write.」 It repeated the same warning inside the WFG-215 backlog row, in capitals, telling the next lap that the row's own 「Do」 was wrong and must not be followed literally.
+
+**The note was false, and the falsehood propagated before anything caught it.** The `0703Z` dev lap obeyed it and shipped a first draft of `docs/oracle_gap.md` §4 that **withheld the observation times, in prose, on the page seven places on four judge-facing surfaces send a judge to** — on the stated ground that they were unregisterable. Its own independent reviewer blocked on exactly that, the lap registered the five keys additively rather than arguing, and its report says so in its own words: 「THE ROW'S OWN 「Do」 WAS RIGHT AND CRITIC #56'S CORRECTION OF IT WAS WRONG」.
+
+**Re-checked here rather than inherited**, in one process at `16e6824`: `grep -o 'og_yeongdeok_t[0-9]*min_obs_time_min' docs/NUMBERS.json | sort -u` returns **five** keys (t0, t180, t360, t540, t720), and the matching `_time_gap_min` prefix returns five more.
+
+**What this adds to your decision.** The failure mode is not that a note freezes a file too long. It is that **a note written with authority by a lap that did not check it is obeyed by the next lap in preference to the row's own instructions**, and the loop's only defence was that a subagent reviewer happened to be switched on. CHARTER §14c already says such a note expires unless the next critic re-states it after re-checking; that rule worked exactly as designed here — I re-checked, it is false, and it is deleted rather than re-stated. **What §14c does NOT do is stop the damage inside the window**, which in this case was a judge-facing page shipped in a weaker state for the length of one dev lap. If your answer to this entry is a rule about `Do NOT edit` notes, the measurement to weigh is that one: the note cost one draft of one judge-facing page, and the thing that caught it was `LOOP_CONFIG.json` → `review: subagent`, not any gate.
 ---
 
 ## NH-038 · DECISION · open · Your "product first" rule has spent the last three dev laps on documents, and the readiness line it was written to protect has not moved in five critic laps (by 2026-09-09)
@@ -2130,6 +2138,20 @@ rebuild is now displaced **four** windows, and the sprint plan's date for it is 
 fourth time」: that sentence was critic #28's. It has not yet happened a fourth time, because the
 lap that would have done it never ran.
 
+
+**⚠ CRITIC #57, 2026-09-10T0825Z — THE P1 MEASUREMENT, RE-COUNTED, BECAUSE ONE WINDOW IS AN ANECDOTE.** Critic #56 appended the first count here. This lap re-counts at `16e6824` by status prefix over the table between the header row and `## Details`, and states the method because #56's P1 `done` count of 6 and mine of 9 differ by **parser** and not by fact: seven P1 status cells begin with prose that a prefix match cannot classify.
+
+| | at `9b7d21c` (critic #56) | at `16e6824` (this lap) |
+|---|---|---|
+| P0 done | 64 | **65** |
+| P0 todo | 11 | **12** (10 inherited + 2 filed by this lap) |
+| P0 blocked | 4 | 4 |
+| P1 done | 6 (their parser) | **9** (mine) |
+| P1 todo | 100 | **101** |
+
+**The half that is not a parser artefact:** the loop closed **WFG-128** and **WFG-215** this window and filed **WFG-225** and **WFG-226**, so the *inherited* P0 `todo` count fell **11 → 10**, the second consecutive window it has fallen. That is the rule working. **P1 `todo` went 100 → 101 and P1 `done` did not move**, and this lap added the 101st row itself (WFG-227). Two windows is now a trend rather than a snapshot: §14b holds the P1 infra block until R1, R3, R4, R7, R8 and R9 all tick, **R3 is the only unticked one, it is `blocked(NH-046)`, NH-046 came due 2026-09-10 and is open**, and the sprint ends 2026-09-15. On the measured rate the P1 queue cannot drain before the sprint ends, and the critic is still its largest single producer.
+
+**This is offered as a measurement, not as an argument for an option.** The rule is doing what you asked it to do on P0. The question this entry already asks — whether the other half of it is worth its cost — now has two windows of numbers behind it instead of one.
 ---
 
 **CRITIC #30, 2026-09-06T2317Z — seventh data point, and the first window in which the rule
@@ -2954,6 +2976,14 @@ entry.
 **Related.** WFG-205 is the agent-doable half of option A. WFG-152 and WFG-187 are the same gate biting other surfaces.
 
 
+
+**⚠ CRITIC #57, 2026-09-10T0825Z — FIFTH CONSECUTIVE CRITIC LAP UNABLE TO EXECUTE THE INSTRUCTION, AND THIS LAP HIT IT FROM BOTH SIDES IN ONE WINDOW.** Re-verified at `16e6824` rather than inherited: `docs/auto/JUDGE_QA.md` is one of the **seven** `SOURCES` of `docs/auto/finals/printables/manifest_20260910T0140Z.json`, and this lap re-hashed all seven against the tree — **seven of seven matching**. So a single byte into the bank takes `tests/test_printables.py::test_the_newest_printable_is_not_stale_against_the_tree` red, exactly as this entry says.
+
+**The new evidence is that the same gate now blocks a card the bank ALREADY HAS and that has gone stale.** This lap's judge drill found card **Q38 · T1** (`docs/auto/JUDGE_QA.md:1421`) telling the student to say 「오늘 저장소는 이 질문에 두 가지로 답합니다 — 그게 결함입니다」 about `fa_exceeds_budget`. `5bcfe11` closed that contradiction six hours earlier, so the card describes a defect that no longer exists — **and because the seven sources still hash equal, the same stale card is on the paper in the booth kit**. The critic can neither add a card nor correct one; it filed **WFG-226**.
+
+**And the drill produced a second question with no card:** two of the classifier's six buckets (`both_enter`, `naive_unreachable`) are exactly 0 in every region and every variant and no judge-facing surface says whether they are reachable at all. That became **WFG-227**, not a card, for the same reason.
+
+**So the queue this entry describes is now five deep** — WFG-197, WFG-027, WFG-194, and now WFG-226 and WFG-227 — and one of the five is a **correction to an existing card that is already in the judge's hands**, which is a strictly worse failure than a missing card. Option **A** (`docs/auto/JUDGE_QA_PENDING.md`, the staging file, = WFG-205) still costs the kit nothing and would have absorbed all five.
 ---
 
 ## NH-050 · DECISION · open · You answered two of these questions two days ago and the loop never heard you, because you answered them on the routine page (by 2026-09-10)
@@ -3187,6 +3217,12 @@ premise), WFG-213 (the run itself, blocked on this), NH-032 and NH-034 (`open`, 
 fair-opponent margins this would re-express), and `docs/present_perimeter_arm.md` §5, whose
 「9 is the margin a **perfect** forecast buys」 is the sentence this entry is about.
 
+
+**⚠ CRITIC #57, 2026-09-10T0825Z — THIS LAP DECLINED THE POSITION-1 MECHANIC AND SAYS SO RATHER THAN DOING IT QUIETLY.** This entry establishes that 「a P0 row at position 1」 is NH-038 option **D**'s mechanic while this routine's stored prompt cites option **B**, whose own words put the row 「in the table like any other」. Three critic laps filed at position 1 on that authority (WFG-201, WFG-207, and the third named in this entry).
+
+**This lap had two findings that the prompt's mechanic would have put at position 1** — WFG-225 (the finals screen prints 예산 초과 2 and 3 with none of the correction that reached the README and `docs/multi_region.md` six hours earlier) and WFG-226 (the Q38 card is stale, and it is on the paper in the booth kit). **Both were filed in the table like any other P0 row**, after WFG-119, and `docs/auto/DIRECTION.md` names them as the next two rows instead — which is CHARTER §14's own mechanism, is reversible by deleting two paragraphs, and touches the table's order not at all.
+
+**Why this is the safer default while you decide.** The two mechanics differ only when a critic finding jumps a queue the dev laps are working. Naming a row in DIRECTION achieves the same ordering for the next lap **without** writing the jump into the record, so if your answer to NH-038 is B, nothing needs unwinding; if it is D, moving the two rows up is one edit. It also stops the count of position-1 filings from growing while the question that governs them is open. **Nothing here needs a decision from you beyond the one this entry already asks for** — it is recorded so that the next critic can see that the streak of position-1 filings stopped deliberately, and on which lap.
 ---
 
 ## NH-053 · DECISION · open · The word your front door uses for 42 stopped being right today, and the loop cannot pick its replacement (by 2026-09-12)

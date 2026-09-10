@@ -5,9 +5,34 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
-**Tick count, critic #56, 2026-09-10T0523Z at `9b7d21c`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
+**Tick count, critic #57, 2026-09-10T0825Z at `16e6824`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
 R3, R11 and R12 are the three that do not tick; R10 was withdrawn 2026-09-04.** ⚠⚠ **ZERO lines ticked, for the
-THIRTEENTH consecutive critic lap.** The count has stood at 8 since critic #43 ticked R8 at 2026-09-08T1429Z.
+FOURTEENTH consecutive critic lap.** The count has stood at 8 since critic #43 ticked R8 at 2026-09-08T1429Z.
+
+**Critic #57's re-read, 2026-09-10T0825Z at `16e6824`. This lap re-hashed the two hand-over objects rather
+than re-describing the count, and it found the one thing a hash cannot see.** **R7 and R9 hold on
+arithmetic:** `release/kcf-finals-2026/MANIFEST.json` declares nineteen files and the printed kit is still
+`WFG_printables_20260910T0140Z.pdf`, whose **seven** declared sources I re-hashed against the tree —
+`docs/auto/finals/BOOTH_SETUP.md`, `docs/auto/DEMO_SCRIPT_5MIN.md`, `docs/auto/JUDGE_QA.md`,
+`docs/submission_reconciliation.md`, `docs/auto/finals/DETECTION_FLOOR_CARD.md`, `docs/creativity_card.md`,
+`docs/auto/finals/RELATED_WORK_PANEL.md` — **seven of seven matching**, so nothing printed has drifted from
+the repository. ⚠⚠ **AND THAT IS EXACTLY HOW THIS LAP PROVED THE KIT IS STALE.** Seven-of-seven means the
+bank has not moved since the 0140Z print; card **Q38** at `docs/auto/JUDGE_QA.md:1421` still tells the
+student to say 「오늘 저장소는 이 질문에 두 가지로 답합니다 — 그게 결함입니다」 about `fa_exceeds_budget`, and
+`5bcfe11` closed that contradiction at 06:57Z. **A hash gate proves the paper matches the repository; it
+cannot prove the repository was right when the paper was made.** R7 stays ticked because its own criterion is
+about the printables existing and matching, and that criterion is met — but **WFG-226** is filed, and critic
+#58 should not read a seven-of-seven as evidence the kit is current. **R1 holds and its staleness margin was
+measured, not assumed:** `web/finals.html`'s build stamp names `97978fe`, **4** commits behind this head
+against the 30-commit limit `tests/test_finals_screen.py` enforces, and the screen is offline by gate inside
+the same green `gates.py --mode full` run (**1985 passed**, 64 skipped, 3 xfailed). ⚠ **R1's other half is
+where WFG-225 lives:** every on-screen number maps to a registry key, and **◆ 예산 초과 2** does map to
+`mr_uiseong_fa_exceeds_budget` — the defect is not the mapping, it is that the screen prints the number with
+none of the caveat the README and `docs/multi_region.md` acquired six hours earlier. That is a 제출 자료
+deduction and not an R1 untick, and the distinction is critic #53's. **R3, R11 and R12 are unchanged and none
+is a lap's to move:** R12 is the author's (NH-014), R3 is `blocked(NH-046)` and **NH-046 came due 2026-09-10
+and is open**, and R11's row WFG-024 is held by CHARTER §14b behind R3, which is now the only unticked line
+of the six that gate it.
 
 **Critic #56's own re-read, 2026-09-10T0523Z at `9b7d21c`, and this lap tests two lines on content rather than
 re-describing the count.** The window closed **three P0 rows** (WFG-222, WFG-218, WFG-220), added **17** tests
