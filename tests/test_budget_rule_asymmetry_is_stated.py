@@ -50,6 +50,34 @@ actually came out rather than as it was designed:
   each half.
 
 Restored tree: 20 passed.
+
+WFG-225 EXTENDS THIS FILE TO THE SCREEN, and the screen is graded in two places rather
+than one.  Mutations run by the lap that added them (2026-09-10T0920Z), reported as they
+came out:
+
+* **M5**, delete the card from `scripts/finals.template.html` only → **15 red** (the
+  template's own 14 + `test_the_two_screen_files_carry_the_same_card`).
+* **M6**, delete the card from both files → **29 red**.
+* **M7**, flip the card's lead from 「서로 다른 시간 규칙」 to 「같은 시간 규칙」, both
+  files, changing nothing else → **4 red**, two per file, one on each half.  ⚠ The first
+  draft of `SCREEN_DENIES` was anchored on 「두 팔에 같은 규칙」 and went red on the
+  CORRECT tree, because the card's own counterfactual sentence 「두 팔에 같은 규칙을
+  적용해 다시 재면」 is required and says the opposite of what that pattern reads.  The
+  denial is anchored on the lead instead; found by running it, not by reading it.
+* **M8**, delete the `if (r.counts.fa_exceeds_budget)` pointer from the region panel,
+  both files → **2 red**, and only those two: the card survives M8 untouched, which is
+  the whole argument for grading adjacency separately.
+* **M9**, flip that pointer to one rule and a budgeted fire-blind arm → **2 red**.
+* **M10**, replace the payload-read region label with a typed 「의성·안동」 → **0 red
+  here, and that is not a hole this file should close.**  `SCREEN_REQUIRES` asserts the
+  region KEY is present and it still is.  The gate that owns a typed region name is
+  `scripts/check_region_literals.py`, which was run under the same mutation and exits
+  **1** on `scripts/finals.template.html:2101`.  Said here rather than fixed here,
+  because a second gate over the same string is how a ratchet becomes two ratchets that
+  disagree.  ⚠ It covers the template only; `web/finals.html` is not in that check's
+  SCOPE, and is derived from the template by `make finals`.
+
+Restored tree after WFG-225: 51 passed.
 """
 
 from __future__ import annotations
@@ -63,6 +91,14 @@ REPO = Path(__file__).resolve().parents[1]
 MULTI_REGION = REPO / "docs" / "multi_region.md"
 README = REPO / "README.md"
 CLASSIFIER = REPO / "scripts" / "run_real_roads_real_hazard_slope.py"
+
+#: WFG-225.  BOTH, and in this order, because WFG-109's lesson is that the built
+#: screen is the thing a judge sees and the template is the thing the next lap
+#: edits: a card added to only one of them is a defect either way round.
+SCREEN_TEMPLATE = REPO / "scripts" / "finals.template.html"
+SCREEN_BUILT = REPO / "web" / "finals.html"
+SCREENS = {"scripts/finals.template.html": SCREEN_TEMPLATE,
+           "web/finals.html": SCREEN_BUILT}
 
 
 def _block_carrying(path: Path, needle: str) -> str:
@@ -202,6 +238,150 @@ def test_the_readme_bullet_refuses_the_inverse(why: str, pattern: str):
     block = _block_carrying(README, "각 2곳·3곳입니다")
     assert not re.search(pattern, block, re.M), (
         f"README.md's bucket bullet now asserts the opposite of what WFG-128 fixed ({why})."
+    )
+
+
+# --- the finals screen, the surface that PRINTS the counts (WFG-225) -------------------
+#
+# The two surfaces above are pages a judge is *sent* to.  The screen is the one five
+# judges stand in front of: `renderPanel()` writes one row per bucket as mark + label +
+# `r.counts[b.key]`, so 「◆ 예산 초과 2」 is printed for `uiseong_andong_2025` — which is
+# `DATA.default_region`, the first panel a judge sees — and 「3」 for `uljin_samcheok_2022`.
+# Until this row, the string 예산 appeared on ONE line of the built screen, inside the data
+# payload, as the bucket's label, and none of the 알려진 한계 cards mentioned the rule.
+#
+# ⚠ THE CARD ALONE WOULD NOT HAVE CLOSED THIS.  The 알려진 한계 panel is a different VIEW
+# from the region panel; a judge reading the count in one never renders the other.  That is
+# the WC-004 shape this file's docstring already describes, one surface further out, so the
+# screen is graded in TWO places: the card, and a pointer inside the same rendered block as
+# the count.  `test_the_screen_pointer_is_adjacent_to_the_count` is the load-bearing one.
+
+
+def _brace_block(path: Path, needle: str) -> str:
+    """The `{ … }` block that holds `needle`, by indentation rather than by parsing JS.
+
+    ⚠ SCOPE, stated the way this file's markdown half states it: this walks back to the
+    nearest line that is exactly two spaces and `{`, and forward to the nearest line that
+    is exactly two spaces and `}`.  It is not a JavaScript parser and it does not try to
+    be; what it buys is that the qualification cannot leave the CARD and drift to another
+    card in the same panel.  It would be defeated by re-indenting the file, which no build
+    step does — `build_finals.py` substitutes the data payload and copies the script
+    verbatim, which is why the same extractor reads both files.
+    """
+    lines = path.read_text(encoding="utf-8").splitlines()
+    hit = next((i for i, ln in enumerate(lines) if needle in ln), None)
+    assert hit is not None, f"{path.name} no longer carries {needle!r}"
+    start = next(i for i in range(hit, -1, -1) if lines[i] == "  {")
+    end = next(i for i in range(hit, len(lines)) if lines[i] == "  }")
+    return "\n".join(lines[start:end + 1])
+
+
+SCREEN_REQUIRES = {
+    "the two arms are named as differently ruled":
+        r"서로\s*다른\s*시간\s*규칙",
+    "the fire-blind arm's missing budget is stated, not implied":
+        r"예보\s*없는\s*팔에는\s*예산을\s*걸지\s*않",
+    "the mechanism is pointed at in code, so a judge can falsify it from the screen":
+        r"classify\(\)",
+    "the inflated direction is admitted, not left for the judge to infer":
+        r"불리한\s*수인데도\s*그것을\s*부풀리는\s*규칙",
+    "the emptied bucket is attributed to a region by KEY, not by a typed name":
+        r"uiseong_andong_2025",
+    "the bucket is called empty under one rule":
+        r"버킷은\s*비어\s*있",
+    "the region NOT re-read is named by key too":
+        r"uljin_samcheok_2022",
+    "and is marked NOT re-read":
+        r"아직\s*같은\s*규칙으로\s*다시\s*재지\s*않",
+    "the section carrying the argument is linked, not just the file":
+        r"docs/multi_region\.md\s*§3\.1",
+    "the run that emptied the bucket is linked by section":
+        r"present_perimeter_arm\.md\s*§2",
+    "the committed value is said to stay put":
+        r"등록된\s*값은\s*그대로",
+}
+
+#: ⚠ The card's own body contains the words 「두 팔에 같은 규칙을 적용해 다시 재면」, which
+#: is the COUNTERFACTUAL and is required.  So the denial cannot be anchored on those words:
+#: it is anchored on the LEAD, where a lap 「tidying」 this card would flip 서로 다른 to 같은
+#: and leave the counterfactual standing.  Found by writing the naive pattern first and
+#: watching it fail on the correct tree.
+SCREEN_DENIES = {
+    "the lead flipped to one rule for both arms":
+        r"예산\s*초과는[^.\n]{0,40}?(?:같은|동일한)\s*(?:시간\s*)?규칙을\s*적용해\s*잰",
+    "the fire-blind arm claimed to carry a budget":
+        r"예보\s*없는\s*팔에(?:는|도)?\s*예산이?\s*(?:을|를)?\s*걸(?:려\s*있습니다|립니다)",
+    "the bucket read as forecast defeat, affirmatively":
+        r"예보가\s*진\s*곳」?\s*(?:입니다|이며)",
+}
+
+
+@pytest.mark.parametrize("screen", sorted(SCREENS))
+@pytest.mark.parametrize("why,pattern", sorted(SCREEN_REQUIRES.items()))
+def test_the_screen_card_states_the_asymmetry(why: str, pattern: str, screen: str):
+    block = _brace_block(SCREENS[screen], "rel('◆ 예산 초과")
+    assert re.search(pattern, block), (
+        f"{screen}'s 알려진 한계 panel prints the `fa_exceeds_budget` bucket without "
+        f"stating {why}.\nWFG-225: the screen is the surface the counts are PRINTED on, "
+        f"and it was the last one to get the qualification README.md and "
+        f"docs/multi_region.md §3.1 already carry."
+    )
+
+
+@pytest.mark.parametrize("screen", sorted(SCREENS))
+@pytest.mark.parametrize("why,pattern", sorted(SCREEN_DENIES.items()))
+def test_the_screen_card_refuses_the_inverse(why: str, pattern: str, screen: str):
+    block = _brace_block(SCREENS[screen], "rel('◆ 예산 초과")
+    assert not re.search(pattern, block, re.I), (
+        f"{screen}'s budget card now asserts the opposite of what WFG-225 fixed ({why}). "
+        f"`classify()` passes a budget to one arm only."
+    )
+
+
+@pytest.mark.parametrize("screen", sorted(SCREENS))
+def test_the_screen_pointer_is_adjacent_to_the_count(screen: str):
+    """The load-bearing half: the caveat is rendered where the number is rendered.
+
+    `renderPanel()` builds the region panel in DOM order — the bucket rows, then a
+    horizontal rule, then the coverage note.  This asserts the pointer sits BETWEEN the
+    bucket loop and that rule, i.e. in the same block a judge reads the count in, and that
+    it is conditional on the count being non-zero (Yeongdeok's is 0 and a caveat on an
+    empty bucket is noise).  A card in the 신뢰성 view satisfies the row's letter and not
+    this: the two are different views and a judge renders one at a time.
+    """
+    text = SCREENS[screen].read_text(encoding="utf-8")
+    loop = text.index("for (const b of DATA.buckets) {")
+    guard = text.find("if (r.counts.fa_exceeds_budget) {", loop)
+    rule = text.index("hel('hr', 'hairline', body);", loop)
+    assert guard != -1, (
+        f"{screen}: the region panel prints 「◆ 예산 초과 N」 with no pointer to the rule "
+        f"it was measured under. WFG-225: the pointer goes in the same rendered block as "
+        f"the count, not one view away (the WC-004 shape)."
+    )
+    assert guard < rule, (
+        f"{screen}: the budget pointer is rendered after the panel's hairline rule, i.e. "
+        f"outside the bucket block it qualifies."
+    )
+    note = text[guard:rule]
+    assert re.search(r"서로\s*다른\s*시간\s*규칙", note), (
+        f"{screen}: the pointer beside the count no longer names the two arms as "
+        f"differently ruled."
+    )
+    assert not re.search(r"두\s*팔에\s*(?:같은|동일한)\s*(?:시간\s*)?규칙", note), (
+        f"{screen}: the pointer beside the count now asserts one rule for both arms."
+    )
+
+
+def test_the_two_screen_files_carry_the_same_card():
+    """WFG-109's lesson, gated: a card added to the built screen only is lost on the next
+    `make finals`, and a card added to the template only never reaches a judge.
+    """
+    tpl = _brace_block(SCREEN_TEMPLATE, "rel('◆ 예산 초과")
+    built = _brace_block(SCREEN_BUILT, "rel('◆ 예산 초과")
+    assert tpl == built, (
+        "scripts/finals.template.html and web/finals.html carry different versions of the "
+        "budget-rule card. Edit the template and run `make finals`; never edit the built "
+        "screen (WFG-109)."
     )
 
 

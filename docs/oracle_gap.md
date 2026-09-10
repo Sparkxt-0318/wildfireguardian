@@ -36,7 +36,7 @@ grid, in one file:
 
 | array | dtype | what it is |
 |---|---|---|
-| `haz_stack` | float32 `(5, 181, 156)` | the **leave-one-fire-out forward simulation**. `scripts/run_forward_sim_region.py` fits the spread_v2 model on every fire EXCEPT the target, so this is a model output on a fire the model never saw. The router plans on it. |
+| `haz_stack` | float32 `(5, 181, 156)` | the **leave-one-fire-out forward simulation**. `scripts/build_canonical_hazard.py` (`:129-130`) fits the spread_v2 model on every fire EXCEPT the target, so this is a model output on a fire the model never saw. The router plans on it. |
 | `obs_stack` | uint8 `(6, 181, 156)` | the **cumulative FIRMS-observed footprint** on the same 500 m grid, at its own observation times. Nothing scores against it. |
 
 So the forecast-aware arm does **not** plan on truth. It already plans on a field

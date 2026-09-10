@@ -1050,6 +1050,20 @@ function renderPanel() {
       hel('span', null, row, bucketLabel(b));
       hel('span', 'n num', row, String(r.counts[b.key] ?? 0));
     }
+    /* WFG-225. The 알려진 한계 card below is in a DIFFERENT VIEW from this
+       panel, and this panel is where the number is read. A judge who reads
+       「◆ 예산 초과 2」 here and never opens 신뢰성 sees the count with none of
+       the rule it was measured under, which is the fifth-surface shape critic
+       #53 named. So the pointer is rendered in the same block as the count,
+       and only when the count is non-zero (Yeongdeok's is 0, and a caveat on
+       an empty bucket is noise). It states no number and settles no 상한. */
+    if (r.counts.fa_exceeds_budget) {
+      const bn = hel('p', 'note', body,
+        '◆ 예산 초과는 두 팔에 서로 다른 시간 규칙을 적용해 잰 수입니다. ' +
+        '예보 없는 팔에는 예산이 걸려 있지 않습니다. 신뢰성 화면의 같은 제목 카드를 보십시오.');
+      bn.classList.add('warn');
+      bn.style.marginTop = '8px';
+    }
     hel('hr', 'hairline', body);
     const cov = hel('p', 'note', body);
     cov.textContent = r.coverage_note ||
@@ -2067,6 +2081,29 @@ function renderReliability() {
   rel('판정을 채점하는 배열이, 판정이 계획한 그 배열입니다',
     '시스템 구조의 「경로 판정」 단계가 만드는 판정, 즉 지도 위의 점 하나하나에 대한 이야기입니다. 시간 인지 경로는 진실 위에서 계획하지 않습니다. 라우터가 계획하는 것은 haz_stack, 즉 대상 산불을 빼고 학습한 전방 시뮬레이션(leave-one-fire-out)의 출력입니다. 문제는 계획이 아니라 채점입니다: 채점도 같은 배열로 하므로, 이 팔은 자기를 채점하는 배열에 대해 구조적으로 틀릴 수 없습니다. 같은 파일 안에 관측 발자국 obs_stack 이 같은 격자로 함께 커밋돼 있지만 아무것도 채점하지 않습니다. 그래서 화면의 판정은 「이 정책이 자기 예측을 믿었을 때 얻는 것」이며, 잡음 없는 예보가 얻을 것이 아닙니다. 이것이 실제 이득의 상한인지 여부는 결과가 아니라 열린 질문이고, 저장소의 어떤 것도 그것을 유도하지 않습니다(NH-053). 예측과 관측이 얼마나 떨어져 있는지는 셀 단위로 세어 두었고, 그것을 고치는 재채점은 아직 실행되지 않았습니다.',
     'docs/oracle_gap.md §2 · §6 (아직 실행되지 않은 재채점) · §7 (이 측정이 보여주지 않는 것)');
+
+  /* WFG-225. Second on purpose, behind the oracle card and ahead of the rest:
+     it is the only other card on this panel that qualifies a number the map and
+     the region panel PRINT. The region labels are read from the payload rather
+     than typed, both because the labels belong to the data and because
+     scripts/check_region_literals.py is right that a region name typed into a
+     screen string is the defect it catches. No number is written here: the
+     counts stay as registered (NH-031 A, WFG-122) and this card changes only
+     what the reader knows about the rule they were measured under. */
+  {
+    const uaKey = 'uiseong_andong_2025', usKey = 'uljin_samcheok_2022';
+    const uaName = (DATA.regions[uaKey] || {}).label || uaKey;
+    const usName = (DATA.regions[usKey] || {}).label || usKey;
+    rel('◆ 예산 초과는 두 팔에 서로 다른 시간 규칙을 적용해 잰 수입니다',
+      '지역 패널과 지도 범례의 ◆ 예산 초과 버킷은 「예보 없는 경로는 안전한데 시간 인지 라우터가 제 시간에 끝내지 못한다」는 뜻으로 읽힙니다. ' +
+      '그러나 판정 코드 classify() 는 시간 인지 팔에만 time_budget_min 을 넘기고 예보 없는 팔에는 예산을 걸지 않습니다. ' +
+      '그래서 이 대비에서 예산을 초과할 수 있는 쪽은 두 팔 중 한 팔뿐이며, 이 수는 이 프로젝트에 불리한 수인데도 그것을 부풀리는 규칙으로 재어졌습니다. ' +
+      '두 팔에 같은 규칙을 적용해 다시 재면 ' + uaName + ' 쪽 버킷은 비어 있습니다. ' +
+      '그 출발지들의 예보 없는 경로가 예산 뒤에 도착하기 때문이며, 한 규칙 아래에서 그 지점들은 「예보가 진 곳」이 아니라 어느 팔로도 구하지 못하는 곳입니다. ' +
+      usName + ' 쪽은 아직 같은 규칙으로 다시 재지 않았으므로 같은 설명을 옮겨 붙이지 않습니다. ' +
+      '등록된 값은 그대로 둡니다: 이 카드는 수를 바꾸지 않고, 그 수가 어떤 규칙으로 재어졌는지를 밝힙니다.',
+      'docs/multi_region.md §3.1 · docs/present_perimeter_arm.md §2');
+  }
 
   rel('보행망 커버리지',
     '커버리지가 가장 낮은 지역의 절대 수치는 덮인 범위 안에서의 값이며, 나머지 범위의 거동은 측정되지 않았고 편향의 방향도 알 수 없습니다. 짝지은 대비는 두 경로가 같은 출발지를 쓰므로 이 한계의 영향을 받지 않습니다.',

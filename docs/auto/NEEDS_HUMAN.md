@@ -3238,6 +3238,15 @@ way. What is wrong is that six surfaces of this project now give two different a
 > saw. The router plans on it. ... So the forecast-aware arm does **not** plan on truth. ... **What makes
 > the arm an oracle is that the grader uses `haz_stack` as if it were truth.**
 
+⚠ *[기록 · 2026-09-10 · the quote above is kept verbatim as the record and one pointer inside it has since
+been corrected.] `scripts/run_forward_sim_region.py` never writes
+`data/processed/routing_demo_canonical.npz` (`grep -c routing_demo_canonical` on it answers 0; it writes
+`hazard_{fid}.npz` and `forward_sim_regions.json`). `scripts/build_canonical_hazard.py` writes it (`:109`,
+`:177`), and the leave-one-fire-out claim is true there: `:130` reads
+`IgnitionModelV2(seed=args.seed).fit(ds[ds["fire_id"] != args.fire])`. The script name in
+`docs/oracle_gap.md` §2 was corrected in this lap (critic #57's one `fix-before-next-row` item); **the LOFO
+claim itself was not weakened and nothing was withdrawn**, so this entry's question is unaffected.*
+
 And its §5, in the student's own voice: 42 is 「**자기 예측을 그대로 믿었을 때의 값**」 rather than
 「완벽한 예보의 값」.
 
