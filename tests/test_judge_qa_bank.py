@@ -678,11 +678,17 @@ def test_the_authorship_card_says_what_the_trailer_count_is_not() -> None:
 def test_the_bank_writes_none_of_the_timeline_forbidden_phrasings() -> None:
     """The registry declares phrasings for these keys. Nothing enforced them here.
 
-    Measured 2026-09-10: `forbidden_phrasings` is registry metadata that
-    make verify never reads --- scripts/check_forbidden.py has its own hand-kept
-    list and carries none of these strings. The only place the field was bound
-    to a document was tests/test_oracle_gap.py, for docs/oracle_gap.md alone.
-    This binds it for the bank, which is the surface that now writes the numbers.
+    Measured 2026-09-10, and the first version of this docstring got it wrong.
+    FOUR tests read the field --- test_present_perimeter_arm, test_full_coverage,
+    test_sparsity_and_page_budget and test_oracle_gap --- but three of them grade
+    the field's CONTENT for their own prefix (a phrasing may not be deleted from
+    the registry). Only test_oracle_gap grades a DOCUMENT against it, and only
+    docs/oracle_gap.md. make verify reads the field in neither direction:
+    appending a registered phrasing to a tracked file leaves all eleven of its
+    sub-targets at exit 0, and scripts/check_forbidden.py, the tree-wide prose
+    scanner, keeps its own hand-written list carrying none of these strings.
+    This gate is the second document-side binding, for the surface that now
+    writes the numbers. docs/judge_qa_gates.md and WFG-232 carry the rest.
     """
     numbers = json.loads(NUMBERS.read_text(encoding="utf-8"))["numbers"]
     text = _text().lower()

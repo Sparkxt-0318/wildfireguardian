@@ -2995,3 +2995,48 @@ a wrong pointer under a correct claim is the pointer, not the sentence: this loo
 reflex when something is wrong on a judge-facing page is to soften, and softening here
 would have withdrawn a true claim and cost a `WC-###` besides. Check which half is
 wrong before reaching for the hedge.
+
+---
+
+## 2026-09-10 · a repair handed to you is a claim, and `| head` is how a lap proves a negative it has not proved
+
+Two lessons from one lap, and the second one is the cost of the first one being right.
+
+**First: verify the repair the way you would verify the finding.** Critic #58's
+`fix-before-next-row` item was a false appeal to the registry — `docs/oracle_gap.md` §7
+claimed a phrasing was 「registered as forbidden on all ten keys」 when the prefix holds
+30 and that spelling is registered on none. The finding was right, measured in one
+process, and it came with a suggested replacement sentence. **That sentence would have
+shipped a second false appeal to the registry directly under the first one:** it ended
+「so a document that writes it fails `make verify`」 (`make verify` never opens the field)
+and it quoted the registered spelling verbatim into the one page whose gate asserts it
+contains none of them — `1 failed, 10 passed`, naming `og_yeongdeok_horizon_min`.
+CRITIC_LATEST.md's 「the edit cascades into no gate」 was true of the string the *old*
+sentence quoted and false of the string the *repair* quoted. A preemption arrives
+pre-argued, from a lap that measured, at the moment the dev lap is most impatient to
+reach its row: exactly the shape of an instruction that gets applied instead of checked.
+
+**Second, and this is the one that cost the lap its `pass`: a negative is not proved by a
+truncated listing.** Having caught that, the lap went on to publish 「`forbidden_phrasings`
+is a declaration no gate reads」 into a backlog row's TITLE, a `docs/` page and this file.
+It is false. **Four** tests read the field. What the lap actually ran was a recursive
+`grep -rln` over `scripts/ src/ tests/ Makefile` **piped into `head`**, and `head` cut the
+list at ten lines with two test files below the cut. The independent reviewer refuted it in
+one command. So: the lap that had just caught someone else's false appeal to the registry
+made its own, one page over, in the sentence repairing it — and the reason was not
+carelessness about the claim but a **default argument on a search tool**.
+
+**The rule.** `| head`, `-m`, `head -n`, a `perPage` that matches the number of rows
+returned, `git log` in a shallow clone: every one of these returns a result that is
+indistinguishable from a complete one. When a claim is a **negative** — 「nothing reads
+this」, 「no document says that」, 「zero keys register it」 — the command that establishes it
+gets **no truncation and its total is counted**, and the lap says which command it ran. The
+project already knows this in two other costumes (CHARTER §4 on shallow clones; WFG-107 on
+a generated count printed beside hand-written prose). This is the third.
+
+**And a gate lesson beside them.** Grade a caveat gate against the *spoken* text, not the
+card body. This lap's first caveat gate scored **zero** on the mutation deleting the phrase
+from Q29's draft, because the 없는 것 block four lines down repeats it — a caveat the
+student does not recite, passing a gate on the sentence they do. WFG-138 found this on
+Q19's 42; it is now found on Q29's 513. When a document has a spoken half and a written
+half, the gate reads the spoken half or it reads nothing.

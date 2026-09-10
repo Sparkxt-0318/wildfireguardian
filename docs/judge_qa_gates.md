@@ -148,9 +148,10 @@ rehearsed it. That is `WC-004`'s shape with a document boundary in place of
 eight sections.
 
 **Why a literal is safe here and is not safe in Q30.** Q30's count is the size
-of `docs/NUMBERS.json`, which moves on every lap that registers a key — measured
-at 44 changes across 45 distinct values on the sprint days, so a literal there
-is stale before the student rehearses it. These two are **frozen readings**:
+of `docs/NUMBERS.json`, which moves on every lap that registers a key — §「Why
+the live claim is qualitative」 above measures **10 changes on the four sprint
+days**, inside 44 changes across 45 distinct values between 2026-08-01 and
+2026-09-05, so a literal there is stale before the student rehearses it. These two are **frozen readings**:
 each registry entry carries its own `git_commit` (`89da7d3`, 2026-09-09), the
 entry's caveat says in its own words that the figure is 'as of' that commit and
 that nothing re-derives it forward, and the artifact behind it changes only when
@@ -191,24 +192,44 @@ recite was passing a gate on the sentence they **do**. It is WFG-138's finding
 on Q19's 42 arriving one card over, and it was the mutation that found it, not
 a reading of the assertion. The gate now reads the draft.
 
-## What `forbidden_phrasings` actually enforced before this lap
+## What `forbidden_phrasings` enforces, and the half of it that is missing
 
-Measured 2026-09-10 in this clone, by experiment rather than by reading:
+Measured 2026-09-10 in this clone, by experiment rather than by reading. ⚠ **The
+first version of this section said 「no gate reads the field」 and that was
+false** — the lap's independent reviewer refuted it in one command, and the
+correction is kept here rather than quietly replaced, because the shape of the
+error matters more than the error. What the lap actually ran was
+`grep -rln forbidden_phrasings scripts/ src/ tests/ Makefile | head`, and `head`
+truncated the list at ten lines with two test files below the cut. A truncated
+listing reads exactly like a complete one.
 
-- `docs/NUMBERS.json` gives many keys a `forbidden_phrasings` list. `make verify`
-  **never reads that field** — appending a registered phrasing to a tracked
-  document leaves `verify_numbers.py`, `check_forbidden.py` and
-  `check_withdrawn_claims.py` all at exit 0.
-- `scripts/check_forbidden.py` is the tree-wide scanner and it keeps its **own
-  hand-written** HARD/LABEL list. None of the `og_yeongdeok_*` or `timeline_*`
-  phrasings is in it.
-- The one place the field was bound to a document is
-  `tests/test_oracle_gap.py::test_the_forbidden_phrasings_are_registered_and_absent_from_the_doc`,
-  which asserts `docs/oracle_gap.md` contains **none** of its own keys'
-  phrasings. Verified by mutation: appending 「this measures what the model
-  buys」 to that file turns exactly that test red.
+**Two different things are being asked, and only one of them is enforced:**
 
-Gate 4 above adds the same binding for the Q&A bank and the `timeline_*` keys,
-because the bank now writes those numbers. **It does not close the general gap**
-— every other key's list is still a declaration that no gate reads, on every
-other document. That is a row, not a clause of this one.
+1. **「Is the phrasing still declared on the key?」 — enforced, by four tests.**
+   `tests/test_present_perimeter_arm.py::test_the_caveat_travels_with_every_key`,
+   `tests/test_full_coverage.py::test_registry_forbids_substituting_the_drift_values`,
+   `tests/test_sparsity_and_page_budget.py::test_registry_forbids_reading_sparsity_as_household_dispersion`
+   and `tests/test_oracle_gap.py` each read the field for their own prefix.
+   Empty the `pp_uiseong_*` lists and the first goes red (1 failed, 19 passed);
+   the same holds for the other two prefixes. **A phrasing cannot be silently
+   deleted from the registry.**
+2. **「Does any document write a registered phrasing?」 — enforced for exactly two
+   documents.** `tests/test_oracle_gap.py::test_the_forbidden_phrasings_are_registered_and_absent_from_the_doc`
+   asserts `docs/oracle_gap.md` contains none of its own prefix's phrasings —
+   verified by mutation: appending 「this measures what the model buys」 to that
+   file turns exactly that test red — and gate 4 above adds the same shape for
+   the Q&A bank and the `timeline_*` keys. Every other document, and every other
+   prefix, is unscanned.
+
+And in neither case is `make verify` involved: appending a registered phrasing to
+a tracked document leaves all eleven of its sub-targets at exit 0 (checked with
+the full target, not a sample of three — the reviewer's re-run, because the
+lap's own experiment ran three). `scripts/check_forbidden.py` is the tree-wide
+prose scanner and keeps its **own hand-written** HARD/LABEL list, which carries
+none of the `og_yeongdeok_*` or `timeline_*` spellings.
+
+**So the gap is (2), not the field.** `WFG-232` carries it, and the naive fix is
+wrong: an absence rule over the whole tree goes red immediately, because the
+record class exists to quote a forbidden spelling in order to record it. That is
+the problem `docs/withdrawn_claims.json` already solved with file scoping plus a
+per-line licensing pragma (CHARTER §3.5c).
