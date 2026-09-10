@@ -1835,3 +1835,62 @@ not about the product; it is the reason **NH-024** is open and the reason this c
 | R10 | ~~AI ledger~~ **Withdrawn 2026-09-04.** The organisers confirmed to the author that no AI-disclosure artifact is required (NH-008), and `AI_DISCLOSURE.md` was removed at the author's instruction. `ROUTINE_PROMPTS.md` and the `Co-Authored-By` trailers remain under CHARTER §9 as booth-explainability practice, not as a compliance artifact | Withdrawn, not failed | — |
 | R11 | `docs/HANDOFF_ROUND3.md` §5.1 and every date in `docs/auto/` say `auto/dev`, 10-16 and 10-24 | The three live lines CRITIC F7 named are fixed at `1c1561e`: `CHARTER.md:11` and `RUBRIC.md:20` now read 10-24, and NH-006's question text is annotated as a superseded record rather than edited (§3.7). The `research/sweeps_2026-09-03/*` files and the two BACKLOG rows that quote the 10.18-vs-10.24 question predate or describe the NH-006 decision and keep their text as dated records. **Still ☐ for the branch half only:** `docs/HANDOFF_ROUND3.md:898` states "All work stays on `round3-dev`", which is WFG-024 and blocked on WFG-023 | ☐ |
 | R12 | The author has run the booth recipe on the actual laptop once and closed NH-014 | | ☐ (author) |
+
+---
+
+## 2026-09-10T1426Z · critic #59 · ZERO lines ticked, the SIXTEENTH consecutive critic lap
+
+**No line moves and no line is re-worded.** ⚠ **This lap appends prose only and does NOT re-emit the
+checklist table**, deliberately: the table above sits at `:1826-1837` and three consecutive laps have now
+cited it, two of them off by one. Re-emitting it would move it and silently invalidate every one of those
+citations, which is the WFG-107 shape applied to a line reference instead of a count. ⚠ Its rows R1 to R12 are at **`:1826-1837`** at this head, not the `:1825-1836`
+critic #57 and #58 both cited (header `:1824`, rule `:1825`); the note below uses the corrected pair.
+Re-counted in place at `3867860`: **R1, R2, R4, R5, R6, R7, R8, R9 ticked; R3, R11, R12 not; R10 withdrawn 2026-09-04. 8 of 11.**
+Unmoved since critic #43 ticked R8 at 2026-09-08T1429Z.
+
+**Why nothing moved, measured rather than inherited.**
+
+- **R3** is `blocked(NH-046)`, and NH-046 is now **two days past its date**. Its criterion names
+  `make all-checks`, which cannot go green on any clone but the author's because `baseline-verify` is a hard
+  prerequisite and the two acquisition manifests under `data/raw/firms_data/` are git-ignored. No lap may
+  re-word a readiness line; that is the whole reason the entry exists.
+- **R11**'s row **WFG-024** is `todo`, `agent_doable`, and one stale sentence of work. It is held shut by
+  CHARTER §14b until R1, R3, R4, R7, R8 and R9 all tick, and **R3 is the only one of the six still unticked**.
+- **R12** is the author's (NH-014, undated).
+
+**So one open decision of the author's is holding two of the three remaining lines**, five days before
+`sprint.end` (2026-09-15) and forty-four days before the finals.
+
+**What this lap DID verify against the ticked lines, because a tick that is never re-checked is a claim and
+not evidence.** All at `3867860`, each measured in this clone:
+
+⚠ The first column below is deliberately NOT written as `| R7 |`, `| R9 |` or `| R1 |`:
+`tests/test_finals_bundle.py::test_r9_still_enumerates_the_contents_this_list_resolves` and
+`tests/test_printables.py::test_r7_still_enumerates_the_five_printables_this_list_resolves` each assert that
+**exactly one** line of this file starts with that prefix, so a report table using the same cell shape turns
+them red. That is the gate working, it caught this lap's first draft, and the note is here so the next lap
+does not rediscover it.
+
+| readiness line | re-checked how | result |
+|---|---|---|
+| line R7 | re-hashed all **seven** `SOURCES` of `docs/auto/finals/printables/manifest_20260910T1233Z.json` against the tree | **7 of 7 matching**; the paper in the booth box says what the repository says today |
+| line R9 | re-hashed all **19** declared entries of `release/kcf-finals-2026/MANIFEST.json` against their sources | **19 of 19 matching**; the bundle names the `20260910T1233Z` kit |
+| line R1 | read `web/finals.html`'s embedded payload and compared `registry.n_entries` / `n_reproducible` with `docs/NUMBERS.json` | **453 / 395** on the screen, **453 / 395** in the tree; the 57-entry drift critic #24 found is not back |
+| line R1 | `web/finals.html` build stamp `53d1a4e` against this head | **11** commits behind a 30-commit staleness limit |
+| line R5 | `gates.py --mode full` | exit **0**, `tests/test_judge_qa_bank.py` at **31** tests, all green |
+
+⚠ **One thing R5's tick now costs, and it is worth writing on this page rather than only in NH-049.** R7 and
+R5 are ticked by the same mechanism from opposite ends: the bank is a hashed source of the printed kit, so
+**R5 being current is what makes any edit to the bank turn a gate red until R7 is rebuilt**. A critic lap,
+which changes no artifact, therefore cannot add a Q&A card at all. That is NH-049, open, due tomorrow, and
+this lap hit it for real: its judge drill produced one question with no answer in any file
+(「IoU 0.394는 무엇에 견준 값입니까?」) and had to leave it as backlog row **WFG-228** rather than a card.
+
+**Do NOT edit note (CHARTER §14c), and it covers lines rather than a file.** ⚠ **Do not re-emit the
+checklist table at `docs/auto/KCF_READINESS.md:1826-1837` in an appended section.** Measurement behind it:
+critic #57, #58 and this lap all cite the table by those exact line numbers, and critic #58's own append
+moved it once already (its note says 「its position after this lap's own append」). A lap that needs to tick
+a line **edits the status cell in place at those lines**; a lap that only reports edits nothing there.
+**This note expires at the next critic lap unless that lap re-states it after re-checking the line numbers.**
+It does not freeze the file, the table's contents, or any readiness question.
+

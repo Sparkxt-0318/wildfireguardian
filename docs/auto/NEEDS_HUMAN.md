@@ -2354,6 +2354,24 @@ document that the Q&A bank does not carry, and a caveat that is true of four sli
 sent all three to the right place with no friction. The rule's P0 half is not what this entry is about; the
 P1 half is.
 
+**Appended 2026-09-10T1426Z by critic #59, and the arithmetic in this entry is now WORSE than either of the
+laps that wrote it said.** This entry quotes critic #56's table (P1 6 done / 100 todo) and critic #58 wrote
+「9 done against 102 todo」. Counted here at three heads in one process, over every `| WFG-` row, with the
+status read as the fourth field from the end so that a `|` inside a title cell cannot shift it:
+
+| head | what it is | P1 `done` | P1 `todo` |
+|---|---|---:|---:|
+| `d3ca754` | the head critic #58 reviewed | 9 | **106** |
+| `f4ef66e` | the commit critic #58 pushed | 9 | **107** |
+| `3867860` | this head | 9 | **108** |
+
+So the ledger is **five to six items longer** than the number this entry has been argued with, `done` has
+been right every time, and **critic #58's 「mine is the 102nd」 named a position WFG-231 never occupied**
+(it was the 107th). Nothing about your decision changes: the ratio the entry rests on gets worse, not
+better. This lap added exactly one P1-class item and it is not a new row (a measurement appended to
+WFG-107 and one to WFG-232), and the one new row it filed is **P0** and about the product (WFG-233).
+The counting defect itself is WFG-107's sixth recorded instance and is recorded there.
+
 ## NH-039 · DECISION · open · The national wildfire-spread system's manual is an 18 MB PDF the sandbox could not fetch, and one of you can (by 2026-09-12)
 
 **Severity: LOW.** Nothing is blocked, no gate is red, and no claim depends on this. It is
@@ -2909,6 +2927,13 @@ ledger it is forbidden to spend. **No new entry was filed for this; it is the sa
 it belongs here.** The neighbouring question — whether the P1 block should be released on a condition the
 loop controls, or the critic should stop filing rows it may not work — is **NH-038**, and both are yours.
 
+**Appended 2026-09-10T1426Z by critic #59.** This entry is now **two days past its date**, R3 is still the
+only unticked one of the six lines CHARTER §14b's release condition names, and
+`docs/auto/KCF_READINESS.md` still stands at **8 of 11** with **ZERO** lines ticked in the last 24 hours,
+which is the **sixteenth** consecutive critic lap to report zero. Re-counted from the checklist table at
+`:1825-1836` at `3867860` rather than inherited: R1, R2, R4, R5, R6, R7, R8, R9 ticked; R3, R11, R12 not;
+R10 withdrawn 2026-09-04. **Five days of sprint remain** (`sprint.end` 2026-09-15). Still no new entry.
+
 ## NH-047 · FYI · closed · A 403 on an artifact upload took a green run red; transient, guarded, nothing needed
 
 **No reply is requested.** This is recorded once so the arithmetic is not lost, and it is an FYI
@@ -3033,6 +3058,26 @@ in one lap pays the rebuild once**, and DIRECTION.md now names them as one piece
 This does not answer your question — whether a critic lap may add a card at all, given the rebuild it forces
 — it only lowers what the answer costs. Both rows are filed as rows, not written into the bank by this lap,
 which is this routine's standing constraint (it changes no artifact).
+
+**Appended 2026-09-10T1426Z by critic #59, re-measured rather than inherited, and one figure in this entry
+has gone stale.** The entry says `docs/auto/JUDGE_QA.md` is one of the **six** `SOURCES` of the printed kit.
+At `3867860` it is one of **seven**: `BOOTH_SETUP.md`, `DEMO_SCRIPT_5MIN.md`, `JUDGE_QA.md`,
+`submission_reconciliation.md`, `DETECTION_FLOOR_CARD.md`, `creativity_card.md`, `RELATED_WORK_PANEL.md`.
+The entry is a record and is annotated here rather than edited (CHARTER §3.7). **The mechanism it describes
+is unchanged and I re-proved it instead of quoting it**: the newest manifest is
+`docs/auto/finals/printables/manifest_20260910T1233Z.json`, I re-hashed all seven of its declared sources
+against the tree and got **seven of seven matching**, so
+`tests/test_printables.py::test_the_newest_printable_is_not_stale_against_the_tree` is green **today** and
+goes red on the first byte a critic lap writes into the bank. **This lap hit the constraint for real.** Its
+judge drill produced one question with no answer in any file (「IoU 0.394는 무엇에 견준 값입니까?」) and the
+step-3 instruction offers 「a backlog row **or** a JUDGE_QA entry marked 'no evidence yet'」. The second
+branch was unavailable for the fifth consecutive lap, so the question stayed a row (**WFG-228**, filed by
+critic #58, still `todo` and now the top row on `DIRECTION.md`). ⚠ **The entry's list of three queued
+questions is also stale, and in the good direction:** re-read at this head, **WFG-027 is `done(20260909T1517Z)`**
+(the 일정 document exists and reaches the front door and the screen) and **WFG-194 is `done(20260909T0321Z)`**
+(창의성). Only **WFG-197** of the original three is still `todo`, and **WFG-228** joins it, so the queue is
+**two**, not three. The instruction is still unexecutable; what it is holding back is smaller than this entry
+says.
 
 ## NH-050 · DECISION · open · You answered two of these questions two days ago and the loop never heard you, because you answered them on the routine page (by 2026-09-10)
 
@@ -3342,3 +3387,55 @@ touch the bound.
 **Related.** NH-052 (`open` — whether to run the measurement that would replace the bound with a number),
 WFG-213 (`blocked(NH-052)`), WFG-214 (the mechanism half), NH-032 and NH-034 (`open`, two days overdue, the
 margins this wording is about), and `docs/oracle_gap.md` §2 and §5.
+
+## NH-054 · DECISION · open · Four fifths of your front door's headline is limits, and no lap is allowed to decide whether that is the project's strength or its biggest presentation risk (by 2026-09-13)
+
+**Severity: MEDIUM, and it is a judgement rather than a defect.** Nothing is false, no gate is red,
+and every sentence involved is one this project is right to have written. What no lap can settle is
+the *proportion*, and the proportion is what five judges meet in the first thirty seconds.
+
+**What I measured, at `3867860`, on `README.md`'s TL;DR.** The bullet headed **「Headline result」** is
+the one place the front door states what the system produces. It is **2,286 characters** long.
+**433 of them (19 %)** come before the first ⚠ and state the result: the calibrated `P(ignite)` surface
+coupled into elderly-aware and rescue-aware routing, and 「**42 of 458** scanned origins reach a refuge
+**only** when the router accounts for where the fire will be, and **2** have no safe walking route at
+all」. **The remaining 1,853 characters (81 %)** are the four qualifications that follow: the fire-blind
+baseline does not separate knowing-where-it-will-be from knowing-where-it-is; the fair opponent has
+never been run on 영덕; the arm is graded on the field it planned on; and whether 42 is an upper bound
+is an open question (NH-053). The bullet after it exists only to record a withdrawal.
+
+**Why this is yours and not the loop's.** Every one of those qualifications was added by a lap that was
+right to add it, and CHARTER §3.5 and the withdrawn-claim record are the reason this project is
+defensible at all. But 「how much caveat belongs above the fold」 is a presentation judgement with the
+KCF rubric on one side (「해결할 실질적 문제 또는 필요성에 대한 명확한 설명」, a named criterion of a
+20-point row on both tables) and this project's identity on the other, and the two laps that would
+decide it disagree by construction: the fire-scientist lens reads the caveats as the best thing here,
+and the disaster-response-official lens gets to the end of the bullet without learning what the tool
+outputs. CHARTER §6 sends a disagreement about direction to you, and the standing rule in
+`docs/auto/DIRECTION.md` is that a disagreement about the README's lead is a NEEDS_HUMAN entry with
+options rather than an edit.
+
+⚠ **Nothing is proposed to be deleted, softened, hedged or withdrawn under any option below.** The
+2025-fire opening paragraph is untouched in all four, and no ⚠ block loses a word.
+
+**Options:** A) Leave it exactly as it is; the ratio is the point and a judge who reads it is the judge
+this project wants. B) Add ONE measured affirmative sentence above the current first bullet saying what
+the system produces and for whom, keeping every existing sentence exactly where it is. C) Reorder the
+「Headline result」 bullet only: the 433 characters of result first, then a one-line pointer to a new
+「이 결과가 보여 주지 않는 것」 subsection immediately below that holds all 1,853 characters verbatim, so
+nothing moves out of the front door and nothing is rewritten. D) Do nothing before 2026-10-24 and
+revisit it for the paper, where the register is different and the reader is a reviewer rather than a
+judge with five minutes.
+
+**My reading, offered and not applied:** C. It is the only option that changes no sentence and no
+number, it is minutes of work, it is reversible by one edit, and it is the only one that both lenses
+accept. But B is the one that would actually change what a judge hears in the first ten seconds, and
+that is a call about your project's voice, not about its evidence.
+
+**What a lap will do until you answer: nothing.** No lap edits the README lead on its own, this entry
+is the record of why, and `docs/auto/DIRECTION.md` carries the same prohibition.
+
+**Related.** NH-053 (`open`, the 「상한」 wording inside the same bullet), CHARTER §3.5 and §8,
+`docs/auto/RUBRIC.md` Track A 개발 목적 and Track B 연구 목적, and `docs/oracle_gap.md` §7, which is
+where the third qualification sends the reader.
+
