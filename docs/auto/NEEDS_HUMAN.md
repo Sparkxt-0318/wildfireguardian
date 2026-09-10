@@ -2011,9 +2011,48 @@ This still changes no option and adds no question; it is the same question, now 
 
 ## NH-038 · DECISION · open · Your "product first" rule has spent the last three dev laps on documents, and the readiness line it was written to protect has not moved in five critic laps (by 2026-09-09)
 
-**Severity: MEDIUM.** Nothing is broken and no gate is red. What is happening is that the
-sprint plan and the loop's actual order of work have come apart, and neither a dev lap nor
-a critic lap can fix that on its own, because the rule that separates them is yours.
+**Severity: HIGH, raised from MEDIUM by critic #56 on 2026-09-10T0523Z on a measurement
+of the rule's OTHER half.** Nothing is broken and no gate is red. What is happening is that
+the sprint plan and the loop's actual order of work have come apart, and neither a dev lap
+nor a critic lap can fix that on its own, because the rule that separates them is yours.
+
+**What critic #56 measured, 2026-09-10T0523Z at `9b7d21c`, counted across the whole backlog
+table in one process rather than read from any report.** This entry was filed about the
+`fix-before-next-row` cap. The measurement below is about §14b's second sentence, the one
+that sends everything else to P1 「and waits」 until R1, R3, R4, R7, R8 and R9 tick:
+
+| priority | done | todo | blocked |
+|---|---:|---:|---:|
+| **P0** | **64** | 11 | 4 |
+| **P1** | **6** | **100** | 3 |
+
+**Six P1 rows have ever closed. One hundred are `todo`.** The trend inside the last 24 h is
+not noise either: every critic lap added one or two rows and every dev lap removed one or
+two, so the total `todo` count went **104 to 107** while `done` went 32 to 33, in a window
+that closed **three P0 rows** (WFG-222, WFG-218, WFG-220). The release condition on the P1
+block cannot be met by any amount of loop work: **R3 is the only unticked one of the six and
+it needs you** (NH-046, due 2026-09-10, open). The sprint ends **2026-09-15**.
+
+**So, on the measured rate, filing a P1 row is currently indistinguishable from writing a
+sentence in a report that nobody will act on, and the critic is the main producer of those
+rows.** That is the finding, and it is stated as a cost of the rule rather than as an
+argument against it: the P0 half of §14b is working, visibly, and this window is the
+evidence for it.
+
+⚠ **This is not a new question and no fourteenth entry was filed for it.** Two of the five
+options already on this entry speak to it directly, and the measurement changes which one
+looks right rather than adding a sixth. Option **D** (suspend the mechanism until R7 and R9
+tick) does not help, because R7 and R9 are **already ticked** and R3 is the blocker. What
+the measurement argues for is a rule the loop can satisfy without you: either the P1 block
+is released on a condition the loop controls, or the critic stops filing rows it is
+forbidden to work and records those findings in its report instead. Both are your call.
+
+⚠ **One counter-example, recorded because it cuts against the finding.** This lap's own
+`fix-before-next-row` item is **WFG-215**, a P1 row filed by critic #51 on the explicit
+ground that it was 「not a judge-facing surface」. Two days later that ground is false and
+the row is the one thing the next dev lap does first. So the P1 queue is not dead weight;
+it is a queue whose items become urgent unpredictably and which nothing is allowed to
+drain.
 
 **What you set up, on 2026-09-04, and why it was right.** CHARTER §14b: 「A critic finding
 becomes a `fix-before-next-row` item only if it is on a judge-facing surface ... or a red

@@ -5,7 +5,41 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
-**Tick count, critic #55, 2026-09-10T0237Z at `7dabdef`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
+**Tick count, critic #56, 2026-09-10T0523Z at `9b7d21c`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
+R3, R11 and R12 are the three that do not tick; R10 was withdrawn 2026-09-04.** ⚠⚠ **ZERO lines ticked, for the
+THIRTEENTH consecutive critic lap.** The count has stood at 8 since critic #43 ticked R8 at 2026-09-08T1429Z.
+
+**Critic #56's own re-read, 2026-09-10T0523Z at `9b7d21c`, and this lap tests two lines on content rather than
+re-describing the count.** The window closed **three P0 rows** (WFG-222, WFG-218, WFG-220), added **17** tests
+(`gates.py --mode full` exits 0 with **1958 passed**, 64 skipped, 3 xfailed) and rebuilt the finals screen
+twice. **R1 holds and its staleness margin was measured, not assumed**: `web/finals.html`'s build stamp names
+`4cb7cf7`, which is **5** commits behind this head against the 30-commit limit `tests/test_finals_screen.py`
+enforces, and the screen is offline by gate in the same green run. **R7 and R9 hold, and I tested the
+hand-over objects rather than their existence**: `release/kcf-finals-2026/MANIFEST.json` was re-pointed in the
+same commit as the screen rebuild, and I re-hashed **all nineteen** declared files against their sources,
+**nineteen of nineteen matching**, including the rebuilt `web/finals.html`; the printed kit is still
+`WFG_printables_20260910T0140Z.pdf` and its **seven** sources still hash equal to the tree, **seven of seven**,
+because `README.md` and `web/finals.html` are not printed sources and this window's judge-facing work landed on
+those two. **R3, R11 and R12 are unchanged and none is a lap's to move**: R12 is the author's (NH-014), R3 is
+`blocked(NH-046)`, R11's row **WFG-024** is held by CHARTER §14b until R1, R3, R4, R7, R8 and R9 all tick, of
+which **R3 is the only one unticked**, and **NH-046 came due 2026-09-10 and is open**.
+
+⚠ **The judge-facing defect this lap found is NOT a readiness line, and I checked each line's own criterion
+before saying so.** `docs/oracle_gap.md` §4 reads a size-ratio series as forecast behaviour when three of its
+four slices are graded against the same 333-minute observation (confirmed against
+`data/processed/oracle_gap_yeongdeok.json` this lap), and that document became the anchor of the **first** card
+of the finals screen's 알려진 한계 panel at `c4eb8d2`. **R1** asks that the screen open offline and that every
+on-screen **number** map to a registry key; the new card carries no number. **R5** asks that every T0 answer
+cite a file and that no purged phrasing remain; Q36 cites its files, and nothing in that document is a
+registered withdrawn spelling. **R7** and **R9** ask that the kit and the bundle exist and rebuild, not what
+the documents they cite conclude. So this is a scorecard deduction (Track B 데이터 수집·분석·해석, 20 to 19) and
+this lap's one `fix-before-next-row` item, and **no tick is removed**.
+
+⚠ **One line of this page's own guardrail went stale this window and is corrected rather than carried**: the
+`Do NOT edit` bounds on the README's fair-opponent block moved from `263-342` to **`270-349`**, because
+WFG-218 inserted seven lines above the block. Re-measured in `CRITIC_LATEST.md` at this head.
+
+**Critic #55's tick count, 2026-09-10T0237Z at `7dabdef`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
 R3, R11 and R12 are the three that do not tick; R10 was withdrawn 2026-09-04.** ⚠⚠ **ZERO lines ticked, for
 the TWELFTH consecutive critic lap.** The count has stood at 8 since critic #43 ticked R8 at 2026-09-08T1429Z.
 

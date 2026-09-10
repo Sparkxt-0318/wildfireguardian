@@ -1,6 +1,6 @@
 # Direction — where the project is going, on one screen
 
-*Rewritten 2026-09-08T1817Z by the research routine; updated 2026-09-10T0237Z by critic #55 (CHARTER §14).
+*Rewritten 2026-09-08T1817Z by the research routine; updated 2026-09-10T0523Z by critic #56 (CHARTER §14).
 The dev routine reads this before it claims a row; the critic re-checks it after every dev lap, at most one
 reorder per lap, with a reason. Only the most recent critic note is kept, as §14 specifies; the 54,923-byte
 version this page replaced is archived verbatim at `docs/auto/archive/DIRECTION_superseded_2026-09-08T1817Z.md`.*
@@ -13,115 +13,116 @@ Its defensible contribution is not forecast accuracy (Korea's own agencies forec
 than we can) but the **output object**: a time-dependent decision per point, with its limits measured and
 written down.
 
+## Before any row: this lap's one `fix-before-next-row` item
+
+**Print `time_gap_min` beside every ratio and every IoU in `docs/oracle_gap.md` §4 and §4b, and say in one
+sentence that three of the four slices are scored against the same observation.** Minutes, prose only, no new
+measurement, no unregistered number. The row is **WFG-215** and its own placement note (「not a judge-facing
+surface」) is false at this head: `docs/oracle_gap.md` is the cited evidence anchor from **seven places on four
+judge-facing surfaces**, including card **Q36 at tier T0** in the printed kit and, new at `c4eb8d2`, the
+**first** card of the finals screen's 알려진 한계 panel. ⚠ Do **not** follow the row's 「Do」 literally: per-slice
+`obs_time_min` is **not** registered and printing it would break CHARTER §3 rule 3. The registration half is
+the rest of the row, not the preemption.
+
 ## Next three rows, and why each is next
 
-Table order at `7dabdef`, after this lap's **zero** §3b reorders. There is **no** `fix-before-next-row` item
-this lap: critic #54's was cleared by the 0017Z lap and re-measured here, and §14b says at most one, not at
-least one.
+Table order at `9b7d21c`, after this lap's **one** §3b reorder.
 
-1. **WFG-218 (P0, KCF) is the next row to claim.** 일정 counts **0** on `README.md` and **0** on
-   `web/finals.html`, and 「일정 및 팀원 역할 배분의 타당성」 is a **named sub-item of 설계와 방법론, 20 points
-   on BOTH rubric tables**. It is the only `todo` P0 row that closes a **zero on a named criterion**, and the
-   row that was going to fix it is `done`, which is the residue pathology it exists to make visible.
+1. **WFG-128 (P0, KCF) is the next row to claim**, moved to the head of the P0 block by this lap. It is
+   `minutes`, judge-facing, and the author already decided it (NH-031 A, closed 2026-09-06). `docs/multi_region.md:187-192`
+   states the one number in this repository that runs against the project, and it still does not say that the
+   two arms are scored under **different** time rules: the future-aware arm now carries its 600-minute budget
+   in the sentence, the fire-blind arm carries no budget at all, and `README.md:146` sends a judge to that page
+   for 「완전한 분할」. It needs no margin value, so NH-032 does not bar it.
 
-2. **WFG-220 (P0, KCF) with it, in the same lap.** The finals screen is the only judge-facing surface carrying
-   no word of the oracle-in-the-grader objection that every other surface now states. **Both rows need
-   `make finals` on a commit already on `origin` and a re-pointed `release/kcf-finals-2026/MANIFEST.json` after
-   staging, and that mechanic is paid once if they ship together.** WFG-222 used to be the third of this group
-   and is now `done`, so the pairing is two rows rather than three and is cheaper than it was yesterday.
+2. **WFG-007 and WFG-117 sit behind it and one of them is a trap.** WFG-007's own status cell says 「the agent
+   half is done; the student half is not」; a dev lap that takes it in table order finds (a) a printing task
+   that is the student's and (b) WFG-130. Take WFG-117 before it, or record in the row why not.
 
-3. **Behind those: eleven more P0 rows, and five sprint days.** **Thirteen** P0 rows are `todo` at this head,
-   counted here rather than inherited: WFG-218, 220, 007, 117, 128, 129, 121, 106, 036, 101, 119, 024, 054, so
-   eleven sit behind the two above. `blocked`: WFG-213 (NH-052), WFG-124 (NH-032),
-   WFG-104 (NH-032), WFG-023 (human). One P0 row closed this window and none was filed, so the `todo` count is
-   down by one for the first time in four laps.
+3. **Behind those: eleven P0 rows and five sprint days.** **Eleven** P0 rows are `todo` at this head, counted
+   here rather than inherited: WFG-128, 007, 117, 129, 121, 106, 036, 101, 119, 024, 054. `blocked`: WFG-213
+   (NH-052), WFG-124 (NH-032), WFG-104 (NH-032), WFG-023 (human). Three P0 rows closed this window
+   (WFG-222, 218, 220) and none was filed, so the P0 `todo` count is down by three, the largest one-window fall
+   of the sprint.
 
-### Why zero reorders, in one paragraph
+### Why one reorder, in one paragraph
 
-WFG-218 already stands first among the runnable `todo` rows and it is where I would have moved it anyway, so a
-reorder would buy nothing and §3b permits one act without requiring it. The one row filed this lap, **WFG-223**,
-is P1 and went into the table in P1 order, not above the P0 block: it is a defect in a **gate**, and CHARTER
-§14b holds gate-on-gate work behind R1, R3, R4, R7, R8 and R9. **WFG-155**, the neighbouring limit of the same
-scanner, is P1 for the same reason, and putting this one above the P0 block would be the loop promoting its own
-machinery over the booth.
+DIRECTION named WFG-218 and WFG-220 and both are `done`, so this page named nothing and a dev lap would have
+fallen back to table order onto WFG-007, whose remaining work is the student's. WFG-128 is the row that should
+meet a dev lap first on every reading: P0, judge-facing, `minutes`, decided by the author eight days ago, and
+blocked by nothing. P0 above P0, so CHARTER §14's ordering rule is untouched. The one row I would otherwise
+have promoted, **WFG-215**, is handled as the preemption above rather than as a reorder, because its
+minutes-sized half is a preemption and its registry half is not.
 
 ## What not to do
 
 - **Do not start a P1 row while a P0 row is `todo`**, and do not file one above the P0 block.
-- ⚠ **Do not write 「가구 단위」 or "per-household" about the COMMITTED dispatch sheets.** This is `done`
-  (WFG-222, `WC-013` registered) and the corrected wording is **지점 단위** with 「화재 위험면과 지형은 합성 ·
-  출발지는 표본 좌표」 and 「실제 확산면으로 만든 출동 지시서는 아직 없습니다」 **in the same block**.
-  `README.md:212-251` is the model to copy. The four remaining 「가구 단위」 in `docs/auto/JUDGE_QA.md` are
-  **deliberate and correct**: `:600` names the quantity, `:680-681` is the ⭕/❌ pair about other systems, and
-  `:968` is Q20a's own question. Do not "fix" them.
-- ⚠ **`data/processed/timeline_roles/timeline_roles.json` may be rebuilt from a FRESH full clone, and may not
-  be rebuilt from a clone you deepened.** Critic #53 measured it in a fresh clone at `ba06467`: `%h` is **7**
-  characters and `build_timeline_roles.py --check` exits **0**. The eight-character anchors that turn GitHub
-  red come from `git fetch --unshallow` on an already-shallow clone; `git gc --prune=now` cures it.
-  **WFG-217** is still the right fix and is still P1.
+- ⚠ **Do not print a per-slice `obs_time_min` from `data/processed/oracle_gap_yeongdeok.json` anywhere.**
+  Only the headline `og_yeongdeok_obs_time_min` is registered; the five per-slice values are not, and
+  CHARTER §3 rule 3 says a number you cannot register you do not write. The five per-slice
+  `og_yeongdeok_t###min_time_gap_min` keys **are** registered and are what the preemption uses.
+- ⚠ **Do not rebuild `data/processed/timeline_roles/timeline_roles.json` from a clone you deepened.**
+  Unchanged from critic #55, and it now has a judge-facing edge: `web/finals.html`'s new 개발 일정과 역할 card
+  prints its as-of stamp from that artifact's `last_commit_date` (**2026-09-09** at this head), so the guardrail
+  freezes a date a judge reads, and the finals are 2026-10-24. A rebuild from a **fresh full clone** writes
+  seven-character anchors and is safe. **WFG-217** is still the right fix and its deadline is the 10-16 freeze.
+- ⚠ **Do not write 「가구 단위」 or "per-household" about the COMMITTED dispatch sheets.** `done` (WFG-222,
+  `WC-013`); the corrected wording is **지점 단위** with 「화재 위험면과 지형은 합성 · 출발지는 표본 좌표」 and
+  「실제 확산면으로 만든 출동 지시서는 아직 없습니다」 **in the same block**. `README.md:212-251` is the model.
+  The four remaining 「가구 단위」 in `docs/auto/JUDGE_QA.md` are **deliberate and correct** (`:600` names the
+  quantity, `:680-681` is the ⭕/❌ pair about other systems, `:968` is Q20a's own question). Do not "fix" them.
 - **Do not file a judge-facing critic finding at table position 1 while NH-051 is open.** NH-038's own option B
   puts it 「in the table like any other」; 「at position 1」 is option **D**'s mechanic.
-- **Do not settle the word 「상한」 / 「upper bound」 in any lap.** It is a claim about a judged headline
-  number, nothing in the tree derives it, and NH-053 is open. Describe the mechanism; leave the word alone.
+- **Do not settle the word 「상한」 / 「upper bound」 in any lap.** NH-053 is open. Describe the mechanism.
 - **Do not put a margin value (9, 27, 5, 19, 86) on any judge-facing surface** while NH-032, NH-034 and NH-052
-  are open, and not in `README.md:263-342` at all (the `Do NOT edit` note in `CRITIC_LATEST.md`, whose bounds
-  were re-measured at this head and are **unchanged**, because the window's nine added README lines all landed
-  below that block).
-- ⚠ **Do not add a word to `paper/manuscript.md`.** `check_paper.py` reads **9,000** body words against a
-  9,000 hard fail at this head: the margin is **zero**. NH-037 is open and due **today, 2026-09-10**.
-- **Do not refit anything.** Every headline number is downstream of the fitted `spread_v2` model and
-  CHARTER §3 rule 2 forbids regenerating a committed artifact.
-- **Do not add documents to the release bundle.** WFG-218 and WFG-220 change text on files already in it.
-- **Do not re-open the AI-disclosure question.** NH-008 is closed, CHARTER §9 states what the project keeps
-  voluntarily, and the bank now agrees with that record on all three passages.
-- **Do not re-propose international portability or real-time weather** (`docs/HANDOFF_ROUND3.md` §13–§14).
-- **Do not compare accuracy with NIFoS or G-DAPS.** Their figures are agency statements with no published
-  metric definition; the differentiator is the output object.
+  are open, and not in `README.md:270-349` at all. ⚠ Those bounds **MOVED this window** (they were 263-342 at
+  `7dabdef`, pushed down seven lines by WFG-218's TL;DR bullet); the `Do NOT edit` note in
+  `CRITIC_LATEST.md` is re-measured there, and a lap that copies the old numbers protects the wrong lines.
+- ⚠ **Do not add a word to `paper/manuscript.md` without trimming one.** `check_paper.py` reads **8,997** body
+  words at this head against a 9,000 hard fail: **three** words of margin, up from zero. NH-037 came due
+  **2026-09-10** and is open.
+- **Do not refit anything**, and do not regenerate a committed artifact (CHARTER §3 rule 2).
+- **Do not add documents to the release bundle.** WFG-128 changes text on a file already reachable from it.
+- **Do not re-open the AI-disclosure question** (NH-008 closed; CHARTER §9).
+- **Do not re-propose international portability or real-time weather** (`docs/HANDOFF_ROUND3.md` §13-§14).
+- **Do not compare accuracy with NIFoS or G-DAPS.** The differentiator is the output object.
 - **Do not let a number from a knowledge note reach a card, the README, the manuscript or
   `docs/NUMBERS.json`** (CHARTER §13, §3 rule 5b).
 
-## Readiness lines ticked in the last 24 h: ZERO, for the twelfth consecutive critic lap
+## Readiness lines ticked in the last 24 h: ZERO, for the thirteenth consecutive critic lap
 
 `docs/auto/KCF_READINESS.md` stands at **8 of 11** and has stood there since critic #43 ticked R8 at
-2026-09-08T1429Z. The cause was re-read this lap rather than restated: R12 is the author's (NH-014); R3 is
-`blocked(NH-046)`; and R11's row **WFG-024** is held by CHARTER §14b as loop hygiene, released only when R1, R3,
-R4, R7, R8 and R9 all tick, of which **R3 is the only one unticked**. Both remaining agent-reachable lines are
-downstream of **one unanswered question, NH-046, which comes due TODAY, 2026-09-10**. ⚠ This window is the
-strongest evidence yet that the count is measuring the question rather than the work: WFG-222 closed on eleven
-surfaces, seventy tests were added, the kit was rebuilt and the bundle re-pointed, and the number did not move,
-because none of that is what R3 asks about.
+2026-09-08T1429Z. The cause is unchanged and was re-read rather than restated: R12 is the author's (NH-014);
+R3 is `blocked(NH-046)`; R11's row **WFG-024** is held by CHARTER §14b until R1, R3, R4, R7, R8 and R9 all
+tick, of which **R3 is the only one unticked**. **NH-046 came due 2026-09-10 and is open.**
+
+⚠ **This lap stops describing the zero and measures what §14b's other half has cost, because that is a
+direction fact and not a product fact.** Counted at this head across the whole table: **P0 is 64 done, 11 todo,
+4 blocked** — the loop closes P0 rows and closed three this window. **P1 is 6 done and 100 todo.** Six, over the
+whole sprint. Every critic lap in the last 24 h added one or two rows and every dev lap removed one or two, so
+the total `todo` count went **104 → 107** while `done` went 32 → 33. §14b releases the P1 infra block only when
+R1, R3, R4, R7, R8 and R9 tick, R3 cannot tick without the author, and the sprint ends **2026-09-15**. So the
+P1 queue is, on the measured rate, a **write-only ledger**, and the critic is its main producer. That
+measurement is appended to **NH-038**, which is the author's question about exactly this rule, rather than
+filed as a fourteenth question.
 
 ## Critic's last direction note
 
-**2026-09-10T0237Z, critic #55. ZERO §3b reorders, deliberately. ZERO `fix-before-next-row` items, because
-critic #54's was cleared and nothing judge-facing is wrong at this head that is minutes. ONE new row (WFG-223,
-P1, in P1 order). ZERO rows closed by me; the dev lap closed WFG-222. ZERO new NEEDS_HUMAN entries; NH-035
-raised MEDIUM to HIGH. Scorecard: one row moves on both tracks and it is the same row, 제출 자료, UP.
-Track B 93 → 94, Track A 92 → 93, paid on critic #54's pre-registered condition and verified in the tree.**
+**2026-09-10T0523Z, critic #56. ONE §3b reorder (WFG-128 to the head of the P0 block). ONE
+`fix-before-next-row` item (WFG-215's minutes-sized half). ZERO new backlog rows and ZERO new NEEDS_HUMAN
+entries: every finding this lap made belongs to a row that already exists, and saying so is the restraint
+CHARTER §7 asks for. Two rows updated with measurements (WFG-215, WFG-217) and one moved (WFG-128). NH-038
+raised MEDIUM to HIGH on a new measurement. Scorecard: Track B 94 HELD on two moves that offset (제출 자료 UP
+to 20, 데이터 수집·분석·해석 DOWN to 19); Track A 93 → 94 (제출 자료 UP to 18), because Track A has no
+데이터 row for the deduction to land on.**
 
-Verified at `7dabdef`. `gates.py --mode full` exits **0** (**1941 passed**, 64 skipped, 3 xfailed, pytest
-259.0 s, up 70 tests in one window); `baseline-verify` WARNs on the two git-ignored `data/raw/**` contracts,
-which is NH-029 and §3d working. **GitHub `auto-gates`, runs 286 to 309: no `failure` anywhere in the window,
-one `cancelled` (306) superseded by the next push, and 309 green at this exact head, so CHARTER §4b sets no
-finding #1.** Every dev report in the window records `Reviewed by:`, and eight of the nine record
-`subagent (block)` and spend commits acting on it. `factchk`: the window adds no new external URL and no new
-citation.
-
-⚠⚠ **This lap withdrew its own first draft and says so rather than quietly rewriting it.** It began at
-`49ac16e`, where `origin` held only the WFG-222 **claim** commit and had shown nothing for 107 minutes, and it
-wrote a root objection about a possibly dead lap and a locked P0 row. The 0017Z lap pushed at **02:13:26Z**,
-between the fetch and the push, having committed its work locally at **00:53:53Z**. It was slow, not dead.
-**The root objection that survives is the smaller true one: a lap's work is invisible to every other routine
-until it pushes, and this window measured that gap at about 95 minutes on a P0 row.** At the 03:17Z wake
-CHARTER §5b would have computed exactly 3 h 00 m from the stamp and 2 h 54 m from the claim commit, so both
-readings would have said skip, on a row that was already finished. **NH-035** is the question and it is now
-HIGH; option **B** is the only one whose outcome does not depend on which timestamp a lap reads.
-
-⚠ **The one `Do NOT edit` note, RE-STATED after re-reading NH-032 and NH-034 and after RE-MEASURING its
-bounds** (CHARTER §14c, NH-036 A). It covers the Round-4 fair-opponent block, and at this head that block is
-**`README.md:263-342`**, measured here with `grep -n '^### ' README.md` and **unchanged** from critic #54
-because the window's nine added README lines all landed below it. It forbids exactly one thing in those lines:
-putting a present-perimeter **margin value** (9, 27, 5, 19, 86) there while NH-032 and NH-034 are open. Both
-re-read: both still `open`, both stated due **2026-09-08**, so two days past. A scan of 263-342 finds **zero**
-occurrences of any of the five. **It expires at critic #56 unless that lap re-states it after re-checking, and
-that lap re-measures the bounds rather than copying this line.** It freezes no file and no question.
+Verified at `9b7d21c`. `gates.py --mode full` exits **0** (**1958 passed**, 64 skipped, 3 xfailed, pytest
+373.8 s, up 17 tests in one window); `baseline-verify` WARNs on the two git-ignored `data/raw/**` contracts,
+which is NH-029 and §3d working. **GitHub `auto-gates`, runs 283 to 315: no `failure` anywhere in the window**,
+**four** `cancelled` (284, 306, 310, 312), each superseded by the next push within minutes, and **315 green at
+this exact head**, so CHARTER §4b sets no finding #1 for the fifth consecutive lap. Every dev report in the
+window records `Reviewed by:`, and **seven of the eight** record `subagent (block)` and spend commits acting
+on it (the eighth, 1928Z, records `pass`);
+`gates.py --assert-reported --base 435c54d` exits **0** over 66 substantive paths. `factchk`: the window adds
+no new external URL and no new citation to any judge-facing surface; the three new URLs in the diff are inside
+`docs/auto/` record-class pages.
