@@ -5,12 +5,60 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
-**Tick count, critic #61, 2026-09-10T2000Z at `be39dea`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
+**Tick count, critic #62, 2026-09-10T2305Z at `f93af93`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
 R3, R11 and R12 are the three that do not tick; R10 was withdrawn 2026-09-04.** ⚠⚠ **ZERO lines ticked, for
-the EIGHTEENTH consecutive critic lap.** The count has stood at 8 since critic #43 ticked R8 at
-2026-09-08T1429Z, and **the sprint ends 2026-09-15, five days out**. ⚠ This lead is rewritten by the lap
-that appends below it, which is what WFG-238 asks a gate to enforce; until that gate exists it is done by
-hand, deliberately, in the same commit as the append.
+the NINETEENTH consecutive critic lap, AND this window is not excused the way the last one was.** The count
+has stood at 8 since critic #43 ticked R8 at 2026-09-08T1429Z, and **the sprint ends 2026-09-15, five days
+out**. ⚠ This lead is rewritten by the lap that appends below it, which is what WFG-238 asks a gate to
+enforce; until that gate exists it is done by hand, deliberately, in the same commit as the append.
+
+
+**Critic #62's re-read, 2026-09-10T2305Z at `f93af93`, counted from the checklist table rather than
+inherited from the line above it.** ⚠⚠ **Critic #61 could say its window had nothing to tick against and
+this lap cannot.** `be39dea..f93af93` holds a dev lap that changed `docs/MODEL_CARD.md` and rebuilt
+`web/finals.html` (registry 537 → 539) and a paper lap that added a figure and a verified reference. Two
+judge-facing artifacts moved. **Nothing ticked anyway, and the reason is not that the laps were idle:** the
+three unticked lines are not reachable from the tree at all. That is the finding, and it is about the loop's
+direction rather than about either lap.
+
+- **R1 holds, and both halves were checked separately.** `web/finals.html` is offline by gate inside the
+  green `gates.py --mode full` at this head (**2054 passed**, 63 skipped, 3 xfailed, pytest 319.3 s). R1's
+  other half asks that every on-screen number map to a registry key: the screen was rebuilt this window and
+  its embedded payload's registry counts moved 537 → 539 and 479 → 481 together with `docs/NUMBERS.json`,
+  which is the mapping holding rather than breaking. The WFG-233 lap diffed the payload semantically at
+  **340,892 leaf values, 5 changed, all bookkeeping**, and no judge-facing figure moved.
+- ⚠⚠ **R7 and R9 hold on their own criteria, AND this lap used the same hashes to prove a judge-facing
+  defect for the third consecutive lap (critic #57, #61, this one).**
+  `docs/auto/finals/printables/manifest_20260910T1233Z.json` declares seven `sources` and **all seven hash
+  equal to the tree**, re-computed in this lap's own process; `release/kcf-finals-2026/MANIFEST.json`
+  declares nineteen files and **all nineteen hash equal to their `source` paths**, including the
+  `web/finals.html` entry the dev lap correctly re-pointed in the same commit that rebuilt the screen.
+  **That equality is what makes WFG-243 provable rather than suspected:** `docs/auto/JUDGE_QA.md` is one of
+  the seven, so `WFG_printables_20260910T1233Z.pdf` carries `:657-659`'s 「**가구 하나하나에 대한** …
+  공간 단위가 읍면동이 아니라 **집**입니다」 and `:667`'s 「**이 집 사람이** 걸어 나갈 수 있는가」 onto the
+  paper a judge is handed. **A hash gate proves the paper matches the repository; it cannot prove the
+  repository agrees with itself**, which is critic #61's sentence and it earned a second instance in one
+  window. R7's criterion is that the printables exist and match, and they do, so **no tick is removed**;
+  this is a 제출 자료 deduction and a P0 row.
+- ⚠ **R5 holds and this is the closest it has been to the edge.** R5 asks that every T0 answer cite a file
+  and that no purged phrasing remain; `tests/test_judge_qa_bank.py` is green in the run above and every T0
+  answer does cite a file. What a green bank gate cannot see is a **T0 card in a register the repository
+  withdrew**: `docs/auto/JUDGE_QA.md` Q16a is tier **T0**, said from memory to five judges, and the sentence
+  that states this project's whole differentiator is in `WC-013`'s household register (**WFG-243**). The gate
+  cannot see it because `WC-013`'s pattern is anchored on 「가구 단위」 plus an output-object phrase, by
+  design, and none of these three lines contains 「가구 단위」 at all. **Not an untick**, because the answer is
+  not false and it does cite its files; named here so no lap reads a green bank gate as a current bank. The
+  second named staleness from critic #61 also stands: `:1246-1247` still tells the student the repository does
+  not know of anyone who built the same thing (**WFG-241**).
+- **R3, R11 and R12 are unchanged and none is a lap's to move.** R12 is the author's (NH-014). R3 is
+  `blocked(NH-046)`, and **NH-046 was due 2026-09-10; this lap ran at 23:05 UTC, which is 2026-09-11 08:05
+  KST, so it is due now on the author's clock and not yet overdue on the repository's.** R11's **WFG-024** is
+  held by CHARTER §14b until R1, R3, R4, R7, R8 and R9 all tick, of which **R3 is the only one unticked**, so
+  **106 P1 rows wait on one entry** with five sprint days left. Nineteenth consecutive lap this paragraph is
+  true; appended to **NH-046** rather than filed again.
+
+⚠ **No `Do NOT edit` note is written on this page by this lap** (CHARTER §14c). There is nothing here a lap
+would be tempted to edit wrongly today, and a note that froze the checklist table would block WFG-238.
 
 
 **Critic #61's re-read, 2026-09-10T2000Z at `be39dea`, counted from the checklist table rather than

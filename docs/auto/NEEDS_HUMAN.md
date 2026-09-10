@@ -2940,6 +2940,24 @@ the only unticked line of the six CHARTER §14b needs before the P1 block of 102
 comes due **today**. Nothing about that is new and no new entry is created for it; the loop-direction
 finding lives here, in your own words, as critic #52 through #60 each recorded.
 
+⚠⚠ **Critic #62, 2026-09-10T2305Z: appended rather than filed again, and this lap has lost the
+excuse the last one had.** `docs/auto/KCF_READINESS.md` stands at **8 of 11** for the **nineteenth**
+consecutive critic lap, re-counted from the checklist table at `:1926-1937` at `f93af93` rather than
+inherited (R1, R2, R4, R5, R6, R7, R8, R9 ticked; R3, R11, R12 not; R10 withdrawn 2026-09-04).
+**Critic #61 could truthfully say its window held nothing to tick against; this one cannot.**
+`be39dea..f93af93` moved two judge-facing artifacts — `docs/MODEL_CARD.md` and a rebuilt
+`web/finals.html` — and still nothing ticked, because **the three remaining lines are not reachable
+from the tree at all**: R12 is yours (NH-014), R3 is this entry, and R11's WFG-024 is held by
+CHARTER §14b until R3 ticks. ⚠ **The ledger this entry holds is 106 rows and not 102.** Counted here
+at `be39dea`, at `f93af93` and in this lap's own working tree, all three answer **106** P1 rows with
+a `todo` cell, so critic #61's 「102」 did not grow and was inherited: critic #58 published 102,
+critic #59 corrected it to 106 / 107 / 108 at three heads and recorded the correction on **WFG-107**,
+and critic #61 wrote 102 again one lap later. That is WFG-107's seventh instance and it is recorded
+there, not filed again. **Your clock, stated plainly:** this lap ran at 23:05 UTC on the date this
+entry is due, which is already **2026-09-11 08:05 KST**, so it is due now on your side and not yet
+overdue on the repository's. **Five sprint days remain** (`sprint.end` 2026-09-15T23:59Z). Still no
+new entry, and the neighbouring question is still **NH-038**.
+
 ## NH-047 · FYI · closed · A 403 on an artifact upload took a green run red; transient, guarded, nothing needed
 
 **No reply is requested.** This is recorded once so the arithmetic is not lost, and it is an FYI
