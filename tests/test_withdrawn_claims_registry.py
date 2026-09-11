@@ -562,13 +562,41 @@ def test_the_registry_holds_nothing_the_families_do_not():
         (r"distance\s+moved\s+from\s+the\s+(?:\*\*)?ignition",
          "wc017-moved-from-ignition-en"),
     }
+    #: WC-018, dev lap 20260911T1219Z, clearing critic #66's one `fix-before-next-row`
+    #: item. It is the sibling of `our_own_null_s_centre` and deliberately not folded into
+    #: it: WC-017 withdrew the WORD for where the null circle SITS, and this withdraws the
+    #: ATTRIBUTION of why the model beats it. WFG-254 corrected the first on eight surfaces
+    #: and left the second standing in the very next clause of the same T0 card, which is
+    #: the WC-004 shape once more — a lap chooses which sentence to correct and stops at the
+    #: one it was sent for.
+    #: ⚠ Nothing outside this repository was needed to catch it either, and that is the
+    #: whole finding: `data/processed/disc_null_yeongdeok.json :: what_this_is_not` calls
+    #: the IoU gap 「joint PLACEMENT-AND-SHAPE skill, not directional skill alone」, so the
+    #: artifact refuses to attribute the gap to one component and the card attributed the
+    #: entire remainder to 「모양」. No shape-matched, second-moment, principal-axis or
+    #: rotated null exists anywhere in `docs/`, `paper/`, `scripts/` or `src/`.
+    #: ⚠ What is NOT withdrawn is either clause beside it. 「방향은 아닙니다」 is priced by
+    #: the `direction` block and stays; WFG-254's 「뻗은 거리」 is a description critic #65
+    #: measured and stays. Both patterns are therefore anchored on the claim verb — 「잘하는
+    #: 것은 ... 아니라 ... 모양」 and 「이긴 축은 모양」 — and not on 「모양」, which this
+    #: repository keeps as the ordinary word for the footprint.
+    #: ⚠ Blast radius measured over every tracked .md and .html BEFORE registering, line by
+    #: line as `scan_text` reads them: 13 hits for the closing spelling and 6 for the
+    #: analytic one, and ZERO of the 19 gated — BACKLOG, CRITIC_LATEST, DIRECTION,
+    #: SCORECARD, two archived critic drafts and one critic report, all record class.
+    what_the_null_gap_is_attributed_to = {
+        (r"잘하는\s*것은\s*방향이\s*아니라[^」]{0,24}모양",
+         "wc018-shape-not-direction-ko"),
+        (r"원판(?:을|보다)\s*이긴\s*축은\s*(?:\*\*)?\s*모양",
+         "wc018-won-axis-is-shape-ko"),
+    }
     extra = ({(s["pattern"], s["token"]) for _cid, s in SPELLINGS}
              - in_files - reviewer_found - reachability - booth_kit_contents
              - dispatch_exclusion_reason - someone_elses_system
              - stale_self_criticism - measured_shape_of_our_own_sweep
              - how_our_own_work_was_organised - our_own_output_object
              - a_reading_of_our_own_measurement - a_claim_about_our_own_machinery
-             - our_own_null_s_centre)
+             - our_own_null_s_centre - what_the_null_gap_is_attributed_to)
     assert extra == set(), (
         "the registry has grown past the families it absorbed. That is allowed, and when "
         "you do it, add the new spelling to this test's expected set and say in "
@@ -1002,6 +1030,16 @@ def _probe_sentence(pattern: str) -> str:
             "across all",
         r"distance\s+moved\s+from\s+the\s+(?:\*\*)?ignition":
             '        ("distance moved from the ignition", [',
+        # WC-018, 2026-09-11. Both lifted from the tree at `42b7c3c`, the head this lap
+        # started from. Neither needed an outside source: the artifact the two sentences
+        # rest on, `data/processed/disc_null_yeongdeok.json`, refuses the attribution in
+        # its own `what_this_is_not` field, and no rotated or shape-matched null exists
+        # in the tree to support it.
+        r"잘하는\s*것은\s*방향이\s*아니라[^」]{0,24}모양":
+            "> 많이 빗나갔습니다. 저희가 잘하는 것은 방향이 아니라 불의 모양입니다.」",
+        r"원판(?:을|보다)\s*이긴\s*축은\s*(?:\*\*)?\s*모양":
+            "**모델이 원판을 이긴 축은 모양과 뻗은 거리이고(면적은 원판이 구조상 똑같이 "
+            "맞춰 오므로 겨룰 축이 아닙니다), 무게중심은 불보다 멀리 나갑니다.**",
     }
     assert pattern in probes, (
         f"no probe sentence for a newly registered pattern:\n  {pattern}\n"
