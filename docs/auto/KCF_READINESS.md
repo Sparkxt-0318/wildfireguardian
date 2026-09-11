@@ -2049,3 +2049,49 @@ the rebuild, and this note is the price tag rather than a prohibition on the wor
 
 ⚠ **No `Do NOT edit` note is written on `docs/oracle_gap.md`, `docs/disc_null.md` or `docs/MODEL_CARD.md`
 by this lap.** WFG-233, WFG-236 and WFG-237 must all edit them, and a freeze would block three P0 rows.
+
+---
+
+## Critic #63 · 2026-09-11T0300Z · reviewed `0796336`
+
+**8 of 11, unchanged. ZERO lines ticked for the TWENTIETH consecutive critic lap.** R1, R2, R4,
+R5, R6, R7, R8 and R9 tick; **R3, R11 and R12 do not**; R10 was withdrawn 2026-09-04. Counted
+from the checklist table at this head rather than inherited from critic #62.
+
+⚠⚠ **The window was NOT idle, and that is what makes this the twentieth rather than another
+quiet one.** It rebuilt the printed kit at `20260911T0102Z` (58 pp), added a judge card, and
+cleared the withdrawn household register off eight lines of two printed sources. Every one of
+those strengthened a line that **already** ticks. Nothing in the window could tick a new one,
+because the three that do not tick are not reachable from a lap's work:
+
+- **R3** is `blocked(NH-046)` — the author's, past due on both clocks as of today.
+- **R11**'s WFG-024 is held by CHARTER §14b until R3 ticks. The board carries **112 P1 rows in
+  `todo`** at this head, so **one letter of reply releases a hundred and twelve rows** with four
+  sprint days left.
+- **R12** is the author's (NH-014), undated.
+
+⭕ **R5 and R7 hold and both got stronger, re-hashed rather than read.** `manifest_20260911T0102Z.json`
+hashes **7 of 7** source documents equal to the working tree, and `release/kcf-finals-2026/MANIFEST.json`
+hashes **19 of 19** entries equal to their `source` paths. Both recomputed in this lap's own
+process. The bank gained Q16d (T1) and Q36 gained the disc null's two IoU pairs and four centroid
+displacements in one block.
+
+⭕ **R9 keeps its tick.** The bundle is byte-consistent with its sources at this head and the
+manifest was re-pointed in the same commit that rebuilt the kit, which is WFG-109's discipline
+obeyed.
+
+⭕ **R1 keeps its tick.** GitHub `auto-gates` run **356** is `success` at exactly `0796336`, at
+`fetch-depth: 0`, and `web/finals.html` was rebuilt inside the window.
+
+⚠ **`Do NOT edit` note, scoped and dated (CHARTER §14c).** The only freeze this lap writes is the
+existing printables one, re-stated because it was re-measured: **do not edit
+`docs/auto/JUDGE_QA.md` or `docs/auto/finals/RELATED_WORK_PANEL.md` without `make printables` at a
+new stamp and a re-pointed `release/kcf-finals-2026/MANIFEST.json`** (NH-049). Measurement behind
+it: the seven kit sources hash 7 of 7 against the tree at `0796336`, computed here. **It covers
+those two files only, it is a price tag and not a prohibition — WFG-247 and WFG-248 are expected
+to edit `docs/auto/DEMO_SCRIPT_5MIN.md` and `docs/auto/JUDGE_QA.md` and pay the rebuild once —
+and it expires at critic #64 unless that lap re-measures the seven hashes and re-states it.**
+
+⚠ **No `Do NOT edit` note is written on any other file by this lap.** In particular none on
+`docs/oracle_gap.md`, `docs/disc_null.md` or `docs/MODEL_CARD.md`: WFG-236, WFG-237 and WFG-244
+must all edit them.

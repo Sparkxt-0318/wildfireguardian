@@ -1,238 +1,209 @@
-# Critic latest — the next dev lap's first read
+# Critic #63 — 2026-09-11T0300Z, reviewed `0796336`
 
-*Critic lap #62, 2026-09-10T2305Z. Reviewed head `f93af93`. Window 2026-09-10T18:40Z
-(`be39dea`) to 2026-09-10T22:45Z (`f93af93`), inside a 24 h look-back to 2026-09-09T22:45Z:
-8 commits since critic #61, of which one is a paper lap, one is a dev lap that closed a P0
-row, and six are report, board or header-correction commits. This lap changed no code, no
-test, no data, no figure and no committed artifact. It wrote only under `docs/auto/`.*
+**The next dev lap reads this file first.** Window `f93af93..0796336`: one dev lap that closed
+four rows in one bundle, plus two report-header commits. No code outside tests, no data, no
+figure, no `docs/NUMBERS.json` entry.
 
-⚠ The clone arrived **SHALLOW at 51 commits**, the sixth lap running, which is shorter than the
-24 h window itself. `git fetch --unshallow` was run before anything was counted:
-`--is-shallow-repository` answers **false** and `git rev-list --count HEAD` answers **740**.
-Every ancestry statement below is licensed under CHARTER §4.
+---
 
-## `fix-before-next-row`: ZERO. Take the top row directly.
+## `fix-before-next-row`: ZERO, measured
 
-Measured rather than assumed, at `f93af93`. CHARTER §14b lets a preemption be **minutes** AND on
-a listed surface (README opening, finals screen, Q&A bank, manuscript, printables, release
-bundle) or a red gate.
+No gate is red on the pushed head. **GitHub `auto-gates` run 356 is `success` at exactly
+`0796336`**, at `fetch-depth: 0`. Both findings below sit on hashed printables sources, so each
+costs `make printables` at a new stamp plus a re-pointed `release/kcf-finals-2026/MANIFEST.json`;
+CHARTER §14b says that is not minutes, so both are P0 rows at position 1 and neither is a
+preemption. **Take the top row directly.**
 
-- **No gate is red anywhere.** `gates.py --mode full` exits **0** (**2054 passed**, 63 skipped,
-  3 xfailed, pytest 319.3 s). `baseline-verify` WARNs on the two git-ignored `data/raw/**`
-  contracts, which is NH-029 and CHARTER §3d working as designed.
-- **GitHub's own runs are green.** `auto-gates` runs **332 to 351** read through the GitHub MCP
-  in this lap's own process: **14 `success`, 6 `cancelled`, ZERO `failure`**, with run **351**
-  `success` at this exact head. CHARTER §4b sets no finding #1, the eleventh consecutive lap.
-  (The six `cancelled` are runs superseded by a later push, the pattern every window shows.)
-- **Every push in the window carried its report.** `--assert-reported` replayed pairwise over
-  all seven pushed heads (`252c9f9`→`a6d49d3`→`99dee9b`→`938dff7`→`b729110`→`16d7933`→
-  `ae12608`→`f93af93`) exits **0** at every step. The 24 h window holds **7 dev, 4 paper, 1
-  research and 8 critic** reports; **every dev and paper report from 2026-09-09T0056Z onward
-  (15 dev, 4 paper) records `Reviewed by:`**, checked by grep, which covers the window with
-  margin. The research report carries none and that is by design, not a defect: only the dev and
-  paper routines have a reviewer step.
-- **Both judge-facing defects this lap found pay a price that is not minutes.** WFG-243 edits
-  `docs/auto/JUDGE_QA.md` and `docs/auto/finals/RELATED_WORK_PANEL.md`, both hashed printables
-  sources, so it costs `make printables` at a new stamp plus a re-pointed
-  `release/kcf-finals-2026/MANIFEST.json` (**NH-049**). WFG-244 is on `docs/MODEL_CARD.md`,
-  which is on **none** of §14b's listed surfaces and on neither the kit's seven sources nor the
-  bundle's nineteen, both re-hashed here. So both are rows.
+⚠ **`gates.py --mode full` came back RED on this lap's first run and the pushed head is NOT the
+cause. Read this before you treat a red critic gate as a finding.** The single failure was
+`tests/test_timeline_roles.py::test_the_artifact_still_agrees_with_the_history_when_the_clone_has_one`,
+with `STALE timeline artifact: phase starts or anchor commits`. CHARTER §4 requires
+`git fetch --unshallow`, which obeys the remote refspec and pulls in **eleven** side branches,
+while `actions/checkout@v4` at `fetch-depth: 0` fetches one. More objects, longer abbreviation:
+committed anchors are **seven** characters (`a88700c`, `4e9dfe3`, `66abf92`, `25f1e14`,
+`522f7a7`), this clone derived **eight**. Cure, on the identical tree and touching nothing
+tracked:
 
-Sixth consecutive critic lap with zero preemptions, and the sixth measured rather than defaulted.
+    for r in $(git branch -r | grep -v -E 'origin/(Main|auto/dev)$'); do git update-ref -d "refs/remotes/$r"; done
+    git reflog expire --expire=now --all && git gc --prune=now
 
-## Findings, ranked
+Packed objects 16,420 → 13,011, abbreviation back to seven, `--check` prints
+`OK — timeline artifact agrees with git log (745 commits, 44 active days)`, full suite green.
+**Critic #60 met and repaired this identical failure one day ago; nothing records the repair as a
+step, so critic #63 paid for it again.** Recorded on **WFG-217**, which is the row that fixes it.
 
-**1. (WFG-243, P0, KCF) The card the student says from memory states this project's own output
-object in the household register `WC-013` withdrew, and it is printed as well as spoken.**
-`docs/auto/JUDGE_QA.md` **Q16a** is tier **T0** (`:646-647`) and answers 「산림청·경기도가 이미
-산불확산예측을 하고 있는데, 무엇이 다릅니까?」. At `:657-659` it states the delta as 「저희가 내는
-것은 그 예측 자체가 아니라 **가구 하나하나에 대한 「지금 걸어 나갈 수 있는가, 없다면 누구를 먼저
-데리러 가는가」** 이고, 공간 단위가 읍면동이 아니라 **집**입니다」, and `:667` repeats it as 「지형을
-곱게 본다고 「**이 집 사람이** 걸어 나갈 수 있는가」가 답해지지는 않습니다」. That is `WC-013`
-exactly: the project's own output object, in the household register, with the output-object
-phrase attached. The same file corrects the same register 580 lines away at `:1238`
-(「「지점」도 실제 가구 주소가 아닙니다」). **It is on the paper, verified:**
-`manifest_20260910T1233Z.json` lists this file among its seven `sources` and all **seven** hash
-equal to the tree at this head, re-computed here. **And it is a T0 card**, so it is said aloud to
-five judges as well as printed, which makes it a wider surface than WFG-240's.
-**The two files are the same text by their own statement:** Q16a's 근거 block at `:672-674` calls
-`docs/auto/finals/RELATED_WORK_PANEL.md` 「부스에서 펴는 인쇄 문안 — **이 카드와 같은 말을
-합니다**」. WFG-222 corrected five surfaces on 2026-09-10 and this comparison pair was in none of
-them. **Why no gate sees it:** `WC-013`'s Korean pattern needs 「가구 단위」 plus one of
-{걸어서 나갈, 대피 판정, 구조 순서, 출동 순서, 판정과 걸어, 인명}. 「가구 하나하나에」 has no
-「가구 단위」; 「걸어 나갈」 is not 「걸어서 나갈」; 「이 집 사람이」 and 「공간 단위가 … 집입니다」
-carry neither token. The `:657-658` phrase also wraps the source line break, which is WFG-223's
-measured limit. `docs/creativity_card.md:721-726` predicted a **fourth** differently-worded copy;
-this lap swept every tracked `.md` and `.html` outside the record class and counted **six**.
+---
 
-**2. (WFG-240 corrected in place, no new row) The panel row names two lines of its file and there
-are four.** Besides `:46` and `:119-120`, `docs/auto/finals/RELATED_WORK_PANEL.md:45-46` reads
-「정하는 것은 **어느 집을 먼저, 어느 길로**입니다」 one clause before the line the row does name, and
-`:73-74` reads 「지형을 곱게 본다고 「**이 집 사람이** 걸어 나갈 수 있는가」가 답해지지는 않습니다」,
-which is the sheet's differentiator against 산림과학원's 5 m terrain plan. Neither contains
-「가구 단위」 either. A lap that fixes only the two named lines leaves the sheet contradicting itself
-27 lines later. The row now names all four. **The two off-kit copies are in WFG-243's done-when**:
-`docs/global_portability.md:147` (「출력 … **가구별 대피 가능 여부와 여유 시간**」) and
-`docs/SESSION14_REPORT.md:178` (「가구별 대피 판정」), both gated `.md`, neither on the kit, so they
-cost no rebuild.
+## Finding 1 — WFG-247 (P0, KCF, filed at position 1)
 
-**3. (WFG-244, P0, KCF) The block written 90 minutes ago onto the submitted-document sentence
-asserts a repository-wide negative, and the file it names four lines later holds both counts.**
-`docs/MODEL_CARD.md:548-556` states 「⚠ **Neither count has a second, independent derivation in
-this repository.**」 and then 「⚠ The legacy Build A `spread_v2` audit file also reports 17 for this
-fire … **its 17 agrees with the whole-fire count by coincidence rather than by derivation**」.
-Read here rather than inferred, `data/processed/spread_v2/audit.json :: fires[5]` is
-`fire_id: gangneung_2023`, `bbox_wgs84 [128.75, 37.7, 129.05, 37.95]`,
-`dates ["2023-04-11", "2023-04-13"]`, and it gives `detections_csv` **17**, `detections_in_grid`
-**17**, **`total_positives` 8** and **`spread_cells_total` 8**. So (a) 「by coincidence」 is a
-provenance mechanism nobody measured, and the plain reading is that two builds counting the same
-FIRMS bundle for the same fire agree because they are counting the same thing; and (b) the
-repository-wide negative is asserted over a record that holds the **other** count too, which the
-block never says. The 「coincidence」 wording travelled verbatim from WFG-233's own row text, filed
-by critic #59 and equally unmeasured there. **Why it is not a nitpick:** the block is attached to
-the one text in this repository written to be pasted into the **submitted** 작품설명서, its whole
-subject is what corroborates a number, and WFG-233's independent reviewer blocked that same lap for
-overstating a corroboration. This is the same class understated, in the same commit, one layer up.
-Both are unmeasured claims about provenance (CHARTER §3 rule 5).
+**The last thing each of the five judges hears is this project's own result counted in the unit
+this project withdrew the day before, with a third population standing beside it in the same
+sentence.**
 
-**4. (no row; the loop's own direction) ZERO readiness lines ticked for the NINETEENTH consecutive
-critic lap, and unlike critic #61's window this one had judge-facing artifacts to tick against.**
-`docs/MODEL_CARD.md` changed and `web/finals.html` was rebuilt (registry 537 → 539). R1, R7 and R9
-all HELD on their own criteria and were re-earned here: the screen is offline by gate inside the
-green run, the kit hashes **7 of 7** and the bundle **19 of 19** against their sources. R3, R11 and
-R12 are the three that do not tick and **none is a lap's to move**: R12 is the author's (NH-014),
-R3 is `blocked(NH-046)`, and R11's WFG-024 is held by CHARTER §14b until R3 ticks, so **106 P1 rows
-wait on one reply**. **NH-046 is due 2026-09-10 and this lap ran at 23:05 UTC, which is already
-2026-09-11 08:05 KST**, so it is due now on the author's clock. Appended to NH-046, not filed again.
+`docs/auto/DEMO_SCRIPT_5MIN.md:266-268`, spoken in the 마무리 at 4:04, verbatim:
 
-**5. (WFG-107, seventh instance, corrected in place; no new row) Two hand-written censuses on the
-direction page are wrong, and one of them is a corrected figure that re-drifted.**
-(a) **The P1 ledger is 106 rows, not 102.** `docs/auto/DIRECTION.md` and `docs/auto/KCF_READINESS.md`
-both say 「102 P1 rows wait on one reply」. Counted here at `be39dea`, at `f93af93` and in this lap's
-working tree, all three answer **106**. Critic #58 published 102; critic #59 counted 106 / 107 / 108
-at three heads and recorded the correction **on WFG-107**; critic #61 wrote 102 again one lap later.
-It did not grow, it was inherited from the page.
-(b) **The board triple mixes two heads.** DIRECTION says 「Use 94 / 15」 and 「236 rows」. Reproduced
-exactly here by critic #61's own method: at `be39dea`, the head that lap reviewed, the board is
-**233 rows, 94 P0 (73 bold + 21 bare), 15 P0 `todo`**; **236** is the count only **after** that lap's
-own three rows landed in `252c9f9`. The parts are all right and the head is not one head.
-**At this head after this lap: 238 rows, 98 P0 (77 bold + 21 bare), 18 P0 `todo`, 106 P1 `todo`.**
-**What this adds to WFG-107 rather than repeating it:** the remedy must emit the head each number was
-measured at, not only the number, because a figure without its head cannot be re-derived by the next
-lap and that is exactly how a corrected count comes back.
+> 「보행망 노드 **2,218곳을 전수 탐색**해서, 대피 지점 한 곳을 추가하면 **20가구**, 두 곳이면
+> **24가구** 가 도달 가능해지고, **세 번째는 0가구** 를 더합니다.」
 
-## What the window actually produced
+Three populations in one breath, and the repository knows all three are different:
 
-**One dev lap (`e8b6e01`, WFG-233) and one paper lap (`938dff7`), and both were disciplined.**
-The dev lap's independent reviewer blocked it for describing a verbatim dict copy
-(`scripts/gk2a_detection.py:366`) as a second derivation, and the lap fixed it in all five places
-rather than arguing; I re-derived that block's premise here and it holds. The paper lap changed no
-manuscript sentence and said why: two obligations arrived and the word proxy refused both, measured
-with the builder's own counter. Its own reviewer caught a completeness integer the lap had derived
-wrongly in the direction that flattered a completeness claim. **Neither lap's report claims more
-than its diff supports**, which is the thing this section exists to check.
+| said | key | what it actually counts |
+|---|---|---|
+| 2,218곳 | `l0i_candidates_enumerated` | candidate SITES on the walk graph |
+| 20가구 / 24가구 / 0가구 | `l0i_best_single_refuge_saved`, `l0i_best_pair_saved`, `l0i_third_refuge_gain` | `unit: households` on `sample: 영덕 2025, **OSM 건물 124동(잠정)**` |
+| 지점 (the demo's own opening claim) | — | one node of the OSM walking graph (`JUDGE_QA.md` Q20a) |
 
-**No `factchk` finding on new external claims, and the reason is stated rather than implied.** The
-window's only new world claim is the `bokade2026` entry in `paper/references.bib`, and critic #61
-re-fetched that record against the live Zenodo API three hours earlier, including the concept and
-version DOI pair. Nothing in this window depends on it beyond what that lap verified, so this lap
-did not re-fetch it and says so instead of implying a check it did not run. Every other new claim in
-the diff is about this repository, and each was re-derived here from the artifact.
+And 「가구」 is the register **`WC-013`** withdrew for this project's output object on 2026-09-10,
+which the 2026-09-11 lap then cleared off all eight lines of the two printed sources — and left
+standing here, four lines at a time, on a third printed source.
 
-## Scorecard, at `f93af93`
+**The reconciliation already exists and nothing points at it.** `docs/auto/JUDGE_QA.md:947`:
+「두 질문은 모집단도 다릅니다. 한쪽은 보행 도로망 노드이고 다른 쪽은 **OSM 건물 124개**입니다」
+— 190 lines away, in a different card, in a different segment of the demo. `WC-013`'s own
+`say_instead` states the rule this breaks in one line: **the bound goes in the SAME block as the
+claim, never one screen away.**
 
-**Track B 95 → 94.** 제출 자료 **18 → 17**. 연구 목적 18, 설계와 방법론 20, 데이터 수집·분석·해석 20,
-창의성 19, all HELD.
-**Track A 96 → 95.** 제출 자료 **18 → 17** on the identically worded criterion. 개발 목적 19,
-설계와 방법론 20, 구현 및 유용성 20, 창의성 19, all HELD.
+**Four surfaces:** `DEMO_SCRIPT_5MIN.md:266-268` (spoken), `:358-361` (the 화면/구두 number
+table), `:380` (금지 item 6, which forbids 「20가구를 구했다」 and licenses
+「20가구가 도달 가능해진다」 without touching the population), and `web/finals.html:1978-1995`.
+The screen is the weaker half: `:1995` does carry 「모든 가구 수는 OSM 건물 스냅숏 위의 잠정치」
+in the same card. The script does not.
 
-**One row closed and two opened on the same criterion, so it moves down by one and not by two.**
-WFG-233 closed, and it closed well: the submitted-document sentence now carries both counts with a
-`src:` line and a registry key each, which is 「사용된 자료에 대한 출처 명기」 paid. Against it,
-WFG-243 puts the withdrawn household register on the **printed** kit for a second file and on a
-**T0** card said from memory, and WFG-244 puts an unmeasured provenance claim into the same
-submitted-document block the same commit repaired. 「자료의 논리적 구성」 is the first named sub-item
-of this 20-point row on both tables, and a kit that names the project's spatial unit two ways is
-that sub-item failing on paper. **Five open 제출 자료 defects now (WFG-236, WFG-240, WFG-241,
-WFG-243, WFG-244), three of them on paper.**
-**Pre-registered for critic #63:** 제출 자료 returns to **18** when WFG-240 and WFG-243 both close
-**with `make printables` rebuilt and the bundle manifest re-pointed** (not when the tree is fixed,
-and not on a report that says it was), to **19** when WFG-241 and WFG-244 close as well, and to
-**20** when WFG-236 closes. 구현 및 유용성 is re-examined upward only when the disc null or the
-centroid overshoot reaches `web/finals.html` or `docs/auto/JUDGE_QA.md`, unchanged from critic #60.
+⚠ **This is NOT a `WC-013` violation and must not be filed as one.** `WC-013` withdrew the
+household register for the walk-or-be-rescued verdict; the refuge-siting result genuinely is
+measured on buildings and `docs/NUMBERS.json` says so.
+⚠ **Do not fix it by swapping 가구 for 지점** — that would be false. Name the population where
+the number is said, so the student has an answer in hand for
+「아까 단위가 지점이라고 하셨는데 왜 여기는 가구입니까」.
 
-## Root objection (`hate`), and its cheapest test
+---
 
-**If the contribution is the output object, then the object's own name is the claim, and this
-repository cannot say it the same way twice.** DIRECTION's thesis moved to 「the output object and
-its measured limits」 one lap ago. On the four surfaces a judge meets inside ten minutes, the object
-is called 지점 단위 on the screen (`scripts/finals.template.html:1594`), on the README
-(`:246`, `:416`), on the panel's opening paragraph (`:23`) and in the bank at `:1238` — and 가구 /
-집 on the panel at `:45-46`, `:73-74` and `:119-120` and in the bank at `:657-659` and `:667`. A
-judge who reads the printed kit front to back holds both. **This is load-bearing rather than a
-gotcha** precisely because the project's answer to 「무엇이 다릅니까?」 is the unit: 읍면동 versus
-something smaller. Getting the something smaller wrong twice on the sheet that makes the comparison
-is the differentiator failing on its own evidence.
-**Cheapest test, and it was run here:** grep the printed kit's seven hashed sources for both
-registers and count. It returns both, in two of the seven files, and the count is finding 1.
-**Second-cheapest, for the next lap:** after the fix, re-run the same grep before `make printables`,
-not after, so the rebuild certifies a corrected tree rather than recording an uncorrected one.
+## Finding 2 — WFG-248 (P0, KCF, filed at position 1)
 
-## `Do NOT edit` notes — one, line-scoped, re-measured, expiring
+**The card that tells the student to open a DOI in front of the judge describes that record in a
+way the record's own abstract does not support.**
 
-⚠ **Do not write a byte into `docs/auto/JUDGE_QA.md` or
-`docs/auto/finals/RELATED_WORK_PANEL.md` without `make printables` at a new stamp and a re-pointed
-`release/kcf-finals-2026/MANIFEST.json`.** Critic #61's note is **re-stated after re-measuring its
-premise, as CHARTER §14c requires**, and it covers the same two files. The measurement, taken in
-this lap's own process at `f93af93`: `docs/auto/finals/printables/manifest_20260910T1233Z.json`
-lists seven `sources` — `docs/auto/finals/BOOTH_SETUP.md`, `docs/auto/DEMO_SCRIPT_5MIN.md`,
-`docs/auto/JUDGE_QA.md`, `docs/submission_reconciliation.md`,
-`docs/auto/finals/DETECTION_FLOOR_CARD.md`, `docs/creativity_card.md`,
-`docs/auto/finals/RELATED_WORK_PANEL.md` — and all **seven** hash equal to the tree, both of these
-among them, so the first changed byte turns
-`tests/test_printables.py::test_the_newest_printable_is_not_stale_against_the_tree` red.
-**This note covers those two files and expires at critic #63 unless that lap re-measures the seven
-hashes and re-states it.** It is a price tag, not a prohibition: WFG-235, WFG-240, WFG-241 and
-WFG-243 are all expected to edit them, and **one lap should take all four so the rebuild is paid
-once instead of four times.** ⚠ It is also why **this lap wrote no card into the bank itself**: a
-critic lap cannot run `make printables`, so a card added here would ship the kit stale. That
-collision is NH-049 and it comes due 2026-09-11.
+`docs/auto/JUDGE_QA.md:829-832` (Q16d, added yesterday) rests this project's *method*
+differentiator on: 「저쪽은 **D\* Lite 로 다시 계획합니다**」. The Zenodo abstract for
+`10.5281/zenodo.22668358`, read at the source in this lap:
 
-⚠ **No `Do NOT edit` note is written on `docs/MODEL_CARD.md`, `docs/global_portability.md`,
-`docs/SESSION14_REPORT.md`, `docs/disc_null.md`, `docs/oracle_gap.md` or
-`docs/auto/KCF_READINESS.md`.** WFG-236, WFG-237, WFG-238, WFG-243 and WFG-244 must all edit them.
+> "The system orchestrates **OpenRouteService vector routing** using spatial polygon clustering to
+> bypass API area limitations. **During API constraints or in wilderness scenarios**, the system
+> delegates to an internal **D\* Lite heuristic grid fallback** that incrementally routes traffic
+> away from actively predicted fires."
 
-## Judge drill — the questions that still have no file behind them
+D\* Lite is their **fallback**. The card compares this project's PRIMARY mechanism against the
+other team's FALLBACK — and three paragraphs later, at `:848-849`, tells the student
+「심사위원이 「그 논문 진짜 있습니까」라고 물으면 이 DOI 를 그 자리에서 열어 보이십시오」. A judge
+who takes that invitation reads the abstract standing next to the student.
 
-Run against `docs/auto/JUDGE_QA.md` at this head, answering only from files.
+**One clause, not a rewrite**, and the card already holds the correct fact fifteen lines below at
+`:834` (「도로와 **차량** 경로 스택(OpenRouteService)이며」).
 
-1. 「이 프로젝트의 공간 단위는 집입니까, 지점입니까?」 **Four files answer, two of them printed, and
-   they answer differently.** → **WFG-243** and **WFG-240**. This is the one that moved this lap.
-2. 「무엇이 다릅니까? 산림청·경기도와.」 **Q16a answers well and at length**, and its own answer is
-   where finding 1 lives, which is the sharp part: the card is right about the comparison and wrong
-   about the word it makes the comparison with. → **WFG-243**.
-3. 「그 17건은 무엇이 뒷받침합니까?」 **Answerable and now honest**, since WFG-233: nothing
-   independently derives it, and `docs/MODEL_CARD.md` says so. ⚠ What the file gets wrong is the
-   next sentence, which asserts a mechanism nobody measured. → **WFG-244**.
-4. 「비슷한 걸 만든 사람이 이미 있지 않습니까?」 **Still no card.** Q29a's item 4 at `:1246-1247`
-   still tells the student the repository does not know. → **WFG-241**, unchanged from critic #61.
-5. 「0.394를 원에 견주셨는데, 이미 물리 모델 0.09가 있지 않습니까?」 Unchanged. → **WFG-236**.
-6. 「이 출동 지시서, 진짜 불로 만든 겁니까?」 Answerable; **why not** is measured but is the
-   author's. → **WFG-242 / NH-057**, unchanged.
+⭕ **Everything else on Q16d survived independent verification, at the API and not at the report
+that wrote the card:** `conceptdoi` `10.5281/zenodo.22668357` resolving to record `22668358`
+(a version relation, exactly as the card says, not a duplicate deposit); title verbatim;
+`publication_date` **2026-09-09**; `resource_type` **Preprint**; the five authors in the card's
+order; one attached file named `IEEE_Conference_Template.pdf`. The card's hardest claim —
+「기록에는 성능 수치가 하나도 없습니다」 — is **exact**: a digit regex over the abstract returns
+the empty list. **Do not weaken any of those while fixing the one clause.**
 
-## Nothing new from the author, on either channel
+---
 
-Seventh consecutive lap saying so. Gmail `from:siyeong0318@gmail.com subject:"WildfireGuardian
-autoloop" newer_than:14d` returns 50 threads on the first page and **every one holds exactly one
-message**, all of them the loop's own sends, so no reply is threaded under any of them. A second,
-wider search (`"NH-0" newer_than:14d -in:sent -in:draft`) returns **zero threads**, so nothing
-addressed to the loop sits outside the report threads either. **PR #31 has zero comments** (read
-through the GitHub MCP, empty list). `docs/auto/decisions_seen.json` is unchanged: its `seen` list
-is empty and its `applied` list still ends at **NH-031**, closed 2026-09-06 in a Claude Code session
-on the laptop. **No `NH-###:` line has ever reached the loop by email.**
+## Finding 3 — WFG-191, re-measured, and it explains the board's rival counts
 
-**24 open entries (23 DECISION + 1 BLOCKER)**, 5 open FYI besides, and **no new entry was filed this
-lap**: both findings are agent-doable and nothing here needs a decision that is not already open.
-Two entries (**NH-005**, **NH-014**) carry no date at all. **NH-046 is due 2026-09-10 and it is
-already 2026-09-11 on the author's clock.** NH-049 and NH-051 come due 2026-09-11. **NH-057** remains
-the highest-severity open entry. The sprint ends **2026-09-15**, five days out.
+Rule, stated so the next lap can check it: split each row on pipes **not preceded by a
+backslash** (`\|` is a Markdown escape and renders as a literal pipe), and count rows whose cell
+count differs from the header's ten. At `0796336`: **11 malformed of 242 rows.**
+
+The list has **moved**, not merely persisted — WFG-133 and WFG-149 have left it and **WFG-243 has
+joined**, a row filed 2026-09-10 and closed 2026-09-11. **The defect is still being introduced.**
+Three of the eleven are `**P0**`, and for six the cell in the status position is not a status:
+WFG-181 → `프라이버시`, WFG-188 → `예산`, WFG-175 → `title-derivable`, WFG-168 → `않습니다`,
+WFG-115 → `grep -c 41498ef…`, WFG-112 → a regex fragment. **WFG-182's status cell is an awk
+program** for counting this board.
+
+**This is where the two published board counts come from.** Critic #62's 「238 rows, 98 P0,
+18 P0 todo」 reconciles **exactly** under this rule once its own two rows are added back
+(236+2, 96+2, 16+2), so its arithmetic and its 「after this lap」 labelling were right. Its
+「106 P1 todo」 does not: this rule answers **111**, and four of the difference are rows whose
+shifted cells put `P1` in the priority position when it is not their priority. **Two careful laps
+cannot agree on a number whose file does not have the shape either rule assumes.** The gate this
+row already asks for is the whole answer; no further lap should spend measurement here first.
+
+**Stays P1** under §14b until R3 ticks. ⚠ Said plainly because the rule and the cost point
+different ways with four days left: the board is the first file every dev lap reads to choose its
+work, and three P0 rows display their status in the wrong column.
+
+---
+
+## Finding 4 — WFG-217's silent half grew to 83 commits
+
+`build_timeline_roles.py --check` prints **OK** at this head while
+`data/processed/timeline_roles/timeline_roles.json` holds `total_commits` **662** and
+`last_commit_date` **2026-09-09** against a tree at **745** and **2026-09-11**. Phase 5's `end`
+reads `2026-09-09` against `2026-09-11` live, its commit count **417** against **500**. That is
+**83 commits and two active days**, up from critic #60's **64** one day ago, growing at roughly
+twenty commits a day. The check cannot see it: `:173-177` exempts totals as growth and the spine
+comparison covers phase **starts** and anchor commits only, never an open phase's end.
+
+⭕ **Not a false statement, and worth recording as the project behaving well.**
+`docs/auto/finals/TIMELINE_ROLES.md:28` says outright 「이 문서의 수는 산출물이 만들어진 트리의
+값입니다 — 2026-09-09, 커밋 `89da7d3` 기준」 and `:48` tells the student to say the as-of date
+aloud. A **widening disclosed gap**, not a lie. Deadline stays the 2026-10-16 freeze; the
+refreshing lap works from a **single-branch full clone**.
+
+---
+
+## What the window got right, measured rather than read
+
+- **The withdrawn household register is off the printed kit.** All six `WC-013` spellings
+  re-swept over every tracked `.md`/`.html` on text **flattened of newlines**, so the sweep sees
+  what the shipped line-based checker cannot: 「이 집 사람」 7, 「가구 하나하나」 6,
+  「공간 단위 … 가구/집」 7, 「어느 집을 먼저」 6, 「가구 단위의 도보 대피」 5, 「가구별 대피」 2 —
+  **33 hits, zero outside the record class.**
+- **The kit and the bundle are on paper as claimed.** `manifest_20260911T0102Z.json` re-hashed
+  **7 of 7** sources against the tree; `release/kcf-finals-2026/MANIFEST.json` **19 of 19**. Both
+  recomputed in this lap's own process.
+- **The panel names what it deliberately keeps.** `RELATED_WORK_PANEL.md:39-41` states which two
+  「집」 lines stay and why (G-DAPS's own spatial unit, and `WC-008`'s other-systems sentence).
+  That is the scope note whose absence caused the defect one lap earlier.
+- **Q36 puts the disc null on a T0 card** with both IoU pairs and all four centroid displacements
+  in cells, in one block — discharging half of critic #60's and #61's reason for holding 창의성
+  at 19. The other half (one fire, one canvas, one threshold) is why it is still 19.
+- **All three dev reports in the window record `Reviewed by:`**, and `--assert-reported` exits 0.
+
+---
+
+## Root objection (`hate`) on the current headline narrative
+
+**The project traded a novelty claim it lost for one whose only exhibit is synthetic.** On
+2026-09-09 Bokade et al. took the architecture; the thesis correctly retreated to 「the output
+object and its measured limits」. But the committed instances of that object were produced in a
+run where **hazard and terrain are synthetic and the origins are sampled coordinates**, and the
+panel says so in bold: 「실제 확산면으로 만든 출동 지시서는 아직 없습니다」. So the
+differentiator and the confession are now the same sentence. That is elegant on paper and thin
+at a booth, where 「그 판정을 실제 불로 한 번이라도 내보셨습니까」 is the obvious next question
+and the answer is no.
+
+**Cheapest test:** NH-057 option B — the agent-doable half, **WFG-242**. It already exists,
+already `blocked(NH-057)`, and needs one letter from the author. The objection therefore does not
+land on the loop's work; it lands on the decision queue, which is the same place everything else
+landed this lap.
+
+---
+
+## Scorecard
+
+**Track B 94 → 96, Track A 95 → 97, both on 제출 자료 17 → 19.** The first rise on that row in
+four laps, paid on exactly the defect that took it down. **19 and not 20:** WFG-247 and WFG-248
+are both on this same criterion and both on the paper in the box.
+**Pre-registered for critic #64:** 제출 자료 reaches **20 on both tracks** when WFG-247 and
+WFG-248 both close with the kit rebuilt and the manifest re-pointed, and falls back to 18 on
+either track if a kit source drifts against its manifest hash.
+
+## Readiness
+
+**8 of 11**, unchanged. ⚠⚠ **ZERO lines ticked for the TWENTIETH consecutive critic lap**, and
+this window was not idle. R3 is `blocked(NH-046)`, R11's WFG-024 is held by §14b until R3 ticks,
+and **112 P1 rows wait on one reply**. Appended to NH-046 and NH-049 rather than filed again.

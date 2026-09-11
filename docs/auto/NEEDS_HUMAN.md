@@ -2958,6 +2958,33 @@ entry is due, which is already **2026-09-11 08:05 KST**, so it is due now on you
 overdue on the repository's. **Five sprint days remain** (`sprint.end` 2026-09-15T23:59Z). Still no
 new entry, and the neighbouring question is still **NH-038**.
 
+⚠⚠ **CRITIC #63, 2026-09-11T0300Z — TWENTIETH consecutive critic lap with ZERO readiness lines
+ticked, and this entry is now PAST DUE on both clocks.** It was due 2026-09-10; it is
+2026-09-11 on the repository's clock as well as yours. The checklist stands where critic #62
+counted it, **8 of 11**: R1, R2, R4, R5, R6, R7, R8 and R9 tick; **R3, R11 and R12 do not**;
+R10 was withdrawn 2026-09-04. Nothing in this window could tick a new line, and the reason is
+not that the laps were idle — the window carried a real judge-facing change (the printed kit
+rebuilt at `20260911T0102Z`, a new Q&A card, the withdrawn register cleared off eight lines) and
+every one of those strengthened lines that **already** tick.
+
+**The arithmetic that makes this the most expensive open entry on the page, re-derived at
+`0796336` in this lap's own process:** R3 is `blocked(NH-046)`; R11's WFG-024 is held by
+CHARTER §14b until R3 ticks; and §14b holds the whole P1 class behind R1, R3, R4, R7, R8 and
+R9, of which **R3 is the only one not ticking**. The board at this head carries **112 P1 rows
+in `todo`**. So one letter of reply releases a hundred and twelve rows, and the sprint has
+**four days** left.
+
+⚠ **The channel itself has now been silent for five days and that is a measurement, not a
+complaint.** `docs/auto/decisions_seen.json` still records `"seen": []` — no decision has ever
+reached the loop by email — and the newest applied decision remains **NH-031**, from a Claude
+Code session on your laptop on **2026-09-06**. PR #31 still has zero comments (checked through
+the GitHub MCP this lap). Twenty report emails sit in the mailbox, all twenty unread. Nothing
+was guessed and nothing was assumed; every one of the 24 open entries is still open.
+
+**The loop's own recommendation is unchanged and is one character: A.** Reword R3 to name
+`gates.py --mode full` on the CI half, which is the command this project actually runs and has
+run green on a clean machine 350+ times.
+
 ## NH-047 · FYI · closed · A 403 on an artifact upload took a green run red; transient, guarded, nothing needed
 
 **No reply is requested.** This is recorded once so the arithmetic is not lost, and it is an FYI
@@ -3102,6 +3129,27 @@ questions is also stale, and in the good direction:** re-read at this head, **WF
 (창의성). Only **WFG-197** of the original three is still `todo`, and **WFG-228** joins it, so the queue is
 **two**, not three. The instruction is still unexecutable; what it is holding back is smaller than this entry
 says.
+
+⚠⚠ **CRITIC #63, 2026-09-11T0300Z — THIS ENTRY IS DUE TODAY, AND THIS LAP IS THE CLEANEST
+EVIDENCE FOR IT THAT THE PAGE WILL GET.** Both of this lap's findings are single-clause repairs
+to judge-facing cards, and I could make neither, for exactly the reason this entry names.
+
+- **WFG-247** is a population label missing from the demo's closing spoken number
+  (`docs/auto/DEMO_SCRIPT_5MIN.md:266-268`).
+- **WFG-248** is one clause in Q16d (`docs/auto/JUDGE_QA.md:829-832`) that calls another team's
+  **fallback** planner their planner, on the one card that tells the student to open that team's
+  DOI in front of the judge.
+
+Both files are hashed sources of the booth kit, so touching either costs `make printables` at a
+new stamp plus a re-pointed `release/kcf-finals-2026/MANIFEST.json`. A critic lap may not pay
+that. **So two card-sized repairs became two backlog rows and will wait for a dev lap**, which
+is precisely the cost this entry was filed to price. With **option A** (the staging file,
+WFG-205, still `todo`) I would have written both corrections today and the next dev lap would
+have merged them into one rebuild it was paying anyway.
+
+⚠ **Sharper than when this entry was written:** the queue is no longer about adding NEW cards.
+It is now also about **correcting existing ones**, where the delay is measured against a judge
+reading the card. **Four sprint days remain.**
 
 ## NH-050 · DECISION · open · You answered two of these questions two days ago and the loop never heard you, because you answered them on the routine page (by 2026-09-10)
 
