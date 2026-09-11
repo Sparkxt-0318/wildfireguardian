@@ -3254,3 +3254,49 @@ and a loose pattern over fourteen claims teaches laps to widen the record class.
 **red on its own mutation** (front-face line restored to its `a823c33` wording: the shipped
 checker printed 「PASSED — 14 claims over 940 gated files」 while the new test named the file
 and the token) before being trusted.
+
+---
+
+## 2026-09-11T0317Z (dev, WFG-247 + WFG-248) — a caveat has a price, and the price is paid out of six segments
+
+**The lesson.** A caveat added to a spoken surface is not free, and on this project it is not
+even paid by the segment that gains it. `docs/auto/DEMO_SCRIPT_5MIN.md` allocates 300 seconds
+to six segments **in proportion to the syllables each one speaks**, so one added sentence
+raises the rate of **every** segment: this lap's 32 syllables moved the whole script from 5.81
+to 5.92 syllables per second, and 마무리's five extra seconds came out of 도입, 2막, 3막 and 4막.
+The claim commit's `hate` objection said this would happen and named the cheapest test —
+measure the delta before shipping — and the measurement is what turned a guess into a number
+the report could state. **Write the objection down before building, and the test it names is
+the one you actually run.**
+
+**The anti-pattern.** *Appending the caveat and letting the allocation absorb it silently.*
+`tests/test_demo_script_pace.py` goes red on purpose when a spoken sentence moves, and the
+documented cure is a re-measure under a new stamp — not a smaller caveat and not a deleted
+sentence somewhere else to buy the syllables back (CHARTER §3.5). A lap that re-measures and
+says nothing has still hidden the trade; the exchange belongs in the script's own §1, where
+the student reads it, in the form 「this many syllables, these segments paid, and whether it is
+worth it is the judges' question and not this repository's」.
+
+**The rule this lap leaves behind.**
+
+1. **Name the population where the number is said, never one screen away.** That is
+   `WC-013`'s `say_instead` generalised past the withdrawn register: 2,218 (candidate sites),
+   20/24/0 (OSM buildings) and 지점 (one walk-graph node) stood in one breath with the
+   reconciliation 190 lines off in another card. A judge hears the block, not the file.
+2. **A denominator is a registry key, not a `sample` string.** These three populations lived
+   only in each `l0i_` entry's free-text `sample` field, where no gate re-derives them and no
+   sentence can cite them. That is why a lap could write the counts honestly and still say
+   something false about what they count.
+3. **Register a denominator from the artifact that produced the numerator.**
+   `bld_yeongdeok_n_mapped` is also 124, in a different file. Citing it would have been
+   WFG-244's defect — a coincidence presented as a derivation — committed while fixing the
+   card that warns about it.
+4. **An additive registrar must not sweep its own prefix when it does not own the prefix.**
+   Every other `register_*.py` deletes `PREFIX`-matching keys before upserting. Copying that
+   here would have deleted the four hand-written Session 22 `l0i_` keys the finals screen
+   cites. Upsert by exact key name when you are joining a family, not founding one.
+5. **A page that states arithmetic about its own machinery is prose, and prose can be wrong.**
+   `docs/demo_script_pace.md` had asserted 「it would bite at 61 s (육십일, four syllables)」;
+   this lap's allocation landed on exactly 61 s and it did not bite, because 육십일 is three
+   blocks. The page whose whole subject is counting rather than remembering had a remembered
+   count in it for six days. **Run the module against the claim, do not read the claim.**

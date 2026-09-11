@@ -1,6 +1,6 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "f1084196b72fdb449019ccba2cf11a99cc7fd748",
+  "generated_at_git_commit": "cd97bc222878534c1927aee16ba182c13b786dca",
   "n_artifacts": 110,
   "total_bytes": 14629553,
   "total_mib": 13.95,
@@ -1354,7 +1354,8 @@
       "cited_by_docs": [
         "docs/SESSION22_LOG.md",
         "docs/SESSION22_REPORT.md",
-        "docs/finals_screen_v2.md"
+        "docs/finals_screen_v2.md",
+        "docs/withdrawn_claims.md"
       ],
       "regenerate": "python scripts/refuge_placement.py --optimize --horizons --sweep --verify"
     },

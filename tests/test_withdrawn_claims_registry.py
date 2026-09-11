@@ -515,12 +515,32 @@ def test_the_registry_holds_nothing_the_families_do_not():
         (r"3\s*시간[^\n]{0,30}?(?:26\s*%|사분의\s*일)\s*(?:정도\s*)?(?:과소|적게|작게|미달)",
          "wc014-three-hour-slice-is-26-percent-under-ko"),
     }
+    #: WC-015 and WC-016, dev lap 2026-09-11T0317Z (WFG-247). A family of two, and what
+    #: they share is that each is a claim this repository made about its OWN machinery
+    #: and could have settled by running it: that 육십일 is four syllables
+    #: (`docs/demo_script_pace.md`'s fixed-point section, wrong for six days on the page
+    #: whose whole subject is counting rather than remembering), and that the refuge
+    #: search enumerated 2,218 walk-network nodes (four judge-facing surfaces, while the
+    #: artifact they already cite holds `n_walk_nodes_total` 8443 beside
+    #: `n_candidates_after_filter` 2218). No source, survey or outside fact was needed
+    #: for either; both are settled in seconds by this repository's own files, which is
+    #: why they are one family and not two.
+    #: ⚠ Blast radius measured over every tracked .md and .html on FLATTENED text before
+    #: registering. WC-016: 6 hits across 5 files, ZERO gated. WC-015: 3 hits, ONE gated
+    #: — the correction block that quotes the retired sentence in order to retire it,
+    #: licensed by a line pragma.
+    a_claim_about_our_own_machinery = {
+        (r"육십일,?\s*four\s+syllables",
+         "wc015-61-seconds-would-bite-en"),
+        (r"보행망\s*노드\s*(?:\*\*)?\s*2,?218",
+         "wc016-2218-called-walk-network-nodes-ko"),
+    }
     extra = ({(s["pattern"], s["token"]) for _cid, s in SPELLINGS}
              - in_files - reviewer_found - reachability - booth_kit_contents
              - dispatch_exclusion_reason - someone_elses_system
              - stale_self_criticism - measured_shape_of_our_own_sweep
              - how_our_own_work_was_organised - our_own_output_object
-             - a_reading_of_our_own_measurement)
+             - a_reading_of_our_own_measurement - a_claim_about_our_own_machinery)
     assert extra == set(), (
         "the registry has grown past the families it absorbed. That is allowed, and when "
         "you do it, add the new spelling to this test's expected set and say in "
@@ -927,6 +947,16 @@ def _probe_sentence(pattern: str) -> str:
             "학습되고 화재 단위로 검증에서 제외한 산불 위험장 위에서,",
         r"가구별\s*대피":
             "| 출력 | 스칼라 지수 | **가구별 대피 가능 여부와 여유 시간** |",
+        # WFG-247, 2026-09-11. Both lifted from the tree at `c579c81`. Neither needed an
+        # outside source to be caught: the first is settled by running this repository's
+        # own `count_syllables`, the second by opening the artifact the four surfaces
+        # carrying it already cite.
+        r"육십일,?\s*four\s+syllables":
+            "It did not bite here only because 사십오 and 오십팔 are both three syllables, "
+            "so replacing 45 with 58 changed no count. It would bite at 61 s "
+            "(육십일, four syllables).",
+        r"보행망\s*노드\s*(?:\*\*)?\s*2,?218":
+            "> 대피 지점 배치도 마찬가지입니다. 보행망 노드 **2,218곳을 전수 탐색**해서, 대피",
     }
     assert pattern in probes, (
         f"no probe sentence for a newly registered pattern:\n  {pattern}\n"

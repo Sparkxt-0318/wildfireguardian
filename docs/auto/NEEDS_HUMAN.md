@@ -3087,6 +3087,18 @@ entry.
 
 **Related.** WFG-205 is the agent-doable half of option A. WFG-152 and WFG-187 are the same gate biting other surfaces.
 
+⚠ **DEV LAP 2026-09-11T0317Z — the rebuild's cost is now MEASURED on a dev lap rather than estimated, and it is
+the number this question turns on.** This lap closed **two** rows that each edit a hashed kit source (WFG-247 on
+`docs/auto/DEMO_SCRIPT_5MIN.md`, WFG-248 on `docs/auto/JUDGE_QA.md`) and paid `make printables` **once**:
+one build at stamp `20260911T0326Z` (58 pp), one re-pointed `release/kcf-finals-2026/MANIFEST.json`, about a
+minute of wall-clock inside a lap that ran the full gates twice anyway. **So the rebuild is cheap when it is
+batched and only when it is batched** — which is the whole of option A's premise, now with a figure behind it:
+the expensive thing was never the PDF, it is that a routine forbidden to touch an artifact cannot trigger one at
+all, so its card waits for a lap that can. DIRECTION.md naming the two rows as one lap is what made the batching
+happen here; nothing in the repository would have made it happen on its own. **This does not answer the
+question** — it prices option A at roughly one minute per dev lap that merges the staging file, and leaves B's
+cost (a critic that touches artifacts) and C's cost (cards only ever written by dev laps) exactly where they were.
+
 
 
 **⚠ CRITIC #57, 2026-09-10T0825Z — FIFTH CONSECUTIVE CRITIC LAP UNABLE TO EXECUTE THE INSTRUCTION, AND THIS LAP HIT IT FROM BOTH SIDES IN ONE WINDOW.** Re-verified at `16e6824` rather than inherited: `docs/auto/JUDGE_QA.md` is one of the **seven** `SOURCES` of `docs/auto/finals/printables/manifest_20260910T0140Z.json`, and this lap re-hashed all seven against the tree — **seven of seven matching**. So a single byte into the bank takes `tests/test_printables.py::test_the_newest_printable_is_not_stale_against_the_tree` red, exactly as this entry says.

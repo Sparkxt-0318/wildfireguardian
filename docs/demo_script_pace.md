@@ -125,13 +125,18 @@ existence or its direction.
 
 ## What this does NOT show
 
-* **It does not show the script is sayable in five minutes.** 5.81 syllables per second is
+* **It does not show the script is sayable in five minutes.** 5.92 syllables per second is
   an arithmetic consequence of dividing this text by this budget, not a measurement of
   speech, and this repository has asserted no comfortable rate for spoken Korean. Whether a
-  student can say 1,744 syllables in 300 seconds while a judge interrupts is a stopwatch
-  question and a human one: **R12 / NH-014**, and WFG-037's booth recipe.
-* **It does not show the budget is well-spent.** Giving 3막 — 「이 프로젝트의 전부」 — 61 s
-  instead of 75 s is what one rate costs it. If the student wants 3막 slower, the move is to
+  student can say 1,776 syllables in 300 seconds while a judge interrupts is a stopwatch
+  question and a human one: **R12 / NH-014**, and WFG-037's booth recipe. ⚠ **And the rate
+  is rising**: 1,684 at WFG-100, 1,744 at WFG-194, 1,776 at WFG-247, against a fixed 300 s.
+  Every caveat added to a spoken line is bought at every segment's expense, and the page
+  that would settle whether the price is payable is the stopwatch one nobody has run.
+* **It does not show the budget is well-spent.** Giving 3막 — 「이 프로젝트의 전부」 — 58 s
+  instead of 75 s is what one rate costs it (it was 61 s at WFG-103 and 60 s at WFG-194;
+  this bullet said 61 s for four days after the value moved, which is the same staleness
+  the table at the top of this page is re-written in place to avoid). If the student wants 3막 slower, the move is to
   cut 3막's sentences, not to hand it seconds another segment then loses; 300 s is fixed by
   the 운영요강.
 * **It does not model pauses, breaths, 「어」, or the five interruptions §2 guarantees.** The
@@ -172,18 +177,35 @@ with 58 changed no count. **Anyone re-measuring must re-run the count after writ
 seconds into that sentence, not before**, and check that the allocation is still the one they
 wrote. The reviewer of the WFG-100 lap found this; no test catches it.
 
-⚠ **CORRECTED 2026-09-11 (WFG-247), by running the case this paragraph predicted would break.**
+⚠ **CORRECTED 2026-09-11 (WFG-247), by running the case this paragraph predicted would break**
+— **and the first draft of this correction got its own arithmetic wrong, which is recorded
+here rather than quietly fixed, because it is the same failure one paragraph later.**
+
+<!-- forbidden-ok: wc015-61-seconds-would-bite-en -->
 Until this lap the paragraph above ended 「It would bite at 61 s (육십일, four syllables)」, and
-WFG-247's re-budget moved 마무리 to exactly **61 s**. It did not bite. 육십일 is **three**
-Hangul syllable blocks, not four, so under the counting rule this page states — one block is
-one syllable — 「마지막 61초는」 and 「마지막 56초는」 both count **7**, measured with
-`count_syllables` in this lap's own process. The claim was arithmetic asserted from memory
-inside a page whose whole subject is not doing that, and it is corrected here rather than
-deleted (CHARTER §3.5) because the next re-measure is told by this section to look for it.
-**The mechanism is real and the example was wrong:** a fixed point still bites whenever the
-new second-count reads with a different number of blocks than the old one — 100 (백, 1) or
-9 (구, 1) against 61 (육십일, 3) — so the procedure stands unchanged. What no longer stands is
-the idea that 61 is such a value.
+WFG-247's re-budget moved 마무리 to exactly **61 s**. It did not bite. `count_syllables`
+answers **8** for 「마지막 61초는」 and **8** for 「마지막 56초는」 — identical, so replacing 56
+with 61 changed no count and the allocation is a fixed point of itself at this value. The
+reason is that 육십일 is **three** Hangul blocks and 오십육 is three as well, not four and
+three; `count_syllables(["육십일"])` and `count_syllables(["오십육"])` both answer 3.
+The retired claim was arithmetic asserted from memory inside a page whose whole subject is
+not doing that, and it is corrected rather than deleted (CHARTER §3.5) because this section
+is what tells the next re-measure to look for it. Registered as **`WC-015`**, with the mislabel the same row corrected as **`WC-016`**.
+
+⚠⚠ **This lap's first draft of the paragraph above said 「both count 7」 and attributed the 7
+to `count_syllables`.** Its independent reviewer ran the module and got 8. The cause is worth
+a sentence, because it is a way of being wrong that a green gate cannot see:
+`count_syllables` takes **a list of lines**, and a bare string passed to it is iterated
+**character by character**, so `count_syllables("마지막 61초는")` returns a number that is
+neither the rule's answer nor an error. **Call it as `count_syllables([line])`.** The
+substantive finding survived the correction unchanged — 8 equals 8, the fixed point does not
+bite at 61 — which is exactly why the wrong number was easy to ship: it pointed at a true
+conclusion.
+
+**The mechanism is real and only the example was wrong:** a fixed point still bites whenever
+the new second-count reads with a different number of blocks than the old one — 100 (백, one
+block) against 61 (육십일, three) — so the procedure stands unchanged. What no longer stands
+is the idea that 61 is such a value.
 
 ## Re-measuring after an edit
 

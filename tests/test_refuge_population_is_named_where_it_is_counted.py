@@ -1,7 +1,7 @@
 """WFG-247: where a refuge-siting count is SAID, the population it counts is said too.
 
 **The defect this closes is three populations in one breath.** The five-minute demo's
-closing 56 seconds — the last thing each of the five judges hears — said, at
+closing segment — the last thing each of the five judges hears — said, at
 ``docs/auto/DEMO_SCRIPT_5MIN.md:266-268`` as it stood at ``c579c81``:
 
     보행망 노드 **2,218곳을 전수 탐색**해서, 대피 지점 한 곳을 추가하면 **20가구**,
@@ -38,13 +38,26 @@ Two properties, and they fail in opposite directions on purpose:
    That half is a spelling ratchet over the whole tree and catches the copy, not the
    reword; the per-block half is structural and covers only the surfaces named here.
 
-⚠ **What this cannot catch, stated rather than implied.** The declared list below is five
-entries and the defect travelled to four of them before anyone counted. A sixth surface
-built tomorrow from one of these is invisible to property 1 until it is added here, and a
-reworded population claim ("건물 스냅숏 기준" with no number, say) satisfies neither the
-letter nor the intent. This is a ratchet over a declared list plus a spelling sweep, not a
-population detector — the same limit ``docs/withdrawn_claims.md`` §4 records for the
-withdrawn-claim registry, written down here for the same reason.
+⚠ **What this cannot catch, stated rather than implied, and the third item was found by
+this lap's independent reviewer rather than by its author.**
+
+* A **sixth surface** built tomorrow from one of these is invisible to property 1 until it
+  is added to ``SURFACES`` here.
+* ``_POPULATION`` accepts 「OSM 건물 스냅숏」 **with no number**, so a surface can satisfy
+  this file while telling a judge less than 「124동」 does. That is deliberate — the screen's
+  card says it that way and saying it that way is honest — but it means a green run is not
+  evidence that the denominator was stated.
+* **Two of the five declared surfaces already passed property 1 before this lap touched
+  them.** ``scripts/finals.template.html`` and ``web/finals.html`` carried
+  「모든 가구 수는 OSM 건물 스냅숏 위의 잠정치」 in the card at ``f108419``; what WFG-247
+  changed there was the 「보행망 노드 2,218곳」 mislabel and an added three-population
+  sentence, neither of which property 1 pins. So this file ratchets **three** surfaces that
+  the lap's own edits made pass, and **holds** two that already did — which is worth having,
+  and is not what a reader would assume from the count.
+
+This is a ratchet over a declared list plus a spelling sweep, not a population detector —
+the same limit ``docs/withdrawn_claims.md`` §4 records for the withdrawn-claim registry,
+written down here for the same reason.
 
 No clock, no timezone, no network, no file outside the repository (CHARTER §4b).
 """
