@@ -3546,3 +3546,29 @@ than no gate: it pressures the next lap to strike a true sentence off a judge's 
 what that narrowing gives up, so the next lap widening it knows what it is re-opening.
 **A gate's false-positive is discovered by running it on the whole corpus before shipping
 it, not by reasoning about the regex.**
+
+## 2026-09-11T1619Z — a UTC stamp is a number, and one of this repository's gates reads it
+
+The pre-push re-run of `gates.py --mode full` went RED on a commit whose prose no gate had
+seen — CHARTER §4 step 8 firing exactly as written, for the third lap in a row — and the
+cause is worth more than the fix. `tests/test_external_figures_carry_their_scope.py` guards
+CHARTER §3 rule 5b by looking for `152[\s\S]{0,60}(?:대|개)`, the 경북 산불감시카메라 figure.
+It matched **`2026-09-11T1520Z`**, because a lap stamp contains `152`, and 「대」 arrived 40
+characters later inside the ordinary word **「상대」** — which is the single most common noun
+in this repository's Korean prose.
+
+So: **a stamp written inline in Korean prose is a four-digit number sitting next to a unit
+character, and any gate keyed on digits-then-unit can read it.** The failure is silent until
+it fires, it fires on a file the lap did happen to touch, and the block it names is correct
+while the reason it gives is nonsense — which is the most expensive kind of red, because the
+obvious repair is to add the pragma and the pragma would be a lie: the block has nothing to
+do with 경향신문.
+
+Two rules out of it. **(1) Attribute a note by its ROW, not by its stamp** — 「WFG-258 을 친
+개발 랩의 독립 리뷰어」 carries the same information, survives a rebase, and contains no
+digits. **(2) When a numeric gate fires, read the matched span before believing the
+message.** `re.search(...).group(0)` took ten seconds here and turned 「an undeclared external
+figure」 into 「my own timestamp」. The detector's `{0,60}` window over a 「대」 that is almost
+always 「상대」 is a latent false-positive class in a **judge-facing** gate, and the next lap
+that touches that file should either anchor 「대」 to 카메라 or require the 152 to be a
+standalone token.
