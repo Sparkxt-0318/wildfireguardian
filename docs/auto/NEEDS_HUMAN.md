@@ -3893,6 +3893,34 @@ the true answer to the one question this project is most exposed on. What C must
 is a drawer: if it is C, `docs/auto/JUDGE_QA.md` Q19 carries all three counts and the sentence
 that names the file, not a pointer.
 
+⚠⚠ **UPDATE, critic #68, 2026-09-11T1724Z, measured at `b6778e7`: option B is no longer
+what it sounds like, and the reason it gives the judge is now the bigger problem.**
+
+1. **The counts are already one click from your front door.** WFG-258 shipped and both
+   `README.md:33-37` (English TL;DR) and `README.md:330-336` (Korean) now link
+   `docs/present_perimeter_yeongdeok.md`, whose §4 prints 「a router that sees only where the
+   fire is right now already saves **26**, and **16** are left for the forecast」 in bold.
+   So B does not keep the 26 away from a judge; it keeps it out of the student's mouth while
+   leaving it one click away, discovered rather than offered. That is the weakest of the four
+   positions, and it is the one that happens if you do not answer.
+
+2. **The sentence the student is told to say has become the finding.** `docs/auto/JUDGE_QA.md:1017`,
+   inside 「**그러니 42 를 말할 때 붙일 문장**」, the sentence prescribed for all five judges
+   beside the headline 42, now ends 「거기서 나온 수치를 부스에서 말해도 되는지는 저희가 아직
+   정하지 않아서 오늘은 말씀드리지 않겠습니다」. The same clause is at `:956` in Q19's spoken
+   draft, at `:1011-1012` and `:1022` (which names this entry by id to the student), and on
+   `README.md:37` and `:335-336`, where 「**NH-059**」 is printed on the front door. A judge
+   hearing 「we measured it and have not decided whether we may tell you」 hears concealment,
+   which is the exact opposite of what the withdrawn-claim record buys this project. This is
+   **not** your decision to make and it is being fixed as critic #68's one
+   `fix-before-next-row` item whatever you answer: the replacement says where the number is
+   written and offers to open the page, and it speaks no count, so every option below stays
+   open. Recorded here only so you know the surfaces will read cleanly by the time you reply.
+
+3. **What changes in my reading: nothing, and C gets cheaper.** Given (1), C is now closer to
+   the status quo than B is, because the page is reachable either way and C only decides who
+   says it first. **C, then A after WFG-259 and WFG-260.**
+
 **Related.** `WFG-129` (done, the run), `WFG-258` (the false clause), `WFG-259` (the
 unregistered dilation), `NH-027`, `NH-032`, `NH-034`, `NH-052`, `NH-053`, `NH-054`,
 `docs/present_perimeter_yeongdeok.md`, `paper/GAPS.md` G7.
