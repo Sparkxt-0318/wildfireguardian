@@ -13,9 +13,20 @@ the nearest shelter"), which picks its path before the hazard is consulted at
 all. So the contrast establishes that coupling *a hazard field* into the router
 changes decisions; it does not separate knowing where the fire **will be** from
 knowing where it **is**. The fair opponent that would separate them, a plan
-refusing only what is burning now, has been run on 의성·안동 only
-(``docs/present_perimeter_arm.md``), never on 영덕, which is where the 42 comes
-from.
+refusing only what is burning now, has been run on 의성·안동
+(``docs/present_perimeter_arm.md``) and, since 2026-09-11, on 영덕 too, which is
+where the 42 comes from (``docs/present_perimeter_yeongdeok.md``, WFG-129).
+
+⚠ **2026-09-11, WFG-258 / WC-019: the two lines above used to end 「never on
+영덕」 and that was false from ``7991512`` onwards.** What the 영덕 run does
+*not* do is re-grade the 42: the 42's control in every committed artifact is
+still ``naive``, the new run sits **beside** the number rather than inside it,
+and its counts are not licensed for any judge-facing surface while **NH-059** is
+open. So this gate's subject is unchanged --- it is still 「the contrast names
+its control in the same block」 --- and what changed is only that the repository
+may no longer tell a judge the comparison was never attempted on 영덕. The
+**buffered** present-perimeter opponent genuinely has not been run on 영덕; that
+is a different experiment (``docs/present_perimeter_yeongdeok.md`` §5.5, NH-027).
 
 The loop wrote that caveat into ``paper/manuscript.md`` (Abstract and §7), into
 the booth script's 3막 (WFG-103) and into the finals template (WFG-109), and for
@@ -192,8 +203,11 @@ def test_the_headline_contrast_names_its_fire_blind_control(surface: str) -> Non
         "which consults no fire at all "
         "(src/wildfireguardian/routing/evacuation.py:270), so the sentence as "
         "written claims the forecast is what buys those origins, and this "
-        "repository has not measured that: the present-perimeter opponent has run "
-        "on 의성·안동 only (docs/present_perimeter_arm.md), never on 영덕. Put the "
+        "repository has not measured that: the present-perimeter opponent has now "
+        "run on both 의성·안동 (docs/present_perimeter_arm.md) and 영덕 "
+        "(docs/present_perimeter_yeongdeok.md), but neither run RE-GRADES the 42 --- "
+        "its control in every committed artifact is still naive --- and neither "
+        "count is licensed for a judge-facing surface while NH-059 is open. Put the "
         "caveat in the same block as the number --- a note in the paragraph below "
         "it, or under the next bullet, is what failed three times (WFG-138). "
         "Offending block starts: " + bare[0].strip()[:140]

@@ -938,3 +938,134 @@ def test_q36_does_not_claim_the_model_beats_the_disc_on_area() -> None:
         "the reach reading has to be stated in words on the card; deleting the "
         "clause loses a true claim as well as a wrong one"
     )
+
+
+# ---------------------------------------------------------------------------
+# WFG-258 (a) · WC-019. The bank told five judges that the fair opponent had
+# never been run on 영덕, for one full window after this repository ran it.
+#
+# WFG-129 built the present-perimeter arm, zero buffer, over the canonical 영덕
+# field the headline 42 comes from (scripts/measure_present_perimeter_yeongdeok.py
+# -> data/processed/present_perimeter_yeongdeok_2025.json ->
+# docs/present_perimeter_yeongdeok.md, six registered ppy_yeongdeok_ keys) and
+# paper/GAPS.md G7 recorded the closure the same lap. Q19's 답변(초안) -- the
+# sentence the student SPEAKS from memory -- and critic #29's PRESCRIBED booth
+# sentence in the same card both went on saying 「영덕에서는 아직 하지
+# 않았습니다」, and the booth kit printed it.
+#
+# Why this gate and not only the WC-019 registration: the registration scans
+# every gated .md and .html for the spelling, which is a copy-paste ratchet, and
+# it cannot say WHERE the sentence has to be right. This says it about the one
+# place the failure keeps happening -- inside the quoted draft the student
+# rehearses, which is the distinction WFG-138 was filed for and critic #29 had to
+# file a second time. A ⚠ note beside the draft does not satisfy it.
+#
+# Graded by mutation: put 「영덕에서는 아직 하지 않았습니다」 back into Q19's draft
+# and this goes red naming Q19.
+#
+# What it does NOT do: it keys on spellings, like every gate in this file. A
+# reworded denial carrying none of them escapes, and that limit is recorded on
+# WC-019 itself rather than answered with a bigger regex. It also asserts nothing
+# about the COUNTS from that run: NH-059 is open on whether they may be spoken,
+# and test_no_ppy_count_reaches_a_spoken_draft below is what holds them off.
+_YEONGDEOK_DENIAL = (
+    re.compile(r"영덕에서는\s*아직\s*하지\s*않았습니다"),
+    re.compile(r"영덕에서는\s*그\s*비교를\s*아직\s*한\s*번도\s*하지\s*않았습니다"),
+    re.compile(r"비교는\s*의성[^.]{0,12}안동에서만\s*했"),
+)
+
+#: The ppy_yeongdeok_ counts, barred from every spoken draft while NH-059 is
+#: open. Written as bare integers because that is how a student would say them;
+#: 458 and 42 are NOT here, because those are the committed headline and Q19 says
+#: them on purpose.
+#:
+#: ⚠ This pattern is scored ONLY inside a draft that is already talking about the
+#: 영덕 present-perimeter run (`_PPY_CONTEXT`), and the reason is measured rather
+#: than assumed: keyed on 「영덕」 alone it fired on Q18, whose true sentence
+#: 「그 17개 중 16개는 shelter_type이 gazebo」 counts OSM shelter tags and has
+#: nothing to do with this run. A gate that fires on a correct sentence pressures
+#: the next lap to strike a true sentence off the student's card, which is the
+#: WC-004 lesson this file already paid for once (MEMO 2026-09-06T1520Z). The
+#: cost of the narrowing is stated in the failure message.
+_PPY_COUNTS = re.compile(r"(?<![0-9])(?:26|16|44)\s*(?:곳|개)")
+
+#: What makes a draft one this gate is entitled to read. Either it names the
+#: artifact, or it uses the repository's own words for the opponent.
+_PPY_CONTEXT = (
+    re.compile(r"present_perimeter_yeongdeok"),
+    re.compile(r"지금\s*불난\s*자리를\s*피하는\s*경로"),
+    re.compile(r"여유폭\s*0\s*m"),
+)
+
+
+def test_no_draft_answer_says_the_fair_opponent_was_never_run_on_yeongdeok() -> None:
+    """A card that denies the 영덕 run is stating something this tree disproves.
+
+    Graded by mutation: restore 「... 의성·안동에서만 했고, 영덕에서는 아직 하지
+    않았습니다」 to Q19's draft and this goes red naming Q19.
+    """
+    offenders = []
+    for qid, _, body in _questions():
+        draft = _flat(_draft(body))
+        if any(p.search(draft) for p in _YEONGDEOK_DENIAL):
+            offenders.append(qid)
+    assert not offenders, (
+        "Q" + ", Q".join(offenders) + ": the draft answer the student speaks says "
+        "the present-perimeter comparison was never run on 영덕, or was run on "
+        "의성·안동 only. This repository ran it on the canonical 영덕 field on "
+        "2026-09-11 (WFG-129, docs/present_perimeter_yeongdeok.md, six registered "
+        "ppy_yeongdeok_ keys; paper/GAPS.md G7 records the closure), so the "
+        "sentence is disproved by this tree and the booth kit prints it. Say "
+        "instead that the comparison HAS been run on both regions, name "
+        "docs/present_perimeter_yeongdeok.md, and say the counts are not settled "
+        "yet -- WC-019 carries the replacement sentence verbatim. ⚠ Do NOT fix "
+        "this by adding a count: NH-059 is the author's decision on whether any "
+        "ppy_yeongdeok_ number may be spoken at all. ⚠ The BUFFERED opponent "
+        "genuinely has not been run on 영덕 (docs/present_perimeter_yeongdeok.md "
+        "§5.5, NH-027); saying that is correct and this gate does not catch it, "
+        "because it keys on 「영덕에서는 아직 하지 않았습니다」 and not on 「아직」."
+    )
+
+
+def test_no_ppy_count_reaches_a_spoken_draft() -> None:
+    """NH-059 is open; until it is answered no count from WFG-129 is spoken.
+
+    Graded by mutation: write 「26곳」 into any card's draft and this goes red
+    naming it. The 42 and the 458 are deliberately NOT in this pattern -- they are
+    the committed headline and Q19 says them on purpose.
+    """
+    offenders = []
+    for qid, _, body in _questions():
+        draft = _flat(_draft(body))
+        if any(c.search(draft) for c in _PPY_CONTEXT) and _PPY_COUNTS.search(draft):
+            offenders.append(qid)
+    assert not offenders, (
+        "Q" + ", Q".join(offenders) + ": a draft answer the student speaks now "
+        "carries a count that looks like one of WFG-129's 영덕 present-perimeter "
+        "figures. docs/present_perimeter_yeongdeok.md §5.2 says in the artifact's "
+        "own words that the partition IS NOT a margin, and a judge who hears it "
+        "will compute one; NH-032, NH-034 and NH-052 are open on exactly that and "
+        "NH-059 is the author's decision on this run specifically. §6 of that "
+        "document is deliberately empty until the author or the critic licenses a "
+        "sentence, so the card waits for it too."
+    )
+
+
+def test_the_ppy_count_gate_is_red_on_the_sentence_it_exists_to_stop() -> None:
+    """A gate over zero drafts is green and worthless; this is what says so.
+
+    ⚠ It also records the narrowing's cost in the direction that matters. The
+    gate reads a draft only once that draft is already about this run, so a card
+    that says 「26곳」 with no context word at all is NOT caught, and this
+    assertion is where that is written down rather than discovered by a critic.
+    """
+    licensed = "영덕에서 지금 불난 자리를 피하는 경로와 비교했더니 26곳이 회수됩니다"
+    assert any(c.search(licensed) for c in _PPY_CONTEXT) and _PPY_COUNTS.search(
+        licensed
+    ), "the ppy gate no longer fires on the sentence NH-059 exists to hold back"
+    bare = "그 상대는 26곳을 회수합니다"
+    assert _PPY_COUNTS.search(bare) and not any(c.search(bare) for c in _PPY_CONTEXT), (
+        "the context anchors now match a bare count sentence too. That is a wider "
+        "gate than this file measured, and the Q18 false positive it was narrowed "
+        "for is the thing to re-check before widening it on purpose."
+    )

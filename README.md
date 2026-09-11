@@ -30,8 +30,11 @@
   from knowing where it is** — the manuscript's own wording
   ([`paper/manuscript.md`](paper/manuscript.md), Abstract). The fair opponent that
   would separate them, a plan that refuses only what is burning now, has been run
-  on 의성·안동 only ([`docs/present_perimeter_arm.md`](docs/present_perimeter_arm.md));
-  on 영덕, where the 42 comes from, it has never been run.
+  on 의성·안동 ([`docs/present_perimeter_arm.md`](docs/present_perimeter_arm.md))
+  and, since 2026-09-11, on 영덕 too
+  ([`docs/present_perimeter_yeongdeok.md`](docs/present_perimeter_yeongdeok.md));
+  neither re-grades the 42, whose control is still the fire-blind one, and
+  neither count is licensed for the booth (**NH-059**).
   ⚠ **And the forecast-aware arm is graded on the very field it planned on.** That
   field is not truth: the router plans on a **leave-one-fire-out** forward
   simulation — a model output on a fire the model never trained on — while the
@@ -324,6 +327,15 @@ fire-blind 대비가 예보의 공으로 돌리던 것의 **대부분을, 모델
   **4절**에 있습니다.
 - ⚠ **영덕에서는 이 상대를 아직 돌리지 않았습니다.** 위 TL;DR 의 **42곳**은
   영덕에서 나온 값이므로, 그 수치에는 이 검사가 **아직 적용되지 않았습니다**.
+  ⚠ **정정(2026-09-11, WFG-258): 위 두 문장은 이제 「이 절의 상대」, 곧 완충거리를
+  더한 쪽에만 해당합니다.** 완충거리가 **0 m** 인 상대 — 지금 타고 있는 자리만
+  거부하고 확산 모델은 전혀 쓰지 않는 경로계획 — 은 2026-09-11 에 영덕의 바로 그
+  **42곳 위에서 실제로 돌았습니다**. 방법·결과·한계는
+  [`docs/present_perimeter_yeongdeok.md`](docs/present_perimeter_yeongdeok.md) 에
+  있고, 거기서 나온 **수치는 아직 부스에서 말하지 않습니다** — 말해도 되는지는
+  저자에게 **NH-059** 로 열려 있습니다. **완충거리를 더한** 상대는 영덕에서 여전히
+  돌리지 않았고, 그 문서 **5절 5항**이 그것을 적어 둡니다. 이 정정은 위 42곳의
+  값을 바꾸지 않습니다 — 그 42곳은 여전히 아래 ①②의 두 단서를 그대로 답니다.
   그 42곳에는 언제나 **두 개의 단서가 함께 붙습니다**: ① 비교 상대가 **불을 전혀
   보지 못하는(fire-blind)** 기준선이므로 그 대비는 「어디로 갈지 아는 것」과
   「지금 어디 있는지 아는 것」을 가르지 못하고, ② 예보 인지 경로는 **자기가 계획에

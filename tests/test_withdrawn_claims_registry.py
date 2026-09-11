@@ -596,13 +596,34 @@ def test_the_registry_holds_nothing_the_families_do_not():
         (r"원판(?:을|보다)\s*이긴\s*축은\s*(?:\*\*)?\s*모양",
          "wc018-won-axis-is-shape-ko"),
     }
+    #: WC-019, registered by dev lap 20260911T1520Z on WFG-258(a). It belongs to no older
+    #: family: every one above is a claim about a MEASUREMENT this project made, and this
+    #: is the only one that is a claim about an experiment this project had NOT made ---
+    #: 「영덕에서는 아직 하지 않았습니다」, the honest caveat the loop attached to the 42
+    #: on 2026-09-06 and went on printing after it ran the experiment on 2026-09-11
+    #: (WFG-129, `7991512`). ⚠ That is why it is worth registering rather than hand-
+    #: sweeping: a caveat is the last sentence anybody re-reads, because a lap auditing
+    #: its own prose is hunting for overclaims and this one reads as modesty. It sat in
+    #: Q19's spoken draft, in critic #29's PRESCRIBED booth sentence beside it, and on
+    #: page 25 of the printed kit, for one full window after the tree disproved it.
+    #: ⚠ The third spelling is the OTHER half of the same sentence (「의성·안동에서만」)
+    #: and is registered separately on purpose: a lap correcting only the 영덕 clause
+    #: leaves 「only」 standing, and once both regions have been run 「only」 is where the
+    #: falsehood has moved to.
+    an_experiment_we_had_not_yet_run = {
+        (r"영덕에서는\s*아직\s*하지\s*않았습니다", "wc019-yeongdeok-never-run-ko"),
+        (r"영덕에서는\s*그\s*비교를\s*아직\s*한\s*번도\s*하지\s*않았습니다",
+         "wc019-yeongdeok-never-run-ko"),
+        (r"비교는\s*의성[^.]{0,12}안동에서만\s*했", "wc019-yeongdeok-never-run-ko"),
+    }
     extra = ({(s["pattern"], s["token"]) for _cid, s in SPELLINGS}
              - in_files - reviewer_found - reachability - booth_kit_contents
              - dispatch_exclusion_reason - someone_elses_system
              - stale_self_criticism - measured_shape_of_our_own_sweep
              - how_our_own_work_was_organised - our_own_output_object
              - a_reading_of_our_own_measurement - a_claim_about_our_own_machinery
-             - our_own_null_s_centre - what_the_null_gap_is_attributed_to)
+             - our_own_null_s_centre - what_the_null_gap_is_attributed_to
+             - an_experiment_we_had_not_yet_run)
     assert extra == set(), (
         "the registry has grown past the families it absorbed. That is allowed, and when "
         "you do it, add the new spelling to this test's expected set and say in "
@@ -822,6 +843,19 @@ def _probe_sentence(pattern: str) -> str:
     sentences the repository actually shipped and then withdrew.
     """
     probes = {
+        # WC-019. All three are lifted verbatim from `git show 9cca03c:` --- the first
+        # from docs/auto/JUDGE_QA.md Q19's 답변(초안), the sentence the student spoke
+        # from memory, which is also the sentence critic #29 PRESCRIBED beside it; the
+        # second from critic #29's record block above it. Not one of them was written
+        # for this test.
+        r"영덕에서는\s*아직\s*하지\s*않았습니다":
+            "지금 불난 자리를 피하는 경로와의 비교는 의성·안동에서만 했고, "
+            "영덕에서는 아직 하지 않았습니다.",
+        r"영덕에서는\s*그\s*비교를\s*아직\s*한\s*번도\s*하지\s*않았습니다":
+            "영덕에서는 그 비교를 아직 한 번도 하지 않았습니다.",
+        r"비교는\s*의성[^.]{0,12}안동에서만\s*했":
+            "지금 불난 자리를 피하는 경로와의 비교는 의성·안동에서만 했고, "
+            "영덕에서는 아직 하지 않았습니다.",
         r"사람보다[^\n]{0,24}?(?:느[렸리린]|늦[었게은는]|뒤[에였])":
             "위성은 사람보다 22분 늦었습니다.",
         r"사람보다[^\n]{0,24}?(?:빠[르른릅]|이르|먼저|앞[서선])":

@@ -3507,3 +3507,42 @@ back to the pushed claim commit and rebuild there. MEMO 2026-09-08 says this in 
 words. **A lap that adds registry keys moves the finals screen's entry count**, so it should
 expect the rebuild and plan for one commit after the pushed head from the start, rather than
 discovering it at step 8.
+
+## 2026-09-11T1520Z — the sentence a self-audit never re-reads is the caveat
+
+WFG-258 was four judge-facing lines telling five judges that the fair opponent had never
+been run on 영덕, one full window after this repository ran it. The lap that ran it
+(WFG-129) was exceptionally careful: it re-derived the committed partition before writing
+a word, split the outcome into three named buckets, pre-registered its own objection, and
+let its reviewer block it. It then left the disproof of its own result standing on the
+README, in Q19's spoken draft, and on page 25 of the printed kit.
+
+**The mechanism is not 「the lap forgot a surface」.** It is that the standing sentence was
+a *caveat*. A lap auditing its own prose is hunting for overclaims — it reads every
+sentence asking 「am I saying more than I measured?」 — and a caveat answers that question
+correctly every time it is asked. 「We have not run that experiment」 reads as modesty, so
+it is the one class of sentence a self-audit systematically passes over. It is also the
+class most likely to go stale, because the whole point of a backlog is to run the
+experiments the caveats name.
+
+So: **when a lap closes a row, the grep is not for the claim it just made. It is for the
+NEGATION of the claim it just made** — DIRECTION.md already says this in one line, and
+this lap is the evidence it is worth a line. Here it found a fifth surface the critic's
+own four-line table had missed (`JUDGE_QA.md:999`), in about two seconds.
+
+**Second, smaller, and it cost about ten minutes.** `scripts/build_finals_bundle.py`
+resolves the newest booth kit from **tracked** files, so `make printables` followed
+immediately by the bundle rebuild reports 「byte-identical」 and silently keeps pointing at
+the old PDF. `git add` the new kit first, then rebuild, then `--update`. The 「byte-
+identical」 line is not reassurance here; on a lap that just rebuilt the kit it is the
+failure.
+
+**Third, and this one is a rule about gates rather than about prose.** The count gate this
+lap wrote fired on Q18's true sentence 「그 17개 중 16개는 shelter_type이 gazebo」, because
+it keyed on 「영덕」 plus a bare integer. A gate that fires on a correct sentence is worse
+than no gate: it pressures the next lap to strike a true sentence off a judge's card
+(MEMO 2026-09-06T1520Z, the WC-004 direction). The fix was to require the draft to be
+*about the run* before reading it for counts — and then to write a third test recording
+what that narrowing gives up, so the next lap widening it knows what it is re-opening.
+**A gate's false-positive is discovered by running it on the whole corpus before shipping
+it, not by reasoning about the regex.**
