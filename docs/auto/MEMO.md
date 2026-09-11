@@ -3619,3 +3619,42 @@ slice 0 is in the scoring field too. **Precision is not the same as correctness,
 sentence more specific is a new claim that needs its own check.** When the fix is 「this
 clause is too vague」, the safe repair names the mechanism and its file:line, not a range you
 inferred.
+
+## 2026-09-11T2122Z — re-deriving a number is not checking the sentence it is used to say
+
+WFG-259 existed because `docs/present_perimeter_yeongdeok.md` §5 item 5 asserted two
+integers from an ended reviewer session that no artifact held. The row, the critic's root
+objection and this lap's own plan all framed the job the same way: **run it and see whether
+the 15 holds**, with two outcomes imagined — it reproduces and the project learns the
+honest size of its own contribution, or it does not and a false sentence comes off a page a
+judge reaches in one click.
+
+Both framings were wrong about where the risk was. The 15 reproduced **exactly**, origin id
+included. What was false was the **inference** — that a present-perimeter router plus half a
+kilometre therefore reaches all but one of the 42 — and it was false for a reason no amount
+of re-deriving the 15 would ever surface: at 500 m the dilated set swallows the origins'
+own nodes for 23 of the 44, so the arm's total `saved` count goes **down**, from 26 to 18,
+while the 15 flips happen. The flip count and the loss count are two halves of one geometric
+fact and the page quoted one of them.
+
+**The rule.** `make verify` checks that every number in prose traces to an artifact. Nothing
+in this repository checks that the **sentence built on the number** follows from it, and
+CHARTER §3.3 does not ask anyone to. So a lap sent to register an unregistered number is
+only half done when the key upserts: the other half is writing down what the number is being
+used to CONCLUDE and measuring that too. Here that cost one extra column in the same run —
+`saved` and `origin_removed_by_filter` beside the transition count — and it is the whole
+finding.
+
+**The anti-pattern, named:** *registering the quotable half*. It is cheap, it goes green, it
+closes the row, and it leaves the false reading standing with a registry key now apparently
+backing it. It is worse than leaving the number unregistered, because a registered number
+reads as a checked one.
+
+⚠ And the smaller one, which is the same shape as the last two laps'. **A narrowing is a new
+claim with a shorter life than the one it replaced, and nothing schedules a re-check of it.**
+`WC-019` deliberately narrowed 「the comparison has never been run on 영덕」 to 「the arm with a
+buffer added has never been run on 영덕」 at 1520Z. This lap falsified the narrowed clause at
+2122Z — six hours — and found it only through DIRECTION's 「grep the judge-facing set for the
+NEGATION of what you just measured」, not through the row and not through any gate. When you
+retreat to a narrower caveat, name in the report the experiment that would falsify it. Here
+it was already a `todo` backlog row.
