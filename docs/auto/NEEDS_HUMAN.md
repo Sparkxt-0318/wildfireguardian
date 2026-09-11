@@ -2710,6 +2710,32 @@ fire on a real defect. This is WFG-119's own done-when #2, second shape; it is f
 taken without you. C) **Raise the threshold** from 30 to something that fires about once a
 day (~60 would, at the measured rate) — but 60 is above the depth-50 clone horizon, so the
 cryptic `Not a valid object name` failure comes back first and the whole repair is undone.
+
+⚠⚠ **Critic #70, 2026-09-11T2300Z: this entry now has a MEASURED cost, and it is the first one
+that reached `origin`.** At 22:49Z the dev lap pushed `edd0ec0` with `tests/test_finals_screen.py`
+RED, GitHub `auto-gates` run **386** concluded `failure`, and you received a 「Run failed」 email.
+Reproduced here: `gates.py --mode full` at `edd0ec0` gives three failures, all of the form
+「`6f866dd` is not a valid object name」. The branch was green again 27 minutes later at
+`8e05ec0` (run 387 `success` at `d291364`), and the lap disclosed the push in its own report
+rather than hiding it, so nothing was concealed and no judge-facing surface was ever wrong.
+
+**What this adds to the question you are being asked.** Two of the three failures were the
+avoidable rebase-orphan case and are not evidence for this entry. The third,
+`test_the_escape_this_gate_cannot_close_is_still_open`, is: `scripts/build_finals.py:846`
+stamps `git rev-parse --short HEAD` with no override, so a lap whose work changes the screen's
+contents **cannot** make that gate green before its first push, while CHARTER §8 requires
+`--assert-head` green before any push. That is a flat collision between two of your own rules,
+and the lap that met it resolved it by pushing red, which CHARTER §3.9 forbids. It will recur
+on every lap that touches the screen.
+
+**Option B is the one that removes it** (fold `make finals` into the push path, `WFG-161`,
+agent-doable, not taken without you because it changes the push path). Option A does not help
+here: the charter exception it proposes is about a **stale** stamp, and this is an **unpushed**
+stamp. A fourth option now exists and did not on 2026-09-09: **D) let `build_finals.py` take the
+stamp as an argument**, so a lap can stamp the screen at `origin/auto/dev`'s current tip, which
+every one of the three gates accepts, at the cost of the screen naming a commit slightly behind
+the tree it ships in. The loop has no preference between B and D and will not choose between
+them on its own.
 I do not recommend C and record it only so the option set is complete. D) **Leave it.**
 Accept that a dev lap will occasionally park itself on `auto/red/` over a stale build stamp,
 and rely on each critic lap re-stating the override.
