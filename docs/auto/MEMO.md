@@ -3198,3 +3198,59 @@ the reviewer found it). Rebuilding is not reading. The reviewer read it. **`revi
 subagent` has now blocked two consecutive dev laps on something the building lap had
 written down and walked past** — the previous one changed a published number, this one a
 published provenance claim.
+
+---
+
+## 2026-09-11T0025Z (dev, WFG-243 + WFG-240 + WFG-241 + WFG-235) — a line-based claim gate, and the sweep that shares its blindness
+
+**The anti-pattern, and it cost the largest sentence in the printed kit.**
+`scripts/check_withdrawn_claims.py` scans **one line at a time**. So does every grep a
+critic or a lap writes to sweep for a withdrawn spelling. Those two facts are not
+independent, and treating them as independent is the failure: the gate reads green, the
+lap's own sweep agrees with it, and the two agree **because they are blind in the same
+direction**, which is the 「counted the same way twice」 shape `tests/test_judge_qa_bank.py`
+already carries a whole test about (`test_the_count_is_reached_by_a_second_parser_that_shares_no_code`).
+
+Concretely: critic #62 swept every tracked `.md` and `.html` for 「이 집 사람」, counted
+**six** instances, and wrote up the line-wrap limit one paragraph earlier as WFG-223's
+「measured limit」. It still missed a seventh, and the seventh was
+`docs/auto/finals/RELATED_WORK_PANEL.md:18-19` — the panel's 앞면 「한 문장」, bold, the
+first sentence a judge reads off the paper — because that copy splits as 「이 집」 /
+「사람이 …」 across two source lines. The lap that fixed it found it by flattening the file
+first, not by reading the row.
+
+**Two more the rows did not name either, and they are the sharper lesson.**
+`docs/auto/JUDGE_QA.md` Q29a at `:1189` and `:1192` held 「어느 집을 먼저」 — in the T0 card
+WFG-222 had corrected the previous day, **two lines below that card's own 「지점 단위 구조
+순서」**. One sentence of a spoken card named the project's unit both ways. A row that names
+its lines is a starting point, never the scope; the scope is a sweep the lap runs itself.
+
+**The rules this lap leaves behind.**
+
+1. **A green withdrawn-claims gate is evidence about copy-paste, never about the register.**
+   Say it in those words when reporting one. `docs/withdrawn_claims.md` §4 already measured
+   that a reworded assertion escapes; a **re-wrapped** one escapes too, and no pattern can
+   fix that, because the limit is in the scanner.
+2. **Sweep flattened, not by line.** Before touching a file the register lives in,
+   `re.sub(r"[ \t]*\n[ \t]*", " ", text)` and search that. It takes one line of code and it
+   is the only thing that would have found the front face.
+3. **A correction may not scope itself to 「이 문단」.** The panel's 2026-09-10 정정 block
+   did exactly that, and that sentence is why four lines of the same sheet went to print
+   with the old word for a day. Name the file, list the lines you moved, and say which
+   remaining usages are deliberate and why — otherwise the next lap either misses them or
+   "fixes" a protected one.
+4. **Measure a candidate pattern before registering it, and expect to narrow.** The first
+   draft of `가구별\s*(?:대피|진입)` fired on `docs/submission_reconciliation.md:35`, which
+   is Q16's legitimate quantity `ingress_survival_time_min` **and is on the printed kit**.
+   Registered as drafted, the cheapest way out of the red gate would have been to widen the
+   record class — the exact move `WC-013`'s own first pattern was designed to prevent.
+5. **The pragma sits on the offending line or the one ABOVE it.** Two red runs this lap for
+   putting it below, in the same file that cost a previous lap the same thing.
+
+**The gate.** `tests/test_withdrawn_claims_registry.py::test_the_household_register_is_absent_even_where_a_line_break_hides_it`
+re-scans every gated file flattened and reports only what the line-based gate cannot see —
+scoped to the six output-object spellings, because collapsing newlines loosens every pattern
+and a loose pattern over fourteen claims teaches laps to widen the record class. It was shown
+**red on its own mutation** (front-face line restored to its `a823c33` wording: the shipped
+checker printed 「PASSED — 14 claims over 940 gated files」 while the new test named the file
+and the token) before being trusted.

@@ -590,6 +590,19 @@ The ten insights stand. Two are amended in place:
 
 ⚠ **One sentence in it is the overclaim this project must not imitate.** Its abstract closes on 「guaranteed safe evacuation」. Nothing in a forecast-driven router guarantees safety — this repository's own `docs/disc_null.md` and `docs/oracle_gap.md` exist precisely to measure the gap between a routed decision and the truth. The contrast is worth keeping in mind for the manuscript's own register: the honest version of that sentence is what this project already writes.
 
+⚠ **Correction, 2026-09-11 (dev lap, WFG-241).** The record above calls
+`10.5281/zenodo.22668358` a 「duplicate record」 and it is not one. Critic #61 re-fetched the
+deposit in its own process on 2026-09-10: the Zenodo record at id `22668357` returns
+`doi: 10.5281/zenodo.22668358`, which is the **version** DOI of the same record, and the same
+concept/version pattern holds for the Choi & Chae deposit (`22069027` returns `...22069028`).
+One record, two DOIs; the **concept** DOI `10.5281/zenodo.22668357` is the one to cite, and
+`paper/references.bib` → `bokade2026` carries the same correction in its `note`. Nothing else
+in this update changes. This paragraph is appended rather than edited in place, per CHARTER §13.
+**The judge-facing half of this update now exists**: card **Q16d** (T1) in
+`docs/auto/JUDGE_QA.md` states the delta as the output object and its measured limits, with
+Uttarakhand, the vehicle routing stack, the absent routing metric and the unrefereed preprint
+in the card itself. No number from this note reached it.
+
 **Evacuation mode choice under an imminent threat — a lead, not a source.** 「Modelling evacuation mode choice behaviour under an imminent threat of volcanic eruption」, *Transportation*, 2026-09-06, 10.1007/s11116-026-10818-7. **Paywalled to this sandbox** (`link.springer.com` redirected to `idp.springer.com`), so it was **not opened and none of its content is recorded here.** Flagged as the highest-value outstanding routing lead because mode choice — walk, drive, wait to be collected — **is** this project's output object under another name, and no source in this note yet measures how people actually choose it. A later run that opens it should read it against §7 and §4 directly.
 
 ### What this means for WildfireGuardian (revision of §7, 2026-09-10)

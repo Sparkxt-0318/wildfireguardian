@@ -224,7 +224,15 @@ honest:
 > 보면 저희 모델이 불을 3,646 m 보냈고 실제로는 1,125 m 움직였습니다 — 원보다 더
 > 많이 빗나갔습니다. 저희가 잘하는 것은 방향이 아니라 불의 모양입니다.」
 
-The draft Korean above is a draft for the student's own voice (CHARTER §9) and is
-not yet on any card; putting it on Q36 is **WFG-235**, which pays a
-`make printables` rebuild and a re-pointed release manifest (NH-049) and is
-therefore a row, not a side effect of this one.
+The draft Korean above is a draft for the student's own voice (CHARTER §9).
+
+⚠ **2026-09-11 (WFG-235): it is now on the card.** `docs/auto/JUDGE_QA.md` Q36 carries the
+comparison in two places — an analytic block holding **both** IoU pairs with their
+`dn_yeongdeok_` keys, the four centroid displacements, the floor-not-a-competitor caveat and
+the time gap, and a shortened spoken form inside the card's 부스에서 할 말 quote. The draft
+label that CHARTER §9 asks for is on the bank's own first line (「Status: DRAFT」), which is
+where it is read. Two figures of the paragraph above were deliberately **not** carried across:
+the 249-cell seed count and the metre forms (3,646 m / 1,125 m), the first because it is not a
+registered key and the second because putting the magnitude on the document the front door
+already points at is **WFG-237**, a separate row. The rebuild the note below priced was paid in
+the same lap as WFG-240, WFG-241 and WFG-243.

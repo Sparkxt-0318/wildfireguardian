@@ -456,6 +456,23 @@ def test_the_registry_holds_nothing_the_families_do_not():
     #: Q16's quantity, Q16a's sentence about other systems' published material).
     #: ⚠⚠ Registering it found THREE copies no list named — two knowledge notes and a
     #: research weekly — which is the §3.5c argument for the fourth time.
+    #: ⚠⚠ SIX MORE SPELLINGS ON THE SAME CLAIM, dev lap 20260911T0025Z / WFG-243 + WFG-240,
+    #: and the reason they are a separate block of comment rather than three more lines is
+    #: that they measure the limit of the three above. The anchor 「가구 단위」 + an
+    #: output-object phrase was chosen deliberately, to protect Q20a's definition, Q16's
+    #: quantity and Q16a's other-systems sentence — and it therefore could not see the
+    #: project's own output object stated as 「가구 하나하나에」, 「이 집 사람이」,
+    #: 「공간 단위는 가구(집)」, 「어느 집을 먼저」, 「가구 단위의 도보 대피」 or 「가구별 대피」.
+    #: EIGHT lines of two printed files carried those at `a823c33`, one of them the panel's
+    #: FRONT-FACE 한 문장 and three of them on T0 cards the student speaks from memory.
+    #: ⚠ Critic #62 swept for 「이 집 사람」, counted six instances and missed the front face,
+    #: because that phrase straddles a source line break and every grep here — the
+    #: critic's, and `scripts/check_withdrawn_claims.py` itself — reads one line at a time.
+    #: Two of the eight (`docs/auto/JUDGE_QA.md` Q29a at :1189 and :1192) were named by
+    #: NEITHER row and were found by this lap's own sweep, in the same card WFG-222 had
+    #: corrected the day before, two lines below its own 「지점 단위 구조 순서」.
+    #: So: a green withdrawn-claims gate is evidence about copy-paste, never about the
+    #: register, and the wrap-aware sweep belongs in the lap, not in the pattern.
     our_own_output_object = {
         (r"가구\s*단위(?:의)?\s*(?:\*\*)?\s*(?:「?걸어서\s*나갈|대피\s*판정|구조\s*순서|출동\s*순서|판정과\s*걸어|인명)",
          "wc013-output-object-is-per-household-ko"),
@@ -463,6 +480,18 @@ def test_the_registry_holds_nothing_the_families_do_not():
          "wc013-output-object-is-per-household-en"),
         (r"walking\s+route\s+per\s+household",
          "wc013-a-walking-route-per-household-en"),
+        (r"가구\s*하나하나",
+         "wc013-output-object-is-house-by-house-ko"),
+        (r"이\s*집\s*사람",
+         "wc013-this-houses-person-can-walk-ko"),
+        (r"공간\s*단위[가는이]?[^\n]{0,10}(?:\*\*)?\s*(?:가구|집)",
+         "wc013-spatial-unit-is-the-household-ko"),
+        (r"어느\s*집을\s*먼저",
+         "wc013-which-house-first-ko"),
+        (r"가구\s*단위의?\s*(?:\*\*)?\s*도보\s*대피",
+         "wc013-per-household-walk-out-ko"),
+        (r"가구별\s*대피",
+         "wc013-per-household-verdict-and-slack-ko"),
     }
     #: WC-014, dev lap 20260910T0625Z clearing critic #56's `fix-before-next-row` item
     #: (the minutes-sized half of WFG-215). The first entry here that withdraws a
@@ -504,8 +533,87 @@ def test_the_registry_holds_nothing_the_families_do_not():
 # the load-bearing test
 # ---------------------------------------------------------------------------
 
+#: The six spellings of `WC-013` registered by dev lap 20260911T0025Z (WFG-243, WFG-240)
+#: that state THIS PROJECT'S OWN OUTPUT OBJECT in the household register. Listed by token
+#: rather than matched by prefix so that adding a WC-013 spelling about something else does
+#: not silently join this gate, and so that a lap reading the failure knows which claim it
+#: is looking at.
+WC013_OUTPUT_OBJECT_TOKENS = frozenset({
+    "wc013-output-object-is-house-by-house-ko",
+    "wc013-this-houses-person-can-walk-ko",
+    "wc013-spatial-unit-is-the-household-ko",
+    "wc013-which-house-first-ko",
+    "wc013-per-household-walk-out-ko",
+    "wc013-per-household-verdict-and-slack-ko",
+})
+
+
+def test_the_household_register_is_absent_even_where_a_line_break_hides_it():
+    """The gate this lap owes the next one, and it closes the class that cost this one.
+
+    `scripts/check_withdrawn_claims.py` scans ONE LINE AT A TIME, so no pattern in the
+    registry — however loose — can see a phrase that straddles a source line break. That
+    is a property of the scanner, not a flaw in a pattern, and on 2026-09-11 it cost the
+    most expensive line available: `docs/auto/finals/RELATED_WORK_PANEL.md:18-19`, the
+    printed panel's FRONT-FACE 한 문장, bold, the first sentence a judge reads, held
+    「이 집 / 사람이 지금 걸어 나갈 수 있는가」 with the phrase split over the two lines.
+    Critic #62 swept every tracked `.md` and `.html` for 「이 집 사람」, counted SIX
+    instances, wrote up the line-wrap limit one paragraph earlier as WFG-223's measured
+    limit — and still did not see this one, because its own grep was line-based too.
+
+    So this test re-scans every gated file with paragraph line breaks collapsed, and
+    reports ONLY what the line-based gate cannot see. It never duplicates that gate's
+    message: a hit the main gate can already find is that gate's to report.
+
+    Scoped deliberately to the six output-object spellings rather than to the whole
+    registry. Collapsing newlines makes any pattern looser, and a loose pattern over
+    fourteen claims is how a gate starts teaching laps to widen the record class — the
+    failure `WC-013`'s own first pattern was designed around. Measured at the head this
+    was added on: 940 gated files, 6 spellings, ZERO wrap-only hits.
+
+    ⚠ A hit here is NOT licensed by a pragma, and that is on purpose: the pragma is
+    line-scoped and the offence is that the phrase has no single line. The fix is to
+    reword the sentence or, if it is a record, to put the whole quotation on one line
+    where the existing pragma can reach it.
+    """
+    spellings = [s for _cid, s in SPELLINGS if s["token"] in WC013_OUTPUT_OBJECT_TOKENS]
+    assert len(spellings) == len(WC013_OUTPUT_OBJECT_TOKENS), (
+        "a token this gate names is no longer in the registry; update "
+        "WC013_OUTPUT_OBJECT_TOKENS in the same commit that removes it"
+    )
+    wrap_only = []
+    for rel in checker.gated_files(REGISTRY):
+        path = REPO / rel
+        try:
+            text = path.read_text(encoding="utf-8")
+        except (UnicodeDecodeError, OSError):
+            continue
+        lines = text.split("\n")
+        flat = re.sub(r"[ \t]*\n[ \t]*", " ", text)
+        for spelling in spellings:
+            rx = re.compile(spelling["pattern"])
+            if rx.search(flat) and not any(rx.search(line) for line in lines):
+                wrap_only.append(f"  {rel}  [{spelling['token']}]")
+    assert not wrap_only, (
+        "this project's own output object is stated in the household register "
+        "`WC-013` withdrew, on a phrase that straddles a source line break, so the "
+        "line-based gate reads green over it:\n" + "\n".join(sorted(wrap_only))
+        + "\n\nReword the sentence. Do not add a pragma: it is line-scoped and this "
+          "offence has no single line. What to say instead is `WC-013`'s `say_instead` "
+          "in docs/auto/withdrawn_claims.json."
+    )
+
+
 def test_no_gated_document_carries_an_unlicensed_withdrawn_claim():
-    """The gate. 925 files, four claims, every hit licensed by its own token or absent."""
+    """The gate: every hit in every gated file licensed by its own token, or absent.
+
+    ⚠ This docstring used to read 「925 files, four claims」. Both numbers were true when it
+    was written and neither is now — measured 2026-09-11: **940** gated files and **14**
+    claims — and the registry grows by design, so a literal here is a defect with a fuse
+    rather than a fact (the WFG-117 lesson, three doors down in this same suite). The
+    current counts are printed by `scripts/check_withdrawn_claims.py` on every run and
+    asserted as a FLOOR by `test_the_coverage_this_row_bought_is_recorded_and_re_derived`.
+    """
     hits = checker.scan_repo(REGISTRY)
     assert not hits, (
         "a withdrawn claim is asserted in a document with no `forbidden-ok:` licence:\n"
@@ -795,6 +903,30 @@ def _probe_sentence(pattern: str) -> str:
             "| 1 | the **output object** is the contribution — a rescue order and a "
             "walking route per household, with the forecast grid as an intermediate "
             "input rather than the deliverable |",
+        # WFG-243 + WFG-240, 2026-09-11. All six are lines lifted from the tree at
+        # `a823c33`, unwrapped where the shipped copy broke across two source lines —
+        # and the unwrapping is the point rather than a convenience. `scan_text` is
+        # line-based, so the shipped copies of the first and fifth of these, and the
+        # panel's FRONT-FACE copy of the second, could not be caught AS SHIPPED by any
+        # pattern in this registry, however written. The probe therefore measures the
+        # pattern and the lap's own wrap-aware sweep measures the file; neither one
+        # substitutes for the other, and reading a green gate as the second is exactly
+        # how the panel's largest sentence survived critic #62's count of six.
+        r"가구\s*하나하나":
+            "저희가 내는 것은 그 예측 자체가 아니라 **가구 하나하나에 대한 「지금 걸어 "
+            "나갈 수 있는가, 없다면 누구를 먼저 데리러 가는가」** 이고,",
+        r"이\s*집\s*사람":
+            "지형을 곱게 본다고 「이 집 사람이 걸어 나갈 수 있는가」가 답해지지는 않습니다.",
+        r"공간\s*단위[가는이]?[^\n]{0,10}(?:\*\*)?\s*(?:가구|집)":
+            "**어느 집을 먼저, 어느 길로**입니다. 공간 단위는 **가구(집)**이고, 위성 트리거와",
+        r"어느\s*집을\s*먼저":
+            "**첫째, 만든 물건이 다릅니다.** 저희가 내놓는 것은 위험도 지도가 아니라 "
+            "**어느 집을 먼저 가고 어느 길로 걸어 나오는가**입니다.",
+        r"가구\s*단위의?\s*(?:\*\*)?\s*도보\s*대피":
+            "**조사한 범위에서 찾지 못한 것**은 그 발상을 농촌 가구 단위의 도보 대피에, "
+            "학습되고 화재 단위로 검증에서 제외한 산불 위험장 위에서,",
+        r"가구별\s*대피":
+            "| 출력 | 스칼라 지수 | **가구별 대피 가능 여부와 여유 시간** |",
     }
     assert pattern in probes, (
         f"no probe sentence for a newly registered pattern:\n  {pattern}\n"
