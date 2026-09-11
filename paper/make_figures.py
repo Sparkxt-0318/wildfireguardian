@@ -765,10 +765,25 @@ def F9_present_perimeter(out: Path) -> bool:
     return True
 
 
-def F10_disc_null(out: Path) -> bool:
+def F10b_disc_null(out: Path) -> bool:
     """The area-matched disc null for the forward-simulated hazard core, and the
     centre-of-mass reading that reverses how the gap should be read (Yeongdeok 2025,
     canonical field; `data/processed/disc_null_yeongdeok.json`, WFG-228).
+
+    ⚠⚠ THIS IS `F10b_disc_null.png`, AND `F10_disc_null.png` IS ITS SUPERSEDED
+    PREDECESSOR, KEPT COMMITTED AND UNCHANGED (lap 31, 2026-09-11, WFG-254).
+    What the old one got wrong is one label: panel (b)'s first group heading read
+    "distance moved from the ignition" over two bars this artifact measures from the
+    SEED CENTROID. `docs/auto/DIRECTION.md` names this file by name — "Do not
+    regenerate `paper/figures/F10_disc_null.png` (CHARTER §3 rule 2). The corrected
+    figure is a new filename and the old one keeps a dated note saying what its
+    heading got wrong" — so the old PNG is NOT redrawn and NOT deleted. ⚠ Lap 31's
+    first attempt DID redraw it in place, on its own argument that `paper/figures/`
+    is outside §3.2's enumerated set and that §12 defines these as deterministic
+    renderings. Its independent reviewer found the direction line, and the argument
+    does not matter: a standing instruction naming the exact file is the author's
+    and the critic's to change, not this routine's. Neither this note nor the old
+    file may be removed without that decision.
 
     ⚠ NOT REFERENCED BY THE MANUSCRIPT (paper lap 29, 2026-09-10; that lap's section
     of paper/GAPS.md carries the record, and deliberately NOT a `G` row: those rows
@@ -805,10 +820,28 @@ def F10_disc_null(out: Path) -> bool:
     Panel (b) is the half that keeps panel (a) honest and it is drawn at the same
     weight, not as an afterthought. By centre of mass the disc is CLOSER to the
     observation than the model is, because the observed footprint barely leaves the
-    ignition while the model's core travels three and a half kilometres from it. So
-    the gap in panel (a) is not directional skill; what the model reproduces better
-    than a circle is the shape and extent of an irregular footprint, and its place
-    overshoots. Colour carries one meaning across both panels: fire = the
+    seed centroid while the model's core travels three and a half kilometres from it.
+    So the gap in panel (a) is not directional skill; what the model does better than
+    a circle is OVERLAP the observed footprint, and its place overshoots.
+
+    ⚠ THE REFERENCE POINT IS THE SEED CENTROID AND NOT THE IGNITION (WFG-254, critic
+    #65, 2026-09-11). Panel (b)'s first group heading read "distance moved from the
+    ignition" and this docstring said the same twice, over `seed_to_observed_m` and
+    `seed_to_model_m`, both of which `scripts/measure_disc_null.py` measures from
+    `null_rule.centre_from` = "centroid of the t = 0 seed" — grid (97.775, 55.120).
+    Re-derived in this lap's own process from `data/processed/routing_demo_canonical.npz`:
+    that array carries `ign_xy` = (1138940.54, 1826944.63), which lands 38.40 cells
+    (19.20 km) from the centroid under the convention the data settles, and 31.60
+    cells (15.80 km) under the other one, while the largest disc drawn at any slice
+    has a disc radius of 18.162 cells.  collision-ok: 18.162 — dn_yeongdeok_t720min_disc_radius_cells, the LARGEST slice's radius, which is exactly what this sentence claims; the other registered radii (8.913, 14.881, 17.355, 17.681) are OTHER SLICES, not stale values. Written on the number's own line rather than relying on the line wrap that hid this from check_number_collisions.py in lap 31's first draft.
+    The finding therefore does not turn on the
+    convention: no disc drawn here contains the recorded ignition point. "Shape and
+    extent" went with it, for the reason the same critic gives: the disc is
+    area-matched by construction (`size_ratio` is identical for both arms at every
+    slice), so on the area reading "extent" is impossible one clause from the words
+    "equal-area".
+
+    Colour carries one meaning across both panels: fire = the
     forward-simulated core, blue = the disc, grey = the observed footprint's own
     movement, which is the reference neither arm chose.
     """
@@ -864,13 +897,13 @@ def F10_disc_null(out: Path) -> bool:
     # which the look-at-it pass caught before this figure was ever committed.
     #
     # And the rows are in TWO GROUPS, because the first draft put a displacement
-    # from the ignition and an error against the observation on one axis under one
-    # colour — one colour carrying two meanings, which is exactly the rule
+    # from the seed centroid and an error against the observation on one axis under
+    # one colour — one colour carrying two meanings, which is exactly the rule
     # paper/README.md's 2026-09-04 figure block exists to enforce. The reviewer
     # found it. Each group now carries one quantity, so fire means "the
     # forward-simulated core" in both groups without meaning two things at once.
     groups = [
-        ("distance moved from the ignition", [
+        ("distance moved from the t = 0 seed centroid", [
             ("observed footprint", float(dirn["seed_to_observed_m"]), style.PALETTE["grey"]),
             ("forward-simulated core", float(dirn["seed_to_model_m"]), style.PALETTE["fire"]),
         ]),
@@ -922,13 +955,13 @@ def F10_disc_null(out: Path) -> bool:
     lg = fig.legend(handles=handles, loc="upper center", ncol=2, fontsize=6.6, frameon=True,
                     bbox_to_anchor=(0.53, 0.115), handlelength=1.5, columnspacing=1.4, handletextpad=0.6)
     lg.get_frame().set_linewidth(0.5); lg.get_frame().set_edgecolor(style.INK)
-    style.finish(fig, out / "F10_disc_null.png")
+    style.finish(fig, out / "F10b_disc_null.png")
     return True
 
 
 FIGURES = [F1_system, F2_lofo_auc, F3_regions, F4_operating_point, F5_decision_shift,
            F6_sensitivity, F7_dispatch_ordering, F8_routing_map, F9_present_perimeter,
-           F10_disc_null]
+           F10b_disc_null]
 
 
 def main() -> int:

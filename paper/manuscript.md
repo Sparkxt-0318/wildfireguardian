@@ -706,9 +706,9 @@ forecast-aware route does not: a statement about two policies read on one surfac
 that the fire went where the surface said. At Section 4.2's operating point the same
 evidence is consistent with detours around cells that never burned, and with burned cells
 the model never flagged left unavoided under both policies; a floor comparison of that
-field against observed burn separates neither reading: the predicted core holds the burn's
-shape and extent far better than an equal-area disc at the ignition, but its centre of mass
-overshoots where the disc's does not (`docs/disc_null.md`).
+field against observed burn separates neither reading: the predicted core overlaps the
+burn far better than an equal-area disc centred on the first detections' centroid, but its
+centre of mass overshoots where the disc's does not (`docs/disc_null.md`).
 No control on the routing result admits external truth. [GAP: settling this needs a third
 routing pass over the same 458 origins on the observed FIRMS footprint, reporting how many
 of the 42 fire-blind routes intersect observed burn inside the walker's arrival window.

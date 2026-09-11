@@ -14,7 +14,254 @@ the author.
 | G6 | §6 Limitations | the refuge-provenance comparison. Every refuge in the paper is an OpenStreetMap point; the 주소정보누리집 designated-site subset for 영덕군 is now committed and correctly scoped, and nothing has been re-routed against it. The question the paper cannot answer is how much of the 458-origin partition is a statement about where refuges actually are rather than about where OpenStreetMap says they are — which bears on every absolute Yeongdeok rate, though not on the paired contrast, both arms of which use the same refuge set | **runnable in the cloud sandbox, unlike G3 and G4**: the designated-site layers are committed under `data/processed/external/juso_yeongdeok/` and counted in that folder's `manifest.json` (64 earthquake outdoor sites, 92 tsunami sites), as are the walk graph and the origin list. ⚠ Only `manifest.json` and `minwon_agencies.geojson` of that folder are listed in `docs/artifact_manifest.json`; the seven 사물주소 `*.geojson` layers are not, though `scripts/register_juso_yeongdeok.py` registers a count for each (seven layer stems in `SAMUL_LAYERS`, seven `samul_*.geojson` files on disk). That is a dev-lap item, not the paper's — this row names the folder rather than a layer file because citing an unlisted one fails `make check-artifact-manifest`. A dev lap re-snaps the refuge nodes to the designated sites, re-runs the same 458 origins on the same canonical field under both policies, and commits the three-bucket partition under a new filename beside the committed one; the paper then reports both. This is backlog WFG-073, which the paper routine cannot run itself (it would be a new artifact outside `paper/`) | no |
 | G8 | §4.5 Results | **which build of the present-perimeter opponent defines the comparison, and therefore what the forecast's residual advantage over it is.** The arm ran (WFG-114, author decision NH-027 option A) and §4.5 reports, qualitatively, that it recovers most of the Uiseong-Andong origins the fire-blind contrast credits to the forecast. ⚠ **Until 2026-09-06 (paper lap 11) this sentence instead said that §4.5 reports the recovery count, and printed it — the recovered figure over the 91. It was false in two directions at once** (the wording is described rather than restated here, for the second of those reasons): §4.5 states no count, as the rest of this row says twice in bold, and the sentence was itself putting fact (1)'s recovery half into the paper bundle without the other three facts the shared caveat binds to it. Lap 10 rewrote §4.5 and left its own ledger describing the draft it had withdrawn; lap 11's reviewer found it. What §4.5 declines to state is the difference that is left, because the row was built **twice, concurrently, by two dev laps that could not see each other**, and the two builds disagree by about a factor of three on exactly that quantity. Both reproduce the committed classification node for node before measuring; they differ only in how the opponent is constructed — one prunes the refused nodes and runs the distance-minimising `naive_route` on what is left, with no time budget; the other runs the time-expanded router against a frozen binary hazard, budget-capped at 600 minutes and able to refuse departure from inside the buffer. Both are defensible readings of 「a county office with a perimeter map」. The project's own ledger holds this open as **NH-032** and its consequences as **NH-034**, and NH-032's standing instruction is that no judge-facing surface carries either margin until the author answers; CHARTER §14b lists the manuscript as a judge-facing surface, so this manuscript names neither. ⚠ **THIS ROW IS THE REASON §4.5 QUOTES NO COUNT AT ALL, AND THE FIRST DRAFT OF THE SECTION GOT THAT WRONG — the lap reviewer blocked the push and was right.** That draft quoted the recovery count (described, not restated, for the same reason as above) and shipped a new figure whose bars carried each width's failure total against a 「of 368 scanned」 axis. Neither states a margin. Together with Table 2 they *determine* one: the bar totals and the denominator give the present-aware safe series, Table 2's own row gives the forecast-aware total, and the subtraction lands on the committed arm's margin — reaching the reader stripped of the five caveats the `pp_uiseong_*` entries make mandatory, and with the losing build's answer alongside it from the draft's own 「about a factor of three」. Withholding a number while printing its determinants is the appearance of restraint with none of the protection. Worse, the draft's two derivable residuals disagreed with each other, because the reconciling term — the already-safe origins the buffer breaks — was the one registered value it did not print. **The deadlock is real and is worth stating plainly**: the shared `pp_uiseong_*` caveat opens 「Four facts travel together or none of them may be quoted」 and fact (1) is the margin, while NH-032 bars the margin from every judge-facing surface. So quoting *any* count from the arm was unavailable, and the section now quotes none. ⚠ Two further things bind the answer whichever way it goes, and §4.5 states both: the forecast-aware arm plans on the field it is graded against, so any such margin is what a **noiseless** forecast buys and this project's model buys less (backlog **WFG-125**) ⚠⚠ **[SUPERSEDED 2026-09-09 (paper lap 24), and only the first half: 「noiseless」 is the wrong mechanism, and WFG-125 closed by proving it.** The arm does **not** plan on truth. It plans on `haz_stack`, a leave-one-fire-out simulation of a fire the model never trained on, and what makes it an oracle is that the **grader** treats that same array as truth — the oracle is in the grading, not in the planning (`docs/oracle_gap.md` §2). So the margin is what trusting that prediction buys, not what a noiseless forecast buys, and §4.5 was corrected to say so in this lap (**WFG-214**, filed by critic #51 against this manuscript by line number). ⛔ **The second half — 「this project's model buys less」 — is deliberately NOT corrected and no lap may correct it.** Whether the difference can only shrink is asserted everywhere and derived nowhere: the margin is a difference of two scores, and changing the grading field moves the fire-blind arm's score as well. That is **NH-053** (DECISION, HIGH, by 2026-09-12), whose standing instruction is that a lap lands the mechanism half and leaves the bound exactly where it stands. The manuscript's clause is unchanged and is left as the author found it.]; and the five widths differ by factors of two, so the grid holds one point in the region a 「which width could an operator pick」 claim would be about (backlog **WFG-127**). ⚠ **The manuscript reached this strength first and one of the two surfaces behind it has now caught up.** `docs/fair_opponent_line.md` §3 was narrowed on 2026-09-06 (WFG-127 (i), critic #23's finding carried by critic #24): it now states the change of kind, states the sweep's spacing as the resolution limit, and asserts neither shape, and `tests/test_fair_opponent_line.py::test_the_doc_does_not_claim_a_fixed_buffer_cannot_work` bans the retired spellings in that file — the gate that used to *require* one of them. `docs/present_perimeter_arm.md` §4 used to draw the stronger conclusion from those same five points (「The 1 km row is a **spike, not a plateau**」 <!-- forbidden-ok: wc011-buffer-width-is-a-spike-en -->) — ⚠ **CLOSED 2026-09-08 by dev lap 20260908T2117Z on WFG-127**, which did not soften the sentence but MEASURED the shape: 750 m, 1250 m and 1500 m were added on the same code and the same committed inputs, all five original widths reproduced cell for cell, and the top is a **shoulder** (750 m scores 349, 1 km 345, of 368). The claim is withdrawn as **WC-011** and the evidence is `docs/present_perimeter_buffer_shape.md`. ⚠ The result runs AGAINST this project: the fair opponent is stronger at 750 m than at the committed 1 km, so the forecast's margin on this fire is smaller than §4.5 would suggest — a live consideration for this row, not a closed one. §4.5's last sentence now says one document rather than two. ⚠ **SUPERSEDED 2026-09-08 (paper lap 21), and in the direction nobody was watching: it says two again, and the new one is `README.md:232`** — a Round-4 bullet added by the diff this lap incorporated (`d6d801d`), reading 「그 sweep 안에서 **고원이 아니라 뾰족한 봉우리**입니다」. It was not a survival; it was **written after the narrowing**, into the project's front door, which is CHARTER §14b's first-named judge-facing surface. **Nothing in this repository could have caught it:** the shape claim appears in **no** entry of `docs/auto/withdrawn_claims.json` (checked key by key this lap — none of `spike`, `plateau`, 고원, 봉우리, 뾰족, 평평 occurs anywhere in that file), so the **935**-file scan (re-derived this lap by running `scripts/check_withdrawn_claims.py`: 「PASSED === 10 claims over 935 gated files」) never reads for it, and the only guard that exists, `tests/test_fair_opponent_line.py`, bans the retired spellings **in one file by name and in English only**. ⚠ **TRUE WHEN WRITTEN AND CLOSED THE SAME EVENING, by the dev lap three hours later:** the shape claim is now **WC-011** in `docs/auto/withdrawn_claims.json`, registered in **both** languages plus the recited booth sentence, so the tree-wide scan (936 gated files, 11 claims) does read for it and `README.md:232` is corrected. The paper lap's diagnosis was right and is what the registration was modelled on; recorded here as closed rather than deleted (CHARTER §3.7). ⚠ Registering it then caught a surface neither routine had named — **this row**, which quoted the withdrawn sentence and asserted §4 still drew the stronger conclusion. ⚠ **This lap did not find that: critic #44 did, three and a half hours earlier, inside the diff this lap incorporated.** WFG-127's own row records `README.md:232` as 「A FOURTH SURFACE」 and gives the sharper root — the guard reads English, the README wrote 뾰족한 봉우리 / 고원, which is DIRECTION's standing 「a registered spelling reaches ONE language」 rule firing on a **newly written** claim (WFG-168, not yet filed). That is §3.5's own 「one language at a time」 limit, which the manuscript already states, so no manuscript sentence is owed. The lap-21 section below carries the full subject grep and the correction of this lap's own first draft, which called the mechanism new. **This row asserts no shape either** — not spike, not plateau; only that five points a factor of two apart cannot tell them apart. 🖼 **The figure exists and is committed but is not in the manuscript.** `paper/make_figures.py` → `F9_present_perimeter` draws the failure-mode composition across the five widths and `paper/figures/F9_present_perimeter.png` is committed, so the moment NH-032 is answered the figure drops into §4.5 with the margin and its caveats. It is deliberately left unreferenced rather than deleted (CHARTER §3.7), and `check_paper.py` does not object because it checks that every referenced figure exists, not that every drawn figure is referenced. ⚠ **UPDATED 2026-09-09 (paper lap 22), and the count this row has been tracking is retired rather than corrected.** The incorporated diff closed **both** surfaces: `docs/present_perimeter_arm.md` §4 withdrew its shape sentence under the five-width table and `README.md`'s Round-4 bullet was rewritten, so §4.5's 「**Two** repository documents still draw the stronger conclusion」 was false before this lap began — and **no smaller number replaces it**. A count of who currently disagrees with the paper goes stale on every push, has now been wrong in both directions inside four laps (one → two → zero), and is a fact about this repository rather than about the fire; §4.5 states what the denser grid measured instead and counts nobody. ⚠⚠ **The qualifier that now travels with every sentence read off that grid, this row's own included:** the buffer width is the argmax of the sweep's safe-total column, read **after** the run by scanning outcomes, because nothing in the problem chooses a width. So the opponent's score is a **maximum over the widths that were measured** and the forecast's advantage over it is **non-increasing as widths are added** — the 2026-09-08 refinement is the worked instance, and it moved the best width off the committed one and took part of that advantage with it (`docs/present_perimeter_buffer_shape.md` §4; WFG-201, and WFG-202 is this row's half of it). **That makes G8 harder rather than easier:** whichever build **NH-032** picks, the margin it yields is a ceiling on the grid that happened to be searched, and this repository has run exactly one refinement of that grid. Giving the opponent its best width is the right and conservative design; this is what the design costs when the result is reported as a margin | the author answers **NH-032** (which opponent) and **NH-034** (what the surfaces then say); the manuscript then states the margin from the chosen build with its five registered caveats, adds the already-safe-broken term so the residuals reconcile, and references F9. Nothing else is needed — both artifacts exist and both are green | no | <!-- forbidden-ok: wc011-buffer-width-is-a-spike-ko --> <!-- These lines RECORD the withdrawn shape claim in order to say it was withdrawn; WC-011 registered it on 2026-09-08 and this file is not record class, so the quotation is licensed per line rather than by exemption (CHARTER §3.5c). -->
 | G7 | §4.3 Results | **what the headline contrast is allowed to attribute.** The baseline the 42 (and §4.4's 91 of 368, 24.73 %) are measured against is `naive`, which is **fire-blind**: it consults no hazard at all, present or forecast (`src/wildfireguardian/routing/evacuation.py:270` 「Fire-blind shortest path to the nearest shelter, then scored against the hazard」; `docs/real_roads_real_hazard.md:50` 「the fire-blind shortest walk to the nearest refuge (the status quo)」). So the contrast measures what hazard awareness of ANY kind buys, and an unmeasured share of it is bought by knowing where the fire is **now** rather than where it will be — a router refusing only the cells alight at departure would recover some of the 42. Raised by critic #17 (2026-09-05) against the booth script, which had handed the fire-blind arm the stronger description 「지금 이 순간만 보는 지도」; WFG-103 fixed that sentence. The manuscript had the same overclaim in its **abstract** (「reach a refuge only when the router accounts for where the fire will be」) and it was corrected this lap, with the caveat added to §4.3 as its third. ✅ **NARROWED 2026-09-06 (paper lap 10): the arm has run, on the other region.** WFG-114 (author decision NH-027 option A) built the present-perimeter opponent on **의성·안동 2025** — the §4.4 region, whose fire-blind contrast is the 91 of 368 — and §4.5 of the manuscript now reports it. So G7's premise is no longer 「an unmeasured share」 in general: on that region the share is large and measured, and saying otherwise would be a fabricated limitation (CHARTER §3.5; `docs/fair_opponent_line.md` §2 makes the same point about the booth surfaces). What is still missing is **the same arm over the canonical Yeongdeok 458**, which is the origin set the paper's headline 42 comes from, and that is what the §4.3 marker now asks for. ⚠ The margin half of the Uiseong-Andong result is a separate gap, **G8** above, and is an open author decision rather than a missing run | the arm runs **on Yeongdeok's 458 origins**, i.e. the still-outstanding part of **WFG-033(b)**, 「static current perimeter (slice 0, p ≥ p_cut) + fixed buffer 0.5/1/2 km」, agent-doable, two laps, on committed hazard fields with no re-acquisition. It is **P2**, i.e. after the finals, and whether to pull it into the sprint is open with the author as **NH-027** (four options, by 2026-09-08). The paper routine cannot run it: it would be a new artifact outside `paper/`. ⚠ **A much cheaper version answers the framing question and this lap's reviewer specified it exactly** — mask slice 0 of the committed canonical field (p ≥ 0.5, 249 cells, `data/processed/routing_demo_canonical.npz`, shape [5,181,156]) as a node filter and re-run the existing `naive_route` over **only the 44 origins whose fire-blind route enters the hazard**, counting how many a present-perimeter-only router already saves. Zero buffer, one region, 44 origins, all inputs committed, no refit and no re-simulation; `F8(a)` in `make_figures.py` already loads and renders that same slice-0 mask. That is minutes of work against WFG-033(b)'s two laps, and it converts §4.3's 「an unmeasured share」 from a hedge into a number. **A dev lap should run this before the finals whatever the author decides on NH-027** | yes for full WFG-033(b); the 44-origin version above is runnable in the sandbox now by a dev lap |
-## What lap 30 incorporated (2026-09-11): the manuscript had been telling its readers, in §5, that the hazard surface goes UNCHECKED — six laps after this repository checked it. The correction landed. ⚠⚠ And the amendment lap 29 ORDERED this lap to land was based on a wrong inference, which the independent reviewer proved from lap 29's own artifact.
+## What lap 31 incorporated (2026-09-11): the sentence lap 30 wrote, and its reviewer approved, names the wrong place — by 19.20 km — and says the model beats the null on a property the null is equal on by construction. Both halves were corrected for a measured NET ZERO words.
+
+**Range.** `0796336..748e89f`, **15** commits (`git rev-list --count`, run in this clone).
+Outside `paper/` and `docs/auto/` the diff touches **15** files, of which the ones
+that could reach a manuscript sentence are `docs/NUMBERS.json` (+7 keys),
+`docs/withdrawn_claims.json` (+`WC-015`, +`WC-016`), `scripts/register_refuge_population.py`
+(new), `docs/demo_script_pace.md`, `docs/finals_screen_v2.md`, `scripts/finals.template.html`
+and `web/finals.html`. ⚠ This clone answers **`true`** to `--is-shallow-repository` at a
+depth of **50** commits, both measured this lap; **no ancestry or reachability claim is made
+anywhere in this lap's output** (CHARTER §4).
+
+**Measured, on one document by one run.** `body_words` **8,995 → 8,995**: the correction is
+an 18-word clause replaced by an 18-word clause. Nothing was compressed, nothing was
+declined for length, and no caveat or registered number was traded. The margin is unmoved
+at **5**. ⚠ **This lap therefore adds NOTHING to NH-037 and says so** — for the first time
+since lap 26 the budget neither stopped, shaped, nor funded anything here, because the
+mandatory work happened to be a substitution. That is luck about this defect's shape, not
+relief, and it is stated as luck.
+
+### 1. The false locative, re-derived from the array before it was obeyed
+
+Critic #65 (`4304445`, 2026-09-11T0810Z, **WFG-254**, filed at position 1) names
+`paper/manuscript.md:710` and ⚠⚠ `paper/make_figures.py:873` — the latter rendering the
+defect as a legend heading into a committed 300 dpi PNG. **Lap 30's own closing lesson is
+「a prior lap's instruction is not evidence, and the next lap that inherits one should open
+the artifact before it obeys」, so this lap re-derived the whole finding in its own process
+from `data/processed/routing_demo_canonical.npz` rather than quoting the report.** It holds:
+
+| quantity | measured here | source |
+|---|---|---|
+| disc centre | grid **(97.775, 55.120)** | centroid of the 249 cells `obs_stack[0]>0` and `haz_stack[0]>=0.5` agree on exactly; both stacks give 249, so `null_rule.seed_stacks_agree` is true as recorded |
+| `ign_xy` | (1138940.54, 1826944.63) → column **24.851** | `grid_extent` = (1126514.93, 1789870.46, 1204514.93, 1880370.46, 500.0) |
+| its row | **74.148** from the bottom edge, **106.852** from the top | the two conventions |
+| distance | **38.40 cells = 19.20 km**, or **31.60 cells = 15.80 km** | whichever convention |
+| largest disc drawn at ANY slice | radius **18.162** cells (9.08 km); the headline slice's is **17.355** | `disc_radius_cells`, all five slices |
+
+⚠ **The finding does not turn on the convention, and this lap does not settle it.** Under
+either reading the recorded ignition point lies outside every disc the measurement drew, at
+more than twice the headline disc's own radius. Critic #65 settled it on the data — only
+(74, 25) is burning at `t = 0` — and this lap reproduced that (`seed[74,25]` true,
+`seed[106,25]` and `seed[107,25]` false), ⚠ with one difference recorded rather than
+smoothed over: the report says 「(107, 25) is not observed at any slice」 and **(106, 25) IS
+observed at a later slice**, which is the cell the top-edge convention actually lands on.
+That changes nothing about the finding and is noted because the next lap to re-derive this
+will otherwise think one of the two accounts is wrong.
+
+**`scripts/measure_disc_null.py` never reads `ign_xy`, and it is right not to:**
+`null_rule.centre_from` states the rule correctly as 「centroid of the t=0 seed」. The
+measurement was never wrong. Only the words naming what it was measured from.
+
+### 2. The second half, which is a different kind of error: a comparison on a property the null is equal on by construction
+
+§6 said the predicted core holds the burn's 「**shape and extent**」 better than the disc.
+**On the area reading that is impossible one clause from the words 「equal-area」**, and the
+artifact says so in its own fields: `area_matched_to` = 「that slice's own predicted core
+count」, and `size_ratio` is **identical for both arms at every slice** (0.7385/0.7385 at
+180 min, 1.016/1.016 at the headline). The disc has exactly the model's cell count by
+construction. Critic #65's ruling is 「disambiguate, do not delete」 and the reach reading it
+offers — 952 cells across a 44.5 km box in 37 components against a circle 17.4 km across —
+**is true and is NOT what this paper may write**, because ⚠ WFG-255 is the critic's own
+finding that **no file in this repository states that geometry**, so it is unregistered and
+CHARTER §3.3 forbids it here. What IS measured and committed is **overlap**, which is what
+the whole artifact scores.
+
+**So the clause now names overlap and the right reference point:**
+
+> …a floor comparison of that field against observed burn **separates neither reading**: the
+> predicted core **overlaps the burn far better than an equal-area disc centred on the first
+> detections' centroid**, but its centre of mass overshoots where the disc's does not
+> (`docs/disc_null.md`).
+
+⚠ **「far better」 was checked at every slice before it was kept, and this ledger quotes no
+number doing it.** The check: the model's IoU leads the disc's at **all four** non-seed
+slices on the **as-scored** reading and at all four on the **seed-removed** reading as well
+— the fair one, since `obs_stack` is cumulative and both masks contain the shared seed — and
+the weakest of the eight comparisons is still near a factor of two. ⚠ **The ratios themselves
+are deliberately not printed here, in this routine's own file.** The `dn_yeongdeok_` band
+opens 「Six facts travel together or none may be quoted」 and `docs/auto/DIRECTION.md` bars the
+0.3941/0.1554 pair without 2.2044 and 0.2577/0.1169 beside it; a ledger that prints a series
+to justify an adjective has quoted the arm, and the fact that this file is not the manuscript
+does not narrow the band. **The second half of the sentence is untouched, word for word**: it
+was litigated by lap 30's reviewer and nothing in this window bears on it.
+
+⚠ **What 「overshoots where the disc's does not」 is, said once here so no later lap
+re-discovers it as a defect:** the disc's centre of mass cannot move — it is placed on the
+seed centroid at every slice (`seed_to_disc_cells` 0.021–0.057, i.e. metres). The sentence
+credits the null with nothing it earned; it says the model's movement is worse than **not
+moving**, which is precisely what makes this a *floor*. The word 「floor」 is already in the
+clause and carries it.
+
+### 3. The figure, which is the half a reader sees without reading
+
+`F10_disc_null`'s panel (b) group heading read 「distance moved from the **ignition**」 over
+`seed_to_observed_m` (1,124.8 m) and `seed_to_model_m` (3,646.1 m), **both measured from the
+seed centroid**. It now reads 「distance moved from the **t = 0 seed centroid**」, which is
+`null_rule.centre_from`'s own wording. The docstring carried the same locative twice and the
+「shape and extent」 clause once; all three are corrected and the finding is written into the
+docstring with its re-derivation, so the next lap to touch this function meets the evidence
+and not a memo.
+
+⚠⚠ **The corrected figure is `F10b_disc_null.png`, a NEW FILE, and `F10_disc_null.png` is
+kept committed and byte-unchanged with a dated note in the function's docstring saying what
+its heading got wrong. THE LAP'S FIRST DRAFT REDREW F10 IN PLACE AND ITS INDEPENDENT
+REVIEWER KILLED THAT.** `docs/auto/DIRECTION.md` names this file by name: 「**Do not
+regenerate `paper/figures/F10_disc_null.png`** (CHARTER §3 rule 2). The corrected figure is a
+**new filename** and the old one keeps a dated note saying what its heading got wrong.」
+`BACKLOG.md`'s WFG-254 constraints cell repeats it.
+
+**The draft's argument was not stupid and it does not matter, which is the lesson.** It ran:
+`paper/figures/` is not in §3.2's *enumerated* protected set; §12 defines these figures as
+deterministic *renderings* of committed artifacts rather than measurements, and this lap's own
+run demonstrates it (the other nine redrew **byte-identical**); a new filename orphans the
+name `FIGURES`, this ledger and `paper/README.md` all address. Every clause of that is true.
+⛔ **It is still not this routine's call.** A standing instruction naming the exact file is
+the author's and the critic's to change; a lap that reasons its way past one has not found an
+exception, it has found a reason to ask. The draft even *recorded* the divergence in writing
+and thought that discharged it — **writing down that you are overriding an instruction is not
+authority to override it**, and the reviewer's phrasing is the right one: a human has to
+ratify that, not a subagent and not the lap. `F10b` costs nothing and asks nobody.
+
+✅ **Looked at, once, with the Read tool, as CHARTER §12 requires, and again after the rename**
+— the longer heading was the risk and it clears panel (b)'s right edge with room; no clipped
+label, no overlap between the two group headings and their bars, legend and both axis labels
+legible. `git status paper/figures/` now shows `F10_disc_null.png` **unmodified** and
+`F10b_disc_null.png` as the one new file.
+
+⚠ **Neither is referenced by the manuscript, so no appearance number moves** (F1→1, F2→2,
+F4→3, F5→4, F8→5, F3→6, F6→7, F7→8 is unchanged) and `check_paper.py` does not object, for the
+reason `paper/README.md` already gives: it checks that every referenced figure exists, not the
+converse.
+
+### 4. Five things checked in this window and found NOT to be owed
+
+- **(a) The registry moved purely additively**, compared key by key against
+  `git show 0796336:docs/NUMBERS.json`: **539 → 546**, seven additions
+  (`demo_pace_*` ×4, `l0i_failing_denominator_h240`, `l0i_household_population`,
+  `l0i_walk_nodes_total`), **zero** removed, **zero** values changed.
+- **(b) `l0i_walk_nodes_total` = 8,443 CONFIRMS a manuscript number rather than moving
+  it.** §6 says the 458 origins are 「every 18th of the walk graph's **8,443** nodes」, and
+  the new key registers that same 8,443 from `refuge_placement.json` for a different arm.
+  Nothing is owed; it is recorded because a later lap comparing the two arms' denominators
+  should know they agree.
+- **(c) Neither new withdrawal reaches the manuscript.** `WC-015` (the pacing fixed point at
+  61 seconds) and `WC-016` (2,218 candidate sites called 「보행망 노드」) were run as regexes
+  against a whitespace-flattened `manuscript.md`: **no match**, and the manuscript names the
+  refuge-siting arm nowhere at all. ⚠ WC-016's shape is nonetheless the same one this lap
+  fixed — a right number under a wrong noun — which is worth one line and not a sentence in
+  the paper.
+- **(d) §3.5's 「skipped it four times」 stays four**, checked on the RANGE and not on an
+  unchanged registry: this window's two withdrawal events both register in the commit that
+  makes the correction (`c2bb9e6` carries WFG-247's row; `WC-015` and `WC-016` arrive with
+  the surfaces they retire), so CHARTER §3.5c is honoured and there is no fifth instance.
+- **(e) No `[GAP:` marker opened or closed.** Still **7**, and `G4`'s 「after sprint? **no**」
+  stands: WFG-129 is the run, it is `todo`, and critic #65's cheapest test names `GAPS.md`
+  G7's 44-origin version again. Both remain dev-lap work outside CHARTER §12.
+
+### 5. Three items for other routines, none of them this one's to fix
+
+1. **WFG-254's six surfaces outside `paper/`** — `docs/auto/JUDGE_QA.md:1513` (Q36, tier T0,
+   said from memory to five judges, and on page 25 of the 59-page kit), `docs/disc_null.md:221`,
+   `docs/oracle_gap.md:203`, and the kit rebuild that follows them. Outside §12. The critic
+   made the Q36 clause the one `fix-before-next-row` item, so the next dev lap has it.
+2. **WFG-255**, the component geometry, is the reason this lap could not take the critic's
+   own better phrase. A dev lap that measures and registers it from the committed array
+   unlocks a stronger sentence here than 「overlaps」, and `docs/disc_null.md:153`'s 「arms the
+   fire actually ran down」 needs it first.
+3. **`bokade2026` is still uncited, for a third lap** (WFG-239, P1/IEEE, held behind R3 by
+   CHARTER §14b). This lap spent zero words and had five; it is recorded rather than excused.
+
+### 6. The independent reviewer BLOCKED this lap, on four findings, and the first one turned `make verify` RED
+
+⛔ **The block: this ledger's own sibling file would have failed the gates by its own hand, on
+the very number three of its paragraphs boast of having re-derived.** `paper/README.md`'s
+<!-- collision-ok: 18.162 — dn_yeongdeok_t720min_disc_radius_cells, the LARGEST slice's radius. The other registered radii (8.913, 14.881, 17.355, 17.681) are OTHER SLICES, not stale values. This line QUOTES the unannotated sentence in order to report it, and fired the identical five collisions doing so — the gate cannot tell a claim from a quotation of one, which is lap 22's finding in a second place. -->
+lap-31 block wrote 「a **largest** disc radius at any slice of **18.162** cells」 **bare**.
+`scripts/check_number_collisions.py` fired **five** collisions on that single line —
+`dn_yeongdeok_disc_radius_cells` (17.355), `_t0min_` (8.913), `_t180min_` (14.881),
+`_t360min_` (17.355), `_t540min_` (17.681), each a *different slice's* radius read against the
+text's 18.162 — and exits **1**. `make check-number-collisions` is inside `verify:`, and
+`gates.py` runs `make verify` as step 1 of both modes, so **`--mode full` could not have
+exited 0**. CHARTER §3 rule 9.
+
+⚠⚠ **The sting, and it is exact: `docs/auto/DIRECTION.md:21` states the same sentence about
+the same number and carries the pragma this lap needed** — `collision-ok: 18.162 —
+dn_yeongdeok_t720min_disc_radius_cells, the LARGEST slice's radius…`. **The lap copied the
+critic's sentence and dropped the critic's annotation.** The value was never wrong; 18.162
+*is* `dn_yeongdeok_t720min_disc_radius_cells`, which the reviewer re-derived from the npz
+independently. The failure is registry hygiene, and it landed in a lap whose entire thesis is
+「re-derive rather than inherit」.
+
+⚠⚠ **And the lap did run that gate — piped.** `check_number_collisions.py … | tail -20`
+reported the collisions in its output and returned the **exit code of `tail`**, which is 0.
+**That is CHARTER §3 rule 10 verbatim** (「Never pipe a gate — `make verify | tail` swallows the
+exit code」), the rule §5's own story exists for, broken by the lap while checking the work it
+was writing about checking. The gate is now run with its output redirected to a file and `$?`
+read. ⚠ Both pragmas are written on the number's own line: the same claim in
+`paper/make_figures.py`'s docstring **escaped the identical gate on a line-wrap technicality**
+— the anchors 「disc」 and 「radius … cells」 had wrapped onto different source lines, and the
+gate matches per line — so the same defect was caught in one file and missed in the other **by
+luck**. It is now licensed explicitly rather than invisibly.
+
+**The other three findings, all verified in the tree before acting:**
+
+2. **The F10 regeneration**, §3 above. Sustained; the draft reverted.
+3. ⚠⚠ **A RETIREMENT WITHOUT A REGISTRATION — CHARTER §5c's failure mode by name, one lap
+   after this ledger quoted §5c approvingly.** This file and `paper/README.md` say 「shape and
+   extent」 is 「retired」 / 「superseded」, and `docs/auto/withdrawn_claims.json` is **untouched**
+   by this lap. The claim stands live and uncaveated on pages the manuscript itself points at:
+   `docs/disc_null.md:152` — **the very document the new §6 clause cites** — and
+   `docs/oracle_gap.md:211`, with `tests/test_disc_null.py:306` actively asserting
+   `"shape and extent" in doc` to keep it there. ⛔ **And the copy that cannot be fixed at all
+   is in the registry**: the mandatory caveat band shared by all 84 `dn_yeongdeok_*` entries
+   reads 「the model's advantage over the disc is in SHAPE and EXTENT … while its centre of
+   mass OVERSHOOTS the fire」, and **CHARTER §3 rule 2 forbids editing a registered entry**. So
+   the registry's own mandatory caveat now characterises the comparison one way and this
+   manuscript another. **This lap's §5 list named the three LOCATIVE surfaces and did not name
+   these**, which is precisely 「a lap chooses which documents to correct and will miss one」.
+   ⚠ **What this lap is entitled to say about it:** the manuscript quotes no `dn_yeongdeok_`
+   number, so the band binds nothing here and no sentence in the paper is false; 「overlaps」 is
+   strictly weaker than 「shape and extent」 and compatible with the overshoot half, so this is
+   a divergence of characterisation rather than a contradiction of substance. **Every path
+   that could close it is outside CHARTER §12** — the registry, two `docs/` pages and a test —
+   so it is reported here and in the lap report as a dev-lap item under WFG-254, whose own row
+   already scopes 「the row also disambiguates 「모양과 범위」/「shape and extent」」. It is **not**
+   filed as a new NEEDS_HUMAN: the frozen-artifact half is NH-042's open question in general
+   form, and a second entry for one instance of it would be noise on a channel that has been
+   silent five days with 24 decisions waiting.
+4. **The diff was larger than the review brief said.** The brief named 「one sentence plus a
+   docstring」; `git status --short` showed **six** modified paths, and the red gate was in one
+   of the files the brief did not mention. ⚠ **That is this lap's error in writing the brief,
+   not the reviewer's in reading it**, and the reviewer found the gate failure only because it
+   ignored the brief and ran `git status` itself. **The next lap's brief names the diff by
+   `git status`, not by the lap's own account of what it changed.**
+
+⚠ **What the reviewer did NOT find, stated because a block is not a verdict on everything:**
+it re-derived the disc comparison from the npz alone — rebuilding the area-matched disc from
+`null_rule` rather than reading the JSON — and reproduced the artifact to four decimal places;
+it confirmed 「centred on the first detections' centroid」 against `centre_from` (the centroid of
+the 249 cells is grid (97.77510, 55.12048), byte-equal to `centre_row_col`), confirmed 「far
+better」 at all four non-seed slices on both readings, confirmed the clause quotes no forbidden
+bare number, confirmed **no dangling antecedent**, and confirmed that dropping 「shape and
+extent」 **is not lap 24's failure mode** — it deletes a false justification *and installs a
+true one*, rather than leaving a conclusion unsupported. It also checked all 29 citations, the
+32.6 % coverage caveat on every absolute Yeongdeok rate, and mean-of-folds against pooled, and
+found the manuscript clean. **The sentence this lap exists to write was the best-verified thing
+in the diff. What failed was everything around it.**
+
+ ⚠⚠ And the amendment lap 29 ORDERED this lap to land was based on a wrong inference, which the independent reviewer proved from lap 29's own artifact.
 
 **Range.** `a6d49d3..0796336`, **13** commits (`git rev-list --count`, run in this clone).
 Outside `paper/` and `docs/auto/` the diff touches **13** files: `docs/MODEL_CARD.md`,
@@ -45,6 +292,10 @@ FIRMS footprint at **IoU 0.3941** (952 predicted, 937 observed, 534 in both) and
 field against an **area-matched disc** at the ignition and against the burn's own
 centre-of-mass movement. The surface is checked. It has been checked twice. The manuscript
 said it was not.
+⚠ **[「at the ignition」 is the WFG-254 defect, superseded at lap 31 and annotated rather
+than edited (CHARTER §3.7): the disc is centred on the centroid of the `t = 0` seed, which
+is 19.20 km or 15.80 km from the recorded ignition point depending on a row convention.
+Nothing else in this paragraph moves — the surface is still checked, still twice.]**
 
 ⚠ **The sentence was never load-bearing for a number, which is why nine laps read past it.**
 It is a cross-reference — a paraphrase of §6's own heading, which says the *routing result*
@@ -101,6 +352,14 @@ direction, in as many words.
 > far better than an equal-area disc at the ignition, but its centre of mass overshoots where
 > the disc's does not (`docs/disc_null.md`). **No control on the routing result admits
 > external truth.**」
+
+⚠⚠ **[That block quote is what lap 30 SHIPPED and is kept as its record; it is NOT what §6
+says today. Lap 31 corrected both of its middle phrases (WFG-254, critic #65): the locative
+「at the ignition」 was wrong by 19.20 km, and 「shape and extent」 compares the two arms on a
+property the disc is EQUAL on by construction. The current wording is in the lap-31 section
+at the top of this file. Everything this passage says about the sentence's STRUCTURE — that
+it quotes no number, carries the floor caveat and both halves of the pairing, and hands the
+question to the GAP marker — survived the correction unchanged.]**
 
 Three things about it. **It quotes no number**, which is the registry's own requirement and
 not a dodge: the band binds six facts to any quotation and `docs/auto/DIRECTION.md` bars
@@ -341,6 +600,11 @@ centre-of-mass error is **2,670.2 m** against the disc's **1,133.0 m**. The mode
 What it does better than a circle is reproduce the **shape and extent** of an elongated, irregular
 footprint; its **place** is worse than staying put. The registry states this as a condition of
 quoting anything: 「Quote the IoU gap and the centroid displacements together, or quote neither.」
+⚠ **[「shape and extent」 superseded at lap 31 (WFG-254): the disc is area-matched by
+construction — `area_matched_to` = 「that slice's own predicted core count」, `size_ratio`
+identical for both arms at every slice — so 「extent」 cannot be the thing that separates them.
+The property that does is **overlap**. The metre values and the overshoot reading above are
+correct and did not move; 「from the seed」 here is already right.]**
 
 **This is the strongest new evidence the paper has been offered, and it speaks to the limitation
 the paper itself calls 「the objection we would raise first」.** §6's first limitation is that the

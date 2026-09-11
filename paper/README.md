@@ -892,6 +892,14 @@ is.** The observed footprint's centre of mass travels **1,124.8 m** from the ign
 the forecast core's travels **3,646.1 m**, leaving the forecast a **2,670.2 m** centre-of-mass
 error against the disc's **1,133.0 m**. The model overshoots; what it reproduces better than a
 circle is the burn's **shape and extent**, not its **place**.
+⚠⚠ **[SUPERSEDED 2026-09-11 (lap 31, WFG-254 + critic #65) in BOTH of its phrases, and
+annotated rather than edited (CHARTER §3.7).** 「from the ignition seed」 is 「from the centroid
+of the `t = 0` seed」 — the recorded ignition point `ign_xy` is 19.20 km or 15.80 km outside
+every disc this measurement drew, depending on a row convention lap 31 did not settle; and
+「shape and extent」 is retired because the disc is **area-matched by construction**, so on the
+area reading 「extent」 cannot separate the two arms at all. The three metre values above are
+correct and did not move. What the model does better is **overlap**, which is what the
+artifact scores. The lap-31 block above carries the re-derivation.]
 
 ⛔ **That is exactly the evidence §6's first limitation asks for, and it measures +198 words
 against a margin of 2.** The registry's caveat band is identical on all 84 new keys and carries 「Six facts travel
@@ -981,7 +989,10 @@ panel (a)'s bars are the **seed-removed** IoUs and nothing said so, leaving the 
 by negation from the tick legend — the axis now names it; and **one colour carried two meanings**,
 fire marking both a *displacement from the ignition* (3,646.1 m) and an *error against the
 observation* (2,670.2 m) on one axis, which is the rule the 2026-09-04 block below exists to
-enforce — panel (b) is now two labelled groups, one quantity each. **Looking is not enough on its
+enforce — panel (b) is now two labelled groups, one quantity each. ⚠ **[The word 「ignition」
+in that sentence is itself the WFG-254 defect, superseded at lap 31: the displacement is from
+the `t = 0` seed centroid. The group heading it describes now says so, and the two-group
+repair the sentence records was and remains correct.]** **Looking is not enough on its
 own, which is what that block already says.** The nine existing figures redrew **byte-identical**.
 
 ✅ **The registry moved purely additively and it was checked, not asserted.** `docs/NUMBERS.json`
@@ -1052,7 +1063,10 @@ precisely because it is self-critical.
 comparison of that field against observed burn **separates neither reading**: the predicted
 core holds the burn's shape and extent far better than an equal-area disc at the ignition, but
 its centre of mass overshoots where the disc's does not (`docs/disc_null.md`). **No control on
-the routing result admits external truth.**」 It quotes **no number**, which is the registry's
+the routing result admits external truth.**」 ⚠⚠ **[That is lap 30's record, not today's §6:
+lap 31 corrected 「at the ignition」 (wrong by 19.20 km) and 「shape and extent」 (a property the
+area-matched disc is equal on by construction) — WFG-254. The lap-31 block above carries the
+current wording. What this passage says about the sentence's STRUCTURE all survived.]** It quotes **no number**, which is the registry's
 own requirement and not a dodge; it carries **both** caveats that scope the claim rather than
 the numbers — 「a **floor** comparison」, and **both halves of the pairing**, that rule being
 symmetric in both directions; and 「separates neither reading」 hands the question to the GAP
@@ -1098,6 +1112,70 @@ obeys. ✅ The anchor was **re-derived, not inherited**: after the one `apt` lin
 true`** — printing **`295bbc7453f1ad14`**. All ten figures redrew **byte-identical**. **Two
 pages against the author's 25, five words against the proxy's 9,000, measured on one document
 by one run.**
+
+⚠⚠ **Lap 31 is the one where the sentence lap 30 wrote — and its independent reviewer
+approved — names the wrong place by 19.20 km, and claims the model beats the null on a
+property the null is EQUAL on by construction. Both halves corrected for a measured NET
+ZERO words. Read `GAPS.md`'s lap-31 section before this paragraph.** `body_words`
+**8,995 → 8,995**, margin unmoved at **5**. Nothing was compressed, nothing was declined for
+length, and no caveat or registered number was traded.
+
+§6's floor comparison read 「the predicted core holds the burn's **shape and extent** far
+better than an equal-area disc **at the ignition**」. Critic #65 filed it as **WFG-254** at
+position 1, naming `paper/manuscript.md:710` and ⚠⚠ `paper/make_figures.py:873` — where the
+same locative is a **rendered legend heading** in a committed 300 dpi PNG. **Lap 30's own
+closing lesson is that a prior lap's instruction is not evidence, so this lap re-derived the
+finding from `data/processed/routing_demo_canonical.npz` in its own process before obeying
+it, and it holds:** the disc sits on the centroid of the `t = 0` seed at grid
+(97.775, 55.120) — `null_rule.centre_from`'s own words, and the measurement was never wrong
+— while `ign_xy` lands **38.40 cells (19.20 km)** away under one row convention and **31.60
+<!-- collision-ok: 18.162 — dn_yeongdeok_t720min_disc_radius_cells, the LARGEST slice's radius, which is exactly what the next line claims. The other registered radii (8.913, 14.881, 17.355, 17.681) are OTHER SLICES, not stale values. Copied from docs/auto/DIRECTION.md:21, which wrote it for this same sentence; lap 31's first draft copied the sentence and dropped the annotation, and its reviewer caught the red gate. -->
+cells (15.80 km)** under the other, against a **largest** disc radius at any slice of 18.162
+cells. **No disc drawn here contains the recorded ignition point under either reading**, so
+the finding does not turn on the convention and this lap does not settle it.
+
+**The second half is a different kind of error and the more interesting one.** The disc is
+**area-matched by construction** — `area_matched_to` = 「that slice's own predicted core
+count」, and `size_ratio` is identical for both arms at every slice — so on the area reading
+「extent」 is impossible **one clause from the words 「equal-area」**. ⚠ The critic's own
+better phrase (the model spreads its cells across a 44.5 km box in 37 components where the
+disc packs them into a circle) **could not be taken**: WFG-255 is that same critic's finding
+that **no file in this repository states that geometry**, so it is unregistered and
+CHARTER §3.3 forbids it here. What is measured and committed is **overlap**. The clause now
+says overlap, and names the first detections' centroid: 18 words out, 18 words in.
+
+⚠⚠ **The corrected figure is `F10b_disc_null.png` and `F10_disc_null.png` stays committed,
+byte-unchanged, with a dated note in its function's docstring. THE FIRST DRAFT REDREW IT IN
+PLACE AND THE REVIEWER KILLED THAT**, citing `docs/auto/DIRECTION.md`, which names the file:
+「Do not regenerate `paper/figures/F10_disc_null.png` (CHARTER §3 rule 2). The corrected figure
+is a **new filename** and the old one keeps a dated note saying what its heading got wrong.」
+The draft's argument — `paper/figures/` is outside §3.2's enumerated set, §12 defines these as
+deterministic renderings, the other nine redrew byte-identical, a new name orphans `FIGURES`
+and this file — is true in every clause and **still not this routine's call to act on**. It
+even wrote the divergence down and treated that as sufficient. ⛔ **Recording that you are
+overriding a standing instruction is not authority to override it.** `F10b` costs nothing.
+
+⛔⛔ **AND THE REVIEWER BLOCKED THIS LAP OVER A RED GATE THIS FILE CAUSED. Read `GAPS.md`'s
+<!-- collision-ok: 18.162 — dn_yeongdeok_t720min_disc_radius_cells, the LARGEST slice's radius. The other registered radii (8.913, 14.881, 17.355, 17.681) are OTHER SLICES, not stale values. This line QUOTES the unannotated sentence in order to report it, and fired the identical five collisions doing so. -->
+lap-31 §6.** The block above wrote 「a largest disc radius at any slice of **18.162** cells」
+**bare**, which fires **five** collisions in `scripts/check_number_collisions.py` against five
+registered `dn_yeongdeok_*_disc_radius_cells` entries — different slices, not stale values —
+and takes `make verify`, and therefore `gates.py --mode full`, to **exit 1**. The value is
+right. The annotation was missing, and `docs/auto/DIRECTION.md:21` **writes the same sentence
+about the same number with exactly the pragma that was needed**: the lap copied the sentence
+and dropped the annotation. ⚠⚠ **It had also run that gate — piped through `tail`, so it read
+`tail`'s exit code and saw 0. That is CHARTER §3 rule 10 verbatim, in a lap about checking.**
+Both this file's and `make_figures.py`'s copies now carry the pragma on the number's own line;
+the docstring's had been escaping the same gate only because the anchor words happened to wrap
+onto different source lines. **Same defect, two files, caught in one by luck.**
+
+⚠ **This lap adds NOTHING to NH-037, and that is worth as much as the laps that did.** For
+the first time since lap 26 the budget neither stopped, shaped nor funded anything here,
+because the mandatory work happened to be a **substitution** rather than an addition. That is
+luck about the shape of this particular defect — an 18-word clause replaced by an 18-word
+clause — and not relief. **Laps 13 through 21, 24, 25 and 30 all had their writing shaped by
+the proxy; this one did not, and the reason is arithmetic rather than progress.** The entry
+is still open.
 
 ⚠ **The page that took the count from 22 to 23 cost eleven words, and it is worth
 knowing that before reading the words-to-pages table below as a rate.** Lap 11
