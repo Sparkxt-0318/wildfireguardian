@@ -1294,6 +1294,116 @@ findings — the six/seven count, the twice-wrong arithmetic, and the net-+2 DIR
 are in `GAPS.md` §8 with what it checked and passed, including that no `ppy_yeongdeok_*`
 count reached the manuscript and that 「most」 holds on both denominators.
 
+✅⚠ **Lap 33 is the one where a rule that arrived INSIDE the incorporated window made a
+manuscript sentence non-compliant, and the deletion it forced paid for the sentence critic
+#67 said the paper's strongest new claim was missing. Read `GAPS.md`'s lap-33 section before
+this paragraph.** `body_words` **8,995 → 8,993**, margin **5 → 7**. Nothing litigated was
+compressed and no caveat or registered number was traded. ⛔⛔ **Its independent reviewer
+BLOCKED it, on the LEDGER rather than on the manuscript, and that is the uncomfortable part:
+the edit survived scrutiny and this routine's account of it did not. `GAPS.md`'s lap-33 §5 is
+the record of all five findings.**
+
+⛔ **The mandatory half.** `docs/auto/DIRECTION.md`'s NH-059 bar used to say 「do not put any
+`ppy_yeongdeok_*` count on a judge-facing surface」; critic #69 extended it to
+「**and do not point at the section that prints them** either」 in **`b5987b7`, the LAST
+commit of the range this lap incorporated**. ⚠ This paragraph's first draft said `8952a5b`,
+which is the head that critic REVIEWED rather than the head it wrote; re-derived by walking
+the thirteen commits in order, `git show <rev>:docs/auto/DIRECTION.md` first carries the
+clause at `b5987b7`. **Caught by measuring rather than by the reviewer, and it changes the
+reading: a rule landing in the window's last commit is one this manuscript had no window in
+which to obey.** CHARTER §14b names this
+manuscript a judge-facing surface, and §4.3 ended 「…reproducing the committed partition
+first, **with the per-outcome counts in `docs/present_perimeter_yeongdeok.md`**」 — naming the
+counts and the file whose §4 prints all three in bold. **That is critic #69's booth-card
+finding one file over**, written in good faith by lap 32 one window before the rule existed.
+It is deleted rather than reworded, and what replaces it is the **artifact** —
+`data/processed/present_perimeter_yeongdeok_2025.json`, listed in
+`docs/artifact_manifest.json`, holding the same partition in JSON and printing no count in
+prose — so §4.3's quantitative claim names a re-derivable source instead of a section about
+the other region. ⛔⛔ **That repair is the reviewer's, and so is the finding underneath it:
+this paragraph's first draft said 「nothing in the repository cites that clause」 and THAT IS
+FALSE IN THE FILE IT WAS WRITTEN BESIDE.** `GAPS.md`'s lap-32 §2 is an own-voice,
+present-tense description of §4.3 — in `paper/`, three limbs, all three falsified by this
+lap — and this lap's only `GAPS.md` hunk never reached it. The lap ran a grep, wrote that it
+had run one, and did not read what came back; `GAPS.md` §1 now carries the real grep with a
+row for every hit, and both stale descriptions are annotated in place. ⚠ The comparison with
+lap 20 stands with its direction corrected: lap 20 deleted text `README.md:38` cited and its
+reviewer caught it; **this lap deleted text its own ledger described, and its reviewer caught
+that.**
+
+✅ **What the deletion bought.** §4.3's account of what the fair opponent plans on was 「the
+nodes alight at the departure slice」, which says nothing about whether those nodes are an
+observation or a model output — the exact hole critic #67 filed as **WFG-260** against this
+manuscript's own 「needs no model at all」. ⚠ **Re-derived in this lap's own process from the
+committed array rather than inherited from either report**: `haz_times[0]` is `0.0`,
+`haz_stack[0]` holds exactly `{0, 1}` against slice 1's **3,961** distinct values, and
+`haz_stack[0] >= 0.5` equals `obs_stack[0] > 0` **cell for cell** at the already-registered
+`dn_yeongdeok_t0min_n_cells`. The clause now reads 「a router **that plans on no model but is
+graded on the forecast**, refusing only the observed detection cells…」 — ⚠ **and the second
+half of that was added on the reviewer's block, which is the more important half.** Quoting
+the arm's input provenance without its scoring side states only the flattering one, and
+`docs/present_perimeter_yeongdeok.md` §5 item 6 puts the oracle of this comparison squarely
+on the **scoring** side.
+
+⛔ **And the half that cuts against us rides in the same clause, because shipping the
+flattering half alone is the register this project exists to refuse.** Those cells are a
+**detection scatter** and not a mapped fire line — re-derived here as 226 8-connected
+components with a largest piece of 3 cells, on a 500 m grid rasterised from VIIRS
+detections whose footprint the registry entry's own caveat gives as 375 m — so the clause
+closes 「(a 500 m detection scatter, not a mapped fire line)」.
+⛔ **No count from this run reaches the manuscript**: none of 226, 3, 249, 26 or 16 is in it
+anywhere. The registry entry for the 226 carries the bar in its own caveat and critic #69
+added 「not 226」 to DIRECTION's list by name. ⚠⚠ **The first draft of this sentence read 「not
+26, 16, 2 or 44」 and the reviewer falsified it in one grep: 2 and 44 ARE in the manuscript**,
+at `:387`, `:396`, `:431` and `:529` — the committed 414 / 42 / 2 partition's own arithmetic,
+registered under other keys, none of it from the 영덕 run. No bar is breached; the sentence
+offered as proof of that was wrong anyway, which is the same defect as the paragraph above. ⚠ **No direction is asserted for that coarseness either**,
+though DIRECTION's own reading of it is that the bias runs in this project's favour: that
+inference rests on the dilation probe DIRECTION itself calls unregistered and re-derivable by
+nobody (**WFG-259**), so the paper says what the object *is* and leaves what it costs to the
+buffer axis it already names twice.
+
+⚠ **The arithmetic, measured at every step and never subtracted.** 8,995 → 8,998 (first
+draft of the clause) → **9,000** (second draft, carrying the scatter) → 8,994 (three trims) →
+8,995 (the wording the reviewer was given) → **8,993** after its block, the added 「but is
+graded on the forecast」 and the artifact path paid for by compressing §4.5's opener again.
+The 9,000 row is the one worth keeping: `check_paper.py` fails on
+`> LIMIT`, so that draft was **inside** the proxy and would have passed the gate while
+breaching DIRECTION's 「do not add a word without trimming one」 by five. **The gate is not the
+rule, and this is the first lap in this file to have measured a draft that separates them.**
+The first three trims are this lap's own new prose and two pieces of rhetoric — the pointer
+clause, §4.5's 「measured **rather than conceded**」, and 「the weakness of a fire-blind
+baseline」 → 「a fire-blind baseline's weakness」 — and the reviewer's repairs were paid out of
+the same sentence, which now reads 「Section 4.3's third caveat is now measured」 in full.
+**None of the four is a caveat, a registered number or a litigated sentence**, and all four
+are in prose this lap wrote or in rhetoric that carried no payload.
+
+⚠ **What this adds to NH-037 is small and is stated small.** The budget shaped one thing:
+saying in the manuscript that the same audit has **not** been run on the 의성·안동 arm, which
+the registry entry for the 226 marks 「NOT TRANSFERABLE」. ⚠ **This lap MEASURED why rather
+than repeating the registry's phrase**: `data/processed/hazard_uiseong_andong_2025.npz` holds
+`grid_extent`, `haz_times`, `haz_stack` and `ignition_xy` and **no `obs_stack` at all**, so
+though its slice 0 is at `t = 0` and strictly binary exactly like 영덕's, the observation it
+would have to be compared against is not in that archive and the identity is checkable there
+by nobody. That costs about 20 words against 5 and is a fact about which of this project's
+two arms **can** be audited rather than about the fire, so it is recorded in `GAPS.md` as a
+dev-lap row instead. Milder than lap 21's
+declined limitation and milder than lap 24's. **Laps 13 through 21, 24, 25 and 30 all had
+their writing shaped by the proxy, and so did this one** — no claim is made here about lap
+32, whose own block declines to put itself on that list. **The entry is still open.** ✅ The anchor was
+**re-derived, not inherited**: `body_words` moved, so lap 32's `built_pages_inputs` turned
+the gate red exactly as designed until a run had produced a new count, and after the one
+`apt` line below `check_paper.py` took its measuring branch — `pages 23, calibri_face
+Carlito, metrics_ok true` — printing **`84b91dde83d63607`**. ⚠ **That string is not new, and
+the coincidence is worth stating rather than dressing up**: it is the anchor the lap-21 block
+above records, because the digest is over the figure list, the table count, the reference
+count and `body_words`, and lap 21 also ended at **8,993** with the same eight figures, four
+tables and 29 references. It is a cross-check that the digest behaves, not a second
+measurement. **Two pages against the author's 25, seven words against the proxy's 9,000,
+measured on one document by one run.** The `.docx` **is** rebuilt into the commit because the
+manuscript's content moved, which is the case lap 23's
+byte-non-determinism finding says a rebuild is legitimate in.
+
 ⚠ **The page that took the count from 22 to 23 cost eleven words, and it is worth
 knowing that before reading the words-to-pages table below as a rate.** Lap 11
 took the body 8,735 → 8,825 (a mandatory §4.5 correction, one clause, and the

@@ -410,11 +410,12 @@ movement between them is not a single-variable contrast and no per-origin ledger
 
 **Third, the counterfactual is a fire-blind walk.** The baseline consults no hazard at
 all, present or forecast, so the 42 measure what hazard awareness of any kind buys, not
-what the forecast alone buys: a router refusing only the nodes alight at the departure
-slice recovers most of them. That is measured on these
-origins — Section 4.5's node-pruning build at zero buffer, reproducing the committed
-partition first, with the per-outcome counts in
-`docs/present_perimeter_yeongdeok.md`. The shift is largely a coupling effect,
+what the forecast alone buys: a router that plans on no model but is graded on the
+forecast, refusing only the observed detection cells (a 500 m detection scatter, not a
+mapped fire line), recovers most of them. Section 4.5's node-pruning build at zero buffer
+measures that on these origins
+(`data/processed/present_perimeter_yeongdeok_2025.json`), reproducing the committed
+partition first. The shift is largely a coupling effect,
 not a forecasting one.
 [GAP: the same opponent at a swept buffer on these origins, the axis Section 4.5 shows
 governs how strong it can be made]
@@ -465,8 +466,7 @@ not been re-read, and nothing is inferred from it.
 
 ### 4.5 The fair opponent: refusing where the fire is now
 
-Section 4.3's third caveat names the weakness of a fire-blind baseline, and it has now been
-measured rather than conceded. A present-perimeter policy is what a county
+Section 4.3's third caveat is now measured. A present-perimeter policy is what a county
 office can run with no model at all: refuse every node within a fixed buffer of the cells
 burning at the departure slice, drop any refuge that falls inside the buffer, and take the
 shortest remaining path. Run over the same Uiseong-Andong origins, refuges and hazard field
