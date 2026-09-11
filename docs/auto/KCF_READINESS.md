@@ -2095,3 +2095,57 @@ and it expires at critic #64 unless that lap re-measures the seven hashes and re
 ⚠ **No `Do NOT edit` note is written on any other file by this lap.** In particular none on
 `docs/oracle_gap.md`, `docs/disc_null.md` or `docs/MODEL_CARD.md`: WFG-236, WFG-237 and WFG-244
 must all edit them.
+
+---
+
+## Critic #64's re-read, 2026-09-11T0520Z at `5482ba8`
+
+**8 of 11, unchanged, and ZERO lines ticked for the TWENTY-FIRST consecutive critic lap.** The
+three unticked lines and their causes are exactly as the single-point-of-failure table above
+states, re-read here rather than inherited: **R12** is the author's (NH-014), **R3** is
+`blocked(NH-046)` and no lap may reword a readiness line, **R11**'s row WFG-024 is held by
+CHARTER §14b until R3 ticks. R10 was withdrawn 2026-09-04. **There is still no path from any
+amount of loop work to a ninth tick.**
+
+⭕ **R5, R7 and R9 hold and were re-measured in this lap's own process, not read from a report.**
+The newest kit manifest, `manifest_20260911T0412Z.json`, hashes **7 of 7** source documents equal
+to the working tree; `release/kcf-finals-2026/MANIFEST.json` hashes **19 of 19** entries equal to
+their `source` paths; and the bundle names `printables/WFG_printables_20260911T0412Z.pdf`, which
+is the newest stamp in the tree, so
+`tests/test_finals_bundle.py::test_the_bundle_carries_the_newest_booth_kit_and_not_an_older_stamp`
+is satisfied by the object and not only by the suite. The kit is **58 pages**, of which
+`docs/auto/JUDGE_QA.md` is 25 and `docs/auto/DEMO_SCRIPT_5MIN.md` is 7.
+
+⚠⚠ **R5 and R7 hold their ticks and this lap still scores 제출 자료 at 19 rather than 20, and the
+two are not in conflict.** R5 and R7 ask whether the material exists, is built by a script, and
+hashes equal to its sources; all of that is true. The scorecard asks whether what is printed is
+logically consistent, and **WFG-249** is a flat contradiction between two documents inside that
+same 58-page kit: Q20a, a T0 card the student answers from memory, tells a judge that a 가구 here
+is 「건물도 아니라」 one walk-graph node, and the spoken 마무리 added in this window tells the same
+judge the 가구 it counts are OSM 건물. **A tick is not a quality claim, and this page has never
+said it was.** WFG-250 and WFG-251 are on the same two documents.
+
+⭕ **R1 keeps its tick.** GitHub `auto-gates` run **361** is `success` at exactly `5482ba8`, at
+`fetch-depth: 0`, and no run in the window concluded `failure`. The screen's embedded registry
+payload reads 543 / 485 against 543 / 485 in `docs/NUMBERS.json`, recounted here.
+
+⚠ **`Do NOT edit` note, scoped, dated and RE-MEASURED (CHARTER §14c, NH-036 A).** The only freeze
+this lap writes is the printables price tag, re-stated because this lap re-measured it rather than
+inheriting it: **do not edit `docs/auto/JUDGE_QA.md`, `docs/auto/DEMO_SCRIPT_5MIN.md` or
+`docs/auto/finals/RELATED_WORK_PANEL.md` without `make printables` at a new stamp and a re-pointed
+`release/kcf-finals-2026/MANIFEST.json`** (NH-049). Measurement behind it: the seven kit sources
+hash 7 of 7 and the bundle 19 of 19 against the tree at `5482ba8`, both computed in this lap's own
+process, and the enforcing gates are
+`tests/test_printables.py::test_the_newest_printable_is_not_stale_against_the_tree` and the bundle
+test named above. **It covers those three files only, it is a price tag and not a prohibition:
+WFG-249, WFG-250 and WFG-251 are all expected to edit two of them and to pay the rebuild ONCE for
+the three. It expires at critic #65 unless that lap re-measures the hashes and re-states it.**
+⭕ **And the price is now known rather than assumed: 17 seconds**, measured in this lap with
+`build_printables.py --out-dir` into a scratch directory, tree untouched. Appended to NH-049 with
+the full chain and a new option E.
+
+⚠ **No `Do NOT edit` note is written on any other file by this lap.** In particular none on
+`docs/oracle_gap.md`, `docs/disc_null.md`, `docs/MODEL_CARD.md` or `paper/GAPS.md`: WFG-236,
+WFG-237, WFG-244 and WFG-129 must all read or edit them. And critic #63's note on the household
+register is **not** re-stated, because this lap did not re-sweep it; per CHARTER §14c that note has
+therefore expired.

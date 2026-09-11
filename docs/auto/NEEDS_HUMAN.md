@@ -2372,6 +2372,39 @@ better. This lap added exactly one P1-class item and it is not a new row (a meas
 WFG-107 and one to WFG-232), and the one new row it filed is **P0** and about the product (WFG-233).
 The counting defect itself is WFG-107's sixth recorded instance and is recorded there.
 
+---
+
+### Appended 2026-09-11T0520Z by critic #64 — the rule is now costing product, not just hygiene, and here is the count
+
+This entry has always been argued as 「the P1 queue never drains」, which is a hygiene complaint.
+**It is no longer only that.** All three of this lap's findings are on **judge-facing surfaces
+named by §14b itself** (the Q&A bank and the demo script, both printed in the kit the release
+bundle names), and all three became rows rather than fixes, for one reason: they live on hashed
+kit sources and §14b's 「minutes」 test has been read as excluding a kit rebuild. **Critic #64
+measured that rebuild at 17 seconds** (see the table appended to NH-049 today). So the same rule
+that stops the loop grading itself is now also stopping it from correcting a **flat contradiction
+between two documents in the printed kit**, one of which the student answers from memory
+(**WFG-249**). That is the third consecutive critic lap in this position.
+
+**What the count looks like this window, measured under a stated rule** (split each board row on
+pipes not preceded by a backslash, read priority at cell 2 and status at cell 5): at the head this
+lap reviewed, `docs/auto/BACKLOG.md` holds **242** rows, **15 P0 `todo`**, and **106 P1 `todo`**
+counting only rows whose cell count equals the header's ten (**108** counting every row by
+position). ⚠ **Say the rule with the number.** Critic #63 published 「112」 and stated a rule that
+it said answers 「111」; neither reproduces here, and the cause is **WFG-191**: 11 rows carry
+unescaped pipes and render their priority and status in the wrong columns. **Three laps, four
+numbers, one file.** No further lap should spend measurement on this; the gate WFG-191 asks for is
+the answer.
+
+⚠ **And one thing that cuts FOR the rule, recorded so this is not a one-sided argument.** The P0
+half of §14b worked again this window: critic #63 filed two P0 rows at position 1, one dev lap took
+both as a bundle, paid one kit rebuild for the pair, and closed them inside three hours with its own
+independent reviewer catching two arithmetic errors on the way. That is the mechanism doing exactly
+what you designed it to do. What is broken is only the 「minutes」 test, and NH-049's new option **E**
+is the narrow fix.
+
+`NH-038: <your decision>`
+
 ## NH-039 · DECISION · open · The national wildfire-spread system's manual is an 18 MB PDF the sandbox could not fetch, and one of you can (by 2026-09-12)
 
 **Severity: LOW.** Nothing is blocked, no gate is red, and no claim depends on this. It is
@@ -3162,6 +3195,54 @@ have merged them into one rebuild it was paying anyway.
 ⚠ **Sharper than when this entry was written:** the queue is no longer about adding NEW cards.
 It is now also about **correcting existing ones**, where the delay is measured against a judge
 reading the card. **Four sprint days remain.**
+
+---
+
+### Appended 2026-09-11T0520Z by critic #64 — this entry finally has a NUMBER, and the scope is one file
+
+Every lap that has reasoned about this entry, including the one above, has rested on the belief
+that a kit rebuild is expensive. **Critic #64 measured it instead, without touching the tree:**
+
+    .auto/venv/bin/python scripts/build_printables.py --stamp <new> --out-dir <scratch dir>
+
+built the whole kit, **58 pages plus its manifest, in 17 seconds**, and `git status --short`
+stayed empty afterwards, because the builder takes `--out-dir`. So the full chain a critic lap
+would need to correct one card is:
+
+| step | where it writes | may a critic do it? | cost |
+|---|---|---|---|
+| edit the card | `docs/auto/JUDGE_QA.md` | **yes**, it is under `docs/auto/` | seconds |
+| rebuild the kit | `docs/auto/finals/printables/` | **yes**, also under `docs/auto/` | **17 s, measured** |
+| re-point the bundle | `release/kcf-finals-2026/MANIFEST.json` | **NO** | three JSON fields |
+
+**The whole blocker is the last row: one file outside `docs/auto/`, three fields.** The two
+gates that make it mandatory are
+`tests/test_printables.py::test_the_newest_printable_is_not_stale_against_the_tree` (a card
+edited without a rebuild turns the tree red) and
+`tests/test_finals_bundle.py::test_the_bundle_carries_the_newest_booth_kit_and_not_an_older_stamp`
+(a new kit committed without re-pointing the bundle turns it red). Both are correct gates and
+neither should be weakened.
+
+**So the option set is wider than this entry states, and cheaper:**
+
+**Options:** A) the staging file the next dev lap merges (WFG-205, unchanged, still recommended if
+you want the critic to touch nothing outside its own lane)  B) let the critic edit the bank and
+rebuild the kit  C) delete the clause from the routine prompt  D) something else  **E) NEW, and
+the cheapest: the critic may write `release/kcf-finals-2026/MANIFEST.json` when and only when it
+rebuilt the kit in the same commit, and never for any other reason.** That is a three-field edit
+behind two gates that already refuse to let it be wrong, it costs 17 seconds of build, and it
+turns every critic finding on a printed card from a row that waits into a correction that ships
+in the lap that found it.
+
+⚠ **Why this matters more this week than last.** Critic #62, #63 and #64 have now each found
+judge-facing defects that live only on hashed kit sources, and all of them became rows instead of
+fixes. This lap's three (**WFG-249**, **WFG-250**, **WFG-251**) include a flat contradiction
+between two documents **in the same printed kit**, one of which the student says from memory. The
+rule that keeps the critic out of that file is costing more than the rule was written to save.
+⚠ **Critic #64 did NOT act on option E.** It is your decision and the entry stays open; the lap
+kept ZERO preemptions to stay consistent with #62 and #63.
+
+`NH-049: <your decision>`
 
 ## NH-050 · DECISION · open · You answered two of these questions two days ago and the loop never heard you, because you answered them on the routine page (by 2026-09-10)
 
