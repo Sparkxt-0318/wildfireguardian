@@ -3440,3 +3440,27 @@ it otherwise; write the emphasis tolerance into EVERY spelling at registration t
 prove it by checking the pattern against the shipped sentence WITH its markup, not against
 the sentence you paraphrased into the entry.** The widened pattern then caught this lap's
 own correction note, which is how you know it works.
+
+**The reviewer's finding, and it is the one this lap should be remembered for: an assert
+that passes on the text it was written to reject is not a gate, it is decoration.** This lap
+added `assert "area" in doc and "by construction" in doc` to `tests/test_disc_null.py` and
+wrote a comment saying it 「holds the clause that says why area is not an axis」. Both words
+occur six and four times in the **pre-lap** document, so the assert would have passed on the
+exact text the lap was correcting — it could not have caught a revert, and the comment
+claiming it could was false. **Before you believe a new assert, run it against the version
+you are fixing.** If it passes there, it is grading a bucket you drew yourself. The repair is
+to anchor the assert to the SENTENCE rather than to vocabulary: the explanation must live in
+the same paragraph as the corrected word and carry the number that makes the point.
+
+**And the shape all four of the reviewer's findings share, which is worth more than any of
+them: this lap checked its work and did not attack it.** The measurement was re-derived
+before a word moved and held to the digit — but the lap then shipped a count that
+contradicted its own follow-up commit (「seven」 on the page, 「six」 in the registry, eight in
+the backlog note), a registry entry declaring one unreachable instance where there are two
+classes (the PNG, and thirty-six committed booth-kit PDFs that bake the pre-fix card into a
+binary), and a number-collision on the very last line it wrote — after adding that exact
+pragma twice, in the same lap, to another file. **A self-check asks 「is this right?」 and an
+attack asks 「what would a hostile reader run first?」** The three cheapest hostile commands
+here were `check_number_collisions.py` on the dirty tree, `git show HEAD:<file> | grep` for
+every count in prose, and the new assert against the OLD document. None of them takes a
+minute, and none of them was run until someone else ran them.

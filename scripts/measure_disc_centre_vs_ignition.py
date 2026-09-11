@@ -13,11 +13,12 @@ It refits nothing, re-runs nothing and changes no committed value.
 
 WHY THIS SCRIPT EXISTS
 ----------------------
-Seven surfaces said the area-matched disc is placed **at the ignition point**:
-``docs/auto/JUDGE_QA.md`` Q36 (tier T0, said from memory to all five judges and
-printed in the booth kit), ``docs/disc_null.md`` §6's spoken draft,
-``docs/oracle_gap.md`` §4c, ``paper/manuscript.md`` §6, ``paper/README.md`` and the
-bar-group heading ``paper/make_figures.py`` renders into ``F10_disc_null.png``.
+Eight sentences across seven files said the area-matched disc is placed **at the
+ignition point** — ``docs/disc_null.md`` §2b enumerates them rather than counting
+them, and the reason is that three different counts shipped before the enumeration
+did: the first draft of this repair said 「seven」 in one place and 「six」 in another,
+and a later sweep found an eighth. The worst of the eight is ``docs/auto/JUDGE_QA.md``
+Q36, tier T0, said from memory to all five judges and printed in the booth kit.
 
 It is not. ``scripts/measure_disc_null.py`` never reads ``ign_xy``, and it is right
 not to: the null's own rule, stated in its artifact as ``null_rule.centre_from``, is
@@ -92,7 +93,6 @@ def measure() -> dict:
 
     t0 = obs[0] > 0
     ever = (obs > 0).any(axis=0)
-    resolved = None
     rows = {}
     ci = int(round(col))
     for name, row in candidates.items():
@@ -105,8 +105,22 @@ def measure() -> dict:
             "burning_at_t0": bool(t0[ri, ci]) if inside else False,
             "burning_at_any_slice": bool(ever[ri, ci]) if inside else False,
         }
-        if rows[name]["burning_at_t0"]:
-            resolved = name
+
+    # ⚠ ENFORCED, not assumed. The first draft assigned `resolved` in this loop and kept
+    # the LAST convention whose cell burns at t = 0, while the artifact's `resolved_by`
+    # field asserted 「exactly one candidate cell is」 — a field stating a property the code
+    # never tested. This lap's independent reviewer found it. If both candidates ever burn
+    # at t = 0 the convention is genuinely undetermined and the honest answer is to stop,
+    # not to pick the later one.
+    burning = [n for n, r in rows.items() if r["burning_at_t0"]]
+    if len(burning) != 1:
+        raise SystemExit(
+            "the t=0 observation does not settle the row convention: "
+            f"{len(burning)} of the two candidates burn at t=0 ({burning}). "
+            "`resolved_by` claims exactly one does, so the artifact may not be written; "
+            "re-read the grid convention rather than choosing a candidate."
+        )
+    resolved = burning[0]
 
     centre_row, centre_col = (float(v) for v in disc["null_rule"]["centre_row_col"])
     for name, row in candidates.items():
@@ -117,7 +131,7 @@ def measure() -> dict:
     radii = {f"{int(s['haz_time_min'])}min": float(s["disc_radius_cells"])
              for s in disc["slices"]}
     largest = max(radii.values())
-    resolved_gap = rows[resolved]["gap_from_disc_centre_cells"] if resolved else None
+    resolved_gap = rows[resolved]["gap_from_disc_centre_cells"]
 
     return {
         "schema_version": 1,
@@ -140,10 +154,10 @@ def measure() -> dict:
                        "one candidate cell is, and the other is not observed at any slice",
         "resolved_convention": resolved,
         "gap_cells": resolved_gap,
-        "gap_m": rows[resolved]["gap_from_disc_centre_m"] if resolved else None,
+        "gap_m": rows[resolved]["gap_from_disc_centre_m"],
         "disc_radius_cells_by_slice": radii,
         "largest_disc_radius_cells": largest,
-        "ignition_inside_any_disc": bool(resolved_gap is not None and resolved_gap <= largest),
+        "ignition_inside_any_disc": bool(resolved_gap <= largest),
         "holds_under_both_conventions": bool(
             all(r["gap_from_disc_centre_cells"] > largest for r in rows.values())),
         "seed_cells": int(t0.sum()),

@@ -44,16 +44,28 @@ so if it had.
 No refit, no re-acquisition, no fill rule, no threshold sweep. The script reads one
 committed artifact and writes a new one.
 
-### 2b. ⚠⚠ The centre is **not** the ignition point, and seven surfaces said it was
+### 2b. ⚠⚠ The centre is **not** the ignition point, and eight sentences said it was
 
-〔정정 · 2026-09-11 · WFG-254〕 Until this date this page's §6 spoken draft,
-`docs/auto/JUDGE_QA.md` Q36 (tier **T0**, said from memory to all five judges and
-printed in the booth kit), `docs/oracle_gap.md` §4c, `paper/manuscript.md` §6,
-`paper/README.md` and a bar-group heading rendered into `paper/figures/F10_disc_null.png`
-all placed this disc **at the ignition point** — 「발화점에」, 「at the ignition」, <!-- forbidden-ok: wc017-disc-at-ignition-en -->
+〔정정 · 2026-09-11 · WFG-254〕 Until this date **eight** sentences across **seven** files
+placed this disc **at the ignition point** — 「발화점에」, 「at the ignition」, <!-- forbidden-ok: wc017-disc-at-ignition-en -->
 <!-- forbidden-ok: wc017-centred-on-ignition-en -->
-「centred on the ignition」. The table above always said otherwise, and so does the
-artifact's own `null_rule.centre_from`. The words were wrong; the null was not.
+「centred on the ignition」. They are enumerated rather than counted, because the count is
+the thing a later lap will get wrong:
+
+| # | where | why it reached a reader |
+|---|---|---|
+| 1 | `docs/auto/JUDGE_QA.md` Q36, the 부스에서 할 말 half | tier **T0** — said from memory to all five judges, and printed in the booth kit |
+| 2 | this page's §6 spoken draft | the draft the student rehearses from |
+| 3 | `docs/oracle_gap.md` §4c | the page `README.md` sends a judge to |
+| 4 | `paper/manuscript.md` §6 | the manuscript's limitations section |
+| 5 | `paper/README.md` quoting §6 | the paper routine's ledger |
+| 6 | `paper/GAPS.md` quoting §6 | the same sentence again |
+| 7 | `paper/GAPS.md`'s lap-30 record, 「an **area-matched disc** at the ignition」 | ⚠ **found only after the first sweep closed**, because the emphasis marker sits between the two words the English pattern anchored on | <!-- forbidden-ok: wc017-disc-at-ignition-en -->
+| 8 | `paper/make_figures.py`'s bar-group heading | rendered into the committed `paper/figures/F10_disc_null.png` |
+
+⚠ **Seven of the eight are now corrected in place; the eighth is a PNG and is not.** The
+table above always said otherwise, and so does the artifact's own `null_rule.centre_from`.
+The words were wrong; the null was not.
 
 **How far apart the two places are**, measured by
 `scripts/measure_disc_centre_vs_ignition.py` into

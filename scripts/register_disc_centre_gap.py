@@ -42,7 +42,8 @@ BAND = (
     "coordinate the canonical array records. It does NOT say the null is sited "
     "wrongly: the centroid rule uses only information the two stacks already share, "
     "and re-siting the disc on the recorded ignition would be a different and worse "
-    "null. What the gap withdrew is the WORD seven surfaces used for that centre "
+    "null. What the gap withdrew is the WORD eight sentences across seven files used "
+    "for that centre, enumerated in docs/disc_null.md §2b "
     "(WC-017), not any measured value. (2) The grid's row origin is ambiguous in the "
     "artifact and this number does NOT assume a convention: both candidates are "
     "computed and the observation settles it, because the recorded ignition must be "
@@ -68,9 +69,9 @@ FIGURES = {
         "Euclidean distance in grid-index space from the disc null's centre (the "
         "t=0 seed centroid, grid row 97.7751 col 55.1205) to the ign_xy coordinate "
         "data/processed/routing_demo_canonical.npz records, under the row convention "
-        "the t=0 observation settles. Registered because seven judge-facing surfaces "
-        "called that centre 「발화점」 / 「the ignition」 and no file in the repository "
-        "held the distance between the two"),
+        "the t=0 observation settles. Registered because eight sentences across seven "
+        "files called that centre 「발화점」 / 「the ignition」 and no file in the "
+        "repository held the distance between the two"),
     "dnc_yeongdeok_seedcentre_to_ignition_m": (
         "gap_m", "metres",
         "The same distance in metres, at the canonical grid's 500 m cell. Compare "

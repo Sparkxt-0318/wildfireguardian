@@ -312,9 +312,22 @@ def test_the_doc_refuses_the_row_s_own_interpretation(doc):
     # the clause that says why area is not an axis this comparison can be won on, so a
     # later edit cannot quietly go back to the word that made it unfalsifiable.
     assert "shape and reach" in doc.lower()
-    assert "area" in doc.lower() and "by construction" in doc.lower(), (
-        "the page must say WHY the model cannot win on area, or 「reach」 reads as a "
-        "synonym for 「extent」 and the correction has changed nothing")
+    # ⚠ THE FIRST VERSION OF THE ASSERT BELOW WAS THEATRE, and this lap's independent
+    # reviewer proved it: `"area" in doc and "by construction" in doc` already passed on
+    # the PRE-LAP document (6 and 4 occurrences at `d4b7bef`), so it could not have caught
+    # a revert to 「extent」 and the comment claiming it held the explanation was false. A
+    # scorer that passes on the text it was written to reject is grading a bucket it drew
+    # itself. It is now anchored to the SENTENCE: the explanation has to live in the same
+    # paragraph as the corrected word, and it has to carry the count that makes the point.
+    para = next((b for b in doc.split("\n\n") if "reach" in b.lower()
+                 and "extent" in b.lower()), "")
+    assert para, "the page must keep the corrected word beside the word it replaced"
+    assert "by construction" in para.lower() and "952" in para, (
+        "the paragraph that corrects 「extent」 to 「reach」 must say IN THE SAME PARAGRAPH "
+        "why the model cannot win on area — that §2's rule matches the disc's area to the "
+        "model's own core count, so both masks hold 952 cells at the headline slice. "
+        "Without that, 「reach」 reads as a synonym for 「extent」 and the correction has "
+        "changed nothing")
 
 
 def test_the_oracle_gap_doc_carries_both_numbers_side_by_side():
