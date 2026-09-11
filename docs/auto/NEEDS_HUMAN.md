@@ -3824,3 +3824,71 @@ D) Leave it — the rebase rule worked, and a duplicated row is cheaper than ano
 
 **Related.** `NH-007` (the claim-before-building rule this did not fail to follow),
 CHARTER §4 step 3, CHARTER §12, `WFG-254`.
+
+---
+
+## NH-059 · DECISION · open · Your loop measured the hardest question a judge can ask you, and the answer is uncomfortable enough that no lap may decide on its own whether you say it out loud (by 2026-09-13)
+
+**Severity: HIGH.** Nothing is false and no gate is red. What is open is whether three
+counts, measured this morning on your own committed data, go on a surface a judge sees.
+
+**What was measured.** Your headline is 「영덕에서 458개 원점 중 **42**개가 예보를 아는 경로
+에서만 대피 지점에 닿습니다」. Its opponent has always been `naive_route`, which is
+**fire-blind** in this repository's own words (`src/wildfireguardian/routing/evacuation.py:270`).
+A fire-blind walker is not the status quo; the status quo is somebody who can see where the
+fire is **now**. The dev lap of 2026-09-11T1219Z built that opponent on the 영덕 field
+(`scripts/measure_present_perimeter_yeongdeok.py`, artifact
+`data/processed/present_perimeter_yeongdeok_2025.json`, page
+`docs/present_perimeter_yeongdeok.md`). It re-derived the committed 414 / 42 / 2 partition
+before it wrote anything. Of the **44** origins whose fire-blind route reaches a refuge and
+enters the forecast:
+
+| outcome | count |
+|---|---:|
+| already saved by a router that sees only where the fire is now | **26** |
+| still walk into the forecast | **16** |
+| reach no refuge once the burning nodes are removed | **2** |
+
+**Why this is yours and not the loop's.** CHARTER §6 sends you anything where 「a committed
+headline number would change meaning」, and this changes what 42 means. No committed value
+moved and the page is explicit that this is **not a margin** — `what_this_is_not` in the
+artifact says so in its own words, and it is a partition of 44 origins into three named
+outcomes. But a judge who hears 26-of-44 will compute one, and `docs/auto/DIRECTION.md` bars
+every margin from every judge-facing surface while **NH-032**, **NH-034** and **NH-052** are
+open. Two rules point in opposite directions here and neither of them is mine to break.
+
+**What the loop is doing meanwhile, without waiting for you.** Four judge-facing lines still
+say this comparison has **never been run** on 영덕 (`README.md:33-34`, `README.md:325`,
+`docs/auto/JUDGE_QA.md:954` inside Q19's spoken draft, and `:1004`, the prescribed booth
+sentence). Those are false as of `7991512` and **WFG-258** strikes them this lap whatever you
+decide — a falsehood in front of five judges is not a thing to hold pending a decision. The
+replacement says only that the comparison **has** been run and names the file. Whether the
+three counts go beside it is this entry.
+
+⚠ **Read the page before you answer, and read §5 item 5.** A **buffered** present-perimeter
+opponent is a different and probably **stronger** opponent, it has not been run on 영덕, and
+the reviewer's in-lap probe suggested most of the remaining 16 flip at 500 m. That probe is
+not in any artifact and **WFG-259** is open to make it re-derivable. So option B below may be
+understating your own result against you, and option D is how you find out first.
+
+**Options:**
+A) Say it. Put the 26 / 16 / 2 on the README bullet and on Q19, always all three together,
+   never the bare 26, and never called a margin. The strongest version of this project's own
+   identity: you say the uncomfortable number before a judge finds it.
+B) Say that it was run and where it is, with no counts, until NH-032 / NH-034 / NH-052 are
+   settled. That is what WFG-258 ships by default if you do not answer.
+C) Say it on the **Q&A card only** (the thing you answer with when asked), not on the README
+   or the finals screen. The judge who asks gets the honest number; the thirty-second reader
+   is not led into arithmetic the repository has not licensed.
+D) Wait for WFG-259 to make the buffered direction re-derivable, then decide with both
+   numbers in hand. Costs one dev lap and the sprint ends 09-15.
+
+**My reading, offered and not applied:** **C, then A after WFG-259.** C is reversible in one
+edit, puts nothing on the front door that NH-054 is already open about, and gives the student
+the true answer to the one question this project is most exposed on. What C must not become
+is a drawer: if it is C, `docs/auto/JUDGE_QA.md` Q19 carries all three counts and the sentence
+that names the file, not a pointer.
+
+**Related.** `WFG-129` (done, the run), `WFG-258` (the false clause), `WFG-259` (the
+unregistered dilation), `NH-027`, `NH-032`, `NH-034`, `NH-052`, `NH-053`, `NH-054`,
+`docs/present_perimeter_yeongdeok.md`, `paper/GAPS.md` G7.
