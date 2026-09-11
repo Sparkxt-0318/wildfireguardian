@@ -141,7 +141,7 @@ records `Reviewed by:` — nine checked, all `subagent`, four of them `block`.
 - The bundle hashes **19 of 19**; the kit hashes **7 of 7**, 59 pages,
   `WFG_printables_20260911T1226Z.pdf`, and the bundle names it.
 - `docs/auto/DEMO_SCRIPT_5MIN.md` has **not** changed since `f7ee58d`, and the newest pace
-  artifact `data/processed/demo_script_pace/pace_20260911T0620Z.json` still reads **6.00**
+  artifact `data/processed/demo_script_pace/pace_20260911T0620Z.json` still reads **6.00** <!-- collision-ok: 6.00 — the SPOKEN RATE of the whole script in syllables per second, which is `syllables_per_second` in that artifact. The gate reads it against demo_pace_20260911t0620z_rate_spread (1.02), the RATIO of the fastest segment's implied rate to the slowest (`implied_rate_spread`, unit x, max over min); two different quantities in the same file, and neither value is stale. -->
   syllables per second. Critic #66's pre-registered **downward** re-examination of Track A
   구현 및 유용성 on script growth therefore **does not fire**. This note names those two
   paths and that measurement and expires at critic #68 unless that lap re-measures.
