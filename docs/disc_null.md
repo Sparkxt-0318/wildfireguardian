@@ -44,6 +44,48 @@ so if it had.
 No refit, no re-acquisition, no fill rule, no threshold sweep. The script reads one
 committed artifact and writes a new one.
 
+### 2b. ⚠⚠ The centre is **not** the ignition point, and seven surfaces said it was
+
+〔정정 · 2026-09-11 · WFG-254〕 Until this date this page's §6 spoken draft,
+`docs/auto/JUDGE_QA.md` Q36 (tier **T0**, said from memory to all five judges and
+printed in the booth kit), `docs/oracle_gap.md` §4c, `paper/manuscript.md` §6,
+`paper/README.md` and a bar-group heading rendered into `paper/figures/F10_disc_null.png`
+all placed this disc **at the ignition point** — 「발화점에」, 「at the ignition」,
+<!-- forbidden-ok: wc017-centred-on-ignition-en -->
+「centred on the ignition」. The table above always said otherwise, and so does the
+artifact's own `null_rule.centre_from`. The words were wrong; the null was not.
+
+**How far apart the two places are**, measured by
+`scripts/measure_disc_centre_vs_ignition.py` into
+`data/processed/disc_null_centre_vs_ignition.json`:
+
+| | |
+|---|---|
+| the centre the null used | grid `(97.7751, 55.1205)` — the `t = 0` seed centroid |
+| the ignition the array records | `ign_xy` `(1138940.54, 1826944.63)` → grid cell `(74, 25)` |
+| distance between them | `dnc_yeongdeok_seedcentre_to_ignition_cells` **38.3986** cells, `dnc_yeongdeok_seedcentre_to_ignition_m` **19199.3** m |
+| the largest disc drawn at any slice | `dn_yeongdeok_t720min_disc_radius_cells` **18.162** cells | <!-- collision-ok: 18.162 — the key is named in the row: the 720-minute slice's radius, the largest of the five. The other registered radii (8.913, 14.881, 17.355, 17.681) are different slices of the same run, not stale values of this one. -->
+
+So **no disc at any slice contains the recorded ignition point**, and the headline
+slice's centre is more than twice its own radius away from it.
+
+⚠ **The measurement does not assume a row convention.** `grid_extent` leaves row 0
+ambiguous, and the two candidates put the ignition at `(74, 25)` or `(107, 25)`. The
+observation settles it rather than the script: the recorded ignition must be burning
+in the `t = 0` frame, and only `(74, 25)` is — `(107, 25)` is not observed at any
+slice. Under the losing convention the gap is **31.6008** cells, still larger than
+every disc radius above, so the finding survives the choice either way.
+
+⚠⚠ **This is a correction to the WORDS and not to the null.** The centroid rule is
+the honest one: it uses only what the two stacks share (the table above), whereas a
+disc re-sited on `ign_xy` would be a different and worse null. And 「발화점」 was never
+loose speech here, because **the `t = 0` seed is not a point** — it is a scatter of
+`obs_stack[0] > 0` cells spread across the grid, so no single cell of it summarises
+it. `docs/submission_reconciliation.md` §「정본」 uses 발화점 to mean the real ignition
+the canonical array was **seeded from**, and that line is correct and untouched; it is
+precisely why a judge reads the two as one place. The withdrawn spellings are
+registered as **WC-017**.
+
 ## 3. Result
 
 At the headline slice — forecast 360 min against the 333 min observation, the
@@ -149,9 +191,22 @@ model's **5.340** (**2,670.2 m**).
 
 So the model's advantage is **not** that it points in the right direction. On this
 fire, at this slice, it points in a *worse* direction than doing nothing. Its
-advantage is that it reproduces the **shape and extent** of an elongated, irregular
+advantage is that it reproduces the **shape and reach** of an elongated, irregular
 footprint — it puts cells along the arms the fire actually ran down — while a
 compact circle covering the same area cannot, whatever its centre.
+
+⚠ **「Reach」 and not 「extent」, and the word matters.** The null holds **area**
+equal by construction: §2's rule sizes the disc from the model's own core count, so
+at the headline slice both masks hold `dn_yeongdeok_n_cells` **952** cells. The
+model therefore *cannot* win on area, and 「extent」 read as area is an impossible
+claim rather than a wrong one. What it wins on is how far the mask spreads: the
+model puts its 952 cells along the arms while the disc must pack the same 952 into
+a circle of radius `dn_yeongdeok_disc_radius_cells` **17.355** cells. Where this <!-- collision-ok: 17.355 — the HEADLINE slice's own radius, which is the slice this sentence is about. The other registered radii (8.913, 14.881, 17.681, 18.162) are different slices of the same run, not stale values of this one. -->
+document, `docs/oracle_gap.md`, the manuscript and the Q&A bank said 「shape and
+extent」 before 2026-09-11 they meant this reach reading; the word was corrected and
+the claim was not (WFG-254). ⚠ The geometry of the observed footprint itself — how
+many disconnected pieces it is, and how wide a box they span — is **not** measured
+in this repository yet; that is row WFG-255 and no sentence here assumes an answer.
 
 The two masks are genuinely different objects and not one mask twice: disc against
 model core is IoU **0.2453**.
@@ -218,7 +273,7 @@ Short, and in this order, because the second sentence is what keeps the first
 honest:
 
 > 「0.394가 좋은 값인지 나쁜 값인지 견줄 대상을 만들었습니다. 같은 면적의 원을
-> 발화점에 놓고 같은 방식으로 채점하면 0.155입니다. 다만 두 마스크가 처음 불씨
+> `t = 0` 씨앗의 무게중심에 놓고 같은 방식으로 채점하면 0.155입니다. 다만 두 마스크가 처음 불씨
 > 249칸을 똑같이 물려받기 때문에, 그 부분을 양쪽에서 빼고 다시 재면 0.2577 대
 > 0.1169, 약 2.2배입니다 — 저희가 인용하는 값은 이쪽입니다. 그리고 무게중심으로
 > 보면 저희 모델이 불을 3,646 m 보냈고 실제로는 1,125 m 움직였습니다 — 원보다 더

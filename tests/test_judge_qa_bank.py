@@ -856,3 +856,85 @@ def test_the_related_preprint_card_scopes_its_negative_to_what_was_read() -> Non
         "One without the other is how the contradiction lived here: the limits "
         "list was right and the sentence the student says was not"
     )
+
+
+def _open_card(qid: str) -> str:
+    """One row of the 「아직 답이 없는 질문」 table, flattened the way `_card` is.
+
+    Those cards (Q34 and up) are TABLE ROWS rather than sections, so `_questions`
+    -- whose regex matches the numbered spine -- does not see them and `_card`
+    raises on them. They are still judge-facing and Q36 is tier **T0**, said from
+    memory on the first drill round, so they need gates of their own.
+    """
+    for line in _text().splitlines():
+        if re.match(rf"\|\s*\*\*Q{re.escape(qid)}\s*·", line):
+            return re.sub(r"\s+", " ", line.replace("**", ""))
+    raise AssertionError(f"Q{qid} is gone from the open-question table; this gate names it by id")
+
+
+def test_q36_does_not_place_the_null_at_the_ignition_point() -> None:
+    """WFG-254: the T0 card told five judges the disc sits at the ignition point.
+
+    Q36 is tier **T0** — `docs/auto/JUDGE_QA.md` §6's drill table puts it on the
+    FIRST round, answered from memory, and it is printed in the booth kit. Its
+    analytic block has always stated the rule correctly (「`t = 0` 씨앗의
+    무게중심에 놓고」); the 부스에서 할 말 quote two paragraphs below, the half the
+    student actually says out loud, said 「같은 면적의 원을 발화점에 놓고」.
+
+    The two are not the same place. `scripts/measure_disc_centre_vs_ignition.py`
+    measures the gap from the two committed artifacts into
+    `data/processed/disc_null_centre_vs_ignition.json`: the disc's centre is the
+    `t = 0` seed centroid at grid (97.7751, 55.1205), the `ign_xy` the same
+    canonical array records maps to cell (74, 25), and they are 38.3986 cells
+    apart against the LARGEST radius any slice's disc was drawn at.
+    # The other registered radii (8.913, 14.881, 17.355, 17.681) are different
+    # slices of the same run, not stale values of this one.
+    # collision-ok: 18.162 — dn_yeongdeok_t720min_disc_radius_cells, the 720-minute slice's radius and the largest of the five, which is exactly what the next line claims.
+    That radius is 18.162 cells; the headline slice's is smaller still, so no disc
+    at any slice contains the recorded ignition point.
+
+    ⚠ This gate is about the WORD and not the null. The centroid rule is the
+    honest one and nothing measured moved; `WC-017` is the withdrawal, and
+    `docs/submission_reconciliation.md` keeps 발화점 where it correctly means what
+    the canonical simulation was seeded from.
+    """
+    card = _open_card("36")
+    assert "원을 발화점에" not in card and "원판을 발화점에" not in card, (
+        "Q36 places the area-matched disc at 발화점 again. The disc is centred on "
+        "the centroid of the t = 0 detection seed, 38.3986 cells "
+        "(dnc_yeongdeok_seedcentre_to_ignition_cells) from the ignition point "
+        "data/processed/routing_demo_canonical.npz records — further than the "
+        "largest disc radius at any slice, so no circle this measurement drew "
+        "contains it. Say 「`t = 0` 씨앗의 무게중심에 놓고」, which is what this "
+        "card's own analytic block says two paragraphs above (WC-017, WFG-254)"
+    )
+    assert card.count("씨앗의 무게중심") >= 2, (
+        "the correct rule has to appear twice on this card — once in the analytic "
+        "block and once in the 부스에서 할 말 quote the student says from memory. "
+        "One without the other is exactly how this defect lived: the block was "
+        "right and the spoken half was not"
+    )
+
+
+def test_q36_does_not_claim_the_model_beats_the_disc_on_area() -> None:
+    """WFG-254, second clause: 「모양과 범위」 is impossible on the area reading.
+
+    The null matches AREA by construction — `docs/disc_null.md` §2 sizes the disc
+    from the model's own core count, so at the headline slice both masks hold
+    `dn_yeongdeok_n_cells` 952 cells. A card claiming the model beats the disc on
+    「범위」 read as area therefore claims something the method forbids. On the
+    reach reading it is true, so the repair is to disambiguate rather than delete,
+    and this gate holds the disambiguation in place.
+    """
+    card = _open_card("36")
+    assert "모양과 범위" not in card, (
+        "Q36 claims the model beat the disc on 「모양과 범위」 again. Area is "
+        "matched by construction (both masks hold 952 cells at the headline "
+        "slice), so on the area reading that is impossible rather than merely "
+        "unproven. Say 「모양과 뻗은 거리」 and keep the clause that says why area "
+        "is not an axis this comparison can be won on (WFG-254)"
+    )
+    assert "뻗은 거리" in card, (
+        "the reach reading has to be stated in words on the card; deleting the "
+        "clause loses a true claim as well as a wrong one"
+    )

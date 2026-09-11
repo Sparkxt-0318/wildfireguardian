@@ -303,7 +303,18 @@ def test_the_doc_refuses_the_row_s_own_interpretation(doc):
     assert "directional skill and nothing else" in doc, (
         "the row's claim must be quoted before it is refused")
     assert "overshoot" in doc.lower()
-    assert "shape and extent" in doc.lower()
+    # ⚠ 「shape and REACH」 since 2026-09-11 (WFG-254), and the change is not cosmetic.
+    # The null matches AREA by construction — §2 sizes the disc from the model's own
+    # core count — so 「extent」 read as area claimed something the method forbids, and
+    # this test pinned the impossible reading in place for as long as it said 「extent」.
+    # What survives unchanged is the CLAIM: the model beats the disc on the mask's form
+    # and not on where its mass sits. The gate now holds the disambiguated wording AND
+    # the clause that says why area is not an axis this comparison can be won on, so a
+    # later edit cannot quietly go back to the word that made it unfalsifiable.
+    assert "shape and reach" in doc.lower()
+    assert "area" in doc.lower() and "by construction" in doc.lower(), (
+        "the page must say WHY the model cannot win on area, or 「reach」 reads as a "
+        "synonym for 「extent」 and the correction has changed nothing")
 
 
 def test_the_oracle_gap_doc_carries_both_numbers_side_by_side():

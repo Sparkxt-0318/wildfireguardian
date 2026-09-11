@@ -488,6 +488,36 @@
           "why": "The spelling all four surfaces used, tolerant of the markdown emphasis that lands mid-phrase (the WC-011 and WC-013 lesson) and of the comma in the thousands separator, since the screen renders it with toLocaleString and the prose writes it by hand. Anchored on the two tokens TOGETHER rather than on 「보행망 노드」 alone, which is a legitimate phrase the repository must keep -- l0i_walk_nodes_total is a count of walk-network nodes and docs/finals_screen_v2.md now says 「보행망 노드 8,443곳」 one clause away from this pattern. Blast radius measured over every tracked .md and .html on FLATTENED text before registering: 6 hits across 5 files, and ZERO of them gated -- BACKLOG (2), CRITIC_LATEST, DIRECTION, SCORECARD and one critic report, all record class by CHARTER §3.5c. So this entry costs the tree nothing today and refuses the copy tomorrow, which is the only thing a spelling ratchet can honestly claim."
         }
       ]
+    },
+    {
+      "id": "WC-017",
+      "title": "the area-matched disc null is centred at the ignition point",
+      "claim": "stated on six judge-facing or publication surfaces as 「같은 면적의 원을 발화점에 놓고」 / 「an equal-area disc at the ignition」 / 「a disc of identical area centred on the ignition」 / the bar-group heading 「distance moved from the ignition」 -- docs/auto/JUDGE_QA.md Q36 (tier T0, said from memory to all five judges and printed in the booth kit), docs/disc_null.md §6's spoken draft, docs/oracle_gap.md §4c, paper/manuscript.md §6, paper/README.md quoting it, and paper/make_figures.py rendering it into paper/figures/F10_disc_null.png. The disc is centred on the CENTROID OF THE t = 0 DETECTION SEED, which is the rule data/processed/disc_null_yeongdeok.json :: null_rule.centre_from states and the rule scripts/measure_disc_null.py applies -- that script never reads ign_xy at all. The ignition point the same canonical array records sits 38.3986 cells (19199.3 m) from that centroid, further than the LARGEST disc radius drawn at any slice (dn_yeongdeok_t720min_disc_radius_cells 18.162), so no disc at any slice contains it. And the shorthand was never loose speech, because the t = 0 seed is a scatter of cells rather than a point: no single cell of it summarises it.",
+      "withdrawn_by": "dev lap 2026-09-11T0921Z (WFG-254), filed at position 1 by critic #65 and its Q36 half made that lap's one fix-before-next-row item. The lap re-derived the whole measurement in its own process before editing a word -- ign_xy mapped under BOTH row conventions, the candidate settled by which cell is burning at t = 0, the centroid and the distance -- because the alternative was propagating someone else's measurement to six surfaces and a new figure. It reproduced exactly, and is now committed rather than held in a critic's process.",
+      "artifact": "scripts/measure_disc_centre_vs_ignition.py writes data/processed/disc_null_centre_vs_ignition.json; docs/NUMBERS.json :: dnc_yeongdeok_seedcentre_to_ignition_cells / _m via scripts/register_disc_centre_gap.py; docs/disc_null.md §2b holds the correction and the table. The gate against the T0 card's return is tests/test_judge_qa_bank.py::test_q36_does_not_place_the_null_at_the_ignition_point, graded by mutation. ⚠ KNOWN-STALE EXCEPTION, dated 2026-09-11 (CHARTER §3.5c as amended by NH-042 A): paper/figures/F10_disc_null.png is a COMMITTED artifact whose rendered panel-(b) heading carries this spelling, and CHARTER §3 rule 2 forbids regenerating it. It is kept byte for byte with a dated note in paper/GAPS.md saying what its heading got wrong, and make_figures.py now draws the corrected figure as paper/figures/F10b_disc_null_from_seed.png. The registry cannot read a PNG, so this line is the record: the debt is visible and the gate stays green.",
+      "say_instead": "「`t = 0` 씨앗의 무게중심에 놓고」, or in English 「an equal-area seed-centred disc」 / 「centred on the t = 0 seed centroid」. ⚠ The correction is to the WORDS and not to the null: the centroid rule is the honest one, because it uses only information the two stacks already share, and a disc re-sited on ign_xy would be a different and worse null. Nothing in data/processed/disc_null_yeongdeok.json moved. 「실제 발화점」 remains correct where it means what the canonical simulation was SEEDED from -- docs/submission_reconciliation.md says exactly that and is untouched, which is precisely why a judge reads the two as one place.",
+      "spellings": [
+        {
+          "pattern": "원(?:판)?을\\s*(?:\\*\\*)?\\s*발화점(?:\\*\\*)?\\s*에\\s*놓",
+          "token": "wc017-disc-at-ignition-ko",
+          "why": "The spelling Q36 and docs/disc_null.md §6 both used, tolerant of the markdown emphasis that lands mid-phrase (the WC-011 and WC-013 lesson). Anchored on 원/원판 TOGETHER with 발화점 rather than on 발화점 alone, which is a word this repository must keep: docs/submission_reconciliation.md uses it correctly for the real ignition the canonical array was seeded from, and docs/auto/JUDGE_QA.md and the related-work panel use it for how another team's console receives an ignition. Blast radius measured over every tracked .md and .html before registering: 1 hit, docs/auto/reports/2026-09-11T0825Z-critic.md, which is record class."
+        },
+        {
+          "pattern": "disc\\s+at\\s+the\\s+ignition",
+          "token": "wc017-disc-at-ignition-en",
+          "why": "paper/manuscript.md §6's spelling and paper/README.md's quotation of it. Measured before registering: 1 hit, docs/auto/reports/2026-09-11T0343Z-manual.md, record class."
+        },
+        {
+          "pattern": "centred\\s+on\\s+the\\s+ignition",
+          "token": "wc017-centred-on-ignition-en",
+          "why": "docs/oracle_gap.md §4c's spelling. Deliberately NOT narrowed to lines that also say 「disc」: the phrase has no other referent in this repository and a future sentence that drops the noun is exactly the reworded escape docs/withdrawn_claims.md §4 says a line-based checker misses. Measured before registering: 4 hits, of which 2 are record class (BACKLOG, CRITIC_LATEST) and 2 are this lap's own correction notes in docs/disc_null.md and docs/oracle_gap.md, each licensed by a per-line pragma."
+        },
+        {
+          "pattern": "distance\\s+moved\\s+from\\s+the\\s+ignition",
+          "token": "wc017-moved-from-ignition-en",
+          "why": "The bar-group heading paper/make_figures.py rendered into paper/figures/F10_disc_null.png, which is the instance this entry cannot reach: a PNG is not scanned, which is why the known-stale exception is written into `artifact` above rather than left to the pattern. Measured before registering: 6 hits, of which 5 are record class and 1 is this lap's dated note in paper/GAPS.md, pragma-licensed."
+        }
+      ]
     }
   ]
 }

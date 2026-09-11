@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "c2bb9e60b37e924a4e20a731849a861ad8309656",
-  "n_artifacts": 111,
-  "total_bytes": 14632746,
-  "total_mib": 13.95,
-  "n_git_tracked": 111,
+  "generated_at_git_commit": "d4b7befd3d8a1a2d622258eaf979a9d5b2302d06",
+  "n_artifacts": 112,
+  "total_bytes": 14635120,
+  "total_mib": 13.96,
+  "n_git_tracked": 112,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 9,
   "artifacts": [
@@ -294,7 +294,9 @@
       "kind": "text",
       "git_tracked": true,
       "n_registry_entries": 2,
-      "cited_by_docs": [],
+      "cited_by_docs": [
+        "docs/auto/reports/2026-09-11T0725Z-dev.md"
+      ],
       "regenerate": "python scripts/measure_demo_script_pace.py --stamp 20260911T0620Z"
     },
     {
@@ -393,6 +395,18 @@
       "regenerate": "python scripts/dilation_perturb.py"
     },
     {
+      "path": "data/processed/disc_null_centre_vs_ignition.json",
+      "bytes": 2374,
+      "sha256": "9d6400361f3b1da2f4cc7be197c222a1da00a571d88aa70f757af4168e6def7b",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 2,
+      "cited_by_docs": [
+        "docs/disc_null.md"
+      ],
+      "regenerate": "python scripts/measure_disc_centre_vs_ignition.py"
+    },
+    {
       "path": "data/processed/disc_null_yeongdeok.json",
       "bytes": 14096,
       "sha256": "5763b87bb30748e48b9aaf8922a1aabe58674870afde7dad1e81762935e11b1d",
@@ -400,8 +414,12 @@
       "git_tracked": true,
       "n_registry_entries": 84,
       "cited_by_docs": [
+        "docs/auto/BACKLOG.md",
+        "docs/auto/CRITIC_LATEST.md",
+        "docs/auto/DIRECTION.md",
         "docs/auto/reports/2026-09-10T1620Z-dev.md",
         "docs/auto/reports/2026-09-11T0343Z-manual.md",
+        "docs/auto/reports/2026-09-11T0825Z-critic.md",
         "docs/disc_null.md",
         "paper/GAPS.md",
         "paper/README.md"
@@ -1004,6 +1022,8 @@
       "n_registry_entries": 0,
       "cited_by_docs": [
         "docs/auto/BACKLOG.md",
+        "docs/auto/CRITIC_LATEST.md",
+        "docs/auto/DIRECTION.md",
         "docs/auto/JUDGE_QA.md",
         "docs/auto/MEMO.md",
         "docs/auto/NEEDS_HUMAN.md",
@@ -1015,6 +1035,7 @@
         "docs/auto/reports/2026-09-09T2023Z-critic.md",
         "docs/auto/reports/2026-09-10T0825Z-critic.md",
         "docs/auto/reports/2026-09-10T0952Z-dev.md",
+        "docs/auto/reports/2026-09-11T0825Z-critic.md",
         "docs/live_pipeline.md",
         "docs/manual_trigger.md",
         "docs/oracle_gap.md",
@@ -1366,8 +1387,8 @@
         "docs/SESSION22_LOG.md",
         "docs/SESSION22_REPORT.md",
         "docs/auto/BACKLOG.md",
-        "docs/auto/CRITIC_LATEST.md",
         "docs/auto/reports/2026-09-11T0530Z-critic.md",
+        "docs/auto/reports/2026-09-11T0725Z-dev.md",
         "docs/finals_screen_v2.md",
         "docs/withdrawn_claims.md"
       ],

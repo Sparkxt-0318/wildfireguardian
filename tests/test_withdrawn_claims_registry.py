@@ -535,12 +535,40 @@ def test_the_registry_holds_nothing_the_families_do_not():
         (r"보행망\s*노드\s*(?:\*\*)?\s*2,?218",
          "wc016-2218-called-walk-network-nodes-ko"),
     }
+    #: WC-017, dev lap 2026-09-11T0921Z (WFG-254), filed at position 1 by critic #65. A
+    #: family of four spellings of ONE claim — that the area-matched disc null is placed
+    #: at the ignition point — across Korean and English, prose and a matplotlib bar-group
+    #: heading. It belongs beside `a_claim_about_our_own_machinery` for the same reason:
+    #: nothing outside this repository was needed to catch it. `disc_null_yeongdeok.json`
+    #: states the centre rule as 「centroid of the t=0 seed」, `measure_disc_null.py` never
+    #: reads `ign_xy`, and the canonical array carries `ign_xy` in the same file — the two
+    #: places are 38.3986 cells apart, further than the largest disc radius at any slice.
+    #: ⚠ Blast radius measured over every tracked .md and .html BEFORE registering: the ko
+    #: and `disc at` spellings hit ONE record-class file each; `centred on` hits 4, of
+    #: which 2 are record class and 2 are the withdrawing lap's own correction notes,
+    #: each pragma-licensed; `distance moved` hits 6, 5 record class and 1 pragma-licensed.
+    #: ⚠ The instance this family CANNOT reach is `paper/figures/F10_disc_null.png`, a
+    #: committed PNG whose rendered heading carries the fourth spelling and which CHARTER
+    #: §3 rule 2 forbids regenerating. It is recorded as a dated known-stale exception in
+    #: the WC-017 entry's `artifact` field rather than left to a pattern that cannot read
+    #: an image, and the corrected figure ships under a new filename.
+    our_own_null_s_centre = {
+        (r"원(?:판)?을\s*(?:\*\*)?\s*발화점(?:\*\*)?\s*에\s*놓",
+         "wc017-disc-at-ignition-ko"),
+        (r"disc\s+at\s+the\s+ignition",
+         "wc017-disc-at-ignition-en"),
+        (r"centred\s+on\s+the\s+ignition",
+         "wc017-centred-on-ignition-en"),
+        (r"distance\s+moved\s+from\s+the\s+ignition",
+         "wc017-moved-from-ignition-en"),
+    }
     extra = ({(s["pattern"], s["token"]) for _cid, s in SPELLINGS}
              - in_files - reviewer_found - reachability - booth_kit_contents
              - dispatch_exclusion_reason - someone_elses_system
              - stale_self_criticism - measured_shape_of_our_own_sweep
              - how_our_own_work_was_organised - our_own_output_object
-             - a_reading_of_our_own_measurement - a_claim_about_our_own_machinery)
+             - a_reading_of_our_own_measurement - a_claim_about_our_own_machinery
+             - our_own_null_s_centre)
     assert extra == set(), (
         "the registry has grown past the families it absorbed. That is allowed, and when "
         "you do it, add the new spelling to this test's expected set and say in "
@@ -957,6 +985,23 @@ def _probe_sentence(pattern: str) -> str:
             "(육십일, four syllables).",
         r"보행망\s*노드\s*(?:\*\*)?\s*2,?218":
             "> 대피 지점 배치도 마찬가지입니다. 보행망 노드 **2,218곳을 전수 탐색**해서, 대피",
+        # WFG-254, 2026-09-11. All four lifted from the tree at `d4b7bef`, the head the
+        # withdrawing lap claimed its row on. Like WC-015 and WC-016, none of them needed
+        # an outside source: the disc null's own artifact states its centre rule as
+        # 「centroid of the t=0 seed」 and the canonical array carries `ign_xy` beside it,
+        # so every one of these four was settled by opening the two files the sentences
+        # already cite.
+        r"원(?:판)?을\s*(?:\*\*)?\s*발화점(?:\*\*)?\s*에\s*놓":
+            "그리고 그 예측이 **좋은 값인지 견줄 대상**도 만들었습니다 — 같은 면적의 원을 "
+            "발화점에 놓고 같은 방식으로 채점하면 0.1554 이고",
+        r"disc\s+at\s+the\s+ignition":
+            "shape and extent far better than an equal-area disc at the ignition, but its "
+            "centre of mass",
+        r"centred\s+on\s+the\s+ignition":
+            "than a disc of identical area centred on the ignition. The gap is stable "
+            "across all",
+        r"distance\s+moved\s+from\s+the\s+ignition":
+            '        ("distance moved from the ignition", [',
     }
     assert pattern in probes, (
         f"no probe sentence for a newly registered pattern:\n  {pattern}\n"

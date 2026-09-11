@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "title": "The disc null's centre against the ignition point the canonical array records — 영덕 2025",
+  "row": "WFG-254",
+  "sources": {
+    "canonical": {
+      "path": "data/processed/routing_demo_canonical.npz",
+      "sha256": "81b4e4d159daa7a8ccc7c4fedf3fea948d501fff2d7e886c1fd55bbf47043fb7"
+    },
+    "disc_null": {
+      "path": "data/processed/disc_null_yeongdeok.json",
+      "sha256": "5763b87bb30748e48b9aaf8922a1aabe58674870afde7dad1e81762935e11b1d"
+    }
+  },
+  "git_commit": "d4b7befd3d8a1a2d622258eaf979a9d5b2302d06",
+  "grid": {
+    "shape": [
+      181,
+      156
+    ],
+    "cell_size_m": 500.0,
+    "extent": [
+      1126514.9293265936,
+      1789870.4640061273,
+      1204514.9293265936,
+      1880370.4640061273
+    ]
+  },
+  "ignition_xy": [
+    1138940.5416424703,
+    1826944.6268982552
+  ],
+  "ignition_col_float": 24.8512,
+  "disc_centre_row_col": [
+    97.7751,
+    55.1205
+  ],
+  "disc_centre_from": "centroid of the t=0 seed, the 249 cells obs_stack[0]>0 and haz_stack[0]>=p_cut agree on exactly",
+  "row_conventions": {
+    "row0_at_ymin": {
+      "row_float": 74.1483,
+      "cell": [
+        74,
+        25
+      ],
+      "in_grid": true,
+      "burning_at_t0": true,
+      "burning_at_any_slice": true,
+      "gap_from_disc_centre_cells": 38.3986,
+      "gap_from_disc_centre_m": 19199.3
+    },
+    "row0_at_ymax": {
+      "row_float": 106.8517,
+      "cell": [
+        107,
+        25
+      ],
+      "in_grid": true,
+      "burning_at_t0": false,
+      "burning_at_any_slice": false,
+      "gap_from_disc_centre_cells": 31.6008,
+      "gap_from_disc_centre_m": 15800.4
+    }
+  },
+  "resolved_by": "the recorded ignition must be burning in the t=0 frame; exactly one candidate cell is, and the other is not observed at any slice",
+  "resolved_convention": "row0_at_ymin",
+  "gap_cells": 38.3986,
+  "gap_m": 19199.3,
+  "disc_radius_cells_by_slice": {
+    "0min": 8.913,
+    "180min": 14.881,
+    "360min": 17.355,
+    "540min": 17.681,
+    "720min": 18.162
+  },
+  "largest_disc_radius_cells": 18.162,
+  "ignition_inside_any_disc": false,
+  "holds_under_both_conventions": true,
+  "seed_cells": 249,
+  "note": "The centroid rule is NOT withdrawn by this measurement and no value in disc_null_yeongdeok.json changes. Only the WORDS 「발화점」 / 「the ignition」 for this centre are withdrawn (WC-017)."
+}

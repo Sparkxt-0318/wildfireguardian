@@ -165,6 +165,11 @@ data/processed/**
 # `make verify` fails on a fresh clone with 'source_file missing'. It reads
 # routing_demo_canonical.npz and modifies nothing (CHARTER §3 rule 2).
 !data/processed/disc_null_yeongdeok.json
+# WFG-254 — how far the disc null's centre sits from the ignition point the
+# canonical array records. Registered under dnc_yeongdeok_*, so the same
+# 'source_file missing' rule applies. It reads the two artifacts above and
+# modifies neither.
+!data/processed/disc_null_centre_vs_ignition.json
 !data/processed/canonical_hazard.json
 !data/processed/real_roads_real_hazard_canonical.json
 # Step 2: the 30/60/90 m slope sweep on the canonical field. The committed

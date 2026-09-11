@@ -201,15 +201,25 @@ survives in sign at all four slices and loses about a fifth of its size.
 
 So 「substantially wrong」 stands as a statement about how many cells disagree — and
 it is now also true that the forecast overlaps the fire about **2.2** times better
-than a disc of identical area centred on the ignition. The gap is stable across all
-four slices while the time gap under them runs from 27 to 285 minutes.
+than a disc of identical area centred on the `t = 0` seed centroid. The gap is stable
+across all four slices while the time gap under them runs from 27 to 285 minutes.
+
+<!-- forbidden-ok: wc017-centred-on-ignition-en -->
+⚠ 〔정정 · 2026-09-11 · WFG-254〕 **This sentence said 「centred on the ignition」
+until this date, and that was a false locative.** The disc's centre is the centroid
+of the `t = 0` detection seed; the ignition point the canonical array records sits
+`dnc_yeongdeok_seedcentre_to_ignition_cells` **38.3986** cells from it, further than
+the largest disc radius at any slice. `docs/disc_null.md` §2b holds the measurement.
+No measured value moved — only the word for the centre.
 
 ⚠ **The gap is not directional skill, and `docs/disc_null.md` §4 is where that is
 argued.** By centre of mass the model **overshoots**: the observed footprint's
 centroid moves 2.250 cells from the seed, the model's core moves 7.292, and the
 disc's centre-of-mass error (2.266 cells) is *smaller* than the model's (5.340).
-What the model does better than a circle is **shape and extent**, not direction.
-Quote the two rows together or neither.
+What the model does better than a circle is **shape and reach**, not direction.
+Quote the two rows together or neither. ⚠ 「Reach」 and not 「extent」: the null holds
+**area** equal by construction, so on the area reading that claim is impossible
+rather than merely unproven (`docs/disc_null.md` §4, corrected 2026-09-11, WFG-254).
 
 ⚠ The disc is a **floor**, not a competitive baseline: a circle against an elongated
 fire is a weak opponent, so clearing it is necessary and not sufficient. The
