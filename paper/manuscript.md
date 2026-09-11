@@ -18,10 +18,10 @@ decision changes: on the canonical Yeongdeok field, 42 of 458 scanned walk-netwo
 reach a refuge only under the forecast-aware policy, and 2 have no safe walking route, on a
 network covering 32.6 % of the predicted fire core whose bias runs in an unmeasured
 direction. That contrast is measured against a fire-blind baseline, so it does not separate
-knowing where the fire will be from knowing where it is. On a second region that separation
-has now been measured: a present-perimeter opponent, which refuses what is burning now plus
-a fixed buffer and needs no model at all, recovers most of what that region's fire-blind
-contrast credits to the forecast. Two further results are negative
+knowing where the fire will be from knowing where it is. That separation has now been
+measured on this field and on a second region: a present-perimeter opponent, which refuses
+what is burning now (buffered there, not here) and needs no model at all,
+recovers most of each region's fire-blind contrast. Two further results are negative
 and reported in full: the
 deadline-first dispatch ordering the system ships never out-rescues nearest-first at the
 operating window, in 0 of 180 configuration cells, and a geostationary detector sees these
@@ -87,8 +87,8 @@ routing layer's known approximations nor the coverage limit contaminates it. The
 operating point is weak, and owning that is part of the result. And the evaluation design
 is the transferable part: the discipline of matched controls of Section 3.5 is what six
 fires permit and a large dataset makes easy to skip. How much of the change belongs to the
-forecast is a separate question, and Section 4.5 answers it on one region against a
-baseline that needs no model: much less than the fire-blind
+forecast is a separate question, and Sections 4.3 and 4.5 answer it on both regions
+against a baseline that needs no model: much less than the fire-blind
 contrast implies. The non-claim is the dispatch ordering,
 which wins 0 of 180 configuration cells against nearest-first at the operating window.
 
@@ -410,12 +410,14 @@ movement between them is not a single-variable contrast and no per-origin ledger
 
 **Third, the counterfactual is a fire-blind walk.** The baseline consults no hazard at
 all, present or forecast, so the 42 measure what hazard awareness of any kind buys, not
-what the forecast alone buys: a router refusing only the cells alight at departure would
-recover an unmeasured share of them. This is a coupling effect, not a forecasting
-effect. That arm has since been run on a different region against that region's own
-fire-blind contrast (Section 4.5), but not over these 458 origins.
-[GAP: the present-perimeter baseline over the canonical Yeongdeok origins, which is what
-would separate the two effects on this field rather than on another one]
+what the forecast alone buys: a router refusing only the nodes alight at the departure
+slice recovers most of them. That is measured on these
+origins — Section 4.5's node-pruning build at zero buffer, reproducing the committed
+partition first, with the per-outcome counts in
+`docs/present_perimeter_yeongdeok.md`. The shift is largely a coupling effect,
+not a forecasting one.
+[GAP: the same opponent at a swept buffer on these origins, the axis Section 4.5 shows
+governs how strong it can be made]
 
 ### 4.4 Three regions under one rule
 
@@ -463,8 +465,8 @@ not been re-read, and nothing is inferred from it.
 
 ### 4.5 The fair opponent: refusing where the fire is now
 
-Section 4.3's third caveat names the weakness of a fire-blind baseline, and on one region it
-has now been measured rather than conceded. A present-perimeter policy is what a county
+Section 4.3's third caveat names the weakness of a fire-blind baseline, and it has now been
+measured rather than conceded. A present-perimeter policy is what a county
 office can run with no model at all: refuse every node within a fixed buffer of the cells
 burning at the departure slice, drop any refuge that falls inside the buffer, and take the
 shortest remaining path. Run over the same Uiseong-Andong origins, refuges and hazard field
@@ -649,8 +651,8 @@ Whether that is ahead of or behind the emergency call, this measurement cannot s
 **What the coupling adds over a spread map.** A hazard map answers where the fire will be;
 a household needs to know whether its route is still passable on arrival, which makes a
 slow walker's arrival time a variable in the answer. Section 4.3 is the
-measurable form of that difference, and Section 4.5 bounds how much of it belongs to the
-forecast rather than to hazard awareness of any kind: on the one region with a stronger
+measurable form of that difference and now also bounds how much of it belongs to the
+forecast rather than to hazard awareness of any kind: on both regions with a stronger
 opponent, most of the same origins are recovered by refusing where the fire
 is now. It is not a
 claim that the system knows where the fire will be: the router needs ranking quality, not
@@ -715,13 +717,13 @@ of the 42 fire-blind routes intersect observed burn inside the walker's arrival 
 That field is committed on the same grid, on its own clock, an observation and not the
 fire]
 
-**The counterfactual was weak, and the stronger one is run on only one region.** Every
-contrast in Sections 4.3 and 4.4 is against a fire-blind baseline. Section 4.5 replaces it
-on Uiseong-Andong with a present-perimeter opponent and most of that region's contrast does
-not survive the substitution. The same substitution has not been made on the canonical
-Yeongdeok field, so the 42 of Section 4.3 remains a fire-blind contrast and must be read as
-one; and even where the substitution has been made, the residual difference is not reported,
-because two defensible builds of that opponent disagree about it.
+**The counterfactual was weak, and no residual is reported against the stronger one.**
+Every contrast in Sections 4.3 and 4.4 is against a fire-blind baseline. A
+present-perimeter opponent replaces it on Uiseong-Andong (Section 4.5) and, at zero
+buffer, on the canonical Yeongdeok origins (Section 4.3), and most of each region's
+contrast does not survive. The 42 itself is still the fire-blind contrast and must be read
+as one. Neither region yields a residual: on Uiseong-Andong two defensible
+builds of that opponent disagree about it, and on Yeongdeok the buffer is unswept.
 
 **Six fires, and not six independent ones.** Because Uiseong-Andong 2025 and Yeongdeok
 2025 belong to one chain (Section 3.1), the Yeongdeok fold's training data may contain
@@ -816,7 +818,8 @@ settle it]
 **Operational status.** No trigger has ever fired on a live detection and the messaging
 layer is a dry run: the SMS path is simulated, private cell-broadcast origination is not
 authorized in Korea, and the approval-gated email channel has never completed a verification
-send. Nothing here reached a real resident or a real crew.
+send. Nothing here reached a real resident or a real crew. The hazard field cannot be
+current either: its weather reanalysis publishes days late [@era5].
 
 ## 7. Conclusion
 
@@ -827,8 +830,8 @@ probability field into a time-expanded pedestrian router and a rescue-ingress ca
 changes decisions measurably, as a paired contrast — 42 of 458 scanned
 origins on the canonical Yeongdeok field reach a refuge only under the forecast-aware
 policy, on a network covering 32.6 % of that fire's predicted core. That contrast is
-against a fire-blind baseline, and Section 4.5 shows on a second region that a policy which
-refuses only where the fire is now recovers most of it — so the claim is about coupling a
+against a fire-blind baseline, and a policy which refuses only where the fire is now
+recovers most of it wherever it has been run — so the claim is about coupling a
 hazard field into the routing at all, and the part attributable to the forecast is smaller
 and, on the evidence here, not yet a single number.
 

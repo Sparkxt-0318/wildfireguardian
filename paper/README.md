@@ -1181,6 +1181,119 @@ clause — and not relief. **Laps 13 through 21, 24, 25 and 30 all had their wri
 the proxy; this one did not, and the reason is arithmetic rather than progress.** The entry
 is still open.
 
+✅⚠⚠ **Lap 32 is the one where the repository measured the fair opponent for the headline
+region and SEVEN sentences of this manuscript were still built on its never having been run —
+and where the limitation lap 21 declined for length was finally landed, paid for by the
+falsehoods, at NET ZERO words. Read `GAPS.md`'s lap-32 section before this paragraph.**
+`body_words` **8,995 → 8,995**, margin **5 → 5**, both unmoved. Nothing litigated was
+compressed and no caveat or registered number was traded. ⛔⛔ **Its independent reviewer
+BLOCKED it, on a falsehood the lap manufactured while repairing another one, and `GAPS.md`
+§8 is the record.**
+
+**What the window did.** WFG-129 ran: the present-perimeter opponent — a router that sees
+only where the fire is **now**, needs no model, and is the actual status quo a county office
+has — was built on the canonical 영덕 field, the origin set the headline **42** comes from.
+It reproduced the committed 414 / 42 / 2 partition in its own process before writing
+anything. Critic #67's root objection is that the repository then 「stopped」: four
+judge-facing lines still said the comparison had never been run, and it filed
+`paper/manuscript.md:414-418` and `:718-724` as **the paper routine's** half under
+CHARTER §12.
+
+⚠⚠ **Those two were not the only two, and the other four were found by running DIRECTION's
+rule rather than by treating the critic's list as the diff.** The rule is 「grep for the
+SUBJECT of the claim, never for the sentence you just wrote」. The subject is *which regions
+this opponent has run on*; one grep returns **seven** sentences, four flatly false — §4.3's
+「would recover an **unmeasured share**」 with a `[GAP:` its own ledger calls closed, §4.5's
+「on **one region** it has now been measured」, §5's 「on **the one region** with a stronger
+opponent」, §6's 「The same substitution **has not been made** on the canonical Yeongdeok
+field」 — and three understated, in the **Abstract**, §1 and §7. **Two of the four false ones
+sit in sections the critic did not name**, so a lap that had discharged the row by fixing the
+two cited line ranges would have shipped a document asserting 「one region」 twice over. That
+is the argument for the subject grep, and it is the third lap running in which it has caught
+a surface a filed finding missed. ⚠⚠ **This paragraph said SIX until the build was already
+green, and the seventh is §7 — the CONCLUSION.** It counted the sentences the lap remembered
+editing instead of re-deriving them, which is this routine's oldest error, committed inside
+the paragraph whose whole subject is a hand sweep missing a surface. Re-derived: the grep
+over the post-edit file returns the four rewritten survivors at `:22`, `:90`, `:655` and
+`:834`, and `:834` is §7.
+
+⛔ **No count from the run is written into the manuscript, and the reason is a standing bar
+rather than the budget.** `docs/auto/DIRECTION.md` bars every `ppy_yeongdeok_*` count from
+every judge-facing surface while **NH-059** is open; CHARTER §14b names this manuscript as
+one; critic #67's own item says 「Put NO count on any surface in this item」. **NH-059 comes
+due 2026-09-13 and is the author's**, and a paper lap that quietly wrote the counts would be
+choosing one of its options for them on the number the entry exists to decide. What the
+sections say is the qualitative 「recovers **most** of them」 — not a count, true on either
+denominator, and the register §4.5, §5 and §7 already carry for the other region — with the
+partition left to `docs/present_perimeter_yeongdeok.md`.
+
+⚠ **The `[GAP:` marker was NARROWED, not removed, and that is both the cheaper and the truer
+move.** `check_paper.py:206-209` requires markers and `| G\d+ |` rows to be equal in number,
+so deleting it would have forced the G7 row out of the table against CHARTER §3 rule 7. And
+the honest residue is real: the **zero-buffer** arm ran; the **swept** arm (WFG-033(b),
+NH-027) did not, and §4.5 already establishes the buffer as the axis governing how strong
+this opponent can be made. ⚠ **No direction is asserted for it**, because
+`docs/present_perimeter_yeongdeok.md` §5 item 5 records that the obvious monotonicity
+argument is **false** and that the numbers which replaced it are unregistered and
+re-derivable by nobody (**WFG-259**, P0 at position 2).
+
+✅ **The limitation lap 21 declined is in the paper.** §6's Operational status now ends 「The
+hazard field cannot be current either: its weather reanalysis publishes days late
+[@era5].」 The paper had nowhere said its hazard field **cannot** be current, while
+`docs/live_pipeline.md` §0 makes it the project's own lead line on every screen, sheet,
+broadcast script, SMS draft and JSON record. ⚠ The wording is **not** lap 21's and could not
+be: that lap's 「ERA5 publishes on a ~5-day lag」 writes an external figure **bare**, which
+CHARTER §3.5b forbids; the shipped form carries no number and hands provenance to the `era5`
+note, opened at the Copernicus page.
+
+⛔⛔ **The arithmetic underneath that is the sharpest NH-037 datum this file has, and it runs
+the wrong way.** Measured in isolation on the shipped tree — deleted and rebuilt, **8,981**
+without and **8,995** with — the sentence costs **+14**. ⚠⚠ **This paragraph's first draft
+said +12, and the paragraph beside it said 「four words came out of this lap's own draft
+(→ 8,983)」. BOTH were wrong and the independent reviewer caught both**: the +12 was taken by
+subtracting two intermediate totals instead of measuring, 8,989 − 4 does not equal 8,983,
+and the four edits named there total **six** words rather than four. That is the
+inherited-number error this whole file is about, committed twice more in the act of
+reporting it, so every integer here was re-derived by a rebuild before it was rewritten.
+Against the **5** words this lap inherited, the limitation was unaffordable in *every* form
+measured: **+12** bare (lap 21's own wording), **+14** as shipped, **+16**, **+28**. **It
+became affordable only because seven sentences had gone false and deleting them freed six
+words** (8,995 → 8,989 for the corrections alone), the rest coming out of this lap's own new
+prose. So a limitation missing since lap 21 was paid for by a batch of falsehoods arriving —
+lap 22's unrepeatable source in its purest form, since **the only reliable way this document
+buys space is for something in it to stop being true.** Had this window been a quiet one —
+laps 19, 20 and 23 — it would have been declined a **seventh** time, on a document measuring
+**23** pages against the author's **25**. ✅ DIRECTION's 「Do not add a word without trimming
+one」 is satisfied **exactly**, at net zero; ⚠ it stood at **+2** in the draft the reviewer
+read and that breach is recorded rather than quietly fixed. **NH-037 is the answer and it is
+still open.**
+
+⛔ **No figure was drawn, and not for cost.** The obvious one partitions the target
+origins into three outcomes, and every bar is a count NH-059 is open on. Worse, a committed
+PNG is the one surface the withdrawal registry structurally cannot reach — `WC-017`'s
+known-stale exception (a) is the worked instance **in this very window**, where
+`F10_disc_null.png` baked a retracted locative into a binary CHARTER §3 rule 2 then forbids
+regenerating, so the repair had to be a new filename. Freezing NH-059-barred counts at
+300 dpi is that mistake with the author's open decision inside it. If NH-059 returns A or C,
+the figure is drawn then. All ten figures redrew **byte-identical** this lap.
+
+⛔⛔ **The reviewer's BLOCK, and it landed on a falsehood this lap manufactured while
+repairing another one.** The old Abstract called the opponent one 「which refuses what is
+burning now **plus a fixed buffer**」 and scoped its result to 「**that** region」. This lap
+deleted the buffer clause — correctly, since the 영덕 arm has none — *and in the same
+sentence* widened 「that region's」 to 「**each** region's」, which asserts that a **zero-buffer**
+opponent recovers most on **both** regions. ⚠ **It does not**:
+`docs/present_perimeter_arm.md` §4's committed five-width table recovers **12 of 91 at
+250 m** and **23 of 91 at 500 m** against **86 of 91 at 1 km**, and no zero-buffer run exists
+for Uiseong-Andong at all. The deleted clause was the only thing making that sentence true of
+that region, and the two halves of the edit were word-neutral against each other — **so the
+budget did not cause this one; a careless repair did**, which is worth separating from the
+nine laps above that the budget did shape. The Abstract now reads 「…what is burning now
+**(buffered there, not here)** and needs no model at all…」. The reviewer's other three
+findings — the six/seven count, the twice-wrong arithmetic, and the net-+2 DIRECTION breach —
+are in `GAPS.md` §8 with what it checked and passed, including that no `ppy_yeongdeok_*`
+count reached the manuscript and that 「most」 holds on both denominators.
+
 ⚠ **The page that took the count from 22 to 23 cost eleven words, and it is worth
 knowing that before reading the words-to-pages table below as a rate.** Lap 11
 took the body 8,735 → 8,825 (a mandatory §4.5 correction, one clause, and the
