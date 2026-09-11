@@ -1069,3 +1069,99 @@ def test_the_ppy_count_gate_is_red_on_the_sentence_it_exists_to_stop() -> None:
         "gate than this file measured, and the Q18 false positive it was narrowed "
         "for is the thing to re-check before widening it on purpose."
     )
+
+
+# --- critic #68: the loop's own governance must not reach a spoken sentence ----
+#
+# The bank prescribes two kinds of text the student SAYS: the 「답변(초안)」 of each
+# question, and the standalone sentences the bank tells them to attach to a number
+# (「... 말할 때 붙일 문장」). Both are read here. Everything else in this file is a
+# student note, and a student note is allowed to name an entry.
+
+#: A sentence the student is told to attach to a number, quoted in 「」 after a
+#: 「... 말할 때 붙일 문장」 heading.
+_PRESCRIBED_RE = re.compile(r"말할\s*때\s*붙일\s*문장[^「]{0,80}「(.+?)」", re.DOTALL)
+
+
+def _spoken_spans() -> list[tuple[str, str]]:
+    """Every span of this bank that the student is prescribed to SAY, as (label, text)."""
+    spans = [("Q" + qid, _flat(_draft(body))) for qid, _, body in _questions()]
+    spans += [
+        ("prescribed sentence #%d" % (i + 1), _flat(m.group(1)))
+        for i, m in enumerate(_PRESCRIBED_RE.finditer(_text()))
+    ]
+    return [(label, text) for label, text in spans if text]
+
+
+#: 「whether we may say it has not been decided」 — the withheld-because-undecided
+#: clause. Both halves are required within one clause because 「정하지 않」 alone is
+#: an ordinary Korean phrase that Q20a and Q22 use correctly about other things
+#: (measured on this corpus, 2026-09-11, before this gate shipped).
+_UNDECIDED_PERMISSION = re.compile(
+    r"(?:말해도|말씀드려도|말하면|밝혀도)\s*되는지[\s\S]{0,40}"
+    r"(?:정하지\s*않|확정\s*전|미정|열려\s*있)"
+)
+
+#: A NEEDS_HUMAN entry id. The loop's own ledger, by construction internal.
+_ENTRY_ID = re.compile(r"NH-\d{3}")
+
+
+def test_no_spoken_sentence_withholds_a_number_for_want_of_permission() -> None:
+    """A judge must never be told a measured number is being kept from them.
+
+    Critic #68's finding: every other withheld thing in this repository is
+    withheld because the measurement does not exist or does not support the
+    sentence, and the surface says exactly that. The 영덕 present-perimeter counts
+    are measured, committed, registered and one click from the README's TL;DR, so
+    a sentence that says 「we have not decided whether we may tell you」 reads as
+    concealment while being literally true. Say where the number is written and
+    offer to open the page instead; NH-059 stays open and is the student's reason,
+    not the judge's.
+
+    Graded by mutation: put 「... 부스에서 말해도 되는지를 저희가 아직 정하지
+    않아서 오늘은 말씀드리지 않겠습니다」 back into Q19's draft and this goes red
+    naming Q19.
+    """
+    offenders = [label for label, text in _spoken_spans() if _UNDECIDED_PERMISSION.search(text)]
+    assert not offenders, (
+        ", ".join(offenders) + ": a sentence the student SAYS explains that a "
+        "number exists and is being withheld because nobody has decided whether "
+        "it may be spoken. That is the loop's internal governance, and a judge "
+        "hears concealment -- attached, in Q19's case, to the headline 42. "
+        "CHARTER §3.5 says the opposite move: when a result is weak, say so in "
+        "the artifact. Replace the REASON, not the number: name the section the "
+        "count is written in (docs/present_perimeter_yeongdeok.md §4), offer to "
+        "open it, and say it is a partition and not a margin. ⚠ Do NOT fix this "
+        "by speaking the count -- test_no_ppy_count_reaches_a_spoken_draft bars "
+        "26, 16 and 44 from a draft and NH-059 is still open."
+    )
+
+
+def test_no_spoken_sentence_names_a_needs_human_entry() -> None:
+    """An NH id in front of a judge is the project talking to itself.
+
+    Graded by mutation: write 「NH-059」 into any draft or prescribed sentence and
+    this goes red naming it.
+
+    ⚠ What this narrowing gives up, measured on this corpus rather than assumed:
+    keyed on 「WFG-\\d{3}」 as well, it would fire on Q10's draft, which says
+    「... 상위 출처는 미확인 -- WFG-061」 about a data provenance gap. That is a
+    backlog id and not a decision id, and the sentence around it is a correct
+    caveat about the world rather than a statement about the loop's own state, so
+    it is left standing deliberately. A lap that wants to widen this gate is
+    re-opening that question, not fixing an oversight. README:50, :265 and :351
+    carry NH-053 the same way and are the author's to rule on (critic #68).
+    """
+    offenders = [
+        "%s (%s)" % (label, _ENTRY_ID.search(text).group(0))
+        for label, text in _spoken_spans()
+        if _ENTRY_ID.search(text)
+    ]
+    assert not offenders, (
+        ", ".join(offenders) + ": a sentence the student SAYS names a NEEDS_HUMAN "
+        "entry. The ledger is internal by construction -- it addresses the student "
+        "in the third person as 「저자」 and treats a booth sentence as pending "
+        "authorisation -- and a judge reads an entry id as a project that has not "
+        "finished deciding what it believes. Keep the id in the student note "
+        "beside the card, where it belongs, and say nothing about it out loud."
+    )

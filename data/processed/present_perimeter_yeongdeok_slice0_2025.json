@@ -1,0 +1,31 @@
+{
+  "_readme": "WFG-260. Evidence that the present-perimeter opponent's PLANNING side uses no model output. Slice 0 of the canonical hazard field is the seeded FIRMS observation, not a simulated slice: scripts/build_canonical_hazard.py:88 seeds forward_simulate from snaps[0].cumulative_mask, and src/wildfireguardian/routing/hazard.py:97-100 collapses the time bracket to i0 == i1 == 0 at t_min = 0.0, so prob_at(x, y, 0.0) samples that observed mask alone and mixes in no later slice. The model's first output is slice 1, at 180 min. ⚠ This measures the INPUT to the planning side only. The arm is still SCORED against the full forecast, which is the oracle docs/present_perimeter_yeongdeok.md §5 item 6 names, and that conclusion is unchanged and correct.",
+  "written_at_utc": "2026-09-11T18:25:36Z",
+  "region": "영덕 2025",
+  "git_commit": "5d63b39948a6b9af7534b66d2c8ecb780e485125",
+  "inputs": {
+    "canonical_npz": "data/processed/routing_demo_canonical.npz",
+    "sha256": "81b4e4d159daa7a8ccc7c4fedf3fea948d501fff2d7e886c1fd55bbf47043fb7"
+  },
+  "connectivity": "8 (3x3 ones); the 4-connected count is recorded beside it",
+  "measurements": {
+    "slice0_time_min": 0.0,
+    "slice0_distinct_values": [
+      0.0,
+      1.0
+    ],
+    "slice1_distinct_values_n": 3961,
+    "p_cut": 0.5,
+    "slice0_burning_cells": 249,
+    "obs0_observed_cells": 249,
+    "slice0_equals_obs0_cell_for_cell": true,
+    "slice0_components_8conn": 226,
+    "slice0_largest_component_cells": 3,
+    "slice0_components_4conn": 236,
+    "grid_shape": [
+      181,
+      156
+    ]
+  },
+  "what_this_is_not": "NOT a statement that the observation is CORRECT. The canonical field's envelope-coverage caveat applies unchanged, and a FIRMS cumulative mask at 375 m is a detection scatter rather than a mapped perimeter — 249 cells in 226 8-connected components, the largest 3 cells. So 「present perimeter」 is a generous word for the object, and the object is the more honest of the two. NOT a statement about 의성·안동, whose arm (docs/present_perimeter_arm.md) has a different input this script does not read. NOT a re-grading of any committed number: nothing here re-runs a route and the canonical 414 / 42 / 2 partition is untouched."
+}

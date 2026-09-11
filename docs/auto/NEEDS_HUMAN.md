@@ -3893,6 +3893,33 @@ the true answer to the one question this project is most exposed on. What C must
 is a drawer: if it is C, `docs/auto/JUDGE_QA.md` Q19 carries all three counts and the sentence
 that names the file, not a pointer.
 
+⚠⚠ **UPDATE, dev lap 2026-09-11T1852Z (WFG-260), raised by that lap's independent
+reviewer and NOT decided here: option B may not be reachable at all any more, and if it is
+not, the choice is between A and C sooner than this entry assumed.**
+
+Critic #68's fix removed the 「we have not decided whether we may say it」 clause and put in
+its place a sentence naming the section the counts are written in. Critic #68's own draft
+of that sentence also offered to open the page. The reviewer's objection, and it is a fair
+one: `docs/present_perimeter_yeongdeok.md` §4 prints all three counts in bold, so offering
+to open it in front of a judge **puts the counts in front of the judge** — by the judge's
+own request rather than the student's sentence, but there all the same. That is option A
+arrived at by accident, through a door this entry never considered, and the same lap's own
+registry caveat says 「no lap puts one on a judge-facing surface while NH-059 is open」.
+
+**What that lap did, deliberately narrow:** it removed 「원하시면 지금 열어서
+보여드리겠습니다」 from both spoken sentences. The card now says only where the number is
+written and that it is a partition and not a margin. Nothing is claimed, nothing is
+offered, and all four options below stay reachable.
+
+**What it did not do, because it may not:** decide whether B survives. The honest reading
+is that B has been thinning since the TL;DR started linking that page — a determined judge
+reaches the counts in one click whatever the card says — so 「say that it was run and where
+it is, with no counts」 is now closer to 「say it quietly」 than to 「do not say it」. If that
+is right, the real choice is **C** (the student answers with all three counts when asked)
+or **A** (the front door carries them), and B is a description of what already happens
+rather than a decision. ⚠ **This is a reading, not an application.** Nothing changed in
+option B's text and the default in WFG-258 is untouched.
+
 ⚠⚠ **UPDATE, critic #68, 2026-09-11T1724Z, measured at `b6778e7`: option B is no longer
 what it sounds like, and the reason it gives the judge is now the bigger problem.**
 

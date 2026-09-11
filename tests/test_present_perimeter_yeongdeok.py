@@ -96,16 +96,37 @@ def test_a_not_reached_origin_is_the_filter_and_the_artifact_says_so(art):
     assert "not the fire" in art["what_this_is_not"]
 
 
+#: The artifacts a `ppy_yeongdeok_` key is allowed to come from. This test was
+#: written when the prefix had exactly one artifact behind it and asserted that
+#: directly; WFG-260 added two keys about the same run's INPUT FIELD, which live in
+#: their own artifact with their own caveat band and are checked cell-for-cell
+#: against the canonical array by tests/test_slice0_is_observation.py. The prefix is
+#: deliberately shared, because it is what makes 「no ppy_yeongdeok_ count on a
+#: judge-facing surface while NH-059 is open」 a greppable rule; so the partition is
+#: made explicit here instead, and an unknown artifact under this prefix still fails.
+_OUTCOMES = "data/processed/present_perimeter_yeongdeok_2025.json"
+_SLICE0 = "data/processed/present_perimeter_yeongdeok_slice0_2025.json"
+
+
 def test_the_registry_entries_are_the_artifact_s_own_values(art):
     numbers = json.loads(NUMBERS.read_text(encoding="utf-8"))["numbers"]
     keys = {k: v for k, v in numbers.items() if k.startswith("ppy_yeongdeok_")}
     assert keys, "no ppy_yeongdeok_ keys registered"
+    strays = {k: v["source_file"] for k, v in keys.items()
+              if v["source_file"] not in (_OUTCOMES, _SLICE0)}
+    assert not strays, (
+        f"ppy_yeongdeok_ keys from an unregistered artifact: {strays}. Every key "
+        "under this prefix is either an OUTCOME of the routing run or a property of "
+        "its INPUT FIELD; a third kind needs its own caveat band and its own test "
+        "before it is registered here."
+    )
     for key, entry in keys.items():
+        if entry["source_file"] != _OUTCOMES:
+            continue  # tests/test_slice0_is_observation.py owns these
         cur = art
         for part in entry["json_path"].split("."):
             cur = cur[part]
         assert entry["value"] == cur, key
-        assert entry["source_file"] == "data/processed/present_perimeter_yeongdeok_2025.json"
         assert "NOT A MARGIN" in entry["caveat"], key
 
 

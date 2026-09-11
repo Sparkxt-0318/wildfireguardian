@@ -35,6 +35,37 @@ All three run on the **canonical arm**: `data/processed/routing_demo_canonical.n
 slope 60 m sampling, DiGraph, `|slope|` clipped at 0.6, distance-ranked, `p_cut` 0.5,
 600-minute budget, stride-18 origin scan — the arm the headline's **42** comes from.
 
+**Slice 0 is the observation, not a simulated slice, and that is why this opponent needs
+no model** (WFG-260). ⚠ **The identity itself was already established and registered, one
+lap earlier and elsewhere**: `docs/disc_null.md` §2's table and
+`data/processed/disc_null_yeongdeok.json :: null_rule` record that `obs_stack[0] > 0` and
+`haz_stack[0] >= 0.5` are the same **249** cells (`dn_yeongdeok_t0min_n_cells`,
+`dn_yeongdeok_seed_cells_in_model`), and that script aborts if it ever stops being true.
+What WFG-260 adds is this page saying it where the claim is made, and one figure nobody
+had measured — the component count below. The evidence file is
+`data/processed/present_perimeter_yeongdeok_slice0_2025.json`.
+`scripts/build_canonical_hazard.py:88`
+seeds `forward_simulate` from `snaps[0].cumulative_mask`, the first observed FIRMS cumulative
+mask, so the model's first output is slice 1 at 180 min; `src/wildfireguardian/routing/hazard.py:97-100`
+collapses the time bracket to `i0 == i1 == 0` at `t_min = 0.0`, so `prob_at(x, y, 0.0)` samples
+that observed mask alone and mixes in no later slice; and `haz_stack[0] >= p_cut` is the same
+set of cells as `obs_stack[0] > 0` — **249** cells (`dn_yeongdeok_t0min_n_cells`), compared
+cell for cell and not by count. Slice 0 holds only `{0, 1}`; slice 1, the model's first
+output, holds 3,961 distinct values. ⚠ The object is a **detection scatter**, not a mapped
+fire line: those 249 cells of the **500 m** hazard grid, rasterised from VIIRS detections
+whose own footprint is 375 m, fall into **226** 8-connected components
+(`ppy_yeongdeok_slice0_components_8conn`; 236 at 4-connectivity), the largest **3** cells —
+so 「present perimeter」 is a generous word for it, and the thing itself is more honest than
+the word.
+
+⚠ **And slice 0 is not neutral ground.** `obs_stack` is **cumulative**, so the `t = 0` seed
+sits *inside* the footprint everything is later scored against; the model contains it by
+construction and a null does not. `docs/disc_null.md` §3c is where that is paid for, and it
+moved that page's headline ratio from 2.5360 to 2.2044 when it was. Reading slice 0 as
+「the observation」 is correct about its provenance and says nothing about its innocence.
+⚠ This is about the arm's **input** only; the **scoring** side is a different matter and §5
+item 6 below is right about it.
+
 The present-perimeter arm is a **node filter and nothing else**. A node is removed when
 `hazard.prob_at(x, y, 0.0) >= p_cut`, which is character for character the predicate
 `scripts/run_real_roads_real_hazard_slope.candidate_origins` already uses to refuse an
@@ -142,8 +173,14 @@ registered, because no page quotes them).
    the author's.
 6. **The scoring array is the model's own forecast, not where the fire went.** ⚠ 「Saved」
    here means 「clear of the model's own predicted hazard」. The present-perimeter arm is
-   filtered from `haz_stack` slice 0 and scored against the rest of `haz_stack`, which is
-   the same leave-one-fire-out forward simulation the forecast-aware arm plans on — so the
+   filtered from `haz_stack` slice 0 — which is the **observed** FIRMS mask and not a
+   simulated slice, §2 above and WFG-260 — and scored against `haz_stack` **as a whole**,
+   which from 180 min on is the same leave-one-fire-out forward simulation the
+   forecast-aware arm plans on. ⚠ **Scoring is not slices 1-4 either**, and a draft of this
+   correction said so and was wrong: `_evaluate_path` scores every node at its arrival time
+   starting from `departure_min = 0.0`, so slice 0 is in the scoring field too and every
+   node reached before 180 min is scored on a slice-0 ↔ slice-1 blend. That does not soften
+   this item — the model's field is still what 「saved」 is measured against — so the
    oracle in this comparison is on the **scoring** side, exactly as `docs/oracle_gap.md`
    §2 and Q36 already say for the headline itself. This run inherits that caveat whole and
    does not reduce it: the 26 / 16 / 2 is a contrast between three routers over one

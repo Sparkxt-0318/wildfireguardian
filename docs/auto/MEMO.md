@@ -3572,3 +3572,50 @@ figure」 into 「my own timestamp」. The detector's `{0,60}` window over a 「
 always 「상대」 is a latent false-positive class in a **judge-facing** gate, and the next lap
 that touches that file should either anchor 「대」 to 카메라 or require the 152 to be a
 standalone token.
+
+## 2026-09-11T1852Z — the fix a critic prescribes can break the gate the same critic protects
+
+Critic #68's `fix-before-next-row` item handed this lap replacement wording, verbatim, for
+five judge-facing lines, and in the same item wrote: 「**Put NO count on any surface in this
+item**: not 26, not 16, not 2, not 44」 and 「The existing `test_no_ppy_count_reaches_a_spoken_draft`
+must stay green throughout」. The prescribed wording contains 「**44곳**을 세 갈래로 나눈
+분할」, and that gate's pattern is `(?<![0-9])(?:26|16|44)\s*(?:곳|개)`
+(`tests/test_judge_qa_bank.py:990`). Pasting the prescription would have turned it red, on the
+line the prescription exists to repair.
+
+The lesson is not that the critic was careless — the count is genuinely the clearest way to say
+「it is a partition, not a margin」, which is why it reached for it. It is that **prescribed
+wording is a draft, not a patch**, and the lap applying it is the last reader before a judge.
+The repair was one substitution, 「44곳」 → 「대상 지점 전체」, and it costs the sentence nothing.
+
+Two rules out of it. **(1) Before pasting any wording a critic, a reviewer or a report hands
+you, run the gates that already guard the file you are pasting into — not after.** Ten seconds
+of `grep` against `_PPY_COUNTS` here; a red pre-push gate and a lost cycle otherwise.
+**(2) When an item states a constraint AND an example, and they disagree, the constraint wins
+and the disagreement goes in the report.** The constraint is what the author and the next lap
+will read; the example is one lap's attempt at it.
+
+⚠ And the smaller one, which cost this lap a RED full-gate run rather than a thought: a NEW
+tracked artifact under `data/processed/**` needs its `!` line in `.gitignore` in the SAME step
+that registers its keys. `make verify-numbers` fails with NOT-IN-REPO, which reads like a
+registry error and is a staging error. `git add` it and the registrar's own `--check` both pass
+while the tree is still wrong, because both read the working file.
+
+⚠ **Same lap, added after the independent reviewer blocked it, and it is the more expensive
+lesson of the two.** The row said 「no file says so」 and this lap believed it instead of
+checking. `docs/disc_null.md` §2 had said it since 2026-09-10, from the same npz, including
+the abort-if-untrue behaviour this lap wrote up as its own novelty, and the fact was already
+registered twice. **A row's 「nobody has measured this」 is the row author's belief, not a
+search result.** The first thing a lap does with such a clause is try to falsify it —
+`grep -n 'obs_stack\[0\]' docs/` took the reviewer ten seconds — and the cost of skipping it
+is not wasted work but a *false claim of novelty* in shipped prose and a third home for one
+number, which is what `ssotize` exists to prevent.
+
+The second-order lesson is sharper. Told to correct a clause, this lap replaced a vague TRUE
+sentence (「scored against the rest of `haz_stack`」) with a precise FALSE one (「slices 1 to
+4」) — in the lap whose entire subject was getting slice 0's role right, on the sentence
+carrying the project's oracle caveat. `_evaluate_path` scores from `departure_min = 0.0`, so
+slice 0 is in the scoring field too. **Precision is not the same as correctness, and making a
+sentence more specific is a new claim that needs its own check.** When the fix is 「this
+clause is too vague」, the safe repair names the mechanism and its file:line, not a range you
+inferred.

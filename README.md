@@ -34,7 +34,7 @@
   and, since 2026-09-11, on 영덕 too
   ([`docs/present_perimeter_yeongdeok.md`](docs/present_perimeter_yeongdeok.md));
   neither re-grades the 42, whose control is still the fire-blind one, and
-  neither count is licensed for the booth (**NH-059**).
+  neither count is restated here; both pages carry their own.
   ⚠ **And the forecast-aware arm is graded on the very field it planned on.** That
   field is not truth: the router plans on a **leave-one-fire-out** forward
   simulation — a model output on a fire the model never trained on — while the
@@ -332,8 +332,10 @@ fire-blind 대비가 예보의 공으로 돌리던 것의 **대부분을, 모델
   거부하고 확산 모델은 전혀 쓰지 않는 경로계획 — 은 2026-09-11 에 영덕의 바로 그
   **42곳 위에서 실제로 돌았습니다**. 방법·결과·한계는
   [`docs/present_perimeter_yeongdeok.md`](docs/present_perimeter_yeongdeok.md) 에
-  있고, 거기서 나온 **수치는 아직 부스에서 말하지 않습니다** — 말해도 되는지는
-  저자에게 **NH-059** 로 열려 있습니다. **완충거리를 더한** 상대는 영덕에서 여전히
+  있고, 거기서 나온 수치는 그 문서 **4절**에 그대로 적혀 있습니다. 이 README 에는
+  옮겨 적지 않습니다 — 그건 여백이 아니라 대상 지점 전체를 세 갈래로 나눈
+  **분할**이고, 그렇게 읽어야 하는 이유는 같은 문서 **5절**의 여덟 항목이기
+  때문입니다. **완충거리를 더한** 상대는 영덕에서 여전히
   돌리지 않았고, 그 문서 **5절 5항**이 그것을 적어 둡니다. 이 정정은 위 42곳의
   값을 바꾸지 않습니다 — 그 42곳은 여전히 아래 ①②의 두 단서를 그대로 답니다.
   그 42곳에는 언제나 **두 개의 단서가 함께 붙습니다**: ① 비교 상대가 **불을 전혀
