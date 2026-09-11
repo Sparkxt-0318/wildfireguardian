@@ -1,6 +1,6 @@
 {
   "_readme": "WFG-259 route (i). What the 영덕 present-perimeter partition does when the burning set is DILATED in NODE space -- a walk-graph node is refused when its Euclidean distance in projected metres to any node of the committed 162 is at most d. Widths 0, 100 and 500 m, pre-registered in claim commit 031214b before the run; 100 and 500 are the two already written in docs/present_perimeter_yeongdeok.md §5 item 5, so no width was chosen after the answer, and 0 is the identity control. This is NOT WFG-033(b) and does NOT nominate an opponent of record: that is NH-027 and the author's. Read docs/present_perimeter_yeongdeok.md §5 and §6 before quoting any number here.",
-  "written_at_utc": "2026-09-11T212851Z",
+  "written_at_utc": "2026-09-11T221256Z",
   "region": "yeongdeok-2025",
   "row": "WFG-259",
   "dilation_definition": "NODE space, Euclidean, projected metres: node refused iff min distance to any node of the base burning set (prob_at(x, y, 0.0) >= p_cut, the committed 162) is <= d. The RASTER reading -- dilate the burning cells and re-threshold -- is a different operation, was not run, and was not run afterwards to see whether it matches the prose better.",
@@ -130,6 +130,40 @@
       "n_target": 44
     }
   ],
+  "transition_matrix_from_zero": {
+    "_readme": "Full cross-tabulation of the d = 0 outcome against each width's, over the same 44 origins. Read any 「where did these come from」 sentence off THIS block: the marginal counts in buffer_sensitivity and transitions_out_of_still_entering do not compose, and two of them being equal does not make them the same set of origins.",
+    "cells": {
+      "w100m": {
+        "saved": {
+          "still_enters_forecast": 11,
+          "origin_removed_by_filter": 3,
+          "saved": 11,
+          "not_reached": 1
+        },
+        "still_enters_forecast": {
+          "still_enters_forecast": 15,
+          "saved": 1
+        },
+        "not_reached": {
+          "not_reached": 2
+        }
+      },
+      "w500m": {
+        "saved": {
+          "origin_removed_by_filter": 20,
+          "saved": 3,
+          "not_reached": 3
+        },
+        "still_enters_forecast": {
+          "saved": 15,
+          "origin_removed_by_filter": 1
+        },
+        "not_reached": {
+          "origin_removed_by_filter": 2
+        }
+      }
+    }
+  },
   "transitions_out_of_still_entering": [
     {
       "buffer_m": 100.0,

@@ -42,12 +42,20 @@ BAND = (
     "DOWN from the zero-buffer 26, because the dilated set swallows 23 of the 44 "
     "origins themselves and the arm then plans for only 21 of them at all. At "
     "100 m it saves 12. On these three widths the best-scoring opponent is the "
-    "ZERO-buffer one already committed. (3) THE MECHANISM, MEASURED. The origins "
-    "the zero-buffer arm saves are the ones NEAREST the fire, so a buffer "
-    "swallows them first: all 23 refused at 500 m come out of the 26 that were "
-    "saved, leaving 3 of them, and the 15 that flip come from the more distant "
-    "still-entering group. The flip count and the loss count are two halves of "
-    "one geometric fact and quoting the first alone inverts the conclusion. "
+    "ZERO-buffer one already committed. (3) THE MECHANISM, READ OFF THE "
+    "CROSS-TABULATION AND NOT INFERRED FROM MARGINALS. Of the 26 the zero-buffer "
+    "arm saved, the 500 m dilation refuses 20 outright, cuts 3 more off from every "
+    "refuge, and still saves 3; the 15 that flip come out of the more distant "
+    "still-entering group, and 3 + 15 = 18. ⚠ The 23 refused in total is NOT that "
+    "20: it also takes 2 from `not_reached` and 1 from `still_enters_forecast`. "
+    "The first draft of this band and of the page said 「all 23 come out of the 26」 "
+    "because two marginals both read 23, and WFG-259's independent reviewer blocked "
+    "the lap for it; `transition_matrix_from_zero` exists so that no later sentence "
+    "has to infer a joint count from two margins. The flip count and the loss count "
+    "are two halves of one geometric fact and quoting the first alone inverts the "
+    "conclusion. ⚠ The artifact holds NO distance field, so 「the saved origins are "
+    "the ones nearest the fire」 is a plausible reading of these cells and is NOT "
+    "measured by this run; it is not written on the page. "
     "(4) IT IS NOT AN OPPONENT OF RECORD AND NOT A MARGIN. A buffered arm scored "
     "as THE opponent is WFG-033(b) and NH-027, the author's; NH-032, NH-034 and "
     "NH-052 are open and no margin from this may reach a judge-facing surface. "
@@ -89,6 +97,34 @@ WIDTH_FIELDS = [
      "of the same 44, how many the dilation refuses OUTRIGHT because the origin's "
      "own node is inside the dilated set — the arm does not plan for them at all, "
      "and they are not 「saved」 and not 「still entering」"),
+    ("still_entering", "still_enters_forecast", "origins",
+     "of the same 44, how many the dilated arm still walks into the forecast"),
+    ("not_reached", "not_reached", "origins",
+     "of the same 44, how many are left with a plannable origin and NO route to any "
+     "refuge. ⚠ A different harm from `origins_refused`: the arm plans for them and "
+     "finds nothing, which is the graph being cut, not the origin being inside the "
+     "buffer"),
+]
+
+#: The cross-tabulation cells §7.2's mechanism sentence rests on. Registered because
+#: the first draft of that sentence inferred them from two equal marginals and was
+#: WRONG (WFG-259's independent reviewer): `origin_removed_by_filter` at 500 m and
+#: `n_saved_at_zero_that_stopped_being_saved` are both 23 and overlap in 20. A
+#: sentence about WHERE origins came from now quotes a registered cell or it is not
+#: written.
+MATRIX_FIELDS = [
+    ("w500m_refused_from_saved", "transition_matrix_from_zero.cells.w500m.saved."
+     "origin_removed_by_filter", "origins",
+     "of the 26 the ZERO-buffer arm saved, how many the 500 m dilation refuses "
+     "outright. ⚠ This is NOT the same as the 23 refused in total, which also "
+     "takes 2 from `not_reached` and 1 from `still_enters_forecast`"),
+    ("w500m_cut_off_from_saved", "transition_matrix_from_zero.cells.w500m.saved."
+     "not_reached", "origins",
+     "of the 26 the ZERO-buffer arm saved, how many the 500 m dilation leaves with "
+     "a plannable origin and no route to any refuge"),
+    ("w500m_still_saved_from_saved", "transition_matrix_from_zero.cells.w500m.saved."
+     "saved", "origins",
+     "of the 26 the ZERO-buffer arm saved, how many the 500 m dilation still saves"),
 ]
 
 #: The transition figure, one per non-zero width: out of the 16 that still entered
@@ -130,6 +166,7 @@ def figures(art: dict) -> list[tuple[str, str, str, str]]:
         out.append(("w%dm_%s" % (int(w), suffix),
                     "transitions_out_of_still_entering.%d.%s" % (i, field),
                     unit, "%s (dilation %.0f m)" % (derivation, w)))
+    out.extend(MATRIX_FIELDS)
     missing = set(WIDTHS) - seen
     if missing:
         raise SystemExit(

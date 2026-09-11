@@ -9,7 +9,7 @@ objection it answers); **run by:** the dev lap of 2026-09-11T1219Z.
 **§7 (WFG-259, 2026-09-11T2122Z) is a second run with its own script, artifact and
 prefix** — `scripts/measure_present_perimeter_yeongdeok_buffer.py`,
 `data/processed/present_perimeter_buffer_shape_yeongdeok_2025.json`,
-`ppy_yeongdeok_buf_*` (8 keys). It changes nothing above it. **§2's slice-0 figures are a
+`ppy_yeongdeok_buf_*` (15 keys). It changes nothing above it. **§2's slice-0 figures are a
 third** (`ppy_yeongdeok_slice0_`, WFG-260).
 
 ---
@@ -273,8 +273,12 @@ Artifact: `data/processed/present_perimeter_buffer_shape_yeongdeok_2025.json`.
 | dilation | nodes refused | of the same 44 origins: saved | still entering | not reached | origin refused outright |
 |---|---|---|---|---|---|
 | 0 m (committed) | 162 | 26 | 16 | 2 | 0 |
-| 100 m | `ppy_yeongdeok_buf_w100m_nodes_refused` 227 | `ppy_yeongdeok_buf_w100m_saved` 12 | 26 | 3 | `ppy_yeongdeok_buf_w100m_origins_refused` 3 |
-| 500 m | `ppy_yeongdeok_buf_w500m_nodes_refused` 890 | `ppy_yeongdeok_buf_w500m_saved` 18 | 0 | 3 | `ppy_yeongdeok_buf_w500m_origins_refused` 23 |
+| 100 m | `ppy_yeongdeok_buf_w100m_nodes_refused` 227 | `ppy_yeongdeok_buf_w100m_saved` 12 | `ppy_yeongdeok_buf_w100m_still_entering` 26 | `ppy_yeongdeok_buf_w100m_not_reached` 3 | `ppy_yeongdeok_buf_w100m_origins_refused` 3 |
+| 500 m | `ppy_yeongdeok_buf_w500m_nodes_refused` 890 | `ppy_yeongdeok_buf_w500m_saved` 18 | `ppy_yeongdeok_buf_w500m_still_entering` 0 | `ppy_yeongdeok_buf_w500m_not_reached` 3 | `ppy_yeongdeok_buf_w500m_origins_refused` 23 |
+
+*(Every cell of the two dilated rows carries a key. The first draft of this table left
+the middle two columns as bare integers, which is the same gate hole this row was filed
+against, one column over; WFG-259's independent reviewer named it.)*
 
 **§5 item 5's two figures reproduce, exactly.** At 100 m,
 `ppy_yeongdeok_buf_w100m_flipped_to_saved` **1** of the 16 origins that still entered the
@@ -289,14 +293,27 @@ is now re-derivable from a committed artifact.
 **12** at 100 m; **18** at 500 m. On these three widths the best-scoring opponent is the
 **zero-buffer one this page already committed**.
 
-The mechanism is geometric and the artifact records it per origin. The origins the
-zero-buffer arm saves are the ones **nearest the fire** — that is why a present-perimeter
-filter helps them at all — so a buffer swallows them first. At 500 m the dilated set
-contains the origin's own node for **23** of the 44, and the arm then does not plan for
-them at all: not saved, not still-entering, no route attempted. All 23 come out of the 26
-that were saved, leaving **3** of them; the 15 that flip come from the more distant
-still-entering group, and 3 + 15 = the 18 above. **The flip count and the loss count are two
-halves of one geometric fact, and quoting the first alone inverts the conclusion.**
+**Where the loss comes from, read off the cross-tabulation** — `transition_matrix_from_zero`
+in the artifact, which exists because the first draft of this paragraph inferred it from two
+marginal counts that both happen to read 23 and got it wrong (WFG-259's independent reviewer
+blocked the lap for it). Of the **26** the zero-buffer arm saved, the 500 m dilation:
+
+- refuses `ppy_yeongdeok_buf_w500m_refused_from_saved` **20** of them **outright** — the
+  origin's own node is inside the dilated set, so no route is attempted at all;
+- leaves `ppy_yeongdeok_buf_w500m_cut_off_from_saved` **3** more with a plannable origin and
+  **no route to any refuge**, which is a different harm and is counted separately;
+- still saves `ppy_yeongdeok_buf_w500m_still_saved_from_saved` **3**.
+
+3 + the 15 that flip out of the still-entering group = the **18** above. ⚠ The 23 refused in
+total is **not** that 20: it also takes 2 origins from `not_reached` and 1 from
+`still_enters_forecast`. **Marginal counts do not compose, and two of them being equal does
+not make them the same set of origins.**
+
+**The flip count and the loss count are two halves of one geometric fact, and quoting the
+first alone inverts the conclusion.** ⚠ Why the loss falls where it does — whether the
+origins a present-perimeter filter helps are the ones nearest the fire — is a plausible
+reading of these cells and **is not measured here**: the artifact holds outcome labels and
+no distance field, so this page does not assert it.
 
 So the reading that threatened the headline — 「500 m recovers all but one of the 42」 — is
 **not what the experiment says**, and it is registered as a forbidden phrasing on every key
@@ -322,7 +339,19 @@ width to find a better one has crossed into WFG-033(b).
    its own column for exactly the reason the zero-buffer run reports `not_reached`
    separately. Whether a county office would call such a household 「already inside the
    danger zone」 rather than 「unplannable」 is a question about policy that this run does
-   not answer and must not be quietly answered for it.
+   not answer and must not be quietly answered for it. ⚠⚠ **The alternative accounting is
+   written out here rather than left to be computed at a booth, because it is not
+   symmetric and it flips one row.** Count a refused origin as a non-loss instead of a
+   loss — that is, credit the arm with every origin it did not walk into the forecast —
+   and 100 m is **still** worse than zero buffer (12 + 3 against 26) while 500 m turns into
+   18 + 23 against 26, which reads the opposite way. **This page does not adopt that
+   accounting**, for the reason item 4 opens with: an origin the filter refuses has been
+   given no plan, and 「we did not route you into the fire because we did not route you」
+   is not a rescue. But a judge can do that arithmetic in ten seconds from the table above,
+   so the number is stated here with the objection attached rather than discovered at the
+   booth. ⚠ Under either accounting, the three origins the 500 m dilation cuts off from
+   every refuge are a loss, and neither reading makes the buffered arm the better opponent
+   at 100 m.
 5. ⚠⚠ **It does not license the sentence it was partly filed to license, and this is
    recorded rather than quietly dropped.** WFG-259's second half asked for a sentence saying
    that the fair opponent is systematically weakened by the coarseness of this project's own

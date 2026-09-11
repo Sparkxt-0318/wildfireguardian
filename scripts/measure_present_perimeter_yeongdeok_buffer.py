@@ -55,7 +55,9 @@ Three gates, and the run writes nothing if any of them fails:
    zero-buffer script already uses);
 2. the ``d = 0`` arm must reproduce the committed 26 / 16 / 2 **exactly**.  If the
    identity control does not reproduce, this harness is wrong and nothing
-   downstream means anything;
+   downstream means anything.  ``d = 0`` runs through the SAME distance code as
+   every other width and is additionally asserted to refuse exactly the base set,
+   so the control certifies the dilation arithmetic rather than stepping around it;
 3. the 100 m node set must be a **strict superset** of the 162, which is what the
    prose itself asserts.
 
@@ -122,13 +124,22 @@ def dilated_view(net, base: set[int], d: float) -> tuple[RoadNetwork, dict]:
     xy = np.array([net.node_xy(n) for n in nodes], dtype=float)
     base_idx = [i for i, n in enumerate(nodes) if n in base]
     bxy = xy[base_idx]
-    if d <= 0.0:
-        refused = set(base)
-    else:
-        # (n_nodes, n_base) is 8443 x 162 here; small enough to do flat.
-        d2 = ((xy[:, None, :] - bxy[None, :, :]) ** 2).sum(axis=2)
-        near = d2.min(axis=1) <= d * d
-        refused = {nodes[i] for i in np.nonzero(near)[0]}
+    # ⚠ NO special case for d = 0. An earlier draft short-circuited it to `set(base)`,
+    # which would have made the identity control certify everything EXCEPT the distance
+    # computation it exists to certify — the one line where a unit error or a wrong axis
+    # would live. d = 0 goes through the same code as every other width: a base node's
+    # distance to itself is 0 and is kept, and nothing else can be at distance 0 unless
+    # two nodes share coordinates, which the assertion below rules out in the same run.
+    # (n_nodes, n_base) is 8443 x 162 here; small enough to do flat.
+    d2 = ((xy[:, None, :] - bxy[None, :, :]) ** 2).sum(axis=2)
+    near = d2.min(axis=1) <= d * d
+    refused = {nodes[i] for i in np.nonzero(near)[0]}
+    if d <= 0.0 and refused != set(base):
+        raise SystemExit(
+            "the d = 0 dilation is not the identity: %d nodes refused against a base "
+            "set of %d. Two walk nodes share coordinates, or the distance computation "
+            "is wrong; either way no width below is trustworthy."
+            % (len(refused), len(base)))
     keep = set(nodes) - refused
     sub = net.graph.subgraph(keep).copy()
     view = RoadNetwork(graph=sub, shelters=set(net.shelters) & keep)
@@ -230,6 +241,25 @@ def main(argv: list[str] | None = None) -> int:
     # group, where does each origin land at each width?
     zero_map = per_origin_by_buffer[0.0]
     still_at_zero = sorted(o for o, v in zero_map.items() if v == "still_enters_forecast")
+
+    # ⚠ The FULL cross-tabulation, d = 0 against each width, written so that any
+    # sentence about WHERE an origin came from is read off the artifact rather than
+    # inferred from two marginal counts that happen to be equal. WFG-259's independent
+    # reviewer blocked this lap for exactly that: the first draft of §7.2 said 「all 23
+    # refused at 500 m come out of the 26 that were saved」 because
+    # origin_removed_by_filter (23) and n_saved_at_zero_that_stopped_being_saved (23)
+    # are both 23. They overlap in 20. Marginals do not compose; this block is why.
+    matrix = {}
+    for d in BUFFERS_M:
+        if d == 0.0:
+            continue
+        m = per_origin_by_buffer[d]
+        cell: dict[str, dict[str, int]] = {}
+        for o, before in zero_map.items():
+            cell.setdefault(before, {})
+            cell[before][m[o]] = cell[before].get(m[o], 0) + 1
+        matrix["w%dm" % int(d)] = cell  # NOT str(d): a dotted key breaks json_path
+
     transitions = []
     for d in BUFFERS_M:
         if d == 0.0:
@@ -297,6 +327,15 @@ def main(argv: list[str] | None = None) -> int:
                            "naive_into_FA_safe (42) plus no_safe_route (2)"),
         },
         "buffer_sensitivity": sensitivity,
+        "transition_matrix_from_zero": {
+            "_readme": (
+                "Full cross-tabulation of the d = 0 outcome against each width's, over "
+                "the same 44 origins. Read any 「where did these come from」 sentence off "
+                "THIS block: the marginal counts in buffer_sensitivity and "
+                "transitions_out_of_still_entering do not compose, and two of them being "
+                "equal does not make them the same set of origins."),
+            "cells": matrix,
+        },
         "transitions_out_of_still_entering": transitions,
         "per_origin": {str(int(o)): {str(d): per_origin_by_buffer[d][o] for d in BUFFERS_M}
                        for o in sorted(zero_map)},

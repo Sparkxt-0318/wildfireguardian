@@ -1,8 +1,8 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "031214b144be3bb095dd652be74ba2a47a64bcc5",
+  "generated_at_git_commit": "5c44b637bc9623349ce2e4745a081df2c4253438",
   "n_artifacts": 115,
-  "total_bytes": 14664895,
+  "total_bytes": 14665983,
   "total_mib": 13.99,
   "n_git_tracked": 115,
   "n_untracked_manifest_only": 0,
@@ -799,12 +799,13 @@
     },
     {
       "path": "data/processed/present_perimeter_buffer_shape_yeongdeok_2025.json",
-      "bytes": 12153,
-      "sha256": "ab5e546ae1a08d561a6dec234eff40a89b0dacffbf33a31d36d85aeb26194d93",
+      "bytes": 13241,
+      "sha256": "a77d3a3a85e6b158a5e8cceb62e9b23c0d3a99eae4734a5495b2f20c9ea631e2",
       "kind": "text",
       "git_tracked": true,
-      "n_registry_entries": 8,
+      "n_registry_entries": 15,
       "cited_by_docs": [
+        "docs/auto/BACKLOG.md",
         "docs/present_perimeter_yeongdeok.md"
       ],
       "regenerate": "python scripts/measure_present_perimeter_yeongdeok_buffer.py"

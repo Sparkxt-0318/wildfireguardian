@@ -100,6 +100,48 @@ def test_the_dilated_arm_saves_fewer_at_both_widths(rows) -> None:
     assert rows[500.0]["still_enters_forecast"] == 0
 
 
+def test_the_mechanism_is_read_off_the_cross_tab_and_not_off_two_marginals(art, rows) -> None:
+    """WFG-259's independent reviewer blocked this lap on exactly this arithmetic.
+
+    The first draft of §7.2 said 「all 23 refused at 500 m come out of the 26 that were
+    saved」, because `origin_removed_by_filter` at 500 m and
+    `n_saved_at_zero_that_stopped_being_saved` are BOTH 23. They overlap in 20. Marginal
+    counts do not compose, and two of them being equal does not make them the same set.
+    This test is what stops the shorter, wronger sentence coming back.
+    """
+    cells = art["transition_matrix_from_zero"]["cells"]["w500m"]
+    assert cells["saved"] == {"origin_removed_by_filter": 20, "not_reached": 3, "saved": 3}
+    assert sum(cells["saved"].values()) == rows[0.0]["saved"] == 26
+    # the 23 refused in total is NOT the 20 that came from `saved`
+    total_refused = sum(c.get("origin_removed_by_filter", 0) for c in cells.values())
+    assert total_refused == rows[500.0]["origin_removed_by_filter"] == 23
+    assert cells["saved"]["origin_removed_by_filter"] == 20 != total_refused
+    # and the 18 saved is 3 kept plus the 15 that flipped
+    assert cells["saved"]["saved"] + cells["still_enters_forecast"]["saved"] == 18
+    # every cross-tab column sums to its width's marginal, at both widths
+    for tag, d in (("w100m", 100.0), ("w500m", 500.0)):
+        for outcome in ("saved", "still_enters_forecast", "not_reached",
+                        "origin_removed_by_filter"):
+            got = sum(c.get(outcome, 0)
+                      for c in art["transition_matrix_from_zero"]["cells"][tag].values())
+            assert got == rows[d][outcome], f"{tag} {outcome}: {got} != {rows[d][outcome]}"
+
+
+def test_the_page_does_not_claim_the_saved_origins_are_the_nearest(art) -> None:
+    """The artifact holds outcome labels and no distance field, so the page may not say it.
+
+    An earlier draft of §7.2 offered 「the origins the zero-buffer arm saves are the ones
+    nearest the fire」 as something 「the artifact records per origin」. It records no such
+    thing. Graded structurally: if a distance field ever appears in the artifact this
+    test should be revisited rather than deleted.
+    """
+    blob = json.dumps(art, ensure_ascii=False)
+    assert "distance_to_fire" not in blob and "dist_m" not in blob
+    text = DOC.read_text(encoding="utf-8")
+    assert "the ones **nearest the fire** — that is why" not in text
+    assert "is not measured here" in text
+
+
 def test_every_buffer_row_accounts_for_all_44_origins(rows) -> None:
     for d, r in rows.items():
         total = (r["saved"] + r["still_enters_forecast"] + r["not_reached"]
@@ -111,7 +153,7 @@ def test_the_registry_keys_match_the_artifact_cell_for_cell(art) -> None:
     """Every ppy_yeongdeok_buf_ key re-derives from its own json_path."""
     numbers = json.loads(NUMBERS.read_text(encoding="utf-8"))["numbers"]
     keys = {k: v for k, v in numbers.items() if k.startswith(PREFIX)}
-    assert len(keys) == 8, f"expected 8 {PREFIX} keys, found {len(keys)}"
+    assert len(keys) == 15, f"expected 15 {PREFIX} keys, found {len(keys)}"
     for key, entry in keys.items():
         cur = art
         for part in entry["json_path"].split("."):
