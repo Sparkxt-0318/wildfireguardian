@@ -826,10 +826,17 @@ Framework for Wildfire Propagation Modeling and Dynamic Evacuation Routing」를
 나오는 「지금 걸어 나갈 수 있는가, 아니면 누구를 먼저 데리러 가는가」 판정이고, 그 판정이
 얼마나 틀릴 수 있는지를 잰 문서가 같이 있습니다(`docs/disc_null.md`, `docs/oracle_gap.md`).
 
-**방법도 한 군데 갈립니다.** 저쪽은 **D\* Lite 로 다시 계획합니다** — 비용면이 바뀌면 이미
+**방법도 한 군데 갈립니다.** 저쪽은 **OpenRouteService 로 경로를 내고**, 망이 닿지 않거나
+API 가 막히는 상황에서 **예비로 D\* Lite 격자 계획으로 넘어갑니다** — 비용면이 바뀌면 이미
 만든 경로를 고쳐 씁니다. 저희는 **시간확장 그래프** 위에서, 그 간선을 **걸어서 지나갈 그
 시각에** 지날 수 있는지로 값을 매깁니다. 앞의 것은 불이 움직인 뒤에 반응하고, 뒤의 것은
 걷는 사람이 **나중에 만날** 불을 미리 값으로 넣습니다.
+⚠ **「저쪽은 D\* Lite 입니다」라고 줄여 말하지 마십시오** (WFG-248, 2026-09-11). 초록이
+그것을 **fallback** 이라고 적어 두었습니다 — 「During API constraints or in wilderness
+scenarios, the system delegates to an internal D\* Lite heuristic grid fallback」. 이 카드는
+세 문단 아래에서 심사위원에게 그 DOI 를 그 자리에서 열어 보이라고 시키고, 열면 그 문장이
+심사위원 눈앞에 있습니다. 저희 **주 기법**을 저쪽 **예비 기법**과 견주는 비교가 되면,
+비교가 아니라 실수로 읽힙니다.
 
 **어디까지가 저쪽 범위인지도 같이 말씀드립니다.** 인도 **우타라칸드**이고, 도로와 **차량**
 경로 스택(OpenRouteService)이며, **경로 성능 수치는 보고되지 않았고**, 심사를 받지 않은

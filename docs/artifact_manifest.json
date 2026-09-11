@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "99dee9bb9614a524785fea8a3beef33b1453329c",
-  "n_artifacts": 109,
-  "total_bytes": 14626355,
+  "generated_at_git_commit": "f1084196b72fdb449019ccba2cf11a99cc7fd748",
+  "n_artifacts": 110,
+  "total_bytes": 14629553,
   "total_mib": 13.95,
-  "n_git_tracked": 109,
+  "n_git_tracked": 110,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 9,
   "artifacts": [
@@ -278,6 +278,16 @@
       "regenerate": "python scripts/measure_demo_script_pace.py --stamp 20260909T0321Z"
     },
     {
+      "path": "data/processed/demo_script_pace/pace_20260911T0326Z.json",
+      "bytes": 3198,
+      "sha256": "a98de1acf4e5feefbe4aa14b1b476e012eb100e0825b228175cc1f68ec33f994",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 2,
+      "cited_by_docs": [],
+      "regenerate": "python scripts/measure_demo_script_pace.py --stamp 20260911T0326Z"
+    },
+    {
       "path": "data/processed/demo_script_pace/pace_before_039a0de.json",
       "bytes": 3207,
       "sha256": "10c0862522d5deccc49bf97388c0970e472a0d5192aef690c2c9af1ca17ac896",
@@ -304,7 +314,8 @@
         "docs/auto/KCF_READINESS.md",
         "docs/auto/SCORECARD.md",
         "docs/auto/reports/2026-09-03T2239Z-dev.md",
-        "docs/auto/reports/2026-09-10T1426Z-critic.md"
+        "docs/auto/reports/2026-09-10T1426Z-critic.md",
+        "docs/auto/reports/2026-09-10T2214Z-dev.md"
       ],
       "regenerate": "python scripts/gk2a_detection.py"
     },
@@ -321,6 +332,7 @@
         "docs/auto/finals/DETECTION_FLOOR_CARD.md",
         "docs/auto/reports/2026-09-04T0149Z-manual.md",
         "docs/auto/reports/2026-09-04T0150Z-manual.md",
+        "docs/auto/reports/2026-09-10T2214Z-dev.md",
         "docs/auto/research/BACKLOG_PROPOSAL_2026-09-03.md",
         "docs/detection_floor.md",
         "docs/finals_screen_v2.md"
@@ -379,7 +391,8 @@
       "n_registry_entries": 84,
       "cited_by_docs": [
         "docs/auto/reports/2026-09-10T1620Z-dev.md",
-        "docs/disc_null.md"
+        "docs/disc_null.md",
+        "paper/GAPS.md"
       ],
       "regenerate": "python scripts/measure_disc_null.py"
     },
@@ -761,7 +774,6 @@
       "n_registry_entries": 5,
       "cited_by_docs": [
         "docs/auto/BACKLOG.md",
-        "docs/auto/CRITIC_LATEST.md",
         "docs/auto/NEEDS_HUMAN.md",
         "docs/auto/reports/2026-09-05T0317Z-manual.md",
         "docs/auto/reports/2026-09-05T0517Z-critic.md",
@@ -1062,9 +1074,12 @@
         "docs/REPRODUCE.md",
         "docs/SPREAD_MODEL_REPORT_BUILD_A_LEGACY.md",
         "docs/auto/BACKLOG.md",
+        "docs/auto/DIRECTION.md",
         "docs/auto/MEMO.md",
         "docs/auto/SCORECARD.md",
-        "docs/auto/reports/2026-09-10T1426Z-critic.md"
+        "docs/auto/reports/2026-09-10T1426Z-critic.md",
+        "docs/auto/reports/2026-09-10T2214Z-dev.md",
+        "docs/auto/reports/2026-09-10T2321Z-critic.md"
       ],
       "regenerate": "UNKNOWN"
     },
@@ -1180,6 +1195,7 @@
       "cited_by_docs": [
         "README.md",
         "docs/auto/BACKLOG.md",
+        "docs/auto/CRITIC_LATEST.md",
         "docs/auto/DIRECTION.md",
         "docs/auto/JUDGE_QA.md",
         "docs/auto/SCORECARD.md",
@@ -1334,13 +1350,13 @@
       "sha256": "11cb8a7f640b1958e12421125f70af76c9e9393ec689b5f7c865a9ad08225058",
       "kind": "text",
       "git_tracked": true,
-      "n_registry_entries": 6,
+      "n_registry_entries": 8,
       "cited_by_docs": [
         "docs/SESSION22_LOG.md",
         "docs/SESSION22_REPORT.md",
         "docs/finals_screen_v2.md"
       ],
-      "regenerate": "python scripts/build_finals.py"
+      "regenerate": "python scripts/refuge_placement.py --optimize --horizons --sweep --verify"
     },
     {
       "path": "data/processed/vulnerability/tautology_decomposition.json",

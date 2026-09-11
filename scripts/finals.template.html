@@ -1976,7 +1976,7 @@ function renderEvidence() {
         (siteRow ? ' (' + siteRow.label + ')' : ''),
         k1.value + ' → ' + k2.value,
         '도달 가능해지는 가구 수 (한 곳 → 두 곳)',
-        '보행망 노드 ' + cand.value.toLocaleString('en-US') +
+        '후보 지점 ' + cand.value.toLocaleString('en-US') +
         '곳을 전수 탐색했습니다. ' + R.horizon_min.toFixed(0) +
         '분 지평에서 도달에 실패하는 ' + R.failing_before +
         '가구 가운데, 대피 지점 한 곳을 더 두면 ' + k1.value +
@@ -1992,7 +1992,7 @@ function renderEvidence() {
         '가구가 남았습니다). 두 곳·세 곳의 값은 그렇게 확인되지 않았습니다. ' +
         '목적함수는 도달 가능성뿐이고 대피 지점이 화재에서 살아남는지는 묻지 않습니다. 생존 점검은 별도이며 ' +
         R.survival_evaluations +
-        '건의 지점 대 시나리오 평가에서 화재가 도달한 사례가 없어 그 필터는 구속되지 않았습니다. 모든 가구 수는 OSM 건물 스냅숏 위의 잠정치이고, 이것은 가정 아래의 기하학적 권고이지 입지 결정이 아닙니다.');
+        '건의 지점 대 시나리오 평가에서 화재가 도달한 사례가 없어 그 필터는 구속되지 않았습니다. 이 카드에는 서로 다른 세 모집단이 함께 있습니다: 전수 탐색한 후보 지점, 이 작품의 판정 단위인 지점(OSM 보행망 노드 하나), 그리고 가구 수가 세는 OSM 건물 스냅숏. 모든 가구 수는 OSM 건물 스냅숏 위의 잠정치이고, 이것은 가정 아래의 기하학적 권고이지 입지 결정이 아닙니다.');
       c.insertBefore(w, c.querySelector('.prov'));
     }
   }

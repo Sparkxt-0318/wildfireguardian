@@ -50,13 +50,13 @@ the paragraph above prices the defect against it. Every intermediate allocation 
 
 | 구간 | spoken syllables | seconds (before WFG-100) | seconds (now) | syl/s now |
 |---|---:|---:|---:|---:|
-| 도입 | 213 | 25 | **37** | 5.76 |
+| 도입 | 213 | 25 | **36** | 5.92 |
 | 1막 · 발견 | 246 | 45 | **42** | 5.86 |
-| 2막 · 시간이 도로망을 바꿉니다 | 280 | 55 | **48** | 5.83 |
-| 3막 · 같은 출발지, 두 개의 답 | 346 | 75 | **60** | 5.77 |
-| 4막 · 예측을 판단으로 | 331 | 55 | **57** | 5.81 |
-| 마무리 · 한계 | 328 | 45 | **56** | 5.86 |
-| **합계** | **1,744** | 300 | **300** | **5.81** |
+| 2막 · 시간이 도로망을 바꿉니다 | 280 | 55 | **47** | 5.96 |
+| 3막 · 같은 출발지, 두 개의 답 | 346 | 75 | **58** | 5.97 |
+| 4막 · 예측을 판단으로 | 331 | 55 | **56** | 5.91 |
+| 마무리 · 한계 | 360 | 45 | **61** | 5.90 |
+| **합계** | **1,776** | 300 | **300** | **5.92** |
 
 The 300 seconds are allocated in proportion to the syllable counts by largest remainder, so
 the six whole seconds still sum to exactly 300 without a fudge on the last segment. The
@@ -157,19 +157,33 @@ attempt asserted them from memory and its reviewer blocked on exactly that. Regi
 | `demo_pace_20260905t0947z_total_spoken_syllables` | 1692 | +8 — one spoken sentence in 3막 |
 | `demo_pace_20260909t0321z_rate_spread` | 1.02 | after WFG-194's sentence <!-- collision-ok: 1.02 — the spread at tag 20260909t0321z. The 1.02 two rows up is the same quantity at tag 20260905t0625z, and that the two agree to two decimals is arithmetic, not the same measurement: the syllable totals behind them are 1,684 and 1,744. -->|
 | `demo_pace_20260909t0321z_total_spoken_syllables` | 1744 | +52 — one spoken sentence in 도입 |
+| `demo_pace_20260911t0326z_rate_spread` | 1.02 | after WFG-247's sentence <!-- collision-ok: 1.02 — the spread at tag 20260911t0326z. The two 1.02 rows above are the same quantity at tags 20260905t0625z and 20260909t0321z; that all three agree to two decimals is what proportional allocation guarantees, not evidence that the same text was measured. The syllable totals behind them are 1,684, 1,744 and 1,776. -->|
+| `demo_pace_20260911t0326z_total_spoken_syllables` | 1776 | +32 — one spoken sentence in 마무리 |
 
 The per-segment rates and the variant tables are fields of those two artifacts rather than
 registry keys of their own.
 
 ## One thing the measurement does to itself
 
-The script's 마무리 segment says 「마지막 58초는…」 — **a number this allocation produced, inside
+The script's 마무리 segment says 「마지막 61초는…」 — **a number this allocation produced, inside
 the text the allocation is computed from.** The count is therefore a fixed point of itself.
-It did not bite here only because 사십오 and 오십팔 are both three syllables, so replacing 45
-with 58 changed no count. It would bite at 61 s (육십일, four syllables). **Anyone re-measuring
-must re-run the count after writing the new seconds into that sentence, not before**, and check
-that the allocation is still the one they wrote. The reviewer of this lap found this; no test
-catches it.
+It did not bite at 58 only because 사십오 and 오십팔 are both three syllables, so replacing 45
+with 58 changed no count. **Anyone re-measuring must re-run the count after writing the new
+seconds into that sentence, not before**, and check that the allocation is still the one they
+wrote. The reviewer of the WFG-100 lap found this; no test catches it.
+
+⚠ **CORRECTED 2026-09-11 (WFG-247), by running the case this paragraph predicted would break.**
+Until this lap the paragraph above ended 「It would bite at 61 s (육십일, four syllables)」, and
+WFG-247's re-budget moved 마무리 to exactly **61 s**. It did not bite. 육십일 is **three**
+Hangul syllable blocks, not four, so under the counting rule this page states — one block is
+one syllable — 「마지막 61초는」 and 「마지막 56초는」 both count **7**, measured with
+`count_syllables` in this lap's own process. The claim was arithmetic asserted from memory
+inside a page whose whole subject is not doing that, and it is corrected here rather than
+deleted (CHARTER §3.5) because the next re-measure is told by this section to look for it.
+**The mechanism is real and the example was wrong:** a fixed point still bites whenever the
+new second-count reads with a different number of blocks than the old one — 100 (백, 1) or
+9 (구, 1) against 61 (육십일, 3) — so the procedure stands unchanged. What no longer stands is
+the idea that 61 is such a value.
 
 ## Re-measuring after an edit
 
@@ -207,7 +221,8 @@ fixed-point reason above; the 도입 header's seconds are not spoken, but 마무
 | `039a0de` | `pace_before_039a0de.json` | before WFG-100 | 1,684 | 25 / 45 / 55 / 75 / 55 / 45 | 1.62 |
 | `20260905t0625z` | `pace_20260905T0625Z.json` | after WFG-100 | 1,684 | 29 / 44 / 50 / 60 / 59 / 58 | 1.02 |
 | `20260905t0947z` | `pace_20260905T0947Z.json` | after WFG-103 | 1,692 | 28 / 44 / 50 / 61 / 59 / 58 | 1.03 |
-| `20260909t0321z` | `pace_20260909T0321Z.json` | after WFG-194 (**ships**) | 1,744 | 37 / 42 / 48 / 60 / 57 / 56 | 1.02 |
+| `20260909t0321z` | `pace_20260909T0321Z.json` | after WFG-194 | 1,744 | 37 / 42 / 48 / 60 / 57 / 56 | 1.02 |
+| `20260911t0326z` | `pace_20260911T0326Z.json` | after WFG-247 (**ships**) | 1,776 | 36 / 42 / 47 / 58 / 56 / 61 | 1.02 |
 
 **What the third row cost, and what it bought.** WFG-103 replaced one spoken sentence in 3막 —
 the one that described the STATIC VIEW baseline as 「지금 이 순간만 보는 지도」 when the arm is

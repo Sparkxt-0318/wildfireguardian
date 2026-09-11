@@ -43,7 +43,7 @@ BAND = 0.05
 # The measurement whose keys the registry carries for the CURRENT text of the script. A
 # re-measure registers a NEW tag rather than editing these (CHARTER §3.2), and moves this
 # constant; the old entries stay as the record of what the script used to ask for.
-TAG = "20260909t0321z"
+TAG = "20260911t0326z"
 
 
 def _module():

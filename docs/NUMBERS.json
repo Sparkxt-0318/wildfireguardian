@@ -19522,6 +19522,152 @@
         "json_path": "per_fire.gangneung_2023.firms.n",
         "must_equal": "foldev_gangneung2023_firms_whole_fire_detections.value"
       }
+    },
+    "l0i_household_population": {
+      "value": 124.0,
+      "unit": "households",
+      "source_file": "data/processed/vulnerability/refuge_placement.json",
+      "json_path": "optimum_h240.baseline.n_households",
+      "derivation": "The population every l0i_ saved-household count is measured over: the OSM buildings in the 영덕 walk-graph snapshot, of which 24 fail to reach safety inside the 240-minute horizon before any refuge is added. So 「20가구」 reads 20 of 124, and 「24가구」 is all 24 of the failing set. Regenerate: python scripts/refuge_placement.py --optimize --horizons --sweep --verify",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "f1084196b72fdb449019ccba2cf11a99cc7fd748",
+      "sample": "영덕 2025, OSM 건물 124동(잠정), 기존 대피소 43곳, 지평 240분",
+      "caveat": "THE DENOMINATOR OF THE REFUGE-SITING ARM, NOT A CENSUS AND NOT THIS PROJECT'S OUTPUT UNIT. Two facts travel with it or it may not be quoted. (1) 124 is a count of OSM BUILDINGS in the 영덕 walk-graph snapshot, which is a different population from the 2,218 candidate SITES the search enumerates and a different population again from the 지점 (one node of the OSM walking graph) that docs/auto/JUDGE_QA.md Q20a defines as this project's own output unit. All three appear in the demo's closing 56 seconds and WFG-247 is the row for saying which is which where each is said. (2) ⚠ PROVISIONAL — it rests on the 124-building OSM snapshot, not on real 도로명주소 footprints (Session 21 blocked on a logged-in download, NH-005 still open). The same Overpass query returns 1,763 buildings for Mati and 988 for Paradise against 74-124 for 영덕, so rural Korean OSM coverage is sparse and every household count resting on it will move.",
+      "forbidden_phrasings": [
+        "영덕에 124가구가 산다",
+        "124 households live in Yeongdeok",
+        "전수 조사",
+        "a census of Yeongdeok households"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "both values are constants of the committed artifact and are re-read from it by scripts/verify_numbers.py",
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "arm": "L0_intervention",
+      "notes": "Session 22 artifact, registered 2026-09-11 by WFG-247. GEOMETRIC RECOMMENDATION under stated assumptions, not a siting decision.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/vulnerability/refuge_placement.json",
+            "json_path": "optimum_h240.baseline.n_households"
+          }
+        }
+      }
+    },
+    "l0i_walk_nodes_total": {
+      "value": 8443.0,
+      "unit": "nodes",
+      "source_file": "data/processed/vulnerability/refuge_placement.json",
+      "json_path": "optimum_h240.constraints.n_walk_nodes_total",
+      "derivation": "Walk-network nodes the candidate filter starts from, of which 2,218 survive it as candidate sites. Registered because the screen and the demo script both called 2,218 itself 「보행망 노드」, which named the filter's input with the filter's output. Regenerate: python scripts/refuge_placement.py --optimize --horizons --sweep --verify",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "f1084196b72fdb449019ccba2cf11a99cc7fd748",
+      "sample": "영덕 2025, OSM 건물 124동(잠정), 기존 대피소 43곳, 지평 240분",
+      "caveat": "THE DENOMINATOR OF THE REFUGE-SITING ARM, NOT A CENSUS AND NOT THIS PROJECT'S OUTPUT UNIT. Two facts travel with it or it may not be quoted. (1) 124 is a count of OSM BUILDINGS in the 영덕 walk-graph snapshot, which is a different population from the 2,218 candidate SITES the search enumerates and a different population again from the 지점 (one node of the OSM walking graph) that docs/auto/JUDGE_QA.md Q20a defines as this project's own output unit. All three appear in the demo's closing 56 seconds and WFG-247 is the row for saying which is which where each is said. (2) ⚠ PROVISIONAL — it rests on the 124-building OSM snapshot, not on real 도로명주소 footprints (Session 21 blocked on a logged-in download, NH-005 still open). The same Overpass query returns 1,763 buildings for Mati and 988 for Paradise against 74-124 for 영덕, so rural Korean OSM coverage is sparse and every household count resting on it will move.",
+      "forbidden_phrasings": [
+        "영덕에 124가구가 산다",
+        "124 households live in Yeongdeok",
+        "전수 조사",
+        "a census of Yeongdeok households"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "both values are constants of the committed artifact and are re-read from it by scripts/verify_numbers.py",
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "arm": "L0_intervention",
+      "notes": "Session 22 artifact, registered 2026-09-11 by WFG-247. GEOMETRIC RECOMMENDATION under stated assumptions, not a siting decision.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/vulnerability/refuge_placement.json",
+            "json_path": "optimum_h240.constraints.n_walk_nodes_total"
+          }
+        }
+      }
+    },
+    "demo_pace_20260911t0326z_total_spoken_syllables": {
+      "source_file": "data/processed/demo_script_pace/pace_20260911T0326Z.json",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "f1084196b72fdb449019ccba2cf11a99cc7fd748",
+      "sample": "docs/auto/DEMO_SCRIPT_5MIN.md §1, the six segments' > blockquote lines",
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_demo_script_pace.py --stamp <UTC> re-derives the artifact from the committed document",
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "arm": "booth_pace",
+      "forbidden_phrasings": [
+        "편안한 발화 속도",
+        "말할 수 있는 속도로 확인",
+        "리허설을 마쳤"
+      ],
+      "notes": "WFG-100. Bound to the document by tests/test_demo_script_pace.py. Editing a spoken line changes these values and the gate goes red until a NEW measurement is registered under a new tag; this entry is never edited (CHARTER §3.2).",
+      "value": 1776,
+      "unit": "syllables",
+      "json_path": "total_spoken_syllables",
+      "derivation": "sum of the six segments' spoken_syllables. Regenerate: python scripts/measure_demo_script_pace.py --stamp 20260911T0326Z",
+      "caveat": "A COUNT OF SYLLABLES, NOT A MEASUREMENT OF SPEECH. This is how many syllables the script asks the student to pronounce divided by the seconds it gives them; it does not say that rate is sayable, and no rehearsal has been run (R12 / NH-014). Counting rules in scripts/measure_demo_script_pace.py: Hangul syllable blocks, numerals read sino-Korean (an APPROXIMATION - Korean counter words take native numerals, and --variant native-counters measures what that approximation costs), symbols and Latin from an explicit lexicon.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/demo_script_pace/pace_20260911T0326Z.json",
+            "json_path": "total_spoken_syllables"
+          }
+        }
+      }
+    },
+    "demo_pace_20260911t0326z_rate_spread": {
+      "source_file": "data/processed/demo_script_pace/pace_20260911T0326Z.json",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "f1084196b72fdb449019ccba2cf11a99cc7fd748",
+      "sample": "docs/auto/DEMO_SCRIPT_5MIN.md §1, the six segments' > blockquote lines",
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_demo_script_pace.py --stamp <UTC> re-derives the artifact from the committed document",
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "arm": "booth_pace",
+      "forbidden_phrasings": [
+        "편안한 발화 속도",
+        "말할 수 있는 속도로 확인",
+        "리허설을 마쳤"
+      ],
+      "notes": "WFG-100. Bound to the document by tests/test_demo_script_pace.py. Editing a spoken line changes these values and the gate goes red until a NEW measurement is registered under a new tag; this entry is never edited (CHARTER §3.2).",
+      "value": 1.02,
+      "unit": "x",
+      "json_path": "implied_rate_spread",
+      "derivation": "fastest segment's syllables/s divided by the slowest segment's. Regenerate: python scripts/measure_demo_script_pace.py --stamp 20260911T0326Z",
+      "caveat": "A COUNT OF SYLLABLES, NOT A MEASUREMENT OF SPEECH. This is how many syllables the script asks the student to pronounce divided by the seconds it gives them; it does not say that rate is sayable, and no rehearsal has been run (R12 / NH-014). Counting rules in scripts/measure_demo_script_pace.py: Hangul syllable blocks, numerals read sino-Korean (an APPROXIMATION - Korean counter words take native numerals, and --variant native-counters measures what that approximation costs), symbols and Latin from an explicit lexicon. The SPREAD is the quantity WFG-100 is about: one document cannot have six different speaking rates and one stated method.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/demo_script_pace/pace_20260911T0326Z.json",
+            "json_path": "implied_rate_spread"
+          }
+        }
+      }
     }
   }
 }
