@@ -615,6 +615,14 @@ def test_the_registry_holds_nothing_the_families_do_not():
         (r"영덕에서는\s*그\s*비교를\s*아직\s*한\s*번도\s*하지\s*않았습니다",
          "wc019-yeongdeok-never-run-ko"),
         (r"비교는\s*의성[^.]{0,12}안동에서만\s*했", "wc019-yeongdeok-never-run-ko"),
+        # The English half, registered in the same lap once the paper routine's b0eb2d0
+        # closed WFG-258(b) and made it affordable: 2 live hits, both record lines in
+        # paper/GAPS.md, each licensed with a per-line pragma.
+        (r"but\s+not\s+over\s+these\s+458\s+origins", "wc019-yeongdeok-never-run-en"),
+        (r"substitution\s+has\s+not\s+been\s+made\s+on\s+the\s+canonical\s+Yeongdeok",
+         "wc019-yeongdeok-never-run-en"),
+        (r"(?:has\s+)?(?:been\s+)?run\s+on\s+only\s+one\s+region",
+         "wc019-yeongdeok-never-run-en"),
     }
     extra = ({(s["pattern"], s["token"]) for _cid, s in SPELLINGS}
              - in_files - reviewer_found - reachability - booth_kit_contents
@@ -856,6 +864,18 @@ def _probe_sentence(pattern: str) -> str:
         r"비교는\s*의성[^.]{0,12}안동에서만\s*했":
             "지금 불난 자리를 피하는 경로와의 비교는 의성·안동에서만 했고, "
             "영덕에서는 아직 하지 않았습니다.",
+        # WC-019, English half. Lifted verbatim from `git show 9cca03c:paper/manuscript.md`
+        # lines 414-418 and 716-722 -- the sentences the manuscript shipped and the paper
+        # routine removed at b0eb2d0, not sentences written for this test.
+        r"but\s+not\s+over\s+these\s+458\s+origins":
+            "That arm has since been run on a different region against that region's own "
+            "fire-blind contrast (Section 4.5), but not over these 458 origins.",
+        r"substitution\s+has\s+not\s+been\s+made\s+on\s+the\s+canonical\s+Yeongdeok":
+            "The same substitution has not been made on the canonical Yeongdeok field, so "
+            "the 42 of Section 4.3 remains a fire-blind contrast.",
+        r"(?:has\s+)?(?:been\s+)?run\s+on\s+only\s+one\s+region":
+            "**The counterfactual was weak, and the stronger one is run on only one "
+            "region.**",
         r"사람보다[^\n]{0,24}?(?:느[렸리린]|늦[었게은는]|뒤[에였])":
             "위성은 사람보다 22분 늦었습니다.",
         r"사람보다[^\n]{0,24}?(?:빠[르른릅]|이르|먼저|앞[서선])":
