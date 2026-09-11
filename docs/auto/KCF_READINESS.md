@@ -5,12 +5,23 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
-**Tick count, critic #62, 2026-09-10T2305Z at `f93af93`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
+**Tick count, critic #65, 2026-09-11T0810Z at `f7ee58d`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
 R3, R11 and R12 are the three that do not tick; R10 was withdrawn 2026-09-04.** ⚠⚠ **ZERO lines ticked, for
-the NINETEENTH consecutive critic lap, AND this window is not excused the way the last one was.** The count
-has stood at 8 since critic #43 ticked R8 at 2026-09-08T1429Z, and **the sprint ends 2026-09-15, five days
-out**. ⚠ This lead is rewritten by the lap that appends below it, which is what WFG-238 asks a gate to
-enforce; until that gate exists it is done by hand, deliberately, in the same commit as the append.
+the TWENTY-SECOND consecutive critic lap, and this window is not excused: it held two dev laps that closed
+five P0 rows and rebuilt the printed kit twice.** The count has stood at 8 since critic #43 ticked R8 at
+2026-09-08T1429Z, and **the sprint ends 2026-09-15, four days out**. ⚠ This lead is rewritten by the lap
+that appends to this file, which is what WFG-238 asks a gate to enforce; until that gate exists it is done
+by hand, deliberately, in the same commit as the append.
+
+⚠⚠ **This lead was TWO laps stale when critic #65 read it, and that is a live instance of WFG-238 rather
+than a note.** It named 「critic #62 ... NINETEENTH」 while critic #63 (`f48876a`) and critic #64 (`0a66c90`)
+had each appended a section to this file, both at the **bottom** (critic #64's at `:2098`), leaving the top
+of the product's definition-of-done page naming the lap before them. ⚠ The file's own ordering convention
+also split in the same two laps: sections for critics #58 to #62 are newest-first below this lead, and
+#63, #64 and this one are appended newest-last at the end. Critic #65 appends at the bottom to match the
+two most recent laps rather than moving anything, because moving a section silently invalidates every line
+citation made against it — which is the WFG-107 shape this file has now paid for seven times. Appended to
+**WFG-238**; not filed again.
 
 
 **Critic #62's re-read, 2026-09-10T2305Z at `f93af93`, counted from the checklist table rather than
@@ -2149,3 +2160,63 @@ the full chain and a new option E.
 WFG-237, WFG-244 and WFG-129 must all read or edit them. And critic #63's note on the household
 register is **not** re-stated, because this lap did not re-sweep it; per CHARTER §14c that note has
 therefore expired.
+
+---
+
+## Critic #65's re-read, 2026-09-11T0810Z at `f7ee58d`
+
+**8 of 11, unchanged, and ZERO lines ticked for the TWENTY-SECOND consecutive critic lap.** Counted from
+the checklist table rather than inherited from the lead above it. The three unticked lines and their causes
+are exactly as the single-point-of-failure table states: **R12** is the author's (NH-014), **R3** is
+`blocked(NH-046)` and no lap may reword a readiness line, **R11**'s row WFG-024 is held by CHARTER §14b
+until R3 ticks. R10 was withdrawn 2026-09-04. **There is still no path from any amount of loop work to a
+ninth tick**, and NH-046 is now past due.
+
+⚠⚠ **This window could tick something and did not, and the reason is worth stating precisely.** The window
+`6d4a60b..f7ee58d` holds two dev laps that closed **five** P0 rows (WFG-247, WFG-248, WFG-249, WFG-250,
+WFG-251), a research lap, two paper laps, and **two** rebuilds of the printed kit. Every one of those five
+rows was a repair to a judge-facing sentence. None of the three unticked lines asks about judge-facing
+sentences: R3 asks for a command, R11 for a date sweep, R12 for the author's laptop. So the zero is honest
+and it is still information about the **lines**, not about the laps.
+
+⭕ **R7 and R9 hold and were re-measured in this lap's own process, not read from a report.** The newest kit
+manifest, `docs/auto/finals/printables/manifest_20260911T0706Z.json`, hashes **7 of 7** source documents
+equal to the working tree: `BOOTH_SETUP.md`, `DEMO_SCRIPT_5MIN.md`, `JUDGE_QA.md`,
+`submission_reconciliation.md`, `DETECTION_FLOOR_CARD.md`, `creativity_card.md`, `RELATED_WORK_PANEL.md`.
+`release/kcf-finals-2026/MANIFEST.json` hashes **19 of 19** entries equal to their `source` paths and names
+`printables/WFG_printables_20260911T0706Z.pdf`, the newest stamp in the tree. The kit is **59 pages**, of
+which `docs/auto/JUDGE_QA.md` is **25** and `docs/auto/DEMO_SCRIPT_5MIN.md` is **8**.
+
+⚠⚠ **R5 and R7 hold their ticks AND this lap used those same hashes to prove a judge-facing defect, for the
+fourth consecutive lap (critic #57, #61, #62, this one).** R5 asks that every T0 answer cite a file and that
+no purged phrasing remain; `tests/test_judge_qa_bank.py` is green in the run below, Q36 cites its files, and
+nothing in it is a registered withdrawn spelling. What a green bank gate cannot see is a T0 card that is
+**false about this project's own method**: `docs/auto/JUDGE_QA.md:1513`, Q36, tier **T0**, says in its
+부스에서 할 말 quote 「같은 면적의 원을 **발화점에** 놓고」, and the disc's centre is **38.40 cells = 19.20 km**
+from the `ign_xy` the same array carries, against a largest-disc radius of **18.162** cells. Because the kit
+hashes 7 of 7, that sentence is on page 25 of the paper a judge carries away and not only in the tree.
+**A hash gate proves the paper matches the repository; it cannot prove the repository is right.** That is
+critic #61's sentence and it has now earned a fourth instance. **No tick is removed** — R5's criterion is
+citation and purged phrasing, and both are met — this is a 제출 자료 deduction and **WFG-254**, filed at
+position 1, whose Q36 half is this lap's one `fix-before-next-row` item.
+
+⭕ **R1 holds and both halves were checked separately.** `web/finals.html` is offline by gate inside the
+green `gates.py --mode full` at this head (**2097 passed**, 65 skipped, 3 xfailed). R1's other half asks that
+every on-screen number map to a registry key: the screen was rebuilt this window and its embedded payload's
+registry counts move together with `docs/NUMBERS.json`, which is the mapping holding rather than breaking.
+⚠ The 발화점 defect is **not** on the screen — a search of `web/finals.html` for that word returns nothing —
+so R1 is not touched by WFG-254.
+
+⭕ **R2, R4, R6 and R8 hold, unchanged, and nothing in this window reached them.**
+
+⚠ **No `Do NOT edit` note is written on this page by this lap** (CHARTER §14c). There is nothing here a lap
+would be tempted to edit wrongly today, and a note that froze the checklist table would block WFG-238 — whose
+live instance this lap repaired in the lead above rather than filing again.
+
+Measured at `f7ee58d`. `gates.py --mode full` exits **0** on its first run (2097 passed, 65 skipped,
+3 xfailed, pytest 493.5 s); `baseline-verify` WARNs on the two git-ignored `data/raw/**` contracts, which is
+NH-029 and CHARTER §3d working as decided. `--assert-head` exits 0 and `--assert-reported --base 6d4a60b`
+exits 0 over **70** substantive paths. GitHub `auto-gates` run **364** is `success` at this exact head and
+**no run in the window concluded `failure`** (one `cancelled`, 352, superseded by the next push). The clone
+is SHALLOW at **50** commits and was deliberately not deepened, so `tests/test_timeline_roles.py:234` SKIPS
+rather than runs here; GitHub at `fetch-depth: 0` is what certifies that check, and it is green.
