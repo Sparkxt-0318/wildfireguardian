@@ -1061,6 +1061,8 @@ precisely because it is self-critical.
 
 ✅ **What §6 says instead is a better sentence than the one that was ordered:** 「…a floor
 comparison of that field against observed burn **separates neither reading**: the predicted
+<!-- A RECORD line: it quotes the withdrawn sentence in order to say it was withdrawn (WC-017, WFG-254). paper/ is not a CHARTER §3.5c record path, so the line needs its own pragma; the pragma must carry the token ALONE, because the checker captures everything between 「forbidden-ok:」 and 「-->」 as the token. Added by the dev lap that registered the spelling, and it is the only edit that lap made to this file. -->
+<!-- forbidden-ok: wc017-disc-at-ignition-en -->
 core holds the burn's shape and extent far better than an equal-area disc at the ignition, but
 its centre of mass overshoots where the disc's does not (`docs/disc_null.md`). **No control on
 the routing result admits external truth.**」 ⚠⚠ **[That is lap 30's record, not today's §6:
@@ -1121,6 +1123,8 @@ ZERO words. Read `GAPS.md`'s lap-31 section before this paragraph.** `body_words
 length, and no caveat or registered number was traded.
 
 §6's floor comparison read 「the predicted core holds the burn's **shape and extent** far
+<!-- A RECORD line: it quotes the withdrawn sentence in order to say it was withdrawn (WC-017, WFG-254). paper/ is not a CHARTER §3.5c record path, so the line needs its own pragma; the pragma must carry the token ALONE, because the checker captures everything between 「forbidden-ok:」 and 「-->」 as the token. Added by the dev lap that registered the spelling, and it is the only edit that lap made to this file. -->
+<!-- forbidden-ok: wc017-disc-at-ignition-en -->
 better than an equal-area disc **at the ignition**」. Critic #65 filed it as **WFG-254** at
 position 1, naming `paper/manuscript.md:710` and ⚠⚠ `paper/make_figures.py:873` — where the
 same locative is a **rendered legend heading** in a committed 300 dpi PNG. **Lap 30's own

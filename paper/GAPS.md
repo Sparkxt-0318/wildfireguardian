@@ -106,6 +106,8 @@ clause and carries it.
 
 ### 3. The figure, which is the half a reader sees without reading
 
+<!-- A RECORD line: it quotes the withdrawn sentence in order to say it was withdrawn (WC-017, WFG-254). paper/ is not a CHARTER §3.5c record path, so the line needs its own pragma; the pragma must carry the token ALONE, because the checker captures everything between 「forbidden-ok:」 and 「-->」 as the token. Added by the dev lap that registered the spelling, and it is the only edit that lap made to this file. -->
+<!-- forbidden-ok: wc017-moved-from-ignition-en -->
 `F10_disc_null`'s panel (b) group heading read 「distance moved from the **ignition**」 over
 `seed_to_observed_m` (1,124.8 m) and `seed_to_model_m` (3,646.1 m), **both measured from the
 seed centroid**. It now reads 「distance moved from the **t = 0 seed centroid**」, which is
@@ -350,6 +352,8 @@ direction, in as many words.
 
 > 「…left unavoided under both policies; a floor comparison of that field against observed
 > burn **separates neither reading**: the predicted core holds the burn's shape and extent
+<!-- A RECORD line: it quotes the withdrawn sentence in order to say it was withdrawn (WC-017, WFG-254). paper/ is not a CHARTER §3.5c record path, so the line needs its own pragma; the pragma must carry the token ALONE, because the checker captures everything between 「forbidden-ok:」 and 「-->」 as the token. Added by the dev lap that registered the spelling, and it is the only edit that lap made to this file. -->
+<!-- forbidden-ok: wc017-disc-at-ignition-en -->
 > far better than an equal-area disc at the ignition, but its centre of mass overshoots where
 > the disc's does not (`docs/disc_null.md`). **No control on the routing result admits
 > external truth.**」

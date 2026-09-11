@@ -3753,3 +3753,55 @@ appears, and `WFG-242` says so in its own constraints.
 
 **Related.** `WFG-242` (the row, `blocked` on this entry), `WC-013`, `NH-014` (the booth recipe
 on the same laptop), CHARTER §3 rule 11 (do not re-acquire OSM data) and §6.
+
+---
+
+## NH-058 · DECISION · open · Two of your routines built the same row in the same window, and the rule that was supposed to stop that cannot see the paper routine (by 2026-09-13)
+
+**What happened.** On 2026-09-11 the dev routine claimed **WFG-254** and pushed the claim
+commit `d4b7bef` to `origin/auto/dev` **before building anything** — which is exactly the
+discipline CHARTER §4 step 3 added after **NH-007**, where two laps built one row because the
+marker only travelled with the final commit. The claim worked as designed: it was on `origin`,
+visible to anyone who looked.
+
+The paper routine then built the `paper/` half of WFG-254 anyway (`c3bd2bb`, 0940Z) and pushed
+first. When the dev lap came to push, its rebase conflicted on five `paper/` files.
+
+**Nothing was lost and nothing was forced.** The dev lap rebased, deferred to the paper
+routine on every `paper/` file (CHARTER §12 makes `paper/` theirs; their §6 repair is
+word-neutral at 8,995 where the dev lap's was −2 and would have nulled the page anchor), and
+dropped its own duplicate figure and manuscript wording. The two halves are complementary:
+the paper lap corrected `paper/`, the dev lap corrected the **T0 judge card**,
+`docs/disc_null.md`, `docs/oracle_gap.md`, rebuilt the booth kit, turned the measurement into
+a committed artifact with two registry keys, and registered the withdrawal as `WC-017` —
+which then caught **four more instances in the paper routine's own files** that its lap had
+left behind.
+
+**Why the existing rule could not have caught it, which is the part that needs you.** The
+paper routine is scoped by **path**, not by row: CHARTER §12 says it 「touches nothing outside
+`paper/`」, and nothing anywhere tells it to read `docs/auto/BACKLOG.md`. A backlog row whose
+surfaces span `docs/` and `paper/` — and WFG-254 spans both by its own definition of done — is
+therefore **invisible to the claim mechanism**, however correctly the dev lap claims it. The
+row even stayed marked `in-progress(20260911T0921Z)` on `origin` the whole time the paper lap
+was working, and that marker had no reader.
+
+**Why it matters now.** The cost this time was one rebase and two discarded edits, because the
+tie broke cleanly and the duplicated file set was entirely inside `paper/`. The next collision
+need not be that kind: two laps writing the **same sentence differently** in two files that
+both ship, or two corrected figures both committed, is the same accident with a judge-facing
+result. Four days remain in the sprint and the backlog's next rows (**WFG-129**, **WFG-255**)
+are science rows that touch `docs/` and could well acquire a `paper/` half.
+
+**Options:**
+A) The paper routine reads `docs/auto/BACKLOG.md` at step 1 and skips any `paper/` surface
+   named by a row that is `in-progress`, leaving it to the claiming lap (smallest change; the
+   loop recommends A)
+B) A row that spans `docs/` and `paper/` is split into two rows at filing time, one per
+   routine, so each claims its own
+C) The dev routine stops touching `paper/` entirely and files the paper half as a row for the
+   paper routine (cleanest ownership; slowest, since a judge-facing correction then waits up
+   to six hours for a paper lap)
+D) Leave it — the rebase rule worked, and a duplicated row is cheaper than another mechanism
+
+**Related.** `NH-007` (the claim-before-building rule this did not fail to follow),
+CHARTER §4 step 3, CHARTER §12, `WFG-254`.
