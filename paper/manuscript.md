@@ -86,9 +86,9 @@ both arms of Section 4.3 run over the same origins, network and field, so neithe
 routing layer's known approximations nor the coverage limit contaminates it. The
 operating point is weak, and owning that is part of the result. And the evaluation design
 is the transferable part: the discipline of matched controls of Section 3.5 is what six
-fires permit and a large dataset makes easy to skip. How much of the change the forecast
-itself is responsible for is a separate question, and Section 4.5 answers it on one region
-by replacing the baseline with a policy that needs no model: much less than the fire-blind
+fires permit and a large dataset makes easy to skip. How much of the change belongs to the
+forecast is a separate question, and Section 4.5 answers it on one region against a
+baseline that needs no model: much less than the fire-blind
 contrast implies. The non-claim is the dispatch ordering,
 which wins 0 of 180 configuration cells against nearest-first at the operating window.
 
@@ -226,8 +226,8 @@ nearest refuge without consulting the hazard, and a **forecast-aware** policy ap
 cutoff and the exposure objective. Origins are sampled by walking the graph's node list at
 a fixed stride of 18; they are walk-network locations and are never called households.
 
-Section 6 records this router's approximations, deliberately not fixed. All divide out of
-a paired contrast: both arms run through the same scoring function on the same field.
+Section 6 records this router's approximations, deliberately not fixed; all divide out of
+a paired contrast whose arms run through one scoring function on one field.
 
 ### 3.4 Rescue ingress and dispatch
 
@@ -281,10 +281,9 @@ A further limit, from the same month, is not about matching at all: some of this
 project's artifacts are
 *generated* from templates, and a sentence that had just been retired was corrected in one
 generated file while its template kept it. Nothing a reader saw was wrong and every gate
-passed, so the retired wording would have returned at the next rebuild. Had that sentence
-been a
-registered spelling the scan would have found it in the template, which it does
-read; it was not, so nothing did. The general point needs no registry: a correction
+passed, so the retired wording would have returned at the next rebuild.
+The scan does read templates but matches only registered
+spellings, and this was not one, so nothing caught it. The general point needs no registry: a correction
 to a generated file is one rebuild from being undone. The
 repair was two tests rather than more spellings — the generated file against its template
 line for line, and the data injected into it against a fresh run of the builder, field by
@@ -332,7 +331,7 @@ direction by a large ratio in permutation importance. That claim is **withdrawn*
 described here only as withdrawn: it compared the sum of six features against a single
 variable, and ERA5's 0.25° grid does not resolve the winds concerned.
 
-Two further results bear on how much of this skill is real. Correcting a defective
+Two further results bear on how real this skill is. Correcting a defective
 digital elevation model that had filled the East Sea with a ramp to -497 m across half of
 one fire's raster — training data for every fold, since training pools all six fires —
 moves mean-of-folds by +0.0048 and pooled by -0.0017. Two summaries of one re-run
@@ -386,10 +385,10 @@ now stated rather than defaulted.
 On the canonical Yeongdeok hazard field, 458 origins are scanned; the fire-blind route
 reaches a refuge without entering the predicted hazard for 414 of them and enters the
 hazard for 44. Of those 44, the forecast-aware router brings 42 to a refuge without
-entering the hazard and finds no route at all for 2 (Fig. 4; the routes and the origins
-themselves are mapped in Fig. 5). No origin falls into the
+entering the hazard and finds no route for 2 (Fig. 4; routes and origins are mapped
+in Fig. 5). No origin falls into the
 budget-exceeded class at 600 minutes, and none enters the hazard under the
-forecast-aware policy, which is structural: the policy refuses any node at or above the
+forecast-aware policy, which is structural: it refuses any node at or above the
 cutoff.
 
 ![Decision shift on the canonical Yeongdeok field. Left: the same 458 scanned origins under the fire-blind and the forecast-aware policies. Right: the predicted hazard core over the forecast horizon. The fire-blind arm consults no hazard at all, present or forecast, so the shift between the two bars is what hazard awareness of any kind buys and not what the forecast alone buys (Section 4.3, third caveat). The absolute rates on the left are computed on a walk network covering 32.6 % of the predicted fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. Not re-acquiring the region is deliberate: the walk box does not fit the simulation grid, so redrawing it would force re-extending the canvas and re-simulating the field, replacing a stated limit with an unstated one.](figures/F5_decision_shift.png)
@@ -413,8 +412,8 @@ movement between them is not a single-variable contrast and no per-origin ledger
 all, present or forecast, so the 42 measure what hazard awareness of any kind buys, not
 what the forecast alone buys: a router refusing only the cells alight at departure would
 recover an unmeasured share of them. This is a coupling effect, not a forecasting
-effect. That arm has since been run, on a different region and against that region's own
-fire-blind contrast, and Section 4.5 reports it; it has not been run over these 458 origins.
+effect. That arm has since been run on a different region against that region's own
+fire-blind contrast (Section 4.5), but not over these 458 origins.
 [GAP: the present-perimeter baseline over the canonical Yeongdeok origins, which is what
 would separate the two effects on this field rather than on another one]
 
@@ -447,7 +446,7 @@ safe route" rather than the forecast-aware bucket.
 
 Uiseong-Andong has no `amenity=fire_station` mapped inside its
 896.5 km² walk box, though the wider acquisition box contains six, so its responder side
-is recorded as not applicable rather than as zero dispatches.
+is recorded as not applicable rather than zero dispatches.
 
 One column of that table needs a qualification the next section's run supplied. The
 committed classification scores the fire-blind route under no time budget while the
@@ -456,9 +455,9 @@ rules. The over-budget column is the only bucket in the series that runs against
 system — its registered meaning is that the fire-blind route is safe and the forecast-aware
 route is not — and at Uiseong-Andong its 2 origins have fire-blind arrival times past that
 budget. Under one budget applied to both arms they are origins no arm saves, rather than
-origins on which the forecast lost. The two arrival times are values of the Section 4.5 arm
-and are withheld for the reason that section gives. The committed value is not moved and this
-paper reports the qualification rather than a correction. Yeongdeok's 0 cannot rise, since
+origins on which the forecast lost. The two arrival times belong to the Section 4.5 arm
+and are withheld for the reason that section gives; the committed value is not moved and
+this is a qualification, not a correction. Yeongdeok's 0 cannot rise, since
 budgeting the fire-blind arm only takes members out of this bucket. Uljin-Samcheok's 3 has
 not been re-read, and nothing is inferred from it.
 
@@ -608,7 +607,7 @@ one. What the analysis does establish is reproducibility: re-deriving
 Four of the six fires fall inside the GK2A archive and three produced a detection under
 the rule of Section 3.1 (Table 4). In each, the first satellite-detectable anomaly follows
 the fire's recorded occurrence time by 22 to 64 minutes. **That reference clock is the
-weakest part of the measurement and we do not lean on it**, for the reasons given in the
+weakest part of the measurement and we do not lean on it**, for the reasons in the
 caption and in Section 5.
 
 Table 4. First GK2A infrared anomaly at each archived fire, relative to that fire's recorded occurrence time. That reference is the `start` field of the project's fire manifest, which the manifest marks as provenance only, sources to no emergency-call record, and nowhere says what the field is; its relation both to the true ignition and to the emergency call is unestablished, so these are delays behind a recorded time and not detection-behind-report figures. FIRMS delays are for the same events against each event's own recorded report time, which differs from the GK2A reference by one minute at Uiseong-Andong and at Yeongdeok. Yeongdeok is a confounded case, not a miss: see the text.
@@ -651,12 +650,12 @@ Whether that is ahead of or behind the emergency call, this measurement cannot s
 a household needs to know whether its route is still passable on arrival, which makes a
 slow walker's arrival time a variable in the answer. Section 4.3 is the
 measurable form of that difference, and Section 4.5 bounds how much of it belongs to the
-forecast rather than to hazard awareness of any kind: on the one region where the stronger
-opponent has been built, most of the same origins are recovered by refusing where the fire
+forecast rather than to hazard awareness of any kind: on the one region with a stronger
+opponent, most of the same origins are recovered by refusing where the fire
 is now. It is not a
 claim that the system knows where the fire will be: the router needs ranking quality, not
 per-cell precision, because it cuts a cumulative, survival-accumulated surface at its own
-threshold. That the surface itself goes unchecked is the first limitation in Section 6.
+threshold. What that surface is worth against observed burn is Section 6's first limitation.
 
 **Why n = 6 forbids a threshold guarantee.** Section 4.2 quantifies why the intuition that
 a distribution-free method rescues a small-sample setting is wrong: small-N event datasets
@@ -684,12 +683,12 @@ column-addition envelope, and the claim that distance drives vulnerability was
 no fire at all. The same discipline stopped an input before it reached this paper: a
 designated-site subset labelled with a county name was refused when its points proved to
 lie outside that county's own study box — a label checked against the geometry it claims
-rather than against a code table. It was re-cut on the right administrative code and only
-then used as the inventory Section 6 reports.
+rather than against a code table — and was re-cut on the right administrative code before
+use as the inventory Section 6 reports.
 
 **What outside readers asked first.** Three domain researchers replied in writing to the
 author in September 2026; their comments are design feedback rather than data. One of them
-put two questions that nothing measured here answers: whether prioritising rescue need by
+put two questions nothing measured here answers: whether prioritising rescue need by
 age alone stays appropriate in an ageing population, and whether these results are usable
 without modelling how forest-fire suppression and residential emergency response divide
 roles during a fire.
@@ -706,8 +705,11 @@ in the 42 is one whose fire-blind route crosses a cell the *model* flagged and w
 forecast-aware route does not: a statement about two policies read on one surface, not
 that the fire went where the surface said. At Section 4.2's operating point the same
 evidence is consistent with detours around cells that never burned, and with burned cells
-the model never flagged left unavoided under both policies. Every control here perturbs
-the predicted field, so none admits external truth. [GAP: settling this needs a third
+the model never flagged left unavoided under both policies; a floor comparison of that
+field against observed burn separates neither reading: the predicted core holds the burn's
+shape and extent far better than an equal-area disc at the ignition, but its centre of mass
+overshoots where the disc's does not (`docs/disc_null.md`).
+No control on the routing result admits external truth. [GAP: settling this needs a third
 routing pass over the same 458 origins on the observed FIRMS footprint, reporting how many
 of the 42 fire-blind routes intersect observed burn inside the walker's arrival window.
 That field is committed on the same grid, on its own clock, an observation and not the
@@ -834,8 +836,8 @@ The rest of the contribution is the instrument, visible in what
 this paper declines to say: the operating point is reported rather than hidden, the
 conformal calibration is called vacuous at this sample size rather than dressed as a
 guarantee, the shipped dispatch ordering is reported as losing, the detection floor is
-reported without the stronger claim its own design notes had drawn from it because the
-clock that claim needs is unsourced, and withdrawn claims stay in the tree as withdrawn.
+reported without the stronger claim its design notes drew from it because the clock that
+claim needs is unsourced, and withdrawn claims stay in the tree as withdrawn.
 On a dataset this small, that discipline is the difference between a result and a
 coincidence, and it is the part of this work that transfers.
 

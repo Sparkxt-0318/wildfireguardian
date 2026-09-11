@@ -1007,6 +1007,98 @@ headroom** and 8,998 is **498 words over CHARTER §12's target of 8,500**. Laps 
 this is the first lap where it refused **two** obligations at once, one of them a citation.
 **NH-037 is the answer and it is still open.**
 
+✅⚠⚠ **Lap 30 is the one where a sentence of this manuscript turned out to have been FALSE for
+six laps — and where the amendment lap 29 ORDERED this lap to land turned out to be based on a
+wrong inference, which the independent reviewer proved from lap 29's own artifact. Read
+`GAPS.md`'s lap-30 section before this paragraph.** 8,998 → **8,995**: the document is
+**shorter than it started** and the next lap inherits **5** words of margin rather than the 2
+this one found, the first time since lap 12 that the margin has grown. Nothing carrying a
+caveat was compressed and no registered number was traded.
+
+**The false sentence.** §5 had been ending its coupling paragraph with 「**That the surface
+itself goes unchecked** is the first limitation in Section 6」. That is false, and has been
+since paper lap 24 incorporated `docs/oracle_gap.md` §4 — **IoU 0.3941** between the
+forward-simulated core and the observed FIRMS footprint — and doubly so since lap 29's window
+brought `docs/disc_null.md`. **The surface is checked. It has been checked twice. The
+manuscript said it was not.** It now reads 「What that surface is worth against observed burn is
+Section 6's first limitation」. ⚠ **Why nine laps read past it is the mechanism.** The sentence
+is a *cross-reference* — a paraphrase of §6's own heading, which is about the **routing result**
+and is still true today. The paraphrase stopped being true when the **field** acquired an
+external grade. No number moved, no registered spelling covers it, and **no gate here can tell
+a claim from a paraphrase of one.**
+
+⚠⚠ **And the amendment lap 29 ordered was WRONG.** That lap's ledger ends its §6 finding 「A
+thirtieth lap must not record this a second time without landing it」, on the reasoning that
+「**the overshoot breaks that symmetry against the paper**, making the first branch the measured
+one」. `data/processed/disc_null_yeongdeok.json` — **the artifact lap 29 itself shipped** —
+disproves it in one `json.load`: model false alarms against model misses run **262 / 507** at
+180 min, **418 / 403** at the headline slice, 438 / 394 at 540 and 460 / 411 at 720. The two
+error classes are **the same size to within 4 %** at the headline and **misses are nearly
+double** at the earliest slice, which favours the *second* reading two to one. **Nowhere does
+the first branch dominate.** The defect is a half-stated mechanism, and this lap wrote it out
+in full in its own draft: the core's mass travels 7.292 cells where the burn's travels 2.250,
+so moving it out there puts cells where nothing burned **and abandons the cells near the seed
+that did**. Both branches, from one displacement.
+
+⚠ **Two further objections the reviewer raised against the draft clause, both sound.** It drew
+a **routing-result** inference from a document whose own caveat band opens 「a floor for one
+metric on one fire, **not a validation and not a routing result**」 — in a lap that quotes that
+very section approvingly one clause later. And the paragraph's own GAP marker names the run
+that would settle it, so **asserting an unmeasured lean is a fabricated limitation under
+CHARTER §3 rule 5 even when the fabrication runs against the paper**, which is harder to catch
+precisely because it is self-critical.
+
+✅ **What §6 says instead is a better sentence than the one that was ordered:** 「…a floor
+comparison of that field against observed burn **separates neither reading**: the predicted
+core holds the burn's shape and extent far better than an equal-area disc at the ignition, but
+its centre of mass overshoots where the disc's does not (`docs/disc_null.md`). **No control on
+the routing result admits external truth.**」 It quotes **no number**, which is the registry's
+own requirement and not a dodge; it carries **both** caveats that scope the claim rather than
+the numbers — 「a **floor** comparison」, and **both halves of the pairing**, that rule being
+symmetric in both directions; and 「separates neither reading」 hands the question to the GAP
+marker two sentences later, where it belongs. ⚠ The control sentence **lost its mechanism
+rather than gaining a narrower one**, also the reviewer's finding: narrowing 「Every control
+**here**」 to 「on the routing result」 turned a vague deictic into an explicit universal without
+re-checking it against §4.6, where the flat-timing control, the budget sweep, the
+slope-sampling sweep and the OpenStreetMap re-acquisition all perturb something other than the
+predicted field. The load-bearing half is true of every one of them, so the false mechanism is
+**gone** rather than narrowed.
+
+⚠⚠ **What paid for it was FIFTEEN compressions — the draft of this block said fourteen, and
+the reviewer caught that too.** The corrections cost **+39**, measured in isolation on a
+pristine `git show HEAD:paper/manuscript.md` rather than quoted from an intermediate. **Eight
+passages were written back out**: two by the lap's own re-read, both outright defective
+antecedents, and six on the reviewer's findings, all degraded rather than false — among them
+§4.5's bare appositive whose nearest noun had become 「anything」, **the same class of defect the
+lap had just caught twice and did not catch a third time**. ⛔ **The honest statistic, much
+worse than the one the draft published: of 22 compression edits attempted, 15 survived — seven
+of twenty-two, 32 %, did not survive review.** 「2 in 14」 understated it by a factor of two, on
+a denominator the lap got wrong.
+
+⛔ **Still refused, at the size it is.** The disc null's **quantities** are nowhere in the paper
+— not `2.2044`, not the seed-removed pair, not the centroid metres — so a reviewer who reads
+「overshoots」 and asks 「by how much?」 asks a fair question the manuscript cannot answer.
+⚠ **The honest other half: the paper is not false without them**, and the sentence that matters
+— the model's advantage is **shape and not direction**, and the comparison settles **neither**
+reading of the 42 — is now in it. `F10_disc_null` is unreferenced for a second lap, and the
+ground has changed: lap 29 declined it because the argument was not in the body, and it now is.
+The new ground is the **author's** rule rather than the proxy — a figure 「costs a page and not
+one word」, the document measures **23** against the author's **25**, and spending one of two
+remaining pages on an illustration for a limitation clause is not this routine's call alone.
+
+⚠ **What this lap adds to NH-037 is one line, not a case.** The budget did not stop the
+correction, and the document came out shorter than it started. What it did was force a
+mandatory **+39** to be funded by editing fifteen other sentences with **seven of twenty-two
+attempts failing review** — so **the proxy now costs correctness at the margin, not only
+completeness.** ⛔ **The sharper lesson belongs to the routine rather than to the entry: lap 29
+ordered lap 30 to write a sentence its own artifact disproves, and lap 30 wrote it.** A prior
+lap's instruction is not evidence. The next lap that inherits one opens the artifact before it
+obeys. ✅ The anchor was **re-derived, not inherited**: after the one `apt` line below,
+`check_paper.py` took its measuring branch — **`pages 23, calibri_face Carlito, metrics_ok
+true`** — printing **`295bbc7453f1ad14`**. All ten figures redrew **byte-identical**. **Two
+pages against the author's 25, five words against the proxy's 9,000, measured on one document
+by one run.**
+
 ⚠ **The page that took the count from 22 to 23 cost eleven words, and it is worth
 knowing that before reading the words-to-pages table below as a rate.** Lap 11
 took the body 8,735 → 8,825 (a mandatory §4.5 correction, one clause, and the
