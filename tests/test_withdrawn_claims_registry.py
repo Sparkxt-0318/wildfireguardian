@@ -623,6 +623,23 @@ def test_the_registry_holds_nothing_the_families_do_not():
          "wc019-yeongdeok-never-run-en"),
         (r"(?:has\s+)?(?:been\s+)?run\s+on\s+only\s+one\s+region",
          "wc019-yeongdeok-never-run-en"),
+        # ⚠ WC-020, 2026-09-11T2122Z, and it is the SAME family for the second time
+        # in one day: the caveat WC-019 was deliberately NARROWED to -- 「the arm with
+        # a buffer added has still not been run on 영덕」 -- was itself falsified eight
+        # hours later by WFG-259, which ran that arm at the two widths the page had
+        # already named. The narrower claim is still true and still load-bearing (a
+        # SWEPT buffered arm scored as the opponent of record is WFG-033(b) / NH-027),
+        # so WC-020 narrows again rather than withdrawing. That a narrowing needed
+        # narrowing is the finding, and it is why both are registered: the honest
+        # caveat is the sentence a lap auditing its own prose is least likely to
+        # re-read, because it is hunting overclaims and this one reads as modesty.
+        (r"여유폭을\s*더한\s*\*{0,2}\s*상대는\s*영덕에서\s*(?:아직|여전히)\s*돌리지\s*않았",
+         "wc020-yeongdeok-buffered-never-run-ko"),
+        (r"완충거리를\s*더한\s*\*{0,2}\s*상대는\s*영덕에서\s*(?:아직|여전히)\s*돌리지\s*않았",
+         "wc020-yeongdeok-buffered-never-run-ko"),
+        (r"buffered\s+present\s+perimeter\s+is\s+a\s+DIFFERENT\s+experiment,\s*and"
+         r"\s+this\s+repository\s+has\s+not\s+run\s+it",
+         "wc020-yeongdeok-buffered-never-run-en"),
     }
     extra = ({(s["pattern"], s["token"]) for _cid, s in SPELLINGS}
              - in_files - reviewer_found - reachability - booth_kit_contents
@@ -1100,6 +1117,21 @@ def _probe_sentence(pattern: str) -> str:
         r"원판(?:을|보다)\s*이긴\s*축은\s*(?:\*\*)?\s*모양":
             "**모델이 원판을 이긴 축은 모양과 뻗은 거리이고(면적은 원판이 구조상 똑같이 "
             "맞춰 오므로 겨룰 축이 아닙니다), 무게중심은 불보다 멀리 나갑니다.**",
+        # WC-020, 2026-09-11T2122Z. All three lifted from the tree at `b5987b7`, the
+        # head this lap started from, and all three were true when written. The first
+        # is Q19's spoken draft; the second is README.md's Round-4 item, which says
+        # 완충거리 where the card says 여유폭; the third is the page's own §5 item 5.
+        # No outside source was needed: this lap's own run disproved them.
+        r"여유폭을\s*더한\s*\*{0,2}\s*상대는\s*영덕에서\s*(?:아직|여전히)\s*돌리지\s*않았":
+            "여유폭을 더한 상대는 영덕에서 아직 돌리지 않았습니다.",
+        r"완충거리를\s*더한\s*\*{0,2}\s*상대는\s*영덕에서\s*(?:아직|여전히)\s*돌리지\s*않았":
+            "때문입니다. **완충거리를 더한** 상대는 영덕에서 여전히 돌리지 않았고, 그 문서 "
+            "**5절 5항**이 그것을 적어 둡니다.",
+        r"buffered\s+present\s+perimeter\s+is\s+a\s+DIFFERENT\s+experiment,\s*and"
+        r"\s+this\s+repository\s+has\s+not\s+run\s+it":
+            "5. **A buffered present perimeter is a DIFFERENT experiment, and this "
+            "repository has not run it on 영덕. No direction may be asserted for it "
+            "here.**",
     }
     assert pattern in probes, (
         f"no probe sentence for a newly registered pattern:\n  {pattern}\n"

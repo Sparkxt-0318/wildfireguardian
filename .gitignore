@@ -181,6 +181,7 @@ data/processed/**
 # obs_stack[0]. Registered under ppy_yeongdeok_slice0_*, so tracked for the same
 # reason. Reads only the canonical npz and modifies nothing (CHARTER §3 rule 2).
 !data/processed/present_perimeter_yeongdeok_slice0_2025.json
+!data/processed/present_perimeter_buffer_shape_yeongdeok_2025.json
 !data/processed/canonical_hazard.json
 !data/processed/real_roads_real_hazard_canonical.json
 # Step 2: the 30/60/90 m slope sweep on the canonical field. The committed

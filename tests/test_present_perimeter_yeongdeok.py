@@ -104,8 +104,18 @@ def test_a_not_reached_origin_is_the_filter_and_the_artifact_says_so(art):
 #: deliberately shared, because it is what makes 「no ppy_yeongdeok_ count on a
 #: judge-facing surface while NH-059 is open」 a greppable rule; so the partition is
 #: made explicit here instead, and an unknown artifact under this prefix still fails.
+#: ⚠ WFG-259 adds a THIRD kind, and the partition above is why it had to declare
+#: itself here rather than slip in under the shared prefix: outcomes of the same
+#: routing run with the burning set DILATED, at the two widths §5 item 5 already
+#: named. It has its own artifact, its own `ppy_yeongdeok_buf_` sub-prefix, its own
+#: caveat band (scripts/register_ppy_yeongdeok_buffer.py) and its own tests
+#: (tests/test_ppy_yeongdeok_buffer.py), which is exactly the price this gate's
+#: message asks for. The shared `ppy_yeongdeok_` prefix is kept deliberately, so
+#: 「no ppy_yeongdeok_ count on a judge-facing surface while NH-059 is open」 stays
+#: one grep.
 _OUTCOMES = "data/processed/present_perimeter_yeongdeok_2025.json"
 _SLICE0 = "data/processed/present_perimeter_yeongdeok_slice0_2025.json"
+_DILATED = "data/processed/present_perimeter_buffer_shape_yeongdeok_2025.json"
 
 
 def test_the_registry_entries_are_the_artifact_s_own_values(art):
@@ -113,12 +123,13 @@ def test_the_registry_entries_are_the_artifact_s_own_values(art):
     keys = {k: v for k, v in numbers.items() if k.startswith("ppy_yeongdeok_")}
     assert keys, "no ppy_yeongdeok_ keys registered"
     strays = {k: v["source_file"] for k, v in keys.items()
-              if v["source_file"] not in (_OUTCOMES, _SLICE0)}
+              if v["source_file"] not in (_OUTCOMES, _SLICE0, _DILATED)}
     assert not strays, (
         f"ppy_yeongdeok_ keys from an unregistered artifact: {strays}. Every key "
-        "under this prefix is either an OUTCOME of the routing run or a property of "
-        "its INPUT FIELD; a third kind needs its own caveat band and its own test "
-        "before it is registered here."
+        "under this prefix is an OUTCOME of the zero-buffer routing run, a property "
+        "of its INPUT FIELD, or an outcome of the DILATED run at a pre-registered "
+        "width; a fourth kind needs its own caveat band and its own test before it "
+        "is registered here."
     )
     for key, entry in keys.items():
         if entry["source_file"] != _OUTCOMES:

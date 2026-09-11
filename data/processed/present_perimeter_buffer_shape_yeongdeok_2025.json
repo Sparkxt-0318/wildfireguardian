@@ -1,0 +1,392 @@
+{
+  "_readme": "WFG-259 route (i). What the 영덕 present-perimeter partition does when the burning set is DILATED in NODE space -- a walk-graph node is refused when its Euclidean distance in projected metres to any node of the committed 162 is at most d. Widths 0, 100 and 500 m, pre-registered in claim commit 031214b before the run; 100 and 500 are the two already written in docs/present_perimeter_yeongdeok.md §5 item 5, so no width was chosen after the answer, and 0 is the identity control. This is NOT WFG-033(b) and does NOT nominate an opponent of record: that is NH-027 and the author's. Read docs/present_perimeter_yeongdeok.md §5 and §6 before quoting any number here.",
+  "written_at_utc": "2026-09-11T212851Z",
+  "region": "yeongdeok-2025",
+  "row": "WFG-259",
+  "dilation_definition": "NODE space, Euclidean, projected metres: node refused iff min distance to any node of the base burning set (prob_at(x, y, 0.0) >= p_cut, the committed 162) is <= d. The RASTER reading -- dilate the burning cells and re-threshold -- is a different operation, was not run, and was not run afterwards to see whether it matches the prose better.",
+  "parameters": {
+    "max_abs_slope": 0.6,
+    "origin_scan_stride": 18,
+    "p_cut": 0.5,
+    "routing_objective": "length_m (distance-ranked)",
+    "slope_sampling_m": 60.0,
+    "source": "config/default.yaml — unchanged from every 459-series run",
+    "time_budget_min": 600.0,
+    "time_step_min": 10.0
+  },
+  "buffers_m": [
+    0.0,
+    100.0,
+    500.0
+  ],
+  "inputs": {
+    "canonical_npz": {
+      "path": "data/processed/routing_demo_canonical.npz",
+      "sha256": "81b4e4d159daa7a8ccc7c4fedf3fea948d501fff2d7e886c1fd55bbf47043fb7"
+    },
+    "canonical_json": {
+      "path": "data/processed/real_roads_real_hazard_canonical.json",
+      "sha256": "629f4d20510e22047406b391899a83e16792a7b3f395593af4f3f0274e7f4087"
+    },
+    "snapshots": {
+      "dem": {
+        "path": "data/snapshots/srtm-dem_yeongdeok-2025_20260723_66988bf5.tif",
+        "sha256": "66988bf5545dc4c3abf844a0e72122130ccb27583c9d421dd7228a8e2181ce46"
+      },
+      "walk": {
+        "path": "data/snapshots/osm-walk_yeongdeok-2025_20260724_2bff8d85.graphml.gz",
+        "sha256": "85ff8fd2eb0723480a5c9c84622b2a7e8d32f92e64af165d5ca7ffd24b4097f4"
+      },
+      "shelters": {
+        "path": "data/snapshots/osm-shelters_yeongdeok-2025_20260724_ac42a42b.geojson",
+        "sha256": "ac42a42be8c251b68c6f0c6f17f7513a976694f259731b794ef2a59a306f2c8c"
+      }
+    }
+  },
+  "reproduction_gate": {
+    "_readme": "The run writes nothing unless all three of these hold.",
+    "partition": {
+      "expected": {
+        "both_safe": 414,
+        "naive_into_FA_safe": 42,
+        "no_safe_route": 2,
+        "n_origins_scanned": 458
+      },
+      "recomputed": {
+        "both_safe": 414,
+        "naive_into_FA_safe": 42,
+        "no_safe_route": 2,
+        "n_origins_scanned": 458
+      }
+    },
+    "identity_control": {
+      "expected": {
+        "saved": 26,
+        "still_enters_forecast": 16,
+        "not_reached": 2,
+        "origin_removed_by_filter": 0
+      },
+      "recomputed": {
+        "saved": 26,
+        "still_enters_forecast": 16,
+        "not_reached": 2,
+        "origin_removed_by_filter": 0
+      }
+    },
+    "strict_superset_at_100m": {
+      "base_nodes": 162,
+      "at_100m": 227
+    },
+    "passed": true
+  },
+  "target_set": {
+    "n": 44,
+    "definition": "the same 44: every origin whose fire-blind route REACHES a refuge and ENTERS the forecast hazard, committed naive_into_FA_safe (42) plus no_safe_route (2)"
+  },
+  "buffer_sensitivity": [
+    {
+      "buffer_m": 0.0,
+      "n_nodes_before": 8443,
+      "n_nodes_removed": 162,
+      "n_nodes_after": 8281,
+      "n_edges_after": 21460,
+      "n_shelters_before": 46,
+      "n_shelters_removed": 1,
+      "n_shelters_after": 45,
+      "saved": 26,
+      "still_enters_forecast": 16,
+      "not_reached": 2,
+      "origin_removed_by_filter": 0,
+      "n_target": 44
+    },
+    {
+      "buffer_m": 100.0,
+      "n_nodes_before": 8443,
+      "n_nodes_removed": 227,
+      "n_nodes_after": 8216,
+      "n_edges_after": 21278,
+      "n_shelters_before": 46,
+      "n_shelters_removed": 2,
+      "n_shelters_after": 44,
+      "saved": 12,
+      "still_enters_forecast": 26,
+      "not_reached": 3,
+      "origin_removed_by_filter": 3,
+      "n_target": 44
+    },
+    {
+      "buffer_m": 500.0,
+      "n_nodes_before": 8443,
+      "n_nodes_removed": 890,
+      "n_nodes_after": 7553,
+      "n_edges_after": 19630,
+      "n_shelters_before": 46,
+      "n_shelters_removed": 4,
+      "n_shelters_after": 42,
+      "saved": 18,
+      "still_enters_forecast": 0,
+      "not_reached": 3,
+      "origin_removed_by_filter": 23,
+      "n_target": 44
+    }
+  ],
+  "transitions_out_of_still_entering": [
+    {
+      "buffer_m": 100.0,
+      "n_still_entering_at_zero": 16,
+      "n_of_those_now_saved": 1,
+      "origins_now_saved": [
+        11935180417
+      ],
+      "n_of_those_now_not_reached": 0,
+      "n_saved_at_zero_that_stopped_being_saved": 15
+    },
+    {
+      "buffer_m": 500.0,
+      "n_still_entering_at_zero": 16,
+      "n_of_those_now_saved": 15,
+      "origins_now_saved": [
+        437092406,
+        437251315,
+        6205151092,
+        6205151247,
+        11835362539,
+        11935180417,
+        12031801689,
+        12031801844,
+        12031802043,
+        12031802126,
+        12031802225,
+        12044832090,
+        12045046266,
+        12045202467,
+        12058544389
+      ],
+      "n_of_those_now_not_reached": 1,
+      "n_saved_at_zero_that_stopped_being_saved": 23
+    }
+  ],
+  "per_origin": {
+    "436594451": {
+      "0.0": "saved",
+      "100.0": "still_enters_forecast",
+      "500.0": "origin_removed_by_filter"
+    },
+    "437092406": {
+      "0.0": "still_enters_forecast",
+      "100.0": "still_enters_forecast",
+      "500.0": "saved"
+    },
+    "437251315": {
+      "0.0": "still_enters_forecast",
+      "100.0": "still_enters_forecast",
+      "500.0": "saved"
+    },
+    "5274412772": {
+      "0.0": "not_reached",
+      "100.0": "not_reached",
+      "500.0": "origin_removed_by_filter"
+    },
+    "6205151092": {
+      "0.0": "still_enters_forecast",
+      "100.0": "still_enters_forecast",
+      "500.0": "saved"
+    },
+    "6205151247": {
+      "0.0": "still_enters_forecast",
+      "100.0": "still_enters_forecast",
+      "500.0": "saved"
+    },
+    "8814008933": {
+      "0.0": "saved",
+      "100.0": "origin_removed_by_filter",
+      "500.0": "origin_removed_by_filter"
+    },
+    "9468449211": {
+      "0.0": "saved",
+      "100.0": "still_enters_forecast",
+      "500.0": "origin_removed_by_filter"
+    },
+    "11825850690": {
+      "0.0": "saved",
+      "100.0": "saved",
+      "500.0": "saved"
+    },
+    "11830469236": {
+      "0.0": "saved",
+      "100.0": "saved",
+      "500.0": "saved"
+    },
+    "11835362539": {
+      "0.0": "still_enters_forecast",
+      "100.0": "still_enters_forecast",
+      "500.0": "saved"
+    },
+    "11910567899": {
+      "0.0": "saved",
+      "100.0": "saved",
+      "500.0": "not_reached"
+    },
+    "11910568190": {
+      "0.0": "saved",
+      "100.0": "saved",
+      "500.0": "origin_removed_by_filter"
+    },
+    "11933421715": {
+      "0.0": "saved",
+      "100.0": "saved",
+      "500.0": "origin_removed_by_filter"
+    },
+    "11933582638": {
+      "0.0": "saved",
+      "100.0": "saved",
+      "500.0": "origin_removed_by_filter"
+    },
+    "11933582977": {
+      "0.0": "not_reached",
+      "100.0": "not_reached",
+      "500.0": "origin_removed_by_filter"
+    },
+    "11935180417": {
+      "0.0": "still_enters_forecast",
+      "100.0": "saved",
+      "500.0": "saved"
+    },
+    "11947135998": {
+      "0.0": "saved",
+      "100.0": "saved",
+      "500.0": "origin_removed_by_filter"
+    },
+    "11976273083": {
+      "0.0": "saved",
+      "100.0": "saved",
+      "500.0": "origin_removed_by_filter"
+    },
+    "11976273201": {
+      "0.0": "saved",
+      "100.0": "saved",
+      "500.0": "origin_removed_by_filter"
+    },
+    "11982470744": {
+      "0.0": "saved",
+      "100.0": "origin_removed_by_filter",
+      "500.0": "origin_removed_by_filter"
+    },
+    "11982470791": {
+      "0.0": "saved",
+      "100.0": "origin_removed_by_filter",
+      "500.0": "origin_removed_by_filter"
+    },
+    "11982471029": {
+      "0.0": "saved",
+      "100.0": "still_enters_forecast",
+      "500.0": "origin_removed_by_filter"
+    },
+    "11991968878": {
+      "0.0": "saved",
+      "100.0": "still_enters_forecast",
+      "500.0": "origin_removed_by_filter"
+    },
+    "11991968974": {
+      "0.0": "saved",
+      "100.0": "still_enters_forecast",
+      "500.0": "origin_removed_by_filter"
+    },
+    "11992067360": {
+      "0.0": "saved",
+      "100.0": "still_enters_forecast",
+      "500.0": "origin_removed_by_filter"
+    },
+    "11992071592": {
+      "0.0": "saved",
+      "100.0": "still_enters_forecast",
+      "500.0": "origin_removed_by_filter"
+    },
+    "11993125283": {
+      "0.0": "saved",
+      "100.0": "still_enters_forecast",
+      "500.0": "not_reached"
+    },
+    "11993125785": {
+      "0.0": "saved",
+      "100.0": "still_enters_forecast",
+      "500.0": "origin_removed_by_filter"
+    },
+    "11993250366": {
+      "0.0": "saved",
+      "100.0": "still_enters_forecast",
+      "500.0": "origin_removed_by_filter"
+    },
+    "11999581403": {
+      "0.0": "saved",
+      "100.0": "still_enters_forecast",
+      "500.0": "origin_removed_by_filter"
+    },
+    "11999581724": {
+      "0.0": "saved",
+      "100.0": "not_reached",
+      "500.0": "origin_removed_by_filter"
+    },
+    "12029704902": {
+      "0.0": "still_enters_forecast",
+      "100.0": "still_enters_forecast",
+      "500.0": "origin_removed_by_filter"
+    },
+    "12031458632": {
+      "0.0": "saved",
+      "100.0": "saved",
+      "500.0": "saved"
+    },
+    "12031801689": {
+      "0.0": "still_enters_forecast",
+      "100.0": "still_enters_forecast",
+      "500.0": "saved"
+    },
+    "12031801844": {
+      "0.0": "still_enters_forecast",
+      "100.0": "still_enters_forecast",
+      "500.0": "saved"
+    },
+    "12031802043": {
+      "0.0": "still_enters_forecast",
+      "100.0": "still_enters_forecast",
+      "500.0": "saved"
+    },
+    "12031802126": {
+      "0.0": "still_enters_forecast",
+      "100.0": "still_enters_forecast",
+      "500.0": "saved"
+    },
+    "12031802225": {
+      "0.0": "still_enters_forecast",
+      "100.0": "still_enters_forecast",
+      "500.0": "saved"
+    },
+    "12044832090": {
+      "0.0": "still_enters_forecast",
+      "100.0": "still_enters_forecast",
+      "500.0": "saved"
+    },
+    "12045046266": {
+      "0.0": "still_enters_forecast",
+      "100.0": "still_enters_forecast",
+      "500.0": "saved"
+    },
+    "12045202467": {
+      "0.0": "still_enters_forecast",
+      "100.0": "still_enters_forecast",
+      "500.0": "saved"
+    },
+    "12048662505": {
+      "0.0": "saved",
+      "100.0": "saved",
+      "500.0": "not_reached"
+    },
+    "12058544389": {
+      "0.0": "still_enters_forecast",
+      "100.0": "still_enters_forecast",
+      "500.0": "saved"
+    }
+  },
+  "what_this_is_not": "It is NOT a margin and must not be spoken as one: NH-032, NH-034 and NH-052 are open. It is NOT a proposal of a new opponent of record -- a buffered present-perimeter arm scored as THE opponent is WFG-033(b) and NH-027, and the author's. It is NOT a sweep: three widths, two of them taken verbatim from prose written before this run, and a later lap that adds a width to find a better one has crossed into WFG-033(b). It does NOT move the committed 414 / 42 / 2 or the committed 26 / 16 / 2; both re-derived here before anything was written. It is ONE fire, ONE region, ONE horizon, and the canonical field's 32.6 % envelope-coverage caveat applies unchanged. ⚠ And it does NOT measure the effect of the INPUT's coarseness. Dilating grows one observation's burning set; coarseness is about a 226-component detection scatter standing in for a fire line (WFG-260). The dilation CONSTRAINS the direction of that bias -- it shows which way the outcome moves when the refused set grows -- and does not establish it."
+}

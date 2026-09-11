@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "2213b7b2629c17cce4ed24dbf8e4897eb1cccfe6",
-  "n_artifacts": 114,
-  "total_bytes": 14652742,
-  "total_mib": 13.97,
-  "n_git_tracked": 114,
+  "generated_at_git_commit": "031214b144be3bb095dd652be74ba2a47a64bcc5",
+  "n_artifacts": 115,
+  "total_bytes": 14664895,
+  "total_mib": 13.99,
+  "n_git_tracked": 115,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 9,
   "artifacts": [
@@ -433,7 +433,10 @@
         "docs/auto/reports/2026-09-11T1117Z-dev.md",
         "docs/auto/reports/2026-09-11T1156Z-critic.md",
         "docs/auto/reports/2026-09-11T1305Z-dev.md",
+        "docs/auto/reports/2026-09-11T1852Z-dev.md",
+        "docs/auto/reports/2026-09-11T1923Z-dev.md",
         "docs/disc_null.md",
+        "docs/present_perimeter_yeongdeok.md",
         "docs/withdrawn_claims.md",
         "paper/GAPS.md",
         "paper/README.md"
@@ -795,6 +798,18 @@
       "regenerate": "python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json"
     },
     {
+      "path": "data/processed/present_perimeter_buffer_shape_yeongdeok_2025.json",
+      "bytes": 12153,
+      "sha256": "ab5e546ae1a08d561a6dec234eff40a89b0dacffbf33a31d36d85aeb26194d93",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 8,
+      "cited_by_docs": [
+        "docs/present_perimeter_yeongdeok.md"
+      ],
+      "regenerate": "python scripts/measure_present_perimeter_yeongdeok_buffer.py"
+    },
+    {
       "path": "data/processed/present_perimeter_yeongdeok_2025.json",
       "bytes": 15381,
       "sha256": "1492b424900449ea4996b349a17908d8b9edb5f172bf8f80155a1069001e827b",
@@ -803,6 +818,7 @@
       "n_registry_entries": 6,
       "cited_by_docs": [
         "docs/auto/BACKLOG.md",
+        "docs/auto/CRITIC_LATEST.md",
         "docs/auto/NEEDS_HUMAN.md",
         "docs/auto/SCORECARD.md",
         "docs/auto/reports/2026-09-11T1305Z-dev.md",
@@ -820,8 +836,10 @@
       "sha256": "0734e25051009efb047c4a9ca752abafd703d3792386c0bbc8f4cf6390d0e3f2",
       "kind": "text",
       "git_tracked": true,
-      "n_registry_entries": 2,
+      "n_registry_entries": 1,
       "cited_by_docs": [
+        "docs/auto/reports/2026-09-11T1852Z-dev.md",
+        "docs/auto/reports/2026-09-11T1923Z-dev.md",
         "docs/present_perimeter_yeongdeok.md"
       ],
       "regenerate": "python scripts/measure_slice0_is_observation.py"
@@ -1070,6 +1088,7 @@
       "n_registry_entries": 0,
       "cited_by_docs": [
         "docs/auto/BACKLOG.md",
+        "docs/auto/CRITIC_LATEST.md",
         "docs/auto/JUDGE_QA.md",
         "docs/auto/MEMO.md",
         "docs/auto/NEEDS_HUMAN.md",
@@ -1083,6 +1102,9 @@
         "docs/auto/reports/2026-09-10T0952Z-dev.md",
         "docs/auto/reports/2026-09-11T0825Z-critic.md",
         "docs/auto/reports/2026-09-11T0940Z-manual.md",
+        "docs/auto/reports/2026-09-11T1852Z-dev.md",
+        "docs/auto/reports/2026-09-11T1923Z-dev.md",
+        "docs/auto/reports/2026-09-11T2022Z-critic.md",
         "docs/live_pipeline.md",
         "docs/manual_trigger.md",
         "docs/oracle_gap.md",

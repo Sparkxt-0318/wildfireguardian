@@ -4,7 +4,13 @@
 **Method proposed by:** the loop (G7 wrote the recipe; three earlier critic laps wrote the
 objection it answers); **run by:** the dev lap of 2026-09-11T1219Z.
 **Artifact:** `data/processed/present_perimeter_yeongdeok_2025.json`
-**Script:** `scripts/measure_present_perimeter_yeongdeok.py` · **Registry:** `ppy_yeongdeok_*` (6 keys)
+**Script:** `scripts/measure_present_perimeter_yeongdeok.py` · **Registry:** the six
+`ppy_yeongdeok_` outcome keys §4 names.
+**§7 (WFG-259, 2026-09-11T2122Z) is a second run with its own script, artifact and
+prefix** — `scripts/measure_present_perimeter_yeongdeok_buffer.py`,
+`data/processed/present_perimeter_buffer_shape_yeongdeok_2025.json`,
+`ppy_yeongdeok_buf_*` (8 keys). It changes nothing above it. **§2's slice-0 figures are a
+third** (`ppy_yeongdeok_slice0_`, WFG-260).
 
 ---
 
@@ -153,16 +159,28 @@ registered, because no page quotes them).
 4. **One fire, one region, one horizon, one opponent.** The canonical field's own
    envelope-coverage caveat (32.6 % of the final-slice core inside the routing extent)
    applies to this run unchanged, and a second fire could split the 44 any other way.
-5. **A buffered present perimeter is a DIFFERENT experiment, and this repository has not
-   run it on 영덕. No direction may be asserted for it here.** ⚠⚠ The first draft of this
+5. **A buffered present perimeter, swept and scored as the project's opponent of record,
+   is a DIFFERENT experiment and this repository has not run it on 영덕. No direction may
+   be asserted for that arm here.** ⚠ **Narrowed 2026-09-11T2122Z (WFG-259, `WC-020`):**
+   §7 below runs the two widths **this item itself names**, to make this item's own
+   figures re-derivable. It sweeps nothing, chooses nothing and nominates no opponent, and
+   the un-run experiment above is still un-run. ⚠⚠ The first draft of this
    section said the opposite — that widening the buffer removes more nodes and so can only
    move an origin **out of** `saved`, never into it — and **that is false**. This lap's
    independent reviewer nailed it in the lap, on this lap's own code and this artifact's
    own origin ids: `naive_route` is shortest-path-by-length **scored afterwards**, so
-   deleting nodes **reroutes** it, and a reroute can land clear of the forecast. Dilating
-   the burning set to a strict superset of the 162 at 100 m moves origin `11935180417`
-   from `still_enters_forecast` to **`saved`** — the transition the draft said could never
-   happen — and at 500 m, 15 of the 16 flip. The repository already knew this and the
+   deleting nodes **reroutes** it, and a reroute can land clear of the forecast. ⚠ **That
+   correction was right, and until 2026-09-11T2122Z the two numbers it rests on came from
+   a reviewer probe inside a session that had ended and were in no artifact (WFG-259).
+   They have now been run, and they reproduce exactly, origin id included: §7 below.**
+   Dilating the burning set to a strict superset of the 162 at 100 m moves origin
+   `11935180417` from `still_enters_forecast` to **`saved`** — the transition the draft
+   said could never happen — and at 500 m, `ppy_yeongdeok_buf_w500m_flipped_to_saved`
+   **15** of the 16 flip. ⚠⚠ **Read §7 before quoting either figure.** What the run also
+   measured, and what nobody could have read off this sentence, is that the dilated arm
+   **saves fewer origins overall at both widths**, so 「15 of the 16 flip」 does **not**
+   mean a buffered opponent recovers all but one of the 42. The repository already knew the
+   first half and the
    draft cited the row that says so while contradicting it: WFG-201 records that a width
    **added** to the grid can only tie or beat the incumbent, so the opponent's best score
    is **non-decreasing** in how finely anyone searches, and
@@ -219,3 +237,104 @@ Not yet. This section is deliberately empty until the critic lap or the author h
 §4 and §5, which is the constraint WFG-129 was filed with. The sentence it will hold, when
 it is licensed, is about the 44 and the three outcomes — never a margin, and never the
 bare 26 without the 16 and the 2 beside it.
+
+## 7. The dilation, measured (WFG-259)
+
+**Why this section exists.** §5 item 5 above asserted two figures — one origin flipping at
+100 m, and 「at 500 m, 15 of the 16 flip」 — that came from an independent reviewer's probe
+inside a session that has ended. They were in no artifact, no registry key was either of
+them, and the script that produced the committed 26 / 16 / 2 took no buffer argument. They
+were also the most consequential integers on this page, because this page is one click from
+`README.md`'s TL;DR and because 「15 of the 16」 reads, at a glance, as 「a router that sees
+only where the fire is now, plus half a kilometre, reaches all but one of the origins the
+headline **42** credits to the forecast」. CHARTER §3.3: 「A number you cannot register, you
+do not write.」 This section is the run.
+
+**Method, pre-registered before the run** in this lap's claim commit `031214b`, because the
+word 「dilating」 does not pin the operation. The dilation is in **node space**: a walk-graph
+node is refused when its Euclidean distance in projected metres to **any** node of the
+committed base burning set — the 162 — is at most `d`. A refuge inside the dilated set is
+removed with the rest. The other reading, dilating the burning **raster** cells and
+re-thresholding `prob_at`, is a different operation; it was not run, and it was not run
+afterwards to see whether it matched this page better. Widths are **0, 100 and 500 m**: the
+two already written above, so none could be chosen after the answer, plus `d = 0` as an
+identity control. Everything downstream is unchanged — same `naive_route`, same
+`departure_min`, same `p_cut`, same scoring against the full forecast, same three outcomes
+reported separately.
+
+`scripts/measure_present_perimeter_yeongdeok_buffer.py` writes nothing unless three gates
+pass in the same process: the committed 414 / 42 / 2 partition re-derives; the `d = 0` arm
+reproduces the committed 26 / 16 / 2 **exactly**; and the 100 m node set is a **strict
+superset** of the 162, which is what §5 item 5 itself asserts. All three passed.
+Artifact: `data/processed/present_perimeter_buffer_shape_yeongdeok_2025.json`.
+
+### 7.1 The result
+
+| dilation | nodes refused | of the same 44 origins: saved | still entering | not reached | origin refused outright |
+|---|---|---|---|---|---|
+| 0 m (committed) | 162 | 26 | 16 | 2 | 0 |
+| 100 m | `ppy_yeongdeok_buf_w100m_nodes_refused` 227 | `ppy_yeongdeok_buf_w100m_saved` 12 | 26 | 3 | `ppy_yeongdeok_buf_w100m_origins_refused` 3 |
+| 500 m | `ppy_yeongdeok_buf_w500m_nodes_refused` 890 | `ppy_yeongdeok_buf_w500m_saved` 18 | 0 | 3 | `ppy_yeongdeok_buf_w500m_origins_refused` 23 |
+
+**§5 item 5's two figures reproduce, exactly.** At 100 m,
+`ppy_yeongdeok_buf_w100m_flipped_to_saved` **1** of the 16 origins that still entered the
+forecast under the zero-buffer arm moves into `saved`, and it is origin `11935180417` —
+the same id the sentence names. At 500 m,
+`ppy_yeongdeok_buf_w500m_flipped_to_saved` **15** of those 16 flip. The sentence is true and
+is now re-derivable from a committed artifact.
+
+### 7.2 And the inference drawn from it is false
+
+**The buffered arm does not save more. It saves fewer, at both widths.** 26 at zero buffer;
+**12** at 100 m; **18** at 500 m. On these three widths the best-scoring opponent is the
+**zero-buffer one this page already committed**.
+
+The mechanism is geometric and the artifact records it per origin. The origins the
+zero-buffer arm saves are the ones **nearest the fire** — that is why a present-perimeter
+filter helps them at all — so a buffer swallows them first. At 500 m the dilated set
+contains the origin's own node for **23** of the 44, and the arm then does not plan for
+them at all: not saved, not still-entering, no route attempted. All 23 come out of the 26
+that were saved, leaving **3** of them; the 15 that flip come from the more distant
+still-entering group, and 3 + 15 = the 18 above. **The flip count and the loss count are two
+halves of one geometric fact, and quoting the first alone inverts the conclusion.**
+
+So the reading that threatened the headline — 「500 m recovers all but one of the 42」 — is
+**not what the experiment says**, and it is registered as a forbidden phrasing on every key
+above. What 500 m buys is the elimination of `still_enters_forecast`, paid for by refusing
+to plan for a quarter of the origins. An operator cannot spend that currency.
+
+⚠ This is **not** a claim that a buffered opponent is weak in general, and **not** a
+nomination of any width. A buffered present-perimeter arm scored as the project's opponent
+of record is **WFG-033(b)** and **NH-027**, and is the author's. Three widths, two of them
+lifted verbatim from prose written before the run, is not a sweep; a later lap that adds a
+width to find a better one has crossed into WFG-033(b).
+
+### 7.3 What this does **not** show, and one sentence it refuses to license
+
+1. **No committed number moves.** 414 / 42 / 2 and 26 / 16 / 2 both re-derived here before
+   anything was written, and neither was re-run in anger.
+2. **The oracle is still on the scoring side.** §5 item 6 applies to every number in this
+   section word for word: the arm is scored against the model's own forecast field, so
+   「saved」 means 「clear of the model's own predicted hazard」 and not 「would have lived」.
+3. **One fire, one region, one horizon.** The canonical field's 32.6 % envelope-coverage
+   caveat applies unchanged, and a second fire could split the 44 any other way.
+4. **`origin refused outright` is the filter's doing, not the fire's**, and is reported in
+   its own column for exactly the reason the zero-buffer run reports `not_reached`
+   separately. Whether a county office would call such a household 「already inside the
+   danger zone」 rather than 「unplannable」 is a question about policy that this run does
+   not answer and must not be quietly answered for it.
+5. ⚠⚠ **It does not license the sentence it was partly filed to license, and this is
+   recorded rather than quietly dropped.** WFG-259's second half asked for a sentence saying
+   that the fair opponent is systematically weakened by the coarseness of this project's own
+   input — a 226-component detection scatter rather than a mapped fire line (§2, WFG-260) —
+   **and that the direction of that bias runs in this project's favour.** The argument for
+   the direction was that dilation moves origins **into** `saved`, so a sparser burning set
+   must save fewer. Measured here, growing the refused set **lowers** the net saved count at
+   both widths. So the only evidence in this repository bearing on that direction runs
+   **against** the convenient reading, and the premise the argument rested on is not what
+   the run shows. Dilation is in any case a weak proxy for coarseness: it grows one
+   observation's burning set outward, while a finer sensor would change **which** cells burn
+   and would not blanket-buffer around detections. **No sentence asserting the direction of
+   that bias may be written on any surface, in either direction, on this evidence.** That
+   the object is a detection scatter and not a fire line is measured and stays (§2); what
+   it does to the comparison is not.
