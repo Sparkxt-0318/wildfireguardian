@@ -1,45 +1,63 @@
-# Critic #66 — 2026-09-11T1100Z, reviewed `d67de57`
+# Critic #66 — 2026-09-11T1125Z, reviewed `d67de57`, ships at `c241904`
 
 **The next dev lap reads this file first.** Window `ba76b8c..d67de57`. `ba76b8c` is this shallow
 clone's oldest resolvable commit (2026-09-10T12:45Z, 22 h 15 m back), so it is the base rather than
 a chosen one; critic #65's base `6d4a60b` no longer resolves here, which is the clone-depth fact
 CHARTER §4 warns about and not a history change. Counted from the reports added in the range: **six
 finished dev laps**, seven critic laps, four paper laps (filed `--kind manual`, because `report.py`
-has no `paper` choice) and one research lap, plus a **seventh dev lap that claimed WFG-254 at 0921Z
-and is still running**. Also two board rebuilds after rebases and four report-header fixes. The
-printed kit was rebuilt twice. `docs/NUMBERS.json` gained keys additively. No model, no refit, no
-regenerated artifact.
+has no `paper` choice) and one research lap. Two board rebuilds after rebases, four report-header
+fixes, the printed kit rebuilt twice. `docs/NUMBERS.json` gained keys additively. No model, no
+refit, no regenerated artifact.
 
-**Critic #65's one item is NOT done, and that is this lap's item again.** Everything else critic #65
-asked for is either paid or claimed: the paper lap took WFG-254's English half in full, and the dev
-lap holding the rest claimed it 1 h 40 m before this head.
+⚠⚠ **CORRECTED MID-LAP, AND THE CORRECTION IS THE FIRST THING THIS FILE SHOULD SAY.** This lap
+reviewed `d67de57`, where **WFG-254 was `in-progress(20260911T0921Z)` with only its claim commit
+pushed**, and it wrote its item and its scores on that state. The lap holding WFG-254 then pushed
+`05d3bb3` while this lap was writing, and **WFG-254 is now `done(20260911T0921Z)`**. Everything below
+was **re-measured at the rebased head before this file was finished**, not inferred from the report:
 
----
+- **All eight surfaces now name the `t = 0` seed centroid.** `발화점` answers **0** in the Q36 cell,
+  `모양과 범위` answers **0** across `docs/auto/JUDGE_QA.md`, `docs/disc_null.md` and
+  `docs/oracle_gap.md`, and the three remaining `발화점` hits in `docs/disc_null.md` are the
+  `forbidden-ok` record line and the two paragraphs explaining the word. `docs/oracle_gap.md:208`
+  carries a dated 〔정정〕 rather than a silent edit.
+- **The kit was rebuilt and the bundle re-pointed.** `WFG_printables_20260911T0939Z.pdf`, 59 pages,
+  its seven sources re-hashed here at **7 of 7**, and `release/kcf-finals-2026/MANIFEST.json` names
+  that kit and its manifest.
+- **The row went further than it was asked to**, finding an eighth surface in `paper/GAPS.md`,
+  turning the measurement into an artifact (`scripts/measure_disc_centre_vs_ignition.py`), and
+  registering four spellings as `WC-017`.
 
-## `fix-before-next-row`: ONE, and it is critic #65's, re-measured and still unpaid
-
-⚠⚠ **`docs/auto/JUDGE_QA.md:1513` (Q36, tier T0, said from memory to all five judges and printed on
-page 25 of the 59-page kit) still tells a judge the null circle is placed 「발화점에」. The ignition
-point this project records is 19.20 km from that circle's centre.** Measured again at this head, not
-read from the report: the clause is present; `docs/disc_null.md:221` and `docs/oracle_gap.md:204`
-carry the same locative; the kit's seven sources hash **7 of 7** against the tree, so it is on the
-paper in the box.
-
-⚠⚠ **What changed in this window is that the ENGLISH half was paid and the KOREAN half was not, and
-the two now disagree.** `paper/manuscript.md:710` reads 「an equal-area disc centred on the first
-detections' centroid」 and has retired 「shape and extent」 in favour of 「overlaps」;
-`paper/figures/F10b_disc_null.png` is the corrected figure under a new filename with
-`F10_disc_null.png` kept and annotated. On the Korean side, Q36 still says both
-「발화점에」 and 「모델이 원판을 이긴 것은 모양과 범위이고」. **The surface five judges hear is the
-one still wrong.** Pay it with the same `make printables` at a new stamp and a re-pointed
-`release/kcf-finals-2026/MANIFEST.json`.
-
-⚠ **WFG-254 is `in-progress(20260911T0921Z)` with only its claim commit pushed.** At this head that
-claim is 1 h 40 m old, inside CHARTER §5b's three hours, so it is **another lap's row and must not be
-taken from it**. If you are that lap, this is your row. If you are a later lap and the claim is then
-over three hours old with no work commit behind it, §5b releases it.
+**So critic #65's item is PAID, and this lap's item is a different clause on the same card.**
 
 ---
+
+## `fix-before-next-row`: ONE, it is NEW, and it is one clause plus the rebuild
+
+⚠⚠ **`docs/auto/JUDGE_QA.md:1513` (Q36, tier T0) and `docs/disc_null.md:225` both still close on
+「저희가 잘하는 것은 방향이 아니라 불의 모양입니다」, and nothing in this repository has measured
+the 「모양」 half.** On the card it is the last thing the student says about the comparison, in the
+부스에서 할 말 block, from memory, to all five judges, and it is on page 25 of the kit rebuilt
+**40 minutes ago**.
+
+**WFG-254 did not touch it, and that is not a criticism of WFG-254.** That row was asked to
+disambiguate the **area versus reach** axis and it did exactly that: Q36's analytic block now reads
+「모델이 원판을 이긴 축은 **모양과 뻗은 거리**이고(면적은 원판이 구조상 똑같이 맞춰 오므로
+겨룰 축이 아닙니다)」, which is right, is measurable, and is not re-opened here. **What it left
+standing is 「모양」 as an axis the model is said to have WON.** The card is now correct about where
+the disc sits and still unsupported about why the model beats it.
+
+**The fix is one clause, on the two lines above, in the same `make printables` shape the last lap
+just paid twice.** Say what the artifact supports and stop at it: the model overlaps the burn better
+than the area-matched disc, the centre of mass says that is not direction, and **which axis it is has
+not been measured**. A form that costs nothing and is true: replace
+「저희가 잘하는 것은 방향이 아니라 불의 모양입니다」 with
+「저희가 나은 것은 겹침이고, 방향은 아닙니다 — 그것이 모양 때문인지는 아직 재지 않았습니다」.
+Then `make printables` at a new stamp and re-point `release/kcf-finals-2026/MANIFEST.json`.
+
+⚠ **This is the Q&A half of WFG-256 and it does not wait for the experiment.** The experiment may
+later license a stronger sentence; until it runs, the card must not claim the answer. ⚠ Do **not**
+weaken 「방향은 아닙니다」: that half **is** measured, by the `direction` block, and it is the card's
+strongest move.
 
 ## Finding 1 — WFG-256 (P0, science, filed at table position 3). The card claims the half of the comparison the artifact declines to attribute
 
@@ -165,9 +183,13 @@ previous row for that track when the narrative does not name that criterion as m
   2026-09-11T0119Z lap's is bolded but present).
 - The printed kit's seven sources hash **7 of 7** against the tree, and
   `release/kcf-finals-2026/MANIFEST.json` names the newest kit,
-  `WFG_printables_20260911T0706Z.pdf`, 59 pages. ⚠ This lap did **not** independently re-derive the
-  19-file bundle tally and does not restate it; `tests/test_finals_bundle.py` is green inside the full
-  gate run above.
+  `WFG_printables_20260911T0706Z.pdf`, 59 pages; **at the rebased head the kit is
+  `WFG_printables_20260911T0939Z.pdf`, also 59 pages, also 7 of 7, with the bundle re-pointed to it.**
+  ⚠ This lap did **not** independently re-derive the 19-file bundle tally and does not restate it;
+  `tests/test_finals_bundle.py` is green inside the full gate run above.
+- ⚠ **`gates.py --mode full` was run twice**: at `d67de57`, the head reviewed, and again on this lap's
+  own commit after the rebase onto `05d3bb3`. Both exit 0. `--assert-head` and `--assert-reported`
+  are run on the commit that is pushed, never on the one that was reviewed.
 - ⚠ **One honest subtraction.** This clone is SHALLOW at **50** commits and was deliberately not
   deepened, so `tests/test_timeline_roles.py:234` **SKIPS** rather than runs and a green critic gate
   does not certify it. GitHub at `fetch-depth: 0` does. No ancestry or reachability claim is written

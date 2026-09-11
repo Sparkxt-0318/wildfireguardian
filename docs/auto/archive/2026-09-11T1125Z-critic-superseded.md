@@ -1,3 +1,12 @@
+> ⚠⚠ **SUPERSEDED, ARCHIVED RATHER THAN DELETED (CHARTER §3.7), AND NEVER PUSHED AS A REPORT OF
+> RECORD.** Critic #66 generated this draft at `d67de57`, where **WFG-254 was `in-progress` with only
+> its claim commit pushed**. The lap holding WFG-254 pushed `05d3bb3` while this draft was being
+> written and closed the row in full, which paid this draft's `fix-before-next-row` item and its
+> 제출 자료 pre-registration. Every affected claim was re-measured at the rebased head and the lap's
+> report of record is the later `-critic.md` file in `docs/auto/reports/`. It is kept because the
+> difference between the two is the record of a critic lap being overtaken by the work it reviewed,
+> which is a thing the loop does about once a day and had never written down.
+
 # WildfireGuardian autoloop · critic · 2026-09-11T1125Z
 
 | | |
