@@ -3300,3 +3300,76 @@ worth it is the judges' question and not this repository's」.
    this lap's allocation landed on exactly 61 s and it did not bite, because 육십일 is three
    blocks. The page whose whole subject is counting rather than remembering had a remembered
    count in it for six days. **Run the module against the claim, do not read the claim.**
+
+---
+
+## 2026-09-11T0620Z (dev, WFG-249 + WFG-250 + WFG-251)
+
+**The lesson: a population and a denominator are two different numbers, and registering
+the first one makes it easier to say the second one wrong.** WFG-247 registered
+`l0i_household_population` (124 OSM buildings) one lap earlier, correctly, for a real
+defect — three populations in one breath. The registration then gave the next sentence a
+citable number to hang on, and the sentence hung the wrong one: 20 and 24 are not 20 and
+24 **of 124**, they are 20 and 24 of the **24** buildings that fail the 240-minute
+horizon. The arm's population and the claim's denominator came out of the same `baseline`
+block of the same artifact, four lines apart, and the repository had registered one and
+not the other.
+
+**The anti-pattern.** *Registering the denominator you happen to have, and writing it
+beside the numerator because it is now a key.* The rule from the last lap's MEMO — 「a
+denominator is a registry key, not a `sample` string」 — is right and was obeyed, and
+obeying it is what made this error look evidenced. The missing half of that rule is:
+**register the denominator of the CLAIM, not the population of the arm, and if both
+exist, register both and say which is which in the entry's own caveat.**
+`l0i_failing_denominator_h240` now carries that sentence, and it also carries the reason
+it is not interchangeable with `l0i_best_pair_saved`, which holds the same 24 because the
+best pair happens to recover every failing building.
+
+**⚠ The defect cut AGAINST this project, and that is why nothing caught it for a window.**
+Under the building denominator the refuge result reads as a sixth of the village instead
+of five sixths of the problem. Every gate in this repository is built to catch a number
+that flatters the work; a number that understates it passes `verify`, `check-forbidden`,
+the collision sweep and the withdrawn-claim registry, because none of those read what a
+sentence MEANS. **When a lap's own repair makes a result sound worse, check the
+arithmetic a judge would do in their head** — that is the only reader who notices.
+
+**The rule this lap leaves behind: grade a "the bound is stated" gate on ORDER, not only
+on presence.** The first grading of
+`test_the_spoken_closing_names_the_denominator_the_artifact_holds` let its own mutation
+through: putting 124 in front of the counts and the failing set in a sentence afterwards
+satisfied every property the test had — the block named the denominator, and the number
+matched the artifact. A denominator that arrives after its numerator is a correction, not
+a statement, and in a spoken segment heard once there is no going back. The test now
+asserts that the denominator's match starts before the first count's.
+
+**Smaller, and cheap to forget: re-pointing the booth kit is TWO rebuilds when the
+registry moved.** `make printables` at a new stamp, then `make finals-bundle UPDATE=1`,
+then — because a new registry key changes `web/finals.html`, which the bundle also hashes
+— `make finals` and `make finals-bundle UPDATE=1` **again**. The first bundle run also
+silently keeps the old kit until the new PDF is `git add`ed, because
+`build_finals_bundle.py` resolves the newest **tracked** printable. Stage the kit, then
+re-point.
+
+**And one that cost a gate run: a registry key name is an interface to a tree-wide grep.**
+The denominator was first registered as `l0i_failing_before_any_refuge`, and
+`check_number_collisions.py` went red on two unrelated lines about GitHub branch
+protection — its anchors are the words of the key minus stopwords, `MIN_ANCHORS` is three,
+and `any` + `before` + `refuge` are three generic English words that co-occur in ordinary
+prose. **The fix is the name, never a `collision-ok` pragma on a line that has nothing to
+do with the key**; that gate's own docstring says annotation is for genuinely different
+quantities, and a pragma there would have taught the next lap to silence the gate instead
+of reading it. The key is `l0i_failing_denominator_h240`. **Before registering a key, read
+its name as a set of grep anchors and ask whether three of them occur together in English
+prose anywhere in this repository.**
+
+**The reviewer's finding, which is the one worth carrying forward: check a justification
+against the diff that contains it.** This lap wrote a comment in
+`scripts/register_refuge_population.py` saying a field had to be byte-identical across
+three keys because varying it 「would change the stored hash of a key already committed」 —
+and the same hunk varied two other fields per key without moving either existing entry's
+bytes. The reason was false and the cost of believing it was a **knowingly wrong
+provenance line frozen by CHARTER §3.2 into `docs/NUMBERS.json`**, the record this project
+asks a judge to trust when its prose drifts. **What §3d's freeze forbids is CHANGING a
+committed entry, not VARYING a field across keys.** The general rule: *when a lap writes
+「I could not do X because Y」, the cheapest check is whether the same diff already does
+X somewhere else.*

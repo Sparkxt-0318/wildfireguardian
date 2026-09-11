@@ -50,13 +50,13 @@ the paragraph above prices the defect against it. Every intermediate allocation 
 
 | 구간 | spoken syllables | seconds (before WFG-100) | seconds (now) | syl/s now |
 |---|---:|---:|---:|---:|
-| 도입 | 213 | 25 | **36** | 5.92 |
-| 1막 · 발견 | 246 | 45 | **42** | 5.86 |
+| 도입 | 213 | 25 | **35** | 6.09 |
+| 1막 · 발견 | 246 | 45 | **41** | 6.00 |
 | 2막 · 시간이 도로망을 바꿉니다 | 280 | 55 | **47** | 5.96 |
 | 3막 · 같은 출발지, 두 개의 답 | 346 | 75 | **58** | 5.97 |
-| 4막 · 예측을 판단으로 | 331 | 55 | **56** | 5.91 |
-| 마무리 · 한계 | 360 | 45 | **61** | 5.90 |
-| **합계** | **1,776** | 300 | **300** | **5.92** |
+| 4막 · 예측을 판단으로 | 331 | 55 | **55** | 6.02 |
+| 마무리 · 한계 | 383 | 45 | **64** | 5.98 |
+| **합계** | **1,799** | 300 | **300** | **6.00** |
 
 The 300 seconds are allocated in proportion to the syllable counts by largest remainder, so
 the six whole seconds still sum to exactly 300 without a fudge on the last segment. The
@@ -125,12 +125,17 @@ existence or its direction.
 
 ## What this does NOT show
 
-* **It does not show the script is sayable in five minutes.** 5.92 syllables per second is
+* **It does not show the script is sayable in five minutes.** 6.00 syllables per second is
   an arithmetic consequence of dividing this text by this budget, not a measurement of
   speech, and this repository has asserted no comfortable rate for spoken Korean. Whether a
-  student can say 1,776 syllables in 300 seconds while a judge interrupts is a stopwatch
+  student can say 1,799 syllables in 300 seconds while a judge interrupts is a stopwatch
   question and a human one: **R12 / NH-014**, and WFG-037's booth recipe. ⚠ **And the rate
-  is rising**: 1,684 at WFG-100, 1,744 at WFG-194, 1,776 at WFG-247, against a fixed 300 s.
+  is rising, now on four consecutive measurements**: 1,684 at WFG-100, 1,744 at WFG-194,
+  1,776 at WFG-247, **1,799 at WFG-250**, against a fixed 300 s. ⚠⚠ **Two of those four
+  landed on 2026-09-11, three hours apart, on the same closing sentence** — the first added a
+  population, the second corrected which population it was. A page that records the rate
+  rising should also record that one sentence took two laps to get right, because the cost of
+  the second lap was paid in the same currency as the first.
   Every caveat added to a spoken line is bought at every segment's expense, and the page
   that would settle whether the price is payable is the stopwatch one nobody has run.
 * **It does not show the budget is well-spent.** Giving 3막 — 「이 프로젝트의 전부」 — 58 s
@@ -164,6 +169,8 @@ attempt asserted them from memory and its reviewer blocked on exactly that. Regi
 | `demo_pace_20260909t0321z_total_spoken_syllables` | 1744 | +52 — one spoken sentence in 도입 |
 | `demo_pace_20260911t0326z_rate_spread` | 1.02 | after WFG-247's sentence <!-- collision-ok: 1.02 — the spread at tag 20260911t0326z. The two 1.02 rows above are the same quantity at tags 20260905t0625z and 20260909t0321z; that all three agree to two decimals is what proportional allocation guarantees, not evidence that the same text was measured. The syllable totals behind them are 1,684, 1,744 and 1,776. -->|
 | `demo_pace_20260911t0326z_total_spoken_syllables` | 1776 | +32 — one spoken sentence in 마무리 |
+| `demo_pace_20260911t0620z_rate_spread` | 1.02 | after WFG-250's denominator clause <!-- collision-ok: 1.02 — the spread at tag 20260911t0620z. The three 1.02 rows above are the same quantity at tags 20260905t0625z, 20260909t0321z and 20260911t0326z; that all four agree to two decimals is what proportional allocation guarantees, not evidence that the same text was measured. The syllable totals behind them are 1,684, 1,744, 1,776 and 1,799. -->|
+| `demo_pace_20260911t0620z_total_spoken_syllables` | 1799 | +23 — the denominator clause in 마무리, net of what the rewrite gave back |
 
 The per-segment rates and the variant tables are fields of those two artifacts rather than
 registry keys of their own.
@@ -207,6 +214,16 @@ the new second-count reads with a different number of blocks than the old one �
 block) against 61 (육십일, three) — so the procedure stands unchanged. What no longer stands
 is the idea that 61 is such a value.
 
+⚠ **RE-RUN 2026-09-11 (WFG-250), three hours later, and the procedure held.** That lap moved
+마무리 from 61 s to **64 s**, so the spoken 「마지막 61초는」 became 「마지막 64초는」;
+`count_syllables(["마지막 64초는"])` answers **8**, the same as at 61 and at 56, because
+육십사 is three Hangul blocks like 육십일. The count was re-run **after** the header and the
+sentence were rewritten, as the section above instructs, and the allocation came back
+unchanged at 35 / 41 / 47 / 58 / 55 / 64. Three consecutive values of this segment — 56, 61,
+64 — now read as three blocks, which is a coincidence of the eleventh hour of a five-minute
+budget and **not** a reason to stop re-running the count: 100 (백) still bites, and so would
+any value under ten.
+
 ## Re-measuring after an edit
 
 `docs/NUMBERS.json` binds `demo_pace_total_spoken_syllables` and
@@ -244,7 +261,8 @@ fixed-point reason above; the 도입 header's seconds are not spoken, but 마무
 | `20260905t0625z` | `pace_20260905T0625Z.json` | after WFG-100 | 1,684 | 29 / 44 / 50 / 60 / 59 / 58 | 1.02 |
 | `20260905t0947z` | `pace_20260905T0947Z.json` | after WFG-103 | 1,692 | 28 / 44 / 50 / 61 / 59 / 58 | 1.03 |
 | `20260909t0321z` | `pace_20260909T0321Z.json` | after WFG-194 | 1,744 | 37 / 42 / 48 / 60 / 57 / 56 | 1.02 |
-| `20260911t0326z` | `pace_20260911T0326Z.json` | after WFG-247 (**ships**) | 1,776 | 36 / 42 / 47 / 58 / 56 / 61 | 1.02 |
+| `20260911t0326z` | `pace_20260911T0326Z.json` | after WFG-247 | 1,776 | 36 / 42 / 47 / 58 / 56 / 61 | 1.02 |
+| `20260911t0620z` | `pace_20260911T0620Z.json` | after WFG-250 (**ships**) | 1,799 | 35 / 41 / 47 / 58 / 55 / 64 | 1.02 |
 
 **What the third row cost, and what it bought.** WFG-103 replaced one spoken sentence in 3막 —
 the one that described the STATIC VIEW baseline as 「지금 이 순간만 보는 지도」 when the arm is

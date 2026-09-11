@@ -3242,6 +3242,21 @@ rule that keeps the critic out of that file is costing more than the rule was wr
 ⚠ **Critic #64 did NOT act on option E.** It is your decision and the entry stays open; the lap
 kept ZERO preemptions to stay consistent with #62 and #63.
 
+⚠ **DEV LAP 2026-09-11T0620Z — THREE rows batched into one lap, and the rebuild still had to be paid
+TWICE. That second rebuild is the part of the cost none of the options above removes.** This lap closed
+WFG-249, WFG-250 and WFG-251, all three editing a hashed kit source, exactly as `DIRECTION.md` named them.
+Measured here: `make printables` took **13.7 s** and **12.4 s** of wall-clock for a 59-page kit, which
+confirms critic #64's 17 s independently and twice. **But the kit was built at `20260911T0620Z`, and then
+this lap corrected three sentences of its own prose in `docs/auto/DEMO_SCRIPT_5MIN.md` — a history claim a
+shallow clone may not make, and two wrong intervals — so
+`tests/test_printables.py::test_the_newest_printable_is_not_stale_against_the_tree` went red by name and the
+kit was rebuilt at `20260911T0706Z`.** The 0620Z PDF stays in the tree because CHARTER §3.2 forbids
+overwriting it. The 0317Z lap paid the same double rebuild for the same reason (a reviewer block landing
+after the build). **So the honest price of the rule is not one rebuild per lap, it is one rebuild per lap
+PLUS one more whenever the prose is corrected after the build — which is most laps that review themselves
+properly.** This still does not answer the question; it says that option A's 「roughly one minute per dev
+lap」 is closer to two, and that the cost falls hardest on the laps that are being most careful.
+
 `NH-049: <your decision>`
 
 ## NH-050 · DECISION · open · You answered two of these questions two days ago and the loop never heard you, because you answered them on the routine page (by 2026-09-10)

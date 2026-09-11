@@ -1,0 +1,150 @@
+{
+  "segments": [
+    {
+      "name": "도입",
+      "declared_seconds": 35,
+      "spoken_syllables": 213,
+      "implied_syllables_per_second": 6.09,
+      "proportional_seconds": 35.51973318510284
+    },
+    {
+      "name": "1막",
+      "declared_seconds": 41,
+      "spoken_syllables": 246,
+      "implied_syllables_per_second": 6.0,
+      "proportional_seconds": 41.022790439132855
+    },
+    {
+      "name": "2막",
+      "declared_seconds": 47,
+      "spoken_syllables": 280,
+      "implied_syllables_per_second": 5.96,
+      "proportional_seconds": 46.69260700389105
+    },
+    {
+      "name": "3막",
+      "declared_seconds": 58,
+      "spoken_syllables": 346,
+      "implied_syllables_per_second": 5.97,
+      "proportional_seconds": 57.698721511951085
+    },
+    {
+      "name": "4막",
+      "declared_seconds": 55,
+      "spoken_syllables": 331,
+      "implied_syllables_per_second": 6.02,
+      "proportional_seconds": 55.19733185102835
+    },
+    {
+      "name": "마무리",
+      "declared_seconds": 64,
+      "spoken_syllables": 383,
+      "implied_syllables_per_second": 5.98,
+      "proportional_seconds": 63.86881600889383
+    }
+  ],
+  "total_spoken_syllables": 1799,
+  "declared_total_seconds": 300,
+  "syllables_per_second": 6.0,
+  "implied_rate_spread": 1.02,
+  "measured_from": "docs/auto/DEMO_SCRIPT_5MIN.md",
+  "variant": "full",
+  "allocation_seconds": [
+    35,
+    41,
+    47,
+    58,
+    55,
+    64
+  ],
+  "variants": {
+    "full": {
+      "total_spoken_syllables": 1799,
+      "syllables_per_second": 6.0,
+      "implied_rate_spread": 1.02,
+      "spoken_syllables": [
+        213,
+        246,
+        280,
+        346,
+        331,
+        383
+      ],
+      "implied_syllables_per_second": [
+        6.09,
+        6.0,
+        5.96,
+        5.97,
+        6.02,
+        5.98
+      ],
+      "allocation_seconds": [
+        35,
+        41,
+        47,
+        58,
+        55,
+        64
+      ]
+    },
+    "hangul-only": {
+      "total_spoken_syllables": 1738,
+      "syllables_per_second": 5.79,
+      "implied_rate_spread": 1.1,
+      "spoken_syllables": [
+        213,
+        237,
+        274,
+        320,
+        320,
+        374
+      ],
+      "implied_syllables_per_second": [
+        6.09,
+        5.78,
+        5.83,
+        5.52,
+        5.82,
+        5.84
+      ],
+      "allocation_seconds": [
+        37,
+        41,
+        47,
+        55,
+        55,
+        65
+      ]
+    },
+    "native-counters": {
+      "total_spoken_syllables": 1801,
+      "syllables_per_second": 6.0,
+      "implied_rate_spread": 1.02,
+      "spoken_syllables": [
+        213,
+        246,
+        280,
+        346,
+        331,
+        385
+      ],
+      "implied_syllables_per_second": [
+        6.09,
+        6.0,
+        5.96,
+        5.97,
+        6.02,
+        6.02
+      ],
+      "allocation_seconds": [
+        35,
+        41,
+        47,
+        58,
+        55,
+        64
+      ]
+    }
+  },
+  "method": "Hangul syllable blocks in §1's > lines; numerals read sino-Korean (an approximation - see the native-counters variant); symbols and Latin read from scripts/measure_demo_script_pace.py LEXICON; [버림] markers, ⚠ blocks and the §3 table excluded."
+}

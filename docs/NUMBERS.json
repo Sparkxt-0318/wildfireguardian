@@ -19668,6 +19668,114 @@
           }
         }
       }
+    },
+    "demo_pace_20260911t0620z_total_spoken_syllables": {
+      "source_file": "data/processed/demo_script_pace/pace_20260911T0620Z.json",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "c2bb9e60b37e924a4e20a731849a861ad8309656",
+      "sample": "docs/auto/DEMO_SCRIPT_5MIN.md §1, the six segments' > blockquote lines",
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_demo_script_pace.py --stamp <UTC> re-derives the artifact from the committed document",
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "arm": "booth_pace",
+      "forbidden_phrasings": [
+        "편안한 발화 속도",
+        "말할 수 있는 속도로 확인",
+        "리허설을 마쳤"
+      ],
+      "notes": "WFG-100. Bound to the document by tests/test_demo_script_pace.py. Editing a spoken line changes these values and the gate goes red until a NEW measurement is registered under a new tag; this entry is never edited (CHARTER §3.2).",
+      "value": 1799,
+      "unit": "syllables",
+      "json_path": "total_spoken_syllables",
+      "derivation": "sum of the six segments' spoken_syllables. Regenerate: python scripts/measure_demo_script_pace.py --stamp 20260911T0620Z",
+      "caveat": "A COUNT OF SYLLABLES, NOT A MEASUREMENT OF SPEECH. This is how many syllables the script asks the student to pronounce divided by the seconds it gives them; it does not say that rate is sayable, and no rehearsal has been run (R12 / NH-014). Counting rules in scripts/measure_demo_script_pace.py: Hangul syllable blocks, numerals read sino-Korean (an APPROXIMATION - Korean counter words take native numerals, and --variant native-counters measures what that approximation costs), symbols and Latin from an explicit lexicon.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/demo_script_pace/pace_20260911T0620Z.json",
+            "json_path": "total_spoken_syllables"
+          }
+        }
+      }
+    },
+    "demo_pace_20260911t0620z_rate_spread": {
+      "source_file": "data/processed/demo_script_pace/pace_20260911T0620Z.json",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "c2bb9e60b37e924a4e20a731849a861ad8309656",
+      "sample": "docs/auto/DEMO_SCRIPT_5MIN.md §1, the six segments' > blockquote lines",
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_demo_script_pace.py --stamp <UTC> re-derives the artifact from the committed document",
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "arm": "booth_pace",
+      "forbidden_phrasings": [
+        "편안한 발화 속도",
+        "말할 수 있는 속도로 확인",
+        "리허설을 마쳤"
+      ],
+      "notes": "WFG-100. Bound to the document by tests/test_demo_script_pace.py. Editing a spoken line changes these values and the gate goes red until a NEW measurement is registered under a new tag; this entry is never edited (CHARTER §3.2).",
+      "value": 1.02,
+      "unit": "x",
+      "json_path": "implied_rate_spread",
+      "derivation": "fastest segment's syllables/s divided by the slowest segment's. Regenerate: python scripts/measure_demo_script_pace.py --stamp 20260911T0620Z",
+      "caveat": "A COUNT OF SYLLABLES, NOT A MEASUREMENT OF SPEECH. This is how many syllables the script asks the student to pronounce divided by the seconds it gives them; it does not say that rate is sayable, and no rehearsal has been run (R12 / NH-014). Counting rules in scripts/measure_demo_script_pace.py: Hangul syllable blocks, numerals read sino-Korean (an APPROXIMATION - Korean counter words take native numerals, and --variant native-counters measures what that approximation costs), symbols and Latin from an explicit lexicon. The SPREAD is the quantity WFG-100 is about: one document cannot have six different speaking rates and one stated method.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/demo_script_pace/pace_20260911T0620Z.json",
+            "json_path": "implied_rate_spread"
+          }
+        }
+      }
+    },
+    "l0i_failing_denominator_h240": {
+      "value": 24.0,
+      "unit": "households",
+      "source_file": "data/processed/vulnerability/refuge_placement.json",
+      "json_path": "optimum_h240.baseline.n_failing",
+      "derivation": "The denominator of 20 and 24: buildings that do NOT reach safety inside the 240-minute horizon before a refuge is added, read from the same baseline block as the population. Registered because the demo's spoken closing named the arm's population (124) where the claim's denominator is this (24), which understates the result five-fold (WFG-250). Regenerate: python scripts/refuge_placement.py --optimize --horizons --sweep --verify",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "c2bb9e60b37e924a4e20a731849a861ad8309656",
+      "sample": "영덕 2025, OSM 건물 124동(잠정), 기존 대피소 43곳, 지평 240분",
+      "caveat": "THE DENOMINATOR OF THE REFUGE-SITING CLAIM, AND NOT THE POPULATION OF THE ARM. Three facts travel with it or it may not be quoted. (1) 24 is the count of OSM buildings in the 영덕 walk-graph snapshot that FAIL to reach safety inside the 240-minute horizon BEFORE any refuge is added, out of the 124 registered as l0i_household_population. 「20가구」 is therefore 20 of 24 and not 20 of 124, and 「24가구」 is the whole failing set rather than a fifth of the village. (2) ⚠ It is NOT interchangeable with l0i_best_pair_saved, which is also 24: the two agree because the best pair happens to recover every failing building, and a lap that treats one as the other is presenting a coincidence as a derivation (WFG-244's defect). If a refit ever moved either, they would part. (3) ⚠ PROVISIONAL for the same reason the population is: it rests on the 124-building OSM snapshot, not on 도로명주소 footprints (NH-005 open), and every count resting on that snapshot will move.",
+      "forbidden_phrasings": [
+        "124동 중 20가구",
+        "20 of the 124 households",
+        "OSM 건물 124동 중 20가구가 도달"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "both values are constants of the committed artifact and are re-read from it by scripts/verify_numbers.py",
+        "blocked_by": null
+      },
+      "provenance": "derived",
+      "arm": "L0_intervention",
+      "notes": "Session 22 artifact, registered 2026-09-11 by WFG-250. GEOMETRIC RECOMMENDATION under stated assumptions, not a siting decision.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 1e-06,
+        "operands": {
+          "a": {
+            "file": "data/processed/vulnerability/refuge_placement.json",
+            "json_path": "optimum_h240.baseline.n_failing"
+          }
+        }
+      }
     }
   }
 }

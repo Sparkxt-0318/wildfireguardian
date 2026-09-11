@@ -95,7 +95,11 @@ _MISLABEL = re.compile(r"보행망\s*노드\s*(?:\*\*)?\s*2,?218")
 SURFACES = [
     # the spoken 마무리, and the 금지 list item that licenses the phrasing
     ("docs/auto/DEMO_SCRIPT_5MIN.md", "대피 지점 배치도 마찬가지입니다"),
-    ("docs/auto/DEMO_SCRIPT_5MIN.md", "두 군데가 틀릴 수 있으므로"),
+    # ⚠ re-pointed by WFG-250: 금지 item 6 listed TWO things that can be wrong
+    # (the verb and the population) and now lists THREE, because the population
+    # it named was not the denominator. The marker moved with the sentence; the
+    # block it names is the same one.
+    ("docs/auto/DEMO_SCRIPT_5MIN.md", "세 군데가 틀릴 수 있으므로"),
     # the screen's spec, then the screen's source and the built screen
     ("docs/finals_screen_v2.md", "240분 지평에서 도달 실패인"),
     ("scripts/finals.template.html", "도달 가능해지는 가구 수"),
@@ -212,3 +216,144 @@ def test_the_registrar_agrees_with_the_artifact():
         [sys.executable, str(REPO / "scripts" / "register_refuge_population.py"), "--check"],
         cwd=REPO, capture_output=True, text=True)
     assert proc.returncode == 0, proc.stdout + proc.stderr
+
+
+# ---------------------------------------------------------------------------
+# WFG-250 — the population is not the denominator, and naming the wrong one of
+# the two understates this project's own result five-fold.
+# ---------------------------------------------------------------------------
+
+#: The denominator as the surfaces name it: the households that FAIL the horizon
+#: before any refuge is added. Tolerant of the two orders the screen and the
+#: script use (「도달 실패인 24가구」 / 「도달에 실패하는 24가구」) and of a line
+#: break between the words, because that is how the mislabel hid.
+_DENOMINATOR = re.compile(r"도달(?:에)?\s*실패(?:인|하는|하)?\s*(?:\*\*)?\s*(\d+)\s*가구")
+
+#: The wrong denominator, as the 마무리 and the 금지 list actually said it at
+#: `c2bb9e6`: the ARM's population offered as the claim's denominator. The gap
+#: is tolerated because the shipped spelling put 「한 곳이면」 between the two
+#: halves, and a ratchet that only matched them adjacent let the mutation
+#: through when this file was first graded.
+_WRONG_DENOMINATOR = re.compile(r"124\s*동(?:\*\*)?\s*중.{0,24}?(?:\*\*)?\s*20\s*가구")
+
+
+def _failing_denominator_h240() -> int:
+    art = json.loads((REPO / "data" / "processed" / "vulnerability"
+                      / "refuge_placement.json").read_text(encoding="utf-8"))
+    return int(art["optimum_h240"]["baseline"]["n_failing"])
+
+
+def test_the_spoken_closing_names_the_denominator_the_artifact_holds():
+    """The 마무리 must say 20 of WHAT, and the what is read from the artifact.
+
+    ⚠ **This defect cut against the project, which is why nothing caught it.**
+    WFG-247 correctly added a population sentence to the demo's closing — 「여기서
+    세는 가구는 … OSM 건물 124동입니다」 — and a judge doing the arithmetic in
+    their head then hears 20 out of 124: a sixth of the village. The result is 20
+    out of the **24** buildings that fail the 240-minute horizon before a refuge
+    is added, which `scripts/finals.template.html` and `docs/finals_screen_v2.md`
+    §2.4 both say correctly at this head (since when is a history question a
+    shallow clone cannot answer, CHARTER §4, and is not claimed here). The
+    population and the denominator are two different numbers from the same
+    `baseline` block and the spoken script had only the first of them.
+
+    Graded against the committed artifact rather than against the prose: the
+    number the closing says must EQUAL `optimum_h240.baseline.n_failing`. A refit
+    that moved the failing set would turn this red, which is the point — the
+    alternative is a literal 24 in a test, which is the same remembered number
+    the defect was made of.
+
+    ⚠ What this cannot catch: it reads the ONE block the 마무리 marker names. A
+    surface that quotes 20가구 with no denominator at all is caught by
+    `test_the_population_is_named_in_the_same_block_as_the_count` above, and a
+    surface built tomorrow is caught by neither until it is added to SURFACES.
+    """
+    rel, marker = "docs/auto/DEMO_SCRIPT_5MIN.md", "대피 지점 배치도 마찬가지입니다"
+    text = (REPO / rel).read_text(encoding="utf-8")
+    block = next(b for b in _blocks(text) if marker in b)
+    said = {int(m) for m in _DENOMINATOR.findall(re.sub(r"\s+", " ", block))}
+    expected = _failing_denominator_h240()
+    assert said, (
+        "the spoken 마무리 says 20가구 and 24가구 without saying what they are a "
+        "fraction OF. The denominator is the set that fails the 240-minute "
+        f"horizon before any refuge is added ({expected} of the "
+        "l0i_household_population buildings), and the finals screen already "
+        "says it that way. Naming the arm's population instead makes the "
+        "result sound like a fifth of what it is"
+    )
+    assert said == {expected}, (
+        f"the closing names {sorted(said)} as the failing set; "
+        f"refuge_placement.json :: optimum_h240.baseline.n_failing is {expected}"
+    )
+    # ⚠ ORDER, and this clause exists because the first grading of this file
+    # let its own mutation through. Putting 124 in front of the counts and the
+    # failing set in a sentence afterwards satisfies every property above: the
+    # block names the denominator, and the number is right. A judge hearing it
+    # has already done the arithmetic on the wrong number by then.
+    flat = re.sub(r"\s+", " ", block)
+    denom, count = _DENOMINATOR.search(flat), _SAVED_COUNT.search(flat)
+    assert denom and count and denom.start() < count.start(), (
+        "the failing set is named AFTER the first saved-household count in "
+        "this block. The 마무리 is spoken, once, to five judges: a denominator "
+        "that arrives after its numerator is a correction, not a statement. "
+        "Say 「240분에 도달 실패인 24가구 중 …」 first, as the finals screen does"
+    )
+
+
+def test_the_denominator_is_registered_from_the_same_baseline_block():
+    """A denominator is a registry key, not a free-text `sample` string.
+
+    That is the lesson `docs/auto/MEMO.md` recorded one lap before this row was
+    filed, and this row is what it cost to learn twice: the three populations
+    lived only in each `l0i_` entry's prose, where no gate re-derives them, so a
+    lap could write an honest count and still say something false about what it
+    counted. ⚠ The value is also 24 for `l0i_best_pair_saved`, and the two are
+    NOT the same quantity — they agree because the best pair happens to recover
+    every failing building. Asserting the json_path is what keeps a later lap
+    from citing one for the other (WFG-244's defect).
+    """
+    numbers = json.loads((REPO / "docs" / "NUMBERS.json").read_text(encoding="utf-8"))
+    entry = numbers["numbers"]["l0i_failing_denominator_h240"]
+    assert entry["json_path"] == "optimum_h240.baseline.n_failing", (
+        "the denominator must be read from the failing-set field, not from "
+        "l0i_best_pair_saved, which holds the same 24 by coincidence of this fit"
+    )
+    assert entry["source_file"] == "data/processed/vulnerability/refuge_placement.json"
+    assert entry["value"] == float(_failing_denominator_h240())
+    assert entry["value"] < numbers["numbers"]["l0i_household_population"]["value"], (
+        "the failing set must be a subset of the population, or the two keys "
+        "have been swapped"
+    )
+
+
+def test_no_surface_offers_the_arm_population_as_the_claims_denominator():
+    """Tree-wide spelling ratchet on 「124동 중 20가구」, the shipped mislabel.
+
+    The per-block property above cannot see this one: 「OSM 건물 124동 중 20가구가
+    도달 가능해진다」 names a population in the same block as the count and
+    satisfies it completely, while being the wrong population. So this half is a
+    ratchet on the phrase itself, over every tracked `.md` and `.html`, with
+    CHARTER §3.5c's record class exempt because those pages exist to quote it.
+
+    Like every spelling ratchet in this repository it catches the COPY and not
+    the reword (`docs/withdrawn_claims.md` §4): a lap that writes the same error
+    with 채 or 가구 instead of 동 escapes it, and the structural test above is
+    what covers the surface that matters most.
+    """
+    hits = []
+    for path in _tracked((".md", ".html")):
+        rel = path.relative_to(REPO).as_posix()
+        if rel.startswith(("docs/auto/reports/", "docs/auto/archive/")):
+            continue
+        if rel in _RECORD_CLASS:
+            continue
+        flat = re.sub(r"\s+", " ", path.read_text(encoding="utf-8", errors="replace"))
+        if _WRONG_DENOMINATOR.search(flat):
+            hits.append(rel)
+    assert not hits, (
+        "124 is l0i_household_population, the population the refuge arm is "
+        "measured over. The denominator of 20 and 24 is "
+        "l0i_failing_denominator_h240, the buildings that fail the 240-minute "
+        "horizon before a refuge is added. Saying 「124동 중 20가구」 divides "
+        "this project's own result by five. Files: " + ", ".join(hits)
+    )

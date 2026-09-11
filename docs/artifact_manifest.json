@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "cd97bc222878534c1927aee16ba182c13b786dca",
-  "n_artifacts": 110,
-  "total_bytes": 14629553,
+  "generated_at_git_commit": "c2bb9e60b37e924a4e20a731849a861ad8309656",
+  "n_artifacts": 111,
+  "total_bytes": 14632746,
   "total_mib": 13.95,
-  "n_git_tracked": 110,
+  "n_git_tracked": 111,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 9,
   "artifacts": [
@@ -288,6 +288,16 @@
       "regenerate": "python scripts/measure_demo_script_pace.py --stamp 20260911T0326Z"
     },
     {
+      "path": "data/processed/demo_script_pace/pace_20260911T0620Z.json",
+      "bytes": 3193,
+      "sha256": "5b7b3e8dd5f3b3c3e97c2434c5327b31c8bb4e3bcd7024bc219a9e5d6c3ccece",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 2,
+      "cited_by_docs": [],
+      "regenerate": "python scripts/measure_demo_script_pace.py --stamp 20260911T0620Z"
+    },
+    {
       "path": "data/processed/demo_script_pace/pace_before_039a0de.json",
       "bytes": 3207,
       "sha256": "10c0862522d5deccc49bf97388c0970e472a0d5192aef690c2c9af1ca17ac896",
@@ -391,8 +401,10 @@
       "n_registry_entries": 84,
       "cited_by_docs": [
         "docs/auto/reports/2026-09-10T1620Z-dev.md",
+        "docs/auto/reports/2026-09-11T0343Z-manual.md",
         "docs/disc_null.md",
-        "paper/GAPS.md"
+        "paper/GAPS.md",
+        "paper/README.md"
       ],
       "regenerate": "python scripts/measure_disc_null.py"
     },
@@ -1195,7 +1207,6 @@
       "cited_by_docs": [
         "README.md",
         "docs/auto/BACKLOG.md",
-        "docs/auto/CRITIC_LATEST.md",
         "docs/auto/DIRECTION.md",
         "docs/auto/JUDGE_QA.md",
         "docs/auto/SCORECARD.md",
@@ -1350,10 +1361,13 @@
       "sha256": "11cb8a7f640b1958e12421125f70af76c9e9393ec689b5f7c865a9ad08225058",
       "kind": "text",
       "git_tracked": true,
-      "n_registry_entries": 8,
+      "n_registry_entries": 9,
       "cited_by_docs": [
         "docs/SESSION22_LOG.md",
         "docs/SESSION22_REPORT.md",
+        "docs/auto/BACKLOG.md",
+        "docs/auto/CRITIC_LATEST.md",
+        "docs/auto/reports/2026-09-11T0530Z-critic.md",
         "docs/finals_screen_v2.md",
         "docs/withdrawn_claims.md"
       ],

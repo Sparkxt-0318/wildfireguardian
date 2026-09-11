@@ -762,3 +762,97 @@ def test_the_budget_card_cites_multi_region_by_section_not_by_line() -> None:
         + ", ".join(stale) + ". The line moved once already and that move is "
         "the whole reason this row exists. Cite the section."
     )
+
+
+# ---------------------------------------------------------------------------
+# WFG-249 / WFG-251 — two cards that said something true of one layer, or of
+# one document, as if it were true of everything. Both shipped INSIDE the
+# 58-page booth kit, so both are worth a gate rather than a re-read.
+# ---------------------------------------------------------------------------
+
+
+def _card(qid: str) -> str:
+    """One question's body, whitespace flattened and bold markers stripped.
+
+    Flattened because both defects below hid across a line break: the clause
+    that scopes a claim and the claim itself sat on different lines, so any
+    single-line grep reads them as two sentences and finds neither whole.
+    """
+    for cur, _tier, body in _questions():
+        if cur == qid:
+            return re.sub(r"\s+", " ", body.replace("**", ""))
+    raise AssertionError(f"Q{qid} is gone from the bank; this gate names it by id")
+
+
+def test_the_privacy_card_scopes_its_household_definition_to_one_layer() -> None:
+    """WFG-249: Q20a defined 「가구」 for the whole repository, and it is not.
+
+    Q20a is a **T0** card, which `docs/auto/JUDGE_QA.md` §6's drill table puts on
+    the FIRST round — the student answers the privacy question from memory. It
+    said, unqualified, 「이 저장소에서 「가구」는 사람도 주소도 건물도 아니라 OSM
+    보행 도로망의 노드 하나입니다」. That is true of the 구조 · 경로 계층, whose
+    `home_node` output is what the rest of the answer describes, and it is false
+    of the refuge-siting arm, whose 20가구 / 24가구 really are OSM buildings
+    (`l0i_household_population`, registered from the artifact one lap earlier).
+    The demo's spoken 마무리 says the building half to the same five judges, and
+    its 금지 item 6 cited THIS card as the authority for the definition it broke.
+
+    Both properties are asserted because either alone leaves the contradiction
+    standing: the scope must sit on the defining sentence (not in a footnote a
+    memorising student never reaches), and the other population must be named in
+    the same card so 「아까 건물이 아니라고 하셨는데」 has an answer in hand.
+
+    ⚠ What this cannot catch: whether the scope is the RIGHT one. It pins that a
+    scope is stated and that both populations appear on one card; that the layer
+    named is the layer the `home_node` output belongs to is a reading, and
+    `WC-013`'s entry in `docs/auto/withdrawn_claims.json` is where that reading
+    is recorded. Do not weaken the privacy answer to satisfy this test — it is
+    correct about the routing output, which is why the card exists.
+    """
+    card = _card("20a")
+    assert re.search(r"구조 ?· ?경로 계층에서 「가구」는", card), (
+        "Q20a defines 「가구」 without naming the layer the definition is true "
+        "of. Unqualified, it contradicts the demo script's closing sentence, "
+        "which tells the same judge the 가구 it counts are OSM buildings. Scope "
+        "it to the 구조 · 경로 계층; do NOT fix this by weakening the privacy "
+        "answer or by deleting either sentence (CHARTER §3.5)"
+    )
+    assert "l0i_household_population" in card and re.search(r"OSM 건물 스냅숏 124동", card), (
+        "Q20a scopes its definition but never says where the OTHER 가구 count "
+        "lives. A student asked 「아까 건물이 아니라고 하셨는데 왜 마무리에서는 "
+        "건물입니까」 then has a scope and no answer. Name the refuge-siting "
+        "arm's population (OSM 건물 스냅숏 124동, l0i_household_population) in "
+        "this same card — WC-013's say_instead: the bound goes in the same "
+        "block as the claim"
+    )
+
+
+def test_the_related_preprint_card_scopes_its_negative_to_what_was_read() -> None:
+    """WFG-251: Q16d asserted a negative over a record it never opened.
+
+    The draft answer said 「기록에는 성능 수치가 하나도 없습니다」 — a claim about
+    the whole deposit. The Zenodo record carries exactly one attached file and
+    this project has never opened it, which the SAME card's 없는 것 item 1 states
+    forty lines below, prescribing the wording 「공개된 기록과 초록에는 …」. Three
+    paragraphs after the unscoped sentence the card tells the student to open that
+    DOI in front of the judge, so the judge is standing next to the evidence.
+
+    `WC-007` and `WC-009` are what this exact error class already cost this
+    project once, in the other direction (a negative, then a positive, about two
+    Korean systems whose manuals nobody here has read). The gate is the scope,
+    not the fact: every other fact on Q16d was re-verified at the Zenodo API and
+    none of it is touched here.
+    """
+    card = _card("16d")
+    assert "기록에는 성능 수치가" not in card, (
+        "Q16d asserts a negative over the whole deposited record again. Only "
+        "the metadata and the abstract were read; the one attached file was "
+        "never opened, and this card's own 없는 것 item 1 says so and gives the "
+        "wording: 「공개된 기록과 초록에는 …」"
+    )
+    assert card.count("공개된 기록과 초록에는") >= 2, (
+        "the scoped wording has to appear twice on this card — once in the "
+        "spoken draft answer and once in 없는 것 item 1, which prescribes it. "
+        "One without the other is how the contradiction lived here: the limits "
+        "list was right and the sentence the student says was not"
+    )
