@@ -50,7 +50,7 @@ committed artifact and writes a new one.
 `docs/auto/JUDGE_QA.md` Q36 (tier **T0**, said from memory to all five judges and
 printed in the booth kit), `docs/oracle_gap.md` §4c, `paper/manuscript.md` §6,
 `paper/README.md` and a bar-group heading rendered into `paper/figures/F10_disc_null.png`
-all placed this disc **at the ignition point** — 「발화점에」, 「at the ignition」,
+all placed this disc **at the ignition point** — 「발화점에」, 「at the ignition」, <!-- forbidden-ok: wc017-disc-at-ignition-en -->
 <!-- forbidden-ok: wc017-centred-on-ignition-en -->
 「centred on the ignition」. The table above always said otherwise, and so does the
 artifact's own `null_rule.centre_from`. The words were wrong; the null was not.

@@ -503,19 +503,19 @@
           "why": "The spelling Q36 and docs/disc_null.md §6 both used, tolerant of the markdown emphasis that lands mid-phrase (the WC-011 and WC-013 lesson). Anchored on 원/원판 TOGETHER with 발화점 rather than on 발화점 alone, which is a word this repository must keep: docs/submission_reconciliation.md uses it correctly for the real ignition the canonical array was seeded from, and docs/auto/JUDGE_QA.md and the related-work panel use it for how another team's console receives an ignition. Blast radius measured over every tracked .md and .html before registering: 1 hit, docs/auto/reports/2026-09-11T0825Z-critic.md, which is record class."
         },
         {
-          "pattern": "disc\\s+at\\s+the\\s+ignition",
+          "pattern": "disc(?:\\*\\*)?\\s*(?:\\*\\*)?\\s*at\\s+the\\s+(?:\\*\\*)?ignition",
           "token": "wc017-disc-at-ignition-en",
-          "why": "paper/manuscript.md §6's spelling and paper/README.md's quotation of it. Measured before registering: 1 hit, docs/auto/reports/2026-09-11T0343Z-manual.md, record class."
+          "why": "paper/manuscript.md §6's spelling and paper/README.md's quotation of it. Measured before registering: 1 hit, docs/auto/reports/2026-09-11T0343Z-manual.md, record class. ⚠ WIDENED IN THE SAME LAP, by the lap's own `sip` sweep: the first draft of this pattern did NOT tolerate the markdown emphasis that lands mid-phrase, and it missed an EIGHTH live instance — `paper/GAPS.md`'s 「an **area-matched disc** at the ignition」, where the closing `**` sits between the two anchor words. That is the WC-011 and WC-013 lesson, written into this registry's own Korean patterns and not applied to its English ones until the sweep found the miss."
         },
         {
-          "pattern": "centred\\s+on\\s+the\\s+ignition",
+          "pattern": "centred\\s+on\\s+the\\s+(?:\\*\\*)?ignition",
           "token": "wc017-centred-on-ignition-en",
-          "why": "docs/oracle_gap.md §4c's spelling. Deliberately NOT narrowed to lines that also say 「disc」: the phrase has no other referent in this repository and a future sentence that drops the noun is exactly the reworded escape docs/withdrawn_claims.md §4 says a line-based checker misses. Measured before registering: 4 hits, of which 2 are record class (BACKLOG, CRITIC_LATEST) and 2 are this lap's own correction notes in docs/disc_null.md and docs/oracle_gap.md, each licensed by a per-line pragma."
+          "why": "docs/oracle_gap.md §4c's spelling. Deliberately NOT narrowed to lines that also say 「disc」: the phrase has no other referent in this repository and a future sentence that drops the noun is exactly the reworded escape docs/withdrawn_claims.md §4 says a line-based checker misses. Measured before registering: 4 hits, of which 2 are record class (BACKLOG, CRITIC_LATEST) and 2 are this lap's own correction notes in docs/disc_null.md and docs/oracle_gap.md, each licensed by a per-line pragma. ⚠ WIDENED IN THE SAME LAP, by the lap's own `sip` sweep: the first draft of this pattern did NOT tolerate the markdown emphasis that lands mid-phrase, and it missed an EIGHTH live instance — `paper/GAPS.md`'s 「an **area-matched disc** at the ignition」, where the closing `**` sits between the two anchor words. That is the WC-011 and WC-013 lesson, written into this registry's own Korean patterns and not applied to its English ones until the sweep found the miss."
         },
         {
-          "pattern": "distance\\s+moved\\s+from\\s+the\\s+ignition",
+          "pattern": "distance\\s+moved\\s+from\\s+the\\s+(?:\\*\\*)?ignition",
           "token": "wc017-moved-from-ignition-en",
-          "why": "The bar-group heading paper/make_figures.py rendered into paper/figures/F10_disc_null.png, which is the instance this entry cannot reach: a PNG is not scanned, which is why the known-stale exception is written into `artifact` above rather than left to the pattern. Measured before registering: 6 hits, of which 5 are record class and 1 is this lap's dated note in paper/GAPS.md, pragma-licensed."
+          "why": "The bar-group heading paper/make_figures.py rendered into paper/figures/F10_disc_null.png, which is the instance this entry cannot reach: a PNG is not scanned, which is why the known-stale exception is written into `artifact` above rather than left to the pattern. Measured before registering: 6 hits, of which 5 are record class and 1 is this lap's dated note in paper/GAPS.md, pragma-licensed. ⚠ WIDENED IN THE SAME LAP, by the lap's own `sip` sweep: the first draft of this pattern did NOT tolerate the markdown emphasis that lands mid-phrase, and it missed an EIGHTH live instance — `paper/GAPS.md`'s 「an **area-matched disc** at the ignition」, where the closing `**` sits between the two anchor words. That is the WC-011 and WC-013 lesson, written into this registry's own Korean patterns and not applied to its English ones until the sweep found the miss."
         }
       ]
     }

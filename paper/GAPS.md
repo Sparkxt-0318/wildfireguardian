@@ -289,8 +289,9 @@ limitation in Section 6」. It is false, and it has two disproofs in the tree, o
 days old. `docs/oracle_gap.md` §4 scored the forward-simulated core against the observed
 FIRMS footprint at **IoU 0.3941** (952 predicted, 937 observed, 534 in both) and paper lap
 24 incorporated it. `docs/disc_null.md` (WFG-228, in lap 29's window) then scored the same
-field against an **area-matched disc** at the ignition and against the burn's own
-centre-of-mass movement. The surface is checked. It has been checked twice. The manuscript
+field against an **area-matched disc** on the `t = 0` seed centroid and against the
+burn's own centre-of-mass movement. ⚠ 〔정정 · 2026-09-11 · WFG-254〕 this line said 「at
+the ignition」; the emphasis marker mid-phrase is why the first sweep of that row missed it. The surface is checked. It has been checked twice. The manuscript
 said it was not.
 ⚠ **[「at the ignition」 is the WFG-254 defect, superseded at lap 31 and annotated rather
 than edited (CHARTER §3.7): the disc is centred on the centroid of the `t = 0` seed, which

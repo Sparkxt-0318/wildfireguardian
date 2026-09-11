@@ -3373,3 +3373,70 @@ asks a judge to trust when its prose drifts. **What §3d's freeze forbids is CHA
 committed entry, not VARYING a field across keys.** The general rule: *when a lap writes
 「I could not do X because Y」, the cheapest check is whether the same diff already does
 X somewhere else.*
+
+---
+
+## 2026-09-11T0921Z (dev, WFG-254) — a gate can pin a defect in place, and this one did for a window
+
+**The lesson worth the whole lap: `tests/test_disc_null.py` asserted 「shape and extent」 was
+in `docs/disc_null.md`, and 「extent」 read as area is a claim the method makes impossible.**
+The null matches area by construction — §2 sizes the disc from the model's own core count,
+so both masks hold 952 cells at the headline slice. A test written to stop a page from
+smoothing away its own self-correction had, as a side effect, made one word of that
+correction unfalsifiable: any lap that noticed the ambiguity and fixed it would turn the
+suite red and, reading a red gate as its own mistake, would put the word back. **Before you
+believe a phrase because a test asserts it, ask what the test was written to protect. A gate
+that pins an exact string protects the string, not the claim** — so when you correct a
+phrase, grep the tests for it first and decide, deliberately, whether the gate is defending
+the claim or merely memorising the wording. The repair here keeps the pin and adds the
+clause that makes it mean something: the page must now say 「reach」 AND say why area is not
+an axis this comparison can be won on, so a later lap cannot go back to the word by deleting
+an explanation.
+
+**A cheaper one, and it is the lap's recorded `hate` objection paying off.** The row asked
+for one word to change on seven surfaces plus a new 300 dpi figure, and every one of those
+edits rested on a measurement taken in *another lap's process* and held in no file. The
+objection was that a wrong repair of a right sentence is worse than the defect, because the
+defect is at least recorded. So the measurement was re-derived here before a single word
+moved — and then, because that is the actual fix, committed: a script, an artifact, two
+registry keys. **When a lap is about to act on a number that lives only in a report, the
+first step is not to check it, it is to commit it.** This repository had reasoned about that
+disc's centre across six direction pages without once opening `ign_xy`.
+
+**And a gate-shape one: `QUESTION_RE` in `tests/test_judge_qa_bank.py` matches only the
+numbered spine, so every card in the 「아직 답이 없는 질문」 TABLE — Q34 through Q40, which
+includes a tier **T0** card said from memory to all five judges — had no gate of its own and
+`_card()` raised on them rather than failing loudly.** A helper that raises 「Q36 is gone from
+the bank」 on a card that is plainly in the bank is a false negative wearing a confident
+error message. The new `_open_card()` reads the table rows. **Whenever a gate is scoped by a
+regex over a document's structure, ask which parts of the document the regex cannot see —
+that set is where the ungated defects live.**
+
+**Smallest, and it cost two gate runs: `collision-ok:` must sit on the offending line or the
+ONE line directly above it.** A four-line comment block whose first line carries the value
+does not license anything, because the line immediately above the hit is the block's last
+line. And in Markdown, put the pragma INLINE at the end of the row or sentence rather than
+on its own line above: a standalone `<!-- ... -->` between two table rows splits the table in
+two, and above a paragraph line it splits the paragraph.
+
+**One that nearly shipped a stale screen.** The first instinct on seeing `make finals` change
+only the build stamp was to revert it as no-op churn, and that was wrong: `web/finals.html`
+carries a 검증 레지스트리 card that states `n_entries`, so **any registrar that adds a key
+moves the screen**, and the diff looked stamp-only because the payload is one long JSON line.
+`tests/test_finals_payload_rederives.py` caught it. The rule: after a registrar runs, the
+screen and the bundle are rebuilt, and 「the diff is only the stamp」 is not a reason — read
+what the payload actually holds.
+
+**And the one `sip` earned outright, after the row's own sweep had already declared the
+surfaces complete: an EIGHTH instance, hidden by two asterisks.** The row named seven
+surfaces; the post-build consistency sweep found `paper/GAPS.md`'s 「a floor comparison of
+that field against an **area-matched disc** at the ignition」, where the closing `**` sits
+between the two words the English pattern anchored on. The Korean patterns in this registry
+already carry `(?:\*\*)?` tolerance — it is written into WC-011's and WC-013's `why` as a
+lesson paid for twice — **and this lap did not apply the lesson to its own English
+patterns.** The registration would have shipped a ratchet that the very next `**emphasis**`
+walks straight through. **A withdrawn-claim pattern is inline-markup-blind unless you make
+it otherwise; write the emphasis tolerance into EVERY spelling at registration time, and
+prove it by checking the pattern against the shipped sentence WITH its markup, not against
+the sentence you paraphrased into the entry.** The widened pattern then caught this lap's
+own correction note, which is how you know it works.

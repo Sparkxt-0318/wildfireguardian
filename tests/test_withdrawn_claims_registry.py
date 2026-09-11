@@ -555,11 +555,11 @@ def test_the_registry_holds_nothing_the_families_do_not():
     our_own_null_s_centre = {
         (r"원(?:판)?을\s*(?:\*\*)?\s*발화점(?:\*\*)?\s*에\s*놓",
          "wc017-disc-at-ignition-ko"),
-        (r"disc\s+at\s+the\s+ignition",
+        (r"disc(?:\*\*)?\s*(?:\*\*)?\s*at\s+the\s+(?:\*\*)?ignition",
          "wc017-disc-at-ignition-en"),
-        (r"centred\s+on\s+the\s+ignition",
+        (r"centred\s+on\s+the\s+(?:\*\*)?ignition",
          "wc017-centred-on-ignition-en"),
-        (r"distance\s+moved\s+from\s+the\s+ignition",
+        (r"distance\s+moved\s+from\s+the\s+(?:\*\*)?ignition",
          "wc017-moved-from-ignition-en"),
     }
     extra = ({(s["pattern"], s["token"]) for _cid, s in SPELLINGS}
@@ -994,13 +994,13 @@ def _probe_sentence(pattern: str) -> str:
         r"원(?:판)?을\s*(?:\*\*)?\s*발화점(?:\*\*)?\s*에\s*놓":
             "그리고 그 예측이 **좋은 값인지 견줄 대상**도 만들었습니다 — 같은 면적의 원을 "
             "발화점에 놓고 같은 방식으로 채점하면 0.1554 이고",
-        r"disc\s+at\s+the\s+ignition":
+        r"disc(?:\*\*)?\s*(?:\*\*)?\s*at\s+the\s+(?:\*\*)?ignition":
             "shape and extent far better than an equal-area disc at the ignition, but its "
             "centre of mass",
-        r"centred\s+on\s+the\s+ignition":
+        r"centred\s+on\s+the\s+(?:\*\*)?ignition":
             "than a disc of identical area centred on the ignition. The gap is stable "
             "across all",
-        r"distance\s+moved\s+from\s+the\s+ignition":
+        r"distance\s+moved\s+from\s+the\s+(?:\*\*)?ignition":
             '        ("distance moved from the ignition", [',
     }
     assert pattern in probes, (
