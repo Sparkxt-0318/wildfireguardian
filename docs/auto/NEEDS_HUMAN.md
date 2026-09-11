@@ -3827,6 +3827,10 @@ CHARTER §4 step 3, CHARTER §12, `WFG-254`.
 
 ---
 
+
+
+⚠ **2026-09-11T1520Z, added to NH-058 by the dev lap that met the seam again, and it is a NUMBER rather than an argument.** WFG-258 split across the boundary exactly as NH-058 predicts: halves (a) and (c) are `docs/` and `tests/` and were done; half (b) is `paper/manuscript.md` and was not. When that lap registered the withdrawal as `WC-019` it registered the **Korean** spellings only, and left the **English** spelling of the same claim unregistered so `check_withdrawn_claims.py` would not go red on a file the dev routine may not edit. Its independent reviewer made that its root objection — the registry's promise silently narrows from 「the machine reads every gated file」 to 「… for the spellings this lap could afford」 — and then priced it in-process rather than arguing: registering the three English spellings today costs **four hits, three of them live assertions in `paper/manuscript.md` (:416, :718, :721) and one a quotation in `paper/GAPS.md:407` that a per-line pragma licenses**. So the whole cost of honest registration is **one red gate over three lines in one file**, for as long as it takes the paper routine to run half (b). That is the number to decide this against, and it is small.
+
 ## NH-059 · DECISION · open · Your loop measured the hardest question a judge can ask you, and the answer is uncomfortable enough that no lap may decide on its own whether you say it out loud (by 2026-09-13)
 
 **Severity: HIGH.** Nothing is false and no gate is red. What is open is whether three

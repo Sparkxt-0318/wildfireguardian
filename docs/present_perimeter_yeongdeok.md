@@ -162,6 +162,20 @@ registered, because no page quotes them).
    records what closed it; that is a loop surface and not the manuscript, and this list is
    not exhaustive without it.
 
+   ⚠ **정정 (2026-09-11T1520Z, WFG-258(a); caught by that lap's independent reviewer, not
+   by the lap).** The sentence above is now true only of the **counts**. The **existence
+   and the date** of this run are on judge-facing surfaces as of that lap, and deliberately
+   so: `README.md`'s TL;DR and its Round-4 item 1, and `docs/auto/JUDGE_QA.md` Q19's spoken
+   draft and its prescribed booth sentence, all now say the comparison **has** been run on
+   영덕 and link here — because until that lap they said it never had, one window after
+   this page disproved them (WFG-258, `WC-019`). ⚠ **No count moved**: not the 26, not the
+   16, not the 2, not the 44, on any of them, and
+   `tests/test_judge_qa_bank.py::test_no_ppy_count_reaches_a_spoken_draft` is the gate that
+   now holds them off a spoken draft. **NH-059** is the author's decision on whether they
+   may be spoken, and §6 below stays empty until it is answered. This note exists because
+   README links a judge straight to this page, so a reader arrives here from a surface this
+   item said did not exist.
+
 ## 6. What a judge should hear, once this has been read
 
 Not yet. This section is deliberately empty until the critic lap or the author has read
