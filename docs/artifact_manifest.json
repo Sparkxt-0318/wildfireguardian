@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "d4b7befd3d8a1a2d622258eaf979a9d5b2302d06",
-  "n_artifacts": 112,
-  "total_bytes": 14635120,
-  "total_mib": 13.96,
-  "n_git_tracked": 112,
+  "generated_at_git_commit": "162779bef6df81f3266341b27342a1742435c8ae",
+  "n_artifacts": 113,
+  "total_bytes": 14650501,
+  "total_mib": 13.97,
+  "n_git_tracked": 113,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 9,
   "artifacts": [
@@ -402,6 +402,10 @@
       "git_tracked": true,
       "n_registry_entries": 2,
       "cited_by_docs": [
+        "docs/auto/BACKLOG.md",
+        "docs/auto/reports/2026-09-11T1052Z-dev.md",
+        "docs/auto/reports/2026-09-11T1102Z-dev.md",
+        "docs/auto/reports/2026-09-11T1117Z-dev.md",
         "docs/disc_null.md"
       ],
       "regenerate": "python scripts/measure_disc_centre_vs_ignition.py"
@@ -416,11 +420,18 @@
       "cited_by_docs": [
         "docs/auto/BACKLOG.md",
         "docs/auto/CRITIC_LATEST.md",
-        "docs/auto/DIRECTION.md",
+        "docs/auto/SCORECARD.md",
+        "docs/auto/archive/2026-09-11T1125Z-critic-superseded.md",
+        "docs/auto/archive/2026-09-11T1139Z-critic-superseded.md",
         "docs/auto/reports/2026-09-10T1620Z-dev.md",
         "docs/auto/reports/2026-09-11T0343Z-manual.md",
         "docs/auto/reports/2026-09-11T0825Z-critic.md",
+        "docs/auto/reports/2026-09-11T1052Z-dev.md",
+        "docs/auto/reports/2026-09-11T1102Z-dev.md",
+        "docs/auto/reports/2026-09-11T1117Z-dev.md",
+        "docs/auto/reports/2026-09-11T1156Z-critic.md",
         "docs/disc_null.md",
+        "docs/withdrawn_claims.md",
         "paper/GAPS.md",
         "paper/README.md"
       ],
@@ -779,6 +790,16 @@
       "regenerate": "python scripts/run_present_perimeter_arm.py --sweep-extra-m 750,1250,1500 --out data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json"
     },
     {
+      "path": "data/processed/present_perimeter_yeongdeok_2025.json",
+      "bytes": 15381,
+      "sha256": "1492b424900449ea4996b349a17908d8b9edb5f172bf8f80155a1069001e827b",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 6,
+      "cited_by_docs": [],
+      "regenerate": "python scripts/measure_present_perimeter_yeongdeok.py"
+    },
+    {
       "path": "data/processed/real_roads_real_hazard.json",
       "bytes": 8464,
       "sha256": "96f48fc97b467637033d6ba8f3569a29e13cb8efe3a8e7f39a92f7d2d5282d6d",
@@ -1022,7 +1043,6 @@
       "n_registry_entries": 0,
       "cited_by_docs": [
         "docs/auto/BACKLOG.md",
-        "docs/auto/CRITIC_LATEST.md",
         "docs/auto/DIRECTION.md",
         "docs/auto/JUDGE_QA.md",
         "docs/auto/MEMO.md",
@@ -1036,6 +1056,7 @@
         "docs/auto/reports/2026-09-10T0825Z-critic.md",
         "docs/auto/reports/2026-09-10T0952Z-dev.md",
         "docs/auto/reports/2026-09-11T0825Z-critic.md",
+        "docs/auto/reports/2026-09-11T0940Z-manual.md",
         "docs/live_pipeline.md",
         "docs/manual_trigger.md",
         "docs/oracle_gap.md",

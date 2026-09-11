@@ -1,0 +1,485 @@
+{
+  "_readme": "WFG-129. Of the origins whose FIRE-BLIND route enters the forecast on the canonical Yeongdeok field, how many a PRESENT-PERIMETER-ONLY router already saves. The present-perimeter arm is slice 0 of the committed hazard field used as a node filter (prob_at(x, y, 0.0) >= p_cut, the same predicate candidate_origins uses to refuse a burning origin), then the repository's own naive_route over the filtered graph, SCORED against the full forecast exactly as the other two arms are. Zero buffer: this is NOT WFG-033(b). Read docs/present_perimeter_yeongdeok.md, section 5, before quoting any number here.",
+  "written_at_utc": "2026-09-11T123143Z",
+  "region": "yeongdeok-2025",
+  "parameters": {
+    "max_abs_slope": 0.6,
+    "origin_scan_stride": 18,
+    "p_cut": 0.5,
+    "routing_objective": "length_m (distance-ranked)",
+    "slope_sampling_m": 60.0,
+    "source": "config/default.yaml — unchanged from every 459-series run",
+    "time_budget_min": 600.0,
+    "time_step_min": 10.0
+  },
+  "inputs": {
+    "canonical_npz": {
+      "path": "data/processed/routing_demo_canonical.npz",
+      "sha256": "81b4e4d159daa7a8ccc7c4fedf3fea948d501fff2d7e886c1fd55bbf47043fb7"
+    },
+    "canonical_json": {
+      "path": "data/processed/real_roads_real_hazard_canonical.json",
+      "sha256": "629f4d20510e22047406b391899a83e16792a7b3f395593af4f3f0274e7f4087"
+    },
+    "snapshots": {
+      "dem": {
+        "path": "data/snapshots/srtm-dem_yeongdeok-2025_20260723_66988bf5.tif",
+        "sha256": "66988bf5545dc4c3abf844a0e72122130ccb27583c9d421dd7228a8e2181ce46"
+      },
+      "walk": {
+        "path": "data/snapshots/osm-walk_yeongdeok-2025_20260724_2bff8d85.graphml.gz",
+        "sha256": "85ff8fd2eb0723480a5c9c84622b2a7e8d32f92e64af165d5ca7ffd24b4097f4"
+      },
+      "shelters": {
+        "path": "data/snapshots/osm-shelters_yeongdeok-2025_20260724_ac42a42b.geojson",
+        "sha256": "ac42a42be8c251b68c6f0c6f17f7513a976694f259731b794ef2a59a306f2c8c"
+      }
+    }
+  },
+  "reproduction_gate": {
+    "_readme": "The run writes nothing unless these reproduce the committed artifact.",
+    "expected": {
+      "both_safe": 414,
+      "naive_into_FA_safe": 42,
+      "no_safe_route": 2,
+      "n_origins_scanned": 458
+    },
+    "recomputed": {
+      "both_safe": 414,
+      "naive_into_FA_safe": 42,
+      "no_safe_route": 2,
+      "n_origins_scanned": 458
+    },
+    "passed": true
+  },
+  "present_perimeter_filter": {
+    "n_nodes_before": 8443,
+    "n_nodes_removed": 162,
+    "n_nodes_after": 8281,
+    "n_edges_before": 21982,
+    "n_edges_after": 21460,
+    "n_shelters_before": 46,
+    "n_shelters_removed": 1,
+    "n_shelters_after": 45
+  },
+  "target_set": {
+    "n": 44,
+    "definition": "every origin whose fire-blind route REACHES a refuge and ENTERS the forecast hazard: the committed naive_into_FA_safe (42) plus no_safe_route (2)",
+    "by_bucket": {
+      "naive_into_FA_safe": 42,
+      "no_safe_route": 2
+    },
+    "all_reached_fire_blind": true
+  },
+  "outcomes": {
+    "saved": 26,
+    "still_enters_forecast": 16,
+    "not_reached": 2,
+    "origin_removed_by_filter": 0
+  },
+  "headline": {
+    "n_target": 44,
+    "n_saved_by_present_perimeter": 26,
+    "n_still_entering_the_forecast": 16,
+    "n_not_reached_under_the_filter": 2
+  },
+  "what_this_is_not": "It is NOT a margin, and no width was swept, so no width could be chosen after the answer. It is NOT a re-scoring of the committed 42: that number and its fire-blind opponent are untouched, and nothing here moves a registered value. It is NOT transferable to the 91 on Uiseong-Andong, which is a different region measured with a different arm (docs/present_perimeter_arm.md). It is ONE fire, ONE region, ONE horizon, and the 32.6 % envelope-coverage caveat of the canonical field applies to it unchanged. An origin counted as not_reached is the FILTER's doing and not the fire's: every origin in the target set was reached by the fire-blind router on the unfiltered graph, so a large not_reached group would mean the filter disconnected the graph rather than that the present perimeter failed.",
+  "per_origin": [
+    {
+      "origin": 436594451,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "saved",
+      "pp_reached": true,
+      "pp_enters_hazard": false,
+      "pp_distance_m": 5648.484806381047,
+      "blind_distance_m": 4848.69473810999
+    },
+    {
+      "origin": 437092406,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "still_enters_forecast",
+      "pp_reached": true,
+      "pp_enters_hazard": true,
+      "pp_distance_m": 8978.220362921566,
+      "blind_distance_m": 8425.285588253853
+    },
+    {
+      "origin": 437251315,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "still_enters_forecast",
+      "pp_reached": true,
+      "pp_enters_hazard": true,
+      "pp_distance_m": 6930.978992892334,
+      "blind_distance_m": 6930.978992892334
+    },
+    {
+      "origin": 5274412772,
+      "bucket": "no_safe_route",
+      "outcome": "not_reached",
+      "pp_reached": false,
+      "pp_enters_hazard": false,
+      "pp_distance_m": 0.0,
+      "blind_distance_m": 2358.975604787551
+    },
+    {
+      "origin": 6205151092,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "still_enters_forecast",
+      "pp_reached": true,
+      "pp_enters_hazard": true,
+      "pp_distance_m": 10023.795599585952,
+      "blind_distance_m": 10023.795599585952
+    },
+    {
+      "origin": 6205151247,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "still_enters_forecast",
+      "pp_reached": true,
+      "pp_enters_hazard": true,
+      "pp_distance_m": 8319.710237266241,
+      "blind_distance_m": 8319.710237266241
+    },
+    {
+      "origin": 8814008933,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "saved",
+      "pp_reached": true,
+      "pp_enters_hazard": false,
+      "pp_distance_m": 1050.014680396334,
+      "blind_distance_m": 529.6591641525889
+    },
+    {
+      "origin": 9468449211,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "saved",
+      "pp_reached": true,
+      "pp_enters_hazard": false,
+      "pp_distance_m": 1499.4860060867227,
+      "blind_distance_m": 187.58290400312336
+    },
+    {
+      "origin": 11825850690,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "saved",
+      "pp_reached": true,
+      "pp_enters_hazard": false,
+      "pp_distance_m": 12529.683284826033,
+      "blind_distance_m": 11196.596540531229
+    },
+    {
+      "origin": 11830469236,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "saved",
+      "pp_reached": true,
+      "pp_enters_hazard": false,
+      "pp_distance_m": 16857.422175316897,
+      "blind_distance_m": 11736.80731073993
+    },
+    {
+      "origin": 11835362539,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "still_enters_forecast",
+      "pp_reached": true,
+      "pp_enters_hazard": true,
+      "pp_distance_m": 7154.985499862773,
+      "blind_distance_m": 7154.985499862773
+    },
+    {
+      "origin": 11910567899,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "saved",
+      "pp_reached": true,
+      "pp_enters_hazard": false,
+      "pp_distance_m": 3993.883313987861,
+      "blind_distance_m": 3180.024964940672
+    },
+    {
+      "origin": 11910568190,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "saved",
+      "pp_reached": true,
+      "pp_enters_hazard": false,
+      "pp_distance_m": 7059.3622430861005,
+      "blind_distance_m": 4622.325443651847
+    },
+    {
+      "origin": 11933421715,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "saved",
+      "pp_reached": true,
+      "pp_enters_hazard": false,
+      "pp_distance_m": 6408.891935678154,
+      "blind_distance_m": 5124.069159640455
+    },
+    {
+      "origin": 11933582638,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "saved",
+      "pp_reached": true,
+      "pp_enters_hazard": false,
+      "pp_distance_m": 6347.665056558083,
+      "blind_distance_m": 5609.768169982694
+    },
+    {
+      "origin": 11933582977,
+      "bucket": "no_safe_route",
+      "outcome": "not_reached",
+      "pp_reached": false,
+      "pp_enters_hazard": false,
+      "pp_distance_m": 0.0,
+      "blind_distance_m": 7649.87064378198
+    },
+    {
+      "origin": 11935180417,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "still_enters_forecast",
+      "pp_reached": true,
+      "pp_enters_hazard": true,
+      "pp_distance_m": 8660.41719593873,
+      "blind_distance_m": 7860.6271276676725
+    },
+    {
+      "origin": 11947135998,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "saved",
+      "pp_reached": true,
+      "pp_enters_hazard": false,
+      "pp_distance_m": 5998.767774453412,
+      "blind_distance_m": 5198.977706182355
+    },
+    {
+      "origin": 11976273083,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "saved",
+      "pp_reached": true,
+      "pp_enters_hazard": false,
+      "pp_distance_m": 949.3442865067851,
+      "blind_distance_m": 816.1103505894156
+    },
+    {
+      "origin": 11976273201,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "saved",
+      "pp_reached": true,
+      "pp_enters_hazard": false,
+      "pp_distance_m": 1472.037387898773,
+      "blind_distance_m": 853.2269836787825
+    },
+    {
+      "origin": 11982470744,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "saved",
+      "pp_reached": true,
+      "pp_enters_hazard": false,
+      "pp_distance_m": 1085.5803225409816,
+      "blind_distance_m": 519.0922209559686
+    },
+    {
+      "origin": 11982470791,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "saved",
+      "pp_reached": true,
+      "pp_enters_hazard": false,
+      "pp_distance_m": 1056.3609711053111,
+      "blind_distance_m": 528.2392987899792
+    },
+    {
+      "origin": 11982471029,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "saved",
+      "pp_reached": true,
+      "pp_enters_hazard": false,
+      "pp_distance_m": 1453.9753269434523,
+      "blind_distance_m": 465.47013745888853
+    },
+    {
+      "origin": 11991968878,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "saved",
+      "pp_reached": true,
+      "pp_enters_hazard": false,
+      "pp_distance_m": 1409.965565496659,
+      "blind_distance_m": 435.5939102298497
+    },
+    {
+      "origin": 11991968974,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "saved",
+      "pp_reached": true,
+      "pp_enters_hazard": false,
+      "pp_distance_m": 1563.7358338826625,
+      "blind_distance_m": 430.33034927460284
+    },
+    {
+      "origin": 11992067360,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "saved",
+      "pp_reached": true,
+      "pp_enters_hazard": false,
+      "pp_distance_m": 1443.5109870697988,
+      "blind_distance_m": 686.3911222072885
+    },
+    {
+      "origin": 11992071592,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "saved",
+      "pp_reached": true,
+      "pp_enters_hazard": false,
+      "pp_distance_m": 3216.10933852874,
+      "blind_distance_m": 2416.319270257683
+    },
+    {
+      "origin": 11993125283,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "saved",
+      "pp_reached": true,
+      "pp_enters_hazard": false,
+      "pp_distance_m": 3384.95750040541,
+      "blind_distance_m": 2585.167432134353
+    },
+    {
+      "origin": 11993125785,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "saved",
+      "pp_reached": true,
+      "pp_enters_hazard": false,
+      "pp_distance_m": 4575.493322939927,
+      "blind_distance_m": 3775.7032546688692
+    },
+    {
+      "origin": 11993250366,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "saved",
+      "pp_reached": true,
+      "pp_enters_hazard": false,
+      "pp_distance_m": 6306.875938962935,
+      "blind_distance_m": 5507.085870691878
+    },
+    {
+      "origin": 11999581403,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "saved",
+      "pp_reached": true,
+      "pp_enters_hazard": false,
+      "pp_distance_m": 6103.134474028908,
+      "blind_distance_m": 5303.344405757851
+    },
+    {
+      "origin": 11999581724,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "saved",
+      "pp_reached": true,
+      "pp_enters_hazard": false,
+      "pp_distance_m": 6588.716801001887,
+      "blind_distance_m": 5636.498927122021
+    },
+    {
+      "origin": 12029704902,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "still_enters_forecast",
+      "pp_reached": true,
+      "pp_enters_hazard": true,
+      "pp_distance_m": 6241.858155731392,
+      "blind_distance_m": 5158.904778248362
+    },
+    {
+      "origin": 12031458632,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "saved",
+      "pp_reached": true,
+      "pp_enters_hazard": false,
+      "pp_distance_m": 5145.655328083785,
+      "blind_distance_m": 4519.330221778677
+    },
+    {
+      "origin": 12031801689,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "still_enters_forecast",
+      "pp_reached": true,
+      "pp_enters_hazard": true,
+      "pp_distance_m": 7336.4536793904035,
+      "blind_distance_m": 6783.5189047226895
+    },
+    {
+      "origin": 12031801844,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "still_enters_forecast",
+      "pp_reached": true,
+      "pp_enters_hazard": true,
+      "pp_distance_m": 7863.382731633718,
+      "blind_distance_m": 7310.447956966003
+    },
+    {
+      "origin": 12031802043,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "still_enters_forecast",
+      "pp_reached": true,
+      "pp_enters_hazard": true,
+      "pp_distance_m": 8265.502635890292,
+      "blind_distance_m": 7712.567861222577
+    },
+    {
+      "origin": 12031802126,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "still_enters_forecast",
+      "pp_reached": true,
+      "pp_enters_hazard": true,
+      "pp_distance_m": 8358.655470621607,
+      "blind_distance_m": 7805.720695953892
+    },
+    {
+      "origin": 12031802225,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "still_enters_forecast",
+      "pp_reached": true,
+      "pp_enters_hazard": true,
+      "pp_distance_m": 9376.678700442386,
+      "blind_distance_m": 8823.74392577467
+    },
+    {
+      "origin": 12044832090,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "still_enters_forecast",
+      "pp_reached": true,
+      "pp_enters_hazard": true,
+      "pp_distance_m": 5928.522288269108,
+      "blind_distance_m": 5928.522288269108
+    },
+    {
+      "origin": 12045046266,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "still_enters_forecast",
+      "pp_reached": true,
+      "pp_enters_hazard": true,
+      "pp_distance_m": 8013.167190408533,
+      "blind_distance_m": 8013.167190408533
+    },
+    {
+      "origin": 12045202467,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "still_enters_forecast",
+      "pp_reached": true,
+      "pp_enters_hazard": true,
+      "pp_distance_m": 8236.00407504735,
+      "blind_distance_m": 8236.00407504735
+    },
+    {
+      "origin": 12048662505,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "saved",
+      "pp_reached": true,
+      "pp_enters_hazard": false,
+      "pp_distance_m": 2052.029705733795,
+      "blind_distance_m": 1137.2264536427947
+    },
+    {
+      "origin": 12058544389,
+      "bucket": "naive_into_FA_safe",
+      "outcome": "still_enters_forecast",
+      "pp_reached": true,
+      "pp_enters_hazard": true,
+      "pp_distance_m": 6691.252435545687,
+      "blind_distance_m": 6691.252435545687
+    }
+  ]
+}

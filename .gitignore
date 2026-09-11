@@ -170,6 +170,12 @@ data/processed/**
 # 'source_file missing' rule applies. It reads the two artifacts above and
 # modifies neither.
 !data/processed/disc_null_centre_vs_ignition.json
+# WFG-129 — the present-perimeter opponent for the Yeongdeok 42, run as a node
+# filter on slice 0 of the canonical field with ZERO buffer. Registered in
+# NUMBERS.json under ppy_yeongdeok_*, so it must be tracked or `make verify`
+# fails on a fresh clone with 'source_file missing'. It reads the canonical npz
+# and json and the committed snapshots, and modifies neither (CHARTER §3 rule 2).
+!data/processed/present_perimeter_yeongdeok_2025.json
 !data/processed/canonical_hazard.json
 !data/processed/real_roads_real_hazard_canonical.json
 # Step 2: the 30/60/90 m slope sweep on the canonical field. The committed

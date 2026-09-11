@@ -580,10 +580,16 @@ def test_the_registry_holds_nothing_the_families_do_not():
     #: measured and stays. Both patterns are therefore anchored on the claim verb — 「잘하는
     #: 것은 ... 아니라 ... 모양」 and 「이긴 축은 모양」 — and not on 「모양」, which this
     #: repository keeps as the ordinary word for the footprint.
-    #: ⚠ Blast radius measured over every tracked .md and .html BEFORE registering, line by
-    #: line as `scan_text` reads them: 13 hits for the closing spelling and 6 for the
-    #: analytic one, and ZERO of the 19 gated — BACKLOG, CRITIC_LATEST, DIRECTION,
-    #: SCORECARD, two archived critic drafts and one critic report, all record class.
+    #: ⚠⚠ The blast-radius line was CORRECTED in-lap by the independent reviewer, and the
+    #: correction is the part worth keeping. The draft said 19 hits and ZERO gated,
+    #: "measured before registering". That is the count AFTER the fix. Re-measured against
+    #: `git show 42b7c3c:<file>` for every tracked file: 22 hits, THREE of them gated —
+    #: docs/auto/JUDGE_QA.md:1513 under both patterns and docs/disc_null.md:292 under the
+    #: closing one, i.e. exactly the two surfaces the withdrawal exists for. The true
+    #: statement is the residual: 19 hits remain after the correction and every one is
+    #: record class (BACKLOG, CRITIC_LATEST, DIRECTION, SCORECARD, two archived critic
+    #: drafts, one critic report), plus one pragma-licensed mention of each pattern in
+    #: docs/withdrawn_claims.md.
     what_the_null_gap_is_attributed_to = {
         (r"잘하는\s*것은\s*방향이\s*아니라[^」]{0,24}모양",
          "wc018-shape-not-direction-ko"),
