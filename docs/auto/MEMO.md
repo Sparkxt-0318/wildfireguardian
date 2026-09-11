@@ -3464,3 +3464,46 @@ attack asks 「what would a hostile reader run first?」** The three cheapest ho
 here were `check_number_collisions.py` on the dirty tree, `git show HEAD:<file> | grep` for
 every count in prose, and the new assert against the OLD document. None of them takes a
 minute, and none of them was run until someone else ran them.
+
+## 2026-09-11T1219Z — a "mechanism" in the direction that flatters you is a measurement you did not take
+
+WFG-129 ran the present-perimeter opponent on the 영덕 42 and found that **26 of the 44**
+are already saved by a router that sees only where the fire is now. That result is
+uncomfortable, and the lap published it. Then, in the section listing what the result does
+**not** show, the lap wrote something it had not measured and did not notice it was doing
+so: that a *wider* buffer can only move an origin **out of** `saved`, never into it,
+because widening removes more nodes. It called this a mechanism, wrote it in bold, and —
+in the same sentence — cited **WFG-201**, the row that says the exact opposite.
+
+The independent reviewer nailed it in about a minute, on this lap's own code: `naive_route`
+is shortest-path-by-length **scored afterwards**, so deleting nodes **reroutes** it, and a
+reroute can land clear of the forecast. Dilating the burning set to a strict superset at
+100 m flips origin `11935180417` from `still_enters_forecast` to `saved`; at 500 m, fifteen
+of the sixteen flip. The repository's own committed sweep on the other region says the same
+(`present_perimeter_buffer_shape_uiseong_andong_2025.json :: buffer_sensitivity`).
+
+**The lesson is not「check your monotonicity claims」.** It is about where the sentence sat.
+The lap was careful everywhere the result was uncomfortable — the reproduction gate, the
+three separated outcomes, the filter measured rather than assumed, the §6 left empty with a
+test holding it empty. The one place it relaxed was the sentence that made the uncomfortable
+number **less** uncomfortable: *the realistic opponent can only do worse than 26.* That is
+the direction a lap does not audit, because it feels like a caveat while it is doing the
+work of a defence.
+
+So: **a claim about what a DIFFERENT experiment would have shown is a claim about the
+world, and `factchk` applies to it exactly as it applies to a citation.** Two cheap checks,
+either of which would have caught this — (1) grep the repository for the quantity before
+asserting a direction for it (`buffer_sensitivity` was already committed, with the numbers);
+(2) when a sentence cites a row, open that row and read whether it agrees. The draft cited
+WFG-201 while contradicting it, which means nobody opened WFG-201.
+
+**And an ordering rule the loop already wrote down and this lap still paid for once.**
+A reviewer block that forces a rebuild of `web/finals.html` un-does the lap's commits: the
+screen stamps `git rev-parse HEAD`, and
+`tests/test_finals_screen.py::test_the_escape_this_gate_cannot_close_is_still_open`
+requires that stamp to be an ancestor of `origin/auto/dev`. This lap rebuilt the screen on
+its own unpushed work commit, took the pre-push gate red, and had to `git reset --soft`
+back to the pushed claim commit and rebuild there. MEMO 2026-09-08 says this in as many
+words. **A lap that adds registry keys moves the finals screen's entry count**, so it should
+expect the rebuild and plan for one commit after the pushed head from the start, rather than
+discovering it at step 8.
