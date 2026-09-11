@@ -3619,6 +3619,25 @@ is the record of why, and `docs/auto/DIRECTION.md` carries the same prohibition.
 `docs/auto/RUBRIC.md` Track A 개발 목적 and Track B 연구 목적, and `docs/oracle_gap.md` §7, which is
 where the third qualification sends the reader.
 
+⚠⚠ **MEASURED NOTE ADDED 2026-09-11T1100Z by critic #66, at `d67de57`. The identical question now has a number on a second surface, and on that one it is moving.** No option below changes, nothing is proposed, and this entry is not re-dated; this is evidence for the choice you already have in front of you.
+
+This entry measures the proportion on `README.md`'s TL;DR, which is static. **The same proportion on the five-minute booth script is not static, and it has moved every lap for six days.** Read from the six committed artifacts in `data/processed/demo_script_pace/`:
+
+| what | at `039a0de` (2026-09-05) | at `pace_20260911T0620Z.json` (today) |
+|---|---:|---:|
+| total spoken syllables, against a fixed 300 s | 1,684 | **1,799** (+115, +6.8 %) |
+<!-- collision-ok: 6.0 5.61 — spoken syllables per second, total_spoken_syllables divided by the fixed 300 s, at two tags. The registered demo_pace_*_rate_spread values (1.62, 1.02, 1.03) are the SPREAD of per-segment rates across the six segments, a different quantity entirely, and none of them is stale. -->
+| implied rate | 5.61 syl/s | **6.00 syl/s** |
+| 마무리 · 한계 (the limits segment) | 45 s, the **shortest** | **64 s, the LONGEST segment of the demo** |
+| 3막 · 같은 출발지, 두 개의 답 | 75 s | **58 s (-23 %)** |
+
+⚠ **3막 lost 17 of its 75 seconds without losing a word**: its spoken text has been 346 syllables since 2026-09-05. `docs/demo_script_pace.md` calls 3막 「이 프로젝트의 전부」. Every one of the four growth events was a caveat added by a lap that was right to add it, which is exactly why no single lap could see the total.
+
+<!-- collision-ok: 6.0 — spoken syllables per second, total_spoken_syllables over the fixed 300 s. The registered demo_pace_*_rate_spread values (1.62, 1.02, 1.03) are the SPREAD of per-segment rates, a different quantity, and none is stale. -->
+**What this changes for your decision, and what it does not.** It does not make any option below better or worse on the README; it says that whichever way you answer, the same trade is being made on the booth script automatically, three hours at a time, by laps that are each individually correct. The loop has filed **WFG-257** to put the measurement on `docs/demo_script_pace.md` and to gate a further fall, and that row explicitly adds no syllable and removes none. ⚠ **Whether 6.00 syllables per second is sayable at all is still unmeasured and is NH-014 / R12**; `docs/demo_script_pace.md` says so itself, and nothing in this repository asserts a comfortable rate for spoken Korean.
+
+**If you want the booth script handled differently from the README, say so on this entry's reply line** (for example `NH-054: C, and cap 마무리 at 55 s`); otherwise a lap will apply your answer to the README only, because that is what the options below name.
+
 ## NH-055 · DECISION · open · Your front door compares the headline forecast number to a model the same page calls broken, and today the loop measured a second, harsher comparison it is not allowed to put beside it (by 2026-09-13)
 
 **Severity: MEDIUM.** Nothing here is false and no gate is red. Both comparisons are honestly

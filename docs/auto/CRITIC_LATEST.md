@@ -1,182 +1,182 @@
-# Critic #65 — 2026-09-11T0810Z, reviewed `f7ee58d`
+# Critic #66 — 2026-09-11T1100Z, reviewed `d67de57`
 
-**The next dev lap reads this file first.** Window `6d4a60b..f7ee58d` (the 24 h window; `6d4a60b`
-is this shallow clone's oldest resolvable commit, so it is the base rather than a chosen one):
-two dev laps that closed **five** P0 rows (WFG-247, WFG-248, WFG-249, WFG-250, WFG-251), one
-research lap, two paper laps, two board rebuilds after rebases and three report-header fixes.
-The printed kit was rebuilt **twice** and the bundle re-pointed both times. `docs/NUMBERS.json`
-gained keys additively. No model, no refit, no regenerated artifact.
+**The next dev lap reads this file first.** Window `ba76b8c..d67de57`. `ba76b8c` is this shallow
+clone's oldest resolvable commit (2026-09-10T12:45Z, 22 h 15 m back), so it is the base rather than
+a chosen one; critic #65's base `6d4a60b` no longer resolves here, which is the clone-depth fact
+CHARTER §4 warns about and not a history change. Counted from the reports added in the range: **six
+finished dev laps**, seven critic laps, four paper laps (filed `--kind manual`, because `report.py`
+has no `paper` choice) and one research lap, plus a **seventh dev lap that claimed WFG-254 at 0921Z
+and is still running**. Also two board rebuilds after rebases and four report-header fixes. The
+printed kit was rebuilt twice. `docs/NUMBERS.json` gained keys additively. No model, no refit, no
+regenerated artifact.
 
-**Everything critic #64 asked for was done.** Its item 1 was 「ONE lap takes WFG-249 + WFG-250 +
-WFG-251 and pays `make printables` ONCE」 and the 2026-09-11T0620Z lap did exactly that, in one
-lap, with one rebuild, and the repairs are correct. This lap's findings are new defects, not
-unpaid ones.
-
----
-
-## `fix-before-next-row`: ONE, and it is one clause plus the 17-second rebuild
-
-⚠⚠ **`docs/auto/JUDGE_QA.md:1513` — Q36, tier T0, said from memory to all five judges and
-printed on page 25 of the 59-page kit — tells a judge the null circle is placed 「발화점에」.
-The ignition point this project records is 19.20 km from that circle's centre, and no circle
-the measurement drew contains it.**
-
-Fix the 부스에서 할 말 clause to say what the centre actually is — the centroid of the `t = 0`
-detection seed, which is what the same card's analytic block already says correctly two
-paragraphs above — then `make printables` at a new stamp and re-point
-`release/kcf-finals-2026/MANIFEST.json`. That is the Q&A half of **WFG-254**. Then take the
-rest of WFG-254 in the same lap if the clock allows; it is six more one-clause edits and one
-replacement figure.
-
-⚠ **Critic #64 ruled that findings on hashed kit sources are 「un-preemptable」, and that reading
-is wrong.** NH-049 asks whether the **critic** may write the bank. It says nothing about the
-**dev lap** that executes a `fix-before-next-row` item, and the 0620Z lap closed three
-bank-and-script rows plus the rebuild inside one lap. CHARTER §14b's test is the size of the
-fix. This one is a clause and 17 seconds.
+**Critic #65's one item is NOT done, and that is this lap's item again.** Everything else critic #65
+asked for is either paid or claimed: the paper lap took WFG-254's English half in full, and the dev
+lap holding the rest claimed it 1 h 40 m before this head.
 
 ---
 
-## Finding 1 — WFG-254 (P0, KCF, filed at position 1). The null is not at the ignition point
+## `fix-before-next-row`: ONE, and it is critic #65's, re-measured and still unpaid
 
-**Measured in this lap's own process, read-only, from `data/processed/routing_demo_canonical.npz`.**
+⚠⚠ **`docs/auto/JUDGE_QA.md:1513` (Q36, tier T0, said from memory to all five judges and printed on
+page 25 of the 59-page kit) still tells a judge the null circle is placed 「발화점에」. The ignition
+point this project records is 19.20 km from that circle's centre.** Measured again at this head, not
+read from the report: the clause is present; `docs/disc_null.md:221` and `docs/oracle_gap.md:204`
+carry the same locative; the kit's seven sources hash **7 of 7** against the tree, so it is on the
+paper in the box.
 
-- That array carries `ign_xy` = (1138940.54, 1826944.63) beside `grid_extent` =
-  (1126514.93, 1789870.46, 1204514.93, 1880370.46, 500.0), on the canonical 181×156 grid.
-- `scripts/measure_disc_null.py` **never reads `ign_xy`**, and it is right not to:
-  `data/processed/disc_null_yeongdeok.json` → `null_rule.centre_from` states the rule correctly
-  as 「centroid of the t=0 seed」. That centroid is grid **(97.775, 55.120)**.
-- Mapping `ign_xy` onto the grid gives column **24.85** and row **74.15** or **106.85** depending
-  on which edge row 0 sits at. **The data settles it:** only **(74, 25)** is burning at `t = 0`
-  (`obs_stack[0] > 0`, and it is one of the 249 seed cells); (107, 25) is not observed at any
-  slice. So the recorded ignition point is **38.40 cells = 19.20 km** from the disc's centre.
-- ⚠ **The finding does not depend on that convention.** The other candidate is still **31.60
-  cells = 15.80 km**, while the **largest** disc drawn at any of the five slices has radius
-  **18.162** cells (9.08 km) and the headline slice's has **17.355** (8.68 km). **No disc at any
-  slice contains the recorded ignition point**, and the headline disc's centre is more than
-  twice its own radius from it.
-- ⚠ **And 「발화점」 is not loose speech, because the seed is not a point.** The 249 cells both
-  stacks agree on at `t = 0` are **226 connected components** (8-connectivity, largest **3**
-  cells), bounding box **23.5 km × 44.5 km**, mean distance from their own centroid **23.2 cells
-  (11.6 km)**. There is no ignition point in that mask to be near.
-- `docs/submission_reconciliation.md:63` uses 발화점 elsewhere to mean the real ignition
-  (「정본은 실제 발화점에서 다시 모사한」), which is exactly why a judge reads the two as the
-  same place. **Do not touch that line; it is correct.**
+⚠⚠ **What changed in this window is that the ENGLISH half was paid and the KOREAN half was not, and
+the two now disagree.** `paper/manuscript.md:710` reads 「an equal-area disc centred on the first
+detections' centroid」 and has retired 「shape and extent」 in favour of 「overlaps」;
+`paper/figures/F10b_disc_null.png` is the corrected figure under a new filename with
+`F10_disc_null.png` kept and annotated. On the Korean side, Q36 still says both
+「발화점에」 and 「모델이 원판을 이긴 것은 모양과 범위이고」. **The surface five judges hear is the
+one still wrong.** Pay it with the same `make printables` at a new stamp and a re-pointed
+`release/kcf-finals-2026/MANIFEST.json`.
 
-**The seven surfaces.** `docs/auto/JUDGE_QA.md:1513` (Q36, T0, printed); `docs/disc_null.md:221`
-(spoken draft); `docs/oracle_gap.md:203` (「centred on the ignition」, the page the README sends a
-judge to); `paper/manuscript.md:710` (「an equal-area disc **at the ignition**」);
-`paper/README.md:1052` (quoting it); and ⚠⚠ **`paper/make_figures.py:873`, which renders the bar
-group heading 「distance moved from the ignition」 over `seed_to_observed_m` (1,124.8 m) and
-`seed_to_model_m` (3,646.1 m) — both measured from the seed centroid — into
-`paper/figures/F10_disc_null.png`, committed at `938dff7` in this window.** That figure is not
-yet referenced by the manuscript, which lowers its reach and not its wrongness.
-
-⚠ **A second clause, ambiguous rather than false.** Q36 says 「모델이 원판을 이긴 것은 **모양과
-범위**」, and `docs/disc_null.md:152`, `docs/oracle_gap.md:211`, `paper/manuscript.md:710`,
-`paper/README.md:894`, `paper/GAPS.md:100` and `:341` say 「shape and extent」. Both masks hold
-**952** cells at the headline slice and `docs/disc_null.md` §2 says the area is 「handed over from
-the model」, so on the **area** reading the claim is impossible. On the **reach** reading it is
-true and measurable: the model's core spreads its 952 cells across a 44.5 km-wide box in 37
-components while the disc packs the same 952 into a circle 17.4 km across. Disambiguate; do not
-delete.
-
-**Constraints.** CHARTER §3 rule 2 forbids regenerating `paper/figures/F10_disc_null.png` — the
-corrected figure takes a **new filename** and the old one keeps a dated note saying what its
-heading got wrong. Change **no measured value**; none of them is wrong. Do **not** weaken
-`docs/disc_null.md` §4's centroid finding, which survives the relabelling unchanged.
-
-## Finding 2 — WFG-255 (P0, science, position 2). The graded object's geometry is unstated
-
-Measured here, 8-connectivity, same array and grid: the `t = 0` observation is **249 cells in 226
-components** (largest 3); the **333-minute** observation that produces IoU 0.394 is **937 cells in
-55 components** (largest **656**, second **135**), bounding box **24.5 km × 45.0 km**; the
-360-minute forecast core is **952 cells in 37 components** over the same box; the cumulative stack
-stays at 55 or 56 components at every later slice, adding only **86** cells between 333 and 2403
-minutes.
-
-**No file in this repository says any of this.** A search for component / 연결 성분 / disconnected
-across `docs/`, `paper/` and `README.md` returns nothing about this array. Meanwhile
-`docs/disc_null.md:153` tells a judge the model 「puts cells along the **arms the fire actually ran
-down**」, and `docs/oracle_gap.md` §4's centroid argument turns on how far 「the fire」 moved. Both
-read the mask as one advancing fire. A judge who is a disaster-response official asks 「이 마스크
-안에 산불이 몇 개입니까」 in the first minute and gets no answer from any file.
-
-⚠ **The row asserts the geometry, not a conclusion about it.** It does **not** claim the mask is
-several fires: the 2025 경북 event was a multi-fire complex and FIRMS gaps also fragment a single
-perimeter, and this repository cannot presently tell those apart. That is why the number belongs
-on the page before the interpretation does. **Do not write 「여러 개의 산불」, or any count of
-fires, from this measurement alone.**
-
-## Finding 3 — the direction pre-registration fired, and the honest reading is split
-
-Critic #64 pre-registered: 「if a dev lap ran in the next window and WFG-129 is still `todo`, that
-is finding #1 and it is about the loop's direction」. **Two dev laps ran and WFG-129 is still
-`todo`.** But both took critic #64's own item 1 and closed all three of its rows, so the cause is
-**the page's ordering**, not the laps' choice, and this lap will not score a lap for obeying the
-page it was told to obey. **WFG-129 is item 2 on `docs/auto/DIRECTION.md` now, behind one row
-only.** ⚠ **Pre-registered for critic #66, with teeth: if TWO dev laps have run and WFG-129 is
-still `todo`, that is finding #1 and critic #66 spends its one §3b row move putting WFG-129 at
-table position 1.**
-
-## Finding 4 — WFG-238 has a third live instance, repaired by hand here
-
-`docs/auto/KCF_READINESS.md`'s lead was **two** laps stale: it named 「critic #62 … NINETEENTH」
-while critic #63 (`f48876a`) and critic #64 (`0a66c90`) had each appended a section, both at the
-bottom of the file. ⚠ The same two laps split the file's ordering convention — #58 to #62 are
-newest-first under the lead, #63 onward are appended newest-last. This lap repaired the lead in
-the same commit as its own append and **moved nothing**, because moving a section invalidates
-every line citation made against it (the WFG-107 shape, seventh instance). Appended to **WFG-238**
-rather than filed again. This is loop hygiene, P1, held by CHARTER §14b behind R3.
+⚠ **WFG-254 is `in-progress(20260911T0921Z)` with only its claim commit pushed.** At this head that
+claim is 1 h 40 m old, inside CHARTER §5b's three hours, so it is **another lap's row and must not be
+taken from it**. If you are that lap, this is your row. If you are a later lap and the claim is then
+over three hours old with no work commit behind it, §5b releases it.
 
 ---
 
-## What this lap verified and found clean
+## Finding 1 — WFG-256 (P0, science, filed at table position 3). The card claims the half of the comparison the artifact declines to attribute
 
-- **Gates.** `gates.py --mode full` exits **0** on its FIRST run in this sandbox: 2097 passed, 65
-  skipped, 3 xfailed, pytest 493.5 s. `baseline-verify` WARNs on the two git-ignored
-  `data/raw/**` contracts, which is NH-029 and CHARTER §3d working as decided. `--assert-head`
-  exits 0; `--assert-reported --base 6d4a60b` exits 0 over **70** substantive paths.
-- **GitHub's own runs (CHARTER §4b).** Runs **348 to 364** on `auto/dev` cover the window: **zero
-  `failure`**, one `cancelled` (352, superseded by the next push), and run **364** is `success` at
-  exactly `f7ee58d`. **No CHARTER §4b finding #1, for the fourteenth consecutive lap.**
-- **Report certification.** Every dev report in the window records `Reviewed by:` — two `pass`,
-  two `block` that the laps then fixed. The research report carries none, by design.
-- **The hand-over objects.** Kit `manifest_20260911T0706Z.json` hashes **7 of 7** sources equal to
-  the working tree; `release/kcf-finals-2026/MANIFEST.json` hashes **19 of 19** entries equal to
-  their `source` paths and names the newest kit. 59 pages.
-- **The five closed rows are correct repairs.** WFG-249 scopes Q20a to the 구조 · 경로 계층 and
-  names the other population in the same block; WFG-250 replaces the population with the actual
-  denominator (`l0i_failing_denominator_h240` **24**, not the **124**-building population) and the
-  registry's own caveat says the two agreeing with `l0i_best_pair_saved` is a coincidence rather
-  than a derivation, which is the right thing to have written; WFG-251 narrows Q16d to 「공개된
-  기록과 초록」 with 「본문 PDF 는 저희가 열지 못했으므로」 beside it.
-- **`factchk`.** ⚠ This lap could **not** reach the Zenodo API from the sandbox (the request
-  returned no JSON), so it does **not** restate critic #64's verification of the Bokade record as
-  its own. Nothing in this lap rests on it, and the WFG-251 repair above is the safe form whether
-  or not a lap can reach the record.
-- **Judge drill.** Q36 is where this lap's finding 1 came from. The three other hardest cards
-  checked against files — Q16d (record-and-abstract scope), Q20a (household definition) and Q19
-  (two populations) — all answer from a file at this head.
+**Measured in this lap's own process, read-only, at `d67de57`.**
 
-## The shallow clone
+- `docs/disc_null.md:225` (the spoken draft) and `docs/auto/JUDGE_QA.md:1513` (Q36, **T0**) both close
+  on 「저희가 잘하는 것은 방향이 아니라 불의 모양입니다」. Q36 states the same attribution again as
+  「모델이 원판을 이긴 것은 모양과 범위이고」. The card tells the student to volunteer it
+  「심사위원이 캐내기 전에 먼저」.
+- **The artifact refuses that attribution in its own words.**
+  `data/processed/disc_null_yeongdeok.json :: what_this_is_not` reads 「The gap between the model's
+  IoU and the disc's is **joint PLACEMENT-AND-SHAPE skill**, not directional skill alone, because a
+  disc differs from the model's core both in where its mass sits and in being a circle rather than an
+  irregular terrain-shaped blob」. `docs/disc_null.md` §5.1 adds that a circle against an elongated
+  fire is a weak opponent **by construction**.
+- So the IoU gap is a two-component quantity. The `direction` block prices one component and it goes
+  <!-- collision-ok: 5.34 — dn_yeongdeok_model_to_observed_cells, the MODEL's centroid error. The registry's 2.25 under a similar anchor set is dn_yeongdeok_seed_to_observed_cells, how far the OBSERVED centroid moved, which is a different quantity. -->
+  the wrong way for the model: `dn_yeongdeok_model_to_observed_cells` **5.34** against the stationary
+  <!-- collision-ok: 2.266 — dn_yeongdeok_disc_to_observed_cells, the DISC's centroid error in cells. The registered dn_yeongdeok_*_disc_radius_cells values (8.913, 14.881, 17.355, 17.681, 18.162) are per-slice RADII, a different quantity, not stale values. -->
+  disc's `dn_yeongdeok_disc_to_observed_cells` **2.266**. The card then attributes the **entire
+  remainder** to 「모양」. That is the forbidden single-component move mirrored: the artifact declines
+  to attribute the gap to direction alone, and the card attributes it to shape alone.
+- ⚠ **Nothing in this repository measures the shape component.** Searched here across `docs/`,
+  `paper/`, `scripts/` and `src/` for a shape-matched, second-moment, principal-axis or rotated null:
+  the only hit is `scripts/direction_drivers.py:31`, gradient covariance on a different object.
+  `run_isotropic_baseline` **is** this disc once the area match removes its rate parameter;
+  `run_persistence_baseline` is **WFG-234**; neither separates shape from placement.
+- ⚠ **The headline slice is NOT cherry-picked, and this lap checked rather than assumed.** The
+  seed-removed ratio is 1.9538 / 2.2044 / 2.2335 / 2.2286 across the four non-seed slices and the
+  headline slice (haz 360, obs 333) is the smallest time gap at 27 min, fixed in the claim commit
+  before the answer. The model's own IoU is slightly **higher** at t=540 and t=720 than at the
+  headline. Selection is not the defect here; attribution is.
 
-`git rev-parse --is-shallow-repository` answers **true** and the clone holds **50** commits,
-measured in this lap. **No ancestry or reachability claim is written anywhere in this lap's
-output.** ⚠ **Do NOT `git fetch --unshallow`, and CHARTER §4 does not ask you to.** It drags in
-eleven side branches, lengthens `git`'s abbreviation and turns `tests/test_timeline_roles.py`'s
-history check RED on a tree that is fine; critics #60 and #63 both paid for it. The cost of not
-deepening, stated: in a shallow clone that check **SKIPS** rather than runs
-(`tests/test_timeline_roles.py:234`), so a green critic gate does not certify it. GitHub at
-`fetch-depth: 0` does, and run 364 is green. Recorded on **WFG-217**; this note names those file
-lines and that measurement and **expires at critic #66** unless that lap re-runs the case.
+**The cheapest test, and it is why this is a row rather than a complaint.** Rotate the model's **own**
+predicted core rigidly about the `t = 0` seed centroid (grid 97.775, 55.120) through a pre-registered
+angle sweep and re-score against the same `obs_stack` slice under the same rule. Shape, area and cell
+count are the model's own by construction; only orientation about the fire's own start varies. The
+spread of rotated IoUs is the **shape-controlled** null for placement, and the model's rank within it
+is the number the card is missing. Zero free parameters, one committed npz, no refit. Pre-register the
+interpretation in the claim commit and publish it either way: if the rotated cores score near
+<!-- collision-ok: 0.2577 2.2 — 0.2577 is dn_yeongdeok_bare_model_iou, the HEADLINE slice's seed-removed model IoU; the other registered *_model_iou and *_bare_* values are OTHER SLICES, not stale values. 2.2 is the rounded seed-removed RATIO dn_yeongdeok_bare_iou_ratio 2.2044 and is not an IoU. -->
+`dn_yeongdeok_bare_model_iou` **0.2577**, the 2.2x measures irregularity and not skill, and the clause
+comes off the card.
 
-## `Do NOT edit` notes written by this lap (CHARTER §14c, NH-036 A)
+⚠ **Constraints on the row:** do not rotate about the grid centre or the observed centroid; do not
+report a p-value (12 or 24 rotations of one fire is a reference spread, not a test); do not touch any
+committed number. Full row text in `docs/auto/BACKLOG.md`.
 
-**ONE, and it names its lines and its measurement.** It covers **`docs/submission_reconciliation.md:63`**,
-the sentence 「정본은 실제 발화점에서 다시 모사한 `routing_demo_canonical.npz`이고 414 / 42 / 2입니다」.
-It forbids exactly one thing: changing or removing that line's 발화점 while WFG-254 is open. The
-measurement behind it is the one in finding 1 — that 발화점 there refers to how the canonical array
-was **seeded**, which the array's own `ign_xy` supports, and is a different object from the null's
-centre. A lap sweeping 발화점 out of the seven WFG-254 surfaces will meet this line and must leave
-it alone. It freezes no file and no question: every other 발화점 in the repository is in scope.
-**It expires at critic #66 unless that lap re-states it after re-reading the line.**
+---
+
+## Finding 2 — WFG-257 (P1, KCF, appended at the end of the table). The demo pays for every caveat out of its own core
+
+**Read from the six committed artifacts in `data/processed/demo_script_pace/` and the allocation table
+in `docs/demo_script_pace.md` §3.**
+
+| what | at `039a0de` | now (`pace_20260911T0620Z.json`) | change |
+|---|---:|---:|---:|
+| total spoken syllables | 1,684 | **1,799** | +115 (+6.8 %) |
+| implied rate, syl/s at a fixed 300 s | 5.61 | **6.00** | +7 % |
+| 3막 · 같은 출발지, 두 개의 답 | 75 s | **58 s** | **-23 %** |
+| 마무리 · 한계 | 45 s | **64 s** | **+42 %** |
+| 마무리 syllables | 328 | **383** | +55 |
+
+⚠⚠ **마무리 is now the longest segment of the five-minute demo** (allocation 35 / 41 / 47 / 58 / 55 /
+64). At `039a0de` it was the **shortest**, tied with 1막. And 3막, which `docs/demo_script_pace.md`
+itself calls 「이 프로젝트의 전부」, lost 17 of its 75 seconds **without losing a word**: its spoken
+text has been 346 syllables since 2026-09-05 (`pace_20260905T0947Z.json` and
+`pace_20260911T0620Z.json` agree).
+
+**What the page already says and what it does not.** It records the allocations, the four totals and
+that the rate is rising on four consecutive measurements, and it prices 3막's loss once as 「what one
+rate costs it」. It does **not** say that the transfer is monotone across five allocations, that the
+segment losing the time has not lost a word, or that the limits segment is now the longest thing five
+judges hear. Every one of the four growth events was a caveat added by a lap that was right to add it,
+which is exactly why nobody has been able to see the total.
+
+⚠ **The row adds no syllable and removes none.** Whether the proportion is right is the author's, and
+it is the identical question NH-054 already asks about `README.md`'s TL;DR; a dated measured note was
+appended there rather than opening a twenty-fifth entry.
+
+---
+
+## Finding 3 — WFG-252 confirmed and widened (P1, infra, updated in place, NOT re-filed)
+
+**`docs/auto/SCORECARD.md` is the page whose whole job is to show direction between laps, and three
+things are wrong with its newest entry.**
+
+1. ⚠⚠ **Critic #65 appended BOTH of its rows to the Track A table, and neither to the Track B table
+   nor to the series.** Measured at this head before any edit: the Track B table ended at `5482ba8`
+   (line 167); the series table ended at `5482ba8` (line 90); and the Track A table held **two**
+   `f7ee58d` rows (lines 235 and 236). **A reader of the Track A table therefore sees 구현 및 유용성
+   fall to 19 and hold at 20 at the same head**, because Track B's 데이터 수집·분석·해석 cell lands
+   in Track A's 구현 및 유용성 column. That is WFG-252's and WFG-184's subject, and critic #40
+   measured the same failure class on 2026-09-08.
+2. ⚠⚠ **The row also carries an unevidenced point.** Track B 연구 목적 reads **18** at `5482ba8`
+   and **19** at `f7ee58d`, while that row's own narrative says 「연구 목적 19 ... all HELD」. No lap
+   has published a reason for the raise, and it is what makes that row total **95** rather than 94.
+3. **The published delta is measured against the wrong series.** Critic #65's report and
+   `docs/auto/DIRECTION.md` both said 「Track B 97 to 95」. Track B's previous value was **96**; **97**
+   is Track A's.
+
+This lap **transcribed** the missing rows into the Track B table and the series rather than leaving
+them, annotated as transcriptions, which is the practice critic #64 already used. The misplaced Track
+A copy is left exactly where it is.
+
+⚠ **No row another lap wrote was edited** (CHARTER §3.7). This lap scored 연구 목적 itself at **18**
+with a reason rather than inheriting the 19, and named the discrepancy in its own row. WFG-252's
+done-when gained one clause: the gate must also refuse a detail row whose cell differs from the
+previous row for that track when the narrative does not name that criterion as moving.
+
+---
+
+## What is green, measured here and not read from a report
+
+- `gates.py --mode full` exits **0** on its **first** run: 2097 passed, 65 skipped, 3 xfailed, pytest
+  386.5 s. `baseline-verify` is the expected WARN (NH-029: new artifacts and a grown registry are
+  information in a sandbox that cannot re-freeze).
+- `gates.py --assert-reported --base ba76b8c` exits **0** over 68 substantive paths.
+- **GitHub `auto-gates` run 369 is `success` at exactly `d67de57`**, and **no run in the 24-hour
+  window concluded `failure`**: runs 344, 352 and 368 are `cancelled`, each superseded by the next
+  push. CHARTER §4b therefore sets **no finding #1**, for the fifteenth consecutive lap.
+- **Every dev report in the window records `Reviewed by:`** (ten checked, all `subagent`; the
+  2026-09-11T0119Z lap's is bolded but present).
+- The printed kit's seven sources hash **7 of 7** against the tree, and
+  `release/kcf-finals-2026/MANIFEST.json` names the newest kit,
+  `WFG_printables_20260911T0706Z.pdf`, 59 pages. ⚠ This lap did **not** independently re-derive the
+  19-file bundle tally and does not restate it; `tests/test_finals_bundle.py` is green inside the full
+  gate run above.
+- ⚠ **One honest subtraction.** This clone is SHALLOW at **50** commits and was deliberately not
+  deepened, so `tests/test_timeline_roles.py:234` **SKIPS** rather than runs and a green critic gate
+  does not certify it. GitHub at `fetch-depth: 0` does. No ancestry or reachability claim is written
+  anywhere in this lap.
+
+## Your decisions, applied
+
+**Nothing new arrived.** `docs/auto/decisions_seen.json` records `"seen": []`, the newest applied
+decision is NH-031 of 2026-09-06, every thread matching the report subject in the last 14 days at the
+Gmail connector carries exactly one message and every one of them is the loop's own send, and PR #31
+returned an **empty comment list** at the GitHub MCP in this lap. **Five days, no reply, 24 open decisions and four
+days of sprint left.** That is **WFG-211**, already `todo`, confirmed here and not re-filed.
