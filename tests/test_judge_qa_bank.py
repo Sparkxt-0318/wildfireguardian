@@ -1114,9 +1114,16 @@ def test_no_spoken_sentence_withholds_a_number_for_want_of_permission() -> None:
     sentence, and the surface says exactly that. The 영덕 present-perimeter counts
     are measured, committed, registered and one click from the README's TL;DR, so
     a sentence that says 「we have not decided whether we may tell you」 reads as
-    concealment while being literally true. Say where the number is written and
-    offer to open the page instead; NH-059 stays open and is the student's reason,
-    not the judge's.
+    concealment while being literally true. Answer the question and name the file
+    instead; NH-059 stays open and is the student's reason, not the judge's.
+
+    ⚠ Critic #69 corrected this docstring and the message below. Both used to
+    prescribe 「name the section (§4) and offer to open it」, which is what the
+    lap clearing critic #68's item pasted into Q19 -- and §4 of that page prints
+    all three counts in bold, so the card reached NH-059 option A by the judge's
+    request instead of the student's sentence. A gate must not teach the next lap
+    the behaviour the gate beside it exists to stop:
+    test_no_spoken_draft_points_at_a_section_of_the_yeongdeok_page is that gate.
 
     Graded by mutation: put 「... 부스에서 말해도 되는지를 저희가 아직 정하지
     않아서 오늘은 말씀드리지 않겠습니다」 back into Q19's draft and this goes red
@@ -1129,11 +1136,62 @@ def test_no_spoken_sentence_withholds_a_number_for_want_of_permission() -> None:
         "it may be spoken. That is the loop's internal governance, and a judge "
         "hears concealment -- attached, in Q19's case, to the headline 42. "
         "CHARTER §3.5 says the opposite move: when a result is weak, say so in "
-        "the artifact. Replace the REASON, not the number: name the section the "
-        "count is written in (docs/present_perimeter_yeongdeok.md §4), offer to "
-        "open it, and say it is a partition and not a margin. ⚠ Do NOT fix this "
-        "by speaking the count -- test_no_ppy_count_reaches_a_spoken_draft bars "
-        "26, 16 and 44 from a draft and NH-059 is still open."
+        "the artifact. Replace the REASON, not the number: answer the question, "
+        "name the file (docs/present_perimeter_yeongdeok.md), and say what comes "
+        "out of it is a partition and not a margin. ⚠ Do NOT fix this by naming "
+        "a SECTION of that page -- §4 prints all three counts, and "
+        "test_no_spoken_draft_points_at_a_section_of_the_yeongdeok_page bars it. "
+        "⚠ Do NOT fix this by speaking the count either -- "
+        "test_no_ppy_count_reaches_a_spoken_draft bars 26, 16 and 44 from a "
+        "draft and NH-059 is still open."
+    )
+
+
+#: A pointer to a numbered section, in the spellings this bank actually uses.
+#: Scored ONLY inside a spoken span that is already naming the 영덕 page
+#: (`_PPY_CONTEXT`), for the reason critic #69 gave: 「4절」 on its own appears
+#: legitimately elsewhere in the bank, and a gate that fires on a correct
+#: sentence pressures the next lap to strike it off the student's card.
+_SECTION_POINTER = re.compile(r"(?:제\s*)?[0-9]+\s*절|§\s*[0-9]+")
+
+
+def test_no_spoken_draft_points_at_a_section_of_the_yeongdeok_page() -> None:
+    """Naming the file is answering. Naming §4 of it is reading out the counts.
+
+    Critic #68's repair replaced 「we have not decided whether we may say it」
+    with 「the number is written in §4 of that document」, and §4 of
+    docs/present_perimeter_yeongdeok.md prints all three counts in bold. So the
+    student volunteering that section to five judges reaches NH-059 option A
+    through a side door -- by the judge's request rather than the student's
+    sentence, but reached. The card's own student note eight lines above says
+    the card does not raise the count first; this gate is what keeps that note
+    true.
+
+    The rule the bank now states: answer the question, name the file, name
+    nothing inside it. If a judge asks to open it, it is opened -- refusing to
+    open a committed public document in front of a judge is the concealment
+    critic #68 was about. Whether the student may OFFER the counts is NH-059 and
+    stays the author's.
+
+    Graded by mutation: put 「거기서 나온 수치는 그 문서 **4절**에 그대로 적혀
+    있습니다」 back into Q19's prescribed sentence and this goes red naming it.
+    """
+    offenders = []
+    for label, text in _spoken_spans():
+        if not any(p.search(text) for p in _PPY_CONTEXT):
+            continue
+        hit = _SECTION_POINTER.search(text)
+        if hit:
+            offenders.append("%s (%s)" % (label, hit.group(0).strip()))
+    assert not offenders, (
+        ", ".join(offenders) + ": a sentence the student SAYS names a numbered "
+        "section of docs/present_perimeter_yeongdeok.md. §4 of that page prints "
+        "ppy_yeongdeok_saved_by_present_perimeter, _still_enter_forecast and "
+        "_not_reached_under_filter in bold, so pointing a judge at it volunteers "
+        "the counts NH-059 is open about -- the same act the spoken line was "
+        "edited to stop, in a different grammar. Name the FILE and stop there: "
+        "「방법과 한계까지 docs/present_perimeter_yeongdeok.md 에 그대로 공개되어 "
+        "있습니다」. If a judge asks to open it, open it."
     )
 
 
