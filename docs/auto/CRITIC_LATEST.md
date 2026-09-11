@@ -1,215 +1,283 @@
-# Critic #68 — 2026-09-11T1724Z, reviewed `b6778e7`
+# Critic #69 — 2026-09-11T1959Z, reviewed `8952a5b`
 
-**The next dev lap reads this file first.** Window `196ea42..b6778e7`. `196ea42` is this
-shallow clone's oldest resolvable commit (2026-09-10T22:15:06Z, 18 h 22 m back), so it is the
+**The next dev lap reads this file first.** Window `de0bcd3..8952a5b`. `de0bcd3` is this
+shallow clone's oldest resolvable commit (2026-09-11T00:23:02Z, 19 h 36 m back), so it is the
 base rather than a chosen one; the clone is SHALLOW at **50** commits, measured here with
 `git rev-parse --is-shallow-repository` and `git rev-list --count HEAD`, and was deliberately
 NOT deepened. **No ancestry or reachability claim is written anywhere in this lap.** Counted
-from the report files **added** in the range (`git diff --name-status`, status `A`): **ten
+from the report files **added** in the range (`git diff --name-status`, status `A`): **twelve
 finished dev laps**, six critic laps and three paper laps (filed `--kind manual`).
 
-**Critic #67's `fix-before-next-row` item is CLOSED, in full, including the part that
-normally slips.** WFG-258 (a), (b) and (c) are all done. Re-measured in this lap's own
-process rather than read from a report: the four judge-facing lines now say the fair
-opponent **has** been run on 영덕 and name the file; `release/kcf-finals-2026/MANIFEST.json`
-hashes **19 of 19** against its sources and names `WFG_printables_20260911T1627Z.pdf`, whose
-seven `SOURCES` documents hash **7 of 7** against the tree, 59 pages, 25 of them the Q&A
-bank. That is the condition critic #68 was pre-registered on, and it fires: **제출 자료
-returns 18 to 19 on both tracks.**
+**Critic #68's `fix-before-next-row` item is CLOSED.** The clause 「부스에서 말해도 되는지를
+저희가 아직 정하지 않아서」 is gone from both spoken sentences, and **NH-059** is gone from
+both README lines. Re-measured here rather than read from a report: `grep -n` finds the
+withheld-for-permission clause in **zero** spoken spans, and `NH-059` appears in
+`docs/auto/JUDGE_QA.md` exactly **once**, inside the labelled student note where it belongs.
+Two new gates hold it there. The reprint happened: `WFG_printables_20260911T1904Z.pdf`,
+**59** pages, its seven `sources` hash **7 of 7** against the tree, and
+`release/kcf-finals-2026/MANIFEST.json` hashes **19 of 19** and names that kit. All four
+hash checks recomputed in this lap's own process.
 
-**And the same edit shipped the loop's own governance onto the surfaces a judge meets.**
-That is this lap's one item, and it is below.
+**WFG-260 is `done` and its measurement is sound.** Re-derived here from
+`data/processed/routing_demo_canonical.npz` before reading the lap's figures: `haz_times[0]`
+is **0.0**; `haz_stack[0]` holds exactly `{0.0, 1.0}` while `haz_stack[1]` holds **3,961**
+distinct values; `haz_stack[0] >= 0.5` and `obs_stack[0] > 0` are both **249** cells with
+**XOR 0**; those cells fall into **226** 8-connected components (**236** at 4-connectivity),
+the largest **3** cells. Every figure the lap published agrees with mine.
+
+**And the repair carried a defect of its own onto the card it repaired.** That is this
+lap's one item, and it is below.
 
 ---
 
-## `fix-before-next-row`: ONE, and it is one clause on five lines plus the reprint
+## `fix-before-next-row`: ONE. The card now contradicts its own student note, and the two together decide NH-059
 
-⚠⚠ **The sentence the student is told to say to all five judges, beside the headline 42,
-now tells them the project measured something and has not decided whether it is allowed to
-say it.** Measured at `b6778e7` in this lap's own process:
+⚠⚠ **The card says, in its own student note, that it does not raise the count first. Eight
+lines later the card raises it first.** Measured at `8952a5b` in this lap's own process:
 
 | line | what it says now | why it is the finding |
 |---|---|---|
-| `docs/auto/JUDGE_QA.md:1017` | inside 「**그러니 42 를 말할 때 붙일 문장**」: 「...거기서 나온 수치를 부스에서 말해도 되는지는 저희가 아직 정하지 않아서 오늘은 말씀드리지 않겠습니다」 | **prescribed**, beside the headline number, to every judge |
-| `docs/auto/JUDGE_QA.md:956` | Q19's **draft answer**, the sentence the student speaks from memory, same clause | said from memory, on page 25 of the kit |
-| `README.md:37` | 「neither count is licensed for the booth (**NH-059**)」 | the English TL;DR prints an internal entry id |
-| `README.md:335-336` | 「수치는 아직 부스에서 말하지 않습니다, 말해도 되는지는 저자에게 **NH-059** 로 열려 있습니다」 | the Korean front door prints the same id and calls its own author a third party |
-| `docs/auto/JUDGE_QA.md:1022` | tells the student 「말하지 않는 진짜 이유는 **NH-059**」 | a student note, correct as a note, but it never says it is not for the judge |
+| `docs/auto/JUDGE_QA.md:1013` | 「그 실행에서 나온 수치는 그 문서 **4절**에 적혀 있고, **이 카드에서는 먼저 꺼내지 않습니다**」 | a statement about the card, and it is no longer true of the card |
+| `docs/auto/JUDGE_QA.md:1018` | the prescribed booth sentence, to all five judges: 「거기서 나온 수치는 그 문서 **4절**에 그대로 적혀 있습니다」 | the student volunteers the section, unprompted. That IS raising it first |
+| `docs/auto/JUDGE_QA.md:955` | Q19's **draft answer**, the sentence spoken from memory, the same clause | said from memory, on page 25 of the kit |
+| `docs/auto/JUDGE_QA.md:1019`, `:957` | 「숫자만 떼어 말씀드리기보다 **그 문서로 보여드리는 편이 정확합니다**」 | the offer the same lap's reviewer removed, returned in the indicative |
+| `docs/auto/JUDGE_QA.md:1028`, `:1036` | the note instructs 「유보의 이유를 입으로 설명할 일이 아니라 **문서를 열어 보여 드리면 되는 일**」 | the card instructs the student to do what the spoken line was edited to stop doing |
+| `tests/test_judge_qa_bank.py:1118`, `:1133-1134` | the new gate's own docstring prescribes 「... offer to open it」 | a rider, not the item: the gate teaches the next lap the behaviour this lap removed |
 
-**Why this is a defect and not a caveat.** Every other withheld thing in this repository is
-withheld because the measurement does not exist or does not support the sentence, and the
-surface says exactly that. This one exists, is committed, is registered, and is reachable:
-`README.md`'s TL;DR now links `docs/present_perimeter_yeongdeok.md`, whose §4 prints the
-26 and the 16 in bold. So the surface is not protecting a judge from an unlicensed number;
-it is announcing that a number is being withheld, and giving as the reason an internal
-ticket. A judge hears concealment. This project's whole credibility rests on the opposite
-move, and its own charter says it: **「When a result is weak, say so in the artifact」**
-(CHARTER §3.5).
+**Why this is a defect and not a nit.** The 1852Z lap's independent reviewer blocked on
+exactly this and was right: `docs/present_perimeter_yeongdeok.md` §4 prints all three counts
+in bold, so steering a judge into that section is **NH-059 option A reached through a side
+door**, by the judge's request rather than the student's sentence, but reached. The lap
+removed 「원하시면 지금 열어서 보여드리겠습니다」 from both spoken sentences and left three
+other forms of the same act standing: the section pointer, the 「그 문서로 보여드리는 편이
+정확합니다」 clause, and the note that tells the student opening the page is the right move.
+The card and its note now say opposite things about the card, in one block, eight lines
+apart. **That is CHARTER §5c's failure mode reproduced inside a single file for the second
+consecutive lap, by the lap clearing a finding about it.** Critic #68's item listed five
+lines; the reviewer found a sixth at `:1013`; the note AT `:1013` that the substitution
+falsified was missed by both.
 
-**The fix, and it is minutes: replace the reason, speak no count.** Nothing below needs
-NH-059 answered, and nothing below closes it.
+⚠ **Critic #68's prescription is the proximate cause and this lap says so.** 「Say where the
+number is written」 is what put the section pointer in the student's mouth. The reason clause
+had to go and that half was right. The pointer should not have replaced it.
 
-1. `docs/auto/JUDGE_QA.md:956` and `:1017`, the same substitution in both. Drop the clause
-   「부스에서 말해도 되는지를 저희가 아직 정하지 않아서 ... 말씀드리지 않겠습니다」 and put:
-   「그 수치는 `docs/present_perimeter_yeongdeok.md` **4절**에 그대로 적혀 있습니다. 원하시면
-   지금 열어서 보여드리겠습니다. 다만 그건 여백이 아니라 44곳을 세 갈래로 나눈 **분할**이라,
-   숫자만 떼어 말씀드리기보다 그 문서로 보여드리는 편이 정확합니다.」
-   (Wording is a draft like every answer in the bank; keep the register, keep the length,
-   and **speak no count**.)
-2. `README.md:37`: 「neither count is licensed for the booth (**NH-059**)」 becomes 「neither
-   count is restated here; both pages carry their own」. No id on the front door.
-3. `README.md:335-336`: the clause becomes 「거기서 나온 수치는 그 문서 **4절**에 그대로 적혀
-   있고, 이 README 에는 옮겨 적지 않습니다. 여백이 아니라 44곳을 세 갈래로 나눈 분할이고,
-   그렇게 읽어야 하는 이유는 같은 문서 **5절**의 여덟 항목입니다.」
-4. `docs/auto/JUDGE_QA.md:1022` keeps its reasoning, which is correct, and gains one clause:
-   this is why the student does not say the number, and **the reason itself is not said to a
-   judge**.
+**The fix, and it is minutes: answer the question, name the file, name nothing inside it.**
+Nothing below needs NH-059 answered and nothing below closes it.
+
+1. `docs/auto/JUDGE_QA.md:955-957` and `:1018-1019`, the same substitution in both. Drop
+   「그 수치는 그 문서 **4절**에 그대로 적혀 있습니다」 and the 「숫자만 떼어 말씀드리기보다
+   그 문서로 보여드리는 편이 정확합니다」 clause, and put:
+   「영덕 쪽은 2026-09-11 에 돌렸고, 방법과 한계까지 `docs/present_perimeter_yeongdeok.md`
+   에 그대로 공개되어 있습니다. 거기서 나오는 것은 여백 하나가 아니라 대상 지점 전체를 세
+   갈래로 나눈 **분할**입니다.」
+   (A draft like every answer in the bank. Keep the register, keep the length, **speak no
+   count and name no section**. ⚠ Do not write 「44곳」: `test_no_ppy_count_reaches_a_spoken_draft`
+   keys on `(?<![0-9])(?:26|16|44)\s*(?:곳|개)` at `tests/test_judge_qa_bank.py:990` and
+   critic #68's own prescribed wording would have reddened it. 「대상 지점 전체」 is the
+   spelling that works and the one already in the file.)
+2. `docs/auto/JUDGE_QA.md:1028` and `:1036`: the note stops instructing 「문서를 열어 보여
+   드리면 되는 일」. What it should say instead is the true rule and it is one sentence: the
+   student answers the question and names the file, does not point at a section and does not
+   say a count; if a judge asks to open it, it is opened, because refusing to open a
+   committed public document in front of a judge is the concealment critic #68 was about.
+   Whether the student may **offer** the counts is **NH-059** and stays the author's.
+3. `docs/auto/JUDGE_QA.md:1013` then becomes true again as written, and is not edited.
+4. Rider, same edit: `tests/test_judge_qa_bank.py:1118` and `:1133-1134` stop prescribing
+   「offer to open it」 in the docstring of the gate that exists to stop it.
 5. Then `make printables` at a new stamp and `release/kcf-finals-2026/MANIFEST.json`
-   re-pointed (**NH-049**).
+   re-pointed (**NH-049**). `git add` the new PDF **before** the bundle rebuild (MEMO
+   2026-09-10).
 
-**Grade by mutation:** put 「말해도 되는지를 저희가 아직 정하지 않아서」 back into Q19 and a
-new assertion in `tests/test_judge_qa_bank.py` should go red naming Q19. The existing
-`test_no_ppy_count_reaches_a_spoken_draft` must stay green throughout; the replacement
-speaks no count.
+**Grade by mutation:** put 「그 문서 **4절**에 그대로 적혀 있습니다」 back into Q19's
+prescribed sentence and a new assertion in `tests/test_judge_qa_bank.py` should go red naming
+Q19. Key it on a spoken span that names a **section of** `present_perimeter_yeongdeok.md`,
+not on the bare string 「4절」, which appears legitimately elsewhere in the bank.
+`test_no_ppy_count_reaches_a_spoken_draft` and
+`test_no_spoken_sentence_withholds_a_number_for_want_of_permission` must both stay green
+throughout; the replacement speaks no count and gives no permission reason.
 
-⚠ **NH-054 does not hold item 2**, on critic #67's narrowing re-stated below: NH-054 is open
-on the TL;DR bullet's **ordering and proportion** (433 result characters against 1,853 of
-qualification), and this shortens one parenthetical by a few characters, deletes no caveat,
-reorders nothing. ⚠ **Do not touch `README.md`'s opening paragraph about the 2025 fire**
-(CHARTER §3.5b). ⚠ **Do not weaken** the fire-blind-control or oracle-in-the-grading caveats.
-⚠ **Put NO count on any surface in this item**: not 26, not 16, not 2, not 44. NH-059 stays
-open and every one of its four options stays reachable after this edit.
-
-⚠ Out of scope for this item, recorded for the author instead: `README.md:50`, `:265` and
-`:351` print **NH-053** the same way, and they predate this window.
+⚠ **Out of scope, deliberately, and recorded for the author instead:** `README.md:334-336`
+names §4 the same way. A written pointer a reader follows at their own pace is a different
+act from a student volunteering it aloud to five judges, the TL;DR already links the page,
+and NH-054's narrowing licensed that clause one lap ago. It is written into NH-059 as part
+of the 「option B is thinning」 reading, not fixed here. ⚠ **Put NO count on any surface in
+this item**: not 26, not 16, not 2, not 44, not 226. ⚠ Do **not** touch `README.md`'s opening
+paragraph about the 2025 fire (CHARTER §3.5b). ⚠ Do **not** weaken the fire-blind-control or
+oracle-in-the-grading caveats, and do **not** touch the WC-019 correction block's substance.
 
 ---
 
 ## The root objection (`hate`)
 
-**The loop has started shipping its own governance onto the judged surfaces.** The
-machinery that makes this project trustworthy, the NEEDS_HUMAN ledger, 「the repository has
-not decided」, 「not licensed for the booth」, was built to stop the loop from overclaiming
-to its author. It is internal by construction: it names entries by id, it addresses the
-student in the third person as 「저자」, and it treats a booth sentence as something pending
-authorisation. In this window it crossed onto the README and into a sentence prescribed for
-five judges. The lap that did it reasoned carefully about **which word** to use inside that
-sentence (`docs/auto/JUDGE_QA.md:1018-1022` argues 「정하지 않았다」 over 「확정 전」 and is
-right on its own terms) and never asked whether a judge should hear the sentence at all.
-That is the same shape as critic #67's objection one level up: the loop checks its wording
-faster than it checks who the wording is for.
+**The page the README now sends a judge to contains, in prose, the sentence that ends this
+project's headline, and it is the only sentence on that page nobody can re-derive.**
 
-**The cheapest test, and it is not a row:** read `README.md:33-37` and
-`docs/auto/JUDGE_QA.md:1013-1017` to one person who has not read the charter, and ask them
-in one sentence what the project is not telling them and why. If the answer is 「a number
-that makes them look bad」, the sentence has failed, whatever it literally says.
+`docs/present_perimeter_yeongdeok.md:165` says, as fact, 「at 500 m, 15 of the 16 flip」. Read
+with §4, that says a router which sees only where the fire is now, plus half a kilometre of
+margin, reaches all but one of the origins the headline **42** credits to the forecast. The
+whole booth narrative is 42. The sentence that reduces it is on the same page, two screens
+below the result, one click from the front door, and `docs/NUMBERS.json` holds **seven**
+`ppy_yeongdeok_` keys and not one of them is the 15 or either width. It came from a
+reviewer's in-session probe that has ended. CHARTER §3.3: 「A number you cannot register, you
+do not write.」
+
+And this lap's own verification makes it sharper, because the two halves have never been put
+in one sentence. WFG-260 established that the opponent's input is the **observation**, and
+measured that the observation is **226** disconnected components with a largest piece of
+**3** cells: a VIIRS detection scatter at 375 m rasterised onto a 500 m grid, not a fire
+line. A sparser burning set removes fewer nodes, reroutes fewer walks, and saves fewer
+origins. §5 item 5's own probe says which way that runs: dilating the set moves origins
+**into** `saved`. **So the fair opponent is systematically weakened by the coarseness of this
+project's own input, and the direction of that bias runs in this project's favour.** Neither
+the page nor any other file says that sentence, and both halves of it are now in the same
+document.
+
+**The cheapest test, and it is one lap, not a row you can skip:** extend
+`scripts/measure_present_perimeter_yeongdeok.py` with the two widths **already named in the
+prose** (100 m and 500 m, so no width is chosen after the answer), write a
+`buffer_sensitivity` block beside `outcomes`, register the keys additively, and re-point §5
+item 5. Then read the number. If it holds, this project knows the honest size of its own
+contribution before a judge computes it. If it does not, a false sentence comes off a page a
+judge reaches in one click. **Either outcome is a good lap. Leaving it is not.** That is
+**WFG-259**, `todo`, already the first `todo` row in table order.
 
 ---
 
 ## Findings, ranked
 
-1. **The withheld-reason clause, five lines, above.** The one `fix-before-next-row` item.
-2. **WFG-260 (P0, NEW, filed at table position 1).** `paper/manuscript.md`'s Abstract and
-   §4.5 claim the fair opponent 「needs no model at all」, and
-   `docs/present_perimeter_yeongdeok.md` §5 item 6 words its own input so that a reviewer
-   would conclude the opposite: the arm is 「filtered from `haz_stack` slice 0 ... which is
-   the same leave-one-fire-out forward simulation the forecast-aware arm plans on」. **The
-   claim is true and this lap proved it from the committed array**: `haz_times[0]` is 0.0;
-   `haz_stack[0]` is strictly binary `{0.0, 1.0}` while `haz_stack[1]` holds 3,961 distinct
-   values; `haz_stack[0] >= 0.5` and `obs_stack[0] > 0` are both **249** cells and the two
-   sets are **identical cell for cell**; `scripts/build_canonical_hazard.py:88` seeds the
-   simulation from `snaps[0].cumulative_mask`; and at `t_min = 0.0`
-   `src/wildfireguardian/routing/hazard.py:97-100` collapses the bracket to `i0 == i1 == 0`,
-   so no slice is mixed in. So slice 0 is the **observation**, the planning side is
-   model-free, and the strongest new claim in the paper is sound and unstated. ⚠ The same
-   measurement says the object called a 「present perimeter」 is **226 connected components,
-   largest 3 cells** at 8-connectivity, which is a detection scatter and not a perimeter;
-   that is the honest version and it is nowhere. **Ride it with WFG-259 in one lap.**
-3. **WFG-259 (P0, position 2), re-confirmed open and unchanged.** `docs/NUMBERS.json` holds
-   exactly six `ppy_yeongdeok_` keys and none is the 15 or either buffer width; the artifact
-   has no `buffer` or `dilat` key at any depth; the script takes no buffer argument. So
-   `docs/present_perimeter_yeongdeok.md:134`'s 「at 500 m, 15 of the 16 flip」 is still the
-   one number on that page nobody can re-derive from this tree, **and the page is now linked
-   from `README.md`'s TL;DR**, so a judge reaches it in one click. CHARTER §3.3.
-4. **Zero KCF_READINESS lines ticked, for the twenty-fifth consecutive critic lap.**
-   Verified by diffing the R-row status cells across the window: not one changed. 8 of 11.
-   Reported and not re-filed, because critic #52's measurement of the cause still holds and
-   no lap can change it: R12 is the author's (NH-014), R3 is `blocked(NH-046)`, R11's
-   WFG-024 is held by §14b until R3 ticks. **There is no path from any amount of loop work
-   to a ninth tick, and the sprint ends in four days.**
-5. **The decision channel has now produced nothing for seven days.**
+1. **The card contradicts its own student note and steers a judge into §4, above.** The one
+   `fix-before-next-row` item. Six judge-facing lines plus one gate docstring, all named.
+2. **WFG-259, re-confirmed open and now carrying a second half.** Re-measured here at
+   `8952a5b`: `docs/NUMBERS.json` holds **seven** `ppy_yeongdeok_` keys
+   (`target_origins`, `saved_by_present_perimeter`, `still_enter_forecast`,
+   `not_reached_under_filter`, `filter_nodes_removed`, `filter_shelters_removed`, and
+   WFG-260's new `slice0_components_8conn`) and **none** is the 15 or either width;
+   `data/processed/present_perimeter_yeongdeok_2025.json` has no `buffer` or `dilat` key at
+   any depth; `scripts/measure_present_perimeter_yeongdeok.py` still takes no buffer
+   argument. **New this lap:** the row now also owns the bias-direction sentence the root
+   objection names. The row is updated, not duplicated.
+3. **The judge drill produced exactly one gap, and it is the same one.** Ten hard questions
+   run against the tree. Nine have an answer that points at a file: the dispatch order has
+   never been produced from a real fire and the surfaces say so (NH-057); how wrong the
+   forecast can be is `docs/oracle_gap.md` with a §7 that states what it does not show; the
+   reproduction is §3's gate table, which re-derives 458 / 414 / 42 / 2 before the script
+   writes; six events (Q5); 「is the 26 a margin」 is §5 item 2; 「what did you build」 is
+   Q29a; 「offline demo, so what is real-time」 is Q25. **The one with no licensed answer is
+   「your present perimeter is 226 disconnected dots, largest 3 cells. Does that make your
+   fair opponent artificially weak, and in whose favour?」** §2 states the object, §5 item 5
+   forbids asserting a direction, and the numbers that would license one are unregistered.
+   ⚠ It is filed as a backlog row and **not** as a JUDGE_QA card: **NH-049** is the entry
+   that says a critic lap cannot add a card without a reprint it is not allowed to run, and
+   it is now **past due**.
+4. **WFG-261 (P1, NEW).** The two gates this window added read `docs/auto/JUDGE_QA.md` and
+   nothing else. `docs/auto/DEMO_SCRIPT_5MIN.md`, `web/finals.html` and
+   `docs/auto/finals/*.md` are spoken or shown surfaces with no gate for either class
+   (a number withheld for want of permission; an `NH-###` in front of a judge). The 1852Z
+   lap recorded this and correctly did not widen its row. It is P1 because it is protective
+   rather than corrective, and it earns promotion the moment the P0 block clears.
+5. **Zero KCF_READINESS lines ticked, for the twenty-sixth consecutive critic lap.** Verified
+   by diffing the R-row status cells across the window: not one of the twelve changed. 8 of
+   11. ⚠ **What is new is the arithmetic of the hold, and it is worth one sentence to the
+   author:** CHARTER §14b releases the P1 hygiene block when **R1, R3, R4, R7, R8 and R9**
+   tick. **Five of those six are ticked. R3 is the only one that is not**, R3 is
+   `blocked(NH-046)`, NH-046 is a three-option question that came due 2026-09-10, and the
+   sprint ends 2026-09-15. One unanswered email is holding both the ninth readiness tick and
+   the whole P1 block. Reported, not re-filed: NH-046 is already open.
+6. **The decision channel has now produced nothing for nine days.**
    `docs/auto/decisions_seen.json` records `"seen": []` and the newest applied decision is
-   NH-031 of **2026-09-06**. Confirmed at the Gmail connector in this lap: the **30** newest
-   threads matching `from:siyeong0318@gmail.com subject:"WildfireGuardian autoloop"
+   still NH-031 of **2026-09-06**. Confirmed at the Gmail connector in this lap: the **30**
+   newest threads matching `from:siyeong0318@gmail.com subject:"WildfireGuardian autoloop"
    newer_than:14d` each carry exactly one message and every one is the loop's own send;
    PR #31's comment list is empty. That is **WFG-211**, already `todo`. **26 decisions open,
-   2 undated.**
-6. **WFG-257 gains one clause rather than a new row.** `tests/test_demo_script_pace.py` pins
-   the **spread** (`implied_rate_spread <= 1.10`, `:120`) and refuses the comfort claim
-   (`:143`), and **nothing pins the absolute rate**. The script could reach 7.0 syllables per
-   second with every gate green; that is the mechanism behind this row's own 5.61 to 6.00
-   drift. The ceiling belongs in the row's done-when.
+   2 undated. NH-046, NH-049 and NH-051 are past due.**
 
-**No finding #1 under CHARTER §4b, for the seventeenth consecutive lap.** Read through the
-GitHub MCP (CHARTER §4 forbids `curl` against `api.github.com` here, WFG-119): runs **359 to
-378** on `auto/dev`, **no run in the window concluded `failure`**; one `cancelled` (368,
-superseded by the next push); run **378 is `success` at `b6778e7`**, this exact head. Every
-dev report in the window records `Reviewed by:` (**fourteen** checked, all `subagent`, nine
-of them `block` and five `pass`), and every push in the window carried a report file with
-it: the only commits in the range with no report beside them are bare backlog claims and
-work commits pushed together with the report commit that closed their lap, which is what
-`--assert-reported` allows.
+**No finding #1 under CHARTER §4b, for the eighteenth consecutive lap.** Read through the
+GitHub MCP (CHARTER §4 forbids `curl` against `api.github.com` here, WFG-119): runs **363 to
+382** on `auto/dev`, **no run in the window concluded `failure`**; two `cancelled` (368 and
+381, each superseded by the next push); run **382 is `success` at `8952a5b`**, this exact
+head. **Every report in the window records `Reviewed by:`** (twenty-one checked, dev, critic
+and paper alike). `gates.py --assert-reported` exits **0** at every push boundary since
+critic #68 (`ca164c3`, `5949fe6`, `5d63b39`, `ae0323d`, `679c187`), so every push in the
+window carried a report or touched only report machinery.
 
 ---
 
 ## What this lap verified rather than assumed
 
-- `gates.py --mode full` exits **0** on its FIRST run in this sandbox at `b6778e7`:
-  **2149 passed**, 65 skipped, 3 xfailed, pytest 501.4 s. `baseline-verify` is the known
+- `gates.py --mode full` exits **0** on its FIRST run in this sandbox at `8952a5b`:
+  **2158 passed**, 65 skipped, 3 xfailed, pytest 413.6 s. `baseline-verify` is the known
   WARN (NH-029 / CHARTER §3d; the two MISSING contracts are under git-ignored
   `data/raw/firms_data/`, which never reaches a fresh clone).
+- The slice-0 identity and the component count, recomputed from the committed npz in this
+  lap's own process and compared with the lap's figures only afterwards: 249 / 249 / XOR 0,
+  226 at 8-connectivity, 236 at 4-connectivity, largest 3, slice 1 at 3,961 distinct values.
+  **Every figure agrees.**
+- `grid_extent` in that npz ends **500.0**, so the page's 「500 m hazard grid」 is the array's
+  own cell size and not a remembered constant. `factchk` on the one new claim about the
+  world in this window: VIIRS active-fire detections carry a **375 m** nominal footprint,
+  which is the I-band product's published resolution and is correctly stated at
+  `docs/present_perimeter_yeongdeok.md:55`. No other new prose claim in the window is about
+  the world rather than about this repository's own artifacts.
 - The kit hashes **7 of 7** and the bundle **19 of 19**, both recomputed here from the
-  `source` paths, and the bundle names `WFG_printables_20260911T1627Z.pdf`, 59 pages.
-- `docs/auto/DEMO_SCRIPT_5MIN.md` and `docs/demo_script_pace.md` have **not** changed since
-  `dec00f4`, so critic #67's pre-registered DOWNWARD condition on Track A 구현 및 유용성
-  (「the script grows again without the trade recorded」) does **not** fire.
-- WFG-258 half (c) was checked in the file, not in the report:
-  `tests/test_future_aware_attribution.py:16-18` now reads 「has been run on 의성·안동 ...
-  and, since 2026-09-11, on 영덕 too」 with the WC-019 record note beneath it at `:20`.
+  `source` paths; the kit is `WFG_printables_20260911T1904Z.pdf`, 59 pages, and the bundle
+  names it.
+- The withheld-for-permission clause is in **zero** spoken spans and `NH-059` appears in
+  `docs/auto/JUDGE_QA.md` exactly once, inside the labelled student note. Critic #68's item
+  really is closed; what replaced it is finding 1.
 
 ## `Do NOT edit` notes carried, re-checked, and their expiry
 
-Per CHARTER §14c every such note names lines and a measurement and expires at the next
-critic lap unless re-stated. Re-checked here:
+Per CHARTER §14c every such note names lines and a measurement and expires at the next critic
+lap unless re-stated. Re-checked here:
 
 - **Do not unshallow the clone.** RE-STATED. `git rev-parse --is-shallow-repository` answers
   `true` at **50** commits in this clone and `gates.py --mode full` exits 0 on its first run
   without deepening. The stated cost holds: `tests/test_timeline_roles.py:234` **SKIPS**
   rather than runs in a shallow clone, so a green critic gate does not certify it; GitHub at
-  `fetch-depth: 0` does, and run 378 is green at this head. Recorded on **WFG-217**.
-  Expires at critic #69 unless re-measured.
-- **Do not edit `README.md`'s TL;DR lead while NH-054 is open.** RE-STATED with critic #67's
-  narrowing unchanged: the bar covers the bullet's **ordering and proportion**, which is what
-  NH-054 measured, and not the truth or the length of a parenthetical inside it. Item 2 of
-  the `fix-before-next-row` above is licensed by that narrowing and nothing else in the
-  bullet is.
+  `fetch-depth: 0` does, and run **382** is green at this head. Recorded on **WFG-217**.
+  Expires at critic #70 unless re-measured.
 - **Do not edit `docs/auto/JUDGE_QA.md`, `docs/auto/DEMO_SCRIPT_5MIN.md` or
   `docs/auto/finals/RELATED_WORK_PANEL.md` without `make printables` at a new stamp and a
-  re-pointed MANIFEST** (NH-049). RE-STATED, re-measured here at `b6778e7`: kit 7 of 7,
-  bundle 19 of 19, bundle names the newest kit.
+  re-pointed MANIFEST** (NH-049). RE-STATED, re-measured here at `8952a5b`: kit 7 of 7,
+  bundle 19 of 19, bundle names the newest kit. Expires at critic #70 unless re-measured.
+- **Do not edit `README.md`'s TL;DR lead while NH-054 is open.** RE-STATED with critic #67's
+  narrowing unchanged: the bar covers the bullet's **ordering and proportion**, which is what
+  NH-054's 433-against-1,853 character count measured, and not the truth or the length of a
+  parenthetical inside it. Nothing in this lap's item touches that bullet.
 - Every other ⚠ line in `docs/auto/DIRECTION.md` is carried unchanged and is not re-derived
   here; this lap re-measured only the three above.
 
 ## Scorecard
 
-**Track B 94 to 95, Track A 96 to 97.** One row moves on each and it is the same row:
-**제출 자료 18 to 19**, on critic #68's own pre-registration, because WFG-258 (a) closed
-**with the kit reprinted and the bundle re-pointed** and this lap re-hashed both rather than
-reading a report. **19 and not 20** because of finding 1. Every other row HELD, evidence in
-`docs/auto/SCORECARD.md` at this date.
+**No row moves on either track. Track B holds at 95, Track A at 97.** A dated row is
+appended to the series with all ten cells unchanged and the evidence beside them, because the
+routine keeps the series; no per-track table gains a row, because the per-track tables are
+the record of movements and nothing moved.
+
+**제출 자료 is the row that had a case, and the case cancels.** The gain is real: the front
+door stopped printing an internal entry id and the spoken card stopped explaining a
+withholding, on the two surfaces five judges actually meet, with the kit reprinted and the
+bundle re-pointed in the same window. Against it, exactly and measurably: the card shipped in
+that kit now contradicts its own student note eight lines apart (finding 1, page 25 of
+`WFG_printables_20260911T1904Z.pdf`), and `README.md:50`, `:265` and `:351` still print
+**NH-053** in the identical defect class critic #68 named and put out of scope. **Gain and
+deduction cancel at 19.** 20 needs both: the card consistent with itself, and the front door
+free of entry ids.
+
+**데이터 수집·분석·해석 holds at 19 and I am pre-registering what moves it**, so critic #70
+can hold me to it: **WFG-259 closing by route (i)** — the dilation run as a committed
+artifact with registered keys and §5 item 5 re-pointed — takes it to **20**, because the last
+unre-derivable integer on the project's most exposed page becomes re-derivable and the row's
+criterion is literally 「연구 재현 가능성」. WFG-260 was a real gain on this row and it is why
+19 was already earned last lap; it does not buy the same point twice.
+
+**설계와 방법론 20, 연구 목적 18, 창의성 19 hold**: no model, split, arm, coupling, region or
+protocol changed in this window. Track A the same, for the same reasons; 구현 및 유용성 holds
+at 20 with the screen still opening and the bundle verified 19 of 19 here.
 
 ## Next row for the dev lap
 
-After the item above: **WFG-260 and WFG-259 together, in one lap** (same page, same script,
-same registration pass). Then **WFG-256** (the rotation null, still `todo` and still the only
-thing that would license a sentence about 「모양」), then **WFG-255**.
+After the item above: **WFG-259**, alone and in full. It is the first `todo` row in table
+order, it is the root objection, and critic #68 asked for it a lap ago and did not get it.
+Then **WFG-256** (the rotation null, still the only thing that would license a sentence about
+「모양」), then **WFG-255**.

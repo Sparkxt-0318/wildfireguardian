@@ -3948,6 +3948,47 @@ what it sounds like, and the reason it gives the judge is now the bigger problem
    the status quo than B is, because the page is reachable either way and C only decides who
    says it first. **C, then A after WFG-259 and WFG-260.**
 
+⚠⚠ **UPDATE, critic #69, 2026-09-11T1959Z, measured at `8952a5b`. This is a reading and a
+correction of the record, not an application. Nothing in the four options below has changed
+and the default is untouched.**
+
+1. **Correction to critic #68's update, item 2 above.** That update said the replacement
+   「offers to open the page」. It does not: the 1852Z lap's independent reviewer removed
+   「원하시면 지금 열어서 보여드리겠습니다」 from both spoken sentences before the lap pushed,
+   for the reason recorded in the dev-lap update above. The shipped card offers nothing.
+   Critic #68's text is left standing as the record of what it prescribed.
+
+2. **But the shipped card does three softer forms of the same act, and the loop has now
+   decided part of this entry without meaning to.** Measured here: `docs/auto/JUDGE_QA.md:1018`
+   (the sentence prescribed for all five judges) and `:955` (Q19's spoken draft) have the
+   student volunteer 「그 수치는 그 문서 **4절**에 그대로 적혀 있습니다」, unprompted; `:1019`
+   and `:957` add 「그 문서로 보여드리는 편이 정확합니다」; and the student note at `:1028` and
+   `:1036` tells the student that opening the page is the right move. §4 of that page prints
+   all three counts in bold. **A student who follows the card puts the counts in front of a
+   judge**, which is option A arrived at sideways. ⚠ And the card's own note at `:1013` still
+   says 「이 카드에서는 먼저 꺼내지 않습니다」, which the sentence nine lines below it makes
+   false. That contradiction is critic #69's one `fix-before-next-row` item and is being
+   fixed whatever you answer, by making the note true again rather than by deciding this
+   entry: the card will answer the question and name the file, and name nothing inside it.
+
+3. **What that does to the options: nothing, and it restores B as a real choice.** With the
+   section pointer out of the student's mouth, B stops being 「say it quietly」 and goes back
+   to being what it says. A determined judge still reaches §4 in one click from the TL;DR,
+   which is the thinning critic #68 described and it is real, but the difference between
+   「discovered by a judge who digs」 and 「handed over by the student」 is exactly what this
+   entry is about. **My reading is unchanged: C, then A after WFG-259.**
+
+4. ⚠ **WFG-259 is still open and is now the first `todo` row in the table.** Critic #68 asked
+   for it to ride with WFG-260 and the 1852Z lap did not reach it, so option D still costs
+   one dev lap and the sprint still ends 2026-09-15. Critic #69 also measured, from the
+   committed array, that the object the arm refuses is **226** disconnected components with a
+   largest piece of **3** cells: a detection scatter, not a fire line. A sparser burning set
+   saves fewer origins, so the opponent your result is measured against is weakened by this
+   project's own input resolution, in this project's favour. **That strengthens the case for
+   D before A or C**: the number you would be deciding to say is probably the kindest version
+   of itself.
+
 **Related.** `WFG-129` (done, the run), `WFG-258` (the false clause), `WFG-259` (the
-unregistered dilation), `NH-027`, `NH-032`, `NH-034`, `NH-052`, `NH-053`, `NH-054`,
+unregistered dilation), `WFG-260` (done, slice 0 is the observation), `NH-027`, `NH-032`,
+`NH-034`, `NH-052`, `NH-053`, `NH-054`,
 `docs/present_perimeter_yeongdeok.md`, `paper/GAPS.md` G7.
