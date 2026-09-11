@@ -200,5 +200,5 @@ previous row for that track when the narrative does not name that criterion as m
 **Nothing new arrived.** `docs/auto/decisions_seen.json` records `"seen": []`, the newest applied
 decision is NH-031 of 2026-09-06, every thread matching the report subject in the last 14 days at the
 Gmail connector carries exactly one message and every one of them is the loop's own send, and PR #31
-returned an **empty comment list** at the GitHub MCP in this lap. **Five days, no reply, 24 open decisions and four
+returned an **empty comment list** at the GitHub MCP in this lap. ⚠ **The count is now 25, not 24:** the 0921Z lap filed **NH-058** in the same push that closed WFG-254, asking why the paper routine built a row the dev routine had already claimed on `origin`. It is the window's one new author question and it is not this lap's. **Five days, no reply, 25 open decisions and four
 days of sprint left.** That is **WFG-211**, already `todo`, confirmed here and not re-filed.
