@@ -204,9 +204,26 @@ def F4_operating_point(out: Path) -> bool:
     return True
 
 
-def F5_decision_shift(out: Path) -> bool:
+def F5b_decision_shift(out: Path) -> bool:
     """Canonical Yeongdeok: where the 458 scanned origins land under the fire-blind
-    route and then under the forecast-aware route, beside the hazard core's growth."""
+    route and then under the forecast-aware route, beside the hazard core's growth.
+
+    ⚠⚠ THIS IS `F5b_decision_shift.png`, AND `F5_decision_shift.png` IS ITS
+    SUPERSEDED PREDECESSOR, kept committed and byte-unchanged (2026-09-12, paper
+    lap 34). Its third legend entry read "no safe walking route exists", which
+    asserts that no safe route is there; the bucket's code condition is only
+    `nv.enters_hazard and not fa.reached`, which establishes that the search
+    reached no refuge and nothing about existence — the defect manuscript §6 now
+    names for that class. ⛔ The first draft of this lap redrew the committed PNG
+    IN PLACE and its independent reviewer killed that, citing
+    `docs/auto/DIRECTION.md` 「Do not refit anything, and do not regenerate a
+    committed artifact (CHARTER §3 rule 2)」 and this routine's own record of the
+    identical block one lap cycle earlier on `F10_disc_null.png`
+    (`paper/README.md`: 「Recording that you are overriding a standing instruction
+    is not authority to override it. F10b costs nothing.」). NH-042, the author's
+    decision on this collision, is still open. A new filename costs nothing here
+    either, so this is the F10b remedy applied a second time.
+    """
     d = load("data/processed/real_roads_real_hazard_canonical.json")
     if not d or "arms" not in d or "slope_digraph_canonical" not in d["arms"]:
         return False
@@ -220,7 +237,11 @@ def F5_decision_shift(out: Path) -> bool:
     style.label_panels([ax, bx])
     segs = [("safe", "reaches a refuge without entering the predicted hazard", style.OKABE["green"], "white"),
             ("enters", "route enters the predicted hazard", style.OKABE["orange"], "white"),
-            ("none", "no safe walking route exists", style.OKABE["vermilion"], style.INK)]
+            # ⚠ "found", not "exists": the bucket's code condition is only
+            # `nv.enters_hazard and not fa.reached`, which establishes that the
+            # search reached no refuge and NOT that no safe route is there
+            # (manuscript §6, docs/routing_limitations.md §6, WFG-262).
+            ("none", "no safe walking route found", style.OKABE["vermilion"], style.INK)]
     data = {"safe": [both, both + fa_only], "enters": [unsafe, 0], "none": [0, none_]}
     left = [0.0, 0.0]
     for key, lab, col, txt in segs:
@@ -254,7 +275,7 @@ def F5_decision_shift(out: Path) -> bool:
     else:
         bx.set_axis_off()
     fig.tight_layout(w_pad=1.8)
-    style.finish(fig, out / "F5_decision_shift.png")
+    style.finish(fig, out / "F5b_decision_shift.png")
     return True
 
 
@@ -959,7 +980,7 @@ def F10b_disc_null(out: Path) -> bool:
     return True
 
 
-FIGURES = [F1_system, F2_lofo_auc, F3_regions, F4_operating_point, F5_decision_shift,
+FIGURES = [F1_system, F2_lofo_auc, F3_regions, F4_operating_point, F5b_decision_shift,
            F6_sensitivity, F7_dispatch_ordering, F8_routing_map, F9_present_perimeter,
            F10b_disc_null]
 

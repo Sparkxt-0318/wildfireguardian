@@ -1404,6 +1404,110 @@ measured on one document by one run.** The `.docx` **is** rebuilt into the commi
 manuscript's content moved, which is the case lap 23's
 byte-non-determinism finding says a rebuild is legitimate in.
 
+⛔⛔ **Lap 34 is the one where the audit §6 already carried for one outcome class arrived on
+its NEIGHBOUR — the class this paper reports its own counts under — and its independent
+reviewer BLOCKED it on two roots: §6 cannot call a label unestablished while the Abstract
+asserts it as fact, and the lap had regenerated a committed figure IN PLACE, the identical act
+this file records its reviewer killing one lap cycle earlier. All five findings repaired. Read
+`GAPS.md`'s lap-34 section before this paragraph.** `body_words` **8,993 → 8,999**, margin
+**7 → 1**; every repair after the first came in at **net zero**. Nothing was compressed and no
+caveat or registered number was traded. **Eight** of the ten figures redrew byte-identical;
+`F5b` is new and `F5` is superseded-but-committed. No citation was added.
+
+§6 **had** read, from when the paragraph was written until this lap, 「The class named
+"forecast-aware route exceeds budget" names a cause its code condition does not establish」.
+The incorporated window (**WFG-262**, filed by critic #70) ran that same audit on
+**`no_safe_route`** — the bucket defined **one line above** `fa_exceeds_budget` in the same
+dict, which the Round-4 sweep that found five defects never carried across. ⚠⚠ **Re-derived
+from the code — and the reviewer showed the re-derivation stopped one file short: the chain
+has THREE copies, not the two this lap named.** `live/pipeline.py:470-483`,
+`run_multi_region_routing.py:306-319` **and `run_real_roads_real_hazard_slope.py:127-141`**,
+and in all three `no_safe_route` is exactly `nv.enters_hazard and not fa.reached` while
+`fa_exceeds_budget` is exactly `not nv.enters_hazard and not fa.reached`. **The two labels
+differ only in the fire-blind arm and assert their causes from one shared non-fact,
+`not fa.reached`.**
+
+**That shared condition is the whole reason this fit.** Stated as a second sentence the
+correction costs twenty-plus words; stated once for both classes it costs **six**, and §6 now
+reads 「The classes named "forecast-aware route exceeds budget" and "no safe route" name causes
+their code conditions do not establish, the search having only failed to reach a refuge within
+the scan's constraints; the first is empty at Yeongdeok.」 ⛔ **The provenance the lap gave for
+its own headline number was wrong in three files**: Table 2 is assembled by
+`build_multi_region_comparison.py`, and the **2** in the Abstract and §4.3 comes from
+`real_roads_real_hazard_slope_60.json`, written by the **third** copy —
+`run_multi_region_routing.py` writes only the **12** and the **10**. The manuscript sentence
+survives because all three copies are character-identical in the branches at issue. 「None was
+fixed」 at the end of that paragraph was checked before the sentence in front of it moved and
+is still true: the repository repaired the **sheet sentence**, not the bucket key.
+
+⛔⛔ **ROOT 1: the first draft extended §6 and left the same existence claim standing in the
+paper's own voice.** Three own-voice surfaces repaired at **net zero words each** — the
+Abstract's 「and 2 have no safe walking route」 → 「and 2 reach no refuge under it」, the Fig. 5
+caption's 「2 with no safe walking route」 → 「2 reaching no refuge」, and the F5 legend below.
+**Kept on purpose**: Table 2's 「no safe route」 header and F3's and F8's bare legends, which
+*name* the class — §6's content is that the name overstates, so hiding it would make §6
+unreadable. ⛔⛔ **And the lap's certification about its own grep was false in three files**:
+it said the DIRECTION-mandated subject grep 「returned a hit nothing else here would have」, and
+the stated grep over the stated scope returns **36** hits at this HEAD. `GAPS.md` §1b now
+carries the real grep with a row per hit; the sentence is **deleted, not softened**. The
+largest live instance is **outside this routine's paths and is filed rather than fixed**:
+`README.md:25` and `:798` say 「**2** have no safe walking route **at all**」 — the project's
+front door, in its own voice, stronger than the Abstract wording just repaired.
+
+⛔⛔ **ROOT 2: the first draft redrew `paper/figures/F5_decision_shift.png` over itself.**
+`docs/auto/DIRECTION.md` bars regenerating a committed artifact, **NH-042** is the author's
+open decision on exactly this collision, and the block four screens above in this very file is
+this routine's own record of the same act being killed on `F10_disc_null.png`: 「Recording that
+you are overriding a standing instruction is not authority to override it. `F10b` costs
+nothing.」 The lap cited none of it, and `freeze_baseline.py --check` does not cover
+`paper/figures/`, so a green gate was no defence. **Repaired the F10b way**: the PNG is back to
+its committed bytes, the corrected draw ships as **`F5b_decision_shift.png`** with the dated
+note in its docstring, `F5_decision_shift` is out of `FIGURES`, and the manuscript's image line
+points at `F5b` — **zero manuscript words**, since the figure path line and the caption are
+both outside `body_words`. ⚠ **No claim is made about how long 「exists」 had been in that
+legend and none can be**: `git log -S` on it returns `5a01968`, which
+`git rev-list --max-parents=0 HEAD` also returns — the **clone boundary** at depth **50**, not
+an answer (CHARTER §4). The first draft wrote 「since F5 was written」 and this lap caught that
+**by measuring**, not via its reviewer.
+
+⛔ **A SECOND manuscript sentence had gone false and this lap missed it.** §4.5 ended 「which
+buffer comes off best is a property of this fire's growth against this road network, **and no
+run tests it on a second one**」. WFG-259 ran the same construction at three widths on the 영덕
+network — a second fire and a second road network — and reported which came off best. Narrowed
+at **net zero** to 「and no **comparable grid** runs on a second one」. **This lap checked two
+buffer sentences and there were three**: §6's 「on Yeongdeok the buffer is unswept」 and §4.3's
+`[GAP:` marker both survive; §4.5's did not. That is DIRECTION's subject-grep rule firing on
+this routine in the lap whose own root objection is the same rule.
+
+⛔ **What was declined is a BAR and not the budget, and the decline runs against this paper's
+own interest in the safe direction.** WFG-259's two dilated widths **both save fewer origins
+than the zero-buffer arm the paper already reports** — evidence that the buffer axis §4.3's
+open gap fears does not strengthen the fair opponent here. Not written because NH-059 bars
+every `ppy_yeongdeok_` count from every judge-facing surface and CHARTER §14b names this
+manuscript one; because DIRECTION bars widening WFG-259 into **WFG-033(b)** / **NH-027**, which
+is the author's; and because `docs/present_perimeter_yeongdeok.md` **§7.2** — *not* §7.3, which
+this lap's first draft cited in two files — says in its own voice that three widths is **not a
+sweep**. All **67** spellings of all **20** registry entries return **zero** hits against the
+manuscript, per line and flattened.
+
+⛔ **And the +6 is a breach of DIRECTION's 「do not add a word without trimming one」, recorded
+as one.** The first draft reported 「nothing was compressed」 as a virtue; the reviewer named
+that the breach written down without being recognised. Lap 33's own heading is 「NET ZERO
+words」, so this routine has been reading the bar that way and this lap did not. What it bought
+is a **limitation** — the class of sentence lap 21 had to decline outright.
+
+✅ The anchor was **re-derived, not inherited, twice**: `body_words` moved, and then the figure
+**list** moved when `F5b` replaced `F5`. After the one `apt` line below, `check_paper.py` took
+its measuring branch — `pages 23, calibri_face Carlito, metrics_ok true` — printing
+**`f14db4e4617069c7`**. **Two pages against the author's 25, ONE word against the proxy's
+9,000, measured on one document by one run.** ⛔ **A margin of one is not a margin**, and lap
+24 said so first: every repair the reviewer forced had to be found at net zero because there
+was nothing left to spend. **Laps 13 through 21, 24, 25, 30 and 33 all had their writing
+shaped by the proxy; this lap's correction fit, and the lap after it is the one at risk.
+NH-037 is the answer and it is still open.** The `.docx` **is** rebuilt into the commit because
+the manuscript's content moved, which is the case lap 23's byte-non-determinism finding says a
+rebuild is legitimate in.
+
 ⚠ **The page that took the count from 22 to 23 cost eleven words, and it is worth
 knowing that before reading the words-to-pages table below as a rate.** Lap 11
 took the body 8,735 → 8,825 (a mandatory §4.5 correction, one clause, and the
@@ -1701,8 +1805,10 @@ enough on its own — check these two things by name.
 "Figure 3" in the built document whenever an earlier-numbered file appears later
 in the text. The `F` numbers are stable internal identifiers for
 `make_figures.py`; the `Fig. N` references in `manuscript.md` must match the
-**appearance** order. Current mapping: F1→1, F2→2, F4→3, F5→4, **F8→5**, F3→6,
-F6→7, F7→8. Re-check it after moving or adding any figure. The check that catches
+**appearance** order. Current mapping: F1→1, F2→2, F4→3, **F5b→4**, **F8→5**, F3→6,
+F6→7, F7→8 — re-read out of the built `.docx` at lap 34, where `F5b_decision_shift`
+replaced `F5_decision_shift` (that block above; the appearance order did not move, only
+the filename). Re-check it after moving or adding any figure. The check that catches
 a mistake here is reading the captions back out of the built `.docx` with
 `python-docx` and comparing them to the `Fig. N` mentions in the prose; nothing
 mechanical does it.

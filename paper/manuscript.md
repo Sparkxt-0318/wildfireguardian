@@ -15,7 +15,7 @@ pooled out-of-fold 0.905, a different quantity). Its operating point is weak and
 as such: pooled cell recall at the shipped threshold is 0.138 and three of the six
 held-out fires produce no true positive at all. The coupling is nonetheless where the
 decision changes: on the canonical Yeongdeok field, 42 of 458 scanned walk-network origins
-reach a refuge only under the forecast-aware policy, and 2 have no safe walking route, on a
+reach a refuge only under the forecast-aware policy, and 2 reach no refuge under it, on a
 network covering 32.6 % of the predicted fire core whose bias runs in an unmeasured
 direction. That contrast is measured against a fire-blind baseline, so it does not separate
 knowing where the fire will be from knowing where it is. That separation has now been
@@ -391,9 +391,9 @@ budget-exceeded class at 600 minutes, and none enters the hazard under the
 forecast-aware policy, which is structural: it refuses any node at or above the
 cutoff.
 
-![Decision shift on the canonical Yeongdeok field. Left: the same 458 scanned origins under the fire-blind and the forecast-aware policies. Right: the predicted hazard core over the forecast horizon. The fire-blind arm consults no hazard at all, present or forecast, so the shift between the two bars is what hazard awareness of any kind buys and not what the forecast alone buys (Section 4.3, third caveat). The absolute rates on the left are computed on a walk network covering 32.6 % of the predicted fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. Not re-acquiring the region is deliberate: the walk box does not fit the simulation grid, so redrawing it would force re-extending the canvas and re-simulating the field, replacing a stated limit with an unstated one.](figures/F5_decision_shift.png)
+![Decision shift on the canonical Yeongdeok field. Left: the same 458 scanned origins under the fire-blind and the forecast-aware policies. Right: the predicted hazard core over the forecast horizon. The fire-blind arm consults no hazard at all, present or forecast, so the shift between the two bars is what hazard awareness of any kind buys and not what the forecast alone buys (Section 4.3, third caveat). The absolute rates on the left are computed on a walk network covering 32.6 % of the predicted fire core; the remaining two thirds are unmeasured and the direction of the bias is unknown. Not re-acquiring the region is deliberate: the walk box does not fit the simulation grid, so redrawing it would force re-extending the canvas and re-simulating the field, replacing a stated limit with an unstated one.](figures/F5b_decision_shift.png)
 
-![The canonical Yeongdeok 2025 case on the SRTM hillshade. (a) Forecast P(ignite) at 720 min, the cells at P ≥ 0.5 at 0 min (teal), the 720-min 0.5 isoline (dashed), the reported ignition (star); the rectangle is the walk-network extent. (b) The walk network, the refuge nodes snapped from 50 OSM points of interest (triangles), all 458 scanned origins classed as in the committed artifact (414 safe on both routes, 42 safe only on the forecast-aware route, 2 with no safe walking route), and three example origins with the fire-blind shortest route (grey, dashed) against the forecast-aware route (red). Routes are recomputed at figure time with the repository's own router from the committed snapshots, and the recomputed partition equals the committed one; the isoline is drawn on a one-cell smoothing of the slice for display only.](figures/F8_routing_map.png)
+![The canonical Yeongdeok 2025 case on the SRTM hillshade. (a) Forecast P(ignite) at 720 min, the cells at P ≥ 0.5 at 0 min (teal), the 720-min 0.5 isoline (dashed), the reported ignition (star); the rectangle is the walk-network extent. (b) The walk network, the refuge nodes snapped from 50 OSM points of interest (triangles), all 458 scanned origins classed as in the committed artifact (414 safe on both routes, 42 safe only on the forecast-aware route, 2 reaching no refuge), and three example origins with the fire-blind shortest route (grey, dashed) against the forecast-aware route (red). Routes are recomputed at figure time with the repository's own router from the committed snapshots, and the recomputed partition equals the committed one; the isoline is drawn on a one-cell smoothing of the slice for display only.](figures/F8_routing_map.png)
 
 Three caveats are inseparable from those counts. **First and most important, they are
 rates on a covered third.** Yeongdeok's walk-network bounding box contains only 32.6 %
@@ -514,7 +514,7 @@ wrong there (`docs/oracle_gap.md`); what it is worth against a present-perimeter
 is what trusting that prediction buys, and this project's own model is worth less, by an
 amount no run here measures. And this
 is one fire, one ignition and one departure time: which buffer comes off best is a property
-of this fire's growth against this road network, and no run tests it on a second one.
+of this fire's growth against this road network, and no comparable grid runs on a second one.
 
 ### 4.6 Sensitivity and controls
 
@@ -771,9 +771,10 @@ exact departure time; on a constructed example the optimiser can prefer a path w
 *reported* exposure is 2.22 times the alternative's. Remaining-time displays are quantised
 to the slice grid and are upper bounds. The search is deterministic but not provably
 optimal over exact-clock paths, though no counterexample exists at the bin sizes in use.
-The class named "forecast-aware route exceeds budget" names a cause its code condition
-does not establish; it is empty at Yeongdeok, and elsewhere the search did not complete
-within the scan's constraints. None was fixed; all divide out of the paired contrasts.
+The classes named "forecast-aware route exceeds budget" and "no safe route" name causes
+their code conditions do not establish, the search having only failed to reach a refuge
+within the scan's constraints; the first is empty at Yeongdeok. None was fixed; all
+divide out of the paired contrasts.
 
 **A pedestrian is not confined to the graph, but this router is.** A walker can cross a
 field or a yard where a vehicle cannot, so a shortest-path formulation borrowed from
