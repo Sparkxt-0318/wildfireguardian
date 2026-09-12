@@ -11,12 +11,18 @@ What it measures, and the one inference it makes
 ------------------------------------------------
 A committed `dispatch_a4*.pdf` is rendered from its sibling `dispatch_a4*.html` by
 `scripts/generate_dispatch_outputs.py` (the `printable.html_to_pdf(hp, ...)` call at the
-A4 step, and the split re-emit below it). This sandbox has **no PDF text extractor** —
-no `pypdf`, no `pdfminer`, no `pdftotext` — so the PDFs are NOT opened and their text is
-NOT read. Staleness is decided on the **sibling HTML**, through that render path, and the
-artifact records it under `method: "sibling_html_via_render_path"` so no reader mistakes
-it for a byte-level read of the PDF. `docs/dispatch_sheet_staleness.md` §4 states the
-limit; a machine with an extractor closes it (WFG-116 is the same shape for page counts).
+A4 step, and the split re-emit below it). This script does NOT open the PDFs: staleness is
+decided on the **sibling HTML**, and the artifact records that under
+`method: "sibling_html_via_render_path"` so no reader mistakes it for a reading of the
+words on the page.
+
+⚠ An earlier version of this docstring justified the choice with 「there is no pypdf, no
+pdfminer and no pdftotext here, **so** the bytes are not read」. The premise is true; the
+「so」 is not, and the lap's independent reviewer refused it. These sheets embed a Korean
+font SUBSET, and `scripts/probe_dispatch_pdf_fonts.py` reads each PDF's `/ToUnicode` CMaps
+with `zlib` alone — an independent route that finds the same set. It corroborates this
+one rather than replacing it, because a subset says what a page CAN spell and not in what
+order. `docs/dispatch_sheet_staleness.md` §4 states both and what is still owed.
 
 Scope is EVERY tracked file under `outputs/`, not one run directory. That is the
 correction this measurement exists to make: WFG-267 was filed against
@@ -117,8 +123,11 @@ def measure() -> dict:
         "method": "sibling_html_via_render_path",
         "method_note": (
             "A committed dispatch PDF is classed by the sentence in the sibling HTML it "
-            "was rendered from. The PDFs are NOT opened: this sandbox has no pypdf, no "
-            "pdfminer and no pdftotext. See docs/dispatch_sheet_staleness.md §4."),
+            "was rendered from; this measurement does not open the PDFs. That is a "
+            "choice of route, NOT a limit of the sandbox: scripts/probe_dispatch_pdf_fonts.py "
+            "reads each PDF's own embedded font subset with zlib alone and finds the same "
+            "set, which corroborates this classing without replacing it. See "
+            "docs/dispatch_sheet_staleness.md §4."),
         "scope": "every tracked file under outputs/ (git ls-files -z outputs)",
         "reasons": {
             "current": current,

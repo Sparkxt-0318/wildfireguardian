@@ -148,11 +148,14 @@ the SUPERSEDED …」(어느 장인가), [`docs/dispatch_sheet_staleness.md`](..
 어떤 커밋된 문서에도 없다」였고, **WFG-267 (i)이 닫히면서 해소되었습니다** — 이제
 `outputs/dispatch/README.md` 에 있습니다. ⚠⚠ **같은 랩이 그 말 자체도 좁혔습니다.**
 「한 장」은 `outputs/dispatch/20260801T163042Z/` 안에서만 참입니다. 트리 전체에서는
-커밋된 출동 지시서 PDF가 `dss_committed_dispatch_pdfs` 장, run 디렉터리가
-`dss_run_dirs_with_a_committed_pdf` 개이고, 옛 사유를 든 장은
-`dss_stale_committed_pdfs` 장입니다. ⚠ **PDF는 한 장도 열리지 않았습니다**: 각
-PDF는 그것이 렌더링되어 나온 형제 HTML로 등급이 매겨졌습니다(§4). 심사위원이
-캐물으면 그 추론을 먼저 말씀하십시오.
+커밋된 출동 지시서 PDF가 **38장**, run 디렉터리가 **12개**이고, 옛 사유를 든 장은
+**3장**입니다(각각 `dss_committed_dispatch_pdfs`, `dss_run_dirs_with_a_committed_pdf`,
+`dss_stale_committed_pdfs` 로 등록되어 있습니다). ⚠ **등급을 매긴 1차 근거는 PDF 본문이 아니라 그것이 렌더링되어 나온 형제
+HTML입니다** — 심사위원이 캐물으면 그 추론을 먼저 말씀하십시오. ⚠ 다만 2026-09-12
+랩이 `scripts/probe_dispatch_pdf_fonts.py` 로 **PDF 바이트 자체도** 확인했습니다:
+심어진 한글 폰트 서브셋을 `zlib` 로 풀어 보면 그 세 장만 옛 사유를 철자할 수 있고
+새 사유는 한 장도 철자하지 못합니다. 두 경로가 같은 답입니다. 방법과 그 한계는
+`docs/dispatch_sheet_staleness.md` §4.
 
 
 ---

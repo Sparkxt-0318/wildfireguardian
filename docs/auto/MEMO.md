@@ -3831,7 +3831,27 @@ grep that found it. Those are different instruments and the registered one is
 stricter by construction. Concretely: write the `spellings` entry first, then run
 `check_withdrawn_claims.py` and let it tell you the reach. The checker already
 enumerates the gated set correctly; my own ad-hoc `git ls-files` list in this same
-lap was truncated to **550** of the real **1,194** tracked `.md` and `.html`, and I
-would have shipped that number if I had not re-run the count through the checker's
-own `tracked_files()`. **When a script exists that computes your scope, do not
-re-implement the scope in the measurement that checks it.**
+lap was truncated to **550** of the real **1,194** tracked `.md` and `.html` at
+`2f05e12`, and I would have shipped that number if I had not re-run the count through
+the checker's own `tracked_files()`. **When a script exists that computes your scope,
+do not re-implement the scope in the measurement that checks it.**
+
+**Postscript, written after the independent reviewer blocked this lap, because the
+lesson above was not yet the whole lesson.** I re-ran the scope through the right
+instrument and then **published the answer without re-running it at the head I
+shipped**. 1,194 was true at `2f05e12`, the commit the lap started from, and false by
+the time it reached a file — because the lap's own new `docs/dispatch_sheet_staleness.md`
+is a gated file and moved the pair to **944 of 1,195**, in the very commit that wrote
+「943 of 1,194」. The lap was, in that same commit, convicting critic #73 of publishing a
+count that was true when taken and false when shipped.
+
+So the rule has a second half, and it is the half that bites: **using the right
+instrument does not date the answer.** A count of the tree is invalidated by your own
+diff, and yours is the one diff you are guaranteed not to think of, because you are
+inside it. Two defences, and prefer the first: **register the number**, so a gate
+re-derives it (neither 943 nor 1,194 was registered, which is why nothing caught this —
+`verify_numbers.py` is registry-anchored by construction and structurally cannot see an
+unregistered numeral in prose); or, when it is genuinely prose, **stamp it with the
+commit it was measured at**, so a reader can re-run it. An unstamped, unregistered count
+of the repository is a claim with a hidden expiry date, and the expiry is usually your
+own next commit.

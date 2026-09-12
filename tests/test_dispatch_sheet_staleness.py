@@ -46,14 +46,17 @@ ENUMERATING_PAGES = [
 ]
 
 
-def _measure_module():
-    """Load the measurement script by path, as tests/test_live_pipeline_doc_matches_code.py does."""
+def _load(name: str, path: Path):
+    """Load a script by path, as tests/test_live_pipeline_doc_matches_code.py does."""
     sys.path.insert(0, str(REPO / "src"))
-    spec = importlib.util.spec_from_file_location(
-        "_wfg_measure_dispatch_sheet_staleness", MEASURE)
+    spec = importlib.util.spec_from_file_location(name, path)
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     return mod
+
+
+def _measure_module():
+    return _load("_wfg_measure_dispatch_sheet_staleness", MEASURE)
 
 
 def _section(page: Path, heading: str) -> str:
@@ -152,6 +155,102 @@ def test_the_measurement_refuses_to_report_zero_when_a_constant_is_gone():
     current, superseded = mod.reason_constants()
     assert current and superseded, "both 사유 constants must be non-empty literals"
     assert mod.EMITTER.exists()
+
+
+def test_a_second_route_that_imports_nothing_finds_the_same_stale_set():
+    """Independence check: re-derive the set WITHOUT `measure()`, and without the emitter.
+
+    Found by this lap's independent reviewer, under `mandela`'s tautology pattern. Every
+    other test in this file calls `measure()` — the same function that produced the
+    committed artifact, the two enumerating pages and the six `dss_` keys. Scorer and
+    subject were the same code, so a wrong glob or a mis-parsed constant would have made
+    the artifact, the pages, the registry and the gate wrong TOGETHER, and this file
+    would still have been green. The lap struck the word 「control」 off
+    `dss_html_carrying_current` for exactly that reason and then left the gate with the
+    identical shape.
+
+    So this test walks a different road to the same place: it reads the two sentences out
+    of the COMMITTED ARTIFACT rather than parsing the emitter, and it globs the tree with
+    `git ls-files` directly rather than calling `tracked_outputs()`. The two routes share
+    only the repository itself. They must agree.
+    """
+    import json  # noqa: PLC0415
+    import subprocess  # noqa: PLC0415
+
+    art_dir = REPO / "data" / "processed" / "dispatch_sheet_staleness"
+    artifacts = sorted(art_dir.glob("staleness_*.json"))
+    assert artifacts, f"no committed staleness artifact under {art_dir.relative_to(REPO)}"
+    art = json.loads(artifacts[-1].read_text(encoding="utf-8"))
+    superseded = art["reasons"]["superseded"]
+
+    listing = subprocess.run(["git", "ls-files", "-z", "outputs"], cwd=REPO,
+                             capture_output=True, text=True, check=True).stdout
+    files = [f for f in listing.split("\0") if f]
+    stale_by_hand = sorted(
+        p for p in files
+        if p.endswith(".pdf")
+        and (p[:-4] + ".html") in files
+        and superseded in (REPO / (p[:-4] + ".html")).read_text(encoding="utf-8")
+    )
+
+    assert stale_by_hand == sorted(art["stale_pdfs"]), (
+        "two independent derivations of the stale set disagree. The committed artifact "
+        f"says {sorted(art['stale_pdfs'])} and a scan that imports none of the "
+        f"measurement code says {stale_by_hand}. One of them is wrong, and until you "
+        "know which, neither the note nor the dss_ keys can be trusted.")
+
+    # And the same for the headline counts, so a miscount cannot hide behind a correct list.
+    htmls = [f for f in files if f.endswith(".html")]
+    assert len([f for f in files if f.endswith(".pdf")]) == art["counts"]["tracked_pdf"]
+    assert len(htmls) == art["counts"]["tracked_html"]
+    assert sum(
+        1 for h in htmls
+        if superseded in (REPO / h).read_text(encoding="utf-8")
+    ) == art["counts"]["html_carrying_superseded"]
+
+
+def test_the_pdf_bytes_themselves_agree_with_the_render_path_classing():
+    """A third route, which never looks at an HTML file at all.
+
+    The reviewer that blocked this lap refused the caveat 「no extractor, SO we classify
+    by the sibling HTML」 as a non-sequitur, and was right: these sheets embed a Korean
+    font SUBSET, a subset holds only the glyphs the page actually set, and the
+    `/ToUnicode` CMaps that name them are Flate streams that `zlib` opens. So the PDFs
+    can be interrogated directly, with the standard library, and that is an independent
+    check on the classing rather than a restatement of it.
+
+    One-directional by construction, and the assertion is written to match: a subset is
+    a property of the WHOLE page, so a syllable could in principle arrive from other
+    text. What it can establish is that a sheet classed stale CAN spell the superseded
+    sentence and CANNOT spell the current one, which is enough to catch a PDF that was
+    swapped or re-rendered away from its sibling HTML — the one failure the render-path
+    method is blind to.
+    """
+    probe = _load("_wfg_probe_dispatch_pdf_fonts",
+                  REPO / "scripts" / "probe_dispatch_pdf_fonts.py")
+    current, superseded = probe._reasons()
+
+    def hangul(s: str) -> set[str]:
+        return {c for c in s if "가" <= c <= "힣"}
+
+    only_sup = hangul(superseded) - hangul(current)
+    only_cur = hangul(current) - hangul(superseded)
+    assert only_sup and only_cur, (
+        "the two 사유 sentences no longer have syllables unique to each, so this probe "
+        "cannot discriminate them. Re-think the test rather than deleting it.")
+
+    stale = set(_measure_module().measure()["stale_pdfs"])
+    for rel in sorted(stale):
+        cps = probe._codepoints(REPO / rel)
+        assert only_sup <= cps, (
+            f"{rel} is classed stale from its sibling HTML, but its own embedded font "
+            f"subset cannot spell the superseded 사유 (missing {sorted(only_sup - cps)}). "
+            "Either the PDF was re-rendered or swapped away from its HTML, or the "
+            "classing is wrong. Both matter more than this test.")
+        assert not only_cur <= cps, (
+            f"{rel} is classed stale, yet its font subset can spell the CURRENT 사유. "
+            "That is the opposite of what the render path says; resolve it before "
+            "trusting either page.")
 
 
 def test_no_committed_sheet_carries_the_current_sentence():

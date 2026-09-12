@@ -1,0 +1,47 @@
+{
+  "schema": "dispatch_sheet_staleness/1",
+  "row": "WFG-267",
+  "method": "sibling_html_via_render_path",
+  "method_note": "A committed dispatch PDF is classed by the sentence in the sibling HTML it was rendered from; this measurement does not open the PDFs. That is a choice of route, NOT a limit of the sandbox: scripts/probe_dispatch_pdf_fonts.py reads each PDF's own embedded font subset with zlib alone and finds the same set, which corroborates this classing without replacing it. See docs/dispatch_sheet_staleness.md §4.",
+  "scope": "every tracked file under outputs/ (git ls-files -z outputs)",
+  "reasons": {
+    "current": "어느 거점에서도 생존 인지 차량 진입 경로가 확인되지 않음",
+    "superseded": "예산 내 차량 진입로가 화재로 차단됨(우회 포함)",
+    "source": "scripts/generate_dispatch_outputs.py"
+  },
+  "counts": {
+    "tracked_html": 650,
+    "tracked_pdf": 38,
+    "run_dirs_with_a_committed_pdf": 12,
+    "html_carrying_superseded": 44,
+    "html_carrying_current": 0,
+    "stale_pdf": 3,
+    "fresh_pdf": 35,
+    "unpaired_pdf": 0
+  },
+  "stale_pdfs": [
+    "outputs/dispatch/20260801T163042Z/02-천전공원-일대/dispatch_a4.pdf",
+    "outputs/dispatch_full/20260801T183522Z/03-영덕해맞이공원-일대/dispatch_a4.pdf",
+    "outputs/dispatch_full/20260801T183522Z/03-영덕해맞이공원-일대/dispatch_a4_unreachable.pdf"
+  ],
+  "unpaired_pdfs": [],
+  "run_dirs_with_a_committed_pdf": [
+    "outputs/dispatch/20260801T163042Z",
+    "outputs/dispatch_full/20260801T182443Z",
+    "outputs/dispatch_full/20260801T182936Z",
+    "outputs/dispatch_full/20260801T183522Z",
+    "outputs/live/manual/yeongdeok_2025/20260803T051238Z",
+    "outputs/live/replay/20260807T100249Z",
+    "outputs/live/replay/uiseong_andong_2025/20260803T051938Z",
+    "outputs/live/replay/uiseong_andong_2025/20260803T052309Z",
+    "outputs/live/replay/uiseong_andong_2025/20260807T100427Z",
+    "outputs/live/replay/uljin_samcheok_2022/20260807T100745Z",
+    "outputs/live/replay/yeongdeok_2025/20260803T051600Z",
+    "outputs/live/replay/yeongdeok_2025/20260803T051744Z"
+  ],
+  "provenance": {
+    "git_commit": "4dd7c649b110d2bfa82f0c817a742f2a0d3d6b9a",
+    "emitter_sha256": "6ad5d2769792b7f7aeb75250ab17d41f6b3391d3a9dce0dd8a2531b5e814885e",
+    "regenerate": "python scripts/measure_dispatch_sheet_staleness.py"
+  }
+}

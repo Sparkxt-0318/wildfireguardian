@@ -61,9 +61,11 @@ this directory:
 - `outputs/dispatch_full/20260801T183522Z/03-영덕해맞이공원-일대/dispatch_a4_unreachable.pdf`
 
 ⚠ **Read that list with three caveats, and do not quote a count from it without
-them.** (1) **No PDF was opened.** This sandbox has no `pypdf`, no `pdfminer` and
-no `pdftotext`, so each PDF is classed by the 사유 sentence in the sibling
-`dispatch_a4*.html` it was rendered from. (2) The safe instruction is therefore
+them.** (1) **The classing does not read the PDFs.** Each PDF is classed by the 사유
+sentence in the sibling `dispatch_a4*.html` it was rendered from. It is corroborated
+but not replaced by `scripts/probe_dispatch_pdf_fonts.py`, which reads each PDF's own
+embedded Korean font subset with the standard library and finds exactly these three
+able to spell the superseded sentence, and none able to spell the current one. (2) The safe instruction is therefore
 **regenerate every sheet you intend to print** and hand over nothing pre-built,
 which is what the command above does. (3) The counts behind this section are
 registered as the `dss_` keys in `docs/NUMBERS.json`; the method, the result and

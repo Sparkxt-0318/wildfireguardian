@@ -18,22 +18,31 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 NUMBERS = REPO / "docs" / "NUMBERS.json"
 ARTIFACT = ("data/processed/dispatch_sheet_staleness/"
-            "staleness_20260912T092708Z.json")
+            "staleness_20260912T101941Z.json")
 PREFIX = "dss_"
 
 #: The caveat every one of these keys carries. It leads with the inference, because a
 #: reader who quotes one of these is most likely to think a PDF was opened and read.
 BAND = (
-    "NO PDF WAS OPENED, AND NOTHING HERE IS A STATEMENT ABOUT A REAL FIRE. Four facts "
-    "travel together or none of these keys may be quoted. (1) THE METHOD IS AN "
-    "INFERENCE THROUGH THE RENDER PATH. A committed `dispatch_a4*.pdf` is classed by "
-    "the 사유 sentence in the sibling `dispatch_a4*.html` it was rendered from by "
-    "`scripts/generate_dispatch_outputs.py`. This sandbox has no pypdf, no pdfminer and "
-    "no pdftotext, so the PDF bytes were NOT read and the artifact records the method as "
-    "`sibling_html_via_render_path` for exactly that reason. A machine with an extractor "
-    "can promote the inference to a reading; until one does, `dss_stale_committed_pdfs` "
-    "means 「rendered from an HTML that carries the superseded sentence」 and not 「was "
-    "opened and found to contain it」. (2) NOTHING WAS REGENERATED AND NO SHEET WAS "
+    "THESE COUNTS ARE AN INFERENCE THROUGH THE RENDER PATH, AND NOTHING HERE IS A "
+    "STATEMENT ABOUT A REAL FIRE. Four facts travel together or none of these keys may "
+    "be quoted. (1) THE DERIVATION DOES NOT READ A SINGLE PDF. A committed "
+    "`dispatch_a4*.pdf` is classed by the 사유 sentence in the sibling "
+    "`dispatch_a4*.html` it was rendered from by "
+    "`scripts/generate_dispatch_outputs.py`, and the artifact records the method as "
+    "`sibling_html_via_render_path`. So `dss_stale_committed_pdfs` means 「rendered from "
+    "an HTML that carries the superseded sentence」 and NOT 「was opened and found to "
+    "contain it」. ⚠ An earlier draft of this band justified that with 「this sandbox has "
+    "no pypdf, no pdfminer and no pdftotext, SO the bytes were not read」. The premise is "
+    "true and the 「so」 is false, and the lap's independent reviewer refused it: these "
+    "sheets embed a Korean font SUBSET, and `scripts/probe_dispatch_pdf_fonts.py` reads "
+    "each file's `/ToUnicode` CMaps with `zlib` alone. Run against all "
+    "`dss_committed_dispatch_pdfs` PDFs it finds exactly the `dss_stale_committed_pdfs` "
+    "sheets able to spell the superseded 사유 and none able to spell the current one — "
+    "an independent route to the same answer, and `tests/test_dispatch_sheet_staleness.py` "
+    "holds the two together. It CORROBORATES the classing rather than replacing it: a "
+    "font subset is a property of the whole page, so it establishes what a sheet CAN "
+    "spell, not the order of the words. (2) NOTHING WAS REGENERATED AND NO SHEET WAS "
     "REWRITTEN. Every file counted here is the committed record of a 2026-08-01 run, "
     "kept byte-unchanged under CHARTER §3 rule 2 and rule 7; this measurement reads and "
     "counts, and the repair it justifies is a NOTE beside the sheets. (3) THE SCOPE IS "
@@ -78,7 +87,9 @@ FIGURES = [
     ("stale_committed_pdfs", "counts.stale_pdf", "files",
      "how many of those PDFs were rendered from an HTML carrying "
      "`SUPERSEDED_UNREACHABLE_REASON_KO`. ⚠ This is the render-path inference of "
-     "caveat (1) and not a reading of the PDF bytes. The paths are enumerated in the "
+     "caveat (1), corroborated independently by scripts/probe_dispatch_pdf_fonts.py "
+     "reading the PDFs' own embedded font subsets, and still not a reading of the "
+     "words on the page. The paths are enumerated in the "
      "artifact's `stale_pdfs` and in `outputs/dispatch/README.md`, and "
      "`tests/test_dispatch_sheet_staleness.py` re-derives the set from the tree and "
      "refuses to let the note and the tree disagree"),
@@ -89,9 +100,10 @@ FIGURES = [
     ("html_carrying_current", "counts.html_carrying_current", "files",
      "how many print the sentence the emitter prints TODAY. It is ZERO, and an empty "
      "sub-case is published as an empty sub-case: every committed sheet predates the "
-     "WFG-264 repair. It is the control that makes the count above meaningful — if this "
-     "were non-zero, the committed tree would hold two live sentences rather than one "
-     "record and one repair"),
+     "WFG-264 repair. ⚠ NOT a control, though an earlier draft called it one: it comes "
+     "from the SAME scan, with the same code, as the count above, so no outside truth "
+     "enters. It rules out the tree holding two live sentences and rules out nothing "
+     "about the scan itself"),
     ("tracked_dispatch_html", "counts.tracked_html", "files",
      "every tracked `.html` under `outputs/`, the population the two counts above are "
      "taken from"),
