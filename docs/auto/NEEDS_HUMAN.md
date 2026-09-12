@@ -4018,3 +4018,51 @@ and the default is untouched.**
 unregistered dilation), `WFG-260` (done, slice 0 is the observation), `NH-027`, `NH-032`,
 `NH-034`, `NH-052`, `NH-053`, `NH-054`,
 `docs/present_perimeter_yeongdeok.md`, `paper/GAPS.md` G7.
+
+## NH-060 · DECISION · open · Your "product first" rule sent a booth-printable defect to the bottom of the board, and two of your routines read the same sentence of it differently (by 2026-09-14)
+
+**Severity: HIGH.** Nothing is false, no gate is red, and both routines acted in good faith on
+the same paragraph. What is open is which reading of it you want, because the two readings put
+the same row 258 places apart on the board with three days of sprint left.
+
+**What happened.** The dev lap of 2026-09-12T0018Z repaired an A4 walk-sheet sentence that
+asserted a cause its code condition does not establish, and its independent reviewer found the
+identical two-clause sentence on the **vehicle** side: `scripts/generate_dispatch_outputs.py:102`
+and `:134` ship 「예산 내 차량 진입로가 화재로 차단됨(우회 포함)」. The lap refused to rewrite it by
+analogy, which was right: nobody has read that arm's unreachable condition out of the code, and
+guessing it would register a memory as a repair. It filed the read as **WFG-264**, priority **P1**, <!-- forbidden-ok: 264, this is the BACKLOG ROW ID WFG-264 and not the gangneung_donghae_2022 Build-A positive count the gate anchors that value to. Same false-positive class as ba437f5, where the gate read a lap stamp as a camera count. No figure is asserted on this line. -->
+at table row **259 of 258** rows, and wrote the reason into the row: 「Held until R1, R3, R4, R7, R8
+and R9 tick (CHARTER §14b)」.
+
+**Why critic #71 moved it.** §14b names what waits behind those ticks, and it is a list:
+「loop hygiene (report certification, gate-on-gate, commit-id bookkeeping, mechanics of the
+routines) is a P1 row that waits until readiness lines R1, R3, R4, R7, R8 and R9 are ticked」.
+A sentence printed on a booth printable is not on that list, and the **same sentence** of §14b
+says where it does go: 「anything larger, however judge-facing, is filed as a P0 row at position 1
+of the table and is never a preemption」. Booth printables are in §14b's own enumeration of
+judge-facing surfaces. So the critic re-filed WFG-264 as **P0 at position 1**. <!-- forbidden-ok: 264, this is the BACKLOG ROW ID WFG-264 and not the gangneung_donghae_2022 Build-A positive count the gate anchors that value to. Same false-positive class as ba437f5, where the gate read a lap stamp as a camera count. No figure is asserted on this line. -->
+
+**Why this is yours.** CHARTER §6 sends you the case where 「two laps disagree on direction」, and
+this is exactly that, on the text of a rule **you** amended (NH-038 B, 2026-09-07). The stakes are
+not abstract: R3 is the only one of the six lines still unticked, it is `blocked(NH-046)`, NH-046
+came due **2026-09-10**, and `docs/auto/decisions_seen.json` still records `"seen": []`. Under the
+dev lap's reading the row could not be started before the sprint ended on **2026-09-15**.
+
+**What is true either way, and is not in dispute.** The sentence is **not** established false;
+nobody has checked it. `outputs/dispatch/20260801T163042Z/` holds 33 committed cluster
+directories; **17 of the 33** `dispatch_a4.html` print the sentence, **3** sheets are committed as
+PDF and **1 of those 3** carries it. `docs/auto/JUDGE_QA.md:1308` sends the student to open that
+directory in front of judges and Q39 at `:1554` says the other 30 are reprinted from the script
+that emits it. The repair in every reading is to read the condition and write it down, never to
+substitute a sentence by analogy.
+
+**Options:** A) confirm the critic's reading (judge-facing surface + larger than minutes goes P0 at
+position 1; the §14b hold covers only the enumerated loop-hygiene classes) and leave WFG-264 where <!-- forbidden-ok: 264, this is the BACKLOG ROW ID WFG-264 and not the gangneung_donghae_2022 Build-A positive count the gate anchors that value to. Same false-positive class as ba437f5, where the gate read a lap stamp as a camera count. No figure is asserted on this line. -->
+it now is  B) confirm the dev lap's reading (anything larger than minutes waits for the readiness
+ticks, judge-facing or not) and the critic moves WFG-264 back to P1  C) neither, and you rewrite <!-- forbidden-ok: 264, this is the BACKLOG ROW ID WFG-264 and not the gangneung_donghae_2022 Build-A positive count the gate anchors that value to. Same false-positive class as ba437f5, where the gate read a lap stamp as a camera count. No figure is asserted on this line. -->
+§14b's sentence yourself so no lap has to read it again  D) something else
+
+**If you say nothing:** WFG-264 stays P0 at position 1 and the next dev lap takes it, because that <!-- forbidden-ok: 264, this is the BACKLOG ROW ID WFG-264 and not the gangneung_donghae_2022 Build-A positive count the gate anchors that value to. Same false-positive class as ba437f5, where the gate read a lap stamp as a camera count. No figure is asserted on this line. -->
+is the reading the charter text supports and a booth printable is three days from the freeze.
+
+NH-060: <your decision>
