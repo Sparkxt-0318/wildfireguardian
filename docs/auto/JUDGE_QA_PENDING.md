@@ -189,7 +189,8 @@ item**. `docs/auto/JUDGE_QA.md` Q36 은 2026-09-12 에 회전 널의 수치를 �
 2026-09-12 주석과 §5b, [`docs/rotation_null.md`](../rotation_null.md) §3,
 레지스트리 키 `rn_yeongdeok_rotations_beating_the_disc` **3** ·
 `rn_yeongdeok_rotations_not_beating_the_disc` **20** ·
-`rn_yeongdeok_bare_worst_over_disc` **0.3311**.
+`rn_yeongdeok_bare_worst_over_disc` **0.3311**. <!-- collision-ok: 0.3311 — this is `rn_yeongdeok_bare_worst_over_disc`, the RATIO of the WORST rotation's seed-removed IoU to the disc's (unit x, 0.0387 over 0.1169), and it is not an IoU. The gate's anchor set (bare, disc, yeongdeok) matches it against the eleven `*_bare_disc_iou` keys (0.1169, 0.0975, 0.1225) and against `rn_yeongdeok_bare_true_over_disc` (2.2044, the ratio for the TRUE orientation rather than the worst). Four different quantities; none of them is stale and no value here is superseded. -->
+
 
 ⚠ **병합하는 랩에게.** `docs/auto/JUDGE_QA.md` 를 고치면 `make printables` 를 새
 스탬프로 돌리고 `release/kcf-finals-2026/MANIFEST.json` 을 다시 가리켜야 합니다
