@@ -18,11 +18,17 @@
     "enabled": true,
     "author": "Siyeong Park (박시영)",
     "body_words_target": 8500,
-    "body_words_max": 9000,
+    "body_words_max": 9461,
+    "body_words_max_note": "NH-037 option A, author 2026-09-12: raised from 9000 to 9461, the measured 24-page sample point of the words-to-pages calibration table in paper/README.md, one page under the author's 25-page rule (paper/check_paper.py LIMIT).",
     "docx": "paper/WildfireGuardian_Park_2026.docx",
     "cadence_note": "every 6 h, exits early when no code moved since paper/STATE.json",
     "page_limit_note": "author 2026-09-05 (NH-028): do not exceed 25 built pages; the word budget is the proxy"
   },
   "research_cadence_note": "APPLIED 2026-09-04 (author chose option A in a Claude Code session): research every second day at 18:17 UTC on 2026-09-06, 08, 10, 12, 14 (cron `17 18 6,8,10,12,14 9 *`), taking that slot from dev, which exits with 'slot ceded to research'. It rewrites docs/auto/DIRECTION.md; the critic checks the page after every dev lap. After the sprint the author resets research to weekly on the routine page.",
-  "ci_red_note": "2026-09-04: wfg-autoloop-ci-red polls GitHub Actions hourly at :05 and fixes a red auto-gates run on auto/dev within CHARTER §3 (author: 'catch them immediately'). Dev checks the API at step 2; critic treats a red run as finding #1."
+  "ci_red_note": "2026-09-04: wfg-autoloop-ci-red polls GitHub Actions hourly at :05 and fixes a red auto-gates run on auto/dev within CHARTER §3 (author: 'catch them immediately'). Dev checks the API at step 2; critic treats a red run as finding #1.",
+  "paused": {
+    "since": "2026-09-12",
+    "by": "the author, in a Claude Code session on the laptop (NH-038)",
+    "note": "Every cloud routine (dev, critic, research, paper, ci-red, handover, the daily checkup) is disabled on claude.ai/code/routines. A lap that somehow starts must write nothing, commit nothing, and end with the message 'harness paused 2026-09-12'."
+  }
 }

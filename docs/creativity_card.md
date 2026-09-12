@@ -33,7 +33,7 @@ is new about it*. It answers in three items, each pointing at a committed file:
 
 | item | the claim | the artifact |
 |---|---|---|
-| 1 | the **output object** is the contribution — a rescue order and a walking route **per point** (지점 단위), with the forecast grid as an intermediate input rather than the deliverable. ⚠ In the run that produced the committed instances the **hazard surface and the terrain are synthetic** and the **origins are sampled coordinates**: no dispatch sheet has yet been made on a real spread surface, and a point is not a real household address (§9) | `outputs/dispatch/README.md` and the committed sheets beside it, e.g. `outputs/dispatch/20260801T163042Z/01-거무역리공원-북쪽/dispatch_a4.html` (an instance of the object); `data/processed/rescue_routing.json` → `provenance.sources` (what was real and what was synthetic in that run); `docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md` §3 (why the choice is not to compete on accuracy) |
+| 1 | the **output object** is the contribution — a rescue order and a walking route **per point** (지점 단위), with the forecast grid as an intermediate input rather than the deliverable. ⚠ In the run that produced the committed instances the **hazard surface and the terrain are synthetic** and the **origins are sampled coordinates**: dispatch sheets on the real spread surface were made on 2026-09-12 (`outputs/dispatch_real_hazard/20260912T153043Z/`; origins still sampled, walking time flat; NH-057), and a point is not a real household address (§9) | `outputs/dispatch/README.md` and the committed sheets beside it, e.g. `outputs/dispatch/20260801T163042Z/01-거무역리공원-북쪽/dispatch_a4.html` (an instance of the object); `data/processed/rescue_routing.json` → `provenance.sources` (what was real and what was synthetic in that run); `docs/auto/knowledge/KOREAN_OPERATIONAL_SYSTEMS.md` §3 (why the choice is not to compete on accuracy) |
 | 2 | the run where **both axes are real** at once — real OpenStreetMap walk graph *and* real forward-simulated spread — closing the project's own largest stated limitation | `docs/real_roads_real_hazard.md`, first table, third row |
 | 3 | withdrawn claims are **registered for a machine to read**, not deleted; the check runs inside `make verify` on every lap and every push | `docs/auto/withdrawn_claims.json`, `scripts/check_withdrawn_claims.py`, `docs/withdrawn_claims.md` |
 
@@ -641,6 +641,8 @@ Every block that asserts the committed instances exist now carries, **in that sa
 block**, what was synthetic in the run that produced them and that the origins were
 sampled — 지점 단위 rather than 가구 단위, and 「실제 확산면으로 만든 출동 지시서는
 아직 없습니다」.
+
+⚠ **2026-09-12 (NH-057):** that last sentence is no longer true. The author ran the rescue pipeline on the real 영덕 spread surface on the laptop and committed the sheets at `outputs/dispatch_real_hazard/20260912T153043Z/`; every one of the surfaces above now names that path in the same block, with the run's own bound (origins still sampled, walking time flat). The record above is kept as written.
 
 ⚠ **The row named five surfaces. Eleven were corrected, and the row's list found the
 fewest of them.** The lap's own sweep added a sixth, `docs/auto/finals/RELATED_WORK_PANEL.md`,

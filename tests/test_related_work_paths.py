@@ -68,6 +68,18 @@ DELIBERATELY_ABSENT = {
 RECORD_PRAGMA = "<!-- dead-path-ok -->"
 
 
+def _exists_exact(path: Path) -> bool:
+    """Case-exact existence. macOS's default filesystem is case-insensitive, so
+    ``(ROOT / "docs/model_card.md").exists()`` is True there because
+    ``docs/MODEL_CARD.md`` is tracked — and the dead-path record went red on the
+    author's laptop for a file that does not exist (2026-09-12). Linux CI never saw it.
+    """
+    try:
+        return path.name in {q.name for q in path.parent.iterdir()}
+    except FileNotFoundError:
+        return False
+
+
 def _unlicensed_occurrences(text: str) -> list[tuple[int, str]]:
     """Every (line number, path) whose line does NOT declare itself a record.
 
@@ -104,7 +116,7 @@ def test_every_repository_path_this_page_names_resolves(rel: str) -> None:
         f"{rel}: no repository path matched, so this test is vacuous")
     missing = sorted(
         {f"{p} (line {n})" for n, p in _unlicensed_occurrences(text)
-         if not (ROOT / p).exists()})
+         if not _exists_exact(ROOT / p)})
     assert not missing, (
         f"{rel} names repository paths that do not exist: {missing}\n"
         "This page is read by a judge and its argument is that the measurements live "
@@ -122,7 +134,7 @@ def test_the_paths_named_as_dead_are_still_dead(rel: str) -> None:
     note becomes false and has to be reworded rather than left standing."""
     text = (ROOT / rel).read_text(encoding="utf-8")
     quoted = _licensed_dead(text)
-    now_real = sorted(p for p in quoted if (ROOT / p).exists())
+    now_real = sorted(p for p in quoted if _exists_exact(ROOT / p))
     assert not now_real, (
         f"{rel} records {now_real} as paths that do not exist, and they now do. "
         "Reword the correction note: it is a record of a withdrawn error, and a "

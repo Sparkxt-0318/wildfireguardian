@@ -530,3 +530,37 @@ window is three hours and not two.
 changed registry hash of an existing key; a NEW tracked artifact or a grown registry is
 reported as information, because every lap adds artifacts by design and the sandbox
 cannot re-freeze. The laptop re-freezes when convenient so the record stays current.
+
+## 15. Paused by the author, 2026-09-12
+
+On 2026-09-12 the author answered the open ledger in a laptop session and said
+「I think we can stop the entire harness now」 (NH-038, clarified as: pause every
+cloud routine immediately). Every routine is disabled on claude.ai/code/routines
+and `docs/auto/LOOP_CONFIG.json` carries `paused`. Any lap that starts anyway
+writes nothing and ends with 「harness paused 2026-09-12」. The consequences of
+the same session's decisions were carried out by the session itself and are
+recorded in `docs/auto/HANDOVER_2026-09-12.md`; the rules below were amended by
+those decisions and hold for any restart:
+
+- **§5b stale claims (NH-035 A):** a claim older than **two hours** with no work
+  commit behind it is releasable by the next dev lap.
+- **§3.5c withdrawn claims (NH-042 A):** registration always wins; a frozen
+  artifact carrying the old spelling is recorded in `withdrawn_claims.json` as a
+  dated known-stale exception so the gate stays green and the debt is visible.
+- **§4 step 2 (NH-043 A):** a red baseline whose only failures are the
+  `tests/test_finals_screen.py` staleness gates is not a stop; the lap runs
+  `make finals` on the commit it pushes, notes it, and continues.
+- **Critic Q&A additions (NH-049 A):** the critic writes new cards to
+  `docs/auto/JUDGE_QA_PENDING.md` (no `SOURCES` list reads it); the next dev lap
+  that rebuilds the printed kit merges and empties it (WFG-205).
+- **§12 paper routine (NH-058 A):** it reads `BACKLOG.md` at step 1 and skips any
+  `paper/` surface named by an `in-progress` row.
+- **§6 channels (NH-050 A):** the routine page on claude.ai is a declared fourth
+  decision channel; a sentence typed there is registered like any other, and the
+  session channel supersedes it when the two disagree (as NH-036 and NH-038 did
+  on 2026-09-12).
+- **§14c (NH-036 D):** `Do NOT edit` notes stay informal.
+- **§14b (NH-038, NH-051, NH-060):** moot while paused; on a restart the author
+  re-decides, and NH-060 was resolved by fixing the printable in the session.
+- **Research channels (NH-048 B):** OpenAlex is added beside Semantic Scholar,
+  which stays as a third try.

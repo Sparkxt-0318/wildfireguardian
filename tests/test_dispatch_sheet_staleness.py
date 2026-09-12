@@ -253,17 +253,27 @@ def test_the_pdf_bytes_themselves_agree_with_the_render_path_classing():
             "trusting either page.")
 
 
-def test_no_committed_sheet_carries_the_current_sentence():
-    """Every committed sheet predates the WFG-264 repair — the control for the count.
+def test_only_runs_committed_after_the_repair_carry_the_current_sentence():
+    """The control for the count, re-pointed 2026-09-12 (NH-057).
 
-    If this ever fails it is NOT a defect: it means a lap committed a freshly generated
-    run directory, which is allowed. It fails so that the lap doing it has to read this
-    docstring and update `docs/dispatch_sheet_staleness.md` §3, where the zero is stated
-    as a property of the record rather than a law.
+    Until 2026-09-12 no committed sheet carried the current 사유, because every one
+    predated the WFG-264 repair, and this test asserted zero. That day the author's
+    laptop run on the real spread surface was committed under
+    ``outputs/dispatch_real_hazard/20260912T153043Z/``. The property is now: a sheet
+    that prints the current sentence lives only under a run directory stamped on or
+    after 2026-09-12, and every sheet that predates the repair still does not.
+    If this fails, read ``docs/dispatch_sheet_staleness.md`` §3 and move it with the tree.
     """
-    result = _measure_module().measure()
-    assert result["counts"]["html_carrying_current"] == 0, (
-        "a committed sheet under outputs/ now prints UNREACHABLE_REASON_KO. That is "
-        "allowed — it means a run was committed after 2026-09-12 — but "
-        "docs/dispatch_sheet_staleness.md §3 and the dss_html_carrying_current key "
-        "both state this count as zero, so update them in the same commit.")
+    mod = _measure_module()
+    current, _superseded = mod.reason_constants()
+    htmls = [f for f in mod.tracked_outputs() if f.endswith(mod.HTML_SUFFIX)]
+    carrying = [h for h in htmls if current in (REPO / h).read_text(encoding="utf-8")]
+    result = mod.measure()
+    assert len(carrying) == result["counts"]["html_carrying_current"]
+    for h in carrying:
+        stamp = Path(h).parts[2] if len(Path(h).parts) > 2 else ""
+        assert stamp[:8].isdigit() and stamp[:8] >= "20260912", (
+            f"{h} prints UNREACHABLE_REASON_KO but sits under a run directory stamped before "
+            "the WFG-264 repair (2026-09-12). Committed sheets are the record and are never "
+            "rewritten; a sheet that predates the repair cannot carry the sentence the emitter "
+            "prints today unless something rewrote it.")

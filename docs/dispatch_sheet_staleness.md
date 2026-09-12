@@ -39,12 +39,12 @@
 
 | 등록 키 | 값 | 뜻 |
 |---|---|---|
-| `dss_committed_dispatch_pdfs` | 38 | `outputs/` 아래 커밋된 출동 지시서 PDF 전체 |
-| `dss_run_dirs_with_a_committed_pdf` | 12 | 그 PDF들이 흩어져 있는 run 디렉터리 수 |
+| `dss_committed_dispatch_pdfs` | 41 | `outputs/` 아래 커밋된 출동 지시서 PDF 전체 |
+| `dss_run_dirs_with_a_committed_pdf` | 13 | 그 PDF들이 흩어져 있는 run 디렉터리 수 |
 | `dss_stale_committed_pdfs` | 3 | 그중 옛 사유를 들고 있는 장 |
-| `dss_tracked_dispatch_html` | 650 | 추적되는 `.html` 시트 전체 |
+| `dss_tracked_dispatch_html` | 736 | 추적되는 `.html` 시트 전체 |
 | `dss_html_carrying_superseded` | 44 | 옛 사유를 찍는 HTML — `docs/live_pipeline.md`의 「44 files」를 트리에서 다시 센 값 |
-| `dss_html_carrying_current` | 0 | 오늘의 사유를 찍는 커밋된 HTML |
+| `dss_html_carrying_current` | 2 | 오늘의 사유를 찍는 커밋된 HTML — 2026-09-12 이후 커밋된 유일한 run, `outputs/dispatch_real_hazard/20260912T153043Z/` 의 차량 도달 불가 두 장 |
 
 옛 사유를 들고 있는 세 장:
 
@@ -52,7 +52,9 @@
 - `outputs/dispatch_full/20260801T183522Z/03-영덕해맞이공원-일대/dispatch_a4.pdf`
 - `outputs/dispatch_full/20260801T183522Z/03-영덕해맞이공원-일대/dispatch_a4_unreachable.pdf`
 
-**`dss_html_carrying_current` 이 0인 것은 결함이 아니라 기록의 성질입니다.** 커밋된
+⚠ **2026-09-12 갱신 (NH-057):** 아래 문단이 적힌 때 이 값은 0이었습니다. 같은 날 저자가 노트북에서 실제 확산면 실행을 돌려 `outputs/dispatch_real_hazard/20260912T153043Z/` 를 커밋했고, 그 run 의 차량 도달 불가 두 장이 오늘 사유를 찍으므로 값은 **2**가 됐습니다. 2026-08-01 자 시트에 대한 아래 논증은 그대로 참이고, 트리는 이제 「기록 하나와 수리 하나」에 더해 **수리 뒤에 만든 run 하나**를 들고 있습니다. 게이트는 오늘 사유를 찍는 시트가 2026-09-12 이후 stamp 의 run 아래에만 있는지를 검사합니다.
+
+**`dss_html_carrying_current` 이 (2026-08-01 자 시트만 있던 때) 0인 것은 결함이 아니라 기록의 성질입니다.** 커밋된
 시트는 전부 WFG-264 <!-- forbidden-ok: 264, this is the BACKLOG ROW ID WFG-264 and not the gangneung_donghae_2022 Build-A positive count the gate anchors that value to. No figure is asserted on this line. --> 수리보다 앞서 만들어졌으므로, 오늘 emitter가 찍는 문장을 가진
 커밋 시트는 있을 수 없습니다. 0이 아니었다면 커밋된 트리가 기록 하나와 수리 하나가
 아니라 **살아 있는 문장 둘**을 들고 있다는 뜻이 됩니다. ⚠ **다만 이것을 「대조군」이라고
@@ -84,8 +86,9 @@
 
 - 커밋된 PDF `dss_committed_dispatch_pdfs` 장 가운데, **옛 사유에만 있는 음절을 하나도
   빠짐없이** 심고 있는 것은 `dss_stale_committed_pdfs` 장입니다.
-- **오늘 사유에만 있는 음절을 모두** 심고 있는 것은 `dss_html_carrying_current` 와 같은
-  값, 즉 **없습니다**.
+- **오늘 사유에만 있는 음절을 모두** 심고 있는 것은, 이 절이 적힌 때(2026-08-01 자 시트만 커밋된 때)에는
+  `dss_html_carrying_current` 와 같은 값, 즉 **없었습니다**. 2026-09-12 의 실제 확산면 run 은 추적되는 PDF 가
+  세 군집뿐이라 이 탐침의 표본에 그 두 장이 들어 있는지는 실행 시점에 게이트가 다시 셉니다.
 
 ⚠ 두 「고유 음절」 집합의 크기는 이 문서에 적지 않습니다. 그것은 두 상수에서 그때그때
 유도되는 값이고 등록된 키가 아니므로, 적어 두면 상수가 바뀌는 순간 낡습니다(§3.3, 그리고

@@ -40,14 +40,20 @@
   simulation — a model output on a fire the model never trained on — while the
   observed FIRMS footprint committed beside it in the same file scores nothing.
   **The oracle is in the grading, not in the planning**, so the arm cannot be wrong
-  about the array that grades it, and 42 is what this policy buys **when its own
-  prediction is believed** rather than what a *noiseless* forecast would buy. How
+  about the array that grades it, and 42 is what this policy buys **when it trusts
+  its own out-of-fold forecast completely and is graded on that same forecast**
+  ([`docs/oracle_gap.md`](docs/oracle_gap.md) §2 and §5). How
   far that prediction sits from the observation is counted cell by cell in
-  [`docs/oracle_gap.md`](docs/oracle_gap.md), whose §7 states what that measurement
+  the same document, whose §7 states what that measurement
   does **not** show and whose §6 is the re-grading that would measure the real
-  margin and has not been run. Whether this also makes 42 an **upper bound** on the
-  real margin is an open question rather than a result: nothing in this repository
-  derives it, and it is asked of the author as **NH-053**
+  margin and has not been run. 42 is not called a bound of any kind: **NH-053**
+  was decided by the author on 2026-09-12 (option A — state the mechanism, drop the
+  word, no number moves), because nothing in this repository derives one.
+  ⚠ Record (2026-09-12): until that date this bullet said 42 is what the policy
+  buys 「when its own prediction is believed rather than what a *noiseless*
+  forecast would buy」 and asked whether that makes 42 an 「upper bound on the
+  real margin」; before 2026-09-09 it said 「42 is an upper bound: it is what a
+  *noiseless* forecast would buy」. Both are superseded by the sentence above
   ([`paper/manuscript.md`](paper/manuscript.md) §4.5;
   [`docs/present_perimeter_arm.md`](docs/present_perimeter_arm.md) §5 says the
   same of the 의성 margin and calls it "a property the 91 has always had,
@@ -244,7 +250,8 @@ Round 3 은 새 기능을 얹기 전에 **기존 수치가 아직 참인지 확�
 >   **화재 위험면과 지형은 합성**입니다(`data/processed/rescue_routing.json` 의
 >   `provenance.sources` 가 스스로 그렇게 적습니다). 보행망과 확산면이 동시에 실제인
 >   주사는 **별개의 실행**이고 그 실행은 4-구분 판정까지만 내놓습니다. **실제
->   확산면으로 만든 출동 지시서는 아직 없습니다** — 두 계보의 구분은
+>   확산면으로 만든 출동 지시서는 2026-09-12 에 만들어 `outputs/dispatch_real_hazard/20260912T153043Z/` 에
+>   커밋했습니다**(출발지는 여전히 표본 좌표, 보행 시간은 평지 속도; NH-057) — 두 계보의 구분은
 >   [`docs/HANDOFF_ROUND3.md`](docs/HANDOFF_ROUND3.md) 에 있습니다.
 > - **여기서 「지점」은 실제 가구 주소가 아닙니다.** 고령 가구의 실제 위치는 공개
 >   자료가 아니므로 출발지는 표본 좌표이고, 「마을」도 행정리가 아니라 공간 군집입니다.
@@ -291,6 +298,21 @@ fire-blind 대비가 예보의 공으로 돌리던 것의 **대부분을, 모델
 회수합니다**. 회수된 곳이 정확히 몇 곳인지, 그 경로가 얼마나 더 길어지는지, 그리고
 이 상대가 **오히려 망가뜨리는** 곳은 몇 곳인지까지 모두
 [`docs/present_perimeter_arm.md`](docs/present_perimeter_arm.md) 에 있습니다.
+
+- ⚠ **저자 결정 2026-09-12 (NH-032 C안 · NH-034 B안): 이 프로젝트가 「공정한 상대」라고
+  말할 때 가리키는 판이 정해졌습니다.** 같은 행이 2026-09-05 에 두 랩에서 동시에, 서로 다르게
+  만들어졌습니다 — 위 문서의 **가지치기 판**(거부 노드를 그래프에서 떼어낸 뒤 최단거리, 시간
+  예산 없음)과, 헤드라인과 **같은 시간전개 라우터**를 얼어붙은 마스크에 대해 돌리고 600분
+  예산을 지키며 마스크 안의 사람은 움직이게 하지 않는 **예산 상한 판**. 저자는 후자를
+  골랐습니다. 그 판의 사다리는 의성·안동 368곳 중 **265 / 327 / 354** (불을 못 보는 기준 /
+  지금 자리 + 1 km / 예보 인지), 차이 **27곳**, 91곳 중 **79곳**은 그 상대도 구합니다
+  (`ppb_safe_naive` · `ppb_safe_1km` · `ppb_safe_forecast` · `ppb_gap_1km` · `ppb_recovered_1km`;
+  [`docs/present_perimeter_arm_budgeted.md`](docs/present_perimeter_arm_budgeted.md)).
+  가지치기 판의 값은 지우지 않고 두 번째 arm 으로 남습니다 — 둘은 한 양의 불일치가 아니라
+  **두 개의 다른 상대**입니다. 27 은 **상한**이고(상대는 다시 계획하지 않고, 예보 쪽은 채점받는
+  장을 오차 없이 미리 봅니다), 가장 유리했던 폭(500 m)에서는 5 로 내려가는데 그 폭은 **결과를
+  다 보고 고른** 것이라 폭을 더 재면 **줄어들기만** 합니다. 헤드라인 91 과 본선 화면은 그대로입니다
+  (NH-034 B). 어느 판이 무엇을 말하는지는 [`docs/fair_opponent_line.md`](docs/fair_opponent_line.md) §2.
 
 - ⚠ **그 완충거리의 폭은 자유 매개변수이고, 데이터가 그 값을 골라 준 것이
   아닙니다.** 이 실행이 쓴 폭은 사람이 고른 한 값이며, 같은 실행에서 다른 폭들도
@@ -348,13 +370,19 @@ fire-blind 대비가 예보의 공으로 돌리던 것의 **대부분을, 모델
   쓴 바로 그 장으로 채점됩니다**. 그 장은 「정답」이 아니라 **이 불을 한 번도 학습하지
   않은 모델이 만든 전방 시뮬레이션**(leave-one-fire-out)이고, 같은 파일 안에 함께
   들어 있는 관측(FIRMS 누적 발자국)은 채점에 전혀 쓰이지 않습니다. 그래서
-  **오라클은 계획하는 쪽이 아니라 채점하는 쪽에 있고**, 42곳은 「완벽한 예보가 사 줄
-  값」이라기보다 **자기 예측을 그대로 믿었을 때의 값**입니다. 그 예측이 관측과 얼마나
-  벌어지는지는 [`docs/oracle_gap.md`](docs/oracle_gap.md) 가 셀 단위로 재어 두었고
+  **오라클은 계획하는 쪽이 아니라 채점하는 쪽에 있고**, 42곳은 **이 불을 학습하지
+  않은 모델의 예보를 그대로 믿고 계획했을 때, 바로 그 예보로 채점해서 나오는
+  값**입니다 ([`docs/oracle_gap.md`](docs/oracle_gap.md) §2·§5). 그 예측이 관측과 얼마나
+  벌어지는지는 같은 문서가 셀 단위로 재어 두었고
   (§7 이 그 측정이 보여 주지 **않는** 것을 적습니다), 실제 예보 오차를 넣은 값은 아직
-  재지 않았습니다(§6 이 그 재채점을 적어 둡니다). 그것이 곧 42곳이 참값의
-  **「상한」**이라는 뜻인지는 **아직 정해지지 않은 물음**입니다 — 이 저장소의 어떤
-  것도 그것을 유도하지 않으며, 저자에게 **NH-053** 으로 열려 있습니다.
+  재지 않았습니다(§6 이 그 재채점을 적어 둡니다). 42곳을 어떤 종류의 한계값으로도
+  부르지 않습니다 — **NH-053** 은 2026-09-12 에 저자가 A 로 정했습니다(구조만 말하고
+  낱말은 뺀다, 어떤 수도 움직이지 않는다). 이 저장소의 어떤 것도 그런 한계를
+  유도하지 않기 때문입니다. ⚠ 기록(2026-09-12): 그날까지 이 자리는 「그것이 곧
+  42곳이 참값의 「상한」이라는 뜻인지는 아직 정해지지 않은 물음입니다 — … 저자에게
+  NH-053 으로 열려 있습니다」라고 적혀 있었고, 2026-09-09 전에는 「42곳은 잡음 없는
+  완벽한 예보가 사 줄 값의 「상한」」이라고 적혀 있었습니다. 둘 다 위 문장으로
+  대체되었고 기록으로만 남깁니다.
 - ⚠ 이 실험이 내놓은 **구체적인 margin 값들은 부스에서 말하지 않습니다.** 어느 값을
   정본으로 삼을지가 아직 정해지지 않았고 (`docs/auto/NEEDS_HUMAN.md` 의 열린 항목),
   정해지기 전에 말하지 않는 편이 낫다고 판단했습니다. **어디에 없고 어디에 있는지를
@@ -431,7 +459,11 @@ fire-blind 대비가 예보의 공으로 돌리던 것의 **대부분을, 모델
   ⚠ **커밋된 그 실물을 만든 실행에서 화재 위험면과 지형은 합성이고, 출발지는 표본
   좌표입니다**(`data/processed/rescue_routing.json` 의 `provenance.sources` 가 스스로
   `hazard: synthetic`, `terrain: synthetic`, `origins: sampled candidates` 라고 적습니다).
-  **실제 확산면으로 만든 출동 지시서는 아직 없습니다.** 「지점」은 실제 가구 주소가 아니고
+  **실제 확산면으로 만든 출동 지시서도 이제 있습니다** — 저자가 노트북에서 돌린 실행이
+  `outputs/dispatch_real_hazard/` 아래 커밋돼 있고(날짜와 수치는 그 디렉터리의 README 에),
+  거기서도 출발지는 표본 좌표이고 보행 시간은 경사 없는 평지 속도이며, 합성 확산면
+  지시서와는 별개의 실행이라 수치를 합쳐 읽어서는 안 됩니다.
+  「지점」은 실제 가구 주소가 아니고
   「마을」도 행정리가 아니라 공간 군집입니다. 아래의 「두 축이 동시에 실제인 실행」은
   **별개의 실행**이고 출동 문서를 내놓지 않으므로, 이 항목과 그 항목을 이어서 「실제 도로 +
   실제 불 → 이 지시서」로 읽어서는 안 됩니다 — 이 절 머리의 한정과 같은 내용입니다.
@@ -802,10 +834,13 @@ the contrast is measured against a **fire-blind** baseline, so it does not separ
 knowing where the fire *will be* from knowing where it *is*. Second, the
 forecast-aware arm is graded on the **same field it planned on**, and that field is a
 **leave-one-fire-out** model output rather than truth, so the oracle sits in the
-grading: 42 is what the policy buys when its own prediction is believed, not what a
-*noiseless* forecast would buy ([`docs/oracle_gap.md`](docs/oracle_gap.md)). Whether
-that also makes 42 an **upper bound** on the real margin is an open question here and
-not a result (**NH-053**). On a second region that separation has now been measured: a
+grading: 42 is what the policy buys when it trusts its own out-of-fold forecast
+completely and is graded on that same forecast ([`docs/oracle_gap.md`](docs/oracle_gap.md)
+§2, §5); it is not called a bound of any kind, because nothing here derives one
+(**NH-053**, author, 2026-09-12, option A). ⚠ Record: until 2026-09-12 this sentence
+ended 「not what a *noiseless* forecast would buy」 and asked whether that makes 42 an
+**upper bound** on the real margin; the wording is kept here only as that record.
+On a second region that separation has now been measured: a
 present-perimeter opponent, which refuses what is burning now plus a fixed buffer and
 needs no model at all, recovers most of what that region's fire-blind contrast credits
 to the forecast ([`docs/present_perimeter_arm.md`](docs/present_perimeter_arm.md)).

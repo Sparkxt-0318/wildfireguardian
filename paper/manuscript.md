@@ -116,7 +116,12 @@ fire goes, for a suppression commander or a siren operator. What was opened of e
 catalogue entry, press reports — describes no output of this paper's kind: which household
 can still walk out, and by which path. No accuracy
 comparison is made in either direction: no published validation of either was located, and
-the circulating capability figures are agency plan statements.
+the circulating capability figures are agency plan statements. Domestic academic work is
+now reproducible: Choi and Chae (Kangwon National University) released the data, code and
+trained weights behind a deep-learning prediction of wildfire burned-area extent and burn
+probability from ignition conditions, using topography, fuel and meteorology over 118
+South Korean fires [@choi2026burnprob]; its output object is a whole-event outcome fixed
+at ignition, not an evacuation verdict for individual points, and no accuracy comparison is made.
 
 **Evacuation routing.** Lane-based evacuation routing was posed as a network flow
 problem two decades ago [@cova2003]. Recent work brings wildfire information into that
@@ -511,9 +516,15 @@ committed one, taking part of that advantage.
 
 Two further caveats bind the whole comparison. The forecast-aware arm plans on the same hazard field
 it is graded against, a leave-one-fire-out simulation rather than the fire, so it cannot be
-wrong there (`docs/oracle_gap.md`); what it is worth against a present-perimeter policy
-is what trusting that prediction buys, and this project's own model is worth less, by an
-amount no run here measures. And this
+wrong there (`docs/oracle_gap.md` §2); what it is worth against a present-perimeter policy
+is what trusting its own out-of-fold forecast completely, and being graded on that same
+forecast, buys (`docs/oracle_gap.md` §5). How far that forecast sits from the observation
+is measured there cell by cell; the margin under grading against the observation has not
+been run, and no bound on it is claimed in either direction. [Correction 2026-09-12,
+NH-053 option A: until this date the previous sentence ended 「and this project's own model
+is worth less, by an amount no run here measures」, and before 2026-09-09 it read 「what a
+*noiseless* forecast is worth」; both asserted a bound nothing in the repository derives,
+and both are kept here as the record.] And this
 is one fire, one ignition and one departure time: which buffer comes off best is a property
 of this fire's growth against this road network, and no comparable grid runs on a second one.
 

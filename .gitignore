@@ -105,6 +105,10 @@ data/processed/**
 # PHASE 3-B: full-coverage re-run with every origin serialized (441 rows).
 # Drift values (441/174/32), NOT the committed values — see docs/network_drift.md.
 !data/processed/rescue_routing_full.json
+# NH-057 / WFG-213 (2026-09-12, author's laptop): the real-hazard rescue run and the
+# observed-footprint re-grade; both are cited by docs/ and the registry.
+!data/processed/rescue_routing_real_hazard.json
+!data/processed/regrade_against_observed_yeongdeok.json
 # Origin sparsity sweep + nearest-neighbour distributions (small JSON).
 !data/processed/cluster_sparsity.json
 # ---------------------------------------------------------------------------
@@ -140,6 +144,12 @@ data/processed/**
 # fails on a fresh clone with 'source_file missing'. The five-width artifact
 # above is NOT modified by it (CHARTER §3 rule 2).
 !data/processed/present_perimeter_buffer_shape_uiseong_andong_2025.json
+# WFG-114 / NH-032 option C (2026-09-12) — the BUDGET-CAPPED build of the fair
+# opponent, brought in from auto/red/20260905T2248Z under a new name. Registered
+# in NUMBERS.json under ppb_*, so it must be tracked or `make verify` fails on a
+# fresh clone with 'source_file missing'. The two files above are NOT modified by
+# it (CHARTER §3 rule 2).
+!data/processed/present_perimeter_arm_budgeted_uiseong_andong_2025.json
 # PHASE 14 — the weather-dependency ceiling. Registered in NUMBERS.json, so it
 # must be tracked or `make verify` fails on a fresh clone with 'source_file missing'.
 !data/processed/weather_dependency.json
@@ -515,3 +525,13 @@ release/kcf-finals-2026/check_bundle_copy.py
 # docs/auto/finals/printables/, where the committed PDF already lives. A second
 # committed copy of a 433 KB PDF is exactly the drift CHARTER 3.2 forbids.
 release/kcf-finals-2026/printables/
+
+# --- outputs/dispatch_real_hazard/ (NH-057, 2026-09-12) -------------------
+# The rescue pipeline on the REAL 영덕 spread surface (routing_demo_canonical.npz)
+# over the 2026-07-24 OSM snapshots, run on the author's laptop. Same policy as
+# dispatch_full: every cluster's HTML/text/JSON is committed; only the three
+# largest clusters' PDFs are kept as evidence.
+outputs/dispatch_real_hazard/*/*/dispatch_a4.pdf
+!outputs/dispatch_real_hazard/*/01-*/dispatch_a4.pdf
+!outputs/dispatch_real_hazard/*/02-*/dispatch_a4.pdf
+!outputs/dispatch_real_hazard/*/03-*/dispatch_a4.pdf

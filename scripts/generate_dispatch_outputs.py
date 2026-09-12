@@ -61,6 +61,13 @@ UNREACHABLE_REASON_KO: str = "어느 거점에서도 생존 인지 차량 진입
 #: the sentence every committed sheet under `outputs/dispatch*` carries, and
 #: those run directories keep it: they are records of what was generated, not
 #: statements this repository is making today. §7 is the page that says so.
+#:
+#: Superseded 2026-09-12 (WFG-264; author decision NH-060 option C, 「fix it now,
+#: before the pause」). The old line asserted three things the class does not
+#: establish — fire as the cause, a budget consumed, detours tried — and
+#: `tests/test_vehicle_unreachable_split.py` reproduces a member of the class
+#: for each on a field where it is false. The current line above is bound by
+#: `tests/test_vehicle_unreachable_sheet_sentence.py` to carry no bare cause.
 SUPERSEDED_UNREACHABLE_REASON_KO: str = "예산 내 차량 진입로가 화재로 차단됨(우회 포함)"
 
 

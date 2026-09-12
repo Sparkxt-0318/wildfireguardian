@@ -8,5 +8,9 @@
   "last_report_kind": "dev",
   "last_report_at_utc": "2026-09-12T16:56:55Z",
   "last_gates_passed": true,
-  "open_needs_human": 32
+  "open_needs_human": 5,
+  "paused": {
+    "since": "2026-09-12",
+    "handover": "docs/auto/HANDOVER_2026-09-12.md"
+  }
 }

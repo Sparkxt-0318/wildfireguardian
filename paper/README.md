@@ -9,7 +9,14 @@ and rebuilt every time the code moves. Author: **Siyeong Park (박시영)**.
 doesn't exceed. 25 pages for. now」). `check_paper.py` now checks that directly —
 it renders the document and counts — and keeps the 9,000-word budget as the
 proxy for machines that cannot render, or that can render but not in a font
-whose metrics are Calibri's. As of 2026-09-07 (lap 17) the built document is
+whose metrics are Calibri's. ⚠ **Superseded 2026-09-12 (NH-037, author chose A):
+the proxy is now 9,461 words** — the measured 24-page sample point of the
+words-to-pages calibration table below (24 pages by either route), one page under
+the author's 25-page rule — set in `check_paper.py` (`LIMIT`) and
+`docs/auto/LOOP_CONFIG.json` (`body_words_max`). The 9,000 figure in the previous
+sentence and in every lap note below is the value that stood until that date and
+is kept as the record; between 9,461 and the 9,961 sample (25 pages, spliced) is
+unmeasured, so a further raise needs a new sample from `calibrate_pages.py`. As of 2026-09-07 (lap 17) the built document is
 **23 pages under Carlito**, measured rather than estimated: 21 at lap 9, 22 at
 lap 10, and 23 at every lap from 11 to 16. **Two**
 pages of margin remain against the author's 25. Lap 17 **re-measured** rather

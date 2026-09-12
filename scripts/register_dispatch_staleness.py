@@ -18,7 +18,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 NUMBERS = REPO / "docs" / "NUMBERS.json"
 ARTIFACT = ("data/processed/dispatch_sheet_staleness/"
-            "staleness_20260912T101941Z.json")
+            "staleness_20260912T154037Z.json")
 PREFIX = "dss_"
 
 #: The caveat every one of these keys carries. It leads with the inference, because a
@@ -51,10 +51,12 @@ BAND = (
     "alone and asked 「which of the three committed PDFs carries it」; the tree holds "
     "dss_committed_dispatch_pdfs PDFs across dss_run_dirs_with_a_committed_pdf run "
     "directories, and the stale ones are NOT all in that directory. (4) "
-    "`dss_html_carrying_current` IS ZERO AND THAT IS A FACT ABOUT THE RECORD, NOT A "
-    "DEFECT: every committed sheet predates the WFG-264 repair, so none of them can "
-    "carry the sentence the emitter prints today. A future run directory would move "
-    "this key, which is why the gate re-derives it from the tree rather than pinning it. "
+    "`dss_html_carrying_current` WAS ZERO UNTIL 2026-09-12 AND IS NOW THE COUNT OF SHEETS "
+    "IN THE ONE RUN COMMITTED AFTER THE WFG-264 REPAIR: every 2026-08-01 sheet predates the "
+    "repair and none of them can carry the sentence the emitter prints today; the sheets "
+    "that do are the two 차량 도달 불가 homes of the real-hazard run "
+    "outputs/dispatch_real_hazard/20260912T153043Z/ (NH-057), and the gate re-derives the "
+    "count from the tree rather than pinning it. "
     "docs/dispatch_sheet_staleness.md states the method, the result and what it does "
     "NOT show."
 )

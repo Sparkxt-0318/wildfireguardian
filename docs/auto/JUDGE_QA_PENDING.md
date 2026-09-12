@@ -1,14 +1,9 @@
-# Judge Q&A — cards waiting to be merged into the bank
+# Judge Q&A staging (critic writes here; a dev lap merges into JUDGE_QA.md and empties this)
 
-**This file is a staging area, not the bank.** `docs/auto/JUDGE_QA.md` is one of
-the seven `SOURCES` of the printed kit, and
-`tests/test_printables.py::test_the_newest_printable_is_not_stale_against_the_tree`
-re-hashes every source against the newest manifest. A lap that adds a card to the
-bank without running `make printables` at a new stamp and re-pointing
-`release/kcf-finals-2026/MANIFEST.json` turns the tree red. **NH-049 is the open
-decision about how that should work** (option A: a staging file the next dev lap
-merges — WFG-205) and it is unanswered, so this lap used the staging route the
-row itself offered rather than deciding NH-049 by acting.
+Created 2026-09-12 by the author's decision NH-049 A. Nothing in the printed kit's
+`SOURCES` list reads this file, so the critic may append cards freely. A dev lap that
+rebuilds the printables kit moves every card below into `docs/auto/JUDGE_QA.md` and
+leaves this file with only this header.
 
 **How a card leaves this file.** A lap that is already rebuilding the kit for
 another reason merges the card into `docs/auto/JUDGE_QA.md`, runs

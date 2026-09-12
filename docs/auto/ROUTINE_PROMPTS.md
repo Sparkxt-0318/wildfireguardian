@@ -18,6 +18,8 @@ Recorded 2026-09-03 under CHARTER §9 (attribution and the student's own voice).
 > GitHub raw URL, no attachments) and laps run the independent review set in
 > `docs/auto/LOOP_CONFIG.json`.
 
+> **2026-09-12:** every routine disabled by the author (CHARTER §15). If restarted, the research prompt should list OpenAlex (`https://api.openalex.org/works?search=...`) beside Semantic Scholar (NH-048 B), the paper prompt should skip `paper/` surfaces of in-progress rows (NH-058 A), and the critic prompt should write new Q&A cards to `docs/auto/JUDGE_QA_PENDING.md` (NH-049 A).
+
 ## wfg-autoloop-dev
 
 ```text

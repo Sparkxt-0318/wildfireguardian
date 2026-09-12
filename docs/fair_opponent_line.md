@@ -4,6 +4,9 @@
 line」). **Method proposed by:** the author; the buffer reading below is the loop's.
 **Status:** the half that no open decision changes is shipped here. The margin half is
 **held** until the author answers NH-032.
+⚠ **Updated 2026-09-12:** NH-032 is **closed** (author, option C) and NH-034 is closed (option
+B). The margin half now ships: §2 carries it, from the budget-capped arm. The screen is not
+touched and 91 stays the headline everywhere (NH-034 B).
 
 ## 1. What this file is for
 
@@ -20,6 +23,40 @@ each other.
 > that avoids where the fire **is** has now been run and is published in the repository
 > (`docs/present_perimeter_arm.md`). Which of two defensible ways to build that opponent
 > the project reports is the author's open decision, so no single margin figure is spoken.
+
+⚠ **Superseded 2026-09-12 — the last clause of the sentence above is no longer true.** NH-032 was
+closed by the author on 2026-09-12 with option C, verbatim: 「C. Replace it with the parked
+version (margin 27, budget-capped, refuses to move people inside the margin).」 The sentence
+that ships from today is this one, and the numbers in it are `ppb_*` registry keys re-derived
+from `data/processed/present_perimeter_arm_budgeted_uiseong_andong_2025.json`:
+
+> The 91 is measured against a **fire-blind** control. Against the fair opponent — a planner
+> that refuses what is burning **now** plus a 1 km margin, runs the same router under the same
+> 600-minute budget, and tells anyone inside the margin not to move — the ladder on 의성·안동
+> 2025 is **265 / 327 / 354** of 368 (fire-blind / present + 1 km / forecast-aware;
+> `ppb_safe_naive`, `ppb_safe_1km`, `ppb_safe_forecast`), so the forecast's margin is **27**
+> origins of 368 (`ppb_gap_1km`), and the opponent recovers **79** of the 91 (`ppb_recovered_1km`).
+> That margin is an **upper bound**: the opponent never re-plans, and the forecast-aware arm
+> is graded on the very field it planned on, so it carries no forecast error.
+
+Three things bind that sentence, and they are the same three that bound the number before it
+was chosen:
+
+- **It is the margin at the author's named width, 1 km, not at the opponent's best width.** The
+  same run's sweep finds 500 m stronger (349 safe, `ppb_safe_present_best`), where the margin is
+  **5** (`ppb_gap_best`). That width was chosen after the fact by scanning outcomes, so 5 is a
+  maximum over the six widths measured and is non-increasing in how finely anyone searches — a
+  width added to the grid can only tie or beat the incumbent (WFG-201). This build has **not**
+  been run at 750 / 1250 / 1500 m, so whether the pruned-graph arm's best width moves here is
+  unmeasured. When the 27 is spoken, the 5 and its qualifier travel with it.
+- **The pruned-graph build is not withdrawn.** At the same 1 km it reads **9**
+  (`pp_uiseong_forecast_margin_1km`), because it has no time budget and lets an origin walk out
+  of the buffer; it stays in the repository as the second, labelled arm
+  (`docs/present_perimeter_arm.md`). 9 and 27 are two opponents, not two measurements of one,
+  and neither number is spoken as *the* margin except the 27.
+- **Where it is said.** Per NH-034 B the fair opponent is a 「반론에 대한 답」 card in the Q&A bank
+  (`docs/auto/JUDGE_QA.md` Q19) and this page; the finals screen is not touched and the spoken
+  3막 line is unchanged (§5).
 
 Both clauses are load-bearing and neither depends on how NH-032 is answered:
 
@@ -140,6 +177,9 @@ This is filed as information on NH-032 rather than as an argument with either la
 - **No margin, by choice.** Nothing here says what the forecast is worth against the
   present-perimeter opponent. That number is NH-032's and both candidate answers are in
   that entry.
+  ⚠ *Superseded 2026-09-12:* NH-032 is closed (option C) and §2 now states the margin from
+  the budget-capped arm. The bullet above is kept as the record of why this page carried none
+  for six days.
 - **Both candidate margins are upper bounds anyway.** The forecast-aware arm plans on the
   same hazard field it is graded against, so it carries no forecast error; what it measures
   is what a *perfect* forecast buys. This project's real model buys less, by an amount no

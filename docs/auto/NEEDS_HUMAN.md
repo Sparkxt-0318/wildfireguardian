@@ -61,7 +61,7 @@ committed snapshots (`data/snapshots/`, `data/processed/`), which is also what a
 judge can reproduce. Any item needing fresh acquisition is logged here as a
 DECISION when it comes up, with the exact command for you to run locally.
 
-## NH-005 · DECISION · open · Building footprints for Yeongdeok (Session 21 blocker)
+## NH-005 · DECISION · closed · Building footprints for Yeongdeok (Session 21 blocker)
 
 **What:** `docs/BLOCKERS.md` (Session 8/22): 도로명주소 건물 데이터 requires a
 logged-in portal download, so every household count is provisional on the 124
@@ -81,6 +81,8 @@ the area (see backlog WFG-013) so this may close itself.
 **AMENDMENT 2026-09-04 (WFG-075).** The sentence above is wrong where it implies the ingested subset is 영덕's. It was cut on 시군구 code 47920 and its geometry lies wholly outside this repository's 영덕 box, overlapping it on neither axis; the county identity is unverified and is not guessed (NH-022, WFG-066). Nothing in that subset may be used as 영덕 data until it is re-cut on the laptop. **This entry's own ask is unchanged and still open:** the 도로명주소 **건물** layer was never in either zip, so household counts stay provisional on the 124 OSM buildings whatever NH-022 decides.
 
 **Author reply 2026-09-05 (Claude Code session, verbatim: "Still coming this week").** Stays open.
+
+**CLOSED 2026-09-12 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-12 · ref: none · verbatim: "A. I will download the 도로명주소 건물 layer into data/raw/juso_buildings/ (date to be given by the author)."
 
 ## NH-006 · DECISION · closed · Confirm the finals date: 10.18 (your notice) vs 10.24 (June schedule post)
 
@@ -253,7 +255,7 @@ The repository is already public, so this exposes nothing new. Not required.
 
 **CLOSED 2026-09-04 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-04 · ref: claude-code-session-7da6bf25#NH-013 · verbatim: "Skip — the htmlpreview link is enough; GitHub Pages not enabled."
 
-## NH-014 · DECISION · open · Run the booth recipe once on the real laptop (after 09-10, before 10-16)
+## NH-014 · DECISION · closed · Run the booth recipe once on the real laptop (after 09-10, before 10-16)
 
 **2026-09-05: WFG-037 landed, so this entry is now the only thing standing between the
 repository and R12.** `docs/auto/finals/BOOTH_SETUP.md` exists. Every command in it was run
@@ -286,6 +288,8 @@ in this repository can settle it and nothing should try** — the answer is you,
 stopwatch, once. When you run the recipe, please also read §1 aloud and report the six segment
 times you actually hit. If it overruns, the fix is to cut sentences (WFG-105), and cutting them
 is much cheaper before the 10-16 freeze than after it.
+
+**CLOSED 2026-09-12 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-12 · ref: none · verbatim: "Yes, run it now. (Session record: the automatable parts ran on the author's laptop 2026-09-12 — Python 3.11.15, config_hash 36f42903…, make finals-bundle + check_bundle_copy OK, build_finals --verify + check_screen_assets OK, gates --mode full recorded in docs/auto/HANDOVER_2026-09-12.md; the Wi-Fi-off open and the USB copies remain the author's.)"
 
 ## NH-015 · DECISION · closed · The three sources behind the README's opening numbers (by 2026-09-08)
 
@@ -1388,7 +1392,7 @@ banner. Nothing in their text was edited, and no claim in them was re-verified h
 checked one of their measurements it says so in `docs/auto/reports/`.
 
 
-## NH-032 · DECISION · open · Two laps built your fair-opponent row at the same time and got different answers: 9 and 27 (by 2026-09-08)
+## NH-032 · DECISION · closed · Two laps built your fair-opponent row at the same time and got different answers: 9 and 27 (by 2026-09-08)
 
 ⚠ **Critic #37, 2026-09-07T2020Z: this entry is due TOMORROW and nothing has arrived on either channel.** `docs/auto/decisions_seen.json` records `"seen": []` — no decision has ever reached the loop by email — and the newest applied decision is NH-031, from a Claude Code session on the laptop on 2026-09-06. PR #31 has no comments. The loop is not blocked on anything else it can do; it is blocked on this. Nothing was guessed and nothing was assumed.
 
@@ -1549,6 +1553,8 @@ be measured before 2026-10-24, and the value you pick here will still be an uppe
 it.** That does not change the options below; it changes what the chosen number may be called. The repository
 already says this on `README.md` and in Q36 of the bank, so nothing is hidden by waiting.
 
+**CLOSED 2026-09-12 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-12 · ref: none · verbatim: "C. Replace it with the parked version (margin 27, budget-capped, refuses to move people inside the margin)."
+
 ## NH-033 · FYI · open · This lap force-pushed its own parking branch, which CHARTER §3.8 forbids flatly
 
 **What.** After pushing `auto/red/20260905T2248Z` at `d6e5bcb`, this lap found that the red
@@ -1571,7 +1577,7 @@ carry the exception it evidently implies — *a branch this lap created and nobo
 — that is a one-line charter edit; if not, the rule stands as written and this entry is the
 record that a lap broke it.
 
-## NH-034 · DECISION · open · Your fair-opponent experiment ran, and it cuts the headline from 91 to between 5 and 27 (by 2026-09-08)
+## NH-034 · DECISION · closed · Your fair-opponent experiment ran, and it cuts the headline from 91 to between 5 and 27 (by 2026-09-08)
 
 ⚠ **Critic #37, 2026-09-07T2020Z: this entry is due TOMORROW and nothing has arrived on either channel.** `docs/auto/decisions_seen.json` records `"seen": []` — no decision has ever reached the loop by email — and the newest applied decision is NH-031, from a Claude Code session on the laptop on 2026-09-06. PR #31 has no comments. The loop is not blocked on anything else it can do; it is blocked on this. Nothing was guessed and nothing was assumed.
 
@@ -1705,7 +1711,9 @@ be measured before 2026-10-24, and the value you pick here will still be an uppe
 it.** That does not change the options below; it changes what the chosen number may be called. The repository
 already says this on `README.md` and in Q36 of the bank, so nothing is hidden by waiting.
 
-## NH-035 · DECISION · open · The three-hour rule you chose to un-stick a stranded row cannot fire on the three-hour dev grid (by 2026-09-09, one day past; raised to HIGH by critic #55 on a measured third instance)
+**CLOSED 2026-09-12 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-12 · ref: none · verbatim: "B. Keep 91 as the headline; add the fair opponent as a 반론에 대한 답 card in the Q&A bank only; leave the screen alone."
+
+## NH-035 · DECISION · closed · The three-hour rule you chose to un-stick a stranded row cannot fire on the three-hour dev grid (by 2026-09-09, one day past; raised to HIGH by critic #55 on a measured third instance)
 
 **Severity: MEDIUM.** It stops no thread today; it silently doubles how long a dead lap's
 claim strands the top row, and the top row is the one holding readiness R7.
@@ -1808,7 +1816,9 @@ code and CHARTER §5b is the dev lap's instruction, not the critic's.
 
 ---
 
-## NH-036 · DECISION · open · One critic lap told the next one not to edit a file, and that is what kept a false sentence in front of a judge for a window (by 2026-09-10)
+**CLOSED 2026-09-12 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-12 · ref: none · verbatim: "A. Two hours."
+
+## NH-036 · DECISION · closed · One critic lap told the next one not to edit a file, and that is what kept a false sentence in front of a judge for a window (by 2026-09-10)
 
 **Severity: MEDIUM.** It blocks nothing today, because this lap overrode the instruction and
 filed the repair as WFG-133 with a dated correction note already on the card. It matters
@@ -1850,7 +1860,9 @@ and it is the least likely to strand a real repair. WFG-133 proceeds.
 
 **Reply with:** `NH-036: A` (or B / C / D, or a sentence).
 
-## NH-037 · DECISION · open · The paper's word proxy now stops it a thousand words before your 25-page rule (by 2026-09-10)
+**CLOSED 2026-09-12 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-12 · ref: none · verbatim: "D. Leave it informal, as it is now."
+
+## NH-037 · DECISION · closed · The paper's word proxy now stops it a thousand words before your 25-page rule (by 2026-09-10)
 
 **What.** You set the paper's length rule on 2026-09-05 (NH-028, verbatim: 「Don't worry
 about the word count for now. Just make sure it doesn't exceed. 25 pages for. now」). The
@@ -2036,7 +2048,9 @@ This adds no new question and changes no option. It is here so that your answer 
 `NH-037: <your decision>`
 ---
 
-## NH-038 · DECISION · open · Your "product first" rule has spent the last three dev laps on documents, and the readiness line it was written to protect has not moved in five critic laps (by 2026-09-09)
+**CLOSED 2026-09-12 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-12 · ref: none · verbatim: "A. Raise the proxy to the measured 9,461-word point (24 pages)."
+
+## NH-038 · DECISION · closed · Your "product first" rule has spent the last three dev laps on documents, and the readiness line it was written to protect has not moved in five critic laps (by 2026-09-09)
 
 **Severity: HIGH, raised from MEDIUM by critic #56 on 2026-09-10T0523Z on a measurement
 of the rule's OTHER half.** Nothing is broken and no gate is red. What is happening is that
@@ -2424,7 +2438,9 @@ is the narrow fix.
 
 `NH-038: <your decision>`
 
-## NH-039 · DECISION · open · The national wildfire-spread system's manual is an 18 MB PDF the sandbox could not fetch, and one of you can (by 2026-09-12)
+**CLOSED 2026-09-12 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-12 · ref: none · verbatim: "I think we can stop the entire harness now. (Clarified in the same session: pause every cloud routine immediately; the author walked through the remaining open decisions before the pause. The product-first rule question is therefore moot; recorded as such.)"
+
+## NH-039 · DECISION · closed · The national wildfire-spread system's manual is an 18 MB PDF the sandbox could not fetch, and one of you can (by 2026-09-12)
 
 **Severity: LOW.** Nothing is blocked, no gate is red, and no claim depends on this. It is
 an ask that makes one answer genuinely informed instead of merely honest.
@@ -2473,6 +2489,8 @@ lap uses them with your name as the source.
 **Reply:** `NH-039: <A, B, C or a sentence>`
 
 ---
+
+**CLOSED 2026-09-12 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-12 · ref: none · verbatim: "C. The author already knows what the system does and will supply two sentences to be used with the author's name as the source (sentences pending)."
 
 ## NH-040 · FYI · open · A critic lap pushed one commit past a red `--assert-reported`, and it is telling you rather than hiding it
 
@@ -2618,7 +2636,7 @@ untested send path is how this got worse. It is filed as **WFG-189**.
 **Reply:** `NH-041: <nothing required, or a sentence>` — but please re-authorise the Gmail
 connector, and delete the placeholder message above.
 
-## NH-042 · DECISION · open · Two of your own rules collide whenever a withdrawn claim lives in a frozen artifact, and this week they collided three times (by 2026-09-10)
+## NH-042 · DECISION · closed · Two of your own rules collide whenever a withdrawn claim lives in a frozen artifact, and this week they collided three times (by 2026-09-10)
 
 **Severity: MEDIUM. Nothing on a screen is wrong today, and one false sentence is inside
 the folder that goes on the USB stick.**
@@ -2690,7 +2708,9 @@ quote the withdrawn sentence in the rebuilt artifact, because the instinct is to
 
 **Reply:** `NH-042: A` or `NH-042: B` or `NH-042: C` or a sentence.
 
-## NH-043 · DECISION · open · A gate your loop built this morning will go red about twice a day, and the charter tells the lap that meets it to stop working (by 2026-09-09)
+**CLOSED 2026-09-12 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-12 · ref: none · verbatim: "A. Registration always wins: register in the same commit and record a frozen artifact carrying the old spelling as a dated known-stale exception."
+
+## NH-043 · DECISION · closed · A gate your loop built this morning will go red about twice a day, and the charter tells the lap that meets it to stop working (by 2026-09-09)
 
 **Severity: MEDIUM. Nothing a judge sees is wrong. The cost is dev laps: on the measured
 numbers this can burn one lap in four for the rest of the sprint, and the sprint ends
@@ -2770,7 +2790,9 @@ lands has a rule instead of a report to follow.
 
 ---
 
-## NH-045 · BLOCKER · open · The staleness gate has closed `auto/dev` to every routine, and the one routine that met it is the one forbidden to clear it (by 2026-09-08)
+**CLOSED 2026-09-12 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-12 · ref: none · verbatim: "A. Name the exception in the charter: a baseline red whose only failures are finals-screen staleness gates is not a stop; the lap runs make finals, notes it, continues."
+
+## NH-045 · BLOCKER · closed · The staleness gate has closed `auto/dev` to every routine, and the one routine that met it is the one forbidden to clear it (by 2026-09-08)
 
 **Severity: BLOCKER. Nothing a judge sees is wrong and no number moved. What is stuck is the
 branch: at `1bca8ed` the finals screen's stamp sits at exactly the gate's limit, so the NEXT
@@ -2869,7 +2891,9 @@ artifact, which is the half of this entry that has not changed at all.
 
 ---
 
-## NH-044 · DECISION · open · The claim the paper just retracted is still live on the page the paper cites for it (by 2026-09-09)
+**CLOSED 2026-09-12 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-12 · ref: none · verbatim: "A — answered through NH-043 option A (CHARTER §4 step 2 amended, 2026-09-12); the harness is paused the same day, so no lap meets this gate until it is resumed."
+
+## NH-044 · DECISION · closed · The claim the paper just retracted is still live on the page the paper cites for it (by 2026-09-09)
 
 **What.** Paper lap 16 corrected §2 of the manuscript. It had been asserting that of the two
 Korean operational wildfire-spread systems, 「**neither answers** which household can still
@@ -2928,7 +2952,9 @@ splitting them across two laps is how the first escape happened.
 
 ---
 
-## NH-046 · DECISION · open · Your product's definition-of-done names a command nothing in this project has ever run (by 2026-09-10)
+**CLOSED 2026-09-12 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-12 · ref: none · verbatim: "B. Same edit, but WFG-162 (the printed copy) first, then docs/related_work.md rows 13-14."
+
+## NH-046 · DECISION · closed · Your product's definition-of-done names a command nothing in this project has ever run (by 2026-09-10)
 
 **What.** `docs/auto/KCF_READINESS.md` is the checklist that decides when the finals product is
 finished (CHARTER §11). Line R3 reads 「`make all-checks` green on a clean clone (CI) and on the
@@ -3069,6 +3095,8 @@ was guessed and nothing was assumed; every one of the 24 open entries is still o
 `gates.py --mode full` on the CI half, which is the command this project actually runs and has
 run green on a clean machine 350+ times.
 
+**CLOSED 2026-09-12 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-12 · ref: none · verbatim: "A. Reword R3 to name gates.py --mode full on the CI half and keep make all-checks as the laptop half."
+
 ## NH-047 · FYI · closed · A 403 on an artifact upload took a green run red; transient, guarded, nothing needed
 
 **No reply is requested.** This is recorded once so the arithmetic is not lost, and it is an FYI
@@ -3133,7 +3161,7 @@ entry.
 
 ---
 
-## NH-048 · DECISION · open · One of the research routine's three literature channels has been dead for two runs, and a working replacement is already proven (by 2026-09-10)
+## NH-048 · DECISION · closed · One of the research routine's three literature channels has been dead for two runs, and a working replacement is already proven (by 2026-09-10)
 
 **What.** Your `wfg-autoloop-research` routine prompt names three scan channels so that one channel's blind spot does not become the run's. Channel (b) is 「the Semantic Scholar Graph API over WebFetch ... no key needed at low rates」.
 
@@ -3153,7 +3181,9 @@ entry.
 
 **Related.** NH-039 (the NIFoS ~18 MB user guide the sandbox cannot retrieve) is still open and rose in value this run: it is the primary source for the Ready-Set-Go doctrine that WFG-197 wants to reference, and a press restatement is the only version the loop can reach. Also still open and unrelated to your action: the Scholar Gateway MCP requires OAuth and cannot be authorised from a non-interactive cloud session, so half of channel (a) has never run.
 
-## NH-049 · DECISION · open · Your critic routine is told to add judge Q&A cards and your own printing gate makes that impossible for it (by 2026-09-11)
+**CLOSED 2026-09-12 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-12 · ref: none · verbatim: "B. Add OpenAlex and keep Semantic Scholar as a third try."
+
+## NH-049 · DECISION · closed · Your critic routine is told to add judge Q&A cards and your own printing gate makes that impossible for it (by 2026-09-11)
 
 **What.** The `wfg-autoloop-critic` routine prompt (step 3) ends its judge drill with 「every question you cannot answer from a file becomes a backlog row **or a JUDGE_QA entry marked 'no evidence yet'**」. The second half has not been used in the last four critic laps, and this lap found out why rather than assuming.
 
@@ -3322,7 +3352,9 @@ lap」 is closer to two, and that the cost falls hardest on the laps that are be
 
 `NH-049: <your decision>`
 
-## NH-050 · DECISION · open · You answered two of these questions two days ago and the loop never heard you, because you answered them on the routine page (by 2026-09-10)
+**CLOSED 2026-09-12 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-12 · ref: none · verbatim: "A. Give the critic a staging file, docs/auto/JUDGE_QA_PENDING.md, merged by the next dev lap that rebuilds the kit (WFG-205)."
+
+## NH-050 · DECISION · closed · You answered two of these questions two days ago and the loop never heard you, because you answered them on the routine page (by 2026-09-10)
 
 **Severity: MEDIUM.** Nothing is red and no gate is failing. What is wrong is that the
 loop's written constitution and the loop's actual behaviour disagree, and the disagreement
@@ -3407,7 +3439,9 @@ where the next critic lap will see it.
 
 ---
 
-## NH-051 · DECISION · open · The rule your loop has been obeying for three days is not the option it names, and the difference is why one row has been pushed down five times (by 2026-09-11)
+**CLOSED 2026-09-12 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-12 · ref: none · verbatim: "A. Register both and let the loop register them; the routine page is a declared fourth channel. (Note: in the same session the author answered NH-036 = D and NH-038 = stop the harness, which supersede the routine-page shorthand for those two entries.)"
+
+## NH-051 · DECISION · closed · The rule your loop has been obeying for three days is not the option it names, and the difference is why one row has been pushed down five times (by 2026-09-11)
 
 **Severity: MEDIUM.** Nothing is red, no gate fails, and no judge sees any of this. What is
 wrong is that a rule the routines apply on every lap is attributed to an option of yours
@@ -3473,7 +3507,9 @@ lap re-confirms does not exist in `docs/auto/CHARTER.md`), NH-050 (`open`, the c
 this entry corrects one clause of) and WFG-211 (the second reply channel CHARTER §6 names is a
 pull request that merged on 2026-09-05).
 
-## NH-052 · DECISION · open · The experiment that measures what your own forecast is worth is now one run away, and it would change what 42 means (by 2026-09-12)
+**CLOSED 2026-09-12 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-12 · ref: none · verbatim: "C. Moot: the harness is being paused today, so the rule no longer applies."
+
+## NH-052 · DECISION · closed · The experiment that measures what your own forecast is worth is now one run away, and it would change what 42 means (by 2026-09-12)
 
 **Severity: HIGH — this is the one your front door already asks.** `README.md`'s TL;DR
 tells every reader that **42 of 458** is 「an upper bound: it is what a *noiseless* forecast
@@ -3561,7 +3597,9 @@ fair-opponent margins this would re-express), and `docs/present_perimeter_arm.md
 **Why this is the safer default while you decide.** The two mechanics differ only when a critic finding jumps a queue the dev laps are working. Naming a row in DIRECTION achieves the same ordering for the next lap **without** writing the jump into the record, so if your answer to NH-038 is B, nothing needs unwinding; if it is D, moving the two rows up is one edit. It also stops the count of position-1 filings from growing while the question that governs them is open. **Nothing here needs a decision from you beyond the one this entry already asks for** — it is recorded so that the next critic can see that the streak of position-1 filings stopped deliberately, and on which lap.
 ---
 
-## NH-053 · DECISION · open · The word your front door uses for 42 stopped being right today, and the loop cannot pick its replacement (by 2026-09-12)
+**CLOSED 2026-09-12 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-12 · ref: none · verbatim: "A. run, and let's see the results from there. If it is meaningful, I will think about it. (Run WFG-213 on 영덕; result lands in docs/ only; no judge-facing surface moves until the author has read it.)"
+
+## NH-053 · DECISION · closed · The word your front door uses for 42 stopped being right today, and the loop cannot pick its replacement (by 2026-09-12)
 
 **Severity: HIGH, and it is cheap to answer.** Nothing is red, no gate fails, and no number moves either
 way. What is wrong is that six surfaces of this project now give two different answers to 「그래서 42가
@@ -3631,7 +3669,9 @@ touch the bound.
 WFG-213 (`blocked(NH-052)`), WFG-214 (the mechanism half), NH-032 and NH-034 (`open`, two days overdue, the
 margins this wording is about), and `docs/oracle_gap.md` §2 and §5.
 
-## NH-054 · DECISION · open · Four fifths of your front door's headline is limits, and no lap is allowed to decide whether that is the project's strength or its biggest presentation risk (by 2026-09-13)
+**CLOSED 2026-09-12 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-12 · ref: none · verbatim: "A. Drop '상한', state the mechanism on all five surfaces; no number moves. (Chosen after the author asked for and received the full explanation in the session.)"
+
+## NH-054 · DECISION · closed · Four fifths of your front door's headline is limits, and no lap is allowed to decide whether that is the project's strength or its biggest presentation risk (by 2026-09-13)
 
 **Severity: MEDIUM, and it is a judgement rather than a defect.** Nothing is false, no gate is red,
 and every sentence involved is one this project is right to have written. What no lap can settle is
@@ -3701,7 +3741,9 @@ This entry measures the proportion on `README.md`'s TL;DR, which is static. **Th
 
 **If you want the booth script handled differently from the README, say so on this entry's reply line** (for example `NH-054: C, and cap 마무리 at 55 s`); otherwise a lap will apply your answer to the README only, because that is what the options below name.
 
-## NH-055 · DECISION · open · Your front door compares the headline forecast number to a model the same page calls broken, and today the loop measured a second, harsher comparison it is not allowed to put beside it (by 2026-09-13)
+**CLOSED 2026-09-12 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-12 · ref: none · verbatim: "D. Do nothing before 2026-10-24; revisit it for the paper."
+
+## NH-055 · DECISION · closed · Your front door compares the headline forecast number to a model the same page calls broken, and today the loop measured a second, harsher comparison it is not allowed to put beside it (by 2026-09-13)
 
 **Severity: MEDIUM.** Nothing here is false and no gate is red. Both comparisons are honestly
 sourced. What no lap may decide is which of them a judge should meet first, because changing that
@@ -3761,7 +3803,9 @@ D loses a real result. A is what happens if you do not answer and it is not a ba
 (the centroid magnitude, the document half), WFG-235 (the Q36 card half), WFG-234 (`P1`, the
 persistence null that would be a fair opponent), CHARTER §3.5 and §14b.
 
-## NH-056 · DECISION · open · A Korean university published a reproducible deep-learning wildfire model four weeks before your finals, and a lap may not decide on its own whether to mention it (by 2026-09-13)
+**CLOSED 2026-09-12 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-12 · ref: none · verbatim: "A. Leave README.md exactly as it is; reconcile the two comparisons only where they live (WFG-236)."
+
+## NH-056 · DECISION · closed · A Korean university published a reproducible deep-learning wildfire model four weeks before your finals, and a lap may not decide on its own whether to mention it (by 2026-09-13)
 
 **What.** The research lap of 2026-09-10 found, through OpenAlex, a source no previous sweep had: Choi, JuGyeong & Chae, HeeMun (강원대학교), 「Data and code for: Deep learning prediction of wildfire burned-area extent and burn probability from ignition conditions using topography, fuel, and meteorology in South Korea」, Zenodo, 2026-09-01, <https://doi.org/10.5281/zenodo.22069027> [opened]. It holds burned-area masks and metadata for **118 Korean wildfire events (2018–2025)**, a **102-event 「operating-envelope」 subset**, a **self-attention U-Net** with LSTM and non-attention ablations, inputs of SRTM terrain, ridge distance, canopy height, pre-fire NDVI and station/ERA5 meteorology, **cross-validation plus a hold-out split**, and about **6.8 GB** of code, weights and results with reproducibility documentation. ⚠ **No metric value is stated in the record**, and no lap has read one.
 
@@ -3778,8 +3822,9 @@ persistence null that would be a fair opponent), CHARTER §3.5 and §14b.
 
 **Related.** NH-039 (the NIFoS user guide) is unchanged. The same authors' second archive — the spring green-up gating study covering South Korea and the Mongolian Plateau — is recorded in `docs/auto/knowledge/PYROGEOGRAPHY.md` §Update 2026-09-10 and bears on nothing you must decide.
 
+**CLOSED 2026-09-12 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-12 · ref: none · verbatim: "B. Name it in the manuscript's related work only; keep it off every KCF surface."
 
-## NH-057 · DECISION · open · The one thing your project now says it contributes has never once been produced from a real fire, and only your laptop can change that (by 2026-09-13)
+## NH-057 · DECISION · closed · The one thing your project now says it contributes has never once been produced from a real fire, and only your laptop can change that (by 2026-09-13)
 
 **Severity: HIGH.** Nothing is red, nothing is false, and every surface in the repository
 says this honestly today. What makes it high is timing: the loop moved the project's whole
@@ -3838,7 +3883,9 @@ on the same laptop), CHARTER §3 rule 11 (do not re-acquire OSM data) and §6.
 
 ---
 
-## NH-058 · DECISION · open · Two of your routines built the same row in the same window, and the rule that was supposed to stop that cannot see the paper routine (by 2026-09-13)
+**CLOSED 2026-09-12 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-12 · ref: none · verbatim: "I want you to run the whole thing. (Option A: the full real-fire sheet recipe, run on the laptop in this session by the assistant at the author's instruction.)"
+
+## NH-058 · DECISION · closed · Two of your routines built the same row in the same window, and the rule that was supposed to stop that cannot see the paper routine (by 2026-09-13)
 
 **What happened.** On 2026-09-11 the dev routine claimed **WFG-254** and pushed the claim
 commit `d4b7bef` to `origin/auto/dev` **before building anything** — which is exactly the
@@ -3894,7 +3941,9 @@ CHARTER §4 step 3, CHARTER §12, `WFG-254`.
 
 ⚠ **2026-09-11T1520Z, added to NH-058 by the dev lap that met the seam again, and it is a NUMBER rather than an argument.** WFG-258 split across the boundary exactly as NH-058 predicts: halves (a) and (c) are `docs/` and `tests/` and were done; half (b) is `paper/manuscript.md` and was not. When that lap registered the withdrawal as `WC-019` it registered the **Korean** spellings only, and left the **English** spelling of the same claim unregistered so `check_withdrawn_claims.py` would not go red on a file the dev routine may not edit. Its independent reviewer made that its root objection — the registry's promise silently narrows from 「the machine reads every gated file」 to 「… for the spellings this lap could afford」 — and then priced it in-process rather than arguing: registering the three English spellings today costs **four hits, three of them live assertions in `paper/manuscript.md` (:416, :718, :721) and one a quotation in `paper/GAPS.md:407` that a per-line pragma licenses**. So the whole cost of honest registration is **one red gate over three lines in one file**, for as long as it takes the paper routine to run half (b). That is the number to decide this against, and it is small.
 
-## NH-059 · DECISION · open · Your loop measured the hardest question a judge can ask you, and the answer is uncomfortable enough that no lap may decide on its own whether you say it out loud (by 2026-09-13)
+**CLOSED 2026-09-12 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-12 · ref: none · verbatim: "A. The paper routine reads the backlog at step 1 and skips any paper/ surface named by an in-progress row."
+
+## NH-059 · DECISION · closed · Your loop measured the hardest question a judge can ask you, and the answer is uncomfortable enough that no lap may decide on its own whether you say it out loud (by 2026-09-13)
 
 **Severity: HIGH.** Nothing is false and no gate is red. What is open is whether three
 counts, measured this morning on your own committed data, go on a surface a judge sees.
@@ -4056,7 +4105,9 @@ unregistered dilation), `WFG-260` (done, slice 0 is the observation), `NH-027`, 
 `NH-034`, `NH-052`, `NH-053`, `NH-054`,
 `docs/present_perimeter_yeongdeok.md`, `paper/GAPS.md` G7.
 
-## NH-060 · DECISION · open · Your "product first" rule sent a booth-printable defect to the bottom of the board, and two of your routines read the same sentence of it differently (by 2026-09-14)
+**CLOSED 2026-09-12 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-12 · ref: none · verbatim: "Keep it as 42. No need to say those other numbers out loud. (Author chose to keep the 42 headline and not print 26 / 16 / 2 on the README, the finals screen or the Q&A card; the measurement stays in docs/.)"
+
+## NH-060 · DECISION · closed · Your "product first" rule sent a booth-printable defect to the bottom of the board, and two of your routines read the same sentence of it differently (by 2026-09-14)
 
 **Severity: HIGH.** Nothing is false, no gate is red, and both routines acted in good faith on
 the same paragraph. What is open is which reading of it you want, because the two readings put
@@ -4103,3 +4154,5 @@ sentence yourself so no lap has to read it again  D) something else
 is the reading the charter text supports and a booth printable is three days from the freeze.
 
 NH-060: <your decision>
+
+**CLOSED 2026-09-12 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-12 · ref: none · verbatim: "C. Fix it now, before the pause: repair the vehicle-side sentence in this session and rebuild the printables."

@@ -7,6 +7,24 @@
 **Artifact:** `data/processed/present_perimeter_arm_uiseong_andong_2025.json`
 **Script:** `scripts/run_present_perimeter_arm.py` · **Registry:** `pp_uiseong_*` (57 keys)
 
+> ⚠ **Note, 2026-09-12 (NH-032 closed by the author, option C).** This document describes
+> the **pruned-graph** build of the fair opponent: the refused nodes are deleted from the walk
+> graph and the distance-minimising `naive_route` runs on what is left, with no time budget
+> and with an origin inside the buffer allowed to walk out. The same row was built a second
+> time on 2026-09-05 by a concurrent lap, with the **same time-expanded router the headline
+> uses** run against a frozen binary field, **budget-capped at 600 minutes and refusing
+> departure from inside the buffer**; that build was parked on `auto/red/20260905T2248Z`.
+> On 2026-09-12 the author chose it, verbatim: 「C. Replace it with the parked version (margin
+> 27, budget-capped, refuses to move people inside the margin).」 **The fair opponent this
+> project states is therefore the budget-capped build**, documented at
+> [`docs/present_perimeter_arm_budgeted.md`](present_perimeter_arm_budgeted.md) with its own
+> artifact and its own registry keys (`ppb_*`). Nothing on this page is withdrawn: the
+> pruned-graph arm stays as the second, labelled arm, its numbers and its 57 `pp_uiseong_*`
+> keys stand, and the two builds are two different opponents rather than a disagreement
+> about one. Where this page says 「the forecast's margin over the fair opponent」 it means
+> the margin over the *pruned-graph* opponent; the margin the project states is on the other
+> page (`docs/fair_opponent_line.md` §2).
+
 ---
 
 ## 1. The objection this answers

@@ -2,7 +2,10 @@
 """The manuscript's gate. Exit 1 on any failure; prints every finding.
 
   - the built document is <= 25 pages, MEASURED where a renderer exists
-  - body text <= 9,000 words, the proxy for that ceiling on machines without one
+  - body text <= 9,461 words, the proxy for that ceiling on machines without one
+    (NH-037 option A, author 2026-09-12: the proxy is the measured 24-page sample
+    point of the words-to-pages curve in paper/README.md, one page under the
+    author's 25-page rule; it was 9,000 until that date)
   - a page count recorded in STATE.json is still anchored to the figure, table
     and reference set it was measured on — the check that needs no renderer
   - every ![caption](figures/X.png) exists and was produced by make_figures.py
@@ -71,8 +74,13 @@ PAPER = REPO / "paper"
 sys.path.insert(0, str(PAPER))
 from build_docx import build, parse_bib  # noqa: E402
 
-#: Body-text words: the proxy, kept at the author's number. See the docstring.
-LIMIT = 9000
+#: Body-text words: the proxy. 9,461 is the measured 24-page sample point of the
+#: calibration table (paper/README.md, `calibrate_pages.py`, 24 pages by either
+#: route), one page under the author's 25-page rule — NH-037 option A, author
+#: 2026-09-12. Until then it was 9,000, the laptop session's estimate. Anything
+#: between 9,461 and the 9,961 sample (25 pages, spliced) is unmeasured, so the
+#: next raise needs a new sample, not an interpolation. See the docstring.
+LIMIT = 9461
 #: The author's actual rule (NH-028, 2026-09-05), checked wherever it can be.
 PAGE_LIMIT = 25
 

@@ -1,12 +1,12 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "795694e7827eb67168b0be9a091f8345c3e4463e",
-  "n_artifacts": 120,
-  "total_bytes": 14755370,
-  "total_mib": 14.07,
-  "n_git_tracked": 120,
+  "generated_at_git_commit": "1a3735af10e6f570f20ee398e9a6ae09bc6c233f",
+  "n_artifacts": 125,
+  "total_bytes": 15852741,
+  "total_mib": 15.12,
+  "n_git_tracked": 125,
   "n_untracked_manifest_only": 0,
-  "n_regenerate_unknown": 9,
+  "n_regenerate_unknown": 10,
   "artifacts": [
     {
       "path": "data/processed/.gitkeep",
@@ -461,11 +461,21 @@
       "sha256": "317225599d6025562bdd7ea056f783bdf8fc2b4f6478261c073f908cb9fbca65",
       "kind": "text",
       "git_tracked": true,
-      "n_registry_entries": 6,
+      "n_registry_entries": 0,
       "cited_by_docs": [
         "docs/auto/BACKLOG.md",
         "docs/dispatch_sheet_staleness.md"
       ],
+      "regenerate": "UNKNOWN"
+    },
+    {
+      "path": "data/processed/dispatch_sheet_staleness/staleness_20260912T154037Z.json",
+      "bytes": 2427,
+      "sha256": "96938fb043bab3b29366e78823b9b67e32d82f72b2c59454e4900698f92ed3f7",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 6,
+      "cited_by_docs": [],
       "regenerate": "python scripts/measure_dispatch_sheet_staleness.py"
     },
     {
@@ -531,6 +541,7 @@
       "git_tracked": true,
       "n_registry_entries": 29,
       "cited_by_docs": [
+        "docs/auto/reports/2026-09-12T1632Z-dev.md",
         "docs/footprint_components.md"
       ],
       "regenerate": "python scripts/measure_footprint_components.py"
@@ -799,6 +810,20 @@
       "regenerate": "python scripts/build_multi_region_comparison.py"
     },
     {
+      "path": "data/processed/present_perimeter_arm_budgeted_uiseong_andong_2025.json",
+      "bytes": 146833,
+      "sha256": "efe6222ebd2c2af5365faf586b301581c380dc743a0f7f724b975c35fa421144",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 79,
+      "cited_by_docs": [
+        "docs/auto/BACKLOG.md",
+        "docs/fair_opponent_line.md",
+        "docs/present_perimeter_arm_budgeted.md"
+      ],
+      "regenerate": "python scripts/run_present_perimeter_arm_budgeted.py"
+    },
+    {
       "path": "data/processed/present_perimeter_arm_uiseong_andong_2025.json",
       "bytes": 32193,
       "sha256": "5706c5874e56688a1387580d72bcaab4c9666a50501a8defd994e6ecda570b07",
@@ -863,6 +888,7 @@
       "n_registry_entries": 6,
       "cited_by_docs": [
         "docs/auto/BACKLOG.md",
+        "docs/auto/JUDGE_QA.md",
         "docs/auto/NEEDS_HUMAN.md",
         "docs/auto/SCORECARD.md",
         "docs/auto/reports/2026-09-11T1305Z-dev.md",
@@ -961,6 +987,19 @@
       "n_registry_entries": 8,
       "cited_by_docs": [],
       "regenerate": "python scripts/build_multi_region_comparison.py"
+    },
+    {
+      "path": "data/processed/regrade_against_observed_yeongdeok.json",
+      "bytes": 553564,
+      "sha256": "3af0d20e2c9b3da9cab8ffdbb89f34209bf8f3390d76798816eb0bf5e5fb32f7",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/auto/HANDOVER_2026-09-12.md",
+        "docs/regrade_against_observed.md"
+      ],
+      "regenerate": "python scripts/regrade_against_observed.py"
     },
     {
       "path": "data/processed/rescue_baseline_synthetic/README.md",
@@ -1069,6 +1108,20 @@
       "regenerate": "python scripts/build_numbers.py"
     },
     {
+      "path": "data/processed/rescue_routing_real_hazard.json",
+      "bytes": 225294,
+      "sha256": "499464b46e455a7bfe45011ac87c86fb8361b252563a74b1347580d858dec251",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 9,
+      "cited_by_docs": [
+        "docs/auto/HANDOVER_2026-09-12.md",
+        "docs/rescue_routing_real_hazard.md",
+        "outputs/dispatch_real_hazard/README.md"
+      ],
+      "regenerate": "python scripts/run_rescue_routing_real_hazard.py"
+    },
+    {
       "path": "data/processed/rescue_routing_village_edge.json",
       "bytes": 3468,
       "sha256": "06e14f3db477c35fdfea432dc1d38cc2abfe8b95eb0fe6bc035c30294eb4e2b7",
@@ -1121,7 +1174,10 @@
         "docs/auto/BACKLOG.md",
         "docs/auto/reports/2026-09-12T1322Z-dev.md",
         "docs/auto/reports/2026-09-12T1421Z-critic.md",
-        "docs/rotation_null.md"
+        "docs/auto/reports/2026-09-12T1559Z-manual.md",
+        "docs/rotation_null.md",
+        "paper/GAPS.md",
+        "paper/README.md"
       ],
       "regenerate": "python scripts/measure_rotation_null.py"
     },
@@ -1169,11 +1225,14 @@
         "docs/auto/reports/2026-09-11T1923Z-dev.md",
         "docs/auto/reports/2026-09-11T2022Z-critic.md",
         "docs/auto/reports/2026-09-11T2142Z-manual.md",
+        "docs/auto/reports/2026-09-12T1632Z-dev.md",
         "docs/footprint_components.md",
         "docs/live_pipeline.md",
         "docs/manual_trigger.md",
         "docs/oracle_gap.md",
         "docs/present_perimeter_yeongdeok.md",
+        "docs/regrade_against_observed.md",
+        "docs/rescue_routing_real_hazard.md",
         "paper/GAPS.md",
         "paper/README.md"
       ],
@@ -1734,6 +1793,16 @@
       "n_registry_entries": 3,
       "cited_by_docs": [],
       "regenerate": "python scripts/slope_resolution.py --write"
+    },
+    {
+      "path": "outputs/dispatch_real_hazard/20260912T153043Z/MANIFEST.json",
+      "bytes": 169253,
+      "sha256": "9cb6b9b64079f2ff69678c3e1bcb02e77647fe5c6367f7725e3cb485c4a6682c",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 1,
+      "cited_by_docs": [],
+      "regenerate": "python scripts/run_rescue_routing_real_hazard.py"
     }
   ]
 }

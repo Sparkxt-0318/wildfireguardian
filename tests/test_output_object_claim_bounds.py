@@ -106,6 +106,18 @@ _NOT_YET = re.compile(
     r"(?:출동\s*지시서|출동\s*문서|dispatch\s+(?:sheet|document))[^.。]{0,40}?"
     r"(?:아직\s*없|아직\s*아니|yet\s+been\s+made|not\s+yet\s+been)"
 )
+#: ⚠ 2026-09-12 (NH-057): ``_NOT_YET`` is now the PRE-FIX polarity, kept only so the corpus
+#: below still grades. The author ran the rescue pipeline on the real 영덕 spread surface and
+#: committed the sheets, so the consequence every block must now carry is the PATH of that
+#: run in the same sentence as the object — and the run's own bound beside it (origins still
+#: sampled, walking time flat). A block that still says 「아직 없습니다」 is refused.
+#: The directory, not the stamp: JUDGE_QA Q29a's spoken draft may carry no digit at all
+#: (tests/test_creativity_card.py), and the stamped run is the only thing under it.
+_REAL_SHEET_PATH = "outputs/dispatch_real_hazard/"
+_REAL_SHEET = re.compile(
+    r"(?:출동\s*지시서|출동\s*문서|dispatch\s+sheets?)[^.。]{0,80}?" + re.escape(_REAL_SHEET_PATH)
+)
+_FLAT_TIMING = re.compile(r"평지\s*속도|flat\s+speed|walking\s+time\s+flat", re.I)
 
 #: And the reverse assertion is refused outright rather than merely unrewarded, because the
 #: reviewer's exploit is a sentence somebody will one day write in good faith while
@@ -262,15 +274,22 @@ def test_no_surface_puts_the_committed_instances_in_the_household_register(surfa
     )
 
 
-def test_every_existence_claim_says_the_real_fire_sheet_does_not_exist_yet(surface) -> None:
-    """The polarity anchor. Four token checks are not four claims — see ``_NOT_YET``."""
+def test_every_existence_claim_names_the_real_fire_sheet_and_its_bound(surface) -> None:
+    """The polarity anchor, re-pointed 2026-09-12 (NH-057) — see ``_REAL_SHEET``."""
     label, block = surface
-    assert _NOT_YET.search(block), (
-        f"{label} names the synthetic hazard and the sampled origins and never says the "
-        "thing they add up to: that no dispatch document has yet been produced on a real "
-        "spread surface. A block can carry both nouns and assert their opposite, which is "
-        "what this lap's independent reviewer demonstrated; the consequence is what makes "
-        "the bound a bound rather than a vocabulary list."
+    assert not _NOT_YET.search(block), (
+        f"{label} still says no dispatch document exists on a real spread surface. Since "
+        f"2026-09-12 that is false: the author's laptop run is committed at "
+        f"{_REAL_SHEET_PATH}; name it in the same sentence as the object."
+    )
+    assert _REAL_SHEET.search(block), (
+        f"{label} names the synthetic hazard and the sampled origins but never says where "
+        f"the real-surface sheets are ({_REAL_SHEET_PATH}), in the same sentence as the "
+        "object. The path is what makes the bound a bound rather than a vocabulary list."
+    )
+    assert _FLAT_TIMING.search(block), (
+        f"{label} names the real-surface run without its own bound: walking time there is a "
+        "flat, slope-free speed (and the origins are still sampled). Say so in the block."
     )
 
 
@@ -298,8 +317,8 @@ def _missing(block: str) -> list[str]:
         out.append("synthetic")
     if not _SAMPLED.search(block):
         out.append("sampled")
-    if not _NOT_YET.search(block):
-        out.append("not-yet")
+    if _NOT_YET.search(block) or not _REAL_SHEET.search(block) or not _FLAT_TIMING.search(block):
+        out.append("real-sheet-path")
     if _HOUSEHOLD.search(block):
         out.append("household-register")
     if _DENIES.search(block):
@@ -448,8 +467,8 @@ def test_the_reviewers_inversion_is_refused() -> None:
     claim — and this test is what keeps them honest if either is ever rewritten.
     """
     missing = _missing(_REVIEWER_INVERSION)
-    assert "not-yet" in missing, (
-        "the reviewer's inversion no longer fails the polarity anchor; _NOT_YET has been "
+    assert "real-sheet-path" in missing, (
+        "the reviewer's inversion no longer fails the polarity anchor; _REAL_SHEET has been "
         "widened until a sentence that denies the bound satisfies it"
     )
     assert "denies-the-synthetic-run" in missing, (
