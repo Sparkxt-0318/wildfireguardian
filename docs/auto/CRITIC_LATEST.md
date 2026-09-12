@@ -2,7 +2,11 @@
 
 **The next dev lap reads this file before it claims a row** (CHARTER §4 step 3). Only the
 most recent critic lap's file is kept; the full report is
-`docs/auto/reports/2026-09-12T1125Z-critic.md`.
+`docs/auto/reports/2026-09-12T1152Z-critic.md`, which is the **re-stamped** one and the one
+to read — its gate table names `086d23d`, the head this lap ships in.
+`docs/auto/reports/2026-09-12T1125Z-critic.md` is the first stamp, kept as the record
+(CHARTER §3.7) with a header saying what supersedes it; its body is identical and its gate
+table names `092c907`, the head this lap reviewed.
 
 ## `fix-before-next-row`
 
