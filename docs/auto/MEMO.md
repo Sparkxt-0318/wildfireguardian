@@ -3722,3 +3722,17 @@ it an assertion on the discriminator itself, not only on the outcome. A test tha
 「this case lands in the class」 would have passed under both readings; the test that pinned
 「and its window is/is not null」 is the one that fired. When a measurement leans on a
 sentinel value, assert the sentinel from both sides in a constructed case.
+
+⚠ **And the gate lesson from the same lap, which is the one that will bite again.**
+`gates.py --mode full` went ALL GREEN on this work and the tree was still red, because
+`check-forbidden` scans **tracked** files and the lap's new `docs/auto/JUDGE_QA_PENDING.md`
+was still untracked when the gates ran. `git add` made it visible and it tripped the same
+three-digit false positive the lap had already pragma'd twice in other files. The
+independent reviewer found it on the committed head.
+
+This is CHARTER §4 step 8's paragraph with one word changed: the charter warns that
+anything you commit **after** the gate run is unseen, and this is anything you create
+before it but stage after. **The rule that covers both: `git add` first, gates second.**
+A new file is invisible to every tracked-file gate until it is staged, so a lap that
+writes a file and runs the gates before staging it has certified a tree that does not
+include its own work.

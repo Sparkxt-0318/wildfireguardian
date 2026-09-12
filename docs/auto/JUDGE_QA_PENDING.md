@@ -23,9 +23,9 @@ the bank already says.
 
 ## Pending
 
-### P-001 · WFG-264 · 「이 문장은 프로그램이 실제로 확인한 것입니까?」
+### P-001 · WFG-264 · 「이 문장은 프로그램이 실제로 확인한 것입니까?」 <!-- forbidden-ok: 264, this is the BACKLOG ROW ID WFG-264 and not the gangneung_donghae_2022 Build-A positive count the gate anchors that value to. Same false-positive class as ba437f5, where the gate read a lap stamp as a camera count. No figure is asserted on this line. -->
 
-*Filed 2026-09-12 by the WFG-264 lap. Raised by critic #71's judge drill, which
+*Filed 2026-09-12 by the WFG-264 lap. Raised by critic #71's judge drill, which <!-- forbidden-ok: 264, this is the BACKLOG ROW ID WFG-264 and not the gangneung_donghae_2022 Build-A positive count the gate anchors that value to. Same false-positive class as ba437f5, where the gate read a lap stamp as a camera count. No figure is asserted on this line. -->
 could answer neither this nor P-002 from any file in the repository.*
 
 **Q (드릴에서 나온 형태).** 이 A4 출동 지시서가 지금 심사위원 손에 있습니다.
@@ -58,9 +58,9 @@ could answer neither this nor P-002 from any file in the repository.*
 above. NH-032, NH-034 and NH-052 are open on margin values, and §7's counts are
 about the artifact's context field rather than about the class.
 
-### P-002 · WFG-264 · 「커밋된 시트에는 옛 문장이 그대로입니다」
+### P-002 · WFG-264 · 「커밋된 시트에는 옛 문장이 그대로입니다」 <!-- forbidden-ok: 264, this is the BACKLOG ROW ID WFG-264 and not the gangneung_donghae_2022 Build-A positive count the gate anchors that value to. Same false-positive class as ba437f5, where the gate read a lap stamp as a camera count. No figure is asserted on this line. -->
 
-*Filed 2026-09-12 by the WFG-264 lap, the second half of the same drill.*
+*Filed 2026-09-12 by the WFG-264 lap, the second half of the same drill.* <!-- forbidden-ok: 264, this is the BACKLOG ROW ID WFG-264 and not the gangneung_donghae_2022 Build-A positive count the gate anchors that value to. Same false-positive class as ba437f5, where the gate read a lap stamp as a camera count. No figure is asserted on this line. -->
 
 **Q.** 보행 쪽은 오늘 고쳤다고 하셨는데, 저장소에 커밋된 시트에는 옛 문장이
 그대로 있습니다.

@@ -238,7 +238,7 @@ def test_the_doc_table_quotes_the_artifact(artifact):
     rows = [
         ("homes in the class", "n_unreachable"),
         ("no finite best closing window", "n_no_finite_best_closing_window"),
-        ("direct corridor survives past the responder's ETA",
+        ("direct corridor survives to or past the responder's ETA",
          "n_corridor_survives_past_responder_eta"),
         ("direct corridor reachable by the screening test itself",
          "n_corridor_reachable_by_the_screening_test"),
@@ -254,6 +254,30 @@ def test_the_doc_table_quotes_the_artifact(artifact):
         assert cells[-1] == str(full_arm[key]), (
             f"§7's {label!r} full-coverage cell is {cells[-1]}, artifact says "
             f"{full_arm[key]}")
+
+
+def test_section_7_states_the_two_string_lengths_correctly():
+    """The reviewer's second nail: §7 named two lengths and both were wrong.
+
+    They were typed from an impression in the one section whose subject is a
+    sentence that asserted more than it established. Bound here to the constants
+    so the pair cannot drift again. The convention is every code point including
+    spaces, which is what §7 says it counts.
+    """
+    import importlib.util
+    import sys as _sys
+    _sys.path.insert(0, str(REPO / "src"))
+    spec = importlib.util.spec_from_file_location(
+        "_wfg_gdo_lengths", REPO / "scripts" / "generate_dispatch_outputs.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+
+    new_len = len(mod.UNREACHABLE_REASON_KO)
+    old_len = len(mod.SUPERSEDED_UNREACHABLE_REASON_KO)
+    assert new_len > old_len, "the stated cost is that the new line is longer"
+    text = DOC.read_text(encoding="utf-8")
+    assert f"**{new_len} characters against {old_len}**" in text, (
+        f"§7 should state {new_len} characters against {old_len}; it does not")
 
 
 def test_the_registry_values_come_from_this_artifact(artifact):

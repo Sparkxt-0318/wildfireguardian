@@ -53,6 +53,10 @@ BAND = (
     "falsified it before it shipped. ⚠ The "
     "threshold is READ from each artifact's provenance.assumed "
     "responder_safety_margin_min (12.0 min) and never typed into the script. "
+    "\u26a0 THE HAZARD BEHIND BOTH ARTIFACTS IS SYNTHETIC (the \uc601\ub355 partial "
+    "real flip: real OSM roads, refuges and depots; synthetic fire and terrain), "
+    "so these are statements about what the committed run recorded and not about "
+    "how often a real fire strands a real household. "
     "docs/routing_limitations.md §7 states the method and what it does NOT show."
 )
 
@@ -89,7 +93,8 @@ FIGURES = [
     ("corridor_survives_past_eta_dispatch_slice",
      "arms.0.n_corridor_survives_past_responder_eta", "homes",
      "how many have a direct corridor whose earliest fire-cutoff crossing is at "
-     "or after the responder's ETA. For these, fire had not closed the best "
+     "or after the responder's ETA -- the predicate is window >= 0, so the key "
+     "name's 'past' means 'to or past'. For these, fire had not closed the best "
      "corridor by the time the responder would have arrived; only the safety "
      "margin puts them out of reach"),
     ("corridor_reachable_dispatch_slice",

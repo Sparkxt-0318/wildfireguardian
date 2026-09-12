@@ -301,6 +301,12 @@ tried). Each is reproduced false below, on a constructed field, deterministicall
 (`tests/test_vehicle_unreachable_split.py`; no clock, no network, no file outside
 the repository):
 
+⚠ **Every row below is a CONSTRUCTED field, not a committed 영덕 household.**
+They show these return sites are reachable by this code and that the sentence is
+false when they fire. Which of them fired on the committed run is **not
+measured** and is not measurable from the committed artifacts — see the end of
+this section.
+
 | constructed case | fire in the field | what the sheet said | what happened |
 |---|---|---|---|
 | depot inside the cutoff at dispatch | yes, on the depot | detours included | site (A): the router returned before relaxing an edge; **no detour was tried** |
@@ -308,6 +314,15 @@ the repository):
 | only path longer than the responder budget | **none anywhere** | blocked by fire | site (B): the budget bound, and no fire |
 
 ### What the committed 영덕 fields say
+
+⚠ **Read the provenance before the counts.** Both artifacts are the 영덕
+**PARTIAL REAL FLIP**: the drive network, refuges and depots are real OSM
+geometry, and the fire **hazard and terrain are SYNTHETIC**, in the artifacts'
+own words 「absolute magnitudes stay illustrative until the real hazard is
+flipped in」. These counts are therefore statements about **what this committed
+run recorded**, which is exactly what they are used for here — the question is
+what the sheet asserted about its own run — and they are not measurements of how
+often a real 영덕 fire strands a real household.
 
 Measured by `scripts/measure_vehicle_unreachable_split.py`, which opens two
 committed artifacts and nothing else — no re-run, no refit, no committed count
@@ -322,8 +337,8 @@ committed file:
 |---|---:|---:|
 | homes in the class | 24 | 32 |
 | no finite best closing window | **0** | **0** |
-| direct corridor survives past the responder's ETA | **4** | **8** |
-| direct corridor reachable by the screening test itself | **1** | **4** |
+| direct corridor survives to or past the responder's ETA (window ≥ 0) | **4** | **8** |
+| direct corridor reachable by the screening test itself (window ≥ 12 min) | **1** | **4** |
 
 ⚠ **The second row was nearly published as something it is not, and the
 reproduction above is what stopped it.** The draft of this section read a `null`
@@ -385,10 +400,21 @@ under `outputs/` carry it and not one is rewritten. They are a record of what wa
 generated on 2026-08-01, not a statement this repository makes today.
 
 ⚠ **One cost, named rather than discovered later.** The new line is longer than
-the old one (29 characters against 26) and the 사유 column is on a page-budget
-gate (`tests/test_sparsity_and_page_budget.py`). The committed sheets are not
+the old one — **32 characters against 27**, counting every code point including
+spaces, which is the convention stated here because no other one was used to
+produce it — and the 사유 column is on a page-budget gate
+(`tests/test_sparsity_and_page_budget.py`). The committed sheets are not
 regenerated, so nothing committed moves; a student who reprints the kit with
 `--split-unreachable` has the overflow escape the script already ships.
+`tests/test_vehicle_unreachable_split.py` re-derives both lengths from the two
+constants, so this pair cannot drift from the strings it describes.
+
+⚠ **The first draft of that parenthesis said 「29 against 26」, which is not the
+length of either string under any convention, and this lap's independent reviewer
+found it.** It was typed from an impression rather than measured, in the one
+section of this repository whose whole subject is a sentence that asserted more
+than it had established. Recorded rather than quietly corrected, because that is
+the failure mode §7 exists to name.
 
 ---
 
