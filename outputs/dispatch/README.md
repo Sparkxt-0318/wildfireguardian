@@ -37,6 +37,45 @@ clusters' PDFs are committed — Chrome embeds a Korean font subset per file, so
 python scripts/generate_dispatch_outputs.py
 ```
 
+## ⚠ Which committed page carries the SUPERSEDED 「차량 도달 불가」 사유
+
+Every sheet in this directory was generated **2026-08-01** and is kept
+byte-unchanged as the record of that run (CHARTER §3 rule 2 and rule 7). On
+**2026-09-12**, WFG-264 <!-- forbidden-ok: 264, this is the BACKLOG ROW ID WFG-264 and not the gangneung_donghae_2022 Build-A positive count the gate anchors that value to. No figure is asserted on this line. --> repaired the 사유 line the emitter prints for the
+`no_surviving_vehicle_ingress` class, because the old line asserted fire as the
+cause and a consumed budget, neither of which the classification condition
+establishes:
+
+| constant in `scripts/generate_dispatch_outputs.py` | sentence |
+|---|---|
+| `SUPERSEDED_UNREACHABLE_REASON_KO` | 「예산 내 차량 진입로가 화재로 차단됨(우회 포함)」 — on every committed sheet here |
+| `UNREACHABLE_REASON_KO` | 「어느 거점에서도 생존 인지 차량 진입 경로가 확인되지 않음」 — what a **regenerated** sheet prints today |
+
+**So a stack that mixes committed PDFs with freshly generated ones shows a judge
+two different sentences for one code condition.** These are the committed PDFs
+that carry the superseded one, across the **whole** of `outputs/` and not only
+this directory:
+
+- `outputs/dispatch/20260801T163042Z/02-천전공원-일대/dispatch_a4.pdf`
+- `outputs/dispatch_full/20260801T183522Z/03-영덕해맞이공원-일대/dispatch_a4.pdf`
+- `outputs/dispatch_full/20260801T183522Z/03-영덕해맞이공원-일대/dispatch_a4_unreachable.pdf`
+
+⚠ **Read that list with three caveats, and do not quote a count from it without
+them.** (1) **No PDF was opened.** This sandbox has no `pypdf`, no `pdfminer` and
+no `pdftotext`, so each PDF is classed by the 사유 sentence in the sibling
+`dispatch_a4*.html` it was rendered from. (2) The safe instruction is therefore
+**regenerate every sheet you intend to print** and hand over nothing pre-built,
+which is what the command above does. (3) The counts behind this section are
+registered as the `dss_` keys in `docs/NUMBERS.json`; the method, the result and
+what this does **not** show are in
+[`docs/dispatch_sheet_staleness.md`](../../docs/dispatch_sheet_staleness.md).
+
+`tests/test_dispatch_sheet_staleness.py` re-derives the list above from the tree
+on every run and fails if this section and the committed sheets disagree, so a
+new run directory or a regenerated sheet cannot leave this page stale. The
+supersession itself is recorded in `docs/live_pipeline.md` §「Responder-side」 and
+the reasoning in `docs/routing_limitations.md` §7.
+
 ## Coverage
 
 The committed source artifact carries all 24 unreachable points but only the top

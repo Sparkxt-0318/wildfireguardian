@@ -21174,6 +21174,234 @@
           }
         }
       }
+    },
+    "dss_committed_dispatch_pdfs": {
+      "value": 38,
+      "unit": "files",
+      "source_file": "data/processed/dispatch_sheet_staleness/staleness_20260912T092708Z.json",
+      "json_path": "counts.tracked_pdf",
+      "derivation": "every tracked `.pdf` under `outputs/`, which is what a judge could be handed without anything being regenerated. It is the denominator WFG-267's own framing did not have: the row says 「the three committed PDFs」, scoping to one run directory. Regenerate: python scripts/measure_dispatch_sheet_staleness.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "2f05e127654aa04ae2aae4649568456d4513387e",
+      "sample": "영덕 2025 · the committed outputs/ tree at the head that registered these keys · 439-series responder sheets generated 2026-08-01 · counted from `git ls-files -z outputs`, no run re-executed",
+      "caveat": "NO PDF WAS OPENED, AND NOTHING HERE IS A STATEMENT ABOUT A REAL FIRE. Four facts travel together or none of these keys may be quoted. (1) THE METHOD IS AN INFERENCE THROUGH THE RENDER PATH. A committed `dispatch_a4*.pdf` is classed by the 사유 sentence in the sibling `dispatch_a4*.html` it was rendered from by `scripts/generate_dispatch_outputs.py`. This sandbox has no pypdf, no pdfminer and no pdftotext, so the PDF bytes were NOT read and the artifact records the method as `sibling_html_via_render_path` for exactly that reason. A machine with an extractor can promote the inference to a reading; until one does, `dss_stale_committed_pdfs` means 「rendered from an HTML that carries the superseded sentence」 and not 「was opened and found to contain it」. (2) NOTHING WAS REGENERATED AND NO SHEET WAS REWRITTEN. Every file counted here is the committed record of a 2026-08-01 run, kept byte-unchanged under CHARTER §3 rule 2 and rule 7; this measurement reads and counts, and the repair it justifies is a NOTE beside the sheets. (3) THE SCOPE IS EVERY TRACKED FILE UNDER `outputs/`, which is the correction this measurement exists to make. WFG-267 was filed against `outputs/dispatch/20260801T163042Z/` alone and asked 「which of the three committed PDFs carries it」; the tree holds dss_committed_dispatch_pdfs PDFs across dss_run_dirs_with_a_committed_pdf run directories, and the stale ones are NOT all in that directory. (4) `dss_html_carrying_current` IS ZERO AND THAT IS A FACT ABOUT THE RECORD, NOT A DEFECT: every committed sheet predates the WFG-264 repair, so none of them can carry the sentence the emitter prints today. A future run directory would move this key, which is why the gate re-derives it from the tree rather than pinning it. docs/dispatch_sheet_staleness.md states the method, the result and what it does NOT show.",
+      "forbidden_phrasings": [
+        "the committed sheets were corrected",
+        "every dispatch PDF is current",
+        "only one committed PDF is stale",
+        "커밋된 시트를 고쳤습니다",
+        "출동 지시서 PDF 는 모두 최신입니다",
+        "옛 문장이 있는 PDF 는 한 장뿐입니다"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_dispatch_sheet_staleness.py reads `git ls-files -z outputs`, the two 사유 constants parsed out of scripts/generate_dispatch_outputs.py with `ast`, and the tracked sheets themselves — no network, no raw bundle, no clock in the measurement, nothing outside the repository. It REFUSES to write an artifact if either constant stops being a module-level string literal, rather than reporting zero hits.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "dispatch_sheet_staleness",
+      "notes": "docs/dispatch_sheet_staleness.md states the method, the result, the caveats and what it does NOT show. It moves no committed count, rewrites no committed sheet and re-runs nothing; the repair it justifies is a note beside the sheets and a gate that keeps the note and the tree from drifting apart.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/dispatch_sheet_staleness/staleness_20260912T092708Z.json",
+            "json_path": "counts.tracked_pdf"
+          }
+        }
+      }
+    },
+    "dss_run_dirs_with_a_committed_pdf": {
+      "value": 12,
+      "unit": "directories",
+      "source_file": "data/processed/dispatch_sheet_staleness/staleness_20260912T092708Z.json",
+      "json_path": "counts.run_dirs_with_a_committed_pdf",
+      "derivation": "how many run directories under `outputs/` ship at least one committed PDF. The reason the count above is not the row's three: the sheets are spread over `outputs/dispatch/`, `outputs/dispatch_full/` and `outputs/live/`. Regenerate: python scripts/measure_dispatch_sheet_staleness.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "2f05e127654aa04ae2aae4649568456d4513387e",
+      "sample": "영덕 2025 · the committed outputs/ tree at the head that registered these keys · 439-series responder sheets generated 2026-08-01 · counted from `git ls-files -z outputs`, no run re-executed",
+      "caveat": "NO PDF WAS OPENED, AND NOTHING HERE IS A STATEMENT ABOUT A REAL FIRE. Four facts travel together or none of these keys may be quoted. (1) THE METHOD IS AN INFERENCE THROUGH THE RENDER PATH. A committed `dispatch_a4*.pdf` is classed by the 사유 sentence in the sibling `dispatch_a4*.html` it was rendered from by `scripts/generate_dispatch_outputs.py`. This sandbox has no pypdf, no pdfminer and no pdftotext, so the PDF bytes were NOT read and the artifact records the method as `sibling_html_via_render_path` for exactly that reason. A machine with an extractor can promote the inference to a reading; until one does, `dss_stale_committed_pdfs` means 「rendered from an HTML that carries the superseded sentence」 and not 「was opened and found to contain it」. (2) NOTHING WAS REGENERATED AND NO SHEET WAS REWRITTEN. Every file counted here is the committed record of a 2026-08-01 run, kept byte-unchanged under CHARTER §3 rule 2 and rule 7; this measurement reads and counts, and the repair it justifies is a NOTE beside the sheets. (3) THE SCOPE IS EVERY TRACKED FILE UNDER `outputs/`, which is the correction this measurement exists to make. WFG-267 was filed against `outputs/dispatch/20260801T163042Z/` alone and asked 「which of the three committed PDFs carries it」; the tree holds dss_committed_dispatch_pdfs PDFs across dss_run_dirs_with_a_committed_pdf run directories, and the stale ones are NOT all in that directory. (4) `dss_html_carrying_current` IS ZERO AND THAT IS A FACT ABOUT THE RECORD, NOT A DEFECT: every committed sheet predates the WFG-264 repair, so none of them can carry the sentence the emitter prints today. A future run directory would move this key, which is why the gate re-derives it from the tree rather than pinning it. docs/dispatch_sheet_staleness.md states the method, the result and what it does NOT show.",
+      "forbidden_phrasings": [
+        "the committed sheets were corrected",
+        "every dispatch PDF is current",
+        "only one committed PDF is stale",
+        "커밋된 시트를 고쳤습니다",
+        "출동 지시서 PDF 는 모두 최신입니다",
+        "옛 문장이 있는 PDF 는 한 장뿐입니다"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_dispatch_sheet_staleness.py reads `git ls-files -z outputs`, the two 사유 constants parsed out of scripts/generate_dispatch_outputs.py with `ast`, and the tracked sheets themselves — no network, no raw bundle, no clock in the measurement, nothing outside the repository. It REFUSES to write an artifact if either constant stops being a module-level string literal, rather than reporting zero hits.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "dispatch_sheet_staleness",
+      "notes": "docs/dispatch_sheet_staleness.md states the method, the result, the caveats and what it does NOT show. It moves no committed count, rewrites no committed sheet and re-runs nothing; the repair it justifies is a note beside the sheets and a gate that keeps the note and the tree from drifting apart.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/dispatch_sheet_staleness/staleness_20260912T092708Z.json",
+            "json_path": "counts.run_dirs_with_a_committed_pdf"
+          }
+        }
+      }
+    },
+    "dss_stale_committed_pdfs": {
+      "value": 3,
+      "unit": "files",
+      "source_file": "data/processed/dispatch_sheet_staleness/staleness_20260912T092708Z.json",
+      "json_path": "counts.stale_pdf",
+      "derivation": "how many of those PDFs were rendered from an HTML carrying `SUPERSEDED_UNREACHABLE_REASON_KO`. ⚠ This is the render-path inference of caveat (1) and not a reading of the PDF bytes. The paths are enumerated in the artifact's `stale_pdfs` and in `outputs/dispatch/README.md`, and `tests/test_dispatch_sheet_staleness.py` re-derives the set from the tree and refuses to let the note and the tree disagree. Regenerate: python scripts/measure_dispatch_sheet_staleness.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "2f05e127654aa04ae2aae4649568456d4513387e",
+      "sample": "영덕 2025 · the committed outputs/ tree at the head that registered these keys · 439-series responder sheets generated 2026-08-01 · counted from `git ls-files -z outputs`, no run re-executed",
+      "caveat": "NO PDF WAS OPENED, AND NOTHING HERE IS A STATEMENT ABOUT A REAL FIRE. Four facts travel together or none of these keys may be quoted. (1) THE METHOD IS AN INFERENCE THROUGH THE RENDER PATH. A committed `dispatch_a4*.pdf` is classed by the 사유 sentence in the sibling `dispatch_a4*.html` it was rendered from by `scripts/generate_dispatch_outputs.py`. This sandbox has no pypdf, no pdfminer and no pdftotext, so the PDF bytes were NOT read and the artifact records the method as `sibling_html_via_render_path` for exactly that reason. A machine with an extractor can promote the inference to a reading; until one does, `dss_stale_committed_pdfs` means 「rendered from an HTML that carries the superseded sentence」 and not 「was opened and found to contain it」. (2) NOTHING WAS REGENERATED AND NO SHEET WAS REWRITTEN. Every file counted here is the committed record of a 2026-08-01 run, kept byte-unchanged under CHARTER §3 rule 2 and rule 7; this measurement reads and counts, and the repair it justifies is a NOTE beside the sheets. (3) THE SCOPE IS EVERY TRACKED FILE UNDER `outputs/`, which is the correction this measurement exists to make. WFG-267 was filed against `outputs/dispatch/20260801T163042Z/` alone and asked 「which of the three committed PDFs carries it」; the tree holds dss_committed_dispatch_pdfs PDFs across dss_run_dirs_with_a_committed_pdf run directories, and the stale ones are NOT all in that directory. (4) `dss_html_carrying_current` IS ZERO AND THAT IS A FACT ABOUT THE RECORD, NOT A DEFECT: every committed sheet predates the WFG-264 repair, so none of them can carry the sentence the emitter prints today. A future run directory would move this key, which is why the gate re-derives it from the tree rather than pinning it. docs/dispatch_sheet_staleness.md states the method, the result and what it does NOT show.",
+      "forbidden_phrasings": [
+        "the committed sheets were corrected",
+        "every dispatch PDF is current",
+        "only one committed PDF is stale",
+        "커밋된 시트를 고쳤습니다",
+        "출동 지시서 PDF 는 모두 최신입니다",
+        "옛 문장이 있는 PDF 는 한 장뿐입니다"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_dispatch_sheet_staleness.py reads `git ls-files -z outputs`, the two 사유 constants parsed out of scripts/generate_dispatch_outputs.py with `ast`, and the tracked sheets themselves — no network, no raw bundle, no clock in the measurement, nothing outside the repository. It REFUSES to write an artifact if either constant stops being a module-level string literal, rather than reporting zero hits.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "dispatch_sheet_staleness",
+      "notes": "docs/dispatch_sheet_staleness.md states the method, the result, the caveats and what it does NOT show. It moves no committed count, rewrites no committed sheet and re-runs nothing; the repair it justifies is a note beside the sheets and a gate that keeps the note and the tree from drifting apart.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/dispatch_sheet_staleness/staleness_20260912T092708Z.json",
+            "json_path": "counts.stale_pdf"
+          }
+        }
+      }
+    },
+    "dss_html_carrying_superseded": {
+      "value": 44,
+      "unit": "files",
+      "source_file": "data/processed/dispatch_sheet_staleness/staleness_20260912T092708Z.json",
+      "json_path": "counts.html_carrying_superseded",
+      "derivation": "how many tracked `.html` sheets under `outputs/` print the superseded 사유. This is the number `docs/live_pipeline.md` already carries as 「44 files」, re-derived here from the tree rather than copied from that page. Regenerate: python scripts/measure_dispatch_sheet_staleness.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "2f05e127654aa04ae2aae4649568456d4513387e",
+      "sample": "영덕 2025 · the committed outputs/ tree at the head that registered these keys · 439-series responder sheets generated 2026-08-01 · counted from `git ls-files -z outputs`, no run re-executed",
+      "caveat": "NO PDF WAS OPENED, AND NOTHING HERE IS A STATEMENT ABOUT A REAL FIRE. Four facts travel together or none of these keys may be quoted. (1) THE METHOD IS AN INFERENCE THROUGH THE RENDER PATH. A committed `dispatch_a4*.pdf` is classed by the 사유 sentence in the sibling `dispatch_a4*.html` it was rendered from by `scripts/generate_dispatch_outputs.py`. This sandbox has no pypdf, no pdfminer and no pdftotext, so the PDF bytes were NOT read and the artifact records the method as `sibling_html_via_render_path` for exactly that reason. A machine with an extractor can promote the inference to a reading; until one does, `dss_stale_committed_pdfs` means 「rendered from an HTML that carries the superseded sentence」 and not 「was opened and found to contain it」. (2) NOTHING WAS REGENERATED AND NO SHEET WAS REWRITTEN. Every file counted here is the committed record of a 2026-08-01 run, kept byte-unchanged under CHARTER §3 rule 2 and rule 7; this measurement reads and counts, and the repair it justifies is a NOTE beside the sheets. (3) THE SCOPE IS EVERY TRACKED FILE UNDER `outputs/`, which is the correction this measurement exists to make. WFG-267 was filed against `outputs/dispatch/20260801T163042Z/` alone and asked 「which of the three committed PDFs carries it」; the tree holds dss_committed_dispatch_pdfs PDFs across dss_run_dirs_with_a_committed_pdf run directories, and the stale ones are NOT all in that directory. (4) `dss_html_carrying_current` IS ZERO AND THAT IS A FACT ABOUT THE RECORD, NOT A DEFECT: every committed sheet predates the WFG-264 repair, so none of them can carry the sentence the emitter prints today. A future run directory would move this key, which is why the gate re-derives it from the tree rather than pinning it. docs/dispatch_sheet_staleness.md states the method, the result and what it does NOT show.",
+      "forbidden_phrasings": [
+        "the committed sheets were corrected",
+        "every dispatch PDF is current",
+        "only one committed PDF is stale",
+        "커밋된 시트를 고쳤습니다",
+        "출동 지시서 PDF 는 모두 최신입니다",
+        "옛 문장이 있는 PDF 는 한 장뿐입니다"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_dispatch_sheet_staleness.py reads `git ls-files -z outputs`, the two 사유 constants parsed out of scripts/generate_dispatch_outputs.py with `ast`, and the tracked sheets themselves — no network, no raw bundle, no clock in the measurement, nothing outside the repository. It REFUSES to write an artifact if either constant stops being a module-level string literal, rather than reporting zero hits.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "dispatch_sheet_staleness",
+      "notes": "docs/dispatch_sheet_staleness.md states the method, the result, the caveats and what it does NOT show. It moves no committed count, rewrites no committed sheet and re-runs nothing; the repair it justifies is a note beside the sheets and a gate that keeps the note and the tree from drifting apart.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/dispatch_sheet_staleness/staleness_20260912T092708Z.json",
+            "json_path": "counts.html_carrying_superseded"
+          }
+        }
+      }
+    },
+    "dss_html_carrying_current": {
+      "value": 0,
+      "unit": "files",
+      "source_file": "data/processed/dispatch_sheet_staleness/staleness_20260912T092708Z.json",
+      "json_path": "counts.html_carrying_current",
+      "derivation": "how many print the sentence the emitter prints TODAY. It is ZERO, and an empty sub-case is published as an empty sub-case: every committed sheet predates the WFG-264 repair. It is the control that makes the count above meaningful — if this were non-zero, the committed tree would hold two live sentences rather than one record and one repair. Regenerate: python scripts/measure_dispatch_sheet_staleness.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "2f05e127654aa04ae2aae4649568456d4513387e",
+      "sample": "영덕 2025 · the committed outputs/ tree at the head that registered these keys · 439-series responder sheets generated 2026-08-01 · counted from `git ls-files -z outputs`, no run re-executed",
+      "caveat": "NO PDF WAS OPENED, AND NOTHING HERE IS A STATEMENT ABOUT A REAL FIRE. Four facts travel together or none of these keys may be quoted. (1) THE METHOD IS AN INFERENCE THROUGH THE RENDER PATH. A committed `dispatch_a4*.pdf` is classed by the 사유 sentence in the sibling `dispatch_a4*.html` it was rendered from by `scripts/generate_dispatch_outputs.py`. This sandbox has no pypdf, no pdfminer and no pdftotext, so the PDF bytes were NOT read and the artifact records the method as `sibling_html_via_render_path` for exactly that reason. A machine with an extractor can promote the inference to a reading; until one does, `dss_stale_committed_pdfs` means 「rendered from an HTML that carries the superseded sentence」 and not 「was opened and found to contain it」. (2) NOTHING WAS REGENERATED AND NO SHEET WAS REWRITTEN. Every file counted here is the committed record of a 2026-08-01 run, kept byte-unchanged under CHARTER §3 rule 2 and rule 7; this measurement reads and counts, and the repair it justifies is a NOTE beside the sheets. (3) THE SCOPE IS EVERY TRACKED FILE UNDER `outputs/`, which is the correction this measurement exists to make. WFG-267 was filed against `outputs/dispatch/20260801T163042Z/` alone and asked 「which of the three committed PDFs carries it」; the tree holds dss_committed_dispatch_pdfs PDFs across dss_run_dirs_with_a_committed_pdf run directories, and the stale ones are NOT all in that directory. (4) `dss_html_carrying_current` IS ZERO AND THAT IS A FACT ABOUT THE RECORD, NOT A DEFECT: every committed sheet predates the WFG-264 repair, so none of them can carry the sentence the emitter prints today. A future run directory would move this key, which is why the gate re-derives it from the tree rather than pinning it. docs/dispatch_sheet_staleness.md states the method, the result and what it does NOT show.",
+      "forbidden_phrasings": [
+        "the committed sheets were corrected",
+        "every dispatch PDF is current",
+        "only one committed PDF is stale",
+        "커밋된 시트를 고쳤습니다",
+        "출동 지시서 PDF 는 모두 최신입니다",
+        "옛 문장이 있는 PDF 는 한 장뿐입니다"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_dispatch_sheet_staleness.py reads `git ls-files -z outputs`, the two 사유 constants parsed out of scripts/generate_dispatch_outputs.py with `ast`, and the tracked sheets themselves — no network, no raw bundle, no clock in the measurement, nothing outside the repository. It REFUSES to write an artifact if either constant stops being a module-level string literal, rather than reporting zero hits.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "dispatch_sheet_staleness",
+      "notes": "docs/dispatch_sheet_staleness.md states the method, the result, the caveats and what it does NOT show. It moves no committed count, rewrites no committed sheet and re-runs nothing; the repair it justifies is a note beside the sheets and a gate that keeps the note and the tree from drifting apart.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/dispatch_sheet_staleness/staleness_20260912T092708Z.json",
+            "json_path": "counts.html_carrying_current"
+          }
+        }
+      }
+    },
+    "dss_tracked_dispatch_html": {
+      "value": 650,
+      "unit": "files",
+      "source_file": "data/processed/dispatch_sheet_staleness/staleness_20260912T092708Z.json",
+      "json_path": "counts.tracked_html",
+      "derivation": "every tracked `.html` under `outputs/`, the population the two counts above are taken from. Regenerate: python scripts/measure_dispatch_sheet_staleness.py",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "git_commit": "2f05e127654aa04ae2aae4649568456d4513387e",
+      "sample": "영덕 2025 · the committed outputs/ tree at the head that registered these keys · 439-series responder sheets generated 2026-08-01 · counted from `git ls-files -z outputs`, no run re-executed",
+      "caveat": "NO PDF WAS OPENED, AND NOTHING HERE IS A STATEMENT ABOUT A REAL FIRE. Four facts travel together or none of these keys may be quoted. (1) THE METHOD IS AN INFERENCE THROUGH THE RENDER PATH. A committed `dispatch_a4*.pdf` is classed by the 사유 sentence in the sibling `dispatch_a4*.html` it was rendered from by `scripts/generate_dispatch_outputs.py`. This sandbox has no pypdf, no pdfminer and no pdftotext, so the PDF bytes were NOT read and the artifact records the method as `sibling_html_via_render_path` for exactly that reason. A machine with an extractor can promote the inference to a reading; until one does, `dss_stale_committed_pdfs` means 「rendered from an HTML that carries the superseded sentence」 and not 「was opened and found to contain it」. (2) NOTHING WAS REGENERATED AND NO SHEET WAS REWRITTEN. Every file counted here is the committed record of a 2026-08-01 run, kept byte-unchanged under CHARTER §3 rule 2 and rule 7; this measurement reads and counts, and the repair it justifies is a NOTE beside the sheets. (3) THE SCOPE IS EVERY TRACKED FILE UNDER `outputs/`, which is the correction this measurement exists to make. WFG-267 was filed against `outputs/dispatch/20260801T163042Z/` alone and asked 「which of the three committed PDFs carries it」; the tree holds dss_committed_dispatch_pdfs PDFs across dss_run_dirs_with_a_committed_pdf run directories, and the stale ones are NOT all in that directory. (4) `dss_html_carrying_current` IS ZERO AND THAT IS A FACT ABOUT THE RECORD, NOT A DEFECT: every committed sheet predates the WFG-264 repair, so none of them can carry the sentence the emitter prints today. A future run directory would move this key, which is why the gate re-derives it from the tree rather than pinning it. docs/dispatch_sheet_staleness.md states the method, the result and what it does NOT show.",
+      "forbidden_phrasings": [
+        "the committed sheets were corrected",
+        "every dispatch PDF is current",
+        "only one committed PDF is stale",
+        "커밋된 시트를 고쳤습니다",
+        "출동 지시서 PDF 는 모두 최신입니다",
+        "옛 문장이 있는 PDF 는 한 장뿐입니다"
+      ],
+      "reproducible": true,
+      "reproducibility": {
+        "status": "reproducible",
+        "evidence": "python scripts/measure_dispatch_sheet_staleness.py reads `git ls-files -z outputs`, the two 사유 constants parsed out of scripts/generate_dispatch_outputs.py with `ast`, and the tracked sheets themselves — no network, no raw bundle, no clock in the measurement, nothing outside the repository. It REFUSES to write an artifact if either constant stops being a module-level string literal, rather than reporting zero hits.",
+        "blocked_by": null
+      },
+      "provenance": "internal",
+      "arm": "dispatch_sheet_staleness",
+      "notes": "docs/dispatch_sheet_staleness.md states the method, the result, the caveats and what it does NOT show. It moves no committed count, rewrites no committed sheet and re-runs nothing; the repair it justifies is a note beside the sheets and a gate that keeps the note and the tree from drifting apart.",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/dispatch_sheet_staleness/staleness_20260912T092708Z.json",
+            "json_path": "counts.tracked_html"
+          }
+        }
+      }
     }
   }
 }

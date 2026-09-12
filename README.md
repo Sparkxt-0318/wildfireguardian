@@ -22,7 +22,7 @@
   **elderly-aware and rescue-aware evacuation routing** — the project's core
   systems contribution. On the canonical Yeongdeok field, **42 of 458** scanned
   origins reach a refuge **only** when the router accounts for where the fire
-  will be, and **2** have no safe walking route at all
+  will be, and **2** reach no refuge under that policy
   ([Round 3](#round-3-2026-08); the 32.6 % coverage caveat applies).
   ⚠ **That contrast is measured against a fire-blind baseline**
   (`src/wildfireguardian/routing/evacuation.py:270`, "fire-blind shortest path to
@@ -795,7 +795,7 @@ produce no true positive at all.
 
 The coupling is nonetheless where the decision changes. On the canonical Yeongdeok
 field, **42 of 458** scanned walk-network origins reach a refuge only under the
-forecast-aware policy, and **2** have no safe walking route at all, on a network
+forecast-aware policy, and **2** reach no refuge under it, on a network
 covering **32.6 %** of the predicted fire core whose bias runs in an unmeasured
 direction. ⚠ **Two caveats bind that number and travel with it everywhere.** First,
 the contrast is measured against a **fire-blind** baseline, so it does not separate

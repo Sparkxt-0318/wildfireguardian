@@ -349,6 +349,14 @@ data/processed/vulnerability/refuges/
 !data/processed/vehicle_unreachable_split/
 !data/processed/vehicle_unreachable_split/*.json
 
+# WFG-267. Small JSON: which committed dispatch sheets carry the superseded
+# 「차량 도달 불가」 사유, counted from `git ls-files -z outputs` with no re-run
+# and no PDF opened. Six `dss_` registry keys re-derive from it and
+# docs/dispatch_sheet_staleness.md is checked against it, so it has to be in
+# the clone a stranger checks out.
+!data/processed/dispatch_sheet_staleness/
+!data/processed/dispatch_sheet_staleness/*.json
+
 # Validation-case manifest JSON files ARE committed (they're stubs, not
 # bulk data).
 !data/validation_cases/**

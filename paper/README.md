@@ -1451,7 +1451,7 @@ it said the DIRECTION-mandated subject grep 「returned a hit nothing else here 
 the stated grep over the stated scope returns **36** hits at this HEAD. `GAPS.md` §1b now
 carries the real grep with a row per hit; the sentence is **deleted, not softened**. The
 largest live instance is **outside this routine's paths and is filed rather than fixed**:
-`README.md:25` and `:798` say 「**2** have no safe walking route **at all**」 — the project's
+`README.md:25` and `:798` say 「**2** have no safe walking route **at all**」 <!-- forbidden-ok: wc021-no-safe-walking-route-at-all --> — the project's
 front door, in its own voice, stronger than the Abstract wording just repaired.
 
 ⛔⛔ **ROOT 2: the first draft redrew `paper/figures/F5_decision_shift.png` over itself.**

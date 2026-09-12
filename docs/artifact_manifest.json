@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "7d716f4b4f5edfb865b6a96d66aa722d66c8645b",
-  "n_artifacts": 117,
-  "total_bytes": 14675691,
+  "generated_at_git_commit": "2f05e127654aa04ae2aae4649568456d4513387e",
+  "n_artifacts": 118,
+  "total_bytes": 14677878,
   "total_mib": 14.0,
-  "n_git_tracked": 117,
+  "n_git_tracked": 118,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 9,
   "artifacts": [
@@ -456,6 +456,19 @@
       "regenerate": "python scripts/build_numbers.py"
     },
     {
+      "path": "data/processed/dispatch_sheet_staleness/staleness_20260912T092708Z.json",
+      "bytes": 2187,
+      "sha256": "fe25655bf347783e1ffa519a3008e37b42b510f7277728763ffede5398ac4c53",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 6,
+      "cited_by_docs": [
+        "docs/auto/BACKLOG.md",
+        "docs/dispatch_sheet_staleness.md"
+      ],
+      "regenerate": "python scripts/measure_dispatch_sheet_staleness.py"
+    },
+    {
       "path": "data/processed/evidence/greenpeace_2026_survey.json",
       "bytes": 15700,
       "sha256": "2d86a83492be4948140be2fb58ecbe0d1105af175b61078ecc5252820bed1c86",
@@ -824,7 +837,8 @@
         "docs/auto/BACKLOG.md",
         "docs/auto/reports/2026-09-11T2230Z-dev.md",
         "docs/auto/reports/2026-09-11T2257Z-dev.md",
-        "docs/present_perimeter_yeongdeok.md"
+        "docs/present_perimeter_yeongdeok.md",
+        "paper/GAPS.md"
       ],
       "regenerate": "python scripts/measure_present_perimeter_yeongdeok_buffer.py"
     },
@@ -909,7 +923,9 @@
       "kind": "text",
       "git_tracked": true,
       "n_registry_entries": 4,
-      "cited_by_docs": [],
+      "cited_by_docs": [
+        "paper/GAPS.md"
+      ],
       "regenerate": "python scripts/build_multi_region_comparison.py"
     },
     {

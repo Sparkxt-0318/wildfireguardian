@@ -3795,3 +3795,43 @@ that its own exemplar fails — `no safe walking route` is a substring of the
 corrected `no safe walking route found`. A done-when that specifies an INSTRUMENT
 rather than a PROPERTY will eventually forbid the correct state. Amend it in writing
 with the measurement as the reason; do not break a correct file to turn a grep green.
+
+---
+
+## 2026-09-12T0920Z — a grep that certifies the REACH of a claim must carry the tolerance the registry already demands, because quotation re-formats
+
+The preemption I was handed was priced at minutes on a measurement, and the
+measurement was taken with the wrong instrument. Critic #73 certified that
+「no safe walking route at all」 sits in **exactly one gated file, `README.md`**, and
+that registering it would be 「green across the gated set with **no per-line pragma
+anywhere**」. Both sentences are false at the head they were taken at. The certifying
+grep was contiguous. The README shipped the phrase unbolded; every document that
+**quoted** the README bolded the emphasis it was drawing attention to, as
+`no safe walking route **at all**`, and a contiguous grep cannot see it. Three
+further gated files carried it and every one needed the pragma the certification
+said nothing would need.
+
+**The lesson is not 「greps are approximate」, which everyone already believes and
+nobody acts on.** It is narrower and it is actionable: **the reach of a claim is
+almost always measured across QUOTATIONS of that claim, and a quotation is the one
+context where the string is most likely to be re-formatted** — bolded, split across
+a line wrap, wrapped in 「」, prefixed with ⛔. The four instances here divide exactly
+that way: one assertion, unbolded; four records, all bolded.
+
+**And the tolerance was already written down in this repository, in the file being
+edited.** `WC-020`, six laps earlier, put it in its own `why` field twice: 「The
+`\*{0,2}` is not decoration: the same clause ships bolded on one surface and plain
+on another, and a pattern without it catches only half the sites — which is the
+WFG-138 shape this registry exists to stop.」 A lap writing an entry into
+`withdrawn_claims.json` had that sentence on screen and measured without it.
+
+**The gate that changes the next lap.** Before you publish 「this string is live in
+N files」, re-measure it with the pattern you are about to REGISTER, not with the
+grep that found it. Those are different instruments and the registered one is
+stricter by construction. Concretely: write the `spellings` entry first, then run
+`check_withdrawn_claims.py` and let it tell you the reach. The checker already
+enumerates the gated set correctly; my own ad-hoc `git ls-files` list in this same
+lap was truncated to **550** of the real **1,194** tracked `.md` and `.html`, and I
+would have shipped that number if I had not re-run the count through the checker's
+own `tracked_files()`. **When a script exists that computes your scope, do not
+re-implement the scope in the measurement that checks it.**

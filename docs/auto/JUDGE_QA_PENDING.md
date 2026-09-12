@@ -104,9 +104,14 @@ ANSWER.** 카드가 근거로 삼을 문서가 이제 있습니다: `docs/figure
 
 **Source:** `docs/figure_legend_claims.md`; `paper/make_figures.py` F3b·F5b·F8b
 범례; `tests/test_figure_legend_claims.py` (돌연변이 다섯 개로 채점).
-⚠ `README.md`에는 아직 더 강한 표현(「no safe walking route **at all**」)이
-남아 있습니다 — **WFG-270**. 심사위원이 README를 들고 물으면, 고칠 곳으로
-등록되어 있다고 그대로 말합니다.
+⚠ **[2026-09-12T0920Z 갱신 · 이 경고는 더 이상 참이 아닙니다]** `README.md`가
+들고 있던 더 강한 표현(「no safe walking route **at all**」)은 <!-- forbidden-ok: wc021-no-safe-walking-route-at-all -->
+**WFG-270 (a)(b)로 고쳐졌습니다**: `:25`는 「**2** reach no refuge under that
+policy」로, `:798`은 「**2** reach no refuge under it」로 바뀌었고, 철자는
+`docs/auto/withdrawn_claims.json`에 **`WC-021`**로 등록되어 이제 추적되는 모든
+`.md`·`.html`이 검사를 받습니다. 심사위원이 README를 들고 물으면, 고쳤고
+등록까지 했다고 그대로 말합니다. 위 문단은 지우지 않고 날짜를 달아 둡니다
+(CHARTER §3.7).
 
 **[기록 · 2026-09-12 · 오늘의 답이 아닙니다]** 최초 초안은 「범례가 아직 옛
 표현입니다 ... F8과 F3 범례는 아직입니다」였고, 출처로 `paper/make_figures.py:689`
@@ -126,16 +131,70 @@ ANSWER.** 카드가 근거로 삼을 문서가 이제 있습니다: `docs/figure
 
 **A (draft, tier T1).**
 
-> 다시 뽑은 장이 지금 기준이고, 미리 PDF로 커밋돼 있던 장이 2026-08-01 기록입니다.
-> 커밋된 PDF는 가장 큰 세 군집뿐이고, 그중 「차량 도달 불가」 지점이 있는 것은
-> `02-천전공원-일대` 한 장입니다. 가장 안전한 방법은 33장을 전부 다시 뽑는
+> 다시 뽑은 장이 지금 기준이고, 미리 만들어 둔 PDF가 2026-08-01 기록입니다.
+> 이 디렉터리에서 미리 만들어 둔 장은 가장 큰 세 군집뿐이고, 그중 옛 사유가 찍힌
+> 것은 `02-천전공원-일대` 한 장입니다. ⚠ 다만 저장소 전체로 보면 그 장 말고도
+> `outputs/dispatch_full/20260801T183522Z/03-영덕해맞이공원-일대` 의 두 장이 더
+> 있습니다. 경로까지 `outputs/dispatch/README.md` 에 적어 두었고, 테스트가 그
+> 목록을 트리와 맞춰 봅니다. 가장 안전한 방법은 인쇄할 장을 전부 다시 뽑는
 > 것이고, 그러면 섞이지 않습니다.
 
-**Source (오늘 기준):** `docs/live_pipeline.md:193-201`(무엇이 대체되었는지),
-`docs/routing_limitations.md` §7(왜). ⚠ **「02-천전공원-일대 한 장」이라는 말은
-오늘 어떤 커밋된 문서에도 없습니다** - critic #72가 트리에서 재어 본 값이고,
-WFG-267 (i)이 `outputs/dispatch/README.md`에 적어 넣어야 말할 수 있습니다.
+**Source (오늘 기준):** `outputs/dispatch/README.md` §「Which committed page carries
+the SUPERSEDED …」(어느 장인가), [`docs/dispatch_sheet_staleness.md`](../dispatch_sheet_staleness.md)
+(방법과 한계), `docs/live_pipeline.md` §「Responder-side」(무엇이 대체되었는지),
+`docs/routing_limitations.md` §7(왜), 게이트 `tests/test_dispatch_sheet_staleness.py`.
 
+⚠ **[2026-09-12T0920Z 갱신]** 위 ⚠ 경고는 「`02-천전공원-일대` 한 장이라는 말이
+어떤 커밋된 문서에도 없다」였고, **WFG-267 (i)이 닫히면서 해소되었습니다** — 이제
+`outputs/dispatch/README.md` 에 있습니다. ⚠⚠ **같은 랩이 그 말 자체도 좁혔습니다.**
+「한 장」은 `outputs/dispatch/20260801T163042Z/` 안에서만 참입니다. 트리 전체에서는
+커밋된 출동 지시서 PDF가 `dss_committed_dispatch_pdfs` 장, run 디렉터리가
+`dss_run_dirs_with_a_committed_pdf` 개이고, 옛 사유를 든 장은
+`dss_stale_committed_pdfs` 장입니다. ⚠ **PDF는 한 장도 열리지 않았습니다**: 각
+PDF는 그것이 렌더링되어 나온 형제 HTML로 등급이 매겨졌습니다(§4). 심사위원이
+캐물으면 그 추론을 먼저 말씀하십시오.
+
+
+---
+
+### P-005 · WFG-267 (ii) · Q39 의 인쇄 지시를 **하나로** 줄이는 초안
+
+*Filed 2026-09-12T0920Z by the dev lap that claimed WFG-267. `docs/auto/JUDGE_QA.md`
+는 NH-049 가 열려 있는 동안 직접 고치지 않습니다(고치면 `make printables` 를 새
+스탬프로 다시 돌리고 `MANIFEST.json` 을 다시 가리켜야 합니다). 이 파일은 인쇄물
+일곱 원본에 들어 있지 않으므로 초안은 여기에 둡니다.*
+
+**무엇이 문제인가.** 두 파일이 서로 다른 인쇄 지시를 줍니다.
+
+| 파일 | 지시 | 결과 |
+|---|---|---|
+| `docs/auto/JUDGE_QA.md` Q39 | 미리 만들어 둔 세 장 + 나머지는 다시 생성해 인쇄 | 옛 문장 3장과 새 문장 30장이 **한 묶음에 섞입니다** |
+| `outputs/dispatch/README.md` | `python scripts/generate_dispatch_outputs.py` 로 전부 다시 생성 | 33장이 한 문장으로 통일됩니다 |
+
+학생이 공부하는 카드가 앞쪽이고, 섞인 묶음을 만드는 쪽도 앞쪽입니다.
+
+**제안 (Q39 의 해당 문단만 교체, T1).**
+
+> **이 한 권에 없는 것은 마을 A4 출동 지시서뿐입니다.** `outputs/dispatch/20260801T163042Z/`
+> 에 클러스터 33개가 있고 HTML · SMS 초안 · 방송 문안은 33개 모두 커밋돼 있지만,
+> `dispatch_a4.pdf` 는 가장 큰 세 군집만 미리 만들어져 있습니다(33장이면 6.7 MB 라서).
+> **인쇄할 때는 세 장을 그대로 쓰지 말고 33장을 전부 다시 만드십시오** —
+> `python scripts/generate_dispatch_outputs.py`. 미리 만들어 둔 장은 2026-08-01
+> 기록이라 「차량 도달 불가」 사유가 옛 문장이고, 다시 만든 장은 WFG-264 <!-- forbidden-ok: 264, this is the BACKLOG ROW ID WFG-264 and not the gangneung_donghae_2022 Build-A positive count the gate anchors that value to. No figure is asserted on this line. --> 로 고친
+> 문장을 찍습니다. **섞으면 심사위원이 한 묶음에서 한 조건에 두 문장을 봅니다.**
+> 어느 장이 옛 것인지는 `outputs/dispatch/README.md` 에 경로까지 있고,
+> `tests/test_dispatch_sheet_staleness.py` 가 그 목록을 트리와 맞춰 봅니다.
+
+**이미 섞인 묶음을 들고 물으시면:** 「그 장은 2026-08-01 실행의 기록이고, 저희가
+기록을 고쳐 쓰지 않기 때문에 그대로 있습니다. 문장을 고친 이유는
+`docs/routing_limitations.md` §7 에 있습니다.」
+
+⚠ **Q39 의 ❌ 줄과 `<!-- forbidden-ok: wc006-dispatch-committed-pdfs -->` 는 그대로
+둡니다** — WC-006 이 가리키는 것은 여전히 살아 있는 오답입니다.
+
+**Source:** `outputs/dispatch/README.md`,
+[`docs/dispatch_sheet_staleness.md`](../dispatch_sheet_staleness.md),
+`scripts/generate_dispatch_outputs.py`, 게이트 `tests/test_dispatch_sheet_staleness.py`.
 
 ---
 

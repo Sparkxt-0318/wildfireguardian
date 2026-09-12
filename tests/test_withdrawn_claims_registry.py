@@ -641,6 +641,31 @@ def test_the_registry_holds_nothing_the_families_do_not():
          r"\s+this\s+repository\s+has\s+not\s+run\s+it",
          "wc020-yeongdeok-buffered-never-run-en"),
     }
+
+    #: WC-021, 2026-09-12. A family of one, and it is the mirror image of the family
+    #: above rather than a member of it: WC-019 and WC-020 are claims that an
+    #: experiment had NOT been run, and this is a claim about what a search that WAS
+    #: run establishes. The bucket's condition is `nv.enters_hazard and not
+    #: fa.reached` -- the forecast-aware search terminated without reaching a refuge --
+    #: and `README.md:25` and `:798` reported it as 「**2** have no safe walking route
+    #: **at all**」. A search that does not find a route establishes nothing about
+    #: whether one is there. Every other surface had already been narrowed (the
+    #: Abstract at `63e9d20`, all three figure legends to 「found」, the booth script,
+    #: the finals template); the front door was the last one standing.
+    #: ⚠ The `\*{0,2}\s*` before 「at all」 is the load-bearing part of the pattern and
+    #: the reason this entry is registered wider than the preemption that ordered it.
+    #: The README shipped the phrase UNBOLDED and all four documents that QUOTED it
+    #: bolded the emphasis -- 「route **at all**」 -- so the contiguous grep that priced
+    #: the repair saw one file and missed three. WC-020's own `why` field states this
+    #: exact tolerance as mandatory, six laps earlier, in this same registry.
+    #: ⚠ Anchored on 「at all」 and NOT on 「no safe walking route」 alone, on purpose:
+    #: the bare phrase is the repaired legends' correct wording (「no safe walking
+    #: route found」) and the bucket's class name, and a pattern catching those would
+    #: forbid the fix. The class name is WFG-274 and is deliberately unregistered.
+    what_our_own_search_failed_to_find = {
+        (r"no\s+safe\s+walking\s+route\s*\*{0,2}\s*at\s+all",
+         "wc021-no-safe-walking-route-at-all"),
+    }
     extra = ({(s["pattern"], s["token"]) for _cid, s in SPELLINGS}
              - in_files - reviewer_found - reachability - booth_kit_contents
              - dispatch_exclusion_reason - someone_elses_system
@@ -648,7 +673,8 @@ def test_the_registry_holds_nothing_the_families_do_not():
              - how_our_own_work_was_organised - our_own_output_object
              - a_reading_of_our_own_measurement - a_claim_about_our_own_machinery
              - our_own_null_s_centre - what_the_null_gap_is_attributed_to
-             - an_experiment_we_had_not_yet_run)
+             - an_experiment_we_had_not_yet_run
+             - what_our_own_search_failed_to_find)
     assert extra == set(), (
         "the registry has grown past the families it absorbed. That is allowed, and when "
         "you do it, add the new spelling to this test's expected set and say in "
@@ -1132,6 +1158,15 @@ def _probe_sentence(pattern: str) -> str:
             "5. **A buffered present perimeter is a DIFFERENT experiment, and this "
             "repository has not run it on 영덕. No direction may be asserted for it "
             "here.**",
+        # WC-021, 2026-09-12. Lifted verbatim from README.md:798 at `4bf34ab`, the head
+        # this lap started from -- the Round-3 narrative's own sentence, unbolded, which
+        # is why the bolded quotations of it in four other files were invisible to the
+        # contiguous grep that measured its reach. No outside source was needed: the
+        # bucket's own code condition disproves it.
+        r"no\s+safe\s+walking\s+route\s*\*{0,2}\s*at\s+all":
+            "forecast-aware policy, and **2** have no safe walking route at all, on a "
+            "network covering **32.6 %** of the predicted fire core whose bias runs in "
+            "an unmeasured direction.",
     }
     assert pattern in probes, (
         f"no probe sentence for a newly registered pattern:\n  {pattern}\n"
