@@ -26,10 +26,24 @@ import importlib.util
 import sys
 from pathlib import Path
 
+import pytest
+
 REPO = Path(__file__).resolve().parents[1]
 NOTE = REPO / "outputs" / "dispatch" / "README.md"
 MEASURE = REPO / "scripts" / "measure_dispatch_sheet_staleness.py"
 SECTION = "## ⚠ Which committed page carries the SUPERSEDED 「차량 도달 불가」 사유"
+
+#: ⚠ TWO files enumerate the stale sheets, and both are gated, because this lap's own
+#: `sip` pass caught the second one unguarded. `outputs/dispatch/README.md` is the note
+#: beside the sheets and `docs/dispatch_sheet_staleness.md` §3 is the method page a judge
+#: may open; a gate that bound only the first would let the second go stale in silence,
+#: which is the exact class critic #73 filed F1 about. Each entry is (path, heading of
+#: the enumerating section); the paths themselves are never listed here — every test
+#: below re-derives them from the tree.
+ENUMERATING_PAGES = [
+    (NOTE, SECTION),
+    (REPO / "docs" / "dispatch_sheet_staleness.md", "## 3. 결과"),
+]
 
 
 def _measure_module():
@@ -42,17 +56,21 @@ def _measure_module():
     return mod
 
 
-def _note_section() -> str:
-    text = NOTE.read_text(encoding="utf-8")
-    assert SECTION in text, (
-        f"{NOTE.relative_to(REPO)} has lost the heading {SECTION!r}. That section is "
-        "the only file in this repository that says which committed page carries the "
-        "superseded 사유, which is WFG-267 (i). Restore it rather than deleting this "
-        "test.")
-    start = text.index(SECTION)
-    rest = text[start + len(SECTION):]
+def _section(page: Path, heading: str) -> str:
+    """The body of `heading`'s section in `page`, up to the next `## `."""
+    text = page.read_text(encoding="utf-8")
+    assert heading in text, (
+        f"{page.relative_to(REPO)} has lost the heading {heading!r}. These sections are "
+        "what says which committed page carries the superseded 사유, which is "
+        "WFG-267 (i). Restore it rather than deleting this test.")
+    start = text.index(heading)
+    rest = text[start + len(heading):]
     end = rest.find("\n## ")
     return rest if end == -1 else rest[:end]
+
+
+def _note_section() -> str:
+    return _section(NOTE, SECTION)
 
 
 def test_the_note_names_both_reason_constants_by_name():
@@ -84,41 +102,44 @@ def test_the_note_quotes_the_two_sentences_the_emitter_actually_defines():
     assert current != superseded
 
 
-def test_the_note_names_exactly_the_stale_pdfs_the_tree_has():
-    """The enumeration in the note equals the set re-derived from the tree.
+@pytest.mark.parametrize("page,heading",
+                         ENUMERATING_PAGES,
+                         ids=lambda v: str(v)[-40:])
+def test_every_enumerating_page_names_exactly_the_stale_pdfs_the_tree_has(page, heading):
+    """Each enumeration equals the set re-derived from the tree.
 
     This is the whole gate. It is written so that it can FAIL IN BOTH DIRECTIONS: a
-    stale PDF the note does not mention, and a path the note mentions that is no longer
+    stale PDF a page does not mention, and a path a page mentions that is no longer
     stale. A lap that adds a run directory, regenerates a sheet, or deletes one must
-    update the note in the same commit.
+    update BOTH pages in the same commit.
     """
     result = _measure_module().measure()
     from_tree = set(result["stale_pdfs"])
-    section = _note_section()
-    named = {p for p in from_tree if p in section}
-    missing = from_tree - named
+    section = _section(page, heading)
+    rel = page.relative_to(REPO)
+    missing = {p for p in from_tree if p not in section}
     assert not missing, (
         "these committed PDFs are rendered from an HTML carrying the superseded 사유 "
-        f"and {NOTE.relative_to(REPO)} does not name them: {sorted(missing)}. The note "
-        "is the only place a student can look up which page in their hand is the old "
-        "one, so a page it does not name is a page nobody can answer for.")
+        f"and {rel} does not name them: {sorted(missing)}. These pages are the only "
+        "place a student can look up which page in their hand is the old one, so a "
+        "sheet they do not name is a sheet nobody can answer for.")
 
-    # The other direction: every path the note lists as stale must still be stale.
+    # The other direction: every path the page lists as stale must still be stale.
     listed = [
         line.strip()[2:].strip("`")
         for line in section.split("\n")
         if line.strip().startswith("- `outputs/")
     ]
     assert listed, (
-        f"{NOTE.relative_to(REPO)}'s staleness section lists no paths at all. If the "
-        "tree genuinely has none, say so in prose and change this test deliberately; "
-        "an empty list that used to be populated is how a note goes stale silently.")
+        f"{rel}'s staleness section lists no paths at all. If the tree genuinely has "
+        "none, say so in prose and change this test deliberately; an empty list that "
+        "used to be populated is how a page goes stale silently.")
     stray = [p for p in listed if p not in from_tree]
     assert not stray, (
-        f"{NOTE.relative_to(REPO)} lists {stray} as carrying the superseded 사유, but "
-        "re-deriving from the tree does not agree. Either the sheet was regenerated "
-        "and the note was not updated, or the path is misspelled — and a booth "
-        "instruction that points at the wrong page is worse than none.")
+        f"{rel} lists {stray} as carrying the superseded 사유, but re-deriving from "
+        "the tree does not agree. Either the sheet was regenerated and the page was "
+        "not updated, or the path is misspelled — and a booth instruction that points "
+        "at the wrong page is worse than none.")
 
 
 def test_the_measurement_refuses_to_report_zero_when_a_constant_is_gone():
