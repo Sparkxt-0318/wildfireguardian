@@ -65,35 +65,55 @@ def test_the_artifact_re_derives_from_the_committed_array(artifact):
         assert n == entry["n_components_8conn"]
 
 
+def _union_find_chebyshev(pts: np.ndarray, d: int) -> int:
+    """Pieces under a Chebyshev threshold, by plain union-find over every pair.
+
+    Deliberately shares NO library call with the thing it checks: no ndimage, no
+    cKDTree, no csgraph. O(n^2) and fast enough at these sizes. If this and
+    `_link_count` ever disagree, one of them is wrong and neither can hide behind
+    the other's reading of a library's inclusivity convention.
+    """
+    parent = list(range(len(pts)))
+
+    def find(a: int) -> int:
+        while parent[a] != a:
+            parent[a] = parent[parent[a]]
+            a = parent[a]
+        return a
+
+    d2 = np.abs(pts[:, None, :] - pts[None, :, :]).max(axis=2)
+    near = np.argwhere((d2 <= d) & ~np.eye(len(pts), dtype=bool))
+    for a, b in near:
+        ra, rb = find(int(a)), find(int(b))
+        if ra != rb:
+            parent[ra] = rb
+    return len({find(i) for i in range(len(pts))})
+
+
 def test_the_link_sweep_re_derives_independently(artifact):
     """⚠ The sweep is the part that was WRONG, and nothing re-derived it.
 
     The original `_link_count` dilated by k and labelled, which joins cells up to
     Chebyshev distance 2k+1 rather than k; the artifact's numbers were correct
     counts of a rule the prose did not state, and the suite checked cell counts
-    and 8-connected counts only, so nothing failed. This re-derives the sweep by a
-    completely different route — a KD-tree pair query fed to a graph
-    connected-components solver, no morphology at all — and the two must agree.
+    and 8-connected counts only, so nothing failed. This re-derives the whole
+    sweep, for the observations AND the forecast cores, by brute-force union-find
+    that shares no library call with the measurement.
     """
-    cKDTree = pytest.importorskip("scipy.spatial").cKDTree
-    sparse = pytest.importorskip("scipy.sparse")
-    csgraph = pytest.importorskip("scipy.sparse.csgraph")
     z = np.load(NPZ, allow_pickle=True)
-    obs = z["obs_stack"]
-    for entry in artifact["observations"]:
-        i = int(np.argmin(np.abs(z["obs_times"] - entry["obs_time_min"])))
-        pts = np.column_stack(np.nonzero(obs[i] > 0)).astype(float)
-        tree = cKDTree(pts)
-        for d_str, published in entry["link_sweep"].items():
-            pairs = tree.query_pairs(float(d_str), p=np.inf,
-                                     output_type="ndarray")
-            graph = sparse.coo_matrix(
-                (np.ones(len(pairs)), (pairs[:, 0], pairs[:, 1])),
-                shape=(len(pts), len(pts)))
-            n = int(csgraph.connected_components(graph, directed=False)[0])
-            assert n == published, (
-                f"link_sweep[{d_str}] at t={entry['obs_time_min']} is "
-                f"{published} but an independent re-derivation gives {n}")
+    cases = [(artifact["observations"], z["obs_stack"], z["obs_times"],
+              "obs_time_min", lambda m: m > 0),
+             (artifact["forecast_cores"], z["haz_stack"], z["haz_times"],
+              "haz_time_min", lambda m: m >= artifact["rule"]["p_cut"])]
+    for entries, stack, times, tkey, to_mask in cases:
+        for entry in entries:
+            i = int(np.argmin(np.abs(times - entry[tkey])))
+            pts = np.column_stack(np.nonzero(to_mask(stack[i]))).astype(int)
+            for d_str, published in entry["link_sweep"].items():
+                n = _union_find_chebyshev(pts, int(d_str))
+                assert n == published, (
+                    f"link_sweep[{d_str}] at {tkey}={entry[tkey]} is {published} "
+                    f"but an independent re-derivation gives {n}")
 
 
 def test_the_count_is_a_reading_of_the_rule(artifact):

@@ -2,9 +2,12 @@
 
 *Method proposed by the loop (critic #65 filed the row, WFG-255; the measurement
 and the reading below are the 2026-09-12T1517Z dev lap's). Artifact:
-`data/processed/footprint_components/footprint_components_20260912T1527Z.json`.
-Script: `scripts/measure_footprint_components.py`. Registry prefix
-`fc_yeongdeok_`.*
+`data/processed/footprint_components/footprint_components_20260912T1602Z.json`,
+which every `fc_yeongdeok_` key sources. ⚠ The earlier
+`footprint_components_20260912T1527Z.json` from the same lap is **superseded and
+its `link_sweep` must not be cited** — §7 says why, and the live file records it
+in its own `supersedes` field. Script:
+`scripts/measure_footprint_components.py`. Registry prefix `fc_yeongdeok_`.*
 
 ## 1. The question this answers
 
@@ -15,9 +18,20 @@ slice as **one advancing fire**: `docs/disc_null.md` said the model 「puts cell
 along the arms the fire actually ran down」, and `docs/oracle_gap.md` §4's
 centroid reading turns on how far 「the fire」 moved.
 
-Until this page, **no file in this repository said what that object's geometry
-is.** A judge who is a disaster-response official asks 「이 마스크 안에 무엇이
-들어 있습니까」 in the first minute, and the honest answer was a shrug.
+Until this page, **no file in this repository said what the GRADED slice's
+geometry is.** A judge who is a disaster-response official asks 「이 마스크 안에
+무엇이 들어 있습니까」 in the first minute, and the honest answer was a shrug.
+
+⚠ **Not 「nothing said anything」, and the difference is the WFG-236 failure class,
+so it is stated precisely.** The `t = 0` **seed** slice was already described:
+`docs/present_perimeter_yeongdeok.md` §「slice 0」 and `paper/GAPS.md` both record
+it as **249** cells in **226** 8-connected components (**236** at 4-connectivity)
+with a largest piece of **3** cells, and both already call it a 「detection
+scatter, not a mapped fire line」. §3b below re-derives those figures and agrees
+with them. What was missing is everything else: the **333-minute observation that
+every headline IoU is actually scored against**, the forecast core, the
+link-distance sweep, and how the two masks meet. The seed is not the graded
+object; it is the object the graded one is seeded from.
 
 ## 2. Method
 
@@ -32,9 +46,14 @@ regenerated, and no committed artifact is touched.
 - The observation is `obs_stack[j] > 0`, matched by the same
   nearest-observation rule.
 - Components are labelled under **both** 4- and 8-connectivity, and then under a
-  **link-distance sweep**: cells within *k* cells of one another are counted as
-  one piece. The dilation used to decide those labels is a joining rule only —
-  no dilated cell is ever counted, measured or reported as burnt area.
+  **link-distance sweep**: two cells are one piece when their Chebyshev distance
+  is at most *d* cells. That is computed as a **pairwise distance threshold with
+  no dilation and no morphology of any kind** — the rule is the literal thing
+  this sentence says. ⚠ `d = 1` is therefore *exactly* 8-connectivity, and the
+  script refuses to write a file in which those two disagree on any mask. §7 is
+  why that check exists.
+- The threshold is a joining rule only: it decides which observed cells share a
+  label, and no cell is invented, moved, or counted as burnt because of it.
 
 **Bounding-box convention, stated because two are defensible.** `span_km` is the
 union of the cells' own footprints, `(max − min + 1) × cell`. `centre_span_km` is
@@ -61,8 +80,9 @@ has ever justified:
 | within 4.0 km | `fc_yeongdeok_obs_components_link_4km` **1** |
 
 (The 「within 500 m」 row **is** the 8-connectivity row: on a 500 m grid those are
-the same rule, and `scripts/measure_footprint_components.py` asserts the identity
-on every mask rather than asserting it here.)
+the same rule. `scripts/measure_footprint_components.py` refuses to write a file
+in which the two disagree on any mask, so that identity is enforced in the code
+rather than claimed here.)
 
 ⚠⚠ **That table is the result. Any single row of it is a parameter wearing a
 finding's clothes.** The identical committed mask is one hundred and one objects
@@ -190,9 +210,10 @@ the rule joins cells up to **2k + 1** cells apart: the row labelled 「within
 500 m」 was really 「within 1.5 km」, and it printed **6** where the stated rule
 gives **55**.
 
-**Every number in that first table was a correct count of something. None of them
-was a count of the thing written beside it** — which is the exact defect this page
-was written to name, committed by this page, in the same lap. The lap's
+**Three of that table's five rows were correct counts of something that was not
+the thing written beside them** — the 4- and 8-connectivity rows were right, and
+the three link rows were not — which is the exact defect this page was written to
+name, committed by this page, in the same lap. The lap's
 independent reviewer re-derived the sweep with a true distance threshold, found
 55 / 11 / 3 where the page claimed 6 / 2 / 1, and blocked the push.
 
@@ -200,9 +221,14 @@ What changed as a result:
 
 - `_link_count` is now a pairwise Chebyshev threshold with no dilation anywhere,
   so the rule and the number are the same object.
-- **`d = 1` is exactly 8-connectivity, and the script asserts that identity on
-  every mask it measures.** That one assertion would have caught the original bug
-  on its first run, and it is the cheap gate this class of error deserves.
+- **`d = 1` is exactly 8-connectivity, and the script refuses to write a file in
+  which the two disagree on any mask.** That one check would have caught the
+  original bug on its first run — confirmed, not assumed: the reviewer put the
+  dilation implementation back and it raised `link_sweep[1] = 6 but
+  8-connectivity gives 55`. It is the cheap gate this class of error deserves,
+  and it is an identity rather than a property of this fire: on an integer
+  lattice, 「Chebyshev distance at most 1」 and 「8-connected」 are the same
+  predicate, so they are the same graph on any binary mask.
 - The superseded artifact
   (`footprint_components_20260912T1527Z.json`) is recorded in the new file's
   `supersedes` field rather than deleted. Its sweep must not be cited; every other
@@ -213,5 +239,7 @@ What changed as a result:
 
 The corrected collapse is **gentler** than the first version claimed — 55 → 11 → 3
 → 1 rather than 55 → 6 → 2 → 1 — so §3's argument is weaker than it was when it
-was wrong, and it still holds: the count moves by a factor of nine across rules
-nobody has justified.
+was wrong, and it still holds. The count moves from
+`fc_yeongdeok_obs_components_4conn` **101** to
+`fc_yeongdeok_obs_components_link_4km` **1** across the whole table, and from
+**55** to **1** across the link rules alone, over rules nobody has justified.

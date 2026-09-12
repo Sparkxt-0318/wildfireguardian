@@ -81,9 +81,15 @@ def _fig(art: dict) -> list[tuple[str, str, str, str]]:
     s = f"observations.{seed_i}"
     return [
         # ---- the graded observation at the headline slice ----
+        # ⚠ The 「Regenerate:」 clause is read by scripts/build_artifact_manifest.py,
+        # which otherwise infers the command from filename literals in scripts and
+        # so resolves the SUPERSEDED artifact (named literally in the measurement
+        # script's `supersedes` field) while leaving the LIVE one UNKNOWN. Stating
+        # it here points the manifest at the file 29 keys actually depend on.
         ("obs_time_min", f"{o}.obs_time_min", "minutes",
          "the observation slice every headline IoU on this fire is scored "
-         "against, fixed by the nearest-observation rule and not chosen here"),
+         "against, fixed by the nearest-observation rule and not chosen here. "
+         "Regenerate: python scripts/measure_footprint_components.py"),
         ("obs_cells", f"{o}.n_cells", "cells",
          "cells in that observed footprint"),
         ("obs_components_8conn", f"{o}.n_components_8conn", "count",
@@ -95,7 +101,8 @@ def _fig(art: dict) -> list[tuple[str, str, str, str]]:
         ("obs_components_link_500m", f"{o}.link_sweep.1", "count",
          "pieces when cells within 500 m (Chebyshev d=1) are joined. ⚠ This IS "
          "8-connectivity and equals obs_components_8conn by construction; the "
-         "script asserts the identity. It is registered so the sweep starts at a "
+         "script refuses to write a file in which they disagree. It is registered "
+         "so the sweep starts at a "
          "rule the reader already has"),
         ("obs_components_link_1km", f"{o}.link_sweep.2", "count",
          "pieces when cells within 1.0 km (d=2) are joined"),

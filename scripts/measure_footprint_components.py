@@ -9,8 +9,16 @@ sentences read that slice as **one advancing fire**: ``docs/disc_null.md`` says
 the model 「puts cells along the arms the fire actually ran down」, and
 ``docs/oracle_gap.md`` §4's centroid reading turns on how far 「the fire」 moved.
 
-Nothing in the repository has ever said what that object's geometry is. This
-script says it, from the committed array, and registers the numbers.
+Nothing in the repository has ever said what the GRADED slice's geometry is.
+This script says it, from the committed array, and registers the numbers.
+
+⚠ Stated precisely, because 「nothing said anything」 is the WFG-236 failure
+class: the ``t = 0`` SEED slice was already described in
+``docs/present_perimeter_yeongdeok.md`` and ``paper/GAPS.md`` as 249 cells in 226
+8-connected components (236 at 4-connectivity), largest 3, and both already call
+it a detection scatter. This script re-derives those and agrees. What was missing
+is the 333-minute observation every headline IoU is actually SCORED against, the
+forecast core, the link sweep, and how the two masks meet.
 
 ⚠⚠ THE HEADLINE OF THIS MEASUREMENT IS NOT A COMPONENT COUNT
 ------------------------------------------------------------
@@ -124,8 +132,11 @@ def _link_count(mask: np.ndarray, d: int) -> int:
     unsurvivable defect, so the joining rule is now the literal thing the prose
     says: a pairwise distance threshold, no dilation anywhere.
 
-    `d = 1` is therefore EXACTLY 8-connectivity, and `measure()` asserts that
-    identity on every mask rather than trusting this docstring.
+    `d = 1` is therefore EXACTLY 8-connectivity — on an integer lattice
+    「Chebyshev distance at most 1」 and 「8-connected」 are the same predicate, so
+    this is an identity and not a property of this fire — and `describe()`
+    refuses to return a result in which the two disagree, rather than trusting
+    this docstring.
 
     The threshold is a JOINING RULE and not a redrawing of the fire: it decides
     which observed cells share a label, and no cell is invented, moved or
@@ -279,8 +290,9 @@ def measure(npz_path: Path, p_cut: float) -> dict:
             "link_sweep_meaning": "two cells are one piece when their Chebyshev "
                                   "distance is at most d cells, computed as a "
                                   "pairwise threshold with NO dilation; d=1 is "
-                                  "exactly 8-connectivity and measure() asserts "
-                                  "that identity on every mask",
+                                  "exactly 8-connectivity and the script refuses "
+                                  "to write a file in which the two disagree on "
+                                  "any mask",
             "span_convention": "span_km is the union of cell footprints "
                                "((max-min+1)*cell); centre_span_km is between "
                                "extreme cell centres ((max-min)*cell); they "
