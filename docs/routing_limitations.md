@@ -14,6 +14,14 @@ direction backwards (`routing/hazard.py`, the past-horizon clamp), and one
 docstring that called a row-weighted average a fold average (`spread_v2/model.py`).
 Wording only; no classification, cost, or exposure computation moved.
 
+⚠ **§6 was added on 2026-09-12 and is not one of the five.** The Round-4 review
+found five; critic #70 found a sixth on 2026-09-11 — the *same* defect as §1, in
+the bucket defined one line above §1's in the same dict, which the Round-4 sweep
+did not carry across. It is recorded here rather than renumbered into the
+original five, because 「the review found five and missed the neighbour of one of
+them」 is the finding. It changed a second A4 sheet sentence, on the same
+wording-only terms.
+
 ---
 
 ## 1. `fa_exceeds_budget` names a cause the code does not establish
@@ -138,9 +146,99 @@ corrected) overstated the symmetry. The committed values are what they are —
 this changes their *reading*: an importance rank is mostly the big fold's rank.
 `weather_dependency.md` §1 group sums inherit the same weighting.
 
+## 6. `no_safe_route` named a cause too, and the audit §1 ran was never run on it
+
+**Found by critic #70 (2026-09-11), measured and repaired by the WFG-262 lap
+(2026-09-12).** §1 is this same audit on `fa_exceeds_budget`, the bucket defined
+one line above `no_safe_route` in the same dict. It was never run on the
+neighbour, and the neighbour is the bucket that is non-empty on all three
+regions.
+
+**The code condition** ([live/pipeline.py](../src/wildfireguardian/live/pipeline.py),
+classification chain) is only:
+
+    naive route enters the hazard  AND  future-aware search reached no refuge
+
+**The sentence it used to print** on the A4 sheet was 「예산 내 안전한 보행
+경로가 없음(우회 포함)」 — 「no safe walking route within budget, detours
+included」. That asserts two things the condition does not establish: that a
+budget was consumed, and that detours were tried and exhausted. `reached=False`
+is also produced by the ceil-rounded hazard gate closing every alternative with
+the budget nowhere near binding, which is §1's mechanism unchanged. **The one
+change made**: the sheet now prints 「직행 경로는 화재를 지나고 안전한 우회
+도달은 확인되지 않음」, which is the code condition and nothing more. Committed
+run directories under `outputs/live/replay/` keep the sentence they were
+generated with, as records, exactly as §1 left them.
+
+### The member that would have made it worse, and how many there are
+
+`routing/evacuation.py` (future-aware search, the pre-search guard) returns
+`reached=False, enters_hazard=True` **before any search runs**, when the
+origin's own node is already at or above `p_cut` at departure, carrying
+`note="origin already at/above the impassable cutoff at departure"`. The
+classifier branches only on `reached` and `enters_hazard` and **never reads
+`note`**, so such an origin would land in `no_safe_route` — and for a rural
+elderly resident 「we searched and found nothing」 and 「the fire is already at
+your house」 are opposite dispatch decisions.
+
+**The row that filed this assumed at least one such member existed. It was
+measured instead, and there are none.**
+`scripts/measure_no_safe_route_origin_split.py` rebuilds each region's node set
+from the committed walk snapshot, imports the committed origin rule rather than
+restating it, and reads the branch predicate off `build_time_expanded_field`'s
+own table at column 0:
+
+| region | committed `no_safe_route` | refused before any search |
+|---|---|---|
+| 영덕 2025 (canonical) | 2 | **0** |
+| 의성·안동 2025 | 12 | **0** |
+| 울진·삼척 2022 | 10 | **0** |
+
+Identity controls, all three required before any count above is believed:
+`n_nodes` and `n_origins_scanned` re-derive exactly against each committed
+artifact (8443 / 458, 6678 / 368, 7300 / 393), and for the two regions whose
+artifact recorded `origin_nodes_by_bucket`, every listed member was checked
+individually rather than inferred from the aggregate. Registered as the four
+`nsr_` keys. **No committed count moved and no arm was refit**; the interpretation
+was written into the claim commit before the numbers existed, both ways.
+
+### Why the zero is structural, and why it still needs a test
+
+All three copies of `candidate_origins`
+(`run_real_roads_real_hazard_slope.py`, `run_multi_region_routing.py`,
+`live/pipeline.py`) skip a node with `hazard.prob_at(x, y, 0.0) >= p_cut`, and
+`build_time_expanded_field` fills `table[:, 0]` with
+`prob_at_points(nx, ny, departure_min + 0)`. At `departure_min = 0` those are
+**the same predicate on the same node**, so every origin that could trigger the
+guard was removed before the scan began.
+
+**What this does NOT show.** It does not license the old sheet sentence: §1's
+mechanism needs no unsearched member, which is why the wording changed anyway.
+It says nothing about a scan called with `departure_min > 0`, where the two
+predicates read different columns and the guard becomes reachable. And the
+protection is unnamed: it lives three files from the branch it protects, in
+three duplicated copies, and until this row nothing tied the two predicates
+together. **The margin is also thin** — 영덕's largest departure-time
+probability over scanned origins is `nsr_max_departure_prob_yeongdeok`, which
+clears the 0.5 cutoff by under half a hundredth. The invariant holds by
+arithmetic, not by design intent, and `tests/test_no_safe_route_origin_split.py`
+is what will notice when it stops holding.
+
+⚠ **What the tests do not cover, said plainly.** They pin the guard's behaviour,
+that its note has a reader, that both sheet lines assert no cause, and that all
+three origin rules still carry the filter. They do **not** exercise
+`route_region`'s refused-origin branch end to end, because that branch fires for
+zero origins on every committed field and the classification loop is inline
+rather than extracted. Pulling it out to make it testable would be a refactor,
+and this row is a label and a sentence. So the branch is reasoned and reviewed,
+not executed: if it ever fires in a real run, that run is the first execution of
+those three lines.
+
 ---
 
 *Cross-references: `budget_sweep.md` (§1's bucket), `slope_integration.md` and
 `budget_sweep.md` (§2's minimisation phrasing), `operator_screen.md` /
 `live_pipeline.md` (§3's sheets), `service_layer.md` §5 (determinism
-guarantees §4 leans on), `MODEL_CARD.md` (§5's committed ranking).*
+guarantees §4 leans on), `MODEL_CARD.md` (§5's committed ranking),
+`multi_region.md` §3.1 and `present_perimeter_yeongdeok.md` §4 (§6's three
+committed bucket counts).*

@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "5c44b637bc9623349ce2e4745a081df2c4253438",
-  "n_artifacts": 115,
-  "total_bytes": 14665983,
+  "generated_at_git_commit": "c83e8d2018946533b0f1ba3f65ac8d354c06161a",
+  "n_artifacts": 116,
+  "total_bytes": 14672915,
   "total_mib": 13.99,
-  "n_git_tracked": 115,
+  "n_git_tracked": 116,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 9,
   "artifacts": [
@@ -543,7 +543,10 @@
       "git_tracked": true,
       "n_registry_entries": 0,
       "cited_by_docs": [
-        "docs/auto/NEEDS_HUMAN.md"
+        "docs/auto/NEEDS_HUMAN.md",
+        "docs/auto/reports/2026-09-11T2142Z-manual.md",
+        "paper/GAPS.md",
+        "paper/README.md"
       ],
       "regenerate": "python scripts/measure_building_snapping.py"
     },
@@ -641,6 +644,16 @@
         "docs/network_drift.md"
       ],
       "regenerate": "python scripts/build_numbers.py"
+    },
+    {
+      "path": "data/processed/no_safe_route_origin_split/split_20260912T0026Z.json",
+      "bytes": 6932,
+      "sha256": "fa2b896f77516af26bdf23a74ca3c400233054db54e797b13c52387f86c60796",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 4,
+      "cited_by_docs": [],
+      "regenerate": "python scripts/measure_no_safe_route_origin_split.py"
     },
     {
       "path": "data/processed/objective_budget_canonical.json",
@@ -806,6 +819,8 @@
       "n_registry_entries": 15,
       "cited_by_docs": [
         "docs/auto/BACKLOG.md",
+        "docs/auto/reports/2026-09-11T2230Z-dev.md",
+        "docs/auto/reports/2026-09-11T2257Z-dev.md",
         "docs/present_perimeter_yeongdeok.md"
       ],
       "regenerate": "python scripts/measure_present_perimeter_yeongdeok_buffer.py"
@@ -819,15 +834,17 @@
       "n_registry_entries": 6,
       "cited_by_docs": [
         "docs/auto/BACKLOG.md",
-        "docs/auto/CRITIC_LATEST.md",
         "docs/auto/NEEDS_HUMAN.md",
         "docs/auto/SCORECARD.md",
         "docs/auto/reports/2026-09-11T1305Z-dev.md",
         "docs/auto/reports/2026-09-11T1416Z-critic.md",
         "docs/auto/reports/2026-09-11T1536Z-manual.md",
+        "docs/auto/reports/2026-09-11T2142Z-manual.md",
         "docs/present_perimeter_yeongdeok.md",
         "docs/withdrawn_claims.md",
-        "paper/GAPS.md"
+        "paper/GAPS.md",
+        "paper/README.md",
+        "paper/manuscript.md"
       ],
       "regenerate": "python scripts/measure_present_perimeter_yeongdeok.py"
     },
@@ -1089,7 +1106,6 @@
       "n_registry_entries": 0,
       "cited_by_docs": [
         "docs/auto/BACKLOG.md",
-        "docs/auto/CRITIC_LATEST.md",
         "docs/auto/JUDGE_QA.md",
         "docs/auto/MEMO.md",
         "docs/auto/NEEDS_HUMAN.md",
@@ -1106,6 +1122,7 @@
         "docs/auto/reports/2026-09-11T1852Z-dev.md",
         "docs/auto/reports/2026-09-11T1923Z-dev.md",
         "docs/auto/reports/2026-09-11T2022Z-critic.md",
+        "docs/auto/reports/2026-09-11T2142Z-manual.md",
         "docs/live_pipeline.md",
         "docs/manual_trigger.md",
         "docs/oracle_gap.md",

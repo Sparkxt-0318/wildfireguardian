@@ -335,6 +335,13 @@ data/processed/vulnerability/refuges/
 !data/processed/timeline_roles/
 !data/processed/timeline_roles/*.json
 
+# WFG-262. Small JSON: for each region, how many committed scan origins
+# routing/evacuation.py would refuse before any search runs. Four registry keys
+# re-derive from it and docs/routing_limitations.md §6 is checked against it, so
+# it has to be in the clone a stranger checks out.
+!data/processed/no_safe_route_origin_split/
+!data/processed/no_safe_route_origin_split/*.json
+
 # Validation-case manifest JSON files ARE committed (they're stubs, not
 # bulk data).
 !data/validation_cases/**

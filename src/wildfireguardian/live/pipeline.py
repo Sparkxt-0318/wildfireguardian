@@ -60,7 +60,8 @@ from ..config import config_hash, get as _cfg
 from ..delivery import broadcast, printable, sms
 from ..delivery.villages import _bearing_word, cluster_points, named_refuges
 from ..routing.evacuation import (
-    build_time_expanded_field, future_aware_route, naive_route,
+    ORIGIN_REFUSED_NOTE, build_time_expanded_field, future_aware_route,
+    naive_route,
 )
 from ..routing.hazard import HazardSequence
 from ..routing.slope import build_walk_network, load_snapshot_graph
@@ -102,13 +103,27 @@ class RoutingCancelled(RuntimeError):
 #: ceil-rounded hazard bin blocking every detour) produces the same bucket
 #: with the budget nowhere near binding, reproduced at 600 min. The sheet
 #: states what is established and no more. docs/routing_limitations.md §1.
+#: ⚠ `no_safe_route`'s sentence must not assert the BUDGET either, for the
+#: identical reason: its code condition is only "the direct route enters the
+#: fire AND the future-aware search reached no refuge", and the same
+#: ceil-rounded hazard gate closes every detour with the budget nowhere near
+#: binding. It said 「예산 내 … (우회 포함)」 until WFG-262.
+#: docs/routing_limitations.md §6.
 BUCKET_TEXT: dict[str, tuple[bool, str]] = {
     "naive_into_FA_safe": (False, "최단 경로는 화재 통과 — 우회 경로 필요"),
-    "no_safe_route": (True, "예산 내 안전한 보행 경로가 없음(우회 포함)"),
+    "no_safe_route": (True, "직행 경로는 화재를 지나고 안전한 우회 도달은 확인되지 않음"),
     "fa_exceeds_budget": (True, "직행 경로는 화재를 지나지 않으나 예산 내 안전 도달은 확인되지 않음"),
     "both_enter": (True, "우회 경로도 화재를 통과함"),
     "naive_unreachable": (True, "대피처까지 연결된 경로 없음"),
 }
+#: The line for an origin the future-aware search refused BEFORE running, because
+#: the origin's own node was already at or above `p_cut` at departure (WFG-262).
+#: It sits inside `no_safe_route` and does not add a bucket: the partition, and
+#: every committed count, are untouched. It states the code condition and no
+#: more — no budget, no detour, no route search, because none of the three
+#: happened. docs/routing_limitations.md §6.
+ORIGIN_REFUSED_TEXT = "출발 지점이 이미 통행 불가 기준 이상, 경로 탐색 없음"
+
 #: Buckets that put a point on an operational sheet. `both_safe` does not.
 ACTIONABLE: tuple[str, ...] = tuple(BUCKET_TEXT)
 
@@ -483,12 +498,35 @@ def route_region(res: Resources, *, p_cut: float, budget_min: float,
             continue
         tc = _time_to_cutoff(res.hazard, x, y, p_cut)
         unreachable, text = BUCKET_TEXT[bucket]
+        # WFG-262. `fa.note` is READ here, and this is the only place that reads
+        # it. The future-aware search refuses an origin whose own node is
+        # already at or above p_cut at departure, BEFORE any search runs; the
+        # classifier above sees only `reached` and `enters_hazard`, so such an
+        # origin lands in `no_safe_route` and would otherwise print that bucket's
+        # line — 「the direct route enters the fire and safe arrival by detour was
+        # not confirmed」 — when nothing was routed at all and the fire is already
+        # at the house. Those are opposite dispatch decisions.
+        #
+        # It changes no count: the bucket and the partition are untouched, and
+        # this branch fires for ZERO origins on all three committed fields,
+        # because every copy of `candidate_origins` already skips a node with
+        # `hazard.prob_at(x, y, 0.0) >= p_cut` — the same predicate, at
+        # departure_min = 0. That invariant is unnamed, thin (영덕 clears it by
+        # under half a hundredth) and lives three files away, so the sheet says
+        # the right thing on the day it stops holding rather than assuming it
+        # never will. docs/routing_limitations.md §6.
+        origin_refused = (bucket == "no_safe_route"
+                          and fa.note == ORIGIN_REFUSED_NOTE)
+        if origin_refused:
+            text = ORIGIN_REFUSED_TEXT
         pt = {
             "x": x, "y": y, "home_node": int(n), "bucket": bucket,
             "unreachable": unreachable,
             "closing_window_min": (None if math.isinf(tc) else tc),
             "walk_time_min": (round(fa.total_time_min, 1) if fa.reached else None),
         }
+        if origin_refused:
+            pt["origin_refused_before_search"] = True
         if unreachable:
             pt["reason_ko"] = text
         else:

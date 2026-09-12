@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "title": "WFG-262 — how many committed `no_safe_route` origins were refused before any search ran",
+  "generated_utc": "2026-09-12T00:26:52+00:00",
+  "git_commit": "c83e8d2018946533b0f1ba3f65ac8d354c06161a",
+  "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+  "row": "WFG-262",
+  "question": "future_aware_route returns reached=False before any search when table[origin, 0] >= p_cut. Does that branch fire for any origin in the committed canonical scans?",
+  "method": "No scan is re-run and no number is refit. For each region the node set is rebuilt from the committed walk snapshot, the committed origin rule is IMPORTED from run_real_roads_real_hazard_slope.candidate_origins, and the branch predicate is read off build_time_expanded_field's own table at column 0. Identity controls on n_nodes and n_origins_scanned gate every count below.",
+  "why_no_dem_is_needed": "build_time_expanded_field sets table[:, k] = hazard.prob_at_points(nx, ny, departure_min + k*time_step_min), so at k=0 and departure_min=0 the predicate reads node coordinates and the hazard surface only. Slope changes edges, not the node set, and both arms are built from the same snapshot graphml. The n_nodes control is what pins this.",
+  "parameters": {
+    "p_cut": 0.5,
+    "time_budget_min": 600.0,
+    "time_step_min": 10.0,
+    "origin_scan_stride": 18,
+    "departure_min": 0.0,
+    "source": "config/default.yaml — unchanged from every 459-series run"
+  },
+  "identity_controls_failed": [],
+  "total_origins_removed_before_search": 0,
+  "finding": "ZERO across all three regions: the branch cannot fire for any scanned origin, because all three copies of candidate_origins skip nodes with hazard.prob_at(x, y, 0.0) >= p_cut and that is the same predicate the branch tests. The `no_safe_route` bucket is NOT contaminated by unsearched origins on any committed field.",
+  "what_this_is_not": "This is NOT a licence for the A4 sheet sentence. `no_safe_route`'s code condition is only 「the naive route enters the hazard AND the future-aware search reached no refuge」. reached=False is also produced by the hazard gate blocking every alternative with the budget nowhere near binding — the identical mechanism docs/routing_limitations.md §1 established for fa_exceeds_budget, and it holds with zero unsearched members. This measurement changes the REASON the bucket is clean, not whether the sentence overclaims.",
+  "the_protection_is_unnamed": "The invariant that keeps the bucket clean lives in candidate_origins, three files from the branch it protects, in three duplicated copies, and no test tied the two predicates together before this row. A scan called with departure_min > 0, or an origin rule that drops the p_cut filter, reintroduces the defect silently. tests/test_no_safe_route_origin_split.py is that tie.",
+  "regions": [
+    {
+      "region": "yeongdeok_2025",
+      "label": "영덕 2025 (canonical, headline region)",
+      "committed_artifact": "data/processed/real_roads_real_hazard_canonical.json",
+      "committed_arm": "slope_digraph_canonical",
+      "hazard_npz": "data/processed/routing_demo_canonical.npz",
+      "hazard_npz_sha256": "81b4e4d159daa7a8ccc7c4fedf3fea948d501fff2d7e886c1fd55bbf47043fb7",
+      "walk_snapshot": "osm-walk_yeongdeok-2025_20260724_2bff8d85.graphml.gz",
+      "identity_controls": {
+        "n_nodes_rebuilt": 8443,
+        "n_nodes_committed": 8443,
+        "n_nodes_match": true,
+        "n_origins_rebuilt": 458,
+        "n_origins_committed": 458,
+        "n_origins_match": true
+      },
+      "committed_counts": {
+        "naive_into_FA_safe": 42,
+        "no_safe_route": 2,
+        "both_safe": 414,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "fa_exceeds_budget": 0,
+        "unclassified": 0
+      },
+      "no_safe_route_committed": 2,
+      "n_origins_removed_before_search": 0,
+      "origin_nodes_removed_before_search": [],
+      "committed_membership_check": null,
+      "max_prob_at_departure_over_scanned_origins": 0.495617,
+      "p_cut": 0.5
+    },
+    {
+      "region": "uiseong_andong_2025",
+      "label": "의성·안동 2025",
+      "committed_artifact": "data/processed/real_roads_real_hazard_uiseong_andong_2025.json",
+      "committed_arm": "slope_digraph_canonical",
+      "hazard_npz": "data/processed/hazard_uiseong_andong_2025.npz",
+      "hazard_npz_sha256": "4016c2e6ef8e27eb12310a816a416b6d1a6bf54d0187d6ac8fbc4ad4f747e3cd",
+      "walk_snapshot": "osm-walk_uiseong-andong-2025_20260802_031147a0.graphml.gz",
+      "identity_controls": {
+        "n_nodes_rebuilt": 6678,
+        "n_nodes_committed": 6678,
+        "n_nodes_match": true,
+        "n_origins_rebuilt": 368,
+        "n_origins_committed": 368,
+        "n_origins_match": true
+      },
+      "committed_counts": {
+        "naive_into_FA_safe": 91,
+        "no_safe_route": 12,
+        "both_safe": 263,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "fa_exceeds_budget": 2,
+        "unclassified": 0
+      },
+      "no_safe_route_committed": 12,
+      "n_origins_removed_before_search": 0,
+      "origin_nodes_removed_before_search": [],
+      "committed_membership_check": {
+        "n_members_committed": 12,
+        "n_members_resolvable_in_rebuilt_graph": 12,
+        "n_members_at_or_above_p_cut_at_departure": 0,
+        "max_prob_at_departure_over_members": 0.0
+      },
+      "max_prob_at_departure_over_scanned_origins": 0.213027,
+      "p_cut": 0.5
+    },
+    {
+      "region": "uljin_samcheok_2022",
+      "label": "울진·삼척 2022",
+      "committed_artifact": "data/processed/real_roads_real_hazard_uljin_samcheok_2022.json",
+      "committed_arm": "slope_digraph_canonical",
+      "hazard_npz": "data/processed/hazard_uljin_samcheok_2022.npz",
+      "hazard_npz_sha256": "5482c9b5ded9a576f3a8d4134b0633bb20992838ffd013942531f58adc09eb97",
+      "walk_snapshot": "osm-walk_uljin-samcheok-2022_20260802_a3c22a47.graphml.gz",
+      "identity_controls": {
+        "n_nodes_rebuilt": 7300,
+        "n_nodes_committed": 7300,
+        "n_nodes_match": true,
+        "n_origins_rebuilt": 393,
+        "n_origins_committed": 393,
+        "n_origins_match": true
+      },
+      "committed_counts": {
+        "naive_into_FA_safe": 3,
+        "no_safe_route": 10,
+        "both_safe": 377,
+        "both_enter": 0,
+        "naive_unreachable": 0,
+        "fa_exceeds_budget": 3,
+        "unclassified": 0
+      },
+      "no_safe_route_committed": 10,
+      "n_origins_removed_before_search": 0,
+      "origin_nodes_removed_before_search": [],
+      "committed_membership_check": {
+        "n_members_committed": 10,
+        "n_members_resolvable_in_rebuilt_graph": 10,
+        "n_members_at_or_above_p_cut_at_departure": 0,
+        "max_prob_at_departure_over_members": 0.367075
+      },
+      "max_prob_at_departure_over_scanned_origins": 0.494521,
+      "p_cut": 0.5
+    }
+  ]
+}

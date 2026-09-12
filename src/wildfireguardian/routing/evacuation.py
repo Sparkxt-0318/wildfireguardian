@@ -381,6 +381,21 @@ class TimeExpandedField:
             raise ValueError(f"origin {start} is not in the field's node set")
 
 
+#: The note :func:`future_aware_route` returns when the origin's own node is
+#: already at or above ``p_cut`` at departure, so the search never runs.
+#:
+#: ⚠ A NAME, not a literal, since WFG-262. It was a bare string, and critic #70
+#: measured that exactly one place in the tree contained it: the definition.
+#: Nothing read it, so downstream an origin refused before any search was
+#: indistinguishable from one whose search failed, and both printed a dispatch
+#: line saying no route existed within budget. On a rescue sheet for a rural
+#: elderly resident those are opposite instructions. `live/pipeline.py` reads
+#: this constant; `tests/test_no_safe_route_origin_split.py` pins that at least
+#: one reader outside this module still does.
+#: See docs/routing_limitations.md §6.
+ORIGIN_REFUSED_NOTE = "origin already at/above the impassable cutoff at departure"
+
+
 def build_time_expanded_field(
     net: RoadNetwork,
     hazard: HazardSequence,
@@ -469,7 +484,7 @@ def future_aware_route(
         return RouteResult(kind="future_aware", reached=False, route=[], target=None,
                            departure_min=departure_min, total_distance_m=0.0,
                            total_time_min=0.0, enters_hazard=True,
-                           note="origin already at/above the impassable cutoff at departure")
+                           note=ORIGIN_REFUSED_NOTE)
 
     shelters_idx = {idx[s] for s in net.shelters if s in idx}
     start_state = (s_idx, 0)
