@@ -5,6 +5,18 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
+**TICK COUNT, critic #74, 2026-09-12T1125Z at `092c907`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
+R3, R11 and R12 do not tick; R10 was withdrawn 2026-09-04.** ⚠⚠ **ZERO lines ticked for the THIRTY-FIRST
+consecutive critic lap.** Verified the cheap way: `git diff <the commit 24 h back>..092c907 -- docs/auto/KCF_READINESS.md`
+is **empty**. ⚠ Do not be misled by `git log --since='26 hours ago' -- docs/auto/KCF_READINESS.md`, which
+answers `679c187` and whose `git show` renders this file as `A`; that is the shallow clone's boundary at
+depth **50**, not a change (WFG-217). The count has stood at 8 since critic #43 ticked R8 on 2026-09-08,
+and **the sprint ends 2026-09-15, three days out**. **R3 is the only one of CHARTER §14b's six named lines
+(R1, R3, R4, R7, R8, R9) that is unticked, it is `blocked(NH-046)`, and NH-046 came due 2026-09-10. One
+unanswered question holds the ninth tick and the whole P1 block.** ⚠ The detail for this lap is the section
+appended at the **bottom** of this file, matching the convention the last eleven laps used. The lead below is
+critic #65's and is kept as the record (CHARTER §3.7), not rewritten.
+
 **Tick count, critic #65, 2026-09-11T0810Z at `f7ee58d`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
 R3, R11 and R12 are the three that do not tick; R10 was withdrawn 2026-09-04.** ⚠⚠ **ZERO lines ticked, for
 the TWENTY-SECOND consecutive critic lap, and this window is not excused: it held two dev laps that closed
@@ -2224,3 +2236,58 @@ exits 0 over **70** substantive paths. GitHub `auto-gates` run **364** is `succe
 **no run in the window concluded `failure`** (one `cancelled`, 352, superseded by the next push). The clone
 is SHALLOW at **50** commits and was deliberately not deepened, so `tests/test_timeline_roles.py:234` SKIPS
 rather than runs here; GitHub at `fetch-depth: 0` is what certifies that check, and it is green.
+
+---
+
+## Critic #74, 2026-09-12T1125Z at `092c907` — 8 of 11, HELD, thirty-first consecutive lap with nothing ticked
+
+**Measured, not inherited.** `git diff` over the 24 h window on this path is **empty**, so no
+cell moved. Every line below was re-checked against the tree at this head rather than read
+from a report; where a line is ticked it is ticked because the artifact was opened or hashed
+here.
+
+- **R1 holds.** `web/finals.html` is offline by gate inside a green `gates.py --mode full` at
+  this head (**2233** passed, 65 skipped, 3 xfailed, pytest 357.8 s). ⚠ **Checked
+  additionally because this window touched the sheets the screen cites:** the screen names
+  `outputs/dispatch/20260801T163042Z/01-거무역리공원-북쪽/dispatch_a4.html`, and that file
+  carries **neither** 사유 sentence — not the superseded one and not the current one — so
+  nothing the judge sees on screen disagrees with anything. The registry grew this window
+  (six `dss_*` keys, eight `vus_*` keys) and the screen was rebuilt with it.
+- **R2 holds.** The evidence cards are unchanged in this window.
+- **R3 does NOT tick, and it is the whole hold.** `blocked(NH-046)`. Its criterion names
+  `make all-checks`, which cannot go green on any clone but the author's, and no lap may
+  reword a readiness criterion. **NH-046 came due 2026-09-10 and no reply has arrived on
+  either channel.** CHARTER §14b releases the P1 hygiene block when R1, R3, R4, R7, R8 and R9
+  tick; five of the six tick. **This is the ninth tick, and it is one email.**
+- **R4 holds.** `docs/auto/DEMO_SCRIPT_5MIN.md` unchanged in the window; the kit that carries
+  it re-hashed here at 7 of 7.
+- **R5 holds.** `tests/test_judge_qa_bank.py` is green inside the full run above. ⚠ **But
+  read the tick with this lap's finding beside it:** the bank is internally consistent and
+  gated, and Q39's *instruction* is still the one that assembles a mixed stack for a judge.
+  R5's criterion is 「every T0 answer cites a file; no purged phrasing remains」, which is met;
+  it does not ask whether an instruction in a card is operationally right. **That gap is this
+  lap's `fix-before-next-row` item, not a reason to untick R5** — inventing a deduction the
+  criterion does not name is how a checklist stops meaning anything.
+- **R6 holds.** `docs/submission_reconciliation.md` unchanged.
+- **R7 holds, re-hashed here.** `docs/auto/finals/printables/WFG_printables_20260911T2137Z.pdf`,
+  **60** pages, `manifest_20260911T2137Z.json`, **7 of 7** sources matching the tree.
+- **R8 holds.** The forbidden-string and collision gates are green in the run above, and the
+  window added `WC-021` to the withdrawal registry (21 entries) for the README spelling.
+- **R9 holds, re-hashed here.** `release/kcf-finals-2026/MANIFEST.json` declares **19** files
+  and all **19** match their own `source` paths; the bundle names the 2137Z kit.
+- **R10** withdrawn 2026-09-04 (NH-008).
+- **R11 does NOT tick.** Its row **WFG-024** is still `todo` and still held behind R3 by
+  CHARTER §14b.
+- **R12 does NOT tick.** The author's own (NH-014): nobody has run the booth recipe on the
+  real laptop, and nobody has put any of these sheets through a real printer.
+
+⚠ **The one thing worth saying about the loop rather than the product.** Thirty-one critic
+laps have now reported this file unchanged. The three unticked lines are **R3** (one
+unanswered email), **R11** (held behind R3) and **R12** (the author's hands on the laptop).
+**Not one of them is reachable by a lap.** So the count standing still is not evidence that
+the laps are idle — this window alone closed two P0 rows, rebuilt nothing it should not have,
+and added an independent measurement route — it is evidence that the definition of done has
+its last three lines on the other side of a channel that has delivered nothing for seven
+days. That reading is **NH-046**, **NH-050** and **WFG-211**, and it is why this lap raised
+the severity of NH-049 rather than filing a new entry: the loop does not need another
+question, it needs one of the twenty-seven open ones answered.
