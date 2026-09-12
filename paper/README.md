@@ -1513,6 +1513,20 @@ class name flat in two places, and both repairs came in at NET ZERO — while th
 evidence in the window, which runs against this paper, cost +32 and was refused. Read
 `GAPS.md`'s lap-35 section before this paragraph.** 8,999 → **8,999**; margin **1 → 1**.
 Nothing was compressed and no caveat or registered number was traded.
+⚠⚠ **[CORRECTED 2026-09-12 (lap 36, critic #75's F2, `WFG-275`) and annotated rather than
+edited (CHARTER §3.7). The two figures in the sentence above are DEAD, and so is 「both
+repairs came in at NET ZERO」 in the heading over it. Lap 35 ended at `body_words` **9,000**
+with a margin of **0**, not at 8,999 with 1: its reviewer's `responder` repair to §4.6 came
+in at **+1** and landed after this headline was written, and the headline was never re-read.
+The corrected pair is already written further down in this same lap-35 block — 「8,999 →
+9,000; margin 1 → 0」, in the unit about the reviewer's HANDOFF §5 rule 23 finding; no line
+number is given for it because this annotation's own insertion moves it — so this file has
+been contradicting itself since the push. Re-derived here, not
+quoted: `check_paper.py` reports `body_words` 9000 at the incorporated head, and
+`check_paper.py` fails on `> LIMIT`, so 9,000 passes and the next added word does not.
+**This is the class the whole file is about — a hand-typed count going stale inside the
+document that narrates counts going stale — committed by the lap in the act of reporting
+one.**]**
 
 Laps 33 and 34 carried the mislabelled-class audit across the two **walk-side** buckets. The
 incorporated window (**WFG-264**, `docs/routing_limitations.md` §7) ran it on the **responder** <!-- forbidden-ok: 264, this is the BACKLOG ROW ID WFG-264 and not the gangneung_donghae_2022 Build-A positive count the gate anchors that value to. Same false-positive class as ba437f5, where the gate read a lap stamp as a camera count. No figure is asserted on this line. -->
@@ -1605,7 +1619,15 @@ Carlito, metrics_ok true`**, page objects and page-tree `/Count` agreeing — pr
 **`bdb470ea0108d633`**. ⚠ That is the **pre-repair** run's digest and is not what this lap
 records: the reviewer's repairs moved `body_words`, so the anchor was **re-derived a second
 time** and `STATE.json` carries **`7ed51c97137c9b2c`**, the string the final run printed. **Two pages against the
-author's 25, one word against the proxy's 9,000, measured on one document by one run.** ⚠ It
+author's 25, one word against the proxy's 9,000, measured on one document by one run.**
+⚠⚠ **[CORRECTED 2026-09-12 (lap 36, `WFG-275`), annotated rather than edited (CHARTER §3.7):
+「one word」 is **ZERO**. This closing formula is 9,000 minus the lap's final `body_words`, and
+lap 35's final `body_words` is 9,000 — the same +1 `responder` repair that killed the block's
+opening figure. So this file stated two different margins for the same 9,000 words, in two
+places, until lap 36 — whose own first pass at the repair fixed the opening and missed this;
+no line numbers are given because this annotation's own insertion moves them. Found
+by that lap's independent reviewer; `paper/GAPS.md`'s lap-35 section carried the same dead
+figure and is annotated there too.]** ⚠ It
 does **not** close **WFG-116**: that is the same `apt` line in
 `.github/workflows/auto-gates.yml`, outside `paper/`, still open — and until it lands, every lap
 without a renderer must null the field again, which is now a thing that has actually happened
@@ -1617,6 +1639,141 @@ legends clear of the data, nothing clipped, F8b's legend counts reading 414 / 42
 committed partition, both carrying the repaired 「no safe walking route **found**」 wording. No
 figure was added — one costs a page without costing a word, and the `vus_` split is three
 integers belonging in a sentence the budget refused, not in a figure drawn to dodge the counter.
+
+⛔✅ **Lap 36 is the one where the repository answered the first objection a reviewer makes to
+the null this paper already cites, and the answer does not fit in the paper. No manuscript
+sentence went false; THIS FILE'S OWN HEADLINE HAD, and a critic found it. Read `GAPS.md`'s
+lap-36 section before this paragraph.** `body_words` **9,000 → 9,000**, margin **0 → 0**,
+both unmoved. Nothing was compressed and no caveat or registered number was traded. Ten
+figures redrew **byte-identical**; `F11_rotation_null.png` is new, looked at, and
+unreferenced.
+
+**What the window did.** `WFG-256` ran a **rotation null** on the forward-simulated hazard
+core: hold the model's own shape and cell count fixed, rotate that mask rigidly about the
+centroid of the `t = 0` seed — the same centre the disc null uses — through every 15 degrees
+with zero excluded, and score each orientation against the same observation, with the scorer
+**imported** from the disc null's script rather than copied. The rule and both readings were
+pre-registered in the claim commit before the script existed. **The true orientation ranks 1
+of 24 with 0 ties at all four off-seed slices**, and the second, pre-registered branch came
+out against the tidy story: **at the headline slice** only **3** of the 23 rotations beat the
+disc, so `docs/disc_null.md` §5.1 now records the disc as **a stronger opponent than 20 of 23
+rotations of the model's own core**, 「a direction this page did not expect」. ⚠ **The scope on
+that count is the reviewer's and it is load-bearing: the count is 4 at 180 min and 4 at 720,
+so 「20 of 23」 holds at two of the four slices and not at all four**, re-derived from
+`data/processed/rotation_null_yeongdeok.json` rather than inherited. The draft carried the
+bare form straight out of `docs/disc_null.md` §5.1 — in a paragraph two clauses after one
+correctly scoped 「at all four off-seed slices」, and in a lap whose whole claim is that it
+quotes nothing. The `rn_` band's own seventh fact exists **because** this count moves: at
+720 min one rotation sits 2.66e-05 above the disc. <!-- collision-ok: 2.66e-05 — rn_yeongdeok_t720min_closest_rotation_margin, the 720-min slice's own signed margin; the other registered margins (0.01065177, -0.0025974, -0.00011853) are OTHER SLICES and not stale values. --> That is the
+answer to the objection §6's disc clause invites — *an irregular blob out-overlaps a circle
+whatever it does* — and until this window no file here had it.
+
+✅ **Nothing in the manuscript went false, and that was checked rather than assumed.** §6's
+clause survives limb by limb: the overlap claim is unchanged, the centroid finding is
+explicitly re-affirmed by `docs/rotation_null.md` §5.2, and 「a **floor** comparison」 survives
+because `docs/disc_null.md`'s own amendment says 「Nothing in this item is withdrawn:
+necessary-and-not-sufficient stands」. All **21** withdrawal entries and all **68** spellings
+return **zero** hits against `paper/manuscript.md`, per line and flattened — and `WC-021`,
+the window's new entry, is the first retraction in this ledger that moved *another* surface
+**onto** this paper's wording rather than off it: `README.md:25` and `:798` were narrowed to
+the register the Abstract has carried since lap 34. §3.5's 「skipped it **four** times」 stays
+four, verified from `f1da9da`'s own file list rather than from the registry's summary.
+
+⛔⛔ **The clause the budget refused, measured with the builder's counter at three lengths and
+reverted — and this is a KIND of casualty new to this record.** The margin inherited is
+**zero** and `docs/auto/DIRECTION.md` states the consequence as arithmetic. Inserted, built,
+read off `build_docx.py` and reverted: the tightest form **9,000 → 9,008**, the decisive form
+(「…centroid, **which most rotations of that same core do not beat**, …」) **9,010**, the form
+carrying both facts **9,020**. A number-free shape was chosen deliberately and is not a
+stripped one — the `rn_` entries carry a 「six facts travel together or none may be quoted」
+band (seven, as written) so any *quantity* costs the band too, while a number-free clause
+needs only the caveats that **scope** the claim, and §6 already carries every one of those.
+⚠ **What that band costs was NOT measured and the draft said it was**: it attributed lap 29's
+**+198** to it, and that figure is the `dn_` **six**-fact band's, measured at lap 29 on a
+different sentence. The `rn_` band is a different band and **nobody here has costed it** —
+named as unmeasured rather than guessed, in the paragraph whose whole point is that every
+other figure in it came off the builder's counter. Reviewer's finding. ⚠ **The honest other half: the
+manuscript is not false without it and is not missing a limitation** — what is declined runs
+*in this paper's favour*. ⚠⚠ **And the novelty claim was checked before it was written, then
+narrowed by the reviewer, which is the half worth reading.** The ledger's budget refusals are
+evidence **against** the paper (lap 24 at +41, lap 29 at +143, lap 35 at +32) or illustrations
+of a limit §3.5 already states in its own voice (laps 14, 18, 23, 26); lap 34's and lap 32's
+favourable declines were for **bars** — NH-059 — and not for length; lap 21's casualty was a
+limitation. ⛔ **The draft wrote that as an exhaustive 「every previous refusal was either…」
+and it is not exhaustive**: laps 15, 21, 28, 30 and 33 also declined things, and **lap 30 is a
+live near-counterexample** — it refused the disc null's **quantities**, `2.2044` among them,
+which run in this paper's favour (this file, lap-30 block). The claim survives on a
+distinction the draft never stated: the `dn_` six-fact band makes the centroid metres travel
+with that ratio, so what lap 30 refused is a **package its own record calls 「the strongest
+evidence against itself」**, and the favourable half's number-free form **did land**, in §6,
+in that same lap. **So: the first lap where the budget alone stopped an empirical result that
+supports the paper *and nothing of it landed*.** Smaller than lap 21's declined limitation,
+and stated smaller.
+
+✅⚠⚠ **What landed, and the honest description of why it was free: `F11_rotation_null.png`
+is drawn and NOTHING READS IT.** `check_paper.py` checks that every referenced figure exists
+and not the converse, and `figure_fingerprint` reads only the manuscript's `![](…)` lines, so
+an unreferenced figure moves neither the page count nor the anchor and takes no appearance
+number — the mapping is unmoved at F1→1, F2→2, F4→3, F5b→4, F8b→5, F3b→6, F6→7, F7→8. That
+is the `F9` / `F10b` precedent a third time, and it is **free precisely because it is
+invisible to every gate in `paper/`**. ⚠ **Lap 19's rule stands and was not used against
+it**: the figure draws numbers and does **not** carry §6's argument, because a caption
+carrying body argument is 「a false measurement of the document, not a short document」. Two
+defects were caught by **looking** and repaired before the commit — panel (b)'s neighbouring
+「gap NNN min」 tick labels collided at the 540- and 720-minute slices, and its grey bar is the
+**best** rotation where panel (a)'s grey is **any** rotation, which the shared legend cannot
+say; the axis now names it, that being verbatim the inference-by-negation defect lap 29's
+reviewer found on `F10b`.
+
+⛔⛔ **AND THE LOOK-AT-IT PASS PASSED TWO MORE, both found by the independent reviewer, both
+repaired while the PNG was still uncommitted — which is the only moment at which either was
+cheap.** (i) The figure carried **only the flattering half** of this comparison. `F10b` puts
+both halves in one image, and `docs/rotation_null.md` §6 licenses the rotation result on a
+judge-facing surface only 「beside the centroid displacements that keep it honest」. A 300 dpi
+binary carrying the win and not the overshoot is **`WC-017`'s known-stale exception (a)**,
+whose worked instance is `F10_disc_null.png` in this repository one lap cycle ago — committed
+wrong, and then unregenerable under CHARTER §3 rule 2. `F11` now has a **third panel**: the
+two centre-of-mass distances from the observed footprint, read from
+`disc_null_yeongdeok.json`, where the core is the **worse** of the two. (ii) Panel (a) did not
+name the slice it is drawn at, while the ledger invites the reader to count the split off its
+bars — and that split is **not** the same at every slice. Its axis now names the slice.
+**Three defects of the same class, two of them past a pass this file records as done.**
+
+⛔⛔ **The mandatory work was a repair to THIS FILE, filed by critic #75 as `WFG-275` — AND
+THE FIRST PASS AT IT REPRODUCED THE ERROR IT WAS REPAIRING.**
+The lap-35 block above opened 「8,999 → **8,999**; margin **1 → 1**」 and 「both repairs came in
+at NET ZERO」 while the lap ended at **9,000** and **0**: its reviewer's `responder` repair
+landed after the headline was written and the headline was never re-read. The corrected pair
+was already further down the same block. **Annotated in place rather than edited** (CHARTER
+§3.7), in this file and in `STATE.json`, with the live figure re-derived here rather than
+copied from the critic report.
+
+⛔⛔ **And then the lap certified the repair complete while a THIRD live copy stood in the
+file this same diff was rewriting.** `paper/GAPS.md`'s lap-35 **Range** paragraph carried the
+identical dead pair, unannotated, above the new section declaring 「Both are annotated in
+place」; `paper/GAPS.md`'s lap-35 closing formula and **this file's own**, further up this
+block, both still read 「ONE word against the proxy's 9,000」 for a document that ended at
+9,000; and `GAPS.md`'s lap-35 anchor paragraph still said `STATE.json` carries
+`bdb470ea0108d633` when it carries `7ed51c97137c9b2c`, a correction that had reached this file
+and not that one. **Four live copies, in two files, of the class the repair exists to fix.**
+All are annotated now. ⚠ **The cost of finding them was one command** — DIRECTION's own
+「grep for the SUBJECT of the claim, never for the sentence you just wrote」, which this routine
+invoked by name at laps 32, 34 and 35 and did not run here. The lap took critic #75's filed
+list as the diff, which is verbatim CHARTER §3.5c's 「a lap chooses which documents to correct
+and will miss one」. Found by the independent reviewer, not by this lap.
+
+✅ **The anchor was measured, and is recorded as the WEAKER of the two kinds of
+confirmation.** Neither `body_words` nor the referenced figure list moved, so `check_paper.py`
+would have passed with no renderer at all; the one `apt` line this file has printed since lap
+9 was run anyway and the gate took its measuring branch — **`pages 23, calibri_face Carlito,
+metrics_ok true`**, page objects and page-tree `/Count` agreeing — printing
+**`7ed51c97137c9b2c`**, the string `STATE.json` already carried. That is a confirmation on an
+unmoved input and is stated as such. The `.docx` is **not** rebuilt into the commit, the
+manuscript not having moved (lap 23's byte-non-determinism finding). **Two pages against the
+author's 25, ZERO words against the proxy's 9,000, measured on one document by one run** —
+and 9,000 is **500 over CHARTER §12's target of 8,500**. **Laps 13 through 21, 24, 25, 30,
+33, 35 and now 36 have all had their writing shaped by the proxy rather than by the evidence.
+NH-037 is the answer and it is still open.**
 
 ⚠ **The page that took the count from 22 to 23 cost eleven words, and it is worth
 knowing that before reading the words-to-pages table below as a rate.** Lap 11

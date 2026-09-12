@@ -1045,9 +1045,179 @@ def F10b_disc_null(out: Path) -> bool:
     return True
 
 
+def F11_rotation_null(out: Path) -> bool:
+    """The rotation null: what happens to the overlap when the model's OWN core is
+    turned about the fire's own start (Yeongdeok 2025, canonical field;
+    `data/processed/rotation_null_yeongdeok.json`, WFG-256).
+
+    WHAT IT ANSWERS. `F10b_disc_null` reports the forward-simulated core beating an
+    area-matched disc. The first objection to that is that an irregular blob will
+    out-overlap a circle whatever it does, so the gap measures shape complexity and
+    not the model. The null holds the model's own shape and cell count fixed, rotates
+    that mask rigidly about the centroid of the `t = 0` seed — the same centre the
+    disc uses — through every step of `angle_step_deg` with zero excluded, and scores
+    each orientation against the same observation under the same matching and the
+    same `p_cut`, with the scorer imported from the disc null's script rather than
+    copied. Orientation is the only thing that varies.
+
+    ⚠ WHAT IT DOES NOT SHOW, and both halves belong beside the picture. It is not a
+    decomposition: no arithmetic here splits the disc ratio into a shape term and a
+    placement term. It does NOT say the model gets the direction right — the centroid
+    reading in `F10b` panel (b) points the other way and stands unchanged, the core's
+    centre of mass ending farther from the observation than the stationary disc's, so
+    the joint reading is that the axis is right and the distance along it is overrun.
+    And the rank is a rank among deliberately misoriented copies of the model's own
+    mask, not against any baseline a competitor would build; no p-value is computable
+    from it and none is drawn (`docs/rotation_null.md` §5; `docs/auto/DIRECTION.md`).
+
+    ⚠ NOT REFERENCED BY THE MANUSCRIPT (paper lap 36, 2026-09-12), for the reason
+    F9 and F10b are not, and deliberately NOT given a `G` row: those rows are
+    one-to-one with the `[GAP:` markers and check_paper.py counts both, so a row with
+    no marker turns the gate red and a marker would be false — nothing is missing
+    from the artifacts. What is missing is room. The clause §6 would carry was
+    measured this lap at +8, +10 and +20 body words against a margin of ZERO, and a
+    figure costs a page rather than a word, so drawing it now is NOT a way of buying
+    the prose cheaply: lap 19's rule stands that a caption carrying body argument is
+    a false measurement of the document. It takes no appearance number and the
+    mapping is unmoved: F1→1, F2→2, F4→3, F5b→4, F8b→5, F3b→6, F6→7, F7→8.
+
+    COLOUR, one meaning per colour across both panels and consistent with `F10b`:
+    fire = the model's core as oriented, grey = a rotation of it, blue = the
+    area-matched disc. Every value is read from the artifact at draw time; nothing
+    here is a literal, which is also why no number in this function's source can go
+    stale against the registry.
+    """
+    from matplotlib.lines import Line2D
+
+    d = load("data/processed/rotation_null_yeongdeok.json")
+    if not d or not isinstance(d.get("headline"), dict):
+        return False
+    head = d["headline"]
+    sr = head.get("seed_removed") or {}
+    rots = head.get("rotations") or []
+    if not sr or not rots:
+        return False
+    # Panel (c) reads the DISC null's own centroid block. This figure does not stand
+    # without it: `docs/rotation_null.md` §6 licenses the rotation result on a
+    # judge-facing surface only 「beside the centroid displacements that keep it
+    # honest」, and a 300 dpi binary carrying only the flattering half is the WC-017
+    # known-stale exception whose worked instance is `F10_disc_null.png` — committed,
+    # wrong, and then unregenerable under CHARTER §3 rule 2. Found by this lap's
+    # independent reviewer while the file was still uncommitted, which is the only
+    # moment at which it was cheap to fix.
+    dn = load("data/processed/disc_null_yeongdeok.json")
+    dirn = ((dn or {}).get("headline") or {}).get("direction") or {}
+    if not dirn:
+        return False
+    rows = [s for s in d.get("slices", [])
+            if not s.get("is_seed_slice") and isinstance(s.get("seed_removed"), dict)
+            and s["seed_removed"].get("disc_iou") is not None]
+    rows.sort(key=lambda s: float(s["haz_time_min"]))
+    if not rows:
+        return False
+
+    fig, (ax, bx, cx) = plt.subplots(1, 3, figsize=(7.6, 3.6),
+                                     gridspec_kw={"width_ratios": [1.30, 1.0, 0.62], "wspace": 0.34})
+
+    # ---- (a) every rotation at the headline slice, sorted, against the disc ----
+    disc = float(sr["disc_iou"])
+    true_iou = float(head["unrotated"]["seed_removed_iou"])
+    pairs = sorted(((float(r["seed_removed_iou"]), int(r["angle_deg"])) for r in rots),
+                   key=lambda t: t[0])
+    xs = list(range(len(pairs)))
+    # Grey for every rotation, because a rotation is one thing; the three that clear
+    # the disc are marked by the LINE they cross and not by a fourth colour, so no
+    # colour acquires a second meaning (paper/README.md's 2026-09-04 figure rule).
+    ax.bar(xs, [v for v, _ in pairs], width=0.72, color=style.PALETTE["grey"])
+    ax.axhline(disc, color=style.PALETTE["blue"], lw=1.1, ls=(0, (4, 2)))
+    ax.axhline(true_iou, color=style.PALETTE["fire"], lw=1.1, ls=(0, (4, 2)))
+    # Both reference values are written at the LEFT, over the shortest bars, which is
+    # provably the empty corner here because the bars are sorted ascending.
+    for val, colour in ((true_iou, style.PALETTE["fire"]), (disc, style.PALETTE["blue"])):
+        ax.text(-0.35, val, f"{val:.4f}", ha="left", va="bottom", fontsize=6.6, color=colour)
+    ax.set_xticks(xs)
+    ax.set_xticklabels([f"{a}" for _, a in pairs], fontsize=5.4, rotation=90)
+    # The slice is NAMED on this panel. Its absence was a reviewer finding: the
+    # "how many clear the disc" split is something a reader counts off these bars,
+    # and that count is not the same at every slice (panel b's slices differ), so a
+    # panel inviting the count must say which slice it is drawn at.
+    ax.set_xlabel(f"The rotations at the {int(head['haz_time_min'])} min slice, sorted by score;\n"
+                  f"label is the angle turned (degrees)", fontsize=7.4)
+    ax.set_ylabel("IoU with the observed footprint,\nshared seed removed from both masks", fontsize=7.6)
+    ax.set_xlim(-0.8, len(pairs) - 0.2)
+    ax.set_ylim(0, true_iou * 1.22)
+    ax.grid(axis="y", visible=True)
+
+    # ---- (b) the same three quantities at every off-seed slice ---------------
+    x = list(range(len(rows)))
+    w = 0.26
+    series = [
+        ("core as oriented", [float(s["unrotated"]["seed_removed_iou"]) for s in rows],
+         style.PALETTE["fire"], -w - 0.012),
+        ("best of the rotations", [float(s["seed_removed"]["rotated_iou_spread"]["max"]) for s in rows],
+         style.PALETTE["grey"], 0.0),
+        ("area-matched disc", [float(s["seed_removed"]["disc_iou"]) for s in rows],
+         style.PALETTE["blue"], +w + 0.012),
+    ]
+    for _, vals, colour, off in series:
+        bx.bar([xi + off for xi in x], vals, width=w, color=colour)
+        for xi, v in zip(x, vals):
+            bx.text(xi + off, v / 2, f"{v:.3f}", ha="center", va="center",
+                    fontsize=6.0, color="white", rotation=90)
+    bx.set_xticks(x)
+    # 7.0 pt ran the neighbouring "gap NNN min" lines into each other at 540 and 720
+    # on this panel's width; measured by looking at the render, not assumed.
+    bx.set_xticklabels([f"{int(s['haz_time_min'])} min\ngap {int(s['time_gap_min'])}" for s in rows],
+                       fontsize=6.6)
+    bx.set_xlabel("Forecast slice, and its gap in minutes to the observation", fontsize=7.4)
+    # The grey bar here is the BEST of the rotations, not "a rotation" as in panel (a),
+    # and the shared legend cannot say so. Leaving the reader to infer which one it is
+    # is the inference-by-negation defect F10b's reviewer found; the axis names it.
+    bx.set_ylabel("IoU, shared seed removed\n(grey: the best-scoring rotation at that slice)", fontsize=7.6)
+    bx.set_ylim(0, max(v for _, vals, _, _ in series for v in vals) * 1.16)
+    bx.grid(axis="y", visible=True)
+
+    # ---- (c) the half that points the other way, at the same headline slice ----
+    # Overlap and placement are different questions and this artifact answers only
+    # the first. Without this panel the image would say "the model wins" and stop.
+    # Tick labels are the bare nouns: the full names ran into each other on this
+    # panel's width, and the figure legend already maps both colours to them.
+    cvals = [("core", float(dirn["model_to_observed_m"]), style.PALETTE["fire"]),
+             ("disc", float(dirn["disc_to_observed_m"]), style.PALETTE["blue"])]
+    for xi, (label, v, colour) in enumerate(cvals):
+        cx.bar(xi, v, width=0.68, color=colour)
+        cx.text(xi, v / 2, f"{v:,.1f} m", ha="center", va="center", fontsize=6.4,
+                color="white", rotation=90)
+    cx.set_xticks(range(len(cvals)))
+    cx.set_xticklabels([lb for lb, _, _ in cvals], fontsize=7.2)
+    cx.set_xlim(-0.62, len(cvals) - 0.38)
+    cx.set_ylabel("Centre-of-mass distance from the\nobserved footprint (m), same slice", fontsize=7.2)
+    cx.set_ylim(0, max(v for _, v, _ in cvals) * 1.14)
+    cx.grid(axis="y", visible=True)
+
+    style.label_panels([ax, bx, cx])
+    handles = [
+        mpatches.Patch(facecolor=style.PALETTE["fire"], edgecolor=style.INK, linewidth=0.4,
+                       label="the model's core as oriented"),
+        mpatches.Patch(facecolor=style.PALETTE["grey"], edgecolor=style.INK, linewidth=0.4,
+                       label="the same core, rigidly rotated about the t = 0 seed centroid"),
+        mpatches.Patch(facecolor=style.PALETTE["blue"], edgecolor=style.INK, linewidth=0.4,
+                       label="area-matched disc on the same centre"),
+        Line2D([], [], color=style.INK, lw=0.9, ls=(0, (4, 2)),
+               label="panel a: the same two values as reference lines"),
+    ]
+    fig.subplots_adjust(left=0.075, right=0.988, top=0.935, bottom=0.34)
+    lg = fig.legend(handles=handles, loc="upper center", ncol=2, fontsize=6.6, frameon=True,
+                    bbox_to_anchor=(0.53, 0.125), handlelength=1.5, columnspacing=1.4,
+                    handletextpad=0.6)
+    lg.get_frame().set_linewidth(0.5); lg.get_frame().set_edgecolor(style.INK)
+    style.finish(fig, out / "F11_rotation_null.png")
+    return True
+
+
 FIGURES = [F1_system, F2_lofo_auc, F3b_regions, F4_operating_point, F5b_decision_shift,
            F6_sensitivity, F7_dispatch_ordering, F8b_routing_map, F9_present_perimeter,
-           F10b_disc_null]
+           F10b_disc_null, F11_rotation_null]
 
 
 def main() -> int:
