@@ -13,7 +13,52 @@ row itself offered rather than deciding NH-049 by acting.
 **How a card leaves this file.** A lap that is already rebuilding the kit for
 another reason merges the card into `docs/auto/JUDGE_QA.md`, runs
 `make printables`, re-points the manifest and the bundle, and deletes nothing
-here — it moves the entry under `## Merged` with the commit that merged it.
+here — it moves the entry under `### P-003 · WFG-266 · 「이 그림의 범례가 본문 설명과 다릅니다」
+
+*Filed 2026-09-12 by critic #72's judge drill. **근거 없음 상태로 제출합니다** - 이
+질문에 답해 주는 파일이 오늘 저장소에 없습니다. WFG-266이 그 파일을 만듭니다.*
+
+**Q (드릴에서 나온 형태).** 본문에는 「2 reaching no refuge」라고 쓰셨는데, 바로 그
+그림의 범례는 「no safe walking route」라고 적혀 있습니다. 어느 쪽이 맞습니까?
+
+**A (draft, tier T1 - 물으면 답한다. ⚠ WFG-266이 닫히기 전에는 아래 둘째 문장을
+말할 수 없습니다).**
+
+> 본문이 맞고, 범례가 아직 옛 표현입니다. 코드가 세우는 조건은 「탐색이 대피소에
+> 닿지 못했다」이고, 「안전한 보행 경로가 없다」는 그보다 강한 주장입니다. 같은
+> 고침을 F5 범례에는 이미 넣었고(`F5b_decision_shift.png`), F8과 F3 범례는
+> 아직입니다. 커밋된 그림은 다시 그리지 않고 새 파일 이름으로 만듭니다.
+
+**Source (오늘 기준):** `paper/make_figures.py:689` (F8 범례), `:134` (F3 범례),
+`:244` (F5b, 고쳐진 쪽), `paper/manuscript.md`의 F8 캡션. **이 카드가 인용할 수
+있는 문서는 WFG-266이 만들기 전까지 없습니다.**
+
+---
+
+### P-004 · WFG-267 · 「이 세 장 중 어느 것이 옛 문장입니까?」
+
+*Filed 2026-09-12 by critic #72's judge drill, as the residual of P-002. P-002는
+「왜 커밋된 시트가 옛 문장을 갖고 있는가」에 잘 답하지만, 부스에서 손에 든 세 장
+중 **어느 장**이 그것인지는 어떤 파일도 말하지 않습니다.*
+
+**Q.** 지금 주신 출동 지시서 묶음에서, 「차량 도달 불가」 사유가 서로 다르게 적힌
+장이 섞여 있습니다. 어느 것이 지금 기준입니까?
+
+**A (draft, tier T1).**
+
+> 다시 뽑은 장이 지금 기준이고, 미리 PDF로 커밋돼 있던 장이 2026-08-01 기록입니다.
+> 커밋된 PDF는 가장 큰 세 군집뿐이고, 그중 「차량 도달 불가」 지점이 있는 것은
+> `02-천전공원-일대` 한 장입니다. 가장 안전한 방법은 33장을 전부 다시 뽑는
+> 것이고, 그러면 섞이지 않습니다.
+
+**Source (오늘 기준):** `docs/live_pipeline.md:193-201`(무엇이 대체되었는지),
+`docs/routing_limitations.md` §7(왜). ⚠ **「02-천전공원-일대 한 장」이라는 말은
+오늘 어떤 커밋된 문서에도 없습니다** - critic #72가 트리에서 재어 본 값이고,
+WFG-267 (i)이 `outputs/dispatch/README.md`에 적어 넣어야 말할 수 있습니다.
+
+---
+
+## Merged` with the commit that merged it.
 
 ⚠ **Nothing in this file is printed, and the student does not study from it.**
 Until a card is merged, the booth answer to the question it covers is whatever
