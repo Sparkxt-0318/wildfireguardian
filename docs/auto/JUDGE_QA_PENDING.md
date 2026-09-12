@@ -15,23 +15,35 @@ another reason merges the card into `docs/auto/JUDGE_QA.md`, runs
 `make printables`, re-points the manifest and the bundle, and deletes nothing
 here — it moves the entry under `### P-003 · WFG-266 · 「이 그림의 범례가 본문 설명과 다릅니다」
 
-*Filed 2026-09-12 by critic #72's judge drill. **근거 없음 상태로 제출합니다** - 이
-질문에 답해 주는 파일이 오늘 저장소에 없습니다. WFG-266이 그 파일을 만듭니다.*
+*Filed 2026-09-12 by critic #72's judge drill. ⚠⚠ **UPDATED 2026-09-12T0617Z BY THE
+WFG-266 DEV LAP, WHICH CLOSED THE ROW AND SO FALSIFIED THIS CARD'S OWN DRAFT
+ANSWER.** 카드가 근거로 삼을 문서가 이제 있습니다: `docs/figure_legend_claims.md`.
+아래 첫 초안은 기록으로 남기고(CHARTER §3.7), 말할 답은 그 아래 둘째 초안입니다.*
 
 **Q (드릴에서 나온 형태).** 본문에는 「2 reaching no refuge」라고 쓰셨는데, 바로 그
 그림의 범례는 「no safe walking route」라고 적혀 있습니다. 어느 쪽이 맞습니까?
 
-**A (draft, tier T1 - 물으면 답한다. ⚠ WFG-266이 닫히기 전에는 아래 둘째 문장을
-말할 수 없습니다).**
+**A (draft, tier T1 - 물으면 답한다).**
 
-> 본문이 맞고, 범례가 아직 옛 표현입니다. 코드가 세우는 조건은 「탐색이 대피소에
-> 닿지 못했다」이고, 「안전한 보행 경로가 없다」는 그보다 강한 주장입니다. 같은
-> 고침을 F5 범례에는 이미 넣었고(`F5b_decision_shift.png`), F8과 F3 범례는
-> 아직입니다. 커밋된 그림은 다시 그리지 않고 새 파일 이름으로 만듭니다.
+> 지적하신 그대로였고, 고쳤습니다. 코드가 세우는 조건은 「불을 모르는 경로는
+> 예측 위험을 지나서 대피소에 닿았고, 예보를 아는 탐색은 닿지 못했다」입니다.
+> 「안전한 보행 경로가 없다」는 그보다 강한 주장이라, 세 범례를 모두 「no safe
+> walking route **found**」로 바꿨습니다. 커밋된 그림은 다시 그리지 않고 새 파일
+> 이름으로 만들었습니다(`F3b_regions.png`, `F8b_routing_map.png`, 앞선 랩의
+> `F5b_decision_shift.png`). 방법과 한계는 `docs/figure_legend_claims.md`에
+> 있습니다. ⚠ 이 고침이 「안전한 경로가 있다」는 뜻은 아닙니다. 두 탐색이 무엇을
+> 돌려줬는지만 말할 수 있습니다.
 
-**Source (오늘 기준):** `paper/make_figures.py:689` (F8 범례), `:134` (F3 범례),
-`:244` (F5b, 고쳐진 쪽), `paper/manuscript.md`의 F8 캡션. **이 카드가 인용할 수
-있는 문서는 WFG-266이 만들기 전까지 없습니다.**
+**Source:** `docs/figure_legend_claims.md`; `paper/make_figures.py` F3b·F5b·F8b
+범례; `tests/test_figure_legend_claims.py` (돌연변이 다섯 개로 채점).
+⚠ `README.md`에는 아직 더 강한 표현(「no safe walking route **at all**」)이
+남아 있습니다 — **WFG-270**. 심사위원이 README를 들고 물으면, 고칠 곳으로
+등록되어 있다고 그대로 말합니다.
+
+**[기록 · 2026-09-12 · 오늘의 답이 아닙니다]** 최초 초안은 「범례가 아직 옛
+표현입니다 ... F8과 F3 범례는 아직입니다」였고, 출처로 `paper/make_figures.py:689`
+(F8 범례), `:134` (F3 범례), `:244` (F5b)를 들었습니다. WFG-266이 닫히면서 세 줄
+모두 옮겨졌으므로 이 초안은 더 이상 참이 아닙니다.
 
 ---
 

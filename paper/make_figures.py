@@ -124,14 +124,52 @@ def F2_lofo_auc(out: Path) -> bool:
     return True
 
 
-def F3_regions(out: Path) -> bool:
+def F3b_regions(out: Path) -> bool:
     """Three-region routing partition (share of scanned origins) with each region's
-    walk-network coverage beside its name, from multi_region_comparison.json."""
+    walk-network coverage beside its name, from multi_region_comparison.json.
+
+    ⚠⚠ THIS IS `F3b_regions.png`, AND `F3_regions.png` IS ITS SUPERSEDED
+    PREDECESSOR, kept committed and byte-unchanged (2026-09-12, WFG-266). Its third
+    band read "no safe walking route", which asserts that no safe route is there;
+    the bucket's code condition is only `nv.enters_hazard and not fa.reached`, which
+    establishes that the fire-blind route entered the forecast hazard and the
+    forecast-aware search reached no refuge, and nothing about existence. Same
+    defect and same remedy as `F5b_decision_shift.png` (lap 34) and
+    `F10b_disc_null.png`; a new filename costs nothing and CHARTER §3 rule 2 forbids
+    regenerating the committed PNG, with NH-042 still open.
+
+    Why this figure needs the word "found" more than F5b did, and not less. F5b's
+    legend has three bands; this one has four, and the fourth is `fa_exceeds_budget`
+    = `not nv.enters_hazard and not fa.reached`. That band SHARES "the forecast-aware
+    search reached no refuge" with this one and differs only on the fire-blind arm,
+    so any phrase built on reaching-no-refuge alone would describe two of the four
+    bands here and discriminate neither. "no safe walking route found" does
+    discriminate: in `fa_exceeds_budget` the fire-blind route is hazard-free and
+    reaches, so a safe walking route WAS found there.
+
+    ⚠ The fourth band's own label is NOT repaired here and is a known over-claim of
+    the same family: `not fa.reached` merges budget exhaustion
+    (`evacuation.py:511`), hazard-forbidden edges (`:517`) and an exhausted Dijkstra
+    with no path at all (`:528-532`), and "forecast-aware route exceeds budget"
+    names only the first. Left standing deliberately rather than widened into this
+    row; recorded under "Caveats" in `docs/figure_legend_claims.md` and filed as
+    WFG-269 so it is a debt with a name instead of a silent third instance.
+    """
     d = load("data/processed/multi_region_comparison.json")
     if not d or not isinstance(d.get("regions"), list):
         return False
+    # ⚠ "found", not the bare noun phrase: the bucket's code condition is only
+    # `nv.enters_hazard and not fa.reached`, hand-copied into SEVEN places — one of
+    # them F8b_routing_map in THIS file, at :649. It establishes what two searches
+    # returned and NOT that no safe route is there (manuscript §6,
+    # docs/routing_limitations.md §6, WFG-262, WFG-266).
+    # ⚠ Do not trust a count of those sites written in prose, this comment
+    # included: three drafts of docs/figure_legend_claims.md said three, then five,
+    # then seven, and only the last survived a reviewer re-running the command.
+    # The enumeration lives there beside the grep that produces it; WFG-271 is the
+    # row for making it a gate instead of a paragraph.
     keys = [("both_safe", "safe on both routes"), ("future_aware_only_safe", "safe only on the forecast-aware route"),
-            ("no_safe_route", "no safe walking route"), ("fa_exceeds_budget", "forecast-aware route exceeds budget")]
+            ("no_safe_route", "no safe walking route found"), ("fa_exceeds_budget", "forecast-aware route exceeds budget")]
     colors = [style.OKABE["green"], style.OKABE["orange"], style.OKABE["vermilion"], style.OKABE["grey"]]
     rows = [r for r in d["regions"] if all(k in r for k, _ in keys[:3]) and "n_origins_scanned" in r]
     if not rows:
@@ -154,7 +192,7 @@ def F3_regions(out: Path) -> bool:
     ax.invert_yaxis(); ax.set_xlim(0, 100); ax.set_xlabel("Share of scanned origins (%)")
     ax.legend(ncol=2, loc="lower center", bbox_to_anchor=(0.5, 1.01), fontsize=7.5)
     ax.grid(axis="y", visible=False)
-    style.finish(fig, out / "F3_regions.png")
+    style.finish(fig, out / "F3b_regions.png")
     return True
 
 
@@ -522,13 +560,38 @@ def _route_xy(Gp, route, net):
     return np.asarray(pts)
 
 
-def F8_routing_map(out: Path) -> bool:
+def F8b_routing_map(out: Path) -> bool:
     """Canonical Yeongdeok 2025 on a hillshaded ground: (a) the forecast hazard field
     at the 720-minute horizon over the simulation canvas, with the walk-network box;
     (b) the walk network, refuges, the 458 scanned origins classed by outcome, and
     example origins whose fire-blind route enters the forecast while a forecast-aware
     route stays clear. Routes are recomputed with the repository router from the
-    committed snapshots, so the figure carries no stored geometry of its own."""
+    committed snapshots, so the figure carries no stored geometry of its own.
+
+    ⚠⚠ THIS IS `F8b_routing_map.png`, AND `F8_routing_map.png` IS ITS SUPERSEDED
+    PREDECESSOR, kept committed and byte-unchanged (2026-09-12, WFG-266). Its origin
+    legend read "origin: no safe walking route", which asserts that no safe route is
+    there; the bucket's code condition is only `nv.enters_hazard and not fa.reached`,
+    which establishes what the two searches returned and nothing about existence.
+
+    ⚠ THE DEFECT THIS FIGURE IS NAMED IN IS A CONTRADICTION RATHER THAN A LOOSE
+    PHRASE, and it is worth stating because it is what made the miss cheap to see and
+    expensive to have shipped. Commit `63e9d20` rewrote THIS figure's caption in
+    `paper/manuscript.md` from "2 with no safe walking route" to "2 reaching no
+    refuge" — the correct narrowing — and left this legend asserting the claim that
+    caption had just withdrawn. A caption and its own legend disagreed inside one
+    commit, on a rubric criterion (`docs/auto/RUBRIC.md:34`, `:47`) that names
+    「그래픽 및 범례의 명확성」 in both tables. The caption is NOT edited here: it is
+    already correct, and "2 reaching no refuge" and "no safe walking route found" are
+    two true statements about the same bucket, neither asserting non-existence.
+
+    The legend phrase is F5b's, deliberately and not by analogy. This figure and F5b
+    read the same artifact (`real_roads_real_hazard_canonical.json`,
+    `arms.slope_digraph_canonical`) and therefore the same classifier branch, which
+    was checked before the phrase was copied rather than after. Same remedy as
+    `F5b_decision_shift.png` and `F10b_disc_null.png`; CHARTER §3 rule 2 forbids
+    regenerating the committed PNG and NH-042 is still open.
+    """
     import numpy as np
     canon = load(_F8_JSON)
     npz_p = REPO / _F8_NPZ
@@ -686,7 +749,9 @@ def F8_routing_map(out: Path) -> bool:
         Line2D([], [], marker="o", ms=3, mfc="#F2F2F2", mec=style.INK, mew=0.35, ls="none", label=lab("both_safe", "origin: safe on both routes")),
         Line2D([], [], marker="o", ms=4, mfc=style.PALETTE["brown"], mec=style.INK, mew=0.35, ls="none",
                label=lab("naive_into_FA_safe", "origin: safe only forecast-aware")),
-        Line2D([], [], marker="x", ms=5, color=style.INK, mew=1.0, ls="none", label=lab("no_safe_route", "origin: no safe walking route")),
+        # ⚠ "found": see this function's docstring. The condition is
+        # `nv.enters_hazard and not fa.reached` and it establishes no non-existence.
+        Line2D([], [], marker="x", ms=5, color=style.INK, mew=1.0, ls="none", label=lab("no_safe_route", "origin: no safe walking route found")),
         Line2D([], [], color=style.PALETTE["grey"], lw=1.6, ls=(0, (3, 1.5)), label="fire-blind route (shortest)"),
         Line2D([], [], color=style.PALETTE["fire"], lw=1.6, label="forecast-aware route"),
     ]
@@ -701,7 +766,7 @@ def F8_routing_map(out: Path) -> bool:
     lg = fig.legend(handles=handles, loc="upper center", ncol=3, fontsize=6.8, frameon=True, bbox_to_anchor=(0.52, lo - 0.055),
                     handlelength=1.6, columnspacing=1.2, handletextpad=0.6, borderaxespad=0.2)
     lg.get_frame().set_linewidth(0.5); lg.get_frame().set_edgecolor(style.INK)
-    style.finish(fig, out / "F8_routing_map.png")
+    style.finish(fig, out / "F8b_routing_map.png")
     return True
 
 
@@ -980,8 +1045,8 @@ def F10b_disc_null(out: Path) -> bool:
     return True
 
 
-FIGURES = [F1_system, F2_lofo_auc, F3_regions, F4_operating_point, F5b_decision_shift,
-           F6_sensitivity, F7_dispatch_ordering, F8_routing_map, F9_present_perimeter,
+FIGURES = [F1_system, F2_lofo_auc, F3b_regions, F4_operating_point, F5b_decision_shift,
+           F6_sensitivity, F7_dispatch_ordering, F8b_routing_map, F9_present_perimeter,
            F10b_disc_null]
 
 

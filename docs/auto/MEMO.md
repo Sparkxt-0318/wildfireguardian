@@ -3736,3 +3736,62 @@ before it but stage after. **The rule that covers both: `git add` first, gates s
 A new file is invisible to every tracked-file gate until it is staged, so a lap that
 writes a file and runs the gates before staging it has certified a tree that does not
 include its own work.
+
+---
+
+## 2026-09-12 (WFG-266) — three counts of the same thing, each written by a lap that had just searched
+
+This lap's row was a rewording: three figure legends said 「no safe walking route」
+where the code establishes only what two searches returned. The remedy already
+existed one lap back (F5b: new filename, 「found」, docstring). So the whole risk was
+**pasting a phrase across figures without checking that the figures share a
+predicate**, and I pre-registered exactly that objection in the claim commit.
+
+**I then got the enumeration wrong three times, and the third time was inside the
+correction.**
+
+- Draft 1: read three producers, wrote 「repeated verbatim in three scripts」, line
+  numbers each off by one. Caught by my own `sip` pass, reading my doc against
+  `paper/STATE.json`'s lap-34 record — which names a *different* three. Two
+  documents each claiming a complete enumeration and not overlapping is a
+  contradiction you can see without knowing the answer.
+- Draft 2, written **as** the correction, with the anti-pattern freshly named in
+  this file: 「five」. And — this is the part worth keeping — it pasted the grep
+  beside the answer, exactly as the lesson I was writing in the same commit
+  prescribed, **without re-reading what the grep returns**.
+- Draft 3, after the independent reviewer ran that one line: the command returns
+  **19** lines and there are **seven** producers. The seventh is
+  `paper/make_figures.py:649`, inside `F8b_routing_map`, about a hundred lines above
+  the legend I was rewriting, feeding the exact markers that legend labels.
+
+**The anti-pattern, named properly this time:** *an enumeration certified by the
+effort of having searched.* Its sibling is already in this file ("a discriminator
+derived by reading one branch") and I had read that entry this lap. Knowing it did
+not help, because the failure does not feel like skipping a check — it feels like
+having done one. A plausible number comes back and you stop.
+
+**What actually broke the loop was neither the gates nor my own re-reading.** Both
+of my self-checks produced a new wrong number. It was a reviewer who had not built
+the thing, re-running a command I had published, and reading the file I was editing
+rather than the files I had cited.
+
+**The gate that changes the next lap, corrected.** 「Paste the command beside the
+answer」 is NOT sufficient, and this lap is the counterexample: I pasted a command
+whose real output I had never read, and the paste made the wrong number look
+sourced. The rule is stronger: **paste the command AND its raw, unsummarised output
+— the line count, the lines — and derive your categories from that text in the
+document.** If the answer is 19 lines and your claim is a count of 7, the reader must
+be able to see both numbers and the rule that gets from one to the other. Where the
+count is load-bearing, it belongs in a test that derives the list from the source
+(WFG-271), never in a gate written against today's list — a gate born from today's
+enumeration inherits today's blind spot.
+
+**And a corollary about scope that cost me the block:** when you edit a file, that
+file is part of the system you are describing. I enumerated producers in `scripts/`
+and `src/` and never grepped the file I had open.
+
+**The smaller lesson, still worth its line:** WFG-266's done-when asked for a grep
+that its own exemplar fails — `no safe walking route` is a substring of the
+corrected `no safe walking route found`. A done-when that specifies an INSTRUMENT
+rather than a PROPERTY will eventually forbid the correct state. Amend it in writing
+with the measurement as the reason; do not break a correct file to turn a grep green.
