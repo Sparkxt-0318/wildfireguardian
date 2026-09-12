@@ -171,6 +171,35 @@ gained **purely additive** resident-side variants — `compose_family_walk`,
 on `render_html`. **Every default is the original string**, so the committed
 `outputs/dispatch*` sheets render byte-identically; a test asserts that too.
 
+### Responder-side, the 439 series — the sheet the booth hands over
+
+The table above documents the sheets this pipeline writes to
+`outputs/live/replay/`. The sheets under `outputs/dispatch/` are the **439
+responder** series, built by `scripts/generate_dispatch_outputs.py` from the
+committed `rescue_routing.json`, and they are what a judge is physically handed.
+They are documented here, in the same binding, because a page that documents one
+arm of a two-arm delivery layer is the WFG-262 defect with a wider gap
+(`routing_limitations.md` §7):
+
+| class | on a sheet as | wording |
+|---|---|---|
+| `no_surviving_vehicle_ingress` | 차량 도달 불가 | 어느 거점에서도 생존 인지 차량 진입 경로가 확인되지 않음 |
+| `no_safe_pedestrian_route` | 구조 필요 지점 | 차량 진입 가능 — 생존 인지 경로 |
+| `no_safe_pedestrian_route`, 최단 경로가 화재 통과 | 구조 필요 지점 | 최단 경로는 화재 통과 — 우회 경로 필요 |
+
+⚠ **The first of those is a replacement, made 2026-09-12 by WFG-264.** Kept here <!-- forbidden-ok: 264, this is the BACKLOG ROW ID WFG-264 and not the gangneung_donghae_2022 Build-A positive count the gate anchors that value to. Same false-positive class as ba437f5, where the gate read a lap stamp as a camera count. No figure is asserted on this line. -->
+as the record (HANDOFF §5 rule 7), not deleted:
+
+| class | superseded wording | replaced by | why |
+|---|---|---|---|
+| `no_surviving_vehicle_ingress` | 예산 내 차량 진입로가 화재로 차단됨(우회 포함) | 2026-09-12, by the row named just above | asserts fire as the cause, a budget consumed AND detours tried; three return sites collapse into the class and it establishes none of the three (`routing_limitations.md` §7) |
+
+⚠ **Committed run directories under `outputs/dispatch*` keep the sentence they
+were generated with, as records**, exactly as the 459 series keeps its own under
+`outputs/live/replay/`. 44 files under `outputs/` carry the superseded line and
+not one is rewritten: they record what was generated on 2026-08-01, not what this
+repository asserts today. Only a new run uses the wording above.
+
 `남은 시간` on a live sheet is the origin's **own** time-to-cutoff — the minutes
 until that place reaches the impassable probability. For a 이장 that is the same
 question the 439 column answered, asked of a person on foot.

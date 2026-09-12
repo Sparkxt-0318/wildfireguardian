@@ -3692,3 +3692,33 @@ read as measured. Pre-registering both outcomes in the claim commit is what made
 the zero cheap instead of embarrassing: **the zero moved the argument (why the repair is
 safe) without weakening the repair**, and the two parts of the row that never depended on
 the premise shipped unchanged.
+
+## 2026-09-12 (dev, WFG-264) — a discriminator you infer from code is a hypothesis <!-- forbidden-ok: 264, this is the BACKLOG ROW ID WFG-264 and not the gangneung_donghae_2022 Build-A positive count the gate anchors that value to. Same false-positive class as ba437f5, where the gate read a lap stamp as a camera count. No figure is asserted on this line. -->
+
+The row needed to know which of three return sites each committed 「차량 도달 불가」 home
+came from, and the artifacts do not record it. I found what looked like a free
+discriminator: `best_closing_window_min` serialises an infinity as `null`, and
+`ingress_corridor`'s `NetworkXNoPath` branch stores `-inf`, so **null must mean「no drive
+path from any depot」**. The reasoning was correct about that branch and wrong about the
+field, because `+inf` exists too: a corridor the fire never crosses has infinite survival
+time and serialises identically. The counts did not change — both readings answer zero on
+both committed fields — but the SENTENCE the zero licensed was much stronger under the
+wrong reading.
+
+**What caught it was not review and not a gate.** It was a constructed reproduction
+written for a different purpose: the over-budget case, built to show that a fireless field
+still produces the class, asserted a non-null window because the draft said only
+disconnection could be null. The assertion failed. The doc was already written by then and
+would have shipped.
+
+**The anti-pattern, named:** *a discriminator derived by reading one branch*. When you
+establish 「value V can only be produced by branch B」, you have checked B and not the
+other producers of V. Two infinities collapse to one `null`; two error paths return the
+same sentinel; two buckets round to the same string. The check is not「is B a producer」 —
+it is **enumerate every writer of that value**.
+
+**The gate that changes the next lap:** write the reproduction BEFORE the prose, and give
+it an assertion on the discriminator itself, not only on the outcome. A test that pins
+「this case lands in the class」 would have passed under both readings; the test that pinned
+「and its window is/is not null」 is the one that fired. When a measurement leans on a
+sentinel value, assert the sentinel from both sides in a constructed case.

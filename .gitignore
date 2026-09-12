@@ -342,6 +342,13 @@ data/processed/vulnerability/refuges/
 !data/processed/no_safe_route_origin_split/
 !data/processed/no_safe_route_origin_split/*.json
 
+# WFG-264. Small JSON: what the committed 439-series unreachable class can be
+# shown to establish, read off two committed artifacts with no re-run. Eight
+# registry keys re-derive from it and docs/routing_limitations.md §7 is checked
+# against it, so it has to be in the clone a stranger checks out.
+!data/processed/vehicle_unreachable_split/
+!data/processed/vehicle_unreachable_split/*.json
+
 # Validation-case manifest JSON files ARE committed (they're stubs, not
 # bulk data).
 !data/validation_cases/**

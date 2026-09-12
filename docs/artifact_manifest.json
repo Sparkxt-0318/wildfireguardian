@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "c83e8d2018946533b0f1ba3f65ac8d354c06161a",
-  "n_artifacts": 116,
-  "total_bytes": 14672915,
-  "total_mib": 13.99,
-  "n_git_tracked": 116,
+  "generated_at_git_commit": "7d716f4b4f5edfb865b6a96d66aa722d66c8645b",
+  "n_artifacts": 117,
+  "total_bytes": 14675691,
+  "total_mib": 14.0,
+  "n_git_tracked": 117,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 9,
   "artifacts": [
@@ -652,7 +652,10 @@
       "kind": "text",
       "git_tracked": true,
       "n_registry_entries": 4,
-      "cited_by_docs": [],
+      "cited_by_docs": [
+        "docs/auto/reports/2026-09-12T0135Z-dev.md",
+        "docs/auto/reports/2026-09-12T0146Z-dev.md"
+      ],
       "regenerate": "python scripts/measure_no_safe_route_origin_split.py"
     },
     {
@@ -1332,6 +1335,16 @@
         "paper/README.md"
       ],
       "regenerate": "python scripts/build_timeline_roles.py"
+    },
+    {
+      "path": "data/processed/vehicle_unreachable_split/split_20260912T033329Z.json",
+      "bytes": 2776,
+      "sha256": "d80bc77926f9646e9995f596d35850174695a93aaaf18ef82a8dc0b40a066e04",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 8,
+      "cited_by_docs": [],
+      "regenerate": "python scripts/measure_vehicle_unreachable_split.py"
     },
     {
       "path": "data/processed/vulnerability/clearance_diagnostic.json",

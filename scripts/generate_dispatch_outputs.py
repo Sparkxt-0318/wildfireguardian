@@ -42,6 +42,27 @@ from wildfireguardian.delivery.villages import (  # noqa: E402
 
 SRC = REPO / "data" / "processed" / "rescue_routing.json"
 
+#: The 사유 line printed for a home in the `no_surviving_vehicle_ingress` class.
+#: It states the CODE CONDITION and nothing more. `rescue.build_dispatch_list`
+#: puts a home here iff `rescue.rescuer_reachable` returned False, and that is a
+#: loop over every depot keeping only a route with `reached and not
+#: enters_hazard`. Three different return sites collapse into this one class —
+#: the pre-search refusal when the DEPOT's own node is already at or above the
+#: vehicle cutoff at dispatch (no edge is ever relaxed), an exhausted Dijkstra
+#: (which merges budget exhaustion, the ceil-rounded hazard gate, and a drive
+#: graph with no depot→home path at all), and a route that reached the home but
+#: was marked `enters_hazard`. So the line may assert that every depot was tried
+#: and that no survival-aware ingress route was confirmed. It may NOT assert
+#: fire as the cause, nor that a budget was consumed, nor that detours were
+#: tried. docs/routing_limitations.md §7.
+UNREACHABLE_REASON_KO: str = "어느 거점에서도 생존 인지 차량 진입 경로가 확인되지 않음"
+
+#: Kept as the record, never deleted (HANDOFF §5 rule 7, CHARTER §3.7). This is
+#: the sentence every committed sheet under `outputs/dispatch*` carries, and
+#: those run directories keep it: they are records of what was generated, not
+#: statements this repository is making today. §7 is the page that says so.
+SUPERSEDED_UNREACHABLE_REASON_KO: str = "예산 내 차량 진입로가 화재로 차단됨(우회 포함)"
+
 
 def _git() -> str:
     try:
@@ -99,7 +120,7 @@ def build_points_full(data: dict) -> list[dict]:
         }
         if unreachable:
             pt["closing_window_min"] = r.get("best_closing_window_min")
-            pt["reason_ko"] = "예산 내 차량 진입로가 화재로 차단됨(우회 포함)"
+            pt["reason_ko"] = UNREACHABLE_REASON_KO
         else:
             pt["closing_window_min"] = r.get("closing_window_min")
             pt["responder_eta_min"] = r.get("responder_eta_min")
@@ -131,7 +152,7 @@ def build_points(data: dict) -> list[dict]:
             "home_node": p["home_node"],
             "closing_window_min": p.get("best_closing_window_min"),
             "label": _place_label(p["x"], p["y"], refuges),
-            "reason_ko": "예산 내 차량 진입로가 화재로 차단됨(우회 포함)",
+            "reason_ko": UNREACHABLE_REASON_KO,
         })
     return pts
 

@@ -16,7 +16,9 @@ data-free: it reads two files in the repository and nothing else.
 """
 from __future__ import annotations
 
+import importlib.util
 import re
+import sys
 from pathlib import Path
 
 import pytest
@@ -28,6 +30,21 @@ DOC = REPO / "docs" / "live_pipeline.md"
 
 #: The doc's mapping table lives under this heading.
 SECTION = "### Resident-side, so the sheets do not say 차량"
+
+#: WFG-264. The 439 responder series' own table, which is the sheet a judge is
+#: physically handed. Its wording lives in a script rather than in the package,
+#: so it is loaded by path — the binding matters more than the import style.
+VEHICLE_SECTION = "### Responder-side, the 439 series — the sheet the booth hands over"
+DISPATCH_SCRIPT = REPO / "scripts" / "generate_dispatch_outputs.py"
+
+
+def _dispatch_module():
+    sys.path.insert(0, str(REPO / "src"))
+    spec = importlib.util.spec_from_file_location(
+        "_wfg_generate_dispatch_outputs", DISPATCH_SCRIPT)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
 
 
 def _live_table_wordings() -> set[str]:
@@ -101,3 +118,73 @@ def test_the_doc_points_at_the_section_that_justifies_each_repair(bucket):
     assert section in text, (
         f"docs/live_pipeline.md should cite routing_limitations.md {section} "
         f"for {bucket}'s wording")
+
+
+# ---------------------------------------------------------------------------
+# WFG-264: the same binding for the 439 responder series
+# ---------------------------------------------------------------------------
+
+
+def _vehicle_table_wordings() -> set[str]:
+    """Every `wording` cell of the LIVE vehicle table (not the record table)."""
+    text = DOC.read_text(encoding="utf-8")
+    body = text[text.index(VEHICLE_SECTION):]
+    body = body.split("⚠ **The first of those is a replacement", 1)[0]
+    out = set()
+    for line in body.splitlines():
+        if not line.startswith("|") or line.startswith("|---"):
+            continue
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if len(cells) != 3 or cells[0] == "class":
+            continue
+        if cells[2]:
+            out.add(cells[2])
+    return out
+
+
+def test_the_vehicle_sheet_sentence_appears_in_the_doc_table():
+    """The script's string is the authority; the doc must show it verbatim."""
+    shipped = _dispatch_module().UNREACHABLE_REASON_KO
+    assert shipped in _vehicle_table_wordings(), (
+        "docs/live_pipeline.md's 439-series table does not show the sentence "
+        f"scripts/generate_dispatch_outputs.py actually prints ({shipped!r}). "
+        "That is the WFG-262 defect on the responder arm: the sheet a judge is "
+        "handed, repaired in the emitter and not in the page that documents it.")
+
+
+def test_the_superseded_vehicle_wording_is_not_shown_as_live():
+    mod = _dispatch_module()
+    old = mod.SUPERSEDED_UNREACHABLE_REASON_KO
+    assert old != mod.UNREACHABLE_REASON_KO
+    assert old not in _vehicle_table_wordings(), (
+        f"{old!r} is a superseded sheet line (routing_limitations.md §7) and is "
+        "being shown as the live wording")
+
+
+def test_the_record_keeps_the_superseded_vehicle_wording():
+    """CHARTER §3.7 / HANDOFF §5 rule 7: the old string is kept, not deleted."""
+    old = _dispatch_module().SUPERSEDED_UNREACHABLE_REASON_KO
+    assert old in DOC.read_text(encoding="utf-8"), (
+        f"the superseded wording {old!r} was deleted rather than recorded")
+    assert old in DISPATCH_SCRIPT.read_text(encoding="utf-8"), (
+        "the emitter no longer carries the sentence it used to print")
+
+
+def test_the_vehicle_sentence_asserts_no_cause():
+    """The whole of WFG-264: the line may not name fire, a budget or a detour.
+
+    Each banned token is a thing the classification condition does not establish.
+    `rescuer_reachable` fails for three different reasons and the sheet gets one
+    sentence, so the sentence may say what was searched for and not why it failed.
+    """
+    shipped = _dispatch_module().UNREACHABLE_REASON_KO
+    for token in ("화재", "예산", "우회", "차단"):
+        assert token not in shipped, (
+            f"the 439 unreachable sheet line asserts {token!r}, which its code "
+            "condition does not establish (routing_limitations.md §7)")
+
+
+def test_the_doc_points_at_section_7_for_the_vehicle_repair():
+    assert "§7" in DOC.read_text(encoding="utf-8"), (
+        "docs/live_pipeline.md should cite routing_limitations.md §7 for the "
+        "439-series wording")

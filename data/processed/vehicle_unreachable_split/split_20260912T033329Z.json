@@ -1,0 +1,46 @@
+{
+  "title": "WFG-264 — what the 439-series unreachable class establishes",
+  "generated_utc": "20260912T033329Z",
+  "git_commit": "7d716f4b4f5edfb865b6a96d66aa722d66c8645b",
+  "row": "WFG-264",
+  "method": "Reads two committed artifacts and nothing else. No scan re-run, no refit, no committed count moved. best_closing_window_min is assess_ingress's best DIRECT-corridor closing window over all depots, stored for context by build_dispatch_list; the class itself is decided by rescuer_reachable, which is a different and more conservative test. The three counts below are properties of the context field, read against the run's own recorded safety margin.",
+  "what_this_is_not": "NOT a claim that any home is misclassified. rescuer_reachable is the decider by design and this measurement does not second-guess it. NOT a count of which of the three return sites (A) (B) (C) each home came from: the committed artifacts do not record that, and recovering it would mean re-running the scan. What it establishes is narrower and sufficient: the sheet sentence asserts fire as the cause and detours as tried, and for the homes counted here the artifact's own corridor assessment recorded a corridor that fire had not yet closed at the responder's arrival. ⚠ A null best window is an infinity of EITHER sign -- no drive path at all, or a corridor the fire never crosses -- so the first count rules out both worlds together and neither separately.",
+  "arms": [
+    {
+      "label": "committed_dispatch_slice",
+      "source_file": "data/processed/rescue_routing.json",
+      "identity_controls": {
+        "n_unreachable": 24,
+        "n_origins": 439,
+        "four_way_counts_agrees": true,
+        "responder_exposure_agrees": true,
+        "four_way_sums_to_n": true,
+        "responder_safety_margin_min_read_from_artifact": 12.0
+      },
+      "n_unreachable": 24,
+      "n_no_finite_best_closing_window": 0,
+      "n_corridor_survives_past_responder_eta": 4,
+      "n_corridor_reachable_by_the_screening_test": 1,
+      "min_best_closing_window_min": -53.05,
+      "max_best_closing_window_min": 12.23
+    },
+    {
+      "label": "full_coverage_rerun",
+      "source_file": "data/processed/rescue_routing_full.json",
+      "identity_controls": {
+        "n_unreachable": 32,
+        "n_origins": 441,
+        "four_way_counts_agrees": true,
+        "responder_exposure_agrees": true,
+        "four_way_sums_to_n": true,
+        "responder_safety_margin_min_read_from_artifact": 12.0
+      },
+      "n_unreachable": 32,
+      "n_no_finite_best_closing_window": 0,
+      "n_corridor_survives_past_responder_eta": 8,
+      "n_corridor_reachable_by_the_screening_test": 4,
+      "min_best_closing_window_min": -77.07,
+      "max_best_closing_window_min": 12.23
+    }
+  ]
+}

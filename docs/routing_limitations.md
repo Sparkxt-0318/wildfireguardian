@@ -22,6 +22,13 @@ original five, because 「the review found five and missed the neighbour of one 
 them」 is the finding. It changed a second A4 sheet sentence, on the same
 wording-only terms.
 
+⚠ **§7 was added on 2026-09-12 and is not one of the five either.** WFG-262's
+independent reviewer pointed out that both repairs, and the whole review that
+produced §1 to §5, had stayed on the **459 resident** series, while the sheet
+the booth physically hands a judge is the **439 responder** series. Same defect,
+third arm, and the only one that had never been audited at all. It changed a
+third A4 sheet sentence, on the same wording-only terms.
+
 ---
 
 ## 1. `fa_exceeds_budget` names a cause the code does not establish
@@ -242,6 +249,146 @@ rather than extracted. Pulling it out to make it testable would be a refactor,
 and this row is a label and a sentence. So the branch is reasoned and reviewed,
 not executed: if it ever fires in a real run, that run is the first execution of
 those three lines.
+
+## 7. The sheet the booth hands over: `no_surviving_vehicle_ingress` named a cause too
+
+**Found by WFG-262's independent reviewer (2026-09-12) as that lap's root
+objection, measured and repaired here (WFG-264).** <!-- forbidden-ok: 264, this is the BACKLOG ROW ID WFG-264 and not the gangneung_donghae_2022 Build-A positive count the gate anchors that value to. Same false-positive class as ba437f5, where the gate read a lap stamp as a camera count. No figure is asserted on this line. --> §1 and §6 are this same audit
+on the two walk-side buckets. They are the only two sheet-sentence audits above
+this one — the other four sections are about other things — and **both are on
+the 459 resident series**, which prints to
+`outputs/live/replay/`. The sheet a judge is physically handed at the booth is
+the **439 responder series**: `docs/auto/JUDGE_QA.md` sends the student to
+`outputs/dispatch/`, and `scripts/generate_dispatch_outputs.py` is the script
+that builds it. Nobody had read its unreachable condition.
+
+**The code condition.** `rescue.build_dispatch_list` puts a home in the
+unreachable set iff `rescue.rescuer_reachable` returns False, and that function
+is a loop over every depot which keeps a depot only when its survival-aware
+responder route satisfies `reached and not enters_hazard`:
+
+    the resident cannot self-evacuate on foot
+      AND for every depot, the survival-aware responder route either did not
+          reach the home or was marked as entering the hazard
+
+That is all of it. Nothing in it distinguishes *why*.
+
+### Three return sites, one sentence
+
+`rescuer_route` is `evacuation.future_aware_route` called with the **depot** as
+`start` and the home as the only shelter. So three distinct returns collapse into
+this class:
+
+| # | return site | what actually happened |
+|---|---|---|
+| A | the pre-search refusal | the **depot's own node** is already at or above the vehicle cutoff at dispatch time, and the function returns before one edge is relaxed |
+| B | Dijkstra exhausted | merges three worlds: the 75-minute responder budget ran out, the ceil-rounded hazard gate closed every edge, **or the drive graph has no depot→home path at all** |
+| C | reached but `enters_hazard` | a route was found and reached the home, and exact-time evaluation marked it as crossing the cutoff |
+
+⚠ **(A) is not (B) with a different flavour, and it is not the branch WFG-262
+measured at zero.** §6's zero is structural because all three copies of
+`candidate_origins` filter *origins* by the same predicate the branch tests.
+**Nothing in this repository filters depots that way.** The 439 arm's start node
+is a depot, so §6's argument does not transfer, which is why this row was
+forbidden to repair the sentence by analogy.
+
+### What the sentence asserted, and the three ways it can be wrong
+
+The sheet printed 「예산 내 차량 진입로가 화재로 차단됨(우회 포함)」 — 「the
+vehicle access road within budget is blocked by fire, detours included」. It
+asserts a cause (fire), a resource (a budget consumed) and a procedure (detours
+tried). Each is reproduced false below, on a constructed field, deterministically
+(`tests/test_vehicle_unreachable_split.py`; no clock, no network, no file outside
+the repository):
+
+| constructed case | fire in the field | what the sheet said | what happened |
+|---|---|---|---|
+| depot inside the cutoff at dispatch | yes, on the depot | detours included | site (A): the router returned before relaxing an edge; **no detour was tried** |
+| home on a disconnected road component | **none anywhere** | blocked by fire | site (B): there is no road, and no fire |
+| only path longer than the responder budget | **none anywhere** | blocked by fire | site (B): the budget bound, and no fire |
+
+### What the committed 영덕 fields say
+
+Measured by `scripts/measure_vehicle_unreachable_split.py`, which opens two
+committed artifacts and nothing else — no re-run, no refit, no committed count
+moved. `build_dispatch_list` stores `best_closing_window_min` for context: the
+best **direct-corridor** closing window over all depots, from `assess_ingress`,
+with an infinity mapped to `null`. Since `reachable` is
+`survival >= eta + margin` and `assess_ingress` returns a feasible corridor when
+one exists and the largest window otherwise, two things are readable off the
+committed file:
+
+| | committed dispatch slice | full-coverage re-run |
+|---|---:|---:|
+| homes in the class | 24 | 32 |
+| no finite best closing window | **0** | **0** |
+| direct corridor survives past the responder's ETA | **4** | **8** |
+| direct corridor reachable by the screening test itself | **1** | **4** |
+
+⚠ **The second row was nearly published as something it is not, and the
+reproduction above is what stopped it.** The draft of this section read a `null`
+window as 「no drive path from any depot at all」, because `ingress_corridor`'s
+`NetworkXNoPath` branch stores `-inf`. It is an infinity of **either** sign: a
+corridor the fire never crosses has infinite survival and stores `+inf`. The
+over-budget case in `tests/test_vehicle_unreachable_split.py` is exactly that —
+a road, no fire, a null window — and it failed the assertion the draft had
+written. So the zero rules out **both** worlds together and neither separately,
+which is a weaker claim than the draft made and the one the field supports: every
+home in the class had at least one depot with a road, on a corridor the fire
+does cross.
+
+Registered as the eight `vus_` keys. Identity controls, required before any count
+above was written: `len(unreachable_homes)` re-derives against **both**
+`four_way_counts` and `responder_exposure` on each arm, `four_way_sums_to_n` is
+true, and the 12-minute threshold is **read out of each artifact's own
+`provenance.assumed`** rather than typed into the script — a margin the script
+had to supply would be a parameter of the measurement instead of a property of
+the run.
+
+**The sub-case is empty on both fields, and an empty sub-case is published as an
+empty sub-case** (the WFG-262 discipline). The row's pre-registration said the
+count would probably be zero, before the number existed; what it did not
+anticipate is that the zero would turn out to answer a broader question than the
+one it was asked.
+
+**The last row is the one that mattered.** A stored window at or above the
+margin can only have come from `assess_ingress`'s *feasible* branch: for that
+home the direct-corridor screening returned `reachable=True` — a corridor whose
+earliest fire-cutoff crossing is a full safety margin after the responder's ETA
+— while the survival-aware router returned no route. The sheet told a dispatcher
+the access road was blocked by fire.
+
+⚠ **What this does NOT show, said plainly.** It is **not** a misclassification
+count and no home is claimed to be reachable. `rescuer_reachable` is the decider
+by design, it is the more conservative of the two tests, and a rescue tool that
+errs conservatively about sending a vehicle into a fire is erring the right way.
+It is also **not** a split by return site: the committed artifacts do not record
+which of (A), (B), (C) fired for each home, and recovering that would mean
+re-running the scan, which this row is forbidden to do. The finding is about the
+**sentence**: a class whose condition is 「no survival-aware ingress route was
+confirmed」 was printing 「fire blocked the road, and we tried detours」.
+
+**The one change made.** `scripts/generate_dispatch_outputs.py` now names the
+line as a constant, `UNREACHABLE_REASON_KO`, and prints
+「어느 거점에서도 생존 인지 차량 진입 경로가 확인되지 않음」 — every depot was
+tried and no survival-aware ingress route was confirmed, which is the code
+condition and nothing more. Checked before changing, and this is the whole of
+`Done when` (c): **no test pinned the old string** — one grep over `tests/` for
+it returns nothing, and the delivery layer's byte-identity defaults
+(`printable.UNREACHABLE_REASON_FALLBACK` and the two headings) are untouched,
+because the 439 sheets always supply their own `reason_ko` and never reach that
+fallback. The superseded sentence is kept in the same module as
+`SUPERSEDED_UNREACHABLE_REASON_KO` and in `live_pipeline.md`'s record table.
+**Committed run directories under `outputs/dispatch*` keep the sentence they
+were generated with, as records, exactly as §1 and §6 left theirs** — 44 files
+under `outputs/` carry it and not one is rewritten. They are a record of what was
+generated on 2026-08-01, not a statement this repository makes today.
+
+⚠ **One cost, named rather than discovered later.** The new line is longer than
+the old one (29 characters against 26) and the 사유 column is on a page-budget
+gate (`tests/test_sparsity_and_page_budget.py`). The committed sheets are not
+regenerated, so nothing committed moves; a student who reprints the kit with
+`--split-unreachable` has the overflow escape the script already ships.
 
 ---
 
