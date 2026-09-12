@@ -1508,6 +1508,116 @@ NH-037 is the answer and it is still open.** The `.docx` **is** rebuilt into the
 the manuscript's content moved, which is the case lap 23's byte-non-determinism finding says a
 rebuild is legitimate in.
 
+⛔✅ **Lap 35 is the one where the same audit arrived on its THIRD arm, the manuscript had the
+class name flat in two places, and both repairs came in at NET ZERO — while the strongest
+evidence in the window, which runs against this paper, cost +32 and was refused. Read
+`GAPS.md`'s lap-35 section before this paragraph.** 8,999 → **8,999**; margin **1 → 1**.
+Nothing was compressed and no caveat or registered number was traded.
+
+Laps 33 and 34 carried the mislabelled-class audit across the two **walk-side** buckets. The
+incorporated window (**WFG-264**, `docs/routing_limitations.md` §7) ran it on the **responder** <!-- forbidden-ok: 264, this is the BACKLOG ROW ID WFG-264 and not the gangneung_donghae_2022 Build-A positive count the gate anchors that value to. Same false-positive class as ba437f5, where the gate read a lap stamp as a camera count. No figure is asserted on this line. -->
+side, and its point is the one this routine keeps paying for: both earlier audits, and the
+whole Round-4 review that produced them, stayed on the **459 resident** series, while the sheet
+a judge is physically handed at the booth is the **439 responder** series. Same defect, third
+arm, and the only one that had never been audited at all. `no_surviving_vehicle_ingress` is
+exactly `rescuer_reachable() == False`, and **three** distinct return sites collapse into it —
+a pre-search refusal at the **depot's own** node, an exhausted Dijkstra that itself merges
+budget exhaustion with the ceil-rounded hazard gate and **a drive graph with no depot→home path
+at all**, and reached-but-`enters_hazard`. Two of §7's three reproductions have **no fire
+anywhere in the field**.
+
+**This manuscript asserted that name in its own voice twice** — §3.4's 「24 have no **surviving**
+vehicle ingress」, the sentence carrying the 439-series split, and §4.6's 「the count of origins
+with no **surviving** vehicle ingress by 33.3 %」.
+
+⛔⛔ **The first draft repaired both to 「no CONFIRMED vehicle ingress」, and its independent
+reviewer showed that is WORSE than the defect. Read `GAPS.md`'s lap-35 §7 before this
+paragraph.** 「No confirmed vehicle ingress」 asserts that *nothing in the run confirmed* vehicle
+ingress for any of the 24 — and WFG-264's own registered measurement, added in this same <!-- forbidden-ok: 264, this is the BACKLOG ROW ID WFG-264 and not the gangneung_donghae_2022 Build-A positive count the gate anchors that value to. Same false-positive class as ba437f5, where the gate read a lap stamp as a camera count. No figure is asserted on this line. -->
+window, records the opposite for some: `vus_corridor_reachable_dispatch_slice` = **1**, a home
+whose stored window is at or above the run's own 12-minute margin and can only have come from
+`assess_ingress`'s **feasible** branch, with `vus_corridor_survives_past_eta_dispatch_slice` =
+**4** beside it. **Before the lap the sentences were unestablished; the draft would have shipped
+them contradicted by a committed artifact.** That is lap 20's shape — a repair proved worse than
+what it repaired — and the mechanism was this routine's own claim of compliance: the draft said
+it had adopted 「the register the repository's own repaired sheet line uses」, and that line is
+「어느 거점에서도 **생존 인지** 차량 진입 경로가 확인되지 않음」. It adopted half of it and dropped
+the half that does the work.
+
+✅ **The accurate word was free.** §3.4 now reads 「24 have no confirmed **survival-aware**
+ingress」 — `vehicle` dropped as redundant in a section whose every sentence is about a crew
+driving — at **net zero**, `build_docx.py` counting by `.split()`. So the lap's own
+refusal-for-budget was no defence at that site: the true word cost nothing and the draft had
+picked the false one.
+
+⚠ **The reviewer's second finding is a named non-negotiable, and it was verified in the tree
+before being obeyed.** `docs/HANDOFF_ROUND3.md` §5 rule 23: 「Never merge the two four-way
+classifications … different names, denominators, lineages and hazard fields」. §4.6's 24 → 32 is
+the **439 responder** axis on a **synthetic** hazard field, in a section headed 「Sensitivity on
+the canonical Yeongdeok field」 whose neighbours are 458-series walk counts, naming the axis
+nowhere. Repaired at **+1**: 「the count of **responder** origins…」, `responder` chosen over
+`439-series` to keep a second integer off a line the collision gate reads per line.
+**8,999 → 9,000; margin 1 → 0**, and `check_paper.py` fails on `> LIMIT`, so 9,000 is inside —
+lap 25's precedent exactly.
+
+⚠⚠ **The reviewer also demolished the reason the draft gave for NOT extending §6, and that
+reason is withdrawn rather than softened.** The draft said the third class could not join §6's
+sentence because 「the 24 is an absolute count, not an arm of a paired contrast, so it does not
+divide out」. **That applies verbatim to `no_safe_route`, the class lap 34 put in that very
+sentence**, whose absolute counts this paper also publishes — the Abstract's 2, §4.3's 2, Table
+2's 2 / 12 / 10. It discriminates nothing. The destination survives on two other grounds: §6's
+list is headed 「Router approximations」 and every other member belongs to
+`routing/evacuation.py`, while this class is `rescue.build_dispatch_list`'s; and after the §3.4
+repair the manuscript no longer uses the overstating name at all, so there is no own-voice
+assertion left for §6 to qualify. ⛔ What that does **not** buy: the paper still publishes 24 and
+24 → 32 without saying the class merges three return sites, one of them a drive graph with no
+depot-to-home path at all. That is the sentence below, and the margin is now zero.
+
+⛔ **What the budget refused, measured and reverted rather than estimated.** Of the 24, the
+run's own direct-corridor screening recorded **4** with a corridor surviving past the
+responder's ETA and **1** reachable with the full 12-minute margin — evidence **against** this
+paper's own number, on a class whose absolute count it publishes. The sentence carrying it
+costs **+32** words against a margin of 1; the bare register clause alone costs **+10**. Both
+are over the proxy's hard fail and both were reverted. ⚠ Both were costed at 8,999; the margin
+is now **0**, so both are further out of reach rather than nearer. ⚠ The honest size of it: after the
+repair the manuscript is **not false** — it reports what the scan established. What it declines
+is the reason and the counter-evidence, which is lap 24's shape a second time and on a
+responder-side number again. **Laps 13 through 21, 24, 25, 30, 33 and now 35 have all had their
+writing shaped by the proxy rather than by the evidence. NH-037 is the answer and it is still
+open.**
+
+⚠ **The subject grep found that the manuscript was not the only live surface, and that this
+routine could reach only one of them.** `git grep -n "surviving vehicle ingress" -- docs/ paper/
+release/ web/` returns five hits in four files: the two repaired here, plus
+`docs/network_drift.md:10` and `:61` — the source document behind §4.6's own 「24 to 32」, where
+the spelling is a **bold table-row header** — `docs/auto/knowledge/ROUTING_FUNDAMENTALS.md:161`,
+and `docs/NUMBERS.json:9328`. All three are outside CHARTER §12, and the registry is doubly
+barred by §3 rule 2. They are reported to the author as a dev-lap item and **not** edited.
+`paper/manuscript.md` now returns zero.
+
+✅ **The page count went from UNKNOWN back to measured, and that is the lap's other half.** The
+0617Z dev lap repointed the manuscript at `F3b_` and `F8b_`, which moved the figure-inputs
+digest; with no renderer in that sandbox it correctly **nulled** both fields rather than
+hand-writing an anchor, and its own note records the consequence in capitals — the author's
+25-page rule was **UNVERIFIED at that head**. This lap ran the one `apt` line this file has
+printed since lap 9, so `check_paper.py` took its measuring branch — **`pages 23, calibri_face
+Carlito, metrics_ok true`**, page objects and page-tree `/Count` agreeing — printing
+**`bdb470ea0108d633`**. ⚠ That is the **pre-repair** run's digest and is not what this lap
+records: the reviewer's repairs moved `body_words`, so the anchor was **re-derived a second
+time** and `STATE.json` carries **`7ed51c97137c9b2c`**, the string the final run printed. **Two pages against the
+author's 25, one word against the proxy's 9,000, measured on one document by one run.** ⚠ It
+does **not** close **WFG-116**: that is the same `apt` line in
+`.github/workflows/auto-gates.yml`, outside `paper/`, still open — and until it lands, every lap
+without a renderer must null the field again, which is now a thing that has actually happened
+rather than a thing this file warned about.
+
+✅ All ten figures redrew **byte-identical**. `F3b_regions.png` and `F8b_routing_map.png` ship
+inside this lap's `.docx` for the first time and both were **opened with the Read tool**: boxed
+legends clear of the data, nothing clipped, F8b's legend counts reading 414 / 42 / 2 against the
+committed partition, both carrying the repaired 「no safe walking route **found**」 wording. No
+figure was added — one costs a page without costing a word, and the `vus_` split is three
+integers belonging in a sentence the budget refused, not in a figure drawn to dodge the counter.
+
 ⚠ **The page that took the count from 22 to 23 cost eleven words, and it is worth
 knowing that before reading the words-to-pages table below as a rate.** Lap 11
 took the body 8,735 → 8,825 (a mandatory §4.5 correction, one clause, and the

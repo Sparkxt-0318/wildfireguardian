@@ -239,12 +239,13 @@ if that time exceeds the responder's estimated arrival — dispatch delay plus t
 by a safety margin. The four-way outcome partitions the origin set exactly and the
 unreachable class is reported, never imputed: of 439 committed origins, 272 are
 self-sufficient and 167 need a rescuer, of whom 143 are dispatchable and 24 have no
-surviving vehicle ingress. An assumed immobile fraction of 0.3 drives the split and is
-swept. **That series is only a partial flip to real data, and every 439-origin number in
-this paper inherits it.** Its roads, refuges and depots are real OpenStreetMap geometry;
-its hazard field and terrain are labelled synthetic in the artifact's own provenance, the
-forward simulation needing a raw fire bundle this repository does not distribute. Its
-policy contrasts are the robust part; its absolute magnitudes are illustrative.
+confirmed survival-aware ingress. An assumed immobile fraction of 0.3 drives the
+split and is swept. **That series is only a partial flip to real data, and every
+439-origin number in this paper inherits it.** Its roads, refuges and depots are real
+OpenStreetMap geometry; its hazard field and terrain are labelled synthetic in the
+artifact's own provenance, the forward simulation needing a raw fire bundle this
+repository does not distribute. Its policy contrasts are the robust part; its absolute
+magnitudes are illustrative.
 The shipped ordering ranks dispatchable homes by urgency — ingress survival minus
 responder arrival, smallest closing window first — and Section 4.7 measures it against
 nearest-first, earliest-closure, unsorted scan order and 200 random permutations across a
@@ -554,7 +555,8 @@ invalidates the margin.
 
 **The road network itself is a source of uncertainty.** Re-acquiring the OpenStreetMap
 network eleven months later changed the walk-graph node count by 0.0474 % and moved the
-count of origins with no surviving vehicle ingress by 33.3 % (24 to 32), while the paired
+count of responder origins with no confirmed survival-aware ingress by 33.3 % (24 to 32),
+while the paired
 exposure-reduction contrast moved by 0.5614 percentage points. Neither network is the
 right one; the reported quantity is sensitivity, and it says binary verdicts are
 network-fragile where paired contrasts are not.
