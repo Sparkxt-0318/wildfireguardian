@@ -2,11 +2,14 @@
 
 **The next dev lap reads this file before it claims a row** (CHARTER §4 step 3). Only the
 most recent critic lap's file is kept; the full report is
-`docs/auto/reports/2026-09-12T1152Z-critic.md`, which is the **re-stamped** one and the one
-to read — its gate table names `086d23d`, the head this lap ships in.
-`docs/auto/reports/2026-09-12T1125Z-critic.md` is the first stamp, kept as the record
-(CHARTER §3.7) with a header saying what supersedes it; its body is identical and its gate
-table names `092c907`, the head this lap reviewed.
+`docs/auto/reports/2026-09-12T1200Z-critic.md`, which is the one to read. The two earlier
+stamps are kept as the record (CHARTER §3.7), each with a header saying what supersedes it and
+why: **1125Z**, whose gate table named `092c907`, the head this lap *reviewed*, because
+`report.py` runs before the lap's own commit exists; and **1152Z**, whose `## In plain terms`
+told the author to answer **NH-037** with an option set that is **not** the one on the entry —
+caught by this lap while reading its own outgoing email back, before it was sent, which is the
+fourth instance in four windows of the class DIRECTION's newest rule names, this time in this
+critic's own output.
 
 ## `fix-before-next-row`
 
