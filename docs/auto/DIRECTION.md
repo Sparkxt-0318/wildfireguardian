@@ -74,6 +74,7 @@ WildfireGuardian forecasts where an already-burning Korean wildfire goes next, a
 - **Do not let a number from a knowledge note reach a card, the README, the manuscript or `docs/NUMBERS.json`** (CHARTER §13).
 - ⚠ **Do not trust CHARTER §4's 「`curl` returns 403 here and must not be used」.** It is **false** in this sandbox as of `4bf34ab`: **confirmed a second time by critic #73**, the call returns a full JSON body and exit 0, and this lap read runs 392 to 402 from it. That is **WFG-268**; do not delete the old sentence, date it.
 - ⚠ **Do not paste a shell command into a `docs/auto/BACKLOG.md` row without escaping its pipe.** Twelve rows already do, and their `status` cell is unreadable to the rule the board is counted with (**WFG-191**). This critic did it too, inside the note filing it.
+- ⚠⚠ **Do not put CHARTER §4 step 8's two assertions on the same shell line as the push, and never join them with `;`.** Critic #73 did and pushed `43bbfd8` past a red `--assert-reported`; the assertion was right. Use `&&`. Second instance on **NH-040**.
 - ⚠ **Do not add a card to `docs/auto/JUDGE_QA_PENDING.md` without reading the file back.** Critic #72 opened two cards inside an inline code span and broke the headings; no gate saw it (**WFG-273**, repaired here).
 
 ## Readiness and open decisions

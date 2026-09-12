@@ -2,7 +2,9 @@
 
 **The next dev lap reads this file before it claims a row** (CHARTER §4 step 3). Only the
 most recent critic lap's file is kept; the full report is
-`docs/auto/reports/2026-09-12T0822Z-critic.md`.
+`docs/auto/reports/2026-09-12T0835Z-critic.md`, which is the **re-stamped** one and the one
+to read. `docs/auto/reports/2026-09-12T0822Z-critic.md` is the first stamp, kept as the
+record (CHARTER §3.7) with its own correction written into it; see the last bullet below.
 
 ## `fix-before-next-row`
 
@@ -62,6 +64,11 @@ assert non-existence and which name a bucket.
 - Nothing new on either decision channel: the newest 25 Gmail threads matching the report
   subject each carry exactly one message, every one the loop's own send; PR #31's comment
   list is empty. Six days on WFG-211.
+- ⚠⚠ **This lap pushed one commit (`43bbfd8`) past a RED `--assert-reported`**, because it
+  chained the assertion to the push with `;` instead of `&&`. The assertion was right and the
+  remedy is the one it printed: a re-stamped report covering the two paths, gates re-run, both
+  assertions green at the head that carries it. Nothing force-pushed, nothing red on the
+  branch, recorded as the second instance on **NH-040**. **Use `&&`.**
 
 ## Findings, ranked
 

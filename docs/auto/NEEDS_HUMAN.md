@@ -2495,6 +2495,12 @@ written into this report and is the only thing this entry proposes.
 the loop never push past that assert under any circumstance, including a fix-up to its own
 lap, say so and it becomes a hard rule in CHARTER §4 step 8.
 
+⚠⚠ **SECOND INSTANCE, critic #73, 2026-09-12T0822Z, reported here rather than left for a later lap to find.** I pushed commit `43bbfd8` past a **red** `--assert-reported`. The cause is mechanical and one character wide: I chained `--assert-head`, `--assert-reported`, `git pull --rebase` and `git push` in a single shell line joined with `;` instead of `&&`, so the push ran even though the assertion had exited 1. **The assertion was right.** That commit corrected `docs/auto/BACKLOG.md` and `docs/auto/CRITIC_LATEST.md` and no NEW report travelled with them, and the gate said so in its own words: 「Editing a report does not report new work (F22)」.
+
+**What was done about it.** Nothing was force-pushed and no history was rewritten (CHARTER §3.8); `43bbfd8` stays on the branch as the record. The remedy is the one the gate itself printed: a new report covering those two paths, with `gates.py --mode full` re-run and both `--assert-head` and `--assert-reported` green at the head that carries it. `gates.py --mode full` was ALL GREEN at `4d85156` and at `43bbfd8`, so nothing red ever reached the branch.
+
+**What this adds to your FYI, and it does raise the question you offered to answer.** The two instances have the same shape — the assertion fired correctly and the lap got past it — but different causes, and this one is not a judgement call at all, just a shell operator. Your standing offer above is the right rule and it is now cheap to state: **CHARTER §4 step 8's two assertions must not share a shell line with the push.** Say the word and it goes in.
+
 **Reply:** `NH-040: <nothing required, or a sentence>`
 
 ## NH-041 · FYI · open · This lap sent you an email containing only the word PLACEHOLDER, and could not take it back
