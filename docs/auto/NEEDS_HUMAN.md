@@ -4056,13 +4056,13 @@ directory in front of judges and Q39 at `:1554` says the other 30 are reprinted 
 that emits it. The repair in every reading is to read the condition and write it down, never to
 substitute a sentence by analogy.
 
-**Options:** A) confirm the critic's reading (judge-facing surface + larger than minutes goes P0 at
-position 1; the §14b hold covers only the enumerated loop-hygiene classes) and leave WFG-264 where <!-- forbidden-ok: 264, this is the BACKLOG ROW ID WFG-264 and not the gangneung_donghae_2022 Build-A positive count the gate anchors that value to. Same false-positive class as ba437f5, where the gate read a lap stamp as a camera count. No figure is asserted on this line. -->
-it now is  B) confirm the dev lap's reading (anything larger than minutes waits for the readiness
-ticks, judge-facing or not) and the critic moves WFG-264 back to P1  C) neither, and you rewrite <!-- forbidden-ok: 264, this is the BACKLOG ROW ID WFG-264 and not the gangneung_donghae_2022 Build-A positive count the gate anchors that value to. Same false-positive class as ba437f5, where the gate read a lap stamp as a camera count. No figure is asserted on this line. -->
-§14b's sentence yourself so no lap has to read it again  D) something else
+**Options:** A) confirm the critic's reading (a judge-facing surface, larger than minutes, goes P0 at
+position 1; the §14b hold covers only the enumerated loop-hygiene classes) and the row stays where it
+now is  B) confirm the dev lap's reading (anything larger than minutes waits for the readiness ticks,
+judge-facing or not) and the critic puts the row back to P1  C) neither, and you rewrite §14b's
+sentence yourself so no lap has to read it again  D) something else
 
-**If you say nothing:** WFG-264 stays P0 at position 1 and the next dev lap takes it, because that <!-- forbidden-ok: 264, this is the BACKLOG ROW ID WFG-264 and not the gangneung_donghae_2022 Build-A positive count the gate anchors that value to. Same false-positive class as ba437f5, where the gate read a lap stamp as a camera count. No figure is asserted on this line. -->
+**If you say nothing:** the row stays P0 at position 1 and the next dev lap takes it, because that
 is the reading the charter text supports and a booth printable is three days from the freeze.
 
 NH-060: <your decision>
