@@ -13,64 +13,7 @@ row itself offered rather than deciding NH-049 by acting.
 **How a card leaves this file.** A lap that is already rebuilding the kit for
 another reason merges the card into `docs/auto/JUDGE_QA.md`, runs
 `make printables`, re-points the manifest and the bundle, and deletes nothing
-here — it moves the entry under `### P-003 · WFG-266 · 「이 그림의 범례가 본문 설명과 다릅니다」
-
-*Filed 2026-09-12 by critic #72's judge drill. ⚠⚠ **UPDATED 2026-09-12T0617Z BY THE
-WFG-266 DEV LAP, WHICH CLOSED THE ROW AND SO FALSIFIED THIS CARD'S OWN DRAFT
-ANSWER.** 카드가 근거로 삼을 문서가 이제 있습니다: `docs/figure_legend_claims.md`.
-아래 첫 초안은 기록으로 남기고(CHARTER §3.7), 말할 답은 그 아래 둘째 초안입니다.*
-
-**Q (드릴에서 나온 형태).** 본문에는 「2 reaching no refuge」라고 쓰셨는데, 바로 그
-그림의 범례는 「no safe walking route」라고 적혀 있습니다. 어느 쪽이 맞습니까?
-
-**A (draft, tier T1 - 물으면 답한다).**
-
-> 지적하신 그대로였고, 고쳤습니다. 코드가 세우는 조건은 「불을 모르는 경로는
-> 예측 위험을 지나서 대피소에 닿았고, 예보를 아는 탐색은 닿지 못했다」입니다.
-> 「안전한 보행 경로가 없다」는 그보다 강한 주장이라, 세 범례를 모두 「no safe
-> walking route **found**」로 바꿨습니다. 커밋된 그림은 다시 그리지 않고 새 파일
-> 이름으로 만들었습니다(`F3b_regions.png`, `F8b_routing_map.png`, 앞선 랩의
-> `F5b_decision_shift.png`). 방법과 한계는 `docs/figure_legend_claims.md`에
-> 있습니다. ⚠ 이 고침이 「안전한 경로가 있다」는 뜻은 아닙니다. 두 탐색이 무엇을
-> 돌려줬는지만 말할 수 있습니다.
-
-**Source:** `docs/figure_legend_claims.md`; `paper/make_figures.py` F3b·F5b·F8b
-범례; `tests/test_figure_legend_claims.py` (돌연변이 다섯 개로 채점).
-⚠ `README.md`에는 아직 더 강한 표현(「no safe walking route **at all**」)이
-남아 있습니다 — **WFG-270**. 심사위원이 README를 들고 물으면, 고칠 곳으로
-등록되어 있다고 그대로 말합니다.
-
-**[기록 · 2026-09-12 · 오늘의 답이 아닙니다]** 최초 초안은 「범례가 아직 옛
-표현입니다 ... F8과 F3 범례는 아직입니다」였고, 출처로 `paper/make_figures.py:689`
-(F8 범례), `:134` (F3 범례), `:244` (F5b)를 들었습니다. WFG-266이 닫히면서 세 줄
-모두 옮겨졌으므로 이 초안은 더 이상 참이 아닙니다.
-
----
-
-### P-004 · WFG-267 · 「이 세 장 중 어느 것이 옛 문장입니까?」
-
-*Filed 2026-09-12 by critic #72's judge drill, as the residual of P-002. P-002는
-「왜 커밋된 시트가 옛 문장을 갖고 있는가」에 잘 답하지만, 부스에서 손에 든 세 장
-중 **어느 장**이 그것인지는 어떤 파일도 말하지 않습니다.*
-
-**Q.** 지금 주신 출동 지시서 묶음에서, 「차량 도달 불가」 사유가 서로 다르게 적힌
-장이 섞여 있습니다. 어느 것이 지금 기준입니까?
-
-**A (draft, tier T1).**
-
-> 다시 뽑은 장이 지금 기준이고, 미리 PDF로 커밋돼 있던 장이 2026-08-01 기록입니다.
-> 커밋된 PDF는 가장 큰 세 군집뿐이고, 그중 「차량 도달 불가」 지점이 있는 것은
-> `02-천전공원-일대` 한 장입니다. 가장 안전한 방법은 33장을 전부 다시 뽑는
-> 것이고, 그러면 섞이지 않습니다.
-
-**Source (오늘 기준):** `docs/live_pipeline.md:193-201`(무엇이 대체되었는지),
-`docs/routing_limitations.md` §7(왜). ⚠ **「02-천전공원-일대 한 장」이라는 말은
-오늘 어떤 커밋된 문서에도 없습니다** - critic #72가 트리에서 재어 본 값이고,
-WFG-267 (i)이 `outputs/dispatch/README.md`에 적어 넣어야 말할 수 있습니다.
-
----
-
-## Merged` with the commit that merged it.
+here — it moves the entry under `## Merged` with the commit that merged it.
 
 ⚠ **Nothing in this file is printed, and the student does not study from it.**
 Until a card is merged, the booth answer to the question it covers is whatever
@@ -136,6 +79,63 @@ about the artifact's context field rather than about the class.
 
 **Source:** `docs/live_pipeline.md` (the live table and the record table below
 it), `tests/test_live_pipeline_doc_matches_code.py`.
+
+---
+
+### P-003 · WFG-266 · 「이 그림의 범례가 본문 설명과 다릅니다」
+*Filed 2026-09-12 by critic #72's judge drill. ⚠⚠ **UPDATED 2026-09-12T0617Z BY THE
+WFG-266 DEV LAP, WHICH CLOSED THE ROW AND SO FALSIFIED THIS CARD'S OWN DRAFT
+ANSWER.** 카드가 근거로 삼을 문서가 이제 있습니다: `docs/figure_legend_claims.md`.
+아래 첫 초안은 기록으로 남기고(CHARTER §3.7), 말할 답은 그 아래 둘째 초안입니다.*
+
+**Q (드릴에서 나온 형태).** 본문에는 「2 reaching no refuge」라고 쓰셨는데, 바로 그
+그림의 범례는 「no safe walking route」라고 적혀 있습니다. 어느 쪽이 맞습니까?
+
+**A (draft, tier T1 - 물으면 답한다).**
+
+> 지적하신 그대로였고, 고쳤습니다. 코드가 세우는 조건은 「불을 모르는 경로는
+> 예측 위험을 지나서 대피소에 닿았고, 예보를 아는 탐색은 닿지 못했다」입니다.
+> 「안전한 보행 경로가 없다」는 그보다 강한 주장이라, 세 범례를 모두 「no safe
+> walking route **found**」로 바꿨습니다. 커밋된 그림은 다시 그리지 않고 새 파일
+> 이름으로 만들었습니다(`F3b_regions.png`, `F8b_routing_map.png`, 앞선 랩의
+> `F5b_decision_shift.png`). 방법과 한계는 `docs/figure_legend_claims.md`에
+> 있습니다. ⚠ 이 고침이 「안전한 경로가 있다」는 뜻은 아닙니다. 두 탐색이 무엇을
+> 돌려줬는지만 말할 수 있습니다.
+
+**Source:** `docs/figure_legend_claims.md`; `paper/make_figures.py` F3b·F5b·F8b
+범례; `tests/test_figure_legend_claims.py` (돌연변이 다섯 개로 채점).
+⚠ `README.md`에는 아직 더 강한 표현(「no safe walking route **at all**」)이
+남아 있습니다 — **WFG-270**. 심사위원이 README를 들고 물으면, 고칠 곳으로
+등록되어 있다고 그대로 말합니다.
+
+**[기록 · 2026-09-12 · 오늘의 답이 아닙니다]** 최초 초안은 「범례가 아직 옛
+표현입니다 ... F8과 F3 범례는 아직입니다」였고, 출처로 `paper/make_figures.py:689`
+(F8 범례), `:134` (F3 범례), `:244` (F5b)를 들었습니다. WFG-266이 닫히면서 세 줄
+모두 옮겨졌으므로 이 초안은 더 이상 참이 아닙니다.
+
+---
+
+### P-004 · WFG-267 · 「이 세 장 중 어느 것이 옛 문장입니까?」
+
+*Filed 2026-09-12 by critic #72's judge drill, as the residual of P-002. P-002는
+「왜 커밋된 시트가 옛 문장을 갖고 있는가」에 잘 답하지만, 부스에서 손에 든 세 장
+중 **어느 장**이 그것인지는 어떤 파일도 말하지 않습니다.*
+
+**Q.** 지금 주신 출동 지시서 묶음에서, 「차량 도달 불가」 사유가 서로 다르게 적힌
+장이 섞여 있습니다. 어느 것이 지금 기준입니까?
+
+**A (draft, tier T1).**
+
+> 다시 뽑은 장이 지금 기준이고, 미리 PDF로 커밋돼 있던 장이 2026-08-01 기록입니다.
+> 커밋된 PDF는 가장 큰 세 군집뿐이고, 그중 「차량 도달 불가」 지점이 있는 것은
+> `02-천전공원-일대` 한 장입니다. 가장 안전한 방법은 33장을 전부 다시 뽑는
+> 것이고, 그러면 섞이지 않습니다.
+
+**Source (오늘 기준):** `docs/live_pipeline.md:193-201`(무엇이 대체되었는지),
+`docs/routing_limitations.md` §7(왜). ⚠ **「02-천전공원-일대 한 장」이라는 말은
+오늘 어떤 커밋된 문서에도 없습니다** - critic #72가 트리에서 재어 본 값이고,
+WFG-267 (i)이 `outputs/dispatch/README.md`에 적어 넣어야 말할 수 있습니다.
+
 
 ---
 
