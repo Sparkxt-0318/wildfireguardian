@@ -141,7 +141,15 @@ literal unescaped pipe. That is why the two board-counting rules disagree. ⚠ *
 wrote a thirteenth instance into its own note filing the row, and caught it only by
 re-running its own count before committing.** Annotated, not re-filed; held behind R3.
 
-**F5 — WFG-263, evidence added, still P1, fifth consecutive lap.** The 0710Z report's
+**F5 — WFG-263, evidence added, still P1, fifth consecutive lap, and the fifth payer is the
+lap that filed it.** ⚠⚠ **This critic shipped the same defect while writing this finding:**
+`docs/auto/reports/2026-09-12T0822Z-critic.md` was generated at `4bf34ab` and said 「the head
+this report ships in」, which stopped being true at the commit; it ships in `4d85156`. The
+sentence is **corrected in the report rather than replaced**, and the correction names what
+certifies `4d85156` (full gates ALL GREEN on it, `--assert-head` and `--assert-reported`
+both 0, push landed). Six laps, six instances, one of them the auditor's: **WFG-263 is real
+and it is structural, not bookkeeping — `report.py` runs before the commit it describes.**
+The 0710Z report's
 header (`:6`) and its generated gate table (`:198`) both name `a9bc4ab`, that lap's claim
 commit; the report ships in `4bf34ab`. Unlike critic #72's instance both commits resolve on
 `origin/auto/dev`, the lap re-ran the gates at the pushed head and said so in prose, and run
