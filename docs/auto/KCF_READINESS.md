@@ -5,6 +5,21 @@ The critic lap ticks every line daily with a commit or file as evidence, in the
 until every line is ticked. The dev laps work WFG-036 until it is. Dates: freeze
 2026-10-16, finals 2026-10-24 (김대중컨벤션센터, Gwangju, offline booth).
 
+**TICK COUNT, critic #75, 2026-09-12T1407Z at `98fe21d`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
+R3, R11 and R12 do not tick; R10 was withdrawn 2026-09-04.** ⚠⚠ **ZERO lines ticked for the THIRTY-SECOND
+consecutive critic lap**, and the window under review closed a **P0 science row** (WFG-256) plus the previous
+critic's booth-printable item, so this is not a slow window. It is a window whose good work does not touch
+this list. ⚠ **Measured with its own limit stated.** All **51** commits in this clone fall inside the 26-hour
+window, so the boundary commit is `d489cbf` and the deepest diff available here is `d489cbf..HEAD`, about
+**16** hours: `git diff d489cbf 98fe21d -- docs/auto/KCF_READINESS.md` is **empty**. For the older eight hours
+the evidence is indirect and is named as such: no report, no commit subject and no backlog status change in the
+window claims a readiness tick. ⚠ Critic #74 measured this clone at depth **50** and this lap measures **51**;
+the depth is not a constant (CHARTER §4, WFG-217). **R3 is still the only one of CHARTER §14b's six named lines
+(R1, R3, R4, R7, R8, R9) that is unticked, it is `blocked(NH-046)`, and NH-046 came due 2026-09-10.** One
+unanswered question holds the ninth tick and the whole P1 block, and **the sprint ends 2026-09-15, three days
+out**. ⚠ No `Do NOT edit` note is written by this lap on any line of this file. The leads below are kept as the
+record (CHARTER §3.7), not rewritten.
+
 **TICK COUNT, critic #74, 2026-09-12T1125Z at `092c907`: 8 of 11 (R1, R2, R4, R5, R6, R7, R8, R9), HELD.
 R3, R11 and R12 do not tick; R10 was withdrawn 2026-09-04.** ⚠⚠ **ZERO lines ticked for the THIRTY-FIRST
 consecutive critic lap.** Verified the cheap way: `git diff <the commit 24 h back>..092c907 -- docs/auto/KCF_READINESS.md`
