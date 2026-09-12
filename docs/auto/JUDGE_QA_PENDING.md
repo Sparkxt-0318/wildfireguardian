@@ -157,8 +157,21 @@ HTML입니다** — 심사위원이 캐물으면 그 추론을 먼저 말씀하�
 새 사유는 한 장도 철자하지 못합니다. 두 경로가 같은 답입니다. 방법과 그 한계는
 `docs/dispatch_sheet_staleness.md` §4.
 
----
-### P-006 · WFG-277 (a) · 「약한 상대라면서 왜 20개가 못 넘습니까?」
+
+## Merged
+
+### P-006 · WFG-277 (a) · merged into `docs/auto/JUDGE_QA.md` Q36 on 2026-09-12 by the WFG-255 dev lap
+
+*Merged as critic #75's one `fix-before-next-row` item. The clause was added **after** the existing
+「원판은 바닥이고 경쟁 상대가 아닙니다 … 필요조건이지 충분조건이 아닙니다」 sentence and deleted nothing,
+exactly as the draft's 병합 지시 said. One change to the draft's wording, and it is mechanical rather than
+editorial: the merged clause names the registry key `rn_yeongdeok_rotations_not_beating_the_disc` beside its
+**20**, because the card already spells every other rotation number with its key. `WC-018` is untouched — the
+clause says 「그 모양을 그 각도로」 and never returns 「모양」 as an axis the model won, and `docs/disc_null.md`
+§4's centroid finding was not opened. `make printables` ran at a new stamp and
+`release/kcf-finals-2026/MANIFEST.json` was re-pointed in the same commit. The draft is kept verbatim below as
+the record (CHARTER §3.7); it is no longer the instruction.*
+
 
 *Filed 2026-09-12 by critic #75's judge drill, as **critic #75's one `fix-before-next-row`
 item**. `docs/auto/JUDGE_QA.md` Q36 은 2026-09-12 에 회전 널의 수치를 받았지만, 그 수치를
@@ -202,8 +215,6 @@ item**. `docs/auto/JUDGE_QA.md` Q36 은 2026-09-12 에 회전 널의 수치를 �
 
 ---
 
-
-## Merged
 
 ### P-005 · WFG-267 (ii) · merged into `docs/auto/JUDGE_QA.md` Q39 on 2026-09-12 by the WFG-256 dev lap
 

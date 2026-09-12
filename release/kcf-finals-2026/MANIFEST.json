@@ -27,16 +27,16 @@
       "source": "scripts/check_bundle_copy.py"
     },
     {
-      "path": "printables/WFG_printables_20260912T1238Z.pdf",
-      "sha256": "fc5da44d17497fc08c4aacf9eb2860c5a362b61255177300badca761293e17c4",
-      "bytes": 698383,
-      "source": "docs/auto/finals/printables/WFG_printables_20260912T1238Z.pdf"
+      "path": "printables/WFG_printables_20260912T1521Z.pdf",
+      "sha256": "7959db4e3deb686f0328b27b20e99a56344a0db4930aabf2580b200dca1fbc9a",
+      "bytes": 698448,
+      "source": "docs/auto/finals/printables/WFG_printables_20260912T1521Z.pdf"
     },
     {
-      "path": "printables/manifest_20260912T1238Z.json",
-      "sha256": "80abdec54320b8f87cb467bdc25d32c36d7f9bfcf6ee0d13394d1b221eed4cab",
+      "path": "printables/manifest_20260912T1521Z.json",
+      "sha256": "10b28374a035019b0439124ba559ba805f19bb14a0159178d887d223bed1a720",
       "bytes": 5626,
-      "source": "docs/auto/finals/printables/manifest_20260912T1238Z.json"
+      "source": "docs/auto/finals/printables/manifest_20260912T1521Z.json"
     },
     {
       "path": "web/assets/fonts/IBMPlexMono-Regular.woff2",
