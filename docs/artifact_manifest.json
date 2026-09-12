@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "ec01725cfa85b6c54b0dffb3dc4579db86b12762",
-  "n_artifacts": 120,
-  "total_bytes": 14754148,
-  "total_mib": 14.07,
-  "n_git_tracked": 120,
+  "generated_at_git_commit": "d89ba2bb027b4a1d88b69664e6fb9195656e3af6",
+  "n_artifacts": 121,
+  "total_bytes": 14765156,
+  "total_mib": 14.08,
+  "n_git_tracked": 121,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 10,
   "artifacts": [
@@ -529,7 +529,19 @@
       "sha256": "5ebbdcd46884bb8b944ec486b4ed1dc9c9441affbaf88040ae801659ab02ae9e",
       "kind": "text",
       "git_tracked": true,
-      "n_registry_entries": 28,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/footprint_components.md"
+      ],
+      "regenerate": "python scripts/measure_footprint_components.py"
+    },
+    {
+      "path": "data/processed/footprint_components/footprint_components_20260912T1602Z.json",
+      "bytes": 11008,
+      "sha256": "62a696f6214528369af03867a2735b446989ddca7290cc6f47b2e2df7a454c48",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 29,
       "cited_by_docs": [],
       "regenerate": "UNKNOWN"
     },
@@ -1167,6 +1179,7 @@
         "docs/auto/reports/2026-09-11T1923Z-dev.md",
         "docs/auto/reports/2026-09-11T2022Z-critic.md",
         "docs/auto/reports/2026-09-11T2142Z-manual.md",
+        "docs/footprint_components.md",
         "docs/live_pipeline.md",
         "docs/manual_trigger.md",
         "docs/oracle_gap.md",

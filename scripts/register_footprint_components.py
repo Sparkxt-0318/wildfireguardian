@@ -32,14 +32,20 @@ BAND = (
     "together or none of these keys may be quoted. (1) ⚠⚠ A COMPONENT COUNT IS A "
     "READING OF A RULE, NOT A PROPERTY OF THE FIRE. The same committed mask at "
     "the headline slice is 101 pieces under 4-connectivity, 55 under "
-    "8-connectivity, 6 when cells within 500 m are joined, 2 within 1 km and 1 "
-    "within 2 km. No rule here is justified over the others, so the STABILITY "
+    "8-connectivity, 11 when cells within 1 km are joined, 3 within 2 km and 1 "
+    "within 4 km. No rule here is justified over the others, so the STABILITY "
     "PROFILE is the result and any single count quoted without its rule beside it "
-    "is a parameter wearing a finding's clothes. (2) ⚠⚠ IT SAYS NOTHING ABOUT HOW "
+    "is a parameter wearing a finding's clothes. ⚠ The joining rule is a pairwise "
+    "Chebyshev distance threshold with NO dilation, and d=1 is exactly "
+    "8-connectivity: an earlier artifact in the same lap "
+    "(footprint_components_20260912T1527Z.json) dilated instead, which joins at "
+    "2k+1 rather than k, and its sweep is superseded and must not be cited. (2) "
+    "⚠⚠ IT SAYS NOTHING ABOUT HOW "
     "MANY FIRES THERE ARE, and 「여러 개의 산불」 or any count of fires is "
-    "forbidden on every surface. FIRMS gaps fragment a single perimeter and the "
-    "2025 Gyeongbuk event was a multi-fire complex; this repository cannot tell "
-    "those apart, and point (1) is exactly why. (3) IT MOVES NO IoU AND PRODUCES "
+    "forbidden on every surface. FIRMS gaps fragment a single perimeter, and "
+    "separate simultaneous ignitions produce a genuinely multi-piece field; this "
+    "repository cannot tell those apart from the array alone, and point (1) is "
+    "exactly why. (3) IT MOVES NO IoU AND PRODUCES "
     "NO MARGIN. 0.394, the 2.2044 seed-removed ratio, every dn_yeongdeok_ and "
     "rn_yeongdeok_ key, 42, 91, 9 and 27 are untouched; nothing was refit, "
     "re-acquired, re-routed or regenerated and one committed array was read. (4) "
@@ -87,12 +93,17 @@ def _fig(art: dict) -> list[tuple[str, str, str, str]]:
          "pieces under 4-connectivity — nearly double the 8-connected count on "
          "the identical mask, which is the whole argument of caveat (1)"),
         ("obs_components_link_500m", f"{o}.link_sweep.1", "count",
-         "pieces when cells within one cell (500 m) of one another are joined"),
+         "pieces when cells within 500 m (Chebyshev d=1) are joined. ⚠ This IS "
+         "8-connectivity and equals obs_components_8conn by construction; the "
+         "script asserts the identity. It is registered so the sweep starts at a "
+         "rule the reader already has"),
         ("obs_components_link_1km", f"{o}.link_sweep.2", "count",
-         "pieces when cells within two cells (1.0 km) are joined"),
+         "pieces when cells within 1.0 km (d=2) are joined"),
         ("obs_components_link_2km", f"{o}.link_sweep.4", "count",
-         "pieces when cells within four cells (2.0 km) are joined — the rule at "
-         "which this mask becomes a single object"),
+         "pieces when cells within 2.0 km (d=4) are joined"),
+        ("obs_components_link_4km", f"{o}.link_sweep.8", "count",
+         "pieces when cells within 4.0 km (d=8) are joined — the first distance "
+         "in the sweep at which this mask becomes a single object"),
         ("obs_largest_cells", f"{o}.largest_component_cells", "cells",
          "the dominant connected piece of the graded observation"),
         ("obs_second_cells", f"{o}.second_component_cells", "cells",

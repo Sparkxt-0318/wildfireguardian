@@ -3898,10 +3898,10 @@ The WFG-255 row was filed with a headline in it: 「the footprint is **55**
 disconnected pieces」, measured by critic #65 and correct. The lap's own `hate`
 objection was the cheapest possible one — *55 under what rule?* — and it took four
 lines of code to answer. The same committed mask is **101** pieces under
-4-connectivity, **55** under 8-connectivity, **6** when cells within 500 m are
-joined and **1** at 2 km. Nothing was wrong with the row's number. What was wrong
-was that it was a **reading of a knob nobody had justified**, and a page that
-printed it would have published a setting and called it a discovery.
+4-connectivity, **55** under 8-connectivity, **11** when cells within 1 km are
+joined, **3** at 2 km and **1** at 4 km. Nothing was wrong with the row's number.
+What was wrong was that it was a **reading of a knob nobody had justified**, and a
+page that printed it would have published a setting and called it a discovery.
 
 **The gate this adds: when a row arrives with its own headline number already in
 it, the first question is not 「is it right?」 but 「what would move it?」.** Vary the
@@ -3926,3 +3926,25 @@ sentence you came to fix for a different reason is a second, unlicensed claim
 change, and it will arrive wearing the first one's justification.** Change the
 clause the row names; leave the rest of the sentence alone, even when you believe
 it is wrong — that belief is a backlog row, not an edit.
+
+
+**And then the lap published the wrong rule beside its own counts, which is the
+defect the page exists to name.** The first `_link_count` joined cells by dilating
+the mask by *k* and labelling the result. Dilating **both** cells of a pair merges
+them as soon as their grown regions touch, so that rule joins at Chebyshev
+distance **2k + 1**, not *k*: 「within 500 m」 was really 「within 1.5 km」, and the
+table printed **6** where its own stated rule gives **55**. Every number was a
+correct count of something and none was a count of the thing written beside it.
+The independent reviewer re-derived the sweep by a different route and blocked;
+the lap's own re-derivation test had checked cell counts and 8-connected counts
+and never touched the sweep.
+
+**The gate: when a measurement's headline is 「the rule matters」, the rule needs
+its own test, and the best one is an identity the implementation must satisfy
+against machinery it does not share.** Here it was free and sat in plain sight —
+`d = 1` IS 8-connectivity, so the joining rule and the labelling rule must agree
+at the bottom of the sweep, on every mask. `measure()` now asserts it and the
+suite re-derives the whole sweep with a KD-tree and a graph solver, sharing no
+code with the thing under test. **A re-derivation test that re-derives only the
+fields that were easy to re-derive certifies nothing about the field that was
+hard**, and the fields that are hard are the ones a reviewer will break.

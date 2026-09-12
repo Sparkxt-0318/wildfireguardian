@@ -109,12 +109,14 @@ on *which* cells, and on nothing at all about how many.
 elongated structure plus scatter**: a dominant connected piece of
 `fc_yeongdeok_obs_largest_cells` **656** cells — `fc_yeongdeok_obs_largest_share`
 **70.01 %** of the mask, `fc_yeongdeok_obs_largest_span_long_km` **44.5 km** long <!-- collision-ok: 70.01 — this is `fc_yeongdeok_obs_largest_share` written as a PERCENTAGE (the registry holds it as a ratio), the dominant piece's share of the OBSERVED mask. The gate matches it against `fc_yeongdeok_core_largest_share`, which is the MODEL CORE's dominant share on a different mask. Two quantities, neither stale. --> <!-- collision-ok: 44.5 — this is `fc_yeongdeok_obs_largest_span_long_km`, the long side of the DOMINANT PIECE's own bounding box. The gate matches it against the three keys for the WHOLE mask's box (`fc_yeongdeok_obs_span_long_km`, `fc_yeongdeok_obs_span_short_km`, `fc_yeongdeok_obs_centre_span_long_km`). Four different edges; the piece is necessarily no longer than the mask that contains it, and none of the four is stale. -->
-by itself — with the remaining `fc_yeongdeok_obs_cells_outside_largest` **281**
-cells spread over a box of **25.0 × 45.5 km**. ⚠⚠ **How many pieces that scatter
+by itself — plus `fc_yeongdeok_obs_cells_outside_largest` **281** cells of scatter
+around it, the whole mask fitting a box of `fc_yeongdeok_obs_span_short_km`
+**25.0** × `fc_yeongdeok_obs_span_long_km` **45.5 km**. ⚠⚠ **How many pieces that scatter
 is, is a reading of a rule and not a property of the fire:** the same mask is
 `fc_yeongdeok_obs_components_4conn` **101** pieces under 4-connectivity,
-`fc_yeongdeok_obs_components_8conn` **55** under 8-connectivity and
-`fc_yeongdeok_obs_components_link_2km` **1** when cells within 2 km are joined. So
+`fc_yeongdeok_obs_components_8conn` **55** under 8-connectivity,
+`fc_yeongdeok_obs_components_link_1km` **11** when cells within 1 km are joined
+and `fc_yeongdeok_obs_components_link_4km` **1** at 4 km. So
 no count here is a count of fires, and none may be written as one. ⚠ The model's
 own core is fragmented too — `fc_yeongdeok_core_components_8conn` **37** pieces —
 so this is a property of both sides of the comparison, not a defect of the

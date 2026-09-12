@@ -237,9 +237,10 @@ this repository until 2026-09-12 and is now
 [`docs/footprint_components.md`](footprint_components.md)** (WFG-255). It does not
 disturb the reach reading and it does narrow one word of it, above. ⚠⚠ **Its own
 headline is that a piece count is a reading of a rule:** the identical mask is
-**101** pieces under 4-connectivity, **55** under 8-connectivity and **1** when
-cells within 2 km are joined, so no sentence in this document quotes a piece count
-without the rule beside it, and none of them is a count of fires.
+**101** pieces under 4-connectivity, **55** under 8-connectivity, **11** when
+cells within 1 km are joined and **1** at 4 km, so no sentence in this document
+quotes a piece count without the rule beside it, and none of them is a count of
+fires.
 
 The two masks are genuinely different objects and not one mask twice: disc against
 model core is IoU **0.2453**.

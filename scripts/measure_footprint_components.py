@@ -18,19 +18,24 @@ A count of connected pieces is **a reading of a rule**, not a property of the
 fire. The same committed mask at the headline slice is:
 
     101 pieces under 4-connectivity
-     55 pieces under 8-connectivity
-      6 pieces when cells within 500 m are joined
-      2 pieces when cells within 1.0 km are joined
-      1 piece  when cells within 2.0 km are joined
+     55 pieces under 8-connectivity, which IS 「within 500 m」 on this grid
+     11 pieces when cells within 1.0 km are joined
+      3 pieces when cells within 2.0 km are joined
+      1 piece  when cells within 4.0 km are joined
 
 Nobody has justified one of those rules over the others, so **the stability
 profile is the result and any single number is a parameter**. This script
 therefore computes the whole sweep and the registry carries it, so that a page
 quoting 「55」 has to quote the rule beside it or quote nothing.
 
+⚠ The joining rule is a pairwise Chebyshev distance threshold with NO dilation;
+see ``_link_count``, which explains at length why that distinction cost this lap
+a blocked review.
+
 ⚠ IT SAYS NOTHING ABOUT HOW MANY FIRES THERE ARE. FIRMS gaps fragment a single
-perimeter and the 2025 경북 event was a multi-fire complex; this repository
-cannot presently tell those apart, and the sweep above is exactly why. No output
+perimeter, and separate simultaneous ignitions produce a genuinely multi-piece
+field; this repository cannot tell those apart from the array alone, and the
+sweep above is exactly why. No output
 of this script licenses 「여러 개의 산불」 or any count of fires.
 
 BOUNDING-BOX CONVENTION, STATED BECAUSE TWO ARE DEFENSIBLE
@@ -58,6 +63,9 @@ from pathlib import Path
 
 import numpy as np
 from scipy import ndimage
+from scipy.sparse import coo_matrix
+from scipy.sparse.csgraph import connected_components
+from scipy.spatial import cKDTree
 
 REPO = Path(__file__).resolve().parents[1]
 NPZ = REPO / "data" / "processed" / "routing_demo_canonical.npz"
@@ -68,10 +76,11 @@ OUT_DIR = REPO / "data" / "processed" / "footprint_components"
 #: script cannot quietly score a different core than docs/disc_null.md does.
 P_CUT = 0.5
 
-#: How far apart two cells may be and still be called one piece, in cells. 0 is
-#: plain connectivity; k joins anything within k cells by dilating before
-#: labelling and counting the labels on the ORIGINAL mask's cells.
-LINK_SWEEP = (0, 1, 2, 3, 4)
+#: How far apart two cells may be and still be called one piece, as a Chebyshev
+#: distance in cells. `1` IS 8-connectivity; the sweep runs out to the distance
+#: at which this mask becomes a single object, because stopping earlier would
+#: let the page choose where the collapse appears to happen.
+LINK_SWEEP = (1, 2, 3, 4, 5, 6, 7, 8)
 
 
 def _sha256(path: Path) -> str:
@@ -99,19 +108,41 @@ def _component_sizes(mask: np.ndarray, structure: np.ndarray) -> list[int]:
     return sorted((int(s) for s in sizes), reverse=True)
 
 
-def _link_count(mask: np.ndarray, k: int) -> int:
-    """Pieces when any two cells within `k` cells of each other are one piece.
+def _link_count(mask: np.ndarray, d: int) -> int:
+    """Pieces when any two cells within Chebyshev distance `d` are one piece.
 
-    The dilation is a JOINING RULE and not a redrawing of the fire: it is used
-    only to decide which original cells share a label, and no dilated cell is
-    ever counted, measured or reported as burnt area.
+    ⚠⚠ THIS WAS WRONG ONCE, INSIDE THIS LAP, AND THE WAY IT WAS WRONG IS THE
+    REASON THE FUNCTION IS WRITTEN THIS WAY NOW. The first implementation
+    dilated the mask by `k` with an 8-connected structuring element and then
+    labelled it. Dilating BOTH cells of a pair by `k` makes them merge when
+    their grown regions touch, so that rule actually joins cells up to
+    Chebyshev distance **2k + 1** — 「within 500 m」 was really 「within 1.5 km」,
+    and the published counts were right for a rule the prose did not state.
+    The lap's independent reviewer caught it. On a page whose whole thesis is
+    「a count quoted without its rule is a parameter wearing a finding's
+    clothes」, publishing the wrong rule beside the count is the one
+    unsurvivable defect, so the joining rule is now the literal thing the prose
+    says: a pairwise distance threshold, no dilation anywhere.
+
+    `d = 1` is therefore EXACTLY 8-connectivity, and `measure()` asserts that
+    identity on every mask rather than trusting this docstring.
+
+    The threshold is a JOINING RULE and not a redrawing of the fire: it decides
+    which observed cells share a label, and no cell is invented, moved or
+    counted as burnt because of it.
     """
     if not mask.any():
         return 0
-    grown = mask if k == 0 else ndimage.binary_dilation(mask, structure=S8,
-                                                        iterations=k)
-    lab, _ = ndimage.label(grown, structure=S8)
-    return int(len(set(lab[mask].tolist()) - {0}))
+    pts = np.column_stack(np.nonzero(mask)).astype(float)
+    if len(pts) == 1:
+        return 1
+    pairs = cKDTree(pts).query_pairs(float(d), p=np.inf, output_type="ndarray")
+    if len(pairs) == 0:
+        return len(pts)
+    graph = coo_matrix(
+        (np.ones(len(pairs)), (pairs[:, 0], pairs[:, 1])),
+        shape=(len(pts), len(pts)))
+    return int(connected_components(graph, directed=False)[0])
 
 
 def _span(mask: np.ndarray, cell_m: float) -> dict:
@@ -147,6 +178,14 @@ def describe(mask: np.ndarray, cell_m: float) -> dict:
         "singleton_components_8conn": int(sum(1 for s in s8 if s == 1)),
         "link_sweep": {str(k): _link_count(mask, k) for k in LINK_SWEEP},
     }
+    # The joining rule and the connectivity rule are the SAME rule at d = 1, so
+    # they must agree on every mask. This is the check that would have caught
+    # the dilation bug on its first run, and it costs nothing.
+    if out["link_sweep"]["1"] != out["n_components_8conn"]:
+        raise SystemExit(
+            f"link_sweep[1] = {out['link_sweep']['1']} but 8-connectivity gives "
+            f"{out['n_components_8conn']}; they are the same rule and the "
+            "joining rule is mislabelled")
     out.update(_span(mask, cell_m))
     lab, _ = ndimage.label(mask, structure=S8)
     biggest = lab == (int(np.argmax(np.bincount(lab.ravel())[1:])) + 1)
@@ -212,6 +251,19 @@ def measure(npz_path: Path, p_cut: float) -> dict:
         "stamp": datetime.now(timezone.utc).strftime("%Y%m%dT%H%MZ"),
         "git_commit": _head(),
         "row": "WFG-255",
+        # ⚠ Kept as a record rather than quietly replacing the earlier file.
+        "supersedes": {
+            "artifact": "data/processed/footprint_components/"
+                        "footprint_components_20260912T1527Z.json",
+            "why": "its link_sweep dilated by k with an 8-connected element and "
+                   "then labelled, which joins cells up to Chebyshev distance "
+                   "2k+1 rather than k, so its sweep counts were right for a "
+                   "rule its own `link_sweep_meaning` did not state. Caught by "
+                   "the lap's independent reviewer before either file was "
+                   "pushed. The counts here come from a pairwise distance "
+                   "threshold with no dilation. DO NOT CITE THE SUPERSEDED "
+                   "FILE'S link_sweep; every other field in it is unaffected.",
+        },
         "source": {
             "npz": npz_path.relative_to(REPO).as_posix(),
             "sha256": _sha256(npz_path),
@@ -224,10 +276,11 @@ def measure(npz_path: Path, p_cut: float) -> dict:
                             "8-connectivity; every other field labelled with no "
                             "connectivity uses 8",
             "link_sweep_cells": list(LINK_SWEEP),
-            "link_sweep_meaning": "cells within k cells of one another are "
-                                  "counted as one piece; the dilation decides "
-                                  "labels only and no dilated cell is counted "
-                                  "as burnt",
+            "link_sweep_meaning": "two cells are one piece when their Chebyshev "
+                                  "distance is at most d cells, computed as a "
+                                  "pairwise threshold with NO dilation; d=1 is "
+                                  "exactly 8-connectivity and measure() asserts "
+                                  "that identity on every mask",
             "span_convention": "span_km is the union of cell footprints "
                                "((max-min+1)*cell); centre_span_km is between "
                                "extreme cell centres ((max-min)*cell); they "
@@ -250,9 +303,10 @@ def measure(npz_path: Path, p_cut: float) -> dict:
         "what_this_does_not_show": [
             "It does not say how many fires are in the mask. A component count "
             "is a reading of the connectivity rule and the 500 m grid, and the "
-            "same mask is 101, 55, 6, 2 or 1 pieces as that rule loosens. FIRMS "
-            "gaps fragment a single perimeter and the 2025 Gyeongbuk event was a "
-            "multi-fire complex; this repository cannot tell those apart.",
+            "same mask is 101, 55, 11, 3 or 1 pieces as that rule loosens. FIRMS "
+            "gaps fragment a single perimeter, and separate simultaneous "
+            "ignitions produce a genuinely multi-piece field; this repository "
+            "cannot tell those apart from the array alone.",
             "It moves no IoU and produces no margin. Nothing was refit, "
             "re-acquired, re-routed or regenerated; one committed array was read.",
             "obs_stack is a FIRMS-derived observation with its own detection "

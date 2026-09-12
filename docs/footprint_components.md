@@ -55,17 +55,35 @@ has ever justified:
 |---|---:|
 | 4-connectivity (edges only) | `fc_yeongdeok_obs_components_4conn` **101** |
 | 8-connectivity (edges and corners) | `fc_yeongdeok_obs_components_8conn` **55** |
-| within 500 m | `fc_yeongdeok_obs_components_link_500m` **6** |
-| within 1.0 km | `fc_yeongdeok_obs_components_link_1km` **2** |
-| within 2.0 km | `fc_yeongdeok_obs_components_link_2km` **1** |
+| within 500 m | `fc_yeongdeok_obs_components_link_500m` **55** |
+| within 1.0 km | `fc_yeongdeok_obs_components_link_1km` **11** |
+| within 2.0 km | `fc_yeongdeok_obs_components_link_2km` **3** |
+| within 4.0 km | `fc_yeongdeok_obs_components_link_4km` **1** |
+
+(The 「within 500 m」 row **is** the 8-connectivity row: on a 500 m grid those are
+the same rule, and `scripts/measure_footprint_components.py` asserts the identity
+on every mask rather than asserting it here.)
 
 ⚠⚠ **That table is the result. Any single row of it is a parameter wearing a
 finding's clothes.** The identical committed mask is one hundred and one objects
-or one object depending on a knob, and moving the knob by one cell — from plain
-8-connectivity to 「within 500 m」 — takes **55** pieces to **6**. A page that
-prints 「55 disconnected pieces」 without the rule beside it has published a
+or one object depending on a knob: allowing a 1 km gap takes **55** pieces to
+**11**, a 2 km gap takes it to **3**, and at 4 km it is a single object. A page
+that prints 「55 disconnected pieces」 without the rule beside it has published a
 setting and called it a discovery. That is why the row's own framing, which asked
 for the component structure, is answered here with a sweep and not with a count.
+
+⚠⚠ **This table was wrong once, inside this lap, and the way it was wrong is the
+reason it is worth reading twice.** The first implementation joined cells by
+dilating the mask by *k* and labelling the result. Dilating **both** cells of a
+pair makes them merge when their grown regions touch, so that rule joins cells up
+to **2k + 1** cells apart: the row labelled 「within 500 m」 was really 「within
+1.5 km」, and it printed **6** where the stated rule gives **55**. The counts were
+right for a rule the prose did not state — which is precisely the defect this page
+exists to name, committed by this page. The lap's independent reviewer re-derived
+the sweep with a true distance threshold and blocked. The rule is now the literal
+thing the prose says (a pairwise Chebyshev threshold, no dilation), the superseded
+artifact is recorded in the new one's `supersedes` field rather than deleted, and
+the collapse is **gentler** than the first version claimed. See §7.
 
 **What survives every rule in that table** is a different and more useful
 statement. One piece dominates: `fc_yeongdeok_obs_largest_cells` **656** cells,
@@ -145,9 +163,10 @@ four readings of nearly the same array.
 
 1. **It does not say how many fires are in the mask, and no surface may write
    「여러 개의 산불」 or any count of fires from it.** §3's table is the reason:
-   the count is a reading of a rule. FIRMS gaps fragment a single perimeter and
-   the 2025 경북 event was a multi-fire complex; this repository cannot tell those
-   apart, and this measurement does not help it.
+   the count is a reading of a rule. FIRMS gaps fragment a single perimeter, and
+   separate simultaneous ignitions produce a genuinely multi-piece field; this
+   repository cannot tell those apart from the array alone, and this measurement
+   does not help it.
 2. **It moves no IoU and produces no margin.** 0.394, the 2.2044 seed-removed
    ratio, every `dn_yeongdeok_` and `rn_yeongdeok_` key, 42, 91, 9 and 27 are
    untouched. Nothing was refit or re-run; one committed array was read.
@@ -161,3 +180,38 @@ four readings of nearly the same array.
    here attributes any part of the IoU gap to shape, orientation or placement.
    The withdrawn claim that the model's winning axis is 「모양」 stays withdrawn,
    and §4 above narrows a sentence rather than reinstating one.
+
+## 7. The correction this page made to itself, before it was pushed
+
+The first version of §3's table was built by **dilating** the mask by *k* cells
+and labelling the result. That is not the rule the table said it was. Dilating
+**both** cells of a pair makes them merge as soon as their grown regions touch, so
+the rule joins cells up to **2k + 1** cells apart: the row labelled 「within
+500 m」 was really 「within 1.5 km」, and it printed **6** where the stated rule
+gives **55**.
+
+**Every number in that first table was a correct count of something. None of them
+was a count of the thing written beside it** — which is the exact defect this page
+was written to name, committed by this page, in the same lap. The lap's
+independent reviewer re-derived the sweep with a true distance threshold, found
+55 / 11 / 3 where the page claimed 6 / 2 / 1, and blocked the push.
+
+What changed as a result:
+
+- `_link_count` is now a pairwise Chebyshev threshold with no dilation anywhere,
+  so the rule and the number are the same object.
+- **`d = 1` is exactly 8-connectivity, and the script asserts that identity on
+  every mask it measures.** That one assertion would have caught the original bug
+  on its first run, and it is the cheap gate this class of error deserves.
+- The superseded artifact
+  (`footprint_components_20260912T1527Z.json`) is recorded in the new file's
+  `supersedes` field rather than deleted. Its sweep must not be cited; every other
+  field in it is unaffected.
+- `tests/test_footprint_components.py` now re-derives the whole sweep from the
+  committed array, not just the cell counts and the 8-connected count. The
+  original test suite checked everything except the thing that was wrong.
+
+The corrected collapse is **gentler** than the first version claimed — 55 → 11 → 3
+→ 1 rather than 55 → 6 → 2 → 1 — so §3's argument is weaker than it was when it
+was wrong, and it still holds: the count moves by a factor of nine across rules
+nobody has justified.
