@@ -3889,3 +3889,40 @@ fact is what rules out「the spread is just rasterisation loss」, and it cost t
 lines of code. Any null that transforms a raster should report the transform's own
 exactly-invertible cases beside the rest, and a test should assert they are not the
 winners (`tests/test_rotation_null.py::test_the_lattice_exact_angles_are_lossless_and_are_not_the_winners`).
+
+---
+
+## 2026-09-12 · WFG-255 · When the row hands you a number, the number is usually a setting
+
+The WFG-255 row was filed with a headline in it: 「the footprint is **55**
+disconnected pieces」, measured by critic #65 and correct. The lap's own `hate`
+objection was the cheapest possible one — *55 under what rule?* — and it took four
+lines of code to answer. The same committed mask is **101** pieces under
+4-connectivity, **55** under 8-connectivity, **6** when cells within 500 m are
+joined and **1** at 2 km. Nothing was wrong with the row's number. What was wrong
+was that it was a **reading of a knob nobody had justified**, and a page that
+printed it would have published a setting and called it a discovery.
+
+**The gate this adds: when a row arrives with its own headline number already in
+it, the first question is not 「is it right?」 but 「what would move it?」.** Vary the
+one parameter the measurement is most obviously a function of, before writing a
+word of prose. If the number is stable, that stability is now part of the result
+and costs one table row. If it is not, the sweep IS the result and the row's
+headline was never the finding. Here it was the second case, and the useful
+statement — one dominant 44.5 km piece carrying about seven tenths of the mask,
+plus scatter — is the thing that survives every rule in the sweep. **A quantity
+that survives your sweep is a finding; a quantity that does not is a parameter.**
+
+**And the anti-pattern the same lap walked into, caught by an existing test rather
+than by the lap.** Correcting 「the arms the fire actually ran down」 in
+`docs/disc_null.md`, the lap also deleted 「shape and」 from 「**shape and reach**」 in
+the same sentence, and then carried that deletion to `docs/oracle_gap.md` with a
+paragraph arguing it was merely propagating WFG-254's earlier correction. It was
+not: WFG-254 changed 「extent」 to 「reach」 and deliberately **kept** 「shape」, and
+`tests/test_disc_null.py::test_the_doc_refuses_the_row_s_own_interpretation` pins
+the exact phrase for that reason. Both edits were reverted. **The lesson is not
+「read more carefully」, it is structural: an edit that removes a word from a
+sentence you came to fix for a different reason is a second, unlicensed claim
+change, and it will arrive wearing the first one's justification.** Change the
+clause the row names; leave the rest of the sentence alone, even when you believe
+it is wrong — that belief is a backlog row, not an edit.

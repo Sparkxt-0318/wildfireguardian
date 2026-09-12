@@ -1,12 +1,12 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "f250e3bd97be8a7030595abad4a8c855785e26c2",
-  "n_artifacts": 119,
-  "total_bytes": 14744362,
-  "total_mib": 14.06,
-  "n_git_tracked": 119,
+  "generated_at_git_commit": "ec01725cfa85b6c54b0dffb3dc4579db86b12762",
+  "n_artifacts": 120,
+  "total_bytes": 14754148,
+  "total_mib": 14.07,
+  "n_git_tracked": 120,
   "n_untracked_manifest_only": 0,
-  "n_regenerate_unknown": 9,
+  "n_regenerate_unknown": 10,
   "artifacts": [
     {
       "path": "data/processed/.gitkeep",
@@ -522,6 +522,16 @@
         "docs/auto/BACKLOG.md"
       ],
       "regenerate": "python scripts/extract_juso_yeongdeok.py"
+    },
+    {
+      "path": "data/processed/footprint_components/footprint_components_20260912T1527Z.json",
+      "bytes": 9786,
+      "sha256": "5ebbdcd46884bb8b944ec486b4ed1dc9c9441affbaf88040ae801659ab02ae9e",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 28,
+      "cited_by_docs": [],
+      "regenerate": "UNKNOWN"
     },
     {
       "path": "data/processed/forecast_robustness.json",
@@ -1107,6 +1117,8 @@
       "n_registry_entries": 70,
       "cited_by_docs": [
         "docs/auto/BACKLOG.md",
+        "docs/auto/reports/2026-09-12T1322Z-dev.md",
+        "docs/auto/reports/2026-09-12T1421Z-critic.md",
         "docs/rotation_null.md"
       ],
       "regenerate": "python scripts/measure_rotation_null.py"

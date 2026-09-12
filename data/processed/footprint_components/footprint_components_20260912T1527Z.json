@@ -1,0 +1,402 @@
+{
+  "schema": "footprint_components/1",
+  "written_at_utc": "2026-09-12T15:27:37Z",
+  "stamp": "20260912T1527Z",
+  "git_commit": "ec01725cfa85b6c54b0dffb3dc4579db86b12762",
+  "row": "WFG-255",
+  "source": {
+    "npz": "data/processed/routing_demo_canonical.npz",
+    "sha256": "81b4e4d159daa7a8ccc7c4fedf3fea948d501fff2d7e886c1fd55bbf47043fb7",
+    "cell_m": 500.0,
+    "grid_shape": [
+      181,
+      156
+    ]
+  },
+  "rule": {
+    "p_cut": 0.5,
+    "connectivity": "component counts are reported under BOTH 4- and 8-connectivity; every other field labelled with no connectivity uses 8",
+    "link_sweep_cells": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "link_sweep_meaning": "cells within k cells of one another are counted as one piece; the dilation decides labels only and no dilated cell is counted as burnt",
+    "span_convention": "span_km is the union of cell footprints ((max-min+1)*cell); centre_span_km is between extreme cell centres ((max-min)*cell); they differ by exactly one cell"
+  },
+  "observations": [
+    {
+      "obs_time_min": 0.0,
+      "is_seed_slice": true,
+      "n_cells": 249,
+      "n_components_8conn": 226,
+      "n_components_4conn": 236,
+      "largest_component_cells": 3,
+      "second_component_cells": 3,
+      "largest_component_share": 0.012,
+      "cells_outside_largest": 246,
+      "singleton_components_8conn": 207,
+      "link_sweep": {
+        "0": 226,
+        "1": 11,
+        "2": 5,
+        "3": 2,
+        "4": 2
+      },
+      "span_km": [
+        24.0,
+        45.0
+      ],
+      "centre_span_km": [
+        23.5,
+        44.5
+      ],
+      "largest_component_span_km": [
+        1.5,
+        1.0
+      ],
+      "cells_added_since_previous": null
+    },
+    {
+      "obs_time_min": 333.0,
+      "is_seed_slice": false,
+      "n_cells": 937,
+      "n_components_8conn": 55,
+      "n_components_4conn": 101,
+      "largest_component_cells": 656,
+      "second_component_cells": 135,
+      "largest_component_share": 0.7001,
+      "cells_outside_largest": 281,
+      "singleton_components_8conn": 39,
+      "link_sweep": {
+        "0": 55,
+        "1": 6,
+        "2": 2,
+        "3": 2,
+        "4": 1
+      },
+      "span_km": [
+        25.0,
+        45.5
+      ],
+      "centre_span_km": [
+        24.5,
+        45.0
+      ],
+      "largest_component_span_km": [
+        20.5,
+        44.5
+      ],
+      "cells_added_since_previous": 688
+    },
+    {
+      "obs_time_min": 1005.0,
+      "is_seed_slice": false,
+      "n_cells": 987,
+      "n_components_8conn": 55,
+      "n_components_4conn": 101,
+      "largest_component_cells": 699,
+      "second_component_cells": 178,
+      "largest_component_share": 0.7082,
+      "cells_outside_largest": 288,
+      "singleton_components_8conn": 40,
+      "link_sweep": {
+        "0": 55,
+        "1": 6,
+        "2": 2,
+        "3": 2,
+        "4": 1
+      },
+      "span_km": [
+        25.5,
+        45.5
+      ],
+      "centre_span_km": [
+        25.0,
+        45.0
+      ],
+      "largest_component_span_km": [
+        21.0,
+        44.5
+      ],
+      "cells_added_since_previous": 50
+    },
+    {
+      "obs_time_min": 1480.0,
+      "is_seed_slice": false,
+      "n_cells": 988,
+      "n_components_8conn": 55,
+      "n_components_4conn": 101,
+      "largest_component_cells": 699,
+      "second_component_cells": 179,
+      "largest_component_share": 0.7075,
+      "cells_outside_largest": 289,
+      "singleton_components_8conn": 40,
+      "link_sweep": {
+        "0": 55,
+        "1": 6,
+        "2": 2,
+        "3": 2,
+        "4": 1
+      },
+      "span_km": [
+        25.5,
+        45.5
+      ],
+      "centre_span_km": [
+        25.0,
+        45.0
+      ],
+      "largest_component_span_km": [
+        21.0,
+        44.5
+      ],
+      "cells_added_since_previous": 1
+    },
+    {
+      "obs_time_min": 1812.0,
+      "is_seed_slice": false,
+      "n_cells": 1021,
+      "n_components_8conn": 55,
+      "n_components_4conn": 100,
+      "largest_component_cells": 719,
+      "second_component_cells": 192,
+      "largest_component_share": 0.7042,
+      "cells_outside_largest": 302,
+      "singleton_components_8conn": 40,
+      "link_sweep": {
+        "0": 55,
+        "1": 6,
+        "2": 2,
+        "3": 2,
+        "4": 1
+      },
+      "span_km": [
+        25.5,
+        45.5
+      ],
+      "centre_span_km": [
+        25.0,
+        45.0
+      ],
+      "largest_component_span_km": [
+        21.0,
+        44.5
+      ],
+      "cells_added_since_previous": 33
+    },
+    {
+      "obs_time_min": 2403.0,
+      "is_seed_slice": false,
+      "n_cells": 1023,
+      "n_components_8conn": 56,
+      "n_components_4conn": 101,
+      "largest_component_cells": 719,
+      "second_component_cells": 193,
+      "largest_component_share": 0.7028,
+      "cells_outside_largest": 304,
+      "singleton_components_8conn": 41,
+      "link_sweep": {
+        "0": 56,
+        "1": 6,
+        "2": 2,
+        "3": 2,
+        "4": 1
+      },
+      "span_km": [
+        25.5,
+        45.5
+      ],
+      "centre_span_km": [
+        25.0,
+        45.0
+      ],
+      "largest_component_span_km": [
+        21.0,
+        44.5
+      ],
+      "cells_added_since_previous": 2
+    }
+  ],
+  "forecast_cores": [
+    {
+      "haz_time_min": 0.0,
+      "is_seed_slice": true,
+      "n_cells": 249,
+      "n_components_8conn": 226,
+      "n_components_4conn": 236,
+      "largest_component_cells": 3,
+      "second_component_cells": 3,
+      "largest_component_share": 0.012,
+      "cells_outside_largest": 246,
+      "singleton_components_8conn": 207,
+      "link_sweep": {
+        "0": 226,
+        "1": 11,
+        "2": 5,
+        "3": 2,
+        "4": 2
+      },
+      "span_km": [
+        24.0,
+        45.0
+      ],
+      "centre_span_km": [
+        23.5,
+        44.5
+      ],
+      "largest_component_span_km": [
+        1.5,
+        1.0
+      ]
+    },
+    {
+      "haz_time_min": 180.0,
+      "is_seed_slice": false,
+      "n_cells": 692,
+      "n_components_8conn": 45,
+      "n_components_4conn": 71,
+      "largest_component_cells": 371,
+      "second_component_cells": 93,
+      "largest_component_share": 0.5361,
+      "cells_outside_largest": 321,
+      "singleton_components_8conn": 31,
+      "link_sweep": {
+        "0": 45,
+        "1": 9,
+        "2": 3,
+        "3": 2,
+        "4": 1
+      },
+      "span_km": [
+        25.0,
+        45.0
+      ],
+      "centre_span_km": [
+        24.5,
+        44.5
+      ],
+      "largest_component_span_km": [
+        14.0,
+        24.0
+      ]
+    },
+    {
+      "haz_time_min": 360.0,
+      "is_seed_slice": false,
+      "n_cells": 952,
+      "n_components_8conn": 37,
+      "n_components_4conn": 55,
+      "largest_component_cells": 714,
+      "second_component_cells": 89,
+      "largest_component_share": 0.75,
+      "cells_outside_largest": 238,
+      "singleton_components_8conn": 28,
+      "link_sweep": {
+        "0": 37,
+        "1": 7,
+        "2": 2,
+        "3": 1,
+        "4": 1
+      },
+      "span_km": [
+        25.5,
+        45.0
+      ],
+      "centre_span_km": [
+        25.0,
+        44.5
+      ],
+      "largest_component_span_km": [
+        21.0,
+        43.0
+      ]
+    },
+    {
+      "haz_time_min": 540.0,
+      "is_seed_slice": false,
+      "n_cells": 981,
+      "n_components_8conn": 36,
+      "n_components_4conn": 52,
+      "largest_component_cells": 759,
+      "second_component_cells": 89,
+      "largest_component_share": 0.7737,
+      "cells_outside_largest": 222,
+      "singleton_components_8conn": 28,
+      "link_sweep": {
+        "0": 36,
+        "1": 7,
+        "2": 2,
+        "3": 1,
+        "4": 1
+      },
+      "span_km": [
+        25.5,
+        45.0
+      ],
+      "centre_span_km": [
+        25.0,
+        44.5
+      ],
+      "largest_component_span_km": [
+        21.0,
+        43.0
+      ]
+    },
+    {
+      "haz_time_min": 720.0,
+      "is_seed_slice": false,
+      "n_cells": 1036,
+      "n_components_8conn": 36,
+      "n_components_4conn": 51,
+      "largest_component_cells": 810,
+      "second_component_cells": 89,
+      "largest_component_share": 0.7819,
+      "cells_outside_largest": 226,
+      "singleton_components_8conn": 28,
+      "link_sweep": {
+        "0": 36,
+        "1": 7,
+        "2": 2,
+        "3": 1,
+        "4": 1
+      },
+      "span_km": [
+        25.5,
+        45.0
+      ],
+      "centre_span_km": [
+        25.0,
+        44.5
+      ],
+      "largest_component_span_km": [
+        21.5,
+        43.0
+      ]
+    }
+  ],
+  "headline": {
+    "haz_time_min": 360.0,
+    "obs_time_min": 333.0,
+    "time_gap_min": 27.0,
+    "intersection_cells": 534,
+    "intersection_in_largest_obs_component": 346,
+    "intersection_share_in_largest_obs_component": 0.6479,
+    "obs_components_touched_by_core": 48,
+    "obs_components_total": 55
+  },
+  "cumulative": {
+    "graded_slice_cells": 937,
+    "last_slice_min": 2403.0,
+    "last_slice_cells": 1023,
+    "cells_added_graded_to_last": 86
+  },
+  "what_this_does_not_show": [
+    "It does not say how many fires are in the mask. A component count is a reading of the connectivity rule and the 500 m grid, and the same mask is 101, 55, 6, 2 or 1 pieces as that rule loosens. FIRMS gaps fragment a single perimeter and the 2025 Gyeongbuk event was a multi-fire complex; this repository cannot tell those apart.",
+    "It moves no IoU and produces no margin. Nothing was refit, re-acquired, re-routed or regenerated; one committed array was read.",
+    "obs_stack is a FIRMS-derived observation with its own detection floor (docs/detection_floor.md) and 500 m resampling, so the geometry measured here is the geometry of a DETECTION FIELD and not of a fire perimeter.",
+    "It is one fire at one set of slices. Nothing here generalises to another event, and no rate, frequency or typical value is implied."
+  ]
+}

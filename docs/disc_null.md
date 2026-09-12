@@ -204,21 +204,42 @@ model's **5.340** (**2,670.2 m**).
 So the model's advantage is **not** that it points in the right direction. On this
 fire, at this slice, it points in a *worse* direction than doing nothing. Its
 advantage is that it reproduces the **shape and reach** of an elongated, irregular
-footprint — it puts cells along the arms the fire actually ran down — while a
+footprint — it puts cells along the long band the fire was detected along — while a
 compact circle covering the same area cannot, whatever its centre.
+
+⚠ **「the long band the fire was detected along」 replaced 「the arms the fire
+actually ran down」 on 2026-09-12, and the superseded wording is kept here rather
+than deleted** (HANDOFF §5 rule 7). The superseded sentence read 「it puts cells
+along **the arms the fire actually ran down**」. WFG-255 measured the graded object
+and that wording claimed a morphology it cannot carry: arms a fire 「ran down」
+asserts branches of one advancing fire, and at 8-connectivity that object is
+`fc_yeongdeok_obs_components_8conn` **55** pieces of which
+`fc_yeongdeok_obs_singletons_8conn` **39** are a single cell — branches, spot
+fires, separate fires and gaps in the detection record being things this
+repository cannot tell apart. **The reach half of the sentence survived the
+measurement and is why the rest of this section stands:** the observation's
+dominant piece carries `fc_yeongdeok_obs_largest_share` **70.01 %** of the mask <!-- collision-ok: 70.01 — this is `fc_yeongdeok_obs_largest_share` written as a PERCENTAGE (the registry holds it as a ratio), the dominant piece's share of the OBSERVED mask. The gate matches it against `fc_yeongdeok_core_largest_share`, which is the MODEL CORE's dominant share on a different mask. Two quantities, neither stale. -->
+and is `fc_yeongdeok_obs_largest_span_long_km` **44.5 km** long by itself. See <!-- collision-ok: 44.5 — this is `fc_yeongdeok_obs_largest_span_long_km`, the long side of the DOMINANT PIECE's own bounding box. The gate matches it against the three keys for the WHOLE mask's box (`fc_yeongdeok_obs_span_long_km`, `fc_yeongdeok_obs_span_short_km`, `fc_yeongdeok_obs_centre_span_long_km`). Four different edges; the piece is necessarily no longer than the mask that contains it, and none of the four is stale. -->
+[`docs/footprint_components.md`](footprint_components.md) §4.
 
 ⚠ **「Reach」 and not 「extent」, and the word matters.** The null holds **area**
 equal by construction: §2's rule sizes the disc from the model's own core count, so
 at the headline slice both masks hold `dn_yeongdeok_n_cells` **952** cells. The
 model therefore *cannot* win on area, and 「extent」 read as area is an impossible
 claim rather than a wrong one. What it wins on is how far the mask spreads: the
-model puts its 952 cells along the arms while the disc must pack the same 952 into
+model puts its 952 cells along that band while the disc must pack the same 952 into
 a circle of radius `dn_yeongdeok_disc_radius_cells` **17.355** cells. Where this <!-- collision-ok: 17.355 — the HEADLINE slice's own radius, which is the slice this sentence is about. The other registered radii (8.913, 14.881, 17.681, 18.162) are different slices of the same run, not stale values of this one. -->
 document, `docs/oracle_gap.md`, the manuscript and the Q&A bank said 「shape and
 extent」 before 2026-09-11 they meant this reach reading; the word was corrected and
 the claim was not (WFG-254). ⚠ The geometry of the observed footprint itself — how
-many disconnected pieces it is, and how wide a box they span — is **not** measured
-in this repository yet; that is row WFG-255 and no sentence here assumes an answer.
+many disconnected pieces it is, and how wide a box they span — **was unmeasured in
+this repository until 2026-09-12 and is now
+[`docs/footprint_components.md`](footprint_components.md)** (WFG-255). It does not
+disturb the reach reading and it does narrow one word of it, above. ⚠⚠ **Its own
+headline is that a piece count is a reading of a rule:** the identical mask is
+**101** pieces under 4-connectivity, **55** under 8-connectivity and **1** when
+cells within 2 km are joined, so no sentence in this document quotes a piece count
+without the rule beside it, and none of them is a count of fires.
 
 The two masks are genuinely different objects and not one mask twice: disc against
 model core is IoU **0.2453**.

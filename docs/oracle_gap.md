@@ -103,6 +103,23 @@ substantially wrong.** It puts 952 cells in the fire where 937 burned — within
 2 % on area — and only 534 of them are the same cells. Routing depends entirely
 on *which* cells, and on nothing at all about how many.
 
+⚠ **What those 937 cells ARE, geometrically, was unstated on this page until
+2026-09-12** (WFG-255; full account in
+[`docs/footprint_components.md`](footprint_components.md)). They are **one
+elongated structure plus scatter**: a dominant connected piece of
+`fc_yeongdeok_obs_largest_cells` **656** cells — `fc_yeongdeok_obs_largest_share`
+**70.01 %** of the mask, `fc_yeongdeok_obs_largest_span_long_km` **44.5 km** long <!-- collision-ok: 70.01 — this is `fc_yeongdeok_obs_largest_share` written as a PERCENTAGE (the registry holds it as a ratio), the dominant piece's share of the OBSERVED mask. The gate matches it against `fc_yeongdeok_core_largest_share`, which is the MODEL CORE's dominant share on a different mask. Two quantities, neither stale. --> <!-- collision-ok: 44.5 — this is `fc_yeongdeok_obs_largest_span_long_km`, the long side of the DOMINANT PIECE's own bounding box. The gate matches it against the three keys for the WHOLE mask's box (`fc_yeongdeok_obs_span_long_km`, `fc_yeongdeok_obs_span_short_km`, `fc_yeongdeok_obs_centre_span_long_km`). Four different edges; the piece is necessarily no longer than the mask that contains it, and none of the four is stale. -->
+by itself — with the remaining `fc_yeongdeok_obs_cells_outside_largest` **281**
+cells spread over a box of **25.0 × 45.5 km**. ⚠⚠ **How many pieces that scatter
+is, is a reading of a rule and not a property of the fire:** the same mask is
+`fc_yeongdeok_obs_components_4conn` **101** pieces under 4-connectivity,
+`fc_yeongdeok_obs_components_8conn` **55** under 8-connectivity and
+`fc_yeongdeok_obs_components_link_2km` **1** when cells within 2 km are joined. So
+no count here is a count of fires, and none may be written as one. ⚠ The model's
+own core is fragmented too — `fc_yeongdeok_core_components_8conn` **37** pieces —
+so this is a property of both sides of the comparison, not a defect of the
+observation. **None of it moves 0.394 or any number in the table above.**
+
 ⚠ **The size agreement is a property of this slice, not of the model.** The
 selection rule (exclude the shared seed at `t = 0`, then take the smallest time
 gap) is fixed in the script and pinned by a test, and it does **not** pick the
@@ -220,6 +237,16 @@ What the model does better than a circle is **shape and reach**, not direction.
 Quote the two rows together or neither. ⚠ 「Reach」 and not 「extent」: the null holds
 **area** equal by construction, so on the area reading that claim is impossible
 rather than merely unproven (`docs/disc_null.md` §4, corrected 2026-09-11, WFG-254).
+
+⚠ **What the centroid is a centroid OF.** The `t = 0` seed those 2.250 cells are
+measured from is `fc_yeongdeok_seed_cells` **249** cells in
+`fc_yeongdeok_seed_components_8conn` **226** disconnected pieces whose largest is
+`fc_yeongdeok_seed_largest_cells` **3** cells (WFG-255,
+[`docs/footprint_components.md`](footprint_components.md) §3b). The arithmetic
+above is therefore the centre of mass of a nearly-isolated detection scatter, not
+of a fire front. That does not make it the wrong centre — it is the best available
+and both nulls are explicit that they use it — but 「how far the fire moved」 is a
+looser reading of it than the words suggest.
 
 ⚠ The disc is a **floor**, not a competitive baseline: a circle against an elongated
 fire is a weak opponent, so clearing it is necessary and not sufficient. The
