@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "4dd7c649b110d2bfa82f0c817a742f2a0d3d6b9a",
-  "n_artifacts": 118,
-  "total_bytes": 14678065,
-  "total_mib": 14.0,
-  "n_git_tracked": 118,
+  "generated_at_git_commit": "f250e3bd97be8a7030595abad4a8c855785e26c2",
+  "n_artifacts": 119,
+  "total_bytes": 14744362,
+  "total_mib": 14.06,
+  "n_git_tracked": 119,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 9,
   "artifacts": [
@@ -1097,6 +1097,19 @@
         "docs/results_rescue_draft.md"
       ],
       "regenerate": "python scripts/build_numbers.py"
+    },
+    {
+      "path": "data/processed/rotation_null_yeongdeok.json",
+      "bytes": 66297,
+      "sha256": "6e2746cec91e3be98264f5aa49aa280cbfcc7d796e6e6573117d98e212929cd8",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 70,
+      "cited_by_docs": [
+        "docs/auto/BACKLOG.md",
+        "docs/rotation_null.md"
+      ],
+      "regenerate": "python scripts/measure_rotation_null.py"
     },
     {
       "path": "data/processed/routing_demo.npz",

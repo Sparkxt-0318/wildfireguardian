@@ -234,7 +234,12 @@ centroid numbers for that reason.
 1. **It is not a validation.** The disc is a **floor**, not a competitive baseline.
    A circle scored against an elongated fire is a weak opponent by construction, so
    clearing it is **necessary** and not **sufficient** evidence of skill. 「Better
-   than the null」 here means only 「better than *this* null」.
+   than the null」 here means only 「better than *this* null」. ⚠ **2026-09-12 (WFG-256):
+   「a weak opponent by construction」 is no longer a qualitative claim, and the
+   measurement qualifies it in a direction this page did not expect — the disc is
+   a weak opponent only against the core *as oriented*, and a **stronger** opponent
+   than **20** of 23 rotations of that same core. §5b has the numbers. Nothing in
+   this item is withdrawn: necessary-and-not-sufficient stands.
 2. **The strong nulls are not scored against *this* truth.** `src/wildfireguardian/validation/baselines.py`
    defines `run_persistence_baseline` (`:44`) and `run_isotropic_baseline` (`:68`)
    — the WFG-228 row dates them to 「Session 4」 and this page deliberately does not
@@ -279,6 +284,49 @@ centroid numbers for that reason.
    would need a centre chosen from something other than the fire's own first frame,
    and there is no such thing in this artifact.
 
+
+### 5b. ⚠ How much of the gap is bought by not being a circle: measured (WFG-256)
+
+Item 1 above and §5.1's 「weak opponent by construction」 were, until 2026-09-12, the
+page's own words for something it had not measured. The rotation null measures it.
+
+The rule, pre-registered in the WFG-256 claim commit before the script existed: hold
+the model's **own** shape and cell count fixed, rotate that mask rigidly about the
+**same** `t = 0` seed centroid this disc uses, through every **15** degrees with 0
+excluded (**23** rotations), and score each one against the same observation under
+the same matching and the same `p_cut`, with the scorer **imported** from
+`scripts/measure_disc_null.py` rather than copied. Seed removed, at the headline
+slice:
+
+| | seed-removed IoU |
+|---|---|
+| the core **as oriented** | **0.2577** |
+| the **best** of the 23 rotations | **0.1359** |
+| the **median** of the 23 rotations | **0.0746** |
+| the **worst** of the 23 rotations | **0.0387** |
+| this **disc** | **0.1169** |
+
+Two results, and the second is the one that refines item 1:
+
+1. **The true orientation ranks 1 of 24, with 0 ties, at all four off-seed
+   slices.** So the overlap is not produced by the core's irregularity, nor by its
+   being anchored at the seed: rotate the identical mask and the IoU falls to
+   **0.1359** at best.
+2. **Only 3 of the 23 rotations beat this disc, and the worst reaches 0.3311 of
+   it.** A misoriented version of the model's own irregular, terrain-shaped mask is
+   a **worse** opponent than a circle, twenty times out of twenty-three. So the
+   2.2044 is not bought by 「원이 아니라서」; it is bought by that shape being at
+   **that** angle.
+
+⚠ **This licenses no directional claim, and §4 above is unchanged.** The model's
+centre of mass still ends up farther from the observation (**5.34** cells) than this
+stationary disc's does (**2.266**), and 「저희가 나은 것은 겹침이고, 방향은 아닙니다」
+stays exactly as written. The two readings are consistent: **the axis is right and
+the distance along it is overrun.** Method, the rasterisation residual, the
+lattice-exact controls and the full list of what it does not show are in
+[`docs/rotation_null.md`](rotation_null.md); it reports **no p-value**, because 23
+rotations of one fire is a reference spread and not a test.
+
 ## 6. What a judge should hear
 
 Short, and in this order, because the second sentence is what keeps the first
@@ -289,8 +337,11 @@ honest:
 > 249칸을 똑같이 물려받기 때문에, 그 부분을 양쪽에서 빼고 다시 재면 0.2577 대
 > 0.1169, 약 2.2배입니다 — 저희가 인용하는 값은 이쪽입니다. 그리고 무게중심으로
 > 보면 저희 모델이 불을 3,646 m 보냈고 실제로는 1,125 m 움직였습니다 — 원보다 더
-> 많이 빗나갔습니다. 저희가 나은 것은 겹침이고, 방향은 아닙니다 — 그것이 모양
-> 때문인지는 아직 재지 않았습니다.」
+> 많이 빗나갔습니다. 저희가 나은 것은 겹침이고, 방향은 아닙니다. 그리고 그 겹침이
+> 모양이 불규칙해서 생긴 것인지도 재봤습니다 — 같은 모양을 각도만 바꿔 23번 돌리면
+> 최고가 0.1359 인데 실제 방향은 0.2577 로 24개 중 1위였고, 돌린 것 중 20개는
+> 원판보다도 못했습니다. 겹침을 만든 것은 그 모양을 그 각도로 놓은 것입니다 — 다만
+> 이것도 「방향을 맞혔다」는 뜻은 아닙니다.」
 
 The draft Korean above is a draft for the student's own voice (CHARTER §9).
 

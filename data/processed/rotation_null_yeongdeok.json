@@ -1,0 +1,2153 @@
+{
+  "schema_version": 1,
+  "title": "A rotation null for the forward simulation — 영덕 2025, canonical",
+  "row": "WFG-256",
+  "generated_utc": "2026-09-12T13:10:54Z",
+  "git_commit": "f250e3bd97be8a7030595abad4a8c855785e26c2",
+  "source_artifacts": {
+    "data/processed/routing_demo_canonical.npz": "81b4e4d159daa7a8ccc7c4fedf3fea948d501fff2d7e886c1fd55bbf47043fb7",
+    "data/processed/disc_null_yeongdeok.json": "5763b87bb30748e48b9aaf8922a1aabe58674870afde7dad1e81762935e11b1d"
+  },
+  "p_cut": 0.5,
+  "grid_shape": [
+    181,
+    156
+  ],
+  "cell_size_m": 500.0,
+  "null_rule": {
+    "what_varies": "orientation only",
+    "what_is_held_fixed": "the model's own shape and its cell count",
+    "centre_row_col": [
+      97.7751,
+      55.1205
+    ],
+    "centre_from": "centroid of the t=0 seed, the 249 cells obs_stack[0]>0 and haz_stack[0]>=p_cut agree on exactly — the same centre scripts/measure_disc_null.py asserts and uses, and the only centre that uses no information the model did not have",
+    "angles_deg": [
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135,
+      150,
+      165,
+      180,
+      195,
+      210,
+      225,
+      240,
+      255,
+      270,
+      285,
+      300,
+      315,
+      330,
+      345
+    ],
+    "n_rotations": 23,
+    "angle_step_deg": 15,
+    "zero_excluded": true,
+    "rasterisation": "inverse nearest-neighbour: each output cell is rotated by -theta about the centre, rounded, and takes that input cell's membership",
+    "cell_count_is_not_resampled": true,
+    "scorer": "imported from scripts/measure_disc_null.py (_score), not copied, so the disc and rotation figures cannot drift",
+    "time_matching": "argmin |obs_times - haz_time|, the same rule as scripts/measure_oracle_gap.py and measure_disc_null.py",
+    "free_parameters": 0,
+    "p_value_reported": false,
+    "pre_registered_in": "the WFG-256 claim commit, before this script existed"
+  },
+  "slices": [
+    {
+      "haz_time_min": 0.0,
+      "obs_time_min": 0.0,
+      "time_gap_min": 0.0,
+      "is_seed_slice": true,
+      "n_cells": 249,
+      "unrotated": {
+        "iou": 1.0,
+        "seed_removed_iou": null
+      },
+      "rotations": [
+        {
+          "angle_deg": 15,
+          "is_lattice_exact": false,
+          "target_cells": 249,
+          "achieved_cells": 254,
+          "cell_count_residual": 5,
+          "cell_count_residual_frac": 0.0201,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0748,
+          "seed_removed_iou": 0.0,
+          "iou_with_the_unrotated_core": 0.0748
+        },
+        {
+          "angle_deg": 30,
+          "is_lattice_exact": false,
+          "target_cells": 249,
+          "achieved_cells": 244,
+          "cell_count_residual": -5,
+          "cell_count_residual_frac": -0.0201,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0401,
+          "seed_removed_iou": 0.0,
+          "iou_with_the_unrotated_core": 0.0401
+        },
+        {
+          "angle_deg": 45,
+          "is_lattice_exact": false,
+          "target_cells": 249,
+          "achieved_cells": 253,
+          "cell_count_residual": 4,
+          "cell_count_residual_frac": 0.0161,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0351,
+          "seed_removed_iou": 0.0,
+          "iou_with_the_unrotated_core": 0.0351
+        },
+        {
+          "angle_deg": 60,
+          "is_lattice_exact": false,
+          "target_cells": 249,
+          "achieved_cells": 244,
+          "cell_count_residual": -5,
+          "cell_count_residual_frac": -0.0201,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0186,
+          "seed_removed_iou": 0.0,
+          "iou_with_the_unrotated_core": 0.0186
+        },
+        {
+          "angle_deg": 75,
+          "is_lattice_exact": false,
+          "target_cells": 249,
+          "achieved_cells": 254,
+          "cell_count_residual": 5,
+          "cell_count_residual_frac": 0.0201,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0329,
+          "seed_removed_iou": 0.0,
+          "iou_with_the_unrotated_core": 0.0329
+        },
+        {
+          "angle_deg": 90,
+          "is_lattice_exact": true,
+          "target_cells": 249,
+          "achieved_cells": 249,
+          "cell_count_residual": 0,
+          "cell_count_residual_frac": 0.0,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0143,
+          "seed_removed_iou": 0.0,
+          "iou_with_the_unrotated_core": 0.0143
+        },
+        {
+          "angle_deg": 105,
+          "is_lattice_exact": false,
+          "target_cells": 249,
+          "achieved_cells": 249,
+          "cell_count_residual": 0,
+          "cell_count_residual_frac": 0.0,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0163,
+          "seed_removed_iou": 0.0,
+          "iou_with_the_unrotated_core": 0.0163
+        },
+        {
+          "angle_deg": 120,
+          "is_lattice_exact": false,
+          "target_cells": 249,
+          "achieved_cells": 249,
+          "cell_count_residual": 0,
+          "cell_count_residual_frac": 0.0,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0332,
+          "seed_removed_iou": 0.0,
+          "iou_with_the_unrotated_core": 0.0332
+        },
+        {
+          "angle_deg": 135,
+          "is_lattice_exact": false,
+          "target_cells": 249,
+          "achieved_cells": 255,
+          "cell_count_residual": 6,
+          "cell_count_residual_frac": 0.0241,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0349,
+          "seed_removed_iou": 0.0,
+          "iou_with_the_unrotated_core": 0.0349
+        },
+        {
+          "angle_deg": 150,
+          "is_lattice_exact": false,
+          "target_cells": 249,
+          "achieved_cells": 254,
+          "cell_count_residual": 5,
+          "cell_count_residual_frac": 0.0201,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.035,
+          "seed_removed_iou": 0.0,
+          "iou_with_the_unrotated_core": 0.035
+        },
+        {
+          "angle_deg": 165,
+          "is_lattice_exact": false,
+          "target_cells": 249,
+          "achieved_cells": 242,
+          "cell_count_residual": -7,
+          "cell_count_residual_frac": -0.0281,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0359,
+          "seed_removed_iou": 0.0,
+          "iou_with_the_unrotated_core": 0.0359
+        },
+        {
+          "angle_deg": 180,
+          "is_lattice_exact": true,
+          "target_cells": 249,
+          "achieved_cells": 249,
+          "cell_count_residual": 0,
+          "cell_count_residual_frac": 0.0,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0163,
+          "seed_removed_iou": 0.0,
+          "iou_with_the_unrotated_core": 0.0163
+        },
+        {
+          "angle_deg": 195,
+          "is_lattice_exact": false,
+          "target_cells": 249,
+          "achieved_cells": 250,
+          "cell_count_residual": 1,
+          "cell_count_residual_frac": 0.004,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0353,
+          "seed_removed_iou": 0.0,
+          "iou_with_the_unrotated_core": 0.0353
+        },
+        {
+          "angle_deg": 210,
+          "is_lattice_exact": false,
+          "target_cells": 249,
+          "achieved_cells": 246,
+          "cell_count_residual": -3,
+          "cell_count_residual_frac": -0.012,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0356,
+          "seed_removed_iou": 0.0,
+          "iou_with_the_unrotated_core": 0.0356
+        },
+        {
+          "angle_deg": 225,
+          "is_lattice_exact": false,
+          "target_cells": 249,
+          "achieved_cells": 236,
+          "cell_count_residual": -13,
+          "cell_count_residual_frac": -0.0522,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0319,
+          "seed_removed_iou": 0.0,
+          "iou_with_the_unrotated_core": 0.0319
+        },
+        {
+          "angle_deg": 240,
+          "is_lattice_exact": false,
+          "target_cells": 249,
+          "achieved_cells": 249,
+          "cell_count_residual": 0,
+          "cell_count_residual_frac": 0.0,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0332,
+          "seed_removed_iou": 0.0,
+          "iou_with_the_unrotated_core": 0.0332
+        },
+        {
+          "angle_deg": 255,
+          "is_lattice_exact": false,
+          "target_cells": 249,
+          "achieved_cells": 251,
+          "cell_count_residual": 2,
+          "cell_count_residual_frac": 0.008,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0163,
+          "seed_removed_iou": 0.0,
+          "iou_with_the_unrotated_core": 0.0163
+        },
+        {
+          "angle_deg": 270,
+          "is_lattice_exact": true,
+          "target_cells": 249,
+          "achieved_cells": 249,
+          "cell_count_residual": 0,
+          "cell_count_residual_frac": 0.0,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0143,
+          "seed_removed_iou": 0.0,
+          "iou_with_the_unrotated_core": 0.0143
+        },
+        {
+          "angle_deg": 285,
+          "is_lattice_exact": false,
+          "target_cells": 249,
+          "achieved_cells": 251,
+          "cell_count_residual": 2,
+          "cell_count_residual_frac": 0.008,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0331,
+          "seed_removed_iou": 0.0,
+          "iou_with_the_unrotated_core": 0.0331
+        },
+        {
+          "angle_deg": 300,
+          "is_lattice_exact": false,
+          "target_cells": 249,
+          "achieved_cells": 246,
+          "cell_count_residual": -3,
+          "cell_count_residual_frac": -0.012,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0185,
+          "seed_removed_iou": 0.0,
+          "iou_with_the_unrotated_core": 0.0185
+        },
+        {
+          "angle_deg": 315,
+          "is_lattice_exact": false,
+          "target_cells": 249,
+          "achieved_cells": 258,
+          "cell_count_residual": 9,
+          "cell_count_residual_frac": 0.0361,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0368,
+          "seed_removed_iou": 0.0,
+          "iou_with_the_unrotated_core": 0.0368
+        },
+        {
+          "angle_deg": 330,
+          "is_lattice_exact": false,
+          "target_cells": 249,
+          "achieved_cells": 250,
+          "cell_count_residual": 1,
+          "cell_count_residual_frac": 0.004,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0374,
+          "seed_removed_iou": 0.0,
+          "iou_with_the_unrotated_core": 0.0374
+        },
+        {
+          "angle_deg": 345,
+          "is_lattice_exact": false,
+          "target_cells": 249,
+          "achieved_cells": 249,
+          "cell_count_residual": 0,
+          "cell_count_residual_frac": 0.0,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0756,
+          "seed_removed_iou": 0.0,
+          "iou_with_the_unrotated_core": 0.0756
+        }
+      ],
+      "rotated_iou_spread": {
+        "n": 23,
+        "min": 0.0143,
+        "median": 0.0332,
+        "max": 0.0756,
+        "mean": 0.0328
+      },
+      "unrotated_rank_by_iou": {
+        "rank": 1,
+        "of": 24,
+        "strictly_better_than_it": 0,
+        "tied_with_it": 0
+      },
+      "lattice_exact_angles": {
+        "angles_deg": [
+          90,
+          180,
+          270
+        ],
+        "cell_count_residuals": [
+          0,
+          0,
+          0
+        ],
+        "iou_spread": {
+          "n": 3,
+          "min": 0.0143,
+          "median": 0.0143,
+          "max": 0.0163,
+          "mean": 0.015
+        }
+      },
+      "worst_cell_count_residual_frac": 0.0522,
+      "max_cells_pushed_off_grid": 0
+    },
+    {
+      "haz_time_min": 180.0,
+      "obs_time_min": 333.0,
+      "time_gap_min": 153.0,
+      "is_seed_slice": false,
+      "n_cells": 692,
+      "unrotated": {
+        "iou": 0.3586,
+        "seed_removed_iou": 0.1905
+      },
+      "rotations": [
+        {
+          "angle_deg": 15,
+          "is_lattice_exact": false,
+          "target_cells": 692,
+          "achieved_cells": 700,
+          "cell_count_residual": 8,
+          "cell_count_residual_frac": 0.0116,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1561,
+          "seed_removed_iou": 0.1243,
+          "iou_with_the_unrotated_core": 0.2052
+        },
+        {
+          "angle_deg": 30,
+          "is_lattice_exact": false,
+          "target_cells": 692,
+          "achieved_cells": 702,
+          "cell_count_residual": 10,
+          "cell_count_residual_frac": 0.0145,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0971,
+          "seed_removed_iou": 0.0763,
+          "iou_with_the_unrotated_core": 0.1251
+        },
+        {
+          "angle_deg": 45,
+          "is_lattice_exact": false,
+          "target_cells": 692,
+          "achieved_cells": 702,
+          "cell_count_residual": 10,
+          "cell_count_residual_frac": 0.0145,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0581,
+          "seed_removed_iou": 0.0392,
+          "iou_with_the_unrotated_core": 0.1002
+        },
+        {
+          "angle_deg": 60,
+          "is_lattice_exact": false,
+          "target_cells": 692,
+          "achieved_cells": 696,
+          "cell_count_residual": 4,
+          "cell_count_residual_frac": 0.0058,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0652,
+          "seed_removed_iou": 0.0522,
+          "iou_with_the_unrotated_core": 0.0981
+        },
+        {
+          "angle_deg": 75,
+          "is_lattice_exact": false,
+          "target_cells": 692,
+          "achieved_cells": 700,
+          "cell_count_residual": 8,
+          "cell_count_residual_frac": 0.0116,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0644,
+          "seed_removed_iou": 0.0465,
+          "iou_with_the_unrotated_core": 0.0978
+        },
+        {
+          "angle_deg": 90,
+          "is_lattice_exact": true,
+          "target_cells": 692,
+          "achieved_cells": 692,
+          "cell_count_residual": 0,
+          "cell_count_residual_frac": 0.0,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0449,
+          "seed_removed_iou": 0.0328,
+          "iou_with_the_unrotated_core": 0.0638
+        },
+        {
+          "angle_deg": 105,
+          "is_lattice_exact": false,
+          "target_cells": 692,
+          "achieved_cells": 690,
+          "cell_count_residual": -2,
+          "cell_count_residual_frac": -0.0029,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0592,
+          "seed_removed_iou": 0.0482,
+          "iou_with_the_unrotated_core": 0.0647
+        },
+        {
+          "angle_deg": 120,
+          "is_lattice_exact": false,
+          "target_cells": 692,
+          "achieved_cells": 702,
+          "cell_count_residual": 10,
+          "cell_count_residual_frac": 0.0145,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0776,
+          "seed_removed_iou": 0.0621,
+          "iou_with_the_unrotated_core": 0.0942
+        },
+        {
+          "angle_deg": 135,
+          "is_lattice_exact": false,
+          "target_cells": 692,
+          "achieved_cells": 686,
+          "cell_count_residual": -6,
+          "cell_count_residual_frac": -0.0087,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0974,
+          "seed_removed_iou": 0.0772,
+          "iou_with_the_unrotated_core": 0.1277
+        },
+        {
+          "angle_deg": 150,
+          "is_lattice_exact": false,
+          "target_cells": 692,
+          "achieved_cells": 705,
+          "cell_count_residual": 13,
+          "cell_count_residual_frac": 0.0188,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1072,
+          "seed_removed_iou": 0.0802,
+          "iou_with_the_unrotated_core": 0.1376
+        },
+        {
+          "angle_deg": 165,
+          "is_lattice_exact": false,
+          "target_cells": 692,
+          "achieved_cells": 683,
+          "cell_count_residual": -9,
+          "cell_count_residual_frac": -0.013,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0843,
+          "seed_removed_iou": 0.0715,
+          "iou_with_the_unrotated_core": 0.087
+        },
+        {
+          "angle_deg": 180,
+          "is_lattice_exact": true,
+          "target_cells": 692,
+          "achieved_cells": 692,
+          "cell_count_residual": 0,
+          "cell_count_residual_frac": 0.0,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0647,
+          "seed_removed_iou": 0.0539,
+          "iou_with_the_unrotated_core": 0.0762
+        },
+        {
+          "angle_deg": 195,
+          "is_lattice_exact": false,
+          "target_cells": 692,
+          "achieved_cells": 703,
+          "cell_count_residual": 11,
+          "cell_count_residual_frac": 0.0159,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0868,
+          "seed_removed_iou": 0.0754,
+          "iou_with_the_unrotated_core": 0.0848
+        },
+        {
+          "angle_deg": 210,
+          "is_lattice_exact": false,
+          "target_cells": 692,
+          "achieved_cells": 688,
+          "cell_count_residual": -4,
+          "cell_count_residual_frac": -0.0058,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1269,
+          "seed_removed_iou": 0.1081,
+          "iou_with_the_unrotated_core": 0.133
+        },
+        {
+          "angle_deg": 225,
+          "is_lattice_exact": false,
+          "target_cells": 692,
+          "achieved_cells": 694,
+          "cell_count_residual": 2,
+          "cell_count_residual_frac": 0.0029,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.135,
+          "seed_removed_iou": 0.1187,
+          "iou_with_the_unrotated_core": 0.1241
+        },
+        {
+          "angle_deg": 240,
+          "is_lattice_exact": false,
+          "target_cells": 692,
+          "achieved_cells": 690,
+          "cell_count_residual": -2,
+          "cell_count_residual_frac": -0.0029,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0949,
+          "seed_removed_iou": 0.08,
+          "iou_with_the_unrotated_core": 0.0986
+        },
+        {
+          "angle_deg": 255,
+          "is_lattice_exact": false,
+          "target_cells": 692,
+          "achieved_cells": 689,
+          "cell_count_residual": -3,
+          "cell_count_residual_frac": -0.0043,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0641,
+          "seed_removed_iou": 0.0547,
+          "iou_with_the_unrotated_core": 0.0648
+        },
+        {
+          "angle_deg": 270,
+          "is_lattice_exact": true,
+          "target_cells": 692,
+          "achieved_cells": 692,
+          "cell_count_residual": 0,
+          "cell_count_residual_frac": 0.0,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0469,
+          "seed_removed_iou": 0.0352,
+          "iou_with_the_unrotated_core": 0.0638
+        },
+        {
+          "angle_deg": 285,
+          "is_lattice_exact": false,
+          "target_cells": 692,
+          "achieved_cells": 696,
+          "cell_count_residual": 4,
+          "cell_count_residual_frac": 0.0058,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.059,
+          "seed_removed_iou": 0.0387,
+          "iou_with_the_unrotated_core": 0.099
+        },
+        {
+          "angle_deg": 300,
+          "is_lattice_exact": false,
+          "target_cells": 692,
+          "achieved_cells": 694,
+          "cell_count_residual": 2,
+          "cell_count_residual_frac": 0.0029,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0716,
+          "seed_removed_iou": 0.0558,
+          "iou_with_the_unrotated_core": 0.0983
+        },
+        {
+          "angle_deg": 315,
+          "is_lattice_exact": false,
+          "target_cells": 692,
+          "achieved_cells": 686,
+          "cell_count_residual": -6,
+          "cell_count_residual_frac": -0.0087,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0784,
+          "seed_removed_iou": 0.0637,
+          "iou_with_the_unrotated_core": 0.0928
+        },
+        {
+          "angle_deg": 330,
+          "is_lattice_exact": false,
+          "target_cells": 692,
+          "achieved_cells": 687,
+          "cell_count_residual": -5,
+          "cell_count_residual_frac": -0.0072,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0988,
+          "seed_removed_iou": 0.0781,
+          "iou_with_the_unrotated_core": 0.1239
+        },
+        {
+          "angle_deg": 345,
+          "is_lattice_exact": false,
+          "target_cells": 692,
+          "achieved_cells": 701,
+          "cell_count_residual": 9,
+          "cell_count_residual_frac": 0.013,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1527,
+          "seed_removed_iou": 0.1169,
+          "iou_with_the_unrotated_core": 0.204
+        }
+      ],
+      "rotated_iou_spread": {
+        "n": 23,
+        "min": 0.0449,
+        "median": 0.0784,
+        "max": 0.1561,
+        "mean": 0.0866
+      },
+      "unrotated_rank_by_iou": {
+        "rank": 1,
+        "of": 24,
+        "strictly_better_than_it": 0,
+        "tied_with_it": 0
+      },
+      "lattice_exact_angles": {
+        "angles_deg": [
+          90,
+          180,
+          270
+        ],
+        "cell_count_residuals": [
+          0,
+          0,
+          0
+        ],
+        "iou_spread": {
+          "n": 3,
+          "min": 0.0449,
+          "median": 0.0469,
+          "max": 0.0647,
+          "mean": 0.0522
+        }
+      },
+      "worst_cell_count_residual_frac": 0.0188,
+      "max_cells_pushed_off_grid": 0,
+      "seed_removed": {
+        "rotated_iou_spread": {
+          "n": 23,
+          "min": 0.0328,
+          "median": 0.0637,
+          "max": 0.1243,
+          "mean": 0.0691
+        },
+        "unrotated_rank_by_iou": {
+          "rank": 1,
+          "of": 24,
+          "strictly_better_than_it": 0,
+          "tied_with_it": 0
+        },
+        "comparison_precision": "every beats/does-not-beat decision below is made at FULL precision on both sides; the reported IoUs are rounded to 4 dp",
+        "rotations_tied_with_the_disc_at_reported_precision": 0,
+        "closest_rotation_to_the_disc": {
+          "angle_deg": 210,
+          "margin_over_the_disc": 0.01065177,
+          "indistinguishable_at_reported_precision": false
+        },
+        "disc_iou": 0.0975,
+        "worst_rotation_iou": 0.0328,
+        "worst_rotation_over_disc": 0.3364,
+        "worst_rotation_beats_the_disc": false,
+        "rotations_beating_the_disc": 4,
+        "rotations_not_beating_the_disc": 19,
+        "unrotated_over_disc": 1.9538,
+        "unrotated_beats_the_disc": true
+      }
+    },
+    {
+      "haz_time_min": 360.0,
+      "obs_time_min": 333.0,
+      "time_gap_min": 27.0,
+      "is_seed_slice": false,
+      "n_cells": 952,
+      "unrotated": {
+        "iou": 0.3941,
+        "seed_removed_iou": 0.2577
+      },
+      "rotations": [
+        {
+          "angle_deg": 15,
+          "is_lattice_exact": false,
+          "target_cells": 952,
+          "achieved_cells": 960,
+          "cell_count_residual": 8,
+          "cell_count_residual_frac": 0.0084,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1724,
+          "seed_removed_iou": 0.1359,
+          "iou_with_the_unrotated_core": 0.2272
+        },
+        {
+          "angle_deg": 30,
+          "is_lattice_exact": false,
+          "target_cells": 952,
+          "achieved_cells": 949,
+          "cell_count_residual": -3,
+          "cell_count_residual_frac": -0.0032,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1042,
+          "seed_removed_iou": 0.0843,
+          "iou_with_the_unrotated_core": 0.1315
+        },
+        {
+          "angle_deg": 45,
+          "is_lattice_exact": false,
+          "target_cells": 952,
+          "achieved_cells": 957,
+          "cell_count_residual": 5,
+          "cell_count_residual_frac": 0.0053,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.064,
+          "seed_removed_iou": 0.0451,
+          "iou_with_the_unrotated_core": 0.106
+        },
+        {
+          "angle_deg": 60,
+          "is_lattice_exact": false,
+          "target_cells": 952,
+          "achieved_cells": 953,
+          "cell_count_residual": 1,
+          "cell_count_residual_frac": 0.0011,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0757,
+          "seed_removed_iou": 0.0617,
+          "iou_with_the_unrotated_core": 0.1101
+        },
+        {
+          "angle_deg": 75,
+          "is_lattice_exact": false,
+          "target_cells": 952,
+          "achieved_cells": 959,
+          "cell_count_residual": 7,
+          "cell_count_residual_frac": 0.0074,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0718,
+          "seed_removed_iou": 0.0553,
+          "iou_with_the_unrotated_core": 0.1117
+        },
+        {
+          "angle_deg": 90,
+          "is_lattice_exact": true,
+          "target_cells": 952,
+          "achieved_cells": 952,
+          "cell_count_residual": 0,
+          "cell_count_residual_frac": 0.0,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.05,
+          "seed_removed_iou": 0.0387,
+          "iou_with_the_unrotated_core": 0.0769
+        },
+        {
+          "angle_deg": 105,
+          "is_lattice_exact": false,
+          "target_cells": 952,
+          "achieved_cells": 958,
+          "cell_count_residual": 6,
+          "cell_count_residual_frac": 0.0063,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0712,
+          "seed_removed_iou": 0.0572,
+          "iou_with_the_unrotated_core": 0.099
+        },
+        {
+          "angle_deg": 120,
+          "is_lattice_exact": false,
+          "target_cells": 952,
+          "achieved_cells": 963,
+          "cell_count_residual": 11,
+          "cell_count_residual_frac": 0.0116,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0976,
+          "seed_removed_iou": 0.0735,
+          "iou_with_the_unrotated_core": 0.1291
+        },
+        {
+          "angle_deg": 135,
+          "is_lattice_exact": false,
+          "target_cells": 952,
+          "achieved_cells": 947,
+          "cell_count_residual": -5,
+          "cell_count_residual_frac": -0.0053,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1228,
+          "seed_removed_iou": 0.0924,
+          "iou_with_the_unrotated_core": 0.1665
+        },
+        {
+          "angle_deg": 150,
+          "is_lattice_exact": false,
+          "target_cells": 952,
+          "achieved_cells": 964,
+          "cell_count_residual": 12,
+          "cell_count_residual_frac": 0.0126,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1202,
+          "seed_removed_iou": 0.0849,
+          "iou_with_the_unrotated_core": 0.1662
+        },
+        {
+          "angle_deg": 165,
+          "is_lattice_exact": false,
+          "target_cells": 952,
+          "achieved_cells": 944,
+          "cell_count_residual": -8,
+          "cell_count_residual_frac": -0.0084,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0981,
+          "seed_removed_iou": 0.0806,
+          "iou_with_the_unrotated_core": 0.1088
+        },
+        {
+          "angle_deg": 180,
+          "is_lattice_exact": true,
+          "target_cells": 952,
+          "achieved_cells": 952,
+          "cell_count_residual": 0,
+          "cell_count_residual_frac": 0.0,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0709,
+          "seed_removed_iou": 0.0568,
+          "iou_with_the_unrotated_core": 0.0818
+        },
+        {
+          "angle_deg": 195,
+          "is_lattice_exact": false,
+          "target_cells": 952,
+          "achieved_cells": 961,
+          "cell_count_residual": 9,
+          "cell_count_residual_frac": 0.0095,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1022,
+          "seed_removed_iou": 0.0869,
+          "iou_with_the_unrotated_core": 0.1103
+        },
+        {
+          "angle_deg": 210,
+          "is_lattice_exact": false,
+          "target_cells": 952,
+          "achieved_cells": 941,
+          "cell_count_residual": -11,
+          "cell_count_residual_frac": -0.0116,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1389,
+          "seed_removed_iou": 0.1143,
+          "iou_with_the_unrotated_core": 0.1613
+        },
+        {
+          "angle_deg": 225,
+          "is_lattice_exact": false,
+          "target_cells": 952,
+          "achieved_cells": 954,
+          "cell_count_residual": 2,
+          "cell_count_residual_frac": 0.0021,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1502,
+          "seed_removed_iou": 0.1269,
+          "iou_with_the_unrotated_core": 0.1672
+        },
+        {
+          "angle_deg": 240,
+          "is_lattice_exact": false,
+          "target_cells": 952,
+          "achieved_cells": 951,
+          "cell_count_residual": -1,
+          "cell_count_residual_frac": -0.0011,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1152,
+          "seed_removed_iou": 0.0942,
+          "iou_with_the_unrotated_core": 0.1294
+        },
+        {
+          "angle_deg": 255,
+          "is_lattice_exact": false,
+          "target_cells": 952,
+          "achieved_cells": 949,
+          "cell_count_residual": -3,
+          "cell_count_residual_frac": -0.0032,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.082,
+          "seed_removed_iou": 0.0676,
+          "iou_with_the_unrotated_core": 0.0976
+        },
+        {
+          "angle_deg": 270,
+          "is_lattice_exact": true,
+          "target_cells": 952,
+          "achieved_cells": 952,
+          "cell_count_residual": 0,
+          "cell_count_residual_frac": 0.0,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0606,
+          "seed_removed_iou": 0.0463,
+          "iou_with_the_unrotated_core": 0.0769
+        },
+        {
+          "angle_deg": 285,
+          "is_lattice_exact": false,
+          "target_cells": 952,
+          "achieved_cells": 956,
+          "cell_count_residual": 4,
+          "cell_count_residual_frac": 0.0042,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0689,
+          "seed_removed_iou": 0.048,
+          "iou_with_the_unrotated_core": 0.1138
+        },
+        {
+          "angle_deg": 300,
+          "is_lattice_exact": false,
+          "target_cells": 952,
+          "achieved_cells": 963,
+          "cell_count_residual": 11,
+          "cell_count_residual_frac": 0.0116,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0802,
+          "seed_removed_iou": 0.0616,
+          "iou_with_the_unrotated_core": 0.1089
+        },
+        {
+          "angle_deg": 315,
+          "is_lattice_exact": false,
+          "target_cells": 952,
+          "achieved_cells": 951,
+          "cell_count_residual": -1,
+          "cell_count_residual_frac": -0.0011,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0876,
+          "seed_removed_iou": 0.0746,
+          "iou_with_the_unrotated_core": 0.0981
+        },
+        {
+          "angle_deg": 330,
+          "is_lattice_exact": false,
+          "target_cells": 952,
+          "achieved_cells": 949,
+          "cell_count_residual": -3,
+          "cell_count_residual_frac": -0.0032,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1107,
+          "seed_removed_iou": 0.0842,
+          "iou_with_the_unrotated_core": 0.1363
+        },
+        {
+          "angle_deg": 345,
+          "is_lattice_exact": false,
+          "target_cells": 952,
+          "achieved_cells": 958,
+          "cell_count_residual": 6,
+          "cell_count_residual_frac": 0.0063,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1734,
+          "seed_removed_iou": 0.1354,
+          "iou_with_the_unrotated_core": 0.2259
+        }
+      ],
+      "rotated_iou_spread": {
+        "n": 23,
+        "min": 0.05,
+        "median": 0.0976,
+        "max": 0.1734,
+        "mean": 0.0995
+      },
+      "unrotated_rank_by_iou": {
+        "rank": 1,
+        "of": 24,
+        "strictly_better_than_it": 0,
+        "tied_with_it": 0
+      },
+      "lattice_exact_angles": {
+        "angles_deg": [
+          90,
+          180,
+          270
+        ],
+        "cell_count_residuals": [
+          0,
+          0,
+          0
+        ],
+        "iou_spread": {
+          "n": 3,
+          "min": 0.05,
+          "median": 0.0606,
+          "max": 0.0709,
+          "mean": 0.0605
+        }
+      },
+      "worst_cell_count_residual_frac": 0.0126,
+      "max_cells_pushed_off_grid": 0,
+      "seed_removed": {
+        "rotated_iou_spread": {
+          "n": 23,
+          "min": 0.0387,
+          "median": 0.0746,
+          "max": 0.1359,
+          "mean": 0.0785
+        },
+        "unrotated_rank_by_iou": {
+          "rank": 1,
+          "of": 24,
+          "strictly_better_than_it": 0,
+          "tied_with_it": 0
+        },
+        "comparison_precision": "every beats/does-not-beat decision below is made at FULL precision on both sides; the reported IoUs are rounded to 4 dp",
+        "rotations_tied_with_the_disc_at_reported_precision": 0,
+        "closest_rotation_to_the_disc": {
+          "angle_deg": 210,
+          "margin_over_the_disc": -0.0025974,
+          "indistinguishable_at_reported_precision": false
+        },
+        "disc_iou": 0.1169,
+        "worst_rotation_iou": 0.0387,
+        "worst_rotation_over_disc": 0.3311,
+        "worst_rotation_beats_the_disc": false,
+        "rotations_beating_the_disc": 3,
+        "rotations_not_beating_the_disc": 20,
+        "unrotated_over_disc": 2.2044,
+        "unrotated_beats_the_disc": true
+      }
+    },
+    {
+      "haz_time_min": 540.0,
+      "obs_time_min": 333.0,
+      "time_gap_min": 207.0,
+      "is_seed_slice": false,
+      "n_cells": 981,
+      "unrotated": {
+        "iou": 0.3949,
+        "seed_removed_iou": 0.2611
+      },
+      "rotations": [
+        {
+          "angle_deg": 15,
+          "is_lattice_exact": false,
+          "target_cells": 981,
+          "achieved_cells": 990,
+          "cell_count_residual": 9,
+          "cell_count_residual_frac": 0.0092,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1757,
+          "seed_removed_iou": 0.1374,
+          "iou_with_the_unrotated_core": 0.2412
+        },
+        {
+          "angle_deg": 30,
+          "is_lattice_exact": false,
+          "target_cells": 981,
+          "achieved_cells": 979,
+          "cell_count_residual": -2,
+          "cell_count_residual_frac": -0.002,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1082,
+          "seed_removed_iou": 0.0865,
+          "iou_with_the_unrotated_core": 0.1409
+        },
+        {
+          "angle_deg": 45,
+          "is_lattice_exact": false,
+          "target_cells": 981,
+          "achieved_cells": 983,
+          "cell_count_residual": 2,
+          "cell_count_residual_frac": 0.002,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0649,
+          "seed_removed_iou": 0.0463,
+          "iou_with_the_unrotated_core": 0.109
+        },
+        {
+          "angle_deg": 60,
+          "is_lattice_exact": false,
+          "target_cells": 981,
+          "achieved_cells": 986,
+          "cell_count_residual": 5,
+          "cell_count_residual_frac": 0.0051,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0755,
+          "seed_removed_iou": 0.0617,
+          "iou_with_the_unrotated_core": 0.1151
+        },
+        {
+          "angle_deg": 75,
+          "is_lattice_exact": false,
+          "target_cells": 981,
+          "achieved_cells": 986,
+          "cell_count_residual": 5,
+          "cell_count_residual_frac": 0.0051,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0719,
+          "seed_removed_iou": 0.0544,
+          "iou_with_the_unrotated_core": 0.1163
+        },
+        {
+          "angle_deg": 90,
+          "is_lattice_exact": true,
+          "target_cells": 981,
+          "achieved_cells": 981,
+          "cell_count_residual": 0,
+          "cell_count_residual_frac": 0.0,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0515,
+          "seed_removed_iou": 0.04,
+          "iou_with_the_unrotated_core": 0.0822
+        },
+        {
+          "angle_deg": 105,
+          "is_lattice_exact": false,
+          "target_cells": 981,
+          "achieved_cells": 985,
+          "cell_count_residual": 4,
+          "cell_count_residual_frac": 0.0041,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0749,
+          "seed_removed_iou": 0.0604,
+          "iou_with_the_unrotated_core": 0.107
+        },
+        {
+          "angle_deg": 120,
+          "is_lattice_exact": false,
+          "target_cells": 981,
+          "achieved_cells": 994,
+          "cell_count_residual": 13,
+          "cell_count_residual_frac": 0.0133,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1034,
+          "seed_removed_iou": 0.0786,
+          "iou_with_the_unrotated_core": 0.1423
+        },
+        {
+          "angle_deg": 135,
+          "is_lattice_exact": false,
+          "target_cells": 981,
+          "achieved_cells": 982,
+          "cell_count_residual": 1,
+          "cell_count_residual_frac": 0.001,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1315,
+          "seed_removed_iou": 0.0995,
+          "iou_with_the_unrotated_core": 0.1811
+        },
+        {
+          "angle_deg": 150,
+          "is_lattice_exact": false,
+          "target_cells": 981,
+          "achieved_cells": 989,
+          "cell_count_residual": 8,
+          "cell_count_residual_frac": 0.0082,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1257,
+          "seed_removed_iou": 0.0903,
+          "iou_with_the_unrotated_core": 0.1761
+        },
+        {
+          "angle_deg": 165,
+          "is_lattice_exact": false,
+          "target_cells": 981,
+          "achieved_cells": 973,
+          "cell_count_residual": -8,
+          "cell_count_residual_frac": -0.0082,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1009,
+          "seed_removed_iou": 0.0828,
+          "iou_with_the_unrotated_core": 0.114
+        },
+        {
+          "angle_deg": 180,
+          "is_lattice_exact": true,
+          "target_cells": 981,
+          "achieved_cells": 981,
+          "cell_count_residual": 0,
+          "cell_count_residual_frac": 0.0,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0727,
+          "seed_removed_iou": 0.0578,
+          "iou_with_the_unrotated_core": 0.0888
+        },
+        {
+          "angle_deg": 195,
+          "is_lattice_exact": false,
+          "target_cells": 981,
+          "achieved_cells": 990,
+          "cell_count_residual": 9,
+          "cell_count_residual_frac": 0.0092,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1056,
+          "seed_removed_iou": 0.089,
+          "iou_with_the_unrotated_core": 0.1161
+        },
+        {
+          "angle_deg": 210,
+          "is_lattice_exact": false,
+          "target_cells": 981,
+          "achieved_cells": 969,
+          "cell_count_residual": -12,
+          "cell_count_residual_frac": -0.0122,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1406,
+          "seed_removed_iou": 0.1167,
+          "iou_with_the_unrotated_core": 0.174
+        },
+        {
+          "angle_deg": 225,
+          "is_lattice_exact": false,
+          "target_cells": 981,
+          "achieved_cells": 981,
+          "cell_count_residual": 0,
+          "cell_count_residual_frac": 0.0,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1492,
+          "seed_removed_iou": 0.1261,
+          "iou_with_the_unrotated_core": 0.1791
+        },
+        {
+          "angle_deg": 240,
+          "is_lattice_exact": false,
+          "target_cells": 981,
+          "achieved_cells": 982,
+          "cell_count_residual": 1,
+          "cell_count_residual_frac": 0.001,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1216,
+          "seed_removed_iou": 0.0999,
+          "iou_with_the_unrotated_core": 0.1453
+        },
+        {
+          "angle_deg": 255,
+          "is_lattice_exact": false,
+          "target_cells": 981,
+          "achieved_cells": 976,
+          "cell_count_residual": -5,
+          "cell_count_residual_frac": -0.0051,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0857,
+          "seed_removed_iou": 0.0687,
+          "iou_with_the_unrotated_core": 0.1075
+        },
+        {
+          "angle_deg": 270,
+          "is_lattice_exact": true,
+          "target_cells": 981,
+          "achieved_cells": 981,
+          "cell_count_residual": 0,
+          "cell_count_residual_frac": 0.0,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0626,
+          "seed_removed_iou": 0.0476,
+          "iou_with_the_unrotated_core": 0.0822
+        },
+        {
+          "angle_deg": 285,
+          "is_lattice_exact": false,
+          "target_cells": 981,
+          "achieved_cells": 986,
+          "cell_count_residual": 5,
+          "cell_count_residual_frac": 0.0051,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0719,
+          "seed_removed_iou": 0.0479,
+          "iou_with_the_unrotated_core": 0.1182
+        },
+        {
+          "angle_deg": 300,
+          "is_lattice_exact": false,
+          "target_cells": 981,
+          "achieved_cells": 990,
+          "cell_count_residual": 9,
+          "cell_count_residual_frac": 0.0092,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0832,
+          "seed_removed_iou": 0.0647,
+          "iou_with_the_unrotated_core": 0.1129
+        },
+        {
+          "angle_deg": 315,
+          "is_lattice_exact": false,
+          "target_cells": 981,
+          "achieved_cells": 981,
+          "cell_count_residual": 0,
+          "cell_count_residual_frac": 0.0,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.091,
+          "seed_removed_iou": 0.0769,
+          "iou_with_the_unrotated_core": 0.1004
+        },
+        {
+          "angle_deg": 330,
+          "is_lattice_exact": false,
+          "target_cells": 981,
+          "achieved_cells": 977,
+          "cell_count_residual": -4,
+          "cell_count_residual_frac": -0.0041,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1141,
+          "seed_removed_iou": 0.0878,
+          "iou_with_the_unrotated_core": 0.1444
+        },
+        {
+          "angle_deg": 345,
+          "is_lattice_exact": false,
+          "target_cells": 981,
+          "achieved_cells": 988,
+          "cell_count_residual": 7,
+          "cell_count_residual_frac": 0.0071,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1788,
+          "seed_removed_iou": 0.1395,
+          "iou_with_the_unrotated_core": 0.2407
+        }
+      ],
+      "rotated_iou_spread": {
+        "n": 23,
+        "min": 0.0515,
+        "median": 0.1009,
+        "max": 0.1788,
+        "mean": 0.1027
+      },
+      "unrotated_rank_by_iou": {
+        "rank": 1,
+        "of": 24,
+        "strictly_better_than_it": 0,
+        "tied_with_it": 0
+      },
+      "lattice_exact_angles": {
+        "angles_deg": [
+          90,
+          180,
+          270
+        ],
+        "cell_count_residuals": [
+          0,
+          0,
+          0
+        ],
+        "iou_spread": {
+          "n": 3,
+          "min": 0.0515,
+          "median": 0.0626,
+          "max": 0.0727,
+          "mean": 0.0623
+        }
+      },
+      "worst_cell_count_residual_frac": 0.0133,
+      "max_cells_pushed_off_grid": 0,
+      "seed_removed": {
+        "rotated_iou_spread": {
+          "n": 23,
+          "min": 0.04,
+          "median": 0.0786,
+          "max": 0.1395,
+          "mean": 0.0809
+        },
+        "unrotated_rank_by_iou": {
+          "rank": 1,
+          "of": 24,
+          "strictly_better_than_it": 0,
+          "tied_with_it": 0
+        },
+        "comparison_precision": "every beats/does-not-beat decision below is made at FULL precision on both sides; the reported IoUs are rounded to 4 dp",
+        "rotations_tied_with_the_disc_at_reported_precision": 0,
+        "closest_rotation_to_the_disc": {
+          "angle_deg": 210,
+          "margin_over_the_disc": -0.00011853,
+          "indistinguishable_at_reported_precision": false
+        },
+        "disc_iou": 0.1169,
+        "worst_rotation_iou": 0.04,
+        "worst_rotation_over_disc": 0.3422,
+        "worst_rotation_beats_the_disc": false,
+        "rotations_beating_the_disc": 3,
+        "rotations_not_beating_the_disc": 20,
+        "unrotated_over_disc": 2.2335,
+        "unrotated_beats_the_disc": true
+      }
+    },
+    {
+      "haz_time_min": 720.0,
+      "obs_time_min": 1005.0,
+      "time_gap_min": 285.0,
+      "is_seed_slice": false,
+      "n_cells": 1036,
+      "unrotated": {
+        "iou": 0.3981,
+        "seed_removed_iou": 0.273
+      },
+      "rotations": [
+        {
+          "angle_deg": 15,
+          "is_lattice_exact": false,
+          "target_cells": 1036,
+          "achieved_cells": 1039,
+          "cell_count_residual": 3,
+          "cell_count_residual_frac": 0.0029,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1855,
+          "seed_removed_iou": 0.15,
+          "iou_with_the_unrotated_core": 0.2576
+        },
+        {
+          "angle_deg": 30,
+          "is_lattice_exact": false,
+          "target_cells": 1036,
+          "achieved_cells": 1032,
+          "cell_count_residual": -4,
+          "cell_count_residual_frac": -0.0039,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.113,
+          "seed_removed_iou": 0.0927,
+          "iou_with_the_unrotated_core": 0.1508
+        },
+        {
+          "angle_deg": 45,
+          "is_lattice_exact": false,
+          "target_cells": 1036,
+          "achieved_cells": 1048,
+          "cell_count_residual": 12,
+          "cell_count_residual_frac": 0.0116,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0654,
+          "seed_removed_iou": 0.0482,
+          "iou_with_the_unrotated_core": 0.1109
+        },
+        {
+          "angle_deg": 60,
+          "is_lattice_exact": false,
+          "target_cells": 1036,
+          "achieved_cells": 1036,
+          "cell_count_residual": 0,
+          "cell_count_residual_frac": 0.0,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0766,
+          "seed_removed_iou": 0.0632,
+          "iou_with_the_unrotated_core": 0.1188
+        },
+        {
+          "angle_deg": 75,
+          "is_lattice_exact": false,
+          "target_cells": 1036,
+          "achieved_cells": 1040,
+          "cell_count_residual": 4,
+          "cell_count_residual_frac": 0.0039,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0714,
+          "seed_removed_iou": 0.0548,
+          "iou_with_the_unrotated_core": 0.1185
+        },
+        {
+          "angle_deg": 90,
+          "is_lattice_exact": true,
+          "target_cells": 1036,
+          "achieved_cells": 1036,
+          "cell_count_residual": 0,
+          "cell_count_residual_frac": 0.0,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0569,
+          "seed_removed_iou": 0.0456,
+          "iou_with_the_unrotated_core": 0.0963
+        },
+        {
+          "angle_deg": 105,
+          "is_lattice_exact": false,
+          "target_cells": 1036,
+          "achieved_cells": 1040,
+          "cell_count_residual": 4,
+          "cell_count_residual_frac": 0.0039,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0851,
+          "seed_removed_iou": 0.071,
+          "iou_with_the_unrotated_core": 0.1222
+        },
+        {
+          "angle_deg": 120,
+          "is_lattice_exact": false,
+          "target_cells": 1036,
+          "achieved_cells": 1048,
+          "cell_count_residual": 12,
+          "cell_count_residual_frac": 0.0116,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1138,
+          "seed_removed_iou": 0.0894,
+          "iou_with_the_unrotated_core": 0.1578
+        },
+        {
+          "angle_deg": 135,
+          "is_lattice_exact": false,
+          "target_cells": 1036,
+          "achieved_cells": 1039,
+          "cell_count_residual": 3,
+          "cell_count_residual_frac": 0.0029,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1408,
+          "seed_removed_iou": 0.1048,
+          "iou_with_the_unrotated_core": 0.1987
+        },
+        {
+          "angle_deg": 150,
+          "is_lattice_exact": false,
+          "target_cells": 1036,
+          "achieved_cells": 1047,
+          "cell_count_residual": 11,
+          "cell_count_residual_frac": 0.0106,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1313,
+          "seed_removed_iou": 0.0949,
+          "iou_with_the_unrotated_core": 0.191
+        },
+        {
+          "angle_deg": 165,
+          "is_lattice_exact": false,
+          "target_cells": 1036,
+          "achieved_cells": 1030,
+          "cell_count_residual": -6,
+          "cell_count_residual_frac": -0.0058,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1046,
+          "seed_removed_iou": 0.0856,
+          "iou_with_the_unrotated_core": 0.124
+        },
+        {
+          "angle_deg": 180,
+          "is_lattice_exact": true,
+          "target_cells": 1036,
+          "achieved_cells": 1036,
+          "cell_count_residual": 0,
+          "cell_count_residual_frac": 0.0,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0738,
+          "seed_removed_iou": 0.0593,
+          "iou_with_the_unrotated_core": 0.0951
+        },
+        {
+          "angle_deg": 195,
+          "is_lattice_exact": false,
+          "target_cells": 1036,
+          "achieved_cells": 1044,
+          "cell_count_residual": 8,
+          "cell_count_residual_frac": 0.0077,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1062,
+          "seed_removed_iou": 0.0907,
+          "iou_with_the_unrotated_core": 0.1255
+        },
+        {
+          "angle_deg": 210,
+          "is_lattice_exact": false,
+          "target_cells": 1036,
+          "achieved_cells": 1028,
+          "cell_count_residual": -8,
+          "cell_count_residual_frac": -0.0077,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1455,
+          "seed_removed_iou": 0.1225,
+          "iou_with_the_unrotated_core": 0.1869
+        },
+        {
+          "angle_deg": 225,
+          "is_lattice_exact": false,
+          "target_cells": 1036,
+          "achieved_cells": 1043,
+          "cell_count_residual": 7,
+          "cell_count_residual_frac": 0.0068,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1567,
+          "seed_removed_iou": 0.1328,
+          "iou_with_the_unrotated_core": 0.1976
+        },
+        {
+          "angle_deg": 240,
+          "is_lattice_exact": false,
+          "target_cells": 1036,
+          "achieved_cells": 1037,
+          "cell_count_residual": 1,
+          "cell_count_residual_frac": 0.001,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.132,
+          "seed_removed_iou": 0.1118,
+          "iou_with_the_unrotated_core": 0.1594
+        },
+        {
+          "angle_deg": 255,
+          "is_lattice_exact": false,
+          "target_cells": 1036,
+          "achieved_cells": 1032,
+          "cell_count_residual": -4,
+          "cell_count_residual_frac": -0.0039,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0937,
+          "seed_removed_iou": 0.0751,
+          "iou_with_the_unrotated_core": 0.1233
+        },
+        {
+          "angle_deg": 270,
+          "is_lattice_exact": true,
+          "target_cells": 1036,
+          "achieved_cells": 1036,
+          "cell_count_residual": 0,
+          "cell_count_residual_frac": 0.0,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0687,
+          "seed_removed_iou": 0.0529,
+          "iou_with_the_unrotated_core": 0.0963
+        },
+        {
+          "angle_deg": 285,
+          "is_lattice_exact": false,
+          "target_cells": 1036,
+          "achieved_cells": 1042,
+          "cell_count_residual": 6,
+          "cell_count_residual_frac": 0.0058,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0741,
+          "seed_removed_iou": 0.0506,
+          "iou_with_the_unrotated_core": 0.1202
+        },
+        {
+          "angle_deg": 300,
+          "is_lattice_exact": false,
+          "target_cells": 1036,
+          "achieved_cells": 1045,
+          "cell_count_residual": 9,
+          "cell_count_residual_frac": 0.0087,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0884,
+          "seed_removed_iou": 0.0698,
+          "iou_with_the_unrotated_core": 0.117
+        },
+        {
+          "angle_deg": 315,
+          "is_lattice_exact": false,
+          "target_cells": 1036,
+          "achieved_cells": 1027,
+          "cell_count_residual": -9,
+          "cell_count_residual_frac": -0.0087,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.0987,
+          "seed_removed_iou": 0.0859,
+          "iou_with_the_unrotated_core": 0.1038
+        },
+        {
+          "angle_deg": 330,
+          "is_lattice_exact": false,
+          "target_cells": 1036,
+          "achieved_cells": 1032,
+          "cell_count_residual": -4,
+          "cell_count_residual_frac": -0.0039,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.121,
+          "seed_removed_iou": 0.0947,
+          "iou_with_the_unrotated_core": 0.1547
+        },
+        {
+          "angle_deg": 345,
+          "is_lattice_exact": false,
+          "target_cells": 1036,
+          "achieved_cells": 1041,
+          "cell_count_residual": 5,
+          "cell_count_residual_frac": 0.0048,
+          "cells_pushed_off_grid": 0,
+          "iou": 0.1825,
+          "seed_removed_iou": 0.1426,
+          "iou_with_the_unrotated_core": 0.258
+        }
+      ],
+      "rotated_iou_spread": {
+        "n": 23,
+        "min": 0.0569,
+        "median": 0.1046,
+        "max": 0.1855,
+        "mean": 0.1081
+      },
+      "unrotated_rank_by_iou": {
+        "rank": 1,
+        "of": 24,
+        "strictly_better_than_it": 0,
+        "tied_with_it": 0
+      },
+      "lattice_exact_angles": {
+        "angles_deg": [
+          90,
+          180,
+          270
+        ],
+        "cell_count_residuals": [
+          0,
+          0,
+          0
+        ],
+        "iou_spread": {
+          "n": 3,
+          "min": 0.0569,
+          "median": 0.0687,
+          "max": 0.0738,
+          "mean": 0.0665
+        }
+      },
+      "worst_cell_count_residual_frac": 0.0116,
+      "max_cells_pushed_off_grid": 0,
+      "seed_removed": {
+        "rotated_iou_spread": {
+          "n": 23,
+          "min": 0.0456,
+          "median": 0.0859,
+          "max": 0.15,
+          "mean": 0.0865
+        },
+        "unrotated_rank_by_iou": {
+          "rank": 1,
+          "of": 24,
+          "strictly_better_than_it": 0,
+          "tied_with_it": 0
+        },
+        "comparison_precision": "every beats/does-not-beat decision below is made at FULL precision on both sides; the reported IoUs are rounded to 4 dp",
+        "rotations_tied_with_the_disc_at_reported_precision": 1,
+        "closest_rotation_to_the_disc": {
+          "angle_deg": 210,
+          "margin_over_the_disc": 2.66e-05,
+          "indistinguishable_at_reported_precision": true
+        },
+        "disc_iou": 0.1225,
+        "worst_rotation_iou": 0.0456,
+        "worst_rotation_over_disc": 0.3722,
+        "worst_rotation_beats_the_disc": false,
+        "rotations_beating_the_disc": 4,
+        "rotations_not_beating_the_disc": 19,
+        "unrotated_over_disc": 2.2286,
+        "unrotated_beats_the_disc": true
+      }
+    }
+  ],
+  "headline": {
+    "haz_time_min": 360.0,
+    "obs_time_min": 333.0,
+    "time_gap_min": 27.0,
+    "is_seed_slice": false,
+    "n_cells": 952,
+    "unrotated": {
+      "iou": 0.3941,
+      "seed_removed_iou": 0.2577
+    },
+    "rotations": [
+      {
+        "angle_deg": 15,
+        "is_lattice_exact": false,
+        "target_cells": 952,
+        "achieved_cells": 960,
+        "cell_count_residual": 8,
+        "cell_count_residual_frac": 0.0084,
+        "cells_pushed_off_grid": 0,
+        "iou": 0.1724,
+        "seed_removed_iou": 0.1359,
+        "iou_with_the_unrotated_core": 0.2272
+      },
+      {
+        "angle_deg": 30,
+        "is_lattice_exact": false,
+        "target_cells": 952,
+        "achieved_cells": 949,
+        "cell_count_residual": -3,
+        "cell_count_residual_frac": -0.0032,
+        "cells_pushed_off_grid": 0,
+        "iou": 0.1042,
+        "seed_removed_iou": 0.0843,
+        "iou_with_the_unrotated_core": 0.1315
+      },
+      {
+        "angle_deg": 45,
+        "is_lattice_exact": false,
+        "target_cells": 952,
+        "achieved_cells": 957,
+        "cell_count_residual": 5,
+        "cell_count_residual_frac": 0.0053,
+        "cells_pushed_off_grid": 0,
+        "iou": 0.064,
+        "seed_removed_iou": 0.0451,
+        "iou_with_the_unrotated_core": 0.106
+      },
+      {
+        "angle_deg": 60,
+        "is_lattice_exact": false,
+        "target_cells": 952,
+        "achieved_cells": 953,
+        "cell_count_residual": 1,
+        "cell_count_residual_frac": 0.0011,
+        "cells_pushed_off_grid": 0,
+        "iou": 0.0757,
+        "seed_removed_iou": 0.0617,
+        "iou_with_the_unrotated_core": 0.1101
+      },
+      {
+        "angle_deg": 75,
+        "is_lattice_exact": false,
+        "target_cells": 952,
+        "achieved_cells": 959,
+        "cell_count_residual": 7,
+        "cell_count_residual_frac": 0.0074,
+        "cells_pushed_off_grid": 0,
+        "iou": 0.0718,
+        "seed_removed_iou": 0.0553,
+        "iou_with_the_unrotated_core": 0.1117
+      },
+      {
+        "angle_deg": 90,
+        "is_lattice_exact": true,
+        "target_cells": 952,
+        "achieved_cells": 952,
+        "cell_count_residual": 0,
+        "cell_count_residual_frac": 0.0,
+        "cells_pushed_off_grid": 0,
+        "iou": 0.05,
+        "seed_removed_iou": 0.0387,
+        "iou_with_the_unrotated_core": 0.0769
+      },
+      {
+        "angle_deg": 105,
+        "is_lattice_exact": false,
+        "target_cells": 952,
+        "achieved_cells": 958,
+        "cell_count_residual": 6,
+        "cell_count_residual_frac": 0.0063,
+        "cells_pushed_off_grid": 0,
+        "iou": 0.0712,
+        "seed_removed_iou": 0.0572,
+        "iou_with_the_unrotated_core": 0.099
+      },
+      {
+        "angle_deg": 120,
+        "is_lattice_exact": false,
+        "target_cells": 952,
+        "achieved_cells": 963,
+        "cell_count_residual": 11,
+        "cell_count_residual_frac": 0.0116,
+        "cells_pushed_off_grid": 0,
+        "iou": 0.0976,
+        "seed_removed_iou": 0.0735,
+        "iou_with_the_unrotated_core": 0.1291
+      },
+      {
+        "angle_deg": 135,
+        "is_lattice_exact": false,
+        "target_cells": 952,
+        "achieved_cells": 947,
+        "cell_count_residual": -5,
+        "cell_count_residual_frac": -0.0053,
+        "cells_pushed_off_grid": 0,
+        "iou": 0.1228,
+        "seed_removed_iou": 0.0924,
+        "iou_with_the_unrotated_core": 0.1665
+      },
+      {
+        "angle_deg": 150,
+        "is_lattice_exact": false,
+        "target_cells": 952,
+        "achieved_cells": 964,
+        "cell_count_residual": 12,
+        "cell_count_residual_frac": 0.0126,
+        "cells_pushed_off_grid": 0,
+        "iou": 0.1202,
+        "seed_removed_iou": 0.0849,
+        "iou_with_the_unrotated_core": 0.1662
+      },
+      {
+        "angle_deg": 165,
+        "is_lattice_exact": false,
+        "target_cells": 952,
+        "achieved_cells": 944,
+        "cell_count_residual": -8,
+        "cell_count_residual_frac": -0.0084,
+        "cells_pushed_off_grid": 0,
+        "iou": 0.0981,
+        "seed_removed_iou": 0.0806,
+        "iou_with_the_unrotated_core": 0.1088
+      },
+      {
+        "angle_deg": 180,
+        "is_lattice_exact": true,
+        "target_cells": 952,
+        "achieved_cells": 952,
+        "cell_count_residual": 0,
+        "cell_count_residual_frac": 0.0,
+        "cells_pushed_off_grid": 0,
+        "iou": 0.0709,
+        "seed_removed_iou": 0.0568,
+        "iou_with_the_unrotated_core": 0.0818
+      },
+      {
+        "angle_deg": 195,
+        "is_lattice_exact": false,
+        "target_cells": 952,
+        "achieved_cells": 961,
+        "cell_count_residual": 9,
+        "cell_count_residual_frac": 0.0095,
+        "cells_pushed_off_grid": 0,
+        "iou": 0.1022,
+        "seed_removed_iou": 0.0869,
+        "iou_with_the_unrotated_core": 0.1103
+      },
+      {
+        "angle_deg": 210,
+        "is_lattice_exact": false,
+        "target_cells": 952,
+        "achieved_cells": 941,
+        "cell_count_residual": -11,
+        "cell_count_residual_frac": -0.0116,
+        "cells_pushed_off_grid": 0,
+        "iou": 0.1389,
+        "seed_removed_iou": 0.1143,
+        "iou_with_the_unrotated_core": 0.1613
+      },
+      {
+        "angle_deg": 225,
+        "is_lattice_exact": false,
+        "target_cells": 952,
+        "achieved_cells": 954,
+        "cell_count_residual": 2,
+        "cell_count_residual_frac": 0.0021,
+        "cells_pushed_off_grid": 0,
+        "iou": 0.1502,
+        "seed_removed_iou": 0.1269,
+        "iou_with_the_unrotated_core": 0.1672
+      },
+      {
+        "angle_deg": 240,
+        "is_lattice_exact": false,
+        "target_cells": 952,
+        "achieved_cells": 951,
+        "cell_count_residual": -1,
+        "cell_count_residual_frac": -0.0011,
+        "cells_pushed_off_grid": 0,
+        "iou": 0.1152,
+        "seed_removed_iou": 0.0942,
+        "iou_with_the_unrotated_core": 0.1294
+      },
+      {
+        "angle_deg": 255,
+        "is_lattice_exact": false,
+        "target_cells": 952,
+        "achieved_cells": 949,
+        "cell_count_residual": -3,
+        "cell_count_residual_frac": -0.0032,
+        "cells_pushed_off_grid": 0,
+        "iou": 0.082,
+        "seed_removed_iou": 0.0676,
+        "iou_with_the_unrotated_core": 0.0976
+      },
+      {
+        "angle_deg": 270,
+        "is_lattice_exact": true,
+        "target_cells": 952,
+        "achieved_cells": 952,
+        "cell_count_residual": 0,
+        "cell_count_residual_frac": 0.0,
+        "cells_pushed_off_grid": 0,
+        "iou": 0.0606,
+        "seed_removed_iou": 0.0463,
+        "iou_with_the_unrotated_core": 0.0769
+      },
+      {
+        "angle_deg": 285,
+        "is_lattice_exact": false,
+        "target_cells": 952,
+        "achieved_cells": 956,
+        "cell_count_residual": 4,
+        "cell_count_residual_frac": 0.0042,
+        "cells_pushed_off_grid": 0,
+        "iou": 0.0689,
+        "seed_removed_iou": 0.048,
+        "iou_with_the_unrotated_core": 0.1138
+      },
+      {
+        "angle_deg": 300,
+        "is_lattice_exact": false,
+        "target_cells": 952,
+        "achieved_cells": 963,
+        "cell_count_residual": 11,
+        "cell_count_residual_frac": 0.0116,
+        "cells_pushed_off_grid": 0,
+        "iou": 0.0802,
+        "seed_removed_iou": 0.0616,
+        "iou_with_the_unrotated_core": 0.1089
+      },
+      {
+        "angle_deg": 315,
+        "is_lattice_exact": false,
+        "target_cells": 952,
+        "achieved_cells": 951,
+        "cell_count_residual": -1,
+        "cell_count_residual_frac": -0.0011,
+        "cells_pushed_off_grid": 0,
+        "iou": 0.0876,
+        "seed_removed_iou": 0.0746,
+        "iou_with_the_unrotated_core": 0.0981
+      },
+      {
+        "angle_deg": 330,
+        "is_lattice_exact": false,
+        "target_cells": 952,
+        "achieved_cells": 949,
+        "cell_count_residual": -3,
+        "cell_count_residual_frac": -0.0032,
+        "cells_pushed_off_grid": 0,
+        "iou": 0.1107,
+        "seed_removed_iou": 0.0842,
+        "iou_with_the_unrotated_core": 0.1363
+      },
+      {
+        "angle_deg": 345,
+        "is_lattice_exact": false,
+        "target_cells": 952,
+        "achieved_cells": 958,
+        "cell_count_residual": 6,
+        "cell_count_residual_frac": 0.0063,
+        "cells_pushed_off_grid": 0,
+        "iou": 0.1734,
+        "seed_removed_iou": 0.1354,
+        "iou_with_the_unrotated_core": 0.2259
+      }
+    ],
+    "rotated_iou_spread": {
+      "n": 23,
+      "min": 0.05,
+      "median": 0.0976,
+      "max": 0.1734,
+      "mean": 0.0995
+    },
+    "unrotated_rank_by_iou": {
+      "rank": 1,
+      "of": 24,
+      "strictly_better_than_it": 0,
+      "tied_with_it": 0
+    },
+    "lattice_exact_angles": {
+      "angles_deg": [
+        90,
+        180,
+        270
+      ],
+      "cell_count_residuals": [
+        0,
+        0,
+        0
+      ],
+      "iou_spread": {
+        "n": 3,
+        "min": 0.05,
+        "median": 0.0606,
+        "max": 0.0709,
+        "mean": 0.0605
+      }
+    },
+    "worst_cell_count_residual_frac": 0.0126,
+    "max_cells_pushed_off_grid": 0,
+    "seed_removed": {
+      "rotated_iou_spread": {
+        "n": 23,
+        "min": 0.0387,
+        "median": 0.0746,
+        "max": 0.1359,
+        "mean": 0.0785
+      },
+      "unrotated_rank_by_iou": {
+        "rank": 1,
+        "of": 24,
+        "strictly_better_than_it": 0,
+        "tied_with_it": 0
+      },
+      "comparison_precision": "every beats/does-not-beat decision below is made at FULL precision on both sides; the reported IoUs are rounded to 4 dp",
+      "rotations_tied_with_the_disc_at_reported_precision": 0,
+      "closest_rotation_to_the_disc": {
+        "angle_deg": 210,
+        "margin_over_the_disc": -0.0025974,
+        "indistinguishable_at_reported_precision": false
+      },
+      "disc_iou": 0.1169,
+      "worst_rotation_iou": 0.0387,
+      "worst_rotation_over_disc": 0.3311,
+      "worst_rotation_beats_the_disc": false,
+      "rotations_beating_the_disc": 3,
+      "rotations_not_beating_the_disc": 20,
+      "unrotated_over_disc": 2.2044,
+      "unrotated_beats_the_disc": true
+    },
+    "note": "the slice docs/oracle_gap.md §4 and docs/disc_null.md already quote — the 27-minute pair. Fixed by the same rule measure_disc_null.py uses, in the claim commit, before the answer was computed"
+  },
+  "what_this_is_not": "A REFERENCE SPREAD FOR ORIENTATION ON ONE FIRE, NOT A TEST AND NOT A DECOMPOSITION. Rotating the model's own core about the t=0 seed centroid varies WHERE THE MASS SITS while holding shape and cell count fixed, so this spread says whether any orientation of this blob would have scored about as well. It does NOT split the model-over-disc ratio into a shape term and a placement term; no arithmetic here does that, and a reading that treats it as an additive decomposition is wrong. No p-value is reported: 23 rotations of one fire on one canvas at one p_cut is a reference spread. Rotation on a grid does not preserve the cell count exactly; the residual is reported per angle and is NOT resampled away. obs_stack is a FIRMS-derived observation with its own detection floor (docs/detection_floor.md), not ground truth. It re-routes nothing, produces no margin and moves no committed number."
+}

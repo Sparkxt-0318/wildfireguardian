@@ -3855,3 +3855,37 @@ unregistered numeral in prose); or, when it is genuinely prose, **stamp it with 
 commit it was measured at**, so a reader can re-run it. An unstamped, unregistered count
 of the repository is a claim with a hidden expiry date, and the expiry is usually your
 own next commit.
+
+---
+
+## 2026-09-12 (WFG-256, the rotation null) — pre-register BOTH branches, and the one you did not want is the one that pays
+
+The WFG-256 claim commit fixed two readings before the script existed: the **rank**
+of the true orientation among 24, and the **worst rotation against the disc**. The
+first came out as the row hoped (1 of 24, at all four off-seed slices). The second
+came out the **opposite** way: the worst rotation reaches only 0.3311 of the disc,
+and 20 of 23 rotations of the model's own irregular core are a *worse* opponent than
+a circle.
+
+Only the second one changed what this project may say. Without it the lap would have
+shipped「the overlap is not an artefact of irregularity, rank 1 of 24」, which is true
+and which a judge would immediately hear as「so the shape is what wins」 — and the
+repository would have had no sentence to stop that, because the disc-null page's own
+「a circle is a weak opponent by construction」 invites exactly that reading. The
+number that forbade the overclaim was the number the lap had no reason to want.
+
+**The gate this adds to the next lap: a pre-registration with one branch is a
+prediction, not a pre-registration.** When you fix a reading before a run, fix the
+reading of the result you are *hoping for* **and** the reading of the quantity that
+would embarrass it, and register both. The cheap test of whether you have done this:
+if every branch you wrote down would let you keep the sentence you already wanted to
+write, you have pre-registered nothing.
+
+**A second, smaller gate, from the same lap.** A rotation, resampling or reprojection
+null needs a *lossless* subset to control its own machinery. Here it was 90, 180 and
+270 degrees, which on a square lattice are exact permutations: their cell-count
+residual is exactly 0, and they scored among the **lowest** of the 23. That single
+fact is what rules out「the spread is just rasterisation loss」, and it cost three
+lines of code. Any null that transforms a raster should report the transform's own
+exactly-invertible cases beside the rest, and a test should assert they are not the
+winners (`tests/test_rotation_null.py::test_the_lattice_exact_angles_are_lossless_and_are_not_the_winners`).

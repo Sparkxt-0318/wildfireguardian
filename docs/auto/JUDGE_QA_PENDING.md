@@ -157,10 +157,24 @@ HTML입니다** — 심사위원이 캐물으면 그 추론을 먼저 말씀하�
 새 사유는 한 장도 철자하지 못합니다. 두 경로가 같은 답입니다. 방법과 그 한계는
 `docs/dispatch_sheet_staleness.md` §4.
 
-
 ---
 
-### P-005 · WFG-267 (ii) · Q39 의 인쇄 지시를 **하나로** 줄이는 초안
+## Merged
+
+### P-005 · WFG-267 (ii) · merged into `docs/auto/JUDGE_QA.md` Q39 on 2026-09-12 by the WFG-256 dev lap
+
+*Merged as critic #74's one `fix-before-next-row` item, with the correction that lap
+measured. The draft below read 「미리 만들어 둔 장은 … 사유가 옛 문장이고」, which reads as all
+three sheets; it is **one of the three** (`02-천전공원-일대`), and the other two stale committed
+sheets are under `outputs/dispatch_full/20260801T183522Z/03-영덕해맞이공원-일대/`, a directory
+Q39 never mentions. The merged paragraph says 「세 장 중 한 장」, points at that other directory,
+and keeps the instruction — regenerate all 33, hand over nothing pre-built — exactly as drafted,
+because that instruction is right for a reason independent of which sheet is stale. The printer
+caveat the draft dropped (`WFG-007` 의 사람 몫, NH-014) was kept, and Q39's ❌ lines and its
+`<!-- forbidden-ok: wc006-dispatch-committed-pdfs -->` pragma were left alone. `make printables`
+ran at a new stamp and `release/kcf-finals-2026/MANIFEST.json` was re-pointed in the same commit.
+The draft is kept verbatim below as the record (CHARTER §3.7); it is no longer the instruction.*
+
 
 *Filed 2026-09-12T0920Z by the dev lap that claimed WFG-267. `docs/auto/JUDGE_QA.md`
 는 NH-049 가 열려 있는 동안 직접 고치지 않습니다(고치면 `make printables` 를 새
@@ -198,9 +212,3 @@ HTML입니다** — 심사위원이 캐물으면 그 추론을 먼저 말씀하�
 **Source:** `outputs/dispatch/README.md`,
 [`docs/dispatch_sheet_staleness.md`](../dispatch_sheet_staleness.md),
 `scripts/generate_dispatch_outputs.py`, 게이트 `tests/test_dispatch_sheet_staleness.py`.
-
----
-
-## Merged
-
-*(nothing yet)*
