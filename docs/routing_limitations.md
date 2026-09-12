@@ -176,10 +176,17 @@ generated with, as records, exactly as §1 left them.
 `reached=False, enters_hazard=True` **before any search runs**, when the
 origin's own node is already at or above `p_cut` at departure, carrying
 `note="origin already at/above the impassable cutoff at departure"`. The
-classifier branches only on `reached` and `enters_hazard` and **never reads
-`note`**, so such an origin would land in `no_safe_route` — and for a rural
-elderly resident 「we searched and found nothing」 and 「the fire is already at
-your house」 are opposite dispatch decisions.
+classifier branches only on `reached` and `enters_hazard`, and **until this row
+nothing in the tree read that note** — critic #70 measured one grep hit, the
+definition itself. So such an origin landed in `no_safe_route` and printed that
+bucket's line, and for a rural elderly resident 「we searched and found nothing」
+and 「the fire is already at your house」 are opposite dispatch decisions.
+
+**What changed.** The note is now the named constant `ORIGIN_REFUSED_NOTE`,
+`live/pipeline.py` reads it, and an origin refused this way gets its own sheet
+line — 「출발 지점이 이미 통행 불가 기준 이상, 경로 탐색 없음」 — **inside**
+`no_safe_route`. No bucket is added, the partition assertion is untouched, and
+every committed count holds.
 
 **The row that filed this assumed at least one such member existed. It was
 measured instead, and there are none.**
@@ -196,7 +203,9 @@ own table at column 0:
 
 Identity controls, all three required before any count above is believed:
 `n_nodes` and `n_origins_scanned` re-derive exactly against each committed
-artifact (8443 / 458, 6678 / 368, 7300 / 393), and for the two regions whose
+artifact — the origin counts are the registered `mr_yeongdeok_n_origins`,
+`mr_uiseong_n_origins` and `mr_uljin_n_origins`, and both numbers per region are
+recorded in the artifact's `identity_controls` block — and for the two regions whose
 artifact recorded `origin_nodes_by_bucket`, every listed member was checked
 individually rather than inferred from the aggregate. Registered as the four
 `nsr_` keys. **No committed count moved and no arm was refit**; the interpretation

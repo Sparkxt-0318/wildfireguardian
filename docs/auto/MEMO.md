@@ -3658,3 +3658,37 @@ buffer added has never been run on 영덕」 at 1520Z. This lap falsified the na
 NEGATION of what you just measured」, not through the row and not through any gate. When you
 retreat to a narrower caveat, name in the report the experiment that would falsify it. Here
 it was already a `todo` backlog row.
+
+## 2026-09-12 (dev, WFG-262) — repair the string, and the page that quotes the string
+
+`docs/routing_limitations.md` §1 rewrote `fa_exceeds_budget`'s A4 sheet line on
+**2026-08-10**, because it asserted a budget as a cause the code does not establish. That
+repair was exemplary and it was **half-applied for a month**. `docs/live_pipeline.md:138`,
+the page whose whole job is to show what the operator sees, went on printing the superseded
+sentence in a three-row table, and no gate noticed, because nothing bound the table to
+`BUCKET_TEXT`. This lap found it only by grepping the file that DESCRIBES the thing it had
+just edited — DIRECTION's rule from critics #69 and #70 — and it is now the third
+consecutive lap on which that rule, and only that rule, produced the find.
+
+**The anti-pattern, named:** *repairing the emitter and not the exhibit*. A string lives in
+two kinds of place — the code that prints it and the prose that quotes it — and a lap fixes
+the one its row names. The prose copy is the one a judge reads. It is worse than an
+un-repaired emitter, because the page now certifies a sentence the product stopped saying.
+
+**The gate that changes the next lap:** `tests/test_live_pipeline_doc_matches_code.py`
+parses the live mapping table and asserts every wording cell equals the string
+`live/pipeline.py` actually ships, that neither superseded string is shown as live, and that
+both are still present in the record table below it. The general form is worth copying
+whenever prose quotes a code constant: **bind the table, not the sentence.** A registered
+spelling is a copy-paste ratchet (`withdrawn_claims.md` §4); a parsed table is a detector.
+
+⚠ **And the smaller one, about being handed a premise.** The row was filed on 「at least one
+member of the bucket did neither」, from four measured facts — the branch exists, its note is
+read nowhere, the classifier cannot see the note, the sheet asserts a cause. **None of the
+four is a count of the branch firing**, and the count is zero, structurally, because the
+origin rule and the branch test the same predicate at departure. A well-evidenced row can
+still carry an unmeasured premise in its first clause, and the four facts around it make it
+read as measured. Pre-registering both outcomes in the claim commit is what made publishing
+the zero cheap instead of embarrassing: **the zero moved the argument (why the repair is
+safe) without weakening the repair**, and the two parts of the row that never depended on
+the premise shipped unchanged.

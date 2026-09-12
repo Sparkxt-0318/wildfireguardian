@@ -134,9 +134,34 @@ The mapping onto the delivery layer:
 | bucket | on a sheet as | wording |
 |---|---|---|
 | `naive_into_FA_safe` | 안내 지점 | 최단 경로는 화재 통과 — 우회 경로 필요 |
-| `no_safe_route` | 도보 대피 불가 | 예산 내 안전한 보행 경로가 없음(우회 포함) |
-| `fa_exceeds_budget` | 도보 대피 불가 | 보행 경로는 있으나 대피 시간 예산 초과 |
+| `no_safe_route` | 도보 대피 불가 | 직행 경로는 화재를 지나고 안전한 우회 도달은 확인되지 않음 |
+| `no_safe_route`, 원점 거부 | 도보 대피 불가 | 출발 지점이 이미 통행 불가 기준 이상, 경로 탐색 없음 |
+| `fa_exceeds_budget` | 도보 대피 불가 | 직행 경로는 화재를 지나지 않으나 예산 내 안전 도달은 확인되지 않음 |
 | `both_safe` | — not on a sheet | |
+
+⚠ **Two of those wordings are replacements, and this table carried the
+superseded pair for longer than either repair took.** Both are the same defect:
+a sheet line asserting a CAUSE the classification condition does not establish.
+Kept here as the record (HANDOFF §5 rule 7), not deleted:
+
+| bucket | superseded wording | replaced by | why |
+|---|---|---|---|
+| `fa_exceeds_budget` | 보행 경로는 있으나 대피 시간 예산 초과 | Round-4, 2026-08-10 | asserts the budget bound; the ceil-rounded hazard bin produces the bucket with the budget nowhere near binding (`routing_limitations.md` §1) |
+| `no_safe_route` | 예산 내 안전한 보행 경로가 없음(우회 포함) | WFG-262, 2026-09-12 | asserts a budget was consumed AND detours were tried; the condition establishes neither (`routing_limitations.md` §6) |
+
+⚠ **This table itself is the lesson.** §1 changed the code on 2026-08-10 and
+this row went on printing the old sentence for a month, because a repair was
+made in the file that PRINTS the string and not in the file that DOCUMENTS it.
+The `no_safe_route` row above is the same class, caught in the same lap that
+made the change. `tests/test_live_pipeline_doc_matches_code.py` now binds every
+row of this table to `live/pipeline.py` so the next one cannot drift silently.
+Committed run directories under `outputs/live/replay/` keep the sentence they
+were generated with, as records; only new runs use the wording above.
+
+The 원점 거부 row is **not a fourth bucket**. It is a distinct sheet line for a
+member of `no_safe_route` whose origin the future-aware search refused before
+running; the partition and every committed count are unchanged, and it fires for
+zero origins on all three committed fields (`routing_limitations.md` §6).
 
 `printable`, `sms` and `broadcast` were written for the 439 series, whose
 unreachable points are places a **vehicle** cannot reach. Saying 차량 on a 459

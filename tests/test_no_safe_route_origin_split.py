@@ -163,6 +163,20 @@ def test_the_no_safe_route_sheet_sentence_asserts_no_cause():
         f"form §1 settled on for fa_exceeds_budget: {text!r}")
 
 
+def test_the_walk_unreachable_fallback_asserts_no_cause_either():
+    """Found by this lap's independent reviewer, 29 lines above the dict.
+
+    It is the line printed when an unreachable point carries no `reason_ko` at
+    all, so it stands in for a cause nobody computed. A budget claim is worse
+    there than in the dict, not better.
+    """
+    from wildfireguardian.live.pipeline import WALK_UNREACHABLE_FALLBACK as fb
+    assert "예산" not in fb, (
+        f"the walk-side unreachable fallback asserts a BUDGET: {fb!r}")
+    assert "우회" not in fb, (
+        f"the walk-side unreachable fallback asserts detours were tried: {fb!r}")
+
+
 def test_both_audited_buckets_use_the_same_non_assertive_form():
     """§1 and §6 are the same audit; their sheet lines should read the same way."""
     for bucket in ("no_safe_route", "fa_exceeds_budget"):

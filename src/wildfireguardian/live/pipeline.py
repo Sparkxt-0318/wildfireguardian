@@ -78,7 +78,14 @@ REPO = Path(__file__).resolve().parents[3]
 #: vehicle-side and belong to the 439 series; see its module docstring.
 WALK_DISPATCH_HEADING = "■ 도보 대피 안내 지점 — 남은 시간 순"
 WALK_UNREACHABLE_HEADING = "■ 안전한 도보 대피로 없음 — 별도 조치 필요"
-WALK_UNREACHABLE_FALLBACK = "예산 내 안전한 보행 경로 없음"
+#: ⚠ WFG-262: this asserted a budget too, 29 lines above the dict whose sentences
+#: were audited for exactly that, and the reviewer of that lap found it. It is the
+#: fallback printed when an unreachable point carries no `reason_ko`, so it stands
+#: in for a cause nobody computed — which makes a budget claim worse here than in
+#: the dict, not better. It said 「예산 내 안전한 보행 경로 없음」 until 2026-09-12.
+#: Only the constant is referenced (pipeline.py and tests read the name, never the
+#: literal), so no committed sheet re-renders. docs/routing_limitations.md §6.
+WALK_UNREACHABLE_FALLBACK = "안전한 보행 대피로가 확인되지 않음"
 WALK_ROUTE_FALLBACK = "대피 경로 확인 필요"
 
 class RoutingCancelled(RuntimeError):
