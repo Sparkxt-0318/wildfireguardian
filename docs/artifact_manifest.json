@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "bb820d67e3f81335d6b65fe2fd34f87d2fcd6f63",
-  "n_artifacts": 136,
-  "total_bytes": 21055780,
-  "total_mib": 20.08,
-  "n_git_tracked": 136,
+  "generated_at_git_commit": "be4774d7379351f6fff4d928ae127989ce214055",
+  "n_artifacts": 137,
+  "total_bytes": 21157326,
+  "total_mib": 20.18,
+  "n_git_tracked": 137,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 12,
   "artifacts": [
@@ -223,6 +223,18 @@
         "docs/cluster_sparsity.md"
       ],
       "regenerate": "python scripts/build_numbers.py"
+    },
+    {
+      "path": "data/processed/corridor_treatment_atlas/atlas_yeongdeok.json",
+      "bytes": 101546,
+      "sha256": "d1a9e329922ef397b63c202696e5098bd5734fc494b6b897c7eab31baa14b061",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/corridor_treatment_atlas.md"
+      ],
+      "regenerate": "python scripts/run_corridor_treatment_atlas.py"
     },
     {
       "path": "data/processed/crown_sensitivity.json",
@@ -1321,6 +1333,7 @@
         "docs/auto/MEMO.md",
         "docs/auto/NEEDS_HUMAN.md",
         "docs/auto/SCORECARD.md",
+        "docs/auto/briefs/DATA_VERIFICATION_REPORT.md",
         "docs/auto/briefs/TRUCK_CREW_REPLAY.md",
         "docs/auto/reports/2026-09-06T0516Z-critic.md",
         "docs/auto/reports/2026-09-09T1250Z-dev.md",
@@ -1338,6 +1351,7 @@
         "docs/auto/reports/2026-09-12T1632Z-dev.md",
         "docs/auto/reports/2026-09-12T1656Z-dev.md",
         "docs/auto/reports/2026-09-12T1705Z-dev.md",
+        "docs/corridor_treatment_atlas.md",
         "docs/footprint_components.md",
         "docs/live_pipeline.md",
         "docs/manual_trigger.md",

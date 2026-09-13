@@ -117,6 +117,11 @@ data/processed/**
 !data/processed/building_origins_observed_grading_yeongdeok.json
 !data/processed/vehicle_pickup_intervention_yeongdeok.json
 !data/processed/last_safe_departure_yeongdeok.json
+# 2026-09-14 corridor-treatment atlas (deterministic): summary, plan and per-run records.
+!data/processed/corridor_treatment_atlas/
+!data/processed/corridor_treatment_atlas/*.json
+!data/processed/corridor_treatment_atlas/runs/
+!data/processed/corridor_treatment_atlas/runs/*.json
 # G3 / WFG-032 (2026-09-14): the leak-free 영덕 fold and its field.
 !data/processed/leakfree_yeongdeok_fold.json
 !data/processed/routing_demo_leakfree.npz
