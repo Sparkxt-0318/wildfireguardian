@@ -1,0 +1,69 @@
+{
+  "what": "영덕군 (SIG_CD 47770) subset of the 도로명주소 전자지도 건물 layer, 경상북도 file, data month 2026-08 — the layer NH-005 asked for",
+  "agency": "행정안전부 주소기반산업지원서비스 (business.juso.go.kr), 도로명주소 전자지도 → 건물",
+  "retrieved_by": "the author, 2026-09-13 (portal login + agency approval; the loop cannot log in)",
+  "zip": {
+    "file": "(도로명주소)건물_경북.zip",
+    "sha256": "ae81e374173ff7165c3b7a736c512e0f6ae2ae339eba57a04905a5d747686ea4",
+    "bytes": 157437392
+  },
+  "artifact": "buildings_47770.geojson.gz (gzip; absent properties were empty in the layer)",
+  "layer_file": "TL_SPBD_BULD_47_202608.shp",
+  "layer_crs": "EPSG:5179",
+  "layer_encoding": "EUC-KR (.cpg)",
+  "data_month": "2026-08",
+  "sigungu_cd": "47770",
+  "counts": {
+    "province_47_buildings": 1410840,
+    "county_47770_buildings": 33113,
+    "inside_canonical_box": 28361,
+    "inside_canonical_box_main_buildings": 19959,
+    "outside_canonical_box": 4752,
+    "osm_buildings_inside_walk_bbox": 124,
+    "osm_share_of_juso_inside_box_pct": 0.44
+  },
+  "canonical_box": {
+    "wgs84": [
+      129.25,
+      36.3,
+      129.55,
+      36.6
+    ],
+    "epsg5179": [
+      1156527.0,
+      1812829.5,
+      1184071.2,
+      1846641.8
+    ],
+    "rule": "footprint centroid inside the box"
+  },
+  "properties": {
+    "bd_mgt_sn": "건물관리번호 (unique per building)",
+    "bdtyp_cd": "건물용도코드 (as published; not decoded here)",
+    "bul_dpn_se": "M = 주건물, S = 부속건물",
+    "gro_flo_co": "지상층수",
+    "und_flo_co": "지하층수",
+    "buld_nm": "건물명 (mostly empty)",
+    "emd_cd": "읍면동코드 (3 digits within the 시군구)",
+    "li_cd": "리코드",
+    "mntn_yn": "산 여부"
+  },
+  "footprint_area_m2": {
+    "median": 72.4,
+    "note": "projected area of the source polygon; only the centroid is committed"
+  },
+  "bdtyp_cd_top": {
+    "01001": 24899,
+    "03001": 1139,
+    "14001": 1013,
+    "04001": 941,
+    "14999": 928,
+    "17101": 657,
+    "01003": 274,
+    "03021": 252,
+    "10204": 221,
+    "04402": 167
+  },
+  "generated_utc": "2026-09-13T02:06:39Z",
+  "note": "Administrative inventory as published (건축물대장-linked 도로명주소 건물); not a survey of what stands today and not a household count: a building is not a household, and the layer does not say who lives in it."
+}

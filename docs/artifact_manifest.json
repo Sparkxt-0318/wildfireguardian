@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "1a3735af10e6f570f20ee398e9a6ae09bc6c233f",
-  "n_artifacts": 125,
-  "total_bytes": 15852741,
-  "total_mib": 15.12,
-  "n_git_tracked": 125,
+  "generated_at_git_commit": "30f9ec5a64aaf503b21ba83013d3478e41353072",
+  "n_artifacts": 127,
+  "total_bytes": 16764462,
+  "total_mib": 15.99,
+  "n_git_tracked": 127,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 10,
   "artifacts": [
@@ -512,6 +512,28 @@
       "regenerate": "python scripts/check_readme_figures.py"
     },
     {
+      "path": "data/processed/external/juso_buildings_yeongdeok/buildings_47770.geojson.gz",
+      "bytes": 909298,
+      "sha256": "40b5eac210c229c045342b20d1cc8e99cac1a164a099b57b0e820c36a4b23894",
+      "kind": "binary",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/juso_buildings_yeongdeok.md"
+      ],
+      "regenerate": "python scripts/extract_juso_buildings_yeongdeok.py"
+    },
+    {
+      "path": "data/processed/external/juso_buildings_yeongdeok/manifest.json",
+      "bytes": 2423,
+      "sha256": "82572df03edca90076b2a66217bcfb7b2d786746afbcb8442b41fa59be126ec4",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 6,
+      "cited_by_docs": [],
+      "regenerate": "python scripts/extract_juso_buildings_yeongdeok.py (needs the laptop-only zip)"
+    },
+    {
       "path": "data/processed/external/juso_yeongdeok/manifest.json",
       "bytes": 4191,
       "sha256": "eca384407d186a7cc7db757698b7c685a6f32bb5861d4ca257c5763be7b7d51a",
@@ -542,6 +564,8 @@
       "n_registry_entries": 29,
       "cited_by_docs": [
         "docs/auto/reports/2026-09-12T1632Z-dev.md",
+        "docs/auto/reports/2026-09-12T1656Z-dev.md",
+        "docs/auto/reports/2026-09-12T1705Z-dev.md",
         "docs/footprint_components.md"
       ],
       "regenerate": "python scripts/measure_footprint_components.py"
@@ -1226,6 +1250,8 @@
         "docs/auto/reports/2026-09-11T2022Z-critic.md",
         "docs/auto/reports/2026-09-11T2142Z-manual.md",
         "docs/auto/reports/2026-09-12T1632Z-dev.md",
+        "docs/auto/reports/2026-09-12T1656Z-dev.md",
+        "docs/auto/reports/2026-09-12T1705Z-dev.md",
         "docs/footprint_components.md",
         "docs/live_pipeline.md",
         "docs/manual_trigger.md",

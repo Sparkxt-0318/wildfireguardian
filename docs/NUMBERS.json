@@ -28312,6 +28312,264 @@
           }
         }
       }
+    },
+    "jbld_province_buildings": {
+      "value": 1410840,
+      "unit": "buildings",
+      "source_file": "data/processed/external/juso_buildings_yeongdeok/manifest.json",
+      "json_path": "counts.province_47_buildings",
+      "derivation": "buildings in the 경상북도 layer file (every 시군구). Regenerate: python scripts/extract_juso_buildings_yeongdeok.py (needs the laptop-only zip)",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "30f9ec5a64aaf503b21ba83013d3478e41353072",
+      "sample": "영덕군 · 도로명주소 전자지도 건물 · 2026-08 · SIG_CD 47770",
+      "caveat": "AN ADMINISTRATIVE BUILDING INVENTORY, NOT A HOUSEHOLD COUNT, AND NOT YET AN INPUT TO ANY ROUTING RESULT. Four facts travel together or none may be quoted. (1) THE LAYER is the 행정안전부 도로명주소 전자지도 건물 layer for 경상북도, data month 2026-08, cut on SIG_CD 47770 (영덕군) by scripts/extract_juso_buildings_yeongdeok.py; the committed artifact holds footprint CENTROIDS and the layer's attributes, the polygons stay in the laptop-only raw bundle. (2) A BUILDING IS NOT A HOUSEHOLD: the layer says nothing about who lives where; bul_dpn_se separates 주건물 (M) from 부속건물 (S) and a count must say which it took. (3) THE OSM SHARE is 124 OSM building=* polygons over the 도로명주소 buildings whose centroid lies inside the canonical 영덕 box; it measures OSM coverage on this box only and transfers to no other region (docs/building_sampling.md §3 already showed the OSM sample is biased; this is its size). (4) NO COMMITTED ROUTING NUMBER MOVES: every building-origin result in this repository (bld_*, village-edge, WUI) still stands on the 124 OSM footprints and is labelled provisional; re-running them on this layer is the next row, not this one. docs/juso_buildings_yeongdeok.md states the method, the result and what it does NOT show.",
+      "forbidden_phrasings": [
+        "가구 수",
+        "households",
+        "28,361 households",
+        "28361 가구",
+        "coverage is complete",
+        "모든 건물"
+      ],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "re-run scripts/extract_juso_buildings_yeongdeok.py on the zip (sha256 in the manifest); the artifact is byte-stable",
+        "blocked_by": "data/raw/juso_buildings/ is a laptop-only bundle (portal login + agency approval)"
+      },
+      "provenance": "external",
+      "arm": "juso_buildings",
+      "figure_status": "final",
+      "agency": "행정안전부 주소기반산업지원서비스 (business.juso.go.kr), 도로명주소 전자지도 → 건물",
+      "as_of": "2026-08",
+      "scope": "영덕군 (47770)",
+      "source_url": "https://business.juso.go.kr",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/external/juso_buildings_yeongdeok/manifest.json",
+            "json_path": "counts.province_47_buildings"
+          }
+        }
+      }
+    },
+    "jbld_county_buildings": {
+      "value": 33113,
+      "unit": "buildings",
+      "source_file": "data/processed/external/juso_buildings_yeongdeok/manifest.json",
+      "json_path": "counts.county_47770_buildings",
+      "derivation": "buildings with SIG_CD 47770 (영덕군). Regenerate: python scripts/extract_juso_buildings_yeongdeok.py (needs the laptop-only zip)",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "30f9ec5a64aaf503b21ba83013d3478e41353072",
+      "sample": "영덕군 · 도로명주소 전자지도 건물 · 2026-08 · SIG_CD 47770",
+      "caveat": "AN ADMINISTRATIVE BUILDING INVENTORY, NOT A HOUSEHOLD COUNT, AND NOT YET AN INPUT TO ANY ROUTING RESULT. Four facts travel together or none may be quoted. (1) THE LAYER is the 행정안전부 도로명주소 전자지도 건물 layer for 경상북도, data month 2026-08, cut on SIG_CD 47770 (영덕군) by scripts/extract_juso_buildings_yeongdeok.py; the committed artifact holds footprint CENTROIDS and the layer's attributes, the polygons stay in the laptop-only raw bundle. (2) A BUILDING IS NOT A HOUSEHOLD: the layer says nothing about who lives where; bul_dpn_se separates 주건물 (M) from 부속건물 (S) and a count must say which it took. (3) THE OSM SHARE is 124 OSM building=* polygons over the 도로명주소 buildings whose centroid lies inside the canonical 영덕 box; it measures OSM coverage on this box only and transfers to no other region (docs/building_sampling.md §3 already showed the OSM sample is biased; this is its size). (4) NO COMMITTED ROUTING NUMBER MOVES: every building-origin result in this repository (bld_*, village-edge, WUI) still stands on the 124 OSM footprints and is labelled provisional; re-running them on this layer is the next row, not this one. docs/juso_buildings_yeongdeok.md states the method, the result and what it does NOT show.",
+      "forbidden_phrasings": [
+        "가구 수",
+        "households",
+        "28,361 households",
+        "28361 가구",
+        "coverage is complete",
+        "모든 건물"
+      ],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "re-run scripts/extract_juso_buildings_yeongdeok.py on the zip (sha256 in the manifest); the artifact is byte-stable",
+        "blocked_by": "data/raw/juso_buildings/ is a laptop-only bundle (portal login + agency approval)"
+      },
+      "provenance": "external",
+      "arm": "juso_buildings",
+      "figure_status": "final",
+      "agency": "행정안전부 주소기반산업지원서비스 (business.juso.go.kr), 도로명주소 전자지도 → 건물",
+      "as_of": "2026-08",
+      "scope": "영덕군 (47770)",
+      "source_url": "https://business.juso.go.kr",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/external/juso_buildings_yeongdeok/manifest.json",
+            "json_path": "counts.county_47770_buildings"
+          }
+        }
+      }
+    },
+    "jbld_inside_box": {
+      "value": 28361,
+      "unit": "buildings",
+      "source_file": "data/processed/external/juso_buildings_yeongdeok/manifest.json",
+      "json_path": "counts.inside_canonical_box",
+      "derivation": "영덕군 buildings whose footprint centroid lies inside the canonical 영덕 box (regions.lookup('yeongdeok_2025').bbox_epsg5179). Regenerate: python scripts/extract_juso_buildings_yeongdeok.py (needs the laptop-only zip)",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "30f9ec5a64aaf503b21ba83013d3478e41353072",
+      "sample": "영덕군 · 도로명주소 전자지도 건물 · 2026-08 · SIG_CD 47770",
+      "caveat": "AN ADMINISTRATIVE BUILDING INVENTORY, NOT A HOUSEHOLD COUNT, AND NOT YET AN INPUT TO ANY ROUTING RESULT. Four facts travel together or none may be quoted. (1) THE LAYER is the 행정안전부 도로명주소 전자지도 건물 layer for 경상북도, data month 2026-08, cut on SIG_CD 47770 (영덕군) by scripts/extract_juso_buildings_yeongdeok.py; the committed artifact holds footprint CENTROIDS and the layer's attributes, the polygons stay in the laptop-only raw bundle. (2) A BUILDING IS NOT A HOUSEHOLD: the layer says nothing about who lives where; bul_dpn_se separates 주건물 (M) from 부속건물 (S) and a count must say which it took. (3) THE OSM SHARE is 124 OSM building=* polygons over the 도로명주소 buildings whose centroid lies inside the canonical 영덕 box; it measures OSM coverage on this box only and transfers to no other region (docs/building_sampling.md §3 already showed the OSM sample is biased; this is its size). (4) NO COMMITTED ROUTING NUMBER MOVES: every building-origin result in this repository (bld_*, village-edge, WUI) still stands on the 124 OSM footprints and is labelled provisional; re-running them on this layer is the next row, not this one. docs/juso_buildings_yeongdeok.md states the method, the result and what it does NOT show.",
+      "forbidden_phrasings": [
+        "가구 수",
+        "households",
+        "28,361 households",
+        "28361 가구",
+        "coverage is complete",
+        "모든 건물"
+      ],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "re-run scripts/extract_juso_buildings_yeongdeok.py on the zip (sha256 in the manifest); the artifact is byte-stable",
+        "blocked_by": "data/raw/juso_buildings/ is a laptop-only bundle (portal login + agency approval)"
+      },
+      "provenance": "external",
+      "arm": "juso_buildings",
+      "figure_status": "final",
+      "agency": "행정안전부 주소기반산업지원서비스 (business.juso.go.kr), 도로명주소 전자지도 → 건물",
+      "as_of": "2026-08",
+      "scope": "영덕군 (47770)",
+      "source_url": "https://business.juso.go.kr",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/external/juso_buildings_yeongdeok/manifest.json",
+            "json_path": "counts.inside_canonical_box"
+          }
+        }
+      }
+    },
+    "jbld_inside_box_main": {
+      "value": 19959,
+      "unit": "buildings",
+      "source_file": "data/processed/external/juso_buildings_yeongdeok/manifest.json",
+      "json_path": "counts.inside_canonical_box_main_buildings",
+      "derivation": "of those, 주건물 (bul_dpn_se == 'M'). Regenerate: python scripts/extract_juso_buildings_yeongdeok.py (needs the laptop-only zip)",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "30f9ec5a64aaf503b21ba83013d3478e41353072",
+      "sample": "영덕군 · 도로명주소 전자지도 건물 · 2026-08 · SIG_CD 47770",
+      "caveat": "AN ADMINISTRATIVE BUILDING INVENTORY, NOT A HOUSEHOLD COUNT, AND NOT YET AN INPUT TO ANY ROUTING RESULT. Four facts travel together or none may be quoted. (1) THE LAYER is the 행정안전부 도로명주소 전자지도 건물 layer for 경상북도, data month 2026-08, cut on SIG_CD 47770 (영덕군) by scripts/extract_juso_buildings_yeongdeok.py; the committed artifact holds footprint CENTROIDS and the layer's attributes, the polygons stay in the laptop-only raw bundle. (2) A BUILDING IS NOT A HOUSEHOLD: the layer says nothing about who lives where; bul_dpn_se separates 주건물 (M) from 부속건물 (S) and a count must say which it took. (3) THE OSM SHARE is 124 OSM building=* polygons over the 도로명주소 buildings whose centroid lies inside the canonical 영덕 box; it measures OSM coverage on this box only and transfers to no other region (docs/building_sampling.md §3 already showed the OSM sample is biased; this is its size). (4) NO COMMITTED ROUTING NUMBER MOVES: every building-origin result in this repository (bld_*, village-edge, WUI) still stands on the 124 OSM footprints and is labelled provisional; re-running them on this layer is the next row, not this one. docs/juso_buildings_yeongdeok.md states the method, the result and what it does NOT show.",
+      "forbidden_phrasings": [
+        "가구 수",
+        "households",
+        "28,361 households",
+        "28361 가구",
+        "coverage is complete",
+        "모든 건물"
+      ],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "re-run scripts/extract_juso_buildings_yeongdeok.py on the zip (sha256 in the manifest); the artifact is byte-stable",
+        "blocked_by": "data/raw/juso_buildings/ is a laptop-only bundle (portal login + agency approval)"
+      },
+      "provenance": "external",
+      "arm": "juso_buildings",
+      "figure_status": "final",
+      "agency": "행정안전부 주소기반산업지원서비스 (business.juso.go.kr), 도로명주소 전자지도 → 건물",
+      "as_of": "2026-08",
+      "scope": "영덕군 (47770)",
+      "source_url": "https://business.juso.go.kr",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/external/juso_buildings_yeongdeok/manifest.json",
+            "json_path": "counts.inside_canonical_box_main_buildings"
+          }
+        }
+      }
+    },
+    "jbld_osm_inside_box": {
+      "value": 124,
+      "unit": "buildings",
+      "source_file": "data/processed/external/juso_buildings_yeongdeok/manifest.json",
+      "json_path": "counts.osm_buildings_inside_walk_bbox",
+      "derivation": "the OSM building count the repository has used so far (= bld_yeongdeok_n_mapped, read from data/processed/building_origin_routing.json). Regenerate: python scripts/extract_juso_buildings_yeongdeok.py (needs the laptop-only zip)",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "30f9ec5a64aaf503b21ba83013d3478e41353072",
+      "sample": "영덕군 · 도로명주소 전자지도 건물 · 2026-08 · SIG_CD 47770",
+      "caveat": "AN ADMINISTRATIVE BUILDING INVENTORY, NOT A HOUSEHOLD COUNT, AND NOT YET AN INPUT TO ANY ROUTING RESULT. Four facts travel together or none may be quoted. (1) THE LAYER is the 행정안전부 도로명주소 전자지도 건물 layer for 경상북도, data month 2026-08, cut on SIG_CD 47770 (영덕군) by scripts/extract_juso_buildings_yeongdeok.py; the committed artifact holds footprint CENTROIDS and the layer's attributes, the polygons stay in the laptop-only raw bundle. (2) A BUILDING IS NOT A HOUSEHOLD: the layer says nothing about who lives where; bul_dpn_se separates 주건물 (M) from 부속건물 (S) and a count must say which it took. (3) THE OSM SHARE is 124 OSM building=* polygons over the 도로명주소 buildings whose centroid lies inside the canonical 영덕 box; it measures OSM coverage on this box only and transfers to no other region (docs/building_sampling.md §3 already showed the OSM sample is biased; this is its size). (4) NO COMMITTED ROUTING NUMBER MOVES: every building-origin result in this repository (bld_*, village-edge, WUI) still stands on the 124 OSM footprints and is labelled provisional; re-running them on this layer is the next row, not this one. docs/juso_buildings_yeongdeok.md states the method, the result and what it does NOT show.",
+      "forbidden_phrasings": [
+        "가구 수",
+        "households",
+        "28,361 households",
+        "28361 가구",
+        "coverage is complete",
+        "모든 건물"
+      ],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "re-run scripts/extract_juso_buildings_yeongdeok.py on the zip (sha256 in the manifest); the artifact is byte-stable",
+        "blocked_by": "data/raw/juso_buildings/ is a laptop-only bundle (portal login + agency approval)"
+      },
+      "provenance": "external",
+      "arm": "juso_buildings",
+      "figure_status": "final",
+      "agency": "행정안전부 주소기반산업지원서비스 (business.juso.go.kr), 도로명주소 전자지도 → 건물",
+      "as_of": "2026-08",
+      "scope": "영덕군 (47770)",
+      "source_url": "https://business.juso.go.kr",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/external/juso_buildings_yeongdeok/manifest.json",
+            "json_path": "counts.osm_buildings_inside_walk_bbox"
+          }
+        }
+      }
+    },
+    "jbld_osm_share_pct": {
+      "value": 0.44,
+      "unit": "%",
+      "source_file": "data/processed/external/juso_buildings_yeongdeok/manifest.json",
+      "json_path": "counts.osm_share_of_juso_inside_box_pct",
+      "derivation": "100 × OSM buildings / 도로명주소 buildings inside the box. Regenerate: python scripts/extract_juso_buildings_yeongdeok.py (needs the laptop-only zip)",
+      "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+      "config_hash_at_production": null,
+      "git_commit": "30f9ec5a64aaf503b21ba83013d3478e41353072",
+      "sample": "영덕군 · 도로명주소 전자지도 건물 · 2026-08 · SIG_CD 47770",
+      "caveat": "AN ADMINISTRATIVE BUILDING INVENTORY, NOT A HOUSEHOLD COUNT, AND NOT YET AN INPUT TO ANY ROUTING RESULT. Four facts travel together or none may be quoted. (1) THE LAYER is the 행정안전부 도로명주소 전자지도 건물 layer for 경상북도, data month 2026-08, cut on SIG_CD 47770 (영덕군) by scripts/extract_juso_buildings_yeongdeok.py; the committed artifact holds footprint CENTROIDS and the layer's attributes, the polygons stay in the laptop-only raw bundle. (2) A BUILDING IS NOT A HOUSEHOLD: the layer says nothing about who lives where; bul_dpn_se separates 주건물 (M) from 부속건물 (S) and a count must say which it took. (3) THE OSM SHARE is 124 OSM building=* polygons over the 도로명주소 buildings whose centroid lies inside the canonical 영덕 box; it measures OSM coverage on this box only and transfers to no other region (docs/building_sampling.md §3 already showed the OSM sample is biased; this is its size). (4) NO COMMITTED ROUTING NUMBER MOVES: every building-origin result in this repository (bld_*, village-edge, WUI) still stands on the 124 OSM footprints and is labelled provisional; re-running them on this layer is the next row, not this one. docs/juso_buildings_yeongdeok.md states the method, the result and what it does NOT show.",
+      "forbidden_phrasings": [
+        "가구 수",
+        "households",
+        "28,361 households",
+        "28361 가구",
+        "coverage is complete",
+        "모든 건물"
+      ],
+      "reproducible": false,
+      "reproducibility": {
+        "status": "external",
+        "evidence": "re-run scripts/extract_juso_buildings_yeongdeok.py on the zip (sha256 in the manifest); the artifact is byte-stable",
+        "blocked_by": "data/raw/juso_buildings/ is a laptop-only bundle (portal login + agency approval)"
+      },
+      "provenance": "external",
+      "arm": "juso_buildings",
+      "figure_status": "final",
+      "agency": "행정안전부 주소기반산업지원서비스 (business.juso.go.kr), 도로명주소 전자지도 → 건물",
+      "as_of": "2026-08",
+      "scope": "영덕군 (47770)",
+      "source_url": "https://business.juso.go.kr",
+      "check": {
+        "kind": "json_path",
+        "tolerance": 0.0,
+        "operands": {
+          "a": {
+            "file": "data/processed/external/juso_buildings_yeongdeok/manifest.json",
+            "json_path": "counts.osm_share_of_juso_inside_box_pct"
+          }
+        }
+      }
     }
   }
 }

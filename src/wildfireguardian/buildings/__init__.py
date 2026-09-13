@@ -171,9 +171,62 @@ class VWorldBuildingSource:
             "uljin_samcheok_2022 requires.")
 
 
+class JusoBuildingSource:
+    """도로명주소 전자지도 건물 layer (행정안전부, business.juso.go.kr) — NH-005, 2026-09-13.
+
+    The author downloaded the 경상북도 file (data month 2026-08, EPSG:5179, 1.41 M
+    buildings) and ``scripts/extract_juso_buildings_yeongdeok.py`` cut the 영덕군 subset
+    (``SIG_CD 47770``: 33,113 buildings) into a committed gzip GeoJSON of footprint
+    CENTROIDS with the layer's own attributes. Only ``yeongdeok_2025`` is covered; the
+    other regions raise until their 시도 file is downloaded the same way (울진·삼척 needs
+    경북 + 강원).
+
+    ``load`` returns the buildings whose centroid lies INSIDE the region's canonical
+    box (28,361 for 영덕), which is the population the OSM source was acquired on, so
+    the two sources describe the same extent. ⚠ A building is not a household and the
+    layer says nothing about who lives in it; ``bul_dpn_se`` separates 주건물 (M) from
+    부속건물 (S) and downstream users must say which they counted.
+    """
+
+    name = "juso"
+
+    def load(self, region: str, *, repo: Path = _REPO_DEFAULT) -> BuildingSet:
+        import gzip
+
+        src = repo / "data/processed/external/juso_buildings_yeongdeok/buildings_47770.geojson.gz"
+        if region != "yeongdeok_2025" or not src.exists():
+            raise FileNotFoundError(
+                f"no 도로명주소 건물 layer for {region}. Only 영덕군 (47770) has been cut; "
+                "download the 시도 file from business.juso.go.kr (도로명주소 전자지도 → 건물), "
+                "place it under data/raw/juso_buildings/ and run "
+                "scripts/extract_juso_buildings_yeongdeok.py (or its sibling for the region).")
+        with gzip.open(src, "rt", encoding="utf-8") as fh:
+            doc = json.load(fh)
+        xs, ys, areas, ids, tags = [], [], [], [], {}
+        for f in doc.get("features", []):
+            p = f.get("properties", {}) or {}
+            if not p.get("inside_canonical_box"):
+                continue
+            xs.append(float(p["centroid_x_5179"]))
+            ys.append(float(p["centroid_y_5179"]))
+            areas.append(float(p.get("footprint_area_m2") or 0.0))
+            ids.append(str(p["bd_mgt_sn"]))
+            k = f"bdtyp_{p.get('bdtyp_cd', '?')}"
+            tags[k] = tags.get(k, 0) + 1
+        return BuildingSet(
+            region=region,
+            xy=np.array(list(zip(xs, ys)), dtype=float).reshape(-1, 2),
+            area_m2=np.array(areas, dtype=float),
+            ids=ids, source=self.name,
+            source_file=str(src.relative_to(repo)),
+            tag_counts=dict(sorted(tags.items(), key=lambda kv: -kv[1])),
+        )
+
+
 SOURCES: dict[str, BuildingSource] = {
     "osm": OSMBuildingSource(),
     "vworld": VWorldBuildingSource(),
+    "juso": JusoBuildingSource(),
 }
 
 
@@ -229,5 +282,5 @@ def load_walk_nodes(region: str, *, repo: Path = _REPO_DEFAULT
     return ids, np.column_stack([x, y]), crs
 
 
-__all__ = ["BuildingSet", "BuildingSource", "OSMBuildingSource",
+__all__ = ["BuildingSet", "BuildingSource", "OSMBuildingSource", "JusoBuildingSource",
            "VWorldBuildingSource", "SOURCES", "load_buildings", "load_walk_nodes"]

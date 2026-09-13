@@ -394,6 +394,7 @@ rather than working around the login.
    「기관자체에서 다운로드」 and its URL redirects to juso.go.kr (menuId=DT06),
    i.e. the same portal, and the TXT product is address records rather than
    footprint geometry.
+   ⚠ **Done 2026-09-13:** the author downloaded `(도로명주소)건물_경북.zip` (2026-08); it is under `data/raw/juso_buildings/`, cut by `scripts/extract_juso_buildings_yeongdeok.py`, exposed as `source="juso"` (`docs/juso_buildings_yeongdeok.md`). NH-005 is closed.
 4. Place the downloaded file under `data/raw/juso_buildings/` and tell the
    next session; the loader seam is
    `src/wildfireguardian/buildings/` (`BuildingSource` protocol) — a new

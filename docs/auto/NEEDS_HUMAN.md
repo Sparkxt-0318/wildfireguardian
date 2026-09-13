@@ -84,6 +84,8 @@ the area (see backlog WFG-013) so this may close itself.
 
 **CLOSED 2026-09-12 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-12 · ref: none · verbatim: "A. I will download the 도로명주소 건물 layer into data/raw/juso_buildings/ (date to be given by the author)."
 
+**NOTED (entry already closed) 2026-09-13 by the author** · channel: Claude Code session (AskUserQuestion on the laptop) · received: 2026-09-13 · ref: none · verbatim: "This is the dataset you needed. Add this in. (attached (도로명주소)건물_경북.zip, 157 MB, data month 2026-08; ingested the same day: docs/juso_buildings_yeongdeok.md)"
+
 ## NH-006 · DECISION · closed · Confirm the finals date: 10.18 (your notice) vs 10.24 (June schedule post)
 
 **Decided 2026-09-03 by the author: the finals are 2026-10-24.** Freeze moved to

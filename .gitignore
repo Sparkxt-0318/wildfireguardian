@@ -503,6 +503,10 @@ outputs/live/**/state_*.json
 !data/processed/external/juso_yeongdeok/
 !data/processed/external/juso_yeongdeok/*.geojson
 !data/processed/external/juso_yeongdeok/manifest.json
+# NH-005 (2026-09-13): 영덕군 cut of the 도로명주소 건물 layer, centroids only (gzip).
+!data/processed/external/juso_buildings_yeongdeok/
+!data/processed/external/juso_buildings_yeongdeok/*.geojson.gz
+!data/processed/external/juso_buildings_yeongdeok/manifest.json
 
 # --- private contact material never belongs in this public repository (NH-023, 2026-09-04)
 outreach/

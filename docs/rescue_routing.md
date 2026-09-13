@@ -471,6 +471,8 @@ irrelevance:
 | Village-edge origins (Session 8, `rescue_routing_village_edge.json`) | ① VWorld 건물통합정보 — **attempted twice (2026-08-29, and again in the follow-up session): connection failure / HTTP 502 on every endpoint, keyed and keyless alike.** ② 도로명주소 건물 데이터 (주소기반산업지원서비스) — **portal download requiring login + agency approval; not obtainable unattended, steps filed in `BLOCKERS.md`** | **OSM** building snapshot (124 buildings, `source="osm"`) — **PROVISIONAL**, see the coverage caveat below |
 | Wildland vegetation (WUI definition, Session 8) | 산림청 임상도 (not acquired) | **OSM** `natural=wood` / `landuse=forest` polygons, disk-cached (`source="osm"`) |
 
+> ⚠ **2026-09-13 (NH-005):** the quantity below is no longer unquantified for 영덕. The author's 도로명주소 건물 layer counts **28,361** buildings inside the canonical box against the **124** OSM footprints (`jbld_*`, `docs/juso_buildings_yeongdeok.md`). The counts in this section still stand on the 124 and stay provisional; WFG-275 re-runs them.
+>
 > ⚠ **OSM RURAL BUILDING COVERAGE IN KOREA IS INCOMPLETE AND UNQUANTIFIED.**
 > The Session-8 village-edge run stands on **124** OSM building footprints in
 > the 영덕 bbox. Nobody in this project has measured what fraction of the real
