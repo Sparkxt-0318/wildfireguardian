@@ -4304,6 +4304,70 @@ A) compare the hillshade by decoded pixels instead of by base64 bytes, so the te
    every machine produces the same bytes D) leave it, and every non-author session parks
    its work on `auto/red/<stamp>` E) something else
 
-**If you say nothing:** the next session meets the same red and must park again.
+⚠⚠ **Update, same session, 2026-09-13T1630Z, after the parking push reached GitHub. This is
+worse than the entry above says, and the correction is the reason it is worth your time.**
+The entry was written as 「a laptop session met a red tree」. The truth is that **your own CI
+gate has been red on `auto/dev` for five consecutive pushes**, and every one of those commits
+says 「ALL GREEN on the laptop」 in its own message.
+
+`auto-gates` runs on `auto/dev` (workflow `.github/workflows/auto-gates.yml`, `push:
+branches: ['auto/**', 'Main']`), newest first:
+
+| run | commit | commit message says | conclusion |
+|---|---|---|---|
+| 425 | `bb820d6` | 「Gates: full ALL GREEN on the laptop」 | **failure** |
+| 424 | `2da2dd5` | 「Gates: ... ALL GREEN on the laptop」 | **failure** |
+| 423 | `0619826` | 「Gates: ... ALL GREEN on the laptop」 | **failure** |
+| 422 | `e96471c` | 「Gates: ... ALL GREEN on the laptop」 | **failure** |
+| 421 | `30f9ec5` | (no gate line) | **failure** |
+
+Run 425's job log was read. Its single failure is
+`tests/test_finals_payload_rederives.py::test_every_value_the_screen_displays_is_what_the_builder_derives_today`
+with **3 differing values**, and they are the same three:
+`regions.yeongdeok_2025.hill.png`, `regions.uiseong_andong_2025.hill.png`,
+`regions.uljin_samcheok_2022.hill.png`. Nothing else on the screen differs there either.
+
+**So the split is not 「the author's laptop versus one sandbox」. It is 「the author's laptop
+versus every other machine」, GitHub's own runner included.** Three machines have now been
+measured: macOS laptop green, this Linux sandbox red on the three hillshades, GitHub
+`ubuntu-latest` red on the same three. The pixels are identical in every comparison that was
+decoded (maximum per-channel difference 0); only the PNG encoder's bytes differ.
+
+**When it started, and what put it there.** The last **successful** `auto-gates` run on
+`auto/dev` is **run 417 at `3c3225e`, 2026-09-12T16:18Z**. Runs 418, 419 and 420 were
+**cancelled** by the workflow's own `cancel-in-progress` concurrency and so carry no signal.
+Run 421 at `30f9ec5` is the first **failure**, and every run since has failed.
+
+The commit between the last green run and the first red one is **`7750d8f`**, whose CI run
+(420) was one of the cancelled ones. It is the author's own laptop commit (`2026-09-13
+01:10:15 +0800`, the harness-pause session), it says 「finals screen and bundle rebuilt」, and
+`git show 7750d8f -- web/finals.html` shows it rewriting the `"hill"` entries. `e96471c`
+(`2026-09-13 10:33:59 +0800`) rebuilt them again. **So the macOS-encoded hillshades entered
+the tree at `7750d8f`, the concurrency cancellation hid the red for one commit, and it has
+been red ever since.** Nothing about the pixels changed; the encoder did.
+
+**What that costs.** `auto-gates` also carries the `promote` job, which declares
+`needs: gates` and `if: github.ref == 'refs/heads/auto/dev'`. A red `gates` means `promote`
+never runs, so **no `auto/dev` push since run 417 has been able to promote**. `Main` is at
+`1a3735a`, which is run 418's head and that run was cancelled, so `Main`'s current position
+was **not** set by a green promote either; how it got there is not established by anything
+this session read, and is not guessed at here. NH-003 records 「`Main` is behind `auto/dev`
+by design」; this is a second, undesigned reason sitting on top of it, and it has been silent
+because the failure prints the well-known 「the screen is stale」 message rather than anything
+about an encoder.
+
+**This does not change the options below, it changes their price.** Option D is not 「sessions
+park on red branches」; it is 「the repository's independent gate stays red and `Main` stays
+frozen」. Option A (compare the hillshade by decoded pixels, not by base64 bytes) is the only
+one that fixes both without rebuilding a judge-facing screen, and a lap may not take it
+because making a gate pass by editing the gate is the exact move the charter's own history
+says a lap must never make alone. That is why this is still an FYI with options and not a
+repair.
+
+**If you say nothing:** `Main` stays where it is, every non-author session parks on a red
+branch, and the next five commits will also say ALL GREEN on the laptop and also go red on
+GitHub. ⚠ The one thing worth doing even before you choose a letter: **do not read a future
+「ALL GREEN on the laptop」 commit line as evidence that the gate passed.** For the last five
+pushes it has not, and the laptop is the only machine where it is true.
 
 NH-061: <your decision>
