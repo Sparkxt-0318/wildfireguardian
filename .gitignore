@@ -109,6 +109,11 @@ data/processed/**
 # observed-footprint re-grade; both are cited by docs/ and the registry.
 !data/processed/rescue_routing_real_hazard.json
 !data/processed/regrade_against_observed_yeongdeok.json
+# 2026-09-13 laptop session (freeze prep): three-way re-grade, WFG-275 building origins, phase diagram.
+!data/processed/regrade_three_way_yeongdeok.json
+!data/processed/building_origin_routing_juso_main_yeongdeok.json
+!data/processed/feasibility_phase_diagram_yeongdeok.json
+!data/processed/feasibility_phase_diagram_yeongdeok_run1_endpoint_rule.json
 # Origin sparsity sweep + nearest-neighbour distributions (small JSON).
 !data/processed/cluster_sparsity.json
 # ---------------------------------------------------------------------------

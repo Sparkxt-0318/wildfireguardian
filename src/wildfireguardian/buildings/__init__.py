@@ -190,6 +190,13 @@ class JusoBuildingSource:
 
     name = "juso"
 
+    def __init__(self, *, main_only: bool = False) -> None:
+        # ``main_only`` keeps 주건물 (bul_dpn_se == "M") and drops 부속건물 (S):
+        # the population WFG-275 routes from. Registered as source "juso_main".
+        self.main_only = main_only
+        if main_only:
+            self.name = "juso_main"
+
     def load(self, region: str, *, repo: Path = _REPO_DEFAULT) -> BuildingSet:
         import gzip
 
@@ -206,6 +213,8 @@ class JusoBuildingSource:
         for f in doc.get("features", []):
             p = f.get("properties", {}) or {}
             if not p.get("inside_canonical_box"):
+                continue
+            if self.main_only and p.get("bul_dpn_se") != "M":
                 continue
             xs.append(float(p["centroid_x_5179"]))
             ys.append(float(p["centroid_y_5179"]))
@@ -227,6 +236,7 @@ SOURCES: dict[str, BuildingSource] = {
     "osm": OSMBuildingSource(),
     "vworld": VWorldBuildingSource(),
     "juso": JusoBuildingSource(),
+    "juso_main": JusoBuildingSource(main_only=True),
 }
 
 

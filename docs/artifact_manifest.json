@@ -1,12 +1,12 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "30f9ec5a64aaf503b21ba83013d3478e41353072",
-  "n_artifacts": 127,
-  "total_bytes": 16764462,
-  "total_mib": 15.99,
-  "n_git_tracked": 127,
+  "generated_at_git_commit": "e96471c7e3ef222b6d5c4e7701ebe9fa57fbc89f",
+  "n_artifacts": 131,
+  "total_bytes": 17969871,
+  "total_mib": 17.14,
+  "n_git_tracked": 131,
   "n_untracked_manifest_only": 0,
-  "n_regenerate_unknown": 10,
+  "n_regenerate_unknown": 12,
   "artifacts": [
     {
       "path": "data/processed/.gitkeep",
@@ -131,6 +131,18 @@
         "docs/building_sampling.md"
       ],
       "regenerate": "python scripts/build_numbers.py"
+    },
+    {
+      "path": "data/processed/building_origin_routing_juso_main_yeongdeok.json",
+      "bytes": 630357,
+      "sha256": "00ec548296f2876fe22662e03aa408ce4b9a1ffeb0eba0d52c70fea61f595aa6",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/building_origins_juso_yeongdeok.md"
+      ],
+      "regenerate": "UNKNOWN"
     },
     {
       "path": "data/processed/building_snapping_measurement.json",
@@ -554,6 +566,30 @@
         "docs/auto/BACKLOG.md"
       ],
       "regenerate": "python scripts/extract_juso_yeongdeok.py"
+    },
+    {
+      "path": "data/processed/feasibility_phase_diagram_yeongdeok.json",
+      "bytes": 53368,
+      "sha256": "a1586c8b455bac6e6513609e687a6e5c9c0cf354ba5ce3bec19f203071cf8ff1",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/feasibility_phase_diagram.md"
+      ],
+      "regenerate": "python scripts/run_feasibility_phase_diagram.py"
+    },
+    {
+      "path": "data/processed/feasibility_phase_diagram_yeongdeok_run1_endpoint_rule.json",
+      "bytes": 52047,
+      "sha256": "b5a87012f899dd28df7493dec07c74d1eac789ad8264e5123256a85245a91f77",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/feasibility_phase_diagram.md"
+      ],
+      "regenerate": "UNKNOWN"
     },
     {
       "path": "data/processed/footprint_components/footprint_components_20260912T1602Z.json",
@@ -1026,6 +1062,18 @@
       "regenerate": "python scripts/regrade_against_observed.py"
     },
     {
+      "path": "data/processed/regrade_three_way_yeongdeok.json",
+      "bytes": 469637,
+      "sha256": "fb2e16402a7a36f7a7ff43d0f9f5a0abe0e713bb776c594b55885024c2a07c25",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/regrade_three_way.md"
+      ],
+      "regenerate": "python scripts/regrade_three_way.py"
+    },
+    {
       "path": "data/processed/rescue_baseline_synthetic/README.md",
       "bytes": 744,
       "sha256": "a2802b9e961ace52de11aa56ae7ec68e3bd97f2a163f4c1138f7803647f3b63c",
@@ -1258,6 +1306,7 @@
         "docs/oracle_gap.md",
         "docs/present_perimeter_yeongdeok.md",
         "docs/regrade_against_observed.md",
+        "docs/regrade_three_way.md",
         "docs/rescue_routing_real_hazard.md",
         "paper/GAPS.md",
         "paper/README.md"
