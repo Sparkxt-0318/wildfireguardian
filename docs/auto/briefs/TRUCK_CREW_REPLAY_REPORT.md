@@ -209,7 +209,17 @@ would not help: the failure is deterministic and reproduced on two independent m
    §4 would be additive and is not this session's to write.
 5. **NH-061.** Until that is answered, every non-author session that runs the full gates
    will park its work on a red branch.
-6. **Nothing here is registered and nothing is judge-facing.** `docs/NUMBERS.json`, the
+6. **Should this replay be re-run on the leak-free field?** `docs/leakfree_fold.md` landed on
+   `auto/dev` while this branch was parked, and it measures a training leak in the very field
+   this replay stands on: the leak-free 영덕 field is about half the size of the canonical one
+   and under-predicts the fire's growth. Every deadline, closing minute and abort minute here
+   is read off the canonical field. **It was not re-run** — the brief names the canonical
+   field, and swapping it is not a lap's call — and §5 of `docs/truck_crew_replay.md` now says
+   so rather than leaving the page quieter than the repository. The observed grading (the
+   30-of-52 corridor count) is the part least exposed, for the same reason that page gives
+   about its own numbers. If HQ wants the paired run, it is one flag on the build script and
+   about eight minutes.
+7. **Nothing here is registered and nothing is judge-facing.** `docs/NUMBERS.json`, the
    README, `web/finals.html`, `docs/auto/JUDGE_QA.md` and the printed kit are untouched.
    If any of these numbers is to be quoted at the booth it needs a registrar entry, which
    this session did not create.
