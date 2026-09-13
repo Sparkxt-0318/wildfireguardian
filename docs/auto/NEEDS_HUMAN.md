@@ -4162,6 +4162,59 @@ NH-060: <your decision>
 ---
 
 ## NH-062 · DECISION · closed · The function every committed spread field reads its weather through is only correct at one datetime resolution, and a lap may not change it because the fix could move registered numbers (by 2026-09-17)
+## NH-061 · FYI · open · `auto/dev` is red on a test that compares two PNG encodings of pixel-identical images, and the only repair it names is one this session is forbidden to make
+
+**No reply is requested today.** This is recorded once because a laptop session met a red
+tree it did not cause and could not clear, and the next session will meet the same one.
+
+**What is red.** At `bb820d6`, on a clean tree, `python scripts/auto/gates.py --mode full`
+exits 1 in this sandbox. `make verify`, `snapshot-verify` and `env-check` pass;
+`baseline-verify` is the documented soft warning (the git-ignored FIRMS acquisition
+manifest exists only on the author's laptop). The one hard failure is
+`tests/test_finals_payload_rederives.py::test_every_value_the_screen_displays_is_what_the_builder_derives_today`,
+with **3 differing values**, and all three are the same kind:
+`regions.<region>.hill.png` for 영덕, 의성·안동 and 울진·삼척. Nothing else on the screen
+differs.
+
+**What the difference is, measured rather than assumed.** The shipped `web/finals.html`
+carries the hillshades as base64 PNG data URIs, built 2026-09-13 02:16 UTC at `30f9ec5`
+on the author's machine. Rebuilding here produces different base64 strings, so the test
+fails. **Decoding both and comparing the pixels: the maximum per-channel difference is 0
+and the mean is 0.0000 for all three regions.** The images are identical; only the PNG
+encoder's output bytes differ, which is what a different Pillow or zlib build does.
+Rebuilding twice in this container gives byte-identical output both times, so the
+encoder is deterministic per machine and the difference is between machines.
+
+**Why this session did not repair it.** The test's own repair line is
+`make finals && make finals-bundle UPDATE=1`, which rewrites `web/finals.html` and the
+17-file release bundle. This session's brief forbids touching `web/finals.html`, and
+CHARTER §3.2 forbids regenerating a committed artifact. It would also not be a repair:
+re-encoding here would make the test pass in this container and fail on the author's
+machine, and the screen a judge sees would have been rebuilt for no change a reader
+could see.
+
+**What it means for the gate.** The gate is a true statement about bytes and a false
+statement about the screen. A lap that meets it will either push red, or stop, or
+regenerate a judge-facing file to make an encoder difference go away. None of the three
+is good, and the rule that decides (CHARTER §3.9: red work goes to `auto/red/<stamp>`)
+was written for a lap whose OWN work is unproven, not for a branch head that was already
+red when the lap started.
+
+**Options** (a letter is enough, or leave it and the loop keeps parking red work):
+A) compare the hillshade by decoded pixels instead of by base64 bytes, so the test
+   checks the image and not the encoder, and the screen is never rebuilt for this
+   B) accept that the screen is rebuilt on whatever machine runs the gates, and let the
+   bytes churn C) pin the encoder (an explicit PNG writer with fixed compression) so
+   every machine produces the same bytes D) leave it, and every non-author session parks
+   its work on `auto/red/<stamp>` E) something else
+
+**If you say nothing:** the next session meets the same red and must park again.
+
+NH-061: <your decision>
+
+---
+
+## NH-062 · DECISION · open · The function every committed spread field reads its weather through is only correct at one datetime resolution, and a lap may not change it because the fix could move registered numbers (by 2026-09-17)
 
 **Severity: DECISION, and the uncertainty is the point — this lap could not determine
 whether it bites in production, only that it can.** Found on 2026-09-14 while building F1
