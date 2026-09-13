@@ -117,6 +117,9 @@ data/processed/**
 !data/processed/building_origins_observed_grading_yeongdeok.json
 !data/processed/vehicle_pickup_intervention_yeongdeok.json
 !data/processed/last_safe_departure_yeongdeok.json
+# G3 / WFG-032 (2026-09-14): the leak-free 영덕 fold and its field.
+!data/processed/leakfree_yeongdeok_fold.json
+!data/processed/routing_demo_leakfree.npz
 # Origin sparsity sweep + nearest-neighbour distributions (small JSON).
 !data/processed/cluster_sparsity.json
 # ---------------------------------------------------------------------------

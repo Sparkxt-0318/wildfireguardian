@@ -1,0 +1,416 @@
+{
+ "schema_version": 1,
+ "title": "Leak-free 영덕 fold (의성·안동 excluded from training) — field, 458-origin partition, building partition, observed grading",
+ "generated_utc": "2026-09-13T16:38:17Z",
+ "git_commit": "bb820d67e3f81335d6b65fe2fd34f87d2fcd6f63",
+ "config_hash": "36f42903a65f223e38726e4f9f71255781a1459387ac18697cbcb897b5e77c89",
+ "rule_doc": "docs/leakfree_fold.md §2 (pre-registered)",
+ "protected_digests_unchanged": {
+  "data/processed/routing_demo_canonical.npz": "81b4e4d159daa7a8ccc7c4fedf3fea948d501fff2d7e886c1fd55bbf47043fb7",
+  "data/processed/spread_v2_lofo.json": "bb2eb74bc2c9419e66882c2db598d37fa735f16d19ca7db67e03dcd9e9a3ba6a",
+  "data/raw/firms_data/fire_manifest.json": "1aa7582451ab229cd064df89e91e02c1e59e75010f8b1e1921d301c911806816"
+ },
+ "dataset": {
+  "n_rows": 151904,
+  "n_positives": 2989,
+  "fires": [
+   "gangneung_2023",
+   "hongseong_2023",
+   "miryang_2022",
+   "uiseong_andong_2025",
+   "uljin_samcheok_2022",
+   "yeongdeok_2025"
+  ]
+ },
+ "overlap": {
+  "leak_fire_detections_total": 4021,
+  "inside_yeongdeok_bbox": 671,
+  "dataset_rows": {
+   "yeongdeok_2025": 20749,
+   "uiseong_andong_2025": 82736
+  },
+  "dataset_positives": {
+   "yeongdeok_2025": 769,
+   "uiseong_andong_2025": 1502
+  }
+ },
+ "held_out_yeongdeok_auc": {
+  "canonical_fold": 0.9402991092522952,
+  "leakfree_fold": 0.8690953632436077,
+  "training_rows": {
+   "canonical": 131155,
+   "leakfree": 48419
+  },
+  "training_positives": {
+   "canonical": 2220,
+   "leakfree": 718
+  }
+ },
+ "field": {
+  "npz": "data/processed/routing_demo_leakfree.npz",
+  "npz_sha256": "05b472d1ee5cce2cce5655bcd5f86199dd368d4d28f3b2f4f1c030ccbecb6c92",
+  "canvas": {
+   "base_bbox_wgs84": [
+    128.97,
+    36.1,
+    129.77,
+    36.9
+   ],
+   "base_provenance": "config bbox.fire_acquisition.wgs84_wsen",
+   "west_extend_deg": 0.05,
+   "final_bbox_wgs84": [
+    128.92,
+    36.1,
+    129.77,
+    36.9
+   ],
+   "grid": {
+    "nrows": 181,
+    "ncols": 156,
+    "cell_size_m": 500.0,
+    "extent_5179": [
+     1126514.9293265936,
+     1789870.4640061273,
+     1204514.9293265936,
+     1880370.4640061273
+    ]
+   },
+   "committed_npz_grid": {
+    "nrows": 181,
+    "ncols": 147
+   },
+   "why_the_grid_differs": "On the unextended canvas the canonical envelope reaches the WESTERN edge at p = 1.000. The committed npz did not, because its outer ring is exactly 0.0 on all four sides — it was truncated. Extending the canvas is what lets the envelope be measured instead of cut off; a larger grid here is the fix, not a discrepancy.",
+   "extension_search": [
+    {
+     "west_extend_deg": 0.0,
+     "bbox_wgs84": [
+      128.97,
+      36.1,
+      129.77,
+      36.9
+     ],
+     "grid": [
+      181,
+      147
+     ],
+     "boundary_clear": false,
+     "edges_reached": [
+      "west"
+     ],
+     "cells_ge_0.5": [
+      245,
+      678,
+      927,
+      959,
+      1014
+     ]
+    },
+    {
+     "west_extend_deg": 0.05,
+     "bbox_wgs84": [
+      128.92,
+      36.1,
+      129.77,
+      36.9
+     ],
+     "grid": [
+      181,
+      156
+     ],
+     "boundary_clear": true,
+     "edges_reached": [],
+     "cells_ge_0.5": [
+      249,
+      692,
+      952,
+      981,
+      1036
+     ]
+    }
+   ]
+  },
+  "parameters": {
+   "seed": 20250603,
+   "cell_size_m": 500.0,
+   "n_advance_steps": 4,
+   "n_slices": 5,
+   "step_hours": 3.0,
+   "advance_threshold": 0.3,
+   "horizon_min": 720.0,
+   "source": "as recorded in the committed npz's run (yeongdeok_forward_sim.json at 01099bf: n_steps 5 slices, step_hours 3.0, advance 0.3, horizon 720)"
+  },
+  "cells_ge_0.5_per_slice": {
+   "leakfree": [
+    249,
+    373,
+    528,
+    537,
+    540
+   ],
+   "canonical": [
+    249,
+    692,
+    952,
+    981,
+    1036
+   ]
+  },
+  "core_iou_per_slice": [
+   1.0,
+   0.5236,
+   0.5102,
+   0.5135,
+   0.5038
+  ],
+  "boundary_contact": [
+   {
+    "reached": false,
+    "edges_reached": [],
+    "max_p_per_edge": {
+     "north": 0.0,
+     "south": 0.0,
+     "west": 0.0,
+     "east": 0.0
+    },
+    "p_threshold": 0.3,
+    "margin_cells": 1,
+    "slice": 0
+   },
+   {
+    "reached": false,
+    "edges_reached": [],
+    "max_p_per_edge": {
+     "north": 0.0,
+     "south": 0.0,
+     "west": 0.0,
+     "east": 0.0
+    },
+    "p_threshold": 0.3,
+    "margin_cells": 1,
+    "slice": 1
+   },
+   {
+    "reached": false,
+    "edges_reached": [],
+    "max_p_per_edge": {
+     "north": 0.0,
+     "south": 0.0,
+     "west": 0.0,
+     "east": 0.0
+    },
+    "p_threshold": 0.3,
+    "margin_cells": 1,
+    "slice": 2
+   },
+   {
+    "reached": false,
+    "edges_reached": [],
+    "max_p_per_edge": {
+     "north": 0.0,
+     "south": 0.0,
+     "west": 0.0,
+     "east": 0.0
+    },
+    "p_threshold": 0.3,
+    "margin_cells": 1,
+    "slice": 3
+   },
+   {
+    "reached": false,
+    "edges_reached": [],
+    "max_p_per_edge": {
+     "north": 0.0,
+     "south": 0.0,
+     "west": 0.0,
+     "east": 0.0
+    },
+    "p_threshold": 0.3,
+    "margin_cells": 1,
+    "slice": 4
+   }
+  ]
+ },
+ "origins_458": {
+  "same_origin_set_under_leakfree_t0": true,
+  "n": 458,
+  "partition_canonical": {
+   "both_safe": 414,
+   "naive_into_FA_safe": 42,
+   "no_safe_route": 2,
+   "other": 0
+  },
+  "partition_leakfree": {
+   "both_safe": 422,
+   "naive_into_FA_safe": 34,
+   "no_safe_route": 2,
+   "other": 0
+  },
+  "fa_only_canonical": [
+   436594451,
+   437092406,
+   437251315,
+   6205151092,
+   6205151247,
+   8814008933,
+   9468449211,
+   11825850690,
+   11830469236,
+   11835362539,
+   11910567899,
+   11910568190,
+   11933421715,
+   11933582638,
+   11935180417,
+   11947135998,
+   11976273083,
+   11976273201,
+   11982470744,
+   11982470791,
+   11982471029,
+   11991968878,
+   11991968974,
+   11992067360,
+   11992071592,
+   11993125283,
+   11993125785,
+   11993250366,
+   11999581403,
+   11999581724,
+   12029704902,
+   12031458632,
+   12031801689,
+   12031801844,
+   12031802043,
+   12031802126,
+   12031802225,
+   12044832090,
+   12045046266,
+   12045202467,
+   12048662505,
+   12058544389
+  ],
+  "fa_only_leakfree": [
+   436594451,
+   437092406,
+   8814008933,
+   9468449211,
+   11825850690,
+   11830469236,
+   11910567899,
+   11910568190,
+   11933421715,
+   11933582638,
+   11935180417,
+   11947135998,
+   11976273083,
+   11976273201,
+   11982470744,
+   11982470791,
+   11982471029,
+   11991968878,
+   11991968974,
+   11992067360,
+   11992071592,
+   11993125283,
+   11993125785,
+   11993250366,
+   11999581403,
+   11999581724,
+   12029704902,
+   12031458632,
+   12031801689,
+   12031801844,
+   12031802043,
+   12031802126,
+   12031802225,
+   12048662505
+  ],
+  "fa_only_overlap": 34,
+  "observed_canonical": {
+   "fire_blind": {
+    "admissible_all": 329,
+    "indeterminate": 91,
+    "inadmissible_all": 38,
+    "not_reached": 0
+   },
+   "forecast_aware": {
+    "admissible_all": 351,
+    "indeterminate": 86,
+    "inadmissible_all": 19,
+    "not_reached": 2
+   }
+  },
+  "observed_leakfree": {
+   "fire_blind": {
+    "admissible_all": 329,
+    "indeterminate": 91,
+    "inadmissible_all": 38,
+    "not_reached": 0
+   },
+   "forecast_aware": {
+    "admissible_all": 350,
+    "indeterminate": 89,
+    "inadmissible_all": 17,
+    "not_reached": 2
+   }
+  },
+  "fa_only_leakfree_observed_class": {
+   "admissible_all": 8,
+   "indeterminate": 11,
+   "inadmissible_all": 15,
+   "not_reached": 0
+  },
+  "fa_only_canonical_observed_class": {
+   "admissible_all": 9,
+   "indeterminate": 16,
+   "inadmissible_all": 17,
+   "not_reached": 0
+  }
+ },
+ "buildings": {
+  "n_routable": 19250,
+  "n_nodes": 4970,
+  "filtered_out_under_leakfree_t0": 0,
+  "partition_canonical": {
+   "both_safe": 17454,
+   "naive_into_FA_safe": 1606,
+   "no_safe_route": 190,
+   "other": 0
+  },
+  "partition_leakfree": {
+   "both_safe": 17783,
+   "naive_into_FA_safe": 1277,
+   "no_safe_route": 190,
+   "other": 0
+  },
+  "observed_canonical": {
+   "fire_blind": {
+    "admissible_all": 13837,
+    "indeterminate": 3793,
+    "inadmissible_all": 1620,
+    "not_reached": 0
+   },
+   "forecast_aware": {
+    "admissible_all": 15024,
+    "indeterminate": 3362,
+    "inadmissible_all": 674,
+    "not_reached": 190
+   }
+  },
+  "observed_leakfree": {
+   "fire_blind": {
+    "admissible_all": 13837,
+    "indeterminate": 3793,
+    "inadmissible_all": 1620,
+    "not_reached": 0
+   },
+   "forecast_aware": {
+    "admissible_all": 15059,
+    "indeterminate": 3436,
+    "inadmissible_all": 565,
+    "not_reached": 190
+   }
+  }
+ },
+ "seconds": 633.1
+}

@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "2da2dd54cfbabe7f7057be8caa296d9a4cd9af38",
-  "n_artifacts": 134,
-  "total_bytes": 20976218,
-  "total_mib": 20.0,
-  "n_git_tracked": 134,
+  "generated_at_git_commit": "bb820d67e3f81335d6b65fe2fd34f87d2fcd6f63",
+  "n_artifacts": 136,
+  "total_bytes": 21055780,
+  "total_mib": 20.08,
+  "n_git_tracked": 136,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 12,
   "artifacts": [
@@ -672,6 +672,18 @@
       "regenerate": "python scripts/measure_last_safe_departure.py"
     },
     {
+      "path": "data/processed/leakfree_yeongdeok_fold.json",
+      "bytes": 8363,
+      "sha256": "cdd2c76e2b6db16d2029ac1aa832f559f285cf3cb4d3068149dc08eb74437676",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/leakfree_fold.md"
+      ],
+      "regenerate": "python scripts/run_leakfree_yeongdeok_fold.py"
+    },
+    {
       "path": "data/processed/lofo_oof_logistic.csv.gz",
       "bytes": 1756439,
       "sha256": "1b95ccf2224d1357ff6fc9422d3e76bffa0c38acf746fb2a0b0445e64c89d5d4",
@@ -1337,7 +1349,7 @@
         "paper/GAPS.md",
         "paper/README.md"
       ],
-      "regenerate": "python scripts/build_canonical_hazard.py"
+      "regenerate": "python scripts/atlas_base_probe.py"
     },
     {
       "path": "data/processed/routing_demo_divergence.json",
@@ -1354,6 +1366,18 @@
         "docs/walk_bbox_coverage.md"
       ],
       "regenerate": "python scripts/build_canonical_hazard.py"
+    },
+    {
+      "path": "data/processed/routing_demo_leakfree.npz",
+      "bytes": 71199,
+      "sha256": "05b472d1ee5cce2cce5655bcd5f86199dd368d4d28f3b2f4f1c030ccbecb6c92",
+      "kind": "binary",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/leakfree_fold.md"
+      ],
+      "regenerate": "python scripts/run_leakfree_yeongdeok_fold.py"
     },
     {
       "path": "data/processed/routing_objective_experiment.json",
