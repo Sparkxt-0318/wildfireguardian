@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "bb820d67e3f81335d6b65fe2fd34f87d2fcd6f63",
-  "n_artifacts": 136,
-  "total_bytes": 21055780,
-  "total_mib": 20.08,
-  "n_git_tracked": 136,
+  "generated_at_git_commit": "be4774d7379351f6fff4d928ae127989ce214055",
+  "n_artifacts": 137,
+  "total_bytes": 22546844,
+  "total_mib": 21.5,
+  "n_git_tracked": 137,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 12,
   "artifacts": [
@@ -141,7 +141,8 @@
       "n_registry_entries": 0,
       "cited_by_docs": [
         "docs/auto/briefs/TRUCK_CREW_REPLAY.md",
-        "docs/building_origins_juso_yeongdeok.md"
+        "docs/building_origins_juso_yeongdeok.md",
+        "docs/truck_crew_replay.md"
       ],
       "regenerate": "UNKNOWN"
     },
@@ -153,7 +154,8 @@
       "git_tracked": true,
       "n_registry_entries": 0,
       "cited_by_docs": [
-        "docs/building_origins_observed_grading.md"
+        "docs/building_origins_observed_grading.md",
+        "docs/truck_crew_replay.md"
       ],
       "regenerate": "python scripts/grade_building_origins_observed.py"
     },
@@ -1321,6 +1323,7 @@
         "docs/auto/MEMO.md",
         "docs/auto/NEEDS_HUMAN.md",
         "docs/auto/SCORECARD.md",
+        "docs/auto/briefs/DATA_VERIFICATION_REPORT.md",
         "docs/auto/briefs/TRUCK_CREW_REPLAY.md",
         "docs/auto/reports/2026-09-06T0516Z-critic.md",
         "docs/auto/reports/2026-09-09T1250Z-dev.md",
@@ -1349,7 +1352,7 @@
         "paper/GAPS.md",
         "paper/README.md"
       ],
-      "regenerate": "python scripts/atlas_base_probe.py"
+      "regenerate": "python scripts/build_canonical_hazard.py"
     },
     {
       "path": "data/processed/routing_demo_divergence.json",
@@ -1563,6 +1566,19 @@
         "paper/README.md"
       ],
       "regenerate": "python scripts/build_timeline_roles.py"
+    },
+    {
+      "path": "data/processed/truck_crew_replay_yeongdeok.json",
+      "bytes": 1491064,
+      "sha256": "25cf6b6a5e5c28e3dae5daa00c8be60bf79ad6d030955f94f1ef6b24edccf5bc",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/auto/briefs/TRUCK_CREW_REPLAY.md",
+        "docs/truck_crew_replay.md"
+      ],
+      "regenerate": "python scripts/build_truck_crew_replay.py"
     },
     {
       "path": "data/processed/vehicle_pickup_intervention_yeongdeok.json",
