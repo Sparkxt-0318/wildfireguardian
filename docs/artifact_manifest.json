@@ -1,6 +1,6 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "be4774d7379351f6fff4d928ae127989ce214055",
+  "generated_at_git_commit": "ccfaa372f07ff7bcac66fb245d55023e8cfd2bf5",
   "n_artifacts": 137,
   "total_bytes": 22546844,
   "total_mib": 21.5,
@@ -1576,6 +1576,8 @@
       "n_registry_entries": 0,
       "cited_by_docs": [
         "docs/auto/briefs/TRUCK_CREW_REPLAY.md",
+        "docs/auto/briefs/TRUCK_CREW_REPLAY_REPORT.md",
+        "docs/auto/reports/2026-09-13T1621Z-red.md",
         "docs/truck_crew_replay.md"
       ],
       "regenerate": "python scripts/build_truck_crew_replay.py"
@@ -1588,6 +1590,7 @@
       "git_tracked": true,
       "n_registry_entries": 0,
       "cited_by_docs": [
+        "docs/auto/briefs/TRUCK_CREW_REPLAY_REPORT.md",
         "docs/vehicle_pickup_intervention.md"
       ],
       "regenerate": "python scripts/run_vehicle_pickup_intervention.py"
