@@ -39,10 +39,11 @@ routes 19,250 buildings on 4,970 nodes, 46× the nodes.
 
 At node level: 4,439 / 477 / 54 of 4,970.
 
-- **The forecast-only share did not move.** 8.34 % against 8.4 % on the 124-footprint
-  sample and 9.17 % on the stride sample. The OSM sample was 0.6 % of the building stock
-  and spatially biased (`docs/building_sampling.md`), and it still returned the same
-  proportion for this class. The resampling curve in the artifact says why: at N = 100
+- **The forecast-only share did not move for this aggregate.** 8.34 % of the 19,250 routed
+  buildings, against 8.4 % on the 124-footprint sample and 9.17 % on the stride sample. That is
+  reassuring for this one proportion; it does not establish that the OSM sample was
+  representative (it was 0.6 % of the stock and spatially biased, `docs/building_sampling.md`),
+  and the next bullet shows a class on which it was not. The resampling curve in the artifact says why: at N = 100
   the 95 % half-width of the forecast-only share is ±5 pp, at N = 500 ±2.1 pp, at N = 2,000
   ±1.1 pp; the OSM sample sat inside its own interval.
 - **The class the sample could not see is the 「no safe route」 class.** 190 주건물 on 54

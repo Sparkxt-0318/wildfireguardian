@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "e96471c7e3ef222b6d5c4e7701ebe9fa57fbc89f",
-  "n_artifacts": 131,
-  "total_bytes": 17969871,
-  "total_mib": 17.14,
-  "n_git_tracked": 131,
+  "generated_at_git_commit": "0619826a0d8d7af6548b0c101a421089e43c45f0",
+  "n_artifacts": 133,
+  "total_bytes": 20272518,
+  "total_mib": 19.33,
+  "n_git_tracked": 133,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 12,
   "artifacts": [
@@ -143,6 +143,18 @@
         "docs/building_origins_juso_yeongdeok.md"
       ],
       "regenerate": "UNKNOWN"
+    },
+    {
+      "path": "data/processed/building_origins_observed_grading_yeongdeok.json",
+      "bytes": 2256091,
+      "sha256": "4a8e5fb3d772e8f0a0675f68606b46edca713f4203e80094dc74e2acad449863",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/building_origins_observed_grading.md"
+      ],
+      "regenerate": "python scripts/grade_building_origins_observed.py"
     },
     {
       "path": "data/processed/building_snapping_measurement.json",
@@ -1513,6 +1525,18 @@
         "paper/README.md"
       ],
       "regenerate": "python scripts/build_timeline_roles.py"
+    },
+    {
+      "path": "data/processed/vehicle_pickup_intervention_yeongdeok.json",
+      "bytes": 46556,
+      "sha256": "e468283fa6ae5bcfecf37ecb1628314a2b1ce827faca93683300180c60c42f61",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/vehicle_pickup_intervention.md"
+      ],
+      "regenerate": "python scripts/run_vehicle_pickup_intervention.py"
     },
     {
       "path": "data/processed/vehicle_unreachable_split/split_20260912T033329Z.json",

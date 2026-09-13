@@ -173,9 +173,13 @@ Edges removed per closure: L0_R200 walk 0 / drive 0, L1_R200 walk 26 / drive 9, 
 
 ## 6. Reading (written after run 2)
 
-- **No phase boundary inside the declared grid.** Unserved (no survival-aware ingress) moves
-  from 2 to 9 of 444 over the whole grid (1.6 points of the population); needs-rescue from
-  134 to 139. Every cell is within a handful of origins of every other.
+- **No dramatic transition inside the declared grid, under the current access definition.**
+  Unserved (no survival-aware ingress) moves from 2 to 9 of 444 over the whole grid (1.6 points
+  of the population); needs-rescue from 134 to 139. Some parameters do move the outcome — W = 45
+  vs 60 doubles the unserved count, closure 3 adds one to four, delay ≥ 90 min adds one — so
+  「nothing binds」 would overstate it; what the grid does not show is a boundary. ⚠ W is the
+  responder router's **travel-time allowance**, not fleet capacity: no vehicle count, occupancy
+  or queue is modelled anywhere in this study.
 - **Why.** The needs-rescue class is the immobile draw (133 of 134 at d = 0): the fire adds at
   most 6 walk-cut origins within 120 min of delay. And for nearly every home that needs a
   vehicle, some depot's survival-aware route reaches it within 45 min, so W ≥ 60 never binds.

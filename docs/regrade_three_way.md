@@ -132,7 +132,10 @@ Reading: the count of routes 「inadmissible for all」 is the same under every 
   cell centres; its 「seen so far」 count of 456 forecast-aware routes safe corresponds to
   **437** here (458 − 19 inadmissible − 2 not reached) under cell membership. The first-pass
   table is kept as the record; this page is the reading to quote, and it is the less
-  favourable one.
+  favourable one. ⚠ 437 is 「not inadmissible」, i.e. admissible **plus indeterminate**; it is not a
+  verified-safe count. The verified-safe-under-every-declared-bound count is 351, and 「every
+  bound」 means A1–A6: it is conditional on never-detected cells being unaffected (A4) and on
+  node sampling (A5), and it says nothing about real-world passability (A3).
 - **Of the 42 forecast-only origins, 17 forecast-aware routes are inadmissible for all**:
   they stand, at their own arrival time, in a cell FIRMS had already detected. 9 are
   admissible under every declared bound and 16 sit in the indeterminate gap. Paired: the

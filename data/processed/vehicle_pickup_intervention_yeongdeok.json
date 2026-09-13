@@ -1,0 +1,2027 @@
+{
+ "schema_version": 1,
+ "title": "Assisted pickup with an explicit fleet and timing on the credible no-safe-route nodes (영덕)",
+ "generated_utc": "2026-09-13T06:09:42Z",
+ "git_commit": "0619826a0d8d7af6548b0c101a421089e43c45f0",
+ "rule_doc": "docs/vehicle_pickup_intervention.md §1-§3 (pre-registered)",
+ "population": {
+  "credible_nodes": 24,
+  "credible_buildings": 74,
+  "finite_deadline_nodes": 6,
+  "deadline_min": {
+   "min": 0.0,
+   "median": 180.0,
+   "max": 180.0
+  }
+ },
+ "baselines": {
+  "walk_only_completed": 0,
+  "access_only_reachable_nodes_W75_D30": 9
+ },
+ "parameters": {
+  "W_min": 75.0,
+  "margin_min": 12.0,
+  "t_load_min": 10.0,
+  "t_unload_min": 10.0,
+  "vehicle_cutoff": 0.7,
+  "fleets": [
+   1,
+   2,
+   3,
+   4,
+   6,
+   8
+  ],
+  "dispatch_delays": [
+   30.0,
+   15.0
+  ],
+  "deadline": "earliest forecast time the home's drive node reaches the vehicle cutoff (node_survival_time)",
+  "policy": "earliest-deadline-first, one home per trip, egress to nearest rescue-reachable refuge, vehicle continues from the refuge"
+ },
+ "homes": [
+  {
+   "walk_node": 11910553952,
+   "drive_node": 11091382388,
+   "n_buildings": 8,
+   "deadline": 1000000000.0,
+   "drive_snap_m": 283.3
+  },
+  {
+   "walk_node": 11910553953,
+   "drive_node": 11872368614,
+   "n_buildings": 7,
+   "deadline": 1000000000.0,
+   "drive_snap_m": 323.0
+  },
+  {
+   "walk_node": 11910553954,
+   "drive_node": 11091382388,
+   "n_buildings": 7,
+   "deadline": 1000000000.0,
+   "drive_snap_m": 296.1
+  },
+  {
+   "walk_node": 12306799076,
+   "drive_node": 10258415890,
+   "n_buildings": 6,
+   "deadline": 180.0,
+   "drive_snap_m": 1989.5
+  },
+  {
+   "walk_node": 11910553947,
+   "drive_node": 11091382388,
+   "n_buildings": 5,
+   "deadline": 1000000000.0,
+   "drive_snap_m": 297.7
+  },
+  {
+   "walk_node": 11933583000,
+   "drive_node": 11933583021,
+   "n_buildings": 5,
+   "deadline": 1000000000.0,
+   "drive_snap_m": 97.1
+  },
+  {
+   "walk_node": 11933583033,
+   "drive_node": 11933583021,
+   "n_buildings": 5,
+   "deadline": 1000000000.0,
+   "drive_snap_m": 82.6
+  },
+  {
+   "walk_node": 11991969079,
+   "drive_node": 11991969221,
+   "n_buildings": 5,
+   "deadline": 1000000000.0,
+   "drive_snap_m": 166.7
+  },
+  {
+   "walk_node": 11933583013,
+   "drive_node": 11933582977,
+   "n_buildings": 3,
+   "deadline": 1000000000.0,
+   "drive_snap_m": 113.9
+  },
+  {
+   "walk_node": 11933583116,
+   "drive_node": 11933582977,
+   "n_buildings": 3,
+   "deadline": 1000000000.0,
+   "drive_snap_m": 158.4
+  },
+  {
+   "walk_node": 11935650241,
+   "drive_node": 11934332588,
+   "n_buildings": 3,
+   "deadline": 1000000000.0,
+   "drive_snap_m": 725.0
+  },
+  {
+   "walk_node": 11935650247,
+   "drive_node": 2828251735,
+   "n_buildings": 3,
+   "deadline": 1000000000.0,
+   "drive_snap_m": 673.1
+  },
+  {
+   "walk_node": 11933583010,
+   "drive_node": 11933582977,
+   "n_buildings": 2,
+   "deadline": 1000000000.0,
+   "drive_snap_m": 161.7
+  },
+  {
+   "walk_node": 12306799066,
+   "drive_node": 10258415890,
+   "n_buildings": 2,
+   "deadline": 180.0,
+   "drive_snap_m": 2018.7
+  },
+  {
+   "walk_node": 4642168846,
+   "drive_node": 12029705389,
+   "n_buildings": 1,
+   "deadline": 0.0,
+   "drive_snap_m": 207.9
+  },
+  {
+   "walk_node": 10258415914,
+   "drive_node": 10258415914,
+   "n_buildings": 1,
+   "deadline": 0.0,
+   "drive_snap_m": 0.0
+  },
+  {
+   "walk_node": 11933582932,
+   "drive_node": 11933582977,
+   "n_buildings": 1,
+   "deadline": 1000000000.0,
+   "drive_snap_m": 343.9
+  },
+  {
+   "walk_node": 11933582984,
+   "drive_node": 11933582977,
+   "n_buildings": 1,
+   "deadline": 1000000000.0,
+   "drive_snap_m": 90.9
+  },
+  {
+   "walk_node": 11933582988,
+   "drive_node": 11933582977,
+   "n_buildings": 1,
+   "deadline": 1000000000.0,
+   "drive_snap_m": 118.2
+  },
+  {
+   "walk_node": 11933583025,
+   "drive_node": 11933583021,
+   "n_buildings": 1,
+   "deadline": 1000000000.0,
+   "drive_snap_m": 96.1
+  },
+  {
+   "walk_node": 11933583037,
+   "drive_node": 11933583021,
+   "n_buildings": 1,
+   "deadline": 1000000000.0,
+   "drive_snap_m": 139.5
+  },
+  {
+   "walk_node": 11935180115,
+   "drive_node": 11933582854,
+   "n_buildings": 1,
+   "deadline": 0.0,
+   "drive_snap_m": 483.1
+  },
+  {
+   "walk_node": 11935650227,
+   "drive_node": 2828251735,
+   "n_buildings": 1,
+   "deadline": 1000000000.0,
+   "drive_snap_m": 652.2
+  },
+  {
+   "walk_node": 12029705149,
+   "drive_node": 12029705148,
+   "n_buildings": 1,
+   "deadline": 180.0,
+   "drive_snap_m": 67.4
+  }
+ ],
+ "runs": {
+  "D30_k1": {
+   "dispatch_delay_min": 30.0,
+   "vehicles": 1,
+   "refuges_rescue_reachable": 25,
+   "completed_nodes": 9,
+   "completed_buildings": 40,
+   "missed_nodes": 15,
+   "unsafe_egress_nodes": 0,
+   "last_delivery_min": 372.2,
+   "per_home": {
+    "11091382388": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 209.7,
+     "refuge_node": 11911490740,
+     "delivered_min": 223.3
+    },
+    "11872368614": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 156.1,
+     "refuge_node": 11911490740,
+     "delivered_min": 168.8
+    },
+    "10258415890": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11933583021": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11991969221": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 261.2,
+     "refuge_node": 11991969221,
+     "delivered_min": 271.2
+    },
+    "11933582977": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11934332588": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 293.3,
+     "refuge_node": 11934332843,
+     "delivered_min": 306.4
+    },
+    "2828251735": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 357.0,
+     "refuge_node": 4185147686,
+     "delivered_min": 372.2
+    },
+    "12029705389": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "10258415914": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11933582854": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "12029705148": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 45.1,
+     "refuge_node": 12048311103,
+     "delivered_min": 68.6
+    }
+   },
+   "vehicle_logs": [
+    [
+     {
+      "home": 12029705148,
+      "arrival_min": 45.1,
+      "deadline_min": 180.0,
+      "refuge_node": 12048311103,
+      "free_at": 78.6
+     },
+     {
+      "home": 11091382388,
+      "arrival_min": 129.8,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 153.4
+     },
+     {
+      "home": 11872368614,
+      "arrival_min": 156.1,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 178.8
+     },
+     {
+      "home": 11091382388,
+      "arrival_min": 182.5,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 206.1
+     },
+     {
+      "home": 11091382388,
+      "arrival_min": 209.7,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 233.3
+     },
+     {
+      "home": 11991969221,
+      "arrival_min": 261.2,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11991969221,
+      "free_at": 281.2
+     },
+     {
+      "home": 11934332588,
+      "arrival_min": 293.3,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11934332843,
+      "free_at": 316.4
+     },
+     {
+      "home": 2828251735,
+      "arrival_min": 326.4,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 4185147686,
+      "free_at": 351.7
+     },
+     {
+      "home": 2828251735,
+      "arrival_min": 357.0,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 4185147686,
+      "free_at": 382.2
+     }
+    ]
+   ]
+  },
+  "D30_k2": {
+   "dispatch_delay_min": 30.0,
+   "vehicles": 2,
+   "refuges_rescue_reachable": 25,
+   "completed_nodes": 9,
+   "completed_buildings": 40,
+   "missed_nodes": 15,
+   "unsafe_egress_nodes": 0,
+   "last_delivery_min": 203.0,
+   "per_home": {
+    "11091382388": {
+     "status": "completed",
+     "vehicle": 1,
+     "arrival_min": 129.2,
+     "refuge_node": 11911490740,
+     "delivered_min": 142.9
+    },
+    "11872368614": {
+     "status": "completed",
+     "vehicle": 1,
+     "arrival_min": 75.7,
+     "refuge_node": 11911490740,
+     "delivered_min": 88.4
+    },
+    "10258415890": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11933583021": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11991969221": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 122.5,
+     "refuge_node": 11991969221,
+     "delivered_min": 132.5
+    },
+    "11933582977": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11934332588": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 154.6,
+     "refuge_node": 11934332843,
+     "delivered_min": 167.8
+    },
+    "2828251735": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 187.8,
+     "refuge_node": 4185147686,
+     "delivered_min": 203.0
+    },
+    "12029705389": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "10258415914": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11933582854": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "12029705148": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 45.1,
+     "refuge_node": 12048311103,
+     "delivered_min": 68.6
+    }
+   },
+   "vehicle_logs": [
+    [
+     {
+      "home": 12029705148,
+      "arrival_min": 45.1,
+      "deadline_min": 180.0,
+      "refuge_node": 12048311103,
+      "free_at": 78.6
+     },
+     {
+      "home": 11991969221,
+      "arrival_min": 122.5,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11991969221,
+      "free_at": 142.5
+     },
+     {
+      "home": 11934332588,
+      "arrival_min": 154.6,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11934332843,
+      "free_at": 177.8
+     },
+     {
+      "home": 2828251735,
+      "arrival_min": 187.8,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 4185147686,
+      "free_at": 213.0
+     }
+    ],
+    [
+     {
+      "home": 11091382388,
+      "arrival_min": 49.4,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 73.0
+     },
+     {
+      "home": 11872368614,
+      "arrival_min": 75.7,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 98.4
+     },
+     {
+      "home": 11091382388,
+      "arrival_min": 102.0,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 125.6
+     },
+     {
+      "home": 11091382388,
+      "arrival_min": 129.2,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 152.9
+     },
+     {
+      "home": 2828251735,
+      "arrival_min": 184.2,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 4185147686,
+      "free_at": 209.4
+     }
+    ]
+   ]
+  },
+  "D30_k3": {
+   "dispatch_delay_min": 30.0,
+   "vehicles": 3,
+   "refuges_rescue_reachable": 25,
+   "completed_nodes": 9,
+   "completed_buildings": 40,
+   "missed_nodes": 15,
+   "unsafe_egress_nodes": 0,
+   "last_delivery_min": 167.3,
+   "per_home": {
+    "11091382388": {
+     "status": "completed",
+     "vehicle": 2,
+     "arrival_min": 77.6,
+     "refuge_node": 11911490740,
+     "delivered_min": 91.2
+    },
+    "11872368614": {
+     "status": "completed",
+     "vehicle": 2,
+     "arrival_min": 51.3,
+     "refuge_node": 11911490740,
+     "delivered_min": 64.0
+    },
+    "10258415890": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11933583021": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11991969221": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 122.5,
+     "refuge_node": 11991969221,
+     "delivered_min": 132.5
+    },
+    "11933582977": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11934332588": {
+     "status": "completed",
+     "vehicle": 1,
+     "arrival_min": 122.2,
+     "refuge_node": 11934332843,
+     "delivered_min": 135.3
+    },
+    "2828251735": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 152.1,
+     "refuge_node": 4185147686,
+     "delivered_min": 167.3
+    },
+    "12029705389": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "10258415914": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11933582854": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "12029705148": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 45.1,
+     "refuge_node": 12048311103,
+     "delivered_min": 68.6
+    }
+   },
+   "vehicle_logs": [
+    [
+     {
+      "home": 12029705148,
+      "arrival_min": 45.1,
+      "deadline_min": 180.0,
+      "refuge_node": 12048311103,
+      "free_at": 78.6
+     },
+     {
+      "home": 11991969221,
+      "arrival_min": 122.5,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11991969221,
+      "free_at": 142.5
+     },
+     {
+      "home": 2828251735,
+      "arrival_min": 152.1,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 4185147686,
+      "free_at": 177.3
+     }
+    ],
+    [
+     {
+      "home": 11091382388,
+      "arrival_min": 49.4,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 73.0
+     },
+     {
+      "home": 11091382388,
+      "arrival_min": 76.6,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 100.2
+     },
+     {
+      "home": 11934332588,
+      "arrival_min": 122.2,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11934332843,
+      "free_at": 145.3
+     }
+    ],
+    [
+     {
+      "home": 11872368614,
+      "arrival_min": 51.3,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 74.0
+     },
+     {
+      "home": 11091382388,
+      "arrival_min": 77.6,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 101.2
+     },
+     {
+      "home": 2828251735,
+      "arrival_min": 132.5,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 4185147686,
+      "free_at": 157.8
+     }
+    ]
+   ]
+  },
+  "D30_k4": {
+   "dispatch_delay_min": 30.0,
+   "vehicles": 4,
+   "refuges_rescue_reachable": 25,
+   "completed_nodes": 9,
+   "completed_buildings": 40,
+   "missed_nodes": 15,
+   "unsafe_egress_nodes": 0,
+   "last_delivery_min": 146.1,
+   "per_home": {
+    "11091382388": {
+     "status": "completed",
+     "vehicle": 1,
+     "arrival_min": 76.6,
+     "refuge_node": 11911490740,
+     "delivered_min": 90.2
+    },
+    "11872368614": {
+     "status": "completed",
+     "vehicle": 2,
+     "arrival_min": 51.3,
+     "refuge_node": 11911490740,
+     "delivered_min": 64.0
+    },
+    "10258415890": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11933583021": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11991969221": {
+     "status": "completed",
+     "vehicle": 2,
+     "arrival_min": 102.6,
+     "refuge_node": 11991969221,
+     "delivered_min": 112.6
+    },
+    "11933582977": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11934332588": {
+     "status": "completed",
+     "vehicle": 3,
+     "arrival_min": 97.7,
+     "refuge_node": 11934332843,
+     "delivered_min": 110.9
+    },
+    "2828251735": {
+     "status": "completed",
+     "vehicle": 3,
+     "arrival_min": 130.9,
+     "refuge_node": 4185147686,
+     "delivered_min": 146.1
+    },
+    "12029705389": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "10258415914": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11933582854": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "12029705148": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 45.1,
+     "refuge_node": 12048311103,
+     "delivered_min": 68.6
+    }
+   },
+   "vehicle_logs": [
+    [
+     {
+      "home": 12029705148,
+      "arrival_min": 45.1,
+      "deadline_min": 180.0,
+      "refuge_node": 12048311103,
+      "free_at": 78.6
+     },
+     {
+      "home": 2828251735,
+      "arrival_min": 125.3,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 4185147686,
+      "free_at": 150.5
+     }
+    ],
+    [
+     {
+      "home": 11091382388,
+      "arrival_min": 49.4,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 73.0
+     },
+     {
+      "home": 11091382388,
+      "arrival_min": 76.6,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 100.2
+     }
+    ],
+    [
+     {
+      "home": 11872368614,
+      "arrival_min": 51.3,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 74.0
+     },
+     {
+      "home": 11991969221,
+      "arrival_min": 102.6,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11991969221,
+      "free_at": 122.6
+     }
+    ],
+    [
+     {
+      "home": 11091382388,
+      "arrival_min": 52.2,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 75.8
+     },
+     {
+      "home": 11934332588,
+      "arrival_min": 97.7,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11934332843,
+      "free_at": 120.9
+     },
+     {
+      "home": 2828251735,
+      "arrival_min": 130.9,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 4185147686,
+      "free_at": 156.1
+     }
+    ]
+   ]
+  },
+  "D30_k6": {
+   "dispatch_delay_min": 30.0,
+   "vehicles": 6,
+   "refuges_rescue_reachable": 25,
+   "completed_nodes": 9,
+   "completed_buildings": 40,
+   "missed_nodes": 15,
+   "unsafe_egress_nodes": 0,
+   "last_delivery_min": 119.6,
+   "per_home": {
+    "11091382388": {
+     "status": "completed",
+     "vehicle": 2,
+     "arrival_min": 52.2,
+     "refuge_node": 11911490740,
+     "delivered_min": 65.8
+    },
+    "11872368614": {
+     "status": "completed",
+     "vehicle": 4,
+     "arrival_min": 48.5,
+     "refuge_node": 11911490740,
+     "delivered_min": 61.2
+    },
+    "10258415890": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11933583021": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11991969221": {
+     "status": "completed",
+     "vehicle": 3,
+     "arrival_min": 44.9,
+     "refuge_node": 11991969221,
+     "delivered_min": 54.9
+    },
+    "11933582977": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11934332588": {
+     "status": "completed",
+     "vehicle": 3,
+     "arrival_min": 77.0,
+     "refuge_node": 11934332843,
+     "delivered_min": 90.1
+    },
+    "2828251735": {
+     "status": "completed",
+     "vehicle": 1,
+     "arrival_min": 104.3,
+     "refuge_node": 4185147686,
+     "delivered_min": 119.6
+    },
+    "12029705389": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "10258415914": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11933582854": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "12029705148": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 45.1,
+     "refuge_node": 12048311103,
+     "delivered_min": 68.6
+    }
+   },
+   "vehicle_logs": [
+    [
+     {
+      "home": 12029705148,
+      "arrival_min": 45.1,
+      "deadline_min": 180.0,
+      "refuge_node": 12048311103,
+      "free_at": 78.6
+     }
+    ],
+    [
+     {
+      "home": 11091382388,
+      "arrival_min": 49.4,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 73.0
+     },
+     {
+      "home": 2828251735,
+      "arrival_min": 104.3,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 4185147686,
+      "free_at": 129.6
+     }
+    ],
+    [
+     {
+      "home": 11091382388,
+      "arrival_min": 52.2,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 75.8
+     }
+    ],
+    [
+     {
+      "home": 11991969221,
+      "arrival_min": 44.9,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11991969221,
+      "free_at": 64.9
+     },
+     {
+      "home": 11934332588,
+      "arrival_min": 77.0,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11934332843,
+      "free_at": 100.1
+     }
+    ],
+    [
+     {
+      "home": 11872368614,
+      "arrival_min": 48.5,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 71.2
+     },
+     {
+      "home": 2828251735,
+      "arrival_min": 102.5,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 4185147686,
+      "free_at": 127.8
+     }
+    ],
+    [
+     {
+      "home": 11091382388,
+      "arrival_min": 49.4,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 73.0
+     }
+    ]
+   ]
+  },
+  "D30_k8": {
+   "dispatch_delay_min": 30.0,
+   "vehicles": 8,
+   "refuges_rescue_reachable": 25,
+   "completed_nodes": 9,
+   "completed_buildings": 40,
+   "missed_nodes": 15,
+   "unsafe_egress_nodes": 0,
+   "last_delivery_min": 89.7,
+   "per_home": {
+    "11091382388": {
+     "status": "completed",
+     "vehicle": 2,
+     "arrival_min": 52.2,
+     "refuge_node": 11911490740,
+     "delivered_min": 65.8
+    },
+    "11872368614": {
+     "status": "completed",
+     "vehicle": 4,
+     "arrival_min": 48.5,
+     "refuge_node": 11911490740,
+     "delivered_min": 61.2
+    },
+    "10258415890": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11933583021": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11991969221": {
+     "status": "completed",
+     "vehicle": 3,
+     "arrival_min": 44.9,
+     "refuge_node": 11991969221,
+     "delivered_min": 54.9
+    },
+    "11933582977": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11934332588": {
+     "status": "completed",
+     "vehicle": 6,
+     "arrival_min": 50.1,
+     "refuge_node": 11934332843,
+     "delivered_min": 63.3
+    },
+    "2828251735": {
+     "status": "completed",
+     "vehicle": 3,
+     "arrival_min": 74.4,
+     "refuge_node": 4185147686,
+     "delivered_min": 89.7
+    },
+    "12029705389": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "10258415914": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11933582854": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "12029705148": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 45.1,
+     "refuge_node": 12048311103,
+     "delivered_min": 68.6
+    }
+   },
+   "vehicle_logs": [
+    [
+     {
+      "home": 12029705148,
+      "arrival_min": 45.1,
+      "deadline_min": 180.0,
+      "refuge_node": 12048311103,
+      "free_at": 78.6
+     }
+    ],
+    [
+     {
+      "home": 11091382388,
+      "arrival_min": 49.4,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 73.0
+     }
+    ],
+    [
+     {
+      "home": 11091382388,
+      "arrival_min": 52.2,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 75.8
+     }
+    ],
+    [
+     {
+      "home": 11991969221,
+      "arrival_min": 44.9,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11991969221,
+      "free_at": 64.9
+     },
+     {
+      "home": 2828251735,
+      "arrival_min": 74.4,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 4185147686,
+      "free_at": 99.7
+     }
+    ],
+    [
+     {
+      "home": 11872368614,
+      "arrival_min": 48.5,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 71.2
+     }
+    ],
+    [
+     {
+      "home": 11091382388,
+      "arrival_min": 49.4,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 73.0
+     }
+    ],
+    [
+     {
+      "home": 11934332588,
+      "arrival_min": 50.1,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11934332843,
+      "free_at": 73.3
+     }
+    ],
+    [
+     {
+      "home": 2828251735,
+      "arrival_min": 47.6,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 4185147686,
+      "free_at": 72.9
+     }
+    ]
+   ]
+  },
+  "D15_k1": {
+   "dispatch_delay_min": 15.0,
+   "vehicles": 1,
+   "refuges_rescue_reachable": 25,
+   "completed_nodes": 9,
+   "completed_buildings": 40,
+   "missed_nodes": 15,
+   "unsafe_egress_nodes": 0,
+   "last_delivery_min": 357.2,
+   "per_home": {
+    "11091382388": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 194.7,
+     "refuge_node": 11911490740,
+     "delivered_min": 208.3
+    },
+    "11872368614": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 141.1,
+     "refuge_node": 11911490740,
+     "delivered_min": 153.8
+    },
+    "10258415890": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11933583021": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11991969221": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 246.2,
+     "refuge_node": 11991969221,
+     "delivered_min": 256.2
+    },
+    "11933582977": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11934332588": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 278.3,
+     "refuge_node": 11934332843,
+     "delivered_min": 291.4
+    },
+    "2828251735": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 342.0,
+     "refuge_node": 4185147686,
+     "delivered_min": 357.2
+    },
+    "12029705389": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "10258415914": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11933582854": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "12029705148": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 30.1,
+     "refuge_node": 12048311103,
+     "delivered_min": 53.6
+    }
+   },
+   "vehicle_logs": [
+    [
+     {
+      "home": 12029705148,
+      "arrival_min": 30.1,
+      "deadline_min": 180.0,
+      "refuge_node": 12048311103,
+      "free_at": 63.6
+     },
+     {
+      "home": 11091382388,
+      "arrival_min": 114.8,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 138.4
+     },
+     {
+      "home": 11872368614,
+      "arrival_min": 141.1,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 163.8
+     },
+     {
+      "home": 11091382388,
+      "arrival_min": 167.5,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 191.1
+     },
+     {
+      "home": 11091382388,
+      "arrival_min": 194.7,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 218.3
+     },
+     {
+      "home": 11991969221,
+      "arrival_min": 246.2,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11991969221,
+      "free_at": 266.2
+     },
+     {
+      "home": 11934332588,
+      "arrival_min": 278.3,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11934332843,
+      "free_at": 301.4
+     },
+     {
+      "home": 2828251735,
+      "arrival_min": 311.4,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 4185147686,
+      "free_at": 336.7
+     },
+     {
+      "home": 2828251735,
+      "arrival_min": 342.0,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 4185147686,
+      "free_at": 367.2
+     }
+    ]
+   ]
+  },
+  "D15_k2": {
+   "dispatch_delay_min": 15.0,
+   "vehicles": 2,
+   "refuges_rescue_reachable": 25,
+   "completed_nodes": 9,
+   "completed_buildings": 40,
+   "missed_nodes": 15,
+   "unsafe_egress_nodes": 0,
+   "last_delivery_min": 188.0,
+   "per_home": {
+    "11091382388": {
+     "status": "completed",
+     "vehicle": 1,
+     "arrival_min": 114.2,
+     "refuge_node": 11911490740,
+     "delivered_min": 127.9
+    },
+    "11872368614": {
+     "status": "completed",
+     "vehicle": 1,
+     "arrival_min": 60.7,
+     "refuge_node": 11911490740,
+     "delivered_min": 73.4
+    },
+    "10258415890": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11933583021": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11991969221": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 107.5,
+     "refuge_node": 11991969221,
+     "delivered_min": 117.5
+    },
+    "11933582977": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11934332588": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 139.6,
+     "refuge_node": 11934332843,
+     "delivered_min": 152.8
+    },
+    "2828251735": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 172.8,
+     "refuge_node": 4185147686,
+     "delivered_min": 188.0
+    },
+    "12029705389": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "10258415914": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11933582854": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "12029705148": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 30.1,
+     "refuge_node": 12048311103,
+     "delivered_min": 53.6
+    }
+   },
+   "vehicle_logs": [
+    [
+     {
+      "home": 12029705148,
+      "arrival_min": 30.1,
+      "deadline_min": 180.0,
+      "refuge_node": 12048311103,
+      "free_at": 63.6
+     },
+     {
+      "home": 11991969221,
+      "arrival_min": 107.5,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11991969221,
+      "free_at": 127.5
+     },
+     {
+      "home": 11934332588,
+      "arrival_min": 139.6,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11934332843,
+      "free_at": 162.8
+     },
+     {
+      "home": 2828251735,
+      "arrival_min": 172.8,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 4185147686,
+      "free_at": 198.0
+     }
+    ],
+    [
+     {
+      "home": 11091382388,
+      "arrival_min": 34.4,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 58.0
+     },
+     {
+      "home": 11872368614,
+      "arrival_min": 60.7,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 83.4
+     },
+     {
+      "home": 11091382388,
+      "arrival_min": 87.0,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 110.6
+     },
+     {
+      "home": 11091382388,
+      "arrival_min": 114.2,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 137.9
+     },
+     {
+      "home": 2828251735,
+      "arrival_min": 169.2,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 4185147686,
+      "free_at": 194.4
+     }
+    ]
+   ]
+  },
+  "D15_k3": {
+   "dispatch_delay_min": 15.0,
+   "vehicles": 3,
+   "refuges_rescue_reachable": 25,
+   "completed_nodes": 9,
+   "completed_buildings": 40,
+   "missed_nodes": 15,
+   "unsafe_egress_nodes": 0,
+   "last_delivery_min": 152.3,
+   "per_home": {
+    "11091382388": {
+     "status": "completed",
+     "vehicle": 2,
+     "arrival_min": 62.6,
+     "refuge_node": 11911490740,
+     "delivered_min": 76.2
+    },
+    "11872368614": {
+     "status": "completed",
+     "vehicle": 2,
+     "arrival_min": 36.3,
+     "refuge_node": 11911490740,
+     "delivered_min": 49.0
+    },
+    "10258415890": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11933583021": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11991969221": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 107.5,
+     "refuge_node": 11991969221,
+     "delivered_min": 117.5
+    },
+    "11933582977": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11934332588": {
+     "status": "completed",
+     "vehicle": 1,
+     "arrival_min": 107.2,
+     "refuge_node": 11934332843,
+     "delivered_min": 120.3
+    },
+    "2828251735": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 137.1,
+     "refuge_node": 4185147686,
+     "delivered_min": 152.3
+    },
+    "12029705389": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "10258415914": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11933582854": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "12029705148": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 30.1,
+     "refuge_node": 12048311103,
+     "delivered_min": 53.6
+    }
+   },
+   "vehicle_logs": [
+    [
+     {
+      "home": 12029705148,
+      "arrival_min": 30.1,
+      "deadline_min": 180.0,
+      "refuge_node": 12048311103,
+      "free_at": 63.6
+     },
+     {
+      "home": 11991969221,
+      "arrival_min": 107.5,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11991969221,
+      "free_at": 127.5
+     },
+     {
+      "home": 2828251735,
+      "arrival_min": 137.1,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 4185147686,
+      "free_at": 162.3
+     }
+    ],
+    [
+     {
+      "home": 11091382388,
+      "arrival_min": 34.4,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 58.0
+     },
+     {
+      "home": 11091382388,
+      "arrival_min": 61.6,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 85.2
+     },
+     {
+      "home": 11934332588,
+      "arrival_min": 107.2,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11934332843,
+      "free_at": 130.3
+     }
+    ],
+    [
+     {
+      "home": 11872368614,
+      "arrival_min": 36.3,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 59.0
+     },
+     {
+      "home": 11091382388,
+      "arrival_min": 62.6,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 86.2
+     },
+     {
+      "home": 2828251735,
+      "arrival_min": 117.5,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 4185147686,
+      "free_at": 142.8
+     }
+    ]
+   ]
+  },
+  "D15_k4": {
+   "dispatch_delay_min": 15.0,
+   "vehicles": 4,
+   "refuges_rescue_reachable": 25,
+   "completed_nodes": 9,
+   "completed_buildings": 40,
+   "missed_nodes": 15,
+   "unsafe_egress_nodes": 0,
+   "last_delivery_min": 131.1,
+   "per_home": {
+    "11091382388": {
+     "status": "completed",
+     "vehicle": 1,
+     "arrival_min": 61.6,
+     "refuge_node": 11911490740,
+     "delivered_min": 75.2
+    },
+    "11872368614": {
+     "status": "completed",
+     "vehicle": 2,
+     "arrival_min": 36.3,
+     "refuge_node": 11911490740,
+     "delivered_min": 49.0
+    },
+    "10258415890": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11933583021": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11991969221": {
+     "status": "completed",
+     "vehicle": 2,
+     "arrival_min": 87.6,
+     "refuge_node": 11991969221,
+     "delivered_min": 97.6
+    },
+    "11933582977": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11934332588": {
+     "status": "completed",
+     "vehicle": 3,
+     "arrival_min": 82.7,
+     "refuge_node": 11934332843,
+     "delivered_min": 95.9
+    },
+    "2828251735": {
+     "status": "completed",
+     "vehicle": 3,
+     "arrival_min": 115.9,
+     "refuge_node": 4185147686,
+     "delivered_min": 131.1
+    },
+    "12029705389": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "10258415914": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11933582854": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "12029705148": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 30.1,
+     "refuge_node": 12048311103,
+     "delivered_min": 53.6
+    }
+   },
+   "vehicle_logs": [
+    [
+     {
+      "home": 12029705148,
+      "arrival_min": 30.1,
+      "deadline_min": 180.0,
+      "refuge_node": 12048311103,
+      "free_at": 63.6
+     },
+     {
+      "home": 2828251735,
+      "arrival_min": 110.3,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 4185147686,
+      "free_at": 135.5
+     }
+    ],
+    [
+     {
+      "home": 11091382388,
+      "arrival_min": 34.4,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 58.0
+     },
+     {
+      "home": 11091382388,
+      "arrival_min": 61.6,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 85.2
+     }
+    ],
+    [
+     {
+      "home": 11872368614,
+      "arrival_min": 36.3,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 59.0
+     },
+     {
+      "home": 11991969221,
+      "arrival_min": 87.6,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11991969221,
+      "free_at": 107.6
+     }
+    ],
+    [
+     {
+      "home": 11091382388,
+      "arrival_min": 37.2,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 60.8
+     },
+     {
+      "home": 11934332588,
+      "arrival_min": 82.7,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11934332843,
+      "free_at": 105.9
+     },
+     {
+      "home": 2828251735,
+      "arrival_min": 115.9,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 4185147686,
+      "free_at": 141.1
+     }
+    ]
+   ]
+  },
+  "D15_k6": {
+   "dispatch_delay_min": 15.0,
+   "vehicles": 6,
+   "refuges_rescue_reachable": 25,
+   "completed_nodes": 9,
+   "completed_buildings": 40,
+   "missed_nodes": 15,
+   "unsafe_egress_nodes": 0,
+   "last_delivery_min": 104.6,
+   "per_home": {
+    "11091382388": {
+     "status": "completed",
+     "vehicle": 2,
+     "arrival_min": 37.2,
+     "refuge_node": 11911490740,
+     "delivered_min": 50.8
+    },
+    "11872368614": {
+     "status": "completed",
+     "vehicle": 4,
+     "arrival_min": 33.5,
+     "refuge_node": 11911490740,
+     "delivered_min": 46.2
+    },
+    "10258415890": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11933583021": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11991969221": {
+     "status": "completed",
+     "vehicle": 3,
+     "arrival_min": 29.9,
+     "refuge_node": 11991969221,
+     "delivered_min": 39.9
+    },
+    "11933582977": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11934332588": {
+     "status": "completed",
+     "vehicle": 3,
+     "arrival_min": 62.0,
+     "refuge_node": 11934332843,
+     "delivered_min": 75.1
+    },
+    "2828251735": {
+     "status": "completed",
+     "vehicle": 1,
+     "arrival_min": 89.3,
+     "refuge_node": 4185147686,
+     "delivered_min": 104.6
+    },
+    "12029705389": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "10258415914": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11933582854": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "12029705148": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 30.1,
+     "refuge_node": 12048311103,
+     "delivered_min": 53.6
+    }
+   },
+   "vehicle_logs": [
+    [
+     {
+      "home": 12029705148,
+      "arrival_min": 30.1,
+      "deadline_min": 180.0,
+      "refuge_node": 12048311103,
+      "free_at": 63.6
+     }
+    ],
+    [
+     {
+      "home": 11091382388,
+      "arrival_min": 34.4,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 58.0
+     },
+     {
+      "home": 2828251735,
+      "arrival_min": 89.3,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 4185147686,
+      "free_at": 114.6
+     }
+    ],
+    [
+     {
+      "home": 11091382388,
+      "arrival_min": 37.2,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 60.8
+     }
+    ],
+    [
+     {
+      "home": 11991969221,
+      "arrival_min": 29.9,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11991969221,
+      "free_at": 49.9
+     },
+     {
+      "home": 11934332588,
+      "arrival_min": 62.0,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11934332843,
+      "free_at": 85.1
+     }
+    ],
+    [
+     {
+      "home": 11872368614,
+      "arrival_min": 33.5,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 56.2
+     },
+     {
+      "home": 2828251735,
+      "arrival_min": 87.5,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 4185147686,
+      "free_at": 112.8
+     }
+    ],
+    [
+     {
+      "home": 11091382388,
+      "arrival_min": 34.4,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 58.0
+     }
+    ]
+   ]
+  },
+  "D15_k8": {
+   "dispatch_delay_min": 15.0,
+   "vehicles": 8,
+   "refuges_rescue_reachable": 25,
+   "completed_nodes": 9,
+   "completed_buildings": 40,
+   "missed_nodes": 15,
+   "unsafe_egress_nodes": 0,
+   "last_delivery_min": 74.7,
+   "per_home": {
+    "11091382388": {
+     "status": "completed",
+     "vehicle": 2,
+     "arrival_min": 37.2,
+     "refuge_node": 11911490740,
+     "delivered_min": 50.8
+    },
+    "11872368614": {
+     "status": "completed",
+     "vehicle": 4,
+     "arrival_min": 33.5,
+     "refuge_node": 11911490740,
+     "delivered_min": 46.2
+    },
+    "10258415890": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11933583021": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11991969221": {
+     "status": "completed",
+     "vehicle": 3,
+     "arrival_min": 29.9,
+     "refuge_node": 11991969221,
+     "delivered_min": 39.9
+    },
+    "11933582977": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11934332588": {
+     "status": "completed",
+     "vehicle": 6,
+     "arrival_min": 35.1,
+     "refuge_node": 11934332843,
+     "delivered_min": 48.3
+    },
+    "2828251735": {
+     "status": "completed",
+     "vehicle": 3,
+     "arrival_min": 59.4,
+     "refuge_node": 4185147686,
+     "delivered_min": 74.7
+    },
+    "12029705389": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "10258415914": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "11933582854": {
+     "status": "missed",
+     "reason": "no vehicle reaches it safely before deadline − margin"
+    },
+    "12029705148": {
+     "status": "completed",
+     "vehicle": 0,
+     "arrival_min": 30.1,
+     "refuge_node": 12048311103,
+     "delivered_min": 53.6
+    }
+   },
+   "vehicle_logs": [
+    [
+     {
+      "home": 12029705148,
+      "arrival_min": 30.1,
+      "deadline_min": 180.0,
+      "refuge_node": 12048311103,
+      "free_at": 63.6
+     }
+    ],
+    [
+     {
+      "home": 11091382388,
+      "arrival_min": 34.4,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 58.0
+     }
+    ],
+    [
+     {
+      "home": 11091382388,
+      "arrival_min": 37.2,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 60.8
+     }
+    ],
+    [
+     {
+      "home": 11991969221,
+      "arrival_min": 29.9,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11991969221,
+      "free_at": 49.9
+     },
+     {
+      "home": 2828251735,
+      "arrival_min": 59.4,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 4185147686,
+      "free_at": 84.7
+     }
+    ],
+    [
+     {
+      "home": 11872368614,
+      "arrival_min": 33.5,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 56.2
+     }
+    ],
+    [
+     {
+      "home": 11091382388,
+      "arrival_min": 34.4,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11911490740,
+      "free_at": 58.0
+     }
+    ],
+    [
+     {
+      "home": 11934332588,
+      "arrival_min": 35.1,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 11934332843,
+      "free_at": 58.3
+     }
+    ],
+    [
+     {
+      "home": 2828251735,
+      "arrival_min": 32.6,
+      "deadline_min": 1000000000.0,
+      "refuge_node": 4185147686,
+      "free_at": 57.9
+     }
+    ]
+   ]
+  }
+ },
+ "seconds": 56.9
+}
