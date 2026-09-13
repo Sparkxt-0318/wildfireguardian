@@ -116,6 +116,7 @@ data/processed/**
 !data/processed/feasibility_phase_diagram_yeongdeok_run1_endpoint_rule.json
 !data/processed/building_origins_observed_grading_yeongdeok.json
 !data/processed/vehicle_pickup_intervention_yeongdeok.json
+!data/processed/last_safe_departure_yeongdeok.json
 # Origin sparsity sweep + nearest-neighbour distributions (small JSON).
 !data/processed/cluster_sparsity.json
 # ---------------------------------------------------------------------------
