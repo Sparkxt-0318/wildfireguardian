@@ -160,6 +160,34 @@ failure to the author's machine. So under **CHARTER §3.9** the work is parked o
 `auto/red/2026-09-13T1625Z` with this report and **NH-061**, which carries the measurement
 and four options. `auto/dev` was not pushed.
 
+### 5b. What GitHub said after the parking push, which is worse than the above
+
+The push triggered `auto-gates` on the red branch, and reading its result turned this from
+「a sandbox disagrees with the laptop」 into something the author needs to know:
+
+- **This PR's run** (34768396034, `0212790`): `verify`, `snapshot-verify`, `env-check` pass,
+  `baseline-verify` warns as designed, `pytest-full` **fails** with `1 failed, 2320 passed,
+  63 skipped` — the same single test and the **same three** `hill.png` values.
+- **The base branch is red too.** Run 425 on `auto/dev` at `bb820d6` failed with the same
+  test and the same three values, which is the 「red on the base branch too」 case: this
+  failure is established as not this PR's, not assumed to be.
+- **`auto/dev` has been red on GitHub for five consecutive pushes** (runs 421 to 425:
+  `30f9ec5`, `e96471c`, `0619826`, `2da2dd5`, `bb820d6`), and **every one of those commit
+  messages says 「ALL GREEN on the laptop」**. The last green run is 417 at `3c3225e`
+  (2026-09-12T16:18Z); runs 418 to 420 were cancelled by the workflow's own
+  `cancel-in-progress`, so they carry no signal.
+- **The commit that put it there is `7750d8f`**, the author's own laptop commit
+  (`2026-09-13 01:10:15 +0800`) that says 「finals screen and bundle rebuilt」; its diff
+  rewrites the `"hill"` entries in `web/finals.html`, and its CI run (420) was one of the
+  cancelled ones, so the red first became visible one commit later.
+- **`promote` declares `needs: gates`**, so no `auto/dev` push since run 417 has been able
+  to promote `Main`.
+
+So the split is not 「the author's laptop versus one sandbox」; it is 「the author's laptop
+versus every other machine」, GitHub's own runner included, on three machines measured. All
+of this is in NH-061. **No fix exists that this session is permitted to port**, and a re-run
+would not help: the failure is deterministic and reproduced on two independent machines.
+
 ## 6. Open questions for the HQ session
 
 1. **Does the corridor count go on a judge-facing surface with the success line, or does
