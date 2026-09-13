@@ -253,6 +253,26 @@ The three numbers in that sentence are `trips_ordered`, `reached_before_observed
   same node. And 7 of the 52 ordered trips have a median walk-to-road snap of 300 m or
   more, one of them 1.8 km: for those,「the vehicle arrived」 means it reached a road that far
   from the buildings the pickup counts.
+- ⚠ **The field this replay stands on is now known to be flattered by a training leak, and
+  that was measured after this page was written.** `docs/leakfree_fold.md` (G3 / WFG-032,
+  run the same day) refits the 영덕 fold with 의성·안동 excluded from training, because the two
+  are one fire complex and part of the 의성·안동 detections lie inside the 영덕 acquisition
+  box. Its finding: the leak-free field is **roughly half the size** of the canonical one by
+  the end of the window, with a per-slice core IoU of about 0.51 against it, and it
+  **under-predicts** this fire's growth against the observation.
+
+  Every deadline, corridor closing minute, margin and abort minute on this page is read off
+  `haz_stack` of the **canonical** npz, which is the leaked field. **Nothing on this page was
+  re-run on the leak-free field, so what the counts in §4 would become is unmeasured and is
+  not guessed at here.** Two things can be said without running it. The direction is not
+  obvious: a smaller field closes fewer corridors, which would tend to order *more* trips and
+  fire the abort rule *less*, but it would also move which pickups carry a binding deadline.
+  And the part of §4 that is least exposed is the observed grading, for the reason
+  `docs/leakfree_fold.md` §4 gives about its own numbers: the observation does not depend on
+  which field planned the route. The 30-of-52 inadmissible ingress corridors are a statement
+  about FIRMS and the driven geometry, not about the forecast. Re-running this replay on the
+  leak-free field is filed as an open question rather than done here, because the brief
+  specifies the canonical field and changing it is not a lap's call.
 - **The build ran twice, and the second run is the one recorded above.** The first run
   (`20260913T154627Z`) recorded `data/processed/building_origin_routing_juso_main_yeongdeok.json`
   as its building input; that spelling made `scripts/build_artifact_manifest.py` attribute the
