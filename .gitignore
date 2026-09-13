@@ -117,6 +117,10 @@ data/processed/**
 !data/processed/building_origins_observed_grading_yeongdeok.json
 !data/processed/vehicle_pickup_intervention_yeongdeok.json
 !data/processed/last_safe_departure_yeongdeok.json
+# Truck-crew replay (docs/truck_crew_replay.md, brief TRUCK_CREW_REPLAY). Carries the
+# trip geometry the offline page draws, so it is larger than its siblings; it is the
+# only copy of what web/truck_crew_replay.html shows and is cited by the doc.
+!data/processed/truck_crew_replay_yeongdeok.json
 # Origin sparsity sweep + nearest-neighbour distributions (small JSON).
 !data/processed/cluster_sparsity.json
 # ---------------------------------------------------------------------------

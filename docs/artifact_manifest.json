@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "2da2dd54cfbabe7f7057be8caa296d9a4cd9af38",
-  "n_artifacts": 134,
-  "total_bytes": 20976218,
-  "total_mib": 20.0,
-  "n_git_tracked": 134,
+  "generated_at_git_commit": "bb820d67e3f81335d6b65fe2fd34f87d2fcd6f63",
+  "n_artifacts": 135,
+  "total_bytes": 22467282,
+  "total_mib": 21.43,
+  "n_git_tracked": 135,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 12,
   "artifacts": [
@@ -141,7 +141,8 @@
       "n_registry_entries": 0,
       "cited_by_docs": [
         "docs/auto/briefs/TRUCK_CREW_REPLAY.md",
-        "docs/building_origins_juso_yeongdeok.md"
+        "docs/building_origins_juso_yeongdeok.md",
+        "docs/truck_crew_replay.md"
       ],
       "regenerate": "UNKNOWN"
     },
@@ -153,7 +154,8 @@
       "git_tracked": true,
       "n_registry_entries": 0,
       "cited_by_docs": [
-        "docs/building_origins_observed_grading.md"
+        "docs/building_origins_observed_grading.md",
+        "docs/truck_crew_replay.md"
       ],
       "regenerate": "python scripts/grade_building_origins_observed.py"
     },
@@ -1539,6 +1541,19 @@
         "paper/README.md"
       ],
       "regenerate": "python scripts/build_timeline_roles.py"
+    },
+    {
+      "path": "data/processed/truck_crew_replay_yeongdeok.json",
+      "bytes": 1491064,
+      "sha256": "25cf6b6a5e5c28e3dae5daa00c8be60bf79ad6d030955f94f1ef6b24edccf5bc",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/auto/briefs/TRUCK_CREW_REPLAY.md",
+        "docs/truck_crew_replay.md"
+      ],
+      "regenerate": "python scripts/build_truck_crew_replay.py"
     },
     {
       "path": "data/processed/vehicle_pickup_intervention_yeongdeok.json",
