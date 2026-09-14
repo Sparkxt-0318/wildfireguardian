@@ -37,3 +37,14 @@ New filenames; nothing registered; no judge surface touched; `python scripts/aut
 --mode full` exit 0 read directly; stage by explicit path; **check GitHub's `auto-gates` run
 after pushing** (a laptop green is not the gate); report to
 `docs/auto/briefs/K_SPREAD_STAGE2_REPORT.md` with what ran, what could not, and the numbers.
+
+## Ownership split (HQ, 2026-09-15)
+Two sessions touch Stage 2. To avoid two artifacts for one field:
+- **Session A (the NH-062 / `docs/forecast_track.md` session)** owns **F1** under the Stage 2
+  name and definition (frozen T0 weather, E3's fitted model reused, no refit; a one-off refit
+  digest may be recorded as evidence and is not the artifact).
+- **Session B (this brief's agent)** owns **F2**, the **E1/E2 proxies**, and **F3** if the KMA
+  forecast archive lands.
+- Before writing any entrant bundle, check `data/processed/benchmark/<entrant>/` exists; the
+  first writer wins, the second records 「already built by <report>」 and moves on.
+- Both render into `docs/benchmark/results_v0.2.md` from artifacts; neither registers anything.
