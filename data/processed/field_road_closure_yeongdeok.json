@@ -1,0 +1,50 @@
+{
+ "schema_version": 1,
+ "title": "How much of the field's road-closure content is dynamic (영덕)",
+ "generated_utc": "2026-09-14T12:44:44Z",
+ "git_commit": "7a7f6f89103478d4c3625a21c2d02814562baf3e",
+ "why": "docs/benchmark/results_v0.1.md §2 put the committed field in the hindcast track and measured that at road nodes it barely differs from persistence at p >= 0.5. The truck-crew replay's corridor closing minute, margin and abort rule are statements about roads over time, so the same question is asked here at the vehicle cutoff on the drive network.",
+ "networks": {
+  "drive_nodes": 1664,
+  "distinct_cells_holding_a_drive_node": 440,
+  "grid_cells": 28236
+ },
+ "vehicle_cutoff_used_by_the_replay": 0.7,
+ "results": {
+  "canonical": {
+   "npz": "data/processed/routing_demo_canonical.npz",
+   "by_cutoff": {
+    "0.5": {
+     "cells_at_t0": 249,
+     "cells_added_later": 787,
+     "drive_nodes_at_t0": 37,
+     "drive_nodes_added_later": 9
+    },
+    "0.7": {
+     "cells_at_t0": 249,
+     "cells_added_later": 768,
+     "drive_nodes_at_t0": 37,
+     "drive_nodes_added_later": 9
+    }
+   }
+  },
+  "leakfree": {
+   "npz": "data/processed/routing_demo_leakfree.npz",
+   "by_cutoff": {
+    "0.5": {
+     "cells_at_t0": 249,
+     "cells_added_later": 291,
+     "drive_nodes_at_t0": 37,
+     "drive_nodes_added_later": 0
+    },
+    "0.7": {
+     "cells_at_t0": 249,
+     "cells_added_later": 284,
+     "drive_nodes_at_t0": 37,
+     "drive_nodes_added_later": 0
+    }
+   }
+  }
+ },
+ "reading": "A drive node 「added later」 is one the field says closes DURING the window; a node 「at t = 0」 is already closed before the replay starts. The replay's abort rule can only ever fire on the former."
+}
