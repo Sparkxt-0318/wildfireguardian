@@ -1,12 +1,12 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "a070258c47573ed5077dc375b85d5e361998041c",
-  "n_artifacts": 138,
-  "total_bytes": 21163102,
-  "total_mib": 20.18,
-  "n_git_tracked": 138,
+  "generated_at_git_commit": "caffe3a85b3fac59e893a9342864766997caba3e",
+  "n_artifacts": 139,
+  "total_bytes": 21579835,
+  "total_mib": 20.58,
+  "n_git_tracked": 139,
   "n_untracked_manifest_only": 0,
-  "n_regenerate_unknown": 13,
+  "n_regenerate_unknown": 14,
   "artifacts": [
     {
       "path": "data/processed/.gitkeep",
@@ -118,6 +118,18 @@
       "n_registry_entries": 0,
       "cited_by_docs": [
         "docs/benchmark/results_v0.1.md"
+      ],
+      "regenerate": "UNKNOWN"
+    },
+    {
+      "path": "data/processed/benchmark/stage2_wind_sensitivity.json",
+      "bytes": 416733,
+      "sha256": "627dd8e4afad676c9c87e6a3cdc04e82edcf16189e25c9207b3b789564c8aae7",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/benchmark/results_v0.2.md"
       ],
       "regenerate": "UNKNOWN"
     },
@@ -1364,6 +1376,7 @@
         "docs/auto/reports/2026-09-12T1656Z-dev.md",
         "docs/auto/reports/2026-09-12T1705Z-dev.md",
         "docs/benchmark/results_v0.1.md",
+        "docs/benchmark/stage2_proxy_rules.md",
         "docs/corridor_treatment_atlas.md",
         "docs/footprint_components.md",
         "docs/live_pipeline.md",
@@ -1405,7 +1418,7 @@
         "docs/benchmark/results_v0.1.md",
         "docs/leakfree_fold.md"
       ],
-      "regenerate": "python scripts/run_leakfree_yeongdeok_fold.py"
+      "regenerate": "python scripts/run_forecast_track_f1.py"
     },
     {
       "path": "data/processed/routing_objective_experiment.json",

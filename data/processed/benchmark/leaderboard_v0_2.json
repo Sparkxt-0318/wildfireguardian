@@ -1,0 +1,474 @@
+{
+ "schema_version": 1,
+ "title": "K-SPREAD-2025 leaderboard (v0.2, Stage 2)",
+ "protocol": "docs/benchmark/K_SPREAD_2025.md",
+ "protocol_version": "v0.1",
+ "generated_utc": "2026-09-14T16:15:07Z",
+ "git_commit": "caffe3a85b3fac59e893a9342864766997caba3e",
+ "truth_rule": "docs/regrade_three_way.md §2 (A1-A6), m = 0 headline",
+ "scorer": "scripts/benchmark/score_kspread.py",
+ "conventions": "C1-C6 in scripts/benchmark/kspread_metrics.py",
+ "horizons_min": [
+  180.0,
+  300.0,
+  480.0
+ ],
+ "p_cut": 0.5,
+ "metric3_node_set": {
+  "rule": "every node of the canonical walk network (C5)",
+  "n_nodes": 8443,
+  "origins_subset_n": 458,
+  "source": "data/processed/real_roads_real_hazard_canonical.json",
+  "snapshots": {
+   "dem": "data/snapshots/srtm-dem_yeongdeok-2025_20260723_66988bf5.tif",
+   "walk": "data/snapshots/osm-walk_yeongdeok-2025_20260724_2bff8d85.graphml.gz",
+   "shelters": "data/snapshots/osm-shelters_yeongdeok-2025_20260724_ac42a42b.geojson"
+  }
+ },
+ "events_scored": [
+  "yeongdeok_2025"
+ ],
+ "events_unscorable": {
+  "uiseong_andong_2025": "no committed observed detection stack",
+  "uljin_samcheok_2022": "no committed observed detection stack",
+  "gangneung_2023": "no committed observed detection stack",
+  "hongseong_2023": "no committed observed detection stack",
+  "miryang_2022": "no committed observed detection stack"
+ },
+ "tracks": {
+  "forecast": [
+   {
+    "entrant": "e0_persistence",
+    "protocol_entrant": "E0",
+    "name": "E0 persistence",
+    "resolution_m": 500.0,
+    "per_event": {
+     "yeongdeok_2025": {
+      "roc_auc": {
+       "180min": 1.0,
+       "300min": 1.0,
+       "480min": 0.6328708644610459
+      },
+      "iou_at_p_ge_0.5": {
+       "180min": 1.0,
+       "300min": 1.0,
+       "480min": 0.2657417289220918
+      },
+      "cells_unscorable_indeterminate": {
+       "180min": 688,
+       "300min": 688,
+       "480min": 50
+      },
+      "arrival_median_abs_error_min": 0.0,
+      "arrival_median_signed_error_min": 0.0,
+      "false_safe_rate": 0.1832761998041136,
+      "false_safe_nodes": 1497,
+      "nodes_model_calls_safe": 8168,
+      "decision_shift": {
+       "buildings_scored": 19250,
+       "buildings_class_changed": 3906,
+       "buildings_entrant_more_optimistic": 3906,
+       "class_table_entrant_given_truth": {
+        "censored|censored": 15154,
+        "censored|closes_after_5h": 1261,
+        "censored|closes_before_5h": 2645,
+        "never|never": 190
+       },
+       "nodes": 4970,
+       "buildings_routable": 19250,
+       "buildings_total": 19959,
+       "policy": "time-aware search, 600 min budget, 10 min step (measure_last_safe_departure.lsd_search)",
+       "spatial_sampling": "router bilinear (not A5 cell membership); see docs/regrade_three_way.md §A5",
+       "lsd_class_buildings_entrant": {
+        "censored": 19060,
+        "never": 190
+       },
+       "lsd_class_buildings_truth": {
+        "censored": 15154,
+        "closes_after_5h": 1261,
+        "closes_before_5h": 2645,
+        "never": 190
+       }
+      }
+     }
+    },
+    "events_not_scored": {
+     "uiseong_andong_2025": "no entrant field committed for this event",
+     "uljin_samcheok_2022": "no entrant field committed for this event",
+     "gangneung_2023": "no entrant field committed for this event",
+     "hongseong_2023": "no entrant field committed for this event",
+     "miryang_2022": "no entrant field committed for this event"
+    }
+   }
+  ],
+  "hindcast": [
+   {
+    "entrant": "e1_windcone_oracle",
+    "protocol_entrant": "E1",
+    "name": "E1 wind-cone oracle (upper bound)",
+    "resolution_m": 500.0,
+    "per_event": {
+     "yeongdeok_2025": {
+      "roc_auc": {
+       "180min": 0.9975456976446023,
+       "300min": 0.9951646580460823,
+       "480min": 0.9801943913189533
+      },
+      "iou_at_p_ge_0.5": {
+       "180min": 0.6501305483028721,
+       "300min": 0.424190800681431,
+       "480min": 0.42857142857142855
+      },
+      "cells_unscorable_indeterminate": {
+       "180min": 688,
+       "300min": 688,
+       "480min": 50
+      },
+      "arrival_median_abs_error_min": 83.65984726580206,
+      "arrival_median_signed_error_min": 0.0,
+      "false_safe_rate": 0.042337134822683954,
+      "false_safe_nodes": 271,
+      "nodes_model_calls_safe": 6401,
+      "decision_shift": {
+       "buildings_scored": 19250,
+       "buildings_class_changed": 3062,
+       "buildings_entrant_more_optimistic": 1235,
+       "class_table_entrant_given_truth": {
+        "censored|censored": 14076,
+        "censored|closes_after_5h": 506,
+        "censored|closes_before_5h": 399,
+        "closes_after_5h|censored": 737,
+        "closes_after_5h|closes_after_5h": 255,
+        "closes_after_5h|closes_before_5h": 330,
+        "closes_before_5h|censored": 314,
+        "closes_before_5h|closes_after_5h": 480,
+        "closes_before_5h|closes_before_5h": 1667,
+        "never|censored": 27,
+        "never|closes_after_5h": 20,
+        "never|closes_before_5h": 249,
+        "never|never": 190
+       },
+       "nodes": 4970,
+       "buildings_routable": 19250,
+       "buildings_total": 19959,
+       "policy": "time-aware search, 600 min budget, 10 min step (measure_last_safe_departure.lsd_search)",
+       "spatial_sampling": "router bilinear (not A5 cell membership); see docs/regrade_three_way.md §A5",
+       "lsd_class_buildings_entrant": {
+        "censored": 14981,
+        "closes_after_5h": 1322,
+        "closes_before_5h": 2461,
+        "never": 486
+       },
+       "lsd_class_buildings_truth": {
+        "censored": 15154,
+        "closes_after_5h": 1261,
+        "closes_before_5h": 2645,
+        "never": 190
+       }
+      }
+     }
+    },
+    "events_not_scored": {
+     "uiseong_andong_2025": "no entrant field committed for this event",
+     "uljin_samcheok_2022": "no entrant field committed for this event",
+     "gangneung_2023": "no entrant field committed for this event",
+     "hongseong_2023": "no entrant field committed for this event",
+     "miryang_2022": "no entrant field committed for this event"
+    }
+   },
+   {
+    "entrant": "e1_windcone_oracle_iou",
+    "protocol_entrant": "E1",
+    "name": "E1 wind-cone oracle (upper bound) [IoU-selected]",
+    "resolution_m": 500.0,
+    "per_event": {
+     "yeongdeok_2025": {
+      "roc_auc": {
+       "180min": 1.0,
+       "300min": 0.9928751968936591,
+       "480min": 0.9783730130521273
+      },
+      "iou_at_p_ge_0.5": {
+       "180min": 1.0,
+       "300min": 0.3744360902255639,
+       "480min": 0.43089430894308944
+      },
+      "cells_unscorable_indeterminate": {
+       "180min": 688,
+       "300min": 688,
+       "480min": 50
+      },
+      "arrival_median_abs_error_min": 111.87067807478596,
+      "arrival_median_signed_error_min": -93.40076299212328,
+      "false_safe_rate": 0.04613363979642095,
+      "false_safe_nodes": 281,
+      "nodes_model_calls_safe": 6091,
+      "decision_shift": {
+       "buildings_scored": 19250,
+       "buildings_class_changed": 3360,
+       "buildings_entrant_more_optimistic": 1169,
+       "class_table_entrant_given_truth": {
+        "censored|censored": 13757,
+        "censored|closes_after_5h": 473,
+        "censored|closes_before_5h": 445,
+        "closes_after_5h|censored": 1020,
+        "closes_after_5h|closes_after_5h": 241,
+        "closes_after_5h|closes_before_5h": 251,
+        "closes_before_5h|censored": 350,
+        "closes_before_5h|closes_after_5h": 527,
+        "closes_before_5h|closes_before_5h": 1702,
+        "never|censored": 27,
+        "never|closes_after_5h": 20,
+        "never|closes_before_5h": 247,
+        "never|never": 190
+       },
+       "nodes": 4970,
+       "buildings_routable": 19250,
+       "buildings_total": 19959,
+       "policy": "time-aware search, 600 min budget, 10 min step (measure_last_safe_departure.lsd_search)",
+       "spatial_sampling": "router bilinear (not A5 cell membership); see docs/regrade_three_way.md §A5",
+       "lsd_class_buildings_entrant": {
+        "censored": 14675,
+        "closes_after_5h": 1512,
+        "closes_before_5h": 2579,
+        "never": 484
+       },
+       "lsd_class_buildings_truth": {
+        "censored": 15154,
+        "closes_after_5h": 1261,
+        "closes_before_5h": 2645,
+        "never": 190
+       }
+      }
+     }
+    },
+    "events_not_scored": {
+     "uiseong_andong_2025": "no entrant field committed for this event",
+     "uljin_samcheok_2022": "no entrant field committed for this event",
+     "gangneung_2023": "no entrant field committed for this event",
+     "hongseong_2023": "no entrant field committed for this event",
+     "miryang_2022": "no entrant field committed for this event"
+    }
+   },
+   {
+    "entrant": "e2_rothermel_oracle",
+    "protocol_entrant": "E2",
+    "name": "E2 Rothermel-family oracle (upper bound)",
+    "resolution_m": 500.0,
+    "per_event": {
+     "yeongdeok_2025": {
+      "roc_auc": {
+       "180min": 0.9974907505769441,
+       "300min": 0.9942671892743324,
+       "480min": 0.9795732960033819
+      },
+      "iou_at_p_ge_0.5": {
+       "180min": 0.6450777202072538,
+       "300min": 0.3964968152866242,
+       "480min": 0.4277456647398844
+      },
+      "cells_unscorable_indeterminate": {
+       "180min": 688,
+       "300min": 688,
+       "480min": 50
+      },
+      "arrival_median_abs_error_min": 84.52521213486119,
+      "arrival_median_signed_error_min": 0.0,
+      "false_safe_rate": 0.04163405853811238,
+      "false_safe_nodes": 266,
+      "nodes_model_calls_safe": 6389,
+      "decision_shift": {
+       "buildings_scored": 19250,
+       "buildings_class_changed": 3110,
+       "buildings_entrant_more_optimistic": 1231,
+       "class_table_entrant_given_truth": {
+        "censored|censored": 14039,
+        "censored|closes_after_5h": 502,
+        "censored|closes_before_5h": 396,
+        "closes_after_5h|censored": 766,
+        "closes_after_5h|closes_after_5h": 244,
+        "closes_after_5h|closes_before_5h": 333,
+        "closes_before_5h|censored": 322,
+        "closes_before_5h|closes_after_5h": 495,
+        "closes_before_5h|closes_before_5h": 1667,
+        "never|censored": 27,
+        "never|closes_after_5h": 20,
+        "never|closes_before_5h": 249,
+        "never|never": 190
+       },
+       "nodes": 4970,
+       "buildings_routable": 19250,
+       "buildings_total": 19959,
+       "policy": "time-aware search, 600 min budget, 10 min step (measure_last_safe_departure.lsd_search)",
+       "spatial_sampling": "router bilinear (not A5 cell membership); see docs/regrade_three_way.md §A5",
+       "lsd_class_buildings_entrant": {
+        "censored": 14937,
+        "closes_after_5h": 1343,
+        "closes_before_5h": 2484,
+        "never": 486
+       },
+       "lsd_class_buildings_truth": {
+        "censored": 15154,
+        "closes_after_5h": 1261,
+        "closes_before_5h": 2645,
+        "never": 190
+       }
+      }
+     }
+    },
+    "events_not_scored": {
+     "uiseong_andong_2025": "no entrant field committed for this event",
+     "uljin_samcheok_2022": "no entrant field committed for this event",
+     "gangneung_2023": "no entrant field committed for this event",
+     "hongseong_2023": "no entrant field committed for this event",
+     "miryang_2022": "no entrant field committed for this event"
+    }
+   },
+   {
+    "entrant": "e2_rothermel_oracle_iou",
+    "protocol_entrant": "E2",
+    "name": "E2 Rothermel-family oracle (upper bound) [IoU-selected]",
+    "resolution_m": 500.0,
+    "per_event": {
+     "yeongdeok_2025": {
+      "roc_auc": {
+       "180min": 0.9992307410527859,
+       "300min": 0.992728671379904,
+       "480min": 0.9780978519259105
+      },
+      "iou_at_p_ge_0.5": {
+       "180min": 0.8556701030927835,
+       "300min": 0.3694362017804154,
+       "480min": 0.4298136645962733
+      },
+      "cells_unscorable_indeterminate": {
+       "180min": 688,
+       "300min": 688,
+       "480min": 50
+      },
+      "arrival_median_abs_error_min": 112.30607762208116,
+      "arrival_median_signed_error_min": -93.39166092642918,
+      "false_safe_rate": 0.046007229707525465,
+      "false_safe_nodes": 280,
+      "nodes_model_calls_safe": 6086,
+      "decision_shift": {
+       "buildings_scored": 19250,
+       "buildings_class_changed": 3821,
+       "buildings_entrant_more_optimistic": 1078,
+       "class_table_entrant_given_truth": {
+        "censored|censored": 13208,
+        "censored|closes_after_5h": 382,
+        "censored|closes_before_5h": 456,
+        "closes_after_5h|censored": 1569,
+        "closes_after_5h|closes_after_5h": 329,
+        "closes_after_5h|closes_before_5h": 240,
+        "closes_before_5h|censored": 350,
+        "closes_before_5h|closes_after_5h": 530,
+        "closes_before_5h|closes_before_5h": 1702,
+        "never|censored": 27,
+        "never|closes_after_5h": 20,
+        "never|closes_before_5h": 247,
+        "never|never": 190
+       },
+       "nodes": 4970,
+       "buildings_routable": 19250,
+       "buildings_total": 19959,
+       "policy": "time-aware search, 600 min budget, 10 min step (measure_last_safe_departure.lsd_search)",
+       "spatial_sampling": "router bilinear (not A5 cell membership); see docs/regrade_three_way.md §A5",
+       "lsd_class_buildings_entrant": {
+        "censored": 14046,
+        "closes_after_5h": 2138,
+        "closes_before_5h": 2582,
+        "never": 484
+       },
+       "lsd_class_buildings_truth": {
+        "censored": 15154,
+        "closes_after_5h": 1261,
+        "closes_before_5h": 2645,
+        "never": 190
+       }
+      }
+     }
+    },
+    "events_not_scored": {
+     "uiseong_andong_2025": "no entrant field committed for this event",
+     "uljin_samcheok_2022": "no entrant field committed for this event",
+     "gangneung_2023": "no entrant field committed for this event",
+     "hongseong_2023": "no entrant field committed for this event",
+     "miryang_2022": "no entrant field committed for this event"
+    }
+   },
+   {
+    "entrant": "e3_wfg_canonical",
+    "protocol_entrant": "E3",
+    "name": "E3 WFG canonical (leave-one-complex-out)",
+    "resolution_m": 500.0,
+    "per_event": {
+     "yeongdeok_2025": {
+      "roc_auc": {
+       "180min": 0.9990475841605919,
+       "300min": 0.9990475841605919,
+       "480min": 0.9790703255126162
+      },
+      "iou_at_p_ge_0.5": {
+       "180min": 0.8272425249169435,
+       "300min": 0.6368286445012787,
+       "480min": 0.36059479553903345
+      },
+      "cells_unscorable_indeterminate": {
+       "180min": 688,
+       "300min": 688,
+       "480min": 50
+      },
+      "arrival_median_abs_error_min": 0.0,
+      "arrival_median_signed_error_min": 0.0,
+      "false_safe_rate": 0.183043371722617,
+      "false_safe_nodes": 1494,
+      "nodes_model_calls_safe": 8162,
+      "decision_shift": {
+       "buildings_scored": 19250,
+       "buildings_class_changed": 3898,
+       "buildings_entrant_more_optimistic": 3879,
+       "class_table_entrant_given_truth": {
+        "censored|censored": 15147,
+        "censored|closes_after_5h": 1234,
+        "censored|closes_before_5h": 2645,
+        "closes_after_5h|closes_after_5h": 15,
+        "closes_before_5h|censored": 7,
+        "closes_before_5h|closes_after_5h": 12,
+        "never|never": 190
+       },
+       "nodes": 4970,
+       "buildings_routable": 19250,
+       "buildings_total": 19959,
+       "policy": "time-aware search, 600 min budget, 10 min step (measure_last_safe_departure.lsd_search)",
+       "spatial_sampling": "router bilinear (not A5 cell membership); see docs/regrade_three_way.md §A5",
+       "lsd_class_buildings_entrant": {
+        "censored": 19026,
+        "never": 190,
+        "closes_after_5h": 15,
+        "closes_before_5h": 19
+       },
+       "lsd_class_buildings_truth": {
+        "censored": 15154,
+        "closes_after_5h": 1261,
+        "closes_before_5h": 2645,
+        "never": 190
+       }
+      }
+     }
+    },
+    "events_not_scored": {
+     "uiseong_andong_2025": "no entrant field committed for this event",
+     "uljin_samcheok_2022": "no entrant field committed for this event",
+     "gangneung_2023": "no entrant field committed for this event",
+     "hongseong_2023": "no entrant field committed for this event",
+     "miryang_2022": "no entrant field committed for this event"
+    }
+   }
+  ]
+ },
+ "seconds": 10501.7,
+ "stage": "Stage 2: docs/benchmark/stage2_proxy_rules.md",
+ "note": "Stage 2's own leaderboard. The v0.1 leaderboard.json is a committed artifact and is NOT overwritten by this run; E0 and E3 were re-scored here only to check that they re-derive, and they do, byte for byte apart from the timestamp and commit stamp. Every e1_*/e2_* row is an ORACLE UPPER BOUND, not a score the method achieved."
+}
