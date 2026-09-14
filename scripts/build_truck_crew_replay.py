@@ -453,7 +453,8 @@ def write_outputs(stamp: str, payload: dict) -> list[str]:
         "Per-vehicle trip geometry for `web/truck_crew_replay.html`, written here because a\n"
         "viewer opened in a sandbox cannot save the file the page offers. Rule and caveats:\n"
         "`docs/truck_crew_replay.md`. Coordinates are WGS84 (EPSG:4326), reprojected from the\n"
-        "EPSG:5179 routing geometry. These are model trips on a committed forecast field, not\n"
+        "EPSG:5179 routing geometry. These are model trips on the committed hindcast field\n"
+        "(canonical), not\n"
         "a record of any vehicle movement.\n", encoding="utf-8")
     return sorted(written)
 

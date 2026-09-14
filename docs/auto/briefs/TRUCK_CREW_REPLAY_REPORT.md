@@ -333,6 +333,10 @@ canonical field and **54** on the leak-free one, and **46 are already cut at t =
 
 ## 7.2 Answer 2 — the finals sentence, drafted as a proposal
 
+⚠ **2026-09-14, after this section was written:** HQ chose option (b) — the sentence is
+written from the line-sampled arm. **§8 below supersedes this draft.** Nothing in this
+section is edited; it is kept as the record of what was proposed first.
+
 **⚠ NOT QUOTABLE.** HQ decision 1 says no sentence is quotable yet and this one is a draft
 for HQ to accept, amend or reject. It is written from the 21-trip `no_safe_walk` line as
 instructed, and it states the aborts and the corridor count in the same sentence.
@@ -400,3 +404,137 @@ pushed, its exit code read, and `--assert-head` run before the push. **GitHub's 
 `auto-gates` run on the PR head was then read** (CHARTER §4b, and the lesson of NH-061 that a
 laptop-green tree can be red on the runner). Both results are stated in the PR comment that
 accompanies this push.
+
+# §8. The finals sentence rewritten under HQ's option (b), 2026-09-14 (dated append; §7 is not rewritten)
+
+HQ's round-two decision block in `docs/auto/briefs/TRUCK_CREW_REPLAY_DECISIONS.md` ("Round
+two, after PR #36's report and its two follow-on commits") chose **option (b)**: the finals
+line is written from the `no_safe_walk` population, with the aborts and the
+inadmissible-corridor count in the same sentence, and **from the line-sampled arm**, which
+turns 「cancelled by the rule」 into 「never ordered because the road closes」. The v2 arm stays
+the record. §7.2's draft was written before that decision reached this branch; it stands as
+written and is superseded by this section. Nothing in §7 is edited.
+
+**⚠ NOT QUOTABLE.** This is a proposal for HQ to accept, amend or reject. Nothing is
+registered; `README`, `web/finals.html`, `docs/auto/JUDGE_QA.md`, `docs/NUMBERS.json` and the
+printables kit are untouched by this branch.
+
+> 「2025년 3월 25일 영덕 산불에서, 걸어 나갈 안전한 길이 없는 것으로 분류된 54개 지점(28개 도로
+> 접점, 건물 190동)에 대해, 이 화면이 차량 4대에 실제로 내린 출동 지시는 **11건**이었다. 나머지
+> **17개 접점에는 지시 자체가 나가지 않았다** — 진입로가 그 시점에 이미 닫혀 있었기 때문이다.
+> 나간 11건 가운데 **9건**은 위성이 관측한 화선이 승차 지점에 도달하기 전에 도착했고, **1건**은
+> 이 화면이 스스로 중단 규칙으로 취소했으며, **4건**의 진입로는 관측상 이미 화선 안에 있었다. 이
+> 경로들을 계획한 확산면은 발화 이후 실제로 관측된 기상으로 다시 만든 사후 재구성(hindcast)이다.」
+>
+> EN: 「On the 2025-03-25 영덕 fire, for the 54 points classified as having no safe walk-out
+> (28 road pickups, 190 buildings), this screen issued **11** dispatch orders to four
+> vehicles. The other **17 pickups were never ordered at all**, because the road into them
+> was already closed. Of the 11 that went out, **9** arrived before the satellite-observed
+> fire line reached the pickup, **1** was cancelled by the screen's own abort rule, and **4**
+> drove an ingress corridor the observation places inside the footprint. The spread field
+> these routes were planned on is a hindcast, reconstructed with the weather that actually
+> occurred after ignition.」
+
+**Every number, traced to a committed artifact key.** The population is the same
+pre-registered population as the v2 arm (`docs/truck_crew_replay.md` §1), so its three counts
+are read from the v2 artifact; the trip counts are the line-sampled arm's, under abort rule
+v2, which live in the `v2` sub-object of each run record.
+
+| number | artifact | key |
+|---:|---|---|
+| 54 | `data/processed/truck_crew_replay_v2_yeongdeok.json` | `populations["canonical.no_safe_walk"].rescue_needing_walk_nodes` |
+| 28 | `data/processed/truck_crew_replay_v2_yeongdeok.json` | `populations["canonical.no_safe_walk"].pickups` |
+| 190 | `data/processed/truck_crew_replay_v2_yeongdeok.json` | `populations["canonical.no_safe_walk"].buildings_behind_pickups` |
+| 4 (vehicles) | `data/processed/truck_crew_replay_yeongdeok_v2_linesampled.json` | `runs["canonical.no_safe_walk.k4"].vehicles` |
+| 11 | `…_linesampled.json` | `runs["canonical.no_safe_walk.k4"].v2.trips_ordered` |
+| 17 | derived, `28 − 11` | `populations[…].pickups − runs[…].v2.trips_ordered`; one trip per distinct pickup here (`runs[…].distinct_pickups_ordered` = 11) |
+| 9 | `…_linesampled.json` | `runs["canonical.no_safe_walk.k4"].v2.reached_before_observed_closure` |
+| 1 | `…_linesampled.json` | `runs["canonical.no_safe_walk.k4"].v2.aborted_by_rule` |
+| 4 (corridors) | `…_linesampled.json` | `runs["canonical.no_safe_walk.k4"].v2.trips_with_an_inadmissible_ingress_leg_m0` |
+
+The same four counts are printed in `docs/truck_crew_replay.md` §11, canonical /
+`no_safe_walk` / *k* = 4 / line-sampled row: 11 ordered, 9 reached, 1 not reached, 1 aborted,
+4 inadmissible ingress corridors. The partition is 9 + 1 + 1 = 11.
+
+**What changed against §7.2, and why it is not a softer number.** The v2 arm's sentence said
+21 orders, 8 reached, 12 aborted, 12 bad corridors. The line-sampled arm's says 11 orders, 9
+reached, 1 aborted, 4 bad corridors. The screen does not do more; it *claims* less. The trips
+it would have completed are the same trips (8 → 9), and the ten trips that disappear are the
+ones the committed router had planned down lines it never tested and the abort rule then
+cancelled. The **17 never-ordered pickups** are the honest form of the same fact: for those
+points this tool has nothing to offer, and saying so in the finals line is the point of
+option (b). The 「두 개의 12」 ambiguity §7.2 flagged is gone with the numbers that caused it.
+
+**Two things a reviewer should still attack in this sentence.** (1) 「이미 닫혀 있었기
+때문이다 / because the road into them was already closed」 is the line-sampled router's
+verdict on the *hindcast* field, not an observation: 46 of 4,638 directed edges are cut at
+t = 0 on both fields, and that is what most of the 17 hit — it is a claim about the model, so
+the hindcast clause at the end of the sentence has to stay attached to it. (2) 1 abort is one
+trip; a single trip cannot support any claim about the abort rule working, and §12 of
+`docs/truck_crew_replay.md` says so.
+
+# §9. The rebase onto `auto/dev`, and one thing it turned up, 2026-09-14
+
+HQ's merge path: "Rebase once onto the current green `auto/dev` head, confirm GitHub's
+`auto-gates` is green on the rebased head, then the author merges. No further re-cuts."
+
+Done: the seven commits of `auto/truck-crew-replay-v2` were rebased onto `a13a27b` with
+`git rebase --onto`, giving a linear branch with **zero merge commits** (the merge-commit
+route is what broke `test_the_staleness_threshold_and_its_helper_are_both_graded` last time,
+§5). Two files conflicted, both mechanically, both as HQ predicted:
+
+* `docs/auto/NEEDS_HUMAN.md` — **unioned**. `auto/dev` had added NH-062 at the same position
+  this branch adds NH-061. Both entries are kept, in number order, with the file's own `---`
+  separator between them. Neither entry's text was touched.
+* `docs/artifact_manifest.json` — **regenerated** with `python scripts/build_artifact_manifest.py`,
+  as instructed, never edited by hand. It now reports 143 artifacts / 24.7 MiB, all git-tracked.
+
+**What the regeneration turned up, reported rather than repaired.** The regenerated manifest
+changes one line that has nothing to do with this branch:
+
+    data/processed/routing_demo_leakfree.npz
+      regenerate: "python scripts/run_leakfree_yeongdeok_fold.py"      (before)
+      regenerate: "python scripts/run_forecast_track_f1.py"            (after)
+
+`scripts/run_forecast_track_f1.py` (added by `auto/dev` in the K-SPREAD Stage 2 lap) only
+**reads** that file — it holds the full path as a string literal at line 147 — and
+`_writers()` in `build_artifact_manifest.py` attributes a full-path literal to the first
+script alphabetically (`by_path.setdefault`), so the reader wins over the writer. This is the
+same mis-attribution class this branch worked around in its own build script by assembling
+input paths from parts; the fix on the other side is not this branch's to make, and editing
+the tool's output by hand would be worse. **The committed regeneration command for
+`routing_demo_leakfree.npz` is now wrong, and `auto/dev`'s own manifest was already stale
+(generated at `a070258`, 138 artifacts, before that lap's five new artifacts).** Flagged here
+for HQ rather than silently carried.
+
+No committed artifact was modified, nothing was deleted, nothing was force-regenerated, and
+no file outside this branch's own set was changed by the rebase.
+
+## 9b. What the rebase made red, and how it was cleared
+
+The rebase moved this branch onto a tree that had, in the meantime, registered **WC-022** in
+`docs/auto/withdrawn_claims.json`: the committed spread field may no longer be *described* as
+a forecast (the method's name is untouched, and no number moves). This branch's pages were
+written before that registration, so `make check-withdrawn-claims` — and with it
+`tests/test_withdrawn_claims_registry.py`, two tests — went red on **six** lines that had been
+green when they were written. That is the registry working as designed, not a defect.
+
+Cleared as follows, and the split is deliberate:
+
+* **Five lines were reworded**, on HQ's explicit round-two instruction that the docs name the
+  field a hindcast: `docs/truck_crew_replay.md` §0, §2, §3b, §6a and §10c. Four of those are
+  **pre-registration prose**, so the rewording is recorded in §10c with a dated ⚠ paragraph
+  saying exactly which lines moved and that **no rule, threshold, definition or number changed
+  with them** — only the name of the field. `git diff` on this commit is the check.
+* **One line was licensed, not reworded**: `outputs/truck_crew_replay/20260913T160454Z/README.md:7`,
+  the caption of a committed output directory. CHARTER §3 rule 2 protects it, so it carries a
+  per-line `forbidden-ok: wc022-forecast-field` pragma with the reason above it — the same
+  route WC-022's own `known_stale` rows take for `paper/manuscript.md:533` and
+  `docs/auto/knowledge/FIGURE_STYLE_REFERENCE.md:27`. The caption's prose is byte-unchanged.
+  **The generator (`scripts/build_truck_crew_replay.py`) was corrected**, so any future run
+  writes the hindcast wording and the pragma becomes a debt against one frozen directory
+  rather than a standing exemption.
+
+No `known_stale` row was added to WC-022 for that line: the registry belongs to the lap that
+wrote it, nothing enforces those rows, and inventing an entry in another lap's ledger is worse
+than naming the debt here. **HQ may want the row added when WC-022 is next revised.**

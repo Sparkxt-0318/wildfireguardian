@@ -6,8 +6,8 @@ Built from `docs/auto/briefs/TRUCK_CREW_REPLAY.md` in a laptop session on `auto/
 (harness paused). Docs, `data/processed/`, `web/` and `outputs/` only; nothing registered
 in `docs/NUMBERS.json`, nothing on a judge-facing surface.
 
-This is a **replay of one committed forecast field against one committed observation**,
-shown the way a waiting vehicle crew would read it. It is not a live tool, not a fleet
+This is a **replay of one committed hindcast field (canonical) against one committed
+observation**, shown the way a waiting vehicle crew would read it. It is not a live tool, not a fleet
 plan, and not a rescue count.
 
 ## 1. Population, and what one row is
@@ -51,7 +51,7 @@ snapping, corridor sampling, survival times and grading all come from
 - **Fleet.** *k* ∈ {4, 2, 6} vehicles, assigned round-robin to the four OSM depots
   (119안전센터 / fire-station points from the 2026-07-24 snapshot), all free at the config's
   dispatch delay *D* = 30 min. *k* = 4 is the headline case, one vehicle per depot.
-- **Replay window.** 0 to 720 min, the horizon of the committed forecast field
+- **Replay window.** 0 to 720 min, the horizon of the committed hindcast field (canonical)
   `haz_stack`. The clock on the screen is this window.
 - **Deadline per pickup.** `min(node_survival_time(drive node, vehicle cutoff 0.7), 720)`:
   the earliest forecast minute the pickup's road point reaches the vehicle cutoff, or the
@@ -157,8 +157,9 @@ a vehicle was there, that a road was passable, or that anyone was moved.
   fraction or the seed and the population changes.
 - **One pickup per trip**; no vehicle capacity in persons, no queues, no road capacity, no
   depot staffing, no acknowledgement latency, no traffic.
-- The **deadline is the forecast's**, not the fire's. The forecast field is the committed
-  leave-one-fire-out forward simulation, and its errors are this screen's errors.
+- The **deadline is the field's**, not the fire's. The committed hindcast field
+  (canonical) is the leave-one-fire-out forward simulation, and its errors are this
+  screen's errors.
 - The **observation is FIRMS at 500 m** at six times, graded under declared bounds. It is
   not a fire-line map.
 - **영덕 only**, one fire, one field, one observation. Nothing here transfers to another
@@ -313,7 +314,7 @@ crew actually has:
 - Let **t_i** be the travel minute from the route's start to that point, read off the
   sampler's own construction (it lays points evenly along each segment).
 - Departing at minute *d*, the vehicle is at point *i* at *d + t_i*, so the trip is safe iff
-  `d + t_i < T_i` for every *i*. The forecast field is monotone in time on this scene
+  `d + t_i < T_i` for every *i*. The hindcast field is monotone in time on this scene
   (checked: no cell's probability ever falls), so the binding constraint is
   **`d* = min_i (T_i − t_i)`**, the latest safe departure, and
   **`abort_min = d* − 12`** with 12 the config's responder safety margin.
@@ -537,13 +538,26 @@ this arm's trips is **v2, unchanged** — only the router differs.
 `docs/benchmark/results_v0.1.md` §2 and `docs/auto/briefs/K_SPREAD_BENCHMARK_REPORT.md` §4a
 establish that `forward_simulate` advances each step with ERA5 reanalysis at times after T0, so
 the committed field is a **hindcast** under the project's own protocol. **Throughout this page,
-including §1 to §9 which are pre-registration and appended results and are therefore not
-rewritten, 「the forecast field」 means「the committed hindcast field (canonical)」 and 「the
-forecast's deadline」 means the deadline that field implies.** Per
+including §1 to §9, which are pre-registration and appended results and whose rules,
+thresholds and numbers are therefore never rewritten, every mention of the spread field means 「the committed hindcast field
+(canonical)」, and 「the deadline」 means the deadline that field implies.** Per
 `docs/auto/briefs/HINDCAST_CORRECTION.md` A1 the *method* keeps its name: 「forecast-aware
 routing」 names a router that consumes a time-varying field, which is true however the field was
 made. What is corrected is the description of the **field**, never the method, the classes or
 the keys. This paragraph governs every earlier mention on this page.
+
+⚠ **Amended 2026-09-14, after the line-sampled run, on HQ's explicit instruction**
+(round-two answers: the docs must not describe the field as a prediction issued at
+ignition, and must name it 「the committed hindcast field (canonical)」 wherever they
+name it at all). The four lines in §0, §2, §3b and §6a that carried the two words 「forecast
+field」, and one line in the paragraph above, were **reworded** rather than governed from
+here, because `docs/auto/withdrawn_claims.json` WC-022 — registered after §1 to §9 were
+written — withdraws that description and the repository's gate now refuses it. This is
+recorded rather than done silently, because those sections are pre-registration. **No rule,
+no threshold, no definition and no number was changed by the rewording**: the §6a rule is
+still `d + t_i < T_i` for every *i*, §2's window is still 0 to 720 min, and `git diff` on
+this commit is the check. Every other 「forecast」 on this page is left as written and is
+governed by the paragraph above.
 
 ## 11. Results, line-sampled arm (appended by `scripts/build_truck_crew_replay_linesampled.py`; §10 is not edited after the run)
 
