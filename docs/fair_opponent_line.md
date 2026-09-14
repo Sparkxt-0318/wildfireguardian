@@ -39,6 +39,12 @@ from `data/processed/present_perimeter_arm_budgeted_uiseong_andong_2025.json`:
 > That margin is an **upper bound**: the opponent never re-plans, and the forecast-aware arm
 > is graded on the very field it planned on, so it carries no forecast error.
 
+⚠ The spread field these routes were planned on was reconstructed with the weather
+that actually occurred after ignition (ERA5 reanalysis): a hindcast. A field built
+from the forecast issued at ignition is being scored on the open K-SPREAD-2025
+benchmark; until it is, these numbers measure what the routing method gains from a
+good spread field, not the accuracy of a forecast.
+
 Three things bind that sentence, and they are the same three that bound the number before it
 was chosen:
 

@@ -175,6 +175,17 @@ def build(md_path: Path, out: Path) -> dict:
             style_name = "List Number" if m.group(2)[0].isdigit() else "List Bullet"
             p = doc.add_paragraph(style=style_name); add_runs(p, m.group(3), cite_map, gaps)
             body_words += len(m.group(3).split()); i += 1; continue
+        # An HTML-comment-only line is MARKUP, not manuscript prose: skip it before the
+        # paragraph branch below, which would otherwise render it into the .docx as
+        # visible text AND count its tokens in body_words. The first such line is the
+        # per-line `forbidden-ok:` pragma that licenses §4.6's F6 caption under WC-022
+        # (2026-09-14): docs/auto/withdrawn_claims.json registers 「forecast field」, the
+        # caption is frozen because paper/ is the author's to rewrite, and CHARTER §3.5c
+        # says the frozen line is licensed rather than reworded. Counting a pragma as
+        # four words of the manuscript would have moved body_words 9155 -> 9159 and put
+        # STATE.json out of step with a manuscript whose PROSE did not change.
+        if re.match(r"^\s*<!--.*-->\s*$", line):
+            i += 1; continue
         if line.strip() == "":
             i += 1; continue
         # paragraph: join following non-empty, non-special lines

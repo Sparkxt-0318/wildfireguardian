@@ -621,6 +621,85 @@
         }
       ],
       "limits": "A copy-paste ratchet, not a claim detector (docs/withdrawn_claims.md §4 and §5c). Three limits are known and measured rather than supposed. (1) A REWORDED assertion escapes: 「2 origins simply cannot walk out」 carries none of this pattern and would pass. (2) The KOREAN spelling is deliberately NOT registered. 「안전한 보행 경로가 없다」 is live in docs/auto/JUDGE_QA_PENDING.md as the card's own DESCRIPTION of the claim it is correcting, and registering it would forbid the correction from naming what it corrects -- the same trap WFG-266's done-when (d) fell into and docs/figure_legend_claims.md measured. (3) The pattern cannot tell an ASSERTION from a RECORD, which is why three record lines in non-record files need a per-line pragma; if a later lap rewrites one of those lines and drops the pragma, `make verify` goes red on a file whose content is fine. That is the intended failure direction and paper/GAPS.md line 116 is the likeliest to hit it, because the paper routine rewrites that ledger."
+    },
+    {
+      "id": "WC-022",
+      "title": "the committed spread field is a forecast, so the routing headlines measure what a forecast buys",
+      "claim": "Every committed spread field in this repository, and every routing headline built on one (42 of 458 영덕, 91 of 368 의성·안동, the 27 margin, the 1,606-node 주건물 fold, the committed dispatch sheets), was produced by `forward_simulate`, which advances each step with the NEXT step's real weather — ERA5 reanalysis at times AFTER T0 (`src/wildfireguardian/spread_v2/forward_sim.py`, steps 2 and 5). docs/benchmark/results_v0.1.md §2 established this on 2026-09-13 and put E3 WFG in the benchmark's HINDCAST track under the protocol this project itself wrote. The field is therefore a reconstruction of what the fire did with the weather that actually occurred, not a forecast anyone could have issued at ignition. ⚠ WHAT IS WITHDRAWN IS THE DESCRIPTION OF THE FIELD, NOT THE NAME OF THE METHOD. 「forecast-aware routing」 / 「시간 인지 경로」 / 「예보 인지 경로」 names a router that consumes a time-varying hazard field, which is true however the field was made; the author's brief (docs/auto/briefs/HINDCAST_CORRECTION.md A1) keeps the method name, the classes (`naive_into_FA_safe`), the keys and the tests unchanged, and NO NUMBER MOVES. What may no longer be said is that the routes were planned on a forecast, or that a routing headline measures a forecast's accuracy.",
+      "withdrawn_by": "The author, via the HQ session's brief docs/auto/briefs/HINDCAST_CORRECTION.md, written 2026-09-14 after docs/benchmark/results_v0.1.md §2. Part A of that brief fixes the wording on the judge surfaces and is this registration's lap; Part B builds the forecast-track field (F1 frozen-weather, F2 KMA 동네예보) that would make the word 「forecast」 true. ⚠ THIS ENTRY IS MOSTLY A FORWARD RATCHET AND SAYING SO IS THE POINT. Two of its three spellings have ZERO live instances in the tree at the commit that registers them, measured rather than assumed: the repository never actually wrote 「planned on the forecast」 or 「예보로 계획」. It described the field honestly as a 전방 시뮬레이션 / forward simulation and then let the reader supply 「forecast」. So this registration does not clean up a spelling that spread — it stops one that has not been written yet, at the exact moment the project learned why it must never be. The one spelling with live instances is 「forecast field」.",
+      "artifact": "The sentence below added in the SAME BLOCK as every routing headline on the surfaces the brief names (the WC-013 rule, never one screen away), in the same commit as this entry: README.md — the multi-region table's note (§Round 3), the Round-4 lead blockquote, §5 창의성 item ①, and the fair-opponent ladder bullet that carries the 27; scripts/finals.template.html — the 지역별 비교 table's `note` element, the same card that prints 42 and 91, rebuilt into web/finals.html by `make finals`; docs/auto/JUDGE_QA.md — Q19, Q19a, Q29a and Q36; docs/auto/DEMO_SCRIPT_5MIN.md — a new ⚠ answer block in 3막, beside the numbers and NOT in the timed spoken lines; docs/auto/finals/RELATED_WORK_PANEL.md; docs/creativity_card.md (the method table's item 1); docs/fair_opponent_line.md §2; docs/rescue_routing_real_hazard.md §3; outputs/dispatch_real_hazard/README.md. ⚠ Q29a is tier T0 and spoken from memory, and tests/test_creativity_card.py::test_the_card_states_no_number_about_this_repository forbids any multi-digit run in its draft, so THERE ALONE the benchmark is named 「공개 벤치마크」 without its year — the brief directed this explicitly. paper/ is out of scope by the author's decision (they rewrite it later), and README.md's 「### Abstract (draft)」 tracks paper/manuscript.md, so the 42 in that draft and the TL;DR 「Headline result」 bullet frozen by NH-054 option D (「Do nothing before 2026-10-24」) do NOT carry the sentence. Both are named here so the debt is visible rather than forgotten.",
+      "say_instead": "KO: 「이 경로들을 계획한 확산면은 발화 이후 실제로 관측된 기상(ERA5 재분석)으로 다시 만든 것, 즉 사후 재구성(hindcast)입니다. 발화 시점에 발표된 예보로 만든 확산면은 공개 벤치마크 K-SPREAD-2025에서 채점 중이며, 그 결과가 나오기 전까지 이 수치는 「좋은 확산면이 주어졌을 때 경로 방법이 얻는 것」이지 「예보의 정확도」가 아닙니다.」  EN: 「The spread field these routes were planned on was reconstructed with the weather that actually occurred after ignition (ERA5 reanalysis): a hindcast. A field built from the forecast issued at ignition is being scored on the open K-SPREAD-2025 benchmark; until it is, these numbers measure what the routing method gains from a good spread field, not the accuracy of a forecast.」  ⚠ Never the overcorrection either. The field is not fabricated and the routing result is not void: the router, the network, the refuges and the grading against the observed footprint are what they always were, and the benchmark protocol this project wrote is what classified its own entrant. What is refused is the word 「forecast」 as a description of the COMMITTED field, and any reading of 42 / 91 / 27 / 1,606 as a forecast's accuracy. The method's name is untouched (A1) and no number moves.",
+      "spellings": [
+        {
+          "pattern": "forecast[\\s*]{1,6}field",
+          "token": "wc022-forecast-field",
+          "flags": "i",
+          "why": "The one spelling of this claim with LIVE instances, measured at registration: paper/manuscript.md:533 (「as the forecast field is dilated」, the F6 caption) and docs/present_perimeter_yeongdeok.md:334 (「the arm is scored against the model's own forecast field」). Both call the COMMITTED field a forecast, which is the withdrawn description. The `[\\s*]{1,6}` between the two words is the load-bearing part and is not decoration: WC-020 and WC-021 were each priced by a contiguous grep that could not see 「**forecast** field」, and this registry now treats bold tolerance as mandatory. Anchored on the two words ADJACENT on purpose — 「forecast-aware」 is the method name the author's A1 keeps, 「a good spread field」 is the repaired sentence's own wording, and a pattern that caught either would forbid the fix, which is exactly the trap WC-021's `why` records this registry falling into before."
+        },
+        {
+          "pattern": "planned\\s+on\\s+(?:a|the)[\\s*]{1,6}forecast",
+          "token": "wc022-planned-on-the-forecast",
+          "flags": "i",
+          "why": "⚠ A FORWARD ratchet: ZERO live instances at the commit that registers it, and the probe below is the AUTHOR'S OWN naming of the claim in docs/auto/briefs/HINDCAST_CORRECTION.md, not a sentence the repository ever asserted. That is a real difference from every other entry in this file and it is stated rather than smoothed over: this pattern has never caught anything and its first catch will be its first test. Requires 「a」 or 「the」 between 「planned on」 and 「forecast」 on purpose — the repaired sentence itself opens 「The spread field these routes were planned on was reconstructed…」, and a bare `planned\\s+on` would forbid the fix on every surface that carries it."
+        },
+        {
+          "pattern": "예보\\s*로[\\s*]{0,4}계획",
+          "token": "wc022-yebo-ro-gyehoek",
+          "flags": "",
+          "why": "⚠ The Korean half, and also a FORWARD ratchet with ZERO live instances at registration. Anchored on 「예보로 …계획」 and NOT on 「예보」 alone, for the reason A1 gives: 「예보 인지 경로」 is the method's Korean name and stays, and the repaired sentence itself contains 「발화 시점에 발표된 예보로 만든 확산면」 — a pattern on 「예보로」 alone would forbid both the method name and the fix. `[\\s*]{0,4}` carries the same bold tolerance as the entry's first spelling."
+        }
+      ],
+      "known_stale": [
+        {
+          "path": "outputs/dispatch_real_hazard/20260912T153043Z/**",
+          "dated": "2026-09-14",
+          "licensed_by": "none needed — the sheets are .html but carry no registered spelling; this row records the STALE WORDING, not a gate hit",
+          "why": "The 86 clusters' A4 sheets, broadcast scripts and SMS drafts were printed on 2026-09-12 and carry the pre-fix Korean box describing the field as 「실제 확산면(관측 기반 전방 시뮬레이션)」 with no mention that the weather driving it is post-T0 reanalysis. CHARTER §3 rule 2 forbids regenerating a committed artifact and §3.5c (NH-042 A) says registration wins and the frozen artifact is recorded here instead. The directory's README.md carries the new sentence and names this exception; the sheets stay byte-unchanged as the record."
+        },
+        {
+          "path": "paper/manuscript.md:533",
+          "dated": "2026-09-14",
+          "licensed_by": "wc022-forecast-field",
+          "why": "The F6 caption's 「as the forecast field is dilated」. paper/ is out of scope by the author's own decision in the brief, so the line is licensed by a pragma on the line ABOVE it, leaving the caption prose byte-unchanged. A DEBT, not a pass: when the author rewrites the manuscript the pragma should go and the wording should change."
+        },
+        {
+          "path": "docs/present_perimeter_yeongdeok.md:334",
+          "dated": "2026-09-14",
+          "licensed_by": "wc022-forecast-field",
+          "why": "「the arm is scored against the model's own forecast field」 — an honest oracle-gap caveat that happens to use the withdrawn description. Not on the brief's surface list, so this lap licenses rather than rewords a document the author did not ask it to touch."
+        },
+        {
+          "path": "docs/vehicle_pickup_intervention.md:40",
+          "dated": "2026-09-14",
+          "licensed_by": "wc022-forecast-field",
+          "why": "「any hazard other than the committed forecast field」 — the plainest surviving instance of the withdrawn description, and the one this lap most nearly missed. ⚠ It was NOT in the set this lap predicted before running the checker; it was found only because registration reads all 1,057 gated files. That is the whole argument for CHARTER §3.5c and it is recorded here as evidence rather than asserted."
+        },
+        {
+          "path": "docs/auto/knowledge/FIGURE_STYLE_REFERENCE.md:27",
+          "dated": "2026-09-14",
+          "licensed_by": "wc022-forecast-field",
+          "why": "F8_routing_map's style note, 「YlOrRd forecast field」, describing what the committed figure draws. Licensed rather than reworded: CHARTER §3 rule 2 protects the tracked figure and this line describes it."
+        },
+        {
+          "path": "docs/auto/research/IEEE_PLAN.md:37",
+          "dated": "2026-09-14",
+          "licensed_by": "wc022-forecast-field",
+          "why": "G9's row, 「time-dependent severance under a forecast field」, describing a PLANNED IEEE study rather than the committed field. Arguably outside this claim, and licensed rather than reworded for exactly that reason — the pattern cannot tell a plan from an assertion, which the entry's `limits` states."
+        },
+        {
+          "path": "docs/auto/research/WEEKLY_2026-W37.md:78",
+          "dated": "2026-09-14",
+          "licensed_by": "wc022-forecast-field",
+          "why": "The same sentence in the research lap's weekly, 「under a moving forecast field」. Same class as IEEE_PLAN.md:37."
+        },
+        {
+          "path": "docs/auto/briefs/HINDCAST_CORRECTION.md:44-46",
+          "dated": "2026-09-14",
+          "licensed_by": "wc022-planned-on-the-forecast, wc022-yebo-ro-gyehoek, wc022-forecast-field",
+          "why": "The author's own brief names all three spellings in order to forbid them, and docs/auto/briefs/ is NOT one of the registry's `record_prefixes`, so the file is gated like any other document. The same 「a record line in a non-record file」 case WC-021's `limits` describes, and the reason the per-line pragma exists."
+        }
+      ],
+      "limits": "A copy-paste ratchet, not a claim detector (docs/withdrawn_claims.md §4 and §5c), and this entry is weaker than most in the file for three measured reasons. (1) TWO OF THE THREE SPELLINGS HAVE NEVER MATCHED ANYTHING. The claim this entry withdraws was never carried by a distinctive phrase; it was carried by the READER'S inference from an honest 「전방 시뮬레이션」 plus a method called 「forecast-aware」. A registry of spellings cannot gate an inference, and no pattern here would have caught the repository's actual failure, which was an omission rather than a sentence. The sentence added to the surfaces is what closes that, and only the WC-013 same-block rule keeps it closed. (2) THE LINE-BREAK HOLE APPLIES. `check_withdrawn_claims.py` scans line by line, so 「the forecast\\nfield」 wrapped across two lines escapes `wc022-forecast-field` exactly as 「출동 지시서는\\n아직 없습니다」 escaped its pattern in docs/withdrawn_claims.md §4 item 7. Markdown in this repository is hard-wrapped at about 90 columns, so this is a live risk and not a theoretical one. (3) A REWORDING ESCAPES, as always: 「the routes were planned on what the model predicted」 carries none of these three patterns and would pass. (4) THE SET OF LIVE INSTANCES WAS LARGER THAN THIS LAP PREDICTED. Before running the checker the lap expected 「forecast field」 in two files (paper/manuscript.md and docs/present_perimeter_yeongdeok.md); registration found it in SIX, the extra four being docs/vehicle_pickup_intervention.md, docs/auto/knowledge/FIGURE_STYLE_REFERENCE.md, docs/auto/research/IEEE_PLAN.md and docs/auto/research/WEEKLY_2026-W37.md. The lap's own grep had missed them. That is the measured case for registering a spelling instead of fixing the files a lap can think of, restated with this lap's own numbers rather than WFG-133's."
     }
   ]
 }

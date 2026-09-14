@@ -41,9 +41,9 @@ the timed spoken lines), `docs/auto/finals/RELATED_WORK_PANEL.md`, `docs/creativ
 `outputs/dispatch_real_hazard/`. `paper/` is out of scope (the author rewrites it later).
 
 **A3. Register it.** One new entry in `docs/auto/withdrawn_claims.json`, id the next WC
-number, claim 「the routes were planned on a forecast」 with the pre-fix wording quoted from
-each surface, `say_instead` = the sentence above, spellings that catch 「예보로 계획」 /
-「planned on the forecast」 / 「forecast field」 used as a description of the committed field
+number, claim 「the routes were planned on a forecast」 with the pre-fix wording quoted from  <!-- forbidden-ok: wc022-planned-on-the-forecast -->
+each surface, `say_instead` = the sentence above, spellings that catch 「예보로 계획」 /  <!-- forbidden-ok: wc022-yebo-ro-gyehoek -->
+「planned on the forecast」 / 「forecast field」 used as a description of the committed field  <!-- forbidden-ok: wc022-forecast-field, wc022-planned-on-the-forecast -->
 (not the method name). Frozen artifacts that carry the old wording (dispatch sheets, the
 printed kit already stamped) get the dated known-stale exception CHARTER §3.5c allows.
 Re-run `check_withdrawn_claims.py`; rebuild the printables kit at a new stamp; rebuild the

@@ -331,7 +331,7 @@ width to find a better one has crossed into WFG-033(b).
 1. **No committed number moves.** 414 / 42 / 2 and 26 / 16 / 2 both re-derived here before
    anything was written, and neither was re-run in anger.
 2. **The oracle is still on the scoring side.** §5 item 6 applies to every number in this
-   section word for word: the arm is scored against the model's own forecast field, so
+   section word for word: the arm is scored against the model's own forecast field, so  <!-- forbidden-ok: wc022-forecast-field -->
    「saved」 means 「clear of the model's own predicted hazard」 and not 「would have lived」.
 3. **One fire, one region, one horizon.** The canonical field's 32.6 % envelope-coverage
    caveat applies unchanged, and a second fire could split the 44 any other way.

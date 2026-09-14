@@ -157,6 +157,16 @@ _ITEM_REF = re.compile(r"[0-9]+\s*(?:번|-\s*구분)")
 #: The five present-perimeter margin values NH-032, NH-034 and NH-052 are open about.
 #: Digit-guarded, so 2025 and NH-053 are not false positives.
 _MARGIN_VALUE = re.compile(r"(?<![0-9])(?:9|27|5|19|86)(?![0-9])")
+#: ⚠ Digits that are part of a DATASET or BENCHMARK name, stripped before the margin
+#: scan for the same reason ``_ITEM_REF`` is: they are not quantities and no lap can
+#: write the hindcast disclosure (WC-022, 2026-09-14) without them. 「ERA5」 ends in a
+#: bare 5 and 「5」 is a registered margin value, so the sentence the author's brief
+#: requires in this very block would otherwise be unwritable.
+#: The list is EXACT LITERALS and never a general year or digit shape: a rule like
+#: `\d{4}` would let a real margin through the moment one looked like a year, and the
+#: whole point of this gate is that 27 and 5 are exactly the values NH-032/NH-034 are
+#: open on. 「27」 and 「86」 remain red anywhere in this block, inside a name or not.
+_PROPER_NAME = re.compile(r"ERA5|K-SPREAD-2025")
 #: The headline number. Every surface that states it owes both binding caveats
 #: (``tests/test_readme_round4.py``); the lead block's answer is not to state it.
 _HEADLINE = re.compile(r"(?<![0-9])42(?![0-9])")
@@ -181,6 +191,7 @@ def test_the_lead_block_makes_an_existence_claim_and_not_a_comparison(lead: str)
     comparisons this repository has already had to narrow once.
     """
     without_item_refs = _ITEM_REF.sub(" ", lead)
+    without_item_refs = _PROPER_NAME.sub(" ", without_item_refs)
     assert not _MARGIN_VALUE.search(without_item_refs), (
         "the Round-4 lead block states a present-perimeter margin value. NH-032, NH-034 "
         "and NH-052 are open on which of them is canonical, and until they are answered "

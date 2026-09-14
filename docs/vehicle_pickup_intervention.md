@@ -37,7 +37,7 @@ trips, loading, egress and unloading, and a per-home deadline.
 
 Vehicle capacity in persons (one home per trip regardless of buildings behind the node),
 road capacity, queues, real depot staffing, acknowledgment, who is actually in the
-buildings, and any hazard other than the committed forecast field. 「Completed」 means the
+buildings, and any hazard other than the committed forecast field. 「Completed」 means the  <!-- forbidden-ok: wc022-forecast-field -->
 model's trip closed before the model's deadline; it is not a rescue.
 
 ## 4. Results

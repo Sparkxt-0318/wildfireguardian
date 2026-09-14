@@ -530,6 +530,7 @@ of this fire's growth against this road network, and no comparable grid runs on 
 
 ### 4.6 Sensitivity and controls
 
+<!-- forbidden-ok: wc022-forecast-field -->
 ![Sensitivity on the canonical Yeongdeok field. Left: the share of origins whose fire-blind route fails, against the evacuation-time budget, with a flat-timing control. Centre: origins safe only on the forecast-aware route, against the slope-sampling interval, with a flat control. Right: peak P(ignite) along one committed route pair as the forecast field is dilated, with the pedestrian cutoff and the radius at which the forecast-aware route first crosses it. ⚠ Scope: that pair is a real pipeline output but its origin differs from the committed `routing_demo.json` headline case, so both artifacts state their result as robustness of the routing *method* and not a restatement of the headline. The dilation and translation axes and the Monte-Carlo figure quoted in the text come from the committed artifacts `forecast_robustness.json` and `dilation_perturbation.json`, which do not yet carry registry keys of their own; they are flagged here as artifact values rather than registered ones.](figures/F6_sensitivity.png)
 
 **The evacuation-time budget is the binding assumption, not the terrain.** Sweeping the

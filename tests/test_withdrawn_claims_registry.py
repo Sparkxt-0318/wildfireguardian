@@ -666,6 +666,35 @@ def test_the_registry_holds_nothing_the_families_do_not():
         (r"no\s+safe\s+walking\s+route\s*\*{0,2}\s*at\s+all",
          "wc021-no-safe-walking-route-at-all"),
     }
+
+    #: WC-022, 2026-09-14. A family of three about WHAT DROVE OUR OWN FIELD, and it is
+    #: unlike every family above it in one respect that must not be smoothed over: two of
+    #: its three spellings had ZERO live instances when they were registered. The claim
+    #: 「the routes were planned on a forecast」 was never written in this repository. It
+    #: was IMPLIED -- honestly-described 전방 시뮬레이션 output, plus a method correctly
+    #: named 「forecast-aware」, and the reader supplied the rest -- until
+    #: docs/benchmark/results_v0.1.md §2 measured that `forward_simulate` advances each
+    #: step with ERA5 reanalysis at times AFTER T0 and put the project's own entrant in
+    #: its own benchmark's HINDCAST track.
+    #: ⚠ So this family gates a SPELLING that was never shipped, which is a forward
+    #: ratchet and not a cleanup, and no lap may quote it as evidence that the hindcast
+    #: claim is caught. What closes that claim is the sentence now standing in the same
+    #: block as every routing headline (the WC-013 rule); this family only stops the
+    #: short spelling from being written later.
+    #: ⚠ The one spelling with live instances is 「forecast field」, and registration found
+    #: it in SIX files where the lap's own grep had predicted TWO -- including
+    #: docs/vehicle_pickup_intervention.md:40, the plainest of them all. That miss is the
+    #: measured case for this whole registry and WC-022's `limits` records it with those
+    #: numbers.
+    #: ⚠ All three are anchored so they cannot forbid the fix: 「forecast-aware」 is the
+    #: method name the author's A1 keeps, 「a good spread field」 and 「예보로 만든 확산면」
+    #: are the repaired sentence's own words, and 「planned on」 alone opens the repaired
+    #: sentence itself. WC-021 fell into exactly that trap and its `why` says so.
+    how_our_own_field_was_driven = {
+        (r"forecast[\s*]{1,6}field", "wc022-forecast-field"),
+        (r"planned\s+on\s+(?:a|the)[\s*]{1,6}forecast", "wc022-planned-on-the-forecast"),
+        (r"예보\s*로[\s*]{0,4}계획", "wc022-yebo-ro-gyehoek"),
+    }
     extra = ({(s["pattern"], s["token"]) for _cid, s in SPELLINGS}
              - in_files - reviewer_found - reachability - booth_kit_contents
              - dispatch_exclusion_reason - someone_elses_system
@@ -674,7 +703,9 @@ def test_the_registry_holds_nothing_the_families_do_not():
              - a_reading_of_our_own_measurement - a_claim_about_our_own_machinery
              - our_own_null_s_centre - what_the_null_gap_is_attributed_to
              - an_experiment_we_had_not_yet_run
-             - what_our_own_search_failed_to_find)
+
+             - what_our_own_search_failed_to_find
+             - how_our_own_field_was_driven)
     assert extra == set(), (
         "the registry has grown past the families it absorbed. That is allowed, and when "
         "you do it, add the new spelling to this test's expected set and say in "
@@ -1167,6 +1198,28 @@ def _probe_sentence(pattern: str) -> str:
             "forecast-aware policy, and **2** have no safe walking route at all, on a "
             "network covering **32.6 %** of the predicted fire core whose bias runs in "
             "an unmeasured direction.",
+        # WC-022, 2026-09-14. ⚠ READ THE PROVENANCE OF THESE THREE BEFORE TRUSTING THEM,
+        # because it is NOT the same for all three and the difference is the entry's own
+        # confession. Only the first is a sentence the repository ASSERTED and withdrew;
+        # the other two are the AUTHOR'S OWN naming of a claim the repository never wrote
+        # down, lifted verbatim from docs/auto/briefs/HINDCAST_CORRECTION.md at a070258.
+        # WC-022 is mostly a FORWARD ratchet and its `withdrawn_by` says so in those words:
+        # the project's real failure here was an OMISSION, not a spelling, so two of these
+        # patterns have never matched an assertion and their first catch will be their
+        # first test. A probe cannot make a pattern more sensitive than the claim it was
+        # cut from, and this comment exists so no later lap quotes these three as evidence
+        # that the hindcast claim is gated. It is the sentence on the surfaces that closes
+        # it; the registry only stops the spelling coming back.
+        r"forecast[\s*]{1,6}field":
+            "Right: peak P(ignite) along one committed route pair as the forecast field "
+            "is dilated, with the pedestrian cutoff and the radius at which the "
+            "forecast-aware route first crosses it.",
+        r"planned\s+on\s+(?:a|the)[\s*]{1,6}forecast":
+            "number, claim 「the routes were planned on a forecast」 with the pre-fix "
+            "wording quoted from",
+        r"예보\s*로[\s*]{0,4}계획":
+            "each surface, `say_instead` = the sentence above, spellings that catch "
+            "「예보로 계획」 /",
     }
     assert pattern in probes, (
         f"no probe sentence for a newly registered pattern:\n  {pattern}\n"

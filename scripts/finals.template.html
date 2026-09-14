@@ -1819,7 +1819,8 @@ function renderEvidence() {
       hel('td', null, tr, String(r.shelter_pois));
     }
     hel('p', 'note', c,
-      '커버리지·대피소 밀도 같은 공변량이 지역마다 다르므로 이 표는 순위가 아닙니다. 커버리지가 낮은 행의 절대 수치는 그 커버리지 안에서의 값입니다.');
+      '커버리지·대피소 밀도 같은 공변량이 지역마다 다르므로 이 표는 순위가 아닙니다. 커버리지가 낮은 행의 절대 수치는 그 커버리지 안에서의 값입니다.'
+      + ' 이 경로들을 계획한 확산면은 발화 이후 실제로 관측된 기상(ERA5 재분석)으로 다시 만든 것, 즉 사후 재구성(hindcast)입니다. 발화 시점에 발표된 예보로 만든 확산면은 공개 벤치마크 K-SPREAD-2025에서 채점 중이며, 그 결과가 나오기 전까지 이 수치는 「좋은 확산면이 주어졌을 때 경로 방법이 얻는 것」이지 「예보의 정확도」가 아닙니다.');
     provBlock(c, ['data/processed/multi_region_comparison.json :: regions[*]',
       'data/processed/real_roads_real_hazard_*.json :: arms.slope_digraph_canonical.counts']);
     const btn = hel('button', 'srcbtn', k, T('src'));

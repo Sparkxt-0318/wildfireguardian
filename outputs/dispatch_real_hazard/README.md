@@ -27,6 +27,15 @@ do NOT show: `docs/rescue_routing_real_hazard.md`.
 - **Nothing synthetic drives a number:** no synthetic terrain, no synthetic envelope,
   no synthetic coastline. Nothing was sent (SMS demo mode, no credentials).
 
+⚠ The spread field these routes were planned on was reconstructed with the weather
+that actually occurred after ignition (ERA5 reanalysis): a hindcast. A field built
+from the forecast issued at ignition is being scored on the open K-SPREAD-2025
+benchmark; until it is, these numbers measure what the routing method gains from a
+good spread field, not the accuracy of a forecast.
+The committed sheets under `20260912T153043Z/` were printed before this
+sentence existed and are kept byte-unchanged as the record; the standing
+exception is `WC-022` in `docs/auto/withdrawn_claims.json`.
+
 ## Relationship to the other dispatch directories
 
 `outputs/dispatch/` and `outputs/dispatch_full/` were made on a **synthetic** hazard

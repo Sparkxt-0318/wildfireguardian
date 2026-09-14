@@ -681,6 +681,14 @@ def test_the_readme_block_holds_the_same_register_as_the_card() -> None:
     # stale headline count would be read first — and only the card-ID shape is
     # removed, so 「265」 or 「33」 in this block is still red.
     scanned = re.sub(r"Q\d+[a-z]?", "", block)
+    # ⚠ A SECOND measured false positive, excluded on the same principle and no
+    # wider: the hindcast disclosure this block now carries (WC-022, 2026-09-14)
+    # names the open benchmark 「K-SPREAD-2025」, whose 2025 is part of a PROPER
+    # NAME and not a count of anything this repository holds. The exclusion is the
+    # exact literal and never a bare `\d{4}` year shape: a year-shaped exclusion
+    # would let a real stale count through the moment one happened to look like a
+    # year, which is the defect class WFG-117 and WFG-178 are both instances of.
+    scanned = scanned.replace("K-SPREAD-2025", "")
     counts = re.findall(r"\d{2,}", scanned)
     counts += re.findall(r"\d\s*(?:" + _OBJECT_COUNTER + r")", scanned)
     counts += KO_COUNT_RE.findall(scanned)

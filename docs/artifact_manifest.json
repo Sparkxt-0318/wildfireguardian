@@ -1,6 +1,6 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "1dc17176c9d7b5c3a444fce1c96f6f989587172c",
+  "generated_at_git_commit": "a070258c47573ed5077dc375b85d5e361998041c",
   "n_artifacts": 138,
   "total_bytes": 21163102,
   "total_mib": 20.18,

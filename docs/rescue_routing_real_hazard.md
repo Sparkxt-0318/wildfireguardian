@@ -51,6 +51,12 @@ within one page; nothing sent).
 | refuges (OSM) / rescue-reachable | 50 / 28 | `rrh_n_refuges`, `rrh_n_refuges_rescue_reachable` |
 | dispatch clusters (eps 500 m) | 86 | `rrh_n_clusters` |
 
+⚠ The spread field these routes were planned on was reconstructed with the weather
+that actually occurred after ignition (ERA5 reanalysis): a hindcast. A field built
+from the forecast issued at ignition is being scored on the open K-SPREAD-2025
+benchmark; until it is, these numbers measure what the routing method gains from a
+good spread field, not the accuracy of a forecast.
+
 Of the 134 needing rescue, 133 are the immobile draw (config `immobile_fraction` 0.3)
 and 1 is a mobile resident with no safe pedestrian route: on this hazard, at this
 budget, the walk-out question is almost entirely decided by mobility, not by the fire.
