@@ -12,6 +12,14 @@ the frozen-weather entrant is **F1**, the KMA-forecast one is **F3**, and Stage 
 this page does not build. An earlier draft of this page called them E4a and E4b; those
 names are dead and appear nowhere in the scripts.
 
+⚠ **Ownership, per Stage 2's 「Ownership split」 (HQ, 2026-09-15).** This session owns **F1**
+only. **F2** (observed mountain-station wind), the **E1/E2 proxies** and **F3** belong to the
+Stage 2 agent. `scripts/run_forecast_track_f3_kma.py` here is a **refusing stub** written
+before that split existed; it builds nothing and its owner may adopt, replace or delete it.
+The split also settles the method question this page raised: F1 reuses E3's fitted model,
+and a one-off refit digest counts as *evidence* of that reuse rather than as the artifact —
+which is exactly how §2's check is implemented.
+
 ## 1. Why this page exists
 
 `docs/benchmark/results_v0.1.md` §2 measured that `forward_simulate` advances each step

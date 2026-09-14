@@ -20,6 +20,14 @@ quietly used it would reproduce the defect this whole correction exists to fix, 
 wearing the word 「forecast」 in its filename.
 
     python scripts/run_forecast_track_f3_kma.py
+
+⚠ OWNERSHIP: F3 IS NOT THIS SESSION'S. K_SPREAD_STAGE2.md's 「Ownership split」 (HQ,
+2026-09-15) gives F2, the E1/E2 proxies and F3 to the other session; this session owns F1
+only. This file is a REFUSING STUB written before that split existed, and it is left in
+place rather than deleted (CHARTER §3 rule 7) because the requirement it encodes is real:
+no ERA5 fallback, and the 동네예보 mapping must be written against the archive's actual
+schema. The F3 owner should adopt, replace or delete it as they see fit. It writes no
+entrant bundle, so the split's 「first writer wins」 rule is not engaged by its existence.
 """
 from __future__ import annotations
 
