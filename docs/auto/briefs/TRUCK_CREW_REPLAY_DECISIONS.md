@@ -44,3 +44,18 @@ was not followed by the laptop sessions, and that is recorded here as the lesson
 ## Registration
 Nothing from the replay is registered or placed on a judge-facing surface by the build
 agent. Registration, if any, is an HQ action after the v2 numbers exist.
+
+## Round two (2026-09-14, after PR #36's report and its two follow-on commits)
+
+- **Sentence: option (b).** The finals line is written from the 21-trip `no_safe_walk`
+  population, with the aborts and the inadmissible-corridor count in the same sentence, and
+  now from the **line-sampled arm** (`rescuer_route_line_sampled`), which turns 「cancelled
+  by the rule」 into 「never ordered because the road closes」. Keep the v2 arm as the record.
+- **Merge path.** PR #36 is behind `auto/dev` and conflicts on `docs/artifact_manifest.json`
+  and `docs/auto/NEEDS_HUMAN.md` (both mechanical: regenerate the manifest, union the ledger).
+  Rebase once onto the current green `auto/dev` head, confirm GitHub's `auto-gates` is green
+  on the rebased head, then the author merges. No further re-cuts after that.
+- **Abort rule.** No third rebuild. §9's finding stands: the field has almost no dynamic
+  road closure, so the rule has little to fire on; the line-sampled router is the fix and
+  the rest is a property of the field, to be revisited when Stage 2 fields exist.
+- **Registration** stays an HQ action after the merge.
