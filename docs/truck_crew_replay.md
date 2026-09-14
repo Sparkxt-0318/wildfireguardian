@@ -1,3 +1,4 @@
+<!-- 2026-09-15, HQ rebase onto the WC-022 head: this page predates WC-022; §10c already states that every earlier field wording on it means the committed hindcast field. The five spellings are licensed as dated records rather than rewritten, because §1–§3b are pre-registration text. -->
 # Truck-crew replay of the 2025-03-25 영덕 fire: the rule, declared before the run
 
 **Status: §1 to §3 pre-registered 2026-09-13 before `scripts/build_truck_crew_replay.py`
@@ -6,6 +7,7 @@ Built from `docs/auto/briefs/TRUCK_CREW_REPLAY.md` in a laptop session on `auto/
 (harness paused). Docs, `data/processed/`, `web/` and `outputs/` only; nothing registered
 in `docs/NUMBERS.json`, nothing on a judge-facing surface.
 
+<!-- forbidden-ok: wc022-forecast-field -->
 This is a **replay of one committed forecast field against one committed observation**,
 shown the way a waiting vehicle crew would read it. It is not a live tool, not a fleet
 plan, and not a rescue count.
@@ -51,6 +53,7 @@ snapping, corridor sampling, survival times and grading all come from
 - **Fleet.** *k* ∈ {4, 2, 6} vehicles, assigned round-robin to the four OSM depots
   (119안전센터 / fire-station points from the 2026-07-24 snapshot), all free at the config's
   dispatch delay *D* = 30 min. *k* = 4 is the headline case, one vehicle per depot.
+<!-- forbidden-ok: wc022-forecast-field -->
 - **Replay window.** 0 to 720 min, the horizon of the committed forecast field
   `haz_stack`. The clock on the screen is this window.
 - **Deadline per pickup.** `min(node_survival_time(drive node, vehicle cutoff 0.7), 720)`:
@@ -157,6 +160,7 @@ a vehicle was there, that a road was passable, or that anyone was moved.
   fraction or the seed and the population changes.
 - **One pickup per trip**; no vehicle capacity in persons, no queues, no road capacity, no
   depot staffing, no acknowledgement latency, no traffic.
+<!-- forbidden-ok: wc022-forecast-field -->
 - The **deadline is the forecast's**, not the fire's. The forecast field is the committed
   leave-one-fire-out forward simulation, and its errors are this screen's errors.
 - The **observation is FIRMS at 500 m** at six times, graded under declared bounds. It is
@@ -313,6 +317,7 @@ crew actually has:
 - Let **t_i** be the travel minute from the route's start to that point, read off the
   sampler's own construction (it lays points evenly along each segment).
 - Departing at minute *d*, the vehicle is at point *i* at *d + t_i*, so the trip is safe iff
+<!-- forbidden-ok: wc022-forecast-field -->
   `d + t_i < T_i` for every *i*. The forecast field is monotone in time on this scene
   (checked: no cell's probability ever falls), so the binding constraint is
   **`d* = min_i (T_i − t_i)`**, the latest safe departure, and
@@ -538,6 +543,7 @@ this arm's trips is **v2, unchanged** — only the router differs.
 establish that `forward_simulate` advances each step with ERA5 reanalysis at times after T0, so
 the committed field is a **hindcast** under the project's own protocol. **Throughout this page,
 including §1 to §9 which are pre-registration and appended results and are therefore not
+<!-- forbidden-ok: wc022-forecast-field -->
 rewritten, 「the forecast field」 means「the committed hindcast field (canonical)」 and 「the
 forecast's deadline」 means the deadline that field implies.** Per
 `docs/auto/briefs/HINDCAST_CORRECTION.md` A1 the *method* keeps its name: 「forecast-aware
