@@ -1,10 +1,10 @@
 {
   "_README": "Every artifact under data/processed/ that a committed document or a NUMBERS.json entry cites. A registry entry must resolve to a file that is EITHER git-tracked OR listed here with a digest and a regeneration command; scripts/verify_numbers.py enforces that. The digest is of the file as it stands and detects change; it is not by itself a determinism claim. 'regenerate' is UNKNOWN where the command could not be established, never a guess.",
-  "generated_at_git_commit": "df20730408eb9843953980ffe2b2737bb41b3446",
-  "n_artifacts": 141,
-  "total_bytes": 24813519,
-  "total_mib": 23.66,
-  "n_git_tracked": 141,
+  "generated_at_git_commit": "31ace4f94b62dcd0d4d6ab7dcfa5e4814bde03a9",
+  "n_artifacts": 142,
+  "total_bytes": 24815227,
+  "total_mib": 23.67,
+  "n_git_tracked": 142,
   "n_untracked_manifest_only": 0,
   "n_regenerate_unknown": 13,
   "artifacts": [
@@ -629,6 +629,18 @@
         "docs/feasibility_phase_diagram.md"
       ],
       "regenerate": "UNKNOWN"
+    },
+    {
+      "path": "data/processed/field_road_closure_yeongdeok.json",
+      "bytes": 1708,
+      "sha256": "b8db2ebf05e106e520e7fc6ffb2059ff9161150645d22c6abb2367e9c8202f9b",
+      "kind": "text",
+      "git_tracked": true,
+      "n_registry_entries": 0,
+      "cited_by_docs": [
+        "docs/truck_crew_replay.md"
+      ],
+      "regenerate": "python scripts/measure_field_road_closure.py"
     },
     {
       "path": "data/processed/footprint_components/footprint_components_20260912T1602Z.json",

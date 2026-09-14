@@ -443,3 +443,44 @@ The success line is **not** filled here: HQ decision 1 says it is not quotable, 
   ingress legs at *k* = 4 are `inadmissible_all` on the observation.
 - **What v2 does not touch.** Everything in §3b still holds. Buildings are not households,
   the deadline is the forecast's, the observation is FIRMS at 500 m, and this is 영덕 only.
+
+## 9. What the benchmark found about this page's field (2026-09-14, after §8)
+
+`docs/benchmark/results_v0.1.md` landed on `auto/dev` after §8 was written and says two
+things that bear directly on every number above. Neither was known when §1 to §3b were
+pre-registered, and neither is a reason to change them; they are recorded here because a
+page that did not say them would be claiming more than it can.
+
+- ⚠ **The field this replay stands on is a hindcast, not a forecast.**
+  `spread_v2.forward_sim.forward_simulate` advances each step with ERA5 reanalysis at times
+  **after T0**, so under the project's own benchmark protocol the committed 영덕 field is in
+  the **hindcast track**. It is a reconstruction of what the fire did with the weather that
+  actually occurred, not something anyone could have issued at minute 0. **Everywhere this
+  page says 「the forecast」 — the deadline, the corridor closing minute, the margin, the
+  abort minute — it should be read as 「the reconstruction」.** No crew could have held these
+  numbers at minute 0. This does not make the replay worthless: it remains a faithful test
+  of what the routing and decision layer do *given* a field, which is the layer this project
+  contributes. It does mean the screen is not evidence that a forecast was available.
+- ⚠ **On roads, almost everything this field says, it says at minute 0.**
+  The benchmark measured that at road nodes the field differs from 「nothing spreads」 by
+  three nodes at p ≥ 0.5. Asked at the **vehicle cutoff on the drive network**
+  (`scripts/measure_field_road_closure.py`, artifact
+  `data/processed/field_road_closure_yeongdeok.json`), the answer is starker:
+
+  | field | drive nodes at or above 0.7 at t = 0 | drive nodes the field adds later |
+  |---|---:|---:|
+  | canonical | 37 | **9** |
+  | leak-free | 37 | **0** |
+
+  Of 1,664 drive nodes, the canonical field closes **nine** during the whole 720-minute
+  window, and the leak-free field closes **none**. So this page's central quantity — a
+  corridor that closes *during* the mission — rests on nine road points on the canonical
+  field and does not exist at all on the leak-free one.
+
+**This is the explanation §8 was missing.** The 81-of-89 aborts that are 「never safe to
+depart」, and the leak-free arm's zero aborts at *k* = 4, are not two separate puzzles: the
+field has almost no dynamic road-closure content on this scene, so the abort rule has almost
+nothing to fire on except what is already true before the clock starts. Rebuilding the rule
+a third time would not change that; the limit is in the field, not the rule. **That is the
+honest ceiling on the truck-crew replay as a timeline, and it should be said out loud before
+any part of this reaches a judge.**
